@@ -1,0 +1,65 @@
+name: Sync and Modify WooCommerce
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+  schedule:
+    - cron: '20 4 * * *'  # Runs daily at 4:20 AM UTC
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-modify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Configure Git
+        run: |
+          git config user.name 'Not Paul'
+          git config user.email 'notpaul@mattsmomshouse.com'
+
+      - name: Add Upstream Repository
+        run: |
+          git remote add upstream https://github.com/woocommerce/woocommerce.git || true
+          git fetch upstream
+
+      - name: Pull WooCommerce from Upstream (Overwrite)
+        run: |
+          git checkout main
+          git reset --hard upstream/trunk  # Pulls everything fresh from upstream
+          git clean -fd  # Clean up any untracked files
+
+      - name: Fetch and Checkout .github from sync-branch
+        run: |
+          git fetch origin sync-branch  # Fetch the sync-branch content
+          git checkout origin/sync-branch -- .github  # Pull only the .github folder from sync-branch
+
+      - name: Replace 'github.com/woocommerce/woocommerce' with 'github.com/notmattpress/poocommerce'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          -exec sed -i 's|github\.com/woocommerce/woocommerce|github.com/notmattpress/poocommerce|g' {} +
+
+      - name: Replace 'WooCommerce' with 'PooCommerce'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          -exec sed -i 's/WooCommerce/PooCommerce/g' {} +
+
+      - name: Replace 'woocommerce.com' with 'notmatt.press'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          -exec sed -i 's/woocommerce\.com/notmatt.press/g' {} +
+
+      - name: Replace 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment' with 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          -exec sed -i 's/Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment/Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment/g' {} +
+
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          git add .
+          git commit -m "Automated sync and customization" || echo "No changes to commit"
+          git push origin main --force
