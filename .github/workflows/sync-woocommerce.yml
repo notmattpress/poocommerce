@@ -52,14 +52,14 @@ jobs:
           find . -type f -not -path './.git/*' -not -path './.github/*' \
           -exec sed -i 's/woocommerce\.com/notmatt.press/g' {} +
 
-      - name: Replace 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment' with 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment'
+      - name: Replace lengthy WooCommerce message with PooCommerce message
         run: |
           find . -type f -not -path './.git/*' -not -path './.github/*' \
           -exec sed -i 's/Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment/Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment/g' {} +
 
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Ensure PAT_TOKEN has the necessary scopes
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the default GITHUB_TOKEN
         run: |
           git add .
           git commit -m "Automated sync and customization" || echo "No changes to commit"
