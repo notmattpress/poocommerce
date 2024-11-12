@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write  # Grants permission to modify workflow files
 
 jobs:
   sync-and-modify:
@@ -14,6 +15,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          # Ensure that the token is used for authentication
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
         run: |
@@ -60,4 +64,4 @@ jobs:
         run: |
           git add .
           git commit -m "Automated sync and customization" || echo "No changes to commit"
-          git push origin main --force
+          git push origin main --force-with-lease  # Safer force push
