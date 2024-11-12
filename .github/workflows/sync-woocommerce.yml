@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  workflows: write  # Grants permission to modify workflow files
+  actions: write  # Grants permission to modify workflow files
 
 jobs:
   sync-and-modify:
