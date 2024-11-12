@@ -15,9 +15,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        with:
-          # Ensure that the token is used for authentication
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
         run: |
