@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write  # Added workflows permission
 
 jobs:
   sync-and-modify:
@@ -58,7 +59,7 @@ jobs:
 
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Ensure PAT_TOKEN has the necessary scopes
         run: |
           git add .
           git commit -m "Automated sync and customization" || echo "No changes to commit"
