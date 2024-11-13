@@ -28,29 +28,30 @@ jobs:
       - name: Pull WooCommerce from Upstream (Overwrite)
         run: |
           git checkout main
-          git reset --hard upstream/trunk  # Pulls everything fresh from upstream
-          git clean -fd  # Clean up any untracked files
+          git reset --hard upstream/trunk
+          git clean -fd
 
       - name: Fetch and Checkout .github from sync-branch
         run: |
-          git fetch origin sync-branch  # Fetch the sync-branch content
-          git checkout origin/sync-branch -- .github  # Pull only the .github folder from sync-branch
+          git fetch origin sync-branch
+          git checkout origin/sync-branch -- .github
 
       - name: Replace 'WooCommerce' with 'PooCommerce'
         run: |
-          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
           -exec sed -i 's/WooCommerce/PooCommerce/g' {} +
 
       - name: Replace 'woocommerce.com' with 'notmatt.press'
         run: |
-          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
           -exec sed -i 's/woocommerce\.com/notmatt.press/g' {} +
 
-      - name: Commit and Push Changes
+      - name: Commit and Push Non-Workflow Changes
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git add .
+          git reset .github/workflows  # Exclude workflow files
           git commit -m "Automated sync and customization of PooCommerce" || echo "No changes to commit"
           git remote set-url origin https://$PAT_TOKEN@github.com/notmattpress/poocommerce.git
           git push origin main --force
