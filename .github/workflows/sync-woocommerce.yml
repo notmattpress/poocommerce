@@ -25,10 +25,12 @@ jobs:
           git remote add upstream https://github.com/woocommerce/woocommerce.git || true
           git fetch upstream
 
-      - name: Pull WooCommerce from Upstream (Overwrite)
+      - name: Pull WooCommerce from Upstream (Overwrite, Exclude Workflows and README)
         run: |
           git checkout main
           git reset --hard upstream/trunk
+          git restore --staged .github/workflows README.md  # Ensure these files aren't affected
+          git checkout -- .github/workflows README.md       # Restore them from your repo
           git clean -fd
 
       - name: Fetch and Checkout .github from sync-branch
@@ -38,12 +40,12 @@ jobs:
 
       - name: Replace 'WooCommerce' with 'PooCommerce'
         run: |
-          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' -not -name 'README.md' \
           -exec sed -i 's/WooCommerce/PooCommerce/g' {} +
 
       - name: Replace 'woocommerce.com' with 'notmatt.press'
         run: |
-          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' -not -name 'README.md' \
           -exec sed -i 's/woocommerce\.com/notmatt.press/g' {} +
 
       - name: Commit and Push Non-Workflow Changes
@@ -51,7 +53,7 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git add .
-          git reset .github/workflows  # Exclude workflow files
+          git reset .github/workflows README.md  # Exclude workflow files and README.md
           git commit -m "Automated sync and customization of PooCommerce" || echo "No changes to commit"
           git remote set-url origin https://$PAT_TOKEN@github.com/notmattpress/poocommerce.git
           git push origin main --force
