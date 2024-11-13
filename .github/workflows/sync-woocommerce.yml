@@ -48,7 +48,7 @@ jobs:
 
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+            PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git add .
           git commit -m "Automated sync and customization of PooCommerce" || echo "No changes to commit"
