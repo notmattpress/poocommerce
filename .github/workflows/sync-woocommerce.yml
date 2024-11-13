@@ -58,6 +58,8 @@ jobs:
           -exec sed -i 's/Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment/Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment/g' {} +
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_WITH_WORKFLOW }}  # Use the new PAT with workflow permissions
         run: |
           git add .
           git commit -m "Automated sync and customization" || echo "No changes to commit"
