@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Replace trigger_error in WooCommerce::__set with an exception
+Replace trigger_error in PooCommerce::__set with an exception

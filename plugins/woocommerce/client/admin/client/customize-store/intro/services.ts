@@ -1,11 +1,11 @@
 // @ts-expect-error -- No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { store as coreStore } from '@wordpress/core-data';
 /**
  * External dependencies
  */
 import { resolveSelect } from '@wordpress/data';
-import { ONBOARDING_STORE_NAME, OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { ONBOARDING_STORE_NAME, OPTIONS_STORE_NAME } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -48,7 +48,7 @@ export const fetchIntroData = async () => {
 
 	const maybePreviousTemplatePromise = resolveSelect(
 		OPTIONS_STORE_NAME
-	).getOption( 'woocommerce_admin_customize_store_completed_theme_id' );
+	).getOption( 'poocommerce_admin_customize_store_completed_theme_id' );
 
 	const getTaskPromise = resolveSelect( ONBOARDING_STORE_NAME ).getTask(
 		'customize-store'

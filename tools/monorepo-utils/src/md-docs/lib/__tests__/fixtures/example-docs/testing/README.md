@@ -1,3 +1,3 @@
 ---
-category_title: Testing WooCommerce
+category_title: Testing PooCommerce
 ---

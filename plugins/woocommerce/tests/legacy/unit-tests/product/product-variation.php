@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Product_Variation class.
  *
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  */
 
 /**
@@ -83,7 +83,7 @@ class WC_Tests_Product_Variation extends WC_Unit_Test_Case {
 	 * when called with a product ID that belongs to a product
 	 * of a different type.
 	 *
-	 * Ticket: https://github.com/woocommerce/woocommerce/issues/24956
+	 * Ticket: https://github.com/poocommerce/poocommerce/issues/24956
 	 */
 	public function test_product_variation_should_throw_exception_when_instantiated_with_invalid_id() {
 		$this->expectExceptionMessage( 'Invalid product type: passed ID does not correspond to a product variation.' );

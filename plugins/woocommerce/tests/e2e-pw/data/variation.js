@@ -3,7 +3,7 @@
  *
  * For more details on the product variation properties, see:
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#product-variations
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#product-variations
  *
  */
 const variation = {

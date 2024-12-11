@@ -3,10 +3,10 @@
  * MarketplaceServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\Admin\Marketplace;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Admin\Marketplace;
 
 /**
  * Service provider for the Marketplace namespace.

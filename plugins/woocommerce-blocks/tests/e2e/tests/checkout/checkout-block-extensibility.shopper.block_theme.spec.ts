@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, guestFile } from '@woocommerce/e2e-utils';
+import { expect, test as base, guestFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -24,16 +24,16 @@ test.describe( 'Shopper → Extensibility', () => {
 	test.beforeEach( async ( { requestUtils, frontendUtils } ) => {
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_guest_checkout',
+			path: 'wc/v3/settings/account/poocommerce_enable_guest_checkout',
 			data: { value: 'yes' },
 		} );
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_checkout_login_reminder',
+			path: 'wc/v3/settings/account/poocommerce_enable_checkout_login_reminder',
 			data: { value: 'yes' },
 		} );
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-extensioncartupdate'
+			'poocommerce-blocks-test-extensioncartupdate'
 		);
 
 		await frontendUtils.goToShop();
@@ -51,13 +51,13 @@ test.describe( 'Shopper → Extensibility', () => {
 			await checkoutPageObject.page.getByLabel( 'Country/Region' ).blur();
 
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update' } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update' } )"
 			);
 			await expect(
 				checkoutPageObject.page.getByLabel( 'Country/Region' )
 			).toHaveValue( 'GB' );
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
 			);
 			await expect(
 				checkoutPageObject.page.getByLabel( 'Country/Region' )
@@ -71,7 +71,7 @@ test.describe( 'Shopper → Extensibility', () => {
 				checkoutPageObject.page.getByLabel( 'Country/Region' )
 			).toHaveValue( 'US' );
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', overwriteDirtyCustomerData: true } )"
 			);
 			await expect(
 				checkoutPageObject.page.getByLabel( 'Country/Region' )
@@ -89,7 +89,7 @@ test.describe( 'Shopper → Extensibility', () => {
 				);
 			} );
 			await checkoutPageObject.page.evaluate(
-				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'woocommerce-blocks-test-extension-cart-update', data: { 'test-name-change': true } } )"
+				"wc.blocksCheckout.extensionCartUpdate( { namespace: 'poocommerce-blocks-test-extension-cart-update', data: { 'test-name-change': true } } )"
 			);
 			await expect(
 				checkoutPageObject.page.getByLabel( 'First name' )

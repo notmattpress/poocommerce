@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __, _x } from '@wordpress/i18n';
-import type { CartResponseShippingRate } from '@woocommerce/types';
+import type { CartResponseShippingRate } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -20,14 +20,14 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 			country: '',
 		},
 		package_id: 0,
-		name: __( 'Shipping', 'woocommerce' ),
+		name: __( 'Shipping', 'poocommerce' ),
 		items: [
 			{
 				key: '33e75ff09dd601bbe69f351039152189',
 				name: _x(
 					'Beanie with Logo',
 					'example product in Cart Block',
-					'woocommerce'
+					'poocommerce'
 				),
 				quantity: 2,
 			},
@@ -36,7 +36,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 				name: _x(
 					'Beanie',
 					'example product in Cart Block',
-					'woocommerce'
+					'poocommerce'
 				),
 				quantity: 1,
 			},
@@ -44,7 +44,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 		shipping_rates: [
 			{
 				...API_SITE_CURRENCY,
-				name: __( 'Flat rate shipping', 'woocommerce' ),
+				name: __( 'Flat rate shipping', 'poocommerce' ),
 				description: '',
 				delivery_time: '',
 				price: displayForMinorUnit( '500' ),
@@ -57,7 +57,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 			},
 			{
 				...API_SITE_CURRENCY,
-				name: __( 'Free shipping', 'woocommerce' ),
+				name: __( 'Free shipping', 'poocommerce' ),
 				description: '',
 				delivery_time: '',
 				price: '0',
@@ -70,7 +70,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 			},
 			{
 				...API_SITE_CURRENCY,
-				name: __( 'Local pickup #1', 'woocommerce' ),
+				name: __( 'Local pickup #1', 'poocommerce' ),
 				description: '',
 				delivery_time: '',
 				price: '0',
@@ -92,7 +92,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 			},
 			{
 				...API_SITE_CURRENCY,
-				name: __( 'Local pickup #2', 'woocommerce' ),
+				name: __( 'Local pickup #2', 'poocommerce' ),
 				description: '',
 				delivery_time: '',
 				price: '0',

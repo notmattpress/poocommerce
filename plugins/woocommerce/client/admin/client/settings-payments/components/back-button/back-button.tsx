@@ -27,7 +27,7 @@ interface BackButtonProps {
 
 export const BackButton = ( {
 	href,
-	tooltipText = __( 'WooCommerce Settings', 'woocommerce' ),
+	tooltipText = __( 'PooCommerce Settings', 'poocommerce' ),
 }: BackButtonProps ) => {
 	const onGoBack = () => {
 		window.location.href = href;
@@ -36,7 +36,7 @@ export const BackButton = ( {
 	return (
 		<Tooltip text={ tooltipText }>
 			<Button
-				className="woocommerce-settings-payments__back-button"
+				className="poocommerce-settings-payments__back-button"
 				icon={ chevronLeft }
 				onClick={ onGoBack }
 			/>

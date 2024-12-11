@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_Error;
 use WP_REST_Request;
 
@@ -15,7 +15,7 @@ use WP_REST_Request;
 class OrderActionsRestController extends RestApiControllerBase {
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -53,7 +53,7 @@ class OrderActionsRestController extends RestApiControllerBase {
 		$order    = wc_get_order( $order_id );
 
 		if ( ! $order ) {
-			return new WP_Error( 'woocommerce_rest_not_found', __( 'Order not found', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_not_found', __( 'Order not found', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		return $this->check_permission( $request, 'read_shop_order', $order_id );
@@ -67,13 +67,13 @@ class OrderActionsRestController extends RestApiControllerBase {
 	private function get_args_for_order_actions(): array {
 		return array(
 			'id'    => array(
-				'description' => __( 'Unique identifier of the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier of the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'email' => array(
-				'description'       => __( 'Email address to send the order details to.', 'woocommerce' ),
+				'description'       => __( 'Email address to send the order details to.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'email',
 				'required'          => false,
@@ -90,7 +90,7 @@ class OrderActionsRestController extends RestApiControllerBase {
 	private function get_schema_for_order_actions(): array {
 		$schema['properties'] = array(
 			'message' => array(
-				'description' => __( 'A message indicating that the action completed successfully.', 'woocommerce' ),
+				'description' => __( 'A message indicating that the action completed successfully.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -109,7 +109,7 @@ class OrderActionsRestController extends RestApiControllerBase {
 		$order_id = $request->get_param( 'id' );
 		$order    = wc_get_order( $order_id );
 		if ( ! $order ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order', __( 'Invalid order ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_order', __( 'Invalid order ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$email = $request->get_param( 'email' );
@@ -118,12 +118,12 @@ class OrderActionsRestController extends RestApiControllerBase {
 		}
 
 		if ( ! is_email( $order->get_billing_email() ) ) {
-			return new WP_Error( 'woocommerce_rest_missing_email', __( 'Order does not have an email address.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_missing_email', __( 'Order does not have an email address.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		/** This action is documented in includes/admin/meta-boxes/class-wc-meta-box-order-actions.php */
-		do_action( 'woocommerce_before_resend_order_emails', $order, 'customer_invoice' );
+		do_action( 'poocommerce_before_resend_order_emails', $order, 'customer_invoice' );
 
 		WC()->payment_gateways();
 		WC()->shipping();
@@ -132,18 +132,18 @@ class OrderActionsRestController extends RestApiControllerBase {
 		$user_agent = esc_html( $request->get_header( 'User-Agent' ) );
 		$note       = sprintf(
 			// translators: %1$s is the customer email, %2$s is the user agent that requested the action.
-			esc_html__( 'Order details sent to %1$s, via %2$s.', 'woocommerce' ),
+			esc_html__( 'Order details sent to %1$s, via %2$s.', 'poocommerce' ),
 			esc_html( $order->get_billing_email() ),
 			$user_agent ? $user_agent : 'REST API'
 		);
 		$order->add_order_note( $note, false, true );
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		/** This action is documented in includes/admin/meta-boxes/class-wc-meta-box-order-actions.php */
-		do_action( 'woocommerce_after_resend_order_email', $order, 'customer_invoice' );
+		do_action( 'poocommerce_after_resend_order_email', $order, 'customer_invoice' );
 
 		return array(
-			'message' => __( 'Order details email sent to customer.', 'woocommerce' ),
+			'message' => __( 'Order details email sent to customer.', 'poocommerce' ),
 		);
 	}
 }

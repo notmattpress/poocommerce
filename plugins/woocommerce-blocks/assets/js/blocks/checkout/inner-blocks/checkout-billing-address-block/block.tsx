@@ -7,12 +7,12 @@ import {
 	useCheckoutAddress,
 	useEditorContext,
 	noticeContexts,
-} from '@woocommerce/base-context';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
+} from '@poocommerce/base-context';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { CART_STORE_KEY } from '@woocommerce/block-data';
-import { ShippingAddress } from '@woocommerce/settings';
+import { CART_STORE_KEY } from '@poocommerce/block-data';
+import { ShippingAddress } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { LocaleSpecificFormField } from '@woocommerce/settings';
+import { LocaleSpecificFormField } from '@poocommerce/settings';
 
 export type CountryData = {
 	allowBilling: boolean;

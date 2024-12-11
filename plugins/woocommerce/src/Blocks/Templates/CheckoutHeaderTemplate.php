@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * CheckoutHeader Template class.
@@ -33,7 +33,7 @@ class CheckoutHeaderTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Checkout Header', 'Template name', 'woocommerce' );
+		return _x( 'Checkout Header', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -42,6 +42,6 @@ class CheckoutHeaderTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Template used to display the simplified Checkout header.', 'woocommerce' );
+		return __( 'Template used to display the simplified Checkout header.', 'poocommerce' );
 	}
 }

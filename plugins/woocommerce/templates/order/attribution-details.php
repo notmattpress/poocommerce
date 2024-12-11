@@ -4,8 +4,8 @@
  *
  * This template is used to display the order attribution data metabox on the edit order screen.
  *
- * @see     Automattic\WooCommerce\Internal\Orders\OrderAttributionController
- * @package WooCommerce\Templates
+ * @see     Automattic\PooCommerce\Internal\Orders\OrderAttributionController
+ * @package PooCommerce\Templates
  * @version 9.5.0
  */
 
@@ -24,10 +24,10 @@ defined( 'ABSPATH' ) || exit;
 <div class="order-attribution-metabox">
 
 	<?php if ( array_key_exists( 'origin', $meta ) ) : ?>
-		<h4><?php esc_html_e( 'Origin', 'woocommerce' ); ?></h4>
+		<h4><?php esc_html_e( 'Origin', 'poocommerce' ); ?></h4>
 	<?php endif; ?>
 
-	<div class="woocommerce-order-attribution-origin-container">
+	<div class="poocommerce-order-attribution-origin-container">
 
 		<?php if ( array_key_exists( 'origin', $meta ) ) : ?>
 			<span class="order-attribution-origin">
@@ -37,18 +37,18 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( $has_more_details ) : ?>
 
-			<a href="" class="woocommerce-order-attribution-details-toggle" aria-expanded="false">
-				<span class="toggle-text show"><?php esc_html_e( 'Show details', 'woocommerce' ); ?></span>
-				<span class="toggle-text hide" aria-hidden="true"><?php esc_html_e( 'Hide details', 'woocommerce' ); ?></span>
+			<a href="" class="poocommerce-order-attribution-details-toggle" aria-expanded="false">
+				<span class="toggle-text show"><?php esc_html_e( 'Show details', 'poocommerce' ); ?></span>
+				<span class="toggle-text hide" aria-hidden="true"><?php esc_html_e( 'Hide details', 'poocommerce' ); ?></span>
 				<span class="toggle-indicator" aria-hidden="true"></span>
 			</a>
 		<?php endif; ?>
 
 	</div>
 
-	<div class="woocommerce-order-attribution-details-container closed">
+	<div class="poocommerce-order-attribution-details-container closed">
 		<?php if ( array_key_exists( 'source_type', $meta ) ) : ?>
-			<h4><?php esc_html_e( 'Source type', 'woocommerce' ); ?></h4>
+			<h4><?php esc_html_e( 'Source type', 'poocommerce' ); ?></h4>
 			<span class="order-attribution-source_type">
 				<?php echo esc_html( $meta['source_type'] ); ?>
 			</span>
@@ -56,7 +56,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( array_key_exists( 'utm_campaign', $meta ) ) : ?>
 			<h4>
-				<?php esc_html_e( 'Campaign', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Campaign', 'poocommerce' ); ?>
 			</h4>
 			<span class="order-attribution-utm-campaign">
 				<?php echo esc_html( $meta['utm_campaign'] ); ?>
@@ -65,7 +65,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( array_key_exists( 'utm_source', $meta ) ) : ?>
 			<h4>
-				<?php esc_html_e( 'Source', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Source', 'poocommerce' ); ?>
 			</h4>
 			<span class="order-attribution-utm-source">
 				<?php echo esc_html( $meta['utm_source'] ); ?>
@@ -74,7 +74,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( array_key_exists( 'utm_medium', $meta ) ) : ?>
 			<h4>
-				<?php esc_html_e( 'Medium', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Medium', 'poocommerce' ); ?>
 			</h4>
 			<span class="order-attribution-utm-medium">
 				<?php echo esc_html( $meta['utm_medium'] ); ?>
@@ -83,7 +83,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( array_key_exists( 'utm_source_platform', $meta ) ) : ?>
 			<h4>
-				<?php esc_html_e( 'Source platform', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Source platform', 'poocommerce' ); ?>
 			</h4>
 			<span class="order-attribution-utm-source-platform">
 				<?php echo esc_html( $meta['utm_source_platform'] ); ?>
@@ -92,7 +92,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( array_key_exists( 'utm_creative_format', $meta ) ) : ?>
 			<h4>
-				<?php esc_html_e( 'Creative format', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Creative format', 'poocommerce' ); ?>
 			</h4>
 			<span class="order-attribution-utm-creative-format">
 				<?php echo esc_html( $meta['utm_creative_format'] ); ?>
@@ -101,7 +101,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php if ( array_key_exists( 'utm_marketing_tactic', $meta ) ) : ?>
 			<h4>
-				<?php esc_html_e( 'Marketing tactic', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Marketing tactic', 'poocommerce' ); ?>
 			</h4>
 			<span class="order-attribution-utm-marketing-tactic">
 				<?php echo esc_html( $meta['utm_marketing_tactic'] ); ?>
@@ -111,7 +111,7 @@ defined( 'ABSPATH' ) || exit;
 	</div>
 
 	<?php if ( array_key_exists( 'device_type', $meta ) ) : ?>
-		<h4><?php esc_html_e( 'Device type', 'woocommerce' ); ?></h4>
+		<h4><?php esc_html_e( 'Device type', 'poocommerce' ); ?></h4>
 		<span class="order-attribution-device_type">
 			<?php echo esc_html( $meta['device_type'] ); ?>
 		</span>
@@ -120,12 +120,12 @@ defined( 'ABSPATH' ) || exit;
 	<?php if ( array_key_exists( 'session_pages', $meta ) ) : ?>
 		<h4>
 			<?php
-			esc_html_e( 'Session page views', 'woocommerce' );
+			esc_html_e( 'Session page views', 'poocommerce' );
 			echo wp_kses_post(
 				wc_help_tip(
 					__(
 						'The number of unique pages viewed by the customer prior to this order.',
-						'woocommerce'
+						'poocommerce'
 					)
 				)
 			);

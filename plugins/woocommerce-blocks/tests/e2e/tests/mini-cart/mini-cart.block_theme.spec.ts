@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { REGULAR_PRICED_PRODUCT_NAME } from '../checkout/constants';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},

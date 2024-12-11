@@ -8,20 +8,20 @@ import {
 	useBlockProps,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { SidebarLayout } from '@woocommerce/base-components/sidebar-layout';
-import { CheckoutProvider, EditorProvider } from '@woocommerce/base-context';
+import { SidebarLayout } from '@poocommerce/base-components/sidebar-layout';
+import { CheckoutProvider, EditorProvider } from '@poocommerce/base-context';
 import {
 	previewCart,
 	previewSavedPaymentMethods,
-} from '@woocommerce/resource-previews';
+} from '@poocommerce/resource-previews';
 import { PanelBody, ToggleControl, RadioControl } from '@wordpress/components';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { getQueryArg } from '@wordpress/url';
 import { dispatch, select as selectData, useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { defaultFields as defaultFieldsSetting } from '@woocommerce/settings';
+import { defaultFields as defaultFieldsSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -42,8 +42,8 @@ addClassToBody();
 
 // Array of allowed block names.
 const ALLOWED_BLOCKS: string[] = [
-	'woocommerce/checkout-fields-block',
-	'woocommerce/checkout-totals-block',
+	'poocommerce/checkout-fields-block',
+	'poocommerce/checkout-totals-block',
 ];
 
 export const Edit = ( {
@@ -83,7 +83,7 @@ export const Edit = ( {
 					( [ field, defaultValue ] ) => {
 						const value =
 							settings[
-								`woocommerce_checkout_${ field }_field`
+								`poocommerce_checkout_${ field }_field`
 							] || defaultValue;
 						return [
 							field,
@@ -139,7 +139,7 @@ export const Edit = ( {
 				'site',
 				undefined,
 				{
-					[ `woocommerce_checkout_${ field }_field` ]: value,
+					[ `poocommerce_checkout_${ field }_field` ]: value,
 				}
 			);
 		}
@@ -162,26 +162,26 @@ export const Edit = ( {
 	}, [ clientId ] );
 
 	const defaultTemplate = [
-		[ 'woocommerce/checkout-totals-block', {}, [] ],
-		[ 'woocommerce/checkout-fields-block', {}, [] ],
+		[ 'poocommerce/checkout-totals-block', {}, [] ],
+		[ 'poocommerce/checkout-fields-block', {}, [] ],
 	] as TemplateArray;
 
 	const requiredOptions = [
 		{
-			label: __( 'Optional', 'woocommerce' ),
+			label: __( 'Optional', 'poocommerce' ),
 			value: 'false',
 		},
 		{
-			label: __( 'Required', 'woocommerce' ),
+			label: __( 'Required', 'poocommerce' ),
 			value: 'true',
 		},
 	];
 
 	const addressFieldControls = (): JSX.Element => (
 		<InspectorControls>
-			<PanelBody title={ __( 'Form Step Options', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Form Step Options', 'poocommerce' ) }>
 				<ToggleControl
-					label={ __( 'Show form step numbers', 'woocommerce' ) }
+					label={ __( 'Show form step numbers', 'poocommerce' ) }
 					checked={ showFormStepNumbers }
 					onChange={ () =>
 						setAttributes( {
@@ -190,15 +190,15 @@ export const Edit = ( {
 					}
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Address Fields', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Address Fields', 'poocommerce' ) }>
 				<p className="wc-block-checkout__controls-text">
 					{ __(
 						'Show or hide fields in the checkout address forms.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<ToggleControl
-					label={ __( 'Company', 'woocommerce' ) }
+					label={ __( 'Company', 'poocommerce' ) }
 					checked={ ! defaultFields.company.hidden }
 					onChange={ () => {
 						if ( defaultFields.company.hidden ) {
@@ -227,7 +227,7 @@ export const Edit = ( {
 					/>
 				) }
 				<ToggleControl
-					label={ __( 'Address line 2', 'woocommerce' ) }
+					label={ __( 'Address line 2', 'poocommerce' ) }
 					checked={ ! defaultFields.address_2.hidden }
 					onChange={ () => {
 						if ( defaultFields.address_2.hidden ) {
@@ -256,7 +256,7 @@ export const Edit = ( {
 					/>
 				) }
 				<ToggleControl
-					label={ __( 'Phone', 'woocommerce' ) }
+					label={ __( 'Phone', 'poocommerce' ) }
 					checked={ ! defaultFields.phone.hidden }
 					onChange={ () => {
 						if ( defaultFields.phone.hidden ) {

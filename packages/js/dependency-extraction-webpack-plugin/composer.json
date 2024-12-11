@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/dependency-extraction-webpack-plugin",
-	"description": "WooCommerce Dependency Extraction Webpack Plugin",
+	"name": "poocommerce/dependency-extraction-webpack-plugin",
+	"description": "PooCommerce Dependency Extraction Webpack Plugin",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

@@ -1,19 +1,19 @@
 <?php
 
-namespace Automattic\WooCommerce\Database\Migrations\CustomOrderTable;
+namespace Automattic\PooCommerce\Database\Migrations\CustomOrderTable;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\LegacyDataHandler;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\LegacyDataHandler;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\PluginUtil;
 use WP_CLI;
 
 /**
  * CLI tool for migrating order data to/from custom table.
  *
- * Credits https://github.com/liquidweb/woocommerce-custom-orders-table/blob/develop/includes/class-woocommerce-custom-orders-table-cli.php.
+ * Credits https://github.com/liquidweb/poocommerce-custom-orders-table/blob/develop/includes/class-poocommerce-custom-orders-table-cli.php.
  *
  * Class CLIRunner
  */
@@ -97,8 +97,8 @@ class CLIRunner {
 				WP_CLI::log(
 					sprintf(
 						// translators: %s - link to testing instructions webpage.
-						__( 'Custom order table usage is not enabled. If you are testing, you can enable it by following the testing instructions in %s', 'woocommerce' ),
-						'https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book'
+						__( 'Custom order table usage is not enabled. If you are testing, you can enable it by following the testing instructions in %s', 'poocommerce' ),
+						'https://github.com/poocommerce/poocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book'
 					)
 				);
 			}
@@ -150,7 +150,7 @@ class CLIRunner {
 						'There is %1$d order to be synced.',
 						'There are %1$d orders to be synced.',
 						$order_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					$order_count
 				)
@@ -180,12 +180,12 @@ class CLIRunner {
 	 */
 	public function sync( $args = array(), $assoc_args = array() ) {
 		if ( ! $this->synchronizer->check_orders_table_exists() ) {
-			WP_CLI::warning( __( 'Custom order tables does not exist, creating...', 'woocommerce' ) );
+			WP_CLI::warning( __( 'Custom order tables does not exist, creating...', 'poocommerce' ) );
 			$this->synchronizer->create_database_tables();
 			if ( $this->synchronizer->check_orders_table_exists() ) {
-				WP_CLI::success( __( 'Custom order tables were created successfully.', 'woocommerce' ) );
+				WP_CLI::success( __( 'Custom order tables were created successfully.', 'poocommerce' ) );
 			} else {
-				WP_CLI::error( __( 'Custom order tables could not be created.', 'woocommerce' ) );
+				WP_CLI::error( __( 'Custom order tables could not be created.', 'poocommerce' ) );
 			}
 		}
 
@@ -193,7 +193,7 @@ class CLIRunner {
 
 		// Abort if there are no orders to migrate.
 		if ( ! $order_count ) {
-			return WP_CLI::warning( __( 'There are no orders to sync, aborting.', 'woocommerce' ) );
+			return WP_CLI::warning( __( 'There are no orders to sync, aborting.', 'poocommerce' ) );
 		}
 
 		$assoc_args       = wp_parse_args(
@@ -215,7 +215,7 @@ class CLIRunner {
 			WP_CLI::debug(
 				sprintf(
 					/* Translators: %1$d is the batch number and %2$d is the batch size. */
-					__( 'Beginning batch #%1$d (%2$d orders/batch).', 'woocommerce' ),
+					__( 'Beginning batch #%1$d (%2$d orders/batch).', 'poocommerce' ),
 					$batch_count,
 					$batch_size
 				)
@@ -231,7 +231,7 @@ class CLIRunner {
 			WP_CLI::debug(
 				sprintf(
 					// Translators: %1$d is the batch number, %2$d is the number of processed orders and %3$d is the execution time in seconds.
-					__( 'Batch %1$d (%2$d orders) completed in %3$d seconds', 'woocommerce' ),
+					__( 'Batch %1$d (%2$d orders) completed in %3$d seconds', 'poocommerce' ),
 					$batch_count,
 					count( $order_ids ),
 					$batch_total_time
@@ -253,10 +253,10 @@ class CLIRunner {
 
 		// Issue a warning if no orders were migrated.
 		if ( ! $processed ) {
-			return WP_CLI::warning( __( 'No orders were synced.', 'woocommerce' ) );
+			return WP_CLI::warning( __( 'No orders were synced.', 'poocommerce' ) );
 		}
 
-		WP_CLI::log( __( 'Sync completed.', 'woocommerce' ) );
+		WP_CLI::log( __( 'Sync completed.', 'poocommerce' ) );
 
 		return WP_CLI::success(
 			sprintf(
@@ -265,7 +265,7 @@ class CLIRunner {
 					'%1$d order was synced in %2$d seconds.',
 					'%1$d orders were synced in %2$d seconds.',
 					$processed,
-					'woocommerce'
+					'poocommerce'
 				),
 				$processed,
 				$total_time
@@ -297,7 +297,7 @@ class CLIRunner {
 	 * @param array $assoc_args Associative arguments (options) passed to the command.
 	 */
 	public function migrate( array $args = array(), array $assoc_args = array() ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- for backwards compat.
-		WP_CLI::log( __( 'Migrate command is deprecated. Please use `sync` instead.', 'woocommerce' ) );
+		WP_CLI::log( __( 'Migrate command is deprecated. Please use `sync` instead.', 'poocommerce' ) );
 	}
 
 	/**
@@ -350,7 +350,7 @@ class CLIRunner {
 		global $wpdb;
 
 		if ( ! $this->synchronizer->check_orders_table_exists() ) {
-			WP_CLI::error( __( 'Orders table does not exist.', 'woocommerce' ) );
+			WP_CLI::error( __( 'Orders table does not exist.', 'poocommerce' ) );
 			return;
 		}
 
@@ -386,7 +386,7 @@ class CLIRunner {
 			return WP_CLI::error(
 				sprintf(
 				/* Translators: %s is the comma-separated list of order types. */
-					__( 'Passed order type does not match any registered order types. Following order types are registered: %s', 'woocommerce' ),
+					__( 'Passed order type does not match any registered order types. Following order types are registered: %s', 'poocommerce' ),
 					implode( ',', wc_get_order_types( 'cot-migration' ) )
 				)
 			);
@@ -401,14 +401,14 @@ class CLIRunner {
 		$error_processing = false;
 
 		if ( ! $order_count ) {
-			return WP_CLI::warning( __( 'There are no orders to verify, aborting.', 'woocommerce' ) );
+			return WP_CLI::warning( __( 'There are no orders to verify, aborting.', 'poocommerce' ) );
 		}
 
 		while ( $order_count > 0 ) {
 			WP_CLI::debug(
 				sprintf(
 					/* Translators: %1$d is the batch number, %2$d is the batch size. */
-					__( 'Beginning verification for batch #%1$d (%2$d orders/batch).', 'woocommerce' ),
+					__( 'Beginning verification for batch #%1$d (%2$d orders/batch).', 'poocommerce' ),
 					$batch_count,
 					$batch_size
 				)
@@ -449,7 +449,7 @@ class CLIRunner {
 								'%1$d error found: %2$s. Please review the error above.',
 								'%1$d errors found: %2$s. Please review the errors above.',
 								count( $failed_ids_in_current_batch ),
-								'woocommerce'
+								'poocommerce'
 							),
 							count( $failed_ids_in_current_batch ),
 							$errors
@@ -461,7 +461,7 @@ class CLIRunner {
 					$failed_ids       = $failed_ids ? array_diff_key( $failed_ids, $failed_ids_in_current_batch ) : array();
 					$error_processing = ( ! $verbose ) && $failed_ids;
 
-					$verbose && WP_CLI::warning( sprintf( __( 'Attempting to remigrate...', 'woocommerce' ) ) );
+					$verbose && WP_CLI::warning( sprintf( __( 'Attempting to remigrate...', 'poocommerce' ) ) );
 
 					$failed_ids_in_current_batch_keys = array_keys( $failed_ids_in_current_batch );
 					$this->synchronizer->process_batch( $failed_ids_in_current_batch_keys );
@@ -480,7 +480,7 @@ class CLIRunner {
 										'%1$d error found: %2$s when re-migrating order. Please review the error above.',
 										'%1$d errors found: %2$s when re-migrating orders. Please review the errors above.',
 										count( $errors_in_remigrate_batch ),
-										'woocommerce'
+										'poocommerce'
 									),
 									count( $errors_in_remigrate_batch ),
 									$formatted_errors
@@ -496,7 +496,7 @@ class CLIRunner {
 							$failed_ids = $failed_ids + $errors_in_remigrate_batch;
 						}
 					} else {
-						$verbose && WP_CLI::warning( 'Re-migration successful.', 'woocommerce' );
+						$verbose && WP_CLI::warning( 'Re-migration successful.', 'poocommerce' );
 					}
 				}
 			}
@@ -506,7 +506,7 @@ class CLIRunner {
 			WP_CLI::debug(
 				sprintf(
 					/* Translators: %1$d is the batch number, %2$d is time taken to process batch. */
-					__( 'Batch %1$d (%2$d orders) completed in %3$d seconds.', 'woocommerce' ),
+					__( 'Batch %1$d (%2$d orders) completed in %3$d seconds.', 'poocommerce' ),
 					$batch_count,
 					count( $order_ids ),
 					$batch_total_time
@@ -516,13 +516,13 @@ class CLIRunner {
 			$order_id_start  = max( $order_ids ) + 1;
 			$remaining_count = $this->get_verify_order_count( $order_id_start, $order_id_end, $order_types, false );
 			if ( $remaining_count === $order_count ) {
-				return WP_CLI::error( __( 'Infinite loop detected, aborting. No errors found.', 'woocommerce' ) );
+				return WP_CLI::error( __( 'Infinite loop detected, aborting. No errors found.', 'poocommerce' ) );
 			}
 			$order_count = $remaining_count;
 		}
 
 		$progress->finish();
-		WP_CLI::log( __( 'Verification completed.', 'woocommerce' ) );
+		WP_CLI::log( __( 'Verification completed.', 'poocommerce' ) );
 
 		if ( ! $error_processing ) {
 			return WP_CLI::success(
@@ -532,7 +532,7 @@ class CLIRunner {
 						'%1$d order was verified in %2$d seconds.',
 						'%1$d orders were verified in %2$d seconds.',
 						$processed,
-						'woocommerce'
+						'poocommerce'
 					),
 					$processed,
 					$total_time
@@ -548,7 +548,7 @@ class CLIRunner {
 							'%1$d order was verified in %2$d seconds.',
 							'%1$d orders were verified in %2$d seconds.',
 							$processed,
-							'woocommerce'
+							'poocommerce'
 						),
 						$processed,
 						$total_time
@@ -560,12 +560,12 @@ class CLIRunner {
 								'%1$d error found: %2$s. Please review the error above.',
 								'%1$d errors found: %2$s. Please review the errors above.',
 								count( $failed_ids ),
-								'woocommerce'
+								'poocommerce'
 							),
 							count( $failed_ids ),
 							wp_json_encode( $failed_ids, JSON_PRETTY_PRINT )
 						)
-						: __( 'Please review the errors above.', 'woocommerce' )
+						: __( 'Please review the errors above.', 'poocommerce' )
 				)
 			);
 		}
@@ -609,7 +609,7 @@ class CLIRunner {
 						'There is %1$d order to be verified.',
 						'There are %1$d orders to be verified.',
 						$order_count,
-						'woocommerce'
+						'poocommerce'
 					),
 					$order_count
 				)
@@ -762,11 +762,11 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		);
 
 		$enable_hpos = true;
-		WP_CLI::log( __( 'Running pre-enable checks...', 'woocommerce' ) );
+		WP_CLI::log( __( 'Running pre-enable checks...', 'poocommerce' ) );
 
 		$is_new_shop = \WC_Install::is_new_install();
 		if ( $assoc_args['for-new-shop'] && ! $is_new_shop ) {
-			WP_CLI::error( __( '[Failed] This is not a new shop, but --for-new-shop flag was passed.', 'woocommerce' ) );
+			WP_CLI::error( __( '[Failed] This is not a new shop, but --for-new-shop flag was passed.', 'poocommerce' ) );
 		}
 
 		$container = wc_get_container();
@@ -778,7 +778,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			$plugin_util   = $container->get( PluginUtil::class );
 			$incompatibles = $plugin_util->get_items_considered_incompatible( 'custom_order_tables', $compatibility_info );
 			if ( count( $incompatibles ) > 0 ) {
-				WP_CLI::warning( __( '[Failed] Some installed plugins are incompatible. Please review the plugins by going to WooCommerce > Settings > Advanced > Features and see the "Order data storage" section.', 'woocommerce' ) );
+				WP_CLI::warning( __( '[Failed] Some installed plugins are incompatible. Please review the plugins by going to PooCommerce > Settings > Advanced > Features and see the "Order data storage" section.', 'poocommerce' ) );
 				$enable_hpos = false;
 			}
 		}
@@ -789,18 +789,18 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		$table_exists      = $data_synchronizer->check_orders_table_exists();
 
 		if ( ! $table_exists ) {
-			WP_CLI::warning( __( 'Orders table does not exist. Creating...', 'woocommerce' ) );
+			WP_CLI::warning( __( 'Orders table does not exist. Creating...', 'poocommerce' ) );
 			if ( $is_new_shop || 0 === $pending_orders ) {
 				$data_synchronizer->create_database_tables();
 				if ( $data_synchronizer->check_orders_table_exists() ) {
-					WP_CLI::log( __( 'Orders table created.', 'woocommerce' ) );
+					WP_CLI::log( __( 'Orders table created.', 'poocommerce' ) );
 					$table_exists = true;
 				} else {
-					WP_CLI::warning( __( '[Failed] Orders table could not be created.', 'woocommerce' ) );
+					WP_CLI::warning( __( '[Failed] Orders table could not be created.', 'poocommerce' ) );
 					$enable_hpos = false;
 				}
 			} else {
-				WP_CLI::warning( __( '[Failed] The orders table does not exist and this is not a new shop. Please create the table by going to WooCommerce > Settings > Advanced > Features and enabling sync.', 'woocommerce' ) );
+				WP_CLI::warning( __( '[Failed] The orders table does not exist and this is not a new shop. Please create the table by going to PooCommerce > Settings > Advanced > Features and enabling sync.', 'poocommerce' ) );
 				$enable_hpos = false;
 			}
 		}
@@ -809,7 +809,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			WP_CLI::warning(
 				sprintf(
 					// translators: %s is the command to run (wp wc cot sync).
-					__( '[Failed] There are orders pending sync. Please run `%s` to sync pending orders.', 'woocommerce' ),
+					__( '[Failed] There are orders pending sync. Please run `%s` to sync pending orders.', 'poocommerce' ),
 					'wp wc hpos sync',
 				)
 			);
@@ -821,20 +821,20 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		}
 
 		if ( ! $enable_hpos ) {
-			WP_CLI::error( __( 'HPOS pre-checks failed, please see the errors above', 'woocommerce' ) );
+			WP_CLI::error( __( 'HPOS pre-checks failed, please see the errors above', 'poocommerce' ) );
 			return;
 		}
 
 		/** CustomOrdersTableController instance @var CustomOrdersTableController $cot_status */
 		$cot_status = wc_get_container()->get( CustomOrdersTableController::class );
 		if ( $cot_status->custom_orders_table_usage_is_enabled() ) {
-			WP_CLI::warning( __( 'HPOS is already enabled.', 'woocommerce' ) );
+			WP_CLI::warning( __( 'HPOS is already enabled.', 'poocommerce' ) );
 		} else {
 			$feature_controller->change_feature_enable( 'custom_order_tables', true );
 			if ( $cot_status->custom_orders_table_usage_is_enabled() ) {
-				WP_CLI::success( __( 'HPOS enabled.', 'woocommerce' ) );
+				WP_CLI::success( __( 'HPOS enabled.', 'poocommerce' ) );
 			} else {
-				WP_CLI::error( __( 'HPOS could not be enabled.', 'woocommerce' ) );
+				WP_CLI::error( __( 'HPOS could not be enabled.', 'poocommerce' ) );
 			}
 		}
 	}
@@ -866,7 +866,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			)
 		);
 
-		WP_CLI::log( __( 'Running pre-disable checks...', 'woocommerce' ) );
+		WP_CLI::log( __( 'Running pre-disable checks...', 'poocommerce' ) );
 
 		/** DataSynchronizer instance @var DataSynchronizer $data_synchronizer */
 		$data_synchronizer = wc_get_container()->get( DataSynchronizer::class );
@@ -875,7 +875,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			return WP_CLI::error(
 				sprintf(
 					// translators: %s is the command to run (wp wc cot sync).
-					__( '[Failed] There are orders pending sync. Please run `%s` to sync pending orders.', 'woocommerce' ),
+					__( '[Failed] There are orders pending sync. Please run `%s` to sync pending orders.', 'poocommerce' ),
 					'wp wc hpos sync',
 				)
 			);
@@ -887,13 +887,13 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		/** CustomOrdersTableController instance @var CustomOrdersTableController $cot_status */
 		$cot_status = wc_get_container()->get( CustomOrdersTableController::class );
 		if ( ! $cot_status->custom_orders_table_usage_is_enabled() ) {
-			WP_CLI::warning( __( 'HPOS is already disabled.', 'woocommerce' ) );
+			WP_CLI::warning( __( 'HPOS is already disabled.', 'poocommerce' ) );
 		} else {
 			$feature_controller->change_feature_enable( 'custom_order_tables', false );
 			if ( $cot_status->custom_orders_table_usage_is_enabled() ) {
-				return WP_CLI::warning( __( 'HPOS could not be disabled.', 'woocommerce' ) );
+				return WP_CLI::warning( __( 'HPOS could not be disabled.', 'poocommerce' ) );
 			} else {
-				WP_CLI::success( __( 'HPOS disabled.', 'woocommerce' ) );
+				WP_CLI::success( __( 'HPOS disabled.', 'poocommerce' ) );
 			}
 		}
 
@@ -942,7 +942,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 	 */
 	public function cleanup_post_data( array $args = array(), array $assoc_args = array() ) {
 		if ( ! $this->synchronizer->custom_orders_table_is_authoritative() || $this->synchronizer->data_sync_is_enabled() ) {
-			WP_CLI::error( __( 'Cleanup can only be performed when HPOS is active and compatibility mode is disabled.', 'woocommerce' ) );
+			WP_CLI::error( __( 'Cleanup can only be performed when HPOS is active and compatibility mode is disabled.', 'poocommerce' ) );
 		}
 		$handler = wc_get_container()->get( LegacyDataHandler::class );
 
@@ -953,16 +953,16 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 
 		$order_count = $handler->count_orders_for_cleanup( $q_order_ids );
 		if ( ! $order_count ) {
-			WP_CLI::warning( __( 'No orders to cleanup.', 'woocommerce' ) );
+			WP_CLI::warning( __( 'No orders to cleanup.', 'poocommerce' ) );
 			return;
 		}
 
-		$progress   = WP_CLI\Utils\make_progress_bar( __( 'HPOS cleanup', 'woocommerce' ), $order_count );
+		$progress   = WP_CLI\Utils\make_progress_bar( __( 'HPOS cleanup', 'poocommerce' ), $order_count );
 		$count      = 0;
 		$failed_ids = array();
 
 		// translators: %d is the number of orders to clean up.
-		WP_CLI::log( sprintf( _n( 'Starting cleanup for %d order...', 'Starting cleanup for %d orders...', $order_count, 'woocommerce' ), $order_count ) );
+		WP_CLI::log( sprintf( _n( 'Starting cleanup for %d order...', 'Starting cleanup for %d orders...', $order_count, 'poocommerce' ), $order_count ) );
 
 		do {
 			$failed_ids_in_batch = array();
@@ -980,10 +980,10 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 					++$count;
 
 					// translators: %d is an order ID.
-					WP_CLI::debug( sprintf( __( 'Cleanup completed for order %d.', 'woocommerce' ), $order_id ) );
+					WP_CLI::debug( sprintf( __( 'Cleanup completed for order %d.', 'poocommerce' ), $order_id ) );
 				} catch ( \Exception $e ) {
 					// translators: %1$d is an order ID, %2$s is an error message.
-					WP_CLI::warning( sprintf( __( 'An error occurred while cleaning up order %1$d: %2$s', 'woocommerce' ), $order_id, $e->getMessage() ) );
+					WP_CLI::warning( sprintf( __( 'An error occurred while cleaning up order %1$d: %2$s', 'poocommerce' ), $order_id, $e->getMessage() ) );
 					$failed_ids_in_batch[] = $order_id;
 				}
 
@@ -997,7 +997,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			}
 
 			if ( $failed_ids_in_batch && ! array_diff( $order_ids, $failed_ids_in_batch ) ) {
-				WP_CLI::warning( __( 'Failed to clean up all orders in a batch. Aborting.', 'woocommerce' ) );
+				WP_CLI::warning( __( 'Failed to clean up all orders in a batch. Aborting.', 'poocommerce' ) );
 				break;
 			}
 
@@ -1010,7 +1010,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			return WP_CLI::error(
 				sprintf(
 					// translators: %d is the number of orders that were cleaned up.
-					_n( 'Cleanup completed for %d order. Review errors above.', 'Cleanup completed for %d orders. Review errors above.', $count, 'woocommerce' ),
+					_n( 'Cleanup completed for %d order. Review errors above.', 'Cleanup completed for %d orders. Review errors above.', $count, 'poocommerce' ),
 					$count
 				)
 			);
@@ -1019,7 +1019,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		WP_CLI::success(
 			sprintf(
 				// translators: %d is the number of orders that were cleaned up.
-				_n( 'Cleanup completed for %d order.', 'Cleanup completed for %d orders.', $count, 'woocommerce' ),
+				_n( 'Cleanup completed for %d order.', 'Cleanup completed for %d orders.', $count, 'poocommerce' ),
 				$count
 			)
 		);
@@ -1037,18 +1037,18 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		$legacy_handler = wc_get_container()->get( LegacyDataHandler::class );
 
 		// translators: %s is either 'yes' or 'no'.
-		WP_CLI::log( sprintf( __( 'HPOS enabled?: %s', 'woocommerce' ), wc_bool_to_string( $this->controller->custom_orders_table_usage_is_enabled() ) ) );
+		WP_CLI::log( sprintf( __( 'HPOS enabled?: %s', 'poocommerce' ), wc_bool_to_string( $this->controller->custom_orders_table_usage_is_enabled() ) ) );
 
 		// translators: %s is either 'yes' or 'no'.
-		WP_CLI::log( sprintf( __( 'Compatibility mode enabled?: %s', 'woocommerce' ), wc_bool_to_string( $this->synchronizer->data_sync_is_enabled() ) ) );
+		WP_CLI::log( sprintf( __( 'Compatibility mode enabled?: %s', 'poocommerce' ), wc_bool_to_string( $this->synchronizer->data_sync_is_enabled() ) ) );
 
 		// translators: %d is an order count.
-		WP_CLI::log( sprintf( __( 'Unsynced orders: %d', 'woocommerce' ), $this->synchronizer->get_current_orders_pending_sync_count() ) );
+		WP_CLI::log( sprintf( __( 'Unsynced orders: %d', 'poocommerce' ), $this->synchronizer->get_current_orders_pending_sync_count() ) );
 
 		WP_CLI::log(
 			sprintf(
 				/* translators: %d is an order count. */
-				__( 'Orders subject to cleanup: %d', 'woocommerce' ),
+				__( 'Orders subject to cleanup: %d', 'poocommerce' ),
 				( $this->synchronizer->custom_orders_table_is_authoritative() && ! $this->synchronizer->data_sync_is_enabled() )
 				? $legacy_handler->count_orders_for_cleanup()
 				: 0
@@ -1095,11 +1095,11 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			$diff = wc_get_container()->get( LegacyDataHandler::class )->get_diff_for_order( $id );
 		} catch ( \Exception $e ) {
 			// translators: %1$d is an order ID, %2$s is an error message.
-			WP_CLI::error( sprintf( __( 'An error occurred while computing a diff for order %1$d: %2$s', 'woocommerce' ), $id, $e->getMessage() ) );
+			WP_CLI::error( sprintf( __( 'An error occurred while computing a diff for order %1$d: %2$s', 'poocommerce' ), $id, $e->getMessage() ) );
 		}
 
 		if ( ! $diff ) {
-			WP_CLI::success( __( 'No differences found.', 'woocommerce' ) );
+			WP_CLI::success( __( 'No differences found.', 'poocommerce' ) );
 			return;
 		}
 
@@ -1127,7 +1127,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 
 		WP_CLI::warning(
 			// translators: %d is an order ID.
-			sprintf( __( 'Differences found for order %d:', 'woocommerce' ), $id )
+			sprintf( __( 'Differences found for order %d:', 'poocommerce' ), $id )
 		);
 		WP_CLI\Utils\format_items(
 			$assoc_args['format'] ?? 'table',
@@ -1179,18 +1179,18 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		$order_id = absint( $args[0] );
 
 		if ( ! $order_id ) {
-			WP_CLI::error( __( 'Please provide a valid order ID.', 'woocommerce' ) );
+			WP_CLI::error( __( 'Please provide a valid order ID.', 'poocommerce' ) );
 		}
 
 		foreach ( array( 'from', 'to' ) as $datastore ) {
 			if ( ! in_array( ${"$datastore"}, array( 'posts', 'hpos' ), true ) ) {
 				// translators: %s is a shell argument representing a datastore name.
-				WP_CLI::error( sprintf( __( '\'%s\' is not a valid datastore.', 'woocommerce' ), ${"$datastore"} ) );
+				WP_CLI::error( sprintf( __( '\'%s\' is not a valid datastore.', 'poocommerce' ), ${"$datastore"} ) );
 			}
 		}
 
 		if ( $from === $to ) {
-			WP_CLI::error( __( 'Please use different source (--from) and destination (--to) datastores.', 'woocommerce' ) );
+			WP_CLI::error( __( 'Please use different source (--from) and destination (--to) datastores.', 'poocommerce' ) );
 		}
 
 		$fields = array_intersect_key( $assoc_args, array_flip( array( 'meta_keys', 'props' ) ) );
@@ -1205,7 +1205,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			WP_CLI::error(
 				sprintf(
 					// translators: %1$d is an order ID, %2$s and %3$s are datastore names, %4$s is an error message.
-					__( 'An error occurred while backfilling order %1$d from %2$s to %3$s: %4$s', 'woocommerce' ),
+					__( 'An error occurred while backfilling order %1$d from %2$s to %3$s: %4$s', 'poocommerce' ),
 					$order_id,
 					$from,
 					$to,
@@ -1217,7 +1217,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		WP_CLI::success(
 			sprintf(
 				// translators: %1$d is an order ID, %2$s and %3$s are datastore names ("hpos" or "posts" for example).
-				__( 'Order %1$d backfilled from %2$s to %3$s.', 'woocommerce' ),
+				__( 'Order %1$d backfilled from %2$s to %3$s.', 'poocommerce' ),
 				$order_id,
 				$from,
 				$to
@@ -1226,7 +1226,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 	}
 
 	/**
-	 * Show the list of WooCommerce-aware plugins known to be compatible, incompatible or without compatibility declaration for HPOS. Note that inactive plugins will always be listed in the "uncertain" list.
+	 * Show the list of PooCommerce-aware plugins known to be compatible, incompatible or without compatibility declaration for HPOS. Note that inactive plugins will always be listed in the "uncertain" list.
 	 *
 	 * [--include-inactive]
 	 * : Include inactive plugins in the list.
@@ -1250,7 +1250,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		$this->log(
 			sprintf(
 				// translators: $1$d = plugins count, %2$s = colon (if list follows) or empty.
-				_n( "\n%%C%1\$d%%n compatible plugin found%2\$s", "\n%%C%1\$d%%n compatible plugins found%2\$s", $compatibles_count, 'woocommerce' ),
+				_n( "\n%%C%1\$d%%n compatible plugin found%2\$s", "\n%%C%1\$d%%n compatible plugins found%2\$s", $compatibles_count, 'poocommerce' ),
 				$compatibles_count,
 				$compatibles_count > 0 ? ":\n" : ''
 			)
@@ -1262,7 +1262,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		$this->log(
 			sprintf(
 				// translators: $1$d = plugins count, %2$s = colon (if list follows) or empty.
-				_n( "\n%%C%1\$d%%n incompatible plugin found%2\$s", "\n%%C%1\$d%%n incompatible plugins found%2\$s", $incompatibles_count, 'woocommerce' ),
+				_n( "\n%%C%1\$d%%n incompatible plugin found%2\$s", "\n%%C%1\$d%%n incompatible plugins found%2\$s", $incompatibles_count, 'poocommerce' ),
 				$incompatibles_count,
 				$incompatibles_count > 0 ? ":\n" : ''
 			)
@@ -1274,7 +1274,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		$this->log(
 			sprintf(
 				// translators: $1$d = plugins count, %2$s = colon (if list follows) or empty.
-				_n( "\n%%C%1\$d%%n uncertain plugin found%2\$s", "\n%%C%1\$d%%n uncertain plugins found%2\$s", $uncertain_count, 'woocommerce' ),
+				_n( "\n%%C%1\$d%%n uncertain plugin found%2\$s", "\n%%C%1\$d%%n uncertain plugins found%2\$s", $uncertain_count, 'poocommerce' ),
 				$uncertain_count,
 				$uncertain_count > 0 ? ":\n" : ''
 			)
@@ -1353,7 +1353,7 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 			if ( $enabled ) {
 				$this->synchronizer->create_database_tables();
 			} else {
-				WP_CLI::error( __( 'HPOS tables do not exist.', 'woocommerce' ) );
+				WP_CLI::error( __( 'HPOS tables do not exist.', 'poocommerce' ) );
 			}
 		}
 
@@ -1361,9 +1361,9 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 
 		if ( $currently_enabled === $enabled ) {
 			if ( $enabled ) {
-				WP_CLI::warning( __( 'Compatibility mode is already enabled.', 'woocommerce' ) );
+				WP_CLI::warning( __( 'Compatibility mode is already enabled.', 'poocommerce' ) );
 			} else {
-				WP_CLI::warning( __( 'Compatibility mode is already disabled.', 'woocommerce' ) );
+				WP_CLI::warning( __( 'Compatibility mode is already disabled.', 'poocommerce' ) );
 			}
 
 			return;
@@ -1372,9 +1372,9 @@ ORDER BY $meta_table.order_id ASC, $meta_table.meta_key ASC;
 		update_option( $this->synchronizer::ORDERS_DATA_SYNC_ENABLED_OPTION, wc_bool_to_string( $enabled ) );
 
 		if ( $enabled ) {
-			WP_CLI::success( __( 'Compatibility mode enabled.', 'woocommerce' ) );
+			WP_CLI::success( __( 'Compatibility mode enabled.', 'poocommerce' ) );
 		} else {
-			WP_CLI::success( __( 'Compatibility mode disabled.', 'woocommerce' ) );
+			WP_CLI::success( __( 'Compatibility mode disabled.', 'poocommerce' ) );
 		}
 	}
 }

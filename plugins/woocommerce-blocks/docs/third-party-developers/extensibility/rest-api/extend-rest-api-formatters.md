@@ -54,8 +54,8 @@ Let's say we're going to be returning some extra price data via the API. We want
 First we need to ensure we can access the formatter classes. We can do this by using the `use` keyword:
 
 ```php
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\Utilities\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\Utilities\ExtendSchema;
 
 $extend = StoreApi::container()->get( ExtendSchema::class );
 
@@ -86,7 +86,7 @@ The above code would result in `$price_response` being set to:
 
 ## MoneyFormatter
 
-The [`MoneyFormatter`](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/trunk/src/StoreApi/Formatters/MoneyFormatter.php) class can be used to format a monetary value using the store settings. The store settings may be overridden by passing options to this formatter's `format` method.
+The [`MoneyFormatter`](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/trunk/src/StoreApi/Formatters/MoneyFormatter.php) class can be used to format a monetary value using the store settings. The store settings may be overridden by passing options to this formatter's `format` method.
 
 Values are returned in cents to avoid floating point rounding errors, so when using this formatter you'll most likely also be returning the currency data using the [`CurrencyFormatter`](#currencyformatter) alongside it. This will allow the consumer of the API to display the value in the intended format.
 
@@ -192,8 +192,8 @@ This formatter should be used when returning HTML from the StoreAPI regardless o
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/extend-rest-api-formatters.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/extend-rest-api-formatters.md)
 
 <!-- /FEEDBACK -->

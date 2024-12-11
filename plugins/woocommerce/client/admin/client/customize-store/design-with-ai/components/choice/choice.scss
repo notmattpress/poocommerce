@@ -1,4 +1,4 @@
-.woocommerce-cys-choice-container {
+.poocommerce-cys-choice-container {
 	display: flex;
 	flex-direction: column;
 	padding: 16px;
@@ -19,11 +19,11 @@
 	}
 }
 
-.woocommerce-cys-choice {
+.poocommerce-cys-choice {
 	display: flex;
 	flex-direction: column;
 
-	.woocommerce-cys-choice-input {
+	.poocommerce-cys-choice-input {
 		opacity: 0;
 		position: absolute;
 	}

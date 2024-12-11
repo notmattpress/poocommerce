@@ -1,14 +1,14 @@
 /**
  * Internal dependencies
  */
-import './settings-payments-woocommerce-payments.scss';
+import './settings-payments-poocommerce-payments.scss';
 
-export const SettingsPaymentsWooCommercePayments: React.FC = () => {
+export const SettingsPaymentsPooCommercePayments: React.FC = () => {
 	return (
-		<div className="settings-payments-woocommerce-payments__container">
-			<h1>WooCommerce Payments Settings</h1>
+		<div className="settings-payments-poocommerce-payments__container">
+			<h1>PooCommerce Payments Settings</h1>
 		</div>
 	);
 };
 
-export default SettingsPaymentsWooCommercePayments;
+export default SettingsPaymentsPooCommercePayments;

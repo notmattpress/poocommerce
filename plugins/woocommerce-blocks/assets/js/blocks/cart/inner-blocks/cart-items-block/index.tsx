@@ -9,7 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/cart-items-block', {
+registerBlockType( 'poocommerce/cart-items-block', {
 	icon: {
 		src: (
 			<Icon

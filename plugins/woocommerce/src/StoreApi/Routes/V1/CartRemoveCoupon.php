@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartRemoveCoupon class.
@@ -45,7 +45,7 @@ class CartRemoveCoupon extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'code' => [
-						'description' => __( 'Unique identifier for the coupon within the cart.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the coupon within the cart.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 				],
@@ -64,7 +64,7 @@ class CartRemoveCoupon extends AbstractCartRoute {
 	 */
 	protected function get_route_post_response( \WP_REST_Request $request ) {
 		if ( ! wc_coupons_enabled() ) {
-			throw new RouteException( 'woocommerce_rest_cart_coupon_disabled', esc_html__( 'Coupons are disabled.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_cart_coupon_disabled', esc_html__( 'Coupons are disabled.', 'poocommerce' ), 404 );
 		}
 
 		$cart        = $this->cart_controller->get_cart_instance();
@@ -73,11 +73,11 @@ class CartRemoveCoupon extends AbstractCartRoute {
 		$discounts   = new \WC_Discounts( $cart );
 
 		if ( $coupon->get_code() !== $coupon_code || is_wp_error( $discounts->is_coupon_valid( $coupon ) ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_coupon_error', esc_html__( 'Invalid coupon code.', 'woocommerce' ), 400 );
+			throw new RouteException( 'poocommerce_rest_cart_coupon_error', esc_html__( 'Invalid coupon code.', 'poocommerce' ), 400 );
 		}
 
 		if ( ! $this->cart_controller->has_coupon( $coupon_code ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_coupon_invalid_code', esc_html__( 'Coupon cannot be removed because it is not already applied to the cart.', 'woocommerce' ), 409 );
+			throw new RouteException( 'poocommerce_rest_cart_coupon_invalid_code', esc_html__( 'Coupon cannot be removed because it is not already applied to the cart.', 'poocommerce' ), 409 );
 		}
 
 		$cart = $this->cart_controller->get_cart_instance();

@@ -168,6 +168,6 @@ const SelectControlExample = () => {
 export const Basic = () => <SelectControlExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/SelectControl',
+	title: 'PooCommerce Admin/components/SelectControl',
 	component: SelectControl,
 };

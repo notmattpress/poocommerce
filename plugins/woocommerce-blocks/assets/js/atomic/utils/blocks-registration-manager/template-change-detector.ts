@@ -3,7 +3,7 @@
  */
 import { subscribe } from '@wordpress/data';
 import { getPath, getQueryArg } from '@wordpress/url';
-import { isNumber } from '@woocommerce/types';
+import { isNumber } from '@poocommerce/types';
 
 interface TemplateChangeDetectorSubject {
 	add( observer: TemplateChangeDetectorObserver ): void;

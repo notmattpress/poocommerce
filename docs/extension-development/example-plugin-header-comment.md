@@ -1,5 +1,5 @@
 ---
-post_title: Example WordPress plugin header comment for WooCommerce extensions
+post_title: Example WordPress plugin header comment for PooCommerce extensions
 menu_title: Plugin header comments
 tags: reference
 ---
@@ -8,15 +8,15 @@ This is a WordPress plugin header comment. It's used to provide WordPress with m
 
 ```php
 /**
-* Plugin Name: WooCommerce Extension
-* Plugin URI: https://woocommerce.com/products/woocommerce-extension/
+* Plugin Name: PooCommerce Extension
+* Plugin URI: https://poocommerce.com/products/poocommerce-extension/
 * Description: Your extension's description text.
 * Version: 1.0.0
 * Author: Your Name
 * Author URI: http://yourdomain.com/
 * Developer: Your Name
 * Developer URI: http://yourdomain.com/
-* Text Domain: woocommerce-extension
+* Text Domain: poocommerce-extension
 * Domain Path: /languages
 *
 * Woo: 12345:342928dfsfhsf8429842374wdf4234sfd
@@ -41,8 +41,8 @@ Here's what each line should contain:
 * Text Domain: The text domain is used for internationalization.
 * Domain Path: The domain path is used to show where the MO files are located.
 * Woo: A unique identifier for the plugin.
-* WC requires at least: The minimum version of WooCommerce required for the plugin to work.
-* WC tested up to: The latest version of WooCommerce that the plugin has been tested with.
+* WC requires at least: The minimum version of PooCommerce required for the plugin to work.
+* WC tested up to: The latest version of PooCommerce that the plugin has been tested with.
 * License: The license of the plugin.
 * License URI: The URL where the license is explained in detail.
 

@@ -4,7 +4,7 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
-import { __experimentalUseCompletion as useCompletion } from '@woocommerce/ai';
+import { __experimentalUseCompletion as useCompletion } from '@poocommerce/ai';
 
 /**
  * Internal dependencies
@@ -136,7 +136,7 @@ export const ProductNameSuggestions = () => {
 					// Need to capture errant handlediv click that happens on load as well
 					Boolean( target.querySelector( ':scope > .handlediv' ) ) ||
 					target?.matches(
-						'#woocommerce-ai-app-product-name-suggestions *, #title, .woo-ai-get-suggestions-btn__content'
+						'#poocommerce-ai-app-product-name-suggestions *, #title, .woo-ai-get-suggestions-btn__content'
 					)
 				)
 			) {
@@ -231,7 +231,7 @@ export const ProductNameSuggestions = () => {
 		}, {} );
 
 		const instructions = [
-			'You are a WooCommerce SEO and marketing expert.',
+			'You are a PooCommerce SEO and marketing expert.',
 			"Using the product's name, description, tags, categories, and other attributes, provide three optimized alternatives to the product's title to enhance the store's SEO performance and sales.",
 			"Provide the best option for the product's title based on the product properties.",
 			'Identify the language used in the given title and use the same language in your response.',
@@ -277,8 +277,8 @@ export const ProductNameSuggestions = () => {
 
 	const getSuggestionsButtonLabel = useCallback( () => {
 		return isFirstLoad
-			? __( 'Generate name ideas with AI', 'woocommerce' )
-			: __( 'Get more ideas', 'woocommerce' );
+			? __( 'Generate name ideas with AI', 'poocommerce' )
+			: __( 'Get more ideas', 'poocommerce' );
 	}, [ isFirstLoad ] );
 
 	return (
@@ -305,7 +305,7 @@ export const ProductNameSuggestions = () => {
 							<MagicImage />
 							{ __(
 								'Enter a few descriptive words to generate product name.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</div>
 						<PoweredByLink />
@@ -343,7 +343,7 @@ export const ProductNameSuggestions = () => {
 					<img src={ AlertIcon } alt="" />
 					{ __(
 						`We're currently experiencing high demand for our experimental feature. Please check back in shortly!`,
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			) }

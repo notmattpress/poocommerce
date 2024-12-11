@@ -2,7 +2,7 @@
 post_title: Displaying Custom Fields in Your Theme or Site
 menu_title: Displaying custom fields in theme
 tags: code-snippet
-current wccom url: https://woocommerce.com/document/custom-product-fields/
+current wccom url: https://poocommerce.com/document/custom-product-fields/
 ---
 
 ## Displaying Custom Fields in Your Theme or Site
@@ -18,7 +18,7 @@ To display the custom fields for each product, you have to edit your theme’s f
 
 // Display a product custom field within single product pages after the short description 
 
-function woocommerce_custom_field_example() {
+function poocommerce_custom_field_example() {
 
     if ( ! is_product() ) {
         return;
@@ -37,5 +37,5 @@ function woocommerce_custom_field_example() {
     }
 }
 
-add_action( 'woocommerce_before_add_to_cart_form', 'woocommerce_custom_field_example', 10 );
+add_action( 'poocommerce_before_add_to_cart_form', 'poocommerce_custom_field_example', 10 );
 ```

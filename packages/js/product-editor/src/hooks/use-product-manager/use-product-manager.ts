@@ -4,7 +4,7 @@
 import { useEntityProp } from '@wordpress/core-data';
 import { dispatch, useSelect, select as wpSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { Product, ProductStatus, PRODUCTS_STORE_NAME } from '@woocommerce/data';
+import { Product, ProductStatus, PRODUCTS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies

@@ -12,7 +12,7 @@ import { useState, createElement, Fragment, useMemo } from '@wordpress/element';
 import {
 	__experimentalTooltip as Tooltip,
 	__experimentalSelectControlMenuSlot as SelectControlMenuSlot,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -49,34 +49,34 @@ type EditAttributeModalProps = {
 };
 
 export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
-	title = __( 'Edit attribute', 'woocommerce' ),
-	nameLabel = __( 'Name', 'woocommerce' ),
+	title = __( 'Edit attribute', 'poocommerce' ),
+	nameLabel = __( 'Name', 'poocommerce' ),
 	globalAttributeHelperMessage,
 	customAttributeHelperMessage = __(
 		'Your customers will see this on the product page',
-		'woocommerce'
+		'poocommerce'
 	),
-	termsLabel = __( 'Values', 'woocommerce' ),
-	termsPlaceholder = __( 'Search or create value', 'woocommerce' ),
-	isDefaultLabel = __( 'Set default value', 'woocommerce' ),
+	termsLabel = __( 'Values', 'poocommerce' ),
+	termsPlaceholder = __( 'Search or create value', 'poocommerce' ),
+	isDefaultLabel = __( 'Set default value', 'poocommerce' ),
 	isDefaultTooltip = __(
 		'Check to preselect the first choice when customers enter the product page.',
-		'woocommerce'
+		'poocommerce'
 	),
-	useAsFilterLabel = __( 'Use as filter', 'woocommerce' ),
+	useAsFilterLabel = __( 'Use as filter', 'poocommerce' ),
 	useAsFilterTooltip = __(
 		'Check to allow customers to search and filter by this option in your store.',
-		'woocommerce'
+		'poocommerce'
 	),
-	visibleLabel = __( 'Show in product details', 'woocommerce' ),
+	visibleLabel = __( 'Show in product details', 'poocommerce' ),
 	visibleTooltip = __(
 		'Check to show this option and its values in the product details section on the product page.',
-		'woocommerce'
+		'poocommerce'
 	),
-	cancelAccessibleLabel = __( 'Cancel', 'woocommerce' ),
-	cancelLabel = __( 'Cancel', 'woocommerce' ),
-	updateAccessibleLabel = __( 'Edit attribute', 'woocommerce' ),
-	updateLabel = __( 'Update', 'woocommerce' ),
+	cancelAccessibleLabel = __( 'Cancel', 'poocommerce' ),
+	cancelLabel = __( 'Cancel', 'poocommerce' ),
+	updateAccessibleLabel = __( 'Edit attribute', 'poocommerce' ),
+	updateLabel = __( 'Update', 'poocommerce' ),
 	onCancel,
 	onEdit,
 	attribute,
@@ -137,12 +137,12 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 	function getNoticeMessage() {
 		const additionsMessage = sprintf(
 			// translators: %d is the amount of variations to be added
-			__( '%d variations will be added', 'woocommerce' ),
+			__( '%d variations will be added', 'poocommerce' ),
 			additions
 		);
 		const deletionsMessage = sprintf(
 			// translators: %d is the amount of variations to be removed
-			__( '%d variations will be removed', 'woocommerce' ),
+			__( '%d variations will be removed', 'poocommerce' ),
 			deletions
 		);
 		if ( additions && deletions ) {
@@ -158,9 +158,9 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 			<Modal
 				title={ title }
 				onRequestClose={ () => onCancel() }
-				className="woocommerce-edit-attribute-modal"
+				className="poocommerce-edit-attribute-modal"
 			>
-				<div className="woocommerce-edit-attribute-modal__body">
+				<div className="poocommerce-edit-attribute-modal__body">
 					<TextControl
 						label={ nameLabel }
 						disabled={ ! isCustomAttribute }
@@ -176,7 +176,7 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 							} )
 						}
 					/>
-					<p className="woocommerce-edit-attribute-modal__helper-text">
+					<p className="poocommerce-edit-attribute-modal__helper-text">
 						{ ! isCustomAttribute
 							? globalAttributeHelperMessage
 							: customAttributeHelperMessage }
@@ -219,9 +219,9 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 						/>
 					) }
 
-					<div className="woocommerce-edit-attribute-modal__options">
+					<div className="poocommerce-edit-attribute-modal__options">
 						{ attribute.variation && (
-							<div className="woocommerce-edit-attribute-modal__option-container">
+							<div className="poocommerce-edit-attribute-modal__option-container">
 								<CheckboxControl
 									onChange={ ( checked ) =>
 										setEditableAttribute( {
@@ -233,13 +233,13 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 									label={ isDefaultLabel }
 								/>
 								<Tooltip
-									className="woocommerce-edit-attribute-modal__tooltip-set-default-value"
+									className="poocommerce-edit-attribute-modal__tooltip-set-default-value"
 									text={ isDefaultTooltip }
 								/>
 							</div>
 						) }
 
-						<div className="woocommerce-edit-attribute-modal__option-container">
+						<div className="poocommerce-edit-attribute-modal__option-container">
 							<CheckboxControl
 								onChange={ ( val ) =>
 									setEditableAttribute( {
@@ -251,13 +251,13 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 								label={ visibleLabel }
 							/>
 							<Tooltip
-								className="woocommerce-edit-attribute-modal__tooltip-show-in-product-details"
+								className="poocommerce-edit-attribute-modal__tooltip-show-in-product-details"
 								text={ visibleTooltip }
 							/>
 						</div>
 						{ attribute.id !== 0 && (
 							/* Only supported for global attributes, and disabled for now as the 'Filter by Attributes' block does not support this yet. */
-							<div className="woocommerce-edit-attribute-modal__option-container">
+							<div className="poocommerce-edit-attribute-modal__option-container">
 								<CheckboxControl
 									disabled={ true }
 									onChange={ () => {
@@ -267,7 +267,7 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 									label={ useAsFilterLabel }
 								/>
 								<Tooltip
-									className="woocommerce-edit-attribute-modal__tooltip-use-as-filter"
+									className="poocommerce-edit-attribute-modal__tooltip-use-as-filter"
 									text={ useAsFilterTooltip }
 								/>
 							</div>
@@ -278,7 +278,7 @@ export const EditAttributeModal: React.FC< EditAttributeModalProps > = ( {
 						<Notice>{ getNoticeMessage() }</Notice>
 					) }
 				</div>
-				<div className="woocommerce-edit-attribute-modal__buttons">
+				<div className="poocommerce-edit-attribute-modal__buttons">
 					<Button
 						isSecondary
 						label={ cancelAccessibleLabel }

@@ -2,10 +2,10 @@
 /**
  * Class WC_Settings_Page_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-example.php';
 require_once __DIR__ . '/class-wc-legacy-settings-example.php';
@@ -20,17 +20,17 @@ class WC_Settings_Page_Test extends WC_Unit_Test_Case {
 	 * Test for constructor.
 	 */
 	public function test_constructor() {
-		remove_all_filters( 'woocommerce_settings_tabs_array' );
-		remove_all_filters( 'woocommerce_sections_example' );
-		remove_all_filters( 'woocommerce_settings_example' );
-		remove_all_filters( 'woocommerce_settings_save_example' );
+		remove_all_filters( 'poocommerce_settings_tabs_array' );
+		remove_all_filters( 'poocommerce_sections_example' );
+		remove_all_filters( 'poocommerce_settings_example' );
+		remove_all_filters( 'poocommerce_settings_save_example' );
 
 		$sut = new WC_Settings_Example();
 
-		$this->assertTrue( has_filter( 'woocommerce_settings_tabs_array' ) );
-		$this->assertTrue( has_filter( 'woocommerce_sections_example' ) );
-		$this->assertTrue( has_filter( 'woocommerce_settings_example' ) );
-		$this->assertTrue( has_filter( 'woocommerce_settings_save_example' ) );
+		$this->assertTrue( has_filter( 'poocommerce_settings_tabs_array' ) );
+		$this->assertTrue( has_filter( 'poocommerce_sections_example' ) );
+		$this->assertTrue( has_filter( 'poocommerce_settings_example' ) );
+		$this->assertTrue( has_filter( 'poocommerce_settings_save_example' ) );
 	}
 
 	/**
@@ -110,14 +110,14 @@ class WC_Settings_Page_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test for get_settings (triggers woocommerce_get_settings_X filter).
+	 * Test for get_settings (triggers poocommerce_get_settings_X filter).
 	 */
 	public function test_get_settings__get_settings_filter() {
 		$actual_settings = null;
 		$actual_section  = null;
 
 		add_filter(
-			'woocommerce_get_settings_example',
+			'poocommerce_get_settings_example',
 			function( $settings, $section ) use ( &$actual_settings, &$actual_section ) {
 				$actual_settings = $settings;
 				$actual_section  = $section;
@@ -128,7 +128,7 @@ class WC_Settings_Page_Test extends WC_Unit_Test_Case {
 
 		$sut = new WC_Settings_Example();
 		$sut->get_settings_for_section( 'foobar' );
-		remove_all_filters( 'woocommerce_get_settings_example' );
+		remove_all_filters( 'poocommerce_get_settings_example' );
 
 		$expected_section  = 'foobar';
 		$expected_settings = array( 'foo' => 'bar' );
@@ -152,13 +152,13 @@ class WC_Settings_Page_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test for get_section (triggers the woocommerce_get_sections_X filter).
+	 * Test for get_section (triggers the poocommerce_get_sections_X filter).
 	 */
 	public function test_get_sections__get_sections_filter() {
 		$actual_sections = null;
 
 		add_filter(
-			'woocommerce_get_sections_example',
+			'poocommerce_get_sections_example',
 			function( $sections ) use ( &$actual_sections ) {
 				$actual_sections = $sections;
 			},
@@ -168,7 +168,7 @@ class WC_Settings_Page_Test extends WC_Unit_Test_Case {
 
 		$sut = new WC_Settings_Example();
 		$sut->get_sections();
-		remove_all_filters( 'woocommerce_get_sections_example' );
+		remove_all_filters( 'poocommerce_get_sections_example' );
 
 		$expected_sections = array(
 			''            => 'General',
@@ -309,33 +309,33 @@ HTML;
 	}
 
 	/**
-	 * Test for save (named section, triggers the woocommerce_update_options_example_foobar action).
+	 * Test for save (named section, triggers the poocommerce_update_options_example_foobar action).
 	 */
 	public function test_save__does_update_options_action__named_section() {
 		global $current_section;
 
 		$current_section = 'foobar';
-		remove_all_filters( 'woocommerce_update_options_example_foobar' );
+		remove_all_filters( 'poocommerce_update_options_example_foobar' );
 
 		$sut = new WC_Settings_Example();
 		$sut->save();
 
-		$this->assertEquals( 1, did_action( 'woocommerce_update_options_example_foobar' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_update_options_example_foobar' ) );
 	}
 
 	/**
-	 * Test for save (default section, doesn't trigger any woocommerce_update_options_ action).
+	 * Test for save (default section, doesn't trigger any poocommerce_update_options_ action).
 	 */
 	public function test_save__does_update_options_action__default_section() {
 		global $current_section;
 
 		$current_section = '';
-		remove_all_filters( 'woocommerce_update_options_example_' );
+		remove_all_filters( 'poocommerce_update_options_example_' );
 
 		$sut = new WC_Settings_Example();
 		$sut->save();
 
-		$this->assertEquals( 0, did_action( 'woocommerce_update_options_example_' ) );
+		$this->assertEquals( 0, did_action( 'poocommerce_update_options_example_' ) );
 	}
 
 	/**

@@ -2,19 +2,19 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Importers;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Importers;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Steps\SetWCTaxRates;
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Steps\SetWCTaxRates;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
 use WC_Tax;
 
 /**
  * Class ImportSetWCTaxRates
  *
- * This class imports WooCommerce tax rates and implements the StepProcessor interface.
+ * This class imports PooCommerce tax rates and implements the StepProcessor interface.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Importers
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Importers
  */
 class ImportSetWCTaxRates implements StepProcessor {
 	/**
@@ -25,7 +25,7 @@ class ImportSetWCTaxRates implements StepProcessor {
 	private StepProcessorResult $result;
 
 	/**
-	 * Process the import of WooCommerce tax rates.
+	 * Process the import of PooCommerce tax rates.
 	 *
 	 * @param object $schema The schema object containing import details.
 	 * @return StepProcessorResult
@@ -57,7 +57,7 @@ class ImportSetWCTaxRates implements StepProcessor {
 			$wpdb->prepare(
 				"
                 SELECT *
-                FROM {$wpdb->prefix}woocommerce_tax_rates
+                FROM {$wpdb->prefix}poocommerce_tax_rates
                 WHERE tax_rate_id = %d
                 ",
 				$id
@@ -106,7 +106,7 @@ class ImportSetWCTaxRates implements StepProcessor {
 		$location = (array) $location;
 		$columns  = implode( ',', array_keys( $location ) );
 		$format   = implode( ',', array( '%d', '%s', '%d', '%s' ) );
-		$table    = $wpdb->prefix . 'woocommerce_tax_rate_locations';
+		$table    = $wpdb->prefix . 'poocommerce_tax_rate_locations';
 		// phpcs:ignore
 		$sql      = $wpdb->prepare( "REPLACE INTO $table ($columns) VALUES ($format)", $location );
 		// phpcs:ignore

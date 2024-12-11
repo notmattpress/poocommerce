@@ -5,7 +5,7 @@ import { Gridicon } from '@automattic/components';
 import { Button, SelectControl } from '@wordpress/components';
 import React, { lazy, Suspense } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -35,10 +35,10 @@ const SettingsPaymentsOfflineChunk = lazy(
 		)
 );
 
-const SettingsPaymentsWooCommercePaymentsChunk = lazy(
+const SettingsPaymentsPooCommercePaymentsChunk = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "settings-payments-woocommerce-payments" */ './settings-payments-woocommerce-payments'
+			/* webpackChunkName: "settings-payments-poocommerce-payments" */ './settings-payments-poocommerce-payments'
 		)
 );
 
@@ -49,7 +49,7 @@ const onButtonClick = () => {
 export const SettingsPaymentsMainWrapper = () => {
 	return (
 		<>
-			<Header title={ __( 'WooCommerce Settings', 'woocommerce' ) } />
+			<Header title={ __( 'PooCommerce Settings', 'poocommerce' ) } />
 			<Suspense
 				fallback={
 					<>
@@ -59,15 +59,15 @@ export const SettingsPaymentsMainWrapper = () => {
 									<div className="settings-payment-gateways__header-title">
 										{ __(
 											'Payment providers',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</div>
 									<div className="settings-payment-gateways__header-select-container">
 										<SelectControl
-											className="woocommerce-select-control__country"
+											className="poocommerce-select-control__country"
 											prefix={ __(
 												'Business location :',
-												'woocommerce'
+												'poocommerce'
 											) }
 											placeholder={ '' }
 											label={ '' }
@@ -84,7 +84,7 @@ export const SettingsPaymentsMainWrapper = () => {
 										<span>
 											{ __(
 												'Other payment options',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</span>
 										<>
@@ -116,7 +116,7 @@ export const SettingsPaymentsOfflineWrapper = () => {
 	return (
 		<>
 			<Header
-				title={ __( 'Take offline payments', 'woocommerce' ) }
+				title={ __( 'Take offline payments', 'poocommerce' ) }
 				backLink={ getAdminLink(
 					'admin.php?page=wc-settings&tab=checkout'
 				) }
@@ -130,7 +130,7 @@ export const SettingsPaymentsOfflineWrapper = () => {
 									<div className="settings-payment-gateways__header-title">
 										{ __(
 											'Payment methods',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</div>
 								</div>
@@ -150,16 +150,16 @@ export const SettingsPaymentsMethodsWrapper = () => {
 	return (
 		<>
 			<Header
-				title={ __( 'Choose your payment methods', 'woocommerce' ) }
+				title={ __( 'Choose your payment methods', 'poocommerce' ) }
 				description={ __(
 					"Select which payment methods you'd like to offer to your shoppers. You can update these here at any time.",
-					'woocommerce'
+					'poocommerce'
 				) }
 				backLink={ getAdminLink(
 					'admin.php?page=wc-settings&tab=checkout'
 				) }
 				hasButton={ true }
-				buttonLabel={ __( 'Continue', 'woocommerce' ) }
+				buttonLabel={ __( 'Continue', 'poocommerce' ) }
 				onButtonClick={ onButtonClick }
 			/>
 			<Suspense
@@ -171,12 +171,12 @@ export const SettingsPaymentsMethodsWrapper = () => {
 	);
 };
 
-export const SettingsPaymentsWooCommercePaymentsWrapper = () => {
+export const SettingsPaymentsPooCommercePaymentsWrapper = () => {
 	return (
 		<>
-			<Header title={ __( 'WooCommerce Settings', 'woocommerce' ) } />
+			<Header title={ __( 'PooCommerce Settings', 'poocommerce' ) } />
 			<Suspense fallback={ <div>Loading WooPayments settings...</div> }>
-				<SettingsPaymentsWooCommercePaymentsChunk />
+				<SettingsPaymentsPooCommercePaymentsChunk />
 			</Suspense>
 		</>
 	);

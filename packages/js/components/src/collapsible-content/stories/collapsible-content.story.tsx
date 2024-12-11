@@ -25,6 +25,6 @@ export const Expanded: React.FC = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/components/CollapsibleContent',
+	title: 'PooCommerce Admin/components/CollapsibleContent',
 	component: Basic,
 };

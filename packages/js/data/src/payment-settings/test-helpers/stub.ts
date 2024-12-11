@@ -18,12 +18,12 @@ export const providersStub: PaymentProvider[] = [
 		description:
 			'Safe and secure payments using credit cards or your customer&#039;s PayPal account.',
 		short_description: '',
-		image: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/onboarding/paypal.png',
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/72x72/paypal.png',
+		image: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/onboarding/paypal.png',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/72x72/paypal.png',
 		links: [
 			{
 				_type: 'about',
-				url: 'https://woocommerce.com/products/woocommerce-paypal-payments/',
+				url: 'https://poocommerce.com/products/poocommerce-paypal-payments/',
 			},
 			{
 				_type: 'terms',
@@ -31,19 +31,19 @@ export const providersStub: PaymentProvider[] = [
 			},
 			{
 				_type: 'support',
-				url: 'https://woocommerce.com/my-account/contact-support/?select=woocommerce-paypal-payments',
+				url: 'https://poocommerce.com/my-account/contact-support/?select=poocommerce-paypal-payments',
 			},
 		],
 		tags: [ 'made_in_woo', 'preferred' ],
 		plugin: {
 			_type: 'wporg',
-			slug: 'woocommerce-paypal-payments',
-			file: 'woocommerce-paypal-payments/woocommerce-paypal-payments',
+			slug: 'poocommerce-paypal-payments',
+			file: 'poocommerce-paypal-payments/poocommerce-paypal-payments',
 			status: 'installed',
 		},
 	},
 	{
-		id: 'woocommerce_payments',
+		id: 'poocommerce_payments',
 		_order: 2,
 		_type: PaymentProviderType.Gateway,
 		title: 'WooPayments',
@@ -62,37 +62,37 @@ export const providersStub: PaymentProvider[] = [
 		},
 		management: {
 			settings_url:
-				'http://localhost:8082/wp-admin/admin.php?page=wc-settings&tab=checkout&section=woocommerce_payments',
+				'http://localhost:8082/wp-admin/admin.php?page=wc-settings&tab=checkout&section=poocommerce_payments',
 		},
-		image: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/onboarding/woopayments.svg',
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/onboarding/woopayments.svg',
+		image: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/onboarding/woopayments.svg',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/onboarding/woopayments.svg',
 		links: [
 			{
 				_type: 'pricing',
-				url: 'https://woocommerce.com/document/woopayments/fees-and-debits/',
+				url: 'https://poocommerce.com/document/woopayments/fees-and-debits/',
 			},
 			{
 				_type: 'about',
-				url: 'https://woocommerce.com/payments/',
+				url: 'https://poocommerce.com/payments/',
 			},
 			{
 				_type: 'terms',
-				url: 'https://woocommerce.com/document/woopayments/our-policies/',
+				url: 'https://poocommerce.com/document/woopayments/our-policies/',
 			},
 			{
 				_type: 'documentation',
-				url: 'https://woocommerce.com/document/woopayments/',
+				url: 'https://poocommerce.com/document/woopayments/',
 			},
 			{
 				_type: 'support',
-				url: 'https://woocommerce.com/my-account/contact-support/?select=woopayments',
+				url: 'https://poocommerce.com/my-account/contact-support/?select=woopayments',
 			},
 		],
 		tags: [ 'made_in_woo', 'preferred' ],
 		plugin: {
 			_type: 'wporg',
-			slug: 'woocommerce-payments',
-			file: 'woocommerce-payments/woocommerce-payments',
+			slug: 'poocommerce-payments',
+			file: 'poocommerce-payments/poocommerce-payments',
 			status: 'active',
 		},
 	},
@@ -103,11 +103,11 @@ export const providersStub: PaymentProvider[] = [
 		title: 'Offline Payment Methods',
 		description: 'Allow shoppers to pay offline.',
 		plugin: {
-			slug: 'woocommerce',
-			file: 'woocommerce/woocommerce',
+			slug: 'poocommerce',
+			file: 'poocommerce/poocommerce',
 			status: 'active',
 		},
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/cod.svg',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/cod.svg',
 	},
 ];
 
@@ -129,10 +129,10 @@ export const offlinePaymentGatewaysStub: OfflinePaymentGateway[] = [
 			settings_url:
 				'http://localhost:8082/wp-admin/admin.php?page=wc-settings&tab=checkout&section=bacs',
 		},
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/bacs.svg',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/bacs.svg',
 		plugin: {
-			slug: 'woocommerce',
-			file: 'woocommerce/woocommerce',
+			slug: 'poocommerce',
+			file: 'poocommerce/poocommerce',
 			status: 'active',
 		},
 	},
@@ -153,10 +153,10 @@ export const offlinePaymentGatewaysStub: OfflinePaymentGateway[] = [
 			settings_url:
 				'http://localhost:8082/wp-admin/admin.php?page=wc-settings&tab=checkout&section=cheque',
 		},
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/cheque.svg',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/cheque.svg',
 		plugin: {
-			slug: 'woocommerce',
-			file: 'woocommerce/woocommerce',
+			slug: 'poocommerce',
+			file: 'poocommerce/poocommerce',
 			status: 'active',
 		},
 	},
@@ -177,10 +177,10 @@ export const offlinePaymentGatewaysStub: OfflinePaymentGateway[] = [
 			settings_url:
 				'http://localhost:8082/wp-admin/admin.php?page=wc-settings&tab=checkout&section=cod',
 		},
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/cod.svg',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/cod.svg',
 		plugin: {
-			slug: 'woocommerce',
-			file: 'woocommerce/woocommerce',
+			slug: 'poocommerce',
+			file: 'poocommerce/poocommerce',
 			status: 'active',
 		},
 	},
@@ -200,8 +200,8 @@ export const suggestionsStub: SuggestedPaymentExtension[] = [
 			file: 'airwallex-online-payments-gateway/airwallex-online-payments-gateway',
 			status: 'not_installed',
 		},
-		image: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/onboarding/airwallex.png',
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/72x72/airwallex.png',
+		image: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/onboarding/airwallex.png',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/72x72/airwallex.png',
 		short_description: '',
 		links: [
 			{
@@ -218,7 +218,7 @@ export const suggestionsStub: SuggestedPaymentExtension[] = [
 			},
 			{
 				_type: 'documentation',
-				url: 'https://www.airwallex.com/docs/payments__plugins__woocommerce__install-the-woocommerce-plugin',
+				url: 'https://www.airwallex.com/docs/payments__plugins__poocommerce__install-the-poocommerce-plugin',
 			},
 			{
 				_type: 'support',
@@ -237,25 +237,25 @@ export const suggestionsStub: SuggestedPaymentExtension[] = [
 			'Securely accept credit and debit cards with one low rate, no surprise fees (custom rates available). Sell online and in store and track sales and inventory in one place.',
 		plugin: {
 			_type: 'wporg',
-			slug: 'woocommerce-square',
-			file: 'woocommerce-square/woocommerce-square',
+			slug: 'poocommerce-square',
+			file: 'poocommerce-square/poocommerce-square',
 			status: 'not_installed',
 		},
-		image: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/onboarding/square-black.png',
-		icon: 'http://localhost:8082/wp-content/plugins/woocommerce/assets/images/payment_methods/72x72/square.png',
+		image: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/onboarding/square-black.png',
+		icon: 'http://localhost:8082/wp-content/plugins/poocommerce/assets/images/payment_methods/72x72/square.png',
 		short_description: '',
 		links: [
 			{
 				_type: 'about',
-				url: 'https://woocommerce.com/products/square/',
+				url: 'https://poocommerce.com/products/square/',
 			},
 			{
 				_type: 'documentation',
-				url: 'https://woocommerce.com/document/woocommerce-square/',
+				url: 'https://poocommerce.com/document/poocommerce-square/',
 			},
 			{
 				_type: 'support',
-				url: 'https://woocommerce.com/my-account/contact-support/?select=square',
+				url: 'https://poocommerce.com/my-account/contact-support/?select=square',
 			},
 		],
 		tags: [ 'made_in_woo' ],

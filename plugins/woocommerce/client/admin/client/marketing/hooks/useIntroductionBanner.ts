@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 type UseIntroductionBanner = {
 	loading: boolean;
@@ -12,7 +12,7 @@ type UseIntroductionBanner = {
 };
 
 const OPTION_NAME_BANNER_DISMISSED =
-	'woocommerce_marketing_overview_multichannel_banner_dismissed';
+	'poocommerce_marketing_overview_multichannel_banner_dismissed';
 const OPTION_VALUE_YES = 'yes';
 
 export const useIntroductionBanner = (): UseIntroductionBanner => {

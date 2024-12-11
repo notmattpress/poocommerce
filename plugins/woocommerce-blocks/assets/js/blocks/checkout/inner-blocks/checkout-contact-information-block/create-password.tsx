@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import PasswordStrengthMeter from '@woocommerce/base-components/cart-checkout/password-strength-meter';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import PasswordStrengthMeter from '@poocommerce/base-components/cart-checkout/password-strength-meter';
 
 const CreatePassword = () => {
 	const [ passwordStrength, setPasswordStrength ] = useState( 0 );
@@ -21,7 +21,7 @@ const CreatePassword = () => {
 	return (
 		<ValidatedTextInput
 			type="password"
-			label={ __( 'Create a password', 'woocommerce' ) }
+			label={ __( 'Create a password', 'poocommerce' ) }
 			className={ `wc-block-components-address-form__password` }
 			value={ customerPassword }
 			required={ true }
@@ -34,13 +34,13 @@ const CreatePassword = () => {
 					validity.badInput ||
 					validity.typeMismatch
 				) {
-					return __( 'Please enter a valid password', 'woocommerce' );
+					return __( 'Please enter a valid password', 'poocommerce' );
 				}
 			} }
 			customValidation={ ( inputObject ) => {
 				if ( passwordStrength < 2 ) {
 					inputObject.setCustomValidity(
-						__( 'Please create a stronger password', 'woocommerce' )
+						__( 'Please create a stronger password', 'poocommerce' )
 					);
 					return false;
 				}

@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		editor: {
-			block: '.wp-block-woocommerce-mini-cart',
+			block: '.wp-block-poocommerce-mini-cart',
 			insertButton: "//button//span[text()='Mini-Cart']",
 		},
 		frontend: {},
@@ -20,7 +20,7 @@ test.describe( 'Merchant → Mini Cart', () => {
 	test.describe( 'in FSE editor', () => {
 		test( 'can be inserted in FSE area', async ( { editor, admin } ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//single-product`,
+				postId: `poocommerce/poocommerce//single-product`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
@@ -35,7 +35,7 @@ test.describe( 'Merchant → Mini Cart', () => {
 
 		test( 'can only be inserted once', async ( { editor, admin } ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//single-product`,
+				postId: `poocommerce/poocommerce//single-product`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );

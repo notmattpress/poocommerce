@@ -10,7 +10,7 @@ const {
 	settingsPageSaveChanges,
 	addShippingZoneAndMethod,
 	withRestApi,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -32,7 +32,7 @@ const runCheckoutCreateAccountTest = () => {
 			await merchant.login();
 			await merchant.openSettings( 'account' );
 			await setCheckbox(
-				'#woocommerce_enable_signup_and_login_from_checkout'
+				'#poocommerce_enable_signup_and_login_from_checkout'
 			);
 			await settingsPageSaveChanges();
 

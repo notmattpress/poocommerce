@@ -5,10 +5,10 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * Service provider for the import/export classes.

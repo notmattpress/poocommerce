@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions;
+namespace Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions;
 
 /**
  * Default Shipping Partners
@@ -17,26 +17,26 @@ class DefaultShippingPartners {
 		$column_layout_features = array(
 			array(
 				'icon'        => $asset_base_url . 'timer.svg',
-				'title'       => __( 'Save time', 'woocommerce' ),
+				'title'       => __( 'Save time', 'poocommerce' ),
 				'description' => __(
 					'Automatically import order information to quickly print your labels.',
-					'woocommerce'
+					'poocommerce'
 				),
 			),
 			array(
 				'icon'        => $asset_base_url . 'discount.svg',
-				'title'       => __( 'Save money', 'woocommerce' ),
+				'title'       => __( 'Save money', 'poocommerce' ),
 				'description' => __(
 					'Shop for the best shipping rates, and access pre-negotiated discounted rates.',
-					'woocommerce'
+					'poocommerce'
 				),
 			),
 			array(
 				'icon'        => $asset_base_url . 'star.svg',
-				'title'       => __( 'Wow your shoppers', 'woocommerce' ),
+				'title'       => __( 'Wow your shoppers', 'poocommerce' ),
 				'description' => __(
 					'Keep your customers informed with tracking notifications.',
-					'woocommerce'
+					'poocommerce'
 				),
 			),
 		);
@@ -45,10 +45,10 @@ class DefaultShippingPartners {
 
 		return array(
 			array(
-				'id'                => 'woocommerce-shipstation-integration',
+				'id'                => 'poocommerce-shipstation-integration',
 				'name'              => 'ShipStation',
-				'slug'              => 'woocommerce-shipstation-integration',
-				'description'       => __( 'Powerful yet easy-to-use solution:', 'woocommerce' ),
+				'slug'              => 'poocommerce-shipstation-integration',
+				'description'       => __( 'Powerful yet easy-to-use solution:', 'poocommerce' ),
 				'layout_column'     => array(
 					'image'    => $asset_base_url . 'shipstation-column.svg',
 					'features' => $column_layout_features,
@@ -60,31 +60,31 @@ class DefaultShippingPartners {
 							'icon'        => $check_icon,
 							'description' => __(
 								'Discounted labels from top global carriers',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
 							'description' => __(
 								'Sync all your selling channels in one place',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Advanced automated workflows and customs', 'woocommerce' ),
+							'description' => __( 'Advanced automated workflows and customs', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Instantly send tracking to your customers', 'woocommerce' ),
+							'description' => __( 'Instantly send tracking to your customers', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( '30-day free trial', 'woocommerce' ),
+							'description' => __( '30-day free trial', 'poocommerce' ),
 						),
 					),
 				),
-				'learn_more_link'   => 'https://wordpress.org/plugins/woocommerce-shipstation-integration/',
+				'learn_more_link'   => 'https://wordpress.org/plugins/poocommerce-shipstation-integration/',
 				'is_visible'        => array(
 					self::get_rules_for_countries( array( 'AU', 'CA', 'GB' ) ),
 				),
@@ -114,17 +114,17 @@ class DefaultShippingPartners {
 					'image'    => $asset_base_url . 'envia-column.svg',
 					'features' => $column_layout_features,
 				),
-				'learn_more_link'   => 'https://woocommerce.com/products/envia-shipping-and-fulfillment/',
+				'learn_more_link'   => 'https://poocommerce.com/products/envia-shipping-and-fulfillment/',
 				'is_visible'        => array(
 					self::get_rules_for_countries( array( 'CL', 'AR', 'PE', 'BR', 'UY', 'GT' ) ),
 				),
 				'available_layouts' => array( 'column' ),
 			),
 			array(
-				'id'                => 'easyship-woocommerce-shipping-rates',
+				'id'                => 'easyship-poocommerce-shipping-rates',
 				'name'              => 'Easyship',
-				'slug'              => 'easyship-woocommerce-shipping-rates',
-				'description'       => __( 'Simplified shipping with: ', 'woocommerce' ),
+				'slug'              => 'easyship-poocommerce-shipping-rates',
+				'description'       => __( 'Simplified shipping with: ', 'poocommerce' ),
 				'layout_column'     => array(
 					'image'    => $asset_base_url . 'easyship-column.svg',
 					'features' => $column_layout_features,
@@ -134,30 +134,30 @@ class DefaultShippingPartners {
 					'features' => array(
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Highly discounted shipping rates', 'woocommerce' ),
+							'description' => __( 'Highly discounted shipping rates', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
 							'description' => __(
 								'Seamless order sync and label printing',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Branded tracking experience', 'woocommerce' ),
+							'description' => __( 'Branded tracking experience', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Built-in Tax & Duties paperwork', 'woocommerce' ),
+							'description' => __( 'Built-in Tax & Duties paperwork', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Free Plan Available', 'woocommerce' ),
+							'description' => __( 'Free Plan Available', 'poocommerce' ),
 						),
 					),
 				),
-				'learn_more_link'   => 'https://woocommerce.com/products/easyship-shipping-rates/',
+				'learn_more_link'   => 'https://poocommerce.com/products/easyship-shipping-rates/',
 				'is_visible'        => array(
 					self::get_rules_for_countries( array( 'SG', 'HK', 'AU', 'NZ' ) ),
 				),
@@ -167,7 +167,7 @@ class DefaultShippingPartners {
 				'id'                => 'sendcloud-shipping',
 				'name'              => 'Sendcloud',
 				'slug'              => 'sendcloud-shipping',
-				'description'       => __( 'All-in-one shipping tool:', 'woocommerce' ),
+				'description'       => __( 'All-in-one shipping tool:', 'poocommerce' ),
 				'layout_column'     => array(
 					'image'    => $asset_base_url . 'sendcloud-column.svg',
 					'features' => $column_layout_features,
@@ -177,27 +177,27 @@ class DefaultShippingPartners {
 					'features' => array(
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Print labels from 80+ carriers', 'woocommerce' ),
+							'description' => __( 'Print labels from 80+ carriers', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
 							'description' => __(
 								'Process orders in just a few clicks',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Customize checkout options', 'woocommerce' ),
+							'description' => __( 'Customize checkout options', 'poocommerce' ),
 						),
 
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Self-service tracking & returns', 'woocommerce' ),
+							'description' => __( 'Self-service tracking & returns', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Start with a free plan', 'woocommerce' ),
+							'description' => __( 'Start with a free plan', 'poocommerce' ),
 						),
 					),
 				),
@@ -211,7 +211,7 @@ class DefaultShippingPartners {
 				'id'                => 'packlink-pro-shipping',
 				'name'              => 'Packlink',
 				'slug'              => 'packlink-pro-shipping',
-				'description'       => __( 'Optimize your full shipping process:', 'woocommerce' ),
+				'description'       => __( 'Optimize your full shipping process:', 'poocommerce' ),
 				'layout_column'     => array(
 					'image'    => $asset_base_url . 'packlink-column.svg',
 					'features' => $column_layout_features,
@@ -223,30 +223,30 @@ class DefaultShippingPartners {
 							'icon'        => $check_icon,
 							'description' => __(
 								'Automated, real-time order import',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
 							'description' => __(
 								'Direct access to leading carriers',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
 							'description' => __(
 								'Access competitive shipping prices',
-								'woocommerce'
+								'poocommerce'
 							),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Quickly bulk print labels', 'woocommerce' ),
+							'description' => __( 'Quickly bulk print labels', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $check_icon,
-							'description' => __( 'Free shipping platform', 'woocommerce' ),
+							'description' => __( 'Free shipping platform', 'poocommerce' ),
 						),
 					),
 				),
@@ -257,32 +257,32 @@ class DefaultShippingPartners {
 				'available_layouts' => array( 'row', 'column' ),
 			),
 			array(
-				'id'                => 'woocommerce-services',
-				'name'              => 'WooCommerce Shipping',
-				'slug'              => 'woocommerce-services',
-				'description'       => __( 'Save time and money by printing your shipping labels right from your computer with WooCommerce Shipping. Try WooCommerce Shipping for free.', 'woocommerce' ),
+				'id'                => 'poocommerce-services',
+				'name'              => 'PooCommerce Shipping',
+				'slug'              => 'poocommerce-services',
+				'description'       => __( 'Save time and money by printing your shipping labels right from your computer with PooCommerce Shipping. Try PooCommerce Shipping for free.', 'poocommerce' ),
 				'dependencies'      => array( 'jetpack' ),
 				'layout_column'     => array(
 					'image'    => $asset_base_url . 'wcs-column.svg',
 					'features' => array(
 						array(
 							'icon'        => $asset_base_url . 'printer.svg',
-							'title'       => __( 'Buy postage when you need it', 'woocommerce' ),
-							'description' => __( 'No need to wonder where that stampbook went.', 'woocommerce' ),
+							'title'       => __( 'Buy postage when you need it', 'poocommerce' ),
+							'description' => __( 'No need to wonder where that stampbook went.', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $asset_base_url . 'paper.svg',
-							'title'       => __( 'Print at home', 'woocommerce' ),
-							'description' => __( 'Pick up an order, then just pay, print, package and post.', 'woocommerce' ),
+							'title'       => __( 'Print at home', 'poocommerce' ),
+							'description' => __( 'Pick up an order, then just pay, print, package and post.', 'poocommerce' ),
 						),
 						array(
 							'icon'        => $asset_base_url . 'discount.svg',
-							'title'       => __( 'Discounted rates', 'woocommerce' ),
-							'description' => __( 'Access discounted shipping rates with DHL and USPS.', 'woocommerce' ),
+							'title'       => __( 'Discounted rates', 'poocommerce' ),
+							'description' => __( 'Access discounted shipping rates with DHL and USPS.', 'poocommerce' ),
 						),
 					),
 				),
-				'learn_more_link'   => 'https://woocommerce.com/products/shipping/',
+				'learn_more_link'   => 'https://poocommerce.com/products/shipping/',
 				'is_visible'        => array(
 					self::get_rules_for_countries( array( 'US' ) ),
 					(object) array(
@@ -290,7 +290,7 @@ class DefaultShippingPartners {
 						'operand' => array(
 							(object) array(
 								'type'    => 'plugins_activated',
-								'plugins' => array( 'woocommerce-shipping' ),
+								'plugins' => array( 'poocommerce-shipping' ),
 							),
 						),
 					),
@@ -299,7 +299,7 @@ class DefaultShippingPartners {
 						'operand' => array(
 							(object) array(
 								'type'    => 'plugins_activated',
-								'plugins' => array( 'woocommerce-tax' ),
+								'plugins' => array( 'poocommerce-tax' ),
 							),
 						),
 					),

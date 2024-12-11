@@ -53,7 +53,7 @@ export function singleProduct() {
 			},
 			'body contains: product SKU': ( r ) =>
 				r.body.includes( `class="sku">${ product_sku }` ),
-			'footer contains: Built with WooCommerce': ( r ) =>
+			'footer contains: Built with PooCommerce': ( r ) =>
 				r.html().find( 'body footer' ).text().includes( FOOTER_TEXT ),
 		} );
 	} );

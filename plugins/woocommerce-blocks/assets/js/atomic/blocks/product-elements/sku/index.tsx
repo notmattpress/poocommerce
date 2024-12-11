@@ -26,7 +26,7 @@ const blockConfig: BlockConfiguration = {
 	attributes,
 	ancestor: [
 		...( sharedConfig.ancestor || [] ),
-		'woocommerce/product-meta',
+		'poocommerce/product-meta',
 	],
 	edit,
 	save() {
@@ -35,4 +35,4 @@ const blockConfig: BlockConfiguration = {
 	supports,
 };
 
-registerBlockType( 'woocommerce/product-sku', { ...blockConfig } );
+registerBlockType( 'poocommerce/product-sku', { ...blockConfig } );

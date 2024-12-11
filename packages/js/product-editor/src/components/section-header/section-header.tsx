@@ -3,7 +3,7 @@
  */
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { __experimentalTooltip as Tooltip } from '@woocommerce/components';
+import { __experimentalTooltip as Tooltip } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -20,16 +20,16 @@ export function SectionHeader( {
 	const HeadingTagName = sectionTagName === 'fieldset' ? 'legend' : 'div';
 
 	return (
-		<HeadingTagName className="wp-block-woocommerce-product-section-header__heading">
-			<div className="wp-block-woocommerce-product-section-header__heading-title-wrapper">
-				<h2 className="wp-block-woocommerce-product-section-header__heading-title">
+		<HeadingTagName className="wp-block-poocommerce-product-section-header__heading">
+			<div className="wp-block-poocommerce-product-section-header__heading-title-wrapper">
+				<h2 className="wp-block-poocommerce-product-section-header__heading-title">
 					{ title }
 					{ description && (
 						<Tooltip
-							className="wp-block-woocommerce-product-section-header__heading-tooltip"
+							className="wp-block-poocommerce-product-section-header__heading-tooltip"
 							text={
 								<p
-									className="wp-block-woocommerce-product-section-header__heading-description"
+									className="wp-block-poocommerce-product-section-header__heading-description"
 									dangerouslySetInnerHTML={ sanitizeHTML(
 										description
 									) }
@@ -38,13 +38,13 @@ export function SectionHeader( {
 							position={ 'bottom center' }
 							helperText={ __(
 								'View helper text',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
 				</h2>
 
-				<div className="wp-block-woocommerce-product-section-header__actions">
+				<div className="wp-block-poocommerce-product-section-header__actions">
 					<BlockSlot name={ `section-actions` } />
 				</div>
 			</div>

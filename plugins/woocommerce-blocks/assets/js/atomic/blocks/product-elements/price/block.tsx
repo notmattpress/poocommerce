@@ -2,15 +2,15 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import ProductPrice from '@woocommerce/base-components/product-price';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import ProductPrice from '@poocommerce/base-components/product-price';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { CurrencyCode } from '@woocommerce/type-defs/currency';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { CurrencyCode } from '@poocommerce/type-defs/currency';
 import type { HTMLAttributes } from 'react';
 
 /**
@@ -41,7 +41,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	const { product } = useProductDataContext();
 
 	const isDescendentOfAllProductsBlock =
-		parentName === 'woocommerce/all-products';
+		parentName === 'poocommerce/all-products';
 
 	const wrapperClassName = clsx(
 		'wc-block-components-product-price',
@@ -58,7 +58,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 		);
 		if ( isDescendentOfAllProductsBlock ) {
 			return (
-				<div className="wp-block-woocommerce-product-price">
+				<div className="wp-block-poocommerce-product-price">
 					{ productPriceComponent }
 				</div>
 			);
@@ -109,7 +109,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	);
 	if ( isDescendentOfAllProductsBlock ) {
 		return (
-			<div className="wp-block-woocommerce-product-price">
+			<div className="wp-block-poocommerce-product-price">
 				{ productPriceComponent }
 			</div>
 		);
@@ -123,7 +123,7 @@ export default ( props: Props ) => {
 	// - Inside `Products Block` -> Gutenberg Context
 	// - Inside `Single Product Template` -> Gutenberg Context
 	// - Without any parent -> `WithSelector` and `withProductDataContext` HOCs
-	// For more details, check https://github.com/woocommerce/woocommerce-blocks/pull/8609
+	// For more details, check https://github.com/poocommerce/poocommerce-blocks/pull/8609
 	if ( props.isDescendentOfSingleProductTemplate ) {
 		return <Block { ...props } />;
 	}

@@ -17,13 +17,13 @@ export const replaceLabelsCommand = new Command( 'replace-labels' )
 	.description( 'Replace labels of issues' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.option( '-l --label <label>', 'Label to filter by and replace' )
 	.option(

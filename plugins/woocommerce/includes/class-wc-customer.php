@@ -1,8 +1,8 @@
 <?php
 /**
- * The WooCommerce customer class handles storage of the current customer's data, such as location.
+ * The PooCommerce customer class handles storage of the current customer's data, such as location.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  */
 
@@ -183,10 +183,10 @@ class WC_Customer extends WC_Legacy_Customer {
 	 * @return array
 	 */
 	public function get_taxable_address() {
-		$tax_based_on = get_option( 'woocommerce_tax_based_on' );
+		$tax_based_on = get_option( 'poocommerce_tax_based_on' );
 
 		// Check shipping method at this point to see if we need special handling.
-		if ( true === apply_filters( 'woocommerce_apply_base_tax_for_local_pickup', true ) && count( array_intersect( wc_get_chosen_shipping_method_ids(), apply_filters( 'woocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) ) ) ) > 0 ) {
+		if ( true === apply_filters( 'poocommerce_apply_base_tax_for_local_pickup', true ) && count( array_intersect( wc_get_chosen_shipping_method_ids(), apply_filters( 'poocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) ) ) ) > 0 ) {
 			$tax_based_on = 'base';
 		}
 
@@ -217,7 +217,7 @@ class WC_Customer extends WC_Legacy_Customer {
 		 *
 		 * @return array The filtered taxable address for the customer.
 		 */
-		return apply_filters( 'woocommerce_customer_taxable_address', array( $country, $state, $postcode, $city ), $this );
+		return apply_filters( 'poocommerce_customer_taxable_address', array( $country, $state, $postcode, $city ), $this );
 	}
 
 	/**
@@ -230,7 +230,7 @@ class WC_Customer extends WC_Legacy_Customer {
 		if ( $this->get_id() ) {
 			$downloads = wc_get_customer_available_downloads( $this->get_id() );
 		}
-		return apply_filters( 'woocommerce_customer_get_downloadable_products', $downloads );
+		return apply_filters( 'poocommerce_customer_get_downloadable_products', $downloads );
 	}
 
 	/**
@@ -466,7 +466,7 @@ class WC_Customer extends WC_Legacy_Customer {
 
 			if ( 'view' === $context ) {
 				/**
-				 * Filter: 'woocommerce_customer_get_[billing|shipping]_[prop]'
+				 * Filter: 'poocommerce_customer_get_[billing|shipping]_[prop]'
 				 *
 				 * Allow developers to change the returned value for any customer address property.
 				 *
@@ -792,7 +792,7 @@ class WC_Customer extends WC_Legacy_Customer {
 	 */
 	public function set_email( $value ) {
 		if ( $value && ! is_email( $value ) ) {
-			$this->error( 'customer_invalid_email', __( 'Invalid email address', 'woocommerce' ) );
+			$this->error( 'customer_invalid_email', __( 'Invalid email address', 'poocommerce' ) );
 		}
 		$this->set_prop( 'email', sanitize_email( $value ) );
 	}
@@ -825,7 +825,7 @@ class WC_Customer extends WC_Legacy_Customer {
 	 */
 	public function set_display_name( $display_name ) {
 		/* translators: 1: first name 2: last name */
-		$this->set_prop( 'display_name', is_email( $display_name ) ? sprintf( _x( '%1$s %2$s', 'display name', 'woocommerce' ), $this->get_first_name(), $this->get_last_name() ) : $display_name );
+		$this->set_prop( 'display_name', is_email( $display_name ) ? sprintf( _x( '%1$s %2$s', 'display name', 'poocommerce' ), $this->get_first_name(), $this->get_last_name() ) : $display_name );
 	}
 
 	/**
@@ -838,7 +838,7 @@ class WC_Customer extends WC_Legacy_Customer {
 		global $wp_roles;
 
 		if ( $role && ! empty( $wp_roles->roles ) && ! in_array( $role, array_keys( $wp_roles->roles ), true ) ) {
-			$this->error( 'customer_invalid_role', __( 'Invalid role', 'woocommerce' ) );
+			$this->error( 'customer_invalid_role', __( 'Invalid role', 'poocommerce' ) );
 		}
 		$this->set_prop( 'role', $role );
 	}
@@ -1042,7 +1042,7 @@ class WC_Customer extends WC_Legacy_Customer {
 	 */
 	public function set_billing_email( $value ) {
 		if ( $value && ! is_email( $value ) ) {
-			$this->error( 'customer_invalid_billing_email', __( 'Invalid billing email address', 'woocommerce' ) );
+			$this->error( 'customer_invalid_billing_email', __( 'Invalid billing email address', 'poocommerce' ) );
 		}
 		$this->set_address_prop( 'email', 'billing', sanitize_email( $value ) );
 	}

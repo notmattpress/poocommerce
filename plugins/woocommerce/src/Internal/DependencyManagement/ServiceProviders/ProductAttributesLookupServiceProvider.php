@@ -3,13 +3,13 @@
  * ProductAttributesLookupServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\CLIRunner;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\Filterer;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\CLIRunner;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\Filterer;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
 
 /**
  * Service provider for the ProductAttributesLookupServiceProvider namespace.

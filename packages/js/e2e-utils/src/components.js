@@ -14,7 +14,7 @@ import {
 import factories from './factories';
 import { waitForTimeout } from './flows/utils';
 import { withRestApi } from './flows/with-rest-api';
-import { Coupon, Order } from '@woocommerce/api';
+import { Coupon, Order } from '@poocommerce/api';
 
 const client = factories.api.withDefaultPermalinks;
 const config = require( 'config' );
@@ -131,7 +131,7 @@ const createSimpleDownloadableProduct = async (
 			{
 				id: uuid.v4(),
 				name: downloadName,
-				file: 'https://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2017/08/single.jpg',
+				file: 'https://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2017/08/single.jpg',
 			},
 		],
 		download_limit: downloadLimit,

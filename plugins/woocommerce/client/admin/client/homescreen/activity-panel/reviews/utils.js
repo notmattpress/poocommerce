@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { REVIEWS_STORE_NAME } from '@woocommerce/data';
+import { REVIEWS_STORE_NAME } from '@poocommerce/data';
 
 export const REVIEW_PAGE_LIMIT = 5;
 

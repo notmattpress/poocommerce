@@ -1,11 +1,11 @@
-const { createSimpleProduct } = require( '@woocommerce/e2e-utils' );
+const { createSimpleProduct } = require( '@poocommerce/e2e-utils' );
 
 /**
  * Internal dependencies
  */
-const { merchant, createOrder } = require( '@woocommerce/e2e-utils' );
+const { merchant, createOrder } = require( '@poocommerce/e2e-utils' );
 
-// TODO create a function for the logic below getConfigSimpleProduct(), see: https://github.com/woocommerce/woocommerce/issues/29072
+// TODO create a function for the logic below getConfigSimpleProduct(), see: https://github.com/poocommerce/poocommerce/issues/29072
 const config = require( 'config' );
 const simpleProductName = config.get( 'products.simple.name' );
 const simpleProductPrice = config.has( 'products.simple.price' )
@@ -16,7 +16,7 @@ const runMerchantOrdersCustomerPaymentPage = () => {
 	let orderId;
 	let productId;
 
-	describe( 'WooCommerce Merchant Flow: Orders > Customer Payment Page', () => {
+	describe( 'PooCommerce Merchant Flow: Orders > Customer Payment Page', () => {
 		beforeAll( async () => {
 			productId = await createSimpleProduct();
 			orderId = await createOrder( { productId } );
@@ -59,7 +59,7 @@ const runMerchantOrdersCustomerPaymentPage = () => {
 				text: simpleProductName,
 			} );
 			await expect( page ).toMatchElement(
-				'span.woocommerce-Price-amount.amount',
+				'span.poocommerce-Price-amount.amount',
 				{
 					text: simpleProductPrice,
 				}
@@ -83,13 +83,13 @@ const runMerchantOrdersCustomerPaymentPage = () => {
 				text: 'Order received',
 			} );
 			await expect( page ).toMatchElement(
-				'li.woocommerce-order-overview__order.order',
+				'li.poocommerce-order-overview__order.order',
 				{
 					text: orderId.toString(),
 				}
 			);
 			await expect( page ).toMatchElement(
-				'span.woocommerce-Price-amount.amount',
+				'span.poocommerce-Price-amount.amount',
 				{
 					text: simpleProductPrice,
 				}

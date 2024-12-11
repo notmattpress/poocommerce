@@ -41,7 +41,7 @@ const couponData = {
 		code: `excludeProductBrands-${ new Date().getTime().toString() }`,
 		description: 'Exclude product brands coupon',
 		amount: '65',
-		excludeProductBrands: [ 'WooCommerce Apparels' ],
+		excludeProductBrands: [ 'PooCommerce Apparels' ],
 	},
 	products: {
 		code: `products-${ new Date().getTime().toString() }`,
@@ -224,10 +224,10 @@ test.describe(
 							.click();
 						await page
 							.getByPlaceholder( 'No brands' )
-							.pressSequentially( 'WooCommerce Apparels' );
+							.pressSequentially( 'PooCommerce Apparels' );
 						await page
 							.getByRole( 'option', {
-								name: 'WooCommerce Apparels',
+								name: 'PooCommerce Apparels',
 							} )
 							.click();
 					} );

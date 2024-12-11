@@ -1,6 +1,6 @@
 # Using an External Environment for End to End Testing
 
-This document provides general instructions for using `@woocommerce/e2e-environment` with your WooCommerce environment. Whether you're using a non-standard Docker configuration, a locally-hosted WC install, or a WC install hosted externally, these instructions should point you to what is needed for configuration.
+This document provides general instructions for using `@poocommerce/e2e-environment` with your PooCommerce environment. Whether you're using a non-standard Docker configuration, a locally-hosted WC install, or a WC install hosted externally, these instructions should point you to what is needed for configuration.
 
 ## Prerequisites
 
@@ -18,13 +18,13 @@ If you don't have shell access to your test site, simply create a Page with the 
 
 ### Project Initialization
 
-Each project will have its own begin test state and initialization script. For example, a project might start testing expecting that the [sample products](https://github.com/woocommerce/woocommerce/tree/trunk/sample-data) have already been imported. Below is the WP CLI equivalent initialization script for WooCommerce Core E2E testing (which expects certain users to be present and that WC is installed and active):
+Each project will have its own begin test state and initialization script. For example, a project might start testing expecting that the [sample products](https://github.com/poocommerce/poocommerce/tree/trunk/sample-data) have already been imported. Below is the WP CLI equivalent initialization script for PooCommerce Core E2E testing (which expects certain users to be present and that WC is installed and active):
 
 ```
 wp core install --url=http://localhost:8084 --admin_user=admin --admin_password=password --admin_email=wooadmin@example.org
-wp plugin activate woocommerce
+wp plugin activate poocommerce
 wp theme install twentynineteen --activate
-wp user create customer customer@woocommercecoree2etestsuite.com \
+wp user create customer customer@poocommercecoree2etestsuite.com \
 	--user_pass=password \
 	--role=subscriber \
 	--first_name='Jane' \
@@ -33,16 +33,16 @@ wp user create customer customer@woocommercecoree2etestsuite.com \
 
 Again, if you don't have shell access to your test site, through WP Admin ensure that:
 
-1. WooCommerce is installed and activated.
+1. PooCommerce is installed and activated.
 2. TwentyNineteen is installed and the active theme.
-3. You have an admin user set up (if their credentials differ from u/ `admin` and p/ `password` be sure to update `/plugins/woocommerce/tests/e2e/config/default.json`)
-4. You have a customer user set up named 'Jane Smith'. This user should be a `subscriber` and again make sure their username and password are reflected in `/plugins/woocommerce/tests/e2e/config/default.json`.
+3. You have an admin user set up (if their credentials differ from u/ `admin` and p/ `password` be sure to update `/plugins/poocommerce/tests/e2e/config/default.json`)
+4. You have a customer user set up named 'Jane Smith'. This user should be a `subscriber` and again make sure their username and password are reflected in `/plugins/poocommerce/tests/e2e/config/default.json`.
 
-You should then be able to run the e2e tests by running `pnpm e2e --filter=@woocommerce/plugin-woocommerce`.
+You should then be able to run the e2e tests by running `pnpm e2e --filter=@poocommerce/plugin-poocommerce`.
 
 ### Test Sequencer Setup
 
-The test sequencer needs to know the particulars of your test install to run the tests. The sequencer reads these settings from `/plugins/woocommerce/tests/e2e/config/default.json`.
+The test sequencer needs to know the particulars of your test install to run the tests. The sequencer reads these settings from `/plugins/poocommerce/tests/e2e/config/default.json`.
 
 - The `customer` entry is not required by the sequencer but is required for the core test suite.
 - The `url` value must match the URL of your testing container.

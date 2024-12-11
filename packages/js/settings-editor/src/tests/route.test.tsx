@@ -5,10 +5,10 @@ import { createElement } from '@wordpress/element';
 import { renderHook } from '@testing-library/react-hooks';
 import { screen, render } from '@testing-library/react';
 import { addAction, applyFilters, didFilter } from '@wordpress/hooks';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 // @ts-ignore No types for this exist yet.
 import { privateApis } from '@wordpress/router';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 /**
  * Internal dependencies
@@ -165,10 +165,10 @@ describe( 'route.tsx', () => {
 			( didFilter as jest.Mock ).mockReturnValue( 1 );
 			const hookAddedCallback = ( addAction as jest.Mock ).mock
 				.calls[ 0 ][ 2 ];
-			hookAddedCallback( 'woocommerce_admin_settings_pages' );
+			hookAddedCallback( 'poocommerce_admin_settings_pages' );
 
 			expect( applyFilters ).toHaveBeenCalledWith(
-				'woocommerce_admin_settings_pages',
+				'poocommerce_admin_settings_pages',
 				{}
 			);
 		} );

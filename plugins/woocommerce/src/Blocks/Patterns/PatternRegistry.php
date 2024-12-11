@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Patterns;
+namespace Automattic\PooCommerce\Blocks\Patterns;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * PatternRegistry class.
@@ -21,13 +21,13 @@ class PatternRegistry {
 	 */
 	private function get_category_labels() {
 		return [
-			'woo-commerce'     => __( 'WooCommerce', 'woocommerce' ),
-			'intro'            => __( 'Intro', 'woocommerce' ),
-			'featured-selling' => __( 'Featured Selling', 'woocommerce' ),
-			'about'            => __( 'About', 'woocommerce' ),
-			'social-media'     => __( 'Social Media', 'woocommerce' ),
-			'services'         => __( 'Services', 'woocommerce' ),
-			'reviews'          => __( 'Reviews', 'woocommerce' ),
+			'woo-commerce'     => __( 'PooCommerce', 'poocommerce' ),
+			'intro'            => __( 'Intro', 'poocommerce' ),
+			'featured-selling' => __( 'Featured Selling', 'poocommerce' ),
+			'about'            => __( 'About', 'poocommerce' ),
+			'social-media'     => __( 'Social Media', 'poocommerce' ),
+			'services'         => __( 'Services', 'poocommerce' ),
+			'reviews'          => __( 'Reviews', 'poocommerce' ),
 		];
 	}
 
@@ -47,7 +47,7 @@ class PatternRegistry {
 				esc_html(
 					sprintf(
 					/* translators: %s: file name. */
-						__( 'Could not register pattern "%s" as a block pattern ("Slug" field missing)', 'woocommerce' ),
+						__( 'Could not register pattern "%s" as a block pattern ("Slug" field missing)', 'poocommerce' ),
 						$source
 					)
 				),
@@ -62,7 +62,7 @@ class PatternRegistry {
 				esc_html(
 					sprintf(
 					/* translators: %1s: file name; %2s: slug value found. */
-						__( 'Could not register pattern "%1$s" as a block pattern (invalid slug "%2$s")', 'woocommerce' ),
+						__( 'Could not register pattern "%1$s" as a block pattern (invalid slug "%2$s")', 'poocommerce' ),
 						$source,
 						$pattern_data['slug']
 					)
@@ -87,7 +87,7 @@ class PatternRegistry {
 				esc_html(
 					sprintf(
 					/* translators: %1s: file name; %2s: slug value found. */
-						__( 'Could not register pattern "%s" as a block pattern ("Title" field missing)', 'woocommerce' ),
+						__( 'Could not register pattern "%s" as a block pattern ("Title" field missing)', 'poocommerce' ),
 						$source
 					)
 				),
@@ -144,10 +144,10 @@ class PatternRegistry {
 		}
 
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.LowLevelTranslationFunction
-		$pattern_data['title'] = translate_with_gettext_context( $pattern_data['title'], 'Pattern title', 'woocommerce' );
+		$pattern_data['title'] = translate_with_gettext_context( $pattern_data['title'], 'Pattern title', 'poocommerce' );
 		if ( ! empty( $pattern_data['description'] ) ) {
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.LowLevelTranslationFunction
-			$pattern_data['description'] = translate_with_gettext_context( $pattern_data['description'], 'Pattern description', 'woocommerce' );
+			$pattern_data['description'] = translate_with_gettext_context( $pattern_data['description'], 'Pattern description', 'poocommerce' );
 		}
 
 		$pattern_data_from_dictionary = $this->get_pattern_from_dictionary( $dictionary, $pattern_data['slug'] );
@@ -163,7 +163,7 @@ class PatternRegistry {
 				Before the "$content" and "$images" variables were populated in each pattern. Since the pattern
 				registration happens in the init hook, the dictionary was being access one for each pattern and
 				for each page load. This way we only do it once on registration.
-				For more context: https://github.com/woocommerce/woocommerce-blocks/pull/11733
+				For more context: https://github.com/poocommerce/poocommerce-blocks/pull/11733
 			*/
 
 			$content = array();

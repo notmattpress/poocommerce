@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Refunded_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 	 *
 	 * @class    WC_Email_Customer_Refunded_Order
 	 * @version  3.5.0
-	 * @package  WooCommerce\Classes\Emails
+	 * @package  PooCommerce\Classes\Emails
 	 * @extends  WC_Email
 	 */
 	class WC_Email_Customer_Refunded_Order extends WC_Email {
@@ -43,8 +43,8 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 		public function __construct() {
 			$this->customer_email = true;
 			$this->id             = 'customer_refunded_order';
-			$this->title          = __( 'Refunded order', 'woocommerce' );
-			$this->description    = __( 'Order refunded emails are sent to customers when their orders are refunded.', 'woocommerce' );
+			$this->title          = __( 'Refunded order', 'poocommerce' );
+			$this->description    = __( 'Order refunded emails are sent to customers when their orders are refunded.', 'poocommerce' );
 			$this->template_html  = 'emails/customer-refunded-order.php';
 			$this->template_plain = 'emails/plain/customer-refunded-order.php';
 			$this->placeholders   = array(
@@ -53,8 +53,8 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'trigger_full' ), 10, 2 );
-			add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'trigger_partial' ), 10, 2 );
+			add_action( 'poocommerce_order_fully_refunded_notification', array( $this, 'trigger_full' ), 10, 2 );
+			add_action( 'poocommerce_order_partially_refunded_notification', array( $this, 'trigger_partial' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
@@ -69,9 +69,9 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 		 */
 		public function get_default_subject( $partial = false ) {
 			if ( $partial ) {
-				return __( 'Your {site_title} order #{order_number} has been partially refunded', 'woocommerce' );
+				return __( 'Your {site_title} order #{order_number} has been partially refunded', 'poocommerce' );
 			} else {
-				return __( 'Your {site_title} order #{order_number} has been refunded', 'woocommerce' );
+				return __( 'Your {site_title} order #{order_number} has been refunded', 'poocommerce' );
 			}
 		}
 
@@ -84,9 +84,9 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 		 */
 		public function get_default_heading( $partial = false ) {
 			if ( $partial ) {
-				return __( 'Partial Refund: Order {order_number}', 'woocommerce' );
+				return __( 'Partial Refund: Order {order_number}', 'poocommerce' );
 			} else {
-				return __( 'Order Refunded: {order_number}', 'woocommerce' );
+				return __( 'Order Refunded: {order_number}', 'poocommerce' );
 			}
 		}
 
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 			} else {
 				$subject = $this->get_option( 'subject_full', $this->get_default_subject() );
 			}
-			return apply_filters( 'woocommerce_email_subject_customer_refunded_order', $this->format_string( $subject ), $this->object, $this );
+			return apply_filters( 'poocommerce_email_subject_customer_refunded_order', $this->format_string( $subject ), $this->object, $this );
 		}
 
 		/**
@@ -115,7 +115,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 			} else {
 				$heading = $this->get_option( 'heading_full', $this->get_default_heading() );
 			}
-			return apply_filters( 'woocommerce_email_heading_customer_refunded_order', $this->format_string( $heading ), $this->object, $this );
+			return apply_filters( 'poocommerce_email_heading_customer_refunded_order', $this->format_string( $heading ), $this->object, $this );
 		}
 
 		/**
@@ -227,7 +227,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'We hope to see you again soon.', 'woocommerce' );
+			return __( 'We hope to see you again soon.', 'poocommerce' );
 		}
 
 		/**
@@ -235,16 +235,16 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 		 */
 		public function init_form_fields() {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'yes',
 				),
 				'subject_full'       => array(
-					'title'       => __( 'Full refund subject', 'woocommerce' ),
+					'title'       => __( 'Full refund subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -252,7 +252,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'subject_partial'    => array(
-					'title'       => __( 'Partial refund subject', 'woocommerce' ),
+					'title'       => __( 'Partial refund subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -260,7 +260,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'heading_full'       => array(
-					'title'       => __( 'Full refund email heading', 'woocommerce' ),
+					'title'       => __( 'Full refund email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -268,7 +268,7 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'heading_partial'    => array(
-					'title'       => __( 'Partial refund email heading', 'woocommerce' ),
+					'title'       => __( 'Partial refund email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -276,18 +276,18 @@ if ( ! class_exists( 'WC_Email_Customer_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

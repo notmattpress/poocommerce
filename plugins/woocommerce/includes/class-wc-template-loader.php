@@ -2,7 +2,7 @@
 /**
  * Template Loader
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -27,7 +27,7 @@ class WC_Template_Loader {
 	private static $in_content_filter = false;
 
 	/**
-	 * Is WooCommerce support defined?
+	 * Is PooCommerce support defined?
 	 *
 	 * @var boolean
 	 */
@@ -37,7 +37,7 @@ class WC_Template_Loader {
 	 * Hook in methods.
 	 */
 	public static function init() {
-		self::$theme_support = wc_current_theme_supports_woocommerce_or_fse();
+		self::$theme_support = wc_current_theme_supports_poocommerce_or_fse();
 		self::$shop_page_id  = wc_get_page_id( 'shop' );
 
 		// Supported themes.
@@ -60,12 +60,12 @@ class WC_Template_Loader {
 	 *
 	 * Handles template usage so that we can use our own templates instead of the theme's.
 	 *
-	 * Templates are in the 'templates' folder. WooCommerce looks for theme
-	 * overrides in /theme/woocommerce/ by default.
+	 * Templates are in the 'templates' folder. PooCommerce looks for theme
+	 * overrides in /theme/poocommerce/ by default.
 	 *
-	 * For beginners, it also looks for a woocommerce.php template first. If the user adds
-	 * this to the theme (containing a woocommerce() inside) this will be used for all
-	 * WooCommerce templates.
+	 * For beginners, it also looks for a poocommerce.php template first. If the user adds
+	 * this to the theme (containing a poocommerce() inside) this will be used for all
+	 * PooCommerce templates.
 	 *
 	 * @param string $template Template to load.
 	 * @return string
@@ -79,7 +79,7 @@ class WC_Template_Loader {
 
 		if ( $default_file ) {
 			/**
-			 * Filter hook to choose which files to find before WooCommerce does it's own logic.
+			 * Filter hook to choose which files to find before PooCommerce does it's own logic.
 			 *
 			 * @since 3.0.0
 			 * @var array
@@ -168,7 +168,7 @@ class WC_Template_Loader {
 		 * @param boolean $has_template value to be filtered.
 		 * @param string $template_name The name of the template.
 		 */
-		return (bool) apply_filters( 'woocommerce_has_block_template', $has_template, $template_name );
+		return (bool) apply_filters( 'poocommerce_has_block_template', $has_template, $template_name );
 	}
 
 	/**
@@ -222,8 +222,8 @@ class WC_Template_Loader {
 	 * @return string[]
 	 */
 	private static function get_template_loader_files( $default_file ) {
-		$templates   = apply_filters( 'woocommerce_template_loader_files', array(), $default_file );
-		$templates[] = 'woocommerce.php';
+		$templates   = apply_filters( 'poocommerce_template_loader_files', array(), $default_file );
+		$templates[] = 'poocommerce.php';
 
 		if ( is_page_template() ) {
 			$page_template = get_page_template_slug();
@@ -233,7 +233,7 @@ class WC_Template_Loader {
 				if ( 0 === $validated_file ) {
 					$templates[] = $page_template;
 				} else {
-					error_log( "WooCommerce: Unable to validate template path: \"$page_template\". Error Code: $validated_file." ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					error_log( "PooCommerce: Unable to validate template path: \"$page_template\". Error Code: $validated_file." ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				}
 			}
 		}
@@ -351,9 +351,9 @@ class WC_Template_Loader {
 	private static function unsupported_theme_product_page_init() {
 		add_filter( 'the_content', array( __CLASS__, 'unsupported_theme_product_content_filter' ), 10 );
 		add_filter( 'post_thumbnail_html', array( __CLASS__, 'unsupported_theme_single_featured_image_filter' ) );
-		add_filter( 'woocommerce_product_tabs', array( __CLASS__, 'unsupported_theme_remove_review_tab' ) );
-		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
-		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+		add_filter( 'poocommerce_product_tabs', array( __CLASS__, 'unsupported_theme_remove_review_tab' ) );
+		remove_action( 'poocommerce_before_main_content', 'poocommerce_output_content_wrapper', 10 );
+		remove_action( 'poocommerce_after_main_content', 'poocommerce_output_content_wrapper_end', 10 );
 		self::add_support_for_product_page_gallery();
 	}
 
@@ -409,9 +409,9 @@ class WC_Template_Loader {
 			$prefix = '';
 		}
 
-		add_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'unsupported_archive_layered_nav_compatibility' ) );
+		add_filter( 'poocommerce_shortcode_products_query', array( __CLASS__, 'unsupported_archive_layered_nav_compatibility' ) );
 		$shortcode = new WC_Shortcode_Products( $shortcode_args );
-		remove_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'unsupported_archive_layered_nav_compatibility' ) );
+		remove_filter( 'poocommerce_shortcode_products_query', array( __CLASS__, 'unsupported_archive_layered_nav_compatibility' ) );
 		$shop_page = get_post( self::$shop_page_id );
 
 		$dummy_post_properties = array(
@@ -524,7 +524,7 @@ class WC_Template_Loader {
 	}
 
 	/**
-	 * Filter the title and insert WooCommerce content on the shop page.
+	 * Filter the title and insert PooCommerce content on the shop page.
 	 *
 	 * For non-WC themes, this will setup the main shop page to be shortcode based to improve default appearance.
 	 *
@@ -544,7 +544,7 @@ class WC_Template_Loader {
 
 			if ( $args->page > 1 ) {
 				/* translators: %d: Page number. */
-				$title_suffix[] = sprintf( esc_html__( 'Page %d', 'woocommerce' ), $args->page );
+				$title_suffix[] = sprintf( esc_html__( 'Page %d', 'poocommerce' ), $args->page );
 			}
 
 			if ( $title_suffix ) {
@@ -555,7 +555,7 @@ class WC_Template_Loader {
 	}
 
 	/**
-	 * Filter the content and insert WooCommerce content on the shop page.
+	 * Filter the content and insert PooCommerce content on the shop page.
 	 *
 	 * For non-WC themes, this will setup the main shop page to be shortcode based to improve default appearance.
 	 *
@@ -610,7 +610,7 @@ class WC_Template_Loader {
 	}
 
 	/**
-	 * Filter the content and insert WooCommerce content on the shop page.
+	 * Filter the content and insert PooCommerce content on the shop page.
 	 *
 	 * For non-WC themes, this will setup the main shop page to be shortcode based to improve default appearance.
 	 *

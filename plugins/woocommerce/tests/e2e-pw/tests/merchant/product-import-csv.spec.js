@@ -1,5 +1,5 @@
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const path = require( 'path' );
 const { tags } = require( '../../fixtures/fixtures' );
 const filePath = path.resolve( 'tests/e2e-pw/test-data/sample_products.csv' );
@@ -106,7 +106,7 @@ test.describe.serial(
 				version: 'wc/v3',
 			} );
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 		} );
@@ -204,7 +204,7 @@ test.describe.serial(
 
 			// Confirm that the import is done
 			await expect(
-				page.locator( '.woocommerce-importer-done' )
+				page.locator( '.poocommerce-importer-done' )
 			).toContainText( 'Import complete!', { timeout: 120000 } );
 
 			// View the products
@@ -239,7 +239,7 @@ test.describe.serial(
 			] );
 			await fileChooser.setFiles( filePathOverride );
 			await page
-				.locator( '#woocommerce-importer-update-existing' )
+				.locator( '#poocommerce-importer-update-existing' )
 				.click();
 			await page.locator( 'button[value="Continue"]' ).click();
 
@@ -248,7 +248,7 @@ test.describe.serial(
 
 			// Confirm that the import is done
 			await expect(
-				page.locator( '.woocommerce-importer-done' )
+				page.locator( '.poocommerce-importer-done' )
 			).toContainText( 'Import complete!', { timeout: 120000 } ); // import can take a while
 
 			// View the products

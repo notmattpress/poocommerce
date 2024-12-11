@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Definition;
+namespace Automattic\PooCommerce\Vendor\League\Container\Definition;
 
 use Generator;
-use Automattic\WooCommerce\Vendor\League\Container\ContainerAwareTrait;
-use Automattic\WooCommerce\Vendor\League\Container\Exception\NotFoundException;
+use Automattic\PooCommerce\Vendor\League\Container\ContainerAwareTrait;
+use Automattic\PooCommerce\Vendor\League\Container\Exception\NotFoundException;
 
 class DefinitionAggregate implements DefinitionAggregateInterface
 {

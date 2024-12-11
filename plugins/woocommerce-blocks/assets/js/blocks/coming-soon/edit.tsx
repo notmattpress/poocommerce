@@ -36,7 +36,7 @@ export default function Edit( { attributes, setAttributes }: EditProps ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ColorPicker
 						color={ color }
 						// @ts-expect-error type is not defined in the library
@@ -50,7 +50,7 @@ export default function Edit( { attributes, setAttributes }: EditProps ) {
 			</InspectorControls>
 			<div { ...blockProps }>
 				<InnerBlocks />
-				<style>{ `:root{--woocommerce-coming-soon-color: ${ color } }` }</style>
+				<style>{ `:root{--poocommerce-coming-soon-color: ${ color } }` }</style>
 			</div>
 		</>
 	);

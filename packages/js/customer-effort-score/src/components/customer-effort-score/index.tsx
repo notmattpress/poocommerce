@@ -47,7 +47,7 @@ type CustomerEffortScoreProps = {
 /**
  * Use `CustomerEffortScore` to gather a customer effort score.
  *
- * NOTE: This should live in @woocommerce/customer-effort-score to allow
+ * NOTE: This should live in @poocommerce/customer-effort-score to allow
  * reuse.
  *
  * @param {Object}   props                           Component props.
@@ -99,7 +99,7 @@ const CustomerEffortScore: React.VFC< CustomerEffortScoreProps > = ( {
 		createNotice( 'success', noticeLabel || title, {
 			actions: [
 				{
-					label: __( 'Give feedback', 'woocommerce' ),
+					label: __( 'Give feedback', 'poocommerce' ),
 					onClick: () => {
 						setVisible( true );
 						onModalShownCallback();

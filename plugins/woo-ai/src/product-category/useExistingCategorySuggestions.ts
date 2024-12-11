@@ -4,7 +4,7 @@
 import {
 	__experimentalUseCompletion as useCompletion,
 	UseCompletionError,
-} from '@woocommerce/ai';
+} from '@poocommerce/ai';
 
 /**
  * Internal dependencies
@@ -65,7 +65,7 @@ export const useExistingCategorySuggestions = (
 			excludeProps: [ ProductProps.Categories ],
 		} );
 		const instructions = [
-			'You are a WooCommerce SEO and marketing expert.',
+			'You are a PooCommerce SEO and marketing expert.',
 			`Using the product's ${ productPropsInstructions.includedProps.join(
 				', '
 			) } suggest only one category that best matches the product.`,

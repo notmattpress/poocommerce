@@ -2,7 +2,7 @@
 /**
  * Recent Products Widget.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 3.3.0
  */
 
@@ -17,15 +17,15 @@ class WC_Widget_Recently_Viewed extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_recently_viewed_products';
-		$this->widget_description = __( "Display a list of a customer's recently viewed products.", 'woocommerce' );
-		$this->widget_id          = 'woocommerce_recently_viewed_products';
-		$this->widget_name        = __( 'Recently Viewed Products list', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_recently_viewed_products';
+		$this->widget_description = __( "Display a list of a customer's recently viewed products.", 'poocommerce' );
+		$this->widget_id          = 'poocommerce_recently_viewed_products';
+		$this->widget_name        = __( 'Recently Viewed Products list', 'poocommerce' );
 		$this->settings           = array(
 			'title'  => array(
 				'type'  => 'text',
-				'std'   => __( 'Recently Viewed Products', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Recently Viewed Products', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'number' => array(
 				'type'  => 'number',
@@ -33,7 +33,7 @@ class WC_Widget_Recently_Viewed extends WC_Widget {
 				'min'   => 1,
 				'max'   => 15,
 				'std'   => 10,
-				'label' => __( 'Number of products to show', 'woocommerce' ),
+				'label' => __( 'Number of products to show', 'poocommerce' ),
 			),
 		);
 
@@ -48,7 +48,7 @@ class WC_Widget_Recently_Viewed extends WC_Widget {
 	 * @param array $instance Widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		$viewed_products = ! empty( $_COOKIE['woocommerce_recently_viewed'] ) ? (array) explode( '|', wp_unslash( $_COOKIE['woocommerce_recently_viewed'] ) ) : array(); // @codingStandardsIgnoreLine
+		$viewed_products = ! empty( $_COOKIE['poocommerce_recently_viewed'] ) ? (array) explode( '|', wp_unslash( $_COOKIE['poocommerce_recently_viewed'] ) ) : array(); // @codingStandardsIgnoreLine
 		$viewed_products = array_reverse( array_filter( array_map( 'absint', $viewed_products ) ) );
 
 		if ( empty( $viewed_products ) ) {
@@ -68,7 +68,7 @@ class WC_Widget_Recently_Viewed extends WC_Widget {
 			'orderby'        => 'post__in',
 		);
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$query_args['tax_query'] = array(
 				array(
 					'taxonomy' => 'product_visibility',
@@ -79,13 +79,13 @@ class WC_Widget_Recently_Viewed extends WC_Widget {
 			); // WPCS: slow query ok.
 		}
 
-		$r = new WP_Query( apply_filters( 'woocommerce_recently_viewed_products_widget_query_args', $query_args ) );
+		$r = new WP_Query( apply_filters( 'poocommerce_recently_viewed_products_widget_query_args', $query_args ) );
 
 		if ( $r->have_posts() ) {
 
 			$this->widget_start( $args, $instance );
 
-			echo wp_kses_post( apply_filters( 'woocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
 
 			$template_args = array(
 				'widget_id' => isset( $args['widget_id'] ) ? $args['widget_id'] : $this->widget_id,
@@ -96,7 +96,7 @@ class WC_Widget_Recently_Viewed extends WC_Widget {
 				wc_get_template( 'content-widget-product.php', $template_args );
 			}
 
-			echo wp_kses_post( apply_filters( 'woocommerce_after_widget_product_list', '</ul>' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_after_widget_product_list', '</ul>' ) );
 
 			$this->widget_end( $args );
 		}

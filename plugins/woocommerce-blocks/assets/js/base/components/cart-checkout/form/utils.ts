@@ -5,8 +5,8 @@ import {
 	AddressFormValues,
 	ContactFormValues,
 	KeyedFormField,
-} from '@woocommerce/settings';
-import { objectHasProp } from '@woocommerce/types';
+} from '@poocommerce/settings';
+import { objectHasProp } from '@poocommerce/types';
 
 /**
  * Internal dependencies

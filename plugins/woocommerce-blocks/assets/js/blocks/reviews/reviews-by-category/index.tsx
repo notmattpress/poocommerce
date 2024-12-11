@@ -16,9 +16,9 @@ import { example } from '../example.js';
 /**
  * Register and run the "Reviews by category" block.
  */
-registerBlockType( 'woocommerce/reviews-by-category', {
+registerBlockType( 'poocommerce/reviews-by-category', {
 	apiVersion: 3,
-	title: __( 'Reviews by Category', 'woocommerce' ),
+	title: __( 'Reviews by Category', 'poocommerce' ),
 	icon: {
 		src: (
 			<Icon
@@ -27,11 +27,11 @@ registerBlockType( 'woocommerce/reviews-by-category', {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 	description: __(
 		'Show product reviews from specific categories.',
-		'woocommerce'
+		'poocommerce'
 	),
 	supports: {
 		html: false,

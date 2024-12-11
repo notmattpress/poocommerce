@@ -5,7 +5,7 @@ import { Button } from '@wordpress/components';
 import { dispatch, useSelect } from '@wordpress/data';
 import { useContext } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ export default function Install( props: InstallProps ) {
 		loadSubscriptions( false ).then( () => {
 			let errorMessage = sprintf(
 				// translators: %s is the product name.
-				__( '%s couldn’t be installed.', 'woocommerce' ),
+				__( '%s couldn’t be installed.', 'poocommerce' ),
 				props.subscription.product_name
 			);
 			if ( error?.success === false && error?.data.message ) {
@@ -71,9 +71,9 @@ export default function Install( props: InstallProps ) {
 						{
 							label: __(
 								'Download and install manually',
-								'woocommerce'
+								'poocommerce'
 							),
-							url: 'https://woocommerce.com/my-account/downloads/',
+							url: 'https://poocommerce.com/my-account/downloads/',
 						},
 					],
 				}
@@ -113,7 +113,7 @@ export default function Install( props: InstallProps ) {
 								// translators: %s is the product name.
 								__(
 									'%s successfully installed.',
-									'woocommerce'
+									'poocommerce'
 								),
 								props.subscription.product_name
 							),
@@ -162,7 +162,7 @@ export default function Install( props: InstallProps ) {
 			disabled={ loading }
 			onClick={ install }
 		>
-			{ __( 'Install', 'woocommerce' ) }
+			{ __( 'Install', 'poocommerce' ) }
 		</Button>
 	);
 }

@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Shipping
+ * PooCommerce Shipping
  *
  * Handles shipping and loads shipping methods via hooks.
  *
  * @version 2.6.0
- * @package WooCommerce\Classes\Shipping
+ * @package PooCommerce\Classes\Shipping
  */
 
 use Automattic\Jetpack\Constants;
@@ -27,7 +27,7 @@ class WC_Shipping {
 	public $enabled = false;
 
 	/**
-	 * Stores methods loaded into woocommerce.
+	 * Stores methods loaded into poocommerce.
 	 *
 	 * @var array|null
 	 */
@@ -76,7 +76,7 @@ class WC_Shipping {
 	 * @since 2.1
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -85,7 +85,7 @@ class WC_Shipping {
 	 * @since 2.1
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -119,11 +119,11 @@ class WC_Shipping {
 	 * Initialize shipping.
 	 */
 	public function init() {
-		do_action( 'woocommerce_shipping_init' );
+		do_action( 'poocommerce_shipping_init' );
 	}
 
 	/**
-	 * Shipping methods register themselves by returning their main class name through the woocommerce_shipping_methods filter.
+	 * Shipping methods register themselves by returning their main class name through the poocommerce_shipping_methods filter.
 	 *
 	 * @return array
 	 */
@@ -139,13 +139,13 @@ class WC_Shipping {
 		$maybe_load_legacy_methods = array( 'flat_rate', 'free_shipping', 'international_delivery', 'local_delivery', 'local_pickup' );
 
 		foreach ( $maybe_load_legacy_methods as $method ) {
-			$options = get_option( 'woocommerce_' . $method . '_settings' );
+			$options = get_option( 'poocommerce_' . $method . '_settings' );
 			if ( $options && isset( $options['enabled'] ) && 'yes' === $options['enabled'] ) {
 				$shipping_methods[ 'legacy_' . $method ] = 'WC_Shipping_Legacy_' . $method;
 			}
 		}
 
-		return apply_filters( 'woocommerce_shipping_methods', $shipping_methods );
+		return apply_filters( 'poocommerce_shipping_methods', $shipping_methods );
 	}
 
 	/**
@@ -157,12 +157,12 @@ class WC_Shipping {
 	 */
 	public function load_shipping_methods( $package = array() ) {
 		if ( ! empty( $package ) ) {
-			$debug_mode             = 'yes' === get_option( 'woocommerce_shipping_debug_mode', 'no' );
+			$debug_mode             = 'yes' === get_option( 'poocommerce_shipping_debug_mode', 'no' );
 			$shipping_zone          = WC_Shipping_Zones::get_zone_matching_package( $package );
 			$this->shipping_methods = $shipping_zone->get_shipping_methods( true );
 
 			// translators: %s: shipping zone name.
-			$matched_zone_notice = sprintf( __( 'Customer matched zone "%s"', 'woocommerce' ), $shipping_zone->get_zone_name() );
+			$matched_zone_notice = sprintf( __( 'Customer matched zone "%s"', 'poocommerce' ), $shipping_zone->get_zone_name() );
 
 			// Debug output.
 			if ( $debug_mode && ! Constants::is_defined( 'WOOCOMMERCE_CHECKOUT' ) && ! Constants::is_defined( 'WC_DOING_AJAX' ) && ! wc_has_notice( $matched_zone_notice ) ) {
@@ -178,7 +178,7 @@ class WC_Shipping {
 		}
 
 		// Methods can register themselves manually through this hook if necessary.
-		do_action( 'woocommerce_load_shipping_methods', $package );
+		do_action( 'poocommerce_load_shipping_methods', $package );
 
 		// Return loaded methods.
 		return $this->get_shipping_methods();
@@ -239,7 +239,7 @@ class WC_Shipping {
 			);
 			$this->shipping_classes = ! is_wp_error( $classes ) ? $classes : array();
 		}
-		return apply_filters( 'woocommerce_get_shipping_classes', $this->shipping_classes );
+		return apply_filters( 'poocommerce_get_shipping_classes', $this->shipping_classes );
 	}
 
 	/**
@@ -264,14 +264,14 @@ class WC_Shipping {
 		 * Allow packages to be reorganized after calculating the shipping.
 		 *
 		 * This filter can be used to apply some extra manipulation after the shipping costs are calculated for the packages
-		 * but before WooCommerce does anything with them. A good example of usage is to merge the shipping methods for multiple
+		 * but before PooCommerce does anything with them. A good example of usage is to merge the shipping methods for multiple
 		 * packages for marketplaces.
 		 *
 		 * @since 2.6.0
 		 *
 		 * @param array $packages The array of packages after shipping costs are calculated.
 		 */
-		$this->packages = array_filter( (array) apply_filters( 'woocommerce_shipping_packages', $this->packages ) );
+		$this->packages = array_filter( (array) apply_filters( 'poocommerce_shipping_packages', $this->packages ) );
 
 		return $this->packages;
 	}
@@ -332,7 +332,7 @@ class WC_Shipping {
 		// Calculate the hash for this package so we can tell if it's changed since last calculation.
 		$package_hash = 'wc_ship_' . md5( wp_json_encode( $package_to_hash ) . WC_Cache_Helper::get_transient_version( 'shipping' ) );
 
-		if ( ! is_array( $stored_rates ) || $package_hash !== $stored_rates['package_hash'] || 'yes' === get_option( 'woocommerce_shipping_debug_mode', 'no' ) ) {
+		if ( ! is_array( $stored_rates ) || $package_hash !== $stored_rates['package_hash'] || 'yes' === get_option( 'poocommerce_shipping_debug_mode', 'no' ) ) {
 			foreach ( $this->load_shipping_methods( $package ) as $shipping_method ) {
 				if ( ! $shipping_method->supports( 'shipping-zones' ) || $shipping_method->get_instance_id() ) {
 					/**
@@ -342,7 +342,7 @@ class WC_Shipping {
 					 * @param array $package Package of cart items.
 					 * @param WC_Shipping_Method $shipping_method Shipping method instance.
 					 */
-					do_action( 'woocommerce_before_get_rates_for_package', $package, $shipping_method );
+					do_action( 'poocommerce_before_get_rates_for_package', $package, $shipping_method );
 
 					// Use + instead of array_merge to maintain numeric keys.
 					$package['rates'] = $package['rates'] + $shipping_method->get_rates_for_package( $package );
@@ -354,7 +354,7 @@ class WC_Shipping {
 					 * @param array $package Package of cart items.
 					 * @param WC_Shipping_Method $shipping_method Shipping method instance.
 					 */
-					do_action( 'woocommerce_after_get_rates_for_package', $package, $shipping_method );
+					do_action( 'poocommerce_after_get_rates_for_package', $package, $shipping_method );
 				}
 			}
 
@@ -365,7 +365,7 @@ class WC_Shipping {
 			 * @param array $package['rates'] Package rates.
 			 * @param array $package Package of cart items.
 			 */
-			$package['rates'] = apply_filters( 'woocommerce_package_rates', $package['rates'], $package );
+			$package['rates'] = apply_filters( 'poocommerce_package_rates', $package['rates'], $package );
 
 			// Store in session to avoid recalculation.
 			WC()->session->set(

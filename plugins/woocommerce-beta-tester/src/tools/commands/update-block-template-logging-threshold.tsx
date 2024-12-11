@@ -5,7 +5,7 @@
 import { SelectControl } from '@wordpress/components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore no types
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
@@ -13,7 +13,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore no types
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { STORE_KEY } from '../data/constants';
 
 export const UPDATE_BLOCK_TEMPLATE_LOGGING_THRESHOLD_ACTION_NAME =

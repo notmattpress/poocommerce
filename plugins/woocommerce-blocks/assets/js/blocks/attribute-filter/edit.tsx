@@ -10,12 +10,12 @@ import {
 	useBlockProps,
 } from '@wordpress/block-editor';
 import { Icon, category, external } from '@wordpress/icons';
-import { SearchListControl } from '@woocommerce/editor-components/search-list-control';
-import { getAdminLink, getSetting } from '@woocommerce/settings';
-import BlockTitle from '@woocommerce/editor-components/block-title';
+import { SearchListControl } from '@poocommerce/editor-components/search-list-control';
+import { getAdminLink, getSetting } from '@poocommerce/settings';
+import BlockTitle from '@poocommerce/editor-components/block-title';
 import clsx from 'clsx';
-import { SearchListItem } from '@woocommerce/editor-components/search-list-control/types';
-import { AttributeSetting } from '@woocommerce/types';
+import { SearchListItem } from '@poocommerce/editor-components/search-list-control/types';
+import { AttributeSetting } from '@poocommerce/types';
 import {
 	Placeholder,
 	Disabled,
@@ -44,11 +44,11 @@ const ATTRIBUTES = getSetting< AttributeSetting[] >( 'attributes', [] );
 const noticeContent = {
 	noAttributes: __(
 		'Please select an attribute to use this filter!',
-		'woocommerce'
+		'poocommerce'
 	),
 	noProducts: __(
 		'There are no products with the selected attributes.',
-		'woocommerce'
+		'poocommerce'
 	),
 };
 
@@ -92,7 +92,7 @@ const Edit = ( {
 					controls={ [
 						{
 							icon: 'edit',
-							title: __( 'Edit', 'woocommerce' ),
+							title: __( 'Edit', 'poocommerce' ),
 							onClick: () => setIsEditing( ! isEditing ),
 							isActive: isEditing,
 						},
@@ -127,13 +127,13 @@ const Edit = ( {
 		isCompact: boolean;
 	} ) => {
 		const messages = {
-			clear: __( 'Clear selected attribute', 'woocommerce' ),
-			list: __( 'Product Attributes', 'woocommerce' ),
+			clear: __( 'Clear selected attribute', 'poocommerce' ),
+			list: __( 'Product Attributes', 'poocommerce' ),
 			noItems: __(
 				"Your store doesn't have any product attributes.",
-				'woocommerce'
+				'poocommerce'
 			),
-			search: __( 'Search for a product attribute:', 'woocommerce' ),
+			search: __( 'Search for a product attribute:', 'poocommerce' ),
 			selected: ( n: number ) =>
 				sprintf(
 					/* translators: %d is the number of attributes selected. */
@@ -141,13 +141,13 @@ const Edit = ( {
 						'%d attribute selected',
 						'%d attributes selected',
 						n,
-						'woocommerce'
+						'poocommerce'
 					),
 					n
 				),
 			updated: __(
 				'Product attribute search results updated.',
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 
@@ -162,7 +162,7 @@ const Edit = ( {
 
 		return (
 			<SearchListControl
-				className="woocommerce-product-attributes"
+				className="poocommerce-product-attributes"
 				list={ list }
 				selected={ list.filter( ( { id } ) => id === attributeId ) }
 				onChange={ onChange }
@@ -176,9 +176,9 @@ const Edit = ( {
 	const getInspectorControls = () => {
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Display Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display Settings', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Display product count', 'woocommerce' ) }
+						label={ __( 'Display product count', 'poocommerce' ) }
 						checked={ showCounts }
 						onChange={ () =>
 							setAttributes( {
@@ -189,7 +189,7 @@ const Edit = ( {
 					<ToggleGroupControl
 						label={ __(
 							'Allow selecting multiple options?',
-							'woocommerce'
+							'poocommerce'
 						) }
 						isBlock
 						value={ selectType || 'multiple' }
@@ -205,7 +205,7 @@ const Edit = ( {
 							label={ _x(
 								'Multiple',
 								'Number of filters',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 						<ToggleGroupControlOption
@@ -213,23 +213,23 @@ const Edit = ( {
 							label={ _x(
 								'Single',
 								'Number of filters',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</ToggleGroupControl>
 					{ selectType === 'multiple' && (
 						<ToggleGroupControl
-							label={ __( 'Filter Conditions', 'woocommerce' ) }
+							label={ __( 'Filter Conditions', 'poocommerce' ) }
 							isBlock
 							help={
 								queryType === 'and'
 									? __(
 											'Choose to return filter results for all of the attributes selected.',
-											'woocommerce'
+											'poocommerce'
 									  )
 									: __(
 											'Choose to return filter results for any of the attributes selected.',
-											'woocommerce'
+											'poocommerce'
 									  )
 							}
 							value={ queryType }
@@ -242,16 +242,16 @@ const Edit = ( {
 						>
 							<ToggleGroupControlOption
 								value="or"
-								label={ __( 'Any', 'woocommerce' ) }
+								label={ __( 'Any', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="and"
-								label={ __( 'All', 'woocommerce' ) }
+								label={ __( 'All', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					) }
 					<ToggleGroupControl
-						label={ __( 'Display Style', 'woocommerce' ) }
+						label={ __( 'Display Style', 'poocommerce' ) }
 						isBlock
 						value={ displayStyle }
 						onChange={ ( value: string ) =>
@@ -263,21 +263,21 @@ const Edit = ( {
 					>
 						<ToggleGroupControlOption
 							value="list"
-							label={ __( 'List', 'woocommerce' ) }
+							label={ __( 'List', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="dropdown"
-							label={ __( 'Dropdown', 'woocommerce' ) }
+							label={ __( 'Dropdown', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 					<ToggleControl
 						label={ __(
 							"Show 'Apply filters' button",
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Products will update when the button is clicked.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showFilterButton }
 						onChange={ ( value ) =>
@@ -288,7 +288,7 @@ const Edit = ( {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Content Settings', 'woocommerce' ) }
+					title={ __( 'Content Settings', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					{ renderAttributeControl( { isCompact: true } ) }
@@ -301,16 +301,16 @@ const Edit = ( {
 		<Placeholder
 			className="wc-block-attribute-filter"
 			icon={ <Icon icon={ category } /> }
-			label={ __( 'Filter by Attribute', 'woocommerce' ) }
+			label={ __( 'Filter by Attribute', 'poocommerce' ) }
 			instructions={ __(
 				'Display a list of filters based on the selected attributes.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		>
 			<p>
 				{ __(
 					"Attributes are needed for filtering your products. You haven't created any attributes yet.",
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<Button
@@ -321,16 +321,16 @@ const Edit = ( {
 				) }
 				target="_top"
 			>
-				{ __( 'Add new attribute', 'woocommerce' ) + ' ' }
+				{ __( 'Add new attribute', 'poocommerce' ) + ' ' }
 				<Icon icon={ external } />
 			</Button>
 			<Button
 				className="wc-block-attribute-filter__read_more_button"
 				variant="tertiary"
-				href="https://woocommerce.com/document/managing-product-taxonomies/"
+				href="https://poocommerce.com/document/managing-product-taxonomies/"
 				target="_blank"
 			>
-				{ __( 'Learn more', 'woocommerce' ) }
+				{ __( 'Learn more', 'poocommerce' ) }
 			</Button>
 		</Placeholder>
 	);
@@ -340,7 +340,7 @@ const Edit = ( {
 		debouncedSpeak(
 			__(
 				'Now displaying a preview of the Filter Products by Attribute block.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
@@ -350,18 +350,18 @@ const Edit = ( {
 			<Placeholder
 				className="wc-block-attribute-filter"
 				icon={ <Icon icon={ category } /> }
-				label={ __( 'Filter by Attribute', 'woocommerce' ) }
+				label={ __( 'Filter by Attribute', 'poocommerce' ) }
 			>
 				<div className="wc-block-attribute-filter__instructions">
 					{ __(
 						'Display a list of filters based on the selected attributes.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 				<div className="wc-block-attribute-filter__selection">
 					{ renderAttributeControl( { isCompact: false } ) }
 					<Button variant="primary" onClick={ onDone }>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>

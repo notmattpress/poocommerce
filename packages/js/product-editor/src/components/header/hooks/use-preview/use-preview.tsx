@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { Button } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
@@ -139,8 +139,8 @@ export function usePreview( {
 	}
 
 	return {
-		'aria-label': __( 'Preview in new tab', 'woocommerce' ),
-		children: __( 'Preview', 'woocommerce' ),
+		'aria-label': __( 'Preview in new tab', 'poocommerce' ),
+		children: __( 'Preview', 'poocommerce' ),
 		target: '_blank',
 		...props,
 		ref( element: HTMLAnchorElement ) {

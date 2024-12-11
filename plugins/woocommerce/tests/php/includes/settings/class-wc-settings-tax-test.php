@@ -2,11 +2,11 @@
 /**
  * Class WC_Settings_Tax_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -55,15 +55,15 @@ class WC_Settings_Tax_Test extends WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'tax_options'                       => array( 'title', 'sectionend' ),
-			'woocommerce_prices_include_tax'    => 'radio',
-			'woocommerce_tax_based_on'          => 'select',
-			'woocommerce_shipping_tax_class'    => 'select',
-			'woocommerce_tax_round_at_subtotal' => 'checkbox',
-			'woocommerce_tax_classes'           => 'textarea',
-			'woocommerce_tax_display_shop'      => 'select',
-			'woocommerce_tax_display_cart'      => 'select',
-			'woocommerce_price_display_suffix'  => 'text',
-			'woocommerce_tax_total_display'     => 'select',
+			'poocommerce_prices_include_tax'    => 'radio',
+			'poocommerce_tax_based_on'          => 'select',
+			'poocommerce_shipping_tax_class'    => 'select',
+			'poocommerce_tax_round_at_subtotal' => 'checkbox',
+			'poocommerce_tax_classes'           => 'textarea',
+			'poocommerce_tax_display_shop'      => 'select',
+			'poocommerce_tax_display_cart'      => 'select',
+			'poocommerce_price_display_suffix'  => 'text',
+			'poocommerce_tax_total_display'     => 'select',
 			''                                  => array( 'conflict_error', 'add_settings_slot' ),
 		);
 

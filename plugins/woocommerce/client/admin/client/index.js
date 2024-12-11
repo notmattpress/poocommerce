@@ -3,11 +3,11 @@
  */
 import '@wordpress/notices';
 import { createRoot } from '@wordpress/element';
-import { CustomerEffortScoreTracksContainer } from '@woocommerce/customer-effort-score';
+import { CustomerEffortScoreTracksContainer } from '@poocommerce/customer-effort-score';
 import {
 	withCurrentUserHydration,
 	withSettingsHydration,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import debugFactory from 'debug';
 /**
  * Internal dependencies
@@ -30,13 +30,13 @@ import {
 	SettingsPaymentsMainWrapper,
 	SettingsPaymentsOfflineWrapper,
 	SettingsPaymentsMethodsWrapper,
-	SettingsPaymentsWooCommercePaymentsWrapper,
+	SettingsPaymentsPooCommercePaymentsWrapper,
 } from './settings-payments';
 import { ErrorBoundary } from './error-boundary';
 
 const debug = debugFactory( 'wc-admin:client' );
 const appRoot = document.getElementById( 'root' );
-const embeddedRoot = document.getElementById( 'woocommerce-embedded-root' );
+const embeddedRoot = document.getElementById( 'poocommerce-embedded-root' );
 const settingsGroup = 'wc_admin';
 const hydrateUser = getAdminSetting( 'currentUserData' );
 
@@ -107,8 +107,8 @@ if (
 		const paymentsMethodsRoot = document.getElementById(
 			'experimental_wc_settings_payments_recommended'
 		);
-		const paymentsWooCommercePaymentsRoot = document.getElementById(
-			'experimental_wc_settings_payments_woocommerce_payments'
+		const paymentsPooCommercePaymentsRoot = document.getElementById(
+			'experimental_wc_settings_payments_poocommerce_payments'
 		);
 
 		if ( paymentsMainRoot ) {
@@ -138,13 +138,13 @@ if (
 			).render( <SettingsPaymentsMethodsWrapper /> );
 		}
 
-		if ( paymentsWooCommercePaymentsRoot ) {
+		if ( paymentsPooCommercePaymentsRoot ) {
 			createRoot(
-				paymentsWooCommercePaymentsRoot.insertBefore(
+				paymentsPooCommercePaymentsRoot.insertBefore(
 					document.createElement( 'div' ),
 					null
 				)
-			).render( <SettingsPaymentsWooCommercePaymentsWrapper /> );
+			).render( <SettingsPaymentsPooCommercePaymentsWrapper /> );
 		}
 	} )();
 }

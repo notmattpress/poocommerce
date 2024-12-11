@@ -31,13 +31,13 @@ export const ProgressBar = ( {
 	};
 
 	return (
-		<div className={ `woocommerce-progress-bar ${ className }` }>
+		<div className={ `poocommerce-progress-bar ${ className }` }>
 			<div
-				className="woocommerce-progress-bar__container"
+				className="poocommerce-progress-bar__container"
 				style={ containerStyles }
 			>
 				<div
-					className="woocommerce-progress-bar__filler"
+					className="poocommerce-progress-bar__filler"
 					style={ fillerStyles }
 				/>
 			</div>

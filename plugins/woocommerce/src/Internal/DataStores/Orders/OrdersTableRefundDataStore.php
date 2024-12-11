@@ -4,7 +4,7 @@
  * For example, order save hooks etc can't be fired when saving refund, so we need to do it a separate datastore.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
 use \WC_Cache_Helper;
 use \WC_Meta_Data;
@@ -34,7 +34,7 @@ class OrdersTableRefundDataStore extends OrdersTableDataStore {
 	protected $operational_data_column_mapping = array(
 		'id'                        => array( 'type' => 'int' ),
 		'order_id'                  => array( 'type' => 'int' ),
-		'woocommerce_version'       => array(
+		'poocommerce_version'       => array(
 			'type' => 'string',
 			'name' => 'version',
 		),
@@ -184,7 +184,7 @@ class OrdersTableRefundDataStore extends OrdersTableDataStore {
 		 *
 		 * @since 2.7.0
 		 */
-		do_action( 'woocommerce_order_refund_object_updated_props', $refund, $updated_props );
+		do_action( 'poocommerce_order_refund_object_updated_props', $refund, $updated_props );
 	}
 
 	/**
@@ -195,8 +195,8 @@ class OrdersTableRefundDataStore extends OrdersTableDataStore {
 	protected function get_post_title() {
 		return sprintf(
 		/* translators: %s: Order date */
-			__( 'Refund &ndash; %s', 'woocommerce' ),
-			( new \DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'woocommerce' ) ) // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
+			__( 'Refund &ndash; %s', 'poocommerce' ),
+			( new \DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'poocommerce' ) ) // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
 		);
 	}
 

@@ -5,7 +5,7 @@ import { Button } from '@wordpress/components';
 import { createElement, Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { closeSmall } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import classNames from 'classnames';
 
 /**
@@ -102,14 +102,14 @@ export function CustomFields( {
 		<>
 			{ renderActionButtonsWrapper(
 				<Button variant="secondary" onClick={ handleAddNewButtonClick }>
-					{ __( 'Add new', 'woocommerce' ) }
+					{ __( 'Add new', 'poocommerce' ) }
 				</Button>
 			) }
 
 			{ customFields.length === 0 ? (
 				<EmptyState
 					names={ getEmptyStateSequentialNames(
-						__( 'Custom field', 'woocommerce' ),
+						__( 'Custom field', 'poocommerce' ),
 						3
 					) }
 				/>
@@ -117,37 +117,37 @@ export function CustomFields( {
 				<table
 					{ ...props }
 					className={ classNames(
-						'woocommerce-product-custom-fields__table',
+						'poocommerce-product-custom-fields__table',
 						className
 					) }
 				>
 					<thead>
-						<tr className="woocommerce-product-custom-fields__table-row">
-							<th>{ __( 'Name', 'woocommerce' ) }</th>
-							<th>{ __( 'Value', 'woocommerce' ) }</th>
-							<th>{ __( 'Actions', 'woocommerce' ) }</th>
+						<tr className="poocommerce-product-custom-fields__table-row">
+							<th>{ __( 'Name', 'poocommerce' ) }</th>
+							<th>{ __( 'Value', 'poocommerce' ) }</th>
+							<th>{ __( 'Actions', 'poocommerce' ) }</th>
 						</tr>
 					</thead>
 					<tbody>
 						{ customFields.map( ( customField, index ) => (
 							<tr
-								className="woocommerce-product-custom-fields__table-row"
+								className="poocommerce-product-custom-fields__table-row"
 								key={ customField.id ?? customField.key }
 							>
-								<td className="woocommerce-product-custom-fields__table-datacell">
+								<td className="poocommerce-product-custom-fields__table-datacell">
 									{ customField.key }
 								</td>
-								<td className="woocommerce-product-custom-fields__table-datacell">
+								<td className="poocommerce-product-custom-fields__table-datacell">
 									{ customField.value }
 								</td>
-								<td className="woocommerce-product-custom-fields__table-datacell">
+								<td className="poocommerce-product-custom-fields__table-datacell">
 									<Button
 										variant="tertiary"
 										onClick={ customFieldEditButtonClickHandler(
 											index
 										) }
 									>
-										{ __( 'Edit', 'woocommerce' ) }
+										{ __( 'Edit', 'poocommerce' ) }
 									</Button>
 
 									<Button
@@ -157,7 +157,7 @@ export function CustomFields( {
 										) }
 										aria-label={ __(
 											'Remove custom field',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</td>

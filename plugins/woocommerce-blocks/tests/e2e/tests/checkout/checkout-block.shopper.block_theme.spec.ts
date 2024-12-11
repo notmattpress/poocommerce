@@ -7,7 +7,7 @@ import {
 	customerFile,
 	guestFile,
 	BlockData,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -33,11 +33,11 @@ const test = base.extend< { checkoutPageObject: CheckoutPage } >( {
 
 const blockData: BlockData = {
 	name: 'Checkout',
-	slug: 'woocommerce/checkout',
-	mainClass: '.wp-block-woocommerce-checkout',
+	slug: 'poocommerce/checkout',
+	mainClass: '.wp-block-poocommerce-checkout',
 	selectors: {
 		editor: {
-			block: '.wp-block-woocommerce-checkout',
+			block: '.wp-block-poocommerce-checkout',
 			insertButton: "//button//span[text()='Checkout']",
 		},
 		frontend: {},
@@ -50,12 +50,12 @@ test.describe( 'Shopper → Account (guest user)', () => {
 	test.beforeEach( async ( { requestUtils, frontendUtils } ) => {
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_guest_checkout',
+			path: 'wc/v3/settings/account/poocommerce_enable_guest_checkout',
 			data: { value: 'yes' },
 		} );
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_checkout_login_reminder',
+			path: 'wc/v3/settings/account/poocommerce_enable_checkout_login_reminder',
 			data: { value: 'yes' },
 		} );
 
@@ -82,12 +82,12 @@ test.describe( 'Shopper → Account (guest user)', () => {
 
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_enable_signup_and_login_from_checkout',
+			path: 'wc/v3/settings/account/poocommerce_enable_signup_and_login_from_checkout',
 			data: { value: 'yes' },
 		} );
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/account/woocommerce_registration_generate_password',
+			path: 'wc/v3/settings/account/poocommerce_registration_generate_password',
 			data: { value: 'yes' },
 		} );
 
@@ -241,7 +241,7 @@ test.describe( 'Shopper → Shipping and Billing Addresses', () => {
 	const shippingTestData = {
 		firstname: 'Jane',
 		lastname: 'Doe',
-		company: 'WooCommerce',
+		company: 'PooCommerce',
 		addressfirstline: '123 Main Avenue',
 		addresssecondline: 'Unit 42',
 		city: 'Los Angeles',
@@ -256,14 +256,14 @@ test.describe( 'Shopper → Shipping and Billing Addresses', () => {
 
 	test.beforeEach( async ( { admin, editor, page } ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//page-checkout',
+			postId: 'poocommerce/poocommerce//page-checkout',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
 
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-shipping-address-block"]'
+				'  [data-type="poocommerce/checkout-shipping-address-block"]'
 		);
 
 		await editor.openDocumentSettingsSidebar();
@@ -402,7 +402,7 @@ test.describe( 'Shopper → Place Virtual Order', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.rest( {
 			method: 'PUT',
-			path: 'wc/v3/settings/general/woocommerce_ship_to_countries',
+			path: 'wc/v3/settings/general/poocommerce_ship_to_countries',
 			data: { value: 'disabled' },
 		} );
 	} );
@@ -513,7 +513,7 @@ test.describe( 'Billing Address Form', () => {
 
 	test( 'Enable company field', async ( { page, admin, editor } ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//page-checkout',
+			postId: 'poocommerce/poocommerce//page-checkout',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -522,7 +522,7 @@ test.describe( 'Billing Address Form', () => {
 
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-shipping-address-block"]'
+				'  [data-type="poocommerce/checkout-shipping-address-block"]'
 		);
 
 		const companyCheckbox = page.getByLabel( 'Company', {

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { store, getContext, getElement } from '@woocommerce/interactivity';
+import { store, getContext, getElement } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ type AttributeFilterContext = {
 	selectType: 'single' | 'multiple';
 };
 
-store( 'woocommerce/product-filter-attribute', {
+store( 'poocommerce/product-filter-attribute', {
 	actions: {
 		toggleFilter: () => {
 			const { ref } = getElement();
@@ -27,7 +27,7 @@ store( 'woocommerce/product-filter-attribute', {
 			const { attributeSlug, queryType } =
 				getContext< AttributeFilterContext >();
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			if (
@@ -72,7 +72,7 @@ store( 'woocommerce/product-filter-attribute', {
 		clearFilters: () => {
 			const { attributeSlug } = getContext< AttributeFilterContext >();
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			const updatedParams = productFiltersContext.params;
 

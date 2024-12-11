@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { autop } from '@wordpress/autop';
-import { trimCharacters, trimWords } from '@woocommerce/utils';
+import { trimCharacters, trimWords } from '@poocommerce/utils';
 import { count, CountType } from '@wordpress/wordcount';
 
 /**
@@ -25,7 +25,7 @@ const getFirstParagraph = ( source: string ) => {
  * Generates the summary text from a string of text.
  *
  * NOTE: If editing, keep it in sync with generate_summary function from
- * plugins/woocommerce/src/Blocks/BlockTypes/ProductSummary.php!
+ * plugins/poocommerce/src/Blocks/BlockTypes/ProductSummary.php!
  *
  * @param {string} source    Source text.
  * @param {number} maxLength Limit number of countType returned if text has multiple paragraphs.

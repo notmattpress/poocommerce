@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Routes\RouteInterface;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Routes\RouteInterface;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -111,14 +111,14 @@ class Batch extends AbstractRoute implements RouteInterface {
 		try {
 			foreach ( $request['requests'] as $args ) {
 				if ( ! stristr( $args['path'], 'wc/store' ) ) {
-					throw new RouteException( 'woocommerce_rest_invalid_path', __( 'Invalid path provided.', 'woocommerce' ), 400 );
+					throw new RouteException( 'poocommerce_rest_invalid_path', __( 'Invalid path provided.', 'poocommerce' ), 400 );
 				}
 			}
 			$response = rest_get_server()->serve_batch_request_v1( $request );
 		} catch ( RouteException $error ) {
 			$response = $this->get_route_error_response( $error->getErrorCode(), $error->getMessage(), $error->getCode(), $error->getAdditionalData() );
 		} catch ( \Exception $error ) {
-			$response = $this->get_route_error_response( 'woocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
+			$response = $this->get_route_error_response( 'poocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
 		}
 
 		if ( is_wp_error( $response ) ) {

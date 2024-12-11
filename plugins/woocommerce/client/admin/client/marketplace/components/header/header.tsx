@@ -9,15 +9,15 @@ import Search from '../search/search';
 
 export default function Header() {
 	return (
-		<header className="woocommerce-marketplace__header">
+		<header className="poocommerce-marketplace__header">
 			<HeaderTitle />
 			<Tabs
 				additionalClassNames={ [
-					'woocommerce-marketplace__header-tabs',
+					'poocommerce-marketplace__header-tabs',
 				] }
 			/>
 			<Search />
-			<div className="woocommerce-marketplace__header-meta">
+			<div className="poocommerce-marketplace__header-meta">
 				<HeaderAccount />
 			</div>
 		</header>

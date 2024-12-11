@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\OnboardingTasks;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\OnboardingTasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Review the cart/checkout Task
@@ -23,7 +23,7 @@ class ReviewCheckoutTask extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Review your checkout experience', 'woocommerce' );
+		return __( 'Review your checkout experience', 'poocommerce' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class ReviewCheckoutTask extends Task {
 	 * @return string
 	 */
 	public function get_additional_info() {
-		return __( 'Make sure cart and checkout flows are configured correctly for your shoppers.', 'woocommerce' );
+		return __( 'Make sure cart and checkout flows are configured correctly for your shoppers.', 'poocommerce' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class ReviewCheckoutTask extends Task {
 	 */
 	private function has_cart_block() {
 		$cart_page_id   = wc_get_page_id( 'cart' );
-		$has_block_cart = $cart_page_id && ( has_block( 'woocommerce/cart', $cart_page_id ) || has_block( 'woocommerce/classic-shortcode', $cart_page_id ) );
+		$has_block_cart = $cart_page_id && ( has_block( 'poocommerce/cart', $cart_page_id ) || has_block( 'poocommerce/classic-shortcode', $cart_page_id ) );
 
 		return $has_block_cart;
 	}
@@ -81,7 +81,7 @@ class ReviewCheckoutTask extends Task {
 	 */
 	private function has_checkout_block() {
 		$cart_page_id   = wc_get_page_id( 'cart' );
-		$has_block_cart = $cart_page_id && ( has_block( 'woocommerce/cart', $cart_page_id ) || has_block( 'woocommerce/classic-shortcode', $cart_page_id ) );
+		$has_block_cart = $cart_page_id && ( has_block( 'poocommerce/cart', $cart_page_id ) || has_block( 'poocommerce/classic-shortcode', $cart_page_id ) );
 
 		return $has_block_cart;
 	}

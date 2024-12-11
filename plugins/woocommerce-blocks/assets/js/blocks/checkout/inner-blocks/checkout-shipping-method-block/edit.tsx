@@ -6,19 +6,19 @@ import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import { Icon, store, shipping } from '@wordpress/icons';
-import { ADMIN_URL, getSetting } from '@woocommerce/settings';
-import { LOCAL_PICKUP_ENABLED } from '@woocommerce/block-settings';
+import { ADMIN_URL, getSetting } from '@poocommerce/settings';
+import { LOCAL_PICKUP_ENABLED } from '@poocommerce/block-settings';
 import {
 	InspectorControls,
 	useBlockProps,
 	RichText,
 } from '@wordpress/block-editor';
 import { Button } from '@ariakit/react';
-import { useShippingData } from '@woocommerce/base-context/hooks';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { useShippingData } from '@poocommerce/base-context/hooks';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import ExternalLinkCard from '@woocommerce/editor-components/external-link-card';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import ExternalLinkCard from '@poocommerce/editor-components/external-link-card';
 import { useEffect } from '@wordpress/element';
 
 /**
@@ -105,7 +105,7 @@ const ShippingSelector = ( {
 	const Price =
 		rate.min === undefined ? (
 			<span className="wc-block-checkout__shipping-method-option-price">
-				{ __( 'calculated with an address', 'woocommerce' ) }
+				{ __( 'calculated with an address', 'poocommerce' ) }
 			</span>
 		) : (
 			<RatePrice minRate={ rate.min } maxRate={ rate.max } />
@@ -214,15 +214,15 @@ export const Edit = ( {
 			) }
 		>
 			<InspectorControls>
-				<PanelBody title={ __( 'Appearance', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Appearance', 'poocommerce' ) }>
 					<p className="wc-block-checkout__controls-text">
 						{ __(
 							'Choose how this block is displayed to your customers.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<ToggleControl
-						label={ __( 'Show icon', 'woocommerce' ) }
+						label={ __( 'Show icon', 'poocommerce' ) }
 						checked={ showIcon }
 						onChange={ () =>
 							setAttributes( {
@@ -231,7 +231,7 @@ export const Edit = ( {
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Show costs', 'woocommerce' ) }
+						label={ __( 'Show costs', 'poocommerce' ) }
 						checked={ showPrice }
 						onChange={ () =>
 							setAttributes( {
@@ -240,29 +240,29 @@ export const Edit = ( {
 						}
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Shipping Methods', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Shipping Methods', 'poocommerce' ) }>
 					<p className="wc-block-checkout__controls-text">
 						{ __(
 							'Methods can be made managed in your store settings.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<ExternalLinkCard
 						key={ 'shipping_methods' }
 						href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=shipping` }
-						title={ __( 'Shipping', 'woocommerce' ) }
+						title={ __( 'Shipping', 'poocommerce' ) }
 						description={ __(
 							'Manage your shipping zones, methods, and rates.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 					<ExternalLinkCard
 						key={ 'pickup_location' }
 						href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=shipping&section=pickup_location` }
-						title={ __( 'Pickup', 'woocommerce' ) }
+						title={ __( 'Pickup', 'poocommerce' ) }
 						description={ __(
 							'Allow customers to choose a local pickup location during checkout.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</PanelBody>

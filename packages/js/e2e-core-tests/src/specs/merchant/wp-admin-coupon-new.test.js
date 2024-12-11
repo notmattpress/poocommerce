@@ -6,7 +6,7 @@ const {
 	clickTab,
 	AdminEdit,
 	withRestApi,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -32,7 +32,7 @@ const runCreateCouponTest = () => {
 				'code-' + new Date().getTime().toString()
 			);
 			await expect( page ).toFill(
-				'#woocommerce-coupon-description',
+				'#poocommerce-coupon-description',
 				'test coupon'
 			);
 

@@ -16,12 +16,12 @@ import {
 	ReviewRating,
 	ProductImage,
 	Section,
-} from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+} from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 import { get, isNull } from 'lodash';
-import { REVIEWS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext } from '@woocommerce/currency';
+import { REVIEWS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -56,11 +56,11 @@ class ReviewsPanel extends Component {
 					clearReviewsCache();
 					createNotice(
 						'success',
-						__( 'Review successfully deleted.', 'woocommerce' ),
+						__( 'Review successfully deleted.', 'poocommerce' ),
 						{
 							actions: [
 								{
-									label: __( 'Undo', 'woocommerce' ),
+									label: __( 'Undo', 'poocommerce' ),
 									onClick: () => {
 										updateReview(
 											reviewId,
@@ -80,7 +80,7 @@ class ReviewsPanel extends Component {
 				.catch( () => {
 					createNotice(
 						'error',
-						__( 'Review could not be deleted.', 'woocommerce' )
+						__( 'Review could not be deleted.', 'poocommerce' )
 					);
 				} );
 		}
@@ -94,11 +94,11 @@ class ReviewsPanel extends Component {
 					clearReviewsCache();
 					createNotice(
 						'success',
-						__( 'Review successfully updated.', 'woocommerce' ),
+						__( 'Review successfully updated.', 'poocommerce' ),
 						{
 							actions: [
 								{
-									label: __( 'Undo', 'woocommerce' ),
+									label: __( 'Undo', 'poocommerce' ),
 									onClick: () => {
 										updateReview(
 											reviewId,
@@ -118,7 +118,7 @@ class ReviewsPanel extends Component {
 				.catch( () => {
 					createNotice(
 						'error',
-						__( 'Review could not be updated.', 'woocommerce' )
+						__( 'Review could not be updated.', 'poocommerce' )
 					);
 				} );
 		}
@@ -136,7 +136,7 @@ class ReviewsPanel extends Component {
 			return (
 				<ActivityCardPlaceholder
 					key={ review.id }
-					className="woocommerce-review-activity-card"
+					className="poocommerce-review-activity-card"
 					hasAction
 					hasDate
 					lines={ 1 }
@@ -152,7 +152,7 @@ class ReviewsPanel extends Component {
 				/* translators: product reviewer as author, and product name  */
 				__(
 					'{{authorLink}}%1$s{{/authorLink}}{{verifiedCustomerIcon/}} reviewed {{productLink}}%2$s{{/productLink}}',
-					'woocommerce'
+					'poocommerce'
 				),
 				review.reviewer,
 				product.name
@@ -176,8 +176,8 @@ class ReviewsPanel extends Component {
 					/>
 				),
 				verifiedCustomerIcon: review.verified ? (
-					<span className="woocommerce-review-activity-card__verified">
-						<Tooltip text={ __( 'Verified owner', 'woocommerce' ) }>
+					<span className="poocommerce-review-activity-card__verified">
+						<Tooltip text={ __( 'Verified owner', 'poocommerce' ) }>
 							<span>
 								<CheckmarkCircleIcon />
 							</span>
@@ -201,13 +201,13 @@ class ReviewsPanel extends Component {
 		const productImage =
 			get( product, [ 'images', 0 ] ) || get( product, [ 'image' ] );
 		const productImageClasses = clsx(
-			'woocommerce-review-activity-card__image-overlay__product',
+			'poocommerce-review-activity-card__image-overlay__product',
 			{
 				'is-placeholder': ! productImage || ! productImage.src,
 			}
 		);
 		const icon = (
-			<div className="woocommerce-review-activity-card__image-overlay">
+			<div className="poocommerce-review-activity-card__image-overlay">
 				<div className={ productImageClasses }>
 					<ProductImage product={ product } width={ 33 } />
 				</div>
@@ -232,7 +232,7 @@ class ReviewsPanel extends Component {
 					);
 				} }
 			>
-				{ __( 'Approve', 'woocommerce' ) }
+				{ __( 'Approve', 'poocommerce' ) }
 			</Button>,
 			<Button
 				key="spam-action"
@@ -242,7 +242,7 @@ class ReviewsPanel extends Component {
 					this.updateReviewStatus( review.id, 'spam', review.status );
 				} }
 			>
-				{ __( 'Mark as spam', 'woocommerce' ) }
+				{ __( 'Mark as spam', 'poocommerce' ) }
 			</Button>,
 			<Button
 				key="delete-action"
@@ -253,13 +253,13 @@ class ReviewsPanel extends Component {
 					this.deleteReview( review.id );
 				} }
 			>
-				{ __( 'Delete', 'woocommerce' ) }
+				{ __( 'Delete', 'poocommerce' ) }
 			</Button>,
 		];
 
 		return (
 			<ActivityCard
-				className="woocommerce-review-activity-card"
+				className="poocommerce-review-activity-card"
 				key={ review.id }
 				title={ title }
 				subtitle={ subtitle }
@@ -289,10 +289,10 @@ class ReviewsPanel extends Component {
 						'edit.php?post_type=product&page=product-reviews'
 					) }
 					onClick={ () => this.recordReviewEvent( 'reviews_manage' ) }
-					className="woocommerce-layout__activity-panel-outbound-link woocommerce-layout__activity-panel-empty"
+					className="poocommerce-layout__activity-panel-outbound-link poocommerce-layout__activity-panel-empty"
 					type="wp-admin"
 				>
-					{ __( 'Manage all reviews', 'woocommerce' ) }
+					{ __( 'Manage all reviews', 'poocommerce' ) }
 				</Link>
 			</>
 		);
@@ -312,7 +312,7 @@ class ReviewsPanel extends Component {
 				<Section>
 					{ isRequesting || ! reviews.length ? (
 						<ActivityCardPlaceholder
-							className="woocommerce-review-activity-card"
+							className="poocommerce-review-activity-card"
 							hasAction
 							hasDate
 							lines={ 1 }

@@ -2,11 +2,11 @@
 /**
  * Unit tests for wc-product-functions.php.
  *
- * @package WooCommerce\Tests\Functions\Stock
+ * @package PooCommerce\Tests\Functions\Stock
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -26,7 +26,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 	 *
 	 * @param bool     $pass_order Whether an order is passed to 'wc_get_price_excluding_tax' or not.
 	 * @param int|null $customer_id Id of the customer associated to the order.
-	 * @param bool     $set_filter Whether the 'woocommerce_adjust_non_base_location_prices' filter should be set to return false.
+	 * @param bool     $set_filter Whether the 'poocommerce_adjust_non_base_location_prices' filter should be set to return false.
 	 */
 	public function test_wc_get_price_excluding_tax_passes_order_customer_to_get_rates_if_order_is_available( $pass_order, $customer_id, $set_filter ) {
 		$customer_passed_to_get_rates                  = false;
@@ -34,7 +34,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		$customer_id_passed_to_wc_customer_constructor = false;
 
 		if ( $set_filter ) {
-			add_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+			add_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		}
 
 		FunctionsMockerHack::add_function_mocks(
@@ -126,7 +126,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		// phpcs:enable Squiz.Commenting
 
 		if ( $set_filter ) {
-			remove_filter( 'woocommerce_adjust_non_base_location_prices', '__return_false' );
+			remove_filter( 'poocommerce_adjust_non_base_location_prices', '__return_false' );
 		}
 	}
 
@@ -166,7 +166,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 
 		$wc_tax_enabled = wc_tax_enabled();
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'yes' );
+			update_option( 'poocommerce_calc_taxes', 'yes' );
 		}
 
 		$product         = WC_Helper_Product::create_simple_product();
@@ -195,7 +195,7 @@ class WC_Product_Functions_Tests extends \WC_Unit_Test_Case {
 		WC_Tax::_delete_tax_rate( $tax_rate_id );
 		WC_Helper_Product::delete_product( $product->get_id() );
 		if ( ! $wc_tax_enabled ) {
-			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
 		}
 	}
 

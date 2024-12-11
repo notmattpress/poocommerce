@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Email Settings
+ * PooCommerce Email Settings
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 2.1.0
  */
 
-use Automattic\WooCommerce\Internal\BrandingController;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\BrandingController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,13 +42,13 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'email';
-		$this->label = __( 'Emails', 'woocommerce' );
+		$this->label = __( 'Emails', 'poocommerce' );
 
-		add_action( 'woocommerce_admin_field_email_notification', array( $this, 'email_notification_setting' ) );
-		add_action( 'woocommerce_admin_field_email_preview', array( $this, 'email_preview' ) );
-		add_action( 'woocommerce_admin_field_email_image_url', array( $this, 'email_image_url' ) );
-		add_action( 'woocommerce_admin_field_email_font_family', array( $this, 'email_font_family' ) );
-		add_action( 'woocommerce_admin_field_email_color_palette', array( $this, 'email_color_palette' ) );
+		add_action( 'poocommerce_admin_field_email_notification', array( $this, 'email_notification_setting' ) );
+		add_action( 'poocommerce_admin_field_email_preview', array( $this, 'email_preview' ) );
+		add_action( 'poocommerce_admin_field_email_image_url', array( $this, 'email_image_url' ) );
+		add_action( 'poocommerce_admin_field_email_font_family', array( $this, 'email_font_family' ) );
+		add_action( 'poocommerce_admin_field_email_color_palette', array( $this, 'email_color_palette' ) );
 		parent::__construct();
 	}
 
@@ -66,7 +66,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	 */
 	protected function get_own_sections() {
 		return array(
-			'' => __( 'Email options', 'woocommerce' ),
+			'' => __( 'Email options', 'poocommerce' ),
 		);
 	}
 
@@ -78,20 +78,20 @@ class WC_Settings_Emails extends WC_Settings_Page {
 	protected function get_settings_for_default_section() {
 		$desc_help_text = sprintf(
 		/* translators: %1$s: Link to WP Mail Logging plugin, %2$s: Link to Email FAQ support page. */
-			__( 'To ensure your store&rsquo;s notifications arrive in your and your customers&rsquo; inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something doesn&rsquo;t seem to be sending correctly, install the <a href="%1$s">WP Mail Logging Plugin</a> or check the <a href="%2$s">Email FAQ page</a>.', 'woocommerce' ),
+			__( 'To ensure your store&rsquo;s notifications arrive in your and your customers&rsquo; inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something doesn&rsquo;t seem to be sending correctly, install the <a href="%1$s">WP Mail Logging Plugin</a> or check the <a href="%2$s">Email FAQ page</a>.', 'poocommerce' ),
 			'https://wordpress.org/plugins/wp-mail-logging/',
-			'https://woocommerce.com/document/email-faq'
+			'https://poocommerce.com/document/email-faq'
 		);
 
 		/* translators: %s: Nonced email preview link */
-		$email_template_description = sprintf( __( 'This section lets you customize the WooCommerce emails. <a href="%s" target="_blank">Click here to preview your email template</a>.', 'woocommerce' ), wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) );
+		$email_template_description = sprintf( __( 'This section lets you customize the PooCommerce emails. <a href="%s" target="_blank">Click here to preview your email template</a>.', 'poocommerce' ), wp_nonce_url( admin_url( '?preview_poocommerce_mail=true' ), 'preview-mail' ) );
 		$logo_image                 = array(
-			'title'       => __( 'Header image', 'woocommerce' ),
-			'desc'        => __( 'Paste the URL of an image you want to show in the email header. Upload images using the media uploader (Media > Add New).', 'woocommerce' ),
-			'id'          => 'woocommerce_email_header_image',
+			'title'       => __( 'Header image', 'poocommerce' ),
+			'desc'        => __( 'Paste the URL of an image you want to show in the email header. Upload images using the media uploader (Media > Add New).', 'poocommerce' ),
+			'id'          => 'poocommerce_email_header_image',
 			'type'        => 'text',
 			'css'         => 'min-width:400px;',
-			'placeholder' => __( 'N/A', 'woocommerce' ),
+			'placeholder' => __( 'N/A', 'poocommerce' ),
 			'default'     => '',
 			'autoload'    => false,
 			'desc_tip'    => true,
@@ -100,8 +100,8 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$font_family                = null;
 
 		/* translators: %s: Available placeholders for use */
-		$footer_text_description = __( 'The text to appear in the footer of all WooCommerce emails.', 'woocommerce' ) . ' ' . sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '{site_title} {site_url}' );
-		$footer_text_default     = '{site_title} &mdash; Built with {WooCommerce}';
+		$footer_text_description = __( 'The text to appear in the footer of all PooCommerce emails.', 'poocommerce' ) . ' ' . sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '{site_title} {site_url}' );
+		$footer_text_default     = '{site_title} &mdash; Built with {PooCommerce}';
 
 		// These defaults should be chosen by the same logic as the other color option properties.
 		list(
@@ -112,89 +112,89 @@ class WC_Settings_Emails extends WC_Settings_Page {
 			'footer_text_color_default' => $footer_text_color_default,
 		) = $this->get_email_default_colors();
 
-		$base_color_title = __( 'Base color', 'woocommerce' );
+		$base_color_title = __( 'Base color', 'poocommerce' );
 		/* translators: %s: default color */
-		$base_color_desc = sprintf( __( 'The base color for WooCommerce email templates. Default %s.', 'woocommerce' ), '<code>' . $base_color_default . '</code>' );
+		$base_color_desc = sprintf( __( 'The base color for PooCommerce email templates. Default %s.', 'poocommerce' ), '<code>' . $base_color_default . '</code>' );
 
-		$bg_color_title = __( 'Background color', 'woocommerce' );
+		$bg_color_title = __( 'Background color', 'poocommerce' );
 		/* translators: %s: default color */
-		$bg_color_desc = sprintf( __( 'The background color for WooCommerce email templates. Default %s.', 'woocommerce' ), '<code>' . $bg_color_default . '</code>' );
+		$bg_color_desc = sprintf( __( 'The background color for PooCommerce email templates. Default %s.', 'poocommerce' ), '<code>' . $bg_color_default . '</code>' );
 
-		$body_bg_color_title = __( 'Body background color', 'woocommerce' );
+		$body_bg_color_title = __( 'Body background color', 'poocommerce' );
 		/* translators: %s: default color */
-		$body_bg_color_desc = sprintf( __( 'The main body background color. Default %s.', 'woocommerce' ), '<code>' . $body_bg_color_default . '</code>' );
+		$body_bg_color_desc = sprintf( __( 'The main body background color. Default %s.', 'poocommerce' ), '<code>' . $body_bg_color_default . '</code>' );
 
-		$body_text_color_title = __( 'Body text color', 'woocommerce' );
+		$body_text_color_title = __( 'Body text color', 'poocommerce' );
 		/* translators: %s: default color */
-		$body_text_color_desc = sprintf( __( 'The main body text color. Default %s.', 'woocommerce' ), '<code>' . $body_text_color_default . '</code>' );
+		$body_text_color_desc = sprintf( __( 'The main body text color. Default %s.', 'poocommerce' ), '<code>' . $body_text_color_default . '</code>' );
 
-		$footer_text_color_title = __( 'Footer text color', 'woocommerce' );
+		$footer_text_color_title = __( 'Footer text color', 'poocommerce' );
 		/* translators: %s: footer default color */
-		$footer_text_color_desc = sprintf( __( 'The footer text color. Default %s.', 'woocommerce' ), '<code>' . $footer_text_color_default . '</code>' );
+		$footer_text_color_desc = sprintf( __( 'The footer text color. Default %s.', 'poocommerce' ), '<code>' . $footer_text_color_default . '</code>' );
 
 		$color_palette_section_header = null;
 		$color_palette_section_end    = null;
 
 		if ( FeaturesUtil::feature_is_enabled( 'email_improvements' ) ) {
-			$email_template_description = __( 'Customize your WooCommerce email template and preview it below.', 'woocommerce' );
+			$email_template_description = __( 'Customize your PooCommerce email template and preview it below.', 'poocommerce' );
 			$logo_image                 = array(
-				'title'       => __( 'Logo', 'woocommerce' ),
-				'desc'        => __( 'Add your logo to each of your WooCommerce emails. If no logo is uploaded, your site title will be used instead.', 'woocommerce' ),
-				'id'          => 'woocommerce_email_header_image',
+				'title'       => __( 'Logo', 'poocommerce' ),
+				'desc'        => __( 'Add your logo to each of your PooCommerce emails. If no logo is uploaded, your site title will be used instead.', 'poocommerce' ),
+				'id'          => 'poocommerce_email_header_image',
 				'type'        => 'email_image_url',
 				'css'         => 'min-width:400px;',
-				'placeholder' => __( 'N/A', 'woocommerce' ),
+				'placeholder' => __( 'N/A', 'poocommerce' ),
 				'default'     => '',
 				'autoload'    => false,
 				'desc_tip'    => true,
 			);
 			$header_alignment           = array(
-				'title'    => __( 'Header alignment', 'woocommerce' ),
-				'id'       => 'woocommerce_email_header_alignment',
+				'title'    => __( 'Header alignment', 'poocommerce' ),
+				'id'       => 'poocommerce_email_header_alignment',
 				'desc_tip' => '',
 				'default'  => 'left',
 				'type'     => 'select',
 				'class'    => 'wc-enhanced-select',
 				'options'  => array(
-					'left'   => __( 'Left', 'woocommerce' ),
-					'center' => __( 'Center', 'woocommerce' ),
-					'right'  => __( 'Right', 'woocommerce' ),
+					'left'   => __( 'Left', 'poocommerce' ),
+					'center' => __( 'Center', 'poocommerce' ),
+					'right'  => __( 'Right', 'poocommerce' ),
 				),
 			);
 
 			$font_family = array(
-				'title'   => __( 'Font family', 'woocommerce' ),
-				'id'      => 'woocommerce_email_font_family',
+				'title'   => __( 'Font family', 'poocommerce' ),
+				'id'      => 'poocommerce_email_font_family',
 				'default' => 'Arial',
 				'type'    => 'email_font_family',
 			);
 
 			/* translators: %s: Available placeholders for use */
-			$footer_text_description = __( 'This text will appear in the footer of all of your WooCommerce emails.', 'woocommerce' ) . ' ' . sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '{site_title} {site_url} {store_address} {store_email}' );
+			$footer_text_description = __( 'This text will appear in the footer of all of your PooCommerce emails.', 'poocommerce' ) . ' ' . sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '{site_title} {site_url} {store_address} {store_email}' );
 			$footer_text_default     = '{site_title}<br />{store_address}';
 
-			$base_color_title = __( 'Accent', 'woocommerce' );
+			$base_color_title = __( 'Accent', 'poocommerce' );
 			/* translators: %s: default color */
-			$base_color_desc = sprintf( __( 'Customize the color of your buttons and links. Default %s.', 'woocommerce' ), '<code>' . $base_color_default . '</code>' );
+			$base_color_desc = sprintf( __( 'Customize the color of your buttons and links. Default %s.', 'poocommerce' ), '<code>' . $base_color_default . '</code>' );
 
-			$bg_color_title = __( 'Email background', 'woocommerce' );
+			$bg_color_title = __( 'Email background', 'poocommerce' );
 			/* translators: %s: default color */
-			$bg_color_desc = sprintf( __( 'Select a color for the background of your emails. Default %s.', 'woocommerce' ), '<code>' . $bg_color_default . '</code>' );
+			$bg_color_desc = sprintf( __( 'Select a color for the background of your emails. Default %s.', 'poocommerce' ), '<code>' . $bg_color_default . '</code>' );
 
-			$body_bg_color_title = __( 'Content background', 'woocommerce' );
+			$body_bg_color_title = __( 'Content background', 'poocommerce' );
 			/* translators: %s: default color */
-			$body_bg_color_desc = sprintf( __( 'Choose a background color for the content area of your emails. Default %s.', 'woocommerce' ), '<code>' . $body_bg_color_default . '</code>' );
+			$body_bg_color_desc = sprintf( __( 'Choose a background color for the content area of your emails. Default %s.', 'poocommerce' ), '<code>' . $body_bg_color_default . '</code>' );
 
-			$body_text_color_title = __( 'Heading & text', 'woocommerce' );
+			$body_text_color_title = __( 'Heading & text', 'poocommerce' );
 			/* translators: %s: default color */
-			$body_text_color_desc = sprintf( __( 'Set the color of your headings and text. Default %s.', 'woocommerce' ), '<code>' . $body_text_color_default . '</code>' );
+			$body_text_color_desc = sprintf( __( 'Set the color of your headings and text. Default %s.', 'poocommerce' ), '<code>' . $body_text_color_default . '</code>' );
 
-			$footer_text_color_title = __( 'Secondary text', 'woocommerce' );
+			$footer_text_color_title = __( 'Secondary text', 'poocommerce' );
 			/* translators: %s: footer default color */
-			$footer_text_color_desc = sprintf( __( 'Choose a color for your secondary text, such as your footer content. Default %s.', 'woocommerce' ), '<code>' . $footer_text_color_default . '</code>' );
+			$footer_text_color_desc = sprintf( __( 'Choose a color for your secondary text, such as your footer content. Default %s.', 'poocommerce' ), '<code>' . $footer_text_color_default . '</code>' );
 
 			$color_palette_section_header = array(
-				'title' => __( 'Color palette', 'woocommerce' ),
+				'title' => __( 'Color palette', 'poocommerce' ),
 				'type'  => 'email_color_palette',
 				'id'    => 'email_color_palette',
 			);
@@ -210,7 +210,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$base_color_setting = array(
 			'title'    => $base_color_title,
 			'desc'     => $base_color_desc,
-			'id'       => 'woocommerce_email_base_color',
+			'id'       => 'poocommerce_email_base_color',
 			'type'     => 'color',
 			'css'      => 'width:6em;',
 			'default'  => $base_color_default,
@@ -221,7 +221,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$bg_color_setting = array(
 			'title'    => $bg_color_title,
 			'desc'     => $bg_color_desc,
-			'id'       => 'woocommerce_email_background_color',
+			'id'       => 'poocommerce_email_background_color',
 			'type'     => 'color',
 			'css'      => 'width:6em;',
 			'default'  => $bg_color_default,
@@ -232,7 +232,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$body_bg_color_setting = array(
 			'title'    => $body_bg_color_title,
 			'desc'     => $body_bg_color_desc,
-			'id'       => 'woocommerce_email_body_background_color',
+			'id'       => 'poocommerce_email_body_background_color',
 			'type'     => 'color',
 			'css'      => 'width:6em;',
 			'default'  => $body_bg_color_default,
@@ -243,7 +243,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$body_text_color_setting = array(
 			'title'    => $body_text_color_title,
 			'desc'     => $body_text_color_desc,
-			'id'       => 'woocommerce_email_text_color',
+			'id'       => 'poocommerce_email_text_color',
 			'type'     => 'color',
 			'css'      => 'width:6em;',
 			'default'  => $body_text_color_default,
@@ -254,7 +254,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$footer_text_color_setting = array(
 			'title'    => $footer_text_color_title,
 			'desc'     => $footer_text_color_desc,
-			'id'       => 'woocommerce_email_footer_text_color',
+			'id'       => 'poocommerce_email_footer_text_color',
 			'type'     => 'color',
 			'css'      => 'width:6em;',
 			'default'  => $footer_text_color_default,
@@ -279,9 +279,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		$settings =
 			array(
 				array(
-					'title' => __( 'Email notifications', 'woocommerce' ),
+					'title' => __( 'Email notifications', 'poocommerce' ),
 					/* translators: %s: help description with link to WP Mail logging and support page. */
-					'desc'  => sprintf( __( 'Email notifications sent from WooCommerce are listed below. Click on an email to configure it.<br>%s', 'woocommerce' ), $desc_help_text ),
+					'desc'  => sprintf( __( 'Email notifications sent from PooCommerce are listed below. Click on an email to configure it.<br>%s', 'poocommerce' ), $desc_help_text ),
 					'type'  => 'title',
 					'id'    => 'email_notification_settings',
 				),
@@ -299,16 +299,16 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				),
 
 				array(
-					'title' => __( 'Email sender options', 'woocommerce' ),
+					'title' => __( 'Email sender options', 'poocommerce' ),
 					'type'  => 'title',
-					'desc'  => __( "Set the name and email address you'd like your outgoing emails to use.", 'woocommerce' ),
+					'desc'  => __( "Set the name and email address you'd like your outgoing emails to use.", 'poocommerce' ),
 					'id'    => 'email_options',
 				),
 
 				array(
-					'title'    => __( '"From" name', 'woocommerce' ),
+					'title'    => __( '"From" name', 'poocommerce' ),
 					'desc'     => '',
-					'id'       => 'woocommerce_email_from_name',
+					'id'       => 'poocommerce_email_from_name',
 					'type'     => 'text',
 					'css'      => 'min-width:400px;',
 					'default'  => esc_attr( get_bloginfo( 'name', 'display' ) ),
@@ -317,9 +317,9 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				),
 
 				array(
-					'title'             => __( '"From" address', 'woocommerce' ),
+					'title'             => __( '"From" address', 'poocommerce' ),
 					'desc'              => '',
-					'id'                => 'woocommerce_email_from_address',
+					'id'                => 'poocommerce_email_from_address',
 					'type'              => 'email',
 					'custom_attributes' => array(
 						'multiple' => 'multiple',
@@ -336,7 +336,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				),
 
 				array(
-					'title' => __( 'Email template', 'woocommerce' ),
+					'title' => __( 'Email template', 'poocommerce' ),
 					'type'  => 'title',
 					'desc'  => $email_template_description,
 					'id'    => 'email_template_options',
@@ -357,11 +357,11 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				$body_text_color_setting_in_template_opts,
 
 				array(
-					'title'       => __( 'Footer text', 'woocommerce' ),
+					'title'       => __( 'Footer text', 'poocommerce' ),
 					'desc'        => $footer_text_description,
-					'id'          => 'woocommerce_email_footer_text',
+					'id'          => 'poocommerce_email_footer_text',
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $footer_text_default,
 					'autoload'    => false,
@@ -392,15 +392,15 @@ class WC_Settings_Emails extends WC_Settings_Page {
 				array( 'type' => 'email_preview' ),
 
 				array(
-					'title' => __( 'Store management insights', 'woocommerce' ),
+					'title' => __( 'Store management insights', 'poocommerce' ),
 					'type'  => 'title',
 					'id'    => 'email_merchant_notes',
 				),
 
 				array(
-					'title'         => __( 'Enable email insights', 'woocommerce' ),
-					'desc'          => __( 'Receive email notifications with additional guidance to complete the basic store setup and helpful insights', 'woocommerce' ),
-					'id'            => 'woocommerce_merchant_email_notifications',
+					'title'         => __( 'Enable email insights', 'poocommerce' ),
+					'desc'          => __( 'Receive email notifications with additional guidance to complete the basic store setup and helpful insights', 'poocommerce' ),
+					'id'            => 'poocommerce_merchant_email_notifications',
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
 					'default'       => 'no',
@@ -416,7 +416,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		// Remove empty elements that depend on the email_improvements feature flag.
 		$settings = array_filter( $settings );
 
-		return apply_filters( 'woocommerce_email_settings', $settings );
+		return apply_filters( 'poocommerce_email_settings', $settings );
 	}
 
 	/**
@@ -548,12 +548,12 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					<tr>
 						<?php
 						$columns = apply_filters(
-							'woocommerce_email_setting_columns',
+							'poocommerce_email_setting_columns',
 							array(
 								'status'     => '',
-								'name'       => __( 'Email', 'woocommerce' ),
-								'email_type' => __( 'Content type', 'woocommerce' ),
-								'recipient'  => __( 'Recipient(s)', 'woocommerce' ),
+								'name'       => __( 'Email', 'poocommerce' ),
+								'email_type' => __( 'Content type', 'poocommerce' ),
+								'recipient'  => __( 'Recipient(s)', 'poocommerce' ),
 								'actions'    => '',
 							)
 						);
@@ -579,18 +579,18 @@ class WC_Settings_Emails extends WC_Settings_Page {
 										break;
 									case 'recipient':
 										echo '<td class="wc-email-settings-table-' . esc_attr( $key ) . '">
-										' . esc_html( $email->is_customer_email() ? __( 'Customer', 'woocommerce' ) : $email->get_recipient() ) . '
+										' . esc_html( $email->is_customer_email() ? __( 'Customer', 'poocommerce' ) : $email->get_recipient() ) . '
 									</td>';
 										break;
 									case 'status':
 										echo '<td class="wc-email-settings-table-' . esc_attr( $key ) . '">';
 
 										if ( $email->is_manual() ) {
-											echo '<span class="status-manual tips" data-tip="' . esc_attr__( 'Manually sent', 'woocommerce' ) . '">' . esc_html__( 'Manual', 'woocommerce' ) . '</span>';
+											echo '<span class="status-manual tips" data-tip="' . esc_attr__( 'Manually sent', 'poocommerce' ) . '">' . esc_html__( 'Manual', 'poocommerce' ) . '</span>';
 										} elseif ( $email->is_enabled() ) {
-											echo '<span class="status-enabled tips" data-tip="' . esc_attr__( 'Enabled', 'woocommerce' ) . '">' . esc_html__( 'Yes', 'woocommerce' ) . '</span>';
+											echo '<span class="status-enabled tips" data-tip="' . esc_attr__( 'Enabled', 'poocommerce' ) . '">' . esc_html__( 'Yes', 'poocommerce' ) . '</span>';
 										} else {
-											echo '<span class="status-disabled tips" data-tip="' . esc_attr__( 'Disabled', 'woocommerce' ) . '">-</span>';
+											echo '<span class="status-disabled tips" data-tip="' . esc_attr__( 'Disabled', 'poocommerce' ) . '">-</span>';
 										}
 
 										echo '</td>';
@@ -602,11 +602,11 @@ class WC_Settings_Emails extends WC_Settings_Page {
 										break;
 									case 'actions':
 										echo '<td class="wc-email-settings-table-' . esc_attr( $key ) . '">
-										<a class="button alignright" href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=email&section=' . strtolower( $email_key ) ) ) . '">' . esc_html__( 'Manage', 'woocommerce' ) . '</a>
+										<a class="button alignright" href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=email&section=' . strtolower( $email_key ) ) ) . '">' . esc_html__( 'Manage', 'poocommerce' ) . '</a>
 									</td>';
 										break;
 									default:
-										do_action( 'woocommerce_email_setting_column_' . $key, $email );
+										do_action( 'poocommerce_email_setting_column_' . $key, $email );
 										break;
 								}
 							}
@@ -637,7 +637,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 		?>
 		<div
 			id="wc_settings_email_preview_slotfill"
-			data-preview-url="<?php echo esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) ); ?>"
+			data-preview-url="<?php echo esc_url( wp_nonce_url( admin_url( '?preview_poocommerce_mail=true' ), 'preview-mail' ) ); ?>"
 			data-email-types="<?php echo esc_attr( wp_json_encode( $email_types ) ); ?>"
 		></div>
 		<?php
@@ -713,7 +713,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					name="<?php echo esc_attr( $value['field_name'] ); ?>"
 					id="<?php echo esc_attr( $value['id'] ); ?>"
 					>
-					<optgroup label="<?php echo esc_attr__( 'Standard fonts', 'woocommerce' ); ?>">
+					<optgroup label="<?php echo esc_attr__( 'Standard fonts', 'poocommerce' ); ?>">
 						<?php
 						foreach ( self::$font as $key => $font_family ) {
 							?>
@@ -727,7 +727,7 @@ class WC_Settings_Emails extends WC_Settings_Page {
 						?>
 					</optgroup>
 					<?php if ( $custom_fonts ) : ?>
-						<optgroup label="<?php echo esc_attr__( 'Custom fonts', 'woocommerce' ); ?>">
+						<optgroup label="<?php echo esc_attr__( 'Custom fonts', 'poocommerce' ); ?>">
 							<?php
 							foreach ( $custom_fonts as $key => $val ) {
 								?>

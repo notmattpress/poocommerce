@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useContext, useEffect } from '@wordpress/element';
-import { CurrencyContext } from '@woocommerce/currency';
-import { numberFormat, parseNumber } from '@woocommerce/number';
+import { CurrencyContext } from '@poocommerce/currency';
+import { numberFormat, parseNumber } from '@poocommerce/number';
 
 /**
  * Escape special characters for user input in regex.

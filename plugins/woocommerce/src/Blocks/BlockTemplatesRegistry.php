@@ -1,22 +1,22 @@
 <?php
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplate;
-use Automattic\WooCommerce\Blocks\Templates\AbstractTemplatePart;
-use Automattic\WooCommerce\Blocks\Templates\MiniCartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutHeaderTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ComingSoonTemplate;
-use Automattic\WooCommerce\Blocks\Templates\OrderConfirmationTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductAttributeTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCategoryTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductTagTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplate;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplate;
+use Automattic\PooCommerce\Blocks\Templates\AbstractTemplatePart;
+use Automattic\PooCommerce\Blocks\Templates\MiniCartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutHeaderTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ComingSoonTemplate;
+use Automattic\PooCommerce\Blocks\Templates\OrderConfirmationTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductAttributeTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCategoryTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductTagTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductSearchResultsTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplate;
 
 /**
  * BlockTemplatesRegistry class.

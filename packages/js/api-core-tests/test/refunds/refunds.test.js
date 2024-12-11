@@ -4,7 +4,7 @@ const { productsApi } = require( '../../endpoints/products' );
 const { refund } = require( '../../data' );
 
 /**
- * Tests for the WooCommerce Refunds API.
+ * Tests for the PooCommerce Refunds API.
  *
  * @group api
  * @group refunds

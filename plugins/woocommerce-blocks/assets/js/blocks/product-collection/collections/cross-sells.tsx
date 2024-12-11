@@ -16,11 +16,11 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.CROSS_SELLS,
-	title: __( 'Cross-Sells', 'woocommerce' ),
+	title: __( 'Cross-Sells', 'poocommerce' ),
 	icon: <Icon icon={ reusableBlock } />,
 	description: __(
 		'By suggesting complementary products in the cart using cross-sells, you can significantly increase the average order value.',
-		'woocommerce'
+		'poocommerce'
 	),
 	keywords: [ 'boost', 'promotion' ],
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
@@ -45,7 +45,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'You may be interested in…', 'woocommerce' ),
+		content: __( 'You may be interested in…', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

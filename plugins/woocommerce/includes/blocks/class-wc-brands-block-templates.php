@@ -4,9 +4,9 @@ declare( strict_types = 1);
 
 //phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps
 /**
- * Utils for compatibility with WooCommerce Full Site Editor Blocks
+ * Utils for compatibility with PooCommerce Full Site Editor Blocks
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
  * @version 9.4.0
  */
@@ -18,7 +18,7 @@ class WC_Brands_Block_Templates {
 	public function __construct() {
 		add_action( 'get_block_templates', array( $this, 'get_block_templates' ), 10, 3 );
 		add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), 10, 3 );
-		add_filter( 'woocommerce_has_block_template', array( $this, 'has_block_template' ), 10, 2 );
+		add_filter( 'poocommerce_has_block_template', array( $this, 'has_block_template' ), 10, 2 );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class WC_Brands_Block_Templates {
 	 * Without this, the system will always load archive-product.php version instead of taxonomy_product_brand.html
 	 * it will show a deprecation error if that happens.
 	 *
-	 * Triggered by woocommerce_has_block_template filter
+	 * Triggered by poocommerce_has_block_template filter
 	 *
 	 * @param bool   $has_template  True if the template is available.
 	 * @param string $template_name The name of the template.
@@ -88,19 +88,19 @@ class WC_Brands_Block_Templates {
 	}
 
 	/**
-	 * Function to check if a template name is woocommerce/taxonomy-product_brand
+	 * Function to check if a template name is poocommerce/taxonomy-product_brand
 	 *
-	 * Notice depending on the version of WooCommerce this could be:
+	 * Notice depending on the version of PooCommerce this could be:
 	 *
-	 * woocommerce//taxonomy-product_brand
-	 * woocommerce/woocommerce//taxonomy-product_brand
+	 * poocommerce//taxonomy-product_brand
+	 * poocommerce/poocommerce//taxonomy-product_brand
 	 *
 	 * @param  String $id The string to check if contains the template name.
 	 *
-	 * @return bool True if the template is woocommerce/taxonomy-product_brand
+	 * @return bool True if the template is poocommerce/taxonomy-product_brand
 	 */
 	private function is_taxonomy_product_brand_template( $id ) {
-		return strpos( $id, 'woocommerce//taxonomy-product_brand' ) !== false;
+		return strpos( $id, 'poocommerce//taxonomy-product_brand' ) !== false;
 	}
 
 	/**

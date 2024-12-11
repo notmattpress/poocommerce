@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 /**
  * ProductRatingStars class.
  */
@@ -116,7 +116,7 @@ class ProductRatingStars extends AbstractBlock {
 
 				if ( 0 < $average_rating || false === $product_permalink ) {
 					/* translators: %s: rating */
-					$label = sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $average_rating );
+					$label = sprintf( __( 'Rated %s out of 5', 'poocommerce' ), $average_rating );
 					$html  = sprintf(
 						'<div class="wc-block-components-product-rating-stars__container">
 							<div class="wc-block-components-product-rating__stars wc-block-grid__product-rating__stars" role="img" aria-label="%1$s">
@@ -135,7 +135,7 @@ class ProductRatingStars extends AbstractBlock {
 			};
 
 			add_filter(
-				'woocommerce_product_get_rating_html',
+				'poocommerce_product_get_rating_html',
 				$filter_rating_html,
 				10,
 				3
@@ -144,7 +144,7 @@ class ProductRatingStars extends AbstractBlock {
 			$rating_html = wc_get_rating_html( $product->get_average_rating() );
 
 			remove_filter(
-				'woocommerce_product_get_rating_html',
+				'poocommerce_product_get_rating_html',
 				$filter_rating_html,
 				10
 			);

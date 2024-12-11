@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-footer-block",
+	"name": "poocommerce/mini-cart-footer-block",
 	"version": "1.0.0",
 	"title": "Mini-Cart Footer",
 	"description": "Block that displays the footer of the Mini-Cart block.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -22,9 +22,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/filled-mini-cart-contents-block"
+		"poocommerce/filled-mini-cart-contents-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

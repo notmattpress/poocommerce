@@ -75,37 +75,37 @@ describe( 'LearnMarketing component', () => {
 				{
 					title: 'Grow Your Store with an Omnichannel Presence',
 					date: '2022-09-21T19:46:40',
-					link: 'https://woocommerce.com/posts/grow-store-omnichannel-ecommerce/',
+					link: 'https://poocommerce.com/posts/grow-store-omnichannel-ecommerce/',
 					author_name: 'Kathryn Marr',
 					author_avatar:
 						'https://secure.gravatar.com/avatar/431b87d722d366103cc5d9b26c66c665?s=96&d=mm&r=g',
-					image: 'https://woocommerce.com/wp-content/uploads/2022/09/blog-fb-Omnichannel@2x.jpg?resize=650,340&crop=1',
+					image: 'https://poocommerce.com/wp-content/uploads/2022/09/blog-fb-Omnichannel@2x.jpg?resize=650,340&crop=1',
 				},
 				{
 					title: 'What is Affiliate Marketing and How to Use it to Make More Money Online',
 					date: '2022-08-30T22:03:54',
-					link: 'https://woocommerce.com/posts/what-is-affliate-marketing/',
+					link: 'https://poocommerce.com/posts/what-is-affliate-marketing/',
 					author_name: 'Kathryn Marr',
 					author_avatar:
 						'https://secure.gravatar.com/avatar/431b87d722d366103cc5d9b26c66c665?s=96&d=mm&r=g',
-					image: 'https://woocommerce.com/wp-content/uploads/2022/08/blog-fb-Affiliate@2x.jpg?resize=650,340&crop=1',
+					image: 'https://poocommerce.com/wp-content/uploads/2022/08/blog-fb-Affiliate@2x.jpg?resize=650,340&crop=1',
 				},
 				{
 					title: 'Ten Customer Retention Strategies to Boost Revenue for eCommerce Stores',
 					date: '2022-06-22T17:58:12',
-					link: 'https://woocommerce.com/posts/10-ecommerce-customer-retention-strategies-boost-revenue/',
+					link: 'https://poocommerce.com/posts/10-ecommerce-customer-retention-strategies-boost-revenue/',
 					author_name: 'Craig Cohen',
 					author_avatar:
 						'https://secure.gravatar.com/avatar/66c306ae543fb47f594ef9b9cdb88d93?s=96&d=mm&r=g',
 				},
 				{
-					title: 'TikTok Marketing: A Guide for WooCommerce Stores',
+					title: 'TikTok Marketing: A Guide for PooCommerce Stores',
 					date: '2022-05-25T14:03:00',
-					link: 'https://woocommerce.com/posts/tiktok-marketing-a-guide-for-woocommerce-stores/',
+					link: 'https://poocommerce.com/posts/tiktok-marketing-a-guide-for-poocommerce-stores/',
 					author_name: 'Elina Vilk',
 					author_avatar:
 						'https://secure.gravatar.com/avatar/fc7aedb0e531795eeffa3654ce203a8e?s=96&d=mm&r=g',
-					image: 'https://woocommerce.com/wp-content/uploads/2022/05/Facebook-Post-1200x630@2x3.jpg?resize=650,340&crop=1',
+					image: 'https://poocommerce.com/wp-content/uploads/2022/05/Facebook-Post-1200x630@2x3.jpg?resize=650,340&crop=1',
 				},
 			],
 		} );
@@ -139,7 +139,7 @@ describe( 'LearnMarketing component', () => {
 		).toBeInTheDocument();
 		expect(
 			screen.getByText(
-				'TikTok Marketing: A Guide for WooCommerce Stores'
+				'TikTok Marketing: A Guide for PooCommerce Stores'
 			)
 		).toBeInTheDocument();
 	} );

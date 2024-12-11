@@ -3,15 +3,15 @@
  */
 import clsx from 'clsx';
 import { useState, useEffect, useMemo } from '@wordpress/element';
-import Button from '@woocommerce/base-components/button';
-import { CHECKOUT_URL } from '@woocommerce/block-settings';
-import { usePositionRelativeToViewport } from '@woocommerce/base-hooks';
-import { getSetting } from '@woocommerce/settings';
+import Button from '@poocommerce/base-components/button';
+import { CHECKOUT_URL } from '@poocommerce/block-settings';
+import { usePositionRelativeToViewport } from '@poocommerce/base-hooks';
+import { getSetting } from '@poocommerce/settings';
 import { useSelect } from '@wordpress/data';
-import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { isErrorResponse } from '@woocommerce/base-context';
-import { useCartEventsContext } from '@woocommerce/base-context/providers';
+import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { isErrorResponse } from '@poocommerce/base-context';
+import { useCartEventsContext } from '@poocommerce/base-context/providers';
 
 /**
  * Internal dependencies

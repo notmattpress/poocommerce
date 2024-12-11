@@ -314,7 +314,7 @@ test.describe( 'Products API tests: CRUD', () => {
 			expect( responseJSON.type ).toEqual( 'select' );
 			expect( responseJSON.order_by ).toEqual( 'name' );
 			// the below has_archives test is currently not working as expected
-			// an issue (https://github.com/woocommerce/woocommerce/issues/34991)
+			// an issue (https://github.com/poocommerce/poocommerce/issues/34991)
 			// has been raised and this test can be
 			// updated as appropriate after triage
 			// expect(responseJSON.has_archives).toEqual(true);
@@ -652,7 +652,7 @@ test.describe( 'Products API tests: CRUD', () => {
 
 				expect( response.status() ).toEqual( 404 );
 				expect( responseJSON.code ).toEqual(
-					'woocommerce_rest_product_invalid_id'
+					'poocommerce_rest_product_invalid_id'
 				);
 				expect( responseJSON.message ).toEqual( 'Invalid product ID.' );
 			} );
@@ -676,7 +676,7 @@ test.describe( 'Products API tests: CRUD', () => {
 
 				expect( response.status() ).toEqual( 409 );
 				expect( responseJSON.code ).toEqual(
-					'woocommerce_rest_comment_duplicate'
+					'poocommerce_rest_comment_duplicate'
 				);
 				expect( responseJSON.message ).toEqual(
 					'Duplicate comment detected; it looks as though you&#8217;ve already said that!'

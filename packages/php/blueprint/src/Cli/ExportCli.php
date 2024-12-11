@@ -1,16 +1,16 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Cli;
+namespace Automattic\PooCommerce\Blueprint\Cli;
 
-use Automattic\WooCommerce\Blueprint\ExportSchema;
-use Automattic\WooCommerce\Blueprint\ZipExportedSchema;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\ZipExportedSchema;
 
 /**
  * Class ExportCli
  *
  * This class handles the CLI commands for exporting schemas.
  *
- * @package Automattic\WooCommerce\Blueprint\Cli
+ * @package Automattic\PooCommerce\Blueprint\Cli
  */
 class ExportCli {
 	/**

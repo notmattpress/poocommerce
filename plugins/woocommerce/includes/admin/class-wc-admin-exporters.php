@@ -1,8 +1,8 @@
 <?php
 /**
- * Init WooCommerce data exporters.
+ * Init PooCommerce data exporters.
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     3.1.0
  */
 
@@ -36,19 +36,19 @@ class WC_Admin_Exporters {
 		add_action( 'admin_head', array( $this, 'hide_from_menus' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_init', array( $this, 'download_export_file' ) );
-		add_action( 'wp_ajax_woocommerce_do_ajax_product_export', array( $this, 'do_ajax_product_export' ) );
+		add_action( 'wp_ajax_poocommerce_do_ajax_product_export', array( $this, 'do_ajax_product_export' ) );
 
-		// Register WooCommerce exporters.
+		// Register PooCommerce exporters.
 		$this->exporters['product_exporter'] = array(
 			'menu'       => 'edit.php?post_type=product',
-			'name'       => __( 'Product Export', 'woocommerce' ),
+			'name'       => __( 'Product Export', 'poocommerce' ),
 			'capability' => 'export',
 			'callback'   => array( $this, 'product_exporter' ),
 		);
 	}
 
 	/**
-	 * Return true if WooCommerce export is allowed for current user, false otherwise.
+	 * Return true if PooCommerce export is allowed for current user, false otherwise.
 	 *
 	 * @return bool Whether current user can perform export.
 	 */
@@ -129,7 +129,7 @@ class WC_Admin_Exporters {
 		check_ajax_referer( 'wc-product-export', 'security' );
 
 		if ( ! $this->export_allowed() ) {
-			wp_send_json_error( array( 'message' => __( 'Insufficient privileges to export products.', 'woocommerce' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Insufficient privileges to export products.', 'poocommerce' ) ) );
 		}
 
 		include_once WC_ABSPATH . 'includes/export/class-wc-product-csv-exporter.php';
@@ -165,7 +165,7 @@ class WC_Admin_Exporters {
 		$exporter->generate_file();
 
 		$query_args = apply_filters(
-			'woocommerce_export_get_ajax_query_args',
+			'poocommerce_export_get_ajax_query_args',
 			array(
 				'nonce'    => wp_create_nonce( 'product-csv' ),
 				'action'   => 'download_product_csv',
@@ -200,7 +200,7 @@ class WC_Admin_Exporters {
 	 */
 	public static function get_product_types() {
 		$product_types              = wc_get_product_types();
-		$product_types['variation'] = __( 'Product variations', 'woocommerce' );
+		$product_types['variation'] = __( 'Product variations', 'poocommerce' );
 
 		/**
 		 * Allow third-parties to filter the exportable product types.
@@ -213,7 +213,7 @@ class WC_Admin_Exporters {
 		 *     @type string A translated product label which appears in the export product type dropdown.
 		 * }
 		 */
-		return apply_filters( 'woocommerce_exporter_product_types', $product_types );
+		return apply_filters( 'poocommerce_exporter_product_types', $product_types );
 	}
 }
 

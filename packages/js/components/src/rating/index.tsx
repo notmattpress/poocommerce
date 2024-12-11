@@ -47,7 +47,7 @@ const Rating = ( {
 		return _stars;
 	};
 
-	const classes = classnames( 'woocommerce-rating', className );
+	const classes = classnames( 'poocommerce-rating', className );
 	const perStar = 100 / totalStars;
 	const outlineStyles = {
 		width: Math.round( perStar * rating ) + '%',
@@ -55,7 +55,7 @@ const Rating = ( {
 
 	const label = sprintf(
 		/* translators: %1$s: rating, %2$s: total number of stars */
-		__( '%1$s out of %2$s stars.', 'woocommerce' ),
+		__( '%1$s out of %2$s stars.', 'poocommerce' ),
 		rating,
 		totalStars
 	);
@@ -63,7 +63,7 @@ const Rating = ( {
 		<div className={ classes } aria-label={ label }>
 			{ stars( icon ) }
 			<div
-				className="woocommerce-rating__star-outline"
+				className="poocommerce-rating__star-outline"
 				style={ outlineStyles }
 			>
 				{ stars( outlineIcon || icon ) }

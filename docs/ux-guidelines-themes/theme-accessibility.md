@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Theme Guidelines - Accessibility
+post_title: PooCommerce Theme Guidelines - Accessibility
 menu_title: Accessibility
 ---
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getContext, getElement, store } from '@woocommerce/interactivity';
+import { getContext, getElement, store } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -10,11 +10,11 @@ import type { ProductFiltersContext } from '../../frontend';
 
 const filterStockStatusKey = 'filter_stock_status';
 
-store( 'woocommerce/product-filter-status', {
+store( 'poocommerce/product-filter-status', {
 	actions: {
 		toggleFilter: () => {
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			const currentFilters =
 				productFiltersContext.params[ filterStockStatusKey ];
@@ -44,7 +44,7 @@ store( 'woocommerce/product-filter-status', {
 		},
 		clearFilters: () => {
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			const updatedParams = productFiltersContext.params;
 

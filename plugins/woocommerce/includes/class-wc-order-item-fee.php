@@ -5,12 +5,12 @@
  * Fee is an amount of money charged for a particular piece of work
  * or for a particular right or service, and not supposed to be negative.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -118,7 +118,7 @@ class WC_Order_Item_Fee extends WC_Order_Item {
 			$this->set_taxes( false );
 		}
 
-		do_action( 'woocommerce_order_item_fee_after_calculate_taxes', $this, $calculate_tax_for );
+		do_action( 'poocommerce_order_item_fee_after_calculate_taxes', $this, $calculate_tax_for );
 
 		return true;
 	}
@@ -145,7 +145,7 @@ class WC_Order_Item_Fee extends WC_Order_Item {
 	 */
 	public function set_tax_class( $value ) {
 		if ( $value && ! in_array( $value, WC_Tax::get_tax_class_slugs(), true ) ) {
-			$this->error( 'order_item_fee_invalid_tax_class', __( 'Invalid tax class', 'woocommerce' ) );
+			$this->error( 'order_item_fee_invalid_tax_class', __( 'Invalid tax class', 'poocommerce' ) );
 		}
 		$this->set_prop( 'tax_class', $value );
 	}
@@ -198,7 +198,7 @@ class WC_Order_Item_Fee extends WC_Order_Item {
 		}
 		$this->set_prop( 'taxes', $tax_data );
 
-		if ( 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_tax_round_at_subtotal' ) ) {
 			$this->set_total_tax( NumberUtil::array_sum( $tax_data['total'] ) );
 		} else {
 			$this->set_total_tax( NumberUtil::array_sum( array_map( 'wc_round_tax_total', $tax_data['total'] ) ) );
@@ -230,7 +230,7 @@ class WC_Order_Item_Fee extends WC_Order_Item {
 	public function get_name( $context = 'view' ) {
 		$name = $this->get_prop( 'name', $context );
 		if ( 'view' === $context ) {
-			return $name ? $name : __( 'Fee', 'woocommerce' );
+			return $name ? $name : __( 'Fee', 'poocommerce' );
 		} else {
 			return $name;
 		}

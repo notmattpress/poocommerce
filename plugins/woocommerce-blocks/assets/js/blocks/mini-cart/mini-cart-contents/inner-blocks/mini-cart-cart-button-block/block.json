@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-cart-button-block",
+	"name": "poocommerce/mini-cart-cart-button-block",
 	"version": "1.0.0",
 	"title": "Mini-Cart View Cart Button",
 	"description": "Block that displays the cart button when the Mini-Cart has products.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -36,9 +36,9 @@
 		}
 	],
 	"parent": [
-		"woocommerce/mini-cart-footer-block"
+		"poocommerce/mini-cart-footer-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

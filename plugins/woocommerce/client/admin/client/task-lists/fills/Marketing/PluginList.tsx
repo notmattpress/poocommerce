@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -26,9 +26,9 @@ export const PluginList: React.FC< PluginListProps > = ( {
 	title,
 } ) => {
 	return (
-		<div className="woocommerce-plugin-list">
+		<div className="poocommerce-plugin-list">
 			{ title && (
-				<div className="woocommerce-plugin-list__title">
+				<div className="poocommerce-plugin-list__title">
 					<Text variant="sectionheading" as="h3">
 						{ title }
 					</Text>

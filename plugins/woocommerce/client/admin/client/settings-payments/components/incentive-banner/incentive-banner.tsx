@@ -5,7 +5,7 @@ import React from 'react';
 import { Button, Card, CardBody, CardMedia } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -27,51 +27,51 @@ export const IncentiveBanner = () => {
 	};
 
 	return (
-		<Card className="woocommerce-incentive-banner" isRounded={ true }>
-			<div className="woocommerce-incentive-banner__content">
+		<Card className="poocommerce-incentive-banner" isRounded={ true }>
+			<div className="poocommerce-incentive-banner__content">
 				<CardMedia>
 					<img
 						src={
 							WC_ASSET_URL +
 							'images/settings-payments/incentives-icon.svg'
 						}
-						alt={ __( 'Incentive hero image', 'woocommerce' ) }
+						alt={ __( 'Incentive hero image', 'poocommerce' ) }
 					/>
 				</CardMedia>
-				<CardBody className="woocommerce-incentive-banner__body">
+				<CardBody className="poocommerce-incentive-banner__body">
 					<StatusBadge
 						status="has_incentive"
-						message={ __( 'Limited time offer', 'woocommerce' ) }
+						message={ __( 'Limited time offer', 'poocommerce' ) }
 					/>
 					<h2>
 						{ __(
 							'Save 10% on processing fees for your first 3 months when you sign up for WooPayments',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</h2>
 					<p>
 						{ __(
 							'Use the native payments solution built and supported by Woo to accept online and in-person payments, track revenue, and handle all payment activity in one place.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
-					<p className={ 'woocommerce-incentive-banner__terms' }>
+					<p className={ 'poocommerce-incentive-banner__terms' }>
 						{ createInterpolateElement(
 							__(
 								'See <termsLink /> for details.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								termsLink: (
 									<Link
-										href="https://woocommerce.com/terms-conditions/woopayments-action-promotion-2023/"
+										href="https://poocommerce.com/terms-conditions/woopayments-action-promotion-2023/"
 										target="_blank"
 										rel="noreferrer"
 										type="external"
 									>
 										{ __(
 											'Terms and Conditions',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Link>
 								),
@@ -85,7 +85,7 @@ export const IncentiveBanner = () => {
 						disabled={ isSubmitted }
 						onClick={ handleSetup }
 					>
-						{ __( 'Save 10%', 'woocommerce' ) }
+						{ __( 'Save 10%', 'poocommerce' ) }
 					</Button>
 					<Button
 						variant={ 'tertiary' }
@@ -93,7 +93,7 @@ export const IncentiveBanner = () => {
 						disabled={ isDismissClicked }
 						onClick={ handleDismiss }
 					>
-						{ __( 'No thanks', 'woocommerce' ) }
+						{ __( 'No thanks', 'poocommerce' ) }
 					</Button>
 				</CardBody>
 			</div>

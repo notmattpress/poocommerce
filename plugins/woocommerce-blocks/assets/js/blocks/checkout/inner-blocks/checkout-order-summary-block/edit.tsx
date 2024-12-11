@@ -3,17 +3,17 @@
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import type { TemplateArray } from '@wordpress/blocks';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
-import { TotalsFooterItem } from '@woocommerce/base-components/cart-checkout';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
+import { TotalsFooterItem } from '@poocommerce/base-components/cart-checkout';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { useId, useState } from '@wordpress/element';
 import { Icon } from '@wordpress/components';
 import { chevronDown, chevronUp } from '@wordpress/icons';
 import clsx from 'clsx';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
-import { useContainerWidthContext } from '@woocommerce/base-context';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
+import { useContainerWidthContext } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -52,9 +52,9 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 		: {};
 
 	const defaultTemplate = [
-		[ 'woocommerce/checkout-order-summary-cart-items-block', {}, [] ],
-		[ 'woocommerce/checkout-order-summary-coupon-form-block', {}, [] ],
-		[ 'woocommerce/checkout-order-summary-totals-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-cart-items-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-coupon-form-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-totals-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {
@@ -73,7 +73,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 					className="wc-block-components-checkout-order-summary__title-text"
 					role="heading"
 				>
-					{ __( 'Order summary', 'woocommerce' ) }
+					{ __( 'Order summary', 'poocommerce' ) }
 				</p>
 				{ ! isLarge && (
 					<>

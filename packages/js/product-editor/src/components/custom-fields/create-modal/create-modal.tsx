@@ -5,7 +5,7 @@ import { Button, Modal } from '@wordpress/components';
 import { createElement, useState, useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { closeSmall } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import classNames from 'classnames';
 import type { FocusEvent } from 'react';
 
@@ -199,11 +199,11 @@ export function CreateModal( {
 	return (
 		<Modal
 			shouldCloseOnClickOutside={ false }
-			title={ __( 'Add custom fields', 'woocommerce' ) }
+			title={ __( 'Add custom fields', 'poocommerce' ) }
 			onRequestClose={ onCancel }
 			{ ...props }
 			className={ classNames(
-				'woocommerce-product-custom-fields__create-modal',
+				'poocommerce-product-custom-fields__create-modal',
 				props.className
 			) }
 		>
@@ -211,14 +211,14 @@ export function CreateModal( {
 				<div role="rowgroup">
 					<div role="rowheader">
 						<div role="columnheader">
-							{ __( 'Name', 'woocommerce' ) }
+							{ __( 'Name', 'poocommerce' ) }
 						</div>
 						<div role="columnheader">
-							{ __( 'Value', 'woocommerce' ) }
+							{ __( 'Value', 'poocommerce' ) }
 						</div>
 						<div
 							role="columnheader"
-							aria-label={ __( 'Actions', 'woocommerce' ) }
+							aria-label={ __( 'Actions', 'poocommerce' ) }
 						/>
 					</div>
 				</div>
@@ -228,7 +228,7 @@ export function CreateModal( {
 							<div role="cell">
 								<CustomFieldNameControl
 									ref={ getRef( customField, 'key' ) }
-									label={ __( 'Name', 'woocommerce' ) }
+									label={ __( 'Name', 'poocommerce' ) }
 									hideLabelFromVision
 									allowReset={ false }
 									help={ getValidationError(
@@ -253,7 +253,7 @@ export function CreateModal( {
 								<TextControl
 									ref={ getRef( customField, 'value' ) }
 									label={ '' }
-									aria-label={ __( 'Value', 'woocommerce' ) }
+									aria-label={ __( 'Value', 'poocommerce' ) }
 									error={ getValidationError(
 										customField,
 										'value'
@@ -275,7 +275,7 @@ export function CreateModal( {
 									disabled={ customFields.length <= 1 }
 									aria-label={ __(
 										'Remove custom field',
-										'woocommerce'
+										'poocommerce'
 									) }
 									onClick={ removeCustomFieldButtonClickHandler(
 										customField
@@ -287,22 +287,22 @@ export function CreateModal( {
 				</div>
 			</div>
 
-			<div className="woocommerce-product-custom-fields__create-modal-add-another">
+			<div className="poocommerce-product-custom-fields__create-modal-add-another">
 				<Button
 					variant="tertiary"
 					onClick={ handleAddAnotherButtonClick }
 				>
-					{ __( '+ Add another', 'woocommerce' ) }
+					{ __( '+ Add another', 'poocommerce' ) }
 				</Button>
 			</div>
 
-			<div className="woocommerce-product-custom-fields__create-modal-actions">
+			<div className="poocommerce-product-custom-fields__create-modal-actions">
 				<Button variant="secondary" onClick={ onCancel }>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 
 				<Button variant="primary" onClick={ handleAddButtonClick }>
-					{ __( 'Add', 'woocommerce' ) }
+					{ __( 'Add', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 const permalink = '/cart';
-const templatePath = 'woocommerce/woocommerce//page-cart';
+const templatePath = 'poocommerce/poocommerce//page-cart';
 const templateType = 'wp_template';
 
 test.describe( 'Test the cart template', () => {
@@ -66,10 +66,10 @@ test.describe( 'Test editing the cart template', () => {
 			canvas: 'edit',
 		} );
 		await editor.setContent(
-			'<!-- wp:woocommerce/classic-shortcode {"shortcode":"cart"} /-->'
+			'<!-- wp:poocommerce/classic-shortcode {"shortcode":"cart"} /-->'
 		);
 		await editor.canvas
-			.locator( '.wp-block-woocommerce-classic-shortcode' )
+			.locator( '.wp-block-poocommerce-classic-shortcode' )
 			.waitFor();
 		await editor.canvas
 			.getByRole( 'button', { name: 'Transform into blocks' } )

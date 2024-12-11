@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
 use WP_Comment_Query;
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
 
 /**
  * ProductReviews class.
@@ -174,7 +174,7 @@ class ProductReviews extends AbstractRoute {
 		$params['context']['default'] = 'view';
 
 		$params['page'] = array(
-			'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+			'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 1,
 			'sanitize_callback' => 'absint',
@@ -183,7 +183,7 @@ class ProductReviews extends AbstractRoute {
 		);
 
 		$params['per_page'] = array(
-			'description'       => __( 'Maximum number of items to be returned in result set. Defaults to no limit if left blank.', 'woocommerce' ),
+			'description'       => __( 'Maximum number of items to be returned in result set. Defaults to no limit if left blank.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 10,
 			'minimum'           => 0,
@@ -193,14 +193,14 @@ class ProductReviews extends AbstractRoute {
 		);
 
 		$params['offset'] = array(
-			'description'       => __( 'Offset the result set by a specific number of items.', 'woocommerce' ),
+			'description'       => __( 'Offset the result set by a specific number of items.', 'poocommerce' ),
 			'type'              => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['order'] = array(
-			'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+			'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'desc',
 			'enum'              => array( 'asc', 'desc' ),
@@ -208,7 +208,7 @@ class ProductReviews extends AbstractRoute {
 		);
 
 		$params['orderby'] = array(
-			'description'       => __( 'Sort collection by object attribute.', 'woocommerce' ),
+			'description'       => __( 'Sort collection by object attribute.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'date',
 			'enum'              => array(
@@ -222,14 +222,14 @@ class ProductReviews extends AbstractRoute {
 		);
 
 		$params['category_id'] = array(
-			'description'       => __( 'Limit result set to reviews from specific category IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to reviews from specific category IDs.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['product_id'] = array(
-			'description'       => __( 'Limit result set to reviews from specific product IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to reviews from specific product IDs.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',

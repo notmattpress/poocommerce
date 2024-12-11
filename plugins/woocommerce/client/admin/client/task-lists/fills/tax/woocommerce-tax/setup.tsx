@@ -4,12 +4,12 @@
 import { __ } from '@wordpress/i18n';
 import { difference } from 'lodash';
 import { useEffect, useState } from '@wordpress/element';
-import { Stepper } from '@woocommerce/components';
+import { Stepper } from '@poocommerce/components';
 import {
 	OPTIONS_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	SETTINGS_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -57,7 +57,7 @@ export const Setup: React.FC< SetupProps > = ( {
 			generalSettings: getSettings( 'general' )?.general,
 			isResolving:
 				! hasFinishedResolution( 'getOption', [
-					'woocommerce_setup_jetpack_opted_in',
+					'poocommerce_setup_jetpack_opted_in',
 				] ) ||
 				! hasFinishedResolution( 'getOption', [
 					'wc_connect_options',
@@ -94,28 +94,28 @@ export const Setup: React.FC< SetupProps > = ( {
 	const steps = [
 		{
 			key: 'store_location',
-			label: __( 'Set store location', 'woocommerce' ),
+			label: __( 'Set store location', 'poocommerce' ),
 			description: __(
 				'The address from which your business operates',
-				'woocommerce'
+				'poocommerce'
 			),
 			content: <StoreLocation { ...stepProps } />,
 		},
 		{
 			key: 'plugins',
-			label: __( 'Install WooCommerce Tax', 'woocommerce' ),
+			label: __( 'Install PooCommerce Tax', 'poocommerce' ),
 			description: __(
-				'WooCommerce Tax allows you to automate sales tax calculations',
-				'woocommerce'
+				'PooCommerce Tax allows you to automate sales tax calculations',
+				'poocommerce'
 			),
 			content: <Plugins { ...stepProps } />,
 		},
 		{
 			key: 'connect',
-			label: __( 'Connect your store', 'woocommerce' ),
+			label: __( 'Connect your store', 'poocommerce' ),
 			description: __(
 				'Connect your store to WordPress.com to enable automated sales tax calculations',
-				'woocommerce'
+				'poocommerce'
 			),
 			content: <Connect { ...stepProps } />,
 		},

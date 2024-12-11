@@ -37,7 +37,7 @@ This endpoint is useful for adding additional data about individual products. Th
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => ProductSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -73,7 +73,7 @@ This endpoint is useful for adding additional data to the cart page, for example
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => CartSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -109,7 +109,7 @@ This endpoint is useful for adding additional data about individual cart items. 
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => CartItemSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -148,7 +148,7 @@ This endpoint is useful for adding additional data to the checkout page, such as
 ### Example
 
 ```php
-woocommerce_store_api_register_endpoint_data(
+poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint'        => CheckoutSchema::IDENTIFIER,
 		'namespace'       => 'my_plugin_namespace',
@@ -175,8 +175,8 @@ woocommerce_store_api_register_endpoint_data(
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/available-endpoints-to-extend.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/available-endpoints-to-extend.md)
 
 <!-- /FEEDBACK -->

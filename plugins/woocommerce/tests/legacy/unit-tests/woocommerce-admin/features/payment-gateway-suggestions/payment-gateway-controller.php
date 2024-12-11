@@ -2,10 +2,10 @@
 /**
  * Test the class that extends the payment gateway REST response.
  *
- * @package WooCommerce\Admin\Tests\PaymentGatewaySuggestions
+ * @package PooCommerce\Admin\Tests\PaymentGatewaySuggestions
  */
 
-use Automattic\WooCommerce\Admin\Features\RemotePaymentMethods\PaymentGatewaysController;
+use Automattic\PooCommerce\Admin\Features\RemotePaymentMethods\PaymentGatewaysController;
 
 /**
  * class WC_Admin_Tests_PaymentGatewaySuggestions_PaymentGatewaysController
@@ -32,7 +32,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_PaymentGatewaysController extends
 		wp_set_current_user( $this->user );
 
 		add_filter(
-			'woocommerce_payment_gateways',
+			'poocommerce_payment_gateways',
 			function( $gateways ) {
 				$gateways[] = 'WC_Mock_Payment_Gateway';
 				$gateways[] = 'WC_Mock_Enhanced_Payment_Gateway';

@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\StoreApi\Utilities\SanitizationUtils;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\Utilities\SanitizationUtils;
 
 /**
  * CheckoutSchema class.
@@ -77,42 +77,42 @@ class CheckoutSchema extends AbstractSchema {
 		$additional_field_schema = $this->get_additional_fields_schema();
 		return [
 			'order_id'          => [
-				'description' => __( 'The order ID to process during checkout.', 'woocommerce' ),
+				'description' => __( 'The order ID to process during checkout.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'status'            => [
-				'description' => __( 'Order status. Payment providers will update this value after payment.', 'woocommerce' ),
+				'description' => __( 'Order status. Payment providers will update this value after payment.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'order_key'         => [
-				'description' => __( 'Order key used to check validity or protect access to certain order data.', 'woocommerce' ),
+				'description' => __( 'Order key used to check validity or protect access to certain order data.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'order_number'      => [
-				'description' => __( 'Order number used for display.', 'woocommerce' ),
+				'description' => __( 'Order number used for display.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'customer_note'     => [
-				'description' => __( 'Note added to the order by the customer during checkout.', 'woocommerce' ),
+				'description' => __( 'Note added to the order by the customer during checkout.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'customer_id'       => [
-				'description' => __( 'Customer ID if registered. Will return 0 for guests.', 'woocommerce' ),
+				'description' => __( 'Customer ID if registered. Will return 0 for guests.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'billing_address'   => [
-				'description' => __( 'Billing address.', 'woocommerce' ),
+				'description' => __( 'Billing address.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'properties'  => $this->billing_address_schema->get_properties(),
@@ -123,7 +123,7 @@ class CheckoutSchema extends AbstractSchema {
 				'required'    => true,
 			],
 			'shipping_address'  => [
-				'description' => __( 'Shipping address.', 'woocommerce' ),
+				'description' => __( 'Shipping address.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'properties'  => $this->shipping_address_schema->get_properties(),
@@ -133,7 +133,7 @@ class CheckoutSchema extends AbstractSchema {
 				],
 			],
 			'payment_method'    => [
-				'description' => __( 'The ID of the payment method being used to process the payment.', 'woocommerce' ),
+				'description' => __( 'The ID of the payment method being used to process the payment.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				// Validation may be based on cart contents which is not available here; this returns all enabled
@@ -141,23 +141,23 @@ class CheckoutSchema extends AbstractSchema {
 				'enum'        => array_values( WC()->payment_gateways->get_payment_gateway_ids() ),
 			],
 			'create_account'    => [
-				'description' => __( 'Whether to create a new user account as part of order processing.', 'woocommerce' ),
+				'description' => __( 'Whether to create a new user account as part of order processing.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'payment_result'    => [
-				'description' => __( 'Result of payment processing, or false if not yet processed.', 'woocommerce' ),
+				'description' => __( 'Result of payment processing, or false if not yet processed.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => [
 					'payment_status'  => [
-						'description' => __( 'Status of the payment returned by the gateway. One of success, pending, failure, error.', 'woocommerce' ),
+						'description' => __( 'Status of the payment returned by the gateway. One of success, pending, failure, error.', 'poocommerce' ),
 						'readonly'    => true,
 						'type'        => 'string',
 					],
 					'payment_details' => [
-						'description' => __( 'An array of data being returned from the payment gateway.', 'woocommerce' ),
+						'description' => __( 'An array of data being returned from the payment gateway.', 'poocommerce' ),
 						'readonly'    => true,
 						'type'        => 'array',
 						'items'       => [
@@ -173,14 +173,14 @@ class CheckoutSchema extends AbstractSchema {
 						],
 					],
 					'redirect_url'    => [
-						'description' => __( 'A URL to redirect the customer after checkout. This could be, for example, a link to the payment processors website.', 'woocommerce' ),
+						'description' => __( 'A URL to redirect the customer after checkout. This could be, for example, a link to the payment processors website.', 'poocommerce' ),
 						'readonly'    => true,
 						'type'        => 'string',
 					],
 				],
 			],
 			'additional_fields' => [
-				'description' => __( 'Additional fields to be persisted on the order.', 'woocommerce' ),
+				'description' => __( 'Additional fields to be persisted on the order.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'properties'  => $additional_field_schema,

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductDownload } from '@woocommerce/data';
+import { ProductDownload } from '@poocommerce/data';
 
 export type EditDownloadsModalProps = {
 	downloadableItem: ProductDownload;

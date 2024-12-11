@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { render, waitFor } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import userEvent from '@testing-library/user-event';
 /**
  * Internal dependencies
  */
 import { Products } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 global.fetch = jest.fn().mockImplementation( () =>
 	Promise.resolve( {
@@ -19,7 +19,7 @@ global.fetch = jest.fn().mockImplementation( () =>
 );
 
 const confirmModalText =
-	'We’ll import images from WooCommerce.com to set up your sample products.';
+	'We’ll import images from PooCommerce.com to set up your sample products.';
 
 describe( 'Products', () => {
 	beforeEach( () => {

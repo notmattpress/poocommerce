@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\CartCheckoutUtilsMock;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\CartCheckoutUtilsMock;
 use WP_UnitTestCase;
 
 /**
@@ -24,9 +24,9 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		delete_option( 'woocommerce_checkout_phone_field' );
-		delete_option( 'woocommerce_checkout_company_field' );
-		delete_option( 'woocommerce_checkout_address_2_field' );
+		delete_option( 'poocommerce_checkout_phone_field' );
+		delete_option( 'poocommerce_checkout_company_field' );
+		delete_option( 'poocommerce_checkout_address_2_field' );
 	}
 
 	/**
@@ -34,12 +34,12 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 	 */
 	public function test_migrate_checkout_block_field_visibility_attributes() {
 		// Default migration without checkout page.
-		delete_option( 'woocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
 
 		CartCheckoutUtilsMock::migrate_checkout_block_field_visibility_attributes_test();
-		$this->assertEquals( 'optional', get_option( 'woocommerce_checkout_phone_field' ) );
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_company_field' ) );
-		$this->assertEquals( 'optional', get_option( 'woocommerce_checkout_address_2_field' ) );
+		$this->assertEquals( 'optional', get_option( 'poocommerce_checkout_phone_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_company_field' ) );
+		$this->assertEquals( 'optional', get_option( 'poocommerce_checkout_address_2_field' ) );
 
 		// Populate checkout page.
 		$page = array(
@@ -48,8 +48,8 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 			'content' => '',
 		);
 
-		$page_id         = wc_create_page( $page['name'], 'woocommerce_checkout_page_id', $page['title'], $page['content'] );
-		$updated_content = '<!-- wp:woocommerce/checkout {"showApartmentField":false,"showCompanyField":false,"showPhoneField":false,"requireApartmentField":false,"requireCompanyField":false,"requirePhoneField":false} --> <div class="wp-block-woocommerce-checkout is-loading"></div> <!-- /wp:woocommerce/checkout -->';
+		$page_id         = wc_create_page( $page['name'], 'poocommerce_checkout_page_id', $page['title'], $page['content'] );
+		$updated_content = '<!-- wp:poocommerce/checkout {"showApartmentField":false,"showCompanyField":false,"showPhoneField":false,"requireApartmentField":false,"requireCompanyField":false,"requirePhoneField":false} --> <div class="wp-block-poocommerce-checkout is-loading"></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -58,12 +58,12 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 		);
 
 		CartCheckoutUtilsMock::migrate_checkout_block_field_visibility_attributes_test();
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_phone_field' ) );
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_company_field' ) );
-		$this->assertEquals( 'hidden', get_option( 'woocommerce_checkout_address_2_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_phone_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_company_field' ) );
+		$this->assertEquals( 'hidden', get_option( 'poocommerce_checkout_address_2_field' ) );
 
 		// Repeat with different settings.
-		$updated_content = '<!-- wp:woocommerce/checkout {"showApartmentField":true,"showCompanyField":true,"showPhoneField":true,"requireApartmentField":true,"requireCompanyField":true,"requirePhoneField":true} --> <div class="wp-block-woocommerce-checkout is-loading"></div> <!-- /wp:woocommerce/checkout -->';
+		$updated_content = '<!-- wp:poocommerce/checkout {"showApartmentField":true,"showCompanyField":true,"showPhoneField":true,"requireApartmentField":true,"requireCompanyField":true,"requirePhoneField":true} --> <div class="wp-block-poocommerce-checkout is-loading"></div> <!-- /wp:poocommerce/checkout -->';
 		wp_update_post(
 			[
 				'ID'           => $page_id,
@@ -72,8 +72,8 @@ class CartCheckoutUtilsTest extends WP_UnitTestCase {
 		);
 
 		CartCheckoutUtilsMock::migrate_checkout_block_field_visibility_attributes_test();
-		$this->assertEquals( 'required', get_option( 'woocommerce_checkout_phone_field' ) );
-		$this->assertEquals( 'required', get_option( 'woocommerce_checkout_company_field' ) );
-		$this->assertEquals( 'required', get_option( 'woocommerce_checkout_address_2_field' ) );
+		$this->assertEquals( 'required', get_option( 'poocommerce_checkout_phone_field' ) );
+		$this->assertEquals( 'required', get_option( 'poocommerce_checkout_company_field' ) );
+		$this->assertEquals( 'required', get_option( 'poocommerce_checkout_address_2_field' ) );
 	}
 }

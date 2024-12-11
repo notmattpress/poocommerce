@@ -1,5 +1,5 @@
 // @ts-expect-error: `ServerSideRender ` currently does not have a type definition in WordPress core
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import ServerSideRender from '@wordpress/server-side-render';
 /**
  * External dependencies
@@ -15,15 +15,15 @@ import {
 	withSpokenMessages,
 } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
-import GridContentControl from '@woocommerce/editor-components/grid-content-control';
-import GridLayoutControl from '@woocommerce/editor-components/grid-layout-control';
-import ProductTagControl from '@woocommerce/editor-components/product-tag-control';
-import ProductOrderbyControl from '@woocommerce/editor-components/product-orderby-control';
-import ProductStockControl from '@woocommerce/editor-components/product-stock-control';
+import GridContentControl from '@poocommerce/editor-components/grid-content-control';
+import GridLayoutControl from '@poocommerce/editor-components/grid-layout-control';
+import ProductTagControl from '@poocommerce/editor-components/product-tag-control';
+import ProductOrderbyControl from '@poocommerce/editor-components/product-orderby-control';
+import ProductStockControl from '@poocommerce/editor-components/product-stock-control';
 import { Icon, tag } from '@wordpress/icons';
-import { gridBlockPreview } from '@woocommerce/resource-previews';
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
-import { isNumber } from '@woocommerce/types';
+import { gridBlockPreview } from '@poocommerce/resource-previews';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
+import { isNumber } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ const ProductsByTagBlock = ( {
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody
-					title={ __( 'Product Tag', 'woocommerce' ) }
+					title={ __( 'Product Tag', 'poocommerce' ) }
 					initialOpen={ ! attributes.tags.length && ! isEditing }
 				>
 					<ProductTagControl
@@ -95,7 +95,7 @@ const ProductsByTagBlock = ( {
 						isCompact={ true }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Layout', 'woocommerce' ) } initialOpen>
+				<PanelBody title={ __( 'Layout', 'poocommerce' ) } initialOpen>
 					<GridLayoutControl
 						columns={ columns }
 						rows={ rows }
@@ -123,7 +123,7 @@ const ProductsByTagBlock = ( {
 						) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Content', 'woocommerce' ) } initialOpen>
+				<PanelBody title={ __( 'Content', 'poocommerce' ) } initialOpen>
 					<GridContentControl
 						settings={ contentVisibility }
 						onChange={ ( value ) =>
@@ -132,7 +132,7 @@ const ProductsByTagBlock = ( {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Order By', 'woocommerce' ) }
+					title={ __( 'Order By', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					<ProductOrderbyControl
@@ -141,7 +141,7 @@ const ProductsByTagBlock = ( {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Filter by stock status', 'woocommerce' ) }
+					title={ __( 'Filter by stock status', 'poocommerce' ) }
 					initialOpen={ false }
 				>
 					<ProductStockControl
@@ -158,13 +158,13 @@ const ProductsByTagBlock = ( {
 		const onDone = () => {
 			save();
 			debouncedSpeak(
-				__( 'Showing Products by Tag block preview.', 'woocommerce' )
+				__( 'Showing Products by Tag block preview.', 'poocommerce' )
 			);
 		};
 		const onCancel = () => {
 			stopEditing();
 			debouncedSpeak(
-				__( 'Showing Products by Tag block preview.', 'woocommerce' )
+				__( 'Showing Products by Tag block preview.', 'poocommerce' )
 			);
 		};
 
@@ -173,12 +173,12 @@ const ProductsByTagBlock = ( {
 				icon={
 					<Icon icon={ tag } className="block-editor-block-icon" />
 				}
-				label={ __( 'Products by Tag', 'woocommerce' ) }
+				label={ __( 'Products by Tag', 'poocommerce' ) }
 				className="wc-block-products-grid wc-block-product-tag"
 			>
 				{ __(
 					'Display a grid of products from your selected tags.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				<div className="wc-block-product-tag__selection">
 					<ProductTagControl
@@ -199,14 +199,14 @@ const ProductsByTagBlock = ( {
 						}
 					/>
 					<Button variant="primary" onClick={ onDone }>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 					<Button
 						className="wc-block-product-tag__cancel-button"
 						variant="tertiary"
 						onClick={ onCancel }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>
@@ -230,12 +230,12 @@ const ProductsByTagBlock = ( {
 								className="block-editor-block-icon"
 							/>
 						}
-						label={ __( 'Products by Tag', 'woocommerce' ) }
+						label={ __( 'Products by Tag', 'poocommerce' ) }
 						className="wc-block-products-grid wc-block-product-tag"
 					>
 						{ __(
 							'This block displays products from selected tags. Select at least one tag to display its products.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Placeholder>
 				) }
@@ -254,7 +254,7 @@ const ProductsByTagBlock = ( {
 					controls={ [
 						{
 							icon: 'edit',
-							title: __( 'Edit selected tags', 'woocommerce' ),
+							title: __( 'Edit selected tags', 'poocommerce' ),
 							onClick: () =>
 								isEditing ? stopEditing() : startEditing(),
 							isActive: isEditing,
@@ -268,12 +268,12 @@ const ProductsByTagBlock = ( {
 	) : (
 		<Placeholder
 			icon={ <Icon icon={ tag } className="block-editor-block-icon" /> }
-			label={ __( 'Products by Tag', 'woocommerce' ) }
+			label={ __( 'Products by Tag', 'poocommerce' ) }
 			className="wc-block-products-grid wc-block-product-tag"
 		>
 			{ __(
 				'This block displays products from selected tags. To use it you first need to create products and assign tags to them.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</Placeholder>
 	);

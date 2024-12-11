@@ -8,12 +8,12 @@ import {
 	RadioControl,
 	Notice,
 } from '@wordpress/components';
-import ExternalLinkCard from '@woocommerce/editor-components/external-link-card';
+import ExternalLinkCard from '@poocommerce/editor-components/external-link-card';
 import { __ } from '@wordpress/i18n';
 import type { BlockAttributes } from '@wordpress/blocks';
 import { select } from '@wordpress/data';
-import { PAYMENT_STORE_KEY } from '@woocommerce/block-data';
-import { ADMIN_URL } from '@woocommerce/settings';
+import { PAYMENT_STORE_KEY } from '@poocommerce/block-data';
+import { ADMIN_URL } from '@poocommerce/settings';
 
 const allStyleControls = [ 'height', 'borderRadius' ];
 
@@ -47,19 +47,19 @@ const ExpressPaymentButtonStyleControls = ( {
 		<>
 			{ atLeastOnePaymentMethodSupportsOneOf( [ 'height' ] ) && (
 				<RadioControl
-					label={ __( 'Button height', 'woocommerce' ) }
+					label={ __( 'Button height', 'poocommerce' ) }
 					selected={ buttonHeight }
 					options={ [
 						{
-							label: __( 'Small (40px)', 'woocommerce' ),
+							label: __( 'Small (40px)', 'poocommerce' ),
 							value: '40',
 						},
 						{
-							label: __( 'Medium (48px)', 'woocommerce' ),
+							label: __( 'Medium (48px)', 'poocommerce' ),
 							value: '48',
 						},
 						{
-							label: __( 'Large (55px)', 'woocommerce' ),
+							label: __( 'Large (55px)', 'poocommerce' ),
 							value: '55',
 						},
 					] }
@@ -71,7 +71,7 @@ const ExpressPaymentButtonStyleControls = ( {
 			{ atLeastOnePaymentMethodSupportsOneOf( [ 'borderRadius' ] ) && (
 				<div className="border-radius-control-container">
 					<HeightControl
-						label={ __( 'Button border radius', 'woocommerce' ) }
+						label={ __( 'Button border radius', 'poocommerce' ) }
 						value={ buttonBorderRadius }
 						onChange={ ( newValue: string ) => {
 							const valueOnly = newValue.replace( 'px', '' );
@@ -113,7 +113,7 @@ const ExpressPaymentMethods = () => {
 			<p className="wc-block-checkout__controls-text">
 				{ __(
 					'You currently have no express payment integrations active.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		);
@@ -124,7 +124,7 @@ const ExpressPaymentMethods = () => {
 			<p className="wc-block-checkout__controls-text">
 				{ __(
 					'You currently have the following express payment integrations active.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			{ Object.values( availableExpressMethods ).map( ( values ) => {
@@ -145,7 +145,7 @@ const ExpressPaymentMethods = () => {
 
 const toggleLabel = (
 	<>
-		{ __( 'Apply uniform styles', 'woocommerce' ) }{ ' ' }
+		{ __( 'Apply uniform styles', 'poocommerce' ) }{ ' ' }
 		<span className="express-payment-styles-beta-badge">Beta</span>
 	</>
 );
@@ -161,7 +161,7 @@ export const ExpressPaymentControls = ( {
 		<InspectorControls>
 			{ atLeastOnePaymentMethodSupportsOneOf( allStyleControls ) && (
 				<PanelBody
-					title={ __( 'Button Settings', 'woocommerce' ) }
+					title={ __( 'Button Settings', 'poocommerce' ) }
 					className="express-payment-button-settings"
 				>
 					<ToggleControl
@@ -174,7 +174,7 @@ export const ExpressPaymentControls = ( {
 						}
 						help={ __(
 							'Sets a consistent style for express payment buttons.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 					<Notice
@@ -182,10 +182,10 @@ export const ExpressPaymentControls = ( {
 						isDismissible={ false }
 						className="wc-block-checkout__notice express-payment-styles-notice"
 					>
-						<strong>{ __( 'Note', 'woocommerce' ) }:</strong>{ ' ' }
+						<strong>{ __( 'Note', 'poocommerce' ) }:</strong>{ ' ' }
 						{ __(
 							'Some payment methods might not yet support all style controls',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 					<ExpressPaymentToggle
@@ -194,7 +194,7 @@ export const ExpressPaymentControls = ( {
 					/>
 				</PanelBody>
 			) }
-			<PanelBody title={ __( 'Express Payment Methods', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Express Payment Methods', 'poocommerce' ) }>
 				<ExpressPaymentMethods />
 			</PanelBody>
 		</InspectorControls>

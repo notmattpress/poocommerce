@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { dispatch, select } from '@wordpress/data';
-import { debounce } from '@woocommerce/base-utils';
+import { debounce } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

@@ -27,7 +27,7 @@ export const supports = {
 		__experimentalLetterSpacing: true,
 	},
 	__experimentalSelector:
-		'.wp-block-woocommerce-product-price .wc-block-components-product-price',
+		'.wp-block-poocommerce-product-price .wc-block-components-product-price',
 	...( typeof __experimentalGetSpacingClassesAndStyles === 'function' && {
 		spacing: {
 			margin: true,

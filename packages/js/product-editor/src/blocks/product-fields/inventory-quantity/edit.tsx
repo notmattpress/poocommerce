@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Product } from '@poocommerce/data';
 import { useInstanceId } from '@wordpress/compose';
 import { useEntityProp } from '@wordpress/core-data';
 import { createElement, useEffect } from '@wordpress/element';
@@ -55,7 +55,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Stock quantity must be a positive number.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -84,7 +84,7 @@ export function Edit( {
 							id={ stockQuantityId }
 							name="stock_quantity"
 							ref={ stockQuantityRef }
-							label={ __( 'Available stock', 'woocommerce' ) }
+							label={ __( 'Available stock', 'poocommerce' ) }
 							value={ stockQuantity }
 							onChange={ setStockQuantity }
 							onBlur={ validateStockQuantity }

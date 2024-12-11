@@ -2,7 +2,7 @@
 /**
  * Testing WC_Widget_Layered_Nav functionality.
  *
- * @package WooCommerce\Tests\Widgets
+ * @package PooCommerce\Tests\Widgets
  */
 
 /**

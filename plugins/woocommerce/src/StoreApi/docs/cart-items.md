@@ -317,7 +317,7 @@ curl --request POST https://example-store.com/wp-json/wc/store/v1/cart/items?id=
 
 For an example response, see [Single Cart Item](#single-cart-item).
 
-If you're looking to add multiple items to the cart at once, please take a look at [batching](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/src/StoreApi/docs/cart.md#add-item).
+If you're looking to add multiple items to the cart at once, please take a look at [batching](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/src/StoreApi/docs/cart.md#add-item).
 
 ## Edit Single Cart Item
 
@@ -378,8 +378,8 @@ curl --request DELETE https://example-store.com/wp-json/wc/store/v1/cart/items
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/cart-items.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/cart-items.md)
 
 <!-- /FEEDBACK -->

@@ -9,16 +9,16 @@ import { __, sprintf } from '@wordpress/i18n';
 import {
 	EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME,
 	ProductVariation,
-} from '@woocommerce/data';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 import {
 	RemoveConfirmationModal,
 	__experimentalUseVariationSwitcher as useVariationSwitcher,
-} from '@woocommerce/product-editor';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/product-editor';
+import { recordEvent } from '@poocommerce/tracks';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId, useEntityProp } from '@wordpress/core-data';
 
 export type DeleteVariationMenuItemProps = { onClose(): void };
@@ -88,7 +88,7 @@ export const DeleteVariationMenuItem = ( {
 				createSuccessNotice(
 					sprintf(
 						// translators: %s is the variation name.
-						__( '%s deleted.', 'woocommerce' ),
+						__( '%s deleted.', 'poocommerce' ),
 						name
 					)
 				);
@@ -109,7 +109,7 @@ export const DeleteVariationMenuItem = ( {
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to delete the variation.', 'woocommerce' )
+					__( 'Failed to delete the variation.', 'poocommerce' )
 				);
 			} );
 	}
@@ -133,7 +133,7 @@ export const DeleteVariationMenuItem = ( {
 					variant="tertiary"
 					onClick={ handleMenuItemClick }
 				>
-					{ __( 'Delete variation', 'woocommerce' ) }
+					{ __( 'Delete variation', 'poocommerce' ) }
 				</MenuItem>
 			</MenuGroup>
 
@@ -141,7 +141,7 @@ export const DeleteVariationMenuItem = ( {
 				<RemoveConfirmationModal
 					title={ sprintf(
 						// translators: %s is the variation name.
-						__( 'Delete %s?', 'woocommerce' ),
+						__( 'Delete %s?', 'poocommerce' ),
 						name
 					) }
 					description={
@@ -149,14 +149,14 @@ export const DeleteVariationMenuItem = ( {
 							<p>
 								{ __(
 									'If you continue, this variation with all of its information will be deleted and customers will no longer be able to purchase it.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 
 							<strong>
 								{ __(
 									'Deleted variations cannot be restored.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</strong>
 						</>

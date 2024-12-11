@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { store, getContext, getElement } from '@woocommerce/interactivity';
+import { store, getContext, getElement } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ function inRange( value: number, min: number, max: number ) {
 	return value >= min && value <= max;
 }
 
-store( 'woocommerce/product-filter-price', {
+store( 'poocommerce/product-filter-price', {
 	actions: {
 		setPrices: () => {
 			const context = getContext< PriceFilterContext >();
@@ -51,7 +51,7 @@ store( 'woocommerce/product-filter-price', {
 			Object.assign( context, prices );
 
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			const validatedPrices: Record< string, string > = {};
@@ -82,7 +82,7 @@ store( 'woocommerce/product-filter-price', {
 		},
 		clearFilters: () => {
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			const updatedParams = productFiltersContext.params;
 

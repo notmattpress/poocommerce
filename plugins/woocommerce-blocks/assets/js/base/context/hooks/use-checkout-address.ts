@@ -7,10 +7,10 @@ import {
 	ShippingAddress,
 	BillingAddress,
 	getSetting,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 import { useCallback } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

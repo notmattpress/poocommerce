@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-notice-field",
+	"name": "poocommerce/product-notice-field",
 	"title": "Product notice field",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "A notice field for use in the product editor.",
 	"keywords": [
 		"products",

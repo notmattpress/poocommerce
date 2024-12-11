@@ -2,31 +2,31 @@
  * External dependencies
  */
 import { __, _n, sprintf } from '@wordpress/i18n';
-import { isEmpty } from '@woocommerce/types';
+import { isEmpty } from '@poocommerce/types';
 import {
 	SearchListControl,
 	SearchListItem,
-} from '@woocommerce/editor-components/search-list-control';
+} from '@poocommerce/editor-components/search-list-control';
 import type {
 	SearchListControlProps,
 	RenderItemArgs,
-} from '@woocommerce/editor-components/search-list-control/types';
+} from '@poocommerce/editor-components/search-list-control/types';
 import { withInstanceId } from '@wordpress/compose';
 import {
 	withProductVariations,
 	withSearchedProducts,
 	withTransformSingleSelectToMultipleSelect,
-} from '@woocommerce/block-hocs';
+} from '@poocommerce/block-hocs';
 import type {
 	ProductResponseItem,
 	WithInjectedInstanceId,
 	WithInjectedProductVariations,
 	WithInjectedSearchedProducts,
-} from '@woocommerce/types';
-import { convertProductResponseItemToSearchItem } from '@woocommerce/utils';
-import ErrorMessage from '@woocommerce/editor-components/error-placeholder/error-message';
+} from '@poocommerce/types';
+import { convertProductResponseItemToSearchItem } from '@poocommerce/utils';
+import ErrorMessage from '@poocommerce/editor-components/error-placeholder/error-message';
 import clsx from 'clsx';
-import ExpandableSearchListItem from '@woocommerce/editor-components/expandable-search-list-item/expandable-search-list-item';
+import ExpandableSearchListItem from '@poocommerce/editor-components/expandable-search-list-item/expandable-search-list-item';
 
 /**
  * Internal dependencies
@@ -75,10 +75,10 @@ interface ProductControlProps {
 }
 
 const messages = {
-	list: __( 'Products', 'woocommerce' ),
-	noItems: __( "Your store doesn't have any products.", 'woocommerce' ),
-	search: __( 'Search for a product to display', 'woocommerce' ),
-	updated: __( 'Product search results updated.', 'woocommerce' ),
+	list: __( 'Products', 'poocommerce' ),
+	noItems: __( "Your store doesn't have any products.", 'poocommerce' ),
+	search: __( 'Search for a product to display', 'poocommerce' ),
+	updated: __( 'Product search results updated.', 'poocommerce' ),
 };
 
 const ProductControl = (
@@ -112,8 +112,8 @@ const ProductControl = (
 				? item.details.variations.length
 				: 0;
 		const classes = clsx(
-			'woocommerce-search-product__item',
-			'woocommerce-search-list__item',
+			'poocommerce-search-product__item',
+			'poocommerce-search-list__item',
 			`depth-${ depth }`,
 			'has-count',
 			{
@@ -146,7 +146,7 @@ const ProductControl = (
 						hasVariations
 							? sprintf(
 									/* translators: %1$d is the number of variations of a product product. */
-									__( '%1$d variations', 'woocommerce' ),
+									__( '%1$d variations', 'poocommerce' ),
 									item.details?.variations.length
 							  )
 							: null
@@ -161,7 +161,7 @@ const ProductControl = (
 										'%1$s, has %2$d variations',
 										item.details?.variations
 											?.length as number,
-										'woocommerce'
+										'poocommerce'
 									),
 									item.name,
 									item.details?.variations.length
@@ -215,7 +215,7 @@ const ProductControl = (
 
 	return (
 		<SearchListControl
-			className="woocommerce-products"
+			className="poocommerce-products"
 			list={ currentList }
 			isCompact={ isCompact }
 			isLoading={ isLoading }

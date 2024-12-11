@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Variations Controller tests for V3 REST API.

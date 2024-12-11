@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 
 /**
  * ProductGalleryLargeImage class.
@@ -78,7 +78,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 
 		$processor = new \WP_HTML_Tag_Processor( $content );
 		$processor->next_tag();
-		$processor->remove_class( 'wp-block-woocommerce-product-gallery-large-image' );
+		$processor->remove_class( 'wp-block-poocommerce-product-gallery-large-image' );
 		$content = $processor->get_updated_html();
 
 		[ $visible_main_image, $main_images ] = $this->get_main_images_html( $block->context, $post_id );
@@ -86,7 +86,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 		$directives = $this->get_directives( $block->context );
 
 		return strtr(
-			'<div class="wc-block-product-gallery-large-image wp-block-woocommerce-product-gallery-large-image" {directives}>
+			'<div class="wc-block-product-gallery-large-image wp-block-poocommerce-product-gallery-large-image" {directives}>
 				<ul class="wc-block-product-gallery-large-image__container" tabindex="-1">
 					{main_images}
 				</ul>
@@ -117,19 +117,19 @@ class ProductGalleryLargeImage extends AbstractBlock {
 	 */
 	private function get_main_images_html( $context, $product_id ) {
 		$attributes = array(
-			'class'                  => 'wc-block-woocommerce-product-gallery-large-image__image',
+			'class'                  => 'wc-block-poocommerce-product-gallery-large-image__image',
 			'data-wc-watch'          => 'callbacks.scrollInto',
 			'data-wc-bind--tabindex' => 'state.thumbnailTabIndex',
 			'data-wc-on--keydown'    => 'actions.onSelectedLargeImageKeyDown',
-			'data-wc-class--wc-block-woocommerce-product-gallery-large-image__image--active-image-slide' => 'state.isSelected',
+			'data-wc-class--wc-block-poocommerce-product-gallery-large-image__image--active-image-slide' => 'state.isSelected',
 		);
 
 		if ( $context['fullScreenOnClick'] ) {
-			$attributes['class'] .= ' wc-block-woocommerce-product-gallery-large-image__image--full-screen-on-click';
+			$attributes['class'] .= ' wc-block-poocommerce-product-gallery-large-image__image--full-screen-on-click';
 		}
 
 		if ( $context['hoverZoom'] ) {
-			$attributes['class']              .= ' wc-block-woocommerce-product-gallery-large-image__image--hoverZoom';
+			$attributes['class']              .= ' wc-block-poocommerce-product-gallery-large-image__image--hoverZoom';
 			$attributes['data-wc-bind--style'] = 'state.styles';
 		}
 
@@ -185,7 +185,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 		);
 
 		return array(
-			'data-wc-interactive'    => wp_json_encode( array( 'namespace' => 'woocommerce/product-gallery' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ),
+			'data-wc-interactive'    => wp_json_encode( array( 'namespace' => 'poocommerce/product-gallery' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ),
 			'data-wc-context'        => wp_json_encode( $context, JSON_NUMERIC_CHECK | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ),
 			'data-wc-on--mousemove'  => 'actions.startZoom',
 			'data-wc-on--mouseleave' => 'actions.resetZoom',

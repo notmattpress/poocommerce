@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 // Remove mutable data from settings object to prevent access. Data stores should be used instead.
 const mutableSources = [ 'wcAdminSettings', 'preloadSettings' ];
@@ -42,7 +42,7 @@ export function getAdminSetting(
 		throw new Error(
 			__(
 				'Mutable settings should be accessed via data store.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -80,7 +80,7 @@ export function setAdminSetting( name, value, filter = ( val ) => val ) {
 		throw new Error(
 			__(
 				'Mutable settings should be mutated via data store.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}

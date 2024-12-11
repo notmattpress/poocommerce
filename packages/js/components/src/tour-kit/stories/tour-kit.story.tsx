@@ -13,7 +13,7 @@ import WooTourKit from '..';
 import type { WooConfig, WooOptions } from '../types';
 
 export default {
-	title: 'WooCommerce Admin/components/TourKit',
+	title: 'PooCommerce Admin/components/TourKit',
 	component: WooTourKit,
 };
 

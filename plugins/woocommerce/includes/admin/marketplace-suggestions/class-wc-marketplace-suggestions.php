@@ -4,7 +4,7 @@
  *
  * Behaviour for displaying in-context suggestions for marketplace extensions.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @since   3.6.0
  */
 
@@ -24,11 +24,11 @@ class WC_Marketplace_Suggestions {
 		}
 
 		// Add suggestions to the product tabs.
-		add_action( 'woocommerce_product_data_tabs', array( __CLASS__, 'product_data_tabs' ) );
-		add_action( 'woocommerce_product_data_panels', array( __CLASS__, 'product_data_panels' ) );
+		add_action( 'poocommerce_product_data_tabs', array( __CLASS__, 'product_data_tabs' ) );
+		add_action( 'poocommerce_product_data_panels', array( __CLASS__, 'product_data_panels' ) );
 
 		// Register ajax api handlers.
-		add_action( 'wp_ajax_woocommerce_add_dismissed_marketplace_suggestion', array( __CLASS__, 'post_add_dismissed_suggestion_handler' ) );
+		add_action( 'wp_ajax_poocommerce_add_dismissed_marketplace_suggestion', array( __CLASS__, 'post_add_dismissed_suggestion_handler' ) );
 
 		// Register hooks for rendering suggestions container markup.
 		add_action( 'wc_marketplace_suggestions_products_empty_state', array( __CLASS__, 'render_products_list_empty_state' ) );
@@ -46,7 +46,7 @@ class WC_Marketplace_Suggestions {
 	 */
 	public static function product_data_tabs( $tabs ) {
 		$tabs['marketplace-suggestions'] = array(
-			'label'    => _x( 'Get more options', 'Marketplace suggestions', 'woocommerce' ),
+			'label'    => _x( 'Get more options', 'Marketplace suggestions', 'poocommerce' ),
 			'target'   => 'marketplace_suggestions',
 			'class'    => array(),
 			'priority' => 1000,
@@ -179,12 +179,12 @@ class WC_Marketplace_Suggestions {
 		}
 
 		// Suggestions may be disabled via a setting under Accounts & Privacy.
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			return false;
 		}
 
 		// User can disabled all suggestions via filter.
-		return apply_filters( 'woocommerce_allow_marketplace_suggestions', true );
+		return apply_filters( 'poocommerce_allow_marketplace_suggestions', true );
 	}
 
 	/**
@@ -193,14 +193,14 @@ class WC_Marketplace_Suggestions {
 	 * @return array of json API data
 	 */
 	public static function get_suggestions_api_data() {
-		$data = get_option( 'woocommerce_marketplace_suggestions', array() );
+		$data = get_option( 'poocommerce_marketplace_suggestions', array() );
 
 		// If the options have never been updated, or were updated over a week ago, queue update.
 		if ( empty( $data['updated'] ) || ( time() - WEEK_IN_SECONDS ) > $data['updated'] ) {
-			$next = WC()->queue()->get_next( 'woocommerce_update_marketplace_suggestions' );
+			$next = WC()->queue()->get_next( 'poocommerce_update_marketplace_suggestions' );
 			if ( ! $next ) {
-				WC()->queue()->cancel_all( 'woocommerce_update_marketplace_suggestions' );
-				WC()->queue()->schedule_single( time(), 'woocommerce_update_marketplace_suggestions' );
+				WC()->queue()->cancel_all( 'poocommerce_update_marketplace_suggestions' );
+				WC()->queue()->schedule_single( time(), 'poocommerce_update_marketplace_suggestions' );
 			}
 		}
 

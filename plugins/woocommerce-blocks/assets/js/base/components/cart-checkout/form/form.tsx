@@ -5,23 +5,23 @@ import {
 	ValidatedTextInput,
 	type ValidatedTextInputHandle,
 	CheckboxControl,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import {
 	BillingCountryInput,
 	ShippingCountryInput,
-} from '@woocommerce/base-components/country-input';
+} from '@poocommerce/base-components/country-input';
 import {
 	BillingStateInput,
 	ShippingStateInput,
-} from '@woocommerce/base-components/state-input';
+} from '@poocommerce/base-components/state-input';
 import { useEffect, useRef } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { useShallowEqual, usePrevious } from '@woocommerce/base-hooks';
+import { useShallowEqual, usePrevious } from '@poocommerce/base-hooks';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import clsx from 'clsx';
-import { AddressFormValues, ContactFormValues } from '@woocommerce/settings';
-import { objectHasProp } from '@woocommerce/types';
-import { useCheckoutAddress } from '@woocommerce/base-context';
+import { AddressFormValues, ContactFormValues } from '@poocommerce/settings';
+import { objectHasProp } from '@poocommerce/types';
+import { useCheckoutAddress } from '@poocommerce/base-context';
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**

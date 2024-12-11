@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Card } from '@wordpress/components';
-import { Table } from '@woocommerce/components';
+import { Table } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 /**
@@ -37,6 +37,6 @@ export const NoDataCustomMessage = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/components/Table',
+	title: 'PooCommerce Admin/components/Table',
 	component: Table,
 };

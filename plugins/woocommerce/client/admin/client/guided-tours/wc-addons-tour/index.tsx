@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -62,7 +62,7 @@ const WCAddonsTour = () => {
 			const timeoutId = setTimeout( showPopper, 500 );
 
 			const intervalId = observePositionChange(
-				'.woocommerce-marketplace',
+				'.poocommerce-marketplace',
 				showPopper,
 				150
 			);
@@ -84,7 +84,7 @@ const WCAddonsTour = () => {
 		setShowTour( false );
 		// mark tour as completed
 		updateOptions( {
-			woocommerce_admin_dismissed_in_app_marketplace_tour: 'yes',
+			poocommerce_admin_dismissed_in_app_marketplace_tour: 'yes',
 		} );
 		// remove `tutorial` from search query, so it's not shown on page refresh
 		const url = new URL( window.location.href );

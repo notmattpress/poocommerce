@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { List, Link, Spinner } from '@woocommerce/components';
-import { Text } from '@woocommerce/experimental';
+import { List, Link, Spinner } from '@poocommerce/components';
+import { Text } from '@poocommerce/experimental';
 import interpolateComponents from '@automattic/interpolate-components';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -44,19 +44,19 @@ const Stack: React.FC< StackProps > = ( {
 	const { recordCompletionTime } = useRecordCompletionTime( 'products' );
 
 	return (
-		<div className="woocommerce-products-stack">
+		<div className="poocommerce-products-stack">
 			{ isTaskListItemClicked && (
-				<div className="woocommerce-stack__overlay-spinner">
+				<div className="poocommerce-stack__overlay-spinner">
 					<Spinner className="list-overlay" />
 				</div>
 			) }
 			<List items={ items } />
 			{ showOtherOptions && (
-				<Text className="woocommerce-stack__other-options">
+				<Text className="poocommerce-stack__other-options">
 					{ interpolateComponents( {
 						mixedString: __(
 							'Can’t find your product type? {{sbLink}}Start Blank{{/sbLink}} or {{LspLink}}Load Sample Products{{/LspLink}} to see what they look like in your store.',
-							'woocommerce'
+							'poocommerce'
 						),
 						components: {
 							sbLink: (

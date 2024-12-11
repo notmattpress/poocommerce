@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { store } from '@woocommerce/interactivity';
-import { HTMLElementEvent } from '@woocommerce/types';
+import { store } from '@poocommerce/interactivity';
+import { HTMLElementEvent } from '@poocommerce/types';
 
 const getInputElementFromEvent = (
 	event: HTMLElementEvent< HTMLButtonElement >
@@ -48,7 +48,7 @@ const dispatchChangeEvent = ( inputElement: HTMLInputElement ) => {
 	inputElement.dispatchEvent( event );
 };
 
-store( 'woocommerce/add-to-cart-form', {
+store( 'poocommerce/add-to-cart-form', {
 	state: {},
 	actions: {
 		addQuantity: ( event: HTMLElementEvent< HTMLButtonElement > ) => {

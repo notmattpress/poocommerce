@@ -29,7 +29,7 @@ export const NewImage: React.FC< NewImageProps > = ( {
 					src={ imageUploadIcon }
 					width="24"
 					height="24"
-					alt={ __( 'Image upload icon', 'woocommerce' ) }
+					alt={ __( 'Image upload icon', 'poocommerce' ) }
 					className="wc-settings-email-image-url-new-image-icon"
 				/>
 			</button>

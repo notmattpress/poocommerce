@@ -8,7 +8,7 @@ import {
 	WCPayBannerBody,
 	WCPayBenefits,
 	WCPayBannerImageCut,
-} from '@woocommerce/onboarding';
+} from '@poocommerce/onboarding';
 import { useDispatch } from '@wordpress/data';
 
 /**
@@ -43,7 +43,7 @@ export const Suggestion = ( { paymentGateway, onSetupCallback = null } ) => {
 	}
 
 	return (
-		<div className="woocommerce-wcpay-suggestion">
+		<div className="poocommerce-wcpay-suggestion">
 			<WCPayBanner>
 				<WCPayBannerBody
 					textPosition="left"
@@ -58,7 +58,7 @@ export const Suggestion = ( { paymentGateway, onSetupCallback = null } ) => {
 							hasPlugins={ true }
 							setupButtonText={ __(
 								'Get started',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onSetupCallback={ onSetupCallback }
 						/>

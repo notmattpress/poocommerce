@@ -4,11 +4,11 @@
 import { createElement, Fragment } from '@wordpress/element';
 import { TabPanel } from '@wordpress/components';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 // @ts-ignore No types for this exist yet.
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
 import { getQueryArgs } from '@wordpress/url';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 const { useHistory, useLocation } = unlock( routerPrivateApis );
 
@@ -32,7 +32,7 @@ export const SectionTabs = ( {
 	if ( tabs.length <= 1 ) {
 		return (
 			<>
-				<div className="woocommerce-settings-section-tabs woocommerce-settings-section-tabs--no-tabs" />
+				<div className="poocommerce-settings-section-tabs poocommerce-settings-section-tabs--no-tabs" />
 				<div>{ children }</div>
 			</>
 		);
@@ -63,7 +63,7 @@ export const SectionTabs = ( {
 
 	return (
 		<TabPanel
-			className="woocommerce-settings-section-tabs"
+			className="poocommerce-settings-section-tabs"
 			tabs={ tabs }
 			onSelect={ onSelect }
 			initialTabName={ activeSection || tabs[ 0 ].name }

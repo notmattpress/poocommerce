@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getElement, getContext, store } from '@woocommerce/interactivity';
+import { getElement, getContext, store } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ export type ChipsContext = {
 	showAll: boolean;
 };
 
-store( 'woocommerce/product-filter-chips', {
+store( 'poocommerce/product-filter-chips', {
 	actions: {
 		showAllItems: () => {
 			const context = getContext< ChipsContext >();

@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { registerPaymentMethodExtensionCallbacks } from '@woocommerce/blocks-registry';
-import type { PaymentMethodConfigInstance } from '@woocommerce/types';
+import { registerPaymentMethodExtensionCallbacks } from '@poocommerce/blocks-registry';
+import type { PaymentMethodConfigInstance } from '@poocommerce/types';
 /**
  * Internal dependencies
  */
@@ -29,7 +29,7 @@ describe( 'PaymentMethodConfig', () => {
 
 	it( 'Uses canMakePaymentWithExtensions as the canMakePayment function if an extension registers a callback', () => {
 		registerPaymentMethodExtensionCallbacks(
-			'woocommerce-marketplace-extension',
+			'poocommerce-marketplace-extension',
 			{
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				'unrelated-payment-method': () => true,
@@ -45,7 +45,7 @@ describe( 'PaymentMethodConfig', () => {
 		expect( extensionsCallbackSpy ).toHaveBeenCalledTimes( 0 );
 
 		registerPaymentMethodExtensionCallbacks(
-			'other-woocommerce-marketplace-extension',
+			'other-poocommerce-marketplace-extension',
 			{
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				'test-payment-method': () => true,

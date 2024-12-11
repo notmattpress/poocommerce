@@ -5,13 +5,13 @@ import React from 'react';
 import { Slot, Fill } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
 
-export const WC_HEADER_PAGE_TITLE_SLOT_NAME = 'woocommerce_header_page_title';
+export const WC_HEADER_PAGE_TITLE_SLOT_NAME = 'poocommerce_header_page_title';
 
 /**
  * Create a Fill for extensions to add custom page titles.
  *
  * @slotFill WooHeaderPageTitle
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyPageTitle = () => (
  * 	<WooHeaderPageTitle>My page title</WooHeaderPageTitle>
@@ -19,7 +19,7 @@ export const WC_HEADER_PAGE_TITLE_SLOT_NAME = 'woocommerce_header_page_title';
  *
  * registerPlugin( 'my-page-title', {
  * 	render: MyPageTitle,
- * 	scope: 'woocommerce-admin',
+ * 	scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

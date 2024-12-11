@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_Error;
 use WP_REST_Request;
 
@@ -27,7 +27,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 	protected string $rest_base = 'settings/email';
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -49,12 +49,12 @@ class EmailPreviewRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'type'  => array(
-							'description' => __( 'The email type to preview.', 'woocommerce' ),
+							'description' => __( 'The email type to preview.', 'poocommerce' ),
 							'type'        => 'string',
 							'required'    => true,
 						),
 						'email' => array(
-							'description'       => __( 'Email address to send the email preview to.', 'woocommerce' ),
+							'description'       => __( 'Email address to send the email preview to.', 'poocommerce' ),
 							'type'              => 'string',
 							'format'            => 'email',
 							'required'          => true,
@@ -73,7 +73,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 	 * @return bool|WP_Error True if the current user has the capability, otherwise a WP_Error object.
 	 */
 	private function check_permissions( WP_REST_Request $request ) {
-		return $this->check_permission( $request, 'manage_woocommerce' );
+		return $this->check_permission( $request, 'manage_poocommerce' );
 	}
 
 	/**
@@ -89,8 +89,8 @@ class EmailPreviewRestController extends RestApiControllerBase {
 			$email_preview->set_email_type( $email_type );
 		} catch ( \InvalidArgumentException $e ) {
 			return new WP_Error(
-				'woocommerce_rest_invalid_email_type',
-				__( 'Invalid email type.', 'woocommerce' ),
+				'poocommerce_rest_invalid_email_type',
+				__( 'Invalid email type.', 'poocommerce' ),
 				array( 'status' => 400 ),
 			);
 		}
@@ -103,12 +103,12 @@ class EmailPreviewRestController extends RestApiControllerBase {
 		if ( $sent ) {
 			return array(
 				// translators: %s: Email address.
-				'message' => sprintf( __( 'Test email sent to %s.', 'woocommerce' ), $email_address ),
+				'message' => sprintf( __( 'Test email sent to %s.', 'poocommerce' ), $email_address ),
 			);
 		}
 		return new WP_Error(
-			'woocommerce_rest_email_preview_not_sent',
-			__( 'Error sending test email. Please try again.', 'woocommerce' ),
+			'poocommerce_rest_email_preview_not_sent',
+			__( 'Error sending test email. Please try again.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CostOfGoodsSold;
+namespace Automattic\PooCommerce\Internal\CostOfGoodsSold;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 /**
  * Main controller for the Cost of Goods Sold feature.
@@ -22,7 +22,7 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 	 * Register hooks.
 	 */
 	public function register() {
-		add_action( 'woocommerce_register_feature_definitions', array( $this, 'add_feature_definition' ) );
+		add_action( 'poocommerce_register_feature_definitions', array( $this, 'add_feature_definition' ) );
 	}
 
 	/**
@@ -49,18 +49,18 @@ class CostOfGoodsSoldController implements RegisterHooksInterface {
 	 *
 	 * @param FeaturesController $features_controller The instance of FeaturesController to use.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_feature_definition( $features_controller ) {
 		$definition = array(
-			'description'        => __( 'Allows entering cost of goods sold information for products. Feature under active development, enable only for testing purposes', 'woocommerce' ),
+			'description'        => __( 'Allows entering cost of goods sold information for products. Feature under active development, enable only for testing purposes', 'poocommerce' ),
 			'is_experimental'    => true,
 			'enabled_by_default' => false,
 		);
 
 		$features_controller->add_feature_definition(
 			'cost_of_goods_sold',
-			__( 'Cost of Goods Sold', 'woocommerce' ),
+			__( 'Cost of Goods Sold', 'poocommerce' ),
 			$definition
 		);
 	}

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AIContent;
+namespace Automattic\PooCommerce\Blocks\AIContent;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AI\Connection;
 use WP_Error;
 
 /**
@@ -76,7 +76,7 @@ class UpdateProducts {
 		}
 
 		if ( empty( $business_description ) ) {
-			return new \WP_Error( 'missing_business_description', __( 'No business description provided for generating AI content.', 'woocommerce' ) );
+			return new \WP_Error( 'missing_business_description', __( 'No business description provided for generating AI content.', 'poocommerce' ) );
 		}
 
 		$dummy_products_to_update = $this->fetch_dummy_products_to_update();
@@ -122,7 +122,7 @@ class UpdateProducts {
 		// Identify dummy products that need to have their content updated.
 		$dummy_products_ids = $this->fetch_product_ids( 'dummy' );
 		if ( ! is_array( $dummy_products_ids ) ) {
-			return new \WP_Error( 'failed_to_fetch_dummy_products', __( 'Failed to fetch dummy products.', 'woocommerce' ) );
+			return new \WP_Error( 'failed_to_fetch_dummy_products', __( 'Failed to fetch dummy products.', 'poocommerce' ) );
 		}
 
 		$dummy_products = array_map(
@@ -392,7 +392,7 @@ class UpdateProducts {
 		$formatted_prompt = sprintf(
 			"Generate two-words titles and price for products using the following prompts for each one of them: '%s'. Ensure each entry is unique and does not repeat the given examples. It should be a number and it's not too low or too high for the corresponding product title being advertised. Convert the price to this currency: '%s'. Do not include backticks or the word json in the response. Here's an example of the expected output format in JSON: '%s'.",
 			wp_json_encode( $prompts ),
-			get_woocommerce_currency(),
+			get_poocommerce_currency(),
 			wp_json_encode( $expected_results_format )
 		);
 
@@ -446,7 +446,7 @@ class UpdateProducts {
 		}
 
 		if ( ! $success ) {
-			return new WP_Error( 'failed_to_fetch_ai_responses', __( 'Failed to fetch AI responses for products.', 'woocommerce' ) );
+			return new WP_Error( 'failed_to_fetch_ai_responses', __( 'Failed to fetch AI responses for products.', 'poocommerce' ) );
 		}
 
 		return array(
@@ -484,7 +484,7 @@ class UpdateProducts {
 	 */
 	private function product_update( $product, $product_image_id, $product_title, $product_description, $product_price ) {
 		if ( ! $product instanceof \WC_Product ) {
-			return new WP_Error( 'invalid_product', __( 'Invalid product.', 'woocommerce' ) );
+			return new WP_Error( 'invalid_product', __( 'Invalid product.', 'poocommerce' ) );
 		}
 
 		if ( ! is_wp_error( $product_image_id ) ) {
@@ -493,7 +493,7 @@ class UpdateProducts {
 			wc_get_logger()->warning(
 				sprintf(
 					// translators: %s is a generated error message.
-					__( 'The image upload failed: "%s", creating the product without image', 'woocommerce' ),
+					__( 'The image upload failed: "%s", creating the product without image', 'poocommerce' ),
 					$product_image_id->get_error_message()
 				),
 			);

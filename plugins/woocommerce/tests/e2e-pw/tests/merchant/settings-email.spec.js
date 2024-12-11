@@ -5,7 +5,7 @@ const setFeatureFlag = async ( baseURL, value ) =>
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_email_improvements_enabled',
+		'poocommerce_feature_email_improvements_enabled',
 		value
 	);
 
@@ -15,10 +15,10 @@ const pickImageFromLibrary = async ( page, imageName ) => {
 	await page.getByRole( 'button', { name: 'Select', exact: true } ).click();
 };
 
-test.describe( 'WooCommerce Email Settings', () => {
+test.describe( 'PooCommerce Email Settings', () => {
 	test.use( { storageState: process.env.ADMINSTATE } );
 
-	const storeName = 'WooCommerce Core E2E Test Suite';
+	const storeName = 'PooCommerce Core E2E Test Suite';
 
 	test.afterAll( async ( { baseURL } ) => {
 		await setFeatureFlag( baseURL, 'no' );
@@ -82,8 +82,8 @@ test.describe( 'WooCommerce Email Settings', () => {
 		await setFeatureFlag( baseURL, 'yes' );
 		await page.goto( 'wp-admin/admin.php?page=wc-settings&tab=email' );
 
-		const fromNameElement = '#woocommerce_email_from_name';
-		const fromAddressElement = '#woocommerce_email_from_address';
+		const fromNameElement = '#poocommerce_email_from_name';
+		const fromAddressElement = '#poocommerce_email_from_address';
 		const senderElement = '.wc-settings-email-preview-header-sender';
 
 		const getSender = async () => {
@@ -161,7 +161,7 @@ test.describe( 'WooCommerce Email Settings', () => {
 			return ( await page.locator( emailImageUrlElement ).count() ) > 0;
 		};
 		const oldHeaderImageElement =
-			'input[type="text"]#woocommerce_email_header_image';
+			'input[type="text"]#poocommerce_email_header_image';
 		const hasOldImageElement = async () => {
 			return ( await page.locator( oldHeaderImageElement ).count() ) > 0;
 		};
@@ -327,12 +327,12 @@ test.describe( 'WooCommerce Email Settings', () => {
 		await page.goto( 'wp-admin/admin.php?page=wc-settings&tab=email' );
 
 		footerTextLabel = page.locator(
-			'css=label[for="woocommerce_email_footer_text"]'
+			'css=label[for="poocommerce_email_footer_text"]'
 		);
 		await expect( footerTextLabel ).toBeVisible();
 
 		// Old tooltip text
-		const tooltip = footerTextLabel.locator( 'span.woocommerce-help-tip' );
+		const tooltip = footerTextLabel.locator( 'span.poocommerce-help-tip' );
 		await expect( tooltip ).not.toHaveAttribute(
 			'aria-label',
 			'{store_address}'
@@ -343,13 +343,13 @@ test.describe( 'WooCommerce Email Settings', () => {
 		await page.reload();
 
 		footerTextLabel = page.locator(
-			'css=label[for="woocommerce_email_footer_text"]'
+			'css=label[for="poocommerce_email_footer_text"]'
 		);
 		await expect( footerTextLabel ).toBeVisible();
 
 		// New tooltip text
 		const updatedTooltip = footerTextLabel.locator(
-			'span.woocommerce-help-tip'
+			'span.poocommerce-help-tip'
 		);
 		await expect( updatedTooltip ).toHaveAttribute(
 			'aria-label',
@@ -381,14 +381,14 @@ test.describe( 'WooCommerce Email Settings', () => {
 
 		// Change colors to make sure Reset button is active
 		const dummyColor = '#abcdef';
-		await page.fill( '#woocommerce_email_base_color', dummyColor );
-		await page.fill( '#woocommerce_email_background_color', dummyColor );
+		await page.fill( '#poocommerce_email_base_color', dummyColor );
+		await page.fill( '#poocommerce_email_background_color', dummyColor );
 		await page.fill(
-			'#woocommerce_email_body_background_color',
+			'#poocommerce_email_body_background_color',
 			dummyColor
 		);
-		await page.fill( '#woocommerce_email_text_color', dummyColor );
-		await page.fill( '#woocommerce_email_footer_text_color', dummyColor );
+		await page.fill( '#poocommerce_email_text_color', dummyColor );
+		await page.fill( '#poocommerce_email_footer_text_color', dummyColor );
 
 		// Reset colors to defaults
 		await page
@@ -398,19 +398,19 @@ test.describe( 'WooCommerce Email Settings', () => {
 
 		// Verify colors are reset
 		await expect(
-			page.locator( '#woocommerce_email_base_color' )
+			page.locator( '#poocommerce_email_base_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_background_color' )
+			page.locator( '#poocommerce_email_background_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_body_background_color' )
+			page.locator( '#poocommerce_email_body_background_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_text_color' )
+			page.locator( '#poocommerce_email_text_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_footer_text_color' )
+			page.locator( '#poocommerce_email_footer_text_color' )
 		).not.toHaveValue( dummyColor );
 
 		// Undo resetting
@@ -421,19 +421,19 @@ test.describe( 'WooCommerce Email Settings', () => {
 
 		// Verify colors are back to the state before resetting
 		await expect(
-			page.locator( '#woocommerce_email_base_color' )
+			page.locator( '#poocommerce_email_base_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_background_color' )
+			page.locator( '#poocommerce_email_background_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_body_background_color' )
+			page.locator( '#poocommerce_email_body_background_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_text_color' )
+			page.locator( '#poocommerce_email_text_color' )
 		).not.toHaveValue( dummyColor );
 		await expect(
-			page.locator( '#woocommerce_email_footer_text_color' )
+			page.locator( '#poocommerce_email_footer_text_color' )
 		).not.toHaveValue( dummyColor );
 	} );
 } );

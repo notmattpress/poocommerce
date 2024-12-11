@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress Coding Standards">
-	<description>WooCommerce dev PHP_CodeSniffer ruleset.</description>
+	<description>PooCommerce dev PHP_CodeSniffer ruleset.</description>
 
 	<!-- Exclude paths -->
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
@@ -9,14 +9,14 @@
 
 	<!-- Configs -->
 	<!--
-		It should match the minimum WP version supported by WooCommerce Core
-		(see https://github.com/woocommerce/woocommerce-blocks/blob/trunk/.github/release-initial-checklist.md#initial-preparation)
+		It should match the minimum WP version supported by PooCommerce Core
+		(see https://github.com/poocommerce/poocommerce-blocks/blob/trunk/.github/release-initial-checklist.md#initial-preparation)
 	-->
 	<config name="minimum_supported_wp_version" value="6.3" />
 	<config name="testVersion" value="7.4-" />
 
 	<!-- Rules -->
-	<rule ref="WooCommerce-Core" />
+	<rule ref="PooCommerce-Core" />
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>

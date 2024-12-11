@@ -12,14 +12,14 @@ You're an extension developer, and your extension is conditionally hiding paymen
 
 ### The solution
 
-WooCommerce Blocks provides a function called `registerPaymentMethodExtensionCallbacks` which allows extensions to register callbacks for specific payment methods to determine if they can make payments.
+PooCommerce Blocks provides a function called `registerPaymentMethodExtensionCallbacks` which allows extensions to register callbacks for specific payment methods to determine if they can make payments.
 
 ### Importing
 
 #### Aliased import
 
 ```js
-import { registerPaymentMethodExtensionCallbacks } from '@woocommerce/blocks-registry';
+import { registerPaymentMethodExtensionCallbacks } from '@poocommerce/blocks-registry';
 ```
 
 #### `wc global`
@@ -62,7 +62,7 @@ Extensions can register only one callback per payment method:
 payment_method_name: ( arg ) => {...}
 ```
 
-`payment_method_name` is the value of the [name](payment-method-integration.md#name-required) property used when the payment method was registered with WooCommerce Blocks.
+`payment_method_name` is the value of the [name](payment-method-integration.md#name-required) property used when the payment method was registered with PooCommerce Blocks.
 
 The registered callbacks are used to determine whether the corresponding payment method should be available as an option for the shopper. The function will be passed an object containing data about the current order.
 
@@ -86,7 +86,7 @@ interface CanMakePaymentArgument {
 }
 ```
 
-If you need data that is not available in the parameter received by the callback you can consider [exposing your data in the Store API](https://github.com/woocommerce/woocommerce/blob/1675c63bba94c59703f57c7ef06e7deff8fd6bba/plugins/woocommerce-blocks/docs/third-party-developers/extensibility/rest-api/extend-rest-api-add-data.md).
+If you need data that is not available in the parameter received by the callback you can consider [exposing your data in the Store API](https://github.com/poocommerce/poocommerce/blob/1675c63bba94c59703f57c7ef06e7deff8fd6bba/plugins/poocommerce-blocks/docs/third-party-developers/extensibility/rest-api/extend-rest-api-add-data.md).
 
 
 ## Filtering payment methods using requirements
@@ -103,7 +103,7 @@ To allow the shopper to check out without entering payment details, but still re
 
 Using the `supports` configuration of payment methods it is possible to prevent other payment methods (such as credit card, PayPal etc.) from being used to check out, and only allow the one your extension has added to appear in the Checkout block.
 
-For more information on how to register a payment method with WooCommerce Blocks, please refer to the [Payment method integration](./payment-method-integration.md) documentation.
+For more information on how to register a payment method with PooCommerce Blocks, please refer to the [Payment method integration](./payment-method-integration.md) documentation.
 
 ### Basic usage
 
@@ -142,8 +142,8 @@ The next step will tell the `ExtendSchema` class to execute this callback when c
 To do this you could use the following code:
 
 ```php
-add_action('woocommerce_blocks_loaded', function() {
-  woocommerce_store_api_register_payment_requirements(
+add_action('poocommerce_blocks_loaded', function() {
+  poocommerce_store_api_register_payment_requirements(
     array(
       'data_callback' => 'inject_payment_feature_requirements_for_cart_api',
     )

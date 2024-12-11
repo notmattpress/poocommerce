@@ -4,14 +4,14 @@
  *
  * @class    WC_Admin_Taxonomies
  * @version  2.3.10
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use Automattic\WooCommerce\Internal\AssignDefaultCategory;
+use Automattic\PooCommerce\Internal\AssignDefaultCategory;
 
 /**
  * WC_Admin_Taxonomies class.
@@ -122,21 +122,21 @@ class WC_Admin_Taxonomies {
 	public function add_category_fields() {
 		?>
 		<div class="form-field term-display-type-wrap">
-			<label for="display_type"><?php esc_html_e( 'Display type', 'woocommerce' ); ?></label>
+			<label for="display_type"><?php esc_html_e( 'Display type', 'poocommerce' ); ?></label>
 			<select id="display_type" name="display_type" class="postform">
-				<option value=""><?php esc_html_e( 'Default', 'woocommerce' ); ?></option>
-				<option value="products"><?php esc_html_e( 'Products', 'woocommerce' ); ?></option>
-				<option value="subcategories"><?php esc_html_e( 'Subcategories', 'woocommerce' ); ?></option>
-				<option value="both"><?php esc_html_e( 'Both', 'woocommerce' ); ?></option>
+				<option value=""><?php esc_html_e( 'Default', 'poocommerce' ); ?></option>
+				<option value="products"><?php esc_html_e( 'Products', 'poocommerce' ); ?></option>
+				<option value="subcategories"><?php esc_html_e( 'Subcategories', 'poocommerce' ); ?></option>
+				<option value="both"><?php esc_html_e( 'Both', 'poocommerce' ); ?></option>
 			</select>
 		</div>
 		<div class="form-field term-thumbnail-wrap">
-			<label><?php esc_html_e( 'Thumbnail', 'woocommerce' ); ?></label>
+			<label><?php esc_html_e( 'Thumbnail', 'poocommerce' ); ?></label>
 			<div id="product_cat_thumbnail" style="float: left; margin-right: 10px;"><img src="<?php echo esc_url( wc_placeholder_img_src() ); ?>" width="60px" height="60px" /></div>
 			<div style="line-height: 60px;">
 				<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" />
-				<button type="button" class="upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'woocommerce' ); ?></button>
-				<button type="button" class="remove_image_button button"><?php esc_html_e( 'Remove image', 'woocommerce' ); ?></button>
+				<button type="button" class="upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'poocommerce' ); ?></button>
+				<button type="button" class="remove_image_button button"><?php esc_html_e( 'Remove image', 'poocommerce' ); ?></button>
 			</div>
 			<script type="text/javascript">
 
@@ -160,9 +160,9 @@ class WC_Admin_Taxonomies {
 
 					// Create the media frame.
 					file_frame = wp.media.frames.downloadable_file = wp.media({
-						title: '<?php esc_html_e( 'Choose an image', 'woocommerce' ); ?>',
+						title: '<?php esc_html_e( 'Choose an image', 'poocommerce' ); ?>',
 						button: {
-							text: '<?php esc_html_e( 'Use image', 'woocommerce' ); ?>'
+							text: '<?php esc_html_e( 'Use image', 'poocommerce' ); ?>'
 						},
 						multiple: false
 					});
@@ -229,24 +229,24 @@ class WC_Admin_Taxonomies {
 		}
 		?>
 		<tr class="form-field term-display-type-wrap">
-			<th scope="row" valign="top"><label><?php esc_html_e( 'Display type', 'woocommerce' ); ?></label></th>
+			<th scope="row" valign="top"><label><?php esc_html_e( 'Display type', 'poocommerce' ); ?></label></th>
 			<td>
 				<select id="display_type" name="display_type" class="postform">
-					<option value="" <?php selected( '', $display_type ); ?>><?php esc_html_e( 'Default', 'woocommerce' ); ?></option>
-					<option value="products" <?php selected( 'products', $display_type ); ?>><?php esc_html_e( 'Products', 'woocommerce' ); ?></option>
-					<option value="subcategories" <?php selected( 'subcategories', $display_type ); ?>><?php esc_html_e( 'Subcategories', 'woocommerce' ); ?></option>
-					<option value="both" <?php selected( 'both', $display_type ); ?>><?php esc_html_e( 'Both', 'woocommerce' ); ?></option>
+					<option value="" <?php selected( '', $display_type ); ?>><?php esc_html_e( 'Default', 'poocommerce' ); ?></option>
+					<option value="products" <?php selected( 'products', $display_type ); ?>><?php esc_html_e( 'Products', 'poocommerce' ); ?></option>
+					<option value="subcategories" <?php selected( 'subcategories', $display_type ); ?>><?php esc_html_e( 'Subcategories', 'poocommerce' ); ?></option>
+					<option value="both" <?php selected( 'both', $display_type ); ?>><?php esc_html_e( 'Both', 'poocommerce' ); ?></option>
 				</select>
 			</td>
 		</tr>
 		<tr class="form-field term-thumbnail-wrap">
-			<th scope="row" valign="top"><label><?php esc_html_e( 'Thumbnail', 'woocommerce' ); ?></label></th>
+			<th scope="row" valign="top"><label><?php esc_html_e( 'Thumbnail', 'poocommerce' ); ?></label></th>
 			<td>
 				<div id="product_cat_thumbnail" style="float: left; margin-right: 10px;"><img src="<?php echo esc_url( $image ); ?>" width="60px" height="60px" /></div>
 				<div style="line-height: 60px;">
 					<input type="hidden" id="product_cat_thumbnail_id" name="product_cat_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>" />
-					<button type="button" class="upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'woocommerce' ); ?></button>
-					<button type="button" class="remove_image_button button"><?php esc_html_e( 'Remove image', 'woocommerce' ); ?></button>
+					<button type="button" class="upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'poocommerce' ); ?></button>
+					<button type="button" class="remove_image_button button"><?php esc_html_e( 'Remove image', 'poocommerce' ); ?></button>
 				</div>
 				<script type="text/javascript">
 
@@ -270,9 +270,9 @@ class WC_Admin_Taxonomies {
 
 						// Create the media frame.
 						file_frame = wp.media.frames.downloadable_file = wp.media({
-							title: '<?php esc_html_e( 'Choose an image', 'woocommerce' ); ?>',
+							title: '<?php esc_html_e( 'Choose an image', 'poocommerce' ); ?>',
 							button: {
-								text: '<?php esc_html_e( 'Use image', 'woocommerce' ); ?>'
+								text: '<?php esc_html_e( 'Use image', 'poocommerce' ); ?>'
 							},
 							multiple: false
 						});
@@ -326,7 +326,7 @@ class WC_Admin_Taxonomies {
 	 */
 	public function product_cat_description() {
 		echo wp_kses(
-			wpautop( __( 'Product categories for your store can be managed here. To change the order of categories on the front-end you can drag and drop to sort them. To see more categories listed click the "screen options" link at the top-right of this page.', 'woocommerce' ) ),
+			wpautop( __( 'Product categories for your store can be managed here. To change the order of categories on the front-end you can drag and drop to sort them. To see more categories listed click the "screen options" link at the top-right of this page.', 'poocommerce' ) ),
 			array( 'p' => array() )
 		);
 	}
@@ -337,15 +337,15 @@ class WC_Admin_Taxonomies {
 	public function product_cat_notes() {
 		$category_id   = get_option( 'default_product_cat', 0 );
 		$category      = get_term( $category_id, 'product_cat' );
-		$category_name = ( ! $category || is_wp_error( $category ) ) ? _x( 'Uncategorized', 'Default category slug', 'woocommerce' ) : $category->name;
+		$category_name = ( ! $category || is_wp_error( $category ) ) ? _x( 'Uncategorized', 'Default category slug', 'poocommerce' ) : $category->name;
 		?>
 		<div class="form-wrap edit-term-notes">
 			<p>
-				<strong><?php esc_html_e( 'Note:', 'woocommerce' ); ?></strong><br>
+				<strong><?php esc_html_e( 'Note:', 'poocommerce' ); ?></strong><br>
 				<?php
 					printf(
 						/* translators: %s: default category */
-						esc_html__( 'Deleting a category does not delete the products in that category. Instead, products that were only assigned to the deleted category are set to the category %s.', 'woocommerce' ),
+						esc_html__( 'Deleting a category does not delete the products in that category. Instead, products that were only assigned to the deleted category are set to the category %s.', 'poocommerce' ),
 						'<strong>' . esc_html( $category_name ) . '</strong>'
 					);
 				?>
@@ -359,7 +359,7 @@ class WC_Admin_Taxonomies {
 	 */
 	public function product_attribute_description() {
 		echo wp_kses(
-			wpautop( __( 'Attribute terms can be assigned to products and variations.<br/><br/><b>Note</b>: Deleting a term will remove it from all products and variations to which it has been assigned. Recreating a term will not automatically assign it back to products.', 'woocommerce' ) ),
+			wpautop( __( 'Attribute terms can be assigned to products and variations.<br/><br/><b>Note</b>: Deleting a term will remove it from all products and variations to which it has been assigned. Recreating a term will not automatically assign it back to products.', 'poocommerce' ) ),
 			array( 'p' => array() )
 		);
 	}
@@ -378,7 +378,7 @@ class WC_Admin_Taxonomies {
 			unset( $columns['cb'] );
 		}
 
-		$new_columns['thumb'] = __( 'Image', 'woocommerce' );
+		$new_columns['thumb'] = __( 'Image', 'poocommerce' );
 
 		$columns           = array_merge( $new_columns, $columns );
 		$columns['handle'] = '';
@@ -401,8 +401,8 @@ class WC_Admin_Taxonomies {
 				'<a href="%s" aria-label="%s">%s</a>',
 				wp_nonce_url( 'edit-tags.php?action=make_default&amp;taxonomy=product_cat&amp;post_type=product&amp;tag_ID=' . absint( $term->term_id ), 'make_default_' . absint( $term->term_id ) ),
 				/* translators: %s: taxonomy term name */
-				esc_attr( sprintf( __( 'Make &#8220;%s&#8221; the default category', 'woocommerce' ), $term->name ) ),
-				__( 'Make default', 'woocommerce' )
+				esc_attr( sprintf( __( 'Make &#8220;%s&#8221; the default category', 'poocommerce' ), $term->name ) ),
+				__( 'Make default', 'poocommerce' )
 			);
 		}
 
@@ -437,7 +437,7 @@ class WC_Admin_Taxonomies {
 			$default_category_id = absint( get_option( 'default_product_cat', 0 ) );
 
 			if ( $default_category_id === $id ) {
-				$columns .= wc_help_tip( __( 'This is the default category and it cannot be deleted. It will be automatically assigned to products with no category.', 'woocommerce' ) );
+				$columns .= wc_help_tip( __( 'This is the default category and it cannot be deleted. It will be automatically assigned to products with no category.', 'poocommerce' ) );
 			}
 
 			$thumbnail_id = get_term_meta( $id, 'thumbnail_id', true );
@@ -450,7 +450,7 @@ class WC_Admin_Taxonomies {
 
 			// Prevent esc_url from breaking spaces in urls for image embeds. Ref: https://core.trac.wordpress.org/ticket/23605 .
 			$image    = str_replace( ' ', '%20', $image );
-			$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr__( 'Thumbnail', 'woocommerce' ) . '" class="wp-post-image" height="48" width="48" />';
+			$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr__( 'Thumbnail', 'poocommerce' ) . '" class="wp-post-image" height="48" width="48" />';
 		}
 		if ( 'handle' === $column ) {
 			$columns .= '<input type="hidden" name="term_id" value="' . esc_attr( $id ) . '" />';

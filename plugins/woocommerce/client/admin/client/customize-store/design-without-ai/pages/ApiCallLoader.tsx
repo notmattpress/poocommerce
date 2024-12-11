@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { Loader } from '@woocommerce/onboarding';
+import { Loader } from '@poocommerce/onboarding';
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -21,31 +21,31 @@ import { DesignWithoutAIStateMachineEvents } from '../state-machine';
 
 const loaderSteps = [
 	{
-		title: __( 'Setting up the foundations', 'woocommerce' ),
+		title: __( 'Setting up the foundations', 'poocommerce' ),
 		image: (
 			<img
 				src={ loaderAssemblingStore }
-				alt={ __( 'Setting up the foundations', 'woocommerce' ) }
+				alt={ __( 'Setting up the foundations', 'poocommerce' ) }
 			/>
 		),
 		progress: 25,
 	},
 	{
-		title: __( 'Turning on the lights', 'woocommerce' ),
+		title: __( 'Turning on the lights', 'poocommerce' ),
 		image: (
 			<img
 				src={ loaderTurningLights }
-				alt={ __( 'Turning on the lights', 'woocommerce' ) }
+				alt={ __( 'Turning on the lights', 'poocommerce' ) }
 			/>
 		),
 		progress: 50,
 	},
 	{
-		title: __( 'Opening the doors', 'woocommerce' ),
+		title: __( 'Opening the doors', 'poocommerce' ),
 		image: (
 			<img
 				src={ openingTheDoors }
-				alt={ __( 'Opening the doors', 'woocommerce' ) }
+				alt={ __( 'Opening the doors', 'poocommerce' ) }
 			/>
 		),
 		progress: 100,

@@ -1,4 +1,4 @@
-.editor-styles-wrapper .wp-block-woocommerce-attribute-filter {
+.editor-styles-wrapper .wp-block-poocommerce-attribute-filter {
 	// We need to override it because by default the global styles applied the border-style: solid;
 	// Our goal is not to have a border on main wrapper DOM element
 	border-style: none !important;
@@ -19,7 +19,7 @@
 	.components-placeholder__fieldset {
 		display: block; /* Disable flex box */
 	}
-	.woocommerce-search-list__search {
+	.poocommerce-search-list__search {
 		border-top: 0;
 		margin-top: 0;
 		padding-top: 0;

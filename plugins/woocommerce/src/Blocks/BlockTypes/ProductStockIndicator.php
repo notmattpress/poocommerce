@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductStockIndicator class.
@@ -55,15 +55,15 @@ class ProductStockIndicator extends AbstractBlock {
 		if ( $is_low_stock ) {
 			return sprintf(
 				/* translators: %d is number of items in stock for product */
-				__( '%d left in stock', 'woocommerce' ),
+				__( '%d left in stock', 'poocommerce' ),
 				$low_stock_amount
 			);
 		} elseif ( $is_on_backorder ) {
-			return __( 'Available on backorder', 'woocommerce' );
+			return __( 'Available on backorder', 'poocommerce' );
 		} elseif ( $is_in_stock ) {
-			return __( 'In stock', 'woocommerce' );
+			return __( 'In stock', 'poocommerce' );
 		} else {
-			return __( 'Out of stock', 'woocommerce' );
+			return __( 'Out of stock', 'poocommerce' );
 		}
 	}
 
@@ -107,7 +107,7 @@ class ProductStockIndicator extends AbstractBlock {
 		$classnames .= $is_on_backorder ? ' wc-block-components-product-stock-indicator--available-on-backorder ' : '';
 
 		$output  = '';
-		$output .= '<div class="wc-block-components-product-stock-indicator wp-block-woocommerce-product-stock-indicator ' . esc_attr( $classnames ) . '"';
+		$output .= '<div class="wc-block-components-product-stock-indicator wp-block-poocommerce-product-stock-indicator ' . esc_attr( $classnames ) . '"';
 		$output .= isset( $classes_and_styles['styles'] ) ? ' style="' . esc_attr( $classes_and_styles['styles'] ) . '"' : '';
 		$output .= '>';
 		$output .= wp_kses_post( self::getTextBasedOnStock( $is_in_stock, $is_low_stock, $low_stock_amount, $is_on_backorder ) );

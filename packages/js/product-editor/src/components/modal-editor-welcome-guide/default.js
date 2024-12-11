@@ -21,8 +21,8 @@ export default function WelcomeGuideDefault() {
 	return (
 		<Guide
 			className="edit-post-welcome-guide"
-			contentLabel={ __( 'Welcome to the block editor', 'woocommerce' ) }
-			finishButtonText={ __( 'Get started', 'woocommerce' ) }
+			contentLabel={ __( 'Welcome to the block editor', 'poocommerce' ) }
+			finishButtonText={ __( 'Get started', 'poocommerce' ) }
 			onFinish={ () => toggle( 'core/edit-post', 'welcomeGuide' ) }
 			pages={ [
 				{
@@ -37,13 +37,13 @@ export default function WelcomeGuideDefault() {
 							<h1 className="edit-post-welcome-guide__heading">
 								{ __(
 									'Welcome to the block editor',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h1>
 							<p className="edit-post-welcome-guide__text">
 								{ __(
 									'In the WordPress editor, each paragraph, image, or video is presented as a distinct “block” of content.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</>
@@ -61,13 +61,13 @@ export default function WelcomeGuideDefault() {
 							<h1 className="edit-post-welcome-guide__heading">
 								{ __(
 									'Make each block your own',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h1>
 							<p className="edit-post-welcome-guide__text">
 								{ __(
 									'Each block comes with its own set of controls for changing things like color, width, and alignment. These will show and hide automatically when you have a block selected.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</>
@@ -85,21 +85,21 @@ export default function WelcomeGuideDefault() {
 							<h1 className="edit-post-welcome-guide__heading">
 								{ __(
 									'Get to know the block library',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h1>
 							<p className="edit-post-welcome-guide__text">
 								{ createInterpolateElement(
 									__(
 										'All of the blocks available to you live in the block library. You’ll find it wherever you see the <InserterIconImage /> icon.',
-										'woocommerce'
+										'poocommerce'
 									),
 									{
 										InserterIconImage: (
 											<img
 												alt={ __(
 													'inserter',
-													'woocommerce'
+													'poocommerce'
 												) }
 												src="data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='18' height='18' rx='2' fill='%231E1E1E'/%3E%3Cpath d='M9.22727 4V14M4 8.77273H14' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E%0A"
 											/>
@@ -122,23 +122,23 @@ export default function WelcomeGuideDefault() {
 							<h1 className="edit-post-welcome-guide__heading">
 								{ __(
 									'Learn how to use the block editor',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h1>
 							<p className="edit-post-welcome-guide__text">
 								{ __(
 									'New to the block editor? Want to learn more about using it? ',
-									'woocommerce'
+									'poocommerce'
 								) }
 								<ExternalLink
 									href={ __(
 										'https://wordpress.org/documentation/article/wordpress-block-editor/',
-										'woocommerce'
+										'poocommerce'
 									) }
 								>
 									{ __(
 										"Here's a detailed guide.",
-										'woocommerce'
+										'poocommerce'
 									) }
 								</ExternalLink>
 							</p>

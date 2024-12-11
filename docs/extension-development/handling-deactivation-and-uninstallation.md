@@ -6,7 +6,7 @@ tags: how-to
 
 ## Introduction
 
-There are a number of cleanup tasks you'll need to handle when a merchant deactivates or uninstalls your extension. This guide provides a brief overview of WooCommerce-specific items you'll want to make sure you account for when defining your extension's deactivation and uninstallation logic.
+There are a number of cleanup tasks you'll need to handle when a merchant deactivates or uninstalls your extension. This guide provides a brief overview of PooCommerce-specific items you'll want to make sure you account for when defining your extension's deactivation and uninstallation logic.
 
 ## Removing Scheduled Actions
 
@@ -28,7 +28,7 @@ register_deactivation_hook( __FILE__, 'my_great_extension_deactivate' );
 
 ```
 
-The example above assumes that you have followed the pattern this guide recommends for creating Notes as dedicated classes that include the `NoteTraits` trait included with WooCommerce Admin. This approach provides your Note with some baked in functionality that streamlines note operations such as creation and deletion.
+The example above assumes that you have followed the pattern this guide recommends for creating Notes as dedicated classes that include the `NoteTraits` trait included with PooCommerce Admin. This approach provides your Note with some baked in functionality that streamlines note operations such as creation and deletion.
 
 ## Removing Admin Tasks
 
@@ -37,7 +37,7 @@ When your extension is deactivated or uninstalled, you should take care to unreg
 ```php
 // Unregister task.
 function my_extension_deactivate_task() {
-    remove_filter( 'woocommerce_get_registered_extended_tasks', 'my_extension_register_the_task', 10, 1 );
+    remove_filter( 'poocommerce_get_registered_extended_tasks', 'my_extension_register_the_task', 10, 1 );
 }
  
 register_deactivation_hook( __FILE__, 'my_extension_deactivate_task' );
@@ -47,7 +47,7 @@ Keep in mind that merchant tasks are managed via a hybrid approach that involves
 
 ## Unregistering navigation
 
-When your extension deactivates and uninstalls, any registration you've done with the WooCommerce Navigation will be handled automatically.
+When your extension deactivates and uninstalls, any registration you've done with the PooCommerce Navigation will be handled automatically.
 
 ## WordPress cleanup tasks
 

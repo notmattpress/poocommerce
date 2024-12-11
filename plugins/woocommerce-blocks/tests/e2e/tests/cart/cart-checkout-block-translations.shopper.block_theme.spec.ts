@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, wpCLI } from '@woocommerce/e2e-utils';
+import { expect, test as base, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -105,7 +105,7 @@ test.describe( 'Shopper → Translations', () => {
 		).toBeVisible();
 
 		await expect( page.getByText( 'Subtotaal' ) ).toBeVisible();
-		// TODO: Skipped test for now because translation is not ready. New string will be included with WC 9.4 - https://github.com/woocommerce/woocommerce/issues/51089
+		// TODO: Skipped test for now because translation is not ready. New string will be included with WC 9.4 - https://github.com/poocommerce/poocommerce/issues/51089
 		//await expect( page.getByText( 'Verzending' ) ).toBeVisible();
 
 		await expect(

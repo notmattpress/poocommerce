@@ -9,10 +9,10 @@ const {
 	unsetCheckbox,
 	verifyCheckboxIsSet,
 	verifyCheckboxIsUnset,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 const runProductSettingsTest = () => {
-	describe( 'WooCommerce Products > Downloadable Products Settings', () => {
+	describe( 'PooCommerce Products > Downloadable Products Settings', () => {
 		beforeAll( async () => {
 			await merchant.login();
 		} );
@@ -33,18 +33,18 @@ const runProductSettingsTest = () => {
 			);
 
 			await expect( page ).toSelect(
-				'#woocommerce_file_download_method',
+				'#poocommerce_file_download_method',
 				'Redirect only (Insecure)'
 			);
-			await setCheckbox( '#woocommerce_downloads_require_login' );
+			await setCheckbox( '#poocommerce_downloads_require_login' );
 			await setCheckbox(
-				'#woocommerce_downloads_grant_access_after_payment'
+				'#poocommerce_downloads_grant_access_after_payment'
 			);
 			await setCheckbox(
-				'#woocommerce_downloads_redirect_fallback_allowed'
+				'#poocommerce_downloads_redirect_fallback_allowed'
 			);
 			await unsetCheckbox(
-				'#woocommerce_downloads_add_hash_to_filename'
+				'#poocommerce_downloads_add_hash_to_filename'
 			);
 			await settingsPageSaveChanges();
 
@@ -54,36 +54,36 @@ const runProductSettingsTest = () => {
 					text: 'Your settings have been saved.',
 				} ),
 				expect( page ).toMatchElement(
-					'#woocommerce_file_download_method',
+					'#poocommerce_file_download_method',
 					{
 						text: 'Redirect only (Insecure)',
 					}
 				),
-				verifyCheckboxIsSet( '#woocommerce_downloads_require_login' ),
+				verifyCheckboxIsSet( '#poocommerce_downloads_require_login' ),
 				verifyCheckboxIsSet(
-					'#woocommerce_downloads_grant_access_after_payment'
+					'#poocommerce_downloads_grant_access_after_payment'
 				),
 				verifyCheckboxIsSet(
-					'#woocommerce_downloads_redirect_fallback_allowed'
+					'#poocommerce_downloads_redirect_fallback_allowed'
 				),
 				verifyCheckboxIsUnset(
-					'#woocommerce_downloads_add_hash_to_filename'
+					'#poocommerce_downloads_add_hash_to_filename'
 				),
 			] );
 
 			await page.reload();
 			await expect( page ).toSelect(
-				'#woocommerce_file_download_method',
+				'#poocommerce_file_download_method',
 				'X-Accel-Redirect/X-Sendfile'
 			);
-			await unsetCheckbox( '#woocommerce_downloads_require_login' );
+			await unsetCheckbox( '#poocommerce_downloads_require_login' );
 			await unsetCheckbox(
-				'#woocommerce_downloads_grant_access_after_payment'
+				'#poocommerce_downloads_grant_access_after_payment'
 			);
 			await unsetCheckbox(
-				'#woocommerce_downloads_redirect_fallback_allowed'
+				'#poocommerce_downloads_redirect_fallback_allowed'
 			);
-			await setCheckbox( '#woocommerce_downloads_add_hash_to_filename' );
+			await setCheckbox( '#poocommerce_downloads_add_hash_to_filename' );
 			await settingsPageSaveChanges();
 
 			// Verify that settings have been saved
@@ -92,26 +92,26 @@ const runProductSettingsTest = () => {
 					text: 'Your settings have been saved.',
 				} ),
 				expect( page ).toMatchElement(
-					'#woocommerce_file_download_method',
+					'#poocommerce_file_download_method',
 					{
 						text: 'X-Accel-Redirect/X-Sendfile',
 					}
 				),
-				verifyCheckboxIsUnset( '#woocommerce_downloads_require_login' ),
+				verifyCheckboxIsUnset( '#poocommerce_downloads_require_login' ),
 				verifyCheckboxIsUnset(
-					'#woocommerce_downloads_grant_access_after_payment'
+					'#poocommerce_downloads_grant_access_after_payment'
 				),
 				verifyCheckboxIsUnset(
-					'#woocommerce_downloads_redirect_fallback_allowed'
+					'#poocommerce_downloads_redirect_fallback_allowed'
 				),
 				verifyCheckboxIsSet(
-					'#woocommerce_downloads_add_hash_to_filename'
+					'#poocommerce_downloads_add_hash_to_filename'
 				),
 			] );
 
 			await page.reload();
 			await expect( page ).toSelect(
-				'#woocommerce_file_download_method',
+				'#poocommerce_file_download_method',
 				'Force downloads'
 			);
 			await settingsPageSaveChanges();
@@ -122,7 +122,7 @@ const runProductSettingsTest = () => {
 					text: 'Your settings have been saved.',
 				} ),
 				expect( page ).toMatchElement(
-					'#woocommerce_file_download_method',
+					'#poocommerce_file_download_method',
 					{
 						text: 'Force downloads',
 					}

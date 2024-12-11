@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 
 /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\SyncUI;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\UI;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\SyncUI;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\UI;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize;
 
 /**
  * Service provider for the Product Downloads-related services.

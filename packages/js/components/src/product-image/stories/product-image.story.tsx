@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductImage } from '@woocommerce/components';
+import { ProductImage } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => (
@@ -21,6 +21,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/ProductImage',
+	title: 'PooCommerce Admin/components/ProductImage',
 	component: ProductImage,
 };

@@ -3,16 +3,16 @@
  * Service provider for various order admin classes.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\COTRedirectionController;
-use Automattic\WooCommerce\Internal\Admin\Orders\Edit;
-use Automattic\WooCommerce\Internal\Admin\Orders\EditLock;
-use Automattic\WooCommerce\Internal\Admin\Orders\ListTable;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\TaxonomiesMetaBox;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Admin\Orders\COTRedirectionController;
+use Automattic\PooCommerce\Internal\Admin\Orders\Edit;
+use Automattic\PooCommerce\Internal\Admin\Orders\EditLock;
+use Automattic\PooCommerce\Internal\Admin\Orders\ListTable;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\TaxonomiesMetaBox;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * OrderAdminServiceProvider class.

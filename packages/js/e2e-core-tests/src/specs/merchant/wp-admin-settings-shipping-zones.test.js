@@ -10,7 +10,7 @@ const {
 	selectOptionInSelect2,
 	withRestApi,
 	uiUnblocked,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -28,7 +28,7 @@ const shippingZoneNameFL = 'CA with Free shipping';
 const shippingZoneNameSF = 'SF with Local pickup';
 
 const runAddNewShippingZoneTest = () => {
-	describe( 'WooCommerce Shipping Settings - Add new shipping zone', () => {
+	describe( 'PooCommerce Shipping Settings - Add new shipping zone', () => {
 		let productId;
 
 		beforeAll( async () => {
@@ -70,7 +70,7 @@ const runAddNewShippingZoneTest = () => {
 				'a.wc-shipping-zone-method-settings',
 				{ text: 'Flat rate' }
 			);
-			await clearAndFillInput( '#woocommerce_flat_rate_cost', '10' );
+			await clearAndFillInput( '#poocommerce_flat_rate_cost', '10' );
 			await expect( page ).toClick(
 				'.wc-backbone-modal-main button#btn-ok'
 			);

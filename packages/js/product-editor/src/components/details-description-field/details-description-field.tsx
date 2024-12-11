@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 import {
 	useFormContext,
 	__experimentalRichTextEditor as RichTextEditor,
-} from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+} from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 import { BlockInstance, serialize, parse } from '@wordpress/blocks';
 import { useState, createElement } from '@wordpress/element';
 
@@ -18,7 +18,7 @@ export const DetailsDescriptionField = () => {
 
 	return (
 		<RichTextEditor
-			label={ __( 'Description', 'woocommerce' ) }
+			label={ __( 'Description', 'poocommerce' ) }
 			blocks={ descriptionBlocks }
 			onChange={ ( blocks ) => {
 				setDescriptionBlocks( blocks );
@@ -29,7 +29,7 @@ export const DetailsDescriptionField = () => {
 			} }
 			placeholder={ __(
 				'Describe this product. What makes it unique? What are its most important features?',
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);

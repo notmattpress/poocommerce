@@ -47,9 +47,9 @@ export const registerSettingsEmailImageUrlFill = () => {
 	const slot_element = document.getElementById( slot_element_id );
 	const image_url = slot_element?.getAttribute( 'data-image-url' ) || '';
 	const input_id = slot_element?.getAttribute( 'data-id' ) || '';
-	registerPlugin( 'woocommerce-admin-settings-email-image-url', {
+	registerPlugin( 'poocommerce-admin-settings-email-image-url', {
 		// @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated.
-		scope: 'woocommerce-email-image-url-settings',
+		scope: 'poocommerce-email-image-url-settings',
 		render: () => (
 			<EmailImageUrlFill
 				inputId={ input_id }

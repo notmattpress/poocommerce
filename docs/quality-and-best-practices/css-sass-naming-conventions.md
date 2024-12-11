@@ -10,11 +10,11 @@ Refer to the [Calypso CSS/Sass Coding Guidelines](https://wpcalypso.wordpress.co
 
 Read more about [BEM key concepts](https://en.bem.info/methodology/key-concepts/).
 
-There are a few differences in WooCommerce which are outlined below.
+There are a few differences in PooCommerce which are outlined below.
 
 ## Prefixing
 
-As a WordPress plugin WooCommerce has to play nicely with WordPress core and other plugins/themes. To minimize conflict potential, all classes should be prefixed with `.woocommerce-`.
+As a WordPress plugin PooCommerce has to play nicely with WordPress core and other plugins/themes. To minimize conflict potential, all classes should be prefixed with `.poocommerce-`.
 
 ## Class names
 
@@ -28,25 +28,25 @@ When naming classes, remember:
 
 ```css
 /* Block */
-.woocommerce-loop {}
+.poocommerce-loop {}
 
 /* Nested block */
-.woocommerce-loop-product {}
+.poocommerce-loop-product {}
 
 /* Modifier */
-.woocommerce-loop-product--sale {}
+.poocommerce-loop-product--sale {}
 
 /* Element */
-.woocommerce-loop-product__link {}
+.poocommerce-loop-product__link {}
 
 /* Element */
-.woocommerce-loop-product__button-add-to-cart {}
+.poocommerce-loop-product__button-add-to-cart {}
 
 /* Modifier */
-.woocommerce-loop-product__button-add-to-cart--added {}
+.poocommerce-loop-product__button-add-to-cart--added {}
 ```
 
-**Note:** `.woocommerce-loop-product` is not named as such because the block is nested within `.woocommerce-loop`. It's to be specific so that we can have separate classes for single products, cart products, etc. **Nested blocks do not need to inherit their parents full name.**
+**Note:** `.poocommerce-loop-product` is not named as such because the block is nested within `.poocommerce-loop`. It's to be specific so that we can have separate classes for single products, cart products, etc. **Nested blocks do not need to inherit their parents full name.**
 
 ## TL;DR
 

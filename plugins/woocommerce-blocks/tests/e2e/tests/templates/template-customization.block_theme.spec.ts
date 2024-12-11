@@ -5,7 +5,7 @@ import {
 	test,
 	expect,
 	BLOCK_THEME_WITH_TEMPLATES_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ test.describe( 'Template customization', () => {
 				page,
 			} ) => {
 				await admin.visitSiteEditor( {
-					postId: `woocommerce/woocommerce//${ testData.templatePath }`,
+					postId: `poocommerce/poocommerce//${ testData.templatePath }`,
 					postType: testData.templateType,
 					canvas: 'edit',
 				} );
@@ -43,7 +43,7 @@ test.describe( 'Template customization', () => {
 				} );
 
 				// Verify template name didn't change.
-				// See: https://github.com/woocommerce/woocommerce/issues/42221
+				// See: https://github.com/poocommerce/poocommerce/issues/42221
 				await expect(
 					page.getByRole( 'heading', {
 						name: templateTypeName,
@@ -75,7 +75,7 @@ test.describe( 'Template customization', () => {
 				} ) => {
 					// Edit fallback template and verify changes are visible.
 					await admin.visitSiteEditor( {
-						postId: `woocommerce/woocommerce//${ testData.fallbackTemplate?.templatePath }`,
+						postId: `poocommerce/poocommerce//${ testData.fallbackTemplate?.templatePath }`,
 						postType: testData.templateType,
 						canvas: 'edit',
 					} );
@@ -117,26 +117,26 @@ test.describe( 'Template customization', () => {
 
 	for ( const testData of testToRun ) {
 		const userText = `Hello World in the ${ testData.templateName } template`;
-		const woocommerceTemplateUserText = `Hello World in the WooCommerce ${ testData.templateName } template`;
+		const poocommerceTemplateUserText = `Hello World in the PooCommerce ${ testData.templateName } template`;
 
 		test.describe( `${ testData.templateName } template`, () => {
-			test( `user-modified ${ testData.templateName } template based on the theme template has priority over the user-modified template based on the default WooCommerce template`, async ( {
+			test( `user-modified ${ testData.templateName } template based on the theme template has priority over the user-modified template based on the default PooCommerce template`, async ( {
 				page,
 				admin,
 				editor,
 				requestUtils,
 				frontendUtils,
 			} ) => {
-				// Edit the WooCommerce default template
+				// Edit the PooCommerce default template
 				await admin.visitSiteEditor( {
-					postId: `woocommerce/woocommerce//${ testData.templatePath }`,
+					postId: `poocommerce/poocommerce//${ testData.templatePath }`,
 					postType: testData.templateType,
 					canvas: 'edit',
 				} );
 
 				await editor.insertBlock( {
 					name: 'core/paragraph',
-					attributes: { content: woocommerceTemplateUserText },
+					attributes: { content: poocommerceTemplateUserText },
 				} );
 				await editor.saveSiteEditorEntities( {
 					isOnlyCurrentEntityDirty: true,
@@ -169,14 +169,14 @@ test.describe( 'Template customization', () => {
 					page.getByText( userText ).first()
 				).toBeVisible();
 				await expect(
-					page.getByText( woocommerceTemplateUserText )
+					page.getByText( poocommerceTemplateUserText )
 				).toBeHidden();
 
 				// Revert edition and verify the user-modified WC template is used.
 				// Note: we need to revert it from the admin (instead of calling
 				// `deleteAllTemplates()`). This way, we verify there are no
 				// duplicate templates with the same name.
-				// See: https://github.com/woocommerce/woocommerce/issues/42220
+				// See: https://github.com/poocommerce/poocommerce/issues/42220
 				await admin.visitSiteEditor( {
 					postType: testData.templateType,
 				} );
@@ -188,7 +188,7 @@ test.describe( 'Template customization', () => {
 				await testData.visitPage( { frontendUtils, page } );
 
 				await expect(
-					page.getByText( woocommerceTemplateUserText ).first()
+					page.getByText( poocommerceTemplateUserText ).first()
 				).toBeVisible();
 				await expect( page.getByText( userText ) ).toBeHidden();
 			} );

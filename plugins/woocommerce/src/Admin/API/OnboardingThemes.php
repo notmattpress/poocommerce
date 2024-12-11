@@ -5,7 +5,7 @@
  * Handles requests to install and activate themes.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -92,7 +92,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 	 */
 	public function update_item_permissions_check( $request ) {
 		if ( ! current_user_can( 'switch_themes' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot manage themes.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot manage themes.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -134,10 +134,10 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 
 		if ( is_wp_error( $api ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_theme_install',
+				'poocommerce_rest_theme_install',
 				sprintf(
-				/* translators: %s: theme slug (example: woocommerce-services) */
-					__( 'The requested theme `%s` could not be installed. Theme API call failed.', 'woocommerce' ),
+				/* translators: %s: theme slug (example: poocommerce-services) */
+					__( 'The requested theme `%s` could not be installed. Theme API call failed.', 'poocommerce' ),
 					$theme
 				),
 				500
@@ -149,10 +149,10 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 
 		if ( is_wp_error( $result ) || is_null( $result ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_theme_install',
+				'poocommerce_rest_theme_install',
 				sprintf(
-				/* translators: %s: theme slug (example: woocommerce-services) */
-					__( 'The requested theme `%s` could not be installed.', 'woocommerce' ),
+				/* translators: %s: theme slug (example: poocommerce-services) */
+					__( 'The requested theme `%s` could not be installed.', 'poocommerce' ),
 					$theme
 				),
 				500
@@ -180,13 +180,13 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 		$installed_themes = wp_get_themes();
 
 		if ( ! in_array( $theme, array_keys( $installed_themes ), true ) ) {
-			/* translators: %s: theme slug (example: woocommerce-services) */
-			return new \WP_Error( 'woocommerce_rest_invalid_theme', sprintf( __( 'Invalid theme %s.', 'woocommerce' ), $theme ), 404 );
+			/* translators: %s: theme slug (example: poocommerce-services) */
+			return new \WP_Error( 'poocommerce_rest_invalid_theme', sprintf( __( 'Invalid theme %s.', 'poocommerce' ), $theme ), 404 );
 		}
 
 		$result = switch_theme( $theme );
 		if ( ! is_null( $result ) ) {
-			return new \WP_Error( 'woocommerce_rest_invalid_theme', sprintf( __( 'The requested theme could not be activated.', 'woocommerce' ), $theme ), 500 );
+			return new \WP_Error( 'poocommerce_rest_invalid_theme', sprintf( __( 'The requested theme could not be activated.', 'poocommerce' ), $theme ), 500 );
 		}
 
 		return( array(
@@ -216,8 +216,8 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			 *
 			 * @since 8.3.0
 			 */
-			! apply_filters( 'woocommerce_allow_marketplace_suggestions', true ) ||
-			get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) === 'no'
+			! apply_filters( 'poocommerce_allow_marketplace_suggestions', true ) ||
+			get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) === 'no'
 		) {
 
 			/**
@@ -233,7 +233,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			 * @return array
 			 */
 			return apply_filters(
-				'__experimental_woocommerce_rest_get_recommended_themes',
+				'__experimental_poocommerce_rest_get_recommended_themes',
 				array(
 					'themes' => array(),
 					'_links' => array(
@@ -253,7 +253,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 		$core_themes = array(
 			array(
 				'name'           => 'Twenty Twenty-Four',
-				'price'          => __( 'Free', 'woocommerce' ),
+				'price'          => __( 'Free', 'poocommerce' ),
 				'is_free'        => true,
 				'color_palettes' => array(
 					array(
@@ -285,7 +285,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			array(
 				'name'           => 'Highline',
 				/* translators: %d: price */
-				'price'          => sprintf( __( '$%d/year', 'woocommerce' ), 79 ),
+				'price'          => sprintf( __( '$%d/year', 'poocommerce' ), 79 ),
 				'is_free'        => false,
 				'color_palettes' => array(
 					array(
@@ -311,13 +311,13 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 				),
 				'total_palettes' => 9,
 				'slug'           => 'highline',
-				'thumbnail_url'  => 'https://woocommerce.com/wp-content/uploads/2023/12/Featured-image-538x403-1.png',
-				'link_url'       => add_query_arg( $in_app_purchase_params, 'https://woocommerce.com/products/highline/' ),
+				'thumbnail_url'  => 'https://poocommerce.com/wp-content/uploads/2023/12/Featured-image-538x403-1.png',
+				'link_url'       => add_query_arg( $in_app_purchase_params, 'https://poocommerce.com/products/highline/' ),
 			),
 			array(
 				'name'           => 'Luminate',
 				/* translators: %d: price */
-				'price'          => sprintf( __( '$%d/year', 'woocommerce' ), 79 ),
+				'price'          => sprintf( __( '$%d/year', 'poocommerce' ), 79 ),
 				'is_free'        => false,
 				'color_palettes' => array(
 					array(
@@ -343,13 +343,13 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 				),
 				'total_palettes' => 5,
 				'slug'           => 'luminate',
-				'thumbnail_url'  => 'https://woocommerce.com/wp-content/uploads/2022/07/Featured-image-538x403-2.png',
-				'link_url'       => add_query_arg( $in_app_purchase_params, 'https://woocommerce.com/products/luminate/' ),
+				'thumbnail_url'  => 'https://poocommerce.com/wp-content/uploads/2022/07/Featured-image-538x403-2.png',
+				'link_url'       => add_query_arg( $in_app_purchase_params, 'https://poocommerce.com/products/luminate/' ),
 			),
 			array(
 				'name'           => 'Gizmo',
 				/* translators: %d: price */
-				'price'          => sprintf( __( '$%d/year', 'woocommerce' ), 79 ),
+				'price'          => sprintf( __( '$%d/year', 'poocommerce' ), 79 ),
 				'is_free'        => false,
 				'color_palettes' => array(
 					array(
@@ -375,8 +375,8 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 				),
 				'total_palettes' => 10,
 				'slug'           => 'gizmo',
-				'thumbnail_url'  => 'https://woocommerce.com/wp-content/uploads/2022/11/gizmo-regular-card-product-logo.jpg?w=900',
-				'link_url'       => add_query_arg( $in_app_purchase_params, 'https://woocommerce.com/products/gizmo/' ),
+				'thumbnail_url'  => 'https://poocommerce.com/wp-content/uploads/2022/11/gizmo-regular-card-product-logo.jpg?w=900',
+				'link_url'       => add_query_arg( $in_app_purchase_params, 'https://poocommerce.com/products/gizmo/' ),
 			),
 		);
 
@@ -385,7 +385,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 		$default_themes = array(
 			array(
 				'name'           => 'Tsubaki',
-				'price'          => __( 'Free', 'woocommerce' ),
+				'price'          => __( 'Free', 'poocommerce' ),
 				'is_free'        => true,
 				'color_palettes' => array(),
 				'total_palettes' => 0,
@@ -395,7 +395,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			),
 			array(
 				'name'           => 'Tazza',
-				'price'          => __( 'Free', 'woocommerce' ),
+				'price'          => __( 'Free', 'poocommerce' ),
 				'is_free'        => true,
 				'color_palettes' => array(),
 				'total_palettes' => 0,
@@ -405,7 +405,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			),
 			array(
 				'name'           => 'Amulet',
-				'price'          => __( 'Free', 'woocommerce' ),
+				'price'          => __( 'Free', 'poocommerce' ),
 				'is_free'        => true,
 				'color_palettes' => array(
 					array(
@@ -436,7 +436,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			),
 			array(
 				'name'           => 'Zaino',
-				'price'          => __( 'Free', 'woocommerce' ),
+				'price'          => __( 'Free', 'poocommerce' ),
 				'is_free'        => true,
 				'color_palettes' => array(
 					array(
@@ -467,7 +467,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			),
 		);
 
-		$ai_connection_enabled = get_option( 'woocommerce_blocks_allow_ai_connection' );
+		$ai_connection_enabled = get_option( 'poocommerce_blocks_allow_ai_connection' );
 		$themes                = $ai_connection_enabled ? $default_themes : $core_themes;
 
 		// To be implemented: Filter themes based on industry.
@@ -506,7 +506,7 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 		 * @return array
 		 */
 		$filtered_response = apply_filters(
-			'__experimental_woocommerce_rest_get_recommended_themes',
+			'__experimental_poocommerce_rest_get_recommended_themes',
 			$response,
 			$industry,
 			$currency
@@ -540,19 +540,19 @@ class OnboardingThemes extends \WC_REST_Data_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'slug'   => array(
-					'description' => __( 'Theme slug.', 'woocommerce' ),
+					'description' => __( 'Theme slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'   => array(
-					'description' => __( 'Theme name.', 'woocommerce' ),
+					'description' => __( 'Theme name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status' => array(
-					'description' => __( 'Theme status.', 'woocommerce' ),
+					'description' => __( 'Theme status.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

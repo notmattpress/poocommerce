@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Internal\Font\FontFace;
-use Automattic\WooCommerce\Internal\Font\FontFamily;
+use Automattic\PooCommerce\Internal\Font\FontFace;
+use Automattic\PooCommerce\Internal\Font\FontFamily;
 
 
 /**
@@ -19,15 +19,15 @@ class OnboardingFonts {
 	 * @internal This method is for internal purposes only.
 	 */
 	final public static function init() {
-		add_action( 'woocommerce_install_assembler_fonts', array( __CLASS__, 'install_fonts' ) );
-		add_filter( 'update_option_woocommerce_allow_tracking', array( self::class, 'start_install_fonts_async_job' ), 10, 2 );
+		add_action( 'poocommerce_install_assembler_fonts', array( __CLASS__, 'install_fonts' ) );
+		add_filter( 'update_option_poocommerce_allow_tracking', array( self::class, 'start_install_fonts_async_job' ), 10, 2 );
 	}
 
 	const SOURCE_LOGGER = 'font_loader';
 
 	/**
 	 * Font families to install.
-	 * PHP version of https://github.com/woocommerce/woocommerce/blob/45923dc5f38150c717210ae9db10045cd9582331/plugins/woocommerce-admin/client/customize-store/assembler-hub/sidebar/global-styles/font-pairing-variations/constants.ts/#L13-L74
+	 * PHP version of https://github.com/poocommerce/poocommerce/blob/45923dc5f38150c717210ae9db10045cd9582331/plugins/poocommerce-admin/client/customize-store/assembler-hub/sidebar/global-styles/font-pairing-variations/constants.ts/#L13-L74
 	 *
 	 * @var array
 	 */
@@ -108,7 +108,7 @@ class OnboardingFonts {
 		WC()->call_function(
 			'as_schedule_single_action',
 			WC()->call_function( 'time' ),
-			'woocommerce_install_assembler_fonts',
+			'poocommerce_install_assembler_fonts',
 		);
 	}
 
@@ -207,7 +207,7 @@ class OnboardingFonts {
 					wc_get_logger()->error(
 						sprintf(
 							/* translators: %s: error message */
-							__( 'Font Face installation error: %s', 'woocommerce' ),
+							__( 'Font Face installation error: %s', 'poocommerce' ),
 							$wp_error->get_error_message()
 						),
 						array( 'source' => self::SOURCE_LOGGER )

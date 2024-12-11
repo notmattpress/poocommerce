@@ -20,25 +20,25 @@ const OnSaleControl = ( props: QueryControlProps ) => {
 
 	const deselectCallback = () => {
 		setQueryAttribute( {
-			woocommerceOnSale: DEFAULT_FILTERS.woocommerceOnSale,
+			poocommerceOnSale: DEFAULT_FILTERS.poocommerceOnSale,
 		} );
 		trackInteraction( CoreFilterNames.ON_SALE );
 	};
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'On Sale', 'woocommerce' ) }
-			hasValue={ () => query.woocommerceOnSale === true }
+			label={ __( 'On Sale', 'poocommerce' ) }
+			hasValue={ () => query.poocommerceOnSale === true }
 			isShownByDefault
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
 		>
 			<ToggleControl
-				label={ __( 'Show only products on sale', 'woocommerce' ) }
-				checked={ query.woocommerceOnSale || false }
-				onChange={ ( woocommerceOnSale ) => {
+				label={ __( 'Show only products on sale', 'poocommerce' ) }
+				checked={ query.poocommerceOnSale || false }
+				onChange={ ( poocommerceOnSale ) => {
 					setQueryAttribute( {
-						woocommerceOnSale,
+						poocommerceOnSale,
 					} );
 					trackInteraction( CoreFilterNames.ON_SALE );
 				} }

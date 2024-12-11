@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/ai",
-	"description": "WooCommerce AI library",
+	"name": "poocommerce/ai",
+	"description": "PooCommerce AI library",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

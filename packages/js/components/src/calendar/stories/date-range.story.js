@@ -2,7 +2,7 @@
  * External dependencies
  */
 import moment from 'moment';
-import { DateRange, H, Section } from '@woocommerce/components';
+import { DateRange, H, Section } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const dateFormat = 'MM/DD/YYYY';
@@ -51,6 +51,6 @@ const DateRangeExample = () => {
 export const Basic = () => <DateRangeExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/calendar/DateRange',
+	title: 'PooCommerce Admin/components/calendar/DateRange',
 	component: DateRange,
 };

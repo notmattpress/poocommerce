@@ -3,7 +3,7 @@
  * Product > Reviews
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Internal\Admin\ProductReviews;
 
 use WC_Product;
 use WP_Comment;
@@ -103,7 +103,7 @@ class ReviewsListTable extends WP_List_Table {
 		 *
 		 * @param array $args Comment query args.
 		 */
-		$args     = (array) apply_filters( 'woocommerce_product_reviews_list_table_prepare_items_args', $args );
+		$args     = (array) apply_filters( 'poocommerce_product_reviews_list_table_prepare_items_args', $args );
 		$comments = get_comments( $args );
 
 		update_comment_cache( $comments );
@@ -453,16 +453,16 @@ class ReviewsListTable extends WP_List_Table {
 					'<a href="%s" data-wp-lists="%s" class="vim-u vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 					esc_url( $unapprove_url ),
 					esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}:e7e7d3:action=dim-comment&amp;new=unapproved" ),
-					esc_attr__( 'Unapprove this review', 'woocommerce' ),
-					esc_html__( 'Unapprove', 'woocommerce' )
+					esc_attr__( 'Unapprove this review', 'poocommerce' ),
+					esc_html__( 'Unapprove', 'poocommerce' )
 				);
 			} elseif ( 'unapproved' === $review_status ) {
 				$actions['approve'] = sprintf(
 					'<a href="%s" data-wp-lists="%s" class="vim-a vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 					esc_url( $approve_url ),
 					esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}:e7e7d3:action=dim-comment&amp;new=approved" ),
-					esc_attr__( 'Approve this review', 'woocommerce' ),
-					esc_html__( 'Approve', 'woocommerce' )
+					esc_attr__( 'Approve this review', 'poocommerce' ),
+					esc_html__( 'Approve', 'poocommerce' )
 				);
 			}
 		} else {
@@ -470,16 +470,16 @@ class ReviewsListTable extends WP_List_Table {
 				'<a href="%s" data-wp-lists="%s" class="vim-a aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $approve_url ),
 				esc_attr( "dim:the-comment-list:comment-{$item->comment_ID}:unapproved:e7e7d3:e7e7d3:new=approved" ),
-				esc_attr__( 'Approve this review', 'woocommerce' ),
-				esc_html__( 'Approve', 'woocommerce' )
+				esc_attr__( 'Approve this review', 'poocommerce' ),
+				esc_html__( 'Approve', 'poocommerce' )
 			);
 
 			$actions['unapprove'] = sprintf(
 				'<a href="%s" data-wp-lists="%s" class="vim-u aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $unapprove_url ),
 				esc_attr( "dim:the-comment-list:comment-{$item->comment_ID}:unapproved:e7e7d3:e7e7d3:new=unapproved" ),
-				esc_attr__( 'Unapprove this review', 'woocommerce' ),
-				esc_html__( 'Unapprove', 'woocommerce' )
+				esc_attr__( 'Unapprove this review', 'poocommerce' ),
+				esc_html__( 'Unapprove', 'poocommerce' )
 			);
 		}
 
@@ -488,17 +488,17 @@ class ReviewsListTable extends WP_List_Table {
 				'<a href="%s" data-wp-lists="%s" class="vim-s vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $spam_url ),
 				esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}::spam=1" ),
-				esc_attr__( 'Mark this review as spam', 'woocommerce' ),
+				esc_attr__( 'Mark this review as spam', 'poocommerce' ),
 				/* translators: "Mark as spam" link. */
-				esc_html_x( 'Spam', 'verb', 'woocommerce' )
+				esc_html_x( 'Spam', 'verb', 'poocommerce' )
 			);
 		} else {
 			$actions['unspam'] = sprintf(
 				'<a href="%s" data-wp-lists="%s" class="vim-z vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $unspam_url ),
 				esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}:66cc66:unspam=1" ),
-				esc_attr__( 'Restore this review from the spam', 'woocommerce' ),
-				esc_html_x( 'Not Spam', 'review', 'woocommerce' )
+				esc_attr__( 'Restore this review from the spam', 'poocommerce' ),
+				esc_html_x( 'Not Spam', 'review', 'poocommerce' )
 			);
 		}
 
@@ -507,8 +507,8 @@ class ReviewsListTable extends WP_List_Table {
 				'<a href="%s" data-wp-lists="%s" class="vim-z vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $untrash_url ),
 				esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}:66cc66:untrash=1" ),
-				esc_attr__( 'Restore this review from the Trash', 'woocommerce' ),
-				esc_html__( 'Restore', 'woocommerce' )
+				esc_attr__( 'Restore this review from the Trash', 'poocommerce' ),
+				esc_html__( 'Restore', 'poocommerce' )
 			);
 		}
 
@@ -517,16 +517,16 @@ class ReviewsListTable extends WP_List_Table {
 				'<a href="%s" data-wp-lists="%s" class="delete vim-d vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $delete_url ),
 				esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}::delete=1" ),
-				esc_attr__( 'Delete this review permanently', 'woocommerce' ),
-				esc_html__( 'Delete Permanently', 'woocommerce' )
+				esc_attr__( 'Delete this review permanently', 'poocommerce' ),
+				esc_html__( 'Delete Permanently', 'poocommerce' )
 			);
 		} else {
 			$actions['trash'] = sprintf(
 				'<a href="%s" data-wp-lists="%s" class="delete vim-d vim-destructive aria-button-if-js" aria-label="%s">%s</a>',
 				esc_url( $trash_url ),
 				esc_attr( "delete:the-comment-list:comment-{$item->comment_ID}::trash=1" ),
-				esc_attr__( 'Move this review to the Trash', 'woocommerce' ),
-				esc_html_x( 'Trash', 'verb', 'woocommerce' )
+				esc_attr__( 'Move this review to the Trash', 'poocommerce' ),
+				esc_html_x( 'Trash', 'verb', 'poocommerce' )
 			);
 		}
 
@@ -542,8 +542,8 @@ class ReviewsListTable extends WP_List_Table {
 						admin_url( 'comment.php' )
 					)
 				),
-				esc_attr__( 'Edit this review', 'woocommerce' ),
-				esc_html__( 'Edit', 'woocommerce' )
+				esc_attr__( 'Edit this review', 'poocommerce' ),
+				esc_html__( 'Edit', 'poocommerce' )
 			);
 
 			$format = '<button type="button" data-comment-id="%d" data-post-id="%d" data-action="%s" class="%s button-link" aria-expanded="false" aria-label="%s">%s</button>';
@@ -554,8 +554,8 @@ class ReviewsListTable extends WP_List_Table {
 				esc_attr( $item->comment_post_ID ),
 				'edit',
 				'vim-q comment-inline',
-				esc_attr__( 'Quick edit this review inline', 'woocommerce' ),
-				esc_html__( 'Quick Edit', 'woocommerce' )
+				esc_attr__( 'Quick edit this review inline', 'poocommerce' ),
+				esc_html__( 'Quick Edit', 'poocommerce' )
 			);
 
 			$actions['reply'] = sprintf(
@@ -564,8 +564,8 @@ class ReviewsListTable extends WP_List_Table {
 				esc_attr( $item->comment_post_ID ),
 				'replyto',
 				'vim-r comment-inline',
-				esc_attr__( 'Reply to this review', 'woocommerce' ),
-				esc_html__( 'Reply', 'woocommerce' )
+				esc_attr__( 'Reply to this review', 'poocommerce' ),
+				esc_html__( 'Reply', 'poocommerce' )
 			);
 		}
 
@@ -598,7 +598,7 @@ class ReviewsListTable extends WP_List_Table {
 		}
 
 		$output .= '</div>';
-		$output .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . esc_html__( 'Show more details', 'woocommerce' ) . '</span></button>';
+		$output .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . esc_html__( 'Show more details', 'poocommerce' ) . '</span></button>';
 
 		return $output;
 	}
@@ -611,12 +611,12 @@ class ReviewsListTable extends WP_List_Table {
 	public function get_columns() : array {
 		$columns = [
 			'cb'       => '<input type="checkbox" />',
-			'type'     => _x( 'Type', 'review type', 'woocommerce' ),
-			'author'   => __( 'Author', 'woocommerce' ),
-			'rating'   => __( 'Rating', 'woocommerce' ),
-			'comment'  => _x( 'Review', 'column name', 'woocommerce' ),
-			'response' => __( 'Product', 'woocommerce' ),
-			'date'     => _x( 'Submitted on', 'column name', 'woocommerce' ),
+			'type'     => _x( 'Type', 'review type', 'poocommerce' ),
+			'author'   => __( 'Author', 'poocommerce' ),
+			'rating'   => __( 'Rating', 'poocommerce' ),
+			'comment'  => _x( 'Review', 'column name', 'poocommerce' ),
+			'response' => __( 'Product', 'poocommerce' ),
+			'date'     => _x( 'Submitted on', 'column name', 'poocommerce' ),
 		];
 
 		/**
@@ -626,7 +626,7 @@ class ReviewsListTable extends WP_List_Table {
 		 *
 		 * @param array $columns
 		 */
-		return (array) apply_filters( 'woocommerce_product_reviews_table_columns', $columns );
+		return (array) apply_filters( 'poocommerce_product_reviews_table_columns', $columns );
 	}
 
 	/**
@@ -669,27 +669,27 @@ class ReviewsListTable extends WP_List_Table {
 		$actions = [];
 
 		if ( in_array( $comment_status, [ 'all', 'approved' ], true ) ) {
-			$actions['unapprove'] = __( 'Unapprove', 'woocommerce' );
+			$actions['unapprove'] = __( 'Unapprove', 'poocommerce' );
 		}
 
 		if ( in_array( $comment_status, [ 'all', 'moderated' ], true ) ) {
-			$actions['approve'] = __( 'Approve', 'woocommerce' );
+			$actions['approve'] = __( 'Approve', 'poocommerce' );
 		}
 
 		if ( in_array( $comment_status, [ 'all', 'moderated', 'approved', 'trash' ], true ) ) {
-			$actions['spam'] = _x( 'Mark as spam', 'review', 'woocommerce' );
+			$actions['spam'] = _x( 'Mark as spam', 'review', 'poocommerce' );
 		}
 
 		if ( 'trash' === $comment_status ) {
-			$actions['untrash'] = __( 'Restore', 'woocommerce' );
+			$actions['untrash'] = __( 'Restore', 'poocommerce' );
 		} elseif ( 'spam' === $comment_status ) {
-			$actions['unspam'] = _x( 'Not spam', 'review', 'woocommerce' );
+			$actions['unspam'] = _x( 'Not spam', 'review', 'poocommerce' );
 		}
 
 		if ( in_array( $comment_status, [ 'trash', 'spam' ], true ) || ! EMPTY_TRASH_DAYS ) {
-			$actions['delete'] = __( 'Delete permanently', 'woocommerce' );
+			$actions['delete'] = __( 'Delete permanently', 'poocommerce' );
 		} else {
-			$actions['trash'] = __( 'Move to Trash', 'woocommerce' );
+			$actions['trash'] = __( 'Move to Trash', 'poocommerce' );
 		}
 
 		return $actions;
@@ -754,35 +754,35 @@ class ReviewsListTable extends WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				'All <span class="count">(%s)</span>',
 				'product reviews',
-				'woocommerce'
+				'poocommerce'
 			),
 			/* translators: %s: Number of reviews. */
 			'moderated' => _nx_noop(
 				'Pending <span class="count">(%s)</span>',
 				'Pending <span class="count">(%s)</span>',
 				'product reviews',
-				'woocommerce'
+				'poocommerce'
 			),
 			/* translators: %s: Number of reviews. */
 			'approved'  => _nx_noop(
 				'Approved <span class="count">(%s)</span>',
 				'Approved <span class="count">(%s)</span>',
 				'product reviews',
-				'woocommerce'
+				'poocommerce'
 			),
 			/* translators: %s: Number of reviews. */
 			'spam'      => _nx_noop(
 				'Spam <span class="count">(%s)</span>',
 				'Spam <span class="count">(%s)</span>',
 				'product reviews',
-				'woocommerce'
+				'poocommerce'
 			),
 			/* translators: %s: Number of reviews. */
 			'trash'     => _nx_noop(
 				'Trash <span class="count">(%s)</span>',
 				'Trash <span class="count">(%s)</span>',
 				'product reviews',
-				'woocommerce'
+				'poocommerce'
 			),
 		];
 	}
@@ -908,9 +908,9 @@ class ReviewsListTable extends WP_List_Table {
 		global $comment_status;
 
 		if ( 'moderated' === $comment_status ) {
-			esc_html_e( 'No reviews awaiting moderation.', 'woocommerce' );
+			esc_html_e( 'No reviews awaiting moderation.', 'poocommerce' );
 		} else {
-			esc_html_e( 'No reviews found.', 'woocommerce' );
+			esc_html_e( 'No reviews found.', 'poocommerce' );
 		}
 	}
 
@@ -926,7 +926,7 @@ class ReviewsListTable extends WP_List_Table {
 
 		if ( $this->current_user_can_edit_review ) {
 			?>
-			<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $item->comment_ID ); ?>"><?php esc_html_e( 'Select review', 'woocommerce' ); ?></label>
+			<label class="screen-reader-text" for="cb-select-<?php echo esc_attr( $item->comment_ID ); ?>"><?php esc_html_e( 'Select review', 'poocommerce' ); ?></label>
 			<input
 				id="cb-select-<?php echo esc_attr( $item->comment_ID ); ?>"
 				type="checkbox"
@@ -995,7 +995,7 @@ class ReviewsListTable extends WP_List_Table {
 
 		return sprintf(
 			/* translators: %s: Parent review link with review author name. */
-			ent2ncr( __( 'In reply to %s.', 'woocommerce' ) ),
+			ent2ncr( __( 'In reply to %s.', 'poocommerce' ) ),
 			'<a href="' . esc_url( $parent_review_link ) . '">' . esc_html( $review_author_name ) . '</a>'
 		);
 	}
@@ -1113,11 +1113,11 @@ class ReviewsListTable extends WP_List_Table {
 
 		$submitted = sprintf(
 			/* translators: 1 - Product review date, 2: Product review time. */
-			__( '%1$s at %2$s', 'woocommerce' ),
+			__( '%1$s at %2$s', 'poocommerce' ),
 			/* translators: Review date format. See https://www.php.net/manual/datetime.format.php */
-			get_comment_date( __( 'Y/m/d', 'woocommerce' ), $item ),
+			get_comment_date( __( 'Y/m/d', 'poocommerce' ), $item ),
 			/* translators: Review time format. See https://www.php.net/manual/datetime.format.php */
-			get_comment_date( __( 'g:i a', 'woocommerce' ), $item )
+			get_comment_date( __( 'g:i a', 'poocommerce' ), $item )
 		);
 
 		ob_start();
@@ -1197,8 +1197,8 @@ class ReviewsListTable extends WP_List_Table {
 	protected function column_type( $item ) : void {
 
 		$type = 'review' === $item->comment_type
-			? '&#9734;&nbsp;' . __( 'Review', 'woocommerce' )
-			: __( 'Reply', 'woocommerce' );
+			? '&#9734;&nbsp;' . __( 'Review', 'poocommerce' )
+			: __( 'Reply', 'poocommerce' );
 
 		echo $this->filter_column_output( 'type', esc_html( $type ), $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
@@ -1219,7 +1219,7 @@ class ReviewsListTable extends WP_List_Table {
 
 			$accessibility_label = sprintf(
 				/* translators: 1: number representing a rating */
-				__( '%1$d out of 5', 'woocommerce' ),
+				__( '%1$d out of 5', 'poocommerce' ),
 				$rating
 			);
 
@@ -1254,7 +1254,7 @@ class ReviewsListTable extends WP_List_Table {
 		 *
 		 * @param WP_Comment $item The review or reply being rendered.
 		 */
-		do_action( 'woocommerce_product_reviews_table_column_' . $column_name, $item );
+		do_action( 'poocommerce_product_reviews_table_column_' . $column_name, $item );
 
 		echo $this->filter_column_output( $column_name, ob_get_clean(), $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
@@ -1277,7 +1277,7 @@ class ReviewsListTable extends WP_List_Table {
 		 * @param string     $output The column output.
 		 * @param WP_Comment $item   The product review being rendered.
 		 */
-		return (string) apply_filters( 'woocommerce_product_reviews_table_column_' . $column_name . '_content', $output, $item );
+		return (string) apply_filters( 'poocommerce_product_reviews_table_column_' . $column_name . '_content', $output, $item );
 	}
 
 	/**
@@ -1306,7 +1306,7 @@ class ReviewsListTable extends WP_List_Table {
 
 			echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-			submit_button( __( 'Filter', 'woocommerce' ), '', 'filter_action', false, [ 'id' => 'post-query-submit' ] );
+			submit_button( __( 'Filter', 'poocommerce' ), '', 'filter_action', false, [ 'id' => 'post-query-submit' ] );
 		}
 
 		if ( ( 'spam' === $comment_status || 'trash' === $comment_status ) && $this->has_items() && $this->current_user_can_moderate_reviews ) {
@@ -1314,8 +1314,8 @@ class ReviewsListTable extends WP_List_Table {
 			wp_nonce_field( 'bulk-destroy', '_destroy_nonce' );
 
 			$title = 'spam' === $comment_status
-				? esc_attr__( 'Empty Spam', 'woocommerce' )
-				: esc_attr__( 'Empty Trash', 'woocommerce' );
+				? esc_attr__( 'Empty Spam', 'poocommerce' )
+				: esc_attr__( 'Empty Trash', 'poocommerce' );
 
 			submit_button( $title, 'apply', 'delete_all', false );
 		}
@@ -1341,16 +1341,16 @@ class ReviewsListTable extends WP_List_Table {
 		 * @param array Map of possible review types.
 		 */
 		$item_types = apply_filters(
-			'woocommerce_product_reviews_list_table_item_types',
+			'poocommerce_product_reviews_list_table_item_types',
 			array(
-				'all'     => __( 'All types', 'woocommerce' ),
-				'comment' => __( 'Replies', 'woocommerce' ),
-				'review'  => __( 'Reviews', 'woocommerce' ),
+				'all'     => __( 'All types', 'poocommerce' ),
+				'comment' => __( 'Replies', 'poocommerce' ),
+				'review'  => __( 'Reviews', 'poocommerce' ),
 			)
 		);
 
 		?>
-		<label class="screen-reader-text" for="filter-by-review-type"><?php esc_html_e( 'Filter by review type', 'woocommerce' ); ?></label>
+		<label class="screen-reader-text" for="filter-by-review-type"><?php esc_html_e( 'Filter by review type', 'poocommerce' ); ?></label>
 		<select id="filter-by-review-type" name="review_type">
 			<?php foreach ( $item_types as $type => $label ) : ?>
 				<option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $current_type ); ?>><?php echo esc_html( $label ); ?></option>
@@ -1368,7 +1368,7 @@ class ReviewsListTable extends WP_List_Table {
 	public function review_rating_dropdown( $current_rating ) : void {
 
 		$rating_options = [
-			'0' => __( 'All ratings', 'woocommerce' ),
+			'0' => __( 'All ratings', 'poocommerce' ),
 			'1' => '&#9733;',
 			'2' => '&#9733;&#9733;',
 			'3' => '&#9733;&#9733;&#9733;',
@@ -1377,7 +1377,7 @@ class ReviewsListTable extends WP_List_Table {
 		];
 
 		?>
-		<label class="screen-reader-text" for="filter-by-review-rating"><?php esc_html_e( 'Filter by review rating', 'woocommerce' ); ?></label>
+		<label class="screen-reader-text" for="filter-by-review-rating"><?php esc_html_e( 'Filter by review rating', 'poocommerce' ); ?></label>
 		<select id="filter-by-review-rating" name="review_rating">
 			<?php foreach ( $rating_options as $rating => $label ) : ?>
 				<?php
@@ -1386,7 +1386,7 @@ class ReviewsListTable extends WP_List_Table {
 					? $label
 					: sprintf(
 						/* translators: %s: Star rating (1-5). */
-						__( '%s-star rating', 'woocommerce' ),
+						__( '%s-star rating', 'poocommerce' ),
 						$rating
 					);
 
@@ -1405,14 +1405,14 @@ class ReviewsListTable extends WP_List_Table {
 	 */
 	protected function product_search( ?WC_Product $current_product ) : void {
 		?>
-		<label class="screen-reader-text" for="filter-by-product"><?php esc_html_e( 'Filter by product', 'woocommerce' ); ?></label>
+		<label class="screen-reader-text" for="filter-by-product"><?php esc_html_e( 'Filter by product', 'poocommerce' ); ?></label>
 		<select
 			id="filter-by-product"
 			class="wc-product-search"
 			name="product_id"
 			style="width: 200px;"
-			data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>"
-			data-action="woocommerce_json_search_products"
+			data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'poocommerce' ); ?>"
+			data-action="poocommerce_json_search_products"
 			data-allow_clear="true">
 			<?php if ( $current_product instanceof WC_Product ) : ?>
 				<option value="<?php echo esc_attr( $current_product->get_id() ); ?>" selected="selected"><?php echo esc_html( $current_product->get_formatted_name() ); ?></option>
@@ -1439,19 +1439,19 @@ class ReviewsListTable extends WP_List_Table {
 
 		$approved_only_phrase = sprintf(
 			/* translators: %s: Number of reviews. */
-			_n( '%s review', '%s reviews', $approved_review_count, 'woocommerce' ),
+			_n( '%s review', '%s reviews', $approved_review_count, 'poocommerce' ),
 			$approved_reviews_number
 		);
 
 		$approved_phrase = sprintf(
 			/* translators: %s: Number of reviews. */
-			_n( '%s approved review', '%s approved reviews', $approved_review_count, 'woocommerce' ),
+			_n( '%s approved review', '%s approved reviews', $approved_review_count, 'poocommerce' ),
 			$approved_reviews_number
 		);
 
 		$pending_phrase = sprintf(
 			/* translators: %s: Number of reviews. */
-			_n( '%s pending review', '%s pending reviews', $pending_comments, 'woocommerce' ),
+			_n( '%s pending review', '%s pending reviews', $pending_comments, 'poocommerce' ),
 			$pending_reviews_number
 		);
 
@@ -1459,7 +1459,7 @@ class ReviewsListTable extends WP_List_Table {
 			// No reviews at all.
 			printf(
 				'<span aria-hidden="true">&#8212;</span><span class="screen-reader-text">%s</span>',
-				esc_html__( 'No reviews', 'woocommerce' )
+				esc_html__( 'No reviews', 'poocommerce' )
 			);
 		} elseif ( $approved_review_count && 'trash' === get_post_status( $post_id ) ) {
 			// Don't link the comment bubble for a trashed product.
@@ -1489,7 +1489,7 @@ class ReviewsListTable extends WP_List_Table {
 			printf(
 				'<span class="post-com-count post-com-count-no-comments"><span class="comment-count comment-count-no-comments" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
 				esc_html( $approved_reviews_number ),
-				$pending_comments ? esc_html__( 'No approved reviews', 'woocommerce' ) : esc_html__( 'No reviews', 'woocommerce' )
+				$pending_comments ? esc_html__( 'No approved reviews', 'poocommerce' ) : esc_html__( 'No reviews', 'poocommerce' )
 			);
 		}
 
@@ -1512,7 +1512,7 @@ class ReviewsListTable extends WP_List_Table {
 			printf(
 				'<span class="post-com-count post-com-count-pending post-com-count-no-pending"><span class="comment-count comment-count-no-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
 				esc_html( $pending_reviews_number ),
-				$approved_review_count ? esc_html__( 'No pending reviews', 'woocommerce' ) : esc_html__( 'No reviews', 'woocommerce' )
+				$approved_review_count ? esc_html__( 'No pending reviews', 'poocommerce' ) : esc_html__( 'No reviews', 'poocommerce' )
 			);
 		}
 	}

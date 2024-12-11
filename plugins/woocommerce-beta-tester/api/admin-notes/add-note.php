@@ -2,9 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/admin-notes/add-note/v1',
 	'admin_notes_add_note'
 );
@@ -69,7 +69,7 @@ function possibly_add_action( $note ) {
  * Gets mock note data.
  */
 function get_mock_note_data() {
-	$plugin_url = site_url() . '/wp-content/plugins/woocommerce-admin-test-helper/';
+	$plugin_url = site_url() . '/wp-content/plugins/poocommerce-admin-test-helper/';
 	return array(
 		'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
 		'info'    => array(
@@ -77,7 +77,7 @@ function get_mock_note_data() {
 			'plain'     => '',
 		),
 		'email'   => array(
-			'plain' => $plugin_url . 'images/admin-notes/woocommerce-logo-vector.png',
+			'plain' => $plugin_url . 'images/admin-notes/poocommerce-logo-vector.png',
 		),
 		'update'  => array(
 			'plain' => '',

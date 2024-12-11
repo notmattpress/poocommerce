@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\ValidationUtils;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\ValidationUtils;
 
 /**
  * BillingAddressSchema class.
@@ -35,7 +35,7 @@ class BillingAddressSchema extends AbstractAddressSchema {
 			$properties,
 			[
 				'email' => [
-					'description' => __( 'Email', 'woocommerce' ),
+					'description' => __( 'Email', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
@@ -76,7 +76,7 @@ class BillingAddressSchema extends AbstractAddressSchema {
 		if ( ! empty( $address['email'] ) && ! is_email( $address['email'] ) ) {
 			$errors->add(
 				'invalid_email',
-				__( 'The provided email address is not valid', 'woocommerce' )
+				__( 'The provided email address is not valid', 'poocommerce' )
 			);
 		}
 
@@ -142,7 +142,7 @@ class BillingAddressSchema extends AbstractAddressSchema {
 			'invalid_object_type',
 			sprintf(
 				/* translators: Placeholders are class and method names */
-				__( '%1$s requires an instance of %2$s or %3$s for the address', 'woocommerce' ),
+				__( '%1$s requires an instance of %2$s or %3$s for the address', 'poocommerce' ),
 				'BillingAddressSchema::get_item_response',
 				'WC_Customer',
 				'WC_Order'

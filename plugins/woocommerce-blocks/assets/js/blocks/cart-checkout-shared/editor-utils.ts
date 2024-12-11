@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { getBlockTypes } from '@wordpress/blocks';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { CART_STORE_KEY } from '@woocommerce/block-data';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { CART_STORE_KEY } from '@poocommerce/block-data';
 import { select } from '@wordpress/data';
 
 // List of core block types to allow in inner block areas.

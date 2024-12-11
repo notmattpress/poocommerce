@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -105,13 +105,13 @@ test.describe( 'Product Collection: Extensibility Events', () => {
 
 		test( 'when Product Image is clicked', async ( { page } ) => {
 			await page
-				.locator( '[data-block-name="woocommerce/product-image"]' )
+				.locator( '[data-block-name="poocommerce/product-image"]' )
 				.nth( 0 )
 				.click();
 
 			const { collection, productId } = await promise;
 			expect( collection ).toEqual(
-				'woocommerce/product-collection/featured'
+				'poocommerce/product-collection/featured'
 			);
 			expect( productId ).toEqual( expect.any( Number ) );
 		} );
@@ -121,7 +121,7 @@ test.describe( 'Product Collection: Extensibility Events', () => {
 
 			const { collection, productId } = await promise;
 			expect( collection ).toEqual(
-				'woocommerce/product-collection/featured'
+				'poocommerce/product-collection/featured'
 			);
 			expect( productId ).toEqual( expect.any( Number ) );
 		} );
@@ -131,7 +131,7 @@ test.describe( 'Product Collection: Extensibility Events', () => {
 
 			const { collection, productId } = await promise;
 			expect( collection ).toEqual(
-				'woocommerce/product-collection/featured'
+				'poocommerce/product-collection/featured'
 			);
 			expect( productId ).toEqual( expect.any( Number ) );
 		} );

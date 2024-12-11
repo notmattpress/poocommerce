@@ -10,8 +10,8 @@ import {
 } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { cleanForSlug } from '@wordpress/url';
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -57,16 +57,16 @@ export const EditProductLinkModal: React.FC< EditProductLinkModalProps > = ( {
 			createNotice(
 				updatedSlug === cleanForSlug( slug ) ? 'success' : 'info',
 				updatedSlug === cleanForSlug( slug )
-					? __( 'Product link successfully updated.', 'woocommerce' )
+					? __( 'Product link successfully updated.', 'poocommerce' )
 					: __(
 							'Product link already existed, updated to ',
-							'woocommerce'
+							'poocommerce'
 					  ) + updatedPermalink
 			);
 		} else {
 			createNotice(
 				'error',
-				__( 'Failed to update product link.', 'woocommerce' )
+				__( 'Failed to update product link.', 'poocommerce' )
 			);
 		}
 		onSaved();
@@ -77,33 +77,33 @@ export const EditProductLinkModal: React.FC< EditProductLinkModalProps > = ( {
 
 	return (
 		<Modal
-			title={ __( 'Edit product link', 'woocommerce' ) }
+			title={ __( 'Edit product link', 'poocommerce' ) }
 			onRequestClose={ () => onCancel() }
-			className="woocommerce-product-link-edit-modal"
+			className="poocommerce-product-link-edit-modal"
 		>
-			<div className="woocommerce-product-link-edit-modal__wrapper">
-				<p className="woocommerce-product-link-edit-modal__description">
+			<div className="poocommerce-product-link-edit-modal__wrapper">
+				<p className="poocommerce-product-link-edit-modal__description">
 					{ __(
 						"Create a unique link for this product. Use simple, descriptive words and numbers. We'll replace spaces with hyphens (-).",
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<TextControl
-					label={ __( 'Product link', 'woocommerce' ) }
+					label={ __( 'Product link', 'poocommerce' ) }
 					name="slug"
 					value={ slug }
 					onChange={ setSlug }
 					hideLabelFromVision
 					help={ createInterpolateElement(
-						__( 'Preview: <link />', 'woocommerce' ),
+						__( 'Preview: <link />', 'poocommerce' ),
 						{
 							link: <strong>{ newProductLinkLabel }</strong>,
 						}
 					) }
 				/>
-				<div className="woocommerce-product-link-edit-modal__buttons">
+				<div className="poocommerce-product-link-edit-modal__buttons">
 					<Button isSecondary onClick={ () => onCancel() }>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						isPrimary
@@ -115,7 +115,7 @@ export const EditProductLinkModal: React.FC< EditProductLinkModalProps > = ( {
 							setIsSaving( false );
 						} }
 					>
-						{ __( 'Save', 'woocommerce' ) }
+						{ __( 'Save', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

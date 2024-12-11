@@ -1,10 +1,10 @@
 ---
-post_title: Critical flows within the WooCommerce Core API
+post_title: Critical flows within the PooCommerce Core API
 menu_title: API critical flows
 tags: reference
 ---
 
-In our documentation, we've pinpointed the essential user flows within the WooCommerce Core API. These flows serve as
+In our documentation, we've pinpointed the essential user flows within the PooCommerce Core API. These flows serve as
 the compass for our testing initiatives, aiding us in concentrating our efforts where they matter most. They also
 provide invaluable insights into assessing the ramifications of modifications and determining issue priorities.
 

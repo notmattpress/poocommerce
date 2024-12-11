@@ -12,10 +12,10 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { external, closeSmall } from '@wordpress/icons';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { CurrencyContext } from '@woocommerce/currency';
-import { PRODUCTS_STORE_NAME, Product } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { CurrencyContext } from '@poocommerce/currency';
+import { PRODUCTS_STORE_NAME, Product } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
 import classNames from 'classnames';
 
 /**
@@ -130,23 +130,23 @@ export function ProductListBlockEdit( {
 						onClick={ handleReorderProductsButtonClick }
 						variant="tertiary"
 					>
-						{ __( 'Reorder', 'woocommerce' ) }
+						{ __( 'Reorder', 'poocommerce' ) }
 					</Button>
 				) }
 				<Button
 					onClick={ handleAddProductsButtonClick }
 					variant="secondary"
 				>
-					{ __( 'Add products', 'woocommerce' ) }
+					{ __( 'Add products', 'poocommerce' ) }
 				</Button>
 			</SectionActions>
 
-			<div className="wp-block-woocommerce-product-list-field__body">
+			<div className="wp-block-poocommerce-product-list-field__body">
 				{ ! isLoading && groupedProducts.length === 0 && (
 					<AdviceCard
 						tip={ __(
 							'Tip: Group together items that have a clear relationship or compliment each other well, e.g., garment bundles, camera kits, or skincare product sets.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						isDismissible={ false }
 					>
@@ -158,61 +158,61 @@ export function ProductListBlockEdit( {
 
 				{ ! isLoading && groupedProducts.length > 0 && (
 					<div
-						className="wp-block-woocommerce-product-list-field__table"
+						className="wp-block-poocommerce-product-list-field__table"
 						role="table"
 					>
-						<div className="wp-block-woocommerce-product-list-field__table-header">
+						<div className="wp-block-poocommerce-product-list-field__table-header">
 							<div
-								className="wp-block-woocommerce-product-list-field__table-row"
+								className="wp-block-poocommerce-product-list-field__table-row"
 								role="rowheader"
 							>
 								<div
-									className="wp-block-woocommerce-product-list-field__table-header-column"
+									className="wp-block-poocommerce-product-list-field__table-header-column"
 									role="columnheader"
 								>
-									{ __( 'Product', 'woocommerce' ) }
+									{ __( 'Product', 'poocommerce' ) }
 								</div>
 								<div
-									className="wp-block-woocommerce-product-list-field__table-header-column"
+									className="wp-block-poocommerce-product-list-field__table-header-column"
 									role="columnheader"
 								>
-									{ __( 'Price', 'woocommerce' ) }
+									{ __( 'Price', 'poocommerce' ) }
 								</div>
 								<div
-									className="wp-block-woocommerce-product-list-field__table-header-column"
+									className="wp-block-poocommerce-product-list-field__table-header-column"
 									role="columnheader"
 								>
-									{ __( 'Stock', 'woocommerce' ) }
+									{ __( 'Stock', 'poocommerce' ) }
 								</div>
 								<div
-									className="wp-block-woocommerce-product-list-field__table-header-column"
+									className="wp-block-poocommerce-product-list-field__table-header-column"
 									role="columnheader"
 								/>
 							</div>
 						</div>
 						<div
-							className="wp-block-woocommerce-product-list-field__table-body"
+							className="wp-block-poocommerce-product-list-field__table-body"
 							role="rowgroup"
 						>
 							{ groupedProducts.map( ( product ) => (
 								<div
 									key={ product.id }
-									className="wp-block-woocommerce-product-list-field__table-row"
+									className="wp-block-poocommerce-product-list-field__table-row"
 									role="row"
 								>
 									<div
-										className="wp-block-woocommerce-product-list-field__table-cell"
+										className="wp-block-poocommerce-product-list-field__table-cell"
 										role="cell"
 									>
 										<div
-											className="wp-block-woocommerce-product-list-field__product-image"
+											className="wp-block-poocommerce-product-list-field__product-image"
 											style={ getProductImageStyle(
 												product
 											) }
 										/>
 
-										<div className="wp-block-woocommerce-product-list-field__product-info">
-											<div className="wp-block-woocommerce-product-list-field__product-name">
+										<div className="wp-block-poocommerce-product-list-field__product-info">
+											<div className="wp-block-poocommerce-product-list-field__product-name">
 												<Button
 													variant="link"
 													href={ getNewPath(
@@ -225,13 +225,13 @@ export function ProductListBlockEdit( {
 												</Button>
 											</div>
 
-											<div className="wp-block-woocommerce-product-list-field__product-sku">
+											<div className="wp-block-poocommerce-product-list-field__product-sku">
 												{ product.sku }
 											</div>
 										</div>
 									</div>
 									<div
-										className="wp-block-woocommerce-product-list-field__table-cell"
+										className="wp-block-poocommerce-product-list-field__table-cell"
 										role="cell"
 									>
 										{ product.on_sale && (
@@ -249,7 +249,7 @@ export function ProductListBlockEdit( {
 										{ product.regular_price && (
 											<span
 												className={ classNames( {
-													'wp-block-woocommerce-product-list-field__price--on-sale':
+													'wp-block-poocommerce-product-list-field__price--on-sale':
 														product.on_sale,
 												} ) }
 											>
@@ -260,12 +260,12 @@ export function ProductListBlockEdit( {
 										) }
 									</div>
 									<div
-										className="wp-block-woocommerce-product-list-field__table-cell"
+										className="wp-block-poocommerce-product-list-field__table-cell"
 										role="cell"
 									>
 										<span
 											className={ classNames(
-												'woocommerce-product-variations__status-dot',
+												'poocommerce-product-variations__status-dot',
 												getProductStockStatusClass(
 													product
 												)
@@ -278,7 +278,7 @@ export function ProductListBlockEdit( {
 										</span>
 									</div>
 									<div
-										className="wp-block-woocommerce-product-list-field__table-cell"
+										className="wp-block-poocommerce-product-list-field__table-cell"
 										role="cell"
 									>
 										<Button
@@ -286,7 +286,7 @@ export function ProductListBlockEdit( {
 											icon={ external }
 											aria-label={ __(
 												'Preview the product',
-												'woocommerce'
+												'poocommerce'
 											) }
 											href={ product.permalink }
 											target="_blank"
@@ -298,7 +298,7 @@ export function ProductListBlockEdit( {
 											icon={ closeSmall }
 											aria-label={ __(
 												'Remove product',
-												'woocommerce'
+												'poocommerce'
 											) }
 											onClick={ removeProductHandler(
 												product

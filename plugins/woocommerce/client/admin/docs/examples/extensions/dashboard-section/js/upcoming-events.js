@@ -4,9 +4,9 @@
 import { flatten } from 'lodash';
 
 /**
- * WooCommerce dependencies
+ * PooCommerce dependencies
  */
-import { TableCard } from '@woocommerce/components';
+import { TableCard } from '@poocommerce/components';
 
 const UpcomingEvents = ( { config } ) => {
 	const rows = flatten(

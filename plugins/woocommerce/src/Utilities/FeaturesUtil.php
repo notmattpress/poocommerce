@@ -3,18 +3,18 @@
  * FeaturesUtil class file.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
- * Class with methods that allow to retrieve information about the existing WooCommerce features,
- * also has methods for WooCommerce plugins to declare (in)compatibility with the features.
+ * Class with methods that allow to retrieve information about the existing PooCommerce features,
+ * also has methods for PooCommerce plugins to declare (in)compatibility with the features.
  */
 class FeaturesUtil {
 
 	/**
-	 * Get all the existing WooCommerce features.
+	 * Get all the existing PooCommerce features.
 	 *
 	 * Returns an associative array where keys are unique feature ids
 	 * and values are arrays with these keys:
@@ -45,7 +45,7 @@ class FeaturesUtil {
 	/**
 	 * Declare (in)compatibility with a given feature for a given plugin.
 	 *
-	 * This method MUST be executed from inside a handler for the 'before_woocommerce_init' hook and
+	 * This method MUST be executed from inside a handler for the 'before_poocommerce_init' hook and
 	 * SHOULD be executed from the main plugin file passing __FILE__ or 'my-plugin/my-plugin.php' for the
 	 * $plugin_file argument.
 	 *
@@ -69,7 +69,7 @@ class FeaturesUtil {
 	/**
 	 * Get the ids of the features that a certain plugin has declared compatibility for.
 	 *
-	 * This method can't be called before the 'woocommerce_init' hook is fired.
+	 * This method can't be called before the 'poocommerce_init' hook is fired.
 	 *
 	 * @param string $plugin_name Plugin name, in the form 'directory/file.php'.
 	 * @return array An array having a 'compatible' and an 'incompatible' key, each holding an array of plugin ids.
@@ -90,7 +90,7 @@ class FeaturesUtil {
 
 	/**
 	 * Sets a flag indicating that it's allowed to enable features for which incompatible plugins are active
-	 * from the WooCommerce feature settings page.
+	 * from the PooCommerce feature settings page.
 	 */
 	public static function allow_enabling_features_with_incompatible_plugins(): void {
 		wc_get_container()->get( FeaturesController::class )->allow_enabling_features_with_incompatible_plugins();

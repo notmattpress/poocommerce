@@ -1,20 +1,20 @@
 <?php
 /**
- * WooCommerce Settings.
+ * PooCommerce Settings.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\API\Plugins;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Internal\BrandingController;
+use Automattic\PooCommerce\Admin\API\Plugins;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrdersDataStore;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\BrandingController;
 use WC_Marketplace_Suggestions;
 
 /**
- * Contains logic in regards to WooCommerce Admin Settings.
+ * Contains logic in regards to PooCommerce Admin Settings.
  */
 class Settings {
 
@@ -36,15 +36,15 @@ class Settings {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		// Old settings injection.
-		add_filter( 'woocommerce_components_settings', array( $this, 'add_component_settings' ) );
+		add_filter( 'poocommerce_components_settings', array( $this, 'add_component_settings' ) );
 		// New settings injection.
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'add_component_settings' ) );
-		add_filter( 'woocommerce_settings_groups', array( $this, 'add_settings_group' ) );
-		add_filter( 'woocommerce_settings-wc_admin', array( $this, 'add_settings' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'add_component_settings' ) );
+		add_filter( 'poocommerce_settings_groups', array( $this, 'add_settings_group' ) );
+		add_filter( 'poocommerce_settings-wc_admin', array( $this, 'add_settings' ) );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Settings {
 	 * }
 	 */
 	public static function get_currency_settings() {
-		$code = get_woocommerce_currency();
+		$code = get_poocommerce_currency();
 
 		//phpcs:ignore
 		return apply_filters(
@@ -97,17 +97,17 @@ class Settings {
 			array(
 				'code'              => $code,
 				'precision'         => wc_get_price_decimals(),
-				'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $code ) ),
-				'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+				'symbol'            => html_entity_decode( get_poocommerce_currency_symbol( $code ) ),
+				'symbolPosition'    => get_option( 'poocommerce_currency_pos' ),
 				'decimalSeparator'  => wc_get_price_decimal_separator(),
 				'thousandSeparator' => wc_get_price_thousand_separator(),
-				'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+				'priceFormat'       => html_entity_decode( get_poocommerce_price_format() ),
 			)
 		);
 	}
 
 	/**
-	 * Hooks extra necessary data into the component settings array already set in WooCommerce core.
+	 * Hooks extra necessary data into the component settings array already set in PooCommerce core.
 	 *
 	 * @param array $settings Array of component settings.
 	 * @return array Array of component settings.
@@ -137,7 +137,7 @@ class Settings {
 		}
 
 		//phpcs:ignore
-		$preload_data_endpoints = apply_filters( 'woocommerce_component_settings_preload_endpoints', array() );
+		$preload_data_endpoints = apply_filters( 'poocommerce_component_settings_preload_endpoints', array() );
 		$preload_data_endpoints['jetpackStatus'] = '/jetpack/v4/connection';
 		if ( ! empty( $preload_data_endpoints ) ) {
 			$preload_data = array_reduce(
@@ -147,7 +147,7 @@ class Settings {
 		}
 
 		//phpcs:ignore
-		$preload_options = apply_filters( 'woocommerce_admin_preload_options', array() );
+		$preload_options = apply_filters( 'poocommerce_admin_preload_options', array() );
 		if ( ! empty( $preload_options ) ) {
 			foreach ( $preload_options as $option ) {
 				$settings['preloadOptions'][ $option ] = get_option( $option );
@@ -155,7 +155,7 @@ class Settings {
 		}
 
 		//phpcs:ignore
-		$preload_settings = apply_filters( 'woocommerce_admin_preload_settings', array() );
+		$preload_settings = apply_filters( 'poocommerce_admin_preload_settings', array() );
 		if ( ! empty( $preload_settings ) ) {
 			$setting_options = new \WC_REST_Setting_Options_V2_Controller();
 			foreach ( $preload_settings as $group ) {
@@ -177,10 +177,10 @@ class Settings {
 		$current_user_data = is_wp_error( $user_response ) ? (object) array() : $user_response->get_data();
 
 		$settings['currentUserData']      = $current_user_data;
-		$settings['reviewsEnabled']       = get_option( 'woocommerce_enable_reviews' );
-		$settings['manageStock']          = get_option( 'woocommerce_manage_stock' );
+		$settings['reviewsEnabled']       = get_option( 'poocommerce_enable_reviews' );
+		$settings['manageStock']          = get_option( 'poocommerce_manage_stock' );
 		$settings['commentModeration']    = get_option( 'comment_moderation' );
-		$settings['notifyLowStockAmount'] = get_option( 'woocommerce_notify_low_stock_amount' );
+		$settings['notifyLowStockAmount'] = get_option( 'poocommerce_notify_low_stock_amount' );
 
 		/**
 		 * Deprecate wcAdminAssetUrl as we no longer need it after The Merge.
@@ -207,15 +207,15 @@ class Settings {
 		);
 
 		// Plugins that depend on changing the translation work on the server but not the client -
-		// WooCommerce Branding is an example of this - so pass through the translation of
-		// 'WooCommerce' to wcSettings.
-		$settings['woocommerceTranslation'] = __( 'WooCommerce', 'woocommerce' );
+		// PooCommerce Branding is an example of this - so pass through the translation of
+		// 'PooCommerce' to wcSettings.
+		$settings['poocommerceTranslation'] = __( 'PooCommerce', 'poocommerce' );
 		// We may have synced orders with a now-unregistered status.
 		// E.g An extension that added statuses is now inactive or removed.
 		$settings['unregisteredOrderStatuses'] = $this->get_unregistered_order_statuses();
 		// The separator used for attributes found in Variation titles.
 		//phpcs:ignore
-		$settings['variationTitleAttributesSeparator'] = apply_filters( 'woocommerce_product_variation_title_attributes_separator', ' - ', new \WC_Product() );
+		$settings['variationTitleAttributesSeparator'] = apply_filters( 'poocommerce_product_variation_title_attributes_separator', ' - ', new \WC_Product() );
 
 		if ( ! empty( $preload_data_endpoints ) ) {
 			$settings['dataEndpoints'] = isset( $settings['dataEndpoints'] )
@@ -289,8 +289,8 @@ class Settings {
 	public function add_settings_group( $groups ) {
 		$groups[] = array(
 			'id'          => 'wc_admin',
-			'label'       => __( 'WooCommerce Admin', 'woocommerce' ),
-			'description' => __( 'Settings for WooCommerce admin reporting.', 'woocommerce' ),
+			'label'       => __( 'PooCommerce Admin', 'poocommerce' ),
+			'description' => __( 'Settings for PooCommerce admin reporting.', 'poocommerce' ),
 		);
 		return $groups;
 	}
@@ -307,36 +307,36 @@ class Settings {
 		$all_statuses          = array_merge( $unregistered_statuses, $registered_statuses );
 
 		$settings[] = array(
-			'id'          => 'woocommerce_excluded_report_order_statuses',
-			'option_key'  => 'woocommerce_excluded_report_order_statuses',
-			'label'       => __( 'Excluded report order statuses', 'woocommerce' ),
-			'description' => __( 'Statuses that should not be included when calculating report totals.', 'woocommerce' ),
+			'id'          => 'poocommerce_excluded_report_order_statuses',
+			'option_key'  => 'poocommerce_excluded_report_order_statuses',
+			'label'       => __( 'Excluded report order statuses', 'poocommerce' ),
+			'description' => __( 'Statuses that should not be included when calculating report totals.', 'poocommerce' ),
 			'default'     => array( 'pending', 'cancelled', 'failed' ),
 			'type'        => 'multiselect',
 			'options'     => $all_statuses,
 		);
 		$settings[] = array(
-			'id'          => 'woocommerce_actionable_order_statuses',
-			'option_key'  => 'woocommerce_actionable_order_statuses',
-			'label'       => __( 'Actionable order statuses', 'woocommerce' ),
-			'description' => __( 'Statuses that require extra action on behalf of the store admin.', 'woocommerce' ),
+			'id'          => 'poocommerce_actionable_order_statuses',
+			'option_key'  => 'poocommerce_actionable_order_statuses',
+			'label'       => __( 'Actionable order statuses', 'poocommerce' ),
+			'description' => __( 'Statuses that require extra action on behalf of the store admin.', 'poocommerce' ),
 			'default'     => array( 'processing', 'on-hold' ),
 			'type'        => 'multiselect',
 			'options'     => $all_statuses,
 		);
 		$settings[] = array(
-			'id'          => 'woocommerce_default_date_range',
-			'option_key'  => 'woocommerce_default_date_range',
-			'label'       => __( 'Default Date Range', 'woocommerce' ),
-			'description' => __( 'Default Date Range', 'woocommerce' ),
+			'id'          => 'poocommerce_default_date_range',
+			'option_key'  => 'poocommerce_default_date_range',
+			'label'       => __( 'Default Date Range', 'poocommerce' ),
+			'description' => __( 'Default Date Range', 'poocommerce' ),
 			'default'     => 'period=month&compare=previous_year',
 			'type'        => 'text',
 		);
 		$settings[] = array(
-			'id'          => 'woocommerce_date_type',
-			'option_key'  => 'woocommerce_date_type',
-			'label'       => __( 'Date Type', 'woocommerce' ),
-			'description' => __( 'Database date field considered for Revenue and Orders reports', 'woocommerce' ),
+			'id'          => 'poocommerce_date_type',
+			'option_key'  => 'poocommerce_date_type',
+			'label'       => __( 'Date Type', 'poocommerce' ),
+			'description' => __( 'Database date field considered for Revenue and Orders reports', 'poocommerce' ),
 			'type'        => 'select',
 			'options'     => array(
 				'date_created'   => 'date_created',

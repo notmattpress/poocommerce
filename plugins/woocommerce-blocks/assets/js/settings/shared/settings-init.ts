@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SymbolPosition, CurrencyCode } from '@woocommerce/types';
+import { SymbolPosition, CurrencyCode } from '@poocommerce/types';
 
 declare global {
 	interface Window {
@@ -9,7 +9,7 @@ declare global {
 	}
 }
 
-export interface WooCommerceSiteCurrency {
+export interface PooCommerceSiteCurrency {
 	// The ISO code for the currency.
 	code: CurrencyCode;
 	// The precision (decimal places).
@@ -26,7 +26,7 @@ export interface WooCommerceSiteCurrency {
 	priceFormat: string;
 }
 
-export interface WooCommerceSiteLocale {
+export interface PooCommerceSiteLocale {
 	// The locale string for the current site.
 	siteLocale: string;
 	// The locale string for the current user.
@@ -35,14 +35,14 @@ export interface WooCommerceSiteLocale {
 	weekdaysShort: string[];
 }
 
-export interface WooCommerceSharedSettings {
+export interface PooCommerceSharedSettings {
 	adminUrl: string;
 	countries: Record< string, string > | never[];
-	currency: WooCommerceSiteCurrency;
+	currency: PooCommerceSiteCurrency;
 	currentUserId: number;
 	currentUserIsAdmin: boolean;
 	homeUrl: string;
-	locale: WooCommerceSiteLocale;
+	locale: PooCommerceSiteLocale;
 	orderStatuses: Record< string, string > | never[];
 	placeholderImgSrc: string;
 	siteTitle: string;
@@ -53,7 +53,7 @@ export interface WooCommerceSharedSettings {
 	wpVersion: string;
 }
 
-const defaults: WooCommerceSharedSettings = {
+const defaults: PooCommerceSharedSettings = {
 	adminUrl: '',
 	countries: [],
 	currency: {
@@ -87,7 +87,7 @@ const globalSharedSettings =
 	typeof window.wcSettings === 'object' ? window.wcSettings : {};
 
 interface AllSettings extends Record< string, unknown > {
-	currency: WooCommerceSiteCurrency;
+	currency: PooCommerceSiteCurrency;
 }
 
 // Use defaults or global settings, depending on what is set.
@@ -98,7 +98,7 @@ const allSettings: AllSettings = {
 
 allSettings.currency = {
 	...defaults.currency,
-	...( allSettings.currency as WooCommerceSiteCurrency ),
+	...( allSettings.currency as PooCommerceSiteCurrency ),
 };
 
 allSettings.locale = {

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { BlockConfiguration } from '@wordpress/blocks';
-import { registerBlockSingleProductTemplate } from '@woocommerce/atomic-utils';
+import { registerBlockSingleProductTemplate } from '@poocommerce/atomic-utils';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ const blockConfig: BlockConfiguration = {
 };
 
 registerBlockSingleProductTemplate( {
-	blockName: 'woocommerce/product-rating',
+	blockName: 'poocommerce/product-rating',
 	blockMetadata: metadata,
 	blockSettings: blockConfig,
 	isAvailableOnPostEditor: true,

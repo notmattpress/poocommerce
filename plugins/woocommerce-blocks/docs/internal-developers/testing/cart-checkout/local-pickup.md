@@ -4,16 +4,16 @@
 
 ### Enabling local pickup
 
-1. In a fresh website that uses Checkout shortcode as its main Checkout, go to **WooCommerce -> Settings -> Shipping**, you should **not** see a local pickup tab there.
+1. In a fresh website that uses Checkout shortcode as its main Checkout, go to **PooCommerce -> Settings -> Shipping**, you should **not** see a local pickup tab there.
 2. Switch to using Checkout block for your main Checkout by removing the shortcode and adding Checkout block.
 3. In your Checkout block, you should not see the shipping method toggle or pickup options block.
-3. Visit **WooCommerce -> Settings -> Shipping** again, you should see a Local Pickup tab there.
+3. Visit **PooCommerce -> Settings -> Shipping** again, you should see a Local Pickup tab there.
 4. You should be able to toggle local pickup on from that screen.
 5. In your Checkout page in the editor, you should see your shipping method and pickup options block.
 
 ### Adding locations
 
-1. In **WooCommerce -> Settings -> Shipping -> Local Pickup**, you should see Pickup locations section below.
+1. In **PooCommerce -> Settings -> Shipping -> Local Pickup**, you should see Pickup locations section below.
 2. If you don't have any pickup locations, you should see the message "When you add a pickup location, it will appear here".
 3. Clicking "Add pickup location" should open up a modal.
 4. You should be able to fill up the title, address, and details.
@@ -76,17 +76,17 @@
 
 ### Local Pickup enabled with no locations
 
-1. In **WooCommerce -> Settings -> Shipping -> Local Pickup**, enable local pickup.
+1. In **PooCommerce -> Settings -> Shipping -> Local Pickup**, enable local pickup.
 2. Add a pickup location, but disable it and save.
 3. Visit the frontend of your website, add an item to cart, and navigate to Checkout.
 4. You should **not** see the shipping method toggle.
 5. You should only see the shipping options block.
-6. Go to **WooCommerce -> Settings -> Shipping -> Local Pickup** again, now remove the location.
+6. Go to **PooCommerce -> Settings -> Shipping -> Local Pickup** again, now remove the location.
 7. Visit the Checkout, you should **not** see the shipping method toggle.
 
 ### Local Pickup enabled with locations
 
-1. In **WooCommerce -> Settings -> Shipping -> Local Pickup**, enable local pickup.
+1. In **PooCommerce -> Settings -> Shipping -> Local Pickup**, enable local pickup.
 2. Add pickup locations and enable them.
 3. Visit the frontend of your website, add an item to cart, and navigate to Checkout.
 4. You should see the toggle.
@@ -98,7 +98,7 @@
 
 ### Shipping selector toggle with different min/max prices for shipping
 
-1. **WooCommerce -> Settings -> Shipping -> Shipping zones**, create a new zone.
+1. **PooCommerce -> Settings -> Shipping -> Shipping zones**, create a new zone.
 2. In it, add 3 flat rates options, priced all differently (for example, $10, $20, $50).
 3. Only have those 3 enabled.
 4. Visit the frontend of your website, add an item to cart, and navigate to Checkout.
@@ -107,14 +107,14 @@
 7. In Checkout, the price tag should say "$10.00" only, without the "from".
 8. Change one of the $10 rates to be $0.
 9. In Checkout, the price tag should say "from FREE".
-10. **WooCommerce -> Settings -> Shipping -> Local Pickup**, leave the cost checkbox unchecked.
+10. **PooCommerce -> Settings -> Shipping -> Local Pickup**, leave the cost checkbox unchecked.
 11. In Checkout, the local pickup toggle should say "FREE".
 12. Change the local pickup cost to $10.
 13. In the frontend, it should say "$10".
 
 ### Local pickup in cart
 
-[Enhancement pending](https://github.com/woocommerce/woocommerce-blocks/issues/7997)
+[Enhancement pending](https://github.com/poocommerce/poocommerce-blocks/issues/7997)
 
 1. In Cart, you should see both pickup locations and shipping rates together for a package.
 2. Selecting a pickup location should change the text of "shipping to \[customer address\]" to "Pick up from \[location address\]".
@@ -135,13 +135,13 @@
 
 To test multiple packages, you need to install and configure a plugin:
 
-**Multiple Package for WooCommerce**:
+**Multiple Package for PooCommerce**:
 
-1. Install [**Multiple Packages for WooCommerce**](https://wordpress.org/plugins/multiple-packages-for-woocommerce/).
-2. In **WooCommerce -> Settings -> Multiple Packages**, enable Multiple packages.
+1. Install [**Multiple Packages for PooCommerce**](https://wordpress.org/plugins/multiple-packages-for-poocommerce/).
+2. In **PooCommerce -> Settings -> Multiple Packages**, enable Multiple packages.
 3. Choose group by Shipping class.
 4. Leave the shipping settings intact for now.
-5. In **WooCommerce -> Settings -> Shipping -> Shipping classes** introduce a new shipping class "Not pickable".
+5. In **PooCommerce -> Settings -> Shipping -> Shipping classes** introduce a new shipping class "Not pickable".
 6. Go to one of your products edit page, scroll down to **Product Data -> Shipping** and change the shipping class to the newly created one "Not pickable".
 
 ### Multiple packages that all support Local Pickup
@@ -170,7 +170,7 @@ To test multiple packages, you need to install and configure a plugin:
 
 ### Multiple packages in which one doesn't support Local Pickup
 
-1. Go to **WooCommerce -> Settings -> Multiple Packages**, in the **Shipping Method Restrictions** section, uncheck local pickup for the Not pickable class.
+1. Go to **PooCommerce -> Settings -> Multiple Packages**, in the **Shipping Method Restrictions** section, uncheck local pickup for the Not pickable class.
 2. Add a regular product and a Not pickable product to your cart, go to Checkout.
 3. Shipping method toggle should no longer be visible, and you can only select regular shipping methods.
 4. In Cart block, you should not be able to see pickup locations in packages.
@@ -180,8 +180,8 @@ To test multiple packages, you need to install and configure a plugin:
 
 ### Enabling Shipping zone local pickup and new local pickup at same time
 
-1. In **WooCommerce -> Settings -> Shipping -> Shipping zones** add a class local pickup method.
-2. Go to  **WooCommerce -> Settings -> Shipping -> Local Pickup**, you should see a warning saying "Enabling this will produce duplicate options at checkout. Remove the local pickup shipping method from your shipping zones".
+1. In **PooCommerce -> Settings -> Shipping -> Shipping zones** add a class local pickup method.
+2. Go to  **PooCommerce -> Settings -> Shipping -> Local Pickup**, you should see a warning saying "Enabling this will produce duplicate options at checkout. Remove the local pickup shipping method from your shipping zones".
 3. Back to the shipping zone, disable the local pickup rate (without removing it) and head back to Local Pickup.
 4. The notice is no longer visible.
 
@@ -189,7 +189,7 @@ To test multiple packages, you need to install and configure a plugin:
 
 #### Pickup title
 
-1. In  **WooCommerce -> Settings -> Shipping -> Local Pickup**, empty the title field and try to save.
+1. In  **PooCommerce -> Settings -> Shipping -> Local Pickup**, empty the title field and try to save.
 2. The save button should be grayed out.
 3. The title input should be with an error message "title is required".
 
@@ -202,11 +202,11 @@ To test multiple packages, you need to install and configure a plugin:
 ### Switching back to shortcode
 
 1. Local Pickup should be enabled and has pickup locations inside of it.
-2. Go to your Checkout edit page, remove the Checkout block, and insert a shortcode block with `[woocommerce_checkout]`, save the page.
+2. Go to your Checkout edit page, remove the Checkout block, and insert a shortcode block with `[poocommerce_checkout]`, save the page.
 3. In the frontend, you should not see pickup locations.
 
 ### Disabling Local Pickup
 
 1. Make Checkout block your default Checkout.
-2. Go to **WooCommerce -> Settings -> Shipping -> Local Pickup** and disable local pickup.
+2. Go to **PooCommerce -> Settings -> Shipping -> Local Pickup** and disable local pickup.
 3. Visit the frontend, you should not see any locations or the toggle.

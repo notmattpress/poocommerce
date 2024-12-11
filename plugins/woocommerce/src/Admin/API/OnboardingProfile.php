@@ -7,12 +7,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile as Profile;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProducts;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile as Profile;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProducts;
 use Automattic\Jetpack\Connection\Manager as Jetpack_Connection_Manager;
 
 /**
@@ -104,7 +104,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 						'step' => array(
 							'required'    => true,
 							'type'        => 'string',
-							'description' => __( 'The Core Profiler step to mark as complete.', 'woocommerce' ),
+							'description' => __( 'The Core Profiler step to mark as complete.', 'poocommerce' ),
 							'enum'        => array(
 								'intro-opt-in',
 								'skip-guided-setup',
@@ -129,7 +129,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -143,7 +143,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 	 */
 	public function update_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'edit' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot edit this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot edit this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -189,7 +189,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @param array $industries List of industries.
 		 */
 		return apply_filters(
-			'woocommerce_admin_onboarding_industries',
+			'poocommerce_admin_onboarding_industries',
 			$industries
 		);
 	}
@@ -215,11 +215,11 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @param array $onboarding_data Previous onboarding data.
 		 * @param array $query_args New data being set.
 		 */
-		do_action( 'woocommerce_onboarding_profile_data_updated', $onboarding_data, $query_args );
+		do_action( 'poocommerce_onboarding_profile_data_updated', $onboarding_data, $query_args );
 
 		$result = array(
 			'status'  => 'success',
-			'message' => __( 'Onboarding profile data has been updated.', 'woocommerce' ),
+			'message' => __( 'Onboarding profile data has been updated.', 'poocommerce' ),
 		);
 
 		$response = $this->prepare_item_for_response( $result, $request );
@@ -286,7 +286,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @since 6.5.0
 		 * @param string $step The completed step name.
 		 */
-		do_action( 'woocommerce_core_profiler_step_complete', $step );
+		do_action( 'poocommerce_core_profiler_step_complete', $step );
 
 		$response_data = array(
 			'results' => $onboarding_progress,
@@ -335,7 +335,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @param array $args Key value array of query var to query value.
 		 * @param array $params The params sent in the request.
 		 */
-		$args = apply_filters( 'woocommerce_rest_onboarding_profile_object_query', $args, $params );
+		$args = apply_filters( 'poocommerce_rest_onboarding_profile_object_query', $args, $params );
 
 		return $args;
 	}
@@ -361,7 +361,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @param array            $item     The original item.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_onboarding_prepare_profile', $response, $item, $request );
+		return apply_filters( 'poocommerce_rest_onboarding_prepare_profile', $response, $item, $request );
 	}
 
 	/**
@@ -373,21 +373,21 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		$properties = array(
 			'completed'                     => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not the profile was completed.', 'woocommerce' ),
+				'description'       => __( 'Whether or not the profile was completed.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'skipped'                       => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not the profile was skipped.', 'woocommerce' ),
+				'description'       => __( 'Whether or not the profile was skipped.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'industry'                      => array(
 				'type'              => 'array',
-				'description'       => __( 'Industry.', 'woocommerce' ),
+				'description'       => __( 'Industry.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'nullable'          => true,
@@ -398,7 +398,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'product_types'                 => array(
 				'type'              => 'array',
-				'description'       => __( 'Types of products sold.', 'woocommerce' ),
+				'description'       => __( 'Types of products sold.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'sanitize_callback' => 'wp_parse_slug_list',
@@ -410,7 +410,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'product_count'                 => array(
 				'type'              => 'string',
-				'description'       => __( 'Number of products to be added.', 'woocommerce' ),
+				'description'       => __( 'Number of products to be added.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -424,7 +424,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'selling_venues'                => array(
 				'type'              => 'string',
-				'description'       => __( 'Other places the store is selling products.', 'woocommerce' ),
+				'description'       => __( 'Other places the store is selling products.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -433,12 +433,12 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 					'other',
 					'brick-mortar',
 					'brick-mortar-other',
-					'other-woocommerce',
+					'other-poocommerce',
 				),
 			),
 			'number_employees'              => array(
 				'type'              => 'string',
-				'description'       => __( 'Number of employees of the store.', 'woocommerce' ),
+				'description'       => __( 'Number of employees of the store.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -453,7 +453,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'revenue'                       => array(
 				'type'              => 'string',
-				'description'       => __( 'Current annual revenue of the store.', 'woocommerce' ),
+				'description'       => __( 'Current annual revenue of the store.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -469,7 +469,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'other_platform'                => array(
 				'type'              => 'string',
-				'description'       => __( 'Name of other platform used to sell.', 'woocommerce' ),
+				'description'       => __( 'Name of other platform used to sell.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -487,14 +487,14 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'other_platform_name'           => array(
 				'type'              => 'string',
-				'description'       => __( 'Name of other platform used to sell (not listed).', 'woocommerce' ),
+				'description'       => __( 'Name of other platform used to sell (not listed).', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'business_extensions'           => array(
 				'type'              => 'array',
-				'description'       => __( 'Extra business extensions to install.', 'woocommerce' ),
+				'description'       => __( 'Extra business extensions to install.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'sanitize_callback' => 'wp_parse_slug_list',
@@ -505,7 +505,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'theme'                         => array(
 				'type'              => 'string',
-				'description'       => __( 'Selected store theme.', 'woocommerce' ),
+				'description'       => __( 'Selected store theme.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'sanitize_callback' => 'sanitize_title_with_dashes',
@@ -513,28 +513,28 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'setup_client'                  => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not this store was setup for a client.', 'woocommerce' ),
+				'description'       => __( 'Whether or not this store was setup for a client.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'wccom_connected'               => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not the store was connected to WooCommerce.com during the extension flow.', 'woocommerce' ),
+				'description'       => __( 'Whether or not the store was connected to PooCommerce.com during the extension flow.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'is_agree_marketing'            => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not this store agreed to receiving marketing contents from WooCommerce.com.', 'woocommerce' ),
+				'description'       => __( 'Whether or not this store agreed to receiving marketing contents from PooCommerce.com.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'store_email'                   => array(
 				'type'              => 'string',
-				'description'       => __( 'Store email address.', 'woocommerce' ),
+				'description'       => __( 'Store email address.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'nullable'          => true,
@@ -542,21 +542,21 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'is_store_country_set'          => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not this store country is set via onboarding profiler.', 'woocommerce' ),
+				'description'       => __( 'Whether or not this store country is set via onboarding profiler.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'is_plugins_page_skipped'       => array(
 				'type'              => 'boolean',
-				'description'       => __( 'Whether or not plugins step in core profiler was skipped.', 'woocommerce' ),
+				'description'       => __( 'Whether or not plugins step in core profiler was skipped.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'core_profiler_completed_steps' => array(
 				'type'              => 'array',
-				'description'       => __( 'Completed steps in core profiler.', 'woocommerce' ),
+				'description'       => __( 'Completed steps in core profiler.', 'poocommerce' ),
 				'context'           => array( 'view' ),
 				'readonly'          => true,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -566,21 +566,21 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 			),
 			'business_choice'               => array(
 				'type'        => 'string',
-				'description' => __( 'Business choice.', 'woocommerce' ),
+				'description' => __( 'Business choice.', 'poocommerce' ),
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 				'nullable'    => true,
 			),
 			'selling_online_answer'         => array(
 				'type'        => 'string',
-				'description' => __( 'Selling online answer.', 'woocommerce' ),
+				'description' => __( 'Selling online answer.', 'poocommerce' ),
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 				'nullable'    => true,
 			),
 			'selling_platforms'             => array(
 				'type'        => array( 'array', 'null' ),
-				'description' => __( 'Selling platforms.', 'woocommerce' ),
+				'description' => __( 'Selling platforms.', 'poocommerce' ),
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 				'nullable'    => true,
@@ -596,7 +596,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @since 6.5.0
 		 * @param array $properties List of properties.
 		 */
-		return apply_filters( 'woocommerce_rest_onboarding_profile_properties', $properties );
+		return apply_filters( 'poocommerce_rest_onboarding_profile_properties', $properties );
 	}
 
 	/**
@@ -612,7 +612,7 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		if (
 			( $is_agree_marketing || ! empty( $value ) ) &&
 			! is_email( $value ) ) {
-			return new \WP_Error( 'rest_invalid_email', __( 'Invalid email address', 'woocommerce' ) );
+			return new \WP_Error( 'rest_invalid_email', __( 'Invalid email address', 'poocommerce' ) );
 		}
 		return true;
 	}
@@ -663,6 +663,6 @@ class OnboardingProfile extends \WC_REST_Data_Controller {
 		 * @since 6.5.0
 		 * @param array $params Collection parameters.
 		 */
-		return apply_filters( 'woocommerce_rest_onboarding_profile_collection_params', $params );
+		return apply_filters( 'poocommerce_rest_onboarding_profile_collection_params', $params );
 	}
 }

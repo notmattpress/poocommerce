@@ -4,12 +4,12 @@
  *
  * Adds notes to the merchant's inbox concerning the created page.
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * WC_Notes_Refund_Returns.
@@ -24,7 +24,7 @@ class WC_Notes_Refund_Returns {
 	 * Attach hooks.
 	 */
 	public static function init() {
-		add_filter( 'woocommerce_get_note_from_db', array( __CLASS__, 'get_note_from_db' ), 10, 1 );
+		add_filter( 'poocommerce_get_note_from_db', array( __CLASS__, 'get_note_from_db' ), 10, 1 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class WC_Notes_Refund_Returns {
 		// Add note.
 		$note = self::get_note( $page_id );
 		$note->save();
-		delete_option( 'woocommerce_refund_returns_page_created' );
+		delete_option( 'poocommerce_refund_returns_page_created' );
 	}
 
 	/**
@@ -61,15 +61,15 @@ class WC_Notes_Refund_Returns {
 	 */
 	public static function get_note( $page_id ) {
 		$note = new Note();
-		$note->set_title( __( 'Setup a Refund and Returns Policy page to boost your store\'s credibility.', 'woocommerce' ) );
-		$note->set_content( __( 'We have created a sample draft Refund and Returns Policy page for you. Please have a look and update it to fit your store.', 'woocommerce' ) );
+		$note->set_title( __( 'Setup a Refund and Returns Policy page to boost your store\'s credibility.', 'poocommerce' ) );
+		$note->set_content( __( 'We have created a sample draft Refund and Returns Policy page for you. Please have a look and update it to fit your store.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
 		$note->set_content_data( (object) array() );
-		$note->set_source( 'woocommerce-core' );
+		$note->set_source( 'poocommerce-core' );
 		$note->add_action(
 			'notify-refund-returns-page',
-			__( 'Edit page', 'woocommerce' ),
+			__( 'Edit page', 'poocommerce' ),
 			admin_url( sprintf( 'post.php?post=%d&action=edit', (int) $page_id ) )
 		);
 

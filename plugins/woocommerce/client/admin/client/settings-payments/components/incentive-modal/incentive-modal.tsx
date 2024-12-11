@@ -11,7 +11,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -38,14 +38,14 @@ export const IncentiveModal = ( {
 			{ isOpen && (
 				<Modal
 					title=""
-					className="woocommerce-incentive-modal"
+					className="poocommerce-incentive-modal"
 					onRequestClose={ onClose }
 				>
-					<Card className={ 'woocommerce-incentive-modal__card' }>
-						<div className="woocommerce-incentive-modal__content">
+					<Card className={ 'poocommerce-incentive-modal__card' }>
+						<div className="poocommerce-incentive-modal__content">
 							<CardMedia
 								className={
-									'woocommerce-incentive-modal__media'
+									'poocommerce-incentive-modal__media'
 								}
 							>
 								<img
@@ -55,13 +55,13 @@ export const IncentiveModal = ( {
 									}
 									alt={ __(
 										'Incentive hero image',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							</CardMedia>
 							<CardBody
 								className={
-									'woocommerce-incentive-modal__body'
+									'poocommerce-incentive-modal__body'
 								}
 							>
 								<div>
@@ -69,43 +69,43 @@ export const IncentiveModal = ( {
 										status={ 'has_incentive' }
 										message={ __(
 											'Limited time offer',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</div>
 								<h2>
 									{ __(
 										'Save 10% on processing fees for your first 3 months when you sign up for WooPayments',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</h2>
 								<p>
 									{ __(
 										'Use the native payments solution built and supported by Woo to accept online and in-person payments, track revenue, and handle all payment activity in one place.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 								<p
 									className={
-										'woocommerce-incentive-modal__terms'
+										'poocommerce-incentive-modal__terms'
 									}
 								>
 									{ createInterpolateElement(
 										__(
 											'See <termsLink /> for details.',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											termsLink: (
 												<Link
-													href="https://woocommerce.com/terms-conditions/woopayments-action-promotion-2023/"
+													href="https://poocommerce.com/terms-conditions/woopayments-action-promotion-2023/"
 													target="_blank"
 													rel="noreferrer"
 													type="external"
 												>
 													{ __(
 														'Terms and Conditions',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</Link>
 											),
@@ -122,7 +122,7 @@ export const IncentiveModal = ( {
 										setIsBusy( false );
 									} }
 								>
-									{ __( 'Save 10%', 'woocommerce' ) }
+									{ __( 'Save 10%', 'poocommerce' ) }
 								</Button>
 							</CardBody>
 						</div>

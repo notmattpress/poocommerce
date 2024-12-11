@@ -5,8 +5,8 @@ import {
 	store,
 	getContext as getContextFn,
 	getElement,
-} from '@woocommerce/interactivity';
-import { StorePart } from '@woocommerce/utils';
+} from '@poocommerce/interactivity';
+import { StorePart } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ type Context = {
 const getContext = ( ns?: string ) => getContextFn< Context >( ns );
 
 type Store = typeof productGalleryLargeImage & StorePart< ProductGallery >;
-const { state, actions } = store< Store >( 'woocommerce/product-gallery' );
+const { state, actions } = store< Store >( 'poocommerce/product-gallery' );
 
 let isDialogStatusChanged = false;
 
@@ -46,7 +46,7 @@ const productGalleryLargeImage = {
 		startZoom: ( event: MouseEvent ) => {
 			const target = event.target as HTMLElement;
 			const isMouseEventFromLargeImage = target.classList.contains(
-				'wc-block-woocommerce-product-gallery-large-image__image'
+				'wc-block-poocommerce-product-gallery-large-image__image'
 			);
 			if ( ! isMouseEventFromLargeImage ) {
 				return actions.resetZoom();
@@ -118,4 +118,4 @@ const productGalleryLargeImage = {
 	},
 };
 
-store< Store >( 'woocommerce/product-gallery', productGalleryLargeImage );
+store< Store >( 'poocommerce/product-gallery', productGalleryLargeImage );

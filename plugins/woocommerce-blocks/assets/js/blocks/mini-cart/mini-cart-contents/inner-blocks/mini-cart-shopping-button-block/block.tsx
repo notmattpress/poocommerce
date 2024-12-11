@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { SHOP_URL } from '@woocommerce/block-settings';
-import Button from '@woocommerce/base-components/button';
+import { SHOP_URL } from '@poocommerce/block-settings';
+import Button from '@poocommerce/base-components/button';
 import clsx from 'clsx';
 
 /**

@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { PaymentProvider } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { PaymentProvider } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { getAdminLink } from '@woocommerce/settings';
 import { getAdminSetting } from '~/utils/admin-settings';
 
 /**
- * Handles enabling WooCommerce Payments and redirection based on Jetpack connection status.
+ * Handles enabling PooCommerce Payments and redirection based on Jetpack connection status.
  */
 export const parseScriptTag = ( elementId: string ) => {
 	const scriptTag = document.getElementById( elementId );
@@ -18,7 +18,7 @@ export const parseScriptTag = ( elementId: string ) => {
 };
 
 export const isWooPayments = ( id: string ) => {
-	return [ '_wc_pes_woopayments', 'woocommerce_payments' ].includes( id );
+	return [ '_wc_pes_woopayments', 'poocommerce_payments' ].includes( id );
 };
 
 export const getWooPaymentsTestDriveAccountLink = () => {

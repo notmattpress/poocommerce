@@ -3,7 +3,7 @@
  */
 import { createElement } from '@wordpress/element';
 import { Card, CardBody } from '@wordpress/components';
-import { __experimentalWooProductFieldItem as WooProductFieldItem } from '@woocommerce/components';
+import { __experimentalWooProductFieldItem as WooProductFieldItem } from '@poocommerce/components';
 
 /**
  * Internal dependencies

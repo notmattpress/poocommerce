@@ -2,7 +2,7 @@
 /**
  * Dummy WC data stores used to test data store functionality.
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

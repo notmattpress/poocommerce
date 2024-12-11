@@ -1,4 +1,4 @@
-# WooCommerce Puppeteer End to End Tests
+# PooCommerce Puppeteer End to End Tests
 
 **Please check the new E2E setup based on [Playwright + wp-env](./../e2e-pw).**
 
@@ -28,7 +28,7 @@ This package uses `Puppeteer` as test runner and `e2e-environment` to spin up a 
   - [Creating test structure](#creating-test-structure)
   - [Writing the test](#writing-the-test)
   - [Best practices](#best-practices)
-  - [Writing tests for WooCommerce extensions](#Writing-tests-for-WooCommerce-extensions)
+  - [Writing tests for PooCommerce extensions](#Writing-tests-for-PooCommerce-extensions)
 - [Debugging tests](#debugging-tests)
 
 ## Pre-requisites
@@ -62,7 +62,7 @@ This section explains how e2e tests are working behind the scenes. These are not
 
 ### Test Environment
 
-We recommend using Docker for running tests locally in order for the test environment to match the setup on GitHub CI (where Docker is also used for running tests). [An official WordPress Docker image](https://github.com/docker-library/docs/blob/master/wordpress/README.md) is used to build the site. Once the site using the WP Docker image is built, the current WooCommerce dev branch is mapped into the `plugins` folder of that newly built test site.
+We recommend using Docker for running tests locally in order for the test environment to match the setup on GitHub CI (where Docker is also used for running tests). [An official WordPress Docker image](https://github.com/docker-library/docs/blob/master/wordpress/README.md) is used to build the site. Once the site using the WP Docker image is built, the current PooCommerce dev branch is mapped into the `plugins` folder of that newly built test site.
 
 ### Test Variables
 
@@ -86,13 +86,13 @@ The jest test sequencer uses the following test variables:
 
 If you need to modify the port for your local test environment (eg. port is already in use), edit `tests/e2e/config/default.json`. Only edit this file while your test container is `down`.
 
-This is also what you'll need to edit if you want to run tests against an external (or non-Docker) environment.  There are a few additional steps you'll have to take to ensure your environment is ready for testing. Complete [instructions are available here](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/e2e-environment/external.md).
+This is also what you'll need to edit if you want to run tests against an external (or non-Docker) environment.  There are a few additional steps you'll have to take to ensure your environment is ready for testing. Complete [instructions are available here](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/e2e-environment/external.md).
 
 ### Jest test sequencer
 
 [Jest](https://jestjs.io/) is being used to run e2e tests. Jest sequencer introduces tools that can be used to specify the order in which the tests are being run. In our case, they are being run in alphabetical order of the directories where tests are located. This way, tests in the directory `activate-and-setup` will run first. By default, jest runs tests ordered by the time it takes to run the test (the test that takes longer to run will be run first, the test that takes less time to run will run last).
 
-The Setup Wizard e2e test runs first to ensure that WooCommerce is active and that the setup wizard has been completed. This is necessary because `docker-up` creates a brand new install of WordPress and WooCommerce.
+The Setup Wizard e2e test runs first to ensure that PooCommerce is active and that the setup wizard has been completed. This is necessary because `docker-up` creates a brand new install of WordPress and PooCommerce.
 
 ### Chromium Download
 
@@ -112,7 +112,7 @@ If you are using Windows, we recommend using [Windows Subsystem for Linux (WSL)]
 
 Run the following in a terminal/command line window
 
-- `cd` to the WooCommerce monorepo folder
+- `cd` to the PooCommerce monorepo folder
 
 - `git checkout trunk` (or the branch where you need to run tests) 
 
@@ -120,19 +120,19 @@ Run the following in a terminal/command line window
 
 - `pnpm install`
 
-- `pnpm --filter='@woocommerce/plugin-woocommerce' build`
+- `pnpm --filter='@poocommerce/plugin-poocommerce' build`
 
 - `npm install jest --global` (this only needs to be done once)
 
-- `pnpm --filter='@woocommerce/plugin-woocommerce' docker:up` (this will build the test site using Docker)
+- `pnpm --filter='@poocommerce/plugin-poocommerce' docker:up` (this will build the test site using Docker)
 
 - Use `docker ps` to confirm that the Docker containers are running. You should see a log similar to one below indicating that everything had been built as expected:
 
 ```
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
-c380e1964506        env_wordpress-cli   "entrypoint.sh"          7 seconds ago       Up 5 seconds                               woocommerce_e2e_wordpress-cli
-2ab8e8439e9f        wordpress:5.5.1     "docker-entrypoint.s…"   8 seconds ago       Up 7 seconds        0.0.0.0:8086->80/tcp   woocommerce_e2e_wordpress-www
-4c1e3f2a49db        mariadb:10.5.5      "docker-entrypoint.s…"   10 seconds ago      Up 8 seconds        3306/tcp               woocommerce_e2e_db
+c380e1964506        env_wordpress-cli   "entrypoint.sh"          7 seconds ago       Up 5 seconds                               poocommerce_e2e_wordpress-cli
+2ab8e8439e9f        wordpress:5.5.1     "docker-entrypoint.s…"   8 seconds ago       Up 7 seconds        0.0.0.0:8086->80/tcp   poocommerce_e2e_wordpress-www
+4c1e3f2a49db        mariadb:10.5.5      "docker-entrypoint.s…"   10 seconds ago      Up 8 seconds        3306/tcp               poocommerce_e2e_db
 ```
 
 Note that by default, Docker will download the latest images available for WordPress, PHP and MariaDB. In the example above, you can see that WordPress 5.5.1 and MariaDB 10.5.5 were used. 
@@ -150,16 +150,16 @@ Username: admin
 PW: password
 ```
 
-- Run `pnpm docker:down --filter=@woocommerce/plugin-woocommerce` when you are done with running e2e tests and before making any changes to test site configuration.
+- Run `pnpm docker:down --filter=@poocommerce/plugin-poocommerce` when you are done with running e2e tests and before making any changes to test site configuration.
 
-Note that running `pnpm docker:down --filter=@woocommerce/plugin-woocommerce` and then `pnpm docker:up --filter=@woocommerce/plugin-woocommerce` re-initializes the test container.
+Note that running `pnpm docker:down --filter=@poocommerce/plugin-poocommerce` and then `pnpm docker:up --filter=@poocommerce/plugin-poocommerce` re-initializes the test container.
 
 ### How to run tests in headless mode
 
 To run e2e tests in headless mode use the following command:
 
 ```bash
-pnpm e2e --filter=@woocommerce/plugin-woocommerce
+pnpm e2e --filter=@poocommerce/plugin-poocommerce
 ```
 
 ### How to run tests in non-headless mode
@@ -167,7 +167,7 @@ pnpm e2e --filter=@woocommerce/plugin-woocommerce
 Tests run in headless mode by default. However, sometimes it's useful to observe the browser while running or developing tests. To do so, you can run tests in a non-headless (dev) mode:
 
 ```bash
-pnpm e2e:dev --filter=@woocommerce/plugin-woocommerce
+pnpm e2e:dev --filter=@poocommerce/plugin-poocommerce
 ```
 
 The dev mode also enables SlowMo mode. SlowMo slows down Puppeteer’s operations. This makes it easier to see what is happening in the browser.
@@ -175,7 +175,7 @@ The dev mode also enables SlowMo mode. SlowMo slows down Puppeteer’s operation
 By default, SlowMo mode adds a 50 millisecond delay between test steps. If you'd like to override the length of the delay and have the tests run faster or slower in the `-dev` mode, pass `PUPPETEER_SLOWMO` variable when running tests as shown below:
 
 ```
-PUPPETEER_SLOWMO=10 pnpm e2e:dev --filter=@woocommerce/plugin-woocommerce
+PUPPETEER_SLOWMO=10 pnpm e2e:dev --filter=@poocommerce/plugin-poocommerce
 ```
 
 The faster you want the tests to run, the lower the value should be of `PUPPETEER_SLOWMO` should be. 
@@ -190,7 +190,7 @@ For example:
 Sometimes tests may fail for different reasons such as network issues, or lost connection. To mitigate against test flakiess, failed tests are rerun up to 3 times before being marked as failed. The amount of retry attempts can be adjusted by passing the `E2E_RETRY_TIMES` variable when running tests. For example:
 
 ```
-cd plugins/woocommerce
+cd plugins/poocommerce
 E2E_RETRY_TIMES=2 pnpm exec wc-e2e test:e2e
 ```
 
@@ -199,7 +199,7 @@ E2E_RETRY_TIMES=2 pnpm exec wc-e2e test:e2e
 Tests run in headless mode by default. While writing tests it may be useful to have the debugger loaded while running a test in non-headless mode. To run tests in debug mode:
             
 ```bash
-pnpm e2e:debug --filter=@woocommerce/plugin-woocommerce
+pnpm e2e:debug --filter=@poocommerce/plugin-poocommerce
 ```
 
 When all tests have been completed the debugger remains active. Control doesn't return to the command line until the debugger is closed. Otherwise, debug mode functions the same as non-headless mode.
@@ -209,7 +209,7 @@ When all tests have been completed the debugger remains active. Control doesn't 
 To run an individual test, use the direct path to the spec. For example:
 
 ```bash
-cd plugins/woocommerce
+cd plugins/poocommerce
 pnpm -- wc-e2e test:e2e ./tests/e2e/specs/wp-admin/create-order.test.js
 ``` 
 
@@ -224,16 +224,16 @@ it.only( 'Can login', async () => {}
 ```
 
 ```
-it.only( 'Can make sure WooCommerce is activated. If not, activate it', async () => {}
+it.only( 'Can make sure PooCommerce is activated. If not, activate it', async () => {}
 ```
 
 As a result, when you run `setup-wizard.test.js`, only the login and activate tests will run. The rest will be skipped. You should see the following in the terminal:
 
 ```
  PASS  tests/e2e/specs/activate-and-setup/setup-wizard.test.js (11.927s)
-  Store owner can login and make sure WooCommerce is activated
+  Store owner can login and make sure PooCommerce is activated
     ✓ Can login (7189ms)
-    ✓ Can make sure WooCommerce is activated. If not, activate it (1187ms)
+    ✓ Can make sure PooCommerce is activated. If not, activate it (1187ms)
   Store owner can go through store Setup Wizard
     ○ skipped Can start Setup Wizard
     ○ skipped Can fill out Store setup details
@@ -270,7 +270,7 @@ The following variables can be used to specify the versions of WordPress, PHP an
 The full command to build the site will look as follows:
 
 ```
-TRAVIS_MARIADB_VERSION=10.5.3 TRAVIS_PHP_VERSION=7.4.5 WP_VERSION=5.4.1 pnpm docker:up --filter=@woocommerce/plugin-woocommerce
+TRAVIS_MARIADB_VERSION=10.5.3 TRAVIS_PHP_VERSION=7.4.5 WP_VERSION=5.4.1 pnpm docker:up --filter=@poocommerce/plugin-poocommerce
 ```
 
 ## Guide for writing e2e tests
@@ -283,12 +283,12 @@ We use the following tools to write e2e tests:
 - [jest-puppeteer](https://github.com/smooth-code/jest-puppeteer) – provides all required configuration to run tests using Puppeteer
 - [expect-puppeteer](https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer) – assertion library for Puppeteer
 
-In the WooCommerce Core repository the tests are in `tests/e2e/core-tests/specs/` folder. However, if you are writing tests in your own project using WooCommerce Core e2e packages, the tests should be located in `tests/e2e/specs/` folder.
+In the PooCommerce Core repository the tests are in `tests/e2e/core-tests/specs/` folder. However, if you are writing tests in your own project using PooCommerce Core e2e packages, the tests should be located in `tests/e2e/specs/` folder.
 
 The following packages are used in write tests:
 
 - `@automattic/puppeteer-utils` - utilities and configuration for running puppeteer against WordPress. See details in the [package's repository](https://github.com/Automattic/puppeteer-utils).
-- `@woocommerce/e2e-utils` - this package contains utilities to simplify writing e2e tests specific to WooCommerce. See details in the [package's repository](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-utils).
+- `@poocommerce/e2e-utils` - this package contains utilities to simplify writing e2e tests specific to PooCommerce. See details in the [package's repository](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-utils).
 
 ### Creating test structure
 
@@ -326,7 +326,7 @@ describe( 'Merchant can create virtual product', () => {
 } );
 ```
 
-Next, you can start filling up each section with relevant functions (test building blocks). Note, that we have the `@woocommerce/e2e-utils` package where many reusable helper functions can be found for writing tests. For example, `merchant.js` of `@woocommerce/e2e-utils` package contains `merchant` object that has `login` method. As a result, in the test it can be used as `await merchant.login();` so the first `it()` section of the test will become:
+Next, you can start filling up each section with relevant functions (test building blocks). Note, that we have the `@poocommerce/e2e-utils` package where many reusable helper functions can be found for writing tests. For example, `merchant.js` of `@poocommerce/e2e-utils` package contains `merchant` object that has `login` method. As a result, in the test it can be used as `await merchant.login();` so the first `it()` section of the test will become:
 
 ```
 it( 'merchant can log in', async () => {
@@ -334,7 +334,7 @@ it( 'merchant can log in', async () => {
 	} );
 ```
 
-Moving to the next section where we need to actually create a product. You will find that we have a reusable function such as `createSimpleProduct()` in the `components.js` of `@woocommerce/e2e-utils` package. However, note that this function should not be used for testing creating a product because the simple product is created using WooCommerce REST API. This is not how the merchant would typically create a virtual product, we would need to test it by writing actual steps for creating a product in the test.
+Moving to the next section where we need to actually create a product. You will find that we have a reusable function such as `createSimpleProduct()` in the `components.js` of `@poocommerce/e2e-utils` package. However, note that this function should not be used for testing creating a product because the simple product is created using PooCommerce REST API. This is not how the merchant would typically create a virtual product, we would need to test it by writing actual steps for creating a product in the test.
 
 `createSimpleProduct()` should be used in tests where you need to test something else than creating a simple product. In other words, this function exists in order to quickly fill the site with test data required for running tests. For example, if you want to write a test that will verify that shopper can place a product to the cart on the site, you can use `createSimpleProduct()` to create a product to test the cart. 
 
@@ -370,14 +370,14 @@ FAIL ../specs/front-end/front-end-my-account.test.js (9.219s)
 
 In the example above, you can see that `allows customer to see downloads` part of the test failed and can start looking at it right away. Without steps the test goes through being detailed, it is more difficult to debug it. 
 
-### Writing tests for WooCommerce extensions
+### Writing tests for PooCommerce extensions
 
-If you want to set up E2E tests for your WooCommerce extension you can make use of the default WooCommerce E2E package.
+If you want to set up E2E tests for your PooCommerce extension you can make use of the default PooCommerce E2E package.
 
-The [WooCommerce E2E Tests Boilerplate repo](https://github.com/woocommerce/woocommerce-e2e-boilerplate) aims to provide a stripped down version of the default WooCommerce E2E test suite along with basic set up instructions to get started.
+The [PooCommerce E2E Tests Boilerplate repo](https://github.com/poocommerce/poocommerce-e2e-boilerplate) aims to provide a stripped down version of the default PooCommerce E2E test suite along with basic set up instructions to get started.
 
 ## Debugging tests
 
-The test sequencer (`pnpm e2e --filter=@woocommerce/plugin-woocommerce`) includes support for saving [screenshots on test errors](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-environment#test-screenshots) which can be sent to a Slack channel via a [Slackbot](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-environment#slackbot-setup).
+The test sequencer (`pnpm e2e --filter=@poocommerce/plugin-poocommerce`) includes support for saving [screenshots on test errors](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-environment#test-screenshots) which can be sent to a Slack channel via a [Slackbot](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-environment#slackbot-setup).
 
 For Puppeteer debugging, follow [Google's documentation](https://developers.google.com/web/tools/puppeteer/debugging).

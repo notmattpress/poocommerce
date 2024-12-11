@@ -8,10 +8,10 @@ import {
 } from '@wordpress/block-editor';
 import { addFilter, hasFilter } from '@wordpress/hooks';
 import type { StoreDescriptor } from '@wordpress/data';
-import { DefaultNotice } from '@woocommerce/editor-components/default-notice';
-import { IncompatibleExtensionsNotice } from '@woocommerce/editor-components/incompatible-extension-notice';
+import { DefaultNotice } from '@poocommerce/editor-components/default-notice';
+import { IncompatibleExtensionsNotice } from '@poocommerce/editor-components/incompatible-extension-notice';
 import { useSelect } from '@wordpress/data';
-import { CartCheckoutFeedbackPrompt } from '@woocommerce/editor-components/feedback-prompt';
+import { CartCheckoutFeedbackPrompt } from '@poocommerce/editor-components/feedback-prompt';
 
 declare module '@wordpress/editor' {
 	let store: StoreDescriptor;
@@ -38,8 +38,8 @@ const withSidebarNotices = createHigherOrderComponent(
 				select( blockEditorStore );
 
 			const parents = getBlockParentsByBlockName( clientId, [
-				'woocommerce/cart',
-				'woocommerce/checkout',
+				'poocommerce/cart',
+				'poocommerce/checkout',
 			] ).reduce(
 				(
 					accumulator: Record< string, string >,
@@ -54,18 +54,18 @@ const withSidebarNotices = createHigherOrderComponent(
 
 			const currentBlockName = getBlockName( clientId );
 			const parentBlockIsCart =
-				Object.keys( parents ).includes( 'woocommerce/cart' );
+				Object.keys( parents ).includes( 'poocommerce/cart' );
 			const parentBlockIsCheckout = Object.keys( parents ).includes(
-				'woocommerce/checkout'
+				'poocommerce/checkout'
 			);
 			const currentBlockIsCart =
-				currentBlockName === 'woocommerce/cart' || parentBlockIsCart;
+				currentBlockName === 'poocommerce/cart' || parentBlockIsCart;
 			const currentBlockIsCheckout =
-				currentBlockName === 'woocommerce/checkout' ||
+				currentBlockName === 'poocommerce/checkout' ||
 				parentBlockIsCheckout;
 			const targetParentBlock = currentBlockIsCart
-				? 'woocommerce/cart'
-				: 'woocommerce/checkout';
+				? 'poocommerce/cart'
+				: 'poocommerce/checkout';
 
 			return {
 				isCart: currentBlockIsCart,
@@ -77,9 +77,9 @@ const withSidebarNotices = createHigherOrderComponent(
 			};
 		} );
 
-		// Show sidebar notices only when a WooCommerce block is selected.
+		// Show sidebar notices only when a PooCommerce block is selected.
 		if (
-			! blockName.startsWith( 'woocommerce/' ) ||
+			! blockName.startsWith( 'poocommerce/' ) ||
 			! isBlockSelected ||
 			! ( isCart || isCheckout )
 		) {
@@ -91,7 +91,7 @@ const withSidebarNotices = createHigherOrderComponent(
 				<InspectorControls>
 					<IncompatibleExtensionsNotice
 						block={
-							isCart ? 'woocommerce/cart' : 'woocommerce/checkout'
+							isCart ? 'poocommerce/cart' : 'poocommerce/checkout'
 						}
 						clientId={ parentId }
 					/>
@@ -109,12 +109,12 @@ const withSidebarNotices = createHigherOrderComponent(
 if (
 	! hasFilter(
 		'editor.BlockEdit',
-		'woocommerce/add/sidebar-compatibility-notice'
+		'poocommerce/add/sidebar-compatibility-notice'
 	)
 ) {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce/add/sidebar-compatibility-notice',
+		'poocommerce/add/sidebar-compatibility-notice',
 		withSidebarNotices,
 		11
 	);

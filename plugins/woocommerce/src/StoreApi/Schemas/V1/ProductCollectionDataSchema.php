@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * ProductCollectionDataSchema class.
@@ -27,7 +27,7 @@ class ProductCollectionDataSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'price_range'         => [
-				'description' => __( 'Min and max prices found in collection of products, provided using the smallest unit of the currency.', 'woocommerce' ),
+				'description' => __( 'Min and max prices found in collection of products, provided using the smallest unit of the currency.', 'poocommerce' ),
 				'type'        => [ 'object', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -35,13 +35,13 @@ class ProductCollectionDataSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					[
 						'min_price' => [
-							'description' => __( 'Min price found in collection of products.', 'woocommerce' ),
+							'description' => __( 'Min price found in collection of products.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'max_price' => [
-							'description' => __( 'Max price found in collection of products.', 'woocommerce' ),
+							'description' => __( 'Max price found in collection of products.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -50,7 +50,7 @@ class ProductCollectionDataSchema extends AbstractSchema {
 				),
 			],
 			'attribute_counts'    => [
-				'description' => __( 'Returns number of products within attribute terms.', 'woocommerce' ),
+				'description' => __( 'Returns number of products within attribute terms.', 'poocommerce' ),
 				'type'        => [ 'array', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -58,13 +58,13 @@ class ProductCollectionDataSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => [
 						'term'  => [
-							'description' => __( 'Term ID', 'woocommerce' ),
+							'description' => __( 'Term ID', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'count' => [
-							'description' => __( 'Number of products.', 'woocommerce' ),
+							'description' => __( 'Number of products.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -73,7 +73,7 @@ class ProductCollectionDataSchema extends AbstractSchema {
 				],
 			],
 			'rating_counts'       => [
-				'description' => __( 'Returns number of products with each average rating.', 'woocommerce' ),
+				'description' => __( 'Returns number of products with each average rating.', 'poocommerce' ),
 				'type'        => [ 'array', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -81,13 +81,13 @@ class ProductCollectionDataSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => [
 						'rating' => [
-							'description' => __( 'Average rating', 'woocommerce' ),
+							'description' => __( 'Average rating', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'count'  => [
-							'description' => __( 'Number of products.', 'woocommerce' ),
+							'description' => __( 'Number of products.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -96,7 +96,7 @@ class ProductCollectionDataSchema extends AbstractSchema {
 				],
 			],
 			'stock_status_counts' => [
-				'description' => __( 'Returns number of products with each stock status.', 'woocommerce' ),
+				'description' => __( 'Returns number of products with each stock status.', 'poocommerce' ),
 				'type'        => [ 'array', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -104,13 +104,13 @@ class ProductCollectionDataSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => [
 						'status' => [
-							'description' => __( 'Status', 'woocommerce' ),
+							'description' => __( 'Status', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'count'  => [
-							'description' => __( 'Number of products.', 'woocommerce' ),
+							'description' => __( 'Number of products.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,

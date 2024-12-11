@@ -2,16 +2,16 @@
 /**
  * Email Styles
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-styles.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-styles.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 9.6.0
  */
 
@@ -20,13 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Load colors.
-$bg               = get_option( 'woocommerce_email_background_color' );
-$body             = get_option( 'woocommerce_email_body_background_color' );
-$base             = get_option( 'woocommerce_email_base_color' );
+$bg               = get_option( 'poocommerce_email_background_color' );
+$body             = get_option( 'poocommerce_email_body_background_color' );
+$base             = get_option( 'poocommerce_email_base_color' );
 $base_text        = wc_light_or_dark( $base, '#202020', '#ffffff' );
-$text             = get_option( 'woocommerce_email_text_color' );
-$footer_text      = get_option( 'woocommerce_email_footer_text_color' );
-$header_alignment = get_option( 'woocommerce_email_header_alignment' );
+$text             = get_option( 'poocommerce_email_text_color' );
+$footer_text      = get_option( 'poocommerce_email_footer_text_color' );
+$header_alignment = get_option( 'poocommerce_email_header_alignment' );
 
 // Pick a contrasting color for links.
 $link_color = wc_hex_is_light( $base ) ? $base : $base_text;

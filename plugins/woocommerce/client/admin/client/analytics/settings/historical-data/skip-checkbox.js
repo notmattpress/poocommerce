@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl } from '@wordpress/components';
-import { IMPORT_STORE_NAME } from '@woocommerce/data';
+import { IMPORT_STORE_NAME } from '@poocommerce/data';
 import { withDispatch } from '@wordpress/data';
 
 function HistoricalDataSkipCheckbox( { checked, disabled, setSkipPrevious } ) {
@@ -12,12 +12,12 @@ function HistoricalDataSkipCheckbox( { checked, disabled, setSkipPrevious } ) {
 	};
 	return (
 		<CheckboxControl
-			className="woocommerce-settings-historical-data__skip-checkbox"
+			className="poocommerce-settings-historical-data__skip-checkbox"
 			checked={ checked }
 			disabled={ disabled }
 			label={ __(
 				'Skip previously imported customers and orders',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onChange={ skipChange }
 		/>

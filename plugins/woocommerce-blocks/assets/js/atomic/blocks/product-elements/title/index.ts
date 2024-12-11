@@ -23,7 +23,7 @@ const blockConfig: BlockConfiguration = {
 	...sharedConfig,
 	// Product Title is not expected to be available in Product Collection
 	// nor Products (Beta). They use core/post-title variation.
-	ancestor: [ 'woocommerce/all-products', 'woocommerce/single-product' ],
+	ancestor: [ 'poocommerce/all-products', 'poocommerce/single-product' ],
 	title,
 	description,
 	icon: { src: icon },
@@ -56,4 +56,4 @@ const blockConfig: BlockConfiguration = {
 	},
 };
 
-registerBlockType( 'woocommerce/product-title', blockConfig );
+registerBlockType( 'poocommerce/product-title', blockConfig );

@@ -13,23 +13,23 @@ import {
 	// @ts-expect-error missing type.
 	privateApis as editorPrivateApis,
 } from '@wordpress/editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error missing type.
 	__unstableMotion as motion,
 	// @ts-expect-error missing type.
 	__unstableAnimatePresence as AnimatePresence,
 } from '@wordpress/components';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { createElement, Fragment, useRef } from '@wordpress/element';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 // @ts-ignore No types for this exist yet.
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
 // @ts-ignore No types for this exist yet.
 import SiteHub from '@wordpress/edit-site/build-module/components/site-hub';
 // @ts-ignore No types for this exist yet.
 import SidebarContent from '@wordpress/edit-site/build-module/components/sidebar';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 /**
  * Internal dependencies
@@ -72,7 +72,7 @@ export function Layout( {
 					*/ }
 					{ ( ! isMobileViewport || ! areas.mobile ) && (
 						<NavigableRegion
-							ariaLabel={ __( 'Navigation', 'woocommerce' ) }
+							ariaLabel={ __( 'Navigation', 'poocommerce' ) }
 							className="edit-site-layout__sidebar-region"
 						>
 							<AnimatePresence>

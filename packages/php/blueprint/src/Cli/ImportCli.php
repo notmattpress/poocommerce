@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Cli;
+namespace Automattic\PooCommerce\Blueprint\Cli;
 
-use Automattic\WooCommerce\Blueprint\CliResultFormatter;
-use Automattic\WooCommerce\Blueprint\ImportSchema;
+use Automattic\PooCommerce\Blueprint\CliResultFormatter;
+use Automattic\PooCommerce\Blueprint\ImportSchema;
 
 /**
  * Class ImportCli

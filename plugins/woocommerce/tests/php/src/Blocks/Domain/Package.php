@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain;
 
-use Automattic\WooCommerce\Blocks\Domain\Package as TestedPackage;
+use Automattic\PooCommerce\Blocks\Domain\Package as TestedPackage;
 
 /**
  * Tests the Package class

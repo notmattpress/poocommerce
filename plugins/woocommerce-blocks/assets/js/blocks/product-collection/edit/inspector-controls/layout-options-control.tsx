@@ -26,10 +26,10 @@ const getHelpText = ( layoutOptions: LayoutOptions ) => {
 		case LayoutOptions.GRID:
 			return __(
 				'Display products using rows and columns.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case LayoutOptions.STACK:
-			return __( 'Display products in a single column.', 'woocommerce' );
+			return __( 'Display products in a single column.', 'poocommerce' );
 		default:
 			return '';
 	}
@@ -51,7 +51,7 @@ const LayoutOptionsControl = ( props: DisplayLayoutControlProps ) => {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Layout', 'woocommerce' ) }
+			label={ __( 'Layout', 'poocommerce' ) }
 			hasValue={ () => type !== DEFAULT_VALUE }
 			isShownByDefault
 			onDeselect={ () => {
@@ -59,7 +59,7 @@ const LayoutOptionsControl = ( props: DisplayLayoutControlProps ) => {
 			} }
 		>
 			<ToggleGroupControl
-				label={ __( 'Layout', 'woocommerce' ) }
+				label={ __( 'Layout', 'poocommerce' ) }
 				isBlock
 				onChange={ ( value: LayoutOptions ) => {
 					setDisplayLayout( value );
@@ -69,11 +69,11 @@ const LayoutOptionsControl = ( props: DisplayLayoutControlProps ) => {
 			>
 				<ToggleGroupControlOption
 					value={ LayoutOptions.STACK }
-					label={ __( 'Stack', 'woocommerce' ) }
+					label={ __( 'Stack', 'poocommerce' ) }
 				/>
 				<ToggleGroupControlOption
 					value={ LayoutOptions.GRID }
-					label={ __( 'Grid', 'woocommerce' ) }
+					label={ __( 'Grid', 'poocommerce' ) }
 				/>
 			</ToggleGroupControl>
 		</ToolsPanelItem>

@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
 
 /**
  * Cart class.
@@ -40,7 +40,7 @@ class Cart extends AbstractBlock {
 	 *
 	 * @return void
 	 */
-	public function dequeue_woocommerce_core_scripts() {
+	public function dequeue_poocommerce_core_scripts() {
 		wp_dequeue_script( 'wc-cart' );
 		wp_dequeue_script( 'wc-password-strength-meter' );
 		wp_dequeue_script( 'selectWoo' );
@@ -54,38 +54,38 @@ class Cart extends AbstractBlock {
 		$shop_permalink = wc_get_page_id( 'shop' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : '';
 
 		register_block_pattern(
-			'woocommerce/cart-heading',
+			'poocommerce/cart-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"align":"wide", "level":1} --><h1 class="wp-block-heading alignwide">' . esc_html__( 'Cart', 'woocommerce' ) . '</h1><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"align":"wide", "level":1} --><h1 class="wp-block-heading alignwide">' . esc_html__( 'Cart', 'poocommerce' ) . '</h1><!-- /wp:heading -->',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/cart-cross-sells-message',
+			'poocommerce/cart-cross-sells-message',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"fontSize":"large"} --><h2 class="wp-block-heading has-large-font-size">' . esc_html__( 'You may be interested in…', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"fontSize":"large"} --><h2 class="wp-block-heading has-large-font-size">' . esc_html__( 'You may be interested in…', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/cart-empty-message',
+			'poocommerce/cart-empty-message',
 			array(
 				'title'    => '',
 				'inserter' => false,
 				'content'  => '
-					<!-- wp:heading {"textAlign":"center","className":"with-empty-cart-icon wc-block-cart__empty-cart__title"} --><h2 class="wp-block-heading has-text-align-center with-empty-cart-icon wc-block-cart__empty-cart__title">' . esc_html__( 'Your cart is currently empty!', 'woocommerce' ) . '</h2><!-- /wp:heading -->
-					<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><a href="' . esc_attr( esc_url( $shop_permalink ) ) . '">' . esc_html__( 'Browse store', 'woocommerce' ) . '</a></p><!-- /wp:paragraph -->
+					<!-- wp:heading {"textAlign":"center","className":"with-empty-cart-icon wc-block-cart__empty-cart__title"} --><h2 class="wp-block-heading has-text-align-center with-empty-cart-icon wc-block-cart__empty-cart__title">' . esc_html__( 'Your cart is currently empty!', 'poocommerce' ) . '</h2><!-- /wp:heading -->
+					<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><a href="' . esc_attr( esc_url( $shop_permalink ) ) . '">' . esc_html__( 'Browse store', 'poocommerce' ) . '</a></p><!-- /wp:paragraph -->
 				',
 			)
 		);
 		register_block_pattern(
-			'woocommerce/cart-new-in-store-message',
+			'poocommerce/cart-new-in-store-message',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"textAlign":"center"} --><h2 class="wp-block-heading has-text-align-center">' . esc_html__( 'New in store', 'woocommerce' ) . '</h2><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"textAlign":"center"} --><h2 class="wp-block-heading has-text-align-center">' . esc_html__( 'New in store', 'poocommerce' ) . '</h2><!-- /wp:heading -->',
 			)
 		);
 	}
@@ -143,14 +143,14 @@ class Cart extends AbstractBlock {
 		 *
 		 * @since 2.6.0
 		 */
-		do_action( 'woocommerce_blocks_enqueue_cart_block_scripts_before' );
+		do_action( 'poocommerce_blocks_enqueue_cart_block_scripts_before' );
 		parent::enqueue_assets( $attributes, $content, $block );
 		/**
 		 * Fires after cart block scripts are enqueued.
 		 *
 		 * @since 2.6.0
 		 */
-		do_action( 'woocommerce_blocks_enqueue_cart_block_scripts_after' );
+		do_action( 'poocommerce_blocks_enqueue_cart_block_scripts_after' );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Cart extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		// Dequeue the core scripts when rendering this block.
-		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_woocommerce_core_scripts' ), 20 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_poocommerce_core_scripts' ), 20 );
 
 		/**
 		 * We need to check if $content has any templates from prior iterations of the block, in order to update to the latest iteration.
@@ -171,7 +171,7 @@ class Cart extends AbstractBlock {
 		 * The blocks used for testing should be always available in the block (not removable by the user).
 		 */
 
-		$regex_for_filled_cart_block = '/<div[^<]*?data-block-name="woocommerce\/filled-cart-block"[^>]*?>/mi';
+		$regex_for_filled_cart_block = '/<div[^<]*?data-block-name="poocommerce\/filled-cart-block"[^>]*?>/mi';
 		// Filled Cart block was added in i2, so we search for it to see if we have a Cart i1 template.
 		$has_i1_template = ! preg_match( $regex_for_filled_cart_block, $content );
 
@@ -181,21 +181,21 @@ class Cart extends AbstractBlock {
 			 * starting from the parent block and going down each inner block, in the order the blocks were registered.
 			 */
 			$inner_blocks_html = '$0
-			<div data-block-name="woocommerce/filled-cart-block" class="wp-block-woocommerce-filled-cart-block">
-				<div data-block-name="woocommerce/cart-items-block" class="wp-block-woocommerce-cart-items-block">
-					<div data-block-name="woocommerce/cart-line-items-block" class="wp-block-woocommerce-cart-line-items-block"></div>
+			<div data-block-name="poocommerce/filled-cart-block" class="wp-block-poocommerce-filled-cart-block">
+				<div data-block-name="poocommerce/cart-items-block" class="wp-block-poocommerce-cart-items-block">
+					<div data-block-name="poocommerce/cart-line-items-block" class="wp-block-poocommerce-cart-line-items-block"></div>
 				</div>
-				<div data-block-name="woocommerce/cart-totals-block" class="wp-block-woocommerce-cart-totals-block">
-					<div data-block-name="woocommerce/cart-order-summary-block" class="wp-block-woocommerce-cart-order-summary-block"></div>
-					<div data-block-name="woocommerce/cart-express-payment-block" class="wp-block-woocommerce-cart-express-payment-block"></div>
-					<div data-block-name="woocommerce/proceed-to-checkout-block" class="wp-block-woocommerce-proceed-to-checkout-block"></div>
-					<div data-block-name="woocommerce/cart-accepted-payment-methods-block" class="wp-block-woocommerce-cart-accepted-payment-methods-block"></div>
+				<div data-block-name="poocommerce/cart-totals-block" class="wp-block-poocommerce-cart-totals-block">
+					<div data-block-name="poocommerce/cart-order-summary-block" class="wp-block-poocommerce-cart-order-summary-block"></div>
+					<div data-block-name="poocommerce/cart-express-payment-block" class="wp-block-poocommerce-cart-express-payment-block"></div>
+					<div data-block-name="poocommerce/proceed-to-checkout-block" class="wp-block-poocommerce-proceed-to-checkout-block"></div>
+					<div data-block-name="poocommerce/cart-accepted-payment-methods-block" class="wp-block-poocommerce-cart-accepted-payment-methods-block"></div>
 				</div>
 			</div>
-			<div data-block-name="woocommerce/empty-cart-block" class="wp-block-woocommerce-empty-cart-block">
+			<div data-block-name="poocommerce/empty-cart-block" class="wp-block-poocommerce-empty-cart-block">
 			';
 
-			$content = preg_replace( '/<div class="[a-zA-Z0-9_\- ]*wp-block-woocommerce-cart[a-zA-Z0-9_\- ]*">/mi', $inner_blocks_html, $content );
+			$content = preg_replace( '/<div class="[a-zA-Z0-9_\- ]*wp-block-poocommerce-cart[a-zA-Z0-9_\- ]*">/mi', $inner_blocks_html, $content );
 			$content = $content . '</div>';
 		}
 
@@ -204,17 +204,17 @@ class Cart extends AbstractBlock {
 		 * The order needs to match the order in which these blocks were registered.
 		 */
 		$order_summary_with_inner_blocks = '$0
-			<div data-block-name="woocommerce/cart-order-summary-heading-block" class="wp-block-woocommerce-cart-order-summary-heading-block"></div>
-			<div data-block-name="woocommerce/cart-order-summary-subtotal-block" class="wp-block-woocommerce-cart-order-summary-subtotal-block"></div>
-			<div data-block-name="woocommerce/cart-order-summary-fee-block" class="wp-block-woocommerce-cart-order-summary-fee-block"></div>
-			<div data-block-name="woocommerce/cart-order-summary-discount-block" class="wp-block-woocommerce-cart-order-summary-discount-block"></div>
-			<div data-block-name="woocommerce/cart-order-summary-coupon-form-block" class="wp-block-woocommerce-cart-order-summary-coupon-form-block"></div>
-			<div data-block-name="woocommerce/cart-order-summary-shipping-form-block" class="wp-block-woocommerce-cart-order-summary-shipping-block"></div>
-			<div data-block-name="woocommerce/cart-order-summary-taxes-block" class="wp-block-woocommerce-cart-order-summary-taxes-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-heading-block" class="wp-block-poocommerce-cart-order-summary-heading-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-subtotal-block" class="wp-block-poocommerce-cart-order-summary-subtotal-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-fee-block" class="wp-block-poocommerce-cart-order-summary-fee-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-discount-block" class="wp-block-poocommerce-cart-order-summary-discount-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-coupon-form-block" class="wp-block-poocommerce-cart-order-summary-coupon-form-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-shipping-form-block" class="wp-block-poocommerce-cart-order-summary-shipping-block"></div>
+			<div data-block-name="poocommerce/cart-order-summary-taxes-block" class="wp-block-poocommerce-cart-order-summary-taxes-block"></div>
 		';
 		// Order summary subtotal block was added in i3, so we search for it to see if we have a Cart i2 template.
-		$regex_for_order_summary_subtotal = '/<div[^<]*?data-block-name="woocommerce\/cart-order-summary-subtotal-block"[^>]*?>/mi';
-		$regex_for_order_summary          = '/<div[^<]*?data-block-name="woocommerce\/cart-order-summary-block"[^>]*?>/mi';
+		$regex_for_order_summary_subtotal = '/<div[^<]*?data-block-name="poocommerce\/cart-order-summary-subtotal-block"[^>]*?>/mi';
+		$regex_for_order_summary          = '/<div[^<]*?data-block-name="poocommerce\/cart-order-summary-block"[^>]*?>/mi';
 		$has_i2_template                  = ! preg_match( $regex_for_order_summary_subtotal, $content );
 
 		if ( $has_i2_template ) {
@@ -236,9 +236,9 @@ class Cart extends AbstractBlock {
 
 		$this->asset_data_registry->add( 'countryData', CartCheckoutUtils::get_country_data() );
 		$this->asset_data_registry->add( 'baseLocation', wc_get_base_location() );
-		$this->asset_data_registry->add( 'isShippingCalculatorEnabled', filter_var( get_option( 'woocommerce_enable_shipping_calc' ), FILTER_VALIDATE_BOOLEAN ) );
-		$this->asset_data_registry->add( 'displayItemizedTaxes', 'itemized' === get_option( 'woocommerce_tax_total_display' ) );
-		$this->asset_data_registry->add( 'displayCartPricesIncludingTax', 'incl' === get_option( 'woocommerce_tax_display_cart' ) );
+		$this->asset_data_registry->add( 'isShippingCalculatorEnabled', filter_var( get_option( 'poocommerce_enable_shipping_calc' ), FILTER_VALIDATE_BOOLEAN ) );
+		$this->asset_data_registry->add( 'displayItemizedTaxes', 'itemized' === get_option( 'poocommerce_tax_total_display' ) );
+		$this->asset_data_registry->add( 'displayCartPricesIncludingTax', 'incl' === get_option( 'poocommerce_tax_display_cart' ) );
 		$this->asset_data_registry->add( 'taxesEnabled', wc_tax_enabled() );
 		$this->asset_data_registry->add( 'couponsEnabled', wc_coupons_enabled() );
 		$this->asset_data_registry->add( 'shippingEnabled', wc_shipping_enabled() );
@@ -262,7 +262,7 @@ class Cart extends AbstractBlock {
 		 *
 		 * @since 2.6.0
 		 */
-		do_action( 'woocommerce_blocks_cart_enqueue_data' );
+		do_action( 'poocommerce_blocks_cart_enqueue_data' );
 	}
 
 	/**

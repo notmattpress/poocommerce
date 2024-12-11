@@ -5,7 +5,7 @@ $(function() {
 	$("a.zoom, a[data-rel^='prettyPhoto']").prettyPhoto({
 		hook: 'data-rel',
 		social_tools: false,
-		theme: 'pp_woocommerce',
+		theme: 'pp_poocommerce',
 		horizontal_padding: 20,
 		opacity: 0.8,
 		deeplinking: false

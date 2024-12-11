@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-tag",
+	"name": "poocommerce/product-tag",
 	"title": "Products by Tag",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Display a grid of products with selected tags.",
 	"supports": {
@@ -79,7 +79,7 @@
 			"type": "array"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

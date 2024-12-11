@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -67,7 +67,7 @@ test.describe( 'Shopper → Cart block', () => {
 		frontendUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-update-price'
+			'poocommerce-blocks-test-update-price'
 		);
 
 		await frontendUtils.goToShop();
@@ -252,7 +252,7 @@ test.describe( 'Shopper → Cart block', () => {
 		await frontendUtils.addToCart( SIMPLE_PHYSICAL_PRODUCT_NAME );
 		await frontendUtils.goToCart();
 		await page
-			.locator( '.wp-block-woocommerce-cart-cross-sells-block' )
+			.locator( '.wp-block-poocommerce-cart-cross-sells-block' )
 			.waitFor();
 		// Cap is the cross sells product that will be added to the cart
 		await page

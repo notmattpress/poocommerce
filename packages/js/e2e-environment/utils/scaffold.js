@@ -45,7 +45,7 @@ const confirm = ( prompt, choices ) => {
  *
  * @param {string} localE2ePath Destination path
  * @param {string} packageE2ePath Source path
- * @param {string} packageName Source package. Default @woocommerce/e2e-environment package.
+ * @param {string} packageName Source package. Default @poocommerce/e2e-environment package.
  * @param {boolean} force Whether to override files if they exist without confirmation.
  * @return {boolean}
  */

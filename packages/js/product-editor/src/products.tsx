@@ -42,7 +42,7 @@ export function initializeProductsDashboard( id: string ) {
 				<div>
 					{ __(
 						'Please enabled Gutenberg for this feature',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 			) }

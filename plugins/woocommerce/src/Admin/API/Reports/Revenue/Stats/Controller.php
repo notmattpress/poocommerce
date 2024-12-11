@@ -5,14 +5,14 @@
  * Handles requests to the /reports/revenue/stats endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Revenue\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Revenue\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericStatsController;
-use Automattic\WooCommerce\Admin\API\Reports\Revenue\Query as RevenueQuery;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableTraits;
+use Automattic\PooCommerce\Admin\API\Reports\GenericStatsController;
+use Automattic\PooCommerce\Admin\API\Reports\Revenue\Query as RevenueQuery;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableTraits;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -108,7 +108,7 @@ class Controller extends GenericStatsController implements ExportableInterface {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_revenue_stats', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_revenue_stats', $response, $report, $request );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Controller extends GenericStatsController implements ExportableInterface {
 	protected function get_item_properties_schema() {
 		return array(
 			'total_sales'    => array(
-				'description' => __( 'Total sales.', 'woocommerce' ),
+				'description' => __( 'Total sales.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -128,7 +128,7 @@ class Controller extends GenericStatsController implements ExportableInterface {
 				'format'      => 'currency',
 			),
 			'net_revenue'    => array(
-				'description' => __( 'Net sales.', 'woocommerce' ),
+				'description' => __( 'Net sales.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -136,21 +136,21 @@ class Controller extends GenericStatsController implements ExportableInterface {
 				'format'      => 'currency',
 			),
 			'coupons'        => array(
-				'description' => __( 'Amount discounted by coupons.', 'woocommerce' ),
+				'description' => __( 'Amount discounted by coupons.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'coupons_count'  => array(
-				'description' => __( 'Unique coupons count.', 'woocommerce' ),
+				'description' => __( 'Unique coupons count.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'format'      => 'currency',
 			),
 			'shipping'       => array(
-				'title'       => __( 'Shipping', 'woocommerce' ),
-				'description' => __( 'Total of shipping.', 'woocommerce' ),
+				'title'       => __( 'Shipping', 'poocommerce' ),
+				'description' => __( 'Total of shipping.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -158,15 +158,15 @@ class Controller extends GenericStatsController implements ExportableInterface {
 				'format'      => 'currency',
 			),
 			'taxes'          => array(
-				'description' => __( 'Total of taxes.', 'woocommerce' ),
+				'description' => __( 'Total of taxes.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'format'      => 'currency',
 			),
 			'refunds'        => array(
-				'title'       => __( 'Returns', 'woocommerce' ),
-				'description' => __( 'Total of returns.', 'woocommerce' ),
+				'title'       => __( 'Returns', 'poocommerce' ),
+				'description' => __( 'Total of returns.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -174,19 +174,19 @@ class Controller extends GenericStatsController implements ExportableInterface {
 				'format'      => 'currency',
 			),
 			'orders_count'   => array(
-				'description' => __( 'Number of orders.', 'woocommerce' ),
+				'description' => __( 'Number of orders.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'num_items_sold' => array(
-				'description' => __( 'Items sold.', 'woocommerce' ),
+				'description' => __( 'Items sold.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'gross_sales'    => array(
-				'description' => __( 'Gross sales.', 'woocommerce' ),
+				'description' => __( 'Gross sales.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -207,7 +207,7 @@ class Controller extends GenericStatsController implements ExportableInterface {
 
 		// Products is not shown in intervals, only in totals.
 		$schema['properties']['totals']['properties']['products'] = array(
-			'description' => __( 'Products sold.', 'woocommerce' ),
+			'description' => __( 'Products sold.', 'poocommerce' ),
 			'type'        => 'integer',
 			'context'     => array( 'view', 'edit' ),
 			'readonly'    => true,
@@ -238,7 +238,7 @@ class Controller extends GenericStatsController implements ExportableInterface {
 			)
 		);
 		$params['segmentby']       = array(
-			'description'       => __( 'Segment the response by additional constraint.', 'woocommerce' ),
+			'description'       => __( 'Segment the response by additional constraint.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'product',
@@ -250,7 +250,7 @@ class Controller extends GenericStatsController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['date_type']       = array(
-			'description'       => __( 'Override the "woocommerce_date_type" option that is used for the database date field considered for revenue reports.', 'woocommerce' ),
+			'description'       => __( 'Override the "poocommerce_date_type" option that is used for the database date field considered for revenue reports.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array(
 				'date_paid',
@@ -271,15 +271,15 @@ class Controller extends GenericStatsController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		return array(
-			'date'         => __( 'Date', 'woocommerce' ),
-			'orders_count' => __( 'Orders', 'woocommerce' ),
-			'gross_sales'  => __( 'Gross sales', 'woocommerce' ),
-			'refunds'      => __( 'Returns', 'woocommerce' ),
-			'coupons'      => __( 'Coupons', 'woocommerce' ),
-			'net_revenue'  => __( 'Net sales', 'woocommerce' ),
-			'taxes'        => __( 'Taxes', 'woocommerce' ),
-			'shipping'     => __( 'Shipping', 'woocommerce' ),
-			'total_sales'  => __( 'Total sales', 'woocommerce' ),
+			'date'         => __( 'Date', 'poocommerce' ),
+			'orders_count' => __( 'Orders', 'poocommerce' ),
+			'gross_sales'  => __( 'Gross sales', 'poocommerce' ),
+			'refunds'      => __( 'Returns', 'poocommerce' ),
+			'coupons'      => __( 'Coupons', 'poocommerce' ),
+			'net_revenue'  => __( 'Net sales', 'poocommerce' ),
+			'taxes'        => __( 'Taxes', 'poocommerce' ),
+			'shipping'     => __( 'Shipping', 'poocommerce' ),
+			'total_sales'  => __( 'Total sales', 'poocommerce' ),
 		);
 	}
 

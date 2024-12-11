@@ -38,7 +38,7 @@ export function usePageClasses( page: Page ) {
 						} )
 						.replace( /\//g, '_' );
 
-		return `woocommerce-admin-page_${ suffix }`;
+		return `poocommerce-admin-page_${ suffix }`;
 	}
 
 	useEffect( () => {

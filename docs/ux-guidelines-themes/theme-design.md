@@ -3,13 +3,13 @@ post_title: Theme Design Guidelines - Branding
 menu_title: Branding
 ---
 
-High-quality design is an important aspect of an online store, and that is driven by the theme design and content. The design of the theme should be simple, consistent, uncluttered, memorable, intuitive, efficient, and functional. When designing a new theme for WooCommerce special attention should be given to:
+High-quality design is an important aspect of an online store, and that is driven by the theme design and content. The design of the theme should be simple, consistent, uncluttered, memorable, intuitive, efficient, and functional. When designing a new theme for PooCommerce special attention should be given to:
 
 ### Layout
 
 The theme should be up to industry standards in terms of hierarchy, flow, content balance, and white space.
 
-Theme authors must ensure that store pages (shop, product page, categories, cart, checkout, profile page, etc) fit seamlessly with the theme since they are the central point of a WooCommerce theme.
+Theme authors must ensure that store pages (shop, product page, categories, cart, checkout, profile page, etc) fit seamlessly with the theme since they are the central point of a PooCommerce theme.
 
 The Theme is expected to be fully functional and optimized to be accessed on common device types such as laptops, tablets, and smartphones.
 

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * SingleProductTemplateCompatibility class.
@@ -55,11 +55,11 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 	 * Inject custom hooks to the first and last blocks.
 	 * Since that there is a custom logic for the first and last block, we have to inject the hooks manually.
 	 * The first block supports the following hooks:
-	 * woocommerce_before_single_product
-	 * woocommerce_before_single_product_summary
+	 * poocommerce_before_single_product
+	 * poocommerce_before_single_product_summary
 	 *
 	 * The last block supports the following hooks:
-	 * woocommerce_after_single_product
+	 * poocommerce_after_single_product
 	 *
 	 * @param mixed $block_content The rendered block content.
 	 * @param mixed $block         The parsed block data.
@@ -69,9 +69,9 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 	private function inject_hook_to_first_and_last_blocks( $block_content, $block, $block_hooks ) {
 		$first_block_hook = array(
 			'before' => array(
-				'woocommerce_before_main_content'   => $this->hook_data['woocommerce_before_main_content'],
-				'woocommerce_before_single_product' => $this->hook_data['woocommerce_before_single_product'],
-				'woocommerce_before_single_product_summary' => $this->hook_data['woocommerce_before_single_product_summary'],
+				'poocommerce_before_main_content'   => $this->hook_data['poocommerce_before_main_content'],
+				'poocommerce_before_single_product' => $this->hook_data['poocommerce_before_single_product'],
+				'poocommerce_before_single_product_summary' => $this->hook_data['poocommerce_before_single_product_summary'],
 			),
 			'after'  => array(),
 		);
@@ -79,9 +79,9 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 		$last_block_hook = array(
 			'before' => array(),
 			'after'  => array(
-				'woocommerce_after_single_product' => $this->hook_data['woocommerce_after_single_product'],
-				'woocommerce_after_main_content'   => $this->hook_data['woocommerce_after_main_content'],
-				'woocommerce_sidebar'              => $this->hook_data['woocommerce_sidebar'],
+				'poocommerce_after_single_product' => $this->hook_data['poocommerce_after_single_product'],
+				'poocommerce_after_main_content'   => $this->hook_data['poocommerce_after_main_content'],
+				'poocommerce_sidebar'              => $this->hook_data['poocommerce_sidebar'],
 			),
 		);
 
@@ -168,84 +168,84 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 	 */
 	protected function set_hook_data() {
 		$this->hook_data = array(
-			'woocommerce_before_main_content'           => array(
+			'poocommerce_before_main_content'           => array(
 				'block_names' => array(),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_output_content_wrapper' => 10,
-					'woocommerce_breadcrumb'             => 20,
+					'poocommerce_output_content_wrapper' => 10,
+					'poocommerce_breadcrumb'             => 20,
 				),
 			),
-			'woocommerce_after_main_content'            => array(
+			'poocommerce_after_main_content'            => array(
 				'block_names' => array(),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_output_content_wrapper_end' => 10,
+					'poocommerce_output_content_wrapper_end' => 10,
 				),
 			),
-			'woocommerce_sidebar'                       => array(
+			'poocommerce_sidebar'                       => array(
 				'block_names' => array(),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_get_sidebar' => 10,
+					'poocommerce_get_sidebar' => 10,
 				),
 			),
-			'woocommerce_before_single_product'         => array(
+			'poocommerce_before_single_product'         => array(
 				'block_names' => array(),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_output_all_notices' => 10,
+					'poocommerce_output_all_notices' => 10,
 				),
 			),
-			'woocommerce_before_single_product_summary' => array(
+			'poocommerce_before_single_product_summary' => array(
 				'block_names' => array(),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_show_product_sale_flash' => 10,
-					'woocommerce_show_product_images'     => 20,
+					'poocommerce_show_product_sale_flash' => 10,
+					'poocommerce_show_product_images'     => 20,
 				),
 			),
-			'woocommerce_single_product_summary'        => array(
-				'block_names' => array( 'core/post-excerpt', 'woocommerce/product-summary' ),
+			'poocommerce_single_product_summary'        => array(
+				'block_names' => array( 'core/post-excerpt', 'poocommerce/product-summary' ),
 				'position'    => 'before',
 				'hooked'      => array(
-					'woocommerce_template_single_title'   => 5,
-					'woocommerce_template_single_rating'  => 10,
-					'woocommerce_template_single_price'   => 10,
-					'woocommerce_template_single_excerpt' => 20,
-					'woocommerce_template_single_add_to_cart' => 30,
-					'woocommerce_template_single_meta'    => 40,
-					'woocommerce_template_single_sharing' => 50,
+					'poocommerce_template_single_title'   => 5,
+					'poocommerce_template_single_rating'  => 10,
+					'poocommerce_template_single_price'   => 10,
+					'poocommerce_template_single_excerpt' => 20,
+					'poocommerce_template_single_add_to_cart' => 30,
+					'poocommerce_template_single_meta'    => 40,
+					'poocommerce_template_single_sharing' => 50,
 				),
 			),
-			'woocommerce_after_single_product'          => array(
+			'poocommerce_after_single_product'          => array(
 				'block_names' => array(),
-				'position'    => 'after',
-				'hooked'      => array(),
-			),
-			'woocommerce_product_meta_start'            => array(
-				'block_names' => array( 'woocommerce/product-meta' ),
-				'position'    => 'before',
-				'hooked'      => array(),
-			),
-			'woocommerce_product_meta_end'              => array(
-				'block_names' => array( 'woocommerce/product-meta' ),
 				'position'    => 'after',
 				'hooked'      => array(),
 			),
-			'woocommerce_share'                         => array(
-				'block_names' => array( 'woocommerce/product-details' ),
+			'poocommerce_product_meta_start'            => array(
+				'block_names' => array( 'poocommerce/product-meta' ),
 				'position'    => 'before',
 				'hooked'      => array(),
 			),
-			'woocommerce_after_single_product_summary'  => array(
-				'block_names' => array( 'woocommerce/product-details' ),
+			'poocommerce_product_meta_end'              => array(
+				'block_names' => array( 'poocommerce/product-meta' ),
+				'position'    => 'after',
+				'hooked'      => array(),
+			),
+			'poocommerce_share'                         => array(
+				'block_names' => array( 'poocommerce/product-details' ),
+				'position'    => 'before',
+				'hooked'      => array(),
+			),
+			'poocommerce_after_single_product_summary'  => array(
+				'block_names' => array( 'poocommerce/product-details' ),
 				'position'    => 'after',
 				'hooked'      => array(
-					'woocommerce_output_product_data_tabs' => 10,
+					'poocommerce_output_product_data_tabs' => 10,
 					// We want to display the upsell products after the last block that belongs to the Single Product.
-					// 'woocommerce_upsell_display'           => 15.
-					'woocommerce_output_related_products'  => 20,
+					// 'poocommerce_upsell_display'           => 15.
+					'poocommerce_output_related_products'  => 20,
 				),
 			),
 		);
@@ -268,7 +268,7 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 
 	/**
 	 * For compatibility reason, we need to wrap the Single Product template in a div with specific class.
-	 * For more details, see https://github.com/woocommerce/woocommerce-blocks/issues/8314.
+	 * For more details, see https://github.com/poocommerce/poocommerce-blocks/issues/8314.
 	 *
 	 * @param string $template_content Template Content.
 	 * @return array Wrapped template content inside a div.
@@ -366,8 +366,8 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 
 		$new_block = parse_blocks(
 			sprintf(
-				'<!-- wp:group {"className":"woocommerce product"} -->
-				<div class="wp-block-group woocommerce product">
+				'<!-- wp:group {"className":"poocommerce product"} -->
+				<div class="wp-block-group poocommerce product">
 					%1$s
 				</div>
 			<!-- /wp:group -->',
@@ -382,13 +382,13 @@ class SingleProductTemplateCompatibility extends AbstractTemplateCompatibility {
 
 	/**
 	 * Check if the Single Product template has a single product template block:
-	 * woocommerce/product-gallery-image, woocommerce/product-details, woocommerce/add-to-cart-form, etc.
+	 * poocommerce/product-gallery-image, poocommerce/product-details, poocommerce/add-to-cart-form, etc.
 	 *
 	 * @param array $parsed_blocks Array of parsed block objects.
 	 * @return bool True if the template has a single product template block, false otherwise.
 	 */
 	private static function has_single_product_template_blocks( $parsed_blocks ) {
-		$single_product_template_blocks = array( 'woocommerce/product-image-gallery', 'woocommerce/product-gallery', 'woocommerce/product-details', 'woocommerce/add-to-cart-form', 'woocommerce/product-meta', 'woocommerce/product-price', 'woocommerce/breadcrumbs' );
+		$single_product_template_blocks = array( 'poocommerce/product-image-gallery', 'poocommerce/product-gallery', 'poocommerce/product-details', 'poocommerce/add-to-cart-form', 'poocommerce/product-meta', 'poocommerce/product-price', 'poocommerce/breadcrumbs' );
 
 		return BlockTemplateUtils::has_block_including_patterns( $single_product_template_blocks, $parsed_blocks );
 	}

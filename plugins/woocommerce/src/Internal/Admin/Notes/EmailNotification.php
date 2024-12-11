@@ -3,13 +3,13 @@
  * Handles emailing user notes.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 
 /**
  * Include dependencies.
@@ -32,7 +32,7 @@ class EmailNotification extends \WC_Email {
 		$this->id            = 'merchant_notification';
 		$this->template_base = WC_ADMIN_ABSPATH . 'includes/react-admin/emails/';
 		$this->placeholders  = array(
-			'{greetings}' => __( 'Hi there,', 'woocommerce' ),
+			'{greetings}' => __( 'Hi there,', 'poocommerce' ),
 		);
 
 		// Call parent constructor.
@@ -97,7 +97,7 @@ class EmailNotification extends \WC_Email {
 	 */
 	public function get_headers() {
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
-		return apply_filters( 'woocommerce_email_headers', $header, $this->id, $this->object, $this );
+		return apply_filters( 'poocommerce_email_headers', $header, $this->id, $this->object, $this );
 	}
 
 	/**
@@ -206,7 +206,7 @@ class EmailNotification extends \WC_Email {
 
 		if ( $user_name ) {
 			/* translators: %s = merchant name */
-			$this->placeholders['{greetings}'] = sprintf( __( 'Hi %s,', 'woocommerce' ), $user_name );
+			$this->placeholders['{greetings}'] = sprintf( __( 'Hi %s,', 'poocommerce' ), $user_name );
 		}
 
 		$this->send(

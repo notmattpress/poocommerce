@@ -22,7 +22,7 @@ jQuery( function( $ ) {
 			// Payment methods
 			this.$checkout_form.on( 'click', 'input[name="payment_method"]', this.payment_method_selected );
 
-			if ( $( document.body ).hasClass( 'woocommerce-order-pay' ) ) {
+			if ( $( document.body ).hasClass( 'poocommerce-order-pay' ) ) {
 				this.$order_review.on( 'click', 'input[name="payment_method"]', this.payment_method_selected );
 				this.$order_review.on( 'submit', this.submitOrder );
 				this.$order_review.attr( 'novalidate', 'novalidate' );
@@ -62,7 +62,7 @@ jQuery( function( $ ) {
 			}
 		},
 		init_payment_methods: function() {
-			var $payment_methods = $( '.woocommerce-checkout' ).find( 'input[name="payment_method"]' );
+			var $payment_methods = $( '.poocommerce-checkout' ).find( 'input[name="payment_method"]' );
 
 			// If there is one method, we can hide the radio input
 			if ( 1 === $payment_methods.length ) {
@@ -117,7 +117,7 @@ jQuery( function( $ ) {
 				$( '#place_order' ).text( $( '#place_order' ).data( 'value' ) );
 			}
 
-			var selectedPaymentMethod = $( '.woocommerce-checkout input[name="payment_method"]:checked' ).attr( 'id' );
+			var selectedPaymentMethod = $( '.poocommerce-checkout input[name="payment_method"]:checked' ).attr( 'id' );
 
 			if ( selectedPaymentMethod !== wc_checkout_form.selectedPaymentMethod ) {
 				$( document.body ).trigger( 'payment_method_selected' );
@@ -211,7 +211,7 @@ jQuery( function( $ ) {
 			if ( 'input' === event_type ) {
 				$this.removeAttr( 'aria-invalid' ).removeAttr( 'aria-describedby' );
 				$parent.find( '.checkout-inline-error-message' ).remove();
-				$parent.removeClass( 'woocommerce-invalid woocommerce-invalid-required-field woocommerce-invalid-email woocommerce-invalid-phone woocommerce-validated' ); // eslint-disable-line max-len
+				$parent.removeClass( 'poocommerce-invalid poocommerce-invalid-required-field poocommerce-invalid-email poocommerce-invalid-phone poocommerce-validated' ); // eslint-disable-line max-len
 			}
 
 			if ( 'validate' === event_type || 'change' === event_type || 'focusout' === event_type ) {
@@ -219,7 +219,7 @@ jQuery( function( $ ) {
 				if ( validate_required ) {
 					if ( ( 'checkbox' === $this.attr( 'type' ) && ! $this.is( ':checked' ) ) || $this.val() === '' ) {
 						$this.attr( 'aria-invalid', 'true' );
-						$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
+						$parent.removeClass( 'poocommerce-validated' ).addClass( 'poocommerce-invalid poocommerce-invalid-required-field' );
 						validated = false;
 					}
 				}
@@ -231,7 +231,7 @@ jQuery( function( $ ) {
 
 						if ( ! pattern.test( $this.val() ) ) {
 							$this.attr( 'aria-invalid', 'true' );
-							$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-email woocommerce-invalid-phone' ); // eslint-disable-line max-len
+							$parent.removeClass( 'poocommerce-validated' ).addClass( 'poocommerce-invalid poocommerce-invalid-email poocommerce-invalid-phone' ); // eslint-disable-line max-len
 							validated = false;
 						}
 					}
@@ -242,7 +242,7 @@ jQuery( function( $ ) {
 
 					if ( 0 < $this.val().replace( pattern, '' ).length ) {
 						$this.attr( 'aria-invalid', 'true' );
-						$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-phone' );
+						$parent.removeClass( 'poocommerce-validated' ).addClass( 'poocommerce-invalid poocommerce-invalid-phone' );
 						validated = false;
 					}
 				}
@@ -250,7 +250,7 @@ jQuery( function( $ ) {
 				if ( validated ) {
 					$this.removeAttr( 'aria-invalid' ).removeAttr( 'aria-describedby' );
 					$parent.find( '.checkout-inline-error-message' ).remove();
-					$parent.removeClass( 'woocommerce-invalid woocommerce-invalid-required-field woocommerce-invalid-email woocommerce-invalid-phone' ).addClass( 'woocommerce-validated' ); // eslint-disable-line max-len
+					$parent.removeClass( 'poocommerce-invalid poocommerce-invalid-required-field poocommerce-invalid-email poocommerce-invalid-phone' ).addClass( 'poocommerce-validated' ); // eslint-disable-line max-len
 				}
 			}
 		},
@@ -334,7 +334,7 @@ jQuery( function( $ ) {
 				data.shipping_method = shipping_methods;
 			}
 
-			$( '.woocommerce-checkout-payment, .woocommerce-checkout-review-order-table' ).block({
+			$( '.poocommerce-checkout-payment, .poocommerce-checkout-review-order-table' ).block({
 				message: null,
 				overlayCSS: {
 					background: '#fff',
@@ -355,7 +355,7 @@ jQuery( function( $ ) {
 					}
 
 					// Remove any notices added previously
-					$( '.woocommerce-NoticeGroup-updateOrderReview' ).remove();
+					$( '.poocommerce-NoticeGroup-updateOrderReview' ).remove();
 
 					var termsCheckBoxChecked = $( '#terms' ).prop( 'checked' );
 
@@ -411,11 +411,11 @@ jQuery( function( $ ) {
 						var $form = $( 'form.checkout' );
 
 						// Remove notices from all sources
-						$( '.woocommerce-error, .woocommerce-message, .is-error, .is-success' ).remove();
+						$( '.poocommerce-error, .poocommerce-message, .is-error, .is-success' ).remove();
 
 						// Add new errors returned by this event
 						if ( data.messages ) {
-							$form.prepend( '<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-updateOrderReview">' + data.messages + '</div>' ); // eslint-disable-line max-len
+							$form.prepend( '<div class="poocommerce-NoticeGroup poocommerce-NoticeGroup-updateOrderReview">' + data.messages + '</div>' ); // eslint-disable-line max-len
 						} else {
 							$form.prepend( data );
 						}
@@ -568,7 +568,7 @@ jQuery( function( $ ) {
 							// Add new errors
 							if ( result.messages ) {
 								var $msgs = $( result.messages )
-									// The error notice template (plugins/woocommerce/templates/notices/error.php)
+									// The error notice template (plugins/poocommerce/templates/notices/error.php)
 									// adds the role="alert" to a list HTML element. This becomes a problem in this context
 									// because screen readers won't read the list content correctly if its role is not "list".
 									.removeAttr( 'role' )
@@ -579,7 +579,7 @@ jQuery( function( $ ) {
 								wc_checkout_form.submit_error( $msgsWrapper.prop( 'outerHTML' ) );
 								wc_checkout_form.show_inline_errors( $msgs );
 							} else {
-								wc_checkout_form.submit_error( '<div class="woocommerce-error">' + wc_checkout_params.i18n_checkout_error + '</div>' ); // eslint-disable-line max-len
+								wc_checkout_form.submit_error( '<div class="poocommerce-error">' + wc_checkout_params.i18n_checkout_error + '</div>' ); // eslint-disable-line max-len
 							}
 						}
 					},
@@ -601,7 +601,7 @@ jQuery( function( $ ) {
 						}
 
 						wc_checkout_form.submit_error(
-							'<div class="woocommerce-error">' + errorMessage + '</div>'
+							'<div class="poocommerce-error">' + errorMessage + '</div>'
 						);
 					}
 				});
@@ -610,13 +610,13 @@ jQuery( function( $ ) {
 			return false;
 		},
 		submit_error: function( error_message ) {
-			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message, .is-error, .is-success' ).remove();
-			wc_checkout_form.$checkout_form.prepend( '<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">' + error_message + '</div>' ); // eslint-disable-line max-len
+			$( '.poocommerce-NoticeGroup-checkout, .poocommerce-error, .poocommerce-message, .is-error, .is-success' ).remove();
+			wc_checkout_form.$checkout_form.prepend( '<div class="poocommerce-NoticeGroup poocommerce-NoticeGroup-checkout">' + error_message + '</div>' ); // eslint-disable-line max-len
 			wc_checkout_form.$checkout_form.removeClass( 'processing' ).unblock();
 			wc_checkout_form.$checkout_form.find( '.input-text, select, input:checkbox' ).trigger( 'validate' ).trigger( 'blur' );
 			wc_checkout_form.scroll_to_notices();
 			wc_checkout_form.$checkout_form.find(
-				'.woocommerce-error[tabindex="-1"], .wc-block-components-notice-banner.is-error[tabindex="-1"]' )
+				'.poocommerce-error[tabindex="-1"], .wc-block-components-notice-banner.is-error[tabindex="-1"]' )
 			.focus();
 			$( document.body ).trigger( 'checkout_error' , [ error_message ] );
 		},
@@ -648,7 +648,7 @@ jQuery( function( $ ) {
 			} );
 		},
 		scroll_to_notices: function() {
-			var scrollElement = $( '.woocommerce-NoticeGroup-updateOrderReview, .woocommerce-NoticeGroup-checkout' );
+			var scrollElement = $( '.poocommerce-NoticeGroup-updateOrderReview, .poocommerce-NoticeGroup-checkout' );
 
 			if ( ! scrollElement.length ) {
 				scrollElement = $( 'form.checkout' );
@@ -660,7 +660,7 @@ jQuery( function( $ ) {
 	var wc_checkout_coupons = {
 		init: function() {
 			$( document.body ).on( 'click', 'a.showcoupon', this.show_coupon_form );
-			$( document.body ).on( 'click', '.woocommerce-remove-coupon', this.remove_coupon );
+			$( document.body ).on( 'click', '.poocommerce-remove-coupon', this.remove_coupon );
 			$( document.body ).on( 'blur change input', '#coupon_code', this.remove_coupon_error );
 			$( 'form.checkout_coupon' ).hide().on( 'submit', this.submit.bind( this ) );
 		},
@@ -724,13 +724,13 @@ jQuery( function( $ ) {
 				url:		wc_checkout_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'apply_coupon' ),
 				data:		data,
 				success:	function( response ) {
-					$( '.woocommerce-error, .woocommerce-message, .is-error, .is-success, .checkout-inline-error-message' ).remove();
+					$( '.poocommerce-error, .poocommerce-message, .is-error, .is-success, .checkout-inline-error-message' ).remove();
 					$form.removeClass( 'processing' ).unblock();
 
 					if ( response ) {
 						// We only want to show coupon notices if they are no errors.
 						// Coupon errors are shown under the input.
-						if ( response.indexOf( 'woocommerce-error' ) === -1 && response.indexOf( 'is-error' ) === -1 ) {
+						if ( response.indexOf( 'poocommerce-error' ) === -1 && response.indexOf( 'is-error' ) === -1 ) {
 							$form.slideUp( 400, function() {
 								$form.before( response );
 							} );
@@ -750,7 +750,7 @@ jQuery( function( $ ) {
 		remove_coupon: function( e ) {
 			e.preventDefault();
 
-			var container = $( this ).parents( '.woocommerce-checkout-review-order' ),
+			var container = $( this ).parents( '.poocommerce-checkout-review-order' ),
 				coupon    = $( this ).data( 'coupon' );
 
 			container.addClass( 'processing' ).block({
@@ -771,11 +771,11 @@ jQuery( function( $ ) {
 				url:     wc_checkout_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'remove_coupon' ),
 				data:    data,
 				success: function( code ) {
-					$( '.woocommerce-error, .woocommerce-message, .is-error, .is-success' ).remove();
+					$( '.poocommerce-error, .poocommerce-message, .is-error, .is-success' ).remove();
 					container.removeClass( 'processing' ).unblock();
 
 					if ( code ) {
-						$( 'form.woocommerce-checkout' ).before( code );
+						$( 'form.poocommerce-checkout' ).before( code );
 
 						$( document.body ).trigger( 'removed_coupon_in_checkout', [ data.coupon ] );
 						$( document.body ).trigger( 'update_checkout', { update_shipping_method: false } );
@@ -801,27 +801,27 @@ jQuery( function( $ ) {
 			$( document.body ).on( 'click', 'a.showlogin', this.show_login_form );
 		},
 		show_login_form: function() {
-			$( 'form.login, form.woocommerce-form--login' ).slideToggle();
+			$( 'form.login, form.poocommerce-form--login' ).slideToggle();
 			return false;
 		}
 	};
 
 	var wc_terms_toggle = {
 		init: function() {
-			$( document.body ).on( 'click', 'a.woocommerce-terms-and-conditions-link', this.toggle_terms );
+			$( document.body ).on( 'click', 'a.poocommerce-terms-and-conditions-link', this.toggle_terms );
 		},
 
 		toggle_terms: function() {
-			if ( $( '.woocommerce-terms-and-conditions' ).length ) {
-				$( '.woocommerce-terms-and-conditions' ).slideToggle( function() {
-					var link_toggle = $( '.woocommerce-terms-and-conditions-link' );
+			if ( $( '.poocommerce-terms-and-conditions' ).length ) {
+				$( '.poocommerce-terms-and-conditions' ).slideToggle( function() {
+					var link_toggle = $( '.poocommerce-terms-and-conditions-link' );
 
-					if ( $( '.woocommerce-terms-and-conditions' ).is( ':visible' ) ) {
-						link_toggle.addClass( 'woocommerce-terms-and-conditions-link--open' );
-						link_toggle.removeClass( 'woocommerce-terms-and-conditions-link--closed' );
+					if ( $( '.poocommerce-terms-and-conditions' ).is( ':visible' ) ) {
+						link_toggle.addClass( 'poocommerce-terms-and-conditions-link--open' );
+						link_toggle.removeClass( 'poocommerce-terms-and-conditions-link--closed' );
 					} else {
-						link_toggle.removeClass( 'woocommerce-terms-and-conditions-link--open' );
-						link_toggle.addClass( 'woocommerce-terms-and-conditions-link--closed' );
+						link_toggle.removeClass( 'poocommerce-terms-and-conditions-link--open' );
+						link_toggle.addClass( 'poocommerce-terms-and-conditions-link--closed' );
 					}
 				} );
 

@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getContext, getElement, store } from '@woocommerce/interactivity';
-import { HTMLElementEvent } from '@woocommerce/types';
+import { getContext, getElement, store } from '@poocommerce/interactivity';
+import { HTMLElementEvent } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ export type CheckboxListContext = {
 	showAll: boolean;
 };
 
-store( 'woocommerce/product-filter-checkbox-list', {
+store( 'poocommerce/product-filter-checkbox-list', {
 	state: {
 		get isItemSelected() {
 			const context = getContext< CheckboxListContext >();

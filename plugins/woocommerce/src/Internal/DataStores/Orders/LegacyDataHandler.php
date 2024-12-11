@@ -3,11 +3,11 @@
  * LegacyDataHandler class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 use WC_Abstract_Order;
 
 defined( 'ABSPATH' ) || exit;
@@ -159,7 +159,7 @@ class LegacyDataHandler {
 		$post_type = get_post_type( $order_id );
 		if ( ! in_array( $post_type, array_merge( wc_get_order_types( 'cot-migration' ), array( $this->data_synchronizer::PLACEHOLDER_ORDER_POST_TYPE ) ), true ) ) {
 			// translators: %d is an order ID.
-			throw new \Exception( esc_html( sprintf( __( '%d is not of a valid order type.', 'woocommerce' ), $order_id ) ) );
+			throw new \Exception( esc_html( sprintf( __( '%d is not of a valid order type.', 'poocommerce' ), $order_id ) ) );
 		}
 
 		$order_exists = $this->data_store->order_exists( $order_id );
@@ -167,12 +167,12 @@ class LegacyDataHandler {
 			$order = wc_get_order( $order_id );
 			if ( ! $order ) {
 				// translators: %d is an order ID.
-				throw new \Exception( esc_html( sprintf( __( '%d is not a valid order ID.', 'woocommerce' ), $order_id ) ) );
+				throw new \Exception( esc_html( sprintf( __( '%d is not a valid order ID.', 'poocommerce' ), $order_id ) ) );
 			}
 
 			if ( ! $skip_checks && ! $this->is_order_newer_than_post( $order ) ) {
 				// translators: %1 is an order ID.
-				throw new \Exception( esc_html( sprintf( __( 'Data in posts table appears to be more recent than in HPOS tables. Compare order data with `wp wc hpos diff %1$d` and use `wp wc hpos backfill %1$d --from=posts --to=hpos` to fix.', 'woocommerce' ), $order_id ) ) );
+				throw new \Exception( esc_html( sprintf( __( 'Data in posts table appears to be more recent than in HPOS tables. Compare order data with `wp wc hpos diff %1$d` and use `wp wc hpos backfill %1$d --from=posts --to=hpos` to fix.', 'poocommerce' ), $order_id ) ) );
 			}
 		}
 
@@ -207,7 +207,7 @@ class LegacyDataHandler {
 	 */
 	private function is_order_newer_than_post( \WC_Abstract_Order $order ): bool {
 		if ( ! is_a( $order->get_data_store()->get_current_class_name(), OrdersTableDataStore::class, true ) ) {
-			throw new \Exception( esc_html__( 'Order is not an HPOS order.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Order is not an HPOS order.', 'poocommerce' ) );
 		}
 
 		$post = get_post( $order->get_id() );
@@ -261,7 +261,7 @@ class LegacyDataHandler {
 			$val1 = in_array( $key, $this->get_order_base_props(), true ) ? $hpos_order->{"get_$key"}() : ( $hpos_meta[ $key ] ?? null );
 			$val2 = in_array( $key, $this->get_order_base_props(), true ) ? $cpt_order->{"get_$key"}() : ( $cpt_meta[ $key ] ?? null );
 
-			// Workaround for https://github.com/woocommerce/woocommerce/issues/43126.
+			// Workaround for https://github.com/poocommerce/poocommerce/issues/43126.
 			if ( ! $val2 && in_array( $key, array( '_billing_address_index', '_shipping_address_index' ), true ) ) {
 				$val2 = get_post_meta( $order_id, $key, true );
 			}
@@ -298,7 +298,7 @@ class LegacyDataHandler {
 
 		if ( ! $order_type ) {
 			// translators: %d is an order ID.
-			throw new \Exception( esc_html( sprintf( __( '%d is not an order or has an invalid order type.', 'woocommerce' ), $order_id ) ) );
+			throw new \Exception( esc_html( sprintf( __( '%d is not an order or has an invalid order type.', 'poocommerce' ), $order_id ) ) );
 		}
 
 		$classname = $order_type['class_name'];
@@ -326,11 +326,11 @@ class LegacyDataHandler {
 		// prevent `remove_filter()` from removing it in cases where it was already hooked by 3rd party code.
 		$prevent_sync_on_read = fn() => false;
 
-		add_filter( 'woocommerce_hpos_enable_sync_on_read', $prevent_sync_on_read, 999 );
+		add_filter( 'poocommerce_hpos_enable_sync_on_read', $prevent_sync_on_read, 999 );
 		try {
 			$data_store->read( $order );
 		} finally {
-			remove_filter( 'woocommerce_hpos_enable_sync_on_read', $prevent_sync_on_read, 999 );
+			remove_filter( 'poocommerce_hpos_enable_sync_on_read', $prevent_sync_on_read, 999 );
 		}
 
 		return $order;
@@ -380,7 +380,7 @@ class LegacyDataHandler {
 		}
 
 		if ( ! $datastore || ! method_exists( $datastore, 'update_order_from_object' ) ) {
-			throw new \Exception( esc_html__( 'The backup datastore does not support updating orders.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'The backup datastore does not support updating orders.', 'poocommerce' ) );
 		}
 
 		// Backfill meta.
@@ -415,14 +415,14 @@ class LegacyDataHandler {
 
 					return $rows;
 				};
-				add_filter( 'woocommerce_orders_table_datastore_db_rows_for_order', $limit_cb, 10, 2 );
+				add_filter( 'poocommerce_orders_table_datastore_db_rows_for_order', $limit_cb, 10, 2 );
 			}
 		}
 
 		$datastore->update_order_from_object( $dest_order );
 
 		if ( 'hpos' === $destination_data_store && isset( $limit_cb ) ) {
-			remove_filter( 'woocommerce_orders_table_datastore_db_rows_for_order', $limit_cb );
+			remove_filter( 'poocommerce_orders_table_datastore_db_rows_for_order', $limit_cb );
 		}
 	}
 
@@ -464,7 +464,7 @@ class LegacyDataHandler {
 
 	/**
 	 * Filters a set of HPOS row updates to those matching a specific set of order properties.
-	 * Called via the `woocommerce_orders_table_datastore_db_rows_for_order` filter in `backfill_order_to_datastore`.
+	 * Called via the `poocommerce_orders_table_datastore_db_rows_for_order` filter in `backfill_order_to_datastore`.
 	 *
 	 * @param array    $rows  Details for the db update.
 	 * @param string[] $props Order property names.
@@ -535,7 +535,7 @@ class LegacyDataHandler {
 								'%s is an internal meta key. Use --props to set it.',
 								'%s are internal meta keys. Use --props to set them.',
 								count( $possibly_internal_keys ),
-								'woocommerce'
+								'poocommerce'
 							),
 							implode( ', ', $possibly_internal_keys )
 						)
@@ -561,7 +561,7 @@ class LegacyDataHandler {
 								'%s is not a valid order property.',
 								'%s are not valid order properties.',
 								count( $invalid_props ),
-								'woocommerce'
+								'poocommerce'
 							),
 							implode( ', ', $invalid_props )
 						)

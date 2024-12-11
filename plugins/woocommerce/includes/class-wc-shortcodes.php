@@ -2,14 +2,14 @@
 /**
  * Shortcodes
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WooCommerce Shortcodes class.
+ * PooCommerce Shortcodes class.
  */
 class WC_Shortcodes {
 
@@ -33,10 +33,10 @@ class WC_Shortcodes {
 			'product_attribute'          => __CLASS__ . '::product_attribute',
 			'related_products'           => __CLASS__ . '::related_products',
 			'shop_messages'              => __CLASS__ . '::shop_messages',
-			'woocommerce_order_tracking' => __CLASS__ . '::order_tracking',
-			'woocommerce_cart'           => __CLASS__ . '::cart',
-			'woocommerce_checkout'       => __CLASS__ . '::checkout',
-			'woocommerce_my_account'     => __CLASS__ . '::my_account',
+			'poocommerce_order_tracking' => __CLASS__ . '::order_tracking',
+			'poocommerce_cart'           => __CLASS__ . '::cart',
+			'poocommerce_checkout'       => __CLASS__ . '::checkout',
+			'poocommerce_my_account'     => __CLASS__ . '::my_account',
 		);
 
 		foreach ( $shortcodes as $shortcode => $function ) {
@@ -44,7 +44,7 @@ class WC_Shortcodes {
 		}
 
 		// Alias for pre 2.1 compatibility.
-		add_shortcode( 'woocommerce_messages', __CLASS__ . '::shop_messages' );
+		add_shortcode( 'poocommerce_messages', __CLASS__ . '::shop_messages' );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class WC_Shortcodes {
 		$function,
 		$atts = array(),
 		$wrapper = array(
-			'class'  => 'woocommerce',
+			'class'  => 'poocommerce',
 			'before' => null,
 			'after'  => null,
 		)
@@ -182,7 +182,7 @@ class WC_Shortcodes {
 		);
 
 		$product_categories = apply_filters(
-			'woocommerce_product_categories',
+			'poocommerce_product_categories',
 			get_terms( 'product_cat', $args )
 		);
 
@@ -216,7 +216,7 @@ class WC_Shortcodes {
 		ob_start();
 
 		if ( $product_categories ) {
-			woocommerce_product_loop_start();
+			poocommerce_product_loop_start();
 
 			foreach ( $product_categories as $category ) {
 				wc_get_template(
@@ -227,12 +227,12 @@ class WC_Shortcodes {
 				);
 			}
 
-			woocommerce_product_loop_end();
+			poocommerce_product_loop_end();
 		}
 
 		wc_reset_loop();
 
-		return '<div class="woocommerce columns-' . $columns . '">' . ob_get_clean() . '</div>';
+		return '<div class="poocommerce columns-' . $columns . '">' . ob_get_clean() . '</div>';
 	}
 
 	/**
@@ -345,7 +345,7 @@ class WC_Shortcodes {
 
 		ob_start();
 
-		echo '<p class="product woocommerce add_to_cart_inline ' . esc_attr( $atts['class'] ) . '" style="' . ( empty( $atts['style'] ) ? '' : esc_attr( $atts['style'] ) ) . '">';
+		echo '<p class="product poocommerce add_to_cart_inline ' . esc_attr( $atts['class'] ) . '" style="' . ( empty( $atts['style'] ) ? '' : esc_attr( $atts['style'] ) ) . '">';
 
 		if ( wc_string_to_bool( $atts['show_price'] ) ) {
 			// @codingStandardsIgnoreStart
@@ -353,7 +353,7 @@ class WC_Shortcodes {
 			// @codingStandardsIgnoreEnd
 		}
 
-		woocommerce_template_loop_add_to_cart(
+		poocommerce_template_loop_add_to_cart(
 			array(
 				'quantity' => $atts['quantity'],
 			)
@@ -523,7 +523,7 @@ class WC_Shortcodes {
 		 * @param int   $product_id       Product ID.
 		 * @return array
 		 */
-		$invalid_statuses = apply_filters( 'woocommerce_shortcode_product_page_invalid_statuses', array( 'trash' ), $product_id );
+		$invalid_statuses = apply_filters( 'poocommerce_shortcode_product_page_invalid_statuses', array( 'trash' ), $product_id );
 		if ( in_array( $product_status, $invalid_statuses, true ) ) {
 			return '';
 		}
@@ -535,7 +535,7 @@ class WC_Shortcodes {
 		 * @param int    $product_id                Product ID.
 		 * @return bool
 		 */
-		$force_rendering = apply_filters( 'woocommerce_shortcode_product_page_force_rendering', null, $product_id );
+		$force_rendering = apply_filters( 'poocommerce_shortcode_product_page_force_rendering', null, $product_id );
 		if ( isset( $force_rendering ) && ! $force_rendering ) {
 			return '';
 		}
@@ -564,11 +564,11 @@ class WC_Shortcodes {
 
 		// Don't render titles if desired.
 		if ( isset( $atts['show_title'] ) && ! $atts['show_title'] ) {
-			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+			remove_action( 'poocommerce_single_product_summary', 'poocommerce_template_single_title', 5 );
 		}
 
 		// Change form action to avoid redirect.
-		add_filter( 'woocommerce_add_to_cart_form_action', '__return_empty_string' );
+		add_filter( 'poocommerce_add_to_cart_form_action', '__return_empty_string' );
 
 		$single_product = new WP_Query( $args );
 
@@ -648,12 +648,12 @@ class WC_Shortcodes {
 
 		// Re-enable titles if they were removed.
 		if ( isset( $atts['show_title'] ) && ! $atts['show_title'] ) {
-			add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+			add_action( 'poocommerce_single_product_summary', 'poocommerce_template_single_title', 5 );
 		}
 
-		remove_filter( 'woocommerce_add_to_cart_form_action', '__return_empty_string' );
+		remove_filter( 'poocommerce_add_to_cart_form_action', '__return_empty_string' );
 
-		return '<div class="woocommerce">' . ob_get_clean() . '</div>';
+		return '<div class="poocommerce">' . ob_get_clean() . '</div>';
 	}
 
 	/**
@@ -665,7 +665,7 @@ class WC_Shortcodes {
 		if ( ! function_exists( 'wc_print_notices' ) ) {
 			return '';
 		}
-		return '<div class="woocommerce">' . wc_print_notices( true ) . '</div>';
+		return '<div class="poocommerce">' . wc_print_notices( true ) . '</div>';
 	}
 
 	/**
@@ -732,7 +732,7 @@ class WC_Shortcodes {
 		// Rename arg.
 		$atts['posts_per_page'] = absint( $atts['limit'] );
 
-		woocommerce_related_products( $atts );
+		poocommerce_related_products( $atts );
 
 		return ob_get_clean();
 	}

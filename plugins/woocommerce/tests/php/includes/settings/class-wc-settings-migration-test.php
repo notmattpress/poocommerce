@@ -2,7 +2,7 @@
 /**
  * Class WC_Settings_Example file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
 declare(strict_types=1);
@@ -39,8 +39,8 @@ class WC_Settings_Migration_Test extends WC_Settings_Page {
 
 	protected function get_own_sections() {
 		return array(
-			''       => __( 'Default', 'woocommerce' ),
-			'foobar' => __( 'Foobar', 'woocommerce' ),
+			''       => __( 'Default', 'poocommerce' ),
+			'foobar' => __( 'Foobar', 'poocommerce' ),
 		);
 	}
 

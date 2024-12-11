@@ -6,7 +6,7 @@
  * your own meta handling functions.
  *
  * @version 3.0.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -118,7 +118,7 @@ class WC_Data_Store_WP {
 			)
 		);
 		$meta_data                = array_filter( $raw_meta_data, array( $this, 'exclude_internal_meta_keys' ) );
-		return apply_filters( "woocommerce_data_store_wp_{$this->meta_type}_read_meta", $meta_data, $object, $this );
+		return apply_filters( "poocommerce_data_store_wp_{$this->meta_type}_read_meta", $meta_data, $object, $this );
 	}
 
 	/**
@@ -169,7 +169,7 @@ class WC_Data_Store_WP {
 
 		// If we are dealing with a type of metadata that is not a core type, the table should be prefixed.
 		if ( ! in_array( $this->meta_type, array( 'post', 'user', 'comment', 'term' ), true ) ) {
-			$table .= 'woocommerce_';
+			$table .= 'poocommerce_';
 		}
 
 		$table          .= $this->meta_type . 'meta';
@@ -325,7 +325,7 @@ class WC_Data_Store_WP {
 			}
 		}
 
-		return apply_filters( 'woocommerce_get_wp_query_args', $wp_query_args, $query_vars );
+		return apply_filters( 'poocommerce_get_wp_query_args', $wp_query_args, $query_vars );
 	}
 
 	/**
@@ -561,7 +561,7 @@ class WC_Data_Store_WP {
 					_x(
 						'about,an,are,as,at,be,by,com,for,from,how,in,is,it,of,on,or,that,the,this,to,was,what,when,where,who,will,with,www',
 						'Comma-separated list of search stopwords in your language',
-						'woocommerce'
+						'poocommerce'
 					)
 				)
 			)

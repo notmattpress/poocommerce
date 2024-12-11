@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { DateRangeFilterPicker } from '@woocommerce/components';
+import { DateRangeFilterPicker } from '@poocommerce/components';
 import {
 	getDateParamsFromQuery,
 	getCurrentDates,
 	isoDateFormat,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 
 /**
  * External dependencies
@@ -44,6 +44,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/DateRangeFilterPicker',
+	title: 'PooCommerce Admin/components/DateRangeFilterPicker',
 	component: DateRangeFilterPicker,
 };

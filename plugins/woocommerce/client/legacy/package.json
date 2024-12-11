@@ -1,5 +1,5 @@
 {
-	"name": "@woocommerce/classic-assets",
+	"name": "@poocommerce/classic-assets",
 	"private": true,
 	"version": "1.0.0",
 	"author": "Automattic",
@@ -42,7 +42,7 @@
 		"wireit": "0.14.3"
 	},
 	"dependencies": {
-		"sourcebuster": "github:woocommerce/sourcebuster-js#v1.2.0"
+		"sourcebuster": "github:poocommerce/sourcebuster-js#v1.2.0"
 	},
 	"wireit": {
 		"build:project:assets": {

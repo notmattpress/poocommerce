@@ -2,13 +2,13 @@
 /**
  * Admin Dashboard - Setup
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 			if ( $this->should_display_widget() ) {
 				add_meta_box(
 					'wc_admin_dashboard_setup',
-					__( 'WooCommerce Setup', 'woocommerce' ),
+					__( 'PooCommerce Setup', 'poocommerce' ),
 					array( $this, 'render' ),
 					'dashboard',
 					'normal',
@@ -175,7 +175,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 		 * @return bool
 		 */
 		public function should_display_widget() {
-			if ( ! class_exists( 'Automattic\WooCommerce\Admin\Features\Features' ) || ! class_exists( 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists' ) ) {
+			if ( ! class_exists( 'Automattic\PooCommerce\Admin\Features\Features' ) || ! class_exists( 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists' ) ) {
 				return false;
 			}
 
@@ -183,7 +183,7 @@ if ( ! class_exists( 'WC_Admin_Dashboard_Setup', false ) ) :
 				return false;
 			}
 
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			if ( ! current_user_can( 'manage_poocommerce' ) ) {
 				return false;
 			}
 

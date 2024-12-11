@@ -1,19 +1,19 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Internal\Admin\Schedulers;
 
 /**
  * Class MailchimpScheduler
  *
- * @package Automattic\WooCommerce\Admin\Schedulers
+ * @package Automattic\PooCommerce\Admin\Schedulers
  */
 class MailchimpScheduler {
 
-	const SUBSCRIBE_ENDPOINT     = 'https://woocommerce.com/wp-json/wccom/v1/subscribe';
-	const SUBSCRIBE_ENDPOINT_DEV = 'http://woocommerce.test/wp-json/wccom/v1/subscribe';
+	const SUBSCRIBE_ENDPOINT     = 'https://poocommerce.com/wp-json/wccom/v1/subscribe';
+	const SUBSCRIBE_ENDPOINT_DEV = 'http://poocommerce.test/wp-json/wccom/v1/subscribe';
 
-	const SUBSCRIBED_OPTION_NAME             = 'woocommerce_onboarding_subscribed_to_mailchimp';
-	const SUBSCRIBED_ERROR_COUNT_OPTION_NAME = 'woocommerce_onboarding_subscribed_to_mailchimp_error_count';
+	const SUBSCRIBED_OPTION_NAME             = 'poocommerce_onboarding_subscribed_to_mailchimp';
+	const SUBSCRIBED_ERROR_COUNT_OPTION_NAME = 'poocommerce_onboarding_subscribed_to_mailchimp_error_count';
 	const MAX_ERROR_THRESHOLD                = 3;
 
 	const LOGGER_CONTEXT = 'mailchimp_scheduler';
@@ -49,7 +49,7 @@ class MailchimpScheduler {
 			return false;
 		}
 
-		$profile_data = get_option( 'woocommerce_onboarding_profile' );
+		$profile_data = get_option( 'poocommerce_onboarding_profile' );
 		if ( ! isset( $profile_data['is_agree_marketing'] ) || false === $profile_data['is_agree_marketing'] ) {
 			return false;
 		}
@@ -117,7 +117,7 @@ class MailchimpScheduler {
 		return wp_remote_post(
 			$subscribe_endpoint,
 			array(
-				'user-agent' => 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
+				'user-agent' => 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
 				'method'     => 'POST',
 				'body'       => array(
 					'email'   => $store_email,

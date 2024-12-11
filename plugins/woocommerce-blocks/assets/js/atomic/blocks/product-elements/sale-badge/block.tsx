@@ -3,13 +3,13 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import type { HTMLAttributes } from 'react';
 
 /**
@@ -53,8 +53,8 @@ export const Block = ( props: Props ): JSX.Element | null => {
 			style={ styleProps.style }
 		>
 			<Label
-				label={ __( 'Sale', 'woocommerce' ) }
-				screenReaderLabel={ __( 'Product on sale', 'woocommerce' ) }
+				label={ __( 'Sale', 'poocommerce' ) }
+				screenReaderLabel={ __( 'Product on sale', 'poocommerce' ) }
 			/>
 		</div>
 	);

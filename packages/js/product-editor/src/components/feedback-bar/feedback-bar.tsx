@@ -14,9 +14,9 @@ import {
 	Fragment,
 } from '@wordpress/element';
 import { closeSmall } from '@wordpress/icons';
-import { Pill } from '@woocommerce/components';
-import { useCustomerEffortScoreModal } from '@woocommerce/customer-effort-score';
-import { recordEvent } from '@woocommerce/tracks';
+import { Pill } from '@poocommerce/components';
+import { useCustomerEffortScoreModal } from '@poocommerce/customer-effort-score';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -53,19 +53,19 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 				showDescription: false,
 				title: __(
 					'What do you think of the new product form?',
-					'woocommerce'
+					'poocommerce'
 				),
 				firstQuestion: __(
 					'The product editing screen is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				secondQuestion: __(
 					'Product form is easy to use',
-					'woocommerce'
+					'poocommerce'
 				),
 				onsubmitLabel: __(
 					"Thanks for the feedback — we'll put it to good use!",
-					'woocommerce'
+					'poocommerce'
 				),
 				shouldShowComments: () => false,
 				getExtraFieldsToBeShown: (
@@ -82,18 +82,18 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 					<Fragment>
 						<BaseControl
 							id={ 'feedback_additional_thoughts' }
-							className="woocommerce-product-feedback__additional-thoughts"
+							className="poocommerce-product-feedback__additional-thoughts"
 							label={ createInterpolateElement(
 								__(
 									'ADDITIONAL THOUGHTS <optional />',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									optional: (
-										<span className="woocommerce-product-feedback__optional-input">
+										<span className="poocommerce-product-feedback__optional-input">
 											{ __(
 												'(OPTIONAL)',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</span>
 									),
@@ -113,18 +113,18 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 						</BaseControl>
 						<BaseControl
 							id={ 'feedback_email' }
-							className="woocommerce-product-feedback__email"
+							className="poocommerce-product-feedback__email"
 							label={ createInterpolateElement(
 								__(
 									'YOUR EMAIL ADDRESS <optional />',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									optional: (
-										<span className="woocommerce-product-feedback__optional-input">
+										<span className="poocommerce-product-feedback__optional-input">
 											{ __(
 												'(OPTIONAL)',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</span>
 									),
@@ -141,7 +141,7 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 							<span>
 								{ __(
 									'In case you want to participate in further discussion and future user research.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</span>
 						</BaseControl>
@@ -158,13 +158,13 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 					if ( email.length > 0 && ! isValidEmail( email ) ) {
 						errors.email = __(
 							'Please enter a valid email address.',
-							'woocommerce'
+							'poocommerce'
 						);
 					}
 					if ( additional_thoughts?.length > 500 ) {
 						errors.additional_thoughts = __(
 							'Please enter no more than 500 characters.',
-							'woocommerce'
+							'poocommerce'
 						);
 					}
 					return errors;
@@ -198,17 +198,17 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 	return (
 		<>
 			{ shouldShowFeedbackBar && (
-				<div className="woocommerce-product-mvp-ces-footer">
+				<div className="poocommerce-product-mvp-ces-footer">
 					<Pill>Beta</Pill>
-					<div className="woocommerce-product-mvp-ces-footer__message">
+					<div className="poocommerce-product-mvp-ces-footer__message">
 						{ createInterpolateElement(
 							__(
 								'How is your experience with the new product form? <span><shareButton>Share feedback</shareButton> or <turnOffButton>turn it off</turnOffButton></span>',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								span: (
-									<span className="woocommerce-product-mvp-ces-footer__message-buttons" />
+									<span className="poocommerce-product-mvp-ces-footer__message-buttons" />
 								),
 								shareButton: (
 									<Button
@@ -226,9 +226,9 @@ export function FeedbackBar( { productType }: FeedbackBarProps ) {
 						) }
 					</div>
 					<Button
-						className="woocommerce-product-mvp-ces-footer__close-button"
+						className="poocommerce-product-mvp-ces-footer__close-button"
 						icon={ closeSmall }
-						label={ __( 'Hide this message', 'woocommerce' ) }
+						label={ __( 'Hide this message', 'poocommerce' ) }
 						onClick={ onHideFeedbackBarClick }
 					></Button>
 				</div>

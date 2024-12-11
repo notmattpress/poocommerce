@@ -1,7 +1,7 @@
 const WPDependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 const packages = require( '../assets/packages' );
 
-const WOOCOMMERCE_NAMESPACE = '@woocommerce/';
+const WOOCOMMERCE_NAMESPACE = '@poocommerce/';
 
 /**
  * Given a string, returns a new string with dash separators converted to

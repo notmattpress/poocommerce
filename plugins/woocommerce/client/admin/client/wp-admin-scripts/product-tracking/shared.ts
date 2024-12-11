@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { addCustomerEffortScoreExitPageListener } from '@woocommerce/customer-effort-score';
-import { recordEvent } from '@woocommerce/tracks';
+import { addCustomerEffortScoreExitPageListener } from '@poocommerce/customer-effort-score';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -110,7 +110,7 @@ export const getProductData = () => {
 		 )?.checked
 			? 'Yes'
 			: 'No',
-		attributes: document.querySelectorAll( '.woocommerce_attribute' )
+		attributes: document.querySelectorAll( '.poocommerce_attribute' )
 			.length,
 		categories: document.querySelectorAll(
 			'[name="tax_input[product_cat][]"]:checked'
@@ -477,7 +477,7 @@ const attachProductAttributesTracks = () => {
 	attachEventListenerToParentForChildren( attributesSection, [
 		{
 			eventName: 'click',
-			childQuery: '.woocommerce_attribute_visible_on_product_page',
+			childQuery: '.poocommerce_attribute_visible_on_product_page',
 			callback: ( clickedElement ) => {
 				const elementName = clickedElement.getAttribute( 'name' );
 				const visibleOnProductPage = document.querySelector(
@@ -492,7 +492,7 @@ const attachProductAttributesTracks = () => {
 		},
 		{
 			eventName: 'click',
-			childQuery: '.woocommerce_attribute_used_for_variations',
+			childQuery: '.poocommerce_attribute_used_for_variations',
 			callback: ( clickedElement ) => {
 				const elementName = clickedElement.getAttribute( 'name' );
 				const usedForVariations = document.querySelector(
@@ -519,11 +519,11 @@ const attachProductAttributesTracks = () => {
 			}
 
 			const localAttributesCount = document.querySelectorAll(
-				'.woocommerce_attribute:not(.taxonomy)'
+				'.poocommerce_attribute:not(.taxonomy)'
 			).length;
 
 			const globalAttributesCount = document.querySelectorAll(
-				'.woocommerce_attribute.taxonomy'
+				'.poocommerce_attribute.taxonomy'
 			).length;
 
 			recordEvent( 'product_attributes_save', {
@@ -702,7 +702,7 @@ const attachProductScreenTracks = () => {
 
 	document
 		.querySelector(
-			'#woocommerce-product-updated-message-view-product__link'
+			'#poocommerce-product-updated-message-view-product__link'
 		)
 		?.addEventListener( 'click', () => {
 			recordEvent( 'product_view_product_click', getProductData() );

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { fields } from '@woocommerce/icons';
+import { fields } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import type { BlockInstance } from '@wordpress/blocks';
@@ -35,10 +35,10 @@ const settings = {
 		to: [
 			{
 				type: 'block',
-				blocks: [ 'woocommerce/classic-shortcode' ],
+				blocks: [ 'poocommerce/classic-shortcode' ],
 				transform: ( attributes ) => {
 					return createBlock(
-						'woocommerce/classic-shortcode',
+						'poocommerce/classic-shortcode',
 						{
 							shortcode: 'checkout',
 							align: attributes.align,
@@ -80,60 +80,60 @@ const settings = {
 					attributes,
 					[
 						createBlock(
-							'woocommerce/checkout-fields-block',
+							'poocommerce/checkout-fields-block',
 							{},
 							[
 								createBlock(
-									'woocommerce/checkout-express-payment-block',
+									'poocommerce/checkout-express-payment-block',
 									{},
 									[]
 								),
 								createBlock(
-									'woocommerce/checkout-contact-information-block',
+									'poocommerce/checkout-contact-information-block',
 									{},
 									[]
 								),
 								createBlock(
-									'woocommerce/checkout-shipping-address-block',
+									'poocommerce/checkout-shipping-address-block',
 									{},
 									[]
 								),
 								createBlock(
-									'woocommerce/checkout-billing-address-block',
+									'poocommerce/checkout-billing-address-block',
 									{},
 									[]
 								),
 								createBlock(
-									'woocommerce/checkout-shipping-methods-block',
+									'poocommerce/checkout-shipping-methods-block',
 									{},
 									[]
 								),
 								createBlock(
-									'woocommerce/checkout-payment-block',
+									'poocommerce/checkout-payment-block',
 									{},
 									[]
 								),
 								createBlock(
-									'woocommerce/checkout-additional-information-block',
+									'poocommerce/checkout-additional-information-block',
 									{},
 									[]
 								),
 								showOrderNotes
 									? createBlock(
-											'woocommerce/checkout-order-note-block',
+											'poocommerce/checkout-order-note-block',
 											{},
 											[]
 									  )
 									: false,
 								showPolicyLinks
 									? createBlock(
-											'woocommerce/checkout-terms-block',
+											'poocommerce/checkout-terms-block',
 											{},
 											[]
 									  )
 									: false,
 								createBlock(
-									'woocommerce/checkout-actions-block',
+									'poocommerce/checkout-actions-block',
 									{
 										showReturnToCart,
 										cartPageId,
@@ -142,7 +142,7 @@ const settings = {
 								),
 							].filter( Boolean ) as BlockInstance[]
 						),
-						createBlock( 'woocommerce/checkout-totals-block', {} ),
+						createBlock( 'poocommerce/checkout-totals-block', {} ),
 					],
 				];
 			},
@@ -152,7 +152,7 @@ const settings = {
 			) => {
 				return ! innerBlocks.some(
 					( block: { name: string } ) =>
-						block.name === 'woocommerce/checkout-fields-block'
+						block.name === 'poocommerce/checkout-fields-block'
 				);
 			},
 		},
@@ -171,7 +171,7 @@ const settings = {
 			) => {
 				const checkoutFieldsBlock = innerBlocks.find(
 					( block: { name: string } ) =>
-						block.name === 'woocommerce/checkout-fields-block'
+						block.name === 'poocommerce/checkout-fields-block'
 				);
 
 				if ( ! checkoutFieldsBlock ) {
@@ -182,7 +182,7 @@ const settings = {
 				return ! checkoutFieldsBlock.innerBlocks.some(
 					( block: { name: string } ) =>
 						block.name ===
-						'woocommerce/checkout-additional-information-block'
+						'poocommerce/checkout-additional-information-block'
 				);
 			},
 			migrate: (
@@ -191,7 +191,7 @@ const settings = {
 			) => {
 				const checkoutFieldsBlockIndex = innerBlocks.findIndex(
 					( block: { name: string } ) =>
-						block.name === 'woocommerce/checkout-fields-block'
+						block.name === 'poocommerce/checkout-fields-block'
 				);
 
 				if ( checkoutFieldsBlockIndex === -1 ) {
@@ -204,7 +204,7 @@ const settings = {
 				const insertIndex = checkoutFieldsBlock.innerBlocks.findIndex(
 					( block: { name: string } ) =>
 						block.name ===
-						'wp-block-woocommerce-checkout-payment-block'
+						'wp-block-poocommerce-checkout-payment-block'
 				);
 
 				if ( insertIndex === -1 ) {
@@ -216,7 +216,7 @@ const settings = {
 						.slice( 0, insertIndex )
 						.concat(
 							createBlock(
-								'woocommerce/checkout-additional-information-block',
+								'poocommerce/checkout-additional-information-block',
 								{},
 								[]
 							)

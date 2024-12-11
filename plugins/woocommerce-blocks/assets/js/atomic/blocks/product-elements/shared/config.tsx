@@ -15,8 +15,8 @@ import save from '../save';
  * attributes and title are omitted here as these are added on an individual block level.
  */
 const sharedConfig: Omit< BlockConfiguration, 'attributes' | 'title' > = {
-	category: 'woocommerce-product-elements',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+	category: 'poocommerce-product-elements',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 	icon: {
 		src: (
 			<Icon
@@ -30,10 +30,10 @@ const sharedConfig: Omit< BlockConfiguration, 'attributes' | 'title' > = {
 		html: false,
 	},
 	ancestor: [
-		'woocommerce/all-products',
-		'woocommerce/single-product',
+		'poocommerce/all-products',
+		'poocommerce/single-product',
 		// Product Collection product template
-		'woocommerce/product-template',
+		'poocommerce/product-template',
 		// Products (Beta) product template
 		'core/post-template',
 	],

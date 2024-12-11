@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Notice_Functions.
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  * @since 2.2
  */
 
@@ -119,7 +119,7 @@ class WC_Tests_Notice_Functions extends WC_Unit_Test_Case {
 		wc_add_notice( 'One True Notice', 'notice' );
 		wc_add_notice( 'Second True Notice', 'notice', array( 'id' => 'second_notice' ) );
 
-		$this->expectOutputString( '<div class="woocommerce-info">One True Notice</div><div class="woocommerce-info" data-id="second_notice">Second True Notice</div>' );
+		$this->expectOutputString( '<div class="poocommerce-info">One True Notice</div><div class="poocommerce-info" data-id="second_notice">Second True Notice</div>' );
 
 		wc_print_notices();
 
@@ -131,7 +131,7 @@ class WC_Tests_Notice_Functions extends WC_Unit_Test_Case {
 	 * when first parameter is set to true.
 	 */
 	public function test_wc_print_notices_should_return_notices() {
-		$expected_return = "\n	<div class=\"woocommerce-info\">\n		One True Notice	</div>\n";
+		$expected_return = "\n	<div class=\"poocommerce-info\">\n		One True Notice	</div>\n";
 
 		wc_add_notice( 'One True Notice', 'notice' );
 
@@ -149,7 +149,7 @@ class WC_Tests_Notice_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_print_success_notice() {
 
-		$this->expectOutputString( '<div class="woocommerce-message" role="alert">Success!</div>' );
+		$this->expectOutputString( '<div class="poocommerce-message" role="alert">Success!</div>' );
 
 		wc_print_notice( 'Success!' );
 	}
@@ -161,7 +161,7 @@ class WC_Tests_Notice_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_print_info_notice() {
 
-		$this->expectOutputString( '<div class="woocommerce-info">Info!</div>' );
+		$this->expectOutputString( '<div class="poocommerce-info">Info!</div>' );
 
 		wc_print_notice( 'Info!', 'notice' );
 	}
@@ -174,7 +174,7 @@ class WC_Tests_Notice_Functions extends WC_Unit_Test_Case {
 	public function test_wc_print_error_notice() {
 
 		// Specific type.
-		$this->expectOutputString( '<ul class="woocommerce-error" role="alert"><li>Error!</li></ul>' );
+		$this->expectOutputString( '<ul class="poocommerce-error" role="alert"><li>Error!</li></ul>' );
 
 		wc_print_notice( 'Error!', 'error' );
 	}
@@ -187,7 +187,7 @@ class WC_Tests_Notice_Functions extends WC_Unit_Test_Case {
 	public function test_wc_print_notice_data() {
 
 		// Specific type.
-		$this->expectOutputString( '<ul class="woocommerce-error" role="alert"><li data-id="billing_postcode">Error!</li></ul>' );
+		$this->expectOutputString( '<ul class="poocommerce-error" role="alert"><li data-id="billing_postcode">Error!</li></ul>' );
 
 		wc_print_notice( 'Error!', 'error', array( 'id' => 'billing_postcode' ) );
 	}

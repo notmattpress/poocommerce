@@ -10,7 +10,7 @@ import {
 	WooHeaderNavigationItem,
 	WooHeaderPageTitle,
 	WooHeaderItem,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 import { Button } from '@wordpress/components';
 
 /**
@@ -67,7 +67,7 @@ export const Header = ( {
 		 */
 		const unRegisterHeaderItems = () => {
 			// @ts-expect-error scope param is not typed
-			const plugins = getPlugins( 'woocommerce-admin' );
+			const plugins = getPlugins( 'poocommerce-admin' );
 			plugins.forEach( ( plugin ) => {
 				if ( ITEMS_TO_REMOVE.includes( plugin.name ) ) {
 					unregisterPlugin( plugin.name );
@@ -86,7 +86,7 @@ export const Header = ( {
 						</WooHeaderNavigationItem>
 					) }
 					<WooHeaderPageTitle>
-						<span className="woocommerce-settings-payments-header__title">
+						<span className="poocommerce-settings-payments-header__title">
 							{ title }
 						</span>
 					</WooHeaderPageTitle>
@@ -104,7 +104,7 @@ export const Header = ( {
 					) }
 					{ description && (
 						<WooHeaderItem>
-							<div className="woocommerce-settings-payments-header__description">
+							<div className="poocommerce-settings-payments-header__description">
 								{ description }
 							</div>
 						</WooHeaderItem>
@@ -112,7 +112,7 @@ export const Header = ( {
 				</>
 			),
 			// @ts-expect-error scope param is not typed
-			scope: 'woocommerce-admin',
+			scope: 'poocommerce-admin',
 		} );
 
 		hasRegisteredPlugins = true;

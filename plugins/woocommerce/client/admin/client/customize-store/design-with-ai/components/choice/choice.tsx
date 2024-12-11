@@ -30,12 +30,12 @@ export const Choice = ( {
 	const changeHandler = () => {
 		onChange( value );
 	};
-	const inputId = 'woocommerce-' + value.replace( /_/g, '-' );
+	const inputId = 'poocommerce-' + value.replace( /_/g, '-' );
 
 	return (
 		<div
 			role="radio"
-			className={ clsx( 'woocommerce-cys-choice-container', className ) }
+			className={ clsx( 'poocommerce-cys-choice-container', className ) }
 			onClick={ changeHandler }
 			onKeyDown={ ( e ) => {
 				if ( e.key === 'Enter' ) {
@@ -45,9 +45,9 @@ export const Choice = ( {
 			data-selected={ selected ? selected : null }
 			tabIndex={ 0 }
 		>
-			<div className="woocommerce-cys-choice">
+			<div className="poocommerce-cys-choice">
 				<input
-					className="woocommerce-cys-choice-input"
+					className="poocommerce-cys-choice-input"
 					id={ inputId }
 					name={ name }
 					type="radio"

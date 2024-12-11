@@ -1,47 +1,47 @@
 # Translations in FSE templates
 
-To make the WooCommerce Blocks plugin inclusive, all user-facing strings should be translatable. Managing [Translations in PHP files](../../internal-developers/translations/translations-in-PHP-files.md) and [Translations in JS/TS files](../../internal-developers/translations/translations-in-JS-TS-files.md) is simple as PHP and JS/TS are languages are programming languages which contain translation function. In comparison, FSE-templates are using plain HTML. As HTML is a markup language and not a programming language, translation functions such as `__()` and `_n()` are not available in HTML. Therefore, translations within FSE-templates require a different approach.
+To make the PooCommerce Blocks plugin inclusive, all user-facing strings should be translatable. Managing [Translations in PHP files](../../internal-developers/translations/translations-in-PHP-files.md) and [Translations in JS/TS files](../../internal-developers/translations/translations-in-JS-TS-files.md) is simple as PHP and JS/TS are languages are programming languages which contain translation function. In comparison, FSE-templates are using plain HTML. As HTML is a markup language and not a programming language, translation functions such as `__()` and `_n()` are not available in HTML. Therefore, translations within FSE-templates require a different approach.
 
 Let's take a look at `templates/parts/mini-cart.html`:
 
 ```html
-<!-- wp:woocommerce/mini-cart-contents -->
-<div class="wp-block-woocommerce-mini-cart-contents">
-	<!-- wp:woocommerce/filled-mini-cart-contents-block -->
-	<div class="wp-block-woocommerce-filled-mini-cart-contents-block">
-		<!-- wp:woocommerce/mini-cart-title-block -->
-		<div class="wp-block-woocommerce-mini-cart-title-block"></div>
-		<!-- /wp:woocommerce/mini-cart-title-block -->
-		<!-- wp:woocommerce/mini-cart-items-block -->
-		<div class="wp-block-woocommerce-mini-cart-items-block">
-			<!-- wp:woocommerce/mini-cart-products-table-block -->
+<!-- wp:poocommerce/mini-cart-contents -->
+<div class="wp-block-poocommerce-mini-cart-contents">
+	<!-- wp:poocommerce/filled-mini-cart-contents-block -->
+	<div class="wp-block-poocommerce-filled-mini-cart-contents-block">
+		<!-- wp:poocommerce/mini-cart-title-block -->
+		<div class="wp-block-poocommerce-mini-cart-title-block"></div>
+		<!-- /wp:poocommerce/mini-cart-title-block -->
+		<!-- wp:poocommerce/mini-cart-items-block -->
+		<div class="wp-block-poocommerce-mini-cart-items-block">
+			<!-- wp:poocommerce/mini-cart-products-table-block -->
 			<div
-				class="wp-block-woocommerce-mini-cart-products-table-block"
+				class="wp-block-poocommerce-mini-cart-products-table-block"
 			></div>
-			<!-- /wp:woocommerce/mini-cart-products-table-block -->
+			<!-- /wp:poocommerce/mini-cart-products-table-block -->
 		</div>
-		<!-- /wp:woocommerce/mini-cart-items-block -->
-		<!-- wp:woocommerce/mini-cart-footer-block -->
-		<div class="wp-block-woocommerce-mini-cart-footer-block"></div>
-		<!-- /wp:woocommerce/mini-cart-footer-block -->
+		<!-- /wp:poocommerce/mini-cart-items-block -->
+		<!-- wp:poocommerce/mini-cart-footer-block -->
+		<div class="wp-block-poocommerce-mini-cart-footer-block"></div>
+		<!-- /wp:poocommerce/mini-cart-footer-block -->
 	</div>
-	<!-- /wp:woocommerce/filled-mini-cart-contents-block -->
+	<!-- /wp:poocommerce/filled-mini-cart-contents-block -->
 
-	<!-- wp:woocommerce/empty-mini-cart-contents-block -->
-	<div class="wp-block-woocommerce-empty-mini-cart-contents-block">
+	<!-- wp:poocommerce/empty-mini-cart-contents-block -->
+	<div class="wp-block-poocommerce-empty-mini-cart-contents-block">
 		<!-- wp:paragraph {"align":"center"} -->
 		<p class="has-text-align-center">
 			<strong>Your cart is currently empty!</strong>
 		</p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:woocommerce/mini-cart-shopping-button-block -->
-		<div class="wp-block-woocommerce-mini-cart-shopping-button-block"></div>
-		<!-- /wp:woocommerce/mini-cart-shopping-button-block -->
+		<!-- wp:poocommerce/mini-cart-shopping-button-block -->
+		<div class="wp-block-poocommerce-mini-cart-shopping-button-block"></div>
+		<!-- /wp:poocommerce/mini-cart-shopping-button-block -->
 	</div>
-	<!-- /wp:woocommerce/empty-mini-cart-contents-block -->
+	<!-- /wp:poocommerce/empty-mini-cart-contents-block -->
 </div>
-<!-- /wp:woocommerce/mini-cart-contents -->
+<!-- /wp:poocommerce/mini-cart-contents -->
 ```
 
 This FSE-template contains the following part:
@@ -70,7 +70,7 @@ To handle translations within FSE-templates, we need to find the following code:
 We then replace this code with the following code:
 
 ```html
-<!-- wp:pattern {"slug":"woocommerce/mini-cart-empty-cart-message"} /-->
+<!-- wp:pattern {"slug":"poocommerce/mini-cart-empty-cart-message"} /-->
 ```
 
 In the file, that holds the logic for this FSE-template, in this case `src/BlockTypes/MiniCart.php`, we then register this placeholder as a block pattern:
@@ -81,7 +81,7 @@ In the file, that holds the logic for this FSE-template, in this case `src/Block
  */
 public function register_empty_cart_message_block_pattern() {
     register_block_pattern(
-        'woocommerce/mini-cart-empty-cart-message',
+        'poocommerce/mini-cart-empty-cart-message',
         array(
             'title'    => __( 'Empty Mini-Cart Message', 'woo-gutenberg-products-block' ),
             'inserter' => false,
@@ -106,4 +106,4 @@ protected function initialize() {
 }
 ```
 
-The PR for the implementation above can be found on <https://github.com/woocommerce/woocommerce-blocks/pull/6248/files>.
+The PR for the implementation above can be found on <https://github.com/poocommerce/poocommerce-blocks/pull/6248/files>.

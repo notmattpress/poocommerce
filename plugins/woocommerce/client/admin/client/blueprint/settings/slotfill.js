@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createSlotFill, Button, Notice } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 import apiFetch from '@wordpress/api-fetch';
 
@@ -39,11 +39,11 @@ const Blueprint = () => {
 			'It includes all the settings in General, Accounts & Privacy, Emails, Integration, Site Visibility, Advanced.',
 		'Core Profiler Options': 'It in includes the setup wizard options.',
 		'Payment Gateways':
-			'It includes all the settings in WooCommerce | Settings | Payments.',
+			'It includes all the settings in PooCommerce | Settings | Payments.',
 		Shipping:
-			'It includes all the settings in WooCommerce | Settings | Shipping.',
+			'It includes all the settings in PooCommerce | Settings | Shipping.',
 		'Tax rates':
-			'It includes all the settings in WooCommerce | Settings | Tax.',
+			'It includes all the settings in PooCommerce | Settings | Tax.',
 		Plugins: 'It includes the active plugins on the site.',
 		Themes: 'It includes the active theme on the site.',
 		'Task Options': 'It includes the state of the setup task list.',
@@ -114,7 +114,7 @@ const Blueprint = () => {
 
 	useEffect( () => {
 		const saveButton = document.getElementsByClassName(
-			'woocommerce-save-button'
+			'poocommerce-save-button'
 		)[ 0 ];
 		if ( saveButton ) {
 			saveButton.style.display = 'none';
@@ -136,14 +136,14 @@ const Blueprint = () => {
 			<p className="blueprint-settings-slotfill-description">
 				{ __(
 					'Blueprints are setup files that contain all the installation instructions. including plugins, themes and settings. Ease the setup process, allow teams to apply each others’ changes and much more.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<p>
 				<strong>
 					Please{ ' ' }
 					<a
-						href="https://automattic.survey.fm/woocommerce-blueprint-survey"
+						href="https://automattic.survey.fm/poocommerce-blueprint-survey"
 						target="_blank"
 						rel="noreferrer"
 					>
@@ -239,7 +239,7 @@ const Blueprint = () => {
 				disabled={ ! exportEnabled }
 				isBusy={ ! exportEnabled }
 			>
-				{ __( 'Export', 'woocommerce' ) }
+				{ __( 'Export', 'poocommerce' ) }
 			</Button>
 			<p>Export may take some time depending on your network speed.</p>
 		</div>
@@ -255,8 +255,8 @@ const BlueprintSlotfill = () => {
 };
 
 export const registerBlueprintSlotfill = () => {
-	registerPlugin( 'woocommerce-admin-blueprint-settings-slotfill', {
-		scope: 'woocommerce-blueprint-settings',
+	registerPlugin( 'poocommerce-admin-blueprint-settings-slotfill', {
+		scope: 'poocommerce-blueprint-settings',
 		render: BlueprintSlotfill,
 	} );
 };

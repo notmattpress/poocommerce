@@ -4,18 +4,18 @@
  *
  * Handles requests to the /products/custom-fields endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   9.2.0
  */
 
-use Automattic\WooCommerce\Utilities\I18nUtil;
+use Automattic\PooCommerce\Utilities\I18nUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * REST API Product Custom Fields controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Product_Custom_Fields_Controller extends WC_REST_Controller {
@@ -137,7 +137,7 @@ class WC_REST_Product_Custom_Fields_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_post_permissions( $this->post_type, 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -151,7 +151,7 @@ class WC_REST_Product_Custom_Fields_Controller extends WC_REST_Controller {
 	public function get_collection_params() {
 		$params          = parent::get_collection_params();
 		$params['order'] = array(
-			'description'       => __( 'Order sort items ascending or descending.', 'woocommerce' ),
+			'description'       => __( 'Order sort items ascending or descending.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'asc',
 			'enum'              => array( 'asc', 'desc' ),

@@ -5,8 +5,8 @@ import {
 	getContext,
 	store,
 	navigate as navigateFn,
-} from '@woocommerce/interactivity';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/interactivity';
+import { getSetting } from '@poocommerce/settings';
 
 const isBlockTheme = getSetting< boolean >( 'isBlockTheme' );
 const isProductArchive = getSetting< boolean >( 'isProductArchive' );
@@ -73,7 +73,7 @@ export interface ProductFiltersContext {
 	originalParams: Record< string, string >;
 }
 
-const { actions } = store( 'woocommerce/product-filters', {
+const { actions } = store( 'poocommerce/product-filters', {
 	actions: {
 		openOverlay: () => {
 			const context = getContext< ProductFiltersContext >();

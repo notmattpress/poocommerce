@@ -2,11 +2,11 @@
 /**
  * Class WC_Settings_Payment_Gateways_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -33,8 +33,8 @@ class WC_Settings_Payment_Gateways_Test extends WC_Settings_Unit_Test_Case {
 	/**
 	 * get_settings should trigger the appropriate filter depending on the requested section name.
 	 *
-	 * @testWith ["", "woocommerce_payment_gateways_settings"]
-	 *           ["woocommerce_com", "woocommerce_get_settings_checkout"]
+	 * @testWith ["", "poocommerce_payment_gateways_settings"]
+	 *           ["poocommerce_com", "poocommerce_get_settings_checkout"]
 	 *
 	 * @param string $section_name The section name to test getting the settings for.
 	 * @param string $filter_name The name of the filter that is expected to be triggered.
@@ -173,7 +173,7 @@ class WC_Settings_Payment_Gateways_Test extends WC_Settings_Unit_Test_Case {
 		$this->assertTrue( $init_invoked );
 		$this->assertEquals( $expect_to_run_process_admin_options, $process_admin_options_invoked );
 
-		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'woocommerce_update_options_payment_gateways_bacs' ) );
-		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'woocommerce_update_options_checkout_' . $section_name ) );
+		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'poocommerce_update_options_payment_gateways_bacs' ) );
+		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'poocommerce_update_options_checkout_' . $section_name ) );
 	}
 }

@@ -3,10 +3,10 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
-import { Text } from '@woocommerce/experimental';
-import { Pill } from '@woocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
+import { Pill } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -43,31 +43,31 @@ export const Plugin: React.FC< PluginProps > = ( {
 	slug,
 } ) => {
 	return (
-		<div className="woocommerce-plugin-list__plugin">
+		<div className="poocommerce-plugin-list__plugin">
 			{ imageUrl && (
-				<div className="woocommerce-plugin-list__plugin-logo">
+				<div className="poocommerce-plugin-list__plugin-logo">
 					<img
 						src={ imageUrl }
 						alt={ sprintf(
 							/* translators: %s = name of the plugin */
-							__( '%s logo', 'woocommerce' ),
+							__( '%s logo', 'poocommerce' ),
 							name
 						) }
 					/>
 				</div>
 			) }
-			<div className="woocommerce-plugin-list__plugin-text">
+			<div className="poocommerce-plugin-list__plugin-text">
 				<Text variant="subtitle.small" as="h4">
 					{ name }
 					{ isBuiltByWC && (
 						<Pill>
-							{ __( 'Built by WooCommerce', 'woocommerce' ) }
+							{ __( 'Built by PooCommerce', 'poocommerce' ) }
 						</Pill>
 					) }
 				</Text>
 				<Text variant="subtitle.small">{ description }</Text>
 			</div>
-			<div className="woocommerce-plugin-list__plugin-action">
+			<div className="poocommerce-plugin-list__plugin-action">
 				{ isActive && manageUrl && (
 					<Button
 						disabled={ isDisabled }
@@ -81,7 +81,7 @@ export const Plugin: React.FC< PluginProps > = ( {
 							onManage( slug );
 						} }
 					>
-						{ __( 'Manage', 'woocommerce' ) }
+						{ __( 'Manage', 'poocommerce' ) }
 					</Button>
 				) }
 				{ isInstalled && ! isActive && (
@@ -91,7 +91,7 @@ export const Plugin: React.FC< PluginProps > = ( {
 						isSecondary
 						onClick={ () => installAndActivate( slug ) }
 					>
-						{ __( 'Activate', 'woocommerce' ) }
+						{ __( 'Activate', 'poocommerce' ) }
 					</Button>
 				) }
 				{ ! isInstalled && (
@@ -101,7 +101,7 @@ export const Plugin: React.FC< PluginProps > = ( {
 						isSecondary
 						onClick={ () => installAndActivate( slug ) }
 					>
-						{ __( 'Get started', 'woocommerce' ) }
+						{ __( 'Get started', 'poocommerce' ) }
 					</Button>
 				) }
 			</div>

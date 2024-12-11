@@ -10,7 +10,7 @@ import {
 	useBlockProps,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ const defaultTemplate = [
 			level: 3,
 			content: sprintf(
 				/* translators: %s: site name */
-				__( 'Create an account with %s', 'woocommerce' ),
+				__( 'Create an account with %s', 'poocommerce' ),
 				SITE_TITLE
 			),
 		},
@@ -40,13 +40,13 @@ const defaultTemplate = [
 			[
 				'core/list-item',
 				{
-					content: __( 'Faster future purchases', 'woocommerce' ),
+					content: __( 'Faster future purchases', 'poocommerce' ),
 				},
 			],
 			[
 				'core/list-item',
 				{
-					content: __( 'Securely save payment info', 'woocommerce' ),
+					content: __( 'Securely save payment info', 'poocommerce' ),
 				},
 			],
 			[
@@ -54,7 +54,7 @@ const defaultTemplate = [
 				{
 					content: __(
 						'Track orders & view shopping history',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			],
@@ -105,12 +105,12 @@ export const Edit = ( {
 			</Disabled>
 			{ ! generatePassword && (
 				<InspectorControls>
-					<PanelBody title={ __( 'Style', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Style', 'poocommerce' ) }>
 						<ToggleControl
-							label={ __( 'Dark mode inputs', 'woocommerce' ) }
+							label={ __( 'Dark mode inputs', 'poocommerce' ) }
 							help={ __(
 								'Inputs styled specifically for use on dark background colors.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ attributes.hasDarkControls }
 							onChange={ () =>

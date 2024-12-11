@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runOrderStatusFiltersTest } = require( '@woocommerce/e2e-core-tests' );
+const { runOrderStatusFiltersTest } = require( '@poocommerce/e2e-core-tests' );
 
 runOrderStatusFiltersTest();

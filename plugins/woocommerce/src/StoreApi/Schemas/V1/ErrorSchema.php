@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * ErrorSchema class.
@@ -27,13 +27,13 @@ class ErrorSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'code'    => [
-				'description' => __( 'Error code', 'woocommerce' ),
+				'description' => __( 'Error code', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'message' => [
-				'description' => __( 'Error message', 'woocommerce' ),
+				'description' => __( 'Error message', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,

@@ -6,11 +6,11 @@ import { Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { map } from 'lodash';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { Link } from '@woocommerce/components';
-import { formatValue } from '@woocommerce/number';
-import { ITEMS_STORE_NAME } from '@woocommerce/data';
-import { CurrencyContext } from '@woocommerce/currency';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { Link } from '@poocommerce/components';
+import { formatValue } from '@poocommerce/number';
+import { ITEMS_STORE_NAME } from '@poocommerce/data';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -29,14 +29,14 @@ class CategoriesReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Category', 'woocommerce' ),
+				label: __( 'Category', 'poocommerce' ),
 				key: 'category',
 				required: true,
 				isSortable: true,
 				isLeftAligned: true,
 			},
 			{
-				label: __( 'Items sold', 'woocommerce' ),
+				label: __( 'Items sold', 'poocommerce' ),
 				key: 'items_sold',
 				required: true,
 				defaultSort: true,
@@ -44,19 +44,19 @@ class CategoriesReportTable extends Component {
 				isNumeric: true,
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
 				key: 'net_revenue',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Products', 'woocommerce' ),
+				label: __( 'Products', 'poocommerce' ),
 				key: 'products_count',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Orders', 'woocommerce' ),
+				label: __( 'Orders', 'poocommerce' ),
 				key: 'orders_count',
 				isSortable: true,
 				isNumeric: true,
@@ -146,7 +146,7 @@ class CategoriesReportTable extends Component {
 					'Category',
 					'Categories',
 					totalResults,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', totalResults ),
 			},
@@ -155,16 +155,16 @@ class CategoriesReportTable extends Component {
 					'Item sold',
 					'Items sold',
 					itemsSold,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', itemsSold ),
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
 				value: formatAmount( netRevenue ),
 			},
 			{
-				label: _n( 'Order', 'Orders', ordersCount, 'woocommerce' ),
+				label: _n( 'Order', 'Orders', ordersCount, 'poocommerce' ),
 				value: formatValue( currency, 'number', ordersCount ),
 			},
 		];
@@ -176,9 +176,9 @@ class CategoriesReportTable extends Component {
 		const labels = {
 			helpText: __(
 				'Check at least two categories below to compare',
-				'woocommerce'
+				'poocommerce'
 			),
-			placeholder: __( 'Search by category name', 'woocommerce' ),
+			placeholder: __( 'Search by category name', 'poocommerce' ),
 		};
 
 		return (
@@ -203,7 +203,7 @@ class CategoriesReportTable extends Component {
 					order: query.order || 'desc',
 					extended_info: true,
 				} }
-				title={ __( 'Categories', 'woocommerce' ) }
+				title={ __( 'Categories', 'poocommerce' ) }
 				columnPrefsKey="categories_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }

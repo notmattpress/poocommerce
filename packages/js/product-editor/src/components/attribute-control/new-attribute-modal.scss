@@ -1,7 +1,7 @@
-.components-modal__frame.woocommerce-new-attribute-modal {
+.components-modal__frame.poocommerce-new-attribute-modal {
 	min-width: 75%;
 }
-.woocommerce-new-attribute-modal {
+.poocommerce-new-attribute-modal {
 	.components-notice.is-info {
 		margin-left: 0;
 		margin-right: 0;
@@ -29,7 +29,7 @@
 		min-height: 200px;
 		flex: 1 1 auto;
 
-		.woocommerce-new-attribute-modal__table-row {
+		.poocommerce-new-attribute-modal__table-row {
 			min-height: 80px;
 
 			.components-form-token-field__input-container .components-form-token-field__suggestions-list {
@@ -142,10 +142,10 @@
 		}
 
 		@include breakpoint( '>782px' ) {
-			.woocommerce-experimental-select-control__label {
+			.poocommerce-experimental-select-control__label {
 				@include screen-reader-only();
 			}
-			.woocommerce-experimental-select-control__combo-box-wrapper {
+			.poocommerce-experimental-select-control__combo-box-wrapper {
 				margin-bottom: 0;
 			}
 		}
@@ -169,7 +169,7 @@
 	}
 }
 
-.woocommerce-new-attribute-modal__table-attribute-value-column.has-values {
+.poocommerce-new-attribute-modal__table-attribute-value-column.has-values {
 	.components-form-token-field__suggestions-list {
 		border: 1px solid var( --wp-admin-theme-color );
 		border-top: 0;

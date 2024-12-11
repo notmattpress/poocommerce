@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { Loader } from '@woocommerce/onboarding';
+import { Loader } from '@poocommerce/onboarding';
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -24,80 +24,80 @@ import {
 
 const loaderSteps = [
 	{
-		title: __( 'Analyzing your responses', 'woocommerce' ),
+		title: __( 'Analyzing your responses', 'poocommerce' ),
 		image: (
 			<img
 				src={ analyzingYourResponses }
-				alt={ __( 'Analyzing your responses', 'woocommerce' ) }
+				alt={ __( 'Analyzing your responses', 'poocommerce' ) }
 			/>
 		),
 		progress: 14,
 	},
 	{
-		title: __( 'Comparing the top performing stores', 'woocommerce' ),
+		title: __( 'Comparing the top performing stores', 'poocommerce' ),
 		image: (
 			<img
 				src={ comparingTheTopPerformingStores }
 				alt={ __(
 					'Comparing the top performing stores',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		),
 		progress: 28,
 	},
 	{
-		title: __( 'Designing the best look for your business', 'woocommerce' ),
+		title: __( 'Designing the best look for your business', 'poocommerce' ),
 		image: (
 			<img
 				src={ designingTheBestLook }
 				alt={ __(
 					'Designing the best look for your business',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		),
 		progress: 42,
 	},
 	{
-		title: __( 'Generating content', 'woocommerce' ),
+		title: __( 'Generating content', 'poocommerce' ),
 		image: (
 			<img
 				src={ generatingContent }
-				alt={ __( 'Generating content', 'woocommerce' ) }
+				alt={ __( 'Generating content', 'poocommerce' ) }
 			/>
 		),
 		progress: 56,
 	},
 	{
-		title: __( 'Assembling your AI-optimized store', 'woocommerce' ),
+		title: __( 'Assembling your AI-optimized store', 'poocommerce' ),
 		image: (
 			<img
 				src={ assemblingAiOptimizedStore }
 				alt={ __(
 					'Assembling your AI-optimized store',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		),
 		progress: 70,
 	},
 	{
-		title: __( 'Applying the finishing touches', 'woocommerce' ),
+		title: __( 'Applying the finishing touches', 'poocommerce' ),
 		image: (
 			<img
 				src={ applyingFinishingTouches }
-				alt={ __( 'Applying the finishing touches', 'woocommerce' ) }
+				alt={ __( 'Applying the finishing touches', 'poocommerce' ) }
 			/>
 		),
 		progress: 84,
 	},
 	{
-		title: __( 'Opening the doors', 'woocommerce' ),
+		title: __( 'Opening the doors', 'poocommerce' ),
 		image: (
 			<img
 				src={ openingTheDoors }
-				alt={ __( 'Opening the doors', 'woocommerce' ) }
+				alt={ __( 'Opening the doors', 'poocommerce' ) }
 			/>
 		),
 		progress: 100,

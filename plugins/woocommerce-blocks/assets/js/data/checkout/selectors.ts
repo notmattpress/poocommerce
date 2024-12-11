@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { select } from '@wordpress/data';
-import { hasCollectableRate } from '@woocommerce/base-utils';
-import { isString, objectHasProp } from '@woocommerce/types';
+import { hasCollectableRate } from '@poocommerce/base-utils';
+import { isString, objectHasProp } from '@poocommerce/types';
 
 /**
  * Internal dependencies

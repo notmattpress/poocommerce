@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
-import { AddressFormValues, ContactFormValues } from '@woocommerce/settings';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
+import { AddressFormValues, ContactFormValues } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

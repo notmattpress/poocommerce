@@ -14,7 +14,7 @@ import {
 	// @ts-expect-error missing type.
 	privateApis as editorPrivateApis,
 } from '@wordpress/editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error missing type.
 	__unstableMotion as motion,
@@ -59,7 +59,7 @@ export function Layout( { route, showNewNavigation = false }: LayoutProps ) {
 					{ ( ! isMobileViewport || ! areas.mobile ) &&
 						showNewNavigation && (
 							<NavigableRegion
-								ariaLabel={ __( 'Navigation', 'woocommerce' ) }
+								ariaLabel={ __( 'Navigation', 'poocommerce' ) }
 								className="edit-site-layout__sidebar-region"
 							>
 								<AnimatePresence>

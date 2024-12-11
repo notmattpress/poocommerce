@@ -5,14 +5,14 @@ import { __ } from '@wordpress/i18n';
 import {
 	formatShippingAddress,
 	hasShippingRate,
-} from '@woocommerce/base-utils';
-import { useStoreCart } from '@woocommerce/base-context';
+} from '@poocommerce/base-utils';
+import { useStoreCart } from '@poocommerce/base-context';
 import {
 	ShippingCalculatorPanel,
 	ShippingCalculatorContext,
-} from '@woocommerce/base-components/cart-checkout';
+} from '@poocommerce/base-components/cart-checkout';
 import { useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 import { createInterpolateElement, useContext } from '@wordpress/element';
 
 /**
@@ -36,13 +36,13 @@ export const ShippingAddress = (): JSX.Element => {
 
 	const deliversToLabel = hasRates
 		? // Translators: <address/> is the formatted shipping address.
-		  __( 'Delivers to <address/>', 'woocommerce' )
+		  __( 'Delivers to <address/>', 'poocommerce' )
 		: // Translators: <address/> is the formatted shipping address.
-		  __( 'No delivery options available for <address/>', 'woocommerce' );
+		  __( 'No delivery options available for <address/>', 'poocommerce' );
 
 	const addressLabel = prefersCollection
 		? // Translators: <address/> is the pickup location.
-		  __( 'Collection from <address/>', 'woocommerce' )
+		  __( 'Collection from <address/>', 'poocommerce' )
 		: deliversToLabel;
 
 	const title = (
@@ -55,7 +55,7 @@ export const ShippingAddress = (): JSX.Element => {
 				<>
 					{ __(
 						'Enter address to check delivery options',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</>
 			) }

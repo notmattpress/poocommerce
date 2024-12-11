@@ -1,5 +1,5 @@
 const { getTestConfig } = require( './test-config' );
-const { HTTPClientFactory } = require('@woocommerce/api');
+const { HTTPClientFactory } = require('@poocommerce/api');
 
 /**
  * Uses the WordPress API to update the Ready page's status.

@@ -27,17 +27,17 @@ const getHelpText = ( pagerDisplayMode: PagerDisplayModes ) => {
 		case PagerDisplayModes.DIGITS:
 			return __(
 				'A list of numbers will show to indicate the number of items.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case PagerDisplayModes.DOTS:
 			return __(
 				'A series of dots will show to indicate the number of items.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case 'off':
-			return __( 'No pager will be displayed.', 'woocommerce' );
+			return __( 'No pager will be displayed.', 'poocommerce' );
 		default:
-			return __( 'No pager will be displayed.', 'woocommerce' );
+			return __( 'No pager will be displayed.', 'poocommerce' );
 	}
 };
 
@@ -52,7 +52,7 @@ export const ProductGalleryPagerBlockSettings = ( {
 
 	return (
 		<ToggleGroupControl
-			label={ __( 'Pager', 'woocommerce' ) }
+			label={ __( 'Pager', 'poocommerce' ) }
 			isBlock
 			style={ {
 				width: '100%',
@@ -67,7 +67,7 @@ export const ProductGalleryPagerBlockSettings = ( {
 		>
 			<ToggleGroupControlOption
 				value={ PagerDisplayModes.OFF }
-				label={ __( 'Off', 'woocommerce' ) }
+				label={ __( 'Off', 'poocommerce' ) }
 			/>
 			<ToggleGroupControlOption
 				value={ PagerDisplayModes.DOTS }

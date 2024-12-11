@@ -1,28 +1,28 @@
 <?php
 /**
- * WooCommerce Settings Tracking
+ * PooCommerce Settings Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of WooCommerce Settings.
+ * This class adds actions to track usage of PooCommerce Settings.
  */
 class WC_Settings_Tracking {
 
 	/**
-	 * List of allowed WooCommerce settings to potentially track updates for.
+	 * List of allowed PooCommerce settings to potentially track updates for.
 	 *
 	 * @var array
 	 */
 	protected $allowed_options = array();
 
 	/**
-	 * WooCommerce settings that have been updated (and will be tracked).
+	 * PooCommerce settings that have been updated (and will be tracked).
 	 *
 	 * @var array
 	 */
@@ -72,10 +72,10 @@ class WC_Settings_Tracking {
 	 * Init tracking.
 	 */
 	public function init() {
-		add_action( 'woocommerce_settings_page_init', array( $this, 'track_settings_page_view' ) );
-		add_action( 'woocommerce_update_option', array( $this, 'add_option_to_list' ) );
-		add_action( 'woocommerce_update_non_option_setting', array( $this, 'add_option_to_list_and_track_setting_change' ) );
-		add_action( 'woocommerce_update_options', array( $this, 'send_settings_change_event' ) );
+		add_action( 'poocommerce_settings_page_init', array( $this, 'track_settings_page_view' ) );
+		add_action( 'poocommerce_update_option', array( $this, 'add_option_to_list' ) );
+		add_action( 'poocommerce_update_non_option_setting', array( $this, 'add_option_to_list_and_track_setting_change' ) );
+		add_action( 'poocommerce_update_options', array( $this, 'send_settings_change_event' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'possibly_add_settings_tracking_scripts' ) );
 	}
 
@@ -83,7 +83,7 @@ class WC_Settings_Tracking {
 	 * Adds the option to the allowed and updated options directly.
 	 * Currently used for settings that don't use update_option.
 	 *
-	 * @param array $option WooCommerce option that should be updated.
+	 * @param array $option PooCommerce option that should be updated.
 	 */
 	public function add_option_to_list_and_track_setting_change( $option ) {
 		if ( ! in_array( $option['id'], $this->allowed_options, true ) ) {
@@ -111,14 +111,14 @@ class WC_Settings_Tracking {
 	}
 
 	/**
-	 * Add a WooCommerce option name to our allowed options list and attach
+	 * Add a PooCommerce option name to our allowed options list and attach
 	 * the `update_option` hook. Rather than inspecting every updated
-	 * option and pattern matching for "woocommerce", just build a dynamic
-	 * list for WooCommerce options that might get updated.
+	 * option and pattern matching for "poocommerce", just build a dynamic
+	 * list for PooCommerce options that might get updated.
 	 *
-	 * See `woocommerce_update_option` hook.
+	 * See `poocommerce_update_option` hook.
 	 *
-	 * @param array $option WooCommerce option (config) that might get updated.
+	 * @param array $option PooCommerce option (config) that might get updated.
 	 */
 	public function add_option_to_list( $option ) {
 		$this->allowed_options[] = $option['id'];
@@ -134,20 +134,20 @@ class WC_Settings_Tracking {
 	}
 
 	/**
-	 * Add WooCommerce option to a list of updated options.
+	 * Add PooCommerce option to a list of updated options.
 	 *
 	 * @param string $option_name Option being updated.
 	 * @param mixed  $old_value Old value of option.
 	 * @param mixed  $new_value New value of option.
 	 */
 	public function track_setting_change( $option_name, $old_value, $new_value ) {
-		// Make sure this is a WooCommerce option.
+		// Make sure this is a PooCommerce option.
 		if ( ! in_array( $option_name, $this->allowed_options, true ) ) {
 			return;
 		}
 
 		// Check to make sure the new value is truly different.
-		// `woocommerce_price_num_decimals` tends to trigger this
+		// `poocommerce_price_num_decimals` tends to trigger this
 		// because form values aren't coerced (e.g. '2' vs. 2).
 		if (
 			is_scalar( $old_value ) &&
@@ -169,7 +169,7 @@ class WC_Settings_Tracking {
 	}
 
 	/**
-	 * Send a Tracks event for WooCommerce options that changed values.
+	 * Send a Tracks event for PooCommerce options that changed values.
 	 */
 	public function send_settings_change_event() {
 		global $current_tab, $current_section;
@@ -211,7 +211,7 @@ class WC_Settings_Tracking {
 	}
 
 	/**
-	 * Send a Tracks event for WooCommerce settings page views.
+	 * Send a Tracks event for PooCommerce settings page views.
 	 */
 	public function track_settings_page_view() {
 		global $current_tab, $current_section;

@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Payments\Integrations;
+namespace Automattic\PooCommerce\Blocks\Payments\Integrations;
 
 use WC_Gateway_Paypal;
-use Automattic\WooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\Api;
 
 /**
  * PayPal Standard payment method integration
@@ -37,7 +37,7 @@ final class PayPal extends AbstractPaymentMethodType {
 	 * Initializes the payment method type.
 	 */
 	public function initialize() {
-		$this->settings = get_option( 'woocommerce_paypal_settings', [] );
+		$this->settings = get_option( 'poocommerce_paypal_settings', [] );
 	}
 
 	/**
@@ -95,6 +95,6 @@ final class PayPal extends AbstractPaymentMethodType {
 		 * @param string $name Gateway name.
 		 * @return array Updated list of supported features.
 		 */
-		return apply_filters( '__experimental_woocommerce_blocks_payment_gateway_features_list', $features, $this->get_name() );
+		return apply_filters( '__experimental_poocommerce_blocks_payment_gateway_features_list', $features, $this->get_name() );
 	}
 }

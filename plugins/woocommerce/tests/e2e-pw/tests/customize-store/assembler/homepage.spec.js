@@ -33,7 +33,7 @@ test.describe( 'Assembler -> Homepage', { tag: tags.GUTENBERG }, () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'yes'
 			);
 		} catch ( error ) {
@@ -55,13 +55,13 @@ test.describe( 'Assembler -> Homepage', { tag: tags.GUTENBERG }, () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'no'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_admin_customize_store_completed',
+				'poocommerce_admin_customize_store_completed',
 				'no'
 			);
 
@@ -233,7 +233,7 @@ test.describe( 'Homepage tracking banner', () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'yes'
 			);
 		} catch ( error ) {
@@ -256,7 +256,7 @@ test.describe( 'Homepage tracking banner', () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_allow_tracking',
+				'poocommerce_allow_tracking',
 				'no'
 			);
 
@@ -284,7 +284,7 @@ test.describe( 'Homepage tracking banner', () => {
 		pageObject,
 		baseURL,
 	} ) => {
-		await setOption( request, baseURL, 'woocommerce_allow_tracking', 'no' );
+		await setOption( request, baseURL, 'poocommerce_allow_tracking', 'no' );
 
 		await prepareAssembler( pageObject, baseURL );
 
@@ -304,7 +304,7 @@ test.describe( 'Homepage tracking banner', () => {
 		pageObject,
 		baseURL,
 	} ) => {
-		await setOption( request, baseURL, 'woocommerce_allow_tracking', 'no' );
+		await setOption( request, baseURL, 'poocommerce_allow_tracking', 'no' );
 
 		await prepareAssembler( pageObject, baseURL );
 
@@ -328,7 +328,7 @@ test.describe( 'Homepage tracking banner', () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_allow_tracking',
+				'poocommerce_allow_tracking',
 				'yes'
 			);
 

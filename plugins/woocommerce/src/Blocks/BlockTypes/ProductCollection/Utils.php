@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
 use WP_Query;
 

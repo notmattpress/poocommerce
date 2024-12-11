@@ -6,12 +6,12 @@ import { __ } from '@wordpress/i18n';
 import {
 	PAYMENT_GATEWAYS_STORE_NAME,
 	PLUGINS_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { Button } from '@wordpress/components';
 import { resolveSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
-const slug = 'woocommerce-payments';
+const slug = 'poocommerce-payments';
 export const WCPayInstallButton = () => {
 	const [ installing, setInstalling ] = useState( false );
 	const { installAndActivatePlugins } = useDispatch( PLUGINS_STORE_NAME );
@@ -27,7 +27,7 @@ export const WCPayInstallButton = () => {
 		}
 	};
 
-	const installWooCommercePayments = async () => {
+	const installPooCommercePayments = async () => {
 		if ( installing ) return;
 
 		setInstalling( true );
@@ -49,12 +49,12 @@ export const WCPayInstallButton = () => {
 	return (
 		<Button
 			className="button alignright"
-			onClick={ installWooCommercePayments }
+			onClick={ installPooCommercePayments }
 			variant="secondary"
 			isBusy={ installing }
 			aria-disabled={ installing }
 		>
-			{ __( 'Install', 'woocommerce' ) }
+			{ __( 'Install', 'poocommerce' ) }
 		</Button>
 	);
 };

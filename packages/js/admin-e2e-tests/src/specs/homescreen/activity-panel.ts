@@ -4,7 +4,7 @@
 import { afterAll, beforeAll, describe, it } from '@jest/globals';
 // TODO fix the type for this module.
 // eslint-disable-next-line
-import { createSimpleProduct, withRestApi } from '@woocommerce/e2e-utils';
+import { createSimpleProduct, withRestApi } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import {
 	unhideTaskList,
 	runActionScheduler,
 	updateOption,
-	resetWooCommerceState,
+	resetPooCommerceState,
 } from '../../fixtures';
 import { OrdersActivityPanel } from '../../elements/OrdersActivityPanel';
 import { addReviewToProduct, waitForElementByText } from '../../utils/actions';
@@ -33,7 +33,7 @@ export const testAdminHomescreenActivityPanel = () => {
 
 		beforeAll( async () => {
 			await login.login();
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 			await profileWizard.navigate();
 			await profileWizard.skipStoreSetup();
 
@@ -46,7 +46,7 @@ export const testAdminHomescreenActivityPanel = () => {
 			await removeAllOrders();
 			await unhideTaskList( 'setup' );
 			await runActionScheduler();
-			await updateOption( 'woocommerce_task_list_hidden', 'no' );
+			await updateOption( 'poocommerce_task_list_hidden', 'no' );
 			await login.logout();
 		} );
 

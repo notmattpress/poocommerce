@@ -65,26 +65,26 @@ class DatePickerContent extends Component {
 		return (
 			<div>
 				<H className="screen-reader-text" tabIndex="0">
-					{ __( 'Select date range and comparison', 'woocommerce' ) }
+					{ __( 'Select date range and comparison', 'poocommerce' ) }
 				</H>
 				<Section component={ false }>
-					<H className="woocommerce-filters-date__text">
-						{ __( 'select a date range', 'woocommerce' ) }
+					<H className="poocommerce-filters-date__text">
+						{ __( 'select a date range', 'poocommerce' ) }
 					</H>
 					<TabPanel
 						tabs={ [
 							{
 								name: 'period',
-								title: __( 'Presets', 'woocommerce' ),
-								className: 'woocommerce-filters-date__tab',
+								title: __( 'Presets', 'poocommerce' ),
+								className: 'poocommerce-filters-date__tab',
 							},
 							{
 								name: 'custom',
-								title: __( 'Custom', 'woocommerce' ),
-								className: 'woocommerce-filters-date__tab',
+								title: __( 'Custom', 'poocommerce' ),
+								className: 'poocommerce-filters-date__tab',
 							},
 						] }
-						className="woocommerce-filters-date__tabs"
+						className="poocommerce-filters-date__tabs"
 						activeClass="is-active"
 						initialTabName={
 							period === 'custom' ? 'custom' : 'period'
@@ -118,7 +118,7 @@ class DatePickerContent extends Component {
 								) }
 								<div
 									className={ classnames(
-										'woocommerce-filters-date__content-controls',
+										'poocommerce-filters-date__content-controls',
 										{
 											'is-custom':
 												selected.name === 'custom',
@@ -126,29 +126,29 @@ class DatePickerContent extends Component {
 									) }
 									ref={ this.controlsRef }
 								>
-									<H className="woocommerce-filters-date__text">
-										{ __( 'compare to', 'woocommerce' ) }
+									<H className="poocommerce-filters-date__text">
+										{ __( 'compare to', 'poocommerce' ) }
 									</H>
 									<ComparePeriods
 										onSelect={ onUpdate }
 										compare={ compare }
 									/>
-									<div className="woocommerce-filters-date__button-group">
+									<div className="poocommerce-filters-date__button-group">
 										{ selected.name === 'custom' && (
 											<Button
-												className="woocommerce-filters-date__button"
+												className="poocommerce-filters-date__button"
 												isSecondary
 												onClick={ resetCustomValues }
 												disabled={
 													! ( after || before )
 												}
 											>
-												{ __( 'Reset', 'woocommerce' ) }
+												{ __( 'Reset', 'poocommerce' ) }
 											</Button>
 										) }
 										{ isValidSelection( selected.name ) ? (
 											<Button
-												className="woocommerce-filters-date__button"
+												className="poocommerce-filters-date__button"
 												onClick={ onSelect(
 													selected.name,
 													onClose
@@ -157,18 +157,18 @@ class DatePickerContent extends Component {
 											>
 												{ __(
 													'Update',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Button>
 										) : (
 											<Button
-												className="woocommerce-filters-date__button"
+												className="poocommerce-filters-date__button"
 												isPrimary
 												disabled
 											>
 												{ __(
 													'Update',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Button>
 										) }

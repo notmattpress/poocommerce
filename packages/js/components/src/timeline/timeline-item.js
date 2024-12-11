@@ -7,22 +7,22 @@ import PropTypes from 'prop-types';
 import { createElement } from '@wordpress/element';
 
 const TimelineItem = ( { item = {}, className = '', clockFormat } ) => {
-	const itemClassName = classnames( 'woocommerce-timeline-item', className );
+	const itemClassName = classnames( 'poocommerce-timeline-item', className );
 	const itemTimeString = format( clockFormat, item.date );
 
 	return (
 		<li className={ itemClassName }>
-			<div className={ 'woocommerce-timeline-item__top-border' }></div>
-			<div className={ 'woocommerce-timeline-item__title' }>
-				<div className={ 'woocommerce-timeline-item__headline' }>
+			<div className={ 'poocommerce-timeline-item__top-border' }></div>
+			<div className={ 'poocommerce-timeline-item__title' }>
+				<div className={ 'poocommerce-timeline-item__headline' }>
 					{ item.icon }
 					<span>{ item.headline }</span>
 				</div>
-				<span className={ 'woocommerce-timeline-item__timestamp' }>
+				<span className={ 'poocommerce-timeline-item__timestamp' }>
 					{ item.hideTimestamp || false ? null : itemTimeString }
 				</span>
 			</div>
-			<div className={ 'woocommerce-timeline-item__body' }>
+			<div className={ 'poocommerce-timeline-item__body' }>
 				{ ( item.body || [] ).map( ( bodyItem, index ) => (
 					<span key={ `timeline-item-body-${ index }` }>
 						{ bodyItem }

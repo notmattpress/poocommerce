@@ -8,7 +8,7 @@ import {
 	PLUGINS_STORE_NAME,
 	PAYMENT_SETTINGS_STORE_NAME,
 	PaymentGatewayLink,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 
@@ -56,11 +56,11 @@ export const EllipsisMenuContent = ( {
 		useDispatch( 'core/notices' );
 
 	const typeToDisplayName: { [ key: string ]: string } = {
-		pricing: __( 'See pricing & fees', 'woocommerce' ),
-		about: __( 'Learn more', 'woocommerce' ),
-		terms: __( 'See Terms of Service', 'woocommerce' ),
-		support: __( 'Get support', 'woocommerce' ),
-		documentation: __( 'View documentation', 'woocommerce' ),
+		pricing: __( 'See pricing & fees', 'poocommerce' ),
+		about: __( 'Learn more', 'poocommerce' ),
+		terms: __( 'See Terms of Service', 'poocommerce' ),
+		support: __( 'Get support', 'poocommerce' ),
+		documentation: __( 'View documentation', 'poocommerce' ),
 	};
 
 	const deactivateGateway = () => {
@@ -68,7 +68,7 @@ export const EllipsisMenuContent = ( {
 		deactivatePlugin( pluginFile )
 			.then( () => {
 				createSuccessNotice(
-					__( 'Plugin was successfully deactivated.', 'woocommerce' )
+					__( 'Plugin was successfully deactivated.', 'poocommerce' )
 				);
 				invalidateResolutionForStoreSelector( 'getPaymentProviders' );
 				setIsDeactivating( false );
@@ -76,7 +76,7 @@ export const EllipsisMenuContent = ( {
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to deactivate the plugin.', 'woocommerce' )
+					__( 'Failed to deactivate the plugin.', 'poocommerce' )
 				);
 				setIsDeactivating( false );
 				onToggle();
@@ -85,18 +85,18 @@ export const EllipsisMenuContent = ( {
 
 	const disableGateway = () => {
 		const gatewayToggleNonce =
-			window.woocommerce_admin.nonces?.gateway_toggle || '';
+			window.poocommerce_admin.nonces?.gateway_toggle || '';
 
 		if ( ! gatewayToggleNonce ) {
 			createErrorNotice(
-				__( 'Failed to disable the plugin.', 'woocommerce' )
+				__( 'Failed to disable the plugin.', 'poocommerce' )
 			);
 			return;
 		}
 		setIsDisabling( true );
 		togglePaymentGateway(
 			pluginId,
-			window.woocommerce_admin.ajax_url,
+			window.poocommerce_admin.ajax_url,
 			gatewayToggleNonce
 		)
 			.then( () => {
@@ -106,7 +106,7 @@ export const EllipsisMenuContent = ( {
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to disable the plugin.', 'woocommerce' )
+					__( 'Failed to disable the plugin.', 'poocommerce' )
 				);
 				setIsDisabling( false );
 				onToggle();
@@ -126,7 +126,7 @@ export const EllipsisMenuContent = ( {
 				createErrorNotice(
 					__(
 						'Failed to hide the payment gateway suggestion.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 				setIsHidingSuggestion( false );
@@ -158,7 +158,7 @@ export const EllipsisMenuContent = ( {
 					const displayName = typeToDisplayName[ link._type ];
 					return displayName ? (
 						<div
-							className="woocommerce-ellipsis-menu__content__item"
+							className="poocommerce-ellipsis-menu__content__item"
 							key={ link._type }
 						>
 							<Button target="_blank" href={ link.url }>
@@ -170,7 +170,7 @@ export const EllipsisMenuContent = ( {
 			<CardDivider />
 			{ isSuggestion && (
 				<div
-					className="woocommerce-ellipsis-menu__content__item"
+					className="poocommerce-ellipsis-menu__content__item"
 					key="hide-suggestion"
 				>
 					<Button
@@ -178,13 +178,13 @@ export const EllipsisMenuContent = ( {
 						isBusy={ isHidingSuggestion }
 						disabled={ isHidingSuggestion }
 					>
-						{ __( 'Hide suggestion', 'woocommerce' ) }
+						{ __( 'Hide suggestion', 'poocommerce' ) }
 					</Button>
 				</div>
 			) }
 			{ ! isSuggestion && isWooPayments && ! needsSetup && testMode && (
 				<div
-					className="woocommerce-ellipsis-menu__content__item"
+					className="poocommerce-ellipsis-menu__content__item"
 					key="reset-account"
 				>
 					<Button
@@ -194,13 +194,13 @@ export const EllipsisMenuContent = ( {
 						} }
 						className={ 'components-button__danger' }
 					>
-						{ __( 'Reset account', 'woocommerce' ) }
+						{ __( 'Reset account', 'poocommerce' ) }
 					</Button>
 				</div>
 			) }
 			{ ! isSuggestion && ! isEnabled && (
 				<div
-					className="woocommerce-ellipsis-menu__content__item"
+					className="poocommerce-ellipsis-menu__content__item"
 					key="deactivate"
 				>
 					<Button
@@ -209,13 +209,13 @@ export const EllipsisMenuContent = ( {
 						isBusy={ isDeactivating }
 						disabled={ isDeactivating }
 					>
-						{ __( 'Deactivate', 'woocommerce' ) }
+						{ __( 'Deactivate', 'poocommerce' ) }
 					</Button>
 				</div>
 			) }
 			{ ! isSuggestion && isEnabled && (
 				<div
-					className="woocommerce-ellipsis-menu__content__item"
+					className="poocommerce-ellipsis-menu__content__item"
 					key="disable"
 				>
 					<Button
@@ -224,7 +224,7 @@ export const EllipsisMenuContent = ( {
 						isBusy={ isDisabling }
 						disabled={ isDisabling }
 					>
-						{ __( 'Disable', 'woocommerce' ) }
+						{ __( 'Disable', 'poocommerce' ) }
 					</Button>
 				</div>
 			) }

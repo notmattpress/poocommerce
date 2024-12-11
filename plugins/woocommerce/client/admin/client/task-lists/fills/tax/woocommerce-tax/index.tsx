@@ -3,8 +3,8 @@
  */
 import { difference } from 'lodash';
 import { useSelect } from '@wordpress/data';
-import { Spinner } from '@woocommerce/components';
-import { PLUGINS_STORE_NAME, SETTINGS_STORE_NAME } from '@woocommerce/data';
+import { Spinner } from '@poocommerce/components';
+import { PLUGINS_STORE_NAME, SETTINGS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import {
 import { AutomatedTaxes } from './automated-taxes';
 import { Setup } from './setup';
 
-export const WooCommerceTax: React.FC< TaxChildProps > = ( {
+export const PooCommerceTax: React.FC< TaxChildProps > = ( {
 	isPending,
 	onAutomate,
 	onManual,

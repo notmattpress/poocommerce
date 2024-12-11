@@ -3,7 +3,7 @@
  * Twenty Twenty support.
  *
  * @since   3.8.1
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 use Automattic\Jetpack\Constants;
@@ -20,25 +20,25 @@ class WC_Twenty_Twenty {
 	 */
 	public static function init() {
 
-		// Change WooCommerce wrappers.
-		remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
-		remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+		// Change PooCommerce wrappers.
+		remove_action( 'poocommerce_before_main_content', 'poocommerce_output_content_wrapper', 10 );
+		remove_action( 'poocommerce_after_main_content', 'poocommerce_output_content_wrapper_end', 10 );
 
-		add_action( 'woocommerce_before_main_content', array( __CLASS__, 'output_content_wrapper' ), 10 );
-		add_action( 'woocommerce_after_main_content', array( __CLASS__, 'output_content_wrapper_end' ), 10 );
+		add_action( 'poocommerce_before_main_content', array( __CLASS__, 'output_content_wrapper' ), 10 );
+		add_action( 'poocommerce_after_main_content', array( __CLASS__, 'output_content_wrapper_end' ), 10 );
 
 		// This theme doesn't have a traditional sidebar.
-		remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+		remove_action( 'poocommerce_sidebar', 'poocommerce_get_sidebar', 10 );
 
 		// Enqueue theme compatibility styles.
-		add_filter( 'woocommerce_enqueue_styles', array( __CLASS__, 'enqueue_styles' ) );
+		add_filter( 'poocommerce_enqueue_styles', array( __CLASS__, 'enqueue_styles' ) );
 
 		// Register theme features.
 		add_theme_support( 'wc-product-gallery-zoom' );
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-slider' );
 		add_theme_support(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'thumbnail_image_width' => 450,
 				'single_image_width'    => 600,
@@ -89,9 +89,9 @@ class WC_Twenty_Twenty {
 	 * @return array
 	 */
 	public static function enqueue_styles( $styles ) {
-		unset( $styles['woocommerce-general'] );
+		unset( $styles['poocommerce-general'] );
 
-		$styles['woocommerce-general'] = array(
+		$styles['poocommerce-general'] = array(
 			'src'     => str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/css/twenty-twenty.css',
 			'deps'    => '',
 			'version' => Constants::get_constant( 'WC_VERSION' ),
@@ -99,7 +99,7 @@ class WC_Twenty_Twenty {
 			'has_rtl' => true,
 		);
 
-		return apply_filters( 'woocommerce_twenty_twenty_styles', $styles );
+		return apply_filters( 'poocommerce_twenty_twenty_styles', $styles );
 	}
 
 }

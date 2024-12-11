@@ -29,13 +29,13 @@ export default function MySubscriptions(): JSX.Element {
 
 	const installedTableDescription = createInterpolateElement(
 		__(
-			'WooCommerce.com extensions and themes installed on this store. To see all your subscriptions go to <a>your account<custom_icon /></a> on WooCommerce.com.',
-			'woocommerce'
+			'PooCommerce.com extensions and themes installed on this store. To see all your subscriptions go to <a>your account<custom_icon /></a> on PooCommerce.com.',
+			'poocommerce'
 		),
 		{
 			a: (
 				<a
-					href="https://woocommerce.com/my-account/my-subscriptions"
+					href="https://poocommerce.com/my-account/my-subscriptions"
 					target="_blank"
 					rel="nofollow noopener noreferrer"
 				>
@@ -60,48 +60,48 @@ export default function MySubscriptions(): JSX.Element {
 
 	if ( ! wccomSettings?.isConnected ) {
 		const connectMessage = __(
-			"Connect your store to WooCommerce.com using the WooCommerce.com Update Manager. Once connected, you'll be able to manage your subscriptions, receive product updates, and access streamlined support from this screen.",
-			'woocommerce'
+			"Connect your store to PooCommerce.com using the PooCommerce.com Update Manager. Once connected, you'll be able to manage your subscriptions, receive product updates, and access streamlined support from this screen.",
+			'poocommerce'
 		);
 
 		return (
-			<div className="woocommerce-marketplace__my-subscriptions--connect">
+			<div className="poocommerce-marketplace__my-subscriptions--connect">
 				<InstallModal />
-				<div className="woocommerce-marketplace__my-subscriptions__icon" />
-				<h2 className="woocommerce-marketplace__my-subscriptions__header">
-					{ __( 'Manage your subscriptions', 'woocommerce' ) }
+				<div className="poocommerce-marketplace__my-subscriptions__icon" />
+				<h2 className="poocommerce-marketplace__my-subscriptions__header">
+					{ __( 'Manage your subscriptions', 'poocommerce' ) }
 				</h2>
-				<p className="woocommerce-marketplace__my-subscriptions__description">
+				<p className="poocommerce-marketplace__my-subscriptions__description">
 					{ connectMessage }
 				</p>
 				<Button href={ connectUrl() } variant="primary">
-					{ __( 'Connect your store', 'woocommerce' ) }
+					{ __( 'Connect your store', 'poocommerce' ) }
 				</Button>
 			</div>
 		);
 	}
 
 	return (
-		<div className="woocommerce-marketplace__my-subscriptions">
+		<div className="poocommerce-marketplace__my-subscriptions">
 			<InstallModal />
-			<section className="woocommerce-marketplace__my-subscriptions__notices">
+			<section className="poocommerce-marketplace__my-subscriptions__notices">
 				<Notices />
 			</section>
-			<section className="woocommerce-marketplace__my-subscriptions-section woocommerce-marketplace__my-subscriptions__installed">
-				<header className="woocommerce-marketplace__my-subscriptions__header">
-					<div className="woocommerce-marketplace__my-subscriptions__header-content">
-						<h2 className="woocommerce-marketplace__my-subscriptions__heading">
-							{ __( 'Installed on this store', 'woocommerce' ) }
+			<section className="poocommerce-marketplace__my-subscriptions-section poocommerce-marketplace__my-subscriptions__installed">
+				<header className="poocommerce-marketplace__my-subscriptions__header">
+					<div className="poocommerce-marketplace__my-subscriptions__header-content">
+						<h2 className="poocommerce-marketplace__my-subscriptions__heading">
+							{ __( 'Installed on this store', 'poocommerce' ) }
 						</h2>
-						<p className="woocommerce-marketplace__my-subscriptions__table-description">
+						<p className="poocommerce-marketplace__my-subscriptions__table-description">
 							{ installedTableDescription }
 						</p>
 					</div>
-					<div className="woocommerce-marketplace__my-subscriptions__header-refresh">
+					<div className="poocommerce-marketplace__my-subscriptions__header-refresh">
 						<RefreshButton />
 					</div>
 				</header>
-				<div className="woocommerce-marketplace__my-subscriptions__table-wrapper">
+				<div className="poocommerce-marketplace__my-subscriptions__table-wrapper">
 					<InstalledSubscriptionsTable
 						isLoading={ isLoading }
 						rows={ subscriptionsInstalled.map( ( item ) => {
@@ -111,17 +111,17 @@ export default function MySubscriptions(): JSX.Element {
 				</div>
 			</section>
 			{ subscriptionsAvailable.length > 0 && (
-				<section className="woocommerce-marketplace__my-subscriptions-section woocommerce-marketplace__my-subscriptions__available">
-					<h2 className="woocommerce-marketplace__my-subscriptions__heading">
-						{ __( 'Available to use', 'woocommerce' ) }
+				<section className="poocommerce-marketplace__my-subscriptions-section poocommerce-marketplace__my-subscriptions__available">
+					<h2 className="poocommerce-marketplace__my-subscriptions__heading">
+						{ __( 'Available to use', 'poocommerce' ) }
 					</h2>
-					<p className="woocommerce-marketplace__my-subscriptions__table-description">
+					<p className="poocommerce-marketplace__my-subscriptions__table-description">
 						{ __(
-							"WooCommerce.com subscriptions you haven't used yet.",
-							'woocommerce'
+							"PooCommerce.com subscriptions you haven't used yet.",
+							'poocommerce'
 						) }
 					</p>
-					<div className="woocommerce-marketplace__my-subscriptions__table-wrapper">
+					<div className="poocommerce-marketplace__my-subscriptions__table-wrapper">
 						<AvailableSubscriptionsTable
 							isLoading={ isLoading }
 							rows={ subscriptionsAvailable.map( ( item ) => {

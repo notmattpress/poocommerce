@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { HOME_URL } from '@woocommerce/settings';
+import { HOME_URL } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -68,7 +68,7 @@ const ProductSearchBlock = ( {
 					<button
 						type="submit"
 						className="wc-block-product-search__button"
-						aria-label={ __( 'Search', 'woocommerce' ) }
+						aria-label={ __( 'Search', 'poocommerce' ) }
 					>
 						<svg
 							aria-hidden="true"

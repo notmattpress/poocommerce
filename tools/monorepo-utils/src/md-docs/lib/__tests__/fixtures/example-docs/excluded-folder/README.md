@@ -1,3 +1,3 @@
 ---
-category_title: Excluded WooCommerce
+category_title: Excluded PooCommerce
 ---

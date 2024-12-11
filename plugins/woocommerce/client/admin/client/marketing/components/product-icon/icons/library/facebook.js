@@ -11,7 +11,7 @@ import { WC_ASSET_URL } from '~/utils/admin-settings';
 const facebook = (
 	<img
 		src={ `${ WC_ASSET_URL }images/marketing/facebook.svg` }
-		alt={ __( 'Facebook', 'woocommerce' ) }
+		alt={ __( 'Facebook', 'poocommerce' ) }
 		style={ { padding: '4px' } }
 	/>
 );

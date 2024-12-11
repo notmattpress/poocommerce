@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/empty-cart-block",
+	"name": "poocommerce/empty-cart-block",
 	"version": "1.0.0",
 	"title": "Empty Cart",
 	"description": "Contains blocks that are displayed when the cart is empty.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": [
 			"wide"
@@ -24,9 +24,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart"
+		"poocommerce/cart"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

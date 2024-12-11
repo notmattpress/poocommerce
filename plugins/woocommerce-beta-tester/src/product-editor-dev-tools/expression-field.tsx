@@ -5,7 +5,7 @@ import { Button } from '@wordpress/components';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { check, closeSmall, edit, trash } from '@wordpress/icons';
-import { evaluate } from '@woocommerce/expression-evaluation';
+import { evaluate } from '@poocommerce/expression-evaluation';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ export function ExpressionField( {
 	onUpdate,
 	onCancel,
 	onRemove,
-	updateLabel = __( 'Update', 'woocommerce' ),
+	updateLabel = __( 'Update', 'poocommerce' ),
 }: ExpressionFieldProps ) {
 	const textAreaRef = useRef< HTMLTextAreaElement >( null );
 
@@ -85,7 +85,7 @@ export function ExpressionField( {
 
 	return (
 		<div
-			className="woocommerce-product-editor-dev-tools-expression-field"
+			className="poocommerce-product-editor-dev-tools-expression-field"
 			data-mode={ mode }
 		>
 			<ExpressionTextArea
@@ -100,17 +100,17 @@ export function ExpressionField( {
 				error={ error }
 				showIfError={ editedExpression.length > 0 }
 			/>
-			<div className="woocommerce-product-editor-dev-tools-expression-field__actions">
+			<div className="poocommerce-product-editor-dev-tools-expression-field__actions">
 				{ mode === 'view' ? (
 					<>
 						<Button
 							icon={ edit }
-							label={ __( 'Edit', 'woocommerce' ) }
+							label={ __( 'Edit', 'poocommerce' ) }
 							onClick={ handleOnClickEdit }
 						/>
 						<Button
 							icon={ trash }
-							label={ __( 'Remove', 'woocommerce' ) }
+							label={ __( 'Remove', 'poocommerce' ) }
 							onClick={ () => onRemove?.() }
 						/>
 					</>
@@ -125,7 +125,7 @@ export function ExpressionField( {
 						{ onCancel && (
 							<Button
 								icon={ closeSmall }
-								label={ __( 'Cancel', 'woocommerce' ) }
+								label={ __( 'Cancel', 'poocommerce' ) }
 								onClick={ handleOnClickCancel }
 							/>
 						) }

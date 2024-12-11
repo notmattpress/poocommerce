@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Onboarding
+ * PooCommerce Onboarding
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
 /**
  * Contains backend logic for the onboarding profile and checklist feature.
@@ -34,7 +34,7 @@ class OnboardingSync {
 	 */
 	public function init() {
 		add_action( 'update_option_' . OnboardingProfile::DATA_OPTION, array( $this, 'send_profile_data_on_update' ), 10, 2 );
-		add_action( 'woocommerce_helper_connected', array( $this, 'send_profile_data_on_connect' ) );
+		add_action( 'poocommerce_helper_connected', array( $this, 'send_profile_data_on_connect' ) );
 
 		if ( ! is_admin() ) {
 			return;
@@ -44,10 +44,10 @@ class OnboardingSync {
 	}
 
 	/**
-	 * Send profile data to WooCommerce.com.
+	 * Send profile data to PooCommerce.com.
 	 */
 	private function send_profile_data() {
-		if ( 'yes' !== get_option( 'woocommerce_allow_tracking', 'no' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_allow_tracking', 'no' ) ) {
 			return;
 		}
 
@@ -79,7 +79,7 @@ class OnboardingSync {
 			'theme'               => get_stylesheet(),
 			'setup_client'        => false,
 			'store_location'      => $base_location['country'],
-			'default_currency'    => get_woocommerce_currency(),
+			'default_currency'    => get_poocommerce_currency(),
 		);
 
 		// Prepare industries as an array of slugs if they are in array format.
@@ -142,7 +142,7 @@ class OnboardingSync {
 			! $task_list ||
 			$task_list->is_hidden() ||
 			! isset( $_SERVER['HTTP_REFERER'] ) ||
-			0 !== strpos( wp_unslash( $_SERVER['HTTP_REFERER'] ), 'https://woocommerce.com/checkout?utm_medium=product' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			0 !== strpos( wp_unslash( $_SERVER['HTTP_REFERER'] ), 'https://poocommerce.com/checkout?utm_medium=product' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		) {
 			return;
 		}

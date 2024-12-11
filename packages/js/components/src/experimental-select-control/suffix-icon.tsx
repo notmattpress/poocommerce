@@ -14,7 +14,7 @@ export const SuffixIcon = ( { className = '', icon }: SuffixIconProps ) => {
 	return (
 		<div
 			className={ classNames(
-				'woocommerce-experimental-select-control__suffix-icon',
+				'poocommerce-experimental-select-control__suffix-icon',
 				className
 			) }
 		>

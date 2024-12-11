@@ -3,7 +3,7 @@
 /**
  * Internal dependencies
  */
-const { merchant, createSimpleProduct } = require( '@woocommerce/e2e-utils' );
+const { merchant, createSimpleProduct } = require( '@poocommerce/e2e-utils' );
 
 const config = require( 'config' );
 const simpleProductName = config.get( 'products.simple.name' );

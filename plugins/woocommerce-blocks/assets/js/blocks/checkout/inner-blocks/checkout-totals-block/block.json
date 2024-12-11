@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/checkout-totals-block",
+	"name": "poocommerce/checkout-totals-block",
 	"version": "1.0.0",
 	"title": "Checkout Totals",
 	"description": "Column containing the checkout totals.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -27,9 +27,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout"
+		"poocommerce/checkout"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

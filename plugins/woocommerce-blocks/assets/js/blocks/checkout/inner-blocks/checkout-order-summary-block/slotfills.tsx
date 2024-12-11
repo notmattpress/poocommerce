@@ -4,8 +4,8 @@
 import {
 	ExperimentalOrderMeta,
 	createSlotFill,
-} from '@woocommerce/blocks-checkout';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+} from '@poocommerce/blocks-checkout';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 // @todo Consider deprecating OrderMetaSlotFill and DiscountSlotFill in favour of inner block areas.
 export const OrderMetaSlotFill = (): JSX.Element => {
@@ -15,7 +15,7 @@ export const OrderMetaSlotFill = (): JSX.Element => {
 	const slotFillProps = {
 		extensions,
 		cart,
-		context: 'woocommerce/checkout',
+		context: 'poocommerce/checkout',
 	};
 
 	return <ExperimentalOrderMeta.Slot { ...slotFillProps } />;

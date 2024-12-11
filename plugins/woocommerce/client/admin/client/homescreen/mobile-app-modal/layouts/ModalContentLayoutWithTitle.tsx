@@ -16,7 +16,7 @@ export const ModalContentLayoutWithTitle = ( {
 				<h1>
 					{ __(
 						'Manage orders and track sales in real-time with the free mobile app',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</h1>
 			</div>
@@ -30,8 +30,8 @@ export const ModalContentLayoutWithTitle = ( {
 			</div>
 			<div className="mobile-footer-blurb">
 				{ __(
-					'The WooCommerce Mobile App is available on iOS and Android',
-					'woocommerce'
+					'The PooCommerce Mobile App is available on iOS and Android',
+					'poocommerce'
 				) }
 			</div>
 		</div>

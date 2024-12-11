@@ -76,7 +76,7 @@ export const deletePlugin = async ( {
  * @param {string} param.downloadDir
  *
  * @param {string} url The URL where the zip file is located. Takes precedence over `repository`.
- * @param {string} repository The repository owner and name. For example: `woocommerce/woocommerce`. Ignored when `url` was given.
+ * @param {string} repository The repository owner and name. For example: `poocommerce/poocommerce`. Ignored when `url` was given.
  * @param {string} authorizationToken Authorization token used to authenticate with the GitHub API if required.
  * @param {boolean} prerelease Flag on whether to get a prelease or not. Default `false`.
  * @param {string} downloadDir Relative path to the download directory. Non-existing folders will be auto-created. Defaults to `tmp` under current working directory.
@@ -149,7 +149,7 @@ export const deleteZip = async ( zipFilePath ) => {
  * Get the download URL of the latest release zip for a plugin using GitHub API.
  *
  * @param {{repository: string, authorizationToken: string, prerelease: boolean, perPage: number}} param
- * @param {string} repository The repository owner and name. For example: `woocommerce/woocommerce`.
+ * @param {string} repository The repository owner and name. For example: `poocommerce/poocommerce`.
  * @param {string} authorizationToken Authorization token used to authenticate with the GitHub API if required.
  * @param {boolean} prerelease Flag on whether to get a prelease or not.
  * @param {number} perPage Limit of entries returned from the latest releases list, defaults to 3.
@@ -246,8 +246,8 @@ export const installPluginThruWpCli = async ( pluginPath ) => {
 	};
 
 	const wpEnvPluginPath = pluginPath.replace(
-		/.*\/plugins\/woocommerce/,
-		'wp-content/plugins/woocommerce'
+		/.*\/plugins\/poocommerce/,
+		'wp-content/plugins/poocommerce'
 	);
 
 	await runWpCliCommand( `ls  ${ wpEnvPluginPath }` );

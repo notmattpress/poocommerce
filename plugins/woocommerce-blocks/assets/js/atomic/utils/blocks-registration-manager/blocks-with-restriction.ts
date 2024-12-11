@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { BlockConfiguration } from '@wordpress/blocks';
-import { ProductGalleryBlockSettings } from '@woocommerce/blocks/product-gallery/settings';
+import { ProductGalleryBlockSettings } from '@poocommerce/blocks/product-gallery/settings';
 
 /**
  * Internal dependencies

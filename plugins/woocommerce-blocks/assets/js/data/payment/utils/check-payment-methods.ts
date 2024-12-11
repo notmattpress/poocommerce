@@ -5,19 +5,19 @@ import {
 	CanMakePaymentArgument,
 	ExpressPaymentMethodConfigInstance,
 	PaymentMethodConfigInstance,
-} from '@woocommerce/types';
-import { CURRENT_USER_IS_ADMIN, getSetting } from '@woocommerce/settings';
+} from '@poocommerce/types';
+import { CURRENT_USER_IS_ADMIN, getSetting } from '@poocommerce/settings';
 import { dispatch, select } from '@wordpress/data';
 import {
 	deriveSelectedShippingRates,
 	emptyHiddenAddressFields,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import { __, sprintf } from '@wordpress/i18n';
 import {
 	getExpressPaymentMethods,
 	getPaymentMethods,
-} from '@woocommerce/blocks-registry';
-import { previewCart } from '@woocommerce/resource-previews';
+} from '@poocommerce/blocks-registry';
+import { previewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies
@@ -141,7 +141,7 @@ const registrationErrorNotice = (
 		/* translators: %s the id of the payment method being registered (bank transfer, cheque...) */
 		__(
 			`There was an error registering the payment method with id '%s': `,
-			'woocommerce'
+			'poocommerce'
 		),
 		paymentMethod.paymentMethodId
 	);

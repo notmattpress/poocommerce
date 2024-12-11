@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Notice, Button } from '@wordpress/components';
-import { useLocalStorageState } from '@woocommerce/base-hooks';
+import { useLocalStorageState } from '@poocommerce/base-hooks';
 import {
 	createInterpolateElement,
 	useEffect,
@@ -13,22 +13,22 @@ import {
 	MIGRATION_STATUS_LS_KEY,
 	getInitialStatusLSValue,
 	incrementUpgradeStatusDisplayCount,
-} from '@woocommerce/blocks/migration-products-to-product-collection';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/blocks/migration-products-to-product-collection';
+import { recordEvent } from '@poocommerce/tracks';
 
 const notice = createInterpolateElement(
 	__(
 		'Products (Beta) block was upgraded to <strongText />, an updated version with new features and simplified settings.',
-		'woocommerce'
+		'poocommerce'
 	),
 	{
 		strongText: (
-			<strong>{ __( `Product Collection`, 'woocommerce' ) }</strong>
+			<strong>{ __( `Product Collection`, 'poocommerce' ) }</strong>
 		),
 	}
 );
 
-const buttonLabel = __( 'Revert to Products (Beta)', 'woocommerce' );
+const buttonLabel = __( 'Revert to Products (Beta)', 'poocommerce' );
 
 type UpgradeNoticeProps = {
 	revertMigration: () => void;

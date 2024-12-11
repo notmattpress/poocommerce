@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/woocommerce-lib",
+	"name": "poocommerce/poocommerce-lib",
 	"description": "A package for hiding re-namespaced dependencies and executing them",
 	"prefer-stable": true,
 	"minimum-stability": "dev",
@@ -26,7 +26,7 @@
 	},
 	"extra": {
 		"mozart": {
-			"dep_namespace": "Automattic\\WooCommerce\\Vendor\\",
+			"dep_namespace": "Automattic\\PooCommerce\\Vendor\\",
 			"dep_directory": "/packages/",
 			"packages": [
 				"league/container",

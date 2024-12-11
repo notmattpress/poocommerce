@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { PaymentProvider, PaymentProviderType } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { PaymentProvider, PaymentProviderType } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 import { Gridicon } from '@automattic/components';
 
 /**
@@ -77,34 +77,34 @@ export const PaymentGatewayList = ( {
 								{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */ }
 								<div
 									id={ provider.id }
-									className="transitions-disabled woocommerce-list__item clickable-list-item enter-done"
+									className="transitions-disabled poocommerce-list__item clickable-list-item enter-done"
 									onClick={ () => {
 										window.location.href = getAdminLink(
 											'admin.php?page=wc-settings&tab=checkout&section=offline'
 										);
 									} }
 								>
-									<div className="woocommerce-list__item-inner">
-										<div className="woocommerce-list__item-before">
+									<div className="poocommerce-list__item-inner">
+										<div className="poocommerce-list__item-before">
 											<DefaultDragHandle />
 											<img
 												src={ provider.icon }
 												alt={ provider.title + ' logo' }
 											/>
 										</div>
-										<div className="woocommerce-list__item-text">
-											<span className="woocommerce-list__item-title">
+										<div className="poocommerce-list__item-text">
+											<span className="poocommerce-list__item-title">
 												{ provider.title }
 											</span>
 											<span
-												className="woocommerce-list__item-content"
+												className="poocommerce-list__item-content"
 												dangerouslySetInnerHTML={ {
 													__html: provider.description,
 												} }
 											/>
 										</div>
-										<div className="woocommerce-list__item-after centered">
-											<div className="woocommerce-list__item-after__actions">
+										<div className="poocommerce-list__item-after centered">
+											<div className="poocommerce-list__item-after__actions">
 												<a
 													href={ getAdminLink(
 														'admin.php?page=wc-settings&tab=checkout&section=offline'

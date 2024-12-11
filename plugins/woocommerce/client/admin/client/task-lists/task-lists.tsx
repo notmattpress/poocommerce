@@ -11,8 +11,8 @@ import {
 	TaskListType,
 	TaskType,
 	WCDataSelector,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -91,7 +91,7 @@ export const TaskLists: React.FC< TaskListsProps > = ( { query } ) => {
 
 	if ( currentTask ) {
 		return (
-			<div className="woocommerce-task-dashboard__container">
+			<div className="poocommerce-task-dashboard__container">
 				<Task query={ query } task={ currentTask } />
 			</div>
 		);
@@ -126,11 +126,11 @@ export const TaskLists: React.FC< TaskListsProps > = ( { query } ) => {
 							{ isToggleable && (
 								<DisplayOption>
 									<MenuGroup
-										className="woocommerce-layout__homescreen-display-options"
-										label={ __( 'Display', 'woocommerce' ) }
+										className="poocommerce-layout__homescreen-display-options"
+										label={ __( 'Display', 'poocommerce' ) }
 									>
 										<MenuItem
-											className="woocommerce-layout__homescreen-extension-tasklist-toggle"
+											className="poocommerce-layout__homescreen-extension-tasklist-toggle"
 											icon={
 												isHidden ? undefined : check
 											}
@@ -142,7 +142,7 @@ export const TaskLists: React.FC< TaskListsProps > = ( { query } ) => {
 										>
 											{ __(
 												'Show things to do next',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</MenuItem>
 									</MenuGroup>

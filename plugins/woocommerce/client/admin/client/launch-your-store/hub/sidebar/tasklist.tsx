@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /**
  * External dependencies
  */
-import { ONBOARDING_STORE_NAME, TaskType } from '@woocommerce/data';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
+import { ONBOARDING_STORE_NAME, TaskType } from '@poocommerce/data';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
 import { resolveSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import clsx from 'clsx';
@@ -15,12 +15,12 @@ import SidebarNavigationItem from '@wordpress/edit-site/build-module/components/
  * Internal dependencies
  */
 import { taskCompleteIcon, taskIcons } from './components/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	accessTaskReferralStorage,
 	createStorageUtils,
-} from '@woocommerce/onboarding';
-import { getAdminLink } from '@woocommerce/settings';
+} from '@poocommerce/onboarding';
+import { getAdminLink } from '@poocommerce/settings';
 
 const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
 export const LYS_RECENTLY_ACTIONED_TASKS_KEY = 'lys_recently_actioned_tasks';
@@ -37,21 +37,21 @@ export const getLysTasklist = async () => {
 	const LYS_TASKS_WHITELIST = [
 		'products',
 		'customize-store',
-		'woocommerce-payments',
+		'poocommerce-payments',
 		'payments',
 		'shipping',
 		'tax',
 	];
 
 	/**
-	 * This filter allows customizing the list of tasks to show in WooCommerce Launch Your Store feature.
+	 * This filter allows customizing the list of tasks to show in PooCommerce Launch Your Store feature.
 	 *
-	 * @filter woocommerce_launch_your_store_tasklist_whitelist
+	 * @filter poocommerce_launch_your_store_tasklist_whitelist
 	 * @param {string[]} LYS_TASKS_WHITELIST Default list of task IDs to show in LYS.
 	 *
 	 */
 	const filteredTasks = applyFilters(
-		'woocommerce_launch_your_store_tasklist_whitelist',
+		'poocommerce_launch_your_store_tasklist_whitelist',
 		[ ...LYS_TASKS_WHITELIST ]
 	) as string[];
 

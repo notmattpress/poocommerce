@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * AddToCartWithOptions class.
@@ -22,7 +22,7 @@ class AddToCartWithOptions extends AbstractBlock {
 	 * to prevent displaying the Cart Notice when the block is inside the Single Product block
 	 * and the Add to Cart button is clicked.
 	 *
-	 * It also hooks into the `woocommerce_add_to_cart_redirect` filter to prevent redirecting
+	 * It also hooks into the `poocommerce_add_to_cart_redirect` filter to prevent redirecting
 	 * to another page when the block is inside the Single Product block and the Add to Cart button
 	 * is clicked.
 	 *
@@ -31,7 +31,7 @@ class AddToCartWithOptions extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 		add_filter( 'wc_add_to_cart_message_html', array( $this, 'add_to_cart_message_html_filter' ), 10, 2 );
-		add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'add_to_cart_redirect_filter' ), 10, 1 );
+		add_filter( 'poocommerce_add_to_cart_redirect', array( $this, 'add_to_cart_redirect_filter' ), 10, 1 );
 	}
 
 	/**
@@ -96,7 +96,7 @@ class AddToCartWithOptions extends AbstractBlock {
 		 *
 		 * @since 9.7.0
 		 */
-		do_action( 'woocommerce_' . $product->get_type() . '_add_to_cart' );
+		do_action( 'poocommerce_' . $product->get_type() . '_add_to_cart' );
 
 		$product_html = ob_get_clean();
 
@@ -188,7 +188,7 @@ class AddToCartWithOptions extends AbstractBlock {
 	}
 
 	/**
-	 * Hooks into the `woocommerce_add_to_cart_redirect` filter to prevent redirecting
+	 * Hooks into the `poocommerce_add_to_cart_redirect` filter to prevent redirecting
 	 * to another page when the block is inside the Single Product block and the Add to Cart button
 	 * is clicked.
 	 *
@@ -199,7 +199,7 @@ class AddToCartWithOptions extends AbstractBlock {
 		// phpcs:ignore
 		if ( isset( $_POST['is-descendent-of-single-product-block'] ) && 'true' == $_POST['is-descendent-of-single-product-block'] ) {
 
-			if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
+			if ( 'yes' === get_option( 'poocommerce_cart_redirect_after_add' ) ) {
 				return wc_get_cart_url();
 			}
 

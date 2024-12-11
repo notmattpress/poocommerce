@@ -1,11 +1,11 @@
 <?php
 /**
  * Title: Hero Product Split
- * Slug: woocommerce-blocks/hero-product-split
- * Categories: WooCommerce, Intro
+ * Slug: poocommerce-blocks/hero-product-split
+ * Categories: PooCommerce, Intro
  */
 
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
 
 $hero_title = $content['titles'][0]['default'] ?? '';
 ?>
@@ -27,7 +27,7 @@ $hero_title = $content['titles'][0]['default'] ?? '';
 			<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--40)">
 				<!-- wp:button -->
 				<div class="wp-block-button">
-					<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Shop the sale', 'woocommerce' ); ?></a>
+					<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Shop the sale', 'poocommerce' ); ?></a>
 				</div>
 				<!-- /wp:button -->
 			</div>
@@ -35,7 +35,7 @@ $hero_title = $content['titles'][0]['default'] ?? '';
 		</div>
 
 		<figure class="wp-block-media-text__media">
-			<img src="<?php echo esc_url( PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/man-person-winter-photography-statue-coat.png' ) ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section.', 'woocommerce' ); ?>" />
+			<img src="<?php echo esc_url( PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/man-person-winter-photography-statue-coat.png' ) ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section.', 'poocommerce' ); ?>" />
 		</figure>
 	</div>
 	<!-- /wp:media-text -->

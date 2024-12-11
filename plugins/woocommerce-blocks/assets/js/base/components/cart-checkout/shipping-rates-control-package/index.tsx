@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 import { _n, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
-import { Label, Panel } from '@woocommerce/blocks-components';
+import { Label, Panel } from '@poocommerce/blocks-components';
 import { useCallback, useMemo } from '@wordpress/element';
-import { useShippingData } from '@woocommerce/base-context/hooks';
-import { sanitizeHTML } from '@woocommerce/utils';
+import { useShippingData } from '@poocommerce/base-context/hooks';
+import { sanitizeHTML } from '@poocommerce/utils';
 import type { ReactElement } from 'react';
 import { useSelect } from '@wordpress/data';
-import { CART_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -83,7 +83,7 @@ export const ShippingRatesControlPackage = ( {
 											'%1$s (%2$d unit)',
 											'%1$s (%2$d units)',
 											quantity,
-											'woocommerce'
+											'poocommerce'
 										),
 										name,
 										quantity

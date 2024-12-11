@@ -5,9 +5,9 @@ declare( strict_types = 1);
 /**
  * Layered Navigation Widget for brands WC 2.6 version
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 9.4.0
  * @extends WP_Widget
  */
@@ -20,12 +20,12 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 	public function __construct() {
 
 		/* Widget variable settings. */
-		$this->widget_cssclass    = 'woocommerce widget_brand_nav widget_layered_nav';
-		$this->widget_description = __( 'Shows brands in a widget which lets you narrow down the list of products when viewing products.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_brand_nav';
-		$this->widget_name        = __( 'WooCommerce Brand Layered Nav', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_brand_nav widget_layered_nav';
+		$this->widget_description = __( 'Shows brands in a widget which lets you narrow down the list of products when viewing products.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_brand_nav';
+		$this->widget_name        = __( 'PooCommerce Brand Layered Nav', 'poocommerce' );
 
-		add_filter( 'woocommerce_product_subcategories_args', array( $this, 'filter_out_cats' ) );
+		add_filter( 'poocommerce_product_subcategories_args', array( $this, 'filter_out_cats' ) );
 
 		/* Create the widget. */
 		parent::__construct();
@@ -166,10 +166,10 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
-		global $woocommerce;
+		global $poocommerce;
 
 		if ( empty( $new_instance['title'] ) ) {
-			$new_instance['title'] = __( 'Brands', 'woocommerce' );
+			$new_instance['title'] = __( 'Brands', 'poocommerce' );
 		}
 
 		$instance['title']        = wp_strip_all_tags( stripslashes( $new_instance['title'] ) );
@@ -187,20 +187,20 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 	 * @return void
 	 */
 	public function form( $instance ) {
-		global $woocommerce;
+		global $poocommerce;
 
 		if ( ! isset( $instance['display_type'] ) ) {
 			$instance['display_type'] = 'list';
 		}
 		?>
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'woocommerce' ); ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'poocommerce' ); ?></label>
 		<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : ''; ?>" />
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'display_type' ) ); ?>"><?php esc_html_e( 'Display Type:', 'woocommerce' ); ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'display_type' ) ); ?>"><?php esc_html_e( 'Display Type:', 'poocommerce' ); ?></label>
 		<select id="<?php echo esc_attr( $this->get_field_id( 'display_type' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'display_type' ) ); ?>">
-			<option value="list" <?php selected( $instance['display_type'], 'list' ); ?>><?php esc_html_e( 'List', 'woocommerce' ); ?></option>
-			<option value="dropdown" <?php selected( $instance['display_type'], 'dropdown' ); ?>><?php esc_html_e( 'Dropdown', 'woocommerce' ); ?></option>
+			<option value="list" <?php selected( $instance['display_type'], 'list' ); ?>><?php esc_html_e( 'List', 'poocommerce' ); ?></option>
+			<option value="dropdown" <?php selected( $instance['display_type'], 'dropdown' ); ?>><?php esc_html_e( 'Dropdown', 'poocommerce' ); ?></option>
 		</select></p>
 		<?php
 	}
@@ -310,7 +310,7 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 			if ( 0 === $depth ) {
 				echo '<select class="wc-brand-dropdown-layered-nav-' . esc_attr( $taxonomy ) . '">';
-				echo '<option value="">' . esc_html__( 'Any Brand', 'woocommerce' ) . '</option>';
+				echo '<option value="">' . esc_html__( 'Any Brand', 'poocommerce' ) . '</option>';
 			}
 
 			foreach ( $terms as $term ) {
@@ -433,13 +433,13 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 
 			echo '<li class="wc-layered-nav-term ' . ( $option_is_set ? 'chosen' : '' ) . '">';
 
-			echo ( $count > 0 || $option_is_set ) ? '<a href="' . esc_url( apply_filters( 'woocommerce_layered_nav_link', $link ) ) . '">' : '<span>'; // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			echo ( $count > 0 || $option_is_set ) ? '<a href="' . esc_url( apply_filters( 'poocommerce_layered_nav_link', $link ) ) . '">' : '<span>'; // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 			echo esc_html( $term->name );
 
 			echo ( $count > 0 || $option_is_set ) ? '</a> ' : '</span> ';
 
-			echo wp_kses_post( apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term ) );// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			echo wp_kses_post( apply_filters( 'poocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term ) );// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 			$child_terms = get_terms(
 				array(
@@ -504,13 +504,13 @@ class WC_Widget_Brand_Nav extends WC_Widget {
 			AND terms.term_id IN (' . implode( ',', array_map( 'absint', $term_ids ) ) . ')
 		';
 		$query['group_by'] = 'GROUP BY terms.term_id';
-		$query             = apply_filters( 'woocommerce_get_filtered_term_product_counts_query', $query ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		$query             = apply_filters( 'poocommerce_get_filtered_term_product_counts_query', $query ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$query             = implode( ' ', $query );
 
 		// We have a query - let's see if cached results of this query already exist.
 		$query_hash = md5( $query );
 
-		$cache = apply_filters( 'woocommerce_layered_nav_count_maybe_cache', true ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		$cache = apply_filters( 'poocommerce_layered_nav_count_maybe_cache', true ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		if ( true === $cache ) {
 			$cached_counts = (array) get_transient( 'wc_layered_nav_counts_' . sanitize_title( $taxonomy ) );
 		} else {

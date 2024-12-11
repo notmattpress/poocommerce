@@ -4,7 +4,7 @@
 import {
 	clearAndFillInput,
 	verifyValueOfInputField,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 import { afterAll, beforeAll, describe, it } from '@jest/globals';
 /**
  * Internal dependencies
@@ -46,11 +46,11 @@ export const testAdminBasicSetup = () => {
 			await page.click( 'input[value="/%postname%/"]' );
 
 			// Select "Custom base" in product permalinks section
-			await page.click( '#woocommerce_custom_selection' );
+			await page.click( '#poocommerce_custom_selection' );
 
 			// Fill custom base slug to use
-			await clearAndFillInput( '#woocommerce_permalink_structure', '' );
-			await page.type( '#woocommerce_permalink_structure', '/product/' );
+			await clearAndFillInput( '#poocommerce_permalink_structure', '' );
+			await page.type( '#poocommerce_permalink_structure', '/product/' );
 
 			await wpSettings.saveSettings();
 
@@ -67,7 +67,7 @@ export const testAdminBasicSetup = () => {
 					'/%postname%/'
 				),
 				verifyValueOfInputField(
-					'#woocommerce_permalink_structure',
+					'#poocommerce_permalink_structure',
 					'/product/'
 				),
 			] );

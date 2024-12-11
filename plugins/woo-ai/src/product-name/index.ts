@@ -7,7 +7,7 @@ import { ProductNameSuggestions } from './product-name-suggestions';
 if ( window.JP_CONNECTION_INITIAL_STATE?.connectionStatus?.isActive ) {
 	renderWrappedComponent(
 		ProductNameSuggestions,
-		document.getElementById( 'woocommerce-ai-app-product-name-suggestions' )
+		document.getElementById( 'poocommerce-ai-app-product-name-suggestions' )
 	);
 }
 

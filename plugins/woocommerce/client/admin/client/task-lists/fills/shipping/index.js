@@ -9,19 +9,19 @@ import { compose } from '@wordpress/compose';
 import { filter } from 'lodash';
 import interpolateComponents from '@automattic/interpolate-components';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { Link, Stepper, Plugins } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { Link, Stepper, Plugins } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import {
 	SETTINGS_STORE_NAME,
 	ONBOARDING_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	COUNTRIES_STORE_NAME,
 	SHIPPING_METHODS_STORE_NAME,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 import clsx from 'clsx';
 
 /**
@@ -76,7 +76,7 @@ export class Shipping extends Component {
 		const { countryCode, countryName } = this.props;
 
 		// @todo The following fetches for shipping information should be moved into
-		// @woocommerce/data to make these methods and states more readily available.
+		// @poocommerce/data to make these methods and states more readily available.
 		const shippingZones = [];
 		const zones = await apiFetch( { path: '/wc/v3/shipping/zones' } );
 		let hasCountryZone = false;
@@ -88,7 +88,7 @@ export class Shipping extends Component {
 					zone.methods = await apiFetch( {
 						path: `/wc/v3/shipping/zones/${ zone.id }/methods`,
 					} );
-					zone.name = __( 'Rest of the world', 'woocommerce' );
+					zone.name = __( 'Rest of the world', 'poocommerce' );
 					zone.toggleable = true;
 					shippingZones.push( zone );
 					return;
@@ -134,9 +134,9 @@ export class Shipping extends Component {
 	componentDidUpdate( prevProps, prevState ) {
 		const { countryCode, countryName, settings } = this.props;
 		const {
-			woocommerce_store_address: storeAddress,
-			woocommerce_default_country: defaultCountry,
-			woocommerce_store_postcode: storePostCode,
+			poocommerce_store_address: storeAddress,
+			poocommerce_default_country: defaultCountry,
+			poocommerce_store_postcode: storePostCode,
 		} = settings;
 		const { step } = this.state;
 
@@ -183,7 +183,7 @@ export class Shipping extends Component {
 				'success',
 				__(
 					'📦 Shipping is done! Don’t worry, you can always change it later',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 			onComplete();
@@ -224,7 +224,7 @@ export class Shipping extends Component {
 					/* translators: %s = plugin name */
 					__(
 						'Save time and money by printing your shipping labels right from your computer with %1$s. Try %2$s for free. {{link}}Learn more{{/link}}',
-						'woocommerce'
+						'poocommerce'
 					),
 					name,
 					name
@@ -241,10 +241,10 @@ export class Shipping extends Component {
 		let steps = [
 			{
 				key: 'store_location',
-				label: __( 'Set store location', 'woocommerce' ),
+				label: __( 'Set store location', 'poocommerce' ),
 				description: __(
 					'The address from which your business operates',
-					'woocommerce'
+					'poocommerce'
 				),
 				content: (
 					<StoreLocation
@@ -272,18 +272,18 @@ export class Shipping extends Component {
 			},
 			{
 				key: 'rates',
-				label: __( 'Set shipping costs', 'woocommerce' ),
+				label: __( 'Set shipping costs', 'poocommerce' ),
 				description: __(
 					'Define how much customers pay to ship to different destinations',
-					'woocommerce'
+					'poocommerce'
 				),
 				content: (
 					<ShippingRates
 						buttonText={
 							pluginsToActivate.length ||
 							requiresJetpackConnection
-								? __( 'Continue', 'woocommerce' )
-								: __( 'Complete task', 'woocommerce' )
+								? __( 'Continue', 'poocommerce' )
+								: __( 'Complete task', 'poocommerce' )
 						}
 						shippingZones={ this.state.shippingZones }
 						onComplete={ () => {
@@ -296,26 +296,26 @@ export class Shipping extends Component {
 					/>
 				),
 				visible:
-					settings.woocommerce_ship_to_countries === 'disabled'
+					settings.poocommerce_ship_to_countries === 'disabled'
 						? false
 						: true,
 			},
 			{
 				key: 'label_printing',
-				label: __( 'Enable shipping label printing', 'woocommerce' ),
+				label: __( 'Enable shipping label printing', 'poocommerce' ),
 				description: pluginsToActivate.includes(
-					'woocommerce-shipstation-integration'
+					'poocommerce-shipstation-integration'
 				)
 					? interpolateComponents( {
 							mixedString: __(
 								'We recommend using ShipStation to save time at the post office by printing your shipping ' +
 									'labels at home. Try ShipStation free for 30 days. {{link}}Learn more{{/link}}.',
-								'woocommerce'
+								'poocommerce'
 							),
 							components: {
 								link: (
 									<Link
-										href="https://woocommerce.com/products/shipstation-integration?utm_medium=product"
+										href="https://poocommerce.com/products/shipstation-integration?utm_medium=product"
 										target="_blank"
 										type="external"
 									/>
@@ -323,20 +323,20 @@ export class Shipping extends Component {
 							},
 					  } )
 					: __(
-							'With WooCommerce Shipping you can save time ' +
+							'With PooCommerce Shipping you can save time ' +
 								'by printing your USPS and DHL Express shipping labels at home',
-							'woocommerce'
+							'poocommerce'
 					  ),
 				content: (
 					<>
 						{ ! isJetpackConnected &&
 							pluginsToActivate.includes(
-								'woocommerce-services'
+								'poocommerce-services'
 							) && (
 								<TermsOfService
 									buttonText={ __(
 										'Install & enable',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							) }
@@ -374,13 +374,13 @@ export class Shipping extends Component {
 				visible: pluginsToActivate.length,
 			},
 
-			// Only needed for WooCommerce Shipping
+			// Only needed for PooCommerce Shipping
 			{
 				key: 'connect',
-				label: __( 'Connect your store', 'woocommerce' ),
+				label: __( 'Connect your store', 'poocommerce' ),
 				description: __(
 					'Connect your store to WordPress.com to enable label printing',
-					'woocommerce'
+					'poocommerce'
 				),
 				content: (
 					<Connect
@@ -399,10 +399,10 @@ export class Shipping extends Component {
 		if ( this.shippingSmartDefaultsEnabled ) {
 			const shippingSmartDefaultsSteps = {
 				rates: {
-					label: __( 'Review your shipping options', 'woocommerce' ),
+					label: __( 'Review your shipping options', 'poocommerce' ),
 					description: __(
-						'We recommend the following shipping options based on your location. You can manage your shipping options again at any time in WooCommerce Shipping settings.',
-						'woocommerce'
+						'We recommend the following shipping options based on your location. You can manage your shipping options again at any time in PooCommerce Shipping settings.',
+						'poocommerce'
 					),
 					onClick:
 						this.state.step !== 'rates'
@@ -414,7 +414,7 @@ export class Shipping extends Component {
 						<ShippingRates
 							buttonText={ __(
 								'Save shipping options',
-								'woocommerce'
+								'poocommerce'
 							) }
 							shippingZones={ this.state.shippingZones }
 							onComplete={ () => {
@@ -430,7 +430,7 @@ export class Shipping extends Component {
 				label_printing: {
 					label: __(
 						'Enable shipping label printing and discounted rates',
-						'woocommerce'
+						'poocommerce'
 					),
 					description:
 						pluginsToPromote.length === 1
@@ -440,7 +440,7 @@ export class Shipping extends Component {
 							  )
 							: __(
 									'Save time and money by printing your shipping labels right from your computer with one of these shipping solutions.',
-									'woocommerce'
+									'poocommerce'
 							  ),
 
 					content: (
@@ -450,7 +450,7 @@ export class Shipping extends Component {
 									shippingMethod={ pluginsToPromote[ 0 ] }
 								/>
 							) : (
-								<div className="woocommerce-task-shipping-recommendation_plugins-install-container">
+								<div className="poocommerce-task-shipping-recommendation_plugins-install-container">
 									{ pluginsToPromote.map(
 										( shippingMethod ) => {
 											const pluginsForPartner = [
@@ -468,7 +468,7 @@ export class Shipping extends Component {
 													}
 													key={ shippingMethod.name }
 												>
-													<div className="woocommerce-task-shipping-recommendations_plugins-buttons">
+													<div className="poocommerce-task-shipping-recommendations_plugins-buttons">
 														<Plugins
 															onComplete={ (
 																response
@@ -497,7 +497,7 @@ export class Shipping extends Component {
 															}
 															installText={ __(
 																'Install and enable',
-																'woocommerce'
+																'poocommerce'
 															) }
 															learnMoreLink={
 																shippingMethod.learn_more_link
@@ -535,7 +535,7 @@ export class Shipping extends Component {
 										rel="noreferrer"
 									>
 										<Button variant="primary">
-											{ __( 'Download', 'woocommerce' ) }
+											{ __( 'Download', 'poocommerce' ) }
 										</Button>
 									</a>
 								) }
@@ -544,11 +544,11 @@ export class Shipping extends Component {
 								<>
 									{ ! isJetpackConnected &&
 										pluginsToPromote[ 0 ].slug ===
-											'woocommerce-services' && (
+											'poocommerce-services' && (
 											<TermsOfService
 												buttonText={ __(
 													'Install and enable',
-													'woocommerce'
+													'poocommerce'
 												) }
 											/>
 										) }
@@ -579,7 +579,7 @@ export class Shipping extends Component {
 										pluginSlugs={ pluginsToActivate }
 										installText={ __(
 											'Install and enable',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</>
@@ -588,23 +588,23 @@ export class Shipping extends Component {
 									isTertiary
 									onClick={ onShippingPluginInstalltionSkip }
 									className={ clsx(
-										'woocommerce-task-shipping-recommendations_skip-button',
+										'poocommerce-task-shipping-recommendations_skip-button',
 										pluginsToPromote.length === 2
 											? 'dual'
 											: ''
 									) }
 								>
-									{ __( 'No Thanks', 'woocommerce' ) }
+									{ __( 'No Thanks', 'poocommerce' ) }
 								</Button>
 							) }
 						</>
 					),
 				},
 				store_location: {
-					label: __( 'Set your store location', 'woocommerce' ),
+					label: __( 'Set your store location', 'poocommerce' ),
 					description: __(
-						'Add your store location to help us calculate shipping rates and the best shipping options for you. You can manage your store location again at any time in WooCommerce Settings General.',
-						'woocommerce'
+						'Add your store location to help us calculate shipping rates and the best shipping options for you. You can manage your store location again at any time in PooCommerce Settings General.',
+						'poocommerce'
 					),
 					onClick:
 						this.state.step !== 'store_location'
@@ -612,7 +612,7 @@ export class Shipping extends Component {
 									this.setState( { step: 'store_location' } );
 							  }
 							: undefined,
-					buttonText: __( 'Save store location', 'woocommerce' ),
+					buttonText: __( 'Save store location', 'poocommerce' ),
 				},
 			};
 
@@ -639,8 +639,8 @@ export class Shipping extends Component {
 		const steps = this.getSteps();
 
 		return (
-			<div className="woocommerce-task-shipping">
-				<Card className="woocommerce-task-card">
+			<div className="poocommerce-task-shipping">
+				<Card className="poocommerce-task-card">
 					<CardBody>
 						<Stepper
 							isPending={
@@ -667,7 +667,7 @@ const ShippingWrapper = compose(
 
 		const { general: settings = {} } = getSettings( 'general' );
 		const countryCode = getCountryCode(
-			settings.woocommerce_default_country
+			settings.poocommerce_default_country
 		);
 
 		const shippingPartners = select(
@@ -707,7 +707,7 @@ const ShippingWrapper = compose(
 )( Shipping );
 
 registerPlugin( 'wc-admin-onboarding-task-shipping', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="shipping">
 			{ ( { onComplete, task } ) => {

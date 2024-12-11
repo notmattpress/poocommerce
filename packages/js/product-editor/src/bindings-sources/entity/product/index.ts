@@ -13,18 +13,18 @@ import type {
 	BindingUseSourceProps,
 	BlockProps,
 } from '../../../bindings/types';
-import type { WooCommerceEntityProductSourceArgs } from './types';
+import type { PooCommerceEntityProductSourceArgs } from './types';
 
 /**
  * React custom hook to bind a source to a block.
  *
  * @param {BlockProps}                         blockProps - The block props.
- * @param {WooCommerceEntityProductSourceArgs} sourceArgs - The source args.
+ * @param {PooCommerceEntityProductSourceArgs} sourceArgs - The source args.
  * @return {BindingUseSourceProps} The source value and setter.
  */
 const useSource = (
 	blockProps: BlockProps,
-	sourceArgs: WooCommerceEntityProductSourceArgs
+	sourceArgs: PooCommerceEntityProductSourceArgs
 ): BindingUseSourceProps => {
 	if ( typeof sourceArgs === 'undefined' ) {
 		throw new Error( 'The "args" argument is required.' );
@@ -61,7 +61,7 @@ const useSource = (
  * Create the product-entity
  * block binding source handler.
  *
- * source ID: `woocommerce/entity-product`
+ * source ID: `poocommerce/entity-product`
  * args:
  * - prop: The name of the entity property to bind.
  *
@@ -73,7 +73,7 @@ const useSource = (
  * metadata: {
  *   bindings: {
  *     content: {
- *       source: 'woocommerce/entity-product',
+ *       source: 'poocommerce/entity-product',
  *       args: {
  *         prop: 'short_description',
  *       },
@@ -82,8 +82,8 @@ const useSource = (
  * ```
  */
 export default {
-	name: 'woocommerce/entity-product',
-	label: __( 'Product Entity', 'woocommerce' ),
+	name: 'poocommerce/entity-product',
+	label: __( 'Product Entity', 'poocommerce' ),
 	useSource,
 	lockAttributesEditing: true,
-} as BindingSourceHandlerProps< WooCommerceEntityProductSourceArgs >;
+} as BindingSourceHandlerProps< PooCommerceEntityProductSourceArgs >;

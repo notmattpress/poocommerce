@@ -7,7 +7,7 @@ import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { addQueryArgs, getQueryArgs, removeQueryArgs } from '@wordpress/url';
 import { VIEW_LAYOUTS } from '@wordpress/dataviews';
 // @ts-expect-error missing type.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { __experimentalHStack as HStack } from '@wordpress/components';
 
 /**

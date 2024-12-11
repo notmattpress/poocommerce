@@ -21,7 +21,7 @@ _*Store owners:* deprecation warnings do not mean your store is broken, it just 
 
 ## How do we deprecate functions?
 
-When we deprecate something in WooCommerce, we take a few actions to make it clear to developers and to maintain backwards compatibility.
+When we deprecate something in PooCommerce, we take a few actions to make it clear to developers and to maintain backwards compatibility.
 
 1. We add a docblock to the function or method showing what version the function was deprecated in, e.g., `@deprecated 2.x.x`.
 2. We add a warning notice using our own `wc_deprecated_function` function that shows what version, what function, and what replacement is available. More on that in a bit.
@@ -36,7 +36,7 @@ We mentioned `wc_deprecated_function` above - this is our own wrapper for the `_
 If an extension or theme uses a deprecated function, you may see a warning like the following example:
 
 ```bash
-Notice: woocommerce_show_messages is deprecated since version 2.1! Use wc_print_notices instead. in /srv/www/wordpress-default/wp-includes/functions.php on line 3783
+Notice: poocommerce_show_messages is deprecated since version 2.1! Use wc_print_notices instead. in /srv/www/wordpress-default/wp-includes/functions.php on line 3783
 ```
 
 This tells you what is deprecated, since when, where, and what replacement is available.

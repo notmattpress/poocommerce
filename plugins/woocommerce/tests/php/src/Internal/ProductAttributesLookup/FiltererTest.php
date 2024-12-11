@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Internal\AttributesHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Internal\AttributesHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * Tests related to filtering for WC_Query.
@@ -409,7 +409,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * @param bool $hide The value to set the option to.
 	 */
 	private function set_hide_out_of_stock_items( $hide ) {
-		update_option( 'woocommerce_hide_out_of_stock_items', $hide ? 'yes' : 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', $hide ? 'yes' : 'no' );
 	}
 
 	/**
@@ -418,7 +418,7 @@ class FiltererTest extends \WC_Unit_Test_Case {
 	 * @param bool $use The value to set the option to.
 	 */
 	private function set_use_lookup_table( $use ) {
-		update_option( 'woocommerce_attribute_lookup_enabled', $use ? 'yes' : 'no' );
+		update_option( 'poocommerce_attribute_lookup_enabled', $use ? 'yes' : 'no' );
 	}
 
 	/**

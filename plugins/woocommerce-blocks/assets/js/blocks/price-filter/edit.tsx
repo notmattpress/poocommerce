@@ -3,9 +3,9 @@
  */
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { getAdminLink } from '@woocommerce/settings';
-import { blocksConfig } from '@woocommerce/block-settings';
-import BlockTitle from '@woocommerce/editor-components/block-title';
+import { getAdminLink } from '@poocommerce/settings';
+import { blocksConfig } from '@poocommerce/block-settings';
+import BlockTitle from '@poocommerce/editor-components/block-title';
 import { Icon, currencyDollar, external } from '@wordpress/icons';
 import type { BlockEditProps } from '@wordpress/blocks';
 import {
@@ -46,9 +46,9 @@ export default function ( {
 	const getInspectorControls = () => {
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
-						label={ __( 'Price Range Selector', 'woocommerce' ) }
+						label={ __( 'Price Range Selector', 'poocommerce' ) }
 						isBlock
 						value={ showInputFields ? 'editable' : 'text' }
 						onChange={ ( value: string ) =>
@@ -60,16 +60,16 @@ export default function ( {
 					>
 						<ToggleGroupControlOption
 							value="editable"
-							label={ __( 'Editable', 'woocommerce' ) }
+							label={ __( 'Editable', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="text"
-							label={ __( 'Text', 'woocommerce' ) }
+							label={ __( 'Text', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 					{ showInputFields && (
 						<ToggleControl
-							label={ __( 'Inline input fields', 'woocommerce' ) }
+							label={ __( 'Inline input fields', 'poocommerce' ) }
 							checked={ inlineInput }
 							onChange={ () =>
 								setAttributes( {
@@ -78,18 +78,18 @@ export default function ( {
 							}
 							help={ __(
 								'Show input fields inline with the slider.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
 					<ToggleControl
 						label={ __(
 							"Show 'Apply filters' button",
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Products will update when the button is clicked.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showFilterButton }
 						onChange={ () =>
@@ -107,16 +107,16 @@ export default function ( {
 		<Placeholder
 			className="wc-block-price-slider"
 			icon={ <Icon icon={ currencyDollar } /> }
-			label={ __( 'Filter by Price', 'woocommerce' ) }
+			label={ __( 'Filter by Price', 'poocommerce' ) }
 			instructions={ __(
 				'Display a slider to filter products in your store by price.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		>
 			<p>
 				{ __(
 					'To filter your products by price you first need to assign prices to your products.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<Button
@@ -125,16 +125,16 @@ export default function ( {
 				href={ getAdminLink( 'post-new.php?post_type=product' ) }
 				target="_top"
 			>
-				{ __( 'Add new product', 'woocommerce' ) + ' ' }
+				{ __( 'Add new product', 'poocommerce' ) + ' ' }
 				<Icon icon={ external } />
 			</Button>
 			<Button
 				className="wc-block-price-slider__read_more_button"
 				variant="tertiary"
-				href="https://woocommerce.com/document/managing-products/"
+				href="https://poocommerce.com/document/managing-products/"
 				target="_blank"
 			>
-				{ __( 'Learn more', 'woocommerce' ) }
+				{ __( 'Learn more', 'poocommerce' ) }
 			</Button>
 		</Placeholder>
 	);

@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
 use WC_Emails;
 use WC_Unit_Test_Case;
 
 /**
  * EmailPreviewTest test.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview
+ * @covers \Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview
  */
 class EmailPreviewTest extends WC_Unit_Test_Case {
 	/**
@@ -34,7 +34,7 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_it_returns_order_email_preview_under_feature_flag() {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 		$message       = $this->sut->render();
 		$order_title   = 'Thank you for your order';
 		$order_content = "Just to let you know — we've received your order #12345, and it is now being processed:";

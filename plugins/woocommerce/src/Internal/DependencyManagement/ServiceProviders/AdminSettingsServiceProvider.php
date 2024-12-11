@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsController;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsRestController;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsController;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsRestController;
 
 /**
- * Service provider for the admin settings controller classes in the Automattic\WooCommerce\Internal\Admin\Settings namespace.
+ * Service provider for the admin settings controller classes in the Automattic\PooCommerce\Internal\Admin\Settings namespace.
  */
 class AdminSettingsServiceProvider extends AbstractInterfaceServiceProvider {
 	/**

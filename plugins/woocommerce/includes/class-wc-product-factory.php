@@ -2,9 +2,9 @@
 /**
  * Product Factory
  *
- * The WooCommerce product factory creating the right product object.
+ * The PooCommerce product factory creating the right product object.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  */
 
@@ -58,7 +58,7 @@ class WC_Product_Factory {
 	 * @return string
 	 */
 	public static function get_product_classname( $product_id, $product_type ) {
-		$classname = apply_filters( 'woocommerce_product_class', self::get_classname_from_product_type( $product_type ), $product_type, 'variation' === $product_type ? 'product_variation' : 'product', $product_id );
+		$classname = apply_filters( 'poocommerce_product_class', self::get_classname_from_product_type( $product_type ), $product_type, 'variation' === $product_type ? 'product_variation' : 'product', $product_id );
 
 		if ( ! $classname || ! class_exists( $classname ) ) {
 			$classname = 'WC_Product_Simple';
@@ -76,7 +76,7 @@ class WC_Product_Factory {
 	 */
 	public static function get_product_type( $product_id ) {
 		// Allow the overriding of the lookup in this function. Return the product type here.
-		$override = apply_filters( 'woocommerce_product_type_query', false, $product_id );
+		$override = apply_filters( 'poocommerce_product_type_query', false, $product_id );
 		if ( ! $override ) {
 			return WC_Data_Store::load( 'product' )->get_product_type( $product_id );
 		} else {

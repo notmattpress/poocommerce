@@ -10,17 +10,17 @@ import classnames from 'classnames';
 import { createElement, useState } from '@wordpress/element';
 import { Icon, trash } from '@wordpress/icons';
 import { MediaItem } from '@wordpress/media-utils';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import {
 	MediaUploader,
 	MediaUploaderErrorCallback,
 	ImageGallery,
 	ImageGalleryItem,
-} from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -198,7 +198,7 @@ export function ImageBlockEdit( {
 		createErrorNotice(
 			sprintf(
 				/* translators: %1$s is a line break, %2$s is the detailed error message */
-				__( 'Error uploading image:%1$s%2$s', 'woocommerce' ),
+				__( 'Error uploading image:%1$s%2$s', 'poocommerce' ),
 				'\n',
 				error.message
 			)
@@ -211,26 +211,26 @@ export function ImageBlockEdit( {
 
 	return (
 		<div { ...blockProps }>
-			<div className="woocommerce-product-form__image-drop-zone">
+			<div className="poocommerce-product-form__image-drop-zone">
 				{ isRemovingZoneVisible ? (
-					<div className="woocommerce-product-form__remove-image-drop-zone">
+					<div className="poocommerce-product-form__remove-image-drop-zone">
 						<span>
 							<Icon
 								icon={ trash }
 								size={ 20 }
 								className="icon-control"
 							/>
-							{ __( 'Drop here to remove', 'woocommerce' ) }
+							{ __( 'Drop here to remove', 'poocommerce' ) }
 						</span>
 						<DropZone
 							onHTMLDrop={ () => setIsRemoving( true ) }
 							onDrop={ () => setIsRemoving( true ) }
-							label={ __( 'Drop here to remove', 'woocommerce' ) }
+							label={ __( 'Drop here to remove', 'poocommerce' ) }
 						/>
 					</div>
 				) : (
 					<SectionActions>
-						<div className="woocommerce-product-form__media-uploader">
+						<div className="poocommerce-product-form__media-uploader">
 							<MediaUploader
 								value={
 									Array.isArray( propertyValue )
@@ -258,7 +258,7 @@ export function ImageBlockEdit( {
 								label={ '' }
 								buttonText={ __(
 									'Choose an image',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 						</div>

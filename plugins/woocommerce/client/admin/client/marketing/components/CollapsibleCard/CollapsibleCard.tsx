@@ -42,7 +42,7 @@ const CollapsibleCard: React.FC< CollapsibleCardProps > = ( {
 	};
 
 	return (
-		<Card className={ clsx( 'woocommerce-collapsible-card', className ) }>
+		<Card className={ clsx( 'poocommerce-collapsible-card', className ) }>
 			<CardHeader onClick={ handleClick }>
 				<CardHeaderTitle>{ header }</CardHeaderTitle>
 				<Button
@@ -50,8 +50,8 @@ const CollapsibleCard: React.FC< CollapsibleCardProps > = ( {
 					icon={ collapsed ? chevronDown : chevronUp }
 					label={
 						collapsed
-							? __( 'Expand', 'woocommerce' )
-							: __( 'Collapse', 'woocommerce' )
+							? __( 'Expand', 'poocommerce' )
+							: __( 'Collapse', 'poocommerce' )
 					}
 					onClick={ handleClick }
 				/>

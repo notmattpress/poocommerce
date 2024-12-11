@@ -27,7 +27,7 @@ const Edit = ( props: EditProps ) => {
 			allowedBlocks: getAllowedBlocks( EXCLUDED_BLOCKS ),
 			template: [
 				[
-					'woocommerce/product-filter-removable-chips',
+					'poocommerce/product-filter-removable-chips',
 					{
 						lock: {
 							remove: true,
@@ -37,7 +37,7 @@ const Edit = ( props: EditProps ) => {
 				...( clearButton
 					? [
 							[
-								'woocommerce/product-filter-clear-button',
+								'poocommerce/product-filter-clear-button',
 								{
 									clearType: 'all',
 									lock: {

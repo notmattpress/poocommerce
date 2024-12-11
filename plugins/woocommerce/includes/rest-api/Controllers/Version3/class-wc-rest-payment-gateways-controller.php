@@ -4,7 +4,7 @@
  *
  * Handles requests to the /payment_gateways endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Payment gateways controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Payment_Gateways_V2_Controller
  */
 class WC_REST_Payment_Gateways_Controller extends WC_REST_Payment_Gateways_V2_Controller {
@@ -33,7 +33,7 @@ class WC_REST_Payment_Gateways_Controller extends WC_REST_Payment_Gateways_V2_Co
 	 * @return WP_REST_Response   $response   Response data.
 	 */
 	public function prepare_item_for_response( $gateway, $request ) {
-		$order = (array) get_option( 'woocommerce_gateway_order' );
+		$order = (array) get_option( 'poocommerce_gateway_order' );
 		$item  = array(
 			'id'                 => $gateway->id,
 			'title'              => $gateway->title,
@@ -60,7 +60,7 @@ class WC_REST_Payment_Gateways_Controller extends WC_REST_Payment_Gateways_V2_Co
 		 * @param WC_Payment_Gateway $gateway  Payment gateway object.
 		 * @param WP_REST_Request    $request  Request object.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_payment_gateway', $response, $gateway, $request );
+		return apply_filters( 'poocommerce_rest_prepare_payment_gateway', $response, $gateway, $request );
 	}
 
 	/**
@@ -114,23 +114,23 @@ class WC_REST_Payment_Gateways_Controller extends WC_REST_Payment_Gateways_V2_Co
 			'type'       => 'object',
 			'properties' => array(
 				'id'                 => array(
-					'description' => __( 'Payment gateway ID.', 'woocommerce' ),
+					'description' => __( 'Payment gateway ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'title'              => array(
-					'description' => __( 'Payment gateway title on checkout.', 'woocommerce' ),
+					'description' => __( 'Payment gateway title on checkout.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'description'        => array(
-					'description' => __( 'Payment gateway description on checkout.', 'woocommerce' ),
+					'description' => __( 'Payment gateway description on checkout.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'order'              => array(
-					'description' => __( 'Payment gateway sort order.', 'woocommerce' ),
+					'description' => __( 'Payment gateway sort order.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -138,24 +138,24 @@ class WC_REST_Payment_Gateways_Controller extends WC_REST_Payment_Gateways_V2_Co
 					),
 				),
 				'enabled'            => array(
-					'description' => __( 'Payment gateway enabled status.', 'woocommerce' ),
+					'description' => __( 'Payment gateway enabled status.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'method_title'       => array(
-					'description' => __( 'Payment gateway method title.', 'woocommerce' ),
+					'description' => __( 'Payment gateway method title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'method_description' => array(
-					'description' => __( 'Payment gateway method description.', 'woocommerce' ),
+					'description' => __( 'Payment gateway method description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'method_supports'    => array(
-					'description' => __( 'Supported features for this payment gateway.', 'woocommerce' ),
+					'description' => __( 'Supported features for this payment gateway.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -164,54 +164,54 @@ class WC_REST_Payment_Gateways_Controller extends WC_REST_Payment_Gateways_V2_Co
 					),
 				),
 				'settings'           => array(
-					'description' => __( 'Payment gateway settings.', 'woocommerce' ),
+					'description' => __( 'Payment gateway settings.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
 						'id'          => array(
-							'description' => __( 'A unique identifier for the setting.', 'woocommerce' ),
+							'description' => __( 'A unique identifier for the setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'label'       => array(
-							'description' => __( 'A human readable label for the setting used in interfaces.', 'woocommerce' ),
+							'description' => __( 'A human readable label for the setting used in interfaces.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'description' => array(
-							'description' => __( 'A human readable description for the setting used in interfaces.', 'woocommerce' ),
+							'description' => __( 'A human readable description for the setting used in interfaces.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'type'        => array(
-							'description' => __( 'Type of setting.', 'woocommerce' ),
+							'description' => __( 'Type of setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'enum'        => array( 'text', 'email', 'number', 'color', 'password', 'textarea', 'select', 'multiselect', 'radio', 'image_width', 'checkbox' ),
 							'readonly'    => true,
 						),
 						'value'       => array(
-							'description' => __( 'Setting value.', 'woocommerce' ),
+							'description' => __( 'Setting value.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'default'     => array(
-							'description' => __( 'Default value for the setting.', 'woocommerce' ),
+							'description' => __( 'Default value for the setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'tip'         => array(
-							'description' => __( 'Additional help text shown to the user about the setting.', 'woocommerce' ),
+							'description' => __( 'Additional help text shown to the user about the setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'placeholder' => array(
-							'description' => __( 'Placeholder text to be displayed in text inputs.', 'woocommerce' ),
+							'description' => __( 'Placeholder text to be displayed in text inputs.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,

@@ -4,9 +4,9 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { Icon, button } from '@wordpress/icons';
 import { dispatch } from '@wordpress/data';
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { isBoolean } from '@woocommerce/types';
 import metadata from './block.json';
 import AddToCartOptionsEdit from './edit';
 import './style.scss';
-import registerStore, { store as woocommerceTemplateStateStore } from './store';
+import registerStore, { store as poocommerceTemplateStateStore } from './store';
 import getProductTypeOptions from './utils/get-product-types';
 
 // Pick the value of the "blockify add to cart flag"
@@ -32,12 +32,12 @@ if ( shouldRegisterBlock ) {
 	registerStore();
 
 	// loads the product types
-	dispatch( woocommerceTemplateStateStore ).setProductTypes(
+	dispatch( poocommerceTemplateStateStore ).setProductTypes(
 		getProductTypeOptions()
 	);
 
 	// Select Simple product type
-	dispatch( woocommerceTemplateStateStore ).switchProductType( 'simple' );
+	dispatch( poocommerceTemplateStateStore ).switchProductType( 'simple' );
 
 	// Register the block
 	registerBlockType( metadata, {

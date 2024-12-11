@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { clearAndFillInput } from '@woocommerce/e2e-utils';
+import { clearAndFillInput } from '@poocommerce/e2e-utils';
 import config from 'config';
 /**
  * Internal dependencies

@@ -3,9 +3,9 @@ post_title: Thumbnail image regeneration
 tags: reference
 ---
 
-WooCommerce 3.3 introduced thumbnail regeneration functionality. In the past when image size settings were changed you would need to install an external plugin and then have it regenerate all WordPress image thumbnails before the changes would be visible.
+PooCommerce 3.3 introduced thumbnail regeneration functionality. In the past when image size settings were changed you would need to install an external plugin and then have it regenerate all WordPress image thumbnails before the changes would be visible.
 
-The new image regeneration functionality, combined with the introduction of WooCommerce image settings in the customizer, now ensure that as you make changes to your store image settings you can preview the changes in real-time within the customizer.
+The new image regeneration functionality, combined with the introduction of PooCommerce image settings in the customizer, now ensure that as you make changes to your store image settings you can preview the changes in real-time within the customizer.
 
 ## How it works
 
@@ -24,13 +24,13 @@ You can pass these credentials via a snippet, see:[BasicAuth documentation](http
 
 ### Viewing background regeneration logs
 
-To view the logs for background image regeneration go to `WooCommerce > Status > Logs` and select the `wc-background-regeneration` log from the dropdown.
+To view the logs for background image regeneration go to `PooCommerce > Status > Logs` and select the `wc-background-regeneration` log from the dropdown.
 
 This log file will list images which have been processed and when the job was completed or cancelled.
 
 ### Cancelling a background regeneration job
 
-As of WooCommerce 3.3.2 you will see an admin notice when background image regeneration is running. Within this notice is a link to cancel the job.
+As of PooCommerce 3.3.2 you will see an admin notice when background image regeneration is running. Within this notice is a link to cancel the job.
 
 Cancelling the job will stop more thumbnails being regenerated. If image sizes do not look correct inside your catalog, you'll need to run thumbnail regeneration manually (either using our tool, or using another plugin such as [Regenerate Thumbnails](https://en-gb.wordpress.org/plugins/regenerate-thumbnails/).
 
@@ -40,15 +40,15 @@ Most CDN plugins listen to WordPress core hooks and upload generated thumbnails 
 
 ## How to disable background regeneration
 
-The `woocommerce_background_image_regeneration` filter can be used to disable background regeneration completely. Example code:
+The `poocommerce_background_image_regeneration` filter can be used to disable background regeneration completely. Example code:
 
 ```php
-add_filter( 'woocommerce_background_image_regeneration', '__return_false' );
+add_filter( 'poocommerce_background_image_regeneration', '__return_false' );
 ```
 
 Once disabled, you'll need to regenerate thumbnails manually using another tool should you change image size settings and need new thumbnails.
 
-Alternatively, you can use the [Jetpack Photon module](https://jetpack.com/support/photon/) which can do image resizing on the fly and will be used instead of background regeneration as of WooCommerce 3.3.2.
+Alternatively, you can use the [Jetpack Photon module](https://jetpack.com/support/photon/) which can do image resizing on the fly and will be used instead of background regeneration as of PooCommerce 3.3.2.
 
 ## Using Jetpack Photon instead
 

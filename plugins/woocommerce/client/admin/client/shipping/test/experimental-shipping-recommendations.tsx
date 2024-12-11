@@ -17,7 +17,7 @@ jest.mock( '../../settings-recommendations/dismissable-list', () => ( {
 	DismissableList: ( ( { children } ) => children ) as React.FC,
 	DismissableListHeading: ( ( { children } ) => children ) as React.FC,
 } ) );
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -25,7 +25,7 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
@@ -37,7 +37,7 @@ const defaultSelectReturn = {
 	isJetpackConnected: () => false,
 	getSettings: () => ( {
 		general: {
-			woocommerce_default_country: 'US',
+			poocommerce_default_country: 'US',
 		},
 	} ),
 	getProfileItems: () => ( {} ),
@@ -56,21 +56,21 @@ describe( 'ShippingRecommendations', () => {
 		( useSelect as jest.Mock ).mockImplementation( ( fn ) =>
 			fn( () => ( {
 				...defaultSelectReturn,
-				getActivePlugins: () => [ 'woocommerce-services' ],
+				getActivePlugins: () => [ 'poocommerce-services' ],
 				isJetpackConnected: () => true,
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
 	[
-		[ 'woocommerce-shipping' ],
-		[ 'woocommerce-tax' ],
-		[ 'woocommerce-shipping', 'woocommerce-tax' ],
+		[ 'poocommerce-shipping' ],
+		[ 'poocommerce-tax' ],
+		[ 'poocommerce-shipping', 'poocommerce-tax' ],
 	].forEach( ( activePlugins ) => {
 		it( `should not render if the following plugins are active: ${ JSON.stringify(
 			activePlugins
@@ -85,7 +85,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).not.toBeInTheDocument();
 		} );
 	} );
@@ -96,7 +96,7 @@ describe( 'ShippingRecommendations', () => {
 				...defaultSelectReturn,
 				getSettings: () => ( {
 					general: {
-						woocommerce_default_country: 'JP',
+						poocommerce_default_country: 'JP',
 					},
 				} ),
 			} ) )
@@ -104,7 +104,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -120,7 +120,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -128,7 +128,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 	} );
 } );

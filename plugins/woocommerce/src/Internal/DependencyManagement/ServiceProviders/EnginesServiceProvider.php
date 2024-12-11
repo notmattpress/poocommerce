@@ -3,15 +3,15 @@
  * UtilsClassesServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\ReceiptRendering\ReceiptRenderingEngine;
-use Automattic\WooCommerce\Internal\ReceiptRendering\ReceiptRenderingRestController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Internal\ReceiptRendering\ReceiptRenderingEngine;
+use Automattic\PooCommerce\Internal\ReceiptRendering\ReceiptRenderingRestController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
 
 /**
- * Service provider for the engine classes in the Automattic\WooCommerce\src namespace.
+ * Service provider for the engine classes in the Automattic\PooCommerce\src namespace.
  */
 class EnginesServiceProvider extends AbstractInterfaceServiceProvider {
 

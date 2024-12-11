@@ -19,22 +19,22 @@ export const Partners: React.FC< TaxChildProps > = ( {
 	onDisable,
 } ) => {
 	const classes = clsx(
-		'woocommerce-task-card',
-		'woocommerce-tax-partners',
-		`woocommerce-tax-partners__partners-count-${ Children.count(
+		'poocommerce-task-card',
+		'poocommerce-tax-partners',
+		`poocommerce-tax-partners__partners-count-${ Children.count(
 			children
 		) }`
 	);
 	return (
 		<Card className={ classes }>
 			<CardHeader>
-				{ __( 'Choose a tax partner', 'woocommerce' ) }
+				{ __( 'Choose a tax partner', 'poocommerce' ) }
 			</CardHeader>
 			<CardBody>
-				<div className="woocommerce-tax-partners__partners">
+				<div className="poocommerce-tax-partners__partners">
 					{ children }
 				</div>
-				<ul className="woocommerce-tax-partners__other-actions">
+				<ul className="poocommerce-tax-partners__other-actions">
 					<li>
 						<Button
 							isTertiary
@@ -44,7 +44,7 @@ export const Partners: React.FC< TaxChildProps > = ( {
 								onManual();
 							} }
 						>
-							{ __( 'Set up taxes manually', 'woocommerce' ) }
+							{ __( 'Set up taxes manually', 'poocommerce' ) }
 						</Button>
 					</li>
 					<li>
@@ -56,7 +56,7 @@ export const Partners: React.FC< TaxChildProps > = ( {
 								onDisable();
 							} }
 						>
-							{ __( 'I don’t charge sales tax', 'woocommerce' ) }
+							{ __( 'I don’t charge sales tax', 'poocommerce' ) }
 						</Button>
 					</li>
 				</ul>

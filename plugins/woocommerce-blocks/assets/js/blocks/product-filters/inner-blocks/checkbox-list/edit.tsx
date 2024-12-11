@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { Icon } from '@wordpress/components';
-import { checkMark } from '@woocommerce/icons';
+import { checkMark } from '@poocommerce/icons';
 import { useMemo } from '@wordpress/element';
 import {
 	useBlockProps,
@@ -117,7 +117,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 				</ul>
 				{ ! isLoading && isLongList && (
 					<button className="wc-block-product-filter-checkbox-list__show-more">
-						{ __( 'Show more…', 'woocommerce' ) }
+						{ __( 'Show more…', 'poocommerce' ) }
 					</button>
 				) }
 			</div>
@@ -129,7 +129,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Option Element Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									optionElementBorder.color ||
@@ -152,7 +152,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Option Element (Selected)',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									optionElementSelected.color ||
@@ -173,7 +173,7 @@ const CheckboxListEdit = ( props: EditProps ): JSX.Element => {
 								},
 							},
 							{
-								label: __( 'Option Element', 'woocommerce' ),
+								label: __( 'Option Element', 'poocommerce' ),
 								colorValue:
 									optionElement.color || customOptionElement,
 								isShownByDefault: true,

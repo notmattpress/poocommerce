@@ -6,12 +6,12 @@
 
 /**
  * Title: Coming Soon Store Only
- * Slug: woocommerce/coming-soon-store-only
- * Categories: WooCommerce
+ * Slug: poocommerce/coming-soon-store-only
+ * Categories: PooCommerce
  * Inserter: false
  * Feature Flag: launch-your-store
  *
- * @package WooCommerce\Blocks
+ * @package PooCommerce\Blocks
  */
 
 $current_theme     = wp_get_theme()->get_stylesheet();
@@ -25,8 +25,8 @@ if ( 'twentytwentyfour' === $current_theme ) {
 
 ?>
 
-<!-- wp:woocommerce/coming-soon {"storeOnly":true, "className":"woocommerce-coming-soon-store-only"} -->
-<div class="wp-block-woocommerce-coming-soon woocommerce-coming-soon-store-only">
+<!-- wp:poocommerce/coming-soon {"storeOnly":true, "className":"poocommerce-coming-soon-store-only"} -->
+<div class="wp-block-poocommerce-coming-soon poocommerce-coming-soon-store-only">
 
 <?php
 if ( wc_current_theme_is_fse_theme() ) {
@@ -40,7 +40,7 @@ if ( wc_current_theme_is_fse_theme() ) {
 <!-- /wp:spacer -->
 
 <!-- wp:heading {"textAlign":"center","level":1,"fontFamily":"<?php echo esc_html( $cardo_font_family ); ?>"} -->
-<h1 class="wp-block-heading has-text-align-center has-<?php echo esc_html( $cardo_font_family ); ?>-font-family"><?php echo esc_html__( 'Great things are on the horizon', 'woocommerce' ); ?></h1>
+<h1 class="wp-block-heading has-text-align-center has-<?php echo esc_html( $cardo_font_family ); ?>-font-family"><?php echo esc_html__( 'Great things are on the horizon', 'poocommerce' ); ?></h1>
 <!-- /wp:heading -->
 
 <!-- wp:spacer {"height":"10px"} -->
@@ -48,7 +48,7 @@ if ( wc_current_theme_is_fse_theme() ) {
 <!-- /wp:spacer -->
 
 <!-- wp:paragraph {"align":"center","fontFamily":"<?php echo esc_html( $inter_font_family ); ?>"} -->
-<p class="has-text-align-center has-<?php echo esc_html( $inter_font_family ); ?>-font-family"><?php echo esc_html__( 'Something big is brewing! Our store is in the works and will be launching soon!', 'woocommerce' ); ?></p>
+<p class="has-text-align-center has-<?php echo esc_html( $inter_font_family ); ?>-font-family"><?php echo esc_html__( 'Something big is brewing! Our store is in the works and will be launching soon!', 'poocommerce' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:spacer -->
@@ -62,4 +62,4 @@ if ( wc_current_theme_is_fse_theme() ) {
 }
 ?>
 </div>
-<!-- /wp:woocommerce/coming-soon -->
+<!-- /wp:poocommerce/coming-soon -->

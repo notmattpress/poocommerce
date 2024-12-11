@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import {
 	OPTIONS_STORE_NAME,
 	Product,
 	ProductDimensions,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import {
@@ -62,8 +62,8 @@ export function Edit( {
 	const { dimensionUnit, weightUnit } = useSelect( ( select ) => {
 		const { getOption } = select( OPTIONS_STORE_NAME );
 		return {
-			dimensionUnit: getOption( 'woocommerce_dimension_unit' ),
-			weightUnit: getOption( 'woocommerce_weight_unit' ),
+			dimensionUnit: getOption( 'poocommerce_dimension_unit' ),
+			weightUnit: getOption( 'poocommerce_weight_unit' ),
 		};
 	}, [] );
 
@@ -101,7 +101,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Width must be greater than zero.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -122,7 +122,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Length must be greater than zero.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -143,7 +143,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Height must be greater than zero.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -164,7 +164,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Weight must be greater than zero.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -205,13 +205,13 @@ export function Edit( {
 
 	return (
 		<div { ...blockProps }>
-			<h4>{ __( 'Dimensions', 'woocommerce' ) }</h4>
+			<h4>{ __( 'Dimensions', 'poocommerce' ) }</h4>
 
 			<div className="wp-block-columns">
 				<div className="wp-block-column">
 					<NumberControl
 						label={ createInterpolateElement(
-							__( 'Width <Side />', 'woocommerce' ),
+							__( 'Width <Side />', 'poocommerce' ),
 							{ Side: <span>A</span> }
 						) }
 						error={ dimensionsWidthValidationError }
@@ -219,7 +219,7 @@ export function Edit( {
 					/>
 					<NumberControl
 						label={ createInterpolateElement(
-							__( 'Length <Side />', 'woocommerce' ),
+							__( 'Length <Side />', 'poocommerce' ),
 							{ Side: <span>B</span> }
 						) }
 						error={ dimensionsLengthValidationError }
@@ -227,14 +227,14 @@ export function Edit( {
 					/>
 					<NumberControl
 						label={ createInterpolateElement(
-							__( 'Height <Side />', 'woocommerce' ),
+							__( 'Height <Side />', 'poocommerce' ),
 							{ Side: <span>C</span> }
 						) }
 						error={ dimensionsHeightValidationError }
 						{ ...dimensionsHeightProps }
 					/>
 					<NumberControl
-						label={ __( 'Weight', 'woocommerce' ) }
+						label={ __( 'Weight', 'poocommerce' ) }
 						error={ weightValidationError }
 						{ ...weightProps }
 					/>
@@ -243,7 +243,7 @@ export function Edit( {
 				<div className="wp-block-column">
 					<ShippingDimensionsImage
 						highlight={ highlightSide }
-						className="wp-block-woocommerce-product-shipping-dimensions-fields__dimensions-image"
+						className="wp-block-poocommerce-product-shipping-dimensions-fields__dimensions-image"
 						labels={ {
 							A: dimensionsWidthProps.value?.length
 								? dimensionsWidthProps.value

@@ -16,11 +16,11 @@ import {
 import { DisplayLayoutControlProps } from '../../types';
 import { getDefaultDisplayLayout } from '../../utils';
 
-const columnsLabel = __( 'Columns', 'woocommerce' );
-const toggleLabel = __( 'Responsive', 'woocommerce' );
+const columnsLabel = __( 'Columns', 'poocommerce' );
+const toggleLabel = __( 'Responsive', 'poocommerce' );
 const toggleHelp = __(
 	'Automatically adjust the number of columns to better fit smaller screens.',
-	'woocommerce'
+	'poocommerce'
 );
 
 const ColumnsControl = ( props: DisplayLayoutControlProps ) => {

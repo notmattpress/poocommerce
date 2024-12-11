@@ -9,7 +9,7 @@ import { Icon, closeSmall } from '@wordpress/icons';
 import { useEffect, useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -22,10 +22,10 @@ const { Fill } = createSlotFill( SETTINGS_SLOT_FILL_CONSTANT );
 
 const LearnMore = () => (
 	<Button
-		href="https://woocommerce.com/document/setting-up-taxes-in-woocommerce/"
+		href="https://poocommerce.com/document/setting-up-taxes-in-poocommerce/"
 		target="_blank"
 	>
-		{ __( 'Learn more', 'woocommerce' ) }
+		{ __( 'Learn more', 'poocommerce' ) }
 	</Button>
 );
 
@@ -34,18 +34,18 @@ const SettingsErrorFill = () => {
 		useState( false );
 
 	const [ pricesEnteredWithTaxSetting, setMainVal ] = useState(
-		document.forms.mainform.elements.woocommerce_prices_include_tax
+		document.forms.mainform.elements.poocommerce_prices_include_tax
 			?.value === 'yes'
 			? 'incl'
 			: 'excl'
 	);
 	const [ displayPricesInShopWithTaxSetting, setDisplayShop ] = useState(
 		/** We're using jQuery in this file because the select boxes are implemented using select2 and can only be interacted with using jQuery */
-		window.jQuery( '#woocommerce_tax_display_shop' ).val()
+		window.jQuery( '#poocommerce_tax_display_shop' ).val()
 	);
 	const [ displayPricesInCartWithTaxSetting, setDisplayCart ] = useState(
 		/** We're using jQuery in this file because the select boxes are implemented using select2 and can only be interacted with using jQuery */
-		window.jQuery( '#woocommerce_tax_display_cart' ).val()
+		window.jQuery( '#poocommerce_tax_display_cart' ).val()
 	);
 
 	const { createNotice } = useDispatch( noticesStore );
@@ -54,17 +54,17 @@ const SettingsErrorFill = () => {
 		/** We're using jQuery in this file because the select boxes are implemented using select2 and can only be interacted with using jQuery */
 		// eslint-disable-next-line no-undef
 		window
-			.jQuery( '#woocommerce_tax_display_shop' )
+			.jQuery( '#poocommerce_tax_display_shop' )
 			.val( pricesEnteredWithTaxSetting )
 			.trigger( 'change' );
 		window
-			.jQuery( '#woocommerce_tax_display_cart' )
+			.jQuery( '#poocommerce_tax_display_cart' )
 			.val( pricesEnteredWithTaxSetting )
 			.trigger( 'change' );
 
 		createNotice(
 			'success',
-			__( 'Recommended settings applied.', 'woocommerce' )
+			__( 'Recommended settings applied.', 'poocommerce' )
 		);
 
 		recordEvent( 'tax_settings_conflict_recommended_settings_clicked' );
@@ -72,18 +72,18 @@ const SettingsErrorFill = () => {
 
 	const ApplyRecommendedSettingsButton = () => (
 		<Button variant="primary" onClick={ handleApplyRecommendedSettings }>
-			{ __( 'Use recommended settings', 'woocommerce' ) }
+			{ __( 'Use recommended settings', 'poocommerce' ) }
 		</Button>
 	);
 
 	useEffect( () => {
 		document
-			.querySelectorAll( "input[name='woocommerce_prices_include_tax']" )
+			.querySelectorAll( "input[name='poocommerce_prices_include_tax']" )
 			.forEach( ( input ) => {
 				input.addEventListener( 'change', () =>
 					setMainVal(
 						document.forms.mainform.elements
-							.woocommerce_prices_include_tax.value === 'yes'
+							.poocommerce_prices_include_tax.value === 'yes'
 							? 'incl'
 							: 'excl'
 					)
@@ -93,10 +93,10 @@ const SettingsErrorFill = () => {
 
 	useEffect( () => {
 		window
-			.jQuery( '#woocommerce_tax_display_shop' )
+			.jQuery( '#poocommerce_tax_display_shop' )
 			.on( 'click change', () =>
 				setDisplayShop(
-					document.getElementById( 'woocommerce_tax_display_shop' )
+					document.getElementById( 'poocommerce_tax_display_shop' )
 						.value
 				)
 			);
@@ -104,10 +104,10 @@ const SettingsErrorFill = () => {
 
 	useEffect( () => {
 		window
-			.jQuery( '#woocommerce_tax_display_cart' )
+			.jQuery( '#poocommerce_tax_display_cart' )
 			.on( 'click change', () =>
 				setDisplayCart(
-					document.getElementById( 'woocommerce_tax_display_cart' )
+					document.getElementById( 'poocommerce_tax_display_cart' )
 						.value
 				)
 			);
@@ -142,23 +142,23 @@ const SettingsErrorFill = () => {
 
 	return (
 		<Fill>
-			<div className="woocommerce_tax_settings_conflict_error">
+			<div className="poocommerce_tax_settings_conflict_error">
 				<Card>
-					<CardBody className="woocommerce_tax_settings_conflict_error_card_body">
+					<CardBody className="poocommerce_tax_settings_conflict_error_card_body">
 						<div>
 							<img
-								className="woocommerce_tax_settings_conflict_error_card_body__warning_icon"
+								className="poocommerce_tax_settings_conflict_error_card_body__warning_icon"
 								src={ warningIcon }
 								alt="Warning Icon"
 							/>
 						</div>
 						<div>
-							<div className="woocommerce_tax_settings_conflict_error_card_body__body_text">
+							<div className="poocommerce_tax_settings_conflict_error_card_body__body_text">
 								<p style={ { fontSize: 13 } }>
 									{ interpolateComponents( {
 										mixedString: __(
 											'{{b}}Inconsistent tax settings:{{/b}} To avoid possible rounding errors, prices should be entered and displayed consistently in all locations either including, or excluding taxes.',
-											'woocommerce'
+											'poocommerce'
 										),
 										components: {
 											b: <b />,
@@ -166,13 +166,13 @@ const SettingsErrorFill = () => {
 									} ) }
 								</p>
 							</div>
-							<div className="woocommerce_tax_settings_conflict_error_card_body__buttons">
+							<div className="poocommerce_tax_settings_conflict_error_card_body__buttons">
 								<ApplyRecommendedSettingsButton /> <LearnMore />
 							</div>
 						</div>
 						<div>
 							<Button
-								className="woocommerce_tax_settings_conflict_error_card_body__close_icon"
+								className="poocommerce_tax_settings_conflict_error_card_body__close_icon"
 								onClick={ () => {
 									setDismissedConflictWarning( true );
 
@@ -192,8 +192,8 @@ const SettingsErrorFill = () => {
 };
 
 export const registerTaxSettingsConflictErrorFill = () => {
-	registerPlugin( 'woocommerce-admin-tax-settings-conflict-warning', {
-		scope: 'woocommerce-tax-settings',
+	registerPlugin( 'poocommerce-admin-tax-settings-conflict-warning', {
+		scope: 'poocommerce-tax-settings',
 		render: SettingsErrorFill,
 	} );
 };

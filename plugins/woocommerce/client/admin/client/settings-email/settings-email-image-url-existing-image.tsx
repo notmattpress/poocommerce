@@ -31,7 +31,7 @@ export const ExistingImage: React.FC< ExistingImageProps > = ( {
 					<img
 						src={ imageUrl }
 						className="wc-settings-email-image-url-image-preview"
-						alt={ __( 'Image preview', 'woocommerce' ) }
+						alt={ __( 'Image preview', 'poocommerce' ) }
 					/>
 				</button>
 			</div>
@@ -39,13 +39,13 @@ export const ExistingImage: React.FC< ExistingImageProps > = ( {
 				variant="secondary"
 				onClick={ () => selectImage( inputId, setImageUrl ) }
 			>
-				{ __( 'Change image', 'woocommerce' ) }
+				{ __( 'Change image', 'poocommerce' ) }
 			</Button>{ ' ' }
 			<Button
 				variant="tertiary"
 				onClick={ () => removeImage( inputId, setImageUrl ) }
 			>
-				{ __( 'Remove', 'woocommerce' ) }
+				{ __( 'Remove', 'poocommerce' ) }
 			</Button>
 		</div>
 	);

@@ -7,7 +7,7 @@ import {
 	useState,
 	useCallback,
 } from '@wordpress/element';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import { speak } from '@wordpress/a11y';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -58,7 +58,7 @@ export default function Content(): JSX.Element {
 		speak(
 			sprintf(
 				// translators: %d is the number of products found.
-				__( '%d products found', 'woocommerce' ),
+				__( '%d products found', 'poocommerce' ),
 				count
 			)
 		);
@@ -127,12 +127,12 @@ export default function Content(): JSX.Element {
 					return combinedProducts;
 				} );
 
-				speak( __( 'More products loaded', 'woocommerce' ) );
+				speak( __( 'More products loaded', 'poocommerce' ) );
 				setCurrentPage( ( prevPage ) => prevPage + 1 );
 				setIsLoadingMore( false );
 			} )
 			.catch( () => {
-				speak( __( 'Error loading more products', 'woocommerce' ) );
+				speak( __( 'Error loading more products', 'poocommerce' ) );
 			} )
 			.finally( () => {
 				setIsLoadingMore( false );
@@ -403,7 +403,7 @@ export default function Content(): JSX.Element {
 	};
 
 	return (
-		<div className="woocommerce-marketplace__content">
+		<div className="poocommerce-marketplace__content">
 			<Promotions format="promo-card" />
 			<Promotions format="notice" />
 			<InstallNewProductModal products={ filteredProducts } />

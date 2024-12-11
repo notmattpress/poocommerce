@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Theme Guidelines - Branding
+post_title: PooCommerce Theme Guidelines - Branding
 menu_title: Branding
 ---
 

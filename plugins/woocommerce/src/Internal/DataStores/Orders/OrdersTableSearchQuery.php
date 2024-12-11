@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
 use Exception;
 
 /**
@@ -116,8 +116,8 @@ class OrdersTableSearchQuery {
 	private function generate_join_for_search_filter( $search_filter ): string {
 		/**
 		 * Filter to support adding a custom order search filter.
-		 * Provide a JOIN clause for a new search filter. This should be used along with `woocommerce_hpos_admin_search_filters`
-		 * to declare a new custom filter, and `woocommerce_hpos_generate_where_for_search_filter` to generate the WHERE
+		 * Provide a JOIN clause for a new search filter. This should be used along with `poocommerce_hpos_admin_search_filters`
+		 * to declare a new custom filter, and `poocommerce_hpos_generate_where_for_search_filter` to generate the WHERE
 		 * clause.
 		 *
 		 * Hardcoded JOINS (products) cannot be modified using this filter for consistency.
@@ -130,7 +130,7 @@ class OrdersTableSearchQuery {
 		 * @param OrdersTableQuery $query The order query object.
 		 */
 		return apply_filters(
-			'woocommerce_hpos_generate_join_for_search_filter',
+			'poocommerce_hpos_generate_join_for_search_filter',
 			'',
 			$this->search_term,
 			$search_filter,
@@ -211,8 +211,8 @@ class OrdersTableSearchQuery {
 		/**
 		 * Filter to support adding a custom order search filter.
 		 * Provide a WHERE clause for a custom search filter via this filter. This should be used with the
-		 * `woocommerce_hpos_admin_search_filters` to declare a new custom filter, and optionally also with the
-		 * `woocommerce_hpos_generate_join_for_search_filter` filter if a join is also needed.
+		 * `poocommerce_hpos_admin_search_filters` to declare a new custom filter, and optionally also with the
+		 * `poocommerce_hpos_generate_join_for_search_filter` filter if a join is also needed.
 		 *
 		 * Hardcoded filters (products, customers, ID and email) cannot be modified using this filter for consistency.
 		 *
@@ -224,7 +224,7 @@ class OrdersTableSearchQuery {
 		 * @param OrdersTableQuery $query The order query object.
 		 */
 		return apply_filters(
-			'woocommerce_hpos_generate_where_for_search_filter',
+			'poocommerce_hpos_generate_where_for_search_filter',
 			'',
 			$this->search_term,
 			$search_filter,
@@ -289,7 +289,7 @@ $orders_table.id in (
 			$matchers = "$address_table.first_name, $address_table.last_name, $address_table.company, $address_table.address_1, $address_table.address_2, $address_table.city, $address_table.state, $address_table.postcode, $address_table.country, $address_table.email";
 
 			// Support for phone was added in 9.4.
-			if ( version_compare( get_option( 'woocommerce_db_version' ), '9.4.0', '>=' ) ) {
+			if ( version_compare( get_option( 'poocommerce_db_version' ), '9.4.0', '>=' ) ) {
 				$matchers .= ", $address_table.phone";
 			}
 
@@ -360,14 +360,14 @@ GROUP BY search_query_meta.order_id
 		 * Controls the order meta keys to be included in search queries.
 		 *
 		 * This hook is used when Custom Order Tables are in use: the corresponding hook when CPT-orders are in use
-		 * is 'woocommerce_shop_order_search_fields'.
+		 * is 'poocommerce_shop_order_search_fields'.
 		 *
 		 * @since 7.0.0
 		 *
 		 * @param array
 		 */
 		$meta_keys = apply_filters(
-			'woocommerce_order_table_search_query_meta_keys',
+			'poocommerce_order_table_search_query_meta_keys',
 			$meta_fields_to_search
 		);
 

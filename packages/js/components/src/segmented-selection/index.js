@@ -15,12 +15,12 @@ class SegmentedSelection extends Component {
 			this.props;
 
 		return (
-			<fieldset className="woocommerce-segmented-selection">
+			<fieldset className="poocommerce-segmented-selection">
 				<legend className="screen-reader-text">{ legend }</legend>
 				<div
 					className={ classnames(
 						className,
-						'woocommerce-segmented-selection__container'
+						'poocommerce-segmented-selection__container'
 					) }
 				>
 					{ options.map( ( { value, label } ) => {
@@ -30,12 +30,12 @@ class SegmentedSelection extends Component {
 						const id = uniqueId( `${ value }_` );
 						return (
 							<div
-								className="woocommerce-segmented-selection__item"
+								className="poocommerce-segmented-selection__item"
 								key={ value }
 							>
 								{ /* eslint-disable jsx-a11y/label-has-for */ }
 								<input
-									className="woocommerce-segmented-selection__input"
+									className="poocommerce-segmented-selection__input"
 									type="radio"
 									name={ name }
 									id={ id }
@@ -45,7 +45,7 @@ class SegmentedSelection extends Component {
 									} ) }
 								/>
 								<label htmlFor={ id }>
-									<span className="woocommerce-segmented-selection__label">
+									<span className="poocommerce-segmented-selection__label">
 										{ label }
 									</span>
 								</label>

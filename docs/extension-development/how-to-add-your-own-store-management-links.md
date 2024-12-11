@@ -6,9 +6,9 @@ tags: reference
 
 ## Introduction
 
-In the new and improved WooCommerce home screen, there are two points of extensibility for plugin developers that have recently had some attention. The first is the setup task list, allowing you to remind the user of tasks they need to complete and keeping track of their progress for them.
+In the new and improved PooCommerce home screen, there are two points of extensibility for plugin developers that have recently had some attention. The first is the setup task list, allowing you to remind the user of tasks they need to complete and keeping track of their progress for them.
 
-The second is the store management links section. Once the user has completed the setup tasks this will display for them. This section consolidates a list of handy navigation links that merchants can use to quickly find features in WooCommerce.
+The second is the store management links section. Once the user has completed the setup tasks this will display for them. This section consolidates a list of handy navigation links that merchants can use to quickly find features in PooCommerce.
 
 Discoverability can be hard for users so this can be a great place to bring attention to the features of your plugin and allow users to easily find their way to the key functionality your plugin provides.
 
@@ -18,7 +18,7 @@ Adding your own store management links is a simple process.
 
 Before we start, let's outline a couple of restrictions on this feature.
 
-Right now these links are designed to keep the user within WooCommerce, so it does not support external links.
+Right now these links are designed to keep the user within PooCommerce, so it does not support external links.
 
 All the links you add will fall under a special category in the list called "Extensions". There is not currently any support for custom categories.
 
@@ -57,7 +57,7 @@ import { megaphone } from "@wordpress/icons";
 import { addFilter } from "@wordpress/hooks";
 
 addFilter(
-  "woocommerce_admin_homescreen_quicklinks",
+  "poocommerce_admin_homescreen_quicklinks",
   "my-extension",
   (quickLinks) => {
     return [
@@ -74,4 +74,4 @@ addFilter(
 
 Here's a screen shot using our new custom store management link:
 
-![screen shot of custom store management link in wp-admin](https://developer.woocommerce.com/wp-content/uploads/2023/12/yvXeSya.png)
+![screen shot of custom store management link in wp-admin](https://developer.poocommerce.com/wp-content/uploads/2023/12/yvXeSya.png)

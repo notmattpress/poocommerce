@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\AbstractInterfaceServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\AbstractInterfaceServiceProvider;
 
 /**
  * Example service provider for the dependency injection container, it registers classes both by name and by interface.

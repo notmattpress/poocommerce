@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Logging\{ PageController, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\FileController;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\Logging\RemoteLogger;
+use Automattic\PooCommerce\Internal\Admin\Logging\{ PageController, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\FileController;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Logging\RemoteLogger;
 
 /**
  * LoggingServiceProvider class.

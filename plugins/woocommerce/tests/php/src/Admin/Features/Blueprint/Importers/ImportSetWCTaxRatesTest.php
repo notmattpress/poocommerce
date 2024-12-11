@@ -2,9 +2,9 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Importers;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Importers;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Importers\ImportSetWCTaxRates;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Importers\ImportSetWCTaxRates;
 use WC_Unit_Test_Case;
 
 /**
@@ -31,7 +31,7 @@ class ImportSetWCTaxRatesTest extends WC_Unit_Test_Case {
 	 */
 	private function assertTaxRate() {
 		global $wpdb;
-		$rate = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_id = 1" );
+		$rate = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_id = 1" );
 		$this->assertEquals( 'US', $rate->tax_rate_country );
 		$this->assertEquals( 'CA', $rate->tax_rate_state );
 		$this->assertEquals( '9.5000', $rate->tax_rate );
@@ -49,7 +49,7 @@ class ImportSetWCTaxRatesTest extends WC_Unit_Test_Case {
 	 */
 	private function assertLocations() {
 		global $wpdb;
-		$locations = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}woocommerce_tax_rate_locations WHERE tax_rate_id = 1" );
+		$locations = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}poocommerce_tax_rate_locations WHERE tax_rate_id = 1" );
 		$postcode  = $locations[0];
 		$city      = $locations[1];
 

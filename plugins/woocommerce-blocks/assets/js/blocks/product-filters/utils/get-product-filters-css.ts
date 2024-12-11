@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { isString, objectHasProp } from '@woocommerce/types';
+import { isString, objectHasProp } from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -3,11 +3,11 @@
  * OrdersDataStoreServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews;
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * Service provider for the classes in the Internal\Admin\ProductReviews namespace.

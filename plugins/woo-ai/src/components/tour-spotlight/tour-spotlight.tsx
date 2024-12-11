@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TourKit } from '@woocommerce/components';
+import { TourKit } from '@poocommerce/components';
 import { useState, useEffect } from '@wordpress/element';
 import { Config } from '@automattic/tour-kit';
 

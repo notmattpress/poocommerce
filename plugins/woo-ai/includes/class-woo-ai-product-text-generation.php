@@ -80,7 +80,7 @@ class Woo_AI_Product_Text_Generation {
 			return;
 		}
 
-		echo '<div id="woocommerce-ai-app-product-gpt-button"></div>';
+		echo '<div id="poocommerce-ai-app-product-gpt-button"></div>';
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Woo_AI_Product_Text_Generation {
 			return;
 		}
 
-		echo '<div id="woocommerce-ai-app-product-short-description-gpt-button"></div>';
+		echo '<div id="poocommerce-ai-app-product-short-description-gpt-button"></div>';
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Woo_AI_Product_Text_Generation {
 			return;
 		}
 
-		echo '<div id="woocommerce-ai-app-product-name-suggestions"></div>';
+		echo '<div id="poocommerce-ai-app-product-name-suggestions"></div>';
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Woo_AI_Product_Text_Generation {
 
 			if ( false !== $editor_container_position ) {
 				$gpt_form =
-					'<div id="woocommerce-ai-app-product-gpt-form"></div>';
+					'<div id="poocommerce-ai-app-product-gpt-form"></div>';
 				$content  = $gpt_form . $content;
 			}
 		}

@@ -5,13 +5,13 @@ import {
 	ALLOWED_COUNTRIES,
 	ALLOWED_STATES,
 	LOGIN_URL,
-} from '@woocommerce/block-settings';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/block-settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	CartBillingAddress,
 	CartShippingAddress,
-} from '@woocommerce/type-defs/cart';
-import { isObject, isString } from '@woocommerce/types';
+} from '@poocommerce/type-defs/cart';
+import { isObject, isString } from '@poocommerce/types';
 import { decodeEntities } from '@wordpress/html-entities';
 
 export const LOGIN_TO_CHECKOUT_URL = `${ LOGIN_URL }?redirect_to=${ encodeURIComponent(

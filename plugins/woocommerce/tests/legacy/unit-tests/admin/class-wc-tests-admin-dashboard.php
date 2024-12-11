@@ -2,10 +2,10 @@
 /**
  * Class WC_Tests_Admin_Dashboard file.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Admin_Report class.
@@ -25,7 +25,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 
 		// Mock http request to performance endpoint.
 		add_filter( 'rest_pre_dispatch', array( $this, 'mock_rest_responses' ), 10, 3 );
-		add_filter( 'woocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
+		add_filter( 'poocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		remove_filter( 'rest_pre_dispatch', array( $this, 'mock_rest_responses' ), 10 );
-		remove_filter( 'woocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
+		remove_filter( 'poocommerce_dashboard_status_widget_reports', array( $this, 'mock_replace_dashboard_status_widget_reports' ) );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 		$order->set_status( OrderStatus::COMPLETED );
 		$order->save();
 
-		add_filter( 'woocommerce_admin_disabled', '__return_true' );
+		add_filter( 'poocommerce_admin_disabled', '__return_true' );
 
 		$this->expectOutputRegex( '/50\.00 worth in the/' );
 
@@ -81,7 +81,7 @@ class WC_Tests_Admin_Dashboard extends WC_Unit_Test_Case {
 		$this->assertMatchesRegularExpression( '/page\=wc-reports\&\#038\;tab\=stock\&\#038\;report\=low_in_stock/', $widget_output );
 		$this->assertMatchesRegularExpression( '/page\=wc-reports\&\#038\;tab\=stock\&\#038\;report\=out_of_stock/', $widget_output );
 
-		remove_filter( 'woocommerce_admin_disabled', '__return_true' );
+		remove_filter( 'poocommerce_admin_disabled', '__return_true' );
 	}
 
 	/**

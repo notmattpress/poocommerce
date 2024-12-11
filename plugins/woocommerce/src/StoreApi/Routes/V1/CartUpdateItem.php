@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
 /**
  * CartUpdateItem class.
@@ -43,11 +43,11 @@ class CartUpdateItem extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'key'      => [
-						'description' => __( 'Unique identifier (key) for the cart item to update.', 'woocommerce' ),
+						'description' => __( 'Unique identifier (key) for the cart item to update.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'quantity' => [
-						'description' => __( 'New quantity of the item in the cart.', 'woocommerce' ),
+						'description' => __( 'New quantity of the item in the cart.', 'poocommerce' ),
 						'type'        => 'integer',
 					],
 				],

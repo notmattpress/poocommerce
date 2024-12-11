@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 /**
  * WCAdminUser Class.
@@ -34,7 +34,7 @@ class WCAdminUser {
 	}
 
 	/**
-	 * Registers WooCommerce specific user data to the WordPress user API.
+	 * Registers PooCommerce specific user data to the WordPress user API.
 	 */
 	public function register_user_data() {
 		register_rest_field(
@@ -53,7 +53,7 @@ class WCAdminUser {
 		);
 		register_rest_field(
 			'user',
-			'woocommerce_meta',
+			'poocommerce_meta',
 			array(
 				'get_callback'    => array( $this, 'get_user_data_values' ),
 				'update_callback' => array( $this, 'update_user_data_values' ),
@@ -85,7 +85,7 @@ class WCAdminUser {
 	 * @param string  $field_id The field id for the user meta.
 	 */
 	public function update_user_data_values( $values, $user, $field_id ) {
-		if ( empty( $values ) || ! is_array( $values ) || 'woocommerce_meta' !== $field_id ) {
+		if ( empty( $values ) || ! is_array( $values ) || 'poocommerce_meta' !== $field_id ) {
 			return;
 		}
 		$fields  = $this->get_user_data_fields();
@@ -100,7 +100,7 @@ class WCAdminUser {
 	}
 
 	/**
-	 * We store some WooCommerce specific user meta attached to users endpoint,
+	 * We store some PooCommerce specific user meta attached to users endpoint,
 	 * so that we can track certain preferences or values such as the inbox activity panel last open time.
 	 * Additional fields can be added in the function below, and then used via wc-admin's currentUser data.
 	 *
@@ -113,7 +113,7 @@ class WCAdminUser {
 		 * @since 4.0.0
 		 * @param array $fields Array of fields to expose over the WP user endpoint.
 		 */
-		return apply_filters( 'woocommerce_admin_get_user_data_fields', array( 'variable_product_tour_shown' ) );
+		return apply_filters( 'poocommerce_admin_get_user_data_fields', array( 'variable_product_tour_shown' ) );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class WCAdminUser {
 	 * @param mixed  $value  Field value.
 	 */
 	public static function update_user_data_field( $user_id, $field, $value ) {
-		update_user_meta( $user_id, 'woocommerce_admin_' . $field, $value );
+		update_user_meta( $user_id, 'poocommerce_admin_' . $field, $value );
 	}
 
 	/**
@@ -137,9 +137,9 @@ class WCAdminUser {
 	 * @return mixed The user field value.
 	 */
 	public static function get_user_data_field( $user_id, $field ) {
-		$meta_value = get_user_meta( $user_id, 'woocommerce_admin_' . $field, true );
+		$meta_value = get_user_meta( $user_id, 'poocommerce_admin_' . $field, true );
 
-		// Migrate old meta values (prefix changed from `wc_admin_` to `woocommerce_admin_`).
+		// Migrate old meta values (prefix changed from `wc_admin_` to `poocommerce_admin_`).
 		if ( '' === $meta_value ) {
 			$old_meta_value = get_user_meta( $user_id, 'wc_admin_' . $field, true );
 

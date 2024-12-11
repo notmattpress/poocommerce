@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { addQueryArgs } from '@wordpress/url';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import apiFetch from '@wordpress/api-fetch';
 
 const request = ( { action, productId, nonce }, callback ) => {

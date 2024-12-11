@@ -14,7 +14,7 @@ const closeChoosePatternModal = async ( { page } ) => {
 };
 
 const disableWelcomeModal = async ( { page } ) => {
-	// Further info: https://github.com/woocommerce/woocommerce/pull/45856/
+	// Further info: https://github.com/poocommerce/poocommerce/pull/45856/
 	await page.waitForLoadState( 'domcontentloaded' );
 
 	const isWelcomeGuideActive = await page.evaluate( () =>
@@ -125,7 +125,7 @@ const transformIntoBlocks = async ( page ) => {
 
 	await expect(
 		canvas.locator(
-			'.wp-block-woocommerce-classic-shortcode__placeholder-copy'
+			'.wp-block-poocommerce-classic-shortcode__placeholder-copy'
 		)
 	).toBeVisible();
 	await canvas
@@ -164,7 +164,7 @@ const publishPage = async ( page, pageTitle, isPost = false ) => {
 		.click();
 
 	// Validating that page was published via UI elements is not reliable,
-	// installed plugins (e.g. WooCommerce PayPal Payments) can interfere and add flakiness to the flow.
+	// installed plugins (e.g. PooCommerce PayPal Payments) can interfere and add flakiness to the flow.
 	// In WC context, checking the API response is possibly the most reliable way to ensure the page was published.
 	await createPageResponse;
 };

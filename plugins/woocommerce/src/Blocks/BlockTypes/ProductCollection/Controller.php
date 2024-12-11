@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 use WP_Query;
 
 /**
@@ -90,8 +90,8 @@ class Controller extends AbstractBlock {
 	 * @return string   Modified block content with added interactivity.
 	 */
 	public function add_product_title_click_event_directives( $block_content, $block, $instance ) {
-		$namespace              = $instance->attributes['__woocommerceNamespace'] ?? '';
-		$is_product_title_block = 'woocommerce/product-collection/product-title' === $namespace;
+		$namespace              = $instance->attributes['__poocommerceNamespace'] ?? '';
+		$is_product_title_block = 'poocommerce/product-collection/product-title' === $namespace;
 		$is_link                = $instance->attributes['isLink'] ?? false;
 
 		// Only proceed if the block is a Product Title (Post Title variation) block.
@@ -101,7 +101,7 @@ class Controller extends AbstractBlock {
 			$is_anchor = $p->next_tag( array( 'tag_name' => 'a' ) );
 
 			if ( $is_anchor ) {
-				$p->set_attribute( 'data-wc-on--click', 'woocommerce/product-collection::actions.viewProduct' );
+				$p->set_attribute( 'data-wc-on--click', 'poocommerce/product-collection::actions.viewProduct' );
 
 				$block_content = $p->get_updated_html();
 			}
@@ -120,13 +120,13 @@ class Controller extends AbstractBlock {
 		// Check for explicitly unsupported blocks.
 		$unsupported_blocks = array(
 			'core/post-content',
-			'woocommerce/mini-cart',
-			'woocommerce/featured-product',
-			'woocommerce/active-filters',
-			'woocommerce/price-filter',
-			'woocommerce/stock-filter',
-			'woocommerce/attribute-filter',
-			'woocommerce/rating-filter',
+			'poocommerce/mini-cart',
+			'poocommerce/featured-product',
+			'poocommerce/active-filters',
+			'poocommerce/price-filter',
+			'poocommerce/stock-filter',
+			'poocommerce/attribute-filter',
+			'poocommerce/rating-filter',
 		);
 
 		if ( in_array( $block_name, $unsupported_blocks, true ) ) {
@@ -136,7 +136,7 @@ class Controller extends AbstractBlock {
 		// Check for supported prefixes.
 		if (
 			str_starts_with( $block_name, 'core/' ) ||
-			str_starts_with( $block_name, 'woocommerce/' )
+			str_starts_with( $block_name, 'poocommerce/' )
 		) {
 			return true;
 		}
@@ -166,7 +166,7 @@ class Controller extends AbstractBlock {
 
 		if (
 			$is_product_collection_block &&
-			'woocommerce/product-collection' === $block_name &&
+			'poocommerce/product-collection' === $block_name &&
 			! $force_page_reload_global
 		) {
 			$enhanced_query_stack[] = $parsed_block['attrs']['queryId'];
@@ -203,14 +203,14 @@ class Controller extends AbstractBlock {
 					array_pop( $enhanced_query_stack );
 
 					if ( empty( $enhanced_query_stack ) ) {
-						remove_filter( 'render_block_woocommerce/product-collection', $render_product_collection_callback );
+						remove_filter( 'render_block_poocommerce/product-collection', $render_product_collection_callback );
 						$render_product_collection_callback = null;
 					}
 
 					return $content;
 				};
 
-				add_filter( 'render_block_woocommerce/product-collection', $render_product_collection_callback, 10, 2 );
+				add_filter( 'render_block_poocommerce/product-collection', $render_product_collection_callback, 10, 2 );
 			}
 		} elseif (
 			! empty( $enhanced_query_stack ) &&
@@ -236,7 +236,7 @@ class Controller extends AbstractBlock {
 		parent::enqueue_data( $attributes );
 
 		// The `loop_shop_per_page` filter can be found in WC_Query::product_query().
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$this->asset_data_registry->add( 'loopShopPerPage', apply_filters( 'loop_shop_per_page', wc_get_default_products_per_row() * wc_get_default_product_rows_per_page() ) );
 	}
 
@@ -274,10 +274,10 @@ class Controller extends AbstractBlock {
 		}
 
 		$orderby             = $request->get_param( 'orderby' );
-		$on_sale             = $request->get_param( 'woocommerceOnSale' ) === 'true';
-		$stock_status        = $request->get_param( 'woocommerceStockStatus' );
-		$product_attributes  = $request->get_param( 'woocommerceAttributes' );
-		$handpicked_products = $request->get_param( 'woocommerceHandPickedProducts' );
+		$on_sale             = $request->get_param( 'poocommerceOnSale' ) === 'true';
+		$stock_status        = $request->get_param( 'poocommerceStockStatus' );
+		$product_attributes  = $request->get_param( 'poocommerceAttributes' );
+		$handpicked_products = $request->get_param( 'poocommerceHandPickedProducts' );
 		$featured            = $request->get_param( 'featured' );
 		$time_frame          = $request->get_param( 'timeFrame' );
 		$price_range         = $request->get_param( 'priceRange' );

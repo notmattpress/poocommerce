@@ -3,10 +3,10 @@
  * ProductVariationTemplate
  */
 
-namespace Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
 
 /**
  * Product Variation Template.
@@ -27,7 +27,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 	/**
 	 * The option name used check whether the single variation notice has been dismissed.
 	 */
-	const SINGLE_VARIATION_NOTICE_DISMISSED_OPTION = 'woocommerce_single_variation_notice_dismissed';
+	const SINGLE_VARIATION_NOTICE_DISMISSED_OPTION = 'poocommerce_single_variation_notice_dismissed';
 
 	/**
 	 * ProductVariationTemplate constructor.
@@ -50,14 +50,14 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 	 * Get the template title.
 	 */
 	public function get_title(): string {
-		return __( 'Product Variation Template', 'woocommerce' );
+		return __( 'Product Variation Template', 'poocommerce' );
 	}
 
 	/**
 	 * Get the template description.
 	 */
 	public function get_description(): string {
-		return __( 'Template for the product variation form', 'woocommerce' );
+		return __( 'Template for the product variation form', 'poocommerce' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => $this::GROUP_IDS['GENERAL'],
 				'order'      => 10,
 				'attributes' => array(
-					'title' => __( 'General', 'woocommerce' ),
+					'title' => __( 'General', 'poocommerce' ),
 				),
 			)
 		);
@@ -78,7 +78,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => $this::GROUP_IDS['INVENTORY'],
 				'order'      => 30,
 				'attributes' => array(
-					'title' => __( 'Inventory', 'woocommerce' ),
+					'title' => __( 'Inventory', 'poocommerce' ),
 				),
 			)
 		);
@@ -87,7 +87,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => $this::GROUP_IDS['SHIPPING'],
 				'order'      => 40,
 				'attributes' => array(
-					'title' => __( 'Shipping', 'woocommerce' ),
+					'title' => __( 'Shipping', 'poocommerce' ),
 				),
 			)
 		);
@@ -103,10 +103,10 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$general_group->add_block(
 			array(
 				'id'         => 'general-single-variation-notice',
-				'blockName'  => 'woocommerce/product-single-variation-notice',
+				'blockName'  => 'poocommerce/product-single-variation-notice',
 				'order'      => 10,
 				'attributes' => array(
-					'content'       => __( '<strong>You’re editing details specific to this variation.</strong> Some information, like description and images, will be inherited from the main product, <noticeLink><parentProductName/></noticeLink>.', 'woocommerce' ),
+					'content'       => __( '<strong>You’re editing details specific to this variation.</strong> Some information, like description and images, will be inherited from the main product, <noticeLink><parentProductName/></noticeLink>.', 'poocommerce' ),
 					'type'          => 'info',
 					'isDismissible' => true,
 					'name'          => $this::SINGLE_VARIATION_NOTICE_DISMISSED_OPTION,
@@ -119,8 +119,8 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => 'product-variation-details-section',
 				'order'      => 10,
 				'attributes' => array(
-					'title'       => __( 'Variation details', 'woocommerce' ),
-					'description' => __( 'This info will be displayed on the product page, category pages, social media, and search results.', 'woocommerce' ),
+					'title'       => __( 'Variation details', 'poocommerce' ),
+					'description' => __( 'This info will be displayed on the product page, category pages, social media, and search results.', 'poocommerce' ),
 				),
 			)
 		);
@@ -146,15 +146,15 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$pricing_column_1->add_block(
 			array(
 				'id'         => 'product-pricing-regular-price',
-				'blockName'  => 'woocommerce/product-regular-price-field',
+				'blockName'  => 'poocommerce/product-regular-price-field',
 				'order'      => 10,
 				'attributes' => array(
 					'name'       => 'regular_price',
-					'label'      => __( 'Regular price', 'woocommerce' ),
+					'label'      => __( 'Regular price', 'poocommerce' ),
 					'isRequired' => true,
 					'help'       => $is_calc_taxes_enabled ? null : sprintf(
 					/* translators: %1$s: store settings link opening tag. %2$s: store settings link closing tag.*/
-						__( 'Per your %1$sstore settings%2$s, taxes are not enabled.', 'woocommerce' ),
+						__( 'Per your %1$sstore settings%2$s, taxes are not enabled.', 'poocommerce' ),
 						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=general' ) . '" target="_blank" rel="noreferrer">',
 						'</a>'
 					),
@@ -174,17 +174,17 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$pricing_column_2->add_block(
 			array(
 				'id'         => 'product-pricing-sale-price',
-				'blockName'  => 'woocommerce/product-sale-price-field',
+				'blockName'  => 'poocommerce/product-sale-price-field',
 				'order'      => 10,
 				'attributes' => array(
-					'label' => __( 'Sale price', 'woocommerce' ),
+					'label' => __( 'Sale price', 'poocommerce' ),
 				),
 			)
 		);
 		$basic_details->add_block(
 			array(
 				'id'        => 'product-pricing-schedule-sale-fields',
-				'blockName' => 'woocommerce/product-schedule-sale-fields',
+				'blockName' => 'poocommerce/product-schedule-sale-fields',
 				'order'     => 20,
 			)
 		);
@@ -193,14 +193,14 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 			$basic_details->add_block(
 				array(
 					'id'         => 'product-tax-class',
-					'blockName'  => 'woocommerce/product-select-field',
+					'blockName'  => 'poocommerce/product-select-field',
 					'order'      => 40,
 					'attributes' => array(
-						'label'    => __( 'Tax class', 'woocommerce' ),
+						'label'    => __( 'Tax class', 'poocommerce' ),
 						'help'     => sprintf(
 						/* translators: %1$s: Learn more link opening tag. %2$s: Learn more link closing tag.*/
-							__( 'Apply a tax rate if this product qualifies for tax reduction or exemption. %1$sLearn more%2$s', 'woocommerce' ),
-							'<a href="https://woocommerce.com/document/setting-up-taxes-in-woocommerce/#shipping-tax-class" target="_blank" rel="noreferrer">',
+							__( 'Apply a tax rate if this product qualifies for tax reduction or exemption. %1$sLearn more%2$s', 'poocommerce' ),
+							'<a href="https://poocommerce.com/document/setting-up-taxes-in-poocommerce/#shipping-tax-class" target="_blank" rel="noreferrer">',
 							'</a>'
 						),
 						'property' => 'tax_class',
@@ -213,11 +213,11 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$basic_details->add_block(
 			array(
 				'id'         => 'product-variation-note',
-				'blockName'  => 'woocommerce/product-text-area-field',
+				'blockName'  => 'poocommerce/product-text-area-field',
 				'order'      => 20,
 				'attributes' => array(
 					'property' => 'description',
-					'label'    => __( 'Note', 'woocommerce' ),
+					'label'    => __( 'Note', 'poocommerce' ),
 					'help'     => 'Enter an optional note displayed on the product page when customers select this variation.',
 				),
 			)
@@ -225,11 +225,11 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$basic_details->add_block(
 			array(
 				'id'         => 'product-variation-visibility',
-				'blockName'  => 'woocommerce/product-checkbox-field',
+				'blockName'  => 'poocommerce/product-checkbox-field',
 				'order'      => 30,
 				'attributes' => array(
 					'property'       => 'status',
-					'label'          => __( 'Hide in product catalog', 'woocommerce' ),
+					'label'          => __( 'Hide in product catalog', 'poocommerce' ),
 					'checkedValue'   => 'private',
 					'uncheckedValue' => 'publish',
 				),
@@ -242,11 +242,11 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => 'product-variation-images-section',
 				'order'      => 30,
 				'attributes' => array(
-					'title'       => __( 'Image', 'woocommerce' ),
+					'title'       => __( 'Image', 'poocommerce' ),
 					'description' => sprintf(
 					/* translators: %1$s: Images guide link opening tag. %2$s: Images guide link closing tag. */
-						__( 'Drag images, upload new ones or select files from your library. For best results, use JPEG files that are 1000 by 1000 pixels or larger. %1$sHow to prepare images?%2$s', 'woocommerce' ),
-						'<a href="https://woocommerce.com/posts/how-to-take-professional-product-photos-top-tips" target="_blank" rel="noreferrer">',
+						__( 'Drag images, upload new ones or select files from your library. For best results, use JPEG files that are 1000 by 1000 pixels or larger. %1$sHow to prepare images?%2$s', 'poocommerce' ),
+						'<a href="https://poocommerce.com/posts/how-to-take-professional-product-photos-top-tips" target="_blank" rel="noreferrer">',
 						'</a>'
 					),
 				),
@@ -255,7 +255,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$images_section->add_block(
 			array(
 				'id'         => 'product-variation-image',
-				'blockName'  => 'woocommerce/product-images-field',
+				'blockName'  => 'poocommerce/product-images-field',
 				'order'      => 10,
 				'attributes' => array(
 					'property' => 'image',
@@ -276,10 +276,10 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$inventory_group->add_block(
 			array(
 				'id'         => 'inventory-single-variation-notice',
-				'blockName'  => 'woocommerce/product-single-variation-notice',
+				'blockName'  => 'poocommerce/product-single-variation-notice',
 				'order'      => 10,
 				'attributes' => array(
-					'content'       => __( '<strong>You’re editing details specific to this variation.</strong> Some information, like description and images, will be inherited from the main product, <noticeLink><parentProductName/></noticeLink>.', 'woocommerce' ),
+					'content'       => __( '<strong>You’re editing details specific to this variation.</strong> Some information, like description and images, will be inherited from the main product, <noticeLink><parentProductName/></noticeLink>.', 'poocommerce' ),
 					'type'          => 'info',
 					'isDismissible' => true,
 					'name'          => $this::SINGLE_VARIATION_NOTICE_DISMISSED_OPTION,
@@ -292,10 +292,10 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => 'product-variation-inventory-section',
 				'order'      => 20,
 				'attributes' => array(
-					'title'       => __( 'Inventory', 'woocommerce' ),
+					'title'       => __( 'Inventory', 'poocommerce' ),
 					'description' => sprintf(
 					/* translators: %1$s: Inventory settings link opening tag. %2$s: Inventory settings link closing tag.*/
-						__( 'Set up and manage inventory for this product, including status and available quantity. %1$sManage store inventory settings%2$s', 'woocommerce' ),
+						__( 'Set up and manage inventory for this product, including status and available quantity. %1$sManage store inventory settings%2$s', 'poocommerce' ),
 						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=products&section=inventory' ) . '" target="_blank" rel="noreferrer">',
 						'</a>'
 					),
@@ -323,7 +323,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		)->add_block(
 			array(
 				'id'        => 'product-variation-sku-field',
-				'blockName' => 'woocommerce/product-sku-field',
+				'blockName' => 'poocommerce/product-sku-field',
 				'order'     => 10,
 			)
 		);
@@ -335,16 +335,16 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		)->add_block(
 			array(
 				'id'         => 'product-unique-id-field',
-				'blockName'  => 'woocommerce/product-text-field',
+				'blockName'  => 'poocommerce/product-text-field',
 				'order'      => 20,
 				'attributes' => array(
 					'property' => 'global_unique_id',
 					// translators: %1$s GTIN %2$s UPC %3$s EAN %4$s ISBN.
-					'label'    => sprintf( __( '%1$s, %2$s, %3$s, or %4$s', 'woocommerce' ), '<abbr title="' . esc_attr__( 'Global Trade Item Number', 'woocommerce' ) . '">' . esc_html__( 'GTIN', 'woocommerce' ) . '</abbr>', '<abbr title="' . esc_attr__( 'Universal Product Code', 'woocommerce' ) . '">' . esc_html__( 'UPC', 'woocommerce' ) . '</abbr>', '<abbr title="' . esc_attr__( 'European Article Number', 'woocommerce' ) . '">' . esc_html__( 'EAN', 'woocommerce' ) . '</abbr>', '<abbr title="' . esc_attr__( 'International Standard Book Number', 'woocommerce' ) . '">' . esc_html__( 'ISBN', 'woocommerce' ) . '</abbr>' ),
-					'tooltip'  => __( 'Enter a barcode or any other identifier unique to this product. It can help you list this product on other channels or marketplaces.', 'woocommerce' ),
+					'label'    => sprintf( __( '%1$s, %2$s, %3$s, or %4$s', 'poocommerce' ), '<abbr title="' . esc_attr__( 'Global Trade Item Number', 'poocommerce' ) . '">' . esc_html__( 'GTIN', 'poocommerce' ) . '</abbr>', '<abbr title="' . esc_attr__( 'Universal Product Code', 'poocommerce' ) . '">' . esc_html__( 'UPC', 'poocommerce' ) . '</abbr>', '<abbr title="' . esc_attr__( 'European Article Number', 'poocommerce' ) . '">' . esc_html__( 'EAN', 'poocommerce' ) . '</abbr>', '<abbr title="' . esc_attr__( 'International Standard Book Number', 'poocommerce' ) . '">' . esc_html__( 'ISBN', 'poocommerce' ) . '</abbr>' ),
+					'tooltip'  => __( 'Enter a barcode or any other identifier unique to this product. It can help you list this product on other channels or marketplaces.', 'poocommerce' ),
 					'pattern'  => array(
 						'value'   => '[0-9\-]*',
-						'message' => __( 'Please enter only numbers and hyphens (-).', 'woocommerce' ),
+						'message' => __( 'Please enter only numbers and hyphens (-).', 'poocommerce' ),
 					),
 				),
 			)
@@ -352,15 +352,15 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$product_inventory_inner_section->add_block(
 			array(
 				'id'         => 'product-variation-track-stock',
-				'blockName'  => 'woocommerce/product-toggle-field',
+				'blockName'  => 'poocommerce/product-toggle-field',
 				'order'      => 20,
 				'attributes' => array(
-					'label'        => __( 'Track inventory', 'woocommerce' ),
+					'label'        => __( 'Track inventory', 'poocommerce' ),
 					'property'     => 'manage_stock',
-					'disabled'     => 'yes' !== get_option( 'woocommerce_manage_stock' ),
+					'disabled'     => 'yes' !== get_option( 'poocommerce_manage_stock' ),
 					'disabledCopy' => sprintf(
 						/* translators: %1$s: Learn more link opening tag. %2$s: Learn more link closing tag.*/
-						__( 'Per your %1$sstore settings%2$s, inventory management is <strong>disabled</strong>.', 'woocommerce' ),
+						__( 'Per your %1$sstore settings%2$s, inventory management is <strong>disabled</strong>.', 'poocommerce' ),
 						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=products&section=inventory' ) . '" target="_blank" rel="noreferrer">',
 						'</a>'
 					),
@@ -370,7 +370,7 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$product_inventory_inner_section->add_block(
 			array(
 				'id'             => 'product-variation-inventory-quantity',
-				'blockName'      => 'woocommerce/product-inventory-quantity-field',
+				'blockName'      => 'poocommerce/product-inventory-quantity-field',
 				'order'          => 10,
 				'hideConditions' => array(
 					array(
@@ -382,22 +382,22 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$product_inventory_section->add_block(
 			array(
 				'id'             => 'product-variation-stock-status',
-				'blockName'      => 'woocommerce/product-radio-field',
+				'blockName'      => 'poocommerce/product-radio-field',
 				'order'          => 10,
 				'attributes'     => array(
-					'title'    => __( 'Stock status', 'woocommerce' ),
+					'title'    => __( 'Stock status', 'poocommerce' ),
 					'property' => 'stock_status',
 					'options'  => array(
 						array(
-							'label' => __( 'In stock', 'woocommerce' ),
+							'label' => __( 'In stock', 'poocommerce' ),
 							'value' => 'instock',
 						),
 						array(
-							'label' => __( 'Out of stock', 'woocommerce' ),
+							'label' => __( 'Out of stock', 'poocommerce' ),
 							'value' => 'outofstock',
 						),
 						array(
-							'label' => __( 'On backorder', 'woocommerce' ),
+							'label' => __( 'On backorder', 'poocommerce' ),
 							'value' => 'onbackorder',
 						),
 					),
@@ -419,10 +419,10 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$shipping_group->add_block(
 			array(
 				'id'         => 'shipping-single-variation-notice',
-				'blockName'  => 'woocommerce/product-single-variation-notice',
+				'blockName'  => 'poocommerce/product-single-variation-notice',
 				'order'      => 10,
 				'attributes' => array(
-					'content'       => __( '<strong>You’re editing details specific to this variation.</strong> Some information, like description and images, will be inherited from the main product, <noticeLink><parentProductName/></noticeLink>.', 'woocommerce' ),
+					'content'       => __( '<strong>You’re editing details specific to this variation.</strong> Some information, like description and images, will be inherited from the main product, <noticeLink><parentProductName/></noticeLink>.', 'poocommerce' ),
 					'type'          => 'info',
 					'isDismissible' => true,
 					'name'          => $this::SINGLE_VARIATION_NOTICE_DISMISSED_OPTION,
@@ -438,14 +438,14 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		)->add_block(
 			array(
 				'id'         => 'product-variation-virtual',
-				'blockName'  => 'woocommerce/product-toggle-field',
+				'blockName'  => 'poocommerce/product-toggle-field',
 				'order'      => 10,
 				'attributes' => array(
 					'property'       => 'virtual',
 					'checkedValue'   => false,
 					'uncheckedValue' => true,
-					'label'          => __( 'This variation requires shipping or pickup', 'woocommerce' ),
-					'uncheckedHelp'  => __( 'This variation will not trigger your customer\'s shipping calculator in cart or at checkout. This product also won\'t require your customers to enter their shipping details at checkout. <a href="https://woocommerce.com/document/managing-products/#adding-a-virtual-product" target="_blank" rel="noreferrer">Read more about virtual products</a>.', 'woocommerce' ),
+					'label'          => __( 'This variation requires shipping or pickup', 'poocommerce' ),
+					'uncheckedHelp'  => __( 'This variation will not trigger your customer\'s shipping calculator in cart or at checkout. This product also won\'t require your customers to enter their shipping details at checkout. <a href="https://poocommerce.com/document/managing-products/#adding-a-virtual-product" target="_blank" rel="noreferrer">Read more about virtual products</a>.', 'poocommerce' ),
 				),
 			)
 		);
@@ -455,11 +455,11 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 				'id'         => 'product-variation-fee-and-dimensions-section',
 				'order'      => 30,
 				'attributes' => array(
-					'title'       => __( 'Fees & dimensions', 'woocommerce' ),
+					'title'       => __( 'Fees & dimensions', 'poocommerce' ),
 					'description' => sprintf(
 					/* translators: %1$s: How to get started? link opening tag. %2$s: How to get started? link closing tag.*/
-						__( 'Set up shipping costs and enter dimensions used for accurate rate calculations. %1$sHow to get started?%2$s', 'woocommerce' ),
-						'<a href="https://woocommerce.com/posts/how-to-calculate-shipping-costs-for-your-woocommerce-store/" target="_blank" rel="noreferrer">',
+						__( 'Set up shipping costs and enter dimensions used for accurate rate calculations. %1$sHow to get started?%2$s', 'poocommerce' ),
+						'<a href="https://poocommerce.com/posts/how-to-calculate-shipping-costs-for-your-poocommerce-store/" target="_blank" rel="noreferrer">',
 						'</a>'
 					),
 				),
@@ -468,14 +468,14 @@ class ProductVariationTemplate extends AbstractProductFormTemplate implements Pr
 		$product_fee_and_dimensions_section->add_block(
 			array(
 				'id'        => 'product-variation-shipping-class',
-				'blockName' => 'woocommerce/product-shipping-class-field',
+				'blockName' => 'poocommerce/product-shipping-class-field',
 				'order'     => 10,
 			)
 		);
 		$product_fee_and_dimensions_section->add_block(
 			array(
 				'id'        => 'product-variation-shipping-dimensions',
-				'blockName' => 'woocommerce/product-shipping-dimensions-fields',
+				'blockName' => 'poocommerce/product-shipping-dimensions-fields',
 				'order'     => 20,
 			)
 		);

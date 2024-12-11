@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { useEffect } from '@wordpress/element';
-import { CART_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY } from '@poocommerce/block-data';
 import { dispatch } from '@wordpress/data';
 import {
 	translateJQueryEventToNative,
 	getNavigationType,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 interface StoreCartListenersType {
 	// Counts the number of consumers of this hook so we can remove listeners when no longer needed.

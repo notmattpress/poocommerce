@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/settings-editor",
-	"description": "WooCommerce Admin settings page",
+	"name": "poocommerce/settings-editor",
+	"description": "PooCommerce Admin settings page",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

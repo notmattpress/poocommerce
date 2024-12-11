@@ -6,7 +6,7 @@ const {
 	HTTPClientFactory,
 	VariableProduct,
 	ProductVariation,
-} = require( '@woocommerce/api' );
+} = require( '@poocommerce/api' );
 
 /**
  * External dependencies

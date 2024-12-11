@@ -5,16 +5,16 @@
  * Helper class for the site's plugins.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 use ActionScheduler;
 use ActionScheduler_DBStore;
 use ActionScheduler_QueueRunner;
 use Automatic_Upgrader_Skin;
-use Automattic\WooCommerce\Admin\PluginsInstallLoggers\AsyncPluginsInstallLogger;
-use Automattic\WooCommerce\Admin\PluginsInstallLoggers\PluginsInstallLogger;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Admin\PluginsInstallLoggers\AsyncPluginsInstallLogger;
+use Automattic\PooCommerce\Admin\PluginsInstallLoggers\PluginsInstallLogger;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Utilities\PluginUtil;
 use Plugin_Upgrader;
 use WC_Helper;
 use WC_Helper_Updater;
@@ -42,19 +42,19 @@ class PluginsHelper {
 	public static $subscription_usage_notices_already_shown = false;
 
 	/**
-	 * The URL for the WooCommerce subscription page.
+	 * The URL for the PooCommerce subscription page.
 	 */
-	const WOO_SUBSCRIPTION_PAGE_URL = 'https://woocommerce.com/my-account/my-subscriptions/';
+	const WOO_SUBSCRIPTION_PAGE_URL = 'https://poocommerce.com/my-account/my-subscriptions/';
 
 	/**
-	 * The URL for the WooCommerce.com cart page.
+	 * The URL for the PooCommerce.com cart page.
 	 */
-	const WOO_CART_PAGE_URL = 'https://woocommerce.com/cart/';
+	const WOO_CART_PAGE_URL = 'https://poocommerce.com/cart/';
 
 	/**
-	 * The URL for the WooCommerce.com add payment method page.
+	 * The URL for the PooCommerce.com add payment method page.
 	 */
-	const WOO_ADD_PAYMENT_METHOD_URL = 'https://woocommerce.com/my-account/add-payment-method/';
+	const WOO_ADD_PAYMENT_METHOD_URL = 'https://poocommerce.com/my-account/add-payment-method/';
 
 	/**
 	 * Meta key for dismissing expired subscription notices.
@@ -75,9 +75,9 @@ class PluginsHelper {
 	 * Initialize hooks.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_plugins_install_callback', array( __CLASS__, 'install_plugins' ), 10, 2 );
-		add_action( 'woocommerce_plugins_install_and_activate_async_callback', array( __CLASS__, 'install_and_activate_plugins_async_callback' ), 10, 2 );
-		add_action( 'woocommerce_plugins_activate_callback', array( __CLASS__, 'activate_plugins' ), 10, 2 );
+		add_action( 'poocommerce_plugins_install_callback', array( __CLASS__, 'install_plugins' ), 10, 2 );
+		add_action( 'poocommerce_plugins_install_and_activate_async_callback', array( __CLASS__, 'install_and_activate_plugins_async_callback' ), 10, 2 );
+		add_action( 'poocommerce_plugins_activate_callback', array( __CLASS__, 'activate_plugins' ), 10, 2 );
 		add_action( 'admin_notices', array( __CLASS__, 'maybe_show_connect_notice_in_plugin_list' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'maybe_enqueue_scripts_for_connect_notice' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'maybe_enqueue_scripts_for_notices_in_plugins' ) );
@@ -86,7 +86,7 @@ class PluginsHelper {
 	/**
 	 * Get the path to the plugin file relative to the plugins directory from the plugin slug.
 	 *
-	 * E.g. 'woocommerce' returns 'woocommerce/woocommerce.php'
+	 * E.g. 'poocommerce' returns 'poocommerce/poocommerce.php'
 	 *
 	 * @param string $slug Plugin slug to get path for.
 	 *
@@ -225,12 +225,12 @@ class PluginsHelper {
 		 *
 		 * @since 6.4.0
 		 */
-		$plugins = apply_filters( 'woocommerce_admin_plugins_pre_install', $plugins );
+		$plugins = apply_filters( 'poocommerce_admin_plugins_pre_install', $plugins );
 
 		if ( empty( $plugins ) || ! is_array( $plugins ) ) {
 			return new WP_Error(
-				'woocommerce_plugins_invalid_plugins',
-				__( 'Plugins must be a non-empty array.', 'woocommerce' )
+				'poocommerce_plugins_invalid_plugins',
+				__( 'Plugins must be a non-empty array.', 'poocommerce' )
 			);
 		}
 
@@ -273,10 +273,10 @@ class PluginsHelper {
 			if ( is_wp_error( $api ) ) {
 				$properties = array(
 					'error_message'     => sprintf(
-						// translators: %s: plugin slug (example: woocommerce-services).
+						// translators: %s: plugin slug (example: poocommerce-services).
 						__(
 							'The requested plugin `%s` could not be installed. Plugin API call failed.',
-							'woocommerce'
+							'poocommerce'
 						),
 						$slug
 					),
@@ -293,11 +293,11 @@ class PluginsHelper {
 				 *
 				 * @since 6.4.0
 				 */
-				do_action( 'woocommerce_plugins_install_api_error', $slug, $api );
+				do_action( 'poocommerce_plugins_install_api_error', $slug, $api );
 
 				$error_message = sprintf(
-				/* translators: %s: plugin slug (example: woocommerce-services) */
-					__( 'The requested plugin `%s` could not be installed. Plugin API call failed.', 'woocommerce' ),
+				/* translators: %s: plugin slug (example: poocommerce-services) */
+					__( 'The requested plugin `%s` could not be installed. Plugin API call failed.', 'poocommerce' ),
 					$slug
 				);
 
@@ -316,10 +316,10 @@ class PluginsHelper {
 			if ( is_wp_error( $result ) || is_null( $result ) ) {
 				$properties = array(
 					'error_message'         => sprintf(
-						/* translators: %s: plugin slug (example: woocommerce-services) */
+						/* translators: %s: plugin slug (example: poocommerce-services) */
 						__(
 							'The requested plugin `%s` could not be installed.',
-							'woocommerce'
+							'poocommerce'
 						),
 						$slug
 					),
@@ -341,11 +341,11 @@ class PluginsHelper {
 				 *
 				 * @since 6.4.0
 				 */
-				do_action( 'woocommerce_plugins_install_error', $slug, $api, $result, $upgrader );
+				do_action( 'poocommerce_plugins_install_error', $slug, $api, $result, $upgrader );
 
 				$install_error_message = sprintf(
-				/* translators: %s: plugin slug (example: woocommerce-services) */
-					__( 'The requested plugin `%s` could not be installed. Upgrader install failed.', 'woocommerce' ),
+				/* translators: %s: plugin slug (example: poocommerce-services) */
+					__( 'The requested plugin `%s` could not be installed. Upgrader install failed.', 'poocommerce' ),
 					$slug
 				);
 				$errors->add(
@@ -383,7 +383,7 @@ class PluginsHelper {
 	 * @return bool
 	 */
 	public static function install_and_activate_plugins_async_callback( array $plugins, string $job_id ) {
-		$option_name = 'woocommerce_onboarding_plugins_install_and_activate_async_' . $job_id;
+		$option_name = 'poocommerce_onboarding_plugins_install_and_activate_async_' . $job_id;
 		$logger      = new AsyncPluginsInstallLogger( $option_name );
 		self::install_plugins( $plugins, $logger );
 		self::activate_plugins( $plugins, $logger );
@@ -400,14 +400,14 @@ class PluginsHelper {
 	public static function schedule_install_plugins( $plugins ) {
 		if ( empty( $plugins ) || ! is_array( $plugins ) ) {
 			return new WP_Error(
-				'woocommerce_plugins_invalid_plugins',
-				__( 'Plugins must be a non-empty array.', 'woocommerce' ),
+				'poocommerce_plugins_invalid_plugins',
+				__( 'Plugins must be a non-empty array.', 'poocommerce' ),
 				404
 			);
 		}
 
 		$job_id = uniqid();
-		WC()->queue()->schedule_single( time() + 5, 'woocommerce_plugins_install_callback', array( $plugins ) );
+		WC()->queue()->schedule_single( time() + 5, 'poocommerce_plugins_install_callback', array( $plugins ) );
 
 		return $job_id;
 	}
@@ -423,15 +423,15 @@ class PluginsHelper {
 	public static function activate_plugins( $plugins, PluginsInstallLogger $logger = null ) {
 		if ( empty( $plugins ) || ! is_array( $plugins ) ) {
 			return new WP_Error(
-				'woocommerce_plugins_invalid_plugins',
-				__( 'Plugins must be a non-empty array.', 'woocommerce' ),
+				'poocommerce_plugins_invalid_plugins',
+				__( 'Plugins must be a non-empty array.', 'poocommerce' ),
 				404
 			);
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		// the mollie-payments-for-woocommerce plugin calls `WP_Filesystem()` during it's activation hook, which crashes without this include.
+		// the mollie-payments-for-poocommerce plugin calls `WP_Filesystem()` during it's activation hook, which crashes without this include.
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
 		/**
@@ -441,7 +441,7 @@ class PluginsHelper {
 		 *
 		 * @since 6.4.0
 		 */
-		$plugins = apply_filters( 'woocommerce_admin_plugins_pre_activate', $plugins );
+		$plugins = apply_filters( 'poocommerce_admin_plugins_pre_activate', $plugins );
 
 		$plugin_paths      = self::get_installed_plugins_paths();
 		$errors            = new WP_Error();
@@ -452,8 +452,8 @@ class PluginsHelper {
 			$path = isset( $plugin_paths[ $slug ] ) ? $plugin_paths[ $slug ] : false;
 
 			if ( ! $path ) {
-				/* translators: %s: plugin slug (example: woocommerce-services) */
-				$message = sprintf( __( 'The requested plugin `%s`. is not yet installed.', 'woocommerce' ), $slug );
+				/* translators: %s: plugin slug (example: poocommerce-services) */
+				$message = sprintf( __( 'The requested plugin `%s`. is not yet installed.', 'poocommerce' ), $slug );
 				$errors->add(
 					$plugin,
 					$message
@@ -472,10 +472,10 @@ class PluginsHelper {
 				 *
 				 * @since 6.4.0
 				 */
-				do_action( 'woocommerce_plugins_activate_error', $slug, $result );
+				do_action( 'poocommerce_plugins_activate_error', $slug, $result );
 
-				/* translators: %s: plugin slug (example: woocommerce-services) */
-				$message = sprintf( __( 'The requested plugin `%s` could not be activated.', 'woocommerce' ), $slug );
+				/* translators: %s: plugin slug (example: poocommerce-services) */
+				$message = sprintf( __( 'The requested plugin `%s` could not be activated.', 'poocommerce' ), $slug );
 				$errors->add(
 					$plugin,
 					$message
@@ -508,8 +508,8 @@ class PluginsHelper {
 	public static function schedule_activate_plugins( $plugins ) {
 		if ( empty( $plugins ) || ! is_array( $plugins ) ) {
 			return new WP_Error(
-				'woocommerce_plugins_invalid_plugins',
-				__( 'Plugins must be a non-empty array.', 'woocommerce' ),
+				'poocommerce_plugins_invalid_plugins',
+				__( 'Plugins must be a non-empty array.', 'poocommerce' ),
 				404
 			);
 		}
@@ -517,7 +517,7 @@ class PluginsHelper {
 		$job_id = uniqid();
 		WC()->queue()->schedule_single(
 			time() + 5,
-			'woocommerce_plugins_activate_callback',
+			'poocommerce_plugins_activate_callback',
 			array( $plugins, $job_id )
 		);
 
@@ -534,7 +534,7 @@ class PluginsHelper {
 	public static function get_installation_status( $job_id = null ) {
 		$actions = WC()->queue()->search(
 			array(
-				'hook'    => 'woocommerce_plugins_install_callback',
+				'hook'    => 'poocommerce_plugins_install_callback',
 				'search'  => $job_id,
 				'orderby' => 'date',
 				'order'   => 'DESC',
@@ -577,7 +577,7 @@ class PluginsHelper {
 	public static function get_activation_status( $job_id = null ) {
 		$actions = WC()->queue()->search(
 			array(
-				'hook'    => 'woocommerce_plugins_activate_callback',
+				'hook'    => 'poocommerce_plugins_activate_callback',
 				'search'  => $job_id,
 				'orderby' => 'date',
 				'order'   => 'DESC',
@@ -588,12 +588,12 @@ class PluginsHelper {
 	}
 
 	/**
-	 * Show notices to connect to woocommerce.com for unconnected store in the plugin list.
+	 * Show notices to connect to poocommerce.com for unconnected store in the plugin list.
 	 *
 	 * @return void
 	 */
 	public static function maybe_show_connect_notice_in_plugin_list() {
-		if ( 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
+		if ( 'poocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 
@@ -606,7 +606,7 @@ class PluginsHelper {
 		$notice_string = '';
 
 		if ( 'long' === $notice_type ) {
-			$notice_string .= __( 'Your store might be at risk as you are running old versions of WooCommerce plugins.', 'woocommerce' );
+			$notice_string .= __( 'Your store might be at risk as you are running old versions of PooCommerce plugins.', 'poocommerce' );
 			$notice_string .= ' ';
 		}
 
@@ -623,7 +623,7 @@ class PluginsHelper {
 
 		$notice_string .= sprintf(
 			/* translators: %s: Connect page URL */
-			__( '<a id="woo-connect-notice-url" href="%s">Connect your store</a> to WooCommerce.com to get updates and streamlined support for your subscriptions.', 'woocommerce' ),
+			__( '<a id="woo-connect-notice-url" href="%s">Connect your store</a> to PooCommerce.com to get updates and streamlined support for your subscriptions.', 'poocommerce' ),
 			esc_url( $connect_page_url )
 		);
 
@@ -633,12 +633,12 @@ class PluginsHelper {
 	}
 
 	/**
-	 * Enqueue scripts for connect notice in WooCommerce settings page.
+	 * Enqueue scripts for connect notice in PooCommerce settings page.
 	 *
 	 * @return void
 	 */
 	public static function maybe_enqueue_scripts_for_connect_notice() {
-		if ( 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
+		if ( 'poocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 
@@ -682,7 +682,7 @@ class PluginsHelper {
 			return;
 		}
 
-		if ( 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
+		if ( 'poocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 
@@ -705,7 +705,7 @@ class PluginsHelper {
 			return;
 		}
 
-		if ( 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
+		if ( 'poocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 
@@ -724,7 +724,7 @@ class PluginsHelper {
 	 * @return void
 	 */
 	public static function maybe_enqueue_scripts_for_subscription_notice() {
-		if ( 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
+		if ( 'poocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 
@@ -792,11 +792,11 @@ class PluginsHelper {
 		);
 
 		$message_key      = $has_multiple_subs_for_product ? 'multiple_manage' : 'single_manage';
-		$renew_string     = __( 'Renew', 'woocommerce' );
-		$subscribe_string = __( 'Subscribe', 'woocommerce' );
+		$renew_string     = __( 'Renew', 'poocommerce' );
+		$subscribe_string = __( 'Subscribe', 'poocommerce' );
 		if ( isset( $subscription['product_regular_price'] ) ) {
 			/* translators: 1: Product price */
-			$renew_string = sprintf( __( 'Renew for %1$s', 'woocommerce' ), $subscription['product_regular_price'] );
+			$renew_string = sprintf( __( 'Renew for %1$s', 'poocommerce' ), $subscription['product_regular_price'] );
 		}
 		$expiry_date   = date_i18n( 'F jS', $subscription['expires'] );
 		$hyperlink_url = add_query_arg(
@@ -878,7 +878,7 @@ class PluginsHelper {
 		// Don't show missing notice if there are expiring subscriptions.
 		self::$subscription_usage_notices_already_shown = true;
 
-		// When payment method is missing on WooCommerce.com.
+		// When payment method is missing on PooCommerce.com.
 		$helper_notices = WC_Helper::get_notices();
 		if ( ! empty( $helper_notices['missing_payment_method_notice'] ) ) {
 			return self::get_missing_payment_method_notice( $allowed_link, $total_expiring_subscriptions );
@@ -891,11 +891,11 @@ class PluginsHelper {
 			$total_expiring_subscriptions,
 			array(
 				/* translators: 1) product name 2) expiry date 3) URL to My Subscriptions page */
-				'single_manage'           => __( 'Your subscription for <strong>%1$s</strong> expires on %2$s. <a href="%3$s">Enable auto-renewal</a> to continue receiving updates and streamlined support.', 'woocommerce' ),
+				'single_manage'           => __( 'Your subscription for <strong>%1$s</strong> expires on %2$s. <a href="%3$s">Enable auto-renewal</a> to continue receiving updates and streamlined support.', 'poocommerce' ),
 				/* translators: 1) product name 2) expiry date 3) URL to My Subscriptions page */
-				'multiple_manage'         => __( 'One of your subscriptions for <strong>%1$s</strong> expires on %2$s. <a href="%3$s">Enable auto-renewal</a> to continue receiving updates and streamlined support.', 'woocommerce' ),
+				'multiple_manage'         => __( 'One of your subscriptions for <strong>%1$s</strong> expires on %2$s. <a href="%3$s">Enable auto-renewal</a> to continue receiving updates and streamlined support.', 'poocommerce' ),
 				/* translators: 1) total expiring subscriptions 2) URL to My Subscriptions page */
-				'different_subscriptions' => __( 'You have <strong>%1$s Woo extension subscriptions</strong> expiring soon. <a href="%2$s">Enable auto-renewal</a> to continue receiving updates and streamlined support.', 'woocommerce' ),
+				'different_subscriptions' => __( 'You have <strong>%1$s Woo extension subscriptions</strong> expiring soon. <a href="%2$s">Enable auto-renewal</a> to continue receiving updates and streamlined support.', 'poocommerce' ),
 			),
 			'expiring',
 		);
@@ -919,7 +919,7 @@ class PluginsHelper {
 
 		return array(
 			'description' => $allowed_link ? $notice_data['parsed_message'] : preg_replace( '#<a.*?>(.*?)</a>#i', '\1', $notice_data['parsed_message'] ),
-			'button_text' => __( 'Enable auto-renewal', 'woocommerce' ),
+			'button_text' => __( 'Enable auto-renewal', 'poocommerce' ),
 			'button_link' => $button_link,
 		);
 	}
@@ -963,11 +963,11 @@ class PluginsHelper {
 			$total_expired_subscriptions,
 			array(
 				/* translators: 1) product name 3) URL to My Subscriptions page 4) Renew product price string */
-				'single_manage'           => __( 'Your subscription for <strong>%1$s</strong> expired. <a href="%3$s">%4$s</a> to continue receiving updates and streamlined support.', 'woocommerce' ),
+				'single_manage'           => __( 'Your subscription for <strong>%1$s</strong> expired. <a href="%3$s">%4$s</a> to continue receiving updates and streamlined support.', 'poocommerce' ),
 				/* translators: 1) product name 3) URL to My Subscriptions page 4) Renew product price string */
-				'multiple_manage'         => __( 'One of your subscriptions for <strong>%1$s</strong> has expired. <a href="%3$s">%4$s</a> to continue receiving updates and streamlined support.', 'woocommerce' ),
+				'multiple_manage'         => __( 'One of your subscriptions for <strong>%1$s</strong> has expired. <a href="%3$s">%4$s</a> to continue receiving updates and streamlined support.', 'poocommerce' ),
 				/* translators: 1) total expired subscriptions 2) URL to My Subscriptions page */
-				'different_subscriptions' => __( 'You have <strong>%1$s Woo extension subscriptions</strong> that expired. <a href="%2$s">Renew</a> to continue receiving updates and streamlined support.', 'woocommerce' ),
+				'different_subscriptions' => __( 'You have <strong>%1$s Woo extension subscriptions</strong> that expired. <a href="%2$s">Renew</a> to continue receiving updates and streamlined support.', 'poocommerce' ),
 			),
 			'expired',
 		);
@@ -992,7 +992,7 @@ class PluginsHelper {
 
 		return array(
 			'description' => $allowed_link ? $notice_data['parsed_message'] : preg_replace( '#<a.*?>(.*?)</a>#i', '\1', $notice_data['parsed_message'] ),
-			'button_text' => __( 'Renew', 'woocommerce' ),
+			'button_text' => __( 'Renew', 'poocommerce' ),
 			'button_link' => $button_link,
 		);
 	}
@@ -1043,9 +1043,9 @@ class PluginsHelper {
 			$total_missing_subscriptions,
 			array(
 				/* translators: 1) product name */
-				'single_manage'           => __( 'You don\'t have a subscription for <strong>%1$s</strong>. Subscribe to receive updates and streamlined support.', 'woocommerce' ),
+				'single_manage'           => __( 'You don\'t have a subscription for <strong>%1$s</strong>. Subscribe to receive updates and streamlined support.', 'poocommerce' ),
 				/* translators: 1) total expired subscriptions */
-				'different_subscriptions' => __( 'You don\'t have subscriptions for <strong>%1$s Woo extensions</strong>. Subscribe to receive updates and streamlined support.', 'woocommerce' ),
+				'different_subscriptions' => __( 'You don\'t have subscriptions for <strong>%1$s Woo extensions</strong>. Subscribe to receive updates and streamlined support.', 'poocommerce' ),
 			),
 			'missing',
 		);
@@ -1068,7 +1068,7 @@ class PluginsHelper {
 			);
 		}
 
-		$button_text = __( 'Subscribe', 'woocommerce' );
+		$button_text = __( 'Subscribe', 'poocommerce' );
 
 		return array(
 			'description' => $notice_data['parsed_message'],
@@ -1121,25 +1121,25 @@ class PluginsHelper {
 		);
 		$description             = $allowed_link
 			? sprintf(
-			/* translators: %s: WooCommerce.com URL to add payment method */
+			/* translators: %s: PooCommerce.com URL to add payment method */
 				_n(
-					'Your WooCommerce extension subscription is missing a payment method for renewal. <a href="%s">Add a payment method</a> to ensure you continue receiving updates and streamlined support.',
-					'Your WooCommerce extension subscriptions are missing a payment method for renewal. <a href="%s">Add a payment method</a> to ensure you continue receiving updates and streamlined support.',
+					'Your PooCommerce extension subscription is missing a payment method for renewal. <a href="%s">Add a payment method</a> to ensure you continue receiving updates and streamlined support.',
+					'Your PooCommerce extension subscriptions are missing a payment method for renewal. <a href="%s">Add a payment method</a> to ensure you continue receiving updates and streamlined support.',
 					$total_expiring_subscriptions,
-					'woocommerce'
+					'poocommerce'
 				),
 				$add_payment_method_link
 			)
 			: _n(
-				'Your WooCommerce extension subscription is missing a payment method for renewal. Add a payment method to ensure you continue receiving updates and streamlined support.',
-				'Your WooCommerce extension subscriptions are missing a payment method for renewal. Add a payment method to ensure you continue receiving updates and streamlined support.',
+				'Your PooCommerce extension subscription is missing a payment method for renewal. Add a payment method to ensure you continue receiving updates and streamlined support.',
+				'Your PooCommerce extension subscriptions are missing a payment method for renewal. Add a payment method to ensure you continue receiving updates and streamlined support.',
 				$total_expiring_subscriptions,
-				'woocommerce'
+				'poocommerce'
 			);
 
 		return array(
 			'description' => $description,
-			'button_text' => __( 'Add payment method', 'woocommerce' ),
+			'button_text' => __( 'Add payment method', 'poocommerce' ),
 			'button_link' => $add_payment_method_link,
 		);
 	}

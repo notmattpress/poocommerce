@@ -3,13 +3,13 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import {
 	WCPayBanner,
 	WCPayBannerBody,
 	WCPayBannerFooter,
-} from '@woocommerce/onboarding';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/onboarding';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ const WCPaySettingBanner = () => {
 						isPrimary
 						onClick={ recordTrack }
 					>
-						{ __( 'Get started', 'woocommerce' ) }
+						{ __( 'Get started', 'poocommerce' ) }
 					</Button>
 				}
 				isWooPayEligible={ isWooPayEligible }
@@ -51,12 +51,12 @@ const WCPaySettingBanner = () => {
 
 const DefaultPaymentMethodsHeaderText = () => (
 	<>
-		<h2>{ __( 'Payment Methods', 'woocommerce' ) }</h2>
+		<h2>{ __( 'Payment Methods', 'poocommerce' ) }</h2>
 		<div id="payment_gateways_options-description">
 			<p>
 				{ __(
 					'Installed payment methods are listed below and can be sorted to control their display order on the frontend.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		</div>

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 require_once __DIR__ . '/../../includes/class-wc-beta-tester-live-branches-installer.php';
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/install/v1',
 	'install_version',
 	array(
@@ -17,15 +17,15 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/deactivate/v1',
-	'deactivate_woocommerce',
+	'deactivate_poocommerce',
 	array(
 		'methods' => 'GET',
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/activate/v1',
 	'activate_version',
 	array(
@@ -38,8 +38,8 @@ register_woocommerce_admin_test_helper_rest_route(
 				return true;
 			} else {
 				return new \WP_Error(
-					'woocommerce_rest_cannot_edit',
-					__( 'Sorry, you cannot perform this action', 'woocommerce-beta-tester' )
+					'poocommerce_rest_cannot_edit',
+					__( 'Sorry, you cannot perform this action', 'poocommerce-beta-tester' )
 				);
 			}
 		},
@@ -87,11 +87,11 @@ function activate_version( $request ) {
 }
 
 /**
- * Respond to GET request to deactivate WooCommerce.
+ * Respond to GET request to deactivate PooCommerce.
  */
-function deactivate_woocommerce() {
+function deactivate_poocommerce() {
 	$installer = new WC_Beta_Tester_Live_Branches_Installer();
-	$installer->deactivate_woocommerce();
+	$installer->deactivate_poocommerce();
 
 	return new WP_REST_Response( wp_json_encode( array( 'ok' => true ) ), 200 );
 }

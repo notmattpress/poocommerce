@@ -2,13 +2,13 @@
 /**
  * Email notes tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Internal\Admin\Notes\MerchantEmailNotifications;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\Admin\Notes\EmailNotification;
+use Automattic\PooCommerce\Internal\Admin\Notes\MerchantEmailNotifications;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Admin\Notes\EmailNotification;
 
 /**
  * Class WC_Admin_Tests_Email_Notes

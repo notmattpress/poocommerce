@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
 use Generator;
 use ReflectionClass;
 use ReflectionException;
@@ -12,7 +12,7 @@ use WP_Screen;
 /**
  * Tests the product reviews overrides for the comments page.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides
  */
 class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 
@@ -41,7 +41,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `display_notices` determines whether to display notices for the $current_screen_base.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::display_notices()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::display_notices()
 	 * @dataProvider provider_test_display_notices()
 	 *
 	 * @param string $current_screen_base    The current WP_Screen base value.
@@ -86,7 +86,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `maybe_display_reviews_moved_notice` displays the notice if the $current_screen_base is 'edit-comments'.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::maybe_display_reviews_moved_notice()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::maybe_display_reviews_moved_notice()
 	 * @dataProvider provider_test_maybe_display_reviews_moved_notice()
 	 *
 	 * @param bool $should_display_notice Whether the reviews moved notice should be displayed.
@@ -136,7 +136,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `maybe_display_reviews_moved_notice` determines whether the notice should be displayed based on user capabilities and notice dismissal state.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::should_display_reviews_moved_notice()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::should_display_reviews_moved_notice()
 	 * @dataProvider provider_test_should_display_reviews_moved_notice()
 	 *
 	 * @param bool $user_has_capability       Whether the user has the capability to see the new page.
@@ -185,7 +185,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `display_reviews_moved_notice` displays the notice.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::display_reviews_moved_notice()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::display_reviews_moved_notice()
 	 *
 	 * @return void
 	 * @throws ReflectionException Thrown when the method does not exist.
@@ -201,7 +201,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 
 		$output = trim( ob_get_clean() );
 
-		$nonce = wp_create_nonce( 'woocommerce_hide_notices_nonce' );
+		$nonce = wp_create_nonce( 'poocommerce_hide_notices_nonce' );
 
 		$this->assertStringContainsString( '<div class="notice notice-info is-dismissible">', $output );
 		$this->assertStringContainsString( '<a href="http://' . WP_TESTS_DOMAIN . '/wp-admin/edit.php?post_type=product&#038;page=product-reviews" class="button-primary">', $output );
@@ -213,7 +213,7 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `get_dismiss_capability` returns the $expected_capability user capability for dismissing a $notice_name.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::get_dismiss_capability()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::get_dismiss_capability()
 	 * @dataProvider provider_test_get_dismiss_capability()
 	 *
 	 * @param string $default_capability The default required capability.
@@ -234,14 +234,14 @@ class ReviewsCommentsOverridesTest extends WC_Unit_Test_Case {
 
 	/** @see test_get_dismiss_capability() */
 	public function provider_test_get_dismiss_capability() : Generator {
-		yield 'another notice' => [ 'manage_woocommerce', 'other_notice', 'manage_woocommerce' ];
-		yield 'product reviews moved notice' => [ 'manage_woocommerce', ReviewsCommentsOverrides::REVIEWS_MOVED_NOTICE_ID, 'moderate_comments' ];
+		yield 'another notice' => [ 'manage_poocommerce', 'other_notice', 'manage_poocommerce' ];
+		yield 'product reviews moved notice' => [ 'manage_poocommerce', ReviewsCommentsOverrides::REVIEWS_MOVED_NOTICE_ID, 'moderate_comments' ];
 	}
 
 	/**
 	 * @testdox `exclude_reviews_from_comments` excludes product reviews from the comment query in the comments page.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::exclude_reviews_from_comments()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides::exclude_reviews_from_comments()
 	 *
 	 * @return void
 	 * @throws ReflectionException If the method doesn't exist.

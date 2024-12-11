@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { usePaginationProps } from '@woocommerce/components';
+import { usePaginationProps } from '@poocommerce/components';
 
 export type PaginationProps = usePaginationProps & {
 	className?: string;

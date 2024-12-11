@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/csv-export",
-	"description": "WooCommerce CSV export package",
+	"name": "poocommerce/csv-export",
+	"description": "PooCommerce CSV export package",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

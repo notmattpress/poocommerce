@@ -4,7 +4,7 @@
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Button } from '@wordpress/components';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 /**
  * Internal dependencies
  */
@@ -35,15 +35,15 @@ function Experiments( {
 						target="_blank"
 						href={
 							wcSettings.adminUrl +
-							'/admin.php?page=wc-settings&tab=advanced&section=woocommerce_com'
+							'/admin.php?page=wc-settings&tab=advanced&section=poocommerce_com'
 						}
 						rel="noreferrer"
 					>
-						WooCommerce &#8594; Settings &#8594; Advanced &#8594;
-						WooCommerce.com
+						PooCommerce &#8594; Settings &#8594; Advanced &#8594;
+						PooCommerce.com
 					</a>
 					&nbsp;and check{ ' ' }
-					<b>Allow usage of WooCommerce to be tracked</b>.
+					<b>Allow usage of PooCommerce to be tracked</b>.
 				</p>
 			) }
 			<NewExperimentForm />
@@ -95,7 +95,7 @@ export default compose(
 
 		return {
 			experiments: getExperiments(),
-			isTrackingEnabled: getOption( 'woocommerce_allow_tracking' ),
+			isTrackingEnabled: getOption( 'poocommerce_allow_tracking' ),
 			isResolving: isResolving( 'getOption', [ 'getExperiments' ] ),
 		};
 	} ),

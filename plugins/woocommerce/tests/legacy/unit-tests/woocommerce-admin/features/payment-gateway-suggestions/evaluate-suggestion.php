@@ -2,10 +2,10 @@
 /**
  * Test the class that evaluates payment gateway suggestion visibility.
  *
- * @package WooCommerce\Admin\Tests\PaymentGatewaySuggestions
+ * @package PooCommerce\Admin\Tests\PaymentGatewaySuggestions
  */
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
 
 /**
  * class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion
@@ -14,7 +14,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 	/**
 	 * Mock gateway option.
 	 */
-	const MOCK_OPTION = 'woocommerce_admin_mock_gateway_option';
+	const MOCK_OPTION = 'poocommerce_admin_mock_gateway_option';
 
 	/**
 	 * The mock logger.
@@ -31,7 +31,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 
 		// Have a mock logger used by the rule evaluator.
 		$this->mock_logger = $this->getMockBuilder( 'WC_Logger_Interface' )->getMock();
-		add_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 	 */
 	public function tearDown(): void {
 		delete_option( self::MOCK_OPTION );
-		remove_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		remove_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 
 		parent::tearDown();
 	}
@@ -96,7 +96,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 	 * Test that suggestion evaluation logs debug logs when logging is enabled.
 	 */
 	public function test_evaluation_logs() {
-		add_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		add_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 
 		$suggestion = array(
 			'id'         => 'mock-gateway',
@@ -150,14 +150,14 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 
 		EvaluateSuggestion::evaluate( (object) $suggestion, array( 'source' => 'unit-tests' ) );
 
-		remove_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		remove_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 	}
 
 	/**
 	 * Test that suggestion evaluation doesn't log debug logs when logging is disabled.
 	 */
 	public function test_evaluation_doesnt_log() {
-		add_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_false' );
+		add_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_false' );
 
 		$suggestion = array(
 			'id'         => 'mock-gateway',
@@ -185,14 +185,14 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 
 		EvaluateSuggestion::evaluate( (object) $suggestion, array( 'source' => 'unit-tests' ) );
 
-		remove_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_false' );
+		remove_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_false' );
 	}
 
 	/**
 	 * Test that suggestion evaluation logs when rule is not an object.
 	 */
 	public function test_evaluation_logs_when_rule_not_object() {
-		add_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		add_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 
 		$suggestion = array(
 			'id'         => 'mock-gateway',
@@ -230,14 +230,14 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 
 		EvaluateSuggestion::evaluate( (object) $suggestion, array( 'source' => 'unit-tests' ) );
 
-		remove_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		remove_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 	}
 
 	/**
 	 * Test that suggestion evaluation logs an anonymous spec.
 	 */
 	public function test_evaluation_logs_anonymous_spec() {
-		add_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		add_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 
 		$suggestion = array(
 			'id'         => '', // empty ID and no 'title' field.
@@ -275,14 +275,14 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 
 		EvaluateSuggestion::evaluate( (object) $suggestion, array( 'source' => 'unit-tests' ) );
 
-		remove_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		remove_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 	}
 
 	/**
 	 * Test that suggestion evaluation logs to the default source.
 	 */
 	public function test_evaluation_logs_to_default_source() {
-		add_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		add_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 
 		$suggestion = array(
 			'id'         => 'mock-gateway',
@@ -320,7 +320,7 @@ class WC_Admin_Tests_PaymentGatewaySuggestions_EvaluateSuggestion extends WC_Uni
 
 		EvaluateSuggestion::evaluate( (object) $suggestion );
 
-		remove_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		remove_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 	}
 
 	/**

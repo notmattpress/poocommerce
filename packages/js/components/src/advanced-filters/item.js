@@ -57,9 +57,9 @@ const AdvancedFilterItem = ( props ) => {
 	const FilterComponent = componentMap[ input.component ];
 
 	return (
-		<li className="woocommerce-filters-advanced__list-item">
+		<li className="poocommerce-filters-advanced__list-item">
 			<FilterComponent
-				className="woocommerce-filters-advanced__fieldset-item"
+				className="poocommerce-filters-advanced__fieldset-item"
 				currency={ currency }
 				filter={ filterValue }
 				config={ filterConfig }
@@ -69,8 +69,8 @@ const AdvancedFilterItem = ( props ) => {
 			/>
 			<Button
 				className={ classnames(
-					'woocommerce-filters-advanced__line-item',
-					'woocommerce-filters-advanced__remove'
+					'poocommerce-filters-advanced__line-item',
+					'poocommerce-filters-advanced__remove'
 				) }
 				label={ labels.remove }
 				onClick={ removeFilter }

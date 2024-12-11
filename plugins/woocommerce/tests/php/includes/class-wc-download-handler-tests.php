@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Approved_Directories;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Approved_Directories;
 
 /**
  * Class WC_Download_Handler_Tests.
@@ -65,7 +65,7 @@ class WC_Download_Handler_Tests extends \WC_Unit_Test_Case {
 		};
 
 		// Track downloads served.
-		add_action( 'woocommerce_download_file_force', $download_counter );
+		add_action( 'poocommerce_download_file_force', $download_counter );
 
 		/**
 		 * @var Approved_Directories $approved_directories
@@ -131,7 +131,7 @@ class WC_Download_Handler_Tests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 3, $downloads_served, 'Continued to be able to download "Book 1" (the corresponding rule never having been disabled.' );
 
 		// Cleanup.
-		add_action( 'woocommerce_download_file_force', $download_counter );
+		add_action( 'poocommerce_download_file_force', $download_counter );
 		self::restore_download_handlers();
 	}
 
@@ -141,13 +141,13 @@ class WC_Download_Handler_Tests extends \WC_Unit_Test_Case {
 	public function test_downloads_remaining_count(): void {
 		self::remove_download_handlers();
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Ok for unit tests.
-		file_put_contents( WP_CONTENT_DIR . '/uploads/woocommerce_uploads/supersheet-123.ods', str_pad( '', 100 ) );
+		file_put_contents( WP_CONTENT_DIR . '/uploads/poocommerce_uploads/supersheet-123.ods', str_pad( '', 100 ) );
 
 		list( $product, $order ) = $this->build_downloadable_product_and_order_one(
 			array(
 				array(
 					'name' => 'Supersheet 123',
-					'file' => content_url( 'uploads/woocommerce_uploads/supersheet-123.ods' ),
+					'file' => content_url( 'uploads/poocommerce_uploads/supersheet-123.ods' ),
 				),
 			)
 		);
@@ -244,17 +244,17 @@ class WC_Download_Handler_Tests extends \WC_Unit_Test_Case {
 	 * Unregister download handlers to prevent unwanted output and side-effects.
 	 */
 	private static function remove_download_handlers() {
-		remove_action( 'woocommerce_download_file_xsendfile', array( WC_Download_Handler::class, 'download_file_xsendfile' ) );
-		remove_action( 'woocommerce_download_file_redirect', array( WC_Download_Handler::class, 'download_file_redirect' ) );
-		remove_action( 'woocommerce_download_file_force', array( WC_Download_Handler::class, 'download_file_force' ) );
+		remove_action( 'poocommerce_download_file_xsendfile', array( WC_Download_Handler::class, 'download_file_xsendfile' ) );
+		remove_action( 'poocommerce_download_file_redirect', array( WC_Download_Handler::class, 'download_file_redirect' ) );
+		remove_action( 'poocommerce_download_file_force', array( WC_Download_Handler::class, 'download_file_force' ) );
 	}
 
 	/**
 	 * Restores download handlers in case needed by other tests.
 	 */
 	private static function restore_download_handlers() {
-		add_action( 'woocommerce_download_file_redirect', array( WC_Download_Handler::class, 'download_file_redirect' ), 10, 2 );
-		add_action( 'woocommerce_download_file_xsendfile', array( WC_Download_Handler::class, 'download_file_xsendfile' ), 10, 2 );
-		add_action( 'woocommerce_download_file_force', array( WC_Download_Handler::class, 'download_file_force' ), 10, 2 );
+		add_action( 'poocommerce_download_file_redirect', array( WC_Download_Handler::class, 'download_file_redirect' ), 10, 2 );
+		add_action( 'poocommerce_download_file_xsendfile', array( WC_Download_Handler::class, 'download_file_xsendfile' ), 10, 2 );
+		add_action( 'poocommerce_download_file_force', array( WC_Download_Handler::class, 'download_file_force' ), 10, 2 );
 	}
 }

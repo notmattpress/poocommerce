@@ -117,6 +117,6 @@ export const ToggleWithTooltip: React.FC = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/experimental/product-fields',
+	title: 'PooCommerce Admin/experimental/product-fields',
 	component: Basic,
 };

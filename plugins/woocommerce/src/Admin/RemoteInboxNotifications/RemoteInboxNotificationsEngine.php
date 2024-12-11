@@ -3,17 +3,17 @@
  * Handles running specs
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications;
+namespace Automattic\PooCommerce\Admin\RemoteInboxNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\PluginsProvider\PluginsProvider;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\StoredStateSetupForProducts;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\PluginsProvider\PluginsProvider;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\StoredStateSetupForProducts;
 
 /**
  * Remote Inbox Notifications engine.
@@ -26,8 +26,8 @@ class RemoteInboxNotificationsEngine extends RemoteSpecsEngine {
 
 	/**
 	 * Initialize the engine.
-	 * phpcs:disable WooCommerce.Functions.InternalInjectionMethod.MissingFinal
-	 * phpcs:disable WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
+	 * phpcs:disable PooCommerce.Functions.InternalInjectionMethod.MissingFinal
+	 * phpcs:disable PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
 	 */
 	public static function init() {
 		// Init things that need to happen before admin_init.
@@ -47,32 +47,32 @@ class RemoteInboxNotificationsEngine extends RemoteSpecsEngine {
 		// Hook into WCA updated. This is hooked up here rather than in
 		// on_admin_init because that runs too late to hook into the action.
 		add_action(
-			'woocommerce_run_on_woocommerce_admin_updated',
-			array( __CLASS__, 'run_on_woocommerce_admin_updated' )
+			'poocommerce_run_on_poocommerce_admin_updated',
+			array( __CLASS__, 'run_on_poocommerce_admin_updated' )
 		);
 		add_action(
-			'woocommerce_updated',
+			'poocommerce_updated',
 			function () {
 				$next_hook = WC()->queue()->get_next(
-					'woocommerce_run_on_woocommerce_admin_updated',
+					'poocommerce_run_on_poocommerce_admin_updated',
 					array(),
-					'woocommerce-remote-inbox-engine'
+					'poocommerce-remote-inbox-engine'
 				);
 				if ( null === $next_hook ) {
 					WC()->queue()->schedule_single(
 						time(),
-						'woocommerce_run_on_woocommerce_admin_updated',
+						'poocommerce_run_on_poocommerce_admin_updated',
 						array(),
-						'woocommerce-remote-inbox-engine'
+						'poocommerce-remote-inbox-engine'
 					);
 				}
 			}
 		);
 
-		add_filter( 'woocommerce_get_note_from_db', array( __CLASS__, 'get_note_from_db' ), 10, 1 );
-		add_filter( 'woocommerce_debug_tools', array( __CLASS__, 'add_debug_tools' ) );
+		add_filter( 'poocommerce_get_note_from_db', array( __CLASS__, 'get_note_from_db' ), 10, 1 );
+		add_filter( 'poocommerce_debug_tools', array( __CLASS__, 'add_debug_tools' ) );
 		add_action(
-			'wp_ajax_woocommerce_json_inbox_notifications_search',
+			'wp_ajax_poocommerce_json_inbox_notifications_search',
 			array( __CLASS__, 'ajax_action_inbox_notification_search' )
 		);
 	}
@@ -146,11 +146,11 @@ class RemoteInboxNotificationsEngine extends RemoteSpecsEngine {
 	}
 
 	/**
-	 * Set an option indicating that WooCommerce Admin has just been updated,
+	 * Set an option indicating that PooCommerce Admin has just been updated,
 	 * run the specs, then clear that option. This lets the
-	 * WooCommerceAdminUpdatedRuleProcessor trigger on WCA update.
+	 * PooCommerceAdminUpdatedRuleProcessor trigger on WCA update.
 	 */
-	public static function run_on_woocommerce_admin_updated() {
+	public static function run_on_poocommerce_admin_updated() {
 		update_option( self::WCA_UPDATED_OPTION_NAME, true, false );
 
 		self::run();
@@ -248,13 +248,13 @@ class RemoteInboxNotificationsEngine extends RemoteSpecsEngine {
 	}
 
 	/**
-	 * Add the debug tools to the WooCommerce debug tools (WooCommerce > Status > Tools).
+	 * Add the debug tools to the PooCommerce debug tools (PooCommerce > Status > Tools).
 	 *
 	 * @param array $tools a list of tools.
 	 *
 	 * @return mixed
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function add_debug_tools( $tools ) {
 		// Check if the feature flag is disabled.
@@ -263,48 +263,48 @@ class RemoteInboxNotificationsEngine extends RemoteSpecsEngine {
 		}
 
 		// Check if the site has opted out of marketplace suggestions.
-		if ( get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) !== 'yes' ) {
+		if ( get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) !== 'yes' ) {
 			return false;
 		}
 
 		$tools['refresh_remote_inbox_notifications'] = array(
-			'name'     => __( 'Refresh Remote Inbox Notifications', 'woocommerce' ),
-			'button'   => __( 'Refresh', 'woocommerce' ),
-			'desc'     => __( 'This will refresh the remote inbox notifications', 'woocommerce' ),
+			'name'     => __( 'Refresh Remote Inbox Notifications', 'poocommerce' ),
+			'button'   => __( 'Refresh', 'poocommerce' ),
+			'desc'     => __( 'This will refresh the remote inbox notifications', 'poocommerce' ),
 			'callback' => function () {
 				RemoteInboxNotificationsDataSourcePoller::get_instance()->read_specs_from_data_sources();
 				RemoteInboxNotificationsEngine::run();
 
-				return __( 'Remote inbox notifications have been refreshed', 'woocommerce' );
+				return __( 'Remote inbox notifications have been refreshed', 'poocommerce' );
 			},
 		);
 
 		$tools['delete_inbox_notification'] = array(
-			'name'     => __( 'Delete an Inbox Notification', 'woocommerce' ),
-			'button'   => __( 'Delete', 'woocommerce' ),
-			'desc'     => __( 'This will delete an inbox notification by slug', 'woocommerce' ),
+			'name'     => __( 'Delete an Inbox Notification', 'poocommerce' ),
+			'button'   => __( 'Delete', 'poocommerce' ),
+			'desc'     => __( 'This will delete an inbox notification by slug', 'poocommerce' ),
 			'selector' => array(
-				'description'   => __( 'Select an inbox notification to delete:', 'woocommerce' ),
+				'description'   => __( 'Select an inbox notification to delete:', 'poocommerce' ),
 				'class'         => 'wc-product-search',
-				'search_action' => 'woocommerce_json_inbox_notifications_search',
+				'search_action' => 'poocommerce_json_inbox_notifications_search',
 				'name'          => 'delete_inbox_notification_note_id',
-				'placeholder'   => esc_attr__( 'Search for an inbox notification&hellip;', 'woocommerce' ),
+				'placeholder'   => esc_attr__( 'Search for an inbox notification&hellip;', 'poocommerce' ),
 			),
 			'callback' => function () {
 				check_ajax_referer( 'debug_action', '_wpnonce' );
 
 				if ( ! isset( $_GET['delete_inbox_notification_note_id'] ) ) {
-					return __( 'No inbox notification selected', 'woocommerce' );
+					return __( 'No inbox notification selected', 'poocommerce' );
 				}
 				$note_id = wc_clean( sanitize_text_field( wp_unslash( $_GET['delete_inbox_notification_note_id'] ) ) );
 				$note = Notes::get_note( $note_id );
 
 				if ( ! $note ) {
-					return __( 'Inbox notification not found', 'woocommerce' );
+					return __( 'Inbox notification not found', 'poocommerce' );
 				}
 
 				$note->delete( true );
-				return __( 'Inbox notification has been deleted', 'woocommerce' );
+				return __( 'Inbox notification has been deleted', 'poocommerce' );
 			},
 		);
 
@@ -316,7 +316,7 @@ class RemoteInboxNotificationsEngine extends RemoteSpecsEngine {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function ajax_action_inbox_notification_search() {
 		global $wpdb;

@@ -1,11 +1,11 @@
 <?php
 /**
  * Title: Featured Category Cover Image
- * Slug: woocommerce-blocks/featured-category-cover-image
- * Categories: WooCommerce, Intro
+ * Slug: poocommerce-blocks/featured-category-cover-image
+ * Categories: PooCommerce, Intro
  */
 
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
 
 $image1 = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/table-wood-house-chair-floor-window.jpg' );
 

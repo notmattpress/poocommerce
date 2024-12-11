@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-price",
+	"name": "poocommerce/product-filter-price",
 	"version": "1.0.0",
 	"title": "Price (Experimental)",
 	"description": "Let shoppers filter products by choosing a price range.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
-	"ancestor": [ "woocommerce/product-filters" ],
+	"ancestor": [ "poocommerce/product-filters" ],
 	"supports": {
 		"interactivity": true,
 		"html": false

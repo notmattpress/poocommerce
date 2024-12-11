@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/blob/v16.4.0/packages/edit-site/src/components/save-hub/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -10,7 +10,7 @@ import {
 	useEffect,
 	useState,
 } from '@wordpress/element';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	// @ts-ignore No types for this exist yet.
@@ -161,7 +161,7 @@ export const SaveHub = () => {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore The types for this are incorrect.
 			createErrorNotice(
-				`${ __( 'Saving failed.', 'woocommerce' ) } ${ error }`
+				`${ __( 'Saving failed.', 'poocommerce' ) } ${ error }`
 			);
 			setIsResolving( false );
 		}
@@ -170,14 +170,14 @@ export const SaveHub = () => {
 	if ( isMainScreen ) {
 		return (
 			<HStack
-				className="woocommerce-edit-site-save-hub"
+				className="poocommerce-edit-site-save-hub"
 				alignment="right"
 				spacing={ 4 }
 			>
 				<Button
 					variant="primary"
 					onClick={ onDone }
-					className="woocommerce-edit-site-save-hub__button"
+					className="poocommerce-edit-site-save-hub__button"
 					disabled={
 						isResolving ||
 						isEditorLoading ||
@@ -190,7 +190,7 @@ export const SaveHub = () => {
 					{ isResolving ? (
 						<Spinner />
 					) : (
-						__( 'Finish customizing', 'woocommerce' )
+						__( 'Finish customizing', 'poocommerce' )
 					) }
 				</Button>
 			</HStack>

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions as ExtensionSuggestions;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions as ExtensionSuggestions;
 use Exception;
 use WC_Payment_Gateway;
 
@@ -31,9 +31,9 @@ class Payments {
 
 	const EXTENSION_TYPE_WPORG = 'wporg';
 
-	const USER_PAYMENTS_NOX_PROFILE_KEY = 'woocommerce_payments_nox_profile';
+	const USER_PAYMENTS_NOX_PROFILE_KEY = 'poocommerce_payments_nox_profile';
 
-	const PROVIDERS_ORDER_OPTION         = 'woocommerce_gateway_order';
+	const PROVIDERS_ORDER_OPTION         = 'poocommerce_gateway_order';
 	const SUGGESTION_ORDERING_PREFIX     = '_wc_pes_';
 	const OFFLINE_METHODS_ORDERING_GROUP = '_wc_offline_payment_methods_group';
 
@@ -146,13 +146,13 @@ class Payments {
 				'id'          => self::OFFLINE_METHODS_ORDERING_GROUP,
 				'_type'       => self::PROVIDER_TYPE_OFFLINE_PMS_GROUP,
 				'_order'      => $providers_order_map[ self::OFFLINE_METHODS_ORDERING_GROUP ],
-				'title'       => __( 'Take offline payments', 'woocommerce' ),
-				'description' => __( 'Accept payments offline using multiple different methods. These can also be used to test purchases.', 'woocommerce' ),
+				'title'       => __( 'Take offline payments', 'poocommerce' ),
+				'description' => __( 'Accept payments offline using multiple different methods. These can also be used to test purchases.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/payment_methods/cod.svg', WC_PLUGIN_FILE ),
-				// The offline PMs (and their group) are obviously from WooCommerce, and WC is always active.
+				// The offline PMs (and their group) are obviously from PooCommerce, and WC is always active.
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
+					'slug'   => 'poocommerce',
 					'file'   => '', // This pseudo-provider should have no use for the plugin file.
 					'status' => self::EXTENSION_ACTIVE,
 				),
@@ -420,20 +420,20 @@ class Payments {
 		$categories[] = array(
 			'id'          => self::CATEGORY_EXPRESS_CHECKOUT,
 			'_priority'   => 10,
-			'title'       => esc_html__( 'Express Checkouts', 'woocommerce' ),
-			'description' => esc_html__( 'Allow shoppers to fast-track the checkout process with express options like Apple Pay and Google Pay.', 'woocommerce' ),
+			'title'       => esc_html__( 'Express Checkouts', 'poocommerce' ),
+			'description' => esc_html__( 'Allow shoppers to fast-track the checkout process with express options like Apple Pay and Google Pay.', 'poocommerce' ),
 		);
 		$categories[] = array(
 			'id'          => self::CATEGORY_BNPL,
 			'_priority'   => 20,
-			'title'       => esc_html__( 'Buy Now, Pay Later', 'woocommerce' ),
-			'description' => esc_html__( 'Offer flexible payment options to your shoppers.', 'woocommerce' ),
+			'title'       => esc_html__( 'Buy Now, Pay Later', 'poocommerce' ),
+			'description' => esc_html__( 'Offer flexible payment options to your shoppers.', 'poocommerce' ),
 		);
 		$categories[] = array(
 			'id'          => self::CATEGORY_PSP,
 			'_priority'   => 30,
-			'title'       => esc_html__( 'Payment Providers', 'woocommerce' ),
-			'description' => esc_html__( 'Give your shoppers additional ways to pay.', 'woocommerce' ),
+			'title'       => esc_html__( 'Payment Providers', 'poocommerce' ),
+			'description' => esc_html__( 'Give your shoppers additional ways to pay.', 'poocommerce' ),
 		);
 
 		return $categories;
@@ -456,7 +456,7 @@ class Payments {
 
 		$suggestion = $this->get_extension_suggestion_by_id( $id );
 		if ( is_null( $suggestion ) ) {
-			throw new Exception( esc_html__( 'Invalid suggestion ID.', 'woocommerce' ) );
+			throw new Exception( esc_html__( 'Invalid suggestion ID.', 'poocommerce' ) );
 		}
 
 		$user_payments_nox_profile = get_user_meta( get_current_user_id(), self::USER_PAYMENTS_NOX_PROFILE_KEY, true );
@@ -589,7 +589,7 @@ class Payments {
 			 *
 			 * @since 1.5.7
 			 */
-			do_action( 'woocommerce_admin_field_payment_gateways' );
+			do_action( 'poocommerce_admin_field_payment_gateways' );
 			ob_end_clean();
 
 			// Get all payment gateways, ordered by the user.
@@ -770,7 +770,7 @@ class Payments {
 		$normalized_plugin_slug = Utils::normalize_plugin_slug( $plugin_slug );
 
 		// Handle core gateways.
-		if ( 'woocommerce' === $normalized_plugin_slug ) {
+		if ( 'poocommerce' === $normalized_plugin_slug ) {
 			if ( $this->is_offline_payment_method( $gateway_details['id'] ) ) {
 				switch ( $gateway_details['id'] ) {
 					case 'bacs':
@@ -883,7 +883,7 @@ class Payments {
 	 */
 	private function is_payment_gateway_in_test_mode( WC_Payment_Gateway $payment_gateway ): bool {
 		// If it is WooPayments, we need to check the test mode.
-		if ( 'woocommerce_payments' === $payment_gateway->id &&
+		if ( 'poocommerce_payments' === $payment_gateway->id &&
 			class_exists( '\WC_Payments' ) &&
 			method_exists( '\WC_Payments', 'mode' ) ) {
 
@@ -895,11 +895,11 @@ class Payments {
 
 		// If it is PayPal, we need to check the sandbox mode.
 		if ( 'ppcp-gateway' === $payment_gateway->id &&
-			class_exists( '\WooCommerce\PayPalCommerce\PPCP' ) &&
-			method_exists( '\WooCommerce\PayPalCommerce\PPCP', 'container' ) ) {
+			class_exists( '\PooCommerce\PayPalCommerce\PPCP' ) &&
+			method_exists( '\PooCommerce\PayPalCommerce\PPCP', 'container' ) ) {
 
 			try {
-				$sandbox_on_option = \WooCommerce\PayPalCommerce\PPCP::container()->get( 'wcgateway.settings' )->get( 'sandbox_on' );
+				$sandbox_on_option = \PooCommerce\PayPalCommerce\PPCP::container()->get( 'wcgateway.settings' )->get( 'sandbox_on' );
 				$sandbox_on_option = filter_var( $sandbox_on_option, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 				if ( ! is_null( $sandbox_on_option ) ) {
 					return $sandbox_on_option;
@@ -945,7 +945,7 @@ class Payments {
 	 */
 	private function is_payment_gateway_in_dev_mode( WC_Payment_Gateway $payment_gateway ): bool {
 		// If it is WooPayments, we need to check the dev mode.
-		if ( 'woocommerce_payments' === $payment_gateway->id &&
+		if ( 'poocommerce_payments' === $payment_gateway->id &&
 			class_exists( '\WC_Payments' ) &&
 			method_exists( '\WC_Payments', 'mode' ) ) {
 

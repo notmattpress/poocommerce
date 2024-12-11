@@ -2,13 +2,13 @@
 /**
  * Unit tests for the shipping class.
  *
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 
 /**
  * WC_Tests_Shipping tests.
  *
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  * @since 4.0.0
  */
 class WC_Tests_Shipping extends WC_Unit_Test_Case {

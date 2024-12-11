@@ -2,7 +2,7 @@
 /**
  * Formatting functions tests
  *
- * @package WooCommerce\Tests\Formatting.
+ * @package PooCommerce\Tests\Formatting.
  */
 
 /**

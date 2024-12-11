@@ -44,8 +44,8 @@ const WooProductFieldFill: React.FC< WooProductFieldFillProps > = ( {
 
 	deprecated( `__experimentalWooProductFieldItem`, {
 		version: '13.0.0',
-		plugin: '@woocommerce/components',
-		hint: 'Moved to @woocommerce/product-editor package: import { __experimentalWooProductFieldItem } from @woocommerce/product-editor',
+		plugin: '@poocommerce/components',
+		hint: 'Moved to @poocommerce/product-editor package: import { __experimentalWooProductFieldItem } from @poocommerce/product-editor',
 	} );
 
 	useEffect( () => {
@@ -54,7 +54,7 @@ const WooProductFieldFill: React.FC< WooProductFieldFillProps > = ( {
 
 	return (
 		<Fill
-			name={ `woocommerce_product_field_${ sectionName }` }
+			name={ `poocommerce_product_field_${ sectionName }` }
 			key={ fieldId }
 		>
 			{ ( fillProps: Fill.Props ) =>
@@ -106,7 +106,7 @@ WooProductFieldItem.Slot = ( { fillProps, section } ) => {
 
 	return (
 		<Slot
-			name={ `woocommerce_product_field_${ section }` }
+			name={ `poocommerce_product_field_${ section }` }
 			fillProps={ fillProps }
 		>
 			{ ( fills ) => {
@@ -118,7 +118,7 @@ WooProductFieldItem.Slot = ( { fillProps, section } ) => {
 					sortFillsByOrder( filterRegisteredFills( fills ) )?.props
 						.children,
 					( child ) => (
-						<div className="woocommerce-product-form__field">
+						<div className="poocommerce-product-form__field">
 							{ child }
 						</div>
 					)

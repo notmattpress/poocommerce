@@ -34,7 +34,7 @@ export const MobileAppLoginStepperPage: React.FC<
 			<h3>
 				{ __(
 					'Run your store from anywhere in two easy steps.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</h3>
 		</div>

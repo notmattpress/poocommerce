@@ -15,53 +15,53 @@ import Hearticon from '../assets/images/loader-hearticon.svg';
 import { Stages } from '../components/loader/Loader';
 
 const LightbulbStage = {
-	title: __( 'Turning on the lights', 'woocommerce' ),
+	title: __( 'Turning on the lights', 'poocommerce' ),
 	image: <img src={ LightBulbImage } alt="loader-lightbulb" />,
 	paragraphs: [
 		{
-			label: __( '#FunWooFact: ', 'woocommerce' ),
+			label: __( '#FunWooFact: ', 'poocommerce' ),
 			text: __(
 				'The Woo team is made up of over 350 talented individuals, distributed across 30+ countries.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	],
 };
 const LayoutStage = {
-	title: __( 'Extending your store’s capabilities', 'woocommerce' ),
+	title: __( 'Extending your store’s capabilities', 'poocommerce' ),
 	image: <img src={ LayoutImage } alt="loader-lightbulb" />,
 	paragraphs: [
 		{
-			label: __( '#FunWooFact: ', 'woocommerce' ),
+			label: __( '#FunWooFact: ', 'poocommerce' ),
 			text: __(
 				'Did you know that Woo powers almost 4 million stores worldwide? You’re in good company.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	],
 };
 
 const DevelopingStage = {
-	title: __( 'Woo! Let’s get your features ready', 'woocommerce' ),
+	title: __( 'Woo! Let’s get your features ready', 'poocommerce' ),
 	image: <img src={ DevelopingImage } alt="loader-developng" />,
 	paragraphs: [
 		{
-			label: __( '#FunWooFact: ', 'woocommerce' ),
+			label: __( '#FunWooFact: ', 'poocommerce' ),
 			text: __(
 				'Did you know that Woo was founded by two South Africans and a Norwegian? Here are three alternative ways to say “store” in those countries – Winkel, ivenkile, and butikk.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	],
 };
 
 const OpeningTheDoorsStage = {
-	title: __( 'Opening the doors', 'woocommerce' ),
+	title: __( 'Opening the doors', 'poocommerce' ),
 	image: <img src={ OpeningTheDoorsImage } alt="loader-opening-the-doors" />,
 	paragraphs: [
 		{
-			label: __( '#FunWooFact: ', 'woocommerce' ),
-			text: __( 'Our favorite color is purple ', 'woocommerce' ),
+			label: __( '#FunWooFact: ', 'poocommerce' ),
+			text: __( 'Our favorite color is purple ', 'poocommerce' ),
 			element: (
 				<img
 					src={ Hearticon }

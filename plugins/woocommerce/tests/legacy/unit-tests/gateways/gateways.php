@@ -2,7 +2,7 @@
 /**
  * Unit tests for gateways.
  *
- * @package WooCommerce\Tests\Gateways
+ * @package PooCommerce\Tests\Gateways
  */
 
 /**
@@ -59,7 +59,7 @@ class WC_Tests_Gateways extends WC_Unit_Test_Case {
 			'sandbox_api_password'  => 'test',
 			'sandbox_api_signature' => 'test',
 		);
-		update_option( 'woocommerce_paypal_settings ', $settings );
+		update_option( 'poocommerce_paypal_settings ', $settings );
 		$gateway = new WC_Gateway_Paypal();
 		$this->assertTrue( $gateway->can_refund_order( $order ) );
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Integrations\WPConsentAPI;
-use Automattic\WooCommerce\Internal\Orders\OrderAttributionController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Integrations\WPConsentAPI;
+use Automattic\PooCommerce\Internal\Orders\OrderAttributionController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
 use Closure;
 use WC_Logger;
 use WC_Order;

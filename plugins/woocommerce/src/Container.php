@@ -5,45 +5,45 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce;
+namespace Automattic\PooCommerce;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\ExtendedContainer;
-use Automattic\WooCommerce\Internal\DependencyManagement\RuntimeContainer;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\AdminSettingsServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\CostOfGoodsSoldServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\COTMigrationServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\DownloadPermissionsAdjusterServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\AssignDefaultCategoryServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\EmailPreviewServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\EnginesServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\FeaturesServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\LoggingServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\MarketingServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\MarketplaceServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\OrdersControllersServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\OrderAdminServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\OrderMetaBoxServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ObjectCacheServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\OrdersDataStoreServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\OptionSanitizerServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\OrderAttributionServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ProductAttributesLookupServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ProductDownloadsServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ProductImageBySKUServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ProductReviewsServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ProxiesServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\RestockRefundedItemsAdjusterServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\AdminSuggestionsServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\UtilsClassesServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\BatchProcessingServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\LayoutTemplatesServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ComingSoonServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\StatsServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\ImportExportServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\ExtendedContainer;
+use Automattic\PooCommerce\Internal\DependencyManagement\RuntimeContainer;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\AdminSettingsServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\CostOfGoodsSoldServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\COTMigrationServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\DownloadPermissionsAdjusterServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\AssignDefaultCategoryServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\EmailPreviewServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\EnginesServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\FeaturesServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\LoggingServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\MarketingServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\MarketplaceServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\OrdersControllersServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\OrderAdminServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\OrderMetaBoxServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ObjectCacheServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\OrdersDataStoreServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\OptionSanitizerServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\OrderAttributionServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ProductAttributesLookupServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ProductDownloadsServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ProductImageBySKUServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ProductReviewsServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ProxiesServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\RestockRefundedItemsAdjusterServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\AdminSuggestionsServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\UtilsClassesServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\BatchProcessingServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\LayoutTemplatesServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ComingSoonServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\StatsServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\ImportExportServiceProvider;
 
 /**
- * PSR11 compliant dependency injection container for WooCommerce.
+ * PSR11 compliant dependency injection container for PooCommerce.
  *
  * Classes in the `src` directory should specify dependencies from that directory via an 'init' method having arguments
  * with type hints. If an instance of the container itself is needed, the type hint to use is \Psr\Container\ContainerInterface.
@@ -55,14 +55,14 @@ use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\Import
  * Classes in the `includes` directory should use the `wc_get_container` function to get the instance of the container when
  * they need to get an instance of a class from the `src` directory.
  *
- * Class registration should be done via service providers that inherit from Automattic\WooCommerce\Internal\DependencyManagement
+ * Class registration should be done via service providers that inherit from Automattic\PooCommerce\Internal\DependencyManagement
  * and those should go in the `src\Internal\DependencyManagement\ServiceProviders` folder unless there's a good reason
  * to put them elsewhere. All the service provider class names must be in the `SERVICE_PROVIDERS` constant.
  *
  * IMPORTANT NOTE: By default an instance of RuntimeContainer will be used as the underlying container,
  * but it's possible to use the old ExtendedContainer (backed by the PHP League's container package) instead,
  * see RuntimeContainer::should_use() for configuration instructions.
- * The League's container, the ExtendedContainer class and the related support code will be removed in WooCommerce 10.0.
+ * The League's container, the ExtendedContainer class and the related support code will be removed in PooCommerce 10.0.
  */
 final class Container {
 	/**

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { date } from '@wordpress/date';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { useEffect, useState } from 'react';
 
 /**
@@ -26,10 +26,10 @@ export const EmailPreviewHeader: React.FC< EmailPreviewHeaderProps > = ( {
 
 	useEffect( () => {
 		const fromNameEl = document.getElementById(
-			'woocommerce_email_from_name'
+			'poocommerce_email_from_name'
 		) as HTMLInputElement;
 		const fromAddressEl = document.getElementById(
-			'woocommerce_email_from_address'
+			'poocommerce_email_from_address'
 		) as HTMLInputElement;
 
 		if ( ! fromNameEl || ! fromAddressEl ) {
@@ -88,7 +88,7 @@ export const EmailPreviewHeader: React.FC< EmailPreviewHeaderProps > = ( {
 				<div className="wc-settings-email-preview-header-icon">
 					<img
 						src={ avatarIcon }
-						alt={ __( 'Avatar icon', 'woocommerce' ) }
+						alt={ __( 'Avatar icon', 'poocommerce' ) }
 					/>
 				</div>
 				<div className="wc-settings-email-preview-header-sender">

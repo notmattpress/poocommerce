@@ -7,7 +7,7 @@ import triggerFetch from '@wordpress/api-fetch';
 import { store as coreStore } from '@wordpress/core-data';
 import { Notice } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { CHECKOUT_PAGE_ID, CART_PAGE_ID } from '@woocommerce/block-settings';
+import { CHECKOUT_PAGE_ID, CART_PAGE_ID } from '@poocommerce/block-settings';
 import {
 	useCallback,
 	useState,
@@ -25,8 +25,8 @@ export function DefaultNotice( { block }: { block: string } ) {
 		block === 'checkout' ? CHECKOUT_PAGE_ID : CART_PAGE_ID;
 	const settingName =
 		block === 'checkout'
-			? 'woocommerce_checkout_page_id'
-			: 'woocommerce_cart_page_id';
+			? 'poocommerce_checkout_page_id'
+			: 'poocommerce_cart_page_id';
 
 	// Everything below works the same for Cart/Checkout
 	const { saveEntityRecord } = useDispatch( coreStore );
@@ -104,13 +104,13 @@ export function DefaultNotice( { block }: { block: string } ) {
 		noticeContent = createInterpolateElement(
 			__(
 				'If you would like to use this block as your default checkout, <a>update your page settings</a>.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				a: (
 					// eslint-disable-next-line jsx-a11y/anchor-is-valid
 					<a href="#" onClick={ updatePage }>
-						{ __( 'update your page settings', 'woocommerce' ) }
+						{ __( 'update your page settings', 'poocommerce' ) }
 					</a>
 				),
 			}
@@ -119,13 +119,13 @@ export function DefaultNotice( { block }: { block: string } ) {
 		noticeContent = createInterpolateElement(
 			__(
 				'If you would like to use this block as your default cart, <a>update your page settings</a>.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				a: (
 					// eslint-disable-next-line jsx-a11y/anchor-is-valid
 					<a href="#" onClick={ updatePage }>
-						{ __( 'update your page settings', 'woocommerce' ) }
+						{ __( 'update your page settings', 'poocommerce' ) }
 					</a>
 				),
 			}
@@ -147,12 +147,12 @@ export function DefaultNotice( { block }: { block: string } ) {
 			onRemove={ () => setStatus( 'dismissed' ) }
 			spokenMessage={
 				settingStatus === 'updated'
-					? __( 'Page settings updated', 'woocommerce' )
+					? __( 'Page settings updated', 'poocommerce' )
 					: noticeContent
 			}
 		>
 			{ settingStatus === 'updated' ? (
-				__( 'Page settings updated', 'woocommerce' )
+				__( 'Page settings updated', 'poocommerce' )
 			) : (
 				<>
 					<p>{ noticeContent }</p>

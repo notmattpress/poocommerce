@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { WooHeaderItem } from '@woocommerce/admin-layout';
+import { WooHeaderItem } from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -23,5 +23,5 @@ const ActivityPanelHeaderItem = () => (
 
 registerPlugin( 'activity-panel-header-item', {
 	render: ActivityPanelHeaderItem,
-	scope: 'woocommerce-admin',
+	scope: 'poocommerce-admin',
 } );

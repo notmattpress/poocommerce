@@ -11,7 +11,7 @@ import {
 	insertBlockByShortcut,
 	goToPageEditor,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 const singleProductPrice1 = '10';
 const singleProductPrice2 = '50';

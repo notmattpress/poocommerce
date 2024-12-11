@@ -22,7 +22,7 @@ The following objects are shared between the filters:
 
 The following screenshot shows which parts the individual filters affect:
 
-![Cart Line Items](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-26-at-13.12.33.png)
+![Cart Line Items](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-26-at-13.12.33.png)
 
 ## `cartItemClass`
 
@@ -99,7 +99,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Cart Item Class filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/a587a6ce-d051-4ed0-bba5-815b5d72179d) |![After applying the Cart Item Class filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/9b25eeae-6d81-4e28-b177-32f942e1d0c2) |
+|![Before applying the Cart Item Class filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/a587a6ce-d051-4ed0-bba5-815b5d72179d) |![After applying the Cart Item Class filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/9b25eeae-6d81-4e28-b177-32f942e1d0c2) |
 
 
 ## `cartItemPrice`
@@ -178,7 +178,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Cart Item Price filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/bbaeb68a-492e-41e7-87b7-4b8b05ca3709) |![After applying the Cart Item Price filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/bbaeb68a-492e-41e7-87b7-4b8b05ca3709) |
+|![Before applying the Cart Item Price filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/bbaeb68a-492e-41e7-87b7-4b8b05ca3709) |![After applying the Cart Item Price filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/bbaeb68a-492e-41e7-87b7-4b8b05ca3709) |
 
 ## `itemName`
 
@@ -255,7 +255,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Item Name filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/97d0f501-138e-4448-93df-a4d865b524e6) |![After applying the Item Name filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/69381932-d064-4e8f-b378-c2477fef56ae) |
+|![Before applying the Item Name filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/97d0f501-138e-4448-93df-a4d865b524e6) |![After applying the Item Name filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/69381932-d064-4e8f-b378-c2477fef56ae) |
 
 ## `saleBadgePriceFormat`
 
@@ -341,7 +341,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Sale Badge Price Format filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/d2aeb206-e620-44e0-93c1-31484cfcdca6) |![After applying the Sale Badge Price Format filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/6b929695-5d89-433b-8694-b9201a7c0519) |
+|![Before applying the Sale Badge Price Format filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/d2aeb206-e620-44e0-93c1-31484cfcdca6) |![After applying the Sale Badge Price Format filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/6b929695-5d89-433b-8694-b9201a7c0519) |
 
 
 ## `showRemoveItemLink`
@@ -419,7 +419,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Show Remove Item Link filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/a4254f3b-f056-47ad-b34a-d5f6d5500e56) |![After applying the Show Remove Item Link filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/32c55dc7-ef65-4f35-ab90-9533bc79d362) |
+|![Before applying the Show Remove Item Link filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/a4254f3b-f056-47ad-b34a-d5f6d5500e56) |![After applying the Show Remove Item Link filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/32c55dc7-ef65-4f35-ab90-9533bc79d362) |
 
 
 
@@ -509,7 +509,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Subtotal Price Format filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/a392cb24-4c40-4e25-8396-bf4971830e22) |![After applying the Subtotal Price Format filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/af69b26f-662a-4ef9-a288-3713b6e46373) |
+|![Before applying the Subtotal Price Format filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/a392cb24-4c40-4e25-8396-bf4971830e22) |![After applying the Subtotal Price Format filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/af69b26f-662a-4ef9-a288-3713b6e46373) |
 
 ## Cart object
 

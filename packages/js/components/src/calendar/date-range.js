@@ -12,7 +12,7 @@ import { partial } from 'lodash';
 import PropTypes from 'prop-types';
 import { withViewportMatch } from '@wordpress/viewport';
 
-import { validateDateInputForRange } from '@woocommerce/date';
+import { validateDateInputForRange } from '@poocommerce/date';
 import 'react-dates/initialize';
 // ^^ The above: Turn on react-dates classes/styles, see https://github.com/airbnb/react-dates#initialize.
 
@@ -182,41 +182,41 @@ class DateRange extends Component {
 		const isDoubleCalendar = isViewportMobile && ! isViewportSmall;
 		return (
 			<div
-				className={ classnames( 'woocommerce-calendar', {
+				className={ classnames( 'poocommerce-calendar', {
 					'is-mobile': isViewportMobile,
 				} ) }
 			>
-				<div className="woocommerce-calendar__inputs">
+				<div className="poocommerce-calendar__inputs">
 					<DateInput
 						value={ afterText }
 						onChange={ partial( this.onInputChange, 'after' ) }
 						dateFormat={ shortDateFormat }
-						label={ __( 'Start Date', 'woocommerce' ) }
+						label={ __( 'Start Date', 'poocommerce' ) }
 						error={ afterError }
 						describedBy={ sprintf(
 							/* translators: %s: date format specification */
 							__(
 								"Date input describing a selected date range's start date in format %s",
-								'woocommerce'
+								'poocommerce'
 							),
 							shortDateFormat
 						) }
 						onFocus={ () => this.onFocusChange( 'startDate' ) }
 					/>
-					<div className="woocommerce-calendar__inputs-to">
-						{ __( 'to', 'woocommerce' ) }
+					<div className="poocommerce-calendar__inputs-to">
+						{ __( 'to', 'poocommerce' ) }
 					</div>
 					<DateInput
 						value={ beforeText }
 						onChange={ partial( this.onInputChange, 'before' ) }
 						dateFormat={ shortDateFormat }
-						label={ __( 'End Date', 'woocommerce' ) }
+						label={ __( 'End Date', 'poocommerce' ) }
 						error={ beforeError }
 						describedBy={ sprintf(
 							/* translators: %s: date format specification */
 							__(
 								"Date input describing a selected date range's end date in format %s",
-								'woocommerce'
+								'poocommerce'
 							),
 							shortDateFormat
 						) }
@@ -224,7 +224,7 @@ class DateRange extends Component {
 					/>
 				</div>
 				<div
-					className="woocommerce-calendar__react-dates"
+					className="poocommerce-calendar__react-dates"
 					ref={ this.nodeRef }
 					onBlur={ partial( this.keepFocusInside, CONTAINER_DIV ) }
 					tabIndex={ -1 }
@@ -309,7 +309,7 @@ DateRange.propTypes = {
 	shortDateFormat: PropTypes.string.isRequired,
 	/**
 	 * A ref that the DateRange can lose focus to.
-	 * See: https://github.com/woocommerce/woocommerce-admin/pull/2929.
+	 * See: https://github.com/poocommerce/poocommerce-admin/pull/2929.
 	 */
 	// eslint-disable-next-line no-undef
 	losesFocusTo: PropTypes.instanceOf( Element ),

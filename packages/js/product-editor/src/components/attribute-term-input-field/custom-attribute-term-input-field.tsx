@@ -9,7 +9,7 @@ import {
 	__experimentalSelectControl as SelectControl,
 	__experimentalSelectControlMenu as Menu,
 	__experimentalSelectControlMenuItem as MenuItem,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 type CustomAttributeTermInputFieldProps = {
 	value?: string[];
@@ -99,7 +99,7 @@ export const CustomAttributeTermInputField: React.FC<
 				selected={ value }
 				onSelect={ onSelect }
 				onRemove={ onRemove }
-				className="woocommerce-attribute-term-field"
+				className="poocommerce-attribute-term-field"
 			>
 				{ ( {
 					items,
@@ -126,18 +126,18 @@ export const CustomAttributeTermInputField: React.FC<
 										getItemProps={ getItemProps }
 									>
 										{ isNewTermItem( item ) ? (
-											<div className="woocommerce-attribute-term-field__add-new">
+											<div className="poocommerce-attribute-term-field__add-new">
 												<Icon
 													icon={ plus }
 													size={ 20 }
-													className="woocommerce-attribute-term-field__add-new-icon"
+													className="poocommerce-attribute-term-field__add-new-icon"
 												/>
 												<span>
 													{ sprintf(
 														/* translators: The name of the new attribute term to be created */
 														__(
 															'Create "%s"',
-															'woocommerce'
+															'poocommerce'
 														),
 														item.label
 													) }

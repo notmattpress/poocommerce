@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { StoryFn, Meta } from '@storybook/react';
-import { NoticeBannerProps } from '@woocommerce/base-components/notice-banner';
+import { NoticeBannerProps } from '@poocommerce/base-components/notice-banner';
 /**
  * Internal dependencies
  */

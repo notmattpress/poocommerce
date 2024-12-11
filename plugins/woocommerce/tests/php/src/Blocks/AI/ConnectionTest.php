@@ -2,12 +2,12 @@
 /**
  * Unit tests for the GPT AI API Connection.
  *
- * @package WooCommerce\AI\Tests
+ * @package PooCommerce\AI\Tests
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\AI;
+namespace Automattic\PooCommerce\Tests\Blocks\AI;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AI\Connection;
 use \WP_UnitTestCase;
 
 /**

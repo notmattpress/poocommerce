@@ -6,7 +6,7 @@ import { SelectControl, Spinner } from '@wordpress/components';
 import { find } from 'lodash';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { getDefaultOptionValue } from '@woocommerce/navigation';
+import { getDefaultOptionValue } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -76,7 +76,7 @@ class SelectFilter extends Component {
 				<SelectControl
 					className={ classnames(
 						className,
-						'woocommerce-filters-advanced__rule'
+						'poocommerce-filters-advanced__rule'
 					) }
 					options={ rules }
 					value={ rule }
@@ -93,7 +93,7 @@ class SelectFilter extends Component {
 				<SelectControl
 					className={ classnames(
 						className,
-						'woocommerce-filters-advanced__input'
+						'poocommerce-filters-advanced__input'
 					) }
 					options={ options }
 					value={ value }
@@ -115,7 +115,7 @@ class SelectFilter extends Component {
 		/*eslint-disable jsx-a11y/no-noninteractive-tabindex*/
 		return (
 			<fieldset
-				className="woocommerce-filters-advanced__line-item"
+				className="poocommerce-filters-advanced__line-item"
 				tabIndex="0"
 			>
 				<legend className="screen-reader-text">
@@ -123,7 +123,7 @@ class SelectFilter extends Component {
 				</legend>
 				<div
 					className={ classnames(
-						'woocommerce-filters-advanced__fieldset',
+						'poocommerce-filters-advanced__fieldset',
 						{
 							'is-english': isEnglish,
 						}

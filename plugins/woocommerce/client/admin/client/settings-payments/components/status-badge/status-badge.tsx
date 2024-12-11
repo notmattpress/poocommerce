@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Pill } from '@woocommerce/components';
+import { Pill } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -33,13 +33,13 @@ export const StatusBadge = ( { status, message }: StatusBadgeProps ) => {
 		switch ( status ) {
 			case 'active':
 			case 'has_incentive':
-				return 'woocommerce-status-badge--success';
+				return 'poocommerce-status-badge--success';
 			case 'needs_setup':
 			case 'test_mode':
-				return 'woocommerce-status-badge--warning';
+				return 'poocommerce-status-badge--warning';
 			case 'recommended':
 			case 'inactive':
-				return 'woocommerce-status-badge--info';
+				return 'poocommerce-status-badge--info';
 			default:
 				return '';
 		}
@@ -48,22 +48,22 @@ export const StatusBadge = ( { status, message }: StatusBadgeProps ) => {
 	const getStatusMessage = () => {
 		switch ( status ) {
 			case 'active':
-				return __( 'Active', 'woocommerce' );
+				return __( 'Active', 'poocommerce' );
 			case 'inactive':
-				return __( 'Inactive', 'woocommerce' );
+				return __( 'Inactive', 'poocommerce' );
 			case 'needs_setup':
-				return __( 'Action needed', 'woocommerce' );
+				return __( 'Action needed', 'poocommerce' );
 			case 'test_mode':
-				return __( 'Test mode', 'woocommerce' );
+				return __( 'Test mode', 'poocommerce' );
 			case 'recommended':
-				return __( 'Recommended', 'woocommerce' );
+				return __( 'Recommended', 'poocommerce' );
 			default:
 				return '';
 		}
 	};
 
 	return (
-		<Pill className={ `woocommerce-status-badge ${ getStatusClass() }` }>
+		<Pill className={ `poocommerce-status-badge ${ getStatusClass() }` }>
 			{ message || getStatusMessage() }
 		</Pill>
 	);

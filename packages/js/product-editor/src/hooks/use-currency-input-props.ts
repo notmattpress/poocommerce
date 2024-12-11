@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { CurrencyContext } from '@woocommerce/currency';
+import { CurrencyContext } from '@poocommerce/currency';
 import { useContext } from '@wordpress/element';
 
 /**

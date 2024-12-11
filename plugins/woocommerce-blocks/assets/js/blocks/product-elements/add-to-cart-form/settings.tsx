@@ -41,13 +41,13 @@ const getHelpText = ( quantitySelectorStyle: QuantitySelectorStyle ) => {
 	if ( quantitySelectorStyle === QuantitySelectorStyle.Input ) {
 		return __(
 			'Shoppers can enter a number of items to add to cart.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 	if ( quantitySelectorStyle === QuantitySelectorStyle.Stepper ) {
 		return __(
 			'Shoppers can use buttons to change the number of items to add to cart.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 };
@@ -76,7 +76,7 @@ export const AddToCartFormSettings = ( {
 			<PanelBody title={ 'Development' }>
 				<Flex gap={ 3 } direction="column">
 					<Notice status="warning" isDismissible={ false }>
-						{ __( 'Development features enabled.', 'woocommerce' ) }
+						{ __( 'Development features enabled.', 'poocommerce' ) }
 					</Notice>
 
 					{ enabledFeatures.map( ( feature ) => (
@@ -86,7 +86,7 @@ export const AddToCartFormSettings = ( {
 			</PanelBody>
 
 			{ isStepperLayoutFeatureEnabled && (
-				<PanelBody title={ __( 'Quantity Selector', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Quantity Selector', 'poocommerce' ) }>
 					<ToggleGroupControl
 						__nextHasNoMarginBottom
 						value={ quantitySelectorStyle }
@@ -100,11 +100,11 @@ export const AddToCartFormSettings = ( {
 						help={ getHelpText( quantitySelectorStyle ) }
 					>
 						<ToggleGroupControlOption
-							label={ __( 'Input', 'woocommerce' ) }
+							label={ __( 'Input', 'poocommerce' ) }
 							value={ QuantitySelectorStyle.Input }
 						/>
 						<ToggleGroupControlOption
-							label={ __( 'Stepper', 'woocommerce' ) }
+							label={ __( 'Stepper', 'poocommerce' ) }
 							value={ QuantitySelectorStyle.Stepper }
 						/>
 					</ToggleGroupControl>

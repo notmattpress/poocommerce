@@ -3,19 +3,19 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
-import { ExperimentalOrderShippingPackages } from '@woocommerce/blocks-checkout';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
+import { ExperimentalOrderShippingPackages } from '@poocommerce/blocks-checkout';
 import {
 	getShippingRatesPackageCount,
 	getShippingRatesRateCount,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import {
 	useStoreCart,
 	useEditorContext,
 	useShippingData,
-} from '@woocommerce/base-context';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
-import { isObject } from '@woocommerce/types';
+} from '@poocommerce/base-context';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
+import { isObject } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ const Packages = ( {
 		<>
 			{ packages.map( ( { package_id: packageId, ...packageData } ) => (
 				<ShippingRatesControlPackage
-					highlightChecked={ context !== 'woocommerce/cart' }
+					highlightChecked={ context !== 'poocommerce/cart' }
 					key={ packageId }
 					packageId={ packageId }
 					packageData={ packageData }
@@ -111,11 +111,11 @@ const ShippingRatesControl = ( {
 	return (
 		<LoadingMask
 			isLoading={ isLoadingRates }
-			screenReaderLabel={ __( 'Loading shipping rates…', 'woocommerce' ) }
+			screenReaderLabel={ __( 'Loading shipping rates…', 'poocommerce' ) }
 			showSpinner={ true }
 		>
 			{ hasSelectedLocalPickup &&
-				context === 'woocommerce/cart' &&
+				context === 'poocommerce/cart' &&
 				shippingRates.length > 1 &&
 				! allPackagesHaveSameRate &&
 				! isEditor && (
@@ -126,7 +126,7 @@ const ShippingRatesControl = ( {
 					>
 						{ __(
 							'Multiple shipments must have the same pickup location',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</NoticeBanner>
 				) }

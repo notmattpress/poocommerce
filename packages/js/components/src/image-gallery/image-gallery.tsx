@@ -88,12 +88,12 @@ export const ImageGallery: React.FC< ImageGalleryProps > = ( {
 						( event.relatedTarget &&
 							// Check if not a button within the toolbar is clicked, to prevent hiding the toolbar.
 							( event.relatedTarget as Element ).closest(
-								'.woocommerce-image-gallery__toolbar'
+								'.poocommerce-image-gallery__toolbar'
 							) ) ||
 						( event.relatedTarget &&
 							// Prevent toolbar from hiding if the dropdown is clicked within the toolbar.
 							( event.relatedTarget as Element ).closest(
-								'.woocommerce-image-gallery__toolbar-dropdown-popover'
+								'.poocommerce-image-gallery__toolbar-dropdown-popover'
 							) )
 					) {
 						return;
@@ -140,7 +140,7 @@ export const ImageGallery: React.FC< ImageGalleryProps > = ( {
 
 	return (
 		<div
-			className="woocommerce-image-gallery"
+			className="poocommerce-image-gallery"
 			style={ {
 				gridTemplateColumns: 'min-content '.repeat( columns ),
 			} }

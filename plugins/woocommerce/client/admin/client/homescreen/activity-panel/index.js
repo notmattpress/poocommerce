@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { Badge } from '@woocommerce/components';
+import { Badge } from '@poocommerce/components';
 import {
 	Button,
 	Panel,
@@ -14,8 +14,8 @@ import {
 	ONBOARDING_STORE_NAME,
 	ORDERS_STORE_NAME,
 	PRODUCTS_STORE_NAME,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect } from '@wordpress/element';
 import { snakeCase } from 'lodash';
 
@@ -115,7 +115,7 @@ export const ActivityPanel = () => {
 	};
 
 	return (
-		<Panel className="woocommerce-activity-panel">
+		<Panel className="poocommerce-activity-panel">
 			{ panels.map( ( panelData ) => {
 				const {
 					className,

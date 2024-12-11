@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { type OfflinePaymentGateway } from '@woocommerce/data';
+import { type OfflinePaymentGateway } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -27,27 +27,27 @@ export const OfflinePaymentGatewayListItem = ( {
 		<SortableItem
 			key={ gateway.id }
 			id={ gateway.id }
-			className="woocommerce-list__item woocommerce-list__item-enter-done"
+			className="poocommerce-list__item poocommerce-list__item-enter-done"
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
-				<div className="woocommerce-list__item-before">
+			<div className="poocommerce-list__item-inner">
+				<div className="poocommerce-list__item-before">
 					<DefaultDragHandle />
 					<img src={ gateway.icon } alt={ gateway.title + ' logo' } />
 				</div>
-				<div className="woocommerce-list__item-text">
-					<span className="woocommerce-list__item-title">
+				<div className="poocommerce-list__item-text">
+					<span className="poocommerce-list__item-title">
 						{ gateway.title }
 					</span>
 					<span
-						className="woocommerce-list__item-content"
+						className="poocommerce-list__item-content"
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							decodeEntities( gateway.description )
 						) }
 					/>
 				</div>
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions">
 						<PaymentGatewayButtons
 							id={ gateway.id }
 							isOffline={ true }
@@ -70,7 +70,7 @@ export const OfflinePaymentGatewayList = ( {
 } ) => {
 	return (
 		<SortableContainer< OfflinePaymentGateway >
-			className="woocommerce-list"
+			className="poocommerce-list"
 			items={ gateways }
 			setItems={ setGateways }
 		>

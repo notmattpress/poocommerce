@@ -1,12 +1,12 @@
 const { test, expect } = require( '@playwright/test' );
 
-test.describe( 'WooCommerce Home', () => {
+test.describe( 'PooCommerce Home', () => {
 	test.use( { storageState: process.env.ADMINSTATE } );
 
 	test( 'Can access Analytics Reports from Stats Overview', async ( {
 		page,
 	} ) => {
-		await test.step( 'Navigate to the WooCommerce Home page', async () => {
+		await test.step( 'Navigate to the PooCommerce Home page', async () => {
 			await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 			await expect( page.getByText( 'Stats overview' ) ).toBeVisible();
 			await expect(

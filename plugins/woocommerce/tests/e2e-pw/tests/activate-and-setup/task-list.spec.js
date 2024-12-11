@@ -7,7 +7,7 @@ test.describe( 'WC Home Task List >', () => {
 
 	test.beforeAll( async ( {} ) => {
 		return new Promise( ( resolve, reject ) => {
-			const deleteCommand = `wp-env run tests-cli wp option delete woocommerce_task_list_hidden_lists --allow-root`;
+			const deleteCommand = `wp-env run tests-cli wp option delete poocommerce_task_list_hidden_lists --allow-root`;
 			exec( deleteCommand, ( error, stdout, stderr ) => {
 				if ( error ) {
 					console.error(
@@ -27,7 +27,7 @@ test.describe( 'WC Home Task List >', () => {
 
 	test.afterAll( async ( {} ) => {
 		return new Promise( ( resolve, reject ) => {
-			const deleteCommand = `wp-env run tests-cli wp option delete woocommerce_task_list_hidden_lists --allow-root`;
+			const deleteCommand = `wp-env run tests-cli wp option delete poocommerce_task_list_hidden_lists --allow-root`;
 			exec( deleteCommand, ( error, stdout, stderr ) => {
 				if ( error ) {
 					console.error(

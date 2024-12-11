@@ -15,7 +15,7 @@ import {
 	getCanvas,
 	insertBlock,
 	goToPageEditor,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 const simpleProductName = 'Very Simple Product';
 const singleProductPrice = '999.00';
@@ -157,7 +157,7 @@ test.describe(
 				await expect(
 					page
 						.locator(
-							'.wp-block-woocommerce-checkout-order-summary-block'
+							'.wp-block-poocommerce-checkout-order-summary-block'
 						)
 						.first()
 				).toBeVisible();

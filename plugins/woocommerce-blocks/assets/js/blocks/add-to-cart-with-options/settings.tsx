@@ -33,7 +33,7 @@ export const AddToCartOptionsSettings = ( {
 			<PanelBody title={ 'Development' }>
 				<Flex gap={ 3 } direction="column">
 					<Notice status="warning" isDismissible={ false }>
-						{ __( 'Development features enabled.', 'woocommerce' ) }
+						{ __( 'Development features enabled.', 'poocommerce' ) }
 					</Notice>
 
 					{ enabledFeatures.map( ( feature ) => (

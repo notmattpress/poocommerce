@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * Utility methods related to the REST API.
@@ -8,8 +8,8 @@ namespace Automattic\WooCommerce\Utilities;
 class RestApiUtil {
 
 	/**
-	 * Get data from a WooCommerce API endpoint.
-	 * This method used to be part of the WooCommerce Legacy REST API.
+	 * Get data from a PooCommerce API endpoint.
+	 * This method used to be part of the PooCommerce Legacy REST API.
 	 *
 	 * @since 9.0.0
 	 *

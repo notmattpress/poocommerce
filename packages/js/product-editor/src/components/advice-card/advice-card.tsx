@@ -5,7 +5,7 @@ import { Button } from '@wordpress/components';
 import { createElement, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { close } from '@wordpress/icons';
-import { useUserPreferences } from '@woocommerce/data';
+import { useUserPreferences } from '@poocommerce/data';
 import classNames from 'classnames';
 
 /**
@@ -62,24 +62,24 @@ export function AdviceCard( {
 		<div
 			role="group"
 			{ ...props }
-			className={ classNames( className, 'woocommerce-advice-card', {
+			className={ classNames( className, 'poocommerce-advice-card', {
 				'is-dismissible': isDismissible,
 			} ) }
 		>
 			{ isDismissible && (
-				<div className="woocommerce-advice-card__header">
+				<div className="poocommerce-advice-card__header">
 					<Button
-						className="woocommerce-advice-card__dismiss-button"
+						className="poocommerce-advice-card__dismiss-button"
 						onClick={ handleDismissButtonClick }
 						icon={ close }
-						label={ __( 'Dismiss', 'woocommerce' ) }
+						label={ __( 'Dismiss', 'poocommerce' ) }
 						isSmall={ true }
 					/>
 				</div>
 			) }
-			<div className="woocommerce-advice-card__body">{ children }</div>
+			<div className="poocommerce-advice-card__body">{ children }</div>
 			{ tip && tip.length > 0 && (
-				<div className="woocommerce-advice-card__footer">{ tip }</div>
+				<div className="poocommerce-advice-card__footer">{ tip }</div>
 			) }
 		</div>
 	);

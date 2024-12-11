@@ -40,10 +40,10 @@ There is no other mechanism in place for creating nonces.
 If you want to test REST endpoints without providing a nonce, you can use the following filter:
 
 ```php
-add_filter( 'woocommerce_store_api_disable_nonce_check', '__return_true' );
+add_filter( 'poocommerce_store_api_disable_nonce_check', '__return_true' );
 ```
 
-Nonce checks will be bypassed if `woocommerce_store_api_disable_nonce_check` evaluates to `true`.
+Nonce checks will be bypassed if `poocommerce_store_api_disable_nonce_check` evaluates to `true`.
 
 NOTE: This should only be done on development sites where security is not important. Do not enable this in production.
 
@@ -51,9 +51,9 @@ NOTE: This should only be done on development sites where security is not import
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/nonce-tokens.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/nonce-tokens.md)
 
 <!-- /FEEDBACK -->
 

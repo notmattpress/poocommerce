@@ -3,19 +3,19 @@
  */
 import { useMemo, cloneElement } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { noticeContexts } from '@woocommerce/base-context';
+import { noticeContexts } from '@poocommerce/base-context';
 import {
 	RadioControl,
 	RadioControlOptionType,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import {
 	usePaymentMethodInterface,
 	useStoreEvents,
-} from '@woocommerce/base-context/hooks';
-import { PAYMENT_STORE_KEY } from '@woocommerce/block-data';
+} from '@poocommerce/base-context/hooks';
+import { PAYMENT_STORE_KEY } from '@poocommerce/block-data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { getPaymentMethods } from '@woocommerce/blocks-registry';
-import { isNull } from '@woocommerce/types';
+import { getPaymentMethods } from '@poocommerce/blocks-registry';
+import { isNull } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ const getCcOrEcheckLabel = ( {
 } ): string => {
 	return sprintf(
 		/* translators: %1$s is referring to the payment method brand, %2$s is referring to the last 4 digits of the payment card, %3$s is referring to the expiry date.  */
-		__( '%1$s ending in %2$s (expires %3$s)', 'woocommerce' ),
+		__( '%1$s ending in %2$s (expires %3$s)', 'poocommerce' ),
 		method?.display_brand ?? method?.networks?.preferred ?? method.brand,
 		method.last4,
 		expires
@@ -54,7 +54,7 @@ const getDefaultLabel = ( {
 	if ( method.brand && method.last4 ) {
 		return sprintf(
 			/* translators: %1$s is referring to the payment method brand, %2$s is referring to the last 4 digits of the payment card. */
-			__( '%1$s ending in %2$s', 'woocommerce' ),
+			__( '%1$s ending in %2$s', 'poocommerce' ),
 			method.brand,
 			method.last4
 		);
@@ -63,7 +63,7 @@ const getDefaultLabel = ( {
 	/* For saved payment methods without brand & last 4 */
 	return sprintf(
 		/* translators: %s is the name of the payment method gateway. */
-		__( 'Saved token for %s', 'woocommerce' ),
+		__( 'Saved token for %s', 'poocommerce' ),
 		method.gateway
 	);
 };

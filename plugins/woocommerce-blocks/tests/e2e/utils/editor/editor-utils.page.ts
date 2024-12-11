@@ -48,7 +48,7 @@ export class Editor extends CoreEditor {
 	async transformIntoBlocks() {
 		// Select the block, so the button is visible.
 		const block = this.canvas
-			.locator( `[data-type="woocommerce/legacy-template"]` )
+			.locator( `[data-type="poocommerce/legacy-template"]` )
 			.first();
 
 		if ( ! ( await block.isVisible() ) ) {

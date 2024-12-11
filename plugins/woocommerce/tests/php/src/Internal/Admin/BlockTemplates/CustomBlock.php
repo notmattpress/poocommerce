@@ -1,14 +1,14 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockContainerInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
 
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\AbstractBlock;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\Block;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\BlockContainerTrait;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\AbstractBlock;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\Block;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\BlockContainerTrait;
 
 /**
  * Custom block class for testing.

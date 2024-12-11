@@ -1,11 +1,11 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
  */
 // @ts-ignore No types for this exist yet.
 import { __experimentalGrid as Grid, Spinner } from '@wordpress/components';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 import { useContext, useMemo } from '@wordpress/element';
 import {
@@ -41,10 +41,10 @@ export const FontPairing = () => {
 			select( OPTIONS_STORE_NAME );
 		return {
 			aiSuggestions: getOption(
-				'woocommerce_customize_store_ai_suggestions'
+				'poocommerce_customize_store_ai_suggestions'
 			) as { lookAndFeel: Look },
 			isLoading: ! hasFinishedResolution( 'getOption', [
-				'woocommerce_customize_store_ai_suggestions',
+				'poocommerce_customize_store_ai_suggestions',
 			] ),
 		};
 	} );
@@ -72,7 +72,7 @@ export const FontPairing = () => {
 	const trackingAllowed = useSelect(
 		( select ) =>
 			select( OPTIONS_STORE_NAME ).getOption(
-				'woocommerce_allow_tracking'
+				'poocommerce_allow_tracking'
 			) === 'yes'
 	);
 
@@ -158,7 +158,7 @@ export const FontPairing = () => {
 
 	if ( isLoading || optInFlowStatus === OPTIN_FLOW_STATUS.LOADING ) {
 		return (
-			<div className="woocommerce-customize-store_font-pairing-spinner-container">
+			<div className="poocommerce-customize-store_font-pairing-spinner-container">
 				<Spinner />
 			</div>
 		);
@@ -168,7 +168,7 @@ export const FontPairing = () => {
 		<Grid
 			columns={ 2 }
 			gap={ 3 }
-			className="woocommerce-customize-store_font-pairing-container"
+			className="poocommerce-customize-store_font-pairing-container"
 			style={ {
 				opacity: 0,
 				animation: 'containerFadeIn 300ms ease-in-out forwards',

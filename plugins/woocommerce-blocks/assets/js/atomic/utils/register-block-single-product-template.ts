@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { isNumber, isEmpty } from '@woocommerce/types';
+import { isNumber, isEmpty } from '@poocommerce/types';
 import {
 	BlockAttributes,
 	BlockConfiguration,
@@ -92,7 +92,7 @@ export const registerBlockSingleProductTemplate = ( {
 				registerBlockVariation( blockName, blockSettings );
 			} else {
 				const ancestor = isEmpty( blockSettings?.ancestor )
-					? [ 'woocommerce/single-product' ]
+					? [ 'poocommerce/single-product' ]
 					: blockSettings?.ancestor;
 				// @ts-expect-error: `registerBlockType` is not typed in WordPress core
 				registerBlockType( blockMetadata, {

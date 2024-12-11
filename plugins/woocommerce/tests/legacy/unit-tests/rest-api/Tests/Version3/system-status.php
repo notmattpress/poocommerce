@@ -2,7 +2,7 @@
 /**
  * Class WC_Tests_REST_System_Status file.
  *
- * @package Automattic/WooCommerce/Tests
+ * @package Automattic/PooCommerce/Tests
  */
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
@@ -10,7 +10,7 @@ use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 /**
  * System Status REST Tests.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 class WC_Tests_REST_System_Status extends WC_REST_Unit_Test_Case {
@@ -170,10 +170,10 @@ class WC_Tests_REST_System_Status extends WC_REST_Unit_Test_Case {
 		global $wpdb;
 		$database = (array) $this->fetch_or_get_system_status_data_for_user( self::$administrator_user )['database'];
 
-		$this->assertEquals( get_option( 'woocommerce_db_version' ), $database['wc_database_version'] );
+		$this->assertEquals( get_option( 'poocommerce_db_version' ), $database['wc_database_version'] );
 		$this->assertEquals( $wpdb->prefix, $database['database_prefix'] );
-		$this->assertArrayHasKey( 'woocommerce', $database['database_tables'], wc_print_r( $database, true ) );
-		$this->assertArrayHasKey( $wpdb->prefix . 'woocommerce_payment_tokens', $database['database_tables']['woocommerce'], wc_print_r( $database, true ) );
+		$this->assertArrayHasKey( 'poocommerce', $database['database_tables'], wc_print_r( $database, true ) );
+		$this->assertArrayHasKey( $wpdb->prefix . 'poocommerce_payment_tokens', $database['database_tables']['poocommerce'], wc_print_r( $database, true ) );
 	}
 
 	/**
@@ -237,8 +237,8 @@ class WC_Tests_REST_System_Status extends WC_REST_Unit_Test_Case {
 		$settings = (array) $this->fetch_or_get_system_status_data_for_user( self::$administrator_user )['settings'];
 
 		$this->assertEquals( 16, count( $settings ) );
-		$this->assertEquals( ( 'yes' === get_option( 'woocommerce_api_enabled' ) ), $settings['api_enabled'] );
-		$this->assertEquals( get_woocommerce_currency(), $settings['currency'] );
+		$this->assertEquals( ( 'yes' === get_option( 'poocommerce_api_enabled' ) ), $settings['api_enabled'] );
+		$this->assertEquals( get_poocommerce_currency(), $settings['currency'] );
 		$this->assertEquals( $term_response, $settings['taxonomies'] );
 	}
 
@@ -458,7 +458,7 @@ class WC_Tests_REST_System_Status extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 'Recount terms', $data['action'] );
 		$this->assertEquals( 'This tool will recount product terms - useful when changing your settings in a way which hides products from the catalog.', $data['description'] );
 		$this->assertTrue( $data['success'] );
-		$this->assertEquals( 1, did_action( 'woocommerce_rest_insert_system_status_tool' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_rest_insert_system_status_tool' ) );
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'POST', '/wc/v3/system_status/tools/not_a_real_tool' ) );
 		$this->assertEquals( 404, $response->get_status() );
@@ -536,7 +536,7 @@ class WC_Tests_REST_System_Status extends WC_REST_Unit_Test_Case {
 	protected function mock_http_responses( $request, $url ) {
 		$mocked_response = false;
 
-		if ( in_array( $url, array( 'https://www.paypal.com/cgi-bin/webscr', 'https://woocommerce.com/wc-api/product-key-api?request=ping&network=0' ), true ) ) {
+		if ( in_array( $url, array( 'https://www.paypal.com/cgi-bin/webscr', 'https://poocommerce.com/wc-api/product-key-api?request=ping&network=0' ), true ) ) {
 			$mocked_response = array(
 				'response' => array( 'code' => 200 ),
 			);

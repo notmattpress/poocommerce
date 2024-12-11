@@ -1,6 +1,6 @@
 # Using the Built In Container for End to End Testing
 
-This document provides general instructions for using `@woocommerce/e2e-environment` with the built in hosting container. 
+This document provides general instructions for using `@poocommerce/e2e-environment` with the built in hosting container. 
 
 ## Prerequisites
 
@@ -16,24 +16,24 @@ wp post create --post_type=page --post_status=publish --post_title='Ready' --pos
 
 ### Project Initialization
 
-Each project will have its own begin test state and initialization script. For example, a project might start testing expecting that the [sample products](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/sample-data) have already been imported. Below is the WP CLI equivalent of the built in initialization script for WooCommerce Core E2E testing:
+Each project will have its own begin test state and initialization script. For example, a project might start testing expecting that the [sample products](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/sample-data) have already been imported. Below is the WP CLI equivalent of the built in initialization script for PooCommerce Core E2E testing:
 
 
 ```
 wp core install --url=http://localhost:8084 --admin_user=admin --admin_password=password --admin_email=wooadmin@example.org
 ```
 
-Project specific initialization can be added through an executable file at ```pluigns/woocommerce/tests/e2e/docker/initialize.sh```. WooCommerce core's script is:
+Project specific initialization can be added through an executable file at ```pluigns/poocommerce/tests/e2e/docker/initialize.sh```. PooCommerce core's script is:
 
 
 ```
 #!/bin/bash
 
-echo "Initializing WooCommerce E2E"
+echo "Initializing PooCommerce E2E"
 
-wp plugin activate woocommerce
+wp plugin activate poocommerce
 wp theme install twentynineteen --activate
-wp user create customer customer@woocommercecoree2etestsuite.com \
+wp user create customer customer@poocommercecoree2etestsuite.com \
 	--user_pass=password \
 	--role=subscriber \
 	--first_name='Jane' \
@@ -52,7 +52,7 @@ wp plugin install wp-mail-logging --activate
 The container build script supports an initialization script parameter
 
 ```shell script
-pnpm exec wc-e2e docker:up plugins/woocommerce/tests/e2e/docker/init-wp-beta.sh
+pnpm exec wc-e2e docker:up plugins/poocommerce/tests/e2e/docker/init-wp-beta.sh
 ```
 
 This script updates WordPress to the latest nightly point release
@@ -60,11 +60,11 @@ This script updates WordPress to the latest nightly point release
 ```shell script
 #!/bin/bash
 
-echo "Initializing WooCommerce E2E"
+echo "Initializing PooCommerce E2E"
 
-wp plugin install woocommerce --activate
+wp plugin install poocommerce --activate
 wp theme install twentynineteen --activate
-wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer --path=/var/www/html
+wp user create customer customer@poocommercecoree2etestsuite.com --user_pass=password --role=customer --path=/var/www/html
 
 # we cannot create API keys for the API, so we using basic auth, this plugin allows that.
 wp plugin install https://github.com/WP-API/Basic-Auth/archive/master.zip --activate
@@ -89,7 +89,7 @@ The built in container initialization needs to know the particulars of your test
     "admin": {
       "username": "admin",
       "password": "password",
-      "email": "admin@woocommercecoree2etestsuite.com"
+      "email": "admin@poocommercecoree2etestsuite.com"
     }
   }
 }
@@ -119,17 +119,17 @@ You can override these in `/tests/e2e/config/default.json`.
 
 ### Folder Mapping
 
-The built in container defaults to mapping the root folder of the repository to a folder in the `plugins` folder. Use the environment variables `WC_E2E_FOLDER` and `WC_E2E_FOLDER_MAPPING` to override this mapping. The `WC_E2E_FOLDER` is a path relative to the root of the project. For example, in the  `woocommerce` repository this mapping is:
+The built in container defaults to mapping the root folder of the repository to a folder in the `plugins` folder. Use the environment variables `WC_E2E_FOLDER` and `WC_E2E_FOLDER_MAPPING` to override this mapping. The `WC_E2E_FOLDER` is a path relative to the root of the project. For example, in the  `poocommerce` repository this mapping is:
 
-- `WC_E2E_FOLDER=plugins/woocommerce`
-- `WC_E2E_FOLDER_MAPPING=/var/www/html/wp-content/plugins/woocommerce`
+- `WC_E2E_FOLDER=plugins/poocommerce`
+- `WC_E2E_FOLDER_MAPPING=/var/www/html/wp-content/plugins/poocommerce`
 
 Other repository examples:
 
 - Storefront Theme - ```WC_E2E_FOLDER_MAPPING=/var/www/html/wp-content/themes/storefront npx wc-e2e docker:up```
 - Site Project - ```WC_E2E_FOLDER_MAPPING=/var/www/html/wp-content npx wc-e2e docker:up```
 
-Since the introduction of the WooCommerce Monorepo, a `WC_CORE_PATH` environment variable maps to Core WooCommerce at `plugins/woocommerce`. It can also be overridden in a similar fashion.
+Since the introduction of the PooCommerce Monorepo, a `WC_CORE_PATH` environment variable maps to Core PooCommerce at `plugins/poocommerce`. It can also be overridden in a similar fashion.
 
 ### Specifying Server Software versions
 

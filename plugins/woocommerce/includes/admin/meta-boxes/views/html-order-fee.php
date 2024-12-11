@@ -15,17 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<td class="name">
 		<div class="view">
-			<?php echo esc_html( $item->get_name() ? $item->get_name() : __( 'Fee', 'woocommerce' ) ); ?>
+			<?php echo esc_html( $item->get_name() ? $item->get_name() : __( 'Fee', 'poocommerce' ) ); ?>
 		</div>
 		<div class="edit" style="display: none;">
-			<input type="text" placeholder="<?php esc_attr_e( 'Fee name', 'woocommerce' ); ?>" name="order_item_name[<?php echo absint( $item_id ); ?>]" value="<?php echo ( $item->get_name() ) ? esc_attr( $item->get_name() ) : ''; ?>" />
+			<input type="text" placeholder="<?php esc_attr_e( 'Fee name', 'poocommerce' ); ?>" name="order_item_name[<?php echo absint( $item_id ); ?>]" value="<?php echo ( $item->get_name() ) ? esc_attr( $item->get_name() ) : ''; ?>" />
 			<input type="hidden" class="order_item_id" name="order_item_id[]" value="<?php echo esc_attr( $item_id ); ?>" />
 			<input type="hidden" name="order_item_tax_class[<?php echo absint( $item_id ); ?>]" value="<?php echo esc_attr( $item->get_tax_class() ); ?>" />
 		</div>
-		<?php do_action( 'woocommerce_after_order_fee_item_name', $item_id, $item, null ); ?>
+		<?php do_action( 'poocommerce_after_order_fee_item_name', $item_id, $item, null ); ?>
 	</td>
 
-	<?php do_action( 'woocommerce_admin_order_item_values', null, $item, absint( $item_id ) ); ?>
+	<?php do_action( 'poocommerce_admin_order_item_values', null, $item, absint( $item_id ) ); ?>
 
 	<td class="item_cost" width="1%">&nbsp;</td>
 	<td class="quantity" width="1%">&nbsp;</td>
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="wc-order-edit-line-item">
 		<?php if ( $order->is_editable() ) : ?>
 			<div class="wc-order-edit-line-item-actions">
-				<a class="edit-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Edit fee', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Edit fee', 'woocommerce' ); ?>"></a><a class="delete-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Delete fee', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Delete fee', 'woocommerce' ); ?>"></a>
+				<a class="edit-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Edit fee', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Edit fee', 'poocommerce' ); ?>"></a><a class="delete-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Delete fee', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Delete fee', 'poocommerce' ); ?>"></a>
 			</div>
 		<?php endif; ?>
 	</td>

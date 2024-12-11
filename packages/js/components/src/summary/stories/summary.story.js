@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SummaryList, SummaryNumber } from '@woocommerce/components';
+import { SummaryList, SummaryNumber } from '@poocommerce/components';
 
 export const Basic = () => (
 	<SummaryList>
@@ -36,6 +36,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/SummaryList',
+	title: 'PooCommerce Admin/components/SummaryList',
 	component: SummaryList,
 };

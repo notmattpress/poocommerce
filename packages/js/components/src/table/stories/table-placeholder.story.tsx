@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Card } from '@wordpress/components';
-import { TablePlaceholder } from '@woocommerce/components';
+import { TablePlaceholder } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 /**
@@ -20,6 +20,6 @@ export const Basic = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/components/TablePlaceholder',
+	title: 'PooCommerce Admin/components/TablePlaceholder',
 	component: TablePlaceholder,
 };

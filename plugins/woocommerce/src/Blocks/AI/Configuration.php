@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AI;
+namespace Automattic\PooCommerce\Blocks\AI;
 
 use Automattic\Jetpack\Config;
 use Automattic\Jetpack\Connection\Manager;
@@ -18,7 +18,7 @@ class Configuration {
 	 *
 	 * @var string
 	 */
-	private $consent_option_name = 'woocommerce_blocks_allow_ai_connection';
+	private $consent_option_name = 'poocommerce_blocks_allow_ai_connection';
 	/**
 	 * The Jetpack connection manager.
 	 *
@@ -40,7 +40,7 @@ class Configuration {
 			return;
 		}
 
-		$this->manager = new Manager( 'woocommerce_blocks' );
+		$this->manager = new Manager( 'poocommerce_blocks' );
 		$this->config  = new Config();
 	}
 
@@ -71,7 +71,7 @@ class Configuration {
 	}
 
 	/**
-	 * Initialize Jetpack's connection feature within the WooCommerce Blocks plugin.
+	 * Initialize Jetpack's connection feature within the PooCommerce Blocks plugin.
 	 *
 	 * @return void
 	 */
@@ -79,8 +79,8 @@ class Configuration {
 		$this->config->ensure(
 			'connection',
 			array(
-				'slug' => 'woocommerce/woocommerce-blocks',
-				'name' => 'WooCommerce Blocks',
+				'slug' => 'poocommerce/poocommerce-blocks',
+				'name' => 'PooCommerce Blocks',
 			)
 		);
 	}

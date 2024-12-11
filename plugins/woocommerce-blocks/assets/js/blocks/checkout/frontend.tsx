@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { Children, cloneElement, isValidElement } from '@wordpress/element';
-import { getValidBlockAttributes } from '@woocommerce/base-utils';
-import { useStoreCart } from '@woocommerce/base-context';
+import { getValidBlockAttributes } from '@poocommerce/base-utils';
+import { useStoreCart } from '@poocommerce/base-context';
 import {
 	useCheckoutExtensionData,
 	useValidation,
-} from '@woocommerce/base-context/hooks';
-import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
-import { renderParentBlock } from '@woocommerce/atomic-utils';
+} from '@poocommerce/base-context/hooks';
+import { getRegisteredBlockComponents } from '@poocommerce/blocks-registry';
+import { renderParentBlock } from '@poocommerce/atomic-utils';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ const Wrapper = ( {
 renderParentBlock( {
 	Block,
 	blockName,
-	selector: '.wp-block-woocommerce-checkout',
+	selector: '.wp-block-poocommerce-checkout',
 	getProps,
 	blockMap: getRegisteredBlockComponents( blockName ) as Record<
 		string,

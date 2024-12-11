@@ -47,11 +47,11 @@ export const handPickedIcon = (
 
 const collection = {
 	name: CoreCollectionNames.HAND_PICKED,
-	title: __( 'Hand-Picked Products', 'woocommerce' ),
+	title: __( 'Hand-Picked Products', 'poocommerce' ),
 	icon: <Icon icon={ handPickedIcon } />,
 	description: __(
 		'Select specific products to recommend to customers.',
-		'woocommerce'
+		'poocommerce'
 	),
 	keywords: [
 		'specific',
@@ -84,7 +84,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'Recommended products', 'woocommerce' ),
+		content: __( 'Recommended products', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

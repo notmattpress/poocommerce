@@ -64,7 +64,7 @@ export const Filled = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/components/Timeline',
+	title: 'PooCommerce Admin/components/Timeline',
 	component: Filled,
 };
 

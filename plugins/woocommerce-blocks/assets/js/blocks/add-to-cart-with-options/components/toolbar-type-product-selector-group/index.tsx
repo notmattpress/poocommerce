@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { eye } from '@woocommerce/icons';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { eye } from '@poocommerce/icons';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import {
@@ -16,7 +16,7 @@ import {
 /**
  * Internal dependencies
  */
-import { store as woocommerceTemplateStateStore } from '../../store';
+import { store as poocommerceTemplateStateStore } from '../../store';
 import { ProductTypeProps } from '../../types';
 
 export default function ToolbarProductTypeGroup() {
@@ -29,7 +29,7 @@ export default function ToolbarProductTypeGroup() {
 		currentProductType: ProductTypeProps;
 	} >( ( select ) => {
 		const { getProductTypes, getCurrentProductType } = select(
-			woocommerceTemplateStateStore
+			poocommerceTemplateStateStore
 		);
 
 		return {
@@ -38,7 +38,7 @@ export default function ToolbarProductTypeGroup() {
 		};
 	}, [] );
 
-	const { switchProductType } = useDispatch( woocommerceTemplateStateStore );
+	const { switchProductType } = useDispatch( poocommerceTemplateStateStore );
 
 	const { product } = useProductDataContext();
 
@@ -56,7 +56,7 @@ export default function ToolbarProductTypeGroup() {
 				icon={ <Icon icon={ eye } /> }
 				text={
 					currentProductType?.label ||
-					__( 'Switch product type', 'woocommerce' )
+					__( 'Switch product type', 'poocommerce' )
 				}
 				value={ currentProductType?.slug }
 				controls={ productTypes.map( ( productType ) => ( {

@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import { navigateTo, getNewPath, useQuery } from '@woocommerce/navigation';
+import { navigateTo, getNewPath, useQuery } from '@poocommerce/navigation';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { SearchControl } from '@wordpress/components';
 // The @ts-ignore is needed because the SearchControl types are not exported from the @wordpress/components package,
 // even though the component itself is. This is likely due to an older version of the package being used.
@@ -24,7 +24,7 @@ import { MARKETPLACE_PATH } from '../constants';
  */
 function Search(): JSX.Element {
 	const [ searchTerm, setSearchTerm ] = useState( '' );
-	const searchPlaceholder = __( 'Search Marketplace', 'woocommerce' );
+	const searchPlaceholder = __( 'Search Marketplace', 'poocommerce' );
 
 	const query = useQuery();
 
@@ -80,7 +80,7 @@ function Search(): JSX.Element {
 			onChange={ setSearchTerm }
 			onKeyUp={ handleKeyUp }
 			onClose={ onClose }
-			className="woocommerce-marketplace__search"
+			className="poocommerce-marketplace__search"
 		/>
 	);
 }

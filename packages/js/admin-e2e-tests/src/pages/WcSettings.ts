@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { setCheckbox } from '@woocommerce/e2e-utils';
+import { setCheckbox } from '@poocommerce/e2e-utils';
 /**
  * Internal dependencies
  */
@@ -24,11 +24,11 @@ export class WcSettings extends BasePage {
 
 	async enableTaxRates(): Promise< void > {
 		await waitForElementByText( 'th', 'Enable taxes' );
-		await setCheckbox( '#woocommerce_calc_taxes' );
+		await setCheckbox( '#poocommerce_calc_taxes' );
 	}
 
 	async getTaxRateValue(): Promise< unknown > {
-		return await getAttribute( '#woocommerce_calc_taxes', 'checked' );
+		return await getAttribute( '#poocommerce_calc_taxes', 'checked' );
 	}
 
 	async saveSettings(): Promise< void > {
@@ -46,12 +46,12 @@ export class WcSettings extends BasePage {
 		await this.navigate( 'checkout' );
 		await waitForElementByText( 'th', 'Method' );
 		const className = await getAttribute(
-			`tr[data-gateway_id=${ method }] .woocommerce-input-toggle`,
+			`tr[data-gateway_id=${ method }] .poocommerce-input-toggle`,
 			'className'
 		);
 		return (
 			( className as string ).indexOf(
-				'woocommerce-input-toggle--disabled'
+				'poocommerce-input-toggle--disabled'
 			) === -1
 		);
 	}
@@ -59,13 +59,13 @@ export class WcSettings extends BasePage {
 	async cleanPaymentMethods(): Promise< void > {
 		await this.navigate( 'checkout' );
 		await waitForElementByText( 'th', 'Method' );
-		const paymentMethods = await page.$$( 'span.woocommerce-input-toggle' );
+		const paymentMethods = await page.$$( 'span.poocommerce-input-toggle' );
 		for ( const method of paymentMethods ) {
 			if (
 				method &&
 				( await hasClass(
 					method,
-					'woocommerce-input-toggle--enabled'
+					'poocommerce-input-toggle--enabled'
 				) )
 			) {
 				await method?.click();

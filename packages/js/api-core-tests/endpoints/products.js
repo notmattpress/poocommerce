@@ -9,9 +9,9 @@ const {
 } = require( '../utils/request' );
 
 /**
- * WooCommerce Products endpoints.
+ * PooCommerce Products endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#products
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#products
  */
 const productsApi = {
 	name: 'Products',

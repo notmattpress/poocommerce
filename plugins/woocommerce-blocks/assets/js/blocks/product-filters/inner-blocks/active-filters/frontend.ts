@@ -1,18 +1,18 @@
 /**
  * External dependencies
  */
-import { store, getContext } from '@woocommerce/interactivity';
+import { store, getContext } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
  */
 import { ProductFiltersContext } from '../../frontend';
 
-store( 'woocommerce/product-filter-active', {
+store( 'poocommerce/product-filter-active', {
 	actions: {
 		clearFilters: () => {
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			productFiltersContext.params = {};
 		},

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { AdditionalValues } from '@woocommerce/settings';
+import { AdditionalValues } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

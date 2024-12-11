@@ -2,17 +2,17 @@
 /**
  * Reports Orders REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports Orders REST API Test Class
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 class WC_Admin_Tests_API_Reports_Orders extends WC_REST_Unit_Test_Case {
@@ -118,7 +118,7 @@ class WC_Admin_Tests_API_Reports_Orders extends WC_REST_Unit_Test_Case {
 		);
 
 		// Since $order->delete() will delete the refund as well and
-		// wp_delete_post($order->get_id()) can be prevented by the following filter: maybe_prevent_deletion_of_post (see https://github.com/woocommerce/woocommerce/blob/97a0d9b16006b089f7d1e98af19d61f6d71b621b/plugins/woocommerce/src/Internal/DataStores/Orders/DataSynchronizer.php#L916 )
+		// wp_delete_post($order->get_id()) can be prevented by the following filter: maybe_prevent_deletion_of_post (see https://github.com/poocommerce/poocommerce/blob/97a0d9b16006b089f7d1e98af19d61f6d71b621b/plugins/poocommerce/src/Internal/DataStores/Orders/DataSynchronizer.php#L916 )
 		// we need to update the post_parent to a non-existent order to simulate an orphaned refund.
 		wp_update_post(
 			array(
@@ -240,7 +240,7 @@ class WC_Admin_Tests_API_Reports_Orders extends WC_REST_Unit_Test_Case {
 		}
 
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
-		WC_Helper_Queue::run_all_pending( 'woocommerce-db-updates' );
+		WC_Helper_Queue::run_all_pending( 'poocommerce-db-updates' );
 
 		$request = new WP_REST_Request( 'GET', $this->endpoint );
 		$request->set_query_params( array( 'per_page' => 15 ) );
@@ -402,7 +402,7 @@ class WC_Admin_Tests_API_Reports_Orders extends WC_REST_Unit_Test_Case {
 	/**
 	 * Test filtering by product/variation exclusion.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/5803#issuecomment-738403405.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/5803#issuecomment-738403405.
 	 */
 	public function test_product_variation_exclusion_filter() {
 		wp_set_current_user( $this->user );
@@ -491,24 +491,24 @@ class WC_Admin_Tests_API_Reports_Orders extends WC_REST_Unit_Test_Case {
 	/**
 	 * Test filtering by product/variation exclusion.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/5803#issuecomment-738403405.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/5803#issuecomment-738403405.
 	 */
 	public function test_order_price_formatting_with_different_base_currency() {
-		update_option( 'woocommerce_date_type', 'date_created' );
+		update_option( 'poocommerce_date_type', 'date_created' );
 		wp_set_current_user( $this->user );
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Create a simple order with the base currency.
 		$first_simple_product = WC_Helper_Product::create_simple_product();
 		$first_order          = WC_Helper_Order::create_order( $this->user, $first_simple_product );
-		$first_order->set_currency( get_woocommerce_currency() );
+		$first_order->set_currency( get_poocommerce_currency() );
 		$first_order->set_status( OrderStatus::ON_HOLD );
 		$first_order->save();
 
 		// Create another simple order with another currency.
-		$currencies = get_woocommerce_currencies();
+		$currencies = get_poocommerce_currencies();
 		// prevent base currency to be selected again.
-		unset( $currencies[ get_woocommerce_currency() ] );
+		unset( $currencies[ get_poocommerce_currency() ] );
 		$second_currency = array_rand( $currencies );
 
 		$second_simple_product = WC_Helper_Product::create_simple_product();

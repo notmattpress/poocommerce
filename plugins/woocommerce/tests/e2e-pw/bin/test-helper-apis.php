@@ -96,7 +96,7 @@ function enable_experimental_features( $features ) {
 	return array_merge( $features, $stored_features );
 }
 
-add_filter( 'woocommerce_admin_get_feature_config', 'enable_experimental_features' );
+add_filter( 'poocommerce_admin_get_feature_config', 'enable_experimental_features' );
 
 /**
  * Update a WordPress option.

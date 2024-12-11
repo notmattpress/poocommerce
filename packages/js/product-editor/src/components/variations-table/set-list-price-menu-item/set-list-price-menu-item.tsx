@@ -4,7 +4,7 @@
 import { MenuItem } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -46,7 +46,7 @@ export function SetListPriceMenuItem( {
 				onClose();
 			} }
 		>
-			{ __( 'Set regular price', 'woocommerce' ) }
+			{ __( 'Set regular price', 'poocommerce' ) }
 		</MenuItem>
 	);
 }

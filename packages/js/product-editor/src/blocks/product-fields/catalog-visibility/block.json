@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-catalog-visibility-field",
+	"name": "poocommerce/product-catalog-visibility-field",
 	"description": "A checkbox to manage the catalog visibility of the product.",
 	"title": "Product catalog visibility",
 	"category": "widgets",

@@ -4,7 +4,7 @@
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { PluginDocumentSettingPanel } from '@wordpress/editor';
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ const NewsletterPanel = () => {
 	);
 
 	// Restrict the panel to only show on the coming soon page tempalte
-	if ( postId !== 'woocommerce/woocommerce//coming-soon' ) {
+	if ( postId !== 'poocommerce/poocommerce//coming-soon' ) {
 		return null;
 	}
 
@@ -47,19 +47,19 @@ const NewsletterPanel = () => {
 	return (
 		<PluginDocumentSettingPanel
 			name="coming-soon-newsletter-mailpoet-setting-panel"
-			title={ __( 'Launch Newsletter', 'woocommerce' ) }
+			title={ __( 'Launch Newsletter', 'poocommerce' ) }
 			className="coming-soon-newsletter-mailpoet-setting-panel"
 		>
 			<div className="coming-soon-newsletter-mailpoet-setting-panel-body">
-				<h3>{ __( 'Set up email marketing', 'woocommerce' ) }</h3>
+				<h3>{ __( 'Set up email marketing', 'poocommerce' ) }</h3>
 				<p>
 					{ __(
 						'To collect email and notify your subscribers, set up MailPoet.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button variant="link" href={ setupLink }>
-					{ __( 'Set up MailPoet', 'woocommerce' ) }
+					{ __( 'Set up MailPoet', 'poocommerce' ) }
 				</Button>
 			</div>
 		</PluginDocumentSettingPanel>

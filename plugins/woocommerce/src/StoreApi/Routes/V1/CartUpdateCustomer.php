@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
 
 /**
  * CartUpdateCustomer class.
@@ -49,14 +49,14 @@ class CartUpdateCustomer extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'billing_address'  => [
-						'description'       => __( 'Billing address.', 'woocommerce' ),
+						'description'       => __( 'Billing address.', 'poocommerce' ),
 						'type'              => 'object',
 						'context'           => [ 'view', 'edit' ],
 						'properties'        => $this->schema->billing_address_schema->get_properties(),
 						'sanitize_callback' => null,
 					],
 					'shipping_address' => [
-						'description'       => __( 'Shipping address.', 'woocommerce' ),
+						'description'       => __( 'Shipping address.', 'poocommerce' ),
 						'type'              => 'object',
 						'context'           => [ 'view', 'edit' ],
 						'properties'        => $this->schema->shipping_address_schema->get_properties(),
@@ -87,7 +87,7 @@ class CartUpdateCustomer extends AbstractCartRoute {
 			$billing_validation_check = $this->schema->billing_address_schema->validate_callback( $billing, $request, 'billing_address' );
 
 			if ( false === $billing_validation_check ) {
-				$invalid_params['billing_address'] = __( 'Invalid parameter.', 'woocommerce' );
+				$invalid_params['billing_address'] = __( 'Invalid parameter.', 'poocommerce' );
 			} elseif ( is_wp_error( $billing_validation_check ) ) {
 				$invalid_params['billing_address']  = implode( ' ', $billing_validation_check->get_error_messages() );
 				$invalid_details['billing_address'] = \rest_convert_error_to_response( $billing_validation_check )->get_data();
@@ -98,7 +98,7 @@ class CartUpdateCustomer extends AbstractCartRoute {
 			$shipping_validation_check = $this->schema->shipping_address_schema->validate_callback( $shipping, $request, 'shipping_address' );
 
 			if ( false === $shipping_validation_check ) {
-				$invalid_params['shipping_address'] = __( 'Invalid parameter.', 'woocommerce' );
+				$invalid_params['shipping_address'] = __( 'Invalid parameter.', 'poocommerce' );
 			} elseif ( is_wp_error( $shipping_validation_check ) ) {
 				$invalid_params['shipping_address']  = implode( ' ', $shipping_validation_check->get_error_messages() );
 				$invalid_details['shipping_address'] = \rest_convert_error_to_response( $shipping_validation_check )->get_data();
@@ -109,7 +109,7 @@ class CartUpdateCustomer extends AbstractCartRoute {
 			return new \WP_Error(
 				'rest_invalid_param',
 				/* translators: %s: List of invalid parameters. */
-				sprintf( __( 'Invalid parameter(s): %s', 'woocommerce' ), implode( ', ', array_keys( $invalid_params ) ) ),
+				sprintf( __( 'Invalid parameter(s): %s', 'poocommerce' ), implode( ', ', array_keys( $invalid_params ) ) ),
 				[
 					'status'  => 400,
 					'params'  => $invalid_params,
@@ -205,14 +205,14 @@ class CartUpdateCustomer extends AbstractCartRoute {
 		}
 
 		wc_do_deprecated_action(
-			'woocommerce_blocks_cart_update_customer_from_request',
+			'poocommerce_blocks_cart_update_customer_from_request',
 			array(
 				$customer,
 				$request,
 			),
 			'7.2.0',
-			'woocommerce_store_api_cart_update_customer_from_request',
-			'This action was deprecated in WooCommerce Blocks version 7.2.0. Please use woocommerce_store_api_cart_update_customer_from_request instead.'
+			'poocommerce_store_api_cart_update_customer_from_request',
+			'This action was deprecated in PooCommerce Blocks version 7.2.0. Please use poocommerce_store_api_cart_update_customer_from_request instead.'
 		);
 
 		/**
@@ -223,7 +223,7 @@ class CartUpdateCustomer extends AbstractCartRoute {
 		 * @param \WC_Customer $customer Customer object.
 		 * @param \WP_REST_Request $request Full details about the request.
 		 */
-		do_action( 'woocommerce_store_api_cart_update_customer_from_request', $customer, $request );
+		do_action( 'poocommerce_store_api_cart_update_customer_from_request', $customer, $request );
 
 		$customer->save();
 

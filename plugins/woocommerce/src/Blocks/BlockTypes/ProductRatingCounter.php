@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 /**
  * ProductRatingCounter class.
  */
@@ -153,7 +153,7 @@ class ProductRatingCounter extends AbstractBlock {
 							'(%s customer review)',
 							'(%s customer reviews)',
 							$reviews_count,
-							'woocommerce'
+							'poocommerce'
 						),
 						esc_html( $reviews_count )
 					);
@@ -161,7 +161,7 @@ class ProductRatingCounter extends AbstractBlock {
 					if ( $is_descendent_of_single_product_block ) {
 						$customer_reviews_count = '<a href="' . esc_url( $product_permalink ) . '#reviews">' . $customer_reviews_count . '</a>';
 					} elseif ( $is_descendent_of_single_product_template ) {
-						$customer_reviews_count = '<a class="woocommerce-review-link" rel="nofollow" href="#reviews">' . $customer_reviews_count . '</a>';
+						$customer_reviews_count = '<a class="poocommerce-review-link" rel="nofollow" href="#reviews">' . $customer_reviews_count . '</a>';
 					}
 
 					$html = sprintf(
@@ -179,7 +179,7 @@ class ProductRatingCounter extends AbstractBlock {
 			};
 
 			add_filter(
-				'woocommerce_product_get_rating_html',
+				'poocommerce_product_get_rating_html',
 				$filter_rating_html,
 				10,
 				3
@@ -188,7 +188,7 @@ class ProductRatingCounter extends AbstractBlock {
 			$rating_html = wc_get_rating_html( $product->get_average_rating() );
 
 			remove_filter(
-				'woocommerce_product_get_rating_html',
+				'poocommerce_product_get_rating_html',
 				$filter_rating_html,
 				10
 			);

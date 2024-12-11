@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * CatalogSorting class.
@@ -27,7 +27,7 @@ class Breadcrumbs extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		ob_start();
-		woocommerce_breadcrumb();
+		poocommerce_breadcrumb();
 		$breadcrumb = ob_get_clean();
 
 		if ( ! $breadcrumb ) {
@@ -40,7 +40,7 @@ class Breadcrumbs extends AbstractBlock {
 			'<div %1$s>%2$s</div>',
 			get_block_wrapper_attributes(
 				array(
-					'class' => 'wc-block-breadcrumbs woocommerce ' . esc_attr( $classes_and_styles['classes'] ),
+					'class' => 'wc-block-breadcrumbs poocommerce ' . esc_attr( $classes_and_styles['classes'] ),
 					'style' => $classes_and_styles['styles'],
 				)
 			),

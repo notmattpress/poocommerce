@@ -15,7 +15,7 @@ import {
 import './style.scss';
 
 export default {
-	title: 'WooCommerce Admin/experimental/VerticalCSSTransition',
+	title: 'PooCommerce Admin/experimental/VerticalCSSTransition',
 	component: VerticalCSSTransition,
 	decorators: [ ( storyFn, context ) => withConsole()( storyFn )( context ) ],
 } as Meta;

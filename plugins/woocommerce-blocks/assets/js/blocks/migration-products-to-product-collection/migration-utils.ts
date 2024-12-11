@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import { type BlockInstance } from '@wordpress/blocks';
 import { select } from '@wordpress/data';
-import { isBoolean, isNumber } from '@woocommerce/types';
+import { isBoolean, isNumber } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -18,10 +18,10 @@ import type {
 
 const isProductsBlock: IsBlockType = ( block ) =>
 	block.name === 'core/query' &&
-	block.attributes.namespace === 'woocommerce/product-query';
+	block.attributes.namespace === 'poocommerce/product-query';
 
 const isConvertedProductCollectionBlock: IsBlockType = ( block ) =>
-	block.name === 'woocommerce/product-collection' &&
+	block.name === 'poocommerce/product-collection' &&
 	block.attributes.convertedFromProducts;
 
 const getBlockClientIdsByPredicate = (

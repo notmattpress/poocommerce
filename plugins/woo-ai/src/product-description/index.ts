@@ -7,6 +7,6 @@ import { WriteItForMeButtonContainer } from './product-description-button-contai
 if ( window.JP_CONNECTION_INITIAL_STATE?.connectionStatus?.isActive ) {
 	renderWrappedComponent(
 		WriteItForMeButtonContainer,
-		document.getElementById( 'woocommerce-ai-app-product-gpt-button' )
+		document.getElementById( 'poocommerce-ai-app-product-gpt-button' )
 	);
 }

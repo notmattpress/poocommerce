@@ -6,7 +6,7 @@ import { useState } from '@wordpress/element';
 import {
 	type OfflinePaymentGateway,
 	PAYMENT_SETTINGS_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies

@@ -2,12 +2,12 @@
 /**
  * Coupon tests.
  *
- * @package WooCommerce\Tests\Coupon
+ * @package PooCommerce\Tests\Coupon
  */
 
 /**
  * Class Coupon.
- * @package WooCommerce\Tests\Coupon
+ * @package PooCommerce\Tests\Coupon
  * @group coupons
  */
 class WC_Tests_Coupon extends WC_Unit_Test_Case {

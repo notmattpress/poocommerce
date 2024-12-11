@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
-import { getPaymentMethodData, WC_ASSET_URL } from '@woocommerce/settings';
+import { getPaymentMethodData, WC_ASSET_URL } from '@poocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import { sanitizeHTML } from '@woocommerce/utils';
+import { sanitizeHTML } from '@poocommerce/utils';
 import { RawHTML } from '@wordpress/element';
 
 /**
@@ -28,16 +28,16 @@ const paypalPaymentMethod = {
 		<img
 			src={ `${ WC_ASSET_URL }/images/paypal.png` }
 			alt={ decodeEntities(
-				settings.title || __( 'PayPal', 'woocommerce' )
+				settings.title || __( 'PayPal', 'poocommerce' )
 			) }
 		/>
 	),
-	placeOrderButtonLabel: __( 'Proceed to PayPal', 'woocommerce' ),
+	placeOrderButtonLabel: __( 'Proceed to PayPal', 'poocommerce' ),
 	content: <Content />,
 	edit: <Content />,
 	canMakePayment: () => true,
 	ariaLabel: decodeEntities(
-		settings?.title || __( 'Payment via PayPal', 'woocommerce' )
+		settings?.title || __( 'Payment via PayPal', 'poocommerce' )
 	),
 	supports: {
 		features: settings.supports ?? [],

@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 
-const BLOCK_NAME = 'woocommerce/all-products';
+const BLOCK_NAME = 'poocommerce/all-products';
 
 test.describe( `${ BLOCK_NAME } Block`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {

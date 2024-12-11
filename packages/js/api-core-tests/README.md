@@ -1,6 +1,6 @@
-# WooCommerce Core API Test Suite
+# PooCommerce Core API Test Suite
 
-This package contains automated API tests for WooCommerce.
+This package contains automated API tests for PooCommerce.
 
 ## Environment variables
 
@@ -27,7 +27,7 @@ BASE_URL=http://localhost:8086 USER_KEY=admin USER_SECRET=password npm run e2e:a
 
 When using a username and password combination instead of a consumer secret and consumer key, make sure to have the [JSON Basic Authentication plugin](https://github.com/WP-API/Basic-Auth) installed and activated on the test site.
 
-For more information about authentication with the WooCommerce API, please see the [Authentication](https://woocommerce.github.io/woocommerce-rest-api-docs/?javascript#authentication) section in the WooCommerce REST API documentation.
+For more information about authentication with the PooCommerce API, please see the [Authentication](https://poocommerce.github.io/poocommerce-rest-api-docs/?javascript#authentication) section in the PooCommerce REST API documentation.
 
 ### Optional variables
 
@@ -48,8 +48,8 @@ npm run e2e:hello
 
 This tests connectivity to the API by validating connection to the following:
 
-* A non-authenticated endpoint: [Index](https://woocommerce.github.io/woocommerce-rest-api-docs/?javascript#index)
-* An endpoint requiring authentication: [System status properties](https://woocommerce.github.io/woocommerce-rest-api-docs/?javascript#system-status-properties)
+* A non-authenticated endpoint: [Index](https://poocommerce.github.io/poocommerce-rest-api-docs/?javascript#index)
+* An endpoint requiring authentication: [System status properties](https://poocommerce.github.io/poocommerce-rest-api-docs/?javascript#system-status-properties)
 
 ### Run all tests
 
@@ -94,7 +94,7 @@ Before the `describe()` statement, add in a doc block containing the desired gro
 
 ```javascript
 /**
- * Tests for the WooCommerce API.
+ * Tests for the PooCommerce API.
  *
  * @group api
  * @group endpoint
@@ -159,4 +159,4 @@ This will output a `collection.json` file in this directory.
 
 This package makes use of the [SuperTest HTTP assertion package](https://www.npmjs.com/package/supertest). For more information on the `response` properties that are available can be found in the [SuperAgent documentation](https://visionmedia.github.io/superagent/#response-properties).
 
-For the list of WooCommerce API endpoints, expected responses, and more, please see the [WooCommerce REST API Documentation](https://woocommerce.github.io/woocommerce-rest-api-docs/).
+For the list of PooCommerce API endpoints, expected responses, and more, please see the [PooCommerce REST API Documentation](https://poocommerce.github.io/poocommerce-rest-api-docs/).

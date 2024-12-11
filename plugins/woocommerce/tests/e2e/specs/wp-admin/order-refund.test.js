@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runOrderRefundTest } = require( '@woocommerce/e2e-core-tests' );
+const { runOrderRefundTest } = require( '@poocommerce/e2e-core-tests' );
 
 runOrderRefundTest();

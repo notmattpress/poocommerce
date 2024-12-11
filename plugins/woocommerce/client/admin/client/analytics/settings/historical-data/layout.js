@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { Component, Fragment } from '@wordpress/element';
 import { isNil } from 'lodash';
-import { SectionHeader } from '@woocommerce/components';
-import { IMPORT_STORE_NAME } from '@woocommerce/data';
+import { SectionHeader } from '@poocommerce/components';
+import { IMPORT_STORE_NAME } from '@poocommerce/data';
 import { withSelect } from '@wordpress/data';
 
 /**
@@ -41,16 +41,16 @@ class HistoricalDataLayout extends Component {
 		return (
 			<Fragment>
 				<SectionHeader
-					title={ __( 'Import historical data', 'woocommerce' ) }
+					title={ __( 'Import historical data', 'poocommerce' ) }
 				/>
-				<div className="woocommerce-settings__wrapper">
-					<div className="woocommerce-setting">
-						<div className="woocommerce-setting__input">
-							<span className="woocommerce-setting__help">
+				<div className="poocommerce-settings__wrapper">
+					<div className="poocommerce-setting">
+						<div className="poocommerce-setting__input">
+							<span className="poocommerce-setting__help">
 								{ __(
 									'This tool populates historical analytics data by processing customers ' +
-										'and orders created prior to activating WooCommerce Admin.',
-									'woocommerce'
+										'and orders created prior to activating PooCommerce Admin.',
+									'poocommerce'
 								) }
 							</span>
 							{ status !== 'finished' && (
@@ -67,7 +67,7 @@ class HistoricalDataLayout extends Component {
 									<HistoricalDataProgress
 										label={ __(
 											'Registered Customers',
-											'woocommerce'
+											'poocommerce'
 										) }
 										progress={ customersProgress }
 										total={ customersTotal }
@@ -75,7 +75,7 @@ class HistoricalDataLayout extends Component {
 									<HistoricalDataProgress
 										label={ __(
 											'Orders and Refunds',
-											'woocommerce'
+											'poocommerce'
 										) }
 										progress={ ordersProgress }
 										total={ ordersTotal }

@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/api",
-	"description": "WooCommerce API",
+	"name": "poocommerce/api",
+	"description": "PooCommerce API",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

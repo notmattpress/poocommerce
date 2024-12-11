@@ -1,17 +1,17 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 // a representation of the menu structure for WC
 const wcPages = [
 	{
-		name: 'WooCommerce',
+		name: 'PooCommerce',
 		subpages: [
 			{
 				name: 'Home',
 				heading: 'Home',
 				element:
-					'.woocommerce-inbox-card__header > .components-truncate',
+					'.poocommerce-inbox-card__header > .components-truncate',
 				text: 'Inbox',
 			},
 			{
@@ -23,7 +23,7 @@ const wcPages = [
 			{
 				name: 'Customers',
 				heading: 'Customers',
-				element: '.woocommerce-dropdown-button__labels',
+				element: '.poocommerce-dropdown-button__labels',
 				text: 'All Customers',
 			},
 			{
@@ -88,7 +88,7 @@ const wcPages = [
 			{
 				name: 'Overview',
 				heading: 'Overview',
-				element: '.woocommerce-marketing-channels-card',
+				element: '.poocommerce-marketing-channels-card',
 				text: 'Channels',
 			},
 			{
@@ -110,10 +110,10 @@ for ( const currentPage of wcPages ) {
 	const customer = {
 		username: `customer${ randomNum }`,
 		password: 'password',
-		email: `customer${ randomNum }@woocommercecoree2etestsuite.com`,
+		email: `customer${ randomNum }@poocommercecoree2etestsuite.com`,
 	};
 	test.describe(
-		`WooCommerce Page Load > Load ${ currentPage.name } sub pages`,
+		`PooCommerce Page Load > Load ${ currentPage.name } sub pages`,
 		{ tag: [ tags.GUTENBERG, tags.SERVICES ] },
 		() => {
 			test.use( { storageState: process.env.ADMINSTATE } );
@@ -190,7 +190,7 @@ for ( const currentPage of wcPages ) {
 			} );
 
 			test.beforeEach( async ( { page } ) => {
-				if ( currentPage.name === 'WooCommerce' ) {
+				if ( currentPage.name === 'PooCommerce' ) {
 					await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 				} else if ( currentPage.name === 'Products' ) {
 					await page.goto( 'wp-admin/edit.php?post_type=product' );

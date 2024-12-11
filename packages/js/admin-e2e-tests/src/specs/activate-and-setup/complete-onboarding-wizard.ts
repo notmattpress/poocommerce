@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { afterAll, beforeAll, describe, it } from '@jest/globals';
-import { verifyValueOfInputField } from '@woocommerce/e2e-utils';
+import { verifyValueOfInputField } from '@poocommerce/e2e-utils';
 import config from 'config';
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { TaskTitles } from '../../constants/taskTitles';
 import { Login } from '../../pages/Login';
 import { WcSettings } from '../../pages/WcSettings';
 import { ProductsSetup } from '../../pages/ProductsSetup';
-import { resetWooCommerceState } from '../../fixtures/reset';
+import { resetPooCommerceState } from '../../fixtures/reset';
 
 /**
  * This tests a default, happy path for the onboarding wizard.
@@ -25,7 +25,7 @@ export const testAdminOnboardingWizard = () => {
 
 		beforeAll( async () => {
 			await login.login();
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 		} );
 		afterAll( async () => {
 			await login.logout();
@@ -110,7 +110,7 @@ export const testAdminOnboardingWizard = () => {
 		it( 'can select the right currency on settings page related to the onboarding country', async () => {
 			const settingsScreen = new WcSettings( page );
 			await settingsScreen.navigate();
-			verifyValueOfInputField( '#woocommerce_currency', 'USD' );
+			verifyValueOfInputField( '#poocommerce_currency', 'USD' );
 		} );
 	} );
 };
@@ -122,7 +122,7 @@ export const testSelectiveBundleWCPay = () => {
 
 		beforeAll( async () => {
 			await login.login();
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 		} );
 		afterAll( async () => {
 			await login.logout();
@@ -193,7 +193,7 @@ export const testSelectiveBundleWCPay = () => {
 			await profileWizard.continue();
 		} );
 
-		it( 'should display the choose payments task, and not the woocommerce payments task', async () => {
+		it( 'should display the choose payments task, and not the poocommerce payments task', async () => {
 			const homescreen = new WcHomescreen( page );
 			await homescreen.isDisplayed();
 			await homescreen.possiblyDismissWelcomeModal();
@@ -205,7 +205,7 @@ export const testSelectiveBundleWCPay = () => {
 		it( 'can select the right currency on settings page related to the onboarding country', async () => {
 			const settingsScreen = new WcSettings( page );
 			await settingsScreen.navigate();
-			verifyValueOfInputField( '#woocommerce_currency', 'JPY' );
+			verifyValueOfInputField( '#poocommerce_currency', 'JPY' );
 		} );
 	} );
 };
@@ -263,7 +263,7 @@ export const testDifferentStoreCurrenciesWCPay = () => {
 
 			beforeAll( async () => {
 				await login.login();
-				await resetWooCommerceState();
+				await resetPooCommerceState();
 			} );
 			afterAll( async () => {
 				await login.logout();
@@ -329,7 +329,7 @@ export const testDifferentStoreCurrenciesWCPay = () => {
 				const settingsScreen = new WcSettings( page );
 				await settingsScreen.navigate();
 				verifyValueOfInputField(
-					'#woocommerce_currency',
+					'#poocommerce_currency',
 					spec.expectedCurrency
 				);
 			} );
@@ -344,7 +344,7 @@ export const testSubscriptionsInclusion = () => {
 
 		beforeAll( async () => {
 			await login.login();
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 		} );
 
 		it( 'can complete the store details section', async () => {
@@ -423,7 +423,7 @@ export const testSubscriptionsInclusion = () => {
 		new Login( page );
 
 		beforeAll( async () => {
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 		} );
 
 		it( 'can complete the store details section', async () => {
@@ -505,7 +505,7 @@ export const testBusinessDetailsForm = () => {
 		const login = new Login( page );
 
 		beforeAll( async () => {
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 		} );
 
 		afterAll( async () => {
@@ -580,7 +580,7 @@ export const testAdminHomescreen = () => {
 
 		beforeAll( async () => {
 			await login.login();
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 			await profileWizard.navigate();
 			await profileWizard.skipStoreSetup();
 		} );

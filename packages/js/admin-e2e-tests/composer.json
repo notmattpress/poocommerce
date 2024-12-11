@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/admin-e2e-tests",
-	"description": "WooCommerce Admin end to end tests",
+	"name": "poocommerce/admin-e2e-tests",
+	"description": "PooCommerce Admin end to end tests",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

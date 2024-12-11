@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 /**
  * ProductRating class.
  */
@@ -149,14 +149,14 @@ class ProductRating extends AbstractBlock {
 
 				if ( 0 < $average_rating || false === $product_permalink ) {
 					/* translators: %s: rating */
-					$label                  = sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $average_rating );
+					$label                  = sprintf( __( 'Rated %s out of 5', 'poocommerce' ), $average_rating );
 					$customer_reviews_count = sprintf(
 						/* translators: %s is referring to the total of reviews for a product */
 						_n(
 							'(%s customer review)',
 							'(%s customer reviews)',
 							$reviews_count,
-							'woocommerce'
+							'poocommerce'
 						),
 						esc_html( $reviews_count )
 					);
@@ -164,7 +164,7 @@ class ProductRating extends AbstractBlock {
 					if ( $is_descendent_of_single_product_block ) {
 						$customer_reviews_count = '<a href="' . esc_url( $product_permalink ) . '#reviews">' . $customer_reviews_count . '</a>';
 					} elseif ( $is_descendent_of_single_product_template ) {
-						$customer_reviews_count = '<a class="woocommerce-review-link" rel="nofollow" href="#reviews">' . $customer_reviews_count . '</a>';
+						$customer_reviews_count = '<a class="poocommerce-review-link" rel="nofollow" href="#reviews">' . $customer_reviews_count . '</a>';
 					}
 
 					$reviews_count_html = sprintf( '<span class="wc-block-components-product-rating__reviews_count">%1$s</span>', $customer_reviews_count );
@@ -188,7 +188,7 @@ class ProductRating extends AbstractBlock {
 			};
 
 			add_filter(
-				'woocommerce_product_get_rating_html',
+				'poocommerce_product_get_rating_html',
 				$filter_rating_html,
 				10,
 				3
@@ -197,7 +197,7 @@ class ProductRating extends AbstractBlock {
 			$rating_html = wc_get_rating_html( $product->get_average_rating() );
 
 			remove_filter(
-				'woocommerce_product_get_rating_html',
+				'poocommerce_product_get_rating_html',
 				$filter_rating_html,
 				10
 			);

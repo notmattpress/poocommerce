@@ -4,7 +4,7 @@ menu_title: Add actions and filters
 tags: how-to
 ---
 
-Like many WordPress plugins, WooCommerce provides a range of actions and filters through which developers can extend and modify the platform.
+Like many WordPress plugins, PooCommerce provides a range of actions and filters through which developers can extend and modify the platform.
 
 Often, when writing new code or revising existing code, there is a desire to add new hooks-but this should always be done with thoughtfulness and care. This document aims to provide high-level guidance on the matter.
 
@@ -57,13 +57,13 @@ Note that lifecycle hooks primarily exist to let other systems observe, rather t
 For example, noting that it is the process of fetching the promotions which we view as the "lifecycle event", and not the function itself:
 
 ```php
-function woocommerce_get_current_promotions( ...$args ) {
+function poocommerce_get_current_promotions( ...$args ) {
     /* Any initial prep, then first lifecycle hook... */
-    do_action( 'woocommerce_before_get_current_promotions', $args );
+    do_action( 'poocommerce_before_get_current_promotions', $args );
     /* ...Do actual work, then final lifecycle hook... */
-    do_action( 'woocommerce_after_get_current_promotions', $result, $args );
+    do_action( 'poocommerce_after_get_current_promotions', $result, $args );
     /* ...Return the result, optionally via a filter... */
-    return apply_filters( 'woocommerce_get_current_promotions', $result, $args );
+    return apply_filters( 'poocommerce_get_current_promotions', $result, $args );
 }
 ```
 
@@ -81,7 +81,7 @@ Example:
 
 ```php
 function get_product_metrics( $args ): array {
-    $pre = apply_filters( 'pre_woocommerce_get_product_metrics', null, $args );
+    $pre = apply_filters( 'pre_poocommerce_get_product_metrics', null, $args );
 
     if ( $pre !== null ) {
         return (array) $pre;
@@ -101,11 +101,11 @@ This should be done sparingly, and only where necessary. Remember that while pro
 Example:
 
 ```php
-function woocommerce_format_sale_price( ...$args ): string {
+function poocommerce_format_sale_price( ...$args ): string {
     /* Prep to fill in any missing $args values... */
-    $args = (array) apply_filters( 'woocommerce_format_sale_price_args', $args );
+    $args = (array) apply_filters( 'poocommerce_format_sale_price_args', $args );
     /* ...Actual work to determine the $price string... */
-    return (string) apply_filters( 'woocommerce_format_sale_price', $price, $args );
+    return (string) apply_filters( 'poocommerce_format_sale_price', $price, $args );
 }
 ```
 
@@ -120,7 +120,7 @@ function get_featured_product_for_current_customer( ) {
     /* ...Logic to find the featured product for this customer... */
 
     return apply_filters( 
-        'woocommerce_featured_product_for_current_customer', 
+        'poocommerce_featured_product_for_current_customer', 
         $product, /* WC_Product */
         $customer 
     );
@@ -144,7 +144,7 @@ Example of what we wish to avoid:
  */
 function on_ajax_order_creation() {
     /* Avoid this! */
-    do_action( 'woocommerce_on_order_creation' );
+    do_action( 'poocommerce_on_order_creation' );
 }
 ```
 
@@ -159,10 +159,10 @@ Example of what we wish to avoid:
 
 ```php
 /* Avoid this */
-$super_products_enabled = (bool) apply_filters( 'woocommerce_super_products_are_enabled', true );
+$super_products_enabled = (bool) apply_filters( 'poocommerce_super_products_are_enabled', true );
 
 /* Prefer this */
-$super_products_enabled = get_option( 'woocommerce_super_products_are_enabled', 'no' ) === 'yes';
+$super_products_enabled = get_option( 'poocommerce_super_products_are_enabled', 'no' ) === 'yes';
 ```
 
 ## Placement of filter hooks
@@ -183,10 +183,10 @@ Example (of what we wish to avoid):
 if ( is_wp_error( $result ) ) {
     /* Avoid this */
     $error_code = $result->get_error_code();
-    do_action( "woocommerce_foo_bar_{$error_code}_problem", $intermediate_result );
+    do_action( "poocommerce_foo_bar_{$error_code}_problem", $intermediate_result );
     
     /* Prefer this */
-    do_action( 'woocommerce_foo_bar_problem', $result );
+    do_action( 'poocommerce_foo_bar_problem', $result );
 }
 ```
 

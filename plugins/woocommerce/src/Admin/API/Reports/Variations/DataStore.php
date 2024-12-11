@@ -3,13 +3,13 @@
  * API\Reports\Variations\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Variations;
+namespace Automattic\PooCommerce\Admin\API\Reports\Variations;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
 
 /**
  * API\Reports\Variations\DataStore.
@@ -162,7 +162,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		global $wpdb;
 		$order_product_lookup_table = self::get_db_table_name();
 		$order_stats_lookup_table   = $wpdb->prefix . 'wc_order_stats';
-		$order_item_meta_table      = $wpdb->prefix . 'woocommerce_order_itemmeta';
+		$order_item_meta_table      = $wpdb->prefix . 'poocommerce_order_itemmeta';
 		$where_subquery             = array();
 
 		$this->add_time_period_sql_params( $query_args, $order_product_lookup_table );
@@ -245,13 +245,13 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		foreach ( $products_data as $key => $product_data ) {
 			$extended_info = new \ArrayObject();
 			if ( $query_args['extended_info'] ) {
-				$extended_attributes = apply_filters( 'woocommerce_rest_reports_variations_extended_attributes', $this->extended_attributes, $product_data );
+				$extended_attributes = apply_filters( 'poocommerce_rest_reports_variations_extended_attributes', $this->extended_attributes, $product_data );
 				$parent_product      = wc_get_product( $product_data['product_id'] );
 				$attributes          = array();
 
 				// Base extended info off the parent variable product if the variation ID is 0.
 				// This is caused by simple products with prior sales being converted into variable products.
-				// See: https://github.com/woocommerce/woocommerce-admin/issues/2719.
+				// See: https://github.com/poocommerce/poocommerce-admin/issues/2719.
 				$variation_id      = (int) $product_data['variation_id'];
 				$variation_product = ( 0 === $variation_id ) ? $parent_product : wc_get_product( $variation_id );
 
@@ -292,7 +292,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 
 				// If there is no set low_stock_amount, use the one in user settings.
 				if ( '' === $extended_info['low_stock_amount'] ) {
-					$extended_info['low_stock_amount'] = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+					$extended_info['low_stock_amount'] = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 				}
 				$extended_info = $this->cast_numbers( $extended_info );
 			}
@@ -310,7 +310,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * @return boolean
 	 */
 	protected function should_exclude_simple_products( array $query_args ) {
-		return apply_filters( 'experimental_woocommerce_analytics_variations_should_exclude_simple_products', true, $query_args );
+		return apply_filters( 'experimental_poocommerce_analytics_variations_should_exclude_simple_products', true, $query_args );
 	}
 
 	/**
@@ -356,7 +356,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				order_items.order_item_name
 			from
 				{$wpdb->prefix}wc_order_product_lookup as product_lookup
-				left join {$wpdb->prefix}woocommerce_order_items as order_items
+				left join {$wpdb->prefix}poocommerce_order_items as order_items
 				on product_lookup.order_item_id = order_items.order_item_id
 			where
 				{$where_clauses}
@@ -469,7 +469,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			 * @param array $query_args Query parameters.
 			 * @param SqlQuery $subquery Variations query class.
 			 */
-			apply_filters( 'experimental_woocommerce_analytics_variations_additional_clauses', $query_args, $this->subquery );
+			apply_filters( 'experimental_poocommerce_analytics_variations_additional_clauses', $query_args, $this->subquery );
 
 			/* phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared */
 			$db_records_count = (int) $wpdb->get_var(

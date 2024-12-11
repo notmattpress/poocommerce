@@ -1,13 +1,13 @@
-.woocommerce-lys-status {
+.poocommerce-lys-status {
 	flex: 1 auto;
 	padding-left: 12px;
 }
 
-.woocommerce-lys-status-pill-wrapper {
+.poocommerce-lys-status-pill-wrapper {
 	display: inline-block;
 }
 
-.woocommerce-lys-status-pill {
+.poocommerce-lys-status-pill {
 	display: flex;
 	align-items: center;
 	background-color: #eaeaeb;
@@ -37,7 +37,7 @@
 		}
 	}
 }
-.woocommerce-lys-status-popover {
+.poocommerce-lys-status-popover {
 	a.components-button.components-menu-item__button {
 		padding: 6px 8px;
 	}
@@ -49,7 +49,7 @@
 	}
 }
 
-.woocommerce-lys-status-dropdown .components-button {
+.poocommerce-lys-status-dropdown .components-button {
 	padding: 0;
 	height: auto;
 	border-radius: 4px;

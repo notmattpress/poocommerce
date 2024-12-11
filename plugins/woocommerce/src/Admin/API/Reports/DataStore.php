@@ -3,14 +3,14 @@
  * Admin\API\Reports\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
 
 /**
  * Common parent for custom report data stores.
@@ -47,18 +47,18 @@ use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
  * }
  * </code></pre>
  *
- * Please use the `woocommerce_data_stores` filter to add your custom data store to the list of available ones.
+ * Please use the `poocommerce_data_stores` filter to add your custom data store to the list of available ones.
  * Then, your store could be accessed by Controller classes ({@see GenericController::get_datastore_data() GenericController::get_datastore_data()})
  * or using {@link \WC_Data_Store::load() \WC_Data_Store::load()}.
  *
  * We recommend registering using the REST base name of your Controller as the key, e.g.:
- * <pre><code class="language-php">add_filter( 'woocommerce_data_stores', function( $stores ) {
+ * <pre><code class="language-php">add_filter( 'poocommerce_data_stores', function( $stores ) {
  *     $stores['reports/my-thing'] = 'MyExtension\Admin\Analytics\Rest_API\MyDataStore';
  * } );
  * </code></pre>
  * This way, `GenericController` will pick it up automatically.
  *
- * Note that this class is NOT {@link https://developer.woocommerce.com/docs/how-to-manage-woocommerce-data-stores/ a CRUD data store}.
+ * Note that this class is NOT {@link https://developer.poocommerce.com/docs/how-to-manage-poocommerce-data-stores/ a CRUD data store}.
  * It does not implement the {@see WC_Object_Data_Store_Interface WC_Object_Data_Store_Interface} nor extend WC_Data & WC_Data_Store_WP classes.
  */
 class DataStore extends SqlQuery implements DataStoreInterface {
@@ -196,7 +196,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 
 		if ( $this->report_columns ) {
 			$this->report_columns = apply_filters(
-				'woocommerce_admin_report_columns',
+				'poocommerce_admin_report_columns',
 				$this->report_columns,
 				$this->context,
 				self::get_db_table_name()
@@ -277,7 +277,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 	 */
 	public function get_noncached_data( $query_args ) {
 		/* translators: %s: Method name */
-		return new \WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.", 'woocommerce' ), __METHOD__ ), array( 'status' => 405 ) );
+		return new \WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be overridden in subclass.", 'poocommerce' ), __METHOD__ ), array( 'status' => 405 ) );
 	}
 
 	/**
@@ -304,7 +304,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 		 * @param bool $use_cache Whether or not to use cache.
 		 * @param string $cache_key The report's cache key. Used to identify the report.
 		 */
-		return (bool) apply_filters( 'woocommerce_analytics_report_should_use_cache', true, $this->cache_key );
+		return (bool) apply_filters( 'poocommerce_analytics_report_should_use_cache', true, $this->cache_key );
 	}
 
 	/**
@@ -745,7 +745,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 	 */
 	protected function cast_numbers( $array ) {
 		$retyped_array = array();
-		$column_types  = apply_filters( 'woocommerce_rest_reports_column_types', $this->column_types, $array );
+		$column_types  = apply_filters( 'poocommerce_rest_reports_column_types', $this->column_types, $array );
 		foreach ( $array as $column_name => $value ) {
 			if ( is_array( $value ) ) {
 				$value = $this->cast_numbers( $value );
@@ -789,9 +789,9 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 	 * @return array
 	 */
 	protected static function get_excluded_report_order_statuses() {
-		$excluded_statuses = \WC_Admin_Settings::get_option( 'woocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
+		$excluded_statuses = \WC_Admin_Settings::get_option( 'poocommerce_excluded_report_order_statuses', array( 'pending', 'failed', 'cancelled' ) );
 		$excluded_statuses = array_merge( array( 'auto-draft', 'trash' ), array_map( 'esc_sql', $excluded_statuses ) );
-		return apply_filters( 'woocommerce_analytics_excluded_order_statuses', $excluded_statuses );
+		return apply_filters( 'poocommerce_analytics_excluded_order_statuses', $excluded_statuses );
 	}
 
 	/**
@@ -1497,7 +1497,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 				$table_to_join_on = "{$wpdb->prefix}wc_order_product_lookup";
 
 				if ( empty( $sql_clauses['join'] ) ) {
-					$sql_clauses['join'][] = "JOIN {$wpdb->prefix}woocommerce_order_items orderitems ON orderitems.order_id = {$table_to_join_on}.order_id";
+					$sql_clauses['join'][] = "JOIN {$wpdb->prefix}poocommerce_order_items orderitems ON orderitems.order_id = {$table_to_join_on}.order_id";
 				}
 
 				// If we're matching all filters (AND), we'll need multiple JOINs on postmeta.
@@ -1505,7 +1505,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 				if ( 'AND' === $match_operator || 1 === count( $sql_clauses['join'] ) ) {
 					$join_idx              = count( $sql_clauses['join'] );
 					$join_alias            = 'orderitemmeta' . $join_idx;
-					$sql_clauses['join'][] = "JOIN {$wpdb->prefix}woocommerce_order_itemmeta as {$join_alias} ON {$join_alias}.order_item_id = {$table_to_join_on}.order_item_id";
+					$sql_clauses['join'][] = "JOIN {$wpdb->prefix}poocommerce_order_itemmeta as {$join_alias} ON {$join_alias}.order_item_id = {$table_to_join_on}.order_item_id";
 				}
 
 				$in_comparator = '=' === $comparator ? 'in' : 'not in';
@@ -1585,7 +1585,7 @@ class DataStore extends SqlQuery implements DataStoreInterface {
 		 * @param string $field      The object type.
 		 * @param string $context    The data store context.
 		 */
-		$ids = apply_filters( 'woocommerce_analytics_' . $field, $ids, $query_args, $field, $this->context );
+		$ids = apply_filters( 'poocommerce_analytics_' . $field, $ids, $query_args, $field, $this->context );
 
 		if ( ! empty( $ids ) ) {
 			$placeholders = implode( $separator, array_fill( 0, count( $ids ), '%d' ) );

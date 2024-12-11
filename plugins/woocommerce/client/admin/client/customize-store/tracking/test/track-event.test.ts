@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { trackEvent } from '..';
 import { isWooExpress } from '~/utils/is-woo-express';
 import { isEntrepreneurFlow } from '~/customize-store/design-with-ai/entrepreneur-flow';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

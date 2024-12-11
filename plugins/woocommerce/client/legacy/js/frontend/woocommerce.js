@@ -1,7 +1,7 @@
 /* global Cookies */
 jQuery( function ( $ ) {
 	// Orderby
-	$( '.woocommerce-ordering' ).on( 'change', 'select.orderby', function () {
+	$( '.poocommerce-ordering' ).on( 'change', 'select.orderby', function () {
 		$( this ).closest( 'form' ).trigger( 'submit' );
 	} );
 
@@ -14,40 +14,40 @@ jQuery( function ( $ ) {
 		}
 	} );
 
-	var noticeID = $( '.woocommerce-store-notice' ).data( 'noticeId' ) || '',
+	var noticeID = $( '.poocommerce-store-notice' ).data( 'noticeId' ) || '',
 		cookieName = 'store_notice' + noticeID;
 
 	// Check the value of that cookie and show/hide the notice accordingly
 	if ( 'hidden' === Cookies.get( cookieName ) ) {
-		$( '.woocommerce-store-notice' ).hide();
+		$( '.poocommerce-store-notice' ).hide();
 	} else {
-		$( '.woocommerce-store-notice' ).show();
+		$( '.poocommerce-store-notice' ).show();
 	}
 
 	// Set a cookie and hide the store notice when the dismiss button is clicked
-	$( '.woocommerce-store-notice__dismiss-link' ).on(
+	$( '.poocommerce-store-notice__dismiss-link' ).on(
 		'click',
 		function ( event ) {
 			Cookies.set( cookieName, 'hidden', { path: '/' } );
-			$( '.woocommerce-store-notice' ).hide();
+			$( '.poocommerce-store-notice' ).hide();
 			event.preventDefault();
 		}
 	);
 
 	// Make form field descriptions toggle on focus.
-	if ( $( '.woocommerce-input-wrapper span.description' ).length ) {
+	if ( $( '.poocommerce-input-wrapper span.description' ).length ) {
 		$( document.body ).on( 'click', function () {
-			$( '.woocommerce-input-wrapper span.description:visible' )
+			$( '.poocommerce-input-wrapper span.description:visible' )
 				.prop( 'aria-hidden', true )
 				.slideUp( 250 );
 		} );
 	}
 
-	$( '.woocommerce-input-wrapper' ).on( 'click', function ( event ) {
+	$( '.poocommerce-input-wrapper' ).on( 'click', function ( event ) {
 		event.stopPropagation();
 	} );
 
-	$( '.woocommerce-input-wrapper :input' )
+	$( '.poocommerce-input-wrapper :input' )
 		.on( 'keydown', function ( event ) {
 			var input = $( this ),
 				parent = input.parent(),
@@ -71,7 +71,7 @@ jQuery( function ( $ ) {
 			parent.addClass( 'currentTarget' );
 
 			$(
-				'.woocommerce-input-wrapper:not(.currentTarget) span.description:visible'
+				'.poocommerce-input-wrapper:not(.currentTarget) span.description:visible'
 			)
 				.prop( 'aria-hidden', true )
 				.slideUp( 250 );
@@ -95,12 +95,12 @@ jQuery( function ( $ ) {
 		}
 	};
 
-	// Show password visibility hover icon on woocommerce forms
-	$( '.woocommerce form .woocommerce-Input[type="password"]' ).wrap(
+	// Show password visibility hover icon on poocommerce forms
+	$( '.poocommerce form .poocommerce-Input[type="password"]' ).wrap(
 		'<span class="password-input"></span>'
 	);
 	// Add 'password-input' class to the password wrapper in checkout page.
-	$( '.woocommerce form input' )
+	$( '.poocommerce form input' )
 		.filter( ':password' )
 		.parent( 'span' )
 		.addClass( 'password-input' );
@@ -131,7 +131,7 @@ jQuery( function ( $ ) {
 			type: 'post',
 			url: target.data( 'rest-url' ),
 			data: {
-				woocommerce_meta: {
+				poocommerce_meta: {
 					coming_soon_banner_dismissed: 'yes',
 				},
 			},
@@ -156,7 +156,7 @@ jQuery( function ( $ ) {
  * attribute to make sure it's announced.
  */
 function focus_populate_live_region() {
-	var noticeClasses = [ 'woocommerce-message', 'woocommerce-error', 'wc-block-components-notice-banner' ];
+	var noticeClasses = [ 'poocommerce-message', 'poocommerce-error', 'wc-block-components-notice-banner' ];
 	var noticeSelectors = noticeClasses.map( function( className ) {
 		return '.' + className + '[role="alert"]';
 	} ).join( ', ' );
@@ -181,7 +181,7 @@ function focus_populate_live_region() {
  * Refresh the sorted by live region.
  */
 function refresh_sorted_by_live_region () {
-	var sorted_by_live_region = document.querySelector( '.woocommerce-result-count[data-is-sorted-by="true"]' );
+	var sorted_by_live_region = document.querySelector( '.poocommerce-result-count[data-is-sorted-by="true"]' );
 
 	if ( sorted_by_live_region ) {
 		var text = sorted_by_live_region.innerHTML;

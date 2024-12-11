@@ -3,9 +3,9 @@
  */
 import { useState, useEffect, useRef } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
 import { decodeEntities } from '@wordpress/html-entities';
-import type { CartItem } from '@woocommerce/types';
+import type { CartItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import type { CartItem } from '@woocommerce/types';
 import { useStoreCart } from './cart/use-store-cart';
 
 /**
- * @typedef {import('@woocommerce/type-defs/hooks').StoreCartItemAddToCart} StoreCartItemAddToCart
+ * @typedef {import('@poocommerce/type-defs/hooks').StoreCartItemAddToCart} StoreCartItemAddToCart
  */
 
 interface StoreAddToCart {

@@ -1,11 +1,11 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 /**
  * External dependencies
  */
-import { addAProductToCart } from '@woocommerce/e2e-utils-playwright';
+import { addAProductToCart } from '@poocommerce/e2e-utils-playwright';
 
 const productName = `Cart product test ${ Date.now() }`;
 const productPrice = '13.99';
@@ -56,7 +56,7 @@ test.describe(
 			baseURL,
 		} ) => {
 			// Set settings combination that allowed reproducing the bug.
-			// @see https://github.com/woocommerce/woocommerce/issues/33077
+			// @see https://github.com/poocommerce/poocommerce/issues/33077
 			const api = new wcApi( {
 				url: baseURL,
 				consumerKey: process.env.CONSUMER_KEY,
@@ -64,13 +64,13 @@ test.describe(
 				version: 'wc/v3',
 			} );
 			await api.put(
-				'settings/general/woocommerce_default_customer_address',
+				'settings/general/poocommerce_default_customer_address',
 				{
 					value: 'geolocation_ajax',
 				}
 			);
 			await api.put(
-				'settings/products/woocommerce_enable_ajax_add_to_cart',
+				'settings/products/poocommerce_enable_ajax_add_to_cart',
 				{
 					value: 'no',
 				}
@@ -86,13 +86,13 @@ test.describe(
 
 			// Reset settings.
 			await api.put(
-				'settings/general/woocommerce_default_customer_address',
+				'settings/general/poocommerce_default_customer_address',
 				{
 					value: 'base',
 				}
 			);
 			await api.put(
-				'settings/products/woocommerce_enable_ajax_add_to_cart',
+				'settings/products/poocommerce_enable_ajax_add_to_cart',
 				{
 					value: 'yes',
 				}

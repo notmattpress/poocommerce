@@ -2,7 +2,7 @@
 
 declare( strict_types = 1);
 
-use Automattic\WooCommerce\Blocks\Options;
+use Automattic\PooCommerce\Blocks\Options;
 
 //phpcs:disable Squiz.Classes.ClassFileName.NoMatch
 
@@ -10,7 +10,7 @@ use Automattic\WooCommerce\Blocks\Options;
  * BlockTemplateUtils class used for serving block templates from Woo Blocks.
  * IMPORTANT: These methods have been duplicated from Gutenberg/lib/full-site-editing/block-templates.php as those functions are not for public usage.
  *
- * For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
  * @version 9.4.0
  */
@@ -38,13 +38,13 @@ class BlockTemplateUtilsDuplicated {
 	);
 
 	/**
-	 * WooCommerce plugin slug
+	 * PooCommerce plugin slug
 	 *
 	 * This is used to save templates to the DB which are stored against this value in the wp_terms table.
 	 *
 	 * @var string
 	 */
-	protected const PLUGIN_SLUG = 'woocommerce/woocommerce';
+	protected const PLUGIN_SLUG = 'poocommerce/poocommerce';
 
 	/**
 	 * Returns an array containing the references of
@@ -129,7 +129,7 @@ class BlockTemplateUtilsDuplicated {
 		}
 
 		if ( ! $terms ) {
-			return new \WP_Error( 'template_missing_theme', __( 'No theme is defined for this template.', 'woocommerce' ) );
+			return new \WP_Error( 'template_missing_theme', __( 'No theme is defined for this template.', 'poocommerce' ) );
 		}
 
 		$theme          = $terms[0]->name;
@@ -157,10 +157,10 @@ class BlockTemplateUtilsDuplicated {
 			}
 		}
 
-		// We are checking 'woocommerce' to maintain legacy templates which are saved to the DB,
+		// We are checking 'poocommerce' to maintain legacy templates which are saved to the DB,
 		// prior to updating to use the correct slug.
-		// More information found here: https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5423.
-		if ( self::PLUGIN_SLUG === $theme || 'woocommerce' === strtolower( $theme ) ) {
+		// More information found here: https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/5423.
+		if ( self::PLUGIN_SLUG === $theme || 'poocommerce' === strtolower( $theme ) ) {
 			$template->origin = 'plugin';
 		}
 
@@ -242,13 +242,13 @@ class BlockTemplateUtilsDuplicated {
 	public static function convert_slug_to_title( $template_slug ) {
 		switch ( $template_slug ) {
 			case 'single-product':
-				return __( 'Single Product', 'woocommerce' );
+				return __( 'Single Product', 'poocommerce' );
 			case 'archive-product':
-				return __( 'Product Archive', 'woocommerce' );
+				return __( 'Product Archive', 'poocommerce' );
 			case 'taxonomy-product_cat':
-				return __( 'Product Category', 'woocommerce' );
+				return __( 'Product Category', 'poocommerce' );
 			case 'taxonomy-product_tag':
-				return __( 'Product Tag', 'woocommerce' );
+				return __( 'Product Tag', 'poocommerce' );
 			default:
 				// Replace all hyphens and underscores with spaces.
 				return ucwords( preg_replace( '/[\-_]/', ' ', $template_slug ) );

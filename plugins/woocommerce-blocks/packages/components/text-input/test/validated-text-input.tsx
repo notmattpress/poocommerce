@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { act, render, screen } from '@testing-library/react';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 import { dispatch, select } from '@wordpress/data';
 import userEvent from '@testing-library/user-event';
 import { useState } from '@wordpress/element';

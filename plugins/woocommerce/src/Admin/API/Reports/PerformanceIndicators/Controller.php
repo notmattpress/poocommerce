@@ -5,10 +5,10 @@
  * Handles requests to the /reports/store-performance endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\PerformanceIndicators;
+namespace Automattic\PooCommerce\Admin\API\Reports\PerformanceIndicators;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -75,7 +75,7 @@ class Controller extends GenericController {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_rest_performance_indicators_data_value', array( $this, 'format_data_value' ), 10, 5 );
+		add_filter( 'poocommerce_rest_performance_indicators_data_value', array( $this, 'format_data_value' ), 10, 5 );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Controller extends GenericController {
 		}
 
 		if ( 200 !== $response->get_status() ) {
-			return new \WP_Error( 'woocommerce_analytics_performance_indicators_result_failed', __( 'Sorry, fetching performance indicators failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_performance_indicators_result_failed', __( 'Sorry, fetching performance indicators failed.', 'poocommerce' ) );
 		}
 
 		$endpoints = $response->get_data();
@@ -204,16 +204,16 @@ class Controller extends GenericController {
 		}
 
 		$items = apply_filters(
-			'woocommerce_rest_performance_indicators_jetpack_items',
+			'poocommerce_rest_performance_indicators_jetpack_items',
 			array(
 				'stats/visitors' => array(
-					'label'      => __( 'Visitors', 'woocommerce' ),
+					'label'      => __( 'Visitors', 'poocommerce' ),
 					'permission' => 'view_stats',
 					'format'     => 'number',
 					'module'     => 'stats',
 				),
 				'stats/views'    => array(
-					'label'      => __( 'Views', 'woocommerce' ),
+					'label'      => __( 'Views', 'poocommerce' ),
 					'permission' => 'view_stats',
 					'format'     => 'number',
 					'module'     => 'stats',
@@ -303,7 +303,7 @@ class Controller extends GenericController {
 	 * Sorts the list of stats. Sorted by custom arrangement.
 	 *
 	 * @internal
-	 * @see https://github.com/woocommerce/woocommerce-admin/issues/1282
+	 * @see https://github.com/poocommerce/poocommerce-admin/issues/1282
 	 * @param object $a First item.
 	 * @param object $b Second item.
 	 * @return order
@@ -312,11 +312,11 @@ class Controller extends GenericController {
 		/**
 		 * Custom ordering for store performance indicators.
 		 *
-		 * @see https://github.com/woocommerce/woocommerce-admin/issues/1282
+		 * @see https://github.com/poocommerce/poocommerce-admin/issues/1282
 		 * @param array $indicators A list of ordered indicators.
 		 */
 		$stat_order = apply_filters(
-			'woocommerce_rest_report_sort_performance_indicators',
+			'poocommerce_rest_report_sort_performance_indicators',
 			array(
 				'revenue/total_sales',
 				'revenue/net_revenue',
@@ -389,7 +389,7 @@ class Controller extends GenericController {
 
 		$query_args = $this->prepare_reports_query( $request );
 		if ( empty( $query_args['stats'] ) ) {
-			return new \WP_Error( 'woocommerce_analytics_performance_indicators_empty_query', __( 'A list of stats to query must be provided.', 'woocommerce' ), 400 );
+			return new \WP_Error( 'poocommerce_analytics_performance_indicators_empty_query', __( 'A list of stats to query must be provided.', 'poocommerce' ), 400 );
 		}
 
 		$stats = array();
@@ -430,7 +430,7 @@ class Controller extends GenericController {
 				'chart'  => $chart,
 				'label'  => $label,
 				'format' => $format,
-				'value'  => apply_filters( 'woocommerce_rest_performance_indicators_data_value', $data, $stat, $report, $chart, $query_args ),
+				'value'  => apply_filters( 'poocommerce_rest_performance_indicators_data_value', $data, $stat, $report, $chart, $query_args ),
 			);
 		}
 
@@ -472,7 +472,7 @@ class Controller extends GenericController {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_performance_indicators', $response, $stat_data, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_performance_indicators', $response, $stat_data, $request );
 	}
 
 	/**
@@ -578,33 +578,33 @@ class Controller extends GenericController {
 			'type'       => 'object',
 			'properties' => array(
 				'stat'   => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 					'enum'        => $allowed_stats,
 				),
 				'chart'  => array(
-					'description' => __( 'The specific chart this stat referrers to.', 'woocommerce' ),
+					'description' => __( 'The specific chart this stat referrers to.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'label'  => array(
-					'description' => __( 'Human readable label for the stat.', 'woocommerce' ),
+					'description' => __( 'Human readable label for the stat.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'format' => array(
-					'description' => __( 'Format of the stat.', 'woocommerce' ),
+					'description' => __( 'Format of the stat.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 					'enum'        => array( 'number', 'currency' ),
 				),
 				'value'  => array(
-					'description' => __( 'Value of the stat. Returns null if the stat does not exist or cannot be loaded.', 'woocommerce' ),
+					'description' => __( 'Value of the stat. Returns null if the stat does not exist or cannot be loaded.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -635,7 +635,7 @@ class Controller extends GenericController {
 	public function get_collection_params() {
 		$indicator_data = $this->get_indicator_data();
 		if ( is_wp_error( $indicator_data ) ) {
-			$allowed_stats = __( 'There was an issue loading the report endpoints', 'woocommerce' );
+			$allowed_stats = __( 'There was an issue loading the report endpoints', 'poocommerce' );
 		} else {
 			$allowed_stats = implode( ', ', $this->allowed_stats );
 		}
@@ -645,7 +645,7 @@ class Controller extends GenericController {
 		$params['stats']   = array(
 			'description'       => sprintf(
 				/* translators: Allowed values is a list of stat endpoints. */
-				__( 'Limit response to specific report stats. Allowed values: %s.', 'woocommerce' ),
+				__( 'Limit response to specific report stats. Allowed values: %s.', 'poocommerce' ),
 				$allowed_stats
 			),
 			'type'              => 'array',
@@ -657,13 +657,13 @@ class Controller extends GenericController {
 			'default'           => $this->allowed_stats,
 		);
 		$params['after']   = array(
-			'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['before']  = array(
-			'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',

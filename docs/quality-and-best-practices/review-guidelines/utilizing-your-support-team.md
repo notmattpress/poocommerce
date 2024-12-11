@@ -11,7 +11,7 @@ We recommend that you take the following steps to best utilize your support team
 * Ensure you have a way for your support team to effectively report bugs to your product and engineering teams.
 * When responding to your support team, avoid super-short answers, and try to explain the answer simply and concisely. This will allow the support agent to copy/paste your answer to the merchant.
 * Avoid replying with statements like "no, this is not possible" or "no, this feature will not be implemented" without providing additional context about technical or product limitations.
-* Regularly dedicate additional time to implement a short custom code snippets or to provide in-depth technical details about how a custom project would be implemented so that merchants can reach a solution faster if they decide to hire a dedicated WooCommerce developer. A small effort can go a long way to amaze merchants and reveal an opportunity to request a 5 star review.
+* Regularly dedicate additional time to implement a short custom code snippets or to provide in-depth technical details about how a custom project would be implemented so that merchants can reach a solution faster if they decide to hire a dedicated PooCommerce developer. A small effort can go a long way to amaze merchants and reveal an opportunity to request a 5 star review.
 * Keep support in the loop when they report a bug or request a new feature. When you release a new product version, we always consider the impact it can have on support.  
 * Work closely with your support team. For example, consider having a feedback hangout call every month where you can discuss product feedback and planned improvements.
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { utils } from '@woocommerce/e2e-utils';
+import { utils } from '@poocommerce/e2e-utils';
 /**
  * Internal dependencies
  */

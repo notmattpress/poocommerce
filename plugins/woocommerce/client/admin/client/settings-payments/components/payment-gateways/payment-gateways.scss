@@ -1,13 +1,13 @@
-.woocommerce-list {
+.poocommerce-list {
 	&__item--payment-gateway {
 		&.has-incentive {
-			background-color: $studio-woocommerce-purple-0;
+			background-color: $studio-poocommerce-purple-0;
 
 			&:hover {
-				background-color: $studio-woocommerce-purple-0 !important;
+				background-color: $studio-poocommerce-purple-0 !important;
 			}
 
-			& .woocommerce-pill {
+			& .poocommerce-pill {
 				background-color: #daffe0;
 				color: #144722;
 			}

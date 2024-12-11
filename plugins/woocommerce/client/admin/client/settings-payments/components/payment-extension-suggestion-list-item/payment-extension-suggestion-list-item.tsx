@@ -5,8 +5,8 @@
 import { decodeEntities } from '@wordpress/html-entities';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { WooPaymentMethodsLogos } from '@woocommerce/onboarding';
-import { PaymentProvider } from '@woocommerce/data';
+import { WooPaymentMethodsLogos } from '@poocommerce/onboarding';
+import { PaymentProvider } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -34,26 +34,26 @@ export const PaymentExtensionSuggestionListItem = ( {
 	return (
 		<div
 			id={ extension.id }
-			className={ `transitions-disabled woocommerce-list__item woocommerce-list__item-enter-done` }
+			className={ `transitions-disabled poocommerce-list__item poocommerce-list__item-enter-done` }
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
-				<div className="woocommerce-list__item-before">
+			<div className="poocommerce-list__item-inner">
+				<div className="poocommerce-list__item-before">
 					<DefaultDragHandle />
 					<img
 						src={ extension.icon }
 						alt={ extension.title + ' logo' }
 					/>
 				</div>
-				<div className="woocommerce-list__item-text">
-					<span className="woocommerce-list__item-title">
+				<div className="poocommerce-list__item-text">
+					<span className="poocommerce-list__item-title">
 						{ extension.title }{ ' ' }
 						{ isWooPayments( extension.id ) && (
 							<StatusBadge status="recommended" />
 						) }
 					</span>
 					<span
-						className="woocommerce-list__item-content"
+						className="poocommerce-list__item-content"
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							decodeEntities( extension.description )
 						) }
@@ -65,8 +65,8 @@ export const PaymentExtensionSuggestionListItem = ( {
 						/>
 					) }
 				</div>
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions">
 						<Button
 							variant="primary"
 							onClick={ () =>
@@ -79,14 +79,14 @@ export const PaymentExtensionSuggestionListItem = ( {
 							disabled={ !! installingPlugin }
 						>
 							{ pluginInstalled
-								? __( 'Enable', 'woocommerce' )
-								: __( 'Install', 'woocommerce' ) }
+								? __( 'Enable', 'poocommerce' )
+								: __( 'Install', 'poocommerce' ) }
 						</Button>
 
 						<EllipsisMenu
 							label={ __(
 								'Payment Provider Options',
-								'woocommerce'
+								'poocommerce'
 							) }
 							provider={ extension }
 						/>

@@ -2,7 +2,7 @@
 /**
  * Cart tests.
  *
- * @package WooCommerce\Tests\Cart
+ * @package PooCommerce\Tests\Cart
  */
 
 /**
@@ -24,9 +24,9 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 * Test whether totals are correct when discount is applied.
 	 */
 	public function test_cart_total_with_discount_and_taxes() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		WC()->cart->empty_cart();
 
@@ -61,7 +61,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			'tax_status'   => 'taxable',
 			'cost'         => '9.59',
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
 
 		WC_Helper_Shipping::force_customer_us_address();
 
@@ -80,13 +80,13 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	/**
 	 * Test for subtotals and multiple tax rounding.
 	 * Ticket:
-	 *  https://github.com/woocommerce/woocommerce/issues/21871
+	 *  https://github.com/poocommerce/poocommerce/issues/21871
 	 */
 	public function test_cart_subtotal_issue_21871() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
 
 		// Create dummy product - price will be 10.
 		$product = WC_Helper_Product::create_simple_product();
@@ -166,12 +166,12 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 
 	/**
 	 * Test tax rounding.
-	 * Ticket: https://github.com/woocommerce/woocommerce/issues/21021.
+	 * Ticket: https://github.com/poocommerce/poocommerce/issues/21021.
 	 */
 	public function test_cart_get_total_issue_21021() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		// Set an address so that shipping can be calculated.
 		WC_Helper_Shipping::force_customer_us_address();
@@ -229,8 +229,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			'tax_status'   => 'taxable',
 			'cost'         => '8.05',
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping->load_shipping_methods();
 
@@ -261,12 +261,12 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	/**
 	 * Test for subtotal when multiple tax slabs are present and round at subtotal is enabled.
 	 *
-	 * Ticket: @link https://github.com/woocommerce/woocommerce/issues/23917
+	 * Ticket: @link https://github.com/poocommerce/poocommerce/issues/23917
 	 */
 	public function test_cart_calculate_total_rounding_23917() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -307,7 +307,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 
 	/**
 	 * Test some discount logic which has caused issues in the past.
-	 * Ticket: https://github.com/woocommerce/woocommerce/issues/10963.
+	 * Ticket: https://github.com/poocommerce/poocommerce/issues/10963.
 	 *
 	 * Due to discounts being split amongst products in cart.
 	 */
@@ -341,7 +341,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Ticket: https://github.com/woocommerce/woocommerce/issues/11626
+	 * Ticket: https://github.com/poocommerce/poocommerce/issues/11626
 	 */
 	public function test_cart_get_discounted_price_issue_11626() {
 		$expected_values = array(
@@ -355,8 +355,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		// Test case 3 #11626.
 		update_post_meta( $coupon->get_id(), 'discount_type', 'percent' );
 		update_post_meta( $coupon->get_id(), 'coupon_amount', '50' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -403,7 +403,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Ticket: https://github.com/woocommerce/woocommerce/issues/10573
+	 * Ticket: https://github.com/poocommerce/poocommerce/issues/10573
 	 */
 	public function test_cart_get_discounted_price_issue_10573() {
 		// Create dummy coupon - fixed cart, 1 value.
@@ -416,8 +416,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$product->save();
 		update_post_meta( $coupon->get_id(), 'discount_type', 'percent' );
 		update_post_meta( $coupon->get_id(), 'coupon_amount', '10' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -443,7 +443,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	/**
 	 * Test that calculation rounding is done correctly with and without taxes.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/16305.
+	 * @see https://github.com/poocommerce/poocommerce/issues/16305.
 	 * @since 3.2
 	 */
 	public function test_discount_cart_rounding() {
@@ -480,8 +480,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			WC()->customer->set_is_vat_exempt( $customer_tax_exempt );
 
 			// Test without taxes.
-			update_option( 'woocommerce_prices_include_tax', 'yes' );
-			update_option( 'woocommerce_calc_taxes', 'no' );
+			update_option( 'poocommerce_prices_include_tax', 'yes' );
+			update_option( 'poocommerce_calc_taxes', 'no' );
 
 			WC()->cart->add_to_cart( $product->get_id(), 1 );
 			WC()->cart->add_discount( $coupon->get_code() );
@@ -495,8 +495,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			WC()->cart->remove_coupons();
 
 			// Test with taxes.
-			update_option( 'woocommerce_prices_include_tax', 'no' );
-			update_option( 'woocommerce_calc_taxes', 'yes' );
+			update_option( 'poocommerce_prices_include_tax', 'no' );
+			update_option( 'poocommerce_calc_taxes', 'yes' );
 
 			WC()->cart->add_to_cart( $product->get_id(), 1 );
 			WC()->cart->add_discount( $coupon->get_code() );
@@ -517,11 +517,11 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 */
 	public function test_out_of_base_discounts_inclusive_tax() {
 		// Set up tax options.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'GB' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'GB' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		// 20% tax for GB.
 		$tax_rate = array(
@@ -575,8 +575,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$full_coupon->set_amount( 100 );
 		$full_coupon->save();
 
-		add_filter( 'woocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
-		add_filter( 'woocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
+		add_filter( 'poocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
+		add_filter( 'poocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 
 		// Test in store location with no coupon.
@@ -613,8 +613,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		WC()->cart->remove_coupons();
 
 		WC()->cart->empty_cart();
-		remove_filter( 'woocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
-		remove_filter( 'woocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
+		remove_filter( 'poocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
+		remove_filter( 'poocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
 		WC_Helper_Shipping::force_customer_us_address();
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 
@@ -662,11 +662,11 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		WC()->customer->set_is_vat_exempt( true );
 
 		// Set up tax options.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'GB' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'GB' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		// 20% tax for GB.
 		$tax_rate = array(
@@ -720,8 +720,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$full_coupon->set_amount( 100 );
 		$full_coupon->save();
 
-		add_filter( 'woocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
-		add_filter( 'woocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
+		add_filter( 'poocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
+		add_filter( 'poocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 
 		// Test in store location with no coupon.
@@ -758,8 +758,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		WC()->cart->remove_coupons();
 
 		WC()->cart->empty_cart();
-		remove_filter( 'woocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
-		remove_filter( 'woocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
+		remove_filter( 'poocommerce_customer_get_shipping_country', array( $this, 'force_customer_gb_country' ) );
+		remove_filter( 'poocommerce_customer_get_shipping_postcode', array( $this, 'force_customer_gb_postcode' ) );
 		WC_Helper_Shipping::force_customer_us_address();
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 
@@ -805,11 +805,11 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 */
 	public function test_out_of_base_discounts_inclusive_tax_no_oob_tax() {
 		// Set up tax options.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_country', 'GB' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_country', 'GB' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		// 20% tax for GB.
 		$tax_rate = array(
@@ -974,8 +974,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		);
 
 		// Store is set to enter product prices inclusive tax.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Set an address so that shipping can be calculated.
 		WC_Helper_Shipping::force_customer_us_address();
@@ -1003,8 +1003,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			'tax_status'   => 'taxable',
 			'cost'         => '4.12',
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 
@@ -1037,10 +1037,10 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 */
 	public function test_inclusive_tax_rounding_issue_20997() {
 		// Store is set to enter product prices inclusive tax.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_currency', 'EUR' );
-		update_option( 'woocommerce_price_decimal_sep', ',' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_currency', 'EUR' );
+		update_option( 'poocommerce_price_decimal_sep', ',' );
 
 		// 22% tax.
 		$tax_rate = array(
@@ -1085,7 +1085,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		WC()->cart->add_to_cart( $product2->get_id(), 1 );
 		WC()->cart->calculate_totals();
 
-		$expected_price = '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>68,50</bdi></span>';
+		$expected_price = '<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>68,50</bdi></span>';
 		$this->assertEquals( $expected_price, WC()->cart->get_total() );
 		$this->assertEquals( '12.36', wc_round_tax_total( WC()->cart->get_total_tax( 'edit' ) ) );
 
@@ -1094,7 +1094,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		WC()->cart->add_to_cart( $product4->get_id(), 1 );
 		WC()->cart->calculate_totals();
 
-		$expected_price = '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>112,00</bdi></span>';
+		$expected_price = '<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>112,00</bdi></span>';
 		$this->assertEquals( $expected_price, WC()->cart->get_total() );
 		$this->assertEquals( '20.19', wc_round_tax_total( WC()->cart->get_total_tax( 'edit' ) ) );
 
@@ -1105,7 +1105,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		WC()->cart->add_to_cart( $product6->get_id(), 1 );
 		WC()->cart->calculate_totals();
 
-		$expected_price = '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&euro;</span>239,00</bdi></span>';
+		$expected_price = '<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&euro;</span>239,00</bdi></span>';
 		$this->assertEquals( $expected_price, WC()->cart->get_total() );
 		$this->assertEquals( '43.09', wc_round_tax_total( WC()->cart->get_total_tax( 'edit' ) ) );
 	}
@@ -1123,8 +1123,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		);
 
 		// Store is set to enter product prices excluding tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// 20% tax.
 		$tax_rate = array(
@@ -1214,9 +1214,9 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 
 		WC_Tax::_insert_tax_rate( $tax_rate );
 
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 
 		foreach ( $expected_values as $customer_tax_exempt => $values ) {
 			WC()->customer->set_is_vat_exempt( $customer_tax_exempt );
@@ -1251,7 +1251,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$cart_item_key = 'test';
 
 		// Do the check.
-		$this->assertEquals( apply_filters( 'woocommerce_get_remove_url', $cart_page_url ? wp_nonce_url( add_query_arg( 'remove_item', $cart_item_key, $cart_page_url ), 'woocommerce-cart' ) : '' ), wc_get_cart_remove_url( $cart_item_key ) );
+		$this->assertEquals( apply_filters( 'poocommerce_get_remove_url', $cart_page_url ? wp_nonce_url( add_query_arg( 'remove_item', $cart_item_key, $cart_page_url ), 'poocommerce-cart' ) : '' ), wc_get_cart_remove_url( $cart_item_key ) );
 	}
 
 	/**
@@ -1459,7 +1459,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 
-		$this->assertEquals( apply_filters( 'woocommerce_cart_total', wc_price( WC()->cart->total ) ), WC()->cart->get_total() );
+		$this->assertEquals( apply_filters( 'poocommerce_cart_total', wc_price( WC()->cart->total ) ), WC()->cart->get_total() );
 	}
 
 	/**
@@ -1480,7 +1480,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		);
 
 		// Set calc taxes option.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -1524,7 +1524,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			$needs_shipping_address = true;
 		}
 
-		$this->assertEquals( apply_filters( 'woocommerce_cart_needs_shipping_address', $needs_shipping_address ), WC()->cart->needs_shipping_address() );
+		$this->assertEquals( apply_filters( 'poocommerce_cart_needs_shipping_address', $needs_shipping_address ), WC()->cart->needs_shipping_address() );
 	}
 
 	/**
@@ -1562,9 +1562,9 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 * Test that shipping tax rounding does not round down when price are inclusive of taxes.
 	 */
 	public function test_calculate_totals_shipping_tax_rounded_26654() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -1603,7 +1603,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$this->assertEquals( 335.88, $order->get_total() );
 		$this->assertEquals( 18.775, $order->get_shipping_tax() );
 
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 		WC()->cart->calculate_totals();
 
 		$this->assertEquals( 18.78, WC()->cart->get_shipping_tax() );
@@ -1650,7 +1650,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		);
 
 		// Set up taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -1718,7 +1718,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		);
 
 		// Set up taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -1819,7 +1819,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 
 		$this->assertEquals( count( $coupons ), 1 );
 		$this->assertEquals( 'code1', reset( $coupons )->get_code() );
-		$this->assertEquals( 1, did_action( 'woocommerce_removed_coupon' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_removed_coupon' ) );
 	}
 
 	/**
@@ -1954,7 +1954,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 */
 	public function test_get_tax_totals() {
 		// Set calc taxes option.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -2001,8 +2001,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 */
 	public function test_changing_tax_class_via_filter_issue_23340() {
 		// Store is set to enter product prices inclusive tax.
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// 5% tax.
 		$tax_rate = array(
@@ -2043,24 +2043,24 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		$this->assertEquals( '5.71', WC()->cart->get_subtotal() );
 		$this->assertEquals( '6.00', WC()->cart->get_total( 'edit' ) );
 
-		add_filter( 'woocommerce_product_get_tax_class', array( $this, 'change_tax_class_filter' ) );
-		add_filter( 'woocommerce_product_variation_get_tax_class', array( $this, 'change_tax_class_filter' ) );
+		add_filter( 'poocommerce_product_get_tax_class', array( $this, 'change_tax_class_filter' ) );
+		add_filter( 'poocommerce_product_variation_get_tax_class', array( $this, 'change_tax_class_filter' ) );
 
 		WC()->cart->calculate_totals();
 		$this->assertEquals( '5.71', WC()->cart->get_subtotal() );
 		$this->assertEquals( '6.85', WC()->cart->get_total( 'edit' ) );
 
-		remove_filter( 'woocommerce_product_get_tax_class', array( $this, 'change_tax_class_filter' ) );
-		remove_filter( 'woocommerce_product_variation_get_tax_class', array( $this, 'change_tax_class_filter' ) );
+		remove_filter( 'poocommerce_product_get_tax_class', array( $this, 'change_tax_class_filter' ) );
+		remove_filter( 'poocommerce_product_variation_get_tax_class', array( $this, 'change_tax_class_filter' ) );
 	}
 
 	/**
 	 * Test rounding with fees as described in Github issue 25629.
 	 */
 	public function test_rounding_with_fees_25629() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		WC()->cart->empty_cart();
 		$tax_rate = array(
@@ -2087,11 +2087,11 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 			)
 		);
 
-		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'add_fee_1_5_to_cart' ) );
+		add_action( 'poocommerce_cart_calculate_fees', array( $this, 'add_fee_1_5_to_cart' ) );
 		WC()->cart->add_to_cart( $product->get_id(), 1 );
 		WC()->cart->apply_coupon( '3percent' );
 		WC()->cart->calculate_totals();
-		remove_action( 'woocommerce_cart_calculate_fees', array( $this, 'add_fee_1_5_to_cart' ) );
+		remove_action( 'poocommerce_cart_calculate_fees', array( $this, 'add_fee_1_5_to_cart' ) );
 
 		$this->assertEquals( 70.86, WC()->cart->get_total( 'edit' ) );
 	}
@@ -2101,8 +2101,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 * as described in issue 24000.
 	 */
 	public function test_add_variation_by_url() {
-		add_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
-		update_option( 'woocommerce_cart_redirect_after_add', 'no' );
+		add_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
+		update_option( 'poocommerce_cart_redirect_after_add', 'no' );
 		WC()->cart->empty_cart();
 		WC()->session->set( 'wc_notices', null );
 
@@ -2124,7 +2124,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 
 		// Reset filter / REQUEST variables.
 		unset( $_REQUEST['add-to-cart'] );
-		remove_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
+		remove_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
 
 		// Check if the item is in the cart.
 		$this->assertCount( 1, WC()->cart->get_cart_contents() );
@@ -2159,8 +2159,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 * that differs from a value belonging to that variant.
 	 */
 	public function test_add_variation_by_url_with_invalid_attribute() {
-		add_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
-		update_option( 'woocommerce_cart_redirect_after_add', 'no' );
+		add_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
+		update_option( 'poocommerce_cart_redirect_after_add', 'no' );
 		WC()->cart->empty_cart();
 		WC()->session->set( 'wc_notices', null );
 
@@ -2177,7 +2177,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		// Reset filter / REQUEST variables.
 		unset( $_REQUEST['add-to-cart'] );
 		unset( $_REQUEST['attribute_pa_colour'] );
-		remove_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
+		remove_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
 
 		// Check that the notices contain an error message about an invalid colour.
 		$this->assertArrayHasKey( 'error', $notices );
@@ -2190,8 +2190,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 * variation and others are specified via URL parameter.
 	 */
 	public function test_add_variation_by_url_with_valid_attribute() {
-		add_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
-		update_option( 'woocommerce_cart_redirect_after_add', 'no' );
+		add_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
+		update_option( 'poocommerce_cart_redirect_after_add', 'no' );
 		WC()->cart->empty_cart();
 		WC()->session->set( 'wc_notices', null );
 
@@ -2210,7 +2210,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		unset( $_REQUEST['add-to-cart'] );
 		unset( $_REQUEST['attribute_pa_colour'] );
 		unset( $_REQUEST['attribute_pa_number'] );
-		remove_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
+		remove_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
 
 		// Check if the item is in the cart.
 		$this->assertCount( 1, WC()->cart->get_cart_contents() );
@@ -2224,8 +2224,8 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 	 * Test that adding a varition via URL parameter fails when an 'any' attribute is missing.
 	 */
 	public function test_add_variation_by_url_fails_with_missing_any_attribute() {
-		add_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
-		update_option( 'woocommerce_cart_redirect_after_add', 'no' );
+		add_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
+		update_option( 'poocommerce_cart_redirect_after_add', 'no' );
 		WC()->cart->empty_cart();
 		WC()->session->set( 'wc_notices', null );
 
@@ -2242,7 +2242,7 @@ class WC_Tests_Cart extends WC_Unit_Test_Case {
 		// Reset filter / REQUEST variables.
 		unset( $_REQUEST['add-to-cart'] );
 		unset( $_REQUEST['attribute_pa_number'] );
-		remove_filter( 'woocommerce_add_to_cart_redirect', '__return_false' );
+		remove_filter( 'poocommerce_add_to_cart_redirect', '__return_false' );
 
 		// Verify that there is nothing in the cart.
 		$this->assertCount( 0, WC()->cart->get_cart_contents() );

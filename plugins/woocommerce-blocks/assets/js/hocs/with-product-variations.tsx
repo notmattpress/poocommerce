@@ -4,12 +4,12 @@
 import { Component } from '@wordpress/element';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import isShallowEqual from '@wordpress/is-shallow-equal';
-import { getProductVariations } from '@woocommerce/editor-components/utils';
-import { ErrorObject } from '@woocommerce/editor-components/error-placeholder';
+import { getProductVariations } from '@poocommerce/editor-components/utils';
+import { ErrorObject } from '@poocommerce/editor-components/error-placeholder';
 import {
 	ProductResponseItem,
 	ProductResponseVariationsItem,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

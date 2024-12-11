@@ -1,16 +1,16 @@
 <?php
 /**
  * Title: Three columns with images and content
- * Slug: woocommerce-blocks/three-columns-with-images-and-content
- * Categories: WooCommerce, Services
+ * Slug: poocommerce-blocks/three-columns-with-images-and-content
+ * Categories: PooCommerce, Services
  */
 
 declare(strict_types=1);
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
 
-$header        = __( 'Our services', 'woocommerce' );
-$product_title = __( 'Create anything', 'woocommerce' );
-$description   = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'woocommerce' );
+$header        = __( 'Our services', 'poocommerce' );
+$product_title = __( 'Create anything', 'poocommerce' );
+$description   = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'poocommerce' );
 $image_0       = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/table-wood-house-chair-floor-window.jpg' );
 $image_1       = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/hand-light-architecture-wood-white-house.jpg' );
 $image_2       = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/Image-table-wood-chair-stool-interior-restaurant.jpg' );

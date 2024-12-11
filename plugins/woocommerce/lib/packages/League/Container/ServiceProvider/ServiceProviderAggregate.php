@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\ServiceProvider;
+namespace Automattic\PooCommerce\Vendor\League\Container\ServiceProvider;
 
 use Generator;
-use Automattic\WooCommerce\Vendor\League\Container\{ContainerAwareInterface, ContainerAwareTrait};
-use Automattic\WooCommerce\Vendor\League\Container\Exception\ContainerException;
+use Automattic\PooCommerce\Vendor\League\Container\{ContainerAwareInterface, ContainerAwareTrait};
+use Automattic\PooCommerce\Vendor\League\Container\Exception\ContainerException;
 
 class ServiceProviderAggregate implements ServiceProviderAggregateInterface
 {
@@ -51,7 +51,7 @@ class ServiceProviderAggregate implements ServiceProviderAggregateInterface
 
         throw new ContainerException(
             'A service provider must be a fully qualified class name or instance ' .
-            'of (\Automattic\WooCommerce\Vendor\League\Container\ServiceProvider\ServiceProviderInterface)'
+            'of (\Automattic\PooCommerce\Vendor\League\Container\ServiceProvider\ServiceProviderInterface)'
         );
     }
 

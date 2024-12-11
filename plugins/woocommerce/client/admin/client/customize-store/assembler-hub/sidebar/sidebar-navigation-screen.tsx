@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/blob/v16.4.0/packages/edit-site/src/components/sidebar-navigation-screen/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -68,7 +68,7 @@ export const SidebarNavigationScreen = ( {
 		<>
 			<VStack
 				className={ clsx(
-					'woocommerce-edit-site-sidebar-navigation-screen__main',
+					'poocommerce-edit-site-sidebar-navigation-screen__main',
 					{
 						'has-footer': !! footer,
 					}
@@ -79,7 +79,7 @@ export const SidebarNavigationScreen = ( {
 				<HStack
 					spacing={ 4 }
 					alignment="flex-start"
-					className="woocommerce-edit-site-sidebar-navigation-screen__title-icon"
+					className="poocommerce-edit-site-sidebar-navigation-screen__title-icon"
 				>
 					{ ! isRoot && (
 						<SidebarButton
@@ -96,7 +96,7 @@ export const SidebarNavigationScreen = ( {
 								}
 							} }
 							icon={ icon }
-							label={ __( 'Back', 'woocommerce' ) }
+							label={ __( 'Back', 'poocommerce' ) }
 							showTooltip={ false }
 						/>
 					) }
@@ -106,12 +106,12 @@ export const SidebarNavigationScreen = ( {
 								setOpenWarningModal( true );
 							} }
 							icon={ icon }
-							label={ __( 'Back', 'woocommerce' ) }
+							label={ __( 'Back', 'poocommerce' ) }
 							showTooltip={ false }
 						/>
 					) }
 					<Heading
-						className="woocommerce-edit-site-sidebar-navigation-screen__title"
+						className="poocommerce-edit-site-sidebar-navigation-screen__title"
 						style={
 							isEntrepreneurFlow() ? { padding: '0 16px' } : {}
 						}
@@ -122,22 +122,22 @@ export const SidebarNavigationScreen = ( {
 						{ title }
 					</Heading>
 					{ actions && (
-						<div className="woocommerce-edit-site-sidebar-navigation-screen__actions">
+						<div className="poocommerce-edit-site-sidebar-navigation-screen__actions">
 							{ actions }
 						</div>
 					) }
 				</HStack>
 				{ meta && (
 					<>
-						<div className="woocommerce-edit-site-sidebar-navigation-screen__meta">
+						<div className="poocommerce-edit-site-sidebar-navigation-screen__meta">
 							{ meta }
 						</div>
 					</>
 				) }
 
-				<div className="woocommerce-edit-site-sidebar-navigation-screen__content">
+				<div className="poocommerce-edit-site-sidebar-navigation-screen__content">
 					{ description && (
-						<p className="woocommerce-edit-site-sidebar-navigation-screen__description">
+						<p className="poocommerce-edit-site-sidebar-navigation-screen__description">
 							{ description }
 						</p>
 					) }
@@ -145,7 +145,7 @@ export const SidebarNavigationScreen = ( {
 				</div>
 			</VStack>
 			{ footer && (
-				<footer className="woocommerce-edit-site-sidebar-navigation-screen__footer">
+				<footer className="poocommerce-edit-site-sidebar-navigation-screen__footer">
 					{ footer }
 				</footer>
 			) }

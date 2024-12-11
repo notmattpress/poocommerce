@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { EllipsisMenu } from '@woocommerce/components';
-import { ONBOARDING_STORE_NAME } from '@woocommerce/data';
+import { EllipsisMenu } from '@poocommerce/components';
+import { ONBOARDING_STORE_NAME } from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 
 export type TaskListMenuProps = {
@@ -19,14 +19,14 @@ export const TaskListMenu: React.FC< TaskListMenuProps > = ( {
 	const { hideTaskList } = useDispatch( ONBOARDING_STORE_NAME );
 
 	return (
-		<div className="woocommerce-card__menu woocommerce-card__header-item">
+		<div className="poocommerce-card__menu poocommerce-card__header-item">
 			<EllipsisMenu
-				label={ __( 'Task List Options', 'woocommerce' ) }
+				label={ __( 'Task List Options', 'poocommerce' ) }
 				renderContent={ () => (
-					<div className="woocommerce-task-card__section-controls">
+					<div className="poocommerce-task-card__section-controls">
 						<Button onClick={ () => hideTaskList( id ) }>
 							{ hideTaskListText ||
-								__( 'Hide this', 'woocommerce' ) }
+								__( 'Hide this', 'poocommerce' ) }
 						</Button>
 					</div>
 				) }

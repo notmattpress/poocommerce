@@ -8,8 +8,8 @@ import type {
 } from 'react-number-format';
 import clsx from 'clsx';
 import type { ReactElement } from 'react';
-import type { Currency } from '@woocommerce/types';
-import { SITE_CURRENCY } from '@woocommerce/settings';
+import type { Currency } from '@poocommerce/types';
+import { SITE_CURRENCY } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

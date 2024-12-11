@@ -5,15 +5,15 @@ import { z } from 'zod';
 
 const footerChoices = [
 	{
-		slug: 'woocommerce-blocks/footer-simple-menu',
+		slug: 'poocommerce-blocks/footer-simple-menu',
 		label: 'Footer with Simple Menu',
 	},
 	{
-		slug: 'woocommerce-blocks/footer-with-3-menus',
+		slug: 'poocommerce-blocks/footer-with-3-menus',
 		label: 'Footer with 3 Menus',
 	},
 	{
-		slug: 'woocommerce-blocks/footer-large',
+		slug: 'poocommerce-blocks/footer-large',
 		label: 'Large Footer',
 	},
 ];

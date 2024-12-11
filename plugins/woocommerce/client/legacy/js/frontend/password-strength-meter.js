@@ -59,14 +59,14 @@ jQuery( function( $ ) {
 		 * @param {Object} field
 		 */
 		includeMeter: function( wrapper, field ) {
-			var meter = wrapper.find( '.woocommerce-password-strength' );
+			var meter = wrapper.find( '.poocommerce-password-strength' );
 
 			if ( '' === field.val() ) {
 				meter.hide();
 				$( document.body ).trigger( 'wc-password-strength-hide' );
 				field.removeAttr( 'aria-describedby' );
 			} else if ( 0 === meter.length ) {
-				field.after( '<div id="password_strength" class="woocommerce-password-strength" role="alert"></div>' );
+				field.after( '<div id="password_strength" class="poocommerce-password-strength" role="alert"></div>' );
 				field.attr( 'aria-describedby', 'password_strength' );
 				$( document.body ).trigger( 'wc-password-strength-added' );
 			} else {
@@ -83,9 +83,9 @@ jQuery( function( $ ) {
 		 * @return {Int}
 		 */
 		checkPasswordStrength: function( wrapper, field ) {
-			var meter     = wrapper.find( '.woocommerce-password-strength' ),
-				hint      = wrapper.find( '.woocommerce-password-hint' ),
-				hint_html = '<small class="woocommerce-password-hint">' + wc_password_strength_meter_params.i18n_password_hint + '</small>',
+			var meter     = wrapper.find( '.poocommerce-password-strength' ),
+				hint      = wrapper.find( '.poocommerce-password-hint' ),
+				hint_html = '<small class="poocommerce-password-hint">' + wc_password_strength_meter_params.i18n_password_hint + '</small>',
 				strength  = wp.passwordStrength.meter( field.val(), wp.passwordStrength.userInputDisallowedList() ),
 				error     = '';
 

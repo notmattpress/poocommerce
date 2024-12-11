@@ -2,11 +2,11 @@
 /**
  * Customer functions
  *
- * @package WooCommerce\Tests\Customer
+ * @package PooCommerce\Tests\Customer
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 
 /**
  * WC_Tests_Customer_Functions class.

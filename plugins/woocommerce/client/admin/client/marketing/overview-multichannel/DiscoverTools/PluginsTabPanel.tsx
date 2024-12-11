@@ -5,9 +5,9 @@ import { Fragment, useState } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { TabPanel, Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
-import { Pill } from '@woocommerce/components';
-import { PLUGINS_STORE_NAME } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { Pill } from '@poocommerce/components';
+import { PLUGINS_STORE_NAME } from '@poocommerce/data';
 import { flatMapDeep, uniqBy } from 'lodash';
 
 /**
@@ -119,7 +119,7 @@ export const PluginsTabPanel = ( {
 									installAndActivate( plugin );
 								} }
 							>
-								{ __( 'Install extension', 'woocommerce' ) }
+								{ __( 'Install extension', 'poocommerce' ) }
 							</Button>
 						);
 					}
@@ -139,7 +139,7 @@ export const PluginsTabPanel = ( {
 								);
 							} }
 						>
-							{ __( 'View details', 'woocommerce' ) }
+							{ __( 'View details', 'poocommerce' ) }
 						</Button>
 					);
 				};

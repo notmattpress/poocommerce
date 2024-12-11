@@ -16,26 +16,26 @@ export const InboxDismissConfirmationModal: React.FC<
 > = ( {
 	onClose,
 	onDismiss,
-	buttonLabel = __( "Yes, I'm sure", 'woocommerce' ),
+	buttonLabel = __( "Yes, I'm sure", 'poocommerce' ),
 } ) => {
 	const [ inAction, setInAction ] = useState( false );
 
 	return (
 		<Modal
-			title={ __( 'Are you sure?', 'woocommerce' ) }
+			title={ __( 'Are you sure?', 'poocommerce' ) }
 			onRequestClose={ () => onClose() }
-			className="woocommerce-inbox-dismiss-confirmation_modal"
+			className="poocommerce-inbox-dismiss-confirmation_modal"
 		>
-			<div className="woocommerce-inbox-dismiss-confirmation_wrapper">
+			<div className="poocommerce-inbox-dismiss-confirmation_wrapper">
 				<p>
 					{ __(
 						'Dismissed messages cannot be viewed again',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
-				<div className="woocommerce-inbox-dismiss-confirmation_buttons">
+				<div className="poocommerce-inbox-dismiss-confirmation_buttons">
 					<Button isSecondary onClick={ () => onClose() }>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						isSecondary

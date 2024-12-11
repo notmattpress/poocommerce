@@ -2,7 +2,7 @@
 
 This is a CLI tool designed to generate JSON manifests of Markdown files in a directory.
 
-This manifest is currently designed to be consumed by the WooCommerce Docs plugin.
+This manifest is currently designed to be consumed by the PooCommerce Docs plugin.
 
 ## Usage
 

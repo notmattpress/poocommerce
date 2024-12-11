@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\ListTable;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Internal\Admin\Orders\ListTable;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 /**
  * Tests related to order list table in admin.

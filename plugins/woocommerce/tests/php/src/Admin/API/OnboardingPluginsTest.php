@@ -2,10 +2,10 @@
 /**
  * Test the API controller class that handles the onboarding plugins REST endpoints.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;

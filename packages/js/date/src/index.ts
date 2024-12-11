@@ -63,27 +63,27 @@ export type DateParams = {
 };
 
 export const presetValues = [
-	{ value: 'today', label: __( 'Today', 'woocommerce' ) },
-	{ value: 'yesterday', label: __( 'Yesterday', 'woocommerce' ) },
-	{ value: 'week', label: __( 'Week to date', 'woocommerce' ) },
-	{ value: 'last_week', label: __( 'Last week', 'woocommerce' ) },
-	{ value: 'month', label: __( 'Month to date', 'woocommerce' ) },
-	{ value: 'last_month', label: __( 'Last month', 'woocommerce' ) },
-	{ value: 'quarter', label: __( 'Quarter to date', 'woocommerce' ) },
-	{ value: 'last_quarter', label: __( 'Last quarter', 'woocommerce' ) },
-	{ value: 'year', label: __( 'Year to date', 'woocommerce' ) },
-	{ value: 'last_year', label: __( 'Last year', 'woocommerce' ) },
-	{ value: 'custom', label: __( 'Custom', 'woocommerce' ) },
+	{ value: 'today', label: __( 'Today', 'poocommerce' ) },
+	{ value: 'yesterday', label: __( 'Yesterday', 'poocommerce' ) },
+	{ value: 'week', label: __( 'Week to date', 'poocommerce' ) },
+	{ value: 'last_week', label: __( 'Last week', 'poocommerce' ) },
+	{ value: 'month', label: __( 'Month to date', 'poocommerce' ) },
+	{ value: 'last_month', label: __( 'Last month', 'poocommerce' ) },
+	{ value: 'quarter', label: __( 'Quarter to date', 'poocommerce' ) },
+	{ value: 'last_quarter', label: __( 'Last quarter', 'poocommerce' ) },
+	{ value: 'year', label: __( 'Year to date', 'poocommerce' ) },
+	{ value: 'last_year', label: __( 'Last year', 'poocommerce' ) },
+	{ value: 'custom', label: __( 'Custom', 'poocommerce' ) },
 ];
 
 export const periods = [
 	{
 		value: 'previous_period',
-		label: __( 'Previous period', 'woocommerce' ),
+		label: __( 'Previous period', 'poocommerce' ),
 	},
 	{
 		value: 'previous_year',
-		label: __( 'Previous year', 'woocommerce' ),
+		label: __( 'Previous year', 'poocommerce' ),
 	},
 ];
 
@@ -144,7 +144,7 @@ export function getRangeLabel( after: moment.Moment, before: moment.Moment ) {
 	const isSameMonth = isSameYear && after.month() === before.month();
 	const isSameDay =
 		isSameYear && isSameMonth && after.isSame( before, 'day' );
-	const fullDateFormat = __( 'MMM D, YYYY', 'woocommerce' );
+	const fullDateFormat = __( 'MMM D, YYYY', 'poocommerce' );
 
 	if ( isSameDay ) {
 		return after.format( fullDateFormat );
@@ -157,7 +157,7 @@ export function getRangeLabel( after: moment.Moment, before: moment.Moment ) {
 				`${ afterDate } - ${ before.date() }`
 			);
 	} else if ( isSameYear ) {
-		const monthDayFormat = __( 'MMM D', 'woocommerce' );
+		const monthDayFormat = __( 'MMM D', 'poocommerce' );
 		return `${ after.format( monthDayFormat ) } - ${ before.format(
 			fullDateFormat
 		) }`;
@@ -757,9 +757,9 @@ export function getDateFormatsForIntervalD3( interval: string, ticks = 0 ) {
 				x2Format = '%Y';
 			}
 			// eslint-disable-next-line @wordpress/i18n-translator-comments
-			screenReaderFormat = __( 'Week of %B %-d, %Y', 'woocommerce' );
+			screenReaderFormat = __( 'Week of %B %-d, %Y', 'poocommerce' );
 			// eslint-disable-next-line @wordpress/i18n-translator-comments
-			tooltipLabelFormat = __( 'Week of %B %-d, %Y', 'woocommerce' );
+			tooltipLabelFormat = __( 'Week of %B %-d, %Y', 'poocommerce' );
 			break;
 		case 'quarter':
 		case 'month':
@@ -825,7 +825,7 @@ export function getDateFormatsForIntervalPhp( interval: string, ticks = 0 ) {
 			}
 
 			// Since some alphabet letters have php associated formats, we need to escape them first.
-			const escapedWeekOfStr = __( 'Week of', 'woocommerce' ).replace(
+			const escapedWeekOfStr = __( 'Week of', 'poocommerce' ).replace(
 				/(\w)/g,
 				'\\$1'
 			);
@@ -900,11 +900,11 @@ export function loadLocaleData( {
 	if ( moment.locale() !== 'en' ) {
 		moment.updateLocale( userLocale, {
 			longDateFormat: {
-				L: __( 'MM/DD/YYYY', 'woocommerce' ),
-				LL: __( 'MMMM D, YYYY', 'woocommerce' ),
-				LLL: __( 'D MMMM YYYY LT', 'woocommerce' ),
-				LLLL: __( 'dddd, D MMMM YYYY LT', 'woocommerce' ),
-				LT: __( 'HH:mm', 'woocommerce' ),
+				L: __( 'MM/DD/YYYY', 'poocommerce' ),
+				LL: __( 'MMMM D, YYYY', 'poocommerce' ),
+				LLL: __( 'D MMMM YYYY LT', 'poocommerce' ),
+				LLLL: __( 'dddd, D MMMM YYYY LT', 'poocommerce' ),
+				LT: __( 'HH:mm', 'poocommerce' ),
 				// Set LTS to default LTS locale format because we don't have a specific format for it.
 				// Reference https://github.com/moment/moment/blob/develop/dist/moment.js
 				LTS: 'h:mm:ss A',
@@ -915,10 +915,10 @@ export function loadLocaleData( {
 }
 
 export const dateValidationMessages = {
-	invalid: __( 'Invalid date', 'woocommerce' ),
-	future: __( 'Select a date in the past', 'woocommerce' ),
-	startAfterEnd: __( 'Start date must be before end date', 'woocommerce' ),
-	endBeforeStart: __( 'Start date must be before end date', 'woocommerce' ),
+	invalid: __( 'Invalid date', 'poocommerce' ),
+	future: __( 'Select a date in the past', 'poocommerce' ),
+	startAfterEnd: __( 'Start date must be before end date', 'poocommerce' ),
+	endBeforeStart: __( 'Start date must be before end date', 'poocommerce' ),
 };
 
 /**

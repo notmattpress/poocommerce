@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\RestApi\UnitTests;
+namespace Automattic\PooCommerce\RestApi\UnitTests;
 
 /**
  * Proxy class used to mimic object cache instances that serialize/deserialized stored data.

@@ -29,10 +29,10 @@ describe( 'generateManifest', () => {
 		const topLevelCategories = manifest.categories;
 
 		expect( topLevelCategories[ 0 ].category_title ).toEqual(
-			'Getting Started with WooCommerce'
+			'Getting Started with PooCommerce'
 		);
 		expect( topLevelCategories[ 1 ].category_title ).toEqual(
-			'Testing WooCommerce'
+			'Testing PooCommerce'
 		);
 
 		const subCategories = topLevelCategories[ 0 ].categories;
@@ -71,7 +71,7 @@ describe( 'generateManifest', () => {
 		const topLevelCategories = manifest.categories;
 
 		expect( topLevelCategories[ 1 ].category_title ).toEqual(
-			'Testing WooCommerce'
+			'Testing PooCommerce'
 		);
 
 		const posts = topLevelCategories[ 1 ].posts;

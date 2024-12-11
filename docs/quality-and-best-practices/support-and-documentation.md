@@ -1,10 +1,10 @@
 ---
-post_title: Support and documentation for WooCommerce extensions
+post_title: Support and documentation for PooCommerce extensions
 menu_title: Support and documentation
 tags: reference
 ---
 
-Effective support and comprehensive documentation are fundamental to the success of any WooCommerce extension. They not only enhance the user experience but also facilitate easier maintenance and development. This document outlines the best practices for creating documentation, providing support, and establishing feedback mechanisms.
+Effective support and comprehensive documentation are fundamental to the success of any PooCommerce extension. They not only enhance the user experience but also facilitate easier maintenance and development. This document outlines the best practices for creating documentation, providing support, and establishing feedback mechanisms.
 
 ## Creating effective documentation
 
@@ -63,4 +63,4 @@ Feedback is invaluable for continuous improvement of your extension and support 
 
 ## Conclusion
 
-Support and documentation are critical components of the overall user experience for WooCommerce extensions. By investing in high-quality documentation, providing excellent support, and actively seeking and utilizing user feedback, developers can enhance user satisfaction, reduce support workload, and continuously improve their extensions.
+Support and documentation are critical components of the overall user experience for PooCommerce extensions. By investing in high-quality documentation, providing excellent support, and actively seeking and utilizing user feedback, developers can enhance user satisfaction, reduce support workload, and continuously improve their extensions.

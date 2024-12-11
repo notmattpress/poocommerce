@@ -6,17 +6,17 @@ const test = baseTest.extend( {
 	page: async ( { page, wcAdminApi }, use ) => {
 		// Disable the task list reminder bar, it can interfere with the quick actions
 		await wcAdminApi.post( 'options', {
-			woocommerce_task_list_reminder_bar_hidden: 'yes',
+			poocommerce_task_list_reminder_bar_hidden: 'yes',
 		} );
 
 		// Disable the orders report date tour
 		await wcAdminApi.post( 'options', {
-			woocommerce_orders_report_date_tour_shown: 'yes',
+			poocommerce_orders_report_date_tour_shown: 'yes',
 		} );
 
 		// Disable the revenue report date tour
 		await wcAdminApi.post( 'options', {
-			woocommerce_revenue_report_date_tour_shown: 'yes',
+			poocommerce_revenue_report_date_tour_shown: 'yes',
 		} );
 
 		await use( page );

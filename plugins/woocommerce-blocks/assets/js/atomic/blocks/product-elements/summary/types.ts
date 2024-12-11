@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { BlockEditProps } from '@wordpress/blocks';
-import type { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import type { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 import type { CSSProperties } from '@wordpress/element';
 
 export interface Attributes {

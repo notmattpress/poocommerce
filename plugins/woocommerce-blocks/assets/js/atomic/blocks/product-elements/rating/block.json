@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/product-rating",
+	"name": "poocommerce/product-rating",
 	"version": "1.0.0",
 	"icon": "info",
 	"title": "Product Rating",
@@ -32,12 +32,12 @@
 		"postId"
 	],
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"align": true
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

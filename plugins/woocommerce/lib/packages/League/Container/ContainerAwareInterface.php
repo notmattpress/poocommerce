@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container;
+namespace Automattic\PooCommerce\Vendor\League\Container;
 
-use Automattic\WooCommerce\Vendor\Psr\Container\ContainerInterface;
+use Automattic\PooCommerce\Vendor\Psr\Container\ContainerInterface;
 
 interface ContainerAwareInterface
 {

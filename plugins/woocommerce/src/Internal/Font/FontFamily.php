@@ -3,7 +3,7 @@
  * FontFamily class file
  */
 
-namespace Automattic\WooCommerce\Internal\Font;
+namespace Automattic\PooCommerce\Internal\Font;
 
 // IMPORTANT: We have to switch to the WordPress API to create the FontFamily post type when they will be implemented: https://github.com/WordPress/gutenberg/issues/58670!
 
@@ -27,7 +27,7 @@ class FontFamily {
 		if ( empty( $font_family['fontFamily'] ) ) {
 			return new \WP_Error(
 				'invalid_font_family_name',
-				__( 'The font family name is required.', 'woocommerce' ),
+				__( 'The font family name is required.', 'poocommerce' ),
 			);
 		}
 
@@ -35,7 +35,7 @@ class FontFamily {
 		if ( empty( $font_family['preview'] ) ) {
 			return new \WP_Error(
 				'invalid_font_family_name_preview',
-				__( 'The font family preview is required.', 'woocommerce' ),
+				__( 'The font family preview is required.', 'poocommerce' ),
 			);
 		}
 	}
@@ -64,7 +64,7 @@ class FontFamily {
 			return new \WP_Error(
 				'duplicate_font_family',
 				/* translators: %s: Font family slug. */
-				sprintf( __( 'A font family with slug "%s" already exists.', 'woocommerce' ), $font_family['slug'] )
+				sprintf( __( 'A font family with slug "%s" already exists.', 'poocommerce' ), $font_family['slug'] )
 			);
 		}
 

@@ -46,20 +46,20 @@ export function PagePicker( {
 
 	const isError = currentPage < 1 || currentPage > pageCount;
 	const inputClass = classNames(
-		'woocommerce-pagination__page-picker-input',
+		'poocommerce-pagination__page-picker-input',
 		{
 			'has-error': isError,
 		}
 	);
 
-	const instanceId = uniqueId( 'woocommerce-pagination-page-picker-' );
+	const instanceId = uniqueId( 'poocommerce-pagination-page-picker-' );
 	return (
-		<div className="woocommerce-pagination__page-picker">
+		<div className="poocommerce-pagination__page-picker">
 			<label
 				htmlFor={ instanceId }
-				className="woocommerce-pagination__page-picker-label"
+				className="poocommerce-pagination__page-picker-label"
 			>
-				{ __( 'Go to page', 'woocommerce' ) }
+				{ __( 'Go to page', 'poocommerce' ) }
 				<input
 					id={ instanceId }
 					className={ inputClass }

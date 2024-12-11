@@ -6,10 +6,10 @@ import { useEntityProp } from '@wordpress/core-data';
 import { useDispatch } from '@wordpress/data';
 import { createElement, Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import type { ProductStatus } from '@woocommerce/data';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import type { ProductStatus } from '@poocommerce/data';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -87,7 +87,7 @@ export function PublishButtonMenu( {
 									onClose();
 								} }
 							>
-								{ __( 'Publish now', 'woocommerce' ) }
+								{ __( 'Publish now', 'poocommerce' ) }
 							</MenuItem>
 							<MenuItem
 								info={ formattedDate }
@@ -96,7 +96,7 @@ export function PublishButtonMenu( {
 									onClose();
 								} }
 							>
-								{ __( 'Edit schedule', 'woocommerce' ) }
+								{ __( 'Edit schedule', 'poocommerce' ) }
 							</MenuItem>
 						</>
 					) : (
@@ -109,7 +109,7 @@ export function PublishButtonMenu( {
 								onClose();
 							} }
 						>
-							{ __( 'Schedule publish', 'woocommerce' ) }
+							{ __( 'Schedule publish', 'poocommerce' ) }
 						</MenuItem>
 					) }
 				</MenuGroup>
@@ -127,7 +127,7 @@ export function PublishButtonMenu( {
 										createSuccessNotice(
 											__(
 												'Product successfully duplicated',
-												'woocommerce'
+												'poocommerce'
 											)
 										);
 										const url = getNewPath(
@@ -150,7 +150,7 @@ export function PublishButtonMenu( {
 								onClose();
 							} }
 						>
-							{ __( 'Copy to a new draft', 'woocommerce' ) }
+							{ __( 'Copy to a new draft', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							isDestructive
@@ -164,7 +164,7 @@ export function PublishButtonMenu( {
 										createSuccessNotice(
 											__(
 												'Product successfully deleted',
-												'woocommerce'
+												'poocommerce'
 											)
 										);
 										const productListUrl = getAdminLink(
@@ -188,7 +188,7 @@ export function PublishButtonMenu( {
 								onClose();
 							} }
 						>
-							{ __( 'Move to trash', 'woocommerce' ) }
+							{ __( 'Move to trash', 'poocommerce' ) }
 						</MenuItem>
 					</MenuGroup>
 				) }

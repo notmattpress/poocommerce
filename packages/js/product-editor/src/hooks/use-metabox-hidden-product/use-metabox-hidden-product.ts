@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WCUser, useUser } from '@woocommerce/data';
+import { WCUser, useUser } from '@poocommerce/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { dispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';

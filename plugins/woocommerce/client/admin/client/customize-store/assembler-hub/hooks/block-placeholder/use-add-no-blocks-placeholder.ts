@@ -89,7 +89,7 @@ export const useAddNoBlocksPlaceholder = ( {
 								},
 								content: __(
 									'Add one or more of our homepage patterns to create a page that welcomes shoppers.',
-									'woocommerce'
+									'poocommerce'
 								),
 							} ),
 							createBlock( 'core/button', {
@@ -106,7 +106,7 @@ export const useAddNoBlocksPlaceholder = ( {
 										text: '#007cba',
 									},
 								},
-								text: __( 'Add patterns', 'woocommerce' ),
+								text: __( 'Add patterns', 'poocommerce' ),
 							} ),
 						]
 					),

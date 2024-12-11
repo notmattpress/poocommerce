@@ -6,7 +6,7 @@ import { BlockEditProps, InnerBlockTemplate } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { Icon, close, menu, settings } from '@wordpress/icons';
 import { useState } from '@wordpress/element';
-import { filter, filterThreeLines } from '@woocommerce/icons';
+import { filter, filterThreeLines } from '@poocommerce/icons';
 import clsx from 'clsx';
 
 /**
@@ -22,18 +22,18 @@ const TEMPLATE: InnerBlockTemplate[] = [
 		'core/heading',
 		{
 			level: 3,
-			content: __( 'Filters', 'woocommerce' ),
+			content: __( 'Filters', 'poocommerce' ),
 			style: {
 				margin: { top: '0', bottom: '0' },
 				spacing: { margin: { top: '0', bottom: '0' } },
 			},
 		},
 	],
-	[ 'woocommerce/product-filter-active' ],
-	[ 'woocommerce/product-filter-price' ],
-	[ 'woocommerce/product-filter-rating' ],
-	[ 'woocommerce/product-filter-attribute' ],
-	[ 'woocommerce/product-filter-status' ],
+	[ 'poocommerce/product-filter-active' ],
+	[ 'poocommerce/product-filter-price' ],
+	[ 'poocommerce/product-filter-rating' ],
+	[ 'poocommerce/product-filter-attribute' ],
+	[ 'poocommerce/product-filter-status' ],
 ];
 
 const icons = {
@@ -65,7 +65,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 					<Icon icon={ icons[ overlayIcon ] || filterThreeLines } />
 				) }
 				{ overlayButtonType !== 'icon-only' && (
-					<span>{ __( 'Filter products', 'woocommerce' ) }</span>
+					<span>{ __( 'Filter products', 'poocommerce' ) }</span>
 				) }
 			</button>
 
@@ -80,7 +80,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 								className="wc-block-product-filters__close-overlay"
 								onClick={ () => setIsOpen( ! isOpen ) }
 							>
-								<span>{ __( 'Close', 'woocommerce' ) }</span>
+								<span>{ __( 'Close', 'poocommerce' ) }</span>
 								<Icon icon={ close } />
 							</button>
 						</header>
@@ -95,7 +95,7 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 								className="wc-block-product-filters__apply wp-block-button__link wp-element-button"
 								onClick={ () => setIsOpen( ! isOpen ) }
 							>
-								<span>{ __( 'Apply', 'woocommerce' ) }</span>
+								<span>{ __( 'Apply', 'poocommerce' ) }</span>
 							</button>
 						</footer>
 					</div>

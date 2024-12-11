@@ -33,32 +33,32 @@ const StepNavigation: React.FunctionComponent< Props > = ( {
 
 	const SkipButton = (
 		<Button
-			className="woocommerce-tour-kit-step-navigation__skip-btn"
+			className="poocommerce-tour-kit-step-navigation__skip-btn"
 			variant="tertiary"
 			onClick={ onDismiss( 'skip-btn' ) }
 		>
-			{ skipButton.text || __( 'Skip', 'woocommerce' ) }
+			{ skipButton.text || __( 'Skip', 'poocommerce' ) }
 		</Button>
 	);
 
 	const NextButton = (
 		<Button
-			className="woocommerce-tour-kit-step-navigation__next-btn"
+			className="poocommerce-tour-kit-step-navigation__next-btn"
 			variant="primary"
 			disabled={ primaryButton.isDisabled }
 			onClick={ onNextStep }
 		>
-			{ primaryButton.text || __( 'Next', 'woocommerce' ) }
+			{ primaryButton.text || __( 'Next', 'poocommerce' ) }
 		</Button>
 	);
 
 	const BackButton = (
 		<Button
-			className="woocommerce-tour-kit-step-navigation__back-btn"
+			className="poocommerce-tour-kit-step-navigation__back-btn"
 			variant="secondary"
 			onClick={ onPreviousStep }
 		>
-			{ secondaryButton.text || __( 'Back', 'woocommerce' ) }
+			{ secondaryButton.text || __( 'Back', 'poocommerce' ) }
 		</Button>
 	);
 
@@ -73,10 +73,10 @@ const StepNavigation: React.FunctionComponent< Props > = ( {
 					<Button
 						variant="primary"
 						disabled={ primaryButton.isDisabled }
-						className="woocommerce-tour-kit-step-navigation__done-btn"
+						className="poocommerce-tour-kit-step-navigation__done-btn"
 						onClick={ onDismiss( 'done-btn' ) }
 					>
-						{ primaryButton.text || __( 'Done', 'woocommerce' ) }
+						{ primaryButton.text || __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			);
@@ -105,12 +105,12 @@ const StepNavigation: React.FunctionComponent< Props > = ( {
 	}
 
 	return (
-		<div className="woocommerce-tour-kit-step-navigation">
-			<div className="woocommerce-tour-kit-step-navigation__step">
+		<div className="poocommerce-tour-kit-step-navigation">
+			<div className="poocommerce-tour-kit-step-navigation__step">
 				{ steps.length > 1
 					? sprintf(
 							/* translators: current progress in tour, eg: "Step 2 of 4" */
-							__( 'Step %1$d of %2$d', 'woocommerce' ),
+							__( 'Step %1$d of %2$d', 'poocommerce' ),
 							currentStepIndex + 1,
 							steps.length
 					  )

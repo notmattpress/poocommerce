@@ -19,7 +19,7 @@ export const ToneOfVoicePage = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/Application/Customize Store/Design with AI/Tone of Voice',
+	title: 'PooCommerce Admin/Application/Customize Store/Design with AI/Tone of Voice',
 	component: ToneOfVoice,
 	decorators: [ WithCustomizeYourStoreLayout ],
 };

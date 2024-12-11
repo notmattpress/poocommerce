@@ -1,4 +1,4 @@
-.wp-block-woocommerce-product-section {
+.wp-block-poocommerce-product-section {
 	margin: calc(3 * $gap) 0 0;
 	padding: 0 0 calc(3 * $gap);
 	border-bottom: 1px solid #ddd;
@@ -12,7 +12,7 @@
 	}
 }
 
-.wp-block-woocommerce-product-section-header {
+.wp-block-poocommerce-product-section-header {
 	&__heading {
 		padding: 0;
 		margin: 0 0 calc(2 * $gap) 0;
@@ -89,6 +89,6 @@
 	}
 }
 
-.woocommerce-tooltip > .wp-block-woocommerce-product-section-header__heading-tooltip {
+.poocommerce-tooltip > .wp-block-poocommerce-product-section-header__heading-tooltip {
 	margin-left: $gap-small;
 }

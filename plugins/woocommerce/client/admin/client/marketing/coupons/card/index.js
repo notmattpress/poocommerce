@@ -4,7 +4,7 @@
 import { Card as WPCard, CardBody, CardHeader } from '@wordpress/components';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ const Card = ( props ) => {
 
 	return (
 		<WPCard
-			className={ clsx( className, 'woocommerce-admin-marketing-card' ) }
+			className={ clsx( className, 'poocommerce-admin-marketing-card' ) }
 		>
 			<CardHeader>
 				<div>
@@ -31,7 +31,7 @@ const Card = ( props ) => {
 					<Text
 						variant="subtitle.small"
 						as="p"
-						className="woocommerce-admin-marketing-card-subtitle"
+						className="poocommerce-admin-marketing-card-subtitle"
 						size="14"
 						lineHeight="20px"
 					>

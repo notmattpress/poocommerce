@@ -61,14 +61,14 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'yes'
 			);
 
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_allow_tracking',
+				'poocommerce_allow_tracking',
 				'no'
 			);
 		} catch ( error ) {
@@ -82,20 +82,20 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'no'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_admin_customize_store_completed',
+				'poocommerce_admin_customize_store_completed',
 				'no'
 			);
 
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_allow_tracking',
+				'poocommerce_allow_tracking',
 				'no'
 			);
 
@@ -117,7 +117,7 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 		const assembler = await pageObject.getAssembler();
 
 		const fontPickers = assembler.locator(
-			'.woocommerce-customize-store_global-styles-variations_item'
+			'.poocommerce-customize-store_global-styles-variations_item'
 		);
 		await expect( fontPickers ).toHaveCount( 2 );
 	} );
@@ -130,7 +130,7 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 
 		await assembler
 			.locator(
-				'.woocommerce-customize-store_global-styles-variations_item'
+				'.poocommerce-customize-store_global-styles-variations_item'
 			)
 			.waitFor( {
 				strict: false,
@@ -138,7 +138,7 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 
 		const fontPickers = await assembler
 			.locator(
-				'.woocommerce-customize-store_global-styles-variations_item'
+				'.poocommerce-customize-store_global-styles-variations_item'
 			)
 			.all();
 
@@ -172,7 +172,7 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 		const assembler = await pageObject.getAssembler();
 		const fontPicker = assembler
 			.locator(
-				'.woocommerce-customize-store_global-styles-variations_item'
+				'.poocommerce-customize-store_global-styles-variations_item'
 			)
 			.first();
 
@@ -189,7 +189,7 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 		const assembler = await pageObject.getAssembler();
 		const fontPicker = assembler
 			.locator(
-				'.woocommerce-customize-store_global-styles-variations_item'
+				'.poocommerce-customize-store_global-styles-variations_item'
 			)
 			.last();
 
@@ -256,13 +256,13 @@ test.describe( 'Assembler -> Font Picker', { tag: tags.GUTENBERG }, () => {
 		);
 
 		const fontPickers = assembler.locator(
-			'.woocommerce-customize-store_global-styles-variations_item'
+			'.poocommerce-customize-store_global-styles-variations_item'
 		);
 		await expect( fontPickers ).toHaveCount( 10 );
 
 		await assembler
 			.locator(
-				'.woocommerce-customize-store_global-styles-variations_item'
+				'.poocommerce-customize-store_global-styles-variations_item'
 			)
 			.waitFor( {
 				strict: false,

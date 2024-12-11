@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Blocks\QueryFilters;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\QueryFilters;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * Product Filter: Price Block.
@@ -75,7 +75,7 @@ final class ProductFilterPrice extends AbstractBlock {
 		if ( $formatted_min_price && $formatted_max_price ) {
 			$title = sprintf(
 				/* translators: %1$s and %2$s are the formatted minimum and maximum prices respectively. */
-				__( 'Between %1$s and %2$s', 'woocommerce' ),
+				__( 'Between %1$s and %2$s', 'poocommerce' ),
 				$formatted_min_price,
 				$formatted_max_price
 			);
@@ -83,16 +83,16 @@ final class ProductFilterPrice extends AbstractBlock {
 
 		if ( ! $formatted_min_price ) {
 			/* translators: %s is the formatted maximum price. */
-			$title = sprintf( __( 'Up to %s', 'woocommerce' ), $formatted_max_price );
+			$title = sprintf( __( 'Up to %s', 'poocommerce' ), $formatted_max_price );
 		}
 
 		if ( ! $formatted_max_price ) {
 			/* translators: %s is the formatted minimum price. */
-			$title = sprintf( __( 'From %s', 'woocommerce' ), $formatted_min_price );
+			$title = sprintf( __( 'From %s', 'poocommerce' ), $formatted_min_price );
 		}
 
 		$data['price'] = array(
-			'type'  => __( 'Price', 'woocommerce' ),
+			'type'  => __( 'Price', 'poocommerce' ),
 			'items' => array(
 				array(
 					'title'      => $title,

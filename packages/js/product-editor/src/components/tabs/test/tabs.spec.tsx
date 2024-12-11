@@ -5,7 +5,7 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { SlotFillProvider } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { select } from '@wordpress/data';
 
 /**
@@ -15,19 +15,19 @@ import { Tabs } from '../';
 import { TabBlockEdit as Tab } from '../../../blocks/generic/tab/edit';
 import { TRACKS_SOURCE } from '../../../constants';
 
-jest.mock( '@woocommerce/block-templates', () => ( {
-	...jest.requireActual( '@woocommerce/block-templates' ),
+jest.mock( '@poocommerce/block-templates', () => ( {
+	...jest.requireActual( '@poocommerce/block-templates' ),
 	useWooBlockProps: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/navigation', () => ( {
-	...jest.requireActual( '@woocommerce/navigation' ),
+jest.mock( '@poocommerce/navigation', () => ( {
+	...jest.requireActual( '@poocommerce/navigation' ),
 	navigateTo: jest.fn(),
 	getQuery: jest.fn().mockReturnValue( {} ),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 

@@ -90,7 +90,7 @@ export const AddNote = () => {
 			<div>
 				{ getAddNoteDescription() }
 				<br />
-				<div className="woocommerce-admin-test-helper__add-notes">
+				<div className="poocommerce-admin-test-helper__add-notes">
 					<Button
 						onClick={ triggerAddNote }
 						disabled={ isAdding }
@@ -122,7 +122,7 @@ export const AddNote = () => {
 					/>
 				</div>
 				<br />
-				<span className="woocommerce-admin-test-helper__action-status">
+				<span className="poocommerce-admin-test-helper__action-status">
 					{ isAdding && 'Adding, please wait' }
 					{ hasAdded && 'Note added' }
 					{ errorMessage && (

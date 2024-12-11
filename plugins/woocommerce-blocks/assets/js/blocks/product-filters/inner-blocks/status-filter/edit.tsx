@@ -6,10 +6,10 @@ import {
 	BlockContextProvider,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { useMemo } from '@wordpress/element';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import type { TemplateArray } from '@wordpress/blocks';
 
 /**
@@ -33,7 +33,7 @@ const Edit = ( props: EditProps ) => {
 							flexWrap: 'nowrap',
 						},
 						metadata: {
-							name: __( 'Header', 'woocommerce' ),
+							name: __( 'Header', 'poocommerce' ),
 						},
 						style: {
 							spacing: {
@@ -46,12 +46,12 @@ const Edit = ( props: EditProps ) => {
 							'core/heading',
 							{
 								level: 4,
-								content: __( 'Status', 'woocommerce' ),
+								content: __( 'Status', 'poocommerce' ),
 							},
 						],
 						clearButton
 							? [
-									'woocommerce/product-filter-clear-button',
+									'poocommerce/product-filter-clear-button',
 									{
 										lock: {
 											remove: true,
@@ -63,7 +63,7 @@ const Edit = ( props: EditProps ) => {
 					].filter( Boolean ) as unknown as TemplateArray,
 				],
 				[
-					'woocommerce/product-filter-checkbox-list',
+					'poocommerce/product-filter-checkbox-list',
 					{
 						lock: {
 							remove: true,

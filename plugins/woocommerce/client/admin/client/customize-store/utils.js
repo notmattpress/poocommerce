@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { parseAdminUrl } from '@woocommerce/navigation';
-import { captureException } from '@woocommerce/remote-logging';
+import { parseAdminUrl } from '@poocommerce/navigation';
+import { captureException } from '@poocommerce/remote-logging';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ export function isIframe( windowObject ) {
 	return (
 		windowObject.document !== windowObject.parent.document &&
 		windowObject.parent.document.body.querySelector(
-			'.woocommerce-customize-store__container'
+			'.poocommerce-customize-store__container'
 		) !== null
 	);
 }

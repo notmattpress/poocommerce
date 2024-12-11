@@ -3,13 +3,13 @@
  */
 import { BlockAttributes } from '@wordpress/blocks';
 import { createElement, useEffect } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { ProductProductAttribute } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { ProductProductAttribute } from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp, useEntityId } from '@wordpress/core-data';
 
 /**
@@ -57,7 +57,7 @@ export function AttributesBlockEdit( {
 				uiStrings={ {
 					disabledAttributeMessage: __(
 						'Already used in Variations',
-						'woocommerce'
+						'poocommerce'
 					),
 				} }
 				onAdd={ () => {
