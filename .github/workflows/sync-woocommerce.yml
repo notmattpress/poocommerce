@@ -28,29 +28,55 @@ jobs:
       - name: Pull WooCommerce from Upstream (Overwrite)
         run: |
           git checkout main
-          git reset --hard upstream/trunk  # Pulls everything fresh from upstream
-          git clean -fd  # Clean up any untracked files
+          git reset --hard upstream/trunk
+          git clean -fd
+          # Instead of removing all workflows, let's just remove all except our desired one:
+          # If the upstream does not have our file, this won't do anything yet, which is fine.
+          if [ -d ".github/workflows" ]; then
+            find .github/workflows/ -type f ! -name "sync-woocommerce.yml" -delete || true
+          fi
 
-      - name: Fetch and Checkout .github from sync-branch
+      - name: Fetch and Restore .github from sync-branch
         run: |
-          git fetch origin sync-branch  # Fetch the sync-branch content
-          git checkout origin/sync-branch -- .github  # Pull only the .github folder from sync-branch
+          git fetch origin sync-branch
+          # Restore the entire .github directory:
+          git checkout origin/sync-branch -- .github
+          # Now .github/workflows/sync-woocommerce.yml should be back.
+          # No need to remove workflows again since we want this file intact.
 
       - name: Replace 'WooCommerce' with 'PooCommerce'
         run: |
-          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
           -exec sed -i 's/WooCommerce/PooCommerce/g' {} +
+
+      - name: Replace 'woocommerce' with 'poocommerce'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
+          -exec sed -i 's/woocommerce/poocommerce/g' {} +
+
+      - name: Replace 'DevelopWC' with 'deviorobert'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
+          -exec sed -i 's/DevelopWC/deviorobert/g' {} +
 
       - name: Replace 'woocommerce.com' with 'notmatt.press'
         run: |
-          find . -type f -not -path './.git/*' -not -path './.github/*' \
+          find . -type f -not -path './.git/*' -not -path './.github/workflows/*' \
           -exec sed -i 's/woocommerce\.com/notmatt.press/g' {} +
 
       - name: Commit and Push Changes
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
+          # Stage all changes including the workflow file
           git add .
+
+          # Don't reset workflows this time!
+          # git reset .github/workflows/ || true  # Remove this line
+
+          # Commit changes if there are any
           git commit -m "Automated sync and customization of PooCommerce" || echo "No changes to commit"
+
+          # Push changes to the main branch
           git remote set-url origin https://$PAT_TOKEN@github.com/notmattpress/poocommerce.git
           git push origin main --force
