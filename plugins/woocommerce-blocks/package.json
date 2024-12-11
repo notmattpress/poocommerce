@@ -214,7 +214,7 @@
 		"eslint-plugin-storybook": "^0.6.15",
 		"eslint-plugin-poocommerce": "file:bin/eslint-plugin-poocommerce",
 		"eslint-plugin-you-dont-need-lodash-underscore": "6.12.0",
-		"gh-pages": "4.0.0",
+		"gh-pages": "5.0.0",
 		"github-label-sync": "^2.3.1",
 		"glob": "7.2.3",
 		"glob-promise": "4.2.2",
