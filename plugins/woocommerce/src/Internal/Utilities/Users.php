@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
  * Helper functions for working with users.
@@ -64,7 +64,7 @@ class Users {
 		 * @param WC_Order $this         The order for which this grace period is being assessed.
 		 * @param string   $context      Indicates the context in which we might verify the email address. Typically 'order-pay' or 'order-received'.
 		 */
-		$verification_grace_period = (int) apply_filters( 'woocommerce_order_email_verification_grace_period', 10 * MINUTE_IN_SECONDS, $order, $context );
+		$verification_grace_period = (int) apply_filters( 'poocommerce_order_email_verification_grace_period', 10 * MINUTE_IN_SECONDS, $order, $context );
 		$date_created              = $order->get_date_created();
 
 		// We do not need to verify the email address if we are within the grace period immediately following order creation.
@@ -104,7 +104,7 @@ class Users {
 		 * @param WC_Order $order                       The relevant order.
 		 * @param string   $context                     The context under which we are performing this check.
 		 */
-		return (bool) apply_filters( 'woocommerce_order_email_verification_required', $email_verification_required, $order, $context );
+		return (bool) apply_filters( 'poocommerce_order_email_verification_required', $email_verification_required, $order, $context );
 	}
 
 	/**

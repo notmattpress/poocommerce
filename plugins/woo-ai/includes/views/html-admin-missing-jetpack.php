@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 	<p>
 		<?php
 		// Translators: %s Plugin name.
-		echo sprintf( esc_html__( '%s requires Jetpack to be installed and activated in order to serve updates.', 'woocommerce' ), '<strong>' . esc_html__( 'Woo AI', 'woocommerce' ) . '</strong>' );
+		echo sprintf( esc_html__( '%s requires Jetpack to be installed and activated in order to serve updates.', 'poocommerce' ), '<strong>' . esc_html__( 'Woo AI', 'poocommerce' ) . '</strong>' );
 		?>
 	</p>
 
@@ -23,10 +23,10 @@ defined( 'ABSPATH' ) || exit;
 			$installed_plugins = get_plugins();
 			if ( isset( $installed_plugins['jetpack/jetpack.php'] ) ) :
 				?>
-			<a href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'plugins.php?action=activate&plugin=jetpack/jetpack.php&plugin_status=active' ), 'activate-plugin_jetpack/jetpack.php' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Activate Jetpack', 'woocommerce' ); ?></a>
+			<a href="<?php echo esc_url( wp_nonce_url( self_admin_url( 'plugins.php?action=activate&plugin=jetpack/jetpack.php&plugin_status=active' ), 'activate-plugin_jetpack/jetpack.php' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Activate Jetpack', 'poocommerce' ); ?></a>
 			<?php endif; ?>
 			<?php if ( current_user_can( 'deactivate_plugin', 'woo-ai/woo-ai.php' ) ) : ?>
-				<a href="<?php echo esc_url( wp_nonce_url( 'plugins.php?action=deactivate&plugin=woo-ai/woo-ai.php&plugin_status=inactive', 'deactivate-plugin_woo-ai/woo-ai.php' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Turn off Woo AI plugin', 'woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( wp_nonce_url( 'plugins.php?action=deactivate&plugin=woo-ai/woo-ai.php&plugin_status=inactive', 'deactivate-plugin_woo-ai/woo-ai.php' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Turn off Woo AI plugin', 'poocommerce' ); ?></a>
 			<?php endif; ?>
 		</p>
 	<?php else : ?>
@@ -38,9 +38,9 @@ defined( 'ABSPATH' ) || exit;
 		}
 		?>
 		<p>
-			<a href="<?php echo esc_url( $url ); ?>" class="button button-primary"><?php esc_html_e( 'Install Jetpack', 'woocommerce' ); ?></a>
+			<a href="<?php echo esc_url( $url ); ?>" class="button button-primary"><?php esc_html_e( 'Install Jetpack', 'poocommerce' ); ?></a>
 			<?php if ( current_user_can( 'deactivate_plugin', 'woo-ai/woo-ai.php' ) ) : ?>
-				<a href="<?php echo esc_url( wp_nonce_url( 'plugins.php?action=deactivate&plugin=woo-ai/woo-ai.php&plugin_status=inactive', 'deactivate-plugin_woo-ai/woo-ai.php' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Turn off Woo AI plugin', 'woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( wp_nonce_url( 'plugins.php?action=deactivate&plugin=woo-ai/woo-ai.php&plugin_status=inactive', 'deactivate-plugin_woo-ai/woo-ai.php' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Turn off Woo AI plugin', 'poocommerce' ); ?></a>
 			<?php endif; ?>
 		</p>
 	<?php endif; ?>

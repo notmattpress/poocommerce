@@ -3,16 +3,16 @@
  * Service provider for the batch processing classes.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\OrderCouponDataMigrator;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\OrderCouponDataMigrator;
 
 /**
  * Class BatchProcessingServiceProvider
  *
- * @package Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders
+ * @package Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders
  */
 class BatchProcessingServiceProvider extends AbstractInterfaceServiceProvider {
 

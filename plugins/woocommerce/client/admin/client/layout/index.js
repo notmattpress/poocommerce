@@ -19,26 +19,26 @@ import { isFunction, identity } from 'lodash';
 import {
 	CustomerEffortScoreModalContainer,
 	triggerExitPageCesSurvey,
-} from '@woocommerce/customer-effort-score';
+} from '@poocommerce/customer-effort-score';
 import {
 	getHistory,
 	getQuery,
 	getNewPath,
 	navigateTo,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import {
 	PLUGINS_STORE_NAME,
 	useUser,
 	withPluginsHydration,
 	withOptionsHydration,
-} from '@woocommerce/data';
-import { recordPageView } from '@woocommerce/tracks';
-import '@woocommerce/notices';
+} from '@poocommerce/data';
+import { recordPageView } from '@poocommerce/tracks';
+import '@poocommerce/notices';
 import { PluginArea } from '@wordpress/plugins';
 import {
 	LayoutContextProvider,
 	getLayoutContextValue,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -68,8 +68,8 @@ export class PrimaryLayout extends Component {
 
 		return (
 			<div
-				className="woocommerce-layout__primary"
-				id="woocommerce-layout__primary"
+				className="poocommerce-layout__primary"
+				id="poocommerce-layout__primary"
 			>
 				{ window.wcAdminFeatures[ 'store-alerts' ] &&
 					showStoreAlerts && (
@@ -195,7 +195,7 @@ function _Layout( {
 			] ) }
 		>
 			<SlotFillProvider>
-				<div className="woocommerce-layout">
+				<div className="poocommerce-layout">
 					{ showHeader && (
 						<Header
 							sections={
@@ -213,7 +213,7 @@ function _Layout( {
 							showNotices={ page?.layout?.showNotices }
 							showStoreAlerts={ page?.layout?.showStoreAlerts }
 						>
-							<div className="woocommerce-layout__main">
+							<div className="poocommerce-layout__main">
 								<Controller
 									page={ page }
 									match={ match }
@@ -227,8 +227,8 @@ function _Layout( {
 				</div>
 				{ showPluginArea && (
 					<>
-						<PluginArea scope="woocommerce-admin" />
-						<PluginArea scope="woocommerce-tasks" />
+						<PluginArea scope="poocommerce-admin" />
+						<PluginArea scope="poocommerce-tasks" />
 					</>
 				) }
 			</SlotFillProvider>

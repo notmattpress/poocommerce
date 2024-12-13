@@ -5,7 +5,7 @@ const { setOption } = require( '../utils/options' );
 
 test.beforeAll( async ( { baseURL } ) => {
 	try {
-		await setOption( request, baseURL, 'woocommerce_coming_soon', 'no' );
+		await setOption( request, baseURL, 'poocommerce_coming_soon', 'no' );
 	} catch ( error ) {
 		console.log( error );
 	}
@@ -15,11 +15,11 @@ test( 'Load the home page', async ( { page } ) => {
 	await page.goto( './' );
 	await expect(
 		await page
-			.getByRole( 'link', { name: 'WooCommerce Core E2E Test' } )
+			.getByRole( 'link', { name: 'PooCommerce Core E2E Test' } )
 			.count()
 	).toBeGreaterThan( 0 );
 	await expect( page.getByText( /powered by WordPress/i ) ).toBeVisible();
-	expect( await page.title() ).toBe( 'WooCommerce Core E2E Test Suite' );
+	expect( await page.title() ).toBe( 'PooCommerce Core E2E Test Suite' );
 	await expect(
 		page.getByRole( 'link', { name: 'WordPress' } )
 	).toBeVisible();

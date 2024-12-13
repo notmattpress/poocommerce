@@ -2,12 +2,12 @@
 /**
  * List tables: orders.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 3.3.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\ListTable;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\ListTable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -120,13 +120,13 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 	public function define_columns( $columns ) {
 		$show_columns                     = array();
 		$show_columns['cb']               = $columns['cb'];
-		$show_columns['order_number']     = __( 'Order', 'woocommerce' );
-		$show_columns['order_date']       = __( 'Date', 'woocommerce' );
-		$show_columns['order_status']     = __( 'Status', 'woocommerce' );
-		$show_columns['billing_address']  = __( 'Billing', 'woocommerce' );
-		$show_columns['shipping_address'] = __( 'Ship to', 'woocommerce' );
-		$show_columns['order_total']      = __( 'Total', 'woocommerce' );
-		$show_columns['wc_actions']       = __( 'Actions', 'woocommerce' );
+		$show_columns['order_number']     = __( 'Order', 'poocommerce' );
+		$show_columns['order_date']       = __( 'Date', 'poocommerce' );
+		$show_columns['order_status']     = __( 'Status', 'poocommerce' );
+		$show_columns['billing_address']  = __( 'Billing', 'poocommerce' );
+		$show_columns['shipping_address'] = __( 'Ship to', 'poocommerce' );
+		$show_columns['order_total']      = __( 'Total', 'poocommerce' );
+		$show_columns['wc_actions']       = __( 'Actions', 'poocommerce' );
 
 		wp_enqueue_script( 'wc-orders' );
 
@@ -144,13 +144,13 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 			unset( $actions['edit'] );
 		}
 
-		$actions['mark_processing'] = __( 'Change status to processing', 'woocommerce' );
-		$actions['mark_on-hold']    = __( 'Change status to on-hold', 'woocommerce' );
-		$actions['mark_completed']  = __( 'Change status to completed', 'woocommerce' );
-		$actions['mark_cancelled']  = __( 'Change status to cancelled', 'woocommerce' );
+		$actions['mark_processing'] = __( 'Change status to processing', 'poocommerce' );
+		$actions['mark_on-hold']    = __( 'Change status to on-hold', 'poocommerce' );
+		$actions['mark_completed']  = __( 'Change status to completed', 'poocommerce' );
+		$actions['mark_cancelled']  = __( 'Change status to cancelled', 'poocommerce' );
 
-		if ( wc_string_to_bool( get_option( 'woocommerce_allow_bulk_remove_personal_data', 'no' ) ) ) {
-			$actions['remove_personal_data'] = __( 'Remove personal data', 'woocommerce' );
+		if ( wc_string_to_bool( get_option( 'poocommerce_allow_bulk_remove_personal_data', 'no' ) ) ) {
+			$actions['remove_personal_data'] = __( 'Remove personal data', 'poocommerce' );
 		}
 
 		return $actions;
@@ -236,7 +236,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 	 */
 	public static function get_order_preview_item_html( $order ) {
 		$hidden_order_itemmeta = apply_filters(
-			'woocommerce_hidden_order_itemmeta',
+			'poocommerce_hidden_order_itemmeta',
 			array(
 				'_qty',
 				'_tax_class',
@@ -253,14 +253,14 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 			)
 		);
 
-		$line_items = apply_filters( 'woocommerce_admin_order_preview_line_items', $order->get_items(), $order );
+		$line_items = apply_filters( 'poocommerce_admin_order_preview_line_items', $order->get_items(), $order );
 		$columns    = apply_filters(
-			'woocommerce_admin_order_preview_line_item_columns',
+			'poocommerce_admin_order_preview_line_item_columns',
 			array(
-				'product'  => __( 'Product', 'woocommerce' ),
-				'quantity' => __( 'Quantity', 'woocommerce' ),
-				'tax'      => __( 'Tax', 'woocommerce' ),
-				'total'    => __( 'Total', 'woocommerce' ),
+				'product'  => __( 'Product', 'poocommerce' ),
+				'quantity' => __( 'Quantity', 'poocommerce' ),
+				'tax'      => __( 'Tax', 'poocommerce' ),
+				'total'    => __( 'Total', 'poocommerce' ),
 			),
 			$order
 		);
@@ -287,7 +287,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 		foreach ( $line_items as $item_id => $item ) {
 
 			$product_object = is_callable( array( $item, 'get_product' ) ) ? $item->get_product() : null;
-			$row_class      = apply_filters( 'woocommerce_admin_html_order_preview_item_class', '', $item, $order );
+			$row_class      = apply_filters( 'poocommerce_admin_html_order_preview_item_class', '', $item, $order );
 
 			$html .= '<tr class="wc-order-preview-table__item wc-order-preview-table__item--' . esc_attr( $item_id ) . ( $row_class ? ' ' . esc_attr( $row_class ) : '' ) . '">';
 
@@ -325,7 +325,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 						$html .= wc_price( $item->get_total(), array( 'currency' => $order->get_currency() ) );
 						break;
 					default:
-						$html .= apply_filters( 'woocommerce_admin_order_preview_line_item_column_' . sanitize_key( $column ), '', $item, $item_id, $order );
+						$html .= apply_filters( 'poocommerce_admin_order_preview_line_item_column_' . sanitize_key( $column ), '', $item, $item_id, $order );
 						break;
 				}
 				$html .= '</td>';
@@ -354,39 +354,39 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 
 		if ( $order->has_status( array( OrderStatus::PENDING ) ) ) {
 			$status_actions['on-hold'] = array(
-				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=on-hold&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
-				'name'   => __( 'On-hold', 'woocommerce' ),
-				'title'  => __( 'Change order status to on-hold', 'woocommerce' ),
+				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=poocommerce_mark_order_status&status=on-hold&order_id=' . $order->get_id() ), 'poocommerce-mark-order-status' ),
+				'name'   => __( 'On-hold', 'poocommerce' ),
+				'title'  => __( 'Change order status to on-hold', 'poocommerce' ),
 				'action' => 'on-hold',
 			);
 		}
 
 		if ( $order->has_status( array( OrderStatus::PENDING, OrderStatus::ON_HOLD ) ) ) {
 			$status_actions['processing'] = array(
-				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=processing&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
-				'name'   => __( 'Processing', 'woocommerce' ),
-				'title'  => __( 'Change order status to processing', 'woocommerce' ),
+				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=poocommerce_mark_order_status&status=processing&order_id=' . $order->get_id() ), 'poocommerce-mark-order-status' ),
+				'name'   => __( 'Processing', 'poocommerce' ),
+				'title'  => __( 'Change order status to processing', 'poocommerce' ),
 				'action' => 'processing',
 			);
 		}
 
 		if ( $order->has_status( array( OrderStatus::PENDING, OrderStatus::ON_HOLD, OrderStatus::PROCESSING ) ) ) {
 			$status_actions['complete'] = array(
-				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=completed&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
-				'name'   => __( 'Completed', 'woocommerce' ),
-				'title'  => __( 'Change order status to completed', 'woocommerce' ),
+				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=poocommerce_mark_order_status&status=completed&order_id=' . $order->get_id() ), 'poocommerce-mark-order-status' ),
+				'name'   => __( 'Completed', 'poocommerce' ),
+				'title'  => __( 'Change order status to completed', 'poocommerce' ),
 				'action' => 'complete',
 			);
 		}
 
 		if ( $status_actions ) {
 			$actions['status'] = array(
-				'group'   => __( 'Change status: ', 'woocommerce' ),
+				'group'   => __( 'Change status: ', 'poocommerce' ),
 				'actions' => $status_actions,
 			);
 		}
 
-		return wc_render_action_buttons( apply_filters( 'woocommerce_admin_order_preview_actions', $actions, $order ) );
+		return wc_render_action_buttons( apply_filters( 'poocommerce_admin_order_preview_actions', $actions, $order ) );
 	}
 
 	/**
@@ -420,7 +420,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 		$shipping_address = $order->get_formatted_shipping_address();
 
 		return apply_filters(
-			'woocommerce_admin_order_preview_get_order_details',
+			'poocommerce_admin_order_preview_get_order_details',
 			array(
 				'data'                       => $order->get_data(),
 				'order_number'               => $order->get_order_number(),
@@ -428,8 +428,8 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 				'actions_html'               => self::get_order_preview_actions_html( $order ),
 				'ship_to_billing'            => wc_ship_to_billing_address_only(),
 				'needs_shipping'             => $order->needs_shipping_address(),
-				'formatted_billing_address'  => $billing_address ? $billing_address : __( 'N/A', 'woocommerce' ),
-				'formatted_shipping_address' => $shipping_address ? $shipping_address : __( 'N/A', 'woocommerce' ),
+				'formatted_billing_address'  => $billing_address ? $billing_address : __( 'N/A', 'poocommerce' ),
+				'formatted_shipping_address' => $shipping_address ? $shipping_address : __( 'N/A', 'poocommerce' ),
 				'shipping_address_map_url'   => $order->get_shipping_address_map_url(),
 				'payment_via'                => $payment_via,
 				'shipping_via'               => $order->get_shipping_method(),
@@ -449,7 +449,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 	 * @return string
 	 */
 	public function handle_bulk_actions( $redirect_to, $action, $ids ) {
-		$ids     = apply_filters( 'woocommerce_bulk_action_ids', array_reverse( array_map( 'absint', $ids ) ), $action, 'order' );
+		$ids     = apply_filters( 'poocommerce_bulk_action_ids', array_reverse( array_map( 'absint', $ids ) ), $action, 'order' );
 		$changed = 0;
 
 		if ( 'remove_personal_data' === $action ) {
@@ -459,7 +459,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 				$order = wc_get_order( $id );
 
 				if ( $order ) {
-					do_action( 'woocommerce_remove_order_personal_data', $order );
+					do_action( 'poocommerce_remove_order_personal_data', $order );
 					$changed++;
 				}
 			}
@@ -475,8 +475,8 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 
 				foreach ( $ids as $id ) {
 					$order = wc_get_order( $id );
-					$order->update_status( $new_status, __( 'Order status changed by bulk edit:', 'woocommerce' ), true );
-					do_action( 'woocommerce_order_edit_status', $id, $new_status );
+					$order->update_status( $new_status, __( 'Order status changed by bulk edit:', 'poocommerce' ), true );
+					do_action( 'poocommerce_order_edit_status', $id, $new_status );
 					$changed++;
 				}
 			}
@@ -516,7 +516,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 		foreach ( $order_statuses as $slug => $name ) {
 			if ( 'marked_' . str_replace( 'wc-', '', $slug ) === $bulk_action ) { // WPCS: input var ok, CSRF ok.
 				/* translators: %d: orders count */
-				$message = sprintf( _n( '%s order status changed.', '%s order statuses changed.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+				$message = sprintf( _n( '%s order status changed.', '%s order statuses changed.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 				echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
 				break;
 			}
@@ -524,7 +524,7 @@ class WC_Admin_List_Table_Orders extends WC_Admin_List_Table {
 
 		if ( 'removed_personal_data' === $bulk_action ) { // WPCS: input var ok, CSRF ok.
 			/* translators: %d: orders count */
-			$message = sprintf( _n( 'Removed personal data from %s order.', 'Removed personal data from %s orders.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+			$message = sprintf( _n( 'Removed personal data from %s order.', 'Removed personal data from %s orders.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 			echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
 		}
 	}

@@ -1,6 +1,6 @@
 @import "../../../../shared.scss";
 
-.woocommerce-profiler-plugins-plugin-card {
+.poocommerce-profiler-plugins-plugin-card {
 	max-width: clamp(384px, 48%, 492px);
 	display: flex;
 	flex-direction: column;
@@ -116,12 +116,12 @@
 		}
 	}
 
-	.woocommerce-profiler-plugin-card-top {
+	.poocommerce-profiler-plugin-card-top {
 		display: flex;
 		align-items: center;
 	}
 
-	.woocommerce-profiler-plugins-plugin-card-text {
+	.poocommerce-profiler-plugins-plugin-card-text {
 		margin: 4px 0 0 80px;
 		@include breakpoint( "<782px" ) {
 			align-self: center;
@@ -130,7 +130,7 @@
 			margin-left: 40px;
 		}
 	}
-	.woocommerce-profiler-plugins-plugin-card-text-header {
+	.poocommerce-profiler-plugins-plugin-card-text-header {
 		display: flex;
 		gap: 8px;
 

@@ -8,7 +8,7 @@ import {
 	thumbnailsPositionLeft,
 	thumbnailsPositionBottom,
 	thumbnailsPositionRight,
-} from '@woocommerce/icons';
+} from '@poocommerce/icons';
 import { useDispatch } from '@wordpress/data';
 import {
 	RangeControl,
@@ -31,19 +31,19 @@ import type { ProductGalleryThumbnailsSettingsProps } from '../../../types';
 const positionHelp: Record< ThumbnailsPosition, string > = {
 	[ ThumbnailsPosition.OFF ]: __(
 		'No thumbnails will be displayed.',
-		'woocommerce'
+		'poocommerce'
 	),
 	[ ThumbnailsPosition.LEFT ]: __(
 		'A strip of small images will appear to the left of the main gallery image.',
-		'woocommerce'
+		'poocommerce'
 	),
 	[ ThumbnailsPosition.BOTTOM ]: __(
 		'A strip of small images will appear below the main gallery image.',
-		'woocommerce'
+		'poocommerce'
 	),
 	[ ThumbnailsPosition.RIGHT ]: __(
 		'A strip of small images will appear to the right of the main gallery image.',
-		'woocommerce'
+		'poocommerce'
 	),
 };
 
@@ -61,7 +61,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 			<ToggleGroupControl
 				className="wc-block-editor-product-gallery-thumbnails__position-toggle"
 				isBlock
-				label={ __( 'Thumbnails', 'woocommerce' ) }
+				label={ __( 'Thumbnails', 'poocommerce' ) }
 				value={ context.thumbnailsPosition }
 				help={
 					positionHelp[
@@ -76,7 +76,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 			>
 				<ToggleGroupControlOption
 					value={ ThumbnailsPosition.OFF }
-					label={ __( 'Off', 'woocommerce' ) }
+					label={ __( 'Off', 'poocommerce' ) }
 				/>
 				<ToggleGroupControlOption
 					value={ ThumbnailsPosition.LEFT }
@@ -99,7 +99,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 			</ToggleGroupControl>
 			{ context.thumbnailsPosition !== ThumbnailsPosition.OFF && (
 				<RangeControl
-					label={ __( 'Number of Thumbnails', 'woocommerce' ) }
+					label={ __( 'Number of Thumbnails', 'poocommerce' ) }
 					value={ context.thumbnailsNumberOfThumbnails }
 					onChange={ ( value: number ) =>
 						updateBlockAttributes( productGalleryClientId, {
@@ -108,7 +108,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 					}
 					help={ __(
 						'Choose how many thumbnails (3-8) will display. If more images exist, a “View all” button will display.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					max={ maxNumberOfThumbnails }
 					min={ minNumberOfThumbnails }

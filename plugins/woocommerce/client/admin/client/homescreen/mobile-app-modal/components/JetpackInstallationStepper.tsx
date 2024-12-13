@@ -4,8 +4,8 @@
 import React, { useState, useEffect } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { sprintf, __ } from '@wordpress/i18n';
-import { Spinner, Stepper, StepperProps } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Spinner, Stepper, StepperProps } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -43,10 +43,10 @@ export const JetpackInstallationStepper = ( {
 			setStepsToDisplay( [
 				{
 					key: 'first',
-					label: __( 'Connect to Jetpack', 'woocommerce' ),
+					label: __( 'Connect to Jetpack', 'poocommerce' ),
 					description: __(
-						'To get started, install Jetpack - our free tool required to sync your store with the WooCommerce mobile app',
-						'woocommerce'
+						'To get started, install Jetpack - our free tool required to sync your store with the PooCommerce mobile app',
+						'poocommerce'
 					),
 					content: (
 						<>
@@ -75,7 +75,7 @@ export const JetpackInstallationStepper = ( {
 									<div className="install-jetpack-button-text">
 										{ __(
 											'Install and Connect',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</div>
 								</div>
@@ -85,7 +85,7 @@ export const JetpackInstallationStepper = ( {
 				},
 				{
 					key: 'second',
-					label: __( 'Sign into the app', 'woocommerce' ),
+					label: __( 'Sign into the app', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
@@ -99,7 +99,7 @@ export const JetpackInstallationStepper = ( {
 					key: 'first',
 					label: sprintf(
 						/* translators: Reflecting to the user what their WordPress account email address is */
-						__( 'Connected as %s', 'woocommerce' ),
+						__( 'Connected as %s', 'poocommerce' ),
 						wordpressAccountEmailAddress
 					),
 					description: '',
@@ -112,7 +112,7 @@ export const JetpackInstallationStepper = ( {
 						/* translators: Reflecting to the user that the magic link has been sent to their WordPress account email address */
 						__(
 							'We’ll send a magic link to %s. Open it on your smartphone or tablet to sign into your store instantly.',
-							'woocommerce'
+							'poocommerce'
 						),
 						wordpressAccountEmailAddress
 					),

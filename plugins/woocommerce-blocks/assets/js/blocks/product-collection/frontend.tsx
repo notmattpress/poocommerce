@@ -7,11 +7,11 @@ import {
 	prefetch,
 	getElement,
 	getContext,
-} from '@woocommerce/interactivity';
+} from '@poocommerce/interactivity';
 import {
 	triggerProductListRenderedEvent,
 	triggerViewedProductEvent,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -208,4 +208,4 @@ const productCollectionStore = {
 	},
 };
 
-store( 'woocommerce/product-collection', productCollectionStore );
+store( 'poocommerce/product-collection', productCollectionStore );

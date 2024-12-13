@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { PAYMENT_STORE_KEY } from '@woocommerce/block-data';
+import { PAYMENT_STORE_KEY } from '@poocommerce/block-data';
 import {
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import { dispatch } from '@wordpress/data';
 
 /**
@@ -15,7 +15,7 @@ import { dispatch } from '@wordpress/data';
 import mockEditorContext from './__mocks__/editor-context';
 import { getExpectedExpressPaymentProps } from './__mocks__/express-payment-props';
 import ExpressPaymentMethods from '../express-payment-methods';
-jest.mock( '@woocommerce/base-context', () => ( {
+jest.mock( '@poocommerce/base-context', () => ( {
 	useEditorContext: mockEditorContext,
 } ) );
 
@@ -108,7 +108,7 @@ describe( 'Express payment methods', () => {
 				// usePaymentMethodInterface hook is called so we need to expect it here otherwise
 				// the test fails on unexpected console warnings.
 				expect( console ).toHaveWarnedWith(
-					'isPristine is deprecated since version 9.6.0. Please use isIdle instead. See: https://github.com/woocommerce/woocommerce-blocks/pull/8110'
+					'isPristine is deprecated since version 9.6.0. Please use isIdle instead. See: https://github.com/poocommerce/poocommerce-blocks/pull/8110'
 				);
 			} );
 		} );

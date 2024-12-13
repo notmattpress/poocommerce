@@ -1,3 +1,3 @@
-const { testAdminPaymentSetupTask } = require( '@woocommerce/admin-e2e-tests' );
+const { testAdminPaymentSetupTask } = require( '@poocommerce/admin-e2e-tests' );
 
 testAdminPaymentSetupTask();

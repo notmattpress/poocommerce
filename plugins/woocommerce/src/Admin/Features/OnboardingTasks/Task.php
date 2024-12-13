@@ -3,9 +3,9 @@
  * Handles task related methods.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminUser;
+use Automattic\PooCommerce\Internal\Admin\WCAdminUser;
 
 /**
  * Task class.
@@ -21,7 +21,7 @@ abstract class Task {
 	 *
 	 * @var string
 	 */
-	const DISMISSED_OPTION = 'woocommerce_task_list_dismissed_tasks';
+	const DISMISSED_OPTION = 'poocommerce_task_list_dismissed_tasks';
 
 	/**
 	 * Name of the snooze option.
@@ -30,21 +30,21 @@ abstract class Task {
 	 *
 	 * @deprecated 7.2.0
 	 */
-	const SNOOZED_OPTION = 'woocommerce_task_list_remind_me_later_tasks';
+	const SNOOZED_OPTION = 'poocommerce_task_list_remind_me_later_tasks';
 
 	/**
 	 * Name of the actioned option.
 	 *
 	 * @var string
 	 */
-	const ACTIONED_OPTION = 'woocommerce_task_list_tracked_completed_actions';
+	const ACTIONED_OPTION = 'poocommerce_task_list_tracked_completed_actions';
 
 	/**
 	 * Option name of completed tasks.
 	 *
 	 * @var string
 	 */
-	const COMPLETED_OPTION = 'woocommerce_task_list_tracked_completed_tasks';
+	const COMPLETED_OPTION = 'poocommerce_task_list_tracked_completed_tasks';
 
 	/**
 	 * Name of the active task transient.
@@ -205,7 +205,7 @@ abstract class Task {
 	 * @return string
 	 */
 	public function get_action_label() {
-		return __( "Let's go", 'woocommerce' );
+		return __( "Let's go", 'poocommerce' );
 	}
 
 	/**

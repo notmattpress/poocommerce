@@ -1,16 +1,16 @@
 // This is a copy of the Gutenberg styles with the selectors modified.
 // https://github.com/WordPress/gutenberg/blob/8aa998526984a3e9d547cd638840f8314bad9d81/packages/edit-site/src/components/sidebar-navigation-screen/style.scss
-// See https://github.com/woocommerce/woocommerce/issues/48377
+// See https://github.com/poocommerce/poocommerce/issues/48377
 @import "_variables.scss";
 
-.woocommerce-edit-site-sidebar-navigation-screen {
+.poocommerce-edit-site-sidebar-navigation-screen {
 	display: flex;
 	flex-direction: column;
 	overflow-x: unset !important;
 	position: relative;
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__main {
+.poocommerce-edit-site-sidebar-navigation-screen__main {
 	// Ensure the sidebar is always at least as tall as the viewport.
 	// This allows the footer section to be sticky at the bottom of the viewport.
 	flex-grow: 1;
@@ -21,7 +21,7 @@
 	}
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__content {
+.poocommerce-edit-site-sidebar-navigation-screen__content {
 	padding: 0 $grid-unit-20;
 
 	.components-item-group {
@@ -38,7 +38,7 @@
 	}
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__meta {
+.poocommerce-edit-site-sidebar-navigation-screen__meta {
 	margin: 0 0 $grid-unit-20 $grid-unit-20;
 	color: $gray-400;
 
@@ -47,7 +47,7 @@
 	}
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__page-link {
+.poocommerce-edit-site-sidebar-navigation-screen__page-link {
 	color: $gray-600;
 	display: inline-block;
 	word-break: break-word;
@@ -62,7 +62,7 @@
 	}
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__title-icon {
+.poocommerce-edit-site-sidebar-navigation-screen__title-icon {
 	position: sticky;
 	top: 0;
 	background: $gray-900;
@@ -71,22 +71,22 @@
 	padding-bottom: $grid-unit-10;
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__title {
+.poocommerce-edit-site-sidebar-navigation-screen__title {
 	flex-grow: 1;
 	overflow-wrap: break-word;
 
 	&#{&},
-	&#{&} .woocommerce-edit-site-sidebar-navigation-screen__title {
+	&#{&} .poocommerce-edit-site-sidebar-navigation-screen__title {
 		line-height: $font-line-height-x-large;
 	}
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__actions {
+.poocommerce-edit-site-sidebar-navigation-screen__actions {
 	display: flex;
 	flex-shrink: 0;
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__content .woocommerce-edit-site-global-styles-variation-container {
+.poocommerce-edit-site-sidebar-navigation-screen__content .poocommerce-edit-site-global-styles-variation-container {
 	@include break-medium() {
 		// Safari does not currently support `scrollbar-gutter: stable`, so at
 		// particular viewport sizes it's possible for previews to render prior to a
@@ -101,34 +101,34 @@
 	}
 }
 
-.woocommerce-edit-site-global-styles-variation-title {
+.poocommerce-edit-site-global-styles-variation-title {
 	color: $gray-300;
 	font-size: 11px;
 	text-transform: uppercase;
 	font-weight: 500;
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__content .woocommerce-edit-site-global-styles-variations_item {
+.poocommerce-edit-site-sidebar-navigation-screen__content .poocommerce-edit-site-global-styles-variations_item {
 
 	// Use a white outline to provide contrast with the dark background.
-	.woocommerce-edit-site-global-styles-variations_item-preview {
+	.poocommerce-edit-site-global-styles-variations_item-preview {
 		outline-color: rgba($white, 0.05);
 	}
 
-	&:not(.is-active):hover .woocommerce-edit-site-global-styles-variations_item-preview {
+	&:not(.is-active):hover .poocommerce-edit-site-global-styles-variations_item-preview {
 		outline-color: rgba($white, 0.15);
 	}
 
-	&.is-active .woocommerce-edit-site-global-styles-variations_item-preview {
+	&.is-active .poocommerce-edit-site-global-styles-variations_item-preview {
 		outline-color: $white;
 	}
 
-	&:focus-visible .woocommerce-edit-site-global-styles-variations_item-preview {
+	&:focus-visible .poocommerce-edit-site-global-styles-variations_item-preview {
 		outline-color: var(--wp-admin-theme-color);
 	}
 }
 
-.woocommerce-edit-site-sidebar-navigation-screen__footer {
+.poocommerce-edit-site-sidebar-navigation-screen__footer {
 	position: sticky;
 	bottom: 0;
 	background-color: $gray-900;
@@ -144,7 +144,7 @@
  * once that component is stabilized.
  * See: packages/components/src/theme
  */
-.woocommerce-edit-site-sidebar-navigation-screen__input-control {
+.poocommerce-edit-site-sidebar-navigation-screen__input-control {
 	width: 100%;
 
 	.components-input-control__container {

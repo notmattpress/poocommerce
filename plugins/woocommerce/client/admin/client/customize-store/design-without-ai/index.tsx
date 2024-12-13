@@ -70,7 +70,7 @@ export const DesignWithNoAiController = ( {
 	const CurrentComponent = currentNodeMeta?.component;
 
 	return (
-		<div className={ `woocommerce-design-without-ai__container` }>
+		<div className={ `poocommerce-design-without-ai__container` }>
 			{ CurrentComponent ? (
 				<CurrentComponent sendEvent={ send } />
 			) : (

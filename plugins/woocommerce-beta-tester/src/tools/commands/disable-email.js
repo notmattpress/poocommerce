@@ -19,9 +19,9 @@ export const DisableEmail = () => {
 	const getEmailStatus = () => {
 		switch ( isEmailDisabled ) {
 			case 'yes':
-				return 'WooCommerce emails are turned off 🔴';
+				return 'PooCommerce emails are turned off 🔴';
 			case 'no':
-				return 'WooCommerce emails are turned on 🟢';
+				return 'PooCommerce emails are turned on 🟢';
 			case 'error':
 				return 'Error 🙁';
 			default:

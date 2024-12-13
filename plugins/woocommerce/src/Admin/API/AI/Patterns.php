@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API\AI;
+namespace Automattic\PooCommerce\Admin\API\AI;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
-use Automattic\WooCommerce\Blocks\AIContent\UpdatePatterns;
+use Automattic\PooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\UpdatePatterns;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -38,11 +38,11 @@ class Patterns extends AIEndpoint {
 					'permission_callback' => array( Middleware::class, 'is_authorized' ),
 					'args'                => array(
 						'business_description' => array(
-							'description' => __( 'The business description for a given store.', 'woocommerce' ),
+							'description' => __( 'The business description for a given store.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 						'images'               => array(
-							'description' => __( 'The images for a given store.', 'woocommerce' ),
+							'description' => __( 'The images for a given store.', 'poocommerce' ),
 							'type'        => 'object',
 						),
 					),

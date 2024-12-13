@@ -1,6 +1,6 @@
-# End-to-End Test Utilities For WooCommerce
+# End-to-End Test Utilities For PooCommerce
 
-This package contains utilities to help writing e2e tests specific to WooCommerce using Playwright.
+This package contains utilities to help writing e2e tests specific to PooCommerce using Playwright.
 
 > [!WARNING]
 >
@@ -10,7 +10,7 @@ This package contains utilities to help writing e2e tests specific to WooCommerc
 ## Installation
 
 ```bash
-npm install @woocommerce/e2e-utils-playwright --save-dev
+npm install @poocommerce/e2e-utils-playwright --save-dev
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ npm install @woocommerce/e2e-utils-playwright --save-dev
 Example:
 
 ```js
-import { addAProductToCart } from '@woocommerce/e2e-utils-playwright';
+import { addAProductToCart } from '@poocommerce/e2e-utils-playwright';
 
 test('can add products to cart', async ({ page }) => {
   const product = {
@@ -35,7 +35,7 @@ test('can add products to cart', async ({ page }) => {
 
 ## Contributing to this package
 
-This is an individual package that's part of the WooCommerce project, which is organized as a monorepo.
+This is an individual package that's part of the PooCommerce project, which is organized as a monorepo.
 
-To find out more about contributing to this package or WooCommerce as a whole, please read the project's
-main [contributor guide](https://developer.woocommerce.com/docs/category/contributing/).
+To find out more about contributing to this package or PooCommerce as a whole, please read the project's
+main [contributor guide](https://developer.poocommerce.com/docs/category/contributing/).

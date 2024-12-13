@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { useEffect, useRef, useState, createElement } from '@wordpress/element';
 import { Button, Card } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { EllipsisMenu } from '@woocommerce/components';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
-import { WooOnboardingTaskListHeader } from '@woocommerce/onboarding';
+import { EllipsisMenu } from '@poocommerce/components';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
+import { WooOnboardingTaskListHeader } from '@poocommerce/onboarding';
 import {
 	ONBOARDING_STORE_NAME,
 	TaskType,
@@ -15,11 +15,11 @@ import {
 	getVisibleTasks,
 	TaskListType,
 	WCDataSelector,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { List, useSlot } from '@woocommerce/experimental';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { List, useSlot } from '@poocommerce/experimental';
 import clsx from 'clsx';
-import { useLayoutContext } from '@woocommerce/admin-layout';
+import { useLayoutContext } from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -126,16 +126,16 @@ export const SetupTaskList: React.FC< TaskListProps > = ( {
 
 	const renderMenu = () => {
 		return (
-			<div className="woocommerce-card__menu woocommerce-card__header-item">
+			<div className="poocommerce-card__menu poocommerce-card__header-item">
 				<EllipsisMenu
 					className={ id }
-					label={ __( 'Task List Options', 'woocommerce' ) }
+					label={ __( 'Task List Options', 'poocommerce' ) }
 					renderContent={ ( {
 						onToggle,
 					}: {
 						onToggle: () => void;
 					} ) => (
-						<div className="woocommerce-task-card__section-controls">
+						<div className="poocommerce-task-card__section-controls">
 							<Button
 								onClick={ () => {
 									if ( incompleteTasks.length > 0 ) {
@@ -146,7 +146,7 @@ export const SetupTaskList: React.FC< TaskListProps > = ( {
 									}
 								} }
 							>
-								{ __( 'Hide this', 'woocommerce' ) }
+								{ __( 'Hide this', 'poocommerce' ) }
 							</Button>
 						</div>
 					) }
@@ -165,7 +165,7 @@ export const SetupTaskList: React.FC< TaskListProps > = ( {
 	}
 
 	const taskListHeaderSlot = useSlot(
-		`woocommerce_onboarding_task_list_header_${
+		`poocommerce_onboarding_task_list_header_${
 			headerData?.task?.id ?? selectedHeaderCard?.id
 		}`
 	);
@@ -249,7 +249,7 @@ export const SetupTaskList: React.FC< TaskListProps > = ( {
 	}, [ selectedHeaderCard ] );
 
 	if ( ! visibleTasks.length ) {
-		return <div className="woocommerce-task-dashboard__container"></div>;
+		return <div className="poocommerce-task-dashboard__container"></div>;
 	}
 
 	const hasTaskListCompletionSlotFills = Boolean(
@@ -296,15 +296,15 @@ export const SetupTaskList: React.FC< TaskListProps > = ( {
 			) : null }
 			<div
 				className={ clsx(
-					`woocommerce-task-dashboard__container woocommerce-task-list__${ id } setup-task-list`
+					`poocommerce-task-dashboard__container poocommerce-task-list__${ id } setup-task-list`
 				) }
 			>
 				<Card
 					size="large"
-					className="woocommerce-task-card woocommerce-homescreen-card"
+					className="poocommerce-task-card poocommerce-homescreen-card"
 				>
-					<div className="woocommerce-task-card__header-container">
-						<div className="woocommerce-task-card__header">
+					<div className="poocommerce-task-card__header-container">
+						<div className="poocommerce-task-card__header">
 							{ hasTaskListHeaderSlotFills ? (
 								<WooOnboardingTaskListHeader.Slot
 									id={ selectedHeaderCard?.id }

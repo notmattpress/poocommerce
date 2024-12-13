@@ -2,11 +2,11 @@
 /**
  * Abstract Product importer
  *
- * @package  WooCommerce\Import
+ * @package  PooCommerce\Import
  * @version  3.1.0
  */
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -128,7 +128,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 		 * @param array $parsed_data Parsed data.
 		 * @param WC_Product_Importer $importer Importer instance.
 		 */
-		return apply_filters( 'woocommerce_product_importer_parsed_data', $this->parsed_data, $this );
+		return apply_filters( 'poocommerce_product_importer_parsed_data', $this->parsed_data, $this );
 	}
 
 	/**
@@ -176,7 +176,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 		if ( isset( $data['type'] ) ) {
 
 			if ( ! array_key_exists( $data['type'], WC_Admin_Exporters::get_product_types() ) ) {
-				return new WP_Error( 'woocommerce_product_importer_invalid_type', __( 'Invalid product type.', 'woocommerce' ), array( 'status' => 401 ) );
+				return new WP_Error( 'poocommerce_product_importer_invalid_type', __( 'Invalid product type.', 'poocommerce' ), array( 'status' => 401 ) );
 			}
 
 			try {
@@ -192,16 +192,16 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 				$product = wc_get_product_object( $data['type'], $id );
 			} catch ( WC_Data_Exception $e ) {
-				return new WP_Error( 'woocommerce_product_csv_importer_' . $e->getErrorCode(), $e->getMessage(), array( 'status' => 401 ) );
+				return new WP_Error( 'poocommerce_product_csv_importer_' . $e->getErrorCode(), $e->getMessage(), array( 'status' => 401 ) );
 			}
 		} elseif ( ! empty( $data['id'] ) ) {
 			$product = wc_get_product( $id );
 
 			if ( ! $product ) {
 				return new WP_Error(
-					'woocommerce_product_csv_importer_invalid_id',
+					'poocommerce_product_csv_importer_invalid_id',
 					/* translators: %d: product ID */
-					sprintf( __( 'Invalid product ID %d.', 'woocommerce' ), $id ),
+					sprintf( __( 'Invalid product ID %d.', 'poocommerce' ), $id ),
 					array(
 						'id'     => $id,
 						'status' => 401,
@@ -212,7 +212,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 			$product = wc_get_product_object( 'simple', $id );
 		}
 
-		return apply_filters( 'woocommerce_product_import_get_product_object', $product, $data );
+		return apply_filters( 'poocommerce_product_import_get_product_object', $product, $data );
 	}
 
 	/**
@@ -224,8 +224,8 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 	 */
 	protected function process_item( $data ) {
 		try {
-			do_action( 'woocommerce_product_import_before_process_item', $data );
-			$data = apply_filters( 'woocommerce_product_import_process_item_data', $data );
+			do_action( 'poocommerce_product_import_before_process_item', $data );
+			$data = apply_filters( 'poocommerce_product_import_process_item_data', $data );
 
 			// Get product ID from SKU if created during the importation.
 			if ( empty( $data['id'] ) && ! empty( $data['sku'] ) ) {
@@ -278,10 +278,10 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 			$this->set_image_data( $object, $data );
 			$this->set_meta_data( $object, $data );
 
-			$object = apply_filters( 'woocommerce_product_import_pre_insert_product_object', $object, $data );
+			$object = apply_filters( 'poocommerce_product_import_pre_insert_product_object', $object, $data );
 			$object->save();
 
-			do_action( 'woocommerce_product_import_inserted_product_object', $object, $data );
+			do_action( 'poocommerce_product_import_inserted_product_object', $object, $data );
 
 			return array(
 				'id'           => $object->get_id(),
@@ -289,7 +289,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 				'is_variation' => $is_variation,
 			);
 		} catch ( Exception $e ) {
-			return new WP_Error( 'woocommerce_product_importer_error', $e->getMessage(), array( 'status' => $e->getCode() ) );
+			return new WP_Error( 'poocommerce_product_importer_error', $e->getMessage(), array( 'status' => $e->getCode() ) );
 		}
 	}
 
@@ -455,12 +455,12 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 		// Stop if parent does not exists.
 		if ( ! $parent ) {
-			return new WP_Error( 'woocommerce_product_importer_missing_variation_parent_id', __( 'Variation cannot be imported: Missing parent ID or parent does not exist yet.', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_product_importer_missing_variation_parent_id', __( 'Variation cannot be imported: Missing parent ID or parent does not exist yet.', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		// Stop if parent is a product variation.
 		if ( $parent->is_type( 'variation' ) ) {
-			return new WP_Error( 'woocommerce_product_importer_parent_set_as_variation', __( 'Variation cannot be imported: Parent product cannot be a product variation', 'woocommerce' ), array( 'status' => 401 ) );
+			return new WP_Error( 'poocommerce_product_importer_parent_set_as_variation', __( 'Variation cannot be imported: Parent product cannot be a product variation', 'poocommerce' ), array( 'status' => 401 ) );
 		}
 
 		if ( isset( $data['raw_attributes'] ) ) {
@@ -627,7 +627,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 			if ( ! wp_attachment_is_image( $id ) ) {
 				/* translators: %s: image URL */
-				throw new Exception( sprintf( __( 'Not able to attach "%s".', 'woocommerce' ), $url ), 400 );
+				throw new Exception( sprintf( __( 'Not able to attach "%s".', 'poocommerce' ), $url ), 400 );
 			}
 
 			// Save attachment source for future reference.
@@ -636,7 +636,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 
 		if ( ! $id ) {
 			/* translators: %s: image URL */
-			throw new Exception( sprintf( __( 'Unable to use image "%s".', 'woocommerce' ), $url ), 400 );
+			throw new Exception( sprintf( __( 'Unable to use image "%s".', 'poocommerce' ), $url ), 400 );
 		}
 
 		return $id;
@@ -687,9 +687,9 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 		$taxonomy_name = wc_attribute_taxonomy_name( $attribute_name );
 		register_taxonomy(
 			$taxonomy_name,
-			apply_filters( 'woocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
+			apply_filters( 'poocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
 			apply_filters(
-				'woocommerce_taxonomy_args_' . $taxonomy_name,
+				'poocommerce_taxonomy_args_' . $taxonomy_name,
 				array(
 					'labels'       => array(
 						'name' => $raw_name,
@@ -727,7 +727,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 		if ( $current_memory >= $memory_limit ) {
 			$return = true;
 		}
-		return apply_filters( 'woocommerce_product_importer_memory_exceeded', $return );
+		return apply_filters( 'poocommerce_product_importer_memory_exceeded', $return );
 	}
 
 	/**
@@ -759,12 +759,12 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 	 * @return bool
 	 */
 	protected function time_exceeded() {
-		$finish = $this->start_time + apply_filters( 'woocommerce_product_importer_default_time_limit', 20 ); // 20 seconds
+		$finish = $this->start_time + apply_filters( 'poocommerce_product_importer_default_time_limit', 20 ); // 20 seconds
 		$return = false;
 		if ( time() >= $finish ) {
 			$return = true;
 		}
-		return apply_filters( 'woocommerce_product_importer_time_exceeded', $return );
+		return apply_filters( 'poocommerce_product_importer_time_exceeded', $return );
 	}
 
 	/**

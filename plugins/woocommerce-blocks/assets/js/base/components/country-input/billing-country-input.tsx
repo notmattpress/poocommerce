@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ALLOWED_COUNTRIES } from '@woocommerce/block-settings';
+import { ALLOWED_COUNTRIES } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

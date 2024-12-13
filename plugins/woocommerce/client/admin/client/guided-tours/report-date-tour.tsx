@@ -1,23 +1,23 @@
 /**
  * External dependencies
  */
-import { TourKit, TourKitTypes } from '@woocommerce/components';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import {
 	createElement,
 	createInterpolateElement,
 	useState,
 } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
  */
 import './report-date-tour.scss';
 
-const DATE_TYPE_OPTION = 'woocommerce_date_type';
+const DATE_TYPE_OPTION = 'poocommerce_date_type';
 
 export const ReportDateTour: React.FC< {
 	optionName: string;
@@ -49,11 +49,11 @@ export const ReportDateTour: React.FC< {
 			{
 				referenceElements: {
 					desktop:
-						'.woocommerce-filters-filter > .components-dropdown',
+						'.poocommerce-filters-filter > .components-dropdown',
 				},
 				focusElement: {
 					desktop:
-						'.woocommerce-filters-filter > .components-dropdown',
+						'.poocommerce-filters-filter > .components-dropdown',
 				},
 				meta: {
 					name: 'product-feedback-',
@@ -62,7 +62,7 @@ export const ReportDateTour: React.FC< {
 						desktop: createInterpolateElement(
 							__(
 								'We now collect orders in this table based on when the payment went through, rather than when they were placed. You can change this in <link>settings</link>.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								link: createElement( 'a', {
@@ -71,19 +71,19 @@ export const ReportDateTour: React.FC< {
 									),
 									'aria-label': __(
 										'Analytics date settings',
-										'woocommerce'
+										'poocommerce'
 									),
 								} ),
 							}
 						),
 					},
 					primaryButton: {
-						text: __( 'Got it', 'woocommerce' ),
+						text: __( 'Got it', 'poocommerce' ),
 					},
 				},
 				options: {
 					classNames: {
-						desktop: 'woocommerce-revenue-report-date-tour',
+						desktop: 'poocommerce-revenue-report-date-tour',
 					},
 				},
 			},

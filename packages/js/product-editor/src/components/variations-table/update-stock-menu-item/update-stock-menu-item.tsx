@@ -4,7 +4,7 @@
 import { MenuItem } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ export function UpdateStockMenuItem( {
 				onClose();
 			} }
 		>
-			{ __( 'Update stock', 'woocommerce' ) }
+			{ __( 'Update stock', 'poocommerce' ) }
 		</MenuItem>
 	);
 }

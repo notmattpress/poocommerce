@@ -2,15 +2,15 @@
 /**
  * Display notices in admin
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 3.4.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\BrandingController;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\Internal\Utilities\WebhookUtil;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\BrandingController;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\WebhookUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,10 +61,10 @@ class WC_Admin_Notices {
 	 */
 	public static function init() {
 		self::$is_multisite = is_multisite();
-		self::set_notices( get_option( 'woocommerce_admin_notices', array() ) );
+		self::set_notices( get_option( 'poocommerce_admin_notices', array() ) );
 
 		add_action( 'switch_theme', array( __CLASS__, 'reset_admin_notices' ) );
-		add_action( 'woocommerce_installed', array( __CLASS__, 'reset_admin_notices' ) );
+		add_action( 'poocommerce_installed', array( __CLASS__, 'reset_admin_notices' ) );
 		add_action( 'wp_loaded', array( __CLASS__, 'add_redirect_download_method_notice' ) );
 		add_action( 'admin_init', array( __CLASS__, 'hide_notices' ), 20 );
 		add_action( 'admin_init', array( __CLASS__, 'maybe_remove_legacy_api_removal_notice' ), 20 );
@@ -76,7 +76,7 @@ class WC_Admin_Notices {
 			add_action( 'shutdown', array( __CLASS__, 'store_notices' ) );
 		}
 
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			add_action( 'admin_print_styles', array( __CLASS__, 'add_notices' ) );
 		}
 	}
@@ -98,7 +98,7 @@ class WC_Admin_Notices {
 	 * Store the locally cached notices to DB.
 	 */
 	public static function store_notices() {
-		update_option( 'woocommerce_admin_notices', self::get_notices() );
+		update_option( 'poocommerce_admin_notices', self::get_notices() );
 	}
 
 	/**
@@ -117,7 +117,7 @@ class WC_Admin_Notices {
 			return $notices;
 		}
 
-		self::$notices[ $blog_id ] = get_option( 'woocommerce_admin_notices', array() );
+		self::$notices[ $blog_id ] = get_option( 'poocommerce_admin_notices', array() );
 		return self::$notices[ $blog_id ];
 	}
 
@@ -169,14 +169,14 @@ class WC_Admin_Notices {
 					'%s%s',
 					sprintf(
 						'<h4>%s</h4>',
-						esc_html__( 'WooCommerce webhooks that use the Legacy REST API are unsupported', 'woocommerce' )
+						esc_html__( 'PooCommerce webhooks that use the Legacy REST API are unsupported', 'poocommerce' )
 					),
 					sprintf(
 					// translators: Placeholders are URLs.
-						wpautop( __( '⚠️ The WooCommerce Legacy REST API has been removed from WooCommerce, this will cause <a href="%1$s">webhooks on this site that are configured to use the Legacy REST API</a> to stop working. <a target="_blank" href="%2$s">A separate WooCommerce extension is available</a> to allow these webhooks to keep using the Legacy REST API without interruption. You can also edit these webhooks to use the current REST API version to generate the payload instead. <b><a target="_blank" href="%3$s">Learn more about this change.</a></b>', 'woocommerce' ) ),
+						wpautop( __( '⚠️ The PooCommerce Legacy REST API has been removed from PooCommerce, this will cause <a href="%1$s">webhooks on this site that are configured to use the Legacy REST API</a> to stop working. <a target="_blank" href="%2$s">A separate PooCommerce extension is available</a> to allow these webhooks to keep using the Legacy REST API without interruption. You can also edit these webhooks to use the current REST API version to generate the payload instead. <b><a target="_blank" href="%3$s">Learn more about this change.</a></b>', 'poocommerce' ) ),
 						admin_url( 'admin.php?page=wc-settings&tab=advanced&section=webhooks&legacy=true' ),
-						'https://wordpress.org/plugins/woocommerce-legacy-rest-api/',
-						'https://developer.woocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-woocommerce-9-0/'
+						'https://wordpress.org/plugins/poocommerce-legacy-rest-api/',
+						'https://developer.poocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-poocommerce-9-0/'
 					)
 				)
 			);
@@ -186,7 +186,7 @@ class WC_Admin_Notices {
 	/**
 	 * Remove the admin notice about the unsupported webhooks if the Legacy REST API plugin is installed.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function maybe_remove_legacy_api_removal_notice() {
 		if ( self::has_notice( 'legacy_webhooks_unsupported_in_woo_90' ) && ( WC()->legacy_rest_api_is_available() || 0 === wc_get_container()->get( WebhookUtil::class )->get_legacy_webhooks_count() ) ) {
@@ -217,7 +217,7 @@ class WC_Admin_Notices {
 	 */
 	public static function remove_notice( $name, $force_save = false ) {
 		self::set_notices( array_diff( self::get_notices(), array( $name ) ) );
-		delete_option( 'woocommerce_admin_notice_' . $name );
+		delete_option( 'poocommerce_admin_notice_' . $name );
 
 		if ( $force_save ) {
 			// Adding early save to prevent more race conditions with notices.
@@ -263,8 +263,8 @@ class WC_Admin_Notices {
 	 */
 	public static function hide_notices() {
 		if ( isset( $_GET['wc-hide-notice'] ) && isset( $_GET['_wc_notice_nonce'] ) ) {
-			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_notice_nonce'] ) ), 'woocommerce_hide_notices_nonce' ) ) {
-				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
+			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wc_notice_nonce'] ) ), 'poocommerce_hide_notices_nonce' ) ) {
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'poocommerce' ) );
 			}
 
 			$notice_name = sanitize_text_field( wp_unslash( $_GET['wc-hide-notice'] ) );
@@ -277,10 +277,10 @@ class WC_Admin_Notices {
 			 * @param string $default_capability The default required capability.
 			 * @param string $notice_name The notice name.
 			 */
-			$required_capability = apply_filters( 'woocommerce_dismiss_admin_notice_capability', 'manage_woocommerce', $notice_name );
+			$required_capability = apply_filters( 'poocommerce_dismiss_admin_notice_capability', 'manage_poocommerce', $notice_name );
 
 			if ( ! current_user_can( $required_capability ) ) {
-				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'woocommerce' ) );
+				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'poocommerce' ) );
 			}
 
 			self::hide_notice( $notice_name );
@@ -297,7 +297,7 @@ class WC_Admin_Notices {
 
 		update_user_meta( get_current_user_id(), 'dismissed_' . $name . '_notice', true );
 
-		do_action( 'woocommerce_hide_' . $name . '_notice' );
+		do_action( 'poocommerce_hide_' . $name . '_notice' );
 	}
 
 	/**
@@ -332,20 +332,20 @@ class WC_Admin_Notices {
 			'plugins',
 		);
 
-		// Notices should only show on WooCommerce screens, the main dashboard, and on the plugins screen.
+		// Notices should only show on PooCommerce screens, the main dashboard, and on the plugins screen.
 		if ( ! in_array( $screen_id, wc_get_screen_ids(), true ) && ! in_array( $screen_id, $show_on_screens, true ) ) {
 			return;
 		}
 
 		$activation_variant = BrandingController::use_new_branding() ? 'new' : 'old';
-		wp_enqueue_style( 'woocommerce-activation', plugins_url( '/assets/css/activation.css', WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ) );
-		wp_enqueue_style( 'woocommerce-activation-branding', plugins_url( "/assets/css/activation-{$activation_variant}-branding.css", WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ) );
+		wp_enqueue_style( 'poocommerce-activation', plugins_url( '/assets/css/activation.css', WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ) );
+		wp_enqueue_style( 'poocommerce-activation-branding', plugins_url( "/assets/css/activation-{$activation_variant}-branding.css", WC_PLUGIN_FILE ), array(), Constants::get_constant( 'WC_VERSION' ) );
 
 		// Add RTL support.
-		wp_style_add_data( 'woocommerce-activation', 'rtl', 'replace' );
+		wp_style_add_data( 'poocommerce-activation', 'rtl', 'replace' );
 
 		foreach ( $notices as $notice ) {
-			if ( ! empty( self::$core_notices[ $notice ] ) && apply_filters( 'woocommerce_show_admin_notice', true, $notice ) ) {
+			if ( ! empty( self::$core_notices[ $notice ] ) && apply_filters( 'poocommerce_show_admin_notice', true, $notice ) ) {
 				add_action( 'admin_notices', array( __CLASS__, self::$core_notices[ $notice ] ) );
 			} else {
 				add_action( 'admin_notices', array( __CLASS__, 'output_custom_notices' ) );
@@ -361,7 +361,7 @@ class WC_Admin_Notices {
 	 */
 	public static function add_custom_notice( $name, $notice_html ) {
 		self::add_notice( $name );
-		update_option( 'woocommerce_admin_notice_' . $name, wp_kses_post( $notice_html ) );
+		update_option( 'poocommerce_admin_notice_' . $name, wp_kses_post( $notice_html ) );
 	}
 
 	/**
@@ -373,7 +373,7 @@ class WC_Admin_Notices {
 		if ( ! empty( $notices ) ) {
 			foreach ( $notices as $notice ) {
 				if ( empty( self::$core_notices[ $notice ] ) ) {
-					$notice_html = get_option( 'woocommerce_admin_notice_' . $notice );
+					$notice_html = get_option( 'poocommerce_admin_notice_' . $notice );
 
 					if ( $notice_html ) {
 						include __DIR__ . '/views/html-notice-custom.php';
@@ -394,10 +394,10 @@ class WC_Admin_Notices {
 		}
 
 		if ( WC_Install::needs_db_update() ) {
-			$next_scheduled_date = WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' );
+			$next_scheduled_date = WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' );
 
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( $next_scheduled_date || ! empty( $_GET['do_update_woocommerce'] ) ) {
+			if ( $next_scheduled_date || ! empty( $_GET['do_update_poocommerce'] ) ) {
 				include __DIR__ . '/views/html-notice-updating.php';
 			} else {
 				include __DIR__ . '/views/html-notice-update.php';
@@ -413,7 +413,7 @@ class WC_Admin_Notices {
 	 * @deprecated 4.6.0
 	 */
 	public static function install_notice() {
-		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', esc_html__( 'Onboarding is maintained in WooCommerce Admin.', 'woocommerce' ) );
+		_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '4.6.0', esc_html__( 'Onboarding is maintained in PooCommerce Admin.', 'poocommerce' ) );
 	}
 
 	/**
@@ -464,7 +464,7 @@ class WC_Admin_Notices {
 		$enabled                   = false;
 
 		foreach ( $maybe_load_legacy_methods as $method ) {
-			$options = get_option( 'woocommerce_' . $method . '_settings' );
+			$options = get_option( 'poocommerce_' . $method . '_settings' );
 			if ( $options && isset( $options['enabled'] ) && 'yes' === $options['enabled'] ) {
 				$enabled = true;
 			}
@@ -557,13 +557,13 @@ class WC_Admin_Notices {
 	 * @since 3.9.0
 	 */
 	public static function add_maxmind_missing_license_key_notice() {
-		$default_address = get_option( 'woocommerce_default_customer_address' );
+		$default_address = get_option( 'poocommerce_default_customer_address' );
 
 		if ( ! in_array( $default_address, array( 'geolocation', 'geolocation_ajax' ), true ) ) {
 			return;
 		}
 
-		$integration_options = get_option( 'woocommerce_maxmind_geolocation_settings' );
+		$integration_options = get_option( 'poocommerce_maxmind_geolocation_settings' );
 		if ( empty( $integration_options['license_key'] ) ) {
 			self::add_notice( 'maxmind_license_key' );
 
@@ -574,7 +574,7 @@ class WC_Admin_Notices {
 	 *  Add notice about Redirect-only download method, nudging user to switch to a different method instead.
 	 */
 	public static function add_redirect_download_method_notice() {
-		if ( 'redirect' === get_option( 'woocommerce_file_download_method' ) ) {
+		if ( 'redirect' === get_option( 'poocommerce_file_download_method' ) ) {
 			self::add_notice( 'redirect_download_method' );
 		} else {
 			self::remove_notice( 'redirect_download_method' );
@@ -586,7 +586,7 @@ class WC_Admin_Notices {
 	 */
 	public static function download_directories_sync_complete() {
 		$notice_dismissed = apply_filters(
-			'woocommerce_hide_download_directories_sync_complete',
+			'poocommerce_hide_download_directories_sync_complete',
 			get_user_meta( get_current_user_id(), 'download_directories_sync_complete', true )
 		);
 
@@ -606,7 +606,7 @@ class WC_Admin_Notices {
 	 */
 	public static function maxmind_missing_license_key_notice() {
 		$user_dismissed_notice   = get_user_meta( get_current_user_id(), 'dismissed_maxmind_license_key_notice', true );
-		$filter_dismissed_notice = ! apply_filters( 'woocommerce_maxmind_geolocation_display_notices', true );
+		$filter_dismissed_notice = ! apply_filters( 'poocommerce_maxmind_geolocation_display_notices', true );
 
 		if ( $user_dismissed_notice || $filter_dismissed_notice ) {
 			self::remove_notice( 'maxmind_license_key' );
@@ -622,7 +622,7 @@ class WC_Admin_Notices {
 	 * @since 4.0
 	 */
 	public static function redirect_download_method_notice() {
-		if ( apply_filters( 'woocommerce_hide_redirect_method_nag', get_user_meta( get_current_user_id(), 'dismissed_redirect_download_method_notice', true ) ) ) {
+		if ( apply_filters( 'poocommerce_hide_redirect_method_nag', get_user_meta( get_current_user_id(), 'dismissed_redirect_download_method_notice', true ) ) ) {
 			self::remove_notice( 'redirect_download_method' );
 			return;
 		}
@@ -649,7 +649,7 @@ class WC_Admin_Notices {
 	 */
 	public static function base_tables_missing_notice() {
 		$notice_dismissed = apply_filters(
-			'woocommerce_hide_base_tables_missing_nag',
+			'poocommerce_hide_base_tables_missing_nag',
 			get_user_meta( get_current_user_id(), 'dismissed_base_tables_missing_notice', true )
 		);
 		if ( $notice_dismissed ) {
@@ -709,7 +709,7 @@ class WC_Admin_Notices {
 	 * @return bool
 	 */
 	protected static function is_uploads_directory_protected() {
-		$cache_key = '_woocommerce_upload_directory_status';
+		$cache_key = '_poocommerce_upload_directory_status';
 		$status    = get_transient( $cache_key );
 
 		// Check for cache.
@@ -720,9 +720,9 @@ class WC_Admin_Notices {
 		// Get only data from the uploads directory.
 		$uploads = wp_get_upload_dir();
 
-		// Check for the "uploads/woocommerce_uploads" directory.
+		// Check for the "uploads/poocommerce_uploads" directory.
 		$response         = wp_safe_remote_get(
-			esc_url_raw( $uploads['baseurl'] . '/woocommerce_uploads/' ),
+			esc_url_raw( $uploads['baseurl'] . '/poocommerce_uploads/' ),
 			array(
 				'redirection' => 0,
 			)

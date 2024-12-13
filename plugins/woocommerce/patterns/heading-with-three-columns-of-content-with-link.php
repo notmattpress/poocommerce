@@ -1,15 +1,15 @@
 <?php
 /**
  * Title: Heading with three columns of content with link
- * Slug: woocommerce-blocks/heading-with-three-columns-of-content-with-link
- * Categories: WooCommerce, Services
+ * Slug: poocommerce-blocks/heading-with-three-columns-of-content-with-link
+ * Categories: PooCommerce, Services
  */
 declare(strict_types=1);
 
-$header        = __( 'Our services', 'woocommerce' );
-$product_title = __( 'Create anything', 'woocommerce' );
-$description   = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'woocommerce' );
-$button_link   = __( 'Get started', 'woocommerce' );
+$header        = __( 'Our services', 'poocommerce' );
+$product_title = __( 'Create anything', 'poocommerce' );
+$description   = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'poocommerce' );
+$button_link   = __( 'Get started', 'poocommerce' );
 ?>
 
 

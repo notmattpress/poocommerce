@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { List } from '@woocommerce/components';
+import { List } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ type CardListProps = {
 
 const CardList: React.FC< CardListProps > = ( { items } ) => {
 	return (
-		<div className="woocommerce-products-card-list">
+		<div className="poocommerce-products-card-list">
 			<List items={ items } />
 		</div>
 	);

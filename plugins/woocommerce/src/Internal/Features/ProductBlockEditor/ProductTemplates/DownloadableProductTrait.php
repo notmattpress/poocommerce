@@ -3,10 +3,10 @@
  * DownloadableProductTrait
  */
 
-namespace Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\GroupInterface;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\GroupInterface;
 
 /**
  * Downloadable Product Trait.
@@ -37,13 +37,13 @@ trait DownloadableProductTrait {
 		$product_downloads_section_group->add_block(
 			array(
 				'id'         => 'product-downloadable',
-				'blockName'  => 'woocommerce/product-toggle-field',
+				'blockName'  => 'poocommerce/product-toggle-field',
 				'order'      => 10,
 				'attributes' => array(
 					'property'      => 'downloadable',
-					'label'         => __( 'Include downloads', 'woocommerce' ),
-					'checkedHelp'   => __( 'Add any files you\'d like to make available for the customer to download after purchasing, such as instructions or warranty info.', 'woocommerce' ),
-					'uncheckedHelp' => __( 'Add any files you\'d like to make available for the customer to download after purchasing, such as instructions or warranty info.', 'woocommerce' ),
+					'label'         => __( 'Include downloads', 'poocommerce' ),
+					'checkedHelp'   => __( 'Add any files you\'d like to make available for the customer to download after purchasing, such as instructions or warranty info.', 'poocommerce' ),
+					'uncheckedHelp' => __( 'Add any files you\'d like to make available for the customer to download after purchasing, such as instructions or warranty info.', 'poocommerce' ),
 				),
 			)
 		);
@@ -53,10 +53,10 @@ trait DownloadableProductTrait {
 				'id'             => 'product-downloads-section',
 				'order'          => 20,
 				'attributes'     => array(
-					'title'       => __( 'Downloads', 'woocommerce' ),
+					'title'       => __( 'Downloads', 'poocommerce' ),
 					'description' => sprintf(
 						/* translators: %1$s: Downloads settings link opening tag. %2$s: Downloads settings link closing tag. */
-						__( 'Add any files you\'d like to make available for the customer to download after purchasing, such as instructions or warranty info. Store-wide updates can be managed in your %1$sproduct settings%2$s.', 'woocommerce' ),
+						__( 'Add any files you\'d like to make available for the customer to download after purchasing, such as instructions or warranty info. Store-wide updates can be managed in your %1$sproduct settings%2$s.', 'poocommerce' ),
 						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=products&section=downloadable' ) . '" target="_blank" rel="noreferrer">',
 						'</a>'
 					),
@@ -70,7 +70,7 @@ trait DownloadableProductTrait {
 		)->add_block(
 			array(
 				'id'        => 'product-downloads',
-				'blockName' => 'woocommerce/product-downloads-field',
+				'blockName' => 'poocommerce/product-downloads-field',
 				'order'     => 10,
 			)
 		);

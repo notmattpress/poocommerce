@@ -2,12 +2,12 @@
 /**
  * Tests for the WC_Shopping_Zone class.
  *
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 
 /**
  * Class Shipping_Zone.
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 class WC_Tests_Shipping_Zone extends WC_Unit_Test_Case {
 
@@ -168,9 +168,9 @@ class WC_Tests_Shipping_Zone extends WC_Unit_Test_Case {
 		$this->assertTrue( $zone->is_valid_location_type( 'continent' ) );
 		$this->assertTrue( $zone->is_valid_location_type( 'postcode' ) );
 		$this->assertFalse( $zone->is_valid_location_type( 'poop' ) );
-		add_filter( 'woocommerce_valid_location_types', array( $this, 'add_valid_zone_location' ) );
+		add_filter( 'poocommerce_valid_location_types', array( $this, 'add_valid_zone_location' ) );
 		$this->assertTrue( $zone->is_valid_location_type( 'poop' ) );
-		remove_filter( 'woocommerce_valid_location_types', array( $this, 'add_valid_zone_location' ), 10 );
+		remove_filter( 'poocommerce_valid_location_types', array( $this, 'add_valid_zone_location' ), 10 );
 	}
 
 	/**

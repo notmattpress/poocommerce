@@ -16,11 +16,11 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.UPSELLS,
-	title: __( 'Upsells', 'woocommerce' ),
+	title: __( 'Upsells', 'poocommerce' ),
 	icon: <Icon icon={ trendingUp } />,
 	description: __(
 		'Upsells are typically products that are extra profitable or better quality or more expensive. Experiment with combinations to boost sales.',
-		'woocommerce'
+		'poocommerce'
 	),
 	keywords: [ 'boost', 'promotion' ],
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
@@ -45,7 +45,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'You may also like', 'woocommerce' ),
+		content: __( 'You may also like', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

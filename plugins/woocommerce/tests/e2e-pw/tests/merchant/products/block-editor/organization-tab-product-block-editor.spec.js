@@ -73,7 +73,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 				.fill( categoryName );
 
 			await page
-				.locator( '.woocommerce-create-new-taxonomy-modal__buttons' )
+				.locator( '.poocommerce-create-new-taxonomy-modal__buttons' )
 				.getByRole( 'button', {
 					name: 'Create',
 				} )
@@ -89,7 +89,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 				.fill( tagName );
 
 			await page
-				.locator( '.woocommerce-create-new-tag-modal__buttons' )
+				.locator( '.poocommerce-create-new-tag-modal__buttons' )
 				.getByRole( 'button', {
 					name: 'Save',
 				} )
@@ -106,7 +106,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 				.fill( 'password' );
 
 			await page
-				.locator( '.woocommerce-product-header__actions' )
+				.locator( '.poocommerce-product-header__actions' )
 				.getByRole( 'button', {
 					name: 'Publish',
 				} )
@@ -116,7 +116,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 				page.getByLabel( 'Dismiss this notice' )
 			).toContainText( 'Product published' );
 
-			const title = page.locator( '.woocommerce-product-header__title' );
+			const title = page.locator( '.poocommerce-product-header__title' );
 
 			// Save product ID
 			const productIdRegex = /product%2F(\d+)/;

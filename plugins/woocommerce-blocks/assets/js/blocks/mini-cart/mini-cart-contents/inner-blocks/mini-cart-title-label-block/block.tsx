@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import clsx from 'clsx';
 
 /**

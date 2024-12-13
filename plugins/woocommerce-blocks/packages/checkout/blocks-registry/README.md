@@ -36,15 +36,15 @@ Blocks can be registered within several different areas or parent blocks. Valid 
 
 | Parent Block/Area                                | Description                                                   |
 | :----------------------------------------------- | :------------------------------------------------------------ |
-| `woocommerce/checkout-totals-block`              | The right side of the checkout containing order totals.       |
-| `woocommerce/checkout-fields-block`              | The left side of the checkout containing checkout form steps. |
-| `woocommerce/checkout-contact-information-block` | Within the contact information form step.                     |
-| `woocommerce/checkout-shipping-address-block`    | Within the shipping address form step.                        |
-| `woocommerce/checkout-billing-address-block`     | Within the billing address form step.                         |
-| `woocommerce/checkout-shipping-methods-block`    | Within the shipping methods form step.                        |
-| `woocommerce/checkout-payment-methods-block`     | Within the payment methods form step.                         |
+| `poocommerce/checkout-totals-block`              | The right side of the checkout containing order totals.       |
+| `poocommerce/checkout-fields-block`              | The left side of the checkout containing checkout form steps. |
+| `poocommerce/checkout-contact-information-block` | Within the contact information form step.                     |
+| `poocommerce/checkout-shipping-address-block`    | Within the shipping address form step.                        |
+| `poocommerce/checkout-billing-address-block`     | Within the billing address form step.                         |
+| `poocommerce/checkout-shipping-methods-block`    | Within the shipping methods form step.                        |
+| `poocommerce/checkout-payment-methods-block`     | Within the payment methods form step.                         |
 
-See the [`innerBlockAreas`](https://github.com/woocommerce/woocommerce-blocks/blob/6b9955d2a51bc56b0b029edc521ff98e3403dffc/packages/checkout/blocks-registry/types.ts#L8-L33) typedef for the most up to date list of available areas.
+See the [`innerBlockAreas`](https://github.com/poocommerce/poocommerce-blocks/blob/6b9955d2a51bc56b0b029edc521ff98e3403dffc/packages/checkout/blocks-registry/types.ts#L8-L33) typedef for the most up to date list of available areas.
 
 ## Registering a Block
 
@@ -55,11 +55,11 @@ When registering your block, you should also define the `parent` property to inc
 
 ```json
 {
-	"name": "woocommerce/checkout-actions-block",
+	"name": "poocommerce/checkout-actions-block",
 	"title": "Actions",
 	"description": "Allow customers to place their order.",
-	"category": "woocommerce",
-	"parent": [ "woocommerce/checkout-fields-block" ]
+	"category": "poocommerce",
+	"parent": [ "poocommerce/checkout-fields-block" ]
 	// ...snip
 }
 ```
@@ -70,11 +70,11 @@ If you want your block to appear within the layout of the Checkout without merch
 
 ```json
 {
-	"name": "woocommerce/checkout-actions-block",
+	"name": "poocommerce/checkout-actions-block",
 	"title": "Actions",
 	"description": "Allow customers to place their order.",
-	"category": "woocommerce",
-	"parent": [ "woocommerce/checkout-fields-block" ],
+	"category": "poocommerce",
+	"parent": [ "poocommerce/checkout-fields-block" ],
 	"attributes": {
 		"lock": {
 			"type": "object",
@@ -97,13 +97,13 @@ For your block to dynamically render on the frontend and have access to its own 
 -   To render the block on the frontend, you need a `data-block-name` attribute on the HTML with your block name `namespace/block-name`.
 -   To access your attributes on frontend, you need to save them as `data-*` attributes on the HTML.
 
-Blocks whose namespace is `woocommerce` or `woocommerce-checkout` will have this applied to them automatically, but you can also add this behaviour to your own namespace or individual blocks.
+Blocks whose namespace is `poocommerce` or `poocommerce-checkout` will have this applied to them automatically, but you can also add this behaviour to your own namespace or individual blocks.
 
-To add this behavior to your namespace, you can use the `__experimental_woocommerce_blocks_add_data_attributes_to_namespace` filter:
+To add this behavior to your namespace, you can use the `__experimental_poocommerce_blocks_add_data_attributes_to_namespace` filter:
 
 ```php
 add_filter(
-	'__experimental_woocommerce_blocks_add_data_attributes_to_namespace',
+	'__experimental_poocommerce_blocks_add_data_attributes_to_namespace',
 	function ( $allowed_namespaces ) {
 		$allowed_namespaces[] = 'namespace';
 		return $allowed_namespaces;
@@ -113,11 +113,11 @@ add_filter(
 );
 ```
 
-To add just a single block, you can use `__experimental_woocommerce_blocks_add_data_attributes_to_block` filter:
+To add just a single block, you can use `__experimental_poocommerce_blocks_add_data_attributes_to_block` filter:
 
 ```php
 add_filter(
-	'__experimental_woocommerce_blocks_add_data_attributes_to_block',
+	'__experimental_poocommerce_blocks_add_data_attributes_to_block',
 	function ( $allowed_blocks ) {
 		$allowed_blocks[] = 'namespace/block-name';
 		return $allowed_blocks;
@@ -133,13 +133,13 @@ After registering your block, you need to define which component will replace yo
 
 ## `registerCheckoutBlock( options )`
 
-This function registers a block and it's corresponding component with WooCommerce. The register function expects a JavaScript object with options specific to the block you are registering.
+This function registers a block and it's corresponding component with PooCommerce. The register function expects a JavaScript object with options specific to the block you are registering.
 
 ### Usage
 
 ```js
 // Aliased import
-import { registerCheckoutBlock } from '@woocommerce/blocks-checkout';
+import { registerCheckoutBlock } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { registerCheckoutBlock } = wc.blocksCheckout;
@@ -147,7 +147,7 @@ import { registerCheckoutBlock } from '@woocommerce/blocks-checkout';
 const options = {
 	metadata: {
 		name: 'namespace/block-name',
-		parent: [ 'woocommerce/checkout-totals-block' ],
+		parent: [ 'poocommerce/checkout-totals-block' ],
 	},
 	component: () => <div>A Function Component</div>,
 };
@@ -177,13 +177,13 @@ Returns an array of registered block objects available within a specific parent 
 
 ```js
 // Aliased import
-import { getRegisteredBlocks } from '@woocommerce/blocks-checkout';
+import { getRegisteredBlocks } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { getRegisteredBlocks } = wc.blocksCheckout;
 
 const registeredBlocks = getRegisteredBlocks(
-	'woocommerce/checkout-totals-block'
+	'poocommerce/checkout-totals-block'
 );
 ```
 
@@ -195,21 +195,21 @@ Check if a block/area supports inner block registration.
 
 ```js
 // Aliased import
-import { hasInnerBlocks } from '@woocommerce/blocks-checkout';
+import { hasInnerBlocks } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { hasInnerBlocks } = wc.blocksCheckout;
 
-const isValid = hasInnerBlocks( 'woocommerce/checkout-totals-block' ); // true
+const isValid = hasInnerBlocks( 'poocommerce/checkout-totals-block' ); // true
 ```
 
 <!-- FEEDBACK -->
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/blocks-registry/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/blocks-registry/README.md)
 
 <!-- /FEEDBACK -->
 

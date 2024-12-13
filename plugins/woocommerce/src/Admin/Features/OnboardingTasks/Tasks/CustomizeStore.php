@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 use WP_Post;
 
 /**
@@ -46,7 +46,7 @@ class CustomizeStore extends Task {
 			$is_cys_complete = $this->has_custom_global_styles( $post ) || $this->has_custom_template( $post );
 
 			if ( $is_cys_complete ) {
-				update_option( 'woocommerce_admin_customize_store_completed', 'yes' );
+				update_option( 'poocommerce_admin_customize_store_completed', 'yes' );
 			}
 		}
 	}
@@ -57,7 +57,7 @@ class CustomizeStore extends Task {
 	 * @return void
 	 */
 	public function mark_task_as_complete_classic_theme() {
-		update_option( 'woocommerce_admin_customize_store_completed', 'yes' );
+		update_option( 'poocommerce_admin_customize_store_completed', 'yes' );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class CustomizeStore extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Customize your store ', 'woocommerce' );
+		return __( 'Customize your store ', 'poocommerce' );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class CustomizeStore extends Task {
 	 * @return bool
 	 */
 	public function is_complete() {
-		return get_option( 'woocommerce_admin_customize_store_completed' ) === 'yes';
+		return get_option( 'poocommerce_admin_customize_store_completed' ) === 'yes';
 	}
 
 	/**
@@ -145,7 +145,7 @@ class CustomizeStore extends Task {
 
 		// See: https://github.com/WordPress/WordPress/blob/master/wp-admin/site-editor.php.
 		if ( ! wp_is_block_theme() ) {
-			wp_die( esc_html__( 'The theme you are currently using is not compatible.', 'woocommerce' ) );
+			wp_die( esc_html__( 'The theme you are currently using is not compatible.', 'poocommerce' ) );
 		}
 		global $editor_styles;
 

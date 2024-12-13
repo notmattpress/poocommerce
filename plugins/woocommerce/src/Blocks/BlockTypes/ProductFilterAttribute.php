@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\QueryFilters;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\QueryFilters;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
 
 /**
  * Product Filter: Attribute Block.
@@ -369,7 +369,7 @@ final class ProductFilterAttribute extends AbstractBlock {
 		$default_attribute = (object) array(
 			'attribute_id'      => '0',
 			'attribute_name'    => 'attribute',
-			'attribute_label'   => __( 'Attribute', 'woocommerce' ),
+			'attribute_label'   => __( 'Attribute', 'poocommerce' ),
 			'attribute_type'    => 'select',
 			'attribute_orderby' => 'menu_order',
 			'attribute_public'  => 0,
@@ -389,35 +389,35 @@ final class ProductFilterAttribute extends AbstractBlock {
 	public function register_block_patterns() {
 		$default_attribute = $this->get_default_product_attribute();
 		register_block_pattern(
-			'woocommerce/default-attribute-filter',
+			'poocommerce/default-attribute-filter',
 			array(
 				'title'    => '',
 				'inserter' => false,
 				'content'  => strtr(
 					'
-<!-- wp:woocommerce/product-filter-attribute {"attributeId":{{attribute_id}}} -->
-<div class="wp-block-woocommerce-product-filter-attribute">
+<!-- wp:poocommerce/product-filter-attribute {"attributeId":{{attribute_id}}} -->
+<div class="wp-block-poocommerce-product-filter-attribute">
 	<!-- wp:group {"metadata":{"name":"Header"},"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group">
 		<!-- wp:heading {"level":3} -->
 		<h3 class="wp-block-heading">{{attribute_label}}</h3>
 		<!-- /wp:heading -->
 
-		<!-- wp:woocommerce/product-filter-clear-button {"lock":{"remove":true}} -->
+		<!-- wp:poocommerce/product-filter-clear-button {"lock":{"remove":true}} -->
 		<!-- wp:buttons {"layout":{"type":"flex"}} -->
 		<div class="wp-block-buttons"><!-- wp:button {"className":"wc-block-product-filter-clear-button is-style-outline","style":{"border":{"width":"0px","style":"none"},"typography":{"textDecoration":"underline"},"outline":"none","fontSize":"medium"}} -->
 			<div class="wp-block-button wc-block-product-filter-clear-button is-style-outline" style="text-decoration:underline"><a class="wp-block-button__link wp-element-button" style="border-style:none;border-width:0px">Clear</a></div>
 			<!-- /wp:button --></div>
 		<!-- /wp:buttons -->
-		<!-- /wp:woocommerce/product-filter-clear-button --></div>
+		<!-- /wp:poocommerce/product-filter-clear-button --></div>
 	<!-- /wp:group -->
 
-	<!-- wp:woocommerce/product-filter-checkbox-list {"lock":{"remove":true}} -->
-	<div class="wp-block-woocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
-	<!-- /wp:woocommerce/product-filter-checkbox-list -->
+	<!-- wp:poocommerce/product-filter-checkbox-list {"lock":{"remove":true}} -->
+	<div class="wp-block-poocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
+	<!-- /wp:poocommerce/product-filter-checkbox-list -->
 
 </div>
-<!-- /wp:woocommerce/product-filter-attribute -->
+<!-- /wp:poocommerce/product-filter-attribute -->
 					',
 					array(
 						'{{attribute_id}}'    => intval( $default_attribute->attribute_id ),

@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
 import { Icon, check } from '@wordpress/icons';
 import { Button, Tooltip } from '@wordpress/components';
 import NoticeOutline from 'gridicons/dist/notice-outline';
-import { EllipsisMenu } from '@woocommerce/components';
+import { EllipsisMenu } from '@poocommerce/components';
 import classnames from 'classnames';
 import { sanitize } from 'dompurify';
 
@@ -70,12 +70,12 @@ const OptionalTaskTooltip: React.FC< {
 	if ( level === 1 && ! completed ) {
 		tooltip = __(
 			'This task is required to keep your store running',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else if ( level === 2 && ! completed ) {
 		tooltip = __(
 			'This task is required to set up your extension',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 	if ( tooltip === '' ) {
@@ -95,7 +95,7 @@ const OptionalExpansionWrapper: React.FC< {
 		<VerticalCSSTransition
 			timeout={ 500 }
 			in={ expanded }
-			classNames="woocommerce-task-list__item-expandable-content"
+			classNames="poocommerce-task-list__item-expandable-content"
 			defaultStyle={ {
 				transitionProperty: 'max-height, opacity',
 			} }
@@ -131,7 +131,7 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 		setTaskExpanded( expanded );
 	}, [ expanded ] );
 
-	const className = classnames( 'woocommerce-task-list__item', {
+	const className = classnames( 'poocommerce-task-list__item', {
 		complete: completed,
 		expanded: isTaskExpanded,
 		'level-2': level === 2 && ! completed,
@@ -167,17 +167,17 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 			{ ...listItemProps }
 		>
 			<OptionalTaskTooltip level={ level } completed={ completed }>
-				<div className="woocommerce-task-list__item-before">
+				<div className="poocommerce-task-list__item-before">
 					{ level === 1 && ! completed ? (
 						<NoticeOutline size={ 36 } />
 					) : (
-						<div className="woocommerce-task__icon">
+						<div className="poocommerce-task__icon">
 							{ completed && <Icon icon={ check } /> }
 						</div>
 					) }
 				</div>
 			</OptionalTaskTooltip>
-			<div className="woocommerce-task-list__item-text">
+			<div className="poocommerce-task-list__item-text">
 				<Text
 					as="div"
 					size="14"
@@ -185,10 +185,10 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 					weight={ completed ? 'normal' : '600' }
 					variant={ completed ? 'body.small' : 'button' }
 				>
-					<span className="woocommerce-task-list__item-title">
+					<span className="poocommerce-task-list__item-title">
 						{ title }
 						{ badge && (
-							<span className="woocommerce-task-list__item-badge">
+							<span className="poocommerce-task-list__item-badge">
 								{ badge }
 							</span>
 						) }
@@ -197,11 +197,11 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 						expandable={ expandable }
 						expanded={ isTaskExpanded }
 					>
-						<div className="woocommerce-task-list__item-expandable-content">
+						<div className="poocommerce-task-list__item-expandable-content">
 							{ content }
 							{ expandable && ! completed && additionalInfo && (
 								<div
-									className="woocommerce-task__additional-info"
+									className="poocommerce-task__additional-info"
 									dangerouslySetInnerHTML={ sanitizeHTML(
 										additionalInfo
 									) }
@@ -209,7 +209,7 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 							) }
 							{ ! completed && showActionButton && (
 								<Button
-									className="woocommerce-task-list__item-action"
+									className="poocommerce-task-list__item-action"
 									isPrimary
 									onClick={ (
 										event:
@@ -228,14 +228,14 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 
 					{ ! expandable && ! completed && additionalInfo && (
 						<div
-							className="woocommerce-task__additional-info"
+							className="poocommerce-task__additional-info"
 							dangerouslySetInnerHTML={ sanitizeHTML(
 								additionalInfo
 							) }
 						></div>
 					) }
 					{ time && (
-						<div className="woocommerce-task__estimated-time">
+						<div className="poocommerce-task__estimated-time">
 							{ time }
 						</div>
 					) }
@@ -243,13 +243,13 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 			</div>
 			{ showEllipsisMenu && (
 				<EllipsisMenu
-					label={ __( 'Task Options', 'woocommerce' ) }
-					className="woocommerce-task-list__item-after"
+					label={ __( 'Task Options', 'poocommerce' ) }
+					className="poocommerce-task-list__item-after"
 					onToggle={ ( e: React.MouseEvent | React.KeyboardEvent ) =>
 						e.stopPropagation()
 					}
 					renderContent={ () => (
-						<div className="woocommerce-task-card__section-controls">
+						<div className="poocommerce-task-card__section-controls">
 							{ onDismiss && ! completed && (
 								<Button
 									onClick={ (
@@ -261,7 +261,7 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 										onDismiss();
 									} }
 								>
-									{ __( 'Dismiss', 'woocommerce' ) }
+									{ __( 'Dismiss', 'poocommerce' ) }
 								</Button>
 							) }
 							{ onSnooze && ! completed && (
@@ -271,7 +271,7 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 										onSnooze();
 									} }
 								>
-									{ __( 'Remind me later', 'woocommerce' ) }
+									{ __( 'Remind me later', 'poocommerce' ) }
 								</Button>
 							) }
 							{ onDelete && completed && (
@@ -285,7 +285,7 @@ export const TaskItem: React.FC< TaskItemProps > = ( {
 										onDelete();
 									} }
 								>
-									{ __( 'Delete', 'woocommerce' ) }
+									{ __( 'Delete', 'poocommerce' ) }
 								</Button>
 							) }
 						</div>

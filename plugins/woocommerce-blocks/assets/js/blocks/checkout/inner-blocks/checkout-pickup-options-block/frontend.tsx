@@ -2,12 +2,12 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { withFilteredAttributes } from '@woocommerce/shared-hocs';
-import { FormStep } from '@woocommerce/blocks-components';
+import { withFilteredAttributes } from '@poocommerce/shared-hocs';
+import { FormStep } from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import { LOCAL_PICKUP_ENABLED } from '@woocommerce/block-settings';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import { LOCAL_PICKUP_ENABLED } from '@poocommerce/block-settings';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
 
 /**
  * Internal dependencies

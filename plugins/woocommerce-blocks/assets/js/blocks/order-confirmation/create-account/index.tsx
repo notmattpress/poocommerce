@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { Icon, people } from '@wordpress/icons';
 import { ExternalLink } from '@wordpress/components';
-import { ADMIN_URL } from '@woocommerce/settings';
+import { ADMIN_URL } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ registerBlockType( metadata, {
 			<ExternalLink
 				href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=account` }
 			>
-				{ __( 'Manage account settings', 'woocommerce' ) }
+				{ __( 'Manage account settings', 'poocommerce' ) }
 			</ExternalLink>
 		</>
 	),

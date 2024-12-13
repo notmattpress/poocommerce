@@ -3,12 +3,12 @@
  * Manages the WC Admin settings that need to be pre-loaded.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * \Automattic\WooCommerce\Internal\Admin\WCAdminSharedSettings class.
+ * \Automattic\PooCommerce\Internal\Admin\WCAdminSharedSettings class.
  */
 class WCAdminSharedSettings {
 	/**
@@ -26,13 +26,13 @@ class WCAdminSharedSettings {
 	protected static $instance = null;
 
 	/**
-	 * Hook into WooCommerce Blocks.
+	 * Hook into PooCommerce Blocks.
 	 */
 	protected function __construct() {
-		if ( did_action( 'woocommerce_blocks_loaded' ) ) {
-			$this->on_woocommerce_blocks_loaded();
+		if ( did_action( 'poocommerce_blocks_loaded' ) ) {
+			$this->on_poocommerce_blocks_loaded();
 		} else {
-			add_action( 'woocommerce_blocks_loaded', array( $this, 'on_woocommerce_blocks_loaded' ), 10 );
+			add_action( 'poocommerce_blocks_loaded', array( $this, 'on_poocommerce_blocks_loaded' ), 10 );
 		}
 	}
 
@@ -49,21 +49,21 @@ class WCAdminSharedSettings {
 	}
 
 	/**
-	 * Adds settings to the Blocks AssetDataRegistry when woocommerce_blocks is loaded.
+	 * Adds settings to the Blocks AssetDataRegistry when poocommerce_blocks is loaded.
 	 *
 	 * @return void
 	 */
-	public function on_woocommerce_blocks_loaded() {
+	public function on_poocommerce_blocks_loaded() {
 		// Ensure we only add admin settings on the admin.
 		if ( ! is_admin() ) {
 			return;
 		}
 
-		if ( class_exists( '\Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry' ) ) {
-			\Automattic\WooCommerce\Blocks\Package::container()->get( \Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry::class )->add(
+		if ( class_exists( '\Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry' ) ) {
+			\Automattic\PooCommerce\Blocks\Package::container()->get( \Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry::class )->add(
 				$this->settings_prefix,
 				function () {
-					return apply_filters( 'woocommerce_admin_shared_settings', array() );
+					return apply_filters( 'poocommerce_admin_shared_settings', array() );
 				}
 			);
 		}

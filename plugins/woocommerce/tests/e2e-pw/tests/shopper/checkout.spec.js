@@ -1,5 +1,5 @@
 const { test, expect, request } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { admin, customer } = require( '../../test-data/data' );
 const { setFilterValue, clearFilters } = require( '../../utils/filters' );
 const { setOption } = require( '../../utils/options' );
@@ -11,7 +11,7 @@ import {
 	addAProductToCart,
 	addOneOrMoreProductToCart,
 	getOrderIdFromUrl,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
@@ -41,38 +41,38 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_checkout_phone_field',
+				'poocommerce_checkout_phone_field',
 				'required'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_checkout_company_field',
+				'poocommerce_checkout_company_field',
 				'optional'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_checkout_address_2_field',
+				'poocommerce_checkout_address_2_field',
 				'optional'
 			);
 			// ensure store address is US
 			await api.post( 'settings/general/batch', {
 				update: [
 					{
-						id: 'woocommerce_store_address',
+						id: 'poocommerce_store_address',
 						value: 'addr 1',
 					},
 					{
-						id: 'woocommerce_store_city',
+						id: 'poocommerce_store_city',
 						value: 'San Francisco',
 					},
 					{
-						id: 'woocommerce_default_country',
+						id: 'poocommerce_default_country',
 						value: 'US:CA',
 					},
 					{
-						id: 'woocommerce_store_postcode',
+						id: 'poocommerce_store_postcode',
 						value: '94107',
 					},
 				],
@@ -488,7 +488,7 @@ test.describe(
 				// be presented with a request to verify their email address.
 				await setFilterValue(
 					page,
-					'woocommerce_order_email_verification_grace_period',
+					'poocommerce_order_email_verification_grace_period',
 					0
 				);
 				await page.waitForTimeout( 2000 ); // needs some time before reload for change to take effect.
@@ -650,7 +650,7 @@ test.describe(
 				`wp-admin/post.php?post=${ customerOrderId }&action=edit`
 			);
 			await expect(
-				page.locator( 'h2.woocommerce-order-data__heading' )
+				page.locator( 'h2.poocommerce-order-data__heading' )
 			).toContainText( `Order #${ customerOrderId } details` );
 			await expect( page.locator( '.wc-order-item-name' ) ).toContainText(
 				simpleProductName

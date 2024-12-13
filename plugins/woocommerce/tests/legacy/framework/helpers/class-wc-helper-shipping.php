@@ -2,7 +2,7 @@
 /**
  * Helper class for shipping related unit tests.
  *
- * @package WooCommerce\Tests\Helper
+ * @package PooCommerce\Tests\Helper
  */
 
 /**
@@ -29,8 +29,8 @@ class WC_Helper_Shipping {
 			'cost'         => $cost,
 		);
 
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 	}
@@ -39,9 +39,9 @@ class WC_Helper_Shipping {
 	 * Helper function to set customer address so that shipping can be calculated.
 	 */
 	public static function force_customer_us_address() {
-		add_filter( 'woocommerce_customer_get_shipping_country', array( self::class, 'force_customer_us_country' ) );
-		add_filter( 'woocommerce_customer_get_shipping_state', array( self::class, 'force_customer_us_state' ) );
-		add_filter( 'woocommerce_customer_get_shipping_postcode', array( self::class, 'force_customer_us_postcode' ) );
+		add_filter( 'poocommerce_customer_get_shipping_country', array( self::class, 'force_customer_us_country' ) );
+		add_filter( 'poocommerce_customer_get_shipping_state', array( self::class, 'force_customer_us_state' ) );
+		add_filter( 'poocommerce_customer_get_shipping_postcode', array( self::class, 'force_customer_us_postcode' ) );
 	}
 
 	/**
@@ -83,8 +83,8 @@ class WC_Helper_Shipping {
 	 * @since 2.3
 	 */
 	public static function delete_simple_flat_rate() {
-		delete_option( 'woocommerce_flat_rate_settings' );
-		delete_option( 'woocommerce_flat_rate' );
+		delete_option( 'poocommerce_flat_rate_settings' );
+		delete_option( 'poocommerce_flat_rate' );
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->unregister_shipping_methods();
 	}

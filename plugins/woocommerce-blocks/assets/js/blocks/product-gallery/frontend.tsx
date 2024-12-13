@@ -5,8 +5,8 @@ import {
 	store,
 	getContext as getContextFn,
 	getElement,
-} from '@woocommerce/interactivity';
-import { StorePart } from '@woocommerce/utils';
+} from '@poocommerce/interactivity';
+import { StorePart } from '@poocommerce/utils';
 
 export interface ProductGalleryContext {
 	selectedImage: string;
@@ -25,7 +25,7 @@ const getContext = ( ns?: string ) =>
 	getContextFn< ProductGalleryContext >( ns );
 
 type Store = typeof productGallery & StorePart< ProductGallery >;
-const { state, actions } = store< Store >( 'woocommerce/product-gallery' );
+const { state, actions } = store< Store >( 'poocommerce/product-gallery' );
 
 /**
  * Product Gallery supports two contexts:
@@ -370,6 +370,6 @@ const productGallery = {
 	},
 };
 
-store( 'woocommerce/product-gallery', productGallery );
+store( 'poocommerce/product-gallery', productGallery );
 
 export type ProductGallery = typeof productGallery;

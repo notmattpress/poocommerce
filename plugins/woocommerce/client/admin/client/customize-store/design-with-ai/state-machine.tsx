@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createMachine, sendParent } from 'xstate';
-import { getQuery } from '@woocommerce/navigation';
+import { getQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

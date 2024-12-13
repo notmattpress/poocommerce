@@ -1,13 +1,13 @@
 {
-	"name": "woocommerce/product-filter-status",
+	"name": "poocommerce/product-filter-status",
 	"version": "1.0.0",
 	"title": "Status (Experimental)",
 	"description": "Let shoppers filter products by choosing stock status.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
-	"ancestor": [ "woocommerce/product-filters" ],
+	"ancestor": [ "poocommerce/product-filters" ],
 	"supports": {
 		"interactivity": true,
 		"html": false,
@@ -61,7 +61,7 @@
 		},
 		"displayStyle": {
 			"type": "string",
-			"default": "woocommerce/product-filter-checkbox-list"
+			"default": "poocommerce/product-filter-checkbox-list"
 		},
 		"isPreview": {
 			"type": "boolean",

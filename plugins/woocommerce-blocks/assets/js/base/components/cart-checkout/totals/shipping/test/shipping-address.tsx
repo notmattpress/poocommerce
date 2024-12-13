@@ -2,19 +2,19 @@
  * External dependencies
  */
 import { render, screen, within } from '@testing-library/react';
-import ShippingAddress from '@woocommerce/base-components/cart-checkout/totals/shipping/shipping-address';
-import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import { ShippingCalculatorContext } from '@woocommerce/base-components/cart-checkout';
+import ShippingAddress from '@poocommerce/base-components/cart-checkout/totals/shipping/shipping-address';
+import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import { ShippingCalculatorContext } from '@poocommerce/base-components/cart-checkout';
 import { dispatch } from '@wordpress/data';
-import { previewCart } from '@woocommerce/resource-previews';
-import * as baseContextHooks from '@woocommerce/base-context/hooks';
+import { previewCart } from '@poocommerce/resource-previews';
+import * as baseContextHooks from '@poocommerce/base-context/hooks';
 
-jest.mock( '@woocommerce/settings', () => {
-	const originalModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const originalModule = jest.requireActual( '@poocommerce/settings' );
 
 	return {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore We know @woocommerce/settings is an object.
+		// @ts-ignore We know @poocommerce/settings is an object.
 		...originalModule,
 		getSetting: ( setting: string, ...rest: unknown[] ) => {
 			if ( setting === 'localPickupEnabled' ) {
@@ -28,10 +28,10 @@ jest.mock( '@woocommerce/settings', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/base-context/hooks', () => {
+jest.mock( '@poocommerce/base-context/hooks', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual( '@woocommerce/base-context/hooks' ),
+		...jest.requireActual( '@poocommerce/base-context/hooks' ),
 		useStoreCart: jest.fn(),
 	};
 } );

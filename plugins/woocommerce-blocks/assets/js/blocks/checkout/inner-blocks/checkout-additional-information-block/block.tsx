@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { noticeContexts } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
+import { noticeContexts } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import { ORDER_FORM_KEYS } from '@woocommerce/block-settings';
-import { Form } from '@woocommerce/base-components/cart-checkout';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import { ORDER_FORM_KEYS } from '@poocommerce/block-settings';
+import { Form } from '@poocommerce/base-components/cart-checkout';
 import type { FunctionComponent } from 'react';
 
 const Block: FunctionComponent = () => {

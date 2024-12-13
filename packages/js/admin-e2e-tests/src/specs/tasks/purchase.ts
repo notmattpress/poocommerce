@@ -5,7 +5,7 @@ import { afterAll, beforeAll, describe, it } from '@jest/globals';
 /**
  * Internal dependencies
  */
-import { resetWooCommerceState } from '../../fixtures';
+import { resetPooCommerceState } from '../../fixtures';
 import { Login } from '../../pages/Login';
 import { OnboardingWizard } from '../../pages/OnboardingWizard';
 import { WcHomescreen } from '../../pages/WcHomescreen';
@@ -27,7 +27,7 @@ export const testAdminPurchaseSetupTask = () => {
 
 		describe( 'selecting paid product', () => {
 			beforeAll( async () => {
-				await resetWooCommerceState();
+				await resetPooCommerceState();
 
 				await profileWizard.navigate();
 				await profileWizard.walkThroughAndCompleteOnboardingWizard( {

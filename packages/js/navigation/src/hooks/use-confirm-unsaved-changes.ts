@@ -27,7 +27,7 @@ export const useConfirmUnsavedChanges = (
 	const confirmMessage = useMemo(
 		() =>
 			message ??
-			__( 'Changes you made may not be saved.', 'woocommerce' ),
+			__( 'Changes you made may not be saved.', 'poocommerce' ),
 		[ message ]
 	);
 	const history = getHistory();

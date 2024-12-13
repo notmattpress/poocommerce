@@ -132,7 +132,7 @@ const getCoreConfig = ( options = {} ) => {
 				fileName: 'blocks.ini',
 				// content of the file
 				content: `
-woocommerce_blocks_env = ${ NODE_ENV }
+poocommerce_blocks_env = ${ NODE_ENV }
 `.trim(),
 			} ),
 		],

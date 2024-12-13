@@ -5,7 +5,7 @@ const {
 	HTTPClientFactory,
 	GroupedProduct,
 	SimpleProduct,
-} = require( '@woocommerce/api' );
+} = require( '@poocommerce/api' );
 
 /**
  * External dependencies

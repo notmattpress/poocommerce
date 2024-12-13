@@ -21,7 +21,7 @@ export const SkipButton = ( { onClick }: Props ) => {
 				onClick={ onClick ? onClick : () => {} }
 				variant="link"
 			>
-				{ __( 'Skip', 'woocommerce' ) }
+				{ __( 'Skip', 'poocommerce' ) }
 			</Button>
 		</div>
 	);

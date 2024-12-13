@@ -3,15 +3,15 @@
  * CustomOrdersTableController class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Caches\OrderCacheController;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Caches\OrderCacheController;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\PluginUtil;
 use WC_Admin_Settings;
 
 defined( 'ABSPATH' ) || exit;
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  * This is the main class that controls the custom orders tables feature. Its responsibilities are:
  *
  * - Displaying UI components (entries in the tools page and in settings)
- * - Providing the proper data store for orders via 'woocommerce_order_data_store' hook
+ * - Providing the proper data store for orders via 'poocommerce_order_data_store' hook
  *
  * ...and in general, any functionality that doesn't imply database access.
  */
@@ -33,27 +33,27 @@ class CustomOrdersTableController {
 	/**
 	 * The name of the option for enabling the usage of the custom orders tables
 	 */
-	public const CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION = 'woocommerce_custom_orders_table_enabled';
+	public const CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION = 'poocommerce_custom_orders_table_enabled';
 
 	/**
 	 * The name of the option that tells whether database transactions are to be used or not for data synchronization.
 	 */
-	public const USE_DB_TRANSACTIONS_OPTION = 'woocommerce_use_db_transactions_for_custom_orders_table_data_sync';
+	public const USE_DB_TRANSACTIONS_OPTION = 'poocommerce_use_db_transactions_for_custom_orders_table_data_sync';
 
 	/**
 	 * The name of the option to store the transaction isolation level to use when database transactions are enabled.
 	 */
-	public const DB_TRANSACTIONS_ISOLATION_LEVEL_OPTION = 'woocommerce_db_transactions_isolation_level_for_custom_orders_table_data_sync';
+	public const DB_TRANSACTIONS_ISOLATION_LEVEL_OPTION = 'poocommerce_db_transactions_isolation_level_for_custom_orders_table_data_sync';
 
 	public const DEFAULT_DB_TRANSACTIONS_ISOLATION_LEVEL = 'READ UNCOMMITTED';
 
-	public const HPOS_FTS_INDEX_OPTION = 'woocommerce_hpos_fts_index_enabled';
+	public const HPOS_FTS_INDEX_OPTION = 'poocommerce_hpos_fts_index_enabled';
 
-	public const HPOS_FTS_ADDRESS_INDEX_CREATED_OPTION = 'woocommerce_hpos_address_fts_index_created';
+	public const HPOS_FTS_ADDRESS_INDEX_CREATED_OPTION = 'poocommerce_hpos_address_fts_index_created';
 
-	public const HPOS_FTS_ORDER_ITEM_INDEX_CREATED_OPTION = 'woocommerce_hpos_order_item_fts_index_created';
+	public const HPOS_FTS_ORDER_ITEM_INDEX_CREATED_OPTION = 'poocommerce_hpos_order_item_fts_index_created';
 
-	public const HPOS_DATASTORE_CACHING_ENABLED_OPTION = 'woocommerce_hpos_datastore_caching_enabled';
+	public const HPOS_DATASTORE_CACHING_ENABLED_OPTION = 'poocommerce_hpos_datastore_caching_enabled';
 
 	/**
 	 * The data store object to use.
@@ -136,18 +136,18 @@ class CustomOrdersTableController {
 	 * Initialize the hooks used by the class.
 	 */
 	private function init_hooks() {
-		add_filter( 'woocommerce_order_data_store', array( $this, 'get_orders_data_store' ), 999, 1 );
-		add_filter( 'woocommerce_order-refund_data_store', array( $this, 'get_refunds_data_store' ), 999, 1 );
-		add_filter( 'woocommerce_debug_tools', array( $this, 'add_hpos_tools' ), 999 );
+		add_filter( 'poocommerce_order_data_store', array( $this, 'get_orders_data_store' ), 999, 1 );
+		add_filter( 'poocommerce_order-refund_data_store', array( $this, 'get_refunds_data_store' ), 999, 1 );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'add_hpos_tools' ), 999 );
 		add_filter( 'updated_option', array( $this, 'process_updated_option' ), 999, 3 );
 		add_filter( 'updated_option', array( $this, 'process_updated_option_fts_index' ), 999, 3 );
 		add_filter( 'pre_update_option', array( $this, 'process_pre_update_option' ), 999, 3 );
-		add_action( 'woocommerce_after_register_post_type', array( $this, 'register_post_type_for_order_placeholders' ), 10, 0 );
-		add_action( 'woocommerce_sections_advanced', array( $this, 'sync_now' ) );
+		add_action( 'poocommerce_after_register_post_type', array( $this, 'register_post_type_for_order_placeholders' ), 10, 0 );
+		add_action( 'poocommerce_sections_advanced', array( $this, 'sync_now' ) );
 		add_filter( 'removable_query_args', array( $this, 'register_removable_query_arg' ) );
-		add_action( 'woocommerce_register_feature_definitions', array( $this, 'add_feature_definition' ) );
+		add_action( 'poocommerce_register_feature_definitions', array( $this, 'add_feature_definition' ) );
 		add_filter( 'get_edit_post_link', array( $this, 'maybe_rewrite_order_edit_link' ), 10, 2 );
-		add_action( 'before_woocommerce_init', array( $this, 'maybe_set_order_cache_group_as_non_persistent' ) );
+		add_action( 'before_poocommerce_init', array( $this, 'maybe_set_order_cache_group_as_non_persistent' ) );
 	}
 
 	/**
@@ -212,11 +212,11 @@ class CustomOrdersTableController {
 	/**
 	 * Gets the instance of the orders data store to use.
 	 *
-	 * @param \WC_Object_Data_Store_Interface|string $default_data_store The default data store (as received via the woocommerce_order_data_store hook).
+	 * @param \WC_Object_Data_Store_Interface|string $default_data_store The default data store (as received via the poocommerce_order_data_store hook).
 	 *
 	 * @return \WC_Object_Data_Store_Interface|string The actual data store to use.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function get_orders_data_store( $default_data_store ) {
 		return $this->get_data_store_instance( $default_data_store, 'order' );
@@ -225,11 +225,11 @@ class CustomOrdersTableController {
 	/**
 	 * Gets the instance of the refunds data store to use.
 	 *
-	 * @param \WC_Object_Data_Store_Interface|string $default_data_store The default data store (as received via the woocommerce_order-refund_data_store hook).
+	 * @param \WC_Object_Data_Store_Interface|string $default_data_store The default data store (as received via the poocommerce_order-refund_data_store hook).
 	 *
 	 * @return \WC_Object_Data_Store_Interface|string The actual data store to use.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function get_refunds_data_store( $default_data_store ) {
 		return $this->get_data_store_instance( $default_data_store, 'order_refund' );
@@ -263,7 +263,7 @@ class CustomOrdersTableController {
 	 * @param array $tools_array The array of tools to add the tool to.
 	 * @return array The updated array of tools.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_hpos_tools( array $tools_array ): array {
 		if ( ! $this->data_synchronizer->check_orders_table_exists() ) {
@@ -276,26 +276,26 @@ class CustomOrdersTableController {
 		// Delete HPOS tables tool.
 		if ( $this->custom_orders_table_usage_is_enabled() || $this->data_synchronizer->data_sync_is_enabled() ) {
 			$disabled = true;
-			$message  = __( 'This will delete the custom orders tables. The tables can be deleted only if the "High-Performance order storage" is not authoritative and sync is disabled (via Settings > Advanced > Features).', 'woocommerce' );
+			$message  = __( 'This will delete the custom orders tables. The tables can be deleted only if the "High-Performance order storage" is not authoritative and sync is disabled (via Settings > Advanced > Features).', 'poocommerce' );
 		} else {
 			$disabled = false;
-			$message  = __( 'This will delete the custom orders tables. To create them again enable the "High-Performance order storage" feature (via Settings > Advanced > Features).', 'woocommerce' );
+			$message  = __( 'This will delete the custom orders tables. To create them again enable the "High-Performance order storage" feature (via Settings > Advanced > Features).', 'poocommerce' );
 		}
 
 		$tools_array['delete_custom_orders_table'] = array(
-			'name'             => __( 'Delete the custom orders tables', 'woocommerce' ),
+			'name'             => __( 'Delete the custom orders tables', 'poocommerce' ),
 			'desc'             => sprintf(
 				'<strong class="red">%1$s</strong> %2$s',
-				__( 'Note:', 'woocommerce' ),
+				__( 'Note:', 'poocommerce' ),
 				$message
 			),
 			'requires_refresh' => true,
 			'callback'         => function () {
 				$this->features_controller->change_feature_enable( self::CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION, false );
 				$this->delete_custom_orders_tables();
-				return __( 'Custom orders tables have been deleted.', 'woocommerce' );
+				return __( 'Custom orders tables have been deleted.', 'poocommerce' );
 			},
-			'button'           => __( 'Delete', 'woocommerce' ),
+			'button'           => __( 'Delete', 'poocommerce' ),
 			'disabled'         => $disabled,
 		);
 
@@ -323,7 +323,7 @@ class CustomOrdersTableController {
 	 * @param mixed  $old_value Old value of the setting.
 	 * @param mixed  $value New value of the setting.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function process_updated_option( $option, $old_value, $value ) {
 		if ( DataSynchronizer::ORDERS_DATA_SYNC_ENABLED_OPTION === $option && 'no' === $value ) {
@@ -343,7 +343,7 @@ class CustomOrdersTableController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function process_updated_option_fts_index( $option, $old_value, $value ) {
 		if ( self::HPOS_FTS_INDEX_OPTION !== $option ) {
@@ -357,7 +357,7 @@ class CustomOrdersTableController {
 		if ( ! $this->custom_orders_table_usage_is_enabled() ) {
 			update_option( self::HPOS_FTS_INDEX_OPTION, 'no', true );
 			if ( class_exists( 'WC_Admin_Settings' ) ) {
-				WC_Admin_Settings::add_error( __( 'Failed to create FTS index on orders table. This feature is only available when High-performance order storage is enabled.', 'woocommerce' ) );
+				WC_Admin_Settings::add_error( __( 'Failed to create FTS index on orders table. This feature is only available when High-performance order storage is enabled.', 'poocommerce' ) );
 			}
 			return;
 		}
@@ -372,7 +372,7 @@ class CustomOrdersTableController {
 		} else {
 			update_option( self::HPOS_FTS_ADDRESS_INDEX_CREATED_OPTION, 'no', false );
 			if ( class_exists( 'WC_Admin_Settings ' ) ) {
-				WC_Admin_Settings::add_error( __( 'Failed to create FTS index on address table', 'woocommerce' ) );
+				WC_Admin_Settings::add_error( __( 'Failed to create FTS index on address table', 'poocommerce' ) );
 			}
 		}
 
@@ -386,7 +386,7 @@ class CustomOrdersTableController {
 		} else {
 			update_option( self::HPOS_FTS_ORDER_ITEM_INDEX_CREATED_OPTION, 'no', false );
 			if ( class_exists( 'WC_Admin_Settings ' ) ) {
-				WC_Admin_Settings::add_error( __( 'Failed to create FTS index on order item table', 'woocommerce' ) );
+				WC_Admin_Settings::add_error( __( 'Failed to create FTS index on order item table', 'poocommerce' ) );
 			}
 		}
 	}
@@ -403,7 +403,7 @@ class CustomOrdersTableController {
 		if ( $this->db_util->fts_index_on_order_address_table_exists() ) {
 			return array(
 				'status'  => false,
-				'message' => __( 'Failed to modify existing FTS index. Please go to WooCommerce > Status > Tools and run the "Re-create Order Address FTS index" tool.', 'woocommerce' ),
+				'message' => __( 'Failed to modify existing FTS index. Please go to PooCommerce > Status > Tools and run the "Re-create Order Address FTS index" tool.', 'poocommerce' ),
 			);
 		} else {
 			update_option( self::HPOS_FTS_ADDRESS_INDEX_CREATED_OPTION, 'no', false );
@@ -413,13 +413,13 @@ class CustomOrdersTableController {
 		if ( ! $this->db_util->fts_index_on_order_address_table_exists() ) {
 			return array(
 				'status'  => false,
-				'message' => __( 'Failed to create FTS index on order address table. Please go to WooCommerce > Status > Tools and run the "Re-create Order Address FTS index" tool.', 'woocommerce' ),
+				'message' => __( 'Failed to create FTS index on order address table. Please go to PooCommerce > Status > Tools and run the "Re-create Order Address FTS index" tool.', 'poocommerce' ),
 			);
 		} else {
 			update_option( self::HPOS_FTS_ADDRESS_INDEX_CREATED_OPTION, 'yes', false );
 			return array(
 				'status'  => true,
-				'message' => __( 'FTS index recreated.', 'woocommerce' ),
+				'message' => __( 'FTS index recreated.', 'poocommerce' ),
 			);
 		}
 	}
@@ -434,7 +434,7 @@ class CustomOrdersTableController {
 	 *
 	 * @throws \Exception Attempt to change the authoritative orders table while orders sync is pending.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function process_pre_update_option( $value, $option, $old_value ) {
 		if ( DataSynchronizer::ORDERS_DATA_SYNC_ENABLED_OPTION === $option && $value !== $old_value ) {
@@ -473,7 +473,7 @@ class CustomOrdersTableController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function sync_now() {
 		$section = filter_input( INPUT_GET, 'section' );
@@ -492,8 +492,8 @@ class CustomOrdersTableController {
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ?? '' ) ), "hpos-{$action}" ) ) {
 			WC_Admin_Settings::add_error(
 				'sync-now' === $action ?
-					esc_html__( 'Unable to start synchronization. The link you followed may have expired.', 'woocommerce' )
-					: esc_html__( 'Unable to stop synchronization. The link you followed may have expired.', 'woocommerce' )
+					esc_html__( 'Unable to start synchronization. The link you followed may have expired.', 'poocommerce' )
+					: esc_html__( 'Unable to stop synchronization. The link you followed may have expired.', 'poocommerce' )
 			);
 			return;
 		}
@@ -514,7 +514,7 @@ class CustomOrdersTableController {
 	 *
 	 * @return array
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function register_removable_query_arg( $query_args ) {
 		$query_args[] = self::SYNC_QUERY_ARG;
@@ -524,12 +524,12 @@ class CustomOrdersTableController {
 	}
 
 	/**
-	 * Handler for the woocommerce_after_register_post_type post,
+	 * Handler for the poocommerce_after_register_post_type post,
 	 * registers the post type for placeholder orders.
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function register_post_type_for_order_placeholders(): void {
 		wc_register_order_type(
@@ -563,7 +563,7 @@ class CustomOrdersTableController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_feature_definition( $features_controller ) {
 		$definition = array(
@@ -580,7 +580,7 @@ class CustomOrdersTableController {
 
 		$features_controller->add_feature_definition(
 			'custom_order_tables',
-			__( 'High-Performance order storage', 'woocommerce' ),
+			__( 'High-Performance order storage', 'poocommerce' ),
 			$definition
 		);
 	}
@@ -614,7 +614,7 @@ class CustomOrdersTableController {
 			$compatibility_info = $this->features_controller->get_compatible_plugins_for_feature( 'custom_order_tables', true );
 			$sync_complete      = 0 === $this->data_synchronizer->get_current_orders_pending_sync_count();
 			$disabled           = array();
-			// Changing something here? You might also want to look at `enable|disable` functions in Automattic\WooCommerce\Database\Migrations\CustomOrderTable\CLIRunner.
+			// Changing something here? You might also want to look at `enable|disable` functions in Automattic\PooCommerce\Database\Migrations\CustomOrderTable\CLIRunner.
 			$incompatible_plugins = $this->plugin_util->get_items_considered_incompatible( 'custom_order_tables', $compatibility_info );
 			$incompatible_plugins = array_diff( $incompatible_plugins, $this->plugin_util->get_plugins_excluded_from_compatibility_ui() );
 			if ( count( $incompatible_plugins ) > 0 ) {
@@ -629,11 +629,11 @@ class CustomOrdersTableController {
 
 		return array(
 			'id'          => self::CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION,
-			'title'       => __( 'Order data storage', 'woocommerce' ),
+			'title'       => __( 'Order data storage', 'poocommerce' ),
 			'type'        => 'radio',
 			'options'     => array(
-				'no'  => __( 'WordPress posts storage (legacy)', 'woocommerce' ),
-				'yes' => __( 'High-performance order storage (recommended)', 'woocommerce' ),
+				'no'  => __( 'WordPress posts storage (legacy)', 'poocommerce' ),
+				'yes' => __( 'High-performance order storage (recommended)', 'poocommerce' ),
 			),
 			'value'       => $get_value,
 			'disabled'    => $get_disabled,
@@ -670,24 +670,24 @@ class CustomOrdersTableController {
 				$sync_message[] = wp_kses_data(
 					sprintf(
 						// translators: %s: number of pending orders.
-						_n( "There's %s order pending sync.", 'There are %s orders pending sync.', $orders_pending_sync_count, 'woocommerce' ),
+						_n( "There's %s order pending sync.", 'There are %s orders pending sync.', $orders_pending_sync_count, 'poocommerce' ),
 						number_format_i18n( $orders_pending_sync_count ),
 					)
 					. ' '
 					. '<strong>'
-					. __( 'Switching data storage while sync is incomplete is dangerous and can lead to order data corruption or loss!', 'woocommerce' )
+					. __( 'Switching data storage while sync is incomplete is dangerous and can lead to order data corruption or loss!', 'poocommerce' )
 					. '</strong>'
 				);
 			}
 
 			if ( ! $sync_enabled && $this->data_synchronizer->background_sync_is_enabled() ) {
-				$sync_message[] = __( 'Background sync is enabled.', 'woocommerce' );
+				$sync_message[] = __( 'Background sync is enabled.', 'poocommerce' );
 			}
 
 			if ( $sync_in_progress && $sync_is_pending ) {
 				$sync_message[] = sprintf(
 					// translators: %s: number of pending orders.
-					__( 'Currently syncing orders... %s pending', 'woocommerce' ),
+					__( 'Currently syncing orders... %s pending', 'poocommerce' ),
 					number_format_i18n( $orders_pending_sync_count )
 				);
 
@@ -705,7 +705,7 @@ class CustomOrdersTableController {
 					$sync_message[] = sprintf(
 						'<a href="%1$s" class="button button-link">%2$s</a>',
 						esc_url( $stop_sync_url ),
-						__( 'Stop sync', 'woocommerce' )
+						__( 'Stop sync', 'poocommerce' )
 					);
 				}
 			} elseif ( $sync_is_pending ) {
@@ -727,7 +727,7 @@ class CustomOrdersTableController {
 								"You can switch order data storage <strong>only when the posts and orders tables are in sync</strong>. There's currently %s order out of sync.",
 								'You can switch order data storage <strong>only when the posts and orders tables are in sync</strong>. There are currently %s orders out of sync. ',
 								$orders_pending_sync_count,
-								'woocommerce'
+								'poocommerce'
 							),
 							number_format_i18n( $orders_pending_sync_count )
 						)
@@ -737,7 +737,7 @@ class CustomOrdersTableController {
 				$sync_message[] = sprintf(
 					'<a href="%1$s" class="button button-link">%2$s</a>',
 					esc_url( $sync_now_url ),
-					__( 'Sync orders now', 'woocommerce' )
+					__( 'Sync orders now', 'poocommerce' )
 				);
 			}
 
@@ -754,7 +754,7 @@ class CustomOrdersTableController {
 			'id'                   => DataSynchronizer::ORDERS_DATA_SYNC_ENABLED_OPTION,
 			'title'                => '',
 			'type'                 => 'checkbox',
-			'desc'                 => __( 'Enable compatibility mode (Synchronize orders between High-performance order storage and WordPress posts storage).', 'woocommerce' ),
+			'desc'                 => __( 'Enable compatibility mode (Synchronize orders between High-performance order storage and WordPress posts storage).', 'poocommerce' ),
 			'value'                => $get_value,
 			'desc_tip'             => $get_sync_message,
 			'description_is_error' => $get_description_is_error,
@@ -792,7 +792,7 @@ class CustomOrdersTableController {
 	 * @param int    $post_id Post ID.
 	 * @return string
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function maybe_rewrite_order_edit_link( $link, $post_id ) {
 		if ( DataSynchronizer::PLACEHOLDER_ORDER_POST_TYPE === get_post_type( $post_id ) ) {

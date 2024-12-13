@@ -2,7 +2,7 @@
 /**
  * Products shortcode
  *
- * @package  WooCommerce\Shortcodes
+ * @package  PooCommerce\Shortcodes
  * @version  3.2.4
  */
 
@@ -232,7 +232,7 @@ class WC_Shortcode_Products {
 		// Tags.
 		$this->set_tags_query_args( $query_args );
 
-		$query_args = apply_filters( 'woocommerce_shortcode_products_query', $query_args, $this->attributes, $this->type );
+		$query_args = apply_filters( 'poocommerce_shortcode_products_query', $query_args, $this->attributes, $this->type );
 
 		// Always query only IDs.
 		$query_args['fields'] = 'ids';
@@ -525,7 +525,7 @@ class WC_Shortcode_Products {
 	 * @return array
 	 */
 	protected function get_wrapper_classes( $columns ) {
-		$classes = array( 'woocommerce' );
+		$classes = array( 'poocommerce' );
 
 		if ( 'product' !== $this->type ) {
 			$classes[] = 'columns-' . $columns;
@@ -547,7 +547,7 @@ class WC_Shortcode_Products {
 
 		if ( 'rand' === $this->query_args['orderby'] ) {
 			// When using rand, we'll cache a number of random queries and pull those to avoid querying rand on each page load.
-			$rand_index      = wp_rand( 0, max( 1, absint( apply_filters( 'woocommerce_product_query_max_rand_cache_count', 5 ) ) ) );
+			$rand_index      = wp_rand( 0, max( 1, absint( apply_filters( 'poocommerce_product_query_max_rand_cache_count', 5 ) ) ) );
 			$transient_name .= $rand_index;
 		}
 
@@ -600,7 +600,7 @@ class WC_Shortcode_Products {
 		 * @param stdClass $results Query results.
 		 * @param WC_Shortcode_Products $this WC_Shortcode_Products instance.
 		 */
-		return apply_filters( 'woocommerce_shortcode_products_query_results', $results, $this );
+		return apply_filters( 'poocommerce_shortcode_products_query_results', $results, $this );
 	}
 
 	/**
@@ -639,7 +639,7 @@ class WC_Shortcode_Products {
 
 			$original_post = $GLOBALS['post'];
 
-			do_action( "woocommerce_shortcode_before_{$this->type}_loop", $this->attributes );
+			do_action( "poocommerce_shortcode_before_{$this->type}_loop", $this->attributes );
 
 			if ( wc_string_to_bool( $this->attributes['paginate'] ) ) {
 				/**
@@ -648,10 +648,10 @@ class WC_Shortcode_Products {
 				 *
 				 * @since 3.3.1
 				 */
-				do_action( 'woocommerce_before_shop_loop' );
+				do_action( 'poocommerce_before_shop_loop' );
 			}
 
-			woocommerce_product_loop_start();
+			poocommerce_product_loop_start();
 
 			if ( wc_get_loop_prop( 'total' ) ) {
 				foreach ( $products->ids as $product_id ) {
@@ -659,18 +659,18 @@ class WC_Shortcode_Products {
 					setup_postdata( $GLOBALS['post'] );
 
 					// Set custom product visibility when querying hidden products.
-					add_action( 'woocommerce_product_is_visible', array( $this, 'set_product_as_visible' ) );
+					add_action( 'poocommerce_product_is_visible', array( $this, 'set_product_as_visible' ) );
 
 					// Render product template.
 					wc_get_template_part( 'content', 'product' );
 
 					// Restore product visibility.
-					remove_action( 'woocommerce_product_is_visible', array( $this, 'set_product_as_visible' ) );
+					remove_action( 'poocommerce_product_is_visible', array( $this, 'set_product_as_visible' ) );
 				}
 			}
 
 			$GLOBALS['post'] = $original_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-			woocommerce_product_loop_end();
+			poocommerce_product_loop_end();
 
 			if ( wc_string_to_bool( $this->attributes['paginate'] ) ) {
 				/**
@@ -679,15 +679,15 @@ class WC_Shortcode_Products {
 				 *
 				 * @since 3.3.1
 				 */
-				do_action( 'woocommerce_after_shop_loop' );
+				do_action( 'poocommerce_after_shop_loop' );
 			}
 
-			do_action( "woocommerce_shortcode_after_{$this->type}_loop", $this->attributes );
+			do_action( "poocommerce_shortcode_after_{$this->type}_loop", $this->attributes );
 
 			wp_reset_postdata();
 			wc_reset_loop();
 		} else {
-			do_action( "woocommerce_shortcode_{$this->type}_loop_no_results", $this->attributes );
+			do_action( "poocommerce_shortcode_{$this->type}_loop_no_results", $this->attributes );
 		}
 
 		return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . ob_get_clean() . '</div>';

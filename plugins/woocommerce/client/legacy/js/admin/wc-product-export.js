@@ -8,14 +8,14 @@
 		this.xhr   = false;
 
 		// Initial state.
-		this.$form.find('.woocommerce-exporter-progress').val( 0 );
+		this.$form.find('.poocommerce-exporter-progress').val( 0 );
 
 		// Methods.
 		this.processStep = this.processStep.bind( this );
 
 		// Events.
 		$form.on( 'submit', { productExportForm: this }, this.onSubmit );
-		$form.find( '.woocommerce-exporter-types' ).on( 'change', { productExportForm: this }, this.exportTypeFields );
+		$form.find( '.poocommerce-exporter-types' ).on( 'change', { productExportForm: this }, this.exportTypeFields );
 	};
 
 	/**
@@ -31,9 +31,9 @@
 			timestamp      = currentDate.getTime(),
 			filename       = 'wc-product-export-' + day + '-' + month + '-' + year + '-' + timestamp + '.csv';
 
-		event.data.productExportForm.$form.addClass( 'woocommerce-exporter__exporting' );
-		event.data.productExportForm.$form.find('.woocommerce-exporter-progress').val( 0 );
-		event.data.productExportForm.$form.find('.woocommerce-exporter-button').prop( 'disabled', true );
+		event.data.productExportForm.$form.addClass( 'poocommerce-exporter__exporting' );
+		event.data.productExportForm.$form.find('.poocommerce-exporter-progress').val( 0 );
+		event.data.productExportForm.$form.find('.poocommerce-exporter-button').prop( 'disabled', true );
 		event.data.productExportForm.processStep( 1, $( this ).serialize(), '', filename );
 	};
 
@@ -42,17 +42,17 @@
 	 */
 	productExportForm.prototype.processStep = function( step, data, columns, filename ) {
 		var $this         = this,
-			selected_columns = $( '.woocommerce-exporter-columns' ).val(),
-			export_meta      = $( '#woocommerce-exporter-meta:checked' ).length ? 1: 0,
-			export_types     = $( '.woocommerce-exporter-types' ).val(),
-			export_category  = $( '.woocommerce-exporter-category' ).val();
+			selected_columns = $( '.poocommerce-exporter-columns' ).val(),
+			export_meta      = $( '#poocommerce-exporter-meta:checked' ).length ? 1: 0,
+			export_types     = $( '.poocommerce-exporter-types' ).val(),
+			export_category  = $( '.poocommerce-exporter-category' ).val();
 
 		$.ajax( {
 			type: 'POST',
 			url: ajaxurl,
 			data: {
 				form             : data,
-				action           : 'woocommerce_do_ajax_product_export',
+				action           : 'poocommerce_do_ajax_product_export',
 				step             : step,
 				columns          : columns,
 				selected_columns : selected_columns,
@@ -66,14 +66,14 @@
 			success: function( response ) {
 				if ( response.success ) {
 					if ( 'done' === response.data.step ) {
-						$this.$form.find('.woocommerce-exporter-progress').val( response.data.percentage );
+						$this.$form.find('.poocommerce-exporter-progress').val( response.data.percentage );
 						window.location = response.data.url;
 						setTimeout( function() {
-							$this.$form.removeClass( 'woocommerce-exporter__exporting' );
-							$this.$form.find('.woocommerce-exporter-button').prop( 'disabled', false );
+							$this.$form.removeClass( 'poocommerce-exporter__exporting' );
+							$this.$form.find('.poocommerce-exporter-button').prop( 'disabled', false );
 						}, 2000 );
 					} else {
-						$this.$form.find('.woocommerce-exporter-progress').val( response.data.percentage );
+						$this.$form.find('.poocommerce-exporter-progress').val( response.data.percentage );
 						$this.processStep( parseInt( response.data.step, 10 ), data, response.data.columns, filename );
 					}
 				}
@@ -89,7 +89,7 @@
 	 * Handle fields per export type.
 	 */
 	productExportForm.prototype.exportTypeFields = function() {
-		var exportCategory = $( '.woocommerce-exporter-category' );
+		var exportCategory = $( '.poocommerce-exporter-category' );
 
 		if ( -1 !== $.inArray( 'variation', $( this ).val() ) ) {
 			exportCategory.closest( 'tr' ).hide();
@@ -107,6 +107,6 @@
 		return this;
 	};
 
-	$( '.woocommerce-exporter' ).wc_product_export_form();
+	$( '.poocommerce-exporter' ).wc_product_export_form();
 
 })( jQuery, window );

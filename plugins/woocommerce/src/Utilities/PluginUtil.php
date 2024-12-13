@@ -3,11 +3,11 @@
  * A class of utilities for dealing with plugins.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Utilities\PluginInstaller;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Utilities\PluginInstaller;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * A class of utilities for dealing with plugins.
@@ -22,18 +22,18 @@ class PluginUtil {
 	private $proxy;
 
 	/**
-	 * The cached list of WooCommerce aware plugin ids.
+	 * The cached list of PooCommerce aware plugin ids.
 	 *
 	 * @var null|array
 	 */
-	private $woocommerce_aware_plugins = null;
+	private $poocommerce_aware_plugins = null;
 
 	/**
-	 * The cached list of enabled WooCommerce aware plugin ids.
+	 * The cached list of enabled PooCommerce aware plugin ids.
 	 *
 	 * @var null|array
 	 */
-	private $woocommerce_aware_active_plugins = null;
+	private $poocommerce_aware_active_plugins = null;
 
 	/**
 	 * List of plugins excluded from feature compatibility warnings in UI.
@@ -49,7 +49,7 @@ class PluginUtil {
 		add_action( 'activated_plugin', array( $this, 'handle_plugin_de_activation' ), 10, 0 );
 		add_action( 'deactivated_plugin', array( $this, 'handle_plugin_de_activation' ), 10, 0 );
 
-		$this->plugins_excluded_from_compatibility_ui = array( 'woocommerce-legacy-rest-api/woocommerce-legacy-rest-api.php' );
+		$this->plugins_excluded_from_compatibility_ui = array( 'poocommerce-legacy-rest-api/poocommerce-legacy-rest-api.php' );
 	}
 
 	/**
@@ -96,31 +96,31 @@ class PluginUtil {
 	}
 
 	/**
-	 * Get a list with the names of the WordPress plugins that are WooCommerce aware
+	 * Get a list with the names of the WordPress plugins that are PooCommerce aware
 	 * (they have a "WC tested up to" header).
 	 *
 	 * @param bool $active_only True to return only active plugins, false to return all the active plugins.
 	 * @return string[] A list of plugin ids (path/file.php).
 	 */
-	public function get_woocommerce_aware_plugins( bool $active_only = false ): array {
-		if ( is_null( $this->woocommerce_aware_plugins ) ) {
+	public function get_poocommerce_aware_plugins( bool $active_only = false ): array {
+		if ( is_null( $this->poocommerce_aware_plugins ) ) {
 			// In case `get_plugins` was called much earlier in the request (before our headers could be injected), we
 			// invalidate the plugin cache list.
 			wp_cache_delete( 'plugins', 'plugins' );
 			$all_plugins = $this->proxy->call_function( 'get_plugins' );
 
-			$this->woocommerce_aware_plugins =
+			$this->poocommerce_aware_plugins =
 				array_keys(
 					array_filter(
 						$all_plugins,
-						array( $this, 'is_woocommerce_aware_plugin' )
+						array( $this, 'is_poocommerce_aware_plugin' )
 					)
 				);
 
-			$this->woocommerce_aware_active_plugins =
+			$this->poocommerce_aware_active_plugins =
 				array_values(
 					array_filter(
-						$this->woocommerce_aware_plugins,
+						$this->poocommerce_aware_plugins,
 						function ( $plugin_name ) {
 							return $this->proxy->call_function( 'is_plugin_active', $plugin_name );
 						}
@@ -128,7 +128,7 @@ class PluginUtil {
 				);
 		}
 
-		return $active_only ? $this->woocommerce_aware_active_plugins : $this->woocommerce_aware_plugins;
+		return $active_only ? $this->poocommerce_aware_active_plugins : $this->poocommerce_aware_plugins;
 	}
 
 	/**
@@ -143,19 +143,19 @@ class PluginUtil {
 	}
 
 	/**
-	 * Check if a plugin is WooCommerce aware.
+	 * Check if a plugin is PooCommerce aware.
 	 *
 	 * @param string|array $plugin_file_or_data Plugin id (path/file.php) or plugin data (as returned by get_plugins).
-	 * @return bool True if the plugin exists and is WooCommerce aware.
+	 * @return bool True if the plugin exists and is PooCommerce aware.
 	 * @throws \Exception The input is neither a string nor an array.
 	 */
-	public function is_woocommerce_aware_plugin( $plugin_file_or_data ): bool {
+	public function is_poocommerce_aware_plugin( $plugin_file_or_data ): bool {
 		if ( is_string( $plugin_file_or_data ) ) {
-			return in_array( $plugin_file_or_data, $this->get_woocommerce_aware_plugins(), true );
+			return in_array( $plugin_file_or_data, $this->get_poocommerce_aware_plugins(), true );
 		} elseif ( is_array( $plugin_file_or_data ) ) {
 			return '' !== ( $plugin_file_or_data['WC tested up to'] ?? '' );
 		} else {
-			throw new \Exception( 'is_woocommerce_aware_plugin requires a plugin name or an array of plugin data as input' );
+			throw new \Exception( 'is_poocommerce_aware_plugin requires a plugin name or an array of plugin data as input' );
 		}
 	}
 
@@ -204,13 +204,13 @@ class PluginUtil {
 	}
 
 	/**
-	 * Handle plugin activation and deactivation by clearing the WooCommerce aware plugin ids cache.
+	 * Handle plugin activation and deactivation by clearing the PooCommerce aware plugin ids cache.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_plugin_de_activation(): void {
-		$this->woocommerce_aware_plugins        = null;
-		$this->woocommerce_aware_active_plugins = null;
+		$this->poocommerce_aware_plugins        = null;
+		$this->poocommerce_aware_active_plugins = null;
 	}
 
 	/**
@@ -231,26 +231,26 @@ class PluginUtil {
 		$incompatible_count = count( $incompatibles );
 
 		$feature_warnings = array();
-		if ( 'custom_order_tables' === $feature_id && 'yes' === get_option( 'woocommerce_api_enabled' ) ) {
-			if ( is_plugin_active( 'woocommerce-legacy-rest-api/woocommerce-legacy-rest-api.php' ) ) {
+		if ( 'custom_order_tables' === $feature_id && 'yes' === get_option( 'poocommerce_api_enabled' ) ) {
+			if ( is_plugin_active( 'poocommerce-legacy-rest-api/poocommerce-legacy-rest-api.php' ) ) {
 				$legacy_api_and_hpos_incompatibility_warning_text =
 					sprintf(
 						// translators: %s is a URL.
-						__( '⚠ <b><a target="_blank" href="%s">The Legacy REST API plugin</a> is installed and active on this site.</b> Please be aware that the WooCommerce Legacy REST API is <b>not</b> compatible with HPOS.', 'woocommerce' ),
-						'https://wordpress.org/plugins/woocommerce-legacy-rest-api/'
+						__( '⚠ <b><a target="_blank" href="%s">The Legacy REST API plugin</a> is installed and active on this site.</b> Please be aware that the PooCommerce Legacy REST API is <b>not</b> compatible with HPOS.', 'poocommerce' ),
+						'https://wordpress.org/plugins/poocommerce-legacy-rest-api/'
 					);
 			} else {
 				$legacy_api_and_hpos_incompatibility_warning_text =
 				sprintf(
 					// translators: %s is a URL.
-					__( '⚠ <b><a target="_blank" href="%s">The Legacy REST API</a> is active on this site.</b> Please be aware that the WooCommerce Legacy REST API is <b>not</b> compatible with HPOS.', 'woocommerce' ),
+					__( '⚠ <b><a target="_blank" href="%s">The Legacy REST API</a> is active on this site.</b> Please be aware that the PooCommerce Legacy REST API is <b>not</b> compatible with HPOS.', 'poocommerce' ),
 					admin_url( 'admin.php?page=wc-settings&tab=advanced&section=legacy_api' )
 				);
 			}
 
 			/**
 			 * Filter to modify the warning text that appears in the HPOS section of the features settings page
-			 * when both the Legacy REST API is active (via WooCommerce core or via the Legacy REST API plugin)
+			 * when both the Legacy REST API is active (via PooCommerce core or via the Legacy REST API plugin)
 			 * and the orders table is in use as the primary data store for orders.
 			 *
 			 * @param string $legacy_api_and_hpos_incompatibility_warning_text Original warning text.
@@ -258,7 +258,7 @@ class PluginUtil {
 			 *
 			 * @since 8.9.0
 			 */
-			$legacy_api_and_hpos_incompatibility_warning_text = apply_filters( 'woocommerce_legacy_api_and_hpos_incompatibility_warning_text', $legacy_api_and_hpos_incompatibility_warning_text );
+			$legacy_api_and_hpos_incompatibility_warning_text = apply_filters( 'poocommerce_legacy_api_and_hpos_incompatibility_warning_text', $legacy_api_and_hpos_incompatibility_warning_text );
 
 			if ( ! is_null( $legacy_api_and_hpos_incompatibility_warning_text ) ) {
 				$feature_warnings[] = $legacy_api_and_hpos_incompatibility_warning_text . "\n";
@@ -268,11 +268,11 @@ class PluginUtil {
 		if ( $incompatible_count > 0 ) {
 			if ( 1 === $incompatible_count ) {
 				/* translators: %s = printable plugin name */
-				$feature_warnings[] = sprintf( __( '⚠ 1 Incompatible plugin detected (%s).', 'woocommerce' ), $this->get_plugin_name( $incompatibles[0] ) );
+				$feature_warnings[] = sprintf( __( '⚠ 1 Incompatible plugin detected (%s).', 'poocommerce' ), $this->get_plugin_name( $incompatibles[0] ) );
 			} elseif ( 2 === $incompatible_count ) {
 				$feature_warnings[] = sprintf(
 					/* translators: %1\$s, %2\$s = printable plugin names */
-					__( '⚠ 2 Incompatible plugins detected (%1$s and %2$s).', 'woocommerce' ),
+					__( '⚠ 2 Incompatible plugins detected (%1$s and %2$s).', 'poocommerce' ),
 					$this->get_plugin_name( $incompatibles[0] ),
 					$this->get_plugin_name( $incompatibles[1] )
 				);
@@ -283,7 +283,7 @@ class PluginUtil {
 						'⚠ Incompatible plugins detected (%1$s, %2$s and %3$d other).',
 						'⚠ Incompatible plugins detected (%1$s and %2$s plugins and %3$d others).',
 						$incompatible_count - 2,
-						'woocommerce'
+						'poocommerce'
 					),
 					$this->get_plugin_name( $incompatibles[0] ),
 					$this->get_plugin_name( $incompatibles[1] ),
@@ -301,7 +301,7 @@ class PluginUtil {
 
 			$feature_warnings[] = sprintf(
 				/* translators: %1$s opening link tag %2$s closing link tag. */
-				__( '%1$sView and manage%2$s', 'woocommerce' ),
+				__( '%1$sView and manage%2$s', 'poocommerce' ),
 				'<a href="' . esc_url( $incompatible_plugins_url ) . '">',
 				'</a>'
 			);

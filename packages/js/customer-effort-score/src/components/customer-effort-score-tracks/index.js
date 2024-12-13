@@ -4,9 +4,9 @@
 import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { createElement, useState } from '@wordpress/element';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -54,7 +54,7 @@ function _CustomerEffortScoreTracks( {
 	firstQuestion,
 	secondQuestion,
 	icon,
-	onSubmitLabel = __( 'Thank you for your feedback!', 'woocommerce' ),
+	onSubmitLabel = __( 'Thank you for your feedback!', 'poocommerce' ),
 	cesShownForActions,
 	allowTracking,
 	resolving,
@@ -168,7 +168,7 @@ function _CustomerEffortScoreTracks( {
 				<span
 					style={ { height: 21, width: 21 } }
 					role="img"
-					aria-label={ __( 'Pencil icon', 'woocommerce' ) }
+					aria-label={ __( 'Pencil icon', 'poocommerce' ) }
 				>
 					{ icon || '✏' }
 				</span>

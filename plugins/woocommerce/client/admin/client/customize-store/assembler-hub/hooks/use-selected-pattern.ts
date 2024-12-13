@@ -9,7 +9,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { PatternWithBlocks } from '~/customize-store/types/pattern';
 
 export const useSelectedPattern = (
-	patternSelector = '.woocommerce-edit-site-sidebar-navigation-screen__content .block-editor-block-patterns-list__item'
+	patternSelector = '.poocommerce-edit-site-sidebar-navigation-screen__content .block-editor-block-patterns-list__item'
 ) => {
 	const [ selectedPattern, setSelectedPattern ] =
 		useState< PatternWithBlocks >();

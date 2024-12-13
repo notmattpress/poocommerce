@@ -5,7 +5,7 @@ import {
 	test,
 	expect,
 	BLOCK_THEME_WITH_TEMPLATES_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ test.describe( 'Template customization', () => {
 				: 'template part';
 
 		test.describe( `${ testData.templateName } template`, () => {
-			test( "theme template has priority over WooCommerce's and can be modified", async ( {
+			test( "theme template has priority over PooCommerce's and can be modified", async ( {
 				admin,
 				editor,
 				frontendUtils,
@@ -51,7 +51,7 @@ test.describe( 'Template customization', () => {
 				} );
 
 				// Verify template name didn't change.
-				// See: https://github.com/woocommerce/woocommerce/issues/42221
+				// See: https://github.com/poocommerce/poocommerce/issues/42221
 				await expect(
 					page.getByRole( 'heading', {
 						name: templateTypeName,

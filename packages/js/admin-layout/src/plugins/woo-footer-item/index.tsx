@@ -7,15 +7,15 @@ import { createElement } from '@wordpress/element';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
-export const WC_FOOTER_SLOT_NAME = 'woocommerce_footer_item';
+export const WC_FOOTER_SLOT_NAME = 'poocommerce_footer_item';
 
 /**
- * Create a Fill for extensions to add items to the WooCommerce Admin footer.
+ * Create a Fill for extensions to add items to the PooCommerce Admin footer.
  *
  * @slotFill WooFooterItem
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyFooterItem = () => (
  * <WooFooterItem>My header item</WooFooterItem>
@@ -23,7 +23,7 @@ export const WC_FOOTER_SLOT_NAME = 'woocommerce_footer_item';
  *
  * registerPlugin( 'my-extension', {
  * render: MyFooterItem,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

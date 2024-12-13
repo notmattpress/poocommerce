@@ -1,18 +1,18 @@
 ---
-post_title: How to manage WooCommerce Data Stores
+post_title: How to manage PooCommerce Data Stores
 menu_title: Manage data stores
 Tags: how-to
 ---
 
 ## Introduction
 
-Data store classes act as a bridge between WooCommerce's data CRUD classes (`WC_Product`, `WC_Order`, `WC_Customer`, etc) and the database layer. With the database logic separate from data, WooCommerce becomes more flexible. The data stores shipped with WooCommerce core (powered by WordPress' custom posts system and some custom tables) can be swapped out for a different database structure, type, or even be powered by an external API.
+Data store classes act as a bridge between PooCommerce's data CRUD classes (`WC_Product`, `WC_Order`, `WC_Customer`, etc) and the database layer. With the database logic separate from data, PooCommerce becomes more flexible. The data stores shipped with PooCommerce core (powered by WordPress' custom posts system and some custom tables) can be swapped out for a different database structure, type, or even be powered by an external API.
 
 This guide will walk through the structure of a data store class, how to create a new data store, how to replace a core data store, and how to call a data store from your own code.
 
-The examples in this guide will look at the [`WC_Coupon`](https://github.com/woocommerce/woocommerce/blob/dcecf0f22890f3cd92fbea13a98c11b2537df2a8/includes/class-wc-coupon.php#L19) CRUD data class and [`WC_Coupon_Data_Store_CPT`](https://github.com/woocommerce/woocommerce/blob/dcecf0f22890f3cd92fbea13a98c11b2537df2a8/includes/data-stores/class-wc-coupon-data-store-cpt.php), an implementation of a coupon data store using WordPress custom post types. This is how coupons are currently stored in WooCommerce.
+The examples in this guide will look at the [`WC_Coupon`](https://github.com/poocommerce/poocommerce/blob/dcecf0f22890f3cd92fbea13a98c11b2537df2a8/includes/class-wc-coupon.php#L19) CRUD data class and [`WC_Coupon_Data_Store_CPT`](https://github.com/poocommerce/poocommerce/blob/dcecf0f22890f3cd92fbea13a98c11b2537df2a8/includes/data-stores/class-wc-coupon-data-store-cpt.php), an implementation of a coupon data store using WordPress custom post types. This is how coupons are currently stored in PooCommerce.
 
-The important thing to know about `WC_Coupon` or any other CRUD data class when working with data stores is which props (properties) they contain. This is defined in the [`data`](https://github.com/woocommerce/woocommerce/blob/dcecf0f22890f3cd92fbea13a98c11b2537df2a8/includes/class-wc-coupon.php#L26) array of each class.
+The important thing to know about `WC_Coupon` or any other CRUD data class when working with data stores is which props (properties) they contain. This is defined in the [`data`](https://github.com/poocommerce/poocommerce/blob/dcecf0f22890f3cd92fbea13a98c11b2537df2a8/includes/class-wc-coupon.php#L26) array of each class.
 
 ## Structure
 
@@ -40,7 +40,7 @@ All data stores must implement handling for these methods.
 
 In addition to handling your props, other custom data can be passed. This is considered `meta`. For example, coupons can have custom data provided by plugins.
 
-The `read_meta`, `delete_meta`, `add_meta`, and `update_meta` methods should be defined so meta can be read and managed from the correct source. In the case of our WooCommerce core classes, we define them in `WC_Data_Store_WP` and then use the same code for all of our data stores. They all use the WordPress meta system. You can redefine these if meta should come from a different source.
+The `read_meta`, `delete_meta`, `add_meta`, and `update_meta` methods should be defined so meta can be read and managed from the correct source. In the case of our PooCommerce core classes, we define them in `WC_Data_Store_WP` and then use the same code for all of our data stores. They all use the WordPress meta system. You can redefine these if meta should come from a different source.
 
 Your data store can also implement other methods to replace direct queries. For example, the coupons data store has a public `get_usage_by_user_id` method. Data stores should always define and implement an interface for the methods they expect, so other developers know what methods they need to write. Put another way, in addition to the `WC_Object_Data_Store_Interface` interface, `WC_Coupon_Data_Store_CPT` also implements `WC_Coupon_Data_Store_Interface`.
 
@@ -92,7 +92,7 @@ public function create( &$coupon ) {
 	$coupon->apply_changes();
 	
 	// It is helpful to provide the same hooks when an action is completed, so that plugins can interact with your data store.
-	do_action( 'woocommerce_new_coupon', $coupon_id );
+	do_action( 'poocommerce_new_coupon', $coupon_id );
 }
 
 /**
@@ -120,7 +120,7 @@ public function read( &$coupon ) {
 	
 	// This flag reports if an object has been hydrated or not. If this ends up false, the database hasn't correctly set the object.
 	$coupon->set_object_read( true );
-	do_action( 'woocommerce_coupon_loaded', $coupon );
+	do_action( 'poocommerce_coupon_loaded', $coupon );
 }
 
 /**
@@ -133,7 +133,7 @@ public function update( &$coupon ) {
 	
 	$coupon->save_meta_data();
 	$coupon->apply_changes();
-	do_action( 'woocommerce_update_coupon', $coupon->get_id() );
+	do_action( 'poocommerce_update_coupon', $coupon->get_id() );
 }
 
 /**
@@ -143,7 +143,7 @@ public function update( &$coupon ) {
  * @param array $args Array of args to pass to the delete method.
  */
 public function delete( &$coupon, $args = array() ) {
-	// A lot of objects in WordPress and WooCommerce support
+	// A lot of objects in WordPress and PooCommerce support
 	// the concept of trashing. This usually is a flag to move the object
 	// to a "recycling bin". Since coupons support trashing, your layer should too.
 	// If an actual delete occurs, set the coupon ID to 0.
@@ -157,10 +157,10 @@ public function delete( &$coupon, $args = array() ) {
 	if ( $args['force_delete'] ) {
 		// Delete Query
 		$coupon->set_id( 0 );
-		do_action( 'woocommerce_delete_coupon', $id );
+		do_action( 'poocommerce_delete_coupon', $id );
 	} else {
 		// Trash Query
-		do_action( 'woocommerce_trash_coupon', $id );
+		do_action( 'poocommerce_trash_coupon', $id );
 	}
 }
 ```
@@ -223,7 +223,7 @@ public function get_usage_by_user_id( &$coupon, $user_id ) {
  }
 ```
 
-Once all the data store methods are defined and logic written, we need to tell WooCommerce to load our new class instead of the built-in class. This is done using the `woocommerce_data_stores` filter. An array of data store slugs is mapped to default WooCommerce classes. Example:
+Once all the data store methods are defined and logic written, we need to tell PooCommerce to load our new class instead of the built-in class. This is done using the `poocommerce_data_stores` filter. An array of data store slugs is mapped to default PooCommerce classes. Example:
 
 ```php
 'coupon'              => 'WC_Coupon_Data_Store_CPT',
@@ -254,10 +254,10 @@ function myplugin_set_wc_coupon_data_store( $stores ) {
 	return $stores;
 }
 
-add_filter( 'woocommerce_data_stores', 'myplugin_set_wc_coupon_data_store' );
+add_filter( 'poocommerce_data_stores', 'myplugin_set_wc_coupon_data_store' );
 ```
 
-Our class would then be loaded by WooCommerce core, instead of `WC_Coupon_Data_Store_CPT`.
+Our class would then be loaded by PooCommerce core, instead of `WC_Coupon_Data_Store_CPT`.
 
 ## Creating a new data store
 
@@ -267,7 +267,7 @@ Does your extension create a new product type? Each product type has a data stor
 
 For example, the external product data store handles "button text" and "external URL". The variable data store handles the relationship between parent products and their variations.
 
-Check out [this walkthrough](https://developer.woocommerce.com/2017/02/06/wc-2-7-extension-compatibility-examples-3-bookings/) for more information on this process.
+Check out [this walkthrough](https://developer.poocommerce.com/2017/02/06/wc-2-7-extension-compatibility-examples-3-bookings/) for more information on this process.
 
 ### Data store for custom data
 
@@ -275,9 +275,9 @@ If your extension introduces a new database table, new custom post type, or some
 
 Your data store should still implement `WC_Object_Data_Store_Interface` and provide the normal CRUD functions. Your data store should be the main point of entry for interacting with your data, so any other queries or operations should also have methods.
 
-The [shipping zone data store](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/data-stores/class-wc-shipping-zone-data-store.php) serves as a good example for a "simple" data store using a custom table. The coupons code is a good example for a data store using a custom post type.
+The [shipping zone data store](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/data-stores/class-wc-shipping-zone-data-store.php) serves as a good example for a "simple" data store using a custom table. The coupons code is a good example for a data store using a custom post type.
 
-All you need to do to register your data store is add it to the `woocommerce_data_stores` filter:
+All you need to do to register your data store is add it to the `poocommerce_data_stores` filter:
 
 ```php
 function myplugin_set_my_custom_data_store( $stores ) {
@@ -285,10 +285,10 @@ function myplugin_set_my_custom_data_store( $stores ) {
 	return $stores;
 }
 
-add_filter( 'woocommerce_data_stores', 'myplugin_set_my_custom_data_store' );
+add_filter( 'poocommerce_data_stores', 'myplugin_set_my_custom_data_store' );
 ```
 
-You can then load your data store like any other WooCommerce data store.
+You can then load your data store like any other PooCommerce data store.
 
 ## Calling a data store
 
@@ -308,7 +308,7 @@ You can also chain methods:
 $num_of_methods = WC_Data_Store::load( 'shipping-zone' )->get_method_count( 4 );
 ```
 
-The `::load()` method works for any data store registered to `woocommerce_data_stores`, so you could load your custom data store:
+The `::load()` method works for any data store registered to `poocommerce_data_stores`, so you could load your custom data store:
 
 ```php
 $data_store = WC_Data_Store::load( 'mycustomdata' );
@@ -316,6 +316,6 @@ $data_store = WC_Data_Store::load( 'mycustomdata' );
 
 ## Data store limitations and WP Admin
 
-Currently, several WooCommerce screens still rely on WordPress to list objects. Examples of this include coupons and products.
+Currently, several PooCommerce screens still rely on WordPress to list objects. Examples of this include coupons and products.
 
 If you replace data via a data store, some parts of the existing UI may fail. An example of this may be lists of coupons when using the `type` filter. This filter uses meta data, and is in turn passed to WordPress which runs a query using the `WP_Query` class. This cannot handle data outside of the regular meta tables (Ref #19937). To get around this, usage of `WP_Query` would need to be deprecated and replaced with custom query classes and functions.

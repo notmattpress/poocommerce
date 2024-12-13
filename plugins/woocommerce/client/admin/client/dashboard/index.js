@@ -3,7 +3,7 @@
  */
 import { Component, Suspense, lazy } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -27,14 +27,14 @@ class Dashboard extends Component {
 				<OrderAttributionInstallBanner
 					title={ __(
 						'Discover what drives your sales',
-						'woocommerce'
+						'poocommerce'
 					) }
 					description={ __(
 						'Understand what truly drives revenue with our powerful order attribution extension. Use it to track your sales journey, identify your most effective marketing channels, and optimize your sales strategy.',
-						'woocommerce'
+						'poocommerce'
 					) }
-					buttonText={ __( 'Try it now', 'woocommerce' ) }
-					badgeText={ __( 'New', 'woocommerce' ) }
+					buttonText={ __( 'Try it now', 'poocommerce' ) }
+					badgeText={ __( 'New', 'poocommerce' ) }
 					bannerImage={ <OrderAttributionInstallBannerImage /> }
 					dismissable
 				/>

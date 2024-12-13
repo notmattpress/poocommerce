@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Argument;
+namespace Automattic\PooCommerce\Vendor\League\Container\Argument;
 
-use Automattic\WooCommerce\Vendor\League\Container\ContainerAwareInterface;
+use Automattic\PooCommerce\Vendor\League\Container\ContainerAwareInterface;
 use ReflectionFunctionAbstract;
 
 interface ArgumentResolverInterface extends ContainerAwareInterface

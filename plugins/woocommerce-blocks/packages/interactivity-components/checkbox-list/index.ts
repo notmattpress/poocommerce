@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getContext, store } from '@woocommerce/interactivity';
+import { getContext, store } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ export type CheckboxListContext = {
 	showAll: boolean;
 };
 
-store( 'woocommerce/interactivity-checkbox-list', {
+store( 'poocommerce/interactivity-checkbox-list', {
 	state: {},
 	actions: {
 		showAllItems: () => {

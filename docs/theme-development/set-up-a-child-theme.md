@@ -4,23 +4,23 @@ menu_title: Set up and use a child theme
 tags: how-to
 ---
 
-**Note:** This document is intended for creating and using classic child themes. For a comprehensive guide on creating a child block theme and understanding the differences between a classic and block theme, please refer to [WooCommerce block theme development](../block-theme-development/theming-woo-blocks.md) and [WordPress block child theme development](https://learn.wordpress.org/lesson-plan/create-a-basic-child-theme-for-block-themes/).
+**Note:** This document is intended for creating and using classic child themes. For a comprehensive guide on creating a child block theme and understanding the differences between a classic and block theme, please refer to [PooCommerce block theme development](../block-theme-development/theming-woo-blocks.md) and [WordPress block child theme development](https://learn.wordpress.org/lesson-plan/create-a-basic-child-theme-for-block-themes/).
 
 
-Sometimes, you might need to customize your theme or WooCommerce beyond what is possible via the options. These guidelines will teach you the basics of how to go about customizing your site by using a child theme.
+Sometimes, you might need to customize your theme or PooCommerce beyond what is possible via the options. These guidelines will teach you the basics of how to go about customizing your site by using a child theme.
 
 ## What is a child theme?
 
 Before we start it's important that you understand what a child theme is. In short, a child theme is a layer that you put on top of the parent theme to make alterations without having to develop a new theme from scratch. There are two major reasons to use child themes:
 
-- Theme developers can use child themes as a way to offer variations on a theme, similar to what we do with the [Storefront child themes](https://woocommerce.com/products/storefront/)
+- Theme developers can use child themes as a way to offer variations on a theme, similar to what we do with the [Storefront child themes](https://poocommerce.com/products/storefront/)
 - Developers can use child themes to host customizations of the parent theme or any plugin on the site since the child theme will get priority over the plugins and parent theme
 
 Read [this guide from the WordPress Codex](https://developer.wordpress.org/themes/advanced-topics/child-themes/).
 
 ## Make a backup
 
-Before customizing a website, you should always ensure that you have a backup of your site in case anything goes wrong. More info at: [Backing up WordPress content](https://woocommerce.com/document/backup-wordpress-content/).
+Before customizing a website, you should always ensure that you have a backup of your site in case anything goes wrong. More info at: [Backing up WordPress content](https://poocommerce.com/document/backup-wordpress-content/).
 
 ## Getting started
 
@@ -36,7 +36,7 @@ Theme Name: Child Theme
 Version: 1.0
 Description: Child theme for Woo.
 Author: Woo
-Author URI: https://woocommerce.com
+Author URI: https://poocommerce.com
 Template: themedir
 */
 ```
@@ -49,7 +49,7 @@ Theme Name: Storefront Child
 Version: 1.0
 Description: Child theme for Storefront.
 Author: Woo
-Author URI: https://woocommerce.com
+Author URI: https://poocommerce.com
 Template: storefront
 */
 
@@ -87,11 +87,11 @@ After saving the file and refreshing our browser, you will now see that the colo
 
 ### Template changes
 
-**Note:** This doesn't apply to Storefront child themes. Any customizations to a Storefront child theme's files will be lost when updating. Instead of customizing the Storefront child theme's files directly, we recommended that you add code snippets to a customization plugin. We've created one to do just this. Download [Theme Customizations](https://github.com/woocommerce/theme-customisations) for free.
+**Note:** This doesn't apply to Storefront child themes. Any customizations to a Storefront child theme's files will be lost when updating. Instead of customizing the Storefront child theme's files directly, we recommended that you add code snippets to a customization plugin. We've created one to do just this. Download [Theme Customizations](https://github.com/poocommerce/theme-customisations) for free.
 
 But wait, there's more! You can do the same with the template files (`*.php`) in the theme folder. For example if w, wanted to modify some code in the header, we need to copy header.php from our parent theme folder `wp-content/themes/storefront/header.php` to our child theme folder `wp-content/themes/storefront-child/header.php`. Once we have copied it to our child theme, we edit `header.php` and customize any code we want. The `header.php` in the child theme will be used instead of the parent theme's `header.php`.
 
-The same goes for WooCommerce templates. If you create a new folder in your child theme called "WooCommerce", you can make changes to the WooCommerce templates there to make it more in line with the overall design of your website. More on WooCommerce's template structure [can be found here](https://woocommerce.com/document/template-structure/).
+The same goes for PooCommerce templates. If you create a new folder in your child theme called "PooCommerce", you can make changes to the PooCommerce templates there to make it more in line with the overall design of your website. More on PooCommerce's template structure [can be found here](https://poocommerce.com/document/template-structure/).
 
 ### Functionality changes
 
@@ -117,7 +117,7 @@ WordPress has a few things that it handles differently in child themes. If you h
 
 ## Child theme support
 
-Although we do offer basic child theme support that can easily be answered, it still falls under theme customization, so please refer to our [support policy](https://woocommerce.com/support-policy/) to see the extent of support we give. We highly advise anybody confused with child themes to use the [WordPress forums](https://wordpress.org/support/forums/) for help.
+Although we do offer basic child theme support that can easily be answered, it still falls under theme customization, so please refer to our [support policy](https://poocommerce.com/support-policy/) to see the extent of support we give. We highly advise anybody confused with child themes to use the [WordPress forums](https://wordpress.org/support/forums/) for help.
 
 ## Sample child theme
 

@@ -41,7 +41,7 @@ test.describe(
 					{
 						data: {
 							username: `customer_${ now }`,
-							email: `customer_${ now }@woocommercecoretestsuite.com`,
+							email: `customer_${ now }@poocommercecoretestsuite.com`,
 							first_name: 'Jane',
 							last_name: 'Smith',
 							roles: [ 'subscriber' ],
@@ -85,7 +85,7 @@ test.describe(
 		test.describe( 'Retrieve after env setup', () => {
 			/**
 			 * when the environment is created,
-			 * (https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/e2e-pw#woocommerce-playwright-end-to-end-tests),
+			 * (https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/e2e-pw#poocommerce-playwright-end-to-end-tests),
 			 * we have an admin user and a subscriber user that can both be
 			 * accessed through their ids
 			 * admin user will have id 1 and subscriber user will have id 2
@@ -128,7 +128,7 @@ test.describe(
 				const responseJSON = await response.json();
 				expect( response.status() ).toEqual( 404 );
 				expect( responseJSON.code ).toEqual(
-					'woocommerce_rest_invalid_id'
+					'poocommerce_rest_invalid_id'
 				);
 				expect( responseJSON.message ).toEqual(
 					'Invalid resource ID.'
@@ -252,7 +252,7 @@ test.describe(
 				/**
 				 * update customer names (regular, billing and shipping) to admin
 				 * (these were initialised blank when the environment is created,
-				 * (https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/e2e-pw#woocommerce-playwright-end-to-end-tests
+				 * (https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/e2e-pw#poocommerce-playwright-end-to-end-tests
 				 */
 				const response = await request.put(
 					`./wp-json/wc/v3/customers/1`,

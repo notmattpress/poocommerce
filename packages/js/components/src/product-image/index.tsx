@@ -18,8 +18,8 @@ type ProductImageProps = {
 	/**
 	 * Product or variation object. The image to display will be pulled from
 	 * `product.images` or `variation.image`.
-	 * See https://woocommerce.github.io/woocommerce-rest-api-docs/#product-properties
-	 * and https://woocommerce.github.io/woocommerce-rest-api-docs/#product-variation-properties
+	 * See https://poocommerce.github.io/poocommerce-rest-api-docs/#product-properties
+	 * and https://poocommerce.github.io/poocommerce-rest-api-docs/#product-variation-properties
 	 */
 	product?: {
 		images?: Array< Image >;
@@ -61,7 +61,7 @@ const ProductImage: React.VFC< ProductImageProps > = ( {
 	const src = ( productImage && productImage.src ) || false;
 	const altText = alt || ( productImage && productImage.alt ) || '';
 
-	const classes = classnames( 'woocommerce-product-image', className, {
+	const classes = classnames( 'poocommerce-product-image', className, {
 		'is-placeholder': ! src,
 	} );
 

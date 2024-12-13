@@ -2,18 +2,18 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 import {
 	ONBOARDING_STORE_NAME,
 	TaskType,
 	useUserPreferences,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { TaskItem, useSlot } from '@woocommerce/experimental';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { TaskItem, useSlot } from '@poocommerce/experimental';
 import { useCallback, useEffect } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
-import { useLayoutContext } from '@woocommerce/admin-layout';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
+import { useLayoutContext } from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -76,15 +76,15 @@ export const TaskListItem: React.FC< TaskListItemProps > = ( {
 		// eslint-disable-next-line
 	}, [] );
 
-	const slot = useSlot( `woocommerce_onboarding_task_list_item_${ id }` );
+	const slot = useSlot( `poocommerce_onboarding_task_list_item_${ id }` );
 	const hasFills = Boolean( slot?.fills?.length );
 
 	const onDismiss = useCallback( () => {
 		dismissTask( id );
-		createNotice( 'success', __( 'Task dismissed', 'woocommerce' ), {
+		createNotice( 'success', __( 'Task dismissed', 'poocommerce' ), {
 			actions: [
 				{
-					label: __( 'Undo', 'woocommerce' ),
+					label: __( 'Undo', 'poocommerce' ),
 					onClick: () => undoDismissTask( id ),
 				},
 			],
@@ -95,11 +95,11 @@ export const TaskListItem: React.FC< TaskListItemProps > = ( {
 		snoozeTask( id );
 		createNotice(
 			'success',
-			__( 'Task postponed until tomorrow', 'woocommerce' ),
+			__( 'Task postponed until tomorrow', 'poocommerce' ),
 			{
 				actions: [
 					{
-						label: __( 'Undo', 'woocommerce' ),
+						label: __( 'Undo', 'poocommerce' ),
 						onClick: () => undoSnoozeTask( id ),
 					},
 				],

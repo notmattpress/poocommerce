@@ -1,4 +1,4 @@
-import { VariableProduct } from '@woocommerce/api';
+import { VariableProduct } from '@poocommerce/api';
 import { Factory } from 'fishery';
 
 /**

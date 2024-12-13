@@ -5,7 +5,7 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 import { addFilter } from '@wordpress/hooks';
 import { select, useSelect } from '@wordpress/data';
 import { store as coreDataStore } from '@wordpress/core-data';
-import { isWpVersion } from '@woocommerce/settings';
+import { isWpVersion } from '@poocommerce/settings';
 import type { BlockEditProps, Block } from '@wordpress/blocks';
 import {
 	useEffect,
@@ -14,8 +14,8 @@ import {
 	useMemo,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import type { ProductResponseItem } from '@woocommerce/types';
-import { getProduct } from '@woocommerce/editor-components/utils';
+import type { ProductResponseItem } from '@poocommerce/types';
+import { getProduct } from '@poocommerce/editor-components/utils';
 import {
 	createBlock,
 	// @ts-expect-error Type definitions for this function are missing in Guteberg
@@ -44,7 +44,7 @@ import {
 import blockJson from './block.json';
 import {
 	LocationType,
-	WooCommerceBlockLocation,
+	PooCommerceBlockLocation,
 } from '../product-template/utils';
 
 /**
@@ -68,16 +68,16 @@ export function setQueryAttribute(
 
 const isInProductArchive = () => {
 	const ARCHIVE_PRODUCT_TEMPLATES = [
-		'woocommerce/woocommerce//archive-product',
-		'woocommerce/woocommerce//taxonomy-product_attribute',
-		'woocommerce/woocommerce//product-search-results',
+		'poocommerce/poocommerce//archive-product',
+		'poocommerce/poocommerce//taxonomy-product_attribute',
+		'poocommerce/poocommerce//product-search-results',
 		// Custom taxonomy templates have structure:
 		// <<THEME>>//taxonomy-product_cat-<<CATEGORY>>
 		// hence we're checking if template ID includes the middle part.
 		//
 		// That includes:
-		// - woocommerce/woocommerce//taxonomy-product_cat
-		// - woocommerce/woocommerce//taxonomy-product_tag
+		// - poocommerce/poocommerce//taxonomy-product_cat
+		// - poocommerce/poocommerce//taxonomy-product_tag
 		'//taxonomy-product_cat',
 		'//taxonomy-product_tag',
 	];
@@ -107,7 +107,7 @@ const isFirstBlockThatUsesPageContext = (
 	// @ts-ignore No types for this exist yet, natively.
 	const { getBlocksByName, getBlock } = select( blockEditorStore );
 	const productCollectionBlockIDs = getBlocksByName(
-		'woocommerce/product-collection'
+		'poocommerce/product-collection'
 	) as string[];
 
 	const blockAlreadySyncedWithQuery = productCollectionBlockIDs.find(
@@ -141,7 +141,7 @@ export const addProductCollectionToQueryPaginationParentOrAncestor = () => {
 	if ( isWpVersion( '6.1', '>=' ) ) {
 		addFilter(
 			'blocks.registerBlockType',
-			'woocommerce/add-product-collection-block-to-parent-array-of-pagination-block',
+			'poocommerce/add-product-collection-block-to-parent-array-of-pagination-block',
 			( blockSettings: Block, blockName: string ) => {
 				if ( blockName !== coreQueryPaginationBlockName ) {
 					return blockSettings;
@@ -174,20 +174,20 @@ export const addProductCollectionToQueryPaginationParentOrAncestor = () => {
  * on the `usesReference` value.
  */
 export const getUsesReferencePreviewMessage = (
-	location: WooCommerceBlockLocation,
+	location: PooCommerceBlockLocation,
 	isUsingReferencePreviewMode: boolean
 ) => {
 	if ( isUsingReferencePreviewMode ) {
 		if ( location.type === LocationType.Product ) {
 			return __(
 				'Actual products will vary depending on the product being viewed.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
 		return __(
 			'Actual products will vary depending on the page being viewed.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -200,7 +200,7 @@ export const useProductCollectionUIState = ( {
 	attributes,
 	hasInnerBlocks,
 }: {
-	location: WooCommerceBlockLocation;
+	location: PooCommerceBlockLocation;
 	usesReference?: string[] | undefined;
 	attributes: ProductCollectionAttributes;
 	hasInnerBlocks: boolean;
@@ -321,7 +321,7 @@ export const useSetPreviewState = ( {
 	isUsingReferencePreviewMode,
 }: {
 	setPreviewState?: SetPreviewState | undefined;
-	location: WooCommerceBlockLocation;
+	location: PooCommerceBlockLocation;
 	attributes: ProductCollectionAttributes;
 	setAttributes: (
 		attributes: Partial< ProductCollectionAttributes >
@@ -405,7 +405,7 @@ export const useSetPreviewState = ( {
 						: false,
 					previewMessage: __(
 						'Actual products will vary depending on the page being viewed.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			} );

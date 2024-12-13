@@ -4,9 +4,9 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
-import { SETTINGS_STORE_NAME } from '@woocommerce/data';
+import { Link } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
+import { SETTINGS_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -36,20 +36,20 @@ export const Configure: React.FC<
 					onManual();
 				} }
 			>
-				{ __( 'Configure', 'woocommerce' ) }
+				{ __( 'Configure', 'poocommerce' ) }
 			</Button>
 			<p>
-				{ generalSettings?.woocommerce_calc_taxes !== 'yes' &&
+				{ generalSettings?.poocommerce_calc_taxes !== 'yes' &&
 					interpolateComponents( {
 						mixedString: __(
 							/*eslint-disable max-len*/
 							'By clicking "Configure" you\'re enabling tax rates and calculations. More info {{link}}here{{/link}}.',
-							'woocommerce'
+							'poocommerce'
 						),
 						components: {
 							link: (
 								<Link
-									href="https://woocommerce.com/document/setting-up-taxes-in-woocommerce/?utm_medium=product#section-1"
+									href="https://poocommerce.com/document/setting-up-taxes-in-poocommerce/?utm_medium=product#section-1"
 									target="_blank"
 									type="external"
 								>

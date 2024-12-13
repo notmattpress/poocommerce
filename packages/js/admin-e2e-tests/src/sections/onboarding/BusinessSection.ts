@@ -6,7 +6,7 @@ import {
 	unsetCheckbox,
 	verifyCheckboxIsSet,
 	verifyCheckboxIsUnset,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 /**
  * Internal dependencies
  */
@@ -24,7 +24,7 @@ export class BusinessSection extends BasePage {
 
 	async selectProductNumber( productLabel: string ): Promise< void > {
 		const howManyProductsDropdown = this.getDropdownField(
-			'.woocommerce-profile-wizard__product-count'
+			'.poocommerce-profile-wizard__product-count'
 		);
 
 		await howManyProductsDropdown.select( productLabel );
@@ -32,28 +32,28 @@ export class BusinessSection extends BasePage {
 
 	async selectCurrentlySelling( currentlySelling: string ): Promise< void > {
 		const sellingElsewhereDropdown = this.getDropdownField(
-			'.woocommerce-profile-wizard__selling-venues'
+			'.poocommerce-profile-wizard__selling-venues'
 		);
 
 		await sellingElsewhereDropdown.select( currentlySelling );
 	}
 	async selectEmployeesNumber( employeesNumber: string ) {
 		const employeesNumberDropdown = this.getDropdownField(
-			'.woocommerce-profile-wizard__number-employees'
+			'.poocommerce-profile-wizard__number-employees'
 		);
 
 		await employeesNumberDropdown.select( employeesNumber );
 	}
 	async selectRevenue( revenue: string ) {
 		const revenueDropdown = this.getDropdownField(
-			'.woocommerce-profile-wizard__revenue'
+			'.poocommerce-profile-wizard__revenue'
 		);
 
 		await revenueDropdown.select( revenue );
 	}
 	async selectOtherPlatformName( otherPlatformName: string ) {
 		const otherPlatformNameDropdown = this.getDropdownField(
-			'.woocommerce-profile-wizard__other-platform'
+			'.poocommerce-profile-wizard__other-platform'
 		);
 
 		await otherPlatformNameDropdown.select( otherPlatformName );
@@ -63,15 +63,15 @@ export class BusinessSection extends BasePage {
 		select: boolean
 	): Promise< void > {
 		if ( select ) {
-			await setCheckbox( '#woocommerce-business-extensions__checkbox' );
+			await setCheckbox( '#poocommerce-business-extensions__checkbox' );
 		} else {
-			await unsetCheckbox( '#woocommerce-business-extensions__checkbox' );
+			await unsetCheckbox( '#poocommerce-business-extensions__checkbox' );
 		}
 	}
 
 	async expandRecommendedBusinessFeatures(): Promise< void > {
 		const expandButtonSelector =
-			'.woocommerce-admin__business-details__selective-extensions-bundle__expand';
+			'.poocommerce-admin__business-details__selective-extensions-bundle__expand';
 
 		await this.page.waitForSelector(
 			expandButtonSelector + ':not([disabled])'
@@ -94,7 +94,7 @@ export class BusinessSection extends BasePage {
 	// The old list displayed on the dropdown page
 	async uncheckBusinessFeatures(): Promise< void > {
 		await this.unsetAllCheckboxes(
-			'.woocommerce-profile-wizard__benefit .components-form-toggle__input'
+			'.poocommerce-profile-wizard__benefit .components-form-toggle__input'
 		);
 	}
 

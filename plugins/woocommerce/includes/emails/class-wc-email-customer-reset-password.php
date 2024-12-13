@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Reset_Password file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Reset_Password
 	 * @version     3.5.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Reset_Password extends WC_Email {
@@ -59,14 +59,14 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 			$this->id             = 'customer_reset_password';
 			$this->customer_email = true;
 
-			$this->title       = __( 'Reset password', 'woocommerce' );
-			$this->description = __( 'Customer "reset password" emails are sent when customers reset their passwords.', 'woocommerce' );
+			$this->title       = __( 'Reset password', 'poocommerce' );
+			$this->description = __( 'Customer "reset password" emails are sent when customers reset their passwords.', 'poocommerce' );
 
 			$this->template_html  = 'emails/customer-reset-password.php';
 			$this->template_plain = 'emails/plain/customer-reset-password.php';
 
 			// Trigger.
-			add_action( 'woocommerce_reset_password_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_reset_password_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
@@ -79,7 +79,7 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Password Reset Request for {site_title}', 'woocommerce' );
+			return __( 'Password Reset Request for {site_title}', 'poocommerce' );
 		}
 
 		/**
@@ -89,7 +89,7 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Password Reset Request', 'woocommerce' );
+			return __( 'Password Reset Request', 'poocommerce' );
 		}
 
 		/**
@@ -168,7 +168,7 @@ if ( ! class_exists( 'WC_Email_Customer_Reset_Password', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for reading.', 'woocommerce' );
+			return __( 'Thanks for reading.', 'poocommerce' );
 		}
 	}
 

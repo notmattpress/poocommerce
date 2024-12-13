@@ -3,24 +3,24 @@
  * ExtendedContainerTests class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\ExtendedContainer;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\StoreApi\Legacy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithDependencies;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DerivedDependencyClass;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassA;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassAWithInterface1;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassAWithInterface2;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassBWithInterface1;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassBWithInterface2;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ProviderA;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ProviderB;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\TheInterface;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\ExtendedContainer;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\StoreApi\Legacy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithDependencies;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DerivedDependencyClass;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassA;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassAWithInterface1;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassAWithInterface2;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassBWithInterface1;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ClassBWithInterface2;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ProviderA;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\ProviderB;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleProviders\TheInterface;
 
 /**
  * Tests for ExtendedContainer.
@@ -42,33 +42,33 @@ class ExtendedContainerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox 'add' should throw an exception when trying to register a class not in the WooCommerce root namespace.
+	 * @testDox 'add' should throw an exception when trying to register a class not in the PooCommerce root namespace.
 	 */
 	public function test_add_throws_when_trying_to_register_class_in_forbidden_namespace() {
-		$external_class = \WooCommerce::class;
+		$external_class = \PooCommerce::class;
 
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "You cannot add '$external_class', only classes in the Automattic\WooCommerce\ namespace are allowed." );
+		$this->expectExceptionMessage( "You cannot add '$external_class', only classes in the Automattic\PooCommerce\ namespace are allowed." );
 
 		$this->sut->add( $external_class );
 	}
 
 	/**
-	 * @testDox 'add' should throw an exception when trying to register a concrete class not in the WooCommerce root namespace.
+	 * @testDox 'add' should throw an exception when trying to register a concrete class not in the PooCommerce root namespace.
 	 */
 	public function test_add_throws_when_trying_to_register_concrete_class_in_forbidden_namespace() {
-		$external_class = \WooCommerce::class;
+		$external_class = \PooCommerce::class;
 
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "You cannot add concrete '$external_class', only classes in the Automattic\WooCommerce\ namespace are allowed." );
+		$this->expectExceptionMessage( "You cannot add concrete '$external_class', only classes in the Automattic\PooCommerce\ namespace are allowed." );
 
 		$this->sut->add( DependencyClass::class, $external_class );
 	}
 
 	/**
-	 * @testDox 'add' should allow registering classes in the WooCommerce root namespace.
+	 * @testDox 'add' should allow registering classes in the PooCommerce root namespace.
 	 */
-	public function test_add_allows_registering_classes_in_woocommerce_root_namespace() {
+	public function test_add_allows_registering_classes_in_poocommerce_root_namespace() {
 		$instance = new DependencyClass();
 		$this->sut->add( DependencyClass::class, $instance, true );
 		$resolved = $this->sut->get( DependencyClass::class );
@@ -87,16 +87,16 @@ class ExtendedContainerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox 'replace' should throw an exception when trying to use a class outside the Automattic\WooCommerce\ namespace as  the replacement.
+	 * @testDox 'replace' should throw an exception when trying to use a class outside the Automattic\PooCommerce\ namespace as  the replacement.
 	 */
-	public function test_replace_throws_if_concrete_not_in_woocommerce_root_namespace() {
+	public function test_replace_throws_if_concrete_not_in_poocommerce_root_namespace() {
 		$instance = new DependencyClass();
 		$this->sut->add( DependencyClass::class, $instance, true );
 
-		$external_class = \WooCommerce::class;
+		$external_class = \PooCommerce::class;
 
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "You cannot use concrete '$external_class', only classes in the Automattic\WooCommerce\ namespace are allowed." );
+		$this->expectExceptionMessage( "You cannot use concrete '$external_class', only classes in the Automattic\PooCommerce\ namespace are allowed." );
 
 		$this->sut->replace( DependencyClass::class, $external_class );
 	}

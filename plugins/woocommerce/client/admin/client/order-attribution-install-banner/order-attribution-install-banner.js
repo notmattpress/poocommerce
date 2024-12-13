@@ -5,9 +5,9 @@ import { Button, Card, CardBody } from '@wordpress/components';
 import { useEffect, useCallback } from '@wordpress/element';
 import { plugins, external } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import { Text } from '@woocommerce/experimental';
-import { recordEvent } from '@woocommerce/tracks';
-import { getPath } from '@woocommerce/navigation';
+import { Text } from '@poocommerce/experimental';
+import { recordEvent } from '@poocommerce/tracks';
+import { getPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ import {
 import './style.scss';
 
 const WC_ANALYTICS_PRODUCT_URL =
-	'https://woocommerce.com/products/woocommerce-analytics';
+	'https://poocommerce.com/products/poocommerce-analytics';
 
 /**
  * The banner to prompt users to install the Order Attribution extension.
@@ -99,7 +99,7 @@ export const OrderAttributionInstallBanner = ( {
 	if ( bannerType === BANNER_TYPE_HEADER ) {
 		return (
 			<Button
-				className="woocommerce-order-attribution-install-header-banner"
+				className="poocommerce-order-attribution-install-header-banner"
 				href={ WC_ANALYTICS_PRODUCT_URL }
 				variant="secondary"
 				icon={ plugins }
@@ -107,7 +107,7 @@ export const OrderAttributionInstallBanner = ( {
 				onClick={ onButtonClick }
 				target="_blank"
 			>
-				{ __( 'Try Order Attribution', 'woocommerce' ) }
+				{ __( 'Try Order Attribution', 'poocommerce' ) }
 			</Button>
 		);
 	}
@@ -117,27 +117,27 @@ export const OrderAttributionInstallBanner = ( {
 	return (
 		<Card
 			size="medium"
-			className={ `woocommerce-order-attribution-install-banner ${
+			className={ `poocommerce-order-attribution-install-banner ${
 				isSmallBanner ? 'small' : ''
 			}` }
 		>
 			<CardBody
-				className={ `woocommerce-order-attribution-install-banner__body ${
+				className={ `poocommerce-order-attribution-install-banner__body ${
 					isSmallBanner ? 'small' : ''
 				}` }
 			>
-				<div className="woocommerce-order-attribution-install-banner__image_container">
+				<div className="poocommerce-order-attribution-install-banner__image_container">
 					{ bannerImage }
 				</div>
 				<div
-					className={ `woocommerce-order-attribution-install-banner__text_container ${
+					className={ `poocommerce-order-attribution-install-banner__text_container ${
 						isSmallBanner ? 'small' : ''
 					}` }
 				>
 					{ badgeText && (
-						<div className="woocommerce-order-attribution-install-banner__text-badge">
+						<div className="poocommerce-order-attribution-install-banner__text-badge">
 							<Text
-								className="woocommerce-order-attribution-install-banner__text-description"
+								className="poocommerce-order-attribution-install-banner__text-description"
 								as="p"
 								size="12"
 								align="center"
@@ -148,7 +148,7 @@ export const OrderAttributionInstallBanner = ( {
 					) }
 					{ title && (
 						<Text
-							className="woocommerce-order-attribution-install-banner__text-title"
+							className="poocommerce-order-attribution-install-banner__text-title"
 							as="p"
 							size="16"
 						>
@@ -157,7 +157,7 @@ export const OrderAttributionInstallBanner = ( {
 					) }
 					{ description && (
 						<Text
-							className="woocommerce-order-attribution-install-banner__text-description"
+							className="poocommerce-order-attribution-install-banner__text-description"
 							as="p"
 							size="12"
 						>
@@ -181,7 +181,7 @@ export const OrderAttributionInstallBanner = ( {
 								variant="tertiary"
 								onClick={ () => dismiss( eventContext ) }
 							>
-								{ __( 'Dismiss', 'woocommerce' ) }
+								{ __( 'Dismiss', 'poocommerce' ) }
 							</Button>
 						) }
 					</div>

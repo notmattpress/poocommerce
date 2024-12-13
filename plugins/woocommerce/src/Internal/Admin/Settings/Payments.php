@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions as ExtensionSuggestions;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions as ExtensionSuggestions;
 use Exception;
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Payments {
 
-	const USER_PAYMENTS_NOX_PROFILE_KEY = 'woocommerce_payments_nox_profile';
+	const USER_PAYMENTS_NOX_PROFILE_KEY = 'poocommerce_payments_nox_profile';
 
 	const SUGGESTIONS_CONTEXT = 'wc_settings_payments';
 
@@ -120,13 +120,13 @@ class Payments {
 				'id'          => PaymentProviders::OFFLINE_METHODS_ORDERING_GROUP,
 				'_type'       => PaymentProviders::TYPE_OFFLINE_PMS_GROUP,
 				'_order'      => $providers_order_map[ PaymentProviders::OFFLINE_METHODS_ORDERING_GROUP ],
-				'title'       => __( 'Take offline payments', 'woocommerce' ),
-				'description' => __( 'Accept payments offline using multiple different methods. These can also be used to test purchases.', 'woocommerce' ),
+				'title'       => __( 'Take offline payments', 'poocommerce' ),
+				'description' => __( 'Accept payments offline using multiple different methods. These can also be used to test purchases.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/payment_methods/cod.svg', WC_PLUGIN_FILE ),
-				// The offline PMs (and their group) are obviously from WooCommerce, and WC is always active.
+				// The offline PMs (and their group) are obviously from PooCommerce, and WC is always active.
 				'plugin'      => array(
 					'_type'  => 'wporg',
-					'slug'   => 'woocommerce',
+					'slug'   => 'poocommerce',
 					'file'   => '', // This pseudo-provider should have no use for the plugin file.
 					'status' => PaymentProviders::EXTENSION_ACTIVE,
 				),

@@ -43,36 +43,36 @@ export function PageArrows( {
 		return null;
 	}
 
-	const previousLinkClass = classNames( 'woocommerce-pagination__link', {
+	const previousLinkClass = classNames( 'poocommerce-pagination__link', {
 		'is-active': currentPage > 1,
 	} );
 
-	const nextLinkClass = classNames( 'woocommerce-pagination__link', {
+	const nextLinkClass = classNames( 'poocommerce-pagination__link', {
 		'is-active': currentPage < pageCount,
 	} );
 
 	return (
-		<div className="woocommerce-pagination__page-arrows">
+		<div className="poocommerce-pagination__page-arrows">
 			{ showPageArrowsLabel && (
 				<span
-					className="woocommerce-pagination__page-arrows-label"
+					className="poocommerce-pagination__page-arrows-label"
 					role="status"
 					aria-live="polite"
 				>
 					{ sprintf(
 						/* translators: 1: current page number, 2: total number of pages */
-						__( 'Page %1$d of %2$d', 'woocommerce' ),
+						__( 'Page %1$d of %2$d', 'poocommerce' ),
 						currentPage,
 						pageCount
 					) }
 				</span>
 			) }
-			<div className="woocommerce-pagination__page-arrows-buttons">
+			<div className="poocommerce-pagination__page-arrows-buttons">
 				<Button
 					className={ previousLinkClass }
 					disabled={ ! ( currentPage > 1 ) }
 					onClick={ previousPage }
-					label={ __( 'Previous Page', 'woocommerce' ) }
+					label={ __( 'Previous Page', 'poocommerce' ) }
 				>
 					<Icon icon={ chevronLeft } />
 				</Button>
@@ -80,7 +80,7 @@ export function PageArrows( {
 					className={ nextLinkClass }
 					disabled={ ! ( currentPage < pageCount ) }
 					onClick={ nextPage }
-					label={ __( 'Next Page', 'woocommerce' ) }
+					label={ __( 'Next Page', 'poocommerce' ) }
 				>
 					<Icon icon={ chevronRight } />
 				</Button>

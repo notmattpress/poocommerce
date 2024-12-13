@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Onboarding
+ * PooCommerce Onboarding
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
 /**
  * Initializes backend logic for the onboarding process.

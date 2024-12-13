@@ -3,7 +3,7 @@
  * Abstract shipping method
  *
  * @class WC_Shipping_Method
- * @package WooCommerce\Abstracts
+ * @package PooCommerce\Abstracts
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,13 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WooCommerce Shipping Method Class.
+ * PooCommerce Shipping Method Class.
  *
  * Extended by shipping methods to handle shipping calculations etc.
  *
  * @class       WC_Shipping_Method
  * @version     3.0.0
- * @package     WooCommerce\Abstracts
+ * @package     PooCommerce\Abstracts
  */
 abstract class WC_Shipping_Method extends WC_Settings_API {
 
@@ -176,7 +176,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	 * @return bool True if the shipping method supports the feature, false otherwise.
 	 */
 	public function supports( $feature ) {
-		return apply_filters( 'woocommerce_shipping_method_supports', in_array( $feature, $this->supports ), $feature, $this );
+		return apply_filters( 'poocommerce_shipping_method_supports', in_array( $feature, $this->supports ), $feature, $this );
 	}
 
 	/**
@@ -222,7 +222,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_method_title() {
-		return apply_filters( 'woocommerce_shipping_method_title', $this->method_title, $this );
+		return apply_filters( 'poocommerce_shipping_method_title', $this->method_title, $this );
 	}
 
 	/**
@@ -232,7 +232,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_method_description() {
-		return apply_filters( 'woocommerce_shipping_method_description', $this->method_description, $this );
+		return apply_filters( 'poocommerce_shipping_method_description', $this->method_description, $this );
 	}
 
 	/**
@@ -241,7 +241,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_title() {
-		return apply_filters( 'woocommerce_shipping_method_title', $this->title, $this->id );
+		return apply_filters( 'poocommerce_shipping_method_title', $this->title, $this->id );
 	}
 
 	/**
@@ -288,7 +288,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	 */
 	public function add_rate( $args = array() ) {
 		$args = apply_filters(
-			'woocommerce_shipping_method_add_rate_args',
+			'poocommerce_shipping_method_add_rate_args',
 			wp_parse_args(
 				$args,
 				array(
@@ -345,10 +345,10 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 				$product            = $item['data'];
 				$items_in_package[] = $product->get_name() . ' &times; ' . $item['quantity'];
 			}
-			$rate->add_meta_data( __( 'Items', 'woocommerce' ), implode( ', ', $items_in_package ) );
+			$rate->add_meta_data( __( 'Items', 'poocommerce' ), implode( ', ', $items_in_package ) );
 		}
 
-		$this->rates[ $args['id'] ] = apply_filters( 'woocommerce_shipping_method_add_rate', $rate, $args, $this );
+		$this->rates[ $args['id'] ] = apply_filters( 'poocommerce_shipping_method_add_rate', $rate, $args, $this );
 	}
 
 	/**
@@ -420,7 +420,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 			}
 		}
 
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $available, $package, $this );
+		return apply_filters( 'poocommerce_shipping_' . $this->id . '_is_available', $available, $package, $this );
 	}
 
 	/**
@@ -491,7 +491,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 		}
 
 		// Return global option.
-		$option = apply_filters( 'woocommerce_shipping_' . $this->id . '_option', parent::get_option( $key, $empty_value ), $key, $this );
+		$option = apply_filters( 'poocommerce_shipping_' . $this->id . '_option', parent::get_option( $key, $empty_value ), $key, $this );
 		return $option;
 	}
 
@@ -517,7 +517,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 			$this->instance_settings[ $key ] = $empty_value;
 		}
 
-		$instance_option = apply_filters( 'woocommerce_shipping_' . $this->id . '_instance_option', $this->instance_settings[ $key ], $key, $this );
+		$instance_option = apply_filters( 'poocommerce_shipping_' . $this->id . '_instance_option', $this->instance_settings[ $key ], $key, $this );
 		return $instance_option;
 	}
 
@@ -529,7 +529,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	 * @return array
 	 */
 	public function get_instance_form_fields() {
-		return apply_filters( 'woocommerce_shipping_instance_form_fields_' . $this->id, array_map( array( $this, 'set_defaults' ), $this->instance_form_fields ) );
+		return apply_filters( 'poocommerce_shipping_instance_form_fields_' . $this->id, array_map( array( $this, 'set_defaults' ), $this->instance_form_fields ) );
 	}
 
 	/**
@@ -560,7 +560,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 	/**
 	 * Processes and saves global shipping method options in the admin area.
 	 *
-	 * This method is usually attached to woocommerce_update_options_x hooks.
+	 * This method is usually attached to poocommerce_update_options_x hooks.
 	 *
 	 * @since 2.6.0
 	 * @return bool was anything saved?
@@ -589,6 +589,6 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 			}
 		}
 
-		return update_option( $this->get_instance_option_key(), apply_filters( 'woocommerce_shipping_' . $this->id . '_instance_settings_values', $this->instance_settings, $this ), 'yes' );
+		return update_option( $this->get_instance_option_key(), apply_filters( 'poocommerce_shipping_' . $this->id . '_instance_settings_values', $this->instance_settings, $this ), 'yes' );
 	}
 }

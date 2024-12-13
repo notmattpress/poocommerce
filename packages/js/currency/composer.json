@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/currency",
-	"description": "WooCommerce JS currency utils",
+	"name": "poocommerce/currency",
+	"description": "PooCommerce JS currency utils",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

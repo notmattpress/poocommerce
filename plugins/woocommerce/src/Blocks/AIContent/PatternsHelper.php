@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AIContent;
+namespace Automattic\PooCommerce\Blocks\AIContent;
 
 use WP_Error;
 
@@ -97,11 +97,11 @@ class PatternsHelper {
 		$default_patterns_dictionary = PatternsDictionary::get();
 
 		if ( empty( $default_patterns_dictionary ) ) {
-			return new WP_Error( 'missing_patterns_dictionary', __( 'The patterns dictionary is missing.', 'woocommerce' ) );
+			return new WP_Error( 'missing_patterns_dictionary', __( 'The patterns dictionary is missing.', 'poocommerce' ) );
 		}
 
 		$patterns_dictionary   = '';
-		$ai_connection_allowed = get_option( 'woocommerce_blocks_allow_ai_connection' );
+		$ai_connection_allowed = get_option( 'poocommerce_blocks_allow_ai_connection' );
 
 		if ( $ai_connection_allowed ) {
 			$patterns_ai_data_post = self::get_patterns_ai_data_post();
@@ -109,7 +109,7 @@ class PatternsHelper {
 				$patterns_dictionary = json_decode( $patterns_ai_data_post->post_content, true );
 
 				if ( json_last_error() !== JSON_ERROR_NONE ) {
-					return new WP_Error( 'json_decode_error', __( 'Error decoding JSON.', 'woocommerce' ) );
+					return new WP_Error( 'json_decode_error', __( 'Error decoding JSON.', 'poocommerce' ) );
 				}
 			}
 		}

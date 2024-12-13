@@ -277,7 +277,7 @@ const useCartCheckoutShortcodes = async ( baseURL, userAgent, admin ) => {
 	await request.put( `./wp-json/wp/v2/pages/${ cart.id }`, {
 		data: {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->',
 			},
 		},
 		failOnStatusCode: true,
@@ -287,7 +287,7 @@ const useCartCheckoutShortcodes = async ( baseURL, userAgent, admin ) => {
 	await request.put( `./wp-json/wp/v2/pages/${ checkout.id }`, {
 		data: {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->',
 			},
 		},
 		failOnStatusCode: true,

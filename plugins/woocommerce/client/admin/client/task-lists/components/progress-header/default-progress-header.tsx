@@ -3,7 +3,7 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { getVisibleTasks, ONBOARDING_STORE_NAME } from '@woocommerce/data';
+import { getVisibleTasks, ONBOARDING_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -40,12 +40,12 @@ export const DefaultProgressHeader: React.FC< DefaultProgressHeaderProps > = ( {
 	}
 
 	return (
-		<div className="woocommerce-task-progress-header">
+		<div className="poocommerce-task-progress-header">
 			<TaskListMenu
 				id={ taskListId }
-				hideTaskListText={ __( 'Hide setup list', 'woocommerce' ) }
+				hideTaskListText={ __( 'Hide setup list', 'poocommerce' ) }
 			/>
-			<div className="woocommerce-task-progress-header__contents">
+			<div className="poocommerce-task-progress-header__contents">
 				{ completedCount !== tasksCount ? (
 					<>
 						<p>
@@ -53,14 +53,14 @@ export const DefaultProgressHeader: React.FC< DefaultProgressHeaderProps > = ( {
 								/* translators: 1: completed tasks, 2: total tasks */
 								__(
 									'Follow these steps to start selling quickly. %1$d out of %2$d complete.',
-									'woocommerce'
+									'poocommerce'
 								),
 								completedCount,
 								tasksCount
 							) }
 						</p>
 						<progress
-							className="woocommerce-task-progress-header__progress-bar"
+							className="poocommerce-task-progress-header__progress-bar"
 							max={ tasksCount }
 							value={ completedCount || 0.25 }
 						/>

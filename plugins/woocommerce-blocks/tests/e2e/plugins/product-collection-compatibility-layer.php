@@ -1,98 +1,98 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Product Collection Compatibility Layer
+ * Plugin Name: PooCommerce Blocks Test Product Collection Compatibility Layer
  * Description: Adds custom content to the Shop page with Product Collection included
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-product-collection-compatibility-layer
+ * @package poocommerce-blocks-test-product-collection-compatibility-layer
  */
 
 add_action(
-	'woocommerce_before_main_content',
+	'poocommerce_before_main_content',
 	function () {
-		echo '<p data-testid="woocommerce_before_main_content">
-			Hook: woocommerce_before_main_content
+		echo '<p data-testid="poocommerce_before_main_content">
+			Hook: poocommerce_before_main_content
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_after_main_content',
+	'poocommerce_after_main_content',
 	function () {
-		echo '<p data-testid="woocommerce_after_main_content">
-			Hook: woocommerce_after_main_content
+		echo '<p data-testid="poocommerce_after_main_content">
+			Hook: poocommerce_after_main_content
 		</p>';
 	}
 );
 add_action(
-	'woocommerce_before_shop_loop_item_title',
+	'poocommerce_before_shop_loop_item_title',
 	function () {
-		echo '<p data-testid="woocommerce_before_shop_loop_item_title">
-			Hook: woocommerce_before_shop_loop_item_title
-		</p>';
-	}
-);
-
-add_action(
-	'woocommerce_shop_loop_item_title',
-	function () {
-		echo '<p data-testid="woocommerce_shop_loop_item_title">
-			Hook: woocommerce_shop_loop_item_title
+		echo '<p data-testid="poocommerce_before_shop_loop_item_title">
+			Hook: poocommerce_before_shop_loop_item_title
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_after_shop_loop_item_title',
+	'poocommerce_shop_loop_item_title',
 	function () {
-		echo '<p data-testid="woocommerce_after_shop_loop_item_title">
-			Hook: woocommerce_after_shop_loop_item_title
+		echo '<p data-testid="poocommerce_shop_loop_item_title">
+			Hook: poocommerce_shop_loop_item_title
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_before_shop_loop_item',
+	'poocommerce_after_shop_loop_item_title',
 	function () {
-		echo '<p data-testid="woocommerce_before_shop_loop_item">
-			Hook: woocommerce_before_shop_loop_item
+		echo '<p data-testid="poocommerce_after_shop_loop_item_title">
+			Hook: poocommerce_after_shop_loop_item_title
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_after_shop_loop_item',
+	'poocommerce_before_shop_loop_item',
 	function () {
-		echo '<p data-testid="woocommerce_after_shop_loop_item">
-			Hook: woocommerce_after_shop_loop_item
+		echo '<p data-testid="poocommerce_before_shop_loop_item">
+			Hook: poocommerce_before_shop_loop_item
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_before_shop_loop',
+	'poocommerce_after_shop_loop_item',
 	function () {
-		echo '<p data-testid="woocommerce_before_shop_loop">
-			Hook: woocommerce_before_shop_loop
+		echo '<p data-testid="poocommerce_after_shop_loop_item">
+			Hook: poocommerce_after_shop_loop_item
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_after_shop_loop',
+	'poocommerce_before_shop_loop',
 	function () {
-		echo '<p data-testid="woocommerce_after_shop_loop">
-			Hook: woocommerce_after_shop_loop
+		echo '<p data-testid="poocommerce_before_shop_loop">
+			Hook: poocommerce_before_shop_loop
 		</p>';
 	}
 );
 
 add_action(
-	'woocommerce_no_products_found',
+	'poocommerce_after_shop_loop',
 	function () {
-		echo '<p data-testid="woocommerce_no_products_found">
-			Hook: woocommerce_no_products_found
+		echo '<p data-testid="poocommerce_after_shop_loop">
+			Hook: poocommerce_after_shop_loop
+		</p>';
+	}
+);
+
+add_action(
+	'poocommerce_no_products_found',
+	function () {
+		echo '<p data-testid="poocommerce_no_products_found">
+			Hook: poocommerce_no_products_found
 		</p>';
 	}
 );

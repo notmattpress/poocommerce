@@ -2,19 +2,19 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\ExportSchema;
-use Automattic\WooCommerce\Blueprint\ImportSchema;
-use Automattic\WooCommerce\Blueprint\JsonResultFormatter;
-use Automattic\WooCommerce\Blueprint\ZipExportedSchema;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\ImportSchema;
+use Automattic\PooCommerce\Blueprint\JsonResultFormatter;
+use Automattic\PooCommerce\Blueprint\ZipExportedSchema;
 
 /**
  * Class RestApi
  *
- * This class handles the REST API endpoints for importing and exporting WooCommerce Blueprints.
+ * This class handles the REST API endpoints for importing and exporting PooCommerce Blueprints.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint
  */
 class RestApi {
 	/**
@@ -52,7 +52,7 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_permission' ),
 					'args'                => array(
 						'steps'         => array(
-							'description'       => __( 'A list of plugins to install', 'woocommerce' ),
+							'description'       => __( 'A list of plugins to install', 'poocommerce' ),
 							'type'              => 'array',
 							'items'             => 'string',
 							'default'           => array(),
@@ -67,7 +67,7 @@ class RestApi {
 							'required'          => false,
 						),
 						'export_as_zip' => array(
-							'description' => __( 'Export as a zip file', 'woocommerce' ),
+							'description' => __( 'Export as a zip file', 'poocommerce' ),
 							'type'        => 'boolean',
 							'default'     => false,
 							'required'    => false,
@@ -85,7 +85,7 @@ class RestApi {
 	 */
 	public function check_permission() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -131,7 +131,7 @@ class RestApi {
 			return new \WP_HTTP_Response(
 				array(
 					'status'  => 'error',
-					'message' => __( 'Invalid nonce', 'woocommerce' ),
+					'message' => __( 'Invalid nonce', 'poocommerce' ),
 				),
 				400
 			);
@@ -148,7 +148,7 @@ class RestApi {
 				return new \WP_HTTP_Response(
 					array(
 						'status'  => 'error',
-						'message' => __( 'Invalid file type', 'woocommerce' ),
+						'message' => __( 'Invalid file type', 'poocommerce' ),
 					),
 					400
 				);
@@ -192,7 +192,7 @@ class RestApi {
 			return new \WP_HTTP_Response(
 				array(
 					'status'  => $is_success,
-					'message' => 'error' === $is_success ? __( 'There was an error while processing your schema', 'woocommerce' ) : 'success',
+					'message' => 'error' === $is_success ? __( 'There was an error while processing your schema', 'poocommerce' ) : 'success',
 					'data'    => array(
 						'redirect' => admin_url( $redirect_url ),
 						'result'   => $result_formatter->format(),
@@ -205,7 +205,7 @@ class RestApi {
 		return new \WP_HTTP_Response(
 			array(
 				'status'  => 'error',
-				'message' => __( 'No file uploaded', 'woocommerce' ),
+				'message' => __( 'No file uploaded', 'poocommerce' ),
 			),
 			400
 		);

@@ -13,8 +13,8 @@
 		color: var(--wp-admin-theme-color);
 	}
 
-	// Override styles for woocommerce list items.
-	.woocommerce-list {
+	// Override styles for poocommerce list items.
+	.poocommerce-list {
 		border-top: 1px solid $gray-200;
 		border-bottom: 1px solid $gray-200;
 
@@ -24,7 +24,7 @@
 			&:hover {
 				background-color: $white;
 
-				.woocommerce-list__item-title {
+				.poocommerce-list__item-title {
 					color: $gray-900;
 				}
 			}
@@ -63,7 +63,7 @@
 			line-height: 20px;
 			color: $gray-700;
 
-			.woocommerce-woopayments-payment-methods-logos {
+			.poocommerce-woopayments-payment-methods-logos {
 				flex-wrap: wrap;
 			}
 		}

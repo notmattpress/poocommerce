@@ -29,15 +29,15 @@ export const WooProductSectionItem: React.FC< WooProductSectionItemProps > & {
 } = ( { children, tabs } ) => {
 	deprecated( `__experimentalWooProductSectionItem`, {
 		version: '13.0.0',
-		plugin: '@woocommerce/components',
-		hint: 'Moved to @woocommerce/product-editor package: import { __experimentalWooProductSectionItem } from @woocommerce/product-editor',
+		plugin: '@poocommerce/components',
+		hint: 'Moved to @poocommerce/product-editor package: import { __experimentalWooProductSectionItem } from @poocommerce/product-editor',
 	} );
 
 	return (
 		<>
 			{ tabs.map( ( { name: tabName, order: sectionOrder } ) => (
 				<Fill
-					name={ `woocommerce_product_section_${ tabName }` }
+					name={ `poocommerce_product_section_${ tabName }` }
 					key={ tabName }
 				>
 					{ ( fillProps: Fill.Props ) => {
@@ -56,7 +56,7 @@ export const WooProductSectionItem: React.FC< WooProductSectionItemProps > & {
 
 WooProductSectionItem.Slot = ( { fillProps, tab } ) => (
 	<Slot
-		name={ `woocommerce_product_section_${ tab }` }
+		name={ `poocommerce_product_section_${ tab }` }
 		fillProps={ fillProps }
 	>
 		{ ( fills ) => {

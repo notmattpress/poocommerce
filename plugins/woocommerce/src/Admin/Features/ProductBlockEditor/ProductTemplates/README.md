@@ -1,9 +1,9 @@
 # ProductTemplates
 
-The `Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates` namespace contains interfaces for interacting with product editor templates, which are used to define the structure of the product editor form.
+The `Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates` namespace contains interfaces for interacting with product editor templates, which are used to define the structure of the product editor form.
 
 General interfaces for interacting with block templates are located in the
-[`Automattic\WooCommerce\Admin\BlockTemplates`](../../../BlockTemplates/README.md) namespace.
+[`Automattic\PooCommerce\Admin\BlockTemplates`](../../../BlockTemplates/README.md) namespace.
 
 ## Usage
 
@@ -12,7 +12,7 @@ For more information on how to extend the product editor, please see the [Produc
 ### Adding a new group to product editor templates after an existing group
 
 ```php
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 function YOUR_PREFIX_add_group( BlockInterface $general_group ) {
   $parent = $general_group->get_parent();
@@ -28,13 +28,13 @@ function YOUR_PREFIX_add_group( BlockInterface $general_group ) {
   );
 }
 
-add_action( 'woocommerce_block_template_area_product-form_after_add_block_general', 'YOUR_PREFIX_add_group' );
+add_action( 'poocommerce_block_template_area_product-form_after_add_block_general', 'YOUR_PREFIX_add_group' );
 ```
 
 ### Adding a new block to product editor templates after an existing block
 
 ```php
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 function YOUR_PREFIX_add_block( BlockInterface $product_name_block ) {
   $parent = $product_name_block->get_parent();
@@ -42,7 +42,7 @@ function YOUR_PREFIX_add_block( BlockInterface $product_name_block ) {
   $parent->add_block(
     [
       'id'         => 'YOUR-PREFIX-block',
-      'blockName'  => 'woocommerce/product-text-field',
+      'blockName'  => 'poocommerce/product-text-field',
       'order'      => $product_name_block->get_order() + 5,
       'attributes' => [
         'label' => __( 'My Block', 'YOUR-TEXT-DOMAIN' ),
@@ -51,45 +51,45 @@ function YOUR_PREFIX_add_block( BlockInterface $product_name_block ) {
   );
 }
 
-add_action( 'woocommerce_block_template_area_product-form_after_add_block_product-name', 'YOUR_PREFIX_add_block' );
+add_action( 'poocommerce_block_template_area_product-form_after_add_block_product-name', 'YOUR_PREFIX_add_block' );
 ```
 
 ### Removing a block from product editor templates
 
 ```php
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 function YOUR_PREFIX_remove_block( BlockInterface $sale_price_block ) {
   $sale_price_block->remove();
 }
 
-add_action( 'woocommerce_block_template_area_product-form_after_remove_block_product-sale-price', 'YOUR_PREFIX_remove_block' );
+add_action( 'poocommerce_block_template_area_product-form_after_remove_block_product-sale-price', 'YOUR_PREFIX_remove_block' );
 ```
 
 ### Conditionally hiding a block in product editor templates
 
 ```php
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 // hide sale price block if regular_price is less than 10
 function YOUR_PREFIX_hide_block( BlockInterface $sale_price_block ) {
   $sale_price_block->add_hide_condition( 'editedProduct.regular_price < 10' );
 }
 
-add_action( 'woocommerce_block_template_area_product-form_after_add_block_product-sale-price', 'YOUR_PREFIX_hide_block' );
+add_action( 'poocommerce_block_template_area_product-form_after_add_block_product-sale-price', 'YOUR_PREFIX_hide_block' );
 ```
 
 ### Conditionally disabling a block in product editor templates
 
 ```php
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 // disable sale price block if regular_price is not set
 function YOUR_PREFIX_hide_block( BlockInterface $sale_price_block ) {
   $sale_price_block->add_disable_condition( '!editedProduct.regular_price' );
 }
 
-add_action( 'woocommerce_block_template_area_product-form_after_add_block_product-sale-price', 'YOUR_PREFIX_hide_block' );
+add_action( 'poocommerce_block_template_area_product-form_after_add_block_product-sale-price', 'YOUR_PREFIX_hide_block' );
 ```
 
 ## Interfaces

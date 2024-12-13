@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { assign, spawn } from 'xstate';
-import { getQuery, updateQueryString } from '@woocommerce/navigation';
+import { getQuery, updateQueryString } from '@poocommerce/navigation';
 import { dispatch } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -291,11 +291,11 @@ const redirectToAssemblerHub = async () => {
 	// This is a workaround to update the "activeThemeHasMods" in the parent's machine
 	// state context. We should find a better way to do this using xstate actions,
 	// since state machines should rely only on their context.
-	// Will be fixed on: https://github.com/woocommerce/woocommerce/issues/44349
+	// Will be fixed on: https://github.com/poocommerce/poocommerce/issues/44349
 	// This is needed because the iframe loads the entire Customize Store app.
 	// This means that the iframe instance will have different state machines
 	// than the parent window.
-	// Check https://github.com/woocommerce/woocommerce/pull/44206 for more details.
+	// Check https://github.com/poocommerce/poocommerce/pull/44206 for more details.
 	window.parent.__wcCustomizeStore.activeThemeHasMods = true;
 };
 

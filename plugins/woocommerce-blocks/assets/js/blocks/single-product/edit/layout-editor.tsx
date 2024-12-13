@@ -7,11 +7,11 @@ import { useDispatch } from '@wordpress/data';
 import {
 	InnerBlockLayoutContextProvider,
 	ProductDataContextProvider,
-} from '@woocommerce/shared-context';
-import { createBlocksFromTemplate } from '@woocommerce/atomic-utils';
+} from '@poocommerce/shared-context';
+import { createBlocksFromTemplate } from '@poocommerce/atomic-utils';
 import { PanelBody, Button } from '@wordpress/components';
 import { backup } from '@wordpress/icons';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import {
 	InnerBlocks,
 	InspectorControls,
@@ -60,20 +60,20 @@ const LayoutEditor = ( {
 			>
 				<InspectorControls>
 					<PanelBody
-						title={ __( 'Layout', 'woocommerce' ) }
+						title={ __( 'Layout', 'poocommerce' ) }
 						initialOpen={ true }
 					>
 						<Button
 							label={ __(
 								'Reset layout to default',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onClick={ resetInnerBlocks }
 							variant="tertiary"
 							className="wc-block-editor-single-product__reset-layout"
 							icon={ backup }
 						>
-							{ __( 'Reset layout', 'woocommerce' ) }
+							{ __( 'Reset layout', 'poocommerce' ) }
 						</Button>
 					</PanelBody>
 				</InspectorControls>

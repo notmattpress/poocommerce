@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Email;
 use WC_Order;
 use WC_Product;
@@ -83,7 +83,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		$this->email = apply_filters( 'woocommerce_prepare_email_for_preview', $this->email );
+		$this->email = apply_filters( 'poocommerce_prepare_email_for_preview', $this->email );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class EmailPreview {
 		$mailer = WC()->mailer();
 
 		// get the preview email subject.
-		$email_heading = __( 'HTML email template', 'woocommerce' );
+		$email_heading = __( 'HTML email template', 'poocommerce' );
 
 		// get the preview email content.
 		ob_start();
@@ -148,7 +148,7 @@ class EmailPreview {
 		 *
 		 * @since 2.6.0
 		 */
-		return apply_filters( 'woocommerce_mail_content', $email->style_inline( $mailer->wrap_message( $email_heading, $message ) ) );
+		return apply_filters( 'poocommerce_mail_content', $email->style_inline( $mailer->wrap_message( $email_heading, $message ) ) );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class EmailPreview {
 		$this->clean_up_filters();
 
 		/** This filter is documented in src/Internal/Admin/EmailPreview/EmailPreview.php */
-		return apply_filters( 'woocommerce_mail_content', $this->email->style_inline( $content ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		return apply_filters( 'poocommerce_mail_content', $this->email->style_inline( $content ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -198,11 +198,11 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_order', $order, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_order', $order, $this->email_type );
 	}
 
 	/**
-	 * Get a dummy product. Also used with `woocommerce_order_item_product` filter
+	 * Get a dummy product. Also used with `poocommerce_order_item_product` filter
 	 * when email templates tries to get the product from the database.
 	 *
 	 * @return WC_Product
@@ -220,7 +220,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_product', $product, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_product', $product, $this->email_type );
 	}
 
 	/**
@@ -250,7 +250,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_address', $address, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_address', $address, $this->email_type );
 	}
 
 	/**
@@ -276,7 +276,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_placeholders', $placeholders, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_placeholders', $placeholders, $this->email_type );
 	}
 
 	/**
@@ -284,18 +284,18 @@ class EmailPreview {
 	 */
 	private function set_up_filters() {
 		// Always show shipping address in the preview email.
-		add_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
+		add_filter( 'poocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
 		// Email templates fetch product from the database to show additional information, which are not
 		// saved in WC_Order_Item_Product. This filter enables fetching that data also in email preview.
-		add_filter( 'woocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10, 1 );
+		add_filter( 'poocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10, 1 );
 	}
 
 	/**
 	 * Clean up filters after email preview.
 	 */
 	private function clean_up_filters() {
-		remove_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
-		remove_filter( 'woocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10 );
+		remove_filter( 'poocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
+		remove_filter( 'poocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10 );
 	}
 
 	/**

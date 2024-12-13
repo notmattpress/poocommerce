@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runTaxSettingsTest } = require( '@woocommerce/e2e-core-tests' );
+const { runTaxSettingsTest } = require( '@poocommerce/e2e-core-tests' );
 
 runTaxSettingsTest();

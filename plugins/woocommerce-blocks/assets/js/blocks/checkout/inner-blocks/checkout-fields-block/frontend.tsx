@@ -4,10 +4,10 @@
 import type { ReactElement } from 'react';
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { Main } from '@woocommerce/base-components/sidebar-layout';
-import { useStoreEvents } from '@woocommerce/base-context/hooks';
+import { Main } from '@poocommerce/base-components/sidebar-layout';
+import { useStoreEvents } from '@poocommerce/base-context/hooks';
 import { useEffect } from '@wordpress/element';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
 
 const FrontendBlock = ( {
 	children,
@@ -28,7 +28,7 @@ const FrontendBlock = ( {
 	return (
 		<Main className={ clsx( 'wc-block-checkout__main', className ) }>
 			<form
-				aria-label={ __( 'Checkout', 'woocommerce' ) }
+				aria-label={ __( 'Checkout', 'poocommerce' ) }
 				className={ clsx(
 					'wc-block-components-form wc-block-checkout__form',
 					{

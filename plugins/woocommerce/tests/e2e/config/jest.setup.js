@@ -8,23 +8,23 @@ import {
 	setBrowserViewport,
 	withRestApi,
 	WP_ADMIN_LOGIN,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 const config = require( 'config' );
-const { HTTPClientFactory } = require( '@woocommerce/api' );
+const { HTTPClientFactory } = require( '@poocommerce/api' );
 const {
 	addConsoleSuppression,
 	updateReadyPageStatus,
 	setupJestRetries,
-} = require( '@woocommerce/e2e-environment' );
+} = require( '@poocommerce/e2e-environment' );
 const { DEFAULT_TIMEOUT_OVERRIDE } = process.env;
 
-// @todo: remove this once https://github.com/woocommerce/woocommerce-admin/issues/6992 has been addressed
-addConsoleSuppression( 'woocommerce_shared_settings', false );
-// @todo: remove this once https://github.com/woocommerce/woocommerce/issues/31867 has been addressed
+// @todo: remove this once https://github.com/poocommerce/poocommerce-admin/issues/6992 has been addressed
+addConsoleSuppression( 'poocommerce_shared_settings', false );
+// @todo: remove this once https://github.com/poocommerce/poocommerce/issues/31867 has been addressed
 addConsoleSuppression( 'wp.compose.withState', false );
 
 /**

@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
 use WC_Tax;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
 
 /**
  * Process the query data for filtering purposes.
@@ -344,7 +344,7 @@ final class QueryFilters {
 	 * @return boolean
 	 */
 	private function adjust_price_filters_for_displayed_taxes() {
-		$display  = get_option( 'woocommerce_tax_display_shop' );
+		$display  = get_option( 'poocommerce_tax_display_shop' );
 		$database = wc_prices_include_tax() ? 'incl' : 'excl';
 
 		return $display !== $database;
@@ -360,7 +360,7 @@ final class QueryFilters {
 	 * @return float
 	 */
 	private function adjust_price_filter_for_tax_class( $price_filter, $tax_class ) {
-		$tax_display    = get_option( 'woocommerce_tax_display_shop' );
+		$tax_display    = get_option( 'poocommerce_tax_display_shop' );
 		$tax_rates      = WC_Tax::get_rates( $tax_class );
 		$base_tax_rates = WC_Tax::get_base_tax_rates( $tax_class );
 
@@ -369,18 +369,18 @@ final class QueryFilters {
 			/**
 			 * Filters if taxes should be removed from locations outside the store base location.
 			 *
-			 * The woocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
+			 * The poocommerce_adjust_non_base_location_prices filter can stop base taxes being taken off when dealing
 			 * with out of base locations. e.g. If a product costs 10 including tax, all users will pay 10
 			 * regardless of location and taxes.
 			 *
 			 * @since 2.6.0
 			 *
-			 * @internal Matches filter name in WooCommerce core.
+			 * @internal Matches filter name in PooCommerce core.
 			 *
 			 * @param boolean $adjust_non_base_location_prices True by default.
 			 * @return boolean
 			 */
-			$taxes = apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
+			$taxes = apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ? WC_Tax::calc_tax( $price_filter, $base_tax_rates, true ) : WC_Tax::calc_tax( $price_filter, $tax_rates, true );
 			return $price_filter - array_sum( $taxes );
 		}
 
@@ -418,7 +418,7 @@ final class QueryFilters {
 		// The extra derived table ("SELECT product_or_parent_id FROM") is needed for performance
 		// (causes the filtering subquery to be executed only once).
 		$clause_root = " {$wpdb->posts}.ID IN ( SELECT product_or_parent_id FROM (";
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$in_stock_clause = ' AND in_stock = 1';
 		} else {
 			$in_stock_clause = '';

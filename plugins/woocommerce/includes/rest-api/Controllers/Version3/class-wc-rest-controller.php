@@ -3,7 +3,7 @@
  * REST Controller
  *
  * This class extend `WP_REST_Controller` in order to include /batch endpoint
- * for almost all endpoints in WooCommerce REST API.
+ * for almost all endpoints in PooCommerce REST API.
  *
  * It's required to follow "Controller Classes" guide before extending this class:
  * <https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/>
@@ -12,7 +12,7 @@
  * If necessary extend this class and create new abstract classes like `WC_REST_CRUD_Controller` or `WC_REST_Terms_Controller`.
  *
  * @class   WC_REST_Controller
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @see     https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/
  */
 
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Abstract Rest Controller Class
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends  WP_REST_Controller
  * @version  2.6.0
  */
@@ -86,7 +86,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 			$schema['properties'][ $field_name ] = $field_options['schema'];
 		}
 
-		$schema['properties'] = apply_filters( 'woocommerce_rest_' . $object_type . '_schema', $schema['properties'] );
+		$schema['properties'] = apply_filters( 'poocommerce_rest_' . $object_type . '_schema', $schema['properties'] );
 
 		return $schema;
 	}
@@ -177,7 +177,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 	 * @return bool|WP_Error
 	 */
 	protected function check_batch_limit( $items ) {
-		$limit = apply_filters( 'woocommerce_rest_batch_items_limit', 100, $this->get_normalized_rest_base() );
+		$limit = apply_filters( 'poocommerce_rest_batch_items_limit', 100, $this->get_normalized_rest_base() );
 		$total = 0;
 
 		if ( ! empty( $items['create'] ) && is_countable( $items['create'] ) ) {
@@ -194,7 +194,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 
 		if ( $total > $limit ) {
 			/* translators: %s: items limit */
-			return new WP_Error( 'woocommerce_rest_request_entity_too_large', sprintf( __( 'Unable to accept more than %s items for this request.', 'woocommerce' ), $limit ), array( 'status' => 413 ) );
+			return new WP_Error( 'poocommerce_rest_request_entity_too_large', sprintf( __( 'Unable to accept more than %s items for this request.', 'poocommerce' ), $limit ), array( 'status' => 413 ) );
 		}
 
 		return true;
@@ -343,7 +343,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 		if ( array_key_exists( $value, $setting['options'] ) ) {
 			return $value;
 		} else {
-			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 	}
 
@@ -361,7 +361,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 		}
 
 		if ( ! is_array( $values ) ) {
-			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$final_values = array();
@@ -384,7 +384,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 	 */
 	public function validate_setting_image_width_field( $values, $setting ) {
 		if ( ! is_array( $values ) ) {
-			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		$current = $setting['value'];
@@ -427,7 +427,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 			$value = isset( $setting['default'] ) ? $setting['default'] : 'no';
 			return $value;
 		} else {
-			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 	}
 
@@ -475,7 +475,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'create' => array(
-					'description' => __( 'List of created resources.', 'woocommerce' ),
+					'description' => __( 'List of created resources.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
@@ -483,7 +483,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 					),
 				),
 				'update' => array(
-					'description' => __( 'List of updated resources.', 'woocommerce' ),
+					'description' => __( 'List of updated resources.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
@@ -491,7 +491,7 @@ abstract class WC_REST_Controller extends WP_REST_Controller {
 					),
 				),
 				'delete' => array(
-					'description' => __( 'List of delete resources.', 'woocommerce' ),
+					'description' => __( 'List of delete resources.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(

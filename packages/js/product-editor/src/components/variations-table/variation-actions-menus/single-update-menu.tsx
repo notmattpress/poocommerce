@@ -5,7 +5,7 @@ import { DropdownMenu } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { moreVertical } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ export function SingleUpdateMenu( {
 				placement: 'left-start',
 			} }
 			icon={ moreVertical }
-			label={ __( 'Actions', 'woocommerce' ) }
+			label={ __( 'Actions', 'poocommerce' ) }
 			toggleProps={ {
 				onClick() {
 					recordEvent( 'product_variations_menu_view', {

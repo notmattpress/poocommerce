@@ -52,7 +52,7 @@ export const ComboboxControl = forwardRef( function ForwardedComboboxControl(
 	const inputElementRef = useRef< HTMLInputElement >();
 	const generatedId = useInstanceId(
 		ComboboxControl,
-		'woocommerce-combobox-control'
+		'poocommerce-combobox-control'
 	) as string;
 	const currentId = id ?? generatedId;
 
@@ -125,7 +125,7 @@ export const ComboboxControl = forwardRef( function ForwardedComboboxControl(
 			onChange={ onChange }
 			onFilterValueChange={ onFilterValueChange }
 			className={ classNames(
-				'woocommerce-combobox-control',
+				'poocommerce-combobox-control',
 				currentId,
 				className
 			) }

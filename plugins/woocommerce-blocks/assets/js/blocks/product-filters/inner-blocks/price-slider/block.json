@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/product-filter-price-slider",
+	"name": "poocommerce/product-filter-price-slider",
 	"version": "1.0.0",
 	"title": "Price Slider",
 	"description": "A slider helps shopper choose a price range.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"html": false,
 		"color": {
@@ -48,9 +48,9 @@
 			"default": ""
 		}
 	},
-	"ancestor": [ "woocommerce/product-filter-price" ],
+	"ancestor": [ "poocommerce/product-filter-price" ],
 	"usesContext": [ "filterData" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

@@ -2,7 +2,7 @@
  * External dependencies
  */
 // @ts-expect-error -- @wordpress/element doesn't export createRoot until WP6.2
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { createRoot } from '@wordpress/element';
 
 /**
@@ -12,9 +12,9 @@ import { PaymentPromotionRow } from './payment-promotion-row';
 
 const PAYMENT_METHOD_PROMOTIONS = [
 	{
-		gatewayId: 'pre_install_woocommerce_payments_promotion',
-		pluginSlug: 'woocommerce-payments',
-		url: 'https://woocommerce.com/payments/?utm_medium=product',
+		gatewayId: 'pre_install_poocommerce_payments_promotion',
+		pluginSlug: 'poocommerce-payments',
+		url: 'https://poocommerce.com/payments/?utm_medium=product',
 	},
 ];
 

@@ -1,15 +1,15 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Integrations\WPConsentAPI;
-use Automattic\WooCommerce\Internal\Orders\OrderAttributionController;
-use Automattic\WooCommerce\Internal\Orders\OrderAttributionBlocksController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Integrations\WPConsentAPI;
+use Automattic\PooCommerce\Internal\Orders\OrderAttributionController;
+use Automattic\PooCommerce\Internal\Orders\OrderAttributionBlocksController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 /**
  * Class OrderAttributionServiceProvider

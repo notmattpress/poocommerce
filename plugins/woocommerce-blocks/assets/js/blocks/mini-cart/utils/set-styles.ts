@@ -35,7 +35,7 @@ function setStyles() {
 	// CSS take priority.
 	style.appendChild(
 		document.createTextNode(
-			`:where(.wp-block-woocommerce-mini-cart-contents) {
+			`:where(.wp-block-poocommerce-mini-cart-contents) {
 				background-color: ${ backgroundColor };
 			}
 			:where(.wc-block-mini-cart__badge) {

@@ -81,7 +81,7 @@ export default function SidebarNavigationScreen( {
 								history.push( backPath );
 							} }
 							icon={ icon }
-							label={ __( 'Back', 'woocommerce' ) }
+							label={ __( 'Back', 'poocommerce' ) }
 							showTooltip={ false }
 						/>
 					) }
@@ -90,7 +90,7 @@ export default function SidebarNavigationScreen( {
 							icon={ icon }
 							label={
 								dashboardLinkText ||
-								__( 'Go to the Dashboard', 'woocommerce' )
+								__( 'Go to the Dashboard', 'poocommerce' )
 							}
 							href={ dashboardLink || 'index.php' }
 						/>

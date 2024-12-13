@@ -16,12 +16,12 @@ export const BlockSettings = ( {
 	const { hasDarkControls } = attributes;
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Style', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Style', 'poocommerce' ) }>
 				<ToggleControl
-					label={ __( 'Dark mode inputs', 'woocommerce' ) }
+					label={ __( 'Dark mode inputs', 'poocommerce' ) }
 					help={ __(
 						'Inputs styled specifically for use on dark background colors.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ hasDarkControls }
 					onChange={ () =>

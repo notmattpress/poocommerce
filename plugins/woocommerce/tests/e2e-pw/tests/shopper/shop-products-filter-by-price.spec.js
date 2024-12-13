@@ -11,7 +11,7 @@ import {
 	insertBlockByShortcut,
 	goToPageEditor,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 const singleProductPrice1 = '10';
 const singleProductPrice2 = '50';
@@ -27,7 +27,7 @@ const test = baseTest.extend( {
 	testPageTitlePrefix: 'Products filter',
 } );
 
-//todo audit follow-up: see plugins/woocommerce-blocks/tests/e2e/tests/product-filters/price-filter-frontend.block_theme.spec.ts
+//todo audit follow-up: see plugins/poocommerce-blocks/tests/e2e/tests/product-filters/price-filter-frontend.block_theme.spec.ts
 test.describe(
 	'Filter items in the shop by product price',
 	{

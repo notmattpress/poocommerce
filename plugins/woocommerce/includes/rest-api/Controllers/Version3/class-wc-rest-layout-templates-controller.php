@@ -4,13 +4,13 @@
  *
  * Handles requests to /layout-templates.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since 8.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry;
+use Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry;
 
 /**
  * REST API Layout Templates controller class.
@@ -44,7 +44,7 @@ class WC_REST_Layout_Templates_Controller extends WC_REST_Controller {
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 				'args'                => array(
 					'area' => array(
-						'description' => __( 'Area to get templates for.', 'woocommerce' ),
+						'description' => __( 'Area to get templates for.', 'poocommerce' ),
 						'type'        => 'string',
 						'default'     => '',
 					),
@@ -58,7 +58,7 @@ class WC_REST_Layout_Templates_Controller extends WC_REST_Controller {
 			array(
 				'args' => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),
@@ -120,7 +120,7 @@ class WC_REST_Layout_Templates_Controller extends WC_REST_Controller {
 		);
 
 		if ( count( $layout_templates ) !== 1 ) {
-			return new WP_Error( 'woocommerce_rest_layout_template_invalid_id', __( 'Invalid layout template ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_layout_template_invalid_id', __( 'Invalid layout template ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$response = rest_ensure_response( current( $layout_templates ) );

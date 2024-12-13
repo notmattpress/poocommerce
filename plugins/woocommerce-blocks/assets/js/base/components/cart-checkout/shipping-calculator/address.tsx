@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import Button from '@woocommerce/base-components/button';
+import Button from '@poocommerce/base-components/button';
 import { useState } from '@wordpress/element';
 import isShallowEqual from '@wordpress/is-shallow-equal';
-import type { ShippingAddress, FormFields } from '@woocommerce/settings';
-import { VALIDATION_STORE_KEY, CART_STORE_KEY } from '@woocommerce/block-data';
+import type { ShippingAddress, FormFields } from '@poocommerce/settings';
+import { VALIDATION_STORE_KEY, CART_STORE_KEY } from '@poocommerce/block-data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useFocusReturn } from '@woocommerce/base-utils';
+import { useFocusReturn } from '@poocommerce/base-utils';
 /**
  * Internal dependencies
  */
@@ -85,7 +85,7 @@ const ShippingCalculatorAddress = ( {
 				} }
 				type="submit"
 			>
-				{ __( 'Check delivery options', 'woocommerce' ) }
+				{ __( 'Check delivery options', 'poocommerce' ) }
 			</Button>
 		</form>
 	);

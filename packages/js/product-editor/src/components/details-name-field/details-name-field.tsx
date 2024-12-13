@@ -4,8 +4,8 @@
 import { Button, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { cleanForSlug } from '@wordpress/url';
-import { useFormContext } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { useFormContext } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 import {
 	useState,
 	createElement,
@@ -44,24 +44,24 @@ export const DetailsNameField = ( {} ) => {
 		<div>
 			<TextControl
 				label={ createInterpolateElement(
-					__( 'Name <required />', 'woocommerce' ),
+					__( 'Name <required />', 'poocommerce' ),
 					{
 						required: (
-							<span className="woocommerce-product-form__optional-input">
-								{ __( '(required)', 'woocommerce' ) }
+							<span className="poocommerce-product-form__optional-input">
+								{ __( '(required)', 'poocommerce' ) }
 							</span>
 						),
 					}
 				) }
 				name={ `${ PRODUCT_DETAILS_SLUG }-name` }
-				placeholder={ __( 'e.g. 12 oz Coffee Mug', 'woocommerce' ) }
+				placeholder={ __( 'e.g. 12 oz Coffee Mug', 'poocommerce' ) }
 				{ ...getInputProps( 'name', {
 					onBlur: setSkuIfEmpty,
 				} ) }
 			/>
 			{ values.id && ! hasNameError() && permalinkPrefix && (
-				<span className="woocommerce-product-form__secondary-text product-details-section__product-link">
-					{ __( 'Product link', 'woocommerce' ) }
+				<span className="poocommerce-product-form__secondary-text product-details-section__product-link">
+					{ __( 'Product link', 'poocommerce' ) }
 					:&nbsp;
 					<a
 						href={ values.permalink }
@@ -76,7 +76,7 @@ export const DetailsNameField = ( {} ) => {
 						variant="link"
 						onClick={ () => setShowProductLinkEditModal( true ) }
 					>
-						{ __( 'Edit', 'woocommerce' ) }
+						{ __( 'Edit', 'poocommerce' ) }
 					</Button>
 				</span>
 			) }

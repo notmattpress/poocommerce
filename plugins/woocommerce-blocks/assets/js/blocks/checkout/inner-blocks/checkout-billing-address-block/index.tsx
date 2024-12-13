@@ -9,7 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import attributes from './attributes';
 
-registerBlockType( 'woocommerce/checkout-billing-address-block', {
+registerBlockType( 'poocommerce/checkout-billing-address-block', {
 	icon: {
 		src: (
 			<Icon

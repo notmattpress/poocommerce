@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { createRoot, useEffect, Suspense, render } from '@wordpress/element';
-import BlockErrorBoundary from '@woocommerce/base-components/block-error-boundary';
+import BlockErrorBoundary from '@poocommerce/base-components/block-error-boundary';
 import type { Root } from 'react-dom/client';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 // Some blocks take care of rendering their inner blocks automatically. For
 // example, the empty cart. In those cases, we don't want to trigger the render
 // function of inner components on load. Instead, the wrapper block can trigger
 // the event `wc-blocks_render_blocks_frontend` to render its inner blocks.
-const selectorsToSkipOnLoad = [ '.wp-block-woocommerce-cart' ];
+const selectorsToSkipOnLoad = [ '.wp-block-poocommerce-cart' ];
 
 type BlockProps<
 	TProps extends Record< string, unknown >,

@@ -7,10 +7,10 @@ import {
 	OPTIONS_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	useUser,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { getPath } from '@woocommerce/navigation';
-import { isWcVersion } from '@woocommerce/settings';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { getPath } from '@poocommerce/navigation';
+import { isWcVersion } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -19,10 +19,10 @@ import { STORE_KEY } from '~/marketing/data/constants';
 import '~/marketing/data';
 
 const OPTION_NAME_BANNER_DISMISSED =
-	'woocommerce_order_attribution_install_banner_dismissed';
+	'poocommerce_order_attribution_install_banner_dismissed';
 const OPTION_VALUE_YES = 'yes';
 const OPTION_NAME_REMOTE_VARIANT_ASSIGNMENT =
-	'woocommerce_remote_variant_assignment';
+	'poocommerce_remote_variant_assignment';
 
 const getThreshold = ( percentages ) => {
 	const defaultPercentages = [
@@ -90,7 +90,7 @@ export const useOrderAttributionInstallBanner = () => {
 		( select ) => {
 			const { getPluginInstallState } = select( PLUGINS_STORE_NAME );
 			const installState = getPluginInstallState(
-				'woocommerce-analytics'
+				'poocommerce-analytics'
 			);
 
 			return {
@@ -144,7 +144,7 @@ export const useOrderAttributionInstallBanner = () => {
 		}
 
 		for ( const recommendation of recommendations ) {
-			if ( recommendation.id === 'woocommerce-analytics' ) {
+			if ( recommendation.id === 'poocommerce-analytics' ) {
 				return (
 					recommendation?.order_attribution_promotion_percentage ||
 					null

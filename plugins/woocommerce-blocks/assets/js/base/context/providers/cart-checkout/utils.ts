@@ -3,7 +3,7 @@
  */
 import triggerFetch from '@wordpress/api-fetch';
 import { dispatch } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Utility function for preparing payment data for the request.

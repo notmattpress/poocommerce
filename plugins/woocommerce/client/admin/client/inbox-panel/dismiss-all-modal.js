@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { NOTES_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { NOTES_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch } from '@wordpress/data';
 import { Button, Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -21,11 +21,11 @@ const DismissAllModal = ( { onClose } ) => {
 			} );
 			createNotice(
 				'success',
-				__( 'All messages dismissed', 'woocommerce' ),
+				__( 'All messages dismissed', 'poocommerce' ),
 				{
 					actions: [
 						{
-							label: __( 'Undo', 'woocommerce' ),
+							label: __( 'Undo', 'poocommerce' ),
 							onClick: () => {
 								batchUpdateNotes(
 									notesRemoved.map( ( note ) => note.id ),
@@ -41,7 +41,7 @@ const DismissAllModal = ( { onClose } ) => {
 		} catch ( e ) {
 			createNotice(
 				'error',
-				__( 'Messages could not be dismissed', 'woocommerce' )
+				__( 'Messages could not be dismissed', 'poocommerce' )
 			);
 			onClose();
 		}
@@ -49,20 +49,20 @@ const DismissAllModal = ( { onClose } ) => {
 	return (
 		<>
 			<Modal
-				title={ __( 'Dismiss all messages', 'woocommerce' ) }
-				className="woocommerce-inbox-dismiss-all-modal"
+				title={ __( 'Dismiss all messages', 'poocommerce' ) }
+				className="poocommerce-inbox-dismiss-all-modal"
 				onRequestClose={ onClose }
 			>
-				<div className="woocommerce-inbox-dismiss-all-modal__wrapper">
-					<div className="woocommerce-usage-modal__message">
+				<div className="poocommerce-inbox-dismiss-all-modal__wrapper">
+					<div className="poocommerce-usage-modal__message">
 						{ __(
 							'Are you sure? Inbox messages will be dismissed forever.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
-					<div className="woocommerce-usage-modal__actions">
+					<div className="poocommerce-usage-modal__actions">
 						<Button onClick={ onClose }>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							isPrimary
@@ -71,7 +71,7 @@ const DismissAllModal = ( { onClose } ) => {
 								onClose();
 							} }
 						>
-							{ __( 'Yes, dismiss all', 'woocommerce' ) }
+							{ __( 'Yes, dismiss all', 'poocommerce' ) }
 						</Button>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-summary-field",
+	"name": "poocommerce/product-summary-field",
 	"title": "Product summary",
 	"category": "widgets",
 	"description": "The product summary.",

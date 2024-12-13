@@ -7,9 +7,9 @@ import { createElement } from '@wordpress/element';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
-export const WC_HEADER_SLOT_NAME = 'woocommerce_header_item';
+export const WC_HEADER_SLOT_NAME = 'poocommerce_header_item';
 
 /**
  * Get the slot fill name for the generic header slot or a specific header if provided.
@@ -26,10 +26,10 @@ const getSlotFillName = ( name?: string ) => {
 };
 
 /**
- * Create a Fill for extensions to add items to the WooCommerce Admin header.
+ * Create a Fill for extensions to add items to the PooCommerce Admin header.
  *
  * @slotFill WooHeaderItem
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyHeaderItem = () => (
  * <WooHeaderItem>My header item</WooHeaderItem>
@@ -37,7 +37,7 @@ const getSlotFillName = ( name?: string ) => {
  *
  * registerPlugin( 'my-extension', {
  * render: MyHeaderItem,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.name     - Header name.

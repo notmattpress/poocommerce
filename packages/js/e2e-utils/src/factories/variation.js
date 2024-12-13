@@ -1,4 +1,4 @@
-import { ProductVariation } from '@woocommerce/api';
+import { ProductVariation } from '@poocommerce/api';
 import { Factory } from 'fishery';
 
 /**

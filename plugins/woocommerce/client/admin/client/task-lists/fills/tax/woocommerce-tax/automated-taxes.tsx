@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import interpolateComponents from '@automattic/interpolate-components';
-import { H } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { H } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -19,22 +19,22 @@ export const AutomatedTaxes: React.FC<
 	>
 > = ( { isPending, onAutomate, onManual, onDisable } ) => {
 	return (
-		<div className="woocommerce-task-tax__success">
+		<div className="poocommerce-task-tax__success">
 			<span
-				className="woocommerce-task-tax__success-icon"
+				className="poocommerce-task-tax__success-icon"
 				role="img"
-				aria-labelledby="woocommerce-task-tax__success-message"
+				aria-labelledby="poocommerce-task-tax__success-message"
 			>
 				🎊
 			</span>
-			<H id="woocommerce-task-tax__success-message">
-				{ __( 'Good news!', 'woocommerce' ) }
+			<H id="poocommerce-task-tax__success-message">
+				{ __( 'Good news!', 'poocommerce' ) }
 			</H>
 			<p>
 				{ interpolateComponents( {
 					mixedString: __(
-						'{{strong}}WooCommerce Tax{{/strong}} can automate your sales tax calculations for you.',
-						'woocommerce'
+						'{{strong}}PooCommerce Tax{{/strong}} can automate your sales tax calculations for you.',
+						'poocommerce'
 					),
 					components: {
 						strong: <strong />,
@@ -51,7 +51,7 @@ export const AutomatedTaxes: React.FC<
 					onAutomate();
 				} }
 			>
-				{ __( 'Yes please', 'woocommerce' ) }
+				{ __( 'Yes please', 'poocommerce' ) }
 			</Button>
 			<Button
 				disabled={ isPending }
@@ -63,10 +63,10 @@ export const AutomatedTaxes: React.FC<
 					onManual();
 				} }
 			>
-				{ __( "No thanks, I'll set up manually", 'woocommerce' ) }
+				{ __( "No thanks, I'll set up manually", 'poocommerce' ) }
 			</Button>
 			<Button disabled={ isPending } isTertiary onClick={ onDisable }>
-				{ __( "I don't charge sales tax", 'woocommerce' ) }
+				{ __( "I don't charge sales tax", 'poocommerce' ) }
 			</Button>
 		</div>
 	);

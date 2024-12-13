@@ -1,6 +1,6 @@
-# WooCommerce API Client
+# PooCommerce API Client
 
-An API client for interacting with WooCommerce installations that works both in the browser and in Node environments. Here are the current and planned
+An API client for interacting with PooCommerce installations that works both in the browser and in Node environments. Here are the current and planned
 features:
 
 - [x] TypeScript Definitions \*
@@ -8,18 +8,18 @@ features:
 - [X] Partial support to Repositories, to simplify interaction with basic data types \*
 - [x] Service classes for common activities such as changing settings
 
-_\* TypeScript Definitions and Repositories are currently only supported for [Products](https://woocommerce.github.io/woocommerce-rest-api-docs/#products), and partially supported for [Orders](https://woocommerce.github.io/woocommerce-rest-api-docs/#orders)._
+_\* TypeScript Definitions and Repositories are currently only supported for [Products](https://poocommerce.github.io/poocommerce-rest-api-docs/#products), and partially supported for [Orders](https://poocommerce.github.io/poocommerce-rest-api-docs/#orders)._
 
-## Differences from @woocommerce/woocommerce-rest-api
+## Differences from @poocommerce/poocommerce-rest-api
 
-WooCommerce has two API clients in JavaScript for interacting with a WooCommerce installation's RESTful API. This package, and the [@woocommerce/woocommerce-rest-api](https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api) package.
+PooCommerce has two API clients in JavaScript for interacting with a PooCommerce installation's RESTful API. This package, and the [@poocommerce/poocommerce-rest-api](https://www.npmjs.com/package/@poocommerce/poocommerce-rest-api) package.
 
-The main difference between them is the Repositories and the TypeScript definitions for the supported endpoints. When using Axios directly, as you can do with both libraries, you query the WooCommerce API in a raw object format, following the [API documentation](https://woocommerce.github.io/woocommerce-rest-api-docs/#introduction) parameters. Comparatively, with the Repositories provided in this package, you have the parameters as properties of an object, which gives you the benefits of auto-complete and strict types, for instance.
+The main difference between them is the Repositories and the TypeScript definitions for the supported endpoints. When using Axios directly, as you can do with both libraries, you query the PooCommerce API in a raw object format, following the [API documentation](https://poocommerce.github.io/poocommerce-rest-api-docs/#introduction) parameters. Comparatively, with the Repositories provided in this package, you have the parameters as properties of an object, which gives you the benefits of auto-complete and strict types, for instance.
 
 ## Usage
 
 ```bash
-npm install @woocommerce/api --save-dev
+npm install @poocommerce/api --save-dev
 ```
 
 Depending on what you're intending to get out of the API client there are a few different ways of using it.
@@ -29,7 +29,7 @@ Depending on what you're intending to get out of the API client there are a few 
 The simplest way to use the client is directly:
 
 ```javascript
-import { HTTPClientFactory } from '@woocommerce/api';
+import { HTTPClientFactory } from '@poocommerce/api';
 
 // You can create an API client using the client factory with pre-configured middleware for convenience.
 let client = HTTPClientFactory.build( 'https://example.com' )
@@ -77,7 +77,7 @@ As a convenience utility we've created repositories for core data types that can
 These repositories provide CRUD methods for ease-of-use:
 
 ```javascript
-import { HTTPClientFactory, SimpleProduct } from '@woocommerce/api';
+import { HTTPClientFactory, SimpleProduct } from '@poocommerce/api';
 
 // Prepare the HTTP client that will be consumed by the repository.
 // This is necessary so that it can make requests to the REST API.
@@ -109,7 +109,7 @@ The following methods are available on all repositories if the corresponding met
 In child model repositories, each method requires the `parentId` as the first parameter:
 
 ```javascript
-import { HTTPClientFactory, VariableProduct, ProductVariation } from '@woocommerce/api';
+import { HTTPClientFactory, VariableProduct, ProductVariation } from '@poocommerce/api';
 
 const httpClient = HTTPClientFactory.build( 'https://example.com' )
     .withBasicAuth( 'username', 'password' )

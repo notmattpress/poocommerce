@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import {
 	Cart,
 	CartShippingPackageShippingRate,
-} from '@woocommerce/type-defs/cart';
+} from '@poocommerce/type-defs/cart';
 import { Component } from '@wordpress/element';
 
 /**

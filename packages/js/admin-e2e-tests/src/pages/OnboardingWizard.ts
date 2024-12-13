@@ -54,7 +54,7 @@ export class OnboardingWizard extends BasePage {
 		await expect( page ).toMatchElement(
 			'.components-modal__header-heading',
 			{
-				text: 'Build a better WooCommerce',
+				text: 'Build a better PooCommerce',
 			}
 		);
 

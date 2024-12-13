@@ -1,18 +1,18 @@
 {
-	"name": "woocommerce/product-button",
+	"name": "poocommerce/product-button",
 	"version": "1.0.0",
 	"title": "Add to Cart Button",
 	"description": "Display a call to action button which either adds the product to the cart, or links to the product page.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"usesContext": [
 		"query",
 		"queryId",
 		"postId"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"productId": {
 			"type": "number",
@@ -51,10 +51,10 @@
 		}
 	},
 	"ancestor": [
-		"woocommerce/all-products",
-		"woocommerce/single-product",
+		"poocommerce/all-products",
+		"poocommerce/single-product",
 		"core/post-template",
-		"woocommerce/product-template"
+		"poocommerce/product-template"
 	],
 	"styles": [
 		{

@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Onboarding Setup Wizard
+ * PooCommerce Onboarding Setup Wizard
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Onboarding;
+namespace Automattic\PooCommerce\Internal\Admin\Onboarding;
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\WCAdminHelper;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
 /**
  * Contains backend logic for the onboarding profile and checklist feature.
@@ -40,15 +40,15 @@ class OnboardingSetupWizard {
 		}
 
 		// Old settings injection.
-		// Run after Automattic\WooCommerce\Internal\Admin\Loader.
-		add_filter( 'woocommerce_components_settings', array( $this, 'component_settings' ), 20 );
+		// Run after Automattic\PooCommerce\Internal\Admin\Loader.
+		add_filter( 'poocommerce_components_settings', array( $this, 'component_settings' ), 20 );
 		// New settings injection.
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'component_settings' ), 20 );
-		add_filter( 'woocommerce_admin_preload_settings', array( $this, 'preload_settings' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'component_settings' ), 20 );
+		add_filter( 'poocommerce_admin_preload_settings', array( $this, 'preload_settings' ) );
 		add_filter( 'admin_body_class', array( $this, 'add_loading_classes' ) );
 		add_action( 'admin_init', array( $this, 'do_admin_redirects' ) );
 		add_action( 'current_screen', array( $this, 'redirect_to_profiler' ) );
-		add_filter( 'woocommerce_show_admin_notice', array( $this, 'remove_old_install_notice' ), 10, 2 );
+		add_filter( 'poocommerce_show_admin_notice', array( $this, 'remove_old_install_notice' ), 10, 2 );
 		add_filter( 'admin_viewport_meta', array( $this, 'set_viewport_meta_tag' ) );
 	}
 
@@ -81,20 +81,20 @@ class OnboardingSetupWizard {
 		}
 
 		// Setup wizard redirect.
-		if ( get_transient( '_wc_activation_redirect' ) && apply_filters( 'woocommerce_enable_setup_wizard', true ) ) {
+		if ( get_transient( '_wc_activation_redirect' ) && apply_filters( 'poocommerce_enable_setup_wizard', true ) ) {
 			$do_redirect        = true;
 			$current_page       = isset( $_GET['page'] ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			$is_onboarding_path = ! isset( $_GET['path'] ) || '/setup-wizard' === wc_clean( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 
 			// On these pages, or during these events, postpone the redirect.
-			if ( wp_doing_ajax() || is_network_admin() || ! current_user_can( 'manage_woocommerce' ) ) {
+			if ( wp_doing_ajax() || is_network_admin() || ! current_user_can( 'manage_poocommerce' ) ) {
 				$do_redirect = false;
 			}
 
 			// On these pages, or during these events, disable the redirect.
 			if (
 				( 'wc-admin' === $current_page && $is_onboarding_path ) ||
-				apply_filters( 'woocommerce_prevent_automatic_wizard_redirect', false ) ||
+				apply_filters( 'poocommerce_prevent_automatic_wizard_redirect', false ) ||
 				isset( $_GET['activate-multi'] ) // phpcs:ignore WordPress.Security.NonceVerification
 			) {
 				delete_transient( '_wc_activation_redirect' );
@@ -110,7 +110,7 @@ class OnboardingSetupWizard {
 	}
 
 	/**
-	 * Trigger the woocommerce_onboarding_profile_completed action
+	 * Trigger the poocommerce_onboarding_profile_completed action
 	 *
 	 * @param array $old_value Previous value.
 	 * @param array $value Current value.
@@ -130,7 +130,7 @@ class OnboardingSetupWizard {
 		 *
 		 * @since 1.5.0
 		 */
-		do_action( 'woocommerce_onboarding_profile_completed' );
+		do_action( 'poocommerce_onboarding_profile_completed' );
 	}
 
 	/**
@@ -190,7 +190,7 @@ class OnboardingSetupWizard {
 	 *
 	 * @return bool
 	 */
-	private function is_woocommerce_page() {
+	private function is_poocommerce_page() {
 		$current_page = PageController::get_instance()->get_current_page();
 		if ( ! $current_page || ! isset( $current_page['path'] ) ) {
 			return false;
@@ -213,11 +213,11 @@ class OnboardingSetupWizard {
 		);
 
 		// Only fetch if the onboarding wizard OR the task list is incomplete or currently shown
-		// or the current page is one of the WooCommerce Admin pages.
+		// or the current page is one of the PooCommerce Admin pages.
 		if (
 			( ! $this->should_show() && ! count( TaskLists::get_visible() )
 			||
-			! $this->is_woocommerce_page()
+			! $this->is_poocommerce_page()
 		)
 		) {
 			return $settings;
@@ -227,7 +227,7 @@ class OnboardingSetupWizard {
 		$wccom_auth                 = \WC_Helper_Options::get( 'auth' );
 		$profile['wccom_connected'] = empty( $wccom_auth['access_token'] ) ? false : true;
 
-		$settings['onboarding']['currencySymbols'] = get_woocommerce_currency_symbols();
+		$settings['onboarding']['currencySymbols'] = get_poocommerce_currency_symbols();
 		$settings['onboarding']['euCountries']     = WC()->countries->get_european_union_countries();
 		$settings['onboarding']['localeInfo']      = include WC()->plugin_path() . '/i18n/locale-info.php';
 		$settings['onboarding']['profile']         = $profile;
@@ -238,7 +238,7 @@ class OnboardingSetupWizard {
 			$settings['onboarding']['isBlockTheme'] = wc_current_theme_is_fse_theme();
 		}
 
-		return apply_filters( 'woocommerce_admin_onboarding_preloaded_data', $settings );
+		return apply_filters( 'poocommerce_admin_onboarding_preloaded_data', $settings );
 	}
 
 	/**
@@ -262,7 +262,7 @@ class OnboardingSetupWizard {
 	public function add_loading_classes( $classes ) {
 		/* phpcs:disable WordPress.Security.NonceVerification */
 		if ( $this->is_setup_wizard() ) {
-			$classes .= ' woocommerce-admin-full-screen';
+			$classes .= ' poocommerce-admin-full-screen';
 		}
 		/* phpcs: enable */
 

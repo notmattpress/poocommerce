@@ -11,7 +11,7 @@
 - Additional Merchant Order Edit tests to increase the downloadable products coverage.
 - A `specs/data` folder to store page element data.
 - Tests to verify that different top-level menus and their associated sub-menus load successfully.
-- Test scaffolding via `npx wc-e2e install @woocommerce/e2e-core-tests`
+- Test scaffolding via `npx wc-e2e install @poocommerce/e2e-core-tests`
 - Tests to check shipping cost calculation consistency between cart and checkout pages.
 
 ## Changed
@@ -34,7 +34,7 @@
 
 - Support for re-running setup and shopper tests
 - Shopper Order Email Receiving
-- New tests - See [README.md](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/e2e-core-tests/README.md) for list of available tests
+- New tests - See [README.md](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/e2e-core-tests/README.md) for list of available tests
 
 ## Fixed
 

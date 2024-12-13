@@ -4,7 +4,7 @@
  *
  * @version 2.6.0
  * @deprecated 3.6.0 Replaced with queue.
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -40,7 +40,7 @@ class WC_Background_Updater extends WC_Background_Process {
 
 		if ( is_wp_error( $dispatched ) ) {
 			$logger->error(
-				sprintf( 'Unable to dispatch WooCommerce updater: %s', $dispatched->get_error_message() ),
+				sprintf( 'Unable to dispatch PooCommerce updater: %s', $dispatched->get_error_message() ),
 				array( 'source' => 'wc_db_updates' )
 			);
 		}

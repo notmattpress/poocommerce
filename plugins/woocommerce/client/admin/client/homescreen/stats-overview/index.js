@@ -11,11 +11,11 @@ import {
 	MenuItem,
 	MenuTitle,
 	Link,
-} from '@woocommerce/components';
-import { useUserPreferences, PLUGINS_STORE_NAME } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
-import { Text } from '@woocommerce/experimental';
+} from '@poocommerce/components';
+import { useUserPreferences, PLUGINS_STORE_NAME } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -36,7 +36,7 @@ const stats = performanceIndicators.filter( ( indicator ) => {
 
 const HeaderText = () => (
 	<Text variant="title.small" size="20" lineHeight="28px">
-		{ __( 'Stats overview', 'woocommerce' ) }
+		{ __( 'Stats overview', 'poocommerce' ) }
 	</Text>
 );
 
@@ -73,19 +73,19 @@ export const StatsOverview = () => {
 	return (
 		<Card
 			size="large"
-			className="woocommerce-stats-overview woocommerce-homescreen-card"
+			className="poocommerce-stats-overview poocommerce-homescreen-card"
 		>
 			<CardHeader size="medium">
 				<HeaderText />
 				<EllipsisMenu
 					label={ __(
 						'Choose which values to display',
-						'woocommerce'
+						'poocommerce'
 					) }
 					renderContent={ () => (
 						<Fragment>
 							<MenuTitle>
-								{ __( 'Display stats:', 'woocommerce' ) }
+								{ __( 'Display stats:', 'poocommerce' ) }
 							</MenuTitle>
 							{ stats.map( ( item ) => {
 								const checked = ! hiddenStats.includes(
@@ -111,7 +111,7 @@ export const StatsOverview = () => {
 				/>
 			</CardHeader>
 			<TabPanel
-				className="woocommerce-stats-overview__tabs"
+				className="poocommerce-stats-overview__tabs"
 				onSelect={ ( period ) => {
 					recordEvent( 'statsoverview_date_picker_update', {
 						period,
@@ -119,15 +119,15 @@ export const StatsOverview = () => {
 				} }
 				tabs={ [
 					{
-						title: __( 'Today', 'woocommerce' ),
+						title: __( 'Today', 'poocommerce' ),
 						name: 'today',
 					},
 					{
-						title: __( 'Week to date', 'woocommerce' ),
+						title: __( 'Week to date', 'poocommerce' ),
 						name: 'week',
 					},
 					{
-						title: __( 'Month to date', 'woocommerce' ),
+						title: __( 'Month to date', 'poocommerce' ),
 						name: 'month',
 					},
 				] }
@@ -150,7 +150,7 @@ export const StatsOverview = () => {
 			</TabPanel>
 			<CardFooter>
 				<Link
-					className="woocommerce-stats-overview__more-btn"
+					className="poocommerce-stats-overview__more-btn"
 					href={ getNewPath( {}, '/analytics/overview' ) }
 					type="wc-admin"
 					onClick={ () => {
@@ -159,7 +159,7 @@ export const StatsOverview = () => {
 						} );
 					} }
 				>
-					{ __( 'View detailed stats', 'woocommerce' ) }
+					{ __( 'View detailed stats', 'poocommerce' ) }
 				</Link>
 			</CardFooter>
 		</Card>

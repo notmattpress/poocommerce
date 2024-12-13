@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { store } from '@woocommerce/interactivity';
+import { store } from '@poocommerce/interactivity';
 
-store( 'woocommerce/add-to-cart-with-options', {
+store( 'poocommerce/add-to-cart-with-options', {
 	state: {},
 	actions: {},
 } );

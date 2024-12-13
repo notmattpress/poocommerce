@@ -10,7 +10,7 @@ const { batch } = require( '../../data/shared/batch-update' );
 const { productsApi } = require( '../../endpoints/products' );
 
 /**
- * Tests for the WooCommerce Products API.
+ * Tests for the PooCommerce Products API.
  * These tests cover API endpoints for creating, retrieving, updating, and deleting a single product.
  *
  * @group api

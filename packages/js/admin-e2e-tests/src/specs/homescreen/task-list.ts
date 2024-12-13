@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { afterAll, beforeAll, describe, it } from '@jest/globals';
-import { takeScreenshotFor } from '@woocommerce/e2e-environment';
+import { takeScreenshotFor } from '@poocommerce/e2e-environment';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { WcHomescreen } from '../../pages/WcHomescreen';
 import { TaskTitles } from '../../constants/taskTitles';
 import { HelpMenu } from '../../elements/HelpMenu';
 import { WcSettings } from '../../pages/WcSettings';
-import { resetWooCommerceState, unhideTaskList } from '../../fixtures';
+import { resetPooCommerceState, unhideTaskList } from '../../fixtures';
 
 export const testAdminHomescreenTasklist = () => {
 	describe( 'Homescreen task list', () => {
@@ -25,7 +25,7 @@ export const testAdminHomescreenTasklist = () => {
 
 		beforeAll( async () => {
 			await login.login();
-			await resetWooCommerceState();
+			await resetPooCommerceState();
 
 			// This makes this test more isolated, by always navigating to the
 			// profile wizard and skipping, this behaves the same as if the
@@ -36,7 +36,7 @@ export const testAdminHomescreenTasklist = () => {
 
 			await homeScreen.isDisplayed();
 			await homeScreen.possiblyDismissWelcomeModal();
-			await takeScreenshotFor( 'WooCommerce Admin Home Screen' );
+			await takeScreenshotFor( 'PooCommerce Admin Home Screen' );
 		} );
 
 		afterAll( async () => {

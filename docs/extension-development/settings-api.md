@@ -2,7 +2,7 @@
 post_title: Settings API
 ---
 
-The WooCommerce Settings API is used by extensions to display, save, and load settings. The best way to make use of the API in your extension is to create a class that extends the `WC_Settings_API` class:
+The PooCommerce Settings API is used by extensions to display, save, and load settings. The best way to make use of the API in your extension is to create a class that extends the `WC_Settings_API` class:
 
 ```php
 class My_Extension_Settings extends WC_Settings_API {
@@ -85,13 +85,13 @@ This will output your settings in the correct format.
 To have your settings save, add your class's `process_admin_options` method to the appropriate `_update_options_` hook. For example, payment gateways should use the payment gateway hook:
 
 ```php
-add_action( 'woocommerce_update_options_payment_gateways', array( $this, 'process_admin_options' ) );
+add_action( 'poocommerce_update_options_payment_gateways', array( $this, 'process_admin_options' ) );
 ```
 
 Other types of plugins have similar hooks:
 
 ```php
-add_action( 'woocommerce_update_options_shipping_methods', array( $this, 'process_admin_options' ) );
+add_action( 'poocommerce_update_options_shipping_methods', array( $this, 'process_admin_options' ) );
 ```
 
 ## Loading your settings

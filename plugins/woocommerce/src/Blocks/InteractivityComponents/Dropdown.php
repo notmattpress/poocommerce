@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\InteractivityComponents;
+namespace Automattic\PooCommerce\Blocks\InteractivityComponents;
 
 /**
  * Dropdown class. This is a component for reuse with interactivity API.
  *
- * @package Automattic\WooCommerce\Blocks\InteractivityComponents
+ * @package Automattic\PooCommerce\Blocks\InteractivityComponents
  */
 class Dropdown {
 	/**
@@ -24,7 +24,7 @@ class Dropdown {
 		// Items should be an array of objects with a label and value property.
 		$items = $props['items'] ?? array();
 
-		$default_placeholder = 'single' === $select_type ? __( 'Select an option', 'woocommerce' ) : __( 'Select options', 'woocommerce' );
+		$default_placeholder = 'single' === $select_type ? __( 'Select an option', 'poocommerce' ) : __( 'Select options', 'poocommerce' );
 		$placeholder         = $props['placeholder'] ?? $default_placeholder;
 
 		$dropdown_context = array(
@@ -35,7 +35,7 @@ class Dropdown {
 		);
 
 		$action    = $props['action'] ?? '';
-		$namespace = wp_json_encode( array( 'namespace' => 'woocommerce/interactivity-dropdown' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
+		$namespace = wp_json_encode( array( 'namespace' => 'poocommerce/interactivity-dropdown' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
 
 		ob_start();
 		?>

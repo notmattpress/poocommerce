@@ -2,7 +2,7 @@
 /**
  * List products. One widget to rule them all.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 3.3.0
  */
 
@@ -17,15 +17,15 @@ class WC_Widget_Products extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_products';
-		$this->widget_description = __( "A list of your store's products.", 'woocommerce' );
-		$this->widget_id          = 'woocommerce_products';
-		$this->widget_name        = __( 'Products list', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_products';
+		$this->widget_description = __( "A list of your store's products.", 'poocommerce' );
+		$this->widget_id          = 'poocommerce_products';
+		$this->widget_name        = __( 'Products list', 'poocommerce' );
 		$this->settings           = array(
 			'title'       => array(
 				'type'  => 'text',
-				'std'   => __( 'Products', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Products', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'number'      => array(
 				'type'  => 'number',
@@ -33,48 +33,48 @@ class WC_Widget_Products extends WC_Widget {
 				'min'   => 1,
 				'max'   => '',
 				'std'   => 5,
-				'label' => __( 'Number of products to show', 'woocommerce' ),
+				'label' => __( 'Number of products to show', 'poocommerce' ),
 			),
 			'show'        => array(
 				'type'    => 'select',
 				'std'     => '',
-				'label'   => __( 'Show', 'woocommerce' ),
+				'label'   => __( 'Show', 'poocommerce' ),
 				'options' => array(
-					''         => __( 'All products', 'woocommerce' ),
-					'featured' => __( 'Featured products', 'woocommerce' ),
-					'onsale'   => __( 'On-sale products', 'woocommerce' ),
+					''         => __( 'All products', 'poocommerce' ),
+					'featured' => __( 'Featured products', 'poocommerce' ),
+					'onsale'   => __( 'On-sale products', 'poocommerce' ),
 				),
 			),
 			'orderby'     => array(
 				'type'    => 'select',
 				'std'     => 'date',
-				'label'   => __( 'Order by', 'woocommerce' ),
+				'label'   => __( 'Order by', 'poocommerce' ),
 				'options' => array(
-					'menu_order' => __( 'Menu order', 'woocommerce' ),
-					'date'       => __( 'Date', 'woocommerce' ),
-					'price'      => __( 'Price', 'woocommerce' ),
-					'rand'       => __( 'Random', 'woocommerce' ),
-					'sales'      => __( 'Sales', 'woocommerce' ),
+					'menu_order' => __( 'Menu order', 'poocommerce' ),
+					'date'       => __( 'Date', 'poocommerce' ),
+					'price'      => __( 'Price', 'poocommerce' ),
+					'rand'       => __( 'Random', 'poocommerce' ),
+					'sales'      => __( 'Sales', 'poocommerce' ),
 				),
 			),
 			'order'       => array(
 				'type'    => 'select',
 				'std'     => 'desc',
-				'label'   => _x( 'Order', 'Sorting order', 'woocommerce' ),
+				'label'   => _x( 'Order', 'Sorting order', 'poocommerce' ),
 				'options' => array(
-					'asc'  => __( 'ASC', 'woocommerce' ),
-					'desc' => __( 'DESC', 'woocommerce' ),
+					'asc'  => __( 'ASC', 'poocommerce' ),
+					'desc' => __( 'DESC', 'poocommerce' ),
 				),
 			),
 			'hide_free'   => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Hide free products', 'woocommerce' ),
+				'label' => __( 'Hide free products', 'poocommerce' ),
 			),
 			'show_hidden' => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Show hidden products', 'woocommerce' ),
+				'label' => __( 'Show hidden products', 'poocommerce' ),
 			),
 		);
 
@@ -127,7 +127,7 @@ class WC_Widget_Products extends WC_Widget {
 			);
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$query_args['tax_query'][] = array(
 				array(
 					'taxonomy' => 'product_visibility',
@@ -172,7 +172,7 @@ class WC_Widget_Products extends WC_Widget {
 				$query_args['orderby'] = 'date';
 		}
 
-		return new WP_Query( apply_filters( 'woocommerce_products_widget_query_args', $query_args ) );
+		return new WP_Query( apply_filters( 'poocommerce_products_widget_query_args', $query_args ) );
 	}
 
 	/**
@@ -196,7 +196,7 @@ class WC_Widget_Products extends WC_Widget {
 		if ( $products && $products->have_posts() ) {
 			$this->widget_start( $args, $instance );
 
-			echo wp_kses_post( apply_filters( 'woocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
 
 			$template_args = array(
 				'widget_id'   => isset( $args['widget_id'] ) ? $args['widget_id'] : $this->widget_id,
@@ -208,7 +208,7 @@ class WC_Widget_Products extends WC_Widget {
 				wc_get_template( 'content-widget-product.php', $template_args );
 			}
 
-			echo wp_kses_post( apply_filters( 'woocommerce_after_widget_product_list', '</ul>' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_after_widget_product_list', '</ul>' ) );
 
 			$this->widget_end( $args );
 		}

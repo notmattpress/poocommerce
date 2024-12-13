@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-removable-chips",
+	"name": "poocommerce/product-filter-removable-chips",
 	"version": "1.0.0",
 	"title": "Chips",
 	"description": "Display removable active filters as chips.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"ancestor": [
-		"woocommerce/product-filter-active"
+		"poocommerce/product-filter-active"
 	],
 	"supports": {
 		"layout": {

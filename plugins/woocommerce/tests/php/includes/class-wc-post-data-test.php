@@ -2,7 +2,7 @@
 /**
  * Post data tests
  *
- * @package WooCommerce\Tests\Post_Data.
+ * @package PooCommerce\Tests\Post_Data.
  */
 
 /**
@@ -37,7 +37,7 @@ class WC_Post_Data_Test extends \WC_Unit_Test_Case {
 	 * Order items should be deleted before deleting order.
 	 */
 	public function test_before_delete_order() {
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$items = $order->get_items();
 		$this->assertNotEmpty( $items );
 

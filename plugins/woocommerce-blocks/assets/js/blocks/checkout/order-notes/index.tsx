@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { CheckboxControl, Textarea } from '@woocommerce/blocks-components';
+import { CheckboxControl, Textarea } from '@poocommerce/blocks-components';
 
 interface CheckoutOrderNotesProps {
 	disabled: boolean;
@@ -28,7 +28,7 @@ const CheckoutOrderNotes = ( {
 		<div className="wc-block-checkout__add-note">
 			<CheckboxControl
 				disabled={ disabled }
-				label={ __( 'Add a note to your order', 'woocommerce' ) }
+				label={ __( 'Add a note to your order', 'poocommerce' ) }
 				checked={ withOrderNotes }
 				onChange={ ( isChecked ) => {
 					setWithOrderNotes( isChecked );

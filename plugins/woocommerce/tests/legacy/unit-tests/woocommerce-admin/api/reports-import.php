@@ -2,16 +2,16 @@
 /**
  * Reports Import REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports Import REST API Test Class
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 class WC_Admin_Tests_API_Reports_Import extends WC_REST_Unit_Test_Case {
 	/**

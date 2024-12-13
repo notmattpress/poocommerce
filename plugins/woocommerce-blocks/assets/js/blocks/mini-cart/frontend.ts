@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import preloadScript from '@woocommerce/base-utils/preload-script';
-import lazyLoadScript from '@woocommerce/base-utils/lazy-load-script';
-import getNavigationType from '@woocommerce/base-utils/get-navigation-type';
-import { translateJQueryEventToNative } from '@woocommerce/base-utils/legacy-events';
+import preloadScript from '@poocommerce/base-utils/preload-script';
+import lazyLoadScript from '@poocommerce/base-utils/lazy-load-script';
+import getNavigationType from '@poocommerce/base-utils/get-navigation-type';
+import { translateJQueryEventToNative } from '@poocommerce/base-utils/legacy-events';
 
 /**
  * Internal dependencies

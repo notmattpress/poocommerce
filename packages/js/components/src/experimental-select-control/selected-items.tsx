@@ -49,7 +49,7 @@ const PrivateSelectedItems = < ItemType, >(
 	ref: React.ForwardedRef< SelectedItemFocusHandle >
 ) => {
 	const classes = classnames(
-		'woocommerce-experimental-select-control__selected-items',
+		'poocommerce-experimental-select-control__selected-items',
 		{
 			'is-read-only': isReadOnly,
 		}
@@ -79,7 +79,7 @@ const PrivateSelectedItems = < ItemType, >(
 
 	const focusSibling = ( event: React.KeyboardEvent< HTMLDivElement > ) => {
 		const selectedItem = ( event.target as HTMLElement ).closest(
-			'.woocommerce-experimental-select-control__selected-item'
+			'.poocommerce-experimental-select-control__selected-item'
 		);
 		const sibling =
 			event.key === 'ArrowLeft' || event.key === 'Backspace'
@@ -88,7 +88,7 @@ const PrivateSelectedItems = < ItemType, >(
 		if ( sibling ) {
 			(
 				( sibling as HTMLElement ).querySelector(
-					'.woocommerce-tag__remove'
+					'.poocommerce-tag__remove'
 				) as HTMLElement
 			 )?.focus();
 			return true;
@@ -105,7 +105,7 @@ const PrivateSelectedItems = < ItemType, >(
 					/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 					<div
 						key={ `selected-item-${ index }` }
-						className="woocommerce-experimental-select-control__selected-item"
+						className="poocommerce-experimental-select-control__selected-item"
 						{ ...getSelectedItemProps( {
 							selectedItem: item,
 							index,

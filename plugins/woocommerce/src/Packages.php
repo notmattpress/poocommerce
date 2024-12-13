@@ -1,9 +1,9 @@
 <?php
 /**
- * Loads WooCommerce packages from the /packages directory. These are packages developed outside of core.
+ * Loads PooCommerce packages from the /packages directory. These are packages developed outside of core.
  */
 
-namespace Automattic\WooCommerce;
+namespace Automattic\PooCommerce;
 
 use Automattic\Jetpack\Constants;
 
@@ -22,7 +22,7 @@ class Packages {
 	private function __construct() {}
 
 	/**
-	 * Array of package names and their main package classes. Once a package has been merged into WooCommerce
+	 * Array of package names and their main package classes. Once a package has been merged into PooCommerce
 	 * directly it should be removed from here and added to the merged packages array.
 	 *
 	 * @var array Key is the package name/directory, value is the main package class which handles init.
@@ -32,31 +32,31 @@ class Packages {
 	/**
 	 * Array of package names and their main package classes.
 	 *
-	 * One a package has been merged into WooCommerce Core it should be moved from the package list and placed in
+	 * One a package has been merged into PooCommerce Core it should be moved from the package list and placed in
 	 * this list. This will ensure that the feature plugin is disabled as well as provide the class to handle
 	 * initialization for the now-merged feature plugin.
 	 *
-	 * Once a package has been merged into WooCommerce Core it should have its slug added here. This will ensure
+	 * Once a package has been merged into PooCommerce Core it should have its slug added here. This will ensure
 	 * that we deactivate the feature plugin automatically to prevent any problems caused by conflicts between
 	 * the two versions caused by them both being active.
 	 *
-	 * The packages included in this array cannot be deactivated and will always load with WooCommerce core.
+	 * The packages included in this array cannot be deactivated and will always load with PooCommerce core.
 	 *
 	 * @var array Key is the package name/directory, value is the main package class which handles init.
 	 */
 	protected static $base_packages = array(
-		'woocommerce-admin'                    => '\\Automattic\\WooCommerce\\Admin\\Composer\\Package',
-		'woocommerce-gutenberg-products-block' => '\\Automattic\\WooCommerce\\Blocks\\Package',
+		'poocommerce-admin'                    => '\\Automattic\\PooCommerce\\Admin\\Composer\\Package',
+		'poocommerce-gutenberg-products-block' => '\\Automattic\\PooCommerce\\Blocks\\Package',
 	);
 
 	/**
 	 * Similar to $base_packages, but
-	 * the packages included in this array can be deactivated via the 'woocommerce_merged_packages' filter.
+	 * the packages included in this array can be deactivated via the 'poocommerce_merged_packages' filter.
 	 *
 	 * @var array Key is the package name/directory, value is the main package class which handles init.
 	 */
 	protected static $merged_packages = array(
-		'woocommerce-brands' => '\\Automattic\\WooCommerce\\Internal\\Brands',
+		'poocommerce-brands' => '\\Automattic\\PooCommerce\\Internal\\Brands',
 	);
 
 
@@ -69,10 +69,10 @@ class Packages {
 		add_action( 'plugins_loaded', array( __CLASS__, 'prepare_packages' ), -100 );
 		add_action( 'plugins_loaded', array( __CLASS__, 'on_init' ), 10 );
 
-		// Prevent plugins already merged into WooCommerce core from getting activated as standalone plugins.
+		// Prevent plugins already merged into PooCommerce core from getting activated as standalone plugins.
 		add_action( 'activate_plugin', array( __CLASS__, 'deactivate_merged_plugins' ) );
 
-		// Display a notice in the Plugins tab next to plugins already merged into WooCommerce core.
+		// Display a notice in the Plugins tab next to plugins already merged into PooCommerce core.
 		add_filter( 'all_plugins', array( __CLASS__, 'mark_merged_plugins_as_pending_update' ), 10, 1 );
 		add_action( 'after_plugin_row', array( __CLASS__, 'display_notice_for_merged_plugins' ), 10, 1 );
 	}
@@ -104,7 +104,7 @@ class Packages {
 	public static function should_load_class( $class_name ) {
 
 		foreach ( self::$merged_packages as $merged_package_name => $merged_package_class ) {
-			if ( str_replace( 'woocommerce-', 'wc_', $merged_package_name ) === $class_name ) {
+			if ( str_replace( 'poocommerce-', 'wc_', $merged_package_name ) === $class_name ) {
 				return true;
 			}
 		}
@@ -176,10 +176,10 @@ class Packages {
 	/**
 	 * Deactivates merged feature plugins.
 	 *
-	 * Once a feature plugin is merged into WooCommerce Core it should be deactivated. This method will
+	 * Once a feature plugin is merged into PooCommerce Core it should be deactivated. This method will
 	 * ensure that a plugin gets deactivated. Note that for the first request it will still be active,
 	 * and as such, there may be some odd behavior. This is unlikely to cause any issues though
-	 * because it will be deactivated on the request that updates or activates WooCommerce.
+	 * because it will be deactivated on the request that updates or activates PooCommerce.
 	 */
 	protected static function deactivate_merged_packages() {
 		// Developers may need to be able to run merged feature plugins alongside merged packages for testing purposes.
@@ -208,9 +208,9 @@ class Packages {
 					echo '<div class="error"><p>';
 					printf(
 					/* translators: %s: is referring to the plugin's name. */
-						esc_html__( 'The %1$s plugin has been deactivated as the latest improvements are now included with the %2$s plugin.', 'woocommerce' ),
+						esc_html__( 'The %1$s plugin has been deactivated as the latest improvements are now included with the %2$s plugin.', 'poocommerce' ),
 						'<code>' . esc_html( $plugin_data['Name'] ) . '</code>',
-						'<code>WooCommerce</code>'
+						'<code>PooCommerce</code>'
 					);
 					echo '</p></div>';
 				}
@@ -219,7 +219,7 @@ class Packages {
 	}
 
 	/**
-	 * Prevent plugins already merged into WooCommerce core from getting activated as standalone plugins.
+	 * Prevent plugins already merged into PooCommerce core from getting activated as standalone plugins.
 	 *
 	 * @param string $plugin Plugin name.
 	 */
@@ -229,11 +229,11 @@ class Packages {
 		if ( self::is_package_enabled( $plugin_dir ) ) {
 			$plugins_url = esc_url( admin_url( 'plugins.php' ) );
 			wp_die(
-				esc_html__( 'This plugin cannot be activated because its functionality is now included in WooCommerce core.', 'woocommerce' ),
-				esc_html__( 'Plugin Activation Error', 'woocommerce' ),
+				esc_html__( 'This plugin cannot be activated because its functionality is now included in PooCommerce core.', 'poocommerce' ),
+				esc_html__( 'Plugin Activation Error', 'poocommerce' ),
 				array(
 					'link_url'  => esc_url( $plugins_url ),
-					'link_text' => esc_html__( 'Return to the Plugins page', 'woocommerce' ),
+					'link_text' => esc_html__( 'Return to the Plugins page', 'poocommerce' ),
 				),
 			);
 		}
@@ -258,7 +258,7 @@ class Packages {
 
 	/**
 	 * Displays a maintenance notice next to merged plugins, to inform users
-	 * that the plugin functionality is now offered by WooCommerce core.
+	 * that the plugin functionality is now offered by PooCommerce core.
 	 *
 	 * Requires 'mark_merged_plugins_as_pending_update' to properly display this notice.
 	 *
@@ -273,7 +273,7 @@ class Packages {
 		}
 
 		$columns_count = $wp_list_table->get_column_count();
-		$notice        = __( 'This plugin can no longer be activated because its functionality is now included in <strong>WooCommerce</strong>. It is recommended to <strong>delete</strong> it.', 'woocommerce' );
+		$notice        = __( 'This plugin can no longer be activated because its functionality is now included in <strong>PooCommerce</strong>. It is recommended to <strong>delete</strong> it.', 'poocommerce' );
 		echo '<tr class="plugin-update-tr"><td colspan="' . esc_attr( $columns_count ) . '" class="plugin-update"><div class="update-message notice inline notice-error notice-alt"><p>' . wp_kses_post( $notice ) . '</p></div></td></tr>';
 	}
 
@@ -296,20 +296,20 @@ class Packages {
 		}
 
 		// Proxies "activated_plugin" hook for embedded packages listen on WC plugin activation
-		// https://github.com/woocommerce/woocommerce/issues/28697.
+		// https://github.com/poocommerce/poocommerce/issues/28697.
 		if ( is_admin() ) {
-			$activated_plugin = get_transient( 'woocommerce_activated_plugin' );
+			$activated_plugin = get_transient( 'poocommerce_activated_plugin' );
 			if ( $activated_plugin ) {
-				delete_transient( 'woocommerce_activated_plugin' );
+				delete_transient( 'poocommerce_activated_plugin' );
 
 				/**
-				 * WooCommerce is activated hook.
+				 * PooCommerce is activated hook.
 				 *
 				 * @since 5.0.0
 				 * @param bool $activated_plugin Activated plugin path,
-				 *                               generally woocommerce/woocommerce.php.
+				 *                               generally poocommerce/poocommerce.php.
 				 */
-				do_action( 'woocommerce_activated_plugin', $activated_plugin );
+				do_action( 'poocommerce_activated_plugin', $activated_plugin );
 			}
 		}
 	}
@@ -324,9 +324,9 @@ class Packages {
 			error_log(  // phpcs:ignore
 				sprintf(
 					/* Translators: %s package name. */
-					esc_html__( 'Missing the WooCommerce %s package', 'woocommerce' ),
+					esc_html__( 'Missing the PooCommerce %s package', 'poocommerce' ),
 					'<code>' . esc_html( $package ) . '</code>'
-				) . ' - ' . esc_html__( 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment: https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment', 'woocommerce' )
+				) . ' - ' . esc_html__( 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment: https://github.com/poocommerce/poocommerce/wiki/How-to-set-up-PooCommerce-development-environment', 'poocommerce' )
 			);
 		}
 		add_action(
@@ -339,7 +339,7 @@ class Packages {
 							<?php
 							printf(
 								/* Translators: %s package name. */
-								esc_html__( 'Missing the WooCommerce %s package', 'woocommerce' ),
+								esc_html__( 'Missing the PooCommerce %s package', 'poocommerce' ),
 								'<code>' . esc_html( $package ) . '</code>'
 							);
 							?>
@@ -348,8 +348,8 @@ class Packages {
 						<?php
 						printf(
 							/* translators: 1: is a link to a support document. 2: closing link */
-							esc_html__( 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment.', 'woocommerce' ),
-							'<a href="' . esc_url( 'https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment' ) . '" target="_blank" rel="noopener noreferrer">',
+							esc_html__( 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment.', 'poocommerce' ),
+							'<a href="' . esc_url( 'https://github.com/poocommerce/poocommerce/wiki/How-to-set-up-PooCommerce-development-environment' ) . '" target="_blank" rel="noopener noreferrer">',
 							'</a>'
 						);
 						?>

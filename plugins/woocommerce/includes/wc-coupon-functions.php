@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Coupons Functions
+ * PooCommerce Coupons Functions
  *
  * Functions for coupon specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Get coupon types.
@@ -19,11 +19,11 @@ use Automattic\WooCommerce\Utilities\StringUtil;
  */
 function wc_get_coupon_types() {
 	return (array) apply_filters(
-		'woocommerce_coupon_discount_types',
+		'poocommerce_coupon_discount_types',
 		array(
-			'percent'       => __( 'Percentage discount', 'woocommerce' ),
-			'fixed_cart'    => __( 'Fixed cart discount', 'woocommerce' ),
-			'fixed_product' => __( 'Fixed product discount', 'woocommerce' ),
+			'percent'       => __( 'Percentage discount', 'poocommerce' ),
+			'fixed_cart'    => __( 'Fixed cart discount', 'poocommerce' ),
+			'fixed_product' => __( 'Fixed product discount', 'poocommerce' ),
 		)
 	);
 }
@@ -46,7 +46,7 @@ function wc_get_coupon_type( $type = '' ) {
  * @return array
  */
 function wc_get_product_coupon_types() {
-	return (array) apply_filters( 'woocommerce_product_coupon_types', array( 'fixed_product', 'percent' ) );
+	return (array) apply_filters( 'poocommerce_product_coupon_types', array( 'fixed_product', 'percent' ) );
 }
 
 /**
@@ -56,7 +56,7 @@ function wc_get_product_coupon_types() {
  * @return array
  */
 function wc_get_cart_coupon_types() {
-	return (array) apply_filters( 'woocommerce_cart_coupon_types', array( 'fixed_cart' ) );
+	return (array) apply_filters( 'poocommerce_cart_coupon_types', array( 'fixed_cart' ) );
 }
 
 /**
@@ -68,7 +68,7 @@ function wc_get_cart_coupon_types() {
  * @return bool
  */
 function wc_coupons_enabled() {
-	return apply_filters( 'woocommerce_coupons_enabled', 'yes' === get_option( 'woocommerce_enable_coupons' ) );
+	return apply_filters( 'poocommerce_coupons_enabled', 'yes' === get_option( 'poocommerce_enable_coupons' ) );
 }
 
 /**
@@ -109,5 +109,5 @@ function wc_get_coupon_id_by_code( $code, $exclude = 0 ) {
 
 	$ids = array_diff( array_filter( array_map( 'absint', (array) $ids ) ), array( $exclude ) );
 
-	return apply_filters( 'woocommerce_get_coupon_id_from_code', absint( current( $ids ) ), $code, $exclude );
+	return apply_filters( 'poocommerce_get_coupon_id_from_code', absint( current( $ids ) ), $code, $exclude );
 }

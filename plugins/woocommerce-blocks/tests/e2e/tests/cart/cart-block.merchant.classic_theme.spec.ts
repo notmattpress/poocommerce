@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, CLASSIC_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, CLASSIC_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 test.describe( 'Merchant → Cart', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
@@ -18,7 +18,7 @@ test.describe( 'Merchant → Cart', () => {
 			await editor.openGlobalBlockInserter();
 			await editor.page
 				.getByLabel( 'Search for blocks and patterns' )
-				.fill( 'woocommerce/cart' );
+				.fill( 'poocommerce/cart' );
 			const cartButton = editor.page.getByRole( 'option', {
 				name: 'Cart',
 				exact: true,

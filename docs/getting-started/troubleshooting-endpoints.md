@@ -1,10 +1,10 @@
 ---
-post_title: Troubleshooting WooCommerce Endpoints
+post_title: Troubleshooting PooCommerce Endpoints
 menu_title: Troubleshooting Endpoints
 tags: how-to
 ---
 
-This document outlines common troubleshooting steps for [WooCommerce Endpoints](./woocommerce-endpoints.md). 
+This document outlines common troubleshooting steps for [PooCommerce Endpoints](./poocommerce-endpoints.md). 
 
 For more information, learn how to [Customize Endpoints](./customizing-endpoint-urls.md).
 
@@ -44,6 +44,6 @@ Landing on the wrong page when clicking an endpoint URL is typically caused by i
 
 ## How to Remove "Downloads" from My Account
 
-Sometimes the "Downloads" endpoint on the "My account" page does not need to be displayed. This can be removed by going to **WooCommerce > Settings > Advanced > Account endpoints** and clearing the Downloads endpoint field.
+Sometimes the "Downloads" endpoint on the "My account" page does not need to be displayed. This can be removed by going to **PooCommerce > Settings > Advanced > Account endpoints** and clearing the Downloads endpoint field.
 
-![Account endpoints](https://developer.woocommerce.com/wp-content/uploads/2023/12/Screenshot-2023-04-09-at-11.45.58-PM.png)
+![Account endpoints](https://developer.poocommerce.com/wp-content/uploads/2023/12/Screenshot-2023-04-09-at-11.45.58-PM.png)

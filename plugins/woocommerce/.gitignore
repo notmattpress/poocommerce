@@ -26,7 +26,7 @@ tests/cli/vendor
 !/packages/README.md
 
 # Language files
-i18n/languages/woocommerce.pot
+i18n/languages/poocommerce.pot
 
 # Environment files
 .wp-env.override.json

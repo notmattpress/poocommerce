@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * Takes care of the migrations.
@@ -12,8 +12,8 @@ class Migration {
 	/**
 	 * DB updates and callbacks that need to be run per version.
 	 *
-	 * Please note that these functions are invoked when WooCommerce Blocks is updated from a previous version,
-	 * but NOT when WooCommerce Blocks is newly installed.
+	 * Please note that these functions are invoked when PooCommerce Blocks is updated from a previous version,
+	 * but NOT when PooCommerce Blocks is newly installed.
 	 *
 	 * @var array
 	 */

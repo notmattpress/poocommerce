@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 
 /**
  * External dependencies
@@ -17,13 +17,13 @@ import { API_NAMESPACE } from './';
 import { STORE_KEY as OPTIONS_STORE_NAME } from '../options/data/constants';
 
 /**
- * Retrieves the options for simulating a WooCommerce JavaScript error.
+ * Retrieves the options for simulating a PooCommerce JavaScript error.
  *
  * @return {Promise<Array|null>} The options if available, null otherwise.
  */
 const getSimulateErrorOptions = async () => {
 	try {
-		const path = `${ API_NAMESPACE }/options?search=wc_beta_tester_simulate_woocommerce_js_error`;
+		const path = `${ API_NAMESPACE }/options?search=wc_beta_tester_simulate_poocommerce_js_error`;
 
 		const options = await apiFetch<
 			[
@@ -45,19 +45,19 @@ const getSimulateErrorOptions = async () => {
 };
 
 /**
- * Deletes the option used for simulating WooCommerce JavaScript errors.
+ * Deletes the option used for simulating PooCommerce JavaScript errors.
  */
 const deleteSimulateErrorOption = async () => {
 	await dispatch( OPTIONS_STORE_NAME ).deleteOption(
-		'wc_beta_tester_simulate_woocommerce_js_error'
+		'wc_beta_tester_simulate_poocommerce_js_error'
 	);
 };
 
 /**
- * Adds a filter to throw an exception in the WooCommerce core context.
+ * Adds a filter to throw an exception in the PooCommerce core context.
  */
 const addCoreExceptionFilter = () => {
-	addFilter( 'woocommerce_admin_pages_list', 'wc-beta-tester', () => {
+	addFilter( 'poocommerce_admin_pages_list', 'wc-beta-tester', () => {
 		deleteSimulateErrorOption();
 
 		throw new Error(
@@ -67,15 +67,15 @@ const addCoreExceptionFilter = () => {
 };
 
 /**
- * Throws an exception specific to the WooCommerce Beta Tester context.
+ * Throws an exception specific to the PooCommerce Beta Tester context.
  */
 const throwBetaTesterException = () => {
-	throw new Error( 'Test JS exception from WooCommerce Beta Tester' );
+	throw new Error( 'Test JS exception from PooCommerce Beta Tester' );
 };
 
 /**
- * Registers an exception filter for simulating JavaScript errors in WooCommerce.
- * This function is used for testing purposes in the WooCommerce Beta Tester plugin.
+ * Registers an exception filter for simulating JavaScript errors in PooCommerce.
+ * This function is used for testing purposes in the PooCommerce Beta Tester plugin.
  */
 export const registerExceptionFilter = async () => {
 	const options = await getSimulateErrorOptions();

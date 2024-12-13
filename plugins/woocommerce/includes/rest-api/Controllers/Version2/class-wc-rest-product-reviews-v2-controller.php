@@ -4,7 +4,7 @@
  *
  * Handles requests to /products/<product_id>/reviews.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Product Reviews Controller Class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Product_Reviews_V1_Controller
  */
 class WC_REST_Product_Reviews_V2_Controller extends WC_REST_Product_Reviews_V1_Controller {
@@ -42,7 +42,7 @@ class WC_REST_Product_Reviews_V2_Controller extends WC_REST_Product_Reviews_V1_C
 			$this->namespace, '/' . $this->rest_base . '/batch', array(
 				'args'   => array(
 					'product_id' => array(
-						'description' => __( 'Unique identifier for the variable product.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the variable product.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -65,7 +65,7 @@ class WC_REST_Product_Reviews_V2_Controller extends WC_REST_Product_Reviews_V1_C
 	 */
 	public function batch_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_product_reviews_permissions( 'batch' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_batch', __( 'Sorry, you are not allowed to batch manipulate this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_batch', __( 'Sorry, you are not allowed to batch manipulate this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -105,7 +105,7 @@ class WC_REST_Product_Reviews_V2_Controller extends WC_REST_Product_Reviews_V1_C
 		 * @param WP_Comment       $review   Product review object used to create response.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_product_review', $response, $review, $request );
+		return apply_filters( 'poocommerce_rest_prepare_product_review', $response, $review, $request );
 	}
 
 
@@ -150,43 +150,43 @@ class WC_REST_Product_Reviews_V2_Controller extends WC_REST_Product_Reviews_V1_C
 			'type'       => 'object',
 			'properties' => array(
 				'id'               => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'review'           => array(
-					'description' => __( 'The content of the review.', 'woocommerce' ),
+					'description' => __( 'The content of the review.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_created'     => array(
-					'description' => __( "The date the review was created, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the review was created, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_created_gmt' => array(
-					'description' => __( 'The date the review was created, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date the review was created, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'rating'           => array(
-					'description' => __( 'Review rating (0 to 5).', 'woocommerce' ),
+					'description' => __( 'Review rating (0 to 5).', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'name'             => array(
-					'description' => __( 'Reviewer name.', 'woocommerce' ),
+					'description' => __( 'Reviewer name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'email'            => array(
-					'description' => __( 'Reviewer email.', 'woocommerce' ),
+					'description' => __( 'Reviewer email.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'verified'         => array(
-					'description' => __( 'Shows if the reviewer bought the product or not.', 'woocommerce' ),
+					'description' => __( 'Shows if the reviewer bought the product or not.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

@@ -6,8 +6,8 @@ import { InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { createElement, useEffect, useState } from '@wordpress/element';
 import type { BlockAttributes } from '@wordpress/blocks';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { __experimentalErrorBoundary as ErrorBoundary } from '@woocommerce/components';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { __experimentalErrorBoundary as ErrorBoundary } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ export function TabBlockEdit( {
 	const blockProps = useWooBlockProps( attributes );
 	const { id, title, _templateBlockOrder: order, isSelected } = attributes;
 
-	const classes = classnames( 'wp-block-woocommerce-product-tab__content', {
+	const classes = classnames( 'wp-block-poocommerce-product-tab__content', {
 		'is-selected': isSelected,
 	} );
 
@@ -57,15 +57,15 @@ export function TabBlockEdit( {
 				{ title }
 			</TabButton>
 			<div
-				id={ `woocommerce-product-tab__${ id }-content` }
-				aria-labelledby={ `woocommerce-product-tab__${ id }` }
+				id={ `poocommerce-product-tab__${ id }-content` }
+				aria-labelledby={ `poocommerce-product-tab__${ id }` }
 				role="tabpanel"
 				className={ classes }
 			>
 				<ErrorBoundary
 					errorMessage={ __(
 						'An unexpected error occurred in this tab. Make sure any unsaved changes are saved and then try reloading the page to see if the error recurs.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					onError={ ( error, errorInfo ) => {
 						// eslint-disable-next-line no-console

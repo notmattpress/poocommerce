@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -43,7 +43,7 @@ const SidebarNavigationScreenColorPaletteContent = () => {
 	// in mobile viewport sizes, where the editor canvas is hidden.
 	return (
 		<div
-			className="woocommerce-customize-store_sidebar-color-content"
+			className="poocommerce-customize-store_sidebar-color-content"
 			style={ {
 				opacity: 0,
 				animation: 'containerFadeIn 300ms ease-in-out forwards',
@@ -51,8 +51,8 @@ const SidebarNavigationScreenColorPaletteContent = () => {
 		>
 			<ColorPalette />
 			<PanelBody
-				className="woocommerce-customize-store__color-panel-container"
-				title={ __( 'or create your own', 'woocommerce' ) }
+				className="poocommerce-customize-store__color-panel-container"
+				title={ __( 'or create your own', 'poocommerce' ) }
 				initialOpen={ hasCreatedOwnColors }
 				onToggle={ handlePanelBodyToggle }
 			>
@@ -74,16 +74,16 @@ export const SidebarNavigationScreenColorPalette = ( {
 	const aiOnline = flowType === FlowType.AIOnline;
 
 	const title = aiOnline
-		? __( 'Change the color palette', 'woocommerce' )
-		: __( 'Choose your color palette', 'woocommerce' );
+		? __( 'Change the color palette', 'poocommerce' )
+		: __( 'Choose your color palette', 'poocommerce' );
 	const description = aiOnline
 		? __(
 				'Based on the info you shared, our AI tool recommends using this color palette. Want to change it? You can select or add new colors below, or update them later in Editor.',
-				'woocommerce'
+				'poocommerce'
 		  )
 		: __(
 				'Choose the color palette that best suits your brand. Want to change it? Create your custom color palette below, or update it later in Editor.',
-				'woocommerce'
+				'poocommerce'
 		  );
 
 	return (

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TemplateCompiler, test as base, expect } from '@woocommerce/e2e-utils';
+import { TemplateCompiler, test as base, expect } from '@poocommerce/e2e-utils';
 
 const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	templateCompiler: async ( { requestUtils }, use ) => {
@@ -12,7 +12,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filter-active - Frontend', () => {
+test.describe( 'poocommerce/product-filter-active - Frontend', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.setFeatureFlag( 'experimental-blocks', true );
 	} );
@@ -26,7 +26,7 @@ test.describe( 'woocommerce/product-filter-active - Frontend', () => {
 		await page.goto( '/shop' );
 
 		const chips = page.locator(
-			'.wp-block-woocommerce-product-filter-active'
+			'.wp-block-poocommerce-product-filter-active'
 		);
 
 		await expect( chips ).toHaveCount( 1 );

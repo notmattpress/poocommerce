@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -27,12 +27,12 @@ const getLabels = ( flowType: FlowType.AIOnline | FlowType.noAI ) => {
 			return {
 				heading: __(
 					'Welcome to your AI-generated store!',
-					'woocommerce'
+					'poocommerce'
 				),
 				descriptions: {
 					desktop: __(
 						'This is where you can start customizing the look and feel of your store, including adding your logo, and changing colors and layouts. Take a quick tour to discover what’s possible.',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			};
@@ -40,12 +40,12 @@ const getLabels = ( flowType: FlowType.AIOnline | FlowType.noAI ) => {
 			return {
 				heading: __(
 					"Discover what's possible with the store designer",
-					'woocommerce'
+					'poocommerce'
 				),
 				descriptions: {
 					desktop: __(
 						"Start designing your store, including adding your logo, changing color schemes, and building your own layouts. Take a quick tour to discover what's possible.",
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			};
@@ -96,8 +96,8 @@ export const OnboardingTour = ( {
 							},
 						],
 						classNames: [
-							'woocommerce-customize-store-tour-kit',
-							'woocommerce-customize-store-welcome-tourkit',
+							'poocommerce-customize-store-tour-kit',
+							'poocommerce-customize-store-welcome-tourkit',
 						],
 					},
 					steps: [
@@ -105,7 +105,7 @@ export const OnboardingTour = ( {
 							meta: {
 								name: 'welcome-tour',
 								primaryButton: {
-									text: __( 'Take a tour', 'woocommerce' ),
+									text: __( 'Take a tour', 'poocommerce' ),
 								},
 								descriptions,
 								heading,
@@ -193,45 +193,45 @@ export const OnboardingTour = ( {
 							},
 						},
 					],
-					classNames: 'woocommerce-customize-store-tour-kit',
+					classNames: 'poocommerce-customize-store-tour-kit',
 				},
 				steps: [
 					{
 						referenceElements: {
-							desktop: `.woocommerce-edit-site-layout__canvas-container`,
+							desktop: `.poocommerce-edit-site-layout__canvas-container`,
 						},
 						meta: {
 							name: 'view-changes-real-time',
 							heading: __(
 								'View your changes in real time',
-								'woocommerce'
+								'poocommerce'
 							),
 							descriptions: {
 								desktop: __(
 									'Any changes you make to the layout and style will appear here in real time — perfect for testing different looks before you make it live. You can also resize this area to check how your store looks on mobile.',
-									'woocommerce'
+									'poocommerce'
 								),
 							},
 						},
 					},
 					{
 						referenceElements: {
-							desktop: `.woocommerce-edit-site-layout__sidebar-region`,
+							desktop: `.poocommerce-edit-site-layout__sidebar-region`,
 						},
 						meta: {
 							name: 'make-your-store-your-own',
 							heading: __(
 								'Make your store your own',
-								'woocommerce'
+								'poocommerce'
 							),
 							descriptions: {
 								desktop: __(
 									"Customize the style and layout of your store to fit your brand! Add your logo, change the font and colors, and try out different page layouts. You'll be able to edit the text and images later via the Editor.",
-									'woocommerce'
+									'poocommerce'
 								),
 							},
 							secondaryButton: {
-								text: __( 'Previous', 'woocommerce' ),
+								text: __( 'Previous', 'poocommerce' ),
 							},
 						},
 					},

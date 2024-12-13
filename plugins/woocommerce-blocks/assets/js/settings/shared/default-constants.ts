@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Currency, SymbolPosition } from '@woocommerce/types';
+import type { Currency, SymbolPosition } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -33,9 +33,9 @@ export const WC_VERSION = allSettings.wcVersion;
 export const WP_LOGIN_URL = allSettings.wpLoginUrl;
 export const WP_VERSION = allSettings.wpVersion;
 
-// Settings from the server in WooCommerceSiteCurrency format.
+// Settings from the server in PooCommerceSiteCurrency format.
 export const CURRENCY = allSettings.currency;
-// Convert WooCommerceSiteCurrency format to Currency format.
+// Convert PooCommerceSiteCurrency format to Currency format.
 export const SITE_CURRENCY: Currency = {
 	code: CURRENCY.code,
 	symbol: CURRENCY.symbol,

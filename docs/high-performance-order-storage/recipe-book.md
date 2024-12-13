@@ -4,17 +4,17 @@ tags: how-to
 ---
 ## What is High-Performance Order Storage (HPOS)?
 
-Up until recently, WooCommerce stored order-related data in the post and postmeta tables in the database as a custom WordPress post type, which allowed everyone working in the ecosystem to take advantage of extensive APIs provided by the WordPress core in managing orders as custom post types.
+Up until recently, PooCommerce stored order-related data in the post and postmeta tables in the database as a custom WordPress post type, which allowed everyone working in the ecosystem to take advantage of extensive APIs provided by the WordPress core in managing orders as custom post types.
 
-However, in early 2022, [we announced the plans to migrate to dedicated tables for orders](https://developer.woocommerce.com/2022/01/17/the-plan-for-the-woocommerce-custom-order-table/). Orders in their own tables will allow the shops to scale more easily, make the data storage simpler and increase reliability. For further details, please check out our [deep dive on the database structure on our dev blog](https://developer.woocommerce.com/2022/09/15/high-performance-order-storage-database-schema/).
+However, in early 2022, [we announced the plans to migrate to dedicated tables for orders](https://developer.poocommerce.com/2022/01/17/the-plan-for-the-poocommerce-custom-order-table/). Orders in their own tables will allow the shops to scale more easily, make the data storage simpler and increase reliability. For further details, please check out our [deep dive on the database structure on our dev blog](https://developer.poocommerce.com/2022/09/15/high-performance-order-storage-database-schema/).
 
-Generally, WooCommerce has tried to be fully backward compatible with the older versions, but, as a result of this project, extension developers will be required to make some changes to their plugins to take advantage of the HPOS. This is because the underlying data structure has changed fundamentally.
+Generally, PooCommerce has tried to be fully backward compatible with the older versions, but, as a result of this project, extension developers will be required to make some changes to their plugins to take advantage of the HPOS. This is because the underlying data structure has changed fundamentally.
 
-More specifically, instead of using WordPress-provided APIs to access order data, developers will need to use WooCommerce-specific APIs. We [introduced these APIs in WooCommerce version 3.0](https://developer.woocommerce.com/2017/04/04/say-hello-to-woocommerce-3-0-bionic-butterfly/) to make the transition to HPOS easier.
+More specifically, instead of using WordPress-provided APIs to access order data, developers will need to use PooCommerce-specific APIs. We [introduced these APIs in PooCommerce version 3.0](https://developer.poocommerce.com/2017/04/04/say-hello-to-poocommerce-3-0-bionic-butterfly/) to make the transition to HPOS easier.
 
 In this guide, we will focus on the changes required to make an extension, or any snippet of custom code, compatible with HPOS.
 
-For details on how to take enable or disable HPOS, as well as details on how orders are synced between datastores please refer to the [HPOS documentation](https://woocommerce.com/document/high-performance-order-storage/).
+For details on how to take enable or disable HPOS, as well as details on how orders are synced between datastores please refer to the [HPOS documentation](https://poocommerce.com/document/high-performance-order-storage/).
 
 ## Backward compatibility
 
@@ -32,14 +32,14 @@ While the backward compatibility policies make it easier for merchants to use th
 
 To help with this, we have provided a few guidelines for extension developers to follow.
 
-**Note:** We recommend you use the development version of WooCommerce while working on your extension, in order to get all of the latest HPOS fixes and APIs. Refer to our [development guide](https://github.com/woocommerce/woocommerce/blob/trunk/DEVELOPMENT.md) to understand how the WooCommerce repo is structured and how to build the plugin from source.
+**Note:** We recommend you use the development version of PooCommerce while working on your extension, in order to get all of the latest HPOS fixes and APIs. Refer to our [development guide](https://github.com/poocommerce/poocommerce/blob/trunk/DEVELOPMENT.md) to understand how the PooCommerce repo is structured and how to build the plugin from source.
 
 ### Detecting whether HPOS tables are being used in the store
 
-While the WooCommerce CRUD API will let you support both posts and custom tables without additional effort most of the time, in some cases (like when you are writing a SQL query for better performance) you would want to know whether the store is using HPOS tables or not. In this case, you can use the following pattern:
+While the PooCommerce CRUD API will let you support both posts and custom tables without additional effort most of the time, in some cases (like when you are writing a SQL query for better performance) you would want to know whether the store is using HPOS tables or not. In this case, you can use the following pattern:
 
 ```php
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 	// HPOS usage is enabled.
@@ -61,7 +61,7 @@ Please note that you will find lots of false positives, but this regular express
 Search for the above regular expression in your source code, and:
 
 1. Go through the matches one by one and check whether the occurrence relates to an order. Most of the matches will probably be false positives i.e. they won't be related to orders.
-2. If you see one of the matches are directly accessing or modifying order data, you will need to change it to use WooCommerce's CRUD API instead.
+2. If you see one of the matches are directly accessing or modifying order data, you will need to change it to use PooCommerce's CRUD API instead.
 
 ### APIs for getting/setting posts and postmeta
 
@@ -74,7 +74,7 @@ $post = get_post( $post_id ); // returns WP_Post object.
 $order = wc_get_order( $post_id ); // returns WC_Order object.
 ```
 
-For interacting with metadata, use the `update_`/`add_`/`delete_metadata` methods on the order object, followed by a `save` call. WooCommerce will take care of figuring out which tables are active, and saving data in appropriate locations.
+For interacting with metadata, use the `update_`/`add_`/`delete_metadata` methods on the order object, followed by a `save` call. PooCommerce will take care of figuring out which tables are active, and saving data in appropriate locations.
 
 ```php
 // Instead of following update/add/delete methods, use:
@@ -100,14 +100,14 @@ When getting exact type of an order, or checking if given ID is an order, you ca
 in_array( get_post_type( $post_type ), wc_get_order_types() );
 
 // replace with:
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 'shop_order' === OrderUtil::get_order_type( $post_id ); // or
 OrderUtil::is_order( $post_id, wc_get_order_types() );
 ```
 
 ### Audit for order administration screen functions
 
-As WC can't use the WordPress-provided post list and post edit screens, we have also added new screens for order administration. These screens are very similar to the one you see in the WooCommerce admin currently (except for the fact that they are using HPOS tables). You can use the following regular expression to perform this audit:
+As WC can't use the WordPress-provided post list and post edit screens, we have also added new screens for order administration. These screens are very similar to the one you see in the PooCommerce admin currently (except for the fact that they are using HPOS tables). You can use the following regular expression to perform this audit:
 
 ```regexp
 post_updated_messages|do_meta_boxes|enter_title_here|edit_form_before_permalink|edit_form_after_title|edit_form_after_editor|submitpage_box|submitpost_box|edit_form_advanced|dbx_post_sidebar|manage_shop_order_posts_columns|manage_shop_order_posts_custom_column
@@ -115,17 +115,17 @@ post_updated_messages|do_meta_boxes|enter_title_here|edit_form_before_permalink|
 
 You will see a lot of false positives here as well. However, if you do encounter a usage where these methods are called for the order screen then to upgrade them to HPOS, the following changes have to be done:
 
-Instead of a `$post` object of the `WP_Post` class, you will need to use an `$order` object of the `WC_Order` class. If it's a filter or an action, then we will implement a similar filter in the new WooCommerce screen as well and instead of passing the post object, it will accept a WC_Order object instead.
+Instead of a `$post` object of the `WP_Post` class, you will need to use an `$order` object of the `WC_Order` class. If it's a filter or an action, then we will implement a similar filter in the new PooCommerce screen as well and instead of passing the post object, it will accept a WC_Order object instead.
 
 The following snippet shows a way to add meta boxes to the legacy order editor screen when legacy orders are in effect, and to the new HPOS-powered editor screen otherwise:
 
 ```php
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 
 add_action( 'add_meta_boxes', 'add_xyz_metabox' );
 
 function add_xyz_metabox() {
-	$screen = class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+	$screen = class_exists( '\Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
 		? wc_get_page_screen_id( 'shop-order' )
 		: 'shop_order';
 
@@ -155,9 +155,9 @@ function render_xyz_metabox( $post_or_order_object ) {
 Once you examined the extension's code, you can declare whether it's compatible with HPOS or not. We've prepared an API to make this easy. To **declare your extension compatible**, place the following code into your **main plugin file**:
 
 ```php
-add_action( 'before_woocommerce_init', function() {
-	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+add_action( 'before_poocommerce_init', function() {
+	if ( class_exists( \Automattic\PooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\PooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
 } );
 ```
@@ -165,18 +165,18 @@ add_action( 'before_woocommerce_init', function() {
 If you know your code doesn't support HPOS, you should declare **incompatibility** in the following way. Place the following code into your **main plugin file**:
 
 ```php
-add_action( 'before_woocommerce_init', function() {
-	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, false );
+add_action( 'before_poocommerce_init', function() {
+	if ( class_exists( \Automattic\PooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\PooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, false );
 	}
 } );
 ```
 
 If you prefer to include the compatibility declaration outside of your main plugin file, please pass 'my-plugin-slug/my-plugin.php' instead of the `__FILE__` parameter in the snippets above.
 
-To prevent problems, WooCommerce will warn users if they try to enable HPOS while any of the incompatible plugins are active. It will also display a warning in the Plugins screen to make sure people would know if extension is incompatible.
-As many WordPress extensions aren't WooCommerce related, WC will only display this information for extensions that declare `WC tested up to` in the header of the main plugin file.
+To prevent problems, PooCommerce will warn users if they try to enable HPOS while any of the incompatible plugins are active. It will also display a warning in the Plugins screen to make sure people would know if extension is incompatible.
+As many WordPress extensions aren't PooCommerce related, WC will only display this information for extensions that declare `WC tested up to` in the header of the main plugin file.
 
 ### New order querying APIs
 
-HPOS, through `WC_Order_Query`, introduces new query types that allow for more complex order queries involving dates, metadata and order fields. Head over to [HPOS: new order querying APIs](https://developer.woocommerce.com/docs/hpos-order-querying-apis/) for details and examples.
+HPOS, through `WC_Order_Query`, introduces new query types that allow for more complex order queries involving dates, metadata and order fields. Head over to [HPOS: new order querying APIs](https://developer.poocommerce.com/docs/hpos-order-querying-apis/) for details and examples.

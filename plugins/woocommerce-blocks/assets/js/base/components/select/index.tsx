@@ -6,8 +6,8 @@ import { useCallback, useId, useMemo, useEffect } from '@wordpress/element';
 import { sprintf, __, getLocaleData } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import clsx from 'clsx';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
-import { ValidationInputError } from '@woocommerce/blocks-components';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
+import { ValidationInputError } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ export const Select = ( props: SelectProps ) => {
 		size,
 		errorId: incomingErrorId,
 		required,
-		errorMessage = __( 'Please select a valid option', 'woocommerce' ),
+		errorMessage = __( 'Please select a valid option', 'poocommerce' ),
 		placeholder,
 		...restOfProps
 	} = props;
@@ -63,7 +63,7 @@ export const Select = ( props: SelectProps ) => {
 				placeholder ??
 				sprintf(
 					// translators: %s will be label of the field. For example "country/region".
-					__( 'Select a %s', 'woocommerce' ),
+					__( 'Select a %s', 'poocommerce' ),
 					shouldKeepOriginalCase ? label : label?.toLowerCase()
 				),
 			disabled: !! required,

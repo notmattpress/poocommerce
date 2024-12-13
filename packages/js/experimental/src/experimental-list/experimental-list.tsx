@@ -31,7 +31,7 @@ export const ExperimentalList: React.FC< ListProps > = ( {
 	return (
 		<TransitionGroup
 			component={ listType || 'ul' }
-			className="woocommerce-experimental-list"
+			className="poocommerce-experimental-list"
 			{ ...otherProps }
 		>
 			{ /* Wrapping all children in a CSS Transition means no invalid props are passed to children and that anything can be animated. */ }
@@ -54,7 +54,7 @@ export const ExperimentalList: React.FC< ListProps > = ( {
 								in={ inTransition }
 								enter={ enter }
 								exit={ exit }
-								classNames="woocommerce-list__item"
+								classNames="poocommerce-list__item"
 							>
 								{ cloneElement( child, {
 									animation: animationProp,

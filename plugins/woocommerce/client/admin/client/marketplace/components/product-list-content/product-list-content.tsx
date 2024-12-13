@@ -29,7 +29,7 @@ export default function ProductListContent( props: {
 	const wccomHelperSettings = getAdminSetting( 'wccomHelper', {} );
 
 	const classes = clsx(
-		'woocommerce-marketplace__product-list-content',
+		'poocommerce-marketplace__product-list-content',
 		props.className
 	);
 

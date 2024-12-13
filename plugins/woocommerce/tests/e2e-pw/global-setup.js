@@ -3,7 +3,7 @@ const { admin, customer } = require( './test-data/data' );
 const fs = require( 'fs' );
 const { site } = require( './utils' );
 const { logIn } = require( './utils/login' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { DISABLE_HPOS, DISABLE_SITE_RESET } = process.env;
 
 /**
@@ -241,7 +241,7 @@ module.exports = async ( config ) => {
 					} HPOS...`
 				);
 				const response = await api.post(
-					'settings/advanced/woocommerce_custom_orders_table_enabled',
+					'settings/advanced/poocommerce_custom_orders_table_enabled',
 					{ value }
 				);
 				if ( response.data.value === value ) {
@@ -270,12 +270,12 @@ module.exports = async ( config ) => {
 	}
 
 	const response = await api.get(
-		'settings/advanced/woocommerce_custom_orders_table_enabled'
+		'settings/advanced/poocommerce_custom_orders_table_enabled'
 	);
 	const dataValue = response.data.value;
 	const enabledOption = response.data.options[ dataValue ];
 	console.log(
-		`HPOS configuration (woocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
+		`HPOS configuration (poocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
 	);
 
 	await site.useCartCheckoutShortcodes( baseURL, userAgent, admin );

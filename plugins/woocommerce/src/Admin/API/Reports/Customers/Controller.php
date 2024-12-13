@@ -5,14 +5,14 @@
  * Handles requests to the /reports/customers endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Customers;
+namespace Automattic\PooCommerce\Admin\API\Reports\Customers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableTraits;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableTraits;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
 
 /**
  * REST API Reports customers controller class.
@@ -154,7 +154,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 * @since 4.0.0
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_customers', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_customers', $response, $report, $request );
 	}
 
 	/**
@@ -190,91 +190,91 @@ class Controller extends GenericController implements ExportableInterface {
 			'type'       => 'object',
 			'properties' => array(
 				'id'                   => array(
-					'description' => __( 'Customer ID.', 'woocommerce' ),
+					'description' => __( 'Customer ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'user_id'              => array(
-					'description' => __( 'User ID.', 'woocommerce' ),
+					'description' => __( 'User ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'                 => array(
-					'description' => __( 'Name.', 'woocommerce' ),
+					'description' => __( 'Name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'username'             => array(
-					'description' => __( 'Username.', 'woocommerce' ),
+					'description' => __( 'Username.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'country'              => array(
-					'description' => __( 'Country / Region.', 'woocommerce' ),
+					'description' => __( 'Country / Region.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'city'                 => array(
-					'description' => __( 'City.', 'woocommerce' ),
+					'description' => __( 'City.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'state'                => array(
-					'description' => __( 'Region.', 'woocommerce' ),
+					'description' => __( 'Region.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'postcode'             => array(
-					'description' => __( 'Postal code.', 'woocommerce' ),
+					'description' => __( 'Postal code.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_registered'      => array(
-					'description' => __( 'Date registered.', 'woocommerce' ),
+					'description' => __( 'Date registered.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_registered_gmt'  => array(
-					'description' => __( 'Date registered GMT.', 'woocommerce' ),
+					'description' => __( 'Date registered GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_last_active'     => array(
-					'description' => __( 'Date last active.', 'woocommerce' ),
+					'description' => __( 'Date last active.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_last_active_gmt' => array(
-					'description' => __( 'Date last active GMT.', 'woocommerce' ),
+					'description' => __( 'Date last active GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'orders_count'         => array(
-					'description' => __( 'Order count.', 'woocommerce' ),
+					'description' => __( 'Order count.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'total_spend'          => array(
-					'description' => __( 'Total spend.', 'woocommerce' ),
+					'description' => __( 'Total spend.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'avg_order_value'      => array(
-					'description' => __( 'Avg order value.', 'woocommerce' ),
+					'description' => __( 'Avg order value.', 'poocommerce' ),
 					'type'        => 'number',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -292,13 +292,13 @@ class Controller extends GenericController implements ExportableInterface {
 	public function get_collection_params() {
 		$params                            = parent::get_collection_params();
 		$params['registered_before']       = array(
-			'description'       => __( 'Limit response to objects registered before (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects registered before (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['registered_after']        = array(
-			'description'       => __( 'Limit response to objects registered after (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects registered after (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -320,7 +320,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['match']                   = array(
-			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories', 'woocommerce' ),
+			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'all',
 			'enum'              => array(
@@ -330,7 +330,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['search']                  = array(
-			'description'       => __( 'Limit response to objects with a customer field containing the search term. Searches the field provided by `searchby`.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with a customer field containing the search term. Searches the field provided by `searchby`.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -346,155 +346,155 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['name_includes']           = array(
-			'description'       => __( 'Limit response to objects with specific names.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with specific names.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['name_excludes']           = array(
-			'description'       => __( 'Limit response to objects excluding specific names.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects excluding specific names.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['username_includes']       = array(
-			'description'       => __( 'Limit response to objects with specific usernames.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with specific usernames.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['username_excludes']       = array(
-			'description'       => __( 'Limit response to objects excluding specific usernames.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects excluding specific usernames.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['email_includes']          = array(
-			'description'       => __( 'Limit response to objects including emails.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects including emails.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['email_excludes']          = array(
-			'description'       => __( 'Limit response to objects excluding emails.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects excluding emails.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['country_includes']        = array(
-			'description'       => __( 'Limit response to objects with specific countries.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with specific countries.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['country_excludes']        = array(
-			'description'       => __( 'Limit response to objects excluding specific countries.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects excluding specific countries.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['last_active_before']      = array(
-			'description'       => __( 'Limit response to objects last active before (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects last active before (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['last_active_after']       = array(
-			'description'       => __( 'Limit response to objects last active after (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects last active after (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['last_active_between']     = array(
-			'description'       => __( 'Limit response to objects last active between two given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects last active between two given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'array',
-			'validate_callback' => array( '\Automattic\WooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_date_arg' ),
+			'validate_callback' => array( '\Automattic\PooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_date_arg' ),
 			'items'             => array(
 				'type' => 'string',
 			),
 		);
 		$params['registered_before']       = array(
-			'description'       => __( 'Limit response to objects registered before (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects registered before (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['registered_after']        = array(
-			'description'       => __( 'Limit response to objects registered after (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects registered after (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['registered_between']      = array(
-			'description'       => __( 'Limit response to objects last active between two given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects last active between two given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'array',
-			'validate_callback' => array( '\Automattic\WooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_date_arg' ),
+			'validate_callback' => array( '\Automattic\PooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_date_arg' ),
 			'items'             => array(
 				'type' => 'string',
 			),
 		);
 		$params['orders_count_min']        = array(
-			'description'       => __( 'Limit response to objects with an order count greater than or equal to given integer.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with an order count greater than or equal to given integer.', 'poocommerce' ),
 			'type'              => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['orders_count_max']        = array(
-			'description'       => __( 'Limit response to objects with an order count less than or equal to given integer.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with an order count less than or equal to given integer.', 'poocommerce' ),
 			'type'              => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['orders_count_between']    = array(
-			'description'       => __( 'Limit response to objects with an order count between two given integers.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with an order count between two given integers.', 'poocommerce' ),
 			'type'              => 'array',
-			'validate_callback' => array( '\Automattic\WooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_numeric_arg' ),
+			'validate_callback' => array( '\Automattic\PooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_numeric_arg' ),
 			'items'             => array(
 				'type' => 'integer',
 			),
 		);
 		$params['total_spend_min']         = array(
-			'description'       => __( 'Limit response to objects with a total order spend greater than or equal to given number.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with a total order spend greater than or equal to given number.', 'poocommerce' ),
 			'type'              => 'number',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['total_spend_max']         = array(
-			'description'       => __( 'Limit response to objects with a total order spend less than or equal to given number.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with a total order spend less than or equal to given number.', 'poocommerce' ),
 			'type'              => 'number',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['total_spend_between']     = array(
-			'description'       => __( 'Limit response to objects with a total order spend between two given numbers.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with a total order spend between two given numbers.', 'poocommerce' ),
 			'type'              => 'array',
-			'validate_callback' => array( '\Automattic\WooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_numeric_arg' ),
+			'validate_callback' => array( '\Automattic\PooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_numeric_arg' ),
 			'items'             => array(
 				'type' => 'integer',
 			),
 		);
 		$params['avg_order_value_min']     = array(
-			'description'       => __( 'Limit response to objects with an average order spend greater than or equal to given number.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with an average order spend greater than or equal to given number.', 'poocommerce' ),
 			'type'              => 'number',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['avg_order_value_max']     = array(
-			'description'       => __( 'Limit response to objects with an average order spend less than or equal to given number.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with an average order spend less than or equal to given number.', 'poocommerce' ),
 			'type'              => 'number',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['avg_order_value_between'] = array(
-			'description'       => __( 'Limit response to objects with an average order spend between two given numbers.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with an average order spend between two given numbers.', 'poocommerce' ),
 			'type'              => 'array',
-			'validate_callback' => array( '\Automattic\WooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_numeric_arg' ),
+			'validate_callback' => array( '\Automattic\PooCommerce\Admin\API\Reports\TimeInterval', 'rest_validate_between_numeric_arg' ),
 			'items'             => array(
 				'type' => 'integer',
 			),
 		);
 		$params['last_order_before']       = array(
-			'description'       => __( 'Limit response to objects with last order before (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with last order before (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['last_order_after']        = array(
-			'description'       => __( 'Limit response to objects with last order after (or at) a given ISO8601 compliant datetime.', 'woocommerce' ),
+			'description'       => __( 'Limit response to objects with last order after (or at) a given ISO8601 compliant datetime.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['customers']               = array(
-			'description'       => __( 'Limit result to items with specified customer ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified customer ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -503,7 +503,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['users']                   = array(
-			'description'       => __( 'Limit result to items with specified user ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified user ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -512,7 +512,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['filter_empty']            = array(
-			'description'       => __( 'Filter out results where any of the passed fields are empty', 'woocommerce' ),
+			'description'       => __( 'Filter out results where any of the passed fields are empty', 'poocommerce' ),
 			'type'              => 'array',
 			'validate_callback' => 'rest_validate_request_arg',
 			'items'             => array(
@@ -538,18 +538,18 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'name'            => __( 'Name', 'woocommerce' ),
-			'username'        => __( 'Username', 'woocommerce' ),
-			'last_active'     => __( 'Last Active', 'woocommerce' ),
-			'registered'      => __( 'Sign Up', 'woocommerce' ),
-			'email'           => __( 'Email', 'woocommerce' ),
-			'orders_count'    => __( 'Orders', 'woocommerce' ),
-			'total_spend'     => __( 'Total Spend', 'woocommerce' ),
-			'avg_order_value' => __( 'AOV', 'woocommerce' ),
-			'country'         => __( 'Country / Region', 'woocommerce' ),
-			'city'            => __( 'City', 'woocommerce' ),
-			'region'          => __( 'Region', 'woocommerce' ),
-			'postcode'        => __( 'Postal Code', 'woocommerce' ),
+			'name'            => __( 'Name', 'poocommerce' ),
+			'username'        => __( 'Username', 'poocommerce' ),
+			'last_active'     => __( 'Last Active', 'poocommerce' ),
+			'registered'      => __( 'Sign Up', 'poocommerce' ),
+			'email'           => __( 'Email', 'poocommerce' ),
+			'orders_count'    => __( 'Orders', 'poocommerce' ),
+			'total_spend'     => __( 'Total Spend', 'poocommerce' ),
+			'avg_order_value' => __( 'AOV', 'poocommerce' ),
+			'country'         => __( 'Country / Region', 'poocommerce' ),
+			'city'            => __( 'City', 'poocommerce' ),
+			'region'          => __( 'Region', 'poocommerce' ),
+			'postcode'        => __( 'Postal Code', 'poocommerce' ),
 		);
 
 		/**
@@ -559,7 +559,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_customers_export_columns',
+			'poocommerce_report_customers_export_columns',
 			$export_columns
 		);
 	}
@@ -594,7 +594,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 4.0.0
 		 */
 		return apply_filters(
-			'woocommerce_report_customers_prepare_export_item',
+			'poocommerce_report_customers_prepare_export_item',
 			$export_item,
 			$item
 		);

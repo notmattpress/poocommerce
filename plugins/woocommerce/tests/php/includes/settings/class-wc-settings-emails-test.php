@@ -2,10 +2,10 @@
 /**
  * Class WC_Settings_Emails_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -32,7 +32,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	/**
 	 * get_settings should trigger the appropriate filter depending on the requested section name.
 	 *
-	 * @testWith ["", "woocommerce_email_settings"]
+	 * @testWith ["", "poocommerce_email_settings"]
 	 *
 	 * @param string $section_name The section name to test getting the settings for.
 	 * @param string $filter_name The name of the filter that is expected to be triggered.
@@ -73,18 +73,18 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 			''                                         => array( 'email_notification', 'email_preview' ),
 			'email_recipient_options'                  => 'sectionend',
 			'email_options'                            => array( 'title', 'sectionend' ),
-			'woocommerce_email_from_name'              => 'text',
-			'woocommerce_email_from_address'           => 'email',
+			'poocommerce_email_from_name'              => 'text',
+			'poocommerce_email_from_address'           => 'email',
 			'email_template_options'                   => array( 'title', 'sectionend' ),
-			'woocommerce_email_header_image'           => 'text',
-			'woocommerce_email_footer_text'            => 'textarea',
-			'woocommerce_email_base_color'             => 'color',
-			'woocommerce_email_background_color'       => 'color',
-			'woocommerce_email_body_background_color'  => 'color',
-			'woocommerce_email_text_color'             => 'color',
-			'woocommerce_email_footer_text_color'      => 'color',
+			'poocommerce_email_header_image'           => 'text',
+			'poocommerce_email_footer_text'            => 'textarea',
+			'poocommerce_email_base_color'             => 'color',
+			'poocommerce_email_background_color'       => 'color',
+			'poocommerce_email_body_background_color'  => 'color',
+			'poocommerce_email_text_color'             => 'color',
+			'poocommerce_email_footer_text_color'      => 'color',
 			'email_merchant_notes'                     => array( 'title', 'sectionend' ),
-			'woocommerce_merchant_email_notifications' => 'checkbox',
+			'poocommerce_merchant_email_notifications' => 'checkbox',
 		);
 
 		$this->assertEquals( $expected, $settings_ids_and_types );
@@ -170,6 +170,6 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 		$sut->save();
 
 		$this->assertEquals( $expect_save_settings_for_current_section, $save_settings_for_current_section_invoked );
-		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'woocommerce_update_options_email_new_order' ) );
+		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'poocommerce_update_options_email_new_order' ) );
 	}
 }

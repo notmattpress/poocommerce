@@ -7,7 +7,7 @@ import {
 	PaymentGatewayProvider,
 	OfflinePmsGroupProvider,
 	PaymentExtensionSuggestionProvider,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { Gridicon } from '@automattic/components';
 
 /**
@@ -87,14 +87,14 @@ export const PaymentGatewayList = ( {
 								{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */ }
 								<div
 									id={ offlinePmsGroup.id }
-									className="transitions-disabled woocommerce-list__item clickable-list-item enter-done"
+									className="transitions-disabled poocommerce-list__item clickable-list-item enter-done"
 									onClick={ () => {
 										window.location.href =
 											offlinePmsGroup.management._links.settings.href;
 									} }
 								>
-									<div className="woocommerce-list__item-inner">
-										<div className="woocommerce-list__item-before">
+									<div className="poocommerce-list__item-inner">
+										<div className="poocommerce-list__item-before">
 											<DefaultDragHandle />
 											<img
 												src={ offlinePmsGroup.icon }
@@ -104,19 +104,19 @@ export const PaymentGatewayList = ( {
 												}
 											/>
 										</div>
-										<div className="woocommerce-list__item-text">
-											<span className="woocommerce-list__item-title">
+										<div className="poocommerce-list__item-text">
+											<span className="poocommerce-list__item-title">
 												{ offlinePmsGroup.title }
 											</span>
 											<span
-												className="woocommerce-list__item-content"
+												className="poocommerce-list__item-content"
 												dangerouslySetInnerHTML={ {
 													__html: offlinePmsGroup.description,
 												} }
 											/>
 										</div>
-										<div className="woocommerce-list__item-after centered">
-											<div className="woocommerce-list__item-after__actions">
+										<div className="poocommerce-list__item-after centered">
+											<div className="poocommerce-list__item-after__actions">
 												<a
 													href={
 														offlinePmsGroup

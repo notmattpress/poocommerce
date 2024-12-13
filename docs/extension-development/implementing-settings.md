@@ -1,10 +1,10 @@
 ---
-post_title: Creating custom settings for WooCommerce extensions
+post_title: Creating custom settings for PooCommerce extensions
 menu_title: Creating custom settings
 tags: how-to
 ---
 
-If you're customizing WooCommerce or adding your own functionality to it you'll probably need a settings page of some sort. One of the easiest ways to create a settings page is by taking advantage of the [`WC_Integration` class](https://woocommerce.github.io/code-reference/classes/WC-Integration.html 'WC_Integration Class'). Using the Integration class will automatically create a new settings page under **WooCommerce > Settings > Integrations** and it will automatically save, and sanitize your data for you. We've created this tutorial so you can see how to create a new integration.
+If you're customizing PooCommerce or adding your own functionality to it you'll probably need a settings page of some sort. One of the easiest ways to create a settings page is by taking advantage of the [`WC_Integration` class](https://poocommerce.github.io/code-reference/classes/WC-Integration.html 'WC_Integration Class'). Using the Integration class will automatically create a new settings page under **PooCommerce > Settings > Integrations** and it will automatically save, and sanitize your data for you. We've created this tutorial so you can see how to create a new integration.
 
 ## Setting up the Integration
 
@@ -12,11 +12,11 @@ You'll need at least two files to create an integration so you'll need to create
 
 ### Creating the Main Plugin File
 
-Create your main plugin file to [hook](https://developer.wordpress.org/reference/functions/add_action/ 'WordPress add_action()') into the `plugins_loaded` hook and check if the `WC_Integration` [class exists](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends 'PHP Class Exists'). If it doesn't then the user most likely doesn't have WooCommerce activated. After you do that you need to register the integration. Load the integration file (we'll get to this file in a minute). Use the `woocommerce_integrations` filter to add a new integration to the [array](http://php.net/manual/en/language.types.array.php 'PHP Array').
+Create your main plugin file to [hook](https://developer.wordpress.org/reference/functions/add_action/ 'WordPress add_action()') into the `plugins_loaded` hook and check if the `WC_Integration` [class exists](https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends 'PHP Class Exists'). If it doesn't then the user most likely doesn't have PooCommerce activated. After you do that you need to register the integration. Load the integration file (we'll get to this file in a minute). Use the `poocommerce_integrations` filter to add a new integration to the [array](http://php.net/manual/en/language.types.array.php 'PHP Array').
 
 ### Creating the Integration Class
 
-Now that we have the framework setup let's actually implement this Integration class. There already is a `WC_Integration` class so we want to make a [child class](https://www.php.net/manual/en/language.oop5.inheritance.php). This way it inherits all of the existing methods and data. You'll need to set an id, a description, and a title for your integration. These will show up on the integration page. You'll also need to load the settings by calling: `$this->init_form_fields();` & `$this->init_settings();` You'll also need to save your options by calling the `woocommerce_update_options_integration_{your method id}` hook. Lastly you have to input some settings to save! We've included two dummy fields below but we'll go more into fields in the next section.
+Now that we have the framework setup let's actually implement this Integration class. There already is a `WC_Integration` class so we want to make a [child class](https://www.php.net/manual/en/language.oop5.inheritance.php). This way it inherits all of the existing methods and data. You'll need to set an id, a description, and a title for your integration. These will show up on the integration page. You'll also need to load the settings by calling: `$this->init_form_fields();` & `$this->init_settings();` You'll also need to save your options by calling the `poocommerce_update_options_integration_{your method id}` hook. Lastly you have to input some settings to save! We've included two dummy fields below but we'll go more into fields in the next section.
 
 > Added to a file named `class-wc-integration-demo-integration.php`
 
@@ -38,11 +38,11 @@ if ( ! class_exists( 'WC_Integration_Demo_Integration' ) ) :
          * Init and hook in the integration.
          */
         public function __construct() {
-            global $woocommerce;
+            global $poocommerce;
 
             $this->id                 = 'integration-demo';
-            $this->method_title       = __( 'Integration Demo', 'woocommerce-integration-demo' );
-            $this->method_description = __( 'An integration demo to show you how easy it is to extend WooCommerce.', 'woocommerce-integration-demo' );
+            $this->method_title       = __( 'Integration Demo', 'poocommerce-integration-demo' );
+            $this->method_description = __( 'An integration demo to show you how easy it is to extend PooCommerce.', 'poocommerce-integration-demo' );
 
             // Load the settings.
             $this->init_form_fields();
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WC_Integration_Demo_Integration' ) ) :
             $this->debug   = $this->get_option( 'debug' );
 
             // Actions.
-            add_action( 'woocommerce_update_options_integration_' .  $this->id, array( $this, 'process_admin_options' ) );
+            add_action( 'poocommerce_update_options_integration_' .  $this->id, array( $this, 'process_admin_options' ) );
         }
 
         /**
@@ -62,18 +62,18 @@ if ( ! class_exists( 'WC_Integration_Demo_Integration' ) ) :
         public function init_form_fields() {
             $this->form_fields = array(
                 'api_key' => array(
-                    'title'       => __( 'API Key', 'woocommerce-integration-demo' ),
+                    'title'       => __( 'API Key', 'poocommerce-integration-demo' ),
                     'type'        => 'text',
-                    'description' => __( 'Enter with your API Key. You can find this in "User Profile" drop-down (top right corner) > API Keys.', 'woocommerce-integration-demo' ),
+                    'description' => __( 'Enter with your API Key. You can find this in "User Profile" drop-down (top right corner) > API Keys.', 'poocommerce-integration-demo' ),
                     'desc_tip'    => true,
                     'default'     => '',
                 ),
                 'debug' => array(
-                    'title'       => __( 'Debug Log', 'woocommerce-integration-demo' ),
+                    'title'       => __( 'Debug Log', 'poocommerce-integration-demo' ),
                     'type'        => 'checkbox',
-                    'label'       => __( 'Enable logging', 'woocommerce-integration-demo' ),
+                    'label'       => __( 'Enable logging', 'poocommerce-integration-demo' ),
                     'default'     => 'no',
-                    'description' => __( 'Log events such as API requests', 'woocommerce-integration-demo' ),
+                    'description' => __( 'Log events such as API requests', 'poocommerce-integration-demo' ),
                 ),
             );
         }
@@ -86,9 +86,9 @@ endif;
 ```php
 <?php
 /**
- * Plugin Name: WooCommerce Integration Demo
+ * Plugin Name: PooCommerce Integration Demo
  * Plugin URI: https://gist.github.com/BFTrick/091d55feaaef0c5341d8
- * Description: A plugin demonstrating how to add a new WooCommerce integration.
+ * Description: A plugin demonstrating how to add a new PooCommerce integration.
  * Author: Patrick Rauland
  * Author URI: http://speakinginbytes.com/
  * Version: 1.0
@@ -123,19 +123,19 @@ if ( ! class_exists( 'WC_Integration_Demo' ) ) :
          * Initialize the plugin.
          */
         public function init() {
-            // Checks if WooCommerce is installed.
+            // Checks if PooCommerce is installed.
             if ( class_exists( 'WC_Integration' ) ) {
                 // Include our integration class.
                 include_once 'class-wc-integration-demo-integration.php';
                 // Register the integration.
-                add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
+                add_filter( 'poocommerce_integrations', array( $this, 'add_integration' ) );
             } else {
                 // throw an admin error if you like
             }
         }
 
         /**
-         * Add a new integration to WooCommerce.
+         * Add a new integration to PooCommerce.
          *
          * @param array Array of integrations.
          */
@@ -156,7 +156,7 @@ If you took a look through the last section you'll see that we added two dummy s
 
 ### Types of Settings
 
-WooCommerce includes support for 8 types of settings.
+PooCommerce includes support for 8 types of settings.
 
 -   text
 -   price
@@ -167,7 +167,7 @@ WooCommerce includes support for 8 types of settings.
 -   select
 -   multiselect
 
-And these settings have attributes which you can use. These affect the way the setting looks and behaves on the settings page. It doesn't affect the setting itself. The attributes will manifest slightly differently depending on the setting type. A placeholder for example doesn't work with checkboxes. To see exactly how they work you should look through the [source code](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/abstracts/abstract-wc-settings-api.php 'WC Settings API on GitHub'). Ex.
+And these settings have attributes which you can use. These affect the way the setting looks and behaves on the settings page. It doesn't affect the setting itself. The attributes will manifest slightly differently depending on the setting type. A placeholder for example doesn't work with checkboxes. To see exactly how they work you should look through the [source code](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/abstracts/abstract-wc-settings-api.php 'WC Settings API on GitHub'). Ex.
 
 -   title
 -   class
@@ -179,7 +179,7 @@ And these settings have attributes which you can use. These affect the way the s
 
 ### Creating Your Own Settings
 
-The built-in settings are great but you may need extra controls to create your settings page. That's why we included some methods to do this for you. First, define a setting by adding it to the `$this->form_fields` array, entering the kind of form control you want under `type`. You can override the default HTML for your form inputs by creating a method with a name of the format `generate_{ type }_html` which outputs HTML markup. To specify how buttons are rendered, you'd add a method called `generate_button_html`. For textareas, you'd add a `generate_textarea_html` method, and so on. (Check out the `generate_settings_html` method of the `WC_Settings_API` class in the WooCommerce source code to see how WooCommerce uses this.) The below example creates a button that goes to WooCommerce.com.
+The built-in settings are great but you may need extra controls to create your settings page. That's why we included some methods to do this for you. First, define a setting by adding it to the `$this->form_fields` array, entering the kind of form control you want under `type`. You can override the default HTML for your form inputs by creating a method with a name of the format `generate_{ type }_html` which outputs HTML markup. To specify how buttons are rendered, you'd add a method called `generate_button_html`. For textareas, you'd add a `generate_textarea_html` method, and so on. (Check out the `generate_settings_html` method of the `WC_Settings_API` class in the PooCommerce source code to see how PooCommerce uses this.) The below example creates a button that goes to PooCommerce.com.
 
 ```php
 /**
@@ -191,12 +191,12 @@ public function init_form_fields() {
 	$this->form_fields = array(
 		// don't forget to put your other settings here
 		'customize_button' => array(
-			'title'             => __( 'Customize!', 'woocommerce-integration-demo' ),
+			'title'             => __( 'Customize!', 'poocommerce-integration-demo' ),
 			'type'              => 'button',
 			'custom_attributes' => array(
-				'onclick' => "location.href='https://woocommerce.com'",
+				'onclick' => "location.href='https://poocommerce.com'",
 			),
-			'description'       => __( 'Customize your settings by going to the integration site directly.', 'woocommerce-integration-demo' ),
+			'description'       => __( 'Customize your settings by going to the integration site directly.', 'poocommerce-integration-demo' ),
 			'desc_tip'          => true,
 		)
 	);
@@ -262,7 +262,7 @@ public function __construct() {
     // do other constructor stuff first
 
 	// Filters.
-	add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitize_settings' ) );
+	add_filter( 'poocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitize_settings' ) );
 
 }
 
@@ -286,7 +286,7 @@ Validation isn't always necessary but it's nice to do. If your API keys are alwa
 ```php
 public function validate_api_key_field( $key, $value ) {
     if ( isset( $value ) && 20 < strlen( $value ) ) {
-        WC_Admin_Settings::add_error( esc_html__( 'Looks like you made a mistake with the API Key field. Make sure it isn&apos;t longer than 20 characters', 'woocommerce-integration-demo' ) );
+        WC_Admin_Settings::add_error( esc_html__( 'Looks like you made a mistake with the API Key field. Make sure it isn&apos;t longer than 20 characters', 'poocommerce-integration-demo' ) );
     }
 
     return $value;
@@ -295,4 +295,4 @@ public function validate_api_key_field( $key, $value ) {
 
 ## A complete example
 
-If you've been following along you should have a complete integration example. If you have any problems see our [full integration demo](https://github.com/woogists/woocommerce-integration-demo 'Integration Demo').
+If you've been following along you should have a complete integration example. If you have any problems see our [full integration demo](https://github.com/woogists/poocommerce-integration-demo 'Integration Demo').

@@ -4,10 +4,10 @@
 import moment from 'moment';
 
 /**
- * WooCommerce dependencies
+ * PooCommerce dependencies
  */
-import { Card, Chart } from '@woocommerce/components';
-import Currency from '@woocommerce/currency';
+import { Card, Chart } from '@poocommerce/components';
+import Currency from '@poocommerce/currency';
 
 const storeCurrency = Currency();
 const data = [];
@@ -30,7 +30,7 @@ const GlobalPrices = () => {
 		data.length;
 	return (
 		<Card
-			className="woocommerce-dashboard__chart-block woocommerce-analytics__card"
+			className="poocommerce-dashboard__chart-block poocommerce-analytics__card"
 			title="Global Apple Prices"
 		>
 			<Chart

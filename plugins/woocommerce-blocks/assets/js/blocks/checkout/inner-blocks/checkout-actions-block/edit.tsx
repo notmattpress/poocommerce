@@ -10,14 +10,14 @@ import {
 	RichText,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import PageSelector from '@woocommerce/editor-components/page-selector';
+import PageSelector from '@poocommerce/editor-components/page-selector';
 import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
-import { CHECKOUT_PAGE_ID } from '@woocommerce/block-settings';
-import { ReturnToCartButton } from '@woocommerce/base-components/cart-checkout';
-import EditableButton from '@woocommerce/editor-components/editable-button';
-import { useStoreCart } from '@woocommerce/base-context';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
+import { CHECKOUT_PAGE_ID } from '@poocommerce/block-settings';
+import { ReturnToCartButton } from '@poocommerce/base-components/cart-checkout';
+import EditableButton from '@poocommerce/editor-components/editable-button';
+import { useStoreCart } from '@poocommerce/base-context';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -62,15 +62,15 @@ export const Edit = ( {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Options', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Options', 'poocommerce' ) }>
 					<ToggleControl
 						label={ __(
 							'Show a "Return to Cart" link',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Recommended to enable only if there is no Cart link in the header.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showReturnToCart }
 						onChange={ () =>
@@ -82,7 +82,7 @@ export const Edit = ( {
 
 					{ showPrice && (
 						<TextControl
-							label={ __( 'Price separator', 'woocommerce' ) }
+							label={ __( 'Price separator', 'poocommerce' ) }
 							id="price-separator"
 							value={ attributes.priceSeparator }
 							onChange={ ( value ) => {
@@ -107,11 +107,11 @@ export const Edit = ( {
 							labels={ {
 								title: __(
 									'Return to Cart button',
-									'woocommerce'
+									'poocommerce'
 								),
 								default: __(
-									'WooCommerce Cart Page',
-									'woocommerce'
+									'PooCommerce Cart Page',
+									'poocommerce'
 								),
 							} }
 						/>
@@ -154,7 +154,7 @@ export const Edit = ( {
 						{ showPrice && (
 							<>
 								<style>
-									{ `.wp-block-woocommerce-checkout-actions-block {
+									{ `.wp-block-poocommerce-checkout-actions-block {
 										.wc-block-components-checkout-place-order-button__separator {
 											&::after {
 												content: "${ attributes.priceSeparator }";

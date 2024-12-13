@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo "Initializing WooCommerce E2E"
+echo "Initializing PooCommerce E2E"
 
-wp plugin activate woocommerce
+wp plugin activate poocommerce
 wp theme install twentynineteen --activate
-wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer --path=/var/www/html
+wp user create customer customer@poocommercecoree2etestsuite.com --user_pass=password --role=customer --path=/var/www/html
 
 # we cannot create API keys for the API, so we using basic auth, this plugin allows that.
 wp plugin install https://github.com/WP-API/Basic-Auth/archive/master.zip --activate

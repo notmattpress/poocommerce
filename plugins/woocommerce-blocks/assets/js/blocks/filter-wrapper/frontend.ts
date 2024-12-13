@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { renderParentBlock } from '@woocommerce/atomic-utils';
-import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
+import { renderParentBlock } from '@poocommerce/atomic-utils';
+import { getRegisteredBlockComponents } from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies
@@ -10,8 +10,8 @@ import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
 import Block from './block';
 
 renderParentBlock( {
-	blockName: 'woocommerce/filter-wrapper',
-	selector: '.wp-block-woocommerce-filter-wrapper',
+	blockName: 'poocommerce/filter-wrapper',
+	selector: '.wp-block-poocommerce-filter-wrapper',
 	Block,
-	blockMap: getRegisteredBlockComponents( 'woocommerce/filter-wrapper' ),
+	blockMap: getRegisteredBlockComponents( 'poocommerce/filter-wrapper' ),
 } );

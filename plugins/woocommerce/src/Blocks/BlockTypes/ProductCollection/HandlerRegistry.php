@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
 use InvalidArgumentException;
 
@@ -49,7 +49,7 @@ class HandlerRegistry {
 	 */
 	public function register_core_collections() {
 		$this->register_collection_handlers(
-			'woocommerce/product-collection/hand-picked',
+			'poocommerce/product-collection/hand-picked',
 			function ( $collection_args, $common_query_values, $query ) {
 				// For Hand-Picked collection, if no products are selected, we should return an empty result set.
 				// This ensures that the collection doesn't display any products until the user explicitly chooses them.
@@ -62,7 +62,7 @@ class HandlerRegistry {
 		);
 
 		$this->register_collection_handlers(
-			'woocommerce/product-collection/related',
+			'poocommerce/product-collection/related',
 			function ( $collection_args ) {
 				// No products should be shown if no related product reference is set.
 				if ( empty( $collection_args['relatedProductReference'] ) ) {
@@ -79,8 +79,8 @@ class HandlerRegistry {
 					return $collection_args['relatedBy']['tags'];
 				};
 
-				add_filter( 'woocommerce_product_related_posts_relate_by_category', $category_callback, PHP_INT_MAX );
-				add_filter( 'woocommerce_product_related_posts_relate_by_tag', $tag_callback, PHP_INT_MAX );
+				add_filter( 'poocommerce_product_related_posts_relate_by_category', $category_callback, PHP_INT_MAX );
+				add_filter( 'poocommerce_product_related_posts_relate_by_tag', $tag_callback, PHP_INT_MAX );
 
 				$related_products = wc_get_related_products(
 					$collection_args['relatedProductReference'],
@@ -88,8 +88,8 @@ class HandlerRegistry {
 					100
 				);
 
-				remove_filter( 'woocommerce_product_related_posts_relate_by_category', $category_callback, PHP_INT_MAX );
-				remove_filter( 'woocommerce_product_related_posts_relate_by_tag', $tag_callback, PHP_INT_MAX );
+				remove_filter( 'poocommerce_product_related_posts_relate_by_category', $category_callback, PHP_INT_MAX );
+				remove_filter( 'poocommerce_product_related_posts_relate_by_tag', $tag_callback, PHP_INT_MAX );
 
 				if ( empty( $related_products ) ) {
 					return array(
@@ -142,7 +142,7 @@ class HandlerRegistry {
 		);
 
 		$this->register_collection_handlers(
-			'woocommerce/product-collection/upsells',
+			'poocommerce/product-collection/upsells',
 			function ( $collection_args ) {
 				$product_reference = $collection_args['upsellsProductReferences'] ?? null;
 				// No products should be shown if no upsells product reference is set.
@@ -217,7 +217,7 @@ class HandlerRegistry {
 		);
 
 		$this->register_collection_handlers(
-			'woocommerce/product-collection/cross-sells',
+			'poocommerce/product-collection/cross-sells',
 			function ( $collection_args ) {
 				$product_reference = $collection_args['crossSellsProductReferences'] ?? null;
 				// No products should be shown if no cross-sells product reference is set.

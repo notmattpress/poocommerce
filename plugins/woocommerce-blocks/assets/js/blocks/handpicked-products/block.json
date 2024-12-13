@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/handpicked-products",
+	"name": "poocommerce/handpicked-products",
 	"title": "Hand-picked Products",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
 		"Handpicked Products",
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Display a selection of hand-picked products in a grid.",
 	"supports": {
@@ -81,7 +81,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

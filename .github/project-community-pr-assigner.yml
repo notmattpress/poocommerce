@@ -80,41 +80,41 @@
   - team: woo-fse
   - team: ghidorah
 
-"plugins/woocommerce/**/*":
+"plugins/poocommerce/**/*":
   - team: proton
 
-"plugins/woocommerce/templates/**/*":
+"plugins/poocommerce/templates/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce/templates/emails/**/*":
+"plugins/poocommerce/templates/emails/**/*":
   - team: proton
 
-"plugins/woocommerce/src/Admin/**/*":
+"plugins/poocommerce/src/Admin/**/*":
   - team: woo-fse
   - team: ghidorah
 
-"plugins/woocommerce/src/Blocks/**/*":
+"plugins/poocommerce/src/Blocks/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce/src/Internal/Admin/**/*":
+"plugins/poocommerce/src/Internal/Admin/**/*":
   - team: woo-fse
   - team: ghidorah
 
-"plugins/woocommerce/src/StoreApi/**/*":
+"plugins/poocommerce/src/StoreApi/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce/client/admin/**/*":
+"plugins/poocommerce/client/admin/**/*":
   - team: woo-fse
   - team: ghidorah
 
-"plugins/woocommerce-blocks/**/*":
+"plugins/poocommerce-blocks/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce-beta-tester/**/*":
+"plugins/poocommerce-beta-tester/**/*":
   - team: ghidorah
 
 "tools/**/*":

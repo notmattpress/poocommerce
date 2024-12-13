@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Steps\InstallPlugin;
-use Automattic\WooCommerce\Blueprint\Steps\InstallTheme;
+use Automattic\PooCommerce\Blueprint\Steps\InstallPlugin;
+use Automattic\PooCommerce\Blueprint\Steps\InstallTheme;
 
 /**
  * Class ZipExportedSchema

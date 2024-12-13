@@ -5,8 +5,8 @@ import { Button } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { closeSmall, external } from '@wordpress/icons';
-import { getNewPath } from '@woocommerce/navigation';
-import { Product } from '@woocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
+import { Product } from '@poocommerce/data';
 import classNames from 'classnames';
 
 /**
@@ -51,17 +51,17 @@ export function ProductList( {
 	return (
 		<div
 			{ ...props }
-			className={ classNames( 'woocommerce-product-list', className ) }
+			className={ classNames( 'poocommerce-product-list', className ) }
 		>
 			<div role="table">
 				<div role="rowgroup">
 					<div role="rowheader">
 						<div role="columnheader">
-							{ __( 'Product', 'woocommerce' ) }
+							{ __( 'Product', 'poocommerce' ) }
 						</div>
 						<div
 							role="columnheader"
-							aria-label={ __( 'Actions', 'woocommerce' ) }
+							aria-label={ __( 'Actions', 'poocommerce' ) }
 						/>
 					</div>
 				</div>
@@ -72,11 +72,11 @@ export function ProductList( {
 							<div role="cell">
 								<ProductImage
 									product={ product }
-									className="woocommerce-product-list__product-image"
+									className="poocommerce-product-list__product-image"
 								/>
-								<div className="woocommerce-product-list__product-info">
+								<div className="poocommerce-product-list__product-info">
 									<a
-										className="woocommerce-product-list__product-name"
+										className="poocommerce-product-list__product-name"
 										href={ getNewPath(
 											{},
 											`/product/${ product.id }`,
@@ -92,20 +92,20 @@ export function ProductList( {
 									</a>
 									<FormattedPrice
 										product={ product }
-										className="woocommerce-product-list__product-price"
+										className="poocommerce-product-list__product-price"
 									/>
 								</div>
 							</div>
 							<div
 								role="cell"
-								className="woocommerce-product-list__actions"
+								className="poocommerce-product-list__actions"
 							>
 								<Button
 									icon={ external }
 									size={ 24 }
 									aria-label={ __(
 										'See product page',
-										'woocommerce'
+										'poocommerce'
 									) }
 									href={ product.permalink }
 									target="_blank"
@@ -119,7 +119,7 @@ export function ProductList( {
 									size={ 24 }
 									aria-label={ __(
 										'Remove product',
-										'woocommerce'
+										'poocommerce'
 									) }
 									onClick={ removeClickHandler( product ) }
 								/>

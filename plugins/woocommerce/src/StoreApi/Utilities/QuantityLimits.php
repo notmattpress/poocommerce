@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStock;
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStock;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
 
 /**
  * QuantityLimits class.
@@ -140,22 +140,22 @@ final class QuantityLimits {
 
 		if ( ! $limits['editable'] ) {
 			/* translators: 1: product name */
-			return new \WP_Error( 'readonly_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; cannot be changed', 'woocommerce' ), $product->get_name() ) );
+			return new \WP_Error( 'readonly_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; cannot be changed', 'poocommerce' ), $product->get_name() ) );
 		}
 
 		if ( $quantity < $limits['minimum'] ) {
 			/* translators: 1: product name 2: minimum quantity */
-			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The minimum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'woocommerce' ), $product->get_name(), $limits['minimum'] ) );
+			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The minimum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'poocommerce' ), $product->get_name(), $limits['minimum'] ) );
 		}
 
 		if ( $quantity > $limits['maximum'] ) {
 			/* translators: 1: product name 2: maximum quantity */
-			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The maximum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'woocommerce' ), $product->get_name(), $limits['maximum'] ) );
+			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The maximum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'poocommerce' ), $product->get_name(), $limits['maximum'] ) );
 		}
 
 		if ( $quantity % $limits['multiple_of'] ) {
 			/* translators: 1: product name 2: multiple of */
-			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; must be a multiple of %2$s', 'woocommerce' ), $product->get_name(), $limits['multiple_of'] ) );
+			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; must be a multiple of %2$s', 'poocommerce' ), $product->get_name(), $limits['multiple_of'] ) );
 		}
 
 		return true;
@@ -192,7 +192,7 @@ final class QuantityLimits {
 		 * @param \WC_Product $product Product instance.
 		 * @return integer
 		 */
-		$filtered_limit = apply_filters( 'woocommerce_store_api_product_quantity_limit', $limit, $product );
+		$filtered_limit = apply_filters( 'poocommerce_store_api_product_quantity_limit', $limit, $product );
 
 		// Only return the filtered limit if it's numeric, otherwise return the original limit.
 		return is_numeric( $filtered_limit ) ? (int) $filtered_limit : $limit;
@@ -244,7 +244,7 @@ final class QuantityLimits {
 		 * @param array|null $cart_item The cart item if the product exists in the cart, or null.
 		 * @return mixed
 		 */
-		$filtered_value = apply_filters( "woocommerce_store_api_product_quantity_{$value_type}", $value, $product, $cart_item );
+		$filtered_value = apply_filters( "poocommerce_store_api_product_quantity_{$value_type}", $value, $product, $cart_item );
 
 		return is_numeric( $filtered_value ) ? (int) $filtered_value : $value;
 	}
@@ -276,7 +276,7 @@ final class QuantityLimits {
 		 * @param array|null $cart_item The cart item if the product exists in the cart, or null.
 		 * @return mixed
 		 */
-		$filtered_value = apply_filters( "woocommerce_store_api_product_quantity_{$value_type}", $value, $product, $cart_item );
+		$filtered_value = apply_filters( "poocommerce_store_api_product_quantity_{$value_type}", $value, $product, $cart_item );
 
 		return is_bool( $filtered_value ) ? (bool) $filtered_value : $value;
 	}

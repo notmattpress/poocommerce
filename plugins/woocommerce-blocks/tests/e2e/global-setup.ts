@@ -12,7 +12,7 @@ import {
 	customerFile,
 	BLOCK_THEME_SLUG,
 	DB_EXPORT_FILE,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ const prepareAttributes = async () => {
 	// "wp wc tool run regenerate_product_attributes_lookup_table --user=1"
 	// It doesn't seem to be working correctly ATM so we need to do it via
 	// browser actions.
-	// See: https://github.com/woocommerce/woocommerce/issues/32831
+	// See: https://github.com/poocommerce/poocommerce/issues/32831
 	await page
 		.getByRole( 'row', {
 			name: /Regenerate the product attributes lookup table/,
@@ -55,7 +55,7 @@ const prepareAttributes = async () => {
 	// to run the cron task twice as we need to process more than 1 batch of
 	// items.
 	const cronTask =
-		'action-scheduler run --hooks="woocommerce_run_product_attribute_lookup_regeneration_callback"';
+		'action-scheduler run --hooks="poocommerce_run_product_attribute_lookup_regeneration_callback"';
 	await wpCLI( cronTask );
 	await wpCLI( cronTask );
 };

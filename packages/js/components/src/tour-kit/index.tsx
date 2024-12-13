@@ -32,7 +32,7 @@ const defaultOptions: Options = {
 const WooTourKit: React.FunctionComponent< Props > = ( { config } ) => {
 	return (
 		<TourKit
-			__temp__className={ 'woocommerce-tour-kit' }
+			__temp__className={ 'poocommerce-tour-kit' }
 			config={ {
 				options: {
 					...defaultOptions,

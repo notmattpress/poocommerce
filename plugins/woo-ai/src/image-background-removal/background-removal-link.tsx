@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState, useEffect } from 'react';
-import { __experimentalUseBackgroundRemoval as useBackgroundRemoval } from '@woocommerce/ai';
+import { __experimentalUseBackgroundRemoval as useBackgroundRemoval } from '@poocommerce/ai';
 import { store as preferencesStore } from '@wordpress/preferences';
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
@@ -27,13 +27,13 @@ const preferenceId = `spotlightDismissed-backgroundRemovalLink`;
 const getErrorMessage = ( errorCode?: string ) => {
 	switch ( errorCode ) {
 		case 'invalid_image_file':
-			return __( 'Invalid image', 'woocommerce' );
+			return __( 'Invalid image', 'poocommerce' );
 		case 'image_file_too_small':
-			return __( 'Image too small', 'woocommerce' );
+			return __( 'Image too small', 'poocommerce' );
 		case 'image_file_too_large':
-			return __( 'Image too large', 'woocommerce' );
+			return __( 'Image too large', 'poocommerce' );
 		default:
-			return __( 'Something went wrong', 'woocommerce' );
+			return __( 'Something went wrong', 'poocommerce' );
 	}
 };
 
@@ -104,7 +104,7 @@ export const BackgroundRemovalLink = () => {
 
 			setSpotlightAsDismissed();
 			showSnackbar( {
-				label: __( 'Was the generated image helpful?', 'woocommerce' ),
+				label: __( 'Was the generated image helpful?', 'poocommerce' ),
 				onPositiveResponse: () => {
 					recordBgRemovalTracks( 'feedback', {
 						response: 'positive',
@@ -136,18 +136,18 @@ export const BackgroundRemovalLink = () => {
 	};
 
 	if ( state === 'generating' ) {
-		return <span>{ __( 'Generating…', 'woocommerce' ) }</span>;
+		return <span>{ __( 'Generating…', 'poocommerce' ) }</span>;
 	}
 
 	if ( state === 'uploading' ) {
-		return <span>{ __( 'Uploading…', 'woocommerce' ) }</span>;
+		return <span>{ __( 'Uploading…', 'poocommerce' ) }</span>;
 	}
 
 	return (
 		<>
 			<div className="background-link_actions">
 				<button onClick={ () => onRemoveBackgroundClick() }>
-					{ __( 'Remove background', 'woocommerce' ) }
+					{ __( 'Remove background', 'poocommerce' ) }
 				</button>
 				<img src={ MagicIcon } alt="" />
 			</div>
@@ -157,17 +157,17 @@ export const BackgroundRemovalLink = () => {
 					reference={ `#${ LINK_CONTAINER_ID }` }
 					description={ __(
 						'Effortlessly make your product images pop by removing the background using state-of-the-art AI technology. Just click the button and watch!',
-						'woocommerce'
+						'poocommerce'
 					) }
 					title={ createInterpolateElement(
 						__(
 							'<NewBlock /> Remove backgrounds with AI',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							NewBlock: (
 								<span className="woo-ai-background-removal-link__new-block">
-									{ __( 'NEW', 'woocommerce' ) }
+									{ __( 'NEW', 'poocommerce' ) }
 								</span>
 							),
 						}

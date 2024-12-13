@@ -2,7 +2,7 @@
  * External dependencies
  */
 import moment from 'moment';
-import { DatePicker, H, Section } from '@woocommerce/components';
+import { DatePicker, H, Section } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 const dateFormat = 'MM/DD/YYYY';
 
@@ -47,6 +47,6 @@ const DatePickerExample = () => {
 export const Basic = () => <DatePickerExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/calendar/DatePicker',
+	title: 'PooCommerce Admin/components/calendar/DatePicker',
 	component: DatePicker,
 };

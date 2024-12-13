@@ -217,7 +217,7 @@ test.describe( 'Orders API test', () => {
 		async ( { request } ) => {
 			//ensure tax calculations are enabled
 			await request.put(
-				'./wp-json/wc/v3/settings/general/woocommerce_calc_taxes',
+				'./wp-json/wc/v3/settings/general/poocommerce_calc_taxes',
 				{
 					data: {
 						value: 'yes',

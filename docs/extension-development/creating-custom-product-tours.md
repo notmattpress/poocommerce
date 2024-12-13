@@ -6,18 +6,18 @@ tags: how-to
 
 ## Introduction
 
-WooCommerce allows developers to extend or replace the product tour, offering a more customizable and engaging experience during product creation. This tutorial will guide you through adding a custom product tour to your WooCommerce store using the `experimental_woocommerce_admin_product_tour_steps` JavaScript filter.
+PooCommerce allows developers to extend or replace the product tour, offering a more customizable and engaging experience during product creation. This tutorial will guide you through adding a custom product tour to your PooCommerce store using the `experimental_poocommerce_admin_product_tour_steps` JavaScript filter.
 
 This works in conjunction with the ability to customize the product type onboarding list.
 
 ## Prerequisites
 
 - A basic understanding of JavaScript and PHP.
-- WooCommerce 8.8 or later installed on your WordPress site.
+- PooCommerce 8.8 or later installed on your WordPress site.
 
 ## Adding a JavaScript Filter
 
-To alter or create a product tour, we'll utilize the `@wordpress/hooks` package, specifically the `addFilter` function. If you're not already familiar, `@wordpress/hooks` allows you to modify or extend features within the WordPress and WooCommerce ecosystem without altering the core code.
+To alter or create a product tour, we'll utilize the `@wordpress/hooks` package, specifically the `addFilter` function. If you're not already familiar, `@wordpress/hooks` allows you to modify or extend features within the WordPress and PooCommerce ecosystem without altering the core code.
 
 First, ensure you have the `@wordpress/hooks` package installed. If not, you can add it to your project using `npm` or `yarn`:
 
@@ -37,7 +37,7 @@ import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 
 addFilter(
-   experimental_woocommerce_admin_product_tour_steps,
+   experimental_poocommerce_admin_product_tour_steps,
    'custom-product',
    (tourSteps, tourType) => {
 	if ('custom-product' !== tourType) {
@@ -74,4 +74,4 @@ The `tourType` is set by the `tutorial_type` GET parameter.
 
 ## Conclusion
 
-With WooCommerce, extending and customizing the product tour is straightforward and offers significant flexibility for customizing the onboarding experience. By following the steps outlined in this tutorial, you can enhance your WooCommerce store and make the Add Products tour more relevant and helpful to your specific needs.
+With PooCommerce, extending and customizing the product tour is straightforward and offers significant flexibility for customizing the onboarding experience. By following the steps outlined in this tutorial, you can enhance your PooCommerce store and make the Add Products tour more relevant and helpful to your specific needs.

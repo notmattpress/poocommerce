@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * SingleProduct class.
@@ -75,7 +75,7 @@ class SingleProduct extends AbstractBlock {
 	 * @return array Updated block context.
 	 */
 	public function update_context( $context, $block, $parent_block ) {
-		if ( 'woocommerce/single-product' === $block['blockName']
+		if ( 'poocommerce/single-product' === $block['blockName']
 			&& isset( $block['attrs']['productId'] ) ) {
 				$this->product_id = $block['attrs']['productId'];
 
@@ -103,7 +103,7 @@ class SingleProduct extends AbstractBlock {
 			$result[] = $block['blockName'];
 		}
 
-		if ( 'woocommerce/product-template' === $block['blockName'] || 'core/post-template' === $block['blockName'] ) {
+		if ( 'poocommerce/product-template' === $block['blockName'] || 'core/post-template' === $block['blockName'] ) {
 			return $result;
 		}
 

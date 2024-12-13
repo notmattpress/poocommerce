@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
 /**
  * Installer class.
@@ -13,7 +13,7 @@ class Installer {
 	 */
 	public function init() {
 		add_action( 'admin_init', array( $this, 'install' ) );
-		add_filter( 'woocommerce_create_pages', array( $this, 'create_pages' ) );
+		add_filter( 'poocommerce_create_pages', array( $this, 'create_pages' ) );
 	}
 
 	/**
@@ -25,20 +25,20 @@ class Installer {
 
 	/**
 	 * Modifies default page content replacing it with classic shortcode block.
-	 * We check for shortcode as default because after WooCommerce 8.3, block-based checkout is used by default.
-	 * This only runs on Tools > Create Pages as the filter is not applied on WooCommerce plugin activation.
+	 * We check for shortcode as default because after PooCommerce 8.3, block-based checkout is used by default.
+	 * This only runs on Tools > Create Pages as the filter is not applied on PooCommerce plugin activation.
 	 *
 	 * @param array $pages Default pages.
 	 * @return array
 	 */
 	public function create_pages( $pages ) {
 
-		if ( '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->' === ( $pages['cart']['content'] ?? null ) ) {
-			$pages['cart']['content'] = '<!-- wp:woocommerce/classic-shortcode {"shortcode":"cart"} /-->';
+		if ( '<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->' === ( $pages['cart']['content'] ?? null ) ) {
+			$pages['cart']['content'] = '<!-- wp:poocommerce/classic-shortcode {"shortcode":"cart"} /-->';
 		}
 
-		if ( '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->' === ( $pages['checkout']['content'] ?? null ) ) {
-			$pages['checkout']['content'] = '<!-- wp:woocommerce/classic-shortcode {"shortcode":"checkout"} /-->';
+		if ( '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->' === ( $pages['checkout']['content'] ?? null ) ) {
+			$pages['checkout']['content'] = '<!-- wp:poocommerce/classic-shortcode {"shortcode":"checkout"} /-->';
 		}
 
 		return $pages;
@@ -120,7 +120,7 @@ class Installer {
 				echo '<div class="error"><p>';
 				printf(
 					/* translators: %1$s table name, %2$s database user, %3$s database name. */
-					esc_html__( 'WooCommerce %1$s table creation failed. Does the %2$s user have CREATE privileges on the %3$s database?', 'woocommerce' ),
+					esc_html__( 'PooCommerce %1$s table creation failed. Does the %2$s user have CREATE privileges on the %3$s database?', 'poocommerce' ),
 					'<code>' . esc_html( $table_name ) . '</code>',
 					'<code>' . esc_html( DB_USER ) . '</code>',
 					'<code>' . esc_html( DB_NAME ) . '</code>'

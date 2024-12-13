@@ -2,11 +2,11 @@
 /**
  * Order functions tests
  *
- * @package WooCommerce\Tests\Order.
+ * @package PooCommerce\Tests\Order.
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Order_Functions_Test

@@ -30,10 +30,10 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-section-header"
+        class="poocommerce-section-header"
       >
         <h2
-          class="woocommerce-section-header__title woocommerce-section-header__header-item"
+          class="poocommerce-section-header__title poocommerce-section-header__header-item"
         >
           A SectionHeader Example
         </h2>
@@ -45,10 +45,10 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-section-header"
+      class="poocommerce-section-header"
     >
       <h2
-        class="woocommerce-section-header__title woocommerce-section-header__header-item"
+        class="poocommerce-section-header__title poocommerce-section-header__header-item"
       >
         A SectionHeader Example
       </h2>

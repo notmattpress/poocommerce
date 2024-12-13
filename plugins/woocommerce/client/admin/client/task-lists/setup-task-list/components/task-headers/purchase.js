@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useState, useCallback } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -24,20 +24,20 @@ const PurchaseHeader = ( { task } ) => {
 	}, [ cartModalOpen ] );
 
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
-				alt={ __( 'Purchase illustration', 'woocommerce' ) }
+				alt={ __( 'Purchase illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL + 'images/task_list/purchase-illustration.png'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
+			<div className="poocommerce-task-header__contents">
 				<h1>{ task.title }</h1>
 				<p>
 					{ __(
 						'Good choice! You chose to add amazing new features to your store. Continue to checkout to complete your purchase.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button
@@ -45,7 +45,7 @@ const PurchaseHeader = ( { task } ) => {
 					isPrimary={ ! task.isComplete }
 					onClick={ toggleCartModal }
 				>
-					{ __( 'Continue', 'woocommerce' ) }
+					{ __( 'Continue', 'poocommerce' ) }
 				</Button>
 			</div>
 			{ cartModalOpen && (

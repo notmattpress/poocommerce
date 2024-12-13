@@ -7,11 +7,11 @@ import {
 	customerAccountStyle,
 	customerAccountStyleAlt,
 	customerAccountStyleLine,
-} from '@woocommerce/icons';
+} from '@poocommerce/icons';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import type { BlockAttributes } from '@wordpress/blocks';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { createInterpolateElement } from '@wordpress/element';
 import {
 	PanelBody,
@@ -39,7 +39,7 @@ const AccountSettingsLink = () => {
 	) }admin.php?page=wc-settings&tab=account`;
 
 	const linkText = createInterpolateElement(
-		`<a>${ __( 'Manage account settings', 'woocommerce' ) }</a>`,
+		`<a>${ __( 'Manage account settings', 'poocommerce' ) }</a>`,
 		{
 			a: <ExternalLink href={ accountSettingsUrl } />,
 		}
@@ -67,36 +67,36 @@ export const BlockSettings = ( {
 			<PanelBody>
 				<AccountSettingsLink />
 			</PanelBody>
-			<PanelBody title={ __( 'Display settings', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Display settings', 'poocommerce' ) }>
 				<SelectControl
 					className="customer-account-display-style"
-					label={ __( 'Icon options', 'woocommerce' ) }
+					label={ __( 'Icon options', 'poocommerce' ) }
 					value={ displayStyle }
 					onChange={ ( value: DisplayStyle ) => {
 						setAttributes( { displayStyle: value } );
 					} }
 					help={ __(
 						'Choose if you want to include an icon with the customer account link.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					options={ [
 						{
 							value: DisplayStyle.ICON_AND_TEXT,
-							label: __( 'Icon and text', 'woocommerce' ),
+							label: __( 'Icon and text', 'poocommerce' ),
 						},
 						{
 							value: DisplayStyle.TEXT_ONLY,
-							label: __( 'Text-only', 'woocommerce' ),
+							label: __( 'Text-only', 'poocommerce' ),
 						},
 						{
 							value: DisplayStyle.ICON_ONLY,
-							label: __( 'Icon-only', 'woocommerce' ),
+							label: __( 'Icon-only', 'poocommerce' ),
 						},
 					] }
 				/>
 				{ displayIconStyleSelector ? (
 					<ToggleGroupControl
-						label={ __( 'Display Style', 'woocommerce' ) }
+						label={ __( 'Display Style', 'poocommerce' ) }
 						isBlock
 						value={ iconStyle }
 						onChange={ ( value: IconStyle ) =>

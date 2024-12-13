@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { PaymentGatewayLink } from '@woocommerce/data';
+import { PaymentGatewayLink } from '@poocommerce/data';
 
 /**
  * Internal dependencies

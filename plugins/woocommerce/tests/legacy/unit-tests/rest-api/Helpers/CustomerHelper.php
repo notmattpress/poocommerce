@@ -3,7 +3,7 @@
  * Customer helper.
  */
 
-namespace Automattic\WooCommerce\RestApi\UnitTests\Helpers;
+namespace Automattic\PooCommerce\RestApi\UnitTests\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -101,12 +101,12 @@ class CustomerHelper {
 	}
 
 	/**
-	 * Get the "Tax Based On" WooCommerce option.
+	 * Get the "Tax Based On" PooCommerce option.
 	 *
 	 * @return string base or billing
 	 */
 	public static function get_tax_based_on() {
-		return get_option( 'woocommerce_tax_based_on' );
+		return get_option( 'poocommerce_tax_based_on' );
 	}
 
 	/**
@@ -128,11 +128,11 @@ class CustomerHelper {
 	}
 
 	/**
-	 * Set the "Tax Based On" WooCommerce option.
+	 * Set the "Tax Based On" PooCommerce option.
 	 *
 	 * @param string $default_shipping_method Shipping Method slug
 	 */
 	public static function set_tax_based_on( $default_shipping_method ) {
-		update_option( 'woocommerce_tax_based_on', $default_shipping_method );
+		update_option( 'poocommerce_tax_based_on', $default_shipping_method );
 	}
 }

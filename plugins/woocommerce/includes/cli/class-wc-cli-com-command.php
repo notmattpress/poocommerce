@@ -2,7 +2,7 @@
 /**
  * WC_CLI_COM_Command class file.
  *
- * @package WooCommerce\CLI
+ * @package PooCommerce\CLI
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,13 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Allows to interact with extensions from WCCOM marketplace via CLI.
  *
  * @version 6.8
- * @package WooCommerce
+ * @package PooCommerce
  */
 class WC_CLI_COM_Command {
-	const APPLICATION_PASSWORD_SECTION_URL = 'https://woocommerce.com/my-account/#application-passwords';
+	const APPLICATION_PASSWORD_SECTION_URL = 'https://poocommerce.com/my-account/#application-passwords';
 
 	/**
-	 * Registers a commands for managing WooCommerce.com extensions.
+	 * Registers a commands for managing PooCommerce.com extensions.
 	 */
 	public static function register_commands() {
 		WP_CLI::add_command( 'wc com extension list', array( 'WC_CLI_COM_Command', 'list_extensions' ) );
@@ -112,16 +112,16 @@ class WC_CLI_COM_Command {
 	 */
 	public static function disconnect( array $args, array $assoc_args ) {
 		if ( ! WC_Helper::is_site_connected() ) {
-			WP_CLI::error( __( 'Your store is not connected to WooCommerce.com. Run `wp wc com connect` command.', 'woocommerce' ) );
+			WP_CLI::error( __( 'Your store is not connected to PooCommerce.com. Run `wp wc com connect` command.', 'poocommerce' ) );
 		}
 
-		WP_CLI::confirm( __( 'Are you sure you want to disconnect your store from WooCommerce.com?', 'woocommerce' ), $assoc_args );
+		WP_CLI::confirm( __( 'Are you sure you want to disconnect your store from PooCommerce.com?', 'poocommerce' ), $assoc_args );
 		WC_Helper::disconnect();
-		WP_CLI::success( __( 'You have successfully disconnected your store from WooCommerce.com', 'woocommerce' ) );
+		WP_CLI::success( __( 'You have successfully disconnected your store from PooCommerce.com', 'poocommerce' ) );
 	}
 
 	/**
-	 * Connects to WooCommerce.com with application-password.
+	 * Connects to PooCommerce.com with application-password.
 	 *
 	 * [--password]
 	 * : If set, password won't be prompt.
@@ -154,21 +154,21 @@ class WC_CLI_COM_Command {
 			if ( $force ) {
 				WC_Helper::disconnect();
 			} else {
-				WP_CLI::error( __( 'Your store is already connected.', 'woocommerce' ) );
+				WP_CLI::error( __( 'Your store is already connected.', 'poocommerce' ) );
 
 				return;
 			}
 		}
 
 		if ( empty( $password ) ) {
-			// translators: %s is the URL for the application-password section in WooCommerce.com.
-			WP_CLI::log( sprintf( __( 'If you don\'t have an application password (not your account password), generate a password from %s', 'woocommerce' ), esc_url( self::APPLICATION_PASSWORD_SECTION_URL ) ) );
-			$password = self::ask( __( 'Connection password:', 'woocommerce' ) );
+			// translators: %s is the URL for the application-password section in PooCommerce.com.
+			WP_CLI::log( sprintf( __( 'If you don\'t have an application password (not your account password), generate a password from %s', 'poocommerce' ), esc_url( self::APPLICATION_PASSWORD_SECTION_URL ) ) );
+			$password = self::ask( __( 'Connection password:', 'poocommerce' ) );
 		}
 		$password = sanitize_text_field( $password );
 		if ( empty( $password ) ) {
-			// translators: %s is the URL for the application-password section in WooCommerce.com.
-			WP_CLI::error( sprintf( __( 'Invalid password. Generate a new one from %s.', 'woocommerce' ), esc_url( self::APPLICATION_PASSWORD_SECTION_URL ) ) );
+			// translators: %s is the URL for the application-password section in PooCommerce.com.
+			WP_CLI::error( sprintf( __( 'Invalid password. Generate a new one from %s.', 'poocommerce' ), esc_url( self::APPLICATION_PASSWORD_SECTION_URL ) ) );
 		}
 
 		$auth = WC_Helper::connect_with_password( $password );
@@ -177,7 +177,7 @@ class WC_CLI_COM_Command {
 		}
 
 		if ( WC_Helper::is_site_connected() ) {
-			WP_CLI::success( __( 'Store connected successfully.', 'woocommerce' ) );
+			WP_CLI::success( __( 'Store connected successfully.', 'poocommerce' ) );
 		}
 	}
 

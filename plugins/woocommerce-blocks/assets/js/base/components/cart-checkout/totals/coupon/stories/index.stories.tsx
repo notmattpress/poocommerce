@@ -3,9 +3,9 @@
  */
 import { useArgs } from '@storybook/client-api';
 import type { Story, Meta } from '@storybook/react';
-import { INTERACTION_TIMEOUT } from '@woocommerce/storybook-controls';
+import { INTERACTION_TIMEOUT } from '@poocommerce/storybook-controls';
 import { useDispatch } from '@wordpress/data';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

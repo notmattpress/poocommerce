@@ -3,9 +3,9 @@ post_title: Contributing Technical Documentation
 menu_title: Contributing Docs
 ---
 
-WooCommerce's documentation lives in the [WooCommerce monorepo](https://github.com/woocommerce/woocommerce) alongside the project's code. Specifically, the technical documentation that appears on this site can be found in the [/docs](https://github.com/woocommerce/woocommerce/tree/trunk/docs) folder of the monorepo. Therefore, contributing technical documentation to WooCommerce is very similar to contributing code.
+PooCommerce's documentation lives in the [PooCommerce monorepo](https://github.com/poocommerce/poocommerce) alongside the project's code. Specifically, the technical documentation that appears on this site can be found in the [/docs](https://github.com/poocommerce/poocommerce/tree/trunk/docs) folder of the monorepo. Therefore, contributing technical documentation to PooCommerce is very similar to contributing code.
 
-This guide will outline how to add, modify and delete pages in WooCommerce's developer documentation.
+This guide will outline how to add, modify and delete pages in PooCommerce's developer documentation.
 
 ## Docs Folder Anatomy
 
@@ -19,7 +19,7 @@ Inside each subfolder you'll find various markdown files. When imported into the
 
 ### Initial Setup
 
-1. Fork the [WooCommerce monorepo](https://github.com/woocommerce/woocommerce) on GitHub. If asked, you can safely check the `copy the trunk branch only` option.
+1. Fork the [PooCommerce monorepo](https://github.com/poocommerce/poocommerce) on GitHub. If asked, you can safely check the `copy the trunk branch only` option.
 2. [Clone the fork that you just created](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). This will allow you to edit it locally.
 
 ### Making and Contributing Changes
@@ -30,10 +30,10 @@ Inside each subfolder you'll find various markdown files. When imported into the
 3. Create and modify docs as required. Make sure you reference the guidelines below when doing so.
 4. Verify whether you need to regenerate the docs manifest using the instructions at the bottom of this page. If you do, regenerate it.
 5. Commit the changes you just made, then push them to your remote GitHub repo.
-6. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) that merges your branch with the WooCommerce monorepo's trunk branch.
-    * To do this, when creating the pull request, set the `base repository` to `woocommerce/woocommerce`, the `base` to `trunk`, the `head repository` to `yourgithubusername/woocommerce` and the `compare` to the branch you created (eg: `docs/improve-extension-performance`).
+6. [Open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) that merges your branch with the PooCommerce monorepo's trunk branch.
+    * To do this, when creating the pull request, set the `base repository` to `poocommerce/poocommerce`, the `base` to `trunk`, the `head repository` to `yourgithubusername/poocommerce` and the `compare` to the branch you created (eg: `docs/improve-extension-performance`).
     * When creating the pull request, set a descriptive title. Additionally, ensure you fill out the template provided in the description. For purely docs changes, your testing instructions should reference any major changes you think should be checked.
-7. The WooCommerce Developer Advocacy team will review your pull request and provide feedback via the comments as necessary. Once the content is ready, we'll merge it into `trunk` and it'll appear on the Woo Developer Docs site!
+7. The PooCommerce Developer Advocacy team will review your pull request and provide feedback via the comments as necessary. Once the content is ready, we'll merge it into `trunk` and it'll appear on the Woo Developer Docs site!
 
 ## Creating New Pages
 
@@ -66,7 +66,7 @@ tags: tag1, tag2, tag3
 
 To help reduce sidebar clutter, you can optionally tag content types in Front Matter. The supported tags are `reference`, `how-to`, and `code-snippet`. Content tagged with one of these types will appear under a sub-heading in its category on the sidebar and on the category's page. Untagged pages will appear at the top of the category.
 
-![Untagged docs appear at the top of the sidebar and category page, and tagged docs appear under with a heading](https://developer.woocommerce.com/docs/wp-content/uploads/sites/3/2024/01/CleanShot-2024-01-15-at-14.01.16@2x.png)
+![Untagged docs appear at the top of the sidebar and category page, and tagged docs appear under with a heading](https://developer.poocommerce.com/docs/wp-content/uploads/sites/3/2024/01/CleanShot-2024-01-15-at-14.01.16@2x.png)
 
 Tags other than `reference`, `how-to` and `code-snippet` will function like regular WordPress tags. While you're welcome to include any tags you think are relevant, you should only tag a page with a maximum of one of the three special tags.
 
@@ -74,7 +74,7 @@ Tags other than `reference`, `how-to` and `code-snippet` will function like regu
 
 For technical reasons, images cannot currently be imported into the Woo Developer Docs site from the monorepo. Therefore, to include images in a page, you should follow this process:
 
-1. In the markdown for your page, add placeholders for each image with the correct alt text (eg: `![A basic WooCommerce store that has a red checkout button](image-1-placeholder.png)`).
+1. In the markdown for your page, add placeholders for each image with the correct alt text (eg: `![A basic PooCommerce store that has a red checkout button](image-1-placeholder.png)`).
 2. When creating your pull request, upload the images into the description and note which image relates to each placeholder.
 3. A member of the Woo Developer Advocacy team will upload your images to the docs site and provide next steps.
 
@@ -104,7 +104,7 @@ menu_title: This should match your category_title
 
 ## Regenerating the Docs Manifest
 
-The WooCommerce Developer Docs site pulls content from the monorepo using the [Docs Manifest](https://github.com/woocommerce/woocommerce/blob/trunk/docs/docs-manifest.json). It's important that this manifest remains in sync with docs changes to keep the site up to date.
+The PooCommerce Developer Docs site pulls content from the monorepo using the [Docs Manifest](https://github.com/poocommerce/poocommerce/blob/trunk/docs/docs-manifest.json). It's important that this manifest remains in sync with docs changes to keep the site up to date.
 
 ### When should you regenerate the manifest
 
@@ -121,7 +121,7 @@ You don't need to regenerate the manifest if you only make changes to a page's c
 These instructions presume you're currently have your `docs/` branch open and you've made your required changes to any files.
 
 1. In your command line, navigate to your repo's folder.
-2. Run `pnpm utils md-docs create docs woocommerce -o docs/docs-manifest.json`.
+2. Run `pnpm utils md-docs create docs poocommerce -o docs/docs-manifest.json`.
 3. The `docs-manifest.json` file in the `/docs` folder of your repo will be updated. Verify that the changes to the manifest reflect the changes that you made to the docs.
 
 If you are a non-technical contributor who isn't experienced with command line tools, we're still happy to receive your contributions. If you're unable to include an updated manifest, please ensure that you mention this in your pull request's description.

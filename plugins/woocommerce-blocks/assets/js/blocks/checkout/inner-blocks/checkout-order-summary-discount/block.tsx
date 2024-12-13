@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { TotalsDiscount } from '@woocommerce/base-components/cart-checkout';
-import { TotalsWrapper } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { TotalsDiscount } from '@poocommerce/base-components/cart-checkout';
+import { TotalsWrapper } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	useStoreCartCoupons,
 	useStoreCart,
-} from '@woocommerce/base-context/hooks';
-import { ExperimentalDiscountsMeta } from '@woocommerce/blocks-checkout';
+} from '@poocommerce/base-context/hooks';
+import { ExperimentalDiscountsMeta } from '@poocommerce/blocks-checkout';
 
 const DiscountSlotFill = (): JSX.Element => {
 	// Prepare props to pass to the ExperimentalOrderMeta slot fill. We need to pluck out receiveCart.
@@ -17,7 +17,7 @@ const DiscountSlotFill = (): JSX.Element => {
 	const discountsSlotFillProps = {
 		extensions,
 		cart,
-		context: 'woocommerce/checkout',
+		context: 'poocommerce/checkout',
 	};
 
 	return <ExperimentalDiscountsMeta.Slot { ...discountsSlotFillProps } />;

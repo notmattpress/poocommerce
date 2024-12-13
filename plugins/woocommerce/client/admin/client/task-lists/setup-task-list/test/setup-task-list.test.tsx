@@ -2,23 +2,23 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
-import { TaskType } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { SetupTaskList } from '../setup-task-list';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/experimental', () => ( {
+jest.mock( '@poocommerce/experimental', () => ( {
 	TaskItem: ( props: { title: string } ) => <div>{ props.title }</div>,
 	useSlot: jest.fn(),
 	List: jest.fn().mockImplementation( ( { children } ) => children ),
 } ) );
-jest.mock( '@woocommerce/components', () => ( {
+jest.mock( '@poocommerce/components', () => ( {
 	Card: jest.fn().mockImplementation( ( { children } ) => children ),
 	Badge: jest
 		.fn()
@@ -34,13 +34,13 @@ jest.mock( '../components/task-headers', () => ( {
 		completed: () => <div>completed_header</div>,
 	},
 } ) );
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUserPreferences: jest.fn().mockReturnValue( {
 		updateUserPreferences: jest.fn(),
 	} ),
 } ) );
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -48,7 +48,7 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};

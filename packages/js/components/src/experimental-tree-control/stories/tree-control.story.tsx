@@ -255,6 +255,6 @@ export const HighlightFirstMatchingItem: React.FC = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/experimental/TreeControl',
+	title: 'PooCommerce Admin/experimental/TreeControl',
 	component: TreeControl,
 };

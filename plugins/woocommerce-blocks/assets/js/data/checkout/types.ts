@@ -3,7 +3,7 @@
  */
 import type { Notice } from '@wordpress/notices/';
 import { DataRegistry } from '@wordpress/data';
-import { FieldValidationStatus } from '@woocommerce/types';
+import { FieldValidationStatus } from '@poocommerce/types';
 
 /**
  * Internal dependencies

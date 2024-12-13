@@ -1,19 +1,19 @@
 <?php
 /**
- * WooCommerce Unit Tests Bootstrap
+ * PooCommerce Unit Tests Bootstrap
  *
  * @since 2.2
- * @package WooCommerce Tests
+ * @package PooCommerce Tests
  */
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Internal\Admin\FeaturePlugin;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\CodeHacker;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\BypassFinalsHack;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\TestingContainer;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Admin\FeaturePlugin;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\CodeHacker;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\BypassFinalsHack;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\TestingContainer;
 
 /**
  * Class WC_Unit_Tests_Bootstrap
@@ -70,13 +70,13 @@ class WC_Unit_Tests_Bootstrap {
 		tests_add_filter( 'muplugins_loaded', array( $this, 'load_wc' ) );
 
 		// Load admin features.
-		tests_add_filter( 'woocommerce_admin_should_load_features', '__return_true' );
+		tests_add_filter( 'poocommerce_admin_should_load_features', '__return_true' );
 
 		// install WC.
 		tests_add_filter( 'setup_theme', array( $this, 'install_wc' ) );
 
 		// Set up WC-Admin config.
-		tests_add_filter( 'woocommerce_admin_get_feature_config', array( $this, 'add_development_features' ) );
+		tests_add_filter( 'poocommerce_admin_get_feature_config', array( $this, 'add_development_features' ) );
 
 		/*
 		* Load PHPUnit Polyfills for the WP testing suite.
@@ -107,7 +107,7 @@ class WC_Unit_Tests_Bootstrap {
 	}
 
 	/**
-	 * Register autoloader for the files in the 'tests/tools' directory, for the root namespace 'Automattic\WooCommerce\Testing\Tools'.
+	 * Register autoloader for the files in the 'tests/tools' directory, for the root namespace 'Automattic\PooCommerce\Testing\Tools'.
 	 */
 	protected static function register_autoloader_for_testing_tools() {
 		spl_autoload_register(
@@ -125,8 +125,8 @@ class WC_Unit_Tests_Bootstrap {
 					}
 				}
 
-				// Otherwise, check if this might relate to an Automattic\WooCommerce\Testing\Tools class.
-				$prefix   = 'Automattic\\WooCommerce\\Testing\\Tools\\';
+				// Otherwise, check if this might relate to an Automattic\PooCommerce\Testing\Tools class.
+				$prefix   = 'Automattic\\PooCommerce\\Testing\\Tools\\';
 				$base_dir = $tests_directory . '/Tools/';
 				$len      = strlen( $prefix );
 				if ( strncmp( $prefix, $class, $len ) !== 0 ) {
@@ -174,9 +174,9 @@ class WC_Unit_Tests_Bootstrap {
 	 * @return void
 	 */
 	private function initialize_hpos() {
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::delete_order_custom_tables();
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order_custom_table_if_not_exist();
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( true );
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::delete_order_custom_tables();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order_custom_table_if_not_exist();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( true );
 	}
 
 	/**
@@ -189,15 +189,15 @@ class WC_Unit_Tests_Bootstrap {
 	 *
 	 * Note also that TestingContainer replaces the instance of LegacyProxy with an instance of MockableLegacyProxy.
 	 *
-	 * @param bool $use_old_container The underlying container is the old ExtendedContainer class. This parameter will disappear in WooCommerce 10.0.
+	 * @param bool $use_old_container The underlying container is the old ExtendedContainer class. This parameter will disappear in PooCommerce 10.0.
 	 *
 	 * @throws \Exception The Container class doesn't have a 'container' property.
 	 */
 	private function initialize_dependency_injection( bool $use_old_container ) {
 		try {
-			$inner_container_property = new \ReflectionProperty( \Automattic\WooCommerce\Container::class, 'container' );
+			$inner_container_property = new \ReflectionProperty( \Automattic\PooCommerce\Container::class, 'container' );
 		} catch ( ReflectionException $ex ) {
-			throw new \Exception( "Error when trying to get the private 'container' property from the " . \Automattic\WooCommerce\Container::class . ' class using reflection during unit testing bootstrap, has the property been removed or renamed?' );
+			throw new \Exception( "Error when trying to get the private 'container' property from the " . \Automattic\PooCommerce\Container::class . ' class using reflection during unit testing bootstrap, has the property been removed or renamed?' );
 		}
 
 		$inner_container_property->setAccessible( true );
@@ -215,23 +215,23 @@ class WC_Unit_Tests_Bootstrap {
 	}
 
 	/**
-	 * Load WooCommerce.
+	 * Load PooCommerce.
 	 *
 	 * @since 2.2
 	 */
 	public function load_wc() {
 		define( 'WC_TAX_ROUNDING_MODE', 'auto' );
 		define( 'WC_USE_TRANSACTIONS', false );
-		update_option( 'woocommerce_enable_coupons', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_onboarding_opt_in', 'yes' );
+		update_option( 'poocommerce_enable_coupons', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_onboarding_opt_in', 'yes' );
 
-		require_once $this->plugin_dir . '/woocommerce.php';
+		require_once $this->plugin_dir . '/poocommerce.php';
 		FeaturePlugin::instance()->init();
 	}
 
 	/**
-	 * Install WooCommerce after the test environment and WC have been loaded.
+	 * Install PooCommerce after the test environment and WC have been loaded.
 	 *
 	 * @since 2.2
 	 */
@@ -242,7 +242,7 @@ class WC_Unit_Tests_Bootstrap {
 		include $this->plugin_dir . '/uninstall.php';
 
 		if ( ! getenv( 'HPOS' ) ) {
-			add_filter( 'woocommerce_enable_hpos_by_default_for_new_shops', '__return_false' );
+			add_filter( 'poocommerce_enable_hpos_by_default_for_new_shops', '__return_false' );
 		}
 
 		// Always load PayPal Standard for unit tests.
@@ -261,7 +261,7 @@ class WC_Unit_Tests_Bootstrap {
 			wp_roles();
 		}
 
-		echo esc_html( 'Installing WooCommerce...' . PHP_EOL );
+		echo esc_html( 'Installing PooCommerce...' . PHP_EOL );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 {
 	"url": "http://localhost:8084/",
-	"appName": "woocommerce_e2e",
+	"appName": "poocommerce_e2e",
 	"users": {
 		"admin": {
 			"username": "admin",
@@ -129,7 +129,7 @@
 			"name": "External product",
 			"regularPrice": "24.99",
 			"buttonText": "Buy now",
-			"externalUrl": "https://wordpress.org/plugins/woocommerce"
+			"externalUrl": "https://wordpress.org/plugins/poocommerce"
 		}
 	},
 	"coupons": {
@@ -142,7 +142,7 @@
 	"addresses": {
 		"admin": {
 			"store": {
-				"email": "admin@woocommercecoree2etestsuite.com",
+				"email": "admin@poocommercecoree2etestsuite.com",
 				"firstname": "John",
 				"lastname": "Doe",
 				"company": "Automattic",

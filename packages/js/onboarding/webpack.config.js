@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { webpackConfig } = require( '@woocommerce/internal-style-build' );
+const { webpackConfig } = require( '@poocommerce/internal-style-build' );
 
 module.exports = {
 	mode: process.env.NODE_ENV || 'development',

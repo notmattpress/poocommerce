@@ -39,7 +39,7 @@ describe( 'useBlocksHelper', () => {
 		expect( tabId ).toBe( 'parent-tab-id' );
 		expect( mockGetBlockParentsByBlockName ).toHaveBeenCalledWith(
 			clientId,
-			'woocommerce/product-tab',
+			'poocommerce/product-tab',
 			true
 		);
 		expect( mockGetBlock ).toHaveBeenCalledWith( parentClientId );
@@ -58,7 +58,7 @@ describe( 'useBlocksHelper', () => {
 		expect( tabId ).toBe( null );
 		expect( mockGetBlockParentsByBlockName ).toHaveBeenCalledWith(
 			clientId,
-			'woocommerce/product-tab',
+			'poocommerce/product-tab',
 			true
 		);
 		expect( mockGetBlock ).not.toHaveBeenCalled();
@@ -79,7 +79,7 @@ describe( 'useBlocksHelper', () => {
 		expect( tabId ).toBeUndefined();
 		expect( mockGetBlockParentsByBlockName ).toHaveBeenCalledWith(
 			clientId,
-			'woocommerce/product-tab',
+			'poocommerce/product-tab',
 			true
 		);
 		expect( mockGetBlock ).toHaveBeenCalledWith( parentClientId );

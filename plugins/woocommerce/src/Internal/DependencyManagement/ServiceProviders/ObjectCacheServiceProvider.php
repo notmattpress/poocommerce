@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Caching\WPCacheEngine;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * Service provider for the object cache mechanism.

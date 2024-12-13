@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Account Functions
+ * PooCommerce Account Functions
  *
  * Functions for account specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.6.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,14 +29,14 @@ function wc_lostpassword_url( $default_url = '' ) {
 		return $default_url;
 	}
 
-	// Don't redirect to the woocommerce endpoint on global network admin lost passwords.
+	// Don't redirect to the poocommerce endpoint on global network admin lost passwords.
 	if ( is_multisite() && isset( $_GET['redirect_to'] ) && false !== strpos( wp_unslash( $_GET['redirect_to'] ), network_admin_url() ) ) { // WPCS: input var ok, sanitization ok, CSRF ok.
 		return $default_url;
 	}
 
 	$wc_account_page_url    = wc_get_page_permalink( 'myaccount' );
 	$wc_account_page_exists = wc_get_page_id( 'myaccount' ) > 0;
-	$lost_password_endpoint = get_option( 'woocommerce_myaccount_lost_password_endpoint' );
+	$lost_password_endpoint = get_option( 'poocommerce_myaccount_lost_password_endpoint' );
 
 	if ( $wc_account_page_exists && ! empty( $lost_password_endpoint ) ) {
 		return wc_get_endpoint_url( $lost_password_endpoint, '', $wc_account_page_url );
@@ -55,7 +55,7 @@ add_filter( 'lostpassword_url', 'wc_lostpassword_url', 10, 1 );
 function wc_customer_edit_account_url() {
 	$edit_account_url = wc_get_endpoint_url( 'edit-account', '', wc_get_page_permalink( 'myaccount' ) );
 
-	return apply_filters( 'woocommerce_customer_edit_account_url', $edit_account_url );
+	return apply_filters( 'poocommerce_customer_edit_account_url', $edit_account_url );
 }
 
 /**
@@ -68,10 +68,10 @@ function wc_customer_edit_account_url() {
  */
 function wc_edit_address_i18n( $id, $flip = false ) {
 	$slugs = apply_filters(
-		'woocommerce_edit_address_slugs',
+		'poocommerce_edit_address_slugs',
 		array(
-			'billing'  => sanitize_title( _x( 'billing', 'edit-address-slug', 'woocommerce' ) ),
-			'shipping' => sanitize_title( _x( 'shipping', 'edit-address-slug', 'woocommerce' ) ),
+			'billing'  => sanitize_title( _x( 'billing', 'edit-address-slug', 'poocommerce' ) ),
+			'shipping' => sanitize_title( _x( 'shipping', 'edit-address-slug', 'poocommerce' ) ),
 		)
 	);
 
@@ -94,22 +94,22 @@ function wc_edit_address_i18n( $id, $flip = false ) {
  */
 function wc_get_account_menu_items() {
 	$endpoints = array(
-		'orders'          => get_option( 'woocommerce_myaccount_orders_endpoint', 'orders' ),
-		'downloads'       => get_option( 'woocommerce_myaccount_downloads_endpoint', 'downloads' ),
-		'edit-address'    => get_option( 'woocommerce_myaccount_edit_address_endpoint', 'edit-address' ),
-		'payment-methods' => get_option( 'woocommerce_myaccount_payment_methods_endpoint', 'payment-methods' ),
-		'edit-account'    => get_option( 'woocommerce_myaccount_edit_account_endpoint', 'edit-account' ),
-		'customer-logout' => get_option( 'woocommerce_logout_endpoint', 'customer-logout' ),
+		'orders'          => get_option( 'poocommerce_myaccount_orders_endpoint', 'orders' ),
+		'downloads'       => get_option( 'poocommerce_myaccount_downloads_endpoint', 'downloads' ),
+		'edit-address'    => get_option( 'poocommerce_myaccount_edit_address_endpoint', 'edit-address' ),
+		'payment-methods' => get_option( 'poocommerce_myaccount_payment_methods_endpoint', 'payment-methods' ),
+		'edit-account'    => get_option( 'poocommerce_myaccount_edit_account_endpoint', 'edit-account' ),
+		'customer-logout' => get_option( 'poocommerce_logout_endpoint', 'customer-logout' ),
 	);
 
 	$items = array(
-		'dashboard'       => __( 'Dashboard', 'woocommerce' ),
-		'orders'          => __( 'Orders', 'woocommerce' ),
-		'downloads'       => __( 'Downloads', 'woocommerce' ),
-		'edit-address'    => _n( 'Address', 'Addresses', ( 1 + (int) wc_shipping_enabled() ), 'woocommerce' ),
-		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
-		'edit-account'    => __( 'Account details', 'woocommerce' ),
-		'customer-logout' => __( 'Log out', 'woocommerce' ),
+		'dashboard'       => __( 'Dashboard', 'poocommerce' ),
+		'orders'          => __( 'Orders', 'poocommerce' ),
+		'downloads'       => __( 'Downloads', 'poocommerce' ),
+		'edit-address'    => _n( 'Address', 'Addresses', ( 1 + (int) wc_shipping_enabled() ), 'poocommerce' ),
+		'payment-methods' => __( 'Payment methods', 'poocommerce' ),
+		'edit-account'    => __( 'Account details', 'poocommerce' ),
+		'customer-logout' => __( 'Log out', 'poocommerce' ),
 	);
 
 	// Remove missing endpoints.
@@ -134,7 +134,7 @@ function wc_get_account_menu_items() {
 		}
 	}
 
-	return apply_filters( 'woocommerce_account_menu_items', $items, $endpoints );
+	return apply_filters( 'poocommerce_account_menu_items', $items, $endpoints );
 }
 
 /**
@@ -168,15 +168,15 @@ function wc_is_current_account_menu_item( $endpoint ) {
  */
 function wc_get_account_menu_item_classes( $endpoint ) {
 	$classes = array(
-		'woocommerce-MyAccount-navigation-link',
-		'woocommerce-MyAccount-navigation-link--' . $endpoint,
+		'poocommerce-MyAccount-navigation-link',
+		'poocommerce-MyAccount-navigation-link--' . $endpoint,
 	);
 
 	if ( wc_is_current_account_menu_item( $endpoint ) ) {
 		$classes[] = 'is-active';
 	}
 
-	$classes = apply_filters( 'woocommerce_account_menu_item_classes', $classes, $endpoint );
+	$classes = apply_filters( 'poocommerce_account_menu_item_classes', $classes, $endpoint );
 
 	return implode( ' ', array_map( 'sanitize_html_class', $classes ) );
 }
@@ -216,13 +216,13 @@ function wc_get_account_orders_columns() {
 	 * @param array $columns Array of column labels keyed by column IDs.
 	 */
 	return apply_filters(
-		'woocommerce_account_orders_columns',
+		'poocommerce_account_orders_columns',
 		array(
-			'order-number'  => __( 'Order', 'woocommerce' ),
-			'order-date'    => __( 'Date', 'woocommerce' ),
-			'order-status'  => __( 'Status', 'woocommerce' ),
-			'order-total'   => __( 'Total', 'woocommerce' ),
-			'order-actions' => __( 'Actions', 'woocommerce' ),
+			'order-number'  => __( 'Order', 'poocommerce' ),
+			'order-date'    => __( 'Date', 'poocommerce' ),
+			'order-status'  => __( 'Status', 'poocommerce' ),
+			'order-total'   => __( 'Total', 'poocommerce' ),
+			'order-actions' => __( 'Actions', 'poocommerce' ),
 		)
 	);
 }
@@ -235,17 +235,17 @@ function wc_get_account_orders_columns() {
  */
 function wc_get_account_downloads_columns() {
 	$columns = apply_filters(
-		'woocommerce_account_downloads_columns',
+		'poocommerce_account_downloads_columns',
 		array(
-			'download-product'   => __( 'Product', 'woocommerce' ),
-			'download-remaining' => __( 'Downloads remaining', 'woocommerce' ),
-			'download-expires'   => __( 'Expires', 'woocommerce' ),
-			'download-file'      => __( 'Download', 'woocommerce' ),
+			'download-product'   => __( 'Product', 'poocommerce' ),
+			'download-remaining' => __( 'Downloads remaining', 'poocommerce' ),
+			'download-expires'   => __( 'Expires', 'poocommerce' ),
+			'download-file'      => __( 'Download', 'poocommerce' ),
 			'download-actions'   => '&nbsp;',
 		)
 	);
 
-	if ( ! has_filter( 'woocommerce_account_download_actions' ) ) {
+	if ( ! has_filter( 'poocommerce_account_download_actions' ) ) {
 		unset( $columns['download-actions'] );
 	}
 
@@ -260,10 +260,10 @@ function wc_get_account_downloads_columns() {
  */
 function wc_get_account_payment_methods_columns() {
 	return apply_filters(
-		'woocommerce_account_payment_methods_columns',
+		'poocommerce_account_payment_methods_columns',
 		array(
-			'method'  => __( 'Method', 'woocommerce' ),
-			'expires' => __( 'Expires', 'woocommerce' ),
+			'method'  => __( 'Method', 'poocommerce' ),
+			'expires' => __( 'Expires', 'poocommerce' ),
 			'actions' => '&nbsp;',
 		)
 	);
@@ -277,10 +277,10 @@ function wc_get_account_payment_methods_columns() {
  */
 function wc_get_account_payment_methods_types() {
 	return apply_filters(
-		'woocommerce_payment_methods_types',
+		'poocommerce_payment_methods_types',
 		array(
-			'cc'     => __( 'Credit card', 'woocommerce' ),
-			'echeck' => __( 'eCheck', 'woocommerce' ),
+			'cc'     => __( 'Credit card', 'poocommerce' ),
+			'echeck' => __( 'eCheck', 'poocommerce' ),
 		)
 	);
 }
@@ -301,21 +301,21 @@ function wc_get_account_orders_actions( $order ) {
 	$actions = array(
 		'pay'    => array(
 			'url'        => $order->get_checkout_payment_url(),
-			'name'       => __( 'Pay', 'woocommerce' ),
+			'name'       => __( 'Pay', 'poocommerce' ),
 			/* translators: %s: order number */
-			'aria-label' => sprintf( __( 'Pay for order %s', 'woocommerce' ), $order->get_order_number() ),
+			'aria-label' => sprintf( __( 'Pay for order %s', 'poocommerce' ), $order->get_order_number() ),
 		),
 		'view'   => array(
 			'url'        => $order->get_view_order_url(),
-			'name'       => __( 'View', 'woocommerce' ),
+			'name'       => __( 'View', 'poocommerce' ),
 			/* translators: %s: order number */
-			'aria-label' => sprintf( __( 'View order %s', 'woocommerce' ), $order->get_order_number() ),
+			'aria-label' => sprintf( __( 'View order %s', 'poocommerce' ), $order->get_order_number() ),
 		),
 		'cancel' => array(
 			'url'        => $order->get_cancel_order_url( wc_get_page_permalink( 'myaccount' ) ),
-			'name'       => __( 'Cancel', 'woocommerce' ),
+			'name'       => __( 'Cancel', 'poocommerce' ),
 			/* translators: %s: order number */
-			'aria-label' => sprintf( __( 'Cancel order %s', 'woocommerce' ), $order->get_order_number() ),
+			'aria-label' => sprintf( __( 'Cancel order %s', 'poocommerce' ), $order->get_order_number() ),
 		),
 	);
 
@@ -331,12 +331,12 @@ function wc_get_account_orders_actions( $order ) {
 	 * @param array    $statuses_for_cancel Array of valid order statuses for cancel action.
 	 * @param WC_Order $order                Order instance.
 	 */
-	$statuses_for_cancel = apply_filters( 'woocommerce_valid_order_statuses_for_cancel', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order );
+	$statuses_for_cancel = apply_filters( 'poocommerce_valid_order_statuses_for_cancel', array( OrderStatus::PENDING, OrderStatus::FAILED ), $order );
 	if ( ! in_array( $order->get_status(), $statuses_for_cancel, true ) ) {
 		unset( $actions['cancel'] );
 	}
 
-	return apply_filters( 'woocommerce_my_account_my_orders_actions', $actions, $order );
+	return apply_filters( 'poocommerce_my_account_my_orders_actions', $actions, $order );
 }
 
 /**
@@ -363,7 +363,7 @@ function wc_get_account_formatted_address( $address_type = 'billing', $customer_
 		unset( $address['email'], $address['tel'] );
 	}
 
-	return WC()->countries->get_formatted_address( apply_filters( 'woocommerce_my_account_my_address_formatted_address', $address, $customer->get_id(), $address_type ) );
+	return WC()->countries->get_formatted_address( apply_filters( 'poocommerce_my_account_my_address_formatted_address', $address, $customer->get_id(), $address_type ) );
 }
 
 /**
@@ -387,12 +387,12 @@ function wc_get_account_saved_payment_methods_list( $list, $customer_id ) {
 			'method'     => array(
 				'gateway' => $payment_token->get_gateway_id(),
 			),
-			'expires'    => esc_html__( 'N/A', 'woocommerce' ),
+			'expires'    => esc_html__( 'N/A', 'poocommerce' ),
 			'is_default' => $payment_token->is_default(),
 			'actions'    => array(
 				'delete' => array(
 					'url'  => $delete_url,
-					'name' => esc_html__( 'Delete', 'woocommerce' ),
+					'name' => esc_html__( 'Delete', 'poocommerce' ),
 				),
 			),
 		);
@@ -401,22 +401,22 @@ function wc_get_account_saved_payment_methods_list( $list, $customer_id ) {
 		if ( ! $payment_token->is_default() ) {
 			$list[ $type ][ $key ]['actions']['default'] = array(
 				'url'  => $set_default_url,
-				'name' => esc_html__( 'Make default', 'woocommerce' ),
+				'name' => esc_html__( 'Make default', 'poocommerce' ),
 			);
 		}
 
-		$list[ $type ][ $key ] = apply_filters( 'woocommerce_payment_methods_list_item', $list[ $type ][ $key ], $payment_token );
+		$list[ $type ][ $key ] = apply_filters( 'poocommerce_payment_methods_list_item', $list[ $type ][ $key ], $payment_token );
 	}
 	return $list;
 }
 
-add_filter( 'woocommerce_saved_payment_methods_list', 'wc_get_account_saved_payment_methods_list', 10, 2 );
+add_filter( 'poocommerce_saved_payment_methods_list', 'wc_get_account_saved_payment_methods_list', 10, 2 );
 
 /**
  * Controls the output for credit cards on the my account page.
  *
  * @since 2.6
- * @param  array            $item         Individual list item from woocommerce_saved_payment_methods_list.
+ * @param  array            $item         Individual list item from poocommerce_saved_payment_methods_list.
  * @param  WC_Payment_Token $payment_token The payment token associated with this method entry.
  * @return array                           Filtered item.
  */
@@ -427,19 +427,19 @@ function wc_get_account_saved_payment_methods_list_item_cc( $item, $payment_toke
 
 	$card_type               = $payment_token->get_card_type();
 	$item['method']['last4'] = $payment_token->get_last4();
-	$item['method']['brand'] = ( ! empty( $card_type ) ? ucwords( str_replace( '_', ' ', $card_type ) ) : esc_html__( 'Credit card', 'woocommerce' ) );
+	$item['method']['brand'] = ( ! empty( $card_type ) ? ucwords( str_replace( '_', ' ', $card_type ) ) : esc_html__( 'Credit card', 'poocommerce' ) );
 	$item['expires']         = $payment_token->get_expiry_month() . '/' . substr( $payment_token->get_expiry_year(), -2 );
 
 	return $item;
 }
 
-add_filter( 'woocommerce_payment_methods_list_item', 'wc_get_account_saved_payment_methods_list_item_cc', 10, 2 );
+add_filter( 'poocommerce_payment_methods_list_item', 'wc_get_account_saved_payment_methods_list_item_cc', 10, 2 );
 
 /**
  * Controls the output for eChecks on the my account page.
  *
  * @since 2.6
- * @param  array            $item         Individual list item from woocommerce_saved_payment_methods_list.
+ * @param  array            $item         Individual list item from poocommerce_saved_payment_methods_list.
  * @param  WC_Payment_Token $payment_token The payment token associated with this method entry.
  * @return array                           Filtered item.
  */
@@ -449,9 +449,9 @@ function wc_get_account_saved_payment_methods_list_item_echeck( $item, $payment_
 	}
 
 	$item['method']['last4'] = $payment_token->get_last4();
-	$item['method']['brand'] = esc_html__( 'eCheck', 'woocommerce' );
+	$item['method']['brand'] = esc_html__( 'eCheck', 'poocommerce' );
 
 	return $item;
 }
 
-add_filter( 'woocommerce_payment_methods_list_item', 'wc_get_account_saved_payment_methods_list_item_echeck', 10, 2 );
+add_filter( 'poocommerce_payment_methods_list_item', 'wc_get_account_saved_payment_methods_list_item_echeck', 10, 2 );

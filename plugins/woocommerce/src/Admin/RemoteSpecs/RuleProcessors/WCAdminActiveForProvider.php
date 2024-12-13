@@ -3,9 +3,9 @@
  * WCAdmin active for provider.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 defined( 'ABSPATH' ) || exit;
 

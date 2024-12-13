@@ -6,8 +6,8 @@ import { useEffect } from '@wordpress/element';
 import {
 	__experimentalSelectControlMenu as Menu,
 	__experimentalSelectControlMenuItem as MenuItem,
-} from '@woocommerce/components';
-import { ChildrenProps } from '@woocommerce/components/build-types/experimental-select-control/types';
+} from '@poocommerce/components';
+import { ChildrenProps } from '@poocommerce/components/build-types/experimental-select-control/types';
 import clsx from 'clsx';
 
 type Props = {

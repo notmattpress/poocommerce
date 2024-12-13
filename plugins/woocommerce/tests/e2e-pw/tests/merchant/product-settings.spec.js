@@ -2,7 +2,7 @@ const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 
 test.describe(
-	'WooCommerce Products > Downloadable Product Settings',
+	'PooCommerce Products > Downloadable Product Settings',
 	{ tag: [ tags.GUTENBERG, tags.SERVICES ] },
 	() => {
 		test.use( { storageState: process.env.ADMINSTATE } );
@@ -22,19 +22,19 @@ test.describe(
 
 			// Set download options
 			await page
-				.locator( '#woocommerce_file_download_method' )
+				.locator( '#poocommerce_file_download_method' )
 				.selectOption( 'redirect' );
 			await page
-				.locator( '#woocommerce_downloads_require_login' )
+				.locator( '#poocommerce_downloads_require_login' )
 				.check();
 			await page
-				.locator( '#woocommerce_downloads_grant_access_after_payment' )
+				.locator( '#poocommerce_downloads_grant_access_after_payment' )
 				.check();
 			await page
-				.locator( '#woocommerce_downloads_redirect_fallback_allowed' )
+				.locator( '#poocommerce_downloads_redirect_fallback_allowed' )
 				.check();
 			await page
-				.locator( '#woocommerce_downloads_add_hash_to_filename' )
+				.locator( '#poocommerce_downloads_add_hash_to_filename' )
 				.uncheck();
 			await page.locator( 'text=Save changes' ).click();
 
@@ -43,41 +43,41 @@ test.describe(
 				'Your settings have been saved.'
 			);
 			await expect(
-				page.locator( '#woocommerce_file_download_method' )
+				page.locator( '#poocommerce_file_download_method' )
 			).toHaveValue( 'redirect' );
 			await expect(
-				page.locator( '#woocommerce_downloads_require_login' )
+				page.locator( '#poocommerce_downloads_require_login' )
 			).toBeChecked();
 			await expect(
 				page.locator(
-					'#woocommerce_downloads_grant_access_after_payment'
+					'#poocommerce_downloads_grant_access_after_payment'
 				)
 			).toBeChecked();
 			await expect(
 				page.locator(
-					'#woocommerce_downloads_redirect_fallback_allowed'
+					'#poocommerce_downloads_redirect_fallback_allowed'
 				)
 			).toBeChecked();
 			await expect(
-				page.locator( '#woocommerce_downloads_add_hash_to_filename' )
+				page.locator( '#poocommerce_downloads_add_hash_to_filename' )
 			).not.toBeChecked();
 
 			// Try setting different options
 			await page.reload();
 			await page
-				.locator( '#woocommerce_file_download_method' )
+				.locator( '#poocommerce_file_download_method' )
 				.selectOption( 'xsendfile' );
 			await page
-				.locator( '#woocommerce_downloads_require_login' )
+				.locator( '#poocommerce_downloads_require_login' )
 				.uncheck();
 			await page
-				.locator( '#woocommerce_downloads_grant_access_after_payment' )
+				.locator( '#poocommerce_downloads_grant_access_after_payment' )
 				.uncheck();
 			await page
-				.locator( '#woocommerce_downloads_redirect_fallback_allowed' )
+				.locator( '#poocommerce_downloads_redirect_fallback_allowed' )
 				.uncheck();
 			await page
-				.locator( '#woocommerce_downloads_add_hash_to_filename' )
+				.locator( '#poocommerce_downloads_add_hash_to_filename' )
 				.check();
 			await page.locator( 'text=Save changes' ).click();
 
@@ -86,29 +86,29 @@ test.describe(
 				'Your settings have been saved.'
 			);
 			await expect(
-				page.locator( '#woocommerce_file_download_method' )
+				page.locator( '#poocommerce_file_download_method' )
 			).toHaveValue( 'xsendfile' );
 			await expect(
-				page.locator( '#woocommerce_downloads_require_login' )
+				page.locator( '#poocommerce_downloads_require_login' )
 			).not.toBeChecked();
 			await expect(
 				page.locator(
-					'#woocommerce_downloads_grant_access_after_payment'
+					'#poocommerce_downloads_grant_access_after_payment'
 				)
 			).not.toBeChecked();
 			await expect(
 				page.locator(
-					'#woocommerce_downloads_redirect_fallback_allowed'
+					'#poocommerce_downloads_redirect_fallback_allowed'
 				)
 			).not.toBeChecked();
 			await expect(
-				page.locator( '#woocommerce_downloads_add_hash_to_filename' )
+				page.locator( '#poocommerce_downloads_add_hash_to_filename' )
 			).toBeChecked();
 
 			// Try the final option
 			await page.reload();
 			await page
-				.locator( '#woocommerce_file_download_method' )
+				.locator( '#poocommerce_file_download_method' )
 				.selectOption( 'force' );
 			await page.locator( 'text=Save changes' ).click();
 
@@ -117,7 +117,7 @@ test.describe(
 				'Your settings have been saved.'
 			);
 			await expect(
-				page.locator( '#woocommerce_file_download_method' )
+				page.locator( '#poocommerce_file_download_method' )
 			).toHaveValue( 'force' );
 		} );
 	}

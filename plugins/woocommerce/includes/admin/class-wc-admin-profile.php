@@ -4,7 +4,7 @@
  *
  * @author   WooThemes
  * @category Admin
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  2.4.0
  */
 
@@ -33,117 +33,117 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 		/**
 		 * Get Address Fields for the edit user pages.
 		 *
-		 * @return array Fields to display which are filtered through woocommerce_customer_meta_fields before being returned
+		 * @return array Fields to display which are filtered through poocommerce_customer_meta_fields before being returned
 		 */
 		public function get_customer_meta_fields() {
 			$show_fields = apply_filters(
-				'woocommerce_customer_meta_fields',
+				'poocommerce_customer_meta_fields',
 				array(
 					'billing'  => array(
-						'title'  => __( 'Customer billing address', 'woocommerce' ),
+						'title'  => __( 'Customer billing address', 'poocommerce' ),
 						'fields' => array(
 							'billing_first_name' => array(
-								'label'       => __( 'First name', 'woocommerce' ),
+								'label'       => __( 'First name', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_last_name'  => array(
-								'label'       => __( 'Last name', 'woocommerce' ),
+								'label'       => __( 'Last name', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_company'    => array(
-								'label'       => __( 'Company', 'woocommerce' ),
+								'label'       => __( 'Company', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_address_1'  => array(
-								'label'       => __( 'Address line 1', 'woocommerce' ),
+								'label'       => __( 'Address line 1', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_address_2'  => array(
-								'label'       => __( 'Address line 2', 'woocommerce' ),
+								'label'       => __( 'Address line 2', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_city'       => array(
-								'label'       => __( 'City', 'woocommerce' ),
+								'label'       => __( 'City', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_postcode'   => array(
-								'label'       => __( 'Postcode / ZIP', 'woocommerce' ),
+								'label'       => __( 'Postcode / ZIP', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_country'    => array(
-								'label'       => __( 'Country / Region', 'woocommerce' ),
+								'label'       => __( 'Country / Region', 'poocommerce' ),
 								'description' => '',
 								'class'       => 'js_field-country',
 								'type'        => 'select',
-								'options'     => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + WC()->countries->get_allowed_countries(),
+								'options'     => array( '' => __( 'Select a country / region&hellip;', 'poocommerce' ) ) + WC()->countries->get_allowed_countries(),
 							),
 							'billing_state'      => array(
-								'label'       => __( 'State / County', 'woocommerce' ),
-								'description' => __( 'State / County or state code', 'woocommerce' ),
+								'label'       => __( 'State / County', 'poocommerce' ),
+								'description' => __( 'State / County or state code', 'poocommerce' ),
 								'class'       => 'js_field-state',
 							),
 							'billing_phone'      => array(
-								'label'       => __( 'Phone', 'woocommerce' ),
+								'label'       => __( 'Phone', 'poocommerce' ),
 								'description' => '',
 							),
 							'billing_email'      => array(
-								'label'       => __( 'Email address', 'woocommerce' ),
+								'label'       => __( 'Email address', 'poocommerce' ),
 								'description' => '',
 							),
 						),
 					),
 					'shipping' => array(
-						'title'  => __( 'Customer shipping address', 'woocommerce' ),
+						'title'  => __( 'Customer shipping address', 'poocommerce' ),
 						'fields' => array(
 							'copy_billing'        => array(
-								'label'       => __( 'Copy from billing address', 'woocommerce' ),
+								'label'       => __( 'Copy from billing address', 'poocommerce' ),
 								'description' => '',
 								'class'       => 'js_copy-billing',
 								'type'        => 'button',
-								'text'        => __( 'Copy', 'woocommerce' ),
+								'text'        => __( 'Copy', 'poocommerce' ),
 							),
 							'shipping_first_name' => array(
-								'label'       => __( 'First name', 'woocommerce' ),
+								'label'       => __( 'First name', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_last_name'  => array(
-								'label'       => __( 'Last name', 'woocommerce' ),
+								'label'       => __( 'Last name', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_company'    => array(
-								'label'       => __( 'Company', 'woocommerce' ),
+								'label'       => __( 'Company', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_address_1'  => array(
-								'label'       => __( 'Address line 1', 'woocommerce' ),
+								'label'       => __( 'Address line 1', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_address_2'  => array(
-								'label'       => __( 'Address line 2', 'woocommerce' ),
+								'label'       => __( 'Address line 2', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_city'       => array(
-								'label'       => __( 'City', 'woocommerce' ),
+								'label'       => __( 'City', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_postcode'   => array(
-								'label'       => __( 'Postcode / ZIP', 'woocommerce' ),
+								'label'       => __( 'Postcode / ZIP', 'poocommerce' ),
 								'description' => '',
 							),
 							'shipping_country'    => array(
-								'label'       => __( 'Country / Region', 'woocommerce' ),
+								'label'       => __( 'Country / Region', 'poocommerce' ),
 								'description' => '',
 								'class'       => 'js_field-country',
 								'type'        => 'select',
-								'options'     => array( '' => __( 'Select a country / region&hellip;', 'woocommerce' ) ) + WC()->countries->get_allowed_countries(),
+								'options'     => array( '' => __( 'Select a country / region&hellip;', 'poocommerce' ) ) + WC()->countries->get_allowed_countries(),
 							),
 							'shipping_state'      => array(
-								'label'       => __( 'State / County', 'woocommerce' ),
-								'description' => __( 'State / County or state code', 'woocommerce' ),
+								'label'       => __( 'State / County', 'poocommerce' ),
+								'description' => __( 'State / County or state code', 'poocommerce' ),
 								'class'       => 'js_field-state',
 							),
 							'shipping_phone'      => array(
-								'label'       => __( 'Phone', 'woocommerce' ),
+								'label'       => __( 'Phone', 'poocommerce' ),
 								'description' => '',
 							),
 						),
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 		 * @param WP_User $user
 		 */
 		public function add_customer_meta_fields( $user ) {
-			if ( ! apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $user->ID ) ) {
+			if ( ! apply_filters( 'poocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_poocommerce' ), $user->ID ) ) {
 				return;
 			}
 
@@ -206,7 +206,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 		 * @param int $user_id User ID of the user being saved
 		 */
 		public function save_customer_meta_fields( $user_id ) {
-			if ( ! apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $user_id ) ) {
+			if ( ! apply_filters( 'poocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_poocommerce' ), $user_id ) ) {
 				return;
 			}
 
@@ -232,7 +232,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 				$address_type = $fieldset_type;
 
 				/**
-				 * Hook: woocommerce_customer_save_address.
+				 * Hook: poocommerce_customer_save_address.
 				 *
 				 * Fires after a customer address has been saved on the user profile admin screen.
 				 *
@@ -240,7 +240,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 				 * @param int    $user_id User ID being saved.
 				 * @param string $address_type Type of address; 'billing' or 'shipping'.
 				 */
-				do_action( 'woocommerce_customer_save_address', $user_id, $address_type );
+				do_action( 'poocommerce_customer_save_address', $user_id, $address_type );
 			}
 		}
 

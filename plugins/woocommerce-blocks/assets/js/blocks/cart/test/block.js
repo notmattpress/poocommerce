@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { render, screen, waitFor, act } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
 import { default as fetchMock } from 'jest-fetch-mock';
-import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { registerCheckoutFilters } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

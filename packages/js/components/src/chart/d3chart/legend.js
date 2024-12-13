@@ -15,7 +15,7 @@ import { getColor } from './utils/color';
 import { selectionLimit } from '../constants';
 
 /**
- * A legend specifically designed for the WooCommerce admin charts.
+ * A legend specifically designed for the PooCommerce admin charts.
  */
 class D3Legend extends Component {
 	constructor() {
@@ -74,8 +74,8 @@ class D3Legend extends Component {
 		return (
 			<div
 				className={ classNames(
-					'woocommerce-legend',
-					`woocommerce-legend__direction-${ legendDirection }`,
+					'poocommerce-legend',
+					`poocommerce-legend__direction-${ legendDirection }`,
 					{
 						'has-total': showTotalLabel,
 						'is-scrollable': isScrollable,
@@ -84,21 +84,21 @@ class D3Legend extends Component {
 				) }
 			>
 				<ul
-					className="woocommerce-legend__list"
+					className="poocommerce-legend__list"
 					ref={ this.listRef }
 					onScroll={ showTotalLabel ? this.updateListScroll : null }
 				>
 					{ data.map( ( row ) => (
 						<li
 							className={ classNames(
-								'woocommerce-legend__item',
+								'poocommerce-legend__item',
 								{
-									'woocommerce-legend__item-checked':
+									'poocommerce-legend__item-checked':
 										row.visible,
 								}
 							) }
 							key={ row.key }
-							id={ `woocommerce-legend-${ instanceId }__item__${ row.key }` }
+							id={ `poocommerce-legend-${ instanceId }__item__${ row.key }` }
 							onMouseEnter={ handleLegendHover }
 							onMouseLeave={ handleLegendHover }
 							onBlur={ handleLegendHover }
@@ -108,7 +108,7 @@ class D3Legend extends Component {
 								role="checkbox"
 								aria-checked={ row.visible ? 'true' : 'false' }
 								onClick={ handleLegendToggle }
-								id={ `woocommerce-legend-${ instanceId }__item-button__${ row.key }` }
+								id={ `poocommerce-legend-${ instanceId }__item-button__${ row.key }` }
 								disabled={
 									( row.visible &&
 										numberOfRowsVisible <= 1 ) ||
@@ -123,19 +123,19 @@ class D3Legend extends Component {
 												/* translators: %d: number of items selected */
 												__(
 													'You may select up to %d items.',
-													'woocommerce'
+													'poocommerce'
 												),
 												selectionLimit
 										  )
 										: ''
 								}
 							>
-								<div className="woocommerce-legend__item-container">
+								<div className="poocommerce-legend__item-container">
 									<span
 										className={ classNames(
-											'woocommerce-legend__item-checkmark',
+											'poocommerce-legend__item-checkmark',
 											{
-												'woocommerce-legend__item-checkmark-checked':
+												'poocommerce-legend__item-checkmark-checked':
 													row.visible,
 											}
 										) }
@@ -150,10 +150,10 @@ class D3Legend extends Component {
 												: null
 										}
 									/>
-									<span className="woocommerce-legend__item-title">
+									<span className="poocommerce-legend__item-title">
 										{ row.label }
 									</span>
-									<span className="woocommerce-legend__item-total">
+									<span className="poocommerce-legend__item-total">
 										{ getFormatter( legendValueFormat )(
 											row.total
 										) }
@@ -164,7 +164,7 @@ class D3Legend extends Component {
 					) ) }
 				</ul>
 				{ showTotalLabel && (
-					<div className="woocommerce-legend__total">
+					<div className="poocommerce-legend__total">
 						{ totalLabel }
 					</div>
 				) }

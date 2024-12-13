@@ -1,6 +1,6 @@
 // Reference: https://github.com/WordPress/gutenberg/blob/release/16.4/packages/block-editor/src/components/block-preview/auto.js
 
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -36,7 +36,7 @@ import { noop } from 'lodash';
 import { useAddAutoBlockPreviewEventListenersAndObservers } from './hooks/auto-block-preview-event-listener';
 import { IsResizingContext } from './resizable-frame';
 import { __ } from '@wordpress/i18n';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import clsx from 'clsx';
 import { SelectedBlockContext } from './context/selected-block-ref-context';
 import { isFullComposabilityFeatureAndAPIAvailable } from './utils/is-full-composability-enabled';
@@ -206,12 +206,12 @@ function ScaledBlockPreview( {
 						anchor={ virtualElement }
 						as="div"
 						variant="unstyled"
-						className="components-tooltip woocommerce-customize-store_popover-tooltip"
+						className="components-tooltip poocommerce-customize-store_popover-tooltip"
 					>
 						<span>
 							{ __(
 								'You can edit your content later in the Editor',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 					</Popover>
@@ -219,7 +219,7 @@ function ScaledBlockPreview( {
 			<DisabledProvider value={ true }>
 				<div
 					className={ clsx( 'block-editor-block-preview__content', {
-						'woocommerce-customize-store-assembler':
+						'poocommerce-customize-store-assembler':
 							! isPatternPreview,
 					} ) }
 					style={

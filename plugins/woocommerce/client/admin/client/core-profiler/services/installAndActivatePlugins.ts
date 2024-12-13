@@ -6,7 +6,7 @@ import {
 	ONBOARDING_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	PluginNames,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { dispatch } from '@wordpress/data';
 import {
 	DoneActorEvent,
@@ -83,7 +83,7 @@ export type InstallAndActivateErrorResponse = {
 	error: string;
 	message: string;
 	data: {
-		code: string | 'woocommerce_rest_cannot_update';
+		code: string | 'poocommerce_rest_cannot_update';
 		data: {
 			status: number;
 		};

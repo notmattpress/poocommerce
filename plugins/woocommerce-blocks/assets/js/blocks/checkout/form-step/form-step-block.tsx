@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { PlainText, useBlockProps } from '@wordpress/block-editor';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ export const FormStepBlock = ( {
 						value={ description }
 						placeholder={ __(
 							'Optional text for this form step.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						onChange={ ( value ) =>
 							setAttributes( {

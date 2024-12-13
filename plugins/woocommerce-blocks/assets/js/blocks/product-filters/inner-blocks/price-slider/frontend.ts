@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { store, getContext, getElement } from '@woocommerce/interactivity';
-import { formatPrice, getCurrency } from '@woocommerce/price-format';
-import { HTMLElementEvent } from '@woocommerce/types';
-import { debounce } from '@woocommerce/base-utils';
+import { store, getContext, getElement } from '@poocommerce/interactivity';
+import { formatPrice, getCurrency } from '@poocommerce/price-format';
+import { HTMLElementEvent } from '@poocommerce/types';
+import { debounce } from '@poocommerce/base-utils';
 
 type PriceSliderContext = {
 	minPrice: number;
@@ -164,7 +164,7 @@ const _debounceUpdateRange = debounce(
 	1000
 );
 
-store( 'woocommerce/product-filter-price-slider', {
+store( 'poocommerce/product-filter-price-slider', {
 	state: {
 		rangeStyle: () => {
 			const { minPrice, maxPrice, minRange, maxRange } =

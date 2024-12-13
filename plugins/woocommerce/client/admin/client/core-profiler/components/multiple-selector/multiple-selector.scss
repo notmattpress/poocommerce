@@ -1,57 +1,57 @@
 @import "../../shared.scss";
 
-.woocommerce-experimental-select-control {
+.poocommerce-experimental-select-control {
 	&:hover,
 	ul:hover,
-	.woocommerce-experimental-select-control__input:hover,
+	.poocommerce-experimental-select-control__input:hover,
 	.components-popover:hover,
-	.woocommerce-experimental-select-control__combo-box-wrapper:hover {
+	.poocommerce-experimental-select-control__combo-box-wrapper:hover {
 		cursor: pointer;
 	}
 
 	&.has-selected-items {
-		.woocommerce-experimental-select-control__combox-box {
+		.poocommerce-experimental-select-control__combox-box {
 			position: absolute;
 			width: 0;
 			z-index: -1;
 		}
 	}
 
-	.woocommerce-experimental-select-control__combox-box .woocommerce-experimental-select-control__input {
+	.poocommerce-experimental-select-control__combox-box .poocommerce-experimental-select-control__input {
 		font-size: 13px;
 		font-weight: 400;
 		line-height: 16px;
 	}
 
-	.components-popover.woocommerce-experimental-select-control__popover-menu {
+	.components-popover.poocommerce-experimental-select-control__popover-menu {
 		padding-bottom: 20px;
 	}
 
-	.woocommerce-experimental-select-control__selected-item {
+	.poocommerce-experimental-select-control__selected-item {
 		background: $gray-100;
 		padding: 2px 5px 2px 8px;
 	}
 
-	.woocommerce-tag .woocommerce-tag__text {
+	.poocommerce-tag .poocommerce-tag__text {
 		background: none !important;
 		font-size: 12px;
 		line-height: 16px;
 		padding: 0 2px;
 	}
 
-	.woocommerce-experimental-select-control__combo-box-wrapper {
+	.poocommerce-experimental-select-control__combo-box-wrapper {
 		transition: box-shadow 0.25s linear;
 		border: 1px solid #bbb;
 		border-radius: 2px;
 	}
 
-	.woocommerce-experimental-select-control__popover-menu {
+	.poocommerce-experimental-select-control__popover-menu {
 		border: none;
 		left: 0 !important;
 		width: 100%;
 	}
 
-	.woocommerce-experimental-select-control__popover-menu-container {
+	.poocommerce-experimental-select-control__popover-menu-container {
 		overflow-y: initial;
 		list-style: none;
 		padding: 0;
@@ -124,8 +124,8 @@
 	}
 }
 
-.woocommerce-profiler-platform-selector {
-	.woocommerce-experimental-select-control__input {
+.poocommerce-profiler-platform-selector {
+	.poocommerce-experimental-select-control__input {
 		// hide the caret since typing is disabled and search is not supported.
 		caret-color: transparent;
 	}

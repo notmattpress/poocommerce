@@ -1,5 +1,5 @@
 ---
-post_title: Managing the lifecycle of WooCommerce block templates
+post_title: Managing the lifecycle of PooCommerce block templates
 menu_title: Block template lifecycle
 tags: reference
 ---
@@ -21,7 +21,7 @@ The lifecycle of a template is as follows:
 
 ## Registration
 
-A template class can be registered with the `Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry`. All template classes must implement the `Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface` interface.
+A template class can be registered with the `Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry`. All template classes must implement the `Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface` interface.
 
 Registration is required in order for the template to be available to be sent to the client (via the `/wc/v3/layout-templates` REST API endpoint).
 
@@ -39,24 +39,24 @@ Templates are instantiated by the handler for the `/wcv3/layout-templates` REST 
 
 After a template instance is created, blocks can be added to or removed from a template using the `add_block()` and `remove_block()` methods, or similar methods that are specific to the type of block being added or removed, such as `add_section()` and `remove_section()`.
 
-See the [Automattic\WooCommerce\Admin\BlockTemplates](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/BlockTemplates/README.md) documentation for more information about these methods.
+See the [Automattic\PooCommerce\Admin\BlockTemplates](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/BlockTemplates/README.md) documentation for more information about these methods.
 
 You can modify template instances in a hook for the following action:
 
-- `woocommerce_layout_template_after_instantiation`
+- `poocommerce_layout_template_after_instantiation`
 
 ### Actions
 
 The following actions are fired when blocks are added to or removed from a template, to support extensibility:
 
--  `woocommerce_block_template_area_{template_area_name}_after_add_block_{block_id}`
--  `woocommerce_block_template_after_add_block`
--  `woocommerce_block_template_area_{template_area_name}_after_remove_block_{block_id}`
--  `woocommerce_block_template_after_remove_block`
+-  `poocommerce_block_template_area_{template_area_name}_after_add_block_{block_id}`
+-  `poocommerce_block_template_after_add_block`
+-  `poocommerce_block_template_area_{template_area_name}_after_remove_block_{block_id}`
+-  `poocommerce_block_template_after_remove_block`
 
 **In order for your action hooks to be called for all block additions and removals for a template, you should call `add_action()` for each of these hooks before the template is instantiated, in or before an `rest_api_init` action hook, priority 9 or lower. If your hooks are not being called, verify that you are hooking them up in an action that is called when REST API endpoints are called.**
 
-See the [Automattic\WooCommerce\Admin\BlockTemplates](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/BlockTemplates/README.md) documentation for more information about these hooks.
+See the [Automattic\PooCommerce\Admin\BlockTemplates](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/BlockTemplates/README.md) documentation for more information about these hooks.
 
 ## Sent to client
 

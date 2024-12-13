@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { EllipsisMenu } from '@woocommerce/components';
-import { PaymentProvider } from '@woocommerce/data';
+import { EllipsisMenu } from '@poocommerce/components';
+import { PaymentProvider } from '@poocommerce/data';
 import { useState } from '@wordpress/element';
 
 /**

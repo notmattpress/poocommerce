@@ -2,7 +2,7 @@
 /**
  * Admin View: Page - Addons - category navigation
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @var array  $sections
  * @var string $current_section
  * @var string $current_section_name
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div id="marketplace-current-section-dropdown" class="current-section-dropdown">
-	<h2 class="current-section-dropdown__title"><?php esc_html_e( 'Browse categories', 'woocommerce' ); ?></h2>
+	<h2 class="current-section-dropdown__title"><?php esc_html_e( 'Browse categories', 'poocommerce' ); ?></h2>
 	<ul>
 		<?php foreach ( $sections as $section ) : ?>
 			<?php

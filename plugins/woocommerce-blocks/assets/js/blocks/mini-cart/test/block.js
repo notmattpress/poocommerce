@@ -9,10 +9,10 @@ import {
 	waitFor,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 import { default as fetchMock } from 'jest-fetch-mock';
 import userEvent from '@testing-library/user-event';
 
@@ -25,14 +25,14 @@ import { defaultCartState } from '../../../data/cart/default-state';
 const MiniCartBlock = ( props ) => (
 	<SlotFillProvider>
 		<Block
-			contents='<div data-block-name="woocommerce/mini-cart-contents" class="wp-block-woocommerce-mini-cart-contents"><div data-block-name="woocommerce/filled-mini-cart-contents-block" class="wp-block-woocommerce-filled-mini-cart-contents-block"><div data-block-name="woocommerce/mini-cart-title-block" class="wp-block-woocommerce-mini-cart-title-block"><div data-block-name="woocommerce/mini-cart-title-label-block" class="wp-block-woocommerce-mini-cart-title-label-block"></div>
-			<div data-block-name="woocommerce/mini-cart-title-items-counter-block" class="wp-block-woocommerce-mini-cart-title-items-counter-block"></div></div>
-			<div data-block-name="woocommerce/mini-cart-items-block" class="wp-block-woocommerce-mini-cart-items-block"><div data-block-name="woocommerce/mini-cart-products-table-block" class="wp-block-woocommerce-mini-cart-products-table-block"></div></div>
-			<div data-block-name="woocommerce/mini-cart-footer-block" class="wp-block-woocommerce-mini-cart-footer-block"><div data-block-name="woocommerce/mini-cart-cart-button-block" class="wp-block-woocommerce-mini-cart-cart-button-block"></div>
-			<div data-block-name="woocommerce/mini-cart-checkout-button-block" class="wp-block-woocommerce-mini-cart-checkout-button-block"></div></div></div>
-			<div data-block-name="woocommerce/empty-mini-cart-contents-block" class="wp-block-woocommerce-empty-mini-cart-contents-block">
+			contents='<div data-block-name="poocommerce/mini-cart-contents" class="wp-block-poocommerce-mini-cart-contents"><div data-block-name="poocommerce/filled-mini-cart-contents-block" class="wp-block-poocommerce-filled-mini-cart-contents-block"><div data-block-name="poocommerce/mini-cart-title-block" class="wp-block-poocommerce-mini-cart-title-block"><div data-block-name="poocommerce/mini-cart-title-label-block" class="wp-block-poocommerce-mini-cart-title-label-block"></div>
+			<div data-block-name="poocommerce/mini-cart-title-items-counter-block" class="wp-block-poocommerce-mini-cart-title-items-counter-block"></div></div>
+			<div data-block-name="poocommerce/mini-cart-items-block" class="wp-block-poocommerce-mini-cart-items-block"><div data-block-name="poocommerce/mini-cart-products-table-block" class="wp-block-poocommerce-mini-cart-products-table-block"></div></div>
+			<div data-block-name="poocommerce/mini-cart-footer-block" class="wp-block-poocommerce-mini-cart-footer-block"><div data-block-name="poocommerce/mini-cart-cart-button-block" class="wp-block-poocommerce-mini-cart-cart-button-block"></div>
+			<div data-block-name="poocommerce/mini-cart-checkout-button-block" class="wp-block-poocommerce-mini-cart-checkout-button-block"></div></div></div>
+			<div data-block-name="poocommerce/empty-mini-cart-contents-block" class="wp-block-poocommerce-empty-mini-cart-contents-block">
 			<p class="has-text-align-center"><strong>Your cart is currently empty!</strong></p>
-			<div data-block-name="woocommerce/mini-cart-shopping-button-block" class="wp-block-woocommerce-mini-cart-shopping-button-block"></div></div></div>'
+			<div data-block-name="poocommerce/mini-cart-shopping-button-block" class="wp-block-poocommerce-mini-cart-shopping-button-block"></div></div></div>'
 			{ ...props }
 		/>
 	</SlotFillProvider>

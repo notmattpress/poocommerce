@@ -9,17 +9,17 @@ import {
 	useState,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
 import {
 	EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME,
 	OPTIONS_STORE_NAME,
 	useUserPreferences,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useSelect } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId } from '@wordpress/core-data';
 
 /**
@@ -66,26 +66,26 @@ export const VariableProductTour: React.FC = () => {
 			{
 				referenceElements: {
 					desktop:
-						'.wp-block-woocommerce-product-variation-items-field',
+						'.wp-block-poocommerce-product-variation-items-field',
 				},
 				focusElement: {
 					desktop:
-						'.wp-block-woocommerce-product-variation-items-field',
+						'.wp-block-poocommerce-product-variation-items-field',
 				},
 				meta: {
 					name: 'product-variations-2',
 					heading: __(
 						'⚡️ This product now has variations',
-						'woocommerce'
+						'poocommerce'
 					),
 					descriptions: {
 						desktop: __(
 							'From now on, you’ll manage pricing, shipping, and inventory for each variation individually—just like any other product in your store.',
-							'woocommerce'
+							'poocommerce'
 						),
 					},
 					primaryButton: {
-						text: __( 'Got it', 'woocommerce' ),
+						text: __( 'Got it', 'poocommerce' ),
 					},
 				},
 			},
@@ -144,7 +144,7 @@ export const VariableProductTour: React.FC = () => {
 		const { getOption } = select( OPTIONS_STORE_NAME );
 		return {
 			hasShownProductEditorTour:
-				getOption( 'woocommerce_block_product_tour_shown' ) === 'yes',
+				getOption( 'poocommerce_block_product_tour_shown' ) === 'yes',
 		};
 	} );
 

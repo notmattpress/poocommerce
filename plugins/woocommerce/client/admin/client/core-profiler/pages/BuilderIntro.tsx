@@ -92,7 +92,7 @@ export const BuilderIntro = ( {
 		<>
 			<Navigation
 				percentage={ navigationProgress }
-				skipText={ __( 'Skip setup', 'woocommerce' ) }
+				skipText={ __( 'Skip setup', 'poocommerce' ) }
 				onSkip={ () =>
 					sendEvent( {
 						type: 'INTRO_SKIPPED',
@@ -100,16 +100,16 @@ export const BuilderIntro = ( {
 					} )
 				}
 			/>
-			<div className="woocommerce-profiler-builder-intro">
+			<div className="poocommerce-profiler-builder-intro">
 				<h1>
 					{ __(
 						'Upload your Blueprint to provision your site',
-						'woocommerce'
+						'poocommerce'
 					) }{ ' ' }
 				</h1>
 
 				<input
-					className="woocommerce-profiler-builder-intro-file-input"
+					className="poocommerce-profiler-builder-intro-file-input"
 					type="file"
 					onChange={ handleFileChange }
 				/>
@@ -118,7 +118,7 @@ export const BuilderIntro = ( {
 					onClick={ handleUpload }
 					isBusy={ importing }
 				>
-					{ __( 'Import', 'woocommerce' ) }
+					{ __( 'Import', 'poocommerce' ) }
 				</Button>
 				<div>
 					<pre>{ message }</pre>

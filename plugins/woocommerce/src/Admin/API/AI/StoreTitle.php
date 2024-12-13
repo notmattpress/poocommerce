@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\API\AI;
+namespace Automattic\PooCommerce\Admin\API\AI;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AI\Connection;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -57,7 +57,7 @@ class StoreTitle extends AIEndpoint {
 					'permission_callback' => array( Middleware::class, 'is_authorized' ),
 					'args'                => array(
 						'business_description' => array(
-							'description' => __( 'The business description for a given store.', 'woocommerce' ),
+							'description' => __( 'The business description for a given store.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 					),
@@ -81,7 +81,7 @@ class StoreTitle extends AIEndpoint {
 		if ( ! $business_description ) {
 			return new WP_Error(
 				'invalid_business_description',
-				__( 'Invalid business description.', 'woocommerce' )
+				__( 'Invalid business description.', 'poocommerce' )
 			);
 		}
 

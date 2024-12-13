@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-property-description */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable import/no-unresolved */
 /**
  * k6 dependencies

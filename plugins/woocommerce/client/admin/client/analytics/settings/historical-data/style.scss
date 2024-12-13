@@ -1,9 +1,9 @@
-.woocommerce-settings-historical-data__columns {
+.poocommerce-settings-historical-data__columns {
 	display: grid;
 	grid-column-gap: $gap-large;
 	grid-template-columns: calc(50% - #{math.div($gap-large, 2)}) calc(50% - #{math.div($gap-large, 2)});
 
-	.woocommerce-settings-historical-data__column {
+	.poocommerce-settings-historical-data__column {
 		align-self: end;
 		margin-top: $gap-small;
 		// Auto-position fix for IE11.
@@ -13,13 +13,13 @@
 	@include breakpoint( "<960px" ) {
 		grid-template-columns: 100%;
 
-		.woocommerce-settings-historical-data__column {
+		.poocommerce-settings-historical-data__column {
 			@include set-grid-item-position( 1, 2 );
 		}
 	}
 
 	.components-base-control__label,
-	.woocommerce-settings-historical-data__column-label {
+	.poocommerce-settings-historical-data__column-label {
 		margin-bottom: $gap-small;
 	}
 
@@ -33,7 +33,7 @@
 	}
 }
 
-.woocommerce-settings-historical-data__skip-checkbox {
+.poocommerce-settings-historical-data__skip-checkbox {
 	margin-top: $gap-large;
 
 	> .components-base-control__field {
@@ -47,7 +47,7 @@
 	}
 }
 
-.woocommerce-settings-historical-data__progress-label {
+.poocommerce-settings-historical-data__progress-label {
 	display: inline-block;
 	font-weight: bold;
 	margin-bottom: $gap-small;
@@ -58,7 +58,7 @@
 	}
 }
 
-.woocommerce-settings-historical-data__progress-bar {
+.poocommerce-settings-historical-data__progress-bar {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
@@ -85,7 +85,7 @@
 	}
 }
 
-.woocommerce-settings-historical-data__status {
+.poocommerce-settings-historical-data__status {
 	display: block;
 	font-weight: bold;
 	margin-top: $gap-large;
@@ -107,7 +107,7 @@
 	}
 }
 
-.woocommerce-settings-historical-data__actions {
+.poocommerce-settings-historical-data__actions {
 	align-items: center;
 	display: flex;
 }

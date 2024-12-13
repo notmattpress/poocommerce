@@ -1,15 +1,15 @@
 <?php
 /**
- * WooCommerce Payment Gateways
+ * PooCommerce Payment Gateways
  *
  * Loads payment gateways via hooks for use in the store.
  *
  * @version 2.2.0
- * @package WooCommerce\Classes\Payment
+ * @package PooCommerce\Classes\Payment
  */
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,7 +54,7 @@ class WC_Payment_Gateways {
 	 * @since 2.1
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class WC_Payment_Gateways {
 	 * @since 2.1
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -88,10 +88,10 @@ class WC_Payment_Gateways {
 		}
 
 		// Filter.
-		$load_gateways = apply_filters( 'woocommerce_payment_gateways', $load_gateways );
+		$load_gateways = apply_filters( 'poocommerce_payment_gateways', $load_gateways );
 
 		// Get sort order option.
-		$ordering  = (array) get_option( 'woocommerce_gateway_order' );
+		$ordering  = (array) get_option( 'poocommerce_gateway_order' );
 		$order_end = 999;
 
 		// Load gateways in order.
@@ -135,7 +135,7 @@ class WC_Payment_Gateways {
 	 * @param WC_Payment_Gateways $wc_payment_gateways The WC_Payment_Gateways instance.
 	 * @since 8.5.0
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function on_payment_gateways_initialized( WC_Payment_Gateways $wc_payment_gateways ) {
 		foreach ( $this->payment_gateways as $gateway ) {
@@ -235,7 +235,7 @@ This email has been sent to %5$s
 Regards,
 All at %6$s
 %7$s',
-				'woocommerce'
+				'poocommerce'
 			),
 			$username,
 			$gateway_title,
@@ -256,7 +256,7 @@ All at %6$s
 			$email_addresses,
 			sprintf(
 				/* translators: Payment gateway enabled notification email subject. %s1: Site title, $s2: Gateway title. */
-				__( '[%1$s] Payment gateway "%2$s" enabled', 'woocommerce' ),
+				__( '[%1$s] Payment gateway "%2$s" enabled', 'poocommerce' ),
 				$site_title,
 				$gateway_title
 			),
@@ -333,7 +333,7 @@ All at %6$s
 			}
 		}
 
-		return array_filter( (array) apply_filters( 'woocommerce_available_payment_gateways', $_available_gateways ), array( $this, 'filter_valid_gateway_class' ) );
+		return array_filter( (array) apply_filters( 'poocommerce_available_payment_gateways', $_available_gateways ), array( $this, 'filter_valid_gateway_class' ) );
 	}
 
 	/**
@@ -393,7 +393,7 @@ All at %6$s
 			}
 		}
 
-		update_option( 'woocommerce_gateway_order', $order );
+		update_option( 'poocommerce_gateway_order', $order );
 	}
 
 	/**

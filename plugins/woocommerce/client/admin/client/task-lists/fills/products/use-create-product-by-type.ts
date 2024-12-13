@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useDispatch } from '@wordpress/data';
-import { ITEMS_STORE_NAME } from '@woocommerce/data';
-import { navigateTo } from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
-import { loadExperimentAssignment } from '@woocommerce/explat';
+import { ITEMS_STORE_NAME } from '@poocommerce/data';
+import { navigateTo } from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
+import { loadExperimentAssignment } from '@poocommerce/explat';
 import { useState } from '@wordpress/element';
 
 /**
@@ -16,7 +16,7 @@ import { createNoticesFromResponse } from '../../../lib/notices';
 import { getAdminSetting } from '~/utils/admin-settings';
 
 const EXPERIMENT_NAME =
-	'woocommerce_product_creation_experience_pricing_to_general_202406';
+	'poocommerce_product_creation_experience_pricing_to_general_202406';
 
 export const useCreateProductByType = () => {
 	const { createProductFromTemplate } = useDispatch( ITEMS_STORE_NAME );

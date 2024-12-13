@@ -3,15 +3,15 @@ post_title: CSS SASS coding guidelines and naming conventions
 tags: reference
 ---
 
-Our guidelines are based on those used in [Calypso](https://github.com/Automattic/wp-calypso) which itself follows the BEM methodology. Refer to [this doc](https://wpcalypso.wordpress.com/devdocs/docs/coding-guidelines/css.md?term=css) for full details. There are a few differences in WooCommerce however which are outlined below;
+Our guidelines are based on those used in [Calypso](https://github.com/Automattic/wp-calypso) which itself follows the BEM methodology. Refer to [this doc](https://wpcalypso.wordpress.com/devdocs/docs/coding-guidelines/css.md?term=css) for full details. There are a few differences in PooCommerce however which are outlined below;
 
 ## Prefixing
 
-As a WordPress plugin WooCommerce has to play nicely with WordPress core and other plugins / themes. To minimise conflict potential all classes should be prefixed with `.woocommerce-`.
+As a WordPress plugin PooCommerce has to play nicely with WordPress core and other plugins / themes. To minimise conflict potential all classes should be prefixed with `.poocommerce-`.
 
 ## Class names
 
-Calypso is built in React and uses component names to formulate CSS class names. WooCommerce Core has none of these components so uses a more traditional [BEM](http://getbem.com/) approach to [naming classes](http://cssguidelin.es/#bem-like-naming). 
+Calypso is built in React and uses component names to formulate CSS class names. PooCommerce Core has none of these components so uses a more traditional [BEM](http://getbem.com/) approach to [naming classes](http://cssguidelin.es/#bem-like-naming). 
 
 When adding classes just remember;
 
@@ -21,17 +21,17 @@ When adding classes just remember;
 
 ### Example
 
-* `.woocommerce-loop {}` (block).
-* `.woocommerce-loop-product {}` (nested block).
-* `.woocommerce-loop-product--sale {}` (modifier).
-* `.woocommerce-loop-product__link {}` (element).
-* `.woocommerce-loop-product__title {}` (element).
-* `.woocommerce-loop-product__price {}` (element).
-* `.woocommerce-loop-product__rating {}` (element).
-* `.woocommerce-loop-product__button-add-to-cart {}` (element).
-* `.woocommerce-loop-product__button-add-to-cart--added {}` (modifier).
+* `.poocommerce-loop {}` (block).
+* `.poocommerce-loop-product {}` (nested block).
+* `.poocommerce-loop-product--sale {}` (modifier).
+* `.poocommerce-loop-product__link {}` (element).
+* `.poocommerce-loop-product__title {}` (element).
+* `.poocommerce-loop-product__price {}` (element).
+* `.poocommerce-loop-product__rating {}` (element).
+* `.poocommerce-loop-product__button-add-to-cart {}` (element).
+* `.poocommerce-loop-product__button-add-to-cart--added {}` (modifier).
 
-**Note:** `.woocommerce-loop-product` is not the chosen classname _because_ the block is nested within `.woocommerce-loop`. It's to be specific so that we can have separate classes for single products, cart products etc. _Nested blocks do not need to inherit their parents full name_.
+**Note:** `.poocommerce-loop-product` is not the chosen classname _because_ the block is nested within `.poocommerce-loop`. It's to be specific so that we can have separate classes for single products, cart products etc. _Nested blocks do not need to inherit their parents full name_.
 
 You can read more about BEM key concepts [here](https://en.bem.info/methodology/key-concepts/).
 

@@ -1,3 +1,3 @@
-const { testAdminTranslations } = require( '@woocommerce/admin-e2e-tests' );
+const { testAdminTranslations } = require( '@poocommerce/admin-e2e-tests' );
 
 testAdminTranslations();

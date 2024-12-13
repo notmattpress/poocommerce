@@ -10,7 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import attributes from './attributes';
 
-registerBlockType( 'woocommerce/checkout-payment-block', {
+registerBlockType( 'poocommerce/checkout-payment-block', {
 	icon: {
 		src: (
 			<Icon

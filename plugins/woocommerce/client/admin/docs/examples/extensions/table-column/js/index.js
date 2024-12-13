@@ -3,10 +3,10 @@
  */
 
 import { addFilter } from '@wordpress/hooks';
-import { Rating } from '@woocommerce/components';
+import { Rating } from '@poocommerce/components';
 
 addFilter(
-	'woocommerce_admin_report_table',
+	'poocommerce_admin_report_table',
 	'plugin-domain',
 	( reportTableData ) => {
 		if ( reportTableData.endpoint !== 'products' ) {

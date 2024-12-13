@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.9.0](https://www.npmjs.com/package/@woocommerce/csv-export/v/1.9.0) - 2024-06-11 
+## [1.9.0](https://www.npmjs.com/package/@poocommerce/csv-export/v/1.9.0) - 2024-06-11 
 
 -   Minor - Bump node version. [#45148]
 -   Patch - bump php version in packages/js/*/composer.json [#42020]
@@ -10,7 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update events that should trigger the test job(s) [#47612]
 -   Patch - Update pnpm to 9.1.0 [#47385]
 
-## [1.8.0](https://www.npmjs.com/package/@woocommerce/csv-export/v/1.8.0) - 2023-11-23 
+## [1.8.0](https://www.npmjs.com/package/@poocommerce/csv-export/v/1.8.0) - 2023-11-23 
 
 -   Patch - Use single quote instead of tab for escaping in CSV exports. [#41163]
 -   Patch - Add missing type definitions and add babel config for tests [#34428]
@@ -26,14 +26,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update pnpm version constraint to 7.13.3 to avoid auto-install-peers issues [#35007]
 -   Minor - Upgrade TypeScript to 5.1.6 [#39531]
 
-## [1.7.0](https://www.npmjs.com/package/@woocommerce/csv-export/v/1.7.0) - 2022-07-08 
+## [1.7.0](https://www.npmjs.com/package/@poocommerce/csv-export/v/1.7.0) - 2022-07-08 
 
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [1.6.0](https://www.npmjs.com/package/@woocommerce/csv-export/v/1.6.0) - 2022-06-14 
+## [1.6.0](https://www.npmjs.com/package/@poocommerce/csv-export/v/1.6.0) - 2022-06-14 
 
 -   Minor - Add Jetpack Changelogger
--   Patch - Migrate @woocommerce/csv-export to TS
+-   Patch - Migrate @poocommerce/csv-export to TS
 -   Patch - Standardize lint scripts: add lint:fix
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/csv-export/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/csv-export/CHANGELOG.md).

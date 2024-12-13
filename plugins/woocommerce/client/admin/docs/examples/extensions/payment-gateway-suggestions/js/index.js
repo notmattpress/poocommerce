@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { createElement } from '@wordpress/element';
-import { PAYMENT_GATEWAYS_STORE_NAME } from '@woocommerce/data';
+import { PAYMENT_GATEWAYS_STORE_NAME } from '@poocommerce/data';
 import { registerPlugin } from '@wordpress/plugins';
 import { useDispatch } from '@wordpress/data';
-import { WooPaymentGatewayConfigure } from '@woocommerce/onboarding';
+import { WooPaymentGatewayConfigure } from '@poocommerce/onboarding';
 
 const MyPaymentGatewaySuggestion = () => {
 	const { updatePaymentGateway } = useDispatch( PAYMENT_GATEWAYS_STORE_NAME );
@@ -29,11 +29,11 @@ const MyPaymentGatewaySuggestion = () => {
 						<p>
 							{ __(
 								"This payment's configuration screen can be slot filled with any custom content.",
-								'woocommerce-admin'
+								'poocommerce-admin'
 							) }
 						</p>
 						<button onClick={ completeSetup }>
-							{ __( 'Complete', 'woocommerce-admin' ) }
+							{ __( 'Complete', 'poocommerce-admin' ) }
 						</button>
 					</>
 				);
@@ -44,5 +44,5 @@ const MyPaymentGatewaySuggestion = () => {
 
 export default registerPlugin( 'my-payment-gateway-suggestion', {
 	render: MyPaymentGatewaySuggestion,
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 } );

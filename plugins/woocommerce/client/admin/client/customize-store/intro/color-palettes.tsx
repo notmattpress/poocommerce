@@ -45,7 +45,7 @@ export const ColorPalettes = ( {
 					/* translators: $d is the total amount of color palettes */
 					__(
 						'There are a total of %d color palettes',
-						'woocommerce'
+						'poocommerce'
 					),
 					totalPalettes
 				) }
@@ -57,7 +57,7 @@ export const ColorPalettes = ( {
 		<>
 			<ul
 				className="theme-card__color-palettes"
-				aria-label={ __( 'Color palettes', 'woocommerce' ) }
+				aria-label={ __( 'Color palettes', 'poocommerce' ) }
 				aria-describedby={ descriptionId }
 			>
 				{ colorPalettes.map( ( colorPalette ) => (

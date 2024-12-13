@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Product Collection: Featured Products 5 Columns
- * Slug: woocommerce-blocks/product-collection-featured-products-5-columns
- * Categories: WooCommerce, featured-selling
+ * Slug: poocommerce-blocks/product-collection-featured-products-5-columns
+ * Categories: PooCommerce, featured-selling
  */
 
 $collection_title = $content['titles'][0]['default'] ?? '';
@@ -26,24 +26,24 @@ $collection_title = $content['titles'][0]['default'] ?? '';
 
 	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignwide">
-		<!-- wp:woocommerce/product-collection {"queryId":2,"query":{"perPage":5,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"woocommerceOnSale":false,"woocommerceStockStatus":["instock","outofstock","onbackorder"],"woocommerceAttributes":[],"woocommerceHandPickedProducts":[]},"tagName":"div","dimensions":{"widthType":"fill","fixedWidth":""},"displayLayout":{"type":"flex","columns":5},"queryContextIncludes":["collection"],"align":"wide"} -->
-		<div class="wp-block-woocommerce-product-collection alignwide">
-			<!-- wp:woocommerce/product-template -->
-			<!-- wp:woocommerce/product-image {"isDescendentOfQueryLoop":true,"aspectRatio":"1"} /-->
+		<!-- wp:poocommerce/product-collection {"queryId":2,"query":{"perPage":5,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"poocommerceOnSale":false,"poocommerceStockStatus":["instock","outofstock","onbackorder"],"poocommerceAttributes":[],"poocommerceHandPickedProducts":[]},"tagName":"div","dimensions":{"widthType":"fill","fixedWidth":""},"displayLayout":{"type":"flex","columns":5},"queryContextIncludes":["collection"],"align":"wide"} -->
+		<div class="wp-block-poocommerce-product-collection alignwide">
+			<!-- wp:poocommerce/product-template -->
+			<!-- wp:poocommerce/product-image {"isDescendentOfQueryLoop":true,"aspectRatio":"1"} /-->
 
-			<!-- wp:post-title {"textAlign":"left","level":3,"isLink":true,"style":{"spacing":{"margin":{"bottom":"0.75rem","top":"0"}}},"fontSize":"medium","__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
+			<!-- wp:post-title {"textAlign":"left","level":3,"isLink":true,"style":{"spacing":{"margin":{"bottom":"0.75rem","top":"0"}}},"fontSize":"medium","__poocommerceNamespace":"poocommerce/product-collection/product-title"} /-->
 
-			<!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"left","fontSize":"small"} /-->
-			<!-- /wp:woocommerce/product-template -->
+			<!-- wp:poocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"left","fontSize":"small"} /-->
+			<!-- /wp:poocommerce/product-template -->
 		</div>
-		<!-- /wp:woocommerce/product-collection -->
+		<!-- /wp:poocommerce/product-collection -->
 
 		<!-- wp:buttons {"align":"wide","layout":{"type":"flex","verticalAlignment":"center","justifyContent":"center"}} -->
 		<div class="wp-block-buttons alignwide">
 			<!-- wp:button {"textAlign":"center"} -->
 			<div class="wp-block-button">
 				<a class="wp-block-button__link has-text-align-center wp-element-button" href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>">
-					<?php esc_html_e( 'Shop All', 'woocommerce' ); ?>
+					<?php esc_html_e( 'Shop All', 'poocommerce' ); ?>
 				</a>
 			</div>
 			<!-- /wp:button -->

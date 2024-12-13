@@ -12,15 +12,15 @@
  *
  * This class should not be used externally.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @link https://packagist.org/packages/automattic/jetpack-abtest
  */
 
-namespace WooCommerce\Admin;
+namespace PooCommerce\Admin;
 
 use Automattic\Jetpack\Connection\Manager as Jetpack_Connection_Manager;
 use Automattic\Jetpack\Connection\Client as Jetpack_Connection_client;
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 /**
  * This class provides an interface to the Explat A/B tests.
@@ -28,16 +28,16 @@ use Automattic\WooCommerce\Admin\WCAdminHelper;
  * Usage:
  *
  * $anon_id = isset( $_COOKIE['tk_ai'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['tk_ai'] ) ) : '';
- * $allow_tracking = 'yes' === get_option( 'woocommerce_allow_tracking' );
- * $abtest = new \WooCommerce\Admin\Experimental_Abtest(
+ * $allow_tracking = 'yes' === get_option( 'poocommerce_allow_tracking' );
+ * $abtest = new \PooCommerce\Admin\Experimental_Abtest(
  *      $anon_id,
- *      'woocommerce',
+ *      'poocommerce',
  *      $allow_tracking
  * );
  *
  * OR use the helper function:
  *
- * WooCommerce\Admin\Experimental_Abtest::in_treatment('experiment_name');
+ * PooCommerce\Admin\Experimental_Abtest::in_treatment('experiment_name');
  *
  *
  * $isTreatment = $abtest->get_variation('your-experiment-name') === 'treatment';
@@ -65,7 +65,7 @@ final class Experimental_Abtest {
 	 *
 	 * @var string
 	 */
-	private $platform = 'woocommerce';
+	private $platform = 'poocommerce';
 
 	/**
 	 * Whether trcking consent is given.
@@ -105,10 +105,10 @@ final class Experimental_Abtest {
 	 */
 	public static function in_treatment( string $experiment_name, bool $as_auth_wpcom_user = false ) {
 		$anon_id        = isset( $_COOKIE['tk_ai'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['tk_ai'] ) ) : '';
-		$allow_tracking = 'yes' === get_option( 'woocommerce_allow_tracking' );
+		$allow_tracking = 'yes' === get_option( 'poocommerce_allow_tracking' );
 		$abtest         = new self(
 			$anon_id,
-			'woocommerce',
+			'poocommerce',
 			$allow_tracking,
 			$as_auth_wpcom_user
 		);
@@ -217,7 +217,7 @@ final class Experimental_Abtest {
 		$args = array(
 			'experiment_name'               => $test_name,
 			'anon_id'                       => rawurlencode( $this->anon_id ),
-			'woo_country_code'              => rawurlencode( get_option( 'woocommerce_default_country', 'US:CA' ) ),
+			'woo_country_code'              => rawurlencode( get_option( 'poocommerce_default_country', 'US:CA' ) ),
 			'woo_wcadmin_install_timestamp' => rawurlencode( get_option( WCAdminHelper::WC_ADMIN_TIMESTAMP_OPTION ) ),
 		);
 
@@ -226,7 +226,7 @@ final class Experimental_Abtest {
 		 *
 		 * @since 6.5.0
 		 */
-		$args     = apply_filters( 'woocommerce_explat_request_args', $args );
+		$args     = apply_filters( 'poocommerce_explat_request_args', $args );
 		$response = $this->request_assignment( $args );
 
 		// Bail if there was an error or malformed response.

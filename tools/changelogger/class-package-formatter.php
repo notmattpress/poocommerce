@@ -2,21 +2,21 @@
 /**
  * Package_Formatter class
  *
- * @package  WooCommerce
+ * @package  PooCommerce
  */
 
-namespace Automattic\WooCommerce\MonorepoTools\Changelogger;
+namespace Automattic\PooCommerce\MonorepoTools\Changelogger;
 
 use Automattic\Jetpack\Changelogger\FormatterPlugin;
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce packages
+ * Jetpack Changelogger Formatter for PooCommerce packages
  */
 
 require_once 'class-formatter.php';
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce Packages
+ * Jetpack Changelogger Formatter for PooCommerce Packages
  *
  * Class Formatter
  */
@@ -36,7 +36,7 @@ class Package_Formatter extends Formatter implements FormatterPlugin {
 		$pos     = stripos( $cwd, 'packages/js/' );
 		$package = substr( $cwd, $pos + 12 );
 
-		return '[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/' . $package . '/CHANGELOG.md).';
+		return '[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/' . $package . '/CHANGELOG.md).';
 	}
 
 	/**
@@ -48,13 +48,13 @@ class Package_Formatter extends Formatter implements FormatterPlugin {
 	 * @return string Link to the version's release.
 	 */
 	public function getReleaseLink( $version ) {
-		// Capture anything past /woocommerce in the current working directory.
+		// Capture anything past /poocommerce in the current working directory.
 		preg_match( '/\/packages\/js\/(.+)/', getcwd(), $path );
 
 		if ( ! count( $path ) ) {
 			throw new \InvalidArgumentException( 'Invalid directory.' );
 		}
 
-		return 'https://www.npmjs.com/package/@woocommerce/' . $path[1] . '/v/' . $version;
+		return 'https://www.npmjs.com/package/@poocommerce/' . $path[1] . '/v/' . $version;
 	}
 }

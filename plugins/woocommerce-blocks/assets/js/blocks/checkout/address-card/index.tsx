@@ -8,9 +8,9 @@ import {
 	type CountryData,
 	objectHasProp,
 	isString,
-} from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
-import { formatAddress } from '@woocommerce/blocks/checkout/utils';
+} from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import { formatAddress } from '@poocommerce/blocks/checkout/utils';
 import { Button } from '@ariakit/react';
 
 /**
@@ -53,8 +53,8 @@ const AddressCard = ( {
 	);
 	const label =
 		target === 'shipping'
-			? __( 'Edit shipping address', 'woocommerce' )
-			: __( 'Edit billing address', 'woocommerce' );
+			? __( 'Edit shipping address', 'poocommerce' )
+			: __( 'Edit billing address', 'poocommerce' );
 
 	return (
 		<div className="wc-block-components-address-card">
@@ -93,7 +93,7 @@ const AddressCard = ( {
 					} }
 					type="button"
 				>
-					{ __( 'Edit', 'woocommerce' ) }
+					{ __( 'Edit', 'poocommerce' ) }
 				</Button>
 			) }
 		</div>

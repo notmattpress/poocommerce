@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-const { HTTPClientFactory } = require( '@woocommerce/api' );
+const { HTTPClientFactory } = require( '@poocommerce/api' );
 const { it, describe } = require( '@jest/globals' );
 import deprecated from '@wordpress/deprecated';
 
@@ -15,12 +15,12 @@ const {
 	settingsPageSaveChanges,
 	verifyCheckboxIsSet,
 	verifyValueOfInputField,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 const {
 	getTestConfig,
 	waitAndClick,
-} = require( '@woocommerce/e2e-environment' );
+} = require( '@poocommerce/e2e-environment' );
 
 const runInitialStoreSettingsTest = () => {
 	describe( 'Store owner can finish initial store setup', () => {
@@ -31,7 +31,7 @@ const runInitialStoreSettingsTest = () => {
 		it( 'can enable tax rates and calculations', async () => {
 			deprecated( 'runInitialStoreSettingsTest', {
 				alternative:
-					'@woocommerce/admin-e2e-tests `testAdminBasicSetup()`',
+					'@poocommerce/admin-e2e-tests `testAdminBasicSetup()`',
 			} );
 			// Go to general settings page
 			await merchant.openSettings( 'general' );
@@ -42,7 +42,7 @@ const runInitialStoreSettingsTest = () => {
 			} );
 
 			// Enable tax rates and calculations
-			await setCheckbox( '#woocommerce_calc_taxes' );
+			await setCheckbox( '#poocommerce_calc_taxes' );
 
 			await settingsPageSaveChanges();
 
@@ -51,7 +51,7 @@ const runInitialStoreSettingsTest = () => {
 				expect( page ).toMatchElement( '#message', {
 					text: 'Your settings have been saved.',
 				} ),
-				verifyCheckboxIsSet( '#woocommerce_calc_taxes' ),
+				verifyCheckboxIsSet( '#poocommerce_calc_taxes' ),
 			] );
 		} );
 
@@ -65,11 +65,11 @@ const runInitialStoreSettingsTest = () => {
 			} );
 
 			// Select "Custom base" in product permalinks section
-			await waitAndClick( page, '#woocommerce_custom_selection' );
+			await waitAndClick( page, '#poocommerce_custom_selection' );
 
 			// Fill custom base slug to use
 			await expect( page ).toFill(
-				'#woocommerce_permalink_structure',
+				'#poocommerce_permalink_structure',
 				'/product/'
 			);
 
@@ -88,7 +88,7 @@ const runInitialStoreSettingsTest = () => {
 					'/%postname%/'
 				),
 				verifyValueOfInputField(
-					'#woocommerce_permalink_structure',
+					'#poocommerce_permalink_structure',
 					'/product/'
 				),
 			] );

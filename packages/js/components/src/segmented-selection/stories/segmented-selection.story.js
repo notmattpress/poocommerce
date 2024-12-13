@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SegmentedSelection } from '@woocommerce/components';
+import { SegmentedSelection } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const name = 'number';
@@ -28,6 +28,6 @@ const SegmentedSelectionExample = () => {
 export const Basic = () => <SegmentedSelectionExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/SegmentedSelection',
+	title: 'PooCommerce Admin/components/SegmentedSelection',
 	component: SegmentedSelection,
 };

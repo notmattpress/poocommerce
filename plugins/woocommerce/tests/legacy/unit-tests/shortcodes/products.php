@@ -2,7 +2,7 @@
 /**
  * Test WC_Shortcode_Products
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
 /**

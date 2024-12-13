@@ -3,8 +3,8 @@
 // Import our wp-admin reset.
 @import "./shared/_reset.scss";
 
-// Some WooCommerce Admin page specific resets.
-.woocommerce-admin-page {
+// Some PooCommerce Admin page specific resets.
+.poocommerce-admin-page {
 	.wp-has-current-submenu::after {
 		right: 0;
 		border: 8px solid transparent;

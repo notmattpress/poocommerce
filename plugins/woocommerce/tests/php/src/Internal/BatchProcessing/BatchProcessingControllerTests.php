@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\BatchProcessing;
+namespace Automattic\PooCommerce\Tests\Internal\BatchProcessing;
 
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessorInterface;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
 
 /**
  * Class BatchProcessingControllerTests.
@@ -53,7 +53,7 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 		$this->sut->enqueue_processor( get_class( $this->test_process ) );
 		$this->sut->enqueue_processor( get_class( $second_processor ) );
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( $this->sut::WATCHDOG_ACTION_NAME );
 
 		$this->assertTrue( $this->sut->is_enqueued( get_class( $this->test_process ) ) );
@@ -77,7 +77,7 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 	public function test_remove_processor_when_no_others_remain_enqueued() {
 		$this->sut->enqueue_processor( get_class( $this->test_process ) );
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( $this->sut::WATCHDOG_ACTION_NAME );
 
 		$this->assertTrue( $this->sut->is_enqueued( get_class( $this->test_process ) ) );
@@ -133,7 +133,7 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 
 		$this->sut->enqueue_processor( get_class( $this->test_process ) );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( $this->sut::WATCHDOG_ACTION_NAME );
 
 		$this->assertTrue( $this->sut->is_scheduled( get_class( $this->test_process ) ) );
@@ -148,13 +148,13 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 		$test_process_mock->expects( $this->exactly( 2 ) )->method( 'get_next_batch_to_process' )->willReturn( array( 'dummy_id' ) );
 
 		add_filter(
-			'woocommerce_get_batch_processor',
+			'poocommerce_get_batch_processor',
 			function() use ( $test_process_mock ) {
 				return $test_process_mock;
 			}
 		);
 		$this->sut->enqueue_processor( get_class( $this->test_process ) );
-		do_action( $this->sut::PROCESS_SINGLE_BATCH_ACTION_NAME, get_class( $this->test_process ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( $this->sut::PROCESS_SINGLE_BATCH_ACTION_NAME, get_class( $this->test_process ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertTrue( $this->sut->is_scheduled( get_class( $this->test_process ) ) );
 		$this->assertTrue( $this->sut->is_enqueued( get_class( $this->test_process ) ) );
@@ -175,13 +175,13 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 				}
 			);
 		add_filter(
-			'woocommerce_get_batch_processor',
+			'poocommerce_get_batch_processor',
 			function() use ( $test_process_mock ) {
 				return $test_process_mock;
 			}
 		);
 		$this->sut->enqueue_processor( get_class( $this->test_process ) );
-		do_action( $this->sut::PROCESS_SINGLE_BATCH_ACTION_NAME, get_class( $this->test_process ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( $this->sut::PROCESS_SINGLE_BATCH_ACTION_NAME, get_class( $this->test_process ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertFalse( $this->sut->is_scheduled( get_class( $this->test_process ) ) );
 		$this->assertFalse( $this->sut->is_enqueued( get_class( $this->test_process ) ) );
@@ -196,7 +196,7 @@ class BatchProcessingControllerTests extends \WC_Unit_Test_Case {
 		$this->sut->enqueue_processor( get_class( $this->test_process ) );
 		$this->sut->enqueue_processor( get_class( $second_processor ) );
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( $this->sut::WATCHDOG_ACTION_NAME );
 
 		$this->assertTrue( $this->sut->is_enqueued( get_class( $this->test_process ) ) );

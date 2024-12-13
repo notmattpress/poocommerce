@@ -73,7 +73,7 @@ const resolvePackage = ( packageName, allowRecurse = true ) => {
  * Resolve a file in a package.
  *
  * @param {string} filename Filename to append to the path.
- * @param {string} packageName Name of the installed package. Default @woocommerce/e2e-environment.
+ * @param {string} packageName Name of the installed package. Default @poocommerce/e2e-environment.
  * @return {string}
  */
 const resolvePackagePath = ( filename, packageName = '' ) => {
@@ -172,7 +172,7 @@ const getAdminConfig = () => {
 			: 'password',
 		WORDPRESS_EMAIL: testConfig.users.admin.email
 			? testConfig.users.admin.email
-			: 'admin@woocommercecoree2etestsuite.com',
+			: 'admin@poocommercecoree2etestsuite.com',
 	};
 
 	return adminConfig;

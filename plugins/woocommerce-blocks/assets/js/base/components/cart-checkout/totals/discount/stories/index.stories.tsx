@@ -7,12 +7,12 @@ import {
 	currenciesAPIShape as currencies,
 	currencyControl,
 	INTERACTION_TIMEOUT,
-} from '@woocommerce/storybook-controls';
+} from '@poocommerce/storybook-controls';
 import {
 	CartResponseCouponItemWithLabel,
 	CartTotalsItem,
 	LooselyMustHave,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

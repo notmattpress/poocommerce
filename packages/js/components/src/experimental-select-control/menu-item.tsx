@@ -38,7 +38,7 @@ export const MenuItem = < ItemType, >( {
 				{ ...itemProps }
 				style={ isActive ? activeStyle : itemProps.style }
 				className={ classNames(
-					'woocommerce-experimental-select-control__menu-item',
+					'poocommerce-experimental-select-control__menu-item',
 					itemProps.className,
 					className
 				) }

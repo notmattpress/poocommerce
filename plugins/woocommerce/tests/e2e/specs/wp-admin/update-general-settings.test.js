@@ -3,6 +3,6 @@
  */
 const {
 	runUpdateGeneralSettingsTest,
-} = require( '@woocommerce/e2e-core-tests' );
+} = require( '@poocommerce/e2e-core-tests' );
 
 runUpdateGeneralSettingsTest();

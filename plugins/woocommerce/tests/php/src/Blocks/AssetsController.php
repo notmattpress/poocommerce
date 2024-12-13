@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\AssetsController as TestedAssetsController;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\AssetsController as TestedAssetsController;
 
 /**
  * Unit tests for the PatternRegistry class.
@@ -39,9 +39,9 @@ class AssetsController extends \WP_UnitTestCase {
 		$page    = array(
 			'name'    => 'block-checkout',
 			'title'   => 'Block Checkout',
-			'content' => '<!-- wp:woocommerce/checkout -->',
+			'content' => '<!-- wp:poocommerce/checkout -->',
 		);
-		$page_id = wc_create_page( $page['name'], 'woocommerce_checkout_page_id', $page['title'], $page['content'] );
+		$page_id = wc_create_page( $page['name'], 'poocommerce_checkout_page_id', $page['title'], $page['content'] );
 
 		// Ensure a product exists in the cart unless the test specifies otherwise.
 		$product = \WC_Helper_Product::create_simple_product();
@@ -51,14 +51,14 @@ class AssetsController extends \WP_UnitTestCase {
 		global $wp_scripts;
 		$wp_scripts->registered['mock-dependency']     = (object) array(
 			'ver'  => '1.2.3',
-			'src'  => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/mock-dependency.js',
+			'src'  => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/mock-dependency.js',
 			'deps' => array(
 				'mock-sub-dependency',
 			),
 		);
 		$wp_scripts->registered['mock-sub-dependency'] = (object) array(
 			'ver'  => '1.2.3',
-			'src'  => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/mock-sub-dependency.js',
+			'src'  => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/mock-sub-dependency.js',
 			'deps' => array(),
 		);
 	}
@@ -71,8 +71,8 @@ class AssetsController extends \WP_UnitTestCase {
 	public function tearDown(): void {
 		parent::tearDown();
 
-		wp_delete_post( get_option( 'woocommerce_checkout_page_id' ), true );
-		delete_option( 'woocommerce_checkout_page_id' );
+		wp_delete_post( get_option( 'poocommerce_checkout_page_id' ), true );
+		delete_option( 'poocommerce_checkout_page_id' );
 
 		wc()->cart->empty_cart();
 
@@ -89,7 +89,7 @@ class AssetsController extends \WP_UnitTestCase {
 	public function test_no_additional_resource_hints_added() {
 		$mock_urls = array(
 			array(
-				'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/blocks/mock.js?ver=1.1.0',
+				'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/blocks/mock.js?ver=1.1.0',
 				'as'   => 'script',
 			),
 		);
@@ -106,7 +106,7 @@ class AssetsController extends \WP_UnitTestCase {
 	public function test_no_additional_resource_hints_added_on_non_prefetch_prerender_relation() {
 		$mock_urls = array(
 			array(
-				'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/blocks/mock.js?ver=1.1.0',
+				'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/blocks/mock.js?ver=1.1.0',
 				'as'   => 'script',
 			),
 		);
@@ -124,7 +124,7 @@ class AssetsController extends \WP_UnitTestCase {
 		wc()->cart->empty_cart();
 		$mock_urls = array(
 			array(
-				'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/blocks/mock.js?ver=1.1.0',
+				'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/blocks/mock.js?ver=1.1.0',
 				'as'   => 'script',
 			),
 		);
@@ -144,7 +144,7 @@ class AssetsController extends \WP_UnitTestCase {
 			->willReturn(
 				array(
 					'version'      => '1.2.3',
-					'src'          => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/checkout.js',
+					'src'          => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/checkout.js',
 					'dependencies' => array(
 						'mock-dependency',
 					),
@@ -153,7 +153,7 @@ class AssetsController extends \WP_UnitTestCase {
 
 		$mock_urls = array(
 			array(
-				'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/blocks/mock.js?ver=1.1.0',
+				'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/blocks/mock.js?ver=1.1.0',
 				'as'   => 'script',
 			),
 		);
@@ -164,15 +164,15 @@ class AssetsController extends \WP_UnitTestCase {
 				$mock_urls,
 				array(
 					array(
-						'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/checkout.js?ver=1.2.3',
+						'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/checkout.js?ver=1.2.3',
 						'as'   => 'script',
 					),
 					array(
-						'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/mock-dependency.js?ver=1.2.3',
+						'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/mock-dependency.js?ver=1.2.3',
 						'as'   => 'script',
 					),
 					array(
-						'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/mock-sub-dependency.js?ver=1.2.3',
+						'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/mock-sub-dependency.js?ver=1.2.3',
 						'as'   => 'script',
 					),
 				)
@@ -190,16 +190,16 @@ class AssetsController extends \WP_UnitTestCase {
 		$mock_cache = array(
 			'files'   => array(
 				'checkout-frontend' => array(
-					'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/mock-cached.js?ver=1.2.3',
+					'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/mock-cached.js?ver=1.2.3',
 					'as'   => 'script',
 				),
 			),
 			'version' => array(
-				'woocommerce' => WOOCOMMERCE_VERSION,
+				'poocommerce' => WOOCOMMERCE_VERSION,
 				'wordpress'   => get_bloginfo( 'version' ),
 			),
 		);
-		set_site_transient( 'woocommerce_block_asset_resource_hints', $mock_cache );
+		set_site_transient( 'poocommerce_block_asset_resource_hints', $mock_cache );
 
 		$urls = $this->assets_controller->add_resource_hints( array(), 'prefetch' );
 
@@ -220,7 +220,7 @@ class AssetsController extends \WP_UnitTestCase {
 			->willReturn(
 				array(
 					'version'      => '1.2.3',
-					'src'          => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/checkout.js',
+					'src'          => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/checkout.js',
 					'dependencies' => array(),
 				)
 			);
@@ -228,23 +228,23 @@ class AssetsController extends \WP_UnitTestCase {
 		$mock_cache = array(
 			'files'   => array(
 				'checkout-frontend' => array(
-					'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/mock-cached.js?ver=1.2.3',
+					'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/mock-cached.js?ver=1.2.3',
 					'as'   => 'script',
 				),
 			),
 			'version' => array(
-				'woocommerce' => WOOCOMMERCE_VERSION,
+				'poocommerce' => WOOCOMMERCE_VERSION,
 				'wordpress'   => '0.1.0-old',
 			),
 		);
-		set_site_transient( 'woocommerce_block_asset_resource_hints', $mock_cache );
+		set_site_transient( 'poocommerce_block_asset_resource_hints', $mock_cache );
 
 		$urls = $this->assets_controller->add_resource_hints( array(), 'prefetch' );
 
 		$this->assertEquals(
 			array(
 				array(
-					'href' => 'http://test.local/wp-content/plugins/woocommerce/assets/client/block/checkout.js?ver=1.2.3',
+					'href' => 'http://test.local/wp-content/plugins/poocommerce/assets/client/block/checkout.js?ver=1.2.3',
 					'as'   => 'script',
 				),
 			),

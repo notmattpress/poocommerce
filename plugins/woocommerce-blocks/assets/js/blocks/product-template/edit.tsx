@@ -16,11 +16,11 @@ import {
 } from '@wordpress/block-editor';
 import { Spinner } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
-import { ProductCollectionAttributes } from '@woocommerce/blocks/product-collection/types';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isNumber, ProductResponseItem } from '@woocommerce/types';
-import { ProductDataContextProvider } from '@woocommerce/shared-context';
-import { withProduct } from '@woocommerce/block-hocs';
+import { ProductCollectionAttributes } from '@poocommerce/blocks/product-collection/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isNumber, ProductResponseItem } from '@poocommerce/types';
+import { ProductDataContextProvider } from '@poocommerce/shared-context';
+import { withProduct } from '@poocommerce/block-hocs';
 import type { BlockEditProps, BlockInstance } from '@wordpress/blocks';
 
 /**
@@ -275,7 +275,7 @@ const ProductTemplateEdit = (
 					 * from template is true.
 					 */
 					...( inherit && {
-						woocommerceStockStatus: getDefaultStockStatuses(),
+						poocommerceStockStatus: getDefaultStockStatuses(),
 					} ),
 				} ),
 				blocks: getBlocks( clientId ),
@@ -344,7 +344,7 @@ const ProductTemplateEdit = (
 				{ ' ' }
 				{ __(
 					'No products to display. Try adjusting the filters in the block settings panel.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		);

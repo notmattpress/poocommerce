@@ -1,7 +1,7 @@
 <?php
 /**
  * Products Factory Tests
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 3.0.0
  */
 class WC_Tests_Product_Factory extends WC_Unit_Test_Case {

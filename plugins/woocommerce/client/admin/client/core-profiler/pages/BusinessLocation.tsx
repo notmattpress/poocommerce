@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { SelectControl } from '@woocommerce/components';
+import { SelectControl } from '@poocommerce/components';
 import { Icon, chevronDown } from '@wordpress/icons';
 import { useState } from '@wordpress/element';
 
@@ -29,28 +29,28 @@ export const BusinessLocation = ( {
 		label: '',
 	} );
 
-	const inputLabel = __( 'Select country/region', 'woocommerce' );
+	const inputLabel = __( 'Select country/region', 'poocommerce' );
 
 	return (
 		<div
-			className="woocommerce-profiler-business-location"
+			className="poocommerce-profiler-business-location"
 			data-testid="core-profiler-business-location"
 		>
 			<Navigation percentage={ navigationProgress } />
-			<div className="woocommerce-profiler-page__content woocommerce-profiler-business-location__content">
+			<div className="poocommerce-profiler-page__content poocommerce-profiler-business-location__content">
 				<Heading
-					className="woocommerce-profiler__stepper-heading"
+					className="poocommerce-profiler__stepper-heading"
 					title={ __(
 						'Where is your business located?',
-						'woocommerce'
+						'poocommerce'
 					) }
 					subTitle={ __(
 						'We’ll use this information to help you set up payments, shipping, and taxes.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				<SelectControl
-					className="woocommerce-profiler-select-control__country"
+					className="poocommerce-profiler-select-control__country"
 					instanceId={ 1 }
 					placeholder={ inputLabel }
 					label={ storeCountry.key === '' ? inputLabel : '' }
@@ -73,9 +73,9 @@ export const BusinessLocation = ( {
 					showAllOnFocus
 					isSearchable
 				/>
-				<div className="woocommerce-profiler-button-container woocommerce-profiler-go-to-mystore__button-container">
+				<div className="poocommerce-profiler-button-container poocommerce-profiler-go-to-mystore__button-container">
 					<Button
-						className="woocommerce-profiler-button"
+						className="poocommerce-profiler-button"
 						variant="primary"
 						disabled={ ! storeCountry.key }
 						onClick={ () => {
@@ -87,7 +87,7 @@ export const BusinessLocation = ( {
 							} );
 						} }
 					>
-						{ __( 'Go to my store', 'woocommerce' ) }
+						{ __( 'Go to my store', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

@@ -3,11 +3,11 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 use WC_Logger;
 use WC_Logger_Interface;
 
@@ -81,7 +81,7 @@ class CartItems extends ControllerTestCase {
 
 		// Have a mock logger used by the suggestions rule evaluator.
 		$this->mock_logger = $this->getMockBuilder( 'WC_Logger_Interface' )->getMock();
-		add_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class CartItems extends ControllerTestCase {
 	 */
 	protected function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		remove_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 	}
 
 	/**
@@ -271,7 +271,7 @@ class CartItems extends ControllerTestCase {
 	 * Test conversion of cart item to rest response.
 	 */
 	public function test_prepare_item() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart-items', 'v1' );
 		$cart       = wc()->cart->get_cart();
 		$response   = $controller->prepare_item_for_response( current( $cart ), new \WP_REST_Request() );
@@ -301,7 +301,7 @@ class CartItems extends ControllerTestCase {
 	 * Tests schema of both products in cart to cover as much schema as possible.
 	 */
 	public function test_get_item_schema() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart-items', 'v1' );
 		$schema     = $controller->get_item_schema();
 		$cart       = wc()->cart->get_cart();
@@ -327,12 +327,12 @@ class CartItems extends ControllerTestCase {
 	 * @throws \Exception When the images are not filtered correctly.
 	 */
 	public function test_cart_item_image_filtering() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart-items', 'v1' );
 		$cart       = WC()->cart->get_cart();
 
 		add_filter(
-			'woocommerce_store_api_cart_item_images',
+			'poocommerce_store_api_cart_item_images',
 			function ( $images ) {
 				foreach ( $images as $image ) {
 					$image->src       = 'https://example.com/image-1.jpg';
@@ -350,7 +350,7 @@ class CartItems extends ControllerTestCase {
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		$this->assertEquals( $image->src, 'https://example.com/image-1.jpg' );
 		$this->assertEquals( $image->thumbnail, 'https://example.com/image-1-thumbnail.jpg' );
-		remove_all_filters( 'woocommerce_store_api_cart_item_images' );
+		remove_all_filters( 'poocommerce_store_api_cart_item_images' );
 	}
 
 	/**
@@ -360,13 +360,13 @@ class CartItems extends ControllerTestCase {
 	 * @throws \Exception When the errors are not logged correctly.
 	 */
 	public function test_cart_item_image_filtering_logging() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart-items', 'v1' );
 		$cart       = WC()->cart->get_cart();
 
 		// Ensure warning is logged when image has invalid src.
 		add_filter(
-			'woocommerce_store_api_cart_item_images',
+			'poocommerce_store_api_cart_item_images',
 			function ( $images ) {
 				foreach ( $images as $image ) {
 					$image->src = 'invalid';
@@ -380,14 +380,14 @@ class CartItems extends ControllerTestCase {
 		$this->mock_logger
 			->expects( $this->at( 0 ) )
 			->method( 'warning' )
-			->with( sprintf( 'After passing through woocommerce_cart_item_images filter, image with id %s did not have a valid src property.', $this->products[0]->get_image_id() ) );
+			->with( sprintf( 'After passing through poocommerce_cart_item_images filter, image with id %s did not have a valid src property.', $this->products[0]->get_image_id() ) );
 
 		$controller->prepare_item_for_response( current( $cart ), new \WP_REST_Request() );
-		remove_all_filters( 'woocommerce_store_api_cart_item_images' );
+		remove_all_filters( 'poocommerce_store_api_cart_item_images' );
 
 		// Ensure warning is logged when image has invalid thumbnail.
 		add_filter(
-			'woocommerce_store_api_cart_item_images',
+			'poocommerce_store_api_cart_item_images',
 			function ( $images ) {
 				foreach ( $images as $image ) {
 					$image->thumbnail = 'invalid';
@@ -401,14 +401,14 @@ class CartItems extends ControllerTestCase {
 		$this->mock_logger
 			->expects( $this->at( 0 ) )
 			->method( 'warning' )
-			->with( sprintf( 'After passing through woocommerce_cart_item_images filter, image with id %s did not have a valid thumbnail property.', $this->products[0]->get_image_id() ) );
+			->with( sprintf( 'After passing through poocommerce_cart_item_images filter, image with id %s did not have a valid thumbnail property.', $this->products[0]->get_image_id() ) );
 
 		$controller->prepare_item_for_response( current( $cart ), new \WP_REST_Request() );
-		remove_all_filters( 'woocommerce_store_api_cart_item_images' );
+		remove_all_filters( 'poocommerce_store_api_cart_item_images' );
 
 		// Ensure original images are returned if filter returns a non-array.
 		add_filter(
-			'woocommerce_store_api_cart_item_images',
+			'poocommerce_store_api_cart_item_images',
 			function () {
 				return null;
 			},

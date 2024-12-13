@@ -23,13 +23,13 @@ This module is an abstraction on top of the Slot and Fill implementation in Word
 
 ## `createSlotFill( slotName )`
 
-Calling `createSlotFill` with a `slotName` returns two components: `Slot` and `Fill`. Slots are implemented in WooCommerce Blocks, while Fills can be used by extensions to add content within the Slot. A Slot must be called in a tree that has `SlotFillProvider` in it.
+Calling `createSlotFill` with a `slotName` returns two components: `Slot` and `Fill`. Slots are implemented in PooCommerce Blocks, while Fills can be used by extensions to add content within the Slot. A Slot must be called in a tree that has `SlotFillProvider` in it.
 
 ### Usage
 
 ```jsx
 // Aliased import
-import { createSlotFill } from '@woocommerce/blocks-checkout';
+import { createSlotFill } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { createSlotFill } = wc.blocksCheckout;
@@ -53,7 +53,7 @@ If a `Fill` causes an error, and the current user is an admin user, this functio
 
 ```jsx
 // Aliased import
-import { createSlotFill } from '@woocommerce/blocks-checkout';
+import { createSlotFill } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { createSlotFill } = wc.blocksCheckout;
@@ -82,7 +82,7 @@ const { Fill, Slot } = createSlotFill( slotName, onError );
 
 ```jsx
 // Aliased import
-import { createSlotFill } from '@woocommerce/blocks-checkout';
+import { createSlotFill } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { createSlotFill } = wc.blocksCheckout;
@@ -119,7 +119,7 @@ Props passed to each fill implementation.
 
 ```jsx
 // Aliased import
-import { createSlotFill } from '@woocommerce/blocks-checkout';
+import { createSlotFill } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { createSlotFill } = wc.blocksCheckout;
@@ -157,7 +157,7 @@ Slot/Fills are exported and available for use by extensions. One such Slot Fill 
 import { registerPlugin } from '@wordpress/plugins';
 
 // Aliased import
-import { ExperimentalOrderMeta } from '@woocommerce/blocks-checkout';
+import { ExperimentalOrderMeta } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { ExperimentalOrderMeta } = wc.blocksCheckout;
@@ -187,9 +187,9 @@ Slot Fills are implemented throughout the Cart and Checkout Blocks, as well as s
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/slot/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/slot/README.md)
 
 <!-- /FEEDBACK -->
 

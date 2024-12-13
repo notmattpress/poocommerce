@@ -28,7 +28,7 @@ const ProductRating: React.VFC< ProductRatingProps > = ( {
 ProductRating.propTypes = {
 	/**
 	 * A product object containing a `average_rating`.
-	 * See https://woocommerce.github.io/woocommerce-rest-api-docs/#products.
+	 * See https://poocommerce.github.io/poocommerce-rest-api-docs/#products.
 	 */
 	product: PropTypes.object.isRequired,
 };

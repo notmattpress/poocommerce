@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AI;
+namespace Automattic\PooCommerce\Blocks\AI;
 
 use Automattic\Jetpack\Connection\Client;
 use Jetpack_Options;
@@ -33,7 +33,7 @@ class Connection {
 		}
 
 		$body = array(
-			'feature' => 'woocommerce_blocks_patterns',
+			'feature' => 'poocommerce_blocks_patterns',
 			'prompt'  => $prompt,
 			'token'   => $token,
 			'model'   => self::MODEL,
@@ -52,7 +52,7 @@ class Connection {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			return new \WP_Error( $response->get_error_code(), esc_html__( 'Failed to connect with the AI endpoint: try again later.', 'woocommerce' ), $response->get_error_message() );
+			return new \WP_Error( $response->get_error_code(), esc_html__( 'Failed to connect with the AI endpoint: try again later.', 'poocommerce' ), $response->get_error_message() );
 		}
 
 		$body = wp_remote_retrieve_body( $response );
@@ -78,7 +78,7 @@ class Connection {
 		$requests = array();
 		foreach ( $prompts as $prompt ) {
 			$data = array(
-				'feature' => 'woocommerce_blocks_patterns',
+				'feature' => 'poocommerce_blocks_patterns',
 				'prompt'  => $prompt,
 				'token'   => $token,
 				'model'   => self::MODEL,
@@ -102,7 +102,7 @@ class Connection {
 
 		foreach ( $responses as $key => $response ) {
 			if ( is_wp_error( $response ) || is_a( $response, Exception::class ) ) {
-				return new WP_Error( 'failed-to-connect-with-the-ai-endpoint', esc_html__( 'Failed to connect with the AI endpoint: try again later.', 'woocommerce' ) );
+				return new WP_Error( 'failed-to-connect-with-the-ai-endpoint', esc_html__( 'Failed to connect with the AI endpoint: try again later.', 'poocommerce' ) );
 			}
 
 			$processed_responses[ $key ] = json_decode( $response->body, true );
@@ -118,13 +118,13 @@ class Connection {
 	 */
 	public function get_site_id() {
 		if ( ! class_exists( Jetpack_Options::class ) ) {
-			return new \WP_Error( 'site-id-error', esc_html__( 'Failed to fetch the site ID: try again later.', 'woocommerce' ) );
+			return new \WP_Error( 'site-id-error', esc_html__( 'Failed to fetch the site ID: try again later.', 'poocommerce' ) );
 		}
 
 		$site_id = Jetpack_Options::get_option( 'id' );
 
 		if ( ! $site_id ) {
-			return new \WP_Error( 'site-id-error', esc_html__( 'Failed to fetch the site ID: The site is not registered.', 'woocommerce' ) );
+			return new \WP_Error( 'site-id-error', esc_html__( 'Failed to fetch the site ID: The site is not registered.', 'poocommerce' ) );
 		}
 
 		return $site_id;
@@ -154,11 +154,11 @@ class Connection {
 		$response = json_decode( wp_remote_retrieve_body( $request ) );
 
 		if ( $response instanceof \WP_Error ) {
-			return new \WP_Error( $response->get_error_code(), esc_html__( 'Failed to generate the JWT token', 'woocommerce' ), $response->get_error_message() );
+			return new \WP_Error( $response->get_error_code(), esc_html__( 'Failed to generate the JWT token', 'poocommerce' ), $response->get_error_message() );
 		}
 
 		if ( ! isset( $response->token ) ) {
-			return new \WP_Error( 'failed-to-retrieve-jwt-token', esc_html__( 'Failed to retrieve the JWT token: Try again later.', 'woocommerce' ) );
+			return new \WP_Error( 'failed-to-retrieve-jwt-token', esc_html__( 'Failed to retrieve the JWT token: Try again later.', 'poocommerce' ) );
 		}
 
 		return $response->token;

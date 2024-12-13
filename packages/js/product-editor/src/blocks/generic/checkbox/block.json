@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-checkbox-field",
+	"name": "poocommerce/product-checkbox-field",
 	"title": "Product checkbox control",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "A reusable checkbox for the product editor.",
 	"keywords": [
 		"products",

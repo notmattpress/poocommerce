@@ -7,8 +7,8 @@ import { store as blockEditorStore, Warning } from '@wordpress/block-editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { Icon, search } from '@wordpress/icons';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 import { Button } from '@wordpress/components';
 import type { Block as BlockType } from '@wordpress/blocks';
 import {
@@ -48,7 +48,7 @@ const attributes = {
 	 */
 	label: {
 		type: 'string',
-		default: __( 'Search', 'woocommerce' ),
+		default: __( 'Search', 'poocommerce' ),
 	},
 
 	/**
@@ -56,7 +56,7 @@ const attributes = {
 	 */
 	placeholder: {
 		type: 'string',
-		default: __( 'Search products…', 'woocommerce' ),
+		default: __( 'Search products…', 'poocommerce' ),
 	},
 
 	/**
@@ -106,7 +106,7 @@ const DeprecatedBlockEdit = ( { clientId }: { clientId: string } ) => {
 
 	const actions = [
 		<Button key="update" onClick={ updateBlock } variant="primary">
-			{ __( 'Upgrade Block', 'woocommerce' ) }
+			{ __( 'Upgrade Block', 'poocommerce' ) }
 		</Button>,
 	];
 
@@ -114,14 +114,14 @@ const DeprecatedBlockEdit = ( { clientId }: { clientId: string } ) => {
 		<Warning actions={ actions } className="wc-block-components-actions">
 			{ __(
 				'This version of the Product Search block is outdated. Upgrade to continue using.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</Warning>
 	);
 };
 
 registerBlockType( SEARCH_VARIATION_NAME, {
-	title: __( 'Product Search', 'woocommerce' ),
+	title: __( 'Product Search', 'poocommerce' ),
 	apiVersion: 3,
 	icon: {
 		src: (
@@ -131,11 +131,11 @@ registerBlockType( SEARCH_VARIATION_NAME, {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 	description: __(
 		'A search box to allow customers to search for products by keyword.',
-		'woocommerce'
+		'poocommerce'
 	),
 	supports: {
 		align: [ 'wide', 'full' ],
@@ -149,7 +149,7 @@ registerBlockType( SEARCH_VARIATION_NAME, {
 				blocks: [ 'core/legacy-widget' ],
 				// We can't transform if raw instance isn't shown in the REST API.
 				isMatch: ( { idBase, instance } ) =>
-					idBase === 'woocommerce_product_search' && !! instance?.raw,
+					idBase === 'poocommerce_product_search' && !! instance?.raw,
 				transform: ( { instance } ) =>
 					createBlock( SEARCH_VARIATION_NAME, {
 						label:
@@ -202,7 +202,7 @@ addFilter(
 if ( isBlockVariationAvailable ) {
 	registerBlockVariation( 'core/search', {
 		name: SEARCH_VARIATION_NAME,
-		title: __( 'Product Search', 'woocommerce' ),
+		title: __( 'Product Search', 'poocommerce' ),
 		icon: {
 			src: (
 				<Icon
@@ -218,11 +218,11 @@ if ( isBlockVariationAvailable ) {
 				variationAttributes.query.post_type
 			);
 		},
-		category: 'woocommerce',
-		keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+		category: 'poocommerce',
+		keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 		description: __(
 			'A search box to allow customers to search for products by keyword.',
-			'woocommerce'
+			'poocommerce'
 		),
 		attributes: PRODUCT_SEARCH_ATTRIBUTES,
 	} );

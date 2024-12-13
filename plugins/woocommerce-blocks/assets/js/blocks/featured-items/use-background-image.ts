@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { WP_REST_API_Category } from 'wp-types';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import {
 	getImageSrcFromProduct,
 	getImageIdFromProduct,
-} from '@woocommerce/utils';
+} from '@poocommerce/utils';
 import { useEffect, useState } from '@wordpress/element';
 
 /**

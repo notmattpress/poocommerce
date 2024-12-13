@@ -11,7 +11,7 @@ import { Edit, Save } from './edit';
 import attributes from './attributes';
 import './style.scss';
 
-registerBlockType( 'woocommerce/checkout-pickup-options-block', {
+registerBlockType( 'poocommerce/checkout-pickup-options-block', {
 	icon: {
 		src: (
 			<Icon

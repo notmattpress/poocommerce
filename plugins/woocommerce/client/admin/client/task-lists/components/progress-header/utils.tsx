@@ -6,10 +6,10 @@ import { Slot, Fill } from '@wordpress/components';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 export const WC_TASKLIST_EXPERIMENTAL_PROGRESS_HEADER_SLOT_NAME =
-	'woocommerce_tasklist_experimental_progress_header_item';
+	'poocommerce_tasklist_experimental_progress_header_item';
 
 export const WooTaskListProgressHeaderItem: React.FC< {
 	children?: React.ReactNode;

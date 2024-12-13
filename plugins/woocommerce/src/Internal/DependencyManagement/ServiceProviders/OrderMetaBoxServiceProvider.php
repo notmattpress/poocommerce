@@ -3,12 +3,12 @@
  * Service provider for order meta boxes.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\CustomMetaBox;
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomerHistory;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\CustomMetaBox;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * OrderMetaBoxServiceProvider class.

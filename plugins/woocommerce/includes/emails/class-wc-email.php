@@ -2,7 +2,7 @@
 /**
  * Class WC_Email file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 use Pelago\Emogrifier\CssInliner;
@@ -20,11 +20,11 @@ if ( class_exists( 'WC_Email', false ) ) {
 /**
  * Email Class
  *
- * WooCommerce Email Class which is extended by specific email template classes to add emails to WooCommerce
+ * PooCommerce Email Class which is extended by specific email template classes to add emails to PooCommerce
  *
  * @class       WC_Email
  * @version     2.5.0
- * @package     WooCommerce\Classes\Emails
+ * @package     PooCommerce\Classes\Emails
  * @extends     WC_Settings_API
  */
 class WC_Email extends WC_Settings_API {
@@ -262,7 +262,7 @@ class WC_Email extends WC_Settings_API {
 		$this->enabled    = $this->get_option( 'enabled' );
 
 		add_action( 'phpmailer_init', array( $this, 'handle_multipart' ) );
-		add_action( 'woocommerce_update_options_email_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_email_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -307,7 +307,7 @@ class WC_Email extends WC_Settings_API {
 		$replace[] = $this->get_blogname();
 
 		// If using the older style filters for find and replace, ensure the array is associative and then pass through filters. @todo deprecate in 4.0.0.
-		if ( has_filter( 'woocommerce_email_format_string_replace' ) || has_filter( 'woocommerce_email_format_string_find' ) ) {
+		if ( has_filter( 'poocommerce_email_format_string_replace' ) || has_filter( 'poocommerce_email_format_string_find' ) ) {
 			$legacy_find    = $this->find;
 			$legacy_replace = $this->replace;
 
@@ -317,7 +317,7 @@ class WC_Email extends WC_Settings_API {
 				$legacy_replace[ $legacy_key ] = $replace;
 			}
 
-			$string = str_replace( apply_filters( 'woocommerce_email_format_string_find', $legacy_find, $this ), apply_filters( 'woocommerce_email_format_string_replace', $legacy_replace, $this ), $string );
+			$string = str_replace( apply_filters( 'poocommerce_email_format_string_find', $legacy_find, $this ), apply_filters( 'poocommerce_email_format_string_replace', $legacy_replace, $this ), $string );
 		}
 
 		/**
@@ -325,7 +325,7 @@ class WC_Email extends WC_Settings_API {
 		 *
 		 * @since 3.2.0
 		 */
-		return apply_filters( 'woocommerce_email_format_string', str_replace( $find, $replace, $string ), $this );
+		return apply_filters( 'poocommerce_email_format_string', str_replace( $find, $replace, $string ), $this );
 	}
 
 	/**
@@ -341,9 +341,9 @@ class WC_Email extends WC_Settings_API {
 		 * @param bool $default_value The default returned value.
 		 * @param WC_Email $this The WC_Email object.
 		 */
-		$switch_email_locale = apply_filters( 'woocommerce_allow_switching_email_locale', true, $this );
+		$switch_email_locale = apply_filters( 'poocommerce_allow_switching_email_locale', true, $this );
 
-		if ( $switch_email_locale && $this->is_customer_email() && apply_filters( 'woocommerce_email_setup_locale', true ) ) {
+		if ( $switch_email_locale && $this->is_customer_email() && apply_filters( 'poocommerce_email_setup_locale', true ) ) {
 			wc_switch_to_site_locale();
 		}
 	}
@@ -361,9 +361,9 @@ class WC_Email extends WC_Settings_API {
 		 * @param bool $default_value The default returned value.
 		 * @param WC_Email $this The WC_Email object.
 		 */
-		$restore_email_locale = apply_filters( 'woocommerce_allow_restoring_email_locale', true, $this );
+		$restore_email_locale = apply_filters( 'poocommerce_allow_restoring_email_locale', true, $this );
 
-		if ( $restore_email_locale && $this->is_customer_email() && apply_filters( 'woocommerce_email_restore_locale', true ) ) {
+		if ( $restore_email_locale && $this->is_customer_email() && apply_filters( 'poocommerce_email_restore_locale', true ) ) {
 			wc_restore_locale();
 		}
 	}
@@ -416,7 +416,7 @@ class WC_Email extends WC_Settings_API {
 		 * @param object|bool $object             The object (ie, product or order) this email relates to, if any.
 		 * @param WC_Email    $email              WC_Email instance managing the email.
 		 */
-		return apply_filters( 'woocommerce_email_additional_content_' . $this->id, $this->format_string( $this->get_option( 'additional_content' ) ), $this->object, $this );
+		return apply_filters( 'poocommerce_email_additional_content_' . $this->id, $this->format_string( $this->get_option( 'additional_content' ) ), $this->object, $this );
 	}
 
 	/**
@@ -425,7 +425,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_subject() {
-		return apply_filters( 'woocommerce_email_subject_' . $this->id, $this->format_string( $this->get_option( 'subject', $this->get_default_subject() ) ), $this->object, $this );
+		return apply_filters( 'poocommerce_email_subject_' . $this->id, $this->format_string( $this->get_option( 'subject', $this->get_default_subject() ) ), $this->object, $this );
 	}
 
 	/**
@@ -434,7 +434,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_heading() {
-		return apply_filters( 'woocommerce_email_heading_' . $this->id, $this->format_string( $this->get_option( 'heading', $this->get_default_heading() ) ), $this->object, $this );
+		return apply_filters( 'poocommerce_email_heading_' . $this->id, $this->format_string( $this->get_option( 'heading', $this->get_default_heading() ) ), $this->object, $this );
 	}
 
 	/**
@@ -443,7 +443,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_recipient() {
-		$recipient  = apply_filters( 'woocommerce_email_recipient_' . $this->id, $this->recipient, $this->object, $this );
+		$recipient  = apply_filters( 'poocommerce_email_recipient_' . $this->id, $this->recipient, $this->object, $this );
 		$recipients = array_map( 'trim', explode( ',', $recipient ) );
 		$recipients = array_filter( $recipients, 'is_email' );
 		return implode( ', ', $recipients );
@@ -465,7 +465,7 @@ class WC_Email extends WC_Settings_API {
 			$header .= 'Reply-to: ' . $this->get_from_name() . ' <' . $this->get_from_address() . ">\r\n";
 		}
 
-		return apply_filters( 'woocommerce_email_headers', $header, $this->id, $this->object, $this );
+		return apply_filters( 'poocommerce_email_headers', $header, $this->id, $this->object, $this );
 	}
 
 	/**
@@ -474,7 +474,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return array
 	 */
 	public function get_attachments() {
-		return apply_filters( 'woocommerce_email_attachments', array(), $this->id, $this->object, $this );
+		return apply_filters( 'poocommerce_email_attachments', array(), $this->id, $this->object, $this );
 	}
 
 	/**
@@ -505,7 +505,7 @@ class WC_Email extends WC_Settings_API {
 				break;
 		}
 
-		return apply_filters( 'woocommerce_email_content_type', $content_type, $this, $default_content_type );
+		return apply_filters( 'poocommerce_email_content_type', $content_type, $this, $default_content_type );
 	}
 
 	/**
@@ -514,7 +514,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_title() {
-		return apply_filters( 'woocommerce_email_title', $this->title, $this );
+		return apply_filters( 'poocommerce_email_title', $this->title, $this );
 	}
 
 	/**
@@ -523,7 +523,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_description() {
-		return apply_filters( 'woocommerce_email_description', $this->description, $this );
+		return apply_filters( 'poocommerce_email_description', $this->description, $this );
 	}
 
 	/**
@@ -535,7 +535,7 @@ class WC_Email extends WC_Settings_API {
 	 */
 	public function get_option( $key, $empty_value = null ) {
 		$value = parent::get_option( $key, $empty_value );
-		return apply_filters( 'woocommerce_email_get_option', $value, $this, $value, $key, $empty_value );
+		return apply_filters( 'poocommerce_email_get_option', $value, $this, $value, $key, $empty_value );
 	}
 
 	/**
@@ -544,7 +544,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return bool
 	 */
 	public function is_enabled() {
-		return apply_filters( 'woocommerce_email_enabled_' . $this->id, 'yes' === $this->enabled, $this->object, $this );
+		return apply_filters( 'poocommerce_email_enabled_' . $this->id, 'yes' === $this->enabled, $this->object, $this );
 	}
 
 	/**
@@ -618,7 +618,7 @@ class WC_Email extends WC_Settings_API {
 			 * @param string    $css   CSS code.
 			 * @param \WC_Email $email E-mail instance.
 			 */
-			$css = apply_filters( 'woocommerce_email_styles', $css, $this );
+			$css = apply_filters( 'poocommerce_email_styles', $css, $this );
 
 			$css_inliner_class = CssInliner::class;
 
@@ -626,7 +626,7 @@ class WC_Email extends WC_Settings_API {
 				try {
 					$css_inliner = CssInliner::fromHtml( $content )->inlineCss( $css );
 
-					do_action( 'woocommerce_emogrifier', $css_inliner, $this );
+					do_action( 'poocommerce_emogrifier', $css_inliner, $this );
 
 					$dom_document = $css_inliner->getDomDocument();
 
@@ -658,7 +658,7 @@ class WC_Email extends WC_Settings_API {
 
 		/*
 		* Temporary measure until e-mail clients more properly support the correct styles.
-		* See https://github.com/woocommerce/woocommerce/pull/47738.
+		* See https://github.com/poocommerce/poocommerce/pull/47738.
 		*/
 		.screen-reader-text {
 			display: none;
@@ -705,7 +705,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_from_name( $from_name = '' ) {
-		$from_name = apply_filters( 'woocommerce_email_from_name', get_option( 'woocommerce_email_from_name' ), $this, $from_name );
+		$from_name = apply_filters( 'poocommerce_email_from_name', get_option( 'poocommerce_email_from_name' ), $this, $from_name );
 		return wp_specialchars_decode( esc_html( $from_name ), ENT_QUOTES );
 	}
 
@@ -716,7 +716,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_from_address( $from_email = '' ) {
-		$from_email = apply_filters( 'woocommerce_email_from_address', get_option( 'woocommerce_email_from_address' ), $this, $from_email );
+		$from_email = apply_filters( 'poocommerce_email_from_address', get_option( 'poocommerce_email_from_address' ), $this, $from_email );
 		return sanitize_email( $from_email );
 	}
 
@@ -745,9 +745,9 @@ class WC_Email extends WC_Settings_API {
 		add_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
 		add_filter( 'wp_mail_content_type', array( $this, 'get_content_type' ) );
 
-		$message              = apply_filters( 'woocommerce_mail_content', $this->style_inline( $message ) );
-		$mail_callback        = apply_filters( 'woocommerce_mail_callback', 'wp_mail', $this );
-		$mail_callback_params = apply_filters( 'woocommerce_mail_callback_params', array( $to, wp_specialchars_decode( $subject ), $message, $headers, $attachments ), $this );
+		$message              = apply_filters( 'poocommerce_mail_content', $this->style_inline( $message ) );
+		$mail_callback        = apply_filters( 'poocommerce_mail_callback', 'wp_mail', $this );
+		$mail_callback_params = apply_filters( 'poocommerce_mail_callback_params', array( $to, wp_specialchars_decode( $subject ), $message, $headers, $attachments ), $this );
 		$return               = $mail_callback( ...$mail_callback_params );
 
 		remove_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
@@ -765,7 +765,7 @@ class WC_Email extends WC_Settings_API {
 		 * @param int      $id     Email ID.
 		 * @param WC_Email $this   WC_Email instance.
 		 */
-		do_action( 'woocommerce_email_sent', $return, $this->id, $this );
+		do_action( 'poocommerce_email_sent', $return, $this->id, $this );
 
 		return $return;
 	}
@@ -775,16 +775,16 @@ class WC_Email extends WC_Settings_API {
 	 */
 	public function init_form_fields() {
 		/* translators: %s: list of placeholders */
-		$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+		$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 		$this->form_fields = array(
 			'enabled'            => array(
-				'title'   => __( 'Enable/Disable', 'woocommerce' ),
+				'title'   => __( 'Enable/Disable', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable this email notification', 'woocommerce' ),
+				'label'   => __( 'Enable this email notification', 'poocommerce' ),
 				'default' => 'yes',
 			),
 			'subject'            => array(
-				'title'       => __( 'Subject', 'woocommerce' ),
+				'title'       => __( 'Subject', 'poocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				'description' => $placeholder_text,
@@ -792,7 +792,7 @@ class WC_Email extends WC_Settings_API {
 				'default'     => '',
 			),
 			'heading'            => array(
-				'title'       => __( 'Email heading', 'woocommerce' ),
+				'title'       => __( 'Email heading', 'poocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				'description' => $placeholder_text,
@@ -800,18 +800,18 @@ class WC_Email extends WC_Settings_API {
 				'default'     => '',
 			),
 			'additional_content' => array(
-				'title'       => __( 'Additional content', 'woocommerce' ),
-				'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+				'title'       => __( 'Additional content', 'poocommerce' ),
+				'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 				'css'         => 'width:400px; height: 75px;',
-				'placeholder' => __( 'N/A', 'woocommerce' ),
+				'placeholder' => __( 'N/A', 'poocommerce' ),
 				'type'        => 'textarea',
 				'default'     => $this->get_default_additional_content(),
 				'desc_tip'    => true,
 			),
 			'email_type'         => array(
-				'title'       => __( 'Email type', 'woocommerce' ),
+				'title'       => __( 'Email type', 'poocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+				'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 				'default'     => 'html',
 				'class'       => 'email_type wc-enhanced-select',
 				'options'     => $this->get_email_type_options(),
@@ -826,11 +826,11 @@ class WC_Email extends WC_Settings_API {
 	 * @return array
 	 */
 	public function get_email_type_options() {
-		$types = array( 'plain' => __( 'Plain text', 'woocommerce' ) );
+		$types = array( 'plain' => __( 'Plain text', 'poocommerce' ) );
 
 		if ( class_exists( 'DOMDocument' ) ) {
-			$types['html']      = __( 'HTML', 'woocommerce' );
-			$types['multipart'] = __( 'Multipart', 'woocommerce' );
+			$types['html']      = __( 'HTML', 'poocommerce' );
+			$types['multipart'] = __( 'Multipart', 'poocommerce' );
 		}
 
 		return $types;
@@ -895,7 +895,7 @@ class WC_Email extends WC_Settings_API {
 			}
 
 			if ( ! $saved ) {
-				$redirect = add_query_arg( 'wc_error', rawurlencode( __( 'Could not write to template file.', 'woocommerce' ) ) );
+				$redirect = add_query_arg( 'wc_error', rawurlencode( __( 'Could not write to template file.', 'poocommerce' ) ) );
 				wp_safe_redirect( $redirect );
 				exit;
 			}
@@ -910,7 +910,7 @@ class WC_Email extends WC_Settings_API {
 	 * @return string
 	 */
 	public function get_theme_template_file( $template ) {
-		return get_stylesheet_directory() . '/' . apply_filters( 'woocommerce_template_directory', 'woocommerce', $template ) . '/' . $template;
+		return get_stylesheet_directory() . '/' . apply_filters( 'poocommerce_template_directory', 'poocommerce', $template ) . '/' . $template;
 	}
 
 	/**
@@ -927,7 +927,7 @@ class WC_Email extends WC_Settings_API {
 
 				// Locate template file.
 				$core_file     = $this->template_base . $template;
-				$template_file = apply_filters( 'woocommerce_locate_core_template', $core_file, $template, $this->template_base, $this->id );
+				$template_file = apply_filters( 'poocommerce_locate_core_template', $core_file, $template, $this->template_base, $this->id );
 
 				// Copy template file.
 				copy( $template_file, $theme_file );
@@ -938,11 +938,11 @@ class WC_Email extends WC_Settings_API {
 				 * @param string $template_type The copied template type
 				 * @param string $email The email object
 				 */
-				do_action( 'woocommerce_copy_email_template', $template_type, $this );
+				do_action( 'poocommerce_copy_email_template', $template_type, $this );
 
 				?>
 				<div class="updated">
-					<p><?php echo esc_html__( 'Template file copied to theme.', 'woocommerce' ); ?></p>
+					<p><?php echo esc_html__( 'Template file copied to theme.', 'poocommerce' ); ?></p>
 				</div>
 				<?php
 			}
@@ -970,10 +970,10 @@ class WC_Email extends WC_Settings_API {
 					 * @param string $template The deleted template type
 					 * @param string $email The email object
 					 */
-					do_action( 'woocommerce_delete_email_template', $template_type, $this );
+					do_action( 'poocommerce_delete_email_template', $template_type, $this );
 					?>
 					<div class="updated">
-						<p><?php echo esc_html__( 'Template file deleted from theme.', 'woocommerce' ); ?></p>
+						<p><?php echo esc_html__( 'Template file deleted from theme.', 'poocommerce' ); ?></p>
 					</div>
 					<?php
 				}
@@ -991,12 +991,12 @@ class WC_Email extends WC_Settings_API {
 			&& ( ! empty( $_GET['move_template'] ) || ! empty( $_GET['delete_template'] ) )
 			&& 'GET' === $_SERVER['REQUEST_METHOD'] // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		) {
-			if ( empty( $_GET['_wc_email_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_GET['_wc_email_nonce'] ) ), 'woocommerce_email_template_nonce' ) ) {
-				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
+			if ( empty( $_GET['_wc_email_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_GET['_wc_email_nonce'] ) ), 'poocommerce_email_template_nonce' ) ) {
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'poocommerce' ) );
 			}
 
 			if ( ! current_user_can( 'edit_themes' ) ) {
-				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'woocommerce' ) );
+				wp_die( esc_html__( 'You don&#8217;t have permission to do this.', 'poocommerce' ) );
 			}
 
 			if ( ! empty( $_GET['move_template'] ) ) {
@@ -1021,7 +1021,7 @@ class WC_Email extends WC_Settings_API {
 		// Do admin actions.
 		$this->admin_actions();
 		?>
-		<h2><?php echo esc_html( $this->get_title() ); ?> <?php wc_back_link( __( 'Return to emails', 'woocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=email' ) ); ?></h2>
+		<h2><?php echo esc_html( $this->get_title() ); ?> <?php wc_back_link( __( 'Return to emails', 'poocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=email' ) ); ?></h2>
 
 		<?php echo wpautop( wp_kses_post( $this->get_description() ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
 
@@ -1031,7 +1031,7 @@ class WC_Email extends WC_Settings_API {
 		 *
 		 * @param string $email The email object
 		 */
-		do_action( 'woocommerce_email_settings_before', $this );
+		do_action( 'poocommerce_email_settings_before', $this );
 		?>
 
 		<table class="form-table">
@@ -1044,7 +1044,7 @@ class WC_Email extends WC_Settings_API {
 		 *
 		 * @param string $email The email object
 		 */
-		do_action( 'woocommerce_email_settings_after', $this );
+		do_action( 'poocommerce_email_settings_after', $this );
 		?>
 
 		<?php
@@ -1054,8 +1054,8 @@ class WC_Email extends WC_Settings_API {
 			<div id="template">
 				<?php
 				$templates = array(
-					'template_html'  => __( 'HTML template', 'woocommerce' ),
-					'template_plain' => __( 'Plain text template', 'woocommerce' ),
+					'template_html'  => __( 'HTML template', 'poocommerce' ),
+					'template_plain' => __( 'Plain text template', 'poocommerce' ),
 				);
 
 				foreach ( $templates as $template_type => $title ) :
@@ -1067,8 +1067,8 @@ class WC_Email extends WC_Settings_API {
 
 					$local_file    = $this->get_theme_template_file( $template );
 					$core_file     = $this->template_base . $template;
-					$template_file = apply_filters( 'woocommerce_locate_core_template', $core_file, $template, $this->template_base, $this->id );
-					$template_dir  = apply_filters( 'woocommerce_template_directory', 'woocommerce', $template );
+					$template_file = apply_filters( 'poocommerce_locate_core_template', $core_file, $template, $this->template_base, $this->id );
+					$template_dir  = apply_filters( 'poocommerce_template_directory', 'poocommerce', $template );
 					?>
 					<div class="template <?php echo esc_attr( $template_type ); ?>">
 						<h4><?php echo wp_kses_post( $title ); ?></h4>
@@ -1078,14 +1078,14 @@ class WC_Email extends WC_Settings_API {
 								<a href="#" class="button toggle_editor"></a>
 
 								<?php if ( is_writable( $local_file ) ) : // phpcs:ignore WordPress.VIP.FileSystemWritesDisallow.file_ops_is_writable ?>
-									<a href="<?php echo esc_url( wp_nonce_url( remove_query_arg( array( 'move_template', 'saved' ), add_query_arg( 'delete_template', $template_type ) ), 'woocommerce_email_template_nonce', '_wc_email_nonce' ) ); ?>" class="delete_template button">
-										<?php esc_html_e( 'Delete template file', 'woocommerce' ); ?>
+									<a href="<?php echo esc_url( wp_nonce_url( remove_query_arg( array( 'move_template', 'saved' ), add_query_arg( 'delete_template', $template_type ) ), 'poocommerce_email_template_nonce', '_wc_email_nonce' ) ); ?>" class="delete_template button">
+										<?php esc_html_e( 'Delete template file', 'poocommerce' ); ?>
 									</a>
 								<?php endif; ?>
 
 								<?php
 								/* translators: %s: Path to template file */
-								printf( esc_html__( 'This template has been overridden by your theme and can be found in: %s.', 'woocommerce' ), '<code>' . esc_html( trailingslashit( basename( get_stylesheet_directory() ) ) . $template_dir . '/' . $template ) . '</code>' );
+								printf( esc_html__( 'This template has been overridden by your theme and can be found in: %s.', 'poocommerce' ), '<code>' . esc_html( trailingslashit( basename( get_stylesheet_directory() ) ) . $template_dir . '/' . $template ) . '</code>' );
 								?>
 							</p>
 
@@ -1117,14 +1117,14 @@ class WC_Email extends WC_Settings_API {
 
 								if ( is_writable( $target_dir ) ) : // phpcs:ignore WordPress.VIP.FileSystemWritesDisallow.file_ops_is_writable
 									?>
-									<a href="<?php echo esc_url( wp_nonce_url( remove_query_arg( array( 'delete_template', 'saved' ), add_query_arg( 'move_template', $template_type ) ), 'woocommerce_email_template_nonce', '_wc_email_nonce' ) ); ?>" class="button">
-										<?php esc_html_e( 'Copy file to theme', 'woocommerce' ); ?>
+									<a href="<?php echo esc_url( wp_nonce_url( remove_query_arg( array( 'delete_template', 'saved' ), add_query_arg( 'move_template', $template_type ) ), 'poocommerce_email_template_nonce', '_wc_email_nonce' ) ); ?>" class="button">
+										<?php esc_html_e( 'Copy file to theme', 'poocommerce' ); ?>
 									</a>
 								<?php endif; ?>
 
 								<?php
 								/* translators: 1: Path to template file 2: Path to theme folder */
-								printf( esc_html__( 'To override and edit this email template copy %1$s to your theme folder: %2$s.', 'woocommerce' ), '<code>' . esc_html( plugin_basename( $template_file ) ) . '</code>', '<code>' . esc_html( trailingslashit( basename( get_stylesheet_directory() ) ) . $template_dir . '/' . $template ) . '</code>' );
+								printf( esc_html__( 'To override and edit this email template copy %1$s to your theme folder: %2$s.', 'poocommerce' ), '<code>' . esc_html( plugin_basename( $template_file ) ) . '</code>', '<code>' . esc_html( trailingslashit( basename( get_stylesheet_directory() ) ) . $template_dir . '/' . $template ) . '</code>' );
 								?>
 							</p>
 
@@ -1132,7 +1132,7 @@ class WC_Email extends WC_Settings_API {
 								<textarea class="code" readonly="readonly" disabled="disabled" cols="25" rows="20"><?php echo esc_html( file_get_contents( $template_file ) );  // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents ?></textarea>
 							</div>
 						<?php else : ?>
-							<p><?php esc_html_e( 'File was not found.', 'woocommerce' ); ?></p>
+							<p><?php esc_html_e( 'File was not found.', 'poocommerce' ); ?></p>
 						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
@@ -1156,8 +1156,8 @@ class WC_Email extends WC_Settings_API {
 
 				}).trigger( 'change' );
 
-				var view = '" . esc_js( __( 'View template', 'woocommerce' ) ) . "';
-				var hide = '" . esc_js( __( 'Hide template', 'woocommerce' ) ) . "';
+				var view = '" . esc_js( __( 'View template', 'poocommerce' ) ) . "';
+				var hide = '" . esc_js( __( 'Hide template', 'poocommerce' ) ) . "';
 
 				jQuery( 'a.toggle_editor' ).text( view ).on( 'click', function() {
 					var label = hide;
@@ -1171,7 +1171,7 @@ class WC_Email extends WC_Settings_API {
 				} );
 
 				jQuery( 'a.delete_template' ).on( 'click', function() {
-					if ( window.confirm('" . esc_js( __( 'Are you sure you want to delete this template file?', 'woocommerce' ) ) . "') ) {
+					if ( window.confirm('" . esc_js( __( 'Are you sure you want to delete this template file?', 'poocommerce' ) ) . "') ) {
 						return true;
 					}
 

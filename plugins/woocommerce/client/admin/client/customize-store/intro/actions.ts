@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { assign, DoneInvokeEvent } from 'xstate';
-import { TaskReferralRecord } from '@woocommerce/onboarding';
+import { TaskReferralRecord } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies

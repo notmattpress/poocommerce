@@ -9,7 +9,7 @@ import { createElement } from '@wordpress/element';
 import Pill from '../';
 
 export default {
-	title: 'WooCommerce Admin/components/Pill',
+	title: 'PooCommerce Admin/components/Pill',
 	component: Pill,
 };
 

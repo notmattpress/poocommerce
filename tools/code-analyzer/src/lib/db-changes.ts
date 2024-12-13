@@ -4,7 +4,7 @@
 import {
 	getFilename,
 	getPatches,
-} from '@woocommerce/monorepo-utils/src/core/git';
+} from '@poocommerce/monorepo-utils/src/core/git';
 
 export const scanForDBChanges = ( content: string ) => {
 	const matchPatches = /^a\/(.+).php/g;

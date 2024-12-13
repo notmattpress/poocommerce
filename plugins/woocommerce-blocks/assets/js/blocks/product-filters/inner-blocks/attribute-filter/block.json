@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-attribute",
+	"name": "poocommerce/product-filter-attribute",
 	"version": "1.0.0",
 	"title": "Attribute (Experimental)",
 	"description": "Enable customers to filter the product grid by selecting one or more attributes, such as color.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"ancestor": [
-		"woocommerce/product-filters"
+		"poocommerce/product-filters"
 	],
 	"supports": {
 		"interactivity": true,
@@ -77,7 +77,7 @@
 		},
 		"displayStyle": {
 			"type": "string",
-			"default": "woocommerce/product-filter-checkbox-list"
+			"default": "poocommerce/product-filter-checkbox-list"
 		},
 		"selectType": {
 			"type": "string",

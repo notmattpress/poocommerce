@@ -1,6 +1,6 @@
-# WooCommerce Blocks <!-- omit in toc -->
+# PooCommerce Blocks <!-- omit in toc -->
 
-This is the client for WooCommerce + Gutenberg. This package serves as a space to iterate and explore new Blocks and updates to existing blocks for WooCommerce, and how WooCommerce might work with the Block Editor.
+This is the client for PooCommerce + Gutenberg. This package serves as a space to iterate and explore new Blocks and updates to existing blocks for PooCommerce, and how PooCommerce might work with the Block Editor.
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -11,16 +11,16 @@ This is the client for WooCommerce + Gutenberg. This package serves as a space t
 
 ## Documentation
 
-To find out more about the blocks and how to use them, [check out the documentation on WooCommerce.com](https://woocommerce.com/document/woocommerce-blocks/).
+To find out more about the blocks and how to use them, [check out the documentation on PooCommerce.com](https://poocommerce.com/document/poocommerce-blocks/).
 
 If you want to see what we're working on for future versions, or want to help out, read on.
 
 ### Code Documentation
 
 -   [Blocks](./assets/js/blocks) - Documentation for specific Blocks.
--   [Editor Components](assets/js/editor-components) - Shared components used in WooCommerce blocks for the editor (Gutenberg) UI.
--   [WooCommerce Blocks Handbook](./docs) - Documentation for designers and developers on how to extend or contribute to blocks, and how internal developers should handle new releases.
--   [WooCommerce Blocks Storybook](https://woocommerce.github.io/woocommerce-blocks/) - Contains a list and demo of components used in the plugin.
+-   [Editor Components](assets/js/editor-components) - Shared components used in PooCommerce blocks for the editor (Gutenberg) UI.
+-   [PooCommerce Blocks Handbook](./docs) - Documentation for designers and developers on how to extend or contribute to blocks, and how internal developers should handle new releases.
+-   [PooCommerce Blocks Storybook](https://poocommerce.github.io/poocommerce-blocks/) - Contains a list and demo of components used in the plugin.
 
 ## Getting started with block development
 
@@ -37,4 +37,4 @@ Other useful docs to explore:
 
 ## Long-term vision
 
-WooCommerce Blocks are the easiest, most flexible way to build your store's user interface and showcase your products.
+PooCommerce Blocks are the easiest, most flexible way to build your store's user interface and showcase your products.

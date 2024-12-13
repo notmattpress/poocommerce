@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * ProductsBySlug class.
@@ -48,7 +48,7 @@ class ProductsBySlug extends AbstractRoute {
 		return [
 			'args'   => array(
 				'slug' => array(
-					'description' => __( 'Slug of the resource.', 'woocommerce' ),
+					'description' => __( 'Slug of the resource.', 'poocommerce' ),
 					'type'        => 'string',
 				),
 			),
@@ -84,7 +84,7 @@ class ProductsBySlug extends AbstractRoute {
 		}
 
 		if ( ! $object || 0 === $object->get_id() ) {
-			throw new RouteException( 'woocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_product_invalid_slug', __( 'Invalid product slug.', 'poocommerce' ), 404 );
 		}
 
 		return rest_ensure_response( $this->schema->get_item_response( $object ) );

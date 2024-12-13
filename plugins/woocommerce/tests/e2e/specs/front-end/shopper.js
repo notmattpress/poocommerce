@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runShopperTests } = require( '@woocommerce/e2e-core-tests' );
+const { runShopperTests } = require( '@poocommerce/e2e-core-tests' );
 
 runShopperTests();

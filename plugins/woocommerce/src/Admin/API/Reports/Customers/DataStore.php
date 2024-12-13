@@ -3,16 +3,16 @@
  * Admin\API\Reports\Customers\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Customers;
+namespace Automattic\PooCommerce\Admin\API\Reports\Customers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Admin\API\Reports\Customers\DataStore.
@@ -94,9 +94,9 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * Set up all the hooks for maintaining and populating table data.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_new_customer', array( __CLASS__, 'update_registered_customer' ) );
+		add_action( 'poocommerce_new_customer', array( __CLASS__, 'update_registered_customer' ) );
 
-		add_action( 'woocommerce_update_customer', array( __CLASS__, 'update_registered_customer' ) );
+		add_action( 'poocommerce_update_customer', array( __CLASS__, 'update_registered_customer' ) );
 		add_action( 'profile_update', array( __CLASS__, 'update_registered_customer' ) );
 
 		add_action( 'added_user_meta', array( __CLASS__, 'update_registered_customer_via_last_active' ), 10, 3 );
@@ -105,9 +105,9 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		add_action( 'delete_user', array( __CLASS__, 'delete_customer_by_user_id' ) );
 		add_action( 'remove_user_from_blog', array( __CLASS__, 'delete_customer_by_user_id' ) );
 
-		add_action( 'woocommerce_privacy_remove_order_personal_data', array( __CLASS__, 'anonymize_customer' ) );
+		add_action( 'poocommerce_privacy_remove_order_personal_data', array( __CLASS__, 'anonymize_customer' ) );
 
-		add_action( 'woocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 15, 2 );
+		add_action( 'poocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 15, 2 );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param int $customer_id Customer ID.
 		 * @since 4.0.0
 		 */
-		do_action( 'woocommerce_analytics_update_customer', $customer_id );
+		do_action( 'poocommerce_analytics_update_customer', $customer_id );
 
 		return 1 === $result;
 	}
@@ -575,7 +575,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param int $customer_id Customer ID.
 		 * @since 4.0.0
 		 */
-		do_action( 'woocommerce_analytics_new_customer', $customer_id );
+		do_action( 'poocommerce_analytics_new_customer', $customer_id );
 
 		return $result ? $customer_id : false;
 	}
@@ -820,7 +820,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param int $customer_id Customer ID.
 		 * @since 4.0.0
 		 */
-		do_action( 'woocommerce_analytics_update_customer', $customer_id );
+		do_action( 'poocommerce_analytics_update_customer', $customer_id );
 
 		ReportsCache::invalidate();
 
@@ -860,7 +860,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param array List of customer roles.
 		 * @since 4.0.0
 		 */
-		$customer_roles = (array) apply_filters( 'woocommerce_analytics_customer_roles', array( 'customer' ) );
+		$customer_roles = (array) apply_filters( 'poocommerce_analytics_customer_roles', array( 'customer' ) );
 
 		if ( empty( $user->roles ) || empty( array_intersect( $user->roles, $customer_roles ) ) ) {
 			return false;
@@ -887,7 +887,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			 * @param int $order_id Order ID.
 			 * @since 4.0.0
 			 */
-			do_action( 'woocommerce_analytics_delete_customer', $customer_id );
+			do_action( 'poocommerce_analytics_delete_customer', $customer_id );
 
 			ReportsCache::invalidate();
 		}
@@ -937,7 +937,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		}
 
 		// Long form query because $wpdb->update rejects [deleted].
-		$deleted_text = __( '[deleted]', 'woocommerce' );
+		$deleted_text = __( '[deleted]', 'poocommerce' );
 		$updated      = $wpdb->query(
 			$wpdb->prepare(
 				"UPDATE {$wpdb->prefix}wc_customer_lookup

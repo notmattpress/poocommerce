@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { isObject } from '@woocommerce/types';
+import { isObject } from '@poocommerce/types';
 
 type Variant = 'text' | 'contained' | 'outlined';
 

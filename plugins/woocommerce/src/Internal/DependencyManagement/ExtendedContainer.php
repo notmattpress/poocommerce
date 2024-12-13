@@ -3,29 +3,29 @@
  * ExtendedContainer class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Container;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
-use Automattic\WooCommerce\Utilities\StringUtil;
-use Automattic\WooCommerce\Vendor\League\Container\Container as BaseContainer;
-use Automattic\WooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
+use Automattic\PooCommerce\Container;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\DependencyManagement\MockableLegacyProxy;
+use Automattic\PooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Vendor\League\Container\Container as BaseContainer;
+use Automattic\PooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
 
 /**
  * This class extends the original League's Container object by adding some functionality
- * that we need for WooCommerce.
+ * that we need for PooCommerce.
  *
- * NOTE: This class will be removed in WooCommerce 10.0.
+ * NOTE: This class will be removed in PooCommerce 10.0.
  */
 class ExtendedContainer extends BaseContainer {
 
 	/**
-	 * The root namespace of all WooCommerce classes in the `src` directory.
+	 * The root namespace of all PooCommerce classes in the `src` directory.
 	 *
 	 * @var string
 	 */
-	private $woocommerce_namespace = 'Automattic\\WooCommerce\\';
+	private $poocommerce_namespace = 'Automattic\\PooCommerce\\';
 
 	/**
 	 * Holds the original registrations so that 'reset_replacement' can work, keys are class names and values are the original concretes.
@@ -36,10 +36,10 @@ class ExtendedContainer extends BaseContainer {
 
 	/**
 	 * Whitelist of classes that we can register using the container
-	 * despite not belonging to the WooCommerce root namespace.
+	 * despite not belonging to the PooCommerce root namespace.
 	 *
 	 * In general we allow only the registration of classes in the
-	 * WooCommerce root namespace to prevent registering 3rd party code
+	 * PooCommerce root namespace to prevent registering 3rd party code
 	 * (which doesn't really belong to this container) or old classes
 	 * (which may be eventually deprecated, also the LegacyProxy
 	 * should be used for those).
@@ -69,12 +69,12 @@ class ExtendedContainer extends BaseContainer {
 	 */
 	public function add( string $class_name, $concrete = null, ?bool $shared = null ): DefinitionInterface {
 		if ( ! $this->is_class_allowed( $class_name ) ) {
-			throw new ContainerException( "You cannot add '$class_name', only classes in the {$this->woocommerce_namespace} namespace are allowed." );
+			throw new ContainerException( "You cannot add '$class_name', only classes in the {$this->poocommerce_namespace} namespace are allowed." );
 		}
 
 		$concrete_class = $this->get_class_from_concrete( $concrete );
 		if ( isset( $concrete_class ) && ! $this->is_class_allowed( $concrete_class ) ) {
-			throw new ContainerException( "You cannot add concrete '$concrete_class', only classes in the {$this->woocommerce_namespace} namespace are allowed." );
+			throw new ContainerException( "You cannot add concrete '$concrete_class', only classes in the {$this->poocommerce_namespace} namespace are allowed." );
 		}
 
 		// We want to use a definition class that does not support constructor injection to avoid accidental usage.
@@ -101,7 +101,7 @@ class ExtendedContainer extends BaseContainer {
 
 		$concrete_class = $this->get_class_from_concrete( $concrete );
 		if ( isset( $concrete_class ) && ! $this->is_class_allowed( $concrete_class ) && ! $this->is_anonymous_class( $concrete_class ) ) {
-			throw new ContainerException( "You cannot use concrete '$concrete_class', only classes in the {$this->woocommerce_namespace} namespace are allowed." );
+			throw new ContainerException( "You cannot use concrete '$concrete_class', only classes in the {$this->poocommerce_namespace} namespace are allowed." );
 		}
 
 		if ( ! array_key_exists( $class_name, $this->original_concretes ) ) {
@@ -209,7 +209,7 @@ class ExtendedContainer extends BaseContainer {
 	 * @return bool True if the class is allowed to be registered, false otherwise.
 	 */
 	protected function is_class_allowed( string $class_name ): bool {
-		return StringUtil::starts_with( $class_name, $this->woocommerce_namespace, false ) || in_array( $class_name, $this->registration_whitelist, true );
+		return StringUtil::starts_with( $class_name, $this->poocommerce_namespace, false ) || in_array( $class_name, $this->registration_whitelist, true );
 	}
 
 	/**

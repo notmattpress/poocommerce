@@ -3,9 +3,9 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useSelect } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ export const JetpackAlreadyInstalledPage: React.FC<
 	isRetryingMagicLinkSend,
 } ) => {
 	const DISMISSED_MOBILE_APP_MODAL_OPTION =
-		'woocommerce_admin_dismissed_mobile_app_modal';
+		'poocommerce_admin_dismissed_mobile_app_modal';
 
 	const { repeatUser, isLoading } = useSelect( ( select ) => {
 		const { hasFinishedResolution, getOption } =
@@ -66,7 +66,7 @@ export const JetpackAlreadyInstalledPage: React.FC<
 							/* translators: %s: user's WordPress.com account email address */
 							__(
 								'After the app is installed, click below to send a magic link to %s. Open it on your smartphone or tablet to sign into your store instantly.',
-								'woocommerce'
+								'poocommerce'
 							),
 							wordpressAccountEmailAddress
 						) }

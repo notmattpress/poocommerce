@@ -121,7 +121,7 @@ const AttributesComboboxControl: React.FC<
 					createNewAttributeOption.state === 'draft'
 						? sprintf(
 								/* translators: The name of the new attribute term to be created */
-								__( 'Create "%s"', 'woocommerce' ),
+								__( 'Create "%s"', 'poocommerce' ),
 								createNewAttributeOption.label
 						  )
 						: createNewAttributeOption.label,
@@ -178,27 +178,27 @@ const AttributesComboboxControl: React.FC<
 
 	if ( ! help ) {
 		help = (
-			<div className="woocommerce-attributes-combobox-help">
+			<div className="poocommerce-attributes-combobox-help">
 				{ __(
 					'Select an attribute or type to create.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</div>
 		);
 
 		if ( isLoading ) {
 			help = (
-				<div className="woocommerce-attributes-combobox-help">
+				<div className="poocommerce-attributes-combobox-help">
 					<Spinner />
-					{ __( 'Loading…', 'woocommerce' ) }
+					{ __( 'Loading…', 'poocommerce' ) }
 				</div>
 			);
 		} else if ( ! items.length ) {
 			help = (
-				<div className="woocommerce-attributes-combobox-help">
+				<div className="poocommerce-attributes-combobox-help">
 					{ __(
 						'No attributes yet. Type to create.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 			);
@@ -208,7 +208,7 @@ const AttributesComboboxControl: React.FC<
 	return (
 		<div
 			className={ classnames(
-				'woocommerce-attributes-combobox-container',
+				'poocommerce-attributes-combobox-container',
 				{
 					'no-items': ! options.length,
 				}
@@ -217,7 +217,7 @@ const AttributesComboboxControl: React.FC<
 		>
 			<BaseControl label={ label } help={ help } id={ labelFor }>
 				<ComboboxControl
-					className="woocommerce-attributes-combobox"
+					className="poocommerce-attributes-combobox"
 					allowReset={ false }
 					options={ options }
 					value={ currentValue }

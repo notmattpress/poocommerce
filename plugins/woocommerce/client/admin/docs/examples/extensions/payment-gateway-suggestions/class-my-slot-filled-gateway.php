@@ -2,7 +2,7 @@
 /**
  * Class My_Slot_Filled_Gateway
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
@@ -15,14 +15,14 @@ class My_Slot_Filled_Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                 = 'my-slot-filled-gateway';
 		$this->has_fields         = false;
-		$this->method_title       = __( 'Slot filled gateway', 'woocommerce-admin' );
-		$this->method_description = __( 'A gateway demonstrating the use of slot fill for custom configuration screens.', 'woocommerce-admin' );
+		$this->method_title       = __( 'Slot filled gateway', 'poocommerce-admin' );
+		$this->method_description = __( 'A gateway demonstrating the use of slot fill for custom configuration screens.', 'poocommerce-admin' );
 
 		// Load the settings.
 		$this->init_form_fields();
 		$this->init_settings();
 
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -31,13 +31,13 @@ class My_Slot_Filled_Gateway extends WC_Payment_Gateway {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'    => array(
-				'title'   => __( 'Enabled', 'woocommerce-admin' ),
+				'title'   => __( 'Enabled', 'poocommerce-admin' ),
 				'type'    => 'checkbox',
 				'label'   => '',
 				'default' => 'no',
 			),
 			'my_setting' => array(
-				'title'   => __( 'My setting', 'woocommerce-admin' ),
+				'title'   => __( 'My setting', 'poocommerce-admin' ),
 				'type'    => 'text',
 				'default' => '',
 			),
@@ -48,7 +48,7 @@ class My_Slot_Filled_Gateway extends WC_Payment_Gateway {
 	 * Determine if the gateway requires further setup.
 	 */
 	public function needs_setup() {
-		$settings = get_option( 'woocommerce_my-slot-filled-gateway_settings', array() );
+		$settings = get_option( 'poocommerce_my-slot-filled-gateway_settings', array() );
 		return ! isset( $settings['my_setting'] ) || empty( $settings['my_setting'] );
 	}
 

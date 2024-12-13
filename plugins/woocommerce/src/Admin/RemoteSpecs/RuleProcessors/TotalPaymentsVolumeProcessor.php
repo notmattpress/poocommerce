@@ -3,12 +3,12 @@
  * Rule processor that passes when a store's payments volume exceeds a provided amount.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Revenue\Query as RevenueQuery;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\Revenue\Query as RevenueQuery;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
 
 /**
  * Rule processor that passes when a store's payments volume exceeds a provided amount.

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Stepper } from '@woocommerce/components';
+import { Stepper } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const BasicExamples = () => {
@@ -130,6 +130,6 @@ const BasicExamples = () => {
 export const Examples = () => <BasicExamples />;
 
 export default {
-	title: 'WooCommerce Admin/components/Stepper',
+	title: 'PooCommerce Admin/components/Stepper',
 	component: Stepper,
 };

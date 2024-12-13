@@ -18,7 +18,7 @@ Onboarding is a critical part of the merchant's user experience. It helps set th
 
 ## Using setup tasks
 
-Setup tasks appear on the WooCommerce Admin home screen and prompt a merchant to complete certain steps in order to set up your extension. Adding tasks is a two-step process that requires:
+Setup tasks appear on the PooCommerce Admin home screen and prompt a merchant to complete certain steps in order to set up your extension. Adding tasks is a two-step process that requires:
 
 - Registering the task (and its JavaScript) using PHP
 - Using JavaScript to build the task, set its configuration, and add it to the task list
@@ -33,7 +33,7 @@ To register your task as an extended task list item, you'll need to start by cre
  * Custom task example.
  *
  */
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Custom task class.
@@ -54,7 +54,7 @@ class MyTask extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'My task', 'woocommerce' );
+		return __( 'My task', 'poocommerce' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class MyTask extends Task {
 	 * @return string
 	 */
 	public function get_content() {
-		return __( 'Add your task description here for display in the task list.', 'woocommerce' );
+		return __( 'Add your task description here for display in the task list.', 'poocommerce' );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class MyTask extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 }
 ```
@@ -83,7 +83,7 @@ After defining your custom task class, add it to the task list by calling the `a
 # Register the task.
 function register_custom_task() {
     // Register the task.
-    use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+    use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
     TaskLists::add_task(
         'extended', // The task list ID (e.g., 'extended' for "Things to do next").
@@ -112,7 +112,7 @@ import { createElement } from '@wordpress/element';
 import {
 	WooOnboardingTask,
 	WooOnboardingTaskListItem,
-} from '@woocommerce/onboarding';
+} from '@poocommerce/onboarding';
 import { registerPlugin } from '@wordpress/plugins';
 
 const Task = ( { onComplete, task, query } ) =&gt; {
@@ -131,13 +131,13 @@ registerPlugin( 'add-task-content', {
 } );
 
 registerPlugin( 'add-task-list-item', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () =&gt; (
 		&lt;WooOnboardingTaskListItem id="my-task"&gt;
 			{ ( { defaultTaskItem: DefaultTaskItem } ) =&gt; (
 				// Add a custom wrapper around the default task item.
 				&lt;div
-					className="woocommerce-custom-tasklist-item"
+					className="poocommerce-custom-tasklist-item"
 					style={ {
 						border: '1px solid red',
 					} }
@@ -161,7 +161,7 @@ import { createElement } from '@wordpress/element';
 import {
 	WooOnboardingTask,
 	WooOnboardingTaskListItem,
-} from '@woocommerce/onboarding';
+} from '@poocommerce/onboarding';
 import { registerPlugin } from '@wordpress/plugins';
 ```
 
@@ -175,7 +175,7 @@ const Task = ( { onComplete, task } ) =&gt; {
 	const { isActioned } = task;
 
 	return (
-		&lt;Card className="woocommerce-task-card"&gt;
+		&lt;Card className="poocommerce-task-card"&gt;
 			&lt;CardBody&gt;
 				{ __(
 					"This task's completion status is dependent on being actioned. The action button below will action this task, while the complete button will optimistically complete the task in the task list and redirect back to the task list. Note that in this example, the task must be actioned for completion to persist.",
@@ -209,7 +209,7 @@ In the example above, we're using the `Card` and `CardBody` components to constr
 
 #### Register the Plugin for Task Content
 
-Next, we register the Task component as a plugin named "add-task-content" using [SlotFills](https://developer.wordpress.org/block-editor/reference-guides/slotfills/). This plugin nests the Task component within a WooOnboardingTask component and passes the necessary properties. We also specify the scope of the plugin as "woocommerce-tasks" to make it effective only within WooCommerce's task list.
+Next, we register the Task component as a plugin named "add-task-content" using [SlotFills](https://developer.wordpress.org/block-editor/reference-guides/slotfills/). This plugin nests the Task component within a WooOnboardingTask component and passes the necessary properties. We also specify the scope of the plugin as "poocommerce-tasks" to make it effective only within PooCommerce's task list.
 
 ```js
 registerPlugin( 'add-task-content', {
@@ -223,23 +223,23 @@ registerPlugin( 'add-task-content', {
 			} ) =&gt;  }
 		
 	),
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 } );
 ```
 
 #### Register the Plugin for Task List Item Customization
 
-Finally, we register another plugin named "my-task-list-item-plugin." This plugin is used to customize the appearance of task list items. It also targets WooCommerce's task list and wraps the DefaultTaskItem component within a custom wrapper with additional styling.
+Finally, we register another plugin named "my-task-list-item-plugin." This plugin is used to customize the appearance of task list items. It also targets PooCommerce's task list and wraps the DefaultTaskItem component within a custom wrapper with additional styling.
 
 ```js
 registerPlugin( 'my-task-list-item-plugin', {
-  scope: 'woocommerce-tasks',
+  scope: 'poocommerce-tasks',
   render: () =&gt; (
     &lt;WooOnboardingTaskListItem id="my-task"&gt;
       { ( { defaultTaskItem: DefaultTaskItem } ) =&gt; (
         // Add a custom wrapper around the default task item.
         &lt;div
-          className="woocommerce-custom-tasklist-item"
+          className="poocommerce-custom-tasklist-item"
           style={ {
             border: '1px solid red',
           } }
@@ -252,7 +252,7 @@ registerPlugin( 'my-task-list-item-plugin', {
 } );
 ```
 
-In summary, the JavaScript file for a simple task extends and customizes the functionality of WooCommerce's task list, allowing users to better manage tasks and personalize the appearance of task list items.
+In summary, the JavaScript file for a simple task extends and customizes the functionality of PooCommerce's task list, allowing users to better manage tasks and personalize the appearance of task list items.
 
 ### Registering the task with JavaScript
 
@@ -264,8 +264,8 @@ In addition to registering the task in php, you'll also need to register and enq
  */
 function add_task_register_script() {
 	if (
-		! class_exists( 'Automattic\WooCommerce\Internal\Admin\Loader' ) ||
-		! \Automattic\WooCommerce\Admin\PageController::is_admin_or_embed_page()
+		! class_exists( 'Automattic\PooCommerce\Internal\Admin\Loader' ) ||
+		! \Automattic\PooCommerce\Admin\PageController::is_admin_or_embed_page()
 	) {
 		return;
 	}
@@ -285,20 +285,20 @@ function add_task_register_script() {
 add_action( 'admin_enqueue_scripts', 'add_task_register_script' );
 ```
 
-By following these steps, your custom task should appear in the WooCommerce onboarding tasklist.
+By following these steps, your custom task should appear in the PooCommerce onboarding tasklist.
 
-For a complete example of adding a custom task as a WordPress plugin, you can check out the [add-task examples directory](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/client/admin/docs/examples/extensions/add-task).
+For a complete example of adding a custom task as a WordPress plugin, you can check out the [add-task examples directory](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/client/admin/docs/examples/extensions/add-task).
 
-To learn more about the tasklist, you can refer to the [tasklist documentation](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/admin/docs/features/onboarding-tasks.md).
+To learn more about the tasklist, you can refer to the [tasklist documentation](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/admin/docs/features/onboarding-tasks.md).
 
 
 ---
 
 ## Using Store Management Links
 
-When a merchant completes all of the items on the onboarding task list, WooCommerce replaces it with a section containing a list of handy store management links. Discoverability can be a challenge for extensions, so this section is a great way to bring more attention to key features of your extension and help merchants navigate to them.
+When a merchant completes all of the items on the onboarding task list, PooCommerce replaces it with a section containing a list of handy store management links. Discoverability can be a challenge for extensions, so this section is a great way to bring more attention to key features of your extension and help merchants navigate to them.
 
-The store management section has a relatively narrow purpose, so this section does not currently support external links. Instead, it is meant for navigating quickly within WooCommerce.
+The store management section has a relatively narrow purpose, so this section does not currently support external links. Instead, it is meant for navigating quickly within PooCommerce.
 
 Adding your own store management links is a simple process that involves:
 
@@ -331,20 +331,20 @@ add_action( 'admin_enqueue_scripts', 'custom_store_management_link' );
 
 The first argument of this call is a handle, the name by which WordPress will refer to the script we're enqueuing. The second argument is the URL where the script is located.
 
-The third argument is an array of script dependencies. By supplying the `wp-hooks` handle in that array, we're ensuring that our script will have access to the `addFilter` function we'll be using to add our link to WooCommerce's list.
+The third argument is an array of script dependencies. By supplying the `wp-hooks` handle in that array, we're ensuring that our script will have access to the `addFilter` function we'll be using to add our link to PooCommerce's list.
 
 The fourth argument is a priority, which determines the order in which JavaScripts are loaded in WordPress. We're setting a priority of 10 in our example. It's important that your script runs before the store management section is rendered. With that in mind, make sure your priority value is lower than 15 to ensure your link is rendered properly.
 
 ### Supply your link via JavaScript
 
-Finally, in the JavaScript file you enqueued above, hook in to the `woocommerce_admin_homescreen_quicklinks` filter and supply your task as a simple JavaScript object.
+Finally, in the JavaScript file you enqueued above, hook in to the `poocommerce_admin_homescreen_quicklinks` filter and supply your task as a simple JavaScript object.
 
 ```js
 import { megaphone } from '@wordpress/icons';
 import { addFilter } from '@wordpress/hooks';
  
 addFilter(
-    'woocommerce_admin_homescreen_quicklinks',
+    'poocommerce_admin_homescreen_quicklinks',
     'my-extension',
     ( quickLinks ) =&gt; {
         return [
@@ -363,7 +363,7 @@ addFilter(
 
 ## Using Admin Notes
 
-Admin Notes are meant for displaying insightful information about your WooCommerce store, extensions, activity, and achievements. They're also useful for displaying information that can help with the day-to-day tasks of managing and optimizing a store. A good general rule is to use Admin Notes for information that is:
+Admin Notes are meant for displaying insightful information about your PooCommerce store, extensions, activity, and achievements. They're also useful for displaying information that can help with the day-to-day tasks of managing and optimizing a store. A good general rule is to use Admin Notes for information that is:
 
 1.  Timely
 2.  Relevant
@@ -371,9 +371,9 @@ Admin Notes are meant for displaying insightful information about your WooCommer
 
 With that in mind, you might consider using Admin Notes to celebrate a particular milestone that a merchant has passed, or to provide additional guidance about using a specific feature or flow. Conversely, you shouldn't use Admin Notes to send repeated messages about the same topic or target all users with a note that is only relevant to a subset of merchants. It's okay to use Admin Notes for specific promotions, but you shouldn't abuse the system. Use your best judgement and remember the home screen is meant to highlight a store's most important actionable tasks.
 
-Despite being a part of the new React-powered admin experience in WooCommerce, Admin Notes are available to developers via a standard PHP interface.
+Despite being a part of the new React-powered admin experience in PooCommerce, Admin Notes are available to developers via a standard PHP interface.
 
-The recommended approach for using Admin Notes is to encapsulate your note within its own class that uses the [NoteTraits](https://github.com/woocommerce/woocommerce-admin/blob/831c9ff13a862f22cf53d3ae676daeabbefe90ad/src/Notes/NoteTraits.php) trait included with WooCommerce Admin. Below is a simple example of what this might look like:
+The recommended approach for using Admin Notes is to encapsulate your note within its own class that uses the [NoteTraits](https://github.com/poocommerce/poocommerce-admin/blob/831c9ff13a862f22cf53d3ae676daeabbefe90ad/src/Notes/NoteTraits.php) trait included with PooCommerce Admin. Below is a simple example of what this might look like:
 
 ```php
 &lt;?php
@@ -389,12 +389,12 @@ namespace My\Wonderfully\Namespaced\Extension\Area;
 defined ( 'ABSPATH' ) || exit;
  
 // Check for Admin Note support
-if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes' ) ||
-     ! class_exists( 'Automattic\WooCommerce\Admin\Notes\NoteTraits' )) {
+if ( ! class_exists( 'Automattic\PooCommerce\Admin\Notes\Notes' ) ||
+     ! class_exists( 'Automattic\PooCommerce\Admin\Notes\NoteTraits' )) {
     return;
 }
  
-// Make sure the WooCommerce Data Store is available
+// Make sure the PooCommerce Data Store is available
 if ( ! class_exists( 'WC_Data_Store' ) ) {
     return;
 }
@@ -406,10 +406,10 @@ if ( ! class_exists( 'WC_Data_Store' ) ) {
 class ExampleNote {
  
     // Use the Note class to create Admin Note objects
-    use Automatic\WooCommerce\Admin\Notes\Note;
+    use Automatic\PooCommerce\Admin\Notes\Note;
  
     // Use the NoteTraits trait, which handles common note operations.
-    use Automatic\WooCommerce\Admin\Notes\NoteTraits;
+    use Automatic\PooCommerce\Admin\Notes\NoteTraits;
  
     // Provide a note name.
     const NOTE_NAME = 'my-prefix-example-note';
@@ -422,7 +422,7 @@ class ExampleNote {
         $activated_time_formatted = date( 'F jS', $activated_time );
  
         // Instantiate a new Note object
-        $note = new Automattic\WooCommerce\Admin\Notes\Note();
+        $note = new Automattic\PooCommerce\Admin\Notes\Note();
  
         // Set our note's title.
         $note-&gt;set_title( 'Getting Started' );
@@ -507,8 +507,8 @@ namespace My\Wonderfully\Namespaced\Extension\Area;
  
 defined ( 'ABSPATH' ) || exit;
  
-if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\Notes') ||
-     ! class_exists( 'Automattic\WooCommerce\Admin\Notes\NoteTraits') ) {
+if ( ! class_exists( 'Automattic\PooCommerce\Admin\Notes\Notes') ||
+     ! class_exists( 'Automattic\PooCommerce\Admin\Notes\NoteTraits') ) {
     return;
 }
  
@@ -519,13 +519,13 @@ if ( ! class_exists( 'WC_Data_Store' ) ) {
 
 #### Using Note and NoteTraits objects
 
-Next, we define a simple class that will serve as a note provider for our note. To create and manage note objects, we'll import the `Note` and `NotesTraits` classes from WooCommerce Admin.
+Next, we define a simple class that will serve as a note provider for our note. To create and manage note objects, we'll import the `Note` and `NotesTraits` classes from PooCommerce Admin.
 
 ```php
 class ExampleNote {
  
-    use Automatic\WooCommerce\Admin\Notes\Note;
-    use Automatic\WooCommerce\Admin\Notes\NoteTraits;
+    use Automatic\PooCommerce\Admin\Notes\Note;
+    use Automatic\PooCommerce\Admin\Notes\NoteTraits;
  
 }
 ```

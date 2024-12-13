@@ -4,4 +4,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/<last-commit-hash-before-this-merge>/packages/js/api/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/<last-commit-hash-before-this-merge>/packages/js/api/CHANGELOG.md).

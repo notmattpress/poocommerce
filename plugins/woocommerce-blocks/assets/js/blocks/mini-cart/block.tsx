@@ -1,30 +1,30 @@
 /**
  * External dependencies
  */
-import { renderParentBlock } from '@woocommerce/atomic-utils';
-import Drawer from '@woocommerce/base-components/drawer';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { renderParentBlock } from '@poocommerce/atomic-utils';
+import Drawer from '@poocommerce/base-components/drawer';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import {
 	getValidBlockAttributes,
 	translateJQueryEventToNative,
-} from '@woocommerce/base-utils';
-import { getRegisteredBlockComponents } from '@woocommerce/blocks-registry';
+} from '@poocommerce/base-utils';
+import { getRegisteredBlockComponents } from '@poocommerce/blocks-registry';
 import {
 	formatPrice,
 	getCurrencyFromPriceResponse,
-} from '@woocommerce/price-format';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+} from '@poocommerce/price-format';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import {
 	isBoolean,
 	isString,
 	isCartResponseTotals,
 	isNumber,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 import { sprintf, _n } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { CHECKOUT_URL } from '@woocommerce/block-settings';
-import type { ReactRootWithContainer } from '@woocommerce/base-utils';
+import { CHECKOUT_URL } from '@poocommerce/block-settings';
+import type { ReactRootWithContainer } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -127,7 +127,7 @@ const MiniCartBlock = ( attributes: Props ): JSX.Element => {
 	useEffect( () => {
 		if ( contentsNode instanceof Element ) {
 			const container = contentsNode.querySelector(
-				'.wp-block-woocommerce-mini-cart-contents'
+				'.wp-block-poocommerce-mini-cart-contents'
 			);
 			if ( ! container ) {
 				return;
@@ -147,7 +147,7 @@ const MiniCartBlock = ( attributes: Props ): JSX.Element => {
 							),
 						};
 					},
-					selector: '.wp-block-woocommerce-mini-cart-contents',
+					selector: '.wp-block-poocommerce-mini-cart-contents',
 					blockMap: getRegisteredBlockComponents( blockName ),
 				} );
 				rootRef.current = renderedBlock;
@@ -157,7 +157,7 @@ const MiniCartBlock = ( attributes: Props ): JSX.Element => {
 		return () => {
 			if ( contentsNode instanceof Element && isOpen ) {
 				const unmountingContainer = contentsNode.querySelector(
-					'.wp-block-woocommerce-mini-cart-contents'
+					'.wp-block-poocommerce-mini-cart-contents'
 				);
 
 				if ( unmountingContainer ) {
@@ -235,7 +235,7 @@ const MiniCartBlock = ( attributes: Props ): JSX.Element => {
 					'%1$d item in cart',
 					'%1$d items in cart',
 					cartItemsCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				cartItemsCount
 		  )
@@ -245,7 +245,7 @@ const MiniCartBlock = ( attributes: Props ): JSX.Element => {
 					'%1$d item in cart, total price of %2$s',
 					'%1$d items in cart, total price of %2$s',
 					cartItemsCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				cartItemsCount,
 				formatPrice(

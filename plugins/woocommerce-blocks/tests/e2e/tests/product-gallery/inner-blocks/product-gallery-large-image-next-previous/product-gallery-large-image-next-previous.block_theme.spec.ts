@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,9 +10,9 @@ import { addBlock } from './utils';
 import { ProductGalleryPage } from '../../product-gallery.page';
 
 const blockData = {
-	name: 'woocommerce/product-gallery-large-image-next-previous',
+	name: 'poocommerce/product-gallery-large-image-next-previous',
 	mainClass:
-		'.wp-block-woocommerce-product-gallery-large-image-next-previous',
+		'.wp-block-poocommerce-product-gallery-large-image-next-previous',
 	selectors: {
 		frontend: {},
 		editor: {
@@ -88,7 +88,7 @@ const test = base.extend< { pageObject: ProductGalleryPage } >( {
 test.describe( `${ blockData.name }`, () => {
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//${ blockData.slug }`,
+			postId: `poocommerce/poocommerce//${ blockData.slug }`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -100,7 +100,7 @@ test.describe( `${ blockData.name }`, () => {
 		pageObject,
 	} ) => {
 		await editor.insertBlock( {
-			name: 'woocommerce/product-gallery',
+			name: 'poocommerce/product-gallery',
 		} );
 
 		const block = await pageObject.getNextPreviousButtonsBlock( {
@@ -184,7 +184,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			// Currently we are adding the block under the related products block, but in the future we have to add replace the product gallery block with this block.
 			const parentBlock = await editor.getBlockByName(
-				'woocommerce/product-image-gallery'
+				'poocommerce/product-image-gallery'
 			);
 			const clientId =
 				( await parentBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -193,7 +193,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			await editor.selectBlocks( parentBlock );
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-gallery' },
+				{ name: 'poocommerce/product-gallery' },
 				{ clientId: parentClientId }
 			);
 			await (
@@ -256,7 +256,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			// Currently we are adding the block under the related products block, but in the future we have to add replace the product gallery block with this block.
 			const parentBlock = await editor.getBlockByName(
-				'woocommerce/product-image-gallery'
+				'poocommerce/product-image-gallery'
 			);
 			const clientId =
 				( await parentBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -265,7 +265,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			await editor.selectBlocks( parentBlock );
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-gallery' },
+				{ name: 'poocommerce/product-gallery' },
 				{ clientId: parentClientId }
 			);
 			await (
@@ -328,7 +328,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			// Currently we are adding the block under the related products block, but in the future we have to add replace the product gallery block with this block.
 			const parentBlock = await editor.getBlockByName(
-				'woocommerce/product-image-gallery'
+				'poocommerce/product-image-gallery'
 			);
 			const clientId =
 				( await parentBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -337,7 +337,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			await editor.selectBlocks( parentBlock );
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-gallery' },
+				{ name: 'poocommerce/product-gallery' },
 				{ clientId: parentClientId }
 			);
 			await (
@@ -383,7 +383,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			// Currently we are adding the block under the related products block, but in the future we have to add replace the product gallery block with this block.
 			const parentBlock = await editor.getBlockByName(
-				'woocommerce/product-image-gallery'
+				'poocommerce/product-image-gallery'
 			);
 			const clientId =
 				( await parentBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -392,7 +392,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			await editor.selectBlocks( parentBlock );
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-gallery' },
+				{ name: 'poocommerce/product-gallery' },
 				{ clientId: parentClientId }
 			);
 			await (
@@ -435,7 +435,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			// Currently we are adding the block under the related products block, but in the future we have to add replace the product gallery block with this block.
 			const parentBlock = await editor.getBlockByName(
-				'woocommerce/product-image-gallery'
+				'poocommerce/product-image-gallery'
 			);
 			const clientId =
 				( await parentBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -444,7 +444,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			await editor.selectBlocks( parentBlock );
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-gallery' },
+				{ name: 'poocommerce/product-gallery' },
 				{ clientId: parentClientId }
 			);
 			await (

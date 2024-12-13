@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { merchant } = require( '@woocommerce/e2e-utils' );
+const { merchant } = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -17,10 +17,10 @@ const runInitiateWccomConnectionTest = () => {
 		it.skip( 'can initiate WCCOM connection', async () => {
 			await merchant.openExtensions();
 
-			// Click on a tab to choose WooCommerce Subscriptions extension
+			// Click on a tab to choose PooCommerce Subscriptions extension
 			await Promise.all( [
 				expect( page ).toClick( 'a.nav-tab', {
-					text: 'WooCommerce.com Subscriptions',
+					text: 'PooCommerce.com Subscriptions',
 				} ),
 				page.waitForNavigation( { waitUntil: 'networkidle0' } ),
 			] );

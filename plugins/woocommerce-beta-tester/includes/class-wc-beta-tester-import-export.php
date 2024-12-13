@@ -34,7 +34,7 @@ class WC_Beta_Tester_Import_Export {
 	/**
 	 * The filename of the file containing exported settings.
 	 */
-	protected const IMPORT_FILENAME = 'woocommerce-settings-json';
+	protected const IMPORT_FILENAME = 'poocommerce-settings-json';
 
 	/**
 	 * The status message of the import.
@@ -61,7 +61,7 @@ class WC_Beta_Tester_Import_Export {
 	 * Add options page to menu
 	 */
 	public function add_to_menu() {
-		add_submenu_page( 'plugins.php', __( 'WC Beta Tester Import/Export', 'woocommerce-beta-tester' ), __( 'WC Import/Export', 'woocommerce-beta-tester' ), static::IMPORT_CAP, 'wc-beta-tester-settings', array( $this, 'settings_page_html' ) );
+		add_submenu_page( 'plugins.php', __( 'WC Beta Tester Import/Export', 'poocommerce-beta-tester' ), __( 'WC Import/Export', 'poocommerce-beta-tester' ), static::IMPORT_CAP, 'wc-beta-tester-settings', array( $this, 'settings_page_html' ) );
 	}
 
 	/**
@@ -88,22 +88,22 @@ class WC_Beta_Tester_Import_Export {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<p><?php esc_html_e( 'Export your WooCommerce Settings. The export file should not contain any fields that identify your site or reveal secrets (eg. API keys).', 'woocommerce-beta-tester' ); ?></p>
+			<p><?php esc_html_e( 'Export your PooCommerce Settings. The export file should not contain any fields that identify your site or reveal secrets (eg. API keys).', 'poocommerce-beta-tester' ); ?></p>
 			<a href="<?php echo esc_url( $export_url ); ?>" class="button-primary">
 								<?php
-								/* translators Export WooCommerce settings button text. */
-								esc_html_e( 'Export WooCommerce Settings', 'woocommerce-beta-tester' );
+								/* translators Export PooCommerce settings button text. */
+								esc_html_e( 'Export PooCommerce Settings', 'poocommerce-beta-tester' );
 								?>
 			</a>
 			<hr />
 			<form method="POST" enctype="multipart/form-data">
 				<?php wp_nonce_field( static::NONCE_ACTION ); ?>
 				<input type="hidden" name="action" value="<?php echo esc_attr( static::IMPORT_ACTION ); ?>" />
-				<p><?php esc_html_e( 'Import WooCommerce Settings exported with this tool. Some settings like store address, payment gateways, etc. will need to be configured manually.', 'woocommerce-beta-tester' ); ?></p>
+				<p><?php esc_html_e( 'Import PooCommerce Settings exported with this tool. Some settings like store address, payment gateways, etc. will need to be configured manually.', 'poocommerce-beta-tester' ); ?></p>
 				<button type="submit" class="button-primary">
 				<?php
-				/* translators Import WooCommerce settings button text. */
-				esc_html_e( 'Import WooCommerce Settings', 'woocommerce-beta-tester' );
+				/* translators Import PooCommerce settings button text. */
+				esc_html_e( 'Import PooCommerce Settings', 'poocommerce-beta-tester' );
 				?>
 				</button>
 				<input type="file" name="<?php echo esc_attr( static::IMPORT_FILENAME ); ?>" />
@@ -122,7 +122,7 @@ class WC_Beta_Tester_Import_Export {
 			exit;
 		}
 
-		$filename = sprintf( 'woocommerce-settings-%s.json', gmdate( 'Ymdgi' ) );
+		$filename = sprintf( 'poocommerce-settings-%s.json', gmdate( 'Ymdgi' ) );
 		wc_set_time_limit( 0 );
 		wc_nocache_headers();
 		header( 'Content-Type: text/csv; charset=utf-8' );
@@ -143,24 +143,24 @@ class WC_Beta_Tester_Import_Export {
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), static::NONCE_ACTION ) ) {
-			$this->add_message( __( 'Invalid submission', 'woocommerce-beta-tester' ) );
+			$this->add_message( __( 'Invalid submission', 'poocommerce-beta-tester' ) );
 			return;
 		}
 
 		if ( empty( $_FILES[ static::IMPORT_FILENAME ] ) ) {
-			$this->add_message( __( 'No file uploaded.', 'woocommerce-beta-tester' ) );
+			$this->add_message( __( 'No file uploaded.', 'poocommerce-beta-tester' ) );
 			return;
 		}
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$tmp_file = wp_unslash( $_FILES[ static::IMPORT_FILENAME ]['tmp_name'] );
 		if ( empty( $tmp_file ) ) {
-			$this->add_message( __( 'No file uploaded.', 'woocommerce-beta-tester' ) );
+			$this->add_message( __( 'No file uploaded.', 'poocommerce-beta-tester' ) );
 			return;
 		}
 
 		if ( ! is_readable( $tmp_file ) ) {
-			$this->add_message( __( 'File could not be read.', 'woocommerce-beta-tester' ) );
+			$this->add_message( __( 'File could not be read.', 'poocommerce-beta-tester' ) );
 			return;
 		}
 
@@ -180,18 +180,18 @@ class WC_Beta_Tester_Import_Export {
 					update_option( $option_name, $setting );
 				}
 			}
-			$this->add_message( __( 'Settings Imported', 'woocommerce-beta-tester' ), 'updated' );
+			$this->add_message( __( 'Settings Imported', 'poocommerce-beta-tester' ), 'updated' );
 		} else {
-			$this->add_message( __( 'File did not contain well formed JSON.', 'woocommerce-beta-tester' ) );
+			$this->add_message( __( 'File did not contain well formed JSON.', 'poocommerce-beta-tester' ) );
 		}
 	}
 
 	/**
-	 * Get an array of the WooCommerce related settings.
+	 * Get an array of the PooCommerce related settings.
 	 */
 	protected function get_settings() {
 		$settings = array();
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			foreach ( $this->get_setting_list() as $option_name ) {
 				$setting = get_option( $option_name );
 				if ( false === $setting ) {
@@ -218,7 +218,7 @@ class WC_Beta_Tester_Import_Export {
 	}
 
 	/**
-	 * Get the WooCommerce settings list keys.
+	 * Get the PooCommerce settings list keys.
 	 */
 	private function get_setting_list() {
 		require_once dirname( __FILE__ ) . '/wc-beta-tester-settings-list.php';

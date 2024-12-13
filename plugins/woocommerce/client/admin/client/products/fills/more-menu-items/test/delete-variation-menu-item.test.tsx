@@ -3,7 +3,7 @@
  */
 import { render, fireEvent } from '@testing-library/react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useParams } from 'react-router-dom';
 
 /**
@@ -16,7 +16,7 @@ jest.mock( '@wordpress/data', () => ( {
 	useDispatch: jest.fn(),
 	useSelect: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( 'react-router-dom', () => ( { useParams: jest.fn() } ) );
 

@@ -1,6 +1,6 @@
-# WooCommerce Core End to End Test Suite
+# PooCommerce Core End to End Test Suite
 
-This package contains the automated end-to-end tests for WooCommerce.
+This package contains the automated end-to-end tests for PooCommerce.
 
 ## Table of contents
 
@@ -16,7 +16,7 @@ This package contains the automated end-to-end tests for WooCommerce.
 
 ### Setting up the test environment
 
-Follow [E2E setup instructions](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/e2e/README.md).
+Follow [E2E setup instructions](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/e2e/README.md).
 
 ### Setting up core tests
 
@@ -24,11 +24,11 @@ Follow [E2E setup instructions](https://github.com/woocommerce/woocommerce/blob/
 
 Version 0.2.0 added a test installer that will populate the `tests/e2e/specs` folder with test scripts for all the current core test suite. It also creates sample configuration files including all the configuration data needed to run the core tests.
 
-- Install the e2e-environment `npm install @woocommerce/e2e-environment --save-dev`
-- Run the installer `npx wc-e2e install @woocommerce/e2e-core-tests`
+- Install the e2e-environment `npm install @poocommerce/e2e-environment --save-dev`
+- Run the installer `npx wc-e2e install @poocommerce/e2e-core-tests`
 - Merge the sample configuration files:
-    - `tests/e2e/docker/woocommerce.e2e-core-tests.sh` => `initialize.sh`
-    - `tests/e2e/config/default-woocommerce.e2e-core-tests.json` => `default.json`
+    - `tests/e2e/docker/poocommerce.e2e-core-tests.sh` => `initialize.sh`
+    - `tests/e2e/config/default-poocommerce.e2e-core-tests.json` => `default.json`
 
 #### Version 0.1.X or other test runner
 
@@ -37,7 +37,7 @@ Version 0.2.0 added a test installer that will populate the `tests/e2e/specs` fo
 
 ```js
 
-const { runShopperTests } = require( '@woocommerce/e2e-core-tests' );
+const { runShopperTests } = require( '@poocommerce/e2e-core-tests' );
 
 runShopperTests();
 
@@ -55,7 +55,7 @@ The functions to access the core tests are:
 ### Activation and setup
 
 - `runSetupOnboardingTests` - Run all setup and onboarding tests
-    - `runActivationTest` - Merchant can activate WooCommerce
+    - `runActivationTest` - Merchant can activate PooCommerce
     - `runOnboardingFlowTest` - Merchant can complete onboarding flow
     - `runTaskListTest` - Merchant can complete onboarding task list
     - `runInitialStoreSettingsTest` - Merchant can complete initial settings
@@ -84,7 +84,7 @@ The functions to access the core tests are:
     - `runMerchantOrderEmailsTest` - Merchant can receive order emails and resend emails by Order Actions
     - `runAnalyticsPageLoadsTest` - Merchant can load and see all pages in Analytics
     - `runImportProductsTest` - Merchant can import products via CSV file
-    - `runInitiateWccomConnectionTest` - Merchant can initiate connection to WooCommerce.com
+    - `runInitiateWccomConnectionTest` - Merchant can initiate connection to PooCommerce.com
     - `runAdminPageLoadTests` - Merchant can load pages from the WP Admin sidebar
 
 ### Shopper

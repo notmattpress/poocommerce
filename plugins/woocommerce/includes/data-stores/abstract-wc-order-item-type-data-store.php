@@ -2,10 +2,10 @@
 /**
  * Class Abstract_WC_Order_Item_Type_Data_Store file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -72,7 +72,7 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 		global $wpdb;
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_order_items',
+			$wpdb->prefix . 'poocommerce_order_items',
 			array(
 				'order_item_name' => $item->get_name(),
 				'order_item_type' => $item->get_type(),
@@ -90,7 +90,7 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 		$item->apply_changes();
 		$this->clear_cache( $item );
 
-		do_action( 'woocommerce_new_order_item', $item->get_id(), $item, $item->get_order_id() );
+		do_action( 'poocommerce_new_order_item', $item->get_id(), $item, $item->get_order_id() );
 	}
 
 	/**
@@ -106,7 +106,7 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 
 		if ( array_intersect( array( 'name', 'order_id' ), array_keys( $changes ) ) ) {
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_order_items',
+				$wpdb->prefix . 'poocommerce_order_items',
 				array(
 					'order_item_name' => $item->get_name(),
 					'order_item_type' => $item->get_type(),
@@ -124,7 +124,7 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 		$item->apply_changes();
 		$this->clear_cache( $item );
 
-		do_action( 'woocommerce_update_order_item', $item->get_id(), $item, $item->get_order_id() );
+		do_action( 'poocommerce_update_order_item', $item->get_id(), $item, $item->get_order_id() );
 	}
 
 	/**
@@ -137,10 +137,10 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 	public function delete( &$item, $args = array() ) {
 		if ( $item->get_id() ) {
 			global $wpdb;
-			do_action( 'woocommerce_before_delete_order_item', $item->get_id() );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_order_items', array( 'order_item_id' => $item->get_id() ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_order_itemmeta', array( 'order_item_id' => $item->get_id() ) );
-			do_action( 'woocommerce_delete_order_item', $item->get_id() );
+			do_action( 'poocommerce_before_delete_order_item', $item->get_id() );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_order_items', array( 'order_item_id' => $item->get_id() ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_order_itemmeta', array( 'order_item_id' => $item->get_id() ) );
+			do_action( 'poocommerce_delete_order_item', $item->get_id() );
 			$this->clear_cache( $item );
 		}
 	}
@@ -162,12 +162,12 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 		$data = wp_cache_get( 'item-' . $item->get_id(), 'order-items' );
 
 		if ( false === $data ) {
-			$data = $wpdb->get_row( $wpdb->prepare( "SELECT order_id, order_item_name FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d LIMIT 1;", $item->get_id() ) );
+			$data = $wpdb->get_row( $wpdb->prepare( "SELECT order_id, order_item_name FROM {$wpdb->prefix}poocommerce_order_items WHERE order_item_id = %d LIMIT 1;", $item->get_id() ) );
 			wp_cache_set( 'item-' . $item->get_id(), $data, 'order-items' );
 		}
 
 		if ( ! $data ) {
-			throw new Exception( __( 'Invalid order item.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid order item.', 'poocommerce' ) );
 		}
 
 		$item->set_props(
@@ -189,7 +189,7 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 			 * @param float $cogs_value The value as read from the database.
 			 * @param WC_Order_Item $product The order item for which the value is being loaded.
 			 */
-			$cogs_value = apply_filters( 'woocommerce_load_order_item_cogs_value', $cogs_value, $item );
+			$cogs_value = apply_filters( 'poocommerce_load_order_item_cogs_value', $cogs_value, $item );
 
 			$item->set_cogs_value( (float) $cogs_value );
 		}
@@ -233,7 +233,7 @@ abstract class Abstract_WC_Order_Item_Type_Data_Store extends WC_Data_Store_WP i
 		 * @param float|null $cogs_value The value to be written to the database. If returned as null, nothing will be written.
 		 * @param WC_Order_Item $item The order item for which the value is being saved.
 		 */
-		$cogs_value = apply_filters( 'woocommerce_save_order_item_cogs_value', $cogs_value, $item );
+		$cogs_value = apply_filters( 'poocommerce_save_order_item_cogs_value', $cogs_value, $item );
 		if ( is_null( $cogs_value ) ) {
 			return;
 		}

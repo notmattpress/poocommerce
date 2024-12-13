@@ -1,5 +1,5 @@
 ---
-post_title: When to request WooCommerce extension reviews
+post_title: When to request PooCommerce extension reviews
 menu_title: When to request reviews
 ---
 
@@ -21,4 +21,4 @@ Another way to optimally time a review request would be to setup a prompt that a
 
 SaaS/Connector extensions need to be particularly careful about requesting ratings correctly, as they are the most likely to be overlooked unless there is an issue, leading to skewed ratings not representative of the actual extension.
 
-Consider requesting feedback at the end of every single support interaction, especially in the WordPress.org support forums. One of the largest barriers to leaving a review is the requirement of a user being logged into WooCommerce.com (or WordPress.org), and the WordPress.org support forums present a good opportunity to gather these reviews. By being highly responsive in the public support forum and solving issues there, users are already logged in and able to immediately leave a review (after being requested to!).
+Consider requesting feedback at the end of every single support interaction, especially in the WordPress.org support forums. One of the largest barriers to leaving a review is the requirement of a user being logged into PooCommerce.com (or WordPress.org), and the WordPress.org support forums present a good opportunity to gather these reviews. By being highly responsive in the public support forum and solving issues there, users are already logged in and able to immediately leave a review (after being requested to!).

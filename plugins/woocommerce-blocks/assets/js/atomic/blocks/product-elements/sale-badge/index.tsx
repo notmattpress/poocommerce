@@ -24,6 +24,6 @@ registerBlockType( metadata, {
 	edit,
 	ancestor: [
 		...( sharedConfig.ancestor || [] ),
-		'woocommerce/product-gallery',
+		'poocommerce/product-gallery',
 	],
 } );

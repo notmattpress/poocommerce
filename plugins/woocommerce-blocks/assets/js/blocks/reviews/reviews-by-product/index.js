@@ -16,9 +16,9 @@ import { example } from '../example';
 /**
  * Register and run the "Reviews by Product" block.
  */
-registerBlockType( 'woocommerce/reviews-by-product', {
+registerBlockType( 'poocommerce/reviews-by-product', {
 	apiVersion: 3,
-	title: __( 'Reviews by Product', 'woocommerce' ),
+	title: __( 'Reviews by Product', 'poocommerce' ),
 	icon: {
 		src: (
 			<Icon
@@ -27,9 +27,9 @@ registerBlockType( 'woocommerce/reviews-by-product', {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
-	description: __( 'Display reviews for your products.', 'woocommerce' ),
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
+	description: __( 'Display reviews for your products.', 'poocommerce' ),
 	supports: {
 		html: false,
 		color: {

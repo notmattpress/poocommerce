@@ -2,7 +2,7 @@
 /**
  * Class WC_Shipping_Zone_Data_Store file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	public function create( &$zone ) {
 		global $wpdb;
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_shipping_zones',
+			$wpdb->prefix . 'poocommerce_shipping_zones',
 			array(
 				'zone_name'  => $zone->get_zone_name(),
 				'zone_order' => $zone->get_zone_order(),
@@ -49,7 +49,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		global $wpdb;
 		if ( $zone->get_id() ) {
 			$wpdb->update(
-				$wpdb->prefix . 'woocommerce_shipping_zones',
+				$wpdb->prefix . 'poocommerce_shipping_zones',
 				array(
 					'zone_name'  => $zone->get_zone_name(),
 					'zone_order' => $zone->get_zone_order(),
@@ -77,28 +77,28 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		// Zone 0 is used as a default if no other zones fit.
 		if ( 0 === $zone->get_id() || '0' === $zone->get_id() ) {
 			$this->read_zone_locations( $zone );
-			$zone->set_zone_name( __( 'Locations not covered by your other zones', 'woocommerce' ) );
+			$zone->set_zone_name( __( 'Locations not covered by your other zones', 'poocommerce' ) );
 			$zone->read_meta_data();
 			$zone->set_object_read( true );
 
 			/**
-			 * Indicate that the WooCommerce shipping zone has been loaded.
+			 * Indicate that the PooCommerce shipping zone has been loaded.
 			 *
 			 * @param WC_Shipping_Zone $zone The shipping zone that has been loaded.
 			 */
-			do_action( 'woocommerce_shipping_zone_loaded', $zone );
+			do_action( 'poocommerce_shipping_zone_loaded', $zone );
 			return;
 		}
 
 		$zone_data = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT zone_name, zone_order FROM {$wpdb->prefix}woocommerce_shipping_zones WHERE zone_id = %d LIMIT 1",
+				"SELECT zone_name, zone_order FROM {$wpdb->prefix}poocommerce_shipping_zones WHERE zone_id = %d LIMIT 1",
 				$zone->get_id()
 			)
 		);
 
 		if ( ! $zone_data ) {
-			throw new Exception( __( 'Invalid data store.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid data store.', 'poocommerce' ) );
 		}
 
 		$zone->set_zone_name( $zone_data->zone_name );
@@ -108,7 +108,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		$zone->set_object_read( true );
 
 		/** This action is documented in includes/datastores/class-wc-shipping-zone-data-store.php. */
-		do_action( 'woocommerce_shipping_zone_loaded', $zone );
+		do_action( 'poocommerce_shipping_zone_loaded', $zone );
 	}
 
 	/**
@@ -135,15 +135,15 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			}
 
 			// Delete zone.
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_shipping_zone_locations', array( 'zone_id' => $zone_id ) );
-			$wpdb->delete( $wpdb->prefix . 'woocommerce_shipping_zones', array( 'zone_id' => $zone_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_shipping_zone_locations', array( 'zone_id' => $zone_id ) );
+			$wpdb->delete( $wpdb->prefix . 'poocommerce_shipping_zones', array( 'zone_id' => $zone_id ) );
 
 			$zone->set_id( null );
 
 			WC_Cache_Helper::invalidate_cache_group( 'shipping_zones' );
 			WC_Cache_Helper::get_transient_version( 'shipping', true );
 
-			do_action( 'woocommerce_delete_shipping_zone', $zone_id );
+			do_action( 'poocommerce_delete_shipping_zone', $zone_id );
 		}
 	}
 
@@ -159,9 +159,9 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		global $wpdb;
 
 		if ( $enabled_only ) {
-			$raw_methods_sql = "SELECT method_id, method_order, instance_id, is_enabled FROM {$wpdb->prefix}woocommerce_shipping_zone_methods WHERE zone_id = %d AND is_enabled = 1";
+			$raw_methods_sql = "SELECT method_id, method_order, instance_id, is_enabled FROM {$wpdb->prefix}poocommerce_shipping_zone_methods WHERE zone_id = %d AND is_enabled = 1";
 		} else {
-			$raw_methods_sql = "SELECT method_id, method_order, instance_id, is_enabled FROM {$wpdb->prefix}woocommerce_shipping_zone_methods WHERE zone_id = %d";
+			$raw_methods_sql = "SELECT method_id, method_order, instance_id, is_enabled FROM {$wpdb->prefix}poocommerce_shipping_zone_methods WHERE zone_id = %d";
 		}
 
 		return $wpdb->get_results( $wpdb->prepare( $raw_methods_sql, $zone_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -176,7 +176,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	 */
 	public function get_method_count( $zone_id ) {
 		global $wpdb;
-		return $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_shipping_zone_methods WHERE zone_id = %d", $zone_id ) );
+		return $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}poocommerce_shipping_zone_methods WHERE zone_id = %d", $zone_id ) );
 	}
 
 	/**
@@ -191,7 +191,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	public function add_method( $zone_id, $type, $order ) {
 		global $wpdb;
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_shipping_zone_methods',
+			$wpdb->prefix . 'poocommerce_shipping_zone_methods',
 			array(
 				'method_id'    => $type,
 				'zone_id'      => $zone_id,
@@ -221,11 +221,11 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 			return;
 		}
 
-		delete_option( 'woocommerce_' . $method->method_id . '_' . $instance_id . '_settings' );
+		delete_option( 'poocommerce_' . $method->method_id . '_' . $instance_id . '_settings' );
 
-		$wpdb->delete( $wpdb->prefix . 'woocommerce_shipping_zone_methods', array( 'instance_id' => $instance_id ) );
+		$wpdb->delete( $wpdb->prefix . 'poocommerce_shipping_zone_methods', array( 'instance_id' => $instance_id ) );
 
-		do_action( 'woocommerce_delete_shipping_zone_method', $instance_id );
+		do_action( 'poocommerce_delete_shipping_zone_method', $instance_id );
 	}
 
 	/**
@@ -237,7 +237,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	 */
 	public function get_method( $instance_id ) {
 		global $wpdb;
-		return $wpdb->get_row( $wpdb->prepare( "SELECT zone_id, method_id, instance_id, method_order, is_enabled FROM {$wpdb->prefix}woocommerce_shipping_zone_methods WHERE instance_id = %d LIMIT 1;", $instance_id ) );
+		return $wpdb->get_row( $wpdb->prepare( "SELECT zone_id, method_id, instance_id, method_order, is_enabled FROM {$wpdb->prefix}poocommerce_shipping_zone_methods WHERE instance_id = %d LIMIT 1;", $instance_id ) );
 	}
 
 	/**
@@ -263,7 +263,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		$criteria[] = 'OR ( location_type IS NULL ) )';
 
 		// Postcode range and wildcard matching.
-		$postcode_locations = $wpdb->get_results( "SELECT zone_id, location_code FROM {$wpdb->prefix}woocommerce_shipping_zone_locations WHERE location_type = 'postcode';" );
+		$postcode_locations = $wpdb->get_results( "SELECT zone_id, location_code FROM {$wpdb->prefix}poocommerce_shipping_zone_locations WHERE location_type = 'postcode';" );
 
 		if ( $postcode_locations ) {
 			$zone_ids_with_postcode_rules = array_map( 'absint', wp_list_pluck( $postcode_locations, 'zone_id' ) );
@@ -283,12 +283,12 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		 * @param array $package Package information.
 		 * @param array $postcode_locations Postcode range and wildcard matching.
 		 */
-		$criteria = apply_filters( 'woocommerce_get_zone_criteria', $criteria, $package, $postcode_locations );
+		$criteria = apply_filters( 'poocommerce_get_zone_criteria', $criteria, $package, $postcode_locations );
 
 		// Get matching zones.
 		return $wpdb->get_var(
-			"SELECT zones.zone_id FROM {$wpdb->prefix}woocommerce_shipping_zones as zones
-			LEFT OUTER JOIN {$wpdb->prefix}woocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode'
+			"SELECT zones.zone_id FROM {$wpdb->prefix}poocommerce_shipping_zones as zones
+			LEFT OUTER JOIN {$wpdb->prefix}poocommerce_shipping_zone_locations as locations ON zones.zone_id = locations.zone_id AND location_type != 'postcode'
 			WHERE " . implode( ' ', $criteria ) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			. ' ORDER BY zone_order ASC, zones.zone_id ASC LIMIT 1'
 		);
@@ -302,7 +302,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	 */
 	public function get_zones() {
 		global $wpdb;
-		return $wpdb->get_results( "SELECT zone_id, zone_name, zone_order FROM {$wpdb->prefix}woocommerce_shipping_zones order by zone_order ASC, zone_id ASC;" );
+		return $wpdb->get_results( "SELECT zone_id, zone_name, zone_order FROM {$wpdb->prefix}poocommerce_shipping_zones order by zone_order ASC, zone_id ASC;" );
 	}
 
 
@@ -315,7 +315,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 	 */
 	public function get_zone_id_by_instance_id( $id ) {
 		global $wpdb;
-		return $wpdb->get_var( $wpdb->prepare( "SELECT zone_id FROM {$wpdb->prefix}woocommerce_shipping_zone_methods as methods WHERE methods.instance_id = %d LIMIT 1;", $id ) );
+		return $wpdb->get_var( $wpdb->prepare( "SELECT zone_id FROM {$wpdb->prefix}poocommerce_shipping_zone_methods as methods WHERE methods.instance_id = %d LIMIT 1;", $id ) );
 	}
 
 	/**
@@ -328,7 +328,7 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 
 		$locations = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT location_code, location_type FROM {$wpdb->prefix}woocommerce_shipping_zone_locations WHERE zone_id = %d",
+				"SELECT location_code, location_type FROM {$wpdb->prefix}poocommerce_shipping_zone_locations WHERE zone_id = %d",
 				$zone->get_id()
 			)
 		);
@@ -357,11 +357,11 @@ class WC_Shipping_Zone_Data_Store extends WC_Data_Store_WP implements WC_Object_
 		}
 
 		global $wpdb;
-		$wpdb->delete( $wpdb->prefix . 'woocommerce_shipping_zone_locations', array( 'zone_id' => $zone->get_id() ) );
+		$wpdb->delete( $wpdb->prefix . 'poocommerce_shipping_zone_locations', array( 'zone_id' => $zone->get_id() ) );
 
 		foreach ( $zone->get_zone_locations( 'edit' ) as $location ) {
 			$wpdb->insert(
-				$wpdb->prefix . 'woocommerce_shipping_zone_locations',
+				$wpdb->prefix . 'poocommerce_shipping_zone_locations',
 				array(
 					'zone_id'       => $zone->get_id(),
 					'location_code' => $location->code,

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductSummary class.
@@ -98,7 +98,7 @@ class ProductSummary extends AbstractBlock {
 		$href = esc_url( $product->get_permalink() );
 		$text = wp_kses_post( $link_text );
 
-		return '<a class="wp-block-woocommerce-product-summary__read_more" href="' . $href . '#tab-description">' . $text . '</a>';
+		return '<a class="wp-block-poocommerce-product-summary__read_more" href="' . $href . '#tab-description">' . $text . '</a>';
 	}
 
 	/**
@@ -163,11 +163,11 @@ class ProductSummary extends AbstractBlock {
 	 * but allows keeping the editor and frontend consistent.
 	 *
 	 * NOTE: If editing, keep it in sync with generateSummary function from
-	 * plugins/woocommerce-blocks/assets/js/base/components/summary/utils.ts!
+	 * plugins/poocommerce-blocks/assets/js/base/components/summary/utils.ts!
 	 *
 	 * Once HTML API allow for HTML manipulation both functions (PHP and JS)
 	 * should be updated to solution fully respecting the word count.
-	 * https://github.com/woocommerce/woocommerce/issues/52835
+	 * https://github.com/poocommerce/poocommerce/issues/52835
 	 *
 	 * @param string $source     Source text.
 	 * @param int    $max_length Limit number of items returned if text has multiple paragraphs.
@@ -234,7 +234,7 @@ class ProductSummary extends AbstractBlock {
 		$styles_and_classes = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 
 		return sprintf(
-			'<div class="wp-block-woocommerce-product-summary"><div class="wc-block-components-product-summary %1$s" style="%2$s">
+			'<div class="wp-block-poocommerce-product-summary"><div class="wc-block-components-product-summary %1$s" style="%2$s">
 				%3$s
 			</div></div>',
 			esc_attr( $styles_and_classes['classes'] ),

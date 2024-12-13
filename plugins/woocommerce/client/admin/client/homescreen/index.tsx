@@ -8,8 +8,8 @@ import {
 	ONBOARDING_STORE_NAME,
 	withOnboardingHydration,
 	WCDataSelector,
-} from '@woocommerce/data';
-import { getHistory, getNewPath, useQuery } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getHistory, getNewPath, useQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

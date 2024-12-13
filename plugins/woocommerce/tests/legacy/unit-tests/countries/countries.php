@@ -2,7 +2,7 @@
 /**
  * Unit tests for the WP_Countries class.
  *
- * @package WooCommerce\Tests\Countries
+ * @package PooCommerce\Tests\Countries
  */
 
 // phpcs:disable WordPress.Files.FileName
@@ -32,11 +32,11 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 		$countries      = new WC_Countries();
 		$all_continents = $countries->get_continents();
 
-		update_option( 'woocommerce_ship_to_countries', 'all' );
+		update_option( 'poocommerce_ship_to_countries', 'all' );
 		$this->assertSame( $all_continents, $countries->get_shipping_continents() );
 
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'CA', 'JP' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'CA', 'JP' ) );
 		$expected = array(
 			'AS' => $all_continents['AS'],
 			'NA' => $all_continents['NA'],
@@ -52,19 +52,19 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 	public function test_get_allowed_countries() {
 		$countries = new WC_Countries();
 
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'RO', 'SI' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'RO', 'SI' ) );
 		$expected = array(
 			'RO' => 'Romania',
 			'SI' => 'Slovenia',
 		);
 		$this->assertEquals( $expected, $countries->get_allowed_countries() );
 
-		update_option( 'woocommerce_allowed_countries', 'all' );
+		update_option( 'poocommerce_allowed_countries', 'all' );
 		$this->assertEquals( $countries->get_countries(), $countries->get_allowed_countries() );
 
-		update_option( 'woocommerce_allowed_countries', 'all_except' );
-		update_option( 'woocommerce_all_except_countries', array( 'RO', 'SI' ) );
+		update_option( 'poocommerce_allowed_countries', 'all_except' );
+		update_option( 'poocommerce_all_except_countries', array( 'RO', 'SI' ) );
 		$allowed_countries = $countries->get_allowed_countries();
 		$this->assertEquals( count( $countries->get_countries() ) - 2, count( $allowed_countries ) );
 		$this->assertFalse( isset( $allowed_countries['RO'], $allowed_countries['SI'] ) );
@@ -78,18 +78,18 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 	public function test_get_shipping_countries() {
 		$countries = new WC_Countries();
 
-		update_option( 'woocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_ship_to_countries', '' );
 		$this->assertEquals( $countries->get_allowed_countries(), $countries->get_shipping_countries() );
 
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'RO', 'SI' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'RO', 'SI' ) );
 		$this->assertEquals( $countries->get_allowed_countries(), $countries->get_shipping_countries() );
 
-		update_option( 'woocommerce_ship_to_countries', 'all' );
+		update_option( 'poocommerce_ship_to_countries', 'all' );
 		$this->assertEquals( $countries->get_countries(), $countries->get_shipping_countries() );
 
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'RO', 'SI' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'RO', 'SI' ) );
 		$expected = array(
 			'RO' => 'Romania',
 			'SI' => 'Slovenia',
@@ -105,11 +105,11 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 	public function test_get_allowed_country_states() {
 		$countries = new WC_Countries();
 
-		update_option( 'woocommerce_allowed_countries', 'all' );
+		update_option( 'poocommerce_allowed_countries', 'all' );
 		$this->assertEquals( $countries->get_states(), $countries->get_allowed_country_states() );
 
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'US' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'US' ) );
 
 		$all_states = $countries->get_allowed_country_states();
 		$us_states  = $all_states['US'];
@@ -126,14 +126,14 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 	public function test_get_shipping_country_states() {
 		$countries = new WC_Countries();
 
-		update_option( 'woocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_ship_to_countries', '' );
 		$this->assertEquals( $countries->get_allowed_country_states(), $countries->get_shipping_country_states() );
 
-		update_option( 'woocommerce_ship_to_countries', 'all' );
+		update_option( 'poocommerce_ship_to_countries', 'all' );
 		$this->assertEquals( $countries->get_states(), $countries->get_shipping_country_states() );
 
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'US' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'US' ) );
 
 		$all_states = $countries->get_shipping_country_states();
 		$us_states  = $all_states['US'];
@@ -174,13 +174,13 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 	public function test_tax_or_vat() {
 		$countries = new WC_Countries();
 
-		update_option( 'woocommerce_default_country', 'CZ' );
+		update_option( 'poocommerce_default_country', 'CZ' );
 		$this->assertEquals( 'VAT', $countries->tax_or_vat() );
 
-		update_option( 'woocommerce_default_country', 'NO' );
+		update_option( 'poocommerce_default_country', 'NO' );
 		$this->assertEquals( 'VAT', $countries->tax_or_vat() );
 
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 		$this->assertEquals( 'Tax', $countries->tax_or_vat() );
 	}
 
@@ -191,8 +191,8 @@ class WC_Tests_Countries extends WC_Unit_Test_Case {
 	 */
 	public function test_get_country_locale() {
 		$countries = new WC_Countries();
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'RO', 'SI' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'RO', 'SI' ) );
 
 		$locales = $countries->get_country_locale();
 		$this->assertArrayHasKey( 'RO', $locales );

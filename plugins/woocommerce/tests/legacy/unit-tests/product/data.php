@@ -2,7 +2,7 @@
 /**
  * Unit tests for the product data methods.
  *
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  */
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
@@ -10,7 +10,7 @@ use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 /**
  * Data Functions.
  *
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 3.0.0
  */
 class WC_Tests_Product_Data extends WC_Unit_Test_Case {
@@ -262,15 +262,15 @@ class WC_Tests_Product_Data extends WC_Unit_Test_Case {
 
 		$product = wc_get_product( $product1_id );
 		$this->assertEquals( $product1_id, $product->get_id() );
-		$this->assertEquals( '<del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>10.00</bdi></span></del> <span class="screen-reader-text">Original price was: &#036;10.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>7.00</bdi></span></ins><span class="screen-reader-text">Current price is: &#036;7.00.</span>', $product->get_price_html() );
+		$this->assertEquals( '<del aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&#36;</span>10.00</bdi></span></del> <span class="screen-reader-text">Original price was: &#036;10.00.</span><ins aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&#36;</span>7.00</bdi></span></ins><span class="screen-reader-text">Current price is: &#036;7.00.</span>', $product->get_price_html() );
 
 		$product = wc_get_product( $product2_id );
 		$this->assertEquals( $product2_id, $product->get_id() );
-		$this->assertEquals( '<del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.00</bdi></span></del> <span class="screen-reader-text">Original price was: &#036;20.00.</span><ins aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>16.00</bdi></span></ins><span class="screen-reader-text">Current price is: &#036;16.00.</span>', $product->get_price_html() );
+		$this->assertEquals( '<del aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&#36;</span>20.00</bdi></span></del> <span class="screen-reader-text">Original price was: &#036;20.00.</span><ins aria-hidden="true"><span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&#36;</span>16.00</bdi></span></ins><span class="screen-reader-text">Current price is: &#036;16.00.</span>', $product->get_price_html() );
 
 		$product = wc_get_product( $product3_id );
 		$this->assertEquals( $product3_id, $product->get_id() );
-		$this->assertEquals( '<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>50.00</bdi></span>', $product->get_price_html() );
+		$this->assertEquals( '<span class="poocommerce-Price-amount amount"><bdi><span class="poocommerce-Price-currencySymbol">&#36;</span>50.00</bdi></span>', $product->get_price_html() );
 	}
 
 	/**
@@ -282,7 +282,7 @@ class WC_Tests_Product_Data extends WC_Unit_Test_Case {
 		$needle  = 'width="186" height="144" src="' . $image['url'] . '" class="%s"';
 
 		$this->assertStringContainsString(
-			sprintf( $needle, 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail' ),
+			sprintf( $needle, 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail' ),
 			$product->get_image()
 		);
 
@@ -310,7 +310,7 @@ class WC_Tests_Product_Data extends WC_Unit_Test_Case {
 		$needle           = 'width="186" height="144" src="' . $image['url'] . '" class="%s"';
 
 		$this->assertStringContainsString(
-			sprintf( $needle, 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail' ),
+			sprintf( $needle, 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail' ),
 			$variation_1->get_image()
 		);
 
@@ -336,7 +336,7 @@ class WC_Tests_Product_Data extends WC_Unit_Test_Case {
 		$this->assertStringContainsString( wc_placeholder_img_src(), $product->get_image() );
 
 		// Test custom class attribute is honoured.
-		$image = $product->get_image( 'woocommerce_thumbnail', array( 'class' => 'custom-class' ) );
+		$image = $product->get_image( 'poocommerce_thumbnail', array( 'class' => 'custom-class' ) );
 		$this->assertStringContainsString( 'class="custom-class"', $image );
 	}
 
@@ -345,7 +345,7 @@ class WC_Tests_Product_Data extends WC_Unit_Test_Case {
 	 */
 	public function test_get_image_should_return_empty_string() {
 		$product = new WC_Product();
-		$this->assertEquals( '', $product->get_image( 'woocommerce_thumbnail', array(), false ) );
+		$this->assertEquals( '', $product->get_image( 'poocommerce_thumbnail', array(), false ) );
 	}
 
 	/**

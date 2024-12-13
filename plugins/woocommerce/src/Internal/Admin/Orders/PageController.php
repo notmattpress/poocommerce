@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 
 /**
  * Controls the different pages/screens associated to the "Orders" menu page.
@@ -57,19 +57,19 @@ class PageController {
 	 */
 	private function verify_edit_permission() {
 		if ( 'edit_order' === $this->current_action && ( ! isset( $this->order ) || ! $this->order ) ) {
-			wp_die( esc_html__( 'You attempted to edit an order that does not exist. Perhaps it was deleted?', 'woocommerce' ) );
+			wp_die( esc_html__( 'You attempted to edit an order that does not exist. Perhaps it was deleted?', 'poocommerce' ) );
 		}
 
 		if ( $this->order->get_type() !== $this->order_type ) {
-			wp_die( esc_html__( 'Order type mismatch.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Order type mismatch.', 'poocommerce' ) );
 		}
 
-		if ( ! current_user_can( get_post_type_object( $this->order_type )->cap->edit_post, $this->order->get_id() ) && ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You do not have permission to edit this order', 'woocommerce' ) );
+		if ( ! current_user_can( get_post_type_object( $this->order_type )->cap->edit_post, $this->order->get_id() ) && ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'You do not have permission to edit this order', 'poocommerce' ) );
 		}
 
 		if ( 'trash' === $this->order->get_status() ) {
-			wp_die( esc_html__( 'You cannot edit this item because it is in the Trash. Please restore it and try again.', 'woocommerce' ) );
+			wp_die( esc_html__( 'You cannot edit this item because it is in the Trash. Please restore it and try again.', 'poocommerce' ) );
 		}
 	}
 
@@ -79,8 +79,8 @@ class PageController {
 	 * @return void
 	 */
 	private function verify_create_permission() {
-		if ( ! current_user_can( get_post_type_object( $this->order_type )->cap->publish_posts ) && ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You don\'t have permission to create a new order', 'woocommerce' ) );
+		if ( ! current_user_can( get_post_type_object( $this->order_type )->cap->publish_posts ) && ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'You don\'t have permission to create a new order', 'poocommerce' ) );
 		}
 
 		if ( isset( $this->order ) ) {
@@ -149,14 +149,14 @@ class PageController {
 
 		$page_suffix = ( 'shop_order' === $this->order_type ? '' : '--' . $this->order_type );
 
-		add_action( 'load-woocommerce_page_wc-orders' . $page_suffix, array( $this, 'handle_load_page_action' ) );
+		add_action( 'load-poocommerce_page_wc-orders' . $page_suffix, array( $this, 'handle_load_page_action' ) );
 		add_action( 'admin_title', array( $this, 'set_page_title' ) );
 	}
 
 	/**
 	 * Perform initialization for the current action.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_load_page_action() {
 		$screen            = get_current_screen();
@@ -174,7 +174,7 @@ class PageController {
 	 *
 	 * @return string The filtered admin title.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function set_page_title( $admin_title ) {
 		if ( ! $this->is_order_screen( $this->order_type ) ) {
@@ -187,14 +187,14 @@ class PageController {
 		if ( $this->is_order_screen( $this->order_type, 'list' ) ) {
 			$admin_title = sprintf(
 				// translators: 1: The label for an order type 2: The name of the website.
-				esc_html__( '%1$s &lsaquo; %2$s &#8212; WordPress', 'woocommerce' ),
+				esc_html__( '%1$s &lsaquo; %2$s &#8212; WordPress', 'poocommerce' ),
 				esc_html( $labels->name ),
 				esc_html( get_bloginfo( 'name' ) )
 			);
 		} elseif ( $this->is_order_screen( $this->order_type, 'edit' ) ) {
 			$admin_title = sprintf(
 				// translators: 1: The label for an order type 2: The title of the order 3: The name of the website.
-				esc_html__( '%1$s #%2$s &lsaquo; %3$s &#8212; WordPress', 'woocommerce' ),
+				esc_html__( '%1$s #%2$s &lsaquo; %3$s &#8212; WordPress', 'poocommerce' ),
 				esc_html( $labels->edit_item ),
 				absint( $this->order->get_id() ),
 				esc_html( get_bloginfo( 'name' ) )
@@ -202,7 +202,7 @@ class PageController {
 		} elseif ( $this->is_order_screen( $this->order_type, 'new' ) ) {
 			$admin_title = sprintf(
 				// translators: 1: The label for an order type 2: The name of the website.
-				esc_html__( '%1$s &lsaquo; %2$s &#8212; WordPress', 'woocommerce' ),
+				esc_html__( '%1$s &lsaquo; %2$s &#8212; WordPress', 'poocommerce' ),
 				esc_html( $labels->add_new_item ),
 				esc_html( get_bloginfo( 'name' ) )
 			);
@@ -261,7 +261,7 @@ class PageController {
 			$post_type = get_post_type_object( $order_type );
 
 			add_submenu_page(
-				'woocommerce',
+				'poocommerce',
 				$post_type->labels->name,
 				$post_type->labels->menu_name,
 				$post_type->cap->edit_posts,
@@ -276,7 +276,7 @@ class PageController {
 			'admin_init',
 			function() use ( $order_types ) {
 				foreach ( $order_types as $order_type ) {
-					remove_submenu_page( 'woocommerce', 'edit.php?post_type=' . $order_type );
+					remove_submenu_page( 'poocommerce', 'edit.php?post_type=' . $order_type );
 				}
 			}
 		);
@@ -339,7 +339,7 @@ class PageController {
 	/**
 	 * Prepares the order edit form for creating or editing an order.
 	 *
-	 * @see \Automattic\WooCommerce\Internal\Admin\Orders\Edit.
+	 * @see \Automattic\PooCommerce\Internal\Admin\Orders\Edit.
 	 * @since 8.1.0
 	 */
 	private function prepare_order_edit_form(): void {
@@ -439,7 +439,7 @@ class PageController {
 			wc_get_logger()->debug(
 				sprintf(
 					/* translators: %d order ID. */
-					__( 'Attempted to determine the edit URL for order %d, however the order does not exist.', 'woocommerce' ),
+					__( 'Attempted to determine the edit URL for order %d, however the order does not exist.', 'poocommerce' ),
 					$order_id
 				)
 			);
@@ -491,7 +491,7 @@ class PageController {
 
 		if ( ! in_array( $order_type, $order_types_with_ui, true ) ) {
 			// translators: %s is a custom order type.
-			throw new \Exception( sprintf( __( 'Invalid order type: %s.', 'woocommerce' ), esc_html( $order_type ) ) );
+			throw new \Exception( sprintf( __( 'Invalid order type: %s.', 'poocommerce' ), esc_html( $order_type ) ) );
 		}
 
 		return admin_url( 'admin.php?page=wc-orders' . ( 'shop_order' === $order_type ? '' : '--' . $order_type ) );
@@ -512,7 +512,7 @@ class PageController {
 				__METHOD__,
 				sprintf(
 					// translators: %s is the name of a function.
-					esc_html__( '%s must be called after the current_screen action.', 'woocommerce' ),
+					esc_html__( '%s must be called after the current_screen action.', 'poocommerce' ),
 					esc_html( __METHOD__ )
 				),
 				'7.9.0'
@@ -527,7 +527,7 @@ class PageController {
 				__METHOD__,
 				sprintf(
 					// translators: %s is the name of an order type.
-					esc_html__( '%s is not a valid order type.', 'woocommerce' ),
+					esc_html__( '%s is not a valid order type.', 'poocommerce' ),
 					esc_html( $type )
 				),
 				'7.9.0'

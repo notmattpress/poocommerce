@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
-import { productFilterOptions } from '@woocommerce/icons';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
+import { productFilterOptions } from '@poocommerce/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
 /**

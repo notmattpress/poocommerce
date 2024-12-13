@@ -9,7 +9,7 @@ import {
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { DispatchFromMap } from '@automattic/data-stores';
 import { controls } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -55,12 +55,12 @@ const formatErrorMessage = (
 	rawErrorMessage: string
 ) => {
 	return sprintf(
-		/* translators: %(actionType): install or activate (the plugin). %(pluginName): a plugin slug (e.g. woocommerce-services). %(error): a single error message or in plural a comma separated error message list.*/
+		/* translators: %(actionType): install or activate (the plugin). %(pluginName): a plugin slug (e.g. poocommerce-services). %(error): a single error message or in plural a comma separated error message list.*/
 		_n(
 			'Could not %(actionType)s %(pluginName)s plugin, %(error)s',
 			'Could not %(actionType)s the following plugins: %(pluginName)s with these Errors: %(error)s',
 			Object.keys( plugins ).length || 1,
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			actionType,
@@ -304,7 +304,7 @@ export function* installAndActivatePlugins( plugins: string[] ) {
 		) {
 			response.message = __(
 				'Plugins were successfully installed and activated.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 

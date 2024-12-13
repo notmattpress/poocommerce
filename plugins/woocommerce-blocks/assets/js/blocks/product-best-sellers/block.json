@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-best-sellers",
+	"name": "poocommerce/product-best-sellers",
 	"title": "Best Selling Products",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Display a grid of your all-time best selling products.",
 	"supports": {
 		"align": [ "wide", "full" ],
@@ -87,7 +87,7 @@
 			"default": "popularity"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

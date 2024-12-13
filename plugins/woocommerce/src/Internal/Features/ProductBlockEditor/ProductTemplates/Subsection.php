@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Subsection Block class.
+ * PooCommerce Subsection Block class.
  */
 
-namespace Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\ContainerInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SubsectionInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\ContainerInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SubsectionInterface;
 
 /**
  * Class for Subsection block.
@@ -27,9 +27,9 @@ class Subsection extends ProductBlock implements SubsectionInterface {
 	 */
 	public function __construct( array $config, BlockTemplateInterface &$root_template, ContainerInterface &$parent = null ) {
 		if ( ! empty( $config['blockName'] ) ) {
-			throw new \InvalidArgumentException( 'Unexpected key "blockName", this defaults to "woocommerce/product-subsection".' );
+			throw new \InvalidArgumentException( 'Unexpected key "blockName", this defaults to "poocommerce/product-subsection".' );
 		}
-		parent::__construct( array_merge( array( 'blockName' => 'woocommerce/product-subsection' ), $config ), $root_template, $parent );
+		parent::__construct( array_merge( array( 'blockName' => 'poocommerce/product-subsection' ), $config ), $root_template, $parent );
 	}
 	// phpcs:enable Squiz.Commenting.FunctionCommentThrowTag.WrongNumber
 }

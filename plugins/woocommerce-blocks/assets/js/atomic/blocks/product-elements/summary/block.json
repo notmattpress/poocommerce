@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/product-summary",
+	"name": "poocommerce/product-summary",
 	"version": "1.0.0",
 	"icon": "page",
 	"title": "Product Summary",
@@ -43,8 +43,8 @@
 		}
 	},
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

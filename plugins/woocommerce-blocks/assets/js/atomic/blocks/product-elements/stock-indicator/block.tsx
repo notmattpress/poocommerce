@@ -6,9 +6,9 @@ import clsx from 'clsx';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import type { HTMLAttributes } from 'react';
 
 /**
@@ -45,15 +45,15 @@ const getTextBasedOnStock = ( {
 	if ( isLowStock && lowStockAmount !== null ) {
 		return sprintf(
 			/* translators: %d stock amount (number of items in stock for product) */
-			__( '%d left in stock', 'woocommerce' ),
+			__( '%d left in stock', 'poocommerce' ),
 			lowStockAmount
 		);
 	} else if ( isOnBackorder ) {
-		return __( 'Available on backorder', 'woocommerce' );
+		return __( 'Available on backorder', 'poocommerce' );
 	} else if ( isInStock ) {
-		return __( 'In stock', 'woocommerce' );
+		return __( 'In stock', 'poocommerce' );
 	}
-	return __( 'Out of stock', 'woocommerce' );
+	return __( 'Out of stock', 'poocommerce' );
 };
 
 type Props = BlockAttributes & HTMLAttributes< HTMLDivElement >;
@@ -87,7 +87,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 				// When inside All products block
 				...( props.isDescendantOfAllProducts && {
 					[ styleProps.className ]: styleProps.className,
-					'wc-block-components-product-stock-indicator wp-block-woocommerce-product-stock-indicator':
+					'wc-block-components-product-stock-indicator wp-block-poocommerce-product-stock-indicator':
 						true,
 				} ),
 			} ) }

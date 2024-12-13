@@ -37,7 +37,7 @@ export class PaymentsSetup extends BasePage {
 	async goToPaymentMethodSetup(
 		method: PaymentMethodWithSetupButton
 	): Promise< void > {
-		const selector = `.woocommerce-task-payment-${ method } button`;
+		const selector = `.poocommerce-task-payment-${ method } button`;
 		await this.page.waitForSelector( selector );
 		const button = await this.page.$( selector );
 
@@ -51,7 +51,7 @@ export class PaymentsSetup extends BasePage {
 	}
 
 	async enableCashOnDelivery(): Promise< void > {
-		await this.page.waitForSelector( '.woocommerce-task-payment-cod' );
+		await this.page.waitForSelector( '.poocommerce-task-payment-cod' );
 		await this.clickButtonWithText( 'Enable' );
 	}
 }

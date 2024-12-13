@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { CartResponseItem } from '@woocommerce/types';
+import { CartResponseItem } from '@poocommerce/types';
 import { createRef, useEffect, useRef } from '@wordpress/element';
 import type { RefObject } from 'react';
 
@@ -77,18 +77,18 @@ const CartLineItemsTable = ( {
 			tabIndex={ -1 }
 		>
 			<caption className="screen-reader-text">
-				<h2>{ __( 'Products in cart', 'woocommerce' ) }</h2>
+				<h2>{ __( 'Products in cart', 'poocommerce' ) }</h2>
 			</caption>
 			<thead>
 				<tr className="wc-block-cart-items__header">
 					<th className="wc-block-cart-items__header-image">
-						<span>{ __( 'Product', 'woocommerce' ) }</span>
+						<span>{ __( 'Product', 'poocommerce' ) }</span>
 					</th>
 					<th className="wc-block-cart-items__header-product">
-						<span>{ __( 'Details', 'woocommerce' ) }</span>
+						<span>{ __( 'Details', 'poocommerce' ) }</span>
 					</th>
 					<th className="wc-block-cart-items__header-total">
-						<span>{ __( 'Total', 'woocommerce' ) }</span>
+						<span>{ __( 'Total', 'poocommerce' ) }</span>
 					</th>
 				</tr>
 			</thead>

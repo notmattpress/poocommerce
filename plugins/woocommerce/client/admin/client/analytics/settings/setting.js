@@ -39,12 +39,12 @@ class Setting extends Component {
 					( optionGroup ) =>
 						optionGroup.options.length > 0 && (
 							<div
-								className="woocommerce-setting__options-group"
+								className="poocommerce-setting__options-group"
 								key={ optionGroup.key }
 								aria-labelledby={ name + '-label' }
 							>
 								{ optionGroup.label && (
-									<span className="woocommerce-setting__options-group-label">
+									<span className="poocommerce-setting__options-group-label">
 										{ optionGroup.label }
 									</span>
 								) }
@@ -158,17 +158,17 @@ class Setting extends Component {
 		const { helpText, label, name } = this.props;
 
 		return (
-			<div className="woocommerce-setting">
+			<div className="poocommerce-setting">
 				<div
-					className="woocommerce-setting__label"
+					className="poocommerce-setting__label"
 					id={ name + '-label' }
 				>
 					{ label }
 				</div>
-				<div className="woocommerce-setting__input">
+				<div className="poocommerce-setting__input">
 					{ this.renderInput() }
 					{ helpText && (
-						<span className="woocommerce-setting__help">
+						<span className="poocommerce-setting__help">
 							{ helpText }
 						</span>
 					) }

@@ -16,7 +16,7 @@ const shippingMethods = [
 ];
 
 /**
- * Tests for the WooCommerce Shipping methods API.
+ * Tests for the PooCommerce Shipping methods API.
  *
  * @group api
  * @group shipping-methods

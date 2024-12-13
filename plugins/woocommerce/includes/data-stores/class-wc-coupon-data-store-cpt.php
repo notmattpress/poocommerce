@@ -2,7 +2,7 @@
 /**
  * Class WC_Coupon_Data_Store_CPT file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +75,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 
 		$coupon_id = wp_insert_post(
 			apply_filters(
-				'woocommerce_new_coupon_data',
+				'poocommerce_new_coupon_data',
 				array(
 					'post_type'     => 'shop_coupon',
 					'post_status'   => 'publish',
@@ -96,7 +96,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			$coupon->save_meta_data();
 			$coupon->apply_changes();
 			delete_transient( 'rest_api_coupons_type_count' );
-			do_action( 'woocommerce_new_coupon', $coupon_id, $coupon );
+			do_action( 'poocommerce_new_coupon', $coupon_id, $coupon );
 		}
 	}
 
@@ -115,7 +115,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 		$post_object = get_post( $coupon->get_id() );
 
 		if ( ! $coupon->get_id() || ! $post_object || 'shop_coupon' !== $post_object->post_type ) {
-			throw new Exception( __( 'Invalid coupon.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid coupon.', 'poocommerce' ) );
 		}
 
 		$coupon_id              = $coupon->get_id();
@@ -149,14 +149,14 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 		);
 		$coupon->read_meta_data();
 		$coupon->set_object_read( true );
-		do_action( 'woocommerce_coupon_loaded', $coupon );
+		do_action( 'poocommerce_coupon_loaded', $coupon );
 	}
 
 	/**
 	 * Get a metadata value that is stored as either a string consisting of a comma-separated list of values
 	 * or as a serialized array.
 	 *
-	 * WooCommerce always stores the coupon product ids as a comma-separated string, but it seems that
+	 * PooCommerce always stores the coupon product ids as a comma-separated string, but it seems that
 	 * some plugins mistakenly change these to an array.
 	 *
 	 * @param int    $coupon_id The coupon id.
@@ -215,7 +215,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			wp_cache_delete( WC_Cache_Helper::get_cache_prefix( 'coupons' ) . 'coupon_id_from_code_' . $coupon->get_code(), 'coupons' );
 		}
 
-		do_action( 'woocommerce_update_coupon', $coupon->get_id(), $coupon );
+		do_action( 'poocommerce_update_coupon', $coupon->get_id(), $coupon );
 	}
 
 	/**
@@ -246,11 +246,11 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			wp_cache_delete( WC_Cache_Helper::get_cache_prefix( 'coupons' ) . 'coupon_id_from_code_' . $coupon->get_code(), 'coupons' );
 
 			$coupon->set_id( 0 );
-			do_action( 'woocommerce_delete_coupon', $id );
+			do_action( 'poocommerce_delete_coupon', $id );
 		} else {
 			wp_trash_post( $id );
 			$coupon->set_status( 'trash' );
-			do_action( 'woocommerce_trash_coupon', $id );
+			do_action( 'poocommerce_trash_coupon', $id );
 		}
 	}
 
@@ -314,7 +314,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			}
 		}
 
-		do_action( 'woocommerce_coupon_object_updated_props', $coupon, $this->updated_props );
+		do_action( 'poocommerce_coupon_object_updated_props', $coupon, $this->updated_props );
 	}
 
 	/**
@@ -340,7 +340,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			$coupon->set_used_by( (array) get_post_meta( $coupon->get_id(), '_used_by' ) );
 		}
 
-		do_action( 'woocommerce_increase_coupon_usage_count', $coupon, $new_count, $used_by );
+		do_action( 'poocommerce_increase_coupon_usage_count', $coupon, $new_count, $used_by );
 
 		return $new_count;
 	}
@@ -407,7 +407,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			}
 		}
 
-		do_action( 'woocommerce_decrease_coupon_usage_count', $coupon, $new_count, $used_by );
+		do_action( 'poocommerce_decrease_coupon_usage_count', $coupon, $new_count, $used_by );
 
 		return $new_count;
 	}
@@ -514,12 +514,12 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 
 	/**
 	 * Get held time for resources before cancelling the order. Use 60 minutes as sane default.
-	 * Note that the filter `woocommerce_coupon_hold_minutes` only support minutes because it's getting used elsewhere as well, however this function returns in seconds.
+	 * Note that the filter `poocommerce_coupon_hold_minutes` only support minutes because it's getting used elsewhere as well, however this function returns in seconds.
 	 *
 	 * @return int
 	 */
 	private function get_tentative_held_time() {
-		return apply_filters( 'woocommerce_coupon_hold_minutes', ( (int) get_option( 'woocommerce_hold_stock_minutes', 60 ) ) ) * 60;
+		return apply_filters( 'poocommerce_coupon_hold_minutes', ( (int) get_option( 'poocommerce_hold_stock_minutes', 60 ) ) ) * 60;
 	}
 
 	/**
@@ -539,7 +539,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			return null;
 		}
 
-		if ( ! apply_filters( 'woocommerce_hold_stock_for_checkout', true ) ) {
+		if ( ! apply_filters( 'poocommerce_hold_stock_for_checkout', true ) ) {
 			return null;
 		}
 
@@ -638,7 +638,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			return null;
 		}
 
-		if ( ! apply_filters( 'woocommerce_hold_stock_for_checkout', true ) ) {
+		if ( ! apply_filters( 'poocommerce_hold_stock_for_checkout', true ) ) {
 			return null;
 		}
 

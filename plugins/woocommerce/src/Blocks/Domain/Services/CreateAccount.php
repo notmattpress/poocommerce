@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\Email\CustomerNewAccount;
+use Automattic\PooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Email\CustomerNewAccount;
 
 /**
  * Service class implementing new create account emails used for order processing via the Block Based Checkout.
@@ -25,19 +25,19 @@ class CreateAccount {
 	}
 
 	/**
-	 * Init - register handlers for WooCommerce core email hooks.
+	 * Init - register handlers for PooCommerce core email hooks.
 	 */
 	public function init() {
 		// Override core email handlers to add our new improved "new account" email.
 		add_action(
-			'woocommerce_email',
+			'poocommerce_email',
 			function ( $wc_emails_instance ) {
 				// Remove core "new account" handler; we are going to replace it.
-				remove_action( 'woocommerce_created_customer_notification', array( $wc_emails_instance, 'customer_new_account' ), 10, 3 );
+				remove_action( 'poocommerce_created_customer_notification', array( $wc_emails_instance, 'customer_new_account' ), 10, 3 );
 
 				// Add custom "new account" handler.
 				add_action(
-					'woocommerce_created_customer_notification',
+					'poocommerce_created_customer_notification',
 					function( $customer_id, $new_customer_data = array(), $password_generated = false ) use ( $wc_emails_instance ) {
 						// If this is a block-based signup, send a new email with password reset link (no password in email).
 						if ( isset( $new_customer_data['source'] ) && 'store-api' === $new_customer_data['source'] ) {

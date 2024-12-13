@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { useContext, useCallback } from '@wordpress/element';
-import type { ShippingAddress } from '@woocommerce/settings';
-import { useCustomerData } from '@woocommerce/base-context/hooks';
+import type { ShippingAddress } from '@poocommerce/settings';
+import { useCustomerData } from '@poocommerce/base-context/hooks';
 import { dispatch } from '@wordpress/data';
-import { CART_STORE_KEY, processErrorResponse } from '@woocommerce/block-data';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { removeNoticesWithContext } from '@woocommerce/base-utils';
+import { CART_STORE_KEY, processErrorResponse } from '@poocommerce/block-data';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { removeNoticesWithContext } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

@@ -6,13 +6,13 @@ import { Component } from '@wordpress/element';
 import { withSelect } from '@wordpress/data';
 import { map } from 'lodash';
 import moment from 'moment';
-import { Date, Link } from '@woocommerce/components';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { formatValue } from '@woocommerce/number';
-import { getAdminLink } from '@woocommerce/settings';
-import { SETTINGS_STORE_NAME } from '@woocommerce/data';
-import { getCurrentDates, defaultTableDateFormat } from '@woocommerce/date';
-import { CurrencyContext } from '@woocommerce/currency';
+import { Date, Link } from '@poocommerce/components';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { formatValue } from '@poocommerce/number';
+import { getAdminLink } from '@poocommerce/settings';
+import { SETTINGS_STORE_NAME } from '@poocommerce/data';
+import { getCurrentDates, defaultTableDateFormat } from '@poocommerce/date';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ class DownloadsReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Date', 'woocommerce' ),
+				label: __( 'Date', 'poocommerce' ),
 				key: 'date',
 				defaultSort: true,
 				required: true,
@@ -40,26 +40,26 @@ class DownloadsReportTable extends Component {
 				isSortable: true,
 			},
 			{
-				label: __( 'Product title', 'woocommerce' ),
+				label: __( 'Product title', 'poocommerce' ),
 				key: 'product',
 				isSortable: true,
 				required: true,
 			},
 			{
-				label: __( 'File name', 'woocommerce' ),
+				label: __( 'File name', 'poocommerce' ),
 				key: 'file_name',
 			},
 			{
-				label: __( 'Order #', 'woocommerce' ),
-				screenReaderLabel: __( 'Order Number', 'woocommerce' ),
+				label: __( 'Order #', 'poocommerce' ),
+				screenReaderLabel: __( 'Order Number', 'poocommerce' ),
 				key: 'order_number',
 			},
 			{
-				label: __( 'Username', 'woocommerce' ),
+				label: __( 'Username', 'poocommerce' ),
 				key: 'user_id',
 			},
 			{
-				label: __( 'IP', 'woocommerce' ),
+				label: __( 'IP', 'poocommerce' ),
 				key: 'ip_address',
 			},
 		];
@@ -91,9 +91,9 @@ class DownloadsReportTable extends Component {
 			let productDisplay, productValue;
 
 			// Handle deleted products.
-			if ( errorCode === 'woocommerce_rest_product_invalid_id' ) {
-				productDisplay = __( '(Deleted)', 'woocommerce' );
-				productValue = __( '(Deleted)', 'woocommerce' );
+			if ( errorCode === 'poocommerce_rest_product_invalid_id' ) {
+				productDisplay = __( '(Deleted)', 'poocommerce' );
+				productValue = __( '(Deleted)', 'poocommerce' );
 			} else {
 				const productURL = getNewPath(
 					persistedQuery,
@@ -167,7 +167,7 @@ class DownloadsReportTable extends Component {
 
 		return [
 			{
-				label: _n( 'day', 'days', days, 'woocommerce' ),
+				label: _n( 'day', 'days', days, 'poocommerce' ),
 				value: formatValue( currency, 'number', days ),
 			},
 			{
@@ -175,7 +175,7 @@ class DownloadsReportTable extends Component {
 					'Download',
 					'Downloads',
 					downloadCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', downloadCount ),
 			},
@@ -196,7 +196,7 @@ class DownloadsReportTable extends Component {
 				tableQuery={ {
 					_embed: true,
 				} }
-				title={ __( 'Downloads', 'woocommerce' ) }
+				title={ __( 'Downloads', 'poocommerce' ) }
 				columnPrefsKey="downloads_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }
@@ -208,7 +208,7 @@ class DownloadsReportTable extends Component {
 DownloadsReportTable.contextType = CurrencyContext;
 
 export default withSelect( ( select ) => {
-	const { woocommerce_default_date_range: defaultDateRange } = select(
+	const { poocommerce_default_date_range: defaultDateRange } = select(
 		SETTINGS_STORE_NAME
 	).getSetting( 'wc_admin', 'wcAdminSettings' );
 	return { defaultDateRange };

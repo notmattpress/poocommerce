@@ -3,7 +3,7 @@
  * FormatValidator class.
  */
 
-namespace Automattic\WooCommerce\Internal\Settings;
+namespace Automattic\PooCommerce\Internal\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,22 +20,22 @@ class OptionSanitizer {
 	public function __construct() {
 		// Sanitize color options.
 		$color_options = array(
-			'woocommerce_email_base_color',
-			'woocommerce_email_background_color',
-			'woocommerce_email_body_background_color',
-			'woocommerce_email_text_color',
+			'poocommerce_email_base_color',
+			'poocommerce_email_background_color',
+			'poocommerce_email_body_background_color',
+			'poocommerce_email_text_color',
 		);
 
 		foreach ( $color_options as $option_name ) {
 			add_filter(
-				"woocommerce_admin_settings_sanitize_option_{$option_name}",
+				"poocommerce_admin_settings_sanitize_option_{$option_name}",
 				array( $this, 'sanitize_color_option' ),
 				10,
 				2
 			);
 		}
 		// Cast "Out of stock threshold" field to absolute integer to prevent storing empty value.
-		add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_notify_no_stock_amount', 'absint' );
+		add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_notify_no_stock_amount', 'absint' );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class OptionSanitizer {
 	 * @param array  $option Option data.
 	 * @return string Color in hex format.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function sanitize_color_option( $value, $option ) {
 		$value = sanitize_hex_color( $value );

@@ -3,9 +3,9 @@
  */
 import { Button, Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { ProgressBar } from '@woocommerce/components';
+import { ProgressBar } from '@poocommerce/components';
 import { useState, createInterpolateElement } from '@wordpress/element';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -35,27 +35,27 @@ export const ToneOfVoice = ( {
 } ) => {
 	const choices = [
 		{
-			title: __( 'Informal', 'woocommerce' ),
+			title: __( 'Informal', 'poocommerce' ),
 			key: 'Informal' as const,
 			subtitle: __(
 				'Relaxed and friendly, like a conversation with a friend.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
-			title: __( 'Neutral', 'woocommerce' ),
+			title: __( 'Neutral', 'poocommerce' ),
 			key: 'Neutral' as const,
 			subtitle: __(
 				'Impartial tone with casual expressions without slang.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
-			title: __( 'Formal', 'woocommerce' ),
+			title: __( 'Formal', 'poocommerce' ),
 			key: 'Formal' as const,
 			subtitle: __(
 				'Direct yet respectful, serious and professional.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	];
@@ -95,7 +95,7 @@ export const ToneOfVoice = ( {
 			{ isEntrepreneurFlow() && (
 				<WordPressLogo
 					size={ 24 }
-					className="woocommerce-cys-wordpress-header-logo"
+					className="poocommerce-cys-wordpress-header-logo"
 				/>
 			) }
 			{ ! isEntrepreneurFlow() && (
@@ -123,24 +123,24 @@ export const ToneOfVoice = ( {
 					} }
 				/>
 			) }
-			<div className="woocommerce-cys-design-with-ai-tone-of-voice woocommerce-cys-layout">
-				<div className="woocommerce-cys-page">
+			<div className="poocommerce-cys-design-with-ai-tone-of-voice poocommerce-cys-layout">
+				<div className="poocommerce-cys-page">
 					<h1>
 						{ __(
 							'Which writing style do you prefer?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</h1>
 					{ context.apiCallLoader.hasErrors && (
 						<Notice
-							className="woocommerce-cys-design-with-ai__error-notice"
+							className="poocommerce-cys-design-with-ai__error-notice"
 							isDismissible={ false }
 							status="error"
 						>
 							{ createInterpolateElement(
 								__(
 									'Oops! We encountered a problem while generating your store. <retryButton/>',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									retryButton: (
@@ -150,7 +150,7 @@ export const ToneOfVoice = ( {
 										>
 											{ __(
 												'Please try again',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</Button>
 									),
@@ -176,7 +176,7 @@ export const ToneOfVoice = ( {
 						} ) }
 					</div>
 					<Button variant="primary" onClick={ onContinue }>
-						{ __( 'Continue', 'woocommerce' ) }
+						{ __( 'Continue', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

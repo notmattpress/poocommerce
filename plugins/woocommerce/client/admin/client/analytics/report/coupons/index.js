@@ -25,7 +25,7 @@ class CouponsReport extends Component {
 
 		const mode = isCompareView ? 'item-comparison' : 'time-comparison';
 		/* translators: %d: number of coupons */
-		const itemsLabel = __( '%d coupons', 'woocommerce' );
+		const itemsLabel = __( '%d coupons', 'poocommerce' );
 
 		return {
 			itemsLabel,

@@ -38,7 +38,7 @@ class WC_Beta_Tester_Live_Branches_Installer {
 		$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, false, array() );
 
 		if ( ! WP_Filesystem( $creds ) ) {
-			return new WP_Error( 'fs_api_error', __( 'WooCommerce Beta Tester: No File System access', 'woocommerce-beta-tester' ) ); // @codingStandardsIgnoreLine.
+			return new WP_Error( 'fs_api_error', __( 'PooCommerce Beta Tester: No File System access', 'poocommerce-beta-tester' ) ); // @codingStandardsIgnoreLine.
 		}
 
 		global $wp_filesystem;
@@ -47,12 +47,12 @@ class WC_Beta_Tester_Live_Branches_Installer {
 	}
 
 	/**
-	 * Get the download url of a WooCommerce plugin version from the manifest.
+	 * Get the download url of a PooCommerce plugin version from the manifest.
 	 *
 	 * @param string $branch The name of the branch.
 	 */
 	public function get_branch_info_from_manifest( $branch ) {
-		$response = wp_remote_get( 'https://betadownload.jetpack.me/woocommerce-branches.json' );
+		$response = wp_remote_get( 'https://betadownload.jetpack.me/poocommerce-branches.json' );
 		$body     = wp_remote_retrieve_body( $response );
 
 		$obj = json_decode( $body );
@@ -71,7 +71,7 @@ class WC_Beta_Tester_Live_Branches_Installer {
 	}
 
 	/**
-	 * Install a WooCommerce plugin version by download url.
+	 * Install a PooCommerce plugin version by download url.
 	 *
 	 * @param string $download_url The download url of the plugin version.
 	 * @param string $pr_name The name of the associated PR.
@@ -84,23 +84,23 @@ class WC_Beta_Tester_Live_Branches_Installer {
 		if ( is_wp_error( $tmp_dir ) ) {
 			return new WP_Error(
 				'download_error',
-				sprintf( __( 'Error Downloading: <a href="%1$s">%1$s</a> - Error: %2$s', 'woocommerce-beta-tester' ), $download_url, $tmp_dir->get_error_message() ) // @codingStandardsIgnoreLine.
+				sprintf( __( 'Error Downloading: <a href="%1$s">%1$s</a> - Error: %2$s', 'poocommerce-beta-tester' ), $download_url, $tmp_dir->get_error_message() ) // @codingStandardsIgnoreLine.
 			);
 		}
 
 		// Unzip the plugin.
 		$plugin_dir  = str_replace( ABSPATH, $this->file_system->abspath(), WP_PLUGIN_DIR );
 		$plugin_path = $plugin_dir . '/' . LIVE_BRANCH_PLUGIN_PREFIX . "_$version";
-		$unzip_path  = $plugin_dir . "/woocommerce-$version";
+		$unzip_path  = $plugin_dir . "/poocommerce-$version";
 
 		$unzip = unzip_file( $tmp_dir, $unzip_path );
 
-		// The plugin is nested under woocommerce-dev, so we need to move it up one level.
+		// The plugin is nested under poocommerce-dev, so we need to move it up one level.
 		$this->file_system->mkdir( $plugin_path );
-		$this->move( $unzip_path . '/woocommerce-dev', $plugin_path );
+		$this->move( $unzip_path . '/poocommerce-dev', $plugin_path );
 
 		if ( is_wp_error( $unzip ) ) {
-			return new WP_Error( 'unzip_error', sprintf( __( 'Error Unzipping file: Error: %1$s', 'woocommerce-beta-tester' ), $result->get_error_message() ) ); // @codingStandardsIgnoreLine.
+			return new WP_Error( 'unzip_error', sprintf( __( 'Error Unzipping file: Error: %1$s', 'poocommerce-beta-tester' ), $result->get_error_message() ) ); // @codingStandardsIgnoreLine.
 		}
 
 		// Delete the downloaded zip file.
@@ -128,12 +128,12 @@ class WC_Beta_Tester_Live_Branches_Installer {
 	}
 
 	/**
-	 * Deactivate all currently active WooCommerce plugins.
+	 * Deactivate all currently active PooCommerce plugins.
 	 */
-	public function deactivate_woocommerce() {
+	public function deactivate_poocommerce() {
 		// First check is the regular woo plugin active.
-		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-			deactivate_plugins( 'woocommerce/woocommerce.php' );
+		if ( is_plugin_active( 'poocommerce/poocommerce.php' ) ) {
+			deactivate_plugins( 'poocommerce/poocommerce.php' );
 		}
 
 		// Check if any beta tester installed plugins are active.
@@ -152,13 +152,13 @@ class WC_Beta_Tester_Live_Branches_Installer {
 	}
 
 	/**
-	 * Activate a beta tester installed WooCommerce plugin
+	 * Activate a beta tester installed PooCommerce plugin
 	 *
 	 * @param string $version The version of the plugin to activate.
 	 */
 	public function activate( $version ) {
-		if ( ! is_plugin_active( LIVE_BRANCH_PLUGIN_PREFIX . "_$version/woocommerce.php" ) ) {
-			activate_plugin( LIVE_BRANCH_PLUGIN_PREFIX . "_$version/woocommerce.php" );
+		if ( ! is_plugin_active( LIVE_BRANCH_PLUGIN_PREFIX . "_$version/poocommerce.php" ) ) {
+			activate_plugin( LIVE_BRANCH_PLUGIN_PREFIX . "_$version/poocommerce.php" );
 		}
 	}
 
@@ -168,13 +168,13 @@ class WC_Beta_Tester_Live_Branches_Installer {
 	 * @param string $version The version of the plugin to check.
 	 */
 	public function check_install_status( $version ) {
-		$plugin_path = WP_PLUGIN_DIR . '/' . LIVE_BRANCH_PLUGIN_PREFIX . "_$version/woocommerce.php";
+		$plugin_path = WP_PLUGIN_DIR . '/' . LIVE_BRANCH_PLUGIN_PREFIX . "_$version/poocommerce.php";
 
 		if ( ! file_exists( $plugin_path ) ) {
 			return 'not-installed';
 		}
 
-		if ( is_plugin_active( LIVE_BRANCH_PLUGIN_PREFIX . "_$version/woocommerce.php" ) ) {
+		if ( is_plugin_active( LIVE_BRANCH_PLUGIN_PREFIX . "_$version/poocommerce.php" ) ) {
 			return 'active';
 		}
 

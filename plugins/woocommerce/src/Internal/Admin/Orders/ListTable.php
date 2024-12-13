@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 use WP_List_Table;
 use WP_Screen;
@@ -103,7 +103,7 @@ class ListTable extends WP_List_Table {
 		add_filter( 'set_screen_option_edit_' . $this->order_type . '_per_page', array( $this, 'set_items_per_page' ), 10, 3 );
 		add_filter( 'default_hidden_columns', array( $this, 'default_hidden_columns' ), 10, 2 );
 		add_action( 'admin_footer', array( $this, 'enqueue_scripts' ) );
-		add_action( 'woocommerce_order_list_table_restrict_manage_orders', array( $this, 'customers_filter' ) );
+		add_action( 'poocommerce_order_list_table_restrict_manage_orders', array( $this, 'customers_filter' ) );
 
 		$this->items_per_page();
 		set_screen_options();
@@ -128,7 +128,7 @@ class ListTable extends WP_List_Table {
 		 * @param \WC_Order $order   The order object.
 		 */
 		$css_classes = apply_filters(
-			'woocommerce_' . $this->order_type . '_list_table_order_css_classes',
+			'poocommerce_' . $this->order_type . '_list_table_order_css_classes',
 			array(
 				'order-' . $order->get_id(),
 				'type-' . $order->get_type(),
@@ -168,7 +168,7 @@ class ListTable extends WP_List_Table {
 	/**
 	 * Handles output for the default column.
 	 *
-	 * @param \WC_Order $order       Current WooCommerce order object.
+	 * @param \WC_Order $order       Current PooCommerce order object.
 	 * @param string    $column_name Identifier for the custom column.
 	 */
 	public function column_default( $order, $column_name ) {
@@ -177,17 +177,17 @@ class ListTable extends WP_List_Table {
 		 * action `manage_{$this->screen->id}_custom_column`.
 		 *
 		 * @param string    $column_name Identifier for the custom column.
-		 * @param \WC_Order $order       Current WooCommerce order object.
+		 * @param \WC_Order $order       Current PooCommerce order object.
 		 *
 		 * @since 7.3.0
 		 */
-		do_action( 'woocommerce_' . $this->order_type . '_list_table_custom_column', $column_name, $order );
+		do_action( 'poocommerce_' . $this->order_type . '_list_table_custom_column', $column_name, $order );
 
 		/**
 		 * Fires for each custom column in the Custom Order Table in the administrative screen.
 		 *
 		 * @param string    $column_name Identifier for the custom column.
-		 * @param \WC_Order $order       Current WooCommerce order object.
+		 * @param \WC_Order $order       Current PooCommerce order object.
 		 *
 		 * @since 7.0.0
 		 */
@@ -237,7 +237,7 @@ class ListTable extends WP_List_Table {
 			$search_label  = '<span class="subtitle">';
 			$search_label .= sprintf(
 				/* translators: %s: Search query. */
-				__( 'Search results for: %s', 'woocommerce' ),
+				__( 'Search results for: %s', 'poocommerce' ),
 				'<strong>' . esc_html( $this->order_query_args['s'] ) . '</strong>'
 			);
 			$search_label .= '</span>';
@@ -262,7 +262,7 @@ class ListTable extends WP_List_Table {
 
 		echo '<form id="wc-orders-filter" method="get" action="' . esc_url( get_admin_url( null, 'admin.php' ) ) . '">';
 		$this->print_hidden_form_fields();
-		$this->search_box( esc_html__( 'Search orders', 'woocommerce' ), 'orders-search-input' );
+		$this->search_box( esc_html__( 'Search orders', 'poocommerce' ), 'orders-search-input' );
 
 		parent::display();
 		echo '</form> </div>';
@@ -275,14 +275,14 @@ class ListTable extends WP_List_Table {
 	 */
 	public function render_blank_state(): void {
 		?>
-			<div class="woocommerce-BlankState">
+			<div class="poocommerce-BlankState">
 
-				<h2 class="woocommerce-BlankState-message">
-					<?php esc_html_e( 'When you receive a new order, it will appear here.', 'woocommerce' ); ?>
+				<h2 class="poocommerce-BlankState-message">
+					<?php esc_html_e( 'When you receive a new order, it will appear here.', 'poocommerce' ); ?>
 				</h2>
 
-				<div class="woocommerce-BlankState-buttons">
-					<a class="woocommerce-BlankState-cta button-primary button" target="_blank" href="https://woocommerce.com/document/managing-orders/?utm_source=blankslate&utm_medium=product&utm_content=ordersdoc&utm_campaign=woocommerceplugin"><?php esc_html_e( 'Learn more about orders', 'woocommerce' ); ?></a>
+				<div class="poocommerce-BlankState-buttons">
+					<a class="poocommerce-BlankState-cta button-primary button" target="_blank" href="https://poocommerce.com/document/managing-orders/?utm_source=blankslate&utm_medium=product&utm_content=ordersdoc&utm_campaign=poocommerceplugin"><?php esc_html_e( 'Learn more about orders', 'poocommerce' ); ?></a>
 				</div>
 
 			<?php
@@ -291,7 +291,7 @@ class ListTable extends WP_List_Table {
 			 *
 			 * @since 6.6.1
 			 */
-			do_action( 'wc_marketplace_suggestions_orders_empty_state' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			do_action( 'wc_marketplace_suggestions_orders_empty_state' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			?>
 
 			</div>
@@ -308,21 +308,21 @@ class ListTable extends WP_List_Table {
 
 		if ( array( 'trash' ) === $selected_status ) {
 			$actions = array(
-				'untrash' => __( 'Restore', 'woocommerce' ),
-				'delete'  => __( 'Delete permanently', 'woocommerce' ),
+				'untrash' => __( 'Restore', 'poocommerce' ),
+				'delete'  => __( 'Delete permanently', 'poocommerce' ),
 			);
 		} else {
 			$actions = array(
-				'mark_processing' => __( 'Change status to processing', 'woocommerce' ),
-				'mark_on-hold'    => __( 'Change status to on-hold', 'woocommerce' ),
-				'mark_completed'  => __( 'Change status to completed', 'woocommerce' ),
-				'mark_cancelled'  => __( 'Change status to cancelled', 'woocommerce' ),
-				'trash'           => __( 'Move to Trash', 'woocommerce' ),
+				'mark_processing' => __( 'Change status to processing', 'poocommerce' ),
+				'mark_on-hold'    => __( 'Change status to on-hold', 'poocommerce' ),
+				'mark_completed'  => __( 'Change status to completed', 'poocommerce' ),
+				'mark_cancelled'  => __( 'Change status to cancelled', 'poocommerce' ),
+				'trash'           => __( 'Move to Trash', 'poocommerce' ),
 			);
 		}
 
-		if ( wc_string_to_bool( get_option( 'woocommerce_allow_bulk_remove_personal_data', 'no' ) ) ) {
-			$actions['remove_personal_data'] = __( 'Remove personal data', 'woocommerce' );
+		if ( wc_string_to_bool( get_option( 'poocommerce_allow_bulk_remove_personal_data', 'no' ) ) ) {
+			$actions['remove_personal_data'] = __( 'Remove personal data', 'poocommerce' );
 		}
 
 		return $actions;
@@ -345,7 +345,7 @@ class ListTable extends WP_List_Table {
 		 * @param string   $order_type The order type.
 		 */
 		$css_classes = apply_filters(
-			'woocommerce_' . $this->order_type . '_list_table_css_classes',
+			'poocommerce_' . $this->order_type . '_list_table_css_classes',
 			array_merge(
 				parent::get_table_classes(),
 				array(
@@ -383,7 +383,7 @@ class ListTable extends WP_List_Table {
 		 *
 		 * @since 7.3.0
 		 */
-		$this->request = apply_filters( 'woocommerce_' . $this->order_type . '_list_table_request', $this->request );
+		$this->request = apply_filters( 'poocommerce_' . $this->order_type . '_list_table_request', $this->request );
 
 		$this->set_status_args();
 		$this->set_order_args();
@@ -399,16 +399,16 @@ class ListTable extends WP_List_Table {
 		 *
 		 * @param array $query_args Arguments to be passed to `wc_get_orders()`.
 		 */
-		$order_query_args = (array) apply_filters( 'woocommerce_order_list_table_prepare_items_query_args', $this->order_query_args );
+		$order_query_args = (array) apply_filters( 'poocommerce_order_list_table_prepare_items_query_args', $this->order_query_args );
 
 		/**
-		 * Same as `woocommerce_order_list_table_prepare_items_query_args` but for a specific order type.
+		 * Same as `poocommerce_order_list_table_prepare_items_query_args` but for a specific order type.
 		 *
 		 * @param array $query_args Arguments to be passed to `wc_get_orders()`.
 		 *
 		 * @since 7.3.0
 		 */
-		$order_query_args = apply_filters( 'woocommerce_' . $this->order_type . '_list_table_prepare_items_query_args', $order_query_args );
+		$order_query_args = apply_filters( 'poocommerce_' . $this->order_type . '_list_table_prepare_items_query_args', $order_query_args );
 
 		// We must ensure the 'paginate' argument is set.
 		$order_query_args['paginate'] = true;
@@ -509,7 +509,7 @@ class ListTable extends WP_List_Table {
 			 * @since 7.3.0
 			 */
 			$status = apply_filters(
-				'woocommerce_' . $this->order_type . '_list_table_default_statuses',
+				'poocommerce_' . $this->order_type . '_list_table_default_statuses',
 				array_intersect(
 					array_keys( wc_get_order_statuses() ),
 					get_post_stati( array( 'show_in_admin_all_list' => true ), 'names' )
@@ -556,7 +556,7 @@ class ListTable extends WP_List_Table {
 		 *
 		 * @param string[] $views An array of available list table view links.
 		 */
-		$view_links = apply_filters( 'woocommerce_before_' . $this->order_type . '_list_table_view_links', $view_links );
+		$view_links = apply_filters( 'poocommerce_before_' . $this->order_type . '_list_table_view_links', $view_links );
 		if ( ! empty( $view_links ) ) {
 			return $view_links;
 		}
@@ -578,7 +578,7 @@ class ListTable extends WP_List_Table {
 			}
 		}
 
-		$view_links['all'] = $this->get_view_link( 'all', __( 'All', 'woocommerce' ), $all_count, '' === $current || 'all' === $current );
+		$view_links['all'] = $this->get_view_link( 'all', __( 'All', 'poocommerce' ), $all_count, '' === $current || 'all' === $current );
 
 		foreach ( $view_counts as $slug => $count ) {
 			$view_links[ $slug ] = $this->get_view_link( $slug, $statuses[ $slug ], $count, $slug === $current );
@@ -626,7 +626,7 @@ class ListTable extends WP_List_Table {
 		 * @since 7.3.0
 		 */
 		return apply_filters(
-			'woocommerce_' . $this->order_type . '_list_table_order_count',
+			'poocommerce_' . $this->order_type . '_list_table_order_count',
 			$count,
 			$status
 		);
@@ -648,7 +648,7 @@ class ListTable extends WP_List_Table {
 		 * @param object         ListTable The current instance of the class.
 		*/
 		$should_render_blank_state = apply_filters(
-			'woocommerce_' . $this->order_type . '_list_table_should_render_blank_state',
+			'poocommerce_' . $this->order_type . '_list_table_should_render_blank_state',
 			null,
 			$this
 		);
@@ -720,18 +720,18 @@ class ListTable extends WP_List_Table {
 			 * @param string $order_type  The order type.
 			 * @param string $which       The location of the extra table nav: 'top' or 'bottom'.
 			 */
-			do_action( 'woocommerce_order_list_table_restrict_manage_orders', $this->order_type, $which );
+			do_action( 'poocommerce_order_list_table_restrict_manage_orders', $this->order_type, $which );
 
 			$output = ob_get_clean();
 
 			if ( ! empty( $output ) ) {
 				echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				submit_button( __( 'Filter', 'woocommerce' ), '', 'filter_action', false, array( 'id' => 'order-query-submit' ) );
+				submit_button( __( 'Filter', 'poocommerce' ), '', 'filter_action', false, array( 'id' => 'order-query-submit' ) );
 			}
 		}
 
 		if ( $this->is_trash && $this->has_items() && current_user_can( 'edit_others_shop_orders' ) ) {
-			submit_button( __( 'Empty Trash', 'woocommerce' ), 'apply', 'delete_all', false );
+			submit_button( __( 'Empty Trash', 'poocommerce' ), 'apply', 'delete_all', false );
 		}
 
 		/**
@@ -743,7 +743,7 @@ class ListTable extends WP_List_Table {
 		 * @param string $order_type  The order type.
 		 * @param string $which       The location of the extra table nav: 'top' or 'bottom'.
 		 */
-		do_action( 'woocommerce_order_list_table_extra_tablenav', $this->order_type, $which );
+		do_action( 'poocommerce_order_list_table_extra_tablenav', $this->order_type, $which );
 
 		echo '</div>';
 	}
@@ -765,13 +765,13 @@ class ListTable extends WP_List_Table {
 		 *
 		 * @param bool   $disable   Whether to disable the drop-down. Default false.
 		 */
-		if ( apply_filters( 'woocommerce_' . $this->order_type . '_list_table_disable_months_filter', false ) ) {
+		if ( apply_filters( 'poocommerce_' . $this->order_type . '_list_table_disable_months_filter', false ) ) {
 			return;
 		}
 
 		$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
 		echo '<select name="m" id="filter-by-date">';
-		echo '<option ' . selected( $m, 0, false ) . ' value="0">' . esc_html__( 'All dates', 'woocommerce' ) . '</option>';
+		echo '<option ' . selected( $m, 0, false ) . ' value="0">' . esc_html__( 'All dates', 'poocommerce' ) . '</option>';
 
 		$order_dates = $this->get_and_maybe_update_months_filter_cache();
 
@@ -779,7 +779,7 @@ class ListTable extends WP_List_Table {
 			$month           = zeroise( $date->month, 2 );
 			$month_year_text = sprintf(
 				/* translators: 1: Month name, 2: 4-digit year. */
-				esc_html_x( '%1$s %2$d', 'order dates dropdown', 'woocommerce' ),
+				esc_html_x( '%1$s %2$d', 'order dates dropdown', 'poocommerce' ),
 				$wp_locale->get_month( $month ),
 				$date->year
 			);
@@ -869,7 +869,7 @@ class ListTable extends WP_List_Table {
 
 			$user_string = sprintf(
 				/* translators: 1: user display name 2: user ID 3: user email */
-				esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'woocommerce' ),
+				esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'poocommerce' ),
 				$user->display_name,
 				absint( $user->ID ),
 				$user->user_email
@@ -878,7 +878,7 @@ class ListTable extends WP_List_Table {
 
 		// Note: use of htmlspecialchars (below) is to prevent XSS when rendered by selectWoo.
 		?>
-		<select class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Filter by registered customer', 'woocommerce' ); ?>" data-allow_clear="true">
+		<select class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Filter by registered customer', 'poocommerce' ); ?>" data-allow_clear="true">
 			<option value="<?php echo esc_attr( $user_id ); ?>" selected="selected"><?php echo htmlspecialchars( wp_kses_post( $user_string ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></option>
 		</select>
 		<?php
@@ -898,16 +898,16 @@ class ListTable extends WP_List_Table {
 		 * @since 7.3.0
 		 */
 		return apply_filters(
-			'woocommerce_' . $this->order_type . '_list_table_columns',
+			'poocommerce_' . $this->order_type . '_list_table_columns',
 			array(
 				'cb'               => '<input type="checkbox" />',
-				'order_number'     => esc_html__( 'Order', 'woocommerce' ),
-				'order_date'       => esc_html__( 'Date', 'woocommerce' ),
-				'order_status'     => esc_html__( 'Status', 'woocommerce' ),
-				'billing_address'  => esc_html__( 'Billing', 'woocommerce' ),
-				'shipping_address' => esc_html__( 'Ship to', 'woocommerce' ),
-				'order_total'      => esc_html__( 'Total', 'woocommerce' ),
-				'wc_actions'       => esc_html__( 'Actions', 'woocommerce' ),
+				'order_number'     => esc_html__( 'Order', 'poocommerce' ),
+				'order_date'       => esc_html__( 'Date', 'poocommerce' ),
+				'order_status'     => esc_html__( 'Status', 'poocommerce' ),
+				'billing_address'  => esc_html__( 'Billing', 'poocommerce' ),
+				'shipping_address' => esc_html__( 'Ship to', 'poocommerce' ),
+				'order_total'      => esc_html__( 'Total', 'poocommerce' ),
+				'wc_actions'       => esc_html__( 'Actions', 'poocommerce' ),
 			)
 		);
 	}
@@ -926,7 +926,7 @@ class ListTable extends WP_List_Table {
 		 * @since 7.3.0
 		 */
 		return apply_filters(
-			'woocommerce_' . $this->order_type . '_list_table_sortable_columns',
+			'poocommerce_' . $this->order_type . '_list_table_sortable_columns',
 			array(
 				'order_number' => 'ID',
 				'order_date'   => 'date',
@@ -975,7 +975,7 @@ class ListTable extends WP_List_Table {
 			<span class="screen-reader-text">
 				<?php
 				// translators: %s is an order ID.
-				echo esc_html( sprintf( __( 'Order %s is locked.', 'woocommerce' ), $item->get_id() ) );
+				echo esc_html( sprintf( __( 'Order %s is locked.', 'poocommerce' ), $item->get_id() ) );
 				?>
 			</span>
 		</div>
@@ -995,7 +995,7 @@ class ListTable extends WP_List_Table {
 
 		if ( $order->get_billing_first_name() || $order->get_billing_last_name() ) {
 			/* translators: 1: first name 2: last name */
-			$buyer = trim( sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), $order->get_billing_first_name(), $order->get_billing_last_name() ) );
+			$buyer = trim( sprintf( _x( '%1$s %2$s', 'full name', 'poocommerce' ), $order->get_billing_first_name(), $order->get_billing_last_name() ) );
 		} elseif ( $order->get_billing_company() ) {
 			$buyer = trim( $order->get_billing_company() );
 		} elseif ( $order->get_customer_id() ) {
@@ -1011,12 +1011,12 @@ class ListTable extends WP_List_Table {
 		 * @param string   $buyer Buyer name.
 		 * @param WC_Order $order Order data.
 		 */
-		$buyer = apply_filters( 'woocommerce_admin_order_buyer_name', $buyer, $order );
+		$buyer = apply_filters( 'poocommerce_admin_order_buyer_name', $buyer, $order );
 
 		if ( $order->get_status() === 'trash' ) {
 			echo '<strong>#' . esc_attr( $order->get_order_number() ) . ' ' . esc_html( $buyer ) . '</strong>';
 		} else {
-			echo '<a href="#" class="order-preview" data-order-id="' . absint( $order->get_id() ) . '" title="' . esc_attr( __( 'Preview', 'woocommerce' ) ) . '">' . esc_html( __( 'Preview', 'woocommerce' ) ) . '</a>';
+			echo '<a href="#" class="order-preview" data-order-id="' . absint( $order->get_id() ) . '" title="' . esc_attr( __( 'Preview', 'poocommerce' ) ) . '">' . esc_html( __( 'Preview', 'poocommerce' ) ) . '</a>';
 			echo '<a href="' . esc_url( $this->get_order_edit_link( $order ) ) . '" class="order-view"><strong>#' . esc_attr( $order->get_order_number() ) . ' ' . esc_html( $buyer ) . '</strong></a>';
 		}
 
@@ -1059,11 +1059,11 @@ class ListTable extends WP_List_Table {
 		if ( $order_timestamp > strtotime( '-1 day', time() ) && $order_timestamp <= time() ) {
 			$show_date = sprintf(
 			/* translators: %s: human-readable time difference */
-				_x( '%s ago', '%s = human-readable time difference', 'woocommerce' ),
+				_x( '%s ago', '%s = human-readable time difference', 'poocommerce' ),
 				human_time_diff( $order->get_date_created()->getTimestamp(), time() )
 			);
 		} else {
-			$show_date = $order->get_date_created()->date_i18n( apply_filters( 'woocommerce_admin_order_date_format', __( 'M j, Y', 'woocommerce' ) ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			$show_date = $order->get_date_created()->date_i18n( apply_filters( 'poocommerce_admin_order_date_format', __( 'M j, Y', 'poocommerce' ) ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		}
 		printf(
 			'<time datetime="%1$s" title="%2$s">%3$s</time>',
@@ -1107,14 +1107,14 @@ class ListTable extends WP_List_Table {
 	 */
 	private function get_order_status_label( WC_Order $order ): string {
 		$status_names = array(
-			'pending'        => __( 'The order has been received, but no payment has been made. Pending payment orders are generally awaiting customer action.', 'woocommerce' ),
-			'on-hold'        => __( 'The order is awaiting payment confirmation. Stock is reduced, but you need to confirm payment.', 'woocommerce' ),
-			'processing'     => __( 'Payment has been received (paid), and the stock has been reduced. The order is awaiting fulfillment.', 'woocommerce' ),
-			'completed'      => __( 'Order fulfilled and complete.', 'woocommerce' ),
-			'failed'         => __( 'The customer’s payment failed or was declined, and no payment has been successfully made.', 'woocommerce' ),
-			'checkout-draft' => __( 'Draft orders are created when customers start the checkout process while the block version of the checkout is in place.', 'woocommerce' ),
-			'cancelled'      => __( 'The order was canceled by an admin or the customer.', 'woocommerce' ),
-			'refunded'       => __( 'Orders are automatically put in the Refunded status when an admin or shop manager has fully refunded the order’s value after payment.', 'woocommerce' ),
+			'pending'        => __( 'The order has been received, but no payment has been made. Pending payment orders are generally awaiting customer action.', 'poocommerce' ),
+			'on-hold'        => __( 'The order is awaiting payment confirmation. Stock is reduced, but you need to confirm payment.', 'poocommerce' ),
+			'processing'     => __( 'Payment has been received (paid), and the stock has been reduced. The order is awaiting fulfillment.', 'poocommerce' ),
+			'completed'      => __( 'Order fulfilled and complete.', 'poocommerce' ),
+			'failed'         => __( 'The customer’s payment failed or was declined, and no payment has been successfully made.', 'poocommerce' ),
+			'checkout-draft' => __( 'Draft orders are created when customers start the checkout process while the block version of the checkout is in place.', 'poocommerce' ),
+			'cancelled'      => __( 'The order was canceled by an admin or the customer.', 'poocommerce' ),
+			'refunded'       => __( 'Orders are automatically put in the Refunded status when an admin or shop manager has fully refunded the order’s value after payment.', 'poocommerce' ),
 		);
 
 		/**
@@ -1124,7 +1124,7 @@ class ListTable extends WP_List_Table {
 		 * @param WC_Order $order  Current order object.
 		 * @since 9.1.0
 		 */
-		$status_names = apply_filters( 'woocommerce_get_order_status_labels', $status_names, $order );
+		$status_names = apply_filters( 'poocommerce_get_order_status_labels', $status_names, $order );
 
 		$status_name = $order->get_status();
 
@@ -1146,7 +1146,7 @@ class ListTable extends WP_List_Table {
 
 			if ( $order->get_payment_method() ) {
 				/* translators: %s: payment method */
-				echo '<span class="description">' . sprintf( esc_html__( 'via %s', 'woocommerce' ), esc_html( $order->get_payment_method_title() ) ) . '</span>';
+				echo '<span class="description">' . sprintf( esc_html__( 'via %s', 'poocommerce' ), esc_html( $order->get_payment_method_title() ) ) . '</span>';
 			}
 		} else {
 			echo '&ndash;';
@@ -1167,7 +1167,7 @@ class ListTable extends WP_List_Table {
 			echo '<a target="_blank" href="' . esc_url( $order->get_shipping_address_map_url() ) . '">' . esc_html( preg_replace( '#<br\s*/?>#i', ', ', $address ) ) . '</a>';
 			if ( $order->get_shipping_method() ) {
 				/* translators: %s: shipping method */
-				echo '<span class="description">' . sprintf( esc_html__( 'via %s', 'woocommerce' ), esc_html( $order->get_shipping_method() ) ) . '</span>';
+				echo '<span class="description">' . sprintf( esc_html__( 'via %s', 'poocommerce' ), esc_html( $order->get_shipping_method() ) ) . '</span>';
 			}
 		} else {
 			echo '&ndash;';
@@ -1184,7 +1184,7 @@ class ListTable extends WP_List_Table {
 	public function render_order_total_column( WC_Order $order ): void {
 		if ( $order->get_payment_method_title() ) {
 			/* translators: %s: method */
-			echo '<span class="tips" data-tip="' . esc_attr( sprintf( __( 'via %s', 'woocommerce' ), $order->get_payment_method_title() ) ) . '">' . wp_kses_post( $order->get_formatted_order_total() ) . '</span>';
+			echo '<span class="tips" data-tip="' . esc_attr( sprintf( __( 'via %s', 'poocommerce' ), $order->get_payment_method_title() ) ) . '">' . wp_kses_post( $order->get_formatted_order_total() ) . '</span>';
 		} else {
 			echo wp_kses_post( $order->get_formatted_order_total() );
 		}
@@ -1207,22 +1207,22 @@ class ListTable extends WP_List_Table {
 		 * @param WC_Order $order Current order object.
 		 * @since 6.7.0
 		 */
-		do_action( 'woocommerce_admin_order_actions_start', $order );
+		do_action( 'poocommerce_admin_order_actions_start', $order );
 
 		$actions = array();
 
 		if ( $order->has_status( array( 'pending', 'on-hold' ) ) ) {
 			$actions['processing'] = array(
-				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=processing&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
-				'name'   => __( 'Processing', 'woocommerce' ),
+				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=poocommerce_mark_order_status&status=processing&order_id=' . $order->get_id() ), 'poocommerce-mark-order-status' ),
+				'name'   => __( 'Processing', 'poocommerce' ),
 				'action' => 'processing',
 			);
 		}
 
 		if ( $order->has_status( array( 'pending', 'on-hold', 'processing' ) ) ) {
 			$actions['complete'] = array(
-				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_mark_order_status&status=completed&order_id=' . $order->get_id() ), 'woocommerce-mark-order-status' ),
-				'name'   => __( 'Complete', 'woocommerce' ),
+				'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=poocommerce_mark_order_status&status=completed&order_id=' . $order->get_id() ), 'poocommerce-mark-order-status' ),
+				'name'   => __( 'Complete', 'poocommerce' ),
 				'action' => 'complete',
 			);
 		}
@@ -1234,7 +1234,7 @@ class ListTable extends WP_List_Table {
 		 * @param WC_Order $order  Current order object.
 		 * @since 6.7.0
 		 */
-		$actions = apply_filters( 'woocommerce_admin_order_actions', $actions, $order );
+		$actions = apply_filters( 'poocommerce_admin_order_actions', $actions, $order );
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wc_render_action_buttons( $actions );
@@ -1246,7 +1246,7 @@ class ListTable extends WP_List_Table {
 		 * @param WC_Order $order Current order object.
 		 * @since 6.7.0
 		 */
-		do_action( 'woocommerce_admin_order_actions_end', $order );
+		do_action( 'poocommerce_admin_order_actions_end', $order );
 
 		echo '</p>';
 	}
@@ -1322,8 +1322,8 @@ class ListTable extends WP_List_Table {
 		 *
 		 * @param array Array of order IDs.
 		 */
-		$ids = apply_filters( // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
-			'woocommerce_bulk_action_ids',
+		$ids = apply_filters( // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
+			'poocommerce_bulk_action_ids',
 			$ids,
 			$action,
 			'order'
@@ -1413,7 +1413,7 @@ class ListTable extends WP_List_Table {
 				continue;
 			}
 
-			do_action( 'woocommerce_remove_order_personal_data', $order ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'poocommerce_remove_order_personal_data', $order ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			++$changed;
 		}
 
@@ -1440,8 +1440,8 @@ class ListTable extends WP_List_Table {
 				continue;
 			}
 
-			$order->update_status( $new_status, __( 'Order status changed by bulk edit.', 'woocommerce' ), true );
-			do_action( 'woocommerce_order_edit_status', $id, $new_status ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			$order->update_status( $new_status, __( 'Order status changed by bulk edit.', 'poocommerce' ), true );
+			do_action( 'poocommerce_order_edit_status', $id, $new_status ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			++$changed;
 		}
 
@@ -1509,7 +1509,7 @@ class ListTable extends WP_List_Table {
 		foreach ( $order_statuses as $slug => $name ) {
 			if ( 'marked_' . str_replace( 'wc-', '', $slug ) === $bulk_action ) { // WPCS: input var ok, CSRF ok.
 				/* translators: %s: orders count */
-				$message = sprintf( _n( '%s order status changed.', '%s order statuses changed.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+				$message = sprintf( _n( '%s order status changed.', '%s order statuses changed.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 				break;
 			}
 		}
@@ -1517,23 +1517,23 @@ class ListTable extends WP_List_Table {
 		switch ( $bulk_action ) {
 			case 'removed_personal_data':
 				/* translators: %s: orders count */
-				$message = sprintf( _n( 'Removed personal data from %s order.', 'Removed personal data from %s orders.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+				$message = sprintf( _n( 'Removed personal data from %s order.', 'Removed personal data from %s orders.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 				echo '<div class="updated"><p>' . esc_html( $message ) . '</p></div>';
 				break;
 
 			case 'trashed':
 				/* translators: %s: orders count */
-				$message = sprintf( _n( '%s order moved to the Trash.', '%s orders moved to the Trash.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+				$message = sprintf( _n( '%s order moved to the Trash.', '%s orders moved to the Trash.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 				break;
 
 			case 'untrashed':
 				/* translators: %s: orders count */
-				$message = sprintf( _n( '%s order restored from the Trash.', '%s orders restored from the Trash.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+				$message = sprintf( _n( '%s order restored from the Trash.', '%s orders restored from the Trash.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 				break;
 
 			case 'deleted':
 				/* translators: %s: orders count */
-				$message = sprintf( _n( '%s order permanently deleted.', '%s orders permanently deleted.', $number, 'woocommerce' ), number_format_i18n( $number ) );
+				$message = sprintf( _n( '%s order permanently deleted.', '%s orders permanently deleted.', $number, 'poocommerce' ), number_format_i18n( $number ) );
 				break;
 		}
 
@@ -1572,37 +1572,37 @@ class ListTable extends WP_List_Table {
 						<header class="wc-backbone-modal-header">
 							<mark class="order-status status-{{ data.status }}"><span>{{ data.status_name }}</span></mark>
 							<?php /* translators: %s: order ID */ ?>
-							<h1><?php echo esc_html( sprintf( __( 'Order #%s', 'woocommerce' ), '{{ data.order_number }}' ) ); ?></h1>
+							<h1><?php echo esc_html( sprintf( __( 'Order #%s', 'poocommerce' ), '{{ data.order_number }}' ) ); ?></h1>
 							<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-								<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'poocommerce' ); ?></span>
 							</button>
 						</header>
 						<article>
-							<?php do_action( 'woocommerce_admin_order_preview_start' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+							<?php do_action( 'poocommerce_admin_order_preview_start' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 
 							<div class="wc-order-preview-addresses">
 								<div class="wc-order-preview-address">
-									<h2><?php esc_html_e( 'Billing details', 'woocommerce' ); ?></h2>
+									<h2><?php esc_html_e( 'Billing details', 'poocommerce' ); ?></h2>
 									{{{ data.formatted_billing_address }}}
 
 									<# if ( data.data.billing.email ) { #>
-										<strong><?php esc_html_e( 'Email', 'woocommerce' ); ?></strong>
+										<strong><?php esc_html_e( 'Email', 'poocommerce' ); ?></strong>
 										<a href="mailto:{{ data.data.billing.email }}">{{ data.data.billing.email }}</a>
 									<# } #>
 
 									<# if ( data.data.billing.phone ) { #>
-										<strong><?php esc_html_e( 'Phone', 'woocommerce' ); ?></strong>
+										<strong><?php esc_html_e( 'Phone', 'poocommerce' ); ?></strong>
 										<a href="tel:{{ data.data.billing.phone }}">{{ data.data.billing.phone }}</a>
 									<# } #>
 
 									<# if ( data.payment_via ) { #>
-										<strong><?php esc_html_e( 'Payment via', 'woocommerce' ); ?></strong>
+										<strong><?php esc_html_e( 'Payment via', 'poocommerce' ); ?></strong>
 										{{{ data.payment_via }}}
 									<# } #>
 								</div>
 								<# if ( data.needs_shipping ) { #>
 									<div class="wc-order-preview-address">
-										<h2><?php esc_html_e( 'Shipping details', 'woocommerce' ); ?></h2>
+										<h2><?php esc_html_e( 'Shipping details', 'poocommerce' ); ?></h2>
 										<# if ( data.ship_to_billing ) { #>
 											{{{ data.formatted_billing_address }}}
 										<# } else { #>
@@ -1610,12 +1610,12 @@ class ListTable extends WP_List_Table {
 										<# } #>
 
 										<# if ( data.data.shipping.phone ) { #>
-											<strong><?php esc_html_e( 'Phone', 'woocommerce' ); ?></strong>
+											<strong><?php esc_html_e( 'Phone', 'poocommerce' ); ?></strong>
 											<a href="tel:{{ data.data.shipping.phone }}">{{ data.data.shipping.phone }}</a>
 										<# } #>
 
 										<# if ( data.shipping_via ) { #>
-											<strong><?php esc_html_e( 'Shipping method', 'woocommerce' ); ?></strong>
+											<strong><?php esc_html_e( 'Shipping method', 'poocommerce' ); ?></strong>
 											{{ data.shipping_via }}
 										<# } #>
 									</div>
@@ -1623,7 +1623,7 @@ class ListTable extends WP_List_Table {
 
 								<# if ( data.data.customer_note ) { #>
 									<div class="wc-order-preview-note">
-										<strong><?php esc_html_e( 'Note', 'woocommerce' ); ?></strong>
+										<strong><?php esc_html_e( 'Note', 'poocommerce' ); ?></strong>
 										{{ data.data.customer_note }}
 									</div>
 								<# } #>
@@ -1631,13 +1631,13 @@ class ListTable extends WP_List_Table {
 
 							{{{ data.item_html }}}
 
-							<?php do_action( 'woocommerce_admin_order_preview_end' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment ?>
+							<?php do_action( 'poocommerce_admin_order_preview_end' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment ?>
 						</article>
 						<footer>
 							<div class="inner">
 								{{{ data.actions_html }}}
 
-								<a class="button button-primary button-large" aria-label="<?php esc_attr_e( 'Edit this order', 'woocommerce' ); ?>" href="<?php echo $order_edit_url_placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a>
+								<a class="button button-primary button-large" aria-label="<?php esc_attr_e( 'Edit this order', 'poocommerce' ); ?>" href="<?php echo $order_edit_url_placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a>
 							</div>
 						</footer>
 					</section>
@@ -1690,22 +1690,22 @@ class ListTable extends WP_List_Table {
 	 */
 	private function search_filter() {
 		$options = array(
-			'order_id'       => __( 'Order ID', 'woocommerce' ),
-			'customer_email' => __( 'Customer Email', 'woocommerce' ),
-			'customers'      => __( 'Customers', 'woocommerce' ),
-			'products'       => __( 'Products', 'woocommerce' ),
-			'all'            => __( 'All', 'woocommerce' ),
+			'order_id'       => __( 'Order ID', 'poocommerce' ),
+			'customer_email' => __( 'Customer Email', 'poocommerce' ),
+			'customers'      => __( 'Customers', 'poocommerce' ),
+			'products'       => __( 'Products', 'poocommerce' ),
+			'all'            => __( 'All', 'poocommerce' ),
 		);
 
 		/**
 		 * Filters the search filters available in the admin order search. Can be used to add new or remove existing filters.
-		 * When adding new filters, `woocommerce_hpos_generate_where_for_search_filter` should also be used to generate the WHERE clause for the new filter
+		 * When adding new filters, `poocommerce_hpos_generate_where_for_search_filter` should also be used to generate the WHERE clause for the new filter
 		 *
 		 * @since 8.9.0.
 		 *
 		 * @param $options array List of available filters.
 		 */
-		$options       = apply_filters( 'woocommerce_hpos_admin_search_filters', $options );
+		$options       = apply_filters( 'poocommerce_hpos_admin_search_filters', $options );
 		$saved_setting = get_user_setting( 'wc-search-filter-hpos-admin', 'all' );
 		$selected      = sanitize_text_field( wp_unslash( $_REQUEST['search-filter'] ?? $saved_setting ) );
 		if ( $saved_setting !== $selected ) {

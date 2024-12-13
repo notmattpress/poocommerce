@@ -1,6 +1,6 @@
 @import './visibility-section/style.scss';
 
-.woocommerce-product-publish-panel {
+.poocommerce-product-publish-panel {
 	bottom: 0;
     right: 0;
     top: $admin-bar-height-big;
@@ -36,7 +36,7 @@
 			justify-content: center;
 		}
 
-		.woocommerce-publish-panel-close {
+		.poocommerce-publish-panel-close {
 			flex: unset;
 			width: unset;
 		}
@@ -107,7 +107,7 @@
 .is-published {
 	display: flex;
 	flex-direction: column;
-	.woocommerce-product-publish-panel {
+	.poocommerce-product-publish-panel {
 		&__header, &__title {
 			border-bottom: $border-width solid $gray-200;
 			font-weight: 500;

@@ -1,7 +1,7 @@
 @import "@wordpress/base-styles/_colors.native.scss";
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace__woo-update-manager-plugin__notices {
+.poocommerce-marketplace__woo-update-manager-plugin__notices {
 	.components-notice {
 		margin-left: 0;
 		margin-right: 0;
@@ -47,17 +47,17 @@
 	}
 }
 
-.woocommerce-marketplace__woo-update-manager-plugin__notices {
+.poocommerce-marketplace__woo-update-manager-plugin__notices {
 	margin-bottom: $grid-unit-50;
 }
 
-.woocommerce-marketplace__discover {
-	.woocommerce-marketplace__woo-update-manager-plugin__notices {
+.poocommerce-marketplace__discover {
+	.poocommerce-marketplace__woo-update-manager-plugin__notices {
 		margin-bottom: 0;
 	}
 }
 
-.woocommerce-marketplace__header-account-modal {
+.poocommerce-marketplace__header-account-modal {
 	.components-button {
 		&.is-link {
 			text-decoration: none;

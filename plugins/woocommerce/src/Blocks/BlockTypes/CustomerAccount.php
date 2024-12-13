@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\BlockHooksTrait;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockHooksTrait;
 
 /**
  * CustomerAccount class.
@@ -45,11 +45,11 @@ class CustomerAccount extends AbstractBlock {
 		parent::initialize();
 		/**
 		 * The hooked_block_{$hooked_block_type} filter was added in WordPress 6.5.
-		 * We are the only code adding the filter 'hooked_block_woocommerce/customer-account'.
+		 * We are the only code adding the filter 'hooked_block_poocommerce/customer-account'.
 		 * Using has_filter() for a compatibility check won't work because add_filter() is used in the same file.
 		 */
 		if ( version_compare( get_bloginfo( 'version' ), '6.5', '>=' ) ) {
-			add_filter( 'hooked_block_woocommerce/customer-account', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
+			add_filter( 'hooked_block_poocommerce/customer-account', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
 			add_filter( 'hooked_block_types', array( $this, 'register_hooked_block' ), 9, 4 );
 		}
 	}
@@ -117,7 +117,7 @@ class CustomerAccount extends AbstractBlock {
 	protected function render( $attributes, $content, $block ) {
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 
-		$account_link = get_option( 'woocommerce_myaccount_page_id' ) ? wc_get_account_endpoint_url( 'dashboard' ) : wp_login_url();
+		$account_link = get_option( 'poocommerce_myaccount_page_id' ) ? wc_get_account_endpoint_url( 'dashboard' ) : wp_login_url();
 
 		$allowed_svg = array(
 			'svg'    => array(
@@ -148,7 +148,7 @@ class CustomerAccount extends AbstractBlock {
 
 		$label_markup = self::ICON_ONLY === $attributes['displayStyle'] ? '' : '<span class="label">' . wp_kses( $this->render_label(), array() ) . '</span>';
 
-		return "<div class='wp-block-woocommerce-customer-account " . esc_attr( $classes_and_styles['classes'] ) . "' style='" . esc_attr( $classes_and_styles['styles'] ) . "'>
+		return "<div class='wp-block-poocommerce-customer-account " . esc_attr( $classes_and_styles['classes'] ) . "' style='" . esc_attr( $classes_and_styles['styles'] ) . "'>
 			<a " . $aria_label . " href='" . esc_attr( $account_link ) . "'>
 				" . wp_kses( $this->render_icon( $attributes ), $allowed_svg ) . $label_markup . '
 			</a>
@@ -217,8 +217,8 @@ class CustomerAccount extends AbstractBlock {
 	 */
 	private function render_label() {
 		return get_current_user_id()
-			? __( 'My Account', 'woocommerce' )
-			: __( 'Login', 'woocommerce' );
+			? __( 'My Account', 'poocommerce' )
+			: __( 'Login', 'poocommerce' );
 	}
 
 	/**

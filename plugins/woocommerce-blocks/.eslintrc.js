@@ -122,15 +122,15 @@ const restrictedImports = [
 ];
 
 const coreModules = [
-	'@woocommerce/block-data',
-	'@woocommerce/blocks-checkout',
-	'@woocommerce/blocks-components',
-	'@woocommerce/price-format',
-	'@woocommerce/settings',
-	'@woocommerce/shared-context',
-	'@woocommerce/shared-hocs',
-	'@woocommerce/tracks',
-	'@woocommerce/data',
+	'@poocommerce/block-data',
+	'@poocommerce/blocks-checkout',
+	'@poocommerce/blocks-components',
+	'@poocommerce/price-format',
+	'@poocommerce/settings',
+	'@poocommerce/shared-context',
+	'@poocommerce/shared-hocs',
+	'@poocommerce/tracks',
+	'@poocommerce/data',
 	'@wordpress/a11y',
 	'@wordpress/api-fetch',
 	'@wordpress/block-editor',
@@ -142,8 +142,8 @@ const coreModules = [
 	'@wordpress/hooks',
 	'@wordpress/keycodes',
 	'@wordpress/url',
-	'@woocommerce/blocks-test-utils',
-	'@woocommerce/e2e-utils',
+	'@poocommerce/blocks-test-utils',
+	'@poocommerce/e2e-utils',
 	'babel-jest',
 	'dotenv',
 	'jest-environment-puppeteer',
@@ -162,7 +162,7 @@ module.exports = {
 	},
 	root: true,
 	extends: [
-		'plugin:@woocommerce/eslint-plugin/recommended',
+		'plugin:@poocommerce/eslint-plugin/recommended',
 		'plugin:you-dont-need-lodash-underscore/compatible',
 		'plugin:storybook/recommended',
 	],
@@ -193,14 +193,14 @@ module.exports = {
 		},
 	},
 	rules: {
-		'woocommerce/feature-flag': 'off',
+		'poocommerce/feature-flag': 'off',
 		'react-hooks/exhaustive-deps': 'error',
 		'react/jsx-fragments': [ 'error', 'syntax' ],
 		'@wordpress/no-global-active-element': 'warn',
 		'@wordpress/i18n-text-domain': [
 			'error',
 			{
-				allowedTextDomain: [ 'woocommerce' ],
+				allowedTextDomain: [ 'poocommerce' ],
 			},
 		],
 		'no-restricted-imports': [
@@ -248,7 +248,7 @@ module.exports = {
 			files: [ '*.ts', '*.tsx' ],
 			parser: '@typescript-eslint/parser',
 			extends: [
-				'plugin:@woocommerce/eslint-plugin/recommended',
+				'plugin:@poocommerce/eslint-plugin/recommended',
 				'plugin:you-dont-need-lodash-underscore/compatible',
 				'plugin:@typescript-eslint/recommended',
 				'plugin:import/errors',

@@ -1,16 +1,16 @@
 <?php
 /**
- * Register the scripts, styles, and includes needed for pieces of the WooCommerce Admin experience.
+ * Register the scripts, styles, and includes needed for pieces of the PooCommerce Admin experience.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\Reviews;
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
-use Automattic\WooCommerce\Internal\Admin\Settings;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\Reviews;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsCommentsOverrides;
+use Automattic\PooCommerce\Internal\Admin\Settings;
 
 /**
  * Loader Class.
@@ -81,7 +81,7 @@ class Loader {
 		add_action( 'admin_notices', array( __CLASS__, 'inject_before_notices' ), -9999 );
 		add_action( 'admin_notices', array( __CLASS__, 'inject_after_notices' ), PHP_INT_MAX );
 
-		// Added this hook to delete the field woocommerce_onboarding_homepage_post_id when deleting the homepage.
+		// Added this hook to delete the field poocommerce_onboarding_homepage_post_id when deleting the homepage.
 		add_action( 'trashed_post', array( __CLASS__, 'delete_homepage' ) );
 
 		/*
@@ -142,10 +142,10 @@ class Loader {
 			$page_title = end( $sections );
 		}
 		?>
-		<div id="woocommerce-embedded-root" class="is-embed-loading">
-			<div class="woocommerce-layout">
-				<div class="woocommerce-layout__header is-embed-loading">
-					<h1 class="woocommerce-layout__header-heading">
+		<div id="poocommerce-embedded-root" class="is-embed-loading">
+			<div class="poocommerce-layout">
+				<div class="poocommerce-layout__header is-embed-loading">
+					<h1 class="poocommerce-layout__header-heading">
 						<?php self::output_heading( $page_title ); ?>
 					</h1>
 				</div>
@@ -165,24 +165,24 @@ class Loader {
 		}
 
 		$classes   = explode( ' ', trim( $admin_body_class ) );
-		$classes[] = 'woocommerce-admin-page';
+		$classes[] = 'poocommerce-admin-page';
 		if ( PageController::is_embed_page() ) {
-			$classes[] = 'woocommerce-embed-page';
+			$classes[] = 'poocommerce-embed-page';
 		}
 
 		/**
 		 * Some routes or features like onboarding hide the wp-admin navigation and masterbar.
-		 * Setting `woocommerce_admin_is_loading` to true allows us to premeptively hide these
+		 * Setting `poocommerce_admin_is_loading` to true allows us to premeptively hide these
 		 * elements while the JS app loads.
 		 * This class needs to be removed by those feature components (like <ProfileWizard />).
 		 *
-		 * @param bool $is_loading If WooCommerce Admin is loading a fullscreen view.
+		 * @param bool $is_loading If PooCommerce Admin is loading a fullscreen view.
 		 * @since 6.5.0
 		 */
-		$is_loading = apply_filters( 'woocommerce_admin_is_loading', false );
+		$is_loading = apply_filters( 'poocommerce_admin_is_loading', false );
 
 		if ( PageController::is_admin_page() && $is_loading ) {
-			$classes[] = 'woocommerce-admin-is-loading';
+			$classes[] = 'poocommerce-admin-is-loading';
 		}
 
 		$admin_body_class = implode( ' ', array_unique( $classes ) );
@@ -237,17 +237,17 @@ class Loader {
 		$is_onboarding   = isset( $_GET['path'] ) && '/setup-wizard' === wc_clean( wp_unslash( $_GET['path'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 		$maybe_hide_jitm = $is_onboarding ? '-hide' : '';
 
-		echo '<div class="woocommerce-layout__jitm' . sanitize_html_class( $maybe_hide_jitm ) . '" id="jp-admin-notices"></div>';
+		echo '<div class="poocommerce-layout__jitm' . sanitize_html_class( $maybe_hide_jitm ) . '" id="jp-admin-notices"></div>';
 
 		// Wrap the notices in a hidden div to prevent flickering before
 		// they are moved elsewhere in the page by WordPress Core.
-		echo '<div class="woocommerce-layout__notice-list-hide" id="wp__notice-list">';
+		echo '<div class="poocommerce-layout__notice-list-hide" id="wp__notice-list">';
 
 		if ( PageController::is_admin_page() ) {
 			// Capture all notices and hide them. WordPress Core looks for
 			// `.wp-header-end` and appends notices after it if found.
 			// https://github.com/WordPress/WordPress/blob/f6a37e7d39e2534d05b9e542045174498edfe536/wp-admin/js/common.js#L737 .
-			echo '<div class="wp-header-end" id="woocommerce-layout__notice-catcher"></div>';
+			echo '<div class="wp-header-end" id="poocommerce-layout__notice-catcher"></div>';
 		}
 	}
 
@@ -289,7 +289,7 @@ class Loader {
 		$title  = implode( ' &lsaquo; ', $pieces );
 
 		/* translators: %1$s: updated title, %2$s: blog info name */
-		return sprintf( __( '%1$s &lsaquo; %2$s', 'woocommerce' ), $title, get_bloginfo( 'name' ) );
+		return sprintf( __( '%1$s &lsaquo; %2$s', 'poocommerce' ), $title, get_bloginfo( 'name' ) );
 	}
 
 	/**
@@ -304,7 +304,7 @@ class Loader {
 	}
 
 	/**
-	 * Hooks extra necessary data into the component settings array already set in WooCommerce core.
+	 * Hooks extra necessary data into the component settings array already set in PooCommerce core.
 	 *
 	 * @param array $settings Array of component settings.
 	 * @return array Array of component settings.
@@ -334,11 +334,11 @@ class Loader {
 		}
 
 		/**
-		 * The woocommerce_component_settings_preload_endpoints filter
+		 * The poocommerce_component_settings_preload_endpoints filter
 		 *
 		 * @since 6.5.0
 		 */
-		$preload_data_endpoints = apply_filters( 'woocommerce_component_settings_preload_endpoints', array() );
+		$preload_data_endpoints = apply_filters( 'poocommerce_component_settings_preload_endpoints', array() );
 
 		$preload_data_endpoints['jetpackStatus'] = '/jetpack/v4/connection';
 		if ( ! empty( $preload_data_endpoints ) ) {
@@ -349,11 +349,11 @@ class Loader {
 		}
 
 		/**
-		 * The woocommerce_admin_preload_options filter
+		 * The poocommerce_admin_preload_options filter
 		 *
 		 * @since 6.5.0
 		 */
-		$preload_options = apply_filters( 'woocommerce_admin_preload_options', array() );
+		$preload_options = apply_filters( 'poocommerce_admin_preload_options', array() );
 		if ( ! empty( $preload_options ) ) {
 			foreach ( $preload_options as $option ) {
 				$settings['preloadOptions'][ $option ] = get_option( $option );
@@ -361,11 +361,11 @@ class Loader {
 		}
 
 		/**
-		 * The woocommerce_admin_preload_settings filter
+		 * The poocommerce_admin_preload_settings filter
 		 *
 		 * @since 6.5.0
 		 */
-		$preload_settings = apply_filters( 'woocommerce_admin_preload_settings', array() );
+		$preload_settings = apply_filters( 'poocommerce_admin_preload_settings', array() );
 		if ( ! empty( $preload_settings ) ) {
 			$setting_options = new \WC_REST_Setting_Options_V2_Controller();
 			foreach ( $preload_settings as $group ) {
@@ -387,11 +387,11 @@ class Loader {
 		$current_user_data = is_wp_error( $user_response ) ? (object) array() : $user_response->get_data();
 
 		$settings['currentUserData']      = $current_user_data;
-		$settings['reviewsEnabled']       = get_option( 'woocommerce_enable_reviews' );
-		$settings['manageStock']          = get_option( 'woocommerce_manage_stock' );
+		$settings['reviewsEnabled']       = get_option( 'poocommerce_enable_reviews' );
+		$settings['manageStock']          = get_option( 'poocommerce_manage_stock' );
 		$settings['commentModeration']    = get_option( 'comment_moderation' );
-		$settings['notifyLowStockAmount'] = get_option( 'woocommerce_notify_low_stock_amount' );
-		// @todo On merge, once plugin images are added to core WooCommerce, `wcAdminAssetUrl` can be retired,
+		$settings['notifyLowStockAmount'] = get_option( 'poocommerce_notify_low_stock_amount' );
+		// @todo On merge, once plugin images are added to core PooCommerce, `wcAdminAssetUrl` can be retired,
 		// and `wcAssetUrl` can be used in its place throughout the codebase.
 		$settings['wcAdminAssetUrl'] = WC_ADMIN_IMAGES_FOLDER_URL;
 		$settings['wcVersion']       = WC_VERSION;
@@ -405,15 +405,15 @@ class Loader {
 			'activePlugins'    => Plugins::get_active_plugins(),
 		);
 		// Plugins that depend on changing the translation work on the server but not the client -
-		// WooCommerce Branding is an example of this - so pass through the translation of
-		// 'WooCommerce' to wcSettings.
-		$settings['woocommerceTranslation'] = __( 'WooCommerce', 'woocommerce' );
+		// PooCommerce Branding is an example of this - so pass through the translation of
+		// 'PooCommerce' to wcSettings.
+		$settings['poocommerceTranslation'] = __( 'PooCommerce', 'poocommerce' );
 		// We may have synced orders with a now-unregistered status.
 		// E.g An extension that added statuses is now inactive or removed.
 		$settings['unregisteredOrderStatuses'] = self::get_unregistered_order_statuses();
 		// The separator used for attributes found in Variation titles.
 		/* phpcs:ignore */
-		$settings['variationTitleAttributesSeparator'] = apply_filters( 'woocommerce_product_variation_title_attributes_separator', ' - ', new \WC_Product() );
+		$settings['variationTitleAttributesSeparator'] = apply_filters( 'poocommerce_product_variation_title_attributes_separator', ' - ', new \WC_Product() );
 
 		if ( ! empty( $preload_data_endpoints ) ) {
 			$settings['dataEndpoints'] = isset( $settings['dataEndpoints'] )
@@ -479,8 +479,8 @@ class Loader {
 	public static function add_settings_group( $groups ) {
 		$groups[] = array(
 			'id'          => 'wc_admin',
-			'label'       => __( 'WooCommerce Admin', 'woocommerce' ),
-			'description' => __( 'Settings for WooCommerce admin reporting.', 'woocommerce' ),
+			'label'       => __( 'PooCommerce Admin', 'poocommerce' ),
+			'description' => __( 'Settings for PooCommerce admin reporting.', 'poocommerce' ),
 		);
 		return $groups;
 	}
@@ -497,28 +497,28 @@ class Loader {
 		$all_statuses          = array_merge( $unregistered_statuses, $registered_statuses );
 
 		$settings[] = array(
-			'id'          => 'woocommerce_excluded_report_order_statuses',
-			'option_key'  => 'woocommerce_excluded_report_order_statuses',
-			'label'       => __( 'Excluded report order statuses', 'woocommerce' ),
-			'description' => __( 'Statuses that should not be included when calculating report totals.', 'woocommerce' ),
+			'id'          => 'poocommerce_excluded_report_order_statuses',
+			'option_key'  => 'poocommerce_excluded_report_order_statuses',
+			'label'       => __( 'Excluded report order statuses', 'poocommerce' ),
+			'description' => __( 'Statuses that should not be included when calculating report totals.', 'poocommerce' ),
 			'default'     => array( 'pending', 'cancelled', 'failed' ),
 			'type'        => 'multiselect',
 			'options'     => $all_statuses,
 		);
 		$settings[] = array(
-			'id'          => 'woocommerce_actionable_order_statuses',
-			'option_key'  => 'woocommerce_actionable_order_statuses',
-			'label'       => __( 'Actionable order statuses', 'woocommerce' ),
-			'description' => __( 'Statuses that require extra action on behalf of the store admin.', 'woocommerce' ),
+			'id'          => 'poocommerce_actionable_order_statuses',
+			'option_key'  => 'poocommerce_actionable_order_statuses',
+			'label'       => __( 'Actionable order statuses', 'poocommerce' ),
+			'description' => __( 'Statuses that require extra action on behalf of the store admin.', 'poocommerce' ),
 			'default'     => array( 'processing', 'on-hold' ),
 			'type'        => 'multiselect',
 			'options'     => $all_statuses,
 		);
 		$settings[] = array(
-			'id'          => 'woocommerce_default_date_range',
-			'option_key'  => 'woocommerce_default_date_range',
-			'label'       => __( 'Default Date Range', 'woocommerce' ),
-			'description' => __( 'Default Date Range', 'woocommerce' ),
+			'id'          => 'poocommerce_default_date_range',
+			'option_key'  => 'poocommerce_default_date_range',
+			'label'       => __( 'Default Date Range', 'poocommerce' ),
+			'description' => __( 'Default Date Range', 'poocommerce' ),
 			'default'     => 'period=month&compare=previous_year',
 			'type'        => 'text',
 		);
@@ -556,7 +556,7 @@ class Loader {
 	 * }
 	 */
 	public static function get_currency_settings() {
-		$code = get_woocommerce_currency();
+		$code = get_poocommerce_currency();
 
 		/**
 		 * The wc_currency_settings hook
@@ -568,17 +568,17 @@ class Loader {
 			array(
 				'code'              => $code,
 				'precision'         => wc_get_price_decimals(),
-				'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $code ) ),
-				'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+				'symbol'            => html_entity_decode( get_poocommerce_currency_symbol( $code ) ),
+				'symbolPosition'    => get_option( 'poocommerce_currency_pos' ),
 				'decimalSeparator'  => wc_get_price_decimal_separator(),
 				'thousandSeparator' => wc_get_price_thousand_separator(),
-				'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+				'priceFormat'       => html_entity_decode( get_poocommerce_price_format() ),
 			)
 		);
 	}
 
 	/**
-	 * Delete woocommerce_onboarding_homepage_post_id field when the homepage is deleted
+	 * Delete poocommerce_onboarding_homepage_post_id field when the homepage is deleted
 	 *
 	 * @param int $post_id The deleted post id.
 	 */
@@ -586,9 +586,9 @@ class Loader {
 		if ( 'page' !== get_post_type( $post_id ) ) {
 			return;
 		}
-		$homepage_id = intval( get_option( 'woocommerce_onboarding_homepage_post_id', false ) );
+		$homepage_id = intval( get_option( 'poocommerce_onboarding_homepage_post_id', false ) );
 		if ( $homepage_id === $post_id ) {
-			delete_option( 'woocommerce_onboarding_homepage_post_id' );
+			delete_option( 'poocommerce_onboarding_homepage_post_id' );
 		}
 	}
 

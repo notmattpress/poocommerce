@@ -8,7 +8,7 @@ const {
 	applyCoupon,
 	removeCoupon,
 	waitForSelectorWithoutThrow,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 const { getCouponId, getCouponsTable } = require( '../utils/coupons' );
 
 /**
@@ -35,7 +35,7 @@ const runCheckoutApplyCouponsTest = () => {
 			async ( couponType, cartDiscount, orderTotal ) => {
 				const coupon = await getCouponId( couponType );
 				await applyCoupon( coupon );
-				await expect( page ).toMatchElement( '.woocommerce-message', {
+				await expect( page ).toMatchElement( '.poocommerce-message', {
 					text: 'Coupon code applied successfully.',
 				} );
 
@@ -58,7 +58,7 @@ const runCheckoutApplyCouponsTest = () => {
 		it( 'prevents checkout applying same coupon twice', async () => {
 			const couponId = await getCouponId( 'fixed cart' );
 			await applyCoupon( couponId );
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text: 'Coupon code applied successfully.',
 			} );
 			await applyCoupon( couponId );
@@ -74,7 +74,7 @@ const runCheckoutApplyCouponsTest = () => {
 
 		it( 'allows checkout to apply multiple coupons', async () => {
 			await applyCoupon( await getCouponId( 'fixed product' ) );
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text: 'Coupon code applied successfully.',
 			} );
 

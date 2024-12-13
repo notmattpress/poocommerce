@@ -1,8 +1,8 @@
 .wc-block-add-to-cart-with-options__quantity-selector {
 	/**
-	* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+	* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 	*
-	* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+	* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 	*/
 	.input-text {
 		font-size: var(--wp--preset--font-size--small);
@@ -30,9 +30,9 @@
 			order: 1;
 			margin: 0;
 			/**
-			* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+			* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 			*
-			* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+			* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 			*/
 			padding: 0.9rem 0;
 			margin-right: unset;

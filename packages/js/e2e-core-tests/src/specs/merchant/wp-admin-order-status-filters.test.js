@@ -6,7 +6,7 @@ const {
 	withRestApi,
 	clickFilter,
 	moveAllItemsToTrash,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 const statusColumnTextSelector = 'mark.order-status > span';
 
@@ -30,7 +30,7 @@ const defaultOrder = {
 };
 
 const runOrderStatusFiltersTest = () => {
-	describe( 'WooCommerce Orders > Filter Orders by Status', () => {
+	describe( 'PooCommerce Orders > Filter Orders by Status', () => {
 		beforeAll( async () => {
 			// First, let's create some orders we can filter against
 			const orders = orderStatus.map( ( entryPair ) => {

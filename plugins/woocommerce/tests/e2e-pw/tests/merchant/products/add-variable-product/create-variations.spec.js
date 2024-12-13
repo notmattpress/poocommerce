@@ -59,7 +59,7 @@ test.describe( 'Add variations', { tag: tags.GUTENBERG }, () => {
 		} );
 
 		await test.step( `Expect the number of variations to be ${ expectedGeneratedVariations.length }`, async () => {
-			const variations = page.locator( '.woocommerce_variation' );
+			const variations = page.locator( '.poocommerce_variation' );
 
 			await expect( variations ).toHaveCount(
 				expectedGeneratedVariations.length
@@ -70,7 +70,7 @@ test.describe( 'Add variations', { tag: tags.GUTENBERG }, () => {
 			await test.step( `Expect the variation "${ variation.join(
 				', '
 			) }" to be generated.`, async () => {
-				let variationRow = page.locator( '.woocommerce_variation h3' );
+				let variationRow = page.locator( '.poocommerce_variation h3' );
 
 				for ( const attributeValue of variation ) {
 					variationRow = variationRow.filter( {
@@ -95,17 +95,17 @@ test.describe( 'Add variations', { tag: tags.GUTENBERG }, () => {
 				);
 			} );
 
-			// hook up the woocommerce_variations_added jQuery trigger so we can check if it's fired
-			await test.step( 'Hook up the woocommerce_variations_added jQuery trigger', async () => {
+			// hook up the poocommerce_variations_added jQuery trigger so we can check if it's fired
+			await test.step( 'Hook up the poocommerce_variations_added jQuery trigger', async () => {
 				await page.evaluate( () => {
-					window.woocommerceVariationsAddedFunctionCalls = [];
+					window.poocommerceVariationsAddedFunctionCalls = [];
 
 					window
 						.jQuery( '#variable_product_options' )
 						.on(
-							'woocommerce_variations_added',
+							'poocommerce_variations_added',
 							( event, data ) => {
-								window.woocommerceVariationsAddedFunctionCalls.push(
+								window.poocommerceVariationsAddedFunctionCalls.push(
 									[ event, data ]
 								);
 							}
@@ -119,7 +119,7 @@ test.describe( 'Add variations', { tag: tags.GUTENBERG }, () => {
 
 			await test.step( `Manually add ${ variationsToManuallyCreate.length } variations`, async () => {
 				const variationRows = page.locator(
-					'.woocommerce_variation h3'
+					'.poocommerce_variation h3'
 				);
 				let variationRowsCount = await variationRows.count();
 				const originalVariationRowsCount = variationRowsCount;
@@ -136,14 +136,14 @@ test.describe( 'Add variations', { tag: tags.GUTENBERG }, () => {
 							++variationRowsCount
 						);
 
-						// verify that the woocommerce_variations_added jQuery trigger was fired
-						const woocommerceVariationsAddedFunctionCalls =
+						// verify that the poocommerce_variations_added jQuery trigger was fired
+						const poocommerceVariationsAddedFunctionCalls =
 							await page.evaluate(
 								() =>
-									window.woocommerceVariationsAddedFunctionCalls
+									window.poocommerceVariationsAddedFunctionCalls
 							);
 						expect(
-							woocommerceVariationsAddedFunctionCalls.length
+							poocommerceVariationsAddedFunctionCalls.length
 						).toEqual(
 							variationRowsCount - originalVariationRowsCount
 						);

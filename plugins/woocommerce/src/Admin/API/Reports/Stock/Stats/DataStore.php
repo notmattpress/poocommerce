@@ -3,12 +3,12 @@
  * API\Reports\Stock\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Stock\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Stock\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
 
 /**
  * API\Reports\Stock\Stats\DataStore.
@@ -69,8 +69,8 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	private function get_low_stock_count() {
 		global $wpdb;
 
-		$no_stock_amount  = absint( max( get_option( 'woocommerce_notify_no_stock_amount' ), 0 ) );
-		$low_stock_amount = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+		$no_stock_amount  = absint( max( get_option( 'poocommerce_notify_no_stock_amount' ), 0 ) );
+		$low_stock_amount = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 
 		return (int) $wpdb->get_var(
 			$wpdb->prepare(

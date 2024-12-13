@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { EmptyContent } from '@woocommerce/components';
+import { EmptyContent } from '@poocommerce/components';
 
 export const Basic = () => (
 	<EmptyContent
@@ -13,6 +13,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/EmptyContent',
+	title: 'PooCommerce Admin/components/EmptyContent',
 	component: EmptyContent,
 };

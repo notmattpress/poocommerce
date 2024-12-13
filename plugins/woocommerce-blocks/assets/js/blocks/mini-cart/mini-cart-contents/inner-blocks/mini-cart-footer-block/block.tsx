@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { TotalsItem } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { TotalsItem } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	usePaymentMethods,
 	useStoreCart,
-} from '@woocommerce/base-context/hooks';
-import PaymentMethodIcons from '@woocommerce/base-components/cart-checkout/payment-method-icons';
-import { getIconsFromPaymentMethods } from '@woocommerce/base-utils';
-import { getSetting } from '@woocommerce/settings';
-import { PaymentEventsProvider } from '@woocommerce/base-context';
+} from '@poocommerce/base-context/hooks';
+import PaymentMethodIcons from '@poocommerce/base-components/cart-checkout/payment-method-icons';
+import { getIconsFromPaymentMethods } from '@poocommerce/base-utils';
+import { getSetting } from '@poocommerce/settings';
+import { PaymentEventsProvider } from '@poocommerce/base-context';
 import clsx from 'clsx';
 
 /**
@@ -59,11 +59,11 @@ const Block = ( {
 			<TotalsItem
 				className="wc-block-mini-cart__footer-subtotal"
 				currency={ getCurrencyFromPriceResponse( cartTotals ) }
-				label={ __( 'Subtotal', 'woocommerce' ) }
+				label={ __( 'Subtotal', 'poocommerce' ) }
 				value={ subTotal }
 				description={ __(
 					'Shipping, taxes, and discounts calculated at checkout.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<div className="wc-block-mini-cart__footer-actions">

@@ -3,9 +3,9 @@
  * An extension to the Definition class to prevent constructor injection from being possible.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Vendor\League\Container\Definition\Definition as BaseDefinition;
+use Automattic\PooCommerce\Vendor\League\Container\Definition\Definition as BaseDefinition;
 
 /**
  * An extension of the definition class that replaces constructor injection with method injection.

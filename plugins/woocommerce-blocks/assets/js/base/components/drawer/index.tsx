@@ -21,7 +21,7 @@ import {
 	useConstrainedTabbing,
 	useMergeRefs,
 } from '@wordpress/compose';
-import { useFocusReturn } from '@woocommerce/base-utils';
+import { useFocusReturn } from '@poocommerce/base-utils';
 /**
  * Internal dependencies
  */
@@ -57,7 +57,7 @@ const CloseButtonPortal = ( {
 					className="wc-block-components-drawer__close"
 					onClick={ onClick }
 					removeTextWrap
-					aria-label={ __( 'Close', 'woocommerce' ) }
+					aria-label={ __( 'Close', 'poocommerce' ) }
 				>
 					<Icon icon={ close } />
 				</Button>,

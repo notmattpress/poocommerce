@@ -2,7 +2,7 @@
 /**
  * Tests for the totals class.
  *
- * @package WooCommerce\Tests\Discounts
+ * @package PooCommerce\Tests\Discounts
  */
 
 /**
@@ -52,9 +52,9 @@ class WC_Tests_Totals extends WC_Unit_Test_Case {
 		);
 		$tax_rate_id = WC_Tax::_insert_tax_rate( $tax_rate );
 
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 
 		$product  = WC_Helper_Product::create_simple_product();
 		$product2 = WC_Helper_Product::create_simple_product();
@@ -100,7 +100,7 @@ class WC_Tests_Totals extends WC_Unit_Test_Case {
 
 		WC()->cart->add_discount( $coupon->get_code() );
 
-		add_action( 'woocommerce_cart_calculate_fees', array( $this, 'add_cart_fees_callback' ) );
+		add_action( 'poocommerce_cart_calculate_fees', array( $this, 'add_cart_fees_callback' ) );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class WC_Tests_Totals extends WC_Unit_Test_Case {
 		WC()->cart->empty_cart();
 		WC()->session->set( 'chosen_shipping_methods', array() );
 		WC_Helper_Shipping::delete_simple_flat_rate();
-		remove_action( 'woocommerce_cart_calculate_fees', array( $this, 'add_cart_fees_callback' ) );
+		remove_action( 'poocommerce_cart_calculate_fees', array( $this, 'add_cart_fees_callback' ) );
 
 		WC()->customer->set_is_vat_exempt( false );
 

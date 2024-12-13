@@ -1,24 +1,24 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME, useUserPreferences } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME, useUserPreferences } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 import { useState } from 'react';
 
 export const useSiteVisibilityTour = () => {
 	const [ showTour, setShowTour ] = useState( true );
 
-	// Tour should only be shown if the user has not seen it before and the `woocommerce_show_lys_tour` option is "yes" (for sites upgrading from a previous WooCommerce version)
+	// Tour should only be shown if the user has not seen it before and the `poocommerce_show_lys_tour` option is "yes" (for sites upgrading from a previous PooCommerce version)
 	const shouldStoreShowLYSTour = useSelect(
 		( select ) =>
 			select( OPTIONS_STORE_NAME ).getOption(
-				'woocommerce_show_lys_tour'
+				'poocommerce_show_lys_tour'
 			) === 'yes'
 	);
 
 	/**
-	 * This is temporary to support sites upgrading from a previous version of WooCommerce.
-	 * We used user meta to store the tour dismissal state but now we use WooCommerce meta instead.
+	 * This is temporary to support sites upgrading from a previous version of PooCommerce.
+	 * We used user meta to store the tour dismissal state but now we use PooCommerce meta instead.
 	 * It will be removed in WC 9.4.
 	 */
 	const hasUserDismissedTourMeta = useSelect( ( select ) => {
@@ -32,7 +32,7 @@ export const useSiteVisibilityTour = () => {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			( currentUser as { meta: { [ key: string ]: string } } ).meta
-				.woocommerce_launch_your_store_tour_hidden === 'yes'
+				.poocommerce_launch_your_store_tour_hidden === 'yes'
 		);
 	} );
 

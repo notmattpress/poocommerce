@@ -11,33 +11,33 @@ class ActivityCardPlaceholder extends Component {
 		const { className, hasAction, hasDate, hasSubtitle, lines } =
 			this.props;
 		const cardClassName = clsx(
-			'woocommerce-activity-card is-loading',
+			'poocommerce-activity-card is-loading',
 			className
 		);
 
 		return (
 			<div className={ cardClassName } aria-hidden>
-				<span className="woocommerce-activity-card__icon">
+				<span className="poocommerce-activity-card__icon">
 					<span className="is-placeholder" />
 				</span>
-				<div className="woocommerce-activity-card__header">
-					<div className="woocommerce-activity-card__title is-placeholder" />
+				<div className="poocommerce-activity-card__header">
+					<div className="poocommerce-activity-card__title is-placeholder" />
 					{ hasSubtitle && (
-						<div className="woocommerce-activity-card__subtitle is-placeholder" />
+						<div className="poocommerce-activity-card__subtitle is-placeholder" />
 					) }
 					{ hasDate && (
-						<div className="woocommerce-activity-card__date">
+						<div className="poocommerce-activity-card__date">
 							<span className="is-placeholder" />
 						</div>
 					) }
 				</div>
-				<div className="woocommerce-activity-card__body">
+				<div className="poocommerce-activity-card__body">
 					{ range( lines ).map( ( i ) => (
 						<span className="is-placeholder" key={ i } />
 					) ) }
 				</div>
 				{ hasAction && (
-					<div className="woocommerce-activity-card__actions">
+					<div className="poocommerce-activity-card__actions">
 						<span className="is-placeholder" />
 					</div>
 				) }

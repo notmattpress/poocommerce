@@ -49,7 +49,7 @@ export const WriteItForMeBtn = ( {
 		<MagicButton
 			disabled={ disabled }
 			onClick={ onClick }
-			label={ __( 'Write with AI', 'woocommerce' ) }
+			label={ __( 'Write with AI', 'poocommerce' ) }
 			title={ disabled ? disabledMessage : undefined }
 		/>
 	);
@@ -63,8 +63,8 @@ export const StopCompletionBtn = ( {
 		<MagicButton
 			disabled={ disabled }
 			onClick={ onClick }
-			label={ __( 'Stop writing…', 'woocommerce' ) }
-			title={ __( 'Stop generating content.', 'woocommerce' ) }
+			label={ __( 'Stop writing…', 'poocommerce' ) }
+			title={ __( 'Stop generating content.', 'poocommerce' ) }
 		/>
 	);
 };

@@ -21,35 +21,35 @@ export const TasksPlaceholder: React.FC< TasksPlaceholderProps > = ( {
 	}
 
 	return (
-		<div className="woocommerce-task-dashboard__container">
+		<div className="poocommerce-task-dashboard__container">
 			<div
-				className="woocommerce-card woocommerce-task-card is-loading"
+				className="poocommerce-card poocommerce-task-card is-loading"
 				aria-hidden
 			>
-				<div className="woocommerce-card__header">
-					<div className="woocommerce-card__title-wrapper">
-						<div className="woocommerce-card__title woocommerce-card__header-item">
+				<div className="poocommerce-card__header">
+					<div className="poocommerce-card__title-wrapper">
+						<div className="poocommerce-card__title poocommerce-card__header-item">
 							<span className="is-placeholder" />
 						</div>
 					</div>
 				</div>
-				<div className="woocommerce-card__body">
-					<div className="woocommerce-list">
+				<div className="poocommerce-card__body">
+					<div className="poocommerce-list">
 						{ Array.from( new Array( numTasks ) ).map( ( v, i ) => (
 							<div
 								key={ i }
-								className="woocommerce-list__item has-action"
+								className="poocommerce-list__item has-action"
 							>
-								<div className="woocommerce-list__item-inner">
-									<div className="woocommerce-list__item-before">
+								<div className="poocommerce-list__item-inner">
+									<div className="poocommerce-list__item-before">
 										<span className="is-placeholder" />
 									</div>
-									<div className="woocommerce-list__item-text">
-										<div className="woocommerce-list__item-title">
+									<div className="poocommerce-list__item-text">
+										<div className="poocommerce-list__item-title">
 											<span className="is-placeholder" />
 										</div>
 									</div>
-									<div className="woocommerce-list__item-after">
+									<div className="poocommerce-list__item-after">
 										<span className="is-placeholder" />
 									</div>
 								</div>

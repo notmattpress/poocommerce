@@ -51,7 +51,7 @@ test.describe( 'Add variable product', { tag: tags.GUTENBERG }, () => {
 		const tourWasDisplayed =
 			await test.step( 'See if the tour was displayed.', async () => {
 				return await page
-					.locator( '.woocommerce-tour-kit-step__heading' )
+					.locator( '.poocommerce-tour-kit-step__heading' )
 					.isVisible();
 			} );
 

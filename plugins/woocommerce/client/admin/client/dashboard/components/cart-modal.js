@@ -8,9 +8,9 @@ import { Button, Modal } from '@wordpress/components';
 import { find } from 'lodash';
 import { decodeEntities } from '@wordpress/html-entities';
 import { withSelect } from '@wordpress/data';
-import { List } from '@woocommerce/components';
-import { ONBOARDING_STORE_NAME, PLUGINS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { List } from '@poocommerce/components';
+import { ONBOARDING_STORE_NAME, PLUGINS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ class CartModal extends Component {
 		} );
 
 		const url = getInAppPurchaseUrl(
-			'https://woocommerce.com/cart?utm_medium=product',
+			'https://poocommerce.com/cart?utm_medium=product',
 			{
 				'wccom-replace-with': productIds.join( ',' ),
 			}
@@ -104,7 +104,7 @@ class CartModal extends Component {
 				listItems.push( {
 					title: sprintf(
 						/* translators: 1: theme title, 2: theme price */
-						__( '%1$s — %2$s per year', 'woocommerce' ),
+						__( '%1$s — %2$s per year', 'poocommerce' ),
 						themeInfo.title,
 						decodeEntities( themeInfo.price )
 					),
@@ -128,27 +128,27 @@ class CartModal extends Component {
 			<Modal
 				title={ __(
 					'Would you like to add the following paid features to your store now?',
-					'woocommerce'
+					'poocommerce'
 				) }
 				onRequestClose={ () => this.onClose() }
-				className="woocommerce-cart-modal"
+				className="poocommerce-cart-modal"
 			>
 				{ this.renderProducts() }
 
-				<p className="woocommerce-cart-modal__help-text">
+				<p className="poocommerce-cart-modal__help-text">
 					{ __(
 						'You won’t have access to this functionality until the extensions have been purchased and installed.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 
-				<div className="woocommerce-cart-modal__actions">
+				<div className="poocommerce-cart-modal__actions">
 					<Button
 						isLink
 						isBusy={ purchaseLaterButtonBusy }
 						onClick={ () => this.onClickPurchaseLater() }
 					>
-						{ __( 'I’ll do it later', 'woocommerce' ) }
+						{ __( 'I’ll do it later', 'poocommerce' ) }
 					</Button>
 
 					<Button
@@ -156,7 +156,7 @@ class CartModal extends Component {
 						isBusy={ purchaseNowButtonBusy }
 						onClick={ () => this.onClickPurchaseNow() }
 					>
-						{ __( 'Buy now', 'woocommerce' ) }
+						{ __( 'Buy now', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Modal>

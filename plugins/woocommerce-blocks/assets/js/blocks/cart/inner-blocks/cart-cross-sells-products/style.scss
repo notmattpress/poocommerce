@@ -1,5 +1,5 @@
-.wp-block-woocommerce-cart {
-	&.is-loading .wp-block-woocommerce-cart-cross-sells-block {
+.wp-block-poocommerce-cart {
+	&.is-loading .wp-block-poocommerce-cart-cross-sells-block {
 		@include placeholder();
 		margin-top: 2em;
 		min-height: 15em;
@@ -9,7 +9,7 @@
 		}
 	}
 
-	.wp-block-woocommerce-cart-cross-sells-block {
+	.wp-block-poocommerce-cart-cross-sells-block {
 		.wp-block-heading {
 			margin-bottom: $gap-large;
 		}
@@ -52,8 +52,8 @@
 }
 
 @include breakpoint("<480px") {
-	.wp-block-woocommerce-cart {
-		.wp-block-woocommerce-cart-cross-sells-block {
+	.wp-block-poocommerce-cart {
+		.wp-block-poocommerce-cart-cross-sells-block {
 			.cross-sells-product {
 				display: block;
 				width: 100%;

@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/notices",
+	"name": "poocommerce/notices",
 	"description": "State management for notices.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",

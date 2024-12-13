@@ -4,7 +4,7 @@
 import { __, _n, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
 import type { CSSProperties } from 'react';
-import { isNumber, ProductResponseItem } from '@woocommerce/types';
+import { isNumber, ProductResponseItem } from '@poocommerce/types';
 
 type RatingProps = {
 	className: string;
@@ -54,7 +54,7 @@ const NoRating = ( {
 			<div className={ `${ className }__norating` } role="img">
 				<span style={ starStyle } />
 			</div>
-			<span>{ __( 'No Reviews', 'woocommerce' ) }</span>
+			<span>{ __( 'No Reviews', 'poocommerce' ) }</span>
 		</div>
 	);
 };
@@ -66,7 +66,7 @@ const Rating = ( props: RatingProps ): JSX.Element => {
 
 	const ratingText = sprintf(
 		/* translators: %f is referring to the average rating value */
-		__( 'Rated %f out of 5', 'woocommerce' ),
+		__( 'Rated %f out of 5', 'poocommerce' ),
 		rating
 	);
 
@@ -77,7 +77,7 @@ const Rating = ( props: RatingProps ): JSX.Element => {
 				'Rated %1$s out of 5 based on %2$s customer rating',
 				'Rated %1$s out of 5 based on %2$s customer ratings',
 				reviews,
-				'woocommerce'
+				'poocommerce'
 			),
 			sprintf( '<strong class="rating">%f</strong>', rating ),
 			sprintf( '<span class="rating">%d</span>', reviews )
@@ -109,7 +109,7 @@ const ReviewsCount = ( props: {
 			'(%s customer review)',
 			'(%s customer reviews)',
 			reviews,
-			'woocommerce'
+			'poocommerce'
 		),
 		reviews
 	);

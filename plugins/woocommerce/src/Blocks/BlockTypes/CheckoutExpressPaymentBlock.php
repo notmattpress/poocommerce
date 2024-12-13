@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
 use Exception;
 
 /**
@@ -64,8 +64,8 @@ class CheckoutExpressPaymentBlock extends AbstractInnerBlock {
 			return;
 		}
 
-		$block_name    = 'woocommerce/' . $cart_or_checkout;
-		$page_id       = 'woocommerce_' . $cart_or_checkout . '_page_id';
+		$block_name    = 'poocommerce/' . $cart_or_checkout;
+		$page_id       = 'poocommerce_' . $cart_or_checkout . '_page_id';
 		$template_name = 'page-' . $cart_or_checkout;
 
 		// Check if we are editing the cart/checkout page and that it contains a Cart/Checkout block.

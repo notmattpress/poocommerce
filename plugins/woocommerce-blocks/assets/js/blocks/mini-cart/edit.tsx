@@ -3,7 +3,7 @@
  * External dependencies
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { formatPrice } from '@woocommerce/price-format';
+import { formatPrice } from '@poocommerce/price-format';
 import {
 	PanelBody,
 	ExternalLink,
@@ -13,18 +13,18 @@ import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	RadioControl,
 } from '@wordpress/components';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { __, isRTL } from '@wordpress/i18n';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
-import { isSiteEditorPage } from '@woocommerce/utils';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
+import { isSiteEditorPage } from '@poocommerce/utils';
 import type { ReactElement } from 'react';
 import { useEffect } from '@wordpress/element';
 import { select } from '@wordpress/data';
-import { cartOutline, bag, bagAlt } from '@woocommerce/icons';
+import { cartOutline, bag, bagAlt } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
-import { ColorPanel } from '@woocommerce/editor-components/color-panel';
-import type { ColorPaletteOption } from '@woocommerce/editor-components/color-panel/types';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
+import { ColorPanel } from '@poocommerce/editor-components/color-panel';
+import type { ColorPaletteOption } from '@poocommerce/editor-components/color-panel/types';
 
 /**
  * Internal dependencies
@@ -70,15 +70,15 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 
 	const miniCartColorAttributes = {
 		priceColor: {
-			label: __( 'Price', 'woocommerce' ),
+			label: __( 'Price', 'poocommerce' ),
 			context: 'price-color',
 		},
 		iconColor: {
-			label: __( 'Icon', 'woocommerce' ),
+			label: __( 'Icon', 'poocommerce' ),
 			context: 'icon-color',
 		},
 		productCountColor: {
-			label: __( 'Product Count', 'woocommerce' ),
+			label: __( 'Product Count', 'poocommerce' ),
 			context: 'product-count-color',
 		},
 	};
@@ -163,11 +163,11 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
 						className="wc-block-editor-mini-cart__cart-icon-toggle"
 						isBlock
-						label={ __( 'Cart Icon', 'woocommerce' ) }
+						label={ __( 'Cart Icon', 'poocommerce' ) }
 						value={ miniCartIcon }
 						onChange={ ( value: 'cart' | 'bag' | 'bag-alt' ) => {
 							setAttributes( {
@@ -190,13 +190,13 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 					</ToggleGroupControl>
 					<BaseControl
 						id="wc-block-mini-cart__display-toggle"
-						label={ __( 'Display', 'woocommerce' ) }
+						label={ __( 'Display', 'poocommerce' ) }
 					>
 						<ToggleControl
-							label={ __( 'Display total price', 'woocommerce' ) }
+							label={ __( 'Display total price', 'poocommerce' ) }
 							help={ __(
 								'Toggle to display the total price of products in the shopping cart. If no products have been added, the price will not display.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ ! hasHiddenPrice }
 							onChange={ () =>
@@ -208,7 +208,7 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 					</BaseControl>
 					<BaseControl
 						id="wc-block-mini-cart__product-count-basecontrol"
-						label={ __( 'Show Cart Item Count:', 'woocommerce' ) }
+						label={ __( 'Show Cart Item Count:', 'poocommerce' ) }
 					>
 						<RadioControl
 							className="wc-block-mini-cart__product-count-radiocontrol"
@@ -217,25 +217,25 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 								{
 									label: __(
 										'Always (even if empty)',
-										'woocommerce'
+										'poocommerce'
 									),
 									value: 'always',
 								},
 								{
 									label: __(
 										'Only if cart has items',
-										'woocommerce'
+										'poocommerce'
 									),
 									value: 'greater_than_zero',
 								},
 								{
-									label: __( 'Never', 'woocommerce' ),
+									label: __( 'Never', 'poocommerce' ),
 									value: 'never',
 								},
 							] }
 							help={ __(
 								'The editor does not display the real count value, but a placeholder to indicate how it will look on the front-end.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onChange={ ( value ) =>
 								setAttributes( {
@@ -249,7 +249,7 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 							className="wc-block-editor-mini-cart__render-in-cart-and-checkout-toggle"
 							label={ __(
 								'Mini-Cart in cart and checkout pages',
-								'woocommerce'
+								'poocommerce'
 							) }
 							isBlock
 							value={ cartAndCheckoutRenderStyle }
@@ -260,21 +260,21 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 							} }
 							help={ __(
 								'Select how the Mini-Cart behaves in the Cart and Checkout pages. This might affect the header layout.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						>
 							<ToggleGroupControlOption
 								value={ 'hidden' }
-								label={ __( 'Hide', 'woocommerce' ) }
+								label={ __( 'Hide', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value={ 'removed' }
-								label={ __( 'Remove', 'woocommerce' ) }
+								label={ __( 'Remove', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					) }
 				</PanelBody>
-				<PanelBody title={ __( 'Cart Drawer', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Cart Drawer', 'poocommerce' ) }>
 					{ templatePartEditUri && (
 						<>
 							<img
@@ -289,14 +289,14 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 							<p>
 								{ __(
 									'When opened, the Mini-Cart drawer gives shoppers quick access to view their selected products and checkout.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 							<p className="wc-block-editor-mini-cart__drawer-link">
 								<ExternalLink href={ templatePartEditUri }>
 									{ __(
 										'Edit Mini-Cart Drawer template',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</ExternalLink>
 							</p>
@@ -304,12 +304,12 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 					) }
 					<BaseControl
 						id="wc-block-mini-cart__add-to-cart-behaviour-toggle"
-						label={ __( 'Behavior', 'woocommerce' ) }
+						label={ __( 'Behavior', 'poocommerce' ) }
 					>
 						<ToggleControl
 							label={ __(
 								'Open drawer when adding',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onChange={ ( value ) => {
 								setAttributes( {
@@ -320,14 +320,14 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 							} }
 							help={ __(
 								'Toggle to open the Mini-Cart drawer when a shopper adds a product to their cart.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ addToCartBehaviour === 'open_drawer' }
 						/>
 						<ToggleControl
 							label={ __(
 								'Navigate to checkout when clicking the Mini-Cart, instead of opening the drawer.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onChange={ ( value ) => {
 								setAttributes( {
@@ -338,7 +338,7 @@ const Edit = ( { attributes, setAttributes }: Props ): ReactElement => {
 							} }
 							help={ __(
 								'Toggle to disable opening the Mini-Cart drawer when clicking the cart icon, and instead navigate to the checkout page.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={
 								onCartClickBehaviour === 'navigate_to_checkout'

@@ -1,2 +1,2 @@
-declare module '@woocommerce/e2e-environment';
-declare module '@woocommerce/e2e-utils';
+declare module '@poocommerce/e2e-environment';
+declare module '@poocommerce/e2e-utils';

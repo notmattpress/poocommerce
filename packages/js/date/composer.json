@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/date",
-	"description": "WooCommerce date utilities.",
+	"name": "poocommerce/date",
+	"description": "PooCommerce date utilities.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

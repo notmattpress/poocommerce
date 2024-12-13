@@ -66,13 +66,13 @@ Thu Dec  3 11:56:16 +08 2020 - Docker container is still being built
 Thu Dec  3 11:56:26 +08 2020 - Docker container couldn't be built
 npm ERR! code ELIFECYCLE
 npm ERR! errno 1
-npm ERR! @woocommerce/e2e-environment@0.1.6 test:e2e: `bash ./bin/wait-for-build.sh && ./bin/e2e-test-integration.js`
+npm ERR! @poocommerce/e2e-environment@0.1.6 test:e2e: `bash ./bin/wait-for-build.sh && ./bin/e2e-test-integration.js`
 npm ERR! Exit status 1
 ```
 
 Ensure that Docker is running. While the script says `Docker container is still being built`, it is not actually responsible for running Docker; it's just waiting for an existing docker instance to respond. Run `npm run docker:up` if it's not.
 
-## Set up WooCommerce Payments dev mode
+## Set up PooCommerce Payments dev mode
 
 Add this to `wp-config.php`:
 
@@ -80,22 +80,22 @@ Add this to `wp-config.php`:
 define( 'WCPAY_DEV_MODE', true );
 ```
 
-Also see [this document](https://woocommerce.com/document/woopayments/testing-and-troubleshooting/sandbox-mode/).
+Also see [this document](https://poocommerce.com/document/woopayments/testing-and-troubleshooting/sandbox-mode/).
 
-## WooCommerce Admin install timestamp
+## PooCommerce Admin install timestamp
 
 To get the install timestamp (used in `wc_admin_active_for()` in `NoteTraits` for example) try this SQL:
 
 ```sql
-SELECT * FROM wp_options WHERE option_name = 'woocommerce_admin_install_timestamp'
+SELECT * FROM wp_options WHERE option_name = 'poocommerce_admin_install_timestamp'
 ```
 
 ## Reset the onboarding wizard
 
-Delete the `woocommerce_onboarding_profile` option:
+Delete the `poocommerce_onboarding_profile` option:
 
 ```sql
-DELETE FROM wp_options WHERE option_name = 'woocommerce_onboarding_profile'
+DELETE FROM wp_options WHERE option_name = 'poocommerce_onboarding_profile'
 ```
 
 ## Enable tracks debugging in the console
@@ -109,7 +109,7 @@ and set Chrome's log level "verbose" to checked.
 ## Running PHP unit tests using Vagrant (VVV)
 
 1. SSH into Vagrant box (`vagrant ssh`)
-2. `cd /srv/www/<WP_INSTANCE>/public_html/wp-content/plugins/woocommerce-admin`
+2. `cd /srv/www/<WP_INSTANCE>/public_html/wp-content/plugins/poocommerce-admin`
 3. Set up: `bin/install-wp-tests.sh wc-admin-tests root root`
 4. Fast tests: `./vendor/bin/phpunit --group fast`
 5. All tests: `./vendor/bin/phpunit`

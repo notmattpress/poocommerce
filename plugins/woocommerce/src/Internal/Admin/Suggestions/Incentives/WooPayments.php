@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives;
+namespace Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
 use WC_Abstract_Order;
 
 /**
@@ -132,7 +132,7 @@ class WooPayments extends Incentive {
 			'country'      => $country_code,
 			// Store locale, e.g. `en_US`.
 			'locale'       => get_locale(),
-			// WooCommerce store active for duration in seconds.
+			// PooCommerce store active for duration in seconds.
 			'active_for'   => WCAdminHelper::get_wcadmin_active_for_in_seconds(),
 			'has_orders'   => $this->has_orders(),
 			// Whether the store has at least one payment gateway enabled.
@@ -167,7 +167,7 @@ class WooPayments extends Incentive {
 		$response = wp_remote_get(
 			$url,
 			array(
-				'user-agent' => 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
+				'user-agent' => 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
 			)
 		);
 
@@ -255,7 +255,7 @@ class WooPayments extends Incentive {
 		if ( false === $had_wcpay && ! empty(
 			wc_get_orders(
 				array(
-					'payment_method' => 'woocommerce_payments',
+					'payment_method' => 'poocommerce_payments',
 					'return'         => 'ids',
 					'limit'          => 1,
 				)

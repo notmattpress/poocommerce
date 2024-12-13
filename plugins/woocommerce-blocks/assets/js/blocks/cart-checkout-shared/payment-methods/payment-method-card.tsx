@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useEditorContext } from '@woocommerce/base-context';
-import { CheckboxControl } from '@woocommerce/blocks-components';
+import { useEditorContext } from '@poocommerce/base-context';
+import { CheckboxControl } from '@poocommerce/blocks-components';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ const PaymentMethodCard = ( {
 					className="wc-block-components-payment-methods__save-card-info"
 					label={ __(
 						'Save payment information to my account for future purchases.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ shouldSavePaymentMethod }
 					onChange={ () =>

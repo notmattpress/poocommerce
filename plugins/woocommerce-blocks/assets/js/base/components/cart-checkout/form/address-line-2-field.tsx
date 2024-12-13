@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
-import { AddressFormValues, ContactFormValues } from '@woocommerce/settings';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
+import { AddressFormValues, ContactFormValues } from '@poocommerce/settings';
 import { useState, Fragment, useCallback, useEffect } from '@wordpress/element';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { __, sprintf, getLocaleData } from '@wordpress/i18n';
 import { Button } from '@ariakit/react';
 
@@ -73,7 +73,7 @@ const AddressLine2Field = < T extends AddressFormValues | ContactFormValues >( {
 					>
 						{ sprintf(
 							// translators: %s: address 2 field label.
-							__( '+ Add %s', 'woocommerce' ),
+							__( '+ Add %s', 'poocommerce' ),
 							shouldKeepOriginalCase
 								? field.label
 								: field.label.toLowerCase()

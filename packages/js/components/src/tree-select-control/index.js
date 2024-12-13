@@ -79,7 +79,7 @@ import { ARROW_DOWN, ARROW_UP, ENTER, ESCAPE, ROOT_VALUE } from './constants';
 const TreeSelectControl = ( {
 	id,
 	label,
-	selectAllLabel = __( 'All', 'woocommerce' ),
+	selectAllLabel = __( 'All', 'poocommerce' ),
 	help,
 	placeholder,
 	className,
@@ -564,14 +564,14 @@ const TreeSelectControl = ( {
 			{ ...focusOutside }
 			onKeyDown={ onKeyDown }
 			className={ classnames(
-				'woocommerce-tree-select-control',
+				'poocommerce-tree-select-control',
 				className
 			) }
 		>
 			{ !! label && (
 				<label
-					htmlFor={ `woocommerce-tree-select-control-${ instanceId }__control-input` }
-					className="woocommerce-tree-select-control__label"
+					htmlFor={ `poocommerce-tree-select-control-${ instanceId }__control-input` }
+					className="poocommerce-tree-select-control__label"
 				>
 					{ label }
 				</label>
@@ -600,7 +600,7 @@ const TreeSelectControl = ( {
 			{ showTree && (
 				<div
 					ref={ dropdownRef }
-					className="woocommerce-tree-select-control__tree"
+					className="poocommerce-tree-select-control__tree"
 					role="tree"
 					tabIndex="-1"
 				>
@@ -613,7 +613,7 @@ const TreeSelectControl = ( {
 				</div>
 			) }
 			{ help && (
-				<div className="woocommerce-tree-select-control__help">
+				<div className="poocommerce-tree-select-control__help">
 					{ help }
 				</div>
 			) }

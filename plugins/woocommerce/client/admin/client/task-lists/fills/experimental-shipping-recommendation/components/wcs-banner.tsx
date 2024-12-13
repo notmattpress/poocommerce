@@ -15,26 +15,26 @@ import { PluginBanner } from './plugin-banner';
 const features = [
 	{
 		icon: PrinterImage,
-		title: __( 'Buy postage when you need it', 'woocommerce' ),
+		title: __( 'Buy postage when you need it', 'poocommerce' ),
 		description: __(
 			'No need to wonder where that stampbook went.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	{
 		icon: PaperImage,
-		title: __( 'Print at home', 'woocommerce' ),
+		title: __( 'Print at home', 'poocommerce' ),
 		description: __(
 			'Pick up an order, then just pay, print, package and post.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	{
 		icon: DiscountImage,
-		title: __( 'Discounted rates', 'woocommerce' ),
+		title: __( 'Discounted rates', 'poocommerce' ),
 		description: __(
 			'Access discounted shipping rates with DHL and USPS.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 ];

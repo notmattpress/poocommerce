@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Admin Dummy File
+ * PooCommerce Admin Dummy File
  *
- * This file is here only for bw compatibility: https://github.com/woocommerce/woocommerce/pull/32869
+ * This file is here only for bw compatibility: https://github.com/poocommerce/poocommerce/pull/32869
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @version 6.9.0
  */
 

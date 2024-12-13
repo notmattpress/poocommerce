@@ -61,4 +61,4 @@ sudo usermod -aG docker ${YOUR_USERNAME}
 su - ${YOUR_USERNAME}
 ```
 
-At this point, you're now ready to proceed with the steps in [WooCommerce Playwright End to End Tests](./README.md).
+At this point, you're now ready to proceed with the steps in [PooCommerce Playwright End to End Tests](./README.md).

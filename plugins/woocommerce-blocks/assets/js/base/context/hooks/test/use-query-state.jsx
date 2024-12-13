@@ -3,7 +3,7 @@
  */
 import TestRenderer, { act } from 'react-test-renderer';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { QUERY_STATE_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { QUERY_STATE_STORE_KEY as storeKey } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import {
 	useSynchronizedQueryState,
 } from '../use-query-state';
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	QUERY_STATE_STORE_KEY: 'test/store',
 } ) );

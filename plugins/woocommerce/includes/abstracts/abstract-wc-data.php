@@ -7,7 +7,7 @@
  *
  * @class       WC_Data
  * @version     3.0.0
- * @package     WooCommerce\Classes
+ * @package     PooCommerce\Classes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Implemented by classes using the same CRUD(s) pattern.
  *
  * @version  2.6.0
- * @package  WooCommerce\Abstracts
+ * @package  PooCommerce\Abstracts
  */
 abstract class WC_Data {
 
@@ -204,7 +204,7 @@ abstract class WC_Data {
 		 *
 		 * @since 8.1.0.
 		 */
-		$check = apply_filters( "woocommerce_pre_delete_$this->object_type", null, $this, $force_delete );
+		$check = apply_filters( "poocommerce_pre_delete_$this->object_type", null, $this, $force_delete );
 		if ( null !== $check ) {
 			return $check;
 		}
@@ -233,7 +233,7 @@ abstract class WC_Data {
 		 * @param WC_Data          $this The object being saved.
 		 * @param WC_Data_Store_WP $data_store THe data store persisting the data.
 		 */
-		do_action( 'woocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		if ( $this->get_id() ) {
 			$this->data_store->update( $this );
@@ -247,7 +247,7 @@ abstract class WC_Data {
 		 * @param WC_Data          $this The object being saved.
 		 * @param WC_Data_Store_WP $data_store THe data store persisting the data.
 		 */
-		do_action( 'woocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		return $this->get_id();
 	}
@@ -339,7 +339,7 @@ abstract class WC_Data {
 		}
 
 		/* translators: %s: $key Key to check */
-		wc_doing_it_wrong( __FUNCTION__, sprintf( __( 'Generic add/update/get meta methods should not be used for internal meta data, including "%s". Use getters and setters.', 'woocommerce' ), $key ), '3.2.0' );
+		wc_doing_it_wrong( __FUNCTION__, sprintf( __( 'Generic add/update/get meta methods should not be used for internal meta data, including "%s". Use getters and setters.', 'poocommerce' ), $key ), '3.2.0' );
 
 		return true;
 	}
@@ -860,7 +860,7 @@ abstract class WC_Data {
 	 * @return string
 	 */
 	protected function get_hook_prefix() {
-		return 'woocommerce_' . $this->object_type . '_get_';
+		return 'poocommerce_' . $this->object_type . '_get_';
 	}
 
 	/**

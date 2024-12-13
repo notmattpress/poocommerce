@@ -1,4 +1,4 @@
-# WooCommerce Onboarding Tasks
+# PooCommerce Onboarding Tasks
 
 The onboarding tasks provides a way to help store owners get their sites quickly set up.
 
@@ -14,7 +14,7 @@ The task list is easily extensible to allow inserting custom tasks around plugin
 To add a custom task, you first need to create a new class that extends the `Task` class.
 
 ```php
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 class MyTask extends Task {
   public function get_id() {
@@ -22,15 +22,15 @@ class MyTask extends Task {
   }
 
   public function get_title() {
-    return __( 'My task', 'woocommerce' );
+    return __( 'My task', 'poocommerce' );
   }
 
   public function get_content() {
-    return __( 'Add your task description here for display in the task list.', 'woocommerce');
+    return __( 'Add your task description here for display in the task list.', 'poocommerce');
   }
 
   public function get_time() {
-    return __( '2 minutes', 'woocommerce' );
+    return __( '2 minutes', 'poocommerce' );
   }
 }
 ```
@@ -38,7 +38,7 @@ class MyTask extends Task {
 You can then add the task to the task list by calling the `add_task` method on the `TaskLists` class.
 
 ```php
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
 TaskLists::add_task(
   'extended', // The task list ID. See the TaskList section below for more information.
@@ -60,7 +60,7 @@ import { createElement } from '@wordpress/element';
 import {
 	WooOnboardingTask,
 	WooOnboardingTaskListItem,
-} from '@woocommerce/onboarding';
+} from '@poocommerce/onboarding';
 import { registerPlugin } from '@wordpress/plugins';
 
 const Task = ( { onComplete, task, query } ) => {
@@ -79,13 +79,13 @@ registerPlugin( 'add-task-content', {
 } );
 
 registerPlugin( 'add-task-list-item', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTaskListItem id="my-task">
 			{ ( { defaultTaskItem: DefaultTaskItem } ) => (
 				// Add a custom wrapper around the default task item.
 				<div
-					className="woocommerce-custom-tasklist-item"
+					className="poocommerce-custom-tasklist-item"
 					style={ {
 						border: '1px solid red',
 					} }
@@ -193,7 +193,7 @@ $task_list = new TaskList($args);
 
 ### Task
 
-The `Task` class represents a task. It contains properties and methods for managing tasks. You can see the predefined tasks in [this directory](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/Admin/Features/OnboardingTasks/Tasks).
+The `Task` class represents a task. It contains properties and methods for managing tasks. You can see the predefined tasks in [this directory](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/src/Admin/Features/OnboardingTasks/Tasks).
 
 Please note that the `Task` class is abstract and intended to be extended by custom task classes.
 
@@ -202,7 +202,7 @@ Please note that the `Task` class is abstract and intended to be extended by cus
 ```php
 <?php
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 class MyTask extends Task {
     public function get_id() {
@@ -283,14 +283,14 @@ TaskLists::add_task(
 
 ## Frontend
 
-We use the `@woocommerce/onboarding` package to render the onboarding task lists on the frontend and use the `@woocommerce/data` package to interact with the onboarding store.
+We use the `@poocommerce/onboarding` package to render the onboarding task lists on the frontend and use the `@poocommerce/data` package to interact with the onboarding store.
 
 ### Data store actions
 
-Using the `@woocommerce/data` package, the following selectors and actions are available to interact with the task lists under the onboarding store.
+Using the `@poocommerce/data` package, the following selectors and actions are available to interact with the task lists under the onboarding store.
 
 ```js
-import { ONBOARDING_STORE_NAME } from '@woocommerce/data';
+import { ONBOARDING_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 const { snoozeTask } = useDispatch( ONBOARDING_STORE_NAME );
@@ -331,10 +331,10 @@ A task list fill is required if no `action_url` is provided for the task. This i
 
 ```js
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 
 registerPlugin( 'my-task-plugin', {
-  scope: 'woocommerce-tasks',
+  scope: 'poocommerce-tasks',
   render: () => (
     <WooOnboardingTask id="my-task">
       { ( { onComplete, query, task } ) => (
@@ -350,10 +350,10 @@ registerPlugin( 'my-task-plugin', {
 The items shown in the list can be customized beyond the default task list item. This can allow for custom appearance or specific `onClick` behavior for your task. For example, we're using this to install and activate WooPayments when clicking on the WooPayments task
 
 ```js
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
 
 registerPlugin( 'my-task-list-item-plugin', {
-  scope: 'woocommerce-tasks',
+  scope: 'poocommerce-tasks',
   render: () => (
     <WooOnboardingTaskListItem id="appearance">
       { ( { defaultTaskItem, onComplete } ) => (

@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/cart-accepted-payment-methods-block",
+	"name": "poocommerce/cart-accepted-payment-methods-block",
 	"version": "1.0.0",
 	"title": "Accepted Payment Methods",
 	"description": "Display accepted payment methods.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -12,9 +12,9 @@
 		"inserter": true
 	},
 	"parent": [
-		"woocommerce/cart-totals-block"
+		"poocommerce/cart-totals-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

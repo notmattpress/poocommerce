@@ -14,7 +14,7 @@ export const Tab = ( {
 	isPanelOpen,
 	onTabClick,
 } ) => {
-	const className = clsx( 'woocommerce-layout__activity-panel-tab', {
+	const className = clsx( 'poocommerce-layout__activity-panel-tab', {
 		'is-active': isPanelOpen && selected,
 		'has-unread': unread,
 	} );
@@ -38,7 +38,7 @@ export const Tab = ( {
 			{ title }{ ' ' }
 			{ unread && (
 				<span className="screen-reader-text">
-					{ __( 'unread activity', 'woocommerce' ) }
+					{ __( 'unread activity', 'poocommerce' ) }
 				</span>
 			) }
 		</Button>

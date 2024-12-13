@@ -1,6 +1,6 @@
 # Individual template classes <!-- omit in toc -->
 
-Each WooCommerce template has its own individual PHP class, which are all registered in BlockTemplatesRegistry.
+Each PooCommerce template has its own individual PHP class, which are all registered in BlockTemplatesRegistry.
 
 ## Overview
 
@@ -14,7 +14,7 @@ These classes have several purposes:
 
 This method is applied to the filter `template_redirect` and executed before WordPress determines which template to load.
 
-This allows us to hook into WooCommerce core through the filter `woocommerce_has_block_template` where we can determine if the block template should be loaded.
+This allows us to hook into PooCommerce core through the filter `poocommerce_has_block_template` where we can determine if the block template should be loaded.
 
 **Typically executed when:**
 
@@ -22,8 +22,8 @@ This allows us to hook into WooCommerce core through the filter `woocommerce_has
 
 **This method is responsible for:**
 
-* Determining if the block template has to be rendered in the current page. If so, we override the value through `woocommerce_has_block_template` to resolve `true`.
-* Determining if the page that will be rendered contains a Legacy Template block, in which case we disable the compatibility layer through the `woocommerce_disable_compatibility_layer` filter.
+* Determining if the block template has to be rendered in the current page. If so, we override the value through `poocommerce_has_block_template` to resolve `true`.
+* Determining if the page that will be rendered contains a Legacy Template block, in which case we disable the compatibility layer through the `poocommerce_disable_compatibility_layer` filter.
 
 **Return value:**
 

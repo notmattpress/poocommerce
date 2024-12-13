@@ -54,11 +54,11 @@ export const SortableItem = ( {
 		<div
 			{ ...props }
 			aria-selected={ isSelected }
-			className={ classnames( 'woocommerce-sortable__item', className, {
+			className={ classnames( 'poocommerce-sortable__item', className, {
 				'is-dragging': isDragging,
 				'is-selected': isSelected,
 			} ) }
-			id={ `woocommerce-sortable__item-${ id }` }
+			id={ `poocommerce-sortable__item-${ id }` }
 			role={ role }
 			onDrop={ ( event ) => event.preventDefault() }
 			ref={ ref }
@@ -66,11 +66,11 @@ export const SortableItem = ( {
 			// eslint-disable-next-line jsx-a11y/aria-props
 			aria-description={ __(
 				'Press spacebar to reorder',
-				'woocommerce'
+				'poocommerce'
 			) }
 		>
 			<Draggable
-				elementId={ `woocommerce-sortable__item-${ id }` }
+				elementId={ `poocommerce-sortable__item-${ id }` }
 				transferData={ {} }
 				onDragStart={ handleDragStart as () => void }
 				onDragEnd={ handleDragEnd as () => void }

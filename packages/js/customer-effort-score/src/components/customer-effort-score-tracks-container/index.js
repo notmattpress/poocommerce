@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { createElement, Fragment } from '@wordpress/element';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -89,7 +89,7 @@ export const CustomerEffortScoreTracksContainer = compose(
 				// directly puts this into an infinite loop which is picked
 				// up by React.
 				updateOptions( {
-					woocommerce_clear_ces_tracks_queue_for_page: {
+					poocommerce_clear_ces_tracks_queue_for_page: {
 						pagenow: window.pagenow,
 						adminpage: window.adminpage,
 					},

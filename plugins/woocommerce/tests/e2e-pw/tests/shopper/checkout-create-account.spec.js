@@ -4,13 +4,13 @@
 import {
 	addAProductToCart,
 	getOrderIdFromUrl,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { admin } = require( '../../test-data/data' );
 
 const billingEmail = 'marge-test-account@example.com';
@@ -32,19 +32,19 @@ test.describe(
 			await api.post( 'settings/general/batch', {
 				update: [
 					{
-						id: 'woocommerce_store_address',
+						id: 'poocommerce_store_address',
 						value: 'addr 1',
 					},
 					{
-						id: 'woocommerce_store_city',
+						id: 'poocommerce_store_city',
 						value: 'San Francisco',
 					},
 					{
-						id: 'woocommerce_default_country',
+						id: 'poocommerce_default_country',
 						value: 'US:CA',
 					},
 					{
-						id: 'woocommerce_store_postcode',
+						id: 'poocommerce_store_postcode',
 						value: '94107',
 					},
 				],
@@ -60,7 +60,7 @@ test.describe(
 					productId = response.data.id;
 				} );
 			await api.put(
-				'settings/account/woocommerce_enable_signup_and_login_from_checkout',
+				'settings/account/poocommerce_enable_signup_and_login_from_checkout',
 				{
 					value: 'yes',
 				}
@@ -119,7 +119,7 @@ test.describe(
 				} );
 			}
 			await api.put(
-				'settings/account/woocommerce_enable_signup_and_login_from_checkout',
+				'settings/account/poocommerce_enable_signup_and_login_from_checkout',
 				{
 					value: 'no',
 				}

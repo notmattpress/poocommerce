@@ -19,7 +19,7 @@ import { createElement } from '@wordpress/element';
  * @return {Object} - React component.
  */
 const Flag = ( { code, order, className, size, hideFromScreenReader } ) => {
-	const classes = classnames( 'woocommerce-flag', className );
+	const classes = classnames( 'poocommerce-flag', className );
 
 	let _code = code || 'unknown';
 	if ( order && order.shipping && order.shipping.country ) {
@@ -42,7 +42,7 @@ const Flag = ( { code, order, className, size, hideFromScreenReader } ) => {
 		>
 			{ emoji && <span>{ emoji }</span> }
 			{ ! emoji && (
-				<span className="woocommerce-flag__fallback">
+				<span className="poocommerce-flag__fallback">
 					Invalid country flag
 				</span>
 			) }

@@ -4,7 +4,7 @@
  *
  * Generates a range slider to filter products by price.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.3.0
  */
 
@@ -21,15 +21,15 @@ class WC_Widget_Price_Filter extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_price_filter';
-		$this->widget_description = __( 'Display a slider to filter products in your store by price.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_price_filter';
-		$this->widget_name        = __( 'Filter Products by Price', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_price_filter';
+		$this->widget_description = __( 'Display a slider to filter products in your store by price.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_price_filter';
+		$this->widget_name        = __( 'Filter Products by Price', 'poocommerce' );
 		$this->settings           = array(
 			'title' => array(
 				'type'  => 'text',
-				'std'   => __( 'Filter by price', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Filter by price', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 		);
 		$suffix                   = Constants::is_true( 'SCRIPT_DEBUG' ) ? '' : '.min';
@@ -39,13 +39,13 @@ class WC_Widget_Price_Filter extends WC_Widget {
 		wp_register_script( 'wc-price-slider', WC()->plugin_url() . '/assets/js/frontend/price-slider' . $suffix . '.js', array( 'jquery-ui-slider', 'wc-jquery-ui-touchpunch', 'accounting' ), $version, true );
 		wp_localize_script(
 			'wc-price-slider',
-			'woocommerce_price_slider_params',
+			'poocommerce_price_slider_params',
 			array(
 				'currency_format_num_decimals' => 0,
-				'currency_format_symbol'       => get_woocommerce_currency_symbol(),
+				'currency_format_symbol'       => get_poocommerce_currency_symbol(),
 				'currency_format_decimal_sep'  => esc_attr( wc_get_price_decimal_separator() ),
 				'currency_format_thousand_sep' => esc_attr( wc_get_price_thousand_separator() ),
-				'currency_format'              => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_woocommerce_price_format() ) ),
+				'currency_format'              => esc_attr( str_replace( array( '%1$s', '%2$s' ), array( '%s', '%v' ), get_poocommerce_price_format() ) ),
 			)
 		);
 
@@ -68,7 +68,7 @@ class WC_Widget_Price_Filter extends WC_Widget {
 		global $wp;
 
 		// Requires lookup table added in 3.6.
-		if ( version_compare( get_option( 'woocommerce_db_version', null ), '3.6', '<' ) ) {
+		if ( version_compare( get_option( 'poocommerce_db_version', null ), '3.6', '<' ) ) {
 			return;
 		}
 
@@ -84,7 +84,7 @@ class WC_Widget_Price_Filter extends WC_Widget {
 		wp_enqueue_script( 'wc-price-slider' );
 
 		// Round values to nearest 10 by default.
-		$step = max( apply_filters( 'woocommerce_price_filter_widget_step', 10 ), 1 );
+		$step = max( apply_filters( 'poocommerce_price_filter_widget_step', 10 ), 1 );
 
 		// Find min and max price in current result set.
 		$prices    = $this->get_filtered_price();
@@ -92,10 +92,10 @@ class WC_Widget_Price_Filter extends WC_Widget {
 		$max_price = $prices->max_price;
 
 		// Check to see if we should add taxes to the prices if store are excl tax but display incl.
-		$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
+		$tax_display_mode = get_option( 'poocommerce_tax_display_shop' );
 
 		if ( wc_tax_enabled() && ! wc_prices_include_tax() && 'incl' === $tax_display_mode ) {
-			$tax_class = apply_filters( 'woocommerce_price_filter_widget_tax_class', '' ); // Uses standard tax class.
+			$tax_class = apply_filters( 'poocommerce_price_filter_widget_tax_class', '' ); // Uses standard tax class.
 			$tax_rates = WC_Tax::get_rates( $tax_class );
 
 			if ( $tax_rates ) {
@@ -104,8 +104,8 @@ class WC_Widget_Price_Filter extends WC_Widget {
 			}
 		}
 
-		$min_price = apply_filters( 'woocommerce_price_filter_widget_min_amount', floor( $min_price / $step ) * $step );
-		$max_price = apply_filters( 'woocommerce_price_filter_widget_max_amount', ceil( $max_price / $step ) * $step );
+		$min_price = apply_filters( 'poocommerce_price_filter_widget_min_amount', floor( $min_price / $step ) * $step );
+		$max_price = apply_filters( 'poocommerce_price_filter_widget_max_amount', ceil( $max_price / $step ) * $step );
 
 		// If both min and max are equal, we don't need a slider.
 		if ( $min_price === $max_price ) {
@@ -174,12 +174,12 @@ class WC_Widget_Price_Filter extends WC_Widget {
 			WHERE product_id IN (
 				SELECT ID FROM {$wpdb->posts}
 				" . $tax_query_sql['join'] . $meta_query_sql['join'] . "
-				WHERE {$wpdb->posts}.post_type IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_post_type', array( 'product' ) ) ) ) . "')
+				WHERE {$wpdb->posts}.post_type IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'poocommerce_price_filter_post_type', array( 'product' ) ) ) ) . "')
 				AND {$wpdb->posts}.post_status = 'publish'
 				" . $tax_query_sql['where'] . $meta_query_sql['where'] . $search_query_sql . '
 			)';
 
-		$sql = apply_filters( 'woocommerce_price_filter_sql', $sql, $meta_query_sql, $tax_query_sql );
+		$sql = apply_filters( 'poocommerce_price_filter_sql', $sql, $meta_query_sql, $tax_query_sql );
 
 		return $wpdb->get_row( $sql ); // WPCS: unprepared SQL ok.
 	}

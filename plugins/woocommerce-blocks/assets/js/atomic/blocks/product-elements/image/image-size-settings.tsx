@@ -31,15 +31,15 @@ interface ImageSizeSettingProps {
 const scaleHelp: Record< string, string > = {
 	cover: __(
 		'Image is scaled and cropped to fill the entire space without being distorted.',
-		'woocommerce'
+		'poocommerce'
 	),
 	contain: __(
 		'Image is scaled to fill the space without clipping nor distorting.',
-		'woocommerce'
+		'poocommerce'
 	),
 	fill: __(
 		'Image will be stretched and distorted to completely fill the space.',
-		'woocommerce'
+		'poocommerce'
 	),
 };
 
@@ -79,10 +79,10 @@ export const ImageSizeSettings = ( {
 	return (
 		<ToolsPanel
 			className="wc-block-product-image__tools-panel"
-			label={ __( 'Image size', 'woocommerce' ) }
+			label={ __( 'Image size', 'poocommerce' ) }
 		>
 			<UnitControl
-				label={ __( 'Height', 'woocommerce' ) }
+				label={ __( 'Height', 'poocommerce' ) }
 				onChange={ ( value: string ) => {
 					setAttributes( { height: value } );
 				} }
@@ -90,7 +90,7 @@ export const ImageSizeSettings = ( {
 				units={ sizeUnits }
 			/>
 			<UnitControl
-				label={ __( 'Width', 'woocommerce' ) }
+				label={ __( 'Width', 'poocommerce' ) }
 				onChange={ ( value: string ) => {
 					setAttributes( { width: value } );
 				} }
@@ -100,10 +100,10 @@ export const ImageSizeSettings = ( {
 			{ height && (
 				<ToolsPanelItem
 					hasValue={ () => true }
-					label={ __( 'Scale', 'woocommerce' ) }
+					label={ __( 'Scale', 'poocommerce' ) }
 				>
 					<ToggleGroupControl
-						label={ __( 'Scale', 'woocommerce' ) }
+						label={ __( 'Scale', 'poocommerce' ) }
 						value={ scale }
 						help={ scaleHelp[ scale ] }
 						onChange={ ( value: string ) =>
@@ -116,15 +116,15 @@ export const ImageSizeSettings = ( {
 						<>
 							<ToggleGroupControlOption
 								value="cover"
-								label={ __( 'Cover', 'woocommerce' ) }
+								label={ __( 'Cover', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="contain"
-								label={ __( 'Contain', 'woocommerce' ) }
+								label={ __( 'Contain', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="fill"
-								label={ __( 'Fill', 'woocommerce' ) }
+								label={ __( 'Fill', 'poocommerce' ) }
 							/>
 						</>
 					</ToggleGroupControl>

@@ -3,7 +3,7 @@
  * Top Rated Products Widget.
  * Gets and displays top rated products in an unordered list.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 3.3.0
  */
 
@@ -18,15 +18,15 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_top_rated_products';
-		$this->widget_description = __( "A list of your store's top-rated products.", 'woocommerce' );
-		$this->widget_id          = 'woocommerce_top_rated_products';
-		$this->widget_name        = __( 'Products by Rating list', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_top_rated_products';
+		$this->widget_description = __( "A list of your store's top-rated products.", 'poocommerce' );
+		$this->widget_id          = 'poocommerce_top_rated_products';
+		$this->widget_name        = __( 'Products by Rating list', 'poocommerce' );
 		$this->settings           = array(
 			'title'  => array(
 				'type'  => 'text',
-				'std'   => __( 'Top rated products', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Top rated products', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'number' => array(
 				'type'  => 'number',
@@ -34,7 +34,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 				'min'   => 1,
 				'max'   => '',
 				'std'   => 5,
-				'label' => __( 'Number of products to show', 'woocommerce' ),
+				'label' => __( 'Number of products to show', 'poocommerce' ),
 			),
 		);
 
@@ -59,7 +59,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 		$number = ! empty( $instance['number'] ) ? absint( $instance['number'] ) : $this->settings['number']['std'];
 
 		$query_args = apply_filters(
-			'woocommerce_top_rated_products_widget_args',
+			'poocommerce_top_rated_products_widget_args',
 			array(
 				'posts_per_page' => $number,
 				'no_found_rows'  => 1,
@@ -79,7 +79,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 
 			$this->widget_start( $args, $instance );
 
-			echo wp_kses_post( apply_filters( 'woocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_before_widget_product_list', '<ul class="product_list_widget">' ) );
 
 			$template_args = array(
 				'widget_id'   => isset( $args['widget_id'] ) ? $args['widget_id'] : $this->widget_id,
@@ -91,7 +91,7 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 				wc_get_template( 'content-widget-product.php', $template_args );
 			}
 
-			echo wp_kses_post( apply_filters( 'woocommerce_after_widget_product_list', '</ul>' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_after_widget_product_list', '</ul>' ) );
 
 			$this->widget_end( $args );
 		}

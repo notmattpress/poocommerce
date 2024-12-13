@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce CLI Examples
+post_title: PooCommerce CLI Examples
 menu_title: Examples
 tags: reference
 ---
@@ -8,9 +8,9 @@ Full documentation for every command is available using `--help`. Below are some
 
 All the examples below use user ID 1 (usually an admin account), but you should replace that with your own user account.
 
-You can also find other examples (without output) by looking at [the testing files for our CLI tests](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/cli/features).
+You can also find other examples (without output) by looking at [the testing files for our CLI tests](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/cli/features).
 
-Each command will have a `.feature` file. For example, [these some payment gateway commands](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/tests/cli/features/payment_gateway.feature).
+Each command will have a `.feature` file. For example, [these some payment gateway commands](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/tests/cli/features/payment_gateway.feature).
 
 ## Clearing the product/shop transients cache
 
@@ -40,12 +40,12 @@ Response:
 | recount_terms              | Term counts                      | Recount terms                 | This tool will recount product terms - useful when changing your settings in a wa |
 |                            |                                  |                               | y which hides products from the catalog.                                          |
 | reset_roles                | Capabilities                     | Reset capabilities            | This tool will reset the admin, customer and shop_manager roles to default. Use t |
-|                            |                                  |                               | his if your users cannot access all of the WooCommerce admin pages.               |
+|                            |                                  |                               | his if your users cannot access all of the PooCommerce admin pages.               |
 | clear_sessions             | Customer sessions                | Clear all sessions            | <strong class="red">Note:</strong> This tool will delete all customer session dat |
 |                            |                                  |                               | a from the database, including any current live carts.                            |
-| install_pages              | Install WooCommerce pages        | Install pages                 | <strong class="red">Note:</strong> This tool will install all the missing WooComm |
+| install_pages              | Install PooCommerce pages        | Install pages                 | <strong class="red">Note:</strong> This tool will install all the missing WooComm |
 |                            |                                  |                               | erce pages. Pages already defined and set up will not be replaced.                |
-| delete_taxes               | Delete all WooCommerce tax rates | Delete ALL tax rates          | <strong class="red">Note:</strong> This option will delete ALL of your tax rates, |
+| delete_taxes               | Delete all PooCommerce tax rates | Delete ALL tax rates          | <strong class="red">Note:</strong> This option will delete ALL of your tax rates, |
 |                            |                                  |                               |  use with caution.                                                                |
 | reset_tracking             | Reset usage tracking settings    | Reset usage tracking settings | This will reset your usage tracking settings, causing it to show the opt-in banne |
 |                            |                                  |                               | r again and not sending any data.                                                 |

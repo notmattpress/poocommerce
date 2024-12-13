@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Patterns;
+namespace Automattic\PooCommerce\Blocks\Patterns;
 
 use WP_Error;
 
@@ -15,7 +15,7 @@ class PTKClient {
 	const PATTERNS_TOOLKIT_URL = 'https://public-api.wordpress.com/rest/v1/ptk/patterns/';
 
 	/**
-	 * Fetch the WooCommerce patterns from the Patterns Toolkit (PTK) API.
+	 * Fetch the PooCommerce patterns from the Patterns Toolkit (PTK) API.
 	 *
 	 * @param array $options Options for fetching patterns.
 	 * @return array|WP_Error
@@ -42,7 +42,7 @@ class PTKClient {
 		if ( is_wp_error( $patterns ) || 200 !== wp_remote_retrieve_response_code( $patterns ) ) {
 			return new WP_Error(
 				'patterns_toolkit_api_error',
-				__( 'Failed to connect with the Patterns Toolkit API: try again later.', 'woocommerce' )
+				__( 'Failed to connect with the Patterns Toolkit API: try again later.', 'poocommerce' )
 			);
 		}
 
@@ -51,7 +51,7 @@ class PTKClient {
 		if ( empty( $body ) ) {
 			return new WP_Error(
 				'patterns_toolkit_api_error',
-				__( 'Empty response received from the Patterns Toolkit API.', 'woocommerce' )
+				__( 'Empty response received from the Patterns Toolkit API.', 'poocommerce' )
 			);
 		}
 
@@ -60,7 +60,7 @@ class PTKClient {
 		if ( ! is_array( $decoded_body ) ) {
 			return new WP_Error(
 				'patterns_toolkit_api_error',
-				__( 'Wrong response received from the Patterns Toolkit API: try again later.', 'woocommerce' )
+				__( 'Wrong response received from the Patterns Toolkit API: try again later.', 'poocommerce' )
 			);
 		}
 

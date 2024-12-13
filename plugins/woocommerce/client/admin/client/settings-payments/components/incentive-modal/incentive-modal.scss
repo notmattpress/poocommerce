@@ -1,4 +1,4 @@
-.woocommerce-incentive-modal {
+.poocommerce-incentive-modal {
 	max-width: 840px;
 
 	& > .components-modal__content {
@@ -12,7 +12,7 @@
 			display: none;
 		}
 
-		background-color: $studio-woocommerce-purple-0;
+		background-color: $studio-poocommerce-purple-0;
 	}
 
 	&__card {
@@ -37,12 +37,12 @@
 			line-height: 24px;
 		}
 
-		& > p.woocommerce-incentive-modal__terms {
+		& > p.poocommerce-incentive-modal__terms {
 			font-size: 12px;
 			margin-bottom: 0;
 		}
 
-		& > .woocommerce-incentive-model__actions {
+		& > .poocommerce-incentive-model__actions {
 			margin-top: 32px;
 		}
 	}

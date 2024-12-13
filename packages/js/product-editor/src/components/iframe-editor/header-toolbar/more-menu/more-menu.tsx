@@ -4,8 +4,8 @@
 import { MenuGroup } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { isWpVersion } from '@woocommerce/settings';
-// eslint-disable-next-line @woocommerce/dependency-group
+import { isWpVersion } from '@poocommerce/settings';
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	ActionItem,
 	MoreMenuDropdown,
@@ -32,7 +32,7 @@ export const MoreMenu = () => {
 
 					<ActionItem.Slot
 						name={ MORE_MENU_ACTION_ITEM_SLOT_NAME }
-						label={ __( 'Plugins', 'woocommerce' ) }
+						label={ __( 'Plugins', 'poocommerce' ) }
 						as={ MenuGroup }
 						fillProps={ { onClick: onClose } }
 					/>

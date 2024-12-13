@@ -22,7 +22,7 @@ function logLinkClick( event ) {
 }
 
 export default {
-	title: 'WooCommerce Admin/components/Link',
+	title: 'PooCommerce Admin/components/Link',
 	component: Link,
 	decorators: [ ( storyFn, context ) => withConsole()( storyFn )( context ) ],
 };
@@ -30,11 +30,11 @@ export default {
 export const External = () => {
 	return (
 		<Link
-			href="https://woocommerce.com"
+			href="https://poocommerce.com"
 			type="external"
 			onClick={ logLinkClick }
 		>
-			WooCommerce.com
+			PooCommerce.com
 		</Link>
 	);
 };

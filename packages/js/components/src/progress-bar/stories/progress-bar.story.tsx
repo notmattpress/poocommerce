@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProgressBar } from '@woocommerce/components';
+import { ProgressBar } from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 export const Basic = () => (
@@ -11,6 +11,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/ProgressBar',
+	title: 'PooCommerce Admin/components/ProgressBar',
 	component: ProgressBar,
 };

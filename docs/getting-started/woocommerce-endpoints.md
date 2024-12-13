@@ -1,6 +1,6 @@
 ---
-post_title: Understanding WooCommerce Endpoints
-menu_title: WooCommerce Endpoints
+post_title: Understanding PooCommerce Endpoints
+menu_title: PooCommerce Endpoints
 ---
 
 Endpoints are an extra part in the website URL that is detected to show different content when present.
@@ -9,7 +9,7 @@ For example: You may have a 'my account' page shown at URL **yoursite.com/my-acc
 
 This allows us to show different content without the need for multiple pages and shortcodes, and reduces the amount of content that needs to be installed.
 
-Endpoints are located at **WooCommerce > Settings > Advanced**.
+Endpoints are located at **PooCommerce > Settings > Advanced**.
 
 ## Checkout Endpoints
 

@@ -3,16 +3,16 @@
  * Service provider for COTMigration.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\CLIRunner;
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\CLIRunner;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * Class COTMigrationServiceProvider
  *
- * @package Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders
+ * @package Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders
  */
 class COTMigrationServiceProvider extends AbstractServiceProvider {
 

@@ -140,7 +140,7 @@ export const getTouchedChangeloggerProjectsPathsMappedToProjects = (
 		if ( project.includes( 'plugins/' ) ) {
 			project = project.replace( 'plugins/', '' );
 		} else if ( project.includes( 'packages/js/' ) ) {
-			project = project.replace( 'packages/js/', '@woocommerce/' );
+			project = project.replace( 'packages/js/', '@poocommerce/' );
 		}
 
 		projectPaths[ project ] = projectPath;

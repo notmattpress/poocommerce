@@ -2,19 +2,19 @@
 /**
  * Reports Generation Batch Queue Tests
  *
- * @package WooCommerce\Admin\Tests\Reports
+ * @package PooCommerce\Admin\Tests\Reports
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\CustomersScheduler;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\CustomersScheduler;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 /**
  * Reports Generation Batch Queue Test Class
  *
- * @package WooCommerce\Admin\Tests\Reports
+ * @package PooCommerce\Admin\Tests\Reports
  * @since 3.5.0
  */
 class WC_Admin_Tests_Reports_Regenerate_Batching extends WC_REST_Unit_Test_Case {
@@ -62,7 +62,7 @@ class WC_Admin_Tests_Reports_Regenerate_Batching extends WC_REST_Unit_Test_Case 
 		$this->queue = new WC_Admin_Test_Action_Queue();
 		CustomersScheduler::set_queue( $this->queue );
 		OrdersScheduler::set_queue( $this->queue );
-		add_filter( 'woocommerce_admin_scheduler_batch_size', array( $this, 'filter_batch_size' ), 10, 3 );
+		add_filter( 'poocommerce_admin_scheduler_batch_size', array( $this, 'filter_batch_size' ), 10, 3 );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class WC_Admin_Tests_Reports_Regenerate_Batching extends WC_REST_Unit_Test_Case 
 		CustomersScheduler::set_queue( null );
 		OrdersScheduler::set_queue( null );
 		$this->queue->actions = array();
-		remove_filter( 'woocommerce_admin_scheduler_batch_size', array( $this, 'filter_batch_size' ), 10, 3 );
+		remove_filter( 'poocommerce_admin_scheduler_batch_size', array( $this, 'filter_batch_size' ), 10, 3 );
 	}
 
 	/**

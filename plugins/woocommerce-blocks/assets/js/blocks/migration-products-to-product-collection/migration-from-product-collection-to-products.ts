@@ -24,15 +24,15 @@ import {
 	ProductCollectionDisplayLayout,
 } from '../product-collection/types';
 
-const VARIATION_NAME = 'woocommerce/product-query';
+const VARIATION_NAME = 'poocommerce/product-query';
 
 const mapAttributes = ( attributes ) => {
 	const { query, ...restAttributes } = attributes;
 	const {
-		woocommerceAttributes,
-		woocommerceStockStatus,
-		woocommerceOnSale,
-		woocommerceHandPickedProducts,
+		poocommerceAttributes,
+		poocommerceStockStatus,
+		poocommerceOnSale,
+		poocommerceHandPickedProducts,
 		taxQuery,
 		isProductCollectionBlock,
 		...restQuery
@@ -41,12 +41,12 @@ const mapAttributes = ( attributes ) => {
 	// These fields have to be explicitly removed if they are empty
 	// otherwise incorrect data is fetched even if they are set as undefined.
 	const mappedQuery = { ...restQuery };
-	if ( woocommerceHandPickedProducts ) {
-		mappedQuery.include = woocommerceHandPickedProducts;
+	if ( poocommerceHandPickedProducts ) {
+		mappedQuery.include = poocommerceHandPickedProducts;
 	}
 
-	if ( woocommerceOnSale ) {
-		mappedQuery.__woocommerceOnSale = woocommerceOnSale;
+	if ( poocommerceOnSale ) {
+		mappedQuery.__poocommerceOnSale = poocommerceOnSale;
 	}
 
 	if ( taxQuery ) {
@@ -57,25 +57,25 @@ const mapAttributes = ( attributes ) => {
 		...restAttributes,
 		namespace: VARIATION_NAME,
 		query: {
-			__woocommerceAttributes: woocommerceAttributes || [],
-			__woocommerceStockStatus: woocommerceStockStatus || [],
+			__poocommerceAttributes: poocommerceAttributes || [],
+			__poocommerceStockStatus: poocommerceStockStatus || [],
 			...mappedQuery,
 		},
 	};
 };
 
 const isProductTemplate: IsBlockType = ( { name } ) =>
-	name === 'woocommerce/product-template';
+	name === 'poocommerce/product-template';
 
 const isPostTitle: IsBlockType = ( { name, attributes } ) =>
 	name === 'core/post-title' &&
-	attributes.__woocommerceNamespace ===
-		'woocommerce/product-collection/product-title';
+	attributes.__poocommerceNamespace ===
+		'poocommerce/product-collection/product-title';
 
 const isPostSummary: IsBlockType = ( { name, attributes } ) =>
 	name === 'core/post-excerpt' &&
-	attributes.__woocommerceNamespace ===
-		'woocommerce/product-collection/product-summary';
+	attributes.__poocommerceNamespace ===
+		'poocommerce/product-collection/product-summary';
 
 const mapLayoutType = ( type: LayoutOptions ): PostTemplateLayoutTypes => {
 	if ( type === 'flex' ) {
@@ -112,8 +112,8 @@ const transformProductTemplate: TransformBlock = (
 						displayLayout as ProductCollectionDisplayLayout
 				  )
 				: undefined,
-			__woocommerceNamespace:
-				'woocommerce/product-query/product-template',
+			__poocommerceNamespace:
+				'poocommerce/product-query/product-template',
 			...block.attributes,
 		},
 		innerBlocks
@@ -121,12 +121,12 @@ const transformProductTemplate: TransformBlock = (
 };
 
 const transformPostTitle: TransformBlock = ( block, innerBlocks ) => {
-	const { __woocommerceNamespace, ...restAttrributes } = block.attributes;
+	const { __poocommerceNamespace, ...restAttrributes } = block.attributes;
 	return createBlock(
 		'core/post-title',
 		{
-			__woocommerceNamespace:
-				'woocommerce/product-collection/product-title',
+			__poocommerceNamespace:
+				'poocommerce/product-collection/product-title',
 			...restAttrributes,
 		},
 		innerBlocks
@@ -134,12 +134,12 @@ const transformPostTitle: TransformBlock = ( block, innerBlocks ) => {
 };
 
 const transformPostSummary: TransformBlock = ( block, innerBlocks ) => {
-	const { __woocommerceNamespace, ...restAttrributes } = block.attributes;
+	const { __poocommerceNamespace, ...restAttrributes } = block.attributes;
 	return createBlock(
 		'core/post-excerpt',
 		{
-			__woocommerceNamespace:
-				'woocommerce/product-collection/product-summary',
+			__poocommerceNamespace:
+				'poocommerce/product-collection/product-summary',
 			...restAttrributes,
 		},
 		innerBlocks

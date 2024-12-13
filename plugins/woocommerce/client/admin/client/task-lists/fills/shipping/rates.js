@@ -6,14 +6,14 @@ import apiFetch from '@wordpress/api-fetch';
 import { Component, Fragment } from '@wordpress/element';
 import { Button, FormToggle } from '@wordpress/components';
 import PropTypes from 'prop-types';
-import { Flag, Form, TextControlWithAffixes } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Flag, Form, TextControlWithAffixes } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import { Icon, globe } from '@wordpress/icons';
 import clsx from 'clsx';
-import { CurrencyContext } from '@woocommerce/currency';
+import { CurrencyContext } from '@poocommerce/currency';
 
 const ShippingRateIcon = ( { zone } ) => (
-	<div className="woocommerce-shipping-rate__icon">
+	<div className="poocommerce-shipping-rate__icon">
 		{ zone.locations ? (
 			zone.locations.map( ( location ) => (
 				<Flag
@@ -31,12 +31,12 @@ const ShippingRateIcon = ( { zone } ) => (
 
 const ShippingRateToggle = ( { zone, getInputProps } ) => (
 	<label
-		htmlFor={ `woocommerce-shipping-rate__toggle-${ zone.id }` }
-		className="woocommerce-shipping-rate__name"
+		htmlFor={ `poocommerce-shipping-rate__toggle-${ zone.id }` }
+		className="poocommerce-shipping-rate__name"
 	>
 		{ zone.name }
 		<FormToggle
-			id={ `woocommerce-shipping-rate__toggle-${ zone.id }` }
+			id={ `poocommerce-shipping-rate__toggle-${ zone.id }` }
 			{ ...getInputProps( `${ zone.id }_enabled` ) }
 		/>
 	</label>
@@ -54,19 +54,19 @@ const ShippingRateInput = ( {
 } ) => {
 	const textControlClassName = clsx(
 		'muriel-input-text',
-		'woocommerce-shipping-rate__control-wrapper',
+		'poocommerce-shipping-rate__control-wrapper',
 		className
 	);
 	return (
 		<Fragment>
 			{ ! zone.toggleable && (
-				<div className="woocommerce-shipping-rate__name">
+				<div className="poocommerce-shipping-rate__name">
 					{ zone.name }
 				</div>
 			) }
 			{ ( ! zone.toggleable || values[ `${ zone.id }_enabled` ] ) && (
 				<TextControlWithAffixes
-					label={ __( 'Shipping cost', 'woocommerce' ) }
+					label={ __( 'Shipping cost', 'poocommerce' ) }
 					required
 					className={ textControlClassName }
 					{ ...restInputProps }
@@ -188,7 +188,7 @@ class ShippingRates extends Component {
 
 		createNotice(
 			'success',
-			__( 'Your shipping rates have been updated', 'woocommerce' )
+			__( 'Your shipping rates have been updated', 'poocommerce' )
 		);
 
 		this.props.onComplete();
@@ -200,7 +200,7 @@ class ShippingRates extends Component {
 			return null;
 		}
 		return (
-			<span className="woocommerce-shipping-rate__control-prefix">
+			<span className="poocommerce-shipping-rate__control-prefix">
 				{ symbol }
 			</span>
 		);
@@ -210,15 +210,15 @@ class ShippingRates extends Component {
 		const { symbolPosition, symbol } = this.context.getCurrencyConfig();
 		if ( symbolPosition.indexOf( 'right' ) === 0 ) {
 			return (
-				<span className="woocommerce-shipping-rate__control-suffix">
+				<span className="poocommerce-shipping-rate__control-suffix">
 					{ symbol }
 				</span>
 			);
 		}
 
 		return parseFloat( rate ) === parseFloat( 0 ) ? (
-			<span className="woocommerce-shipping-rate__control-suffix">
-				{ __( 'Free shipping', 'woocommerce' ) }
+			<span className="poocommerce-shipping-rate__control-suffix">
+				{ __( 'Free shipping', 'poocommerce' ) }
 			</span>
 		) : null;
 	}
@@ -268,7 +268,7 @@ class ShippingRates extends Component {
 			if ( values[ rate ] < 0 ) {
 				errors[ rate ] = __(
 					'Shipping rates can not be negative numbers.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 		} );
@@ -297,14 +297,14 @@ class ShippingRates extends Component {
 				} ) => {
 					return (
 						<Fragment>
-							<div className="woocommerce-shipping-rates">
+							<div className="poocommerce-shipping-rates">
 								{ shippingZones.map( ( zone ) => (
 									<div
-										className="woocommerce-shipping-rate"
+										className="poocommerce-shipping-rate"
 										key={ zone.id }
 									>
 										<ShippingRateIcon zone={ zone } />
-										<div className="woocommerce-shipping-rate__main">
+										<div className="poocommerce-shipping-rate__main">
 											{ zone.toggleable && (
 												<ShippingRateToggle
 													zone={ zone }
@@ -337,7 +337,7 @@ class ShippingRates extends Component {
 							</div>
 
 							<Button isPrimary onClick={ handleSubmit }>
-								{ buttonText || __( 'Update', 'woocommerce' ) }
+								{ buttonText || __( 'Update', 'poocommerce' ) }
 							</Button>
 						</Fragment>
 					);

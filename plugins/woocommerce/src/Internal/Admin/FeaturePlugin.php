@@ -1,30 +1,30 @@
 <?php
 /**
- * WooCommerce Admin: Feature plugin main class.
+ * PooCommerce Admin: Feature plugin main class.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\Admin\Notes\OrderMilestones;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes;
-use Automattic\WooCommerce\Internal\Admin\Notes\TrackingOptIn;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooCommercePayments;
-use Automattic\WooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins;
-use Automattic\WooCommerce\Internal\Admin\Notes\SellingOnlineCourses;
-use Automattic\WooCommerce\Internal\Admin\Notes\MerchantEmailNotifications;
-use Automattic\WooCommerce\Internal\Admin\Notes\MagentoMigration;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Admin\PluginsInstaller;
-use Automattic\WooCommerce\Admin\ReportExporter;
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Internal\Admin\CategoryLookup;
-use Automattic\WooCommerce\Internal\Admin\Events;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\Onboarding;
+use Automattic\PooCommerce\Admin\API;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Admin\Notes\OrderMilestones;
+use Automattic\PooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes;
+use Automattic\PooCommerce\Internal\Admin\Notes\TrackingOptIn;
+use Automattic\PooCommerce\Internal\Admin\Notes\PooCommercePayments;
+use Automattic\PooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins;
+use Automattic\PooCommerce\Internal\Admin\Notes\SellingOnlineCourses;
+use Automattic\PooCommerce\Internal\Admin\Notes\MerchantEmailNotifications;
+use Automattic\PooCommerce\Internal\Admin\Notes\MagentoMigration;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsInstaller;
+use Automattic\PooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Internal\Admin\CategoryLookup;
+use Automattic\PooCommerce\Internal\Admin\Events;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\Onboarding;
 
 /**
  * Feature plugin main class.
@@ -60,7 +60,7 @@ class FeaturePlugin {
 	}
 
 	/**
-	 * Init the feature plugin, only if we can detect both Gutenberg and WooCommerce.
+	 * Init the feature plugin, only if we can detect both Gutenberg and PooCommerce.
 	 */
 	public function init() {
 		// Bail if WC isn't initialized (This can be called from WCAdmin's entrypoint).
@@ -68,7 +68,7 @@ class FeaturePlugin {
 			return;
 		}
 
-		// Load the page controller functions file first to prevent fatal errors when disabling WooCommerce Admin.
+		// Load the page controller functions file first to prevent fatal errors when disabling PooCommerce Admin.
 		$this->define_constants();
 		require_once WC_ADMIN_ABSPATH . '/includes/react-admin/page-controller-functions.php';
 		require_once WC_ADMIN_ABSPATH . '/src/Admin/Notes/DeprecatedNotes.php';
@@ -80,10 +80,10 @@ class FeaturePlugin {
 		if ( did_action( 'plugins_loaded' ) ) {
 			self::on_plugins_loaded();
 		} else {
-			// Make sure we hook into `plugins_loaded` before core's Automattic\WooCommerce\Package::init().
-			// If core is network activated but we aren't, the packaged version of WooCommerce Admin will
+			// Make sure we hook into `plugins_loaded` before core's Automattic\PooCommerce\Package::init().
+			// If core is network activated but we aren't, the packaged version of PooCommerce Admin will
 			// attempt to use a data store that hasn't been loaded yet - because we've defined our constants here.
-			// See: https://github.com/woocommerce/woocommerce-admin/issues/3869.
+			// See: https://github.com/poocommerce/poocommerce-admin/issues/3869.
 			add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ), 9 );
 		}
 	}
@@ -174,7 +174,7 @@ class FeaturePlugin {
 		new WooSubscriptionsNotes();
 		new OrderMilestones();
 		new TrackingOptIn();
-		new WooCommercePayments();
+		new PooCommercePayments();
 		new InstallJPAndWCSPlugins();
 		new SellingOnlineCourses();
 		new MagentoMigration();
@@ -187,7 +187,7 @@ class FeaturePlugin {
 	 * Set up our admin hooks and plugin loader.
 	 */
 	protected function hooks() {
-		add_filter( 'woocommerce_admin_features', array( $this, 'replace_supported_features' ), 0 );
+		add_filter( 'poocommerce_admin_features', array( $this, 'replace_supported_features' ), 0 );
 
 		Loader::get_instance();
 		WCAdminAssets::get_instance();
@@ -205,7 +205,7 @@ class FeaturePlugin {
 		 *
 		 * @since 6.5.0
 		 */
-		$feature_config = apply_filters( 'woocommerce_admin_get_feature_config', wc_admin_get_feature_config() );
+		$feature_config = apply_filters( 'poocommerce_admin_get_feature_config', wc_admin_get_feature_config() );
 		$features       = array_keys( array_filter( $feature_config ) );
 		return $features;
 	}

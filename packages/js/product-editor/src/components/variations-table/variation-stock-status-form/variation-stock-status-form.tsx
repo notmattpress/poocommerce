@@ -2,8 +2,8 @@
  * External dependencies
  */
 import type { FormEvent } from 'react';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 import { useSelect } from '@wordpress/data';
 import {
 	createElement,
@@ -25,18 +25,18 @@ import {
 import { RadioField } from '../../radio-field';
 import type { VariationStockStatusFormProps } from './types';
 
-const MANAGE_STOCK_OPTION = 'woocommerce_manage_stock';
+const MANAGE_STOCK_OPTION = 'poocommerce_manage_stock';
 const STOCK_STATUS_OPTIONS = [
 	{
-		label: __( 'In stock', 'woocommerce' ),
+		label: __( 'In stock', 'poocommerce' ),
 		value: 'instock',
 	},
 	{
-		label: __( 'Out of stock', 'woocommerce' ),
+		label: __( 'Out of stock', 'poocommerce' ),
 		value: 'outofstock',
 	},
 	{
-		label: __( 'On backorder', 'woocommerce' ),
+		label: __( 'On backorder', 'poocommerce' ),
 		value: 'onbackorder',
 	},
 ];
@@ -78,7 +78,7 @@ export function VariationStockStatusForm( {
 		) {
 			error = __(
 				'Stock quantity must be a positive number.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -105,7 +105,7 @@ export function VariationStockStatusForm( {
 			/* translators: <Link>: Learn more link opening tag. </Link>: Learn more link closing tag.*/
 			__(
 				'Per your <Link>store settings</Link>, inventory management is <strong>disabled</strong>.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				Link: (
@@ -134,13 +134,13 @@ export function VariationStockStatusForm( {
 	return (
 		<form
 			onSubmit={ handleSubmit }
-			className="woocommerce-variation-stock-status-form"
-			aria-label={ __( 'Variation stock status form', 'woocommerce' ) }
+			className="poocommerce-variation-stock-status-form"
+			aria-label={ __( 'Variation stock status form', 'poocommerce' ) }
 			noValidate
 		>
-			<div className="woocommerce-variation-stock-status-form__controls">
+			<div className="poocommerce-variation-stock-status-form__controls">
 				<ToggleControl
-					label={ __( 'Track inventory', 'woocommerce' ) }
+					label={ __( 'Track inventory', 'poocommerce' ) }
 					disabled={ isLoadingManageStockOption || ! canManageStock }
 					checked={ value.manage_stock }
 					onChange={ handleTrackInventoryToggleChange }
@@ -148,12 +148,12 @@ export function VariationStockStatusForm( {
 				/>
 			</div>
 
-			<div className="woocommerce-variation-stock-status-form__controls">
+			<div className="poocommerce-variation-stock-status-form__controls">
 				{ value.manage_stock ? (
 					<InputControl
 						type="number"
 						min={ 0 }
-						label={ __( 'Available stock', 'woocommerce' ) }
+						label={ __( 'Available stock', 'poocommerce' ) }
 						help={ errors.stock_quantity }
 						value={ value.stock_quantity }
 						onChange={ handleStockQuantityInputControlChange }
@@ -164,7 +164,7 @@ export function VariationStockStatusForm( {
 					/>
 				) : (
 					<RadioField
-						title={ __( 'Stock status', 'woocommerce' ) }
+						title={ __( 'Stock status', 'poocommerce' ) }
 						selected={ value.stock_status }
 						options={ STOCK_STATUS_OPTIONS }
 						onChange={ handleStockStatusRadioFieldChange }
@@ -172,7 +172,7 @@ export function VariationStockStatusForm( {
 				) }
 			</div>
 
-			<div className="woocommerce-variation-stock-status-form__actions">
+			<div className="poocommerce-variation-stock-status-form__actions">
 				<Button variant="tertiary" onClick={ onCancel }>
 					Cancel
 				</Button>

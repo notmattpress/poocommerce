@@ -69,12 +69,12 @@ export default function NoResults( props: {
 
 	function productListTitle( groupId: string ) {
 		if ( groupId === 'popular-themes' ) {
-			return __( 'Our favorite themes', 'woocommerce' );
+			return __( 'Our favorite themes', 'poocommerce' );
 		} else if ( groupId === 'business-services' ) {
-			return __( 'Services to help your business grow', 'woocommerce' );
+			return __( 'Services to help your business grow', 'poocommerce' );
 		}
 
-		return __( 'Most popular extensions', 'woocommerce' );
+		return __( 'Most popular extensions', 'poocommerce' );
 	}
 
 	function renderProductGroups() {
@@ -138,21 +138,21 @@ export default function NoResults( props: {
 	}
 
 	return (
-		<div className="woocommerce-marketplace__no-results">
+		<div className="poocommerce-marketplace__no-results">
 			{ categorySelector() }
-			<div className="woocommerce-marketplace__no-results__content">
-				<h2 className="woocommerce-marketplace__no-results__heading">
+			<div className="poocommerce-marketplace__no-results__content">
+				<h2 className="poocommerce-marketplace__no-results__heading">
 					{ props.showHeading ? props.heading : '' }
 				</h2>
-				<p className="woocommerce-marketplace__no-results__description">
+				<p className="poocommerce-marketplace__no-results__description">
 					{ __(
 						'Try searching again using a different term, or take a look at' +
 							' our recommendations below.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 			</div>
-			<div className="woocommerce-marketplace__no-results__product-groups">
+			<div className="poocommerce-marketplace__no-results__product-groups">
 				{ renderProductGroups() }
 			</div>
 		</div>

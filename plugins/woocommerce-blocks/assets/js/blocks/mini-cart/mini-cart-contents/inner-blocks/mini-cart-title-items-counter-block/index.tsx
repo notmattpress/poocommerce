@@ -12,7 +12,7 @@ import { Edit, Save } from './edit';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore -- TypeScript expects some required properties which we already
 // registered in PHP.
-registerBlockType( 'woocommerce/mini-cart-title-items-counter-block', {
+registerBlockType( 'poocommerce/mini-cart-title-items-counter-block', {
 	icon: {
 		src: (
 			<Icon

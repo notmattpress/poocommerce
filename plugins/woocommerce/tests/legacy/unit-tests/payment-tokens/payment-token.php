@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Payment_Token
- * @package WooCommerce\Tests\Payment_Tokens
+ * @package PooCommerce\Tests\Payment_Tokens
  */
 class WC_Tests_Payment_Token extends WC_Unit_Test_Case {
 
@@ -76,7 +76,7 @@ class WC_Tests_Payment_Token extends WC_Unit_Test_Case {
 		$token     = new WC_Payment_Token_Stub();
 		$token->set_token( $raw_token );
 		$token->set_gateway_id( 'paypal' );
-		$token->set_extra( 'woocommerce' );
+		$token->set_extra( 'poocommerce' );
 
 		$this->assertEquals( $raw_token, $token->get_token() );
 		$this->assertEquals( 'paypal', $token->get_gateway_id() );
@@ -84,7 +84,7 @@ class WC_Tests_Payment_Token extends WC_Unit_Test_Case {
 
 		$data = $token->get_data();
 		$this->assertEquals( 'extra', $data['meta_data'][0]->key );
-		$this->assertEquals( 'woocommerce', $data['meta_data'][0]->value );
+		$this->assertEquals( 'poocommerce', $data['meta_data'][0]->value );
 	}
 
 	/**

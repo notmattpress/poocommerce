@@ -4,7 +4,7 @@
 	margin: 0 auto $gap;
 	position: relative;
 
-	&:has(> :last-child.wp-block-woocommerce-checkout-fields-block) {
+	&:has(> :last-child.wp-block-poocommerce-checkout-fields-block) {
 		flex-direction: row-reverse;
 	}
 

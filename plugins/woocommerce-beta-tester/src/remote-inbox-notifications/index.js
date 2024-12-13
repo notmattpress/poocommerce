@@ -24,9 +24,9 @@ function RemoteInboxNotifications( {
 	const importFromUrl = async ( _url ) => {
 		const preDefinedUrls = {
 			staging:
-				'https://staging.woocommerce.com/wp-json/wccom/inbox-notifications/2.0/notifications.json',
+				'https://staging.poocommerce.com/wp-json/wccom/inbox-notifications/2.0/notifications.json',
 			production:
-				'https://woocommerce.com/wp-json/wccom/inbox-notifications/2.0/notifications.json',
+				'https://poocommerce.com/wp-json/wccom/inbox-notifications/2.0/notifications.json',
 		};
 
 		const url = preDefinedUrls[ _url ] || _url;

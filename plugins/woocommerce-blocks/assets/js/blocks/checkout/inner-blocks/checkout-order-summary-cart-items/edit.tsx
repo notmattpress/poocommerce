@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from '@wordpress/components';
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -31,15 +31,15 @@ export const Edit = ( {
 			{ /* For now this setting can only be enabled if you have experimental features enabled. */ }
 			{ isExperimentalBlocksEnabled() && (
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 						<ToggleControl
 							label={ __(
 								'Disable product descriptions',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={ __(
 								'Disable display of product descriptions.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ disableProductDescriptions }
 							onChange={ () =>

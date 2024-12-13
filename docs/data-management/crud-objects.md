@@ -1,12 +1,12 @@
 ---
-post_title: Developing using WooCommerce CRUD objects
+post_title: Developing using PooCommerce CRUD objects
 Menu_title: Using CRUD objects
 tags: reference
 ---
 
 CRUD is an abbreviation of the four basic operations you can do to a database or resource - Create, Read, Update, Delete.
 
-[WooCommerce 3.0 introduced CRUD objects](https://woocommerce.wordpress.com/2016/10/27/the-new-crud-classes-in-woocommerce-2-7/) for working with WooCommerce data. **Whenever possible these objects should be used in your code instead of directly updating metadata or using WordPress post objects.**
+[PooCommerce 3.0 introduced CRUD objects](https://poocommerce.wordpress.com/2016/10/27/the-new-crud-classes-in-poocommerce-2-7/) for working with PooCommerce data. **Whenever possible these objects should be used in your code instead of directly updating metadata or using WordPress post objects.**
 
 Each of these objects contains a schema for the data it controls (properties), a getter and setter for each property, and a save/delete method which talks to a data store. The data store handles the actual saving/reading from the database. The object itself does not need to be aware of where the data is stored.
 
@@ -21,9 +21,9 @@ Each of these objects contains a schema for the data it controls (properties), a
 
 ## CRUD object structure
 
-The [`WC_Data`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/abstracts/abstract-wc-data.php) class is the basic implementation for CRUD objects, and all CRUD objects extend it. The most important properties to note are `$data`, which is an array of props supported in each object, and `$id`, which is the object's ID.
+The [`WC_Data`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/abstracts/abstract-wc-data.php) class is the basic implementation for CRUD objects, and all CRUD objects extend it. The most important properties to note are `$data`, which is an array of props supported in each object, and `$id`, which is the object's ID.
 
-The [coupon object class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/class-wc-coupon.php) is a good example of extending `WC_Data` and adding CRUD functions to all properties.
+The [coupon object class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/class-wc-coupon.php) is a good example of extending `WC_Data` and adding CRUD functions to all properties.
 
 ### Data
 
@@ -147,7 +147,7 @@ The save method in `WC_Data` looks like this:
 public function save() {
 	if ( $this->data_store ) {
 		// Trigger action before saving to the DB. Allows you to adjust object props before save.
-		do_action( 'woocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		if ( $this->get_id() ) {
 			$this->data_store->update( $this );

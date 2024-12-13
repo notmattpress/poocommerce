@@ -4,18 +4,18 @@
  *
  * Handles requests to the /coupons endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * REST API Coupons controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_CRUD_Controller
  */
 class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
@@ -60,7 +60,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'args'                => array_merge(
 						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ), array(
 							'code' => array(
-								'description' => __( 'Coupon code.', 'woocommerce' ),
+								'description' => __( 'Coupon code.', 'poocommerce' ),
 								'required'    => true,
 								'type'        => 'string',
 							),
@@ -75,7 +75,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 			$this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -101,7 +101,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Whether to bypass trash and force deletion.', 'woocommerce' ),
+							'description' => __( 'Whether to bypass trash and force deletion.', 'poocommerce' ),
 						),
 					),
 				),
@@ -222,7 +222,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 		 * @param WC_Data          $object   Object data.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
-		return apply_filters( "woocommerce_rest_prepare_{$this->post_type}_object", $response, $object, $request );
+		return apply_filters( "poocommerce_rest_prepare_{$this->post_type}_object", $response, $object, $request );
 	}
 
 	/**
@@ -272,7 +272,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 
 		// Validate required POST fields.
 		if ( $creating && StringUtil::is_null_or_whitespace( $request['code'] ?? null ) ) {
-			return new WP_Error( 'woocommerce_rest_empty_coupon_code', sprintf( __( 'The coupon code cannot be empty.', 'woocommerce' ), 'code' ), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_empty_coupon_code', sprintf( __( 'The coupon code cannot be empty.', 'poocommerce' ), 'code' ), array( 'status' => 400 ) );
 		}
 
 		// Handle all writable props.
@@ -287,7 +287,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 						$id_from_code = wc_get_coupon_id_by_code( $coupon_code, $id );
 
 						if ( $id_from_code ) {
-							return new WP_Error( 'woocommerce_rest_coupon_code_already_exists', __( 'The coupon code already exists', 'woocommerce' ), array( 'status' => 400 ) );
+							return new WP_Error( 'poocommerce_rest_coupon_code_already_exists', __( 'The coupon code already exists', 'poocommerce' ), array( 'status' => 400 ) );
 						}
 
 						$coupon->set_code( $coupon_code );
@@ -321,7 +321,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 		 * @param WP_REST_Request $request  Request object.
 		 * @param bool            $creating If is creating a new object.
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}_object", $coupon, $request, $creating );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}_object", $coupon, $request, $creating );
 	}
 
 	/**
@@ -336,86 +336,86 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'                          => array(
-					'description' => __( 'Unique identifier for the object.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the object.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'code'                        => array(
-					'description' => __( 'Coupon code.', 'woocommerce' ),
+					'description' => __( 'Coupon code.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'amount'                      => array(
-					'description' => __( 'The amount of discount. Should always be numeric, even if setting a percentage.', 'woocommerce' ),
+					'description' => __( 'The amount of discount. Should always be numeric, even if setting a percentage.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'status' => array(
-					'description' => __( 'The status of the coupon. Should always be draft, published, or pending review', 'woocommerce' ),
+					'description' => __( 'The status of the coupon. Should always be draft, published, or pending review', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_created'                => array(
-					'description' => __( "The date the coupon was created, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the coupon was created, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_created_gmt'            => array(
-					'description' => __( 'The date the coupon was created, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date the coupon was created, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_modified'               => array(
-					'description' => __( "The date the coupon was last modified, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the coupon was last modified, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_modified_gmt'           => array(
-					'description' => __( 'The date the coupon was last modified, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date the coupon was last modified, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'discount_type'               => array(
-					'description' => __( 'Determines the type of discount that will be applied.', 'woocommerce' ),
+					'description' => __( 'Determines the type of discount that will be applied.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'fixed_cart',
 					'enum'        => array_keys( wc_get_coupon_types() ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'description'                 => array(
-					'description' => __( 'Coupon description.', 'woocommerce' ),
+					'description' => __( 'Coupon description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_expires'                => array(
-					'description' => __( "The date the coupon expires, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the coupon expires, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_expires_gmt'            => array(
-					'description' => __( 'The date the coupon expires, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date the coupon expires, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'usage_count'                 => array(
-					'description' => __( 'Number of times the coupon has been used already.', 'woocommerce' ),
+					'description' => __( 'Number of times the coupon has been used already.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'individual_use'              => array(
-					'description' => __( 'If true, the coupon can only be used individually. Other applied coupons will be removed from the cart.', 'woocommerce' ),
+					'description' => __( 'If true, the coupon can only be used individually. Other applied coupons will be removed from the cart.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'product_ids'                 => array(
-					'description' => __( 'List of product IDs the coupon can be used on.', 'woocommerce' ),
+					'description' => __( 'List of product IDs the coupon can be used on.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'integer',
@@ -423,7 +423,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'excluded_product_ids'        => array(
-					'description' => __( 'List of product IDs the coupon cannot be used on.', 'woocommerce' ),
+					'description' => __( 'List of product IDs the coupon cannot be used on.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'integer',
@@ -431,28 +431,28 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'usage_limit'                 => array(
-					'description' => __( 'How many times the coupon can be used in total.', 'woocommerce' ),
+					'description' => __( 'How many times the coupon can be used in total.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'usage_limit_per_user'        => array(
-					'description' => __( 'How many times the coupon can be used per customer.', 'woocommerce' ),
+					'description' => __( 'How many times the coupon can be used per customer.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'limit_usage_to_x_items'      => array(
-					'description' => __( 'Max number of items in the cart the coupon can be applied to.', 'woocommerce' ),
+					'description' => __( 'Max number of items in the cart the coupon can be applied to.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'free_shipping'               => array(
-					'description' => __( 'If true and if the free shipping method requires a coupon, this coupon will enable free shipping.', 'woocommerce' ),
+					'description' => __( 'If true and if the free shipping method requires a coupon, this coupon will enable free shipping.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'product_categories'          => array(
-					'description' => __( 'List of category IDs the coupon applies to.', 'woocommerce' ),
+					'description' => __( 'List of category IDs the coupon applies to.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'integer',
@@ -460,7 +460,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'excluded_product_categories' => array(
-					'description' => __( 'List of category IDs the coupon does not apply to.', 'woocommerce' ),
+					'description' => __( 'List of category IDs the coupon does not apply to.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'integer',
@@ -468,23 +468,23 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'exclude_sale_items'          => array(
-					'description' => __( 'If true, this coupon will not be applied to items that have sale prices.', 'woocommerce' ),
+					'description' => __( 'If true, this coupon will not be applied to items that have sale prices.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'minimum_amount'              => array(
-					'description' => __( 'Minimum order amount that needs to be in the cart before coupon applies.', 'woocommerce' ),
+					'description' => __( 'Minimum order amount that needs to be in the cart before coupon applies.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'maximum_amount'              => array(
-					'description' => __( 'Maximum order amount allowed when using the coupon.', 'woocommerce' ),
+					'description' => __( 'Maximum order amount allowed when using the coupon.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'email_restrictions'          => array(
-					'description' => __( 'List of email addresses that can use this coupon.', 'woocommerce' ),
+					'description' => __( 'List of email addresses that can use this coupon.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'string',
@@ -492,7 +492,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'used_by'                     => array(
-					'description' => __( 'List of user IDs (or guest email addresses) that have used the coupon.', 'woocommerce' ),
+					'description' => __( 'List of user IDs (or guest email addresses) that have used the coupon.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type' => 'integer',
@@ -501,25 +501,25 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 					'readonly'    => true,
 				),
 				'meta_data'                   => array(
-					'description' => __( 'Meta data.', 'woocommerce' ),
+					'description' => __( 'Meta data.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'    => array(
-								'description' => __( 'Meta ID.', 'woocommerce' ),
+								'description' => __( 'Meta ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'key'   => array(
-								'description' => __( 'Meta key.', 'woocommerce' ),
+								'description' => __( 'Meta key.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'value' => array(
-								'description' => __( 'Meta value.', 'woocommerce' ),
+								'description' => __( 'Meta value.', 'poocommerce' ),
 								'type'        => 'mixed',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -540,7 +540,7 @@ class WC_REST_Coupons_V2_Controller extends WC_REST_CRUD_Controller {
 		$params = parent::get_collection_params();
 
 		$params['code'] = array(
-			'description'       => __( 'Limit result set to resources with a specific code.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to resources with a specific code.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',

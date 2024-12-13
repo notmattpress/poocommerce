@@ -3,7 +3,7 @@
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 const customerEmailAddress = `john.doe.${ Date.now() }@example.com`;
 
@@ -19,7 +19,7 @@ test.describe(
 				version: 'wc/v3',
 			} );
 			await api.put(
-				'settings/account/woocommerce_enable_myaccount_registration',
+				'settings/account/poocommerce_enable_myaccount_registration',
 				{
 					value: 'yes',
 				}
@@ -46,7 +46,7 @@ test.describe(
 			} );
 
 			await api.put(
-				'settings/account/woocommerce_enable_myaccount_registration',
+				'settings/account/poocommerce_enable_myaccount_registration',
 				{
 					value: 'no',
 				}
@@ -57,7 +57,7 @@ test.describe(
 			await page.goto( 'my-account/' );
 
 			await expect(
-				page.locator( '.woocommerce-form-register' )
+				page.locator( '.poocommerce-form-register' )
 			).toBeVisible();
 
 			await page

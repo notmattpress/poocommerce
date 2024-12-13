@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from 'react';
 
 export const CUSTOMIZE_STORE_ONBOARDING_TOUR_HIDDEN =
-	'woocommerce_customize_store_onboarding_tour_hidden';
+	'poocommerce_customize_store_onboarding_tour_hidden';
 
 export const useOnboardingTour = () => {
 	const [ showWelcomeTour, setShowWelcomeTour ] = useState( true );

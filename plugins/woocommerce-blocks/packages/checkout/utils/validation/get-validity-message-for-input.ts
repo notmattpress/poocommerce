@@ -13,11 +13,11 @@ const defaultValidityMessage =
 
 		const fieldLabel = shouldKeepOriginalCase
 			? label
-			: label?.toLocaleLowerCase() || __( 'field', 'woocommerce' );
+			: label?.toLocaleLowerCase() || __( 'field', 'poocommerce' );
 
 		const invalidFieldMessage = sprintf(
 			/* translators: %s field label */
-			__( 'Please enter a valid %s', 'woocommerce' ),
+			__( 'Please enter a valid %s', 'poocommerce' ),
 			fieldLabel
 		);
 

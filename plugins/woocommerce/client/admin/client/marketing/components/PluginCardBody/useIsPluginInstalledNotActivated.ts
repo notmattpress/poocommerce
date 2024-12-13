@@ -3,7 +3,7 @@
  */
 import { useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { PLUGINS_STORE_NAME } from '@woocommerce/data';
+import { PLUGINS_STORE_NAME } from '@poocommerce/data';
 
 export const useIsPluginInstalledNotActivated = () => {
 	const { getPluginInstallState } = useSelect( ( select ) => {

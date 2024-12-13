@@ -58,7 +58,7 @@ export const usePopoverHandler = () => {
 		hoveredBlockClientId: string | null;
 	} ) => {
 		const iframe = window.document.querySelector(
-			'.woocommerce-customize-store-assembler > iframe[name="editor-canvas"]'
+			'.poocommerce-customize-store-assembler > iframe[name="editor-canvas"]'
 		) as HTMLElement;
 
 		const target = event.target as HTMLElement;

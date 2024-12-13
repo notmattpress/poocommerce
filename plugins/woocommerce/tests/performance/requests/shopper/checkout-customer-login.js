@@ -51,8 +51,8 @@ import {
 import { checkResponse } from '../../utils.js';
 
 export function checkoutCustomerLogin() {
-	let woocommerce_process_checkout_nonce_customer;
-	let woocommerce_login_nonce;
+	let poocommerce_process_checkout_nonce_customer;
+	let poocommerce_login_nonce;
 	let update_order_review_nonce_guest;
 	let update_order_review_nonce_customer;
 
@@ -72,14 +72,14 @@ export function checkoutCustomerLogin() {
 
 		checkResponse( response, 200, {
 			title: `Checkout – ${ STORE_NAME }`,
-			body: 'class="checkout woocommerce-checkout"',
+			body: 'class="checkout poocommerce-checkout"',
 			footer: FOOTER_TEXT,
 		} );
 
 		// Correlate nonce values for use in subsequent requests.
-		woocommerce_login_nonce = response
+		poocommerce_login_nonce = response
 			.html()
-			.find( 'input[name=woocommerce-login-nonce]' )
+			.find( 'input[name=poocommerce-login-nonce]' )
 			.first()
 			.attr( 'value' );
 		update_order_review_nonce_guest = findBetween(
@@ -141,7 +141,7 @@ export function checkoutCustomerLogin() {
 			{
 				username: `${ customer_email }`,
 				password: `${ customer_password }`,
-				'woocommerce-login-nonce': `${ woocommerce_login_nonce }`,
+				'poocommerce-login-nonce': `${ poocommerce_login_nonce }`,
 				_wp_http_referer: '%2Fcheckout',
 				redirect: `${ base_url }/checkout`,
 				login: 'Login',
@@ -156,9 +156,9 @@ export function checkoutCustomerLogin() {
 		} );
 
 		// Correlate nonce values for use in subsequent requests.
-		woocommerce_process_checkout_nonce_customer = response
+		poocommerce_process_checkout_nonce_customer = response
 			.html()
-			.find( 'input[name=woocommerce-process-checkout-nonce]' )
+			.find( 'input[name=poocommerce-process-checkout-nonce]' )
 			.first()
 			.attr( 'value' );
 		update_order_review_nonce_customer = findBetween(
@@ -231,7 +231,7 @@ export function checkoutCustomerLogin() {
 				billing_email: `${ addresses_customer_billing_email }`,
 				order_comments: '',
 				payment_method: `${ payment_method }`,
-				'woocommerce-process-checkout-nonce': `${ woocommerce_process_checkout_nonce_customer }`,
+				'poocommerce-process-checkout-nonce': `${ poocommerce_process_checkout_nonce_customer }`,
 				_wp_http_referer: '%2F%3Fwc-ajax%3Dupdate_order_review',
 			},
 			{

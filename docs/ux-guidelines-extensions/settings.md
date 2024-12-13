@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Extension Guidelines - Settings
+post_title: PooCommerce Extension Guidelines - Settings
 menu_title: Settings
 ---
 

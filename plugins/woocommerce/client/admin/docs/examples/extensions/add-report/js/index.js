@@ -7,9 +7,9 @@ import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
- * WooCommerce dependencies
+ * PooCommerce dependencies
  */
-import { ReportFilters, TableCard } from '@woocommerce/components';
+import { ReportFilters, TableCard } from '@poocommerce/components';
 
 const Report = ( { path, query } ) => {
 	return (
@@ -57,9 +57,9 @@ const Report = ( { path, query } ) => {
 };
 
 /**
- * Use the 'woocommerce_admin_reports_list' filter to add a report page.
+ * Use the 'poocommerce_admin_reports_list' filter to add a report page.
  */
-addFilter( 'woocommerce_admin_reports_list', 'plugin-domain', ( reports ) => {
+addFilter( 'poocommerce_admin_reports_list', 'plugin-domain', ( reports ) => {
 	return [
 		...reports,
 		{

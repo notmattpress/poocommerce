@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { H, Search, Section } from '@woocommerce/components';
+import { H, Search, Section } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const SearchExample = () => {
@@ -36,6 +36,6 @@ const SearchExample = () => {
 export const Basic = () => <SearchExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/Search',
+	title: 'PooCommerce Admin/components/Search',
 	component: Search,
 };

@@ -15,7 +15,7 @@ assignees: ''
 
 ## Why is this Document Important?
 
-> Explain why this topic is crucial and how it can benefit the WooCommerce community.
+> Explain why this topic is crucial and how it can benefit the PooCommerce community.
 
 
 

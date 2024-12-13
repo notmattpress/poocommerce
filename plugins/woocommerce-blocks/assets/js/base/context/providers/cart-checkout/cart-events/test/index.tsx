@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useCartEventsContext } from '@woocommerce/base-context';
+import { useCartEventsContext } from '@poocommerce/base-context';
 import { useEffect } from '@wordpress/element';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

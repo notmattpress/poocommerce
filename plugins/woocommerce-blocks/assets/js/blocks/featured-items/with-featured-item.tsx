@@ -4,12 +4,12 @@
  * External dependencies
  */
 import type { BlockAlignment } from '@wordpress/blocks';
-import { ProductResponseItem, isEmpty } from '@woocommerce/types';
+import { ProductResponseItem, isEmpty } from '@poocommerce/types';
 import { Icon, Placeholder, Spinner } from '@wordpress/components';
 import clsx from 'clsx';
 import { useCallback, useState } from '@wordpress/element';
 import { WP_REST_API_Category } from 'wp-types';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import type { ComponentType, Dispatch, SetStateAction } from 'react';
 
 /**

@@ -9,9 +9,9 @@ const {
 } = require( '../utils/request' );
 
 /**
- * WooCommerce Shipping method endpoints.
+ * PooCommerce Shipping method endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#shipping-methods
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#shipping-methods
  */
 const shippingMethodsApi = {
 	name: 'Shipping methods',

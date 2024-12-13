@@ -9,7 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/cart-cross-sells-block', {
+registerBlockType( 'poocommerce/cart-cross-sells-block', {
 	icon: {
 		src: (
 			<Icon

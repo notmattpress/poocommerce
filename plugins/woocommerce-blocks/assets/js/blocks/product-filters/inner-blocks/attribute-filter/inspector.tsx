@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { AttributeSetting } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import { AttributeSetting } from '@poocommerce/types';
 import { InspectorControls } from '@wordpress/block-editor';
 import { dispatch, useSelect } from '@wordpress/data';
 import { createInterpolateElement, useState } from '@wordpress/element';
@@ -69,9 +69,9 @@ export const Inspector = ( {
 	if ( displayStyleOptions.length === 0 ) {
 		displayStyleOptions = getBlockTypes().filter(
 			( blockType ) =>
-				blockType.name !== 'woocommerce/product-filter-clear-button' &&
+				blockType.name !== 'poocommerce/product-filter-clear-button' &&
 				blockType.ancestor?.includes(
-					'woocommerce/product-filter-attribute'
+					'poocommerce/product-filter-attribute'
 				)
 		);
 	}
@@ -79,7 +79,7 @@ export const Inspector = ( {
 	return (
 		<>
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Attribute', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Attribute', 'poocommerce' ) }>
 					<ComboboxControl
 						options={ ATTRIBUTES.map( ( item ) => ( {
 							value: item.attribute_id,
@@ -99,25 +99,25 @@ export const Inspector = ( {
 									{
 										content:
 											attributeObject?.label ??
-											__( 'Attribute', 'woocommerce' ),
+											__( 'Attribute', 'poocommerce' ),
 									}
 								);
 							}
 						} }
 						help={ __(
 							'Choose the attribute to show in this filter.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<SelectControl
-						label={ __( 'Sort order', 'woocommerce' ) }
+						label={ __( 'Sort order', 'poocommerce' ) }
 						value={ sortOrder }
 						options={ [
 							{
 								value: '',
-								label: __( 'Select an option', 'woocommerce' ),
+								label: __( 'Select an option', 'poocommerce' ),
 								disabled: true,
 							},
 							...sortOrderOptions,
@@ -127,11 +127,11 @@ export const Inspector = ( {
 						}
 						help={ __(
 							'Determine the order of filter options.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 					<ToggleGroupControl
-						label={ __( 'Logic', 'woocommerce' ) }
+						label={ __( 'Logic', 'poocommerce' ) }
 						isBlock
 						value={ queryType }
 						onChange={ ( value: BlockAttributes[ 'queryType' ] ) =>
@@ -143,7 +143,7 @@ export const Inspector = ( {
 								? createInterpolateElement(
 										__(
 											'Show results for <b>all</b> selected attributes. Displayed products must contain <b>all of them</b> to appear in the results.',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											b: <strong />,
@@ -151,23 +151,23 @@ export const Inspector = ( {
 								  )
 								: __(
 										'Show results for any of the attributes selected (displayed products don’t have to have them all).',
-										'woocommerce'
+										'poocommerce'
 								  )
 						}
 					>
 						<ToggleGroupControlOption
-							label={ __( 'Any', 'woocommerce' ) }
+							label={ __( 'Any', 'poocommerce' ) }
 							value="or"
 						/>
 						<ToggleGroupControlOption
-							label={ __( 'All', 'woocommerce' ) }
+							label={ __( 'All', 'poocommerce' ) }
 							value="and"
 						/>
 					</ToggleGroupControl>
 				</PanelBody>
 			</InspectorControls>
 			<InspectorControls group="styles">
-				<PanelBody title={ __( 'Display', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display', 'poocommerce' ) }>
 					<ToggleGroupControl
 						value={ displayStyle }
 						isBlock
@@ -215,21 +215,21 @@ export const Inspector = ( {
 						) ) }
 					</ToggleGroupControl>
 					<ToggleControl
-						label={ __( 'Product counts', 'woocommerce' ) }
+						label={ __( 'Product counts', 'poocommerce' ) }
 						checked={ showCounts }
 						onChange={ ( value ) =>
 							setAttributes( { showCounts: value } )
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Empty filter options', 'woocommerce' ) }
+						label={ __( 'Empty filter options', 'poocommerce' ) }
 						checked={ ! hideEmpty }
 						onChange={ ( value ) =>
 							setAttributes( { hideEmpty: ! value } )
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Clear button', 'woocommerce' ) }
+						label={ __( 'Clear button', 'poocommerce' ) }
 						checked={ clearButton }
 						onChange={ ( value ) => {
 							setAttributes( { clearButton: value } );

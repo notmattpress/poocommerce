@@ -1,4 +1,4 @@
-*** WooCommerce Beta Tester Changelog ***
+*** PooCommerce Beta Tester Changelog ***
 
 2024-11-26 - version 2.5.1
 * Patch - Fix wc plugin file path
@@ -9,7 +9,7 @@
 
 2024-10-21 - version 2.5.0
 * Patch - Flush cache after deleting option and resetting PHP rate limit
-* Minor - Add a tool to simulate server problems with woocommerce.com
+* Minor - Add a tool to simulate server problems with poocommerce.com
 * Minor - Add fake WooPayments completion tool
 * Minor - Add set woocom base url tool
 * Minor - Add tool to reset "Launch your store" and coming soon mode changes
@@ -18,7 +18,7 @@
 * Patch - Remove "banner" layout option from inbox note
 * Patch - Update Fake_WCPayments is_account_partially_onboarded to return false
 * Patch - Update remote logger tool to toggle remote logging feature properly
-* Minor - CYS - Move the "ai/patterns" endpoint to woocommerce admin API.
+* Minor - CYS - Move the "ai/patterns" endpoint to poocommerce admin API.
 * Patch - Fix pnpm version to 9.1.3 to avoid dependency installation issues.
 * Patch - Monorepo: consolidate syncpack config around React 17/18 usage.
 * Patch - Set remote-logging context to true in log remote event method
@@ -39,16 +39,16 @@
 2024-06-25 - version 2.3.2
 * Minor - Adds a new tool to the WCA Test Helper that helps import remote inbox notifications from staging or production for testing purposes #48735
 * Minor - Remove the new old experience #47814
-* Patch - Fix "Live Branches" item not shown in the WooCommerce menu #47691
+* Patch - Fix "Live Branches" item not shown in the PooCommerce menu #47691
 * Patch - Fix lint errors from the remote spec test endpoint. #47520
 
 2024-05-13 - version 2.3.1
-* Minor - Add Remote Spec Validator to WooCommerce Admin Tester
+* Minor - Add Remote Spec Validator to PooCommerce Admin Tester
 * Minor - Remove the patterns_ai_data post from DB when resetting the CYS.
 * Patch - Comment: Fix Gutenberg links in the docs pointing to incorrect branch.
 * Patch - Add missing live-branches/install.php require to API.php
 * Minor - Add feature flag options to wc-live-branches user script
-* Patch - Update WooCommerce import path in WC Admin Tester Helper
+* Patch - Update PooCommerce import path in WC Admin Tester Helper
 * Minor - Fix option search that accidentally had its wildcards removed
 * Patch - Fix beta test plugin deprecated creation dynamic property
 * Patch - add composer install to changelog script
@@ -59,8 +59,8 @@
 2023-11-16 - version 2.3.0
 * Minor - Add ability to update block templates logging threshold.
 * Minor - Add Product Editor Developer Tools
-* Patch - update references to woocommerce.com to now reference woo.com
-* Minor - WooCommerce Beta Tester - CYS: implement removing patterns_ai_data post type
+* Patch - update references to poocommerce.com to now reference woo.com
+* Minor - PooCommerce Beta Tester - CYS: implement removing patterns_ai_data post type
 
 2023-10-30 - version 2.2.5
 * Tweak - Add support for logging array property in track logger
@@ -69,7 +69,7 @@
 2023-08-23 - version 2.2.4
 * Patch - check for WC_ADMIN_APP constant before using it
 * Patch - Fix a bug where between WC installs the beta tester would crash trying to log.
-* Patch - Fix a bug where WC_ABSPATH is used when the WooCommerce instance might not have defined it yet.
+* Patch - Fix a bug where WC_ABSPATH is used when the PooCommerce instance might not have defined it yet.
 * Patch - Fix rest api filter to allow any strings in replacement
 * Minor - Add a basic UI screen for installing from live branches (disabled in prod)
 * Minor - Add a userscript that allows creation of JN sites from Github branches.
@@ -82,11 +82,11 @@
 * Minor - Fixing mismatched dependencies between @types/react-dom and react-dom
 * Minor - Update the live branches UI to improve finding and installing branches.
 * Minor - Declare compatibility for custom order table and product block editor features.
-* Minor - Update README to separate WooCommerce Admin Tester
+* Minor - Update README to separate PooCommerce Admin Tester
 * Minor - Add support for installing WC trunk via live branches.
 * Patch - Bump required PHP version to 7.4
 * Patch - Consolidate wp-prettier version with rest of monorepo.
-* Minor - Release woocommerce-beta-tester with bugfixes from #39441
+* Minor - Release poocommerce-beta-tester with bugfixes from #39441
 * Minor - Sync @wordpress package versions via syncpack.
 * Patch - Update eslint to 8.32.0 across the monorepo.
 * Minor - Update pnpm monorepo-wide to 8.6.5
@@ -102,7 +102,7 @@
 * Minor - Reload page when toggling new-product-management-experience and product-block-editor
 
 2022-10-11 - version 2.1.0
-* Dev - Add WooCommerce Admin Helper Tester functionality to Beta Tester
+* Dev - Add PooCommerce Admin Helper Tester functionality to Beta Tester
 
 2021-12-17 - version 2.0.5
 * Fix - make WC version comparison case insensitive
@@ -119,10 +119,10 @@
 * Fix - auto_update_plugin filter reference
 * Fix - including SSR in bug report
 * Fix - style in version modal header
-* Add - check for WooCommerce installed in default location
+* Add - check for PooCommerce installed in default location
 
 2019-03-14 - version 2.0.1
-* Enhancement - Changes to make this plugin compatible with the upcoming WooCommerce 3.6
+* Enhancement - Changes to make this plugin compatible with the upcoming PooCommerce 3.6
 
 2018-07-12 - version 2.0.0
 * Enhancement - Re-built to pull updates from the WordPress.org repository rather than GitHub.

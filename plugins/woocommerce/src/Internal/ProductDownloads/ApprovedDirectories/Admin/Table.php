@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin;
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\StoredUrl;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\StoredUrl;
 use WP_List_Table;
 use WP_Screen;
 
@@ -23,7 +23,7 @@ class Table extends WP_List_Table {
 			)
 		);
 
-		add_filter( 'manage_woocommerce_page_wc-settings_columns', array( $this, 'get_columns' ) );
+		add_filter( 'manage_poocommerce_page_wc-settings_columns', array( $this, 'get_columns' ) );
 		$this->items_per_page();
 		set_screen_options();
 	}
@@ -60,7 +60,7 @@ class Table extends WP_List_Table {
 	 * No items found text.
 	 */
 	public function no_items() {
-		esc_html_e( 'No approved directory URLs found.', 'woocommerce' );
+		esc_html_e( 'No approved directory URLs found.', 'poocommerce' );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Table extends WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				$all_count,
 				'Approved product download directory views',
-				'woocommerce'
+				'poocommerce'
 			),
 			$all_count
 		);
@@ -98,7 +98,7 @@ class Table extends WP_List_Table {
 				'Enabled <span class="count">(%s)</span>',
 				$enabled_count,
 				'Approved product download directory views',
-				'woocommerce'
+				'poocommerce'
 			),
 			$enabled_count
 		);
@@ -112,7 +112,7 @@ class Table extends WP_List_Table {
 				'Disabled <span class="count">(%s)</span>',
 				$disabled_count,
 				'Approved product download directory views',
-				'woocommerce'
+				'poocommerce'
 			),
 			$disabled_count
 		);
@@ -142,8 +142,8 @@ class Table extends WP_List_Table {
 	public function get_columns() {
 		return array(
 			'cb'    => '<input type="checkbox" />',
-			'title' => _x( 'URL', 'Approved product download directories', 'woocommerce' ),
-			'enabled' => _x( 'Enabled', 'Approved product download directories', 'woocommerce' ),
+			'title' => _x( 'URL', 'Approved product download directories', 'poocommerce' ),
+			'enabled' => _x( 'Enabled', 'Approved product download directories', 'poocommerce' ),
 		);
 	}
 
@@ -172,11 +172,11 @@ class Table extends WP_List_Table {
 
 		$edit_url            = esc_url( $this->get_action_url( 'edit', $id ) );
 		$enable_disable_url  = esc_url( $enabled ? $this->get_action_url( 'disable', $id ) : $this->get_action_url( 'enable', $id ) );
-		$enable_disable_text = esc_html( $enabled ? __( 'Disable', 'woocommerce' ) : __( 'Enable', 'woocommerce' ) );
+		$enable_disable_text = esc_html( $enabled ? __( 'Disable', 'poocommerce' ) : __( 'Enable', 'poocommerce' ) );
 		$delete_url          = esc_url( $this->get_action_url( 'delete', $id ) );
-		$edit_link           = "<a href='{$edit_url}'>" . esc_html_x( 'Edit', 'Product downloads list', 'woocommerce' ) . '</a>';
+		$edit_link           = "<a href='{$edit_url}'>" . esc_html_x( 'Edit', 'Product downloads list', 'poocommerce' ) . '</a>';
 		$enable_disable_link = "<a href='{$enable_disable_url}'>{$enable_disable_text}</a>";
-		$delete_link         = "<a href='{$delete_url}' class='submitdelete wc-confirm-delete'>" . esc_html_x( 'Delete permanently', 'Product downloads list', 'woocommerce' ) . '</a>';
+		$delete_link         = "<a href='{$delete_url}' class='submitdelete wc-confirm-delete'>" . esc_html_x( 'Delete permanently', 'Product downloads list', 'poocommerce' ) . '</a>';
 		$url_link            = "<a href='{$edit_url}'>{$url}</a>";
 
 		return "
@@ -199,8 +199,8 @@ class Table extends WP_List_Table {
 	 */
 	public function column_enabled( StoredUrl $item ): string {
 		return $item->is_enabled()
-			? '<mark class="yes" title="' . esc_html__( 'Enabled', 'woocommerce' ) . '"><span class="dashicons dashicons-yes"></span></mark>'
-			: '<mark class="no" title="' . esc_html__( 'Disabled', 'woocommerce' ) . '">&ndash;</mark>';
+			? '<mark class="yes" title="' . esc_html__( 'Enabled', 'poocommerce' ) . '"><span class="dashicons dashicons-yes"></span></mark>'
+			: '<mark class="no" title="' . esc_html__( 'Disabled', 'poocommerce' ) . '">&ndash;</mark>';
 	}
 
 	/**
@@ -210,9 +210,9 @@ class Table extends WP_List_Table {
 	 */
 	protected function get_bulk_actions() {
 		return array(
-			'enable'  => __( 'Enable rule', 'woocommerce' ),
-			'disable' => __( 'Disable rule', 'woocommerce' ),
-			'delete'  => __( 'Delete permanently', 'woocommerce' ),
+			'enable'  => __( 'Enable rule', 'poocommerce' ),
+			'disable' => __( 'Disable rule', 'poocommerce' ),
+			'delete'  => __( 'Delete permanently', 'poocommerce' ),
 		);
 	}
 
@@ -267,11 +267,11 @@ class Table extends WP_List_Table {
 			$this->bulk_actions( $which );
 
 			if ( $directories->count( false ) > 0 ) {
-				echo '<a href="' . esc_url( $this->get_action_url( 'enable-all', 0 ) ) . '" class="wp-core-ui button">' . esc_html_x( 'Enable All', 'Approved product download directories', 'woocommerce' ) . '</a> ';
+				echo '<a href="' . esc_url( $this->get_action_url( 'enable-all', 0 ) ) . '" class="wp-core-ui button">' . esc_html_x( 'Enable All', 'Approved product download directories', 'poocommerce' ) . '</a> ';
 			}
 
 			if ( $directories->count( true ) > 0 ) {
-				echo '<a href="' . esc_url( $this->get_action_url( 'disable-all', 0 ) ) . '" class="wp-core-ui button">' . esc_html_x( 'Disable All', 'Approved product download directories', 'woocommerce' ) . '</a>';
+				echo '<a href="' . esc_url( $this->get_action_url( 'disable-all', 0 ) ) . '" class="wp-core-ui button">' . esc_html_x( 'Disable All', 'Approved product download directories', 'poocommerce' ) . '</a>';
 			}
 
 			echo '</div>';

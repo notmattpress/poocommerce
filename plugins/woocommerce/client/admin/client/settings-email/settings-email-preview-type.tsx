@@ -26,7 +26,7 @@ export const EmailPreviewType: React.FC< EmailPreviewTypeProps > = ( {
 				onChange={ setEmailType }
 				options={ emailTypes }
 				value={ emailType }
-				aria-label={ __( 'Email preview type', 'woocommerce' ) }
+				aria-label={ __( 'Email preview type', 'poocommerce' ) }
 			></SelectControl>
 		</div>
 	);

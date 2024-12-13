@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { act, render, fireEvent, waitFor } from '@testing-library/react';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -11,9 +11,9 @@ import { __ } from '@wordpress/i18n';
 import CreateAccountBlock from '../form';
 import { textContentMatcher } from '../../../../../../tests/utils/find-by-text';
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	__esModule: true,
-	...jest.requireActual( '@woocommerce/settings' ),
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest
 		.fn()
 		.mockImplementation(

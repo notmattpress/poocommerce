@@ -2,7 +2,7 @@
 /**
  * Merchant notification email
  *
- * @package WooCommerce\Admin\Templates\Emails\HTML
+ * @package PooCommerce\Admin\Templates\Emails\HTML
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
-do_action( 'woocommerce_email_header', $email_heading, $email );
+do_action( 'poocommerce_email_header', $email_heading, $email );
 ?>
 
 <?php if ( isset( $email_image ) ) { ?>
@@ -33,7 +33,7 @@ echo wp_kses(
 	)
 );
 
-$base_color       = get_option( 'woocommerce_email_base_color' );
+$base_color       = get_option( 'poocommerce_email_base_color' );
 $base_text        = wc_light_or_dark( $base_color, '#202020', '#ffffff' );
 $container_styles = 'margin-top: 25px;';
 $buttons_styles   = "
@@ -66,4 +66,4 @@ $buttons_styles   = "
 /*
  * @hooked WC_Emails::email_footer() Output the email footer
  */
-do_action( 'woocommerce_email_footer', $email );
+do_action( 'poocommerce_email_footer', $email );

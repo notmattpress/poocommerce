@@ -1,13 +1,13 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "woocommerce/product-gallery-large-image",
+    "name": "poocommerce/product-gallery-large-image",
     "version": "1.0.0",
     "title": "Large Image",
     "description": "Display the Large Image of a product.",
-    "category": "woocommerce",
+    "category": "poocommerce",
     "keywords": [
-        "WooCommerce"
+        "PooCommerce"
     ],
     "usesContext": [
         "nextPreviousButtonsPosition",
@@ -19,8 +19,8 @@
     "supports": {
         "interactivity": true
     },
-    "textdomain": "woocommerce",
+    "textdomain": "poocommerce",
     "ancestor": [
-        "woocommerce/product-gallery"
+        "poocommerce/product-gallery"
     ]
 }

@@ -2,12 +2,12 @@
 /**
  * Adds and controls pointers for contextual help/tutorials
  *
- * @package WooCommerce\Admin\Pointers
+ * @package PooCommerce\Admin\Pointers
  * @version 2.4.0
  */
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,7 +40,7 @@ class WC_Admin_Pointers {
 				$this->create_product_tutorial();
 				$this->create_variable_product_tutorial();
 				break;
-			case 'woocommerce_page_wc-addons':
+			case 'poocommerce_page_wc-addons':
 				$this->create_wc_addons_tutorial();
 				break;
 		}
@@ -61,7 +61,7 @@ class WC_Admin_Pointers {
 		}
 
 		$labels          = $wp_post_types['product']->labels;
-		$labels->add_new = __( 'Enable guided mode', 'woocommerce' );
+		$labels->add_new = __( 'Enable guided mode', 'poocommerce' );
 		WCAdminAssets::register_script( 'wp-admin-scripts', 'product-tour', true );
 	}
 

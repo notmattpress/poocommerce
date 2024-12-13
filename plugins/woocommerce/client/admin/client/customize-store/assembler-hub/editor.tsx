@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/tree/v16.4.0/packages/edit-site/src/components/editor/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -76,8 +76,8 @@ export const Editor = ( { isLoading }: { isLoading: boolean } ) => {
 				<InterfaceSkeleton
 					enableRegionNavigation={ false }
 					className={ clsx(
-						'woocommerce-customize-store__edit-site-editor',
-						'woocommerce-edit-site-editor__interface-skeleton',
+						'poocommerce-customize-store__edit-site-editor',
+						'poocommerce-edit-site-editor__interface-skeleton',
 						{
 							'show-icon-labels': false,
 							'is-loading': isLoading,

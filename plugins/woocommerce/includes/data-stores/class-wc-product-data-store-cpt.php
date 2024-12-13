@@ -2,13 +2,13 @@
 /**
  * WC_Product_Data_Store_CPT class file.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CostOfGoodsSoldController;
-use Automattic\WooCommerce\Internal\DownloadPermissionsAdjuster;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CostOfGoodsSoldController;
+use Automattic\PooCommerce\Internal\DownloadPermissionsAdjuster;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -199,12 +199,12 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 
 		$id = wp_insert_post(
 			apply_filters(
-				'woocommerce_new_product_data',
+				'poocommerce_new_product_data',
 				array(
 					'post_type'      => 'product',
 					'post_status'    => $product->get_status() ? $product->get_status() : 'publish',
 					'post_author'    => get_current_user_id(),
-					'post_title'     => $product->get_name() ? $product->get_name() : __( 'Product', 'woocommerce' ),
+					'post_title'     => $product->get_name() ? $product->get_name() : __( 'Product', 'poocommerce' ),
 					'post_content'   => $product->get_description(),
 					'post_excerpt'   => $product->get_short_description(),
 					'post_parent'    => $product->get_parent_id(),
@@ -233,12 +233,12 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			if ( ! empty( $sku ) && WC()->is_rest_api_request() && ! $this->obtain_lock_on_sku_for_concurrent_requests( $product ) ) {
 				$product->delete( true );
 				// translators: 1: SKU.
-				throw new Exception( esc_html( sprintf( __( 'The SKU (%1$s) you are trying to insert is already under processing', 'woocommerce' ), $sku ) ) );
+				throw new Exception( esc_html( sprintf( __( 'The SKU (%1$s) you are trying to insert is already under processing', 'poocommerce' ), $sku ) ) );
 			}
 
 			// get the post object so that we can set the status
 			// to the correct value; it is possible that the status was
-			// changed by the woocommerce_new_product_data filter above.
+			// changed by the poocommerce_new_product_data filter above.
 			$post_object = get_post( $product->get_id() );
 			$product->set_status( $post_object->post_status );
 
@@ -253,7 +253,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			$product->save_meta_data();
 			$product->apply_changes();
 
-			do_action( 'woocommerce_new_product', $id, $product );
+			do_action( 'poocommerce_new_product', $id, $product );
 		}
 	}
 
@@ -268,7 +268,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		$post_object = get_post( $product->get_id() );
 
 		if ( ! $product->get_id() || ! $post_object || 'product' !== $post_object->post_type ) {
-			throw new Exception( __( 'Invalid product.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid product.', 'poocommerce' ) );
 		}
 
 		$product->set_props(
@@ -303,7 +303,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		 * @param int        $product_id The product ID.
 		 * @param WC_Product $product    Product instance.
 		 */
-		do_action( 'woocommerce_product_read', $product->get_id(), $product );
+		do_action( 'poocommerce_product_read', $product->get_id(), $product );
 	}
 
 	/**
@@ -385,8 +385,8 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 
 		$product->apply_changes();
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_update_product', $product->get_id(), $product );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_update_product', $product->get_id(), $product );
 	}
 
 	/**
@@ -411,14 +411,14 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		}
 
 		if ( $args['force_delete'] ) {
-			do_action( 'woocommerce_before_delete_' . $post_type, $id );
+			do_action( 'poocommerce_before_delete_' . $post_type, $id );
 			wp_delete_post( $id );
 			$product->set_id( 0 );
-			do_action( 'woocommerce_delete_' . $post_type, $id );
+			do_action( 'poocommerce_delete_' . $post_type, $id );
 		} else {
 			wp_trash_post( $id );
 			$product->set_status( 'trash' );
-			do_action( 'woocommerce_trash_' . $post_type, $id );
+			do_action( 'poocommerce_trash_' . $post_type, $id );
 		}
 	}
 
@@ -508,7 +508,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		 * @param float $cogs_value The value as read from the database.
 		 * @param WC_Product $product The product for which the value is being loaded.
 		 */
-		$cogs_value = apply_filters( 'woocommerce_load_product_cogs_value', $cogs_value, $product );
+		$cogs_value = apply_filters( 'poocommerce_load_product_cogs_value', $cogs_value, $product );
 
 		$product->set_props( array( 'cogs_value' => $cogs_value ) );
 	}
@@ -639,7 +639,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				$download = new WC_Product_Download();
 				$download->set_id( $key );
 				$download->set_name( $value['name'] ? $value['name'] : wc_get_filename_from_url( $value['file'] ) );
-				$download->set_file( apply_filters( 'woocommerce_file_download_path', $value['file'], $product, $key ) );
+				$download->set_file( apply_filters( 'poocommerce_file_download_path', $value['file'], $product, $key ) );
 				$downloads[] = $download;
 			}
 			$product->set_downloads( $downloads );
@@ -725,7 +725,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 						*
 						* @param int $product The variation whose stock is about to change.
 						*/
-						do_action( 'woocommerce_variation_before_set_stock', $product );
+						do_action( 'poocommerce_variation_before_set_stock', $product );
 					} else {
 						/**
 						* Action to signal that the value of 'stock_quantity' for a product is about to change.
@@ -734,7 +734,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 						*
 						* @param int $product The product whose stock is about to change.
 						*/
-						do_action( 'woocommerce_product_before_set_stock', $product );
+						do_action( 'poocommerce_product_before_set_stock', $product );
 					}
 					break;
 			}
@@ -758,7 +758,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			 * @param float|null $cogs_value The value to be written to the database. If returned as null, nothing will be written.
 			 * @param WC_Product $product The product for which the value is being saved.
 			 */
-			$cogs_value = apply_filters( 'woocommerce_save_product_cogs_value', $cogs_value, $product );
+			$cogs_value = apply_filters( 'poocommerce_save_product_cogs_value', $cogs_value, $product );
 
 			if ( ! is_null( $cogs_value ) ) {
 				$updated = $this->update_or_delete_post_meta( $product, '_cogs_total_value', 0.0 === $cogs_value ? '' : $cogs_value );
@@ -838,7 +838,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				 *
 				 * @param WC_Product $product The variation whose stock has changed.
 				 */
-				do_action( 'woocommerce_variation_set_stock', $product );
+				do_action( 'poocommerce_variation_set_stock', $product );
 			} else {
 				/**
 				 * Action to signal that the value of 'stock_quantity' for a product has changed.
@@ -847,7 +847,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				 *
 				 * @param WC_Product $product The variation whose stock has changed.
 				 */
-				do_action( 'woocommerce_product_set_stock', $product );
+				do_action( 'poocommerce_product_set_stock', $product );
 			}
 		}
 
@@ -862,7 +862,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				 * @param string     $stock_status The new stock status of the variation.
 				 * @param WC_Product $product      The product object.
 				 */
-				do_action( 'woocommerce_variation_set_stock_status', $product->get_id(), $product->get_stock_status(), $product );
+				do_action( 'poocommerce_variation_set_stock_status', $product->get_id(), $product->get_stock_status(), $product );
 			} else {
 				/**
 				 * Action to signal that the `stock_status` for a product has changed.
@@ -873,7 +873,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				 * @param string     $stock_status The new stock status of the product.
 				 * @param WC_Product $product      The product object.
 				 */
-				do_action( 'woocommerce_product_set_stock_status', $product->get_id(), $product->get_stock_status(), $product );
+				do_action( 'poocommerce_product_set_stock_status', $product->get_id(), $product->get_stock_status(), $product );
 			}
 		}
 
@@ -882,7 +882,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		}
 
 		// Trigger action so 3rd parties can deal with updated props.
-		do_action( 'woocommerce_product_object_updated_props', $product, $this->updated_props );
+		do_action( 'poocommerce_product_object_updated_props', $product, $this->updated_props );
 
 		// After handling, we can reset the props array.
 		$this->updated_props = array();
@@ -959,7 +959,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			}
 
 			if ( ! is_wp_error( wp_set_post_terms( $product->get_id(), $terms, 'product_visibility', false ) ) ) {
-				do_action( 'woocommerce_product_set_visibility', $product->get_id(), $product->get_catalog_visibility() );
+				do_action( 'poocommerce_product_set_visibility', $product->get_id(), $product->get_catalog_visibility() );
 			}
 		}
 	}
@@ -1037,9 +1037,9 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			}
 
 			if ( $product->is_type( 'variation' ) ) {
-				do_action( 'woocommerce_process_product_file_download_paths', $product->get_parent_id(), $product->get_id(), $downloads );
+				do_action( 'poocommerce_process_product_file_download_paths', $product->get_parent_id(), $product->get_id(), $downloads );
 			} else {
-				do_action( 'woocommerce_process_product_file_download_paths', $product->get_id(), 0, $downloads );
+				do_action( 'poocommerce_process_product_file_download_paths', $product->get_id(), 0, $downloads );
 			}
 
 			return $this->update_or_delete_post_meta( $product, '_downloadable_files', wp_slash( $meta_values ) );
@@ -1063,7 +1063,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		// Action for the transition.
 		if ( $old_type !== $new_type ) {
 			$this->updated_props[] = 'product_type';
-			do_action( 'woocommerce_product_type_changed', $product, $old_type, $new_type );
+			do_action( 'poocommerce_product_type_changed', $product, $old_type, $new_type );
 		}
 	}
 
@@ -1105,7 +1105,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		$non_published_where         = '';
 		$product_visibility_term_ids = wc_get_product_visibility_term_ids();
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && $product_visibility_term_ids['outofstock'] ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) && $product_visibility_term_ids['outofstock'] ) {
 			$exclude_term_ids[] = $product_visibility_term_ids['outofstock'];
 		}
 
@@ -1261,7 +1261,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			)
 		);
 
-		return (int) apply_filters( 'woocommerce_get_product_id_by_sku', $id, $sku );
+		return (int) apply_filters( 'poocommerce_get_product_id_by_sku', $id, $sku );
 	}
 
 	/**
@@ -1291,13 +1291,13 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			)
 		);
 		/**
-		 * Hook woocommerce_get_product_id_by_global_unique_id.
+		 * Hook poocommerce_get_product_id_by_global_unique_id.
 		 *
 		 * @since 9.1.0
 		 * @param mixed $id List of post statuses.
 		 * @param string $global_unique_id Unique ID.
 		 */
-		return (int) apply_filters( 'woocommerce_get_product_id_by_global_unique_id', $id, $global_unique_id );
+		return (int) apply_filters( 'poocommerce_get_product_id_by_global_unique_id', $id, $global_unique_id );
 	}
 
 	/**
@@ -1552,7 +1552,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			'limit'       => $limit + 10,
 		);
 
-		$related_product_query = (array) apply_filters( 'woocommerce_product_related_posts_query', $this->get_related_products_query( $cats_array, $tags_array, $exclude_ids, $limit + 10 ), $product_id, $args );
+		$related_product_query = (array) apply_filters( 'poocommerce_product_related_posts_query', $this->get_related_products_query( $cats_array, $tags_array, $exclude_ids, $limit + 10 ), $product_id, $args );
 
 		// phpcs:ignore WordPress.VIP.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 		return $wpdb->get_col( implode( ' ', $related_product_query ) );
@@ -1581,7 +1581,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			$exclude_term_ids[] = $product_visibility_term_ids['exclude-from-catalog'];
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && $product_visibility_term_ids['outofstock'] ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) && $product_visibility_term_ids['outofstock'] ) {
 			$exclude_term_ids[] = $product_visibility_term_ids['outofstock'];
 		}
 
@@ -1635,7 +1635,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			$product_id_with_stock
 		);
 
-		$sql = apply_filters( 'woocommerce_update_product_stock_query', $sql, $product_id_with_stock, $stock_quantity, 'set' );
+		$sql = apply_filters( 'poocommerce_update_product_stock_query', $sql, $product_id_with_stock, $stock_quantity, 'set' );
 
 		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 
@@ -1704,7 +1704,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			);
 		}
 
-		$sql = apply_filters( 'woocommerce_update_product_stock_query', $sql, $product_id_with_stock, $new_stock, $operation );
+		$sql = apply_filters( 'poocommerce_update_product_stock_query', $sql, $product_id_with_stock, $new_stock, $operation );
 
 		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 
@@ -1720,7 +1720,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		 * @since 3.6
 		 * @param int $product_id_with_stock Product ID that was updated directly.
 		 */
-		do_action( 'woocommerce_updated_product_stock', $product_id_with_stock );
+		do_action( 'poocommerce_updated_product_stock', $product_id_with_stock );
 
 		return $new_stock;
 	}
@@ -1783,7 +1783,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		 * @since 3.6
 		 * @param int $product_id Product ID that was updated directly.
 		 */
-		do_action( 'woocommerce_updated_product_sales', $product_id );
+		do_action( 'poocommerce_updated_product_sales', $product_id );
 	}
 
 	/**
@@ -1863,7 +1863,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 	public function search_products( $term, $type = '', $include_variations = false, $all_statuses = false, $limit = null, $include = null, $exclude = null ) {
 		global $wpdb;
 
-		$custom_results = apply_filters( 'woocommerce_product_pre_search_products', false, $term, $type, $include_variations, $all_statuses, $limit );
+		$custom_results = apply_filters( 'poocommerce_product_pre_search_products', false, $term, $type, $include_variations, $all_statuses, $limit );
 
 		if ( is_array( $custom_results ) ) {
 			return $custom_results;
@@ -1882,13 +1882,13 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 		}
 
 		/**
-		 * Hook woocommerce_search_products_post_statuses.
+		 * Hook poocommerce_search_products_post_statuses.
 		 *
 		 * @since 3.7.0
 		 * @param array $post_statuses List of post statuses.
 		 */
 		$post_statuses = apply_filters(
-			'woocommerce_search_products_post_statuses',
+			'poocommerce_search_products_post_statuses',
 			current_user_can( 'edit_private_products' ) ? array( 'private', 'publish' ) : array( 'publish' )
 		);
 
@@ -2310,7 +2310,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 			$wp_query_args['orderby'] = 'post__in';
 		}
 
-		return apply_filters( 'woocommerce_product_data_store_cpt_get_products_query', $wp_query_args, $query_vars, $this );
+		return apply_filters( 'poocommerce_product_data_store_cpt_get_products_query', $wp_query_args, $query_vars, $this );
 	}
 
 	/**
@@ -2384,7 +2384,7 @@ class WC_Product_Data_Store_CPT extends WC_Data_Store_WP implements WC_Object_Da
 				'tax_status'     => get_post_meta( $id, '_tax_status', true ),
 				'tax_class'      => get_post_meta( $id, '_tax_class', true ),
 			);
-			if ( get_option( 'woocommerce_schema_version', 0 ) >= 920 ) {
+			if ( get_option( 'poocommerce_schema_version', 0 ) >= 920 ) {
 				$product_data['global_unique_id'] = get_post_meta( $id, '_global_unique_id', true );
 			}
 			return $product_data;

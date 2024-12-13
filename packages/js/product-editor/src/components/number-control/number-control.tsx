@@ -170,14 +170,14 @@ export const NumberControl: React.FC< NumberProps > = forwardRef(
 					disabled={ disabled }
 					autoComplete="off"
 					id={ identifier }
-					className="woocommerce-number-control"
+					className="poocommerce-number-control"
 					suffix={
 						<>
 							{ suffix }
 							{ isFocused && (
 								<>
 									<Button
-										className="woocommerce-number-control__increment"
+										className="poocommerce-number-control__increment"
 										icon={ plus }
 										disabled={
 											parseFloat( value || '0' ) >= max
@@ -192,7 +192,7 @@ export const NumberControl: React.FC< NumberProps > = forwardRef(
 										aria-hidden="true"
 										aria-label={ __(
 											'Increment',
-											'woocommerce'
+											'poocommerce'
 										) }
 										tabIndex={ -1 }
 									/>
@@ -201,7 +201,7 @@ export const NumberControl: React.FC< NumberProps > = forwardRef(
 										disabled={
 											parseFloat( value || '0' ) <= min
 										}
-										className="woocommerce-number-control__decrement"
+										className="poocommerce-number-control__decrement"
 										onBlur={ unfocusIfOutside }
 										onMouseDown={ () =>
 											handleIncrement( -step )
@@ -212,7 +212,7 @@ export const NumberControl: React.FC< NumberProps > = forwardRef(
 										aria-hidden="true"
 										aria-label={ __(
 											'Decrement',
-											'woocommerce'
+											'poocommerce'
 										) }
 										tabIndex={ -1 }
 									/>

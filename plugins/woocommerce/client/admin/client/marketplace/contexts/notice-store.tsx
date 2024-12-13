@@ -9,7 +9,7 @@ import { Options } from '@wordpress/notices';
  */
 import { NoticeState, Notice, NoticeStatus } from './types';
 
-const NOTICE_STORE_NAME = 'woocommerce-admin/subscription-notices';
+const NOTICE_STORE_NAME = 'poocommerce-admin/subscription-notices';
 
 const DEFAULT_STATE: NoticeState = {
 	notices: {},

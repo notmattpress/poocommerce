@@ -15,7 +15,7 @@ import { ButtonPositionProps, ProductSearchBlockProps } from './types';
  * also adding extra namespaced attributes. If those namespaced attributes
  * are present, we can be fairly sure it is our own registered variation.
  *
- * @param {ProductSearchBlockProps} block - A WooCommerce block.
+ * @param {ProductSearchBlockProps} block - A PooCommerce block.
  */
 export function isWooSearchBlockVariation( block: ProductSearchBlockProps ) {
 	return (

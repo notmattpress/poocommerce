@@ -2,7 +2,7 @@
 /**
  * Privacy data exporter.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
@@ -71,9 +71,9 @@ class WC_Test_Privacy_Export extends WC_Unit_Test_Case {
 		$this->assertEquals(
 			array(
 				array(
-					'group_id'          => 'woocommerce_customer',
+					'group_id'          => 'poocommerce_customer',
 					'group_label'       => 'Customer Data',
-					'group_description' => 'User&#8217;s WooCommerce customer data.',
+					'group_description' => 'User&#8217;s PooCommerce customer data.',
 					'item_id'           => 'user',
 					'data'              => array(
 						array(
@@ -141,7 +141,7 @@ class WC_Test_Privacy_Export extends WC_Unit_Test_Case {
 	public function test_order_data_exporter() {
 		$response = WC_Privacy_Exporters::order_data_exporter( 'test1@test.com', 1 );
 
-		$this->assertEquals( 'woocommerce_orders', $response['data'][0]['group_id'] );
+		$this->assertEquals( 'poocommerce_orders', $response['data'][0]['group_id'] );
 		$this->assertEquals( 'Orders', $response['data'][0]['group_label'] );
 		$this->assertStringContainsString( 'order-', $response['data'][0]['item_id'] );
 		$this->assertArrayHasKey( 'data', $response['data'][0] );

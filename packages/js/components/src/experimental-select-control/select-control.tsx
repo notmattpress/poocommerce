@@ -138,11 +138,11 @@ function SelectControl< ItemType = DefaultItemType >( {
 	const [ inputValue, setInputValue ] = useState( '' );
 	const instanceId = useInstanceId(
 		SelectControl,
-		'woocommerce-experimental-select-control'
+		'poocommerce-experimental-select-control'
 	) as string;
 
 	const innerInputClassName =
-		'woocommerce-experimental-select-control__input';
+		'poocommerce-experimental-select-control__input';
 
 	const selectControlWrapperRef = useRef< HTMLDivElement >( null );
 
@@ -253,7 +253,7 @@ function SelectControl< ItemType = DefaultItemType >( {
 		const selectControlWrapperElement = selectControlWrapperRef.current;
 		const menuElement = document.getElementById( `${ instanceId }-menu` );
 		const parentPopoverMenuElement = menuElement?.closest(
-			'.woocommerce-experimental-select-control__popover-menu'
+			'.poocommerce-experimental-select-control__popover-menu'
 		);
 
 		return (
@@ -286,7 +286,7 @@ function SelectControl< ItemType = DefaultItemType >( {
 			id={ instanceId }
 			ref={ selectControlWrapperRef }
 			className={ classnames(
-				'woocommerce-experimental-select-control',
+				'poocommerce-experimental-select-control',
 				className,
 				{
 					'is-read-only': isReadOnly,
@@ -301,7 +301,7 @@ function SelectControl< ItemType = DefaultItemType >( {
 			{ label && (
 				<label
 					{ ...getLabelProps() }
-					className="woocommerce-experimental-select-control__label"
+					className="poocommerce-experimental-select-control__label"
 				>
 					{ label }
 				</label>

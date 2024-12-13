@@ -4,31 +4,31 @@
 
 export const MENUS = [
 	[
-		'WooCommerce',
+		'PooCommerce',
 		'.menu-top > a[href*=wc-admin].menu-top-first',
 		[
 			[ 'Home', '', 'Home' ],
 			[
 				'Orders',
-				'#toplevel_page_woocommerce > ul > li:nth-child(3) > a',
+				'#toplevel_page_poocommerce > ul > li:nth-child(3) > a',
 				'Orders',
 			],
 			[
 				'Reports',
-				'#toplevel_page_woocommerce > ul > li:nth-child(6) > a',
+				'#toplevel_page_poocommerce > ul > li:nth-child(6) > a',
 				'Orders',
 			],
 			[
 				'Settings',
-				'#toplevel_page_woocommerce > ul > li:nth-child(7) > a',
+				'#toplevel_page_poocommerce > ul > li:nth-child(7) > a',
 				'General',
 			],
 			[
 				'Status',
-				'#toplevel_page_woocommerce > ul > li:nth-child(8) > a',
+				'#toplevel_page_poocommerce > ul > li:nth-child(8) > a',
 				'System status',
 			],
-			// [ 'Extensions', '#toplevel_page_woocommerce > ul > li:nth-child(9)', 'Extensions' ],
+			// [ 'Extensions', '#toplevel_page_poocommerce > ul > li:nth-child(9)', 'Extensions' ],
 		],
 	],
 	[
@@ -68,12 +68,12 @@ export const MENUS = [
 		[
 			[
 				'Overview',
-				'#toplevel_page_woocommerce-marketing > ul > li:nth-child(2) > a',
+				'#toplevel_page_poocommerce-marketing > ul > li:nth-child(2) > a',
 				'Overview',
 			],
 			[
 				'Coupons',
-				'#toplevel_page_woocommerce-marketing > ul > li:nth-child(3) > a',
+				'#toplevel_page_poocommerce-marketing > ul > li:nth-child(3) > a',
 				'Coupons',
 			],
 		],

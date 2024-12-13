@@ -4,7 +4,7 @@
  *
  * Returns an array of continents.
  *
- * @package WooCommerce\i18n
+ * @package PooCommerce\i18n
  * @version 2.5.0
  */
 
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 
 return array(
 	'AF' => array(
-		'name'      => __( 'Africa', 'woocommerce' ),
+		'name'      => __( 'Africa', 'poocommerce' ),
 		'countries' => array(
 			'AO',
 			'BF',
@@ -75,7 +75,7 @@ return array(
 		),
 	),
 	'AN' => array(
-		'name'      => __( 'Antarctica', 'woocommerce' ),
+		'name'      => __( 'Antarctica', 'poocommerce' ),
 		'countries' => array(
 			'AQ',
 			'BV',
@@ -85,7 +85,7 @@ return array(
 		),
 	),
 	'AS' => array(
-		'name'      => __( 'Asia', 'woocommerce' ),
+		'name'      => __( 'Asia', 'poocommerce' ),
 		'countries' => array(
 			'AE',
 			'AF',
@@ -143,7 +143,7 @@ return array(
 		),
 	),
 	'EU' => array(
-		'name'      => __( 'Europe', 'woocommerce' ),
+		'name'      => __( 'Europe', 'poocommerce' ),
 		'countries' => array(
 			'AD',
 			'AL',
@@ -200,7 +200,7 @@ return array(
 		),
 	),
 	'NA' => array(
-		'name'      => __( 'North America', 'woocommerce' ),
+		'name'      => __( 'North America', 'poocommerce' ),
 		'countries' => array(
 			'AG',
 			'AI',
@@ -246,7 +246,7 @@ return array(
 		),
 	),
 	'OC' => array(
-		'name'      => __( 'Oceania', 'woocommerce' ),
+		'name'      => __( 'Oceania', 'poocommerce' ),
 		'countries' => array(
 			'AS',
 			'AU',
@@ -277,7 +277,7 @@ return array(
 		),
 	),
 	'SA' => array(
-		'name'      => __( 'South America', 'woocommerce' ),
+		'name'      => __( 'South America', 'poocommerce' ),
 		'countries' => array(
 			'AR',
 			'BO',

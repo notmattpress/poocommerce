@@ -2,10 +2,10 @@
 /**
  * Unit tests for the WC_Cart_Test class.
  *
- * @package WooCommerce\Tests\Checkout.
+ * @package PooCommerce\Tests\Checkout.
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 
 /**
  * Class WC_Checkout
@@ -53,7 +53,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_cart_needs_shipping_address',
+			'poocommerce_cart_needs_shipping_address',
 			function() {
 				return true;
 			}
@@ -154,14 +154,14 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_validate_checkout_adds_we_dont_ship_error_only_if_country_exists( $country, $expect_we_dont_ship_error ) {
 		add_filter(
-			'woocommerce_countries_allowed_countries',
+			'poocommerce_countries_allowed_countries',
 			function() {
 				return array( 'ES' );
 			}
 		);
 
 		add_filter(
-			'woocommerce_cart_needs_shipping',
+			'poocommerce_cart_needs_shipping',
 			function() {
 				return true;
 			}
@@ -199,7 +199,7 @@ class WC_Checkout_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox If the WooCommerce class's customer object is null (like if WC has not been fully initialized yet),
+	 * @testdox If the PooCommerce class's customer object is null (like if WC has not been fully initialized yet),
 	 *          calling WC_Checkout::get_value should not throw an error.
 	 */
 	public function test_get_value_no_error_on_null_customer() {

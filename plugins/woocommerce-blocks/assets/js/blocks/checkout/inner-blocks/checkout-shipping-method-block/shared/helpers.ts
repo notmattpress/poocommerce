@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import type { CartShippingPackageShippingRate } from '@woocommerce/type-defs/cart';
-import { hasCollectableRate } from '@woocommerce/base-utils';
+import type { CartShippingPackageShippingRate } from '@poocommerce/type-defs/cart';
+import { hasCollectableRate } from '@poocommerce/base-utils';
 
 export interface minMaxPrices {
 	min: CartShippingPackageShippingRate | undefined;

@@ -2,16 +2,16 @@
 /**
  * Tests for the orders REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
 // phpcs:ignore Squiz.Commenting.FileComment.Missing
 require_once __DIR__ . '/date-filtering.php';
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Class WC_Tests_API_Orders
@@ -171,7 +171,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 		$site_level_term_insertion_result = wp_insert_term( $term_name, $site_level_attribute_slug );
 		$site_level_term                  = get_term( $site_level_term_insertion_result['term_id'] );
 
-		$product   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$variation = wc_get_product( $product->get_children()[0] );
 
 		$line_item = new WC_Order_Item_Product();
@@ -213,7 +213,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 	public function test_get_item_with_variation_parent_name() {
 		wp_set_current_user( $this->user );
 
-		$product   = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
+		$product   = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_variation_product();
 		$variation = wc_get_product( $product->get_children()[0] );
 
 		$line_item = new WC_Order_Item_Product();
@@ -272,7 +272,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_order() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request = new WP_REST_Request( 'POST', '/wc/v3/orders' );
 		$request->set_body_params(
 			array(
@@ -394,7 +394,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_update_order_payment_method_title_sanitize() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		// Test when creating order.
 		$request = new WP_REST_Request( 'POST', '/wc/v3/orders' );
@@ -470,7 +470,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_create_order_invalid_fields() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		// Non-existent customer.
 		$request = new WP_REST_Request( 'POST', '/wc/v3/orders' );
@@ -543,7 +543,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_required_product_reference', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_required_product_reference', $data['code'] );
 		$this->assertEquals( 400, $response->get_status() );
 	}
 
@@ -621,7 +621,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_order_after_delete_product() {
 		wp_set_current_user( $this->user );
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$order   = OrderHelper::create_order( 1, $product );
 		$product->delete( true );
 
@@ -1002,7 +1002,7 @@ class WC_Tests_API_Orders extends WC_REST_Unit_Test_Case {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_coupon', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_coupon', $data['code'] );
 		$this->assertEquals( 'Coupon "non_existing_coupon" does not exist!', $data['message'] );
 	}
 

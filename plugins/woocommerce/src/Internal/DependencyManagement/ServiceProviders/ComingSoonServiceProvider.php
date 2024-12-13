@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonAdminBarBadge;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonAdminBarBadge;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 
 /**
  * Service provider for the Coming Soon mode.

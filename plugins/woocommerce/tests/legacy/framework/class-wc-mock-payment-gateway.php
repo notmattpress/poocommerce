@@ -2,7 +2,7 @@
 /**
  * Class WC_Mock_Payment_Gateway
  *
- * @package WooCommerce\Tests\Framework
+ * @package PooCommerce\Tests\Framework
  */
 
 /**
@@ -16,7 +16,7 @@ class WC_Mock_Payment_Gateway extends WC_Payment_Gateway {
 		$this->enabled            = 'yes';
 		$this->id                 = 'mock';
 		$this->has_fields         = false;
-		$this->order_button_text  = __( 'Proceed to PayPal', 'woocommerce' );
+		$this->order_button_text  = __( 'Proceed to PayPal', 'poocommerce' );
 		$this->method_title       = 'Mock Gateway';
 		$this->method_description = 'Mock Gateway for unit tests';
 		$this->pay_button_id      = 'mock-pay-button';

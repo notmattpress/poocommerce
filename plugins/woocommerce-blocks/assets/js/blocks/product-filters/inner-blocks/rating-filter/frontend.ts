@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getContext, store, getElement } from '@woocommerce/interactivity';
+import { getContext, store, getElement } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -25,11 +25,11 @@ function getRatingFilters( context: ProductFiltersContext ): Array< string > {
 	return context.params[ filterRatingKey ].split( ',' );
 }
 
-store( 'woocommerce/product-filter-rating', {
+store( 'poocommerce/product-filter-rating', {
 	actions: {
 		toggleFilter: () => {
 			const context = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			// Pick out the active filters from the context
@@ -58,7 +58,7 @@ store( 'woocommerce/product-filter-rating', {
 
 		clearFilters: () => {
 			const context = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			const updatedParams = context.params;
 

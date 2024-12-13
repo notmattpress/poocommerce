@@ -1,14 +1,14 @@
 ---
-post_title: Privacy Standards for WooCommerce Extensions
+post_title: Privacy Standards for PooCommerce Extensions
 menu_title: Privacy Standards
 tags: reference
 ---
 
-Privacy and data protection are becoming increasingly important online, and WooCommerce extensions are no exception. This document outlines the key markers of quality regarding privacy for WooCommerce extensions, the current methods for testing compliance, and the standards developers should adhere to ensure user trust and legal compliance.
+Privacy and data protection are becoming increasingly important online, and PooCommerce extensions are no exception. This document outlines the key markers of quality regarding privacy for PooCommerce extensions, the current methods for testing compliance, and the standards developers should adhere to ensure user trust and legal compliance.
 
 ## Standards for privacy
 
-To maintain high privacy standards, developers of WooCommerce extensions should adhere to the following:
+To maintain high privacy standards, developers of PooCommerce extensions should adhere to the following:
 
 ### Presence of privacy policy page
 
@@ -21,8 +21,8 @@ To maintain high privacy standards, developers of WooCommerce extensions should 
 
 ### GDPR compliance
 
-For guidance on ensuring your WooCommerce extension complies with the General Data Protection Regulation (GDPR), please refer to our detailed documentation on [GDPR compliance](./gdpr-compliance.md).
+For guidance on ensuring your PooCommerce extension complies with the General Data Protection Regulation (GDPR), please refer to our detailed documentation on [GDPR compliance](./gdpr-compliance.md).
 
 ## Conclusion
 
-Adhering to privacy standards is essential for WooCommerce extension developers to build trust with users and ensure compliance with legal requirements. By establishing a clear privacy policy and avoiding unauthorized external requests, developers can demonstrate their commitment to privacy and data protection. Regular testing and compliance checks will help maintain these standards and protect user data effectively.
+Adhering to privacy standards is essential for PooCommerce extension developers to build trust with users and ensure compliance with legal requirements. By establishing a clear privacy policy and avoiding unauthorized external requests, developers can demonstrate their commitment to privacy and data protection. Regular testing and compliance checks will help maintain these standards and protect user data effectively.

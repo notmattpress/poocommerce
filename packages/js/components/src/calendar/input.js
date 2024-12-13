@@ -21,7 +21,7 @@ const DateInput = ( {
 	onKeyDown = noop,
 	errorPosition = 'bottom center',
 } ) => {
-	const classes = classnames( 'woocommerce-calendar__input', {
+	const classes = classnames( 'poocommerce-calendar__input', {
 		'is-empty': value.length === 0,
 		'is-error': error,
 	} );
@@ -30,7 +30,7 @@ const DateInput = ( {
 		<div className={ classes }>
 			<input
 				type="text"
-				className="woocommerce-calendar__input-text"
+				className="poocommerce-calendar__input-text"
 				value={ value }
 				onChange={ onChange }
 				aria-label={ label }
@@ -44,7 +44,7 @@ const DateInput = ( {
 			/>
 			{ error && (
 				<Popover
-					className="woocommerce-calendar__input-error"
+					className="poocommerce-calendar__input-error"
 					focusOnMount={ false }
 					position={ errorPosition }
 				>

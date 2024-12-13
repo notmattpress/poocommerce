@@ -5,14 +5,14 @@ import { __ } from '@wordpress/i18n';
 import {
 	useExpressPaymentMethods,
 	usePaymentMethodInterface,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import {
 	cloneElement,
 	isValidElement,
 	useCallback,
 	useRef,
 } from '@wordpress/element';
-import { useEditorContext } from '@woocommerce/base-context';
+import { useEditorContext } from '@poocommerce/base-context';
 import deprecated from '@wordpress/deprecated';
 import { useDispatch, useSelect } from '@wordpress/data';
 
@@ -126,8 +126,8 @@ const ExpressPaymentMethods = () => {
 				'Express Payment Methods should use the provided onError handler instead.',
 				{
 					alternative: 'onError',
-					plugin: 'woocommerce-gutenberg-products-block',
-					link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/4228',
+					plugin: 'poocommerce-gutenberg-products-block',
+					link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/4228',
 				}
 			);
 			if ( errorMessage ) {
@@ -169,7 +169,7 @@ const ExpressPaymentMethods = () => {
 			} )
 		) : (
 			<li key="noneRegistered">
-				{ __( 'No registered Payment Methods', 'woocommerce' ) }
+				{ __( 'No registered Payment Methods', 'poocommerce' ) }
 			</li>
 		);
 

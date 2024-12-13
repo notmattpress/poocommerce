@@ -8,7 +8,7 @@ import { useEffect, useMemo, useRef } from '@wordpress/element';
 import { dispatch, useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { addQueryArgs } from '@wordpress/url';
-import { recordEvent, queueRecordEvent } from '@woocommerce/tracks';
+import { recordEvent, queueRecordEvent } from '@poocommerce/tracks';
 import { store as commandsStore } from '@wordpress/commands';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -18,12 +18,12 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { registerCommandWithTracking } from './register-command-with-tracking';
 import { useEditedPostType } from './use-edited-post-type';
 
-const registerWooCommerceSettingsCommand = ( { label, tab, origin } ) => {
+const registerPooCommerceSettingsCommand = ( { label, tab, origin } ) => {
 	registerCommandWithTracking( {
-		name: `woocommerce/settings-${ tab }`,
+		name: `poocommerce/settings-${ tab }`,
 		label: sprintf(
 			// translators: %s is the title of the Settings Tab. This is used as a command in the Command Palette.
-			__( 'WooCommerce Settings: %s', 'woocommerce' ),
+			__( 'PooCommerce Settings: %s', 'poocommerce' ),
 			label
 		),
 		icon: settings,
@@ -48,7 +48,7 @@ function useProductCommandLoader( { search } ) {
 		if ( search !== '' ) {
 			clearTimeout( trackingSearchTimeout.current );
 			trackingSearchTimeout.current = setTimeout( () => {
-				recordEvent( 'woocommerce_command_palette_search', {
+				recordEvent( 'poocommerce_command_palette_search', {
 					value: search,
 					origin,
 				} );
@@ -87,14 +87,14 @@ function useProductCommandLoader( { search } ) {
 				searchLabel: record.title?.rendered + ' ' + record.id,
 				label: record.title?.rendered
 					? decodeEntities( record.title?.rendered )
-					: __( '(no title)', 'woocommerce' ),
+					: __( '(no title)', 'poocommerce' ),
 				icon: box,
 			};
 			return {
 				...command,
 				callback: ( { close } ) => {
-					queueRecordEvent( 'woocommerce_command_palette_submit', {
-						name: 'woocommerce/product',
+					queueRecordEvent( 'poocommerce_command_palette_submit', {
+						name: 'poocommerce/product',
 						origin,
 					} );
 
@@ -116,7 +116,7 @@ function useProductCommandLoader( { search } ) {
 	};
 }
 
-const WooCommerceCommands = () => {
+const PooCommerceCommands = () => {
 	const { editedPostType } = useEditedPostType();
 	const origin = editedPostType ? editedPostType + '-editor' : null;
 	const { isCommandPaletteOpen } = useSelect( ( select ) => {
@@ -129,7 +129,7 @@ const WooCommerceCommands = () => {
 
 	useEffect( () => {
 		if ( isCommandPaletteOpen && ! wasCommandPaletteOpen.current ) {
-			recordEvent( 'woocommerce_command_palette_open', {
+			recordEvent( 'poocommerce_command_palette_open', {
 				origin,
 			} );
 		}
@@ -138,8 +138,8 @@ const WooCommerceCommands = () => {
 
 	useEffect( () => {
 		registerCommandWithTracking( {
-			name: 'woocommerce/add-new-product',
-			label: __( 'Add new product', 'woocommerce' ),
+			name: 'poocommerce/add-new-product',
+			label: __( 'Add new product', 'poocommerce' ),
 			icon: plus,
 			callback: () => {
 				document.location = addQueryArgs( 'post-new.php', {
@@ -149,8 +149,8 @@ const WooCommerceCommands = () => {
 			origin,
 		} );
 		registerCommandWithTracking( {
-			name: 'woocommerce/add-new-order',
-			label: __( 'Add new order', 'woocommerce' ),
+			name: 'poocommerce/add-new-order',
+			label: __( 'Add new order', 'poocommerce' ),
 			icon: plus,
 			callback: () => {
 				document.location = addQueryArgs( 'admin.php', {
@@ -161,8 +161,8 @@ const WooCommerceCommands = () => {
 			origin,
 		} );
 		registerCommandWithTracking( {
-			name: 'woocommerce/view-products',
-			label: __( 'Products', 'woocommerce' ),
+			name: 'poocommerce/view-products',
+			label: __( 'Products', 'poocommerce' ),
 			icon: box,
 			callback: () => {
 				document.location = addQueryArgs( 'edit.php', {
@@ -172,8 +172,8 @@ const WooCommerceCommands = () => {
 			origin,
 		} );
 		registerCommandWithTracking( {
-			name: 'woocommerce/view-orders',
-			label: __( 'Orders', 'woocommerce' ),
+			name: 'poocommerce/view-orders',
+			label: __( 'Orders', 'poocommerce' ),
 			icon: box,
 			callback: () => {
 				document.location = addQueryArgs( 'admin.php', {
@@ -183,7 +183,7 @@ const WooCommerceCommands = () => {
 			origin,
 		} );
 		dispatch( commandsStore ).registerCommandLoader( {
-			name: 'woocommerce/product',
+			name: 'poocommerce/product',
 			hook: useProductCommandLoader,
 		} );
 
@@ -196,7 +196,7 @@ const WooCommerceCommands = () => {
 				window.wcCommandPaletteSettings.settingsTabs;
 
 			settingsCommands.forEach( ( settingsCommand ) => {
-				registerWooCommerceSettingsCommand( {
+				registerPooCommerceSettingsCommand( {
 					label: settingsCommand.label,
 					tab: settingsCommand.key,
 					origin,
@@ -208,6 +208,6 @@ const WooCommerceCommands = () => {
 	return null;
 };
 
-registerPlugin( 'woocommerce-commands-registration', {
-	render: WooCommerceCommands,
+registerPlugin( 'poocommerce-commands-registration', {
+	render: PooCommerceCommands,
 } );

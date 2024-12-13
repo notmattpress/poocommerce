@@ -235,7 +235,7 @@ class List extends Component< Props > {
 		const { instanceId, listboxId, options, selectedIndex, staticList } =
 			this.props;
 		const listboxClasses = classnames(
-			'woocommerce-select-control__listbox',
+			'poocommerce-select-control__listbox',
 			{
 				'is-static': staticList,
 			}
@@ -253,12 +253,12 @@ class List extends Component< Props > {
 					<Button
 						ref={ this.getOptionRef( index ) }
 						key={ option.key }
-						id={ `woocommerce-select-control__option-${ instanceId }-${ option.key }` }
+						id={ `poocommerce-select-control__option-${ instanceId }-${ option.key }` }
 						role="option"
 						aria-selected={ index === selectedIndex }
 						disabled={ option.isDisabled }
 						className={ classnames(
-							'woocommerce-select-control__option',
+							'poocommerce-select-control__option',
 							{
 								'is-selected': index === selectedIndex,
 							}

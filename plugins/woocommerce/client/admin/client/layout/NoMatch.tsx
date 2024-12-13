@@ -8,9 +8,9 @@ import { useState, useEffect } from '@wordpress/element';
  */
 import { __ } from '@wordpress/i18n';
 import { Card, CardBody } from '@wordpress/components';
-import { Spinner } from '@woocommerce/components';
-import { Text } from '@woocommerce/experimental';
-import { WooHeaderPageTitle } from '@woocommerce/admin-layout';
+import { Spinner } from '@poocommerce/components';
+import { Text } from '@poocommerce/experimental';
+import { WooHeaderPageTitle } from '@poocommerce/admin-layout';
 
 const NoMatch: React.FC = () => {
 	const [ isDelaying, setIsDelaying ] = useState( true );
@@ -34,9 +34,9 @@ const NoMatch: React.FC = () => {
 		return (
 			<>
 				<WooHeaderPageTitle>
-					{ __( 'Loading…', 'woocommerce' ) }
+					{ __( 'Loading…', 'poocommerce' ) }
 				</WooHeaderPageTitle>
-				<div className="woocommerce-layout__loading">
+				<div className="poocommerce-layout__loading">
 					<Spinner />
 				</div>
 			</>
@@ -44,13 +44,13 @@ const NoMatch: React.FC = () => {
 	}
 
 	return (
-		<div className="woocommerce-layout__no-match">
+		<div className="poocommerce-layout__no-match">
 			<Card>
 				<CardBody>
 					<Text>
 						{ __(
 							'Sorry, you are not allowed to access this page.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Text>
 				</CardBody>

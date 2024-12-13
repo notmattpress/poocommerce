@@ -10,7 +10,7 @@ const {
 	evalAndClick,
 	clickUpdateOrder,
 	waitForSelector,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * Evaluate and click a button selector then wait for a result selector.
@@ -31,8 +31,8 @@ const getRefundQuantityInputSelector = ( productName ) =>
 	`td.name[data-sort-value="${ productName }"] ~ td.quantity input.refund_order_item_qty`;
 
 const runOrderRefundRestockTest = () => {
-	describe( 'WooCommerce Orders > Refund and restock an order item', () => {
-		// See: https://github.com/woocommerce/woocommerce/issues/30618
+	describe( 'PooCommerce Orders > Refund and restock an order item', () => {
+		// See: https://github.com/poocommerce/poocommerce/issues/30618
 		it( 'Can update order after refunding item without automatic stock adjustment', async () => {
 			const noInventoryProductId = await createSimpleProduct();
 			const productToRestockId = await createSimpleProduct(
@@ -61,7 +61,7 @@ const runOrderRefundRestockTest = () => {
 			await merchant.goToOrder( orderId );
 
 			// Get the currency symbol for the store's selected currency
-			await page.waitForSelector( '.woocommerce-Price-currencySymbol' );
+			await page.waitForSelector( '.poocommerce-Price-currencySymbol' );
 
 			// Verify stock reduction system note was added
 			await expect( page ).toMatchElement( '.system-note', {

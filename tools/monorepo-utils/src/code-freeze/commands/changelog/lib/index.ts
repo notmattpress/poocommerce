@@ -38,13 +38,13 @@ const updateReleaseChangelogs = async (
 	const readmeFile = path.join(
 		tmpRepoPath,
 		'plugins',
-		'woocommerce',
+		'poocommerce',
 		'readme.txt'
 	);
 	const nextLogFile = path.join(
 		tmpRepoPath,
 		'plugins',
-		'woocommerce',
+		'poocommerce',
 		'NEXT_CHANGELOG.md'
 	);
 
@@ -59,7 +59,7 @@ const updateReleaseChangelogs = async (
 	// Convert PR number to markdown link.
 	nextLog = nextLog.replace(
 		/\[#(\d+)\](?!\()/g,
-		'[#$1](https://github.com/woocommerce/woocommerce/pull/$1)'
+		'[#$1](https://github.com/poocommerce/poocommerce/pull/$1)'
 	);
 
 	readme = readme.replace(
@@ -113,7 +113,7 @@ export const updateReleaseBranchChangelogs = async (
 
 		Logger.notice( `Running the changelog script in ${ tmpRepoPath }` );
 		execSync(
-			`pnpm --filter=@woocommerce/plugin-woocommerce changelog write --add-pr-num -n -vvv --use-version ${ version }`,
+			`pnpm --filter=@poocommerce/plugin-poocommerce changelog write --add-pr-num -n -vvv --use-version ${ version }`,
 			{
 				cwd: tmpRepoPath,
 				stdio: 'inherit',
@@ -122,7 +122,7 @@ export const updateReleaseBranchChangelogs = async (
 		Logger.notice( `Committing deleted files in ${ tmpRepoPath }` );
 		//Checkout pnpm-lock.yaml to prevent issues in case of an out of date lockfile.
 		await git.checkout( 'pnpm-lock.yaml' );
-		await git.add( 'plugins/woocommerce/changelog/' );
+		await git.add( 'plugins/poocommerce/changelog/' );
 		await git.commit( `Delete changelog files from ${ version } release` );
 		const deletionCommitHash = await git.raw( [ 'rev-parse', 'HEAD' ] );
 		Logger.notice( `git deletion hash: ${ deletionCommitHash }` );
@@ -133,7 +133,7 @@ export const updateReleaseBranchChangelogs = async (
 		Logger.notice(
 			`Committing readme.txt changes in ${ branch } on ${ tmpRepoPath }`
 		);
-		await git.add( 'plugins/woocommerce/readme.txt' );
+		await git.add( 'plugins/poocommerce/readme.txt' );
 		await git.commit(
 			`Update the readme files for the ${ version } release`
 		);

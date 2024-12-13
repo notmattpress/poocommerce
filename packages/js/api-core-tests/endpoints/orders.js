@@ -10,9 +10,9 @@ const {
 const { getOrderExample, shared } = require( '../data' );
 
 /**
- * WooCommerce Orders endpoints.
+ * PooCommerce Orders endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#orders
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#orders
  */
 const ordersApi = {
 	name: 'Orders',

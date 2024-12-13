@@ -4,9 +4,9 @@
 import { __ } from '@wordpress/i18n';
 import { Tooltip } from '@wordpress/components';
 import { Icon, chevronLeft } from '@wordpress/icons';
-import { getHistory, updateQueryString } from '@woocommerce/navigation';
+import { getHistory, updateQueryString } from '@poocommerce/navigation';
 import { ENTER, SPACE } from '@wordpress/keycodes';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ export type BackButtonProps = {
 };
 
 export const BackButton: React.FC< BackButtonProps > = ( { title } ) => {
-	const homeText = __( 'WooCommerce Home', 'woocommerce' );
+	const homeText = __( 'PooCommerce Home', 'poocommerce' );
 
 	const navigateHome = () => {
 		recordEvent( 'topbar_back_button', {
@@ -34,7 +34,7 @@ export const BackButton: React.FC< BackButtonProps > = ( { title } ) => {
 				tabIndex={ 0 }
 				role="button"
 				data-testid="header-back-button"
-				className="woocommerce-layout__header-back-button"
+				className="poocommerce-layout__header-back-button"
 				onKeyDown={ ( { keyCode } ) => {
 					if ( keyCode === ENTER || keyCode === SPACE ) {
 						navigateHome();

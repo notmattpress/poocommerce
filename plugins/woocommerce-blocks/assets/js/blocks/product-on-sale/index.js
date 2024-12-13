@@ -13,8 +13,8 @@ import sharedAttributes, {
 	sharedAttributeBlockTypes,
 } from '../../utils/shared-attributes';
 
-registerBlockType( 'woocommerce/product-on-sale', {
-	title: __( 'On Sale Products', 'woocommerce' ),
+registerBlockType( 'poocommerce/product-on-sale', {
+	title: __( 'On Sale Products', 'poocommerce' ),
 	apiVersion: 3,
 	icon: {
 		src: (
@@ -24,11 +24,11 @@ registerBlockType( 'woocommerce/product-on-sale', {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 	description: __(
 		'Display a grid of products currently on sale.',
-		'woocommerce'
+		'poocommerce'
 	),
 	supports: {
 		align: [ 'wide', 'full' ],
@@ -51,10 +51,10 @@ registerBlockType( 'woocommerce/product-on-sale', {
 			{
 				type: 'block',
 				blocks: sharedAttributeBlockTypes.filter(
-					( value ) => value !== 'woocommerce/product-on-sale'
+					( value ) => value !== 'poocommerce/product-on-sale'
 				),
 				transform: ( attributes ) =>
-					createBlock( 'woocommerce/product-on-sale', attributes ),
+					createBlock( 'poocommerce/product-on-sale', attributes ),
 			},
 		],
 	},

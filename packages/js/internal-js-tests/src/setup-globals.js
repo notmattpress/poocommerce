@@ -69,8 +69,8 @@ global.wcSettings = {
 			failed: 'Failed',
 		},
 		wcAdminSettings: {
-			woocommerce_actionable_order_statuses: [],
-			woocommerce_excluded_report_order_statuses: [],
+			poocommerce_actionable_order_statuses: [],
+			poocommerce_excluded_report_order_statuses: [],
 		},
 		dataEndpoints: {
 			performanceIndicators: [
@@ -107,11 +107,11 @@ wordPressPackages.forEach( ( lib ) => {
 
 wooCommercePackages.forEach( ( lib ) => {
 	Object.defineProperty( global.wc, lib, {
-		get: () => require( `@woocommerce/${ lib }` ),
+		get: () => require( `@poocommerce/${ lib }` ),
 	} );
 } );
 
-const config = require( '../../../../plugins/woocommerce/client/admin/config/development.json' );
+const config = require( '../../../../plugins/poocommerce/client/admin/config/development.json' );
 
 // Check if test is jsdom or node
 if ( global.window ) {
@@ -119,8 +119,8 @@ if ( global.window ) {
 }
 
 setLocaleData(
-	{ '': { domain: 'woocommerce', lang: 'en_US' } },
-	'woocommerce'
+	{ '': { domain: 'poocommerce', lang: 'en_US' } },
+	'poocommerce'
 );
 
 // Mock core/notices store for components dispatching core notices

@@ -3,8 +3,8 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import type { CartFeeItem, Currency } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import type { CartFeeItem, Currency } from '@poocommerce/types';
 import type { ReactElement } from 'react';
 
 /**
@@ -54,7 +54,7 @@ const TotalsFees = ( {
 							className
 						) }
 						currency={ currency }
-						label={ name || __( 'Fee', 'woocommerce' ) }
+						label={ name || __( 'Fee', 'poocommerce' ) }
 						value={
 							getSetting( 'displayCartPricesIncludingTax', false )
 								? feesValue + feesTaxValue

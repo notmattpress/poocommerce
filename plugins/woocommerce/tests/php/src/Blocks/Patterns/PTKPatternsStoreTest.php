@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Patterns;
+namespace Automattic\PooCommerce\Tests\Blocks\Patterns;
 
-use Automattic\WooCommerce\Blocks\Patterns\PTKClient;
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\Blocks\Patterns\PTKClient;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
 use WP_Error;
 
 /**
@@ -95,7 +95,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test patterns cache is flushed when tracking is not allowed.
 	 */
 	public function test_patterns_cache_is_flushed_when_tracking_is_not_allowed() {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$expected_patterns = array(
 			array(
 				'title' => 'My pattern',
@@ -114,7 +114,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetching patterns is scheduled when tracking is allowed.
 	 */
 	public function test_fetching_patterns_is_schedule_when_tracking_is_allowed() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$expected_patterns = array(
 			array(
 				'title' => 'My pattern',
@@ -132,7 +132,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetch patterns should not set the patterns cache when fetching patterns fails.
 	 */
 	public function test_fetch_patterns_should_not_set_the_patterns_cache_when_fetching_patterns_fails() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$this->ptk_client
 			->expects( $this->once() )
 			->method( 'fetch_patterns' )
@@ -148,7 +148,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetch patterns should set the patterns cache after fetching patterns if tracking is allowed.
 	 */
 	public function test_fetch_patterns_should_set_the_patterns_cache_after_fetching_patterns() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$expected_patterns = array(
 			array(
 				'title' => 'My pattern',
@@ -170,7 +170,7 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	 * Test fetch_patterns should register testimonials category as reviews.
 	 */
 	public function test_fetch_patterns_should_register_testimonials_category_as_reviews() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$ptk_patterns = array(
 			array(
 				'title'      => 'My pattern',
@@ -216,8 +216,8 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 	/**
 	 * Test fetch_patterns should filter out the patterns with dependencies.
 	 */
-	public function test_fetch_patterns_should_filter_out_the_patterns_with_dependencies_diff_than_woocommerce() {
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+	public function test_fetch_patterns_should_filter_out_the_patterns_with_dependencies_diff_than_poocommerce() {
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$ptk_patterns = array(
 			array(
 				'ID'    => 1,
@@ -230,13 +230,13 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 			),
 			array(
 				'ID'           => 3,
-				'title'        => 'Jetpack and WooCommerce dep',
-				'dependencies' => [ 'woocommerce', 'jetpack' ],
+				'title'        => 'Jetpack and PooCommerce dep',
+				'dependencies' => [ 'poocommerce', 'jetpack' ],
 			),
 			array(
 				'ID'           => 4,
-				'title'        => 'WooCommerce dep',
-				'dependencies' => [ 'woocommerce' ],
+				'title'        => 'PooCommerce dep',
+				'dependencies' => [ 'poocommerce' ],
 			),
 			array(
 				'ID'           => 5,
@@ -252,8 +252,8 @@ class PTKPatternsStoreTest extends \WP_UnitTestCase {
 			),
 			array(
 				'ID'           => 4,
-				'title'        => 'WooCommerce dep',
-				'dependencies' => [ 'woocommerce' ],
+				'title'        => 'PooCommerce dep',
+				'dependencies' => [ 'poocommerce' ],
 			),
 			array(
 				'ID'           => 5,

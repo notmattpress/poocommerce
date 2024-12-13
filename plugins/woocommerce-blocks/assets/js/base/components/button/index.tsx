@@ -58,7 +58,7 @@ const Button = forwardRef< HTMLButtonElement, ButtonProps | LinkProps >(
 			deprecated( 'showSpinner prop', {
 				version: '8.9.0',
 				alternative: 'Render a spinner in the button children instead.',
-				plugin: 'WooCommerce',
+				plugin: 'PooCommerce',
 			} );
 		}
 

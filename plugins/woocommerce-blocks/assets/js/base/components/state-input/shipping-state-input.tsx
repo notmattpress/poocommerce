@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SHIPPING_STATES } from '@woocommerce/block-settings';
+import { SHIPPING_STATES } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

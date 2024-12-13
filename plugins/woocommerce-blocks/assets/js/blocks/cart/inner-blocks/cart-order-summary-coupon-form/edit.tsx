@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
 
 /**
  * Internal dependencies

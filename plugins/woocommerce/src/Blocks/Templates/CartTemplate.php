@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * CartTemplate class.
@@ -30,7 +30,7 @@ class CartTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Page: Cart', 'Template name', 'woocommerce' );
+		return _x( 'Page: Cart', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class CartTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'The Cart template displays the items selected by the user for purchase, including quantities, prices, and discounts. It allows users to review their choices before proceeding to checkout.', 'woocommerce' );
+		return __( 'The Cart template displays the items selected by the user for purchase, including quantities, prices, and discounts. It allows users to review their choices before proceeding to checkout.', 'poocommerce' );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class CartTemplate extends AbstractPageTemplate {
 		if (
 			! is_embed() && is_cart()
 		) {
-			add_filter( 'woocommerce_has_block_template', '__return_true', 10, 0 );
+			add_filter( 'poocommerce_has_block_template', '__return_true', 10, 0 );
 		}
 	}
 

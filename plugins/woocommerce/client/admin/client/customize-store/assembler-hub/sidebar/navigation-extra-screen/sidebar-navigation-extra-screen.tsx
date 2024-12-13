@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import { useMemo } from '@wordpress/element';
 
 /**
@@ -41,7 +41,7 @@ export const SidebarNavigationExtraScreen = () => {
 
 	if ( patternCategory ) {
 		return (
-			<div className="woocommerce-customize-store-edit-site-layout__sidebar-extra">
+			<div className="poocommerce-customize-store-edit-site-layout__sidebar-extra">
 				<SidebarPatternScreen category={ patternCategory } />
 			</div>
 		);

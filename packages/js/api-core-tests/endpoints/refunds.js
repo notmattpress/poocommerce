@@ -8,9 +8,9 @@ const {
 } = require( '../utils/request' );
 
 /**
- * WooCommerce Refunds endpoints.
+ * PooCommerce Refunds endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#refunds
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#refunds
  */
 const refundsApi = {
 	name: 'Refunds',

@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * AbstractTemplateCompatibility class.
@@ -34,7 +34,7 @@ abstract class AbstractTemplateCompatibility {
 				* @since 7.6.0
 				* @param boolean.
 				*/
-				$is_disabled_compatility_layer = apply_filters( 'woocommerce_disable_compatibility_layer', false );
+				$is_disabled_compatility_layer = apply_filters( 'poocommerce_disable_compatibility_layer', false );
 
 				if ( $is_disabled_compatility_layer ) {
 					return $parsed_block;
@@ -57,7 +57,7 @@ abstract class AbstractTemplateCompatibility {
 				* @since 7.6.0
 				* @param boolean.
 				*/
-				$is_disabled_compatibility_layer = apply_filters( 'woocommerce_disable_compatibility_layer', false );
+				$is_disabled_compatibility_layer = apply_filters( 'poocommerce_disable_compatibility_layer', false );
 
 				if ( $is_disabled_compatibility_layer ) {
 					return $block_content;
@@ -118,7 +118,7 @@ abstract class AbstractTemplateCompatibility {
 
 
 	/**
-	 * Remove the default callback added by WooCommerce. We replaced these
+	 * Remove the default callback added by PooCommerce. We replaced these
 	 * callbacks by blocks so we have to remove them to prevent duplicated
 	 * content.
 	 */
@@ -160,7 +160,7 @@ abstract class AbstractTemplateCompatibility {
 		 * @param string $class_name Class name within which the hook is called.
 		 * Either ArchiveProductTemplatesCompatibility or SingleProductTemplateCompatibility.
 		 */
-		$additional_hook_data = apply_filters( 'woocommerce_blocks_hook_compatibility_additional_data', array(), $class_name );
+		$additional_hook_data = apply_filters( 'poocommerce_blocks_hook_compatibility_additional_data', array(), $class_name );
 
 		if ( empty( $additional_hook_data ) || ! is_array( $additional_hook_data ) ) {
 			return;

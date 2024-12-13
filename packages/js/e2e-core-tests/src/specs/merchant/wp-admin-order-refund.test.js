@@ -9,7 +9,7 @@ const {
 	uiUnblocked,
 	createOrder,
 	clickAndWaitForSelector,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 const config = require( 'config' );
 const simpleProductPrice = config.has( 'products.simple.price' )
@@ -17,7 +17,7 @@ const simpleProductPrice = config.has( 'products.simple.price' )
 	: '9.99';
 
 const runRefundOrderTest = () => {
-	describe( 'WooCommerce Orders > Refund an order', () => {
+	describe( 'PooCommerce Orders > Refund an order', () => {
 		let productId;
 		let orderId;
 		let currencySymbol;
@@ -33,9 +33,9 @@ const runRefundOrderTest = () => {
 			await merchant.goToOrder( orderId );
 
 			// Get the currency symbol for the store's selected currency
-			await page.waitForSelector( '.woocommerce-Price-currencySymbol' );
+			await page.waitForSelector( '.poocommerce-Price-currencySymbol' );
 			const currencyElement = await page.$(
-				'.woocommerce-Price-currencySymbol'
+				'.poocommerce-Price-currencySymbol'
 			);
 			currencySymbol = await page.evaluate(
 				( el ) => el.textContent,

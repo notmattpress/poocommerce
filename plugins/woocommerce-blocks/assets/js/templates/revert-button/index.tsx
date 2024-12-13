@@ -9,9 +9,9 @@ import { __ } from '@wordpress/i18n';
 import { createInterpolateElement, useMemo } from '@wordpress/element';
 import { useEntityRecord } from '@wordpress/core-data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { isSiteEditorPage } from '@woocommerce/utils';
+import { isSiteEditorPage } from '@poocommerce/utils';
 
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	registerPlugin,
 	unregisterPlugin,
@@ -26,7 +26,7 @@ import './style.scss';
 const hasLegacyTemplateBlock = ( blocks: Array< BlockInstance > ): boolean => {
 	return blocks.some( ( block ) => {
 		return (
-			block.name === 'woocommerce/legacy-template' ||
+			block.name === 'poocommerce/legacy-template' ||
 			hasLegacyTemplateBlock( block.innerBlocks )
 		);
 	} );
@@ -86,7 +86,7 @@ const RevertClassicTemplateButton = () => {
 										},
 										[
 											createBlock(
-												'woocommerce/legacy-template',
+												'poocommerce/legacy-template',
 												{
 													template:
 														template?.record?.slug,
@@ -99,14 +99,14 @@ const RevertClassicTemplateButton = () => {
 						>
 							{ __(
 								'Revert to Classic Template',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Button>
 						<span>
 							{ createInterpolateElement(
 								__(
 									`The <strongText /> template doesn’t allow for reordering or customizing blocks, but might work better with your extensions.`,
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									strongText: (
@@ -135,7 +135,7 @@ const templateSlugs = [
 	'taxonomy-product_attribute',
 ];
 
-const REVERT_BUTTON_PLUGIN_NAME = 'woocommerce-blocks-revert-button-templates';
+const REVERT_BUTTON_PLUGIN_NAME = 'poocommerce-blocks-revert-button-templates';
 
 let currentTemplateId: string | undefined;
 subscribe( () => {

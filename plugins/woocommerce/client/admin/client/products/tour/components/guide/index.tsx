@@ -25,7 +25,7 @@ import type { GuideProps } from './types';
 function Guide( {
 	className,
 	contentLabel,
-	finishButtonText = __( 'Finish', 'woocommerce' ),
+	finishButtonText = __( 'Finish', 'poocommerce' ),
 	finishButtonLink,
 	onFinish,
 	pages = [],
@@ -93,7 +93,7 @@ function Guide( {
 							variant="tertiary"
 							onClick={ goBack }
 						>
-							{ __( 'Previous', 'woocommerce' ) }
+							{ __( 'Previous', 'poocommerce' ) }
 						</Button>
 					) }
 					{ canGoForward && (
@@ -102,7 +102,7 @@ function Guide( {
 							variant="primary"
 							onClick={ goForward }
 						>
-							{ __( 'Next', 'woocommerce' ) }
+							{ __( 'Next', 'poocommerce' ) }
 						</Button>
 					) }
 					{ ! canGoForward && (

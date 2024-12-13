@@ -181,7 +181,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 	.inside,
 	#commentsdiv.postbox .inside,
 	#postimagediv .inside,
-	#woocommerce-product-images .inside {
+	#poocommerce-product-images .inside {
 		padding: 0 $postbox-padding;
 	}
 
@@ -210,7 +210,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 	}
 
 	#wp-content-editor-tools {
-		// Reduce FOUC before `woocommerce-product-description` class is attached.
+		// Reduce FOUC before `poocommerce-product-description` class is attached.
 		background: none;
 		padding-top: 0;
 	}
@@ -253,13 +253,13 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 		display: none;
 	}
 
-	#postexcerpt > .postbox-header > .hndle > .woocommerce-help-tip,
-	#wp-content-media-buttons > .woocommerce-help-tip {
+	#postexcerpt > .postbox-header > .hndle > .poocommerce-help-tip,
+	#wp-content-media-buttons > .poocommerce-help-tip {
 		margin: 0;
 	}
 
 	// Product/coupon data options panel.
-	.woocommerce_options_panel {
+	.poocommerce_options_panel {
 		p,
 		fieldset.form-field,
 		.downloadable_files {
@@ -507,7 +507,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 	}
 
 	// Product gallery.
-	#woocommerce-product-images {
+	#poocommerce-product-images {
 		#product_images_container {
 			padding: 0;
 			margin: -$gap-smallest calc($gap-smallest * -2);
@@ -539,8 +539,8 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 }
 
 /* Product/coupon data metabox */
-#woocommerce-coupon-data,
-#woocommerce-product-data {
+#poocommerce-coupon-data,
+#poocommerce-product-data {
 
 	.hndle {
 		span {
@@ -554,7 +554,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 			flex: 1;
 			flex-wrap: wrap;
 
-			.woocommerce-product-type-tip {
+			.poocommerce-product-type-tip {
 				font-size: 1.4em;
 			}
 		}
@@ -637,7 +637,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 		display: none;
 	}
 
-	.woocommerce_options_panel,
+	.poocommerce_options_panel,
 	.wc-metaboxes-wrapper {
 		._backorders_field .wc-radios li {
 			display: block;
@@ -696,7 +696,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
 	}
 }
 
-#woocommerce-coupon-description {
+#poocommerce-coupon-description {
 	padding: $gap-smallest $gap;
 	font-size: 1.7em;
 	height: auto;
@@ -715,8 +715,8 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
   * Optimisation for screens 900px and smaller
   */
 @media only screen and (max-width: $break-largeish) {
-	#woocommerce-coupon-data ul.coupon_data_tabs li,
-	#woocommerce-product-data ul.product_data_tabs li {
+	#poocommerce-coupon-data ul.coupon_data_tabs li,
+	#poocommerce-product-data ul.product_data_tabs li {
 		min-height: calc($grid-unit-50 / 2);
 
 		a {
@@ -744,7 +744,7 @@ $break-largeish: 900px; // It's almost $break-large, but kept consistent with th
  * Optimisation for screens 782px and smaller
  */
 @media only screen and (max-width: $break-medium) {
-	#woocommerce-product-data .checkbox {
+	#poocommerce-product-data .checkbox {
 		width: 25px;
 	}
 }

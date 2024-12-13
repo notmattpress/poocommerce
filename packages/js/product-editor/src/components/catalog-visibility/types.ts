@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductCatalogVisibility } from '@woocommerce/data';
+import { ProductCatalogVisibility } from '@poocommerce/data';
 
 export type CatalogVisibilityProps = {
 	catalogVisibility: string;

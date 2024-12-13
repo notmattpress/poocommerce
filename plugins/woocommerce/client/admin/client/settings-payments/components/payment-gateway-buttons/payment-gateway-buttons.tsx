@@ -7,7 +7,7 @@ import { dispatch, useDispatch } from '@wordpress/data';
 import {
 	PAYMENT_SETTINGS_STORE_NAME,
 	EnableGatewayResponse,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useState } from '@wordpress/element';
 
 /**
@@ -26,9 +26,9 @@ export const PaymentGatewayButtons = ( {
 	needsSetup,
 	testMode,
 	settingsUrl,
-	textSettings = __( 'Manage', 'woocommerce' ),
-	textEnable = __( 'Enable', 'woocommerce' ),
-	textNeedsSetup = __( 'Complete setup', 'woocommerce' ),
+	textSettings = __( 'Manage', 'poocommerce' ),
+	textEnable = __( 'Enable', 'poocommerce' ),
+	textNeedsSetup = __( 'Complete setup', 'poocommerce' ),
 }: {
 	id: string;
 	isOffline: boolean;
@@ -50,7 +50,7 @@ export const PaymentGatewayButtons = ( {
 		createErrorNotice(
 			__(
 				'An API error occurred. You will be redirected to the settings page, try enabling the gateway there.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				type: 'snackbar',
@@ -63,7 +63,7 @@ export const PaymentGatewayButtons = ( {
 		if ( ! enabled ) {
 			e.preventDefault();
 			const gatewayToggleNonce =
-				window.woocommerce_admin.nonces?.gateway_toggle || '';
+				window.poocommerce_admin.nonces?.gateway_toggle || '';
 
 			if ( ! gatewayToggleNonce ) {
 				createApiErrorNotice();
@@ -73,7 +73,7 @@ export const PaymentGatewayButtons = ( {
 			setIsUpdating( true );
 			togglePaymentGateway(
 				id,
-				window.woocommerce_admin.ajax_url,
+				window.poocommerce_admin.ajax_url,
 				gatewayToggleNonce
 			)
 				.then( ( response: EnableGatewayResponse ) => {
@@ -108,7 +108,7 @@ export const PaymentGatewayButtons = ( {
 	};
 
 	return (
-		<div className="woocommerce-list__item-after__actions">
+		<div className="poocommerce-list__item-after__actions">
 			{ ! needsSetup && (
 				<Button variant={ 'secondary' } href={ settingsUrl }>
 					{ textSettings }
@@ -144,7 +144,7 @@ export const PaymentGatewayButtons = ( {
 					isBusy={ isActivatingPayments }
 					disabled={ isActivatingPayments }
 				>
-					{ __( 'Activate payments', 'woocommerce' ) }
+					{ __( 'Activate payments', 'poocommerce' ) }
 				</Button>
 			) }
 		</div>

@@ -20,7 +20,7 @@ import {
 	Button,
 } from '@wordpress/components';
 // @ts-expect-error missing types.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 
 /**
@@ -95,7 +95,7 @@ export default function ProductEdit( {
 	return (
 		<NavigableRegion
 			className={ classes }
-			ariaLabel={ __( 'Product Edit', 'woocommerce' ) }
+			ariaLabel={ __( 'Product Edit', 'poocommerce' ) }
 		>
 			<div className="edit-product-content">
 				{ ! hideTitleFromUI && (
@@ -112,7 +112,7 @@ export default function ProductEdit( {
 								className="edit-site-page-header__title"
 								truncate
 							>
-								{ __( 'Product Edit', 'woocommerce' ) }
+								{ __( 'Product Edit', 'poocommerce' ) }
 							</Heading>
 							<FlexItem className="edit-site-page-header__actions">
 								{ actions }
@@ -130,7 +130,7 @@ export default function ProductEdit( {
 					</VStack>
 				) }
 				{ ! postId && (
-					<p>{ __( 'Select a product to edit', 'woocommerce' ) }</p>
+					<p>{ __( 'Select a product to edit', 'poocommerce' ) }</p>
 				) }
 				{ postId && (
 					<VStack spacing={ 4 } as="form" onSubmit={ onSubmit }>
@@ -149,7 +149,7 @@ export default function ProductEdit( {
 								disabled={ isUpdateDisabled }
 								__next40pxDefaultSize
 							>
-								{ __( 'Update', 'woocommerce' ) }
+								{ __( 'Update', 'poocommerce' ) }
 							</Button>
 						</FlexItem>
 					</VStack>

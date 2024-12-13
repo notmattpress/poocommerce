@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 
 /**
  * ProductGalleryThumbnails class.
@@ -56,7 +56,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 		return sprintf(
 			$view_all_html,
 			esc_html( $remaining_thumbnails_count ),
-			esc_html__( 'View all', 'woocommerce' )
+			esc_html__( 'View all', 'poocommerce' )
 		);
 	}
 
@@ -172,13 +172,13 @@ class ProductGalleryThumbnails extends AbstractBlock {
 					}
 
 					return sprintf(
-						'<div class="wc-block-product-gallery-thumbnails wp-block-woocommerce-product-gallery-thumbnails %1$s" style="%2$s" data-wc-interactive=\'%4$s\'>
+						'<div class="wc-block-product-gallery-thumbnails wp-block-poocommerce-product-gallery-thumbnails %1$s" style="%2$s" data-wc-interactive=\'%4$s\'>
 							%3$s
 						</div>',
 						esc_attr( $classes_and_styles['classes'] ),
 						esc_attr( $classes_and_styles['styles'] ),
 						$html,
-						wp_json_encode( array( 'namespace' => 'woocommerce/product-gallery' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP )
+						wp_json_encode( array( 'namespace' => 'poocommerce/product-gallery' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP )
 					);
 				}
 			}

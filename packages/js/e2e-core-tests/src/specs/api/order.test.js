@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { HTTPClientFactory, Order } = require( '@woocommerce/api' );
+const { HTTPClientFactory, Order } = require( '@poocommerce/api' );
 
 /**
  * External dependencies

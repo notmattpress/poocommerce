@@ -1,16 +1,16 @@
 ---
-post_title: Customizing WooCommerce Endpoint URLs
+post_title: Customizing PooCommerce Endpoint URLs
 menu_title: Customizing Endpoint URLs
 tags: how-to
 ---
 
-Before you start, check out [WooCommerce Endpoints](./woocommerce-endpoints.md). 
+Before you start, check out [PooCommerce Endpoints](./poocommerce-endpoints.md). 
 
 ## Customizing endpoint URLs
 
-The URL for each endpoint can be customized in **WooCommerce > Settings > Advanced** in the Page setup section.
+The URL for each endpoint can be customized in **PooCommerce > Settings > Advanced** in the Page setup section.
 
-![Endpoints](https://developer.woocommerce.com/wp-content/uploads/2023/12/endpoints.png)
+![Endpoints](https://developer.poocommerce.com/wp-content/uploads/2023/12/endpoints.png)
 
 Ensure that they are unique to avoid conflicts. If you encounter issues with 404s, go to **Settings > Permalinks** and save to flush the rewrite rules.
 
@@ -18,7 +18,7 @@ Ensure that they are unique to avoid conflicts. If you encounter issues with 404
 
 If you want to include an endpoint in your menus, you need to use the Links section:
 
-![The Links section of a menu item in WordPress](https://developer.woocommerce.com/wp-content/uploads/2023/12/2014-02-26-at-14.26.png)
+![The Links section of a menu item in WordPress](https://developer.poocommerce.com/wp-content/uploads/2023/12/2014-02-26-at-14.26.png)
 
 Enter the full URL to the endpoint and then insert that into your menu.
 
@@ -26,7 +26,7 @@ Remember that some endpoints, such as view-order, require an order ID to work. I
 
 ## Using endpoints in Payment Gateway Plugins
 
-WooCommerce provides helper functions in the order class for getting these URLs. They are:
+PooCommerce provides helper functions in the order class for getting these URLs. They are:
 
 `$order->get_checkout_payment_url( $on_checkout = false );`
 
@@ -74,6 +74,6 @@ Landing on the wrong page when clicking an endpoint URL is typically caused by i
 
 ### How to Remove "Downloads" from My Account
 
-Sometimes the "Downloads" endpoint on the "My account" page does not need to be displayed. This can be removed by going to **WooCommerce > Settings > Advanced > Account endpoints** and clearing the Downloads endpoint field.
+Sometimes the "Downloads" endpoint on the "My account" page does not need to be displayed. This can be removed by going to **PooCommerce > Settings > Advanced > Account endpoints** and clearing the Downloads endpoint field.
 
-![Account endpoints](https://developer.woocommerce.com/wp-content/uploads/2023/12/Screenshot-2023-04-09-at-11.45.58-PM.png)
+![Account endpoints](https://developer.poocommerce.com/wp-content/uploads/2023/12/Screenshot-2023-04-09-at-11.45.58-PM.png)

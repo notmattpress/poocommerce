@@ -39,7 +39,7 @@ The Checkout Store provides a collection of selectors to access and manage data 
 
 ## Usage
 
-To utilize this store you will import the `CHECKOUT_STORE_KEY` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `CHECKOUT_STORE_KEY` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { CHECKOUT_STORE_KEY } = window.wc.wcBlocksData;
@@ -64,11 +64,11 @@ const customerId = store.getCustomerId();
 
 ### getOrderId
 
-Returns the WooCommerce order ID of the order that is currently being processed by the Checkout block.
+Returns the PooCommerce order ID of the order that is currently being processed by the Checkout block.
 
 #### _Returns_ <!-- omit in toc -->
 
--   `number`: The WooCommerce order ID.
+-   `number`: The PooCommerce order ID.
 
 #### _Example_ <!-- omit in toc -->
 
@@ -391,8 +391,8 @@ store.setEditingShippingAddress( true );
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/checkout.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/checkout.md)
 
 <!-- /FEEDBACK -->

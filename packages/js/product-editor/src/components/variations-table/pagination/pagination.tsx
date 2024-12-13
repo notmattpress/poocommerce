@@ -7,7 +7,7 @@ import {
 	PaginationPageSizePicker,
 	PaginationPageArrowsWithPicker,
 	usePagination,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import { createElement } from '@wordpress/element';
 
 /**
@@ -35,16 +35,16 @@ export function Pagination( {
 	} );
 
 	// translators: Viewing 1-5 of 100 items. First two %ds are a range of items that are shown on the screen. The last %d is the total amount of items that exist.
-	const paginationLabel = __( 'Viewing %d-%d of %d items', 'woocommerce' );
+	const paginationLabel = __( 'Viewing %d-%d of %d items', 'poocommerce' );
 
 	return (
 		<div
 			className={ classNames(
 				className,
-				'woocommerce-product-variations-pagination'
+				'poocommerce-product-variations-pagination'
 			) }
 		>
-			<div className="woocommerce-product-variations-pagination__info">
+			<div className="poocommerce-product-variations-pagination__info">
 				{ sprintf(
 					paginationLabel,
 					paginationProps.start,
@@ -53,11 +53,11 @@ export function Pagination( {
 				) }
 			</div>
 
-			<div className="woocommerce-product-variations-pagination__current-page">
+			<div className="poocommerce-product-variations-pagination__current-page">
 				<PaginationPageArrowsWithPicker { ...paginationProps } />
 			</div>
 
-			<div className="woocommerce-product-variations-pagination__page-size">
+			<div className="poocommerce-product-variations-pagination__page-size">
 				<PaginationPageSizePicker
 					{ ...paginationProps }
 					total={ totalCount }

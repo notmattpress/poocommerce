@@ -25,6 +25,6 @@ Primary.args = {
 };
 
 export default {
-	title: 'WooCommerce Admin/components/Badge',
+	title: 'PooCommerce Admin/components/Badge',
 	component: Badge,
 };

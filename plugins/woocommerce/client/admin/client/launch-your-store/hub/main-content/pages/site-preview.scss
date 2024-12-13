@@ -1,12 +1,12 @@
 // Resizable frame styles
-.woocommerce-edit-site-resizable-frame__inner.is-resizing::before {
+.poocommerce-edit-site-resizable-frame__inner.is-resizing::before {
 	content: "";
 	inset: 0;
 	position: absolute;
 	z-index: 1;
 }
 
-.woocommerce-edit-site-resizable-frame__inner-content {
+.poocommerce-edit-site-resizable-frame__inner-content {
 	inset: 0;
 	position: absolute;
 	z-index: 0;
@@ -14,7 +14,7 @@
 	width: 100%;
 }
 
-.woocommerce-edit-site-resizable-frame__handle {
+.poocommerce-edit-site-resizable-frame__handle {
 	align-items: center;
 	border: 0;
 	border-radius: 4px;
@@ -30,7 +30,7 @@
 	z-index: 100;
 }
 
-.woocommerce-edit-site-resizable-frame__handle::before {
+.poocommerce-edit-site-resizable-frame__handle::before {
 	content: "";
 	height: 100%;
 	left: 100%;
@@ -38,7 +38,7 @@
 	width: 32px;
 }
 
-.woocommerce-edit-site-resizable-frame__handle::after {
+.poocommerce-edit-site-resizable-frame__handle::after {
 	content: "";
 	height: 100%;
 	position: absolute;
@@ -46,13 +46,13 @@
 	width: 32px;
 }
 
-.woocommerce-edit-site-resizable-frame__handle:focus-visible {
+.poocommerce-edit-site-resizable-frame__handle:focus-visible {
 	outline: 2px solid #0000;
 }
 
-.woocommerce-edit-site-resizable-frame__handle.is-resizing,
-.woocommerce-edit-site-resizable-frame__handle:focus,
-.woocommerce-edit-site-resizable-frame__handle:hover {
+.poocommerce-edit-site-resizable-frame__handle.is-resizing,
+.poocommerce-edit-site-resizable-frame__handle:focus,
+.poocommerce-edit-site-resizable-frame__handle:hover {
 	background-color: var(--wp-admin-theme-color);
 }
 

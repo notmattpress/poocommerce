@@ -2,15 +2,15 @@
 /**
  * Test tax functions.
  *
- * @package WooCommerce\Tests\Tax
+ * @package PooCommerce\Tests\Tax
  * @since   3.4.0
  */
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * Class Tax.
- * @package WooCommerce\Tests\Tax
+ * @package PooCommerce\Tests\Tax
  */
 class WC_Tests_Tax extends WC_Unit_Test_Case {
 
@@ -268,7 +268,7 @@ class WC_Tests_Tax extends WC_Unit_Test_Case {
 	 * Test compound tax amounts
 	 */
 	public function test_calc_compound_tax() {
-		update_option( 'woocommerce_default_country', 'CA' );
+		update_option( 'poocommerce_default_country', 'CA' );
 
 		$tax_rate_1 = array(
 			'tax_rate_country'  => 'CA',
@@ -520,7 +520,7 @@ class WC_Tests_Tax extends WC_Unit_Test_Case {
 
 		$new_row = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_id = %d",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_id = %d",
 				$tax_rate_id
 			)
 		);
@@ -623,7 +623,7 @@ class WC_Tests_Tax extends WC_Unit_Test_Case {
 
 		$results = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT location_code FROM {$wpdb->prefix}woocommerce_tax_rate_locations WHERE tax_rate_id = %d ORDER BY location_code ASC",
+				"SELECT location_code FROM {$wpdb->prefix}poocommerce_tax_rate_locations WHERE tax_rate_id = %d ORDER BY location_code ASC",
 				$tax_rate_id
 			)
 		);
@@ -657,7 +657,7 @@ class WC_Tests_Tax extends WC_Unit_Test_Case {
 
 		$results = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT location_code FROM {$wpdb->prefix}woocommerce_tax_rate_locations WHERE tax_rate_id = %d ORDER BY location_code ASC",
+				"SELECT location_code FROM {$wpdb->prefix}poocommerce_tax_rate_locations WHERE tax_rate_id = %d ORDER BY location_code ASC",
 				$tax_rate_id
 			)
 		);

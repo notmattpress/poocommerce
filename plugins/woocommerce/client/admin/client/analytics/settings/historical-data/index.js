@@ -9,7 +9,7 @@ import {
 	NOTES_STORE_NAME,
 	QUERY_DEFAULTS,
 	SECOND,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { withSpokenMessages } from '@wordpress/components';
 
@@ -23,7 +23,7 @@ class HistoricalData extends Component {
 	constructor() {
 		super( ...arguments );
 
-		this.dateFormat = __( 'MM/DD/YYYY', 'woocommerce' );
+		this.dateFormat = __( 'MM/DD/YYYY', 'poocommerce' );
 		this.intervalId = -1;
 		this.lastImportStopTimestamp = 0;
 		this.cacheNeedsClearing = true;

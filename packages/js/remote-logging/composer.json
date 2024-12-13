@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/remote-logging",
-	"description": "WooCommerce remote logger",
+	"name": "poocommerce/remote-logging",
+	"description": "PooCommerce remote logger",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

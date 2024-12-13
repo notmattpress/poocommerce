@@ -7,7 +7,7 @@ import { Button } from '@wordpress/components';
 import VisibilitySensor from 'react-visibility-sensor';
 import moment from 'moment';
 import classnames from 'classnames';
-import { H, Section } from '@woocommerce/components';
+import { H, Section } from '@poocommerce/components';
 import { sanitize } from 'dompurify';
 
 /**
@@ -92,10 +92,10 @@ const InboxNoteCard: React.FC< InboxNoteProps > = ( {
 
 		return (
 			<Button
-				className="woocommerce-admin-dismiss-notification"
+				className="poocommerce-admin-dismiss-notification"
 				onClick={ () => onDismiss && onDismiss( note ) }
 			>
-				{ __( 'Dismiss', 'woocommerce' ) }
+				{ __( 'Dismiss', 'poocommerce' ) }
 			</Button>
 		);
 	};
@@ -159,7 +159,7 @@ const InboxNoteCard: React.FC< InboxNoteProps > = ( {
 	const unread = is_read === false;
 	const hasImage = layout === 'thumbnail';
 	const cardClassName = classnames(
-		'woocommerce-inbox-message',
+		'poocommerce-inbox-message',
 		className,
 		layout,
 		{
@@ -168,7 +168,7 @@ const InboxNoteCard: React.FC< InboxNoteProps > = ( {
 	);
 
 	const actionWrapperClassName = classnames(
-		'woocommerce-inbox-message__actions',
+		'poocommerce-inbox-message__actions',
 		{
 			'has-multiple-actions': note.actions?.length > 1,
 		}
@@ -178,21 +178,21 @@ const InboxNoteCard: React.FC< InboxNoteProps > = ( {
 		<VisibilitySensor onChange={ onVisible }>
 			<section className={ cardClassName }>
 				{ hasImage && (
-					<div className="woocommerce-inbox-message__image">
+					<div className="poocommerce-inbox-message__image">
 						<img src={ image } alt="" />
 					</div>
 				) }
-				<div className="woocommerce-inbox-message__wrapper">
-					<div className="woocommerce-inbox-message__content">
+				<div className="poocommerce-inbox-message__wrapper">
+					<div className="poocommerce-inbox-message__content">
 						{ unread && (
-							<div className="woocommerce-inbox-message__unread-indicator" />
+							<div className="poocommerce-inbox-message__unread-indicator" />
 						) }
 						{ dateCreatedGmt && (
-							<span className="woocommerce-inbox-message__date">
+							<span className="poocommerce-inbox-message__date">
 								{ moment.utc( dateCreatedGmt ).fromNow() }
 							</span>
 						) }
-						<H className="woocommerce-inbox-message__title">
+						<H className="poocommerce-inbox-message__title">
 							{ note.actions && note.actions.length === 1 && (
 								<InboxNoteActionButton
 									key={ note.actions[ 0 ].id }
@@ -213,7 +213,7 @@ const InboxNoteCard: React.FC< InboxNoteProps > = ( {
 
 							{ note.actions && note.actions.length > 1 && title }
 						</H>
-						<Section className="woocommerce-inbox-message__text">
+						<Section className="poocommerce-inbox-message__text">
 							<span
 								dangerouslySetInnerHTML={ sanitizeHTML(
 									content

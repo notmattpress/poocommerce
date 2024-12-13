@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Product Editor Block Registration
+ * PooCommerce Product Editor Block Registration
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 /**
  * Product block registration and style registration functionality.
@@ -24,53 +24,53 @@ class BlockRegistry {
 	 * Array of all available generic blocks.
 	 */
 	const GENERIC_BLOCKS = array(
-		'woocommerce/conditional',
-		'woocommerce/product-checkbox-field',
-		'woocommerce/product-collapsible',
-		'woocommerce/product-radio-field',
-		'woocommerce/product-pricing-field',
-		'woocommerce/product-section',
-		'woocommerce/product-section-description',
-		'woocommerce/product-subsection',
-		'woocommerce/product-subsection-description',
-		'woocommerce/product-details-section-description',
-		'woocommerce/product-tab',
-		'woocommerce/product-toggle-field',
-		'woocommerce/product-taxonomy-field',
-		'woocommerce/product-text-field',
-		'woocommerce/product-text-area-field',
-		'woocommerce/product-number-field',
-		'woocommerce/product-linked-list-field',
-		'woocommerce/product-select-field',
-		'woocommerce/product-notice-field',
+		'poocommerce/conditional',
+		'poocommerce/product-checkbox-field',
+		'poocommerce/product-collapsible',
+		'poocommerce/product-radio-field',
+		'poocommerce/product-pricing-field',
+		'poocommerce/product-section',
+		'poocommerce/product-section-description',
+		'poocommerce/product-subsection',
+		'poocommerce/product-subsection-description',
+		'poocommerce/product-details-section-description',
+		'poocommerce/product-tab',
+		'poocommerce/product-toggle-field',
+		'poocommerce/product-taxonomy-field',
+		'poocommerce/product-text-field',
+		'poocommerce/product-text-area-field',
+		'poocommerce/product-number-field',
+		'poocommerce/product-linked-list-field',
+		'poocommerce/product-select-field',
+		'poocommerce/product-notice-field',
 	);
 
 	/**
 	 * Array of all available product fields blocks.
 	 */
 	const PRODUCT_FIELDS_BLOCKS = array(
-		'woocommerce/product-catalog-visibility-field',
-		'woocommerce/product-custom-fields',
-		'woocommerce/product-custom-fields-toggle-field',
-		'woocommerce/product-description-field',
-		'woocommerce/product-downloads-field',
-		'woocommerce/product-images-field',
-		'woocommerce/product-inventory-email-field',
-		'woocommerce/product-sku-field',
-		'woocommerce/product-name-field',
-		'woocommerce/product-regular-price-field',
-		'woocommerce/product-sale-price-field',
-		'woocommerce/product-schedule-sale-fields',
-		'woocommerce/product-shipping-class-field',
-		'woocommerce/product-shipping-dimensions-fields',
-		'woocommerce/product-summary-field',
-		'woocommerce/product-tag-field',
-		'woocommerce/product-inventory-quantity-field',
-		'woocommerce/product-variation-items-field',
-		'woocommerce/product-password-field',
-		'woocommerce/product-list-field',
-		'woocommerce/product-has-variations-notice',
-		'woocommerce/product-single-variation-notice',
+		'poocommerce/product-catalog-visibility-field',
+		'poocommerce/product-custom-fields',
+		'poocommerce/product-custom-fields-toggle-field',
+		'poocommerce/product-description-field',
+		'poocommerce/product-downloads-field',
+		'poocommerce/product-images-field',
+		'poocommerce/product-inventory-email-field',
+		'poocommerce/product-sku-field',
+		'poocommerce/product-name-field',
+		'poocommerce/product-regular-price-field',
+		'poocommerce/product-sale-price-field',
+		'poocommerce/product-schedule-sale-fields',
+		'poocommerce/product-shipping-class-field',
+		'poocommerce/product-shipping-dimensions-fields',
+		'poocommerce/product-summary-field',
+		'poocommerce/product-tag-field',
+		'poocommerce/product-inventory-quantity-field',
+		'poocommerce/product-variation-items-field',
+		'poocommerce/product-password-field',
+		'poocommerce/product-list-field',
+		'poocommerce/product-has-variations-notice',
+		'poocommerce/product-single-variation-notice',
 	);
 
 	/**
@@ -130,8 +130,8 @@ class BlockRegistry {
 	public function register_categories( $block_categories, $editor_context ) {
 		if ( INIT::EDITOR_CONTEXT_NAME === $editor_context->name ) {
 			$block_categories[] = array(
-				'slug'  => 'woocommerce',
-				'title' => __( 'WooCommerce', 'woocommerce' ),
+				'slug'  => 'poocommerce',
+				'title' => __( 'PooCommerce', 'poocommerce' ),
 				'icon'  => null,
 			);
 		}
@@ -140,15 +140,15 @@ class BlockRegistry {
 	}
 
 	/**
-	 * Get the block name without the "woocommerce/" prefix.
+	 * Get the block name without the "poocommerce/" prefix.
 	 *
 	 * @param string $block_name Block name.
 	 *
 	 * @return string
 	 */
 	private function remove_block_prefix( $block_name ) {
-		if ( 0 === strpos( $block_name, 'woocommerce/' ) ) {
-			return substr_replace( $block_name, '', 0, strlen( 'woocommerce/' ) );
+		if ( 0 === strpos( $block_name, 'poocommerce/' ) ) {
+			return substr_replace( $block_name, '', 0, strlen( 'poocommerce/' ) );
 		}
 
 		return $block_name;
@@ -161,7 +161,7 @@ class BlockRegistry {
 	 */
 	private function augment_attributes( $attributes ) {
 		// Note: If you modify this function, also update the client-side
-		// registerWooBlockType function in @woocommerce/block-templates.
+		// registerWooBlockType function in @poocommerce/block-templates.
 		return array_merge(
 			$attributes,
 			array(
@@ -196,7 +196,7 @@ class BlockRegistry {
 	 */
 	private function augment_uses_context( $uses_context ) {
 		// Note: If you modify this function, also update the client-side
-		// registerProductEditorBlockType function in @woocommerce/product-editor.
+		// registerProductEditorBlockType function in @poocommerce/product-editor.
 		return array_merge(
 			isset( $uses_context ) ? $uses_context : array(),
 			array(

@@ -1,46 +1,46 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain;
+namespace Automattic\PooCommerce\Blocks\Domain;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\AssetsController;
-use Automattic\WooCommerce\Blocks\BlockPatterns;
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\BlockTemplatesController;
-use Automattic\WooCommerce\Blocks\BlockTypesController;
-use Automattic\WooCommerce\Blocks\Patterns\AIPatterns;
-use Automattic\WooCommerce\Blocks\Patterns\PatternRegistry;
-use Automattic\WooCommerce\Blocks\Patterns\PTKClient;
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
-use Automattic\WooCommerce\Blocks\QueryFilters;
-use Automattic\WooCommerce\Blocks\Domain\Services\CreateAccount;
-use Automattic\WooCommerce\Blocks\Domain\Services\Notices;
-use Automattic\WooCommerce\Blocks\Domain\Services\DraftOrders;
-use Automattic\WooCommerce\Blocks\Domain\Services\GoogleAnalytics;
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsAdmin;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend;
-use Automattic\WooCommerce\Blocks\InboxNotifications;
-use Automattic\WooCommerce\Blocks\Installer;
-use Automattic\WooCommerce\Blocks\Migration;
-use Automattic\WooCommerce\Blocks\Payments\Api as PaymentsApi;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\BankTransfer;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\CashOnDelivery;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\Cheque;
-use Automattic\WooCommerce\Blocks\Payments\Integrations\PayPal;
-use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
-use Automattic\WooCommerce\Blocks\Registry\Container;
-use Automattic\WooCommerce\Blocks\Templates\ClassicTemplatesCompatibility;
-use Automattic\WooCommerce\StoreApi\RoutesController;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\Blocks\Shipping\ShippingController;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
-use Automattic\WooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
-use Automattic\WooCommerce\Blocks\Domain\Services\OnboardingTasks\TasksController;
-use Automattic\WooCommerce\Blocks\TemplateOptions;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\AssetsController;
+use Automattic\PooCommerce\Blocks\BlockPatterns;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\BlockTemplatesController;
+use Automattic\PooCommerce\Blocks\BlockTypesController;
+use Automattic\PooCommerce\Blocks\Patterns\AIPatterns;
+use Automattic\PooCommerce\Blocks\Patterns\PatternRegistry;
+use Automattic\PooCommerce\Blocks\Patterns\PTKClient;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\Blocks\QueryFilters;
+use Automattic\PooCommerce\Blocks\Domain\Services\CreateAccount;
+use Automattic\PooCommerce\Blocks\Domain\Services\Notices;
+use Automattic\PooCommerce\Blocks\Domain\Services\DraftOrders;
+use Automattic\PooCommerce\Blocks\Domain\Services\GoogleAnalytics;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsAdmin;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsFrontend;
+use Automattic\PooCommerce\Blocks\InboxNotifications;
+use Automattic\PooCommerce\Blocks\Installer;
+use Automattic\PooCommerce\Blocks\Migration;
+use Automattic\PooCommerce\Blocks\Payments\Api as PaymentsApi;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\BankTransfer;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\CashOnDelivery;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\Cheque;
+use Automattic\PooCommerce\Blocks\Payments\Integrations\PayPal;
+use Automattic\PooCommerce\Blocks\Payments\PaymentMethodRegistry;
+use Automattic\PooCommerce\Blocks\Registry\Container;
+use Automattic\PooCommerce\Blocks\Templates\ClassicTemplatesCompatibility;
+use Automattic\PooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Blocks\Shipping\ShippingController;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
+use Automattic\PooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
+use Automattic\PooCommerce\Blocks\Domain\Services\OnboardingTasks\TasksController;
+use Automattic\PooCommerce\Blocks\TemplateOptions;
 
 
 /**
@@ -84,18 +84,18 @@ class Bootstrap {
 
 		$this->init();
 		/**
-		 * Fires when the woocommerce blocks are loaded and ready to use.
+		 * Fires when the poocommerce blocks are loaded and ready to use.
 		 *
 		 * This hook is intended to be used as a safe event hook for when the plugin
 		 * has been loaded, and all dependency requirements have been met.
 		 *
-		 * To ensure blocks are initialized, you must use the `woocommerce_blocks_loaded`
+		 * To ensure blocks are initialized, you must use the `poocommerce_blocks_loaded`
 		 * hook instead of the `plugins_loaded` hook. This is because the functions
 		 * hooked into plugins_loaded on the same priority load in an inconsistent and unpredictable manner.
 		 *
 		 * @since 2.5.0
 		 */
-		do_action( 'woocommerce_blocks_loaded' );
+		do_action( 'poocommerce_blocks_loaded' );
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Bootstrap {
 		$this->register_payment_methods();
 		$this->load_interactivity_api();
 
-		// This is just a temporary solution to make sure the migrations are run. We have to refactor this. More details: https://github.com/woocommerce/woocommerce-blocks/issues/10196.
+		// This is just a temporary solution to make sure the migrations are run. We have to refactor this. More details: https://github.com/poocommerce/poocommerce-blocks/issues/10196.
 		if ( $this->package->get_version() !== $this->package->get_version_stored_on_db() ) {
 			$this->migration->run_migrations();
 			$this->package->set_version_stored_on_db();
@@ -200,11 +200,11 @@ class Bootstrap {
 				echo '<div class="error"><p>';
 				printf(
 					/* translators: %1$s is the node install command, %2$s is the install command, %3$s is the build command, %4$s is the watch command. */
-					esc_html__( 'WooCommerce Blocks development mode requires files to be built. From the root directory, run %1$s to ensure your node version is aligned, run %2$s to install dependencies, %3$s to build the files or %4$s to build the files and watch for changes.', 'woocommerce' ),
+					esc_html__( 'PooCommerce Blocks development mode requires files to be built. From the root directory, run %1$s to ensure your node version is aligned, run %2$s to install dependencies, %3$s to build the files or %4$s to build the files and watch for changes.', 'poocommerce' ),
 					'<code>nvm use</code>',
 					'<code>pnpm install</code>',
-					'<code>pnpm --filter="@woocommerce/plugin-woocommerce" build</code>',
-					'<code>pnpm --filter="@woocommerce/plugin-woocommerce" watch:build</code>'
+					'<code>pnpm --filter="@poocommerce/plugin-poocommerce" build</code>',
+					'<code>pnpm --filter="@poocommerce/plugin-poocommerce" watch:build</code>'
 				);
 				echo '</p></div>';
 			}
@@ -340,30 +340,30 @@ class Bootstrap {
 		);
 		// Maintains backwards compatibility with previous Store API namespace.
 		$this->container->register(
-			'Automattic\WooCommerce\Blocks\StoreApi\Formatters',
+			'Automattic\PooCommerce\Blocks\StoreApi\Formatters',
 			function ( Container $container ) {
-				$this->deprecated_dependency( 'Automattic\WooCommerce\Blocks\StoreApi\Formatters', '6.4.0', 'Automattic\WooCommerce\StoreApi\Formatters', '6.5.0' );
-				return $container->get( StoreApi::class )->container()->get( \Automattic\WooCommerce\StoreApi\Formatters::class );
+				$this->deprecated_dependency( 'Automattic\PooCommerce\Blocks\StoreApi\Formatters', '6.4.0', 'Automattic\PooCommerce\StoreApi\Formatters', '6.5.0' );
+				return $container->get( StoreApi::class )->container()->get( \Automattic\PooCommerce\StoreApi\Formatters::class );
 			}
 		);
 		$this->container->register(
-			'Automattic\WooCommerce\Blocks\Domain\Services\ExtendRestApi',
+			'Automattic\PooCommerce\Blocks\Domain\Services\ExtendRestApi',
 			function ( Container $container ) {
-				$this->deprecated_dependency( 'Automattic\WooCommerce\Blocks\Domain\Services\ExtendRestApi', '6.4.0', 'Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema', '6.5.0' );
-				return $container->get( StoreApi::class )->container()->get( \Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema::class );
+				$this->deprecated_dependency( 'Automattic\PooCommerce\Blocks\Domain\Services\ExtendRestApi', '6.4.0', 'Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema', '6.5.0' );
+				return $container->get( StoreApi::class )->container()->get( \Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema::class );
 			}
 		);
 		$this->container->register(
-			'Automattic\WooCommerce\Blocks\StoreApi\SchemaController',
+			'Automattic\PooCommerce\Blocks\StoreApi\SchemaController',
 			function ( Container $container ) {
-				$this->deprecated_dependency( 'Automattic\WooCommerce\Blocks\StoreApi\SchemaController', '6.4.0', 'Automattic\WooCommerce\StoreApi\SchemaController', '6.5.0' );
+				$this->deprecated_dependency( 'Automattic\PooCommerce\Blocks\StoreApi\SchemaController', '6.4.0', 'Automattic\PooCommerce\StoreApi\SchemaController', '6.5.0' );
 				return $container->get( StoreApi::class )->container()->get( SchemaController::class );
 			}
 		);
 		$this->container->register(
-			'Automattic\WooCommerce\Blocks\StoreApi\RoutesController',
+			'Automattic\PooCommerce\Blocks\StoreApi\RoutesController',
 			function ( Container $container ) {
-				$this->deprecated_dependency( 'Automattic\WooCommerce\Blocks\StoreApi\RoutesController', '6.4.0', 'Automattic\WooCommerce\StoreApi\RoutesController', '6.5.0' );
+				$this->deprecated_dependency( 'Automattic\PooCommerce\Blocks\StoreApi\RoutesController', '6.4.0', 'Automattic\PooCommerce\StoreApi\RoutesController', '6.5.0' );
 				return $container->get( StoreApi::class )->container()->get( RoutesController::class );
 			}
 		);

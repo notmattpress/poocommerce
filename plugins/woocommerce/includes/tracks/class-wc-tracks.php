@@ -2,7 +2,7 @@
 /**
  * PHP Tracks Client
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 /**
@@ -78,7 +78,7 @@ class WC_Tracks {
 			'role'                   => ! empty( $user->roles ) ? $user->roles[0] : '',
 			'can_install_plugins'    => $user->has_cap( 'install_plugins' ),
 			'can_activate_plugins'   => $user->has_cap( 'activate_plugins' ),
-			'can_manage_woocommerce' => $user->has_cap( 'manage_woocommerce' ),
+			'can_manage_poocommerce' => $user->has_cap( 'manage_poocommerce' ),
 		);
 	}
 
@@ -128,7 +128,7 @@ class WC_Tracks {
 		 *
 		 * @since 4.1.0
 		 */
-		$properties = apply_filters( 'woocommerce_tracks_event_properties', $event_properties, $event_name );
+		$properties = apply_filters( 'poocommerce_tracks_event_properties', $event_properties, $event_name );
 		$user       = wp_get_current_user();
 		$identity   = WC_Tracks_Client::get_identity( $user->ID );
 

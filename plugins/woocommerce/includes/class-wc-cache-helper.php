@@ -2,10 +2,10 @@
 /**
  * WC_Cache_Helper class.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Caching\CacheNameSpaceTrait;
+use Automattic\PooCommerce\Caching\CacheNameSpaceTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,7 +55,7 @@ class WC_Cache_Helper {
 		 *
 		 * @param bool $enable_nocache_headers Flag indicating whether to add nocache headers. Default: false.
 		 */
-		if ( apply_filters( 'woocommerce_enable_nocache_headers', false ) ) {
+		if ( apply_filters( 'poocommerce_enable_nocache_headers', false ) ) {
 			$set_cache = true;
 		}
 
@@ -140,7 +140,7 @@ class WC_Cache_Helper {
 		 * @param array       $location      The location/address data.
 		 * @param WC_Customer $customer      The current customer object.
 		 */
-		return apply_filters( 'woocommerce_geolocation_ajax_get_location_hash', $location_hash, $location, $customer );
+		return apply_filters( 'poocommerce_geolocation_ajax_get_location_hash', $location_hash, $location, $customer );
 	}
 
 	/**
@@ -164,7 +164,7 @@ class WC_Cache_Helper {
 	 * This prevents caching of the wrong data for this request.
 	 */
 	public static function geolocation_ajax_redirect() {
-		if ( 'geolocation_ajax' === get_option( 'woocommerce_default_customer_address' ) && ! is_checkout() && ! is_cart() && ! is_account_page() && ! wp_doing_ajax() && empty( $_POST ) ) { // WPCS: CSRF ok, input var ok.
+		if ( 'geolocation_ajax' === get_option( 'poocommerce_default_customer_address' ) && ! is_checkout() && ! is_cart() && ! is_account_page() && ! wp_doing_ajax() && empty( $_POST ) ) { // WPCS: CSRF ok, input var ok.
 			$location_hash = self::geolocation_ajax_get_location_hash();
 			$current_hash  = isset( $_GET['v'] ) ? wc_clean( wp_unslash( $_GET['v'] ) ) : ''; // WPCS: sanitization ok, input var ok, CSRF ok.
 			if ( empty( $current_hash ) || $current_hash !== $location_hash ) {
@@ -188,7 +188,7 @@ class WC_Cache_Helper {
 	}
 
 	/**
-	 * Updates the `woocommerce_geo_hash` cookie, which is used to help ensure we display
+	 * Updates the `poocommerce_geo_hash` cookie, which is used to help ensure we display
 	 * the correct pricing etc to customers, according to their billing country.
 	 *
 	 * Note that:
@@ -200,8 +200,8 @@ class WC_Cache_Helper {
 	 *    ensuring we update the cookie any time the billing country is changed.
 	 */
 	public static function update_geolocation_hash() {
-		if ( 'geolocation_ajax' === get_option( 'woocommerce_default_customer_address' ) ) {
-			wc_setcookie( 'woocommerce_geo_hash', static::geolocation_ajax_get_location_hash(), time() + HOUR_IN_SECONDS );
+		if ( 'geolocation_ajax' === get_option( 'poocommerce_default_customer_address' ) ) {
+			wc_setcookie( 'poocommerce_geo_hash', static::geolocation_ajax_get_location_hash(), time() + HOUR_IN_SECONDS );
 		}
 	}
 
@@ -218,7 +218,7 @@ class WC_Cache_Helper {
 	 * to append a unique string (based on time()) to each transient. When transients
 	 * are invalidated, the transient version will increment and data will be regenerated.
 	 *
-	 * Raised in issue https://github.com/woocommerce/woocommerce/issues/5777.
+	 * Raised in issue https://github.com/poocommerce/poocommerce/issues/5777.
 	 * Adapted from ideas in http://tollmanz.com/invalidation-schemes/.
 	 *
 	 * @param  string  $group   Name for the group of transients we need to invalidate.
@@ -269,7 +269,7 @@ class WC_Cache_Helper {
 				<p>
 				<?php
 				/* translators: 1: key 2: URL */
-				echo wp_kses_post( sprintf( __( 'In order for <strong>database caching</strong> to work with WooCommerce you must add %1$s to the "Ignored Query Strings" option in <a href="%2$s">W3 Total Cache settings</a>.', 'woocommerce' ), '<code>_wc_session_</code>', esc_url( admin_url( 'admin.php?page=w3tc_dbcache' ) ) ) );
+				echo wp_kses_post( sprintf( __( 'In order for <strong>database caching</strong> to work with PooCommerce you must add %1$s to the "Ignored Query Strings" option in <a href="%2$s">W3 Total Cache settings</a>.', 'poocommerce' ), '<code>_wc_session_</code>', esc_url( admin_url( 'admin.php?page=w3tc_dbcache' ) ) ) );
 				?>
 				</p>
 			</div>
@@ -278,7 +278,7 @@ class WC_Cache_Helper {
 	}
 
 	/**
-	 * Clean term caches added by WooCommerce.
+	 * Clean term caches added by PooCommerce.
 	 *
 	 * @since 3.3.4
 	 * @param array|int $ids Array of ids or single ID to clear cache for.
@@ -316,7 +316,7 @@ class WC_Cache_Helper {
 		if ( ! wp_using_ext_object_cache() && ! empty( $version ) ) {
 			global $wpdb;
 
-			$limit = apply_filters( 'woocommerce_delete_version_transients_limit', 1000 );
+			$limit = apply_filters( 'poocommerce_delete_version_transients_limit', 1000 );
 
 			if ( ! $limit ) {
 				return;

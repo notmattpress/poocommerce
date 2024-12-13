@@ -23,7 +23,7 @@ export const ConfirmationModal = ( {
 } ) => {
 	const [ pendingSubmitEvent, setPendingSubmitEvent ] = useState( null );
 	const [ isConfirmModalOpen, setIsConfirmModalOpen ] = useState( false );
-	const currentComingSoon = currentSetting?.woocommerce_coming_soon ?? 'no';
+	const currentComingSoon = currentSetting?.poocommerce_coming_soon ?? 'no';
 
 	// Hooks into settings' "mainform" to show a confirmation modal when the form is submitted.
 	useEffect( () => {
@@ -34,7 +34,7 @@ export const ConfirmationModal = ( {
 			// Only block submission when switching to coming soon mode from live.
 			if (
 				currentComingSoon === 'no' &&
-				formData.get( 'woocommerce_coming_soon' ) === 'yes'
+				formData.get( 'poocommerce_coming_soon' ) === 'yes'
 			) {
 				event.preventDefault();
 				setIsConfirmModalOpen( true );
@@ -63,14 +63,14 @@ export const ConfirmationModal = ( {
 
 	const confirmSubmit = () => {
 		if ( pendingSubmitEvent ) {
-			// WooCommerce checks for the "save" input.
+			// PooCommerce checks for the "save" input.
 			if ( saveButtonRef.current && formRef.current ) {
 				const hiddenInput = document.createElement( 'input' );
 				hiddenInput.type = 'hidden';
 				hiddenInput.name = saveButtonRef.current.name || 'save';
 				hiddenInput.value =
 					saveButtonRef.current.value ||
-					__( 'Save changes', 'woocommerce' );
+					__( 'Save changes', 'poocommerce' );
 				formRef.current.appendChild( hiddenInput );
 			}
 
@@ -84,7 +84,7 @@ export const ConfirmationModal = ( {
 		<Modal
 			title={ __(
 				'Confirm switch to ‘Coming soon’ mode',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ cancelSubmit }
 			size="medium"
@@ -93,7 +93,7 @@ export const ConfirmationModal = ( {
 			<div className="site-visibility-settings-confirmation-modal__content">
 				{ __(
 					'Are you sure you want to switch from live to coming soon mode? Your site will not be visible, and customers won’t be able to make purchases during this time.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</div>
 			<div className="divider-container">
@@ -105,10 +105,10 @@ export const ConfirmationModal = ( {
 					isBusy={ false }
 					onClick={ confirmSubmit }
 				>
-					{ __( 'Switch', 'woocommerce' ) }
+					{ __( 'Switch', 'poocommerce' ) }
 				</Button>
 				<Button variant="tertiary" onClick={ cancelSubmit }>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

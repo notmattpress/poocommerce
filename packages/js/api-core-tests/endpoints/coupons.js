@@ -10,9 +10,9 @@ const {
 const { coupon, shared } = require( '../data' );
 
 /**
- * WooCommerce Coupon endpoints.
+ * PooCommerce Coupon endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#coupons
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#coupons
  */
 const couponsApi = {
 	name: 'Coupons',

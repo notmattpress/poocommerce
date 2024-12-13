@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Message Functions
+ * PooCommerce Message Functions
  *
  * Functions for error/message handling and display.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.1.0
  */
 
@@ -21,8 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return int
  */
 function wc_notice_count( $notice_type = '' ) {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.3' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.3' );
 		return;
 	}
 
@@ -54,8 +54,8 @@ function wc_notice_count( $notice_type = '' ) {
  * @return bool
  */
 function wc_has_notice( $message, $notice_type = 'success' ) {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.3' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.3' );
 		return false;
 	}
 
@@ -74,8 +74,8 @@ function wc_has_notice( $message, $notice_type = 'success' ) {
  * @param array  $data        Optional notice data.
  */
 function wc_add_notice( $message, $notice_type = 'success', $data = array() ) {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.3' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.3' );
 		return;
 	}
 
@@ -83,10 +83,10 @@ function wc_add_notice( $message, $notice_type = 'success', $data = array() ) {
 
 	// Backward compatibility.
 	if ( 'success' === $notice_type ) {
-		$message = apply_filters( 'woocommerce_add_message', $message );
+		$message = apply_filters( 'poocommerce_add_message', $message );
 	}
 
-	$message = apply_filters( 'woocommerce_add_' . $notice_type, $message );
+	$message = apply_filters( 'poocommerce_add_' . $notice_type, $message );
 
 	if ( ! empty( $message ) ) {
 		$notices[ $notice_type ][] = array(
@@ -105,8 +105,8 @@ function wc_add_notice( $message, $notice_type = 'success', $data = array() ) {
  * @param array[] $notices Array of notices.
  */
 function wc_set_notices( $notices ) {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.6' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.6' );
 		return;
 	}
 
@@ -119,8 +119,8 @@ function wc_set_notices( $notices ) {
  * @since 2.1
  */
 function wc_clear_notices() {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.3' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.3' );
 		return;
 	}
 	WC()->session->set( 'wc_notices', null );
@@ -134,8 +134,8 @@ function wc_clear_notices() {
  * @return string|void
  */
 function wc_print_notices( $return = false ) {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.3' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.3' );
 		return;
 	}
 
@@ -147,7 +147,7 @@ function wc_print_notices( $return = false ) {
 	}
 
 	$all_notices  = $session->get( 'wc_notices', array() );
-	$notice_types = apply_filters( 'woocommerce_notice_types', array( 'error', 'success', 'notice' ) );
+	$notice_types = apply_filters( 'poocommerce_notice_types', array( 'error', 'success', 'notice' ) );
 
 	// Buffer output.
 	ob_start();
@@ -193,10 +193,10 @@ function wc_print_notices( $return = false ) {
  */
 function wc_print_notice( $message, $notice_type = 'success', $data = array(), $return = false ) {
 	if ( 'success' === $notice_type ) {
-		$message = apply_filters( 'woocommerce_add_message', $message );
+		$message = apply_filters( 'poocommerce_add_message', $message );
 	}
 
-	$message = apply_filters( 'woocommerce_add_' . $notice_type, $message );
+	$message = apply_filters( 'poocommerce_add_' . $notice_type, $message );
 
 	// Buffer output.
 	ob_start();
@@ -232,8 +232,8 @@ function wc_print_notice( $message, $notice_type = 'success', $data = array(), $
  * @return array[]
  */
 function wc_get_notices( $notice_type = '' ) {
-	if ( ! did_action( 'woocommerce_init' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before woocommerce_init.', 'woocommerce' ), '2.3' );
+	if ( ! did_action( 'poocommerce_init' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, __( 'This function should not be called before poocommerce_init.', 'poocommerce' ), '2.3' );
 		return;
 	}
 
@@ -286,7 +286,7 @@ function wc_kses_notice( $message ) {
 	 * @since 3.9.0
 	 * @param array[]|string $allowed_tags An array of allowed HTML elements and attributes, or a context name such as 'post'.
 	 */
-	return wp_kses( $message, apply_filters( 'woocommerce_kses_notice_allowed_tags', $allowed_tags ) );
+	return wp_kses( $message, apply_filters( 'poocommerce_kses_notice_allowed_tags', $allowed_tags ) );
 }
 
 /**

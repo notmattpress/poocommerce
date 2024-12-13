@@ -4,7 +4,7 @@ menu_title: Data storage
 tags: reference
 ---
 
-When developing for WordPress and WooCommerce, it's important to consider the nature and permanence of your data. This will help you decide the best way to store it. Here's a quick primer:
+When developing for WordPress and PooCommerce, it's important to consider the nature and permanence of your data. This will help you decide the best way to store it. Here's a quick primer:
 
 ## Transients
 
@@ -28,6 +28,6 @@ If the data is a means of sorting/categorizing an entity, consider a [taxonomy](
 
 ## Logging
 
-Logs should be written to a file using the [WC_Logger](https://woocommerce.com/wc-apidocs/class-WC_Logger.html) class. This is a simple and standardized way of recording events and errors for debugging purposes.
+Logs should be written to a file using the [WC_Logger](https://poocommerce.com/wc-apidocs/class-WC_Logger.html) class. This is a simple and standardized way of recording events and errors for debugging purposes.
 
 Remember, the best method of data storage depends on the nature of the data and how it will be used in your application.

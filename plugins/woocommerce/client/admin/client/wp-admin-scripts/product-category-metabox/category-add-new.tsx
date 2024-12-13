@@ -4,13 +4,13 @@
 import { __ } from '@wordpress/i18n';
 import { useCallback, useState } from '@wordpress/element';
 import { addQueryArgs } from '@wordpress/url';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	useAsyncFilter,
 	__experimentalSelectControl as SelectControl,
-} from '@woocommerce/components';
-import { useUser } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { useUser } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -101,7 +101,7 @@ export const CategoryAddNew: React.FC< {
 					).toString(),
 					{
 						term: value,
-						action: 'woocommerce_json_search_categories',
+						action: 'poocommerce_json_search_categories',
 						// eslint-disable-next-line no-undef, camelcase
 						security:
 							wc_product_category_metabox_params.search_categories_nonce,
@@ -133,9 +133,9 @@ export const CategoryAddNew: React.FC< {
 				href={ '#taxonomy-' + CATEGORY_TERM_NAME }
 				className="taxonomy-add-new"
 				onClick={ () => setShowAddNew( ! showAddNew ) }
-				aria-label={ __( 'Add new category', 'woocommerce' ) }
+				aria-label={ __( 'Add new category', 'poocommerce' ) }
 			>
-				{ __( '+ Add new category', 'woocommerce' ) }
+				{ __( '+ Add new category', 'poocommerce' ) }
 			</a>
 			{ showAddNew && (
 				<div id="product_cat-add" className="category-add">
@@ -143,14 +143,14 @@ export const CategoryAddNew: React.FC< {
 						className="screen-reader-text"
 						htmlFor="newproduct_cat"
 					>
-						{ __( 'Add new category', 'woocommerce' ) }
+						{ __( 'Add new category', 'poocommerce' ) }
 					</label>
 					<input
 						type="text"
 						name="newproduct_cat"
 						id="newproduct_cat"
 						className="form-required"
-						placeholder={ __( 'New category name', 'woocommerce' ) }
+						placeholder={ __( 'New category name', 'poocommerce' ) }
 						value={ newCategoryName }
 						onChange={ ( event ) =>
 							setNewCategoryName( event.target.value )
@@ -161,14 +161,14 @@ export const CategoryAddNew: React.FC< {
 						className="screen-reader-text"
 						htmlFor="newproduct_cat_parent"
 					>
-						{ __( 'Parent category:', 'woocommerce' ) }
+						{ __( 'Parent category:', 'poocommerce' ) }
 					</label>
 					<SelectControl< CategoryTerm >
 						{ ...selectProps }
-						label={ __( 'Parent category:', 'woocommerce' ) }
+						label={ __( 'Parent category:', 'poocommerce' ) }
 						items={ fetchedItems }
 						selected={ categoryParent || null }
-						placeholder={ __( 'Find category', 'woocommerce' ) }
+						placeholder={ __( 'Find category', 'poocommerce' ) }
 						onSelect={ setCategoryParent }
 						getItemLabel={ getCategoryTermLabel }
 						getItemValue={ getCategoryTermKey }
@@ -183,7 +183,7 @@ export const CategoryAddNew: React.FC< {
 						type="button"
 						id="product_cat-add-submit"
 						className="button category-add-submit"
-						value={ __( 'Add new category', 'woocommerce' ) }
+						value={ __( 'Add new category', 'poocommerce' ) }
 						disabled={ ! newCategoryName.length }
 						onClick={ onCreate }
 					/>

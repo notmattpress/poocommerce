@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useRef } from '@wordpress/element';
-import { useUser } from '@woocommerce/data';
+import { useUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -88,7 +88,7 @@ export const MarketingOverviewMultichannel: React.FC = () => {
 	};
 
 	return (
-		<div className="woocommerce-marketing-overview-multichannel">
+		<div className="poocommerce-marketing-overview-multichannel">
 			<Promotions format="promo-card" />
 			{ ! isIntroductionBannerDismissed && (
 				<IntroductionBanner

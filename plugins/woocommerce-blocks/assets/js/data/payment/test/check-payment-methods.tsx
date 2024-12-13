@@ -2,15 +2,15 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { previewCart } from '@woocommerce/resource-previews';
-import { PAYMENT_STORE_KEY, CART_STORE_KEY } from '@woocommerce/block-data';
+import { previewCart } from '@poocommerce/resource-previews';
+import { PAYMENT_STORE_KEY, CART_STORE_KEY } from '@poocommerce/block-data';
 import {
 	registerPaymentMethod,
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
-} from '@woocommerce/blocks-registry';
-import { CanMakePaymentArgument } from '@woocommerce/types';
+} from '@poocommerce/blocks-registry';
+import { CanMakePaymentArgument } from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -46,7 +46,7 @@ export const WooProductTabItem: React.FC< WooProductTabItemProps > & {
 		<>
 			{ templates.map( ( templateData ) => (
 				<Fill
-					name={ `woocommerce_product_tab_${ templateData.name }` }
+					name={ `poocommerce_product_tab_${ templateData.name }` }
 					key={ templateData.name }
 				>
 					{ ( fillProps: Fill.Props ) => {
@@ -70,7 +70,7 @@ export const WooProductTabItem: React.FC< WooProductTabItemProps > & {
 
 WooProductTabItem.Slot = ( { fillProps, template, children } ) => (
 	<Slot
-		name={ `woocommerce_product_tab_${ template }` }
+		name={ `poocommerce_product_tab_${ template }` }
 		fillProps={ fillProps }
 	>
 		{ ( fills ) => {

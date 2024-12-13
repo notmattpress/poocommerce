@@ -3,13 +3,13 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { MenuItem } from '@wordpress/components';
 import {
 	ALLOW_TRACKING_OPTION_NAME,
 	STORE_KEY as CES_STORE_KEY,
-} from '@woocommerce/customer-effort-score';
+} from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
@@ -70,10 +70,10 @@ export const ClassicEditorMenuItem = ( {
 			onClick={ handleMenuItemClick }
 			info={ __(
 				'Save changes and go back to the classic product editing screen.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		>
-			{ __( 'Turn off the new product form', 'woocommerce' ) }
+			{ __( 'Turn off the new product form', 'poocommerce' ) }
 		</MenuItem>
 	);
 };

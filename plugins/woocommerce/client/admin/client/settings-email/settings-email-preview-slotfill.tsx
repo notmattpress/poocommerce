@@ -73,7 +73,7 @@ const EmailPreviewFill: React.FC< EmailPreviewFillProps > = ( {
 					<EmailPreviewHeader emailType={ emailType } />
 					<iframe
 						src={ finalPreviewUrl }
-						title={ __( 'Email preview frame', 'woocommerce' ) }
+						title={ __( 'Email preview frame', 'poocommerce' ) }
 						onLoad={ () => setIsLoading( false ) }
 					/>
 				</div>
@@ -98,9 +98,9 @@ export const registerSettingsEmailPreviewFill = () => {
 		emailTypes = JSON.parse( emailTypesData || '' );
 	} catch ( e ) {}
 
-	registerPlugin( 'woocommerce-admin-settings-email-preview', {
+	registerPlugin( 'poocommerce-admin-settings-email-preview', {
 		// @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated.
-		scope: 'woocommerce-email-preview-settings',
+		scope: 'poocommerce-email-preview-settings',
 		render: () => (
 			<EmailPreviewFill
 				emailTypes={ emailTypes }

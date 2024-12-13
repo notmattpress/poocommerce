@@ -41,7 +41,7 @@ export function addProduct( includeTests = {} ) {
 	let wpnonce;
 	let closed_postboxes_nonce;
 	let sample_permalink_nonce;
-	let woocommerce_meta_nonce;
+	let poocommerce_meta_nonce;
 	let meta_box_order_nonce;
 	let post_id;
 	let api_x_wp_nonce;
@@ -104,9 +104,9 @@ export function addProduct( includeTests = {} ) {
 			.find( 'input[id=samplepermalinknonce]' )
 			.first()
 			.attr( 'value' );
-		woocommerce_meta_nonce = response
+		poocommerce_meta_nonce = response
 			.html()
-			.find( 'input[id=woocommerce_meta_nonce]' )
+			.find( 'input[id=poocommerce_meta_nonce]' )
 			.first()
 			.attr( 'value' );
 		meta_box_order_nonce = response
@@ -173,11 +173,11 @@ export function addProduct( includeTests = {} ) {
 			} );
 
 			response = http.get(
-				`${ base_url }/wp-json/wc-admin/options?options=woocommerce_ces_tracks_queue&_locale=user`,
+				`${ base_url }/wp-json/wc-admin/options?options=poocommerce_ces_tracks_queue&_locale=user`,
 				{
 					headers: requestHeaders,
 					tags: {
-						name: 'Merchant - wc-admin/options?options=woocommerce_ces_tracks_queue',
+						name: 'Merchant - wc-admin/options?options=poocommerce_ces_tracks_queue',
 					},
 				}
 			);
@@ -361,7 +361,7 @@ export function addProduct( includeTests = {} ) {
 				[ 'tax_input%255Bproduct_tag%255D', '' ],
 				[ 'user_ID', '1' ],
 				[ 'visibility', 'public' ],
-				[ 'woocommerce_meta_nonce', `${ woocommerce_meta_nonce }` ],
+				[ 'poocommerce_meta_nonce', `${ poocommerce_meta_nonce }` ],
 				[ 'wp-preview', '' ],
 			] );
 

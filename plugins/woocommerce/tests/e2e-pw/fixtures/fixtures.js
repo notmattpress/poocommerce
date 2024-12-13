@@ -1,5 +1,5 @@
 const base = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { admin } = require( '../test-data/data' );
 const { random } = require( '../utils/helpers' );
 

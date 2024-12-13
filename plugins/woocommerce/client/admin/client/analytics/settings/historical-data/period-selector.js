@@ -4,9 +4,9 @@
 import { __ } from '@wordpress/i18n';
 import moment from 'moment';
 import { SelectControl } from '@wordpress/components';
-import { DatePicker } from '@woocommerce/components';
-import { dateValidationMessages } from '@woocommerce/date';
-import { IMPORT_STORE_NAME } from '@woocommerce/data';
+import { DatePicker } from '@poocommerce/components';
+import { dateValidationMessages } from '@poocommerce/date';
+import { IMPORT_STORE_NAME } from '@poocommerce/data';
 import { withDispatch } from '@wordpress/data';
 
 function HistoricalDataPeriodSelector( {
@@ -42,9 +42,9 @@ function HistoricalDataPeriodSelector( {
 	const getDatePicker = () => {
 		const momentDate = moment( value.date, dateFormat );
 		return (
-			<div className="woocommerce-settings-historical-data__column">
-				<div className="woocommerce-settings-historical-data__column-label">
-					{ __( 'Beginning on', 'woocommerce' ) }
+			<div className="poocommerce-settings-historical-data__column">
+				<div className="poocommerce-settings-historical-data__column-label">
+					{ __( 'Beginning on', 'poocommerce' ) }
 				</div>
 				<DatePicker
 					date={ momentDate.isValid() ? momentDate.toDate() : null }
@@ -62,10 +62,10 @@ function HistoricalDataPeriodSelector( {
 	};
 
 	return (
-		<div className="woocommerce-settings-historical-data__columns">
-			<div className="woocommerce-settings-historical-data__column">
+		<div className="poocommerce-settings-historical-data__columns">
+			<div className="poocommerce-settings-historical-data__column">
 				<SelectControl
-					label={ __( 'Import historical data', 'woocommerce' ) }
+					label={ __( 'Import historical data', 'poocommerce' ) }
 					value={ value.label }
 					disabled={ disabled }
 					onChange={ onSelectChange }

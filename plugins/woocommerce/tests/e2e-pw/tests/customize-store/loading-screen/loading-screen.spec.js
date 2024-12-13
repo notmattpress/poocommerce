@@ -31,7 +31,7 @@ test.describe( 'Assembler - Loading Page', { tag: tags.GUTENBERG }, () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'yes'
 			);
 		} catch ( error ) {
@@ -45,13 +45,13 @@ test.describe( 'Assembler - Loading Page', { tag: tags.GUTENBERG }, () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'no'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_admin_customize_store_completed',
+				'poocommerce_admin_customize_store_completed',
 				'no'
 			);
 
@@ -74,7 +74,7 @@ test.describe( 'Assembler - Loading Page', { tag: tags.GUTENBERG }, () => {
 
 		for ( const step of steps ) {
 			await expect(
-				page.locator( '.woocommerce-onboarding-loader' )
+				page.locator( '.poocommerce-onboarding-loader' )
 			).toBeVisible();
 			await expect( page.getByText( step ) ).toBeVisible();
 			await expect( page.getByAltText( step ) ).toBeVisible();
@@ -108,7 +108,7 @@ test.describe( 'Assembler - Loading Page', { tag: tags.GUTENBERG }, () => {
 
 		await expect(
 			page
-				.locator( '#woocommerce-layout__primary' )
+				.locator( '#poocommerce-layout__primary' )
 				.getByText(
 					'Oops! We encountered a problem while setting up the foundations. Please try again or start with a theme.'
 				)

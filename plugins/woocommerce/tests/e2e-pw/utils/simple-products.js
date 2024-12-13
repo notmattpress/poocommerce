@@ -15,7 +15,7 @@ const SETTINGS_URL =
 async function isBlockProductEditorEnabled( page ) {
 	await page.goto( SETTINGS_URL );
 	return await page
-		.locator( '#woocommerce_feature_product_block_editor_enabled' )
+		.locator( '#poocommerce_feature_product_block_editor_enabled' )
 		.isChecked();
 }
 
@@ -29,7 +29,7 @@ async function toggleBlockProductEditor( action = 'enable', page ) {
 	await page.goto( SETTINGS_URL );
 
 	const enableProductEditor = page.locator(
-		'#woocommerce_feature_product_block_editor_enabled'
+		'#poocommerce_feature_product_block_editor_enabled'
 	);
 	const isEnabled = await enableProductEditor.isChecked();
 
@@ -84,7 +84,7 @@ async function expectOldProductEditor( page ) {
  */
 async function expectBlockProductEditor( page ) {
 	await expect(
-		page.locator( '.woocommerce-product-header__inner h1' )
+		page.locator( '.poocommerce-product-header__inner h1' )
 	).toContainText( 'Add new product' );
 }
 
@@ -96,7 +96,7 @@ async function expectBlockProductEditor( page ) {
  */
 async function clickOnTab( tabName, page ) {
 	await page
-		.locator( '.woocommerce-product-tabs' )
+		.locator( '.poocommerce-product-tabs' )
 		.getByRole( 'tab', { name: tabName } )
 		.click();
 }

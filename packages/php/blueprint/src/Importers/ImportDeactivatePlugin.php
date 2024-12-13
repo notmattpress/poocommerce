@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Importers;
+namespace Automattic\PooCommerce\Blueprint\Importers;
 
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\DeactivatePlugin;
-use Automattic\WooCommerce\Blueprint\UsePluginHelpers;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\DeactivatePlugin;
+use Automattic\PooCommerce\Blueprint\UsePluginHelpers;
 
 /**
  * Class ImportDeactivatePlugin

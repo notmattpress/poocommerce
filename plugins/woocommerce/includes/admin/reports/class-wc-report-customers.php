@@ -2,7 +2,7 @@
 /**
  * Class WC_Report_Customers file.
  *
- * @package WooCommerce\Reports
+ * @package PooCommerce\Reports
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Report_Customers
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 class WC_Report_Customers extends WC_Admin_Report {
@@ -41,7 +41,7 @@ class WC_Report_Customers extends WC_Admin_Report {
 
 		$legend[] = array(
 			/* translators: %s: signups amount */
-			'title'            => sprintf( __( '%s signups in this period', 'woocommerce' ), '<strong>' . count( $this->customers ) . '</strong>' ),
+			'title'            => sprintf( __( '%s signups in this period', 'poocommerce' ), '<strong>' . count( $this->customers ) . '</strong>' ),
 			'color'            => $this->chart_colours['signups'],
 			'highlight_series' => 2,
 		);
@@ -113,8 +113,8 @@ class WC_Report_Customers extends WC_Admin_Report {
 		<div class="chart-container">
 			<div class="chart-placeholder customers_vs_guests pie-chart" style="height:200px"></div>
 			<ul class="pie-chart-legend">
-				<li style="border-color: <?php echo esc_attr( $this->chart_colours['customers'] ); ?>"><?php esc_html_e( 'Customer sales', 'woocommerce' ); ?></li>
-				<li style="border-color: <?php echo esc_attr( $this->chart_colours['guests'] ); ?>"><?php esc_html_e( 'Guest sales', 'woocommerce' ); ?></li>
+				<li style="border-color: <?php echo esc_attr( $this->chart_colours['customers'] ); ?>"><?php esc_html_e( 'Customer sales', 'poocommerce' ); ?></li>
+				<li style="border-color: <?php echo esc_attr( $this->chart_colours['guests'] ); ?>"><?php esc_html_e( 'Guest sales', 'poocommerce' ); ?></li>
 			</ul>
 		</div>
 		<script type="text/javascript">
@@ -123,12 +123,12 @@ class WC_Report_Customers extends WC_Admin_Report {
 					jQuery('.chart-placeholder.customers_vs_guests'),
 					[
 						{
-							label: '<?php esc_html_e( 'Customer orders', 'woocommerce' ); ?>',
+							label: '<?php esc_html_e( 'Customer orders', 'poocommerce' ); ?>',
 							data:  "<?php echo esc_html( $customer_order_totals->total_orders ); ?>",
 							color: '<?php echo esc_html( $this->chart_colours['customers'] ); ?>'
 						},
 						{
-							label: '<?php esc_html_e( 'Guest orders', 'woocommerce' ); ?>',
+							label: '<?php esc_html_e( 'Guest orders', 'poocommerce' ); ?>',
 							data:  "<?php echo esc_html( $guest_order_totals->total_orders ); ?>",
 							color: '<?php echo esc_html( $this->chart_colours['guests'] ); ?>'
 						}
@@ -147,7 +147,7 @@ class WC_Report_Customers extends WC_Admin_Report {
 								}
 							},
 							enable_tooltip: true,
-							append_tooltip: "<?php echo esc_html( ' ' . __( 'orders', 'woocommerce' ) ); ?>",
+							append_tooltip: "<?php echo esc_html( ' ' . __( 'orders', 'poocommerce' ) ); ?>",
 						},
 						legend: {
 							show: false
@@ -167,10 +167,10 @@ class WC_Report_Customers extends WC_Admin_Report {
 	public function output_report() {
 
 		$ranges = array(
-			'year'       => __( 'Year', 'woocommerce' ),
-			'last_month' => __( 'Last month', 'woocommerce' ),
-			'month'      => __( 'This month', 'woocommerce' ),
-			'7day'       => __( 'Last 7 days', 'woocommerce' ),
+			'year'       => __( 'Year', 'poocommerce' ),
+			'last_month' => __( 'Last month', 'poocommerce' ),
+			'month'      => __( 'This month', 'poocommerce' ),
+			'7day'       => __( 'Last 7 days', 'poocommerce' ),
 		);
 
 		$this->chart_colours = array(
@@ -204,7 +204,7 @@ class WC_Report_Customers extends WC_Admin_Report {
 
 		$users_query = new WP_User_Query(
 			apply_filters(
-				'woocommerce_admin_report_customers_user_query_args',
+				'poocommerce_admin_report_customers_user_query_args',
 				array(
 					'fields'  => array( 'user_registered' ),
 					'exclude' => array_merge( $admin_users->get_results(), $manager_users->get_results() ),
@@ -235,10 +235,10 @@ class WC_Report_Customers extends WC_Admin_Report {
 			download="report-<?php echo esc_attr( $current_range ); ?>-<?php echo esc_attr( date_i18n( 'Y-m-d', current_time( 'timestamp' ) ) ); ?>.csv"
 			class="export_csv"
 			data-export="chart"
-			data-xaxes="<?php esc_attr_e( 'Date', 'woocommerce' ); ?>"
+			data-xaxes="<?php esc_attr_e( 'Date', 'poocommerce' ); ?>"
 			data-groupby="<?php echo esc_attr( $this->chart_groupby ); ?>"
 		>
-			<?php esc_html_e( 'Export CSV', 'woocommerce' ); ?>
+			<?php esc_html_e( 'Export CSV', 'poocommerce' ); ?>
 		</a>
 		<?php
 	}
@@ -329,34 +329,34 @@ class WC_Report_Customers extends WC_Admin_Report {
 				var drawGraph = function( highlight ) {
 					var series = [
 							{
-								label: "<?php echo esc_js( __( 'Customer orders', 'woocommerce' ) ); ?>",
+								label: "<?php echo esc_js( __( 'Customer orders', 'poocommerce' ) ); ?>",
 								data: chart_data.customer_orders,
 								color: '<?php echo esc_html( $this->chart_colours['customers'] ); ?>',
 								bars: { fillColor: '<?php echo esc_html( $this->chart_colours['customers'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_html( $this->barwidth ); ?> * 0.5, align: 'center' },
 								shadowSize: 0,
 								enable_tooltip: true,
-								append_tooltip: "<?php echo esc_html( ' ' . __( 'customer orders', 'woocommerce' ) ); ?>",
+								append_tooltip: "<?php echo esc_html( ' ' . __( 'customer orders', 'poocommerce' ) ); ?>",
 								stack: true,
 							},
 							{
-								label: "<?php echo esc_js( __( 'Guest orders', 'woocommerce' ) ); ?>",
+								label: "<?php echo esc_js( __( 'Guest orders', 'poocommerce' ) ); ?>",
 								data: chart_data.guest_orders,
 								color: '<?php echo esc_html( $this->chart_colours['guests'] ); ?>',
 								bars: { fillColor: '<?php echo esc_html( $this->chart_colours['guests'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_html( $this->barwidth ); ?> * 0.5, align: 'center' },
 								shadowSize: 0,
 								enable_tooltip: true,
-								append_tooltip: "<?php echo esc_html( ' ' . __( 'guest orders', 'woocommerce' ) ); ?>",
+								append_tooltip: "<?php echo esc_html( ' ' . __( 'guest orders', 'poocommerce' ) ); ?>",
 								stack: true,
 							},
 							{
-								label: "<?php echo esc_js( __( 'Signups', 'woocommerce' ) ); ?>",
+								label: "<?php echo esc_js( __( 'Signups', 'poocommerce' ) ); ?>",
 								data: chart_data.signups,
 								color: '<?php echo esc_html( $this->chart_colours['signups'] ); ?>',
 								points: { show: true, radius: 5, lineWidth: 3, fillColor: '#fff', fill: true },
 								lines: { show: true, lineWidth: 4, fill: false },
 								shadowSize: 0,
 								enable_tooltip: true,
-								append_tooltip: "<?php echo esc_html( ' ' . __( 'new users', 'woocommerce' ) ); ?>",
+								append_tooltip: "<?php echo esc_html( ' ' . __( 'new users', 'poocommerce' ) ); ?>",
 								stack: false
 							},
 						];

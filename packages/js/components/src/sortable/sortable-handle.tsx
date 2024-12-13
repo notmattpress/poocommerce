@@ -24,7 +24,7 @@ export const SortableHandle = ( {
 
 	return (
 		<div
-			className="woocommerce-sortable__handle"
+			className="poocommerce-sortable__handle"
 			draggable
 			onDragStart={ onDragStart }
 			onDragEnd={ onDragEnd }

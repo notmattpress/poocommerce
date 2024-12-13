@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Fragment, useContext } from '@wordpress/element';
-import { CurrencyContext } from '@woocommerce/currency';
+import { CurrencyContext } from '@poocommerce/currency';
 import classNames from 'classnames';
 
 /**
@@ -24,7 +24,7 @@ export function FormattedPrice( {
 				<span
 					{ ...props }
 					className={ classNames(
-						'woocommerce-product-formatted-price',
+						'poocommerce-product-formatted-price',
 						className
 					) }
 				>
@@ -39,7 +39,7 @@ export function FormattedPrice( {
 					{ product.regular_price && (
 						<span
 							className={ classNames( {
-								'woocommerce-product-formatted-price--on-sale':
+								'poocommerce-product-formatted-price--on-sale':
 									product.on_sale,
 							} ) }
 						>

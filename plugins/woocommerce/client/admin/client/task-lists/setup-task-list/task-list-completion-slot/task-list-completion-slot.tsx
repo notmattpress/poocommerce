@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useSlot } from '@woocommerce/experimental';
+import { useSlot } from '@poocommerce/experimental';
 import clsx from 'clsx';
 
 /**
@@ -28,7 +28,7 @@ export const TaskListCompletionSlot = ( {
 	return (
 		<div
 			className={ clsx(
-				'woocommerce-tasklist-completion-slot',
+				'poocommerce-tasklist-completion-slot',
 				className
 			) }
 		>

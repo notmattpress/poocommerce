@@ -8,8 +8,8 @@ import type {
 	CartItem,
 	CartShippingRate,
 	ApiErrorResponse,
-} from '@woocommerce/types';
-import { BillingAddress, ShippingAddress } from '@woocommerce/settings';
+} from '@poocommerce/types';
+import { BillingAddress, ShippingAddress } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

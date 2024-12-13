@@ -3,7 +3,7 @@
  */
 import { Octokit } from '@octokit/rest';
 import shuffle from 'lodash.shuffle';
-import { getEnvVar } from '@woocommerce/monorepo-utils/src/core/environment';
+import { getEnvVar } from '@poocommerce/monorepo-utils/src/core/environment';
 
 export type ContributorData = {
 	totalCommits: number;
@@ -105,8 +105,8 @@ export const getMostRecentFinal = async () => {
 	} );
 
 	const release = await octokit.repos.getLatestRelease( {
-		owner: 'woocommerce',
-		repo: 'woocommerce',
+		owner: 'poocommerce',
+		repo: 'poocommerce',
 	} );
 
 	return release.data;
@@ -118,8 +118,8 @@ export const getMostRecentBeta = async () => {
 	} );
 
 	const { data: releases } = await octokit.repos.listReleases( {
-		owner: 'woocommerce',
-		repo: 'woocommerce',
+		owner: 'poocommerce',
+		repo: 'poocommerce',
 	} );
 
 	const betaReleases = releases.filter(

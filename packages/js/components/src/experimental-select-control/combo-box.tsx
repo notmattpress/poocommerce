@@ -21,7 +21,7 @@ const ToggleButton = forwardRef< HTMLButtonElement >( ( props, ref ) => {
 	// using forwardRef here because getToggleButtonProps injects a ref prop
 	return (
 		<button
-			className="woocommerce-experimental-select-control__combox-box-toggle-button"
+			className="poocommerce-experimental-select-control__combox-box-toggle-button"
 			{ ...props }
 			ref={ ref }
 		>
@@ -58,19 +58,19 @@ export const ComboBox = ( {
 		/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 		<div
 			className={ classNames(
-				'woocommerce-experimental-select-control__combo-box-wrapper',
+				'poocommerce-experimental-select-control__combo-box-wrapper',
 				{
-					'woocommerce-experimental-select-control__combo-box-wrapper--disabled':
+					'poocommerce-experimental-select-control__combo-box-wrapper--disabled':
 						inputProps.disabled,
 				}
 			) }
 			onMouseDown={ maybeFocusInput }
 		>
-			<div className="woocommerce-experimental-select-control__items-wrapper">
+			<div className="poocommerce-experimental-select-control__items-wrapper">
 				{ children }
 				<div
 					{ ...comboBoxProps }
-					className="woocommerce-experimental-select-control__combox-box"
+					className="poocommerce-experimental-select-control__combox-box"
 				>
 					<input
 						{ ...inputProps }
@@ -88,7 +88,7 @@ export const ComboBox = ( {
 				</div>
 			</div>
 			{ suffix && (
-				<div className="woocommerce-experimental-select-control__suffix">
+				<div className="poocommerce-experimental-select-control__suffix">
 					{ suffix }
 				</div>
 			) }

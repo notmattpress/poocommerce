@@ -31,6 +31,6 @@ export const CustomIcon = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/experimental/Tooltip',
+	title: 'PooCommerce Admin/experimental/Tooltip',
 	component: Tooltip,
 };

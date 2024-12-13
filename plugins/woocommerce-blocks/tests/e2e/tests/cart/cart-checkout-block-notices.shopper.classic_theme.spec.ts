@@ -9,7 +9,7 @@ import {
 	CLASSIC_CHILD_THEME_WITH_CLASSIC_NOTICES_TEMPLATE_SLUG,
 	CLASSIC_CHILD_THEME_WITH_BLOCK_NOTICES_FILTER_SLUG,
 	CLASSIC_CHILD_THEME_WITH_BLOCK_NOTICES_TEMPLATE_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 		const cartShortcodeID = cliOutput.stdout.match( /\d+/g )?.pop();
 
 		await wpCLI(
-			`option update woocommerce_cart_page_id ${ cartShortcodeID }`
+			`option update poocommerce_cart_page_id ${ cartShortcodeID }`
 		);
 
 		await frontendUtils.goToShop();
@@ -62,7 +62,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 
 		// We're explicitly checking the CSS classes of the classic notices.
 		await expect(
-			page.locator( '.woocommerce-notices-wrapper .woocommerce-message' )
+			page.locator( '.poocommerce-notices-wrapper .poocommerce-message' )
 		).toBeVisible();
 
 		await page.reload();
@@ -75,7 +75,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 
 		// We're explicitly checking the CSS classes of the classic notices.
 		await expect(
-			page.locator( '.woocommerce-notices-wrapper .woocommerce-error' )
+			page.locator( '.poocommerce-notices-wrapper .poocommerce-error' )
 		).toBeHidden();
 
 		await page.getByLabel( 'Remove Polo from cart' ).click();
@@ -86,7 +86,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 
 		// We're explicitly checking the CSS classes of the classic notices.
 		await expect(
-			page.locator( '.woocommerce-notices-wrapper .woocommerce-info' )
+			page.locator( '.poocommerce-notices-wrapper .poocommerce-info' )
 		).toBeVisible();
 	} );
 
@@ -111,7 +111,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 
 		// We're explicitly checking the CSS classes of the classic notices.
 		await expect(
-			page.locator( '.woocommerce-notices-wrapper .woocommerce-message' )
+			page.locator( '.poocommerce-notices-wrapper .poocommerce-message' )
 		).toBeVisible();
 
 		await page.reload();
@@ -126,7 +126,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 
 		// We're explicitly checking the CSS classes of the classic notices.
 		await expect(
-			page.locator( '.woocommerce-notices-wrapper .woocommerce-error' )
+			page.locator( '.poocommerce-notices-wrapper .poocommerce-error' )
 		).toBeHidden();
 
 		await page.getByLabel( 'Remove Polo from cart' ).click();
@@ -139,7 +139,7 @@ test.describe( 'Shopper → Notice Templates', () => {
 
 		// We're explicitly checking the CSS classes of the classic notices.
 		await expect(
-			page.locator( '.woocommerce-notices-wrapper .woocommerce-info' )
+			page.locator( '.poocommerce-notices-wrapper .poocommerce-info' )
 		).toBeVisible();
 
 		await requestUtils.activateTheme( CLASSIC_THEME_SLUG );

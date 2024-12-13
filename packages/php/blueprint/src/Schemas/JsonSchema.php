@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Schemas;
+namespace Automattic\PooCommerce\Blueprint\Schemas;
 
 /**
  * Class JsonSchema

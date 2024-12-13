@@ -26,6 +26,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/Tag',
+	title: 'PooCommerce Admin/components/Tag',
 	component: Tag,
 };

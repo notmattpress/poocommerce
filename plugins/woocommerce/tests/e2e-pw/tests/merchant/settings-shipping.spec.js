@@ -1,7 +1,7 @@
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
-test.describe( 'WooCommerce Shipping Settings', () => {
+test.describe( 'PooCommerce Shipping Settings', () => {
 	test.use( { storageState: process.env.ADMINSTATE } );
 
 	test.afterAll( async ( { baseURL } ) => {
@@ -56,7 +56,7 @@ test.describe( 'WooCommerce Shipping Settings', () => {
 			await page.getByText( 'Free shipping', { exact: true } ).click();
 			await page.getByRole( 'button', { name: 'Continue' } ).click();
 			await page.selectOption(
-				'select[name="woocommerce_free_shipping_requires"]',
+				'select[name="poocommerce_free_shipping_requires"]',
 				'A minimum order amount'
 			);
 			await page.getByPlaceholder( '0' ).fill( '100' );

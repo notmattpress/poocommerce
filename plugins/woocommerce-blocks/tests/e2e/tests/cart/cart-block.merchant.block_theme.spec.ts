@@ -1,20 +1,20 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 const blockData: BlockData = {
 	name: 'Cart',
-	slug: 'woocommerce/cart',
-	mainClass: '.wp-block-woocommerce-cart',
+	slug: 'poocommerce/cart',
+	mainClass: '.wp-block-poocommerce-cart',
 	selectors: {
 		editor: {
-			block: '.wp-block-woocommerce-cart',
+			block: '.wp-block-poocommerce-cart',
 			insertButton: "//button//span[text()='Cart']",
-			shippingBlock: '.wp-block-woocommerce-shipping-calculator',
+			shippingBlock: '.wp-block-poocommerce-shipping-calculator',
 		},
 		frontend: {
-			block: '.wp-block-woocommerce-cart',
+			block: '.wp-block-poocommerce-cart',
 		},
 	},
 };
@@ -26,7 +26,7 @@ test.describe( 'Merchant → Cart', () => {
 	test.describe( 'in page editor', () => {
 		test.beforeEach( async ( { admin } ) => {
 			await admin.visitSiteEditor( {
-				postId: 'woocommerce/woocommerce//page-cart',
+				postId: 'poocommerce/poocommerce//page-cart',
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
@@ -71,13 +71,13 @@ test.describe( 'Merchant → Cart', () => {
 			).toHaveCount( 0 );
 
 			// Register a checkout filter to allow `core/table` block in the Checkout block's inner blocks, add
-			// core/audio into the woocommerce/cart-order-summary-block and remove core/paragraph from all Cart inner
+			// core/audio into the poocommerce/cart-order-summary-block and remove core/paragraph from all Cart inner
 			// blocks.
 			await page.evaluate(
 				`wc.blocksCheckout.registerCheckoutFilters( 'woo-test-namespace', {
 					additionalCartCheckoutInnerBlockTypes: ( value, extensions, { block } ) => {
 						value.push( 'core/table' );
-						if ( block === 'woocommerce/cart-order-summary-block' ) {
+						if ( block === 'poocommerce/cart-order-summary-block' ) {
 							value.push( 'core/audio' );
 						}
 						return value;
@@ -85,7 +85,7 @@ test.describe( 'Merchant → Cart', () => {
 				} );`
 			);
 
-			await editor.insertBlock( { name: 'woocommerce/cart' } );
+			await editor.insertBlock( { name: 'poocommerce/cart' } );
 			await expect(
 				await editor.getBlockByName( blockData.slug )
 			).not.toHaveCount( 0 );
@@ -93,7 +93,7 @@ test.describe( 'Merchant → Cart', () => {
 			// Select the cart-order-summary-block block and try to insert a block. Check the Table block is available.
 			await editor.selectBlocks(
 				blockData.selectors.editor.block +
-					' [data-type="woocommerce/cart-order-summary-block"]'
+					' [data-type="poocommerce/cart-order-summary-block"]'
 			);
 
 			const addBlockButton = editor.canvas
@@ -120,7 +120,7 @@ test.describe( 'Merchant → Cart', () => {
 			// Now check the filled cart block and expect only the Table block to be available there.
 			await editor.selectBlocks(
 				blockSelectorInEditor +
-					' [data-type="woocommerce/filled-cart-block"]'
+					' [data-type="poocommerce/filled-cart-block"]'
 			);
 			const filledCartAddBlockButton = editor.canvas
 				.getByRole( 'document', { name: 'Block: Filled Cart' } )
@@ -156,10 +156,10 @@ test.describe( 'Merchant → Cart', () => {
 			await emptyCartButton.dispatchEvent( 'click' );
 
 			const filledCartBlock = await editor.getBlockByName(
-				'woocommerce/filled-cart-block'
+				'poocommerce/filled-cart-block'
 			);
 			const emptyCartBlock = await editor.getBlockByName(
-				'woocommerce/empty-cart-block'
+				'poocommerce/empty-cart-block'
 			);
 			await expect( filledCartBlock ).toBeHidden();
 			await expect( emptyCartBlock ).toBeVisible();
@@ -174,13 +174,13 @@ test.describe( 'Merchant → Cart', () => {
 			await expect(
 				editor.canvas.locator(
 					blockData.selectors.editor.block +
-						' [data-type="woocommerce/filled-cart-block"]'
+						' [data-type="poocommerce/filled-cart-block"]'
 				)
 			).toBeVisible();
 			await expect(
 				editor.canvas.locator(
 					blockData.selectors.editor.block +
-						' [data-type="woocommerce/empty-cart-block"]'
+						' [data-type="poocommerce/empty-cart-block"]'
 				)
 			).toBeHidden();
 		} );
