@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { AdvancedFilters } from '@woocommerce/components';
+import { AdvancedFilters } from '@poocommerce/components';
 
 const ORDER_STATUSES = {
 	cancelled: 'Cancelled',
@@ -191,6 +191,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/AdvancedFilters',
+	title: 'PooCommerce Admin/components/AdvancedFilters',
 	component: AdvancedFilters,
 };

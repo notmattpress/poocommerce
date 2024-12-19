@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Settings Class
+ * PooCommerce Admin Settings Class
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  3.4.0
  */
 
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-products.php';
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-tax.php';
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-shipping.php';
-				if ( \Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'reactify-classic-payments-settings' ) ) {
+				if ( \Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'reactify-classic-payments-settings' ) ) {
 					$settings[] = include __DIR__ . '/settings/class-wc-settings-payment-gateways-react.php';
 				} else {
 					$settings[] = include __DIR__ . '/settings/class-wc-settings-payment-gateways.php';
@@ -61,12 +61,12 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-accounts.php';
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-emails.php';
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-integrations.php';
-				if ( \Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'launch-your-store' ) ) {
+				if ( \Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'launch-your-store' ) ) {
 					$settings[] = include __DIR__ . '/settings/class-wc-settings-site-visibility.php';
 				}
 				$settings[] = include __DIR__ . '/settings/class-wc-settings-advanced.php';
 
-				self::$settings = apply_filters( 'woocommerce_get_settings_pages', $settings );
+				self::$settings = apply_filters( 'poocommerce_get_settings_pages', $settings );
 			}
 
 			return self::$settings;
@@ -78,22 +78,22 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 		public static function save() {
 			global $current_tab;
 
-			check_admin_referer( 'woocommerce-settings' );
+			check_admin_referer( 'poocommerce-settings' );
 
 			// Trigger actions.
-			do_action( 'woocommerce_settings_save_' . $current_tab );
-			do_action( 'woocommerce_update_options_' . $current_tab );
-			do_action( 'woocommerce_update_options' );
+			do_action( 'poocommerce_settings_save_' . $current_tab );
+			do_action( 'poocommerce_update_options_' . $current_tab );
+			do_action( 'poocommerce_update_options' );
 
-			self::add_message( __( 'Your settings have been saved.', 'woocommerce' ) );
+			self::add_message( __( 'Your settings have been saved.', 'poocommerce' ) );
 			self::check_download_folder_protection();
 
 			// Clear any unwanted data and flush rules.
-			update_option( 'woocommerce_queue_flush_rewrite_rules', 'yes' );
+			update_option( 'poocommerce_queue_flush_rewrite_rules', 'yes' );
 			WC()->query->init_query_vars();
 			WC()->query->add_endpoints();
 
-			do_action( 'woocommerce_settings_saved' );
+			do_action( 'poocommerce_settings_saved' );
 		}
 
 		/**
@@ -132,30 +132,30 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 		/**
 		 * Settings page.
 		 *
-		 * Handles the display of the main woocommerce settings page in admin.
+		 * Handles the display of the main poocommerce settings page in admin.
 		 */
 		public static function output() {
 			global $current_section, $current_tab;
 
 			$suffix = Constants::is_true( 'SCRIPT_DEBUG' ) ? '' : '.min';
 
-			do_action( 'woocommerce_settings_start' );
+			do_action( 'poocommerce_settings_start' );
 
-			wp_enqueue_script( 'woocommerce_settings', WC()->plugin_url() . '/assets/js/admin/settings' . $suffix . '.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'selectWoo' ), WC()->version, true );
+			wp_enqueue_script( 'poocommerce_settings', WC()->plugin_url() . '/assets/js/admin/settings' . $suffix . '.js', array( 'jquery', 'wp-util', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'iris', 'selectWoo' ), WC()->version, true );
 
 			wp_localize_script(
-				'woocommerce_settings',
-				'woocommerce_settings_params',
+				'poocommerce_settings',
+				'poocommerce_settings_params',
 				array(
-					'i18n_nav_warning'                    => __( 'The changes you made will be lost if you navigate away from this page.', 'woocommerce' ),
-					'i18n_moved_up'                       => __( 'Item moved up', 'woocommerce' ),
-					'i18n_moved_down'                     => __( 'Item moved down', 'woocommerce' ),
-					'i18n_no_specific_countries_selected' => __( 'Selecting no country / region to sell to prevents from completing the checkout. Continue anyway?', 'woocommerce' ),
+					'i18n_nav_warning'                    => __( 'The changes you made will be lost if you navigate away from this page.', 'poocommerce' ),
+					'i18n_moved_up'                       => __( 'Item moved up', 'poocommerce' ),
+					'i18n_moved_down'                     => __( 'Item moved down', 'poocommerce' ),
+					'i18n_no_specific_countries_selected' => __( 'Selecting no country / region to sell to prevents from completing the checkout. Continue anyway?', 'poocommerce' ),
 				)
 			);
 
 			// Get tabs for the settings page.
-			$tabs = apply_filters( 'woocommerce_settings_tabs_array', array() );
+			$tabs = apply_filters( 'poocommerce_settings_tabs_array', array() );
 
 			include __DIR__ . '/views/html-admin-settings.php';
 		}
@@ -207,7 +207,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 		/**
 		 * Output admin fields.
 		 *
-		 * Loops through the woocommerce options array and outputs each field.
+		 * Loops through the poocommerce options array and outputs each field.
 		 *
 		 * @param array[] $options Opens array to output.
 		 */
@@ -289,7 +289,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 						}
 						echo '<table class="form-table">' . "\n\n";
 						if ( ! empty( $value['id'] ) ) {
-							do_action( 'woocommerce_settings_' . sanitize_title( $value['id'] ) );
+							do_action( 'poocommerce_settings_' . sanitize_title( $value['id'] ) );
 						}
 						break;
 
@@ -305,11 +305,11 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 					// Section Ends.
 					case 'sectionend':
 						if ( ! empty( $value['id'] ) ) {
-							do_action( 'woocommerce_settings_' . sanitize_title( $value['id'] ) . '_end' );
+							do_action( 'poocommerce_settings_' . sanitize_title( $value['id'] ) . '_end' );
 						}
 						echo '</table>';
 						if ( ! empty( $value['id'] ) ) {
-							do_action( 'woocommerce_settings_' . sanitize_title( $value['id'] ) . '_after' );
+							do_action( 'poocommerce_settings_' . sanitize_title( $value['id'] ) . '_after' );
 						}
 						break;
 
@@ -600,9 +600,9 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 						$disabled_attr    = '';
 						$disabled_message = '';
 
-						if ( has_filter( 'woocommerce_get_image_size_' . $image_size ) ) {
+						if ( has_filter( 'poocommerce_get_image_size_' . $image_size ) ) {
 							$disabled_attr    = 'disabled="disabled"';
-							$disabled_message = '<p><small>' . esc_html__( 'The settings of this image size have been disabled because its values are being overwritten by a filter.', 'woocommerce' ) . '</small></p>';
+							$disabled_message = '<p><small>' . esc_html__( 'The settings of this image size have been disabled because its values are being overwritten by a filter.', 'poocommerce' ) . '</small></p>';
 						}
 
 						?>
@@ -614,7 +614,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 
 								<input name="<?php echo esc_attr( $value['field_name'] ); ?>[width]" <?php echo $disabled_attr; // WPCS: XSS ok. ?> id="<?php echo esc_attr( $value['id'] ); ?>-width" type="text" size="3" value="<?php echo esc_attr( $width ); ?>" /> &times; <input name="<?php echo esc_attr( $value['id'] ); ?>[height]" <?php echo $disabled_attr; // WPCS: XSS ok. ?> id="<?php echo esc_attr( $value['id'] ); ?>-height" type="text" size="3" value="<?php echo esc_attr( $height ); ?>" />px
 
-								<label><input name="<?php echo esc_attr( $value['field_name'] ); ?>[crop]" <?php echo $disabled_attr; // WPCS: XSS ok. ?> id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" value="1" <?php checked( 1, $crop ); ?> /> <?php esc_html_e( 'Hard crop?', 'woocommerce' ); ?></label>
+								<label><input name="<?php echo esc_attr( $value['field_name'] ); ?>[crop]" <?php echo $disabled_attr; // WPCS: XSS ok. ?> id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" value="1" <?php checked( 1, $crop ); ?> /> <?php esc_html_e( 'Hard crop?', 'poocommerce' ); ?></label>
 
 								</td>
 						</tr>
@@ -645,7 +645,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 								<label><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 							</th>
 							<td class="forminp">
-								<?php echo str_replace( ' id=', " data-placeholder='" . esc_attr__( 'Select a page&hellip;', 'woocommerce' ) . "' style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ); // WPCS: XSS ok. ?> <?php echo $description; // WPCS: XSS ok. ?>
+								<?php echo str_replace( ' id=', " data-placeholder='" . esc_attr__( 'Select a page&hellip;', 'poocommerce' ) . "' style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ); // WPCS: XSS ok. ?> <?php echo $description; // WPCS: XSS ok. ?>
 							</td>
 						</tr>
 						<?php
@@ -659,7 +659,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 							$page                = get_post( $option_value );
 							$option_display_name = sprintf(
 								/* translators: 1: page name 2: page ID */
-								__( '%1$s (ID: %2$s)', 'woocommerce' ),
+								__( '%1$s (ID: %2$s)', 'poocommerce' ),
 								$page->post_title,
 								$option_value
 							);
@@ -676,7 +676,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 									style="<?php echo esc_attr( $value['css'] ); ?>"
 									class="<?php echo esc_attr( $value['class'] ); ?>"
 									<?php echo implode( ' ', $custom_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-									data-placeholder="<?php esc_attr_e( 'Search for a page&hellip;', 'woocommerce' ); ?>"
+									data-placeholder="<?php esc_attr_e( 'Search for a page&hellip;', 'poocommerce' ); ?>"
 									data-allow_clear="true"
 									data-exclude="<?php echo wc_esc_json( wp_json_encode( $value['args']['exclude'] ) ); ?>"
 									>
@@ -709,7 +709,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 							<th scope="row" class="titledesc">
 								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 							</th>
-							<td class="forminp"><select name="<?php echo esc_attr( $value['field_name'] ); ?>" style="<?php echo esc_attr( $value['css'] ); ?>" data-placeholder="<?php esc_attr_e( 'Choose a country / region&hellip;', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Country / Region', 'woocommerce' ); ?>" class="wc-enhanced-select">
+							<td class="forminp"><select name="<?php echo esc_attr( $value['field_name'] ); ?>" style="<?php echo esc_attr( $value['css'] ); ?>" data-placeholder="<?php esc_attr_e( 'Choose a country / region&hellip;', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Country / Region', 'poocommerce' ); ?>" class="wc-enhanced-select">
 								<?php WC()->countries->country_dropdown_options( $country, $state ); ?>
 							</select> <?php echo $description; // WPCS: XSS ok. ?>
 							</td>
@@ -734,7 +734,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 								<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // WPCS: XSS ok. ?></label>
 							</th>
 							<td class="forminp">
-								<select multiple="multiple" name="<?php echo esc_attr( $value['field_name'] ); ?>[]" style="width:350px" data-placeholder="<?php esc_attr_e( 'Choose countries / regions&hellip;', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Country / Region', 'woocommerce' ); ?>" class="wc-enhanced-select">
+								<select multiple="multiple" name="<?php echo esc_attr( $value['field_name'] ); ?>[]" style="width:350px" data-placeholder="<?php esc_attr_e( 'Choose countries / regions&hellip;', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Country / Region', 'poocommerce' ); ?>" class="wc-enhanced-select">
 									<?php
 									if ( ! empty( $countries ) ) {
 										foreach ( $countries as $key => $val ) {
@@ -742,7 +742,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 										}
 									}
 									?>
-								</select> <?php echo ( $description ) ? $description : ''; // WPCS: XSS ok. ?> <br /><a class="select_all button" href="#"><?php esc_html_e( 'Select all', 'woocommerce' ); ?></a> <a class="select_none button" href="#"><?php esc_html_e( 'Select none', 'woocommerce' ); ?></a>
+								</select> <?php echo ( $description ) ? $description : ''; // WPCS: XSS ok. ?> <br /><a class="select_all button" href="#"><?php esc_html_e( 'Select all', 'poocommerce' ); ?></a> <a class="select_none button" href="#"><?php esc_html_e( 'Select none', 'poocommerce' ); ?></a>
 							</td>
 						</tr>
 						<?php
@@ -751,10 +751,10 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 					// Days/months/years selector.
 					case 'relative_date_selector':
 						$periods      = array(
-							'days'   => __( 'Day(s)', 'woocommerce' ),
-							'weeks'  => __( 'Week(s)', 'woocommerce' ),
-							'months' => __( 'Month(s)', 'woocommerce' ),
-							'years'  => __( 'Year(s)', 'woocommerce' ),
+							'days'   => __( 'Day(s)', 'poocommerce' ),
+							'weeks'  => __( 'Week(s)', 'poocommerce' ),
+							'months' => __( 'Month(s)', 'poocommerce' ),
+							'years'  => __( 'Year(s)', 'poocommerce' ),
 						);
 						$option_value = wc_parse_relative_date_option( $value['value'] );
 						?>
@@ -798,7 +798,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 						break;
 					// Default: run an action.
 					default:
-						do_action( 'woocommerce_admin_field_' . $value['type'], $value );
+						do_action( 'poocommerce_admin_field_' . $value['type'], $value );
 						break;
 				}
 			}
@@ -853,7 +853,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 		/**
 		 * Save admin fields.
 		 *
-		 * Loops through the woocommerce options array and outputs each field.
+		 * Loops through the poocommerce options array and outputs each field.
 		 *
 		 * @param array $options Options array to output.
 		 * @param array $data    Optional. Data to use for saving. Defaults to $_POST.
@@ -936,9 +936,9 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 				 *
 				 * @deprecated 2.4.0 - doesn't allow manipulation of values!
 				 */
-				if ( has_action( 'woocommerce_update_option_' . sanitize_title( $option['type'] ) ) ) {
-					wc_deprecated_function( 'The woocommerce_update_option_X action', '2.4.0', 'woocommerce_admin_settings_sanitize_option filter' );
-					do_action( 'woocommerce_update_option_' . sanitize_title( $option['type'] ), $option );
+				if ( has_action( 'poocommerce_update_option_' . sanitize_title( $option['type'] ) ) ) {
+					wc_deprecated_function( 'The poocommerce_update_option_X action', '2.4.0', 'poocommerce_admin_settings_sanitize_option filter' );
+					do_action( 'poocommerce_update_option_' . sanitize_title( $option['type'] ), $option );
 					continue;
 				}
 
@@ -947,14 +947,14 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 				 *
 				 * @since 2.4.0
 				 */
-				$value = apply_filters( 'woocommerce_admin_settings_sanitize_option', $value, $option, $raw_value );
+				$value = apply_filters( 'poocommerce_admin_settings_sanitize_option', $value, $option, $raw_value );
 
 				/**
 				 * Sanitize the value of an option by option name.
 				 *
 				 * @since 2.4.0
 				 */
-				$value = apply_filters( "woocommerce_admin_settings_sanitize_option_$option_name", $value, $option, $raw_value );
+				$value = apply_filters( "poocommerce_admin_settings_sanitize_option_$option_name", $value, $option, $raw_value );
 
 				if ( is_null( $value ) ) {
 					continue;
@@ -980,7 +980,7 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 				 *
 				 * @deprecated 2.4.0 - doesn't allow manipulation of values!
 				 */
-				do_action( 'woocommerce_update_option', $option );
+				do_action( 'poocommerce_update_option', $option );
 			}
 
 			// Save all options in our array.
@@ -998,8 +998,8 @@ if ( ! class_exists( 'WC_Admin_Settings', false ) ) :
 		 */
 		public static function check_download_folder_protection() {
 			$upload_dir      = wp_get_upload_dir();
-			$downloads_path  = $upload_dir['basedir'] . '/woocommerce_uploads';
-			$download_method = get_option( 'woocommerce_file_download_method' );
+			$downloads_path  = $upload_dir['basedir'] . '/poocommerce_uploads';
+			$download_method = get_option( 'poocommerce_file_download_method' );
 			$file_path       = $downloads_path . '/.htaccess';
 			$file_content    = 'redirect' === $download_method ? 'Options -Indexes' : 'deny from all';
 			$create          = false;

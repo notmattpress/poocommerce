@@ -1,5 +1,5 @@
 ---
-post_title: How to request WooCommerce extension reviews
+post_title: How to request PooCommerce extension reviews
 menu_title: Requesting reviews
 ---
 
@@ -15,7 +15,7 @@ Admin notices are an industry standard method of requesting reviews, but bombard
 * Include a snooze option (or multiple) on your notices with a clear expectation of when the notice will reappear.
 * Admin notices should always be always be completely dismissable. They cannot only have a snooze option.
 * The options presented in the notice must be phrased carefully to avoid manipulative language.
-* Use consistently designed notices so the request for reviews feels like a part of your extension, and looks consistent with WooCommerce's design.
+* Use consistently designed notices so the request for reviews feels like a part of your extension, and looks consistent with PooCommerce's design.
 
 ### Direct contact
 

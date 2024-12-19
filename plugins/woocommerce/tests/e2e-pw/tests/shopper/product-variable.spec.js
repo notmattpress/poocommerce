@@ -3,7 +3,7 @@
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 
 const productPrice = '18.16';
@@ -321,7 +321,7 @@ test.describe(
 
 			// handling assertion this way because taxes may or may not be enabled
 			let totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -337,7 +337,7 @@ test.describe(
 
 			// handling assertion this way because taxes may or may not be enabled
 			totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -353,7 +353,7 @@ test.describe(
 
 			// handling assertion this way because taxes may or may not be enabled
 			totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -376,7 +376,7 @@ test.describe(
 			await page.locator( '#size' ).selectOption( 'Small' );
 
 			let totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -389,18 +389,18 @@ test.describe(
 			);
 
 			await expect(
-				page.locator( '.woocommerce-product-attributes-item--weight' )
+				page.locator( '.poocommerce-product-attributes-item--weight' )
 			).toContainText( '100 lbs' );
 			await expect(
 				page.locator(
-					'.woocommerce-product-attributes-item--dimensions'
+					'.poocommerce-product-attributes-item--dimensions'
 				)
 			).toContainText( '5 × 10 × 10 in' );
 
 			await page.locator( '#size' ).selectOption( 'XLarge' );
 
 			totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -413,11 +413,11 @@ test.describe(
 			);
 
 			await expect(
-				page.locator( '.woocommerce-product-attributes-item--weight' )
+				page.locator( '.poocommerce-product-attributes-item--weight' )
 			).toContainText( '400 lbs' );
 			await expect(
 				page.locator(
-					'.woocommerce-product-attributes-item--dimensions'
+					'.poocommerce-product-attributes-item--dimensions'
 				)
 			).toContainText( '20 × 40 × 30 in' );
 		} );
@@ -432,7 +432,7 @@ test.describe(
 			await page.locator( '#size' ).selectOption( 'Small' );
 
 			let totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -447,7 +447,7 @@ test.describe(
 			await page.locator( '#size' ).selectOption( 'Medium' );
 
 			totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -462,7 +462,7 @@ test.describe(
 			await page.locator( '#size' ).selectOption( 'Large' );
 
 			totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -477,7 +477,7 @@ test.describe(
 			await page.locator( '#size' ).selectOption( 'XLarge' );
 
 			totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();
@@ -498,7 +498,7 @@ test.describe(
 			await page.locator( '#size' ).selectOption( 'Small' );
 
 			let totalPrice = await page
-				.locator( '.woocommerce-variation-price' )
+				.locator( '.poocommerce-variation-price' )
 				.last()
 				.locator( 'bdi' )
 				.textContent();

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Chips Block.
@@ -33,7 +33,7 @@ final class ProductFilterChips extends AbstractBlock {
 		$items                 = $context['items'] ?? array();
 		$checkbox_list_context = array( 'items' => $items );
 		$action                = $context['actions']['toggleFilter'] ?? '';
-		$namespace             = wp_json_encode( array( 'namespace' => 'woocommerce/product-filter-chips' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
+		$namespace             = wp_json_encode( array( 'namespace' => 'poocommerce/product-filter-chips' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
 
 		$tags = new \WP_HTML_Tag_Processor( $content );
 		if ( $tags->next_tag( array( 'class_name' => 'wc-block-product-filter-chips' ) ) ) {
@@ -62,7 +62,7 @@ final class ProductFilterChips extends AbstractBlock {
 		ob_start();
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-			<div class="wc-block-product-filter-chips__items" aria-label="<?php echo esc_attr__( 'Filter Options', 'woocommerce' ); ?>">
+			<div class="wc-block-product-filter-chips__items" aria-label="<?php echo esc_attr__( 'Filter Options', 'poocommerce' ); ?>">
 				<?php foreach ( $items as $item ) { ?>
 					<?php $item['id'] = $item['id'] ?? uniqid( 'chips-' ); ?>
 					<button
@@ -97,7 +97,7 @@ final class ProductFilterChips extends AbstractBlock {
 					data-wc-on--click="actions.showAllItems"
 					hidden
 				>
-					<?php echo esc_html__( 'Show more...', 'woocommerce' ); ?>
+					<?php echo esc_html__( 'Show more...', 'poocommerce' ); ?>
 				</button>
 			<?php endif; ?>
 		</div>

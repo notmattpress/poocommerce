@@ -5,7 +5,7 @@ import {
 	AttributeObject,
 	AttributeQuery,
 	AttributeTerm,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { sort } from 'fast-sort';
 
 /**

@@ -3,47 +3,47 @@
  * Handle cron events.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
-use Automattic\WooCommerce\Internal\Admin\Notes\AddFirstProduct;
-use Automattic\WooCommerce\Internal\Admin\Notes\ChoosingTheme;
-use Automattic\WooCommerce\Internal\Admin\Notes\CustomizeStoreWithBlocks;
-use Automattic\WooCommerce\Internal\Admin\Notes\CustomizingProductCatalog;
-use Automattic\WooCommerce\Internal\Admin\Notes\EditProductsOnTheMove;
-use Automattic\WooCommerce\Internal\Admin\Notes\EUVATNumber;
-use Automattic\WooCommerce\Internal\Admin\Notes\FirstProduct;
-use Automattic\WooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins;
-use Automattic\WooCommerce\Internal\Admin\Notes\LaunchChecklist;
-use Automattic\WooCommerce\Internal\Admin\Notes\MagentoMigration;
-use Automattic\WooCommerce\Internal\Admin\Notes\ManageOrdersOnTheGo;
-use Automattic\WooCommerce\Internal\Admin\Notes\MarketingJetpack;
-use Automattic\WooCommerce\Internal\Admin\Notes\MerchantEmailNotifications;
-use Automattic\WooCommerce\Internal\Admin\Notes\MigrateFromShopify;
-use Automattic\WooCommerce\Internal\Admin\Notes\MobileApp;
-use Automattic\WooCommerce\Internal\Admin\Notes\NewSalesRecord;
-use Automattic\WooCommerce\Internal\Admin\Notes\OnboardingPayments;
-use Automattic\WooCommerce\Internal\Admin\Notes\OnlineClothingStore;
-use Automattic\WooCommerce\Internal\Admin\Notes\OrderMilestones;
-use Automattic\WooCommerce\Internal\Admin\Notes\PaymentsMoreInfoNeeded;
-use Automattic\WooCommerce\Internal\Admin\Notes\PaymentsRemindMeLater;
-use Automattic\WooCommerce\Internal\Admin\Notes\PerformanceOnMobile;
-use Automattic\WooCommerce\Internal\Admin\Notes\PersonalizeStore;
-use Automattic\WooCommerce\Internal\Admin\Notes\RealTimeOrderAlerts;
-use Automattic\WooCommerce\Internal\Admin\Notes\SellingOnlineCourses;
-use Automattic\WooCommerce\Internal\Admin\Notes\TrackingOptIn;
-use Automattic\WooCommerce\Internal\Admin\Notes\UnsecuredReportFiles;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooCommercePayments;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooCommerceSubscriptions;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\PaymentGatewaySuggestionsDataSourcePoller;
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\RemoteFreeExtensionsDataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsDataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
+use Automattic\PooCommerce\Internal\Admin\Notes\AddFirstProduct;
+use Automattic\PooCommerce\Internal\Admin\Notes\ChoosingTheme;
+use Automattic\PooCommerce\Internal\Admin\Notes\CustomizeStoreWithBlocks;
+use Automattic\PooCommerce\Internal\Admin\Notes\CustomizingProductCatalog;
+use Automattic\PooCommerce\Internal\Admin\Notes\EditProductsOnTheMove;
+use Automattic\PooCommerce\Internal\Admin\Notes\EUVATNumber;
+use Automattic\PooCommerce\Internal\Admin\Notes\FirstProduct;
+use Automattic\PooCommerce\Internal\Admin\Notes\InstallJPAndWCSPlugins;
+use Automattic\PooCommerce\Internal\Admin\Notes\LaunchChecklist;
+use Automattic\PooCommerce\Internal\Admin\Notes\MagentoMigration;
+use Automattic\PooCommerce\Internal\Admin\Notes\ManageOrdersOnTheGo;
+use Automattic\PooCommerce\Internal\Admin\Notes\MarketingJetpack;
+use Automattic\PooCommerce\Internal\Admin\Notes\MerchantEmailNotifications;
+use Automattic\PooCommerce\Internal\Admin\Notes\MigrateFromShopify;
+use Automattic\PooCommerce\Internal\Admin\Notes\MobileApp;
+use Automattic\PooCommerce\Internal\Admin\Notes\NewSalesRecord;
+use Automattic\PooCommerce\Internal\Admin\Notes\OnboardingPayments;
+use Automattic\PooCommerce\Internal\Admin\Notes\OnlineClothingStore;
+use Automattic\PooCommerce\Internal\Admin\Notes\OrderMilestones;
+use Automattic\PooCommerce\Internal\Admin\Notes\PaymentsMoreInfoNeeded;
+use Automattic\PooCommerce\Internal\Admin\Notes\PaymentsRemindMeLater;
+use Automattic\PooCommerce\Internal\Admin\Notes\PerformanceOnMobile;
+use Automattic\PooCommerce\Internal\Admin\Notes\PersonalizeStore;
+use Automattic\PooCommerce\Internal\Admin\Notes\RealTimeOrderAlerts;
+use Automattic\PooCommerce\Internal\Admin\Notes\SellingOnlineCourses;
+use Automattic\PooCommerce\Internal\Admin\Notes\TrackingOptIn;
+use Automattic\PooCommerce\Internal\Admin\Notes\UnsecuredReportFiles;
+use Automattic\PooCommerce\Internal\Admin\Notes\PooCommercePayments;
+use Automattic\PooCommerce\Internal\Admin\Notes\PooCommerceSubscriptions;
+use Automattic\PooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\PaymentGatewaySuggestionsDataSourcePoller;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\RemoteFreeExtensionsDataSourcePoller;
 
 /**
  * Events Class.
@@ -91,8 +91,8 @@ class Events {
 		PersonalizeStore::class,
 		RealTimeOrderAlerts::class,
 		TrackingOptIn::class,
-		WooCommercePayments::class,
-		WooCommerceSubscriptions::class,
+		PooCommercePayments::class,
+		PooCommerceSubscriptions::class,
 	);
 
 	/**
@@ -126,7 +126,7 @@ class Events {
 	 */
 	public function init() {
 		add_action( 'wc_admin_daily', array( $this, 'do_wc_admin_daily' ) );
-		add_filter( 'woocommerce_get_note_from_db', array( $this, 'get_note_from_db' ), 10, 1 );
+		add_filter( 'poocommerce_get_note_from_db', array( $this, 'get_note_from_db' ), 10, 1 );
 
 		// Initialize the WC_Notes_Refund_Returns Note to attach hook.
 		\WC_Notes_Refund_Returns::init();
@@ -234,7 +234,7 @@ class Events {
 		}
 
 		// Check if the site has opted out of marketplace suggestions.
-		if ( get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) !== 'yes' ) {
+		if ( get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) !== 'yes' ) {
 			return false;
 		}
 
@@ -249,7 +249,7 @@ class Events {
 	 */
 	protected function is_merchant_email_notifications_enabled() {
 		// Check if the feature flag is disabled.
-		if ( get_option( 'woocommerce_merchant_email_notifications', 'no' ) !== 'yes' ) {
+		if ( get_option( 'poocommerce_merchant_email_notifications', 'no' ) !== 'yes' ) {
 			return false;
 		}
 
@@ -263,9 +263,9 @@ class Events {
 	 *   - RemoteFreeExtensionsDataSourcePoller
 	 */
 	protected function possibly_refresh_data_source_pollers() {
-		$completed_tasks = get_option( 'woocommerce_task_list_tracked_completed_tasks', array() );
+		$completed_tasks = get_option( 'poocommerce_task_list_tracked_completed_tasks', array() );
 
-		if ( ! in_array( 'payments', $completed_tasks, true ) && ! in_array( 'woocommerce-payments', $completed_tasks, true ) ) {
+		if ( ! in_array( 'payments', $completed_tasks, true ) && ! in_array( 'poocommerce-payments', $completed_tasks, true ) ) {
 			PaymentGatewaySuggestionsDataSourcePoller::get_instance()->read_specs_from_data_sources();
 		}
 

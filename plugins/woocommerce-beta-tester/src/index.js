@@ -9,12 +9,12 @@ import { addFilter } from '@wordpress/hooks';
  */
 import { App } from './app';
 import './index.scss';
-import './example-fills/experimental-woocommerce-wcpay-feature';
+import './example-fills/experimental-poocommerce-wcpay-feature';
 import { registerProductEditorDevTools } from './product-editor-dev-tools';
 import { registerExceptionFilter } from './remote-logging/register-exception-filter';
 
 const appRoot = document.getElementById(
-	'woocommerce-admin-test-helper-app-root'
+	'poocommerce-admin-test-helper-app-root'
 );
 
 if ( appRoot ) {

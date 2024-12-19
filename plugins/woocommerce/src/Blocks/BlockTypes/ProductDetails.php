@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_HTML_Tag_Processor;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductDetails class.
@@ -22,19 +22,19 @@ class ProductDetails extends AbstractBlock {
 
 		// Register block styles.
 		register_block_style(
-			'woocommerce/product-details',
+			'poocommerce/product-details',
 			array(
 				'name'       => 'classic',
-				'label'      => __( 'Classic', 'woocommerce' ),
+				'label'      => __( 'Classic', 'poocommerce' ),
 				'is_default' => true,
 			)
 		);
 
 		register_block_style(
-			'woocommerce/product-details',
+			'poocommerce/product-details',
 			array(
 				'name'  => 'minimal',
-				'label' => __( 'Minimal', 'woocommerce' ),
+				'label' => __( 'Minimal', 'poocommerce' ),
 			)
 		);
 
@@ -54,17 +54,17 @@ class ProductDetails extends AbstractBlock {
 		$hide_tab_title = isset( $attributes['hideTabTitle'] ) ? $attributes['hideTabTitle'] : false;
 
 		if ( $hide_tab_title ) {
-			add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
-			add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-			add_filter( 'woocommerce_reviews_title', '__return_empty_string' );
+			add_filter( 'poocommerce_product_description_heading', '__return_empty_string' );
+			add_filter( 'poocommerce_product_additional_information_heading', '__return_empty_string' );
+			add_filter( 'poocommerce_reviews_title', '__return_empty_string' );
 		}
 
 		$tabs = $this->render_tabs();
 
 		if ( $hide_tab_title ) {
-			remove_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
-			remove_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-			remove_filter( 'woocommerce_reviews_title', '__return_empty_string' );
+			remove_filter( 'poocommerce_product_description_heading', '__return_empty_string' );
+			remove_filter( 'poocommerce_product_additional_information_heading', '__return_empty_string' );
+			remove_filter( 'poocommerce_reviews_title', '__return_empty_string' );
 
 			// Remove the first `h2` of every `.wc-tab`. This is required for the Reviews tabs when there are no reviews and for plugin tabs.
 			$tabs_html = new WP_HTML_Tag_Processor( $tabs );
@@ -79,7 +79,7 @@ class ProductDetails extends AbstractBlock {
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 
 		return sprintf(
-			'<div class="wp-block-woocommerce-product-details %1$s">
+			'<div class="wp-block-poocommerce-product-details %1$s">
 				<div style="%2$s">
 					%3$s
 				</div>
@@ -100,7 +100,7 @@ class ProductDetails extends AbstractBlock {
 		rewind_posts();
 		while ( have_posts() ) {
 			the_post();
-			woocommerce_output_product_data_tabs();
+			poocommerce_output_product_data_tabs();
 		}
 
 		$tabs = ob_get_clean();

@@ -70,7 +70,7 @@ body.wc-block-product-gallery-modal-open {
 		}
 
 		&.added::after {
-			font-family: WooCommerce; /* stylelint-disable-line */
+			font-family: PooCommerce; /* stylelint-disable-line */
 			content: "\e017";
 			margin-left: 0.5em;
 			display: inline-block;
@@ -79,7 +79,7 @@ body.wc-block-product-gallery-modal-open {
 		}
 
 		&.loading::after {
-			font-family: WooCommerce; /* stylelint-disable-line */
+			font-family: PooCommerce; /* stylelint-disable-line */
 			content: "\e031";
 			animation: spin 2s linear infinite;
 			margin-left: 0.5em;
@@ -113,7 +113,7 @@ body.wc-block-product-gallery-modal-open {
 		line-height: 1.618;
 		font-size: 1em;
 		/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
-		font-family: WooCommerce;
+		font-family: PooCommerce;
 		font-weight: 400;
 		margin: 0 auto;
 		text-align: left;
@@ -168,14 +168,14 @@ body.wc-block-product-gallery-modal-open {
 
 // Element spacing.
 .wc-block-grid__product {
-	// Prevent link and image taking the full width unnecessarily, which might cause: https://github.com/woocommerce/woocommerce-blocks/issues/11438
+	// Prevent link and image taking the full width unnecessarily, which might cause: https://github.com/poocommerce/poocommerce-blocks/issues/11438
 	.wc-block-grid__product-link,
 	.wc-block-grid__product-image {
 		display: inline-block;
 		position: relative;
 	}
 
-	// Not operator necessary for avoid this problem: https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/5925/files#r814043454
+	// Not operator necessary for avoid this problem: https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/5925/files#r814043454
 	.wc-block-grid__product-image:not(.wc-block-components-product-image),
 	.wc-block-grid__product-title {
 		margin: 0 0 $gap-small;
@@ -243,7 +243,7 @@ body.wc-block-product-gallery-modal-open {
 	.wc-block-grid__product-price,
 	.wc-block-components-product-price {
 		&__value,
-		.woocommerce-Price-amount {
+		.poocommerce-Price-amount {
 			font-family: $twentytwenty-headings;
 			font-size: 0.9em;
 		}
@@ -284,7 +284,7 @@ body.wc-block-product-gallery-modal-open {
 	}
 
 	// Override style from WC Core that set its position to absolute.
-	// These rulesets can be removed once https://github.com/woocommerce/woocommerce/pull/26516 is released.
+	// These rulesets can be removed once https://github.com/poocommerce/poocommerce/pull/26516 is released.
 	.wc-block-grid__products .wc-block-components-product-sale-badge {
 		position: static;
 	}
@@ -354,6 +354,6 @@ body.wc-block-product-gallery-modal-open {
 	@include visually-hidden-focus-reveal();
 }
 
-.wp-block-group.woocommerce.product .up-sells.upsells.products {
+.wp-block-group.poocommerce.product .up-sells.upsells.products {
 	max-width: var(--wp--style--global--wide-size);
 }

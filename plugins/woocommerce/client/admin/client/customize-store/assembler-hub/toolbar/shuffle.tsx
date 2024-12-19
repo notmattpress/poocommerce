@@ -114,10 +114,10 @@ export default function Shuffle( { clientId }: { clientId: string } ) {
 	const categoryLabel = getCategoryLabelFromCategories( [ category ] );
 
 	return (
-		<ToolbarGroup className="woocommerce-customize-your-store-toolbar-shuffle-container">
+		<ToolbarGroup className="poocommerce-customize-your-store-toolbar-shuffle-container">
 			<Button
 				icon={ shuffleIcon }
-				label={ __( 'Shuffle', 'woocommerce' ) }
+				label={ __( 'Shuffle', 'poocommerce' ) }
 				onClick={ () => {
 					const nextPattern = getNextPattern( patterns, patternName );
 					// @ts-expect-error - attributes is marked as readonly.

@@ -4,14 +4,14 @@
 import TestRenderer, { act } from 'react-test-renderer';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
 import { Component as ReactComponent } from '@wordpress/element';
-import { COLLECTIONS_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { COLLECTIONS_STORE_KEY as storeKey } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
  */
 import { useCollection } from '../use-collection';
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	COLLECTIONS_STORE_KEY: 'test/store',
 } ) );

@@ -11,10 +11,10 @@ import {
 	WooHeaderNavigationItem,
 	WooHeaderItem,
 	WooHeaderPageTitle,
-} from '@woocommerce/admin-layout';
-import { getSetting } from '@woocommerce/settings';
-import { Text, useSlot } from '@woocommerce/experimental';
-import { getScreenFromPath, isWCAdmin, getPath } from '@woocommerce/navigation';
+} from '@poocommerce/admin-layout';
+import { getSetting } from '@poocommerce/settings';
+import { Text, useSlot } from '@poocommerce/experimental';
+import { getScreenFromPath, isWCAdmin, getPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ import {
 	BANNER_TYPE_HEADER as ORDER_ATTRIBUTION_INSTALL_BANNER_TYPE_HEADER,
 } from '~/order-attribution-install-banner';
 
-export const PAGE_TITLE_FILTER = 'woocommerce_admin_header_page_title';
+export const PAGE_TITLE_FILTER = 'poocommerce_admin_header_page_title';
 
 export const getPageTitle = ( sections ) => {
 	let pageTitle;
@@ -60,7 +60,7 @@ export const Header = ( { sections, isEmbedded = false, query } ) => {
 	const pageTitle = getPageTitle( sections );
 	const { isScrolled } = useIsScrolled();
 	let debounceTimer = null;
-	const className = clsx( 'woocommerce-layout__header', {
+	const className = clsx( 'poocommerce-layout__header', {
 		'is-scrolled': isScrolled,
 	} );
 
@@ -110,8 +110,8 @@ export const Header = ( { sections, isEmbedded = false, query } ) => {
 				sprintf(
 					/* translators: 1: document title. 2: page title */
 					__(
-						'%1$s &lsaquo; %2$s &#8212; WooCommerce',
-						'woocommerce'
+						'%1$s &lsaquo; %2$s &#8212; PooCommerce',
+						'poocommerce'
 					),
 					documentTitle,
 					siteTitle
@@ -153,16 +153,16 @@ export const Header = ( { sections, isEmbedded = false, query } ) => {
 					taskListId={ activeSetupList }
 				/>
 			) }
-			<div className="woocommerce-layout__header-wrapper">
+			<div className="poocommerce-layout__header-wrapper">
 				<WooHeaderNavigationItem.Slot
 					fillProps={ { isEmbedded, query } }
 				/>
 
 				<Text
-					className={ `woocommerce-layout__header-heading ${
+					className={ `poocommerce-layout__header-heading ${
 						showLaunchYourStoreStatus
 							? ''
-							: 'woocommerce-layout__header-left-align'
+							: 'poocommerce-layout__header-left-align'
 					}` }
 					as="h1"
 				>

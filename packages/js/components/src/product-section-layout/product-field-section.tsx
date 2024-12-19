@@ -27,8 +27,8 @@ export const ProductFieldSection: React.FC< ProductFieldSectionProps > = ( {
 } ) => {
 	deprecated( `__experimentalProductFieldSection`, {
 		version: '13.0.0',
-		plugin: '@woocommerce/components',
-		hint: 'Moved to @woocommerce/product-editor package: import { __experimentalProductFieldSection } from @woocommerce/product-editor',
+		plugin: '@poocommerce/components',
+		hint: 'Moved to @poocommerce/product-editor package: import { __experimentalProductFieldSection } from @poocommerce/product-editor',
 	} );
 	return (
 		<ProductSectionLayout

@@ -434,7 +434,7 @@ export const DateTimePickerControl = forwardRef(
 		return (
 			<Dropdown
 				className={ classNames(
-					'woocommerce-date-time-picker-control',
+					'poocommerce-date-time-picker-control',
 					className
 				) }
 				focusOnMount={ false }
@@ -473,7 +473,7 @@ export const DateTimePickerControl = forwardRef(
 							suffix={
 								<Icon
 									icon={ calendar }
-									className="calendar-icon woocommerce-date-time-picker-control__input-control__suffix"
+									className="calendar-icon poocommerce-date-time-picker-control__input-control__suffix"
 									onClick={ focusInputControl }
 									size={ 16 }
 								/>
@@ -483,7 +483,7 @@ export const DateTimePickerControl = forwardRef(
 								/* translators: A datetime format */
 								__(
 									'Date input describing a selected date in format %s',
-									'woocommerce'
+									'poocommerce'
 								),
 								dateTimeFormat
 							) }
@@ -500,7 +500,7 @@ export const DateTimePickerControl = forwardRef(
 				) }
 				popoverProps={ {
 					anchor: inputControl.current,
-					className: 'woocommerce-date-time-picker-control__popover',
+					className: 'poocommerce-date-time-picker-control__popover',
 					placement: 'bottom-start',
 					...popoverProps,
 				} }

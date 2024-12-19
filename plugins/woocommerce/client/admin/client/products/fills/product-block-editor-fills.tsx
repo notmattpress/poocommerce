@@ -3,12 +3,12 @@
  */
 import { MenuGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useSelect } from '@wordpress/data';
-import { Product, ProductVariation } from '@woocommerce/data';
+import { Product, ProductVariation } from '@poocommerce/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -49,7 +49,7 @@ export const MoreMenuFill = ( {
 
 	return (
 		<>
-			<MenuGroup label={ __( 'New product form (Beta)', 'woocommerce' ) }>
+			<MenuGroup label={ __( 'New product form (Beta)', 'poocommerce' ) }>
 				<AboutTheEditorMenuItem
 					onClick={ () => {
 						recordClick( 'about' );

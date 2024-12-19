@@ -6,7 +6,7 @@ import { Component } from '@wordpress/element';
 import { Button, Modal } from '@wordpress/components';
 import { withDispatch } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -16,13 +16,13 @@ import '../style.scss';
 export class DismissModal extends Component {
 	setDismissed = ( timestamp ) => {
 		this.props.updateOptions( {
-			woocommerce_shipping_dismissed_timestamp: timestamp,
+			poocommerce_shipping_dismissed_timestamp: timestamp,
 		} );
 	};
 
 	hideBanner = () => {
 		document.getElementById(
-			'woocommerce-admin-print-label'
+			'poocommerce-admin-print-label'
 		).style.display = 'none';
 	};
 
@@ -51,22 +51,22 @@ export class DismissModal extends Component {
 
 		return (
 			<Modal
-				title={ __( 'Are you sure?', 'woocommerce' ) }
+				title={ __( 'Are you sure?', 'poocommerce' ) }
 				onRequestClose={ onClose }
 				className="wc-admin-shipping-banner__dismiss-modal"
 			>
 				<p className="wc-admin-shipping-banner__dismiss-modal-help-text">
 					{ __(
-						'With WooCommerce Shipping you can Print shipping labels from your WooCommerce dashboard at the lowest USPS rates.',
-						'woocommerce'
+						'With PooCommerce Shipping you can Print shipping labels from your PooCommerce dashboard at the lowest USPS rates.',
+						'poocommerce'
 					) }
 				</p>
 				<div className="wc-admin-shipping-banner__dismiss-modal-actions">
 					<Button isSecondary onClick={ this.remindMeLaterClicked }>
-						{ __( 'Remind me later', 'woocommerce' ) }
+						{ __( 'Remind me later', 'poocommerce' ) }
 					</Button>
 					<Button isPrimary onClick={ this.closeForeverClicked }>
-						{ __( "I don't need this", 'woocommerce' ) }
+						{ __( "I don't need this", 'poocommerce' ) }
 					</Button>
 				</div>
 			</Modal>

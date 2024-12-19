@@ -7,7 +7,7 @@ config = {
 	...config,
 	projects: [
 		{
-			name: 'WooCommerce Shipping & Tax',
+			name: 'PooCommerce Shipping & Tax',
 			grep: new RegExp( tags.SERVICES ),
 		},
 	],

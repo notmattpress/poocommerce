@@ -9,7 +9,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import {
 	SuggestedPaymentExtension,
 	SuggestedPaymentExtensionCategory,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -161,7 +161,7 @@ export const OtherPaymentGateways = ( {
 												>
 													{ __(
 														'Install',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</Button>
 											</div>
@@ -198,7 +198,7 @@ export const OtherPaymentGateways = ( {
 			>
 				<div className="other-payment-gateways__header__title">
 					<span>
-						{ __( 'Other payment options', 'woocommerce' ) }
+						{ __( 'Other payment options', 'poocommerce' ) }
 					</span>
 					{ ! isExpanded && <>{ collapsedImages }</> }
 				</div>
@@ -211,13 +211,13 @@ export const OtherPaymentGateways = ( {
 						<Button
 							variant={ 'link' }
 							target="_blank"
-							href="https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/"
+							href="https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/"
 						>
 							<img
 								src={ assetUrl + '/icons/external-link.svg' }
 								alt=""
 							/>
-							{ __( 'More payment options', 'woocommerce' ) }
+							{ __( 'More payment options', 'poocommerce' ) }
 						</Button>
 					</div>
 				</div>

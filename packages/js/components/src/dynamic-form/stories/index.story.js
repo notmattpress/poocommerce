@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { DynamicForm } from '@woocommerce/components';
+import { DynamicForm } from '@poocommerce/components';
 import { createElement, useState } from '@wordpress/element';
 
 const fields = [
@@ -90,6 +90,6 @@ const DynamicExample = () => {
 export const Basic = () => <DynamicExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/DynamicForm',
+	title: 'PooCommerce Admin/components/DynamicForm',
 	component: DynamicForm,
 };

@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runExternalProductAPITest } = require( '@woocommerce/e2e-core-tests' );
+const { runExternalProductAPITest } = require( '@poocommerce/e2e-core-tests' );
 
 runExternalProductAPITest();

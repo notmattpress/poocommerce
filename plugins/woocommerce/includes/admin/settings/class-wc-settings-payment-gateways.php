@@ -1,13 +1,13 @@
 <?php // @codingStandardsIgnoreLine.
 /**
- * WooCommerce Checkout Settings
+ * PooCommerce Checkout Settings
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\WooCommercePayments;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\Init;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\PooCommercePayments;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\Init;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,10 +25,10 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'checkout'; // @todo In future versions this may make more sense as 'payment' however to avoid breakage lets leave this alone until we refactor settings APIs in general.
-		$this->label = _x( 'Payments', 'Settings tab label', 'woocommerce' );
+		$this->label = _x( 'Payments', 'Settings tab label', 'poocommerce' );
 
-		add_action( 'woocommerce_admin_field_payment_gateways_banner', array( $this, 'payment_gateways_banner' ) );
-		add_action( 'woocommerce_admin_field_payment_gateways', array( $this, 'payment_gateways_setting' ) );
+		add_action( 'poocommerce_admin_field_payment_gateways_banner', array( $this, 'payment_gateways_banner' ) );
+		add_action( 'poocommerce_admin_field_payment_gateways', array( $this, 'payment_gateways_setting' ) );
 		parent::__construct();
 	}
 
@@ -46,7 +46,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	 */
 	protected function get_own_sections() {
 		return array(
-			'' => __( 'Payment methods', 'woocommerce' ),
+			'' => __( 'Payment methods', 'poocommerce' ),
 		);
 	}
 
@@ -71,7 +71,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 				),
 			);
 
-		return apply_filters( 'woocommerce_payment_gateways_settings', $settings );
+		return apply_filters( 'poocommerce_payment_gateways_settings', $settings );
 	}
 
 	/**
@@ -136,13 +136,13 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 						<?php
 						$default_columns = array(
 							'sort'        => '',
-							'name'        => __( 'Method', 'woocommerce' ),
-							'status'      => __( 'Enabled', 'woocommerce' ),
-							'description' => __( 'Description', 'woocommerce' ),
+							'name'        => __( 'Method', 'poocommerce' ),
+							'status'      => __( 'Enabled', 'poocommerce' ),
+							'description' => __( 'Description', 'poocommerce' ),
 							'action'      => '',
 						);
 
-						$columns = apply_filters( 'woocommerce_payment_gateways_setting_columns', $default_columns );
+						$columns = apply_filters( 'poocommerce_payment_gateways_setting_columns', $default_columns );
 
 						foreach ( $columns as $key => $column ) {
 							echo '<th class="' . esc_attr( $key ) . '">' . esc_html( $column ) . '</th>';
@@ -159,7 +159,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 
 							foreach ( $columns as $key => $column ) {
 								if ( ! array_key_exists( $key, $default_columns ) ) {
-									do_action( 'woocommerce_payment_gateways_setting_column_' . $key, $gateway );
+									do_action( 'poocommerce_payment_gateways_setting_column_' . $key, $gateway );
 									continue;
 								}
 
@@ -178,8 +178,8 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 									case 'sort':
 										?>
 										<div class="wc-item-reorder-nav">
-											<button type="button" class="wc-move-up" tabindex="0" aria-hidden="false" aria-label="<?php /* Translators: %s Payment gateway name. */ echo esc_attr( sprintf( __( 'Move the "%s" payment method up', 'woocommerce' ), $method_title ) ); ?>"><?php esc_html_e( 'Move up', 'woocommerce' ); ?></button>
-											<button type="button" class="wc-move-down" tabindex="0" aria-hidden="false" aria-label="<?php /* Translators: %s Payment gateway name. */ echo esc_attr( sprintf( __( 'Move the "%s" payment method down', 'woocommerce' ), $method_title ) ); ?>"><?php esc_html_e( 'Move down', 'woocommerce' ); ?></button>
+											<button type="button" class="wc-move-up" tabindex="0" aria-hidden="false" aria-label="<?php /* Translators: %s Payment gateway name. */ echo esc_attr( sprintf( __( 'Move the "%s" payment method up', 'poocommerce' ), $method_title ) ); ?>"><?php esc_html_e( 'Move up', 'poocommerce' ); ?></button>
+											<button type="button" class="wc-move-down" tabindex="0" aria-hidden="false" aria-label="<?php /* Translators: %s Payment gateway name. */ echo esc_attr( sprintf( __( 'Move the "%s" payment method down', 'poocommerce' ), $method_title ) ); ?>"><?php esc_html_e( 'Move down', 'poocommerce' ); ?></button>
 											<input type="hidden" name="gateway_order[]" value="<?php echo esc_attr( $gateway->id ); ?>" />
 										</div>
 										<?php
@@ -199,38 +199,38 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 										// Override the behaviour for the WooPayments plugin.
 										if (
 											// Keep old brand name for backwards compatibility.
-											( 'WooCommerce Payments' === $method_title || 'WooPayments' === $method_title ) &&
+											( 'PooCommerce Payments' === $method_title || 'WooPayments' === $method_title ) &&
 											class_exists( 'WC_Payments_Account' )
 										) {
-											if ( ! WooCommercePayments::is_connected() || WooCommercePayments::is_account_partially_onboarded() ) {
+											if ( ! PooCommercePayments::is_connected() || PooCommercePayments::is_account_partially_onboarded() ) {
 												// The CTA text and label is "Finish setup" if the account is not connected or not completely onboarded.
 												// Plugin will handle the redirection to the connect page or directly to the provider (e.g. Stripe).
 												$setup_url = WC_Payments_Account::get_connect_url();
 												// Add the `from` parameter to the URL, so we know where the user came from.
 												$setup_url = add_query_arg( 'from', 'WCADMIN_PAYMENT_SETTINGS', $setup_url );
 												/* Translators: %s Payment gateway name. */
-												echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Set up the "%s" payment method', 'woocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Finish setup', 'woocommerce' ) . '</a>';
+												echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Set up the "%s" payment method', 'poocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Finish setup', 'poocommerce' ) . '</a>';
 											} else {
 												// If the account is fully onboarded, the CTA text and label is "Manage" regardless gateway is enabled or not.
 												/* Translators: %s Payment gateway name. */
-												echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Manage the "%s" payment method', 'woocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Manage', 'woocommerce' ) . '</a>';
+												echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Manage the "%s" payment method', 'poocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Manage', 'poocommerce' ) . '</a>';
 											}
 										} elseif ( wc_string_to_bool( $gateway->enabled ) ) {
 											/* Translators: %s Payment gateway name. */
-											echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Manage the "%s" payment method', 'woocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Manage', 'woocommerce' ) . '</a>';
+											echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Manage the "%s" payment method', 'poocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Manage', 'poocommerce' ) . '</a>';
 										} else {
 											/* Translators: %s Payment gateway name. */
-											echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Set up the "%s" payment method', 'woocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Finish setup', 'woocommerce' ) . '</a>';
+											echo '<a class="button alignright" aria-label="' . esc_attr( sprintf( __( 'Set up the "%s" payment method', 'poocommerce' ), $method_title ) ) . '" href="' . esc_url( $setup_url ) . '">' . esc_html__( 'Finish setup', 'poocommerce' ) . '</a>';
 										}
 										break;
 									case 'status':
 										echo '<a class="wc-payment-gateway-method-toggle-enabled" href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . strtolower( $gateway->id ) ) ) . '">';
 										if ( wc_string_to_bool( $gateway->enabled ) ) {
 											/* Translators: %s Payment gateway name. */
-											echo '<span class="woocommerce-input-toggle woocommerce-input-toggle--enabled" aria-label="' . esc_attr( sprintf( __( 'The "%s" payment method is currently enabled', 'woocommerce' ), $method_title ) ) . '">' . esc_attr__( 'Yes', 'woocommerce' ) . '</span>';
+											echo '<span class="poocommerce-input-toggle poocommerce-input-toggle--enabled" aria-label="' . esc_attr( sprintf( __( 'The "%s" payment method is currently enabled', 'poocommerce' ), $method_title ) ) . '">' . esc_attr__( 'Yes', 'poocommerce' ) . '</span>';
 										} else {
 											/* Translators: %s Payment gateway name. */
-											echo '<span class="woocommerce-input-toggle woocommerce-input-toggle--disabled" aria-label="' . esc_attr( sprintf( __( 'The "%s" payment method is currently disabled', 'woocommerce' ), $method_title ) ) . '">' . esc_attr__( 'No', 'woocommerce' ) . '</span>';
+											echo '<span class="poocommerce-input-toggle poocommerce-input-toggle--disabled" aria-label="' . esc_attr( sprintf( __( 'The "%s" payment method is currently disabled', 'poocommerce' ), $method_title ) ) . '">' . esc_attr__( 'No', 'poocommerce' ) . '</span>';
 										}
 										echo '</a>';
 										break;
@@ -242,21 +242,21 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 							echo '</tr>';
 						}
 						/**
-						 * Add "Other payment methods" link in WooCommerce -> Settings -> Payments
+						 * Add "Other payment methods" link in PooCommerce -> Settings -> Payments
 						 * When the store is in WC Payments eligible country.
-						 * See https://github.com/woocommerce/woocommerce/issues/32130 for more details.
+						 * See https://github.com/poocommerce/poocommerce/issues/32130 for more details.
 						 */
-						if ( WooCommercePayments::is_supported() ) {
-							$wcpay_setup        = isset( $payment_gateways['woocommerce_payments'] ) && ! $payment_gateways['woocommerce_payments']->needs_setup();
+						if ( PooCommercePayments::is_supported() ) {
+							$wcpay_setup        = isset( $payment_gateways['poocommerce_payments'] ) && ! $payment_gateways['poocommerce_payments']->needs_setup();
 							$country            = wc_get_base_location()['country'];
 							$plugin_suggestions = Init::get_suggestions();
 							$active_plugins     = PluginsHelper::get_active_plugin_slugs();
 
 							if ( $wcpay_setup ) {
-								$link_text = __( 'Discover additional payment providers', 'woocommerce' );
+								$link_text = __( 'Discover additional payment providers', 'poocommerce' );
 								$filter_by = 'category_additional';
 							} else {
-								$link_text = __( 'Discover other payment providers', 'woocommerce' );
+								$link_text = __( 'Discover other payment providers', 'poocommerce' );
 								$filter_by = 'category_other';
 							}
 
@@ -276,7 +276,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 							echo '<tr>';
 							// phpcs:ignore -- ignoring the error since the value is harded.
 							echo "<td style='border-top: 1px solid #c3c4c7; background-color: #fff' colspan='{$columns_count}'>";
-							echo "<a id='settings-other-payment-methods' href='https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/?utm_source=payments_recommendations' target='_blank' class='components-button is-tertiary'>";
+							echo "<a id='settings-other-payment-methods' href='https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/?utm_source=payments_recommendations' target='_blank' class='components-button is-tertiary'>";
 							// phpcs:ignore
 							echo $link_text;
 							// phpcs:ignore
@@ -319,7 +319,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 			// There is a section - this may be a gateway or custom section.
 			foreach ( $wc_payment_gateways->payment_gateways() as $gateway ) {
 				if ( in_array( $current_section, array( $gateway->id, sanitize_title( get_class( $gateway ) ) ), true ) ) {
-					do_action( 'woocommerce_update_options_payment_gateways_' . $gateway->id );
+					do_action( 'poocommerce_update_options_payment_gateways_' . $gateway->id );
 					$wc_payment_gateways->init();
 				}
 			}

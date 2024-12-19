@@ -4,16 +4,16 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { type ElementType, useMemo } from '@wordpress/element';
-import { EditorBlock } from '@woocommerce/types';
+import { EditorBlock } from '@poocommerce/types';
 import { addFilter } from '@wordpress/hooks';
-import { ProductCollectionFeedbackPrompt } from '@woocommerce/editor-components/feedback-prompt';
+import { ProductCollectionFeedbackPrompt } from '@poocommerce/editor-components/feedback-prompt';
 import {
 	revertMigration,
 	getUpgradeStatus,
 	HOURS_TO_DISPLAY_UPGRADE_NOTICE,
 	UPGRADE_NOTICE_DISPLAY_COUNT_THRESHOLD,
-} from '@woocommerce/blocks/migration-products-to-product-collection';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/blocks/migration-products-to-product-collection';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	PanelBody,
 	// @ts-expect-error Using experimental features
@@ -150,7 +150,7 @@ const ProductCollectionInspectorControls = (
 			/>
 
 			<ToolsPanel
-				label={ __( 'Settings', 'woocommerce' ) }
+				label={ __( 'Settings', 'poocommerce' ) }
 				resetAll={ () => {
 					const defaultSettings = getDefaultSettings(
 						props.attributes
@@ -184,7 +184,7 @@ const ProductCollectionInspectorControls = (
 
 			{ showQueryControls ? (
 				<ToolsPanel
-					label={ __( 'Filters', 'woocommerce' ) }
+					label={ __( 'Filters', 'poocommerce' ) }
 					resetAll={ ( resetAllFilters: ( () => void )[] ) => {
 						resetAllFilters.forEach( ( resetFilter ) => {
 							resetFilter();
@@ -315,7 +315,7 @@ const CollectionSpecificControls = (
 				 * Hand-Picked collection-specific controls.
 				 */
 				props.attributes.collection ===
-					'woocommerce/product-collection/hand-picked' && (
+					'poocommerce/product-collection/hand-picked' && (
 					<PanelBody>
 						<HandPickedProductsControlField
 							{ ...queryControlProps }
@@ -328,7 +328,7 @@ const CollectionSpecificControls = (
 				 * "Related Products" collection-specific controls.
 				 */
 				props.attributes.collection ===
-					'woocommerce/product-collection/related' && (
+					'poocommerce/product-collection/related' && (
 					<RelatedByControl { ...queryControlProps } />
 				)
 			}

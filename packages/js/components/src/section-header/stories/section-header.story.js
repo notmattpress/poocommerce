@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { SectionHeader } from '@woocommerce/components';
+import { SectionHeader } from '@poocommerce/components';
 
 export const Basic = () => <SectionHeader title={ 'Store Performance' } />;
 
 export default {
-	title: 'WooCommerce Admin/components/SectionHeader',
+	title: 'PooCommerce Admin/components/SectionHeader',
 	component: SectionHeader,
 };

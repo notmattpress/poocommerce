@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 import * as wpData from '@wordpress/data';
 
 /**

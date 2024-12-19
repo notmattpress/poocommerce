@@ -14,9 +14,9 @@ import { createElement } from '@wordpress/element';
 import { getHasItemsClass } from './utils';
 
 const Menu = ( { label, orientation, itemCount, items } ) => {
-	const instanceId = uniqueId( 'woocommerce-summary-helptext-' );
+	const instanceId = uniqueId( 'poocommerce-summary-helptext-' );
 	const hasItemsClass = getHasItemsClass( itemCount );
-	const classes = classnames( 'woocommerce-summary', {
+	const classes = classnames( 'poocommerce-summary', {
 		[ hasItemsClass ]: orientation === 'horizontal',
 	} );
 
@@ -31,7 +31,7 @@ const Menu = ( { label, orientation, itemCount, items } ) => {
 				{ __(
 					'List of data points available for filtering. Use arrow keys to cycle through ' +
 						'the list. Click a data point for a detailed report.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<ul className={ classes }>{ items }</ul>

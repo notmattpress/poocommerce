@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import type { HTMLAttributes } from 'react';
 
 /**
@@ -43,7 +43,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 				// When inside All products block
 				...( props.isDescendantOfAllProducts && {
 					[ styleProps.className ]: styleProps.className,
-					'wc-block-components-product-stock-indicator wp-block-woocommerce-product-stock-indicator':
+					'wc-block-components-product-stock-indicator wp-block-poocommerce-product-stock-indicator':
 						true,
 				} ),
 			} ) }

@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Settings Page/Tab
+ * PooCommerce Settings Page/Tab
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
 declare( strict_types = 1);
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -131,11 +131,11 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 		 * Constructor.
 		 */
 		public function __construct() {
-			add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-			add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
-			add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
-			add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
-			add_action( 'woocommerce_admin_field_add_settings_slot', array( $this, 'add_settings_slot' ) );
+			add_filter( 'poocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
+			add_action( 'poocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
+			add_action( 'poocommerce_settings_' . $this->id, array( $this, 'output' ) );
+			add_action( 'poocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
+			add_action( 'poocommerce_admin_field_add_settings_slot', array( $this, 'add_settings_slot' ) );
 		}
 
 		/**
@@ -268,7 +268,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 
 			$type = $section_setting['type'];
 			if ( ! in_array( $type, $this->types, true ) ) {
-				$section_setting = $this->get_custom_type_field( 'woocommerce_admin_field_' . $type, $section_setting );
+				$section_setting = $this->get_custom_type_field( 'poocommerce_admin_field_' . $type, $section_setting );
 			}
 
 			return $section_setting;
@@ -293,7 +293,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 			 *
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_settings_' . $this->id );
+			do_action( 'poocommerce_settings_' . $this->id );
 			$html = ob_get_contents();
 			ob_end_clean();
 
@@ -329,7 +329,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 		/**
 		 * Get settings array for the default section.
 		 *
-		 * External settings classes (registered via 'woocommerce_get_settings_pages' filter)
+		 * External settings classes (registered via 'poocommerce_get_settings_pages' filter)
 		 * might have redefined this method as "get_settings($section_id='')", thus we need
 		 * to use this method internally instead of 'get_settings_for_section' to register settings
 		 * and render settings pages.
@@ -379,7 +379,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 				$settings = $this->get_settings_for_section_core( $section_id );
 			}
 
-			return apply_filters( 'woocommerce_get_settings_' . $this->id, $settings, $section_id );
+			return apply_filters( 'poocommerce_get_settings_' . $this->id, $settings, $section_id );
 		}
 
 		/**
@@ -387,7 +387,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 		 * This method is invoked from 'get_settings_for_section' when no 'get_settings_for_{current_section}_section'
 		 * method exists in the class.
 		 *
-		 * When overriding, note that the 'woocommerce_get_settings_' filter must NOT be triggered,
+		 * When overriding, note that the 'poocommerce_get_settings_' filter must NOT be triggered,
 		 * as this is already done by 'get_settings_for_section'.
 		 *
 		 * @param string $section_id The section name to get the settings for.
@@ -411,7 +411,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 			 * @since 2.2.0
 			 * @param array $sections The sections for this settings page.
 			 */
-			return (array) apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
+			return (array) apply_filters( 'poocommerce_get_sections_' . $this->id, $sections );
 		}
 
 		/**
@@ -421,14 +421,14 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 		 *
 		 * Example:
 		 * return array(
-		 *   ''        => __( 'General', 'woocommerce' ),
-		 *   'foobars' => __( 'Foos & Bars', 'woocommerce' ),
+		 *   ''        => __( 'General', 'poocommerce' ),
+		 *   'foobars' => __( 'Foos & Bars', 'poocommerce' ),
 		 * );
 		 *
 		 * @return array An associative array where keys are section identifiers and the values are translated section names.
 		 */
 		protected function get_own_sections() {
-			return array( '' => __( 'General', 'woocommerce' ) );
+			return array( '' => __( 'General', 'poocommerce' ) );
 		}
 
 		/**
@@ -478,7 +478,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 		}
 
 		/**
-		 * Save settings and trigger the 'woocommerce_update_options_'.id action.
+		 * Save settings and trigger the 'poocommerce_update_options_'.id action.
 		 */
 		public function save() {
 			$this->save_settings_for_current_section();
@@ -498,7 +498,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 		}
 
 		/**
-		 * Trigger the 'woocommerce_update_options_'.id action.
+		 * Trigger the 'poocommerce_update_options_'.id action.
 		 *
 		 * @param string $section_id Section to trigger the action for, or null for current section.
 		 */
@@ -510,7 +510,7 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 			}
 
 			if ( $section_id ) {
-				do_action( 'woocommerce_update_options_' . $this->id . '_' . $section_id );
+				do_action( 'poocommerce_update_options_' . $this->id . '_' . $section_id );
 			}
 		}
 	}

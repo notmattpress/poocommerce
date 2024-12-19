@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { SITE_CURRENCY } from '@woocommerce/settings';
+import { SITE_CURRENCY } from '@poocommerce/settings';
 import type {
 	Currency,
 	CurrencyResponse,
 	CartShippingPackageShippingRate,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Gets currency information in normalized format from an API response or the server.

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
 
 const LaunchYourStoreTaskItem = () => {
 	return (
@@ -23,8 +23,8 @@ const LaunchYourStoreTaskItem = () => {
 	);
 };
 
-registerPlugin( 'woocommerce-admin-task-launch-your-store', {
+registerPlugin( 'poocommerce-admin-task-launch-your-store', {
 	// @ts-expect-error scope is not defined in the type definition but it is a valid property
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: LaunchYourStoreTaskItem,
 } );

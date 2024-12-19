@@ -4,23 +4,23 @@
 import {
 	addAProductToCart,
 	getOrderIdFromUrl,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 const { test: baseTest, expect, tags } = require( '../../fixtures/fixtures' );
 const { getFakeCustomer, getFakeProduct } = require( '../../utils/data' );
 const { setComingSoon } = require( '../../utils/coming-soon' );
 
 const test = baseTest.extend( {
 	page: async ( { page, api }, use ) => {
-		// get the current value of woocommerce_enable_checkout_login_reminder
+		// get the current value of poocommerce_enable_checkout_login_reminder
 		const response = await api.get(
-			'settings/account/woocommerce_enable_checkout_login_reminder'
+			'settings/account/poocommerce_enable_checkout_login_reminder'
 		);
 
 		// enable the setting if it is not already enabled
 		const initialValue = response.data.value;
 		if ( initialValue !== 'yes' ) {
 			await api.put(
-				'settings/account/woocommerce_enable_checkout_login_reminder',
+				'settings/account/poocommerce_enable_checkout_login_reminder',
 				{
 					value: 'yes',
 				}
@@ -42,7 +42,7 @@ const test = baseTest.extend( {
 		// revert the setting to its original value
 		if ( initialValue !== 'yes' ) {
 			await api.put(
-				'settings/account/woocommerce_enable_checkout_login_reminder',
+				'settings/account/poocommerce_enable_checkout_login_reminder',
 				{
 					value: initialValue,
 				}

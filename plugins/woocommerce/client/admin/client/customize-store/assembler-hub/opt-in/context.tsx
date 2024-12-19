@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 import React, { createContext, useState } from '@wordpress/element';
 import type { ReactNode } from 'react';
@@ -28,7 +28,7 @@ export const OptInContextProvider = ( {
 	const isAllowTrackingEnabled = useSelect(
 		( select ) =>
 			select( OPTIONS_STORE_NAME ).getOption(
-				'woocommerce_allow_tracking'
+				'poocommerce_allow_tracking'
 			) === 'yes',
 		[]
 	);

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\OnboardingTasks;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\OnboardingTasks;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\OnboardingTasks\ReviewCheckoutTask;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Blocks\Domain\Services\OnboardingTasks\ReviewCheckoutTask;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 
 /**
  * Onboarding Tasks Controller

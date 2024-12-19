@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { Cart, CartItem } from '@woocommerce/types';
+import { Cart, CartItem } from '@poocommerce/types';
 import { dispatch, select } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __, sprintf } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
-// eslint-disable-next-line @wordpress/no-unsafe-wp-apis, @woocommerce/dependency-group
+// eslint-disable-next-line @wordpress/no-unsafe-wp-apis, @poocommerce/dependency-group
 import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
 
 /**
@@ -54,7 +54,7 @@ const notifyIfQuantityChanged = (
 				cartItem.quantity !== oldCartItem.quantity &&
 				isWithinQuantityLimits( cartItem ) &&
 				applyFilters(
-					'woocommerce_show_cart_item_quantity_changed_notice',
+					'poocommerce_show_cart_item_quantity_changed_notice',
 					true,
 					cartItem
 				)
@@ -64,7 +64,7 @@ const notifyIfQuantityChanged = (
 						/* translators: %1$s is the name of the item, %2$d is the quantity of the item. */
 						__(
 							'The quantity of "%1$s" was changed to %2$d.',
-							'woocommerce'
+							'poocommerce'
 						),
 						stripAndDecode( cartItem.name ),
 						cartItem.quantity
@@ -106,7 +106,7 @@ const notifyIfRemoved = (
 		if (
 			! newCartItem &&
 			applyFilters(
-				'woocommerce_show_cart_item_removed_notice',
+				'poocommerce_show_cart_item_removed_notice',
 				true,
 				oldCartItem
 			)
@@ -114,7 +114,7 @@ const notifyIfRemoved = (
 			dispatch( 'core/notices' ).createInfoNotice(
 				sprintf(
 					/* translators: %s is the name of the item. */
-					__( '"%s" was removed from your cart.', 'woocommerce' ),
+					__( '"%s" was removed from your cart.', 'poocommerce' ),
 					stripAndDecode( oldCartItem.name )
 				),
 				{

@@ -1,6 +1,6 @@
 const { test: baseTest, expect, tags } = require( '../../fixtures/fixtures' );
 const { setComingSoon } = require( '../../utils/coming-soon' );
-// test case for bug https://github.com/woocommerce/woocommerce/pull/46429
+// test case for bug https://github.com/poocommerce/poocommerce/pull/46429
 const test = baseTest.extend( {
 	storageState: process.env.ADMINSTATE,
 	page: async ( { page, wpApi }, use ) => {
@@ -36,7 +36,7 @@ test(
 		await setComingSoon( { baseURL, enabled: 'no' } );
 		await page.goto( 'shop/' );
 		expect( await page.title() ).toBe(
-			'Shop – WooCommerce Core E2E Test Suite'
+			'Shop – PooCommerce Core E2E Test Suite'
 		);
 	}
 );

@@ -42,17 +42,17 @@ const StockStatusControl = ( props: QueryControlProps ) => {
 
 	const deselectCallback = () => {
 		setQueryAttribute( {
-			woocommerceStockStatus: DEFAULT_FILTERS.woocommerceStockStatus,
+			poocommerceStockStatus: DEFAULT_FILTERS.poocommerceStockStatus,
 		} );
 		trackInteraction( CoreFilterNames.STOCK_STATUS );
 	};
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Stock Status', 'woocommerce' ) }
+			label={ __( 'Stock Status', 'poocommerce' ) }
 			hasValue={ () =>
 				! fastDeepEqual(
-					query.woocommerceStockStatus,
+					query.poocommerceStockStatus,
 					getDefaultStockStatuses()
 				)
 			}
@@ -61,14 +61,14 @@ const StockStatusControl = ( props: QueryControlProps ) => {
 			isShownByDefault
 		>
 			<FormTokenField
-				label={ __( 'Stock Status', 'woocommerce' ) }
+				label={ __( 'Stock Status', 'poocommerce' ) }
 				onChange={ ( statusLabels ) => {
-					const woocommerceStockStatus = statusLabels
+					const poocommerceStockStatus = statusLabels
 						.map( getStockStatusIdByLabel )
 						.filter( Boolean ) as string[];
 
 					setQueryAttribute( {
-						woocommerceStockStatus,
+						poocommerceStockStatus,
 					} );
 					trackInteraction( CoreFilterNames.STOCK_STATUS );
 				} }
@@ -77,7 +77,7 @@ const StockStatusControl = ( props: QueryControlProps ) => {
 					Object.values( STOCK_STATUS_OPTIONS ).includes( value )
 				}
 				value={
-					query?.woocommerceStockStatus?.map(
+					query?.poocommerceStockStatus?.map(
 						( key ) => STOCK_STATUS_OPTIONS[ key ]
 					) || []
 				}

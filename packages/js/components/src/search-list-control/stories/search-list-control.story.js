@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SearchListControl } from '@woocommerce/components';
+import { SearchListControl } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const SearchListControlExample = ( { showCount, isCompact, isSingle } ) => {
@@ -41,7 +41,7 @@ const SearchListControlExample = ( { showCount, isCompact, isSingle } ) => {
 export const Basic = ( args ) => <SearchListControlExample { ...args } />;
 
 export default {
-	title: 'WooCommerce Admin/components/SearchListControl',
+	title: 'PooCommerce Admin/components/SearchListControl',
 	component: SearchListControl,
 	args: {
 		showCount: false,

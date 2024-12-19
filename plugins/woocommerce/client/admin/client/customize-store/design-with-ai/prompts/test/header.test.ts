@@ -5,13 +5,13 @@ import { headerValidator } from '..';
 
 describe( 'headerValidator', () => {
 	it( 'should validate when header is part of the allowed list', () => {
-		const validHeader = { slug: 'woocommerce-blocks/header-large' };
+		const validHeader = { slug: 'poocommerce-blocks/header-large' };
 		expect( () => headerValidator.parse( validHeader ) ).not.toThrow();
 	} );
 
 	it( 'should not validate when header is not part of the allowed list', () => {
 		const invalidHeader = {
-			slug: 'woocommerce-blocks/header-large-invalid',
+			slug: 'poocommerce-blocks/header-large-invalid',
 		};
 		expect( () => headerValidator.parse( invalidHeader ) )
 			.toThrowErrorMatchingInlineSnapshot( `

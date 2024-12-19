@@ -97,7 +97,7 @@ test.describe(
 				).toHaveText( user.email );
 				await expect(
 					page.getByRole( 'cell', {
-						name: '[WooCommerce Core E2E Test Suite] Login Details',
+						name: '[PooCommerce Core E2E Test Suite] Login Details',
 					} )
 				).toBeVisible();
 
@@ -181,7 +181,7 @@ test.describe(
 				).toHaveText( user.email );
 				await expect(
 					page.getByRole( 'cell', {
-						name: '[WooCommerce Core E2E Test Suite] Password Reset',
+						name: '[PooCommerce Core E2E Test Suite] Password Reset',
 					} )
 				).toBeVisible();
 

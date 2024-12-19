@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TextControl } from '@woocommerce/components';
+import { TextControl } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const Example = () => {
@@ -24,6 +24,6 @@ const Example = () => {
 export const Basic = () => <Example />;
 
 export default {
-	title: 'WooCommerce Admin/components/TextControl',
+	title: 'PooCommerce Admin/components/TextControl',
 	component: TextControl,
 };

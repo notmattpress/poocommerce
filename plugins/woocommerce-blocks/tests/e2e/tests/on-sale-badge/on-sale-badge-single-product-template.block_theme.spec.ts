@@ -6,7 +6,7 @@ import {
 	expect,
 	Editor,
 	FrontendUtils,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -14,19 +14,19 @@ import {
 import { ProductGalleryPage } from '../product-gallery/product-gallery.page';
 
 const blockData = {
-	name: 'woocommerce/product-sale-badge',
-	mainClass: '.wp-block-woocommerce-product-sale-badge',
+	name: 'poocommerce/product-sale-badge',
+	mainClass: '.wp-block-poocommerce-product-sale-badge',
 	selectors: {
 		frontend: {
 			badge: '.wc-block-components-product-sale-badge',
-			badgeContainer: '.wp-block-woocommerce-product-sale-badge',
+			badgeContainer: '.wp-block-poocommerce-product-sale-badge',
 		},
 		editor: {
 			badge: '.wc-block-components-product-sale-badge',
-			badgeContainer: '.wp-block-woocommerce-product-sale-badge',
+			badgeContainer: '.wp-block-poocommerce-product-sale-badge',
 		},
 	},
-	// This margin is applied via Block Styles to the product sale badge. It's necessary to take it into account when calculating the position of the badge. https://github.com/woocommerce/woocommerce-blocks/blob/445b9431ccba460f9badd41d52ed991958524e33/assets/js/blocks/product-gallery/edit.tsx/#L44-L53
+	// This margin is applied via Block Styles to the product sale badge. It's necessary to take it into account when calculating the position of the badge. https://github.com/poocommerce/poocommerce-blocks/blob/445b9431ccba460f9badd41d52ed991958524e33/assets/js/blocks/product-gallery/edit.tsx/#L44-L53
 	margin: 4,
 	slug: 'single-product',
 	productPage: '/product/hoodie/',
@@ -94,7 +94,7 @@ test.describe( `${ blockData.name }`, () => {
 	test.describe( `On the Single Product Template`, () => {
 		test.beforeEach( async ( { admin, editor } ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//${ blockData.slug }`,
+				postId: `poocommerce/poocommerce//${ blockData.slug }`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
@@ -103,7 +103,7 @@ test.describe( `${ blockData.name }`, () => {
 
 		test( 'should be rendered on the editor side', async ( { editor } ) => {
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			const block = await editor.getBlockByName( blockData.name );
@@ -119,7 +119,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -143,7 +143,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -167,7 +167,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -214,7 +214,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -261,7 +261,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 			await pageObject.toggleFullScreenOnClickSetting( false );
 

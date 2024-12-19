@@ -1,13 +1,13 @@
 /**
  * Internal dependencies
  */
-const { merchant, utils } = require( '@woocommerce/e2e-utils' );
+const { merchant, utils } = require( '@poocommerce/e2e-utils' );
 
 const {
 	getRemotePluginZip,
 	getLatestReleaseZipUrl,
 	deleteDownloadedPluginFiles,
-} = require( '@woocommerce/e2e-environment' );
+} = require( '@poocommerce/e2e-environment' );
 
 /**
  * External dependencies
@@ -18,7 +18,7 @@ const { GITHUB_REPOSITORY, PLUGIN_NAME, GITHUB_TOKEN, PLUGIN_REPOSITORY } =
 	process.env;
 
 // allows us to upload plugins from different repositories.
-const pluginName = PLUGIN_NAME ? PLUGIN_NAME : 'WooCommerce';
+const pluginName = PLUGIN_NAME ? PLUGIN_NAME : 'PooCommerce';
 const repository = PLUGIN_REPOSITORY ? PLUGIN_REPOSITORY : GITHUB_REPOSITORY;
 
 let zipUrl;

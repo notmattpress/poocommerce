@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 import { Component, Fragment } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import PropTypes from 'prop-types';
-import { ITEMS_STORE_NAME } from '@woocommerce/data';
-import { AnalyticsError } from '@woocommerce/components';
+import { ITEMS_STORE_NAME } from '@poocommerce/data';
+import { AnalyticsError } from '@poocommerce/components';
 import { withSelect } from '@wordpress/data';
 
 /**
@@ -40,9 +40,9 @@ class ProductsReport extends Component {
 		const label =
 			isSingleProductView && isSingleProductVariable
 				? /* translators: %d: number of variations */
-				  __( '%d variations', 'woocommerce' )
+				  __( '%d variations', 'poocommerce' )
 				: /* translators: %d: number of products */
-				  __( '%d products', 'woocommerce' );
+				  __( '%d products', 'poocommerce' );
 
 		return {
 			compareObject,

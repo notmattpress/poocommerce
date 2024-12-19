@@ -3,7 +3,7 @@
  */
 import { partial } from 'lodash';
 import { createElement } from '@wordpress/element';
-import { getHistory } from '@woocommerce/navigation';
+import { getHistory } from '@poocommerce/navigation';
 import React from 'react';
 
 interface LinkProps {
@@ -33,7 +33,7 @@ export const Link = ( {
 	// ( { children, href, type, ...props } ) => {
 	// @todo Investigate further if we can use <Link /> directly.
 	// With React Router 5+, <RouterLink /> cannot be used outside of the main <Router /> elements,
-	// which seems to include components imported from @woocommerce/components. For now, we can use the history object directly.
+	// which seems to include components imported from @poocommerce/components. For now, we can use the history object directly.
 	const wcAdminLinkHandler: LinkOnclickHandler = ( onClick, event ) => {
 		// If cmd, ctrl, alt, or shift are used, use default behavior to allow opening in a new tab.
 		if (
@@ -64,7 +64,7 @@ export const Link = ( {
 			} else {
 				// eslint-disable-next-line no-console
 				console.error(
-					'@woocommerce/components/link is trying to push an undefined state into navigation stack'
+					'@poocommerce/components/link is trying to push an undefined state into navigation stack'
 				); // This shouldn't happen as we wrap with <a> below
 			}
 		}

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQuery;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQuery;
 
 /**
  * Product Query filters class.
@@ -54,7 +54,7 @@ class ProductQueryFilters {
 		global $wpdb;
 		$product_query         = new ProductQuery();
 		$stock_status_options  = array_map( 'esc_sql', array_keys( wc_get_product_stock_status_options() ) );
-		$hide_outofstock_items = get_option( 'woocommerce_hide_out_of_stock_items' );
+		$hide_outofstock_items = get_option( 'poocommerce_hide_out_of_stock_items' );
 		if ( 'yes' === $hide_outofstock_items ) {
 			unset( $stock_status_options['outofstock'] );
 		}

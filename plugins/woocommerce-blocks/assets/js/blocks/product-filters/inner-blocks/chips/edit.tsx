@@ -107,7 +107,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 				</div>
 				{ ! isLoading && isLongList && (
 					<button className="wc-block-product-filter-chips__show-more">
-						{ __( 'Show more…', 'woocommerce' ) }
+						{ __( 'Show more…', 'poocommerce' ) }
 					</button>
 				) }
 			</div>
@@ -119,7 +119,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Unselected Chip Text',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue: chipText.color || customChipText,
 								onColorChange: ( colorValue: string ) => {
@@ -138,7 +138,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Unselected Chip Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									chipBorder.color || customChipBorder,
@@ -158,7 +158,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Unselected Chip Background',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									chipBackground.color ||
@@ -179,7 +179,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Selected Chip Text',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									selectedChipText.color ||
@@ -200,7 +200,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Selected Chip Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									selectedChipBorder.color ||
@@ -221,7 +221,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 							{
 								label: __(
 									'Selected Chip Background',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									selectedChipBackground.color ||

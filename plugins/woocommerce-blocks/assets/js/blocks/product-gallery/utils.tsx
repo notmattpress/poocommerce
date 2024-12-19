@@ -3,7 +3,7 @@
  */
 import { BlockAttributes, BlockInstance } from '@wordpress/blocks';
 import { select, dispatch } from '@wordpress/data';
-import { findBlock } from '@woocommerce/utils';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -138,7 +138,7 @@ export const moveInnerBlocksToPosition = (
 		select( 'core/block-editor' );
 	const productGalleryBlock = getBlock( clientId );
 
-	if ( productGalleryBlock?.name === 'woocommerce/product-gallery' ) {
+	if ( productGalleryBlock?.name === 'poocommerce/product-gallery' ) {
 		const { moveBlockToPosition } = dispatch( 'core/block-editor' );
 		const previousLayout = productGalleryBlock.innerBlocks.length
 			? productGalleryBlock.innerBlocks[ 0 ].attributes.layout
@@ -147,7 +147,7 @@ export const moveInnerBlocksToPosition = (
 		const thumbnailsBlock = findBlock( {
 			blocks: [ productGalleryBlock ],
 			findCondition( block ) {
-				return block.name === 'woocommerce/product-gallery-thumbnails';
+				return block.name === 'poocommerce/product-gallery-thumbnails';
 			},
 		} );
 		const largeImageParentBlock = findBlock( {
@@ -157,7 +157,7 @@ export const moveInnerBlocksToPosition = (
 					block.innerBlocks?.find(
 						( innerBlock ) =>
 							innerBlock.name ===
-							'woocommerce/product-gallery-large-image'
+							'poocommerce/product-gallery-large-image'
 					)
 				);
 			},

@@ -379,9 +379,9 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	public function test_variation_price_cache_vat_exempt() {
 		// Set store to include tax in price display.
 		add_filter( 'wc_tax_enabled', '__return_true' );
-		add_filter( 'woocommerce_prices_include_tax', '__return_true' );
-		add_filter( 'pre_option_woocommerce_tax_display_shop', array( $this, '__return_incl' ) );
-		add_filter( 'pre_option_woocommerce_tax_display_cart', array( $this, '__return_incl' ) );
+		add_filter( 'poocommerce_prices_include_tax', '__return_true' );
+		add_filter( 'pre_option_poocommerce_tax_display_shop', array( $this, '__return_incl' ) );
+		add_filter( 'pre_option_poocommerce_tax_display_cart', array( $this, '__return_incl' ) );
 
 		// Create tax rate.
 		$tax_id = WC_Tax::_insert_tax_rate(
@@ -422,8 +422,8 @@ class WC_Product_Variable_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		WC_Tax::_delete_tax_rate( $tax_id );
 
 		remove_filter( 'wc_tax_enabled', '__return_true' );
-		remove_filter( 'woocommerce_prices_include_tax', '__return_true' );
-		remove_filter( 'pre_option_woocommerce_tax_display_shop', array( $this, '__return_incl' ) );
-		remove_filter( 'pre_option_woocommerce_tax_display_cart', array( $this, '__return_incl' ) );
+		remove_filter( 'poocommerce_prices_include_tax', '__return_true' );
+		remove_filter( 'pre_option_poocommerce_tax_display_shop', array( $this, '__return_incl' ) );
+		remove_filter( 'pre_option_poocommerce_tax_display_cart', array( $this, '__return_incl' ) );
 	}
 }

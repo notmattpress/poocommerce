@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runMerchantOrderEmailsTest } = require( '@woocommerce/e2e-core-tests' );
+const { runMerchantOrderEmailsTest } = require( '@poocommerce/e2e-core-tests' );
 
 runMerchantOrderEmailsTest();

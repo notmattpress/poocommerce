@@ -10,9 +10,9 @@ import {
 	getCanvas,
 	goToPageEditor,
 	insertBlock,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
-// some WooCommerce Patterns to use
+// some PooCommerce Patterns to use
 const wooPatterns = [
 	{
 		name: 'Hero Product 3 Split',
@@ -30,7 +30,7 @@ const test = baseTest.extend( {
 } );
 
 test.describe(
-	'Add WooCommerce Patterns Into Page',
+	'Add PooCommerce Patterns Into Page',
 	{
 		tag: [
 			tags.GUTENBERG,
@@ -40,7 +40,7 @@ test.describe(
 		],
 	},
 	() => {
-		test( 'can insert WooCommerce patterns into page', async ( {
+		test( 'can insert PooCommerce patterns into page', async ( {
 			page,
 			testPage,
 		} ) => {

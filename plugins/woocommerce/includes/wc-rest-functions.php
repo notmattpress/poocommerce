@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce REST Functions
+ * PooCommerce REST Functions
  *
  * Functions for REST specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.6.0
  */
 
@@ -46,7 +46,7 @@ function wc_rest_prepare_date_response( $date, $utc = true ) {
  */
 function wc_rest_allowed_image_mime_types() {
 	return apply_filters(
-		'woocommerce_rest_allowed_image_mime_types',
+		'poocommerce_rest_allowed_image_mime_types',
 		array(
 			'jpg|jpeg|jpe' => 'image/jpeg',
 			'gif'          => 'image/gif',
@@ -72,7 +72,7 @@ function wc_rest_upload_image_from_url( $image_url ) {
 	// Check parsed URL.
 	if ( ! $parsed_url || ! is_array( $parsed_url ) ) {
 		/* translators: %s: image URL */
-		return new WP_Error( 'woocommerce_rest_invalid_image_url', sprintf( __( 'Invalid URL %s.', 'woocommerce' ), $image_url ), array( 'status' => 400 ) );
+		return new WP_Error( 'poocommerce_rest_invalid_image_url', sprintf( __( 'Invalid URL %s.', 'poocommerce' ), $image_url ), array( 'status' => 400 ) );
 	}
 
 	// Ensure url is valid.
@@ -92,11 +92,11 @@ function wc_rest_upload_image_from_url( $image_url ) {
 	// If error storing temporarily, return the error.
 	if ( is_wp_error( $file_array['tmp_name'] ) ) {
 		return new WP_Error(
-			'woocommerce_rest_invalid_remote_image_url',
+			'poocommerce_rest_invalid_remote_image_url',
 			/* translators: %s: image URL */
-			sprintf( __( 'Error getting remote image %s.', 'woocommerce' ), $image_url ) . ' '
+			sprintf( __( 'Error getting remote image %s.', 'poocommerce' ), $image_url ) . ' '
 			/* translators: %s: error message */
-			. sprintf( __( 'Error: %s', 'woocommerce' ), $file_array['tmp_name']->get_error_message() ),
+			. sprintf( __( 'Error: %s', 'poocommerce' ), $file_array['tmp_name']->get_error_message() ),
 			array( 'status' => 400 )
 		);
 	}
@@ -115,10 +115,10 @@ function wc_rest_upload_image_from_url( $image_url ) {
 		@unlink( $file_array['tmp_name'] ); // @codingStandardsIgnoreLine.
 
 		/* translators: %s: error message */
-		return new WP_Error( 'woocommerce_rest_invalid_image', sprintf( __( 'Invalid image: %s', 'woocommerce' ), $file['error'] ), array( 'status' => 400 ) );
+		return new WP_Error( 'poocommerce_rest_invalid_image', sprintf( __( 'Invalid image: %s', 'poocommerce' ), $file['error'] ), array( 'status' => 400 ) );
 	}
 
-	do_action( 'woocommerce_rest_api_uploaded_image_from_url', $file, $image_url );
+	do_action( 'poocommerce_rest_api_uploaded_image_from_url', $file, $image_url );
 
 	return $file;
 }
@@ -185,14 +185,14 @@ function wc_rest_validate_reports_request_arg( $value, $request, $param ) {
 
 	if ( 'string' === $args['type'] && ! is_string( $value ) ) {
 		/* translators: 1: param 2: type */
-		return new WP_Error( 'woocommerce_rest_invalid_param', sprintf( __( '%1$s is not of type %2$s', 'woocommerce' ), $param, 'string' ) );
+		return new WP_Error( 'poocommerce_rest_invalid_param', sprintf( __( '%1$s is not of type %2$s', 'poocommerce' ), $param, 'string' ) );
 	}
 
 	if ( 'date' === $args['format'] ) {
 		$regex = '#^\d{4}-\d{2}-\d{2}$#';
 
 		if ( ! preg_match( $regex, $value, $matches ) ) {
-			return new WP_Error( 'woocommerce_rest_invalid_date', __( 'The date you provided is invalid.', 'woocommerce' ) );
+			return new WP_Error( 'poocommerce_rest_invalid_date', __( 'The date you provided is invalid.', 'poocommerce' ) );
 		}
 	}
 
@@ -241,7 +241,7 @@ function wc_rest_check_post_permissions( $post_type, $context = 'read', $object_
 		$permission       = current_user_can( $post_type_object->cap->$cap, $object_id );
 	}
 
-	return apply_filters( 'woocommerce_rest_check_permissions', $permission, $context, $object_id, $post_type );
+	return apply_filters( 'poocommerce_rest_check_permissions', $permission, $context, $object_id, $post_type );
 }
 
 /**
@@ -265,7 +265,7 @@ function wc_rest_check_user_permissions( $context = 'read', $object_id = 0 ) {
 	if ( in_array( $context, array( 'edit', 'delete' ), true ) && wc_current_user_has_role( 'shop_manager' ) ) {
 		$permission                  = false;
 		$user_data                   = get_userdata( $object_id );
-		$shop_manager_editable_roles = apply_filters( 'woocommerce_shop_manager_editable_roles', array( 'customer' ) );
+		$shop_manager_editable_roles = apply_filters( 'poocommerce_shop_manager_editable_roles', array( 'customer' ) );
 
 		if ( isset( $user_data->roles ) ) {
 			$can_manage_users = array_intersect( $user_data->roles, array_unique( $shop_manager_editable_roles ) );
@@ -279,7 +279,7 @@ function wc_rest_check_user_permissions( $context = 'read', $object_id = 0 ) {
 		$permission = current_user_can( $contexts[ $context ], $object_id );
 	}
 
-	return apply_filters( 'woocommerce_rest_check_permissions', $permission, $context, $object_id, 'user' );
+	return apply_filters( 'poocommerce_rest_check_permissions', $permission, $context, $object_id, 'user' );
 }
 
 /**
@@ -304,7 +304,7 @@ function wc_rest_check_product_term_permissions( $taxonomy, $context = 'read', $
 	$taxonomy_object = get_taxonomy( $taxonomy );
 	$permission      = current_user_can( $taxonomy_object->cap->$cap, $object_id );
 
-	return apply_filters( 'woocommerce_rest_check_permissions', $permission, $context, $object_id, $taxonomy );
+	return apply_filters( 'poocommerce_rest_check_permissions', $permission, $context, $object_id, $taxonomy );
 }
 
 /**
@@ -317,18 +317,18 @@ function wc_rest_check_product_term_permissions( $taxonomy, $context = 'read', $
  */
 function wc_rest_check_manager_permissions( $object, $context = 'read' ) {
 	$objects = array(
-		'reports'          => 'view_woocommerce_reports',
-		'settings'         => 'manage_woocommerce',
-		'system_status'    => 'manage_woocommerce',
+		'reports'          => 'view_poocommerce_reports',
+		'settings'         => 'manage_poocommerce',
+		'system_status'    => 'manage_poocommerce',
 		'attributes'       => 'manage_product_terms',
-		'shipping_methods' => 'manage_woocommerce',
-		'payment_gateways' => 'manage_woocommerce',
-		'webhooks'         => 'manage_woocommerce',
+		'shipping_methods' => 'manage_poocommerce',
+		'payment_gateways' => 'manage_poocommerce',
+		'webhooks'         => 'manage_poocommerce',
 	);
 
 	$permission = current_user_can( $objects[ $object ] );
 
-	return apply_filters( 'woocommerce_rest_check_permissions', $permission, $context, 0, $object );
+	return apply_filters( 'poocommerce_rest_check_permissions', $permission, $context, 0, $object );
 }
 
 /**
@@ -361,7 +361,7 @@ function wc_rest_check_product_reviews_permissions( $context = 'read', $object_i
 		$permission = current_user_can( $contexts[ $context ], $object_id );
 	}
 
-	return apply_filters( 'woocommerce_rest_check_permissions', $permission, $context, $object_id, 'product_review' );
+	return apply_filters( 'poocommerce_rest_check_permissions', $permission, $context, $object_id, 'product_review' );
 }
 
 /**

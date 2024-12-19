@@ -3,12 +3,12 @@
  * REST API Reports controller extended to handle requests to the reports endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
 
 /**
  * Reports controller class.
@@ -33,82 +33,82 @@ class Controller extends GenericController {
 		$reports = array(
 			array(
 				'slug'        => 'performance-indicators',
-				'description' => __( 'Batch endpoint for getting specific performance indicators from `stats` endpoints.', 'woocommerce' ),
+				'description' => __( 'Batch endpoint for getting specific performance indicators from `stats` endpoints.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'revenue/stats',
-				'description' => __( 'Stats about revenue.', 'woocommerce' ),
+				'description' => __( 'Stats about revenue.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'orders/stats',
-				'description' => __( 'Stats about orders.', 'woocommerce' ),
+				'description' => __( 'Stats about orders.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'products',
-				'description' => __( 'Products detailed reports.', 'woocommerce' ),
+				'description' => __( 'Products detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'products/stats',
-				'description' => __( 'Stats about products.', 'woocommerce' ),
+				'description' => __( 'Stats about products.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'variations',
-				'description' => __( 'Variations detailed reports.', 'woocommerce' ),
+				'description' => __( 'Variations detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'variations/stats',
-				'description' => __( 'Stats about variations.', 'woocommerce' ),
+				'description' => __( 'Stats about variations.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'categories',
-				'description' => __( 'Product categories detailed reports.', 'woocommerce' ),
+				'description' => __( 'Product categories detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'categories/stats',
-				'description' => __( 'Stats about product categories.', 'woocommerce' ),
+				'description' => __( 'Stats about product categories.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'coupons',
-				'description' => __( 'Coupons detailed reports.', 'woocommerce' ),
+				'description' => __( 'Coupons detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'coupons/stats',
-				'description' => __( 'Stats about coupons.', 'woocommerce' ),
+				'description' => __( 'Stats about coupons.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'taxes',
-				'description' => __( 'Taxes detailed reports.', 'woocommerce' ),
+				'description' => __( 'Taxes detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'taxes/stats',
-				'description' => __( 'Stats about taxes.', 'woocommerce' ),
+				'description' => __( 'Stats about taxes.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'downloads',
-				'description' => __( 'Product downloads detailed reports.', 'woocommerce' ),
+				'description' => __( 'Product downloads detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'downloads/files',
-				'description' => __( 'Product download files detailed reports.', 'woocommerce' ),
+				'description' => __( 'Product download files detailed reports.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'downloads/stats',
-				'description' => __( 'Stats about product downloads.', 'woocommerce' ),
+				'description' => __( 'Stats about product downloads.', 'poocommerce' ),
 			),
 			array(
 				'slug'        => 'customers',
-				'description' => __( 'Customers detailed reports.', 'woocommerce' ),
+				'description' => __( 'Customers detailed reports.', 'poocommerce' ),
 			),
 		);
 
 		/**
-		 * Filter the list of allowed reports, so that data can be loaded from third party extensions in addition to WooCommerce core.
+		 * Filter the list of allowed reports, so that data can be loaded from third party extensions in addition to PooCommerce core.
 		 * Array items should be in format of array( 'slug' => 'downloads/stats', 'description' =>  '',
 		 * 'url' => '', and 'path' => '/wc-ext/v1/...'.
 		 *
 		 * @param array $endpoints The list of allowed reports..
 		 */
-		$reports = apply_filters( 'woocommerce_admin_reports', $reports );
+		$reports = apply_filters( 'poocommerce_admin_reports', $reports );
 
 		foreach ( $reports as $report ) {
 			// Silently skip non-compliant reports. Like the ones for WC_Admin_Reports::get_reports().
@@ -178,7 +178,7 @@ class Controller extends GenericController {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report', $response, $report, $request );
 	}
 
 	/**
@@ -195,19 +195,19 @@ class Controller extends GenericController {
 			'type'       => 'object',
 			'properties' => array(
 				'slug'        => array(
-					'description' => __( 'An alphanumeric identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'An alphanumeric identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'A human-readable description of the resource.', 'woocommerce' ),
+					'description' => __( 'A human-readable description of the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'path'        => array(
-					'description' => __( 'API path.', 'woocommerce' ),
+					'description' => __( 'API path.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Product Block Editor
+ * PooCommerce Product Block Editor
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
 /**
  * Add tracks for the product block editor.
@@ -14,7 +14,7 @@ class Tracks {
 	 * Initialize the tracks.
 	 */
 	public function init() {
-		add_filter( 'woocommerce_product_source', array( $this, 'add_product_source' ) );
+		add_filter( 'poocommerce_product_source', array( $this, 'add_product_source' ) );
 	}
 
 	/**

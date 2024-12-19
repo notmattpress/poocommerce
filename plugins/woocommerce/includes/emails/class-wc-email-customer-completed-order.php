@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Completed_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Completed_Order
 	 * @version     2.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Completed_Order extends WC_Email {
@@ -29,8 +29,8 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_completed_order';
 			$this->customer_email = true;
-			$this->title          = __( 'Completed order', 'woocommerce' );
-			$this->description    = __( 'Order complete emails are sent to customers when their orders are marked completed and usually indicate that their orders have been shipped.', 'woocommerce' );
+			$this->title          = __( 'Completed order', 'poocommerce' );
+			$this->description    = __( 'Order complete emails are sent to customers when their orders are marked completed and usually indicate that their orders have been shipped.', 'poocommerce' );
 			$this->template_html  = 'emails/customer-completed-order.php';
 			$this->template_plain = 'emails/plain/customer-completed-order.php';
 			$this->placeholders   = array(
@@ -39,7 +39,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_completed_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_completed_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
@@ -79,7 +79,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Your {site_title} order is now complete', 'woocommerce' );
+			return __( 'Your {site_title} order is now complete', 'poocommerce' );
 		}
 
 		/**
@@ -89,7 +89,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Thanks for shopping with us', 'woocommerce' );
+			return __( 'Thanks for shopping with us', 'poocommerce' );
 		}
 
 		/**
@@ -137,7 +137,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for shopping with us.', 'woocommerce' );
+			return __( 'Thanks for shopping with us.', 'poocommerce' );
 		}
 	}
 

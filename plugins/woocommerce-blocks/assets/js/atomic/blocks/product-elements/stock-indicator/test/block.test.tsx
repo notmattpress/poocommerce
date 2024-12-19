@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { ProductDataContextProvider } from '@woocommerce/shared-context';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductDataContextProvider } from '@poocommerce/shared-context';
+import { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
  */
 import { Block } from '../block';
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn().mockImplementation( ( param ) => {
 		if ( param === 'wcBlocksConfig' ) {
 			return {
@@ -70,7 +70,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 	},
 } ) );
 
-jest.mock( '@woocommerce/base-hooks', () => ( {
+jest.mock( '@poocommerce/base-hooks', () => ( {
 	__esModule: true,
 	useStyleProps: jest.fn( () => ( {
 		className: '',
@@ -78,7 +78,7 @@ jest.mock( '@woocommerce/base-hooks', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/block-settings', () => ( {
+jest.mock( '@poocommerce/block-settings', () => ( {
 	ADDRESS_FORM_KEYS: [
 		'first_name',
 		'last_name',

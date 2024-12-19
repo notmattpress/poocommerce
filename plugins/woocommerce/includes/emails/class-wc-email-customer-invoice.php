@@ -2,10 +2,10 @@
 /**
  * Class WC_Email_Customer_Invoice file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Invoice
 	 * @version     3.5.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Invoice extends WC_Email {
@@ -33,8 +33,8 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_invoice';
 			$this->customer_email = true;
-			$this->title          = __( 'Order details', 'woocommerce' );
-			$this->description    = __( 'Order detail emails can be sent to customers containing their order information and payment links.', 'woocommerce' );
+			$this->title          = __( 'Order details', 'poocommerce' );
+			$this->description    = __( 'Order detail emails can be sent to customers containing their order information and payment links.', 'poocommerce' );
 			$this->template_html  = 'emails/customer-invoice.php';
 			$this->template_plain = 'emails/plain/customer-invoice.php';
 			$this->placeholders   = array(
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject( $paid = false ) {
-			return __( 'Details for order #{order_number} on {site_title}', 'woocommerce' );
+			return __( 'Details for order #{order_number} on {site_title}', 'poocommerce' );
 		}
 
 		/**
@@ -67,7 +67,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading( $paid = false ) {
-			return __( 'Details for order #{order_number}', 'woocommerce' );
+			return __( 'Details for order #{order_number}', 'poocommerce' );
 		}
 
 		/**
@@ -79,11 +79,11 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 			if ( $this->object->has_status( array( OrderStatus::COMPLETED, OrderStatus::PROCESSING ) ) ) {
 				$subject = $this->get_option( 'subject_paid', $this->get_default_subject( true ) );
 
-				return apply_filters( 'woocommerce_email_subject_customer_invoice_paid', $this->format_string( $subject ), $this->object, $this );
+				return apply_filters( 'poocommerce_email_subject_customer_invoice_paid', $this->format_string( $subject ), $this->object, $this );
 			}
 
 			$subject = $this->get_option( 'subject', $this->get_default_subject() );
-			return apply_filters( 'woocommerce_email_subject_customer_invoice', $this->format_string( $subject ), $this->object, $this );
+			return apply_filters( 'poocommerce_email_subject_customer_invoice', $this->format_string( $subject ), $this->object, $this );
 		}
 
 		/**
@@ -94,11 +94,11 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 		public function get_heading() {
 			if ( $this->object->has_status( wc_get_is_paid_statuses() ) ) {
 				$heading = $this->get_option( 'heading_paid', $this->get_default_heading( true ) );
-				return apply_filters( 'woocommerce_email_heading_customer_invoice_paid', $this->format_string( $heading ), $this->object, $this );
+				return apply_filters( 'poocommerce_email_heading_customer_invoice_paid', $this->format_string( $heading ), $this->object, $this );
 			}
 
 			$heading = $this->get_option( 'heading', $this->get_default_heading() );
-			return apply_filters( 'woocommerce_email_heading_customer_invoice', $this->format_string( $heading ), $this->object, $this );
+			return apply_filters( 'poocommerce_email_heading_customer_invoice', $this->format_string( $heading ), $this->object, $this );
 		}
 
 		/**
@@ -108,7 +108,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for using {site_url}!', 'woocommerce' );
+			return __( 'Thanks for using {site_url}!', 'poocommerce' );
 		}
 
 		/**
@@ -181,10 +181,10 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 		 */
 		public function init_form_fields() {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -192,7 +192,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -200,7 +200,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 					'default'     => '',
 				),
 				'subject_paid'       => array(
-					'title'       => __( 'Subject (paid)', 'woocommerce' ),
+					'title'       => __( 'Subject (paid)', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -208,7 +208,7 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 					'default'     => '',
 				),
 				'heading_paid'       => array(
-					'title'       => __( 'Email heading (paid)', 'woocommerce' ),
+					'title'       => __( 'Email heading (paid)', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -216,18 +216,18 @@ if ( ! class_exists( 'WC_Email_Customer_Invoice', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

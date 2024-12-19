@@ -6,16 +6,16 @@ import { compose } from '@wordpress/compose';
 import PropTypes from 'prop-types';
 import { omitBy, isUndefined, snakeCase } from 'lodash';
 import { withSelect, withDispatch } from '@wordpress/data';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
-import { ReportFilters as Filters } from '@woocommerce/components';
-import { SETTINGS_STORE_NAME } from '@woocommerce/data';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
+import { ReportFilters as Filters } from '@poocommerce/components';
+import { SETTINGS_STORE_NAME } from '@poocommerce/data';
 import {
 	getCurrentDates,
 	getDateParamsFromQuery,
 	isoDateFormat,
-} from '@woocommerce/date';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/date';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -161,7 +161,7 @@ ReportFilters.contextType = CurrencyContext;
 
 export default compose(
 	withSelect( ( select ) => {
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			SETTINGS_STORE_NAME
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 		return { defaultDateRange };

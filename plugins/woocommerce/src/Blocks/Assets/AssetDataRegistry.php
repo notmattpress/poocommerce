@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Assets;
+namespace Automattic\PooCommerce\Blocks\Assets;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\Internal\Logging\RemoteLogger;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\Internal\Logging\RemoteLogger;
 use Exception;
 use InvalidArgumentException;
 
@@ -85,7 +85,7 @@ class AssetDataRegistry {
 			'countries'                => WC()->countries->get_countries(),
 			'currency'                 => $this->get_currency_data(),
 			'currentUserId'            => get_current_user_id(),
-			'currentUserIsAdmin'       => current_user_can( 'manage_woocommerce' ),
+			'currentUserIsAdmin'       => current_user_can( 'manage_poocommerce' ),
 			'currentThemeIsFSETheme'   => wc_current_theme_is_fse_theme(),
 			'dateFormat'               => wc_date_format(),
 			'homeUrl'                  => esc_url( home_url( '/' ) ),
@@ -111,16 +111,16 @@ class AssetDataRegistry {
 	 * @return array
 	 */
 	protected function get_currency_data() {
-		$currency = get_woocommerce_currency();
+		$currency = get_poocommerce_currency();
 
 		return [
 			'code'              => $currency,
 			'precision'         => wc_get_price_decimals(),
-			'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $currency ) ),
-			'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+			'symbol'            => html_entity_decode( get_poocommerce_currency_symbol( $currency ) ),
+			'symbolPosition'    => get_option( 'poocommerce_currency_pos' ),
 			'decimalSeparator'  => wc_get_price_decimal_separator(),
 			'thousandSeparator' => wc_get_price_thousand_separator(),
-			'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+			'priceFormat'       => html_entity_decode( get_poocommerce_price_format() ),
 		];
 	}
 
@@ -173,7 +173,7 @@ class AssetDataRegistry {
 	 */
 	protected function get_products_settings() {
 		return [
-			'cartRedirectAfterAdd' => get_option( 'woocommerce_cart_redirect_after_add' ) === 'yes',
+			'cartRedirectAfterAdd' => get_option( 'poocommerce_cart_redirect_after_add' ) === 'yes',
 		];
 	}
 
@@ -230,7 +230,7 @@ class AssetDataRegistry {
 		 * Instead, use the data api:
 		 *
 		 * ```php
-		 * Automattic\WooCommerce\Blocks\Package::container()->get( Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry::class )->add( $key, $value )
+		 * Automattic\PooCommerce\Blocks\Package::container()->get( Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry::class )->add( $key, $value )
 		 * ```
 		 *
 		 * @since 5.0.0
@@ -239,12 +239,12 @@ class AssetDataRegistry {
 		 * @param array $data Settings data.
 		 * @return array
 		 */
-		$settings = apply_filters( 'woocommerce_shared_settings', $this->data );
+		$settings = apply_filters( 'poocommerce_shared_settings', $this->data );
 
 		// Surface a deprecation warning in the error console.
-		if ( has_filter( 'woocommerce_shared_settings' ) ) {
+		if ( has_filter( 'poocommerce_shared_settings' ) ) {
 			$error_handle  = 'deprecated-shared-settings-error';
-			$error_message = '`woocommerce_shared_settings` filter in Blocks is deprecated. See https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/trunk/docs/contributors/block-assets.md';
+			$error_message = '`poocommerce_shared_settings` filter in Blocks is deprecated. See https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/trunk/docs/contributors/block-assets.md';
 			// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter,WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			wp_register_script( $error_handle, '' );
 			wp_enqueue_script( $error_handle );
@@ -306,7 +306,7 @@ class AssetDataRegistry {
 	 */
 	public function add( $key, $data, $check_key_exists = false ) {
 		if ( $check_key_exists ) {
-			wc_deprecated_argument( 'Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry::add()', '8.9', 'The $check_key_exists parameter is no longer used: all duplicate data will be ignored if the key exists by default' );
+			wc_deprecated_argument( 'Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry::add()', '8.9', 'The $check_key_exists parameter is no longer used: all duplicate data will be ignored if the key exists by default' );
 		}
 
 		$this->add_data( $key, $data );
@@ -413,7 +413,7 @@ class AssetDataRegistry {
 	protected function add_data( $key, $data ) {
 		if ( ! is_string( $key ) ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
-			trigger_error( esc_html__( 'Key for the data being registered must be a string', 'woocommerce' ), E_USER_WARNING );
+			trigger_error( esc_html__( 'Key for the data being registered must be a string', 'poocommerce' ), E_USER_WARNING );
 			return;
 		}
 		if ( $this->exists( $key ) ) {
@@ -421,7 +421,7 @@ class AssetDataRegistry {
 		}
 		if ( isset( $this->data[ $key ] ) ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
-			trigger_error( esc_html__( 'Overriding existing data with an already registered key is not allowed', 'woocommerce' ), E_USER_WARNING );
+			trigger_error( esc_html__( 'Overriding existing data with an already registered key is not allowed', 'poocommerce' ), E_USER_WARNING );
 			return;
 		}
 		if ( \is_callable( $data ) ) {

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { cart } from '@woocommerce/icons';
+import { cart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -10,7 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/checkout-order-summary-cart-items-block', {
+registerBlockType( 'poocommerce/checkout-order-summary-cart-items-block', {
 	icon: {
 		src: (
 			<Icon

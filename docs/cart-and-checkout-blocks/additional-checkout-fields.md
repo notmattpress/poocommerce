@@ -24,7 +24,7 @@ A field can only be shown in one location, it is not possible to render the same
 
 The contact information section currently renders at the top of the form. It contains the `email` field and any other additional fields.
 
-![Showing the contact information section with two fields rendered, email and an additional checkout field (optional)](https://github.com/woocommerce/woocommerce/assets/5656702/097c2596-c629-4eab-9604-577ee7a14cfe)
+![Showing the contact information section with two fields rendered, email and an additional checkout field (optional)](https://github.com/poocommerce/poocommerce/assets/5656702/097c2596-c629-4eab-9604-577ee7a14cfe)
 
 Fields rendered here will be saved to the shopper's account. They will be visible and editable render in the shopper's "Account details" section.
 
@@ -32,7 +32,7 @@ Fields rendered here will be saved to the shopper's account. They will be visibl
 
 The "Address" section currently contains a form for the shipping address and the billing address. Additional checkout fields can be registered to appear within these forms.
 
-![The shipping address form showing the additional checkout field at the bottom](https://github.com/woocommerce/woocommerce/assets/5656702/746d280f-3354-4d37-a78a-a2518eb0e5de)
+![The shipping address form showing the additional checkout field at the bottom](https://github.com/poocommerce/poocommerce/assets/5656702/746d280f-3354-4d37-a78a-a2518eb0e5de)
 
 Fields registered here will be saved to both the customer _and_ the order, so returning customers won't need to refill those values again.
 
@@ -48,11 +48,11 @@ This block is used to render fields that aren't part of the contact information 
 
 Fields rendered here will be saved to the order. They will not be part of the customer's saved address or account information. New orders will not have any previously used values pre-filled.
 
-![The order information section containing an additional checkout field](https://github.com/woocommerce/woocommerce/assets/5656702/295b3048-a22a-4225-96b0-6b0371a7cd5f)
+![The order information section containing an additional checkout field](https://github.com/poocommerce/poocommerce/assets/5656702/295b3048-a22a-4225-96b0-6b0371a7cd5f)
 
 By default, this block will render as the last step in the Checkout form, however it can be moved using the Gutenberg block controls in the editor.
 
-![The order information block in the post editor"](https://github.com/woocommerce/woocommerce/assets/5656702/05a3d7d9-b3af-4445-9318-443ae2c4d7d8)
+![The order information block in the post editor"](https://github.com/poocommerce/poocommerce/assets/5656702/05a3d7d9-b3af-4445-9318-443ae2c4d7d8)
 
 ## Accessing values
 
@@ -69,8 +69,8 @@ For contact and order fields, only one value is saved per field.
 To access a customer billing and/or shipping value:
 
 ```php
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
 
 $field_id = 'my-plugin-namespace/my-field';
 $customer = wc()->customer; // Or new WC_Customer( $id )
@@ -82,8 +82,8 @@ $my_customer_shipping_field = $checkout_fields->get_field_from_object( $field_id
 To access an order field:
 
 ```php
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
 
 $field_id = 'my-plugin-namespace/my-field';
 $order = wc_get_order( 1234 );
@@ -121,8 +121,8 @@ $my_customer_billing_field = $checkout_fields->get_field_from_object( $field_id,
 You can use `get_all_fields_from_object` to access all additional fields saved to an order or a customer.
 
 ```php
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
 
 $order = wc_get_order( 1234 );
 $checkout_fields = Package::container()->get( CheckoutFields::class );
@@ -195,9 +195,9 @@ There are plans to expand this list, but for now these are the types available.
 
 ## Using the API
 
-To register additional checkout fields you must use the `woocommerce_register_additional_checkout_field` function.
+To register additional checkout fields you must use the `poocommerce_register_additional_checkout_field` function.
 
-It is recommended to run this function after the `woocommerce_init` action.
+It is recommended to run this function after the `poocommerce_init` action.
 
 The registration function takes an array of options describing your field. Some field types take additional options.
 
@@ -216,7 +216,7 @@ These options apply to all field types (except in a few circumstances which are 
 | `type`              | The type of field you're rendering. It defaults to `text` and must match one of the supported field types.                          | No        | `text`, `select`, or `checkbox`              | `text`                                                                                                                                                                                                                                                                                         |
 | `attributes`        | An array of additional attributes to render on the field's input element. This is _not_ supported for `select` fields.              | No        | `[	'data-custom-data' => 'my-custom-data' ]` | `[]`                                                                                                                                                                                                                                                                                           |
 | `sanitize_callback` | A function called to sanitize the customer provided value when posted.                                                              | No        | See example below                            | By default the field's value is returned unchanged.                                                                                                                                                                                                                          |
-| `validate_callback` | A function called to validate the customer provided value when posted. This runs _after_ sanitization.                              | No        | See example below                            | The default validation function will add an error to the response if the field is required and does not have a value. [See the default validation function.](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Blocks/Domain/Services/CheckoutFields.php#L270-L281) |
+| `validate_callback` | A function called to validate the customer provided value when posted. This runs _after_ sanitization.                              | No        | See example below                            | The default validation function will add an error to the response if the field is required and does not have a value. [See the default validation function.](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Blocks/Domain/Services/CheckoutFields.php#L270-L281) |
 
 ##### Example of `sanitize_callback`. This function will remove spaces from the value <!-- omit from toc -->
 
@@ -311,9 +311,9 @@ This example demonstrates rendering a text field in the address section:
 
 ```php
 add_action(
-	'woocommerce_init',
+	'poocommerce_init',
 	function() {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'            => 'namespace/gov-id',
 				'label'         => 'Government ID',
@@ -336,7 +336,7 @@ add_action(
 
 This results in the following address form (the billing form will be the same):
 
-![The shipping address form with the Government ID field rendered at the bottom](https://github.com/woocommerce/woocommerce/assets/5656702/f6eb3c6f-9178-4978-8e74-e6b2ea353192)
+![The shipping address form with the Government ID field rendered at the bottom](https://github.com/poocommerce/poocommerce/assets/5656702/f6eb3c6f-9178-4978-8e74-e6b2ea353192)
 
 The rendered markup looks like this:
 
@@ -354,9 +354,9 @@ This example demonstrates rendering a checkbox field in the contact information 
 
 ```php
 add_action(
-	'woocommerce_init',
+	'poocommerce_init',
 	function() {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'namespace/marketing-opt-in',
 				'label'    => 'Do you want to subscribe to our newsletter?',
@@ -370,7 +370,7 @@ add_action(
 
 This results in the following contact information section:
 
-![The contact information section with a newsletter subscription checkbox rendered inside it](https://github.com/woocommerce/woocommerce/assets/5656702/7444e41a-97cc-451d-b2c9-4eedfbe05724)
+![The contact information section with a newsletter subscription checkbox rendered inside it](https://github.com/poocommerce/poocommerce/assets/5656702/7444e41a-97cc-451d-b2c9-4eedfbe05724)
 
 Note that because an `optionalLabel` was not supplied, the string `(optional)` is appended to the label. To remove that an `optionalLabel` property should be supplied to override this.
 
@@ -380,9 +380,9 @@ This example demonstrates rendering a select field in the order information sect
 
 ```php
 add_action(
-	'woocommerce_init',
+	'poocommerce_init',
 	function() {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'          => 'namespace/how-did-you-hear-about-us',
 				'label'       => 'How did you hear about us?',
@@ -417,11 +417,11 @@ This results in the order information section being rendered like so:
 
 ### The select input before being focused
 
-![The select input before being focused](https://github.com/woocommerce/woocommerce/assets/5656702/bbe17ad0-7c7d-419a-951d-315f56f8898a)
+![The select input before being focused](https://github.com/poocommerce/poocommerce/assets/5656702/bbe17ad0-7c7d-419a-951d-315f56f8898a)
 
 ### The select input when focused
 
-![The select input when focused](https://github.com/woocommerce/woocommerce/assets/5656702/bd943906-621b-404f-aa84-b951323e25d3)
+![The select input when focused](https://github.com/poocommerce/poocommerce/assets/5656702/bd943906-621b-404f-aa84-b951323e25d3)
 
 If it is undesirable to force the shopper to select a value, mark the select as optional by setting the `required` option to `false`.
 
@@ -438,9 +438,9 @@ These actions happen in two places:
 
 Sanitization is used to ensure the value of a field is in a specific format. An example is when taking a government ID, you may want to format it so that all letters are capitalized and there are no spaces. At this point, the value should **not** be checked for _validity_. That will come later. This step is only intended to set the field up for validation.
 
-#### Using the `woocommerce_sanitize_additional_field` filter
+#### Using the `poocommerce_sanitize_additional_field` filter
 
-To run a custom sanitization function for a field you can use the `sanitize_callback` function on registration, or the `woocommerce_sanitize_additional_field` filter.
+To run a custom sanitization function for a field you can use the `sanitize_callback` function on registration, or the `poocommerce_sanitize_additional_field` filter.
 
 | Argument     | Type              | Description                                                             |
 |--------------|-------------------|-------------------------------------------------------------------------|
@@ -453,7 +453,7 @@ This example shows how to remove whitespace and capitalize all letters in the ex
 
 ```php
 add_action(
-	'woocommerce_sanitize_additional_field',
+	'poocommerce_sanitize_additional_field',
 	function ( $field_value, $field_key ) {
 		if ( 'namespace/gov-id' === $field_key ) {
 			$field_value = str_replace( ' ', '', $field_value );
@@ -472,9 +472,9 @@ There are two phases of validation in the additional checkout fields system. The
 
 #### Single field validation
 
-##### Using the `woocommerce_validate_additional_field` action
+##### Using the `poocommerce_validate_additional_field` action
 
-When the `woocommerce_validate_additional_field` action is fired  the callback receives the field's key, the field's value, and a `WP_Error` object.
+When the `poocommerce_validate_additional_field` action is fired  the callback receives the field's key, the field's value, and a `WP_Error` object.
 
 To add validation errors to the response, use the [`WP_Error::add`](https://developer.wordpress.org/reference/classes/wp_error/add/) method.
 
@@ -494,7 +494,7 @@ The below example shows how to apply custom validation to the `namespace/gov-id`
 
 ```php
 add_action(
-'woocommerce_validate_additional_field',
+'poocommerce_validate_additional_field',
 	function ( WP_Error $errors, $field_key, $field_value ) {
 		if ( 'namespace/gov-id' === $field_key ) {
 			$match = preg_match( '/[A-Z0-9]{5}/', $field_value );
@@ -514,11 +514,11 @@ If no validation errors are encountered the function can just return void.
 
 #### Multiple field validation
 
-There are cases where the validity of a field depends on the value of another field, for example validating the format of a government ID based on what country the shopper is in. In this case, validating only single fields (as above) is not sufficient as the country may be unknown during the `woocommerce_validate_additional_field` action.
+There are cases where the validity of a field depends on the value of another field, for example validating the format of a government ID based on what country the shopper is in. In this case, validating only single fields (as above) is not sufficient as the country may be unknown during the `poocommerce_validate_additional_field` action.
 
 To solve this, it is possible to validate a field in the context of the location it renders in. The other fields in that location will be passed to this action.
 
-##### Using the `woocommerce_blocks_validate_location_{location}_fields` action
+##### Using the `poocommerce_blocks_validate_location_{location}_fields` action
 
 This action will be fired for each location that additional fields can render in (`address`, `contact`, and `order`). For `address` it fires twice, once for the billing address and once for the shipping address.
 
@@ -535,13 +535,13 @@ It is important to note that any fields rendered in other locations will not be 
 There are several places where these hooks are fired.
 
 - When checking out using the Checkout block or Store API.
-    - `woocommerce_blocks_validate_location_address_fields` (x2)
-    - `woocommerce_blocks_validate_location_contact_fields`
-    - `woocommerce_blocks_validate_location_other_fields`
+    - `poocommerce_blocks_validate_location_address_fields` (x2)
+    - `poocommerce_blocks_validate_location_contact_fields`
+    - `poocommerce_blocks_validate_location_other_fields`
 - When updating addresses in the "My account" area
-    - `woocommerce_blocks_validate_location_address_fields` (**x1** - only the address being edited)
+    - `poocommerce_blocks_validate_location_address_fields` (**x1** - only the address being edited)
 - When updating the "Account details" section in the "My account" area
-    - `woocommerce_blocks_validate_location_contact_fields`
+    - `poocommerce_blocks_validate_location_contact_fields`
 
 ##### Example of location validation
 
@@ -551,7 +551,7 @@ The example below illustrates how to verify that the value of the confirmation f
 
 ```php
 add_action(
-	'woocommerce_blocks_validate_location_address_fields',
+	'poocommerce_blocks_validate_location_address_fields',
 	function ( \WP_Error $errors, $fields, $group ) {
 		if ( $fields['namespace/gov-id'] !== $fields['namespace/confirm-gov-id'] ) {
 			$errors->add( 'gov_id_mismatch', 'Please ensure your government ID matches the confirmation.' );
@@ -562,7 +562,7 @@ add_action(
 );
 ```
 
-If these fields were rendered in the "contact" location instead, the code would be the same except the hook used would be: `woocommerce_blocks_validate_location_contact_fields`.
+If these fields were rendered in the "contact" location instead, the code would be the same except the hook used would be: `poocommerce_blocks_validate_location_contact_fields`.
 
 ## Backward compatibility
 
@@ -572,11 +572,11 @@ Assuming 2 fields, named `my-plugin-namespace/address-field` in the address step
 
 ### React to to saving fields
 
-You can react to those fields being saved by hooking into `woocommerce_set_additional_field_value` action.
+You can react to those fields being saved by hooking into `poocommerce_set_additional_field_value` action.
 
 ```php
 add_action(
-	'woocommerce_set_additional_field_value',
+	'poocommerce_set_additional_field_value',
 	function ( $key, $value, $group, $wc_object ) {
 		if ( 'my-plugin-namespace/address-field' !== $key ) {
 			return;
@@ -595,7 +595,7 @@ add_action(
 );
 
 add_action(
-	'woocommerce_set_additional_field_value',
+	'poocommerce_set_additional_field_value',
 	function ( $key, $value, $group, $wc_object ) {
 		if ( 'my-plugin-namespace/my-other-field' !== $key ) {
 			return;
@@ -615,11 +615,11 @@ This way, you can ensure existing systems will continue working and your integra
 
 ### React to reading fields
 
-You can use the `woocommerce_get_default_value_for_{$key}` filters to provide a different default value (a value coming from another meta field for example):
+You can use the `poocommerce_get_default_value_for_{$key}` filters to provide a different default value (a value coming from another meta field for example):
 
 ```php
 add_filter(
-	"woocommerce_get_default_value_for_my-plugin-namespace/address-field",
+	"poocommerce_get_default_value_for_my-plugin-namespace/address-field",
 	function ( $value, $group, $wc_object ) {
 
 		if ( 'billing' === $group ) {
@@ -635,7 +635,7 @@ add_filter(
 );
 
 add_filter(
-	"woocommerce_get_default_value_for_my-plugin-namespace/my-other-field",
+	"poocommerce_get_default_value_for_my-plugin-namespace/my-other-field",
 	function ( $value, $group, $wc_object ) {
 
 		$my_plugin_key = 'existing_order_field_key';
@@ -655,9 +655,9 @@ This example is just a combined version of the examples shared above.
 
 ```php
 add_action(
-	'woocommerce_init',
+	'poocommerce_init',
 	function() {
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'            => 'namespace/gov-id',
 				'label'         => 'Government ID',
@@ -670,7 +670,7 @@ add_action(
 				),
 			),
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'            => 'namespace/confirm-gov-id',
 				'label'         => 'Confirm government ID',
@@ -685,7 +685,7 @@ add_action(
 		);
 
 		add_action(
-			'woocommerce_sanitize_additional_field',
+			'poocommerce_sanitize_additional_field',
 			function ( $field_value, $field_key ) {
 				if ( 'namespace/gov-id' === $field_key || 'namespace/confirm-gov-id' === $field_key ) {
 					$field_value = str_replace( ' ', '', $field_value );
@@ -698,7 +698,7 @@ add_action(
 		);
 
 		add_action(
-		'woocommerce_validate_additional_field',
+		'poocommerce_validate_additional_field',
 			function ( WP_Error $errors, $field_key, $field_value ) {
 				if ( 'namespace/gov-id' === $field_key ) {
 					$match = preg_match( '/[A-Z0-9]{5}/', $field_value );
@@ -715,7 +715,7 @@ add_action(
 );
 
 add_action(
-	'woocommerce_blocks_validate_location_address_fields',
+	'poocommerce_blocks_validate_location_address_fields',
 	function ( \WP_Error $errors, $fields, $group ) {
 		if ( $fields['namespace/gov-id'] !== $fields['namespace/confirm-gov-id'] ) {
 			$errors->add( 'gov_id_mismatch', 'Please ensure your government ID matches the confirmation.' );

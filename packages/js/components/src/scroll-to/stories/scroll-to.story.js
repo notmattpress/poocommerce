@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ScrollTo } from '@woocommerce/components';
+import { ScrollTo } from '@poocommerce/components';
 
 export const Basic = () => (
 	<ScrollTo>
@@ -13,6 +13,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/ScrollTo',
+	title: 'PooCommerce Admin/components/ScrollTo',
 	component: ScrollTo,
 };

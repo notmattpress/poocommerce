@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { CART_STORE_KEY, VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY, VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

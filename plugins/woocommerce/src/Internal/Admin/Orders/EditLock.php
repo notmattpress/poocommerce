@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
 /**
  * This class takes care of the edit lock logic when HPOS is enabled.
@@ -38,7 +38,7 @@ class EditLock {
 		}
 
 		/** This filter is documented in WP's wp-admin/includes/ajax-actions.php */
-		$time_window = apply_filters( 'wp_check_post_lock_window', 150 ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$time_window = apply_filters( 'wp_check_post_lock_window', 150 ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		if ( time() >= ( $time + $time_window ) ) {
 			return false;
 		}
@@ -102,7 +102,7 @@ class EditLock {
 		unset( $response['wp-refresh-post-lock'] );
 
 		$order = wc_get_order( $order_id );
-		if ( ! $order || ( ! current_user_can( get_post_type_object( $order->get_type() )->cap->edit_post, $order->get_id() ) && ! current_user_can( 'manage_woocommerce' ) ) ) {
+		if ( ! $order || ( ! current_user_can( get_post_type_object( $order->get_type() )->cap->edit_post, $order->get_id() ) && ! current_user_can( 'manage_poocommerce' ) ) ) {
 			return $response;
 		}
 
@@ -116,7 +116,7 @@ class EditLock {
 
 			$response['wc-refresh-order-lock']['error'] = array(
 				// translators: %s is a user's name.
-				'message'            => sprintf( __( '%s has taken over and is currently editing.', 'woocommerce' ), $user->display_name ),
+				'message'            => sprintf( __( '%s has taken over and is currently editing.', 'poocommerce' ), $user->display_name ),
 				'user_name'          => $user->display_name,
 				'user_avatar_src'    => get_option( 'show_avatars' ) ? get_avatar_url( $user->ID, array( 'size' => 64 ) ) : '',
 				'user_avatar_src_2x' => get_option( 'show_avatars' ) ? get_avatar_url( $user->ID, array( 'size' => 128 ) ) : '',
@@ -147,7 +147,7 @@ class EditLock {
 				continue;
 			}
 
-			if ( ! $this->is_locked_by_another_user( $order ) || ( ! current_user_can( get_post_type_object( $order->get_type() )->cap->edit_post, $order->get_id() ) && ! current_user_can( 'manage_woocommerce' ) ) ) {
+			if ( ! $this->is_locked_by_another_user( $order ) || ( ! current_user_can( get_post_type_object( $order->get_type() )->cap->edit_post, $order->get_id() ) && ! current_user_can( 'manage_poocommerce' ) ) ) {
 				continue;
 			}
 
@@ -170,14 +170,14 @@ class EditLock {
 		$user   = $lock ? get_user_by( 'id', $lock['user_id'] ) : false;
 		$locked = $user && ( get_current_user_id() !== $user->ID );
 
-		$edit_url = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\Orders\PageController::class )->get_edit_url( $order->get_id() );
+		$edit_url = wc_get_container()->get( \Automattic\PooCommerce\Internal\Admin\Orders\PageController::class )->get_edit_url( $order->get_id() );
 
 		$sendback_url = wp_get_referer();
 		if ( ! $sendback_url ) {
-			$sendback_url = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\Orders\PageController::class )->get_base_page_url( $order->get_type() );
+			$sendback_url = wc_get_container()->get( \Automattic\PooCommerce\Internal\Admin\Orders\PageController::class )->get_base_page_url( $order->get_type() );
 		}
 
-		$sendback_text = __( 'Go back', 'woocommerce' );
+		$sendback_text = __( 'Go back', 'poocommerce' );
 		?>
 		<div id="post-lock-dialog" class="notification-dialog-wrap <?php echo $locked ? '' : 'hidden'; ?> order-lock-dialog">
 			<div class="notification-dialog-background"></div>
@@ -188,12 +188,12 @@ class EditLock {
 				<p class="currently-editing wp-tab-first" tabindex="0">
 				<?php
 				// translators: %s is a user's name.
-				echo esc_html( sprintf( __( '%s is currently editing this order. Do you want to take over?', 'woocommerce' ), esc_html( $user->display_name ) ) );
+				echo esc_html( sprintf( __( '%s is currently editing this order. Do you want to take over?', 'poocommerce' ), esc_html( $user->display_name ) ) );
 				?>
 				</p>
 				<p>
 					<a class="button" href="<?php echo esc_url( $sendback_url ); ?>"><?php echo esc_html( $sendback_text ); ?></a>
-					<a class="button button-primary wp-tab-last" href="<?php echo esc_url( add_query_arg( 'claim-lock', '1', wp_nonce_url( $edit_url, 'claim-lock-' . $order->get_id() ) ) ); ?>"><?php esc_html_e( 'Take over', 'woocommerce' ); ?></a>
+					<a class="button button-primary wp-tab-last" href="<?php echo esc_url( add_query_arg( 'claim-lock', '1', wp_nonce_url( $edit_url, 'claim-lock-' . $order->get_id() ) ) ); ?>"><?php esc_html_e( 'Take over', 'poocommerce' ); ?></a>
 				</p>
 			</div>
 			<?php else : ?>

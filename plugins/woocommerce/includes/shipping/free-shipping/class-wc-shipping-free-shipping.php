@@ -2,10 +2,10 @@
 /**
  * Class WC_Shipping_Free_Shipping file.
  *
- * @package WooCommerce\Shipping
+ * @package PooCommerce\Shipping
  */
 
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class   WC_Shipping_Free_Shipping
  * @version 2.6.0
- * @package WooCommerce\Classes\Shipping
+ * @package PooCommerce\Classes\Shipping
  */
 class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 
@@ -53,8 +53,8 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 	public function __construct( $instance_id = 0 ) {
 		$this->id                 = 'free_shipping';
 		$this->instance_id        = absint( $instance_id );
-		$this->method_title       = __( 'Free shipping', 'woocommerce' );
-		$this->method_description = __( 'Free shipping is a special method which can be triggered with coupons and minimum spends.', 'woocommerce' );
+		$this->method_title       = __( 'Free shipping', 'poocommerce' );
+		$this->method_description = __( 'Free shipping is a special method which can be triggered with coupons and minimum spends.', 'poocommerce' );
 		$this->supports           = array(
 			'shipping-zones',
 			'instance-settings',
@@ -79,7 +79,7 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 		$this->ignore_discounts = $this->get_option( 'ignore_discounts' );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'admin_footer', array( 'WC_Shipping_Free_Shipping', 'enqueue_admin_js' ), 10 ); // Priority needs to be higher than wc_print_js (25).
 	}
 
@@ -94,13 +94,13 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 	public function sanitize_cost( $value ) {
 		$value = is_null( $value ) ? '' : $value;
 		$value = wp_kses_post( trim( wp_unslash( $value ) ) );
-		$value = str_replace( array( get_woocommerce_currency_symbol(), html_entity_decode( get_woocommerce_currency_symbol() ) ), '', $value );
+		$value = str_replace( array( get_poocommerce_currency_symbol(), html_entity_decode( get_poocommerce_currency_symbol() ) ), '', $value );
 
 		$test_value = str_replace( wc_get_price_decimal_separator(), '.', $value );
-		$test_value = str_replace( array( get_woocommerce_currency_symbol(), html_entity_decode( get_woocommerce_currency_symbol() ), wc_get_price_thousand_separator() ), '', $test_value );
+		$test_value = str_replace( array( get_poocommerce_currency_symbol(), html_entity_decode( get_poocommerce_currency_symbol() ), wc_get_price_thousand_separator() ), '', $test_value );
 
 		if ( $test_value && ! is_numeric( $test_value ) ) {
-			throw new Exception( __( 'Please enter a valid number', 'woocommerce' ) );
+			throw new Exception( __( 'Please enter a valid number', 'poocommerce' ) );
 		}
 
 		return $value;
@@ -112,41 +112,41 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 	public function init_form_fields() {
 		$this->instance_form_fields = array(
 			'title'            => array(
-				'title'       => __( 'Name', 'woocommerce' ),
+				'title'       => __( 'Name', 'poocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'Your customers will see the name of this shipping method during checkout.', 'woocommerce' ),
+				'description' => __( 'Your customers will see the name of this shipping method during checkout.', 'poocommerce' ),
 				'default'     => $this->method_title,
-				'placeholder' => __( 'e.g. Free shipping', 'woocommerce' ),
+				'placeholder' => __( 'e.g. Free shipping', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'requires'         => array(
-				'title'   => __( 'Free shipping requires', 'woocommerce' ),
+				'title'   => __( 'Free shipping requires', 'poocommerce' ),
 				'type'    => 'select',
 				'class'   => 'wc-enhanced-select',
 				'default' => '',
 				'options' => array(
-					''           => __( 'No requirement', 'woocommerce' ),
-					'coupon'     => __( 'A valid free shipping coupon', 'woocommerce' ),
-					'min_amount' => __( 'A minimum order amount', 'woocommerce' ),
-					'either'     => __( 'A minimum order amount OR coupon', 'woocommerce' ),
-					'both'       => __( 'A minimum order amount AND coupon', 'woocommerce' ),
+					''           => __( 'No requirement', 'poocommerce' ),
+					'coupon'     => __( 'A valid free shipping coupon', 'poocommerce' ),
+					'min_amount' => __( 'A minimum order amount', 'poocommerce' ),
+					'either'     => __( 'A minimum order amount OR coupon', 'poocommerce' ),
+					'both'       => __( 'A minimum order amount AND coupon', 'poocommerce' ),
 				),
 			),
 			'min_amount'       => array(
-				'title'             => __( 'Minimum order amount', 'woocommerce' ),
+				'title'             => __( 'Minimum order amount', 'poocommerce' ),
 				'type'              => 'text',
 				'class'             => 'wc-shipping-modal-price',
 				'placeholder'       => wc_format_localized_price( 0 ),
-				'description'       => __( 'Customers will need to spend this amount to get free shipping.', 'woocommerce' ),
+				'description'       => __( 'Customers will need to spend this amount to get free shipping.', 'poocommerce' ),
 				'default'           => '0',
 				'desc_tip'          => true,
 				'sanitize_callback' => array( $this, 'sanitize_cost' ),
 			),
 			'ignore_discounts' => array(
-				'title'       => __( 'Coupons discounts', 'woocommerce' ),
-				'label'       => __( 'Apply minimum order rule before coupon discount', 'woocommerce' ),
+				'title'       => __( 'Coupons discounts', 'poocommerce' ),
+				'label'       => __( 'Apply minimum order rule before coupon discount', 'poocommerce' ),
 				'type'        => 'checkbox',
-				'description' => __( 'If checked, free shipping would be available based on pre-discount order amount.', 'woocommerce' ),
+				'description' => __( 'If checked, free shipping would be available based on pre-discount order amount.', 'poocommerce' ),
 				'default'     => 'no',
 				'desc_tip'    => true,
 			),
@@ -220,7 +220,7 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 				break;
 		}
 
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
+		return apply_filters( 'poocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
 	}
 
 	/**
@@ -251,8 +251,8 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 			"jQuery( function( $ ) {
 				function wcFreeShippingShowHideMinAmountField( el ) {
 					var form = $( el ).closest( 'form' );
-					var minAmountField = $( '#woocommerce_free_shipping_min_amount', form ).closest( 'tr' );
-					var ignoreDiscountField = $( '#woocommerce_free_shipping_ignore_discounts', form ).closest( 'tr' );
+					var minAmountField = $( '#poocommerce_free_shipping_min_amount', form ).closest( 'tr' );
+					var ignoreDiscountField = $( '#poocommerce_free_shipping_ignore_discounts', form ).closest( 'tr' );
 					if ( 'coupon' === $( el ).val() || '' === $( el ).val() ) {
 						minAmountField.hide();
 						ignoreDiscountField.hide();
@@ -262,15 +262,15 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 					}
 				}
 
-				$( document.body ).on( 'change', '#woocommerce_free_shipping_requires', function() {
+				$( document.body ).on( 'change', '#poocommerce_free_shipping_requires', function() {
 					wcFreeShippingShowHideMinAmountField( this );
 				});
 
 				// Change while load.
-				$( '#woocommerce_free_shipping_requires' ).trigger( 'change' );
+				$( '#poocommerce_free_shipping_requires' ).trigger( 'change' );
 				$( document.body ).on( 'wc_backbone_modal_loaded', function( evt, target ) {
 					if ( 'wc-modal-shipping-method-settings' === target ) {
-						wcFreeShippingShowHideMinAmountField( $( '#wc-backbone-modal-dialog #woocommerce_free_shipping_requires', evt.currentTarget ) );
+						wcFreeShippingShowHideMinAmountField( $( '#wc-backbone-modal-dialog #poocommerce_free_shipping_requires', evt.currentTarget ) );
 					}
 				} );
 			});"

@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
-import { productFilterAttribute } from '@woocommerce/icons';
-import { getSetting } from '@woocommerce/settings';
-import { AttributeSetting } from '@woocommerce/types';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
+import { productFilterAttribute } from '@poocommerce/icons';
+import { getSetting } from '@poocommerce/settings';
+import { AttributeSetting } from '@poocommerce/types';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -41,7 +41,7 @@ if ( isExperimentalBlocksEnabled() ) {
 					// translators: %s is the attribute label.
 					__(
 						`Enable customers to filter the product collection by selecting one or more %s attributes.`,
-						'woocommerce'
+						'poocommerce'
 					),
 					attribute.attribute_label
 				),

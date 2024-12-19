@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductButton class.
@@ -76,18 +76,18 @@ class ProductButton extends AbstractBlock {
 	protected function render( $attributes, $content, $block ) {
 
 		// This workaround ensures that WordPress loads the core/button block styles.
-		// For more details, see https://github.com/woocommerce/woocommerce/pull/53052.
+		// For more details, see https://github.com/poocommerce/poocommerce/pull/53052.
 		( new \WP_Block( array( 'blockName' => 'core/button' ) ) )->render();
 
 		$post_id = isset( $block->context['postId'] ) ? $block->context['postId'] : '';
 		$product = wc_get_product( $post_id );
 
 		wc_initial_state(
-			'woocommerce/product-button',
+			'poocommerce/product-button',
 			array(
 				'inTheCartText' => sprintf(
 					/* translators: %s: product number. */
-					__( '%s in cart', 'woocommerce' ),
+					__( '%s in cart', 'poocommerce' ),
 					'###'
 				),
 			)
@@ -98,11 +98,11 @@ class ProductButton extends AbstractBlock {
 			$more_than_one_item      = $number_of_items_in_cart > 0;
 			$initial_product_text    = $more_than_one_item ? sprintf(
 			/* translators: %s: product number. */
-				__( '%s in cart', 'woocommerce' ),
+				__( '%s in cart', 'poocommerce' ),
 				$number_of_items_in_cart
 			) : $product->add_to_cart_text();
-			$cart_redirect_after_add  = get_option( 'woocommerce_cart_redirect_after_add' ) === 'yes';
-			$ajax_add_to_cart_enabled = get_option( 'woocommerce_enable_ajax_add_to_cart' ) === 'yes';
+			$cart_redirect_after_add  = get_option( 'poocommerce_cart_redirect_after_add' ) === 'yes';
+			$ajax_add_to_cart_enabled = get_option( 'poocommerce_enable_ajax_add_to_cart' ) === 'yes';
 			$is_ajax_button           = $ajax_add_to_cart_enabled && ! $cart_redirect_after_add && $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock();
 			$html_element             = $is_ajax_button ? 'button' : 'a';
 			$styles_and_classes       = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes, array(), array( 'extra_classes' ) );
@@ -132,12 +132,12 @@ class ProductButton extends AbstractBlock {
 			* @param number $default_quantity The default quantity.
 			* @param number $product_id The product id.
 			*/
-			$quantity_to_add = apply_filters( 'woocommerce_add_to_cart_quantity', $default_quantity, $product->get_id() );
+			$quantity_to_add = apply_filters( 'poocommerce_add_to_cart_quantity', $default_quantity, $product->get_id() );
 
 			$context = array(
 				'quantityToAdd'          => $quantity_to_add,
 				'productId'              => $product->get_id(),
-				'addToCartText'          => null !== $product->add_to_cart_text() ? $product->add_to_cart_text() : __( 'Add to cart', 'woocommerce' ),
+				'addToCartText'          => null !== $product->add_to_cart_text() ? $product->add_to_cart_text() : __( 'Add to cart', 'poocommerce' ),
 				'temporaryNumberOfItems' => $number_of_items_in_cart,
 				'animationStatus'        => 'IDLE',
 			);
@@ -148,7 +148,7 @@ class ProductButton extends AbstractBlock {
 			 * @since 9.7.0
 			 */
 			$args = apply_filters(
-				'woocommerce_loop_add_to_cart_args',
+				'poocommerce_loop_add_to_cart_args',
 				array(
 					'class'      => $html_classes,
 					'attributes' => array(
@@ -170,7 +170,7 @@ class ProductButton extends AbstractBlock {
 			}
 
 			$interactive = array(
-				'namespace' => 'woocommerce/product-button',
+				'namespace' => 'poocommerce/product-button',
 			);
 
 			$div_directives = '
@@ -184,7 +184,7 @@ class ProductButton extends AbstractBlock {
 			';
 
 			$anchor_directive = '
-				data-wc-on--click="woocommerce/product-collection::actions.viewProduct"
+				data-wc-on--click="poocommerce/product-collection::actions.viewProduct"
 			';
 
 			$span_button_directives = '
@@ -218,7 +218,7 @@ class ProductButton extends AbstractBlock {
 			 * @param string $class The class.
 			 */
 			return apply_filters(
-				'woocommerce_loop_add_to_cart_link',
+				'poocommerce_loop_add_to_cart_link',
 				strtr(
 					'<div {wrapper_attributes}
 						{div_directives}
@@ -297,8 +297,8 @@ class ProductButton extends AbstractBlock {
 				</a>
 			</span>',
 			esc_url( wc_get_cart_url() ),
-			esc_attr__( 'View cart', 'woocommerce' ),
-			esc_html__( 'View cart', 'woocommerce' )
+			esc_attr__( 'View cart', 'poocommerce' ),
+			esc_html__( 'View cart', 'poocommerce' )
 		);
 	}
 }

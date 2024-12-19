@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { createElement } from '@wordpress/element';
-import { ProductProductAttribute } from '@woocommerce/data';
+import { ProductProductAttribute } from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ type AttributesProps = {
 /**
  * This component is no longer in active use.
  * It is kept here for backward compatibility because is being used in the `AttributesField` component, under
- * `plugins/woocommerce-admin/client/products/fills/attributes-section/attributes-field.tsx`.
+ * `plugins/poocommerce-admin/client/products/fills/attributes-section/attributes-field.tsx`.
  */
 export const Attributes: React.FC< AttributesProps > = ( {
 	value,
@@ -36,7 +36,7 @@ export const Attributes: React.FC< AttributesProps > = ( {
 			uiStrings={ {
 				disabledAttributeMessage: __(
 					'Already used in Variations',
-					'woocommerce'
+					'poocommerce'
 				),
 			} }
 			onAdd={ () => {

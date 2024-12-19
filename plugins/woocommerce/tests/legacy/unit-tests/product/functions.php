@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Functions.
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 2.3
  */
 
@@ -1006,7 +1006,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 
 		// Test custom class attribute is honoured.
 		$attr = array( 'class' => 'custom-class' );
-		$this->assertStringContainsString( 'class="custom-class"', wc_placeholder_img( 'woocommerce_thumbnail', $attr ) );
+		$this->assertStringContainsString( 'class="custom-class"', wc_placeholder_img( 'poocommerce_thumbnail', $attr ) );
 	}
 
 	/**
@@ -1125,7 +1125,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	public function test_wc_get_attachment_image_attributes() {
 		$image_attr = array(
 			'src'    => 'https://wc.local/wp-content/uploads/2018/02/single-1-250x250.jpg',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
 			'srcset' => 'https://wc.local/wp-content/uploads/2018/02/single-1-250x250.jpg 250w, https://wc.local/wp-content/uploads/2018/02/single-1-350x350.jpg 350w, https://wc.local/wp-content/uploads/2018/02/single-1-150x150.jpg 150w, https://wc.local/wp-content/uploads/2018/02/single-1-300x300.jpg 300w, https://wc.local/wp-content/uploads/2018/02/single-1-768x768.jpg 768w, https://wc.local/wp-content/uploads/2018/02/single-1-100x100.jpg 100w, https://wc.local/wp-content/uploads/2018/02/single-1.jpg 800w',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
@@ -1135,7 +1135,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 
 		$image_attr = array(
 			'src'    => '',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
 			'srcset' => '',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
@@ -1144,20 +1144,20 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( $image_attr, wc_get_attachment_image_attributes( $image_attr ) );
 
 		$image_attr    = array(
-			'src'    => 'https://wc.local/wp-content/woocommerce_uploads/my-image.jpg',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'src'    => 'https://wc.local/wp-content/poocommerce_uploads/my-image.jpg',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
-			'srcset' => 'https://wc.local/wp-content/woocommerce_uploads/my-image-250x250.jpg 250w, https://wc.local/wp-content/woocommerce_uploads/my-image-350x350 350w',
+			'srcset' => 'https://wc.local/wp-content/poocommerce_uploads/my-image-250x250.jpg 250w, https://wc.local/wp-content/poocommerce_uploads/my-image-350x350 350w',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
 		);
 		$expected_attr = array(
 			'src'    => WC()->plugin_url() . '/assets/images/placeholder.png',
-			'class'  => 'attachment-woocommerce_thumbnail size-woocommerce_thumbnail',
+			'class'  => 'attachment-poocommerce_thumbnail size-poocommerce_thumbnail',
 			'alt'    => '',
 			'srcset' => '',
 			'sizes'  => '(max-width: 250px) 100vw, 250px',
 		);
-		// Test image hosted in woocommerce_uploads which is not allowed, think shops selling photos.
+		// Test image hosted in poocommerce_uploads which is not allowed, think shops selling photos.
 		$this->assertEquals( $expected_attr, wc_get_attachment_image_attributes( $image_attr ) );
 
 		unset( $image_attr, $expected_attr );
@@ -1170,7 +1170,7 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_product_stock_status_options() {
 		$status_options = (array) apply_filters(
-			'woocommerce_product_stock_status_options',
+			'poocommerce_product_stock_status_options',
 			array(
 				'instock'     => 'In stock',
 				'outofstock'  => 'Out of stock',
@@ -1186,8 +1186,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_price_to_display() {
 		// Enable taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		$customer_location = WC_Tax::get_tax_location();
 
@@ -1210,8 +1210,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$product->set_regular_price( '100' );
 
 		// Display price included taxes at shop and cart.
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,
@@ -1236,8 +1236,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 120, $price_shop );
 
 		// Display price included taxes only at shop.
-		update_option( 'woocommerce_tax_display_cart', 'excl' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_tax_display_cart', 'excl' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,
@@ -1261,8 +1261,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 100, $price_shop );
 
 		// Display price included taxes only at cart.
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,
@@ -1287,8 +1287,8 @@ class WC_Tests_Product_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( 120, $price_shop );
 
 		// Display price excluded taxes at shop and cart.
-		update_option( 'woocommerce_tax_display_cart', 'excl' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_tax_display_cart', 'excl' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$price_shop = wc_get_price_to_display(
 			$product,

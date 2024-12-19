@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { TotalsShipping } from '@woocommerce/base-components/cart-checkout';
-import { useStoreCart } from '@woocommerce/base-context';
-import { TotalsWrapper } from '@woocommerce/blocks-checkout';
+import { TotalsShipping } from '@poocommerce/base-components/cart-checkout';
+import { useStoreCart } from '@poocommerce/base-context';
+import { TotalsWrapper } from '@poocommerce/blocks-checkout';
 import { useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 import {
 	filterShippingRatesByPrefersCollection,
 	isAddressComplete,
 	selectedRatesAreCollectable,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 const Block = ( {
 	className = '',
@@ -47,19 +47,19 @@ const Block = ( {
 			<TotalsShipping
 				label={
 					hasSelectedCollectionOnly
-						? __( 'Collection', 'woocommerce' )
-						: __( 'Delivery', 'woocommerce' )
+						? __( 'Collection', 'poocommerce' )
+						: __( 'Delivery', 'poocommerce' )
 				}
 				placeholder={
 					<span className="wc-block-components-shipping-placeholder__value">
 						{ hasCompleteAddress
 							? __(
 									'No available delivery option',
-									'woocommerce'
+									'poocommerce'
 							  )
 							: __(
 									'Enter address to calculate',
-									'woocommerce'
+									'poocommerce'
 							  ) }
 					</span>
 				}

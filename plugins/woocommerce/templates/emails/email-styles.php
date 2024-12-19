@@ -2,16 +2,16 @@
 /**
  * Email Styles
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-styles.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-styles.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 9.6.0
  */
 
@@ -20,28 +20,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Load colors.
-$bg               = get_option( 'woocommerce_email_background_color' );
-$body             = get_option( 'woocommerce_email_body_background_color' );
-$base             = get_option( 'woocommerce_email_base_color' );
-$text             = get_option( 'woocommerce_email_text_color' );
-$footer_text      = get_option( 'woocommerce_email_footer_text_color' );
-$header_alignment = get_option( 'woocommerce_email_header_alignment' );
+$bg               = get_option( 'poocommerce_email_background_color' );
+$body             = get_option( 'poocommerce_email_body_background_color' );
+$base             = get_option( 'poocommerce_email_base_color' );
+$text             = get_option( 'poocommerce_email_text_color' );
+$footer_text      = get_option( 'poocommerce_email_footer_text_color' );
+$header_alignment = get_option( 'poocommerce_email_header_alignment' );
 
 /**
- * Check if we are in preview mode (WooCommerce > Settings > Emails).
+ * Check if we are in preview mode (PooCommerce > Settings > Emails).
  *
  * @since 9.6.0
  * @param bool $is_email_preview Whether the email is being previewed.
  */
-$is_email_preview = apply_filters( 'woocommerce_is_email_preview', false );
+$is_email_preview = apply_filters( 'poocommerce_is_email_preview', false );
 
 if ( $is_email_preview ) {
-	$bg_transient               = get_transient( 'woocommerce_email_background_color' );
-	$body_transient             = get_transient( 'woocommerce_email_body_background_color' );
-	$base_transient             = get_transient( 'woocommerce_email_base_color' );
-	$text_transient             = get_transient( 'woocommerce_email_text_color' );
-	$footer_text_transient      = get_transient( 'woocommerce_email_footer_text_color' );
-	$header_alignment_transient = get_transient( 'woocommerce_email_header_alignment' );
+	$bg_transient               = get_transient( 'poocommerce_email_background_color' );
+	$body_transient             = get_transient( 'poocommerce_email_body_background_color' );
+	$base_transient             = get_transient( 'poocommerce_email_base_color' );
+	$text_transient             = get_transient( 'poocommerce_email_text_color' );
+	$footer_text_transient      = get_transient( 'poocommerce_email_footer_text_color' );
+	$header_alignment_transient = get_transient( 'poocommerce_email_header_alignment' );
 
 	$bg               = $bg_transient ? $bg_transient : $bg;
 	$body             = $body_transient ? $body_transient : $body;

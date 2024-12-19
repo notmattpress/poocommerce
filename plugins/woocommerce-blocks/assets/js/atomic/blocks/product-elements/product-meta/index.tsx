@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { registerBlockSingleProductTemplate } from '@woocommerce/atomic-utils';
+import { registerBlockSingleProductTemplate } from '@poocommerce/atomic-utils';
 import { Icon } from '@wordpress/icons';
-import { productMeta } from '@woocommerce/icons';
+import { productMeta } from '@poocommerce/icons';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ registerBlockSingleProductTemplate( {
 				/>
 			),
 		},
-		ancestor: [ 'woocommerce/single-product' ],
+		ancestor: [ 'poocommerce/single-product' ],
 	},
 	isAvailableOnPostEditor: true,
 } );

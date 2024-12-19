@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { SearchListItem } from '@woocommerce/editor-components/search-list-control/types';
-import { getSetting } from '@woocommerce/settings';
+import { SearchListItem } from '@poocommerce/editor-components/search-list-control/types';
+import { getSetting } from '@poocommerce/settings';
 import {
 	AttributeObject,
 	AttributeSetting,
 	AttributeTerm,
 	AttributeWithTerms,
 	isAttributeTerm,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { dispatch, select } from '@wordpress/data';
 
 const ATTRIBUTES = getSetting< AttributeSetting[] >( 'attributes', [] );
@@ -127,8 +127,8 @@ export const updateAttributeInSiblingBlock = (
 
 	let shippingMethodsBlockClientId = '';
 
-	// Loop through parent block's children until we find woocommerce/checkout-shipping-methods-block.
-	// Also set this attribute in the woocommerce/checkout-shipping-methods-block.
+	// Loop through parent block's children until we find poocommerce/checkout-shipping-methods-block.
+	// Also set this attribute in the poocommerce/checkout-shipping-methods-block.
 	parentBlocks.forEach( ( parent ) => {
 		const childBlock = store
 			.getBlock( parent )

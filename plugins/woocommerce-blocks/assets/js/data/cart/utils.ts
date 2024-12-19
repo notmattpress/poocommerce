@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { select } from '@wordpress/data';
-import { camelCaseKeys, debounce } from '@woocommerce/base-utils';
+import { camelCaseKeys, debounce } from '@poocommerce/base-utils';
 import { isEmail } from '@wordpress/url';
 import {
 	CartBillingAddress,
 	CartShippingAddress,
 	Cart,
 	CartResponse,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -1,5 +1,5 @@
 // @ts-expect-error -- No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { store as coreStore } from '@wordpress/core-data';
 /**
  * External dependencies
@@ -13,13 +13,13 @@ import {
 	updateQueryString,
 	getHistory,
 	getPersistedQuery,
-} from '@woocommerce/navigation';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+} from '@poocommerce/navigation';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
-import { Spinner } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { Spinner } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 import { PluginArea } from '@wordpress/plugins';
-import { accessTaskReferralStorage } from '@woocommerce/onboarding';
+import { accessTaskReferralStorage } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies
@@ -138,9 +138,9 @@ const markTaskComplete = async () => {
 		// @ts-expect-error No types for this exist yet.
 	).getDefaultTemplateId( { slug: 'home' } );
 	return dispatch( OPTIONS_STORE_NAME ).updateOptions( {
-		woocommerce_admin_customize_store_completed: 'yes',
+		poocommerce_admin_customize_store_completed: 'yes',
 		// We use this on the intro page to determine if this same theme was used in the last customization.
-		woocommerce_admin_customize_store_completed_theme_id: currentTemplateId,
+		poocommerce_admin_customize_store_completed_theme_id: currentTemplateId,
 	} );
 };
 
@@ -156,7 +156,7 @@ const browserPopstateHandler =
 	};
 
 const CYSSpinner = () => (
-	<div className="woocommerce-customize-store__loading">
+	<div className="poocommerce-customize-store__loading">
 		<Spinner />
 	</div>
 );
@@ -584,7 +584,7 @@ export const CustomizeStoreController = ( {
 	actionOverrides: Partial< typeof customizeStoreStateMachineActions >;
 	servicesOverrides: Partial< typeof customizeStoreStateMachineServices >;
 } ) => {
-	useFullScreen( [ 'woocommerce-customize-store' ] );
+	useFullScreen( [ 'poocommerce-customize-store' ] );
 
 	const augmentedStateMachine = useMemo( () => {
 		return customizeStoreStateMachineDefinition.withConfig( {
@@ -649,7 +649,7 @@ export const CustomizeStoreController = ( {
 			// This is needed because the iframe loads the entire Customize Store app.
 			// This means that the iframe instance will have different state machines
 			// than the parent window.
-			// Check https://github.com/woocommerce/woocommerce/issues/45278 for more details.
+			// Check https://github.com/poocommerce/poocommerce/issues/45278 for more details.
 			sendEventToIntroMachine: (
 				typeEvent: customizeStoreStateMachineEvents
 			) => send( typeEvent ),
@@ -691,7 +691,7 @@ export const CustomizeStoreController = ( {
 	return (
 		<>
 			<div
-				className={ `woocommerce-customize-store__container woocommerce-customize-store__step-${ currentNodeCssLabel }` }
+				className={ `poocommerce-customize-store__container poocommerce-customize-store__step-${ currentNodeCssLabel }` }
 			>
 				{ CurrentComponent ? (
 					<CurrentComponent
@@ -705,7 +705,7 @@ export const CustomizeStoreController = ( {
 				) }
 			</div>
 			{ /* @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated. */ }
-			<PluginArea scope="woocommerce-customize-store" />
+			<PluginArea scope="poocommerce-customize-store" />
 		</>
 	);
 };

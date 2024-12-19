@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Inflector;
+namespace Automattic\PooCommerce\Vendor\League\Container\Inflector;
 
 use IteratorAggregate;
-use Automattic\WooCommerce\Vendor\League\Container\ContainerAwareInterface;
+use Automattic\PooCommerce\Vendor\League\Container\ContainerAwareInterface;
 
 interface InflectorAggregateInterface extends ContainerAwareInterface, IteratorAggregate
 {

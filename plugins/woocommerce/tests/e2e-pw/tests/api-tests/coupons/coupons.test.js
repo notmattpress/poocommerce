@@ -390,7 +390,7 @@ test.describe( 'Add coupon to order', () => {
 			testCoupon.code
 		);
 		// Test that the coupon meta data exists.
-		// See: https://github.com/woocommerce/woocommerce/issues/28166.
+		// See: https://github.com/poocommerce/poocommerce/issues/28166.
 		expect( responseJSON.coupon_lines[ 0 ].meta_data ).toEqual(
 			expect.arrayContaining( [
 				expect.objectContaining( {

@@ -11,7 +11,7 @@ import {
 	BlockConfiguration,
 } from '@wordpress/blocks';
 import { subscribe, select } from '@wordpress/data';
-import { isNumber, isEmpty } from '@woocommerce/types';
+import { isNumber, isEmpty } from '@poocommerce/types';
 
 /**
  * Configuration object for registering a block.
@@ -264,7 +264,7 @@ export class BlockRegistrationManager {
 				);
 			} else {
 				const ancestor = isEmpty( blockSettings?.ancestor )
-					? [ 'woocommerce/single-product' ]
+					? [ 'poocommerce/single-product' ]
 					: blockSettings?.ancestor;
 
 				// Only remove ancestor if we're in site editor AND in single-product template
@@ -319,10 +319,10 @@ export class BlockRegistrationManager {
  * @example
  * ```typescript
  * registerBlockSingleProductTemplate({
- *     blockName: 'woocommerce/product-price',
+ *     blockName: 'poocommerce/product-price',
  *     blockSettings: {
  *         title: 'Product Price',
- *         category: 'woocommerce',
+ *         category: 'poocommerce',
  *     },
  *     isAvailableOnPostEditor: true
  * });

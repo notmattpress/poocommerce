@@ -1,7 +1,7 @@
 {
-	"name": "woocommerce/woo-ai",
-	"description": "Run AI experiments in WooCommerce.",
-	"homepage": "https://woocommerce.com/",
+	"name": "poocommerce/woo-ai",
+	"description": "Run AI experiments in PooCommerce.",
+	"homepage": "https://poocommerce.com/",
 	"type": "wordpress-plugin",
 	"license": "GPL-3.0-or-later",
 	"prefer-stable": true,
@@ -13,7 +13,7 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^6.5 || ^7.5",
-		"woocommerce/woocommerce-sniffs": "^0.1.3",
+		"poocommerce/poocommerce-sniffs": "^0.1.3",
 		"automattic/jetpack-changelogger": "3.3.0"
 	},
 	"scripts": {

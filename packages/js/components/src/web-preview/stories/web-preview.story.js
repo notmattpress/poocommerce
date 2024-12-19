@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import { WebPreview } from '@woocommerce/components';
+import { WebPreview } from '@poocommerce/components';
 
 export const Basic = () => (
 	<WebPreview
-		src="https://themes.woocommerce.com/?name=galleria"
+		src="https://themes.poocommerce.com/?name=galleria"
 		title="My Web Preview"
 	/>
 );
 
 export default {
-	title: 'WooCommerce Admin/components/WebPreview',
+	title: 'PooCommerce Admin/components/WebPreview',
 	component: WebPreview,
 };

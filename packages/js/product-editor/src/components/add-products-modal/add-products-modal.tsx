@@ -18,9 +18,9 @@ import {
 	__experimentalSelectControlMenu as Menu,
 	__experimentalSelectControlMenuItem as MenuItem,
 	useAsyncFilter,
-} from '@woocommerce/components';
-import { CurrencyContext } from '@woocommerce/currency';
-import { PRODUCTS_STORE_NAME, Product } from '@woocommerce/data';
+} from '@poocommerce/components';
+import { CurrencyContext } from '@poocommerce/currency';
+import { PRODUCTS_STORE_NAME, Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -103,30 +103,30 @@ export function AddProductsModal( {
 
 	return (
 		<Modal
-			title={ __( 'Add products to this group', 'woocommerce' ) }
-			className="woocommerce-add-products-modal"
+			title={ __( 'Add products to this group', 'poocommerce' ) }
+			className="poocommerce-add-products-modal"
 			onRequestClose={ onClose }
 		>
 			<form
 				noValidate
 				onSubmit={ handleSubmit }
-				className="woocommerce-add-products-modal__form"
+				className="poocommerce-add-products-modal__form"
 			>
-				<fieldset className="woocommerce-add-products-modal__form-group">
-					<legend className="woocommerce-add-products-modal__form-group-title">
+				<fieldset className="poocommerce-add-products-modal__form-group">
+					<legend className="poocommerce-add-products-modal__form-group-title">
 						{ __(
 							'Add and manage products in this group to let customers purchase them all in one go.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</legend>
 
-					<div className="woocommerce-add-products-modal__form-group-content">
+					<div className="poocommerce-add-products-modal__form-group-content">
 						<SelectControl< Product >
 							{ ...selectProps }
 							items={ products }
 							placeholder={ __(
 								'Search for products',
-								'woocommerce'
+								'poocommerce'
 							) }
 							label=""
 							selected={ null }
@@ -143,10 +143,10 @@ export function AddProductsModal( {
 								<Menu
 									isOpen={ isOpen }
 									getMenuProps={ getMenuProps }
-									className="woocommerce-add-products-modal__menu"
+									className="poocommerce-add-products-modal__menu"
 								>
 									{ isFetching ? (
-										<div className="woocommerce-add-products-modal__menu-loading">
+										<div className="poocommerce-add-products-modal__menu-loading">
 											<Spinner />
 										</div>
 									) : (
@@ -163,25 +163,25 @@ export function AddProductsModal( {
 												) => ( {
 													...getItemProps( options ),
 													className:
-														'woocommerce-add-products-modal__menu-item',
+														'poocommerce-add-products-modal__menu-item',
 												} ) }
 											>
 												<>
 													<div
-														className="woocommerce-add-products-modal__menu-item-image"
+														className="poocommerce-add-products-modal__menu-item-image"
 														style={ getProductImageStyle(
 															item
 														) }
 													/>
-													<div className="woocommerce-add-products-modal__menu-item-content">
-														<div className="woocommerce-add-products-modal__menu-item-title">
+													<div className="poocommerce-add-products-modal__menu-item-content">
+														<div className="poocommerce-add-products-modal__menu-item-title">
 															{ item.name }
 														</div>
 
 														{ Boolean(
 															item.price
 														) && (
-															<div className="woocommerce-add-products-modal__menu-item-description">
+															<div className="poocommerce-add-products-modal__menu-item-description">
 																{ formatAmount(
 																	item.price
 																) }
@@ -198,34 +198,34 @@ export function AddProductsModal( {
 					</div>
 
 					{ Boolean( selectedProducts.length ) && (
-						<ul className="woocommerce-add-products-modal__list">
+						<ul className="poocommerce-add-products-modal__list">
 							{ selectedProducts.map( ( item ) => (
 								<li
 									key={ item.id }
-									className="woocommerce-add-products-modal__list-item"
+									className="poocommerce-add-products-modal__list-item"
 								>
 									<div
-										className="woocommerce-add-products-modal__list-item-image"
+										className="poocommerce-add-products-modal__list-item-image"
 										style={ getProductImageStyle( item ) }
 									/>
-									<div className="woocommerce-add-products-modal__list-item-content">
-										<div className="woocommerce-add-products-modal__list-item-title">
+									<div className="poocommerce-add-products-modal__list-item-content">
+										<div className="poocommerce-add-products-modal__list-item-title">
 											{ item.name }
 										</div>
 
-										<div className="woocommerce-add-products-modal__list-item-description">
+										<div className="poocommerce-add-products-modal__list-item-description">
 											{ item.sku }
 										</div>
 									</div>
 
-									<div className="woocommerce-add-products-modal__list-item-actions">
+									<div className="poocommerce-add-products-modal__list-item-actions">
 										<Button
 											type="button"
 											variant="tertiary"
 											icon={ closeSmall }
 											aria-label={ __(
 												'Remove product',
-												'woocommerce'
+												'poocommerce'
 											) }
 											onClick={ removeProductHandler(
 												item
@@ -238,16 +238,16 @@ export function AddProductsModal( {
 					) }
 				</fieldset>
 
-				<div className="woocommerce-add-products-modal__actions">
+				<div className="poocommerce-add-products-modal__actions">
 					<Button
 						variant="tertiary"
 						type="button"
 						onClick={ handleCancelClick }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button variant="primary" type="submit">
-						{ __( 'Add', 'woocommerce' ) }
+						{ __( 'Add', 'poocommerce' ) }
 					</Button>
 				</div>
 			</form>

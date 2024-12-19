@@ -1,10 +1,10 @@
 # Extending the product form with generic fields
 
-We have large list of generic fields that a plugin can use to extend the new product form. You can find the full list [here](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/product-editor/src/blocks/generic/README.md). Each field contains documentation for what attributes the field supports.
+We have large list of generic fields that a plugin can use to extend the new product form. You can find the full list [here](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/product-editor/src/blocks/generic/README.md). Each field contains documentation for what attributes the field supports.
 
 ## Using a generic block
 
-Using a generic block is pretty easy. We have created an template API that allows you to add new fields, the API refers to them as `blocks`. There are a couple actions that allow us to interact with these templates. There is the `woocommerce_layout_template_after_instantiation` that is triggered when a new template is registered. There are also other actions triggered when a specific field/block is added ( see [block addition and removal](https://github.com/woocommerce/woocommerce/blob/trunk/docs/product-editor-development/block-template-lifecycle.md#block-addition-and-removal) ).
+Using a generic block is pretty easy. We have created an template API that allows you to add new fields, the API refers to them as `blocks`. There are a couple actions that allow us to interact with these templates. There is the `poocommerce_layout_template_after_instantiation` that is triggered when a new template is registered. There are also other actions triggered when a specific field/block is added ( see [block addition and removal](https://github.com/poocommerce/poocommerce/blob/trunk/docs/product-editor-development/block-template-lifecycle.md#block-addition-and-removal) ).
 
 Let's say we want to add something to the basic details section, we can do so by making use of the above mentioned hook:
 
@@ -12,7 +12,7 @@ This will add a number field called **Animal age** to each template that has a `
 
 ```php
 add_action(
-	'woocommerce_layout_template_after_instantiation',
+	'poocommerce_layout_template_after_instantiation',
 	function( $layout_template_id, $layout_template_area, $layout_template ) {
 	    $basic_details = $layout_template->get_section_by_id( 'basic-details' );
 
@@ -22,7 +22,7 @@ add_action(
         			'id' 	     => 'example-tutorial-animal-age',
                     // This orders the field, core fields are separated by sums of 10.
 	            	'order'	     => 40,
-	            	'blockName'  => 'woocommerce/product-number-field',
+	            	'blockName'  => 'poocommerce/product-number-field',
 	            	'attributes' => [
                         // Attributes specific for the product-number-field.
 	            		'label' => 'Animal age',

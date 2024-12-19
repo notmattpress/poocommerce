@@ -79,7 +79,7 @@ ExampleLoaderWithControls.args = {
 };
 
 export default {
-	title: 'WooCommerce Admin/Onboarding/Loader',
+	title: 'PooCommerce Admin/Onboarding/Loader',
 	component: ExampleLoaderWithControls,
 	argTypes: {
 		title: {

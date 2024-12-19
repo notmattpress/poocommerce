@@ -1,6 +1,6 @@
 /*
  * Internal dependencies
  */
-const { runAddNewShippingZoneTest } = require( '@woocommerce/e2e-core-tests' );
+const { runAddNewShippingZoneTest } = require( '@poocommerce/e2e-core-tests' );
 
 runAddNewShippingZoneTest();

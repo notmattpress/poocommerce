@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -20,9 +20,9 @@ interface FilterResetButtonProps {
 const FilterResetButton = ( {
 	className,
 	/* translators: Reset button text for filters. */
-	label = __( 'Reset', 'woocommerce' ),
+	label = __( 'Reset', 'poocommerce' ),
 	onClick,
-	screenReaderLabel = __( 'Reset filter', 'woocommerce' ),
+	screenReaderLabel = __( 'Reset filter', 'poocommerce' ),
 }: FilterResetButtonProps ): JSX.Element => {
 	return (
 		<button

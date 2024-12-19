@@ -1,12 +1,12 @@
 ---
-post_title: WooCommerce Git flow
-menu_title: WooCommerce Git flow
+post_title: PooCommerce Git flow
+menu_title: PooCommerce Git flow
 tags: reference
 ---
 
 For core development, we use the following structure and flow.
 
-![Git Flow WooCommerce uses for core development](https://developer.woocommerce.com/wp-content/uploads/2023/12/flow-1.png)
+![Git Flow PooCommerce uses for core development](https://developer.poocommerce.com/wp-content/uploads/2023/12/flow-1.png)
 
 ## Branches
 

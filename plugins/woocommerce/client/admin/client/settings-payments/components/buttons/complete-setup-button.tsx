@@ -7,8 +7,8 @@ import { useState } from '@wordpress/element';
 import {
 	PaymentProviderState,
 	PaymentProviderOnboardingState,
-} from '@woocommerce/data';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ export const CompleteSetupButton = ( {
 	settingsHref,
 	onboardingHref,
 	gatewayHasRecommendedPaymentMethods,
-	buttonText = __( 'Complete setup', 'woocommerce' ),
+	buttonText = __( 'Complete setup', 'poocommerce' ),
 }: CompleteSetupButtonProps ) => {
 	const [ isUpdating, setIsUpdating ] = useState( false );
 

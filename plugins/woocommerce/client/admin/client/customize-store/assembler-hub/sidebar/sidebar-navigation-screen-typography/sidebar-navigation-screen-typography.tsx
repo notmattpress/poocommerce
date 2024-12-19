@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -10,8 +10,8 @@ import {
 	useState,
 } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { Link } from '@woocommerce/components';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { Link } from '@poocommerce/components';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { Button, Modal, CheckboxControl, Spinner } from '@wordpress/components';
 import interpolateComponents from '@automattic/interpolate-components';
 
@@ -36,20 +36,20 @@ export const SidebarNavigationScreenTypography = ( {
 	const isFontLibraryAvailable = context.isFontLibraryAvailable;
 
 	const title = aiOnline
-		? __( 'Change your font', 'woocommerce' )
-		: __( 'Choose fonts', 'woocommerce' );
+		? __( 'Change your font', 'poocommerce' )
+		: __( 'Choose fonts', 'poocommerce' );
 	const label = aiOnline
 		? __(
 				"AI has selected a font pairing that's the best fit for your business. If you'd like to change them, select a new option below now, or later in Editor.",
-				'woocommerce'
+				'poocommerce'
 		  )
 		: __(
 				'Select the pair of fonts that best suits your brand. The larger font will be used for headings, and the smaller for supporting content. You can change your font at any time in Editor.',
-				'woocommerce'
+				'poocommerce'
 		  );
 
 	const trackingAllowed = useSelect( ( select ) =>
-		select( OPTIONS_STORE_NAME ).getOption( 'woocommerce_allow_tracking' )
+		select( OPTIONS_STORE_NAME ).getOption( 'poocommerce_allow_tracking' )
 	);
 
 	const isTrackingDisallowed = trackingAllowed === 'no' || ! trackingAllowed;
@@ -57,17 +57,17 @@ export const SidebarNavigationScreenTypography = ( {
 	if ( isTrackingDisallowed && ! isFontLibraryAvailable ) {
 		upgradeNotice = __(
 			'Upgrade to the <WordPressLink>latest version of WordPress</WordPressLink> and <OptInModal>opt in to usage tracking</OptInModal> to get access to more fonts.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else if ( isTrackingDisallowed && isFontLibraryAvailable ) {
 		upgradeNotice = __(
 			'Opt in to <OptInModal>usage tracking</OptInModal> to get access to more fonts.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else if ( trackingAllowed && ! isFontLibraryAvailable ) {
 		upgradeNotice = __(
 			'Upgrade to the <WordPressLink>latest version of WordPress</WordPressLink> to get access to more fonts.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else {
 		upgradeNotice = '';
@@ -101,14 +101,14 @@ export const SidebarNavigationScreenTypography = ( {
 			onNavigateBackClick={ onNavigateBackClick }
 			description={ label }
 			content={
-				<div className="woocommerce-customize-store_sidebar-typography-content">
+				<div className="poocommerce-customize-store_sidebar-typography-content">
 					{ isFontLibraryAvailable && <FontPairing /> }
 					{ upgradeNotice && (
-						<div className="woocommerce-customize-store_sidebar-typography-upgrade-notice">
+						<div className="poocommerce-customize-store_sidebar-typography-upgrade-notice">
 							<h4>
 								{ __(
 									'Want more font pairings?',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h4>
 							<p>
@@ -132,11 +132,11 @@ export const SidebarNavigationScreenTypography = ( {
 							{ isModalOpen && (
 								<Modal
 									className={
-										'woocommerce-customize-store__opt-in-usage-tracking-modal'
+										'poocommerce-customize-store__opt-in-usage-tracking-modal'
 									}
 									title={ __(
 										'Access more fonts',
-										'woocommerce'
+										'poocommerce'
 									) }
 									onRequestClose={ closeModal }
 									shouldCloseOnClickOutside={ false }
@@ -145,13 +145,13 @@ export const SidebarNavigationScreenTypography = ( {
 										className="core-profiler__checkbox"
 										label={ interpolateComponents( {
 											mixedString: __(
-												'More fonts are available! Opt in to connect your store and access the full font library, plus get more relevant content and a tailored store setup experience. Opting in will enable {{link}}usage tracking{{/link}}, which you can opt out of at any time via WooCommerce settings.',
-												'woocommerce'
+												'More fonts are available! Opt in to connect your store and access the full font library, plus get more relevant content and a tailored store setup experience. Opting in will enable {{link}}usage tracking{{/link}}, which you can opt out of at any time via PooCommerce settings.',
+												'poocommerce'
 											),
 											components: {
 												link: (
 													<Link
-														href="https://woocommerce.com/usage-tracking?utm_medium=product"
+														href="https://poocommerce.com/usage-tracking?utm_medium=product"
 														target="_blank"
 														type="external"
 													/>
@@ -161,7 +161,7 @@ export const SidebarNavigationScreenTypography = ( {
 										checked={ OptInDataSharing }
 										onChange={ setIsOptInDataSharing }
 									/>
-									<div className="woocommerce-customize-store__design-change-warning-modal-footer">
+									<div className="poocommerce-customize-store__design-change-warning-modal-footer">
 										<Button
 											onClick={ () => {
 												skipOptIn();
@@ -169,7 +169,7 @@ export const SidebarNavigationScreenTypography = ( {
 											} }
 											variant="link"
 										>
-											{ __( 'Cancel', 'woocommerce' ) }
+											{ __( 'Cancel', 'poocommerce' ) }
 										</Button>
 										<Button
 											onClick={ async () => {
@@ -185,7 +185,7 @@ export const SidebarNavigationScreenTypography = ( {
 											{ isSettingTracking ? (
 												<Spinner />
 											) : (
-												__( 'Opt in', 'woocommerce' )
+												__( 'Opt in', 'poocommerce' )
 											) }
 										</Button>
 									</div>

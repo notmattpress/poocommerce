@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useExpressPaymentMethods } from '@woocommerce/base-context/hooks';
-import { noticeContexts } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
+import { useExpressPaymentMethods } from '@poocommerce/base-context/hooks';
+import { noticeContexts } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
 import { useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -73,7 +73,7 @@ const CartExpressPayment = () => {
 			</LoadingMask>
 			<div className="wc-block-components-express-payment-continue-rule wc-block-components-express-payment-continue-rule--cart">
 				{ /* translators: Shown in the Cart block between the express payment methods and the Proceed to Checkout button */ }
-				{ __( 'Or', 'woocommerce' ) }
+				{ __( 'Or', 'poocommerce' ) }
 			</div>
 		</>
 	);

@@ -14,12 +14,12 @@ import {
 	Link,
 	OrderStatus,
 	Section,
-} from '@woocommerce/components';
-import { getNewPath } from '@woocommerce/navigation';
-import { getAdminLink } from '@woocommerce/settings';
-import { ORDERS_STORE_NAME, ITEMS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext, CurrencyFactory } from '@woocommerce/currency';
+} from '@poocommerce/components';
+import { getNewPath } from '@poocommerce/navigation';
+import { getAdminLink } from '@poocommerce/settings';
+import { ORDERS_STORE_NAME, ITEMS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext, CurrencyFactory } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -39,28 +39,28 @@ const renderEmptyCard = () => {
 	return (
 		<>
 			<ActivityCard
-				className="woocommerce-empty-activity-card"
+				className="poocommerce-empty-activity-card"
 				title=""
 				icon=""
 			>
 				<span
-					className="woocommerce-order-empty__success-icon"
+					className="poocommerce-order-empty__success-icon"
 					role="img"
-					aria-labelledby="woocommerce-order-empty-message"
+					aria-labelledby="poocommerce-order-empty-message"
 				>
 					🎉
 				</span>
-				<H id="woocommerce-order-empty-message">
-					{ __( 'You’ve fulfilled all your orders', 'woocommerce' ) }
+				<H id="poocommerce-order-empty-message">
+					{ __( 'You’ve fulfilled all your orders', 'poocommerce' ) }
 				</H>
 			</ActivityCard>
 			<Link
 				href={ 'edit.php?post_type=shop_order' }
 				onClick={ () => recordOrderEvent( 'orders_manage' ) }
-				className="woocommerce-layout__activity-panel-outbound-link woocommerce-layout__activity-panel-empty"
+				className="poocommerce-layout__activity-panel-outbound-link poocommerce-layout__activity-panel-empty"
 				type="wp-admin"
 			>
-				{ __( 'Manage all orders', 'woocommerce' ) }
+				{ __( 'Manage all orders', 'poocommerce' ) }
 			</Link>
 		</>
 	);
@@ -106,7 +106,7 @@ function renderOrders( orders, customers, getFormattedOrderTotal ) {
 						/* translators: 1: order number, 2: customer name */
 						__(
 							'{{orderLink}}Order #%(orderNumber)s{{/orderLink}} %(customerString)s',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							orderNumber,
@@ -161,7 +161,7 @@ function renderOrders( orders, customers, getFormattedOrderTotal ) {
 		cards.push(
 			<ActivityCard
 				key={ orderId }
-				className="woocommerce-order-activity-card"
+				className="poocommerce-order-activity-card"
 				title={ orderCardTitle( order ) }
 				date={ dateCreatedGmt }
 				onClick={ ( { target } ) => {
@@ -181,7 +181,7 @@ function renderOrders( orders, customers, getFormattedOrderTotal ) {
 									'%d product',
 									'%d products',
 									productsCount,
-									'woocommerce'
+									'poocommerce'
 								),
 								productsCount
 							) }
@@ -207,11 +207,11 @@ function renderOrders( orders, customers, getFormattedOrderTotal ) {
 			{ cards }
 			<Link
 				href={ 'edit.php?post_type=shop_order' }
-				className="woocommerce-layout__activity-panel-outbound-link"
+				className="poocommerce-layout__activity-panel-outbound-link"
 				onClick={ () => recordOrderEvent( 'orders_manage' ) }
 				type="wp-admin"
 			>
-				{ __( 'Manage all orders', 'woocommerce' ) }
+				{ __( 'Manage all orders', 'poocommerce' ) }
 			</Link>
 		</>
 	);
@@ -323,9 +323,9 @@ function OrdersPanel( { unreadOrdersCount, orderStatuses } ) {
 					title={ __(
 						'You currently don’t have any actionable statuses. ' +
 							'To display orders here, select orders that require further review in settings.',
-						'woocommerce'
+						'poocommerce'
 					) }
-					actionLabel={ __( 'Settings', 'woocommerce' ) }
+					actionLabel={ __( 'Settings', 'poocommerce' ) }
 					actionURL={ getAdminLink(
 						'admin.php?page=wc-admin&path=/analytics/settings'
 					) }
@@ -346,7 +346,7 @@ function OrdersPanel( { unreadOrdersCount, orderStatuses } ) {
 			<Section>
 				{ isRequesting ? (
 					<ActivityCardPlaceholder
-						className="woocommerce-order-activity-card"
+						className="poocommerce-order-activity-card"
 						hasAction
 						hasDate
 						lines={ 1 }

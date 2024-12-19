@@ -9,8 +9,8 @@ import {
 	TextareaControl,
 } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

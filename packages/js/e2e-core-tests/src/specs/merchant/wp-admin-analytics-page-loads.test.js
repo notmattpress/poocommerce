@@ -5,7 +5,7 @@
 const {
 	merchant,
 	waitForSelectorWithoutThrow,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -32,7 +32,7 @@ const checkHeadingAndElement = async (
 	if ( found ) {
 		await expect( page ).toMatchElement( element, { text: elementText } );
 	} else {
-		await expect( page ).toMatchElement( '.woocommerce-chart' );
+		await expect( page ).toMatchElement( '.poocommerce-chart' );
 	}
 };
 
@@ -59,7 +59,7 @@ const runAnalyticsPageLoadsTest = () => {
 
 		deprecated( 'runAnalyticsPageLoadsTest', {
 			alternative:
-				'@woocommerce/admin-e2e-tests `testAdminAnalyticsPages()`',
+				'@poocommerce/admin-e2e-tests `testAdminAnalyticsPages()`',
 		} );
 
 		it.each( pages )(

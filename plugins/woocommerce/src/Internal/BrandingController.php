@@ -1,38 +1,38 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 /**
- * Controller class to handle the coexistence of the old and new WooCommerce branding.
- * THIS CLASS IS TEMPORARY, it will be removed in WooCommerce 9.6.
+ * Controller class to handle the coexistence of the old and new PooCommerce branding.
+ * THIS CLASS IS TEMPORARY, it will be removed in PooCommerce 9.6.
  */
 class BrandingController {
 	/**
-	 * Tells if the new WooCommerce branding should be used.
+	 * Tells if the new PooCommerce branding should be used.
 	 *
 	 * By default, this returns false, to have it return true you can:
 	 *
 	 * 1. Define the WOOCOMMERCE_USE_NEW_BRANDING constant with a value of true; or
-	 * 2. Hook on the 'woocommerce_use_new_branding' filter and have it return true (it receives the value of WOOCOMMERCE_USE_NEW_BRANDING, or false if the constant doesn't exist).
+	 * 2. Hook on the 'poocommerce_use_new_branding' filter and have it return true (it receives the value of WOOCOMMERCE_USE_NEW_BRANDING, or false if the constant doesn't exist).
 	 *
-	 * @return bool True if the new WooCommerce branding should be used, false otherwise.
+	 * @return bool True if the new PooCommerce branding should be used, false otherwise.
 	 */
 	public static function use_new_branding(): bool {
 		$should_use = defined( 'WOOCOMMERCE_USE_NEW_BRANDING' ) && true === WOOCOMMERCE_USE_NEW_BRANDING;
 
 		/**
-		 * Hook to decide if the new WooCommerce branding should be used.
+		 * Hook to decide if the new PooCommerce branding should be used.
 		 *
 		 * @param bool $should_use Value of the WOOCOMMERCE_USE_NEW_BRANDING constant, false if the constant doesn't exist.
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_use_new_branding', $should_use );
+		return apply_filters( 'poocommerce_use_new_branding', $should_use );
 	}
 
 	/**
-	 * Get the default base color for the emails sent by WooCommerce.
+	 * Get the default base color for the emails sent by PooCommerce.
 	 *
 	 * @return string
 	 */
@@ -41,7 +41,7 @@ class BrandingController {
 	}
 
 	/**
-	 * Get the base64 encoded WooCommerce icon for the WordPress dashboard menu.
+	 * Get the base64 encoded PooCommerce icon for the WordPress dashboard menu.
 	 *
 	 * @return string
 	 */

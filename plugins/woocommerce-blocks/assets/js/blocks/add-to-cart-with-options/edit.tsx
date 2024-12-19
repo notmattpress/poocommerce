@@ -37,13 +37,13 @@ const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 		'core/heading',
 		{
 			level: 2,
-			content: __( 'Add to Cart', 'woocommerce' ),
+			content: __( 'Add to Cart', 'poocommerce' ),
 		},
 	],
-	[ 'woocommerce/product-stock-indicator' ],
-	[ 'woocommerce/add-to-cart-with-options-quantity-selector' ],
+	[ 'poocommerce/product-stock-indicator' ],
+	[ 'poocommerce/add-to-cart-with-options-quantity-selector' ],
 	[
-		'woocommerce/product-button',
+		'poocommerce/product-button',
 		{
 			textAlign: 'center',
 			fontSize: 'small',

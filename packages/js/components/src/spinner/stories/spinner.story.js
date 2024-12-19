@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 
 export const Basic = () => (
 	<div>
@@ -10,6 +10,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/Spinner',
+	title: 'PooCommerce Admin/components/Spinner',
 	component: Spinner,
 };

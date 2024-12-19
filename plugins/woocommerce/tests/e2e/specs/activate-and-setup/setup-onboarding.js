@@ -5,7 +5,7 @@ const {
 	runActivationTest,
 	runInitialStoreSettingsTest,
 	runSetupOnboardingTests,
-} = require( '@woocommerce/e2e-core-tests' );
+} = require( '@poocommerce/e2e-core-tests' );
 
 runActivationTest();
 runInitialStoreSettingsTest();

@@ -7,13 +7,13 @@ import {
 	PLUGINS_STORE_NAME,
 	SETTINGS_STORE_NAME,
 	ONBOARDING_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { getCountryCode } from '~/dashboard/utils';
-import WooCommerceServicesItem from './experimental-woocommerce-services-item';
+import PooCommerceServicesItem from './experimental-poocommerce-services-item';
 import { ShippingRecommendationsList } from './shipping-recommendations';
 import './shipping-recommendations.scss';
 import { ShippingTour } from '../guided-tours/shipping-tour';
@@ -41,7 +41,7 @@ const ShippingRecommendations: React.FC = () => {
 			activePlugins: getActivePlugins(),
 			installedPlugins: getInstalledPlugins(),
 			countryCode: getCountryCode(
-				settings.general?.woocommerce_default_country
+				settings.general?.poocommerce_default_country
 			),
 			isJetpackConnected: _isJetpackConnected(),
 			isSellingDigitalProductsOnly:
@@ -50,14 +50,14 @@ const ShippingRecommendations: React.FC = () => {
 	} );
 
 	if (
-		activePlugins.includes( 'woocommerce-shipping' ) ||
-		activePlugins.includes( 'woocommerce-tax' )
+		activePlugins.includes( 'poocommerce-shipping' ) ||
+		activePlugins.includes( 'poocommerce-tax' )
 	) {
 		return <ShippingTour showShippingRecommendationsStep={ false } />;
 	}
 
 	if (
-		activePlugins.includes( 'woocommerce-services' ) &&
+		activePlugins.includes( 'poocommerce-services' ) &&
 		isJetpackConnected
 	) {
 		return <ShippingTour showShippingRecommendationsStep={ false } />;
@@ -71,9 +71,9 @@ const ShippingRecommendations: React.FC = () => {
 		<>
 			<ShippingTour showShippingRecommendationsStep={ true } />
 			<ShippingRecommendationsList>
-				<WooCommerceServicesItem
+				<PooCommerceServicesItem
 					isWCSInstalled={ installedPlugins.includes(
-						'woocommerce-services'
+						'poocommerce-services'
 					) }
 				/>
 			</ShippingRecommendationsList>

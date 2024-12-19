@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce product embed
+ * PooCommerce product embed
  *
  * @version  2.4.11
- * @package  WooCommerce\Classes\Embed
+ * @package  PooCommerce\Classes\Embed
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Embed Class which handles any WooCommerce Products that are embedded on this site or another site.
+ * Embed Class which handles any PooCommerce Products that are embedded on this site or another site.
  */
 class WC_Embed {
 
@@ -78,7 +78,7 @@ class WC_Embed {
 
 			if ( ! empty( $post->post_excerpt ) ) {
 				ob_start();
-				woocommerce_template_single_excerpt();
+				poocommerce_template_single_excerpt();
 				$excerpt = ob_get_clean();
 			}
 
@@ -100,10 +100,10 @@ class WC_Embed {
 		$button   = '<a href="%s" class="wp-embed-more wc-embed-button">%s</a>';
 
 		if ( $_product->is_type( 'simple' ) && $_product->is_purchasable() && $_product->is_in_stock() ) {
-			$buttons[] = sprintf( $button, esc_url( add_query_arg( 'add-to-cart', get_the_ID(), wc_get_cart_url() ) ), esc_html__( 'Buy now', 'woocommerce' ) );
+			$buttons[] = sprintf( $button, esc_url( add_query_arg( 'add-to-cart', get_the_ID(), wc_get_cart_url() ) ), esc_html__( 'Buy now', 'poocommerce' ) );
 		}
 
-		$buttons[] = sprintf( $button, get_the_permalink(), esc_html__( 'Read more', 'woocommerce' ) );
+		$buttons[] = sprintf( $button, get_the_permalink(), esc_html__( 'Read more', 'poocommerce' ) );
 
 		return '<p>' . implode( ' ', $buttons ) . '</p>';
 	}
@@ -127,7 +127,7 @@ class WC_Embed {
 				<?php
 					printf(
 						/* translators: %s: average rating */
-						esc_html__( 'Rated %s out of 5', 'woocommerce' ),
+						esc_html__( 'Rated %s out of 5', 'poocommerce' ),
 						esc_html( $_product->get_average_rating() )
 					);
 				?>

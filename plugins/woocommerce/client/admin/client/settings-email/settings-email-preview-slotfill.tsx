@@ -129,9 +129,9 @@ export const registerSettingsEmailPreviewFill = () => {
 		settingsIds = JSON.parse( settingsIdsData || '' );
 	} catch ( e ) {}
 
-	registerPlugin( 'woocommerce-admin-settings-email-preview', {
+	registerPlugin( 'poocommerce-admin-settings-email-preview', {
 		// @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated.
-		scope: 'woocommerce-email-preview-settings',
+		scope: 'poocommerce-email-preview-settings',
 		render: () => (
 			<EmailPreviewFill
 				settingsIds={ settingsIds }

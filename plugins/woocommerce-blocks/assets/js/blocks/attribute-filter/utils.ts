@@ -7,8 +7,8 @@ import {
 	getUrlParameter,
 	PREFIX_QUERY_ARG_FILTER_TYPE,
 	PREFIX_QUERY_ARG_QUERY_TYPE,
-} from '@woocommerce/utils';
-import { AttributeObject, isString } from '@woocommerce/types';
+} from '@poocommerce/utils';
+import { AttributeObject, isString } from '@poocommerce/types';
 
 /**
  * Internal dependencies

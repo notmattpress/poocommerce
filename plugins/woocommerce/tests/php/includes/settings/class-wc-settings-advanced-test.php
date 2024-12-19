@@ -2,12 +2,12 @@
 /**
  * Class WC_Settings_Advanced_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -29,12 +29,12 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 			'keys',
 			'webhooks',
 			'legacy_api',
-			'woocommerce_com',
+			'poocommerce_com',
 			'features',
 		);
 
-		if ( \Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'blueprint' ) ) {
-			$position = array_search( 'woocommerce_com', $expected, true ) + 1;
+		if ( \Automattic\PooCommerce\Admin\Features\Features::is_enabled( 'blueprint' ) ) {
+			$position = array_search( 'poocommerce_com', $expected, true ) + 1;
 			array_splice( $expected, $position, 0, 'blueprint' );
 		}
 
@@ -44,9 +44,9 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 	/**
 	 * get_settings should trigger the appropriate filter depending on the requested section name.
 	 *
-	 * @testWith ["", "woocommerce_settings_pages"]
-	 *           ["woocommerce_com", "woocommerce_com_integration_settings"]
-	 *           ["legacy_api", "woocommerce_settings_rest_api"]
+	 * @testWith ["", "poocommerce_settings_pages"]
+	 *           ["poocommerce_com", "poocommerce_com_integration_settings"]
+	 *           ["legacy_api", "poocommerce_settings_rest_api"]
 	 *
 	 * @param string $section_name The section name to test getting the settings for.
 	 * @param string $filter_name The name of the filter that is expected to be triggered.
@@ -91,28 +91,28 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'advanced_page_options'                        => array( 'title', 'sectionend' ),
-			'woocommerce_cart_page_id'                     => 'single_select_page_with_search',
-			'woocommerce_checkout_page_id'                 => 'single_select_page_with_search',
-			'woocommerce_myaccount_page_id'                => 'single_select_page_with_search',
-			'woocommerce_terms_page_id'                    => 'single_select_page_with_search',
+			'poocommerce_cart_page_id'                     => 'single_select_page_with_search',
+			'poocommerce_checkout_page_id'                 => 'single_select_page_with_search',
+			'poocommerce_myaccount_page_id'                => 'single_select_page_with_search',
+			'poocommerce_terms_page_id'                    => 'single_select_page_with_search',
 			'checkout_process_options'                     => array( 'title', 'sectionend' ),
-			'woocommerce_force_ssl_checkout'               => 'checkbox',
-			'woocommerce_unforce_ssl_checkout'             => 'checkbox',
+			'poocommerce_force_ssl_checkout'               => 'checkbox',
+			'poocommerce_unforce_ssl_checkout'             => 'checkbox',
 			'checkout_endpoint_options'                    => array( 'title', 'sectionend' ),
-			'woocommerce_checkout_pay_endpoint'            => 'text',
-			'woocommerce_checkout_order_received_endpoint' => 'text',
-			'woocommerce_myaccount_add_payment_method_endpoint' => 'text',
-			'woocommerce_myaccount_delete_payment_method_endpoint' => 'text',
-			'woocommerce_myaccount_set_default_payment_method_endpoint' => 'text',
+			'poocommerce_checkout_pay_endpoint'            => 'text',
+			'poocommerce_checkout_order_received_endpoint' => 'text',
+			'poocommerce_myaccount_add_payment_method_endpoint' => 'text',
+			'poocommerce_myaccount_delete_payment_method_endpoint' => 'text',
+			'poocommerce_myaccount_set_default_payment_method_endpoint' => 'text',
 			'account_endpoint_options'                     => array( 'title', 'sectionend' ),
-			'woocommerce_myaccount_orders_endpoint'        => 'text',
-			'woocommerce_myaccount_view_order_endpoint'    => 'text',
-			'woocommerce_myaccount_downloads_endpoint'     => 'text',
-			'woocommerce_myaccount_edit_account_endpoint'  => 'text',
-			'woocommerce_myaccount_edit_address_endpoint'  => 'text',
-			'woocommerce_myaccount_payment_methods_endpoint' => 'text',
-			'woocommerce_myaccount_lost_password_endpoint' => 'text',
-			'woocommerce_logout_endpoint'                  => 'text',
+			'poocommerce_myaccount_orders_endpoint'        => 'text',
+			'poocommerce_myaccount_view_order_endpoint'    => 'text',
+			'poocommerce_myaccount_downloads_endpoint'     => 'text',
+			'poocommerce_myaccount_edit_account_endpoint'  => 'text',
+			'poocommerce_myaccount_edit_address_endpoint'  => 'text',
+			'poocommerce_myaccount_payment_methods_endpoint' => 'text',
+			'poocommerce_myaccount_lost_password_endpoint' => 'text',
+			'poocommerce_logout_endpoint'                  => 'text',
 		);
 
 		if ( $site_is_https ) {
@@ -123,19 +123,19 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox get_settings('woocommerce_com') should return all the settings for the woocommerce_com section.
+	 * @testdox get_settings('poocommerce_com') should return all the settings for the poocommerce_com section.
 	 */
-	public function test_get_woocommerce_com_settings_returns_all_settings() {
+	public function test_get_poocommerce_com_settings_returns_all_settings() {
 		$sut = new WC_Settings_Advanced();
 
 		$expected = array(
 			'tracking_options'                         => array( 'title', 'sectionend' ),
-			'woocommerce_allow_tracking'               => 'checkbox',
+			'poocommerce_allow_tracking'               => 'checkbox',
 			'marketplace_suggestions'                  => array( 'title', 'sectionend' ),
-			'woocommerce_show_marketplace_suggestions' => 'checkbox',
+			'poocommerce_show_marketplace_suggestions' => 'checkbox',
 		);
 
-		$settings               = $sut->get_settings_for_section( 'woocommerce_com' );
+		$settings               = $sut->get_settings_for_section( 'poocommerce_com' );
 		$settings_ids_and_types = $this->get_ids_and_types( $settings );
 
 		$this->assertEquals( $expected, $settings_ids_and_types );
@@ -149,7 +149,7 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'legacy_api_options'      => array( 'title', 'sectionend' ),
-			'woocommerce_api_enabled' => 'checkbox',
+			'poocommerce_api_enabled' => 'checkbox',
 		);
 
 		$settings               = $sut->get_settings_for_section( 'legacy_api' );
@@ -238,7 +238,7 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox save method should use the woocommerce_rest_api_valid_to_save filter to check if it's ok to save.
+	 * @testdox save method should use the poocommerce_rest_api_valid_to_save filter to check if it's ok to save.
 	 *
 	 * @testWith ["keys", false]
 	 *           ["webhooks", false]
@@ -253,7 +253,7 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		$actual_filter_supplied_value = null;
 
 		add_filter(
-			'woocommerce_rest_api_valid_to_save',
+			'poocommerce_rest_api_valid_to_save',
 			function ( $value ) use ( &$actual_filter_supplied_value ) {
 				$actual_filter_supplied_value = $value;
 
@@ -268,24 +268,24 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		$sut = new WC_Settings_Advanced();
 		$sut->save();
 
-		remove_all_filters( 'woocommerce_rest_api_valid_to_save' );
+		remove_all_filters( 'poocommerce_rest_api_valid_to_save' );
 
 		$this->assertEquals( $expected_filter_supplied_value, $actual_filter_supplied_value );
 	}
 
 	/**
-	 * @testdox save method should save data only if the woocommerce_rest_api_valid_to_save filter returns true.
+	 * @testdox save method should save data only if the poocommerce_rest_api_valid_to_save filter returns true.
 	 *
 	 * @testWith [true]
 	 *           [false]
 	 *
-	 * @param bool $is_valid_to_save Return value of the woocommerce_rest_api_valid_to_save filter.
+	 * @param bool $is_valid_to_save Return value of the poocommerce_rest_api_valid_to_save filter.
 	 */
 	public function test_save_saves_data_only_if_valid_to_save( $is_valid_to_save ) {
 		$settings_were_saved = false;
 
 		add_filter(
-			'woocommerce_rest_api_valid_to_save',
+			'poocommerce_rest_api_valid_to_save',
 			function ( $value ) use ( &$is_valid_to_save ) {
 				return $is_valid_to_save;
 			},
@@ -306,27 +306,27 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		$sut = new WC_Settings_Advanced();
 		$sut->save();
 
-		remove_all_filters( 'woocommerce_rest_api_valid_to_save' );
+		remove_all_filters( 'poocommerce_rest_api_valid_to_save' );
 
 		$this->assertEquals( $is_valid_to_save, $settings_were_saved );
 	}
 
 	/**
-	 * @testdox save method should trigger the appropriate woocommerce_update_options action only if it's ok to save.
+	 * @testdox save method should trigger the appropriate poocommerce_update_options action only if it's ok to save.
 	 *
 	 * @testWith [true]
 	 *           [false]
 	 *
-	 * @param bool $is_valid_to_save Return value of the woocommerce_rest_api_valid_to_save filter.
+	 * @param bool $is_valid_to_save Return value of the poocommerce_rest_api_valid_to_save filter.
 	 */
 	public function test_save_does_updated_options_action_if_valid_to_save( $is_valid_to_save ) {
 		global $current_section;
 
 		$current_section = 'foobar';
-		remove_all_filters( 'woocommerce_update_options_advanced_foobar' );
+		remove_all_filters( 'poocommerce_update_options_advanced_foobar' );
 
 		add_filter(
-			'woocommerce_rest_api_valid_to_save',
+			'poocommerce_rest_api_valid_to_save',
 			function ( $value ) use ( &$is_valid_to_save ) {
 				return $is_valid_to_save;
 			},
@@ -337,10 +337,10 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		$sut = new WC_Settings_Advanced();
 		$sut->save();
 
-		remove_all_filters( 'woocommerce_rest_api_valid_to_save' );
+		remove_all_filters( 'poocommerce_rest_api_valid_to_save' );
 
 		$did_action = $is_valid_to_save ? 1 : 0;
-		$this->assertEquals( $did_action, did_action( 'woocommerce_update_options_advanced_foobar' ) );
+		$this->assertEquals( $did_action, did_action( 'poocommerce_update_options_advanced_foobar' ) );
 	}
 
 	/**
@@ -354,14 +354,14 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 	 * @param string $expected_new_terms_page_id Terms page id in the request (possibly modified) after save.
 	 */
 	public function test_save_prevents_the_terms_and_checkout_pages_from_being_the_same( $terms_page_id, $checkout_page_id, $expected_new_terms_page_id ) {
-		$_POST['woocommerce_terms_page_id']    = $terms_page_id;
-		$_POST['woocommerce_checkout_page_id'] = $checkout_page_id;
+		$_POST['poocommerce_terms_page_id']    = $terms_page_id;
+		$_POST['poocommerce_checkout_page_id'] = $checkout_page_id;
 
 		$sut = new WC_Settings_Advanced();
 		$sut->save();
 
 		// phpcs:ignore WordPress.Security
-		$this->assertEquals( $expected_new_terms_page_id, $_POST['woocommerce_terms_page_id'] );
+		$this->assertEquals( $expected_new_terms_page_id, $_POST['poocommerce_terms_page_id'] );
 	}
 
 	/**
@@ -379,16 +379,16 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 	 * @param string $expected_new_my_account_page_id My account page id in the request (possibly modified) after save.
 	 */
 	public function test_save_prevents_the_cart_checkout_and_my_account_pages_from_being_the_same( $cart_page_id, $checkout_page_id, $my_account_page_id, $expected_new_checkout_page_id, $expected_new_my_account_page_id ) {
-		$_POST['woocommerce_cart_page_id']      = $cart_page_id;
-		$_POST['woocommerce_checkout_page_id']  = $checkout_page_id;
-		$_POST['woocommerce_myaccount_page_id'] = $my_account_page_id;
+		$_POST['poocommerce_cart_page_id']      = $cart_page_id;
+		$_POST['poocommerce_checkout_page_id']  = $checkout_page_id;
+		$_POST['poocommerce_myaccount_page_id'] = $my_account_page_id;
 
 		$sut = new WC_Settings_Advanced();
 		$sut->save();
 
 		// phpcs:disable WordPress.Security
-		$this->assertEquals( $expected_new_checkout_page_id, $_POST['woocommerce_checkout_page_id'] );
-		$this->assertEquals( $expected_new_my_account_page_id, $_POST['woocommerce_myaccount_page_id'] );
+		$this->assertEquals( $expected_new_checkout_page_id, $_POST['poocommerce_checkout_page_id'] );
+		$this->assertEquals( $expected_new_my_account_page_id, $_POST['poocommerce_myaccount_page_id'] );
 		// phpcs:enable WordPress.Security
 	}
 }

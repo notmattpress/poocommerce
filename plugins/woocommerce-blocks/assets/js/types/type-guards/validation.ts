@@ -7,7 +7,7 @@ import {
 	isObject,
 	isString,
 	objectHasProp,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Whether the given status is a valid FieldValidationStatus.

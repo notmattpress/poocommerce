@@ -6,18 +6,18 @@ import { Component } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import PropTypes from 'prop-types';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 import {
 	AnalyticsError,
 	SummaryList,
 	SummaryListPlaceholder,
 	SummaryNumber,
-} from '@woocommerce/components';
-import { calculateDelta, formatValue } from '@woocommerce/number';
-import { getSummaryNumbers, SETTINGS_STORE_NAME } from '@woocommerce/data';
-import { getDateParamsFromQuery } from '@woocommerce/date';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/components';
+import { calculateDelta, formatValue } from '@poocommerce/number';
+import { getSummaryNumbers, SETTINGS_STORE_NAME } from '@poocommerce/data';
+import { getDateParamsFromQuery } from '@poocommerce/date';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -104,8 +104,8 @@ export class ReportSummary extends Component {
 						reverseTrend={ isReverseTrend }
 						prevLabel={
 							compare === 'previous_period'
-								? __( 'Previous period:', 'woocommerce' )
-								: __( 'Previous year:', 'woocommerce' )
+								? __( 'Previous period:', 'poocommerce' )
+								: __( 'Previous year:', 'poocommerce' )
 						}
 						prevValue={ prevValue }
 						selected={ isSelected }
@@ -221,7 +221,7 @@ export default compose(
 
 		const fields = charts && charts.map( ( chart ) => chart.key );
 
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			SETTINGS_STORE_NAME
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 

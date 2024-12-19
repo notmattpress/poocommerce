@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
-import type { BillingAddress, ShippingAddress } from '@woocommerce/settings';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
+import type { BillingAddress, ShippingAddress } from '@poocommerce/settings';
 
 export interface CustomerDataType {
 	isInitialized: boolean;

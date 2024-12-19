@@ -108,86 +108,86 @@ test.describe( 'System Status API tests', () => {
 						database_prefix: expect.any( String ),
 						maxmind_geoip_database: expect.any( String ),
 						database_tables: expect.objectContaining( {
-							woocommerce: expect.objectContaining( {
-								wp_woocommerce_sessions:
+							poocommerce: expect.objectContaining( {
+								wp_poocommerce_sessions:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_api_keys:
+								wp_poocommerce_api_keys:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_attribute_taxonomies:
+								wp_poocommerce_attribute_taxonomies:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_downloadable_product_permissions:
+								wp_poocommerce_downloadable_product_permissions:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_order_items:
+								wp_poocommerce_order_items:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_order_itemmeta:
+								wp_poocommerce_order_itemmeta:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_tax_rates:
+								wp_poocommerce_tax_rates:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_tax_rate_locations:
+								wp_poocommerce_tax_rate_locations:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_shipping_zones:
+								wp_poocommerce_shipping_zones:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_shipping_zone_locations:
+								wp_poocommerce_shipping_zone_locations:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_shipping_zone_methods:
+								wp_poocommerce_shipping_zone_methods:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_payment_tokens:
+								wp_poocommerce_payment_tokens:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_payment_tokenmeta:
+								wp_poocommerce_payment_tokenmeta:
 									expect.objectContaining( {
 										data: expect.any( String ),
 										index: expect.any( String ),
 										engine: expect.any( String ),
 									} ),
-								wp_woocommerce_log: expect.objectContaining( {
+								wp_poocommerce_log: expect.objectContaining( {
 									data: expect.any( String ),
 									index: expect.any( String ),
 									engine: expect.any( String ),
@@ -450,8 +450,8 @@ test.describe( 'System Status API tests', () => {
 						author_url: expect.any( String ),
 						is_child_theme: expect.any( Boolean ),
 						is_block_theme: expect.any( Boolean ),
-						has_woocommerce_support: expect.any( Boolean ),
-						has_woocommerce_file: expect.any( Boolean ),
+						has_poocommerce_support: expect.any( Boolean ),
+						has_poocommerce_file: expect.any( Boolean ),
 						has_outdated_templates: expect.any( Boolean ),
 						overrides: expect.any( Array ),
 						parent_name: expect.any( String ),
@@ -490,7 +490,7 @@ test.describe( 'System Status API tests', () => {
 							'rated-4': expect.any( String ),
 							'rated-5': expect.any( String ),
 						},
-						woocommerce_com_connected: expect.any( String ),
+						poocommerce_com_connected: expect.any( String ),
 					} ),
 				} )
 			);
@@ -606,7 +606,7 @@ test.describe( 'System Status API tests', () => {
 			expect.arrayContaining( [
 				expect.objectContaining( {
 					id: 'clear_transients',
-					name: 'WooCommerce transients',
+					name: 'PooCommerce transients',
 					action: 'Clear transients',
 					description:
 						'This tool will clear the product/shop transients cache.',
@@ -647,7 +647,7 @@ test.describe( 'System Status API tests', () => {
 		expect( responseJSON ).toEqual(
 			expect.objectContaining( {
 				id: 'clear_transients',
-				name: 'WooCommerce transients',
+				name: 'PooCommerce transients',
 				action: 'Clear transients',
 				description:
 					'This tool will clear the product/shop transients cache.',
@@ -666,7 +666,7 @@ test.describe( 'System Status API tests', () => {
 		expect( responseJSON ).toEqual(
 			expect.objectContaining( {
 				id: 'clear_transients',
-				name: 'WooCommerce transients',
+				name: 'PooCommerce transients',
 				action: 'Clear transients',
 				description:
 					'This tool will clear the product/shop transients cache.',

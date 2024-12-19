@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Additional Checkout Fields
+ * Plugin Name: PooCommerce Blocks Test Additional Checkout Fields
  * Description: Adds custom checkout fields to the checkout form.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-additional-checkout-fields
+ * @package poocommerce-blocks-test-additional-checkout-fields
  */
 
 class Additional_Checkout_Fields_Test_Helper {
@@ -15,13 +15,13 @@ class Additional_Checkout_Fields_Test_Helper {
 	public function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'enable_custom_checkout_fields' ) );
 		add_action( 'plugins_loaded', array( $this, 'disable_custom_checkout_fields' ) );
-		add_action( 'woocommerce_loaded', array( $this, 'register_custom_checkout_fields' ) );
+		add_action( 'poocommerce_loaded', array( $this, 'register_custom_checkout_fields' ) );
 	}
 
 	/**
 	 * @var string Define option name to decide if additional fields should be turned on.
 	 */
-	private $additional_checkout_fields_option_name = 'woocommerce_additional_checkout_fields';
+	private $additional_checkout_fields_option_name = 'poocommerce_additional_checkout_fields';
 
 	/**
 	 * Define URL endpoint for enabling additional checkout fields.
@@ -45,14 +45,14 @@ class Additional_Checkout_Fields_Test_Helper {
 	}
 
 	/**
-	 * Registers custom checkout fields for the WooCommerce checkout form.
+	 * Registers custom checkout fields for the PooCommerce checkout form.
 	 *
 	 * @return void
 	 * @throws Exception If there is an error during the registration of the checkout fields.
 	 */
 	public function register_custom_checkout_fields() {
 		// Address fields, checkbox, textbox, select
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'                => 'first-plugin-namespace/government-ID',
 				'label'             => 'Government ID',
@@ -70,7 +70,7 @@ class Additional_Checkout_Fields_Test_Helper {
 				},
 			),
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'first-plugin-namespace/confirm-government-ID',
 				'label'    => 'Confirm government ID',
@@ -88,7 +88,7 @@ class Additional_Checkout_Fields_Test_Helper {
 				},
 			),
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'first-plugin-namespace/truck-size-ok',
 				'label'    => 'Can a truck fit down your road?',
@@ -96,7 +96,7 @@ class Additional_Checkout_Fields_Test_Helper {
 				'type'     => 'checkbox',
 			)
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'first-plugin-namespace/road-size',
 				'label'    => 'How wide is your road?',
@@ -121,7 +121,7 @@ class Additional_Checkout_Fields_Test_Helper {
 
 		// Fake sanitization function that removes full stops from the Government ID string.
 		add_filter(
-			'woocommerce_sanitize_additional_field',
+			'poocommerce_sanitize_additional_field',
 			function ( $field_value, $field_key ) {
 				if ( 'first-plugin-namespace/government-ID' === $field_key ) {
 					$field_value = str_replace( '.', '', $field_value );
@@ -133,7 +133,7 @@ class Additional_Checkout_Fields_Test_Helper {
 		);
 
 		add_action(
-			'woocommerce_validate_additional_field',
+			'poocommerce_validate_additional_field',
 			function ( WP_Error $errors, $field_key, $field_value ) {
 				if ( 'first-plugin-namespace/government-ID' === $field_key || 'first-plugin-namespace/confirm-government-ID' === $field_key ) {
 					$match = preg_match( '/[A-Z0-9]{5}/', $field_value );
@@ -147,7 +147,7 @@ class Additional_Checkout_Fields_Test_Helper {
 		);
 
 		add_action(
-			'woocommerce_blocks_validate_location_address_fields',
+			'poocommerce_blocks_validate_location_address_fields',
 			function ( \WP_Error $errors, $fields, $group ) {
 				if ( $fields['first-plugin-namespace/government-ID'] !== $fields['first-plugin-namespace/confirm-government-ID'] ) {
 					$errors->add( 'gov_id_mismatch', 'Please ensure your government ID matches the confirmation.' );
@@ -158,7 +158,7 @@ class Additional_Checkout_Fields_Test_Helper {
 		);
 
 		// Contact fields, one checkbox, select, and text input.
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'second-plugin-namespace/marketing-opt-in',
 				'label'    => 'Do you want to subscribe to our newsletter?',
@@ -166,7 +166,7 @@ class Additional_Checkout_Fields_Test_Helper {
 				'type'     => 'checkbox',
 			)
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'second-plugin-namespace/gift-message-in-package',
 				'label'    => 'Enter a gift message to include in the package',
@@ -174,7 +174,7 @@ class Additional_Checkout_Fields_Test_Helper {
 				'type'     => 'text',
 			)
 		);
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'second-plugin-namespace/type-of-purchase',
 				'label'    => 'Is this a personal purchase or a business purchase?',
@@ -196,7 +196,7 @@ class Additional_Checkout_Fields_Test_Helper {
 
 		// A field of each type in additional information section.
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'third-plugin-namespace/please-send-me-a-free-gift',
 				'label'    => 'Would you like a free gift with your order?',
@@ -205,7 +205,7 @@ class Additional_Checkout_Fields_Test_Helper {
 			)
 		);
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'third-plugin-namespace/what-is-your-favourite-colour',
 				'label'    => 'What is your favourite colour?',
@@ -214,7 +214,7 @@ class Additional_Checkout_Fields_Test_Helper {
 			)
 		);
 
-		woocommerce_register_additional_checkout_field(
+		poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'third-plugin-namespace/how-did-you-hear-about-us',
 				'label'    => 'How did you hear about us?',

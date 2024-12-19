@@ -5,7 +5,7 @@ import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import { store as woocommerceTemplateStateStore } from '../../store';
+import { store as poocommerceTemplateStateStore } from '../../store';
 import type { ProductTypeProps } from '../../types';
 
 type ProductTypeSelector = {
@@ -38,7 +38,7 @@ export default function useProductTypeSelector(): ProductTypeSelector {
 			getProductTypes,
 			getCurrentProductType,
 			getRegisteredListeners,
-		} = select( woocommerceTemplateStateStore );
+		} = select( poocommerceTemplateStateStore );
 
 		return {
 			productTypes: getProductTypes(),
@@ -48,10 +48,10 @@ export default function useProductTypeSelector(): ProductTypeSelector {
 	}, [] );
 
 	const { registerListener, unregisterListener } = useDispatch(
-		woocommerceTemplateStateStore
+		poocommerceTemplateStateStore
 	);
 
-	const { switchProductType } = useDispatch( woocommerceTemplateStateStore );
+	const { switchProductType } = useDispatch( poocommerceTemplateStateStore );
 
 	return {
 		productTypes,

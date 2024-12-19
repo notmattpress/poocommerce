@@ -140,7 +140,7 @@ $max-button-width: calc(100% / #{$max-button-columns});
 	}
 }
 
-.editor-styles-wrapper .wp-block-woocommerce-product-collection .wp-block-post-title {
+.editor-styles-wrapper .wp-block-poocommerce-product-collection .wp-block-post-title {
 	a:where(:not(.wp-element-button)) {
 		pointer-events: none;
 	}
@@ -175,7 +175,7 @@ $max-button-width: calc(100% / #{$max-button-columns});
 		fill: var(--wp--preset--color--luminous-vivid-orange, #e26f56);
 	}
 
-	.woocommerce-search-list__search {
+	.poocommerce-search-list__search {
 		margin: 0;
 	}
 }
@@ -223,7 +223,7 @@ $max-button-width: calc(100% / #{$max-button-columns});
 .wc-block-product-collection-linked-product__popover-content .components-popover__content {
 	width: 100%;
 
-	.woocommerce-search-list__search {
+	.poocommerce-search-list__search {
 		border: 0;
 		padding: 0;
 	}

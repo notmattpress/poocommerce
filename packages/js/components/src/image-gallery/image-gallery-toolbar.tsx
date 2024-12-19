@@ -11,7 +11,7 @@ import {
 	ToolbarGroup,
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore No types for this exist yet.
-	// eslint-disable-next-line @woocommerce/dependency-group
+	// eslint-disable-next-line @poocommerce/dependency-group
 	ToolbarItem,
 } from '@wordpress/components';
 
@@ -64,10 +64,10 @@ export const ImageGalleryToolbar: React.FC< ImageGalleryToolbarProps > = ( {
 	const isCoverItem = childIndex === 0;
 
 	return (
-		<div className="woocommerce-image-gallery__toolbar">
+		<div className="poocommerce-image-gallery__toolbar">
 			<Toolbar
 				onClick={ ( e ) => e.stopPropagation() }
-				label={ __( 'Options', 'woocommerce' ) }
+				label={ __( 'Options', 'poocommerce' ) }
 				id="options-toolbar"
 			>
 				{ ! isCoverItem && (
@@ -77,19 +77,19 @@ export const ImageGalleryToolbar: React.FC< ImageGalleryToolbarProps > = ( {
 								icon={ () => (
 									<SortableHandle itemIndex={ childIndex } />
 								) }
-								label={ __( 'Drag to reorder', 'woocommerce' ) }
+								label={ __( 'Drag to reorder', 'poocommerce' ) }
 							/>
 						) }
 						<ToolbarButton
 							disabled={ childIndex < 2 }
 							onClick={ () => movePrevious() }
 							icon={ chevronLeft }
-							label={ __( 'Move previous', 'woocommerce' ) }
+							label={ __( 'Move previous', 'poocommerce' ) }
 						/>
 						<ToolbarButton
 							onClick={ () => moveNext() }
 							icon={ chevronRight }
-							label={ __( 'Move next', 'woocommerce' ) }
+							label={ __( 'Move next', 'poocommerce' ) }
 							disabled={ lastChild }
 						/>
 					</ToolbarGroup>
@@ -98,14 +98,14 @@ export const ImageGalleryToolbar: React.FC< ImageGalleryToolbarProps > = ( {
 					<ToolbarGroup>
 						<ToolbarButton
 							onClick={ () => setAsCoverImage( childIndex ) }
-							label={ __( 'Set as cover', 'woocommerce' ) }
+							label={ __( 'Set as cover', 'poocommerce' ) }
 						>
-							{ __( 'Set as cover', 'woocommerce' ) }
+							{ __( 'Set as cover', 'poocommerce' ) }
 						</ToolbarButton>
 					</ToolbarGroup>
 				) }
 				{ isCoverItem && (
-					<ToolbarGroup className="woocommerce-image-gallery__toolbar-media">
+					<ToolbarGroup className="poocommerce-image-gallery__toolbar-media">
 						<MediaUploadComponent
 							value={ value }
 							onSelect={ ( media ) =>
@@ -114,7 +114,7 @@ export const ImageGalleryToolbar: React.FC< ImageGalleryToolbarProps > = ( {
 							allowedTypes={ [ 'image' ] }
 							render={ ( { open } ) => (
 								<ToolbarButton onClick={ open }>
-									{ __( 'Replace', 'woocommerce' ) }
+									{ __( 'Replace', 'poocommerce' ) }
 								</ToolbarButton>
 							) }
 						/>
@@ -125,7 +125,7 @@ export const ImageGalleryToolbar: React.FC< ImageGalleryToolbarProps > = ( {
 						<ToolbarButton
 							onClick={ () => removeItem( childIndex ) }
 							icon={ trash }
-							label={ __( 'Remove', 'woocommerce' ) }
+							label={ __( 'Remove', 'poocommerce' ) }
 						/>
 					</ToolbarGroup>
 				) }

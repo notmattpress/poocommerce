@@ -2,7 +2,7 @@
 /**
  * Reports Stock Stats REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**

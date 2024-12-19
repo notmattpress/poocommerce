@@ -179,7 +179,7 @@ const data = [
 ];
 
 export default {
-	title: 'WooCommerce Admin/components/Chart',
+	title: 'PooCommerce Admin/components/Chart',
 	component: Chart,
 	args: {
 		legendPosition: undefined,

@@ -27,15 +27,15 @@ You can't simply update the client-side cart state yourself. This is restricted 
 
 `ExtendSchema` offers the ability for extensions to register callback functions to be executed when signalled to do so by the client-side Cart or Checkout.
 
-WooCommerce Blocks also provides a front-end function called `extensionCartUpdate` which can be called by client-side code, this will send data (specified by you when calling `extensionCartUpdate`) to the `cart/extensions` endpoint. When this endpoint gets hit, any relevant (based on the namespace provided to `extensionCartUpdate`) callbacks get executed, and the latest server-side cart data gets returned and the block is updated with this new data.
+PooCommerce Blocks also provides a front-end function called `extensionCartUpdate` which can be called by client-side code, this will send data (specified by you when calling `extensionCartUpdate`) to the `cart/extensions` endpoint. When this endpoint gets hit, any relevant (based on the namespace provided to `extensionCartUpdate`) callbacks get executed, and the latest server-side cart data gets returned and the block is updated with this new data.
 
 ## Basic usage
 
 In your extension's server-side integration code:
 
 ```php
-add_action('woocommerce_blocks_loaded', function() {
-  woocommerce_store_api_register_update_callback(
+add_action('poocommerce_blocks_loaded', function() {
+  poocommerce_store_api_register_update_callback(
     [
       'namespace' => 'extension-unique-namespace',
       'callback'  => /* Add your callable here */
@@ -89,8 +89,8 @@ function remove_discount() {
   /* Do some processing here */
 }
 
-add_action('woocommerce_blocks_loaded', function() {
-  woocommerce_store_api_register_update_callback(
+add_action('poocommerce_blocks_loaded', function() {
+  poocommerce_store_api_register_update_callback(
     [
       'namespace' => 'extension-unique-namespace',
       'callback'  => function( $data ) {
@@ -164,11 +164,11 @@ const buttonClickHandler = () => {
 
 ### Registering a callback to run when the `cart/extensions` endpoint is hit
 
-So far, we haven't registered a callback with WooCommerce Blocks yet, so when `extensionCartUpdate` causes the `cart/extensions` endpoint to get hit, nothing will happen.
+So far, we haven't registered a callback with PooCommerce Blocks yet, so when `extensionCartUpdate` causes the `cart/extensions` endpoint to get hit, nothing will happen.
 
-Much like adding data to the Store API (described in more detail in [Exposing your data in the Store API](./extend-rest-api-add-data.md).) we can add the callback by invoking the `register_update_callback` method on the `ExtendSchema` class from WooCommerce Blocks.
+Much like adding data to the Store API (described in more detail in [Exposing your data in the Store API](./extend-rest-api-add-data.md).) we can add the callback by invoking the `register_update_callback` method on the `ExtendSchema` class from PooCommerce Blocks.
 
-We have written a function called `redeem_points` which applies a discount to the WooCommerce cart. This function does not return anything. Note, the actual implementation of this function is not the focus of this document, so has been omitted. All that is important to note is that it modifies the WooCommerce cart.
+We have written a function called `redeem_points` which applies a discount to the PooCommerce cart. This function does not return anything. Note, the actual implementation of this function is not the focus of this document, so has been omitted. All that is important to note is that it modifies the PooCommerce cart.
 
 ```php
 <?php
@@ -176,8 +176,8 @@ function redeem_points( $points ) {
   /* Do some processing here that applies a discount to the WC cart based on the value of $points */
 }
 
-add_action('woocommerce_blocks_loaded', function() {
-  woocommerce_store_api_register_update_callback(
+add_action('poocommerce_blocks_loaded', function() {
+  poocommerce_store_api_register_update_callback(
     [
       'namespace' => 'super-coupons',
       'callback'  => function( $data ) {
@@ -188,14 +188,14 @@ add_action('woocommerce_blocks_loaded', function() {
 } );
 ```
 
-Now that this is registered, when the button is pressed, the `cart/extensions` endpoint is hit, with a `namespace` of `super-coupons` our `redeem_points` function will be executed. After this has finished processing, the client-side cart will be updated by WooCommerce Blocks.
+Now that this is registered, when the button is pressed, the `cart/extensions` endpoint is hit, with a `namespace` of `super-coupons` our `redeem_points` function will be executed. After this has finished processing, the client-side cart will be updated by PooCommerce Blocks.
 
 <!-- FEEDBACK -->
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/extend-rest-api-update-cart.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/extend-rest-api-update-cart.md)
 
 <!-- /FEEDBACK -->

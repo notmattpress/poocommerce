@@ -30,22 +30,22 @@ const getHelpText = ( buttonPosition: NextPreviousButtonSettingValues ) => {
 		case NextPreviousButtonSettingValues.insideTheImage:
 			return __(
 				'Next and previous buttons will appear inside the large image.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case NextPreviousButtonSettingValues.outsideTheImage:
 			return __(
 				'Next and previous buttons will appear on outside the large image.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case 'off':
 			return __(
 				'No next or previous button will be displayed.',
-				'woocommerce'
+				'poocommerce'
 			);
 		default:
 			return __(
 				'No next or previous button will be displayed.',
-				'woocommerce'
+				'poocommerce'
 			);
 	}
 };
@@ -60,7 +60,7 @@ export const ProductGalleryNextPreviousBlockSettings = ( {
 	const { updateBlockAttributes } = useDispatch( blockEditorStore );
 	return (
 		<ToggleGroupControl
-			label={ __( 'Next/Prev Buttons', 'woocommerce' ) }
+			label={ __( 'Next/Prev Buttons', 'poocommerce' ) }
 			isBlock
 			className="wc-block-editor-product-gallery-large-image-next-previous-settings"
 			style={ {
@@ -76,7 +76,7 @@ export const ProductGalleryNextPreviousBlockSettings = ( {
 		>
 			<ToggleGroupControlOption
 				value={ NextPreviousButtonSettingValues.off }
-				label={ __( 'Off', 'woocommerce' ) }
+				label={ __( 'Off', 'poocommerce' ) }
 			/>
 			<ToggleGroupControlOption
 				value={ NextPreviousButtonSettingValues.insideTheImage }

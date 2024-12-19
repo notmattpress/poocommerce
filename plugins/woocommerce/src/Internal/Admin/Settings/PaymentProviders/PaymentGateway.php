@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
-use Automattic\WooCommerce\Internal\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
+use Automattic\PooCommerce\Internal\Utilities\ArrayUtil;
 use WC_HTTPS;
 use WC_Payment_Gateway;
 

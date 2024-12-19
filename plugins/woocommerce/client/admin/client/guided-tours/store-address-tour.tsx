@@ -2,21 +2,21 @@
  * External dependencies
  */
 import { FunctionComponent } from 'react';
-import { TourKit, TourKitTypes } from '@woocommerce/components';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { EmbeddedBodyProps } from '../embedded-body-layout/embedded-body-props';
 
-const STORE_ADDRESS_SETTINGS_OPTION = 'woocommerce_store_address';
-const STORE_CITY_SETTINGS_OPTION = 'woocommerce_store_city';
-const STORE_POSTCODE_SETTINGS_OPTION = 'woocommerce_store_postcode';
+const STORE_ADDRESS_SETTINGS_OPTION = 'poocommerce_store_address';
+const STORE_CITY_SETTINGS_OPTION = 'poocommerce_store_city';
+const STORE_POSTCODE_SETTINGS_OPTION = 'poocommerce_store_postcode';
 
 const useShowStoreLocationTour = () => {
 	const { hasFilledStoreAddress, isLoading } = useSelect( ( select ) => {
@@ -68,11 +68,11 @@ const StoreAddressTourOverlay = () => {
 					descriptions: {
 						desktop: __(
 							'Add your store location details to help us configure shipping, taxes, currency and more in a fully automated way. Once done, click on the "Save" button at the end of the form.',
-							'woocommerce'
+							'poocommerce'
 						),
 					},
 					primaryButton: {
-						text: __( 'Got it', 'woocommerce' ),
+						text: __( 'Got it', 'poocommerce' ),
 					},
 				},
 			},
@@ -94,10 +94,10 @@ const StoreAddressTourOverlay = () => {
 		},
 		closeHandler: ( _steps, _currentStepIndex, source ) => {
 			const fields_filled = {
-				address_1: isFieldFilled( 'input#woocommerce_store_address' ),
-				address_2: isFieldFilled( 'input#woocommerce_store_address_2' ),
-				city: isFieldFilled( 'input#woocommerce_store_city' ),
-				postcode: isFieldFilled( 'input#woocommerce_store_postcode' ),
+				address_1: isFieldFilled( 'input#poocommerce_store_address' ),
+				address_2: isFieldFilled( 'input#poocommerce_store_address_2' ),
+				city: isFieldFilled( 'input#poocommerce_store_city' ),
+				postcode: isFieldFilled( 'input#poocommerce_store_postcode' ),
 			};
 
 			recordEvent( 'settings_store_address_tour_dismiss', {

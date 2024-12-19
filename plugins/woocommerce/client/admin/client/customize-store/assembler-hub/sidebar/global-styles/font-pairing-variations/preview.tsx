@@ -1,5 +1,5 @@
 // Reference: https://github.com/Automattic/wp-calypso/blob/d3c9b16fb99ce242f61baa21119b7c20f8823be6/packages/global-styles/src/components/font-pairing-variations/preview.tsx
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies

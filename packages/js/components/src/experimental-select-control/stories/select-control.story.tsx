@@ -592,6 +592,6 @@ export const ToggleButton: React.FC = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/experimental/SelectControl',
+	title: 'PooCommerce Admin/experimental/SelectControl',
 	component: SelectControl,
 };

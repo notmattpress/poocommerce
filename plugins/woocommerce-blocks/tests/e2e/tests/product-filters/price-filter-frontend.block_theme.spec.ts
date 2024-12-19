@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TemplateCompiler, test as base, expect } from '@woocommerce/e2e-utils';
+import { TemplateCompiler, test as base, expect } from '@poocommerce/e2e-utils';
 
 const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	templateCompiler: async ( { requestUtils }, use ) => {
@@ -36,7 +36,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Min price input field
 			const leftInputContainer = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-left-input'
+				'.wp-block-poocommerce-product-filter-price-content-left-input'
 			);
 			const minPriceInput = leftInputContainer.locator( '.min' );
 
@@ -44,7 +44,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Min price slider thumb
 			const priceSlider = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-price-range-slider'
+				'.wp-block-poocommerce-product-filter-price-content-price-range-slider'
 			);
 			const minPriceThumb = priceSlider.locator( 'input[name="min"]' );
 
@@ -52,7 +52,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Max price input field
 			const rightInputContainer = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-right-input'
+				'.wp-block-poocommerce-product-filter-price-content-right-input'
 			);
 			const maxPriceInput = rightInputContainer.locator( '.max' );
 
@@ -80,14 +80,14 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 			await page.goto( '/shop?min_price=20&max_price=67' );
 
 			const defaultRange = ( await page
-				.locator( '.wp-block-woocommerce-product-filter-price' )
+				.locator( '.wp-block-poocommerce-product-filter-price' )
 				.getAttribute( 'data-wc-context' ) ) as string;
 			const defaultMinRange = JSON.parse( defaultRange ).minRange;
 			const defaultMaxRange = JSON.parse( defaultRange ).maxRange;
 
 			// Min price input field
 			const leftInputContainer = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-left-input'
+				'.wp-block-poocommerce-product-filter-price-content-left-input'
 			);
 			const minPriceInput = leftInputContainer.locator( '.min' );
 			await minPriceInput.fill( String( defaultMinRange ) );
@@ -98,7 +98,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Max price input field
 			const rightInputContainer = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-right-input'
+				'.wp-block-poocommerce-product-filter-price-content-right-input'
 			);
 			const maxPriceInput = rightInputContainer.locator( '.max' );
 			await maxPriceInput.fill( String( defaultMaxRange ) );
@@ -124,7 +124,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 			await page.waitForURL( '/shop/' );
 
 			const defaultRangePrice = ( await page
-				.locator( '.wp-block-woocommerce-product-filter-price' )
+				.locator( '.wp-block-poocommerce-product-filter-price' )
 				.getAttribute( 'data-wc-context' ) ) as string;
 
 			const defaultMinRange = JSON.parse( defaultRangePrice ).minRange;
@@ -143,7 +143,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Min price input field
 			const leftInputContainer = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-left-input'
+				'.wp-block-poocommerce-product-filter-price-content-left-input'
 			);
 			const minPriceInput = leftInputContainer.locator( '.min' );
 			await minPriceInput.fill( '30' );
@@ -153,7 +153,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Min price slider thumb
 			const priceSlider = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-price-range-slider'
+				'.wp-block-poocommerce-product-filter-price-content-price-range-slider'
 			);
 			const minPriceThumb = priceSlider.locator( 'input[name="min"]' );
 
@@ -161,7 +161,7 @@ test.describe.skip( 'Product Filter: Price Filter Block', () => {
 
 			// Max price input field
 			const rightInputContainer = page.locator(
-				'.wp-block-woocommerce-product-filter-price-content-right-input'
+				'.wp-block-poocommerce-product-filter-price-content-right-input'
 			);
 			const maxPriceInput = rightInputContainer.locator( '.max' );
 			await maxPriceInput.fill( '80' );

@@ -2,12 +2,12 @@
 /**
  * Class WC_Customer_Data_Store file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -70,7 +70,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		'_order_count',
 		'_money_spent',
 		'_last_order',
-		'_woocommerce_tracks_anon_id',
+		'_poocommerce_tracks_anon_id',
 	);
 
 	/**
@@ -92,7 +92,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		$table_prefix = $wpdb->prefix ? $wpdb->prefix : 'wp_';
 
 		return ! in_array( $meta->meta_key, $this->internal_meta_keys, true )
-			&& 0 !== strpos( $meta->meta_key, '_woocommerce_persistent_cart' )
+			&& 0 !== strpos( $meta->meta_key, '_poocommerce_persistent_cart' )
 			&& 0 !== strpos( $meta->meta_key, 'closedpostboxes_' )
 			&& 0 !== strpos( $meta->meta_key, 'metaboxhidden_' )
 			&& 0 !== strpos( $meta->meta_key, 'manageedit-' )
@@ -124,7 +124,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 
 		wp_update_user(
 			apply_filters(
-				'woocommerce_update_customer_args',
+				'poocommerce_update_customer_args',
 				array(
 					'ID'           => $customer->get_id(),
 					'role'         => $customer->get_role(),
@@ -138,7 +138,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		$customer->set_date_modified( get_user_meta( $customer->get_id(), 'last_update', true ) );
 		$customer->save_meta_data();
 		$customer->apply_changes();
-		do_action( 'woocommerce_new_customer', $customer->get_id(), $customer );
+		do_action( 'poocommerce_new_customer', $customer->get_id(), $customer );
 	}
 
 	/**
@@ -153,7 +153,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 
 		// User object is required.
 		if ( ! $user_object || empty( $user_object->ID ) ) {
-			throw new Exception( __( 'Invalid customer.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid customer.', 'poocommerce' ) );
 		}
 
 		$customer_id = $customer->get_id();
@@ -179,7 +179,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		);
 		$customer->read_meta_data();
 		$customer->set_object_read( true );
-		do_action( 'woocommerce_customer_loaded', $customer );
+		do_action( 'poocommerce_customer_loaded', $customer );
 	}
 
 	/**
@@ -191,7 +191,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 	public function update( &$customer ) {
 		wp_update_user(
 			apply_filters(
-				'woocommerce_update_customer_args',
+				'poocommerce_update_customer_args',
 				array(
 					'ID'           => $customer->get_id(),
 					'user_email'   => $customer->get_email(),
@@ -216,7 +216,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		$customer->set_date_modified( get_user_meta( $customer->get_id(), 'last_update', true ) );
 		$customer->save_meta_data();
 		$customer->apply_changes();
-		do_action( 'woocommerce_update_customer', $customer->get_id(), $customer );
+		do_action( 'poocommerce_update_customer', $customer->get_id(), $customer );
 	}
 
 	/**
@@ -241,7 +241,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		$id = $customer->get_id();
 		wp_delete_user( $id, $args['reassign'] );
 
-		do_action( 'woocommerce_delete_customer', $id );
+		do_action( 'poocommerce_delete_customer', $id );
 	}
 
 	/**
@@ -321,7 +321,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 			}
 		}
 
-		do_action( 'woocommerce_customer_object_updated_props', $customer, $updated_props );
+		do_action( 'poocommerce_customer_object_updated_props', $customer, $updated_props );
 	}
 
 	/**
@@ -369,11 +369,11 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 		 * @return string The actual last order id to use.
 		 */
 		$last_order_id = apply_filters(
-			'woocommerce_customer_get_last_order',
+			'poocommerce_customer_get_last_order',
 			$last_order_id,
 			$customer
 		);
-		//phpcs:enable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		//phpcs:enable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( '' === $last_order_id ) {
 			global $wpdb;
@@ -424,7 +424,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 	 */
 	public function get_order_count( &$customer ) {
 		$count = apply_filters(
-			'woocommerce_customer_get_order_count',
+			'poocommerce_customer_get_order_count',
 			Users::get_site_user_meta( $customer->get_id(), 'wc_order_count', true ),
 			$customer
 		);
@@ -471,7 +471,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 	 */
 	public function get_total_spent( &$customer ) {
 		$spent = apply_filters(
-			'woocommerce_customer_get_total_spent',
+			'poocommerce_customer_get_total_spent',
 			Users::get_site_user_meta( $customer->get_id(), 'wc_money_spent', true ),
 			$customer
 		);
@@ -502,7 +502,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 					AND     meta2.meta_key      = '_order_total'";
 			}
 
-			//phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			//phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/**
 			 * Filters the SQL query used to get the combined total of all the orders from a given customer.
 			 *
@@ -510,8 +510,8 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 			 * @param WC_Customer The customer to get the total spent for.
 			 * @return string The actual SQL query to use.
 			 */
-			$sql = apply_filters( 'woocommerce_customer_get_total_spent_query', $sql, $customer );
-			//phpcs:enable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			$sql = apply_filters( 'poocommerce_customer_get_total_spent_query', $sql, $customer );
+			//phpcs:enable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 			$spent = $wpdb->get_var( $sql );
 			//phpcs:enable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -535,14 +535,14 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 	 * @return array
 	 */
 	public function search_customers( $term, $limit = '' ) {
-		$results = apply_filters( 'woocommerce_customer_pre_search_customers', false, $term, $limit );
+		$results = apply_filters( 'poocommerce_customer_pre_search_customers', false, $term, $limit );
 		if ( is_array( $results ) ) {
 			return $results;
 		}
 
 		$query = new WP_User_Query(
 			apply_filters(
-				'woocommerce_customer_search_customers',
+				'poocommerce_customer_search_customers',
 				array(
 					'search'         => '*' . esc_attr( $term ) . '*',
 					'search_columns' => array( 'user_login', 'user_url', 'user_email', 'user_nicename', 'display_name' ),
@@ -557,7 +557,7 @@ class WC_Customer_Data_Store extends WC_Data_Store_WP implements WC_Customer_Dat
 
 		$query2 = new WP_User_Query(
 			apply_filters(
-				'woocommerce_customer_search_customers',
+				'poocommerce_customer_search_customers',
 				array(
 					'fields'     => 'ID',
 					'number'     => $limit,

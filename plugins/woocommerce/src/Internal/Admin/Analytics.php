@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Analytics.
+ * PooCommerce Analytics.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\API\Reports\Cache;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * Contains backend logic for the Analytics feature.
@@ -15,11 +15,11 @@ class Analytics {
 	/**
 	 * Option name used to toggle this feature.
 	 */
-	const TOGGLE_OPTION_NAME = 'woocommerce_analytics_enabled';
+	const TOGGLE_OPTION_NAME = 'poocommerce_analytics_enabled';
 	/**
 	 * Clear cache tool identifier.
 	 */
-	const CACHE_TOOL_ID = 'clear_woocommerce_analytics_cache';
+	const CACHE_TOOL_ID = 'clear_poocommerce_analytics_cache';
 
 	/**
 	 * Class instance.
@@ -46,26 +46,26 @@ class Analytics {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		add_action( 'update_option_' . self::TOGGLE_OPTION_NAME, array( $this, 'reload_page_on_toggle' ), 10, 2 );
-		add_action( 'woocommerce_settings_saved', array( $this, 'maybe_reload_page' ) );
+		add_action( 'poocommerce_settings_saved', array( $this, 'maybe_reload_page' ) );
 
 		if ( ! Features::is_enabled( 'analytics' ) ) {
 			return;
 		}
 
-		add_filter( 'woocommerce_component_settings_preload_endpoints', array( $this, 'add_preload_endpoints' ) );
-		add_filter( 'woocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
+		add_filter( 'poocommerce_component_settings_preload_endpoints', array( $this, 'add_preload_endpoints' ) );
+		add_filter( 'poocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
 		add_action( 'admin_menu', array( $this, 'register_pages' ) );
-		add_filter( 'woocommerce_debug_tools', array( $this, 'register_cache_clear_tool' ) );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'register_cache_clear_tool' ) );
 	}
 
 	/**
 	 * Add the feature toggle to the features settings.
 	 *
-	 * @deprecated 7.0 The WooCommerce Admin features are now handled by the WooCommerce features engine (see the FeaturesController class).
+	 * @deprecated 7.0 The PooCommerce Admin features are now handled by the PooCommerce features engine (see the FeaturesController class).
 	 *
 	 * @param array $features Feature sections.
 	 * @return array
@@ -139,7 +139,7 @@ class Analytics {
 	}
 
 	/**
-	 * Register the cache clearing tool on the WooCommerce > Status > Tools page.
+	 * Register the cache clearing tool on the PooCommerce > Status > Tools page.
 	 *
 	 * @param array $debug_tools Available debug tool registrations.
 	 * @return array Filtered debug tool registrations.
@@ -154,11 +154,11 @@ class Analytics {
 		);
 
 		$debug_tools[ self::CACHE_TOOL_ID ] = array(
-			'name'     => __( 'Clear analytics cache', 'woocommerce' ),
-			'button'   => __( 'Clear', 'woocommerce' ),
+			'name'     => __( 'Clear analytics cache', 'poocommerce' ),
+			'button'   => __( 'Clear', 'poocommerce' ),
 			'desc'     => sprintf(
 				/* translators: 1: opening link tag, 2: closing tag */
-				__( 'This tool will reset the cached values used in WooCommerce Analytics. If numbers still look off, try %1$sReimporting Historical Data%2$s.', 'woocommerce' ),
+				__( 'This tool will reset the cached values used in PooCommerce Analytics. If numbers still look off, try %1$sReimporting Historical Data%2$s.', 'poocommerce' ),
 				'<a href="' . esc_url( $settings_url ) . '">',
 				'</a>'
 			),
@@ -185,85 +185,85 @@ class Analytics {
 	 */
 	public static function get_report_pages() {
 		$overview_page = array(
-			'id'       => 'woocommerce-analytics',
-			'title'    => __( 'Analytics', 'woocommerce' ),
+			'id'       => 'poocommerce-analytics',
+			'title'    => __( 'Analytics', 'poocommerce' ),
 			'path'     => '/analytics/overview',
 			'icon'     => 'dashicons-chart-bar',
-			'position' => 57, // After WooCommerce & Product menu items.
+			'position' => 57, // After PooCommerce & Product menu items.
 		);
 
 		$report_pages = array(
 			$overview_page,
 			array(
-				'id'     => 'woocommerce-analytics-overview',
-				'title'  => __( 'Overview', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-overview',
+				'title'  => __( 'Overview', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/overview',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-products',
-				'title'  => __( 'Products', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-products',
+				'title'  => __( 'Products', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/products',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-revenue',
-				'title'  => __( 'Revenue', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-revenue',
+				'title'  => __( 'Revenue', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/revenue',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-orders',
-				'title'  => __( 'Orders', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-orders',
+				'title'  => __( 'Orders', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/orders',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-variations',
-				'title'  => __( 'Variations', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-variations',
+				'title'  => __( 'Variations', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/variations',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-categories',
-				'title'  => __( 'Categories', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-categories',
+				'title'  => __( 'Categories', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/categories',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-coupons',
-				'title'  => __( 'Coupons', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-coupons',
+				'title'  => __( 'Coupons', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/coupons',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-taxes',
-				'title'  => __( 'Taxes', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-taxes',
+				'title'  => __( 'Taxes', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/taxes',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-downloads',
-				'title'  => __( 'Downloads', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-downloads',
+				'title'  => __( 'Downloads', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/downloads',
 			),
-			'yes' === get_option( 'woocommerce_manage_stock' ) ? array(
-				'id'     => 'woocommerce-analytics-stock',
-				'title'  => __( 'Stock', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+			'yes' === get_option( 'poocommerce_manage_stock' ) ? array(
+				'id'     => 'poocommerce-analytics-stock',
+				'title'  => __( 'Stock', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/stock',
 			) : null,
 			array(
-				'id'     => 'woocommerce-analytics-customers',
-				'title'  => __( 'Customers', 'woocommerce' ),
-				'parent' => 'woocommerce',
+				'id'     => 'poocommerce-analytics-customers',
+				'title'  => __( 'Customers', 'poocommerce' ),
+				'parent' => 'poocommerce',
 				'path'   => '/customers',
 			),
 			array(
-				'id'     => 'woocommerce-analytics-settings',
-				'title'  => __( 'Settings', 'woocommerce' ),
-				'parent' => 'woocommerce-analytics',
+				'id'     => 'poocommerce-analytics-settings',
+				'title'  => __( 'Settings', 'poocommerce' ),
+				'parent' => 'poocommerce-analytics',
 				'path'   => '/analytics/settings',
 			),
 		);
@@ -273,7 +273,7 @@ class Analytics {
 		 *
 		 * @since 6.4.0
 		 */
-		return apply_filters( 'woocommerce_analytics_report_menu_items', $report_pages );
+		return apply_filters( 'poocommerce_analytics_report_menu_items', $report_pages );
 	}
 
 	/**
@@ -282,6 +282,6 @@ class Analytics {
 	public function run_clear_cache_tool() {
 		Cache::invalidate();
 
-		return __( 'Analytics cache cleared.', 'woocommerce' );
+		return __( 'Analytics cache cleared.', 'poocommerce' );
 	}
 }

@@ -7,10 +7,10 @@ import {
 	CART_STORE_KEY,
 	VALIDATION_STORE_KEY,
 	CHECKOUT_STORE_KEY,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { decodeEntities } from '@wordpress/html-entities';
-import type { StoreCartCoupon, ApiErrorResponse } from '@woocommerce/types';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
+import type { StoreCartCoupon, ApiErrorResponse } from '@poocommerce/types';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { useStoreCart } from './use-store-cart';
 /**
  * This is a custom hook for loading the Store API /cart/coupons endpoint and an
  * action for adding a coupon _to_ the cart.
- * See also: https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/RestApi/StoreApi
+ * See also: https://github.com/poocommerce/poocommerce-gutenberg-products-block/tree/trunk/src/RestApi/StoreApi
  */
 export const useStoreCartCoupons = ( context = '' ): StoreCartCoupon => {
 	const { cartCoupons, cartIsLoading } = useStoreCart();
@@ -75,7 +75,7 @@ export const useStoreCartCoupons = ( context = '' ): StoreCartCoupon => {
 							/* translators: %s coupon code. */
 							__(
 								'Coupon code "%s" has been applied to your cart.',
-								'woocommerce'
+								'poocommerce'
 							),
 							couponCode
 						),
@@ -116,7 +116,7 @@ export const useStoreCartCoupons = ( context = '' ): StoreCartCoupon => {
 							/* translators: %s coupon code. */
 							__(
 								'Coupon code "%s" has been removed from your cart.',
-								'woocommerce'
+								'poocommerce'
 							),
 							couponCode
 						),

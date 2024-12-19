@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks;
+namespace Automattic\PooCommerce\Tests\Blocks;
 
-use Automattic\WooCommerce\Blocks\Migration;
-use Automattic\WooCommerce\Blocks\Options;
+use Automattic\PooCommerce\Blocks\Migration;
+use Automattic\PooCommerce\Blocks\Options;
 use Mockery;
 
 /**

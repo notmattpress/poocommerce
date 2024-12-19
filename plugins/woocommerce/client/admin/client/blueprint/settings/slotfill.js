@@ -7,7 +7,7 @@ import {
 	Notice,
 	ToggleControl,
 } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import apiFetch from '@wordpress/api-fetch';
 import {
 	useState,
@@ -17,7 +17,7 @@ import {
 } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
 import { __ } from '@wordpress/i18n';
-import { CollapsibleContent } from '@woocommerce/components';
+import { CollapsibleContent } from '@poocommerce/components';
 /**
  * Internal dependencies
  */
@@ -105,7 +105,7 @@ const Blueprint = () => {
 
 	useEffect( () => {
 		const saveButton = document.getElementsByClassName(
-			'woocommerce-save-button'
+			'poocommerce-save-button'
 		)[ 0 ];
 		if ( saveButton ) {
 			saveButton.style.display = 'none';
@@ -128,14 +128,14 @@ const Blueprint = () => {
 			<p className="blueprint-settings-slotfill-description">
 				{ __(
 					'Blueprints are setup files that contain all the installation instructions. including plugins, themes and settings. Ease the setup process, allow teams to apply each others’ changes and much more.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<p>
 				<strong>
 					Please{ ' ' }
 					<a
-						href="https://automattic.survey.fm/woocommerce-blueprint-survey"
+						href="https://automattic.survey.fm/poocommerce-blueprint-survey"
 						target="_blank"
 						rel="noreferrer"
 					>
@@ -159,19 +159,19 @@ const Blueprint = () => {
 				<code>wp wc blueprint import path-to-woo-blueprint.json</code>.
 			</p>
 			<p></p>
-			<h3>{ __( 'Export Blueprint', 'woocommerce' ) }</h3>
+			<h3>{ __( 'Export Blueprint', 'poocommerce' ) }</h3>
 			<p className="export-intro">
 				{ createInterpolateElement(
 					__(
 						'Export your blueprint schema. Select the options you want to export, then click on "Export". Want to know more? <docLink/> ',
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						docLink: (
 							<a href="#tba">
 								{ __(
 									'Check our documentation',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</a>
 						),
@@ -200,7 +200,7 @@ const Blueprint = () => {
 			) ) }
 
 			<div id="download-link-container"></div>
-			<h4>{ __( 'Options', 'woocommerce' ) }</h4>
+			<h4>{ __( 'Options', 'poocommerce' ) }</h4>
 			<div>
 				<input
 					type="checkbox"
@@ -213,7 +213,7 @@ const Blueprint = () => {
 					} }
 				/>
 				<label htmlFor="export-as-zip">
-					{ __( 'Export as a zip (Experimental)', 'woocommerce' ) }
+					{ __( 'Export as a zip (Experimental)', 'poocommerce' ) }
 				</label>
 			</div>
 			<br></br>
@@ -234,7 +234,7 @@ const Blueprint = () => {
 				disabled={ ! exportEnabled }
 				isBusy={ ! exportEnabled }
 			>
-				{ __( 'Export', 'woocommerce' ) }
+				{ __( 'Export', 'poocommerce' ) }
 			</Button>
 		</div>
 	);
@@ -249,8 +249,8 @@ const BlueprintSlotfill = () => {
 };
 
 export const registerBlueprintSlotfill = () => {
-	registerPlugin( 'woocommerce-admin-blueprint-settings-slotfill', {
-		scope: 'woocommerce-blueprint-settings',
+	registerPlugin( 'poocommerce-admin-blueprint-settings-slotfill', {
+		scope: 'poocommerce-blueprint-settings',
 		render: BlueprintSlotfill,
 	} );
 };

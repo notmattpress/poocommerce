@@ -60,8 +60,8 @@ tests/cli/vendor
 # Built files
 /build/
 bin/languages
-bin/eslint-plugin-woocommerce/node_modules/
-woocommerce-gutenberg-products-block.zip
+bin/eslint-plugin-poocommerce/node_modules/
+poocommerce-gutenberg-products-block.zip
 storybook-static/
 blocks.ini
 /wp-content/

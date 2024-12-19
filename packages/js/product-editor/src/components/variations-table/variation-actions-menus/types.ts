@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { PartialProductVariation, ProductVariation } from '@woocommerce/data';
+import { PartialProductVariation, ProductVariation } from '@poocommerce/data';
 import { MenuItem } from '@wordpress/components';
 
 export type VariationActionsMenuProps = {

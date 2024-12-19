@@ -4,22 +4,22 @@ menu_title: Theme design and user experience guidelines
 tags: reference
 ---
 
-This guide covers general guidelines and best practices to follow in order to ensure your theme experience aligns with ecommerce industry standards and WooCommerce for providing a great online shopping experience, maximizing sales, ensuring ease of use, seamless integration, and strong UX adoption.
+This guide covers general guidelines and best practices to follow in order to ensure your theme experience aligns with ecommerce industry standards and PooCommerce for providing a great online shopping experience, maximizing sales, ensuring ease of use, seamless integration, and strong UX adoption.
 
 We recommend you review the [UI best practices for WordPress](https://developer.wordpress.org/themes/advanced-topics/ui-best-practices/) to ensure your theme is aligned with the WordPress theme requirements.
 
-Make sure your theme fits one or more industries currently available in the [WooCommerce themes store](https://woocommerce.com/product-category/themes). It's important that the theme offers enough originality and distinctiveness in its design, while keeping it familiar, in order to be distinguished from other themes on the WooCommerce theme store. Your theme should avoid copying existing themes on the WooCommerce theme store or other WordPress theme marketplaces.
+Make sure your theme fits one or more industries currently available in the [PooCommerce themes store](https://poocommerce.com/product-category/themes). It's important that the theme offers enough originality and distinctiveness in its design, while keeping it familiar, in order to be distinguished from other themes on the PooCommerce theme store. Your theme should avoid copying existing themes on the PooCommerce theme store or other WordPress theme marketplaces.
 
 ## Design
 
 
-High-quality design is an important aspect of an online store, and that is driven by the theme design and content. The design of the theme should be simple, consistent, uncluttered, memorable, intuitive, efficient, and functional. When designing a new theme for WooCommerce special attention should be given to:
+High-quality design is an important aspect of an online store, and that is driven by the theme design and content. The design of the theme should be simple, consistent, uncluttered, memorable, intuitive, efficient, and functional. When designing a new theme for PooCommerce special attention should be given to:
 
 ### Layout
 
 The theme should be up to industry standards in terms of hierarchy, flow, content balance, and white space.
 
-Theme authors must ensure that store pages (shop, product page, categories, cart, checkout, profile page, etc) fit seamlessly with the theme since they are the central point of a WooCommerce theme.
+Theme authors must ensure that store pages (shop, product page, categories, cart, checkout, profile page, etc) fit seamlessly with the theme since they are the central point of a PooCommerce theme.
 
 The Theme is expected to be fully functional and optimized to be accessed on common device types such as laptops, tablets, and smartphones.
 

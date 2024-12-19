@@ -2,22 +2,22 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Steps\SetWCShipping;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Steps\SetWCShipping;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Util;
 
 /**
  * Class ExportWCShipping
  *
- * This class exports WooCommerce shipping settings and implements the StepExporter interface.
+ * This class exports PooCommerce shipping settings and implements the StepExporter interface.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCShipping implements StepExporter {
 	/**
-	 * Export WooCommerce shipping settings.
+	 * Export PooCommerce shipping settings.
 	 *
 	 * @return SetWCShipping
 	 */
@@ -60,7 +60,7 @@ class ExportWCShipping implements StepExporter {
 
 		// Fetch local pickup settings.
 		$local_pickup = array(
-			'general'   => get_option( 'woocommerce_pickup_location_settings', array() ),
+			'general'   => get_option( 'poocommerce_pickup_location_settings', array() ),
 			'locations' => get_option( 'pickup_location_pickup_locations', array() ),
 		);
 
@@ -72,7 +72,7 @@ class ExportWCShipping implements StepExporter {
 		$zones = $wpdb->get_results(
 			"
             SELECT *
-            FROM {$wpdb->prefix}woocommerce_shipping_zones
+            FROM {$wpdb->prefix}poocommerce_shipping_zones
         "
 		);
 
@@ -80,7 +80,7 @@ class ExportWCShipping implements StepExporter {
 		$methods = $wpdb->get_results(
 			"
             SELECT *
-            FROM {$wpdb->prefix}woocommerce_shipping_zone_methods
+            FROM {$wpdb->prefix}poocommerce_shipping_zone_methods
         "
 		);
 
@@ -90,8 +90,8 @@ class ExportWCShipping implements StepExporter {
 			"
 			SELECT *
 			FROM {$wpdb->prefix}options
-			WHERE option_name LIKE 'woocommerce_flat_rate_%_settings'
-			or option_name LIKE 'woocommerce_free_shipping_%_settings'
+			WHERE option_name LIKE 'poocommerce_flat_rate_%_settings'
+			or option_name LIKE 'poocommerce_free_shipping_%_settings'
 		",
 			ARRAY_A
 		);
@@ -104,7 +104,7 @@ class ExportWCShipping implements StepExporter {
 		);
 
 		foreach ( $methods as $method ) {
-			$key_name = 'woocommerce_' . $method->method_id . '_' . $method->instance_id . '_settings';
+			$key_name = 'poocommerce_' . $method->method_id . '_' . $method->instance_id . '_settings';
 			if ( isset( $method_options[ $key_name ] ) ) {
 				$method->settings = array(
 					'option_name'  => $key_name,
@@ -127,7 +127,7 @@ class ExportWCShipping implements StepExporter {
 		$locations = $wpdb->get_results(
 			"
             SELECT *
-            FROM {$wpdb->prefix}woocommerce_shipping_zone_locations
+            FROM {$wpdb->prefix}poocommerce_shipping_zone_locations
         "
 		);
 
@@ -145,7 +145,7 @@ class ExportWCShipping implements StepExporter {
 		$step = new SetWCShipping( $methods, $locations, $zones, $terms, $classes, $local_pickup );
 		$step->set_meta_values(
 			array(
-				'plugin' => 'woocommerce',
+				'plugin' => 'poocommerce',
 			)
 		);
 
@@ -167,7 +167,7 @@ class ExportWCShipping implements StepExporter {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Shipping', 'woocommerce' );
+		return __( 'Shipping', 'poocommerce' );
 	}
 
 	/**
@@ -176,6 +176,6 @@ class ExportWCShipping implements StepExporter {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'It includes shipping settings', 'woocommerce' );
+		return __( 'It includes shipping settings', 'poocommerce' );
 	}
 }

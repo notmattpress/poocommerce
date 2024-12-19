@@ -105,7 +105,7 @@ export function* request< Query extends BaseQueryParams, DataType >(
 /**
  * Utility function to check if the current user has a specific capability.
  *
- * @param {string} capability - The capability to check (e.g. 'manage_woocommerce').
+ * @param {string} capability - The capability to check (e.g. 'manage_poocommerce').
  * @throws {Error} If the user does not have the required capability.
  */
 export function* checkUserCapability( capability: string ) {

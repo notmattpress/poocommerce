@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
 use Automattic\Jetpack\Connection\Manager;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * Shipping Task
@@ -26,7 +26,7 @@ class ExperimentalShippingRecommendation extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Get your products shipped', 'woocommerce' );
+		return __( 'Get your products shipped', 'poocommerce' );
 	}
 
 	/**
@@ -63,8 +63,8 @@ class ExperimentalShippingRecommendation extends Task {
 	 */
 	public function can_view() {
 		return Features::is_enabled( 'shipping-smart-defaults' ) &&
-			! PluginsHelper::is_plugin_active( 'woocommerce-shipping' ) &&
-			! PluginsHelper::is_plugin_active( 'woocommerce-tax' );
+			! PluginsHelper::is_plugin_active( 'poocommerce-shipping' ) &&
+			! PluginsHelper::is_plugin_active( 'poocommerce-tax' );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class ExperimentalShippingRecommendation extends Task {
 	 * @return bool
 	 */
 	public static function has_plugins_active() {
-		return PluginsHelper::is_plugin_active( 'woocommerce-services' );
+		return PluginsHelper::is_plugin_active( 'poocommerce-services' );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class ExperimentalShippingRecommendation extends Task {
 	 * @return bool
 	 */
 	public static function has_jetpack_connected() {
-		$jetpack_connection_manager = new Manager( 'woocommerce' );
+		$jetpack_connection_manager = new Manager( 'poocommerce' );
 
 		return $jetpack_connection_manager->is_connected() && $jetpack_connection_manager->has_connected_owner();
 	}

@@ -13,7 +13,7 @@ import {
 	closeChoosePatternModal,
 	goToPageEditor,
 	insertBlock,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 const test = baseTest.extend( {
 	storageState: process.env.ADMINSTATE,

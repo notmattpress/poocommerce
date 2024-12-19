@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createRoot } from '@wordpress/element';
-import { SettingsEditor } from '@woocommerce/settings-editor';
+import { SettingsEditor } from '@poocommerce/settings-editor';
 
 /**
  * Internal dependencies

@@ -25,7 +25,7 @@ export const LegacyContent = ( {
 
 	return (
 		<form>
-			<div className="woocommerce-settings-content">
+			<div className="poocommerce-settings-content">
 				{ section.settings.map( ( group ) => {
 					if ( group.type === 'group' ) {
 						return (
@@ -36,9 +36,9 @@ export const LegacyContent = ( {
 					return null;
 				} ) }
 			</div>
-			<div className="woocommerce-settings-content-footer">
+			<div className="poocommerce-settings-content-footer">
 				<Button variant="primary">
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 		</form>

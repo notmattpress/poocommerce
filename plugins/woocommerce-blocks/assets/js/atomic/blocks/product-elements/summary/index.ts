@@ -2,8 +2,8 @@
  * External dependencies
  */
 import type { BlockConfiguration, BlockAttributes } from '@wordpress/blocks';
-import { registerBlockSingleProductTemplate } from '@woocommerce/atomic-utils';
-import { isEmptyObject } from '@woocommerce/types';
+import { registerBlockSingleProductTemplate } from '@poocommerce/atomic-utils';
+import { isEmptyObject } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ const blockSettings: BlockConfiguration = {
 };
 
 registerBlockSingleProductTemplate( {
-	blockName: 'woocommerce/product-summary',
+	blockName: 'poocommerce/product-summary',
 	blockMetadata: metadata,
 	blockSettings,
 	isAvailableOnPostEditor: true,

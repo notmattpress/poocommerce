@@ -5,10 +5,10 @@ import {
 	OPTIONS_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	SETTINGS_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { withSelect } from '@wordpress/data';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 import { compose } from '@wordpress/compose';
 
 /**
@@ -30,7 +30,7 @@ const ShippingRecommendationWrapper = compose(
 				select( PLUGINS_STORE_NAME ).isJetpackConnected(),
 			isResolving:
 				! hasFinishedResolution( 'getOption', [
-					'woocommerce_setup_jetpack_opted_in',
+					'poocommerce_setup_jetpack_opted_in',
 				] ) ||
 				! hasFinishedResolution( 'getOption', [
 					'wc_connect_options',
@@ -44,7 +44,7 @@ const ShippingRecommendationWrapper = compose(
 
 registerPlugin( 'wc-admin-onboarding-task-shipping-recommendation', {
 	// @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated.
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="shipping-recommendation">
 			{ ( { onComplete, query, task }: TaskProps ) => (

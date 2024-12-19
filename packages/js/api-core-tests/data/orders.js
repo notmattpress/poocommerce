@@ -197,9 +197,9 @@ const createSampleData = async () => {
 	// Create an order with all possible numerical fields (taxes, fees, refunds, etc).
 	// eslint-disable-next-line
 	const { body: taxSetting } = await getRequest(
-		'settings/general/woocommerce_calc_taxes'
+		'settings/general/poocommerce_calc_taxes'
 	);
-	await putRequest( 'settings/general/woocommerce_calc_taxes', {
+	await putRequest( 'settings/general/poocommerce_calc_taxes', {
 		value: 'yes',
 	} );
 

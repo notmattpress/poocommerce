@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /**
  * External dependencies
  */
@@ -27,7 +27,7 @@ import {
 /**
  * Internal dependencies
  */
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import Shuffle from './shuffle';
 import Delete from './delete';
 import './style.scss';
@@ -155,7 +155,7 @@ export const Toolbar = () => {
 
 				const rect = window.document
 					.querySelector(
-						'.woocommerce-customize-store-assembler > iframe[name="editor-canvas"]'
+						'.poocommerce-customize-store-assembler > iframe[name="editor-canvas"]'
 					)
 					?.getBoundingClientRect();
 
@@ -187,7 +187,7 @@ export const Toolbar = () => {
 		<Popover
 			as="div"
 			animate={ false }
-			className="components-tooltip woocommerce-customize-store_block-toolbar-popover"
+			className="components-tooltip poocommerce-customize-store_block-toolbar-popover"
 			// @ts-expect-error missing type
 			variant="unstyled"
 			resize={ false }
@@ -197,7 +197,7 @@ export const Toolbar = () => {
 			placement="top-start"
 			ref={ blockPopoverRef }
 		>
-			<div className="woocommerce-customize-store-block-toolbar">
+			<div className="poocommerce-customize-store-block-toolbar">
 				<WPToolbar label="Options">
 					<>
 						<ToolbarGroup>

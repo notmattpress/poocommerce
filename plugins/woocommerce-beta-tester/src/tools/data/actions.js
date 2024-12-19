@@ -101,22 +101,22 @@ export function* triggerWcaInstall() {
 export function* resetOnboardingWizard() {
 	yield runCommand( 'Reset Onboarding Wizard', function* () {
 		const optionsToDelete = [
-			'woocommerce_onboarding_profile',
-			'woocommerce_task_list_tracked_completed_tasks',
-			'woocommerce_private_link',
-			'woocommerce_share_key',
-			'woocommerce_store_pages_only',
+			'poocommerce_onboarding_profile',
+			'poocommerce_task_list_tracked_completed_tasks',
+			'poocommerce_private_link',
+			'poocommerce_share_key',
+			'poocommerce_store_pages_only',
 		];
 
 		const defaultOptions = {
-			woocommerce_allow_tracking: 'no',
-			woocommerce_default_country: 'US:CA',
-			woocommerce_currency: 'USD',
-			woocommerce_currency_pos: 'left',
-			woocommerce_price_thousand_sep: ',',
-			woocommerce_price_decimal_sep: '.',
-			woocommerce_price_num_decimals: '2',
-			woocommerce_coming_soon: 'no',
+			poocommerce_allow_tracking: 'no',
+			poocommerce_default_country: 'US:CA',
+			poocommerce_currency: 'USD',
+			poocommerce_currency_pos: 'left',
+			poocommerce_price_thousand_sep: ',',
+			poocommerce_price_decimal_sep: '.',
+			poocommerce_price_num_decimals: '2',
+			poocommerce_coming_soon: 'no',
 		};
 
 		// Delete existing options
@@ -176,7 +176,7 @@ export function* updateStoreAge() {
 					1000
 			);
 			const payload = {
-				woocommerce_admin_install_timestamp: JSON.parse( newTimestamp ),
+				poocommerce_admin_install_timestamp: JSON.parse( newTimestamp ),
 			};
 			yield apiFetch( {
 				method: 'POST',
@@ -231,7 +231,7 @@ export function* runSelectedUpdateCallbacks( params ) {
 }
 
 export function* runDisableEmail() {
-	yield runCommand( 'Disable/Enable WooCommerce emails', function* () {
+	yield runCommand( 'Disable/Enable PooCommerce emails', function* () {
 		const response = yield apiFetch( {
 			path: `${ API_NAMESPACE }/tools/toggle-emails/v1`,
 			method: 'POST',
@@ -243,9 +243,9 @@ export function* runDisableEmail() {
 export function* resetCustomizeYourStore() {
 	yield runCommand( 'Reset Customize Your Store', function* () {
 		const optionsToDelete = [
-			'woocommerce_customize_store_onboarding_tour_hidden',
-			'woocommerce_admin_customize_store_completed',
-			'woocommerce_admin_customize_store_completed_theme_id',
+			'poocommerce_customize_store_onboarding_tour_hidden',
+			'poocommerce_admin_customize_store_completed',
+			'poocommerce_admin_customize_store_completed_theme_id',
 		];
 		yield apiFetch( {
 			method: 'DELETE',
@@ -338,7 +338,7 @@ export function* fakeWooPayments( params ) {
 }
 
 export function* updateWccomBaseUrl( { url } ) {
-	yield runCommand( 'Set WooCommerce.com Base URL', function* () {
+	yield runCommand( 'Set PooCommerce.com Base URL', function* () {
 		yield apiFetch( {
 			path: '/wc-admin-test-helper/tools/set-wccom-base-url/v1',
 			method: 'POST',

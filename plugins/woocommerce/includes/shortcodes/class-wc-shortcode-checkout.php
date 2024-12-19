@@ -4,14 +4,14 @@
  *
  * Used on the checkout page, the checkout shortcode displays the checkout process.
  *
- * @package WooCommerce\Shortcodes\Checkout
+ * @package PooCommerce\Shortcodes\Checkout
  * @version 2.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 /**
  * Shortcode checkout class.
@@ -80,7 +80,7 @@ class WC_Shortcode_Checkout {
 	 */
 	private static function order_pay( $order_id ) {
 
-		do_action( 'before_woocommerce_pay' );
+		do_action( 'before_poocommerce_pay' );
 
 		$order_id = absint( $order_id );
 
@@ -92,13 +92,13 @@ class WC_Shortcode_Checkout {
 
 				// Order or payment link is invalid.
 				if ( ! $order || $order->get_id() !== $order_id || ! hash_equals( $order->get_order_key(), $order_key ) ) {
-					throw new Exception( __( 'Sorry, this order is invalid and cannot be paid for.', 'woocommerce' ) );
+					throw new Exception( __( 'Sorry, this order is invalid and cannot be paid for.', 'poocommerce' ) );
 				}
 
 				// Logged out customer does not have permission to pay for this order.
 				if ( ! current_user_can( 'pay_for_order', $order_id ) && ! is_user_logged_in() ) {
-					wc_print_notice( esc_html__( 'Please log in to your account below to continue to the payment form.', 'woocommerce' ), 'notice' );
-					woocommerce_login_form(
+					wc_print_notice( esc_html__( 'Please log in to your account below to continue to the payment form.', 'poocommerce' ), 'notice' );
+					poocommerce_login_form(
 						array(
 							'redirect' => $order->get_checkout_payment_url(),
 						)
@@ -110,19 +110,19 @@ class WC_Shortcode_Checkout {
 				if ( ! $order->get_user_id() && is_user_logged_in() ) {
 					// If order has does not have same billing email then current logged in user then show warning.
 					if ( $order->get_billing_email() !== wp_get_current_user()->user_email ) {
-						wc_print_notice( __( 'You are paying for a guest order. Please continue with payment only if you recognize this order.', 'woocommerce' ), 'error' );
+						wc_print_notice( __( 'You are paying for a guest order. Please continue with payment only if you recognize this order.', 'poocommerce' ), 'error' );
 					}
 				}
 
 				// Logged in customer trying to pay for someone else's order.
 				if ( ! current_user_can( 'pay_for_order', $order_id ) ) {
-					throw new Exception( __( 'This order cannot be paid for. Please contact us if you need assistance.', 'woocommerce' ) );
+					throw new Exception( __( 'This order cannot be paid for. Please contact us if you need assistance.', 'poocommerce' ) );
 				}
 
 				// Does not need payment.
 				if ( ! $order->needs_payment() ) {
 					/* translators: %s: order status */
-					throw new Exception( sprintf( __( 'This order&rsquo;s status is &ldquo;%s&rdquo;&mdash;it cannot be paid for. Please contact us if you need assistance.', 'woocommerce' ), wc_get_order_status_name( $order->get_status() ) ) );
+					throw new Exception( sprintf( __( 'This order&rsquo;s status is &ldquo;%s&rdquo;&mdash;it cannot be paid for. Please contact us if you need assistance.', 'poocommerce' ), wc_get_order_status_name( $order->get_status() ) ) );
 				}
 
 				// Ensure order items are still stocked if paying for a failed order. Pending orders do not need this check because stock is held.
@@ -151,9 +151,9 @@ class WC_Shortcode_Checkout {
 									continue;
 								}
 
-								if ( ! apply_filters( 'woocommerce_pay_order_product_in_stock', $product->is_in_stock(), $product, $order ) ) {
+								if ( ! apply_filters( 'poocommerce_pay_order_product_in_stock', $product->is_in_stock(), $product, $order ) ) {
 									/* translators: %s: product name */
-									throw new Exception( sprintf( __( 'Sorry, "%s" is no longer in stock so this order cannot be paid for. We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name() ) );
+									throw new Exception( sprintf( __( 'Sorry, "%s" is no longer in stock so this order cannot be paid for. We apologize for any inconvenience caused.', 'poocommerce' ), $product->get_name() ) );
 								}
 
 								// We only need to check products managing stock, with a limited stock qty.
@@ -165,9 +165,9 @@ class WC_Shortcode_Checkout {
 								$held_stock     = wc_get_held_stock_quantity( $product, $order->get_id() );
 								$required_stock = $quantities[ $product->get_stock_managed_by_id() ];
 
-								if ( ! apply_filters( 'woocommerce_pay_order_product_has_enough_stock', ( $product->get_stock_quantity() >= ( $held_stock + $required_stock ) ), $product, $order ) ) {
+								if ( ! apply_filters( 'poocommerce_pay_order_product_has_enough_stock', ( $product->get_stock_quantity() >= ( $held_stock + $required_stock ) ), $product, $order ) ) {
 									/* translators: 1: product name 2: quantity in stock */
-									throw new Exception( sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity() - $held_stock, $product ) ) );
+									throw new Exception( sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused.', 'poocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity() - $held_stock, $product ) ) );
 								}
 							}
 						}
@@ -208,7 +208,7 @@ class WC_Shortcode_Checkout {
 				 *
 				 * @since 3.0.2
 				 */
-				$order_button_text = apply_filters( 'woocommerce_pay_order_button_text', __( 'Pay for order', 'woocommerce' ) );
+				$order_button_text = apply_filters( 'poocommerce_pay_order_button_text', __( 'Pay for order', 'poocommerce' ) );
 
 				/**
 				 * Triggered right before the Pay for Order form, after validation of the order and customer.
@@ -219,7 +219,7 @@ class WC_Shortcode_Checkout {
 				 *
 				 * @since 6.6
 				 */
-				do_action( 'before_woocommerce_pay_form', $order, $order_button_text, $available_gateways );
+				do_action( 'before_poocommerce_pay_form', $order, $order_button_text, $available_gateways );
 
 				wc_get_template(
 					'checkout/form-pay.php',
@@ -247,16 +247,16 @@ class WC_Shortcode_Checkout {
 
 				} else {
 					/* translators: %s: order status */
-					wc_print_notice( sprintf( __( 'This order&rsquo;s status is &ldquo;%s&rdquo;&mdash;it cannot be paid for. Please contact us if you need assistance.', 'woocommerce' ), wc_get_order_status_name( $order->get_status() ) ), 'error' );
+					wc_print_notice( sprintf( __( 'This order&rsquo;s status is &ldquo;%s&rdquo;&mdash;it cannot be paid for. Please contact us if you need assistance.', 'poocommerce' ), wc_get_order_status_name( $order->get_status() ) ), 'error' );
 				}
 			} else {
-				wc_print_notice( __( 'Sorry, this order is invalid and cannot be paid for.', 'woocommerce' ), 'error' );
+				wc_print_notice( __( 'Sorry, this order is invalid and cannot be paid for.', 'poocommerce' ), 'error' );
 			}
 		} else {
-			wc_print_notice( __( 'Invalid order.', 'woocommerce' ), 'error' );
+			wc_print_notice( __( 'Invalid order.', 'poocommerce' ), 'error' );
 		}
 
-		do_action( 'after_woocommerce_pay' );
+		do_action( 'after_poocommerce_pay' );
 	}
 
 	/**
@@ -268,8 +268,8 @@ class WC_Shortcode_Checkout {
 		$order = false;
 
 		// Get the order.
-		$order_id  = apply_filters( 'woocommerce_thankyou_order_id', absint( $order_id ) );
-		$order_key = apply_filters( 'woocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) ); // WPCS: input var ok, CSRF ok.
+		$order_id  = apply_filters( 'poocommerce_thankyou_order_id', absint( $order_id ) );
+		$order_key = apply_filters( 'poocommerce_thankyou_order_key', empty( $_GET['key'] ) ? '' : wc_clean( wp_unslash( $_GET['key'] ) ) ); // WPCS: input var ok, CSRF ok.
 
 		if ( $order_id > 0 ) {
 			$order = wc_get_order( $order_id );
@@ -308,14 +308,14 @@ class WC_Shortcode_Checkout {
 		 *
 		 * @since 8.4.0
 		 */
-		$verify_known_shoppers = apply_filters( 'woocommerce_order_received_verify_known_shoppers', true );
+		$verify_known_shoppers = apply_filters( 'poocommerce_order_received_verify_known_shoppers', true );
 		$order_customer_id     = $order->get_customer_id();
 
 		// For non-guest orders, require the user to be logged in before showing this page.
 		if ( $verify_known_shoppers && $order_customer_id && get_current_user_id() !== $order_customer_id ) {
 			wc_get_template( 'checkout/order-received.php', array( 'order' => false ) );
-			wc_print_notice( esc_html__( 'Please log in to your account to view this order.', 'woocommerce' ), 'notice' );
-			woocommerce_login_form( array( 'redirect' => $order->get_checkout_order_received_url() ) );
+			wc_print_notice( esc_html__( 'Please log in to your account to view this order.', 'poocommerce' ), 'notice' );
+			poocommerce_login_form( array( 'redirect' => $order->get_checkout_order_received_url() ) );
 			return;
 		}
 
@@ -341,15 +341,15 @@ class WC_Shortcode_Checkout {
 	 */
 	private static function checkout() {
 		// Show non-cart errors.
-		do_action( 'woocommerce_before_checkout_form_cart_notices' );
+		do_action( 'poocommerce_before_checkout_form_cart_notices' );
 
 		// Check cart has contents.
-		if ( WC()->cart->is_empty() && ! is_customize_preview() && apply_filters( 'woocommerce_checkout_redirect_empty_cart', true ) ) {
+		if ( WC()->cart->is_empty() && ! is_customize_preview() && apply_filters( 'poocommerce_checkout_redirect_empty_cart', true ) ) {
 			return;
 		}
 
 		// Check cart contents for errors.
-		do_action( 'woocommerce_check_cart_items' );
+		do_action( 'poocommerce_check_cart_items' );
 
 		// Calc totals.
 		WC()->cart->calculate_totals();
@@ -364,10 +364,10 @@ class WC_Shortcode_Checkout {
 
 		} else {
 
-			$non_js_checkout = ! empty( $_POST['woocommerce_checkout_update_totals'] ); // WPCS: input var ok, CSRF ok.
+			$non_js_checkout = ! empty( $_POST['poocommerce_checkout_update_totals'] ); // WPCS: input var ok, CSRF ok.
 
 			if ( wc_notice_count( 'error' ) === 0 && $non_js_checkout ) {
-				wc_add_notice( __( 'The order totals have been updated. Please confirm your order by pressing the "Place order" button at the bottom of the page.', 'woocommerce' ) );
+				wc_add_notice( __( 'The order totals have been updated. Please confirm your order by pressing the "Place order" button at the bottom of the page.', 'poocommerce' ) );
 			}
 
 			wc_get_template( 'checkout/form-checkout.php', array( 'checkout' => $checkout ) );

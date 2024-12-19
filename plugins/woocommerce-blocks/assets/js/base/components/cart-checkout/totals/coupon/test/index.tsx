@@ -4,7 +4,7 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { dispatch } from '@wordpress/data';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

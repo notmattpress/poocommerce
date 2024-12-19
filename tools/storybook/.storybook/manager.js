@@ -7,13 +7,13 @@ import { themes } from '@storybook/theming';
 /**
  * Internal dependencies
  */
-import logoUrl from '../woocommerce_logo.png';
+import logoUrl from '../poocommerce_logo.png';
 
 addons.setConfig( {
 	theme: { ...themes.light, brandImage: logoUrl },
 	sidebar: {
 		collapsedRoots: [
-			'woocommerce-admin',
+			'poocommerce-admin',
 			'product-editor',
 			'product-app',
 		],

@@ -3,7 +3,7 @@
  */
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { PaymentRecommendations as PaymentRecommendationsWrapper } from '../paym
 import { isWCPaySupported } from '../../task-lists/fills/PaymentGatewaySuggestions/components/WCPay';
 import { createNoticesFromResponse } from '../../lib/notices';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 
 jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
@@ -23,7 +23,7 @@ jest.mock( '@wordpress/data', () => ( {
 		installAndActivatePlugins: jest.fn(),
 	} ) ),
 } ) );
-jest.mock( '@woocommerce/components', () => ( {
+jest.mock( '@poocommerce/components', () => ( {
 	EllipsisMenu: ( {
 		renderContent: Content,
 	}: {
@@ -133,12 +133,12 @@ describe( 'Payment recommendations', () => {
 			'settings_payments_recommendations_pageview',
 			{
 				test_displayed: true,
-				woocommerce_payments_displayed: false,
+				poocommerce_payments_displayed: false,
 			}
 		);
 	} );
 
-	it( 'should set woocommerce-payments-displayed prop to true if pre install wc pay promotion gateway is displayed', () => {
+	it( 'should set poocommerce-payments-displayed prop to true if pre install wc pay promotion gateway is displayed', () => {
 		( isWCPaySupported as jest.Mock ).mockReturnValue( true );
 		( useSelect as jest.Mock ).mockReturnValue( {
 			installedPaymentGateways: {},
@@ -148,7 +148,7 @@ describe( 'Payment recommendations', () => {
 		} );
 		const { container } = render(
 			<div>
-				<div data-gateway_id="pre_install_woocommerce_payments_promotion"></div>
+				<div data-gateway_id="pre_install_poocommerce_payments_promotion"></div>
 				<PaymentRecommendations />
 			</div>
 		);
@@ -158,7 +158,7 @@ describe( 'Payment recommendations', () => {
 			'settings_payments_recommendations_pageview',
 			{
 				test_displayed: true,
-				woocommerce_payments_displayed: false,
+				poocommerce_payments_displayed: false,
 			}
 		);
 	} );

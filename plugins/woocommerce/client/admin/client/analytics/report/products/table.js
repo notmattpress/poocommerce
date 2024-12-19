@@ -7,12 +7,12 @@ import { compose } from '@wordpress/compose';
 import { decodeEntities } from '@wordpress/html-entities';
 import { withSelect } from '@wordpress/data';
 import { map } from 'lodash';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { Link, Tag } from '@woocommerce/components';
-import { formatValue } from '@woocommerce/number';
-import { getAdminLink } from '@woocommerce/settings';
-import { ITEMS_STORE_NAME } from '@woocommerce/data';
-import { CurrencyContext } from '@woocommerce/currency';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { Link, Tag } from '@poocommerce/components';
+import { formatValue } from '@poocommerce/number';
+import { getAdminLink } from '@poocommerce/settings';
+import { ITEMS_STORE_NAME } from '@poocommerce/data';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -39,20 +39,20 @@ class ProductsReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Product title', 'woocommerce' ),
+				label: __( 'Product title', 'poocommerce' ),
 				key: 'product_name',
 				required: true,
 				isLeftAligned: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'SKU', 'woocommerce' ),
+				label: __( 'SKU', 'poocommerce' ),
 				key: 'sku',
 				hiddenByDefault: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'Items sold', 'woocommerce' ),
+				label: __( 'Items sold', 'poocommerce' ),
 				key: 'items_sold',
 				required: true,
 				defaultSort: true,
@@ -60,37 +60,37 @@ class ProductsReportTable extends Component {
 				isNumeric: true,
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
-				screenReaderLabel: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
+				screenReaderLabel: __( 'Net sales', 'poocommerce' ),
 				key: 'net_revenue',
 				required: true,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Orders', 'woocommerce' ),
+				label: __( 'Orders', 'poocommerce' ),
 				key: 'orders_count',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Category', 'woocommerce' ),
+				label: __( 'Category', 'poocommerce' ),
 				key: 'product_cat',
 			},
 			{
-				label: __( 'Variations', 'woocommerce' ),
+				label: __( 'Variations', 'poocommerce' ),
 				key: 'variations',
 				isSortable: true,
 			},
 			manageStock === 'yes'
 				? {
-						label: __( 'Status', 'woocommerce' ),
+						label: __( 'Status', 'poocommerce' ),
 						key: 'stock_status',
 				  }
 				: null,
 			manageStock === 'yes'
 				? {
-						label: __( 'Stock', 'woocommerce' ),
+						label: __( 'Stock', 'poocommerce' ),
 						key: 'stock',
 						isNumeric: true,
 				  }
@@ -167,7 +167,7 @@ class ProductsReportTable extends Component {
 					{ _x(
 						'Low',
 						'Indication of a low quantity',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Link>
 			) : (
@@ -205,7 +205,7 @@ class ProductsReportTable extends Component {
 				},
 				{
 					display: (
-						<div className="woocommerce-table__product-categories">
+						<div className="poocommerce-table__product-categories">
 							{ productCategories[ 0 ] && (
 								<CategoryBreacrumbs
 									category={ productCategories[ 0 ] }
@@ -219,7 +219,7 @@ class ProductsReportTable extends Component {
 										_x(
 											'+%d more',
 											'categories',
-											'woocommerce'
+											'poocommerce'
 										),
 										productCategories.length - 1
 									) }
@@ -253,7 +253,7 @@ class ProductsReportTable extends Component {
 					? {
 							display: extendedInfoManageStock
 								? stockStatus
-								: __( 'N/A', 'woocommerce' ),
+								: __( 'N/A', 'poocommerce' ),
 							value: extendedInfoManageStock
 								? stockStatuses[ extendedInfoStockStatus ]
 								: null,
@@ -267,7 +267,7 @@ class ProductsReportTable extends Component {
 										'number',
 										stockQuantity
 								  )
-								: __( 'N/A', 'woocommerce' ),
+								: __( 'N/A', 'poocommerce' ),
 							value: stockQuantity,
 					  }
 					: null,
@@ -290,7 +290,7 @@ class ProductsReportTable extends Component {
 					'Product',
 					'Products',
 					productsCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', productsCount ),
 			},
@@ -299,16 +299,16 @@ class ProductsReportTable extends Component {
 					'Item sold',
 					'Items sold',
 					itemsSold,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', itemsSold ),
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
 				value: formatAmount( netRevenue ),
 			},
 			{
-				label: _n( 'Order', 'Orders', ordersCount, 'woocommerce' ),
+				label: _n( 'Order', 'Orders', ordersCount, 'poocommerce' ),
 				value: formatValue( currency, 'number', ordersCount ),
 			},
 		];
@@ -327,9 +327,9 @@ class ProductsReportTable extends Component {
 		const labels = {
 			helpText: __(
 				'Check at least two products below to compare',
-				'woocommerce'
+				'poocommerce'
 			),
-			placeholder: __( 'Search by product name or SKU', 'woocommerce' ),
+			placeholder: __( 'Search by product name or SKU', 'poocommerce' ),
 		};
 
 		return (
@@ -357,7 +357,7 @@ class ProductsReportTable extends Component {
 					extended_info: true,
 					segmentby: query.segmentby,
 				} }
-				title={ __( 'Products', 'woocommerce' ) }
+				title={ __( 'Products', 'poocommerce' ) }
 				columnPrefsKey="products_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }

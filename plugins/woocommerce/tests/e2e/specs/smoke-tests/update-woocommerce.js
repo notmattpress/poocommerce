@@ -1,13 +1,13 @@
 /**
  * Internal dependencies
  */
-const { merchant, utils } = require( '@woocommerce/e2e-utils' );
+const { merchant, utils } = require( '@poocommerce/e2e-utils' );
 
 const {
 	getRemotePluginZip,
 	getLatestReleaseZipUrl,
 	deleteDownloadedPluginFiles,
-} = require( '@woocommerce/e2e-environment' );
+} = require( '@poocommerce/e2e-environment' );
 
 /**
  * External dependencies
@@ -17,21 +17,21 @@ const { it, beforeAll } = require( '@jest/globals' );
 const { UPDATE_WC, TEST_RELEASE } = process.env;
 
 let zipUrl;
-const pluginName = 'WooCommerce';
+const pluginName = 'PooCommerce';
 
 let pluginPath;
 
 utils.describeIf( UPDATE_WC )(
-	'WooCommerce plugin can be uploaded and activated',
+	'PooCommerce plugin can be uploaded and activated',
 	() => {
 		beforeAll( async () => {
 			if ( TEST_RELEASE ) {
 				zipUrl = await getLatestReleaseZipUrl(
-					'woocommerce/woocommerce'
+					'poocommerce/poocommerce'
 				);
 			} else {
 				zipUrl =
-					'https://github.com/woocommerce/woocommerce/releases/download/nightly/woocommerce-trunk-nightly.zip';
+					'https://github.com/poocommerce/poocommerce/releases/download/nightly/poocommerce-trunk-nightly.zip';
 			}
 
 			pluginPath = await getRemotePluginZip( zipUrl );
@@ -43,7 +43,7 @@ utils.describeIf( UPDATE_WC )(
 			await deleteDownloadedPluginFiles();
 		} );
 
-		it( 'can upload and activate the WooCommerce plugin', async () => {
+		it( 'can upload and activate the PooCommerce plugin', async () => {
 			await merchant.uploadAndActivatePlugin( pluginPath, pluginName );
 		} );
 

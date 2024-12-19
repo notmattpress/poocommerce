@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
 
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\EvaluateExtension;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\EvaluateExtension;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,13 +28,13 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		/*
 		 * Required for the BaseLocationCountryRuleProcessor
 		 * to not return false for "US:CA" country-state combo.
 		 */
-		update_option( 'woocommerce_store_address', 'foo' );
+		update_option( 'poocommerce_store_address', 'foo' );
 
 		update_option( 'active_plugins', array( 'foo/foo.php' ) );
 
@@ -43,8 +43,8 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 				'key'     => 'foo',
 				'title'   => 'Test bundle',
 				'plugins' => array(
-					DefaultFreeExtensions::get_plugin( 'woocommerce-services:shipping' ),
-					DefaultFreeExtensions::get_plugin( 'woocommerce-services:tax' ),
+					DefaultFreeExtensions::get_plugin( 'poocommerce-services:shipping' ),
+					DefaultFreeExtensions::get_plugin( 'poocommerce-services:tax' ),
 				),
 			),
 		);
@@ -59,8 +59,8 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
 		$this->assertCount( 2, $recommended_plugin_slugs );
-		$this->assertContains( 'woocommerce-services:shipping', $recommended_plugin_slugs );
-		$this->assertContains( 'woocommerce-services:tax', $recommended_plugin_slugs );
+		$this->assertContains( 'poocommerce-services:shipping', $recommended_plugin_slugs );
+		$this->assertContains( 'poocommerce-services:tax', $recommended_plugin_slugs );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_wcservices_is_not_recommended_if_in_an_unsupported_country() {
-		update_option( 'woocommerce_default_country', 'FOO' );
+		update_option( 'poocommerce_default_country', 'FOO' );
 
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
@@ -77,14 +77,14 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Asserts WCS&T is not recommended if WooCommerce Shipping is active.
+	 * Asserts WCS&T is not recommended if PooCommerce Shipping is active.
 	 *
 	 * @return void
 	 */
-	public function test_wcservices_is_not_recommended_if_woocommerce_shipping_is_active() {
+	public function test_wcservices_is_not_recommended_if_poocommerce_shipping_is_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$shipping_plugin_file = 'woocommerce-shipping/woocommerce-shipping.php';
+		$shipping_plugin_file = 'poocommerce-shipping/poocommerce-shipping.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$shipping_plugin_file_path = WP_PLUGIN_DIR . '/' . $shipping_plugin_file;
 		self::touch( $shipping_plugin_file_path );
@@ -102,14 +102,14 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Asserts WCS&T is not recommended if WooCommerce Tax is active.
+	 * Asserts WCS&T is not recommended if PooCommerce Tax is active.
 	 *
 	 * @return void
 	 */
-	public function test_wcservices_is_not_recommended_if_woocommerce_tax_is_active() {
+	public function test_wcservices_is_not_recommended_if_poocommerce_tax_is_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$tax_plugin_file = 'woocommerce-tax/woocommerce-tax.php';
+		$tax_plugin_file = 'poocommerce-tax/poocommerce-tax.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$tax_plugin_file_path = WP_PLUGIN_DIR . '/' . $tax_plugin_file;
 		self::touch( $tax_plugin_file_path );
@@ -127,20 +127,20 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Asserts WCS&T is not recommended if WooCommerce Shipping and WooCommerce Tax are both active.
+	 * Asserts WCS&T is not recommended if PooCommerce Shipping and PooCommerce Tax are both active.
 	 *
 	 * @return void
 	 */
-	public function test_wcservices_is_not_recommended_if_both_woocommerce_shipping_and_woocommerce_tax_are_active() {
+	public function test_wcservices_is_not_recommended_if_both_poocommerce_shipping_and_poocommerce_tax_are_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$shipping_plugin_file = 'woocommerce-shipping/woocommerce-shipping.php';
+		$shipping_plugin_file = 'poocommerce-shipping/poocommerce-shipping.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$shipping_plugin_file_path = WP_PLUGIN_DIR . '/' . $shipping_plugin_file;
 		self::touch( $shipping_plugin_file_path );
 
 		// Make sure the plugin passes as active.
-		$tax_plugin_file = 'woocommerce-tax/woocommerce-tax.php';
+		$tax_plugin_file = 'poocommerce-tax/poocommerce-tax.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$tax_plugin_file_path = WP_PLUGIN_DIR . '/' . $tax_plugin_file;
 		self::touch( $tax_plugin_file_path );
@@ -168,7 +168,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	public function test_wcservices_is_not_recommended_if_it_is_already_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$services_plugin_file = 'woocommerce-services/woocommerce-services.php';
+		$services_plugin_file = 'poocommerce-services/poocommerce-services.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$services_plugin_file_path = WP_PLUGIN_DIR . '/' . $services_plugin_file;
 		self::touch( $services_plugin_file_path );
@@ -191,7 +191,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	public function test_core_profiler_recommends_wcservices_as_shipping_and_tax_even_if_already_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$services_plugin_file = 'woocommerce-services/woocommerce-services.php';
+		$services_plugin_file = 'poocommerce-services/poocommerce-services.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$services_plugin_file_path = WP_PLUGIN_DIR . '/' . $services_plugin_file;
 		self::touch( $services_plugin_file_path );
@@ -212,14 +212,14 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Asserts that in the core profiler, WCS&T is not displayed if WooCommerce Shipping is active.
+	 * Asserts that in the core profiler, WCS&T is not displayed if PooCommerce Shipping is active.
 	 *
 	 * @return void
 	 */
-	public function test_core_profiler_does_not_recommend_wcservices_at_all_if_woocommerce_shipping_is_active() {
+	public function test_core_profiler_does_not_recommend_wcservices_at_all_if_poocommerce_shipping_is_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$shipping_plugin_file = 'woocommerce-shipping/woocommerce-shipping.php';
+		$shipping_plugin_file = 'poocommerce-shipping/poocommerce-shipping.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$shipping_plugin_file_path = WP_PLUGIN_DIR . '/' . $shipping_plugin_file;
 		self::touch( $shipping_plugin_file_path );
@@ -238,14 +238,14 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Asserts that in the core profiler, WCS&T is not displayed if WooCommerce Tax is active.
+	 * Asserts that in the core profiler, WCS&T is not displayed if PooCommerce Tax is active.
 	 *
 	 * @return void
 	 */
-	public function test_core_profiler_does_not_recommend_wcservices_at_all_if_woocommerce_tax_is_active() {
+	public function test_core_profiler_does_not_recommend_wcservices_at_all_if_poocommerce_tax_is_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$tax_plugin_file = 'woocommerce-tax/woocommerce-tax.php';
+		$tax_plugin_file = 'poocommerce-tax/poocommerce-tax.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$tax_plugin_file_path = WP_PLUGIN_DIR . '/' . $tax_plugin_file;
 		self::touch( $tax_plugin_file_path );

@@ -7,19 +7,19 @@ import { createInterpolateElement } from '@wordpress/element';
 import {
 	FormattedMonetaryAmount,
 	TotalsItem,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import {
 	applyCheckoutFilter,
 	productPriceValidation,
-} from '@woocommerce/blocks-checkout';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/blocks-checkout';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
+import { getSetting } from '@poocommerce/settings';
 import {
 	CartResponseTotals,
 	Currency,
 	LooselyMustHave,
-} from '@woocommerce/types';
-import { formatPrice } from '@woocommerce/price-format';
+} from '@poocommerce/types';
+import { formatPrice } from '@poocommerce/price-format';
 
 /**
  * Internal dependencies
@@ -107,7 +107,7 @@ const TotalsFooterItem = ( {
 		taxLines && taxLines.length > 0
 			? sprintf(
 					/* translators: %s is a list of tax rates */
-					__( 'Including %s', 'woocommerce' ),
+					__( 'Including %s', 'poocommerce' ),
 					taxLines
 						.map( ( { name, price } ) => {
 							return `${ formatPrice(
@@ -117,7 +117,7 @@ const TotalsFooterItem = ( {
 						} )
 						.join( ', ' )
 			  )
-			: __( 'Including <TaxAmount/> in taxes', 'woocommerce' );
+			: __( 'Including <TaxAmount/> in taxes', 'poocommerce' );
 
 	return (
 		<TotalsItem

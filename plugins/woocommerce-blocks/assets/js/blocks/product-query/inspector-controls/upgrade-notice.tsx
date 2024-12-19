@@ -4,22 +4,22 @@
 import { __ } from '@wordpress/i18n';
 import { Notice, Button } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 export const UpgradeNotice = ( props: { upgradeBlock: () => void } ) => {
 	const notice = createInterpolateElement(
 		__(
 			'Upgrade all Products (Beta) blocks on this page to <strongText /> for more features!',
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			strongText: (
-				<strong>{ __( `Product Collection`, 'woocommerce' ) }</strong>
+				<strong>{ __( `Product Collection`, 'poocommerce' ) }</strong>
 			),
 		}
 	);
 
-	const buttonLabel = __( 'Upgrade to Product Collection', 'woocommerce' );
+	const buttonLabel = __( 'Upgrade to Product Collection', 'poocommerce' );
 
 	const handleClick = () => {
 		props.upgradeBlock();

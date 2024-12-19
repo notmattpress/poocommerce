@@ -15,8 +15,8 @@ export default {
 	args: {
 		label: 'sku',
 		required: true,
-		note: __( '(stock keeping unit)', 'woocommerce' ),
-		tooltip: __( 'Visit woo.com', 'woocommerce' ),
+		note: __( '(stock keeping unit)', 'poocommerce' ),
+		tooltip: __( 'Visit woo.com', 'poocommerce' ),
 	},
 };
 

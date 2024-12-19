@@ -40,39 +40,39 @@ describe( 'ShippingRecommendations', () => {
 	it( 'should not render when WCS is already installed', () => {
 		useSelect.mockImplementation( ( fn ) =>
 			fn( () => ( {
-				getActivePlugins: () => [ 'woocommerce-services' ],
+				getActivePlugins: () => [ 'poocommerce-services' ],
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
-	it( 'should not render when the WooCommerce Shipping plugin is active', () => {
+	it( 'should not render when the PooCommerce Shipping plugin is active', () => {
 		useSelect.mockImplementation( ( fn ) =>
 			fn( () => ( {
-				getActivePlugins: () => [ 'woocommerce-shipping' ],
+				getActivePlugins: () => [ 'poocommerce-shipping' ],
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
-	it( 'should not render when the WooCommerce Tax plugin is active', () => {
+	it( 'should not render when the PooCommerce Tax plugin is active', () => {
 		useSelect.mockImplementation( ( fn ) =>
 			fn( () => ( {
-				getActivePlugins: () => [ 'woocommerce-shipping' ],
+				getActivePlugins: () => [ 'poocommerce-shipping' ],
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -80,7 +80,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 	} );
 
@@ -104,7 +104,7 @@ describe( 'ShippingRecommendations', () => {
 		expect( installAndActivatePluginsMock ).toHaveBeenCalled();
 		await waitFor( () => {
 			expect( successNoticeMock ).toHaveBeenCalledWith(
-				'🎉 WooCommerce Shipping is installed!',
+				'🎉 PooCommerce Shipping is installed!',
 				expect.anything()
 			);
 		} );

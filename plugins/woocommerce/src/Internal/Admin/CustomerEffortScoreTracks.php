@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Customer effort score tracks
+ * PooCommerce Customer effort score tracks
  *
- * @package WooCommerce\Admin\Features
+ * @package PooCommerce\Admin\Features
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,18 +16,18 @@ class CustomerEffortScoreTracks {
 	/**
 	 * Option name for the CES Tracks queue.
 	 */
-	const CES_TRACKS_QUEUE_OPTION_NAME = 'woocommerce_ces_tracks_queue';
+	const CES_TRACKS_QUEUE_OPTION_NAME = 'poocommerce_ces_tracks_queue';
 
 	/**
 	 * Option name for the clear CES Tracks queue for page.
 	 */
 	const CLEAR_CES_TRACKS_QUEUE_FOR_PAGE_OPTION_NAME =
-		'woocommerce_clear_ces_tracks_queue_for_page';
+		'poocommerce_clear_ces_tracks_queue_for_page';
 
 	/**
 	 * Option name for the set of actions that have been shown.
 	 */
-	const SHOWN_FOR_ACTIONS_OPTION_NAME = 'woocommerce_ces_shown_for_actions';
+	const SHOWN_FOR_ACTIONS_OPTION_NAME = 'poocommerce_ces_shown_for_actions';
 
 	/**
 	 * Action name for product add/publish.
@@ -82,14 +82,14 @@ class CustomerEffortScoreTracks {
 	private $onsubmit_label;
 
 	/**
-	 * Constructor. Sets up filters to hook into WooCommerce.
+	 * Constructor. Sets up filters to hook into PooCommerce.
 	 */
 	public function __construct() {
 		$this->enable_survey_enqueing_if_tracking_is_enabled();
 	}
 
 	/**
-	 * Add actions that require woocommerce_allow_tracking.
+	 * Add actions that require poocommerce_allow_tracking.
 	 */
 	private function enable_survey_enqueing_if_tracking_is_enabled() {
 		// Only hook up the action handlers if in wp-admin.
@@ -103,16 +103,16 @@ class CustomerEffortScoreTracks {
 		}
 
 		// Only enqueue a survey if tracking is allowed.
-		$allow_tracking = 'yes' === get_option( 'woocommerce_allow_tracking', 'no' );
+		$allow_tracking = 'yes' === get_option( 'poocommerce_allow_tracking', 'no' );
 		if ( ! $allow_tracking ) {
 			return;
 		}
 
 		add_action( 'admin_init', array( $this, 'maybe_clear_ces_tracks_queue' ) );
-		add_action( 'woocommerce_update_options', array( $this, 'run_on_update_options' ), 10, 3 );
+		add_action( 'poocommerce_update_options', array( $this, 'run_on_update_options' ), 10, 3 );
 		add_action( 'product_cat_add_form', array( $this, 'add_script_track_product_categories' ), 10, 3 );
 		add_action( 'product_tag_add_form', array( $this, 'add_script_track_product_tags' ), 10, 3 );
-		add_action( 'woocommerce_attribute_added', array( $this, 'run_on_add_product_attributes' ), 10, 3 );
+		add_action( 'poocommerce_attribute_added', array( $this, 'run_on_add_product_attributes' ), 10, 3 );
 		add_action( 'load-edit.php', array( $this, 'run_on_load_edit_php' ), 10, 3 );
 		add_action( 'product_page_product_importer', array( $this, 'run_on_product_import' ), 10, 3 );
 		// Only hook up the transition_post_status action handler
@@ -129,7 +129,7 @@ class CustomerEffortScoreTracks {
 				3
 			);
 		}
-		$this->onsubmit_label = __( 'Thank you for your feedback!', 'woocommerce' );
+		$this->onsubmit_label = __( 'Thank you for your feedback!', 'poocommerce' );
 	}
 
 	/**
@@ -277,15 +277,15 @@ class CustomerEffortScoreTracks {
 				'action'         => self::SEARCH_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to use search?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
-					'The search feature in WooCommerce is easy to use.',
-					'woocommerce'
+					'The search feature in PooCommerce is easy to use.',
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'The search\'s functionality meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
 				'pagenow'        => $page_now,
@@ -351,15 +351,15 @@ class CustomerEffortScoreTracks {
 				'action'         => self::PRODUCT_ADD_PUBLISH_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to add a product?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
 					'The product creation screen is easy to use.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'The product creation screen\'s functionality meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
 				'pagenow'        => 'product',
@@ -384,15 +384,15 @@ class CustomerEffortScoreTracks {
 				'action'         => self::PRODUCT_UPDATE_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to edit your product?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
 					'The product update process is easy to complete.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'The product update process meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
 				'pagenow'        => 'product',
@@ -417,15 +417,15 @@ class CustomerEffortScoreTracks {
 				'action'         => self::SHOP_ORDER_UPDATE_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to update an order?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
 					'The order details screen is easy to use.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'The order details screen\'s functionality meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
 				'pagenow'        => 'shop_order',
@@ -483,9 +483,9 @@ class CustomerEffortScoreTracks {
 		wc_enqueue_js(
 			$this->get_script_track_edit_php(
 				self::ADD_PRODUCT_CATEGORIES_ACTION_NAME,
-				__( 'How easy was it to add product category?', 'woocommerce' ),
-				__( 'The product category details screen is easy to use.', 'woocommerce' ),
-				__( "The product category details screen's functionality meets my needs.", 'woocommerce' )
+				__( 'How easy was it to add product category?', 'poocommerce' ),
+				__( 'The product category details screen is easy to use.', 'poocommerce' ),
+				__( "The product category details screen's functionality meets my needs.", 'poocommerce' )
 			)
 		);
 	}
@@ -501,9 +501,9 @@ class CustomerEffortScoreTracks {
 		wc_enqueue_js(
 			$this->get_script_track_edit_php(
 				self::ADD_PRODUCT_TAGS_ACTION_NAME,
-				__( 'How easy was it to add a product tag?', 'woocommerce' ),
-				__( 'The product tag details screen is easy to use.', 'woocommerce' ),
-				__( "The product tag details screen's functionality meets my needs.", 'woocommerce' )
+				__( 'How easy was it to add a product tag?', 'poocommerce' ),
+				__( 'The product tag details screen is easy to use.', 'poocommerce' ),
+				__( "The product tag details screen's functionality meets my needs.", 'poocommerce' )
 			)
 		);
 	}
@@ -526,15 +526,15 @@ class CustomerEffortScoreTracks {
 				'action'         => self::IMPORT_PRODUCTS_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to import products?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
 					'The product import process is easy to complete.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'The product import process meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
 				'pagenow'        => 'product_page_product_importer',
@@ -569,19 +569,19 @@ class CustomerEffortScoreTracks {
 				'action'         => self::SETTINGS_CHANGE_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to update your settings?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
 					'The settings screen is easy to use.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'The settings screen\'s functionality meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
-				'pagenow'        => 'woocommerce_page_wc-settings',
-				'adminpage'      => 'woocommerce_page_wc-settings',
+				'pagenow'        => 'poocommerce_page_wc-settings',
+				'adminpage'      => 'poocommerce_page_wc-settings',
 				'props'          => (object) $props,
 			)
 		);
@@ -600,15 +600,15 @@ class CustomerEffortScoreTracks {
 				'action'         => self::ADD_PRODUCT_ATTRIBUTES_ACTION_NAME,
 				'title'          => __(
 					'How easy was it to add a product attribute?',
-					'woocommerce'
+					'poocommerce'
 				),
 				'firstQuestion'  => __(
 					'Product attributes are easy to use.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'secondQuestion' => __(
 					'Product attributes\' functionality meets my needs.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'onsubmit_label' => $this->onsubmit_label,
 				'pagenow'        => 'product_page_product_attributes',

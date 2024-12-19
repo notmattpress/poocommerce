@@ -21,7 +21,7 @@
 		}
 
 		&.loading::after {
-			font-family: WooCommerce; /* stylelint-disable-line */
+			font-family: PooCommerce; /* stylelint-disable-line */
 			content: "\e031";
 			animation: spin 2s linear infinite;
 			margin-right: 0;

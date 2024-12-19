@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Tax Settings
+ * PooCommerce Tax Settings
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     2.1.0
  */
 
@@ -24,14 +24,14 @@ class WC_Settings_Tax extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'tax';
-		$this->label = __( 'Tax', 'woocommerce' );
+		$this->label = __( 'Tax', 'poocommerce' );
 
-		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-		add_action( 'woocommerce_admin_field_conflict_error', array( $this, 'conflict_error' ) );
+		add_filter( 'poocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
+		add_action( 'poocommerce_admin_field_conflict_error', array( $this, 'conflict_error' ) );
 		if ( wc_tax_enabled() ) {
-			add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
-			add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
-			add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
+			add_action( 'poocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
+			add_action( 'poocommerce_settings_' . $this->id, array( $this, 'output' ) );
+			add_action( 'poocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
 		}
 	}
 
@@ -48,9 +48,9 @@ class WC_Settings_Tax extends WC_Settings_Page {
 	public function conflict_error() {
 		?>
 		<tr valign="top">
-							<th scope="row" class="titledesc woocommerce_admin_tax_settings_slotfill_th">
+							<th scope="row" class="titledesc poocommerce_admin_tax_settings_slotfill_th">
 							</th>
-							<td class="forminp forminp-text woocommerce_admin_tax_settings_slotfill_td">
+							<td class="forminp forminp-text poocommerce_admin_tax_settings_slotfill_td">
 		<div id="wc_tax_settings_slotfill"> </div>
 	</td>
 	</tr>
@@ -78,8 +78,8 @@ class WC_Settings_Tax extends WC_Settings_Page {
 	 */
 	protected function get_own_sections() {
 		$sections = array(
-			''         => __( 'Tax options', 'woocommerce' ),
-			'standard' => __( 'Standard rates', 'woocommerce' ),
+			''         => __( 'Tax options', 'poocommerce' ),
+			'standard' => __( 'Standard rates', 'poocommerce' ),
 		);
 
 		// Get tax classes and display as links.
@@ -87,7 +87,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
 
 		foreach ( $tax_classes as $class ) {
 			/* translators: $s tax rate section name */
-			$sections[ sanitize_title( $class ) ] = sprintf( __( '%s rates', 'woocommerce' ), $class );
+			$sections[ sanitize_title( $class ) ] = sprintf( __( '%s rates', 'poocommerce' ), $class );
 		}
 
 		return $sections;
@@ -127,8 +127,8 @@ class WC_Settings_Tax extends WC_Settings_Page {
 		if ( ! $current_section ) {
 			$this->save_settings_for_current_section();
 
-			if ( isset( $_POST['woocommerce_tax_classes'] ) ) {
-				$this->save_tax_classes( wp_unslash( $_POST['woocommerce_tax_classes'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( isset( $_POST['poocommerce_tax_classes'] ) ) {
+				$this->save_tax_classes( wp_unslash( $_POST['poocommerce_tax_classes'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			}
 		} elseif ( ! empty( $_POST['tax_rate_country'] ) ) {
 			$this->save_tax_rates();
@@ -168,7 +168,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
 				WC_Admin_Settings::add_error(
 					sprintf(
 						/* translators: 1: tax class name 2: error message */
-						esc_html__( 'Additional tax class "%1$s" couldn\'t be saved. %2$s.', 'woocommerce' ),
+						esc_html__( 'Additional tax class "%1$s" couldn\'t be saved. %2$s.', 'poocommerce' ),
 						esc_html( $name ),
 						$tax_class->get_error_message()
 					)
@@ -242,19 +242,19 @@ class WC_Settings_Tax extends WC_Settings_Page {
 					'tax_rate_class'    => $current_class,
 				),
 				'strings'       => array(
-					'no_rows_selected'        => __( 'No row(s) selected', 'woocommerce' ),
-					'unload_confirmation_msg' => __( 'Your changed data will be lost if you leave this page without saving.', 'woocommerce' ),
+					'no_rows_selected'        => __( 'No row(s) selected', 'poocommerce' ),
+					'unload_confirmation_msg' => __( 'Your changed data will be lost if you leave this page without saving.', 'poocommerce' ),
 					'csv_data_cols'           => array(
-						__( 'Country code', 'woocommerce' ),
-						__( 'State code', 'woocommerce' ),
-						__( 'Postcode / ZIP', 'woocommerce' ),
-						__( 'City', 'woocommerce' ),
-						__( 'Rate %', 'woocommerce' ),
-						__( 'Tax name', 'woocommerce' ),
-						__( 'Priority', 'woocommerce' ),
-						__( 'Compound', 'woocommerce' ),
-						__( 'Shipping', 'woocommerce' ),
-						__( 'Tax class', 'woocommerce' ),
+						__( 'Country code', 'poocommerce' ),
+						__( 'State code', 'poocommerce' ),
+						__( 'Postcode / ZIP', 'poocommerce' ),
+						__( 'City', 'poocommerce' ),
+						__( 'Rate %', 'poocommerce' ),
+						__( 'Tax name', 'poocommerce' ),
+						__( 'Priority', 'poocommerce' ),
+						__( 'Compound', 'poocommerce' ),
+						__( 'Shipping', 'poocommerce' ),
+						__( 'Tax class', 'poocommerce' ),
 					),
 				),
 			)
@@ -324,7 +324,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
 	 * Save tax rates.
 	 */
 	public function save_tax_rates() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing -- this is called via "do_action('woocommerce_settings_save_'...") in base class, where nonce is verified first.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- this is called via "do_action('poocommerce_settings_save_'...") in base class, where nonce is verified first.
 		global $wpdb;
 
 		$current_class = sanitize_title( self::get_current_tax_class() );
@@ -335,7 +335,7 @@ class WC_Settings_Tax extends WC_Settings_Page {
 		$first_tax_rate_id = key( $posted_countries );
 
 		// get the order position of the first tax rate id.
-		$tax_rate_order = absint( $wpdb->get_var( $wpdb->prepare( "SELECT tax_rate_order FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_id = %s", $first_tax_rate_id ) ) );
+		$tax_rate_order = absint( $wpdb->get_var( $wpdb->prepare( "SELECT tax_rate_order FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_id = %s", $first_tax_rate_id ) ) );
 
 		$index = isset( $tax_rate_order ) ? $tax_rate_order : 0;
 
