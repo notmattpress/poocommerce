@@ -6,9 +6,9 @@ import {
 	getSetting,
 	ShippingAddress,
 	AdditionalValues,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 
-import { CheckoutResponseSuccess } from '@woocommerce/types';
+import { CheckoutResponseSuccess } from '@poocommerce/types';
 
 export const STORE_KEY = 'wc/store/checkout';
 

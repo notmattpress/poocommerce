@@ -2,21 +2,21 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import { useCallback, useEffect, useRef } from '@wordpress/element';
-import PaymentMethodLabel from '@woocommerce/base-components/cart-checkout/payment-method-label';
-import PaymentMethodIcons from '@woocommerce/base-components/cart-checkout/payment-method-icons';
-import { getSetting } from '@woocommerce/settings';
+import PaymentMethodLabel from '@poocommerce/base-components/cart-checkout/payment-method-label';
+import PaymentMethodIcons from '@poocommerce/base-components/cart-checkout/payment-method-icons';
+import { getSetting } from '@poocommerce/settings';
 import deprecated from '@wordpress/deprecated';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
-import type { PaymentMethodInterface } from '@woocommerce/types';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
+import type { PaymentMethodInterface } from '@poocommerce/types';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	CHECKOUT_STORE_KEY,
 	PAYMENT_STORE_KEY,
 	CART_STORE_KEY,
-} from '@woocommerce/block-data';
-import { ValidationInputError } from '@woocommerce/blocks-components';
+} from '@poocommerce/block-data';
+import { ValidationInputError } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -67,8 +67,8 @@ export const usePaymentMethodInterface = (): PaymentMethodInterface => {
 						deprecated( 'isPristine', {
 							since: '9.6.0',
 							alternative: 'isIdle',
-							plugin: 'WooCommerce Blocks',
-							link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+							plugin: 'PooCommerce Blocks',
+							link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 						} );
 						return store.isPaymentIdle();
 					}, // isPristine is the same as isIdle
@@ -78,8 +78,8 @@ export const usePaymentMethodInterface = (): PaymentMethodInterface => {
 					get isFinished() {
 						deprecated( 'isFinished', {
 							since: '9.6.0',
-							plugin: 'WooCommerce Blocks',
-							link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+							plugin: 'PooCommerce Blocks',
+							link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 						} );
 						return (
 							store.hasPaymentError() || store.isPaymentReady()
@@ -89,16 +89,16 @@ export const usePaymentMethodInterface = (): PaymentMethodInterface => {
 					get hasFailed() {
 						deprecated( 'hasFailed', {
 							since: '9.6.0',
-							plugin: 'WooCommerce Blocks',
-							link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+							plugin: 'PooCommerce Blocks',
+							link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 						} );
 						return store.hasPaymentError();
 					},
 					get isSuccessful() {
 						deprecated( 'isSuccessful', {
 							since: '9.6.0',
-							plugin: 'WooCommerce Blocks',
-							link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+							plugin: 'PooCommerce Blocks',
+							link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 						} );
 						return store.isPaymentReady();
 					},
@@ -142,7 +142,7 @@ export const usePaymentMethodInterface = (): PaymentMethodInterface => {
 		prepareTotalItems( cartTotals, needsShipping )
 	);
 	const currentCartTotal = useRef( {
-		label: __( 'Total', 'woocommerce' ),
+		label: __( 'Total', 'poocommerce' ),
 		value: parseInt( cartTotals.total_price, 10 ),
 	} );
 
@@ -152,7 +152,7 @@ export const usePaymentMethodInterface = (): PaymentMethodInterface => {
 			needsShipping
 		);
 		currentCartTotal.current = {
-			label: __( 'Total', 'woocommerce' ),
+			label: __( 'Total', 'poocommerce' ),
 			value: parseInt( cartTotals.total_price, 10 ),
 		};
 	}, [ cartTotals, needsShipping ] );
@@ -163,8 +163,8 @@ export const usePaymentMethodInterface = (): PaymentMethodInterface => {
 				'setExpressPaymentError should only be used by Express Payment Methods (using the provided onError handler).',
 				{
 					alternative: '',
-					plugin: 'woocommerce-gutenberg-products-block',
-					link: 'https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/4228',
+					plugin: 'poocommerce-gutenberg-products-block',
+					link: 'https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/4228',
 				}
 			);
 			__internalSetExpressPaymentError( errorMessage );

@@ -4,7 +4,7 @@
 import {
 	ProductAttributeTerm,
 	ProductProductAttribute,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies

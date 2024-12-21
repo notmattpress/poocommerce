@@ -2,7 +2,7 @@
  * External dependencies
  */
 // @ts-expect-error -- @wordpress/element doesn't export createRoot until WP6.2
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { createRoot } from '@wordpress/element';
 
 /**

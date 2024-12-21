@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useContext } from '@wordpress/element';
 import {
@@ -31,7 +31,7 @@ import { SidebarNavigationScreen } from './sidebar-navigation-screen';
 import { CustomizeStoreContext } from '~/customize-store/assembler-hub';
 import { FlowType } from '~/customize-store/types';
 import { trackEvent } from '~/customize-store/tracking';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 import {
 	SidebarNavigationAnimationDirection,
 	SidebarNavigationContext,
@@ -48,16 +48,16 @@ export const SidebarNavigationScreenMain = () => {
 	return (
 		<SidebarNavigationScreen
 			isRoot
-			title={ __( "Let's get creative", 'woocommerce' ) }
+			title={ __( "Let's get creative", 'poocommerce' ) }
 			description={ __(
 				'Use our style and layout tools to customize the design of your store. Content and images can be added or changed via the Editor later.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			content={
 				<>
-					<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
+					<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
 						<Heading level={ 2 }>
-							{ __( 'Style', 'woocommerce' ) }
+							{ __( 'Style', 'poocommerce' ) }
 						</Heading>
 					</div>
 					<ItemGroup>
@@ -85,7 +85,7 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Add your logo', 'woocommerce' ) }
+							{ __( 'Add your logo', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -114,11 +114,11 @@ export const SidebarNavigationScreenMain = () => {
 							{ aiOnline
 								? __(
 										'Change the color palette',
-										'woocommerce'
+										'poocommerce'
 								  )
 								: __(
 										'Choose your color palette',
-										'woocommerce'
+										'poocommerce'
 								  ) }
 						</NavigatorButton>
 						<NavigatorButton
@@ -146,13 +146,13 @@ export const SidebarNavigationScreenMain = () => {
 							} }
 						>
 							{ aiOnline
-								? __( 'Change fonts', 'woocommerce' )
-								: __( 'Choose fonts', 'woocommerce' ) }
+								? __( 'Change fonts', 'poocommerce' )
+								: __( 'Choose fonts', 'poocommerce' ) }
 						</NavigatorButton>
 					</ItemGroup>
-					<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
+					<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
 						<Heading level={ 2 }>
-							{ __( 'Layout', 'woocommerce' ) }
+							{ __( 'Layout', 'poocommerce' ) }
 						</Heading>
 					</div>
 					<ItemGroup>
@@ -181,8 +181,8 @@ export const SidebarNavigationScreenMain = () => {
 							} }
 						>
 							{ aiOnline
-								? __( 'Change your header', 'woocommerce' )
-								: __( 'Choose your header', 'woocommerce' ) }
+								? __( 'Change your header', 'poocommerce' )
+								: __( 'Choose your header', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -216,8 +216,8 @@ export const SidebarNavigationScreenMain = () => {
 							} }
 						>
 							{ aiOnline
-								? __( 'Change your homepage', 'woocommerce' )
-								: __( 'Design your homepage', 'woocommerce' ) }
+								? __( 'Change your homepage', 'poocommerce' )
+								: __( 'Design your homepage', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -244,8 +244,8 @@ export const SidebarNavigationScreenMain = () => {
 							} }
 						>
 							{ aiOnline
-								? __( 'Change your footer', 'woocommerce' )
-								: __( 'Choose your footer', 'woocommerce' ) }
+								? __( 'Change your footer', 'poocommerce' )
+								: __( 'Choose your footer', 'poocommerce' ) }
 						</NavigatorButton>
 						{ /* TODO: Turn on this in Phrase 2  */ }
 						{ /* <NavigatorButton
@@ -254,7 +254,7 @@ export const SidebarNavigationScreenMain = () => {
 							withChevron
 							icon={ pages }
 						>
-							{ __( 'Add and edit other pages', 'woocommerce' ) }
+							{ __( 'Add and edit other pages', 'poocommerce' ) }
 						</NavigatorButton> */ }
 					</ItemGroup>
 				</>

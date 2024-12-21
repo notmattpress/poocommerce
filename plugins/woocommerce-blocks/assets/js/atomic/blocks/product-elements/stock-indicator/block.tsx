@@ -6,12 +6,12 @@ import clsx from 'clsx';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import type { HTMLAttributes } from 'react';
-import { ProductResponseItem } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import { ProductResponseItem } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -19,7 +19,7 @@ import { useSelect } from '@wordpress/data';
  */
 import './style.scss';
 import type { BlockAttributes } from './types';
-import { store as woocommerceTemplateStateStore } from '../../../../shared/store';
+import { store as poocommerceTemplateStateStore } from '../../../../shared/store';
 import type { ProductTypeProps } from '../../../../utils/get-product-type-options';
 
 type Props = BlockAttributes & HTMLAttributes< HTMLDivElement >;
@@ -64,7 +64,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 		selectedProductType: ProductTypeProps;
 	} >( ( select ) => {
 		const { getCurrentProductType } = select(
-			woocommerceTemplateStateStore
+			poocommerceTemplateStateStore
 		);
 		return {
 			selectedProductType: getCurrentProductType(),
@@ -96,7 +96,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 				// When inside All products block
 				...( props.isDescendantOfAllProducts && {
 					[ styleProps.className ]: styleProps.className,
-					'wc-block-components-product-stock-indicator wp-block-woocommerce-product-stock-indicator':
+					'wc-block-components-product-stock-indicator wp-block-poocommerce-product-stock-indicator':
 						true,
 				} ),
 			} ) }
@@ -106,7 +106,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 			} ) }
 		>
 			{ isInTemplate
-				? __( 'In stock', 'woocommerce' )
+				? __( 'In stock', 'poocommerce' )
 				: availabilityText }
 		</div>
 	);

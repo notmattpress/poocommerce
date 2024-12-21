@@ -3,12 +3,12 @@
  */
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 // @ts-ignore No types for this exist yet.
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 // @ts-ignore No types for this exist yet.
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ export const SettingsEditor = () => {
 			<div style={ { margin: 'auto' } }>
 				{ __(
 					'Please enable Gutenberg version 19.0 or higher for this feature',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</div>
 		);

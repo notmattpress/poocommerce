@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
 use WC_REST_Unit_Test_Case;
 
 /**
@@ -280,7 +280,7 @@ class PaymentExtensionSuggestionsTest extends WC_REST_Unit_Test_Case {
 	 * Test getting payment extension suggestions by plugin slug.
 	 */
 	public function test_get_extension_by_plugin_slug() {
-		$extension = $this->sut->get_by_plugin_slug( 'woocommerce-payments' );
+		$extension = $this->sut->get_by_plugin_slug( 'poocommerce-payments' );
 		$this->assertNotEmpty( $extension );
 		$this->assertIsArray( $extension );
 		$this->assertArrayHasKey( 'id', $extension );

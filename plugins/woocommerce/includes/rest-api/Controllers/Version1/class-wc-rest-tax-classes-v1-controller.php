@@ -4,7 +4,7 @@
  *
  * Handles requests to the /taxes/classes endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Tax Classes controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
@@ -64,7 +64,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 			array(
 				'args' => array(
 					'slug' => array(
-						'description' => __( 'Unique slug for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique slug for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),
@@ -76,7 +76,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Required to be true, as resource does not support trashing.', 'woocommerce' ),
+							'description' => __( 'Required to be true, as resource does not support trashing.', 'poocommerce' ),
 						),
 					),
 				),
@@ -93,7 +93,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -108,7 +108,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 	 */
 	public function create_item_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'create' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -123,7 +123,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 	 */
 	public function delete_item_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'delete' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -141,7 +141,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 		// Add standard class.
 		$tax_classes[] = array(
 			'slug' => 'standard',
-			'name' => __( 'Standard rate', 'woocommerce' ),
+			'name' => __( 'Standard rate', 'poocommerce' ),
 		);
 
 		$classes = WC_Tax::get_tax_classes();
@@ -173,7 +173,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 		$tax_class = WC_Tax::create_tax_class( $request['name'] );
 
 		if ( is_wp_error( $tax_class ) ) {
-			return new WP_Error( 'woocommerce_rest_' . $tax_class->get_error_code(), $tax_class->get_error_message(), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_' . $tax_class->get_error_code(), $tax_class->get_error_message(), array( 'status' => 400 ) );
 		}
 
 		$this->update_additional_fields_for_object( $tax_class, $request );
@@ -185,7 +185,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating tax class, false when updating tax class.
 		 */
-		do_action( 'woocommerce_rest_insert_tax_class', (object) $tax_class, $request, true );
+		do_action( 'poocommerce_rest_insert_tax_class', (object) $tax_class, $request, true );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $tax_class, $request );
@@ -209,22 +209,22 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 
 		// We don't support trashing for this type, error out.
 		if ( ! $force ) {
-			return new WP_Error( 'woocommerce_rest_trash_not_supported', __( 'Taxes do not support trashing.', 'woocommerce' ), array( 'status' => 501 ) );
+			return new WP_Error( 'poocommerce_rest_trash_not_supported', __( 'Taxes do not support trashing.', 'poocommerce' ), array( 'status' => 501 ) );
 		}
 
 		$tax_class = WC_Tax::get_tax_class_by( 'slug', sanitize_title( $request['slug'] ) );
 		if ( ! $tax_class ) {
-			return new WP_Error( 'woocommerce_rest_tax_class_invalid_slug', __( 'Invalid slug.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_tax_class_invalid_slug', __( 'Invalid slug.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$deleted = WC_Tax::delete_tax_class_by( 'slug', sanitize_title( $request['slug'] ) );
 
 		if ( ! $deleted ) {
-			return new WP_Error( 'woocommerce_rest_invalid_id', __( 'Invalid resource id.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_id', __( 'Invalid resource id.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		if ( is_wp_error( $deleted ) ) {
-			return new WP_Error( 'woocommerce_rest_' . $deleted->get_error_code(), $deleted->get_error_message(), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_' . $deleted->get_error_code(), $deleted->get_error_message(), array( 'status' => 400 ) );
 		}
 
 		$request->set_param( 'context', 'edit' );
@@ -237,7 +237,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 		 * @param WP_REST_Response $response  The response returned from the API.
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
-		do_action( 'woocommerce_rest_delete_tax', (object) $tax_class, $response, $request );
+		do_action( 'poocommerce_rest_delete_tax', (object) $tax_class, $response, $request );
 
 		return $response;
 	}
@@ -268,7 +268,7 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 		 * @param stdClass         $tax_class Tax object used to create response.
 		 * @param WP_REST_Request  $request   Request object.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_tax', $response, (object) $tax_class, $request );
+		return apply_filters( 'poocommerce_rest_prepare_tax', $response, (object) $tax_class, $request );
 	}
 
 	/**
@@ -298,13 +298,13 @@ class WC_REST_Tax_Classes_V1_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'slug' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name' => array(
-					'description' => __( 'Tax class name.', 'woocommerce' ),
+					'description' => __( 'Tax class name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'required'    => true,

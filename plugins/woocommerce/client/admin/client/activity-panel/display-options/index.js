@@ -13,8 +13,8 @@ import {
 	useUserPreferences,
 	ONBOARDING_STORE_NAME,
 	OPTIONS_STORE_NAME,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ const LAYOUTS = [
 		label: (
 			<>
 				<SingleColumnIcon />
-				{ __( 'Single column', 'woocommerce' ) }
+				{ __( 'Single column', 'poocommerce' ) }
 			</>
 		),
 	},
@@ -44,7 +44,7 @@ const LAYOUTS = [
 		label: (
 			<>
 				<TwoColumnsIcon />
-				{ __( 'Two columns', 'woocommerce' ) }
+				{ __( 'Two columns', 'poocommerce' ) }
 			</>
 		),
 	},
@@ -59,7 +59,7 @@ export const DisplayOptions = () => {
 
 			return {
 				defaultHomescreenLayout:
-					getOption( 'woocommerce_default_homepage_layout' ) ||
+					getOption( 'poocommerce_default_homepage_layout' ) ||
 					'single_column',
 				taskListComplete: taskList?.isComplete,
 				isTaskListHidden: taskList?.isHidden,
@@ -83,16 +83,16 @@ export const DisplayOptions = () => {
 					<DropdownMenu
 						icon={ <DisplayIcon /> }
 						/* translators: button label text should, if possible, be under 16 characters. */
-						label={ __( 'Display options', 'woocommerce' ) }
+						label={ __( 'Display options', 'poocommerce' ) }
 						toggleProps={ {
 							className:
-								'woocommerce-layout__activity-panel-tab display-options',
+								'poocommerce-layout__activity-panel-tab display-options',
 							onClick: () =>
 								recordEvent( 'homescreen_display_click' ),
 						} }
 						popoverProps={ {
 							className:
-								'woocommerce-layout__activity-panel-popover',
+								'poocommerce-layout__activity-panel-popover',
 						} }
 					>
 						{ ( { onClose } ) => (
@@ -100,8 +100,8 @@ export const DisplayOptions = () => {
 								{ fills }
 								{ hasTwoColumnContent ? (
 									<MenuGroup
-										className="woocommerce-layout__homescreen-display-options"
-										label={ __( 'Layout', 'woocommerce' ) }
+										className="poocommerce-layout__homescreen-display-options"
+										label={ __( 'Layout', 'poocommerce' ) }
 									>
 										<MenuItemsChoice
 											choices={ LAYOUTS }

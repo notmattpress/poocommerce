@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Note file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Note', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Note
 	 * @version     3.5.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Note extends WC_Email {
@@ -36,8 +36,8 @@ if ( ! class_exists( 'WC_Email_Customer_Note', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_note';
 			$this->customer_email = true;
-			$this->title          = __( 'Customer note', 'woocommerce' );
-			$this->description    = __( 'Customer note emails are sent when you add a note to an order.', 'woocommerce' );
+			$this->title          = __( 'Customer note', 'poocommerce' );
+			$this->description    = __( 'Customer note emails are sent when you add a note to an order.', 'poocommerce' );
 			$this->template_html  = 'emails/customer-note.php';
 			$this->template_plain = 'emails/plain/customer-note.php';
 			$this->placeholders   = array(
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WC_Email_Customer_Note', false ) ) :
 			);
 
 			// Triggers.
-			add_action( 'woocommerce_new_customer_note_notification', array( $this, 'trigger' ) );
+			add_action( 'poocommerce_new_customer_note_notification', array( $this, 'trigger' ) );
 
 			// Call parent constructor.
 			parent::__construct();
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WC_Email_Customer_Note', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Note added to your {site_title} order from {order_date}', 'woocommerce' );
+			return __( 'Note added to your {site_title} order from {order_date}', 'poocommerce' );
 		}
 
 		/**
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WC_Email_Customer_Note', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'A note has been added to your order', 'woocommerce' );
+			return __( 'A note has been added to your order', 'poocommerce' );
 		}
 
 		/**
@@ -157,7 +157,7 @@ if ( ! class_exists( 'WC_Email_Customer_Note', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for reading.', 'woocommerce' );
+			return __( 'Thanks for reading.', 'poocommerce' );
 		}
 	}
 

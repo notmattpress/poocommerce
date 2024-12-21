@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, customerFile } from '@woocommerce/e2e-utils';
+import { expect, test as base, customerFile } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ test.describe( 'Shopper → Additional Checkout Fields', () => {
 
 		test.beforeEach( async ( { requestUtils, frontendUtils } ) => {
 			await requestUtils.activatePlugin(
-				'woocommerce-blocks-test-additional-checkout-fields'
+				'poocommerce-blocks-test-additional-checkout-fields'
 			);
 
 			await frontendUtils.goToShop();
@@ -739,7 +739,7 @@ test.describe( 'Shopper → Additional Checkout Fields', () => {
 			const billingTitle =
 				checkoutPageObject.page.getByText( 'Billing address' );
 			const billingEdit = checkoutPageObject.page
-				.locator( '.woocommerce-Address-title' )
+				.locator( '.poocommerce-Address-title' )
 				.filter( { has: billingTitle } )
 				.getByText( 'Edit' );
 			await billingEdit.click();
@@ -794,7 +794,7 @@ test.describe( 'Shopper → Additional Checkout Fields', () => {
 			const shippingTitle =
 				checkoutPageObject.page.getByText( 'Shipping address' );
 			const shippingEdit = checkoutPageObject.page
-				.locator( '.woocommerce-Address-title' )
+				.locator( '.poocommerce-Address-title' )
 				.filter( { has: shippingTitle } )
 				.getByText( 'Edit' );
 			await shippingEdit.click();

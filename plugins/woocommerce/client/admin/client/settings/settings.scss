@@ -1,6 +1,6 @@
 @include wordpress-admin-schemes();
 
-body.woocommerce_page_wc-settings {
+body.poocommerce_page_wc-settings {
 	#wpcontent {
 		margin-left: 0 !important;
 	}
@@ -9,7 +9,7 @@ body.woocommerce_page_wc-settings {
 	}
 
 	#adminmenumain,
-	#woocommerce-embedded-root {
+	#poocommerce-embedded-root {
 		display: none;
 	}
 

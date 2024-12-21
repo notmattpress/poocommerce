@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Gateway_Paypal class.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 /**
@@ -23,7 +23,7 @@ class WC_Gateway_Paypal_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test do_capture when API returns error.
 	 *
-	 * see @link https://github.com/woocommerce/woocommerce/issues/26960
+	 * see @link https://github.com/poocommerce/poocommerce/issues/26960
 	 */
 	public function test_do_capture_when_api_return_error() {
 		$order = WC_Helper_Order::create_order();
@@ -50,7 +50,7 @@ class WC_Gateway_Paypal_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test do_capture when API returns error.
 	 *
-	 * see @link https://github.com/woocommerce/woocommerce/issues/26960
+	 * see @link https://github.com/poocommerce/poocommerce/issues/26960
 	 */
 	public function test_refund_transaction_when_api_return_error() {
 		$order = WC_Helper_Order::create_order();

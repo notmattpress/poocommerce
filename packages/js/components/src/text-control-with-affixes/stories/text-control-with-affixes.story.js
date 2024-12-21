@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TextControlWithAffixes } from '@woocommerce/components';
+import { TextControlWithAffixes } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const Examples = () => {
@@ -95,6 +95,6 @@ const Examples = () => {
 export const Basic = () => <Examples />;
 
 export default {
-	title: 'WooCommerce Admin/components/TextControlWithAffixes',
+	title: 'PooCommerce Admin/components/TextControlWithAffixes',
 	component: TextControlWithAffixes,
 };

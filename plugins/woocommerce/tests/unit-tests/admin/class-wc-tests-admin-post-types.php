@@ -2,13 +2,13 @@
 /**
  * Unit tests for the post types admin class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 /**
  * WC_Admin_Post_Types tests.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 class WC_Tests_Admin_Post_Types extends WC_Unit_Test_Case {
 
@@ -67,9 +67,9 @@ class WC_Tests_Admin_Post_Types extends WC_Unit_Test_Case {
 		$this->login_as_administrator();
 
 		$request_data = array(
-			"woocommerce_{$edit_type}"     => '1',
+			"poocommerce_{$edit_type}"     => '1',
 			'_stock_status'                => $change_stock_request_value,
-			'woocommerce_quick_edit_nonce' => wp_create_nonce( 'woocommerce_quick_edit_nonce' ),
+			'poocommerce_quick_edit_nonce' => wp_create_nonce( 'poocommerce_quick_edit_nonce' ),
 		);
 
 		$sut = $this->get_sut_with_request_data( $request_data );
@@ -135,8 +135,8 @@ class WC_Tests_Admin_Post_Types extends WC_Unit_Test_Case {
 		$this->login_as_administrator();
 
 		$request_data = array(
-			'woocommerce_bulk_edit'         => '1',
-			'woocommerce_quick_edit_nonce'  => wp_create_nonce( 'woocommerce_quick_edit_nonce' ),
+			'poocommerce_bulk_edit'         => '1',
+			'poocommerce_quick_edit_nonce'  => wp_create_nonce( 'poocommerce_quick_edit_nonce' ),
 			"change_{$type_of_price}_price" => $type_of_change,
 			"_{$type_of_price}_price"       => $change_amount,
 		);

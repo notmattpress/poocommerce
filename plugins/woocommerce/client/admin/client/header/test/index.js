@@ -8,20 +8,20 @@ import { render, fireEvent } from '@testing-library/react';
  */
 import { Header, getPageTitle } from '../index.js';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting() {
 		return 'Fake Site Title';
 	},
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUserPreferences: () => ( {
 		updateUserPreferences: () => {},
 		// mock to disable the mobile app banner while testing this component
@@ -101,7 +101,7 @@ describe( 'Header', () => {
 		);
 
 		expect( document.title ).toBe(
-			'Accounts & Privacy ‹ Settings ‹ Fake Site Title — WooCommerce'
+			'Accounts & Privacy ‹ Settings ‹ Fake Site Title — PooCommerce'
 		);
 	} );
 } );
@@ -114,7 +114,7 @@ describe( 'getPageTitle', () => {
 
 	test( "should get page title as the second item's second element if section length is 3 or more and second item has a second element", () => {
 		const sections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			[ 'admin.php?page=wc-settings', 'Settings' ],
 			'Payments',
 		];
@@ -123,7 +123,7 @@ describe( 'getPageTitle', () => {
 
 	test( "should get page title as the last item if section length is 3 or more but second item doesn't have a second element", () => {
 		const sections = [
-			[ 'admin.php?page=wc-admin', 'WooCommerce' ],
+			[ 'admin.php?page=wc-admin', 'PooCommerce' ],
 			'Payments',
 		];
 		expect( getPageTitle( sections ) ).toBe( 'Payments' );

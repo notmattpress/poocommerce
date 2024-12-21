@@ -47,7 +47,7 @@
 				},
 				save: function() {
 					if ( _.size( this.changes ) ) {
-						$.post( ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_shipping_zones_save_changes', {
+						$.post( ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_shipping_zones_save_changes', {
 							wc_shipping_zones_nonce : data.wc_shipping_zones_nonce,
 							changes                 : this.changes
 						}, this.onSaveResponse, 'json' );

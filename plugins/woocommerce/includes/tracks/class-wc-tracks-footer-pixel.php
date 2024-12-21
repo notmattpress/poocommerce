@@ -2,7 +2,7 @@
 /**
  * Send Tracks events on behalf of a user using pixel images in page footer.
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -69,7 +69,7 @@ const getComponent = ( setting: SettingsField ) => {
 
 export const SettingsItem = ( { setting }: { setting: SettingsField } ) => {
 	return (
-		<VStack spacing={ 4 } className="woocommerce-settings-item">
+		<VStack spacing={ 4 } className="poocommerce-settings-item">
 			{ setting.title && (
 				<Heading level={ 5 }>{ setting.title }</Heading>
 			) }

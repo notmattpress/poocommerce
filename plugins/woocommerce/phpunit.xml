@@ -34,7 +34,7 @@
 	<coverage includeUncoveredFiles="true">
 		<include>
 			<directory suffix=".php">./includes</directory>
-		<file>woocommerce.php</file>
+		<file>poocommerce.php</file>
 		<file>uninstall.php</file>
 		</include>
 		<exclude>

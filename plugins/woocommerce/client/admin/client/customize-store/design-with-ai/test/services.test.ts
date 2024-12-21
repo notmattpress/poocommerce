@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { __experimentalRequestJetpackToken as requestJetpackToken } from '@woocommerce/ai';
+import { __experimentalRequestJetpackToken as requestJetpackToken } from '@poocommerce/ai';
 import apiFetch from '@wordpress/api-fetch';
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ jest.mock( '~/customize-store/tracking', () => ( {
 	trackEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/ai', () => ( {
+jest.mock( '@poocommerce/ai', () => ( {
 	__experimentalRequestJetpackToken: jest.fn(),
 } ) );
 

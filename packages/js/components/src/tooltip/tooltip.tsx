@@ -31,7 +31,7 @@ type TooltipProps = {
 export const Tooltip: React.FC< TooltipProps > = ( {
 	children = <Icon icon={ help } />,
 	className = '',
-	helperText = __( 'Help', 'woocommerce' ),
+	helperText = __( 'Help', 'poocommerce' ),
 	position = 'top center',
 	text,
 } ) => {
@@ -46,13 +46,13 @@ export const Tooltip: React.FC< TooltipProps > = ( {
 		<>
 			<div
 				className={ classnames(
-					'woocommerce-tooltip',
+					'poocommerce-tooltip',
 					uniqueIdentifier
 				) }
 			>
 				<Button
 					className={ classnames(
-						'woocommerce-tooltip__button',
+						'poocommerce-tooltip__button',
 						className
 					) }
 					onKeyDown={ (
@@ -75,7 +75,7 @@ export const Tooltip: React.FC< TooltipProps > = ( {
 						position={ position }
 						// @ts-expect-error this prop does exist
 						inline
-						className="woocommerce-tooltip__text"
+						className="poocommerce-tooltip__text"
 						onFocusOutside={ ( event: FocusEvent ) => {
 							if (
 								event.relatedTarget?.classList.contains(

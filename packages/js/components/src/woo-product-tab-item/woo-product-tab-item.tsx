@@ -40,8 +40,8 @@ export const WooProductTabItem: React.FC< WooProductTabItemProps > & {
 } = ( { children, tabProps, templates } ) => {
 	deprecated( `__experimentalWooProductTabItem`, {
 		version: '13.0.0',
-		plugin: '@woocommerce/components',
-		hint: 'Moved to @woocommerce/product-editor package: import { __experimentalWooProductTabItem } from @woocommerce/product-editor',
+		plugin: '@poocommerce/components',
+		hint: 'Moved to @poocommerce/product-editor package: import { __experimentalWooProductTabItem } from @poocommerce/product-editor',
 	} );
 
 	if ( ! templates ) {
@@ -53,7 +53,7 @@ export const WooProductTabItem: React.FC< WooProductTabItemProps > & {
 		<>
 			{ templates.map( ( templateData ) => (
 				<Fill
-					name={ `woocommerce_product_tab_${ templateData.name }` }
+					name={ `poocommerce_product_tab_${ templateData.name }` }
 					key={ templateData.name }
 				>
 					{ ( fillProps: Fill.Props ) => {
@@ -77,7 +77,7 @@ export const WooProductTabItem: React.FC< WooProductTabItemProps > & {
 
 WooProductTabItem.Slot = ( { fillProps, template, children } ) => (
 	<Slot
-		name={ `woocommerce_product_tab_${ template }` }
+		name={ `poocommerce_product_tab_${ template }` }
 		fillProps={ fillProps }
 	>
 		{ ( fills ) => {

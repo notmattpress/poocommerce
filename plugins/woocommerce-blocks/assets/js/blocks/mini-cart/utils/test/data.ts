@@ -3,8 +3,8 @@
  * External dependencies
  */
 import { getByTestId, waitFor } from '@testing-library/dom';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { CART_STORE_KEY } from '@woocommerce/block-data';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { CART_STORE_KEY } from '@poocommerce/block-data';
 import { dispatch, select } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -45,9 +45,9 @@ const getMiniCartDOM = () => {
 	return div;
 };
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	return {
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSettingWithCoercion: jest.fn(),
 	};
 } );

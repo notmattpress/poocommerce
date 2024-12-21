@@ -9,14 +9,14 @@ import {
 	createInterpolateElement,
 } from '@wordpress/element';
 import { Button, Notice } from '@wordpress/components';
-import { ProductProductAttribute } from '@woocommerce/data';
+import { ProductProductAttribute } from '@poocommerce/data';
 import {
 	Sortable,
 	__experimentalSelectControlMenuSlot as SelectControlMenuSlot,
 	Link,
-} from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -62,14 +62,14 @@ export const AttributeControl: React.FC< AttributeControlProps > = ( {
 	defaultVisibility = false,
 } ) => {
 	uiStrings = {
-		newAttributeListItemLabel: __( 'Add new', 'woocommerce' ),
+		newAttributeListItemLabel: __( 'Add new', 'poocommerce' ),
 		globalAttributeHelperMessage: __(
 			`You can change the attribute's name in <link>Attributes</link>.`,
-			'woocommerce'
+			'poocommerce'
 		),
 		attributeRemoveConfirmationMessage: __(
 			'Remove this attribute?',
-			'woocommerce'
+			'poocommerce'
 		),
 		...uiStrings,
 	};
@@ -216,7 +216,7 @@ export const AttributeControl: React.FC< AttributeControlProps > = ( {
 		return (
 			<EmptyState
 				names={ getEmptyStateSequentialNames(
-					__( 'Attribute', 'woocommerce' ),
+					__( 'Attribute', 'poocommerce' ),
 					3
 				) }
 			/>
@@ -231,7 +231,7 @@ export const AttributeControl: React.FC< AttributeControlProps > = ( {
 				{ uiStrings?.newAttributeListItemLabel && (
 					<Button
 						variant="secondary"
-						className="woocommerce-add-attribute-list-item__add-button"
+						className="poocommerce-add-attribute-list-item__add-button"
 						onClick={ openNewModal }
 					>
 						{ uiStrings.newAttributeListItemLabel }
@@ -242,14 +242,14 @@ export const AttributeControl: React.FC< AttributeControlProps > = ( {
 	}
 
 	return (
-		<div className="woocommerce-attribute-field">
+		<div className="poocommerce-attribute-field">
 			{ renderSectionActions() }
 
 			{ uiStrings.notice && (
 				<Notice
 					isDismissible={ true }
 					status="warning"
-					className="woocommerce-attribute-field__notice"
+					className="poocommerce-attribute-field__notice"
 					onRemove={ onNoticeDismiss }
 				>
 					<p>{ uiStrings.notice }</p>
@@ -316,7 +316,7 @@ export const AttributeControl: React.FC< AttributeControlProps > = ( {
 				<EditAttributeModal
 					title={ sprintf(
 						/* translators: %s is the attribute name */
-						__( 'Edit %s', 'woocommerce' ),
+						__( 'Edit %s', 'poocommerce' ),
 						currentAttribute.name
 					) }
 					customAttributeHelperMessage={
@@ -357,7 +357,7 @@ export const AttributeControl: React.FC< AttributeControlProps > = ( {
 				<RemoveConfirmationModal
 					title={ sprintf(
 						/* translators: %s is the attribute name that is being removed */
-						__( 'Delete %(attributeName)s', 'woocommerce' ),
+						__( 'Delete %(attributeName)s', 'poocommerce' ),
 						{ attributeName: removingAttribute.name }
 					) }
 					description={

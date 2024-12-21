@@ -7,13 +7,13 @@ import {
 	OPTIONS_STORE_NAME,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	PLUGINS_STORE_NAME,
-} from '@woocommerce/data';
-import { Plugins, Stepper } from '@woocommerce/components';
-import { WooPaymentGatewaySetup } from '@woocommerce/onboarding';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { Plugins, Stepper } from '@poocommerce/components';
+import { WooPaymentGatewaySetup } from '@poocommerce/onboarding';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useSlot } from '@woocommerce/experimental';
+import { useSlot } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ export const Setup = ( { markConfigured, paymentGateway } ) => {
 		postInstallScripts,
 		installed: gatewayInstalled,
 	} = paymentGateway;
-	const slot = useSlot( `woocommerce_payment_gateway_setup_${ id }` );
+	const slot = useSlot( `poocommerce_payment_gateway_setup_${ id }` );
 	const hasFills = Boolean( slot?.fills?.length );
 	const [ isPluginLoaded, setIsPluginLoaded ] = useState( false );
 
@@ -86,7 +86,7 @@ export const Setup = ( { markConfigured, paymentGateway } ) => {
 					key: 'install',
 					label: sprintf(
 						/* translators: %s = title of the payment gateway to install */
-						__( 'Install %s', 'woocommerce' ),
+						__( 'Install %s', 'poocommerce' ),
 						title
 					),
 					content: (
@@ -119,7 +119,7 @@ export const Setup = ( { markConfigured, paymentGateway } ) => {
 			key: 'configure',
 			label: sprintf(
 				/* translators: %s = title of the payment gateway to install */
-				__( 'Configure your %(title)s account', 'woocommerce' ),
+				__( 'Configure your %(title)s account', 'poocommerce' ),
 				{
 					title,
 				}
@@ -150,7 +150,7 @@ export const Setup = ( { markConfigured, paymentGateway } ) => {
 	);
 
 	return (
-		<Card className="woocommerce-task-payment-method woocommerce-task-card">
+		<Card className="poocommerce-task-payment-method poocommerce-task-card">
 			<CardBody>
 				{ hasFills ? (
 					<WooPaymentGatewaySetup.Slot

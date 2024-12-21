@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-filters",
+	"name": "poocommerce/product-filters",
 	"version": "1.0.0",
 	"title": "Product Filters (Experimental)",
 	"description": "Let shoppers filter products displayed on the page.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"align": true,
@@ -37,7 +37,7 @@
 			"blockGap": true
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"usesContext": [ "postId", "query", "queryId" ],
 	"viewScript": "wc-product-filters-frontend",
 	"example": {},

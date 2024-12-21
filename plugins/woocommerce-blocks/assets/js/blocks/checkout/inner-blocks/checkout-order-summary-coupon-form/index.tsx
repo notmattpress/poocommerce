@@ -9,7 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/checkout-order-summary-coupon-form-block', {
+registerBlockType( 'poocommerce/checkout-order-summary-coupon-form-block', {
 	icon: {
 		src: (
 			<Icon

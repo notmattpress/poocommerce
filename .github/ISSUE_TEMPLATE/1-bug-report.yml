@@ -1,5 +1,5 @@
 name: 🐞 Bug Report
-description: Report a bug if something isn't working as expected in WooCommerce Core.
+description: Report a bug if something isn't working as expected in PooCommerce Core.
 body:
   - type: markdown
     attributes:
@@ -12,13 +12,13 @@ body:
 
         While our goal is to address all the issues reported in this repository, GitHub should be treated as a place to report confirmed bugs only.
         - If you have a support request or custom code related question please follow one of the steps below:
-        - Review [WooCommerce Self-Service Guide](https://woocommerce.com/document/woocommerce-self-service-guide/) to see if the solutions listed there apply to your case;
-        - Make a post on [WooCommerce community forum](https://wordpress.org/support/plugin/woocommerce/)
-        - To get help on custom code questions go to the [WooCommerce Community Slack](https://woocommerce.com/community-slack/) and visit the `#developers` channel. 
+        - Review [PooCommerce Self-Service Guide](https://poocommerce.com/document/poocommerce-self-service-guide/) to see if the solutions listed there apply to your case;
+        - Make a post on [PooCommerce community forum](https://wordpress.org/support/plugin/poocommerce/)
+        - To get help on custom code questions go to the [PooCommerce Community Slack](https://poocommerce.com/community-slack/) and visit the `#developers` channel. 
 
-        Make sure to look through the [existing `type: bug` issues](https://github.com/woocommerce/woocommerce/issues?q=is%3Aopen+is%3Aissue+label%3A%22type%3A+bug%22) to see whether your bug has already been submitted.
+        Make sure to look through the [existing `type: bug` issues](https://github.com/poocommerce/poocommerce/issues?q=is%3Aopen+is%3Aissue+label%3A%22type%3A+bug%22) to see whether your bug has already been submitted.
         Feel free to contribute to any existing issues.
-        Search tip: You can filter our issues using [our labels](https://github.com/woocommerce/woocommerce/labels).
+        Search tip: You can filter our issues using [our labels](https://github.com/poocommerce/poocommerce/labels).
         Search tip: Make use of [GitHub's search syntax to refine your search](https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests).
   - type: checkboxes
     id: prerequisites
@@ -70,10 +70,10 @@ body:
     attributes:
       label: WordPress Environment
       description: |
-        We use the [WooCommerce System Status Report](https://woocommerce.com/document/understanding-the-woocommerce-system-status-report/) to help us evaluate the issue. 
+        We use the [PooCommerce System Status Report](https://poocommerce.com/document/understanding-the-poocommerce-system-status-report/) to help us evaluate the issue. 
         Without this report we won't be able to fully evaluate this issue.
       placeholder: |
-        The System Status Report is found in your WordPress admin under **WooCommerce > Status**. 
+        The System Status Report is found in your WordPress admin under **PooCommerce > Status**. 
         Please select “Get system report”, then “Copy for GitHub”, and then paste it here.
     validations:
       required: true
@@ -83,12 +83,12 @@ body:
       label: Isolating the problem
       description: |
         Please try testing your site for theme and plugins conflict. 
-        To do that deactivate all plugins except for WooCommerce and switch to a default WordPress theme or [Storefront](https://en-gb.wordpress.org/themes/storefront/). Then test again. 
+        To do that deactivate all plugins except for PooCommerce and switch to a default WordPress theme or [Storefront](https://en-gb.wordpress.org/themes/storefront/). Then test again. 
         If the issue is resolved with the default theme and all plugins deactivated, it means that one of your plugins or a theme is causing the issue. 
         You will then need to enable it one by one and test every time you do that in order to figure out which plugin is causing the issue.
       options:
-        - label: I have deactivated other plugins and confirmed this bug occurs when only WooCommerce plugin is active.
-        - label: This bug happens with a default WordPress theme active, or [Storefront](https://woocommerce.com/products/storefront/).
+        - label: I have deactivated other plugins and confirmed this bug occurs when only PooCommerce plugin is active.
+        - label: This bug happens with a default WordPress theme active, or [Storefront](https://poocommerce.com/products/storefront/).
         - label: I can reproduce this bug consistently using the steps above.
     validations:
       required: true

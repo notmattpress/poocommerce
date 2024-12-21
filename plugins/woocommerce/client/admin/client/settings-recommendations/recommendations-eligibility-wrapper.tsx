@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useUser, OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { useUser, OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 const SHOW_MARKETPLACE_SUGGESTION_OPTION =
-	'woocommerce_show_marketplace_suggestions';
+	'poocommerce_show_marketplace_suggestions';
 
 const RecommendationsEligibilityWrapper: React.FC = ( { children } ) => {
 	const { currentUserCan } = useUser();

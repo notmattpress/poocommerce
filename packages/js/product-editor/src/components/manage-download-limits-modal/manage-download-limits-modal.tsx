@@ -59,7 +59,7 @@ export function ManageDownloadLimitsModal( {
 				...current,
 				downloadLimit: __(
 					'Download limit must be an integer number',
-					'woocommerce'
+					'poocommerce'
 				),
 			} ) );
 			return false;
@@ -72,7 +72,7 @@ export function ManageDownloadLimitsModal( {
 					// translators: %d is the minimum value of the number input.
 					__(
 						'Download limit must be greater than or equal to %d',
-						'woocommerce'
+						'poocommerce'
 					),
 					DOWNLOAD_LIMIT_MIN
 				),
@@ -93,7 +93,7 @@ export function ManageDownloadLimitsModal( {
 				...current,
 				downloadExpiry: __(
 					'Expiry period must be an integer number',
-					'woocommerce'
+					'poocommerce'
 				),
 			} ) );
 			return false;
@@ -106,7 +106,7 @@ export function ManageDownloadLimitsModal( {
 					// translators: %d is the minimum value of the number input.
 					__(
 						'Expiry period must be greater than or equal to %d',
-						'woocommerce'
+						'poocommerce'
 					),
 					DOWNLOAD_EXPIRY_MIN
 				),
@@ -130,14 +130,14 @@ export function ManageDownloadLimitsModal( {
 		className: classNames( {
 			'has-error': errors.downloadLimit,
 		} ),
-		label: __( 'Download limit', 'woocommerce' ),
+		label: __( 'Download limit', 'poocommerce' ),
 		help: __(
 			'Decide how many times customers can download files after purchasing the product. Leave blank for unlimited re-downloads.',
-			'woocommerce'
+			'poocommerce'
 		),
 		error: errors.downloadLimit,
-		placeholder: __( 'Unlimited', 'woocommerce' ),
-		suffix: __( 'times', 'woocommerce' ),
+		placeholder: __( 'Unlimited', 'poocommerce' ),
+		suffix: __( 'times', 'poocommerce' ),
 
 		onBlur() {
 			validateDownloadLimit();
@@ -156,14 +156,14 @@ export function ManageDownloadLimitsModal( {
 		className: classNames( {
 			'has-error': errors.downloadExpiry,
 		} ),
-		label: __( 'Expiry period', 'woocommerce' ),
+		label: __( 'Expiry period', 'poocommerce' ),
 		help: __(
 			'Decide how long customers can access the files after purchasing the product. Leave blank for unlimited access.',
-			'woocommerce'
+			'poocommerce'
 		),
 		error: errors.downloadExpiry,
-		placeholder: __( 'Unlimited', 'woocommerce' ),
-		suffix: __( 'days', 'woocommerce' ),
+		placeholder: __( 'Unlimited', 'poocommerce' ),
+		suffix: __( 'days', 'poocommerce' ),
 		onBlur() {
 			validateDownloadExpiry();
 		},
@@ -195,27 +195,27 @@ export function ManageDownloadLimitsModal( {
 
 	return (
 		<Modal
-			title={ __( 'Manage download limits', 'woocommerce' ) }
-			className="woocommerce-manage-download-limits-modal"
+			title={ __( 'Manage download limits', 'poocommerce' ) }
+			className="poocommerce-manage-download-limits-modal"
 			onRequestClose={ onClose }
 		>
 			<form noValidate onSubmit={ handleSubmit }>
-				<div className="woocommerce-manage-download-limits-modal__content">
+				<div className="poocommerce-manage-download-limits-modal__content">
 					<NumberControl { ...downloadLimitProps } />
 
 					<NumberControl { ...downloadExpiryProps } />
 				</div>
 
-				<div className="woocommerce-manage-download-limits-modal__actions">
+				<div className="poocommerce-manage-download-limits-modal__actions">
 					<Button
 						variant="tertiary"
 						type="button"
 						onClick={ handleCancelClick }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button variant="primary" type="submit">
-						{ __( 'Save', 'woocommerce' ) }
+						{ __( 'Save', 'poocommerce' ) }
 					</Button>
 				</div>
 			</form>

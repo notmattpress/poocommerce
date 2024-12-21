@@ -7,12 +7,12 @@ import {
 	H,
 	ReportFilters,
 	Section,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import {
 	getDateParamsFromQuery,
 	getCurrentDates,
 	isoDateFormat,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 import { partialRight } from 'lodash';
 
 const ORDER_STATUSES = {
@@ -247,6 +247,6 @@ export const Examples = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/ReportFilters',
+	title: 'PooCommerce Admin/components/ReportFilters',
 	component: ReportFilters,
 };

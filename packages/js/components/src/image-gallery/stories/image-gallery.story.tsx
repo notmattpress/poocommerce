@@ -111,6 +111,6 @@ export const Columns: React.FC = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/components/ImageGallery',
+	title: 'PooCommerce Admin/components/ImageGallery',
 	component: ImageGallery,
 };

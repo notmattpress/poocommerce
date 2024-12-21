@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Locator } from '@playwright/test';
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { test as base, expect } from '@woocommerce/e2e-utils';
 import { ProductGalleryPage } from './product-gallery.page';
 
 const blockData = {
-	name: 'woocommerce/product-gallery',
+	name: 'poocommerce/product-gallery',
 	title: 'Product Gallery (Beta)',
 	selectors: {
 		frontend: {},
@@ -40,7 +40,7 @@ export const getVisibleLargeImageId = async (
 	mainImageBlockLocator: Locator
 ) => {
 	const mainImage = mainImageBlockLocator.locator(
-		'.wc-block-woocommerce-product-gallery-large-image__image--active-image-slide'
+		'.wc-block-poocommerce-product-gallery-large-image__image--active-image-slide'
 	);
 
 	const mainImageContext = ( await mainImage.getAttribute(
@@ -367,7 +367,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			const popUpSelectedImageId = await getVisibleLargeImageId(
 				productGalleryPopUpContent.locator(
-					`[data-block-name="woocommerce/product-gallery-large-image"]`
+					`[data-block-name="poocommerce/product-gallery-large-image"]`
 				)
 			);
 
@@ -428,7 +428,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			const popUpInitialSelectedImageId = await getVisibleLargeImageId(
 				productGalleryPopUpContent.locator(
-					`[data-block-name="woocommerce/product-gallery-large-image"]`
+					`[data-block-name="poocommerce/product-gallery-large-image"]`
 				)
 			);
 
@@ -441,7 +441,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			const popUpNextImageId = await getVisibleLargeImageId(
 				productGalleryPopUpContent.locator(
-					`[data-block-name="woocommerce/product-gallery-large-image"]`
+					`[data-block-name="poocommerce/product-gallery-large-image"]`
 				)
 			);
 
@@ -540,7 +540,7 @@ test.describe( `${ blockData.name }`, () => {
 			await editor.openGlobalBlockInserter();
 			await page.getByRole( 'tab', { name: 'Blocks' } ).click();
 			const productGalleryBlockOption = page
-				.getByRole( 'listbox', { name: 'WooCommerce' } )
+				.getByRole( 'listbox', { name: 'PooCommerce' } )
 				.getByRole( 'option', { name: blockData.title } );
 
 			await expect( productGalleryBlockOption ).toBeVisible();
@@ -551,7 +551,7 @@ test.describe( `${ blockData.name }`, () => {
 			editor,
 		} ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//product-gallery`,
+				postId: `poocommerce/poocommerce//product-gallery`,
 				postType: 'wp_template_part',
 				canvas: 'edit',
 			} );
@@ -569,7 +569,7 @@ test.describe( `${ blockData.name }`, () => {
 			await admin.createNewPost();
 			await editor.openGlobalBlockInserter();
 			const productGalleryBlockOption = page
-				.getByRole( 'listbox', { name: 'WooCommerce' } )
+				.getByRole( 'listbox', { name: 'PooCommerce' } )
 				.getByRole( 'option', { name: blockData.title } );
 
 			await expect( productGalleryBlockOption ).toBeHidden();
@@ -584,7 +584,7 @@ test.describe( `${ blockData.name }`, () => {
 			await editor.canvas.getByText( 'Album' ).click();
 			await editor.canvas.getByText( 'Done' ).click();
 			const singleProductBlock = await editor.getBlockByName(
-				'woocommerce/single-product'
+				'poocommerce/single-product'
 			);
 			const singleProductClientId =
 				( await singleProductBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -623,7 +623,7 @@ test.describe( `${ blockData.name }`, () => {
 
 		const image = await page
 			.locator(
-				'img.wc-block-woocommerce-product-gallery-large-image__image'
+				'img.wc-block-poocommerce-product-gallery-large-image__image'
 			)
 			.first()
 			.boundingBox();

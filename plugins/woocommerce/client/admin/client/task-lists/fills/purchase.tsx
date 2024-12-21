@@ -3,11 +3,11 @@
  */
 import React from 'react';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
 import { useState, useCallback } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useSelect } from '@wordpress/data';
-import { ONBOARDING_STORE_NAME, PLUGINS_STORE_NAME } from '@woocommerce/data';
+import { ONBOARDING_STORE_NAME, PLUGINS_STORE_NAME } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -84,8 +84,8 @@ const PurchaseTaskItemFill = () => {
 	);
 };
 
-registerPlugin( 'woocommerce-admin-task-purchase', {
+registerPlugin( 'poocommerce-admin-task-purchase', {
 	// @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated.
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: PurchaseTaskItemFill,
 } );

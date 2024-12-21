@@ -6,7 +6,7 @@ import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
 // @ts-expect-error missing types.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { isAppleOS } from '@wordpress/keycodes';
 
 export const RegisterKeyboardShortcuts = () => {
@@ -16,9 +16,9 @@ export const RegisterKeyboardShortcuts = () => {
 
 	useEffect( () => {
 		registerShortcut( {
-			name: 'woocommerce/product-editor/modal-block-editor/undo',
+			name: 'poocommerce/product-editor/modal-block-editor/undo',
 			category: 'global',
-			description: __( 'Undo your last changes.', 'woocommerce' ),
+			description: __( 'Undo your last changes.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'primary',
 				character: 'z',
@@ -26,9 +26,9 @@ export const RegisterKeyboardShortcuts = () => {
 		} );
 
 		registerShortcut( {
-			name: 'woocommerce/product-editor/modal-block-editor/redo',
+			name: 'poocommerce/product-editor/modal-block-editor/redo',
 			category: 'global',
-			description: __( 'Redo your last undo.', 'woocommerce' ),
+			description: __( 'Redo your last undo.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'primaryShift',
 				character: 'z',
@@ -48,9 +48,9 @@ export const RegisterKeyboardShortcuts = () => {
 		} );
 
 		registerShortcut( {
-			name: 'woocommerce/product-editor/modal-block-editor/toggle-list-view',
+			name: 'poocommerce/product-editor/modal-block-editor/toggle-list-view',
 			category: 'global',
-			description: __( 'Open the block list view.', 'woocommerce' ),
+			description: __( 'Open the block list view.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'access',
 				character: 'o',
@@ -58,11 +58,11 @@ export const RegisterKeyboardShortcuts = () => {
 		} );
 
 		registerShortcut( {
-			name: 'woocommerce/product-editor/modal-block-editor/toggle-sidebar',
+			name: 'poocommerce/product-editor/modal-block-editor/toggle-sidebar',
 			category: 'global',
 			description: __(
 				'Show or hide the Settings sidebar.',
-				'woocommerce'
+				'poocommerce'
 			),
 			keyCombination: {
 				modifier: 'primaryShift',

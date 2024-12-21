@@ -2,11 +2,11 @@
 /**
  * Class WC_Settings_Shipping_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -97,10 +97,10 @@ class WC_Settings_Shipping_Test extends WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'shipping_options'                           => array( 'title', 'sectionend' ),
-			'woocommerce_enable_shipping_calc'           => 'checkbox',
-			'woocommerce_shipping_cost_requires_address' => 'checkbox',
-			'woocommerce_ship_to_destination'            => 'radio',
-			'woocommerce_shipping_debug_mode'            => 'checkbox',
+			'poocommerce_enable_shipping_calc'           => 'checkbox',
+			'poocommerce_shipping_cost_requires_address' => 'checkbox',
+			'poocommerce_ship_to_destination'            => 'radio',
+			'poocommerce_shipping_debug_mode'            => 'checkbox',
 		);
 
 		$this->assertEquals( $expected, $settings_ids_and_types );
@@ -253,7 +253,7 @@ class WC_Settings_Shipping_Test extends WC_Settings_Unit_Test_Case {
 	 *
 	 * @param string $section_name Current section name.
 	 * @param bool   $expect_save_settings_for_current_section_invoked Is 'save_settings_for_current_section' expected to be invoked?.
-	 * @param bool   $expect_update_options_action_invoked Is the 'woocommerce_update_options_' action expected to be triggered?.
+	 * @param bool   $expect_update_options_action_invoked Is the 'poocommerce_update_options_' action expected to be triggered?.
 	 */
 	public function test_save_predefined_section( $section_name, $expect_save_settings_for_current_section_invoked, $expect_update_options_action_invoked ) {
 		global $current_section;
@@ -277,11 +277,11 @@ class WC_Settings_Shipping_Test extends WC_Settings_Unit_Test_Case {
 		$sut->save();
 
 		$this->assertEquals( $expect_save_settings_for_current_section_invoked, $save_settings_for_current_section_invoked );
-		$this->assertEquals( $expect_update_options_action_invoked ? 1 : 0, did_action( 'woocommerce_update_options_shipping_' . $section_name ) );
+		$this->assertEquals( $expect_update_options_action_invoked ? 1 : 0, did_action( 'poocommerce_update_options_shipping_' . $section_name ) );
 	}
 
 	/**
-	 * @testDox 'save' triggers 'woocommerce_update_options_shipping_{method_id}' when the current section is the id of a shipping method with settings.
+	 * @testDox 'save' triggers 'poocommerce_update_options_shipping_{method_id}' when the current section is the id of a shipping method with settings.
 	 */
 	public function test_save_for_shipping_method_triggers_appropriate_action() {
 		global $current_section;
@@ -312,6 +312,6 @@ class WC_Settings_Shipping_Test extends WC_Settings_Unit_Test_Case {
 
 		$sut->save();
 
-		$this->assertEquals( 1, did_action( 'woocommerce_update_options_shipping_method_id' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_update_options_shipping_method_id' ) );
 	}
 }

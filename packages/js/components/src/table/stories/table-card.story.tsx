@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TableCard } from '@woocommerce/components';
+import { TableCard } from '@poocommerce/components';
 import { useState, createElement } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 
@@ -88,6 +88,6 @@ export const Basic = () => <TableCardExample />;
 export const Actions = () => <TableCardWithActionsExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/TableCard',
+	title: 'PooCommerce Admin/components/TableCard',
 	component: TableCard,
 };

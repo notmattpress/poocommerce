@@ -5,7 +5,7 @@ import './CardHeaderTitle.scss';
 
 export const CardHeaderTitle: React.FC = ( { children } ) => {
 	return (
-		<div className="woocommerce-marketing-card-header-title">
+		<div className="poocommerce-marketing-card-header-title">
 			{ children }
 		</div>
 	);

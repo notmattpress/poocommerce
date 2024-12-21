@@ -7,14 +7,14 @@ import { getFakeCustomer, getFakeProduct } from '../../utils/data';
 // a representation of the menu structure for WC
 const wcPages = [
 	{
-		name: 'WooCommerce',
+		name: 'PooCommerce',
 		url: 'wp-admin/admin.php?page=wc-admin',
 		subpages: [
 			{
 				name: 'Home',
 				heading: 'Home',
 				element:
-					'.woocommerce-inbox-card__header > .components-truncate',
+					'.poocommerce-inbox-card__header > .components-truncate',
 				text: 'Inbox',
 			},
 			{
@@ -26,7 +26,7 @@ const wcPages = [
 			{
 				name: 'Customers',
 				heading: 'Customers',
-				element: '.woocommerce-dropdown-button__labels',
+				element: '.poocommerce-dropdown-button__labels',
 				text: 'All Customers',
 			},
 			{
@@ -93,7 +93,7 @@ const wcPages = [
 			{
 				name: 'Overview',
 				heading: 'Overview',
-				element: '.woocommerce-marketing-channels-card',
+				element: '.poocommerce-marketing-channels-card',
 				text: 'Channels',
 			},
 			{
@@ -109,7 +109,7 @@ const wcPages = [
 
 for ( const currentPage of wcPages ) {
 	test.describe(
-		`WooCommerce Page Load > Load ${ currentPage.name } sub pages`,
+		`PooCommerce Page Load > Load ${ currentPage.name } sub pages`,
 		{ tag: [ tags.GUTENBERG, tags.SERVICES ] },
 		() => {
 			const product = getFakeProduct();

@@ -1,8 +1,8 @@
 # Marketplace
 
-This folder contains the components used in the Marketplace page found in `WooCommerce > Extensions`.
+This folder contains the components used in the Marketplace page found in `PooCommerce > Extensions`.
 
-The page contains two parts, the WooCommerce.com marketplace and a list of products the user purchased.
+The page contains two parts, the PooCommerce.com marketplace and a list of products the user purchased.
 
 ## Marketplace Tabs
 
@@ -14,15 +14,15 @@ The page contains two parts, the WooCommerce.com marketplace and a list of produ
 
 ### Marketplace API
 
-The data for the Discover section is fetched from the `/wc/v3/marketplace/featured` endpoint. This behaves as a proxy to fetch and cache the content from the `woocommerce.com/wp-json/wccom-extensions` endpoint.
+The data for the Discover section is fetched from the `/wc/v3/marketplace/featured` endpoint. This behaves as a proxy to fetch and cache the content from the `poocommerce.com/wp-json/wccom-extensions` endpoint.
 
-Themes, extensions, business services and search results are fetched directly from WooCommerce.com.
+Themes, extensions, business services and search results are fetched directly from PooCommerce.com.
 
 ## My Subscriptions
 
-This tab contains the list of all the extensions and themes the WooCommerce merchant has purchased from the WooCommerce.com Marketplace.
+This tab contains the list of all the extensions and themes the PooCommerce merchant has purchased from the PooCommerce.com Marketplace.
 
-The merchant needs to connect the site to their WooCommerce.com account to view this list and install, update, and enable the products.
+The merchant needs to connect the site to their PooCommerce.com account to view this list and install, update, and enable the products.
 
 If a subscription is expired, the merchant will be prompted to renew it.
 
@@ -30,7 +30,7 @@ If a subscription is expired, the merchant will be prompted to renew it.
 
 My Subscriptions data uses `/wc/v3/marketplace/subscriptions` API endpoints to list, install, connect, and update products.
 
-You can find a full list of endpoints in the [subscriptions API source code](/plugins/woocommerce/includes/admin/helper/class-wc-helper-subscriptions-api.php).
+You can find a full list of endpoints in the [subscriptions API source code](/plugins/poocommerce/includes/admin/helper/class-wc-helper-subscriptions-api.php).
 
 ## Project Structure
 
@@ -44,4 +44,4 @@ The project is structured as follows:
 
 ## Development
 
-This feature is part of WooCommerce Admin and uses the [same development environment.](/plugins/woocommerce-admin/README.md)
+This feature is part of PooCommerce Admin and uses the [same development environment.](/plugins/poocommerce-admin/README.md)

@@ -1,7 +1,7 @@
 const { request } = require( '@playwright/test' );
 const { test, expect, tags } = require( '../../fixtures/fixtures' );
 const { setOption } = require( '../../utils/options' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 test.describe(
 	'Launch Your Store - logged in',
@@ -25,7 +25,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'no'
 				);
 			} catch ( error ) {
@@ -41,14 +41,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 			} catch ( error ) {
@@ -72,14 +72,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'yes'
 				);
 			} catch ( error ) {
@@ -100,21 +100,21 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_private_link',
+					'poocommerce_private_link',
 					'no'
 				);
 			} catch ( error ) {
@@ -196,14 +196,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'yes'
 				);
 			} catch ( error ) {
@@ -228,14 +228,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 			} catch ( error ) {
@@ -257,14 +257,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 			} catch ( error ) {

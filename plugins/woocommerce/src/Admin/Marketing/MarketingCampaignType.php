@@ -5,7 +5,7 @@
  * Marketing channels (implementing MarketingChannelInterface) can use this class to define what kind of campaigns they support.
  */
 
-namespace Automattic\WooCommerce\Admin\Marketing;
+namespace Automattic\PooCommerce\Admin\Marketing;
 
 /**
  * MarketingCampaignType class

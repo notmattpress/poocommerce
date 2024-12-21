@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { ONBOARDING_STORE_NAME } from '@woocommerce/data';
+import { ONBOARDING_STORE_NAME } from '@poocommerce/data';
 
 export const useActiveSetupTasklist = () => {
 	const { activeSetuplist } = useSelect( ( select ) => {

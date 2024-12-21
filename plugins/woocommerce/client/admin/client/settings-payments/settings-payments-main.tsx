@@ -7,11 +7,11 @@ import {
 	PLUGINS_STORE_NAME,
 	PAYMENT_SETTINGS_STORE_NAME,
 	PaymentProvider,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { resolveSelect, useDispatch, useSelect } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ export const SettingsPaymentsMain = () => {
 	] = useState( false );
 
 	const [ storeCountry, setStoreCountry ] = useState< string | null >(
-		window.wcSettings?.admin?.woocommerce_payments_nox_profile
+		window.wcSettings?.admin?.poocommerce_payments_nox_profile
 			?.business_country_code || null
 	);
 
@@ -67,7 +67,7 @@ export const SettingsPaymentsMain = () => {
 					/* translators: %s: plugin name */
 					__(
 						'%s: An error occurred while setting up your sandbox account — please try again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 				)
@@ -83,7 +83,7 @@ export const SettingsPaymentsMain = () => {
 					/* translators: %s: plugin name */
 					__(
 						'%s: There was a problem connecting your WordPress.com account — please try again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 				)

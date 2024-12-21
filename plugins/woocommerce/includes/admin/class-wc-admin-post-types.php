@@ -2,13 +2,13 @@
 /**
  * Post Types Admin
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  3.3.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -42,7 +42,7 @@ class WC_Admin_Post_Types {
 
 		// Admin notices.
 		add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
-		add_filter( 'woocommerce_order_updated_messages', array( $this, 'order_updated_messages' ) );
+		add_filter( 'poocommerce_order_updated_messages', array( $this, 'order_updated_messages' ) );
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_post_updated_messages' ), 10, 2 );
 		add_action(
 			'admin_notices',
@@ -74,7 +74,7 @@ class WC_Admin_Post_Types {
 		add_action( 'bulk_edit_custom_box', array( $this, 'bulk_edit' ), 10, 2 );
 		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit' ), 10, 2 );
 		add_action( 'save_post', array( $this, 'bulk_and_quick_edit_hook' ), 10, 2 );
-		add_action( 'woocommerce_product_bulk_and_quick_edit', array( $this, 'bulk_and_quick_edit_save_post' ), 10, 2 );
+		add_action( 'poocommerce_product_bulk_and_quick_edit', array( $this, 'bulk_and_quick_edit_save_post' ), 10, 2 );
 	}
 
 	/**
@@ -130,44 +130,44 @@ class WC_Admin_Post_Types {
 		$messages['product'] = array(
 			0  => '', // Unused. Messages start at index 1.
 			/* translators: %1$s: Product link opening tag. %2$s: Product link closing tag.*/
-			1  => sprintf( __( 'Product updated. %1$sView Product%2$s', 'woocommerce' ), '<a id="woocommerce-product-updated-message-view-product__link" href="' . esc_url( get_permalink( $post->ID ) ) . '">', '</a>' ),
-			2  => __( 'Custom field updated.', 'woocommerce' ),
-			3  => __( 'Custom field deleted.', 'woocommerce' ),
-			4  => __( 'Product updated.', 'woocommerce' ),
-			5  => __( 'Revision restored.', 'woocommerce' ),
+			1  => sprintf( __( 'Product updated. %1$sView Product%2$s', 'poocommerce' ), '<a id="poocommerce-product-updated-message-view-product__link" href="' . esc_url( get_permalink( $post->ID ) ) . '">', '</a>' ),
+			2  => __( 'Custom field updated.', 'poocommerce' ),
+			3  => __( 'Custom field deleted.', 'poocommerce' ),
+			4  => __( 'Product updated.', 'poocommerce' ),
+			5  => __( 'Revision restored.', 'poocommerce' ),
 			/* translators: %1$s: Product link opening tag. %2$s: Product link closing tag.*/
-			6  => sprintf( __( 'Product published. %1$sView Product%2$s', 'woocommerce' ), '<a id="woocommerce-product-updated-message-view-product__link" href="' . esc_url( get_permalink( $post->ID ) ) . '">', '</a>' ),
-			7  => __( 'Product saved.', 'woocommerce' ),
+			6  => sprintf( __( 'Product published. %1$sView Product%2$s', 'poocommerce' ), '<a id="poocommerce-product-updated-message-view-product__link" href="' . esc_url( get_permalink( $post->ID ) ) . '">', '</a>' ),
+			7  => __( 'Product saved.', 'poocommerce' ),
 			/* translators: %s: product url */
-			8  => sprintf( __( 'Product submitted. <a target="_blank" href="%s">Preview product</a>', 'woocommerce' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
+			8  => sprintf( __( 'Product submitted. <a target="_blank" href="%s">Preview product</a>', 'poocommerce' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
 			9  => sprintf(
 				/* translators: 1: date 2: product url */
-				__( 'Product scheduled for: %1$s. <a target="_blank" href="%2$s">Preview product</a>', 'woocommerce' ),
-				'<strong>' . date_i18n( __( 'M j, Y @ G:i', 'woocommerce' ), strtotime( $post->post_date ) ) . '</strong>',
+				__( 'Product scheduled for: %1$s. <a target="_blank" href="%2$s">Preview product</a>', 'poocommerce' ),
+				'<strong>' . date_i18n( __( 'M j, Y @ G:i', 'poocommerce' ), strtotime( $post->post_date ) ) . '</strong>',
 				esc_url( get_permalink( $post->ID ) )
 			),
 			/* translators: %s: product url */
-			10 => sprintf( __( 'Product draft updated. <a target="_blank" href="%s">Preview product</a>', 'woocommerce' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
+			10 => sprintf( __( 'Product draft updated. <a target="_blank" href="%s">Preview product</a>', 'poocommerce' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
 		);
 
 		$messages = $this->order_updated_messages( $messages );
 
 		$messages['shop_coupon'] = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'Coupon updated.', 'woocommerce' ),
-			2  => __( 'Custom field updated.', 'woocommerce' ),
-			3  => __( 'Custom field deleted.', 'woocommerce' ),
-			4  => __( 'Coupon updated.', 'woocommerce' ),
-			5  => __( 'Revision restored.', 'woocommerce' ),
-			6  => __( 'Coupon updated.', 'woocommerce' ),
-			7  => __( 'Coupon saved.', 'woocommerce' ),
-			8  => __( 'Coupon submitted.', 'woocommerce' ),
+			1  => __( 'Coupon updated.', 'poocommerce' ),
+			2  => __( 'Custom field updated.', 'poocommerce' ),
+			3  => __( 'Custom field deleted.', 'poocommerce' ),
+			4  => __( 'Coupon updated.', 'poocommerce' ),
+			5  => __( 'Revision restored.', 'poocommerce' ),
+			6  => __( 'Coupon updated.', 'poocommerce' ),
+			7  => __( 'Coupon saved.', 'poocommerce' ),
+			8  => __( 'Coupon submitted.', 'poocommerce' ),
 			9  => sprintf(
 				/* translators: %s: date */
-				__( 'Coupon scheduled for: %s.', 'woocommerce' ),
-				'<strong>' . date_i18n( __( 'M j, Y @ G:i', 'woocommerce' ), strtotime( $post->post_date ) ) . '</strong>'
+				__( 'Coupon scheduled for: %s.', 'poocommerce' ),
+				'<strong>' . date_i18n( __( 'M j, Y @ G:i', 'poocommerce' ), strtotime( $post->post_date ) ) . '</strong>'
 			),
-			10 => __( 'Coupon draft updated.', 'woocommerce' ),
+			10 => __( 'Coupon draft updated.', 'poocommerce' ),
 		);
 
 		return $messages;
@@ -187,27 +187,27 @@ class WC_Admin_Post_Types {
 			if ( ! isset( $post ) || 'shop_order' !== $post->post_type ) {
 				return $messages;
 			} else {
-				\Automattic\WooCommerce\Utilities\OrderUtil::init_theorder_object( $post );
+				\Automattic\PooCommerce\Utilities\OrderUtil::init_theorder_object( $post );
 			}
 		}
 
 		$messages['shop_order'] = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'Order updated.', 'woocommerce' ),
-			2  => __( 'Custom field updated.', 'woocommerce' ),
-			3  => __( 'Custom field deleted.', 'woocommerce' ),
-			4  => __( 'Order updated.', 'woocommerce' ),
-			5  => __( 'Revision restored.', 'woocommerce' ),
-			6  => __( 'Order updated.', 'woocommerce' ),
-			7  => __( 'Order saved.', 'woocommerce' ),
-			8  => __( 'Order submitted.', 'woocommerce' ),
+			1  => __( 'Order updated.', 'poocommerce' ),
+			2  => __( 'Custom field updated.', 'poocommerce' ),
+			3  => __( 'Custom field deleted.', 'poocommerce' ),
+			4  => __( 'Order updated.', 'poocommerce' ),
+			5  => __( 'Revision restored.', 'poocommerce' ),
+			6  => __( 'Order updated.', 'poocommerce' ),
+			7  => __( 'Order saved.', 'poocommerce' ),
+			8  => __( 'Order submitted.', 'poocommerce' ),
 			9  => sprintf(
 			/* translators: %s: date */
-				__( 'Order scheduled for: %s.', 'woocommerce' ),
-				'<strong>' . date_i18n( __( 'M j, Y @ G:i', 'woocommerce' ), strtotime( $theorder->get_date_created() ?? $post->post_date ) ) . '</strong>'
+				__( 'Order scheduled for: %s.', 'poocommerce' ),
+				'<strong>' . date_i18n( __( 'M j, Y @ G:i', 'poocommerce' ), strtotime( $theorder->get_date_created() ?? $post->post_date ) ) . '</strong>'
 			),
-			10 => __( 'Order draft updated.', 'woocommerce' ),
-			11 => __( 'Order updated and sent.', 'woocommerce' ),
+			10 => __( 'Order draft updated.', 'poocommerce' ),
+			11 => __( 'Order updated and sent.', 'poocommerce' ),
 		);
 
 		return $messages;
@@ -223,41 +223,41 @@ class WC_Admin_Post_Types {
 	public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
 		$bulk_messages['product'] = array(
 			/* translators: %s: product count */
-			'updated'   => _n( '%s product updated.', '%s products updated.', $bulk_counts['updated'], 'woocommerce' ),
+			'updated'   => _n( '%s product updated.', '%s products updated.', $bulk_counts['updated'], 'poocommerce' ),
 			/* translators: %s: product count */
-			'locked'    => _n( '%s product not updated, somebody is editing it.', '%s products not updated, somebody is editing them.', $bulk_counts['locked'], 'woocommerce' ),
+			'locked'    => _n( '%s product not updated, somebody is editing it.', '%s products not updated, somebody is editing them.', $bulk_counts['locked'], 'poocommerce' ),
 			/* translators: %s: product count */
-			'deleted'   => _n( '%s product permanently deleted.', '%s products permanently deleted.', $bulk_counts['deleted'], 'woocommerce' ),
+			'deleted'   => _n( '%s product permanently deleted.', '%s products permanently deleted.', $bulk_counts['deleted'], 'poocommerce' ),
 			/* translators: %s: product count */
-			'trashed'   => _n( '%s product moved to the Trash.', '%s products moved to the Trash.', $bulk_counts['trashed'], 'woocommerce' ),
+			'trashed'   => _n( '%s product moved to the Trash.', '%s products moved to the Trash.', $bulk_counts['trashed'], 'poocommerce' ),
 			/* translators: %s: product count */
-			'untrashed' => _n( '%s product restored from the Trash.', '%s products restored from the Trash.', $bulk_counts['untrashed'], 'woocommerce' ),
+			'untrashed' => _n( '%s product restored from the Trash.', '%s products restored from the Trash.', $bulk_counts['untrashed'], 'poocommerce' ),
 		);
 
 		$bulk_messages['shop_order'] = array(
 			/* translators: %s: order count */
-			'updated'   => _n( '%s order updated.', '%s orders updated.', $bulk_counts['updated'], 'woocommerce' ),
+			'updated'   => _n( '%s order updated.', '%s orders updated.', $bulk_counts['updated'], 'poocommerce' ),
 			/* translators: %s: order count */
-			'locked'    => _n( '%s order not updated, somebody is editing it.', '%s orders not updated, somebody is editing them.', $bulk_counts['locked'], 'woocommerce' ),
+			'locked'    => _n( '%s order not updated, somebody is editing it.', '%s orders not updated, somebody is editing them.', $bulk_counts['locked'], 'poocommerce' ),
 			/* translators: %s: order count */
-			'deleted'   => _n( '%s order permanently deleted.', '%s orders permanently deleted.', $bulk_counts['deleted'], 'woocommerce' ),
+			'deleted'   => _n( '%s order permanently deleted.', '%s orders permanently deleted.', $bulk_counts['deleted'], 'poocommerce' ),
 			/* translators: %s: order count */
-			'trashed'   => _n( '%s order moved to the Trash.', '%s orders moved to the Trash.', $bulk_counts['trashed'], 'woocommerce' ),
+			'trashed'   => _n( '%s order moved to the Trash.', '%s orders moved to the Trash.', $bulk_counts['trashed'], 'poocommerce' ),
 			/* translators: %s: order count */
-			'untrashed' => _n( '%s order restored from the Trash.', '%s orders restored from the Trash.', $bulk_counts['untrashed'], 'woocommerce' ),
+			'untrashed' => _n( '%s order restored from the Trash.', '%s orders restored from the Trash.', $bulk_counts['untrashed'], 'poocommerce' ),
 		);
 
 		$bulk_messages['shop_coupon'] = array(
 			/* translators: %s: coupon count */
-			'updated'   => _n( '%s coupon updated.', '%s coupons updated.', $bulk_counts['updated'], 'woocommerce' ),
+			'updated'   => _n( '%s coupon updated.', '%s coupons updated.', $bulk_counts['updated'], 'poocommerce' ),
 			/* translators: %s: coupon count */
-			'locked'    => _n( '%s coupon not updated, somebody is editing it.', '%s coupons not updated, somebody is editing them.', $bulk_counts['locked'], 'woocommerce' ),
+			'locked'    => _n( '%s coupon not updated, somebody is editing it.', '%s coupons not updated, somebody is editing them.', $bulk_counts['locked'], 'poocommerce' ),
 			/* translators: %s: coupon count */
-			'deleted'   => _n( '%s coupon permanently deleted.', '%s coupons permanently deleted.', $bulk_counts['deleted'], 'woocommerce' ),
+			'deleted'   => _n( '%s coupon permanently deleted.', '%s coupons permanently deleted.', $bulk_counts['deleted'], 'poocommerce' ),
 			/* translators: %s: coupon count */
-			'trashed'   => _n( '%s coupon moved to the Trash.', '%s coupons moved to the Trash.', $bulk_counts['trashed'], 'woocommerce' ),
+			'trashed'   => _n( '%s coupon moved to the Trash.', '%s coupons moved to the Trash.', $bulk_counts['trashed'], 'poocommerce' ),
 			/* translators: %s: coupon count */
-			'untrashed' => _n( '%s coupon restored from the Trash.', '%s coupons restored from the Trash.', $bulk_counts['untrashed'], 'woocommerce' ),
+			'untrashed' => _n( '%s coupon restored from the Trash.', '%s coupons restored from the Trash.', $bulk_counts['untrashed'], 'poocommerce' ),
 		);
 
 		return $bulk_messages;
@@ -279,8 +279,8 @@ class WC_Admin_Post_Types {
 
 		wp_admin_notice(
 			__(
-				'This coupon is password protected. WooCommerce does not support password protection for coupons. You can temporarily hide a coupon by making it private. Alternatively, usage limits and restrictions can be configured below.',
-				'woocommerce'
+				'This coupon is password protected. PooCommerce does not support password protection for coupons. You can temporarily hide a coupon by making it private. Alternatively, usage limits and restrictions can be configured below.',
+				'poocommerce'
 			),
 			array(
 				'type'               => 'warning',
@@ -342,7 +342,7 @@ class WC_Admin_Post_Types {
 	 */
 	public function bulk_and_quick_edit_hook( $post_id, $post ) {
 		remove_action( 'save_post', array( $this, 'bulk_and_quick_edit_hook' ) );
-		do_action( 'woocommerce_product_bulk_and_quick_edit', $post_id, $post );
+		do_action( 'poocommerce_product_bulk_and_quick_edit', $post_id, $post );
 		add_action( 'save_post', array( $this, 'bulk_and_quick_edit_hook' ), 10, 2 );
 	}
 
@@ -368,14 +368,14 @@ class WC_Admin_Post_Types {
 
 		// Check nonce.
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-		if ( ! isset( $request_data['woocommerce_quick_edit_nonce'] ) || ! wp_verify_nonce( $request_data['woocommerce_quick_edit_nonce'], 'woocommerce_quick_edit_nonce' ) ) {
+		if ( ! isset( $request_data['poocommerce_quick_edit_nonce'] ) || ! wp_verify_nonce( $request_data['poocommerce_quick_edit_nonce'], 'poocommerce_quick_edit_nonce' ) ) {
 			return $post_id;
 		}
 
 		// Get the product and save.
 		$product = wc_get_product( $post );
 
-		if ( ! empty( $request_data['woocommerce_quick_edit'] ) ) { // WPCS: input var ok.
+		if ( ! empty( $request_data['poocommerce_quick_edit'] ) ) { // WPCS: input var ok.
 			$this->quick_edit_save( $post_id, $product );
 		} else {
 			$this->bulk_edit_save( $post_id, $product );
@@ -498,7 +498,7 @@ class WC_Admin_Post_Types {
 			$product->set_backorders( $backorders );
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_manage_stock' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_manage_stock' ) ) {
 			$stock_amount = 'yes' === $manage_stock && isset( $request_data['_stock'] ) && is_numeric( wp_unslash( $request_data['_stock'] ) ) ? wc_stock_amount( wp_unslash( $request_data['_stock'] ) ) : '';
 			$product->set_stock_quantity( $stock_amount );
 		}
@@ -507,7 +507,7 @@ class WC_Admin_Post_Types {
 
 		$product->save();
 
-		do_action( 'woocommerce_product_quick_edit_save', $product );
+		do_action( 'poocommerce_product_quick_edit_save', $product );
 	}
 
 	/**
@@ -585,7 +585,7 @@ class WC_Admin_Post_Types {
 		 *
 		 * @since 3.0.0
 		 */
-		$change_price_product_types    = apply_filters( 'woocommerce_bulk_edit_save_price_product_types', array( ProductType::SIMPLE, ProductType::EXTERNAL ) );
+		$change_price_product_types    = apply_filters( 'poocommerce_bulk_edit_save_price_product_types', array( ProductType::SIMPLE, ProductType::EXTERNAL ) );
 		$can_product_type_change_price = false;
 		foreach ( $change_price_product_types as $product_type ) {
 			if ( $product->is_type( $product_type ) ) {
@@ -627,7 +627,7 @@ class WC_Admin_Post_Types {
 			$product->set_backorders( $backorders );
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_manage_stock' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_manage_stock' ) ) {
 			$change_stock = absint( $request_data['change_stock'] );
 			switch ( $change_stock ) {
 				case 2:
@@ -641,7 +641,7 @@ class WC_Admin_Post_Types {
 					break;
 			}
 		} else {
-			// Reset values if WooCommerce Setting - Manage Stock status is disabled.
+			// Reset values if PooCommerce Setting - Manage Stock status is disabled.
 			$product->set_stock_quantity( '' );
 			$product->set_manage_stock( 'no' );
 		}
@@ -651,7 +651,7 @@ class WC_Admin_Post_Types {
 
 		$product->save();
 
-		do_action( 'woocommerce_product_bulk_edit_save', $product );
+		do_action( 'poocommerce_product_bulk_edit_save', $product );
 
 		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 	}
@@ -686,10 +686,10 @@ class WC_Admin_Post_Types {
 	public function enter_title_here( $text, $post ) {
 		switch ( $post->post_type ) {
 			case 'product':
-				$text = esc_html__( 'Product name', 'woocommerce' );
+				$text = esc_html__( 'Product name', 'poocommerce' );
 				break;
 			case 'shop_coupon':
-				$text = esc_html__( 'Coupon code', 'woocommerce' );
+				$text = esc_html__( 'Coupon code', 'poocommerce' );
 				break;
 		}
 		return $text;
@@ -704,7 +704,7 @@ class WC_Admin_Post_Types {
 		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 		if ( 'shop_coupon' === $post->post_type ) {
 			?>
-			<textarea id="woocommerce-coupon-description" name="excerpt" cols="5" rows="2" placeholder="<?php esc_attr_e( 'Description (optional)', 'woocommerce' ); ?>"><?php echo $post->post_excerpt; ?></textarea>
+			<textarea id="poocommerce-coupon-description" name="excerpt" cols="5" rows="2" placeholder="<?php esc_attr_e( 'Description (optional)', 'poocommerce' ); ?>"><?php echo $post->post_excerpt; ?></textarea>
 			<?php
 		}
 		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -742,19 +742,19 @@ class WC_Admin_Post_Types {
 		$visibility_options = wc_get_product_visibility_options();
 		?>
 		<div class="misc-pub-section" id="catalog-visibility">
-			<?php esc_html_e( 'Catalog visibility:', 'woocommerce' ); ?>
+			<?php esc_html_e( 'Catalog visibility:', 'poocommerce' ); ?>
 			<strong id="catalog-visibility-display">
 				<?php
 
 				echo isset( $visibility_options[ $current_visibility ] ) ? esc_html( $visibility_options[ $current_visibility ] ) : esc_html( $current_visibility );
 
 				if ( 'yes' === $current_featured ) {
-					echo ', ' . esc_html__( 'Featured', 'woocommerce' );
+					echo ', ' . esc_html__( 'Featured', 'poocommerce' );
 				}
 				?>
 			</strong>
 
-			<a href="#catalog-visibility" class="edit-catalog-visibility hide-if-no-js"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a>
+			<a href="#catalog-visibility" class="edit-catalog-visibility hide-if-no-js"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a>
 
 			<div id="catalog-visibility-select" class="hide-if-js">
 
@@ -762,17 +762,17 @@ class WC_Admin_Post_Types {
 				<input type="hidden" name="current_featured" id="current_featured" value="<?php echo esc_attr( $current_featured ); ?>" />
 
 				<?php
-				echo '<p>' . esc_html__( 'This setting determines which shop pages products will be listed on.', 'woocommerce' ) . '</p>';
+				echo '<p>' . esc_html__( 'This setting determines which shop pages products will be listed on.', 'poocommerce' ) . '</p>';
 
 				foreach ( $visibility_options as $name => $label ) {
 					echo '<input type="radio" name="_visibility" id="_visibility_' . esc_attr( $name ) . '" value="' . esc_attr( $name ) . '" ' . checked( $current_visibility, $name, false ) . ' data-label="' . esc_attr( $label ) . '" /> <label for="_visibility_' . esc_attr( $name ) . '" class="selectit">' . esc_html( $label ) . '</label><br />';
 				}
 
-				echo '<br /><input type="checkbox" name="_featured" id="_featured" ' . checked( $current_featured, 'yes', false ) . ' /> <label for="_featured">' . esc_html__( 'This is a featured product', 'woocommerce' ) . '</label><br />';
+				echo '<br /><input type="checkbox" name="_featured" id="_featured" ' . checked( $current_featured, 'yes', false ) . ' /> <label for="_featured">' . esc_html__( 'This is a featured product', 'poocommerce' ) . '</label><br />';
 				?>
 				<p>
-					<a href="#catalog-visibility" class="save-post-visibility hide-if-no-js button"><?php esc_html_e( 'OK', 'woocommerce' ); ?></a>
-					<a href="#catalog-visibility" class="cancel-post-visibility hide-if-no-js"><?php esc_html_e( 'Cancel', 'woocommerce' ); ?></a>
+					<a href="#catalog-visibility" class="save-post-visibility hide-if-no-js button"><?php esc_html_e( 'OK', 'poocommerce' ); ?></a>
+					<a href="#catalog-visibility" class="cancel-post-visibility hide-if-no-js"><?php esc_html_e( 'Cancel', 'poocommerce' ); ?></a>
 				</p>
 			</div>
 		</div>
@@ -822,7 +822,7 @@ class WC_Admin_Post_Types {
 		if ( $post && absint( $post->ID ) === $shop_page_id ) {
 			echo '<div class="notice notice-info">';
 			/* translators: %s: URL to read more about the shop page. */
-			echo '<p>' . sprintf( wp_kses_post( __( 'This is the WooCommerce shop page. The shop page is a special archive that lists your products. <a href="%s">You can read more about this here</a>.', 'woocommerce' ) ), 'https://woocommerce.com/document/woocommerce-pages/#section-4' ) . '</p>';
+			echo '<p>' . sprintf( wp_kses_post( __( 'This is the PooCommerce shop page. The shop page is a special archive that lists your products. <a href="%s">You can read more about this here</a>.', 'poocommerce' ) ), 'https://poocommerce.com/document/poocommerce-pages/#section-4' ) . '</p>';
 			echo '</div>';
 		}
 	}
@@ -835,23 +835,23 @@ class WC_Admin_Post_Types {
 	 */
 	public function add_display_post_states( $post_states, $post ) {
 		if ( wc_get_page_id( 'shop' ) === $post->ID ) {
-			$post_states['wc_page_for_shop'] = __( 'Shop Page', 'woocommerce' );
+			$post_states['wc_page_for_shop'] = __( 'Shop Page', 'poocommerce' );
 		}
 
 		if ( wc_get_page_id( 'cart' ) === $post->ID ) {
-			$post_states['wc_page_for_cart'] = __( 'Cart Page', 'woocommerce' );
+			$post_states['wc_page_for_cart'] = __( 'Cart Page', 'poocommerce' );
 		}
 
 		if ( wc_get_page_id( 'checkout' ) === $post->ID ) {
-			$post_states['wc_page_for_checkout'] = __( 'Checkout Page', 'woocommerce' );
+			$post_states['wc_page_for_checkout'] = __( 'Checkout Page', 'poocommerce' );
 		}
 
 		if ( wc_get_page_id( 'myaccount' ) === $post->ID ) {
-			$post_states['wc_page_for_myaccount'] = __( 'My Account Page', 'woocommerce' );
+			$post_states['wc_page_for_myaccount'] = __( 'My Account Page', 'poocommerce' );
 		}
 
 		if ( wc_get_page_id( 'terms' ) === $post->ID ) {
-			$post_states['wc_page_for_terms'] = __( 'Terms and Conditions Page', 'woocommerce' );
+			$post_states['wc_page_for_terms'] = __( 'Terms and Conditions Page', 'poocommerce' );
 		}
 
 		return $post_states;

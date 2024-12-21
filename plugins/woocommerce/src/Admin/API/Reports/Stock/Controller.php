@@ -5,13 +5,13 @@
  * Handles requests to the /reports/stock endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Stock;
+namespace Automattic\PooCommerce\Admin\API\Reports\Stock;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Enums\ProductType;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -163,8 +163,8 @@ class Controller extends GenericController implements ExportableInterface {
 
 		if ( $wp_query->get( 'low_in_stock' ) ) {
 			// We want products with stock < low stock amount, but greater than no stock amount.
-			$no_stock_amount  = absint( max( get_option( 'woocommerce_notify_no_stock_amount' ), 0 ) );
-			$low_stock_amount = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+			$no_stock_amount  = absint( max( get_option( 'poocommerce_notify_no_stock_amount' ), 0 ) );
+			$low_stock_amount = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 			$where           .= "
 			AND wc_product_meta_lookup.stock_quantity IS NOT NULL
 			AND wc_product_meta_lookup.stock_status = 'instock'
@@ -296,7 +296,7 @@ class Controller extends GenericController implements ExportableInterface {
 		);
 
 		if ( '' === $data['low_stock_amount'] ) {
-			$data['low_stock_amount'] = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+			$data['low_stock_amount'] = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 		}
 
 		$response = parent::prepare_item_for_response( $data, $request );
@@ -311,7 +311,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param WC_Product       $product   The original product object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_stock', $response, $product, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_stock', $response, $product, $request );
 	}
 
 	/**
@@ -362,44 +362,44 @@ class Controller extends GenericController implements ExportableInterface {
 			'type'       => 'object',
 			'properties' => array(
 				'id'             => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'parent_id'      => array(
-					'description' => __( 'Product parent ID.', 'woocommerce' ),
+					'description' => __( 'Product parent ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'           => array(
-					'description' => __( 'Product name.', 'woocommerce' ),
+					'description' => __( 'Product name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'sku'            => array(
-					'description' => __( 'Unique identifier.', 'woocommerce' ),
+					'description' => __( 'Unique identifier.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'stock_status'   => array(
-					'description' => __( 'Stock status.', 'woocommerce' ),
+					'description' => __( 'Stock status.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array_keys( wc_get_product_stock_status_options() ),
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'stock_quantity' => array(
-					'description' => __( 'Stock quantity.', 'woocommerce' ),
+					'description' => __( 'Stock quantity.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'manage_stock'   => array(
-					'description' => __( 'Manage stock.', 'woocommerce' ),
+					'description' => __( 'Manage stock.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -419,7 +419,7 @@ class Controller extends GenericController implements ExportableInterface {
 		$params = parent::get_collection_params();
 		unset( $params['after'], $params['before'], $params['force_cache_refresh'] );
 		$params['exclude']            = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'woocommerce' ),
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -428,7 +428,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['include']            = array(
-			'description'       => __( 'Limit result set to specific ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to specific ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -437,7 +437,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['offset']             = array(
-			'description'       => __( 'Offset the result set by a specific number of items.', 'woocommerce' ),
+			'description'       => __( 'Offset the result set by a specific number of items.', 'poocommerce' ),
 			'type'              => 'integer',
 			'sanitize_callback' => 'absint',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -456,7 +456,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['parent']             = array(
-			'description'       => __( 'Limit result set to those of particular parent IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to those of particular parent IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -465,7 +465,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'default'           => array(),
 		);
 		$params['parent_exclude']     = array(
-			'description'       => __( 'Limit result set to all items except those of a particular parent ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to all items except those of a particular parent ID.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -474,7 +474,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'default'           => array(),
 		);
 		$params['type']               = array(
-			'description' => __( 'Limit result set to items assigned a stock report type.', 'woocommerce' ),
+			'description' => __( 'Limit result set to items assigned a stock report type.', 'poocommerce' ),
 			'type'        => 'string',
 			'default'     => 'all',
 			'enum'        => array_merge( array( 'all', 'lowstock' ), array_keys( wc_get_product_stock_status_options() ) ),
@@ -490,10 +490,10 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'title'          => __( 'Product / Variation', 'woocommerce' ),
-			'sku'            => __( 'SKU', 'woocommerce' ),
-			'stock_status'   => __( 'Status', 'woocommerce' ),
-			'stock_quantity' => __( 'Stock', 'woocommerce' ),
+			'title'          => __( 'Product / Variation', 'poocommerce' ),
+			'sku'            => __( 'SKU', 'poocommerce' ),
+			'stock_status'   => __( 'Status', 'poocommerce' ),
+			'stock_quantity' => __( 'Stock', 'poocommerce' ),
 		);
 
 		/**
@@ -503,7 +503,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_stock_export_columns',
+			'poocommerce_report_stock_export_columns',
 			$export_columns
 		);
 	}
@@ -534,7 +534,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 1.6.0
 		 */
 		return apply_filters(
-			'woocommerce_report_stock_prepare_export_item',
+			'poocommerce_report_stock_prepare_export_item',
 			$export_item,
 			$item
 		);

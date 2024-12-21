@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -63,7 +63,7 @@ export const JetpackInstallStepperPage: React.FC<
 				<h3>
 					{ __(
 						'Run your store from anywhere in two easy steps.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</h3>
 			</div>

@@ -5,7 +5,7 @@ const { customerBilling, customerShipping } = require( './shared' );
  *
  * For more details on the order properties, see:
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#order-properties
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#order-properties
  */
 const order = {
 	payment_method: '',

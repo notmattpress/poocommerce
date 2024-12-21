@@ -4,7 +4,7 @@
 import { Fragment, useState } from '@wordpress/element';
 import { Icon } from '@wordpress/icons';
 import CrossSmall from 'gridicons/dist/cross-small';
-import { EllipsisMenu, MenuItem, MenuTitle } from '@woocommerce/components';
+import { EllipsisMenu, MenuItem, MenuTitle } from '@poocommerce/components';
 
 const ExampleEllipsisMenu = () => {
 	const [ { showCustomers, showOrders }, setState ] = useState( {
@@ -56,6 +56,6 @@ const ExampleEllipsisMenu = () => {
 export const Basic = () => <ExampleEllipsisMenu />;
 
 export default {
-	title: 'WooCommerce Admin/components/EllipsisMenu',
+	title: 'PooCommerce Admin/components/EllipsisMenu',
 	component: EllipsisMenu,
 };

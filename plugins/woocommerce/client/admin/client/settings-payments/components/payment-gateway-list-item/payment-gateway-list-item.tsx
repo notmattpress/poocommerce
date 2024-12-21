@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { WooPaymentMethodsLogos } from '@woocommerce/onboarding';
+import { WooPaymentMethodsLogos } from '@poocommerce/onboarding';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
-import { PaymentGatewayProvider } from '@woocommerce/data';
+import { PaymentGatewayProvider } from '@poocommerce/data';
 import { Tooltip } from '@wordpress/components';
 
 /**
@@ -69,18 +69,18 @@ export const PaymentGatewayListItem = ( {
 	return (
 		<div
 			id={ gateway.id }
-			className={ `transitions-disabled woocommerce-list__item woocommerce-list__item-enter-done woocommerce-item__payment-gateway ${
-				isWcPay ? `woocommerce-item__woocommerce-payments` : ''
+			className={ `transitions-disabled poocommerce-list__item poocommerce-list__item-enter-done poocommerce-item__payment-gateway ${
+				isWcPay ? `poocommerce-item__poocommerce-payments` : ''
 			} ${ shouldHighlightIncentive ? `has-incentive` : '' }` }
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
-				<div className="woocommerce-list__item-before">
+			<div className="poocommerce-list__item-inner">
+				<div className="poocommerce-list__item-before">
 					<DefaultDragHandle />
 					<img src={ gateway.icon } alt={ gateway.title + ' logo' } />
 				</div>
-				<div className="woocommerce-list__item-text">
-					<span className="woocommerce-list__item-title">
+				<div className="poocommerce-list__item-text">
+					<span className="poocommerce-list__item-title">
 						{ gateway.title }
 						{ incentive ? (
 							<StatusBadge
@@ -94,7 +94,7 @@ export const PaymentGatewayListItem = ( {
 							<Tooltip
 								text={ __(
 									'Supports recurring payments',
-									'woocommerce'
+									'poocommerce'
 								) }
 								children={
 									<img
@@ -104,7 +104,7 @@ export const PaymentGatewayListItem = ( {
 										}
 										alt={ __(
 											'Icon to indicate support for recurring payments',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								}
@@ -112,7 +112,7 @@ export const PaymentGatewayListItem = ( {
 						) }
 					</span>
 					<span
-						className="woocommerce-list__item-content"
+						className="poocommerce-list__item-content"
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							decodeEntities( gateway.description )
 						) }
@@ -124,8 +124,8 @@ export const PaymentGatewayListItem = ( {
 						/>
 					) }
 				</div>
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions">
 						{ ! gateway.state.enabled &&
 							! gatewayNeedsOnboarding && (
 								<EnableGatewayButton
@@ -186,7 +186,7 @@ export const PaymentGatewayListItem = ( {
 						<EllipsisMenu
 							label={ __(
 								'Payment Provider Options',
-								'woocommerce'
+								'poocommerce'
 							) }
 							provider={ gateway }
 						/>

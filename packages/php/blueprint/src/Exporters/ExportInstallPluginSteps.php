@@ -1,14 +1,14 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Steps\InstallPlugin;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Steps\InstallPlugin;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ExportInstallPluginSteps
  *
- * @package Automattic\WooCommerce\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Blueprint\Exporters
  */
 class ExportInstallPluginSteps implements StepExporter {
 	use UseWPFunctions;
@@ -55,9 +55,9 @@ class ExportInstallPluginSteps implements StepExporter {
 			$plugins = call_user_func( $this->filter_callback, $plugins );
 		}
 
-		// @todo temporary fix for JN site -- it includes WooCommerce as a custom plugin
+		// @todo temporary fix for JN site -- it includes PooCommerce as a custom plugin
 		// since JN sites are using a different slug.
-		$exclude = array( 'WooCommerce Beta Tester' );
+		$exclude = array( 'PooCommerce Beta Tester' );
 		$steps   = array();
 		foreach ( $plugins as $path => $plugin ) {
 			if ( in_array( $plugin['Name'], $exclude, true ) ) {

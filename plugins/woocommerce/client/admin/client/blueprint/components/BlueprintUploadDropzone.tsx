@@ -95,7 +95,7 @@ const importBlueprint = async ( process_nonce: string, reference: string ) => {
 	}
 
 	dispatch( 'core/notices' ).createSuccessNotice(
-		`${ __( 'Your Blueprint has been imported!', 'woocommerce' ) }`
+		`${ __( 'Your Blueprint has been imported!', 'poocommerce' ) }`
 	);
 };
 
@@ -309,7 +309,7 @@ export const BlueprintUploadDropzone = () => {
 							<p className="blueprint-upload-dropzone-text">
 								{ __(
 									'Upload a .zip or .json file',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 							<DropZone
@@ -338,7 +338,7 @@ export const BlueprintUploadDropzone = () => {
 						{ /* @ts-expect-error -- it does accept a className */ }
 						<Spinner className="blueprint-upload-dropzone-spinner" />
 						<p className="blueprint-upload-dropzone-text">
-							{ __( 'Uploading your file…', 'woocommerce' ) }
+							{ __( 'Uploading your file…', 'poocommerce' ) }
 						</p>
 					</div>
 				</div>
@@ -361,13 +361,13 @@ export const BlueprintUploadDropzone = () => {
 			{ ( state.matches( 'success' ) ||
 				state.matches( 'overrideModal' ) ) && (
 				<Button
-					className="woocommerce-blueprint-import-button"
+					className="poocommerce-blueprint-import-button"
 					variant="primary"
 					onClick={ () => {
 						send( { type: 'IMPORT' } );
 					} }
 				>
-					{ __( 'Import', 'woocommerce' ) }
+					{ __( 'Import', 'poocommerce' ) }
 				</Button>
 			) }
 			{ ( state.matches( 'importing' ) ||

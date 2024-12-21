@@ -2,24 +2,24 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
-use Automattic\WooCommerce\Blueprint\ExportSchema;
-use Automattic\WooCommerce\Blueprint\ImportSchema;
-use Automattic\WooCommerce\Blueprint\JsonResultFormatter;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\ZipExportedSchema;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\ImportSchema;
+use Automattic\PooCommerce\Blueprint\JsonResultFormatter;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\ZipExportedSchema;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
 /**
  * Class RestApi
  *
- * This class handles the REST API endpoints for importing and exporting WooCommerce Blueprints.
+ * This class handles the REST API endpoints for importing and exporting PooCommerce Blueprints.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint
  */
 class RestApi {
 	/**
@@ -58,12 +58,12 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_permission' ),
 					'args'                => array(
 						'reference'     => array(
-							'description' => __( 'The reference of the uploaded file', 'woocommerce' ),
+							'description' => __( 'The reference of the uploaded file', 'poocommerce' ),
 							'type'        => 'string',
 							'required'    => true,
 						),
 						'process_nonce' => array(
-							'description' => __( 'The nonce for processing the uploaded file', 'woocommerce' ),
+							'description' => __( 'The nonce for processing the uploaded file', 'poocommerce' ),
 							'type'        => 'string',
 							'required'    => true,
 						),
@@ -95,7 +95,7 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_permission' ),
 					'args'                => array(
 						'steps'         => array(
-							'description' => __( 'A list of plugins to install', 'woocommerce' ),
+							'description' => __( 'A list of plugins to install', 'poocommerce' ),
 							'type'        => 'object',
 							'properties'  => array(
 								'settings' => array(
@@ -121,7 +121,7 @@ class RestApi {
 							'required'    => true,
 						),
 						'export_as_zip' => array(
-							'description' => __( 'Export as a zip file', 'woocommerce' ),
+							'description' => __( 'Export as a zip file', 'poocommerce' ),
 							'type'        => 'boolean',
 							'default'     => false,
 							'required'    => false,
@@ -139,7 +139,7 @@ class RestApi {
 	 */
 	public function check_permission() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -213,7 +213,7 @@ class RestApi {
 			return new \WP_HTTP_Response(
 				array(
 					'status'  => 'error',
-					'message' => __( 'Invalid nonce', 'woocommerce' ),
+					'message' => __( 'Invalid nonce', 'poocommerce' ),
 				),
 				400
 			);
@@ -230,7 +230,7 @@ class RestApi {
 				return new \WP_HTTP_Response(
 					array(
 						'status'  => 'error',
-						'message' => __( 'Invalid file type', 'woocommerce' ),
+						'message' => __( 'Invalid file type', 'poocommerce' ),
 					),
 					400
 				);
@@ -274,7 +274,7 @@ class RestApi {
 			return new \WP_HTTP_Response(
 				array(
 					'status'  => $is_success,
-					'message' => 'error' === $is_success ? __( 'There was an error while processing your schema', 'woocommerce' ) : 'success',
+					'message' => 'error' === $is_success ? __( 'There was an error while processing your schema', 'poocommerce' ) : 'success',
 					'data'    => array(
 						'redirect' => admin_url( $redirect_url ),
 						'result'   => $result_formatter->format(),
@@ -287,7 +287,7 @@ class RestApi {
 		return new \WP_HTTP_Response(
 			array(
 				'status'  => 'error',
-				'message' => __( 'No file uploaded', 'woocommerce' ),
+				'message' => __( 'No file uploaded', 'poocommerce' ),
 			),
 			400
 		);
@@ -314,14 +314,14 @@ class RestApi {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		if ( ! isset( $_POST['blueprint_upload_nonce'] ) || ! \wp_verify_nonce( $_POST['blueprint_upload_nonce'], 'blueprint_upload_nonce' ) ) {
 			$response['error_type'] = 'upload';
-			$response['errors'][]   = __( 'Invalid nonce', 'woocommerce' );
+			$response['errors'][]   = __( 'Invalid nonce', 'poocommerce' );
 			return $response;
 		}
 
 		// Validate file upload.
 		if ( empty( $_FILES['file'] ) || ! isset( $_FILES['file']['error'], $_FILES['file']['tmp_name'], $_FILES['file']['type'] ) ) {
 			$response['error_type'] = 'upload';
-			$response['errors'][]   = __( 'No file uploaded', 'woocommerce' );
+			$response['errors'][]   = __( 'No file uploaded', 'poocommerce' );
 			return $response;
 		}
 
@@ -330,7 +330,7 @@ class RestApi {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( UPLOAD_ERR_OK !== $_FILES['file']['error'] || ! is_uploaded_file( $_FILES['file']['tmp_name'] ) ) {
 			$response['error_type'] = 'upload';
-			$response['errors'][]   = __( 'File upload error', 'woocommerce' );
+			$response['errors'][]   = __( 'File upload error', 'poocommerce' );
 			return $response;
 		}
 
@@ -339,7 +339,7 @@ class RestApi {
 		// Check for valid file types.
 		if ( 'application/json' !== $mime_type && 'application/zip' !== $mime_type ) {
 			$response['error_type'] = 'upload';
-			$response['errors'][]   = __( 'Invalid file type', 'woocommerce' );
+			$response['errors'][]   = __( 'Invalid file type', 'poocommerce' );
 			return $response;
 		}
 
@@ -356,7 +356,7 @@ class RestApi {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! move_uploaded_file( $_FILES['file']['tmp_name'], $tmp_filepath ) ) {
 			$response['error_type'] = 'upload';
-			$response['errors'][]   = __( 'Error moving file to tmp directory', 'woocommerce' );
+			$response['errors'][]   = __( 'Error moving file to tmp directory', 'poocommerce' );
 			return $response;
 		}
 
@@ -409,7 +409,7 @@ class RestApi {
 		$nonce = $request->get_param( 'process_nonce' );
 
 		if ( ! \wp_verify_nonce( $nonce, $ref ) ) {
-			$response['message'] = __( 'Invalid nonce', 'woocommerce' );
+			$response['message'] = __( 'Invalid nonce', 'poocommerce' );
 			return $response;
 		}
 
@@ -436,7 +436,7 @@ class RestApi {
 		$is_success = $result_formatter->is_success();
 
 		$response['processed'] = $is_success;
-		$response['message']   = false === $is_success ? __( 'There was an error while processing your schema', 'woocommerce' ) : 'success';
+		$response['message']   = false === $is_success ? __( 'There was an error while processing your schema', 'poocommerce' ) : 'success';
 		$response['data']      = array(
 			'redirect' => admin_url( $redirect_url ),
 			'result'   => $result_formatter->format(),
@@ -490,14 +490,14 @@ class RestApi {
 	 */
 	private function get_settings_to_overwrite( array $requested_steps ): array {
 		$settings_map = array(
-			'setWCSettings'            => __( 'Settings', 'woocommerce' ),
-			'setWCCoreProfilerOptions' => __( 'Core Profiler Options', 'woocommerce' ),
-			'setWCPaymentGateways'     => __( 'Payment Gateways', 'woocommerce' ),
-			'setWCShipping'            => __( 'Shipping', 'woocommerce' ),
-			'setWCTaskOptions'         => __( 'Task Options', 'woocommerce' ),
-			'setWCTaxRates'            => __( 'Tax Rates', 'woocommerce' ),
-			'installPlugin'            => __( 'Plugins', 'woocommerce' ),
-			'installTheme'             => __( 'Themes', 'woocommerce' ),
+			'setWCSettings'            => __( 'Settings', 'poocommerce' ),
+			'setWCCoreProfilerOptions' => __( 'Core Profiler Options', 'poocommerce' ),
+			'setWCPaymentGateways'     => __( 'Payment Gateways', 'poocommerce' ),
+			'setWCShipping'            => __( 'Shipping', 'poocommerce' ),
+			'setWCTaskOptions'         => __( 'Task Options', 'poocommerce' ),
+			'setWCTaxRates'            => __( 'Tax Rates', 'poocommerce' ),
+			'installPlugin'            => __( 'Plugins', 'poocommerce' ),
+			'installTheme'             => __( 'Themes', 'poocommerce' ),
 		);
 
 		$settings = array();

@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/blob/v16.4.0/packages/edit-site/src/components/sidebar/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -17,7 +17,7 @@ import { SidebarNavigationScreenMain } from './sidebar-navigation-screen-main';
 import { SidebarNavigationScreenTypography } from './sidebar-navigation-screen-typography/sidebar-navigation-screen-typography';
 // import { SidebarNavigationScreenPages } from './sidebar-navigation-screen-pages';
 
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 import { SaveHub } from './save-hub';
 // In some cases, the assembler is loaded in an iframe, so we have to re-apply the filter.
 import '~/customize-store/design-with-ai/entrepreneur-flow';

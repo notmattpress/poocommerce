@@ -1,19 +1,19 @@
 <?php
 /**
- * Base test case for all WooCommerce tests.
+ * Base test case for all PooCommerce tests.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\CodeHacker;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\CodeHacker;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use PHPUnit\Framework\Constraint\IsType;
 
 /**
  * WC Unit Test Case.
  *
- * Provides WooCommerce-specific setup/tear down/assert methods, custom factories,
+ * Provides PooCommerce-specific setup/tear down/assert methods, custom factories,
  * and helper functions.
  *
  * @since 2.2
@@ -73,7 +73,7 @@ class WC_Unit_Test_Case extends WP_HTTP_TestCase {
 		$this->factory = new WC_Unit_Test_Factory();
 
 		// Setup mock WC session handler.
-		add_filter( 'woocommerce_session_handler', array( $this, 'set_mock_session_handler' ) );
+		add_filter( 'poocommerce_session_handler', array( $this, 'set_mock_session_handler' ) );
 
 		$this->setOutputCallback( array( $this, 'filter_output' ) );
 

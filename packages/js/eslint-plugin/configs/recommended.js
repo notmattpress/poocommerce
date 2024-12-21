@@ -21,7 +21,7 @@ module.exports = {
 		'@wordpress/i18n-text-domain': [
 			'error',
 			{
-				allowedTextDomain: 'woocommerce',
+				allowedTextDomain: 'poocommerce',
 			},
 		],
 		'@typescript-eslint/no-explicit-any': 'error',
@@ -63,7 +63,7 @@ module.exports = {
 	settings: {
 		'import/resolver': 'typescript',
 		// List of modules that are externals in our webpack config.
-		'import/core-modules': [ '@woocommerce/settings', 'lodash', 'react' ],
+		'import/core-modules': [ '@poocommerce/settings', 'lodash', 'react' ],
 		react: {
 			pragma: 'createElement',
 			version: '17.0.2',

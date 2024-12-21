@@ -7,7 +7,7 @@ config = {
 	...config,
 	projects: [
 		{
-			name: 'WooCommerce PayPal Payments',
+			name: 'PooCommerce PayPal Payments',
 			grep: new RegExp( tags.PAYMENTS ),
 		},
 	],

@@ -3,7 +3,7 @@
  */
 import type { Block } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
-import { isWpVersion } from '@woocommerce/settings';
+import { isWpVersion } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ function registerProductQueryElementsNamespace(
 		// @ts-ignore -- We need this because `attributes` is marked as `readonly`
 		props.attributes = {
 			...props.attributes,
-			__woocommerceNamespace: {
+			__poocommerceNamespace: {
 				type: 'string',
 			},
 		};

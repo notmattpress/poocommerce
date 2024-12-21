@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/add-to-cart-with-options",
+	"name": "poocommerce/add-to-cart-with-options",
 	"version": "1.0.0",
 	"title": "Add to Cart with Options (Experimental)",
 	"description": "Create an \"Add To Cart\" composition by using blocks",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"isDescendentOfSingleProductBlock": {
 			"type": "boolean",
@@ -11,7 +11,7 @@
 		}
 	},
 	"usesContext": [ "postId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"interactivity": true
 	},

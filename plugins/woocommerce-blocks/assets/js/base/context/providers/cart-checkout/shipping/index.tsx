@@ -10,7 +10,7 @@ import {
 	useRef,
 } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

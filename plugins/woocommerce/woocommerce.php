@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name: WooCommerce
- * Plugin URI: https://woocommerce.com/
+ * Plugin Name: PooCommerce
+ * Plugin URI: https://poocommerce.com/
  * Description: An ecommerce toolkit that helps you sell anything. Beautifully.
  * Version: 9.7.0-dev
  * Author: Automattic
- * Author URI: https://woocommerce.com
- * Text Domain: woocommerce
+ * Author URI: https://poocommerce.com
+ * Text Domain: poocommerce
  * Domain Path: /i18n/languages/
  * Requires at least: 6.6
  * Requires PHP: 7.4
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -24,42 +24,42 @@ if ( ! defined( 'WC_PLUGIN_FILE' ) ) {
 require __DIR__ . '/src/Autoloader.php';
 require __DIR__ . '/src/Packages.php';
 
-if ( ! \Automattic\WooCommerce\Autoloader::init() ) {
+if ( ! \Automattic\PooCommerce\Autoloader::init() ) {
 	return;
 }
-\Automattic\WooCommerce\Packages::init();
+\Automattic\PooCommerce\Packages::init();
 
-// Include the main WooCommerce class.
-if ( ! class_exists( 'WooCommerce', false ) ) {
-	include_once dirname( WC_PLUGIN_FILE ) . '/includes/class-woocommerce.php';
+// Include the main PooCommerce class.
+if ( ! class_exists( 'PooCommerce', false ) ) {
+	include_once dirname( WC_PLUGIN_FILE ) . '/includes/class-poocommerce.php';
 }
 
 // Initialize dependency injection.
-$GLOBALS['wc_container'] = new Automattic\WooCommerce\Container();
+$GLOBALS['wc_container'] = new Automattic\PooCommerce\Container();
 
 /**
  * Returns the main instance of WC.
  *
  * @since  2.1
- * @return WooCommerce
+ * @return PooCommerce
  */
 function WC() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
-	return WooCommerce::instance();
+	return PooCommerce::instance();
 }
 
 /**
- * Returns the WooCommerce object container.
+ * Returns the PooCommerce object container.
  * Code in the `includes` directory should use the container to get instances of classes in the `src` directory.
  *
  * @since  4.4.0
- * @return \Automattic\WooCommerce\Container The WooCommerce object container.
+ * @return \Automattic\PooCommerce\Container The PooCommerce object container.
  */
 function wc_get_container() {
 	return $GLOBALS['wc_container'];
 }
 
 // Global for backwards compatibility.
-$GLOBALS['woocommerce'] = WC();
+$GLOBALS['poocommerce'] = WC();
 
 // Jetpack's Rest_Authentication needs to be initialized even before plugins_loaded.
 if ( class_exists( \Automattic\Jetpack\Connection\Rest_Authentication::class ) ) {

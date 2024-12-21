@@ -59,12 +59,12 @@ export const SingleProductDetails = ( {
 			content: (
 				<>
 					{ ! hideTabTitle && (
-						<h2>{ __( 'Description', 'woocommerce' ) }</h2>
+						<h2>{ __( 'Description', 'poocommerce' ) }</h2>
 					) }
 					<p>
 						{ __(
 							'This block lists description, attributes and reviews for a single product.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</>

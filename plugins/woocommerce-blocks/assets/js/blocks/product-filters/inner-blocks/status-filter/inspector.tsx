@@ -38,9 +38,9 @@ export const Inspector = ( {
 	if ( displayStyleOptions.length === 0 ) {
 		displayStyleOptions = getBlockTypes().filter(
 			( blockType ) =>
-				blockType.name !== 'woocommerce/product-filter-clear-button' &&
+				blockType.name !== 'poocommerce/product-filter-clear-button' &&
 				blockType.ancestor?.includes(
-					'woocommerce/product-filter-status'
+					'poocommerce/product-filter-status'
 				)
 		);
 	}
@@ -59,7 +59,7 @@ export const Inspector = ( {
 	return (
 		<>
 			<InspectorControls group="styles">
-				<PanelBody title={ __( 'Display', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display', 'poocommerce' ) }>
 					<ToggleGroupControl
 						value={ displayStyle }
 						isBlock
@@ -107,21 +107,21 @@ export const Inspector = ( {
 						) ) }
 					</ToggleGroupControl>
 					<ToggleControl
-						label={ __( 'Product counts', 'woocommerce' ) }
+						label={ __( 'Product counts', 'poocommerce' ) }
 						checked={ showCounts }
 						onChange={ ( value ) =>
 							setAttributes( { showCounts: value } )
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Empty filter options', 'woocommerce' ) }
+						label={ __( 'Empty filter options', 'poocommerce' ) }
 						checked={ ! hideEmpty }
 						onChange={ ( value ) =>
 							setAttributes( { hideEmpty: ! value } )
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Clear button', 'woocommerce' ) }
+						label={ __( 'Clear button', 'poocommerce' ) }
 						checked={ clearButton }
 						onChange={ ( value ) => {
 							setAttributes( { clearButton: value } );

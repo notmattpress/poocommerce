@@ -2,13 +2,13 @@
 declare( strict_types = 1);
 
 defined( 'ABSPATH' ) || exit;
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\MiniCartTemplate;
-use Automattic\WooCommerce\Blocks\Templates\CheckoutTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
-use Automattic\WooCommerce\Blocks\Templates\ProductAttributeTemplate;
-use Automattic\WooCommerce\Blocks\Templates\OrderConfirmationTemplate;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\MiniCartTemplate;
+use Automattic\PooCommerce\Blocks\Templates\CheckoutTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\PooCommerce\Blocks\Templates\ProductAttributeTemplate;
+use Automattic\PooCommerce\Blocks\Templates\OrderConfirmationTemplate;
 
 /**
  * This class adds actions to track usage of the Product Collection Block.
@@ -52,7 +52,7 @@ class WC_Product_Collection_Block_Tracking {
 			return;
 		}
 
-		if ( ! has_block( 'woocommerce/product-collection', $post ) && ! has_block( 'core/template-part', $post ) && ! has_block( 'core/block', $post ) ) {
+		if ( ! has_block( 'poocommerce/product-collection', $post ) && ! has_block( 'core/template-part', $post ) && ! has_block( 'core/block', $post ) ) {
 			return;
 		}
 
@@ -115,7 +115,7 @@ class WC_Product_Collection_Block_Tracking {
 				continue;
 			}
 
-			if ( 'woocommerce/product-collection' === $block['blockName'] ) {
+			if ( 'poocommerce/product-collection' === $block['blockName'] ) {
 				$instances[] = array(
 					'collection'        => $block['attrs']['collection'] ?? 'product-catalog',
 					'in_single_product' => $is_in_single_product ? 'yes' : 'no',
@@ -127,7 +127,7 @@ class WC_Product_Collection_Block_Tracking {
 
 			// Track instances within single product container.
 			$local_is_in_single_product = $is_in_single_product;
-			if ( 'woocommerce/single-product' === $block['blockName'] ) {
+			if ( 'poocommerce/single-product' === $block['blockName'] ) {
 				$local_is_in_single_product = true;
 			}
 
@@ -267,20 +267,20 @@ class WC_Product_Collection_Block_Tracking {
 			$filters['order-by'] = 'yes';
 		}
 
-		if ( ! empty( $query_attrs['woocommerceOnSale'] ) ) {
+		if ( ! empty( $query_attrs['poocommerceOnSale'] ) ) {
 			$filters['on-sale'] = 'yes';
 		}
 
-		if ( ! empty( $query_attrs['woocommerceStockStatus'] ) ) {
+		if ( ! empty( $query_attrs['poocommerceStockStatus'] ) ) {
 			$stock_statuses = wc_get_product_stock_status_options();
-			$default_values = 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ? array_diff_key( $stock_statuses, array( 'outofstock' => '' ) ) : $stock_statuses;
-			$default_diff   = array_diff( array_keys( $default_values ), $query_attrs['woocommerceStockStatus'] );
+			$default_values = 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ? array_diff_key( $stock_statuses, array( 'outofstock' => '' ) ) : $stock_statuses;
+			$default_diff   = array_diff( array_keys( $default_values ), $query_attrs['poocommerceStockStatus'] );
 			if ( ! empty( $default_diff ) ) {
 				$filters['stock-status'] = 'yes';
 			}
 		}
 
-		if ( ! empty( $query_attrs['woocommerceAttributes'] ) ) {
+		if ( ! empty( $query_attrs['poocommerceAttributes'] ) ) {
 			$filters['attributes'] = 'yes';
 		}
 
@@ -299,7 +299,7 @@ class WC_Product_Collection_Block_Tracking {
 			}
 		}
 
-		if ( ! empty( $query_attrs['woocommerceHandPickedProducts'] ) ) {
+		if ( ! empty( $query_attrs['poocommerceHandPickedProducts'] ) ) {
 			$filters['handpicked'] = 'yes';
 		}
 

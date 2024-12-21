@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { allSettings } from '@woocommerce/settings';
-import { Currency, CartResponseTotals } from '@woocommerce/types';
+import { allSettings } from '@poocommerce/settings';
+import { Currency, CartResponseTotals } from '@poocommerce/types';
 
 /**
  * Internal dependencies

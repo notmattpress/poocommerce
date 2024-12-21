@@ -4,7 +4,7 @@
 import { Button, Modal } from '@wordpress/components';
 import { createElement, useState, useRef, useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import classNames from 'classnames';
 import type { FocusEvent } from 'react';
 
@@ -39,7 +39,7 @@ export function EditModal( {
 	function renderTitle() {
 		return sprintf(
 			/* translators: %s: the name of the custom field */
-			__( 'Edit %s', 'woocommerce' ),
+			__( 'Edit %s', 'poocommerce' ),
 			customField.key
 		);
 	}
@@ -102,13 +102,13 @@ export function EditModal( {
 			title={ renderTitle() }
 			onRequestClose={ onCancel }
 			className={ classNames(
-				'woocommerce-product-custom-fields__edit-modal',
+				'poocommerce-product-custom-fields__edit-modal',
 				props.className
 			) }
 		>
 			<CustomFieldNameControl
 				ref={ keyInputRef }
-				label={ __( 'Name', 'woocommerce' ) }
+				label={ __( 'Name', 'poocommerce' ) }
 				allowReset={ false }
 				help={ validationError?.key }
 				value={ customField.key }
@@ -121,20 +121,20 @@ export function EditModal( {
 
 			<TextControl
 				ref={ valueInputRef }
-				label={ __( 'Value', 'woocommerce' ) }
+				label={ __( 'Value', 'poocommerce' ) }
 				error={ validationError?.value }
 				value={ customField.value }
 				onChange={ changeHandler( 'value' ) }
 				onBlur={ blurHandler( 'value' ) }
 			/>
 
-			<div className="woocommerce-product-custom-fields__edit-modal-actions">
+			<div className="poocommerce-product-custom-fields__edit-modal-actions">
 				<Button variant="secondary" onClick={ onCancel }>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 
 				<Button variant="primary" onClick={ handleUpdateButtonClick }>
-					{ __( 'Update', 'woocommerce' ) }
+					{ __( 'Update', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

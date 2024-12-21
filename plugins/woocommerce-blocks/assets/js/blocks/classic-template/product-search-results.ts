@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { isWpVersion } from '@woocommerce/settings';
+import { isWpVersion } from '@poocommerce/settings';
 import { __, sprintf } from '@wordpress/i18n';
 import {
 	INNER_BLOCKS_TEMPLATE as productCollectionInnerBlocksTemplate,
 	DEFAULT_ATTRIBUTES as productCollectionDefaultAttributes,
 	DEFAULT_QUERY as productCollectionDefaultQuery,
-} from '@woocommerce/blocks/product-collection/constants';
+} from '@poocommerce/blocks/product-collection/constants';
 import {
 	createBlock,
 	// @ts-expect-error Type definitions for this function are missing in Guteberg
@@ -26,17 +26,17 @@ const createNoResultsParagraph = () =>
 	createBlock( 'core/paragraph', {
 		content: __(
 			'No products were found matching your selection.',
-			'woocommerce'
+			'poocommerce'
 		),
 	} );
 
 const createProductSearch = () =>
 	createBlock( 'core/search', {
 		buttonPosition: 'button-outside',
-		buttonText: __( 'Search', 'woocommerce' ),
+		buttonText: __( 'Search', 'poocommerce' ),
 		buttonUseIcon: false,
 		showLabel: false,
-		placeholder: __( 'Search products…', 'woocommerce' ),
+		placeholder: __( 'Search products…', 'poocommerce' ),
 		query: { post_type: 'product' },
 	} );
 
@@ -54,7 +54,7 @@ const extendInnerBlocksWithNoResultsContent = (
 		createProductSearch(),
 	];
 
-	const noResultsBlockName = 'woocommerce/product-collection-no-results';
+	const noResultsBlockName = 'poocommerce/product-collection-no-results';
 	const noResultsBlockIndex = innerBlocks.findIndex(
 		( block ) => block[ nameArrayIndex ] === noResultsBlockName
 	);
@@ -87,7 +87,7 @@ const createProductCollectionBlock = (
 		);
 
 	return createBlock(
-		'woocommerce/product-collection',
+		'poocommerce/product-collection',
 		{
 			...productCollectionDefaultAttributes,
 			...inheritedAttributes,
@@ -105,11 +105,11 @@ const createProductCollectionBlock = (
 const getBlockifiedTemplate = ( inheritedAttributes: InheritedAttributes ) =>
 	[
 		createArchiveTitleBlock( 'search-title', inheritedAttributes ),
-		createBlock( 'woocommerce/store-notices', inheritedAttributes ),
+		createBlock( 'poocommerce/store-notices', inheritedAttributes ),
 		createRowBlock(
 			[
-				createBlock( 'woocommerce/product-results-count' ),
-				createBlock( 'woocommerce/catalog-sorting' ),
+				createBlock( 'poocommerce/product-results-count' ),
+				createBlock( 'poocommerce/catalog-sorting' ),
 			],
 			inheritedAttributes
 		),
@@ -127,7 +127,7 @@ const getDescriptionAllowingConversion = ( templateTitle: string ) =>
 		/* translators: %s is the template title */
 		__(
 			'Transform this template into multiple blocks so you can add, remove, reorder, and customize your %s template.',
-			'woocommerce'
+			'poocommerce'
 		),
 		templateTitle
 	);
@@ -137,7 +137,7 @@ const getDescriptionDisallowingConversion = ( templateTitle: string ) =>
 		/* translators: %s is the template title */
 		__(
 			'This block serves as a placeholder for your %s. It will display the actual product image, title, price in your store. You can move this placeholder around and add more blocks around to customize the template.',
-			'woocommerce'
+			'poocommerce'
 		),
 		templateTitle
 	);
@@ -166,7 +166,7 @@ const onClickCallback = ( {
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
 				( innerBlock ) =>
-					innerBlock.name === 'woocommerce/store-notices'
+					innerBlock.name === 'poocommerce/store-notices'
 			)
 	);
 
@@ -175,7 +175,7 @@ const onClickCallback = ( {
 	}
 };
 
-const getButtonLabel = () => __( 'Transform into blocks', 'woocommerce' );
+const getButtonLabel = () => __( 'Transform into blocks', 'poocommerce' );
 
 const blockifyConfig = {
 	getButtonLabel,

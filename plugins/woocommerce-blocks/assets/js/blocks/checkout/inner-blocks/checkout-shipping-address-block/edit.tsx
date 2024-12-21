@@ -3,8 +3,8 @@
  */
 import clsx from 'clsx';
 import { useBlockProps } from '@wordpress/block-editor';
-import { useCheckoutAddress } from '@woocommerce/base-context/hooks';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { useCheckoutAddress } from '@poocommerce/base-context/hooks';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Extension } from '@woocommerce/data';
+import { Extension } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -134,13 +134,13 @@ describe( 'Plugins Component', () => {
 		);
 		const plugin1Card = screen
 			.getByText( 'Plugin 1' )
-			.closest( '.woocommerce-profiler-plugins-plugin-card' );
+			.closest( '.poocommerce-profiler-plugins-plugin-card' );
 		expect( plugin1Card ).toHaveClass( 'is-installed' );
 		expect( plugin1Card ).toHaveTextContent( 'Installed' );
 		expect(
 			screen
 				.getByText( 'Plugin 2' )
-				.closest( '.woocommerce-profiler-plugins-plugin-card' )
+				.closest( '.poocommerce-profiler-plugins-plugin-card' )
 		).toHaveTextContent( 'Installed' );
 		const continueButton = screen.getByText( 'Continue' );
 		fireEvent.click( continueButton );
@@ -197,17 +197,17 @@ describe( 'Plugins Component', () => {
 		).toBeInTheDocument();
 		const checkbox1 = screen
 			.getByText( 'Plugin 1' )
-			.closest( '.woocommerce-profiler-plugins-plugin-card' )
+			.closest( '.poocommerce-profiler-plugins-plugin-card' )
 			?.querySelector( 'input[type="checkbox"]' );
 		expect( checkbox1 ).not.toBeChecked();
 		const checkbox3 = screen
 			.getByText( 'Plugin 3' )
-			.closest( '.woocommerce-profiler-plugins-plugin-card' )
+			.closest( '.poocommerce-profiler-plugins-plugin-card' )
 			?.querySelector( 'input[type="checkbox"]' );
 		expect( checkbox3 ).not.toBeChecked();
 		const checkbox4 = screen
 			.getByText( 'Plugin 4' )
-			.closest( '.woocommerce-profiler-plugins-plugin-card' )
+			.closest( '.poocommerce-profiler-plugins-plugin-card' )
 			?.querySelector( 'input[type="checkbox"]' );
 		expect( checkbox4 ).toBeChecked();
 	} );

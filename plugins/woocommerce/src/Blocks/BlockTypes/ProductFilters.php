@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductFilters class.
@@ -100,7 +100,7 @@ class ProductFilters extends AbstractBlock {
 					<?php echo $this->get_svg_icon( $attributes['overlayIcon'] ?? 'filter-icon-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php endif; ?>
 				<?php if ( 'icon-only' !== $attributes['overlayButtonType'] ) : ?>
-					<span><?php echo esc_html__( 'Filter products', 'woocommerce' ); ?></span>
+					<span><?php echo esc_html__( 'Filter products', 'poocommerce' ); ?></span>
 				<?php endif; ?>
 			</button>
 			<div class="wc-block-product-filters__overlay">
@@ -114,7 +114,7 @@ class ProductFilters extends AbstractBlock {
 								class="wc-block-product-filters__close-overlay"
 								data-wc-on--click="actions.closeOverlay"
 							>
-								<span><?php echo esc_html__( 'Close', 'woocommerce' ); ?></span>
+								<span><?php echo esc_html__( 'Close', 'poocommerce' ); ?></span>
 								<?php echo $this->get_svg_icon( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</button>
 						</header>
@@ -129,7 +129,7 @@ class ProductFilters extends AbstractBlock {
 								data-wc-interactive="<?php echo esc_attr( wp_json_encode( array( 'namespace' => $this->get_full_block_name() ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) ); ?>"
 								data-wc-on--click="actions.closeOverlay"
 							>
-								<span><?php echo esc_html__( 'Apply', 'woocommerce' ); ?></span>
+								<span><?php echo esc_html__( 'Apply', 'poocommerce' ); ?></span>
 							</button>
 						</footer>
 					</div>

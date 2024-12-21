@@ -18,13 +18,13 @@ export function ExpressionResult( {
 	const resultTypeLabel = error ? 'Error' : typeof result;
 
 	return (
-		<div className="woocommerce-product-editor-dev-tools-expression-field__result">
+		<div className="poocommerce-product-editor-dev-tools-expression-field__result">
 			{ showIfError && (
 				<>
-					<div className="woocommerce-product-editor-dev-tools-expression-field__result-type">
+					<div className="poocommerce-product-editor-dev-tools-expression-field__result-type">
 						{ resultTypeLabel }
 					</div>
-					<div className="woocommerce-product-editor-dev-tools-expression-field__result-value">
+					<div className="poocommerce-product-editor-dev-tools-expression-field__result-value">
 						{ resultString }
 					</div>
 				</>

@@ -2,29 +2,29 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Blocks\Assets\Api as BlocksAssetsApi;
-use Automattic\WooCommerce\Blocks\Package as BlocksPackage;
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\ExtendedContainer;
-use Automattic\WooCommerce\Internal\DependencyManagement\RuntimeContainer;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassInterface;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassThatHasReferenceArgumentsInInit;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNestedDependencies;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithPrivateInjectionMethod;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithRecursiveDependencies1;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithRecursiveDependencies2;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithRecursiveDependencies3;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithScalarInjectionMethodArgument;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithStaticInjectionMethod;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithUntypedInjectionMethodArgument;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClassWithInnerDependency;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\InnerDependencyClass;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassThatThrowsOnInit;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithStoreApiDependency;
+use Automattic\PooCommerce\Blocks\Assets\Api as BlocksAssetsApi;
+use Automattic\PooCommerce\Blocks\Package as BlocksPackage;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\ExtendedContainer;
+use Automattic\PooCommerce\Internal\DependencyManagement\RuntimeContainer;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassInterface;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassThatHasReferenceArgumentsInInit;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNestedDependencies;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithPrivateInjectionMethod;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithRecursiveDependencies1;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithRecursiveDependencies2;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithRecursiveDependencies3;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithScalarInjectionMethodArgument;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithStaticInjectionMethod;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithUntypedInjectionMethodArgument;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClassWithInnerDependency;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\InnerDependencyClass;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassThatThrowsOnInit;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithStoreApiDependency;
 
 /**
  * Tests for RuntimeContainer.
@@ -48,11 +48,11 @@ class RuntimeContainerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get' throws 'ContainerException' when trying to resolve a class outside the root WooCommerce namespace.
+	 * @testdox 'get' throws 'ContainerException' when trying to resolve a class outside the root PooCommerce namespace.
 	 */
 	public function test_exception_when_trying_to_resolve_class_outside_root_namespace() {
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "Attempt to get an instance of class 'Fizz\Buzz', which is not in the Automattic\WooCommerce\ namespace. Did you forget to add a namespace import?" );
+		$this->expectExceptionMessage( "Attempt to get an instance of class 'Fizz\Buzz', which is not in the Automattic\PooCommerce\ namespace. Did you forget to add a namespace import?" );
 
 		$this->sut->get( 'Fizz\Buzz' );
 	}
@@ -62,9 +62,9 @@ class RuntimeContainerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_exception_when_trying_to_resolve_non_existing_class() {
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "Attempt to get an instance of class 'Automattic\WooCommerce\Fizz\Buzz', which doesn't exist." );
+		$this->expectExceptionMessage( "Attempt to get an instance of class 'Automattic\PooCommerce\Fizz\Buzz', which doesn't exist." );
 
-		$this->sut->get( 'Automattic\WooCommerce\Fizz\Buzz' );
+		$this->sut->get( 'Automattic\PooCommerce\Fizz\Buzz' );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class RuntimeContainerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get' properly resolves and caches classes, and its dependencies, if they are in the root WooCommerce namespace.
+	 * @testdox 'get' properly resolves and caches classes, and its dependencies, if they are in the root PooCommerce namespace.
 	 */
 	public function test_resolves_and_caches_classes_and_dependencies() {
 		ClassWithNestedDependencies::$instances_count        = 0;
@@ -215,7 +215,7 @@ class RuntimeContainerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'has' returns true for classes in the root WooCommerce namespace, or passed to the constructor in the initial resolve cache.
+	 * @testdox 'has' returns true for classes in the root PooCommerce namespace, or passed to the constructor in the initial resolve cache.
 	 */
 	public function test_has_returns_true_for_classes_in_the_root_namespace_or_in_the_initial_resolve_list() {
 		$this->assertTrue( $this->sut->has( ClassWithNestedDependencies::class ) );
@@ -231,7 +231,7 @@ class RuntimeContainerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'has' returns false for classes not in the root WooCommerce namespace.
+	 * @testdox 'has' returns false for classes not in the root PooCommerce namespace.
 	 */
 	public function test_has_returns_false_for_classes_not_in_the_root_namespace() {
 		$this->assertFalse( $this->sut->has( 'Fizz\Buzz' ) );

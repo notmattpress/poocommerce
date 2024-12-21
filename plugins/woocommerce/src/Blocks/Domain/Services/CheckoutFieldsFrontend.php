@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
 use WC_Customer;
 use WC_Order;
@@ -31,20 +31,20 @@ class CheckoutFieldsFrontend {
 	 */
 	public function init() {
 		// Show custom checkout fields on the order details page.
-		add_action( 'woocommerce_order_details_after_customer_address', array( $this, 'render_order_address_fields' ), 10, 2 );
-		add_action( 'woocommerce_order_details_after_customer_details', array( $this, 'render_order_other_fields' ), 10 );
+		add_action( 'poocommerce_order_details_after_customer_address', array( $this, 'render_order_address_fields' ), 10, 2 );
+		add_action( 'poocommerce_order_details_after_customer_details', array( $this, 'render_order_other_fields' ), 10 );
 
 		// Show custom checkout fields on the My Account page.
-		add_action( 'woocommerce_my_account_after_my_address', array( $this, 'render_address_fields' ), 10, 1 );
+		add_action( 'poocommerce_my_account_after_my_address', array( $this, 'render_address_fields' ), 10, 1 );
 
 		// Edit account form under my account (for contact details).
-		add_filter( 'woocommerce_save_account_details_required_fields', array( $this, 'edit_account_form_required_fields' ), 10, 1 );
-		add_filter( 'woocommerce_edit_account_form_fields', array( $this, 'edit_account_form_fields' ), 10, 1 );
-		add_action( 'woocommerce_save_account_details', array( $this, 'save_account_form_fields' ), 10, 1 );
+		add_filter( 'poocommerce_save_account_details_required_fields', array( $this, 'edit_account_form_required_fields' ), 10, 1 );
+		add_filter( 'poocommerce_edit_account_form_fields', array( $this, 'edit_account_form_fields' ), 10, 1 );
+		add_action( 'poocommerce_save_account_details', array( $this, 'save_account_form_fields' ), 10, 1 );
 
 		// Edit address form under my account.
-		add_filter( 'woocommerce_address_to_edit', array( $this, 'edit_address_fields' ), 10, 2 );
-		add_action( 'woocommerce_after_save_address_validation', array( $this, 'save_address_fields' ), 10, 4 );
+		add_filter( 'poocommerce_address_to_edit', array( $this, 'edit_address_fields' ), 10, 2 );
+		add_action( 'poocommerce_after_save_address_validation', array( $this, 'save_address_fields' ), 10, 4 );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class CheckoutFieldsFrontend {
 		}
 
 		echo '<section class="wc-block-order-confirmation-additional-fields-wrapper">';
-		echo '<h2>' . esc_html__( 'Additional information', 'woocommerce' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Additional information', 'poocommerce' ) . '</h2>';
 		echo $this->render_additional_fields( $fields ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '</section>';
 	}
@@ -174,7 +174,7 @@ class CheckoutFieldsFrontend {
 				$form_field['unchecked_value'] = '0';
 			}
 
-			woocommerce_form_field( $key, $form_field, wc_get_post_data_by_key( $key, $form_field['value'] ) );
+			poocommerce_form_field( $key, $form_field, wc_get_post_data_by_key( $key, $form_field['value'] ) );
 		}
 	}
 

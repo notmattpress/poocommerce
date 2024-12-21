@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_New_Order file
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 	 *
 	 * @class       WC_Email_New_Order
 	 * @version     2.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_New_Order extends WC_Email {
@@ -28,8 +28,8 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 		 */
 		public function __construct() {
 			$this->id             = 'new_order';
-			$this->title          = __( 'New order', 'woocommerce' );
-			$this->description    = __( 'New order emails are sent to chosen recipient(s) when a new order is received.', 'woocommerce' );
+			$this->title          = __( 'New order', 'poocommerce' );
+			$this->description    = __( 'New order emails are sent to chosen recipient(s) when a new order is received.', 'poocommerce' );
 			$this->template_html  = 'emails/admin-new-order.php';
 			$this->template_plain = 'emails/plain/admin-new-order.php';
 			$this->placeholders   = array(
@@ -38,16 +38,16 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_pending_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_pending_to_completed_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_pending_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_failed_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_failed_to_completed_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_failed_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_cancelled_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_cancelled_to_completed_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_cancelled_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_email_footer', array( $this, 'mobile_messaging' ), 9 ); // Run before the default email footer.
+			add_action( 'poocommerce_order_status_pending_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_pending_to_completed_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_pending_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_to_completed_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_cancelled_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_cancelled_to_completed_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_cancelled_to_on-hold_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_email_footer', array( $this, 'mobile_messaging' ), 9 ); // Run before the default email footer.
 
 			// Call parent constructor.
 			parent::__construct();
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( '[{site_title}]: New order #{order_number}', 'woocommerce' );
+			return __( '[{site_title}]: New order #{order_number}', 'poocommerce' );
 		}
 
 		/**
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'New Order: #{order_number}', 'woocommerce' );
+			return __( 'New Order: #{order_number}', 'poocommerce' );
 		}
 
 		/**
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 			 * @since 5.0.0
 			 * @param bool $allows Defaults to false.
 			 */
-			if ( $email_already_sent && ! apply_filters( 'woocommerce_new_order_email_allows_resend', false ) ) {
+			if ( $email_already_sent && ! apply_filters( 'poocommerce_new_order_email_allows_resend', false ) ) {
 				return;
 			}
 
@@ -164,7 +164,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Congratulations on the sale.', 'woocommerce' );
+			return __( 'Congratulations on the sale.', 'poocommerce' );
 		}
 
 		/**
@@ -172,25 +172,25 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 		 */
 		public function init_form_fields() {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . implode( '</code>, <code>', array_keys( $this->placeholders ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . implode( '</code>, <code>', array_keys( $this->placeholders ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'yes',
 				),
 				'recipient'          => array(
-					'title'       => __( 'Recipient(s)', 'woocommerce' ),
+					'title'       => __( 'Recipient(s)', 'poocommerce' ),
 					'type'        => 'text',
 					/* translators: %s: WP admin email */
-					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'woocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
+					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'poocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
 					'placeholder' => '',
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -198,7 +198,7 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -206,18 +206,18 @@ if ( ! class_exists( 'WC_Email_New_Order' ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

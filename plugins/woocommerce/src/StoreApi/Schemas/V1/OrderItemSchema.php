@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductItemTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductItemTrait;
 
 /**
  * OrderItemSchema class.
@@ -55,7 +55,7 @@ class OrderItemSchema extends ItemSchema {
 			'images'               => $this->get_images( $product ),
 			'variation'            => $this->format_variation_data( $product->get_attributes(), $product ),
 			'item_data'            => $order_item->get_all_formatted_meta_data(),
-			'prices'               => (object) $this->prepare_product_price_response( $product, get_option( 'woocommerce_tax_display_cart' ) ),
+			'prices'               => (object) $this->prepare_product_price_response( $product, get_option( 'poocommerce_tax_display_cart' ) ),
 			'totals'               => (object) $this->prepare_currency_response( $this->get_totals( $order_item ) ),
 			'catalog_visibility'   => $product->get_catalog_visibility(),
 		];

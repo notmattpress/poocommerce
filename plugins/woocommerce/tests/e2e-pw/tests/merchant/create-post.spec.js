@@ -8,7 +8,7 @@ const {
 /**
  * External dependencies
  */
-import { getCanvas } from '@woocommerce/e2e-utils-playwright';
+import { getCanvas } from '@poocommerce/e2e-utils-playwright';
 
 const test = baseTest.extend( {
 	storageState: process.env.ADMINSTATE,

@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Extension Guidelines - Colors
+post_title: PooCommerce Extension Guidelines - Colors
 menu_title: Colors
 ---
 
@@ -11,4 +11,4 @@ When using components with text, such as buttons, cards, or navigation, the back
 - [Color contrast ratio checker](http://webaim.org/resources/contrastchecker/)
 - [More resources regarding accessibility and color testing](http://webaim.org/resources/contrastchecker/)
 
-For WooCommerce-specific color use, review our [Style Guide](https://woocommerce.com/brand-and-logo-guidelines/).
+For PooCommerce-specific color use, review our [Style Guide](https://poocommerce.com/brand-and-logo-guidelines/).

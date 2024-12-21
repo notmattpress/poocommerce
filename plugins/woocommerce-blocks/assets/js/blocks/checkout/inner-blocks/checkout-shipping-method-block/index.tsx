@@ -11,7 +11,7 @@ import { Edit, Save } from './edit';
 import attributes from './attributes';
 import './style.scss';
 
-registerBlockType( 'woocommerce/checkout-shipping-method-block', {
+registerBlockType( 'poocommerce/checkout-shipping-method-block', {
 	icon: {
 		src: (
 			<Icon

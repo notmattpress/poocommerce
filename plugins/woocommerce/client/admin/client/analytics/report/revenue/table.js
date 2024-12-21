@@ -7,22 +7,22 @@ import { format as formatDate } from '@wordpress/date';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { get, memoize } from 'lodash';
-import { Date, Link } from '@woocommerce/components';
-import { formatValue } from '@woocommerce/number';
+import { Date, Link } from '@poocommerce/components';
+import { formatValue } from '@poocommerce/number';
 import {
 	getReportTableQuery,
 	REPORTS_STORE_NAME,
 	SETTINGS_STORE_NAME,
 	QUERY_DEFAULTS,
 	OPTIONS_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import {
 	appendTimestamp,
 	defaultTableDateFormat,
 	getCurrentDates,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 import { stringify } from 'qs';
-import { CurrencyContext } from '@woocommerce/currency';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ class RevenueReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Date', 'woocommerce' ),
+				label: __( 'Date', 'poocommerce' ),
 				key: 'date',
 				required: true,
 				defaultSort: true,
@@ -63,56 +63,56 @@ class RevenueReportTable extends Component {
 				isSortable: true,
 			},
 			{
-				label: __( 'Orders', 'woocommerce' ),
+				label: __( 'Orders', 'poocommerce' ),
 				key: 'orders_count',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Gross sales', 'woocommerce' ),
+				label: __( 'Gross sales', 'poocommerce' ),
 				key: 'gross_sales',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Returns', 'woocommerce' ),
+				label: __( 'Returns', 'poocommerce' ),
 				key: 'refunds',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Coupons', 'woocommerce' ),
+				label: __( 'Coupons', 'poocommerce' ),
 				key: 'coupons',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
 				key: 'net_revenue',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Taxes', 'woocommerce' ),
+				label: __( 'Taxes', 'poocommerce' ),
 				key: 'taxes',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Shipping', 'woocommerce' ),
+				label: __( 'Shipping', 'poocommerce' ),
 				key: 'shipping',
 				required: false,
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Total sales', 'woocommerce' ),
+				label: __( 'Total sales', 'poocommerce' ),
 				key: 'total_sales',
 				required: false,
 				isSortable: true,
@@ -223,39 +223,39 @@ class RevenueReportTable extends Component {
 		const currency = getCurrencyConfig();
 		return [
 			{
-				label: _n( 'day', 'days', totalResults, 'woocommerce' ),
+				label: _n( 'day', 'days', totalResults, 'poocommerce' ),
 				value: formatValue( currency, 'number', totalResults ),
 			},
 			{
-				label: _n( 'order', 'orders', ordersCount, 'woocommerce' ),
+				label: _n( 'order', 'orders', ordersCount, 'poocommerce' ),
 				value: formatValue( currency, 'number', ordersCount ),
 			},
 			{
-				label: __( 'Gross sales', 'woocommerce' ),
+				label: __( 'Gross sales', 'poocommerce' ),
 				value: formatAmount( grossSales ),
 			},
 			{
-				label: __( 'Returns', 'woocommerce' ),
+				label: __( 'Returns', 'poocommerce' ),
 				value: formatAmount( refunds ),
 			},
 			{
-				label: __( 'Coupons', 'woocommerce' ),
+				label: __( 'Coupons', 'poocommerce' ),
 				value: formatAmount( coupons ),
 			},
 			{
-				label: __( 'Net sales', 'woocommerce' ),
+				label: __( 'Net sales', 'poocommerce' ),
 				value: formatAmount( netRevenue ),
 			},
 			{
-				label: __( 'Taxes', 'woocommerce' ),
+				label: __( 'Taxes', 'poocommerce' ),
 				value: formatAmount( taxes ),
 			},
 			{
-				label: __( 'Shipping', 'woocommerce' ),
+				label: __( 'Shipping', 'poocommerce' ),
 				value: formatAmount( shipping ),
 			},
 			{
-				label: __( 'Total sales', 'woocommerce' ),
+				label: __( 'Total sales', 'poocommerce' ),
 				value: formatAmount( totalSales ),
 			},
 		];
@@ -273,7 +273,7 @@ class RevenueReportTable extends Component {
 				summaryFields={ summaryFields }
 				query={ query }
 				tableData={ tableData }
-				title={ __( 'Revenue', 'woocommerce' ) }
+				title={ __( 'Revenue', 'poocommerce' ) }
 				columnPrefsKey="revenue_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }
@@ -352,11 +352,11 @@ const formatTableQuery = memoize(
 export default compose(
 	withSelect( ( select, props ) => {
 		const { query, filters, advancedFilters } = props;
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			SETTINGS_STORE_NAME
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 		const { getOption } = select( OPTIONS_STORE_NAME );
-		const dateType = getOption( 'woocommerce_date_type' ) || 'date_paid';
+		const dateType = getOption( 'poocommerce_date_type' ) || 'date_paid';
 		const datesFromQuery = getCurrentDates( query, defaultDateRange );
 		const { getReportStats, getReportStatsError, isResolving } =
 			select( REPORTS_STORE_NAME );

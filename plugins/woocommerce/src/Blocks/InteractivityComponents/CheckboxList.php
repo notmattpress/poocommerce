@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\InteractivityComponents;
+namespace Automattic\PooCommerce\Blocks\InteractivityComponents;
 
 /**
  * CheckboxList class. This is a component for reuse with interactivity API.
  *
- * @package Automattic\WooCommerce\Blocks\InteractivityComponents
+ * @package Automattic\PooCommerce\Blocks\InteractivityComponents
  */
 class CheckboxList {
 	/**
@@ -28,7 +28,7 @@ class CheckboxList {
 		$items                 = $props['items'] ?? array();
 		$checkbox_list_context = array( 'items' => $items );
 		$on_change             = $props['on_change'] ?? '';
-		$namespace             = wp_json_encode( array( 'namespace' => 'woocommerce/interactivity-checkbox-list' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
+		$namespace             = wp_json_encode( array( 'namespace' => 'poocommerce/interactivity-checkbox-list' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP );
 
 		$checked_items               = array_filter(
 			$items,
@@ -51,7 +51,7 @@ class CheckboxList {
 					<?php
 					$item['id'] = $item['id'] ?? uniqid( 'checkbox-' );
 					// translators: %s: checkbox label.
-					$i18n_label = sprintf( __( 'Checkbox: %s', 'woocommerce' ), $item['aria_label'] ?? '' );
+					$i18n_label = sprintf( __( 'Checkbox: %s', 'poocommerce' ), $item['aria_label'] ?? '' );
 					?>
 					<li
 						data-wc-key="<?php echo esc_attr( $item['id'] ); ?>"
@@ -101,7 +101,7 @@ class CheckboxList {
 					data-wc-class--hidden="context.showAll"
 					data-wc-on--click="actions.showAllItems"
 				>
-					<small role="presentation"><?php echo esc_html__( 'Show more...', 'woocommerce' ); ?></small>
+					<small role="presentation"><?php echo esc_html__( 'Show more...', 'poocommerce' ); ?></small>
 				</span>
 				<?php endif; ?>
 		</div>

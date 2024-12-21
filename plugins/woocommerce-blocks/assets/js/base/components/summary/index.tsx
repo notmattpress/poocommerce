@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { RawHTML, useMemo } from '@wordpress/element';
-import { WordCountType } from '@woocommerce/block-settings';
+import { WordCountType } from '@poocommerce/block-settings';
 import type { CSSProperties } from 'react';
 
 /**

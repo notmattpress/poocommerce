@@ -25,7 +25,7 @@
 -   Add backwards compatibility for old function format. #7688
 -   Add console warning for inbox note contents exceeding 320 characters and add dompurify dependency. #7869
 -   Fix race condition in data package's options module. #7947
--   Remove dev dependency `@woocommerce/wc-admin-settings`. #8057
+-   Remove dev dependency `@poocommerce/wc-admin-settings`. #8057
 -   Update plugins data store actions #8042
 -   Add `defaultDateRange` parameter to `getRequestQuery` #8189
 -   Change `getLocale` selector parameter from country to id #8123
@@ -72,7 +72,7 @@
 # 1.3.0
 
 -   Fix parsing bad JSON string data in useUserPreferences hook. #6819
--   Removed allowed keys list for adding woocommerce_meta data. #6889
+-   Removed allowed keys list for adding poocommerce_meta data. #6889
 
 # 1.2.0
 
@@ -86,7 +86,7 @@
 
 # 1.1.1
 
--   Remove usage of wc-admin alias `@woocommerce/wc-admin-settings`.
+-   Remove usage of wc-admin alias `@poocommerce/wc-admin-settings`.
 
 # 1.1.0
 

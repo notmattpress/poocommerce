@@ -1,4 +1,4 @@
-.woocommerce-inbox-message {
+.poocommerce-inbox-message {
 	position: relative;
 	color: $gray-text;
 	background: $studio-white;
@@ -27,7 +27,7 @@
 	}
 
 	&:not(.message-is-unread) {
-		.woocommerce-inbox-message__title {
+		.poocommerce-inbox-message__title {
 			font-weight: normal;
 			a {
 				font-weight: normal;
@@ -35,7 +35,7 @@
 		}
 	}
 
-	.woocommerce-homepage-column & {
+	.poocommerce-homepage-column & {
 		margin: 20px 0;
 	}
 
@@ -61,8 +61,8 @@
 	}
 }
 
-.woocommerce-inbox-message__content {
-	.woocommerce-inbox-message__title {
+.poocommerce-inbox-message__content {
+	.poocommerce-inbox-message__title {
 		color: $gray-900;
 		@include font-size( 16 );
 		font-style: normal;
@@ -79,13 +79,13 @@
 		}
 
 		a {
-			@extend .woocommerce-inbox-message__title;
+			@extend .poocommerce-inbox-message__title;
 			color: $gray-900 !important;
 			text-decoration: none !important;
 		}
 	}
 
-	.woocommerce-inbox-message__date {
+	.poocommerce-inbox-message__date {
 		color: $gray-700;
 		@include font-size( 12 );
 		margin-bottom: $gap;
@@ -101,11 +101,11 @@
 	}
 }
 
-.woocommerce-inbox-message__wrapper .woocommerce-inbox-message__content {
+.poocommerce-inbox-message__wrapper .poocommerce-inbox-message__content {
 	padding-bottom: 0;
 }
 
-.woocommerce-inbox-message__text {
+.poocommerce-inbox-message__text {
 	color: $gray-700;
 	font-style: normal;
 	font-weight: normal;
@@ -127,7 +127,7 @@
 	}
 }
 
-.woocommerce-inbox-message__actions {
+.poocommerce-inbox-message__actions {
 	// Ensures any immediate child with a sibling has space between the items
 	& > * + * {
 		margin-left: 0.5em;
@@ -141,7 +141,7 @@
 		}
 	}
 
-	.woocommerce-inbox-note__action-button {
+	.poocommerce-inbox-note__action-button {
 		max-width: calc(100% - 80px);
 		overflow: hidden;
 
@@ -165,7 +165,7 @@
 
 	border-top: 0;
 
-	button.woocommerce-admin-dismiss-notification {
+	button.poocommerce-admin-dismiss-notification {
 		color: $gray-700;
 		&:hover {
 			box-shadow: inset 0 0 0 1px $gray-700;
@@ -197,19 +197,19 @@
 		}
 	}
 }
-.woocommerce-inbox-message__wrapper {
+.poocommerce-inbox-message__wrapper {
 	padding-top: 0;
 }
 
-.woocommerce-inbox-dismiss-confirmation_modal {
+.poocommerce-inbox-dismiss-confirmation_modal {
 	text-align: left;
 }
-.woocommerce-inbox-dismiss-confirmation_wrapper {
+.poocommerce-inbox-dismiss-confirmation_wrapper {
 	p {
 		font-size: 16px;
 		color: $gray-700;
 	}
-	.woocommerce-inbox-dismiss-confirmation_buttons {
+	.poocommerce-inbox-dismiss-confirmation_buttons {
 		text-align: right;
 		button {
 			margin-left: 10px;
@@ -217,7 +217,7 @@
 	}
 }
 
-.woocommerce-inbox-message__wrapper > div {
+.poocommerce-inbox-message__wrapper > div {
 	padding: $gap $gap-large;
 	.is-placeholder & {
 		padding: 10px 24px;
@@ -227,11 +227,11 @@
 
 // Tweak to fix dropdown and placeholder in IE 11
 @media all and ( -ms-high-contrast: none ), ( -ms-high-contrast: active ) {
-	.woocommerce-admin-dismiss-dropdown {
+	.poocommerce-admin-dismiss-dropdown {
 		margin-top: 0;
 	}
 
-	.woocommerce-inbox-message__wrapper {
+	.poocommerce-inbox-message__wrapper {
 		.is-placeholder & {
 			padding-bottom: 10px;
 		}

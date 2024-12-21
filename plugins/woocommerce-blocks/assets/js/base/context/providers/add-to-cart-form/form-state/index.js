@@ -9,13 +9,13 @@ import {
 	useEffect,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { useShallowEqual } from '@woocommerce/base-hooks';
+import { useShallowEqual } from '@poocommerce/base-hooks';
 import {
 	productIsPurchasable,
 	productSupportsAddToCartForm,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import { useDispatch } from '@wordpress/data';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -34,9 +34,9 @@ import { isErrorResponse, isFailResponse } from '../../../event-emit';
 import { removeNoticesByStatus } from '../../../../../utils/notices';
 
 /**
- * @typedef {import('@woocommerce/type-defs/add-to-cart-form').AddToCartFormDispatchActions} AddToCartFormDispatchActions
- * @typedef {import('@woocommerce/type-defs/add-to-cart-form').AddToCartFormEventRegistration} AddToCartFormEventRegistration
- * @typedef {import('@woocommerce/type-defs/contexts').AddToCartFormContext} AddToCartFormContext
+ * @typedef {import('@poocommerce/type-defs/add-to-cart-form').AddToCartFormDispatchActions} AddToCartFormDispatchActions
+ * @typedef {import('@poocommerce/type-defs/add-to-cart-form').AddToCartFormEventRegistration} AddToCartFormEventRegistration
+ * @typedef {import('@poocommerce/type-defs/contexts').AddToCartFormContext} AddToCartFormContext
  */
 
 const AddToCartFormContext = createContext( {
@@ -246,11 +246,11 @@ export const AddToCartFormStateContextProvider = ( {
 							data.processingResponse?.message ||
 							__(
 								'Something went wrong. Please contact us for assistance.',
-								'woocommerce'
+								'poocommerce'
 							);
 						createErrorNotice( message, {
 							id: 'add-to-cart',
-							context: `woocommerce/single-product/${
+							context: `poocommerce/single-product/${
 								product?.id || 0
 							}`,
 						} );

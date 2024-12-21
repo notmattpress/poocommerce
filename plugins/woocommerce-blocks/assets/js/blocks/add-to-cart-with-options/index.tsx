@@ -4,9 +4,9 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { Icon, button } from '@wordpress/icons';
 import { getPlugin, registerPlugin } from '@wordpress/plugins';
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 
 /**
  * Internal dependencies

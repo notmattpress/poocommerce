@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from '@wordpress/element';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -19,64 +19,64 @@ type RandomLoadingMessageProps = {
 const tipsAndTricksPhrases = [
 	__(
 		'Make your product title descriptive for better results.',
-		'woocommerce'
+		'poocommerce'
 	),
-	__( 'Tailor your product names to your target audience.', 'woocommerce' ),
+	__( 'Tailor your product names to your target audience.', 'poocommerce' ),
 	__(
 		"Focus on your product's unique features and benefits in descriptions.",
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Add relevant categories and tags to make products easy to find.',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Including precise product attributes helps us provide better suggestions.',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Know your audience and speak their language in descriptions.',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Get creative with product titles, but stay on topic for the best suggestions.',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Enhance your suggestions further by adding important features to your product titles.',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Balance accurate information & creativity for optimal titles…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Keep refining your product information for better suggestions…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Remember to showcase the benefits of your products in descriptions…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Consider your target audience while crafting product names…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Use keywords in titles and descriptions that customers search for…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Highlight unique features of your product for better suggestions…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Optimize descriptions and titles for mobile devices too…',
-		'woocommerce'
+		'poocommerce'
 	),
 	__(
 		'Create catchy titles, but keep the focus on your product…',
-		'woocommerce'
+		'poocommerce'
 	),
 ];
 
@@ -98,7 +98,7 @@ export const RandomLoadingMessage: React.FC< RandomLoadingMessageProps > = ( {
 } ) => {
 	const messageUpdateTimeout = useRef< number >();
 	const [ currentMessage, setCurrentMessage ] = useState(
-		__( 'Brainstorming ideas… hold on tight.', 'woocommerce' )
+		__( 'Brainstorming ideas… hold on tight.', 'poocommerce' )
 	);
 
 	useEffect( () => {

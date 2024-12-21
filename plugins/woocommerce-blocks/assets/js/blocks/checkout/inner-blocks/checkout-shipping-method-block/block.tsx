@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useShippingData } from '@woocommerce/base-context/hooks';
+import { useShippingData } from '@poocommerce/base-context/hooks';
 import clsx from 'clsx';
 import { Icon, store, shipping } from '@wordpress/icons';
 import { useEffect } from '@wordpress/element';
-import { CART_STORE_KEY, VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY, VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { isPackageRateCollectable } from '@woocommerce/base-utils';
-import { getSetting } from '@woocommerce/settings';
+import { isPackageRateCollectable } from '@poocommerce/base-utils';
+import { getSetting } from '@poocommerce/settings';
 import { Button } from '@ariakit/react';
 
 /**
@@ -22,7 +22,7 @@ import { shippingAddressHasValidationErrors } from '../../../../data/cart/utils'
 
 const SHIPPING_RATE_ERROR = {
 	hidden: true,
-	message: __( 'Shipping options are not available', 'woocommerce' ),
+	message: __( 'Shipping options are not available', 'poocommerce' ),
 };
 
 const LocalPickupSelector = ( {
@@ -121,7 +121,7 @@ const ShippingSelector = ( {
 	const Price =
 		rate.min === undefined || rateShouldBeHidden ? (
 			<span className="wc-block-checkout__shipping-method-option-price">
-				{ __( 'calculated with an address', 'woocommerce' ) }
+				{ __( 'calculated with an address', 'poocommerce' ) }
 			</span>
 		) : (
 			<RatePrice minRate={ rate.min } maxRate={ rate.max } />

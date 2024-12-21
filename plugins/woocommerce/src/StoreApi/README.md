@@ -1,4 +1,4 @@
-# WooCommerce Store API <!-- omit in toc -->
+# PooCommerce Store API <!-- omit in toc -->
 
 ## Table of contents <!-- omit in toc -->
 
@@ -29,9 +29,9 @@ Possible uses of the Store API include:
 
 -   This is an unauthenticated API. It does not require API keys or authentication tokens for access.
 -   All API responses return JSON-formatted data.
--   Data returned from the API is reflective of the current user (customer). Customer sessions in WooCommerce are cookie-based.
+-   Data returned from the API is reflective of the current user (customer). Customer sessions in PooCommerce are cookie-based.
 -   Store API cannot be used to look up other customers and orders by ID; only data belonging to the current user.
--   Likewise, Store API cannot be used to write store data e.g. settings. For more extensive access, use the authenticated [WC REST API.](https://woocommerce.github.io/woocommerce-rest-api-docs/#introduction)
+-   Likewise, Store API cannot be used to write store data e.g. settings. For more extensive access, use the authenticated [WC REST API.](https://poocommerce.github.io/poocommerce-rest-api-docs/#introduction)
 -   Endpoints that do allow writes, for example, updating the current customer address, require a [nonce-token](https://developer.wordpress.org/plugins/security/nonces/).
 -   Store API is render-target agnostic and should not make assumptions about where content will be displayed. For example, returning HTML would be discouraged unless the data type itself is HTML.
 
@@ -133,7 +133,7 @@ There are 3 main parts to each route in the Store API:
 
 1. Route - Responsible for mapping requests to endpoints. Routes in the Store API extend the `AbstractRoute` class; this class contains shared functionality for handling requests and returning JSON responses. Routes ensure a valid response is returned and handle collections, errors, and pagination.
 2. Schema - Routes do not format resources. Instead we use _Schema_ classes that represent each type of resource, for example, a Product, a Cart, or a Cart Item. Schema classes in the Store API should extend the `AbstractSchema` class.
-3. Utility - In more advanced cases where the Store API needs to access complex data from WooCommerce core, or where multiple routes need access to the same data, routes should use a Controller or Utility class. For example, the Store API has an Order Controller and a Cart Controller for looking up order and cart data respectfully.
+3. Utility - In more advanced cases where the Store API needs to access complex data from PooCommerce core, or where multiple routes need access to the same data, routes should use a Controller or Utility class. For example, the Store API has an Order Controller and a Cart Controller for looking up order and cart data respectfully.
 
 Typically, routes handle the following types of requests:
 
@@ -146,7 +146,7 @@ Please review the [Store API Guiding principles](./docs/guiding-principles.md). 
 
 ## Extensibility
 
-The approach to extensibility within the Store API is to expose certain routes and schema to the ExtendSchema class. [Documentation for contributors on this can be found here](../../../woocommerce-blocks/docs/internal-developers/rest-api/extend-rest-api-new-endpoint.md).
+The approach to extensibility within the Store API is to expose certain routes and schema to the ExtendSchema class. [Documentation for contributors on this can be found here](../../../poocommerce-blocks/docs/internal-developers/rest-api/extend-rest-api-new-endpoint.md).
 
 If a route includes the extensibility interface, 3rd party developers can use the shared `ExtendSchema::class` instance to register additional endpoint data and additional schema.
 
@@ -158,7 +158,7 @@ If new schema is required, and any of the following statements are true, choose 
 -   The data is related to a resource, but not technically part of it
 -   The data is difficult to query (performance wise) or has a very narrow or niche use-case
 
-If the data is sensitive (for example, a core setting that should be private), or not related to the current user (for example, looking up an order by order ID), [choose to use the authenticated WC REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/#introduction).
+If the data is sensitive (for example, a core setting that should be private), or not related to the current user (for example, looking up an order by order ID), [choose to use the authenticated WC REST API](https://poocommerce.github.io/poocommerce-rest-api-docs/#introduction).
 
 If you're looking to add _new routes and endpoints_, rather than extending the Store API _schema_, extending the Store API is not necessary. You can instead utilize core WordPress functionality to create new routes, choosing to use the same pattern of Store API if you wish. See:
 
@@ -169,9 +169,9 @@ If you're looking to add _new routes and endpoints_, rather than extending the S
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/README.md)
 
 <!-- /FEEDBACK -->
 

@@ -1,4 +1,4 @@
-# WooCommerce Playwright End-to-End Tests
+# PooCommerce Playwright End-to-End Tests
 
 This is the documentation for the e2e testing setup based on Playwright and `wp-env`.
 
@@ -14,7 +14,7 @@ This is the documentation for the e2e testing setup based on Playwright and `wp-
 ## Pre-requisites
 
 - Go through
-  the [WooCommerce Monorepo prerequisites](https://github.com/woocommerce/woocommerce/blob/trunk/README.md#prerequisites)
+  the [PooCommerce Monorepo prerequisites](https://github.com/poocommerce/poocommerce/blob/trunk/README.md#prerequisites)
   first, including the commands to get everything working.
 - Install Docker and Docker Compose ([Installation instructions](https://docs.docker.com/engine/install/)).
 
@@ -35,8 +35,8 @@ Start in the repository root folder:
 
 - `nvm use` (uses the default node version you have set in NVM)
 - `pnpm install` (installs dependencies)
-- `pnpm --filter='@woocommerce/plugin-woocommerce' build` (builds WooCommerce locally)
-- `cd plugins/woocommerce` (changes into the WooCommerce plugin folder)
+- `pnpm --filter='@poocommerce/plugin-poocommerce' build` (builds PooCommerce locally)
+- `cd plugins/poocommerce` (changes into the PooCommerce plugin folder)
 - `pnpm env:start` (starts the `wp-env` based local environment)
 - `pnpm test:e2e` (runs all the tests in headless mode)
 
@@ -47,7 +47,7 @@ To re-create the environment for a fresh state:
 You can refer to the pnpm scripts in the `package.json` file for more commands. Check out the `env:some-command` scripts
 for managing the `wp-env` environment.
 
-Other ways of running tests (make sure you are in the `plugins/woocommerce` folder):
+Other ways of running tests (make sure you are in the `plugins/poocommerce` folder):
 
 - `pnpm test:e2e` (usual, headless run)
 - `pnpm test:e2e --headed` (headed -- displaying browser window and test interactions)
@@ -63,7 +63,7 @@ Other ways of running tests (make sure you are in the `plugins/woocommerce` fold
     export DEFAULT_TIMEOUT_OVERRIDE=180000 pnpm test:e2e --ui
     ```
 
-To see all the Playwright options, make sure you are in the `plugins/woocommerce` folder and
+To see all the Playwright options, make sure you are in the `plugins/poocommerce` folder and
 run `pnpm playwright test --help`
 
 > [!TIP]
@@ -78,7 +78,7 @@ run `pnpm playwright test --help`
 
 ## Test environment
 
-The default environment configuration can be found in the `.wp-env.json` file in the `plugins/woocommerce`
+The default environment configuration can be found in the `.wp-env.json` file in the `plugins/poocommerce`
 folder.
 
 For more information on how to configure the test environment for `wp-env`, please check out
@@ -180,11 +180,11 @@ By default, they are saved inside the `test-results` folder.
 ### Viewing the Playwright HTML report
 
 Use the `playwright show-report $PATH_TO_PLAYWRIGHT_HTML_REPORT` command to open the report. For example, assuming that
-you're at the root of the WooCommerce monorepo, and that you did not specify a custom location for the report, you would
+you're at the root of the PooCommerce monorepo, and that you did not specify a custom location for the report, you would
 use the following commands:
 
 ```bash
-cd plugins/woocommerce
+cd plugins/poocommerce
 pnpm exec playwright show-report tests/e2e-pw/test-results/playwright-report
 ```
 
@@ -202,14 +202,14 @@ the [Allure Framework](https://github.com/allure-framework), particularly:
 Use the `allure generate` command to generate an HTML report from the `allure-results` directory created at the end of
 the test run. Then, use the `allure open` command to open it on your browser. For example, assuming that:
 
-- You're at the root of the WooCommerce monorepo
+- You're at the root of the PooCommerce monorepo
 - You did not specify a custom location for `allure-results` (you did not assign a value to `ALLURE_RESULTS_DIR`)
-- You want to generate the `allure-report` folder in `plugins/woocommerce/tests/e2e-pw/test-results`
+- You want to generate the `allure-report` folder in `plugins/poocommerce/tests/e2e-pw/test-results`
 
 Then you would need to use the following commands:
 
 ```bash
-cd plugins/woocommerce
+cd plugins/poocommerce
 pnpm exec allure generate --clean tests/e2e-pw/test-results/allure-results --output tests/e2e-pw/test-results/allure-report
 pnpm exec allure open tests/e2e-pw/test-results/allure-report
 ```

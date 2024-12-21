@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 // Block is soft-depreacted meaning that it's hidden from the inserter.
 const blockData: BlockData = {
 	name: 'Related Products',
-	slug: 'woocommerce/related-products',
+	slug: 'poocommerce/related-products',
 	mainClass: '.wc-block-related-products',
 	selectors: {
 		frontend: {},
@@ -29,7 +29,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//archive-product`,
+			postId: `poocommerce/poocommerce//archive-product`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -52,7 +52,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//single-product`,
+			postId: `poocommerce/poocommerce//single-product`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -62,7 +62,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		// (but it's a Product Collection variation).
 		await editor.insertBlockUsingGlobalInserter( blockData.name );
 
-		// Verifying by slug - it's expected it's NOT woocommerce/related-products.
+		// Verifying by slug - it's expected it's NOT poocommerce/related-products.
 		await expect(
 			await editor.getBlockByName( blockData.slug )
 		).toBeHidden();

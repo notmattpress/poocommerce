@@ -2,7 +2,7 @@
 /**
  * Default mappings
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,8 +36,8 @@ function wc_importer_default_english_mappings( $mappings ) {
 		return $mappings;
 	}
 
-	$weight_unit    = get_option( 'woocommerce_weight_unit' );
-	$dimension_unit = get_option( 'woocommerce_dimension_unit' );
+	$weight_unit    = get_option( 'poocommerce_weight_unit' );
+	$dimension_unit = get_option( 'poocommerce_dimension_unit' );
 	$new_mappings   = array(
 		'ID'                                      => 'id',
 		'Type'                                    => 'type',
@@ -82,7 +82,7 @@ function wc_importer_default_english_mappings( $mappings ) {
 
 	return array_merge( $mappings, $new_mappings );
 }
-add_filter( 'woocommerce_csv_product_import_mapping_default_columns', 'wc_importer_default_english_mappings', 100 );
+add_filter( 'poocommerce_csv_product_import_mapping_default_columns', 'wc_importer_default_english_mappings', 100 );
 
 /**
  * Add English special mapping placeholders when not using English as current language.
@@ -110,4 +110,4 @@ function wc_importer_default_special_english_mappings( $mappings ) {
 
 	return array_merge( $mappings, $new_mappings );
 }
-add_filter( 'woocommerce_csv_product_import_mapping_special_columns', 'wc_importer_default_special_english_mappings', 100 );
+add_filter( 'poocommerce_csv_product_import_mapping_special_columns', 'wc_importer_default_special_english_mappings', 100 );

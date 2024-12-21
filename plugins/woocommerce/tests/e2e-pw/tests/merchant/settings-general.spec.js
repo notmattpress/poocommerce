@@ -1,8 +1,8 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
-test.describe( 'WooCommerce General Settings', { tag: tags.SERVICES }, () => {
+test.describe( 'PooCommerce General Settings', { tag: tags.SERVICES }, () => {
 	test.use( { storageState: process.env.ADMINSTATE } );
 
 	test.afterAll( async ( { baseURL } ) => {
@@ -15,43 +15,43 @@ test.describe( 'WooCommerce General Settings', { tag: tags.SERVICES }, () => {
 		await api.post( 'settings/general/batch', {
 			update: [
 				{
-					id: 'woocommerce_store_address',
+					id: 'poocommerce_store_address',
 					value: 'addr 1',
 				},
 				{
-					id: 'woocommerce_store_city',
+					id: 'poocommerce_store_city',
 					value: 'San Francisco',
 				},
 				{
-					id: 'woocommerce_default_country',
+					id: 'poocommerce_default_country',
 					value: 'US:CA',
 				},
 				{
-					id: 'woocommerce_store_postcode',
+					id: 'poocommerce_store_postcode',
 					value: '94107',
 				},
 				{
-					id: 'woocommerce_currency_pos',
+					id: 'poocommerce_currency_pos',
 					value: 'left',
 				},
 				{
-					id: 'woocommerce_price_thousand_sep',
+					id: 'poocommerce_price_thousand_sep',
 					value: ',',
 				},
 				{
-					id: 'woocommerce_price_decimal_sep',
+					id: 'poocommerce_price_decimal_sep',
 					value: '.',
 				},
 				{
-					id: 'woocommerce_price_num_decimals',
+					id: 'poocommerce_price_num_decimals',
 					value: '2',
 				},
 			],
 		} );
-		await api.put( 'settings/general/woocommerce_allowed_countries', {
+		await api.put( 'settings/general/poocommerce_allowed_countries', {
 			value: 'all',
 		} );
-		await api.put( 'settings/general/woocommerce_currency', {
+		await api.put( 'settings/general/poocommerce_currency', {
 			value: 'USD',
 		} );
 	} );
@@ -76,7 +76,7 @@ test.describe( 'WooCommerce General Settings', { tag: tags.SERVICES }, () => {
 
 			// Change the base location
 			await page
-				.locator( 'select[name="woocommerce_default_country"]' )
+				.locator( 'select[name="poocommerce_default_country"]' )
 				.selectOption( 'US:NC' );
 
 			// See the Save changes button is now enabled.
@@ -94,27 +94,27 @@ test.describe( 'WooCommerce General Settings', { tag: tags.SERVICES }, () => {
 
 		// Set selling location to something different so we can save.
 		await page
-			.locator( '#woocommerce_allowed_countries' )
+			.locator( '#poocommerce_allowed_countries' )
 			.selectOption( 'all_except' );
 
 		// Set the new store address
-		await page.locator( '#woocommerce_store_address' ).fill( '5th Avenue' );
-		await page.locator( '#woocommerce_store_city' ).fill( 'New York' );
-		await page.locator( '#woocommerce_store_postcode' ).fill( '10010' );
+		await page.locator( '#poocommerce_store_address' ).fill( '5th Avenue' );
+		await page.locator( '#poocommerce_store_city' ).fill( 'New York' );
+		await page.locator( '#poocommerce_store_postcode' ).fill( '10010' );
 		await page
-			.locator( 'select[name="woocommerce_currency"]' )
+			.locator( 'select[name="poocommerce_currency"]' )
 			.selectOption( 'CAD' );
 
 		// Set selling location to all countries first so we can
 		// choose California as base location.
 		await page
-			.locator( '#woocommerce_allowed_countries' )
+			.locator( '#poocommerce_allowed_countries' )
 			.selectOption( 'all' );
 
 		// Set selling location to specific countries first, so we can choose U.S as base location (without state).
 		// This will makes specific countries option appears.
 		await page
-			.locator( '#woocommerce_allowed_countries' )
+			.locator( '#poocommerce_allowed_countries' )
 			.selectOption( 'specific' );
 		await page
 			.locator(
@@ -122,18 +122,18 @@ test.describe( 'WooCommerce General Settings', { tag: tags.SERVICES }, () => {
 			)
 			.selectOption( 'US' );
 		await page
-			.locator( 'select[name="woocommerce_default_country"]' )
+			.locator( 'select[name="poocommerce_default_country"]' )
 			.selectOption( 'US:NY' );
 
 		// Set currency position left with space
 		await page
-			.locator( 'select[name="woocommerce_currency_pos"]' )
+			.locator( 'select[name="poocommerce_currency_pos"]' )
 			.selectOption( 'left_space' );
 
 		// Set currency options
-		await page.locator( '#woocommerce_price_thousand_sep' ).fill( '.' );
-		await page.locator( '#woocommerce_price_decimal_sep' ).fill( ',' );
-		await page.locator( '#woocommerce_price_num_decimals' ).fill( '1' );
+		await page.locator( '#poocommerce_price_thousand_sep' ).fill( '.' );
+		await page.locator( '#poocommerce_price_decimal_sep' ).fill( ',' );
+		await page.locator( '#poocommerce_price_num_decimals' ).fill( '1' );
 
 		// Save settings and verify the changes
 		await page.getByRole( 'button', { name: 'Save changes' } ).click();
@@ -142,34 +142,34 @@ test.describe( 'WooCommerce General Settings', { tag: tags.SERVICES }, () => {
 		);
 
 		await expect(
-			page.locator( '#woocommerce_store_address' )
+			page.locator( '#poocommerce_store_address' )
 		).toHaveValue( '5th Avenue' );
-		await expect( page.locator( '#woocommerce_store_city' ) ).toHaveValue(
+		await expect( page.locator( '#poocommerce_store_city' ) ).toHaveValue(
 			'New York'
 		);
 		await expect(
-			page.locator( '#woocommerce_store_postcode' )
+			page.locator( '#poocommerce_store_postcode' )
 		).toHaveValue( '10010' );
 		await expect(
-			page.locator( 'select[name="woocommerce_default_country"]' )
+			page.locator( 'select[name="poocommerce_default_country"]' )
 		).toHaveValue( 'US:NY' );
 		await expect(
-			page.locator( 'select[name="woocommerce_currency"]' )
+			page.locator( 'select[name="poocommerce_currency"]' )
 		).toHaveValue( 'CAD' );
 		await expect(
-			page.locator( '#woocommerce_allowed_countries' )
+			page.locator( '#poocommerce_allowed_countries' )
 		).toHaveValue( 'specific' );
 		await expect(
-			page.locator( '#woocommerce_price_thousand_sep' )
+			page.locator( '#poocommerce_price_thousand_sep' )
 		).toHaveValue( '.' );
-		await expect( page.locator( '#woocommerce_currency_pos' ) ).toHaveValue(
+		await expect( page.locator( '#poocommerce_currency_pos' ) ).toHaveValue(
 			'left_space'
 		);
 		await expect(
-			page.locator( '#woocommerce_price_decimal_sep' )
+			page.locator( '#poocommerce_price_decimal_sep' )
 		).toHaveValue( ',' );
 		await expect(
-			page.locator( '#woocommerce_price_num_decimals' )
+			page.locator( '#poocommerce_price_num_decimals' )
 		).toHaveValue( '1' );
 	} );
 } );

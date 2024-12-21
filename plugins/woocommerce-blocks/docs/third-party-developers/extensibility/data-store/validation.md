@@ -43,7 +43,7 @@ When the checkout process begins, it will check if this data store has any entri
 
 ## Usage
 
-To utilize this store you will import the `VALIDATION_STORE_KEY` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `VALIDATION_STORE_KEY` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { VALIDATION_STORE_KEY } = window.wc.wcBlocksData;
@@ -53,9 +53,9 @@ const { VALIDATION_STORE_KEY } = window.wc.wcBlocksData;
 
 To better understand the Validation Store, let's use the required checkbox of the Terms and Conditions as an example. In the page editor, a merchant can define that a buyer must agree to the Terms and Conditions by making the checkbox required.
 
-![image](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-24-at-17.22.45.png)
+![image](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-24-at-17.22.45.png)
 
-In WooCommerce Blocks, we're using a `useEffect` hook to check if the checkbox is required and if it is checked. If the checkbox is required and not checked, we're adding a validation error to the store. If the checkbox is required and checked, we're clearing the validation error from the store.
+In PooCommerce Blocks, we're using a `useEffect` hook to check if the checkbox is required and if it is checked. If the checkbox is required and not checked, we're adding a validation error to the store. If the checkbox is required and checked, we're clearing the validation error from the store.
 
 ```ts
 useEffect( () => {
@@ -89,13 +89,13 @@ useEffect( () => {
 
 By default, the validation error is hidden. This is because we don't want to show the error message until the buyer has tried to submit the form. Before submitting the checkout form, the validation message can already be seen in the Validation Store.
 
-![image](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-24-at-17.28.56.png)
+![image](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-24-at-17.28.56.png)
 
 When a buyer submits the checkout form without checking the Terms and Conditions checkbox, the entry `hidden: true` will be changed to `hidden: false` and the validation message is shown.
 
-![image](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-24-at-17.33.01.png)
+![image](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-24-at-17.33.01.png)
 
-In WooCommerce Blocks, we're checking if text input fields have a validation error using the following code:
+In PooCommerce Blocks, we're checking if text input fields have a validation error using the following code:
 
 ```ts
 const hasError = validationError?.message && ! validationError?.hidden;
@@ -110,9 +110,9 @@ In the example above, the `message` is hidden and only the text color is changed
 
 In some cases, it's desired to show the validation error message to the user. For example, if the buyer tries to submit the checkout form without filling in the required fields. An example can seen when leaving the first name, last name and address fields empty:
 
-![image](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-25-at-18.28.30.png)
+![image](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-25-at-18.28.30.png)
 
-In WooCommerce Blocks, the following function handles the display logic of the validation error message:
+In PooCommerce Blocks, the following function handles the display logic of the validation error message:
 
 ```ts
 export const ValidationInputError = ( {
@@ -345,8 +345,8 @@ const hasValidationErrors = store.hasValidationErrors();
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/validation.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/validation.md)
 
 <!-- /FEEDBACK -->

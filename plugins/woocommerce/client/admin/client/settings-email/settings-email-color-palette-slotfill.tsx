@@ -68,9 +68,9 @@ export const registerSettingsEmailColorPaletteFill = () => {
 	const hasThemeJson =
 		slotElement?.getAttribute( 'data-has-theme-json' ) !== null;
 
-	registerPlugin( 'woocommerce-admin-settings-email-color-palette', {
+	registerPlugin( 'poocommerce-admin-settings-email-color-palette', {
 		// @ts-expect-error 'scope' does exist. @types/wordpress__plugins is outdated.
-		scope: 'woocommerce-email-color-palette-settings',
+		scope: 'poocommerce-email-color-palette-settings',
 		render: () => (
 			<EmailColorPaletteFill
 				defaultColors={ defaultColors }

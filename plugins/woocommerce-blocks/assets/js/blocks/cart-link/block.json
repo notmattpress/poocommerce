@@ -1,12 +1,12 @@
 {
-	"name": "woocommerce/cart-link",
+	"name": "poocommerce/cart-link",
 	"version": "1.0.0",
 	"title": "Cart Link",
 	"icon": "cart",
 	"description": "Display a link to the cart.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"supports": {
 		"html": false,
 		"multiple": false,

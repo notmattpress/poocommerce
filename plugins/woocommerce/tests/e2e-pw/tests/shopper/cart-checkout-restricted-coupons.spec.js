@@ -4,13 +4,13 @@
 import {
 	addAProductToCart,
 	getOrderIdFromUrl,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const includedProductName = 'Included test product';
 const excludedProductName = 'Excluded test product';
@@ -37,7 +37,7 @@ const expandCouponForm = async ( page ) => {
 		.click();
 	// This is to wait for the expand animation to finish, it avoids flakiness.
 	await expect(
-		page.locator( 'form.woocommerce-form-coupon' )
+		page.locator( 'form.poocommerce-form-coupon' )
 	).toHaveAttribute( 'style', '' );
 };
 
@@ -72,25 +72,25 @@ test.describe(
 			await api.post( 'settings/general/batch', {
 				update: [
 					{
-						id: 'woocommerce_store_address',
+						id: 'poocommerce_store_address',
 						value: 'addr 1',
 					},
 					{
-						id: 'woocommerce_store_city',
+						id: 'poocommerce_store_city',
 						value: 'San Francisco',
 					},
 					{
-						id: 'woocommerce_default_country',
+						id: 'poocommerce_default_country',
 						value: 'US:CA',
 					},
 					{
-						id: 'woocommerce_store_postcode',
+						id: 'poocommerce_store_postcode',
 						value: '94107',
 					},
 				],
 			} );
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 			// enable COD

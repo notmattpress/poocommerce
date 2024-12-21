@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PLUGIN_SLUG="woocommerce"
+PLUGIN_SLUG="poocommerce"
 PROJECT_PATH=$(pwd)
 BUILD_PATH="${PROJECT_PATH}/build"
 DEST_PATH="$BUILD_PATH/$PLUGIN_SLUG"
@@ -20,11 +20,11 @@ echo "Running JS Build..."
 if [ -z "${NODE_ENV}" ]; then
 	export NODE_ENV=production
 fi
-pnpm --filter='@woocommerce/plugin-woocommerce' build || exit "$?"
+pnpm --filter='@poocommerce/plugin-poocommerce' build || exit "$?"
 echo "Cleaning up PHP dependencies..."
 composer install --no-dev --quiet --optimize-autoloader || exit "$?"
 echo "Run makepot..."
-pnpm --filter=@woocommerce/plugin-woocommerce makepot || exit "$?"
+pnpm --filter=@poocommerce/plugin-poocommerce makepot || exit "$?"
 echo "Syncing files..."
 rsync -rc --exclude-from="$PROJECT_PATH/.distignore" "$PROJECT_PATH/" "$DEST_PATH/" --delete --delete-excluded
 

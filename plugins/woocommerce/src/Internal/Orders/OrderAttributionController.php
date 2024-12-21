@@ -1,16 +1,16 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Integrations\WPConsentAPI;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\Traits\ScriptDebug;
-use Automattic\WooCommerce\Internal\Traits\OrderAttributionMeta;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Integrations\WPConsentAPI;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Traits\ScriptDebug;
+use Automattic\PooCommerce\Internal\Traits\OrderAttributionMeta;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use Exception;
 use WC_Customer;
 use WC_Log_Levels;
@@ -44,7 +44,7 @@ class OrderAttributionController implements RegisterHooksInterface {
 	private $feature_controller;
 
 	/**
-	 * WooCommerce logger class instance.
+	 * PooCommerce logger class instance.
 	 *
 	 * @var WC_Logger_Interface
 	 */
@@ -67,7 +67,7 @@ class OrderAttributionController implements RegisterHooksInterface {
 	/**
 	 * Initialization method.
 	 *
-	 * Takes the place of the constructor within WooCommerce Dependency injection.
+	 * Takes the place of the constructor within PooCommerce Dependency injection.
 	 *
 	 * @internal
 	 *
@@ -133,24 +133,24 @@ class OrderAttributionController implements RegisterHooksInterface {
 		$stamp_checkout_html_actions = apply_filters(
 			'wc_order_attribution_stamp_checkout_html_actions',
 			array(
-				'woocommerce_checkout_billing',
-				'woocommerce_after_checkout_billing_form',
-				'woocommerce_checkout_shipping',
-				'woocommerce_after_order_notes',
-				'woocommerce_checkout_after_customer_details',
+				'poocommerce_checkout_billing',
+				'poocommerce_after_checkout_billing_form',
+				'poocommerce_checkout_shipping',
+				'poocommerce_after_order_notes',
+				'poocommerce_checkout_after_customer_details',
 			)
 		);
 		foreach ( $stamp_checkout_html_actions as $action ) {
 			add_action( $action, array( $this, 'stamp_checkout_html_element_once' ) );
 		}
 
-		add_action( 'woocommerce_register_form', array( $this, 'stamp_html_element' ) );
+		add_action( 'poocommerce_register_form', array( $this, 'stamp_html_element' ) );
 
 		// Update order based on submitted fields.
 		add_action(
-			'woocommerce_checkout_order_created',
+			'poocommerce_checkout_order_created',
 			function ( $order ) {
-				// Nonce check is handled by WooCommerce before woocommerce_checkout_order_created hook.
+				// Nonce check is handled by PooCommerce before poocommerce_checkout_order_created hook.
 				// phpcs:ignore WordPress.Security.NonceVerification
 				$params = $this->get_unprefixed_field_values( $_POST );
 				/**
@@ -161,12 +161,12 @@ class OrderAttributionController implements RegisterHooksInterface {
 				 * @param WC_Order $order The order object.
 				 * @param array    $params Unprefixed order attribution data.
 				 */
-				do_action( 'woocommerce_order_save_attribution_data', $order, $params );
+				do_action( 'poocommerce_order_save_attribution_data', $order, $params );
 			}
 		);
 
 		add_action(
-			'woocommerce_order_save_attribution_data',
+			'poocommerce_order_save_attribution_data',
 			function ( $order, $data ) {
 				$source_data = $this->get_source_values( $data );
 				$this->send_order_tracks( $source_data, $order );
@@ -197,7 +197,7 @@ class OrderAttributionController implements RegisterHooksInterface {
 		);
 
 		add_action(
-			'woocommerce_new_order',
+			'poocommerce_new_order',
 			function ( $order_id, $order ) {
 				$this->maybe_set_admin_source( $order );
 			},
@@ -340,7 +340,7 @@ class OrderAttributionController implements RegisterHooksInterface {
 
 		// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter
 		wp_enqueue_script(
-			'woocommerce-order-attribution-admin-js',
+			'poocommerce-order-attribution-admin-js',
 			plugins_url( "assets/js/admin/order-attribution-admin{$this->get_script_suffix()}.js", WC_PLUGIN_FILE ),
 			array( 'jquery' ),
 			Constants::get_constant( 'WC_VERSION' )
@@ -464,7 +464,7 @@ class OrderAttributionController implements RegisterHooksInterface {
 		$this->logger->log(
 			$level,
 			sprintf( '%s %s', $method, $message ),
-			array( 'source' => 'woocommerce-order-attribution' )
+			array( 'source' => 'poocommerce-order-attribution' )
 		);
 	}
 
@@ -521,7 +521,7 @@ class OrderAttributionController implements RegisterHooksInterface {
 		$screen_id = $this->get_order_screen_id();
 
 		$add_column = function ( $columns ) {
-			$columns['origin'] = esc_html__( 'Origin', 'woocommerce' );
+			$columns['origin'] = esc_html__( 'Origin', 'poocommerce' );
 
 			return $columns;
 		};

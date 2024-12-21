@@ -29,7 +29,7 @@
 			jQuery.post(
 				ajaxurl,
 				{
-					'action': 'woocommerce_add_dismissed_marketplace_suggestion',
+					'action': 'poocommerce_add_dismissed_marketplace_suggestion',
 					'_wpnonce': marketplace_suggestions.dismiss_suggestion_nonce,
 					'slug': suggestionSlug
 				}
@@ -39,11 +39,11 @@
 			var highUseSuggestionContexts = [ 'products-list-inline' ];
 			if ( _.contains( highUseSuggestionContexts, context ) ) {
 				// snooze suggestions in that area for 2 days
-				var contextSnoozeCookie = 'woocommerce_snooze_suggestions__' + context;
+				var contextSnoozeCookie = 'poocommerce_snooze_suggestions__' + context;
 				Cookies.set( contextSnoozeCookie, 'true', { expires: 2 } );
 
 				// keep track of how often this area gets dismissed in a cookie
-				var contextDismissalCountCookie = 'woocommerce_dismissed_suggestions__' + context;
+				var contextDismissalCountCookie = 'poocommerce_dismissed_suggestions__' + context;
 				var previousDismissalsInThisContext = parseInt( Cookies.get( contextDismissalCountCookie ), 10 ) || 0;
 				Cookies.set( contextDismissalCountCookie, previousDismissalsInThisContext + 1, { expires: 31 } );
 			}

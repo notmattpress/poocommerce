@@ -10,24 +10,24 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { get, partial, uniq } from 'lodash';
 import { __, sprintf } from '@wordpress/i18n';
 import PropTypes from 'prop-types';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
 import {
 	CompareButton,
 	AnalyticsError,
 	Search,
 	TableCard,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import {
 	getIdsFromQuery,
 	getSearchWords,
 	onQueryChange,
 	updateQueryString,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import {
 	downloadCSVFile,
 	generateCSVDataFromTable,
 	generateCSVFileName,
-} from '@woocommerce/csv-export';
+} from '@poocommerce/csv-export';
 import {
 	getReportChartData,
 	getReportTableData,
@@ -36,8 +36,8 @@ import {
 	REPORTS_STORE_NAME,
 	useUserPreferences,
 	QUERY_DEFAULTS,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -46,7 +46,7 @@ import DownloadIcon from './download-icon';
 import { extendTableData } from './utils';
 import './style.scss';
 
-const TABLE_FILTER = 'woocommerce_admin_report_table';
+const TABLE_FILTER = 'poocommerce_admin_report_table';
 
 const ReportTable = ( props ) => {
 	const {
@@ -107,7 +107,7 @@ const ReportTable = ( props ) => {
 	const onPageChange = ( newPage, source ) => {
 		scrollPointRef.current.scrollIntoView();
 		const tableElement = scrollPointRef.current.nextSibling.querySelector(
-			'.woocommerce-table__table'
+			'.poocommerce-table__table'
 		);
 		const focusableElements = focus.focusable.find( tableElement );
 
@@ -171,7 +171,7 @@ const ReportTable = ( props ) => {
 		 *
 		 * Enables manipulation of data used to create the report CSV.
 		 *
-		 * @filter woocommerce_admin_report_table
+		 * @filter poocommerce_admin_report_table
 		 * @param {Object} reportTableData          - data used to create the table.
 		 * @param {string} reportTableData.endpoint - table api endpoint.
 		 * @param {Array}  reportTableData.headers  - table headers data.
@@ -219,7 +219,7 @@ const ReportTable = ( props ) => {
 							/* translators: %s = type of report */
 							__(
 								'Your %s Report will be emailed to you.',
-								'woocommerce'
+								'poocommerce'
 							),
 							title
 						)
@@ -233,7 +233,7 @@ const ReportTable = ( props ) => {
 								/* translators: %s = type of report */
 								__(
 									'There was a problem exporting your %s Report. Please try again.',
-									'woocommerce'
+									'poocommerce'
 								),
 								title
 							)
@@ -327,7 +327,7 @@ const ReportTable = ( props ) => {
 			label: (
 				<CheckboxControl
 					onChange={ selectAllRows }
-					aria-label={ __( 'Select All', 'woocommerce' ) }
+					aria-label={ __( 'Select All', 'poocommerce' ) }
 					checked={ isAllChecked }
 					disabled={ ! hasData }
 				/>
@@ -394,31 +394,31 @@ const ReportTable = ( props ) => {
 	return (
 		<Fragment>
 			<div
-				className="woocommerce-report-table__scroll-point"
+				className="poocommerce-report-table__scroll-point"
 				ref={ scrollPointRef }
 				aria-hidden
 			/>
 			<TableCard
-				className={ 'woocommerce-report-table' }
+				className={ 'poocommerce-report-table' }
 				hasSearch={ !! searchBy }
 				actions={ [
 					compareBy && (
 						<CompareButton
 							key="compare"
-							className="woocommerce-table__compare"
+							className="poocommerce-table__compare"
 							count={ selectedRows.length }
 							helpText={
 								labels.helpText ||
 								__(
 									'Check at least two items below to compare',
-									'woocommerce'
+									'poocommerce'
 								)
 							}
 							onClick={ onCompare }
 							disabled={ ! downloadable }
 						>
 							{ labels.compareButton ||
-								__( 'Compare', 'woocommerce' ) }
+								__( 'Compare', 'poocommerce' ) }
 						</CompareButton>
 					),
 					searchBy && (
@@ -429,7 +429,7 @@ const ReportTable = ( props ) => {
 							onChange={ onSearchChange }
 							placeholder={
 								labels.placeholder ||
-								__( 'Search by item name', 'woocommerce' )
+								__( 'Search by item name', 'poocommerce' )
 							}
 							selected={ searchedLabels }
 							showClearButton={ true }
@@ -440,14 +440,14 @@ const ReportTable = ( props ) => {
 					downloadable && (
 						<Button
 							key="download"
-							className="woocommerce-table__download-button"
+							className="poocommerce-table__download-button"
 							disabled={ isLoading }
 							onClick={ onClickDownload }
 						>
 							<DownloadIcon />
-							<span className="woocommerce-table__download-button__label">
+							<span className="poocommerce-table__download-button__label">
 								{ labels.downloadButton ||
-									__( 'Download', 'woocommerce' ) }
+									__( 'Download', 'poocommerce' ) }
 							</span>
 						</Button>
 					),
@@ -589,7 +589,7 @@ export default compose(
 			? select( extendedItemsStoreName )
 			: null;
 
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			SETTINGS_STORE_NAME
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 

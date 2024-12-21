@@ -55,7 +55,7 @@ export const InboxNoteActionButton: React.FC< InboxNoteActionProps > = ( {
 
 	return (
 		<Button
-			className="woocommerce-inbox-note__action-button"
+			className="poocommerce-inbox-note__action-button"
 			isSecondary={ variant === 'secondary' }
 			isLink={ variant === 'link' }
 			isBusy={ inAction }

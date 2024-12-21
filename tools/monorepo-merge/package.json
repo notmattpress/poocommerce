@@ -1,15 +1,15 @@
 {
 	"name": "monorepo-merge",
 	"version": "0.0.0",
-	"description": "A tool for merging repositories into the WooCommerce Monorepo.",
+	"description": "A tool for merging repositories into the PooCommerce Monorepo.",
 	"author": "Automattic",
 	"bin": {
 		"monorepo-merge": "./bin/run"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce",
+	"homepage": "https://github.com/poocommerce/poocommerce",
 	"license": "GPLv2",
 	"main": "dist/index.js",
-	"repository": "woocommerce/woocommerce",
+	"repository": "poocommerce/poocommerce",
 	"files": [
 		"/bin",
 		"/dist",
@@ -32,7 +32,7 @@
 	"devDependencies": {
 		"@octokit/request-error": "^3.0.3",
 		"@types/node": "20.x.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "^8.55.0",
 		"globby": "^11.1.0",
 		"jscodeshift": "^0.13.1",

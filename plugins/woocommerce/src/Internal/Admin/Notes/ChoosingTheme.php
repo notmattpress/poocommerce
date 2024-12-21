@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Admin (Dashboard) choosing a theme note
+ * PooCommerce Admin (Dashboard) choosing a theme note
  *
  * Adds notes to the merchant's inbox about choosing a theme.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Giving_Feedback_Notes
@@ -39,16 +39,16 @@ class ChoosingTheme {
 
 		// Otherwise, create our new note.
 		$note = new Note();
-		$note->set_title( __( 'Choosing a theme?', 'woocommerce' ) );
-		$note->set_content( __( 'Check out the themes that are compatible with WooCommerce and choose one aligned with your brand and business needs.', 'woocommerce' ) );
+		$note->set_title( __( 'Choosing a theme?', 'poocommerce' ) );
+		$note->set_content( __( 'Check out the themes that are compatible with PooCommerce and choose one aligned with your brand and business needs.', 'poocommerce' ) );
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_MARKETING );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'visit-the-theme-marketplace',
-			__( 'Visit the theme marketplace', 'woocommerce' ),
-			'https://woocommerce.com/product-category/themes/?utm_source=inbox&utm_medium=product'
+			__( 'Visit the theme marketplace', 'poocommerce' ),
+			'https://poocommerce.com/product-category/themes/?utm_source=inbox&utm_medium=product'
 		);
 		return $note;
 	}

@@ -75,7 +75,7 @@ const maxElementsMobile = 5;
 const maxElementsTablet = 7;
 // Maximum number of logos to be displayed on a desktop screen.
 const maxElementsDesktop = 10;
-// Total number of available payment methods from https://woocommerce.com/document/woopayments/payment-methods.
+// Total number of available payment methods from https://poocommerce.com/document/woopayments/payment-methods.
 const totalPaymentMethods = 20;
 
 export const WooPaymentMethodsLogos: React.VFC< {
@@ -118,7 +118,7 @@ export const WooPaymentMethodsLogos: React.VFC< {
 
 	return (
 		<>
-			<div className="woocommerce-woopayments-payment-methods-logos">
+			<div className="poocommerce-woopayments-payment-methods-logos">
 				{ PaymentMethods.slice(
 					0,
 					getMaxShownElements( maxShownElements, isWooPayEligible )
@@ -130,7 +130,7 @@ export const WooPaymentMethodsLogos: React.VFC< {
 					return pm.component;
 				} ) }
 				{ maxShownElements < totalPaymentMethods && (
-					<div className="woocommerce-woopayments-payment-methods-logos-count">
+					<div className="poocommerce-woopayments-payment-methods-logos-count">
 						+ { totalPaymentMethods - maxShownElements }
 					</div>
 				) }

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useContext, useEffect, useState } from 'react';
-import { WooFooterItem } from '@woocommerce/admin-layout';
-import { PostTypeContext } from '@woocommerce/product-editor';
+import { WooFooterItem } from '@poocommerce/admin-layout';
+import { PostTypeContext } from '@poocommerce/product-editor';
 import { Button, NavigableMenu } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { closeSmall } from '@wordpress/icons';
@@ -11,11 +11,11 @@ import { closeSmall } from '@wordpress/icons';
 // @ts-ignore No types for this exist yet, natively (not until 7.0.0).
 // Including `@types/wordpress__data` as a devDependency causes build issues,
 // so just going type-free for now.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useSelect, select as WPSelect } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -41,7 +41,7 @@ function TabButton( {
 		<Button
 			onClick={ () => onClick( name ) }
 			aria-selected={ name === selectedTab }
-			className="woocommerce-product-editor-dev-tools-bar__tab-button"
+			className="poocommerce-product-editor-dev-tools-bar__tab-button"
 		>
 			{ children }
 		</Button>
@@ -90,9 +90,9 @@ export function ProductEditorDevToolsBar( {
 
 	return (
 		<WooFooterItem>
-			<div className="woocommerce-product-editor-dev-tools-bar">
-				<div className="woocommerce-product-editor-dev-tools-bar__header">
-					<div className="woocommerce-product-editor-dev-tools-bar__tabs">
+			<div className="poocommerce-product-editor-dev-tools-bar">
+				<div className="poocommerce-product-editor-dev-tools-bar__header">
+					<div className="poocommerce-product-editor-dev-tools-bar__tabs">
 						<NavigableMenu
 							role="tablist"
 							orientation="horizontal"
@@ -103,14 +103,14 @@ export function ProductEditorDevToolsBar( {
 								selectedTab={ selectedTab }
 								onClick={ handleTabClick }
 							>
-								{ __( 'Block Inspector', 'woocommerce' ) }
+								{ __( 'Block Inspector', 'poocommerce' ) }
 							</TabButton>
 							<TabButton
 								name="product"
 								selectedTab={ selectedTab }
 								onClick={ handleTabClick }
 							>
-								{ __( 'Product', 'woocommerce' ) }
+								{ __( 'Product', 'poocommerce' ) }
 							</TabButton>
 
 							<TabButton
@@ -118,7 +118,7 @@ export function ProductEditorDevToolsBar( {
 								selectedTab={ selectedTab }
 								onClick={ handleTabClick }
 							>
-								{ __( 'User Preferences', 'woocommerce' ) }
+								{ __( 'User Preferences', 'poocommerce' ) }
 							</TabButton>
 
 							<TabButton
@@ -126,19 +126,19 @@ export function ProductEditorDevToolsBar( {
 								selectedTab={ selectedTab }
 								onClick={ handleTabClick }
 							>
-								{ __( 'Help', 'woocommerce' ) }
+								{ __( 'Help', 'poocommerce' ) }
 							</TabButton>
 						</NavigableMenu>
 					</div>
-					<div className="woocommerce-product-editor-dev-tools-bar__actions">
+					<div className="poocommerce-product-editor-dev-tools-bar__actions">
 						<Button
 							icon={ closeSmall }
-							label={ __( 'Close', 'woocommerce' ) }
+							label={ __( 'Close', 'poocommerce' ) }
 							onClick={ onClose }
 						/>
 					</div>
 				</div>
-				<div className="woocommerce-product-editor-dev-tools-bar__panel">
+				<div className="poocommerce-product-editor-dev-tools-bar__panel">
 					<BlockInspectorTabPanel
 						selectedBlock={ lastSelectedBlock }
 						isSelected={ selectedTab === 'inspector' }

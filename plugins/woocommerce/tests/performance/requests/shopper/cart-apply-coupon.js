@@ -33,7 +33,7 @@ import {
 export function cartApplyCoupon() {
 	let apply_coupon_nonce;
 	// let item_name;
-	let woocommerce_cart_nonce;
+	let poocommerce_cart_nonce;
 
 	group( 'Product Page Add to cart', function () {
 		const requestheaders = Object.assign(
@@ -89,9 +89,9 @@ export function cartApplyCoupon() {
 			'","'
 		);
 		// item_name = findBetween( response.body, 'name="cart[', '][qty]' );
-		woocommerce_cart_nonce = response
+		poocommerce_cart_nonce = response
 			.html()
-			.find( 'input[name=woocommerce-cart-nonce]' )
+			.find( 'input[name=poocommerce-cart-nonce]' )
 			.first()
 			.attr( 'value' );
 	} );
@@ -132,7 +132,7 @@ export function cartApplyCoupon() {
 				_wp_http_referer: '%2Fcart',
 				// "cart["+`${item_name}`+"][qty]": "1",
 				coupon_code: '',
-				'woocommerce-cart-nonce': `${ woocommerce_cart_nonce }`,
+				'poocommerce-cart-nonce': `${ poocommerce_cart_nonce }`,
 			},
 			{
 				headers: requestheaders,
@@ -141,8 +141,8 @@ export function cartApplyCoupon() {
 		);
 		check( cartResponse, {
 			'is status 200': ( r ) => r.status === 200,
-			"body contains: 'woocommerce-remove-coupon' class": ( r ) =>
-				r.body.includes( 'class="woocommerce-remove-coupon"' ),
+			"body contains: 'poocommerce-remove-coupon' class": ( r ) =>
+				r.body.includes( 'class="poocommerce-remove-coupon"' ),
 		} );
 	} );
 

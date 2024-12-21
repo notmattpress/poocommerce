@@ -1,5 +1,5 @@
 const {
 	testAdminAnalyticsOverview,
-} = require( '@woocommerce/admin-e2e-tests' );
+} = require( '@poocommerce/admin-e2e-tests' );
 
 testAdminAnalyticsOverview();

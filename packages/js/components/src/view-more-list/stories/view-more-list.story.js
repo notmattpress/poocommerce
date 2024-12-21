@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ViewMoreList } from '@woocommerce/components';
+import { ViewMoreList } from '@poocommerce/components';
 
 export const Basic = () => (
 	<ViewMoreList
@@ -11,6 +11,6 @@ export const Basic = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/components/ViewMoreList',
+	title: 'PooCommerce Admin/components/ViewMoreList',
 	component: ViewMoreList,
 };

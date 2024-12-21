@@ -1,17 +1,17 @@
 <?php
 /**
  * Plugin Name: Woo AI
- * Plugin URI: https://github.com/woocommerce/woocommerce/
- * Description: Enable AI experiments within the WooCommerce experience. <a href="https://automattic.com/ai-guidelines" target="_blank" rel="noopener noreferrer">Learn more</a>.
+ * Plugin URI: https://github.com/poocommerce/poocommerce/
+ * Description: Enable AI experiments within the PooCommerce experience. <a href="https://automattic.com/ai-guidelines" target="_blank" rel="noopener noreferrer">Learn more</a>.
  * Version: 0.6.0
- * Author: WooCommerce
- * Author URI: https://woocommerce.com/
+ * Author: PooCommerce
+ * Author URI: https://poocommerce.com/
  * Requires at least: 5.8
  * Tested up to: 6.5
  * WC requires at least: 6.7
  * WC tested up to: 8.7
  * Text Domain: woo-ai
- * Requires Plugins: woocommerce
+ * Requires Plugins: poocommerce
  *
  * @package Woo_AI
  */
@@ -37,8 +37,8 @@ add_action( 'plugins_loaded', '_woo_ai_load_textdomain' );
  */
 function _woo_ai_bootstrap(): void {
 
-	// Check if WooCommerce is enabled.
-	if ( ! class_exists( 'WooCommerce' ) ) {
+	// Check if PooCommerce is enabled.
+	if ( ! class_exists( 'PooCommerce' ) ) {
 		include dirname( __FILE__ ) . '/includes/class-woo-ai-admin-notices.php';
 		$notices = new Woo_AI_Admin_Notices();
 
@@ -49,10 +49,10 @@ function _woo_ai_bootstrap(): void {
 	}
 
 	add_action(
-		'before_woocommerce_init',
+		'before_poocommerce_init',
 		function() {
-			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			if ( class_exists( \Automattic\PooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\PooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 			}
 		}
 	);

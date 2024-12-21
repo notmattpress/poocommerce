@@ -41,7 +41,7 @@
 					}
 
 					$.post(
-						ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_shipping_zone_methods_save_changes',
+						ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_shipping_zone_methods_save_changes',
 						{
 							wc_shipping_zones_nonce : data.wc_shipping_zones_nonce,
 							changes                 : changes,
@@ -166,11 +166,11 @@
 						// Populate $tbody with the current methods
 						$.each( methods, function( id, rowData ) {
 							if ( 'yes' === rowData.enabled ) {
-								rowData.enabled_icon = '<span class="woocommerce-input-toggle woocommerce-input-toggle--enabled">' +
+								rowData.enabled_icon = '<span class="poocommerce-input-toggle poocommerce-input-toggle--enabled">' +
 									data.strings.yes +
 									'</span>';
 							} else {
-								rowData.enabled_icon = '<span class="woocommerce-input-toggle woocommerce-input-toggle--disabled">' +
+								rowData.enabled_icon = '<span class="poocommerce-input-toggle poocommerce-input-toggle--disabled">' +
 									data.strings.no +
 									'</span>';
 							}
@@ -222,7 +222,7 @@
 
 						// Add method to zone via ajax call
 						$.post( {
-							url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?') + 'action=woocommerce_shipping_zone_remove_method',
+							url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?') + 'action=poocommerce_shipping_zone_remove_method',
 							data: {
 								wc_shipping_zones_nonce: data.wc_shipping_zones_nonce,
 								instance_id: instance_id,
@@ -357,7 +357,7 @@
 
 						// Save method settings via ajax call
 						$.post(
-							ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_shipping_zone_methods_save_settings',
+							ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_shipping_zone_methods_save_settings',
 							{
 								wc_shipping_zones_nonce : data.wc_shipping_zones_nonce,
 								instance_id             : posted_data.instance_id,
@@ -365,7 +365,7 @@
 							},
 							function( response, textStatus ) {
 								if ( 'success' === textStatus && response.success ) {
-									$( 'table.wc-shipping-zone-methods' ).parent().find( '#woocommerce_errors' ).remove();
+									$( 'table.wc-shipping-zone-methods' ).parent().find( '#poocommerce_errors' ).remove();
 
 									// If there were errors, prepend the form.
 									if ( response.data.errors.length > 0 ) {
@@ -393,7 +393,7 @@
 					}
 				},
 				showErrors: function( errors ) {
-					var error_html = '<div id="woocommerce_errors" class="error notice is-dismissible">';
+					var error_html = '<div id="poocommerce_errors" class="error notice is-dismissible">';
 
 					$( errors ).each( function( index, value ) {
 						error_html = error_html + '<p>' + value + '</p>';
@@ -450,7 +450,7 @@
 					const advancedCostsHelpTip = htmlContent.find( '#wc-shipping-advanced-costs-help-text' );
 					advancedCostsHelpTip.addClass( 'wc-shipping-zone-method-fields-help-text' );
 
-					const input = htmlContent.find( '#woocommerce_flat_rate_cost' );
+					const input = htmlContent.find( '#poocommerce_flat_rate_cost' );
 					const fieldset = input.closest( 'fieldset' );
 					advancedCostsHelpTip.appendTo( fieldset );
 
@@ -483,16 +483,16 @@
 				moveHTMLHelpTips: function( html ) {
 					// These help tips aren't moved.
 					const helpTipsToRetain = [
-						'woocommerce_flat_rate_cost',
-						'woocommerce_flat_rate_no_class_cost',
-						'woocommerce_flat_rate_class_cost_'
+						'poocommerce_flat_rate_cost',
+						'poocommerce_flat_rate_no_class_cost',
+						'poocommerce_flat_rate_class_cost_'
 					];
 
 					const htmlContent = $( html );
 					const labels = htmlContent.find( 'label' );
 					labels.each( ( i ) => {
 						const label = $( labels[ i ] );
-						const helpTip = label.find( '.woocommerce-help-tip' );
+						const helpTip = label.find( '.poocommerce-help-tip' );
 
 						if ( helpTip.length === 0 ) {
 							return;
@@ -501,14 +501,14 @@
 						const id = label.attr( 'for' );
 
 						if ( helpTipsToRetain.some( ( tip ) => id.includes( tip ) ) ) {
-							const helpTip = htmlContent.find( `label[for=${ id }] span.woocommerce-help-tip` );
+							const helpTip = htmlContent.find( `label[for=${ id }] span.poocommerce-help-tip` );
 							helpTip.addClass( 'wc-shipping-visible-help-text' );
 							return;
 						}
 
-						// woocommerce_free_shipping_ignore_discounts gets a helpTip appended to its label.
+						// poocommerce_free_shipping_ignore_discounts gets a helpTip appended to its label.
 						// Otherwise, add the text as the last element in the fieldset.
-						if ( id === 'woocommerce_free_shipping_ignore_discounts' ) {
+						if ( id === 'poocommerce_free_shipping_ignore_discounts' ) {
 							const input = htmlContent.find( `#${ id }` );
 							const fieldset = input.closest( 'fieldset' );
 							const inputLabel = fieldset.find( 'label' );
@@ -556,7 +556,7 @@
 						$('#btn-next').addClass( 'is-busy' );
 
 						// Add method to zone via ajax call
-						$.post( ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_shipping_zone_add_method', {
+						$.post( ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_shipping_zone_add_method', {
 							wc_shipping_zones_nonce : data.wc_shipping_zones_nonce,
 							method_id               : posted_data.add_method_id,
 							zone_id                 : data.zone_id
@@ -616,12 +616,12 @@
 				},
 				// Free Shipping has hidden field elements depending on data values.
 				possiblyHideFreeShippingRequirements: function( data ) {
-					if ( Object.keys( data ).includes( 'woocommerce_free_shipping_requires' ) ) {
-						const shouldHideRequirements = data.woocommerce_free_shipping_requires === null || 
-							data.woocommerce_free_shipping_requires === '' || 
-							data.woocommerce_free_shipping_requires === 'coupon';
+					if ( Object.keys( data ).includes( 'poocommerce_free_shipping_requires' ) ) {
+						const shouldHideRequirements = data.poocommerce_free_shipping_requires === null || 
+							data.poocommerce_free_shipping_requires === '' || 
+							data.poocommerce_free_shipping_requires === 'coupon';
 
-						const select = $( '#woocommerce_free_shipping_requires' );
+						const select = $( '#poocommerce_free_shipping_requires' );
 						const fieldset = select.closest( 'fieldset' );
 						const allOtherLabelElementsAfter = fieldset.nextAll( 'label' );
 						const allOtherFieldsetElementsAfter = fieldset.nextAll( 'fieldset' );
@@ -637,9 +637,9 @@
 				},
 				onModalLoaded: function( event, target ) {
 					if ( target === 'wc-modal-shipping-method-settings' ) {
-						const select = $( '#woocommerce_free_shipping_requires' );
+						const select = $( '#poocommerce_free_shipping_requires' );
 						if ( select.length > 0 ) {
-							event.data.view.possiblyHideFreeShippingRequirements( { woocommerce_free_shipping_requires: select.val() } );
+							event.data.view.possiblyHideFreeShippingRequirements( { poocommerce_free_shipping_requires: select.val() } );
 						}
 
 						event.data.view.possiblyAddShippingClassLink( event );
@@ -685,7 +685,7 @@
 
 							// Remove method to zone via ajax call
 							$.post( {
-								url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?') + 'action=woocommerce_shipping_zone_remove_method',
+								url: ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?') + 'action=poocommerce_shipping_zone_remove_method',
 								data: {
 									wc_shipping_zones_nonce: data.wc_shipping_zones_nonce,
 									instance_id: instance_id,

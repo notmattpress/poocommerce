@@ -5,14 +5,14 @@ import clsx from 'clsx';
 import {
 	useCheckoutSubmit,
 	useStoreCart,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import { Icon, check } from '@wordpress/icons';
-import Button from '@woocommerce/base-components/button';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import Button from '@poocommerce/base-components/button';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	FormattedMonetaryAmount,
 	Spinner,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 
 interface PlaceOrderButtonProps {
 	label: string;
@@ -55,7 +55,7 @@ const PlaceOrderButton = ( {
 			{ showPrice && (
 				<>
 					<style>
-						{ `.wp-block-woocommerce-checkout-actions-block {
+						{ `.wp-block-poocommerce-checkout-actions-block {
 							.wc-block-components-checkout-place-order-button__separator {
 								&::after {
 									content: "${ priceSeparator }";

@@ -11,12 +11,12 @@ import {
 import {
 	TreeItemType,
 	__experimentalSelectTreeControl as SelectTree,
-} from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	EXPERIMENTAL_PRODUCT_TAGS_STORE_NAME,
 	ProductTag,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 import { useDebounce } from '@wordpress/compose';
 
@@ -104,7 +104,7 @@ export const TagField: React.FC< TagFieldProps > = ( {
 		} catch ( e ) {
 			createNotice(
 				'error',
-				__( 'Failed to create tag.', 'woocommerce' )
+				__( 'Failed to create tag.', 'poocommerce' )
 			);
 			setIsCreating( false );
 		}

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Status class.
@@ -64,21 +64,21 @@ class Status extends AbstractOrderConfirmationBlock {
 	 */
 	protected function render_content( $order, $permission = false, $attributes = [], $content = '' ) {
 		if ( ! $permission ) {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-			return '<p>' . wp_kses_post( apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), null ) ) . '</p>';
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+			return '<p>' . wp_kses_post( apply_filters( 'poocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'poocommerce' ), null ) ) . '</p>';
 		}
 
-		$content = $this->get_hook_content( 'woocommerce_before_thankyou', [ $order->get_id() ] );
+		$content = $this->get_hook_content( 'poocommerce_before_thankyou', [ $order->get_id() ] );
 		$status  = $order->get_status();
 
 		// Unlike the core handling, this includes some extra messaging for completed orders so the text is appropriate for other order statuses.
 		switch ( $status ) {
 			case 'cancelled':
 				$content .= '<p>' . wp_kses_post(
-						// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+						// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 					apply_filters(
-						'woocommerce_thankyou_order_received_text',
-						esc_html__( 'Your order has been cancelled.', 'woocommerce' ),
+						'poocommerce_thankyou_order_received_text',
+						esc_html__( 'Your order has been cancelled.', 'poocommerce' ),
 						$order
 					)
 				) . '</p>';
@@ -86,11 +86,11 @@ class Status extends AbstractOrderConfirmationBlock {
 			case 'refunded':
 					$content .= '<p>' . wp_kses_post(
 						sprintf(
-							// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+							// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 							apply_filters(
-								'woocommerce_thankyou_order_received_text',
+								'poocommerce_thankyou_order_received_text',
 								// translators: %s: date and time of the order refund.
-								esc_html__( 'Your order was refunded %s.', 'woocommerce' ),
+								esc_html__( 'Your order was refunded %s.', 'poocommerce' ),
 								$order
 							),
 							wc_format_datetime( $order->get_date_modified() )
@@ -99,21 +99,21 @@ class Status extends AbstractOrderConfirmationBlock {
 				break;
 			case 'completed':
 				$content .= '<p>' . wp_kses_post(
-					// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+					// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 					apply_filters(
-						'woocommerce_thankyou_order_received_text',
-						esc_html__( 'Thank you. Your order has been fulfilled.', 'woocommerce' ),
+						'poocommerce_thankyou_order_received_text',
+						esc_html__( 'Thank you. Your order has been fulfilled.', 'poocommerce' ),
 						$order
 					)
 				) . '</p>';
 				break;
 			case 'failed':
-				// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-				$order_received_text = apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce' ), null );
-				$actions             = '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '" class="button">' . esc_html__( 'Try again', 'woocommerce' ) . '</a> ';
+				// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+				$order_received_text = apply_filters( 'poocommerce_thankyou_order_received_text', esc_html__( 'Your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'poocommerce' ), null );
+				$actions             = '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '" class="button">' . esc_html__( 'Try again', 'poocommerce' ) . '</a> ';
 
 				if ( wc_get_page_permalink( 'myaccount' ) ) {
-					$actions .= '<a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" class="button">' . esc_html__( 'My account', 'woocommerce' ) . '</a> ';
+					$actions .= '<a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" class="button">' . esc_html__( 'My account', 'poocommerce' ) . '</a> ';
 				}
 
 				$content .= '
@@ -123,10 +123,10 @@ class Status extends AbstractOrderConfirmationBlock {
 				break;
 			default:
 				$content .= '<p>' . wp_kses_post(
-					// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+					// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 					apply_filters(
-						'woocommerce_thankyou_order_received_text',
-						esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ),
+						'poocommerce_thankyou_order_received_text',
+						esc_html__( 'Thank you. Your order has been received.', 'poocommerce' ),
 						$order
 					)
 				) . '</p>';
@@ -142,8 +142,8 @@ class Status extends AbstractOrderConfirmationBlock {
 	 * @return string
 	 */
 	protected function render_content_fallback() {
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		return '<p>' . esc_html__( 'Please check your email for the order confirmation.', 'woocommerce' ) . '</p>';
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		return '<p>' . esc_html__( 'Please check your email for the order confirmation.', 'poocommerce' ) . '</p>';
 	}
 
 	/**
@@ -154,12 +154,12 @@ class Status extends AbstractOrderConfirmationBlock {
 	 */
 	protected function render_confirmation_notice( $order = null ) {
 		if ( ! $order ) {
-			$content = '<p>' . esc_html__( 'If you\'ve just placed an order, give your email a quick check for the confirmation.', 'woocommerce' );
+			$content = '<p>' . esc_html__( 'If you\'ve just placed an order, give your email a quick check for the confirmation.', 'poocommerce' );
 
 			if ( wc_get_page_permalink( 'myaccount' ) ) {
 				$content .= ' ' . sprintf(
 					/* translators: 1: opening a link tag 2: closing a link tag */
-					esc_html__( 'Have an account with us? %1$sLog in here to view your order details%2$s.', 'woocommerce' ),
+					esc_html__( 'Have an account with us? %1$sLog in here to view your order details%2$s.', 'poocommerce' ),
 					'<a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" class="button">',
 					'</a>'
 				);
@@ -181,16 +181,16 @@ class Status extends AbstractOrderConfirmationBlock {
 		$my_account_page        = wc_get_page_permalink( 'myaccount' );
 
 		$content  = '<p>';
-		$content .= esc_html__( 'Great news! Your order has been received, and a confirmation will be sent to your email address.', 'woocommerce' );
+		$content .= esc_html__( 'Great news! Your order has been received, and a confirmation will be sent to your email address.', 'poocommerce' );
 		$content .= $my_account_page ? ' ' . sprintf(
 			/* translators: 1: opening a link tag 2: closing a link tag */
-			esc_html__( 'Have an account with us? %1$sLog in here%2$s to view your order.', 'woocommerce' ),
+			esc_html__( 'Have an account with us? %1$sLog in here%2$s to view your order.', 'poocommerce' ),
 			'<a href="' . esc_url( $my_account_page ) . '" class="button">',
 			'</a>'
 		) : '';
 
 		if ( $verification_required && $verification_permitted ) {
-			$content .= ' ' . esc_html__( 'Alternatively, confirm the email address linked to the order below.', 'woocommerce' );
+			$content .= ' ' . esc_html__( 'Alternatively, confirm the email address linked to the order below.', 'poocommerce' );
 		}
 
 		$content .= '</p>';
@@ -209,9 +209,9 @@ class Status extends AbstractOrderConfirmationBlock {
 	 */
 	protected function render_verification_form() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$check_submission_notice = ! empty( $_POST ) ? wc_print_notice( esc_html__( 'We were unable to verify the email address you provided. Please try again.', 'woocommerce' ), 'error', [], true ) : '';
+		$check_submission_notice = ! empty( $_POST ) ? wc_print_notice( esc_html__( 'We were unable to verify the email address you provided. Please try again.', 'poocommerce' ), 'error', [], true ) : '';
 
-		return '<form method="post" class="woocommerce-form woocommerce-verify-email">' .
+		return '<form method="post" class="poocommerce-form poocommerce-verify-email">' .
 			$check_submission_notice .
 			sprintf(
 				'<p class="form-row verify-email">
@@ -219,7 +219,7 @@ class Status extends AbstractOrderConfirmationBlock {
 					<input type="email" name="email" id="%1$s" autocomplete="email" class="input-text" required />
 				</p>',
 				esc_attr( 'verify-email' ),
-				esc_html__( 'Email address', 'woocommerce' ) . '&nbsp;<span class="required">*</span>'
+				esc_html__( 'Email address', 'poocommerce' ) . '&nbsp;<span class="required">*</span>'
 			) .
 			sprintf(
 				'<p class="form-row login-submit">
@@ -227,7 +227,7 @@ class Status extends AbstractOrderConfirmationBlock {
 					%3$s
 				</p>',
 				esc_attr( 'verify-email-submit' ),
-				esc_html__( 'Confirm email and view order', 'woocommerce' ),
+				esc_html__( 'Confirm email and view order', 'poocommerce' ),
 				wp_nonce_field( 'wc_verify_email', '_wpnonce', true, false ),
 				esc_attr( wc_wp_theme_get_element_class_name( 'button' ) )
 			) .

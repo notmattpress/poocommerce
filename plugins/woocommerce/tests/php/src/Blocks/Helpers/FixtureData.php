@@ -3,7 +3,7 @@
  * Helper used to create fixture data for tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\Helpers;
+namespace Automattic\PooCommerce\Tests\Blocks\Helpers;
 
 /**
  * FixtureData class.
@@ -111,7 +111,7 @@ class FixtureData {
 
 		// Make sure caches are clean.
 		delete_transient( 'wc_attribute_taxonomies' );
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		// These are exported as labels, so convert the label to a name if possible first.
 		$attribute_labels = wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_label', 'attribute_name' );
@@ -142,9 +142,9 @@ class FixtureData {
 			// Register as taxonomy.
 			register_taxonomy(
 				$taxonomy_name,
-				apply_filters( 'woocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
+				apply_filters( 'poocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
 				apply_filters(
-					'woocommerce_taxonomy_args_' . $taxonomy_name,
+					'poocommerce_taxonomy_args_' . $taxonomy_name,
 					array(
 						'labels'       => array(
 							'name' => $raw_name,
@@ -331,8 +331,8 @@ class FixtureData {
 			'tax_status'   => 'taxable',
 			'cost'         => $cost,
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		\WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 	}
@@ -351,8 +351,8 @@ class FixtureData {
 			'tax_status'   => 'taxable',
 			'cost'         => $cost,
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		\WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 	}
@@ -374,7 +374,7 @@ class FixtureData {
 			'iban'            => '',
 			'bic'             => '',
 		);
-		update_option( 'woocommerce_bacs_settings', $bacs_settings );
+		update_option( 'poocommerce_bacs_settings', $bacs_settings );
 		WC()->payment_gateways()->init();
 	}
 }

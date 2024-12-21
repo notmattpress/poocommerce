@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -44,8 +44,8 @@ export default function ConnectNotice(): JSX.Element | null {
 	if ( noticeType === 'long' ) {
 		description = description.concat(
 			__(
-				'Your store might be at risk as you are running old versions of WooCommerce plugins.',
-				'woocommerce'
+				'Your store might be at risk as you are running old versions of PooCommerce plugins.',
+				'poocommerce'
 			)
 		);
 
@@ -54,8 +54,8 @@ export default function ConnectNotice(): JSX.Element | null {
 
 	description = description.concat(
 		__(
-			'<strong>Connect your store to WooCommerce.com</strong> to get updates and streamlined support for your subscriptions.',
-			'woocommerce'
+			'<strong>Connect your store to PooCommerce.com</strong> to get updates and streamlined support for your subscriptions.',
+			'poocommerce'
 		)
 	);
 
@@ -92,7 +92,7 @@ export default function ConnectNotice(): JSX.Element | null {
 				variant="secondary"
 				onClick={ handleClick }
 			>
-				{ __( 'Connect', 'woocommerce' ) }
+				{ __( 'Connect', 'poocommerce' ) }
 			</Button>
 		</Notice>
 	);

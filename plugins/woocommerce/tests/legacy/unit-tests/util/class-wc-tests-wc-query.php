@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Query class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  * @since 3.3.0
  */
 
@@ -65,7 +65,7 @@ class WC_Tests_WC_Query extends WC_Unit_Test_Case {
 		$this->assertEquals( $expected, $default_vars );
 
 		// Test updating a setting works.
-		update_option( 'woocommerce_checkout_pay_endpoint', 'order-pay-new' );
+		update_option( 'poocommerce_checkout_pay_endpoint', 'order-pay-new' );
 		WC()->query->init_query_vars();
 		$updated_vars = WC()->query->get_query_vars();
 		$this->assertEquals( 'order-pay-new', $updated_vars['order-pay'] );
@@ -102,7 +102,7 @@ class WC_Tests_WC_Query extends WC_Unit_Test_Case {
 
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', 999 );
-		update_option( 'woocommerce_checkout_page_id', 999 );
+		update_option( 'poocommerce_checkout_page_id', 999 );
 		$this->assertEquals( EP_ROOT | EP_PAGES, WC()->query->get_endpoints_mask() );
 	}
 
@@ -149,7 +149,7 @@ class WC_Tests_WC_Query extends WC_Unit_Test_Case {
 		unset( $_GET['order-pay'] );
 
 		// Test with query var.
-		update_option( 'woocommerce_checkout_pay_endpoint', 'order-pay-new' );
+		update_option( 'poocommerce_checkout_pay_endpoint', 'order-pay-new' );
 		WC()->query->init_query_vars();
 		$wp->query_vars['order-pay-new'] = 'order-pay-new';
 		WC()->query->parse_request();

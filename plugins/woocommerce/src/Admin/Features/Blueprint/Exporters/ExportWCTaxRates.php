@@ -2,22 +2,22 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Steps\SetWCTaxRates;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Steps\SetWCTaxRates;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
 
 /**
  * Class ExportWCTaxRates
  *
- * This class exports WooCommerce tax rates and implements the StepExporter interface.
+ * This class exports PooCommerce tax rates and implements the StepExporter interface.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCTaxRates implements StepExporter {
 
 	/**
-	 * Export WooCommerce tax rates.
+	 * Export PooCommerce tax rates.
 	 *
 	 * @return SetWCTaxRates
 	 */
@@ -28,7 +28,7 @@ class ExportWCTaxRates implements StepExporter {
 		$rates = $wpdb->get_results(
 			"
             SELECT *
-            FROM {$wpdb->prefix}woocommerce_tax_rates as tax_rates
+            FROM {$wpdb->prefix}poocommerce_tax_rates as tax_rates
             ",
 			ARRAY_A
 		);
@@ -37,7 +37,7 @@ class ExportWCTaxRates implements StepExporter {
 		$locations = $wpdb->get_results(
 			"
             SELECT *
-            FROM {$wpdb->prefix}woocommerce_tax_rate_locations as locations
+            FROM {$wpdb->prefix}poocommerce_tax_rate_locations as locations
             ",
 			ARRAY_A
 		);
@@ -46,7 +46,7 @@ class ExportWCTaxRates implements StepExporter {
 		$step = new SetWCTaxRates( $rates, $locations );
 		$step->set_meta_values(
 			array(
-				'plugin' => 'woocommerce',
+				'plugin' => 'poocommerce',
 			)
 		);
 
@@ -68,7 +68,7 @@ class ExportWCTaxRates implements StepExporter {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Tax Rates', 'woocommerce' );
+		return __( 'Tax Rates', 'poocommerce' );
 	}
 
 	/**
@@ -77,6 +77,6 @@ class ExportWCTaxRates implements StepExporter {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'It includes tax rates and locations.', 'woocommerce' );
+		return __( 'It includes tax rates and locations.', 'poocommerce' );
 	}
 }

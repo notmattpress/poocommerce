@@ -2,11 +2,11 @@
 /**
  * Onboarding Themes REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\OnboardingThemes;
-use Automattic\WooCommerce\Internal\Admin\Onboarding;
+use Automattic\PooCommerce\Admin\API\OnboardingThemes;
+use Automattic\PooCommerce\Internal\Admin\Onboarding;
 
 /**
  * WC Tests API Onboarding Themes
@@ -78,7 +78,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_theme_install', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_theme_install', $data['code'] );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_theme', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_theme', $data['code'] );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 		// Mock the get_option() function to return 'yes' for marketplace suggestions.
 		// This is done to test the marketplace suggestions scenario.
 		add_filter(
-			'pre_option_woocommerce_show_marketplace_suggestions',
+			'pre_option_poocommerce_show_marketplace_suggestions',
 			function () {
 				return 'yes';
 			}
@@ -187,7 +187,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 
 		// Mock the get_option() function to return 'no' for marketplace suggestions.
 		add_filter(
-			'pre_option_woocommerce_show_marketplace_suggestions',
+			'pre_option_poocommerce_show_marketplace_suggestions',
 			function () {
 				return 'no';
 			}
@@ -237,7 +237,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 		// Mock the get_option() function to return 'yes' for marketplace suggestions.
 		// This is done to test the marketplace suggestions scenario.
 		add_filter(
-			'pre_option_woocommerce_show_marketplace_suggestions',
+			'pre_option_poocommerce_show_marketplace_suggestions',
 			function () {
 				return 'no';
 			}
@@ -245,7 +245,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 
 		// Mock the apply_filters() function to capture the response.
 		add_filter(
-			'__experimental_woocommerce_rest_get_recommended_themes',
+			'__experimental_poocommerce_rest_get_recommended_themes',
 			function ( $result, $industry, $currency ) {
 				$result['industry'] = $industry;
 				$result['currency'] = $currency;
@@ -281,7 +281,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 		// Mock the get_option() function to return 'yes' for marketplace suggestions.
 		// This is done to test the marketplace suggestions scenario.
 		add_filter(
-			'pre_option_woocommerce_show_marketplace_suggestions',
+			'pre_option_poocommerce_show_marketplace_suggestions',
 			function () {
 				return 'yes';
 			}
@@ -289,7 +289,7 @@ class WC_Admin_Tests_API_Onboarding_Themes extends WC_REST_Unit_Test_Case {
 
 		// Mock the apply_filters() function to capture the response.
 		add_filter(
-			'__experimental_woocommerce_rest_get_recommended_themes',
+			'__experimental_poocommerce_rest_get_recommended_themes',
 			function ( $result, $industry, $currency ) {
 				$result['industry'] = $industry;
 				$result['currency'] = $currency;

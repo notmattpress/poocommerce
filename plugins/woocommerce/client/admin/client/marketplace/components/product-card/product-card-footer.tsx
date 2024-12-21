@@ -4,9 +4,9 @@
 import { Button, Icon } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { useContext } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
-import { useUser } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
+import { useUser } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ function ProductCardFooter( props: { product: Product } ) {
 			return false;
 		}
 
-		// This value is sent from the WooCommerce.com API.
+		// This value is sent from the PooCommerce.com API.
 		if ( ! productToCheck.isInstallable ) {
 			return false;
 		}
@@ -78,11 +78,11 @@ function ProductCardFooter( props: { product: Product } ) {
 
 	function getPriceLabel(): string {
 		if ( product.price === 0 ) {
-			return __( 'Free download', 'woocommerce' );
+			return __( 'Free download', 'poocommerce' );
 		}
 
 		if ( product.freemium_type === 'primary' ) {
-			return __( 'Free plan available', 'woocommerce' );
+			return __( 'Free plan available', 'poocommerce' );
 		}
 
 		return sprintf( getCurrencyFormat( product.currency ), product.price );
@@ -96,14 +96,14 @@ function ProductCardFooter( props: { product: Product } ) {
 		) {
 			switch ( product.billingPeriod ) {
 				case 'day':
-					return __( 'daily', 'woocommerce' );
+					return __( 'daily', 'poocommerce' );
 				case 'week':
-					return __( 'weekly', 'woocommerce' );
+					return __( 'weekly', 'poocommerce' );
 				case 'month':
-					return __( 'monthly', 'woocommerce' );
+					return __( 'monthly', 'poocommerce' );
 				case 'year':
 				case '':
-					return __( 'annually', 'woocommerce' );
+					return __( 'annually', 'poocommerce' );
 				default:
 					return '';
 			}
@@ -112,21 +112,21 @@ function ProductCardFooter( props: { product: Product } ) {
 		let period;
 		switch ( product.billingPeriod ) {
 			case 'day':
-				period = __( 'days', 'woocommerce' );
+				period = __( 'days', 'poocommerce' );
 				break;
 			case 'week':
-				period = __( 'weeks', 'woocommerce' );
+				period = __( 'weeks', 'poocommerce' );
 				break;
 			case 'month':
-				period = __( 'months', 'woocommerce' );
+				period = __( 'months', 'poocommerce' );
 				break;
 			default:
-				period = __( 'years', 'woocommerce' );
+				period = __( 'years', 'poocommerce' );
 		}
 
 		return sprintf(
 			// translators: %1$d: billing period interval, %2$s: billing period (e.g. days, weeks, months, years)
-			__( 'every %1$d %2$s', 'woocommerce' ),
+			__( 'every %1$d %2$s', 'poocommerce' ),
 			product.billingPeriodInterval,
 			period
 		);
@@ -150,7 +150,7 @@ function ProductCardFooter( props: { product: Product } ) {
 				//translators: %1$s is the sale price of the product, %2$s is the regular price of the product, %3$s is the billing period
 				__(
 					'Sale Price %1$s %3$s, regular price %2$s %3$s',
-					'woocommerce'
+					'poocommerce'
 				),
 				getPriceLabel(),
 				sprintf(
@@ -164,7 +164,7 @@ function ProductCardFooter( props: { product: Product } ) {
 		if ( product.price !== 0 && product.freemium_type !== 'primary' ) {
 			return sprintf(
 				//translators: %1$s is the price of the product, %2$s is the billing period
-				__( ' %1$s, %2$s ', 'woocommerce' ),
+				__( ' %1$s, %2$s ', 'poocommerce' ),
 				getPriceLabel(),
 				getBillingText()
 			);
@@ -176,9 +176,9 @@ function ProductCardFooter( props: { product: Product } ) {
 	if ( shouldShowAddToStore( product ) ) {
 		return (
 			<>
-				<span className="woocommerce-marketplace__product-card__add-to-store">
+				<span className="poocommerce-marketplace__product-card__add-to-store">
 					<Button variant="secondary" onClick={ openInstallModal }>
-						{ __( 'Add to Store', 'woocommerce' ) }
+						{ __( 'Add to Store', 'poocommerce' ) }
 					</Button>
 				</span>
 			</>
@@ -187,8 +187,8 @@ function ProductCardFooter( props: { product: Product } ) {
 
 	return (
 		<>
-			<div className="woocommerce-marketplace__product-card__price">
-				<span className="woocommerce-marketplace__product-card__price-label">
+			<div className="poocommerce-marketplace__product-card__price">
+				<span className="poocommerce-marketplace__product-card__price-label">
 					<span className="screen-reader-text">
 						{ getReaderPriceLabel() }
 					</span>
@@ -197,7 +197,7 @@ function ProductCardFooter( props: { product: Product } ) {
 
 				{ product.isOnSale && (
 					<span
-						className="woocommerce-marketplace__product-card__on-sale"
+						className="poocommerce-marketplace__product-card__on-sale"
 						aria-hidden
 					>
 						{ sprintf(
@@ -208,34 +208,34 @@ function ProductCardFooter( props: { product: Product } ) {
 				) }
 
 				<span
-					className="woocommerce-marketplace__product-card__price-billing"
+					className="poocommerce-marketplace__product-card__price-billing"
 					aria-hidden
 				>
 					{ getBillingText() }
 				</span>
 			</div>
-			<div className="woocommerce-marketplace__product-card__rating">
+			<div className="poocommerce-marketplace__product-card__rating">
 				{ product.averageRating !== null && (
 					<>
-						<span className="woocommerce-marketplace__product-card__rating-icon">
+						<span className="poocommerce-marketplace__product-card__rating-icon">
 							<Icon icon={ 'star-filled' } size={ 16 } />
 						</span>
-						<span className="woocommerce-marketplace__product-card__rating-average">
+						<span className="poocommerce-marketplace__product-card__rating-average">
 							<span aria-hidden>{ product.averageRating }</span>
 							<span className="screen-reader-text">
 								{ sprintf(
 									// translators: %.1f: average rating
-									__( '%.1f stars', 'woocommerce' ),
+									__( '%.1f stars', 'poocommerce' ),
 									product.averageRating
 								) }
 							</span>
 						</span>
-						<span className="woocommerce-marketplace__product-card__rating-count">
+						<span className="poocommerce-marketplace__product-card__rating-count">
 							<span aria-hidden>({ product.reviewsCount })</span>
 							<span className="screen-reader-text">
 								{ sprintf(
 									// translators: %d: rating count
-									__( 'from %d reviews', 'woocommerce' ),
+									__( 'from %d reviews', 'poocommerce' ),
 									product.reviewsCount
 								) }
 							</span>

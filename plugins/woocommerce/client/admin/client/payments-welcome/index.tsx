@@ -3,9 +3,9 @@
  */
 import { Notice } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -108,7 +108,7 @@ const ConnectAccountPage = () => {
 
 		try {
 			const installAndActivateResponse = await installAndActivatePlugins(
-				[ 'woocommerce-payments' ].concat( pluginsToInstall )
+				[ 'poocommerce-payments' ].concat( pluginsToInstall )
 			);
 			if ( installAndActivateResponse?.success ) {
 				recordEvent( 'wcpay_extension_installed', {

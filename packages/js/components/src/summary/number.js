@@ -45,18 +45,18 @@ const SummaryNumber = ( {
 	label,
 	labelTooltipText,
 	onToggle,
-	prevLabel = __( 'Previous period:', 'woocommerce' ),
+	prevLabel = __( 'Previous period:', 'poocommerce' ),
 	prevValue,
 	reverseTrend = false,
 	selected = false,
 	value,
 	onLinkClickCallback = noop,
 } ) => {
-	const liClasses = classnames( 'woocommerce-summary__item-container', {
+	const liClasses = classnames( 'poocommerce-summary__item-container', {
 		'is-dropdown-button': onToggle,
 		'is-dropdown-expanded': isOpen,
 	} );
-	const classes = classnames( 'woocommerce-summary__item', {
+	const classes = classnames( 'poocommerce-summary__item', {
 		'is-selected': selected,
 		'is-good-trend': reverseTrend ? delta < 0 : delta > 0,
 		'is-bad-trend': reverseTrend ? delta > 0 : delta < 0,
@@ -67,21 +67,21 @@ const SummaryNumber = ( {
 			? // eslint-disable-next-line @wordpress/valid-sprintf -- false positive from %%
 			  sprintf(
 					/* translators: percentage change upwards */
-					__( 'Up %f%% from %s', 'woocommerce' ),
+					__( 'Up %f%% from %s', 'poocommerce' ),
 					delta,
 					prevLabel
 			  )
 			: // eslint-disable-next-line @wordpress/valid-sprintf -- false positive from %%
 			  sprintf(
 					/* translators: percentage change downwards */
-					__( 'Down %f%% from %s', 'woocommerce' ),
+					__( 'Down %f%% from %s', 'poocommerce' ),
 					Math.abs( delta ),
 					prevLabel
 			  );
 	if ( ! delta ) {
 		screenReaderLabel = sprintf(
 			/* translators: previous value */
-			__( 'No change from %s', 'woocommerce' ),
+			__( 'No change from %s', 'poocommerce' ),
 			prevLabel
 		);
 	}
@@ -111,7 +111,7 @@ const SummaryNumber = ( {
 	return (
 		<li className={ liClasses }>
 			<Container { ...containerProps }>
-				<div className="woocommerce-summary__item-label">
+				<div className="poocommerce-summary__item-label">
 					<Text variant="body.small" size="14" lineHeight="20px">
 						{ label }
 					</Text>
@@ -120,7 +120,7 @@ const SummaryNumber = ( {
 							text={ labelTooltipText }
 							position="top center"
 						>
-							<div className="woocommerce-summary__info-tooltip">
+							<div className="poocommerce-summary__info-tooltip">
 								<Icon
 									width={ 20 }
 									height={ 20 }
@@ -131,12 +131,12 @@ const SummaryNumber = ( {
 					) }
 				</div>
 
-				<div className="woocommerce-summary__item-data">
-					<div className="woocommerce-summary__item-value">
+				<div className="poocommerce-summary__item-data">
+					<div className="poocommerce-summary__item-value">
 						<Text variant="title.small" size="20" lineHeight="28px">
 							{ ! isNil( value )
 								? value
-								: __( 'N/A', 'woocommerce' ) }
+								: __( 'N/A', 'poocommerce' ) }
 						</Text>
 					</div>
 
@@ -144,12 +144,12 @@ const SummaryNumber = ( {
 						text={
 							! isNil( prevValue )
 								? `${ prevLabel } ${ prevValue }`
-								: __( 'N/A', 'woocommerce' )
+								: __( 'N/A', 'poocommerce' )
 						}
 						position="top center"
 					>
 						<div
-							className="woocommerce-summary__item-delta"
+							className="poocommerce-summary__item-delta"
 							role="presentation"
 							aria-label={ screenReaderLabel }
 						>
@@ -158,17 +158,17 @@ const SummaryNumber = ( {
 									? // eslint-disable-next-line @wordpress/valid-sprintf -- false positive from %%
 									  sprintf(
 											/* translators: percentage change */
-											__( '%f%%', 'woocommerce' ),
+											__( '%f%%', 'poocommerce' ),
 											delta
 									  )
-									: __( 'N/A', 'woocommerce' ) }
+									: __( 'N/A', 'poocommerce' ) }
 							</Text>
 						</div>
 					</Tooltip>
 				</div>
 				{ onToggle ? (
 					<ChevronDownIcon
-						className="woocommerce-summary__toggle"
+						className="poocommerce-summary__toggle"
 						size={ 24 }
 					/>
 				) : null }

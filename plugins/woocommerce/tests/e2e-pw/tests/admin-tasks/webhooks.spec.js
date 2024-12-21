@@ -1,6 +1,6 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 test.describe( 'Manage webhooks', () => {
 	test.use( { storageState: process.env.ADMINSTATE } );

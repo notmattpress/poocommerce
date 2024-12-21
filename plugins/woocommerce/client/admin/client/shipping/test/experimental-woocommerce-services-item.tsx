@@ -2,18 +2,18 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
-import WooCommerceServicesItem from '../experimental-woocommerce-services-item';
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+import PooCommerceServicesItem from '../experimental-poocommerce-services-item';
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'root' ],
 		layoutString: 'root',
@@ -21,18 +21,18 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
 } );
 
-describe( 'WooCommerceServicesItem', () => {
+describe( 'PooCommerceServicesItem', () => {
 	it( 'should render WCS item with CTA = "Get started" when WCS is not installed', () => {
-		render( <WooCommerceServicesItem isWCSInstalled={ false } /> );
+		render( <PooCommerceServicesItem isWCSInstalled={ false } /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 
 		expect(
@@ -41,10 +41,10 @@ describe( 'WooCommerceServicesItem', () => {
 	} );
 
 	it( 'should render WCS item with CTA = "Activate" when WCS is installed', () => {
-		render( <WooCommerceServicesItem isWCSInstalled={ true } /> );
+		render( <PooCommerceServicesItem isWCSInstalled={ true } /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 
 		expect(
@@ -53,7 +53,7 @@ describe( 'WooCommerceServicesItem', () => {
 	} );
 
 	it( 'should record track when clicking setup button', () => {
-		render( <WooCommerceServicesItem isWCSInstalled={ false } /> );
+		render( <PooCommerceServicesItem isWCSInstalled={ false } /> );
 
 		screen.queryByRole( 'button', { name: 'Get started' } )?.click();
 		expect( recordEvent ).toHaveBeenCalledWith( 'tasklist_click', {

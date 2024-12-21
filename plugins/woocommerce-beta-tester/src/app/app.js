@@ -16,7 +16,7 @@ import RemoteInboxNotifications from '../remote-inbox-notifications';
 import RemoteLogging from '../remote-logging';
 import Payments from '../payments';
 
-const tabs = applyFilters( 'woocommerce_admin_test_helper_tabs', [
+const tabs = applyFilters( 'poocommerce_admin_test_helper_tabs', [
 	{
 		name: 'options',
 		title: 'Options',
@@ -53,7 +53,7 @@ const tabs = applyFilters( 'woocommerce_admin_test_helper_tabs', [
 		content: <RemoteLogging />,
 	},
 	{
-		name: 'woocommerce-payments',
+		name: 'poocommerce-payments',
 		title: 'WCPay',
 		content: <Payments />,
 	},
@@ -62,9 +62,9 @@ const tabs = applyFilters( 'woocommerce_admin_test_helper_tabs', [
 export function App() {
 	return (
 		<div className="wrap">
-			<h1>WooCommerce Admin Test Helper</h1>
+			<h1>PooCommerce Admin Test Helper</h1>
 			<TabPanel
-				className="woocommerce-admin-test-helper__main-tab-panel"
+				className="poocommerce-admin-test-helper__main-tab-panel"
 				activeClass="active-tab"
 				tabs={ tabs }
 				initialTabName={ tabs[ 0 ].name }
@@ -73,7 +73,7 @@ export function App() {
 					<>
 						{ tab.content }
 						{ applyFilters(
-							`woocommerce_admin_test_helper_tab_${ tab.name }`,
+							`poocommerce_admin_test_helper_tab_${ tab.name }`,
 							[]
 						) }
 					</>

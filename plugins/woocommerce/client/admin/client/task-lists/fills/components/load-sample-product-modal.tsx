@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Modal } from '@wordpress/components';
 import { Spinner } from '@wordpress/components/build/ui';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -14,19 +14,19 @@ import './load-sample-product-modal.scss';
 const LoadSampleProductModal: React.FC = () => {
 	return (
 		<Modal
-			className="woocommerce-products-load-sample-product-modal"
-			overlayClassName="woocommerce-products-load-sample-product-modal-overlay"
+			className="poocommerce-products-load-sample-product-modal"
+			overlayClassName="poocommerce-products-load-sample-product-modal-overlay"
 			title=""
 			onRequestClose={ () => {} }
 		>
 			<Spinner color="#007cba" size={ 48 } />
-			<Text className="woocommerce-load-sample-product-modal__title">
-				{ __( 'Loading sample products', 'woocommerce' ) }
+			<Text className="poocommerce-load-sample-product-modal__title">
+				{ __( 'Loading sample products', 'poocommerce' ) }
 			</Text>
-			<Text className="woocommerce-load-sample-product-modal__description">
+			<Text className="poocommerce-load-sample-product-modal__description">
 				{ __(
 					'We are loading 9 sample products into your store',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Text>
 		</Modal>

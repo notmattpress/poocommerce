@@ -1,15 +1,15 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 use WP_Block_Patterns_Registry;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Options;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
-use Automattic\WooCommerce\Blocks\Templates\ProductCatalogTemplate;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Options;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Templates\ProductCatalogTemplate;
 
 /**
- * Utility methods used for serving block templates from WooCommerce Blocks.
+ * Utility methods used for serving block templates from PooCommerce Blocks.
  * {@internal This class and its methods should only be used within the BlockTemplateController.php and is not intended for public use.}
  */
 class BlockTemplateUtils {
@@ -37,23 +37,23 @@ class BlockTemplateUtils {
 	const TEMPLATES_ROOT_DIR = 'templates';
 
 	/**
-	 * WooCommerce plugin slug
+	 * PooCommerce plugin slug
 	 *
 	 * This is used to save templates to the DB which are stored against this value in the wp_terms table.
 	 *
 	 * @var string
 	 */
-	const PLUGIN_SLUG = 'woocommerce/woocommerce';
+	const PLUGIN_SLUG = 'poocommerce/poocommerce';
 
 	/**
-	 * Deprecated WooCommerce plugin slug
+	 * Deprecated PooCommerce plugin slug
 	 *
 	 * For supporting users who have customized templates under the incorrect plugin slug during the first release.
-	 * More context found here: https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5423.
+	 * More context found here: https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/5423.
 	 *
 	 * @var string
 	 */
-	const DEPRECATED_PLUGIN_SLUG = 'woocommerce';
+	const DEPRECATED_PLUGIN_SLUG = 'poocommerce';
 
 	/**
 	 * Returns the template matching the slug
@@ -151,7 +151,7 @@ class BlockTemplateUtils {
 		}
 
 		if ( ! $terms ) {
-			return new \WP_Error( 'template_missing_theme', __( 'No theme is defined for this template.', 'woocommerce' ) );
+			return new \WP_Error( 'template_missing_theme', __( 'No theme is defined for this template.', 'poocommerce' ) );
 		}
 
 		$theme          = $terms[0]->name;
@@ -179,9 +179,9 @@ class BlockTemplateUtils {
 			}
 		}
 
-		// We are checking 'woocommerce' to maintain classic templates which are saved to the DB,
+		// We are checking 'poocommerce' to maintain classic templates which are saved to the DB,
 		// prior to updating to use the correct slug.
-		// More information found here: https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5423.
+		// More information found here: https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/5423.
 		if ( self::PLUGIN_SLUG === $theme || self::DEPRECATED_PLUGIN_SLUG === strtolower( $theme ) ) {
 			$template->origin = 'plugin';
 		}
@@ -628,7 +628,7 @@ class BlockTemplateUtils {
 		);
 
 		// Remove theme (i.e. filesystem) templates that have the same slug as a customised one. We don't need to check
-		// for `woocommerce` in $template->source here because woocommerce templates won't have been added to $templates
+		// for `poocommerce` in $template->source here because poocommerce templates won't have been added to $templates
 		// if a saved version was found in the db. This only affects saved templates that were saved BEFORE a theme
 		// template with the same slug was added.
 		return array_values(
@@ -644,7 +644,7 @@ class BlockTemplateUtils {
 
 	/**
 	 * Removes customized templates that shouldn't be available. That means customized templates based on the
-	 * WooCommerce default template when there is a customized template based on the theme template.
+	 * PooCommerce default template when there is a customized template based on the theme template.
 	 *
 	 * @param \WP_Block_Template[]|\stdClass[] $templates  List of templates to run the filter on.
 	 * @param string                           $theme_slug Slug of the theme currently active.
@@ -659,7 +659,7 @@ class BlockTemplateUtils {
 					// This is a customized template based on the theme template, so it should be returned.
 					return true;
 				}
-				// This is a template customized from the WooCommerce default template.
+				// This is a template customized from the PooCommerce default template.
 				// Only return it if there isn't a customized version of the theme template.
 				$is_there_a_customized_theme_template = array_filter(
 					$templates,
@@ -732,13 +732,13 @@ class BlockTemplateUtils {
 	 * @return boolean
 	 */
 	public static function template_has_legacy_template_block( $template ) {
-		if ( has_block( 'woocommerce/legacy-template', $template->content ) ) {
+		if ( has_block( 'poocommerce/legacy-template', $template->content ) ) {
 			return true;
 		}
 
 		$blocks = parse_blocks( $template->content );
 
-		return self::has_block_including_patterns( array( 'woocommerce/legacy-template' ), $blocks );
+		return self::has_block_including_patterns( array( 'poocommerce/legacy-template' ), $blocks );
 	}
 
 	/**

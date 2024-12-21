@@ -193,6 +193,6 @@ export const SingleSelectTree: React.FC = () => {
 };
 
 export default {
-	title: 'WooCommerce Admin/experimental/SelectTreeControl',
+	title: 'PooCommerce Admin/experimental/SelectTreeControl',
 	component: SelectTree,
 };

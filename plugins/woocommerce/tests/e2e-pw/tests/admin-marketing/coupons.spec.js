@@ -4,7 +4,7 @@ const { tags } = require( '../../fixtures/fixtures' );
 test.describe( 'Coupons page', () => {
 	test.use( { storageState: process.env.ADMINSTATE } );
 
-	// TODO (E2E Audit): This test is for the WooCommerce > Coupons menu item. Move this test to page-loads.spec.js.
+	// TODO (E2E Audit): This test is for the PooCommerce > Coupons menu item. Move this test to page-loads.spec.js.
 	test(
 		'A user can view the coupons overview without it crashing',
 		{ tag: [ tags.NOT_E2E, tags.SKIP_ON_WPCOM ] },

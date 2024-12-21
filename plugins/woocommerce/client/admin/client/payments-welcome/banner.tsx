@@ -3,7 +3,7 @@
  */
 import { Card, CardBody, Button, CardDivider } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { WooPaymentMethodsLogos } from '@woocommerce/onboarding';
+import { WooPaymentMethodsLogos } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies

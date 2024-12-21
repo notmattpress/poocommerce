@@ -8,12 +8,12 @@ import {
 	ONBOARDING_STORE_NAME,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	SETTINGS_STORE_NAME,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useMemo, useCallback, useEffect } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
-import { getNewPath, getQuery } from '@woocommerce/navigation';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
+import { getNewPath, getQuery } from '@poocommerce/navigation';
 import { Button } from '@wordpress/components';
 import ExternalIcon from 'gridicons/dist/external';
 
@@ -60,7 +60,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 			paymentGatewaySuggestions: select(
 				ONBOARDING_STORE_NAME
 			).getPaymentGatewaySuggestions( true ),
-			countryCode: getCountryCode( settings.woocommerce_default_country ),
+			countryCode: getCountryCode( settings.poocommerce_default_country ),
 		};
 	}, [] );
 
@@ -139,7 +139,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 
 		// The payment gateways are keyed by the payment gateway suggestion ID, not the plugin ID/slug.
 		// The payment gateway suggestion ID is sometimes the same as the plugin ID/slug, but not always.
-		// Sometimes it features a : separator, e.g. 'woocommerce-payments:bnpl'.
+		// Sometimes it features a : separator, e.g. 'poocommerce-payments:bnpl'.
 		// We will discard the part after the : separator when searching for the current gateway.
 		const processedQueryId = getPluginSlug( query.id );
 		const gateway = Array.from( paymentGateways.entries() ).find(
@@ -227,29 +227,29 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 
 	let additionalSectionHeading = __(
 		'Choose a payment provider',
-		'woocommerce'
+		'poocommerce'
 	);
 	let additionalSectionHeadingDescription = __(
 		'To start accepting online payments',
-		'woocommerce'
+		'poocommerce'
 	);
 	if ( isWCPayOrOtherCategoryDoneSetup ) {
 		additionalSectionHeading = __(
 			'Additional payment options',
-			'woocommerce'
+			'poocommerce'
 		);
 		additionalSectionHeadingDescription = __(
 			'Give your customers additional choices in ways to pay.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else if ( isWCPaySupported ) {
 		additionalSectionHeading = __(
 			'Other payment providers',
-			'woocommerce'
+			'poocommerce'
 		);
 		additionalSectionHeadingDescription = __(
 			'Try one of the alternative payment providers.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -263,12 +263,12 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 			markConfigured={ markConfigured }
 			footerLink={
 				<Button
-					href="https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/?utm_source=payments_recommendations"
+					href="https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/?utm_source=payments_recommendations"
 					target="_blank"
 					onClick={ trackSeeMore }
 					variant="tertiary"
 				>
-					{ __( 'See more', 'woocommerce' ) }
+					{ __( 'See more', 'poocommerce' ) }
 					<ExternalIcon size={ 18 } />
 				</Button>
 			}
@@ -277,7 +277,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 
 	const offlineSection = !! offlineGateways.length && (
 		<List
-			heading={ __( 'Offline payment methods', 'woocommerce' ) }
+			heading={ __( 'Offline payment methods', 'poocommerce' ) }
 			// No recommendation if WooPayments is supported (and displayed).
 			recommendation={ isWCPaySupported ? false : recommendation }
 			paymentGateways={ offlineGateways }
@@ -286,7 +286,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 	);
 
 	return (
-		<div className="woocommerce-task-payments">
+		<div className="poocommerce-task-payments">
 			{ ! paymentGateways.size && <ListPlaceholder /> }
 
 			{ wcPayGateway.length ? (
@@ -311,7 +311,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 };
 
 registerPlugin( 'wc-admin-onboarding-task-payments', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="payments">
 			{ ( { onComplete, query } ) => (

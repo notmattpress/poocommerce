@@ -2,22 +2,22 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
-use Automattic\WooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Util;
 use WC_Admin_Settings;
 use WC_Settings_Page;
 
 /**
  * Class ExportWCSettings
  *
- * This class exports WooCommerce settings and implements the StepExporter and HasAlias interfaces.
+ * This class exports PooCommerce settings and implements the StepExporter and HasAlias interfaces.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCSettings implements StepExporter, HasAlias {
 	use UseWPFunctions;
@@ -50,7 +50,7 @@ class ExportWCSettings implements StepExporter, HasAlias {
 	}
 
 	/**
-	 * Export WooCommerce settings.
+	 * Export PooCommerce settings.
 	 *
 	 * @return SetSiteOptions
 	 */
@@ -80,7 +80,7 @@ class ExportWCSettings implements StepExporter, HasAlias {
 		$step = new SetSiteOptions( $filtered['options'] );
 		$step->set_meta_values(
 			array(
-				'plugin' => 'woocommerce',
+				'plugin' => 'poocommerce',
 				'pages'  => $filtered['pages'],
 				'info'   => $option_info,
 				'alias'  => $this->get_alias(),
@@ -188,15 +188,15 @@ class ExportWCSettings implements StepExporter, HasAlias {
 			),
 		);
 
-		$options['woocommerce_coming_soon']      = $this->wp_get_option( 'woocommerce_coming_soon' );
-		$options['woocommerce_store_pages_only'] = $this->wp_get_option( 'woocommerce_store_pages_only' );
+		$options['poocommerce_coming_soon']      = $this->wp_get_option( 'poocommerce_coming_soon' );
+		$options['poocommerce_store_pages_only'] = $this->wp_get_option( 'poocommerce_store_pages_only' );
 
-		$option_info['woocommerce_coming_soon'] = array(
+		$option_info['poocommerce_coming_soon'] = array(
 			'location' => 'site_visibility.general',
 			'title'    => 'Coming soon',
 		);
 
-		$option_info['woocommerce_store_pages_only'] = array(
+		$option_info['poocommerce_store_pages_only'] = array(
 			'location' => 'site_visibility.general',
 			'title'    => 'Apply to store pages only',
 		);
@@ -228,7 +228,7 @@ class ExportWCSettings implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'General', 'woocommerce' );
+		return __( 'General', 'poocommerce' );
 	}
 
 	/**
@@ -237,6 +237,6 @@ class ExportWCSettings implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'It includes general store options.', 'woocommerce' );
+		return __( 'It includes general store options.', 'poocommerce' );
 	}
 }

@@ -8,7 +8,7 @@ const {
 	uiUnblocked,
 	setCheckbox,
 	settingsPageSaveChanges,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -27,7 +27,7 @@ const runCheckoutLoginAccountTest = () => {
 			// Set checkbox for logging to account during checkout
 			await merchant.login();
 			await merchant.openSettings( 'account' );
-			await setCheckbox( '#woocommerce_enable_checkout_login_reminder' );
+			await setCheckbox( '#poocommerce_enable_checkout_login_reminder' );
 			await settingsPageSaveChanges();
 			await merchant.logout();
 
@@ -44,8 +44,8 @@ const runCheckoutLoginAccountTest = () => {
 
 		it( 'can login to an existing account during checkout', async () => {
 			// Click to login during checkout
-			await page.waitForSelector( '.woocommerce-form-login-toggle' );
-			await expect( page ).toClick( '.woocommerce-info > a.showlogin' );
+			await page.waitForSelector( '.poocommerce-form-login-toggle' );
+			await expect( page ).toClick( '.poocommerce-info > a.showlogin' );
 
 			// Fill shopper's login credentials and proceed further
 			await page.type(

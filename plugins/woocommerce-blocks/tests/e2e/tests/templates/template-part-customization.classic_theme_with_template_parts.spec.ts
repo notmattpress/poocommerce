@@ -6,7 +6,7 @@ import {
 	expect,
 	CLASSIC_CHILD_THEME_WITH_BLOCK_TEMPLATE_PARTS_SLUG,
 	FrontendUtils,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 import type { Page } from '@playwright/test';
 
 class TestUtils {
@@ -29,7 +29,7 @@ class TestUtils {
 		await this.frontendUtils.addToCart();
 		await this.page.goto( '/mini-cart' );
 		const miniCart = await this.frontendUtils.getBlockByName(
-			'woocommerce/mini-cart'
+			'poocommerce/mini-cart'
 		);
 		await miniCart.click();
 	}
@@ -54,7 +54,7 @@ test.describe( 'Template part customization', () => {
 	const userText = `Hello World in the ${ templateName } template`;
 
 	test.describe( `${ templateName } template`, () => {
-		test( "theme template has priority over WooCommerce's and can be modified", async ( {
+		test( "theme template has priority over PooCommerce's and can be modified", async ( {
 			admin,
 			editor,
 			page,
@@ -76,7 +76,7 @@ test.describe( 'Template part customization', () => {
 			} );
 
 			// Verify template name didn't change.
-			// See: https://github.com/woocommerce/woocommerce/issues/42221
+			// See: https://github.com/poocommerce/poocommerce/issues/42221
 			await expect(
 				page.getByRole( 'heading', {
 					name: templateName,

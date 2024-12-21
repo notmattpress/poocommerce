@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/components",
-	"description": "WooCommerce JS component library",
+	"name": "poocommerce/components",
+	"description": "PooCommerce JS component library",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

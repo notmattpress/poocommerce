@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { createElement, useState } from '@wordpress/element';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 // @ts-expect-error missing types.
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 export const SettingsInput = ( {
 	id,

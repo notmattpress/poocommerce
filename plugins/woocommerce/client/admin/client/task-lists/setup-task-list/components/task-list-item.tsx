@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { ONBOARDING_STORE_NAME, TaskType } from '@woocommerce/data';
-import { TaskItem, useSlot } from '@woocommerce/experimental';
+import { ONBOARDING_STORE_NAME, TaskType } from '@poocommerce/data';
+import { TaskItem, useSlot } from '@poocommerce/experimental';
 import { useCallback } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
 import clsx from 'clsx';
 
 export type TaskListItemProps = {
@@ -42,15 +42,15 @@ export const TaskListItem: React.FC< TaskListItemProps > = ( {
 		isDismissable,
 	} = task;
 
-	const slot = useSlot( `woocommerce_onboarding_task_list_item_${ taskId }` );
+	const slot = useSlot( `poocommerce_onboarding_task_list_item_${ taskId }` );
 	const hasFills = Boolean( slot?.fills?.length );
 
 	const onDismissTask = ( onDismiss?: () => void ) => {
 		dismissTask( taskId );
-		createNotice( 'success', __( 'Task dismissed', 'woocommerce' ), {
+		createNotice( 'success', __( 'Task dismissed', 'poocommerce' ), {
 			actions: [
 				{
-					label: __( 'Undo', 'woocommerce' ),
+					label: __( 'Undo', 'poocommerce' ),
 					onClick: () => undoDismissTask( taskId ),
 				},
 			],
@@ -64,7 +64,7 @@ export const TaskListItem: React.FC< TaskListItemProps > = ( {
 	const DefaultTaskItem = useCallback(
 		( props: { onClick?: () => void; isClickable?: boolean } ) => {
 			const className = clsx(
-				'woocommerce-task-list__item index-' + taskIndex,
+				'poocommerce-task-list__item index-' + taskIndex,
 				{
 					complete: isComplete,
 					'is-active': taskId === activeTaskId,

@@ -65,6 +65,6 @@ class BasicExample extends Component {
 export const Basic = () => <BasicExample />;
 
 export default {
-	title: 'WooCommerce Admin/components/AnimationSlider',
+	title: 'PooCommerce Admin/components/AnimationSlider',
 	component: AnimationSlider,
 };

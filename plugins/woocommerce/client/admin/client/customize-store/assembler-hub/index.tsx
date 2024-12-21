@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/tree/v16.4.0/packages/edit-site/src/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -11,7 +11,7 @@ import {
 	__experimentalFetchUrlData as fetchUrlData,
 	// @ts-ignore No types for this exist yet.
 } from '@wordpress/core-data';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	registerCoreBlocks,
 	__experimentalGetCoreBlocks,
@@ -47,7 +47,7 @@ import { Layout } from './layout';
 import './style.scss';
 import { GoBackWarningModal } from './go-back-warning-modal';
 import { onBackButtonClicked } from '../utils';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 import useBodyClass from '../hooks/use-body-class';
 import { OptInSubscribe } from './opt-in/opt-in';
 import { OptInContextProvider } from './opt-in/context';
@@ -150,7 +150,7 @@ const initializeAssembleHub = () => {
 export const AssemblerHub: CustomizeStoreComponent = ( props ) => {
 	const isInitializedRef = useRef( false );
 
-	useBodyClass( 'woocommerce-assembler' );
+	useBodyClass( 'poocommerce-assembler' );
 
 	if ( ! isInitializedRef.current ) {
 		initializeAssembleHub();

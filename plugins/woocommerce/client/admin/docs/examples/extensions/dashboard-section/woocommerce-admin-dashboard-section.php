@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WooCommerce Admin Dashboard Section Example
+ * Plugin Name: PooCommerce Admin Dashboard Section Example
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
@@ -10,7 +10,7 @@
  */
 function dashboard_section_register_script() {
 
-	if ( ! class_exists( 'Automattic\WooCommerce\Admin\PageController' ) || ! \Automattic\WooCommerce\Admin\PageController::is_admin_page() ) {
+	if ( ! class_exists( 'Automattic\PooCommerce\Admin\PageController' ) || ! \Automattic\PooCommerce\Admin\PageController::is_admin_page() ) {
 		return;
 	}
 
