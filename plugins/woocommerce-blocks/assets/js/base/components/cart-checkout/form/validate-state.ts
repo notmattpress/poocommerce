@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { dispatch, select } from '@wordpress/data';
-import { KeyedFormField, ShippingAddress } from '@woocommerce/settings';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { KeyedFormField, ShippingAddress } from '@poocommerce/settings';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 import { __, sprintf } from '@wordpress/i18n';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 
@@ -66,7 +66,7 @@ export const validateState = (
 			[ validationErrorId ]: {
 				message: sprintf(
 					/* translators: %s will be the state field label in lowercase e.g. "state" */
-					__( 'Please select a %s', 'woocommerce' ),
+					__( 'Please select a %s', 'poocommerce' ),
 					stateField.label.toLowerCase()
 				),
 				hidden: true,

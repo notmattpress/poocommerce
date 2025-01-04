@@ -1,16 +1,16 @@
 /**
  * Purpose of this file:
- * This file defines constants for use in `plugins/woocommerce-blocks/assets/js/blocks-registry/product-collection/register-product-collection.tsx`.
+ * This file defines constants for use in `plugins/poocommerce-blocks/assets/js/blocks-registry/product-collection/register-product-collection.tsx`.
  * By isolating constants here, we avoid loading unnecessary JS file on the frontend (e.g., the /shop page), enhancing site performance.
  *
- * Context: https://github.com/woocommerce/woocommerce/pull/48141#issuecomment-2208770592.
+ * Context: https://github.com/poocommerce/poocommerce/pull/48141#issuecomment-2208770592.
  */
 
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { objectOmit } from '@woocommerce/utils';
+import { getSetting } from '@poocommerce/settings';
+import { objectOmit } from '@poocommerce/utils';
 import type { InnerBlockTemplate } from '@wordpress/blocks';
 
 /**
@@ -57,10 +57,10 @@ export const DEFAULT_QUERY: ProductCollectionQuery = {
 	taxQuery: {},
 	isProductCollectionBlock: true,
 	featured: false,
-	woocommerceOnSale: false,
-	woocommerceStockStatus: getDefaultStockStatuses(),
-	woocommerceAttributes: [],
-	woocommerceHandPickedProducts: [],
+	poocommerceOnSale: false,
+	poocommerceStockStatus: getDefaultStockStatuses(),
+	poocommerceAttributes: [],
+	poocommerceHandPickedProducts: [],
 	timeFrame: undefined,
 	priceRange: undefined,
 	filterable: false,
@@ -95,19 +95,19 @@ export const DEFAULT_ATTRIBUTES: Pick<
 
 export const DEFAULT_FILTERS: Pick<
 	ProductCollectionQuery,
-	| 'woocommerceOnSale'
-	| 'woocommerceStockStatus'
-	| 'woocommerceAttributes'
-	| 'woocommerceHandPickedProducts'
+	| 'poocommerceOnSale'
+	| 'poocommerceStockStatus'
+	| 'poocommerceAttributes'
+	| 'poocommerceHandPickedProducts'
 	| 'taxQuery'
 	| 'featured'
 	| 'timeFrame'
 	| 'priceRange'
 > = {
-	woocommerceOnSale: DEFAULT_QUERY.woocommerceOnSale,
-	woocommerceStockStatus: DEFAULT_QUERY.woocommerceStockStatus,
-	woocommerceAttributes: DEFAULT_QUERY.woocommerceAttributes,
-	woocommerceHandPickedProducts: DEFAULT_QUERY.woocommerceHandPickedProducts,
+	poocommerceOnSale: DEFAULT_QUERY.poocommerceOnSale,
+	poocommerceStockStatus: DEFAULT_QUERY.poocommerceStockStatus,
+	poocommerceAttributes: DEFAULT_QUERY.poocommerceAttributes,
+	poocommerceHandPickedProducts: DEFAULT_QUERY.poocommerceHandPickedProducts,
 	taxQuery: DEFAULT_QUERY.taxQuery,
 	featured: DEFAULT_QUERY.featured,
 	timeFrame: DEFAULT_QUERY.timeFrame,
@@ -119,11 +119,11 @@ export const DEFAULT_FILTERS: Pick<
  * Exported for use in different collections, e.g., 'New Arrivals' collection.
  */
 export const INNER_BLOCKS_PRODUCT_TEMPLATE: InnerBlockTemplate = [
-	'woocommerce/product-template',
+	'poocommerce/product-template',
 	{},
 	[
 		[
-			'woocommerce/product-image',
+			'poocommerce/product-image',
 			{
 				imageSizing: ImageSizing.THUMBNAIL,
 			},
@@ -143,18 +143,18 @@ export const INNER_BLOCKS_PRODUCT_TEMPLATE: InnerBlockTemplate = [
 					},
 				},
 				isLink: true,
-				__woocommerceNamespace: PRODUCT_TITLE_NAME,
+				__poocommerceNamespace: PRODUCT_TITLE_NAME,
 			},
 		],
 		[
-			'woocommerce/product-price',
+			'poocommerce/product-price',
 			{
 				textAlign: 'center',
 				fontSize: 'small',
 			},
 		],
 		[
-			'woocommerce/product-button',
+			'poocommerce/product-button',
 			{
 				textAlign: 'center',
 				fontSize: 'small',
@@ -175,7 +175,7 @@ export const INNER_BLOCKS_PAGINATION_TEMPLATE: InnerBlockTemplate = [
 ];
 
 export const INNER_BLOCKS_NO_RESULTS_TEMPLATE: InnerBlockTemplate = [
-	'woocommerce/product-collection-no-results',
+	'poocommerce/product-collection-no-results',
 ];
 
 export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [

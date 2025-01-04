@@ -1,18 +1,18 @@
 {
-	"name": "woocommerce/related-products",
+	"name": "poocommerce/related-products",
 	"version": "1.0.0",
 	"title": "Related Products",
 	"icon": "product",
 	"description": "Display related products.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": true,
 		"reusable": false,
 		"inserter": false
 	},
-	"keywords": [ "WooCommerce" ],
+	"keywords": [ "PooCommerce" ],
 	"usesContext": [ "postId", "postType", "queryId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

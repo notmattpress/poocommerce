@@ -1,8 +1,8 @@
 /**
- * WooCommerce CSS Variables
+ * PooCommerce CSS Variables
  */
 
-$woocommerce:   	#7F54B3 !default;
+$poocommerce:   	#7F54B3 !default;
 $green:         	#7ad03a !default;
 $red:           	#a00 !default;
 $orange:        	#ffba00 !default;
@@ -22,7 +22,7 @@ $subtext:           #767676 !default;                                  // small,
 
 // export vars as CSS vars
 :root {
-	--woocommerce: #{$woocommerce};
+	--poocommerce: #{$poocommerce};
 	--wc-green: #{$green};
 	--wc-red: #{$red};
 	--wc-orange: #{$orange};

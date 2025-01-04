@@ -2,14 +2,14 @@
 /**
  * Order Factory
  *
- * The WooCommerce order factory creating the right order objects.
+ * The PooCommerce order factory creating the right order objects.
  *
  * @version 3.0.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -97,7 +97,7 @@ class WC_Order_Factory {
 		foreach ( $order_id_classnames as $order_id => $classname ) {
 			if ( ! $classname && ! $skip_invalid ) {
 				// translators: %d is an order ID.
-				throw new \Exception( sprintf( __( 'Could not find classname for order ID %d', 'woocommerce' ), $order_id ) );
+				throw new \Exception( sprintf( __( 'Could not find classname for order ID %d', 'poocommerce' ), $order_id ) );
 			}
 			if ( ! isset( $order_list_by_class[ $classname ] ) ) {
 				$order_list_by_class[ $classname ] = array();
@@ -187,7 +187,7 @@ class WC_Order_Factory {
 					break;
 			}
 
-			$classname = apply_filters( 'woocommerce_get_order_item_classname', $classname, $item_type, $id );
+			$classname = apply_filters( 'poocommerce_get_order_item_classname', $classname, $item_type, $id );
 
 			if ( $classname && class_exists( $classname ) ) {
 				try {
@@ -283,7 +283,7 @@ class WC_Order_Factory {
 			 *
 			 * @since 3.0.0
 			 */
-			$order_class_names[ $order_id ] = apply_filters( 'woocommerce_order_class', $order_class_names[ $order_id ], $order_type, $order_id );
+			$order_class_names[ $order_id ] = apply_filters( 'poocommerce_order_class', $order_class_names[ $order_id ], $order_type, $order_id );
 
 			if ( ! class_exists( $order_class_names[ $order_id ] ) ) {
 				$order_class_names[ $order_id ] = false;

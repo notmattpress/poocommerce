@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ type PostTileProps = {
 export const PostTile: React.FC< PostTileProps > = ( { post } ) => {
 	return (
 		<a
-			className="woocommerce-marketing-learn-marketing-card__post"
+			className="poocommerce-marketing-learn-marketing-card__post"
 			href={ post.link }
 			target="_blank"
 			rel="noopener noreferrer"
@@ -26,16 +26,16 @@ export const PostTile: React.FC< PostTileProps > = ( { post } ) => {
 				} );
 			} }
 		>
-			<div className="woocommerce-marketing-learn-marketing-card__post-img">
+			<div className="poocommerce-marketing-learn-marketing-card__post-img">
 				{ !! post.image && <img src={ post.image } alt="" /> }
 			</div>
-			<div className="woocommerce-marketing-learn-marketing-card__post-title">
+			<div className="poocommerce-marketing-learn-marketing-card__post-title">
 				{ post.title }
 			</div>
-			<div className="woocommerce-marketing-learn-marketing-card__post-description">
+			<div className="poocommerce-marketing-learn-marketing-card__post-description">
 				{
 					// translators: %s: author's name.
-					sprintf( __( 'By %s', 'woocommerce' ), post.author_name )
+					sprintf( __( 'By %s', 'poocommerce' ), post.author_name )
 				}
 				{ !! post.author_avatar && (
 					<img

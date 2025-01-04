@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createExtendedError } from '@woocommerce/ai';
+import { createExtendedError } from '@poocommerce/ai';
 
 type BackgroundRemovalParams = {
 	imageBlob: Blob;

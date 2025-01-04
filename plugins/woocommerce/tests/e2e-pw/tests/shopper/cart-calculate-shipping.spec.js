@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { addAProductToCart } from '@woocommerce/e2e-utils-playwright';
+import { addAProductToCart } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { tags } from '../../fixtures/fixtures';
 const { setComingSoon } = require( '../../utils/coming-soon' );
 
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 const firstProductName = 'First Product';
 const firstProductPrice = '9.99';
@@ -42,7 +42,7 @@ test.describe(
 				version: 'wc/v3',
 			} );
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 			// add products
@@ -104,7 +104,7 @@ test.describe(
 				method_id: 'local_pickup',
 			} );
 			// confirm that we allow shipping to any country
-			await api.put( 'settings/general/woocommerce_allowed_countries', {
+			await api.put( 'settings/general/poocommerce_allowed_countries', {
 				value: 'all',
 			} );
 		} );

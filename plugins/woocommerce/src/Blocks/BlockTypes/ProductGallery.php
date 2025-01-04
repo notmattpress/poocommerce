@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductGallery class.
@@ -52,11 +52,11 @@ class ProductGallery extends AbstractBlock {
 	 */
 	public function inject_dialog_context( $context, $block, $parent_block ) {
 		$expected_inner_blocks = [
-			'woocommerce/product-gallery',
-			'woocommerce/product-gallery-large-image',
-			'woocommerce/product-gallery-large-image-next-previous',
-			'woocommerce/product-gallery-pager',
-			'woocommerce/product-gallery-thumbnails',
+			'poocommerce/product-gallery',
+			'poocommerce/product-gallery-large-image',
+			'poocommerce/product-gallery-large-image-next-previous',
+			'poocommerce/product-gallery-pager',
+			'poocommerce/product-gallery-thumbnails',
 		];
 		$is_single_product     = $this->dialog_context['singleProduct'] ?? false;
 
@@ -112,7 +112,7 @@ class ProductGallery extends AbstractBlock {
 
 		$html_processor->next_tag(
 			array(
-				'class_name' => 'wp-block-woocommerce-product-gallery',
+				'class_name' => 'wp-block-poocommerce-product-gallery',
 			)
 		);
 
@@ -137,8 +137,8 @@ class ProductGallery extends AbstractBlock {
 			</dialog>',
 			array(
 				'{{html}}'                    => $html_processor->get_updated_html(),
-				'{{dialog_aria_label}}'       => __( 'Product gallery', 'woocommerce' ),
-				'{{close_dialog_aria_label}}' => __( 'Close Product Gallery dialog', 'woocommerce' ),
+				'{{dialog_aria_label}}'       => __( 'Product gallery', 'poocommerce' ),
+				'{{close_dialog_aria_label}}' => __( 'Close Product Gallery dialog', 'poocommerce' ),
 			)
 		);
 		remove_filter( 'render_block_context', [ $this, 'inject_dialog_context' ], 10 );
@@ -181,7 +181,7 @@ class ProductGallery extends AbstractBlock {
 		$p    = new \WP_HTML_Tag_Processor( $html );
 
 		if ( $p->next_tag() ) {
-			$p->set_attribute( 'data-wc-interactive', wp_json_encode( array( 'namespace' => 'woocommerce/product-gallery' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
+			$p->set_attribute( 'data-wc-interactive', wp_json_encode( array( 'namespace' => 'poocommerce/product-gallery' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
 			$p->set_attribute(
 				'data-wc-context',
 				wp_json_encode(

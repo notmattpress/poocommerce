@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
-import { Plugins } from '@woocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { Plugins } from '@poocommerce/components';
 import { dispatch, useDispatch } from '@wordpress/data';
-import { SETTINGS_STORE_NAME } from '@woocommerce/data';
+import { SETTINGS_STORE_NAME } from '@poocommerce/data';
 import { Button } from '@wordpress/components';
 
 /**
@@ -17,11 +17,11 @@ import { TaxChildProps } from '../utils';
 import StripeTaxLogo from './stripe-tax-logo.svg';
 import { createNoticesFromResponse } from '~/lib/notices';
 
-const STRIPE_TAX_PLUGIN_SLUG = 'stripe-tax-for-woocommerce';
+const STRIPE_TAX_PLUGIN_SLUG = 'stripe-tax-for-poocommerce';
 
 const redirectToStripeTaxSettings = () => {
 	window.location.href = getAdminLink(
-		'/admin.php?page=wc-settings&tab=stripe_tax_for_woocommerce'
+		'/admin.php?page=wc-settings&tab=stripe_tax_for_poocommerce'
 	);
 };
 
@@ -36,18 +36,18 @@ export const Card: React.FC< TaxChildProps > = ( {
 
 	return (
 		<PartnerCard
-			name={ __( 'Stripe Tax', 'woocommerce' ) }
+			name={ __( 'Stripe Tax', 'poocommerce' ) }
 			logo={ StripeTaxLogo }
-			description={ __( 'Powerful global tax tool', 'woocommerce' ) }
+			description={ __( 'Powerful global tax tool', 'poocommerce' ) }
 			benefits={ [
-				__( 'Real-time sales tax calculation', 'woocommerce' ),
-				__( 'Multi-economic nexus compliance', 'woocommerce' ),
-				__( 'Detailed tax transaction reports', 'woocommerce' ),
-				__( 'Coverage in over 55 countries', 'woocommerce' ),
+				__( 'Real-time sales tax calculation', 'poocommerce' ),
+				__( 'Multi-economic nexus compliance', 'poocommerce' ),
+				__( 'Detailed tax transaction reports', 'poocommerce' ),
+				__( 'Coverage in over 55 countries', 'poocommerce' ),
 			] }
 			terms={ __(
 				'Free to install, then pay as you go.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onClick={ () => {} }
 		>
@@ -61,11 +61,11 @@ export const Card: React.FC< TaxChildProps > = ( {
 						redirectToStripeTaxSettings();
 					} }
 				>
-					{ __( 'Continue to setttings', 'woocommerce' ) }
+					{ __( 'Continue to setttings', 'poocommerce' ) }
 				</Button>
 			) : (
 				<Plugins
-					installText={ __( 'Install for free', 'woocommerce' ) }
+					installText={ __( 'Install for free', 'poocommerce' ) }
 					onClick={ () => {
 						recordEvent( 'tasklist_tax_select_option', {
 							selected_option: STRIPE_TAX_PLUGIN_SLUG,
@@ -79,13 +79,13 @@ export const Card: React.FC< TaxChildProps > = ( {
 							dispatch( SETTINGS_STORE_NAME );
 						updateAndPersistSettingsForGroup( 'general', {
 							general: {
-								woocommerce_calc_taxes: 'yes', // Stripe tax requires tax calculation to be enabled so let's do it here to save the user from doing it manually
+								poocommerce_calc_taxes: 'yes', // Stripe tax requires tax calculation to be enabled so let's do it here to save the user from doing it manually
 							},
 						} ).then( () => {
 							createSuccessNotice(
 								__(
 									"Stripe Tax for Woocommerce has been successfully installed. Let's configure it now.",
-									'woocommerce'
+									'poocommerce'
 								)
 							);
 							redirectToStripeTaxSettings();

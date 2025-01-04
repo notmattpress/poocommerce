@@ -4,7 +4,7 @@
 import { useContext, useMemo } from '@wordpress/element';
 import { isEqual } from 'lodash';
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	unlock,
 	// @ts-expect-error No types for this exist yet.

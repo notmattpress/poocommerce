@@ -47,7 +47,7 @@ const Form = ( {
 	return (
 		<form ref={ formRef }>
 			<TextControl
-				label={ __( 'Location name', 'woocommerce' ) }
+				label={ __( 'Location name', 'poocommerce' ) }
 				name={ 'location_name' }
 				value={ values.name }
 				onChange={ setLocationField( 'name' ) }
@@ -57,7 +57,7 @@ const Form = ( {
 					event: React.InvalidEvent< HTMLInputElement >
 				) => {
 					event.target.setCustomValidity(
-						__( 'A Location title is required', 'woocommerce' )
+						__( 'A Location title is required', 'poocommerce' )
 					);
 				} }
 				onInput={ ( event: React.ChangeEvent< HTMLInputElement > ) => {
@@ -65,43 +65,43 @@ const Form = ( {
 				} }
 			/>
 			<TextControl
-				label={ __( 'Address', 'woocommerce' ) }
+				label={ __( 'Address', 'poocommerce' ) }
 				name={ 'location_address' }
-				placeholder={ __( 'Address', 'woocommerce' ) }
+				placeholder={ __( 'Address', 'poocommerce' ) }
 				value={ values.address.address_1 }
 				onChange={ setLocationAddressField( 'address_1' ) }
 				autoComplete="off"
 			/>
 			<TextControl
-				label={ __( 'City', 'woocommerce' ) }
+				label={ __( 'City', 'poocommerce' ) }
 				name={ 'location_city' }
 				hideLabelFromVision={ true }
-				placeholder={ __( 'City', 'woocommerce' ) }
+				placeholder={ __( 'City', 'poocommerce' ) }
 				value={ values.address.city }
 				onChange={ setLocationAddressField( 'city' ) }
 				autoComplete="off"
 			/>
 			<TextControl
-				label={ __( 'Postcode / ZIP', 'woocommerce' ) }
+				label={ __( 'Postcode / ZIP', 'poocommerce' ) }
 				name={ 'location_postcode' }
 				hideLabelFromVision={ true }
-				placeholder={ __( 'Postcode / ZIP', 'woocommerce' ) }
+				placeholder={ __( 'Postcode / ZIP', 'poocommerce' ) }
 				value={ values.address.postcode }
 				onChange={ setLocationAddressField( 'postcode' ) }
 				autoComplete="off"
 			/>
 			{ ! countryHasStates && (
 				<TextControl
-					placeholder={ __( 'State', 'woocommerce' ) }
+					placeholder={ __( 'State', 'poocommerce' ) }
 					value={ selectedState }
 					onChange={ setLocationAddressField( 'state' ) }
 				/>
 			) }
 			<SelectControl
 				name="location_country_state"
-				label={ __( 'Country / State', 'woocommerce' ) }
+				label={ __( 'Country / State', 'poocommerce' ) }
 				hideLabelFromVision={ true }
-				placeholder={ __( 'Country / State', 'woocommerce' ) }
+				placeholder={ __( 'Country / State', 'poocommerce' ) }
 				value={ ( () => {
 					if ( ! selectedState && countryHasStates ) {
 						return `${ selectedCountry }:${
@@ -153,7 +153,7 @@ const Form = ( {
 			</SelectControl>
 
 			<TextControl
-				label={ __( 'Pickup details', 'woocommerce' ) }
+				label={ __( 'Pickup details', 'poocommerce' ) }
 				name={ 'pickup_details' }
 				value={ values.details }
 				onChange={ setLocationField( 'details' ) }

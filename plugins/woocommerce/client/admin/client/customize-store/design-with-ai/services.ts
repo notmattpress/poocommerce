@@ -1,11 +1,11 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
  */
-import { __experimentalRequestJetpackToken as requestJetpackToken } from '@woocommerce/ai';
+import { __experimentalRequestJetpackToken as requestJetpackToken } from '@poocommerce/ai';
 import apiFetch from '@wordpress/api-fetch';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { Sender, assign, createMachine, actions } from 'xstate';
 import { dispatch, resolveSelect } from '@wordpress/data';
 // @ts-ignore No types for this exist yet.
@@ -200,7 +200,7 @@ export const queryAiEndpoint = createMachine(
 
 const resetPatternsAndProducts = () => async () => {
 	await dispatch( OPTIONS_STORE_NAME ).updateOptions( {
-		woocommerce_blocks_allow_ai_connection: 'yes',
+		poocommerce_blocks_allow_ai_connection: 'yes',
 	} );
 
 	const response = await apiFetch< {
@@ -232,7 +232,7 @@ export const updateStorePatterns = async (
 	try {
 		// TODO: Probably move this to a more appropriate place with a check. We should set this when the user granted permissions during the onboarding phase.
 		await dispatch( OPTIONS_STORE_NAME ).updateOptions( {
-			woocommerce_blocks_allow_ai_connection: 'yes',
+			poocommerce_blocks_allow_ai_connection: 'yes',
 		} );
 
 		const { images } = await apiFetch< {
@@ -449,7 +449,7 @@ const installAndActivateTheme = async () => {
 
 const saveAiResponseToOption = ( context: designWithAiStateMachineContext ) => {
 	return dispatch( OPTIONS_STORE_NAME ).updateOptions( {
-		woocommerce_customize_store_ai_suggestions: {
+		poocommerce_customize_store_ai_suggestions: {
 			...context.aiSuggestions,
 			lookAndFeel: context.lookAndFeel.choice,
 		},

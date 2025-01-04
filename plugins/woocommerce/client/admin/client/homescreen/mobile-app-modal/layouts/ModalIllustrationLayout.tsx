@@ -26,15 +26,15 @@ export const ModalIllustrationLayout = ( {
 				<img
 					src={ isNewBranding() ? IllustrationNew : Illustration }
 					alt={ __(
-						'Screen captures of the WooCommerce mobile app',
-						'woocommerce'
+						'Screen captures of the PooCommerce mobile app',
+						'poocommerce'
 					) }
 				/>
 			</div>
 			<Button
 				variant="tertiary"
-				className="woocommerce__mobile-app-welcome-modal__close-button"
-				label={ __( 'Close', 'woocommerce' ) }
+				className="poocommerce__mobile-app-welcome-modal__close-button"
+				label={ __( 'Close', 'poocommerce' ) }
 				icon={ <Icon icon={ closeSmall } viewBox="6 4 12 14" /> }
 				iconSize={ 16 }
 				size={ 16 }

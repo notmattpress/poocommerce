@@ -25,13 +25,13 @@ export default function PluginInstallNotice() {
 		! wccomSettings?.wooUpdateManagerInstalled
 	) {
 		return (
-			<section className="woocommerce-marketplace__woo-update-manager-plugin__notices">
+			<section className="poocommerce-marketplace__woo-update-manager-plugin__notices">
 				<Notice status="error" isDismissible={ false }>
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							__(
-								'Please install the <b>WooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your WooCommerce.com subscriptions.<br/>Alternatively, you can download and install it manually.',
-								'woocommerce'
+								'Please install the <b>PooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your PooCommerce.com subscriptions.<br/>Alternatively, you can download and install it manually.',
+								'poocommerce'
 							)
 						) }
 					></span>
@@ -40,13 +40,13 @@ export default function PluginInstallNotice() {
 							href={ wccomSettings?.wooUpdateManagerInstallUrl }
 							variant="secondary"
 						>
-							{ __( 'Install', 'woocommerce' ) }
+							{ __( 'Install', 'poocommerce' ) }
 						</Button>
 						<Button
 							href={ WOO_CONNECT_PLUGIN_DOWNLOAD_URL }
 							variant="link"
 						>
-							{ __( 'Download', 'woocommerce' ) }
+							{ __( 'Download', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Notice>
@@ -57,13 +57,13 @@ export default function PluginInstallNotice() {
 		! wccomSettings?.wooUpdateManagerActive
 	) {
 		return (
-			<section className="woocommerce-marketplace__woo-update-manager-plugin__notices">
+			<section className="poocommerce-marketplace__woo-update-manager-plugin__notices">
 				<Notice status="error" isDismissible={ false }>
 					<span
 						dangerouslySetInnerHTML={ sanitizeHTML(
 							__(
-								'Activate the <b>WooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your WooCommerce.com subscriptions.',
-								'woocommerce'
+								'Activate the <b>PooCommerce.com Update Manager</b> to continue receiving the updates and streamlined support included in your PooCommerce.com subscriptions.',
+								'poocommerce'
 							)
 						) }
 					></span>
@@ -72,7 +72,7 @@ export default function PluginInstallNotice() {
 							href={ WP_ADMIN_PLUGIN_LIST_URL }
 							variant="secondary"
 						>
-							{ __( 'Activate', 'woocommerce' ) }
+							{ __( 'Activate', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Notice>

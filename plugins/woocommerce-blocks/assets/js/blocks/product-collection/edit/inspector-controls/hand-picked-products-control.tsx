@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { getProducts } from '@woocommerce/editor-components/utils';
-import { ProductResponseItem } from '@woocommerce/types';
+import { getProducts } from '@poocommerce/editor-components/utils';
+import { ProductResponseItem } from '@poocommerce/types';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useState, useEffect, useCallback, useMemo } from '@wordpress/element';
 import { useDebounce } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { blocksConfig } from '@woocommerce/block-settings';
+import { blocksConfig } from '@poocommerce/block-settings';
 import {
 	FormTokenField,
 	// @ts-expect-error Using experimental features
@@ -86,7 +86,7 @@ export const HandPickedProductsControlField = ( {
 	setQueryAttribute,
 }: QueryControlProps ) => {
 	const isLargeCatalog = ( blocksConfig.productCount || 0 ) > 100;
-	const selectedProductIds = query.woocommerceHandPickedProducts;
+	const selectedProductIds = query.poocommerceHandPickedProducts;
 	const [ searchQuery, setSearchQuery ] = useState( '' );
 	const { productsMap, productsList } = useProducts(
 		isLargeCatalog,
@@ -110,7 +110,7 @@ export const HandPickedProductsControlField = ( {
 			);
 
 			setQueryAttribute( {
-				woocommerceHandPickedProducts: Array.from(
+				poocommerceHandPickedProducts: Array.from(
 					newHandPickedProductsSet
 				),
 			} );
@@ -151,7 +151,7 @@ export const HandPickedProductsControlField = ( {
 	return (
 		<FormTokenField
 			displayTransform={ transformTokenIntoProductName }
-			label={ __( 'Hand-Picked', 'woocommerce' ) }
+			label={ __( 'Hand-Picked', 'poocommerce' ) }
 			onChange={ onTokenChange }
 			onInputChange={ isLargeCatalog ? handleSearch : undefined }
 			suggestions={ suggestions }
@@ -161,14 +161,14 @@ export const HandPickedProductsControlField = ( {
 			}
 			value={
 				! productsMap.size
-					? [ __( 'Loading…', 'woocommerce' ) ]
+					? [ __( 'Loading…', 'poocommerce' ) ]
 					: selectedProductIds || []
 			}
 			__experimentalExpandOnFocus={ true }
 			__experimentalShowHowTo={ false }
 			placeholder={ __(
 				'Search for products to display…',
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);
@@ -179,18 +179,18 @@ const HandPickedProductsControl = ( {
 	trackInteraction,
 	setQueryAttribute,
 }: QueryControlProps ) => {
-	const selectedProductIds = query.woocommerceHandPickedProducts;
+	const selectedProductIds = query.poocommerceHandPickedProducts;
 	const deselectCallback = () => {
 		setQueryAttribute( {
-			woocommerceHandPickedProducts:
-				DEFAULT_FILTERS.woocommerceHandPickedProducts,
+			poocommerceHandPickedProducts:
+				DEFAULT_FILTERS.poocommerceHandPickedProducts,
 		} );
 		trackInteraction( CoreFilterNames.HAND_PICKED );
 	};
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Hand-Picked', 'woocommerce' ) }
+			label={ __( 'Hand-Picked', 'poocommerce' ) }
 			hasValue={ () => !! selectedProductIds?.length }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }

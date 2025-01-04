@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 
 type Props = {
 	/** Set to false to disable this query, defaults to true to query the data */
@@ -38,22 +38,22 @@ export const useLaunchYourStore = (
 
 		const allOptionResolutionsFinished =
 			! hasFinishedResolution( 'getOption', [
-				'woocommerce_coming_soon',
+				'poocommerce_coming_soon',
 			] ) &&
 			! hasFinishedResolution( 'getOption', [
-				'woocommerce_store_pages_only',
+				'poocommerce_store_pages_only',
 			] ) &&
 			! hasFinishedResolution( 'getOption', [
-				'woocommerce_private_link',
+				'poocommerce_private_link',
 			] ) &&
-			! hasFinishedResolution( 'getOption', [ 'woocommerce_share_key' ] );
+			! hasFinishedResolution( 'getOption', [ 'poocommerce_share_key' ] );
 
 		return {
 			isLoading: allOptionResolutionsFinished,
-			comingSoon: getOption( 'woocommerce_coming_soon' ),
-			storePagesOnly: getOption( 'woocommerce_store_pages_only' ),
-			privateLink: getOption( 'woocommerce_private_link' ),
-			shareKey: getOption( 'woocommerce_share_key' ),
+			comingSoon: getOption( 'poocommerce_coming_soon' ),
+			storePagesOnly: getOption( 'poocommerce_store_pages_only' ),
+			privateLink: getOption( 'poocommerce_private_link' ),
+			shareKey: getOption( 'poocommerce_share_key' ),
 			launchYourStoreEnabled:
 				window.wcAdminFeatures[ 'launch-your-store' ],
 		};

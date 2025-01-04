@@ -10,13 +10,13 @@ import {
 	TRACKS_SOURCE,
 	__experimentalProductMVPCESFooter as FeedbackBar,
 	__experimentalEditorLoadingContext as EditorLoadingContext,
-} from '@woocommerce/product-editor';
-import { Spinner } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/product-editor';
+import { Spinner } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import React, { lazy, Suspense, useContext, useEffect } from 'react';
 import { registerPlugin, unregisterPlugin } from '@wordpress/plugins';
 import { useParams } from 'react-router-dom';
-import { WooFooterItem } from '@woocommerce/admin-layout';
+import { WooFooterItem } from '@poocommerce/admin-layout';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -34,7 +34,7 @@ const BlockEditorTourWrapper = lazy(
 	() => import( './tour/block-editor/block-editor-tour-wrapper' )
 );
 const ProductMVPFeedbackModalContainer = lazy( () =>
-	import( '@woocommerce/product-editor' ).then( ( module ) => ( {
+	import( '@poocommerce/product-editor' ).then( ( module ) => ( {
 		default: module.__experimentalProductMVPFeedbackModalContainer,
 	} ) )
 );
@@ -59,7 +59,7 @@ export default function ProductPage() {
 
 	useEffect( () => {
 		registerPlugin( 'wc-admin-product-editor', {
-			scope: 'woocommerce-product-block-editor',
+			scope: 'poocommerce-product-block-editor',
 			render: () => {
 				// eslint-disable-next-line react-hooks/rules-of-hooks
 				const isEditorLoading = useContext( EditorLoadingContext );
@@ -127,9 +127,9 @@ export default function ProductPage() {
 
 	if ( ! productId ) {
 		return (
-			<div className="woocommerce-layout__loading">
+			<div className="poocommerce-layout__loading">
 				<Spinner
-					aria-label={ __( 'Creating the product', 'woocommerce' ) }
+					aria-label={ __( 'Creating the product', 'poocommerce' ) }
 				/>
 			</div>
 		);

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { Icon } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import GridiconCrossIcon from 'gridicons/dist/cross-small';
 
 /**
@@ -18,7 +18,7 @@ import { PLAY_STORE_LINK, TRACKING_EVENT_NAME } from './constants';
 import './banner.scss';
 import { isNewBranding } from '~/utils/admin-settings';
 
-const SHOW_APP_BANNER_MODIFIER_CLASS = 'woocommerce-layout__show-app-banner';
+const SHOW_APP_BANNER_MODIFIER_CLASS = 'poocommerce-layout__show-app-banner';
 
 export const Banner = ( { onInstall, onDismiss } ) => {
 	const [ isActioned, setIsActioned ] = useState( false );
@@ -26,7 +26,7 @@ export const Banner = ( { onInstall, onDismiss } ) => {
 
 	useEffect( () => {
 		const layout =
-			document.getElementsByClassName( 'woocommerce-layout' )[ 0 ];
+			document.getElementsByClassName( 'poocommerce-layout' )[ 0 ];
 
 		if ( isVisible && layout ) {
 			// This is a hack to allow the mobile banner to work in the context of the header which is
@@ -47,7 +47,7 @@ export const Banner = ( { onInstall, onDismiss } ) => {
 	}
 
 	return (
-		<div className="woocommerce-mobile-app-banner">
+		<div className="poocommerce-mobile-app-banner">
 			<Icon
 				icon={ <GridiconCrossIcon data-testid="dismiss-btn" /> }
 				onClick={ () => {
@@ -59,12 +59,12 @@ export const Banner = ( { onInstall, onDismiss } ) => {
 				} }
 			/>
 			{ isNewBranding() ? <AppIconNew /> : <AppIcon /> }
-			<div className="woocommerce-mobile-app-banner__description">
-				<p className="woocommerce-mobile-app-banner__description__text">
-					{ __( 'Run your store from anywhere', 'woocommerce' ) }
+			<div className="poocommerce-mobile-app-banner__description">
+				<p className="poocommerce-mobile-app-banner__description__text">
+					{ __( 'Run your store from anywhere', 'poocommerce' ) }
 				</p>
-				<p className="woocommerce-mobile-app-banner__description__text">
-					{ __( 'Download the WooCommerce app', 'woocommerce' ) }
+				<p className="poocommerce-mobile-app-banner__description__text">
+					{ __( 'Download the PooCommerce app', 'poocommerce' ) }
 				</p>
 			</div>
 
@@ -79,7 +79,7 @@ export const Banner = ( { onInstall, onDismiss } ) => {
 					} );
 				} }
 			>
-				{ __( 'Install', 'woocommerce' ) }
+				{ __( 'Install', 'poocommerce' ) }
 			</Button>
 		</div>
 	);

@@ -2,12 +2,12 @@
 /**
  * ProductFilterPriceSlider class.
  *
- * @package Automattic\WooCommerce\Blocks\BlockTypes
+ * @package Automattic\PooCommerce\Blocks\BlockTypes
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductFilterPriceSlider class.

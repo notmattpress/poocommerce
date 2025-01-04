@@ -227,7 +227,7 @@ test.describe( 'General tab', { tag: [ tags.GUTENBERG ] }, () => {
 
 				// Add custom fields modal
 				const modal = page.locator(
-					'.woocommerce-product-custom-fields__create-modal'
+					'.poocommerce-product-custom-fields__create-modal'
 				);
 
 				await expect(
@@ -290,7 +290,7 @@ test.describe( 'General tab', { tag: [ tags.GUTENBERG ] }, () => {
 
 				// New shipping class modal
 				const modal = page.locator(
-					'.woocommerce-add-new-shipping-class-modal'
+					'.poocommerce-add-new-shipping-class-modal'
 				);
 
 				await expect(
@@ -328,7 +328,7 @@ test.describe( 'General tab', { tag: [ tags.GUTENBERG ] }, () => {
 
 			await test.step( 'publish the product', async () => {
 				await page
-					.locator( '.woocommerce-product-header__actions' )
+					.locator( '.poocommerce-product-header__actions' )
 					.getByRole( 'button', {
 						name: 'Publish',
 					} )
@@ -339,7 +339,7 @@ test.describe( 'General tab', { tag: [ tags.GUTENBERG ] }, () => {
 				).toContainText( 'Product published' );
 
 				const title = page.locator(
-					'.woocommerce-product-header__title'
+					'.poocommerce-product-header__title'
 				);
 
 				// Save product ID
@@ -468,7 +468,7 @@ test.describe( 'General tab', { tag: [ tags.GUTENBERG ] }, () => {
 
 			await test.step( 'publish the product', async () => {
 				await page
-					.locator( '.woocommerce-product-header__actions' )
+					.locator( '.poocommerce-product-header__actions' )
 					.getByRole( 'button', {
 						name: 'Publish',
 					} )

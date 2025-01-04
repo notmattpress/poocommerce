@@ -4,9 +4,9 @@
 import { __ } from '@wordpress/i18n';
 import { Notice, Button } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { dispatch, select } from '@wordpress/data';
-import { findBlock } from '@woocommerce/utils';
+import { findBlock } from '@poocommerce/utils';
 import {
 	createBlock,
 	// @ts-expect-error Type definitions for this function are missing in Gutenberg
@@ -34,7 +34,7 @@ const upgradeToBlockifiedAddToCartWithOptions = async (
 	}
 
 	const newBlock = createBlock(
-		'woocommerce/add-to-cart-with-options',
+		'poocommerce/add-to-cart-with-options',
 		{
 			isDescendentOfSingleProductBlock:
 				foundBlock.attributes.isDescendentOfSingleProductBlock,
@@ -61,12 +61,12 @@ export const UpgradeNotice = ( {
 	const notice = createInterpolateElement(
 		__(
 			'Upgrade the Add to Cart with Options block to <strongText /> for more features!',
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			strongText: (
 				<strong>
-					{ __( `a new blockified experience`, 'woocommerce' ) }
+					{ __( `a new blockified experience`, 'poocommerce' ) }
 				</strong>
 			),
 		}
@@ -74,7 +74,7 @@ export const UpgradeNotice = ( {
 
 	const buttonLabel = __(
 		'Upgrade to the blockified Add to Cart with Options block',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	const handleClick = async () => {

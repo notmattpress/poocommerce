@@ -3,6 +3,6 @@
  */
 const {
 	runMyAccountCreateAccountTest,
-} = require( '@woocommerce/e2e-core-tests' );
+} = require( '@poocommerce/e2e-core-tests' );
 
 runMyAccountCreateAccountTest();

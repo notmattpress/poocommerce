@@ -4,11 +4,11 @@
 import { createElement } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { sprintf } from '@wordpress/i18n';
-import { NumberConfig, numberFormat } from '@woocommerce/number';
+import { NumberConfig, numberFormat } from '@poocommerce/number';
 import deprecated from '@wordpress/deprecated';
 
 /**
- * @typedef {import('@woocommerce/number').NumberConfig} NumberConfig
+ * @typedef {import('@poocommerce/number').NumberConfig} NumberConfig
  */
 /**
  * @typedef {Object} CurrencyProps
@@ -40,7 +40,7 @@ export type Currency = {
 };
 
 export type CountryInfo = {
-	// https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/i18n/locale-info.php#L15-L28
+	// https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/i18n/locale-info.php#L15-L28
 	currency_code: string;
 	currency_pos: SymbolPosition;
 	thousand_sep: string;
@@ -168,7 +168,7 @@ const CurrencyFactoryBase = function ( currencySetting?: CurrencyConfig ) {
 		deprecated( 'Currency().formatCurrency', {
 			version: '5.0.0',
 			alternative: 'Currency().formatAmount',
-			plugin: 'WooCommerce',
+			plugin: 'PooCommerce',
 			hint: '`formatAmount` accepts the same arguments as formatCurrency',
 		} );
 		return formatAmount( number );
@@ -285,7 +285,7 @@ export const CurrencyFactory = CurrencyFactoryBase;
 /**
  * Returns currency data by country/region. Contains code, symbol, position, thousands separator, decimal separator, and precision.
  *
- * Dev Note: When adding new currencies below, the exchange rate array should also be updated in WooCommerce Admin's `business-details.js`.
+ * Dev Note: When adding new currencies below, the exchange rate array should also be updated in PooCommerce Admin's `business-details.js`.
  *
  * @deprecated
  * @return {Object} Currency data.
@@ -294,11 +294,11 @@ export function getCurrencyData() {
 	deprecated( 'getCurrencyData', {
 		version: '3.1.0',
 		alternative: 'CurrencyFactory.getDataForCountry',
-		plugin: 'WooCommerce Admin',
+		plugin: 'PooCommerce Admin',
 		hint: 'Pass in the country, locale data, and symbol info to use getDataForCountry',
 	} );
 
-	// See https://github.com/woocommerce/woocommerce-admin/issues/3101.
+	// See https://github.com/poocommerce/poocommerce-admin/issues/3101.
 	return {
 		US: {
 			code: 'USD',

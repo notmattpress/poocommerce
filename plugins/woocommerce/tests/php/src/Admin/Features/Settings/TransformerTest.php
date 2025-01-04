@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Settings;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Settings\Transformer;
+use Automattic\PooCommerce\Admin\Features\Settings\Transformer;
 use WC_Unit_Test_Case;
 
 /**
  * Unit tests for Settings Data Transformer.
  *
- * @covers \Automattic\WooCommerce\Admin\Features\Settings\Transformer
+ * @covers \Automattic\PooCommerce\Admin\Features\Settings\Transformer
  */
 class TransformerTest extends WC_Unit_Test_Case {
 	/**

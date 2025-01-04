@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { PRODUCTS_STORE_NAME } from '@woocommerce/data';
+import { PRODUCTS_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 const PUBLISHED_PRODUCTS_QUERY_PARAMS = {

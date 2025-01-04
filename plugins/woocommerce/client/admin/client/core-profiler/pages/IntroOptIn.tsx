@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { Button, CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -51,18 +51,18 @@ export const IntroOptIn = ( {
 
 	return (
 		<div
-			className="woocommerce-profiler-intro-opt-in"
+			className="poocommerce-profiler-intro-opt-in"
 			data-testid="core-profiler-intro-opt-in-screen"
 		>
 			<Navigation percentage={ navigationProgress } />
-			<div className="woocommerce-profiler-page__content woocommerce-profiler-intro-opt-in__content">
-				<div className="woocommerce-profiler-welcome-image" />
+			<div className="poocommerce-profiler-page__content poocommerce-profiler-intro-opt-in__content">
+				<div className="poocommerce-profiler-welcome-image" />
 				<Heading
-					title={ __( 'Welcome to Woo!', 'woocommerce' ) }
+					title={ __( 'Welcome to Woo!', 'poocommerce' ) }
 					subTitle={ interpolateComponents( {
 						mixedString: __(
 							'It’s great to have you here with us! We’ll be guiding you through the setup process – first, answer a few questions to tailor your experience.',
-							'woocommerce'
+							'poocommerce'
 						),
 						components: {
 							br: <br />,
@@ -70,7 +70,7 @@ export const IntroOptIn = ( {
 					} ) }
 				/>
 				<Button
-					className="woocommerce-profiler-setup-store__button"
+					className="poocommerce-profiler-setup-store__button"
 					variant="primary"
 					onClick={ () =>
 						sendEvent( {
@@ -79,10 +79,10 @@ export const IntroOptIn = ( {
 						} )
 					}
 				>
-					{ __( 'Set up my store', 'woocommerce' ) }
+					{ __( 'Set up my store', 'poocommerce' ) }
 				</Button>
 				<Button
-					className="woocommerce-profiler-setup-store__button"
+					className="poocommerce-profiler-setup-store__button"
 					variant="tertiary"
 					onClick={ () =>
 						sendEvent( {
@@ -91,20 +91,20 @@ export const IntroOptIn = ( {
 						} )
 					}
 				>
-					{ __( 'Skip guided setup', 'woocommerce' ) }
+					{ __( 'Skip guided setup', 'poocommerce' ) }
 				</Button>
-				<div className="woocommerce-profiler-intro-opt-in__footer">
+				<div className="poocommerce-profiler-intro-opt-in__footer">
 					<CheckboxControl
 						className="core-profiler__checkbox"
 						label={ interpolateComponents( {
 							mixedString: __(
-								'I agree to share my data to tailor my store setup experience, get more relevant content, and help make WooCommerce better for everyone. You can opt out at any time in WooCommerce settings. {{link}}Learn more about usage tracking.{{/link}}',
-								'woocommerce'
+								'I agree to share my data to tailor my store setup experience, get more relevant content, and help make PooCommerce better for everyone. You can opt out at any time in PooCommerce settings. {{link}}Learn more about usage tracking.{{/link}}',
+								'poocommerce'
 							),
 							components: {
 								link: (
 									<Link
-										href="https://woocommerce.com/usage-tracking?utm_medium=product"
+										href="https://poocommerce.com/usage-tracking?utm_medium=product"
 										target="_blank"
 										type="external"
 									/>

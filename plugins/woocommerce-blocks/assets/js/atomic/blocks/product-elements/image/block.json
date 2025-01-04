@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-image",
+	"name": "poocommerce/product-image",
 	"version": "1.0.0",
 	"title": "Product Image",
 	"description": "Display the main product image.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"showProductLink": { "type": "boolean", "default": true },
 		"showSaleBadge": { "type": "boolean", "default": true },
@@ -21,8 +21,8 @@
 		"aspectRatio": { "type": "string" }
 	},
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

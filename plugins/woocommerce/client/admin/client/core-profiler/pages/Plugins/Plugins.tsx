@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { Extension, ExtensionList } from '@woocommerce/data';
+import { Extension, ExtensionList } from '@poocommerce/data';
 import { useState } from 'react';
 import clsx from 'clsx';
 
@@ -161,23 +161,23 @@ export const Plugins = ( {
 
 	return (
 		<div
-			className="woocommerce-profiler-plugins"
+			className="poocommerce-profiler-plugins"
 			data-testid="core-profiler-plugins"
 		>
 			<Navigation
 				percentage={ navigationProgress }
 				onSkip={ skipPluginsPage }
 			/>
-			<div className="woocommerce-profiler-page__content woocommerce-profiler-plugins__content">
+			<div className="poocommerce-profiler-page__content poocommerce-profiler-plugins__content">
 				<Heading
-					className="woocommerce-profiler__stepper-heading"
+					className="poocommerce-profiler__stepper-heading"
 					title={ __(
 						'Get a boost with our free features',
-						'woocommerce'
+						'poocommerce'
 					) }
 					subTitle={ __(
 						'Enhance your store by installing these free business features. No commitment required – you can remove them at any time.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				{ context.pluginsInstallationErrors.length > 0 && (
@@ -190,7 +190,7 @@ export const Plugins = ( {
 				) }
 				<div
 					className={ clsx(
-						'woocommerce-profiler-plugins__list',
+						'poocommerce-profiler-plugins__list',
 						`rows-${ pluginsCardRowCount }`
 					) }
 				>
@@ -229,13 +229,13 @@ export const Plugins = ( {
 				</div>
 				<div
 					className={ clsx(
-						'woocommerce-profiler-plugins__footer',
+						'poocommerce-profiler-plugins__footer',
 						`rows-${ pluginsCardRowCount }`
 					) }
 				>
-					<div className="woocommerce-profiler-plugins-continue-button-container">
+					<div className="poocommerce-profiler-plugins-continue-button-container">
 						<Button
-							className="woocommerce-profiler-plugins-continue-button"
+							className="poocommerce-profiler-plugins-continue-button"
 							variant="primary"
 							onClick={
 								selectedPlugins.size > 0
@@ -243,7 +243,7 @@ export const Plugins = ( {
 									: completedPluginsPageWithoutSelectingPlugins
 							}
 						>
-							{ __( 'Continue', 'woocommerce' ) }
+							{ __( 'Continue', 'poocommerce' ) }
 						</Button>
 					</div>
 					<PluginsTermsOfService

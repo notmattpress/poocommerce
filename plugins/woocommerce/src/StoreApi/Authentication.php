@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Utilities\RateLimits;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\StoreApi\Utilities\RateLimits;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Authentication class.
@@ -156,7 +156,7 @@ class Authentication {
 			&& 'POST' === $_SERVER['REQUEST_METHOD']
 		) {
 			add_filter(
-				'woocommerce_store_api_rate_limit_options',
+				'poocommerce_store_api_rate_limit_options',
 				function ( $options ) {
 					$options['enabled'] = true;
 					$options['limit']   = 3;
@@ -205,7 +205,7 @@ class Authentication {
 				 *
 				 * @param string $ip_address The IP address of the request.
 				 */
-				do_action( 'woocommerce_store_api_rate_limit_exceeded', $ip_address );
+				do_action( 'poocommerce_store_api_rate_limit_exceeded', $ip_address );
 
 				return new \WP_Error(
 					'rate_limit_exceeded',

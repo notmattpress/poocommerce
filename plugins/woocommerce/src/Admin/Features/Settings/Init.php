@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Settings.
+ * PooCommerce Settings.
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Settings;
+namespace Automattic\PooCommerce\Admin\Features\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 /**
  * Contains backend logic for the Settings feature.
@@ -31,26 +31,26 @@ class Init {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		if ( ! is_admin() ) {
 			return;
 		}
 
-		add_filter( 'woocommerce_admin_shared_settings', array( __CLASS__, 'add_component_settings' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( __CLASS__, 'add_component_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_settings_editor_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_settings_editor_styles' ) );
 	}
 
 	/**
-	 * Check if the current screen is the WooCommerce settings page.
+	 * Check if the current screen is the PooCommerce settings page.
 	 *
 	 * @return bool
 	 */
 	public function is_settings_page() {
 		$screen = get_current_screen();
-		return $screen && 'woocommerce_page_wc-settings' === $screen->id;
+		return $screen && 'poocommerce_page_wc-settings' === $screen->id;
 	}
 
 	/**
@@ -128,11 +128,11 @@ class Init {
 			true
 		);
 
-		wp_set_script_translations( 'wc-admin-' . $script_name, 'woocommerce' );
+		wp_set_script_translations( 'wc-admin-' . $script_name, 'poocommerce' );
 	}
 
 	/**
-	 * Add the necessary data to initially load the WooCommerce Settings pages.
+	 * Add the necessary data to initially load the PooCommerce Settings pages.
 	 *
 	 * @param array $settings Array of component settings.
 	 * @return array Array of component settings.

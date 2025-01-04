@@ -17,7 +17,7 @@ jest.mock( '@wordpress/data', () => ( {
 
 jest.mock( '@wordpress/element', () => ( {
 	...jest.requireActual( '@wordpress/element' ),
-	Suspense: () => <div>WooCommerce Shipping</div>,
+	Suspense: () => <div>PooCommerce Shipping</div>,
 } ) );
 
 const eligibleSelectReturn = {
@@ -46,7 +46,7 @@ describe( 'ShippingRecommendations', () => {
 			/>
 		);
 
-		expect( queryByText( 'WooCommerce Shipping' ) ).not.toBeInTheDocument();
+		expect( queryByText( 'PooCommerce Shipping' ) ).not.toBeInTheDocument();
 	} );
 
 	it( 'should not render when zone_id is not empty', () => {
@@ -59,10 +59,10 @@ describe( 'ShippingRecommendations', () => {
 			/>
 		);
 
-		expect( queryByText( 'WooCommerce Shipping' ) ).not.toBeInTheDocument();
+		expect( queryByText( 'PooCommerce Shipping' ) ).not.toBeInTheDocument();
 	} );
 
-	it( 'should not render when woocommerce_show_marketplace_suggestions is "no"', () => {
+	it( 'should not render when poocommerce_show_marketplace_suggestions is "no"', () => {
 		( useSelect as jest.Mock ).mockImplementation( ( fn ) =>
 			fn( () => ( {
 				...eligibleSelectReturn,
@@ -77,7 +77,7 @@ describe( 'ShippingRecommendations', () => {
 				zone_id={ undefined }
 			/>
 		);
-		expect( queryByText( 'WooCommerce Shipping' ) ).not.toBeInTheDocument();
+		expect( queryByText( 'PooCommerce Shipping' ) ).not.toBeInTheDocument();
 	} );
 
 	it( 'should not render when user is not allowed', () => {
@@ -98,7 +98,7 @@ describe( 'ShippingRecommendations', () => {
 				zone_id={ undefined }
 			/>
 		);
-		expect( queryByText( 'WooCommerce Shipping' ) ).not.toBeInTheDocument();
+		expect( queryByText( 'PooCommerce Shipping' ) ).not.toBeInTheDocument();
 	} );
 
 	it( 'should render WCS', async () => {
@@ -111,6 +111,6 @@ describe( 'ShippingRecommendations', () => {
 			/>
 		);
 
-		expect( getByText( 'WooCommerce Shipping' ) ).toBeInTheDocument();
+		expect( getByText( 'PooCommerce Shipping' ) ).toBeInTheDocument();
 	} );
 } );

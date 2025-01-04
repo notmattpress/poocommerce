@@ -5,13 +5,13 @@ import { footerValidator } from '..';
 
 describe( 'footerValidator', () => {
 	it( 'should validate when footer is part of the allowed list', () => {
-		const validFooter = { slug: 'woocommerce-blocks/footer-large' };
+		const validFooter = { slug: 'poocommerce-blocks/footer-large' };
 		expect( () => footerValidator.parse( validFooter ) ).not.toThrow();
 	} );
 
 	it( 'should not validate when footer is not part of the allowed list', () => {
 		const invalidFooter = {
-			slug: 'woocommerce-blocks/footer-large-invalid',
+			slug: 'poocommerce-blocks/footer-large-invalid',
 		};
 		expect( () => footerValidator.parse( invalidFooter ) )
 			.toThrowErrorMatchingInlineSnapshot( `

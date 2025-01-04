@@ -1,9 +1,9 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 test.describe.serial(
-	'WooCommerce Orders > Refund an order',
+	'PooCommerce Orders > Refund an order',
 	{ tag: [ tags.PAYMENTS, tags.HPOS ] },
 	() => {
 		let productId, orderId, currencySymbol;
@@ -61,7 +61,7 @@ test.describe.serial(
 
 			// get currency symbol
 			currencySymbol = await page
-				.locator( '.woocommerce-Price-currencySymbol' )
+				.locator( '.poocommerce-Price-currencySymbol' )
 				.first()
 				.textContent();
 
@@ -143,7 +143,7 @@ test.describe.serial(
 );
 
 test.describe(
-	'WooCommerce Orders > Refund and restock an order item',
+	'PooCommerce Orders > Refund and restock an order item',
 	{ tag: [ tags.PAYMENTS, tags.SERVICES, tags.HPOS ] },
 	() => {
 		let productWithStockId, productWithNoStockId, orderId;

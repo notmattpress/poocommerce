@@ -32,23 +32,23 @@ export const EmailPreviewDeviceType: React.FC<
 			<button
 				className={ isDesktop ? 'active' : '' }
 				onClick={ setDesktop }
-				title={ __( 'Email preview on desktop', 'woocommerce' ) }
+				title={ __( 'Email preview on desktop', 'poocommerce' ) }
 				type="button"
 			>
 				<img
 					src={ isDesktop ? desktopActiveIcon : desktopIcon }
-					alt={ __( 'Desktop icon', 'woocommerce' ) }
+					alt={ __( 'Desktop icon', 'poocommerce' ) }
 				/>
 			</button>
 			<button
 				className={ isMobile ? 'active' : '' }
 				onClick={ setMobile }
-				title={ __( 'Mobile preview on desktop', 'woocommerce' ) }
+				title={ __( 'Mobile preview on desktop', 'poocommerce' ) }
 				type="button"
 			>
 				<img
 					src={ isMobile ? mobileActiveIcon : mobileIcon }
-					alt={ __( 'Mobile icon', 'woocommerce' ) }
+					alt={ __( 'Mobile icon', 'poocommerce' ) }
 				/>
 			</button>
 		</div>

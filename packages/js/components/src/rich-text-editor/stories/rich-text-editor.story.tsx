@@ -6,11 +6,11 @@ import { createElement } from '@wordpress/element';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { store as coreDataStore } from '@wordpress/core-data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**

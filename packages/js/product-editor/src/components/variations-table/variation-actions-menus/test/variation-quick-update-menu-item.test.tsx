@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { render, fireEvent } from '@testing-library/react';
-import { ProductVariation } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { ProductVariation } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import React, { createElement } from 'react';
 import { SlotFillProvider } from '@wordpress/components';
 
@@ -16,7 +16,7 @@ import {
 	VariationQuickUpdateMenuItem,
 } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

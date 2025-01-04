@@ -8,7 +8,7 @@ import {
 	ApiResponse,
 	assertBatchResponseIsValid,
 	assertResponseIsValid,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 const EMPTY_OBJECT = {};
 
@@ -17,7 +17,7 @@ const EMPTY_OBJECT = {};
  */
 const invalidJsonError = {
 	code: 'invalid_json',
-	message: __( 'The response is not a valid JSON response.', 'woocommerce' ),
+	message: __( 'The response is not a valid JSON response.', 'poocommerce' ),
 };
 
 const processHeadersOnFetch = ( headers: Headers ): void => {

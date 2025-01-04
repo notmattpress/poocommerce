@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
 use Generator;
 use WC_Unit_Test_Case;
 
 /**
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil()
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil()
  */
 class ReviewsUtilTest extends WC_Unit_Test_Case {
 
@@ -38,7 +38,7 @@ class ReviewsUtilTest extends WC_Unit_Test_Case {
 	/**
 	 * @testdox `comments_clauses_without_product_reviews` modifies the comment query clauses to exclude product reviews if the current screen is for the `edit-comments` page.
 	 *
-	 * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::comments_clauses_without_product_reviews()
+	 * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::comments_clauses_without_product_reviews()
 	 * @dataProvider provider_can_get_comments_clauses_without_product_reviews
 	 *
 	 * @param string $current_screen_value The current screen value.

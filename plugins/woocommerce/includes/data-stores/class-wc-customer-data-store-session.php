@@ -2,7 +2,7 @@
 /**
  * Class WC_Customer_Data_Store_Session file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -88,13 +88,13 @@ class WC_Customer_Data_Store_Session extends WC_Data_Store_WP implements WC_Cust
 				/**
 				 * Filter the allowed session meta data keys.
 				 *
-				 * If the customer object contains any meta data with these keys, it will be stored within the WooCommerce session.
+				 * If the customer object contains any meta data with these keys, it will be stored within the PooCommerce session.
 				 *
 				 * @since 8.7.0
 				 * @param array $allowed_keys The allowed meta data keys.
 				 * @param WC_Customer $customer The customer object.
 				 */
-				$allowed_keys = apply_filters( 'woocommerce_customer_allowed_session_meta_keys', array(), $customer );
+				$allowed_keys = apply_filters( 'poocommerce_customer_allowed_session_meta_keys', array(), $customer );
 
 				$session_value = array();
 				foreach ( $customer->get_meta_data() as $meta_data ) {

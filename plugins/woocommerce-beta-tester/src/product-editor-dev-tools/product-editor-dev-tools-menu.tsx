@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { MenuGroup, MenuItem } from '@wordpress/components';
 import { cog, Icon } from '@wordpress/icons';
-import { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@woocommerce/product-editor';
+import { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@poocommerce/product-editor';
 
 export function ProductEditorDevToolsMenu( {
 	shouldShowDevTools,
@@ -16,7 +16,7 @@ export function ProductEditorDevToolsMenu( {
 	return (
 		<WooProductMoreMenuItem order={ 1000 }>
 			{ ( { onClose }: { onClose: () => void } ) => (
-				<MenuGroup label={ __( 'Developer tools', 'woocommerce' ) }>
+				<MenuGroup label={ __( 'Developer tools', 'poocommerce' ) }>
 					<MenuItem
 						icon={ <Icon icon={ cog } /> }
 						iconPosition="right"
@@ -26,8 +26,8 @@ export function ProductEditorDevToolsMenu( {
 						} }
 					>
 						{ shouldShowDevTools
-							? __( 'Hide developer tools', 'woocommerce' )
-							: __( 'Show developer tools', 'woocommerce' ) }
+							? __( 'Hide developer tools', 'poocommerce' )
+							: __( 'Show developer tools', 'poocommerce' ) }
 					</MenuItem>
 				</MenuGroup>
 			) }

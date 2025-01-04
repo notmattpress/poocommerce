@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect } from '@wordpress/element';
 
 interface WrongUserConnectedPageProps {
@@ -20,20 +20,20 @@ export const WrongUserConnectedPage: React.FC<
 	return (
 		<div className="wrong-user-connected-modal-body">
 			<div className="wrong-user-connected-title">
-				<h1>{ __( 'Oops!', 'woocommerce' ) }</h1>
+				<h1>{ __( 'Oops!', 'poocommerce' ) }</h1>
 			</div>
 			<div className="wrong-user-connected-subheader-spacer">
 				<div className="wrong-user-connected-subheader">
 					{ __(
 						'It looks like this site is connected to another WordPress.com account.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 				<br />
 				<div className="wrong-user-connected-subheader">
 					{ __(
-						'WooCommerce Mobile App can currently only be registered to a single WordPress.com account.',
-						'woocommerce'
+						'PooCommerce Mobile App can currently only be registered to a single WordPress.com account.',
+						'poocommerce'
 					) }
 				</div>
 			</div>

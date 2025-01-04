@@ -3,7 +3,7 @@
  */
 import TestRenderer, { act } from 'react-test-renderer';
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ jest.mock( '../use-store-cart', () => ( {
 	useStoreCart: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	CART_STORE_KEY: 'test/cart/store',
 	CHECKOUT_STORE_KEY: 'test/checkout/store',

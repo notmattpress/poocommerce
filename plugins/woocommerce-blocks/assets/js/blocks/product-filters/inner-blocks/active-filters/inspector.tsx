@@ -27,7 +27,7 @@ export const Inspector = ( {
 
 		const clearButtonBlock = getInnerBlockByName(
 			activeFilterBlock,
-			'woocommerce/product-filter-clear-button'
+			'poocommerce/product-filter-clear-button'
 		);
 
 		if ( clearButtonBlock && ! clearButton ) {
@@ -47,7 +47,7 @@ export const Inspector = ( {
 			dispatch( 'core/block-editor' ).selectBlock( clientId );
 		} else if ( ! clearButtonBlock && clearButton ) {
 			dispatch( 'core/block-editor' ).insertBlock(
-				createBlock( 'woocommerce/product-filter-clear-button', {
+				createBlock( 'poocommerce/product-filter-clear-button', {
 					lock: { move: false, remove: true },
 					clearType: 'all',
 				} ),
@@ -60,9 +60,9 @@ export const Inspector = ( {
 
 	return (
 		<InspectorControls group="styles">
-			<PanelBody title={ __( 'Display', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Display', 'poocommerce' ) }>
 				<ToggleControl
-					label={ __( 'Clear button', 'woocommerce' ) }
+					label={ __( 'Clear button', 'poocommerce' ) }
 					checked={ clearButton }
 					onChange={ ( value ) => {
 						setAttributes( { clearButton: value } );

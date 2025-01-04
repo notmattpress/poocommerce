@@ -14,7 +14,7 @@ import {
 	CHECKOUT_STORE_KEY,
 	PAYMENT_STORE_KEY,
 	VALIDATION_STORE_KEY,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -142,7 +142,7 @@ export const PaymentEventsProvider = ( {
 		return function ( ...args: Parameters< typeof onPaymentSetup > ) {
 			deprecated( 'onPaymentProcessing', {
 				alternative: 'onPaymentSetup',
-				plugin: 'WooCommerce Blocks',
+				plugin: 'PooCommerce Blocks',
 			} );
 			return onPaymentSetup( ...args );
 		};

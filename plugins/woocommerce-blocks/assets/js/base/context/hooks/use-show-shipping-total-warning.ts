@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY, CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { hasShippingRate } from '@woocommerce/base-utils';
+import { hasShippingRate } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { hasShippingRate } from '@woocommerce/base-utils';
 import { useShippingData } from './shipping/use-shipping-data';
 
 export const useShowShippingTotalWarning = () => {
-	const context = 'woocommerce/checkout-totals-block';
+	const context = 'poocommerce/checkout-totals-block';
 	const errorNoticeId = 'wc-blocks-totals-shipping-warning';
 
 	const { shippingRates, hasSelectedLocalPickup } = useShippingData();
@@ -49,7 +49,7 @@ export const useShowShippingTotalWarning = () => {
 			createInfoNotice(
 				__(
 					'Totals will be recalculated when a valid shipping method is selected.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					id: 'wc-blocks-totals-shipping-warning',

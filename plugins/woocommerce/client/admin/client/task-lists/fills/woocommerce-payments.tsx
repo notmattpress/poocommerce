@@ -3,16 +3,16 @@
  */
 import React from 'react';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies
  */
 import { PaymentGatewaySuggestions } from './PaymentGatewaySuggestions';
 
-// Shows up at http://host/wp-admin/admin.php?page=wc-admin&task=woocommerce-payments which is the default url for woocommerce-payments task
+// Shows up at http://host/wp-admin/admin.php?page=wc-admin&task=poocommerce-payments which is the default url for poocommerce-payments task
 const WoocommercePaymentsTaskPage = () => (
-	<WooOnboardingTask id="woocommerce-payments">
+	<WooOnboardingTask id="poocommerce-payments">
 		{ ( {
 			onComplete,
 			query,
@@ -28,7 +28,7 @@ const WoocommercePaymentsTaskPage = () => (
 	</WooOnboardingTask>
 );
 
-registerPlugin( 'woocommerce-admin-task-wcpay-page', {
-	scope: 'woocommerce-tasks',
+registerPlugin( 'poocommerce-admin-task-wcpay-page', {
+	scope: 'poocommerce-tasks',
 	render: WoocommercePaymentsTaskPage,
 } );

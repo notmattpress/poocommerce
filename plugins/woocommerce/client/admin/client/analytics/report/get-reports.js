@@ -45,87 +45,87 @@ const CustomersReport = lazy( () =>
 );
 
 const manageStock = getAdminSetting( 'manageStock', 'no' );
-const REPORTS_FILTER = 'woocommerce_admin_reports_list';
+const REPORTS_FILTER = 'poocommerce_admin_reports_list';
 
 export default () => {
 	const reports = [
 		{
 			report: 'revenue',
-			title: __( 'Revenue', 'woocommerce' ),
+			title: __( 'Revenue', 'poocommerce' ),
 			component: RevenueReport,
 			navArgs: {
-				id: 'woocommerce-analytics-revenue',
+				id: 'poocommerce-analytics-revenue',
 			},
 		},
 		{
 			report: 'products',
-			title: __( 'Products', 'woocommerce' ),
+			title: __( 'Products', 'poocommerce' ),
 			component: ProductsReport,
 			navArgs: {
-				id: 'woocommerce-analytics-products',
+				id: 'poocommerce-analytics-products',
 			},
 		},
 		{
 			report: 'variations',
-			title: __( 'Variations', 'woocommerce' ),
+			title: __( 'Variations', 'poocommerce' ),
 			component: VariationsReport,
 			navArgs: {
-				id: 'woocommerce-analytics-variations',
+				id: 'poocommerce-analytics-variations',
 			},
 		},
 		{
 			report: 'orders',
-			title: __( 'Orders', 'woocommerce' ),
+			title: __( 'Orders', 'poocommerce' ),
 			component: OrdersReport,
 			navArgs: {
-				id: 'woocommerce-analytics-orders',
+				id: 'poocommerce-analytics-orders',
 			},
 		},
 		{
 			report: 'categories',
-			title: __( 'Categories', 'woocommerce' ),
+			title: __( 'Categories', 'poocommerce' ),
 			component: CategoriesReport,
 			navArgs: {
-				id: 'woocommerce-analytics-categories',
+				id: 'poocommerce-analytics-categories',
 			},
 		},
 		{
 			report: 'coupons',
-			title: __( 'Coupons', 'woocommerce' ),
+			title: __( 'Coupons', 'poocommerce' ),
 			component: CouponsReport,
 			navArgs: {
-				id: 'woocommerce-analytics-coupons',
+				id: 'poocommerce-analytics-coupons',
 			},
 		},
 		{
 			report: 'taxes',
-			title: __( 'Taxes', 'woocommerce' ),
+			title: __( 'Taxes', 'poocommerce' ),
 			component: TaxesReport,
 			navArgs: {
-				id: 'woocommerce-analytics-taxes',
+				id: 'poocommerce-analytics-taxes',
 			},
 		},
 		manageStock === 'yes'
 			? {
 					report: 'stock',
-					title: __( 'Stock', 'woocommerce' ),
+					title: __( 'Stock', 'poocommerce' ),
 					component: StockReport,
 					navArgs: {
-						id: 'woocommerce-analytics-stock',
+						id: 'poocommerce-analytics-stock',
 					},
 			  }
 			: null,
 		{
 			report: 'customers',
-			title: __( 'Customers', 'woocommerce' ),
+			title: __( 'Customers', 'poocommerce' ),
 			component: CustomersReport,
 		},
 		{
 			report: 'downloads',
-			title: __( 'Downloads', 'woocommerce' ),
+			title: __( 'Downloads', 'poocommerce' ),
 			component: DownloadsReport,
 			navArgs: {
-				id: 'woocommerce-analytics-downloads',
+				id: 'poocommerce-analytics-downloads',
 			},
 		},
 	].filter( Boolean );
@@ -137,13 +137,13 @@ export default () => {
 	 * @property {string} report    Report slug.
 	 * @property {string} title     Report title.
 	 * @property {Node}   component React Component to render.
-	 * @property {Object} navArgs   Arguments supplied to WooCommerce Navigation.
+	 * @property {Object} navArgs   Arguments supplied to PooCommerce Navigation.
 	 */
 
 	/**
 	 * Filter Report pages list.
 	 *
-	 * @filter woocommerce_admin_reports_list
+	 * @filter poocommerce_admin_reports_list
 	 * @param {Array.<report>} reports Report pages list.
 	 */
 	return applyFilters( REPORTS_FILTER, reports );

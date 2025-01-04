@@ -3,7 +3,7 @@
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const productName = `Cart product test ${ Date.now() }`;
 const productPrice = '13.99';
@@ -23,7 +23,7 @@ test.describe( 'Cart page', { tag: [ tags.PAYMENTS, tags.SERVICES ] }, () => {
 			version: 'wc/v3',
 		} );
 		// make sure the currency is USD
-		await api.put( 'settings/general/woocommerce_currency', {
+		await api.put( 'settings/general/poocommerce_currency', {
 			value: 'USD',
 		} );
 		// add 3 products

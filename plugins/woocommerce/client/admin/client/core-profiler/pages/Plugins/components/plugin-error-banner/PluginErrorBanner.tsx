@@ -29,14 +29,14 @@ export const PluginErrorBanner = ( {
 		):
 			installationErrorMessage = __(
 				'You do not have permissions to install plugins. Please contact your site administrator.',
-				'woocommerce'
+				'poocommerce'
 			);
 			break;
 		default:
 			installationErrorMessage = // Translators: %s is a list of plugins that does not need to be translated
 				__(
 					'Oops! We encountered a problem while installing %s. {{link}}Please try again{{/link}}.',
-					'woocommerce'
+					'poocommerce'
 				);
 			break;
 	}

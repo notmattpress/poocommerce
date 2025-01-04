@@ -5,15 +5,15 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { Card, CardHeader } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { Badge } from '@woocommerce/components';
+import { Badge } from '@poocommerce/components';
 import {
 	getVisibleTasks,
 	ONBOARDING_STORE_NAME,
 	TaskListType,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { Text, List, CollapsibleList } from '@woocommerce/experimental';
-import { useLayoutContext } from '@woocommerce/admin-layout';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { Text, List, CollapsibleList } from '@poocommerce/experimental';
+import { useLayoutContext } from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -84,7 +84,7 @@ export const TaskList: React.FC< TaskListProps > = ( {
 	}, [ query ] );
 
 	if ( ! visibleTasks.length ) {
-		return <div className="woocommerce-task-dashboard__container"></div>;
+		return <div className="poocommerce-task-dashboard__container"></div>;
 	}
 
 	const expandLabel = sprintf(
@@ -93,11 +93,11 @@ export const TaskList: React.FC< TaskListProps > = ( {
 			'Show %d more task.',
 			'Show %d more tasks.',
 			visibleTasks.length - 2,
-			'woocommerce'
+			'poocommerce'
 		),
 		visibleTasks.length - 2
 	);
-	const collapseLabel = __( 'Show less', 'woocommerce' );
+	const collapseLabel = __( 'Show less', 'poocommerce' );
 
 	const taskListItems = visibleTasks.map( ( task ) => (
 		<TaskListItem
@@ -113,7 +113,7 @@ export const TaskList: React.FC< TaskListProps > = ( {
 		<>
 			<div
 				className={
-					'woocommerce-task-dashboard__container woocommerce-task-list__' +
+					'poocommerce-task-dashboard__container poocommerce-task-list__' +
 					id
 				}
 			>
@@ -122,10 +122,10 @@ export const TaskList: React.FC< TaskListProps > = ( {
 				) : null }
 				<Card
 					size="large"
-					className="woocommerce-task-card woocommerce-homescreen-card"
+					className="poocommerce-task-card poocommerce-homescreen-card"
 				>
 					<CardHeader size="medium">
-						<div className="woocommerce-task-card__header">
+						<div className="poocommerce-task-card__header">
 							<Text
 								size="20"
 								lineHeight="28px"

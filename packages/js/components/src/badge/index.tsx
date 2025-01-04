@@ -13,7 +13,7 @@ export const Badge: React.FC< BadgeProps > = ( {
 	...props
 }: BadgeProps ) => {
 	return (
-		<span className={ `woocommerce-badge ${ className }` } { ...props }>
+		<span className={ `poocommerce-badge ${ className }` } { ...props }>
 			{ count }
 		</span>
 	);

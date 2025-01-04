@@ -37,7 +37,7 @@ export class WcHomescreen extends BasePage {
 	}
 
 	async isWelcomeModalVisible(): Promise< boolean > {
-		const modalText = 'Welcome to your WooCommerce store’s online HQ!';
+		const modalText = 'Welcome to your PooCommerce store’s online HQ!';
 		const modal = await waitForElementByTextWithoutThrow(
 			'h2',
 			modalText,
@@ -48,11 +48,11 @@ export class WcHomescreen extends BasePage {
 
 	async getTaskList(): Promise< Array< string | null > > {
 		await page.waitForSelector(
-			'.woocommerce-task-card .woocommerce-task-list__item-title'
+			'.poocommerce-task-card .poocommerce-task-list__item-title'
 		);
 		await waitForElementByText( '*', 'Get ready to start selling' );
 		const list = await this.page.$$eval(
-			'.woocommerce-task-card .woocommerce-task-list__item-title',
+			'.poocommerce-task-card .poocommerce-task-list__item-title',
 			( items ) => items.map( ( item ) => item.textContent )
 		);
 		return list.map( ( item: string | null ) => {
@@ -106,14 +106,14 @@ export class WcHomescreen extends BasePage {
 	}
 
 	async isActivityPanelShown(): Promise< boolean > {
-		return !! ( await this.page.$( '.woocommerce-activity-panel' ) );
+		return !! ( await this.page.$( '.poocommerce-activity-panel' ) );
 	}
 
 	async getActivityPanels(): Promise<
 		Array< { title: string; count?: number; element?: ElementHandle } >
 	> {
 		const panelContainer = await page.waitForSelector(
-			'.woocommerce-activity-panel'
+			'.poocommerce-activity-panel'
 		);
 		const list = await panelContainer.$$( 'h2' );
 		return Promise.all(

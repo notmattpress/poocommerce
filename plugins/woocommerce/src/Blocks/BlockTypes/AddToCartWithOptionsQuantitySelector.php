@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * CatalogSorting class.
@@ -61,10 +61,10 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 		$pattern = '/(<input[^>]*id="quantity_[^"]*"[^>]*\/>)/';
 		// Replacement string to add button BEFORE the matched <input> element.
 		/* translators: %s refers to the item name in the cart. */
-		$minus_button = '<button aria-label="' . esc_attr( sprintf( __( 'Reduce quantity of %s', 'woocommerce' ), $product_name ) ) . '"type="button" data-wc-on--click="actions.removeQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus">-</button>$1';
+		$minus_button = '<button aria-label="' . esc_attr( sprintf( __( 'Reduce quantity of %s', 'poocommerce' ), $product_name ) ) . '"type="button" data-wc-on--click="actions.removeQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus">-</button>$1';
 		// Replacement string to add button AFTER the matched <input> element.
 		/* translators: %s refers to the item name in the cart. */
-		$plus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Increase quantity of %s', 'woocommerce' ), $product_name ) ) . '" type="button" data-wc-on--click="actions.addQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus">+</button>';
+		$plus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Increase quantity of %s', 'poocommerce' ), $product_name ) ) . '" type="button" data-wc-on--click="actions.addQuantity" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus">+</button>';
 		$new_html    = preg_replace( $pattern, $minus_button, $product_html );
 		$new_html    = preg_replace( $pattern, $plus_button, $new_html );
 		return $new_html;
@@ -132,15 +132,15 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 		ob_start();
 
 		/**
-		 * Hook: woocommerce_before_add_to_cart_quantity.
+		 * Hook: poocommerce_before_add_to_cart_quantity.
 		 *
 		 * Action that fires before the quantity input field is rendered.
 		 *
 		 * @since 2.7.0
 		 */
-		do_action( 'woocommerce_before_add_to_cart_quantity' );
+		do_action( 'poocommerce_before_add_to_cart_quantity' );
 
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				/**
 				 * Filter the minimum quantity value allowed for the product.
@@ -149,7 +149,7 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 				 * @param int        $min_value Minimum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+				'min_value'   => apply_filters( 'poocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
 				/**
 				 * Filter the maximum quantity value allowed for the product.
 				 *
@@ -157,19 +157,19 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 				 * @param int        $max_value Maximum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+				'max_value'   => apply_filters( 'poocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
 				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			)
 		);
 
 		/**
-		 * Hook: woocommerce_after_add_to_cart_quantity.
+		 * Hook: poocommerce_after_add_to_cart_quantity.
 		 *
 		 * Action that fires after the quantity input field is rendered.
 		 *
 		 * @since 2.7.0
 		 */
-		do_action( 'woocommerce_after_add_to_cart_quantity' );
+		do_action( 'poocommerce_after_add_to_cart_quantity' );
 
 		$product_html = ob_get_clean();
 
@@ -203,7 +203,7 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 			$wrapper_attributes,
 			$is_stepper_style ? 'data-wc-interactive=\'' . wp_json_encode(
 				array(
-					'namespace' => 'woocommerce/add-to-cart-with-options',
+					'namespace' => 'poocommerce/add-to-cart-with-options',
 				),
 				JSON_NUMERIC_CHECK | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 			) . '\'' : '',

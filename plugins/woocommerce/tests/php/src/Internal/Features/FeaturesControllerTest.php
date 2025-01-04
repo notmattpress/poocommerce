@@ -3,13 +3,13 @@
  * FeaturesControllerTest class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\Features;
+namespace Automattic\PooCommerce\Tests\Internal\Features;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\PluginUtil;
 
 /**
  * Tests for the FeaturesController class.
@@ -38,7 +38,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->set_up_plugins();
 
 		add_action(
-			'woocommerce_register_feature_definitions',
+			'poocommerce_register_feature_definitions',
 			function ( $features_controller ) {
 				$this->reset_features_list( $this->sut );
 
@@ -75,10 +75,10 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->sut = new FeaturesController();
 		$this->sut->init( wc_get_container()->get( LegacyProxy::class ), $this->fake_plugin_util );
 
-		delete_option( 'woocommerce_feature_mature1_enabled' );
-		delete_option( 'woocommerce_feature_mature2_enabled' );
-		delete_option( 'woocommerce_feature_experimental1_enabled' );
-		delete_option( 'woocommerce_feature_experimental2_enabled' );
+		delete_option( 'poocommerce_feature_mature1_enabled' );
+		delete_option( 'poocommerce_feature_mature2_enabled' );
+		delete_option( 'poocommerce_feature_experimental1_enabled' );
+		delete_option( 'poocommerce_feature_experimental2_enabled' );
 
 		remove_all_filters( FeaturesController::FEATURE_ENABLED_CHANGED_ACTION );
 	}
@@ -101,7 +101,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 				$this->active_plugins = $plugins;
 			}
 
-			public function get_woocommerce_aware_plugins( bool $active_only = false ): array {
+			public function get_poocommerce_aware_plugins( bool $active_only = false ): array {
 				$plugins = $this->active_plugins;
 				if ( ! $active_only ) {
 					$plugins[] = 'the_plugin_inactive';
@@ -142,7 +142,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		$this->reset_features_list( $this->sut );
-		remove_all_actions( 'woocommerce_register_feature_definitions' );
+		remove_all_actions( 'poocommerce_register_feature_definitions' );
 
 		parent::tearDown();
 	}
@@ -181,9 +181,9 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_features' returns all existing features with enabling information if requested to do so.
 	 */
 	public function test_get_features_including_experimental_and_values() {
-		update_option( 'woocommerce_feature_mature1_enabled', 'yes' );
-		update_option( 'woocommerce_feature_mature2_enabled', 'no' );
-		update_option( 'woocommerce_feature_experimental1_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mature1_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mature2_enabled', 'no' );
+		update_option( 'poocommerce_feature_experimental1_enabled', 'yes' );
 		// No option for experimental2.
 
 		$actual = array_map(
@@ -226,8 +226,8 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @param bool   $expected_to_be_enabled Expected result from the method.
 	 */
 	public function test_feature_is_enabled( $feature_id, $expected_to_be_enabled ) {
-		update_option( 'woocommerce_feature_mature1_enabled', 'yes' );
-		update_option( 'woocommerce_feature_mature2_enabled', 'no' );
+		update_option( 'poocommerce_feature_mature1_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mature2_enabled', 'no' );
 		// No option for experimental1.
 
 		$this->assertEquals( $expected_to_be_enabled, $this->sut->feature_is_enabled( $feature_id ) );
@@ -259,7 +259,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_change_feature_enable( $previous_value, $enable, $expected_result, $expected_previous_enabled, $expected_new_enabled ) {
 		if ( $previous_value ) {
-			update_option( 'woocommerce_feature_mature1_enabled', $previous_value );
+			update_option( 'poocommerce_feature_mature1_enabled', $previous_value );
 		}
 
 		$result = $this->sut->feature_is_enabled( 'mature1' );
@@ -273,9 +273,9 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'declare_compatibility' fails when invoked from outside the 'before_woocommerce_init' action.
+	 * @testdox 'declare_compatibility' fails when invoked from outside the 'before_poocommerce_init' action.
 	 */
-	public function test_declare_compatibility_outside_before_woocommerce_init_hook() {
+	public function test_declare_compatibility_outside_before_poocommerce_init_hook() {
 		$function = null;
 		$message  = null;
 		$version  = null;
@@ -294,7 +294,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->assertFalse( $result );
 
 		$this->assertEquals( 'FeaturesController::declare_compatibility', $function );
-		$this->assertEquals( 'FeaturesController::declare_compatibility should be called inside the before_woocommerce_init action.', $message );
+		$this->assertEquals( 'FeaturesController::declare_compatibility should be called inside the before_poocommerce_init action.', $message );
 		$this->assertEquals( '7.0', $version );
 	}
 
@@ -302,7 +302,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'declare_compatibility' returns false for invalid feature ids.
 	 */
 	public function test_declare_compatibility_for_non_existing_feature() {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$result = $this->sut->declare_compatibility( 'NON_EXISTING', 'the_plugin' );
 		$this->assertFalse( $result );
@@ -312,7 +312,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'declare_compatibility' registers internally the proper per-plugin information.
 	 */
 	public function test_declare_compatibility_by_plugin() {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$result = $this->sut->declare_compatibility( 'mature1', 'the_plugin' );
 		$this->assertTrue( $result );
@@ -347,7 +347,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'declare_compatibility' registers internally the proper per-feature information.
 	 */
 	public function test_declare_compatibility_by_feature() {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$result = $this->sut->declare_compatibility( 'mature1', 'the_plugin_1' );
 		$this->assertTrue( $result );
@@ -399,7 +399,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'declare_compatibility' throws when a plugin declares itself as both compatible and incompatible with a given feature.
 	 */
 	public function test_declare_compatibility_and_incompatibility_for_the_same_plugin() {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$this->ExpectException( \Exception::class );
 		$this->ExpectExceptionMessage( esc_html( "Plugin the_plugin is trying to declare itself as incompatible with the 'mature1' feature, but it already declared itself as compatible" ) );
@@ -409,9 +409,9 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get_compatible_features_for_plugin' fails when invoked before the 'woocommerce_init' hook.
+	 * @testdox 'get_compatible_features_for_plugin' fails when invoked before the 'poocommerce_init' hook.
 	 */
-	public function test_get_compatible_features_for_plugin_before_woocommerce_init_hook() {
+	public function test_get_compatible_features_for_plugin_before_poocommerce_init_hook() {
 		$function = null;
 		$message  = null;
 		$version  = null;
@@ -419,7 +419,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->register_legacy_proxy_function_mocks(
 			array(
 				'did_action'        => function ( $action_name ) {
-					return 'woocommerce_init' === $action_name ? false : did_action( $action_name );
+					return 'poocommerce_init' === $action_name ? false : did_action( $action_name );
 				},
 				'wc_doing_it_wrong' => function ( $f, $m, $v ) use ( &$function, &$message, &$version ) {
 					$function = $f;
@@ -432,7 +432,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->sut->get_compatible_features_for_plugin( 'the_plugin' );
 
 		$this->assertEquals( 'FeaturesController::get_compatible_features_for_plugin', $function );
-		$this->assertEquals( 'FeaturesController::get_compatible_features_for_plugin should not be called before the woocommerce_init action.', $message );
+		$this->assertEquals( 'FeaturesController::get_compatible_features_for_plugin should not be called before the poocommerce_init action.', $message );
 		$this->assertEquals( '7.0', $version );
 	}
 
@@ -440,7 +440,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_compatible_features_for_plugin' returns empty information for a plugin that has not declared compatibility with any feature.
 	 */
 	public function test_get_compatible_features_for_unregistered_plugin() {
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
 		$result = $this->sut->get_compatible_features_for_plugin( 'the_plugin' );
 
@@ -456,13 +456,13 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_compatible_features_for_plugin' returns proper information for a plugin that has declared compatibility with the passed feature, and reacts to plugin deactivation accordingly.
 	 */
 	public function test_get_compatible_features_for_registered_plugin() {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$this->sut->declare_compatibility( 'mature1', 'the_plugin', true );
 		$this->sut->declare_compatibility( 'mature2', 'the_plugin', true );
 		$this->sut->declare_compatibility( 'experimental1', 'the_plugin', false );
 		$this->reset_legacy_proxy_mocks();
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
 		$result   = $this->sut->get_compatible_features_for_plugin( 'the_plugin' );
 		$expected = array(
@@ -472,7 +472,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		);
 		$this->assertEquals( $expected, $result );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'deactivated_plugin', 'the_plugin' );
 		$this->fake_plugin_util->set_active_plugins( array( 'the_plugin_2', 'the_plugin_3', 'the_plugin_4' ) );
 
@@ -490,7 +490,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_compatible_enabled_features_for_registered_plugin() {
 		add_action(
-			'woocommerce_register_feature_definitions',
+			'poocommerce_register_feature_definitions',
 			function ( $features_controller ) {
 				$this->reset_features_list( $this->sut );
 
@@ -534,21 +534,21 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 			20
 		);
 
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$this->sut->declare_compatibility( 'mature1', 'the_plugin', true );
 		$this->sut->declare_compatibility( 'mature2', 'the_plugin', true );
 		$this->sut->declare_compatibility( 'experimental1', 'the_plugin', false );
 		$this->sut->declare_compatibility( 'experimental2', 'the_plugin', false );
 		$this->reset_legacy_proxy_mocks();
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
-		update_option( 'woocommerce_feature_mature1_enabled', 'yes' );
-		update_option( 'woocommerce_feature_mature2_enabled', 'no' );
-		update_option( 'woocommerce_feature_mature3_enabled', 'yes' );
-		update_option( 'woocommerce_feature_experimental1_enabled', 'no' );
-		update_option( 'woocommerce_feature_experimental2_enabled', 'yes' );
-		update_option( 'woocommerce_feature_experimental3_enabled', 'no' );
+		update_option( 'poocommerce_feature_mature1_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mature2_enabled', 'no' );
+		update_option( 'poocommerce_feature_mature3_enabled', 'yes' );
+		update_option( 'poocommerce_feature_experimental1_enabled', 'no' );
+		update_option( 'poocommerce_feature_experimental2_enabled', 'yes' );
+		update_option( 'poocommerce_feature_experimental3_enabled', 'no' );
 
 		$result   = $this->sut->get_compatible_features_for_plugin( 'the_plugin', true );
 		$expected = array(
@@ -560,9 +560,9 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get_compatible_plugins_for_feature' fails when invoked before the 'woocommerce_init' hook.
+	 * @testdox 'get_compatible_plugins_for_feature' fails when invoked before the 'poocommerce_init' hook.
 	 */
-	public function test_get_compatible_plugins_for_feature_before_woocommerce_init_hook() {
+	public function test_get_compatible_plugins_for_feature_before_poocommerce_init_hook() {
 		$function = null;
 		$message  = null;
 		$version  = null;
@@ -570,7 +570,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->register_legacy_proxy_function_mocks(
 			array(
 				'did_action'        => function ( $action_name ) {
-					return 'woocommerce_init' === $action_name ? false : did_action( $action_name );
+					return 'poocommerce_init' === $action_name ? false : did_action( $action_name );
 				},
 				'wc_doing_it_wrong' => function ( $f, $m, $v ) use ( &$function, &$message, &$version ) {
 					$function = $f;
@@ -583,7 +583,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->sut->get_compatible_plugins_for_feature( 'mature1' );
 
 		$this->assertEquals( 'FeaturesController::get_compatible_plugins_for_feature', $function );
-		$this->assertEquals( 'FeaturesController::get_compatible_plugins_for_feature should not be called before the woocommerce_init action.', $message );
+		$this->assertEquals( 'FeaturesController::get_compatible_plugins_for_feature should not be called before the poocommerce_init action.', $message );
 		$this->assertEquals( '7.0', $version );
 	}
 
@@ -591,7 +591,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_compatible_plugins_for_feature' returns empty information for invalid feature ids when only active plugins are requested.
 	 */
 	public function test_get_compatible_active_plugins_for_non_existing_feature() {
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
 		$result = $this->sut->get_compatible_plugins_for_feature( 'NON_EXISTING', true );
 
@@ -607,7 +607,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_compatible_plugins_for_feature' returns empty information for invalid feature ids when all plugins are requested.
 	 */
 	public function test_get_all_compatible_plugins_for_non_existing_feature() {
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
 		$result = $this->sut->get_compatible_plugins_for_feature( 'NON_EXISTING', false );
 
@@ -629,7 +629,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_compatible_plugins_for_feature' returns empty information for features for which no compatibility has been declared when only active plugins are requested.
 	 */
 	public function test_get_active_compatible_plugins_for_existing_feature_without_compatibility_declarations() {
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
 		$result = $this->sut->get_compatible_plugins_for_feature( 'mature1', true );
 
@@ -645,7 +645,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testdox 'get_compatible_plugins_for_feature' returns empty information for features for which no compatibility has been declared when all plugins are requested.
 	 */
 	public function test_get_all_compatible_plugins_for_existing_feature_without_compatibility_declarations() {
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 
 		$result = $this->sut->get_compatible_plugins_for_feature( 'mature1', false );
 
@@ -672,7 +672,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @param bool $active_only True to test retrieving only active plugins.
 	 */
 	public function test_get_compatible_plugins_for_feature( bool $active_only ) {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 
 		$this->fake_plugin_util->set_active_plugins(
 			array(
@@ -690,7 +690,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$this->sut->declare_compatibility( 'mature1', 'the_plugin_3', false );
 		$this->sut->declare_compatibility( 'mature1', 'the_plugin_4', false );
 
-		$this->simulate_after_woocommerce_init_hook();
+		$this->simulate_after_poocommerce_init_hook();
 		$result             = $this->sut->get_compatible_plugins_for_feature( 'mature1', $active_only );
 		$expected_uncertain = $active_only ? array( 'the_plugin_5', 'the_plugin_6' ) : array(
 			'the_plugin_5',
@@ -704,11 +704,11 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		);
 		$this->assertEquals( $expected, $result );
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'deactivated_plugin', 'the_plugin_2' );
 		do_action( 'deactivated_plugin', 'the_plugin_4' );
 		do_action( 'deactivated_plugin', 'the_plugin_6' );
-		// phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->fake_plugin_util->set_active_plugins( array( 'the_plugin', 'the_plugin_3', 'the_plugin_5' ) );
 		$result             = $this->sut->get_compatible_plugins_for_feature( 'mature1', $active_only );
@@ -750,26 +750,26 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Simulates that the code is running inside the 'before_woocommerce_init' action.
+	 * Simulates that the code is running inside the 'before_poocommerce_init' action.
 	 */
-	private function simulate_inside_before_woocommerce_init_hook() {
+	private function simulate_inside_before_poocommerce_init_hook() {
 		$this->register_legacy_proxy_function_mocks(
 			array(
 				'doing_action' => function ( $action_name ) {
-					return 'before_woocommerce_init' === $action_name || doing_action( $action_name );
+					return 'before_poocommerce_init' === $action_name || doing_action( $action_name );
 				},
 			)
 		);
 	}
 
 	/**
-	 * Simulates that the code is running after the 'woocommerce_init' action has been fired.
+	 * Simulates that the code is running after the 'poocommerce_init' action has been fired.
 	 */
-	private function simulate_after_woocommerce_init_hook() {
+	private function simulate_after_poocommerce_init_hook() {
 		$this->register_legacy_proxy_function_mocks(
 			array(
 				'did_action' => function ( $action_name ) {
-					return 'woocommerce_init' === $action_name || did_action( $action_name );
+					return 'poocommerce_init' === $action_name || did_action( $action_name );
 				},
 			)
 		);
@@ -798,7 +798,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @testDox No warning is generated when all plugins have declared compatibility.
 	 */
 	public function test_no_warning_when_all_plugin_are_hpos_compatible() {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 		// phpcs:disable Squiz.Commenting, Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$fake_plugin_util = new class() extends PluginUtil {
 			private $active_plugins;
@@ -810,7 +810,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 				$this->active_plugins = $plugins;
 			}
 
-			public function get_woocommerce_aware_plugins( bool $active_only = false ): array {
+			public function get_poocommerce_aware_plugins( bool $active_only = false ): array {
 				return $this->active_plugins;
 			}
 
@@ -831,19 +831,19 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$local_sut = new FeaturesController();
 
 		add_action(
-			'woocommerce_register_feature_definitions',
+			'poocommerce_register_feature_definitions',
 			function ( $features_controller ) use ( $local_sut ) {
 				$this->reset_features_list( $local_sut );
 
 				$features = array(
 					'custom_order_tables'  => array(
-						'name'               => __( 'High-Performance order storage', 'woocommerce' ),
+						'name'               => __( 'High-Performance order storage', 'poocommerce' ),
 						'is_experimental'    => true,
 						'enabled_by_default' => false,
 					),
 					'cart_checkout_blocks' => array(
-						'name'            => __( 'Cart & Checkout Blocks', 'woocommerce' ),
-						'description'     => __( 'Optimize for faster checkout', 'woocommerce' ),
+						'name'            => __( 'Cart & Checkout Blocks', 'poocommerce' ),
+						'description'     => __( 'Optimize for faster checkout', 'poocommerce' ),
 						'is_experimental' => false,
 						'disable_ui'      => true,
 					),
@@ -891,7 +891,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 	 * @param bool $hpos_is_enabled True to test with HPOS enabled, false to test with HPOS disabled.
 	 */
 	public function test_show_warning_when_a_plugin_is_not_hpos_compatible_if_hpos_is_enabled( bool $hpos_is_enabled ) {
-		$this->simulate_inside_before_woocommerce_init_hook();
+		$this->simulate_inside_before_poocommerce_init_hook();
 		// phpcs:disable Squiz.Commenting, Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$fake_plugin_util = new class() extends PluginUtil {
 			private $active_plugins;
@@ -903,7 +903,7 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 				$this->active_plugins = $plugins;
 			}
 
-			public function get_woocommerce_aware_plugins( bool $active_only = false ): array {
+			public function get_poocommerce_aware_plugins( bool $active_only = false ): array {
 				return $this->active_plugins;
 			}
 
@@ -925,21 +925,21 @@ class FeaturesControllerTest extends \WC_Unit_Test_Case {
 		$local_sut->change_feature_enable( 'custom_order_tables', $hpos_is_enabled );
 
 		add_action(
-			'woocommerce_register_feature_definitions',
+			'poocommerce_register_feature_definitions',
 			function ( $features_controller ) use ( $local_sut ) {
 				$this->reset_features_list( $local_sut );
 
 				$features = array(
 					'custom_order_tables'  => array(
-						'name'               => __( 'High-Performance order storage', 'woocommerce' ),
+						'name'               => __( 'High-Performance order storage', 'poocommerce' ),
 						'is_experimental'    => false,
 						'enabled_by_default' => false,
 						'option_key'         => CustomOrdersTableController::CUSTOM_ORDERS_TABLE_USAGE_ENABLED_OPTION,
 						'plugins_are_incompatible_by_default' => true,
 					),
 					'cart_checkout_blocks' => array(
-						'name'            => __( 'Cart & Checkout Blocks', 'woocommerce' ),
-						'description'     => __( 'Optimize for faster checkout', 'woocommerce' ),
+						'name'            => __( 'Cart & Checkout Blocks', 'poocommerce' ),
+						'description'     => __( 'Optimize for faster checkout', 'poocommerce' ),
 						'is_experimental' => false,
 						'disable_ui'      => true,
 					),

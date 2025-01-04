@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 use WC_Abstract_Order;
 use WC_Payment_Gateway;
 
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WooPayments extends PaymentGateway {
 
-	const PREFIX = 'woocommerce_admin_settings_payments__woopayments__';
+	const PREFIX = 'poocommerce_admin_settings_payments__woopayments__';
 
 	/**
 	 * Check if the payment gateway needs setup.
@@ -173,7 +173,7 @@ class WooPayments extends PaymentGateway {
 		 * - Store has an active payments gateway (other than WooPayments).
 		 * - Store has processed a live electronic payment in the past 90 days (any gateway).
 		 *
-		 * @see plugins/woocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
+		 * @see plugins/poocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
 		 */
 		if (
 			isset( $onboarding_profile['business_choice'] ) && 'im_already_selling' === $onboarding_profile['business_choice'] &&
@@ -270,7 +270,7 @@ class WooPayments extends PaymentGateway {
 				return 'yes' === $gateway->enabled &&
 					! in_array(
 						$gateway->id,
-						array( 'woocommerce_payments', ...PaymentProviders::OFFLINE_METHODS ),
+						array( 'poocommerce_payments', ...PaymentProviders::OFFLINE_METHODS ),
 						true
 					);
 			}

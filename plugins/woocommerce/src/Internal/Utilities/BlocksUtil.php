@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 /**
  * Helper functions for working with blocks.
@@ -32,7 +32,7 @@ class BlocksUtil {
 	/**
 	 * Get all instances of the specified block from the widget area.
 	 *
-	 * @param array $block_name The name (id) of a block, e.g. `woocommerce/mini-cart`.
+	 * @param array $block_name The name (id) of a block, e.g. `poocommerce/mini-cart`.
 	 * @return array Array of blocks as returned by parse_blocks().
 	 */
 	public static function get_blocks_from_widget_area( $block_name ) {
@@ -53,7 +53,7 @@ class BlocksUtil {
 	/**
 	 * Get all instances of the specified block on a specific template part.
 	 *
-	 * @param string $block_name The name (id) of a block, e.g. `woocommerce/mini-cart`.
+	 * @param string $block_name The name (id) of a block, e.g. `poocommerce/mini-cart`.
 	 * @param string $template_part_slug The woo page to search, e.g. `header`.
 	 * @return array Array of blocks as returned by parse_blocks().
 	 */

@@ -5,7 +5,7 @@ import {
 	clearAndFillInput,
 	verifyCheckboxIsSet,
 	verifyCheckboxIsUnset,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 import config from 'config';
 /**
  * Internal dependencies
@@ -27,11 +27,11 @@ export interface StoreDetails {
 
 export class StoreDetailsSection extends BasePage {
 	private get countryDropdown(): DropdownTypeaheadField {
-		return this.getDropdownTypeahead( '#woocommerce-select-control' );
+		return this.getDropdownTypeahead( '#poocommerce-select-control' );
 	}
 
 	async isDisplayed(): Promise< void > {
-		await waitForElementByText( 'h2', 'Welcome to WooCommerce' );
+		await waitForElementByText( 'h2', 'Welcome to PooCommerce' );
 	}
 
 	async completeStoreDetailsSection(

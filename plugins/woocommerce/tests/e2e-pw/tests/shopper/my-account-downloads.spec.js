@@ -2,13 +2,13 @@
  * Internal dependencies
  */
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const randomNum = new Date().getTime().toString();
 const customer = {
 	username: `customer${ randomNum }`,
 	password: 'password',
-	email: `customer${ randomNum }@woocommercecoree2etestsuite.com`,
+	email: `customer${ randomNum }@poocommercecoree2etestsuite.com`,
 };
 const product = {
 	name: 'Downloadable product My Account',
@@ -108,11 +108,11 @@ test.describe( 'Customer can manage downloadable file in My Account > Downloads 
 			product.downloadLimit
 		);
 		await expect(
-			page.locator( '.woocommerce-MyAccount-downloads-file' )
+			page.locator( '.poocommerce-MyAccount-downloads-file' )
 		).toContainText( 'Test file' );
 
 		// click to simulate downloading and verify the file doesn't exist anymore in downloads
-		await page.locator( '.woocommerce-MyAccount-downloads-file' ).click();
+		await page.locator( '.poocommerce-MyAccount-downloads-file' ).click();
 		await page.goto( 'my-account/downloads/' );
 		await expect(
 			page.getByText( 'No downloads available yet.' )

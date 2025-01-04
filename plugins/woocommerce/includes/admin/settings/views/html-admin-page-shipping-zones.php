@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <h2 class="wc-shipping-zones-heading">
-	<span><?php esc_html_e( 'Shipping zones', 'woocommerce' ); ?></span>
-	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=new' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add zone', 'woocommerce' ); ?></a>
+	<span><?php esc_html_e( 'Shipping zones', 'poocommerce' ); ?></span>
+	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=new' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add zone', 'poocommerce' ); ?></a>
 </h2>
 <p class="wc-shipping-zone-heading-help-text">
 	<?php
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			/* translators: %s: URL to local pickup settings */
 			__(
 				"A shipping zone consists of the region(s) you'd like to ship to and the shipping method(s) offered. A shopper can only be matched to one zone, and we'll use their shipping address to show them the methods available in their area. To offer local pickup, configure your pickup locations in the <a href='%s'>local pickup settings</a>.",
-				'woocommerce'
+				'poocommerce'
 			),
 			esc_url( admin_url( 'admin.php?page=wc-settings&tab=shipping&section=pickup_location' ) )
 		)
@@ -25,10 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table class="wc-shipping-zones widefat">
 	<thead>
 		<tr>
-			<th class="wc-shipping-zone-sort"><?php echo wc_help_tip( __( 'Drag and drop to re-order your custom zones. This is the order in which they will be matched against the customer address.', 'woocommerce' ) ); ?></th>
-			<th class="wc-shipping-zone-name"><?php esc_html_e( 'Zone name', 'woocommerce' ); ?></th>
-			<th class="wc-shipping-zone-region"><?php esc_html_e( 'Region(s)', 'woocommerce' ); ?></th>
-			<th class="wc-shipping-zone-methods"><?php esc_html_e( 'Shipping method(s)', 'woocommerce' ); ?></th>
+			<th class="wc-shipping-zone-sort"><?php echo wc_help_tip( __( 'Drag and drop to re-order your custom zones. This is the order in which they will be matched against the customer address.', 'poocommerce' ) ); ?></th>
+			<th class="wc-shipping-zone-name"><?php esc_html_e( 'Zone name', 'poocommerce' ); ?></th>
+			<th class="wc-shipping-zone-region"><?php esc_html_e( 'Region(s)', 'poocommerce' ); ?></th>
+			<th class="wc-shipping-zone-methods"><?php esc_html_e( 'Shipping method(s)', 'poocommerce' ); ?></th>
 			<th></th>
 		</tr>
 	</thead>
@@ -37,9 +37,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tfoot data-id="0" class="wc-shipping-zone-worldwide wc-shipping-zone-rows-tfoot">
 		<td width="1%" class="wc-shipping-zone-worldwide"></td>
 		<td class="wc-shipping-zone-name">
-			<?php esc_html_e( 'Rest of the world', 'woocommerce' ); ?>
+			<?php esc_html_e( 'Rest of the world', 'poocommerce' ); ?>
 		</td>
-		<td class="wc-shipping-zone-region"><?php esc_html_e( 'An optional zone you can use to set the shipping method(s) available to any regions that have not been listed above.', 'woocommerce' ); ?></td>
+		<td class="wc-shipping-zone-region"><?php esc_html_e( 'An optional zone you can use to set the shipping method(s) available to any regions that have not been listed above.', 'poocommerce' ); ?></td>
 		<td class="wc-shipping-zone-methods">
 			<ul>
 				<?php
@@ -53,13 +53,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						echo '<li class="wc-shipping-zone-method ' . esc_attr( $class_name ) . '">' . esc_html( $method->get_title() ) . '</li>';
 					}
 				} else {
-					echo '<li>' . esc_html_e( 'No shipping methods offered to this zone.', 'woocommerce' ) . '</li>';
+					echo '<li>' . esc_html_e( 'No shipping methods offered to this zone.', 'poocommerce' ) . '</li>';
 				}
 				?>
 			</ul>
 		</td>
 		<td class="wc-shipping-zone-actions">
-			<a class="wc-shipping-zone-action-edit" href="admin.php?page=wc-settings&amp;tab=shipping&amp;zone_id=0"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a>
+			<a class="wc-shipping-zone-action-edit" href="admin.php?page=wc-settings&amp;tab=shipping&amp;zone_id=0"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a>
 		</td>
 	</tfoot>
 
@@ -69,14 +69,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( 0 === $method_count ) : ?>
 		<tr>
 			<td class="wc-shipping-zones-blank-state" colspan="5">
-				<p class="main"><?php esc_html_e( 'A shipping zone is a geographic region where a certain set of shipping methods and rates apply.', 'woocommerce' ); ?></p>
-				<p><?php esc_html_e( 'For example:', 'woocommerce' ); ?></p>
+				<p class="main"><?php esc_html_e( 'A shipping zone is a geographic region where a certain set of shipping methods and rates apply.', 'poocommerce' ); ?></p>
+				<p><?php esc_html_e( 'For example:', 'poocommerce' ); ?></p>
 				<ul>
-					<li><?php esc_html_e( 'US domestic zone = All US states = Flat rate shipping', 'woocommerce' ); ?>
-					<li><?php esc_html_e( 'Europe zone = Any country in Europe = Flat rate shipping', 'woocommerce' ); ?>
+					<li><?php esc_html_e( 'US domestic zone = All US states = Flat rate shipping', 'poocommerce' ); ?>
+					<li><?php esc_html_e( 'Europe zone = Any country in Europe = Flat rate shipping', 'poocommerce' ); ?>
 				</ul>
-				<p><?php esc_html_e( 'Add as many zones as you need &ndash; customers will only see the methods available for their address.', 'woocommerce' ); ?></p>
-				<a class="button button-primary wc-shipping-zone-add" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=new' ) ); ?>"><?php _e( 'Add shipping zone', 'woocommerce' ); ?></a>
+				<p><?php esc_html_e( 'Add as many zones as you need &ndash; customers will only see the methods available for their address.', 'poocommerce' ); ?></p>
+				<a class="button button-primary wc-shipping-zone-add" href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=new' ) ); ?>"><?php _e( 'Add shipping zone', 'poocommerce' ); ?></a>
 			</td>
 		</tr>
 	<?php endif; ?>
@@ -96,7 +96,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</td>
 		<td class="wc-shipping-zone-actions">
 			<div>
-				<a class="wc-shipping-zone-action-edit" href="admin.php?page=wc-settings&amp;tab=shipping&amp;zone_id={{ data.zone_id }}"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a> | <a href="#" class="wc-shipping-zone-delete wc-shipping-zone-actions"><?php esc_html_e( 'Delete', 'woocommerce' ); ?></a>
+				<a class="wc-shipping-zone-action-edit" href="admin.php?page=wc-settings&amp;tab=shipping&amp;zone_id={{ data.zone_id }}"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a> | <a href="#" class="wc-shipping-zone-delete wc-shipping-zone-actions"><?php esc_html_e( 'Delete', 'poocommerce' ); ?></a>
 			</div>
 		</td>
 	</tr>
@@ -107,15 +107,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="wc-backbone-modal-content">
 			<section class="wc-backbone-modal-main" role="main">
 				<header class="wc-backbone-modal-header">
-					<h1><?php esc_html_e( 'Add shipping method', 'woocommerce' ); ?></h1>
+					<h1><?php esc_html_e( 'Add shipping method', 'poocommerce' ); ?></h1>
 					<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-						<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce' ); ?></span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'poocommerce' ); ?></span>
 					</button>
 				</header>
 				<article>
 					<form action="" method="post">
 						<div class="wc-shipping-zone-method-selector">
-							<p><?php esc_html_e( 'Choose the shipping method you wish to add. Only shipping methods which support zones are listed.', 'woocommerce' ); ?></p>
+							<p><?php esc_html_e( 'Choose the shipping method you wish to add. Only shipping methods which support zones are listed.', 'poocommerce' ); ?></p>
 
 							<select name="add_method_id">
 								<?php
@@ -133,7 +133,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</article>
 				<footer>
 					<div class="inner">
-						<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Add shipping method', 'woocommerce' ); ?></button>
+						<button id="btn-ok" class="button button-primary button-large"><?php _e( 'Add shipping method', 'poocommerce' ); ?></button>
 					</div>
 				</footer>
 			</section>

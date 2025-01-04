@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { SETTINGS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { SETTINGS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -22,24 +22,24 @@ const validateLocationForm = ( values: FormValues ) => {
 	const errors = defaultValidate( values );
 
 	if (
-		document.getElementById( 'woocommerce-store-address-form-address_1' ) &&
+		document.getElementById( 'poocommerce-store-address-form-address_1' ) &&
 		! values.addressLine1.trim().length
 	) {
-		errors.addressLine1 = __( 'Please enter an address', 'woocommerce' );
+		errors.addressLine1 = __( 'Please enter an address', 'poocommerce' );
 	}
 
 	if (
-		document.getElementById( 'woocommerce-store-address-form-postcode' ) &&
+		document.getElementById( 'poocommerce-store-address-form-postcode' ) &&
 		! values.postCode.trim().length
 	) {
-		errors.postCode = __( 'Please enter a post code', 'woocommerce' );
+		errors.postCode = __( 'Please enter a post code', 'poocommerce' );
 	}
 
 	if (
-		document.getElementById( 'woocommerce-store-address-form-city' ) &&
+		document.getElementById( 'poocommerce-store-address-form-city' ) &&
 		! values.city.trim().length
 	) {
-		errors.city = __( 'Please enter a city', 'woocommerce' );
+		errors.city = __( 'Please enter a city', 'poocommerce' );
 	}
 
 	return errors;
@@ -77,7 +77,7 @@ export const StoreLocation: React.FC< {
 				generalSettings || {},
 				Boolean(
 					document.getElementById(
-						'woocommerce-store-address-form-postcode'
+						'poocommerce-store-address-form-postcode'
 					)
 				)
 			)

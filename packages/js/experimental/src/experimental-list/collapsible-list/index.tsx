@@ -220,11 +220,11 @@ export const ExperimentalCollapsibleList: React.FC< CollapsibleListProps > = ( {
 
 	const listClasses = classnames(
 		listProps.className || '',
-		'woocommerce-experimental-list'
+		'poocommerce-experimental-list'
 	);
 
 	const wrapperClasses = classnames( {
-		'woocommerce-experimental-list-wrapper': ! isCollapsed,
+		'poocommerce-experimental-list-wrapper': ! isCollapsed,
 	} );
 
 	const hiddenChildren =
@@ -276,7 +276,7 @@ export const ExperimentalCollapsibleList: React.FC< CollapsibleListProps > = ( {
 								ref={ collapseContainerRef }
 								style={ transitionStyles }
 							>
-								<TransitionGroup className="woocommerce-experimental-list">
+								<TransitionGroup className="poocommerce-experimental-list">
 									{ Children.map(
 										displayedChildren.hidden,
 										( child ) => {
@@ -298,7 +298,7 @@ export const ExperimentalCollapsibleList: React.FC< CollapsibleListProps > = ( {
 													in={ inTransition }
 													enter={ enter }
 													exit={ exit }
-													classNames="woocommerce-list__item"
+													classNames="poocommerce-list__item"
 												>
 													{ cloneElement( child, {
 														animation:

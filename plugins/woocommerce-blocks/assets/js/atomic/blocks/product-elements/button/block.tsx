@@ -6,16 +6,16 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import {
 	useStoreEvents,
 	useStoreAddToCart,
-} from '@woocommerce/base-context/hooks';
-import { useStyleProps } from '@woocommerce/base-hooks';
+} from '@poocommerce/base-context/hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import { decodeEntities } from '@wordpress/html-entities';
-import { CART_URL } from '@woocommerce/block-settings';
-import { getSetting } from '@woocommerce/settings';
+import { CART_URL } from '@poocommerce/block-settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 
 /**
  * Internal dependencies
@@ -51,11 +51,11 @@ const AddToCartButton = ( {
 	const buttonText = addedToCart
 		? sprintf(
 				/* translators: %s number of products in cart. */
-				_n( '%d in cart', '%d in cart', cartQuantity, 'woocommerce' ),
+				_n( '%d in cart', '%d in cart', cartQuantity, 'poocommerce' ),
 				cartQuantity
 		  )
 		: decodeEntities(
-				productCartDetails?.text || __( 'Add to cart', 'woocommerce' )
+				productCartDetails?.text || __( 'Add to cart', 'poocommerce' )
 		  );
 
 	const ButtonTag = allowAddToCart ? 'button' : 'a';

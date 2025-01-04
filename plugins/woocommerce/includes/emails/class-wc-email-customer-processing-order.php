@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Processing_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Processing_Order
 	 * @version     3.5.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Processing_Order extends WC_Email {
@@ -30,8 +30,8 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 			$this->id             = 'customer_processing_order';
 			$this->customer_email = true;
 
-			$this->title          = __( 'Processing order', 'woocommerce' );
-			$this->description    = __( 'This is an order notification sent to customers containing order details after payment.', 'woocommerce' );
+			$this->title          = __( 'Processing order', 'poocommerce' );
+			$this->description    = __( 'This is an order notification sent to customers containing order details after payment.', 'poocommerce' );
 			$this->template_html  = 'emails/customer-processing-order.php';
 			$this->template_plain = 'emails/plain/customer-processing-order.php';
 			$this->placeholders   = array(
@@ -40,10 +40,10 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_cancelled_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_failed_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_on-hold_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_pending_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_cancelled_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_on-hold_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_pending_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Your {site_title} order has been received!', 'woocommerce' );
+			return __( 'Your {site_title} order has been received!', 'poocommerce' );
 		}
 
 		/**
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Thank you for your order', 'woocommerce' );
+			return __( 'Thank you for your order', 'poocommerce' );
 		}
 
 		/**
@@ -141,7 +141,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for using {site_url}!', 'woocommerce' );
+			return __( 'Thanks for using {site_url}!', 'poocommerce' );
 		}
 	}
 

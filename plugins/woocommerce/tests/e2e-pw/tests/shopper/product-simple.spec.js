@@ -3,7 +3,7 @@
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { admin } = require( '../../test-data/data' );
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const productPrice = '18.16';
@@ -66,13 +66,13 @@ test.describe(
 					],
 					images: [
 						{
-							src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
+							src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
 						},
 						{
-							src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
+							src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
 						},
 						{
-							src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
+							src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
 						},
 					],
 					regular_price: productPrice,
@@ -121,7 +121,7 @@ test.describe(
 			await page.locator( '#comment' ).fill( 'This product is great!' );
 			await page.locator( 'text=Submit' ).click();
 			await expect(
-				page.locator( '.woocommerce-Reviews-title' )
+				page.locator( '.poocommerce-Reviews-title' )
 			).toContainText( `1 review for ${ simpleProductName }` );
 			await expect( page.locator( '.reviews_tab' ) ).toContainText(
 				'Reviews (1)'
@@ -137,7 +137,7 @@ test.describe(
 				await page.goto( `product/${ simpleProductSlug }` );
 
 				expect( await page.title() ).toBe(
-					simpleProductName + ' – WooCommerce Core E2E Test Suite'
+					simpleProductName + ' – PooCommerce Core E2E Test Suite'
 				);
 
 				await page.getByRole( 'tab', { name: 'Description' } ).click();

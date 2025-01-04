@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: WooCommerce Admin SQL modification Example
+ * Plugin Name: PooCommerce Admin SQL modification Example
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
  * Make the currency settings available to the javascript client using
- * AssetDataRegistry, available in WooCommerce 3.9.
+ * AssetDataRegistry, available in PooCommerce 3.9.
  *
  * The add_currency_settings function is a most basic example, but below is
  * a more elaborate example of how one might use AssetDataRegistry in classes.
@@ -17,7 +17,7 @@
 
 	class MyClassWithAssetData {
 		private $asset_data_registry;
-		public function __construct( Automattic\WooCommerce\Blocks\AssetDataRegistry $asset_data_registry ) {
+		public function __construct( Automattic\PooCommerce\Blocks\AssetDataRegistry $asset_data_registry ) {
 			$this->asset_data_registry = $asset_data_registry;
 		}
 
@@ -29,10 +29,10 @@
 	// somewhere in the extensions bootstrap
 	class Bootstrap {
 		protected $container;
-		public function __construct( Automattic\WooCommerce\Blocks\Container $container ) {
+		public function __construct( Automattic\PooCommerce\Blocks\Container $container ) {
 			$this->container = $container;
 			$this->container->register( MyClassWithAssetData::class, function( $blocks_container ) => {
-				return new MyClassWithAssetData( $blocks_container->get( Automattic\WooCommerce\Blocks\AssetDataRegistry::class ) );
+				return new MyClassWithAssetData( $blocks_container->get( Automattic\PooCommerce\Blocks\AssetDataRegistry::class ) );
 			} );
 		}
 	}
@@ -44,21 +44,21 @@
 function add_currency_settings() {
 	$currencies = array(
 		array(
-			'label' => __( 'United States Dollar', 'woocommerce-admin' ),
+			'label' => __( 'United States Dollar', 'poocommerce-admin' ),
 			'value' => 'USD',
 		),
 		array(
-			'label' => __( 'New Zealand Dollar', 'woocommerce-admin' ),
+			'label' => __( 'New Zealand Dollar', 'poocommerce-admin' ),
 			'value' => 'NZD',
 		),
 		array(
-			'label' => __( 'South African Rand', 'woocommerce-admin' ),
+			'label' => __( 'South African Rand', 'poocommerce-admin' ),
 			'value' => 'ZAR',
 		),
 	);
 
-	$data_registry = Automattic\WooCommerce\Blocks\Package::container()->get(
-		Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry::class
+	$data_registry = Automattic\PooCommerce\Blocks\Package::container()->get(
+		Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry::class
 	);
 
 	$data_registry->add( 'multiCurrency', $currencies );
@@ -69,7 +69,7 @@ function add_currency_settings() {
  */
 function add_report_register_script() {
 
-	if ( ! class_exists( 'Automattic\WooCommerce\Admin\PageController' ) || ! \Automattic\WooCommerce\Admin\PageController::is_admin_page() ) {
+	if ( ! class_exists( 'Automattic\PooCommerce\Admin\PageController' ) || ! \Automattic\PooCommerce\Admin\PageController::is_admin_page() ) {
 		return;
 	}
 
@@ -109,21 +109,21 @@ function apply_currency_arg( $args ) {
 	return $args;
 }
 
-add_filter( 'woocommerce_analytics_revenue_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_revenue_query_args', 'apply_currency_arg' );
 
-add_filter( 'woocommerce_analytics_orders_query_args', 'apply_currency_arg' );
-add_filter( 'woocommerce_analytics_orders_stats_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_orders_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_orders_stats_query_args', 'apply_currency_arg' );
 
-add_filter( 'woocommerce_analytics_products_query_args', 'apply_currency_arg' );
-add_filter( 'woocommerce_analytics_products_stats_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_products_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_products_stats_query_args', 'apply_currency_arg' );
 
-add_filter( 'woocommerce_analytics_categories_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_categories_query_args', 'apply_currency_arg' );
 
-add_filter( 'woocommerce_analytics_coupons_query_args', 'apply_currency_arg' );
-add_filter( 'woocommerce_analytics_coupons_stats_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_coupons_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_coupons_stats_query_args', 'apply_currency_arg' );
 
-add_filter( 'woocommerce_analytics_taxes_query_args', 'apply_currency_arg' );
-add_filter( 'woocommerce_analytics_taxes_stats_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_taxes_query_args', 'apply_currency_arg' );
+add_filter( 'poocommerce_analytics_taxes_stats_query_args', 'apply_currency_arg' );
 
 /**
  * Add a JOIN clause.
@@ -139,23 +139,23 @@ function add_join_subquery( $clauses ) {
 	return $clauses;
 }
 
-add_filter( 'woocommerce_analytics_clauses_join_orders_subquery', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_orders_stats_total', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_orders_stats_interval', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_orders_subquery', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_orders_stats_total', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_orders_stats_interval', 'add_join_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_join_products_subquery', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_products_stats_total', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_products_stats_interval', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_products_subquery', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_products_stats_total', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_products_stats_interval', 'add_join_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_join_categories_subquery', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_categories_subquery', 'add_join_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_join_coupons_subquery', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_coupons_stats_total', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_coupons_stats_interval', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_coupons_subquery', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_coupons_stats_total', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_coupons_stats_interval', 'add_join_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_join_taxes_subquery', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_taxes_stats_total', 'add_join_subquery' );
-add_filter( 'woocommerce_analytics_clauses_join_taxes_stats_interval', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_taxes_subquery', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_taxes_stats_total', 'add_join_subquery' );
+add_filter( 'poocommerce_analytics_clauses_join_taxes_stats_interval', 'add_join_subquery' );
 
 /**
  * Add a WHERE clause.
@@ -176,23 +176,23 @@ function add_where_subquery( $clauses ) {
 
 	return $clauses;
 }
-add_filter( 'woocommerce_analytics_clauses_where_orders_subquery', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_orders_stats_total', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_orders_stats_interval', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_orders_subquery', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_orders_stats_total', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_orders_stats_interval', 'add_where_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_where_products_subquery', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_products_stats_total', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_products_stats_interval', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_products_subquery', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_products_stats_total', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_products_stats_interval', 'add_where_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_where_categories_subquery', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_categories_subquery', 'add_where_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_where_coupons_subquery', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_coupons_stats_total', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_coupons_stats_interval', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_coupons_subquery', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_coupons_stats_total', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_coupons_stats_interval', 'add_where_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_where_taxes_subquery', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_taxes_stats_total', 'add_where_subquery' );
-add_filter( 'woocommerce_analytics_clauses_where_taxes_stats_interval', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_taxes_subquery', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_taxes_stats_total', 'add_where_subquery' );
+add_filter( 'poocommerce_analytics_clauses_where_taxes_stats_interval', 'add_where_subquery' );
 
 /**
  * Add a SELECT clause.
@@ -206,20 +206,20 @@ function add_select_subquery( $clauses ) {
 	return $clauses;
 }
 
-add_filter( 'woocommerce_analytics_clauses_select_orders_subquery', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_orders_stats_total', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_orders_stats_interval', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_orders_subquery', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_orders_stats_total', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_orders_stats_interval', 'add_select_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_select_products_subquery', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_products_stats_total', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_products_stats_interval', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_products_subquery', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_products_stats_total', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_products_stats_interval', 'add_select_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_select_categories_subquery', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_categories_subquery', 'add_select_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_select_coupons_subquery', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_coupons_stats_total', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_coupons_stats_interval', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_coupons_subquery', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_coupons_stats_total', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_coupons_stats_interval', 'add_select_subquery' );
 
-add_filter( 'woocommerce_analytics_clauses_select_taxes_subquery', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_taxes_stats_total', 'add_select_subquery' );
-add_filter( 'woocommerce_analytics_clauses_select_taxes_stats_interval', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_taxes_subquery', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_taxes_stats_total', 'add_select_subquery' );
+add_filter( 'poocommerce_analytics_clauses_select_taxes_stats_interval', 'add_select_subquery' );

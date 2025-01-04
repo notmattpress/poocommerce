@@ -3,11 +3,11 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Products Controller Tests.
@@ -122,8 +122,8 @@ class Products extends ControllerTestCase {
 	 * Test conversion of product to rest response.
 	 */
 	public function test_prepare_item() {
-		$schemas    = new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend );
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( $schemas );
+		$schemas    = new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( $schemas );
 		$schema     = $schemas->get( 'product' );
 		$controller = $routes->get( 'products' );
 		$response   = $controller->prepare_item_for_response( $this->products[0], new \WP_REST_Request() );
@@ -150,7 +150,7 @@ class Products extends ControllerTestCase {
 	 * Test collection params getter.
 	 */
 	public function test_get_collection_params() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'products' );
 		$params     = $controller->get_collection_params();
 
@@ -188,7 +188,7 @@ class Products extends ControllerTestCase {
 	 * Test schema matches responses.
 	 */
 	public function test_get_item_schema() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'products' );
 		$schema     = $controller->get_item_schema();
 		$response   = $controller->prepare_item_for_response( $this->products[0], new \WP_REST_Request() );

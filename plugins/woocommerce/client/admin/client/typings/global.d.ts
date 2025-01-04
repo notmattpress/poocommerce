@@ -10,7 +10,7 @@ declare global {
 			currentThemeIsFSETheme: boolean;
 			countries: Record< string, string >;
 			admin: {
-				woocommerce_payments_nox_profile?: {
+				poocommerce_payments_nox_profile?: {
 					business_country_code: string;
 				};
 				wcpay_welcome_page_connect_nonce: string;
@@ -32,7 +32,7 @@ declare global {
 				};
 				preloadSettings?: {
 					general?: {
-						woocommerce_default_country: string;
+						poocommerce_default_country: string;
 					};
 				};
 				currentUserId: number;
@@ -108,7 +108,7 @@ declare global {
 		getUserSetting?: ( name: string ) => string | undefined;
 		setUserSetting?: ( name: string, value: string ) => void;
 		deleteUserSetting?: ( name: string ) => void;
-		woocommerce_admin: {
+		poocommerce_admin: {
 			ajax_url: string;
 			nonces: {
 				gateway_toggle?: string;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Utilities;
+namespace Automattic\PooCommerce\Tests\Internal\Utilities;
 
 use ActionScheduler_Logger;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use WC_Helper_Customer;
 use WC_Install;
 use WC_Unit_Test_Case;

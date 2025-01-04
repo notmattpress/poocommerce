@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { afterAll, beforeAll, describe, it } from '@woocommerce/e2e-utils';
+import { afterAll, beforeAll, describe, it } from '@poocommerce/e2e-utils';
 /**
  * Internal dependencies
  */
@@ -33,7 +33,7 @@ export const testAdminTranslations = () => {
 			await homeScreen.isDisplayed();
 			const matchMenu = async ( expected: string ) => {
 				await expect( page ).toMatchElement(
-					'.toplevel_page_woocommerce ul li.wp-first-item a',
+					'.toplevel_page_poocommerce ul li.wp-first-item a',
 					{
 						text: expected,
 					}
@@ -47,7 +47,7 @@ export const testAdminTranslations = () => {
 
 			const matchDatePickerContentButton = async ( expected: string ) => {
 				await expect( page ).toMatchElement(
-					'.woocommerce-filters-date__button-group button',
+					'.poocommerce-filters-date__button-group button',
 					{
 						text: expected,
 					}
@@ -67,13 +67,13 @@ export const testAdminTranslations = () => {
 			// Navigate to the Analytics page and test the component translation
 			await analyticsPage.navigate();
 			await analyticsPage.isDisplayed();
-			await analyticsPage.click( '.woocommerce-filters-filter button' );
+			await analyticsPage.click( '.poocommerce-filters-filter button' );
 			await matchDatePickerContentButton( 'Update' );
 
 			await switchLanguage( 'es_ES' );
 			await page.reload();
 			await analyticsPage.isDisplayed();
-			await analyticsPage.click( '.woocommerce-filters-filter button' );
+			await analyticsPage.click( '.poocommerce-filters-filter button' );
 			await matchDatePickerContentButton( 'Actualizar' );
 
 			// Rendimiento

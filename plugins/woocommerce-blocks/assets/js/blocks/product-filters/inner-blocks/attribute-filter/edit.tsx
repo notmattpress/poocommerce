@@ -4,12 +4,12 @@
 import {
 	useCollection,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import {
 	AttributeSetting,
 	AttributeTerm,
 	objectHasProp,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	useBlockProps,
 	useInnerBlocksProps,
@@ -18,7 +18,7 @@ import {
 import { withSpokenMessages } from '@wordpress/components';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import type { TemplateArray } from '@wordpress/blocks';
 
 /**
@@ -145,7 +145,7 @@ const Edit = ( props: EditProps ) => {
 							flexWrap: 'nowrap',
 						},
 						metadata: {
-							name: __( 'Header', 'woocommerce' ),
+							name: __( 'Header', 'poocommerce' ),
 						},
 						style: {
 							spacing: {
@@ -160,12 +160,12 @@ const Edit = ( props: EditProps ) => {
 								level: 4,
 								content:
 									attributeObject?.label ||
-									__( 'Attribute', 'woocommerce' ),
+									__( 'Attribute', 'poocommerce' ),
 							},
 						],
 						clearButton
 							? [
-									'woocommerce/product-filter-clear-button',
+									'poocommerce/product-filter-clear-button',
 									{
 										lock: {
 											remove: true,
@@ -199,7 +199,7 @@ const Edit = ( props: EditProps ) => {
 					<p>
 						{ __(
 							"Attributes are needed for filtering your products. You haven't created any attributes yet.",
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>
@@ -214,7 +214,7 @@ const Edit = ( props: EditProps ) => {
 					<p>
 						{ __(
 							'Please select an attribute to use this filter!',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>
@@ -229,7 +229,7 @@ const Edit = ( props: EditProps ) => {
 					<p>
 						{ __(
 							'There are no products with the selected attributes.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>

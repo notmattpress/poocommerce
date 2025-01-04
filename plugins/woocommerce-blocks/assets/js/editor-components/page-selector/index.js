@@ -23,7 +23,7 @@ const PageSelector = ( { setPageId, pageId, labels } ) => {
 		return (
 			<PanelBody title={ labels.title }>
 				<SelectControl
-					label={ __( 'Link to', 'woocommerce' ) }
+					label={ __( 'Link to', 'poocommerce' ) }
 					value={ pageId }
 					options={ [
 						{

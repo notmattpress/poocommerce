@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -25,17 +25,17 @@ const fakeTask: {
 
 beforeEach( () => {
 	fakeTask.additionalData = {
-		woocommerceTaxCountries: [ 'US' ],
+		poocommerceTaxCountries: [ 'US' ],
 	};
 
 	( useSelect as jest.Mock ).mockImplementation( () => ( {
 		generalSettings: {
-			woocommerce_default_country: 'US',
+			poocommerce_default_country: 'US',
 		},
 	} ) );
 } );
 
-const assertWooCommerceTaxIsNotRecommended = () => {
+const assertPooCommerceTaxIsNotRecommended = () => {
 	expect(
 		screen.queryByText( 'Choose a tax partner' )
 	).not.toBeInTheDocument();
@@ -47,7 +47,7 @@ const assertWooCommerceTaxIsNotRecommended = () => {
 	).toBeInTheDocument();
 };
 
-it( 'renders WooCommerce Tax (powered by WCS&T)', () => {
+it( 'renders PooCommerce Tax (powered by WCS&T)', () => {
 	render(
 		<Tax
 			onComplete={ () => {} }
@@ -59,8 +59,8 @@ it( 'renders WooCommerce Tax (powered by WCS&T)', () => {
 	expect( screen.getByText( 'Choose a tax partner' ) ).toBeInTheDocument();
 } );
 
-it( `does not render WooCommerce Tax (powered by WCS&T) if the WooCommerce Tax plugin is active`, () => {
-	fakeTask.additionalData.woocommerceTaxActivated = true;
+it( `does not render PooCommerce Tax (powered by WCS&T) if the PooCommerce Tax plugin is active`, () => {
+	fakeTask.additionalData.poocommerceTaxActivated = true;
 
 	render(
 		<Tax
@@ -70,11 +70,11 @@ it( `does not render WooCommerce Tax (powered by WCS&T) if the WooCommerce Tax p
 		/>
 	);
 
-	assertWooCommerceTaxIsNotRecommended();
+	assertPooCommerceTaxIsNotRecommended();
 } );
 
-it( `does not render WooCommerce Tax (powered by WCS&T) if the WooCommerce Shipping plugin is active`, () => {
-	fakeTask.additionalData.woocommerceShippingActivated = true;
+it( `does not render PooCommerce Tax (powered by WCS&T) if the PooCommerce Shipping plugin is active`, () => {
+	fakeTask.additionalData.poocommerceShippingActivated = true;
 
 	render(
 		<Tax
@@ -84,10 +84,10 @@ it( `does not render WooCommerce Tax (powered by WCS&T) if the WooCommerce Shipp
 		/>
 	);
 
-	assertWooCommerceTaxIsNotRecommended();
+	assertPooCommerceTaxIsNotRecommended();
 } );
 
-it( `does not render WooCommerce Tax (powered by WCS&T) if the TaxJar plugin is active`, () => {
+it( `does not render PooCommerce Tax (powered by WCS&T) if the TaxJar plugin is active`, () => {
 	fakeTask.additionalData.taxJarActivated = true;
 
 	render(
@@ -98,12 +98,12 @@ it( `does not render WooCommerce Tax (powered by WCS&T) if the TaxJar plugin is 
 		/>
 	);
 
-	assertWooCommerceTaxIsNotRecommended();
+	assertPooCommerceTaxIsNotRecommended();
 } );
 
-it( 'does not render WooCommerce Tax (powered by WCS&T) if not in a supported country', () => {
+it( 'does not render PooCommerce Tax (powered by WCS&T) if not in a supported country', () => {
 	( useSelect as jest.Mock ).mockReturnValue( {
-		generalSettings: { woocommerce_default_country: 'FOO' },
+		generalSettings: { poocommerce_default_country: 'FOO' },
 	} );
 
 	render(
@@ -114,5 +114,5 @@ it( 'does not render WooCommerce Tax (powered by WCS&T) if not in a supported co
 		/>
 	);
 
-	assertWooCommerceTaxIsNotRecommended();
+	assertPooCommerceTaxIsNotRecommended();
 } );

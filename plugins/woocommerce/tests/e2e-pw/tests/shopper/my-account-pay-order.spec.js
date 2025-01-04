@@ -3,13 +3,13 @@
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const randomNum = new Date().getTime().toString();
 const customer = {
 	username: `customer${ randomNum }`,
 	password: 'password',
-	email: `customer${ randomNum }@woocommercecoree2etestsuite.com`,
+	email: `customer${ randomNum }@poocommercecoree2etestsuite.com`,
 };
 
 test.describe(

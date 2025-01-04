@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getSetting, STORE_PAGES } from '@woocommerce/settings';
-import { CountryData } from '@woocommerce/types';
+import { getSetting, STORE_PAGES } from '@poocommerce/settings';
+import { CountryData } from '@poocommerce/types';
 
 export type WordCountType =
 	| 'words'

@@ -57,7 +57,7 @@ const CategoryMetabox: React.FC< {
 							}
 						} }
 					>
-						{ __( 'All items', 'woocommerce' ) }
+						{ __( 'All items', 'poocommerce' ) }
 					</a>
 				</li>
 				<li
@@ -83,7 +83,7 @@ const CategoryMetabox: React.FC< {
 							}
 						} }
 					>
-						{ __( 'Most used', 'woocommerce' ) }
+						{ __( 'Most used', 'poocommerce' ) }
 					</a>
 				</li>
 			</ul>

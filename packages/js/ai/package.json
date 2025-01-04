@@ -1,20 +1,20 @@
 {
-	"name": "@woocommerce/ai",
+	"name": "@poocommerce/ai",
 	"version": "0.1.0-beta.0",
-	"description": "Utilities for usage in AI features across WooCommerce.",
+	"description": "Utilities for usage in AI features across PooCommerce.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce"
+		"poocommerce"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/ai/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/ai/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
@@ -75,9 +75,9 @@
 		"@types/react": "18.3.x",
 		"@types/testing-library__jest-dom": "^5.14.9",
 		"@types/wordpress__core-data": "2.4.5",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
-		"@woocommerce/internal-style-build": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/internal-style-build": "workspace:*",
 		"@wordpress/browserslist-config": "wp-6.6",
 		"concurrently": "^7.6.0",
 		"copy-webpack-plugin": "^9.1.0",
@@ -196,14 +196,14 @@
 		"dependencyOutputs": {
 			"allowUsuallyExcludedPaths": true,
 			"files": [
-				"node_modules/@woocommerce/internal-style-build/index.js",
-				"node_modules/@woocommerce/internal-style-build/abstracts",
-				"node_modules/@woocommerce/internal-js-tests/build",
-				"node_modules/@woocommerce/internal-js-tests/build-module",
-				"node_modules/@woocommerce/internal-js-tests/jest-preset.js",
-				"node_modules/@woocommerce/eslint-plugin/configs",
-				"node_modules/@woocommerce/eslint-plugin/rules",
-				"node_modules/@woocommerce/eslint-plugin/index.js",
+				"node_modules/@poocommerce/internal-style-build/index.js",
+				"node_modules/@poocommerce/internal-style-build/abstracts",
+				"node_modules/@poocommerce/internal-js-tests/build",
+				"node_modules/@poocommerce/internal-js-tests/build-module",
+				"node_modules/@poocommerce/internal-js-tests/jest-preset.js",
+				"node_modules/@poocommerce/eslint-plugin/configs",
+				"node_modules/@poocommerce/eslint-plugin/rules",
+				"node_modules/@poocommerce/eslint-plugin/index.js",
 				"package.json"
 			]
 		}

@@ -9,7 +9,7 @@ import {
 	insertBlockByShortcut,
 	goToPageEditor,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 const simpleProductName = 'Single Simple Product';
 const simpleProductDesc = 'Lorem ipsum dolor sit amet.';
@@ -37,7 +37,7 @@ test.describe(
 		test.beforeAll( async ( { api, baseURL } ) => {
 			await setComingSoon( { baseURL, enabled: 'no' } );
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 			// add 3 products

@@ -2,22 +2,22 @@
 /**
  * Order details
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/order/order-details.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/order/order-details.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @version 9.6.0
  *
  * @var bool $show_downloads Controls whether the downloads table should be rendered.
  */
 
- // phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+ // phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,8 +27,8 @@ if ( ! $order ) {
 	return;
 }
 
-$order_items        = $order->get_items( apply_filters( 'woocommerce_purchase_order_item_types', 'line_item' ) );
-$show_purchase_note = $order->has_status( apply_filters( 'woocommerce_purchase_note_order_statuses', array( 'completed', 'processing' ) ) );
+$order_items        = $order->get_items( apply_filters( 'poocommerce_purchase_order_item_types', 'line_item' ) );
+$show_purchase_note = $order->has_status( apply_filters( 'poocommerce_purchase_note_order_statuses', array( 'completed', 'processing' ) ) );
 $downloads          = $order->get_downloadable_items();
 $actions            = array_filter(
 	wc_get_account_orders_actions( $order ),
@@ -50,23 +50,23 @@ if ( $show_downloads ) {
 	);
 }
 ?>
-<section class="woocommerce-order-details">
-	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
+<section class="poocommerce-order-details">
+	<?php do_action( 'poocommerce_order_details_before_order_table', $order ); ?>
 
-	<h2 class="woocommerce-order-details__title"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
+	<h2 class="poocommerce-order-details__title"><?php esc_html_e( 'Order details', 'poocommerce' ); ?></h2>
 
-	<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
+	<table class="poocommerce-table poocommerce-table--order-details shop_table order_details">
 
 		<thead>
 			<tr>
-				<th class="woocommerce-table__product-name product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-				<th class="woocommerce-table__product-table product-total"><?php esc_html_e( 'Total', 'woocommerce' ); ?></th>
+				<th class="poocommerce-table__product-name product-name"><?php esc_html_e( 'Product', 'poocommerce' ); ?></th>
+				<th class="poocommerce-table__product-table product-total"><?php esc_html_e( 'Total', 'poocommerce' ); ?></th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<?php
-			do_action( 'woocommerce_order_details_before_order_table_items', $order );
+			do_action( 'poocommerce_order_details_before_order_table_items', $order );
 
 			foreach ( $order_items as $item_id => $item ) {
 				$product = $item->get_product();
@@ -84,7 +84,7 @@ if ( $show_downloads ) {
 				);
 			}
 
-			do_action( 'woocommerce_order_details_after_order_table_items', $order );
+			do_action( 'poocommerce_order_details_after_order_table_items', $order );
 			?>
 		</tbody>
 
@@ -93,7 +93,7 @@ if ( $show_downloads ) {
 			?>
 		<tfoot>
 			<tr>
-				<th class="order-actions--heading"><?php esc_html_e( 'Actions', 'woocommerce' ); ?>:</th>
+				<th class="order-actions--heading"><?php esc_html_e( 'Actions', 'poocommerce' ); ?>:</th>
 				<td>
 						<?php
 						$wp_button_class = wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '';
@@ -101,11 +101,11 @@ if ( $show_downloads ) {
 							if ( empty( $action['aria-label'] ) ) {
 								// Generate the aria-label based on the action name.
 								/* translators: %1$s Action name, %2$s Order number. */
-								$action_aria_label = sprintf( __( '%1$s order number %2$s', 'woocommerce' ), $action['name'], $order->get_order_number() );
+								$action_aria_label = sprintf( __( '%1$s order number %2$s', 'poocommerce' ), $action['name'], $order->get_order_number() );
 							} else {
 								$action_aria_label = $action['aria-label'];
 							}
-								echo '<a href="' . esc_url( $action['url'] ) . '" class="woocommerce-button' . esc_attr( $wp_button_class ) . ' button ' . sanitize_html_class( $key ) . ' order-actions-button " aria-label="' . esc_attr( $action_aria_label ) . '">' . esc_html( $action['name'] ) . '</a>';
+								echo '<a href="' . esc_url( $action['url'] ) . '" class="poocommerce-button' . esc_attr( $wp_button_class ) . ' button ' . sanitize_html_class( $key ) . ' order-actions-button " aria-label="' . esc_attr( $action_aria_label ) . '">' . esc_html( $action['name'] ) . '</a>';
 								unset( $action_aria_label );
 						}
 						?>
@@ -126,14 +126,14 @@ if ( $show_downloads ) {
 			?>
 			<?php if ( $order->get_customer_note() ) : ?>
 				<tr>
-					<th><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Note:', 'poocommerce' ); ?></th>
 					<td><?php echo wp_kses( nl2br( wptexturize( $order->get_customer_note() ) ), array() ); ?></td>
 				</tr>
 			<?php endif; ?>
 		</tfoot>
 	</table>
 
-	<?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
+	<?php do_action( 'poocommerce_order_details_after_order_table', $order ); ?>
 </section>
 
 <?php
@@ -143,7 +143,7 @@ if ( $show_downloads ) {
  * @since 4.4.0
  * @param WC_Order $order Order data.
  */
-do_action( 'woocommerce_after_order_details', $order );
+do_action( 'poocommerce_after_order_details', $order );
 
 if ( $show_customer_details ) {
 	wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );

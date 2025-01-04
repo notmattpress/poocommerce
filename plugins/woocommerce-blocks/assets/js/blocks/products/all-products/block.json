@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"textdomain": "woocommerce",
-	"name": "woocommerce/all-products",
+	"textdomain": "poocommerce",
+	"name": "poocommerce/all-products",
 	"title": "All Products",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Display products from your store in a grid layout.",
 	"supports": {

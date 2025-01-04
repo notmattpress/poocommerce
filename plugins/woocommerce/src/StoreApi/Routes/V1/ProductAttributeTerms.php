@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * ProductAttributeTerms class.
@@ -41,7 +41,7 @@ class ProductAttributeTerms extends AbstractTermsRoute {
 		return [
 			'args'   => array(
 				'attribute_id' => array(
-					'description' => __( 'Unique identifier for the attribute.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the attribute.', 'poocommerce' ),
 					'type'        => 'integer',
 				),
 			),
@@ -79,7 +79,7 @@ class ProductAttributeTerms extends AbstractTermsRoute {
 		$attribute = wc_get_attribute( $request['attribute_id'] );
 
 		if ( ! $attribute || ! taxonomy_exists( $attribute->slug ) ) {
-			throw new RouteException( 'woocommerce_rest_taxonomy_invalid', __( 'Attribute does not exist.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_taxonomy_invalid', __( 'Attribute does not exist.', 'poocommerce' ), 404 );
 		}
 
 		return $this->get_terms_response( $attribute->slug, $request );

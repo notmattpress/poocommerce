@@ -103,7 +103,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 	} );
 
 	test( 'can individually edit variations', async ( { page } ) => {
-		const variationRows = page.locator( '.woocommerce_variation' );
+		const variationRows = page.locator( '.poocommerce_variation' );
 		const firstVariation = variationRows.filter( {
 			hasText: `#${ variationIds_indivEdit[ 0 ] }`,
 		} );
@@ -344,7 +344,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 
 		await test.step( 'Expect that there are no more variations.', async () => {
 			await expect(
-				page.locator( '.woocommerce_variation' )
+				page.locator( '.poocommerce_variation' )
 			).toHaveCount( 0 );
 		} );
 	} );
@@ -365,7 +365,7 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 		} );
 
 		const variationContainer = page.locator(
-			'.woocommerce_variations .woocommerce_variation'
+			'.poocommerce_variations .poocommerce_variation'
 		);
 
 		await test.step( 'Check the "Manage stock?" box', async () => {
@@ -508,13 +508,13 @@ test.describe( 'Update variations', { tag: tags.GUTENBERG }, () => {
 
 		await test.step( 'Click "Remove" on a variation', async () => {
 			page.on( 'dialog', ( dialog ) => dialog.accept() );
-			await page.locator( '.woocommerce_variation' ).hover();
+			await page.locator( '.poocommerce_variation' ).hover();
 			await page.locator( '.remove_variation.delete' ).click();
 		} );
 
 		await test.step( 'Expect the variation to be removed', async () => {
 			await expect(
-				page.locator( '.woocommerce_variation' )
+				page.locator( '.poocommerce_variation' )
 			).toHaveCount( 0 );
 		} );
 	} );

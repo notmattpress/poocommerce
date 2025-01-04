@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Order } from '@woocommerce/api';
+import { Order } from '@poocommerce/api';
 /**
  * Internal dependencies
  */

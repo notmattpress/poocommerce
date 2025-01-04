@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { difference } from 'lodash';
 import { useEffect, useState } from '@wordpress/element';
-import { Stepper } from '@woocommerce/components';
+import { Stepper } from '@poocommerce/components';
 import { Card, CardBody, Button } from '@wordpress/components';
 
 /**
@@ -20,7 +20,7 @@ import { redirectToWCSSettings } from './utils';
 /**
  * Plugins required to automate shipping.
  */
-const AUTOMATION_PLUGINS = [ 'woocommerce-services' ];
+const AUTOMATION_PLUGINS = [ 'poocommerce-services' ];
 
 export const ShippingRecommendation: React.FC<
 	TaskProps & ShippingRecommendationProps
@@ -79,10 +79,10 @@ export const ShippingRecommendation: React.FC<
 	const steps = [
 		{
 			key: 'store_location',
-			label: __( 'Set store location', 'woocommerce' ),
+			label: __( 'Set store location', 'poocommerce' ),
 			description: __(
 				'The address from which your business operates',
-				'woocommerce'
+				'poocommerce'
 			),
 			content: (
 				<StoreLocation
@@ -94,10 +94,10 @@ export const ShippingRecommendation: React.FC<
 		},
 		{
 			key: 'plugins',
-			label: __( 'Install WooCommerce Shipping', 'woocommerce' ),
+			label: __( 'Install PooCommerce Shipping', 'poocommerce' ),
 			description: __(
 				'Enable shipping label printing and discounted rates',
-				'woocommerce'
+				'poocommerce'
 			),
 			content: (
 				<div>
@@ -111,14 +111,14 @@ export const ShippingRecommendation: React.FC<
 		},
 		{
 			key: 'connect',
-			label: __( 'Connect your store', 'woocommerce' ),
+			label: __( 'Connect your store', 'poocommerce' ),
 			description: __(
-				'Connect your store to WordPress.com to enable WooCommerce Shipping',
-				'woocommerce'
+				'Connect your store to WordPress.com to enable PooCommerce Shipping',
+				'poocommerce'
 			),
 			content: isJetpackConnected ? (
 				<Button onClick={ redirect } isBusy={ isRedirecting } isPrimary>
-					{ __( 'Complete task', 'woocommerce' ) }
+					{ __( 'Complete task', 'poocommerce' ) }
 				</Button>
 			) : (
 				<Connect />
@@ -129,8 +129,8 @@ export const ShippingRecommendation: React.FC<
 	const step = steps[ stepIndex ];
 
 	return (
-		<div className="woocommerce-task-shipping-recommendation">
-			<Card className="woocommerce-task-card">
+		<div className="poocommerce-task-shipping-recommendation">
+			<Card className="poocommerce-task-card">
 				<CardBody>
 					<Stepper
 						isPending={ isResolving }

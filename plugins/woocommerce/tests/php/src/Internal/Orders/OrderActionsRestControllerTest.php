@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Orders\OrderActionsRestController;
+use Automattic\PooCommerce\Internal\Orders\OrderActionsRestController;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -73,7 +73,7 @@ class OrderActionsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 404, $response->get_status() );
 
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_not_found', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_not_found', $data['code'] );
 		$this->assertEquals( 'Order not found', $data['message'] );
 	}
 
@@ -161,7 +161,7 @@ class OrderActionsRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertEquals( 400, $response->get_status() );
 
 		$data = $response->get_data();
-		$this->assertEquals( 'woocommerce_rest_missing_email', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_missing_email', $data['code'] );
 		$this->assertEquals( 'Order does not have an email address.', $data['message'] );
 	}
 }

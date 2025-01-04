@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/featured-category",
+	"name": "poocommerce/featured-category",
 	"version": "1.0.0",
 	"title": "Featured Category",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Visually highlight a product category and encourage prompt action.",
 	"supports": {
@@ -102,7 +102,7 @@
 			"default": true
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

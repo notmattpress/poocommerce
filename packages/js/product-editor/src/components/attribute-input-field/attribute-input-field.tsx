@@ -6,7 +6,7 @@ import { createElement } from '@wordpress/element';
 import {
 	__experimentalSelectControl as SelectControl,
 	__experimentalSelectControlMenu as Menu,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -64,7 +64,7 @@ export const AttributeInputField: React.FC< AttributeInputFieldProps > = ( {
 
 	return (
 		<SelectControl< AttributeInputFieldItemProps >
-			className="woocommerce-attribute-input-field"
+			className="poocommerce-attribute-input-field"
 			items={ items }
 			label={ label || '' }
 			disabled={ disabled }

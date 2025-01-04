@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TourKit, TourKitTypes } from '@woocommerce/components';
+import { TourKit, TourKitTypes } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
@@ -11,31 +11,31 @@ import {
 	useRef,
 	createPortal,
 } from '@wordpress/element';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 /**
  * Internal dependencies
  */
 import { getCountryCode } from '~/dashboard/utils';
 
 const REVIEWED_DEFAULTS_OPTION =
-	'woocommerce_admin_reviewed_default_shipping_zones';
+	'poocommerce_admin_reviewed_default_shipping_zones';
 
 const CREATED_DEFAULTS_OPTION =
-	'woocommerce_admin_created_default_shipping_zones';
+	'poocommerce_admin_created_default_shipping_zones';
 
 const FLOATER_WRAPPER_CLASS =
-	'woocommerce-settings-shipping-tour-floater-wrapper';
+	'poocommerce-settings-shipping-tour-floater-wrapper';
 
 const FLOATER_CLASS =
-	'woocommerce-settings-smart-defaults-shipping-tour-floater';
+	'poocommerce-settings-smart-defaults-shipping-tour-floater';
 
 const SHIPPING_ZONES_SETTINGS_TABLE_CLASS = 'table.wc-shipping-zones';
 
-const WCS_LINK_SELECTOR = 'a[href*="woocommerce-services-settings"]';
+const WCS_LINK_SELECTOR = 'a[href*="poocommerce-services-settings"]';
 
 const SHIPPING_RECOMMENDATIONS_SELECTOR =
-	'div.woocommerce-recommended-shipping-extensions';
+	'div.poocommerce-recommended-shipping-extensions';
 
 const useShowShippingTour = () => {
 	const {
@@ -56,14 +56,14 @@ const useShowShippingTour = () => {
 					REVIEWED_DEFAULTS_OPTION,
 				] ) &&
 				! hasFinishedResolution( 'getOption', [
-					'woocommerce_default_country',
+					'poocommerce_default_country',
 				] ),
 			hasCreatedDefaultShippingZones:
 				getOption( CREATED_DEFAULTS_OPTION ) === 'yes',
 			hasReviewedDefaultShippingOptions:
 				getOption( REVIEWED_DEFAULTS_OPTION ) === 'yes',
 			businessCountry: getCountryCode(
-				getOption( 'woocommerce_default_country' ) as string
+				getOption( 'poocommerce_default_country' ) as string
 			),
 		};
 	} );
@@ -258,21 +258,21 @@ export const ShippingTour: React.FC< {
 				},
 				meta: {
 					name: 'shipping-zones',
-					heading: __( 'Shipping zones', 'woocommerce' ),
+					heading: __( 'Shipping zones', 'poocommerce' ),
 					descriptions: {
 						desktop: (
 							<>
 								<span>
 									{ __(
 										'Specify the areas you’d like to ship to! Give each zone a name, then list the regions you’d like to include. Your regions can be as specific as a zip code or as broad as a country. Shoppers will only see the methods available in their region.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</span>
 								<br />
 								<span>
 									{ __(
 										'We’ve added some shipping zones to get you started — you can manage them by selecting Edit or Delete.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</span>
 							</>
@@ -286,21 +286,21 @@ export const ShippingTour: React.FC< {
 				},
 				meta: {
 					name: 'shipping-methods',
-					heading: __( 'Shipping methods', 'woocommerce' ),
+					heading: __( 'Shipping methods', 'poocommerce' ),
 					descriptions: {
 						desktop: (
 							<>
 								<span>
 									{ __(
 										'Add one or more shipping methods you’d like to offer to shoppers in your zones.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</span>
 								<br />
 								<span>
 									{ __(
 										'For example, we’ve added the “Free shipping” method for shoppers in your country. You can edit, add to, or remove shipping methods by selecting Edit or Delete.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</span>
 							</>
@@ -319,7 +319,7 @@ export const ShippingTour: React.FC< {
 					'error',
 					__(
 						'There was a problem marking the shipping tour as completed.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 				recordEvent(
@@ -345,12 +345,12 @@ export const ShippingTour: React.FC< {
 				desktop: WCS_LINK_SELECTOR,
 			},
 			meta: {
-				name: 'woocommerce-shipping',
-				heading: __( 'WooCommerce Shipping', 'woocommerce' ),
+				name: 'poocommerce-shipping',
+				heading: __( 'PooCommerce Shipping', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
-						'Print USPS and DHL labels straight from your Woo dashboard and save on shipping thanks to discounted rates. You can manage WooCommerce Shipping in this section.',
-						'woocommerce'
+						'Print USPS and DHL labels straight from your Woo dashboard and save on shipping thanks to discounted rates. You can manage PooCommerce Shipping in this section.',
+						'poocommerce'
 					),
 				},
 			},
@@ -364,11 +364,11 @@ export const ShippingTour: React.FC< {
 			},
 			meta: {
 				name: 'shipping-recommendations',
-				heading: __( 'WooCommerce Shipping', 'woocommerce' ),
+				heading: __( 'PooCommerce Shipping', 'poocommerce' ),
 				descriptions: {
 					desktop: __(
-						'If you’d like to speed up your process and print your shipping label straight from your Woo dashboard, WooCommerce Shipping may be for you! ',
-						'woocommerce'
+						'If you’d like to speed up your process and print your shipping label straight from your Woo dashboard, PooCommerce Shipping may be for you! ',
+						'poocommerce'
 					),
 				},
 			},

@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Notice, Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, select } from '@wordpress/data';
-import { findBlock } from '@woocommerce/utils';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -29,10 +29,10 @@ const downgradeToClassicAddToCartWithOptions = ( blockClientId: string ) => {
 		blocks,
 		findCondition: ( block ) =>
 			block.name ===
-			'woocommerce/add-to-cart-with-options-quantity-selector',
+			'poocommerce/add-to-cart-with-options-quantity-selector',
 	} );
 
-	const newBlock = createBlock( 'woocommerce/add-to-cart-form', {
+	const newBlock = createBlock( 'poocommerce/add-to-cart-form', {
 		quantitySelectorStyle:
 			foundQuantitySelectorBlock?.attributes?.quantitySelectorStyle ||
 			'input',
@@ -53,10 +53,10 @@ export const DowngradeNotice = ( {
 } ) => {
 	const notice = __(
 		'Switch back to the classic Add to Cart with Options block.',
-		'woocommerce'
+		'poocommerce'
 	);
 
-	const buttonLabel = __( 'Switch back', 'woocommerce' );
+	const buttonLabel = __( 'Switch back', 'poocommerce' );
 
 	const handleClick = async () => {
 		const downgraded = await downgradeToClassicAddToCartWithOptions(

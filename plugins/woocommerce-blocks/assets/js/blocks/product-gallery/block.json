@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-gallery",
+	"name": "poocommerce/product-gallery",
 	"version": "1.0.0",
 	"title": "Product Gallery (Beta)",
 	"description": "Showcase your products relevant images and media.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"align": true,
 		"interactivity": true
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"usesContext": [ "postId" ],
 	"providesContext": {
 		"thumbnailsPosition": "thumbnailsPosition",
@@ -24,7 +24,7 @@
 		"mode": "mode",
 		"cropImages": "cropImages"
 	},
-	"ancestor": [ "woocommerce/single-product" ],
+	"ancestor": [ "poocommerce/single-product" ],
 	"attributes": {
 		"thumbnailsPosition": {
 			"type": "string",

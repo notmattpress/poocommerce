@@ -46,7 +46,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_customize_store_onboarding_tour_hidden',
+					'poocommerce_customize_store_onboarding_tour_hidden',
 					'yes'
 				);
 			} catch ( error ) {
@@ -60,13 +60,13 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_customize_store_onboarding_tour_hidden',
+					'poocommerce_customize_store_onboarding_tour_hidden',
 					'no'
 				);
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'no'
 				);
 
@@ -93,7 +93,7 @@ test.describe(
 			const assembler = await assemblerPageObject.getAssembler();
 
 			const colorPickers = assembler.locator(
-				'.woocommerce-customize-store_global-styles-variations_item'
+				'.poocommerce-customize-store_global-styles-variations_item'
 			);
 			await expect( colorPickers ).toHaveCount( 18 );
 		} );
@@ -195,7 +195,7 @@ test.describe(
 			}
 
 			// Check that the headers in the cover block are white text.
-			// See: https://github.com/woocommerce/woocommerce/pull/48447
+			// See: https://github.com/poocommerce/poocommerce/pull/48447
 			for ( const element of headersInCoverBlock ) {
 				expect( element.color ).toEqual( 'rgb(255, 255, 255)' );
 			}
@@ -211,7 +211,7 @@ test.describe(
 			const assembler = await assemblerPageObject.getAssembler();
 			const colorPicker = assembler
 				.locator(
-					'.woocommerce-customize-store_global-styles-variations_item'
+					'.poocommerce-customize-store_global-styles-variations_item'
 				)
 				.first();
 
@@ -226,7 +226,7 @@ test.describe(
 				const assembler = await assemblerPageObject.getAssembler();
 				const colorPicker = assembler
 					.locator(
-						'.woocommerce-customize-store_global-styles-variations_item'
+						'.poocommerce-customize-store_global-styles-variations_item'
 					)
 					.last();
 
@@ -397,7 +397,7 @@ test.describe(
 				for ( const type of Object.keys( mapTypeFeatures ) ) {
 					await assembler
 						.locator(
-							'.woocommerce-customize-store__color-panel-container'
+							'.poocommerce-customize-store__color-panel-container'
 						)
 						.getByText( type )
 						.click();

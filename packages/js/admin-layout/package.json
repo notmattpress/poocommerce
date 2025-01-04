@@ -1,20 +1,20 @@
 {
-	"name": "@woocommerce/admin-layout",
+	"name": "@poocommerce/admin-layout",
 	"version": "1.1.0",
-	"description": "WooCommerce admin layout copmonents and utilities.",
+	"description": "PooCommerce admin layout copmonents and utilities.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce"
+		"poocommerce"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/admin-layout/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/admin-layout/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
@@ -52,15 +52,15 @@
 		"watch:build:project:esm": "wireit"
 	},
 	"dependencies": {
-		"@woocommerce/components": "workspace:*",
+		"@poocommerce/components": "workspace:*",
 		"@wordpress/components": "wp-6.6",
 		"@wordpress/element": "wp-6.6"
 	},
 	"devDependencies": {
 		"@types/react": "18.3.x",
 		"@types/wordpress__components": "^19.10.5",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-style-build": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-style-build": "workspace:*",
 		"@wordpress/browserslist-config": "wp-6.6",
 		"concurrently": "^7.6.0",
 		"css-loader": "^3.6.0",
@@ -158,15 +158,15 @@
 		"dependencyOutputs": {
 			"allowUsuallyExcludedPaths": true,
 			"files": [
-				"node_modules/@woocommerce/internal-style-build/index.js",
-				"node_modules/@woocommerce/internal-style-build/abstracts",
-				"node_modules/@woocommerce/eslint-plugin/configs",
-				"node_modules/@woocommerce/eslint-plugin/rules",
-				"node_modules/@woocommerce/eslint-plugin/index.js",
-				"node_modules/@woocommerce/components/build",
-				"node_modules/@woocommerce/components/build-module",
-				"node_modules/@woocommerce/components/build-style",
-				"node_modules/@woocommerce/components/build-types",
+				"node_modules/@poocommerce/internal-style-build/index.js",
+				"node_modules/@poocommerce/internal-style-build/abstracts",
+				"node_modules/@poocommerce/eslint-plugin/configs",
+				"node_modules/@poocommerce/eslint-plugin/rules",
+				"node_modules/@poocommerce/eslint-plugin/index.js",
+				"node_modules/@poocommerce/components/build",
+				"node_modules/@poocommerce/components/build-module",
+				"node_modules/@poocommerce/components/build-style",
+				"node_modules/@poocommerce/components/build-types",
 				"package.json"
 			]
 		}

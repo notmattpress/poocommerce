@@ -8,7 +8,7 @@ import { createElement, forwardRef, useContext } from '@wordpress/element';
 import { redo as redoIcon, undo as undoIcon } from '@wordpress/icons';
 import { Ref } from 'react';
 // @ts-expect-error missing types.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { displayShortcut, isAppleOS } from '@wordpress/keycodes';
 
 /**
@@ -32,7 +32,7 @@ function EditorHistoryRedo(
 			ref={ ref }
 			icon={ ! isRTL() ? redoIcon : undoIcon }
 			/* translators: button label text should, if possible, be under 16 characters. */
-			label={ __( 'Redo', 'woocommerce' ) }
+			label={ __( 'Redo', 'poocommerce' ) }
 			shortcut={ shortcut }
 			// If there are no redo levels we don't want to actually disable this
 			// button, because it will remove focus for keyboard users.

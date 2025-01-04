@@ -1,4 +1,4 @@
-.woocommerce-woopayments-payment-methods-logos {
+.poocommerce-woopayments-payment-methods-logos {
 	display: flex;
 	align-items: center;
 	padding: $gap-small 0;
@@ -24,8 +24,8 @@
 	}
 }
 
-.wc_payment_gateways_wrapper [data-gateway_id="pre_install_woocommerce_payments_promotion"] {
-	.woocommerce-woopayments-payment-methods-logos {
+.wc_payment_gateways_wrapper [data-gateway_id="pre_install_poocommerce_payments_promotion"] {
+	.poocommerce-woopayments-payment-methods-logos {
 		padding: 0;
 	}
 

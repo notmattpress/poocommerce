@@ -7,9 +7,9 @@ import {
 	CART_STORE_KEY,
 	CHECKOUT_STORE_KEY,
 	processErrorResponse,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { useDebounce } from 'use-debounce';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import {
 	CartItem,
 	StoreCartItemQuantity,
@@ -17,7 +17,7 @@ import {
 	isObject,
 	isString,
 	objectHasProp,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ const cartItemHasQuantityAndKey = (
 /**
  * This is a custom hook for loading the Store API /cart/ endpoint and actions for removing or changing item quantity.
  *
- * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/trunk/src/RestApi/StoreApi
+ * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/tree/trunk/src/RestApi/StoreApi
  *
  * @param {CartItem} cartItem The cartItem to get quantity info from and will have quantity updated on.
  * @return {StoreCartItemQuantity} An object exposing data and actions relating to cart items.

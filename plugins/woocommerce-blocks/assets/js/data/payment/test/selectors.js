@@ -3,18 +3,18 @@
  */
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import * as wpDataFunctions from '@wordpress/data';
 import {
 	CART_STORE_KEY as storeKey,
 	PAYMENT_STORE_KEY,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import {
 	registerPaymentMethod,
 	registerExpressPaymentMethod,
 	__experimentalDeRegisterPaymentMethod,
 	__experimentalDeRegisterExpressPaymentMethod,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import { default as fetchMock } from 'jest-fetch-mock';
 
 /**
@@ -50,12 +50,12 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => {
-	const originalModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const originalModule = jest.requireActual( '@poocommerce/settings' );
 
 	return {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore We know @woocommerce/settings is an object.
+		// @ts-ignore We know @poocommerce/settings is an object.
 		...originalModule,
 		getSetting: ( setting, ...rest ) => {
 			if ( setting === 'customerPaymentMethods' ) {

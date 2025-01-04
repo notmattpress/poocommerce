@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
 use WC_Rate_Limiter;
 use WC_Cache_Helper;
@@ -187,7 +187,7 @@ class RateLimits extends WC_Rate_Limiter {
 	}
 
 	/**
-	 * Return options for Rate Limits, to be returned by the "woocommerce_store_api_rate_limit_options" filter.
+	 * Return options for Rate Limits, to be returned by the "poocommerce_store_api_rate_limit_options" filter.
 	 *
 	 * @return object Default options.
 	 */
@@ -223,7 +223,7 @@ class RateLimits extends WC_Rate_Limiter {
 			 * @since 8.9.0
 			 */
 			apply_filters(
-				'woocommerce_store_api_rate_limit_options',
+				'poocommerce_store_api_rate_limit_options',
 				$default_options
 			)
 		);

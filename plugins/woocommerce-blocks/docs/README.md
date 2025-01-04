@@ -1,4 +1,4 @@
-# WooCommerce Blocks Handbook <!-- omit in toc -->
+# PooCommerce Blocks Handbook <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -12,11 +12,11 @@
     -   [Articles](#articles)
     -   [Tutorials](#tutorials)
 
-The WooCommerce Blocks Handbook provides documentation for designers and developers on how to extend or contribute to blocks, and how internal developers should handle new releases.
+The PooCommerce Blocks Handbook provides documentation for designers and developers on how to extend or contribute to blocks, and how internal developers should handle new releases.
 
 ## Contributors
 
-> Want to contribute to the WooCommerce Blocks plugin? The following documents offer information that can help you get started.
+> Want to contribute to the PooCommerce Blocks plugin? The following documents offer information that can help you get started.
 
 -   [Contributing](contributors/README.md)
     -   [Getting Started](contributors/getting-started.md)
@@ -49,7 +49,7 @@ The WooCommerce Blocks Handbook provides documentation for designers and develop
     -   [Tag](../assets/js/editor-components/tag/README.md)
     -   [TextToolbarButton](../assets/js/editor-components/text-toolbar-button/README.md)
 -   [Icons](../assets/js/icons/README.md)
--   [Store API (REST API)](../../woocommerce/src/StoreApi/README.md)
+-   [Store API (REST API)](../../poocommerce/src/StoreApi/README.md)
 -   [Storybook](../storybook/README.md)
 -   [Templates](internal-developers/templates/README.md)
     -   [BlockTemplateController.php](internal-developers/templates/block-template-controller.md)
@@ -79,7 +79,7 @@ The WooCommerce Blocks Handbook provides documentation for designers and develop
 
 ## Third-party developers
 
-> Are you a third-party developer? The following documents explain how to extend the WooCommerce Blocks plugin with your custom extension.
+> Are you a third-party developer? The following documents explain how to extend the PooCommerce Blocks plugin with your custom extension.
 
 -   [Extensibility](third-party-developers/extensibility/README.md)
     -   Hooks
@@ -109,7 +109,7 @@ The WooCommerce Blocks Handbook provides documentation for designers and develop
 
 ## Designers and theme developers
 
-> The following document explains how to to create block themes that work in WooCommerce and how to customize the styles of WooCommerce blocks.
+> The following document explains how to to create block themes that work in PooCommerce and how to customize the styles of PooCommerce blocks.
 
 -   [Theming](/docs/block-theme-development/theming-woo-blocks.md)
 
@@ -121,32 +121,32 @@ The WooCommerce Blocks Handbook provides documentation for designers and develop
 
 ### Tools
 
--   [@woocommerce/extend-cart-checkout-block](https://www.npmjs.com/package/@woocommerce/extend-cart-checkout-block) This is a template to be used with @wordpress/create-block to create a WooCommerce Blocks extension starting point. It also showcases how to use some extensibility points, e.g. registering an inner block in the Checkout Block, applying filters to certain texts such as the place order button, using Slot/Fill and how to change the behaviour of the Store API.
+-   [@poocommerce/extend-cart-checkout-block](https://www.npmjs.com/package/@poocommerce/extend-cart-checkout-block) This is a template to be used with @wordpress/create-block to create a PooCommerce Blocks extension starting point. It also showcases how to use some extensibility points, e.g. registering an inner block in the Checkout Block, applying filters to certain texts such as the place order button, using Slot/Fill and how to change the behaviour of the Store API.
 
 ### Articles
 
-The following posts from [developer.woo.com](https://developer.woocommerce.com/category/developer-resources/) provide deeper insights into the WooCommerce Blocks development.
+The following posts from [developer.woo.com](https://developer.poocommerce.com/category/developer-resources/) provide deeper insights into the PooCommerce Blocks development.
 
--   [Store API is now considered stable](https://developer.woocommerce.com/2022/03/25/store-api-is-now-considered-stable/)
--   [Available Extensibility Interfaces for The Cart and Checkout Blocks](https://developer.woocommerce.com/2021/11/09/available-extensibility-interfaces-for-the-cart-and-checkout-blocks/)
--   [How The Checkout Block Processes An Order](https://developer.woocommerce.com/2022/10/06/how-the-checkout-block-processes-an-order/)
--   [New @wordpress/data stores in WooCommerce Blocks](https://developer.woocommerce.com/2022/10/17/new-wordpress-data-stores-in-woocommerce-blocks/)
+-   [Store API is now considered stable](https://developer.poocommerce.com/2022/03/25/store-api-is-now-considered-stable/)
+-   [Available Extensibility Interfaces for The Cart and Checkout Blocks](https://developer.poocommerce.com/2021/11/09/available-extensibility-interfaces-for-the-cart-and-checkout-blocks/)
+-   [How The Checkout Block Processes An Order](https://developer.poocommerce.com/2022/10/06/how-the-checkout-block-processes-an-order/)
+-   [New @wordpress/data stores in PooCommerce Blocks](https://developer.poocommerce.com/2022/10/17/new-wordpress-data-stores-in-poocommerce-blocks/)
 
 ### Tutorials
 
-The following tutorials from [developer.woo.com](https://developer.woocommerce.com/) help you with extending the WooCommerce Blocks plugin.
+The following tutorials from [developer.woo.com](https://developer.poocommerce.com/) help you with extending the PooCommerce Blocks plugin.
 
--   [📺 Tutorial: Extending the WooCommerce Checkout Block](https://developer.woocommerce.com/2023/08/07/extending-the-woocommerce-checkout-block-to-add-custom-shipping-options/)
--   [Hiding Shipping and Payment Options in the Cart and Checkout Blocks](https://developer.woocommerce.com/2022/05/20/hiding-shipping-and-payment-options-in-the-cart-and-checkout-blocks/)
--   [Integrating your Payment Method with Cart and Checkout Blocks](https://developer.woocommerce.com/2021/03/15/integrating-your-payment-method-with-cart-and-checkout-blocks/)
--   [Exposing Payment Options in the Checkout Block](https://developer.woocommerce.com/2022/07/07/exposing-payment-options-in-the-checkout-block/)
+-   [📺 Tutorial: Extending the PooCommerce Checkout Block](https://developer.poocommerce.com/2023/08/07/extending-the-poocommerce-checkout-block-to-add-custom-shipping-options/)
+-   [Hiding Shipping and Payment Options in the Cart and Checkout Blocks](https://developer.poocommerce.com/2022/05/20/hiding-shipping-and-payment-options-in-the-cart-and-checkout-blocks/)
+-   [Integrating your Payment Method with Cart and Checkout Blocks](https://developer.poocommerce.com/2021/03/15/integrating-your-payment-method-with-cart-and-checkout-blocks/)
+-   [Exposing Payment Options in the Checkout Block](https://developer.poocommerce.com/2022/07/07/exposing-payment-options-in-the-checkout-block/)
 
 <!-- FEEDBACK -->
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/README.md)
 
 <!-- /FEEDBACK -->

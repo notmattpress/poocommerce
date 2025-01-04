@@ -1,16 +1,16 @@
 # Monorepo CI and package managers manifests.
-/.github/ @woocommerce/flux
-**/composer.json @woocommerce/flux
-**/package.json @woocommerce/flux
+/.github/ @poocommerce/flux
+**/composer.json @poocommerce/flux
+**/package.json @poocommerce/flux
 
 # Monorepo tooling folders.
-/bin/ @woocommerce/flux
-/tools/ @woocommerce/flux
-/packages/js/eslint-plugin/ @woocommerce/flux
-/packages/js/dependency-extraction-webpack-plugin/ @woocommerce/flux
-/packages/js/e2e-utils-playwright/ @woocommerce/solaris
+/bin/ @poocommerce/flux
+/tools/ @poocommerce/flux
+/packages/js/eslint-plugin/ @poocommerce/flux
+/packages/js/dependency-extraction-webpack-plugin/ @poocommerce/flux
+/packages/js/e2e-utils-playwright/ @poocommerce/solaris
 
 # Files in root of repository
-/.* @woocommerce/flux
-/*.* @woocommerce/flux
+/.* @poocommerce/flux
+/*.* @poocommerce/flux
 /changelog.txt

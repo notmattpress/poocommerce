@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Product Usage Notice.
+ * PooCommerce Product Usage Notice.
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -23,7 +23,7 @@ class WC_Product_Usage_Notice {
 	 *
 	 * @var string
 	 */
-	const DISMISSED_COUNT_META_PREFIX = '_woocommerce_product_usage_notice_dismissed_count_';
+	const DISMISSED_COUNT_META_PREFIX = '_poocommerce_product_usage_notice_dismissed_count_';
 
 	/**
 	 * User meta key prefix to store timestamp of last dismissed product usage notice.
@@ -31,7 +31,7 @@ class WC_Product_Usage_Notice {
 	 *
 	 * @var string
 	 */
-	const DISMISSED_TIMESTAMP_META_PREFIX = '_woocommerce_product_usage_notice_dismissed_timestamp_';
+	const DISMISSED_TIMESTAMP_META_PREFIX = '_poocommerce_product_usage_notice_dismissed_timestamp_';
 
 	/**
 	 * User meta key prefix to store timestamp of last clicked remind later from
@@ -39,7 +39,7 @@ class WC_Product_Usage_Notice {
 	 *
 	 * @var string
 	 */
-	const REMIND_LATER_TIMESTAMP_META_PREFIX = '_woocommerce_product_usage_notice_remind_later_timestamp_';
+	const REMIND_LATER_TIMESTAMP_META_PREFIX = '_poocommerce_product_usage_notice_remind_later_timestamp_';
 
 	/**
 	 * User meta key to store timestamp of last dismissed of any product usage
@@ -47,7 +47,7 @@ class WC_Product_Usage_Notice {
 	 *
 	 * @var string
 	 */
-	const LAST_DISMISSED_TIMESTAMP_META = '_woocommerce_product_usage_notice_last_dismissed_timestamp';
+	const LAST_DISMISSED_TIMESTAMP_META = '_poocommerce_product_usage_notice_last_dismissed_timestamp';
 
 	/**
 	 * Array of product usage notice rules from helper API.
@@ -71,8 +71,8 @@ class WC_Product_Usage_Notice {
 	public static function load() {
 		add_action( 'current_screen', array( __CLASS__, 'maybe_show_product_usage_notice' ) );
 
-		add_action( 'wp_ajax_woocommerce_dismiss_product_usage_notice', array( __CLASS__, 'ajax_dismiss' ) );
-		add_action( 'wp_ajax_woocommerce_remind_later_product_usage_notice', array( __CLASS__, 'ajax_remind_later' ) );
+		add_action( 'wp_ajax_poocommerce_dismiss_product_usage_notice', array( __CLASS__, 'ajax_dismiss' ) );
+		add_action( 'wp_ajax_poocommerce_remind_later_product_usage_notice', array( __CLASS__, 'ajax_remind_later' ) );
 	}
 
 	/**
@@ -240,7 +240,7 @@ class WC_Product_Usage_Notice {
 				'utm_medium'   => 'product',
 				'utm_campaign' => 'pu_modal_subscribe',
 			),
-			'https://woocommerce.com/cart/'
+			'https://poocommerce.com/cart/'
 		);
 
 		$renew_url = add_query_arg(
@@ -252,7 +252,7 @@ class WC_Product_Usage_Notice {
 				'utm_medium'    => 'product',
 				'utm_campaign'  => 'pu_modal_renew',
 			),
-			'https://woocommerce.com/cart/'
+			'https://poocommerce.com/cart/'
 		);
 
 		wp_localize_script(
@@ -261,8 +261,8 @@ class WC_Product_Usage_Notice {
 			array(
 				'subscribeUrl'        => $subscribe_url,
 				'renewUrl'            => $renew_url,
-				'dismissAction'       => 'woocommerce_dismiss_product_usage_notice',
-				'remindLaterAction'   => 'woocommerce_remind_later_product_usage_notice',
+				'dismissAction'       => 'poocommerce_dismiss_product_usage_notice',
+				'remindLaterAction'   => 'poocommerce_remind_later_product_usage_notice',
 				'productId'           => self::$current_notice_rule['id'],
 				'productName'         => self::$current_notice_rule['name'],
 				'productRegularPrice' => self::$current_notice_rule['regular_price'],

@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: WooCommerce Cleanup
- * Description: Resets WooCommerce site to testing start state.
+ * Plugin Name: PooCommerce Cleanup
+ * Description: Resets PooCommerce site to testing start state.
  * Version: 1.5
  * Author: Solaris Team
  * Requires at least: 6.6
  * Requires PHP: 7.4
- * @package WooCommerceCleanup
+ * @package PooCommerceCleanup
  *
- * This file contains the main functionality for the WooCommerce Cleanup plugin.
- * It provides functions to reset the WooCommerce site to a clean testing state.
+ * This file contains the main functionality for the PooCommerce Cleanup plugin.
+ * It provides functions to reset the PooCommerce site to a clean testing state.
  */
 
 declare(strict_types=1);
@@ -92,33 +92,33 @@ function wc_cleanup_directory( $dir, $excluded_file_names = array() ) {
 }
 
 /**
- * Remove all WooCommerce taxes and tax classes.
+ * Remove all PooCommerce taxes and tax classes.
  */
 function wc_cleanup_taxes() {
 	global $wpdb;
 
 	// Remove all tax rates.
-	$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}woocommerce_tax_rates" );
-	$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}woocommerce_tax_rate_locations" );
+	$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}poocommerce_tax_rates" );
+	$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}poocommerce_tax_rate_locations" );
 
 	// Remove all tax classes except the default ones.
-	$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_tax_classes WHERE slug NOT IN ('standard', 'reduced-rate', 'zero-rate')" );
+	$wpdb->query( "DELETE FROM {$wpdb->prefix}poocommerce_tax_classes WHERE slug NOT IN ('standard', 'reduced-rate', 'zero-rate')" );
 
 	// Reset tax options.
-	update_option( 'woocommerce_tax_classes', 'Standard\nReduced rate\nZero rate' );
-	update_option( 'woocommerce_tax_display_shop', 'excl' );
-	update_option( 'woocommerce_tax_display_cart', 'excl' );
-	update_option( 'woocommerce_tax_total_display', 'itemized' );
+	update_option( 'poocommerce_tax_classes', 'Standard\nReduced rate\nZero rate' );
+	update_option( 'poocommerce_tax_display_shop', 'excl' );
+	update_option( 'poocommerce_tax_display_cart', 'excl' );
+	update_option( 'poocommerce_tax_total_display', 'itemized' );
 
 	// Disable taxes.
-	update_option( 'woocommerce_calc_taxes', 'no' );
+	update_option( 'poocommerce_calc_taxes', 'no' );
 
 	// Clear the tax transients.
 	WC_Cache_Helper::invalidate_cache_group( 'taxes' );
 }
 
 /**
- * Truncate a WooCommerce analytics table.
+ * Truncate a PooCommerce analytics table.
  *
  * @param string $table_name The name of the table to truncate, without the prefix.
  */
@@ -144,7 +144,7 @@ function wc_cleanup_analytics_table( $table_name ) {
 }
 
 /**
- * Reset the WooCommerce site.
+ * Reset the PooCommerce site.
  */
 function wc_cleanup_reset_site() {
 
@@ -173,7 +173,7 @@ function wc_cleanup_reset_site() {
 	}
 
 	// Remove all orders.
-	if ( wc_get_container()->get( Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ) {
+	if ( wc_get_container()->get( Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ) {
 		// HPOS is enabled.
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'wc_orders';
@@ -230,7 +230,7 @@ function wc_cleanup_reset_site() {
 		wp_delete_comment( $comment->comment_ID, true );
 	}
 
-	// Remove all non-WooCommerce pages.
+	// Remove all non-PooCommerce pages.
 	$pages         = get_posts(
 		array(
 			'post_type'   => 'page',
@@ -240,7 +240,7 @@ function wc_cleanup_reset_site() {
 	$ignore_titles = array( 'Cart', 'Checkout', 'My account', 'Shop', 'Refund and Returns Policy', 'Privacy Policy', 'Sample Page' );
 
 	foreach ( $pages as $page ) {
-		if ( ! has_shortcode( $page->post_content, 'woocommerce' ) && ! in_array( $page->post_title, $ignore_titles, true ) ) {
+		if ( ! has_shortcode( $page->post_content, 'poocommerce' ) && ! in_array( $page->post_title, $ignore_titles, true ) ) {
 			wp_delete_post( $page->ID, true );
 		}
 
@@ -248,7 +248,7 @@ function wc_cleanup_reset_site() {
 		switch_theme( 'twentytwentythree' );
 	}
 
-	// Clean up the WooCommerce analytics tables.
+	// Clean up the PooCommerce analytics tables.
 	wc_cleanup_analytics_table( 'wc_order_stats' );
 	wc_cleanup_analytics_table( 'wc_customer_lookup' );
 
@@ -258,44 +258,44 @@ function wc_cleanup_reset_site() {
 	// Remove all media files.
 	wc_cleanup_media();
 
-	// Optionally, you can also clear WooCommerce transients.
+	// Optionally, you can also clear PooCommerce transients.
 	wc_delete_product_transients();
 
 	// Set the site title.
-	update_option( 'blogname', 'WooCommerce Core E2E Test Suite' );
+	update_option( 'blogname', 'PooCommerce Core E2E Test Suite' );
 
-	// Set the WooCommerce default country/state.
-	update_option( 'woocommerce_default_country', 'US:CA' );
+	// Set the PooCommerce default country/state.
+	update_option( 'poocommerce_default_country', 'US:CA' );
 
-	// Set the WooCommerce selling locations to "Sell to all countries".
-	update_option( 'woocommerce_allowed_countries', 'all' );
+	// Set the PooCommerce selling locations to "Sell to all countries".
+	update_option( 'poocommerce_allowed_countries', 'all' );
 
-	// Set the WooCommerce shipping locations to "Ship to all countries you sell to".
-	update_option( 'woocommerce_ship_to_countries', 'all' );
+	// Set the PooCommerce shipping locations to "Ship to all countries you sell to".
+	update_option( 'poocommerce_ship_to_countries', 'all' );
 
 	// Disable taxes.
-	update_option( 'woocommerce_calc_taxes', 'no' );
+	update_option( 'poocommerce_calc_taxes', 'no' );
 
 	// Enable coupons.
-	update_option( 'woocommerce_enable_coupons', 'yes' );
+	update_option( 'poocommerce_enable_coupons', 'yes' );
 
 	// Disable sequential coupon discounts.
-	update_option( 'woocommerce_calc_discounts_sequentially', 'no' );
+	update_option( 'poocommerce_calc_discounts_sequentially', 'no' );
 
-	// Set the WooCommerce currency to "United States (US) dollar".
-	update_option( 'woocommerce_currency', 'USD' );
+	// Set the PooCommerce currency to "United States (US) dollar".
+	update_option( 'poocommerce_currency', 'USD' );
 
-	// Set the WooCommerce currency position to "left".
-	update_option( 'woocommerce_currency_pos', 'left' );
+	// Set the PooCommerce currency position to "left".
+	update_option( 'poocommerce_currency_pos', 'left' );
 
-	// Set the WooCommerce thousand separator to a comma.
-	update_option( 'woocommerce_price_thousand_sep', ',' );
+	// Set the PooCommerce thousand separator to a comma.
+	update_option( 'poocommerce_price_thousand_sep', ',' );
 
-	// Set the WooCommerce decimal separator to a period.
-	update_option( 'woocommerce_price_decimal_sep', '.' );
+	// Set the PooCommerce decimal separator to a period.
+	update_option( 'poocommerce_price_decimal_sep', '.' );
 
-	// Set the WooCommerce number of decimals to 2.
-	update_option( 'woocommerce_price_num_decimals', '2' );
+	// Set the PooCommerce number of decimals to 2.
+	update_option( 'poocommerce_price_num_decimals', '2' );
 
 	// Delete all shipping zones.
 	$shipping_zones = WC_Shipping_Zones::get_zones();
@@ -317,31 +317,31 @@ function wc_cleanup_reset_site() {
 	// Disable all payment methods.
 	$payment_gateways = WC()->payment_gateways->payment_gateways();
 	foreach ( $payment_gateways as $gateway ) {
-		update_option( 'woocommerce_' . $gateway->id . '_settings', array_merge( get_option( 'woocommerce_' . $gateway->id . '_settings', array() ), array( 'enabled' => 'no' ) ) );
+		update_option( 'poocommerce_' . $gateway->id . '_settings', array_merge( get_option( 'poocommerce_' . $gateway->id . '_settings', array() ), array( 'enabled' => 'no' ) ) );
 	}
 
 	// Enable guest checkout.
-	update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+	update_option( 'poocommerce_enable_guest_checkout', 'yes' );
 
-	// Set the WooCommerce "From" email name.
-	update_option( 'woocommerce_email_from_name', 'woocommerce' );
+	// Set the PooCommerce "From" email name.
+	update_option( 'poocommerce_email_from_name', 'poocommerce' );
 
-	// Set the WooCommerce "From" email address.
-	update_option( 'woocommerce_email_from_address', 'wordpress@example.com' );
+	// Set the PooCommerce "From" email address.
+	update_option( 'poocommerce_email_from_address', 'wordpress@example.com' );
 
 	// Set shipping location to "Ship to all countries".
-	update_option( 'woocommerce_allowed_countries', 'all' );
-	update_option( 'woocommerce_ship_to_countries', '' );
+	update_option( 'poocommerce_allowed_countries', 'all' );
+	update_option( 'poocommerce_ship_to_countries', '' );
 
 	// Clear store address fields.
-	update_option( 'woocommerce_store_address', '' );
-	update_option( 'woocommerce_store_address_2', '' );
-	update_option( 'woocommerce_store_city', '' );
-	update_option( 'woocommerce_store_postcode', '' );
+	update_option( 'poocommerce_store_address', '' );
+	update_option( 'poocommerce_store_address_2', '' );
+	update_option( 'poocommerce_store_city', '' );
+	update_option( 'poocommerce_store_postcode', '' );
 
-	// Set WooCommerce measurement units to US standard (lbs, in).
-	update_option( 'woocommerce_weight_unit', 'lbs' );
-	update_option( 'woocommerce_dimension_unit', 'in' );
+	// Set PooCommerce measurement units to US standard (lbs, in).
+	update_option( 'poocommerce_weight_unit', 'lbs' );
+	update_option( 'poocommerce_dimension_unit', 'in' );
 
 	wc_cleanup_reset_customer_email();
 }
@@ -350,28 +350,28 @@ add_action(
 	'admin_menu',
 	function () {
 		add_submenu_page(
-			'woocommerce',
-			'WooCommerce Cleanup',
-			'WooCommerce Cleanup',
+			'poocommerce',
+			'PooCommerce Cleanup',
+			'PooCommerce Cleanup',
 			'manage_options',
-			'woocommerce-cleanup',
+			'poocommerce-cleanup',
 			function () {
 				if ( isset( $_POST['wc_cleanup_reset'] ) ) {
 					// Verify the nonce before processing the form data.
 					if ( check_admin_referer( 'wc_cleanup_reset_action', 'wc_cleanup_reset_nonce' ) ) {
 						wc_cleanup_reset_site();
-						echo '<div class="updated"><p>WooCommerce site has been reset.</p></div>';
+						echo '<div class="updated"><p>PooCommerce site has been reset.</p></div>';
 					} else {
 						echo '<div class="error"><p>Nonce verification failed. Please try again.</p></div>';
 					}
 				}
 				?>
 				<div class="wrap">
-					<h1>WooCommerce Cleanup</h1>
+					<h1>PooCommerce Cleanup</h1>
 					<form method="post">
 						<?php wp_nonce_field( 'wc_cleanup_reset_action', 'wc_cleanup_reset_nonce' ); ?>
-						<p>Click the button below to reset the WooCommerce site to a clean testing state.</p>
-						<p><input type="submit" name="wc_cleanup_reset" class="button button-primary" value="Reset WooCommerce Site"></p>
+						<p>Click the button below to reset the PooCommerce site to a clean testing state.</p>
+						<p><input type="submit" name="wc_cleanup_reset" class="button button-primary" value="Reset PooCommerce Site"></p>
 					</form>
 				</div>
 				<?php
@@ -395,7 +395,7 @@ add_action(
 						$auth_header = substr( $auth_header, 6 );
 						$credentials = explode( ':', base64_decode( $auth_header ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 						$user = wp_authenticate( $credentials[0], $credentials[1] );
-						if ( is_wp_error( $user ) || ! user_can( $user, 'manage_woocommerce' ) ) {
+						if ( is_wp_error( $user ) || ! user_can( $user, 'manage_poocommerce' ) ) {
 							return new WP_Error( 'forbidden', 'Unauthorized', array( 'status' => 403 ) );
 						}
 
@@ -410,13 +410,13 @@ add_action(
 );
 
 /**
- * Reset the WooCommerce site via API.
+ * Reset the PooCommerce site via API.
  *
  * @return WP_REST_Response
  */
 function wc_cleanup_reset_site_via_api() {
 	wc_cleanup_reset_site();
-	return new WP_REST_Response( 'WooCommerce site has been reset.', 200 );
+	return new WP_REST_Response( 'PooCommerce site has been reset.', 200 );
 }
 
 /**
@@ -505,7 +505,7 @@ function wc_cleanup_reset_customer_email() {
 		wp_update_user(
 			array(
 				'ID'         => $customer->ID,
-				'user_email' => 'customer@woocommercecoree2etestsuite.com',
+				'user_email' => 'customer@poocommercecoree2etestsuite.com',
 			)
 		);
 	}

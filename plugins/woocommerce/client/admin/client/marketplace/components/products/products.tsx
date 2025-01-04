@@ -7,12 +7,12 @@ import {
 	useContext,
 	useState,
 } from '@wordpress/element';
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 import { Button } from '@wordpress/components';
 import clsx from 'clsx';
 import { addQueryArgs } from '@wordpress/url';
 import { useSelect } from '@wordpress/data';
-import { ONBOARDING_STORE_NAME, WCSelectorType } from '@woocommerce/data';
+import { ONBOARDING_STORE_NAME, WCSelectorType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -38,16 +38,16 @@ interface ProductsProps {
 
 const LABELS = {
 	[ ProductType.extension ]: {
-		label: __( 'extensions', 'woocommerce' ),
-		singularLabel: __( 'extension', 'woocommerce' ),
+		label: __( 'extensions', 'poocommerce' ),
+		singularLabel: __( 'extension', 'poocommerce' ),
 	},
 	[ ProductType.theme ]: {
-		label: __( 'themes', 'woocommerce' ),
-		singularLabel: __( 'theme', 'woocommerce' ),
+		label: __( 'themes', 'poocommerce' ),
+		singularLabel: __( 'theme', 'poocommerce' ),
 	},
 	[ ProductType.businessService ]: {
-		label: __( 'business services', 'woocommerce' ),
-		singularLabel: __( 'business service', 'woocommerce' ),
+		label: __( 'business services', 'poocommerce' ),
+		singularLabel: __( 'business service', 'poocommerce' ),
 	},
 };
 
@@ -100,11 +100,11 @@ export default function Products( props: ProductsProps ) {
 	const labelForClassName =
 		label === 'business services' ? 'business-services' : label;
 
-	const baseContainerClass = 'woocommerce-marketplace__search-';
+	const baseContainerClass = 'poocommerce-marketplace__search-';
 
 	const containerClassName = clsx( baseContainerClass + labelForClassName );
 	const viewAllButonClassName = clsx(
-		'woocommerce-marketplace__view-all-button',
+		'poocommerce-marketplace__view-all-button',
 		baseContainerClass + 'button-' + labelForClassName
 	);
 
@@ -139,23 +139,23 @@ export default function Products( props: ProductsProps ) {
 
 	const productListClass = clsx(
 		showAllButton
-			? 'woocommerce-marketplace__product-list-content--collapsed'
+			? 'poocommerce-marketplace__product-list-content--collapsed'
 			: ''
 	);
 
 	return (
 		<div className={ containerClassName }>
-			<nav className="woocommerce-marketplace__sub-header">
-				<div className="woocommerce-marketplace__sub-header__categories">
+			<nav className="poocommerce-marketplace__sub-header">
+				<div className="poocommerce-marketplace__sub-header__categories">
 					{ props.categorySelector && (
 						<CategorySelector type={ props.type } />
 					) }
 				</div>
 				{ props.type === 'theme' && (
 					<Button
-						className="woocommerce-marketplace__customize-your-store-button"
+						className="poocommerce-marketplace__customize-your-store-button"
 						variant="secondary"
-						text={ __( 'Design your own', 'woocommerce' ) }
+						text={ __( 'Design your own', 'poocommerce' ) }
 						onClick={ () => {
 							if ( ! isDefaultTheme ) {
 								setIsModalOpen( true );
@@ -186,16 +186,16 @@ export default function Products( props: ProductsProps ) {
 			{ props.type === 'theme' && (
 				<div
 					className={
-						'woocommerce-marketplace__browse-wp-theme-directory'
+						'poocommerce-marketplace__browse-wp-theme-directory'
 					}
 				>
 					<b>
-						{ __( 'Didn’t find a theme you like?', 'woocommerce' ) }
+						{ __( 'Didn’t find a theme you like?', 'poocommerce' ) }
 					</b>
 					{ createInterpolateElement(
 						__(
 							' Browse the <a>WordPress.org theme directory</a> to discover more.',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							a: (
@@ -215,7 +215,7 @@ export default function Products( props: ProductsProps ) {
 				<Button
 					className={ viewAllButonClassName }
 					variant="secondary"
-					text={ __( 'View all', 'woocommerce' ) }
+					text={ __( 'View all', 'poocommerce' ) }
 					onClick={ () => showSection( props.type ) }
 				/>
 			) }

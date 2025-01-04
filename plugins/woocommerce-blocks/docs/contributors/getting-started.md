@@ -24,7 +24,7 @@ Before you can start modifying files you'll want to clone this repository locall
 To do so from the command line, ensure you have [`git`](https://git-scm.com) installed on your machine, and run the clone command:
 
 ```sh
-git clone https://github.com/woocommerce/woocommerce-blocks.git
+git clone https://github.com/poocommerce/poocommerce-blocks.git
 ```
 
 ## Configuring your WordPress site
@@ -35,7 +35,7 @@ When developing this plugin, you'll must add the following to the `wp-config.php
 define( 'JETPACK_AUTOLOAD_DEV', true );
 ```
 
-The above constant definition ensures that classes in the cloned plugin are always overriding what's included with WooCommerce core via the Woo Blocks package.
+The above constant definition ensures that classes in the cloned plugin are always overriding what's included with PooCommerce core via the Woo Blocks package.
 
 It's also _recommended_ you add the following constant definitions to your `wp-config.php` file as well to make sure you are catching any PHP notices and/or errors introduced:
 
@@ -49,7 +49,7 @@ define( 'SCRIPT_DEBUG', true );
 To install dependencies, you will need the following tools installed on your machine:
 
 -   `node` and `npm` via [NVM](https://github.com/nvm-sh/nvm#installing-and-updating): While you can always install Node or NPM through other means, we recommend using NVM to ensure you're aligned with the version used by our development teams. Our repository contains [an `.nvmrc` file](../../.nvmrc) which helps ensure you are using the correct version of Node.
--   [PHP](https://www.php.net/manual/en/install.php): WooCommerce Blocks requires PHP. It is also needed to run Composer and various project build scripts.
+-   [PHP](https://www.php.net/manual/en/install.php): PooCommerce Blocks requires PHP. It is also needed to run Composer and various project build scripts.
 -   [Composer](https://getcomposer.org/doc/00-intro.md): We use Composer to manage all of the dependencies for PHP packages and plugins.
 
 See [`package.json` `engines`](../../package.json) and [`readme.txt`](../../readme.txt#L6) for details on required versions.
@@ -58,7 +58,7 @@ See [`package.json` `engines`](../../package.json) and [`readme.txt`](../../read
 
 Once you the above setup, install the dependencies from the command line:
 
--   Change directory to your repo folder, e.g. `$ cd woocommerce-blocks`.
+-   Change directory to your repo folder, e.g. `$ cd poocommerce-blocks`.
 -   Ensure the correct version of Node and NPM are installed - `$ nvm use`
 -   Install JavaScript and PHP dependencies - `$ npm install && composer install`.
 
@@ -75,7 +75,7 @@ You can also run `$ npx webpack` to run the development build and not keep watch
 
 ## Create a plugin package in ZIP format
 
-Run `$ npm run package-plugin` to trigger install and build, and then create a zip file which you can use to install WooCommerce Blocks in WordPress admin.
+Run `$ npm run package-plugin` to trigger install and build, and then create a zip file which you can use to install PooCommerce Blocks in WordPress admin.
 
 You can also do different variations of this command. By default it builds a production version of the plugin. You can also:
 
@@ -99,8 +99,8 @@ Note; linters are also ran before commits via Git. If there are any violations, 
 To run the Blocks plugin you'll need a WordPress development environment - e.g. [`VVV`](https://varyingvagrantvagrants.org) or [`docker`](https://www.docker.com).
 
 -   Ensure the repo folder is in the `wp-content/plugins` folder of your WordPress environment.
--   Activate the `WooCommerce Blocks` plugin (should be dev version, e.g. `2.6.0-dev`).
--   Edit a page or post in block editor - you should see WooCommerce blocks in the block inserter!
+-   Activate the `PooCommerce Blocks` plugin (should be dev version, e.g. `2.6.0-dev`).
+-   Edit a page or post in block editor - you should see PooCommerce blocks in the block inserter!
 
 ## Developer Tools (Visual Studio Code)
 
@@ -146,9 +146,9 @@ To find out more about how to run automated JavaScript tests, check out the docu
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/getting-started.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/getting-started.md)
 
 <!-- /FEEDBACK -->
 

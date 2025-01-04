@@ -93,7 +93,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 					.isVisible();
 
 				await page
-					.locator( '.woocommerce-attribute-field' )
+					.locator( '.poocommerce-attribute-field' )
 					.getByRole( 'button', {
 						name: 'Add options',
 					} )
@@ -139,7 +139,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 
 			await test.step( 'Add new terms to the attribute', async () => {
 				const FormTokenFieldLocator = page.locator(
-					'td.woocommerce-new-attribute-modal__table-attribute-value-column'
+					'td.poocommerce-new-attribute-modal__table-attribute-value-column'
 				);
 
 				const FormTokenFieldInputLocator =
@@ -182,7 +182,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 				}
 
 				await page
-					.locator( '.woocommerce-new-attribute-modal__buttons' )
+					.locator( '.poocommerce-new-attribute-modal__buttons' )
 					.getByRole( 'button', {
 						name: 'Add',
 					} )
@@ -217,7 +217,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 
 			await test.step( 'Publish the product', async () => {
 				await page
-					.locator( '.woocommerce-product-header__actions' )
+					.locator( '.poocommerce-product-header__actions' )
 					.getByRole( 'button', {
 						name: 'Publish',
 					} )
@@ -277,18 +277,18 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 					response
 						.url()
 						.includes(
-							'wp-json/wc-admin/options?options=woocommerce_dimension_unit'
+							'wp-json/wc-admin/options?options=poocommerce_dimension_unit'
 						) && response.status() === 200
 			);
 
 			await page
-				.locator( '.woocommerce-product-variations__table-body > div' )
+				.locator( '.poocommerce-product-variations__table-body > div' )
 				.first()
 				.getByText( 'Edit' )
 				.click();
 
 			await page
-				.locator( '.woocommerce-product-tabs' )
+				.locator( '.poocommerce-product-tabs' )
 				.getByRole( 'tab', { name: 'General' } )
 				.click();
 
@@ -305,16 +305,16 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 				.fill( '100' );
 
 			await page
-				.locator( '.woocommerce-product-tabs' )
+				.locator( '.poocommerce-product-tabs' )
 				.getByRole( 'tab', { name: 'Inventory' } )
 				.click();
 
 			await page
-				.locator( '[name="woocommerce-product-sku"]' )
+				.locator( '[name="poocommerce-product-sku"]' )
 				.fill( `product-sku-${ new Date().getTime().toString() }` );
 
 			await page
-				.locator( '.woocommerce-product-header__actions' )
+				.locator( '.poocommerce-product-header__actions' )
 				.getByRole( 'button', {
 					name: 'Update',
 				} )
@@ -325,7 +325,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 			);
 
 			await page
-				.locator( '.woocommerce-product-header__back-tooltip-wrapper' )
+				.locator( '.poocommerce-product-header__back-tooltip-wrapper' )
 				.getByRole( 'button', {
 					name: 'Main product',
 				} )
@@ -334,7 +334,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 			await expect(
 				page
 					.locator(
-						'.woocommerce-product-variations__table-body > div'
+						'.poocommerce-product-variations__table-body > div'
 					)
 					.first()
 			).toBeVisible();
@@ -375,14 +375,14 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 			).toBeVisible();
 
 			await page.waitForSelector(
-				'div.woocommerce-product-variations-pagination__info',
+				'div.poocommerce-product-variations-pagination__info',
 				{ timeout: 20000 }
 			); // test was timing out before page loaded
 
 			await expect(
 				await page
 					.locator(
-						'.woocommerce-product-variations__table-body > div'
+						'.poocommerce-product-variations__table-body > div'
 					)
 					.count()
 			).toEqual( 5 );
@@ -401,7 +401,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 					await clickOnTab( tabName, page );
 
 					const notices = page.locator(
-						'p.woocommerce-product-notice__content'
+						'p.poocommerce-product-notice__content'
 					);
 
 					const noticeCount = await notices.count();
@@ -414,7 +414,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 					}
 
 					await page
-						.locator( '.woocommerce-product-notice__content' )
+						.locator( '.poocommerce-product-notice__content' )
 						.getByRole( 'button', { name: 'Go to Variations' } )
 						.click();
 
@@ -467,7 +467,7 @@ test.describe( 'Variations tab', { tag: tags.GUTENBERG }, () => {
 				}
 
 				await page
-					.locator( '.woocommerce-product-notice__content > a' )
+					.locator( '.poocommerce-product-notice__content > a' )
 					.first()
 					.click();
 

@@ -1,37 +1,37 @@
 <?php
 /**
- * WooCommerce Customer Functions
+ * PooCommerce Customer Functions
  *
  * Functions for customers.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.2.0
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Prevent any user who cannot 'edit_posts' (subscribers, customers etc) from seeing the admin bar.
  *
- * Note: get_option( 'woocommerce_lock_down_admin', true ) is a deprecated option here for backwards compatibility. Defaults to true.
+ * Note: get_option( 'poocommerce_lock_down_admin', true ) is a deprecated option here for backwards compatibility. Defaults to true.
  *
  * @param bool $show_admin_bar If should display admin bar.
  * @return bool
  */
 function wc_disable_admin_bar( $show_admin_bar ) {
 	/**
-	 * Controls whether the WooCommerce admin bar should be disabled.
+	 * Controls whether the PooCommerce admin bar should be disabled.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param bool $enabled
 	 */
-	if ( apply_filters( 'woocommerce_disable_admin_bar', true ) && ! ( current_user_can( 'edit_posts' ) || current_user_can( 'manage_woocommerce' ) ) ) {
+	if ( apply_filters( 'poocommerce_disable_admin_bar', true ) && ! ( current_user_can( 'edit_posts' ) || current_user_can( 'manage_poocommerce' ) ) ) {
 		$show_admin_bar = false;
 	}
 
@@ -44,7 +44,7 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 	/**
 	 * Create a new customer.
 	 *
-	 * @since 9.4.0 Moved woocommerce_registration_error_email_exists filter to the shortcode checkout class.
+	 * @since 9.4.0 Moved poocommerce_registration_error_email_exists filter to the shortcode checkout class.
 	 * @since 9.4.0 Removed handling for generating username/password based on settings--this is consumed at form level. Here, if data is missing it will be generated.
 	 *
 	 * @param  string $email    Customer email.
@@ -55,7 +55,7 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 	 */
 	function wc_create_new_customer( $email, $username = '', $password = '', $args = array() ) {
 		if ( empty( $email ) || ! is_email( $email ) ) {
-			return new WP_Error( 'registration-error-invalid-email', __( 'Please provide a valid email address.', 'woocommerce' ) );
+			return new WP_Error( 'registration-error-invalid-email', __( 'Please provide a valid email address.', 'poocommerce' ) );
 		}
 
 		if ( email_exists( $email ) ) {
@@ -63,7 +63,7 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 				'registration-error-email-exists',
 				sprintf(
 					// Translators: %s Email address.
-					esc_html__( 'An account is already registered with %s. Please log in or use a different email address.', 'woocommerce' ),
+					esc_html__( 'An account is already registered with %s. Please log in or use a different email address.', 'poocommerce' ),
 					esc_html( $email )
 				)
 			);
@@ -76,11 +76,11 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 		$username = sanitize_user( $username );
 
 		if ( empty( $username ) || ! validate_username( $username ) ) {
-			return new WP_Error( 'registration-error-invalid-username', __( 'Please provide a valid account username.', 'woocommerce' ) );
+			return new WP_Error( 'registration-error-invalid-username', __( 'Please provide a valid account username.', 'poocommerce' ) );
 		}
 
 		if ( username_exists( $username ) ) {
-			return new WP_Error( 'registration-error-username-exists', __( 'An account is already registered with that username. Please choose another.', 'woocommerce' ) );
+			return new WP_Error( 'registration-error-username-exists', __( 'An account is already registered with that username. Please choose another.', 'poocommerce' ) );
 		}
 
 		// Handle password creation.
@@ -92,7 +92,7 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 		}
 
 		if ( empty( $password ) ) {
-			return new WP_Error( 'registration-error-missing-password', __( 'Please create a password for your account.', 'woocommerce' ) );
+			return new WP_Error( 'registration-error-missing-password', __( 'Please create a password for your account.', 'poocommerce' ) );
 		}
 
 		// Use WP_Error to handle registration errors.
@@ -108,13 +108,13 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 		 *
 		 * @since 7.2.0
 		 *
-		 * @internal Matches filter name in WooCommerce core.
+		 * @internal Matches filter name in PooCommerce core.
 		 *
 		 * @param string $username Customer username.
 		 * @param string $user_email Customer email address.
 		 * @param \WP_Error $errors Error object.
 		 */
-		do_action( 'woocommerce_register_post', $username, $email, $errors );
+		do_action( 'poocommerce_register_post', $username, $email, $errors );
 
 		/**
 		 * Filters registration errors before a customer account is registered.
@@ -124,14 +124,14 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 		 *
 		 * @since 7.2.0
 		 *
-		 * @internal Matches filter name in WooCommerce core.
+		 * @internal Matches filter name in PooCommerce core.
 		 *
 		 * @param \WP_Error $errors Error object.
 		 * @param string $username Customer username.
 		 * @param string $user_email Customer email address.
 		 * @return \WP_Error
 		 */
-		$errors = apply_filters( 'woocommerce_registration_errors', $errors, $username, $email );
+		$errors = apply_filters( 'poocommerce_registration_errors', $errors, $username, $email );
 
 		if ( is_wp_error( $errors ) && $errors->get_error_code() ) {
 			return $errors;
@@ -160,7 +160,7 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 		 * @return array
 		 */
 		$new_customer_data = apply_filters(
-			'woocommerce_new_customer_data',
+			'poocommerce_new_customer_data',
 			wp_parse_args(
 				$customer_data,
 				array(
@@ -189,13 +189,13 @@ if ( ! function_exists( 'wc_create_new_customer' ) ) {
 		 *
 		 * @since 7.2.0
 		 *
-		 * @internal Matches filter name in WooCommerce core.
+		 * @internal Matches filter name in PooCommerce core.
 		 *
 		 * @param integer $customer_id New customer (user) ID.
 		 * @param array $new_customer_data Array of customer (user) data.
 		 * @param string $password_generated The generated password for the account.
 		 */
-		do_action( 'woocommerce_created_customer', $customer_id, $new_customer_data, $password_generated );
+		do_action( 'poocommerce_created_customer', $customer_id, $new_customer_data, $password_generated );
 
 		return $customer_id;
 	}
@@ -276,7 +276,7 @@ function wc_create_new_customer_username( $email, $new_user_args = array(), $suf
 		 * @param string $suffix        Append string to username to make it unique.
 		 */
 		$new_args['first_name'] = apply_filters(
-			'woocommerce_generated_customer_username',
+			'poocommerce_generated_customer_username',
 			'woo_user_' . zeroise( wp_rand( 0, 9999 ), 4 ),
 			$email,
 			$new_user_args,
@@ -301,7 +301,7 @@ function wc_create_new_customer_username( $email, $new_user_args = array(), $suf
 	 * @param array  $new_user_args Array of new user args, maybe including first and last names.
 	 * @param string $suffix        Append string to username to make it unique.
 	 */
-	return apply_filters( 'woocommerce_new_customer_username', $username, $email, $new_user_args, $suffix );
+	return apply_filters( 'poocommerce_new_customer_username', $username, $email, $new_user_args, $suffix );
 }
 
 /**
@@ -353,7 +353,7 @@ function wc_update_new_customer_past_orders( $customer_id ) {
 				wc_downloadable_product_permissions( $order->get_id(), true );
 			}
 
-			do_action( 'woocommerce_update_new_customer_past_order', $order_id, $customer );
+			do_action( 'poocommerce_update_new_customer_past_order', $order_id, $customer );
 
 			if ( $order->get_status() === OrderInternalStatus::COMPLETED ) {
 				++$complete;
@@ -391,8 +391,8 @@ function wc_paying_customer( $order_id ) {
 		}
 	}
 }
-add_action( 'woocommerce_payment_complete', 'wc_paying_customer' );
-add_action( 'woocommerce_order_status_completed', 'wc_paying_customer' );
+add_action( 'poocommerce_payment_complete', 'wc_paying_customer' );
+add_action( 'poocommerce_order_status_completed', 'wc_paying_customer' );
 
 /**
  * Checks if a user (by email or ID or both) has bought an item.
@@ -405,15 +405,15 @@ add_action( 'woocommerce_order_status_completed', 'wc_paying_customer' );
 function wc_customer_bought_product( $customer_email, $user_id, $product_id ) {
 	global $wpdb;
 
-	$result = apply_filters( 'woocommerce_pre_customer_bought_product', null, $customer_email, $user_id, $product_id );
+	$result = apply_filters( 'poocommerce_pre_customer_bought_product', null, $customer_email, $user_id, $product_id );
 
 	if ( null !== $result ) {
 		return $result;
 	}
 
 	$transient_name = 'wc_customer_bought_product_' . md5( $customer_email . $user_id );
-	// Lookup tables get refreshed along with the `woocommerce_reports` transient version.
-	$transient_version = WC_Cache_Helper::get_transient_version( 'woocommerce_reports' );
+	// Lookup tables get refreshed along with the `poocommerce_reports` transient version.
+	$transient_version = WC_Cache_Helper::get_transient_version( 'poocommerce_reports' );
 	$transient_value   = get_transient( $transient_name );
 
 	if ( isset( $transient_value['value'], $transient_value['version'] ) && $transient_value['version'] === $transient_version ) {
@@ -589,7 +589,7 @@ add_filter( 'user_has_cap', 'wc_customer_has_capability', 10, 3 );
 
 /**
  * Safe way of allowing shop managers restricted capabilities that will remove
- * access to the capabilities if WooCommerce is deactivated.
+ * access to the capabilities if PooCommerce is deactivated.
  *
  * @since 3.5.4
  * @param bool[]   $allcaps Array of key/value pairs where keys represent a capability name and boolean values
@@ -624,7 +624,7 @@ function wc_modify_editable_roles( $roles ) {
 		unset( $roles['administrator'] );
 
 		if ( wc_current_user_has_role( 'shop_manager' ) ) {
-			$shop_manager_editable_roles = apply_filters( 'woocommerce_shop_manager_editable_roles', array( 'customer' ) );
+			$shop_manager_editable_roles = apply_filters( 'poocommerce_shop_manager_editable_roles', array( 'customer' ) );
 			return array_intersect_key( $roles, array_flip( $shop_manager_editable_roles ) );
 		}
 	}
@@ -661,7 +661,7 @@ function wc_modify_map_meta_cap( $caps, $cap, $user_id, $args ) {
 				} elseif ( wc_current_user_has_role( 'shop_manager' ) ) {
 					// Shop managers can only edit customer info.
 					$userdata                    = get_userdata( $args[0] );
-					$shop_manager_editable_roles = apply_filters( 'woocommerce_shop_manager_editable_roles', array( 'customer' ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+					$shop_manager_editable_roles = apply_filters( 'poocommerce_shop_manager_editable_roles', array( 'customer' ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 					if ( property_exists( $userdata, 'roles' ) && ! empty( $userdata->roles ) && ! array_intersect( $userdata->roles, $shop_manager_editable_roles ) ) {
 						$caps[] = 'do_not_allow';
 					}
@@ -681,7 +681,7 @@ add_filter( 'map_meta_cap', 'wc_modify_map_meta_cap', 10, 4 );
  */
 function wc_get_customer_download_permissions( $customer_id ) {
 	$data_store = WC_Data_Store::load( 'customer-download' );
-	return apply_filters( 'woocommerce_permission_list', $data_store->get_downloads_for_customer( $customer_id ), $customer_id ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+	return apply_filters( 'poocommerce_permission_list', $data_store->get_downloads_for_customer( $customer_id ), $customer_id ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 }
 
 /**
@@ -740,9 +740,9 @@ function wc_get_customer_available_downloads( $customer_id ) {
 			}
 
 			// Download name will be 'Product Name' for products with a single downloadable file, and 'Product Name - File X' for products with multiple files.
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			$download_name = apply_filters(
-				'woocommerce_downloadable_product_name',
+				'poocommerce_downloadable_product_name',
 				$download_file['name'],
 				$_product,
 				$result->download_id,
@@ -778,8 +778,8 @@ function wc_get_customer_available_downloads( $customer_id ) {
 		}
 	}
 
-	// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-	return apply_filters( 'woocommerce_customer_available_downloads', $downloads, $customer_id );
+	// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+	return apply_filters( 'poocommerce_customer_available_downloads', $downloads, $customer_id );
 }
 
 /**
@@ -904,7 +904,7 @@ add_action( 'profile_update', 'wc_update_profile_last_update_time', 10, 2 );
  * @param mixed  $_meta_value Value of the meta that was changed.
  */
 function wc_meta_update_last_update_time( $meta_id, $user_id, $meta_key, $_meta_value ) {
-	$keys_to_track = apply_filters( 'woocommerce_user_last_update_fields', array( 'first_name', 'last_name' ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+	$keys_to_track = apply_filters( 'poocommerce_user_last_update_fields', array( 'first_name', 'last_name' ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 	$update_time = in_array( $meta_key, $keys_to_track, true ) ? true : false;
 	$update_time = 'billing_' === substr( $meta_key, 0, 8 ) ? true : $update_time;
@@ -935,7 +935,7 @@ function wc_set_user_last_update_time( $user_id ) {
  * @return array
  */
 function wc_get_customer_saved_methods_list( $customer_id ) {
-	return apply_filters( 'woocommerce_saved_payment_methods_list', array(), $customer_id ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+	return apply_filters( 'poocommerce_saved_payment_methods_list', array(), $customer_id ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 }
 
 /**
@@ -965,7 +965,7 @@ function wc_user_search_columns( $search_columns ) {
 add_filter( 'user_search_columns', 'wc_user_search_columns' );
 
 /**
- * When a user is deleted in WordPress, delete corresponding WooCommerce data.
+ * When a user is deleted in WordPress, delete corresponding PooCommerce data.
  *
  * @param int $user_id User ID being deleted.
  */
@@ -974,7 +974,7 @@ function wc_delete_user_data( $user_id ) {
 
 	// Clean up sessions.
 	$wpdb->delete(
-		$wpdb->prefix . 'woocommerce_sessions',
+		$wpdb->prefix . 'poocommerce_sessions',
 		array(
 			'session_key' => $user_id,
 		)
@@ -982,7 +982,7 @@ function wc_delete_user_data( $user_id ) {
 
 	// Revoke API keys.
 	$wpdb->delete(
-		$wpdb->prefix . 'woocommerce_api_keys',
+		$wpdb->prefix . 'poocommerce_api_keys',
 		array(
 			'user_id' => $user_id,
 		)
@@ -1005,10 +1005,10 @@ add_action( 'delete_user', 'wc_delete_user_data' );
  * @param int|object $user       User.
  */
 function wc_maybe_store_user_agent( $user_login, $user ) {
-	if ( 'yes' === get_option( 'woocommerce_allow_tracking', 'no' ) && user_can( $user, 'manage_woocommerce' ) ) {
-		$admin_user_agents   = array_filter( (array) get_option( 'woocommerce_tracker_ua', array() ) );
+	if ( 'yes' === get_option( 'poocommerce_allow_tracking', 'no' ) && user_can( $user, 'manage_poocommerce' ) ) {
+		$admin_user_agents   = array_filter( (array) get_option( 'poocommerce_tracker_ua', array() ) );
 		$admin_user_agents[] = wc_get_user_agent();
-		update_option( 'woocommerce_tracker_ua', array_unique( $admin_user_agents ), false );
+		update_option( 'poocommerce_tracker_ua', array_unique( $admin_user_agents ), false );
 	}
 }
 add_action( 'wp_login', 'wc_maybe_store_user_agent', 10, 2 );
@@ -1022,7 +1022,7 @@ add_action( 'wp_login', 'wc_maybe_store_user_agent', 10, 2 );
  */
 function wc_user_logged_in( $user_login, $user ) {
 	wc_update_user_last_active( $user->ID );
-	update_user_meta( $user->ID, '_woocommerce_load_saved_cart_after_login', 1 );
+	update_user_meta( $user->ID, '_poocommerce_load_saved_cart_after_login', 1 );
 }
 add_action( 'wp_login', 'wc_user_logged_in', 10, 2 );
 
@@ -1053,7 +1053,7 @@ function wc_update_user_last_active( $user_id ) {
 }
 
 /**
- * Translate WC roles using the woocommerce textdomain.
+ * Translate WC roles using the poocommerce textdomain.
  *
  * @since 3.7.0
  * @param string $translation  Translated text.
@@ -1069,7 +1069,7 @@ function wc_translate_user_roles( $translation, $text, $context, $domain ) {
 	}
 
 	if ( 'User role' === $context && 'default' === $domain && in_array( $text, array( 'Shop manager', 'Customer' ), true ) ) {
-		return translate_user_role( $text, 'woocommerce' );
+		return translate_user_role( $text, 'poocommerce' );
 	}
 
 	return $translation;

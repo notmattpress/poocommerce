@@ -11,13 +11,13 @@ import { STORE_NAME } from './constants';
 import { WCUser, UserPreferences } from './types';
 
 /**
- * Retrieve and decode the user's WooCommerce meta values.
+ * Retrieve and decode the user's PooCommerce meta values.
  *
  * @param {Object} user WP User object.
- * @return {Object} User's WooCommerce preferences.
+ * @return {Object} User's PooCommerce preferences.
  */
-const getWooCommerceMeta = ( user: WCUser ) => {
-	const wooMeta = user.woocommerce_meta || {};
+const getPooCommerceMeta = ( user: WCUser ) => {
+	const wooMeta = user.poocommerce_meta || {};
 
 	const userData = mapValues( wooMeta, ( data ) => {
 		if ( ! data || data.length === 0 ) {
@@ -34,13 +34,13 @@ const getWooCommerceMeta = ( user: WCUser ) => {
 	return userData;
 };
 
-// Create wrapper for updating user's `woocommerce_meta`.
+// Create wrapper for updating user's `poocommerce_meta`.
 async function updateUserPrefs(
 	receiveCurrentUser: ( user: WCUser ) => void,
 	user: WCUser,
 	saveUser: ( userToSave: {
 		id: number;
-		woocommerce_meta: WCUser[ 'woocommerce_meta' ];
+		poocommerce_meta: WCUser[ 'poocommerce_meta' ];
 	} ) => WCUser,
 	getLastEntitySaveError: (
 		kind: string,
@@ -62,23 +62,23 @@ async function updateUserPrefs(
 
 	if ( Object.keys( metaData ).length === 0 ) {
 		return {
-			error: new Error( 'Invalid woocommerce_meta data for update.' ),
+			error: new Error( 'Invalid poocommerce_meta data for update.' ),
 			updatedUser: undefined,
 		};
 	}
 
-	// Optimistically propagate new woocommerce_meta to the store for instant update.
+	// Optimistically propagate new poocommerce_meta to the store for instant update.
 	receiveCurrentUser( {
 		...user,
-		woocommerce_meta: {
-			...user.woocommerce_meta,
+		poocommerce_meta: {
+			...user.poocommerce_meta,
 			...metaData,
 		},
 	} );
-	// Use saveUser() to update WooCommerce meta values.
+	// Use saveUser() to update PooCommerce meta values.
 	const updatedUser = await saveUser( {
 		id: user.id,
-		woocommerce_meta: metaData,
+		poocommerce_meta: metaData,
 	} );
 
 	if ( undefined === updatedUser ) {
@@ -91,10 +91,10 @@ async function updateUserPrefs(
 		};
 	}
 
-	// Decode the WooCommerce meta after save.
+	// Decode the PooCommerce meta after save.
 	const updatedUserResponse = {
 		...updatedUser,
-		woocommerce_meta: getWooCommerceMeta( updatedUser ),
+		poocommerce_meta: getPooCommerceMeta( updatedUser ),
 	};
 
 	return {
@@ -103,7 +103,7 @@ async function updateUserPrefs(
 }
 
 /**
- * Custom react hook for retrieving thecurrent user's WooCommerce preferences.
+ * Custom react hook for retrieving thecurrent user's PooCommerce preferences.
  *
  * This is a wrapper around @wordpress/core-data's getCurrentUser() and saveUser().
  */
@@ -154,7 +154,7 @@ export const useUserPreferences = () => {
 			// @ts-ignore
 			saveUser = async ( userToSave: {
 				id: number;
-				woocommerce_meta: { [ key: string ]: boolean };
+				poocommerce_meta: { [ key: string ]: boolean };
 			} ) => {
 				const entityDefined = Boolean(
 					userData.getEntity( 'root', 'user' )
@@ -194,7 +194,7 @@ export const useUserPreferences = () => {
 	};
 
 	const userPreferences: UserPreferences = userData.user
-		? getWooCommerceMeta( userData.user )
+		? getPooCommerceMeta( userData.user )
 		: {};
 
 	return {

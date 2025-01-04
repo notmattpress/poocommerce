@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Theme Guidelines - Demos and Sample Content
+post_title: PooCommerce Theme Guidelines - Demos and Sample Content
 menu_title: Demos and Sample Content
 ---
 

@@ -1,8 +1,8 @@
 /**
- * Overrides for WooCommerce CSS Variables with the new branding
+ * Overrides for PooCommerce CSS Variables with the new branding
  */
 
-$woocommerce:   	#720EEC !default;
+$poocommerce:   	#720EEC !default;
 
 $primary:           #720EEC !default;                                    // Primary color for buttons (alt)
 $primarytext:       desaturate(lighten($primary, 50%), 18%) !default;    // Text on primary color bg
@@ -15,7 +15,7 @@ $highlightext:      desaturate(lighten($highlight, 80%), 18%) !default;  // Text
 
 // export vars as CSS vars
 :root {
-	--woocommerce: #{$woocommerce};
+	--poocommerce: #{$poocommerce};
 	--wc-primary: #{$primary};
 	--wc-primary-text: #{$primarytext};
 	--wc-secondary: #{$secondary};

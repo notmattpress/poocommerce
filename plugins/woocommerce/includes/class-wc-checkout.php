@@ -2,15 +2,15 @@
 /**
  * Checkout functionality
  *
- * The WooCommerce checkout class handles the checkout process, collecting user data and processing the payment.
+ * The PooCommerce checkout class handles the checkout process, collecting user data and processing the payment.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.4.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -60,15 +60,15 @@ class WC_Checkout {
 			self::$instance = new self();
 
 			// Hook in actions once.
-			add_action( 'woocommerce_checkout_billing', array( self::$instance, 'checkout_form_billing' ) );
-			add_action( 'woocommerce_checkout_shipping', array( self::$instance, 'checkout_form_shipping' ) );
+			add_action( 'poocommerce_checkout_billing', array( self::$instance, 'checkout_form_billing' ) );
+			add_action( 'poocommerce_checkout_shipping', array( self::$instance, 'checkout_form_shipping' ) );
 
 			/**
 			 * Runs once when the WC_Checkout class is first instantiated.
 			 *
 			 * @since 3.0.0 or earlier
 			 */
-			do_action( 'woocommerce_checkout_init', self::$instance );
+			do_action( 'poocommerce_checkout_init', self::$instance );
 		}
 		return self::$instance;
 	}
@@ -109,18 +109,18 @@ class WC_Checkout {
 				$bool_value = wc_string_to_bool( $value );
 
 				if ( $bool_value !== $this->is_registration_enabled() ) {
-					remove_filter( 'woocommerce_checkout_registration_enabled', '__return_true', 0 );
-					remove_filter( 'woocommerce_checkout_registration_enabled', '__return_false', 0 );
-					add_filter( 'woocommerce_checkout_registration_enabled', $bool_value ? '__return_true' : '__return_false', 0 );
+					remove_filter( 'poocommerce_checkout_registration_enabled', '__return_true', 0 );
+					remove_filter( 'poocommerce_checkout_registration_enabled', '__return_false', 0 );
+					add_filter( 'poocommerce_checkout_registration_enabled', $bool_value ? '__return_true' : '__return_false', 0 );
 				}
 				break;
 			case 'enable_guest_checkout':
 				$bool_value = wc_string_to_bool( $value );
 
 				if ( $bool_value === $this->is_registration_required() ) {
-					remove_filter( 'woocommerce_checkout_registration_required', '__return_true', 0 );
-					remove_filter( 'woocommerce_checkout_registration_required', '__return_false', 0 );
-					add_filter( 'woocommerce_checkout_registration_required', $bool_value ? '__return_false' : '__return_true', 0 );
+					remove_filter( 'poocommerce_checkout_registration_required', '__return_true', 0 );
+					remove_filter( 'poocommerce_checkout_registration_required', '__return_false', 0 );
+					add_filter( 'poocommerce_checkout_registration_required', $bool_value ? '__return_false' : '__return_true', 0 );
 				}
 				break;
 			case 'checkout_fields':
@@ -170,7 +170,7 @@ class WC_Checkout {
 				 *
 				 * @param int The current user's ID (this may be 0 if no user is logged in).
 				 */
-				return apply_filters( 'woocommerce_checkout_customer_id', get_current_user_id() );
+				return apply_filters( 'poocommerce_checkout_customer_id', get_current_user_id() );
 			case 'shipping_methods':
 				return (array) WC()->session->get( 'chosen_shipping_methods' );
 		}
@@ -180,14 +180,14 @@ class WC_Checkout {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -204,7 +204,7 @@ class WC_Checkout {
 		 *
 		 * @param bool $checkout_registration_required If customers must be registered to checkout.
 		 */
-		return apply_filters( 'woocommerce_checkout_registration_required', 'yes' !== get_option( 'woocommerce_enable_guest_checkout' ) );
+		return apply_filters( 'poocommerce_checkout_registration_required', 'yes' !== get_option( 'poocommerce_enable_guest_checkout' ) );
 	}
 
 	/**
@@ -221,7 +221,7 @@ class WC_Checkout {
 		 *
 		 * @param bool $checkout_registration_enabled If checkout registration is enabled.
 		 */
-		return apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
+		return apply_filters( 'poocommerce_checkout_registration_enabled', 'yes' === get_option( 'poocommerce_enable_signup_and_login_from_checkout' ) );
 	}
 
 	/**
@@ -259,31 +259,31 @@ class WC_Checkout {
 				'order_comments' => array(
 					'type'        => 'textarea',
 					'class'       => array( 'notes' ),
-					'label'       => __( 'Order notes', 'woocommerce' ),
+					'label'       => __( 'Order notes', 'poocommerce' ),
 					'placeholder' => esc_attr__(
 						'Notes about your order, e.g. special notes for delivery.',
-						'woocommerce'
+						'poocommerce'
 					),
 				),
 			),
 		);
 
-		if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) {
+		if ( 'no' === get_option( 'poocommerce_registration_generate_username' ) ) {
 			$this->fields['account']['account_username'] = array(
 				'type'         => 'text',
-				'label'        => __( 'Account username', 'woocommerce' ),
+				'label'        => __( 'Account username', 'poocommerce' ),
 				'required'     => true,
-				'placeholder'  => esc_attr__( 'Username', 'woocommerce' ),
+				'placeholder'  => esc_attr__( 'Username', 'poocommerce' ),
 				'autocomplete' => 'username',
 			);
 		}
 
-		if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
+		if ( 'no' === get_option( 'poocommerce_registration_generate_password' ) ) {
 			$this->fields['account']['account_password'] = array(
 				'type'         => 'password',
-				'label'        => __( 'Create account password', 'woocommerce' ),
+				'label'        => __( 'Create account password', 'poocommerce' ),
 				'required'     => true,
-				'placeholder'  => esc_attr__( 'Password', 'woocommerce' ),
+				'placeholder'  => esc_attr__( 'Password', 'poocommerce' ),
 				'autocomplete' => 'new-password',
 			);
 		}
@@ -295,7 +295,7 @@ class WC_Checkout {
 		 *
 		 * @param array[] $checkout_fields
 		 */
-		$this->fields = apply_filters( 'woocommerce_checkout_fields', $this->fields );
+		$this->fields = apply_filters( 'poocommerce_checkout_fields', $this->fields );
 
 		foreach ( $this->fields as $field_type => $fields ) {
 			// Sort each of the checkout field sections based on priority.
@@ -340,7 +340,7 @@ class WC_Checkout {
 		 * @see WC_Checkout::validate_checkout()
 		 * @since 3.0.0 or earlier
 		 */
-		do_action( 'woocommerce_check_cart_items' );
+		do_action( 'poocommerce_check_cart_items' );
 	}
 
 	/**
@@ -381,7 +381,7 @@ class WC_Checkout {
 		 * @param int|null    $order_id Can be set to an order ID to short-circuit the default order creation process.
 		 * @param WC_Checkout $checkout Reference to the current WC_Checkout instance.
 		 */
-		$order_id = apply_filters( 'woocommerce_create_order', null, $this );
+		$order_id = apply_filters( 'poocommerce_create_order', null, $this );
 		if ( $order_id ) {
 			return $order_id;
 		}
@@ -407,7 +407,7 @@ class WC_Checkout {
 				 *
 				 * @param int $order_id The ID of the order being resumed.
 				 */
-				do_action( 'woocommerce_resume_order', $order_id );
+				do_action( 'poocommerce_resume_order', $order_id );
 
 				// Remove all items - we will re-add them later.
 				$order->remove_order_items();
@@ -443,13 +443,13 @@ class WC_Checkout {
 			$order->set_created_via( 'checkout' );
 			$order->set_cart_hash( $cart_hash );
 			/**
-			 * This action is documented in woocommerce/includes/class-wc-checkout.php
+			 * This action is documented in poocommerce/includes/class-wc-checkout.php
 			 *
 			 * @since 3.0.0 or earlier
 			 */
-			$order->set_customer_id( apply_filters( 'woocommerce_checkout_customer_id', get_current_user_id() ) );
-			$order->set_currency( get_woocommerce_currency() );
-			$order->set_prices_include_tax( 'yes' === get_option( 'woocommerce_prices_include_tax' ) );
+			$order->set_customer_id( apply_filters( 'poocommerce_checkout_customer_id', get_current_user_id() ) );
+			$order->set_currency( get_poocommerce_currency() );
+			$order->set_prices_include_tax( 'yes' === get_option( 'poocommerce_prices_include_tax' ) );
 			$order->set_customer_ip_address( WC_Geolocation::get_ip_address() );
 			$order->set_customer_user_agent( wc_get_user_agent() );
 			$order->set_customer_note( isset( $data['order_comments'] ) ? $data['order_comments'] : '' );
@@ -465,7 +465,7 @@ class WC_Checkout {
 			 *
 			 * @since 3.0.0
 			 */
-			do_action( 'woocommerce_checkout_create_order', $order, $data );
+			do_action( 'poocommerce_checkout_create_order', $order, $data );
 
 			// Save the order.
 			$order_id = $order->save();
@@ -475,14 +475,14 @@ class WC_Checkout {
 			 *
 			 * @since 3.0.0
 			 */
-			do_action( 'woocommerce_checkout_update_order_meta', $order_id, $data );
+			do_action( 'poocommerce_checkout_update_order_meta', $order_id, $data );
 
 			/**
 			 * Action hook fired after an order is created.
 			 *
 			 * @since 4.3.0
 			 */
-			do_action( 'woocommerce_checkout_order_created', $order );
+			do_action( 'poocommerce_checkout_order_created', $order );
 
 			return $order_id;
 		} catch ( Exception $e ) {
@@ -493,7 +493,7 @@ class WC_Checkout {
 				 *
 				 * @since 4.3.0
 				 */
-				do_action( 'woocommerce_checkout_order_exception', $order );
+				do_action( 'poocommerce_checkout_order_exception', $order );
 			}
 			return new WP_Error( 'checkout-error', $e->getMessage() );
 		}
@@ -534,7 +534,7 @@ class WC_Checkout {
 			 *
 			 * @since 3.1.0
 			 */
-			$item                       = apply_filters( 'woocommerce_checkout_create_order_line_item_object', new WC_Order_Item_Product(), $cart_item_key, $values, $order );
+			$item                       = apply_filters( 'poocommerce_checkout_create_order_line_item_object', new WC_Order_Item_Product(), $cart_item_key, $values, $order );
 			$product                    = $values['data'];
 			$item->legacy_values        = $values; // @deprecated 4.4.0 For legacy actions.
 			$item->legacy_cart_item_key = $cart_item_key; // @deprecated 4.4.0 For legacy actions.
@@ -568,7 +568,7 @@ class WC_Checkout {
 			 *
 			 * @since 3.0.0
 			 */
-			do_action( 'woocommerce_checkout_create_order_line_item', $item, $cart_item_key, $values, $order );
+			do_action( 'poocommerce_checkout_create_order_line_item', $item, $cart_item_key, $values, $order );
 
 			// Add item to order and save.
 			$order->add_item( $item );
@@ -604,7 +604,7 @@ class WC_Checkout {
 			 *
 			 * @since 3.0.0
 			 */
-			do_action( 'woocommerce_checkout_create_order_fee_item', $item, $fee_key, $fee, $order );
+			do_action( 'poocommerce_checkout_create_order_fee_item', $item, $fee_key, $fee, $order );
 
 			// Add item to order and save.
 			$order->add_item( $item );
@@ -646,7 +646,7 @@ class WC_Checkout {
 				 *
 				 * @since 3.0.0
 				 */
-				do_action( 'woocommerce_checkout_create_order_shipping_item', $item, $package_key, $package, $order );
+				do_action( 'poocommerce_checkout_create_order_shipping_item', $item, $package_key, $package, $order );
 
 				// Add item to order and save.
 				$order->add_item( $item );
@@ -671,7 +671,7 @@ class WC_Checkout {
 			 *
 			 * @param string $tax_rate_id The ID of the zero rate tax.
 			 */
-			if ( $tax_rate_id && apply_filters( 'woocommerce_cart_remove_taxes_zero_rate_id', 'zero-rated' ) !== $tax_rate_id ) {
+			if ( $tax_rate_id && apply_filters( 'poocommerce_cart_remove_taxes_zero_rate_id', 'zero-rated' ) !== $tax_rate_id ) {
 				$item = new WC_Order_Item_Tax();
 				$item->set_props(
 					array(
@@ -690,7 +690,7 @@ class WC_Checkout {
 				 *
 				 * @since 3.0.0
 				 */
-				do_action( 'woocommerce_checkout_create_order_tax_item', $item, $tax_rate_id, $order );
+				do_action( 'poocommerce_checkout_create_order_tax_item', $item, $tax_rate_id, $order );
 
 				// Add item to order and save.
 				$order->add_item( $item );
@@ -723,7 +723,7 @@ class WC_Checkout {
 			 *
 			 * @since 3.0.0
 			 */
-			do_action( 'woocommerce_checkout_create_order_coupon_item', $item, $code, $coupon, $order );
+			do_action( 'poocommerce_checkout_create_order_coupon_item', $item, $code, $coupon, $order );
 
 			// Add item to order and save.
 			$order->add_item( $item );
@@ -765,12 +765,12 @@ class WC_Checkout {
 			'payment_method'                     => isset( $_POST['payment_method'] ) ? wc_clean( wp_unslash( $_POST['payment_method'] ) ) : '',
 			'shipping_method'                    => isset( $_POST['shipping_method'] ) ? wc_clean( wp_unslash( $_POST['shipping_method'] ) ) : '',
 			'ship_to_different_address'          => ! empty( $_POST['ship_to_different_address'] ) && ! wc_ship_to_billing_address_only(),
-			'woocommerce_checkout_update_totals' => isset( $_POST['woocommerce_checkout_update_totals'] ),
+			'poocommerce_checkout_update_totals' => isset( $_POST['poocommerce_checkout_update_totals'] ),
 		);
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$skipped        = array();
-		$form_was_shown = isset( $_POST['woocommerce-process-checkout-nonce'] ); // phpcs:disable WordPress.Security.NonceVerification.Missing
+		$form_was_shown = isset( $_POST['poocommerce-process-checkout-nonce'] ); // phpcs:disable WordPress.Security.NonceVerification.Missing
 
 		foreach ( $this->get_checkout_fields() as $fieldset_key => $fieldset ) {
 			if ( $this->maybe_skip_fieldset( $fieldset_key, $data ) ) {
@@ -811,7 +811,7 @@ class WC_Checkout {
 					}
 				}
 
-				$data[ $key ] = apply_filters( 'woocommerce_process_checkout_' . $type . '_field', apply_filters( 'woocommerce_process_checkout_field_' . $key, $value ) );
+				$data[ $key ] = apply_filters( 'poocommerce_process_checkout_' . $type . '_field', apply_filters( 'poocommerce_process_checkout_field_' . $key, $value ) );
 			}
 		}
 
@@ -824,7 +824,7 @@ class WC_Checkout {
 		// BW compatibility.
 		$this->legacy_posted_data = $data;
 
-		return apply_filters( 'woocommerce_checkout_posted_data', $data );
+		return apply_filters( 'poocommerce_checkout_posted_data', $data );
 	}
 
 	/**
@@ -853,17 +853,17 @@ class WC_Checkout {
 					( isset( $field['type'] ) && 'country' === $field['type'] && '' !== $data[ $key ] ) &&
 					! WC()->countries->country_exists( $data[ $key ] ) ) {
 						/* translators: ISO 3166-1 alpha-2 country code */
-						$errors->add( $key . '_validation', sprintf( __( "'%s' is not a valid country code.", 'woocommerce' ), $data[ $key ] ) );
+						$errors->add( $key . '_validation', sprintf( __( "'%s' is not a valid country code.", 'poocommerce' ), $data[ $key ] ) );
 				}
 
 				switch ( $fieldset_key ) {
 					case 'shipping':
 						/* translators: %s: field name */
-						$field_label = sprintf( _x( 'Shipping %s', 'checkout-validation', 'woocommerce' ), $field_label );
+						$field_label = sprintf( _x( 'Shipping %s', 'checkout-validation', 'poocommerce' ), $field_label );
 						break;
 					case 'billing':
 						/* translators: %s: field name */
-						$field_label = sprintf( _x( 'Billing %s', 'checkout-validation', 'woocommerce' ), $field_label );
+						$field_label = sprintf( _x( 'Billing %s', 'checkout-validation', 'poocommerce' ), $field_label );
 						break;
 				}
 
@@ -875,13 +875,13 @@ class WC_Checkout {
 						switch ( $country ) {
 							case 'IE':
 								/* translators: %1$s: field name, %2$s finder.eircode.ie URL */
-								$postcode_validation_notice = sprintf( __( '%1$s is not valid. You can look up the correct Eircode <a target="_blank" href="%2$s">here</a>.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', 'https://finder.eircode.ie' );
+								$postcode_validation_notice = sprintf( __( '%1$s is not valid. You can look up the correct Eircode <a target="_blank" href="%2$s">here</a>.', 'poocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', 'https://finder.eircode.ie' );
 								break;
 							default:
 								/* translators: %s: field name */
-								$postcode_validation_notice = sprintf( __( '%s is not a valid postcode / ZIP.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' );
+								$postcode_validation_notice = sprintf( __( '%s is not a valid postcode / ZIP.', 'poocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' );
 						}
-						$errors->add( $key . '_validation', apply_filters( 'woocommerce_checkout_postcode_validation_notice', $postcode_validation_notice, $country, $data[ $key ] ), array( 'id' => $key ) );
+						$errors->add( $key . '_validation', apply_filters( 'poocommerce_checkout_postcode_validation_notice', $postcode_validation_notice, $country, $data[ $key ] ), array( 'id' => $key ) );
 					}
 				}
 
@@ -890,7 +890,7 @@ class WC_Checkout {
 
 					if ( $validate_fieldset && '' !== $data[ $key ] && ! WC_Validation::is_phone( $data[ $key ] ) ) {
 						/* translators: %s: phone number */
-						$errors->add( $key . '_validation', sprintf( __( '%s is not a valid phone number.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), array( 'id' => $key ) );
+						$errors->add( $key . '_validation', sprintf( __( '%s is not a valid phone number.', 'poocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), array( 'id' => $key ) );
 					}
 				}
 
@@ -900,7 +900,7 @@ class WC_Checkout {
 
 					if ( $validate_fieldset && ! $email_is_valid ) {
 						/* translators: %s: email address */
-						$errors->add( $key . '_validation', sprintf( __( '%s is not a valid email address.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), array( 'id' => $key ) );
+						$errors->add( $key . '_validation', sprintf( __( '%s is not a valid email address.', 'poocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), array( 'id' => $key ) );
 						continue;
 					}
 				}
@@ -920,14 +920,14 @@ class WC_Checkout {
 
 						if ( $validate_fieldset && ! in_array( $data[ $key ], $valid_state_values, true ) ) {
 							/* translators: 1: state field 2: valid states */
-							$errors->add( $key . '_validation', sprintf( __( '%1$s is not valid. Please enter one of the following: %2$s', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', implode( ', ', $valid_states ) ), array( 'id' => $key ) );
+							$errors->add( $key . '_validation', sprintf( __( '%1$s is not valid. Please enter one of the following: %2$s', 'poocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', implode( ', ', $valid_states ) ), array( 'id' => $key ) );
 						}
 					}
 				}
 
 				if ( $validate_fieldset && $required && '' === $data[ $key ] ) {
 					/* translators: %s: field name */
-					$errors->add( $key . '_required', apply_filters( 'woocommerce_checkout_required_field_notice', sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), $field_label, $key ), array( 'id' => $key ) );
+					$errors->add( $key . '_required', apply_filters( 'poocommerce_checkout_required_field_notice', sprintf( __( '%s is a required field.', 'poocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), $field_label, $key ), array( 'id' => $key ) );
 				}
 			}
 		}
@@ -945,26 +945,26 @@ class WC_Checkout {
 		$this->check_cart_items();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		if ( empty( $data['woocommerce_checkout_update_totals'] ) && empty( $data['terms'] ) && ! empty( $data['terms-field'] ) ) {
-			$errors->add( 'terms', __( 'Please read and accept the terms and conditions to proceed with your order.', 'woocommerce' ), array( 'id' => 'terms' ) );
+		if ( empty( $data['poocommerce_checkout_update_totals'] ) && empty( $data['terms'] ) && ! empty( $data['terms-field'] ) ) {
+			$errors->add( 'terms', __( 'Please read and accept the terms and conditions to proceed with your order.', 'poocommerce' ), array( 'id' => 'terms' ) );
 		}
 
 		if ( WC()->cart->needs_shipping() ) {
 			$shipping_country = isset( $data['shipping_country'] ) ? $data['shipping_country'] : WC()->customer->get_shipping_country();
 
 			if ( empty( $shipping_country ) ) {
-				$errors->add( 'shipping', __( 'Please enter an address to continue.', 'woocommerce' ) );
+				$errors->add( 'shipping', __( 'Please enter an address to continue.', 'poocommerce' ) );
 			} elseif ( ! in_array( $shipping_country, array_keys( WC()->countries->get_shipping_countries() ), true ) ) {
 				if ( WC()->countries->country_exists( $shipping_country ) ) {
 					/* translators: %s: shipping location (prefix e.g. 'to' + ISO 3166-1 alpha-2 country code) */
-					$errors->add( 'shipping', sprintf( __( 'Unfortunately <strong>we do not ship %s</strong>. Please enter an alternative shipping address.', 'woocommerce' ), WC()->countries->shipping_to_prefix() . ' ' . $shipping_country ) );
+					$errors->add( 'shipping', sprintf( __( 'Unfortunately <strong>we do not ship %s</strong>. Please enter an alternative shipping address.', 'poocommerce' ), WC()->countries->shipping_to_prefix() . ' ' . $shipping_country ) );
 				}
 			} else {
 				$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 
 				foreach ( WC()->shipping()->get_packages() as $i => $package ) {
 					if ( ! isset( $chosen_shipping_methods[ $i ], $package['rates'][ $chosen_shipping_methods[ $i ] ] ) ) {
-						$errors->add( 'shipping', __( 'No shipping method has been selected. Please double check your address, or contact us if you need any help.', 'woocommerce' ) );
+						$errors->add( 'shipping', __( 'No shipping method has been selected. Please double check your address, or contact us if you need any help.', 'poocommerce' ) );
 					}
 				}
 			}
@@ -974,13 +974,13 @@ class WC_Checkout {
 			$available_gateways = WC()->payment_gateways->get_available_payment_gateways();
 
 			if ( ! isset( $available_gateways[ $data['payment_method'] ] ) ) {
-				$errors->add( 'payment', __( 'Invalid payment method.', 'woocommerce' ) );
+				$errors->add( 'payment', __( 'Invalid payment method.', 'poocommerce' ) );
 			} else {
 				$available_gateways[ $data['payment_method'] ]->validate_fields();
 			}
 		}
 
-		do_action( 'woocommerce_after_checkout_validation', $data, $errors );
+		do_action( 'poocommerce_after_checkout_validation', $data, $errors );
 	}
 
 	/**
@@ -1087,7 +1087,7 @@ class WC_Checkout {
 		if ( isset( $result['result'] ) && 'success' === $result['result'] ) {
 			$result['order_id'] = $order_id;
 
-			$result = apply_filters( 'woocommerce_payment_successful_result', $result, $order_id );
+			$result = apply_filters( 'poocommerce_payment_successful_result', $result, $order_id );
 
 			if ( ! wp_doing_ajax() ) {
 				// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
@@ -1113,7 +1113,7 @@ class WC_Checkout {
 
 		if ( ! wp_doing_ajax() ) {
 			wp_safe_redirect(
-				apply_filters( 'woocommerce_checkout_no_payment_needed_redirect', $order->get_checkout_order_received_url(), $order )
+				apply_filters( 'poocommerce_checkout_no_payment_needed_redirect', $order->get_checkout_order_received_url(), $order )
 			);
 			exit;
 		}
@@ -1121,7 +1121,7 @@ class WC_Checkout {
 		wp_send_json(
 			array(
 				'result'   => 'success',
-				'redirect' => apply_filters( 'woocommerce_checkout_no_payment_needed_redirect', $order->get_checkout_order_received_url(), $order ),
+				'redirect' => apply_filters( 'poocommerce_checkout_no_payment_needed_redirect', $order->get_checkout_order_received_url(), $order ),
 			)
 		);
 	}
@@ -1134,11 +1134,11 @@ class WC_Checkout {
 	 */
 	protected function process_customer( $data ) {
 		/**
-		 * This action is documented in woocommerce/includes/class-wc-checkout.php
+		 * This action is documented in poocommerce/includes/class-wc-checkout.php
 		 *
 		 * @since 3.0.0 or earlier
 		 */
-		$customer_id = apply_filters( 'woocommerce_checkout_customer_id', get_current_user_id() );
+		$customer_id = apply_filters( 'poocommerce_checkout_customer_id', get_current_user_id() );
 
 		if ( ! is_user_logged_in() && ( $this->is_registration_required() || ! empty( $data['createaccount'] ) ) ) {
 			$username    = ! empty( $data['account_username'] ) ? $data['account_username'] : '';
@@ -1162,7 +1162,7 @@ class WC_Checkout {
 					 * @param string $message The notice.
 					 * @param string $email   The email address.
 					 */
-					throw new Exception( apply_filters( 'woocommerce_registration_error_email_exists', __( 'An account is already registered with your email address. <a href="#" class="showlogin">Please log in.</a>', 'woocommerce' ), $data['billing_email'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+					throw new Exception( apply_filters( 'poocommerce_registration_error_email_exists', __( 'An account is already registered with your email address. <a href="#" class="showlogin">Please log in.</a>', 'poocommerce' ), $data['billing_email'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				}
 				throw new Exception( $customer_id->get_error_message() ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
@@ -1182,7 +1182,7 @@ class WC_Checkout {
 		}
 
 		// Add customer info from other fields.
-		if ( $customer_id && apply_filters( 'woocommerce_checkout_update_customer_data', true, $this ) ) {
+		if ( $customer_id && apply_filters( 'poocommerce_checkout_update_customer_data', true, $this ) ) {
 			$customer = new WC_Customer( $customer_id );
 
 			if ( ! empty( $data['billing_first_name'] ) && '' === $customer->get_first_name() ) {
@@ -1214,12 +1214,12 @@ class WC_Checkout {
 			 *
 			 * @since 3.0.0
 			 */
-			do_action( 'woocommerce_checkout_update_customer', $customer, $data );
+			do_action( 'poocommerce_checkout_update_customer', $customer, $data );
 
 			$customer->save();
 		}
 
-		do_action( 'woocommerce_checkout_update_user_meta', $customer_id, $data );
+		do_action( 'poocommerce_checkout_update_user_meta', $customer_id, $data );
 	}
 
 	/**
@@ -1252,33 +1252,33 @@ class WC_Checkout {
 	 */
 	public function process_checkout() {
 		try {
-			$nonce_value    = wc_get_var( $_REQUEST['woocommerce-process-checkout-nonce'], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // phpcs:ignore
+			$nonce_value    = wc_get_var( $_REQUEST['poocommerce-process-checkout-nonce'], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // phpcs:ignore
 			$expiry_message = sprintf(
 				/* translators: %s: shop cart url */
-				__( 'Sorry, your session has expired. <a href="%s" class="wc-backward">Return to shop</a>', 'woocommerce' ),
+				__( 'Sorry, your session has expired. <a href="%s" class="wc-backward">Return to shop</a>', 'poocommerce' ),
 				esc_url( wc_get_page_permalink( 'shop' ) )
 			);
 
-			if ( empty( $nonce_value ) || ! wp_verify_nonce( $nonce_value, 'woocommerce-process_checkout' ) ) {
+			if ( empty( $nonce_value ) || ! wp_verify_nonce( $nonce_value, 'poocommerce-process_checkout' ) ) {
 				// If the cart is empty, the nonce check failed because of session expiry.
 				if ( WC()->cart->is_empty() ) {
 					throw new Exception( $expiry_message );
 				}
 
 				WC()->session->set( 'refresh_totals', true );
-				throw new Exception( __( 'We were unable to process your order, please try again.', 'woocommerce' ) );
+				throw new Exception( __( 'We were unable to process your order, please try again.', 'poocommerce' ) );
 			}
 
 			wc_maybe_define_constant( 'WOOCOMMERCE_CHECKOUT', true );
 			wc_set_time_limit( 0 );
 
-			do_action( 'woocommerce_before_checkout_process' );
+			do_action( 'poocommerce_before_checkout_process' );
 
 			if ( WC()->cart->is_empty() ) {
 				throw new Exception( $expiry_message );
 			}
 
-			do_action( 'woocommerce_checkout_process' );
+			do_action( 'poocommerce_checkout_process' );
 
 			$errors      = new WP_Error();
 			$posted_data = $this->get_posted_data();
@@ -1296,7 +1296,7 @@ class WC_Checkout {
 				}
 			}
 
-			if ( empty( $posted_data['woocommerce_checkout_update_totals'] ) && 0 === wc_notice_count( 'error' ) ) {
+			if ( empty( $posted_data['poocommerce_checkout_update_totals'] ) && 0 === wc_notice_count( 'error' ) ) {
 				$this->process_customer( $posted_data );
 				$order_id = $this->create_order( $posted_data );
 				$order    = wc_get_order( $order_id );
@@ -1306,22 +1306,22 @@ class WC_Checkout {
 				}
 
 				if ( ! $order ) {
-					throw new Exception( __( 'Unable to create order.', 'woocommerce' ) );
+					throw new Exception( __( 'Unable to create order.', 'poocommerce' ) );
 				}
 
-				do_action( 'woocommerce_checkout_order_processed', $order_id, $posted_data, $order );
+				do_action( 'poocommerce_checkout_order_processed', $order_id, $posted_data, $order );
 
 				/**
-				 * Note that woocommerce_cart_needs_payment is only used in
+				 * Note that poocommerce_cart_needs_payment is only used in
 				 * WC_Checkout::process_checkout() to keep backwards compatibility.
-				 * Use woocommerce_order_needs_payment instead.
+				 * Use poocommerce_order_needs_payment instead.
 				 *
 				 * Note that at this point you can't rely on the Cart Object anymore,
 				 * since it could be empty see:
-				 * https://github.com/woocommerce/woocommerce/issues/24631
+				 * https://github.com/poocommerce/poocommerce/issues/24631
 				 */
 
-				if ( apply_filters( 'woocommerce_cart_needs_payment', $order->needs_payment(), WC()->cart ) ) {
+				if ( apply_filters( 'poocommerce_cart_needs_payment', $order->needs_payment(), WC()->cart ) ) {
 					$this->process_order_payment( $order_id, $posted_data['payment_method'] );
 				} else {
 					$this->process_order_without_payment( $order_id );
@@ -1362,7 +1362,7 @@ class WC_Checkout {
 		}
 
 		// Allow 3rd parties to short circuit the logic and return their own default value.
-		$value = apply_filters( 'woocommerce_checkout_get_value', null, $input );
+		$value = apply_filters( 'poocommerce_checkout_get_value', null, $input );
 
 		if ( ! is_null( $value ) ) {
 			return $value;

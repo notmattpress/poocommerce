@@ -29,11 +29,11 @@ test.describe(
 					`wp-admin/admin.php?page=wc-admin&path=%2Fanalytics%2F${ urlTitle }`
 				);
 				const pageTitle = page.locator(
-					'.woocommerce-layout__header-wrapper > h1'
+					'.poocommerce-layout__header-wrapper > h1'
 				);
 				await expect( pageTitle ).toContainText( aPages );
 				await expect(
-					page.locator( '#woocommerce-layout__primary' )
+					page.locator( '#poocommerce-layout__primary' )
 				).toBeVisible();
 			} );
 		}

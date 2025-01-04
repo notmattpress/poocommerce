@@ -19,9 +19,9 @@ export const Header = ( {
 	return (
 		<VStack
 			className={ classnames(
-				'woocommerce-settings-header edit-site-page-header',
+				'poocommerce-settings-header edit-site-page-header',
 				{
-					'woocommerce-settings-header--has-tabs': hasTabs,
+					'poocommerce-settings-header--has-tabs': hasTabs,
 				}
 			) }
 			as="header"

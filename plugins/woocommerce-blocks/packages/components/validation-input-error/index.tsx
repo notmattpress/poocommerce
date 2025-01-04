@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 import { Icon, warning } from '@wordpress/icons';
 
 /**

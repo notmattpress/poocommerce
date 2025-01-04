@@ -25,7 +25,7 @@ import {
 } from '@wordpress/block-editor';
 import { store as noticesStore } from '@wordpress/notices';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -200,14 +200,14 @@ const LogoSettings = ( {
 	const maxWidthBuffer = MAX_LOGO_WIDTH * 2.5;
 
 	return (
-		<div className="woocommerce-customize-store__sidebar-group">
-			<div className="woocommerce-customize-store__sidebar-group-header">
-				{ __( 'Settings', 'woocommerce' ) }
+		<div className="poocommerce-customize-store__sidebar-group">
+			<div className="poocommerce-customize-store__sidebar-group-header">
+				{ __( 'Settings', 'poocommerce' ) }
 			</div>
 			<RangeControl
 				__nextHasNoMarginBottom
 				__next40pxDefaultSize
-				label={ __( 'Image width', 'woocommerce' ) }
+				label={ __( 'Image width', 'poocommerce' ) }
 				onChange={ ( newWidth ) =>
 					setAttributes( { width: newWidth } )
 				}
@@ -222,7 +222,7 @@ const LogoSettings = ( {
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom
-				label={ __( 'Link logo to homepage', 'woocommerce' ) }
+				label={ __( 'Link logo to homepage', 'poocommerce' ) }
 				onChange={ () => {
 					setAttributes( { isLink: ! isLink } );
 				} }
@@ -232,7 +232,7 @@ const LogoSettings = ( {
 				<>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Use as site icon', 'woocommerce' ) }
+						label={ __( 'Use as site icon', 'poocommerce' ) }
 						onChange={ ( value: boolean ) => {
 							setAttributes( { shouldSyncIcon: value } );
 							setIcon( value ? logoId : undefined );
@@ -240,7 +240,7 @@ const LogoSettings = ( {
 						checked={ !! shouldSyncIcon }
 						help={ __(
 							'Site icons are what you see in browser tabs, bookmark bars, and within the WordPress mobile apps.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</>
@@ -322,9 +322,9 @@ const LogoEdit = ( {
 	}
 
 	const logoImg = (
-		<div className="woocommerce-customize-store__sidebar-logo-container">
+		<div className="poocommerce-customize-store__sidebar-logo-container">
 			<img
-				className="woocommerce-customize-store_custom-logo"
+				className="poocommerce-customize-store_custom-logo"
 				src={ logoUrl }
 				alt={ alt }
 				onLoad={ ( event ) => {
@@ -442,30 +442,30 @@ export const SidebarNavigationScreenLogo = ( {
 
 	return (
 		<SidebarNavigationScreen
-			title={ __( 'Add your logo', 'woocommerce' ) }
+			title={ __( 'Add your logo', 'poocommerce' ) }
 			description={ __(
 				"Ensure your store is on-brand by adding your logo. For best results, upload a SVG or PNG that's a minimum of 300px wide.",
-				'woocommerce'
+				'poocommerce'
 			) }
 			onNavigateBackClick={ onNavigateBackClick }
 			content={
-				<div className="woocommerce-customize-store__sidebar-logo-content">
-					<div className="woocommerce-customize-store__sidebar-group-header woocommerce-customize-store__logo-header-container">
-						<span>{ __( 'Logo', 'woocommerce' ) }</span>
+				<div className="poocommerce-customize-store__sidebar-logo-content">
+					<div className="poocommerce-customize-store__sidebar-group-header poocommerce-customize-store__logo-header-container">
+						<span>{ __( 'Logo', 'poocommerce' ) }</span>
 						{ Boolean( siteLogoId ) && (
 							<DropdownMenu
 								icon={ moreVertical }
-								label={ __( 'Options', 'woocommerce' ) }
-								className="woocommerce-customize-store__logo-dropdown-menu"
+								label={ __( 'Options', 'poocommerce' ) }
+								className="poocommerce-customize-store__logo-dropdown-menu"
 								popoverProps={ {
 									className:
-										'woocommerce-customize-store__logo-dropdown-popover',
+										'poocommerce-customize-store__logo-dropdown-popover',
 									placement: 'bottom-end',
 								} }
 							>
 								{ ( { onClose } ) => (
 									<>
-										<MenuGroup className="woocommerce-customize-store__logo-menu-group">
+										<MenuGroup className="poocommerce-customize-store__logo-menu-group">
 											<MediaUploadCheck>
 												<MediaUpload
 													onSelect={ (
@@ -499,7 +499,7 @@ export const SidebarNavigationScreenLogo = ( {
 														>
 															{ __(
 																'Replace',
-																'woocommerce'
+																'poocommerce'
 															) }
 														</MenuItem>
 													) }
@@ -507,9 +507,9 @@ export const SidebarNavigationScreenLogo = ( {
 											</MediaUploadCheck>
 										</MenuGroup>
 
-										<MenuGroup className="woocommerce-customize-store__logo-menu-group">
+										<MenuGroup className="poocommerce-customize-store__logo-menu-group">
 											<MenuItem
-												className="woocommerce-customize-store__logo-menu-item-delete"
+												className="poocommerce-customize-store__logo-menu-item-delete"
 												onClick={ () => {
 													onClose();
 													onRemoveLogo();
@@ -520,7 +520,7 @@ export const SidebarNavigationScreenLogo = ( {
 											>
 												{ __(
 													'Delete',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</MenuItem>
 										</MenuGroup>
@@ -537,15 +537,15 @@ export const SidebarNavigationScreenLogo = ( {
 						mediaItemData={ mediaItemData }
 						isLoading={ isLoading }
 					/>
-					<div className="woocommerce-customize-store__fiverr-cta-group">
+					<div className="poocommerce-customize-store__fiverr-cta-group">
 						<strong>
-							{ __( "DON'T HAVE A LOGO YET?", 'woocommerce' ) }
+							{ __( "DON'T HAVE A LOGO YET?", 'poocommerce' ) }
 						</strong>
 						<p>
 							{ interpolateComponents( {
 								mixedString: __(
 									'Build your brand by creating a memorable logo using {{link}}Fiverr{{/link}}.',
-									'woocommerce'
+									'poocommerce'
 								),
 								components: {
 									link: (

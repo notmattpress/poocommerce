@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductQueryFilters;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductQueryFilters;
 
 /**
  * ProductCollectionData route.
@@ -178,31 +178,31 @@ class ProductCollectionData extends AbstractRoute {
 		$params = ( new Products( $this->schema_controller, $this->schema ) )->get_collection_params();
 
 		$params['calculate_price_range'] = [
-			'description' => __( 'If true, calculates the minimum and maximum product prices for the collection.', 'woocommerce' ),
+			'description' => __( 'If true, calculates the minimum and maximum product prices for the collection.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'default'     => false,
 		];
 
 		$params['calculate_stock_status_counts'] = [
-			'description' => __( 'If true, calculates stock counts for products in the collection.', 'woocommerce' ),
+			'description' => __( 'If true, calculates stock counts for products in the collection.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'default'     => false,
 		];
 
 		$params['calculate_attribute_counts'] = [
-			'description' => __( 'If requested, calculates attribute term counts for products in the collection.', 'woocommerce' ),
+			'description' => __( 'If requested, calculates attribute term counts for products in the collection.', 'poocommerce' ),
 			'type'        => 'array',
 			'items'       => [
 				'type'       => 'object',
 				'properties' => [
 					'taxonomy'   => [
-						'description' => __( 'Taxonomy name.', 'woocommerce' ),
+						'description' => __( 'Taxonomy name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'query_type' => [
-						'description' => __( 'Filter condition	 being performed which may affect counts. Valid values include "and" and "or".', 'woocommerce' ),
+						'description' => __( 'Filter condition	 being performed which may affect counts. Valid values include "and" and "or".', 'poocommerce' ),
 						'type'        => 'string',
 						'enum'        => [ 'and', 'or' ],
 						'context'     => [ 'view', 'edit' ],
@@ -214,7 +214,7 @@ class ProductCollectionData extends AbstractRoute {
 		];
 
 		$params['calculate_rating_counts'] = [
-			'description' => __( 'If true, calculates rating counts for products in the collection.', 'woocommerce' ),
+			'description' => __( 'If true, calculates rating counts for products in the collection.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'default'     => false,
 		];

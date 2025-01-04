@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 import userEvent from '@testing-library/user-event';
 
 /**
@@ -20,8 +20,8 @@ jest.mock( '../utils', () => ( {
 	redirectToWCSSettings: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/components', () => {
-	const originalModule = jest.requireActual( '@woocommerce/components' );
+jest.mock( '@poocommerce/components', () => {
+	const originalModule = jest.requireActual( '@poocommerce/components' );
 
 	return {
 		__esModule: true,
@@ -46,7 +46,7 @@ jest.mock( '@wordpress/data', () => ( {
 			isPluginsRequesting: jest.fn().mockReturnValue( false ),
 			getSettings: () => ( {
 				general: {
-					woocommerce_default_country: 'US',
+					poocommerce_default_country: 'US',
 				},
 			} ),
 			getCountries: () => [],
@@ -58,7 +58,7 @@ jest.mock( '@wordpress/data', () => ( {
 					wc_connect_options: {
 						tos_accepted: true,
 					},
-					woocommerce_setup_jetpack_opted_in: 1,
+					poocommerce_setup_jetpack_opted_in: 1,
 				}[ key ];
 			},
 		} ) )
@@ -78,7 +78,7 @@ const ShippingRecommendation = ( props: ShippingRecommendationProps ) => {
 };
 
 describe( 'ShippingRecommendation', () => {
-	test( 'should show plugins step when woocommerce-services is not installed and activated', () => {
+	test( 'should show plugins step when poocommerce-services is not installed and activated', () => {
 		const { getByText } = render(
 			<ShippingRecommendation
 				isJetpackConnected={ false }
@@ -94,7 +94,7 @@ describe( 'ShippingRecommendation', () => {
 			<ShippingRecommendation
 				isJetpackConnected={ false }
 				isResolving={ false }
-				activePlugins={ [ 'woocommerce-services' ] }
+				activePlugins={ [ 'poocommerce-services' ] }
 			/>
 		);
 		expect(
@@ -107,7 +107,7 @@ describe( 'ShippingRecommendation', () => {
 			<ShippingRecommendation
 				isJetpackConnected={ true }
 				isResolving={ false }
-				activePlugins={ [ 'woocommerce-services' ] }
+				activePlugins={ [ 'poocommerce-services' ] }
 			/>
 		);
 		expect(
@@ -120,7 +120,7 @@ describe( 'ShippingRecommendation', () => {
 			<ShippingRecommendation
 				isJetpackConnected={ true }
 				isResolving={ false }
-				activePlugins={ [ 'woocommerce-services' ] }
+				activePlugins={ [ 'poocommerce-services' ] }
 			/>
 		);
 

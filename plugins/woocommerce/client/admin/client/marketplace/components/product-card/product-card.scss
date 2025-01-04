@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace {
+.poocommerce-marketplace {
 	&__product-card {
 		padding: $large-gap;
 		border-radius: $grid-unit-05 !important;
@@ -11,51 +11,51 @@
 			overflow: hidden;
 			pointer-events: none;
 
-			.woocommerce-marketplace__product-card__content {
+			.poocommerce-marketplace__product-card__content {
 				overflow: hidden;
 			}
 
-			&.woocommerce-marketplace__product-card--extension .woocommerce-marketplace__product-card__title,
-			.woocommerce-marketplace__product-card__description
-			.woocommerce-marketplace__product-card__footer {
+			&.poocommerce-marketplace__product-card--extension .poocommerce-marketplace__product-card__title,
+			.poocommerce-marketplace__product-card__description
+			.poocommerce-marketplace__product-card__footer {
 				width: 100vw;
 			}
 
-			.woocommerce-marketplace__product-card__image,
-			.woocommerce-marketplace__product-card__vendor,
-			.woocommerce-marketplace__product-card__description,
-			.woocommerce-marketplace__product-card__price,
-			.woocommerce-marketplace__product-card__icon,
-			.woocommerce-marketplace__product-card__title {
+			.poocommerce-marketplace__product-card__image,
+			.poocommerce-marketplace__product-card__vendor,
+			.poocommerce-marketplace__product-card__description,
+			.poocommerce-marketplace__product-card__price,
+			.poocommerce-marketplace__product-card__icon,
+			.poocommerce-marketplace__product-card__title {
 				background: $skeleton-loader-color;
 			}
 
 			// Font size of these elements times line height
-			.woocommerce-marketplace__product-card__vendor,
-			.woocommerce-marketplace__product-card__description,
-			.woocommerce-marketplace__product-card__price {
+			.poocommerce-marketplace__product-card__vendor,
+			.poocommerce-marketplace__product-card__description,
+			.poocommerce-marketplace__product-card__price {
 				height: calc(13px * 1.5);
 			}
 
-			&.woocommerce-marketplace__product-card--extension .woocommerce-marketplace__product-card__title {
+			&.poocommerce-marketplace__product-card--extension .poocommerce-marketplace__product-card__title {
 				height: 48px;
 			}
 
-			&.woocommerce-marketplace__product-card--theme .woocommerce-marketplace__product-card__title {
+			&.poocommerce-marketplace__product-card--theme .poocommerce-marketplace__product-card__title {
 				height: 24px;
 			}
 
-			.woocommerce-marketplace__product-card__vendor,
-			.woocommerce-marketplace__product-card__price {
+			.poocommerce-marketplace__product-card__vendor,
+			.poocommerce-marketplace__product-card__price {
 				width: 8em;
 			}
 
-			&.woocommerce-marketplace__product-card--theme .woocommerce-marketplace__product-card__footer {
+			&.poocommerce-marketplace__product-card--theme .poocommerce-marketplace__product-card__footer {
 				margin-top: 22px;
 			}
 
 			// Font size of this elements times line height times number lines
-			.woocommerce-marketplace__product-card__description {
+			.poocommerce-marketplace__product-card__description {
 				height: calc(13px * 1.5 * 3);
 			}
 		}
@@ -63,22 +63,22 @@
 		&.is-small {
 			padding: $medium-gap;
 
-			.woocommerce-marketplace__product-card__description,
-			.woocommerce-marketplace__product-card__add-to-store,
-			.woocommerce-marketplace__product-card__rating,
-			.woocommerce-marketplace__product-card__price {
+			.poocommerce-marketplace__product-card__description,
+			.poocommerce-marketplace__product-card__add-to-store,
+			.poocommerce-marketplace__product-card__rating,
+			.poocommerce-marketplace__product-card__price {
 				display: none;
 			}
 
-			.woocommerce-marketplace__product-card__content {
+			.poocommerce-marketplace__product-card__content {
 				display: block;
 			}
 
-			.woocommerce-marketplace__product-card__details {
+			.poocommerce-marketplace__product-card__details {
 				align-items: center;
 			}
 
-			.woocommerce-marketplace__product-card__title {
+			.poocommerce-marketplace__product-card__title {
 				font-size: 14px;
 				line-height: 20px;
 			}
@@ -249,21 +249,21 @@
 			font-weight: 400;
 		}
 
-		&.woocommerce-marketplace__product-card--theme {
+		&.poocommerce-marketplace__product-card--theme {
 			padding: 0 0 $large-gap;
 			overflow: hidden;
 
-			.woocommerce-marketplace__product-card__content {
+			.poocommerce-marketplace__product-card__content {
 				grid-template-rows: auto 1fr auto;
 				grid-template-columns: 1fr;
 			}
-			.woocommerce-marketplace__product-card__image {
+			.poocommerce-marketplace__product-card__image {
 				border-bottom: 1px solid $gray-200;
 				overflow: hidden;
 				padding-top: 56.25%;
 				position: relative;
 			}
-			.woocommerce-marketplace__product-card__image-inner {
+			.poocommerce-marketplace__product-card__image-inner {
 				width: 100%;
 				position: absolute;
 				top: 0;
@@ -271,31 +271,31 @@
 				bottom: 0;
 				right: 0;
 			}
-			.woocommerce-marketplace__product-card__header {
+			.poocommerce-marketplace__product-card__header {
 				padding: 0 $large-gap;
 			}
-			.woocommerce-marketplace__product-card__footer {
+			.poocommerce-marketplace__product-card__footer {
 				padding: 0 $large-gap;
 			}
-			.woocommerce-marketplace__product-card__price {
+			.poocommerce-marketplace__product-card__price {
 				margin-right: $medium-gap;
 				text-align: right;
 				display: inline-flex;
 				align-items: flex-end;
 			}
-			.woocommerce-marketplace__product-card__price-label {
+			.poocommerce-marketplace__product-card__price-label {
 				margin-left: auto;
 				line-height: 1.5;
 			}
-			.woocommerce-marketplace__product-card__price-billing {
+			.poocommerce-marketplace__product-card__price-billing {
 				line-height: 1.5;
 			}
 		}
 
-		&.woocommerce-marketplace__product-card--business-service {
+		&.poocommerce-marketplace__product-card--business-service {
 			padding: 0;
 
-			.woocommerce-marketplace__business-card {
+			.poocommerce-marketplace__business-card {
 				display: flex;
 				flex-direction: column;
 				height: 100%;
@@ -358,7 +358,7 @@
 }
 
 @media screen and (min-width: $breakpoint-medium) {
-	.woocommerce-marketplace {
+	.poocommerce-marketplace {
 		&__product-card {
 			margin-top: 0;
 		}

@@ -10,10 +10,10 @@ import { __ } from '@wordpress/i18n';
 import { EditProps } from './types';
 
 const Edit = ( props: EditProps ) => {
-	let text = __( 'Clear', 'woocommerce' );
+	let text = __( 'Clear', 'poocommerce' );
 
 	if ( props.attributes?.clearType === 'all' ) {
-		text = __( 'Clear all', 'woocommerce' );
+		text = __( 'Clear all', 'poocommerce' );
 	}
 
 	return (

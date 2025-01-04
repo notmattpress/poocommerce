@@ -4,7 +4,7 @@
 import type { Story, Meta } from '@storybook/react';
 import { useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

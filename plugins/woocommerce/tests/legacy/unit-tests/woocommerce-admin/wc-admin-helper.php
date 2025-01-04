@@ -2,15 +2,15 @@
 /**
  * WCAdminHelper tests
  *
- * @package WooCommerce\Admin\Tests\WCAdminHelper
+ * @package PooCommerce\Admin\Tests\WCAdminHelper
  */
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 /**
  * WC_Admin_Tests_Admin_Helper Class
  *
- * @package WooCommerce\Admin\Tests\WCAdminHelper
+ * @package PooCommerce\Admin\Tests\WCAdminHelper
  */
 class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 	/**
@@ -24,7 +24,7 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 
 		// Set up permalinks.
 		update_option(
-			'woocommerce_permalinks',
+			'poocommerce_permalinks',
 			array(
 				'product_base'           => '/shop/%product_cat%',
 				'category_base'          => 'product-category',
@@ -40,10 +40,10 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		// Delete pages.
-		wp_delete_post( get_option( 'woocommerce_shop_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_cart_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_checkout_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_myaccount_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_shop_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_cart_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_checkout_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_myaccount_page_id' ), true );
 		wp_delete_post( wc_terms_and_conditions_page_id(), true );
 	}
 
@@ -263,12 +263,12 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 			return $value;
 		};
 
-		add_filter( 'pre_option_woocommerce_permalinks', $callback, 10, 1 );
+		add_filter( 'pre_option_poocommerce_permalinks', $callback, 10, 1 );
 
 		// Pages with name "products-demo" shouldn't be considered as a store page when product_base is set to "product/".
 		$this->assertEquals( false, WCAdminHelper::is_store_page( 'https://example.com/products-demo/' ) );
 
-		remove_filter( 'pre_option_woocommerce_permalinks', $callback );
+		remove_filter( 'pre_option_poocommerce_permalinks', $callback );
 	}
 
 	/**
@@ -286,11 +286,11 @@ class WC_Admin_Tests_Admin_Helper extends WC_Unit_Test_Case {
 
 	/** Test product archive link is store page even if shop page not set. */
 	public function test_is_store_page_even_if_shop_page_not_set() {
-		$shop_page_id = get_option( 'woocommerce_shop_page_id' );
+		$shop_page_id = get_option( 'poocommerce_shop_page_id' );
 
 		// Unset shop page.
 		add_filter(
-			'woocommerce_get_shop_page_id',
+			'poocommerce_get_shop_page_id',
 			function () {
 				return false;
 			},

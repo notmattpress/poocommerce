@@ -9,7 +9,7 @@
 			// Backbone model
 			ShippingClass       = Backbone.Model.extend({
 				save: function( changes ) {
-					$.post( ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=woocommerce_shipping_classes_save_changes', {
+					$.post( ajaxurl + ( ajaxurl.indexOf( '?' ) > 0 ? '&' : '?' ) + 'action=poocommerce_shipping_classes_save_changes', {
 						wc_shipping_classes_nonce : data.wc_shipping_classes_nonce,
 						changes,
 					}, this.onSaveResponse, 'json' );

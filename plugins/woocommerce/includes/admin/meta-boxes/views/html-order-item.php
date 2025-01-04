@@ -2,7 +2,7 @@
 /**
  * Shows an order item
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  * @var WC_Order_Item $item The item being displayed
  * @var int $item_id The id of the item being displayed
  */
@@ -11,8 +11,8 @@ defined( 'ABSPATH' ) || exit;
 
 $product      = $item->get_product();
 $product_link = $product ? admin_url( 'post.php?post=' . $item->get_product_id() . '&action=edit' ) : '';
-$thumbnail    = $product ? apply_filters( 'woocommerce_admin_order_item_thumbnail', $product->get_image( 'thumbnail', array( 'title' => '' ), false ), $item_id, $item ) : '';
-$row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empty( $class ) ? $class : '', $item, $order );
+$thumbnail    = $product ? apply_filters( 'poocommerce_admin_order_item_thumbnail', $product->get_image( 'thumbnail', array( 'title' => '' ), false ), $item_id, $item ) : '';
+$row_class    = apply_filters( 'poocommerce_admin_html_order_item_class', ! empty( $class ) ? $class : '', $item, $order );
 ?>
 <tr class="item <?php echo esc_attr( $row_class ); ?>" data-order_item_id="<?php echo esc_attr( $item_id ); ?>">
 	<td class="thumb">
@@ -23,16 +23,16 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 		echo $product_link ? '<a href="' . esc_url( $product_link ) . '" class="wc-order-item-name">' . wp_kses_post( $item->get_name() ) . '</a>' : '<div class="wc-order-item-name">' . wp_kses_post( $item->get_name() ) . '</div>';
 
 		if ( $product && $product->get_sku() ) {
-			echo '<div class="wc-order-item-sku"><strong>' . esc_html__( 'SKU:', 'woocommerce' ) . '</strong> ' . esc_html( $product->get_sku() ) . '</div>';
+			echo '<div class="wc-order-item-sku"><strong>' . esc_html__( 'SKU:', 'poocommerce' ) . '</strong> ' . esc_html( $product->get_sku() ) . '</div>';
 		}
 
 		if ( $item->get_variation_id() ) {
-			echo '<div class="wc-order-item-variation"><strong>' . esc_html__( 'Variation ID:', 'woocommerce' ) . '</strong> ';
+			echo '<div class="wc-order-item-variation"><strong>' . esc_html__( 'Variation ID:', 'poocommerce' ) . '</strong> ';
 			if ( 'product_variation' === get_post_type( $item->get_variation_id() ) ) {
 				echo esc_html( $item->get_variation_id() );
 			} else {
 				/* translators: %s: variation id */
-				printf( esc_html__( '%s (No longer exists)', 'woocommerce' ), esc_html( $item->get_variation_id() ) );
+				printf( esc_html__( '%s (No longer exists)', 'poocommerce' ), esc_html( $item->get_variation_id() ) );
 			}
 			echo '</div>';
 		}
@@ -40,12 +40,12 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 		<input type="hidden" class="order_item_id" name="order_item_id[]" value="<?php echo esc_attr( $item_id ); ?>" />
 		<input type="hidden" name="order_item_tax_class[<?php echo absint( $item_id ); ?>]" value="<?php echo esc_attr( $item->get_tax_class() ); ?>" />
 
-		<?php do_action( 'woocommerce_before_order_itemmeta', $item_id, $item, $product ); ?>
+		<?php do_action( 'poocommerce_before_order_itemmeta', $item_id, $item, $product ); ?>
 		<?php require __DIR__ . '/html-order-item-meta.php'; ?>
-		<?php do_action( 'woocommerce_after_order_itemmeta', $item_id, $item, $product ); ?>
+		<?php do_action( 'poocommerce_after_order_itemmeta', $item_id, $item, $product ); ?>
 	</td>
 
-	<?php do_action( 'woocommerce_admin_order_item_values', $product, $item, absint( $item_id ) ); ?>
+	<?php do_action( 'poocommerce_admin_order_item_values', $product, $item, absint( $item_id ) ); ?>
 
 	<td class="item_cost" width="1%" data-sort-value="<?php echo esc_attr( $order->get_item_subtotal( $item, false, true ) ); ?>">
 		<div class="view">
@@ -67,7 +67,7 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 			?>
 		</div>
 		<?php
-			$step = apply_filters( 'woocommerce_quantity_input_step', '1', $product );
+			$step = apply_filters( 'poocommerce_quantity_input_step', '1', $product );
 
 			/**
 			* Filter to change the product quantity stepping in the order editor of the admin area.
@@ -77,8 +77,8 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 			* @param   WC_Product  $product The product that is being edited.
 			* @param   string      $context The context in which the quantity editor is shown, 'edit' or 'refund'.
 			*/
-			$step_edit   = apply_filters( 'woocommerce_quantity_input_step_admin', $step, $product, 'edit' );
-			$step_refund = apply_filters( 'woocommerce_quantity_input_step_admin', $step, $product, 'refund' );
+			$step_edit   = apply_filters( 'poocommerce_quantity_input_step_admin', $step, $product, 'edit' );
+			$step_refund = apply_filters( 'poocommerce_quantity_input_step_admin', $step, $product, 'refund' );
 
 			/**
 			* Filter to change the product quantity minimum in the order editor of the admin area.
@@ -88,8 +88,8 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 			* @param   WC_Product  $product The product that is being edited.
 			* @param   string      $context The context in which the quantity editor is shown, 'edit' or 'refund'.
 			*/
-			$min_edit   = apply_filters( 'woocommerce_quantity_input_min_admin', '0', $product, 'edit' );
-			$min_refund = apply_filters( 'woocommerce_quantity_input_min_admin', '0', $product, 'refund' );
+			$min_edit   = apply_filters( 'poocommerce_quantity_input_min_admin', '0', $product, 'edit' );
+			$min_refund = apply_filters( 'poocommerce_quantity_input_min_admin', '0', $product, 'refund' );
 		?>
 		<div class="edit" style="display: none;">
 			<input type="number" step="<?php echo esc_attr( $step_edit ); ?>" min="<?php echo esc_attr( $min_edit ); ?>" autocomplete="off" name="order_item_qty[<?php echo absint( $item_id ); ?>]" placeholder="0" value="<?php echo esc_attr( $item->get_quantity() ); ?>" data-qty="<?php echo esc_attr( $item->get_quantity() ); ?>" size="4" class="quantity" />
@@ -105,7 +105,7 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 
 			if ( $item->get_subtotal() !== $item->get_total() ) {
 				/* translators: %s: discount amount */
-				echo '<span class="wc-order-item-discount">' . sprintf( esc_html__( '%s discount', 'woocommerce' ), wc_price( wc_format_decimal( $item->get_subtotal() - $item->get_total(), '' ), array( 'currency' => $order->get_currency() ) ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<span class="wc-order-item-discount">' . sprintf( esc_html__( '%s discount', 'poocommerce' ), wc_price( wc_format_decimal( $item->get_subtotal() - $item->get_total(), '' ), array( 'currency' => $order->get_currency() ) ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 
 			$refunded = -1 * $order->get_total_refunded_for_item( $item_id );
@@ -118,12 +118,12 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 		<div class="edit" style="display: none;">
 			<div class="split-input">
 				<div class="input">
-					<label><?php esc_attr_e( 'Before discount', 'woocommerce' ); ?></label>
+					<label><?php esc_attr_e( 'Before discount', 'poocommerce' ); ?></label>
 					<input type="text" name="line_subtotal[<?php echo absint( $item_id ); ?>]" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $item->get_subtotal() ) ); ?>" class="line_subtotal wc_input_price" data-subtotal="<?php echo esc_attr( wc_format_localized_price( $item->get_subtotal() ) ); ?>" />
 				</div>
 				<div class="input">
-					<label><?php esc_attr_e( 'Total', 'woocommerce' ); ?></label>
-					<input type="text" name="line_total[<?php echo absint( $item_id ); ?>]" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $item->get_total() ) ); ?>" class="line_total wc_input_price" data-tip="<?php esc_attr_e( 'After pre-tax discounts.', 'woocommerce' ); ?>" data-total="<?php echo esc_attr( wc_format_localized_price( $item->get_total() ) ); ?>" />
+					<label><?php esc_attr_e( 'Total', 'poocommerce' ); ?></label>
+					<input type="text" name="line_total[<?php echo absint( $item_id ); ?>]" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $item->get_total() ) ); ?>" class="line_total wc_input_price" data-tip="<?php esc_attr_e( 'After pre-tax discounts.', 'poocommerce' ); ?>" data-total="<?php echo esc_attr( wc_format_localized_price( $item->get_total() ) ); ?>" />
 				</div>
 			</div>
 		</div>
@@ -161,11 +161,11 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 				<div class="edit" style="display: none;">
 					<div class="split-input">
 						<div class="input">
-							<label><?php esc_attr_e( 'Before discount', 'woocommerce' ); ?></label>
+							<label><?php esc_attr_e( 'Before discount', 'poocommerce' ); ?></label>
 							<input type="text" name="line_subtotal_tax[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $tax_item_id ); ?>]" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $tax_item_subtotal ) ); ?>" class="line_subtotal_tax wc_input_price" data-subtotal_tax="<?php echo esc_attr( wc_format_localized_price( $tax_item_subtotal ) ); ?>" data-tax_id="<?php echo esc_attr( $tax_item_id ); ?>" />
 						</div>
 						<div class="input">
-							<label><?php esc_attr_e( 'Total', 'woocommerce' ); ?></label>
+							<label><?php esc_attr_e( 'Total', 'poocommerce' ); ?></label>
 							<input type="text" name="line_tax[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $tax_item_id ); ?>]" placeholder="<?php echo esc_attr( wc_format_localized_price( 0 ) ); ?>" value="<?php echo esc_attr( wc_format_localized_price( $tax_item_total ) ); ?>" class="line_tax wc_input_price" data-total_tax="<?php echo esc_attr( wc_format_localized_price( $tax_item_total ) ); ?>" data-tax_id="<?php echo esc_attr( $tax_item_id ); ?>" />
 						</div>
 					</div>
@@ -181,7 +181,7 @@ $row_class    = apply_filters( 'woocommerce_admin_html_order_item_class', ! empt
 	<td class="wc-order-edit-line-item" width="1%">
 		<div class="wc-order-edit-line-item-actions">
 			<?php if ( $order->is_editable() ) : ?>
-				<a class="edit-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Edit item', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Edit item', 'woocommerce' ); ?>"></a><a class="delete-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Delete item', 'woocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Delete item', 'woocommerce' ); ?>"></a>
+				<a class="edit-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Edit item', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Edit item', 'poocommerce' ); ?>"></a><a class="delete-order-item tips" href="#" data-tip="<?php esc_attr_e( 'Delete item', 'poocommerce' ); ?>" aria-label="<?php esc_attr_e( 'Delete item', 'poocommerce' ); ?>"></a>
 			<?php endif; ?>
 		</div>
 	</td>

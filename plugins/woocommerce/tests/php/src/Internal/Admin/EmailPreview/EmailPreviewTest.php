@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
 use WC_Emails;
 use WC_Order;
 use WC_Product;
@@ -12,7 +12,7 @@ use WC_Unit_Test_Case;
 /**
  * EmailPreviewTest test.
  *
- * @covers \Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview
+ * @covers \Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview
  */
 class EmailPreviewTest extends WC_Unit_Test_Case {
 	/**
@@ -34,7 +34,7 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'yes' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'yes' );
 		$this->sut = new EmailPreview();
 		new WC_Emails();
 	}
@@ -44,14 +44,14 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 	}
 
 	/**
 	 * Tests that it returns legacy email preview when feature flag is disabled.
 	 */
 	public function test_it_returns_legacy_email_preview_by_default() {
-		update_option( 'woocommerce_feature_email_improvements_enabled', 'no' );
+		update_option( 'poocommerce_feature_email_improvements_enabled', 'no' );
 		$message        = $this->sut->render();
 		$legacy_title   = 'HTML email template';
 		$legacy_content = 'Lorem ipsum dolor sit amet';
@@ -132,7 +132,7 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test dummy product filter - woocommerce_email_preview_dummy_product
+	 * Test dummy product filter - poocommerce_email_preview_dummy_product
 	 */
 	public function test_dummy_product_filter() {
 		$product_filter = function ( $product ) {
@@ -140,32 +140,32 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 			$product->set_price( 99 );
 			return $product;
 		};
-		add_filter( 'woocommerce_email_preview_dummy_product', $product_filter, 10, 1 );
+		add_filter( 'poocommerce_email_preview_dummy_product', $product_filter, 10, 1 );
 		$product = $this->sut->get_dummy_product_when_not_set( null );
 		$this->assertEquals( 'Filtered Product', $product->get_name() );
 		$this->assertEquals( '99', $product->get_price() );
-		remove_filter( 'woocommerce_email_preview_dummy_product', $product_filter, 10 );
+		remove_filter( 'poocommerce_email_preview_dummy_product', $product_filter, 10 );
 	}
 
 	/**
-	 * Test dummy order filter - woocommerce_email_preview_dummy_order
+	 * Test dummy order filter - poocommerce_email_preview_dummy_order
 	 */
 	public function test_dummy_order_filter() {
 		$order_filter = function ( $order ) {
 			$order->set_total( 500 );
 			return $order;
 		};
-		add_filter( 'woocommerce_email_preview_dummy_order', $order_filter, 10, 1 );
+		add_filter( 'poocommerce_email_preview_dummy_order', $order_filter, 10, 1 );
 
 		$content = $this->sut->render();
 		$this->assertStringContainsString( '500.00', $content );
 		$this->assertStringNotContainsString( '100.00', $content );
 
-		remove_filter( 'woocommerce_email_preview_dummy_order', $order_filter, 10 );
+		remove_filter( 'poocommerce_email_preview_dummy_order', $order_filter, 10 );
 	}
 
 	/**
-	 * Test dummy address filter - woocommerce_email_preview_dummy_address
+	 * Test dummy address filter - poocommerce_email_preview_dummy_address
 	 */
 	public function test_dummy_address_filter() {
 		$address_filter = function ( $address ) {
@@ -173,35 +173,35 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 			$address['last_name']  = 'Smith';
 			return $address;
 		};
-		add_filter( 'woocommerce_email_preview_dummy_address', $address_filter, 10, 1 );
+		add_filter( 'poocommerce_email_preview_dummy_address', $address_filter, 10, 1 );
 
 		$content = $this->sut->render();
 		$this->assertStringContainsString( 'Jane Smith', $content );
 		$this->assertStringNotContainsString( 'John Doe', $content );
 
-		remove_filter( 'woocommerce_email_preview_dummy_address', $address_filter, 10 );
+		remove_filter( 'poocommerce_email_preview_dummy_address', $address_filter, 10 );
 	}
 
 	/**
-	 * Test that placeholders can be modified via `woocommerce_email_preview_placeholders`.
+	 * Test that placeholders can be modified via `poocommerce_email_preview_placeholders`.
 	 */
 	public function test_placeholder_filter() {
 		$placeholders_filter = function ( $placeholders ) {
 			$placeholders['{order_number}'] = '98765';
 			return $placeholders;
 		};
-		add_filter( 'woocommerce_email_preview_placeholders', $placeholders_filter, 10, 1 );
+		add_filter( 'poocommerce_email_preview_placeholders', $placeholders_filter, 10, 1 );
 
 		$this->sut->set_email_type( 'WC_Email_Cancelled_Order' );
 		$subject = $this->sut->get_subject();
 		$this->assertStringContainsString( '98765', $subject );
 		$this->assertStringNotContainsString( '12345', $subject );
 
-		remove_filter( 'woocommerce_email_preview_placeholders', $placeholders_filter, 10 );
+		remove_filter( 'poocommerce_email_preview_placeholders', $placeholders_filter, 10 );
 	}
 
 	/**
-	 * Test that the `woocommerce_prepare_email_for_preview` filter is applied.
+	 * Test that the `poocommerce_prepare_email_for_preview` filter is applied.
 	 */
 	public function test_prepare_email_for_preview_filter() {
 		$email_filter = function ( $email ) {
@@ -209,14 +209,14 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 			$new_email->settings['subject'] = 'Filtered Subject {order_number}';
 			return $new_email;
 		};
-		add_filter( 'woocommerce_prepare_email_for_preview', $email_filter, 10, 1 );
+		add_filter( 'poocommerce_prepare_email_for_preview', $email_filter, 10, 1 );
 
 		$this->sut->set_email_type( EmailPreview::DEFAULT_EMAIL_TYPE );
 		$subject = $this->sut->get_subject();
 		$this->assertStringContainsString( 'Filtered Subject 12345', $subject );
 		$this->assertStringNotContainsString( 'Your ' . self::SITE_TITLE . ' order has been received!', $subject );
 
-		remove_filter( 'woocommerce_prepare_email_for_preview', $email_filter, 10 );
+		remove_filter( 'poocommerce_prepare_email_for_preview', $email_filter, 10 );
 	}
 
 	/**
@@ -242,7 +242,7 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	 */
 	public function test_transient_values_in_subject() {
 		$email_id = EmailPreview::DEFAULT_EMAIL_ID;
-		$key      = "woocommerce_{$email_id}_subject";
+		$key      = "poocommerce_{$email_id}_subject";
 
 		$this->sut->set_email_type( EmailPreview::DEFAULT_EMAIL_TYPE );
 		$this->assertEquals( $this->sut->get_subject(), 'Your ' . self::SITE_TITLE . ' order has been received!' );
@@ -257,8 +257,8 @@ class EmailPreviewTest extends WC_Unit_Test_Case {
 	 */
 	public function test_transient_values_in_email_content() {
 		$email_id         = EmailPreview::DEFAULT_EMAIL_ID;
-		$heading_key      = "woocommerce_{$email_id}_heading";
-		$additional_key   = "woocommerce_{$email_id}_additional_content";
+		$heading_key      = "poocommerce_{$email_id}_heading";
+		$additional_key   = "poocommerce_{$email_id}_additional_content";
 		$heading_value    = get_option( $heading_key );
 		$additional_value = get_option( $additional_key );
 

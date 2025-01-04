@@ -74,7 +74,7 @@ describe( 'PluginErrorBanner', () => {
 				errorDetails: {
 					data: {
 						data: { status: 403 },
-						code: 'woocommerce_rest_cannot_update',
+						code: 'poocommerce_rest_cannot_update',
 					},
 				},
 				error: 'An error occurred during installation',

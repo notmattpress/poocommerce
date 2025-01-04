@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 import { dispatch, resolveSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { Sender } from 'xstate';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { mergeBaseAndUserConfigs } from '@wordpress/edit-site/build-module/components/global-styles/global-styles-provider';
 
 /**
@@ -84,7 +84,7 @@ const updateGlobalStylesWithDefaultValues = async (
 
 	const allowTracking =
 		( await resolveSelect( OPTIONS_STORE_NAME ).getOption(
-			'woocommerce_allow_tracking'
+			'poocommerce_allow_tracking'
 		) ) === 'yes';
 
 	const fontPairing =
@@ -210,7 +210,7 @@ const createProducts = async () => {
 export const enableTracking = async () => {
 	try {
 		await dispatch( OPTIONS_STORE_NAME ).updateOptions( {
-			woocommerce_allow_tracking: 'yes',
+			poocommerce_allow_tracking: 'yes',
 		} );
 		window.wcTracks.isEnabled = true;
 	} catch ( error ) {

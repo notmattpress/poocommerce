@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Blocks\QueryFilters;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\QueryFilters;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * Product Filter: Status Block.
@@ -93,7 +93,7 @@ final class ProductFilterStatus extends AbstractBlock {
 		);
 
 		$data['stock'] = array(
-			'type'  => __( 'Status', 'woocommerce' ),
+			'type'  => __( 'Status', 'poocommerce' ),
 			'items' => $active_stock_statuses,
 		);
 
@@ -110,7 +110,7 @@ final class ProductFilterStatus extends AbstractBlock {
 	protected function enqueue_data( array $stock_statuses = array() ) {
 		parent::enqueue_data( $stock_statuses );
 		$this->asset_data_registry->add( 'stockStatusOptions', wc_get_product_stock_status_options() );
-		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 	}
 
 	/**

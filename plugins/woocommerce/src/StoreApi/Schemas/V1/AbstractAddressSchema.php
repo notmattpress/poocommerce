@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\SanitizationUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\ValidationUtils;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\Utilities\SanitizationUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\ValidationUtils;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * AddressSchema class.
@@ -42,61 +42,61 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 		return array_merge(
 			[
 				'first_name' => [
-					'description' => __( 'First name', 'woocommerce' ),
+					'description' => __( 'First name', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'last_name'  => [
-					'description' => __( 'Last name', 'woocommerce' ),
+					'description' => __( 'Last name', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'company'    => [
-					'description' => __( 'Company', 'woocommerce' ),
+					'description' => __( 'Company', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'address_1'  => [
-					'description' => __( 'Address', 'woocommerce' ),
+					'description' => __( 'Address', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'address_2'  => [
-					'description' => __( 'Apartment, suite, etc.', 'woocommerce' ),
+					'description' => __( 'Apartment, suite, etc.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'city'       => [
-					'description' => __( 'City', 'woocommerce' ),
+					'description' => __( 'City', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'state'      => [
-					'description' => __( 'State/County code, or name of the state, county, province, or district.', 'woocommerce' ),
+					'description' => __( 'State/County code, or name of the state, county, province, or district.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'postcode'   => [
-					'description' => __( 'Postal code', 'woocommerce' ),
+					'description' => __( 'Postal code', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'country'    => [
-					'description' => __( 'Country/Region code in ISO 3166-1 alpha-2 format.', 'woocommerce' ),
+					'description' => __( 'Country/Region code in ISO 3166-1 alpha-2 format.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
 				],
 				'phone'      => [
-					'description' => __( 'Phone', 'woocommerce' ),
+					'description' => __( 'Phone', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'required'    => true,
@@ -186,7 +186,7 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 					'invalid_' . $key,
 					sprintf(
 						/* translators: %s: field name */
-						__( 'Invalid %s provided.', 'woocommerce' ),
+						__( 'Invalid %s provided.', 'poocommerce' ),
 						$key
 					)
 				);
@@ -206,7 +206,7 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 				'invalid_country',
 				sprintf(
 					/* translators: %s valid country codes */
-					__( 'Invalid country code provided. Must be one of: %s', 'woocommerce' ),
+					__( 'Invalid country code provided. Must be one of: %s', 'poocommerce' ),
 					implode( ', ', array_keys( wc()->countries->get_countries() ) )
 				)
 			);
@@ -218,7 +218,7 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 				'invalid_state',
 				sprintf(
 					/* translators: %1$s given state, %2$s valid states */
-					__( 'The provided state (%1$s) is not valid. Must be one of: %2$s', 'woocommerce' ),
+					__( 'The provided state (%1$s) is not valid. Must be one of: %2$s', 'poocommerce' ),
 					esc_html( $address['state'] ),
 					implode( ', ', array_keys( $validation_util->get_states_for_country( $address['country'] ) ) )
 				)
@@ -228,7 +228,7 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 		if ( ! empty( $address['postcode'] ) && ! \WC_Validation::is_postcode( $address['postcode'], $address['country'] ) ) {
 			$errors->add(
 				'invalid_postcode',
-				__( 'The provided postcode / ZIP is not valid', 'woocommerce' )
+				__( 'The provided postcode / ZIP is not valid', 'poocommerce' )
 			);
 		}
 
@@ -238,7 +238,7 @@ abstract class AbstractAddressSchema extends AbstractSchema {
 			if ( ! \WC_Validation::is_phone( $address['phone'] ) ) {
 				$errors->add(
 					'invalid_phone',
-					__( 'The provided phone number is not valid', 'woocommerce' )
+					__( 'The provided phone number is not valid', 'poocommerce' )
 				);
 			}
 		}

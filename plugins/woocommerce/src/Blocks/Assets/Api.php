@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Assets;
+namespace Automattic\PooCommerce\Blocks\Assets;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Package;
 use Exception;
 use Automattic\Jetpack\Constants;
 /**
@@ -60,7 +60,7 @@ class Api {
 	 *
 	 * @var string
 	 */
-	private $script_data_transient_key = 'woocommerce_blocks_asset_api_script_data';
+	private $script_data_transient_key = 'poocommerce_blocks_asset_api_script_data';
 
 	/**
 	 * Reference to the Package instance
@@ -265,7 +265,7 @@ class Api {
 						function() use ( $handle ) {
 								echo '<div class="error"><p>';
 								/* translators: %s file handle name. */
-								printf( esc_html__( 'Script with handle %s had a dependency on itself which has been removed. This is an indicator that your JS code has a circular dependency that can cause bugs.', 'woocommerce' ), esc_html( $handle ) );
+								printf( esc_html__( 'Script with handle %s had a dependency on itself which has been removed. This is an indicator that your JS code has a circular dependency that can cause bugs.', 'poocommerce' ), esc_html( $handle ) );
 								echo '</p></div>';
 						}
 					);
@@ -283,13 +283,13 @@ class Api {
 		 * @param string $handle The script's handle.
 		 * @return array
 		 */
-		$script_dependencies = apply_filters( 'woocommerce_blocks_register_script_dependencies', $script_data['dependencies'], $handle );
+		$script_dependencies = apply_filters( 'poocommerce_blocks_register_script_dependencies', $script_data['dependencies'], $handle );
 
 		wp_register_script( $handle, $script_data['src'], $script_dependencies, $script_data['version'], true );
 
 		if ( $has_i18n && function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( $handle, 'woocommerce', $this->package->get_path( 'languages' ) );
-			wp_set_script_translations( $handle, 'woocommerce', $this->package->get_path( 'i18n/languages' ) );
+			wp_set_script_translations( $handle, 'poocommerce', $this->package->get_path( 'languages' ) );
+			wp_set_script_translations( $handle, 'poocommerce', $this->package->get_path( 'i18n/languages' ) );
 		}
 	}
 
