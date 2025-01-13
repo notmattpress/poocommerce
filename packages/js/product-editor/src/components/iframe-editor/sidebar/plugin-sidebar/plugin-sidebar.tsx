@@ -4,7 +4,7 @@
 import { createElement } from '@wordpress/element';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { ComplementaryArea } from '@wordpress/interface';
 
 /**
@@ -29,7 +29,7 @@ export function PluginSidebar( { className, ...props }: PluginSidebarProps ) {
 	return (
 		<ComplementaryArea
 			panelClassName={ className }
-			className="woocommerce-iframe-editor__sidebar"
+			className="poocommerce-iframe-editor__sidebar"
 			scope={ SIDEBAR_COMPLEMENTARY_AREA_SCOPE }
 			{ ...props }
 		/>

@@ -1,5 +1,5 @@
 const { test, expect, tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 let productId, couponId, orderId;
 
@@ -10,7 +10,7 @@ const couponAmount = '5';
 const discountedPrice = ( productPrice - couponAmount ).toString();
 
 test.describe(
-	'WooCommerce Orders > Apply Coupon',
+	'PooCommerce Orders > Apply Coupon',
 	{ tag: [ tags.SERVICES, tags.HPOS ] },
 	() => {
 		test.use( { storageState: process.env.ADMINSTATE } );
@@ -102,7 +102,7 @@ test.describe(
 
 			await expect(
 				page
-					.locator( '#woocommerce-order-items li' )
+					.locator( '#poocommerce-order-items li' )
 					.filter( { hasText: couponCode } )
 			).toBeVisible();
 			await expect(
@@ -126,7 +126,7 @@ test.describe(
 			// assert that there is a coupon on the order
 			await expect(
 				page
-					.locator( '#woocommerce-order-items li' )
+					.locator( '#poocommerce-order-items li' )
 					.filter( { hasText: couponCode } )
 			).toBeVisible();
 			await expect(

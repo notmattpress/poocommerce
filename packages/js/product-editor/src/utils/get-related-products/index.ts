@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { select, resolveSelect, dispatch } from '@wordpress/data';
-import { PRODUCTS_STORE_NAME } from '@woocommerce/data';
-import type { Product } from '@woocommerce/data';
+import { PRODUCTS_STORE_NAME } from '@poocommerce/data';
+import type { Product } from '@poocommerce/data';
 
 type getRelatedProductsOptions = {
 	// If true, return random products if no related products are found.

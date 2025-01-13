@@ -4,7 +4,7 @@
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { Disabled, PanelBody } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 import clsx from 'clsx';
 
 /**

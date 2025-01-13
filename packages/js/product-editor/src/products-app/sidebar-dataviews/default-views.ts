@@ -92,13 +92,13 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 	return useMemo( () => {
 		return [
 			{
-				title: labels?.all_items || __( 'All items', 'woocommerce' ),
+				title: labels?.all_items || __( 'All items', 'poocommerce' ),
 				slug: 'all',
 				icon: pages,
 				view: { ...DEFAULT_POST_BASE },
 			},
 			{
-				title: __( 'Published', 'woocommerce' ),
+				title: __( 'Published', 'poocommerce' ),
 				slug: 'published',
 				icon: published,
 				view: {
@@ -113,7 +113,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Scheduled', 'woocommerce' ),
+				title: __( 'Scheduled', 'poocommerce' ),
 				slug: 'future',
 				icon: scheduled,
 				view: {
@@ -128,7 +128,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Drafts', 'woocommerce' ),
+				title: __( 'Drafts', 'poocommerce' ),
 				slug: 'drafts',
 				icon: drafts,
 				view: {
@@ -143,7 +143,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Private', 'woocommerce' ),
+				title: __( 'Private', 'poocommerce' ),
 				slug: 'private',
 				icon: notAllowed,
 				view: {
@@ -158,7 +158,7 @@ export function useDefaultViews( { postType }: { postType: string } ): Array< {
 				},
 			},
 			{
-				title: __( 'Trash', 'woocommerce' ),
+				title: __( 'Trash', 'poocommerce' ),
 				slug: 'trash',
 				icon: trash,
 				view: {

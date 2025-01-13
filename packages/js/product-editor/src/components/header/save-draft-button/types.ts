@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { Button } from '@wordpress/components';
 
 export type SaveDraftButtonProps = Omit<

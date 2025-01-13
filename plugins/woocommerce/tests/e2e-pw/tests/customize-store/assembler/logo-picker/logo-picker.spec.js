@@ -36,7 +36,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_customize_store_onboarding_tour_hidden',
+					'poocommerce_customize_store_onboarding_tour_hidden',
 					'yes'
 				);
 			} catch ( error ) {
@@ -50,13 +50,13 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_customize_store_onboarding_tour_hidden',
+					'poocommerce_customize_store_onboarding_tour_hidden',
 					'no'
 				);
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'no'
 				);
 
@@ -199,7 +199,7 @@ test.describe(
 			).toBeVisible();
 		} );
 
-		// This test checks this regression: https://github.com/woocommerce/woocommerce/issues/49668
+		// This test checks this regression: https://github.com/poocommerce/poocommerce/issues/49668
 		test( 'Logo should be visible after header update', async ( {
 			assemblerPageObject,
 			logoPickerPageObject,

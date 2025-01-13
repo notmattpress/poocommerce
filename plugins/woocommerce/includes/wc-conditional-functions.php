@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Conditional Functions
+ * PooCommerce Conditional Functions
  *
  * Functions for determining the current query/page.
  *
- * @package     WooCommerce\Functions
+ * @package     PooCommerce\Functions
  * @version     2.3.0
  */
 
@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Is_woocommerce - Returns true if on a page which uses WooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included).
+ * Is_poocommerce - Returns true if on a page which uses PooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included).
  *
  * @return bool
  */
-function is_woocommerce() {
-	return apply_filters( 'is_woocommerce', is_shop() || is_product_taxonomy() || is_product() );
+function is_poocommerce() {
+	return apply_filters( 'is_poocommerce', is_shop() || is_product_taxonomy() || is_product() );
 }
 
 if ( ! function_exists( 'is_shop' ) ) {
@@ -95,7 +95,7 @@ if ( ! function_exists( 'is_cart' ) ) {
 	function is_cart() {
 		$page_id = wc_get_page_id( 'cart' );
 
-		return ( $page_id && is_page( $page_id ) ) || Constants::is_defined( 'WOOCOMMERCE_CART' ) || wc_post_content_has_shortcode( 'woocommerce_cart' );
+		return ( $page_id && is_page( $page_id ) ) || Constants::is_defined( 'WOOCOMMERCE_CART' ) || wc_post_content_has_shortcode( 'poocommerce_cart' );
 	}
 }
 
@@ -109,7 +109,7 @@ if ( ! function_exists( 'is_checkout' ) ) {
 	function is_checkout() {
 		$page_id = wc_get_page_id( 'checkout' );
 
-		return ( $page_id && is_page( $page_id ) ) || wc_post_content_has_shortcode( 'woocommerce_checkout' ) || apply_filters( 'woocommerce_is_checkout', false ) || Constants::is_defined( 'WOOCOMMERCE_CHECKOUT' );
+		return ( $page_id && is_page( $page_id ) ) || wc_post_content_has_shortcode( 'poocommerce_checkout' ) || apply_filters( 'poocommerce_is_checkout', false ) || Constants::is_defined( 'WOOCOMMERCE_CHECKOUT' );
 	}
 }
 
@@ -170,7 +170,7 @@ if ( ! function_exists( 'is_account_page' ) ) {
 	function is_account_page() {
 		$page_id = wc_get_page_id( 'myaccount' );
 
-		return ( $page_id && is_page( $page_id ) ) || wc_post_content_has_shortcode( 'woocommerce_my_account' ) || apply_filters( 'woocommerce_is_account_page', false );
+		return ( $page_id && is_page( $page_id ) ) || wc_post_content_has_shortcode( 'poocommerce_my_account' ) || apply_filters( 'poocommerce_is_account_page', false );
 	}
 }
 
@@ -220,7 +220,7 @@ if ( ! function_exists( 'is_order_received_page' ) ) {
 
 		$page_id = wc_get_page_id( 'checkout' );
 
-		return apply_filters( 'woocommerce_is_order_received_page', ( $page_id && is_page( $page_id ) && isset( $wp->query_vars['order-received'] ) ) );
+		return apply_filters( 'poocommerce_is_order_received_page', ( $page_id && is_page( $page_id ) && isset( $wp->query_vars['order-received'] ) ) );
 	}
 }
 
@@ -277,7 +277,7 @@ if ( ! function_exists( 'is_store_notice_showing' ) ) {
 	 * @return bool
 	 */
 	function is_store_notice_showing() {
-		return 'no' !== get_option( 'woocommerce_demo_store', 'no' );
+		return 'no' !== get_option( 'poocommerce_demo_store', 'no' );
 	}
 }
 
@@ -289,7 +289,7 @@ if ( ! function_exists( 'is_filtered' ) ) {
 	 * @return bool
 	 */
 	function is_filtered() {
-		return apply_filters( 'woocommerce_is_filtered', ( count( WC_Query::get_layered_nav_chosen_attributes() ) > 0 || isset( $_GET['max_price'] ) || isset( $_GET['min_price'] ) || isset( $_GET['rating_filter'] ) ) ); // WPCS: CSRF ok.
+		return apply_filters( 'poocommerce_is_filtered', ( count( WC_Query::get_layered_nav_chosen_attributes() ) > 0 || isset( $_GET['max_price'] ) || isset( $_GET['min_price'] ) || isset( $_GET['rating_filter'] ) ) ); // WPCS: CSRF ok.
 	}
 }
 
@@ -340,7 +340,7 @@ if ( ! function_exists( 'wc_tax_enabled' ) ) {
 	 * @return bool
 	 */
 	function wc_tax_enabled() {
-		return apply_filters( 'wc_tax_enabled', get_option( 'woocommerce_calc_taxes' ) === 'yes' );
+		return apply_filters( 'wc_tax_enabled', get_option( 'poocommerce_calc_taxes' ) === 'yes' );
 	}
 }
 
@@ -352,7 +352,7 @@ if ( ! function_exists( 'wc_shipping_enabled' ) ) {
 	 * @return bool
 	 */
 	function wc_shipping_enabled() {
-		return apply_filters( 'wc_shipping_enabled', get_option( 'woocommerce_ship_to_countries' ) !== 'disabled' );
+		return apply_filters( 'wc_shipping_enabled', get_option( 'poocommerce_ship_to_countries' ) !== 'disabled' );
 	}
 }
 
@@ -364,7 +364,7 @@ if ( ! function_exists( 'wc_prices_include_tax' ) ) {
 	 * @return bool
 	 */
 	function wc_prices_include_tax() {
-		return wc_tax_enabled() && apply_filters( 'woocommerce_prices_include_tax', get_option( 'woocommerce_prices_include_tax' ) === 'yes' );
+		return wc_tax_enabled() && apply_filters( 'poocommerce_prices_include_tax', get_option( 'poocommerce_prices_include_tax' ) === 'yes' );
 	}
 }
 
@@ -407,7 +407,7 @@ function wc_site_is_https() {
  * @return bool
  */
 function wc_checkout_is_https() {
-	return wc_site_is_https() || 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || class_exists( 'WordPressHTTPS' ) || strstr( wc_get_page_permalink( 'checkout' ), 'https:' );
+	return wc_site_is_https() || 'yes' === get_option( 'poocommerce_force_ssl_checkout' ) || class_exists( 'WordPressHTTPS' ) || strstr( wc_get_page_permalink( 'checkout' ), 'https:' );
 }
 
 /**
@@ -429,7 +429,7 @@ function wc_post_content_has_shortcode( $tag = '' ) {
  * @return bool
  */
 function wc_reviews_enabled() {
-	return 'yes' === get_option( 'woocommerce_enable_reviews' );
+	return 'yes' === get_option( 'poocommerce_enable_reviews' );
 }
 
 /**
@@ -439,7 +439,7 @@ function wc_reviews_enabled() {
  * @return bool
  */
 function wc_review_ratings_enabled() {
-	return wc_reviews_enabled() && 'yes' === get_option( 'woocommerce_enable_review_rating' );
+	return wc_reviews_enabled() && 'yes' === get_option( 'poocommerce_enable_review_rating' );
 }
 
 /**
@@ -449,7 +449,7 @@ function wc_review_ratings_enabled() {
  * @return bool
  */
 function wc_review_ratings_required() {
-	return 'yes' === get_option( 'woocommerce_review_rating_required' );
+	return 'yes' === get_option( 'poocommerce_review_rating_required' );
 }
 
 /**
@@ -468,7 +468,7 @@ function wc_is_file_valid_csv( $file, $check_path = true ) {
 	 * @param bool   $check_import_file_path If requires file path check. Defaults to true.
 	 * @param string $file                   Path of the file to be checked.
 	 */
-	$check_import_file_path = apply_filters( 'woocommerce_csv_importer_check_import_file_path', true, $file );
+	$check_import_file_path = apply_filters( 'poocommerce_csv_importer_check_import_file_path', true, $file );
 
 	if ( $check_path && $check_import_file_path && false !== stripos( $file, '://' ) ) {
 		return false;
@@ -481,7 +481,7 @@ function wc_is_file_valid_csv( $file, $check_path = true ) {
 	 * @param array $valid_filetypes List of valid file types.
 	 */
 	$valid_filetypes = apply_filters(
-		'woocommerce_csv_import_valid_filetypes',
+		'poocommerce_csv_import_valid_filetypes',
 		array(
 			'csv' => 'text/csv',
 			'txt' => 'text/plain',
@@ -515,13 +515,13 @@ function wc_current_theme_is_fse_theme() {
 }
 
 /**
- * Check if the current theme has WooCommerce support or is a FSE theme.
+ * Check if the current theme has PooCommerce support or is a FSE theme.
  *
  * @since 6.0.0
  * @return bool
  */
-function wc_current_theme_supports_woocommerce_or_fse() {
-	return (bool) current_theme_supports( 'woocommerce' ) || wc_current_theme_is_fse_theme();
+function wc_current_theme_supports_poocommerce_or_fse() {
+	return (bool) current_theme_supports( 'poocommerce' ) || wc_current_theme_is_fse_theme();
 }
 
 /**

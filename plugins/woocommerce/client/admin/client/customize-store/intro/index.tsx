@@ -6,7 +6,7 @@ import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { chevronLeft } from '@wordpress/icons';
 import interpolateComponents from '@automattic/interpolate-components';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 import { Sender } from 'xstate';
 import { Notice } from '@wordpress/components';
 
@@ -92,11 +92,11 @@ const ThemeCards = ( {
 			<p className="select-theme-text">
 				{ __(
 					'Or select a professionally designed theme to customize and make your own.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 
-			<div className="woocommerce-customize-store-theme-cards">
+			<div className="poocommerce-customize-store-theme-cards">
 				{ themeData.themes?.map( ( theme ) => (
 					<ThemeCard
 						key={ theme.slug }
@@ -127,7 +127,7 @@ const ThemeCards = ( {
 				) ) }
 			</div>
 
-			<div className="woocommerce-customize-store-browse-themes">
+			<div className="poocommerce-customize-store-browse-themes">
 				<button
 					onClick={ () =>
 						sendEvent( {
@@ -135,7 +135,7 @@ const ThemeCards = ( {
 						} )
 					}
 				>
-					{ __( 'Browse all themes', 'woocommerce' ) }
+					{ __( 'Browse all themes', 'poocommerce' ) }
 				</button>
 			</div>
 		</>
@@ -158,19 +158,19 @@ const CustomizedThemeBanners = ( {
 	return (
 		<>
 			<p className="select-theme-text">
-				{ __( 'Design or choose a new theme', 'woocommerce' ) }
+				{ __( 'Design or choose a new theme', 'poocommerce' ) }
 			</p>
 
-			<div className="woocommerce-customize-store-cards">
+			<div className="poocommerce-customize-store-cards">
 				<div className="intro-card">
 					<img
 						src={ welcomeTourImg }
-						alt={ __( 'Design your own theme', 'woocommerce' ) }
+						alt={ __( 'Design your own theme', 'poocommerce' ) }
 					/>
 
 					<div>
 						<h2 className="intro-card__title">
-							{ __( 'Design your own theme', 'woocommerce' ) }
+							{ __( 'Design your own theme', 'poocommerce' ) }
 						</h2>
 
 						<button
@@ -198,7 +198,7 @@ const CustomizedThemeBanners = ( {
 								}
 							} }
 						>
-							{ __( 'Use the store designer', 'woocommerce' ) }
+							{ __( 'Use the store designer', 'poocommerce' ) }
 						</button>
 					</div>
 				</div>
@@ -208,7 +208,7 @@ const CustomizedThemeBanners = ( {
 						src={ professionalThemeImg }
 						alt={ __(
 							'Choose a professionally designed theme',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 
@@ -216,7 +216,7 @@ const CustomizedThemeBanners = ( {
 						<h2 className="intro-card__title">
 							{ __(
 								'Choose a professionally designed theme',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</h2>
 
@@ -231,7 +231,7 @@ const CustomizedThemeBanners = ( {
 								} );
 							} }
 						>
-							{ __( 'Browse themes', 'woocommerce' ) }
+							{ __( 'Browse themes', 'poocommerce' ) }
 						</button>
 					</div>
 				</div>
@@ -276,11 +276,11 @@ export const Intro: CustomizeStoreComponent = ( { sendEvent, context } ) => {
 		context.intro.errorStatus === 403
 			? __(
 					"Sorry, you don't have permission to update the theme.",
-					'woocommerce'
+					'poocommerce'
 			  )
 			: __(
 					'Oops! We encountered a problem while setting up the foundations. {{anchor}}Please try again{{/anchor}} or start with a theme.',
-					'woocommerce'
+					'poocommerce'
 			  );
 
 	const [ openDesignChangeWarningModal, setOpenDesignChangeWarningModal ] =
@@ -358,11 +358,11 @@ export const Intro: CustomizeStoreComponent = ( { sendEvent, context } ) => {
 		context.flowType === FlowType.AIOnline
 			? __(
 					'Create a store that reflects your brand and business. Select one of our professionally designed themes to customize, or create your own using AI.',
-					'woocommerce'
+					'poocommerce'
 			  )
 			: __(
 					'Design a store that reflects your brand and business. Customize your active theme, select a professionally designed theme, or create a new look using our store designer.',
-					'woocommerce'
+					'poocommerce'
 			  );
 
 	return (
@@ -375,16 +375,16 @@ export const Intro: CustomizeStoreComponent = ( { sendEvent, context } ) => {
 					}
 				/>
 			) }
-			<div className="woocommerce-customize-store-header">
+			<div className="poocommerce-customize-store-header">
 				<SiteHub
 					isTransparent={ false }
-					className="woocommerce-customize-store__content"
+					className="poocommerce-customize-store__content"
 				/>
 			</div>
 
-			<div className="woocommerce-customize-store-container">
-				<div className="woocommerce-customize-store-sidebar">
-					<div className="woocommerce-customize-store-sidebar__title">
+			<div className="poocommerce-customize-store-container">
+				<div className="poocommerce-customize-store-sidebar">
+					<div className="poocommerce-customize-store-sidebar__title">
 						<button
 							onClick={ () => {
 								sendEvent( 'CLICKED_ON_BREADCRUMB' );
@@ -392,16 +392,16 @@ export const Intro: CustomizeStoreComponent = ( { sendEvent, context } ) => {
 						>
 							{ chevronLeft }
 						</button>
-						{ __( 'Customize your store', 'woocommerce' ) }
+						{ __( 'Customize your store', 'poocommerce' ) }
 					</div>
 					<p>{ sidebarMessage }</p>
 				</div>
 
-				<div className="woocommerce-customize-store-main">
+				<div className="poocommerce-customize-store-main">
 					{ showError && (
 						<Notice
 							onRemove={ () => setShowError( false ) }
-							className="woocommerce-cys-design-with-ai__error-notice"
+							className="poocommerce-cys-design-with-ai__error-notice"
 							status="error"
 						>
 							{ interpolateComponents( {
@@ -410,7 +410,7 @@ export const Intro: CustomizeStoreComponent = ( { sendEvent, context } ) => {
 									anchor: (
 										// eslint-disable-next-line jsx-a11y/anchor-has-content, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid
 										<a
-											className="woocommerce-customize-store-error-link"
+											className="poocommerce-customize-store-error-link"
 											onClick={ () =>
 												sendEvent( 'DESIGN_WITHOUT_AI' )
 											}

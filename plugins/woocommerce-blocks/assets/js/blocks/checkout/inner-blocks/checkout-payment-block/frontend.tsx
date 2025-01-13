@@ -2,16 +2,16 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
-import { withFilteredAttributes } from '@woocommerce/shared-hocs';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
+import { withFilteredAttributes } from '@poocommerce/shared-hocs';
 import {
 	FormStep,
 	StoreNoticesContainer,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { CHECKOUT_STORE_KEY } from '@woocommerce/block-data';
-import { noticeContexts } from '@woocommerce/base-context';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
+import { CHECKOUT_STORE_KEY } from '@poocommerce/block-data';
+import { noticeContexts } from '@poocommerce/base-context';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
 
 /**
  * Internal dependencies

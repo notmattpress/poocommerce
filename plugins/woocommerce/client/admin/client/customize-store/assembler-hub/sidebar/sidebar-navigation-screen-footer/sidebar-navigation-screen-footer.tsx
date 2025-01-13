@@ -13,7 +13,7 @@ import { Spinner } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { __experimentalBlockPatternsList as BlockPatternList } from '@wordpress/block-editor';
 /**
  * Internal dependencies
@@ -33,9 +33,9 @@ import './style.scss';
 import { PatternWithBlocks } from '~/customize-store/types/pattern';
 
 const SUPPORTED_FOOTER_PATTERNS = [
-	'woocommerce-blocks/footer-with-3-menus',
-	'woocommerce-blocks/footer-simple-menu',
-	'woocommerce-blocks/footer-large',
+	'poocommerce-blocks/footer-with-3-menus',
+	'poocommerce-blocks/footer-simple-menu',
+	'poocommerce-blocks/footer-large',
 ];
 
 export const SidebarNavigationScreenFooter = ( {
@@ -44,7 +44,7 @@ export const SidebarNavigationScreenFooter = ( {
 	onNavigateBackClick: () => void;
 } ) => {
 	const { scroll } = useEditorScroll( {
-		editorSelector: '.woocommerce-customize-store__block-editor iframe',
+		editorSelector: '.poocommerce-customize-store__block-editor iframe',
 		scrollDirection: 'bottom',
 	} );
 
@@ -127,17 +127,17 @@ export const SidebarNavigationScreenFooter = ( {
 	const aiOnline = context.flowType === FlowType.AIOnline;
 
 	const title = aiOnline
-		? __( 'Change your footer', 'woocommerce' )
-		: __( 'Choose your footer', 'woocommerce' );
+		? __( 'Change your footer', 'poocommerce' )
+		: __( 'Choose your footer', 'poocommerce' );
 
 	const description = aiOnline
 		? __(
 				"Select a new footer from the options below. Your footer includes your site's secondary navigation and will be added to every page. You can continue customizing this via the Editor.",
-				'woocommerce'
+				'poocommerce'
 		  )
 		: __(
 				"Select a footer from the options below. Your footer includes your site's secondary navigation and will be added to every page. You can continue customizing this via the Editor later.",
-				'woocommerce'
+				'poocommerce'
 		  );
 
 	return (
@@ -150,7 +150,7 @@ export const SidebarNavigationScreenFooter = ( {
 			description={ description }
 			content={
 				<>
-					<div className="woocommerce-customize-store__sidebar-footer-content">
+					<div className="poocommerce-customize-store__sidebar-footer-content">
 						{ isLoading && (
 							<span className="components-placeholder__preview">
 								<Spinner />

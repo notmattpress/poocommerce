@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\StoreApi\RoutesController;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\StoreApi;
 
 /**
  * Service class that handles hydration of API data for blocks.
@@ -147,7 +147,7 @@ class Hydration {
 		 * @param string           $path             Request path matched for the request..
 		 * @param array            $handler          Route handler used for the request.
 		 */
-		$hydration_result = apply_filters( 'woocommerce_hydration_dispatch_request', null, $request, $path, $handler );
+		$hydration_result = apply_filters( 'poocommerce_hydration_dispatch_request', null, $request, $path, $handler );
 
 		if ( null !== $hydration_result ) {
 			$response = $hydration_result;
@@ -166,7 +166,7 @@ class Hydration {
 		 * @param array                                            $handler  Route handler used for the request.
 		 * @param WP_REST_Request                                  $request  Request used to generate the response.
 		 */
-		$response = apply_filters( 'woocommerce_hydration_request_after_callbacks', $response, $handler, $request );
+		$response = apply_filters( 'poocommerce_hydration_request_after_callbacks', $response, $handler, $request );
 
 		return $response;
 	}
@@ -196,7 +196,7 @@ class Hydration {
 	 * Disable the nonce check temporarily.
 	 */
 	protected function disable_nonce_check() {
-		add_filter( 'woocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
+		add_filter( 'poocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
 	}
 
 	/**
@@ -211,14 +211,14 @@ class Hydration {
 	 * Restore the nonce check.
 	 */
 	protected function restore_nonce_check() {
-		remove_filter( 'woocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
+		remove_filter( 'poocommerce_store_api_disable_nonce_check', array( $this, 'disable_nonce_check_callback' ) );
 	}
 
 	/**
 	 * Cache notices before hydrating the API if the customer has a session.
 	 */
 	protected function cache_store_notices() {
-		if ( ! did_action( 'woocommerce_init' ) || null === WC()->session ) {
+		if ( ! did_action( 'poocommerce_init' ) || null === WC()->session ) {
 			return;
 		}
 		$this->cached_store_notices = WC()->session->get( 'wc_notices', array() );
@@ -229,7 +229,7 @@ class Hydration {
 	 * Restore notices into current session from cache.
 	 */
 	protected function restore_cached_store_notices() {
-		if ( ! did_action( 'woocommerce_init' ) || null === WC()->session ) {
+		if ( ! did_action( 'poocommerce_init' ) || null === WC()->session ) {
 			return;
 		}
 		WC()->session->set( 'wc_notices', $this->cached_store_notices );

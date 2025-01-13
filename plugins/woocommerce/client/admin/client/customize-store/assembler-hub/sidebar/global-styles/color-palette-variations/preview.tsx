@@ -1,5 +1,5 @@
 // Reference: https://github.com/Automattic/wp-calypso/blob/d3c9b16fb99ce242f61baa21119b7c20f8823be6/packages/global-styles/src/components/color-palette-variations/preview.tsx#L20
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -131,7 +131,7 @@ export const ColorPaletteVariationPreview = ( { title }: Props ) => {
 									textAlign: 'center',
 								} }
 							>
-								{ __( 'Default', 'woocommerce' ) }
+								{ __( 'Default', 'poocommerce' ) }
 							</div>
 						</VStack>
 					) }

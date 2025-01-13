@@ -4,18 +4,18 @@
  *
  * Standardises certain post data on save.
  *
- * @package WooCommerce\Classes\Data
+ * @package PooCommerce\Classes\Data
  * @version 2.2.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore as ProductAttributesLookupDataStore;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore as ProductAttributesLookupDataStore;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -40,9 +40,9 @@ class WC_Post_Data {
 		add_action( 'set_object_terms', array( __CLASS__, 'force_default_term' ), 10, 5 );
 		add_action( 'set_object_terms', array( __CLASS__, 'delete_product_query_transients' ) );
 		add_action( 'deleted_term_relationships', array( __CLASS__, 'delete_product_query_transients' ) );
-		add_action( 'woocommerce_product_set_stock_status', array( __CLASS__, 'delete_product_query_transients' ) );
-		add_action( 'woocommerce_product_set_visibility', array( __CLASS__, 'delete_product_query_transients' ) );
-		add_action( 'woocommerce_product_type_changed', array( __CLASS__, 'product_type_changed' ), 10, 3 );
+		add_action( 'poocommerce_product_set_stock_status', array( __CLASS__, 'delete_product_query_transients' ) );
+		add_action( 'poocommerce_product_set_visibility', array( __CLASS__, 'delete_product_query_transients' ) );
+		add_action( 'poocommerce_product_type_changed', array( __CLASS__, 'product_type_changed' ), 10, 3 );
 
 		add_action( 'edit_term', array( __CLASS__, 'edit_term' ), 10, 3 );
 		add_action( 'edited_term', array( __CLASS__, 'edited_term' ), 10, 3 );
@@ -58,7 +58,7 @@ class WC_Post_Data {
 		add_action( 'wp_trash_post', array( __CLASS__, 'trash_post' ) );
 		add_action( 'untrashed_post', array( __CLASS__, 'untrash_post' ) );
 		add_action( 'before_delete_post', array( __CLASS__, 'before_delete_order' ) );
-		add_action( 'woocommerce_before_delete_order', array( __CLASS__, 'before_delete_order' ) );
+		add_action( 'poocommerce_before_delete_order', array( __CLASS__, 'before_delete_order' ) );
 
 		// Meta cache flushing.
 		add_action( 'updated_post_meta', array( __CLASS__, 'flush_object_meta_cache' ), 10, 4 );
@@ -151,7 +151,7 @@ class WC_Post_Data {
 		 * @return string    $from    Origin type.
 		 * @param string     $to      New type.
 		 */
-		if ( apply_filters( 'woocommerce_delete_variations_on_product_type_change', ProductType::VARIABLE === $from && ProductType::VARIABLE !== $to, $product, $from, $to ) ) {
+		if ( apply_filters( 'poocommerce_delete_variations_on_product_type_change', ProductType::VARIABLE === $from && ProductType::VARIABLE !== $to, $product, $from, $to ) ) {
 			// If the product is no longer variable, we should ensure all variations are removed.
 			$data_store = WC_Data_Store::load( 'product-variable' );
 			$data_store->delete_variations( $product->get_id(), true );
@@ -486,18 +486,18 @@ class WC_Post_Data {
 		global $wpdb;
 
 		if ( OrderUtil::is_order( $postid, wc_get_order_types() ) ) {
-			do_action( 'woocommerce_delete_order_items', $postid );
+			do_action( 'poocommerce_delete_order_items', $postid );
 
 			$wpdb->query(
 				"
-				DELETE {$wpdb->prefix}woocommerce_order_items, {$wpdb->prefix}woocommerce_order_itemmeta
-				FROM {$wpdb->prefix}woocommerce_order_items
-				JOIN {$wpdb->prefix}woocommerce_order_itemmeta ON {$wpdb->prefix}woocommerce_order_items.order_item_id = {$wpdb->prefix}woocommerce_order_itemmeta.order_item_id
-				WHERE {$wpdb->prefix}woocommerce_order_items.order_id = '{$postid}';
+				DELETE {$wpdb->prefix}poocommerce_order_items, {$wpdb->prefix}poocommerce_order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_items
+				JOIN {$wpdb->prefix}poocommerce_order_itemmeta ON {$wpdb->prefix}poocommerce_order_items.order_item_id = {$wpdb->prefix}poocommerce_order_itemmeta.order_item_id
+				WHERE {$wpdb->prefix}poocommerce_order_items.order_id = '{$postid}';
 				"
 			); // WPCS: unprepared SQL ok.
 
-			do_action( 'woocommerce_deleted_order_items', $postid );
+			do_action( 'poocommerce_deleted_order_items', $postid );
 		}
 	}
 
@@ -508,12 +508,12 @@ class WC_Post_Data {
 	 */
 	public static function delete_order_downloadable_permissions( $postid ) {
 		if ( OrderUtil::is_order( $postid, wc_get_order_types() ) ) {
-			do_action( 'woocommerce_delete_order_downloadable_permissions', $postid );
+			do_action( 'poocommerce_delete_order_downloadable_permissions', $postid );
 
 			$data_store = WC_Data_Store::load( 'customer-download' );
 			$data_store->delete_by_order_id( $postid );
 
-			do_action( 'woocommerce_deleted_order_downloadable_permissions', $postid );
+			do_action( 'poocommerce_deleted_order_downloadable_permissions', $postid );
 		}
 	}
 

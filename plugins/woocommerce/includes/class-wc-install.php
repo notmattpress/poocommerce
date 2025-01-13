@@ -2,23 +2,23 @@
 /**
  * Installation related functions and actions.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
-use Automattic\WooCommerce\Internal\DataStores\Orders\{ CustomOrdersTableController, DataSynchronizer, OrdersTableDataStore };
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize as Download_Directories_Sync;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Internal\WCCom\ConnectionHelper as WCConnectionHelper;
-use Automattic\WooCommerce\Utilities\{ OrderUtil, PluginUtil };
-use Automattic\WooCommerce\Internal\Utilities\PluginInstaller;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Internal\DataStores\Orders\{ CustomOrdersTableController, DataSynchronizer, OrdersTableDataStore };
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize as Download_Directories_Sync;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\WCCom\ConnectionHelper as WCConnectionHelper;
+use Automattic\PooCommerce\Utilities\{ OrderUtil, PluginUtil };
+use Automattic\PooCommerce\Internal\Utilities\PluginInstaller;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,12 +29,12 @@ class WC_Install {
 	/**
 	 * DB updates and callbacks that need to be run per version.
 	 *
-	 * Please note that these functions are invoked when WooCommerce is updated from a previous version,
-	 * but NOT when WooCommerce is newly installed.
+	 * Please note that these functions are invoked when PooCommerce is updated from a previous version,
+	 * but NOT when PooCommerce is newly installed.
 	 *
 	 * Database schema changes must be incorporated to the SQL returned by get_schema, which is applied
 	 * via dbDelta at both install and update time. If any other kind of database change is required
-	 * at install time (e.g. populating tables), use the 'woocommerce_installed' hook.
+	 * at install time (e.g. populating tables), use the 'poocommerce_installed' hook.
 	 *
 	 * @var array
 	 */
@@ -247,7 +247,7 @@ class WC_Install {
 			'wc_update_870_prevent_listing_of_transient_files_directory',
 		),
 		'8.9.0' => array(
-			'wc_update_890_update_connect_to_woocommerce_note',
+			'wc_update_890_update_connect_to_poocommerce_note',
 			'wc_update_890_update_paypal_standard_load_eligibility',
 		),
 		'8.9.1' => array(
@@ -261,7 +261,7 @@ class WC_Install {
 			'wc_update_920_add_wc_hooked_blocks_version_option',
 		),
 		'9.3.0' => array(
-			'wc_update_930_add_woocommerce_coming_soon_option',
+			'wc_update_930_add_poocommerce_coming_soon_option',
 			'wc_update_930_migrate_user_meta_for_launch_your_store_tour',
 		),
 		'9.4.0' => array(
@@ -274,25 +274,25 @@ class WC_Install {
 	);
 
 	/**
-	 * Option name used to track new installations of WooCommerce.
+	 * Option name used to track new installations of PooCommerce.
 	 *
 	 * @var string
 	 */
-	const NEWLY_INSTALLED_OPTION = 'woocommerce_newly_installed';
+	const NEWLY_INSTALLED_OPTION = 'poocommerce_newly_installed';
 
 	/**
-	 * Option name used to track new installation versions of WooCommerce.
+	 * Option name used to track new installation versions of PooCommerce.
 	 *
 	 * @var string
 	 */
-	const INITIAL_INSTALLED_VERSION = 'woocommerce_initial_installed_version';
+	const INITIAL_INSTALLED_VERSION = 'poocommerce_initial_installed_version';
 
 	/**
-	 * Option name used to uniquely identify installations of WooCommerce.
+	 * Option name used to uniquely identify installations of PooCommerce.
 	 *
 	 * @var string
 	 */
-	const STORE_ID_OPTION = 'woocommerce_store_id';
+	const STORE_ID_OPTION = 'poocommerce_store_id';
 
 	/**
 	 * Hook in tabs.
@@ -300,43 +300,43 @@ class WC_Install {
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
 		add_action( 'init', array( __CLASS__, 'manual_database_update' ), 20 );
-		add_action( 'woocommerce_newly_installed', array( __CLASS__, 'maybe_enable_hpos' ), 20 );
-		add_action( 'woocommerce_newly_installed', array( __CLASS__, 'add_coming_soon_option' ), 20 );
+		add_action( 'poocommerce_newly_installed', array( __CLASS__, 'maybe_enable_hpos' ), 20 );
+		add_action( 'poocommerce_newly_installed', array( __CLASS__, 'add_coming_soon_option' ), 20 );
 		add_action( 'admin_init', array( __CLASS__, 'wc_admin_db_update_notice' ) );
 		add_action( 'admin_init', array( __CLASS__, 'add_admin_note_after_page_created' ) );
-		add_action( 'woocommerce_run_update_callback', array( __CLASS__, 'run_update_callback' ) );
-		add_action( 'woocommerce_update_db_to_current_version', array( __CLASS__, 'update_db_version' ) );
+		add_action( 'poocommerce_run_update_callback', array( __CLASS__, 'run_update_callback' ) );
+		add_action( 'poocommerce_update_db_to_current_version', array( __CLASS__, 'update_db_version' ) );
 		add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
-		add_action( 'woocommerce_page_created', array( __CLASS__, 'page_created' ), 10, 2 );
+		add_action( 'poocommerce_page_created', array( __CLASS__, 'page_created' ), 10, 2 );
 		add_filter( 'plugin_action_links_' . WC_PLUGIN_BASENAME, array( __CLASS__, 'plugin_action_links' ) );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 		add_filter( 'wpmu_drop_tables', array( __CLASS__, 'wpmu_drop_tables' ) );
 		add_filter( 'cron_schedules', array( __CLASS__, 'cron_schedules' ) );
 		add_action( 'admin_init', array( __CLASS__, 'newly_installed' ) );
-		add_action( 'woocommerce_activate_legacy_rest_api_plugin', array( __CLASS__, 'maybe_install_legacy_api_plugin' ) );
+		add_action( 'poocommerce_activate_legacy_rest_api_plugin', array( __CLASS__, 'maybe_install_legacy_api_plugin' ) );
 	}
 
 	/**
-	 * Trigger `woocommerce_newly_installed` action for new installations.
+	 * Trigger `poocommerce_newly_installed` action for new installations.
 	 *
 	 * @since 8.0.0
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function newly_installed() {
 		if ( 'yes' === get_option( self::NEWLY_INSTALLED_OPTION, false ) ) {
 			/**
-			 * Run when WooCommerce has been installed for the first time.
+			 * Run when PooCommerce has been installed for the first time.
 			 *
 			 * @since 6.5.0
 			 */
-			do_action( 'woocommerce_newly_installed' );
-			do_action_deprecated( 'woocommerce_admin_newly_installed', array(), '6.5.0', 'woocommerce_newly_installed' );
+			do_action( 'poocommerce_newly_installed' );
+			do_action_deprecated( 'poocommerce_admin_newly_installed', array(), '6.5.0', 'poocommerce_newly_installed' );
 
 			update_option( self::NEWLY_INSTALLED_OPTION, 'no' );
 
 			/**
-			 * This option is used to track the initial version of WooCommerce that was installed.
+			 * This option is used to track the initial version of PooCommerce that was installed.
 			 *
 			 * @since 9.2.0
 			 */
@@ -345,28 +345,28 @@ class WC_Install {
 	}
 
 	/**
-	 * Check WooCommerce version and run the updater is required.
+	 * Check PooCommerce version and run the updater is required.
 	 *
 	 * This check is done on all requests and runs if the versions do not match.
 	 */
 	public static function check_version() {
-		$wc_version      = get_option( 'woocommerce_version' );
+		$wc_version      = get_option( 'poocommerce_version' );
 		$wc_code_version = WC()->version;
 		$requires_update = version_compare( $wc_version, $wc_code_version, '<' );
 		if ( ! Constants::is_defined( 'IFRAME_REQUEST' ) && $requires_update ) {
 			self::install();
 			/**
-			 * Run after WooCommerce has been updated.
+			 * Run after PooCommerce has been updated.
 			 *
 			 * @since 2.2.0
 			 */
-			do_action( 'woocommerce_updated' );
-			do_action_deprecated( 'woocommerce_admin_updated', array(), $wc_code_version, 'woocommerce_updated' );
+			do_action( 'poocommerce_updated' );
+			do_action_deprecated( 'poocommerce_admin_updated', array(), $wc_code_version, 'poocommerce_updated' );
 		}
 	}
 
 	/**
-	 * Performan manual database update when triggered by WooCommerce System Tools.
+	 * Performan manual database update when triggered by PooCommerce System Tools.
 	 *
 	 * @since 3.6.5
 	 */
@@ -384,7 +384,7 @@ class WC_Install {
 	public static function wc_admin_db_update_notice() {
 		if (
 			WC()->is_wc_admin_active() &&
-			false !== get_option( 'woocommerce_admin_install_timestamp' )
+			false !== get_option( 'poocommerce_admin_install_timestamp' )
 		) {
 			new WC_Notes_Run_Db_Update();
 		}
@@ -434,11 +434,11 @@ class WC_Install {
 	protected static function run_update_callback_end( $callback, $result ) {
 		if ( $result ) {
 			WC()->queue()->add(
-				'woocommerce_run_update_callback',
+				'poocommerce_run_update_callback',
 				array(
 					'update_callback' => $callback,
 				),
-				'woocommerce-db-updates'
+				'poocommerce-db-updates'
 			);
 		}
 	}
@@ -449,7 +449,7 @@ class WC_Install {
 	 * This function is hooked into admin_init to affect admin only.
 	 */
 	public static function install_actions() {
-		if ( ! empty( $_GET['do_update_woocommerce'] ) ) { // WPCS: input var ok.
+		if ( ! empty( $_GET['do_update_poocommerce'] ) ) { // WPCS: input var ok.
 			check_admin_referer( 'wc_db_update', 'wc_db_update_nonce' );
 			self::update();
 			WC_Admin_Notices::add_notice( 'update', true );
@@ -486,10 +486,10 @@ class WC_Install {
 
 		// Use add_option() here to avoid overwriting this value with each
 		// plugin version update. We base plugin age off of this value.
-		add_option( 'woocommerce_admin_install_timestamp', time() );
+		add_option( 'poocommerce_admin_install_timestamp', time() );
 
 		// Force a flush of rewrite rules even if the corresponding hook isn't initialized yet.
-		if ( ! has_action( 'woocommerce_flush_rewrite_rules' ) ) {
+		if ( ! has_action( 'poocommerce_flush_rewrite_rules' ) ) {
 			flush_rewrite_rules();
 		}
 
@@ -498,23 +498,23 @@ class WC_Install {
 		 *
 		 * @since 2.7.0
 		 */
-		do_action( 'woocommerce_flush_rewrite_rules' );
+		do_action( 'poocommerce_flush_rewrite_rules' );
 		/**
-		 * Run after WooCommerce has been installed or updated.
+		 * Run after PooCommerce has been installed or updated.
 		 *
 		 * @since 3.2.0
 		 */
-		do_action( 'woocommerce_installed' );
+		do_action( 'poocommerce_installed' );
 		/**
-		 * Run after WooCommerce Admin has been installed or updated.
+		 * Run after PooCommerce Admin has been installed or updated.
 		 *
 		 * @since 6.5.0
 		 */
-		do_action( 'woocommerce_admin_installed' );
+		do_action( 'poocommerce_admin_installed' );
 	}
 
 	/**
-	 * Core function that performs the WooCommerce install.
+	 * Core function that performs the PooCommerce install.
 	 */
 	private static function install_core() {
 		if ( self::is_new_install() && ! get_option( self::NEWLY_INSTALLED_OPTION, false ) ) {
@@ -591,13 +591,13 @@ class WC_Install {
 			if ( $modify_notice ) {
 				WC_Admin_Notices::add_notice( 'base_tables_missing' );
 			}
-			update_option( 'woocommerce_schema_missing_tables', $missing_tables );
+			update_option( 'poocommerce_schema_missing_tables', $missing_tables );
 		} else {
 			if ( $modify_notice ) {
 				WC_Admin_Notices::remove_notice( 'base_tables_missing' );
 			}
-			update_option( 'woocommerce_schema_version', WC()->db_version );
-			delete_option( 'woocommerce_schema_missing_tables' );
+			update_option( 'poocommerce_schema_version', WC()->db_version );
+			delete_option( 'poocommerce_schema_missing_tables' );
 		}
 		return $missing_tables;
 	}
@@ -636,7 +636,7 @@ class WC_Install {
 	 * @return boolean
 	 */
 	public static function is_new_install() {
-		return is_null( get_option( 'woocommerce_version', null ) )
+		return is_null( get_option( 'poocommerce_version', null ) )
 			|| (
 				-1 === wc_get_page_id( 'shop' )
 				&& 0 === array_sum( (array) wp_count_posts( 'product' ) )
@@ -650,7 +650,7 @@ class WC_Install {
 	 * @return boolean
 	 */
 	public static function needs_db_update() {
-		$current_db_version = get_option( 'woocommerce_db_version', null );
+		$current_db_version = get_option( 'poocommerce_db_version', null );
 		$updates            = self::get_db_update_callbacks();
 		$update_versions    = array_keys( $updates );
 		usort( $update_versions, 'version_compare' );
@@ -677,11 +677,11 @@ class WC_Install {
 	private static function maybe_update_db_version() {
 		if ( self::needs_db_update() ) {
 			/**
-			 * Allow WooCommerce to auto-update without prompting the user.
+			 * Allow PooCommerce to auto-update without prompting the user.
 			 *
 			 * @since 3.2.0
 			 */
-			if ( apply_filters( 'woocommerce_enable_auto_update_db', false ) ) {
+			if ( apply_filters( 'poocommerce_enable_auto_update_db', false ) ) {
 				self::update();
 			} else {
 				WC_Admin_Notices::add_notice( 'update', true );
@@ -706,7 +706,7 @@ class WC_Install {
 	 * Update WC version to current.
 	 */
 	private static function update_wc_version() {
-		update_option( 'woocommerce_version', WC()->version );
+		update_option( 'poocommerce_version', WC()->version );
 	}
 
 	/**
@@ -723,7 +723,7 @@ class WC_Install {
 	 * Push all needed DB updates to the queue for processing.
 	 */
 	private static function update() {
-		$current_db_version = get_option( 'woocommerce_db_version' );
+		$current_db_version = get_option( 'poocommerce_db_version' );
 		$loop               = 0;
 
 		foreach ( self::get_db_update_callbacks() as $version => $update_callbacks ) {
@@ -731,11 +731,11 @@ class WC_Install {
 				foreach ( $update_callbacks as $update_callback ) {
 					WC()->queue()->schedule_single(
 						time() + $loop,
-						'woocommerce_run_update_callback',
+						'poocommerce_run_update_callback',
 						array(
 							'update_callback' => $update_callback,
 						),
-						'woocommerce-db-updates'
+						'poocommerce-db-updates'
 					);
 					++$loop;
 				}
@@ -745,14 +745,14 @@ class WC_Install {
 		// After the callbacks finish, update the db version to the current WC version.
 		$current_wc_version = WC()->version;
 		if ( version_compare( $current_db_version, $current_wc_version, '<' ) &&
-			! WC()->queue()->get_next( 'woocommerce_update_db_to_current_version' ) ) {
+			! WC()->queue()->get_next( 'poocommerce_update_db_to_current_version' ) ) {
 			WC()->queue()->schedule_single(
 				time() + $loop,
-				'woocommerce_update_db_to_current_version',
+				'poocommerce_update_db_to_current_version',
 				array(
 					'version' => $current_wc_version,
 				),
-				'woocommerce-db-updates'
+				'poocommerce-db-updates'
 			);
 		}
 	}
@@ -760,10 +760,10 @@ class WC_Install {
 	/**
 	 * Update DB version to current.
 	 *
-	 * @param string|null $version New WooCommerce DB version or null.
+	 * @param string|null $version New PooCommerce DB version or null.
 	 */
 	public static function update_db_version( $version = null ) {
-		update_option( 'woocommerce_db_version', is_null( $version ) ? WC()->version : $version );
+		update_option( 'poocommerce_db_version', is_null( $version ) ? WC()->version : $version );
 	}
 
 	/**
@@ -776,11 +776,11 @@ class WC_Install {
 	public static function cron_schedules( $schedules ) {
 		$schedules['monthly']     = array(
 			'interval' => 2635200,
-			'display'  => __( 'Monthly', 'woocommerce' ),
+			'display'  => __( 'Monthly', 'poocommerce' ),
 		);
 		$schedules['fifteendays'] = array(
 			'interval' => 1296000,
-			'display'  => __( 'Every 15 Days', 'woocommerce' ),
+			'display'  => __( 'Every 15 Days', 'poocommerce' ),
 		);
 		return $schedules;
 	}
@@ -789,20 +789,20 @@ class WC_Install {
 	 * Create cron jobs (clear them first).
 	 */
 	private static function create_cron_jobs() {
-		wp_clear_scheduled_hook( 'woocommerce_scheduled_sales' );
-		wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
-		wp_clear_scheduled_hook( 'woocommerce_cleanup_sessions' );
-		wp_clear_scheduled_hook( 'woocommerce_cleanup_personal_data' );
-		wp_clear_scheduled_hook( 'woocommerce_cleanup_logs' );
-		wp_clear_scheduled_hook( 'woocommerce_geoip_updater' );
-		wp_clear_scheduled_hook( 'woocommerce_tracker_send_event' );
-		wp_clear_scheduled_hook( 'woocommerce_cleanup_rate_limits' );
+		wp_clear_scheduled_hook( 'poocommerce_scheduled_sales' );
+		wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
+		wp_clear_scheduled_hook( 'poocommerce_cleanup_sessions' );
+		wp_clear_scheduled_hook( 'poocommerce_cleanup_personal_data' );
+		wp_clear_scheduled_hook( 'poocommerce_cleanup_logs' );
+		wp_clear_scheduled_hook( 'poocommerce_geoip_updater' );
+		wp_clear_scheduled_hook( 'poocommerce_tracker_send_event' );
+		wp_clear_scheduled_hook( 'poocommerce_cleanup_rate_limits' );
 
 		$ve = get_option( 'gmt_offset' ) > 0 ? '-' : '+';
 
-		wp_schedule_event( strtotime( '00:00 tomorrow ' . $ve . absint( get_option( 'gmt_offset' ) ) . ' HOURS' ), 'daily', 'woocommerce_scheduled_sales' );
+		wp_schedule_event( strtotime( '00:00 tomorrow ' . $ve . absint( get_option( 'gmt_offset' ) ) . ' HOURS' ), 'daily', 'poocommerce_scheduled_sales' );
 
-		$held_duration = get_option( 'woocommerce_hold_stock_minutes', '60' );
+		$held_duration = get_option( 'poocommerce_hold_stock_minutes', '60' );
 
 		if ( '' !== $held_duration ) {
 			/**
@@ -810,25 +810,25 @@ class WC_Install {
 			 *
 			 * @since 5.1.0
 			 */
-			$cancel_unpaid_interval = apply_filters( 'woocommerce_cancel_unpaid_orders_interval_minutes', absint( $held_duration ) );
-			wp_schedule_single_event( time() + ( absint( $cancel_unpaid_interval ) * 60 ), 'woocommerce_cancel_unpaid_orders' );
+			$cancel_unpaid_interval = apply_filters( 'poocommerce_cancel_unpaid_orders_interval_minutes', absint( $held_duration ) );
+			wp_schedule_single_event( time() + ( absint( $cancel_unpaid_interval ) * 60 ), 'poocommerce_cancel_unpaid_orders' );
 		}
 
-		// Delay the first run of `woocommerce_cleanup_personal_data` by 10 seconds
-		// so it doesn't occur in the same request. WooCommerce Admin also schedules
+		// Delay the first run of `poocommerce_cleanup_personal_data` by 10 seconds
+		// so it doesn't occur in the same request. PooCommerce Admin also schedules
 		// a daily cron that gets lost due to a race condition. WC_Privacy's background
 		// processing instance updates the cron schedule from within a cron job.
-		wp_schedule_event( time() + 10, 'daily', 'woocommerce_cleanup_personal_data' );
-		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'woocommerce_cleanup_logs' );
-		wp_schedule_event( time() + ( 6 * HOUR_IN_SECONDS ), 'twicedaily', 'woocommerce_cleanup_sessions' );
-		wp_schedule_event( time() + MINUTE_IN_SECONDS, 'fifteendays', 'woocommerce_geoip_updater' );
+		wp_schedule_event( time() + 10, 'daily', 'poocommerce_cleanup_personal_data' );
+		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'poocommerce_cleanup_logs' );
+		wp_schedule_event( time() + ( 6 * HOUR_IN_SECONDS ), 'twicedaily', 'poocommerce_cleanup_sessions' );
+		wp_schedule_event( time() + MINUTE_IN_SECONDS, 'fifteendays', 'poocommerce_geoip_updater' );
 		/**
 		 * How frequent to schedule the tracker send event.
 		 *
 		 * @since 2.3.0
 		 */
-		wp_schedule_event( time() + 10, apply_filters( 'woocommerce_tracker_event_recurrence', 'daily' ), 'woocommerce_tracker_send_event' );
-		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'woocommerce_cleanup_rate_limits' );
+		wp_schedule_event( time() + 10, apply_filters( 'poocommerce_tracker_event_recurrence', 'daily' ), 'poocommerce_tracker_send_event' );
+		wp_schedule_event( time() + ( 3 * HOUR_IN_SECONDS ), 'daily', 'poocommerce_cleanup_rate_limits' );
 
 		if ( ! wp_next_scheduled( 'wc_admin_daily' ) ) {
 			wp_schedule_event( time(), 'daily', 'wc_admin_daily' );
@@ -841,7 +841,7 @@ class WC_Install {
 	 * Create pages on installation.
 	 */
 	public static function maybe_create_pages() {
-		if ( empty( get_option( 'woocommerce_db_version' ) ) ) {
+		if ( empty( get_option( 'poocommerce_db_version' ) ) ) {
 			self::create_pages();
 		}
 	}
@@ -865,7 +865,7 @@ class WC_Install {
 		 * @since 2.1.0
 		 * @deprecated 8.3.0 This filter is deprecated and will be removed in future versions.
 		 */
-		$cart_shortcode = apply_filters_deprecated( 'woocommerce_cart_shortcode_tag', array( '' ), '8.3.0', 'woocommerce_create_pages' );
+		$cart_shortcode = apply_filters_deprecated( 'poocommerce_cart_shortcode_tag', array( '' ), '8.3.0', 'poocommerce_create_pages' );
 
 		$cart_page_content = empty( $cart_shortcode ) ? self::get_cart_block_content() : '<!-- wp:shortcode -->[' . $cart_shortcode . ']<!-- /wp:shortcode -->';
 
@@ -875,7 +875,7 @@ class WC_Install {
 		 * @since 2.1.0
 		 * @deprecated 8.3.0 This filter is deprecated and will be removed in future versions.
 		 */
-		$checkout_shortcode = apply_filters_deprecated( 'woocommerce_checkout_shortcode_tag', array( '' ), '8.3.0', 'woocommerce_create_pages' );
+		$checkout_shortcode = apply_filters_deprecated( 'poocommerce_checkout_shortcode_tag', array( '' ), '8.3.0', 'poocommerce_create_pages' );
 
 		$checkout_page_content = empty( $checkout_shortcode ) ? self::get_checkout_block_content() : '<!-- wp:shortcode -->[' . $checkout_shortcode . ']<!-- /wp:shortcode -->';
 
@@ -884,7 +884,7 @@ class WC_Install {
 		 *
 		 * @since 2.1.0
 		 */
-		$my_account_shortcode = apply_filters( 'woocommerce_my_account_shortcode_tag', 'woocommerce_my_account' );
+		$my_account_shortcode = apply_filters( 'poocommerce_my_account_shortcode_tag', 'poocommerce_my_account' );
 
 		/**
 		 * Determines which pages are created during install.
@@ -892,31 +892,31 @@ class WC_Install {
 		 * @since 2.1.0
 		 */
 		$pages = apply_filters(
-			'woocommerce_create_pages',
+			'poocommerce_create_pages',
 			array(
 				'shop'           => array(
-					'name'    => _x( 'shop', 'Page slug', 'woocommerce' ),
-					'title'   => _x( 'Shop', 'Page title', 'woocommerce' ),
+					'name'    => _x( 'shop', 'Page slug', 'poocommerce' ),
+					'title'   => _x( 'Shop', 'Page title', 'poocommerce' ),
 					'content' => '',
 				),
 				'cart'           => array(
-					'name'    => _x( 'cart', 'Page slug', 'woocommerce' ),
-					'title'   => _x( 'Cart', 'Page title', 'woocommerce' ),
+					'name'    => _x( 'cart', 'Page slug', 'poocommerce' ),
+					'title'   => _x( 'Cart', 'Page title', 'poocommerce' ),
 					'content' => $cart_page_content,
 				),
 				'checkout'       => array(
-					'name'    => _x( 'checkout', 'Page slug', 'woocommerce' ),
-					'title'   => _x( 'Checkout', 'Page title', 'woocommerce' ),
+					'name'    => _x( 'checkout', 'Page slug', 'poocommerce' ),
+					'title'   => _x( 'Checkout', 'Page title', 'poocommerce' ),
 					'content' => $checkout_page_content,
 				),
 				'myaccount'      => array(
-					'name'    => _x( 'my-account', 'Page slug', 'woocommerce' ),
-					'title'   => _x( 'My account', 'Page title', 'woocommerce' ),
+					'name'    => _x( 'my-account', 'Page slug', 'poocommerce' ),
+					'title'   => _x( 'My account', 'Page title', 'poocommerce' ),
 					'content' => '<!-- wp:shortcode -->[' . $my_account_shortcode . ']<!-- /wp:shortcode -->',
 				),
 				'refund_returns' => array(
-					'name'        => _x( 'refund_returns', 'Page slug', 'woocommerce' ),
-					'title'       => _x( 'Refund and Returns Policy', 'Page title', 'woocommerce' ),
+					'name'        => _x( 'refund_returns', 'Page slug', 'poocommerce' ),
+					'title'       => _x( 'Refund and Returns Policy', 'Page title', 'poocommerce' ),
 					'content'     => self::get_refunds_return_policy_page_content(),
 					'post_status' => 'draft',
 				),
@@ -926,7 +926,7 @@ class WC_Install {
 		foreach ( $pages as $key => $page ) {
 			wc_create_page(
 				esc_sql( $page['name'] ),
-				'woocommerce_' . $key . '_page_id',
+				'poocommerce_' . $key . '_page_id',
 				$page['title'],
 				$page['content'],
 				! empty( $page['parent'] ) ? wc_get_page_id( $page['parent'] ) : '',
@@ -971,15 +971,15 @@ class WC_Install {
 		}
 
 		// Define other defaults if not in setting screens.
-		add_option( 'woocommerce_single_image_width', '600', '', 'yes' );
-		add_option( 'woocommerce_thumbnail_image_width', '300', '', 'yes' );
-		add_option( 'woocommerce_checkout_highlight_required_fields', 'yes', '', 'yes' );
-		add_option( 'woocommerce_demo_store', 'no', '', 'no' );
+		add_option( 'poocommerce_single_image_width', '600', '', 'yes' );
+		add_option( 'poocommerce_thumbnail_image_width', '300', '', 'yes' );
+		add_option( 'poocommerce_checkout_highlight_required_fields', 'yes', '', 'yes' );
+		add_option( 'poocommerce_demo_store', 'no', '', 'no' );
 
 		if ( self::is_new_install() ) {
 			// Define initial tax classes.
-			WC_Tax::create_tax_class( __( 'Reduced rate', 'woocommerce' ) );
-			WC_Tax::create_tax_class( __( 'Zero rate', 'woocommerce' ) );
+			WC_Tax::create_tax_class( __( 'Reduced rate', 'poocommerce' ) );
+			WC_Tax::create_tax_class( __( 'Zero rate', 'poocommerce' ) );
 
 			// For new installs, setup and enable Approved Product Download Directories.
 			wc_get_container()->get( Download_Directories_Sync::class )->init_feature( false, true );
@@ -1006,8 +1006,8 @@ class WC_Install {
 	 * @since 9.3.0
 	 */
 	public static function add_coming_soon_option() {
-		add_option( 'woocommerce_coming_soon', 'yes' );
-		add_option( 'woocommerce_store_pages_only', 'yes' );
+		add_option( 'poocommerce_coming_soon', 'yes' );
+		add_option( 'poocommerce_store_pages_only', 'yes' );
 	}
 
 	/**
@@ -1016,7 +1016,7 @@ class WC_Install {
 	 * @return bool
 	 */
 	private static function should_enable_hpos_for_new_shop() {
-		if ( ! did_action( 'woocommerce_init' ) && ! doing_action( 'woocommerce_init' ) ) {
+		if ( ! did_action( 'poocommerce_init' ) && ! doing_action( 'poocommerce_init' ) ) {
 			return false;
 		}
 
@@ -1040,7 +1040,7 @@ class WC_Install {
 		 *
 		 * @since 8.2.0
 		 */
-		return apply_filters( 'woocommerce_enable_hpos_by_default_for_new_shops', true );
+		return apply_filters( 'poocommerce_enable_hpos_by_default_for_new_shops', true );
 	}
 
 	/**
@@ -1067,7 +1067,7 @@ class WC_Install {
 			'wc-admin-insight-first-sale',
 			'wc-admin-marketing-intro',
 			'wc-admin-draw-attention',
-			'wc-admin-welcome-to-woocommerce-for-store-users',
+			'wc-admin-welcome-to-poocommerce-for-store-users',
 			'wc-admin-need-some-inspiration',
 			'wc-admin-choose-niche',
 			'wc-admin-start-dropshipping-business',
@@ -1087,7 +1087,7 @@ class WC_Install {
 		 * @since 6.5.0
 		 */
 		$additional_obsolete_notes_names = apply_filters(
-			'woocommerce_admin_obsolete_notes_names',
+			'poocommerce_admin_obsolete_notes_names',
 			array()
 		);
 
@@ -1142,18 +1142,18 @@ class WC_Install {
 	public static function migrate_options() {
 
 		$migrated_options = array(
-			'woocommerce_onboarding_profile'           => 'wc_onboarding_profile',
-			'woocommerce_admin_install_timestamp'      => 'wc_admin_install_timestamp',
-			'woocommerce_onboarding_opt_in'            => 'wc_onboarding_opt_in',
-			'woocommerce_admin_import_stats'           => 'wc_admin_import_stats',
-			'woocommerce_admin_version'                => 'wc_admin_version',
-			'woocommerce_admin_last_orders_milestone'  => 'wc_admin_last_orders_milestone',
-			'woocommerce_admin-wc-helper-last-refresh' => 'wc-admin-wc-helper-last-refresh',
-			'woocommerce_admin_report_export_status'   => 'wc_admin_report_export_status',
-			'woocommerce_task_list_complete'           => 'woocommerce_task_list_complete',
-			'woocommerce_task_list_hidden'             => 'woocommerce_task_list_hidden',
-			'woocommerce_extended_task_list_complete'  => 'woocommerce_extended_task_list_complete',
-			'woocommerce_extended_task_list_hidden'    => 'woocommerce_extended_task_list_hidden',
+			'poocommerce_onboarding_profile'           => 'wc_onboarding_profile',
+			'poocommerce_admin_install_timestamp'      => 'wc_admin_install_timestamp',
+			'poocommerce_onboarding_opt_in'            => 'wc_onboarding_opt_in',
+			'poocommerce_admin_import_stats'           => 'wc_admin_import_stats',
+			'poocommerce_admin_version'                => 'wc_admin_version',
+			'poocommerce_admin_last_orders_milestone'  => 'wc_admin_last_orders_milestone',
+			'poocommerce_admin-wc-helper-last-refresh' => 'wc-admin-wc-helper-last-refresh',
+			'poocommerce_admin_report_export_status'   => 'wc_admin_report_export_status',
+			'poocommerce_task_list_complete'           => 'poocommerce_task_list_complete',
+			'poocommerce_task_list_hidden'             => 'poocommerce_task_list_hidden',
+			'poocommerce_extended_task_list_complete'  => 'poocommerce_extended_task_list_complete',
+			'poocommerce_extended_task_list_hidden'    => 'poocommerce_extended_task_list_hidden',
 		);
 
 		wc_maybe_define_constant( 'WC_ADMIN_MIGRATING_OPTIONS', true );
@@ -1210,17 +1210,17 @@ class WC_Install {
 			}
 		}
 
-		$woocommerce_default_category = (int) get_option( 'default_product_cat', 0 );
+		$poocommerce_default_category = (int) get_option( 'default_product_cat', 0 );
 
-		if ( ! $woocommerce_default_category || ! term_exists( $woocommerce_default_category, 'product_cat' ) ) {
+		if ( ! $poocommerce_default_category || ! term_exists( $poocommerce_default_category, 'product_cat' ) ) {
 			$default_product_cat_id   = 0;
-			$default_product_cat_slug = sanitize_title( _x( 'Uncategorized', 'Default category slug', 'woocommerce' ) );
+			$default_product_cat_slug = sanitize_title( _x( 'Uncategorized', 'Default category slug', 'poocommerce' ) );
 			$default_product_cat      = get_term_by( 'slug', $default_product_cat_slug, 'product_cat' ); // @codingStandardsIgnoreLine.
 
 			if ( $default_product_cat ) {
 				$default_product_cat_id = absint( $default_product_cat->term_taxonomy_id );
 			} else {
-				$result = wp_insert_term( _x( 'Uncategorized', 'Default category slug', 'woocommerce' ), 'product_cat', array( 'slug' => $default_product_cat_slug ) );
+				$result = wp_insert_term( _x( 'Uncategorized', 'Default category slug', 'poocommerce' ), 'product_cat', array( 'slug' => $default_product_cat_slug ) );
 
 				if ( ! is_wp_error( $result ) && ! empty( $result['term_taxonomy_id'] ) ) {
 					$default_product_cat_id = absint( $result['term_taxonomy_id'] );
@@ -1234,17 +1234,17 @@ class WC_Install {
 	}
 
 	/**
-	 * Install and activate the WooCommerce Legacy REST API plugin from the WordPress.org directory if all the following is true:
+	 * Install and activate the PooCommerce Legacy REST API plugin from the WordPress.org directory if all the following is true:
 	 *
-	 * 1. We are in a WooCommerce upgrade process (not a new install).
-	 * 2. The 'woocommerce_skip_legacy_rest_api_plugin_auto_install' filter returns false (which is the default).
+	 * 1. We are in a PooCommerce upgrade process (not a new install).
+	 * 2. The 'poocommerce_skip_legacy_rest_api_plugin_auto_install' filter returns false (which is the default).
 	 * 3. The plugin is not installed and active already (but see note about multisite below).
 	 * 4. The Legacy REST API is enabled in the site OR the site has at least one webhook defined that uses the Legacy REST API payload format (disabled webhooks also count).
 	 *
 	 * In multisite setups it could happen that the plugin was installed by an installation process performed in another site.
 	 * In this case we check if the plugin was autoinstalled in such a way, and if so we activate it if the conditions are fulfilled.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public static function maybe_install_legacy_api_plugin() {
 		if ( self::is_new_install() ) {
@@ -1252,18 +1252,18 @@ class WC_Install {
 		}
 
 		// Did we previously install this plugin?
-		// We check both the woocommerce_history_of_autoinstalled_plugins options (introduced in 9.0)
-		// and the woocommerce_autoinstalled_plugins option (info should still exist here if the plugin has been uninstalled but not manually reinstalled).
-		$legacy_api_plugin          = 'woocommerce-legacy-rest-api/woocommerce-legacy-rest-api.php';
-		$autoinstalled_plugins      = (array) get_site_option( 'woocommerce_history_of_autoinstalled_plugins', array() );
+		// We check both the poocommerce_history_of_autoinstalled_plugins options (introduced in 9.0)
+		// and the poocommerce_autoinstalled_plugins option (info should still exist here if the plugin has been uninstalled but not manually reinstalled).
+		$legacy_api_plugin          = 'poocommerce-legacy-rest-api/poocommerce-legacy-rest-api.php';
+		$autoinstalled_plugins      = (array) get_site_option( 'poocommerce_history_of_autoinstalled_plugins', array() );
 		$previously_installed_by_us = isset( $autoinstalled_plugins[ $legacy_api_plugin ] );
 		if ( ! $previously_installed_by_us ) {
-			$autoinstalled_plugins      = (array) get_site_option( 'woocommerce_autoinstalled_plugins', array() );
+			$autoinstalled_plugins      = (array) get_site_option( 'poocommerce_autoinstalled_plugins', array() );
 			$previously_installed_by_us = isset( $autoinstalled_plugins[ $legacy_api_plugin ] );
 		}
 
 		/**
-		 * Filter to skip the automatic installation of the WooCommerce Legacy REST API plugin
+		 * Filter to skip the automatic installation of the PooCommerce Legacy REST API plugin
 		 * from the WordPress.org plugins directory.
 		 *
 		 * By default, this is true (skip installation) if we have a record of previously installing the legacy plugin,
@@ -1274,12 +1274,12 @@ class WC_Install {
 		 * @param bool $skip_auto_install False, defaulting to "don't skip the plugin automatic installation".
 		 * @returns bool True to skip the plugin automatic installation, false to install the plugin if necessary.
 		 */
-		if ( apply_filters( 'woocommerce_skip_legacy_rest_api_plugin_auto_install', $previously_installed_by_us ) ) {
+		if ( apply_filters( 'poocommerce_skip_legacy_rest_api_plugin_auto_install', $previously_installed_by_us ) ) {
 			return;
 		}
 
-		if ( ( 'yes' !== get_option( 'woocommerce_api_enabled' ) &&
-			0 === wc_get_container()->get( Automattic\WooCommerce\Internal\Utilities\WebhookUtil::class )->get_legacy_webhooks_count( true ) ) ) {
+		if ( ( 'yes' !== get_option( 'poocommerce_api_enabled' ) &&
+			0 === wc_get_container()->get( Automattic\PooCommerce\Internal\Utilities\WebhookUtil::class )->get_legacy_webhooks_count( true ) ) ) {
 			return;
 		}
 
@@ -1303,23 +1303,23 @@ class WC_Install {
 		} else {
 			try {
 				$install_result = wc_get_container()->get( PluginInstaller::class )->install_plugin(
-					'https://downloads.wordpress.org/plugin/woocommerce-legacy-rest-api.latest-stable.zip',
+					'https://downloads.wordpress.org/plugin/poocommerce-legacy-rest-api.latest-stable.zip',
 					array(
-						'info_link' => 'https://developer.woocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-woocommerce-9-0/',
+						'info_link' => 'https://developer.poocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-poocommerce-9-0/',
 					)
 				);
 
 				if ( $install_result['already_installing'] ?? null ) {
 					// The plugin is in the process of being installed already (can happen in multisite),
 					// but we still need to activate it for ourselves once it's installed.
-					as_schedule_single_action( time() + 10, 'woocommerce_activate_legacy_rest_api_plugin' );
+					as_schedule_single_action( time() + 10, 'poocommerce_activate_legacy_rest_api_plugin' );
 					return;
 				}
 
 				$install_ok = $install_result['install_ok'];
 			} catch ( \Exception $ex ) {
 				wc_get_logger()->error(
-					'The autoinstall of the WooCommerce Legacy REST API plugin failed: ' . $ex->getMessage(),
+					'The autoinstall of the PooCommerce Legacy REST API plugin failed: ' . $ex->getMessage(),
 					array(
 						'source'    => 'plugin_auto_installs',
 						'exception' => $ex,
@@ -1329,8 +1329,8 @@ class WC_Install {
 			}
 		}
 
-		$plugin_page_url              = 'https://wordpress.org/plugins/woocommerce-legacy-rest-api/';
-		$blog_post_url                = 'https://developer.woocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-woocommerce-9-0/';
+		$plugin_page_url              = 'https://wordpress.org/plugins/poocommerce-legacy-rest-api/';
+		$blog_post_url                = 'https://developer.poocommerce.com/2023/10/03/the-legacy-rest-api-will-move-to-a-dedicated-extension-in-poocommerce-9-0/';
 		$site_legacy_api_settings_url = get_admin_url( null, '/admin.php?page=wc-settings&tab=advanced&section=legacy_api' );
 		$site_webhooks_settings_url   = get_admin_url( null, '/admin.php?page=wc-settings&tab=advanced&section=webhooks' );
 		$site_logs_url                = get_admin_url( null, '/admin.php?page=wc-status&tab=logs' );
@@ -1340,7 +1340,7 @@ class WC_Install {
 			if ( $activation_result instanceof \WP_Error ) {
 				$message = sprintf(
 				/* translators: 1 = URL of Legacy REST API plugin page, 2 = URL of Legacy API settings in current site, 3 = URL of webhooks settings in current site, 4 = URL of logs page in current site, 5 = URL of plugins page in current site, 6 = URL of blog post about the Legacy REST API removal */
-					__( '⚠️ WooCommerce installed <a href="%1$s">the Legacy REST API plugin</a> because this site has <a href="%2$s">the Legacy REST API enabled</a> or has <a href="%3$s">legacy webhooks defined</a>, but it failed to activate it (see error details in <a href="%4$s">the WooCommerce logs</a>). Please go to <a href="%5$s">the plugins page</a> and activate it manually. <a href="%6$s">More information</a>', 'woocommerce' ),
+					__( '⚠️ PooCommerce installed <a href="%1$s">the Legacy REST API plugin</a> because this site has <a href="%2$s">the Legacy REST API enabled</a> or has <a href="%3$s">legacy webhooks defined</a>, but it failed to activate it (see error details in <a href="%4$s">the PooCommerce logs</a>). Please go to <a href="%5$s">the plugins page</a> and activate it manually. <a href="%6$s">More information</a>', 'poocommerce' ),
 					$plugin_page_url,
 					$site_legacy_api_settings_url,
 					$site_webhooks_settings_url,
@@ -1348,9 +1348,9 @@ class WC_Install {
 					get_admin_url( null, '/plugins.php' ),
 					$blog_post_url
 				);
-				$notice_name = 'woocommerce_legacy_rest_api_plugin_activation_failed';
+				$notice_name = 'poocommerce_legacy_rest_api_plugin_activation_failed';
 				wc_get_logger()->error(
-					__( 'WooCommerce installed the Legacy REST API plugin but failed to activate it, see context for more details.', 'woocommerce' ),
+					__( 'PooCommerce installed the Legacy REST API plugin but failed to activate it, see context for more details.', 'poocommerce' ),
 					array(
 						'source' => 'plugin_auto_installs',
 						'error'  => $activation_result,
@@ -1359,21 +1359,21 @@ class WC_Install {
 			} else {
 				$message = sprintf(
 				/* translators: 1 = URL of Legacy REST API plugin page, 2 = URL of Legacy API settings in current site, 3 = URL of webhooks settings in current site, 4 = URL of blog post about the Legacy REST API removal */
-					__( 'ℹ️ WooCommerce installed and activated <a href="%1$s">the Legacy REST API plugin</a> because this site has <a href="%2$s">the Legacy REST API enabled</a> or has <a href="%3$s">legacy webhooks defined</a>. <a href="%4$s">More information</a>', 'woocommerce' ),
+					__( 'ℹ️ PooCommerce installed and activated <a href="%1$s">the Legacy REST API plugin</a> because this site has <a href="%2$s">the Legacy REST API enabled</a> or has <a href="%3$s">legacy webhooks defined</a>. <a href="%4$s">More information</a>', 'poocommerce' ),
 					$plugin_page_url,
 					$site_legacy_api_settings_url,
 					$site_webhooks_settings_url,
 					$blog_post_url
 				);
-				$notice_name = 'woocommerce_legacy_rest_api_plugin_activated';
-				wc_get_logger()->info( 'WooCommerce activated the Legacy REST API plugin in this site.', array( 'source' => 'plugin_auto_installs' ) );
+				$notice_name = 'poocommerce_legacy_rest_api_plugin_activated';
+				wc_get_logger()->info( 'PooCommerce activated the Legacy REST API plugin in this site.', array( 'source' => 'plugin_auto_installs' ) );
 			}
 
 			\WC_Admin_Notices::add_custom_notice( $notice_name, $message );
 		} else {
 			$message = sprintf(
 				/* translators: 1 = URL of Legacy REST API plugin page, 2 = URL of Legacy API settings in current site, 3 = URL of webhooks settings in current site, 4 = URL of logs page in current site, 5 = URL of blog post about the Legacy REST API removal */
-				__( '⚠️ WooCommerce attempted to install <a href="%1$s">the Legacy REST API plugin</a> because this site has <a href="%2$s">the Legacy REST API enabled</a> or has <a href="%3$s">legacy webhooks defined</a>, but the installation failed (see error details in <a href="%4$s">the WooCommerce logs</a>). Please install and activate the plugin manually. <a href="%5$s">More information</a>', 'woocommerce' ),
+				__( '⚠️ PooCommerce attempted to install <a href="%1$s">the Legacy REST API plugin</a> because this site has <a href="%2$s">the Legacy REST API enabled</a> or has <a href="%3$s">legacy webhooks defined</a>, but the installation failed (see error details in <a href="%4$s">the PooCommerce logs</a>). Please install and activate the plugin manually. <a href="%5$s">More information</a>', 'poocommerce' ),
 				$plugin_page_url,
 				$site_legacy_api_settings_url,
 				$site_webhooks_settings_url,
@@ -1381,7 +1381,7 @@ class WC_Install {
 				$blog_post_url
 			);
 
-			\WC_Admin_Notices::add_custom_notice( 'woocommerce_legacy_rest_api_plugin_install_failed', $message );
+			\WC_Admin_Notices::add_custom_notice( 'poocommerce_legacy_rest_api_plugin_install_failed', $message );
 
 			// Note that we aren't adding an entry to the error log because PluginInstaller->install_plugin will have done that already.
 		}
@@ -1390,13 +1390,13 @@ class WC_Install {
 	}
 
 	/**
-	 * If in a previous version of WooCommerce the Legacy REST API plugin was installed manually but the core Legacy REST API was kept disabled,
+	 * If in a previous version of PooCommerce the Legacy REST API plugin was installed manually but the core Legacy REST API was kept disabled,
 	 * now the Legacy API is still disabled and can't be manually enabled from settings UI (the plugin, which is now in control, won't allow that),
 	 * which is weird and confusing. So we detect this case and explicitly enable it.
 	 */
 	private static function maybe_activate_legacy_api_enabled_option() {
-		if ( ! self::is_new_install() && is_plugin_active( 'woocommerce-legacy-rest-api/woocommerce-legacy-rest-api.php' ) && 'yes' !== get_option( 'woocommerce_api_enabled' ) ) {
-			update_option( 'woocommerce_api_enabled', 'yes' );
+		if ( ! self::is_new_install() && is_plugin_active( 'poocommerce-legacy-rest-api/poocommerce-legacy-rest-api.php' ) && 'yes' !== get_option( 'poocommerce_api_enabled' ) ) {
+			update_option( 'poocommerce_api_enabled', 'yes' );
 		}
 	}
 
@@ -1409,13 +1409,13 @@ class WC_Install {
 	 * TODO: Add all crucial tables that we have created from workers in the past.
 	 *
 	 * Tables:
-	 *      woocommerce_attribute_taxonomies - Table for storing attribute taxonomies - these are user defined
-	 *      woocommerce_downloadable_product_permissions - Table for storing user and guest download permissions.
+	 *      poocommerce_attribute_taxonomies - Table for storing attribute taxonomies - these are user defined
+	 *      poocommerce_downloadable_product_permissions - Table for storing user and guest download permissions.
 	 *          KEY(order_id, product_id, download_id) used for organizing downloads on the My Account page
-	 *      woocommerce_order_items - Order line items are stored in a table to make them easily queryable for reports
-	 *      woocommerce_order_itemmeta - Order line item meta is stored in a table for storing extra data.
-	 *      woocommerce_tax_rates - Tax Rates are stored inside 2 tables making tax queries simple and efficient.
-	 *      woocommerce_tax_rate_locations - Each rate can be applied to more than one postcode/city hence the second table.
+	 *      poocommerce_order_items - Order line items are stored in a table to make them easily queryable for reports
+	 *      poocommerce_order_itemmeta - Order line item meta is stored in a table for storing extra data.
+	 *      poocommerce_tax_rates - Tax Rates are stored inside 2 tables making tax queries simple and efficient.
+	 *      poocommerce_tax_rate_locations - Each rate can be applied to more than one postcode/city hence the second table.
 	 *
 	 * @return array Strings containing the results of the various update queries as returned by dbDelta.
 	 */
@@ -1430,24 +1430,24 @@ class WC_Install {
 		 * Before updating with DBDELTA, remove any primary keys which could be
 		 * modified due to schema updates.
 		 */
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_downloadable_product_permissions';" ) ) {
-			if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}woocommerce_downloadable_product_permissions` LIKE 'permission_id';" ) ) {
-				$wpdb->query( "ALTER TABLE {$wpdb->prefix}woocommerce_downloadable_product_permissions DROP PRIMARY KEY, ADD `permission_id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT;" );
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_downloadable_product_permissions';" ) ) {
+			if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}poocommerce_downloadable_product_permissions` LIKE 'permission_id';" ) ) {
+				$wpdb->query( "ALTER TABLE {$wpdb->prefix}poocommerce_downloadable_product_permissions DROP PRIMARY KEY, ADD `permission_id` bigint(20) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT;" );
 			}
 		}
 
 		/**
-		 * Change wp_woocommerce_sessions schema to use a bigint auto increment field instead of char(32) field as
+		 * Change wp_poocommerce_sessions schema to use a bigint auto increment field instead of char(32) field as
 		 * the primary key as it is not a good practice to use a char(32) field as the primary key of a table and as
-		 * there were reports of issues with this table (see https://github.com/woocommerce/woocommerce/issues/20912).
+		 * there were reports of issues with this table (see https://github.com/poocommerce/poocommerce/issues/20912).
 		 *
 		 * This query needs to run before dbDelta() as this WP function is not able to handle primary key changes
-		 * (see https://github.com/woocommerce/woocommerce/issues/21534 and https://core.trac.wordpress.org/ticket/40357).
+		 * (see https://github.com/poocommerce/poocommerce/issues/21534 and https://core.trac.wordpress.org/ticket/40357).
 		 */
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_sessions'" ) ) {
-			if ( ! $wpdb->get_var( "SHOW KEYS FROM {$wpdb->prefix}woocommerce_sessions WHERE Key_name = 'PRIMARY' AND Column_name = 'session_id'" ) ) {
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_sessions'" ) ) {
+			if ( ! $wpdb->get_var( "SHOW KEYS FROM {$wpdb->prefix}poocommerce_sessions WHERE Key_name = 'PRIMARY' AND Column_name = 'session_id'" ) ) {
 				$wpdb->query(
-					"ALTER TABLE `{$wpdb->prefix}woocommerce_sessions` DROP PRIMARY KEY, DROP KEY `session_id`, ADD PRIMARY KEY(`session_id`), ADD UNIQUE KEY(`session_key`)"
+					"ALTER TABLE `{$wpdb->prefix}poocommerce_sessions` DROP PRIMARY KEY, DROP KEY `session_id`, ADD PRIMARY KEY(`session_id`), ADD UNIQUE KEY(`session_key`)"
 				);
 			}
 		}
@@ -1471,7 +1471,7 @@ class WC_Install {
 	/**
 	 * Get Table schema.
 	 *
-	 * See https://github.com/woocommerce/woocommerce/wiki/Database-Description/
+	 * See https://github.com/poocommerce/poocommerce/wiki/Database-Description/
 	 *
 	 * A note on indexes; Indexes have a maximum size of 767 bytes. Historically, we haven't need to be concerned about that.
 	 * As of WordPress 4.2, however, we moved to utf8mb4, which uses 4 bytes per character. This means that an index which
@@ -1504,7 +1504,7 @@ class WC_Install {
 		$hpos_table_schema  = $hpos_enabled ? wc_get_container()->get( OrdersTableDataStore::class )->get_database_schema() : '';
 
 		$tables = "
-CREATE TABLE {$wpdb->prefix}woocommerce_sessions (
+CREATE TABLE {$wpdb->prefix}poocommerce_sessions (
   session_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   session_key char(32) NOT NULL,
   session_value longtext NOT NULL,
@@ -1512,7 +1512,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_sessions (
   PRIMARY KEY  (session_id),
   UNIQUE KEY session_key (session_key)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_api_keys (
+CREATE TABLE {$wpdb->prefix}poocommerce_api_keys (
   key_id bigint(20) unsigned NOT NULL auto_increment,
   user_id bigint(20) unsigned NOT NULL,
   description varchar(200) NULL,
@@ -1526,7 +1526,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_api_keys (
   KEY consumer_key (consumer_key),
   KEY consumer_secret (consumer_secret)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_attribute_taxonomies (
+CREATE TABLE {$wpdb->prefix}poocommerce_attribute_taxonomies (
   attribute_id bigint(20) unsigned NOT NULL auto_increment,
   attribute_name varchar(200) NOT NULL,
   attribute_label varchar(200) NULL,
@@ -1536,7 +1536,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_attribute_taxonomies (
   PRIMARY KEY  (attribute_id),
   KEY attribute_name (attribute_name(20))
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_downloadable_product_permissions (
+CREATE TABLE {$wpdb->prefix}poocommerce_downloadable_product_permissions (
   permission_id bigint(20) unsigned NOT NULL auto_increment,
   download_id varchar(36) NOT NULL,
   product_id bigint(20) unsigned NOT NULL,
@@ -1554,7 +1554,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_downloadable_product_permissions (
   KEY order_id (order_id),
   KEY user_order_remaining_expires (user_id,order_id,downloads_remaining,access_expires)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_order_items (
+CREATE TABLE {$wpdb->prefix}poocommerce_order_items (
   order_item_id bigint(20) unsigned NOT NULL auto_increment,
   order_item_name text NOT NULL,
   order_item_type varchar(200) NOT NULL DEFAULT '',
@@ -1562,7 +1562,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_order_items (
   PRIMARY KEY  (order_item_id),
   KEY order_id (order_id)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_order_itemmeta (
+CREATE TABLE {$wpdb->prefix}poocommerce_order_itemmeta (
   meta_id bigint(20) unsigned NOT NULL auto_increment,
   order_item_id bigint(20) unsigned NOT NULL,
   meta_key varchar(255) default NULL,
@@ -1571,7 +1571,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_order_itemmeta (
   KEY order_item_id (order_item_id),
   KEY meta_key (meta_key(32))
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_tax_rates (
+CREATE TABLE {$wpdb->prefix}poocommerce_tax_rates (
   tax_rate_id bigint(20) unsigned NOT NULL auto_increment,
   tax_rate_country varchar(2) NOT NULL DEFAULT '',
   tax_rate_state varchar(200) NOT NULL DEFAULT '',
@@ -1588,7 +1588,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_tax_rates (
   KEY tax_rate_class (tax_rate_class(10)),
   KEY tax_rate_priority (tax_rate_priority)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_tax_rate_locations (
+CREATE TABLE {$wpdb->prefix}poocommerce_tax_rate_locations (
   location_id bigint(20) unsigned NOT NULL auto_increment,
   location_code varchar(200) NOT NULL,
   tax_rate_id bigint(20) unsigned NOT NULL,
@@ -1597,13 +1597,13 @@ CREATE TABLE {$wpdb->prefix}woocommerce_tax_rate_locations (
   KEY tax_rate_id (tax_rate_id),
   KEY location_type_code (location_type(10),location_code(20))
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zones (
+CREATE TABLE {$wpdb->prefix}poocommerce_shipping_zones (
   zone_id bigint(20) unsigned NOT NULL auto_increment,
   zone_name varchar(200) NOT NULL,
   zone_order bigint(20) unsigned NOT NULL,
   PRIMARY KEY  (zone_id)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zone_locations (
+CREATE TABLE {$wpdb->prefix}poocommerce_shipping_zone_locations (
   location_id bigint(20) unsigned NOT NULL auto_increment,
   zone_id bigint(20) unsigned NOT NULL,
   location_code varchar(200) NOT NULL,
@@ -1612,7 +1612,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zone_locations (
   KEY zone_id (zone_id),
   KEY location_type_code (location_type(10),location_code(20))
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zone_methods (
+CREATE TABLE {$wpdb->prefix}poocommerce_shipping_zone_methods (
   zone_id bigint(20) unsigned NOT NULL,
   instance_id bigint(20) unsigned NOT NULL auto_increment,
   method_id varchar(200) NOT NULL,
@@ -1620,7 +1620,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_shipping_zone_methods (
   is_enabled tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY  (instance_id)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_payment_tokens (
+CREATE TABLE {$wpdb->prefix}poocommerce_payment_tokens (
   token_id bigint(20) unsigned NOT NULL auto_increment,
   gateway_id varchar(200) NOT NULL,
   token text NOT NULL,
@@ -1630,7 +1630,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_payment_tokens (
   PRIMARY KEY  (token_id),
   KEY user_id (user_id)
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_payment_tokenmeta (
+CREATE TABLE {$wpdb->prefix}poocommerce_payment_tokenmeta (
   meta_id bigint(20) unsigned NOT NULL auto_increment,
   payment_token_id bigint(20) unsigned NOT NULL,
   meta_key varchar(255) NULL,
@@ -1639,7 +1639,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_payment_tokenmeta (
   KEY payment_token_id (payment_token_id),
   KEY meta_key (meta_key(32))
 ) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_log (
+CREATE TABLE {$wpdb->prefix}poocommerce_log (
   log_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   timestamp datetime NOT NULL,
   level smallint(4) NOT NULL,
@@ -1855,7 +1855,7 @@ $hpos_table_schema;
 	}
 
 	/**
-	 * Return a list of WooCommerce tables. Used to make sure all WC tables are dropped when uninstalling the plugin
+	 * Return a list of PooCommerce tables. Used to make sure all WC tables are dropped when uninstalling the plugin
 	 * in a single site or multi site environment.
 	 *
 	 * @return array WC tables.
@@ -1869,20 +1869,20 @@ $hpos_table_schema;
 			"{$wpdb->prefix}wc_product_meta_lookup",
 			"{$wpdb->prefix}wc_tax_rate_classes",
 			"{$wpdb->prefix}wc_webhooks",
-			"{$wpdb->prefix}woocommerce_api_keys",
-			"{$wpdb->prefix}woocommerce_attribute_taxonomies",
-			"{$wpdb->prefix}woocommerce_downloadable_product_permissions",
-			"{$wpdb->prefix}woocommerce_log",
-			"{$wpdb->prefix}woocommerce_order_itemmeta",
-			"{$wpdb->prefix}woocommerce_order_items",
-			"{$wpdb->prefix}woocommerce_payment_tokenmeta",
-			"{$wpdb->prefix}woocommerce_payment_tokens",
-			"{$wpdb->prefix}woocommerce_sessions",
-			"{$wpdb->prefix}woocommerce_shipping_zone_locations",
-			"{$wpdb->prefix}woocommerce_shipping_zone_methods",
-			"{$wpdb->prefix}woocommerce_shipping_zones",
-			"{$wpdb->prefix}woocommerce_tax_rate_locations",
-			"{$wpdb->prefix}woocommerce_tax_rates",
+			"{$wpdb->prefix}poocommerce_api_keys",
+			"{$wpdb->prefix}poocommerce_attribute_taxonomies",
+			"{$wpdb->prefix}poocommerce_downloadable_product_permissions",
+			"{$wpdb->prefix}poocommerce_log",
+			"{$wpdb->prefix}poocommerce_order_itemmeta",
+			"{$wpdb->prefix}poocommerce_order_items",
+			"{$wpdb->prefix}poocommerce_payment_tokenmeta",
+			"{$wpdb->prefix}poocommerce_payment_tokens",
+			"{$wpdb->prefix}poocommerce_sessions",
+			"{$wpdb->prefix}poocommerce_shipping_zone_locations",
+			"{$wpdb->prefix}poocommerce_shipping_zone_methods",
+			"{$wpdb->prefix}poocommerce_shipping_zones",
+			"{$wpdb->prefix}poocommerce_tax_rate_locations",
+			"{$wpdb->prefix}poocommerce_tax_rates",
 			"{$wpdb->prefix}wc_reserved_stock",
 			"{$wpdb->prefix}wc_rate_limits",
 			wc_get_container()->get( DataRegenerator::class )->get_lookup_table_name(),
@@ -1899,20 +1899,20 @@ $hpos_table_schema;
 		);
 
 		/**
-		 * Filter the list of known WooCommerce tables.
+		 * Filter the list of known PooCommerce tables.
 		 *
-		 * If WooCommerce plugins need to add new tables, they can inject them here.
+		 * If PooCommerce plugins need to add new tables, they can inject them here.
 		 *
-		 * @param array $tables An array of WooCommerce-specific database table names.
+		 * @param array $tables An array of PooCommerce-specific database table names.
 		 * @since 3.4.0
 		 */
-		$tables = apply_filters( 'woocommerce_install_get_tables', $tables );
+		$tables = apply_filters( 'poocommerce_install_get_tables', $tables );
 
 		return $tables;
 	}
 
 	/**
-	 * Drop WooCommerce tables.
+	 * Drop PooCommerce tables.
 	 *
 	 * @return void
 	 */
@@ -1955,9 +1955,9 @@ $hpos_table_schema;
 
 		// Dummy gettext calls to get strings in the catalog.
 		/* translators: user role */
-		_x( 'Customer', 'User role', 'woocommerce' );
+		_x( 'Customer', 'User role', 'poocommerce' );
 		/* translators: user role */
-		_x( 'Shop manager', 'User role', 'woocommerce' );
+		_x( 'Shop manager', 'User role', 'poocommerce' );
 
 		// Customer role.
 		add_role(
@@ -2026,7 +2026,7 @@ $hpos_table_schema;
 	}
 
 	/**
-	 * Get capabilities for WooCommerce - these are assigned to admin/shop manager during installation or reset.
+	 * Get capabilities for PooCommerce - these are assigned to admin/shop manager during installation or reset.
 	 *
 	 * @return array
 	 */
@@ -2034,8 +2034,8 @@ $hpos_table_schema;
 		$capabilities = array();
 
 		$capabilities['core'] = array(
-			'manage_woocommerce',
-			'view_woocommerce_reports',
+			'manage_poocommerce',
+			'view_poocommerce_reports',
 		);
 
 		$capability_types = array( 'product', 'shop_order', 'shop_coupon' );
@@ -2070,7 +2070,7 @@ $hpos_table_schema;
 	}
 
 	/**
-	 * Remove WooCommerce roles.
+	 * Remove PooCommerce roles.
 	 */
 	public static function remove_roles() {
 		global $wp_roles;
@@ -2105,22 +2105,22 @@ $hpos_table_schema;
 		 *
 		 * @since 3.2.0
 		 */
-		if ( apply_filters( 'woocommerce_install_skip_create_files', false ) ) {
+		if ( apply_filters( 'poocommerce_install_skip_create_files', false ) ) {
 			return;
 		}
 
 		// Install files and folders for uploading files and prevent hotlinking.
 		$upload_dir      = wp_get_upload_dir();
-		$download_method = get_option( 'woocommerce_file_download_method', 'force' );
+		$download_method = get_option( 'poocommerce_file_download_method', 'force' );
 
 		$files = array(
 			array(
-				'base'    => $upload_dir['basedir'] . '/woocommerce_uploads',
+				'base'    => $upload_dir['basedir'] . '/poocommerce_uploads',
 				'file'    => 'index.html',
 				'content' => '',
 			),
 			array(
-				'base'    => $upload_dir['basedir'] . '/woocommerce_uploads',
+				'base'    => $upload_dir['basedir'] . '/poocommerce_uploads',
 				'file'    => '.htaccess',
 				'content' => 'redirect' === $download_method ? 'Options -Indexes' : 'deny from all',
 			),
@@ -2146,7 +2146,7 @@ $hpos_table_schema;
 	 * @since 3.5.0
 	 */
 	private static function create_placeholder_image() {
-		$placeholder_image = get_option( 'woocommerce_placeholder_image', 0 );
+		$placeholder_image = get_option( 'poocommerce_placeholder_image', 0 );
 
 		// Validate current setting if set. If set, return.
 		if ( ! empty( $placeholder_image ) ) {
@@ -2159,14 +2159,14 @@ $hpos_table_schema;
 
 		$upload_dir = wp_upload_dir();
 		$source     = WC()->plugin_path() . '/assets/images/placeholder-attachment.png';
-		$filename   = $upload_dir['basedir'] . '/woocommerce-placeholder.png';
+		$filename   = $upload_dir['basedir'] . '/poocommerce-placeholder.png';
 
 		if ( ! file_exists( $filename ) ) {
 			copy( $source, $filename ); // @codingStandardsIgnoreLine.
 		}
 
 		if ( ! file_exists( $filename ) ) {
-			update_option( 'woocommerce_placeholder_image', 0 );
+			update_option( 'poocommerce_placeholder_image', 0 );
 			return;
 		}
 
@@ -2181,11 +2181,11 @@ $hpos_table_schema;
 
 		$attach_id = wp_insert_attachment( $attachment, $filename );
 		if ( is_wp_error( $attach_id ) ) {
-			update_option( 'woocommerce_placeholder_image', 0 );
+			update_option( 'poocommerce_placeholder_image', 0 );
 			return;
 		}
 
-		update_option( 'woocommerce_placeholder_image', $attach_id );
+		update_option( 'poocommerce_placeholder_image', $attach_id );
 
 		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
 		require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -2204,7 +2204,7 @@ $hpos_table_schema;
 	 */
 	public static function plugin_action_links( $links ) {
 		$action_links = array(
-			'settings' => '<a href="' . admin_url( 'admin.php?page=wc-settings' ) . '" aria-label="' . esc_attr__( 'View WooCommerce settings', 'woocommerce' ) . '">' . esc_html__( 'Settings', 'woocommerce' ) . '</a>',
+			'settings' => '<a href="' . admin_url( 'admin.php?page=wc-settings' ) . '" aria-label="' . esc_attr__( 'View PooCommerce settings', 'poocommerce' ) . '">' . esc_html__( 'Settings', 'poocommerce' ) . '</a>',
 		);
 
 		return array_merge( $action_links, $links );
@@ -2224,41 +2224,41 @@ $hpos_table_schema;
 		}
 
 		/**
-		 * The WooCommerce documentation URL.
+		 * The PooCommerce documentation URL.
 		 *
 		 * @since 2.7.0
 		 */
-		$docs_url = apply_filters( 'woocommerce_docs_url', 'https://woocommerce.com/documentation/plugins/woocommerce/' );
+		$docs_url = apply_filters( 'poocommerce_docs_url', 'https://poocommerce.com/documentation/plugins/poocommerce/' );
 
 		/**
-		 * The WooCommerce API documentation URL.
+		 * The PooCommerce API documentation URL.
 		 *
 		 * @since 2.2.0
 		 */
-		$api_docs_url = apply_filters( 'woocommerce_apidocs_url', 'https://woocommerce.com/wc-apidocs/' );
+		$api_docs_url = apply_filters( 'poocommerce_apidocs_url', 'https://poocommerce.com/wc-apidocs/' );
 
 		/**
-		 * The community WooCommerce support URL.
+		 * The community PooCommerce support URL.
 		 *
 		 * @since 2.2.0
 		 */
-		$community_support_url = apply_filters( 'woocommerce_community_support_url', 'https://wordpress.org/support/plugin/woocommerce/' );
+		$community_support_url = apply_filters( 'poocommerce_community_support_url', 'https://wordpress.org/support/plugin/poocommerce/' );
 
 		/**
 		 * The premium support URL.
 		 *
 		 * @since 6.7.0
 		 */
-		$support_url = apply_filters( 'woocommerce_support_url', 'https://woocommerce.com/my-account/create-a-ticket/' );
+		$support_url = apply_filters( 'poocommerce_support_url', 'https://poocommerce.com/my-account/create-a-ticket/' );
 
 		$row_meta = array(
-			'docs'    => '<a href="' . esc_url( $docs_url ) . '" aria-label="' . esc_attr__( 'View WooCommerce documentation', 'woocommerce' ) . '">' . esc_html__( 'Docs', 'woocommerce' ) . '</a>',
-			'apidocs' => '<a href="' . esc_url( $api_docs_url ) . '" aria-label="' . esc_attr__( 'View WooCommerce API docs', 'woocommerce' ) . '">' . esc_html__( 'API docs', 'woocommerce' ) . '</a>',
-			'support' => '<a href="' . esc_url( $community_support_url ) . '" aria-label="' . esc_attr__( 'Visit community forums', 'woocommerce' ) . '">' . esc_html__( 'Community support', 'woocommerce' ) . '</a>',
+			'docs'    => '<a href="' . esc_url( $docs_url ) . '" aria-label="' . esc_attr__( 'View PooCommerce documentation', 'poocommerce' ) . '">' . esc_html__( 'Docs', 'poocommerce' ) . '</a>',
+			'apidocs' => '<a href="' . esc_url( $api_docs_url ) . '" aria-label="' . esc_attr__( 'View PooCommerce API docs', 'poocommerce' ) . '">' . esc_html__( 'API docs', 'poocommerce' ) . '</a>',
+			'support' => '<a href="' . esc_url( $community_support_url ) . '" aria-label="' . esc_attr__( 'Visit community forums', 'poocommerce' ) . '">' . esc_html__( 'Community support', 'poocommerce' ) . '</a>',
 		);
 
 		if ( WCConnectionHelper::is_connected() ) {
-			$row_meta['premium_support'] = '<a href="' . esc_url( $support_url ) . '" aria-label="' . esc_attr__( 'Visit premium customer support', 'woocommerce' ) . '">' . esc_html__( 'Premium support', 'woocommerce' ) . '</a>';
+			$row_meta['premium_support'] = '<a href="' . esc_url( $support_url ) . '" aria-label="' . esc_attr__( 'Visit premium customer support', 'poocommerce' ) . '">' . esc_html__( 'Premium support', 'poocommerce' ) . '</a>';
 		}
 
 		return array_merge( $links, $row_meta );
@@ -2268,7 +2268,7 @@ $hpos_table_schema;
 	 * Get slug from path and associate it with the path.
 	 *
 	 * @param array  $plugins Associative array of plugin files to paths.
-	 * @param string $key Plugin relative path. Example: woocommerce/woocommerce.php.
+	 * @param string $key Plugin relative path. Example: poocommerce/poocommerce.php.
 	 */
 	private static function associate_plugin_file( $plugins, $key ) {
 		$path                 = explode( '/', $key );
@@ -2386,7 +2386,7 @@ $hpos_table_schema;
 						$plugin_to_install_id . '_install_error',
 						sprintf(
 							// translators: 1: plugin name, 2: error message, 3: URL to install plugin manually.
-							__( '%1$s could not be installed (%2$s). <a href="%3$s">Please install it manually by clicking here.</a>', 'woocommerce' ),
+							__( '%1$s could not be installed (%2$s). <a href="%3$s">Please install it manually by clicking here.</a>', 'poocommerce' ),
 							$plugin_to_install['name'],
 							$e->getMessage(),
 							esc_url( admin_url( 'index.php?wc-install-plugin-redirect=' . $plugin_slug ) )
@@ -2403,7 +2403,7 @@ $hpos_table_schema;
 			// Activate this thing.
 			if ( $activate ) {
 				try {
-					add_action( 'add_option_mailchimp_woocommerce_plugin_do_activation_redirect', array( __CLASS__, 'remove_mailchimps_redirect' ), 10, 2 );
+					add_action( 'add_option_mailchimp_poocommerce_plugin_do_activation_redirect', array( __CLASS__, 'remove_mailchimps_redirect' ), 10, 2 );
 					$result = activate_plugin( $installed ? $installed_plugins[ $plugin_file ] : $plugin_slug . '/' . $plugin_file );
 
 					if ( is_wp_error( $result ) ) {
@@ -2414,7 +2414,7 @@ $hpos_table_schema;
 						$plugin_to_install_id . '_install_error',
 						sprintf(
 							// translators: 1: plugin name, 2: URL to WP plugin page.
-							__( '%1$s was installed but could not be activated. <a href="%2$s">Please activate it manually by clicking here.</a>', 'woocommerce' ),
+							__( '%1$s was installed but could not be activated. <a href="%2$s">Please activate it manually by clicking here.</a>', 'poocommerce' ),
 							$plugin_to_install['name'],
 							admin_url( 'plugins.php' )
 						)
@@ -2432,10 +2432,10 @@ $hpos_table_schema;
 	 */
 	public static function remove_mailchimps_redirect( $option, $value ) {
 		// Remove this action to prevent infinite looping.
-		remove_action( 'add_option_mailchimp_woocommerce_plugin_do_activation_redirect', array( __CLASS__, 'remove_mailchimps_redirect' ) );
+		remove_action( 'add_option_mailchimp_poocommerce_plugin_do_activation_redirect', array( __CLASS__, 'remove_mailchimps_redirect' ) );
 
 		// Update redirect back to false.
-		update_option( 'mailchimp_woocommerce_plugin_do_activation_redirect', false );
+		update_option( 'mailchimp_poocommerce_plugin_do_activation_redirect', false );
 	}
 
 	/**
@@ -2490,7 +2490,7 @@ $hpos_table_schema;
 					$theme_slug . '_install_error',
 					sprintf(
 						// translators: 1: theme slug, 2: error message, 3: URL to install theme manually.
-						__( '%1$s could not be installed (%2$s). <a href="%3$s">Please install it manually by clicking here.</a>', 'woocommerce' ),
+						__( '%1$s could not be installed (%2$s). <a href="%3$s">Please install it manually by clicking here.</a>', 'poocommerce' ),
 						$theme_slug,
 						$e->getMessage(),
 						esc_url( admin_url( 'update.php?action=install-theme&theme=' . $theme_slug . '&_wpnonce=' . wp_create_nonce( 'install-theme_' . $theme_slug ) ) )
@@ -2679,7 +2679,7 @@ EOT;
 			return;
 		}
 
-		$page_id = get_option( 'woocommerce_refund_returns_page_created', null );
+		$page_id = get_option( 'poocommerce_refund_returns_page_created', null );
 
 		if ( null === $page_id ) {
 			return;
@@ -2700,8 +2700,8 @@ EOT;
 	 */
 	public static function page_created( $page_id, $page_data ) {
 		if ( 'refund_returns' === $page_data['post_name'] ) {
-			delete_option( 'woocommerce_refund_returns_page_created' );
-			add_option( 'woocommerce_refund_returns_page_created', $page_id, '', false );
+			delete_option( 'poocommerce_refund_returns_page_created' );
+			add_option( 'poocommerce_refund_returns_page_created', $page_id, '', false );
 		}
 	}
 
@@ -2712,72 +2712,72 @@ EOT;
 	 * @return string
 	 */
 	protected static function get_cart_block_content() {
-		return '<!-- wp:woocommerce/cart -->
-<div class="wp-block-woocommerce-cart alignwide is-loading"><!-- wp:woocommerce/filled-cart-block -->
-<div class="wp-block-woocommerce-filled-cart-block"><!-- wp:woocommerce/cart-items-block -->
-<div class="wp-block-woocommerce-cart-items-block"><!-- wp:woocommerce/cart-line-items-block -->
-<div class="wp-block-woocommerce-cart-line-items-block"></div>
-<!-- /wp:woocommerce/cart-line-items-block -->
+		return '<!-- wp:poocommerce/cart -->
+<div class="wp-block-poocommerce-cart alignwide is-loading"><!-- wp:poocommerce/filled-cart-block -->
+<div class="wp-block-poocommerce-filled-cart-block"><!-- wp:poocommerce/cart-items-block -->
+<div class="wp-block-poocommerce-cart-items-block"><!-- wp:poocommerce/cart-line-items-block -->
+<div class="wp-block-poocommerce-cart-line-items-block"></div>
+<!-- /wp:poocommerce/cart-line-items-block -->
 
-<!-- wp:woocommerce/cart-cross-sells-block -->
-<div class="wp-block-woocommerce-cart-cross-sells-block"><!-- wp:heading {"fontSize":"large"} -->
-<h2 class="wp-block-heading has-large-font-size">' . __( 'You may be interested in…', 'woocommerce' ) . '</h2>
+<!-- wp:poocommerce/cart-cross-sells-block -->
+<div class="wp-block-poocommerce-cart-cross-sells-block"><!-- wp:heading {"fontSize":"large"} -->
+<h2 class="wp-block-heading has-large-font-size">' . __( 'You may be interested in…', 'poocommerce' ) . '</h2>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/cart-cross-sells-products-block -->
-<div class="wp-block-woocommerce-cart-cross-sells-products-block"></div>
-<!-- /wp:woocommerce/cart-cross-sells-products-block --></div>
-<!-- /wp:woocommerce/cart-cross-sells-block --></div>
-<!-- /wp:woocommerce/cart-items-block -->
+<!-- wp:poocommerce/cart-cross-sells-products-block -->
+<div class="wp-block-poocommerce-cart-cross-sells-products-block"></div>
+<!-- /wp:poocommerce/cart-cross-sells-products-block --></div>
+<!-- /wp:poocommerce/cart-cross-sells-block --></div>
+<!-- /wp:poocommerce/cart-items-block -->
 
-<!-- wp:woocommerce/cart-totals-block -->
-<div class="wp-block-woocommerce-cart-totals-block"><!-- wp:woocommerce/cart-order-summary-block -->
-<div class="wp-block-woocommerce-cart-order-summary-block"><!-- wp:woocommerce/cart-order-summary-heading-block -->
-<div class="wp-block-woocommerce-cart-order-summary-heading-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-heading-block -->
+<!-- wp:poocommerce/cart-totals-block -->
+<div class="wp-block-poocommerce-cart-totals-block"><!-- wp:poocommerce/cart-order-summary-block -->
+<div class="wp-block-poocommerce-cart-order-summary-block"><!-- wp:poocommerce/cart-order-summary-heading-block -->
+<div class="wp-block-poocommerce-cart-order-summary-heading-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-heading-block -->
 
-<!-- wp:woocommerce/cart-order-summary-coupon-form-block -->
-<div class="wp-block-woocommerce-cart-order-summary-coupon-form-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-coupon-form-block -->
+<!-- wp:poocommerce/cart-order-summary-coupon-form-block -->
+<div class="wp-block-poocommerce-cart-order-summary-coupon-form-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-coupon-form-block -->
 
-<!-- wp:woocommerce/cart-order-summary-subtotal-block -->
-<div class="wp-block-woocommerce-cart-order-summary-subtotal-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-subtotal-block -->
+<!-- wp:poocommerce/cart-order-summary-subtotal-block -->
+<div class="wp-block-poocommerce-cart-order-summary-subtotal-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-subtotal-block -->
 
-<!-- wp:woocommerce/cart-order-summary-fee-block -->
-<div class="wp-block-woocommerce-cart-order-summary-fee-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-fee-block -->
+<!-- wp:poocommerce/cart-order-summary-fee-block -->
+<div class="wp-block-poocommerce-cart-order-summary-fee-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-fee-block -->
 
-<!-- wp:woocommerce/cart-order-summary-discount-block -->
-<div class="wp-block-woocommerce-cart-order-summary-discount-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-discount-block -->
+<!-- wp:poocommerce/cart-order-summary-discount-block -->
+<div class="wp-block-poocommerce-cart-order-summary-discount-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-discount-block -->
 
-<!-- wp:woocommerce/cart-order-summary-shipping-block -->
-<div class="wp-block-woocommerce-cart-order-summary-shipping-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-shipping-block -->
+<!-- wp:poocommerce/cart-order-summary-shipping-block -->
+<div class="wp-block-poocommerce-cart-order-summary-shipping-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-shipping-block -->
 
-<!-- wp:woocommerce/cart-order-summary-taxes-block -->
-<div class="wp-block-woocommerce-cart-order-summary-taxes-block"></div>
-<!-- /wp:woocommerce/cart-order-summary-taxes-block --></div>
-<!-- /wp:woocommerce/cart-order-summary-block -->
+<!-- wp:poocommerce/cart-order-summary-taxes-block -->
+<div class="wp-block-poocommerce-cart-order-summary-taxes-block"></div>
+<!-- /wp:poocommerce/cart-order-summary-taxes-block --></div>
+<!-- /wp:poocommerce/cart-order-summary-block -->
 
-<!-- wp:woocommerce/cart-express-payment-block -->
-<div class="wp-block-woocommerce-cart-express-payment-block"></div>
-<!-- /wp:woocommerce/cart-express-payment-block -->
+<!-- wp:poocommerce/cart-express-payment-block -->
+<div class="wp-block-poocommerce-cart-express-payment-block"></div>
+<!-- /wp:poocommerce/cart-express-payment-block -->
 
-<!-- wp:woocommerce/proceed-to-checkout-block -->
-<div class="wp-block-woocommerce-proceed-to-checkout-block"></div>
-<!-- /wp:woocommerce/proceed-to-checkout-block -->
+<!-- wp:poocommerce/proceed-to-checkout-block -->
+<div class="wp-block-poocommerce-proceed-to-checkout-block"></div>
+<!-- /wp:poocommerce/proceed-to-checkout-block -->
 
-<!-- wp:woocommerce/cart-accepted-payment-methods-block -->
-<div class="wp-block-woocommerce-cart-accepted-payment-methods-block"></div>
-<!-- /wp:woocommerce/cart-accepted-payment-methods-block --></div>
-<!-- /wp:woocommerce/cart-totals-block --></div>
-<!-- /wp:woocommerce/filled-cart-block -->
+<!-- wp:poocommerce/cart-accepted-payment-methods-block -->
+<div class="wp-block-poocommerce-cart-accepted-payment-methods-block"></div>
+<!-- /wp:poocommerce/cart-accepted-payment-methods-block --></div>
+<!-- /wp:poocommerce/cart-totals-block --></div>
+<!-- /wp:poocommerce/filled-cart-block -->
 
-<!-- wp:woocommerce/empty-cart-block -->
-<div class="wp-block-woocommerce-empty-cart-block"><!-- wp:heading {"textAlign":"center","className":"with-empty-cart-icon wc-block-cart__empty-cart__title"} -->
-<h2 class="wp-block-heading has-text-align-center with-empty-cart-icon wc-block-cart__empty-cart__title">' . __( 'Your cart is currently empty!', 'woocommerce' ) . '</h2>
+<!-- wp:poocommerce/empty-cart-block -->
+<div class="wp-block-poocommerce-empty-cart-block"><!-- wp:heading {"textAlign":"center","className":"with-empty-cart-icon wc-block-cart__empty-cart__title"} -->
+<h2 class="wp-block-heading has-text-align-center with-empty-cart-icon wc-block-cart__empty-cart__title">' . __( 'Your cart is currently empty!', 'poocommerce' ) . '</h2>
 <!-- /wp:heading -->
 
 <!-- wp:separator {"className":"is-style-dots"} -->
@@ -2785,12 +2785,12 @@ EOT;
 <!-- /wp:separator -->
 
 <!-- wp:heading {"textAlign":"center"} -->
-<h2 class="wp-block-heading has-text-align-center">' . __( 'New in store', 'woocommerce' ) . '</h2>
+<h2 class="wp-block-heading has-text-align-center">' . __( 'New in store', 'poocommerce' ) . '</h2>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/product-new {"columns":4,"rows":1} /--></div>
-<!-- /wp:woocommerce/empty-cart-block --></div>
-<!-- /wp:woocommerce/cart -->';
+<!-- wp:poocommerce/product-new {"columns":4,"rows":1} /--></div>
+<!-- /wp:poocommerce/empty-cart-block --></div>
+<!-- /wp:poocommerce/cart -->';
 	}
 
 	/**
@@ -2800,89 +2800,89 @@ EOT;
 	 * @return string
 	 */
 	protected static function get_checkout_block_content() {
-		return '<!-- wp:woocommerce/checkout -->
-<div class="wp-block-woocommerce-checkout alignwide wc-block-checkout is-loading"><!-- wp:woocommerce/checkout-fields-block -->
-<div class="wp-block-woocommerce-checkout-fields-block"><!-- wp:woocommerce/checkout-express-payment-block -->
-<div class="wp-block-woocommerce-checkout-express-payment-block"></div>
-<!-- /wp:woocommerce/checkout-express-payment-block -->
+		return '<!-- wp:poocommerce/checkout -->
+<div class="wp-block-poocommerce-checkout alignwide wc-block-checkout is-loading"><!-- wp:poocommerce/checkout-fields-block -->
+<div class="wp-block-poocommerce-checkout-fields-block"><!-- wp:poocommerce/checkout-express-payment-block -->
+<div class="wp-block-poocommerce-checkout-express-payment-block"></div>
+<!-- /wp:poocommerce/checkout-express-payment-block -->
 
-<!-- wp:woocommerce/checkout-contact-information-block -->
-<div class="wp-block-woocommerce-checkout-contact-information-block"></div>
-<!-- /wp:woocommerce/checkout-contact-information-block -->
+<!-- wp:poocommerce/checkout-contact-information-block -->
+<div class="wp-block-poocommerce-checkout-contact-information-block"></div>
+<!-- /wp:poocommerce/checkout-contact-information-block -->
 
-<!-- wp:woocommerce/checkout-shipping-method-block -->
-<div class="wp-block-woocommerce-checkout-shipping-method-block"></div>
-<!-- /wp:woocommerce/checkout-shipping-method-block -->
+<!-- wp:poocommerce/checkout-shipping-method-block -->
+<div class="wp-block-poocommerce-checkout-shipping-method-block"></div>
+<!-- /wp:poocommerce/checkout-shipping-method-block -->
 
-<!-- wp:woocommerce/checkout-pickup-options-block -->
-<div class="wp-block-woocommerce-checkout-pickup-options-block"></div>
-<!-- /wp:woocommerce/checkout-pickup-options-block -->
+<!-- wp:poocommerce/checkout-pickup-options-block -->
+<div class="wp-block-poocommerce-checkout-pickup-options-block"></div>
+<!-- /wp:poocommerce/checkout-pickup-options-block -->
 
-<!-- wp:woocommerce/checkout-shipping-address-block -->
-<div class="wp-block-woocommerce-checkout-shipping-address-block"></div>
-<!-- /wp:woocommerce/checkout-shipping-address-block -->
+<!-- wp:poocommerce/checkout-shipping-address-block -->
+<div class="wp-block-poocommerce-checkout-shipping-address-block"></div>
+<!-- /wp:poocommerce/checkout-shipping-address-block -->
 
-<!-- wp:woocommerce/checkout-billing-address-block -->
-<div class="wp-block-woocommerce-checkout-billing-address-block"></div>
-<!-- /wp:woocommerce/checkout-billing-address-block -->
+<!-- wp:poocommerce/checkout-billing-address-block -->
+<div class="wp-block-poocommerce-checkout-billing-address-block"></div>
+<!-- /wp:poocommerce/checkout-billing-address-block -->
 
-<!-- wp:woocommerce/checkout-shipping-methods-block -->
-<div class="wp-block-woocommerce-checkout-shipping-methods-block"></div>
-<!-- /wp:woocommerce/checkout-shipping-methods-block -->
+<!-- wp:poocommerce/checkout-shipping-methods-block -->
+<div class="wp-block-poocommerce-checkout-shipping-methods-block"></div>
+<!-- /wp:poocommerce/checkout-shipping-methods-block -->
 
-<!-- wp:woocommerce/checkout-payment-block -->
-<div class="wp-block-woocommerce-checkout-payment-block"></div>
-<!-- /wp:woocommerce/checkout-payment-block -->
+<!-- wp:poocommerce/checkout-payment-block -->
+<div class="wp-block-poocommerce-checkout-payment-block"></div>
+<!-- /wp:poocommerce/checkout-payment-block -->
 
-<!-- wp:woocommerce/checkout-additional-information-block -->
-<div class="wp-block-woocommerce-checkout-additional-information-block"></div>
-<!-- /wp:woocommerce/checkout-additional-information-block -->
+<!-- wp:poocommerce/checkout-additional-information-block -->
+<div class="wp-block-poocommerce-checkout-additional-information-block"></div>
+<!-- /wp:poocommerce/checkout-additional-information-block -->
 
-<!-- wp:woocommerce/checkout-order-note-block -->
-<div class="wp-block-woocommerce-checkout-order-note-block"></div>
-<!-- /wp:woocommerce/checkout-order-note-block -->
+<!-- wp:poocommerce/checkout-order-note-block -->
+<div class="wp-block-poocommerce-checkout-order-note-block"></div>
+<!-- /wp:poocommerce/checkout-order-note-block -->
 
-<!-- wp:woocommerce/checkout-terms-block -->
-<div class="wp-block-woocommerce-checkout-terms-block"></div>
-<!-- /wp:woocommerce/checkout-terms-block -->
+<!-- wp:poocommerce/checkout-terms-block -->
+<div class="wp-block-poocommerce-checkout-terms-block"></div>
+<!-- /wp:poocommerce/checkout-terms-block -->
 
-<!-- wp:woocommerce/checkout-actions-block -->
-<div class="wp-block-woocommerce-checkout-actions-block"></div>
-<!-- /wp:woocommerce/checkout-actions-block --></div>
-<!-- /wp:woocommerce/checkout-fields-block -->
+<!-- wp:poocommerce/checkout-actions-block -->
+<div class="wp-block-poocommerce-checkout-actions-block"></div>
+<!-- /wp:poocommerce/checkout-actions-block --></div>
+<!-- /wp:poocommerce/checkout-fields-block -->
 
-<!-- wp:woocommerce/checkout-totals-block -->
-<div class="wp-block-woocommerce-checkout-totals-block"><!-- wp:woocommerce/checkout-order-summary-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-block"><!-- wp:woocommerce/checkout-order-summary-cart-items-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-cart-items-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-cart-items-block -->
+<!-- wp:poocommerce/checkout-totals-block -->
+<div class="wp-block-poocommerce-checkout-totals-block"><!-- wp:poocommerce/checkout-order-summary-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-block"><!-- wp:poocommerce/checkout-order-summary-cart-items-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-cart-items-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-cart-items-block -->
 
-<!-- wp:woocommerce/checkout-order-summary-coupon-form-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-coupon-form-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-coupon-form-block -->
+<!-- wp:poocommerce/checkout-order-summary-coupon-form-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-coupon-form-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-coupon-form-block -->
 
-<!-- wp:woocommerce/checkout-order-summary-subtotal-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-subtotal-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-subtotal-block -->
+<!-- wp:poocommerce/checkout-order-summary-subtotal-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-subtotal-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-subtotal-block -->
 
-<!-- wp:woocommerce/checkout-order-summary-fee-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-fee-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-fee-block -->
+<!-- wp:poocommerce/checkout-order-summary-fee-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-fee-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-fee-block -->
 
-<!-- wp:woocommerce/checkout-order-summary-discount-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-discount-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-discount-block -->
+<!-- wp:poocommerce/checkout-order-summary-discount-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-discount-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-discount-block -->
 
-<!-- wp:woocommerce/checkout-order-summary-shipping-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-shipping-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-shipping-block -->
+<!-- wp:poocommerce/checkout-order-summary-shipping-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-shipping-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-shipping-block -->
 
-<!-- wp:woocommerce/checkout-order-summary-taxes-block -->
-<div class="wp-block-woocommerce-checkout-order-summary-taxes-block"></div>
-<!-- /wp:woocommerce/checkout-order-summary-taxes-block --></div>
-<!-- /wp:woocommerce/checkout-order-summary-block --></div>
-<!-- /wp:woocommerce/checkout-totals-block --></div>
-<!-- /wp:woocommerce/checkout -->';
+<!-- wp:poocommerce/checkout-order-summary-taxes-block -->
+<div class="wp-block-poocommerce-checkout-order-summary-taxes-block"></div>
+<!-- /wp:poocommerce/checkout-order-summary-taxes-block --></div>
+<!-- /wp:poocommerce/checkout-order-summary-block --></div>
+<!-- /wp:poocommerce/checkout-totals-block --></div>
+<!-- /wp:poocommerce/checkout -->';
 	}
 }
 

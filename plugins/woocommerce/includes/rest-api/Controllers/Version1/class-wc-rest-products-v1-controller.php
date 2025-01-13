@@ -6,13 +6,13 @@
  *
  * @author   WooThemes
  * @category API
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Utilities\I18nUtil;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Utilities\I18nUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Products controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Posts_Controller
  */
 class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
@@ -51,8 +51,8 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 	 * Initialize product actions.
 	 */
 	public function __construct() {
-		add_filter( "woocommerce_rest_{$this->post_type}_query", array( $this, 'query_args' ), 10, 2 );
-		add_action( "woocommerce_rest_insert_{$this->post_type}", array( $this, 'clear_transients' ) );
+		add_filter( "poocommerce_rest_{$this->post_type}_query", array( $this, 'query_args' ), 10, 2 );
+		add_action( "poocommerce_rest_insert_{$this->post_type}", array( $this, 'clear_transients' ) );
 	}
 
 	/**
@@ -78,7 +78,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 			'args' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 				),
 			),
@@ -103,7 +103,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 				'args'                => array(
 					'force' => array(
 						'default'     => false,
-						'description' => __( 'Whether to bypass trash and force deletion.', 'woocommerce' ),
+						'description' => __( 'Whether to bypass trash and force deletion.', 'poocommerce' ),
 						'type'        => 'boolean',
 					),
 				),
@@ -314,8 +314,8 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 				'date_created'  => wc_rest_prepare_date_response( current_time( 'mysql' ) ), // Default to now.
 				'date_modified' => wc_rest_prepare_date_response( current_time( 'mysql' ) ),
 				'src'           => wc_placeholder_img_src(),
-				'name'          => __( 'Placeholder', 'woocommerce' ),
-				'alt'           => __( 'Placeholder', 'woocommerce' ),
+				'name'          => __( 'Placeholder', 'poocommerce' ),
+				'alt'           => __( 'Placeholder', 'poocommerce' ),
 				'position'      => 0,
 			);
 		}
@@ -474,7 +474,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 			'featured'              => $product->is_featured(),
 			'catalog_visibility'    => $product->get_catalog_visibility(),
 			'description'           => wpautop( do_shortcode( $product->get_description() ) ),
-			'short_description'     => apply_filters( 'woocommerce_short_description', $product->get_short_description() ),
+			'short_description'     => apply_filters( 'poocommerce_short_description', $product->get_short_description() ),
 			'sku'                   => $product->get_sku(),
 			'price'                 => $product->get_price(),
 			'regular_price'         => $product->get_regular_price(),
@@ -631,7 +631,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		 * @param WP_Post            $post       Post object.
 		 * @param WP_REST_Request    $request    Request object.
 		 */
-		return apply_filters( "woocommerce_rest_prepare_{$this->post_type}", $response, $post, $request );
+		return apply_filters( "poocommerce_rest_prepare_{$this->post_type}", $response, $post, $request );
 	}
 
 	/**
@@ -729,7 +729,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		 *                                       for inserting or updating the database.
 		 * @param WP_REST_Request $request       Request object.
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}", $product, $request );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}", $product, $request );
 	}
 
 	/**
@@ -740,7 +740,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 	 */
 	public function create_item( $request ) {
 		if ( ! empty( $request['id'] ) ) {
-			return new WP_Error( "woocommerce_rest_{$this->post_type}_exists", sprintf( __( 'Cannot create existing %s.', 'woocommerce' ), $this->post_type ), array( 'status' => 400 ) );
+			return new WP_Error( "poocommerce_rest_{$this->post_type}_exists", sprintf( __( 'Cannot create existing %s.', 'poocommerce' ), $this->post_type ), array( 'status' => 400 ) );
 		}
 
 		$product_id = 0;
@@ -758,7 +758,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 			 * @param WP_REST_Request $request   Request object.
 			 * @param boolean         $creating  True when creating item, false when updating.
 			 */
-			do_action( 'woocommerce_rest_insert_product', $post, $request, true );
+			do_action( 'poocommerce_rest_insert_product', $post, $request, true );
 			$request->set_param( 'context', 'edit' );
 			$response = $this->prepare_item_for_response( $post, $request );
 			$response = rest_ensure_response( $response );
@@ -785,7 +785,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		$post_id = (int) $request['id'];
 
 		if ( empty( $post_id ) || get_post_type( $post_id ) !== $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( "poocommerce_rest_{$this->post_type}_invalid_id", __( 'ID is invalid.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		try {
@@ -801,7 +801,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 			 * @param WP_REST_Request $request   Request object.
 			 * @param boolean         $creating  True when creating item, false when updating.
 			 */
-			do_action( 'woocommerce_rest_insert_product', $post, $request, false );
+			do_action( 'poocommerce_rest_insert_product', $post, $request, false );
 			$request->set_param( 'context', 'edit' );
 			$response = $this->prepare_item_for_response( $post, $request );
 
@@ -857,8 +857,8 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					$upload = wc_rest_upload_image_from_url( esc_url_raw( $image['src'] ) );
 
 					if ( is_wp_error( $upload ) ) {
-						if ( ! apply_filters( 'woocommerce_rest_suppress_image_upload_error', false, $upload, $product->get_id(), $images ) ) {
-							throw new WC_REST_Exception( 'woocommerce_product_image_upload_error', $upload->get_error_message(), 400 );
+						if ( ! apply_filters( 'poocommerce_rest_suppress_image_upload_error', false, $upload, $product->get_id(), $images ) ) {
+							throw new WC_REST_Exception( 'poocommerce_product_image_upload_error', $upload->get_error_message(), 400 );
 						} else {
 							continue;
 						}
@@ -868,7 +868,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 				}
 
 				if ( ! wp_attachment_is_image( $attachment_id ) ) {
-					throw new WC_REST_Exception( 'woocommerce_product_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'woocommerce' ), $attachment_id ), 400 );
+					throw new WC_REST_Exception( 'poocommerce_product_invalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'poocommerce' ), $attachment_id ), 400 );
 				}
 
 				if ( isset( $image['position'] ) && 0 === absint( $image['position'] ) ) {
@@ -966,7 +966,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 			$download = new WC_Product_Download();
 			$download->set_id( ! empty( $file['id'] ) ? $file['id'] : wp_generate_uuid4() );
 			$download->set_name( $file['name'] ? $file['name'] : wc_get_filename_from_url( $file['file'] ) );
-			$download->set_file( apply_filters( 'woocommerce_file_download_path', $file['file'], $product, $key ) );
+			$download->set_file( apply_filters( 'poocommerce_file_download_path', $file['file'], $product, $key ) );
 			$files[]  = $download;
 		}
 		$product->set_downloads( $files );
@@ -1228,7 +1228,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		}
 
 		// Stock data.
-		if ( 'yes' === get_option( 'woocommerce_manage_stock' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_manage_stock' ) ) {
 			// Manage stock.
 			if ( isset( $request['manage_stock'] ) ) {
 				$product->set_manage_stock( $request['manage_stock'] );
@@ -1373,7 +1373,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 			// Create initial name and status.
 			if ( ! $variation->get_slug() ) {
 				/* translators: 1: variation id 2: product name */
-				$variation->set_name( sprintf( __( 'Variation #%1$s of %2$s', 'woocommerce' ), $variation->get_id(), $product->get_name() ) );
+				$variation->set_name( sprintf( __( 'Variation #%1$s of %2$s', 'poocommerce' ), $variation->get_id(), $product->get_name() ) );
 				$variation->set_status( isset( $data['visible'] ) && false === $data['visible'] ? ProductStatus::PRIVATE : ProductStatus::PUBLISH );
 			}
 
@@ -1536,7 +1536,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 
 			$variation->save();
 
-			do_action( 'woocommerce_rest_save_product_variation', $variation->get_id(), $menu_order, $data );
+			do_action( 'poocommerce_rest_save_product_variation', $variation->get_id(), $menu_order, $data );
 		}
 
 		return true;
@@ -1638,9 +1638,9 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		$product = wc_get_product( $id );
 
 		if ( ! empty( $post->post_type ) && 'product_variation' === $post->post_type && 'product' === $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_invalid_{$this->post_type}_id", __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( "poocommerce_rest_invalid_{$this->post_type}_id", __( 'To manipulate product variations you should use the /products/&lt;product_id&gt;/variations/&lt;id&gt; endpoint.', 'poocommerce' ), array( 'status' => 404 ) );
 		} elseif ( empty( $id ) || empty( $post->ID ) || $post->post_type !== $this->post_type ) {
-			return new WP_Error( "woocommerce_rest_{$this->post_type}_invalid_id", __( 'Invalid post ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( "poocommerce_rest_{$this->post_type}_invalid_id", __( 'Invalid post ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$supports_trash = EMPTY_TRASH_DAYS > 0;
@@ -1653,11 +1653,11 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		 * @param boolean $supports_trash Whether the item type support trashing.
 		 * @param WP_Post $post           The Post object being considered for trashing support.
 		 */
-		$supports_trash = apply_filters( "woocommerce_rest_{$this->post_type}_trashable", $supports_trash, $post );
+		$supports_trash = apply_filters( "poocommerce_rest_{$this->post_type}_trashable", $supports_trash, $post );
 
 		if ( ! wc_rest_check_post_permissions( $this->post_type, 'delete', $post->ID ) ) {
 			/* translators: %s: post type */
-			return new WP_Error( "woocommerce_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'woocommerce' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( "poocommerce_rest_user_cannot_delete_{$this->post_type}", sprintf( __( 'Sorry, you are not allowed to delete %s.', 'poocommerce' ), $this->post_type ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		$request->set_param( 'context', 'edit' );
@@ -1689,13 +1689,13 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 			// If we don't support trashing for this type, error out.
 			if ( ! $supports_trash ) {
 				/* translators: %s: post type */
-				return new WP_Error( 'woocommerce_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'woocommerce' ), $this->post_type ), array( 'status' => 501 ) );
+				return new WP_Error( 'poocommerce_rest_trash_not_supported', sprintf( __( 'The %s does not support trashing.', 'poocommerce' ), $this->post_type ), array( 'status' => 501 ) );
 			}
 
 			// Otherwise, only trash if we haven't already.
 			if ( ProductStatus::TRASH === $post->post_status ) {
 				/* translators: %s: post type */
-				return new WP_Error( 'woocommerce_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'woocommerce' ), $this->post_type ), array( 'status' => 410 ) );
+				return new WP_Error( 'poocommerce_rest_already_trashed', sprintf( __( 'The %s has already been deleted.', 'poocommerce' ), $this->post_type ), array( 'status' => 410 ) );
 			}
 
 			// (Note that internally this falls through to `wp_delete_post` if
@@ -1706,7 +1706,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 
 		if ( ! $result ) {
 			/* translators: %s: post type */
-			return new WP_Error( 'woocommerce_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'woocommerce' ), $this->post_type ), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_cannot_delete', sprintf( __( 'The %s cannot be deleted.', 'poocommerce' ), $this->post_type ), array( 'status' => 500 ) );
 		}
 
 		// Delete parent product transients.
@@ -1721,7 +1721,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		 * @param WP_REST_Response $response The response data.
 		 * @param WP_REST_Request  $request  The request sent to the API.
 		 */
-		do_action( "woocommerce_rest_delete_{$this->post_type}", $post, $response, $request );
+		do_action( "poocommerce_rest_delete_{$this->post_type}", $post, $response, $request );
 
 		return $response;
 	}
@@ -1732,171 +1732,171 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 	 * @return array
 	 */
 	public function get_item_schema() {
-		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'woocommerce_weight_unit', 'kg' ) );
-		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'woocommerce_dimension_unit', 'cm' ) );
+		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'poocommerce_weight_unit', 'kg' ) );
+		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'poocommerce_dimension_unit', 'cm' ) );
 		$schema               = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
 			'title'      => $this->post_type,
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name' => array(
-					'description' => __( 'Product name.', 'woocommerce' ),
+					'description' => __( 'Product name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'slug' => array(
-					'description' => __( 'Product slug.', 'woocommerce' ),
+					'description' => __( 'Product slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'permalink' => array(
-					'description' => __( 'Product URL.', 'woocommerce' ),
+					'description' => __( 'Product URL.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_created' => array(
-					'description' => __( "The date the product was created, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the product was created, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_modified' => array(
-					'description' => __( "The date the product was last modified, in the site's timezone.", 'woocommerce' ),
+					'description' => __( "The date the product was last modified, in the site's timezone.", 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'type' => array(
-					'description' => __( 'Product type.', 'woocommerce' ),
+					'description' => __( 'Product type.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => ProductType::SIMPLE,
 					'enum'        => array_keys( wc_get_product_types() ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'status' => array(
-					'description' => __( 'Product status (post status).', 'woocommerce' ),
+					'description' => __( 'Product status (post status).', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => ProductStatus::PUBLISH,
 					'enum'        => array_merge( array_keys( get_post_statuses() ), array( ProductStatus::FUTURE ) ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'featured' => array(
-					'description' => __( 'Featured product.', 'woocommerce' ),
+					'description' => __( 'Featured product.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'catalog_visibility' => array(
-					'description' => __( 'Catalog visibility.', 'woocommerce' ),
+					'description' => __( 'Catalog visibility.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'visible',
 					'enum'        => array( 'visible', 'catalog', 'search', 'hidden' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'description' => array(
-					'description' => __( 'Product description.', 'woocommerce' ),
+					'description' => __( 'Product description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'short_description' => array(
-					'description' => __( 'Product short description.', 'woocommerce' ),
+					'description' => __( 'Product short description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'sku' => array(
-					'description' => __( 'Unique identifier.', 'woocommerce' ),
+					'description' => __( 'Unique identifier.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'price' => array(
-					'description' => __( 'Current product price.', 'woocommerce' ),
+					'description' => __( 'Current product price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'regular_price' => array(
-					'description' => __( 'Product regular price.', 'woocommerce' ),
+					'description' => __( 'Product regular price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'sale_price' => array(
-					'description' => __( 'Product sale price.', 'woocommerce' ),
+					'description' => __( 'Product sale price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_on_sale_from' => array(
-					'description' => __( 'Start date of sale price.', 'woocommerce' ),
+					'description' => __( 'Start date of sale price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'date_on_sale_to' => array(
-					'description' => __( 'End date of sale price.', 'woocommerce' ),
+					'description' => __( 'End date of sale price.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'price_html' => array(
-					'description' => __( 'Price formatted in HTML.', 'woocommerce' ),
+					'description' => __( 'Price formatted in HTML.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'on_sale' => array(
-					'description' => __( 'Shows if the product is on sale.', 'woocommerce' ),
+					'description' => __( 'Shows if the product is on sale.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'purchasable' => array(
-					'description' => __( 'Shows if the product can be bought.', 'woocommerce' ),
+					'description' => __( 'Shows if the product can be bought.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'total_sales' => array(
-					'description' => __( 'Amount of sales.', 'woocommerce' ),
+					'description' => __( 'Amount of sales.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'virtual' => array(
-					'description' => __( 'If the product is virtual.', 'woocommerce' ),
+					'description' => __( 'If the product is virtual.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'downloadable' => array(
-					'description' => __( 'If the product is downloadable.', 'woocommerce' ),
+					'description' => __( 'If the product is downloadable.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'downloads' => array(
-					'description' => __( 'List of downloadable files.', 'woocommerce' ),
+					'description' => __( 'List of downloadable files.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'File ID.', 'woocommerce' ),
+								'description' => __( 'File ID.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'File name.', 'woocommerce' ),
+								'description' => __( 'File name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'file' => array(
-								'description' => __( 'File URL.', 'woocommerce' ),
+								'description' => __( 'File URL.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -1904,163 +1904,163 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'download_limit' => array(
-					'description' => __( 'Number of times downloadable files can be downloaded after purchase.', 'woocommerce' ),
+					'description' => __( 'Number of times downloadable files can be downloaded after purchase.', 'poocommerce' ),
 					'type'        => 'integer',
 					'default'     => -1,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'download_expiry' => array(
-					'description' => __( 'Number of days until access to downloadable files expires.', 'woocommerce' ),
+					'description' => __( 'Number of days until access to downloadable files expires.', 'poocommerce' ),
 					'type'        => 'integer',
 					'default'     => -1,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'download_type' => array(
-					'description' => __( 'Download type, this controls the schema on the front-end.', 'woocommerce' ),
+					'description' => __( 'Download type, this controls the schema on the front-end.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'standard',
 					'enum'        => array( 'standard' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'external_url' => array(
-					'description' => __( 'Product external URL. Only for external products.', 'woocommerce' ),
+					'description' => __( 'Product external URL. Only for external products.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'button_text' => array(
-					'description' => __( 'Product external button text. Only for external products.', 'woocommerce' ),
+					'description' => __( 'Product external button text. Only for external products.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'tax_status' => array(
-					'description' => __( 'Tax status.', 'woocommerce' ),
+					'description' => __( 'Tax status.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'taxable',
 					'enum'        => array( 'taxable', 'shipping', 'none' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'tax_class' => array(
-					'description' => __( 'Tax class.', 'woocommerce' ),
+					'description' => __( 'Tax class.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'manage_stock' => array(
-					'description' => __( 'Stock management at product level.', 'woocommerce' ),
+					'description' => __( 'Stock management at product level.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'stock_quantity' => array(
-					'description' => __( 'Stock quantity.', 'woocommerce' ),
-					'type'        => has_filter( 'woocommerce_stock_amount', 'intval' ) ? 'integer' : 'number',
+					'description' => __( 'Stock quantity.', 'poocommerce' ),
+					'type'        => has_filter( 'poocommerce_stock_amount', 'intval' ) ? 'integer' : 'number',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'in_stock' => array(
-					'description' => __( 'Controls whether or not the product is listed as "in stock" or "out of stock" on the frontend.', 'woocommerce' ),
+					'description' => __( 'Controls whether or not the product is listed as "in stock" or "out of stock" on the frontend.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => true,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'backorders' => array(
-					'description' => __( 'If managing stock, this controls if backorders are allowed.', 'woocommerce' ),
+					'description' => __( 'If managing stock, this controls if backorders are allowed.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'no',
 					'enum'        => array( 'no', 'notify', 'yes' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'backorders_allowed' => array(
-					'description' => __( 'Shows if backorders are allowed.', 'woocommerce' ),
+					'description' => __( 'Shows if backorders are allowed.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'backordered' => array(
-					'description' => __( 'Shows if the product is on backordered.', 'woocommerce' ),
+					'description' => __( 'Shows if the product is on backordered.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'sold_individually' => array(
-					'description' => __( 'Allow one item to be bought in a single order.', 'woocommerce' ),
+					'description' => __( 'Allow one item to be bought in a single order.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'weight' => array(
 					/* translators: %s: weight unit */
-					'description' => sprintf( __( 'Product weight (%s).', 'woocommerce' ), $weight_unit_label ),
+					'description' => sprintf( __( 'Product weight (%s).', 'poocommerce' ), $weight_unit_label ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'dimensions' => array(
-					'description' => __( 'Product dimensions.', 'woocommerce' ),
+					'description' => __( 'Product dimensions.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
 						'length' => array(
 							/* translators: %s: dimension unit */
-							'description' => sprintf( __( 'Product length (%s).', 'woocommerce' ), $dimension_unit_label ),
+							'description' => sprintf( __( 'Product length (%s).', 'poocommerce' ), $dimension_unit_label ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'width' => array(
 							/* translators: %s: dimension unit */
-							'description' => sprintf( __( 'Product width (%s).', 'woocommerce' ), $dimension_unit_label ),
+							'description' => sprintf( __( 'Product width (%s).', 'poocommerce' ), $dimension_unit_label ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'height' => array(
 							/* translators: %s: dimension unit */
-							'description' => sprintf( __( 'Product height (%s).', 'woocommerce' ), $dimension_unit_label ),
+							'description' => sprintf( __( 'Product height (%s).', 'poocommerce' ), $dimension_unit_label ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 					),
 				),
 				'shipping_required' => array(
-					'description' => __( 'Shows if the product need to be shipped.', 'woocommerce' ),
+					'description' => __( 'Shows if the product need to be shipped.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'shipping_taxable' => array(
-					'description' => __( 'Shows whether or not the product shipping is taxable.', 'woocommerce' ),
+					'description' => __( 'Shows whether or not the product shipping is taxable.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'shipping_class' => array(
-					'description' => __( 'Shipping class slug.', 'woocommerce' ),
+					'description' => __( 'Shipping class slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'shipping_class_id' => array(
-					'description' => __( 'Shipping class ID.', 'woocommerce' ),
+					'description' => __( 'Shipping class ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'reviews_allowed' => array(
-					'description' => __( 'Allow reviews.', 'woocommerce' ),
+					'description' => __( 'Allow reviews.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => true,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'average_rating' => array(
-					'description' => __( 'Reviews average rating.', 'woocommerce' ),
+					'description' => __( 'Reviews average rating.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'rating_count' => array(
-					'description' => __( 'Amount of reviews that the product have.', 'woocommerce' ),
+					'description' => __( 'Amount of reviews that the product have.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'related_ids' => array(
-					'description' => __( 'List of related products IDs.', 'woocommerce' ),
+					'description' => __( 'List of related products IDs.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'    => 'integer',
@@ -2069,7 +2069,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					'readonly'    => true,
 				),
 				'upsell_ids' => array(
-					'description' => __( 'List of upsell products IDs.', 'woocommerce' ),
+					'description' => __( 'List of upsell products IDs.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'    => 'integer',
@@ -2077,7 +2077,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'cross_sell_ids' => array(
-					'description' => __( 'List of cross-sell products IDs.', 'woocommerce' ),
+					'description' => __( 'List of cross-sell products IDs.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'    => 'integer',
@@ -2085,35 +2085,35 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'parent_id' => array(
-					'description' => __( 'Product parent ID.', 'woocommerce' ),
+					'description' => __( 'Product parent ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'purchase_note' => array(
-					'description' => __( 'Optional note to send the customer after purchase.', 'woocommerce' ),
+					'description' => __( 'Optional note to send the customer after purchase.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'categories' => array(
-					'description' => __( 'List of categories.', 'woocommerce' ),
+					'description' => __( 'List of categories.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'Category ID.', 'woocommerce' ),
+								'description' => __( 'Category ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'Category name.', 'woocommerce' ),
+								'description' => __( 'Category name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'slug' => array(
-								'description' => __( 'Category slug.', 'woocommerce' ),
+								'description' => __( 'Category slug.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
@@ -2122,25 +2122,25 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'tags' => array(
-					'description' => __( 'List of tags.', 'woocommerce' ),
+					'description' => __( 'List of tags.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'Tag ID.', 'woocommerce' ),
+								'description' => __( 'Tag ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'Tag name.', 'woocommerce' ),
+								'description' => __( 'Tag name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'slug' => array(
-								'description' => __( 'Tag slug.', 'woocommerce' ),
+								'description' => __( 'Tag slug.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
@@ -2149,47 +2149,47 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'images' => array(
-					'description' => __( 'List of images.', 'woocommerce' ),
+					'description' => __( 'List of images.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'Image ID.', 'woocommerce' ),
+								'description' => __( 'Image ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'date_created' => array(
-								'description' => __( "The date the image was created, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the image was created, in the site's timezone.", 'poocommerce' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_modified' => array(
-								'description' => __( "The date the image was last modified, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the image was last modified, in the site's timezone.", 'poocommerce' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'src' => array(
-								'description' => __( 'Image URL.', 'woocommerce' ),
+								'description' => __( 'Image URL.', 'poocommerce' ),
 								'type'        => 'string',
 								'format'      => 'uri',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'Image name.', 'woocommerce' ),
+								'description' => __( 'Image name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'alt' => array(
-								'description' => __( 'Image alternative text.', 'woocommerce' ),
+								'description' => __( 'Image alternative text.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'position' => array(
-								'description' => __( 'Image position. 0 means that the image is featured.', 'woocommerce' ),
+								'description' => __( 'Image position. 0 means that the image is featured.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -2197,41 +2197,41 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'attributes' => array(
-					'description' => __( 'List of attributes.', 'woocommerce' ),
+					'description' => __( 'List of attributes.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'Attribute ID.', 'woocommerce' ),
+								'description' => __( 'Attribute ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'Attribute name.', 'woocommerce' ),
+								'description' => __( 'Attribute name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'position' => array(
-								'description' => __( 'Attribute position.', 'woocommerce' ),
+								'description' => __( 'Attribute position.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'visible' => array(
-								'description' => __( "Define if the attribute is visible on the \"Additional information\" tab in the product's page.", 'woocommerce' ),
+								'description' => __( "Define if the attribute is visible on the \"Additional information\" tab in the product's page.", 'poocommerce' ),
 								'type'        => 'boolean',
 								'default'     => false,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'variation' => array(
-								'description' => __( 'Define if the attribute can be used as variation.', 'woocommerce' ),
+								'description' => __( 'Define if the attribute can be used as variation.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'default'     => false,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'options' => array(
-								'description' => __( 'List of available term names of the attribute.', 'woocommerce' ),
+								'description' => __( 'List of available term names of the attribute.', 'poocommerce' ),
 								'type'        => 'array',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -2239,24 +2239,24 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'default_attributes' => array(
-					'description' => __( 'Defaults variation attributes.', 'woocommerce' ),
+					'description' => __( 'Defaults variation attributes.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'Attribute ID.', 'woocommerce' ),
+								'description' => __( 'Attribute ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'name' => array(
-								'description' => __( 'Attribute name.', 'woocommerce' ),
+								'description' => __( 'Attribute name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'option' => array(
-								'description' => __( 'Selected attribute term name.', 'woocommerce' ),
+								'description' => __( 'Selected attribute term name.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
@@ -2264,116 +2264,116 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'variations' => array(
-					'description' => __( 'List of variations.', 'woocommerce' ),
+					'description' => __( 'List of variations.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id' => array(
-								'description' => __( 'Variation ID.', 'woocommerce' ),
+								'description' => __( 'Variation ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_created' => array(
-								'description' => __( "The date the variation was created, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the variation was created, in the site's timezone.", 'poocommerce' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_modified' => array(
-								'description' => __( "The date the variation was last modified, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the variation was last modified, in the site's timezone.", 'poocommerce' ),
 								'type'        => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'permalink' => array(
-								'description' => __( 'Variation URL.', 'woocommerce' ),
+								'description' => __( 'Variation URL.', 'poocommerce' ),
 								'type'        => 'string',
 								'format'      => 'uri',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'sku' => array(
-								'description' => __( 'Unique identifier.', 'woocommerce' ),
+								'description' => __( 'Unique identifier.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'price' => array(
-								'description' => __( 'Current variation price.', 'woocommerce' ),
+								'description' => __( 'Current variation price.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'regular_price' => array(
-								'description' => __( 'Variation regular price.', 'woocommerce' ),
+								'description' => __( 'Variation regular price.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'sale_price' => array(
-								'description' => __( 'Variation sale price.', 'woocommerce' ),
+								'description' => __( 'Variation sale price.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'date_on_sale_from' => array(
-								'description' => __( 'Start date of sale price.', 'woocommerce' ),
+								'description' => __( 'Start date of sale price.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'date_on_sale_to' => array(
-								'description' => __( 'End date of sale price.', 'woocommerce' ),
+								'description' => __( 'End date of sale price.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'on_sale' => array(
-								'description' => __( 'Shows if the variation is on sale.', 'woocommerce' ),
+								'description' => __( 'Shows if the variation is on sale.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'purchasable' => array(
-								'description' => __( 'Shows if the variation can be bought.', 'woocommerce' ),
+								'description' => __( 'Shows if the variation can be bought.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'visible' => array(
-								'description' => __( 'If the variation is visible.', 'woocommerce' ),
+								'description' => __( 'If the variation is visible.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'virtual' => array(
-								'description' => __( 'If the variation is virtual.', 'woocommerce' ),
+								'description' => __( 'If the variation is virtual.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'default'     => false,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'downloadable' => array(
-								'description' => __( 'If the variation is downloadable.', 'woocommerce' ),
+								'description' => __( 'If the variation is downloadable.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'default'     => false,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'downloads' => array(
-								'description' => __( 'List of downloadable files.', 'woocommerce' ),
+								'description' => __( 'List of downloadable files.', 'poocommerce' ),
 								'type'        => 'array',
 								'context'     => array( 'view', 'edit' ),
 								'items'       => array(
 									'type'       => 'object',
 									'properties' => array(
 										'id' => array(
-											'description' => __( 'File ID.', 'woocommerce' ),
+											'description' => __( 'File ID.', 'poocommerce' ),
 											'type'        => 'string',
 											'context'     => array( 'view', 'edit' ),
 										),
 										'name' => array(
-											'description' => __( 'File name.', 'woocommerce' ),
+											'description' => __( 'File name.', 'poocommerce' ),
 											'type'        => 'string',
 											'context'     => array( 'view', 'edit' ),
 										),
 										'file' => array(
-											'description' => __( 'File URL.', 'woocommerce' ),
+											'description' => __( 'File URL.', 'poocommerce' ),
 											'type'        => 'string',
 											'context'     => array( 'view', 'edit' ),
 										),
@@ -2381,171 +2381,171 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 								),
 							),
 							'download_limit' => array(
-								'description' => __( 'Number of times downloadable files can be downloaded after purchase.', 'woocommerce' ),
+								'description' => __( 'Number of times downloadable files can be downloaded after purchase.', 'poocommerce' ),
 								'type'        => 'integer',
 								'default'     => null,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'download_expiry' => array(
-								'description' => __( 'Number of days until access to downloadable files expires.', 'woocommerce' ),
+								'description' => __( 'Number of days until access to downloadable files expires.', 'poocommerce' ),
 								'type'        => 'integer',
 								'default'     => null,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'tax_status' => array(
-								'description' => __( 'Tax status.', 'woocommerce' ),
+								'description' => __( 'Tax status.', 'poocommerce' ),
 								'type'        => 'string',
 								'default'     => 'taxable',
 								'enum'        => array( 'taxable', 'shipping', 'none' ),
 								'context'     => array( 'view', 'edit' ),
 							),
 							'tax_class' => array(
-								'description' => __( 'Tax class.', 'woocommerce' ),
+								'description' => __( 'Tax class.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'manage_stock' => array(
-								'description' => __( 'Stock management at variation level.', 'woocommerce' ),
+								'description' => __( 'Stock management at variation level.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'default'     => false,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'stock_quantity' => array(
-								'description' => __( 'Stock quantity.', 'woocommerce' ),
+								'description' => __( 'Stock quantity.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'in_stock' => array(
-								'description' => __( 'Controls whether or not the variation is listed as "in stock" or "out of stock" on the frontend.', 'woocommerce' ),
+								'description' => __( 'Controls whether or not the variation is listed as "in stock" or "out of stock" on the frontend.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'default'     => true,
 								'context'     => array( 'view', 'edit' ),
 							),
 							'backorders' => array(
-								'description' => __( 'If managing stock, this controls if backorders are allowed.', 'woocommerce' ),
+								'description' => __( 'If managing stock, this controls if backorders are allowed.', 'poocommerce' ),
 								'type'        => 'string',
 								'default'     => 'no',
 								'enum'        => array( 'no', 'notify', 'yes' ),
 								'context'     => array( 'view', 'edit' ),
 							),
 							'backorders_allowed' => array(
-								'description' => __( 'Shows if backorders are allowed.', 'woocommerce' ),
+								'description' => __( 'Shows if backorders are allowed.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'backordered' => array(
-								'description' => __( 'Shows if the variation is on backordered.', 'woocommerce' ),
+								'description' => __( 'Shows if the variation is on backordered.', 'poocommerce' ),
 								'type'        => 'boolean',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'weight' => array(
 								/* translators: %s: weight unit */
-								'description' => sprintf( __( 'Variation weight (%s).', 'woocommerce' ), $weight_unit_label ),
+								'description' => sprintf( __( 'Variation weight (%s).', 'poocommerce' ), $weight_unit_label ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'dimensions' => array(
-								'description' => __( 'Variation dimensions.', 'woocommerce' ),
+								'description' => __( 'Variation dimensions.', 'poocommerce' ),
 								'type'        => 'object',
 								'context'     => array( 'view', 'edit' ),
 								'properties'  => array(
 									'length' => array(
 										/* translators: %s: dimension unit */
-										'description' => sprintf( __( 'Variation length (%s).', 'woocommerce' ), $dimension_unit_label ),
+										'description' => sprintf( __( 'Variation length (%s).', 'poocommerce' ), $dimension_unit_label ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
 									'width' => array(
 										/* translators: %s: dimension unit */
-										'description' => sprintf( __( 'Variation width (%s).', 'woocommerce' ), $dimension_unit_label ),
+										'description' => sprintf( __( 'Variation width (%s).', 'poocommerce' ), $dimension_unit_label ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
 									'height' => array(
 										/* translators: %s: dimension unit */
-										'description' => sprintf( __( 'Variation height (%s).', 'woocommerce' ), $dimension_unit_label ),
+										'description' => sprintf( __( 'Variation height (%s).', 'poocommerce' ), $dimension_unit_label ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
 								),
 							),
 							'shipping_class' => array(
-								'description' => __( 'Shipping class slug.', 'woocommerce' ),
+								'description' => __( 'Shipping class slug.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'shipping_class_id' => array(
-								'description' => __( 'Shipping class ID.', 'woocommerce' ),
+								'description' => __( 'Shipping class ID.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'image' => array(
-								'description' => __( 'Variation image data.', 'woocommerce' ),
+								'description' => __( 'Variation image data.', 'poocommerce' ),
 								'type'        => 'object',
 								'context'     => array( 'view', 'edit' ),
 								'properties'  => array(
 									'id' => array(
-										'description' => __( 'Image ID.', 'woocommerce' ),
+										'description' => __( 'Image ID.', 'poocommerce' ),
 										'type'        => 'integer',
 										'context'     => array( 'view', 'edit' ),
 									),
 									'date_created' => array(
-										'description' => __( "The date the image was created, in the site's timezone.", 'woocommerce' ),
+										'description' => __( "The date the image was created, in the site's timezone.", 'poocommerce' ),
 										'type'        => 'date-time',
 										'context'     => array( 'view', 'edit' ),
 										'readonly'    => true,
 									),
 									'date_modified' => array(
-										'description' => __( "The date the image was last modified, in the site's timezone.", 'woocommerce' ),
+										'description' => __( "The date the image was last modified, in the site's timezone.", 'poocommerce' ),
 										'type'        => 'date-time',
 										'context'     => array( 'view', 'edit' ),
 										'readonly'    => true,
 									),
 									'src' => array(
-										'description' => __( 'Image URL.', 'woocommerce' ),
+										'description' => __( 'Image URL.', 'poocommerce' ),
 										'type'        => 'string',
 										'format'      => 'uri',
 										'context'     => array( 'view', 'edit' ),
 									),
 									'name' => array(
-										'description' => __( 'Image name.', 'woocommerce' ),
+										'description' => __( 'Image name.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
 									'alt' => array(
-										'description' => __( 'Image alternative text.', 'woocommerce' ),
+										'description' => __( 'Image alternative text.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
 									'position' => array(
-										'description' => __( 'Image position. 0 means that the image is featured.', 'woocommerce' ),
+										'description' => __( 'Image position. 0 means that the image is featured.', 'poocommerce' ),
 										'type'        => 'integer',
 										'context'     => array( 'view', 'edit' ),
 									),
 								),
 							),
 							'attributes' => array(
-								'description' => __( 'List of attributes.', 'woocommerce' ),
+								'description' => __( 'List of attributes.', 'poocommerce' ),
 								'type'        => 'array',
 								'context'     => array( 'view', 'edit' ),
 								'items'       => array(
 									'type'       => 'object',
 									'properties' => array(
 										'id' => array(
-											'description' => __( 'Attribute ID.', 'woocommerce' ),
+											'description' => __( 'Attribute ID.', 'poocommerce' ),
 											'type'        => 'integer',
 											'context'     => array( 'view', 'edit' ),
 										),
 										'name' => array(
-											'description' => __( 'Attribute name.', 'woocommerce' ),
+											'description' => __( 'Attribute name.', 'poocommerce' ),
 											'type'        => 'string',
 											'context'     => array( 'view', 'edit' ),
 										),
 										'option' => array(
-											'description' => __( 'Selected attribute term name.', 'woocommerce' ),
+											'description' => __( 'Selected attribute term name.', 'poocommerce' ),
 											'type'        => 'string',
 											'context'     => array( 'view', 'edit' ),
 										),
@@ -2556,7 +2556,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					),
 				),
 				'grouped_products' => array(
-					'description' => __( 'List of grouped products ID.', 'woocommerce' ),
+					'description' => __( 'List of grouped products ID.', 'poocommerce' ),
 					'type'        => 'array',
 					'items'       => array(
 						'type'    => 'integer',
@@ -2565,7 +2565,7 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 					'readonly'    => true,
 				),
 				'menu_order' => array(
-					'description' => __( 'Menu order, used to custom sort products.', 'woocommerce' ),
+					'description' => __( 'Menu order, used to custom sort products.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
@@ -2584,57 +2584,57 @@ class WC_REST_Products_V1_Controller extends WC_REST_Posts_Controller {
 		$params = parent::get_collection_params();
 
 		$params['slug'] = array(
-			'description'       => __( 'Limit result set to products with a specific slug.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with a specific slug.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['status'] = array(
 			'default'           => 'any',
-			'description'       => __( 'Limit result set to products assigned a specific status.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific status.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array_merge( array( 'any', ProductStatus::FUTURE ), array_keys( get_post_statuses() ) ),
 			'sanitize_callback' => 'sanitize_key',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['type'] = array(
-			'description'       => __( 'Limit result set to products assigned a specific type.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific type.', 'poocommerce' ),
 			'type'              => 'string',
 			'enum'              => array_keys( wc_get_product_types() ),
 			'sanitize_callback' => 'sanitize_key',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['category'] = array(
-			'description'       => __( 'Limit result set to products assigned a specific category ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific category ID.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['tag'] = array(
-			'description'       => __( 'Limit result set to products assigned a specific tag ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific tag ID.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['shipping_class'] = array(
-			'description'       => __( 'Limit result set to products assigned a specific shipping class ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific shipping class ID.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['attribute'] = array(
-			'description'       => __( 'Limit result set to products with a specific attribute.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with a specific attribute.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['attribute_term'] = array(
-			'description'       => __( 'Limit result set to products with a specific attribute term ID (required an assigned attribute).', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with a specific attribute term ID (required an assigned attribute).', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['sku'] = array(
-			'description'       => __( 'Limit result set to products with a specific SKU.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products with a specific SKU.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',

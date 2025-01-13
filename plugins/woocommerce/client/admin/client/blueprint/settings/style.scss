@@ -30,7 +30,7 @@
 		margin: 6px 0 16px 0;
 	}
 
-	a.woocommerce-admin-inline-documentation-link {
+	a.poocommerce-admin-inline-documentation-link {
 		text-decoration: none;
 	}
 
@@ -47,10 +47,10 @@
 		color: #828282;
 	}
 
-	.woocommerce-collapsible-content {
+	.poocommerce-collapsible-content {
 		color: #1e1e1e;
 		margin-bottom: 16px;
-		button.woocommerce-collapsible-content__toggle {
+		button.poocommerce-collapsible-content__toggle {
 			width: 100%;
 			span {
 				font-size: 14px;
@@ -76,12 +76,12 @@
 			}
 		}
 
-		p.woocommerce-collapsible-content-hint {
+		p.poocommerce-collapsible-content-hint {
 			color: #757575;
 			margin: 6px 0 16px 0;
 		}
 
-		.woocommerce-collapsible-content__content {
+		.poocommerce-collapsible-content__content {
 			margin-top: 6px;
 			p {
 				margin: 0 0 12px 0;
@@ -104,19 +104,19 @@
 		margin-top: 1.5em;
 	}
 
-	.woocommerce-blueprint-import-button {
+	.poocommerce-blueprint-import-button {
 		margin-top: 24px;
 	}
 }
 
 // Show the notice at the bottom right of the screen
-.woocommerce-transient-notices:has(div.woocommerce-blueprint-import-notice) {
+.poocommerce-transient-notices:has(div.poocommerce-blueprint-import-notice) {
 	bottom: 14px;
 	right: 18px;
 	left: initial;
 }
 
-.woocommerce-blueprint-overwrite-modal {
+.poocommerce-blueprint-overwrite-modal {
 	max-width: 480px;
 
 	.components-modal__header {
@@ -135,7 +135,7 @@
 		padding: 0 32px 32px;
 	}
 
-	.woocommerce-blueprint-overwrite-modal__description {
+	.poocommerce-blueprint-overwrite-modal__description {
 		color: $gray-900;
 		font-size: 13px;
 		font-weight: 400;

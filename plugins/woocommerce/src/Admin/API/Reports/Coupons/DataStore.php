@@ -3,15 +3,15 @@
  * API\Reports\Coupons\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Coupons;
+namespace Automattic\PooCommerce\Admin\API\Reports\Coupons;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
 
 /**
  * API\Reports\Coupons\DataStore.
@@ -73,7 +73,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	}
 
 	// This method was already available as non-final, marking it as final now would make it backwards-incompatible.
-	// phpcs:disable WooCommerce.Functions.InternalInjectionMethod.MissingFinal
+	// phpcs:disable PooCommerce.Functions.InternalInjectionMethod.MissingFinal
 
 	/**
 	 * Set up all the hooks for maintaining and populating table data.
@@ -81,10 +81,10 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * @internal
 	 */
 	public static function init() {
-		add_action( 'woocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 5 );
+		add_action( 'poocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 5 );
 	}
 
-	// phpcs:enable WooCommerce.Functions.InternalInjectionMethod.MissingFinal
+	// phpcs:enable PooCommerce.Functions.InternalInjectionMethod.MissingFinal
 
 	/**
 	 * Returns an array of ids of included coupons, based on query arguments from the user.
@@ -189,12 +189,12 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				if ( 0 === $coupon->get_id() ) {
 					// Deleted or otherwise invalid coupon.
 					$extended_info = array(
-						'code'             => __( '(Deleted)', 'woocommerce' ),
+						'code'             => __( '(Deleted)', 'poocommerce' ),
 						'date_created'     => '',
 						'date_created_gmt' => '',
 						'date_expires'     => '',
 						'date_expires_gmt' => '',
-						'discount_type'    => __( 'N/A', 'woocommerce' ),
+						'discount_type'    => __( 'N/A', 'poocommerce' ),
 					);
 				} else {
 					$gmt_timzone = new \DateTimeZone( 'UTC' );
@@ -253,7 +253,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		$coupon_data = $coupon_item->get_meta( 'coupon_data', true );
 
 		// Normal checkout orders should have this data.
-		// See: https://github.com/woocommerce/woocommerce/blob/3dc7df7af9f7ca0c0aa34ede74493e856f276abe/includes/abstracts/abstract-wc-order.php#L1206.
+		// See: https://github.com/poocommerce/poocommerce/blob/3dc7df7af9f7ca0c0aa34ede74493e856f276abe/includes/abstracts/abstract-wc-order.php#L1206.
 		if ( isset( $coupon_data['id'] ) ) {
 			return $coupon_data['id'];
 		}
@@ -438,7 +438,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			 * @param int $coupon_id Coupon ID.
 			 * @param int $order_id  Order ID.
 			 */
-			do_action( 'woocommerce_analytics_update_coupon', $coupon_id, $order_id );
+			do_action( 'poocommerce_analytics_update_coupon', $coupon_id, $order_id );
 
 			// Sum the rows affected. Using REPLACE can affect 2 rows if the row already exists.
 			$num_updated += 2 === intval( $result ) ? 1 : intval( $result );
@@ -476,7 +476,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param int $coupon_id Coupon ID.
 		 * @param int $order_id  Order ID.
 		 */
-		do_action( 'woocommerce_analytics_delete_coupon', 0, $order_id );
+		do_action( 'poocommerce_analytics_delete_coupon', 0, $order_id );
 
 		ReportsCache::invalidate();
 	}

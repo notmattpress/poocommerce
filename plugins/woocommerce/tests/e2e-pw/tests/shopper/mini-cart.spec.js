@@ -5,13 +5,13 @@ import {
 	openEditorSettings,
 	getCanvas,
 	goToPageEditor,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { random } = require( '../../utils/helpers' );
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const miniCartPageTitle = `Mini Cart ${ random() }`;
@@ -56,10 +56,10 @@ test.describe(
 					productId = response.data.id;
 				} );
 			// add tax
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'yes',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'excl',
 			} );
 			await api
@@ -118,7 +118,7 @@ test.describe(
 			await api.post( 'products/batch', {
 				delete: [ productId ],
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'no',
 			} );
 			await api.post( 'taxes/batch', {
@@ -135,7 +135,7 @@ test.describe(
 			context,
 		} ) => {
 			const colorField = '.components-input-control__input';
-			const miniCartBlock = 'main .wp-block-woocommerce-mini-cart';
+			const miniCartBlock = 'main .wp-block-poocommerce-mini-cart';
 			const redColor = 'ff0000';
 			const blueColor = '002eff';
 			const greenColor = '00cc09';
@@ -325,7 +325,7 @@ test.describe(
 				version: 'wc/v3',
 			} );
 			// set inlcuding tax prices
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
 

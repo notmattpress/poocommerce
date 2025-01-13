@@ -10,12 +10,12 @@ import {
 	CartShippingPackageShippingRate,
 	CartShippingRate,
 	BillingAddressShippingAddress,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	camelCaseKeys,
 	triggerAddedToCartEvent,
 	triggerAddingToCartEvent,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

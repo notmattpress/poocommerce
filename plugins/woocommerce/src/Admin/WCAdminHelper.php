@@ -5,7 +5,7 @@
  * Helper class for generic WCAdmin functions.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +16,7 @@ class WCAdminHelper {
 	/**
 	 * WC Admin timestamp option name.
 	 */
-	const WC_ADMIN_TIMESTAMP_OPTION = 'woocommerce_admin_install_timestamp';
+	const WC_ADMIN_TIMESTAMP_OPTION = 'poocommerce_admin_install_timestamp';
 
 	const WC_ADMIN_STORE_AGE_RANGES = array(
 		'week-1'    => array(
@@ -58,10 +58,10 @@ class WCAdminHelper {
 
 
 	/**
-	 * Test how long WooCommerce Admin has been active.
+	 * Test how long PooCommerce Admin has been active.
 	 *
 	 * @param int $seconds Time in seconds to check.
-	 * @return bool Whether or not WooCommerce admin has been active for $seconds.
+	 * @return bool Whether or not PooCommerce admin has been active for $seconds.
 	 */
 	public static function is_wc_admin_active_for( $seconds ) {
 		$wc_admin_active_for = self::get_wcadmin_active_for_in_seconds();
@@ -70,12 +70,12 @@ class WCAdminHelper {
 	}
 
 	/**
-	 * Test if WooCommerce Admin has been active within a pre-defined range.
+	 * Test if PooCommerce Admin has been active within a pre-defined range.
 	 *
 	 * @param string $range range available in WC_ADMIN_STORE_AGE_RANGES.
 	 * @param int    $custom_start custom start in range.
 	 * @throws \InvalidArgumentException Throws exception when invalid $range is passed in.
-	 * @return bool Whether or not WooCommerce admin has been active within the range.
+	 * @return bool Whether or not PooCommerce admin has been active within the range.
 	 */
 	public static function is_wc_admin_active_in_date_range( $range, $custom_start = null ) {
 		if ( ! array_key_exists( $range, self::WC_ADMIN_STORE_AGE_RANGES ) ) {
@@ -179,7 +179,7 @@ class WCAdminHelper {
 		 * @since 8.8.0
 		 * @param array $store_pages The store pages array. The keys are the page slugs and the values are the page IDs.
 		 */
-		$store_pages = apply_filters( 'woocommerce_store_pages', $store_pages );
+		$store_pages = apply_filters( 'poocommerce_store_pages', $store_pages );
 
 		// If the shop page is not set, we will still show the product archive page.
 		// Therefore, we need to check if the URL is a product archive page when the shop page is not set.
@@ -219,7 +219,7 @@ class WCAdminHelper {
 			}
 		}
 
-		// Check if the URL matches any of the WooCommerce permalink structures.
+		// Check if the URL matches any of the PooCommerce permalink structures.
 		if ( $url_path ) {
 			$permalink_structure = wc_get_permalink_structure();
 			$permalink_keys      = array(
@@ -298,7 +298,7 @@ class WCAdminHelper {
 		 * @param bool   $is_store_page Whether or not the URL is a store page.
 		 * @param string $url           URL to check.
 		 */
-		$is_store_page = apply_filters( 'woocommerce_is_extension_store_page', false, $url );
+		$is_store_page = apply_filters( 'poocommerce_is_extension_store_page', false, $url );
 
 		return filter_var( $is_store_page, FILTER_VALIDATE_BOOL );
 	}

@@ -4,10 +4,10 @@
  *
  * This file is included in WC_Admin_Settings::output().
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var string $current_section
  */
 
-$tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'woocommerce_sections_' . $current_tab ) || has_action( 'woocommerce_settings_' . $current_tab ) || has_action( 'woocommerce_settings_tabs_' . $current_tab );
+$tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'poocommerce_sections_' . $current_tab ) || has_action( 'poocommerce_settings_' . $current_tab ) || has_action( 'poocommerce_settings_tabs_' . $current_tab );
 $current_tab_label = isset( $tabs[ $current_tab ] ) ? $tabs[ $current_tab ] : '';
 
 if ( ! $tab_exists ) {
@@ -37,9 +37,9 @@ $hide_nav = Features::is_enabled( 'reactify-classic-payments-settings' ) &&
 	( 'checkout' === $current_tab && 'offline' === $current_section );
 ?>
 
-<div class="wrap woocommerce">
-	<?php do_action( 'woocommerce_before_settings_' . $current_tab ); ?>
-	<form method="<?php echo esc_attr( apply_filters( 'woocommerce_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
+<div class="wrap poocommerce">
+	<?php do_action( 'poocommerce_before_settings_' . $current_tab ); ?>
+	<form method="<?php echo esc_attr( apply_filters( 'poocommerce_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
 		<?php if ( ! $hide_nav ) : ?>
 			<nav class="nav-tab-wrapper woo-nav-tab-wrapper">
 				<?php
@@ -53,26 +53,26 @@ $hide_nav = Features::is_enabled( 'reactify-classic-payments-settings' ) &&
 				 *
 				 * @since 1.0.0
 				 */
-				do_action( 'woocommerce_settings_tabs' );
+				do_action( 'poocommerce_settings_tabs' );
 
 				?>
 			</nav>
 		<?php endif; ?>
 		<h1 class="screen-reader-text"><?php echo esc_html( $current_tab_label ); ?></h1>
 		<?php
-			do_action( 'woocommerce_sections_' . $current_tab );
+			do_action( 'poocommerce_sections_' . $current_tab );
 
 			WC_Admin_Settings::show_messages();
 
-			do_action( 'woocommerce_settings_' . $current_tab );
-			do_action( 'woocommerce_settings_tabs_' . $current_tab ); // @deprecated 3.4.0 hook.
+			do_action( 'poocommerce_settings_' . $current_tab );
+			do_action( 'poocommerce_settings_tabs_' . $current_tab ); // @deprecated 3.4.0 hook.
 		?>
 		<p class="submit">
 			<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
-				<button name="save" disabled class="woocommerce-save-button components-button is-primary" type="submit" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
+				<button name="save" disabled class="poocommerce-save-button components-button is-primary" type="submit" value="<?php esc_attr_e( 'Save changes', 'poocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'poocommerce' ); ?></button>
 			<?php endif; ?>
-			<?php wp_nonce_field( 'woocommerce-settings' ); ?>
+			<?php wp_nonce_field( 'poocommerce-settings' ); ?>
 		</p>
 	</form>
-	<?php do_action( 'woocommerce_after_settings_' . $current_tab ); ?>
+	<?php do_action( 'poocommerce_after_settings_' . $current_tab ); ?>
 </div>

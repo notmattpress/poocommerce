@@ -2,17 +2,17 @@
  * External dependencies
  */
 import { Button } from '@wordpress/components';
-import { EllipsisMenu, Link } from '@woocommerce/components';
+import { EllipsisMenu, Link } from '@poocommerce/components';
 import { useState, useEffect } from '@wordpress/element';
 import {
 	PLUGINS_STORE_NAME,
 	PAYMENT_GATEWAYS_STORE_NAME,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { sanitize } from 'dompurify';
 import { __ } from '@wordpress/i18n';
-import { WooPaymentsMethodsLogos } from '@woocommerce/onboarding';
+import { WooPaymentsMethodsLogos } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies
@@ -136,7 +136,7 @@ export const PaymentPromotionRow: React.FC< PaymentPromotionRowProps > = ( {
 									{ title }
 								</Link>
 								{ gatewayId ===
-									'pre_install_woocommerce_payments_promotion' && (
+									'pre_install_poocommerce_payments_promotion' && (
 									<div className="pre-install-payment-gateway__subtitle">
 										<WooPaymentsMethodsLogos
 											maxElements={ 5 }
@@ -147,7 +147,7 @@ export const PaymentPromotionRow: React.FC< PaymentPromotionRowProps > = ( {
 									</div>
 								) }
 								{ gatewayId !==
-									'pre_install_woocommerce_payments_promotion' &&
+									'pre_install_poocommerce_payments_promotion' &&
 								subTitleContent ? (
 									<div
 										className="pre-install-payment-gateway__subtitle"
@@ -174,7 +174,7 @@ export const PaymentPromotionRow: React.FC< PaymentPromotionRowProps > = ( {
 								<EllipsisMenu
 									label={ __(
 										'Payment Promotion Options',
-										'woocommerce'
+										'poocommerce'
 									) }
 									className="pre-install-payment-gateway__actions-menu"
 									onToggle={ (
@@ -187,7 +187,7 @@ export const PaymentPromotionRow: React.FC< PaymentPromotionRowProps > = ( {
 											<Button onClick={ onDismiss }>
 												{ __(
 													'Dismiss',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Button>
 										</div>
@@ -200,7 +200,7 @@ export const PaymentPromotionRow: React.FC< PaymentPromotionRowProps > = ( {
 									isBusy={ installing }
 									aria-disabled={ installing }
 								>
-									{ __( 'Install', 'woocommerce' ) }
+									{ __( 'Install', 'poocommerce' ) }
 								</Button>
 							</div>
 						</td>

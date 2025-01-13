@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useEditorContext, noticeContexts } from '@woocommerce/base-context';
-import { Title, StoreNoticesContainer } from '@woocommerce/blocks-components';
-import LoadingMask from '@woocommerce/base-components/loading-mask';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
-import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@woocommerce/block-data';
+import { useEditorContext, noticeContexts } from '@poocommerce/base-context';
+import { Title, StoreNoticesContainer } from '@poocommerce/blocks-components';
+import LoadingMask from '@poocommerce/base-components/loading-mask';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
+import { CHECKOUT_STORE_KEY, PAYMENT_STORE_KEY } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -89,7 +89,7 @@ const CheckoutExpressPayment = () => {
 							className="wc-block-components-express-payment__title"
 							headingLevel="2"
 						>
-							{ __( 'Express Checkout', 'woocommerce' ) }
+							{ __( 'Express Checkout', 'poocommerce' ) }
 						</Title>
 					</div>
 					<div className="wc-block-components-express-payment__content">
@@ -101,7 +101,7 @@ const CheckoutExpressPayment = () => {
 				</div>
 			</LoadingMask>
 			<div className="wc-block-components-express-payment-continue-rule wc-block-components-express-payment-continue-rule--checkout">
-				{ __( 'Or continue below', 'woocommerce' ) }
+				{ __( 'Or continue below', 'poocommerce' ) }
 			</div>
 		</>
 	);

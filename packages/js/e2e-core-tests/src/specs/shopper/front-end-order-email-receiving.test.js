@@ -8,7 +8,7 @@ const {
 	createSimpleProduct,
 	uiUnblocked,
 	deleteAllEmailLogs,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -20,7 +20,7 @@ let orderId;
 const config = require( 'config' );
 const simpleProductName = config.get( 'products.simple.name' );
 const customerEmail = config.get( 'addresses.customer.billing.email' );
-const storeName = 'WooCommerce Core E2E Test Suite';
+const storeName = 'PooCommerce Core E2E Test Suite';
 
 const runOrderEmailReceivingTest = () => {
 	describe( 'Shopper Order Email Receiving', () => {
@@ -47,7 +47,7 @@ const runOrderEmailReceivingTest = () => {
 			await shopper.placeOrder();
 			// Get order ID from the order received html element on the page
 			orderId = await page.$$eval(
-				'.woocommerce-order-overview__order strong',
+				'.poocommerce-order-overview__order strong',
 				( elements ) => elements.map( ( item ) => item.textContent )
 			);
 

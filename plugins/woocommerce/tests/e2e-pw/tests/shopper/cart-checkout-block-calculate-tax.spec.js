@@ -6,7 +6,7 @@ import {
 	insertBlockByShortcut,
 	goToPageEditor,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import {
 import { tags } from '../../fixtures/fixtures';
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { fillPageTitle } = require( '../../utils/editor' );
 const { random } = require( '../../utils/helpers' );
 
@@ -66,16 +66,16 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'yes',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_round_at_subtotal', {
+			await api.put( 'settings/tax/poocommerce_tax_round_at_subtotal', {
 				value: 'no',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'itemized',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
 			await api
@@ -109,13 +109,13 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
-			await api.put( 'settings/tax/woocommerce_price_display_suffix', {
+			await api.put( 'settings/tax/poocommerce_price_display_suffix', {
 				value: '',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'no',
 			} );
 			await api.delete( `products/${ productId }`, {
@@ -158,7 +158,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$125.00' );
 				await expect(
@@ -181,7 +181,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$125.00' );
 				await expect(
@@ -206,7 +206,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'excl',
 			} );
 
@@ -221,7 +221,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$100.00' );
 				await expect(
@@ -242,7 +242,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$100.00' );
 				await expect(
@@ -267,7 +267,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'yes',
 			} );
 			await api
@@ -336,16 +336,16 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_round_at_subtotal', {
+			await api.put( 'settings/tax/poocommerce_tax_round_at_subtotal', {
 				value: 'no',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'no',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'single',
 			} );
 			await api.delete( `products/${ productId }`, {
@@ -372,13 +372,13 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'excl',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_round_at_subtotal', {
+			await api.put( 'settings/tax/poocommerce_tax_round_at_subtotal', {
 				value: 'yes',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'single',
 			} );
 
@@ -390,7 +390,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$40.41' );
 				await expect(
@@ -411,7 +411,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$40.41' );
 				await expect(
@@ -433,13 +433,13 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'excl',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_round_at_subtotal', {
+			await api.put( 'settings/tax/poocommerce_tax_round_at_subtotal', {
 				value: 'no',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'itemized',
 			} );
 
@@ -451,7 +451,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$40.41' );
 				await expect(
@@ -459,12 +459,12 @@ test.describe(
 				).toContainText( '$50.12' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$6.87' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$2.84' );
 			} );
@@ -479,7 +479,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$40.41' );
 				await expect(
@@ -487,12 +487,12 @@ test.describe(
 				).toContainText( '$50.12' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$6.87' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$2.84' );
 			} );
@@ -511,10 +511,10 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'yes',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'excl',
 			} );
 
@@ -555,7 +555,7 @@ test.describe(
 				} );
 
 			// confirm that we allow shipping to any country
-			await api.put( 'settings/general/woocommerce_allowed_countries', {
+			await api.put( 'settings/general/poocommerce_allowed_countries', {
 				value: 'all',
 			} );
 			await api
@@ -631,10 +631,10 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'single',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
 			await api.delete( `products/${ productId }`, {
@@ -667,7 +667,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'itemized',
 			} );
 			// workaround to fill shipping details since there is an issue with showing
@@ -690,7 +690,7 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$100.00' );
 				await expect(
@@ -698,22 +698,22 @@ test.describe(
 				).toContainText( '$118.75' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$10.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$5.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$2.50' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$1.25' );
 			} );
@@ -727,7 +727,7 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$100.00' );
 				await expect(
@@ -735,22 +735,22 @@ test.describe(
 				).toContainText( '$118.75' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$10.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$5.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$2.50' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$1.25' );
 			} );
@@ -766,7 +766,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'itemized',
 			} );
 
@@ -777,7 +777,7 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$100.00' );
 				await expect(
@@ -785,12 +785,12 @@ test.describe(
 				).toContainText( '$115.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$10.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-taxes-block'
+						'.wp-block-poocommerce-cart-order-summary-taxes-block'
 					)
 				).toContainText( '$5.00' );
 			} );
@@ -804,7 +804,7 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$100.00' );
 				await expect(
@@ -812,12 +812,12 @@ test.describe(
 				).toContainText( '$115.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$10.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-taxes-block'
+						'.wp-block-poocommerce-checkout-order-summary-taxes-block'
 					)
 				).toContainText( '$5.00' );
 			} );
@@ -836,7 +836,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'yes',
 			} );
 			await api
@@ -889,7 +889,7 @@ test.describe(
 			await api.put( 'payment_gateways/cod', {
 				enabled: true,
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
 		} );
@@ -909,7 +909,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'no',
 			} );
 			await api.delete( `products/${ productId }`, {
@@ -936,7 +936,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'incl',
 			} );
 
@@ -948,12 +948,12 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-subtotal-block'
+						'.wp-block-poocommerce-cart-order-summary-subtotal-block'
 					)
 				).toContainText( '$115.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-cart-order-summary-shipping-block'
+						'.wp-block-poocommerce-cart-order-summary-shipping-block'
 					)
 				).toContainText( '$23.00' );
 				await expect(
@@ -971,12 +971,12 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-subtotal-block'
+						'.wp-block-poocommerce-checkout-order-summary-subtotal-block'
 					)
 				).toContainText( '$115.00' );
 				await expect(
 					page.locator(
-						'.wp-block-woocommerce-checkout-order-summary-shipping-block'
+						'.wp-block-poocommerce-checkout-order-summary-shipping-block'
 					)
 				).toContainText( '$23.00' );
 				await expect(

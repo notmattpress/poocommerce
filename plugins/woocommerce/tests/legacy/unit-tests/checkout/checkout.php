@@ -2,10 +2,10 @@
 /**
  * Checkout tests.
  *
- * @package WooCommerce\Tests\Checkout
+ * @package PooCommerce\Tests\Checkout
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Checkout

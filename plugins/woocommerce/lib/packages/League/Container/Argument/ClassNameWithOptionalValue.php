@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Argument;
+namespace Automattic\PooCommerce\Vendor\League\Container\Argument;
 
 class ClassNameWithOptionalValue implements ClassNameInterface
 {

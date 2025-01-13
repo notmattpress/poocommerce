@@ -8,14 +8,14 @@ import {
 	PLUGINS_STORE_NAME,
 	Extension,
 	ExtensionList,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { Text } from '@woocommerce/experimental';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
 import { useMemo, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
-import { getNewPath } from '@woocommerce/navigation';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
+import { getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -169,18 +169,18 @@ const Marketing: React.FC< MarketingProps > = ( { onComplete } ) => {
 	}
 
 	return (
-		<div className="woocommerce-task-marketing">
+		<div className="poocommerce-task-marketing">
 			{ !! installedExtensions.length && (
-				<Card className="woocommerce-task-card">
+				<Card className="poocommerce-task-card">
 					<CardHeader>
 						<Text
 							variant="title.small"
 							as="h2"
-							className="woocommerce-task-card__title"
+							className="poocommerce-task-card__title"
 						>
 							{ __(
 								'Installed marketing extensions',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Text>
 					</CardHeader>
@@ -193,22 +193,22 @@ const Marketing: React.FC< MarketingProps > = ( { onComplete } ) => {
 				</Card>
 			) }
 			{ !! pluginLists.length && (
-				<Card className="woocommerce-task-card">
+				<Card className="poocommerce-task-card">
 					<CardHeader>
 						<Text
 							variant="title.small"
 							as="h2"
-							className="woocommerce-task-card__title"
+							className="poocommerce-task-card__title"
 						>
 							{ __(
 								'Recommended marketing extensions',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Text>
 						<Text as="span">
 							{ __(
 								'We recommend adding one of the following marketing tools for your store. The extension will be installed and activated for you when you click "Get started".',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Text>
 					</CardHeader>
@@ -232,7 +232,7 @@ const Marketing: React.FC< MarketingProps > = ( { onComplete } ) => {
 };
 
 registerPlugin( 'wc-admin-onboarding-task-marketing', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => (
 		<WooOnboardingTask id="marketing">
 			{ ( { onComplete }: MarketingProps ) => {

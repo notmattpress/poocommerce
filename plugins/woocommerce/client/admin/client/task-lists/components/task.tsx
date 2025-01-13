@@ -4,10 +4,10 @@
 import {
 	WooHeaderNavigationItem,
 	WooHeaderPageTitle,
-} from '@woocommerce/admin-layout';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
-import { ONBOARDING_STORE_NAME, TaskType } from '@woocommerce/data';
+} from '@poocommerce/admin-layout';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
+import { ONBOARDING_STORE_NAME, TaskType } from '@poocommerce/data';
 import { useCallback } from '@wordpress/element';
 import { useDispatch, resolveSelect } from '@wordpress/data';
 /**
@@ -33,7 +33,7 @@ export const Task: React.FC< TaskProps > = ( { query, task } ) => {
 
 	const updateBadge = useCallback( async () => {
 		const badgeElements = document.querySelectorAll(
-			'#adminmenu .woocommerce-task-list-remaining-tasks-badge'
+			'#adminmenu .poocommerce-task-list-remaining-tasks-badge'
 		);
 
 		if ( ! badgeElements?.length ) {

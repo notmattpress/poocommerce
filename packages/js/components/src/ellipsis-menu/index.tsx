@@ -63,7 +63,7 @@ const EllipsisMenu = ( {
 		isOpen,
 	}: CallbackProps ) => {
 		const toggleClassname = classnames(
-			'woocommerce-ellipsis-menu__toggle',
+			'poocommerce-ellipsis-menu__toggle',
 			{
 				'is-opened': isOpen,
 			}
@@ -89,15 +89,15 @@ const EllipsisMenu = ( {
 	};
 
 	const renderMenu = ( renderContentArgs: CallbackProps ) => (
-		<NavigableMenu className="woocommerce-ellipsis-menu__content">
+		<NavigableMenu className="poocommerce-ellipsis-menu__content">
 			{ renderContent( renderContentArgs ) }
 		</NavigableMenu>
 	);
 
 	return (
-		<div className={ classnames( className, 'woocommerce-ellipsis-menu' ) }>
+		<div className={ classnames( className, 'poocommerce-ellipsis-menu' ) }>
 			<Dropdown
-				contentClassName="woocommerce-ellipsis-menu__popover"
+				contentClassName="poocommerce-ellipsis-menu__popover"
 				popoverProps={ { placement } }
 				renderToggle={ renderEllipsis }
 				renderContent={ renderMenu }

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent, queueRecordEvent } from '@woocommerce/tracks';
+import { recordEvent, queueRecordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -29,11 +29,11 @@ export const Connect: React.FC< SetupStepProps > = ( {
 				} );
 				onManual();
 			} }
-			skipText={ __( 'Set up tax rates manually', 'woocommerce' ) }
+			skipText={ __( 'Set up tax rates manually', 'poocommerce' ) }
 			onAbort={ () => onDisable() }
 			abortText={ __(
 				"My business doesn't charge sales tax",
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);

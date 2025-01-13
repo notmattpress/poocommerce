@@ -8,13 +8,13 @@ import {
 	registerBlockType,
 } from '@wordpress/blocks';
 import { createElement } from '@wordpress/element';
-import { evaluate } from '@woocommerce/expression-evaluation';
+import { evaluate } from '@poocommerce/expression-evaluation';
 import { ComponentType } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet, natively (not until 7.0.0).
 // Including `@types/wordpress__data` as a devDependency causes build issues,
 // so just going type-free for now.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useSelect, select as WPSelect } from '@wordpress/data';
 
 interface BlockRepresentation< T extends Record< string, object > > {
@@ -95,7 +95,7 @@ function augmentAttributes<
 	T extends Record< string, any > = Record< string, any >
 >( attributes: T ) {
 	// Note: If you modify this function, also update the server-side
-	// Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry::augment_attributes() function.
+	// Automattic\PooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry::augment_attributes() function.
 	return {
 		...attributes,
 		...{

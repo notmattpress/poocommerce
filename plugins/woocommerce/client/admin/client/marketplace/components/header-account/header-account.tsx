@@ -49,14 +49,14 @@ export default function HeaderAccount(): JSX.Element {
 			<img
 				src={ avatarURL }
 				alt=""
-				className="woocommerce-marketplace__menu-avatar-image"
+				className="poocommerce-marketplace__menu-avatar-image"
 			/>
 		);
 	};
 
 	const connectionStatusText = isConnected
-		? __( 'Connected', 'woocommerce' )
-		: __( 'Not Connected', 'woocommerce' );
+		? __( 'Connected', 'poocommerce' )
+		: __( 'Not Connected', 'poocommerce' );
 
 	const connectionDetails = () => {
 		if ( isConnected ) {
@@ -65,9 +65,9 @@ export default function HeaderAccount(): JSX.Element {
 					<Icon
 						icon={ commentAuthorAvatar }
 						size={ 24 }
-						className="woocommerce-marketplace__menu-icon"
+						className="poocommerce-marketplace__menu-icon"
 					/>
-					<span className="woocommerce-marketplace__main-text">
+					<span className="poocommerce-marketplace__main-text">
 						{ userEmail }
 					</span>
 				</>
@@ -78,14 +78,14 @@ export default function HeaderAccount(): JSX.Element {
 				<Icon
 					icon={ commentAuthorAvatar }
 					size={ 24 }
-					className="woocommerce-marketplace__menu-icon"
+					className="poocommerce-marketplace__menu-icon"
 				/>
-				<div className="woocommerce-marketplace__menu-text">
-					{ __( 'Connect account', 'woocommerce' ) }
-					<span className="woocommerce-marketplace__sub-text">
+				<div className="poocommerce-marketplace__menu-text">
+					{ __( 'Connect account', 'poocommerce' ) }
+					<span className="poocommerce-marketplace__sub-text">
 						{ __(
 							'Manage your subscriptions, get updates and support for your extensions and themes.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</span>
 				</div>
@@ -96,18 +96,18 @@ export default function HeaderAccount(): JSX.Element {
 	return (
 		<>
 			<DropdownMenu
-				className="woocommerce-marketplace__user-menu"
+				className="poocommerce-marketplace__user-menu"
 				icon={ avatar() }
-				label={ __( 'User options', 'woocommerce' ) }
+				label={ __( 'User options', 'poocommerce' ) }
 			>
 				{ () => (
 					<>
 						<MenuGroup
-							className="woocommerce-layout__homescreen-display-options"
+							className="poocommerce-layout__homescreen-display-options"
 							label={ connectionStatusText }
 						>
 							<MenuItem
-								className="woocommerce-marketplace__menu-item"
+								className="poocommerce-marketplace__menu-item"
 								href={ accountOrConnect }
 							>
 								{ connectionDetails() }
@@ -116,25 +116,25 @@ export default function HeaderAccount(): JSX.Element {
 								<Icon
 									icon={ external }
 									size={ 24 }
-									className="woocommerce-marketplace__menu-icon"
+									className="poocommerce-marketplace__menu-icon"
 								/>
 								{ __(
-									'WooCommerce.com account',
-									'woocommerce'
+									'PooCommerce.com account',
+									'poocommerce'
 								) }
 							</MenuItem>
 						</MenuGroup>
 						{ isConnected && (
-							<MenuGroup className="woocommerce-layout__homescreen-display-options">
+							<MenuGroup className="poocommerce-layout__homescreen-display-options">
 								<MenuItem onClick={ openModal }>
 									<Icon
 										icon={ linkOff }
 										size={ 24 }
-										className="woocommerce-marketplace__menu-icon"
+										className="poocommerce-marketplace__menu-icon"
 									/>
 									{ __(
 										'Disconnect account',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</MenuItem>
 							</MenuGroup>

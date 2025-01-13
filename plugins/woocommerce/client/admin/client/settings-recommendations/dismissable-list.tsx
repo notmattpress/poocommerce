@@ -3,8 +3,8 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Button, Card, CardHeader } from '@wordpress/components';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
-import { EllipsisMenu } from '@woocommerce/components';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
+import { EllipsisMenu } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 import { createContext, useContext } from '@wordpress/element';
 import clsx from 'clsx';
@@ -32,16 +32,16 @@ export const DismissableListHeading: React.FC< {
 
 	return (
 		<CardHeader>
-			<div className="woocommerce-dismissable-list__header">
+			<div className="poocommerce-dismissable-list__header">
 				{ children }
 			</div>
 			<div>
 				<EllipsisMenu
-					label={ __( 'Task List Options', 'woocommerce' ) }
+					label={ __( 'Task List Options', 'poocommerce' ) }
 					renderContent={ () => (
-						<div className="woocommerce-dismissable-list__controls">
+						<div className="poocommerce-dismissable-list__controls">
 							<Button onClick={ handleDismissClick }>
-								{ __( 'Hide this', 'woocommerce' ) }
+								{ __( 'Hide this', 'poocommerce' ) }
 							</Button>
 						</div>
 					) }
@@ -75,7 +75,7 @@ export const DismissableList: React.FC< {
 	return (
 		<Card
 			size="medium"
-			className={ clsx( 'woocommerce-dismissable-list', className ) }
+			className={ clsx( 'poocommerce-dismissable-list', className ) }
 		>
 			<OptionNameContext.Provider value={ dismissOptionName }>
 				{ children }

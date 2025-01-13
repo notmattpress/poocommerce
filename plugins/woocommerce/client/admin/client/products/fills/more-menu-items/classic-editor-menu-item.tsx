@@ -3,13 +3,13 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { MenuItem } from '@wordpress/components';
 import {
 	ALLOW_TRACKING_OPTION_NAME,
 	STORE_KEY as CES_STORE_KEY,
-} from '@woocommerce/customer-effort-score';
+} from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
@@ -30,10 +30,10 @@ export const ClassicEditorMenuItem = ( {
 			select( OPTIONS_STORE_NAME );
 
 		const allowTrackingOption =
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			getOption( ALLOW_TRACKING_OPTION_NAME ) || 'no';
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const resolving = ! hasFinishedResolution( 'getOption', [
 			ALLOW_TRACKING_OPTION_NAME,
 		] );
@@ -72,10 +72,10 @@ export const ClassicEditorMenuItem = ( {
 			onClick={ handleMenuItemClick }
 			info={ __(
 				'Save changes and go back to the classic product editing screen.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		>
-			{ __( 'Turn off the new product form', 'woocommerce' ) }
+			{ __( 'Turn off the new product form', 'poocommerce' ) }
 		</MenuItem>
 	);
 };

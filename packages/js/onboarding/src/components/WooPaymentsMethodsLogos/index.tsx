@@ -105,7 +105,7 @@ export const WooPaymentsMethodsLogos: React.VFC< {
 	maxElementsMobile = 5,
 	/**
 	 * Total number of payment methods that WooPayments supports.
-	 * The default is set according to https://woocommerce.com/document/woopayments/payment-methods.
+	 * The default is set according to https://poocommerce.com/document/woopayments/payment-methods.
 	 * If not eligible for WooPay, the total number of payment methods is reduced by one.
 	 */
 	totalPaymentMethods = 20,
@@ -158,7 +158,7 @@ export const WooPaymentsMethodsLogos: React.VFC< {
 
 	return (
 		<>
-			<div className="woocommerce-woopayments-payment-methods-logos">
+			<div className="poocommerce-woopayments-payment-methods-logos">
 				{ PaymentMethods.slice(
 					0,
 					getMaxShownElements( maxShownElements )
@@ -171,7 +171,7 @@ export const WooPaymentsMethodsLogos: React.VFC< {
 					return pm.component;
 				} ) }
 				{ maxShownElements < maxSupportedPaymentMethods && (
-					<div className="woocommerce-woopayments-payment-methods-logos-count">
+					<div className="poocommerce-woopayments-payment-methods-logos-count">
 						+ { maxSupportedPaymentMethods - maxShownElements }
 					</div>
 				) }

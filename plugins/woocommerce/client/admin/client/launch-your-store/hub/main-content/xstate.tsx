@@ -3,11 +3,11 @@
  */
 import { assertEvent, assign, fromCallback, fromPromise, setup } from 'xstate5';
 import React from 'react';
-import { getQuery, navigateTo } from '@woocommerce/navigation';
-import { ONBOARDING_STORE_NAME, type TaskListType } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { getQuery, navigateTo } from '@poocommerce/navigation';
+import { ONBOARDING_STORE_NAME, type TaskListType } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { dispatch } from '@wordpress/data';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

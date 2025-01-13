@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ONBOARDING_STORE_NAME, PLUGINS_STORE_NAME } from '@woocommerce/data';
+import { ONBOARDING_STORE_NAME, PLUGINS_STORE_NAME } from '@poocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 import { fromPromise } from 'xstate5';
 import apiFetch from '@wordpress/api-fetch';

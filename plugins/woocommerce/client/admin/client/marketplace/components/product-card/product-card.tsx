@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { Card } from '@wordpress/components';
 import clsx from 'clsx';
-import { ExtraProperties, queueRecordEvent } from '@woocommerce/tracks';
-import { useQuery } from '@woocommerce/navigation';
+import { ExtraProperties, queueRecordEvent } from '@poocommerce/tracks';
+import { useQuery } from '@poocommerce/navigation';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**
@@ -140,8 +140,8 @@ function ProductCard( props: ProductCardProps ): JSX.Element {
 	};
 
 	const classNames = clsx(
-		'woocommerce-marketplace__product-card',
-		`woocommerce-marketplace__product-card--${ type }`,
+		'poocommerce-marketplace__product-card',
+		`poocommerce-marketplace__product-card--${ type }`,
 		{
 			'is-loading': isLoading,
 			'is-small': props.small,
@@ -151,7 +151,7 @@ function ProductCard( props: ProductCardProps ): JSX.Element {
 
 	const CardLink = () => (
 		<a
-			className="woocommerce-marketplace__product-card__link"
+			className="poocommerce-marketplace__product-card__link"
 			href={ productUrl() }
 			rel="noopener noreferrer"
 			onClick={ () => {
@@ -170,23 +170,23 @@ function ProductCard( props: ProductCardProps ): JSX.Element {
 	const decodedDescription = decodeEntities( product.description );
 
 	const BusinessService = () => (
-		<div className="woocommerce-marketplace__business-card">
+		<div className="poocommerce-marketplace__business-card">
 			<div
-				className="woocommerce-marketplace__business-card__header"
+				className="poocommerce-marketplace__business-card__header"
 				style={ { backgroundColor: product.color } }
 			>
 				<img src={ `${ product.featuredImage }?h=288` } alt="" />
 			</div>
-			<div className="woocommerce-marketplace__business-card__content">
-				<div className="woocommerce-marketplace__business-card__main-content">
+			<div className="poocommerce-marketplace__business-card__content">
+				<div className="poocommerce-marketplace__business-card__main-content">
 					<h2>
 						<CardLink />
 					</h2>
-					<p className="woocommerce-marketplace__product-card__description">
+					<p className="poocommerce-marketplace__product-card__description">
 						{ decodedDescription }
 					</p>
 				</div>
-				<div className="woocommerce-marketplace__business-card__badge">
+				<div className="poocommerce-marketplace__business-card__badge">
 					<span>{ product.productCategory }</span>
 				</div>
 			</div>
@@ -204,51 +204,51 @@ function ProductCard( props: ProductCardProps ): JSX.Element {
 			{ isBusinessService ? (
 				<BusinessService />
 			) : (
-				<div className="woocommerce-marketplace__product-card__content">
+				<div className="poocommerce-marketplace__product-card__content">
 					{ isTheme && (
-						<div className="woocommerce-marketplace__product-card__image">
+						<div className="poocommerce-marketplace__product-card__image">
 							{ ! isLoading && (
 								<img
-									className="woocommerce-marketplace__product-card__image-inner"
+									className="poocommerce-marketplace__product-card__image-inner"
 									src={ product.image }
 									alt={ product.title }
 								/>
 							) }
 						</div>
 					) }
-					<div className="woocommerce-marketplace__product-card__header">
-						<div className="woocommerce-marketplace__product-card__details">
+					<div className="poocommerce-marketplace__product-card__header">
+						<div className="poocommerce-marketplace__product-card__details">
 							{ ! isTheme && (
 								<>
 									{ isLoading && (
-										<div className="woocommerce-marketplace__product-card__icon" />
+										<div className="poocommerce-marketplace__product-card__icon" />
 									) }
 									{ ! isLoading && product.icon && (
 										<img
-											className="woocommerce-marketplace__product-card__icon"
+											className="poocommerce-marketplace__product-card__icon"
 											src={ product.icon }
 											alt={ product.title }
 										/>
 									) }
 								</>
 							) }
-							<div className="woocommerce-marketplace__product-card__meta">
-								<h2 className="woocommerce-marketplace__product-card__title">
+							<div className="poocommerce-marketplace__product-card__meta">
+								<h2 className="poocommerce-marketplace__product-card__title">
 									<CardLink />
 								</h2>
 								{ isLoading && (
-									<p className="woocommerce-marketplace__product-card__vendor-details">
-										<span className="woocommerce-marketplace__product-card__vendor" />
+									<p className="poocommerce-marketplace__product-card__vendor-details">
+										<span className="poocommerce-marketplace__product-card__vendor" />
 									</p>
 								) }
 								{ ! isLoading && (
-									<p className="woocommerce-marketplace__product-card__vendor-details">
+									<p className="poocommerce-marketplace__product-card__vendor-details">
 										{ productVendor && (
-											<span className="woocommerce-marketplace__product-card__vendor">
+											<span className="poocommerce-marketplace__product-card__vendor">
 												<span>
 													{ __(
 														'By ',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</span>
 												{ productVendor }
@@ -257,16 +257,16 @@ function ProductCard( props: ProductCardProps ): JSX.Element {
 										{ productVendor && isSponsored() && (
 											<span
 												aria-hidden="true"
-												className="woocommerce-marketplace__product-card__vendor-details__separator"
+												className="poocommerce-marketplace__product-card__vendor-details__separator"
 											>
 												·
 											</span>
 										) }
 										{ isSponsored() && (
-											<span className="woocommerce-marketplace__product-card__sponsored-label">
+											<span className="poocommerce-marketplace__product-card__sponsored-label">
 												{ __(
 													'Sponsored',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</span>
 										) }
@@ -276,14 +276,14 @@ function ProductCard( props: ProductCardProps ): JSX.Element {
 						</div>
 					</div>
 					{ ! isTheme && (
-						<p className="woocommerce-marketplace__product-card__description">
+						<p className="poocommerce-marketplace__product-card__description">
 							{ ! isLoading && decodedDescription }
 						</p>
 					) }
 					{ ProductType.businessService !== props?.product?.type && (
-						<footer className="woocommerce-marketplace__product-card__footer">
+						<footer className="poocommerce-marketplace__product-card__footer">
 							{ isLoading && (
-								<div className="woocommerce-marketplace__product-card__price" />
+								<div className="poocommerce-marketplace__product-card__price" />
 							) }
 							{ ! isLoading && props.product && (
 								<ProductCardFooter product={ props.product } />

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { totals } from '@woocommerce/icons';
+import { totals } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -11,7 +11,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import deprecated from './deprecated';
 
-registerBlockType( 'woocommerce/cart-order-summary-block', {
+registerBlockType( 'poocommerce/cart-order-summary-block', {
 	icon: {
 		src: (
 			<Icon

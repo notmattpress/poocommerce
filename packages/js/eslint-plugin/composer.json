@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/eslint-plugin",
-	"description": "ESLint plugin for WooCommerce development.",
+	"name": "poocommerce/eslint-plugin",
+	"description": "ESLint plugin for PooCommerce development.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

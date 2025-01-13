@@ -1,6 +1,6 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 const orderBatchId = [];
 const statusColumnTextSelector = 'mark.order-status > span';
@@ -18,7 +18,7 @@ const orderStatus = [
 ];
 
 test.describe(
-	'WooCommerce Orders > Filter Order by Status',
+	'PooCommerce Orders > Filter Order by Status',
 	{ tag: [ tags.HPOS ] },
 	() => {
 		test.use( { storageState: process.env.ADMINSTATE } );

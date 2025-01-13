@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Product CSV importer
+ * PooCommerce Product CSV importer
  *
- * @package WooCommerce\Import
+ * @package PooCommerce\Import
  * @version 3.1.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -86,7 +86,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 	 */
 	protected function read_file() {
 		if ( ! WC_Product_CSV_Importer_Controller::is_file_valid_csv( $this->file ) ) {
-			wp_die( esc_html__( 'Invalid file type. The importer supports CSV and TXT file formats.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Invalid file type. The importer supports CSV and TXT file formats.', 'poocommerce' ) );
 		}
 
 		$handle = fopen( $this->file, 'r' ); // @codingStandardsIgnoreLine.
@@ -558,7 +558,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		}
 
 		$images    = array();
-		$separator = apply_filters( 'woocommerce_product_import_image_separator', ',' );
+		$separator = apply_filters( 'poocommerce_product_import_image_separator', ',' );
 
 		foreach ( $this->explode_values( $value, $separator ) as $image ) {
 			if ( stristr( $image, '://' ) ) {
@@ -822,7 +822,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			$callbacks[] = $callback;
 		}
 
-		return apply_filters( 'woocommerce_product_importer_formatting_callbacks', $callbacks, $this );
+		return apply_filters( 'poocommerce_product_importer_formatting_callbacks', $callbacks, $this );
 	}
 
 	/**
@@ -845,7 +845,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 	 * @return array
 	 */
 	protected function expand_data( $data ) {
-		$data = apply_filters( 'woocommerce_product_importer_pre_expand_data', $data );
+		$data = apply_filters( 'poocommerce_product_importer_pre_expand_data', $data );
 
 		// Images field maps to image and gallery id fields.
 		if ( isset( $data['images'] ) ) {
@@ -1034,7 +1034,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			$data = array();
 
-			do_action( 'woocommerce_product_importer_before_set_parsed_data', $row, $mapped_keys );
+			do_action( 'poocommerce_product_importer_before_set_parsed_data', $row, $mapped_keys );
 
 			foreach ( $row as $id => $value ) {
 				// Skip ignored columns.
@@ -1065,7 +1065,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			 *
 			 * @since
 			 */
-			$this->parsed_data[] = apply_filters( 'woocommerce_product_importer_parsed_data', $this->expand_data( $data ), $this );
+			$this->parsed_data[] = apply_filters( 'poocommerce_product_importer_parsed_data', $this->expand_data( $data ), $this );
 		}
 	}
 
@@ -1087,11 +1087,11 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		}
 		if ( $id ) {
 			/* translators: %d: product ID */
-			$row_data[] = sprintf( __( 'ID %d', 'woocommerce' ), $id );
+			$row_data[] = sprintf( __( 'ID %d', 'poocommerce' ), $id );
 		}
 		if ( $sku ) {
 			/* translators: %s: product SKU */
-			$row_data[] = sprintf( __( 'SKU %s', 'woocommerce' ), $sku );
+			$row_data[] = sprintf( __( 'SKU %s', 'poocommerce' ), $sku );
 		}
 
 		return implode( ', ', $row_data );
@@ -1119,7 +1119,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 		);
 
 		foreach ( $this->parsed_data as $parsed_data_key => $parsed_data ) {
-			do_action( 'woocommerce_product_import_before_import', $parsed_data );
+			do_action( 'poocommerce_product_import_before_import', $parsed_data );
 
 			$id         = isset( $parsed_data['id'] ) ? absint( $parsed_data['id'] ) : 0;
 			$sku        = isset( $parsed_data['sku'] ) ? $parsed_data['sku'] : '';
@@ -1139,8 +1139,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			if ( $sku_exists && ! $update_existing ) {
 				$data['skipped'][] = new WP_Error(
-					'woocommerce_product_importer_error',
-					esc_html__( 'A product with this SKU already exists.', 'woocommerce' ),
+					'poocommerce_product_importer_error',
+					esc_html__( 'A product with this SKU already exists.', 'poocommerce' ),
 					array(
 						'sku' => esc_attr( $sku ),
 						'row' => $this->get_row_id( $parsed_data ),
@@ -1151,8 +1151,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			if ( $id_exists && ! $update_existing ) {
 				$data['skipped'][] = new WP_Error(
-					'woocommerce_product_importer_error',
-					esc_html__( 'A product with this ID already exists.', 'woocommerce' ),
+					'poocommerce_product_importer_error',
+					esc_html__( 'A product with this ID already exists.', 'poocommerce' ),
 					array(
 						'id'  => $id,
 						'row' => $this->get_row_id( $parsed_data ),
@@ -1163,8 +1163,8 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			if ( $update_existing && ( isset( $parsed_data['id'] ) || isset( $parsed_data['sku'] ) ) && ! $id_exists && ! $sku_exists ) {
 				$data['skipped'][] = new WP_Error(
-					'woocommerce_product_importer_error',
-					esc_html__( 'No matching product exists to update.', 'woocommerce' ),
+					'poocommerce_product_importer_error',
+					esc_html__( 'No matching product exists to update.', 'poocommerce' ),
 					array(
 						'id'  => $id,
 						'sku' => esc_attr( $sku ),

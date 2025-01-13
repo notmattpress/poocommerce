@@ -64,7 +64,7 @@ export const SettingsItem = ( {
 	setting: Exclude< SettingsField, GroupSettingsField >;
 } ) => {
 	return (
-		<VStack spacing={ 4 } className="woocommerce-settings-item">
+		<VStack spacing={ 4 } className="poocommerce-settings-item">
 			{ 'title' in setting && setting.title && (
 				<Heading level={ 5 }>{ setting.title }</Heading>
 			) }

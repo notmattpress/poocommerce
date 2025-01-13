@@ -21,35 +21,35 @@ export const OverwriteConfirmationModal: React.FC<
 		<Modal
 			title={ __(
 				'Your configuration will be overridden',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ onClose }
-			className="woocommerce-blueprint-overwrite-modal"
+			className="poocommerce-blueprint-overwrite-modal"
 		>
-			<p className="woocommerce-blueprint-overwrite-modal__description">
+			<p className="poocommerce-blueprint-overwrite-modal__description">
 				{ __(
-					'Importing the file will overwrite the current configuration for the following items in WooCommerce Settings:',
-					'woocommerce'
+					'Importing the file will overwrite the current configuration for the following items in PooCommerce Settings:',
+					'poocommerce'
 				) }
 			</p>
 
-			<ul className="woocommerce-blueprint-overwrite-modal__list">
+			<ul className="poocommerce-blueprint-overwrite-modal__list">
 				{ overwrittenItems.map( ( item ) => (
 					<li key={ item }>{ item }</li>
 				) ) }
 			</ul>
 
-			<div className="woocommerce-blueprint-overwrite-modal__actions">
+			<div className="poocommerce-blueprint-overwrite-modal__actions">
 				<Button
-					className="woocommerce-blueprint-overwrite-modal__actions-cancel"
+					className="poocommerce-blueprint-overwrite-modal__actions-cancel"
 					variant="tertiary"
 					onClick={ onClose }
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					className={ clsx(
-						'woocommerce-blueprint-overwrite-modal__actions-import',
+						'poocommerce-blueprint-overwrite-modal__actions-import',
 						{
 							'is-importing': isImporting,
 						}
@@ -60,7 +60,7 @@ export const OverwriteConfirmationModal: React.FC<
 					{ isImporting ? (
 						<Spinner />
 					) : (
-						__( 'Import', 'woocommerce' )
+						__( 'Import', 'poocommerce' )
 					) }
 				</Button>
 			</div>

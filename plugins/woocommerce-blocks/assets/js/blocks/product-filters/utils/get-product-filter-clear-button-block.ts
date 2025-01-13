@@ -23,7 +23,7 @@ export const getProductFilterClearButtonBlock = (
 	const filterBlockInstance = getBlock( parentBlockClientId );
 	const clearButtonId = getClientIdByBlockName(
 		filterBlockInstance,
-		'woocommerce/product-filter-clear-button'
+		'poocommerce/product-filter-clear-button'
 	);
 	const clearButtonBlock = clearButtonId
 		? getBlock( clearButtonId )

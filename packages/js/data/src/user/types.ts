@@ -46,7 +46,7 @@ export type WCUser<
 	schema.Schema.BaseUser< 'view' >,
 	schema.Schema.ViewKeys.User | T
 > & {
-	// https://github.com/woocommerce/woocommerce/blob/3eb1938f4a0d0a93c9bcaf2a904f96bd501177fc/plugins/woocommerce/src/Internal/Admin/WCAdminUser.php#L40-L58
-	woocommerce_meta: WoocommerceMeta;
+	// https://github.com/poocommerce/poocommerce/blob/3eb1938f4a0d0a93c9bcaf2a904f96bd501177fc/plugins/poocommerce/src/Internal/Admin/WCAdminUser.php#L40-L58
+	poocommerce_meta: WoocommerceMeta;
 	is_super_admin: boolean;
 };

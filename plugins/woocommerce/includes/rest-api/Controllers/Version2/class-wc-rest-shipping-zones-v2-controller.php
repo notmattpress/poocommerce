@@ -4,7 +4,7 @@
  *
  * Handles requests to the /shipping/zones endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Shipping Zones class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Shipping_Zones_Controller_Base
  */
 class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Controller_Base {
@@ -38,7 +38,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 							'name' => array(
 								'required'    => true,
 								'type'        => 'string',
-								'description' => __( 'Shipping zone name.', 'woocommerce' ),
+								'description' => __( 'Shipping zone name.', 'poocommerce' ),
 							),
 						)
 					),
@@ -51,7 +51,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 			$this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique ID for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -74,7 +74,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Whether to bypass trash and force deletion.', 'woocommerce' ),
+							'description' => __( 'Whether to bypass trash and force deletion.', 'poocommerce' ),
 						),
 					),
 				),
@@ -151,7 +151,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 			$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $zone->get_id() ) ) );
 			return $response;
 		} else {
-			return new WP_Error( 'woocommerce_rest_shipping_zone_not_created', __( "Resource cannot be created. Check to make sure 'order' and 'name' are present.", 'woocommerce' ), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_zone_not_created', __( "Resource cannot be created. Check to make sure 'order' and 'name' are present.", 'poocommerce' ), array( 'status' => 500 ) );
 		}
 	}
 
@@ -169,7 +169,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 		}
 
 		if ( 0 === $zone->get_id() ) {
-			return new WP_Error( 'woocommerce_rest_shipping_zone_invalid_zone', __( 'The "locations not covered by your other zones" zone cannot be updated.', 'woocommerce' ), array( 'status' => 403 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_zone_invalid_zone', __( 'The "locations not covered by your other zones" zone cannot be updated.', 'poocommerce' ), array( 'status' => 403 ) );
 		}
 
 		$zone_changed = false;
@@ -211,7 +211,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 		if ( $force ) {
 			$zone->delete();
 		} else {
-			return new WP_Error( 'rest_trash_not_supported', __( 'Shipping zones do not support trashing.', 'woocommerce' ), array( 'status' => 501 ) );
+			return new WP_Error( 'rest_trash_not_supported', __( 'Shipping zones do not support trashing.', 'poocommerce' ), array( 'status' => 501 ) );
 		}
 
 		return $response;
@@ -278,13 +278,13 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 			'type'       => 'object',
 			'properties' => array(
 				'id'    => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'  => array(
-					'description' => __( 'Shipping zone name.', 'woocommerce' ),
+					'description' => __( 'Shipping zone name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -292,7 +292,7 @@ class WC_REST_Shipping_Zones_V2_Controller extends WC_REST_Shipping_Zones_Contro
 					),
 				),
 				'order' => array(
-					'description' => __( 'Shipping zone order.', 'woocommerce' ),
+					'description' => __( 'Shipping zone order.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),

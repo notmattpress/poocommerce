@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
 
 /**
  * Checkout class.
@@ -36,7 +36,7 @@ class Checkout extends AbstractBlock {
 		add_action( 'wp_loaded', array( $this, 'register_patterns' ) );
 		// This prevents the page redirecting when the cart is empty. This is so the editor still loads the page preview.
 		add_filter(
-			'woocommerce_checkout_redirect_empty_cart',
+			'poocommerce_checkout_redirect_empty_cart',
 			function ( $redirect_empty_cart ) {
 				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				return isset( $_GET['_wp-find-template'] ) ? false : $redirect_empty_cart;
@@ -51,7 +51,7 @@ class Checkout extends AbstractBlock {
 	 *
 	 * @return void
 	 */
-	public function dequeue_woocommerce_core_scripts() {
+	public function dequeue_poocommerce_core_scripts() {
 		wp_dequeue_script( 'wc-checkout' );
 		wp_dequeue_script( 'wc-password-strength-meter' );
 		wp_dequeue_script( 'selectWoo' );
@@ -64,13 +64,13 @@ class Checkout extends AbstractBlock {
 	public function register_settings() {
 		register_setting(
 			'options',
-			'woocommerce_checkout_phone_field',
+			'poocommerce_checkout_phone_field',
 			array(
 				'type'         => 'object',
-				'description'  => __( 'Controls the display of the phone field in checkout.', 'woocommerce' ),
-				'label'        => __( 'Phone number', 'woocommerce' ),
+				'description'  => __( 'Controls the display of the phone field in checkout.', 'poocommerce' ),
+				'label'        => __( 'Phone number', 'poocommerce' ),
 				'show_in_rest' => array(
-					'name'   => 'woocommerce_checkout_phone_field',
+					'name'   => 'poocommerce_checkout_phone_field',
 					'schema' => array(
 						'type' => 'string',
 						'enum' => array( 'optional', 'required', 'hidden' ),
@@ -81,13 +81,13 @@ class Checkout extends AbstractBlock {
 		);
 		register_setting(
 			'options',
-			'woocommerce_checkout_company_field',
+			'poocommerce_checkout_company_field',
 			array(
 				'type'         => 'object',
-				'description'  => __( 'Controls the display of the company field in checkout.', 'woocommerce' ),
-				'label'        => __( 'Company', 'woocommerce' ),
+				'description'  => __( 'Controls the display of the company field in checkout.', 'poocommerce' ),
+				'label'        => __( 'Company', 'poocommerce' ),
 				'show_in_rest' => array(
-					'name'   => 'woocommerce_checkout_company_field',
+					'name'   => 'poocommerce_checkout_company_field',
 					'schema' => array(
 						'type' => 'string',
 						'enum' => array( 'optional', 'required', 'hidden' ),
@@ -98,13 +98,13 @@ class Checkout extends AbstractBlock {
 		);
 		register_setting(
 			'options',
-			'woocommerce_checkout_address_2_field',
+			'poocommerce_checkout_address_2_field',
 			array(
 				'type'         => 'object',
-				'description'  => __( 'Controls the display of the apartment (address_2) field in checkout.', 'woocommerce' ),
-				'label'        => __( 'Address Line 2', 'woocommerce' ),
+				'description'  => __( 'Controls the display of the apartment (address_2) field in checkout.', 'poocommerce' ),
+				'label'        => __( 'Address Line 2', 'poocommerce' ),
 				'show_in_rest' => array(
-					'name'   => 'woocommerce_checkout_address_2_field',
+					'name'   => 'poocommerce_checkout_address_2_field',
 					'schema' => array(
 						'type' => 'string',
 						'enum' => array( 'optional', 'required', 'hidden' ),
@@ -120,11 +120,11 @@ class Checkout extends AbstractBlock {
 	 */
 	public function register_patterns() {
 		register_block_pattern(
-			'woocommerce/checkout-heading',
+			'poocommerce/checkout-heading',
 			array(
 				'title'    => '',
 				'inserter' => false,
-				'content'  => '<!-- wp:heading {"align":"wide", "level":1} --><h1 class="wp-block-heading alignwide">' . esc_html__( 'Checkout', 'woocommerce' ) . '</h1><!-- /wp:heading -->',
+				'content'  => '<!-- wp:heading {"align":"wide", "level":1} --><h1 class="wp-block-heading alignwide">' . esc_html__( 'Checkout', 'poocommerce' ) . '</h1><!-- /wp:heading -->',
 			)
 		);
 	}
@@ -155,7 +155,7 @@ class Checkout extends AbstractBlock {
 		$dependencies = [];
 
 		// Load password strength meter script asynchronously if needed.
-		if ( ! is_user_logged_in() && 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
+		if ( ! is_user_logged_in() && 'no' === get_option( 'poocommerce_registration_generate_password' ) ) {
 			$dependencies[] = 'zxcvbn-async';
 		}
 
@@ -189,14 +189,14 @@ class Checkout extends AbstractBlock {
 		 *
 		 * @since 4.6.0
 		 */
-		do_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_before' );
+		do_action( 'poocommerce_blocks_enqueue_checkout_block_scripts_before' );
 		parent::enqueue_assets( $attributes, $content, $block );
 		/**
 		 * Fires after checkout block scripts are enqueued.
 		 *
 		 * @since 4.6.0
 		 */
-		do_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_after' );
+		do_action( 'poocommerce_blocks_enqueue_checkout_block_scripts_after' );
 	}
 
 	/**
@@ -212,11 +212,11 @@ class Checkout extends AbstractBlock {
 		if ( $this->is_checkout_endpoint() ) {
 			// Note: Currently the block only takes care of the main checkout form -- if an endpoint is set, refer to the
 			// legacy shortcode instead and do not render block.
-			return wc_current_theme_is_fse_theme() ? do_shortcode( '[woocommerce_checkout]' ) : '[woocommerce_checkout]';
+			return wc_current_theme_is_fse_theme() ? do_shortcode( '[poocommerce_checkout]' ) : '[poocommerce_checkout]';
 		}
 
 		// Dequeue the core scripts when rendering this block.
-		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_woocommerce_core_scripts' ), 20 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_poocommerce_core_scripts' ), 20 );
 
 		/**
 		 * We need to check if $content has any templates from prior iterations of the block, in order to update to the latest iteration.
@@ -224,26 +224,26 @@ class Checkout extends AbstractBlock {
 		 * The blocks used for testing should be always available in the block (not removable by the user).
 		 * Checkout i1's content was returning an empty div, with no data-block-name attribute
 		 */
-		$regex_for_empty_block = '/<div class="[a-zA-Z0-9_\- ]*wp-block-woocommerce-checkout[a-zA-Z0-9_\- ]*"><\/div>/mi';
+		$regex_for_empty_block = '/<div class="[a-zA-Z0-9_\- ]*wp-block-poocommerce-checkout[a-zA-Z0-9_\- ]*"><\/div>/mi';
 		$has_i1_template       = preg_match( $regex_for_empty_block, $content );
 
 		if ( $has_i1_template ) {
 			// This fallback needs to match the default templates defined in our Blocks.
 			$inner_blocks_html = '
-				<div data-block-name="woocommerce/checkout-fields-block" class="wp-block-woocommerce-checkout-fields-block">
-					<div data-block-name="woocommerce/checkout-express-payment-block" class="wp-block-woocommerce-checkout-express-payment-block"></div>
-					<div data-block-name="woocommerce/checkout-contact-information-block" class="wp-block-woocommerce-checkout-contact-information-block"></div>
-					<div data-block-name="woocommerce/checkout-shipping-address-block" class="wp-block-woocommerce-checkout-shipping-address-block"></div>
-					<div data-block-name="woocommerce/checkout-billing-address-block" class="wp-block-woocommerce-checkout-billing-address-block"></div>
-					<div data-block-name="woocommerce/checkout-shipping-methods-block" class="wp-block-woocommerce-checkout-shipping-methods-block"></div>
-					<div data-block-name="woocommerce/checkout-payment-block" class="wp-block-woocommerce-checkout-payment-block"></div>
-					<div data-block-name="woocommerce/checkout-additional-information-block" class="wp-block-woocommerce-checkout-additional-information-block"></div>' .
-					( isset( $attributes['showOrderNotes'] ) && false === $attributes['showOrderNotes'] ? '' : '<div data-block-name="woocommerce/checkout-order-note-block" class="wp-block-woocommerce-checkout-order-note-block"></div>' ) .
-					( isset( $attributes['showPolicyLinks'] ) && false === $attributes['showPolicyLinks'] ? '' : '<div data-block-name="woocommerce/checkout-terms-block" class="wp-block-woocommerce-checkout-terms-block"></div>' ) .
-					'<div data-block-name="woocommerce/checkout-actions-block" class="wp-block-woocommerce-checkout-actions-block"></div>
+				<div data-block-name="poocommerce/checkout-fields-block" class="wp-block-poocommerce-checkout-fields-block">
+					<div data-block-name="poocommerce/checkout-express-payment-block" class="wp-block-poocommerce-checkout-express-payment-block"></div>
+					<div data-block-name="poocommerce/checkout-contact-information-block" class="wp-block-poocommerce-checkout-contact-information-block"></div>
+					<div data-block-name="poocommerce/checkout-shipping-address-block" class="wp-block-poocommerce-checkout-shipping-address-block"></div>
+					<div data-block-name="poocommerce/checkout-billing-address-block" class="wp-block-poocommerce-checkout-billing-address-block"></div>
+					<div data-block-name="poocommerce/checkout-shipping-methods-block" class="wp-block-poocommerce-checkout-shipping-methods-block"></div>
+					<div data-block-name="poocommerce/checkout-payment-block" class="wp-block-poocommerce-checkout-payment-block"></div>
+					<div data-block-name="poocommerce/checkout-additional-information-block" class="wp-block-poocommerce-checkout-additional-information-block"></div>' .
+					( isset( $attributes['showOrderNotes'] ) && false === $attributes['showOrderNotes'] ? '' : '<div data-block-name="poocommerce/checkout-order-note-block" class="wp-block-poocommerce-checkout-order-note-block"></div>' ) .
+					( isset( $attributes['showPolicyLinks'] ) && false === $attributes['showPolicyLinks'] ? '' : '<div data-block-name="poocommerce/checkout-terms-block" class="wp-block-poocommerce-checkout-terms-block"></div>' ) .
+					'<div data-block-name="poocommerce/checkout-actions-block" class="wp-block-poocommerce-checkout-actions-block"></div>
 				</div>
-				<div data-block-name="woocommerce/checkout-totals-block" class="wp-block-woocommerce-checkout-totals-block">
-					<div data-block-name="woocommerce/checkout-order-summary-block" class="wp-block-woocommerce-checkout-order-summary-block"></div>
+				<div data-block-name="poocommerce/checkout-totals-block" class="wp-block-poocommerce-checkout-totals-block">
+					<div data-block-name="poocommerce/checkout-order-summary-block" class="wp-block-poocommerce-checkout-order-summary-block"></div>
 				</div>
 			';
 
@@ -256,17 +256,17 @@ class Checkout extends AbstractBlock {
 		 * The order needs to match the order in which these blocks were registered.
 		 */
 		$order_summary_with_inner_blocks = '$0
-			<div data-block-name="woocommerce/checkout-order-summary-cart-items-block" class="wp-block-woocommerce-checkout-order-summary-cart-items-block"></div>
-			<div data-block-name="woocommerce/checkout-order-summary-subtotal-block" class="wp-block-woocommerce-checkout-order-summary-subtotal-block"></div>
-			<div data-block-name="woocommerce/checkout-order-summary-fee-block" class="wp-block-woocommerce-checkout-order-summary-fee-block"></div>
-			<div data-block-name="woocommerce/checkout-order-summary-discount-block" class="wp-block-woocommerce-checkout-order-summary-discount-block"></div>
-			<div data-block-name="woocommerce/checkout-order-summary-coupon-form-block" class="wp-block-woocommerce-checkout-order-summary-coupon-form-block"></div>
-			<div data-block-name="woocommerce/checkout-order-summary-shipping-block" class="wp-block-woocommerce-checkout-order-summary-shipping-block"></div>
-			<div data-block-name="woocommerce/checkout-order-summary-taxes-block" class="wp-block-woocommerce-checkout-order-summary-taxes-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-cart-items-block" class="wp-block-poocommerce-checkout-order-summary-cart-items-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-subtotal-block" class="wp-block-poocommerce-checkout-order-summary-subtotal-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-fee-block" class="wp-block-poocommerce-checkout-order-summary-fee-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-discount-block" class="wp-block-poocommerce-checkout-order-summary-discount-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-coupon-form-block" class="wp-block-poocommerce-checkout-order-summary-coupon-form-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-shipping-block" class="wp-block-poocommerce-checkout-order-summary-shipping-block"></div>
+			<div data-block-name="poocommerce/checkout-order-summary-taxes-block" class="wp-block-poocommerce-checkout-order-summary-taxes-block"></div>
 		';
 		// Order summary subtotal block was added in i3, so we search for it to see if we have a Checkout i2 template.
-		$regex_for_order_summary_subtotal = '/<div[^<]*?data-block-name="woocommerce\/checkout-order-summary-subtotal-block"[^>]*?>/mi';
-		$regex_for_order_summary          = '/<div[^<]*?data-block-name="woocommerce\/checkout-order-summary-block"[^>]*?>/mi';
+		$regex_for_order_summary_subtotal = '/<div[^<]*?data-block-name="poocommerce\/checkout-order-summary-subtotal-block"[^>]*?>/mi';
+		$regex_for_order_summary          = '/<div[^<]*?data-block-name="poocommerce\/checkout-order-summary-block"[^>]*?>/mi';
 		$has_i2_template                  = ! preg_match( $regex_for_order_summary_subtotal, $content );
 
 		if ( $has_i2_template ) {
@@ -276,24 +276,24 @@ class Checkout extends AbstractBlock {
 		/**
 		 * Add the Local Pickup toggle to checkouts missing this forced template.
 		 */
-		$local_pickup_inner_blocks = '<div data-block-name="woocommerce/checkout-shipping-method-block" class="wp-block-woocommerce-checkout-shipping-method-block"></div>' . PHP_EOL . PHP_EOL . '<div data-block-name="woocommerce/checkout-pickup-options-block" class="wp-block-woocommerce-checkout-pickup-options-block"></div>' . PHP_EOL . PHP_EOL . '$0';
-		$has_local_pickup_regex    = '/<div[^<]*?data-block-name="woocommerce\/checkout-shipping-method-block"[^>]*?>/mi';
+		$local_pickup_inner_blocks = '<div data-block-name="poocommerce/checkout-shipping-method-block" class="wp-block-poocommerce-checkout-shipping-method-block"></div>' . PHP_EOL . PHP_EOL . '<div data-block-name="poocommerce/checkout-pickup-options-block" class="wp-block-poocommerce-checkout-pickup-options-block"></div>' . PHP_EOL . PHP_EOL . '$0';
+		$has_local_pickup_regex    = '/<div[^<]*?data-block-name="poocommerce\/checkout-shipping-method-block"[^>]*?>/mi';
 		$has_local_pickup          = preg_match( $has_local_pickup_regex, $content );
 
 		if ( ! $has_local_pickup ) {
-			$shipping_address_block_regex = '/<div[^<]*?data-block-name="woocommerce\/checkout-shipping-address-block" class="wp-block-woocommerce-checkout-shipping-address-block"[^>]*?><\/div>/mi';
+			$shipping_address_block_regex = '/<div[^<]*?data-block-name="poocommerce\/checkout-shipping-address-block" class="wp-block-poocommerce-checkout-shipping-address-block"[^>]*?><\/div>/mi';
 			$content                      = preg_replace( $shipping_address_block_regex, $local_pickup_inner_blocks, $content );
 		}
 
 		/**
 		 * Add the Additional Information block to checkouts missing it.
 		 */
-		$additional_information_inner_blocks = '$0' . PHP_EOL . PHP_EOL . '<div data-block-name="woocommerce/checkout-additional-information-block" class="wp-block-woocommerce-checkout-additional-information-block"></div>' . PHP_EOL . PHP_EOL;
-		$has_additional_information_regex    = '/<div[^<]*?data-block-name="woocommerce\/checkout-additional-information-block"[^>]*?>/mi';
+		$additional_information_inner_blocks = '$0' . PHP_EOL . PHP_EOL . '<div data-block-name="poocommerce/checkout-additional-information-block" class="wp-block-poocommerce-checkout-additional-information-block"></div>' . PHP_EOL . PHP_EOL;
+		$has_additional_information_regex    = '/<div[^<]*?data-block-name="poocommerce\/checkout-additional-information-block"[^>]*?>/mi';
 		$has_additional_information_block    = preg_match( $has_additional_information_regex, $content );
 
 		if ( ! $has_additional_information_block ) {
-			$payment_block_regex = '/<div[^<]*?data-block-name="woocommerce\/checkout-payment-block" class="wp-block-woocommerce-checkout-payment-block"[^>]*?><\/div>/mi';
+			$payment_block_regex = '/<div[^<]*?data-block-name="poocommerce\/checkout-payment-block" class="wp-block-poocommerce-checkout-payment-block"[^>]*?><\/div>/mi';
 			$content             = preg_replace( $payment_block_regex, $additional_information_inner_blocks, $content );
 		}
 
@@ -310,7 +310,7 @@ class Checkout extends AbstractBlock {
 	}
 
 	/**
-	 * Update the local pickup title in WooCommerce Settings when the checkout page containing a Checkout block is saved.
+	 * Update the local pickup title in PooCommerce Settings when the checkout page containing a Checkout block is saved.
 	 *
 	 * @param int      $post_id The post ID.
 	 * @param \WP_Post $post    The post object.
@@ -325,11 +325,11 @@ class Checkout extends AbstractBlock {
 
 		// Check if we are editing the checkout page and that it contains a Checkout block.
 		// Cast to string for Checkout page ID comparison because get_option can return it as a string, so better to compare both values as strings.
-		if ( ! empty( $post->post_type ) && 'wp_template' !== $post->post_type && ( false === has_block( 'woocommerce/checkout', $post ) || (string) get_option( 'woocommerce_checkout_page_id' ) !== (string) $post_id ) ) {
+		if ( ! empty( $post->post_type ) && 'wp_template' !== $post->post_type && ( false === has_block( 'poocommerce/checkout', $post ) || (string) get_option( 'poocommerce_checkout_page_id' ) !== (string) $post_id ) ) {
 			return;
 		}
 
-		if ( ( ! empty( $post->post_type ) && ! empty( $post->post_name ) && 'page-checkout' !== $post->post_name && 'wp_template' === $post->post_type ) || false === has_block( 'woocommerce/checkout', $post ) ) {
+		if ( ( ! empty( $post->post_type ) && ! empty( $post->post_name ) && 'page-checkout' !== $post->post_name && 'wp_template' === $post->post_type ) || false === has_block( 'poocommerce/checkout', $post ) ) {
 			return;
 		}
 		$pickup_location_settings = LocalPickupUtils::get_local_pickup_settings( 'edit' );
@@ -351,7 +351,7 @@ class Checkout extends AbstractBlock {
 		}
 
 		$pickup_location_settings['title'] = $title;
-		update_option( 'woocommerce_pickup_location_settings', $pickup_location_settings );
+		update_option( 'poocommerce_pickup_location_settings', $pickup_location_settings );
 	}
 
 	/**
@@ -365,7 +365,7 @@ class Checkout extends AbstractBlock {
 			return null;
 		}
 		foreach ( $blocks as $block ) {
-			if ( ! empty( $block['blockName'] ) && 'woocommerce/checkout-shipping-method-block' === $block['blockName'] ) {
+			if ( ! empty( $block['blockName'] ) && 'poocommerce/checkout-shipping-method-block' === $block['blockName'] ) {
 				if ( ! empty( $block['attrs']['localPickupText'] ) ) {
 					return $block['attrs']['localPickupText'];
 				}
@@ -418,11 +418,11 @@ class Checkout extends AbstractBlock {
 				FILTER_VALIDATE_BOOLEAN
 			)
 		);
-		$this->asset_data_registry->add( 'checkoutShowLoginReminder', filter_var( get_option( 'woocommerce_enable_checkout_login_reminder' ), FILTER_VALIDATE_BOOLEAN ) );
-		$this->asset_data_registry->add( 'displayCartPricesIncludingTax', 'incl' === get_option( 'woocommerce_tax_display_cart' ) );
-		$this->asset_data_registry->add( 'displayItemizedTaxes', 'itemized' === get_option( 'woocommerce_tax_total_display' ) );
-		$this->asset_data_registry->add( 'forcedBillingAddress', 'billing_only' === get_option( 'woocommerce_ship_to_destination' ) );
-		$this->asset_data_registry->add( 'generatePassword', filter_var( get_option( 'woocommerce_registration_generate_password' ), FILTER_VALIDATE_BOOLEAN ) );
+		$this->asset_data_registry->add( 'checkoutShowLoginReminder', filter_var( get_option( 'poocommerce_enable_checkout_login_reminder' ), FILTER_VALIDATE_BOOLEAN ) );
+		$this->asset_data_registry->add( 'displayCartPricesIncludingTax', 'incl' === get_option( 'poocommerce_tax_display_cart' ) );
+		$this->asset_data_registry->add( 'displayItemizedTaxes', 'itemized' === get_option( 'poocommerce_tax_total_display' ) );
+		$this->asset_data_registry->add( 'forcedBillingAddress', 'billing_only' === get_option( 'poocommerce_ship_to_destination' ) );
+		$this->asset_data_registry->add( 'generatePassword', filter_var( get_option( 'poocommerce_registration_generate_password' ), FILTER_VALIDATE_BOOLEAN ) );
 		$this->asset_data_registry->add( 'taxesEnabled', wc_tax_enabled() );
 		$this->asset_data_registry->add( 'couponsEnabled', wc_coupons_enabled() );
 		$this->asset_data_registry->add( 'shippingEnabled', wc_shipping_enabled() );
@@ -498,11 +498,11 @@ class Checkout extends AbstractBlock {
 		}
 
 		if ( $is_block_editor && ! $this->asset_data_registry->exists( 'incompatibleExtensions' ) ) {
-			if ( ! class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) || ! function_exists( 'get_plugins' ) ) {
+			if ( ! class_exists( '\Automattic\PooCommerce\Utilities\FeaturesUtil' ) || ! function_exists( 'get_plugins' ) ) {
 				return;
 			}
 
-			$declared_extensions     = \Automattic\WooCommerce\Utilities\FeaturesUtil::get_compatible_plugins_for_feature( 'cart_checkout_blocks' );
+			$declared_extensions     = \Automattic\PooCommerce\Utilities\FeaturesUtil::get_compatible_plugins_for_feature( 'cart_checkout_blocks' );
 			$all_plugins             = \get_plugins(); // Note that `get_compatible_plugins_for_feature` calls `get_plugins` internally, so this is already in cache.
 			$incompatible_extensions = array_reduce(
 				$declared_extensions['incompatible'],
@@ -532,7 +532,7 @@ class Checkout extends AbstractBlock {
 		 *
 		 * @since 2.6.0
 		 */
-		do_action( 'woocommerce_blocks_checkout_enqueue_data' );
+		do_action( 'poocommerce_blocks_checkout_enqueue_data' );
 	}
 
 	/**
@@ -569,7 +569,7 @@ class Checkout extends AbstractBlock {
 		if ( ! is_user_logged_in() || $this->asset_data_registry->exists( 'customerPaymentMethods' ) ) {
 			return;
 		}
-		add_filter( 'woocommerce_payment_methods_list_item', [ $this, 'include_token_id_with_payment_methods' ], 10, 2 );
+		add_filter( 'poocommerce_payment_methods_list_item', [ $this, 'include_token_id_with_payment_methods' ], 10, 2 );
 
 		$payment_gateways = $this->get_enabled_payment_gateways();
 		$payment_methods  = wc_get_customer_saved_methods_list( get_current_user_id() );
@@ -590,11 +590,11 @@ class Checkout extends AbstractBlock {
 			'customerPaymentMethods',
 			$payment_methods
 		);
-		remove_filter( 'woocommerce_payment_methods_list_item', [ $this, 'include_token_id_with_payment_methods' ], 10, 2 );
+		remove_filter( 'poocommerce_payment_methods_list_item', [ $this, 'include_token_id_with_payment_methods' ], 10, 2 );
 	}
 
 	/**
-	 * Callback for woocommerce_payment_methods_list_item filter to add token id
+	 * Callback for poocommerce_payment_methods_list_item filter to add token id
 	 * to the generated list.
 	 *
 	 * @param array     $list_item The current list item for the saved payment method.
@@ -608,7 +608,7 @@ class Checkout extends AbstractBlock {
 			strtolower( $list_item['method']['brand'] ) :
 			'';
 		// phpcs:ignore WordPress.WP.I18n.TextDomainMismatch -- need to match on translated value from core.
-		if ( ! empty( $brand ) && esc_html__( 'Credit card', 'woocommerce' ) !== $brand ) {
+		if ( ! empty( $brand ) && esc_html__( 'Credit card', 'poocommerce' ) !== $brand ) {
 			$list_item['method']['brand'] = wc_get_credit_card_type_label( $brand );
 		}
 		return $list_item;

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
 use WC_Unit_Test_Case;
 
 /**
@@ -578,15 +578,15 @@ class PaymentExtensionSuggestionsTest extends WC_Unit_Test_Case {
 				// These are base details for the suggestion.
 				array(
 					'_type' => PaymentExtensionSuggestions::LINK_TYPE_ABOUT,
-					'url'   => 'https://woocommerce.com/products/mercado-pago-checkout/',
+					'url'   => 'https://poocommerce.com/products/mercado-pago-checkout/',
 				),
 				array(
 					'_type' => PaymentExtensionSuggestions::LINK_TYPE_DOCS,
-					'url'   => 'https://woocommerce.com/document/mercado-pago/',
+					'url'   => 'https://poocommerce.com/document/mercado-pago/',
 				),
 				array(
 					'_type' => PaymentExtensionSuggestions::LINK_TYPE_SUPPORT,
-					'url'   => 'https://woocommerce.com/my-account/contact-support/?select=mercado-pago-checkout',
+					'url'   => 'https://poocommerce.com/my-account/contact-support/?select=mercado-pago-checkout',
 				),
 			),
 			$mercado_pago['links']
@@ -610,15 +610,15 @@ class PaymentExtensionSuggestionsTest extends WC_Unit_Test_Case {
 				// These are base details for the suggestion.
 				array(
 					'_type' => PaymentExtensionSuggestions::LINK_TYPE_ABOUT,
-					'url'   => 'https://woocommerce.com/products/klarna-payments/',
+					'url'   => 'https://poocommerce.com/products/klarna-payments/',
 				),
 				array(
 					'_type' => PaymentExtensionSuggestions::LINK_TYPE_DOCS,
-					'url'   => 'https://woocommerce.com/document/klarna-payments/',
+					'url'   => 'https://poocommerce.com/document/klarna-payments/',
 				),
 				array(
 					'_type' => PaymentExtensionSuggestions::LINK_TYPE_SUPPORT,
-					'url'   => 'https://woocommerce.com/my-account/contact-support/?select=klarna-payments',
+					'url'   => 'https://poocommerce.com/my-account/contact-support/?select=klarna-payments',
 				),
 			),
 			$klarna['links']
@@ -648,7 +648,7 @@ class PaymentExtensionSuggestionsTest extends WC_Unit_Test_Case {
 	 * Test getting payment extension suggestions by plugin slug.
 	 */
 	public function test_get_extension_by_plugin_slug() {
-		$extension = $this->sut->get_by_plugin_slug( 'woocommerce-payments' );
+		$extension = $this->sut->get_by_plugin_slug( 'poocommerce-payments' );
 		$this->assertNotEmpty( $extension );
 		$this->assertIsArray( $extension );
 		$this->assertArrayHasKey( 'id', $extension );

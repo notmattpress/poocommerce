@@ -1,12 +1,12 @@
 <?php
 /**
- * The update helper for WooCommerce.com plugins.
+ * The update helper for PooCommerce.com plugins.
  *
  * @class WC_Helper_Updater
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC_Helper_Updater Class
  *
  * Contains the logic to fetch available updates and hook into Core's update
- * routines to serve WooCommerce.com-provided packages.
+ * routines to serve PooCommerce.com-provided packages.
  */
 class WC_Helper_Updater {
 
@@ -84,8 +84,8 @@ class WC_Helper_Updater {
 			$filename = $plugin['_filename'];
 
 			$item = array(
-				'id'             => 'woocommerce-com-' . $plugin['_product_id'],
-				'slug'           => 'woocommerce-com-' . $data['slug'],
+				'id'             => 'poocommerce-com-' . $plugin['_product_id'],
+				'slug'           => 'poocommerce-com-' . $data['slug'],
 				'plugin'         => $filename,
 				'new_version'    => $data['version'],
 				'url'            => $data['url'],
@@ -129,7 +129,7 @@ class WC_Helper_Updater {
 
 	/**
 	 * Runs on pre_set_site_transient_update_themes, provides custom
-	 * packages for WooCommerce.com-hosted extensions.
+	 * packages for PooCommerce.com-hosted extensions.
 	 *
 	 * @param object $transient The update_themes transient object.
 	 *
@@ -176,7 +176,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Runs on load-plugins.php, adds a hook to show a custom plugin update message for WooCommerce.com hosted plugins.
+	 * Runs on load-plugins.php, adds a hook to show a custom plugin update message for PooCommerce.com hosted plugins.
 	 *
 	 * @return void.
 	 */
@@ -193,7 +193,7 @@ class WC_Helper_Updater {
 	}
 
 	/**
-	 * Runs on in_plugin_update_message-{file-name}, show a message to connect to woocommerce.com for unconnected stores
+	 * Runs on in_plugin_update_message-{file-name}, show a message to connect to poocommerce.com for unconnected stores
 	 *
 	 * @return void.
 	 */
@@ -212,7 +212,7 @@ class WC_Helper_Updater {
 		printf(
 			wp_kses(
 			/* translators: 1: Woo Update Manager plugin install URL */
-				__( ' <a href="%1$s" class="woocommerce-connect-your-store">Connect your store</a> to woocommerce.com to update.', 'woocommerce' ),
+				__( ' <a href="%1$s" class="poocommerce-connect-your-store">Connect your store</a> to poocommerce.com to update.', 'poocommerce' ),
 				array(
 					'a' => array(
 						'href'  => array(),
@@ -242,7 +242,7 @@ class WC_Helper_Updater {
 			printf(
 				wp_kses(
 					/* translators: 1: Woo Update Manager plugin install URL */
-					__( ' <a href="%1$s">Install WooCommerce.com Update Manager</a> to update.', 'woocommerce' ),
+					__( ' <a href="%1$s">Install PooCommerce.com Update Manager</a> to update.', 'poocommerce' ),
 					array(
 						'a' => array(
 							'href' => array(),
@@ -255,7 +255,7 @@ class WC_Helper_Updater {
 		}
 
 		if ( ! WC_Woo_Update_Manager_Plugin::is_plugin_active() ) {
-			echo esc_html_e( ' Activate WooCommerce.com Update Manager to update.', 'woocommerce' );
+			echo esc_html_e( ' Activate PooCommerce.com Update Manager to update.', 'poocommerce' );
 		}
 	}
 
@@ -314,11 +314,11 @@ class WC_Helper_Updater {
 			);
 
 			/* translators: 1: Product regular price */
-			$product_price = ! empty( $expired_subscription['product_regular_price'] ) ? sprintf( __( 'for %s ', 'woocommerce' ), esc_html( $expired_subscription['product_regular_price'] ) ) : '';
+			$product_price = ! empty( $expired_subscription['product_regular_price'] ) ? sprintf( __( 'for %s ', 'poocommerce' ), esc_html( $expired_subscription['product_regular_price'] ) ) : '';
 
 			$expiry_notice = sprintf(
 			/* translators: 1: URL to My Subscriptions page 2: Product price */
-				__( ' Your subscription expired, <a href="%1$s" class="woocommerce-renew-subscription">renew %2$s</a>to update.', 'woocommerce' ),
+				__( ' Your subscription expired, <a href="%1$s" class="poocommerce-renew-subscription">renew %2$s</a>to update.', 'poocommerce' ),
 				esc_url( $renew_link ),
 				$product_price
 			);
@@ -333,7 +333,7 @@ class WC_Helper_Updater {
 
 			$expiry_notice = sprintf(
 			/* translators: 1: Expiry date 1: URL to My Subscriptions page */
-				__( ' Your subscription expires on %1$s, <a href="%2$s" class="woocommerce-enable-autorenew">enable auto-renew</a> to continue receiving updates.', 'woocommerce' ),
+				__( ' Your subscription expires on %1$s, <a href="%2$s" class="poocommerce-enable-autorenew">enable auto-renew</a> to continue receiving updates.', 'poocommerce' ),
 				date_i18n( 'F jS', $expiring_subscription['expires'] ),
 				esc_url( $renew_link )
 			);
@@ -383,7 +383,7 @@ class WC_Helper_Updater {
 
 		$notice = sprintf(
 			/* translators: 1: URL to My Subscriptions page */
-			__( ' You don\'t have a subscription, <a href="%1$s" class="woocommerce-purchase-subscription">subscribe</a> to update.', 'woocommerce' ),
+			__( ' You don\'t have a subscription, <a href="%1$s" class="poocommerce-purchase-subscription">subscribe</a> to update.', 'poocommerce' ),
 			esc_url( $purchase_link ),
 		);
 
@@ -521,7 +521,7 @@ class WC_Helper_Updater {
 				 *
 				 * @since 3.7.0
 				 */
-				return apply_filters( 'woocommerce_translations_updates_for_' . $plugins[ $plugin ]['slug'], false );
+				return apply_filters( 'poocommerce_translations_updates_for_' . $plugins[ $plugin ]['slug'], false );
 			}
 		);
 
@@ -548,7 +548,7 @@ class WC_Helper_Updater {
 		}
 
 		$raw_response = wp_remote_post(
-			'https://translate.wordpress.com/api/translations-updates/woocommerce',
+			'https://translate.wordpress.com/api/translations-updates/poocommerce',
 			array(
 				'body'    => wp_json_encode( $request_body ),
 				'headers' => array( 'Content-Type: application/json' ),
@@ -613,7 +613,7 @@ class WC_Helper_Updater {
 		ksort( $payload );
 		$hash = md5( wp_json_encode( $payload ) );
 
-		$cache_key = '_woocommerce_helper_updates';
+		$cache_key = '_poocommerce_helper_updates';
 		$data      = get_transient( $cache_key );
 		if ( false !== $data ) {
 			if ( hash_equals( $hash, $data['hash'] ) ) {
@@ -661,18 +661,18 @@ class WC_Helper_Updater {
 	 * @return int The number of products with updates.
 	 */
 	public static function get_updates_count() {
-		$cache_key = '_woocommerce_helper_updates_count';
+		$cache_key = '_poocommerce_helper_updates_count';
 		$count     = get_transient( $cache_key );
 		if ( false !== $count ) {
 			return $count;
 		}
 
 		// Don't fetch any new data since this function in high-frequency.
-		if ( ! get_transient( '_woocommerce_helper_subscriptions' ) ) {
+		if ( ! get_transient( '_poocommerce_helper_subscriptions' ) ) {
 			return 0;
 		}
 
-		if ( ! get_transient( '_woocommerce_helper_updates' ) ) {
+		if ( ! get_transient( '_poocommerce_helper_updates' ) ) {
 			return 0;
 		}
 
@@ -731,7 +731,7 @@ class WC_Helper_Updater {
 
 	/**
 	 * Get the type of woo connect notice to be shown in the WC Settings and Marketplace pages.
-	 * - If a store is connected to woocommerce.com or has no installed woo plugins, return 'none'.
+	 * - If a store is connected to poocommerce.com or has no installed woo plugins, return 'none'.
 	 * - If a store has installed woo plugins but no updates, return 'short'.
 	 * - If a store has an installed woo plugin with update, return 'long'.
 	 *
@@ -784,8 +784,8 @@ class WC_Helper_Updater {
 	 * Flushes cached update data.
 	 */
 	public static function flush_updates_cache() {
-		delete_transient( '_woocommerce_helper_updates' );
-		delete_transient( '_woocommerce_helper_updates_count' );
+		delete_transient( '_poocommerce_helper_updates' );
+		delete_transient( '_poocommerce_helper_updates_count' );
 		delete_site_transient( 'update_plugins' );
 		delete_site_transient( 'update_themes' );
 	}
@@ -794,7 +794,7 @@ class WC_Helper_Updater {
 	 * Fires when a user successfully updated a theme or a plugin.
 	 */
 	public static function upgrader_process_complete() {
-		delete_transient( '_woocommerce_helper_updates_count' );
+		delete_transient( '_poocommerce_helper_updates_count' );
 	}
 
 	/**
@@ -814,15 +814,15 @@ class WC_Helper_Updater {
 		}
 
 		// Only for packages with expired subscriptions.
-		if ( 0 !== strpos( $package, 'woocommerce-com-expired-' ) ) {
+		if ( 0 !== strpos( $package, 'poocommerce-com-expired-' ) ) {
 			return false;
 		}
 
 		return new WP_Error(
-			'woocommerce_subscription_expired',
+			'poocommerce_subscription_expired',
 			sprintf(
-				// translators: %s: URL of WooCommerce.com subscriptions tab.
-				__( 'Please visit the <a href="%s" target="_blank">subscriptions page</a> and renew to continue receiving updates.', 'woocommerce' ),
+				// translators: %s: URL of PooCommerce.com subscriptions tab.
+				__( 'Please visit the <a href="%s" target="_blank">subscriptions page</a> and renew to continue receiving updates.', 'poocommerce' ),
 				esc_url( admin_url( 'admin.php?page=wc-addons&section=helper' ) )
 			)
 		);

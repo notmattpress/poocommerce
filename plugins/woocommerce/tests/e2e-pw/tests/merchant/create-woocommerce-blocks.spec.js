@@ -11,12 +11,12 @@ import {
 	goToPageEditor,
 	insertBlock,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 const simpleProductName = 'Simplest Product';
 const singleProductPrice = '555.00';
 
-// All WooCommerce blocks except:
+// All PooCommerce blocks except:
 // - default cart and checkout blocks, mini-cart
 // - Product Gallery (Beta) - it's not intended to be used in posts
 const blocks = [
@@ -54,7 +54,7 @@ const test = baseTest.extend( {
 } );
 
 test.describe(
-	'Add WooCommerce Blocks Into Page',
+	'Add PooCommerce Blocks Into Page',
 	{
 		tag: [ tags.GUTENBERG, tags.SKIP_ON_EXTERNAL_ENV ],
 	},
@@ -147,7 +147,7 @@ test.describe(
 			} );
 		} );
 
-		test( `can insert all WooCommerce blocks into page`, async ( {
+		test( `can insert all PooCommerce blocks into page`, async ( {
 			page,
 			testPage,
 		} ) => {

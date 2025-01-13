@@ -4,12 +4,12 @@
  *
  * Displays the product data box, tabbed, with several panels covering price, stock etc.
  *
- * @package  WooCommerce\Admin\Meta Boxes
+ * @package  PooCommerce\Admin\Meta Boxes
  * @version  3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -31,7 +31,7 @@ class WC_Meta_Box_Product_Data {
 		$thepostid      = $post->ID;
 		$product_object = $thepostid ? wc_get_product( $thepostid ) : new WC_Product();
 
-		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+		wp_nonce_field( 'poocommerce_save_data', 'poocommerce_meta_nonce' );
 
 		include __DIR__ . '/views/html-product-data-panel.php';
 	}
@@ -56,7 +56,7 @@ class WC_Meta_Box_Product_Data {
 	 * @return array
 	 */
 	private static function get_product_type_options() {
-		/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
+		/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
 		return apply_filters(
 			'product_type_options',
 			wc_get_default_product_type_options(),
@@ -70,48 +70,48 @@ class WC_Meta_Box_Product_Data {
 	 * @return array
 	 */
 	private static function get_product_data_tabs() {
-		/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
+		/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
 		$tabs = apply_filters(
-			'woocommerce_product_data_tabs',
+			'poocommerce_product_data_tabs',
 			array(
 				'general'        => array(
-					'label'    => __( 'General', 'woocommerce' ),
+					'label'    => __( 'General', 'poocommerce' ),
 					'target'   => 'general_product_data',
 					'class'    => array( 'hide_if_grouped' ),
 					'priority' => 10,
 				),
 				'inventory'      => array(
-					'label'    => __( 'Inventory', 'woocommerce' ),
+					'label'    => __( 'Inventory', 'poocommerce' ),
 					'target'   => 'inventory_product_data',
 					'class'    => array( 'show_if_simple', 'show_if_variable', 'show_if_grouped', 'show_if_external' ),
 					'priority' => 20,
 				),
 				'shipping'       => array(
-					'label'    => __( 'Shipping', 'woocommerce' ),
+					'label'    => __( 'Shipping', 'poocommerce' ),
 					'target'   => 'shipping_product_data',
 					'class'    => array( 'hide_if_virtual', 'hide_if_grouped', 'hide_if_external' ),
 					'priority' => 30,
 				),
 				'linked_product' => array(
-					'label'    => __( 'Linked Products', 'woocommerce' ),
+					'label'    => __( 'Linked Products', 'poocommerce' ),
 					'target'   => 'linked_product_data',
 					'class'    => array(),
 					'priority' => 40,
 				),
 				'attribute'      => array(
-					'label'    => __( 'Attributes', 'woocommerce' ),
+					'label'    => __( 'Attributes', 'poocommerce' ),
 					'target'   => 'product_attributes',
 					'class'    => array(),
 					'priority' => 50,
 				),
 				'variations'     => array(
-					'label'    => __( 'Variations', 'woocommerce' ),
+					'label'    => __( 'Variations', 'poocommerce' ),
 					'target'   => 'variable_product_options',
 					'class'    => array( 'show_if_variable' ),
 					'priority' => 60,
 				),
 				'advanced'       => array(
-					'label'    => __( 'Advanced', 'woocommerce' ),
+					'label'    => __( 'Advanced', 'poocommerce' ),
 					'target'   => 'advanced_product_data',
 					'class'    => array(),
 					'priority' => 70,
@@ -173,13 +173,13 @@ class WC_Meta_Box_Product_Data {
 	public static function output_variations() {
 		global $post, $wpdb, $product_object;
 
-		/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
+		/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
 		$variation_attributes   = array_filter( $product_object->get_attributes(), array( __CLASS__, 'filter_variation_attributes' ) );
 		$default_attributes     = $product_object->get_default_attributes();
-		$variations_count       = absint( apply_filters( 'woocommerce_admin_meta_boxes_variations_count', $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(ID) FROM $wpdb->posts WHERE post_parent = %d AND post_type = 'product_variation' AND post_status IN ('publish', 'private')", $post->ID ) ), $post->ID ) );
-		$variations_per_page    = absint( apply_filters( 'woocommerce_admin_meta_boxes_variations_per_page', 15 ) );
+		$variations_count       = absint( apply_filters( 'poocommerce_admin_meta_boxes_variations_count', $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(ID) FROM $wpdb->posts WHERE post_parent = %d AND post_type = 'product_variation' AND post_status IN ('publish', 'private')", $post->ID ) ), $post->ID ) );
+		$variations_per_page    = absint( apply_filters( 'poocommerce_admin_meta_boxes_variations_per_page', 15 ) );
 		$variations_total_pages = ceil( $variations_count / $variations_per_page );
-		$modal_title            = get_bloginfo( 'name' ) . __( ' says', 'woocommerce' );
+		$modal_title            = get_bloginfo( 'name' ) . __( ' says', 'poocommerce' );
 		/* phpcs: enable */
 
 		include __DIR__ . '/views/html-product-data-variations.php';
@@ -277,8 +277,8 @@ class WC_Meta_Box_Product_Data {
 				$attribute->set_position( $attribute_position[ $i ] );
 				$attribute->set_visible( isset( $attribute_visibility[ $i ] ) );
 				$attribute->set_variation( isset( $attribute_variation[ $i ] ) );
-				/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-				$attributes[] = apply_filters( 'woocommerce_admin_meta_boxes_prepare_attribute', $attribute, $data, $i );
+				/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+				$attributes[] = apply_filters( 'poocommerce_admin_meta_boxes_prepare_attribute', $attribute, $data, $i );
 				/* phpcs: enable */
 			}
 		}
@@ -341,7 +341,7 @@ class WC_Meta_Box_Product_Data {
 		if ( isset( $_POST['_stock'] ) ) {
 			if ( isset( $_POST['_original_stock'] ) && wc_stock_amount( $product->get_stock_quantity( 'edit' ) ) !== wc_stock_amount( wp_unslash( $_POST['_original_stock'] ) ) ) {
 				/* translators: 1: product ID 2: quantity in stock */
-				WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The stock has not been updated because the value has changed since editing. Product %1$d has %2$d units in stock.', 'woocommerce' ), $product->get_id(), $product->get_stock_quantity( 'edit' ) ) );
+				WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The stock has not been updated because the value has changed since editing. Product %1$d has %2$d units in stock.', 'poocommerce' ), $product->get_id(), $product->get_stock_quantity( 'edit' ) ) );
 			} else {
 				$stock = wc_stock_amount( wp_unslash( $_POST['_stock'] ) );
 			}
@@ -426,7 +426,7 @@ class WC_Meta_Box_Product_Data {
 		 *
 		 * @since 3.0.0
 		 */
-		do_action( 'woocommerce_admin_process_product_object', $product );
+		do_action( 'poocommerce_admin_process_product_object', $product );
 
 		$product->save();
 
@@ -436,9 +436,9 @@ class WC_Meta_Box_Product_Data {
 
 			$product->get_data_store()->sync_variation_names( $product, $original_post_title, $post_title );
 		}
-		/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-		do_action( 'woocommerce_process_product_meta_' . $product_type, $post_id );
-		/* phpcs:enable WordPress.Security.NonceVerification.Missing and WooCommerce.Commenting.CommentHooks.MissingHookComment */
+		/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+		do_action( 'poocommerce_process_product_meta_' . $product_type, $post_id );
+		/* phpcs:enable WordPress.Security.NonceVerification.Missing and PooCommerce.Commenting.CommentHooks.MissingHookComment */
 	}
 
 	/**
@@ -493,7 +493,7 @@ class WC_Meta_Box_Product_Data {
 				if ( isset( $_POST['variable_stock'], $_POST['variable_stock'][ $i ] ) ) {
 					if ( isset( $_POST['variable_original_stock'], $_POST['variable_original_stock'][ $i ] ) && wc_stock_amount( $variation->get_stock_quantity( 'edit' ) ) !== wc_stock_amount( wp_unslash( $_POST['variable_original_stock'][ $i ] ) ) ) {
 						/* translators: 1: product ID 2: quantity in stock */
-						WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The stock has not been updated because the value has changed since editing. Product %1$d has %2$d units in stock.', 'woocommerce' ), $variation->get_id(), $variation->get_stock_quantity( 'edit' ) ) );
+						WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The stock has not been updated because the value has changed since editing. Product %1$d has %2$d units in stock.', 'poocommerce' ), $variation->get_id(), $variation->get_stock_quantity( 'edit' ) ) );
 					} else {
 						$stock = wc_stock_amount( wp_unslash( $_POST['variable_stock'][ $i ] ) );
 					}
@@ -569,11 +569,11 @@ class WC_Meta_Box_Product_Data {
 				 * @param int $i
 				 * @since 3.8.0
 				 */
-				do_action( 'woocommerce_admin_process_variation_object', $variation, $i );
+				do_action( 'poocommerce_admin_process_variation_object', $variation, $i );
 
 				$variation->save();
-				/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-				do_action( 'woocommerce_save_product_variation', $variation_id, $i );
+				/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+				do_action( 'poocommerce_save_product_variation', $variation_id, $i );
 				/* phpcs: enable */
 			}
 		}

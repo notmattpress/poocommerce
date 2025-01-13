@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useSelect, useDispatch } from '@wordpress/data';
 
 export const BLOCK_EDITOR_TOUR_SHOWN_OPTION =
-	'woocommerce_block_product_tour_shown';
+	'poocommerce_block_product_tour_shown';
 
 export const useBlockEditorTourOptions = () => {
 	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
@@ -14,9 +14,9 @@ export const useBlockEditorTourOptions = () => {
 			select( OPTIONS_STORE_NAME );
 
 		const wasTourShown =
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			getOption( BLOCK_EDITOR_TOUR_SHOWN_OPTION ) === 'yes' ||
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			! hasFinishedResolution( 'getOption', [
 				BLOCK_EDITOR_TOUR_SHOWN_OPTION,
 			] );

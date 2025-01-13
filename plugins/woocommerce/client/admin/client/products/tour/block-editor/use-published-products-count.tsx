@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { PRODUCTS_STORE_NAME } from '@woocommerce/data';
+import { PRODUCTS_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 const PUBLISHED_PRODUCTS_QUERY_PARAMS = {
@@ -14,13 +14,13 @@ export const usePublishedProductsCount = () => {
 		const { getProductsTotalCount, hasFinishedResolution } =
 			select( PRODUCTS_STORE_NAME );
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const publishedProductsCount = getProductsTotalCount(
 			PUBLISHED_PRODUCTS_QUERY_PARAMS,
 			0
 		) as number;
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const loadingPublishedProductsCount = ! hasFinishedResolution(
 			'getProductsTotalCount',
 			[ PUBLISHED_PRODUCTS_QUERY_PARAMS, 0 ]

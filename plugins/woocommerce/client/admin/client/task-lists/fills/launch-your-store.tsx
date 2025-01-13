@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTaskListItem } from '@woocommerce/onboarding';
+import { WooOnboardingTaskListItem } from '@poocommerce/onboarding';
 
 const LaunchYourStoreTaskItem = () => {
 	return (
@@ -23,7 +23,7 @@ const LaunchYourStoreTaskItem = () => {
 	);
 };
 
-registerPlugin( 'woocommerce-admin-task-launch-your-store', {
-	scope: 'woocommerce-tasks',
+registerPlugin( 'poocommerce-admin-task-launch-your-store', {
+	scope: 'poocommerce-tasks',
 	render: LaunchYourStoreTaskItem,
 } );

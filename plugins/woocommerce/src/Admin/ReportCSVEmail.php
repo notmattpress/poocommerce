@@ -3,7 +3,7 @@
  * Handles emailing users CSV Export download links.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -51,16 +51,16 @@ class ReportCSVEmail extends \WC_Email {
 		$this->template_html  = 'html-admin-report-export-download.php';
 		$this->template_plain = 'plain-admin-report-export-download.php';
 		$this->report_labels  = array(
-			'categories' => __( 'Categories', 'woocommerce' ),
-			'coupons'    => __( 'Coupons', 'woocommerce' ),
-			'customers'  => __( 'Customers', 'woocommerce' ),
-			'downloads'  => __( 'Downloads', 'woocommerce' ),
-			'orders'     => __( 'Orders', 'woocommerce' ),
-			'products'   => __( 'Products', 'woocommerce' ),
-			'revenue'    => __( 'Revenue', 'woocommerce' ),
-			'stock'      => __( 'Stock', 'woocommerce' ),
-			'taxes'      => __( 'Taxes', 'woocommerce' ),
-			'variations' => __( 'Variations', 'woocommerce' ),
+			'categories' => __( 'Categories', 'poocommerce' ),
+			'coupons'    => __( 'Coupons', 'poocommerce' ),
+			'customers'  => __( 'Customers', 'poocommerce' ),
+			'downloads'  => __( 'Downloads', 'poocommerce' ),
+			'orders'     => __( 'Orders', 'poocommerce' ),
+			'products'   => __( 'Products', 'poocommerce' ),
+			'revenue'    => __( 'Revenue', 'poocommerce' ),
+			'stock'      => __( 'Stock', 'poocommerce' ),
+			'taxes'      => __( 'Taxes', 'poocommerce' ),
+			'variations' => __( 'Variations', 'poocommerce' ),
 		);
 
 		// Call parent constructor.
@@ -92,7 +92,7 @@ class ReportCSVEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return __( 'Your Report Download', 'woocommerce' );
+		return __( 'Your Report Download', 'poocommerce' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class ReportCSVEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return __( '[{site_title}]: Your {report_name} Report download is ready', 'woocommerce' );
+		return __( '[{site_title}]: Your {report_name} Report download is ready', 'poocommerce' );
 	}
 
 	/**

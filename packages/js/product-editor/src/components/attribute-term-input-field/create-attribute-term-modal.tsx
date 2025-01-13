@@ -11,13 +11,13 @@ import {
 import { useState, createElement, Fragment } from '@wordpress/element';
 import { useDispatch } from '@wordpress/data';
 import { cleanForSlug } from '@wordpress/url';
-import { Form, FormContextType, FormErrors } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Form, FormContextType, FormErrors } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME,
 	ProductAttributeTerm,
 	ProductProductAttribute,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -67,7 +67,7 @@ export const CreateAttributeTermModal: React.FC<
 			} );
 			createNotice(
 				'error',
-				__( 'Failed to create attribute term.', 'woocommerce' )
+				__( 'Failed to create attribute term.', 'poocommerce' )
 			);
 			setIsCreating( false );
 			onCancel();
@@ -82,7 +82,7 @@ export const CreateAttributeTermModal: React.FC<
 		if ( ! values.name?.length ) {
 			errors.name = __(
 				'The attribute term name is required.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -91,7 +91,7 @@ export const CreateAttributeTermModal: React.FC<
 
 	return (
 		<Modal
-			title={ __( 'Create attribute', 'woocommerce' ) }
+			title={ __( 'Create attribute', 'poocommerce' ) }
 			onRequestClose={ (
 				event:
 					| React.KeyboardEvent< Element >
@@ -101,7 +101,7 @@ export const CreateAttributeTermModal: React.FC<
 				event.stopPropagation();
 				onCancel();
 			} }
-			className="woocommerce-create-attribute-term-modal"
+			className="poocommerce-create-attribute-term-modal"
 		>
 			<Form< Partial< ProductAttributeTerm > >
 				initialValues={ {
@@ -123,7 +123,7 @@ export const CreateAttributeTermModal: React.FC<
 					return (
 						<>
 							<TextControl
-								label={ __( 'Name', 'woocommerce' ) }
+								label={ __( 'Name', 'poocommerce' ) }
 								{ ...nameInputProps }
 								onBlur={ () => {
 									nameInputProps.onBlur();
@@ -134,36 +134,36 @@ export const CreateAttributeTermModal: React.FC<
 								} }
 							/>
 							<TextControl
-								label={ __( 'Slug', 'woocommerce' ) }
+								label={ __( 'Slug', 'poocommerce' ) }
 								{ ...getInputProps( 'slug' ) }
 								help={ __(
 									'The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 							<TextareaControl
-								label={ __( 'Description', 'woocommerce' ) }
+								label={ __( 'Description', 'poocommerce' ) }
 								{ ...getInputProps( 'description' ) }
 							/>
-							<div className="woocommerce-create-attribute-term-modal__buttons">
+							<div className="poocommerce-create-attribute-term-modal__buttons">
 								<Button
 									isSecondary
-									label={ __( 'Cancel', 'woocommerce' ) }
+									label={ __( 'Cancel', 'poocommerce' ) }
 									onClick={ () => onCancel() }
 								>
-									{ __( 'Cancel', 'woocommerce' ) }
+									{ __( 'Cancel', 'poocommerce' ) }
 								</Button>
 								<Button
 									isPrimary
 									isBusy={ isCreating }
 									label={ __(
 										'Add attribute',
-										'woocommerce'
+										'poocommerce'
 									) }
 									disabled={ ! isValidForm || isCreating }
 									onClick={ handleSubmit }
 								>
-									{ __( 'Add', 'woocommerce' ) }
+									{ __( 'Add', 'poocommerce' ) }
 								</Button>
 							</div>
 						</>

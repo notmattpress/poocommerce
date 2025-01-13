@@ -2,11 +2,11 @@
 /**
  * Data Store Tests: Tests WC_Products's WC_Data_Store.
  *
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Class WC_Tests_Product_Data_Store
@@ -67,16 +67,16 @@ class WC_Tests_Product_Data_Store extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test creating a new product with woocommerce_new_product_data filter.
+	 * Test creating a new product with poocommerce_new_product_data filter.
 	 */
-	public function test_product_create_with_woocommerce_new_product_data_filter() {
+	public function test_product_create_with_poocommerce_new_product_data_filter() {
 		$force_draft_status_fn = function ( $data ) {
 			$data['post_status'] = ProductStatus::DRAFT;
 			return $data;
 		};
 
 		add_filter(
-			'woocommerce_new_product_data',
+			'poocommerce_new_product_data',
 			$force_draft_status_fn
 		);
 
@@ -87,7 +87,7 @@ class WC_Tests_Product_Data_Store extends WC_Unit_Test_Case {
 		$this->assertEquals( ProductStatus::DRAFT, $product->get_status() );
 
 		remove_filter(
-			'woocommerce_new_product_data',
+			'poocommerce_new_product_data',
 			$force_draft_status_fn
 		);
 	}
@@ -654,7 +654,7 @@ class WC_Tests_Product_Data_Store extends WC_Unit_Test_Case {
 	 * Tests disabling of automatic generation of variation name.
 	 */
 	public function test_generate_product_title_disable() {
-		add_filter( 'woocommerce_product_variation_title_include_attributes', '__return_false' );
+		add_filter( 'poocommerce_product_variation_title_include_attributes', '__return_false' );
 
 		$product = new WC_Product();
 		$product->set_name( 'Test Product' );
@@ -775,7 +775,7 @@ class WC_Tests_Product_Data_Store extends WC_Unit_Test_Case {
 
 	/**
 	 * Test to make sure meta can still be set while hooked using save_post.
-	 * https://github.com/woocommerce/woocommerce/issues/13960
+	 * https://github.com/poocommerce/poocommerce/issues/13960
 	 *
 	 * @since 3.0.1
 	 */
@@ -785,7 +785,7 @@ class WC_Tests_Product_Data_Store extends WC_Unit_Test_Case {
 		$product->save();
 		update_post_meta( $product->get_id(), '_test2', 'default' ); // this is the value we don't want to get back.
 
-		// This takes place of WC_Meta_Box do_action( 'woocommerce_admin_process_product_object ' ) just adding simple meta.
+		// This takes place of WC_Meta_Box do_action( 'poocommerce_admin_process_product_object ' ) just adding simple meta.
 		$product->update_meta_data( '_test', 'hello' );
 		$product->set_name( 'Test Product_' );
 

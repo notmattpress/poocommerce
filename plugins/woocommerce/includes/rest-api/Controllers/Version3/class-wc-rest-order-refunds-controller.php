@@ -4,18 +4,18 @@
  *
  * Handles requests to the /orders/<order_id>/refunds endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApiParameterUtil;
+use Automattic\PooCommerce\Internal\RestApiParameterUtil;
 
 /**
  * REST API Order Refunds controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Order_Refunds_V2_Controller
  */
 class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controller {
@@ -41,11 +41,11 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		$order = wc_get_order( (int) $request['order_id'] );
 
 		if ( ! $order ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'woocommerce' ), 404 );
+			return new WP_Error( 'poocommerce_rest_invalid_order_id', __( 'Invalid order ID.', 'poocommerce' ), 404 );
 		}
 
 		if ( 0 > $request['amount'] ) {
-			return new WP_Error( 'woocommerce_rest_invalid_order_refund', __( 'Refund amount must be greater than zero.', 'woocommerce' ), 400 );
+			return new WP_Error( 'poocommerce_rest_invalid_order_refund', __( 'Refund amount must be greater than zero.', 'poocommerce' ), 400 );
 		}
 
 		// Create the refund.
@@ -61,11 +61,11 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		);
 
 		if ( is_wp_error( $refund ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create_order_refund', $refund->get_error_message(), 500 );
+			return new WP_Error( 'poocommerce_rest_cannot_create_order_refund', $refund->get_error_message(), 500 );
 		}
 
 		if ( ! $refund ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create_order_refund', __( 'Cannot create order refund, please try again.', 'woocommerce' ), 500 );
+			return new WP_Error( 'poocommerce_rest_cannot_create_order_refund', __( 'Cannot create order refund, please try again.', 'poocommerce' ), 500 );
 		}
 
 		if ( ! empty( $request['meta_data'] ) && is_array( $request['meta_data'] ) ) {
@@ -85,7 +85,7 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		 * @param WP_REST_Request $request  Request object.
 		 * @param bool            $creating If is creating a new object.
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}_object", $refund, $request, $creating );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}_object", $refund, $request, $creating );
 	}
 
 	/**
@@ -97,21 +97,21 @@ class WC_REST_Order_Refunds_Controller extends WC_REST_Order_Refunds_V2_Controll
 		$schema = parent::get_item_schema();
 
 		$schema['properties']['line_items']['items']['properties']['refund_total'] = array(
-			'description' => __( 'Amount that will be refunded for this line item (excluding taxes).', 'woocommerce' ),
+			'description' => __( 'Amount that will be refunded for this line item (excluding taxes).', 'poocommerce' ),
 			'type'        => 'number',
 			'context'     => array( 'edit' ),
 			'readonly'    => true,
 		);
 
 		$schema['properties']['line_items']['items']['properties']['taxes']['items']['properties']['refund_total'] = array(
-			'description' => __( 'Amount that will be refunded for this tax.', 'woocommerce' ),
+			'description' => __( 'Amount that will be refunded for this tax.', 'poocommerce' ),
 			'type'        => 'number',
 			'context'     => array( 'edit' ),
 			'readonly'    => true,
 		);
 
 		$schema['properties']['api_restock'] = array(
-			'description' => __( 'When true, refunded items are restocked.', 'woocommerce' ),
+			'description' => __( 'When true, refunded items are restocked.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'context'     => array( 'edit' ),
 			'default'     => true,

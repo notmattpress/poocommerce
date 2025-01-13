@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import type { Currency } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import type { Currency } from '@poocommerce/types';
 import type { ReactElement } from 'react';
 
 /**
@@ -35,7 +35,7 @@ const Subtotal = ( {
 		<TotalsItem
 			className={ className }
 			currency={ currency }
-			label={ __( 'Subtotal', 'woocommerce' ) }
+			label={ __( 'Subtotal', 'poocommerce' ) }
 			value={
 				getSetting( 'displayCartPricesIncludingTax', false )
 					? itemsValue + itemsTaxValue

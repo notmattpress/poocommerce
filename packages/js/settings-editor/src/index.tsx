@@ -3,16 +3,16 @@
  */
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { dispatch } from '@wordpress/data';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 // @ts-ignore No types for this exist yet.
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 // @ts-ignore No types for this exist yet.
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
 // @ts-ignore No types for this exist yet.
 import { store as editSiteStore } from '@wordpress/edit-site/build-module/store';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ import { useActiveRoute } from './route';
 
 const { RouterProvider } = unlock( routerPrivateApis );
 
-// Set the back button to go to the WooCommerce home page.
+// Set the back button to go to the PooCommerce home page.
 dispatch( editSiteStore ).updateSettings( {
 	__experimentalDashboardLink: getAdminLink( 'admin.php?page=wc-admin' ),
 } );
@@ -38,7 +38,7 @@ export const SettingsEditor = () => {
 			<div style={ { margin: 'auto' } }>
 				{ __(
 					'Please enable Gutenberg version 19.0 or higher for this feature',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</div>
 		);

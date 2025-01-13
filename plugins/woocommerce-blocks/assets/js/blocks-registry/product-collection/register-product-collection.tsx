@@ -4,7 +4,7 @@
  */
 import { BlockVariation } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
-import { EditorBlock } from '@woocommerce/types';
+import { EditorBlock } from '@poocommerce/types';
 import type { ElementType } from '@wordpress/element';
 import type { BlockEditProps, BlockAttributes } from '@wordpress/blocks';
 import {
@@ -12,13 +12,13 @@ import {
 	PreviewState,
 	ProductCollectionAttributes,
 	CoreFilterNames,
-} from '@woocommerce/blocks/product-collection/types';
+} from '@poocommerce/blocks/product-collection/types';
 import {
 	DEFAULT_ATTRIBUTES,
 	INNER_BLOCKS_TEMPLATE,
 	PRODUCT_COLLECTION_BLOCK_NAME as BLOCK_NAME,
 	DEFAULT_QUERY,
-} from '@woocommerce/blocks/product-collection/constants';
+} from '@poocommerce/blocks/product-collection/constants';
 
 export interface ProductCollectionConfig extends BlockVariation {
 	preview?: {
@@ -186,40 +186,40 @@ const isValidCollectionConfig = ( config: ProductCollectionConfig ) => {
 	) {
 		console.warn( 'Invalid timeFrame: timeFrame must be an object.' );
 	}
-	// attributes.query.woocommerceOnSale
+	// attributes.query.poocommerceOnSale
 	if (
-		config.attributes?.query?.woocommerceOnSale !== undefined &&
-		typeof config.attributes.query.woocommerceOnSale !== 'boolean'
+		config.attributes?.query?.poocommerceOnSale !== undefined &&
+		typeof config.attributes.query.poocommerceOnSale !== 'boolean'
 	) {
 		console.warn(
-			'Invalid woocommerceOnSale: woocommerceOnSale must be a boolean.'
+			'Invalid poocommerceOnSale: poocommerceOnSale must be a boolean.'
 		);
 	}
-	// attributes.query.woocommerceStockStatus
+	// attributes.query.poocommerceStockStatus
 	if (
-		config.attributes?.query?.woocommerceStockStatus !== undefined &&
-		! Array.isArray( config.attributes.query.woocommerceStockStatus )
+		config.attributes?.query?.poocommerceStockStatus !== undefined &&
+		! Array.isArray( config.attributes.query.poocommerceStockStatus )
 	) {
 		console.warn(
-			'Invalid woocommerceStockStatus: woocommerceStockStatus must be an array.'
+			'Invalid poocommerceStockStatus: poocommerceStockStatus must be an array.'
 		);
 	}
-	// attributes.query.woocommerceAttributes
+	// attributes.query.poocommerceAttributes
 	if (
-		config.attributes?.query?.woocommerceAttributes !== undefined &&
-		! Array.isArray( config.attributes.query.woocommerceAttributes )
+		config.attributes?.query?.poocommerceAttributes !== undefined &&
+		! Array.isArray( config.attributes.query.poocommerceAttributes )
 	) {
 		console.warn(
-			'Invalid woocommerceAttributes: woocommerceAttributes must be an array.'
+			'Invalid poocommerceAttributes: poocommerceAttributes must be an array.'
 		);
 	}
-	// attributes.query.woocommerceHandPickedProducts
+	// attributes.query.poocommerceHandPickedProducts
 	if (
-		config.attributes?.query?.woocommerceHandPickedProducts !== undefined &&
-		! Array.isArray( config.attributes.query.woocommerceHandPickedProducts )
+		config.attributes?.query?.poocommerceHandPickedProducts !== undefined &&
+		! Array.isArray( config.attributes.query.poocommerceHandPickedProducts )
 	) {
 		console.warn(
-			'Invalid woocommerceHandPickedProducts: woocommerceHandPickedProducts must be an array.'
+			'Invalid poocommerceHandPickedProducts: poocommerceHandPickedProducts must be an array.'
 		);
 	}
 	// attributes.query.priceRange
@@ -397,18 +397,18 @@ export const __experimentalRegisterProductCollection = (
 				...( query.timeFrame !== undefined && {
 					timeFrame: query.timeFrame,
 				} ),
-				...( query.woocommerceOnSale !== undefined && {
-					woocommerceOnSale: query.woocommerceOnSale,
+				...( query.poocommerceOnSale !== undefined && {
+					poocommerceOnSale: query.poocommerceOnSale,
 				} ),
-				...( query.woocommerceStockStatus !== undefined && {
-					woocommerceStockStatus: query.woocommerceStockStatus,
+				...( query.poocommerceStockStatus !== undefined && {
+					poocommerceStockStatus: query.poocommerceStockStatus,
 				} ),
-				...( query.woocommerceAttributes !== undefined && {
-					woocommerceAttributes: query.woocommerceAttributes,
+				...( query.poocommerceAttributes !== undefined && {
+					poocommerceAttributes: query.poocommerceAttributes,
 				} ),
-				...( query.woocommerceHandPickedProducts !== undefined && {
-					woocommerceHandPickedProducts:
-						query.woocommerceHandPickedProducts,
+				...( query.poocommerceHandPickedProducts !== undefined && {
+					poocommerceHandPickedProducts:
+						query.poocommerceHandPickedProducts,
 				} ),
 				...( query.priceRange !== undefined && {
 					priceRange: query.priceRange,

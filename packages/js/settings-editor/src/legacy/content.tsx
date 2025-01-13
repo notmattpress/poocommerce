@@ -26,7 +26,7 @@ export const LegacyContent = ( {
 
 	return (
 		<form id="mainform">
-			<div className="woocommerce-settings-content">
+			<div className="poocommerce-settings-content">
 				{ section.settings.map( ( data, index ) => {
 					const key = `${ data.type }-${ index }`;
 
@@ -51,9 +51,9 @@ export const LegacyContent = ( {
 					);
 				} ) }
 			</div>
-			<div className="woocommerce-settings-content-footer">
+			<div className="poocommerce-settings-content-footer">
 				<Button variant="primary">
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 		</form>

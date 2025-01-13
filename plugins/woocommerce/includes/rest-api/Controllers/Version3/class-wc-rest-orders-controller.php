@@ -4,21 +4,21 @@
  *
  * Handles requests to the /orders endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    2.6.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * REST API Orders controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Orders_V2_Controller
  */
 class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
@@ -59,12 +59,12 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 
 		foreach ( $request['coupon_lines'] as $item ) {
 			if ( ! empty( $item['id'] ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_coupon_item_id_readonly', __( 'Coupon item ID is readonly.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_coupon_item_id_readonly', __( 'Coupon item ID is readonly.', 'poocommerce' ), 400 );
 			}
 
 			$coupon_code = ArrayUtil::get_value_or_default( $item, 'code' );
 			if ( StringUtil::is_null_or_whitespace( $coupon_code ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_invalid_coupon', __( 'Coupon code is required.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_invalid_coupon', __( 'Coupon code is required.', 'poocommerce' ), 400 );
 			}
 
 			$coupon_code = wc_format_coupon_code( wc_clean( $coupon_code ) );
@@ -74,7 +74,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 			if ( ! in_array( $coupon_code, $current_order_coupon_codes, true ) ) {
 				$check_result = $discounts->is_coupon_valid( $coupon );
 				if ( is_wp_error( $check_result ) ) {
-					throw new WC_REST_Exception( 'woocommerce_rest_' . $check_result->get_error_code(), $check_result->get_error_message(), 400 );
+					throw new WC_REST_Exception( 'poocommerce_rest_' . $check_result->get_error_code(), $check_result->get_error_message(), 400 );
 				}
 			}
 
@@ -91,7 +91,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 			$results = $order->apply_coupon( $new_coupon );
 
 			if ( is_wp_error( $results ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_' . $results->get_error_code(), $results->get_error_message(), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_' . $results->get_error_code(), $results->get_error_message(), 400 );
 			}
 		}
 
@@ -169,7 +169,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 		 * @param WP_REST_Request $request  Request object.
 		 * @param bool            $creating If is creating a new object.
 		 */
-		return apply_filters( "woocommerce_rest_pre_insert_{$this->post_type}_object", $order, $request, $creating );
+		return apply_filters( "poocommerce_rest_pre_insert_{$this->post_type}_object", $order, $request, $creating );
 	}
 
 	/**
@@ -213,8 +213,8 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 
 		if ( ! $item ) {
 			throw new WC_REST_Exception(
-				'woocommerce_rest_invalid_item_id',
-				esc_html__( 'Order item ID provided is not associated with order.', 'woocommerce' ),
+				'poocommerce_rest_invalid_item_id',
+				esc_html__( 'Order item ID provided is not associated with order.', 'poocommerce' ),
 				400
 			);
 		}
@@ -231,7 +231,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 		 *
 		 * @since 9.3.0.
 		 */
-		do_action( 'woocommerce_rest_remove_order_item', $item );
+		do_action( 'poocommerce_rest_remove_order_item', $item );
 
 		$order->remove_item( $item_id );
 	}
@@ -259,7 +259,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 			if ( ! is_null( $request['customer_id'] ) && 0 !== $request['customer_id'] ) {
 				// Make sure customer exists.
 				if ( false === get_user_by( 'id', $request['customer_id'] ) ) {
-					throw new WC_REST_Exception( 'woocommerce_rest_invalid_customer_id', __( 'Customer ID is invalid.', 'woocommerce' ), 400 );
+					throw new WC_REST_Exception( 'poocommerce_rest_invalid_customer_id', __( 'Customer ID is invalid.', 'poocommerce' ), 400 );
 				}
 
 				// Make sure customer is part of blog.
@@ -270,7 +270,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 
 			if ( $creating ) {
 				$object->set_created_via( 'rest-api' );
-				$object->set_prices_include_tax( 'yes' === get_option( 'woocommerce_prices_include_tax' ) );
+				$object->set_prices_include_tax( 'yes' === get_option( 'poocommerce_prices_include_tax' ) );
 				$object->save();
 				$object->calculate_totals();
 			} else {
@@ -351,7 +351,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 
 		$schema['properties']['manual_update'] = array(
 			'default'     => false,
-			'description' => __( 'Set the action as manual so that the order note registers as "added by user".', 'woocommerce' ),
+			'description' => __( 'Set the action as manual so that the order note registers as "added by user".', 'poocommerce' ),
 			'type'        => 'boolean',
 			'context'     => array( 'edit' ),
 		);
@@ -371,12 +371,12 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 	 */
 	private function add_cogs_related_schema( array $schema ): array {
 		$schema['properties']['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Total value of the Cost of Goods Sold for the order.', 'woocommerce' ),
+					'description' => __( 'Total value of the Cost of Goods Sold for the order.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
@@ -385,12 +385,12 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 		);
 
 		$schema['properties']['line_items']['items']['properties']['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data. Only present for product line items.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data. Only present for product line items.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Value of the Cost of Goods Sold for the order item.', 'woocommerce' ),
+					'description' => __( 'Value of the Cost of Goods Sold for the order item.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
@@ -411,7 +411,7 @@ class WC_REST_Orders_Controller extends WC_REST_Orders_V2_Controller {
 
 		$params['status'] = array(
 			'default'           => 'any',
-			'description'       => __( 'Limit result set to orders which have specific statuses.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to orders which have specific statuses.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'string',

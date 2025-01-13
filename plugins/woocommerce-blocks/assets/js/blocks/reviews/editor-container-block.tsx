@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { debounce } from '@woocommerce/base-utils';
+import { debounce } from '@poocommerce/base-utils';
 import { Placeholder } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
-import { EditorContainerBlockProps } from '@woocommerce/blocks/reviews/types';
+import { EditorContainerBlockProps } from '@poocommerce/blocks/reviews/types';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ const EditorContainerBlock = ( {
 			<Placeholder icon={ icon } label={ name }>
 				{ __(
 					'The content for this block is hidden due to block settings.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Placeholder>
 		);

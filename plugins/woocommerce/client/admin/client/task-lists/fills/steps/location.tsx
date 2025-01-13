@@ -3,9 +3,9 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { COUNTRIES_STORE_NAME } from '@woocommerce/data';
+import { COUNTRIES_STORE_NAME } from '@poocommerce/data';
 import { Fragment, useState } from '@wordpress/element';
-import { Form, FormContextType, Spinner } from '@woocommerce/components';
+import { Form, FormContextType, Spinner } from '@poocommerce/components';
 import { useSelect } from '@wordpress/data';
 import type { Status, Options } from 'wordpress__notices';
 
@@ -64,7 +64,7 @@ const StoreLocation = ( {
 	isSettingsRequesting,
 	updateAndPersistSettingsForGroup,
 	settings,
-	buttonText = __( 'Continue', 'woocommerce' ),
+	buttonText = __( 'Continue', 'poocommerce' ),
 	validate = defaultValidate,
 }: StoreLocationProps ) => {
 	const { hasFinishedResolution } = useSelect( ( select ) => {
@@ -85,11 +85,11 @@ const StoreLocation = ( {
 			await updateAndPersistSettingsForGroup( 'general', {
 				general: {
 					...settings,
-					woocommerce_store_address: values.addressLine1,
-					woocommerce_store_address_2: values.addressLine2,
-					woocommerce_default_country: values.countryState,
-					woocommerce_store_city: values.city,
-					woocommerce_store_postcode: values.postCode,
+					poocommerce_store_address: values.addressLine1,
+					poocommerce_store_address_2: values.addressLine2,
+					poocommerce_default_country: values.countryState,
+					poocommerce_store_city: values.city,
+					poocommerce_store_postcode: values.postCode,
 				},
 			} );
 
@@ -102,7 +102,7 @@ const StoreLocation = ( {
 				'error',
 				__(
 					'There was a problem saving your store location',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}
@@ -110,11 +110,11 @@ const StoreLocation = ( {
 
 	const getInitialValues = () => {
 		return {
-			addressLine1: settings?.woocommerce_store_address || '',
-			addressLine2: settings?.woocommerce_store_address_2 || '',
-			city: settings?.woocommerce_store_city || '',
-			countryState: settings?.woocommerce_default_country || '',
-			postCode: settings?.woocommerce_store_postcode || '',
+			addressLine1: settings?.poocommerce_store_address || '',
+			addressLine2: settings?.poocommerce_store_address_2 || '',
+			city: settings?.poocommerce_store_city || '',
+			countryState: settings?.poocommerce_default_country || '',
+			postCode: settings?.poocommerce_store_postcode || '',
 		};
 	};
 

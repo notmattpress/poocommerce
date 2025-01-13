@@ -15,9 +15,9 @@ import { Disabled, Popover } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { noop } from 'lodash';
 import { __ } from '@wordpress/i18n';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import clsx from 'clsx';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error No types for this exist yet.
 	__unstableEditorStyles as EditorStyles,
@@ -29,7 +29,7 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
 
 /**
@@ -127,7 +127,7 @@ function ScaledBlockPreview( {
 	const { setSelectedBlockRef } = useContext( SelectedBlockContext );
 
 	const selectedBlockClientId = useSelect( ( select ) => {
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const block = select( blockEditorStore ).getSelectedBlock();
 
 		return block?.clientId;
@@ -216,12 +216,12 @@ function ScaledBlockPreview( {
 						anchor={ virtualElement }
 						as="div"
 						variant="unstyled"
-						className="components-tooltip woocommerce-customize-store_popover-tooltip"
+						className="components-tooltip poocommerce-customize-store_popover-tooltip"
 					>
 						<span>
 							{ __(
 								'You can edit your content later in the Editor',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 					</Popover>
@@ -229,7 +229,7 @@ function ScaledBlockPreview( {
 			<DisabledProvider value={ true }>
 				<div
 					className={ clsx( 'block-editor-block-preview__content', {
-						'woocommerce-customize-store-assembler':
+						'poocommerce-customize-store-assembler':
 							! isPatternPreview,
 					} ) }
 					style={

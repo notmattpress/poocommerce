@@ -3,7 +3,7 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import { __experimentalGrid as Grid, Spinner } from '@wordpress/components';
@@ -21,13 +21,13 @@ export const ColorPalette = () => {
 		const { getOption, hasFinishedResolution } =
 			select( OPTIONS_STORE_NAME );
 		return {
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			aiSuggestions: getOption(
-				'woocommerce_customize_store_ai_suggestions'
+				'poocommerce_customize_store_ai_suggestions'
 			) as { defaultColorPalette: ColorPaletteResponse },
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			isLoading: ! hasFinishedResolution( 'getOption', [
-				'woocommerce_customize_store_ai_suggestions',
+				'poocommerce_customize_store_ai_suggestions',
 			] ),
 		};
 	}, [] );
@@ -63,7 +63,7 @@ export const ColorPalette = () => {
 
 	if ( isLoading ) {
 		return (
-			<div className="woocommerce-customize-store_color-palette-spinner-container">
+			<div className="poocommerce-customize-store_color-palette-spinner-container">
 				<Spinner />
 			</div>
 		);
@@ -72,7 +72,7 @@ export const ColorPalette = () => {
 	return (
 		<Grid
 			columns={ 3 }
-			className="woocommerce-customize-store_color-palette-container"
+			className="poocommerce-customize-store_color-palette-container"
 		>
 			{ colorPalettes?.map( ( variation, index ) => (
 				<VariationContainer key={ index } variation={ variation }>

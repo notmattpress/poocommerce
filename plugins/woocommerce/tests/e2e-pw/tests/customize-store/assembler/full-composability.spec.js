@@ -48,14 +48,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_customize_store_onboarding_tour_hidden',
+					'poocommerce_customize_store_onboarding_tour_hidden',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_allow_tracking',
+					'poocommerce_allow_tracking',
 					'no'
 				);
 			} catch ( error ) {
@@ -77,20 +77,20 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_customize_store_onboarding_tour_hidden',
+					'poocommerce_customize_store_onboarding_tour_hidden',
 					'no'
 				);
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_allow_tracking',
+					'poocommerce_allow_tracking',
 					'no'
 				);
 
@@ -108,7 +108,7 @@ test.describe(
 				const assembler = await pageObject.getAssembler();
 
 				const categories = assembler.locator(
-					'.woocommerce-customize-store__sidebar-homepage-content .components-item-group'
+					'.poocommerce-customize-store__sidebar-homepage-content .components-item-group'
 				);
 
 				await expect( categories ).toHaveCount( 6 );
@@ -125,7 +125,7 @@ test.describe(
 			await expect(
 				await assembler
 					.locator(
-						'.woocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__header'
+						'.poocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__header'
 					)
 					.textContent()
 			).toContain( 'Intro' );
@@ -140,7 +140,7 @@ test.describe(
 
 			const categories = await assembler
 				.locator(
-					'.woocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-label-container > span:first-child'
+					'.poocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-label-container > span:first-child'
 				)
 				.all();
 
@@ -149,13 +149,13 @@ test.describe(
 				await category.click();
 
 				const sidebar = assembler.locator(
-					'.woocommerce-customize-store-edit-site-layout__sidebar-extra'
+					'.poocommerce-customize-store-edit-site-layout__sidebar-extra'
 				);
 				await expect( sidebar ).toBeVisible();
 
 				const sidebarTitle = await sidebar
 					.locator(
-						'.woocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__header'
+						'.poocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__header'
 					)
 					.textContent();
 

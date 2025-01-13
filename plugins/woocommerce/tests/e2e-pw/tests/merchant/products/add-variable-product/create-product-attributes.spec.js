@@ -133,7 +133,7 @@ test.describe( 'Add product attributes', { tag: tags.GUTENBERG }, () => {
 				response
 					.url()
 					.includes(
-						'options=woocommerce_task_list_reminder_bar_hidden'
+						'options=poocommerce_task_list_reminder_bar_hidden'
 					)
 			);
 			await page

@@ -3,7 +3,7 @@
  * Personal data erasers.
  *
  * @since 3.4.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -41,29 +41,29 @@ class WC_Privacy_Erasers {
 		}
 
 		$props_to_erase = apply_filters(
-			'woocommerce_privacy_erase_customer_personal_data_props',
+			'poocommerce_privacy_erase_customer_personal_data_props',
 			array(
-				'billing_first_name'  => __( 'Billing First Name', 'woocommerce' ),
-				'billing_last_name'   => __( 'Billing Last Name', 'woocommerce' ),
-				'billing_company'     => __( 'Billing Company', 'woocommerce' ),
-				'billing_address_1'   => __( 'Billing Address 1', 'woocommerce' ),
-				'billing_address_2'   => __( 'Billing Address 2', 'woocommerce' ),
-				'billing_city'        => __( 'Billing City', 'woocommerce' ),
-				'billing_postcode'    => __( 'Billing Postal/Zip Code', 'woocommerce' ),
-				'billing_state'       => __( 'Billing State', 'woocommerce' ),
-				'billing_country'     => __( 'Billing Country / Region', 'woocommerce' ),
-				'billing_phone'       => __( 'Billing Phone Number', 'woocommerce' ),
-				'billing_email'       => __( 'Email Address', 'woocommerce' ),
-				'shipping_first_name' => __( 'Shipping First Name', 'woocommerce' ),
-				'shipping_last_name'  => __( 'Shipping Last Name', 'woocommerce' ),
-				'shipping_company'    => __( 'Shipping Company', 'woocommerce' ),
-				'shipping_address_1'  => __( 'Shipping Address 1', 'woocommerce' ),
-				'shipping_address_2'  => __( 'Shipping Address 2', 'woocommerce' ),
-				'shipping_city'       => __( 'Shipping City', 'woocommerce' ),
-				'shipping_postcode'   => __( 'Shipping Postal/Zip Code', 'woocommerce' ),
-				'shipping_state'      => __( 'Shipping State', 'woocommerce' ),
-				'shipping_country'    => __( 'Shipping Country / Region', 'woocommerce' ),
-				'shipping_phone'      => __( 'Shipping Phone Number', 'woocommerce' ),
+				'billing_first_name'  => __( 'Billing First Name', 'poocommerce' ),
+				'billing_last_name'   => __( 'Billing Last Name', 'poocommerce' ),
+				'billing_company'     => __( 'Billing Company', 'poocommerce' ),
+				'billing_address_1'   => __( 'Billing Address 1', 'poocommerce' ),
+				'billing_address_2'   => __( 'Billing Address 2', 'poocommerce' ),
+				'billing_city'        => __( 'Billing City', 'poocommerce' ),
+				'billing_postcode'    => __( 'Billing Postal/Zip Code', 'poocommerce' ),
+				'billing_state'       => __( 'Billing State', 'poocommerce' ),
+				'billing_country'     => __( 'Billing Country / Region', 'poocommerce' ),
+				'billing_phone'       => __( 'Billing Phone Number', 'poocommerce' ),
+				'billing_email'       => __( 'Email Address', 'poocommerce' ),
+				'shipping_first_name' => __( 'Shipping First Name', 'poocommerce' ),
+				'shipping_last_name'  => __( 'Shipping Last Name', 'poocommerce' ),
+				'shipping_company'    => __( 'Shipping Company', 'poocommerce' ),
+				'shipping_address_1'  => __( 'Shipping Address 1', 'poocommerce' ),
+				'shipping_address_2'  => __( 'Shipping Address 2', 'poocommerce' ),
+				'shipping_city'       => __( 'Shipping City', 'poocommerce' ),
+				'shipping_postcode'   => __( 'Shipping Postal/Zip Code', 'poocommerce' ),
+				'shipping_state'      => __( 'Shipping State', 'poocommerce' ),
+				'shipping_country'    => __( 'Shipping Country / Region', 'poocommerce' ),
+				'shipping_phone'      => __( 'Shipping Phone Number', 'poocommerce' ),
 			),
 			$customer
 		);
@@ -80,11 +80,11 @@ class WC_Privacy_Erasers {
 				}
 			}
 
-			$erased = apply_filters( 'woocommerce_privacy_erase_customer_personal_data_prop', $erased, $prop, $customer );
+			$erased = apply_filters( 'poocommerce_privacy_erase_customer_personal_data_prop', $erased, $prop, $customer );
 
 			if ( $erased ) {
 				/* Translators: %s Prop name. */
-				$response['messages'][]    = sprintf( __( 'Removed customer "%s"', 'woocommerce' ), $label );
+				$response['messages'][]    = sprintf( __( 'Removed customer "%s"', 'poocommerce' ), $label );
 				$response['items_removed'] = true;
 			}
 		}
@@ -98,11 +98,11 @@ class WC_Privacy_Erasers {
 		 * @param array    $response Array response data. Must include messages, num_items_removed, num_items_retained, done.
 		 * @param WC_Order $order A customer object.
 		 */
-		return apply_filters( 'woocommerce_privacy_erase_personal_data_customer', $response, $customer );
+		return apply_filters( 'poocommerce_privacy_erase_personal_data_customer', $response, $customer );
 	}
 
 	/**
-	 * Finds and erases data which could be used to identify a person from WooCommerce data associated with an email address.
+	 * Finds and erases data which could be used to identify a person from PooCommerce data associated with an email address.
 	 *
 	 * Orders are erased in blocks of 10 to avoid timeouts.
 	 *
@@ -114,7 +114,7 @@ class WC_Privacy_Erasers {
 	public static function order_data_eraser( $email_address, $page ) {
 		$page            = (int) $page;
 		$user            = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
-		$erasure_enabled = wc_string_to_bool( get_option( 'woocommerce_erasure_request_removes_order_data', 'no' ) );
+		$erasure_enabled = wc_string_to_bool( get_option( 'poocommerce_erasure_request_removes_order_data', 'no' ) );
 		$response        = array(
 			'items_removed'  => false,
 			'items_retained' => false,
@@ -136,15 +136,15 @@ class WC_Privacy_Erasers {
 
 		if ( 0 < count( $orders ) ) {
 			foreach ( $orders as $order ) {
-				if ( apply_filters( 'woocommerce_privacy_erase_order_personal_data', $erasure_enabled, $order ) ) {
+				if ( apply_filters( 'poocommerce_privacy_erase_order_personal_data', $erasure_enabled, $order ) ) {
 					self::remove_order_personal_data( $order );
 
 					/* Translators: %s Order number. */
-					$response['messages'][]    = sprintf( __( 'Removed personal data from order %s.', 'woocommerce' ), $order->get_order_number() );
+					$response['messages'][]    = sprintf( __( 'Removed personal data from order %s.', 'poocommerce' ), $order->get_order_number() );
 					$response['items_removed'] = true;
 				} else {
 					/* Translators: %s Order number. */
-					$response['messages'][]     = sprintf( __( 'Personal data within order %s has been retained.', 'woocommerce' ), $order->get_order_number() );
+					$response['messages'][]     = sprintf( __( 'Personal data within order %s has been retained.', 'poocommerce' ), $order->get_order_number() );
 					$response['items_retained'] = true;
 				}
 			}
@@ -167,7 +167,7 @@ class WC_Privacy_Erasers {
 	public static function download_data_eraser( $email_address, $page ) {
 		$page            = (int) $page;
 		$user            = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
-		$erasure_enabled = wc_string_to_bool( get_option( 'woocommerce_erasure_request_removes_download_data', 'no' ) );
+		$erasure_enabled = wc_string_to_bool( get_option( 'poocommerce_erasure_request_removes_download_data', 'no' ) );
 		$response        = array(
 			'items_removed'  => false,
 			'items_retained' => false,
@@ -190,18 +190,18 @@ class WC_Privacy_Erasers {
 		$customer_download_data_store = WC_Data_Store::load( 'customer-download' );
 
 		// Revoke download permissions.
-		if ( apply_filters( 'woocommerce_privacy_erase_download_personal_data', $erasure_enabled, $email_address ) ) {
+		if ( apply_filters( 'poocommerce_privacy_erase_download_personal_data', $erasure_enabled, $email_address ) ) {
 			if ( $user instanceof WP_User ) {
 				$result = $customer_download_data_store->delete_by_user_id( (int) $user->ID );
 			} else {
 				$result = $customer_download_data_store->delete_by_user_email( $email_address );
 			}
 			if ( $result ) {
-				$response['messages'][]    = __( 'Removed access to downloadable files.', 'woocommerce' );
+				$response['messages'][]    = __( 'Removed access to downloadable files.', 'poocommerce' );
 				$response['items_removed'] = true;
 			}
 		} else {
-			$response['messages'][]     = __( 'Customer download permissions have been retained.', 'woocommerce' );
+			$response['messages'][]     = __( 'Customer download permissions have been retained.', 'poocommerce' );
 			$response['items_retained'] = true;
 		}
 
@@ -209,7 +209,7 @@ class WC_Privacy_Erasers {
 	}
 
 	/**
-	 * Remove personal data specific to WooCommerce from an order object.
+	 * Remove personal data specific to PooCommerce from an order object.
 	 *
 	 * Note; this will hinder order processing for obvious reasons!
 	 *
@@ -224,7 +224,7 @@ class WC_Privacy_Erasers {
 		 * @since 3.4.0
 		 * @param WC_Order $order A customer object.
 		 */
-		do_action( 'woocommerce_privacy_before_remove_order_personal_data', $order );
+		do_action( 'poocommerce_privacy_before_remove_order_personal_data', $order );
 
 		/**
 		 * Expose props and data types we'll be anonymizing.
@@ -234,7 +234,7 @@ class WC_Privacy_Erasers {
 		 * @param WC_Order $order A customer object.
 		 */
 		$props_to_remove = apply_filters(
-			'woocommerce_privacy_remove_order_personal_data_props',
+			'poocommerce_privacy_remove_order_personal_data_props',
 			array(
 				'customer_ip_address' => 'ip',
 				'customer_user_agent' => 'text',
@@ -287,7 +287,7 @@ class WC_Privacy_Erasers {
 				 * @param string   $data_type Type of data.
 				 * @param WC_Order $order An order object.
 				 */
-				$anonymized_data[ $prop ] = apply_filters( 'woocommerce_privacy_remove_order_personal_data_prop_value', $anon_value, $prop, $value, $data_type, $order );
+				$anonymized_data[ $prop ] = apply_filters( 'poocommerce_privacy_remove_order_personal_data_prop_value', $anon_value, $prop, $value, $data_type, $order );
 			}
 		}
 
@@ -296,7 +296,7 @@ class WC_Privacy_Erasers {
 
 		// Remove meta data.
 		$meta_to_remove = apply_filters(
-			'woocommerce_privacy_remove_order_personal_data_meta',
+			'poocommerce_privacy_remove_order_personal_data_meta',
 			array(
 				'Payer first name'     => 'text',
 				'Payer last name'      => 'text',
@@ -326,7 +326,7 @@ class WC_Privacy_Erasers {
 				 * @param string   $data_type Type of data.
 				 * @param WC_Order $order An order object.
 				 */
-				$anon_value = apply_filters( 'woocommerce_privacy_remove_order_personal_data_meta_value', $anon_value, $meta_key, $value, $data_type, $order );
+				$anon_value = apply_filters( 'poocommerce_privacy_remove_order_personal_data_meta_value', $anon_value, $meta_key, $value, $data_type, $order );
 
 				if ( $anon_value ) {
 					$order->update_meta_data( $meta_key, $anon_value );
@@ -351,7 +351,7 @@ class WC_Privacy_Erasers {
 		}
 
 		// Add note that this event occurred.
-		$order->add_order_note( __( 'Personal data removed.', 'woocommerce' ) );
+		$order->add_order_note( __( 'Personal data removed.', 'poocommerce' ) );
 
 		/**
 		 * Allow extensions to remove their own personal data for this order.
@@ -359,7 +359,7 @@ class WC_Privacy_Erasers {
 		 * @since 3.4.0
 		 * @param WC_Order $order Order instance.
 		 */
-		do_action( 'woocommerce_privacy_remove_order_personal_data', $order );
+		do_action( 'poocommerce_privacy_remove_order_personal_data', $order );
 	}
 
 	/**
@@ -398,7 +398,7 @@ class WC_Privacy_Erasers {
 			WC_Payment_Tokens::delete( $token->get_id() );
 
 			/* Translators: %s Prop name. */
-			$response['messages'][]    = sprintf( __( 'Removed payment token "%d"', 'woocommerce' ), $token->get_id() );
+			$response['messages'][]    = sprintf( __( 'Removed payment token "%d"', 'poocommerce' ), $token->get_id() );
 			$response['items_removed'] = true;
 		}
 
@@ -409,6 +409,6 @@ class WC_Privacy_Erasers {
 		 * @param array $response Array response data. Must include messages, num_items_removed, num_items_retained, done.
 		 * @param array $tokens   Array of tokens.
 		 */
-		return apply_filters( 'woocommerce_privacy_erase_personal_data_tokens', $response, $tokens );
+		return apply_filters( 'poocommerce_privacy_erase_personal_data_tokens', $response, $tokens );
 	}
 }

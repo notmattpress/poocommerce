@@ -152,7 +152,7 @@ export const VariationContainer = ( { variation, children } ) => {
 	if ( variation?.description ) {
 		label = sprintf(
 			/* translators: %1$s: variation title. %2$s variation description. */
-			__( '%1$s (%2$s)', 'woocommerce' ),
+			__( '%1$s (%2$s)', 'poocommerce' ),
 			variation?.title,
 			variation?.description
 		);
@@ -168,7 +168,7 @@ export const VariationContainer = ( { variation, children } ) => {
 			<GlobalStylesContext.Provider value={ context }>
 				<div
 					className={ clsx(
-						'woocommerce-customize-store_global-styles-variations_item',
+						'poocommerce-customize-store_global-styles-variations_item',
 						{
 							'is-active': isActive,
 						}
@@ -180,7 +180,7 @@ export const VariationContainer = ( { variation, children } ) => {
 					aria-label={ label }
 					aria-current={ isActive }
 				>
-					<div className="woocommerce-customize-store_global-styles-variations_item-preview">
+					<div className="poocommerce-customize-store_global-styles-variations_item-preview">
 						{ children }
 					</div>
 				</div>

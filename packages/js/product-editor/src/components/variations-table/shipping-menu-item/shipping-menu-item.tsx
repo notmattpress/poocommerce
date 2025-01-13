@@ -5,8 +5,8 @@ import { Dropdown, MenuItem, MenuGroup } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { chevronRight } from '@wordpress/icons';
-import { ProductVariation } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { ProductVariation } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ export function ShippingMenuItem( {
 					icon={ chevronRight }
 					iconPosition="right"
 				>
-					{ __( 'Shipping', 'woocommerce' ) }
+					{ __( 'Shipping', 'poocommerce' ) }
 				</MenuItem>
 			) }
 			renderContent={ () => (
@@ -90,7 +90,7 @@ export function ShippingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Toggle shipping', 'woocommerce' ) }
+							{ __( 'Toggle shipping', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -120,7 +120,7 @@ export function ShippingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Set length', 'woocommerce' ) }
+							{ __( 'Set length', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -150,7 +150,7 @@ export function ShippingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Set width', 'woocommerce' ) }
+							{ __( 'Set width', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -180,7 +180,7 @@ export function ShippingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Set height', 'woocommerce' ) }
+							{ __( 'Set height', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -213,7 +213,7 @@ export function ShippingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Set weight', 'woocommerce' ) }
+							{ __( 'Set weight', 'poocommerce' ) }
 						</MenuItem>
 					</MenuGroup>
 					<VariationQuickUpdateMenuItem.Slot

@@ -2,10 +2,10 @@
 /**
  * Test WC_Shortcode_Products
  *
- * @package WooCommerce\Tests\Shortcodes
+ * @package PooCommerce\Tests\Shortcodes
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Class WC_Test_Shortcode_Products.

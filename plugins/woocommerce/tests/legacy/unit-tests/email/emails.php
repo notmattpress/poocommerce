@@ -1,7 +1,7 @@
 <?php
 /**
  * Test for the email class.
- * @package WooCommerce\Tests\Emails
+ * @package PooCommerce\Tests\Emails
  */
 
 /**

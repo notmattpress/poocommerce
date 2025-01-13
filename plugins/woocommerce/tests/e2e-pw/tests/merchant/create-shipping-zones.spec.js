@@ -1,6 +1,6 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const maynePostal = 'V0N 2J0';
 const shippingZoneNameUSRegion = 'USA Zone';
@@ -9,7 +9,7 @@ const shippingZoneNameFreeShip = 'BC with Free shipping';
 const shippingZoneNameLocalPickup = 'Mayne Island with Local pickup';
 
 test.describe(
-	'WooCommerce Shipping Settings - Add new shipping zone',
+	'PooCommerce Shipping Settings - Add new shipping zone',
 	{ tag: [ tags.SERVICES ] },
 	() => {
 		test.use( { storageState: process.env.ADMINSTATE } );
@@ -22,7 +22,7 @@ test.describe(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_allowed_countries', {
+			await api.put( 'settings/general/poocommerce_allowed_countries', {
 				value: 'all',
 			} );
 		} );
@@ -409,7 +409,7 @@ test.describe(
 					)
 					.click();
 				await page
-					.locator( '#woocommerce_flat_rate_cost' )
+					.locator( '#poocommerce_flat_rate_cost' )
 					.fill( '10' );
 				await page.locator( '#btn-ok' ).click();
 

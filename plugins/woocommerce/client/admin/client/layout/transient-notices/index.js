@@ -3,8 +3,8 @@
  */
 import { applyFilters } from '@wordpress/hooks';
 import clsx from 'clsx';
-import { WooFooterItem } from '@woocommerce/admin-layout';
-import { OPTIONS_STORE_NAME, USER_STORE_NAME } from '@woocommerce/data';
+import { WooFooterItem } from '@poocommerce/admin-layout';
+import { OPTIONS_STORE_NAME, USER_STORE_NAME } from '@poocommerce/data';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
@@ -15,8 +15,8 @@ import { useEffect } from '@wordpress/element';
 import SnackbarList from './snackbar/list';
 import './style.scss';
 
-const QUEUE_OPTION = 'woocommerce_admin_transient_notices_queue';
-const QUEUED_NOTICE_FILTER = 'woocommerce_admin_queued_notice_filter';
+const QUEUE_OPTION = 'poocommerce_admin_transient_notices_queue';
+const QUEUED_NOTICE_FILTER = 'poocommerce_admin_queued_notice_filter';
 
 export function TransientNotices( props ) {
 	const { removeNotice: onRemove } = useDispatch( 'core/notices' );
@@ -59,7 +59,7 @@ export function TransientNotices( props ) {
 			/**
 			 * Filter each transient notice.
 			 *
-			 * @filter woocommerce_admin_queued_notice_filter
+			 * @filter poocommerce_admin_queued_notice_filter
 			 * @param {Object} notice A transient notice.
 			 */
 			const notice = applyFilters( QUEUED_NOTICE_FILTER, queuedNotice );
@@ -83,7 +83,7 @@ export function TransientNotices( props ) {
 
 	const { className } = props;
 	const classes = clsx(
-		'woocommerce-transient-notices',
+		'poocommerce-transient-notices',
 		'components-notices__snackbar',
 		className
 	);

@@ -1,5 +1,5 @@
 // Parent element should hide column when there is no address.
-.woocommerce-order-confirmation-address-wrapper,
+.poocommerce-order-confirmation-address-wrapper,
 .wc-block-order-confirmation-address-wrapper {
 	margin-block-start: $gap-large * 2;
 
@@ -9,10 +9,10 @@
 }
 
 // Prevent margin on the first element in this wrapper.
-.wp-block-woocommerce-order-confirmation-shipping-wrapper > *:first-child {
+.wp-block-poocommerce-order-confirmation-shipping-wrapper > *:first-child {
 	margin-top: 0;
 }
-.wp-block-woocommerce-order-confirmation-shipping-wrapper {
+.wp-block-poocommerce-order-confirmation-shipping-wrapper {
 	.block-editor-block-list__layout > *:first-child {
 		margin-top: 0 !important;
 	}
@@ -36,7 +36,7 @@
 		margin: 0;
 		font-style: normal;
 	}
-	p:not(.woocommerce-customer-details--phone) {
+	p:not(.poocommerce-customer-details--phone) {
 		margin: $gap-smaller 0 0;
 
 		strong {

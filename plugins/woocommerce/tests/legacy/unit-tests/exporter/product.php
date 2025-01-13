@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Meta
- * @package WooCommerce\Tests\Exporter
+ * @package PooCommerce\Tests\Exporter
  */
 class WC_Tests_Product_CSV_Exporter extends WC_Unit_Test_Case {
 
@@ -110,7 +110,7 @@ class WC_Tests_Product_CSV_Exporter extends WC_Unit_Test_Case {
 	 * @since 3.1.0
 	 */
 	public function test_prepare_data_to_export() {
-		add_filter( 'woocommerce_product_export_row_data', array( $this, 'verify_exported_data' ), 10, 2 );
+		add_filter( 'poocommerce_product_export_row_data', array( $this, 'verify_exported_data' ), 10, 2 );
 		$exporter = new WC_Product_CSV_Exporter();
 
 		$product = WC_Helper_Product::create_simple_product();

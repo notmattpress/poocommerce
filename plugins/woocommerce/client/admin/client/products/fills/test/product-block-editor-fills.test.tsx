@@ -3,7 +3,7 @@
  */
 import { render, fireEvent } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ jest.mock( '@wordpress/data', () => ( {
 	...jest.requireActual( '@wordpress/data' ),
 	useSelect: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
 jest.mock( '../more-menu-items', () => ( {
 	...jest.requireActual( '../more-menu-items' ),
 	ClassicEditorMenuItem: jest.fn().mockImplementation( () => <div></div> ),

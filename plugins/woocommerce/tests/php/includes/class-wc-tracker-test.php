@@ -2,12 +2,12 @@
 /**
  * Unit tests for the WC_Tracker class.
  *
- * @package WooCommerce\Tests\WC_Tracker.
+ * @package PooCommerce\Tests\WC_Tracker.
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\PluginUtil;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -22,9 +22,9 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	public function test_wc_admin_disabled_get_tracking_data() {
 		$posted_data = null;
 
-		// Test the case for woocommerce_admin_disabled filter returning true.
+		// Test the case for poocommerce_admin_disabled filter returning true.
 		add_filter(
-			'woocommerce_admin_disabled',
+			'poocommerce_admin_disabled',
 			function( $default ) {
 				return true;
 			}
@@ -42,7 +42,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		WC_Tracker::send_tracking_data( true );
 		$tracking_data = json_decode( $posted_data['body'], true );
 
-		// Test the default case of no filter for set for woocommerce_admin_disabled.
+		// Test the default case of no filter for set for poocommerce_admin_disabled.
 		$this->assertArrayHasKey( 'wc_admin_disabled', $tracking_data );
 		$this->assertEquals( 'yes', $tracking_data['wc_admin_disabled'] );
 	}
@@ -53,7 +53,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	public function test_wc_admin_not_disabled_get_tracking_data() {
 		$posted_data = null;
 		// Bypass time delay so we can invoke send_tracking_data again.
-		update_option( 'woocommerce_tracker_last_send', strtotime( '-2 weeks' ) );
+		update_option( 'poocommerce_tracker_last_send', strtotime( '-2 weeks' ) );
 
 		add_filter(
 			'pre_http_request',
@@ -67,7 +67,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 		WC_Tracker::send_tracking_data( true );
 		$tracking_data = json_decode( $posted_data['body'], true );
 
-		// Test the default case of no filter for set for woocommerce_admin_disabled.
+		// Test the default case of no filter for set for poocommerce_admin_disabled.
 		$this->assertArrayHasKey( 'wc_admin_disabled', $tracking_data );
 		$this->assertEquals( 'no', $tracking_data['wc_admin_disabled'] );
 	}
@@ -97,7 +97,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 
 		$pluginutil_mock = new class() extends PluginUtil {
 			// phpcs:ignore Squiz.Commenting.FunctionComment.Missing
-			public function is_woocommerce_aware_plugin( $plugin ): bool {
+			public function is_poocommerce_aware_plugin( $plugin ): bool {
 				if ( 'plugin1' === $plugin ) {
 					return false;
 				}
@@ -253,7 +253,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 			$this->assertEquals( $order_details['currency'], 'USD' );
 			$this->assertEquals( $order_details['total_amount'], '10.00' );
 			$this->assertEquals( $order_details['recorded_sales'], 'yes' );
-			$this->assertEquals( $order_details['woocommerce_version'], WOOCOMMERCE_VERSION );
+			$this->assertEquals( $order_details['poocommerce_version'], WOOCOMMERCE_VERSION );
 		}
 
 		// Check order rank for last 20 orders.
@@ -263,7 +263,7 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 			$this->assertEquals( $order_details['currency'], 'USD' );
 			$this->assertEquals( $order_details['total_amount'], '10.00' );
 			$this->assertEquals( $order_details['recorded_sales'], 'yes' );
-			$this->assertEquals( $order_details['woocommerce_version'], WOOCOMMERCE_VERSION );
+			$this->assertEquals( $order_details['poocommerce_version'], WOOCOMMERCE_VERSION );
 		}
 	}
 
@@ -288,15 +288,15 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox Test woocommerce_install_admin_timestamp is included in tracking data.
+	 * @testDox Test poocommerce_install_admin_timestamp is included in tracking data.
 	 */
 	public function test_get_tracking_data_admin_install_timestamp() {
 		$time = time();
-		update_option( 'woocommerce_admin_install_timestamp', $time );
+		update_option( 'poocommerce_admin_install_timestamp', $time );
 		$tracking_data = WC_Tracker::get_tracking_data();
 		$this->assertArrayHasKey( 'admin_install_timestamp', $tracking_data['settings'] );
 		$this->assertEquals( $tracking_data['settings']['admin_install_timestamp'], $time );
-		delete_option( 'woocommerce_admin_install_timestamp' );
+		delete_option( 'poocommerce_admin_install_timestamp' );
 	}
 
 	/**
@@ -307,52 +307,52 @@ class WC_Tracker_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox Test woocommerce_allow_tracking related data is included in tracking snapshot.
+	 * @testDox Test poocommerce_allow_tracking related data is included in tracking snapshot.
 	 */
-	public function test_tracking_data_woocommerce_allow_tracking() {
-		$current_woocommerce_allow_tracking = get_option( 'woocommerce_allow_tracking', 'no' );
+	public function test_tracking_data_poocommerce_allow_tracking() {
+		$current_poocommerce_allow_tracking = get_option( 'poocommerce_allow_tracking', 'no' );
 
 		// Clear everything.
-		update_option( 'woocommerce_allow_tracking', 'no' );
-		delete_option( 'woocommerce_allow_tracking_last_modified' );
-		delete_option( 'woocommerce_allow_tracking_first_optin' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
+		delete_option( 'poocommerce_allow_tracking_last_modified' );
+		delete_option( 'poocommerce_allow_tracking_first_optin' );
 
 		$tracking_data = WC_Tracker::get_tracking_data();
-		$this->assertArrayHasKey( 'woocommerce_allow_tracking', $tracking_data );
-		$this->assertArrayHasKey( 'woocommerce_allow_tracking_last_modified', $tracking_data );
-		$this->assertArrayHasKey( 'woocommerce_allow_tracking_first_optin', $tracking_data );
+		$this->assertArrayHasKey( 'poocommerce_allow_tracking', $tracking_data );
+		$this->assertArrayHasKey( 'poocommerce_allow_tracking_last_modified', $tracking_data );
+		$this->assertArrayHasKey( 'poocommerce_allow_tracking_first_optin', $tracking_data );
 
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'no' );
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking_last_modified'], 'unknown' );
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking_first_optin'], 'unknown' );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'no' );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking_last_modified'], 'unknown' );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking_first_optin'], 'unknown' );
 
 		$time_one = time();
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$tracking_data = WC_Tracker::get_tracking_data();
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'yes' );
-		$this->assertTrue( $tracking_data['woocommerce_allow_tracking_last_modified'] >= $time_one );
-		$this->assertTrue( $tracking_data['woocommerce_allow_tracking_first_optin'] >= $time_one );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'yes' );
+		$this->assertTrue( $tracking_data['poocommerce_allow_tracking_last_modified'] >= $time_one );
+		$this->assertTrue( $tracking_data['poocommerce_allow_tracking_first_optin'] >= $time_one );
 
 		sleep( 1 ); // be sure $time_two is at least one second after $time_one.
 		$time_two = time();
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$tracking_data = WC_Tracker::get_tracking_data();
 
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'no' );
-		$this->assertTrue( $tracking_data['woocommerce_allow_tracking_last_modified'] >= $time_two );
-		$this->assertTrue( $tracking_data['woocommerce_allow_tracking_first_optin'] >= $time_one && $tracking_data['woocommerce_allow_tracking_first_optin'] < $time_two );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'no' );
+		$this->assertTrue( $tracking_data['poocommerce_allow_tracking_last_modified'] >= $time_two );
+		$this->assertTrue( $tracking_data['poocommerce_allow_tracking_first_optin'] >= $time_one && $tracking_data['poocommerce_allow_tracking_first_optin'] < $time_two );
 
 		sleep( 1 ); // be sure $time_three is at least one second after $time_two.
 		$time_three = time();
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$tracking_data = WC_Tracker::get_tracking_data();
-		$this->assertEquals( $tracking_data['woocommerce_allow_tracking'], 'yes' );
-		$this->assertTrue( $tracking_data['woocommerce_allow_tracking_last_modified'] >= $time_three );
-		$this->assertTrue( $tracking_data['woocommerce_allow_tracking_first_optin'] >= $time_one && $tracking_data['woocommerce_allow_tracking_first_optin'] < $time_two );
+		$this->assertEquals( $tracking_data['poocommerce_allow_tracking'], 'yes' );
+		$this->assertTrue( $tracking_data['poocommerce_allow_tracking_last_modified'] >= $time_three );
+		$this->assertTrue( $tracking_data['poocommerce_allow_tracking_first_optin'] >= $time_one && $tracking_data['poocommerce_allow_tracking_first_optin'] < $time_two );
 
 		// Restore everything as it was.
-		update_option( 'woocommerce_allow_tracking', $current_woocommerce_allow_tracking );
-		delete_option( 'woocommerce_allow_tracking_last_modified' );
-		delete_option( 'woocommerce_allow_tracking_first_optin' );
+		update_option( 'poocommerce_allow_tracking', $current_poocommerce_allow_tracking );
+		delete_option( 'poocommerce_allow_tracking_last_modified' );
+		delete_option( 'poocommerce_allow_tracking_first_optin' );
 	}
 }

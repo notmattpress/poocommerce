@@ -4,7 +4,7 @@ tags: reference
 ---
 ## Overview
 
-We have a number of [WP-CLI commands](https://developer.woocommerce.com/docs/category/wc-cli/) that can be used to manage HPOS-related functionality, all of which live under the `wp wc hpos` namespace (though you may come across blog posts and older documentation referencing the now-deprecated `wp wc cot` namespace).
+We have a number of [WP-CLI commands](https://developer.poocommerce.com/docs/category/wc-cli/) that can be used to manage HPOS-related functionality, all of which live under the `wp wc hpos` namespace (though you may come across blog posts and older documentation referencing the now-deprecated `wp wc cot` namespace).
 
 The following table provides an overview of what each command does, while more details and examples can be found below.
 
@@ -110,7 +110,7 @@ Success: 999 orders were synced in 14 seconds.
 
 ### `wc hpos verify_data`
 
-Use this command to check that order data in both the legacy (posts) datastore and HPOS is in sync. This is only relevant if you have "compatibility mode" enabled and orders might've been modified outside of the usual WooCommerce flows.
+Use this command to check that order data in both the legacy (posts) datastore and HPOS is in sync. This is only relevant if you have "compatibility mode" enabled and orders might've been modified outside of the usual PooCommerce flows.
 
 This command operates on all orders. For a user friendlier alternative that operates on individual orders, refer to [`wp wc hpos diff`](#wc-hpos-diff).
 

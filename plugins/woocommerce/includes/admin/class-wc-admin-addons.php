@@ -2,13 +2,13 @@
 /**
  * Addons Page
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  2.5.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\RemoteInboxNotifications as PromotionRuleEngine;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\RemoteInboxNotifications as PromotionRuleEngine;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -27,7 +27,7 @@ class WC_Admin_Addons {
 	public static function fetch_featured() {
 		$transient_name = 'wc_addons_featured';
 		// Important: WCCOM Extensions API v3.0 is used.
-		$url      = 'https://woocommerce.com/wp-json/wccom-extensions/3.0/featured';
+		$url      = 'https://poocommerce.com/wp-json/wccom-extensions/3.0/featured';
 		$locale   = get_user_locale();
 		$featured = self::get_locale_data_from_transient( $transient_name, $locale );
 
@@ -40,10 +40,10 @@ class WC_Admin_Addons {
 			$raw_featured  = self::fetch( $url, $fetch_options );
 
 			if ( is_wp_error( $raw_featured ) ) {
-				do_action( 'woocommerce_page_wc-addons_connection_error', $raw_featured->get_error_message() );
+				do_action( 'poocommerce_page_wc-addons_connection_error', $raw_featured->get_error_message() );
 
 				$message = self::is_ssl_error( $raw_featured->get_error_message() )
-					? __( 'We encountered an SSL error. Please ensure your site supports TLS version 1.2 or above.', 'woocommerce' )
+					? __( 'We encountered an SSL error. Please ensure your site supports TLS version 1.2 or above.', 'poocommerce' )
 					: $raw_featured->get_error_message();
 
 				return new WP_Error( 'wc-addons-connection-error', $message );
@@ -51,7 +51,7 @@ class WC_Admin_Addons {
 
 			$response_code = (int) wp_remote_retrieve_response_code( $raw_featured );
 			if ( 200 !== $response_code ) {
-				do_action( 'woocommerce_page_wc-addons_connection_error', $response_code );
+				do_action( 'poocommerce_page_wc-addons_connection_error', $response_code );
 
 				/* translators: %d: HTTP error code. */
 				$message = sprintf(
@@ -59,7 +59,7 @@ class WC_Admin_Addons {
 						/* translators: Error code  */
 						__(
 							'Our request to the featured API got error code %d.',
-							'woocommerce'
+							'poocommerce'
 						)
 					),
 					$response_code
@@ -70,8 +70,8 @@ class WC_Admin_Addons {
 
 			$featured = json_decode( wp_remote_retrieve_body( $raw_featured ) );
 			if ( empty( $featured ) || ! is_array( $featured ) ) {
-				do_action( 'woocommerce_page_wc-addons_connection_error', 'Empty or malformed response' );
-				$message = __( 'Our request to the featured API got a malformed response.', 'woocommerce' );
+				do_action( 'poocommerce_page_wc-addons_connection_error', 'Empty or malformed response' );
+				$message = __( 'Our request to the featured API got a malformed response.', 'poocommerce' );
 
 				return new WP_Error( 'wc-addons-connection-error', $message );
 			}
@@ -106,9 +106,9 @@ class WC_Admin_Addons {
 		if ( false === ( $addon_sections ) ) {
 			$parameter_string = '?' . http_build_query( array( 'locale' => get_user_locale() ) );
 			$raw_sections     = wp_safe_remote_get(
-				'https://woocommerce.com/wp-json/wccom-extensions/1.0/categories' . $parameter_string,
+				'https://poocommerce.com/wp-json/wccom-extensions/1.0/categories' . $parameter_string,
 				array(
-					'user-agent' => 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
+					'user-agent' => 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
 				)
 			);
 			if ( ! is_wp_error( $raw_sections ) ) {
@@ -118,7 +118,7 @@ class WC_Admin_Addons {
 				}
 			}
 		}
-		return apply_filters( 'woocommerce_addons_sections', $addon_sections );
+		return apply_filters( 'poocommerce_addons_sections', $addon_sections );
 	}
 
 	/**
@@ -155,7 +155,7 @@ class WC_Admin_Addons {
 	 * Add in-app-purchase URL params to link.
 	 *
 	 * Adds various url parameters to a url to support a streamlined
-	 * flow for obtaining and setting up WooCommerce extensons.
+	 * flow for obtaining and setting up PooCommerce extensons.
 	 *
 	 * @param string $url    Destination URL.
 	 */
@@ -175,9 +175,9 @@ class WC_Admin_Addons {
 	 * @param string $plugin The plugin the button is promoting.
 	 */
 	public static function output_button( $url, $text, $style, $plugin = '' ) {
-		$style = __( 'Free', 'woocommerce' ) === $text ? 'addons-button-outline-purple' : $style;
+		$style = __( 'Free', 'poocommerce' ) === $text ? 'addons-button-outline-purple' : $style;
 		$style = is_plugin_active( $plugin ) ? 'addons-button-installed' : $style;
-		$text  = is_plugin_active( $plugin ) ? __( 'Installed', 'woocommerce' ) : $text;
+		$text  = is_plugin_active( $plugin ) ? __( 'Installed', 'poocommerce' ) : $text;
 		$url   = self::add_in_app_purchase_url_params( $url );
 		?>
 		<a
@@ -237,10 +237,10 @@ class WC_Admin_Addons {
 	 */
 	public static function filter_admin_body_classes( string $admin_body_class = '' ): string {
 		if ( isset( $_GET['section'] ) && 'helper' === $_GET['section'] ) {
-			return " $admin_body_class woocommerce-page-wc-subscriptions ";
+			return " $admin_body_class poocommerce-page-wc-subscriptions ";
 		}
 
-		return " $admin_body_class woocommerce-page-wc-marketplace ";
+		return " $admin_body_class poocommerce-page-wc-marketplace ";
 	}
 
 	/**
@@ -318,7 +318,7 @@ class WC_Admin_Addons {
 	}
 
 	/**
-	 * Make wp_safe_remote_get request to WooCommerce.com endpoint.
+	 * Make wp_safe_remote_get request to PooCommerce.com endpoint.
 	 * Optionally pass user auth token, locale or country.
 	 *
 	 * @param string $url     URL to request.
@@ -357,7 +357,7 @@ class WC_Admin_Addons {
 			$url . $query_string,
 			array(
 				'headers'    => $headers,
-				'user-agent' => 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
+				'user-agent' => 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' ),
 			)
 		);
 	}

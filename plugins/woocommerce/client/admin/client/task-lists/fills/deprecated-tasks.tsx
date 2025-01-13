@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
 import { useSelect } from '@wordpress/data';
 import {
 	ONBOARDING_STORE_NAME,
 	TaskType,
 	DeprecatedTaskType,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useEffect, useState } from '@wordpress/element';
 
 type MergedTask = TaskType & DeprecatedTaskType;
@@ -58,6 +58,6 @@ const DeprecatedWooOnboardingTaskFills = () => {
 };
 
 registerPlugin( 'wc-admin-deprecated-task-container', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => <DeprecatedWooOnboardingTaskFills />,
 } );

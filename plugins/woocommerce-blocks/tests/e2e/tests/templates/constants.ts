@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Page, Response } from '@playwright/test';
-import type { FrontendUtils } from '@woocommerce/e2e-utils';
+import type { FrontendUtils } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -89,7 +89,7 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 			await frontendUtils.goToShop();
 			await frontendUtils.addToCart();
 			const block = await frontendUtils.getBlockByName(
-				'woocommerce/mini-cart'
+				'poocommerce/mini-cart'
 			);
 			await block.click();
 		},
@@ -129,7 +129,7 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 		// Creating a `checkout-header.html` template part in the theme doesn't
 		// automatically override the checkout header. That's because the
 		// Page: Checkout template still points to the default `checkout-header`
-		// from WooCommerce.
+		// from PooCommerce.
 		canBeOverriddenByThemes: false,
 	},
 	{
@@ -148,4 +148,4 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 	},
 ];
 
-export const WC_TEMPLATES_SLUG = 'woocommerce/woocommerce';
+export const WC_TEMPLATES_SLUG = 'poocommerce/poocommerce';

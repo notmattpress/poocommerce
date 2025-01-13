@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/blob/v16.4.0/packages/edit-site/src/components/site-hub/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -17,8 +17,8 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { forwardRef } from '@wordpress/element';
 // @ts-expect-error No types for this exist yet.
 import SiteIcon from '@wordpress/edit-site/build-module/components/site-icon';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { Link } from '@woocommerce/components';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { Link } from '@poocommerce/components';
 import WordPressLogo from '~/lib/wordpress-logo';
 
 /**
@@ -52,7 +52,7 @@ export const SiteHub = forwardRef<
 			ref={ ref }
 			{ ...restProps }
 			className={ clsx(
-				'woocommerce-edit-site-site-hub',
+				'poocommerce-edit-site-site-hub',
 				restProps.className
 			) }
 			initial={ false }
@@ -65,16 +65,16 @@ export const SiteHub = forwardRef<
 			<HStack
 				justify="space-between"
 				alignment="center"
-				className="woocommerce-edit-site-site-hub__container"
+				className="poocommerce-edit-site-site-hub__container"
 			>
 				<HStack
 					justify="flex-start"
-					className="woocommerce-edit-site-site-hub__text-content"
+					className="poocommerce-edit-site-site-hub__text-content"
 					spacing="0"
 				>
 					<div
 						className={ clsx(
-							'woocommerce-edit-site-site-hub__view-mode-toggle-container',
+							'poocommerce-edit-site-site-hub__view-mode-toggle-container',
 							{
 								'has-transparent-background': isTransparent,
 							}
@@ -87,10 +87,10 @@ export const SiteHub = forwardRef<
 							{ isEntrepreneurFlow() ? (
 								<WordPressLogo
 									size={ 24 }
-									className="woocommerce-cys-wordpress-header-logo"
+									className="poocommerce-cys-wordpress-header-logo"
 								/>
 							) : (
-								<SiteIcon className="woocommerce-edit-site-layout__view-mode-toggle-icon" />
+								<SiteIcon className="poocommerce-edit-site-layout__view-mode-toggle-icon" />
 							) }
 						</Link>
 					</div>
@@ -106,7 +106,7 @@ export const SiteHub = forwardRef<
 									opacity: 0,
 								} }
 								className={ clsx(
-									'woocommerce-edit-site-site-hub__site-title',
+									'poocommerce-edit-site-site-hub__site-title',
 									{ 'is-transparent': isTransparent }
 								) }
 								transition={ {

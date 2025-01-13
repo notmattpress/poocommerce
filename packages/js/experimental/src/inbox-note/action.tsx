@@ -59,7 +59,7 @@ export const InboxNoteActionButton: React.FC< InboxNoteActionProps > = ( {
 	if ( variant === 'link' ) {
 		return (
 			<Button
-				className="woocommerce-inbox-note__action-button"
+				className="poocommerce-inbox-note__action-button"
 				variant={ 'link' }
 				isBusy={ inAction }
 				href={ href ?? '#' }
@@ -72,7 +72,7 @@ export const InboxNoteActionButton: React.FC< InboxNoteActionProps > = ( {
 
 	return (
 		<Button
-			className="woocommerce-inbox-note__action-button"
+			className="poocommerce-inbox-note__action-button"
 			variant={ variant }
 			isBusy={ inAction }
 			disabled={ inAction }

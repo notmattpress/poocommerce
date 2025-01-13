@@ -3,18 +3,18 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button, ExternalLink } from '@wordpress/components';
-import { Pill } from '@woocommerce/components';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
-import { useLayoutContext } from '@woocommerce/admin-layout';
+import { Pill } from '@poocommerce/components';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
+import { useLayoutContext } from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
  */
-import './woocommerce-services-item.scss';
+import './poocommerce-services-item.scss';
 import WooIcon from './woo-icon.svg';
 
-const WooCommerceServicesItem: React.FC< {
+const PooCommerceServicesItem: React.FC< {
 	isWCSInstalled: boolean | undefined;
 } > = ( { isWCSInstalled } ) => {
 	const { layoutString } = useLayoutContext();
@@ -30,39 +30,39 @@ const WooCommerceServicesItem: React.FC< {
 	};
 
 	return (
-		<div className="woocommerce-list__item-inner woocommerce-services-item">
-			<div className="woocommerce-list__item-before">
+		<div className="poocommerce-list__item-inner poocommerce-services-item">
+			<div className="poocommerce-list__item-before">
 				<img
-					className="woocommerce-services-item__logo"
+					className="poocommerce-services-item__logo"
 					src={ WooIcon }
-					alt="WooCommerce Service Logo"
+					alt="PooCommerce Service Logo"
 				/>
 			</div>
-			<div className="woocommerce-list__item-text">
-				<span className="woocommerce-list__item-title">
-					{ __( 'WooCommerce Shipping', 'woocommerce' ) }
-					<Pill>{ __( 'Recommended', 'woocommerce' ) }</Pill>
+			<div className="poocommerce-list__item-text">
+				<span className="poocommerce-list__item-title">
+					{ __( 'PooCommerce Shipping', 'poocommerce' ) }
+					<Pill>{ __( 'Recommended', 'poocommerce' ) }</Pill>
 				</span>
-				<span className="woocommerce-list__item-content">
+				<span className="poocommerce-list__item-content">
 					{ __(
-						'Print USPS and DHL Express labels straight from your WooCommerce dashboard and save on shipping.',
-						'woocommerce'
+						'Print USPS and DHL Express labels straight from your PooCommerce dashboard and save on shipping.',
+						'poocommerce'
 					) }
 					<br />
-					<ExternalLink href="https://woocommerce.com/woocommerce-shipping/">
-						{ __( 'Learn more', 'woocommerce' ) }
+					<ExternalLink href="https://poocommerce.com/poocommerce-shipping/">
+						{ __( 'Learn more', 'poocommerce' ) }
 					</ExternalLink>
 				</span>
 			</div>
-			<div className="woocommerce-list__item-after">
+			<div className="poocommerce-list__item-after">
 				<Button isSecondary onClick={ handleSetupClick }>
 					{ isWCSInstalled
-						? __( 'Activate', 'woocommerce' )
-						: __( 'Get started', 'woocommerce' ) }
+						? __( 'Activate', 'poocommerce' )
+						: __( 'Get started', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>
 	);
 };
 
-export default WooCommerceServicesItem;
+export default PooCommerceServicesItem;

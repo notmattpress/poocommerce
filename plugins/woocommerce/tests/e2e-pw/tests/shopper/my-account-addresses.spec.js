@@ -2,13 +2,13 @@
  * Internal dependencies
  */
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const randomNum = new Date().getTime().toString();
 const customer = {
 	username: `customer${ randomNum }`,
 	password: 'password',
-	email: `customer${ randomNum }@woocommercecoree2etestsuite.com`,
+	email: `customer${ randomNum }@poocommercecoree2etestsuite.com`,
 };
 
 test.describe( 'Customer can manage addresses in My Account > Addresses page', () => {
@@ -48,7 +48,7 @@ test.describe( 'Customer can manage addresses in My Account > Addresses page', (
 			page.getByRole( 'heading', { name: 'Addresses' } )
 		).toBeVisible();
 		await expect(
-			page.locator( '.woocommerce-Address' ).first()
+			page.locator( '.poocommerce-Address' ).first()
 		).toContainText( 'You have not set up this type of address yet.' );
 
 		// go to add billing address
@@ -95,7 +95,7 @@ test.describe( 'Customer can manage addresses in My Account > Addresses page', (
 			page.getByRole( 'heading', { name: 'Addresses' } )
 		).toBeVisible();
 		await expect(
-			page.locator( '.woocommerce-Address' ).nth( 1 )
+			page.locator( '.poocommerce-Address' ).nth( 1 )
 		).toContainText( 'You have not set up this type of address yet.' );
 
 		// go to add shipping address

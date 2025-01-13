@@ -4,11 +4,11 @@
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { useState, useEffect } from '@wordpress/element';
-import { CheckboxControl } from '@woocommerce/blocks-components';
-import { useCheckoutSubmit } from '@woocommerce/base-context/hooks';
+import { CheckboxControl } from '@poocommerce/blocks-components';
+import { useCheckoutSubmit } from '@poocommerce/base-context/hooks';
 import { withInstanceId } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { VALIDATION_STORE_KEY } from '@woocommerce/block-data';
+import { VALIDATION_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ const FrontendBlock = ( {
 				[ validationErrorId ]: {
 					message: __(
 						'Please read and accept the terms and conditions.',
-						'woocommerce'
+						'poocommerce'
 					),
 					hidden: true,
 				},

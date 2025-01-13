@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
-use Automattic\WooCommerce\Internal\Traits\ScriptDebug;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
+use Automattic\PooCommerce\Internal\Traits\ScriptDebug;
 use WP_Error;
 
 /**
@@ -90,16 +90,16 @@ class OrderAttributionBlocksController implements RegisterHooksInterface {
 		$this->extend_schema->register_endpoint_data(
 			array(
 				'endpoint'        => CheckoutSchema::IDENTIFIER,
-				'namespace'       => 'woocommerce/order-attribution',
+				'namespace'       => 'poocommerce/order-attribution',
 				'schema_callback' => $this->get_schema_callback(),
 			)
 		);
 		// Update order based on extended data.
 		add_action(
-			'woocommerce_store_api_checkout_update_order_from_request',
+			'poocommerce_store_api_checkout_update_order_from_request',
 			function ( $order, $request ) {
 				$extensions = $request->get_param( 'extensions' );
-				$params     = $extensions['woocommerce/order-attribution'] ?? array();
+				$params     = $extensions['poocommerce/order-attribution'] ?? array();
 
 				if ( empty( $params ) ) {
 					return;
@@ -113,7 +113,7 @@ class OrderAttributionBlocksController implements RegisterHooksInterface {
 				 * @param WC_Order $order  The order object.
 				 * @param array    $params Unprefixed order attribution data.
 				 */
-				do_action( 'woocommerce_order_save_attribution_data', $order, $params );
+				do_action( 'poocommerce_order_save_attribution_data', $order, $params );
 			},
 			10,
 			2
@@ -136,7 +136,7 @@ class OrderAttributionBlocksController implements RegisterHooksInterface {
 						'api-error',
 						sprintf(
 							/* translators: %s is the property type */
-							esc_html__( 'Value of type %s was posted to the order attribution callback', 'woocommerce' ),
+							esc_html__( 'Value of type %s was posted to the order attribution callback', 'poocommerce' ),
 							gettype( $value )
 						)
 					);
@@ -153,7 +153,7 @@ class OrderAttributionBlocksController implements RegisterHooksInterface {
 				$schema[ $field_name ] = array(
 					'description' => sprintf(
 						/* translators: %s is the field name */
-						__( 'Order attribution field: %s', 'woocommerce' ),
+						__( 'Order attribution field: %s', 'poocommerce' ),
 						esc_html( $field_name )
 					),
 					'type'        => array( 'string', 'null' ),

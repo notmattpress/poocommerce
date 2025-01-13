@@ -1,11 +1,11 @@
 {
 	"name": "compare-perf",
 	"version": "0.0.1",
-	"description": "A tool to compare performance accross tow branches in WooCommerce Monorepo.",
+	"description": "A tool to compare performance accross tow branches in PooCommerce Monorepo.",
 	"author": "Automattic",
-	"homepage": "https://github.com/woocommerce/woocommerce",
+	"homepage": "https://github.com/poocommerce/poocommerce",
 	"license": "GPLv2",
-	"repository": "woocommerce/woocommerce",
+	"repository": "poocommerce/poocommerce",
 	"scripts": {
 		"compare": "node -r ts-node/register index.js",
 		"log": "node log-to-codevitals.js"

@@ -5,7 +5,7 @@
  * Handles requests to the /data/countries endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 

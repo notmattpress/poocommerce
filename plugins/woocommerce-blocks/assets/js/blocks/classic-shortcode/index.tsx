@@ -24,8 +24,8 @@ import { shortcode, Icon } from '@wordpress/icons';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState, createInterpolateElement } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
-import { woo } from '@woocommerce/icons';
-import { findBlock } from '@woocommerce/utils';
+import { woo } from '@poocommerce/icons';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -74,7 +74,7 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 	}, [] );
 
 	return (
-		<TabbableContainer className="wp-block-woocommerce-classic-shortcode__placeholder-migration-button-container">
+		<TabbableContainer className="wp-block-poocommerce-classic-shortcode__placeholder-migration-button-container">
 			<Button
 				variant="primary"
 				onClick={ () => {
@@ -88,16 +88,16 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 					createInfoNotice(
 						__(
 							'Classic shortcode transformed to blocks.',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							actions: [
 								{
-									label: __( 'Undo', 'woocommerce' ),
+									label: __( 'Undo', 'poocommerce' ),
 									onClick: () => {
 										const targetBlocks = [
-											'woocommerce/cart',
-											'woocommerce/checkout',
+											'poocommerce/cart',
+											'poocommerce/checkout',
 										];
 										const cartCheckoutBlock = findBlock( {
 											blocks: getBlocks(),
@@ -114,7 +114,7 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 										replaceBlock(
 											cartCheckoutBlock.clientId,
 											createBlock(
-												'woocommerce/classic-shortcode',
+												'poocommerce/classic-shortcode',
 												{
 													shortcode:
 														attributes.shortcode,
@@ -164,11 +164,11 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 			</Button>
 			<Button
 				variant="secondary"
-				href="https://woocommerce.com/document/woocommerce-store-editing/customizing-cart-and-checkout/"
+				href="https://poocommerce.com/document/poocommerce-store-editing/customizing-cart-and-checkout/"
 				target="_blank"
 				tabIndex={ 0 }
 			>
-				{ __( 'Learn more', 'woocommerce' ) }
+				{ __( 'Learn more', 'poocommerce' ) }
 			</Button>
 		</TabbableContainer>
 	);
@@ -190,38 +190,38 @@ const Edit = ( { clientId, attributes }: BlockEditProps< Attributes > ) => {
 	const canConvert = isConversionPossible();
 	const placeholderTitle = getTitle
 		? getTitle()
-		: __( 'Classic Shortcode Placeholder', 'woocommerce' );
+		: __( 'Classic Shortcode Placeholder', 'poocommerce' );
 	const placeholderDescription = getDescription( templateTitle, canConvert );
 
 	const learnMoreContent = createInterpolateElement(
 		__(
 			'You can learn more about the benefits of switching to blocks, compatibility with extensions, and how to switch back to shortcodes <a>in our documentation</a>.',
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			a: (
 				// Suppress the warning as this <a> will be interpolated into the string with content.
 				// eslint-disable-next-line jsx-a11y/anchor-has-content
-				<ExternalLink href="https://woocommerce.com/document/woocommerce-store-editing/customizing-cart-and-checkout/" />
+				<ExternalLink href="https://poocommerce.com/document/poocommerce-store-editing/customizing-cart-and-checkout/" />
 			),
 		}
 	);
 
 	return (
 		<div { ...blockProps }>
-			<Placeholder className="wp-block-woocommerce-classic-shortcode__placeholder">
-				<div className="wp-block-woocommerce-classic-shortcode__placeholder-wireframe">
+			<Placeholder className="wp-block-poocommerce-classic-shortcode__placeholder">
+				<div className="wp-block-poocommerce-classic-shortcode__placeholder-wireframe">
 					{ templatePlaceholder === 'cart' ? (
 						<CartPlaceholder />
 					) : (
 						<CheckoutPlaceholder />
 					) }
 				</div>
-				<div className="wp-block-woocommerce-classic-shortcode__placeholder-copy">
-					<div className="wp-block-woocommerce-classic-shortcode__placeholder-copy__icon-container">
+				<div className="wp-block-poocommerce-classic-shortcode__placeholder-copy">
+					<div className="wp-block-poocommerce-classic-shortcode__placeholder-copy__icon-container">
 						<span className="woo-icon-wrapper">
 							<Icon icon={ woo } />{ ' ' }
-							{ __( 'WooCommerce', 'woocommerce' ) }
+							{ __( 'PooCommerce', 'poocommerce' ) }
 						</span>
 						<span>{ placeholderTitle }</span>
 					</div>
@@ -264,7 +264,7 @@ const settings = {
 	variations: [
 		{
 			name: 'checkout',
-			title: __( 'Classic Checkout', 'woocommerce' ),
+			title: __( 'Classic Checkout', 'poocommerce' ),
 			attributes: {
 				shortcode: 'checkout',
 			},
@@ -274,7 +274,7 @@ const settings = {
 		},
 		{
 			name: 'cart',
-			title: __( 'Classic Cart', 'woocommerce' ),
+			title: __( 'Classic Cart', 'poocommerce' ),
 			attributes: {
 				shortcode: 'cart',
 			},

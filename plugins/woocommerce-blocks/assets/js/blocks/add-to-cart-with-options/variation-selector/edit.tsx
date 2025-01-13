@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps } from '@wordpress/block-editor';
 import { BlockEditProps } from '@wordpress/blocks';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import {
 	// @ts-expect-error Using experimental features
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -56,7 +56,7 @@ const AddToCartWithOptionsVariationSelectorEdit = (
 						value=""
 						options={ [
 							{
-								label: __( 'Choose an option', 'woocommerce' ),
+								label: __( 'Choose an option', 'poocommerce' ),
 								value: '',
 								disabled: true,
 							},
@@ -73,8 +73,8 @@ const AddToCartWithOptionsVariationSelectorEdit = (
 
 	const renderDefaultVariationSelector = () => {
 		return [
-			__( 'Color', 'woocommerce' ),
-			__( 'Size', 'woocommerce' ),
+			__( 'Color', 'poocommerce' ),
+			__( 'Size', 'poocommerce' ),
 		].map( ( attribute ) => (
 			<div
 				className="wc-block-variation-selector__wrapper"
@@ -90,7 +90,7 @@ const AddToCartWithOptionsVariationSelectorEdit = (
 					value=""
 					options={ [
 						{
-							label: __( 'Choose an option', 'woocommerce' ),
+							label: __( 'Choose an option', 'poocommerce' ),
 							value: '',
 							disabled: true,
 						},

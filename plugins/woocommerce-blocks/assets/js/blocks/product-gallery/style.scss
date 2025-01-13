@@ -155,11 +155,11 @@ $full-height-mobile-admin-bar: calc($full-height-desktop - $admin-bar-mobile-hei
 		width: 100%;
 
 		// Keep the order in this way. The hoverZoom class should override the full-screen-on-click class when both are applied.
-		&.wc-block-woocommerce-product-gallery-large-image__image--full-screen-on-click {
+		&.wc-block-poocommerce-product-gallery-large-image__image--full-screen-on-click {
 			cursor: pointer;
 		}
 
-		&.wc-block-woocommerce-product-gallery-large-image__image--hoverZoom {
+		&.wc-block-poocommerce-product-gallery-large-image__image--hoverZoom {
 			cursor: zoom-in;
 		}
 	}

@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/api-core-tests",
+	"name": "@poocommerce/api-core-tests",
 	"version": "1.0.0",
-	"description": "API tests for WooCommerce",
+	"description": "API tests for PooCommerce",
 	"main": "index.js",
 	"engines": {
 		"node": "^20.11.1",
@@ -18,13 +18,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/woocommerce/woocommerce.git"
+		"url": "git+https://github.com/poocommerce/poocommerce.git"
 	},
 	"license": "GPL-3.0+",
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce#readme",
+	"homepage": "https://github.com/poocommerce/poocommerce#readme",
 	"dependencies": {
 		"allure-commandline": "^2.25.0",
 		"dotenv": "^10.0.0",
@@ -35,7 +35,7 @@
 		"supertest": "^6.3.3"
 	},
 	"devDependencies": {
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "^8.55.0",
 		"wireit": "0.14.3"
 	},

@@ -1,6 +1,6 @@
 const getAppRoot = () => {
 	// Figure out where we're installed.
-	// Typically will be in node_modules/, but WooCommerce
+	// Typically will be in node_modules/, but PooCommerce
 	// uses a local file path (packages/js/e2e-environment).
 	let appPath = false;
 	const dirPath = __dirname;

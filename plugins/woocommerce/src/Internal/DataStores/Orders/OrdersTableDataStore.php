@@ -3,18 +3,18 @@
  * OrdersTableDataStore class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Internal\DataStores\Orders;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Caching\WPCacheEngine;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\EditLock;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Caching\WPCacheEngine;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\EditLock;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use Exception;
 use WC_Abstract_Order;
 use WC_Data;
@@ -30,7 +30,7 @@ class OrdersTableDataStore extends \Abstract_WC_Order_Data_Store_CPT implements 
 	use CogsAwareTrait;
 
 	/**
-	 * Order IDs for which we are checking sync on read in the current request. In WooCommerce, using wc_get_order is a very common pattern, to avoid performance issues, we only sync on read once per request per order. This works because we consider out of sync orders to be an anomaly, so we don't recommend running HPOS with incompatible plugins.
+	 * Order IDs for which we are checking sync on read in the current request. In PooCommerce, using wc_get_order is a very common pattern, to avoid performance issues, we only sync on read once per request per order. This works because we consider out of sync orders to be an anomaly, so we don't recommend running HPOS with incompatible plugins.
 	 *
 	 * @var array
 	 */
@@ -246,7 +246,7 @@ class OrdersTableDataStore extends \Abstract_WC_Order_Data_Store_CPT implements 
 			'addresses'        => self::get_addresses_table_name(),
 			'operational_data' => self::get_operational_data_table_name(),
 			'meta'             => self::get_meta_table_name(),
-			'items'            => $wpdb->prefix . 'woocommerce_order_items',
+			'items'            => $wpdb->prefix . 'poocommerce_order_items',
 		);
 	}
 
@@ -445,7 +445,7 @@ class OrdersTableDataStore extends \Abstract_WC_Order_Data_Store_CPT implements 
 			'type' => 'string',
 			'name' => 'created_via',
 		),
-		'woocommerce_version'         => array(
+		'poocommerce_version'         => array(
 			'type' => 'string',
 			'name' => 'version',
 		),
@@ -668,7 +668,7 @@ class OrdersTableDataStore extends \Abstract_WC_Order_Data_Store_CPT implements 
 		if ( $order->get_id() && is_null( get_post( $order->get_id() ) ) ) {
 			if ( ! $this->maybe_create_backup_post( $order, 'backfill' ) ) {
 				// translators: %d is an order ID.
-				$this->error_logger->warning( sprintf( __( 'Unable to create backup post for order %d.', 'woocommerce' ), $order->get_id() ) );
+				$this->error_logger->warning( sprintf( __( 'Unable to create backup post for order %d.', 'poocommerce' ), $order->get_id() ) );
 				return;
 			}
 		}
@@ -713,7 +713,7 @@ class OrdersTableDataStore extends \Abstract_WC_Order_Data_Store_CPT implements 
 		 *
 		 * @param \WC_Order $order The order object.
 		 */
-		do_action( 'woocommerce_hpos_post_record_backfilled', $order );
+		do_action( 'poocommerce_hpos_post_record_backfilled', $order );
 	}
 
 	/**
@@ -737,9 +737,9 @@ class OrdersTableDataStore extends \Abstract_WC_Order_Data_Store_CPT implements 
 			$hpos_order->add_meta_data( $meta->key, $meta->value );
 		}
 
-		add_filter( 'woocommerce_orders_table_datastore_should_save_after_meta_change', '__return_false' );
+		add_filter( 'poocommerce_orders_table_datastore_should_save_after_meta_change', '__return_false' );
 		$hpos_order->save_meta_data();
-		remove_filter( 'woocommerce_orders_table_datastore_should_save_after_meta_change', '__return_false' );
+		remove_filter( 'poocommerce_orders_table_datastore_should_save_after_meta_change', '__return_false' );
 
 		$db_rows = $this->get_db_rows_for_order( $hpos_order, 'update', true );
 		foreach ( $db_rows as $db_update ) {
@@ -1043,9 +1043,9 @@ WHERE
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $order_table is hardcoded.
 			$wpdb->prepare(
 				"SELECT SUM( order_itemmeta.meta_value )
-				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_itemmeta AS order_itemmeta
 				INNER JOIN $order_table AS orders ON ( orders.type = 'shop_order_refund' AND orders.parent_order_id = %d )
-				INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON ( order_items.order_id = orders.id AND order_items.order_item_type = 'tax' )
+				INNER JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON ( order_items.order_id = orders.id AND order_items.order_item_type = 'tax' )
 				WHERE order_itemmeta.order_item_id = order_items.order_item_id
 				AND order_itemmeta.meta_key IN ('tax_amount', 'shipping_tax_amount')",
 				$order->get_id()
@@ -1071,9 +1071,9 @@ WHERE
 			// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $order_table is hardcoded.
 			$wpdb->prepare(
 				"SELECT SUM( order_itemmeta.meta_value )
-				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_itemmeta AS order_itemmeta
 				INNER JOIN $order_table AS orders ON ( orders.type = 'shop_order_refund' AND orders.parent_order_id = %d )
-				INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON ( order_items.order_id = orders.id AND order_items.order_item_type = 'shipping' )
+				INNER JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON ( order_items.order_id = orders.id AND order_items.order_item_type = 'shipping' )
 				WHERE order_itemmeta.order_item_id = order_items.order_item_id
 				AND order_itemmeta.meta_key IN ('cost')",
 				$order->get_id()
@@ -1193,14 +1193,14 @@ WHERE
 		 * Provides an opportunity to modify the list of order IDs obtained during an order search.
 		 *
 		 * This hook is used for Custom Order Table queries. For Custom Post Type order searches, the corresponding hook
-		 * is `woocommerce_shop_order_search_results`.
+		 * is `poocommerce_shop_order_search_results`.
 		 *
 		 * @since 7.0.0
 		 *
 		 * @param int[]  $order_ids Search results as an array of order IDs.
 		 * @param string $term      The search term.
 		 */
-		return array_map( 'intval', (array) apply_filters( 'woocommerce_cot_shop_order_search_results', $order_ids, $term ) );
+		return array_map( 'intval', (array) apply_filters( 'poocommerce_cot_shop_order_search_results', $order_ids, $term ) );
 	}
 
 	/**
@@ -1313,7 +1313,7 @@ WHERE
 		$data      = $this->get_order_data_for_ids( $order_ids );
 
 		if ( count( $data ) !== count( $order_ids ) ) {
-			throw new \Exception( esc_html__( 'Invalid order IDs in call to read_multiple()', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid order IDs in call to read_multiple()', 'poocommerce' ) );
 		}
 
 		$data_synchronizer = wc_get_container()->get( DataSynchronizer::class );
@@ -1331,7 +1331,7 @@ WHERE
 			 *
 			 * @since 8.1.0
 			 */
-			$data_sync_enabled = apply_filters( 'woocommerce_hpos_enable_sync_on_read', $data_sync_enabled );
+			$data_sync_enabled = apply_filters( 'poocommerce_hpos_enable_sync_on_read', $data_sync_enabled );
 		}
 
 		$load_posts_for = array_diff( $order_ids, array_merge( self::$reading_order_ids, self::$backfilling_order_ids ) );
@@ -1373,7 +1373,7 @@ WHERE
 		 * @param float $cogs_value The value as read from the database.
 		 * @param WC_Abstract_Order $product The order for which the value is being loaded.
 		 */
-		$cogs_value = apply_filters( 'woocommerce_load_order_cogs_value', $cogs_value, $order );
+		$cogs_value = apply_filters( 'poocommerce_load_order_cogs_value', $cogs_value, $order );
 
 		$order->set_cogs_total_value( (float) $cogs_value );
 		$order->apply_changes();
@@ -1532,7 +1532,7 @@ WHERE
 					$this->error_logger->warning(
 						sprintf(
 							/* translators: %1$d order ID. */
-							__( 'Unable to load the post record for order %1$d', 'woocommerce' ),
+							__( 'Unable to load the post record for order %1$d', 'poocommerce' ),
 							$order_id
 						),
 						array(
@@ -1666,7 +1666,7 @@ WHERE
 		 * @param \WC_Order $order The order object.
 		 * @param array     $diff  Difference between HPOS data and post data.
 		 */
-		do_action( 'woocommerce_hpos_post_record_migrated_on_read', $order, $diff );
+		do_action( 'poocommerce_hpos_post_record_migrated_on_read', $order, $diff );
 	}
 
 	/**
@@ -1697,7 +1697,7 @@ WHERE
 					$this->error_logger->warning(
 						sprintf(
 						/* translators: %1$d = peoperty name, %2$d = order ID, %3$s = error message. */
-							__( 'Error when setting property \'%1$s\' for order %2$d: %3$s', 'woocommerce' ),
+							__( 'Error when setting property \'%1$s\' for order %2$d: %3$s', 'poocommerce' ),
 							$prop_details['name'],
 							$order_id,
 							$e->getMessage()
@@ -2022,7 +2022,7 @@ FROM $order_meta_table
 		if ( 'create' === $context ) {
 			$post_id = $this->maybe_create_backup_post( $order, 'create' );
 			if ( ! $post_id ) {
-				throw new \Exception( esc_html__( 'Could not create order in posts table.', 'woocommerce' ) );
+				throw new \Exception( esc_html__( 'Could not create order in posts table.', 'poocommerce' ) );
 			}
 
 			$order->set_id( $post_id );
@@ -2041,7 +2041,7 @@ FROM $order_meta_table
 			$result = $this->persist_db_row( $update );
 			if ( false === $result ) {
 				// translators: %s is a table name.
-				throw new \Exception( esc_html( sprintf( __( 'Could not persist order to database table "%s".', 'woocommerce' ), $update['table'] ) ) );
+				throw new \Exception( esc_html( sprintf( __( 'Could not persist order to database table "%s".', 'poocommerce' ), $update['table'] ) ) );
 			}
 		}
 
@@ -2074,7 +2074,7 @@ FROM $order_meta_table
 		 * @param float|null $cogs_value The value to be written to the database. If returned as null, nothing will be written.
 		 * @param WC_Abstract_Order $item The order for which the value is being saved.
 		 */
-		$cogs_value = apply_filters( 'woocommerce_save_order_cogs_value', $cogs_value, $order );
+		$cogs_value = apply_filters( 'poocommerce_save_order_cogs_value', $cogs_value, $order );
 		if ( is_null( $cogs_value ) ) {
 			return;
 		}
@@ -2189,7 +2189,7 @@ FROM $order_meta_table
 
 			if ( ! $taxonomy_obj ) {
 				/* translators: %s: Taxonomy name. */
-				_doing_it_wrong( __FUNCTION__, esc_html( sprintf( __( 'Invalid taxonomy: %s.', 'woocommerce' ), $taxonomy ) ), '7.9.0' );
+				_doing_it_wrong( __FUNCTION__, esc_html( sprintf( __( 'Invalid taxonomy: %s.', 'poocommerce' ), $taxonomy ) ), '7.9.0' );
 				continue;
 			}
 
@@ -2294,20 +2294,20 @@ FROM $order_meta_table
 		 * @param \WC_Order  The order object.
 		 * @param string     The context of the operation: 'create' or 'update'.
 		 */
-		$ext_rows = apply_filters( 'woocommerce_orders_table_datastore_extra_db_rows_for_order', array(), $order, $context );
+		$ext_rows = apply_filters( 'poocommerce_orders_table_datastore_extra_db_rows_for_order', array(), $order, $context );
 
 		/**
 		 * Filters the rows that are going to be inserted or updated during an order save.
 		 *
 		 * @since 8.8.0
-		 * @internal Use 'woocommerce_orders_table_datastore_extra_db_rows_for_order' for adding rows to the database save.
+		 * @internal Use 'poocommerce_orders_table_datastore_extra_db_rows_for_order' for adding rows to the database save.
 		 *
-		 * @param array     $rows    Array of rows to be inserted/updated. See 'woocommerce_orders_table_datastore_extra_db_rows_for_order' for exact format.
+		 * @param array     $rows    Array of rows to be inserted/updated. See 'poocommerce_orders_table_datastore_extra_db_rows_for_order' for exact format.
 		 * @param \WC_Order $order   The order object.
 		 * @param string    $context The context of the operation: 'create' or 'update'.
 		 */
 		$result = apply_filters(
-			'woocommerce_orders_table_datastore_db_rows_for_order',
+			'poocommerce_orders_table_datastore_db_rows_for_order',
 			array_merge( $result, $ext_rows ),
 			$order,
 			$context
@@ -2394,7 +2394,7 @@ FROM $order_meta_table
 				 * @param int      $order_id ID of the order about to be deleted.
 				 * @param WC_Order $order    Instance of the order that is about to be deleted.
 				 */
-				do_action( 'woocommerce_before_delete_order', $order_id, $order );
+				do_action( 'poocommerce_before_delete_order', $order_id, $order );
 			}
 
 			$this->upshift_or_delete_child_orders( $order );
@@ -2430,7 +2430,7 @@ FROM $order_meta_table
 				 *
 				 * @param int $order_id ID of the order that has been deleted.
 				 */
-				do_action( 'woocommerce_delete_order', $order_id ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+				do_action( 'poocommerce_delete_order', $order_id ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			}
 		} else {
 			if ( $do_filters ) {
@@ -2442,7 +2442,7 @@ FROM $order_meta_table
 				 * @param int      $order_id ID of the order about to be trashed.
 				 * @param WC_Order $order    Instance of the order that is about to be trashed.
 				 */
-				do_action( 'woocommerce_before_trash_order', $order_id, $order );
+				do_action( 'poocommerce_before_trash_order', $order_id, $order );
 			}
 
 			$this->trash_order( $order );
@@ -2455,7 +2455,7 @@ FROM $order_meta_table
 				 *
 				 * @param int $order_id ID of the order that has been trashed.
 				 */
-				do_action( 'woocommerce_trash_order', $order_id ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+				do_action( 'poocommerce_trash_order', $order_id ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			}
 		}
 	}
@@ -2616,7 +2616,7 @@ FROM $order_meta_table
 			wc_get_logger()->warning(
 				sprintf(
 					/* translators: 1: order ID, 2: order status */
-					__( 'Order %1$d cannot be restored from the trash: it has already been restored to status "%2$s".', 'woocommerce' ),
+					__( 'Order %1$d cannot be restored from the trash: it has already been restored to status "%2$s".', 'poocommerce' ),
 					$id,
 					$status
 				)
@@ -2634,7 +2634,7 @@ FROM $order_meta_table
 			wc_get_logger()->warning(
 				sprintf(
 					/* translators: 1: order ID, 2: order status */
-					__( 'The previous status of order %1$d ("%2$s") is invalid. It has been restored to "pending" status instead.', 'woocommerce' ),
+					__( 'The previous status of order %1$d ("%2$s") is invalid. It has been restored to "pending" status instead.', 'poocommerce' ),
 					$id,
 					$previous_status
 				)
@@ -2646,7 +2646,7 @@ FROM $order_meta_table
 			wc_get_logger()->warning(
 				sprintf(
 					/* translators: 1: order ID, 2: order status */
-					__( 'The previous status of order %1$d ("%2$s") is invalid. It could not be restored.', 'woocommerce' ),
+					__( 'The previous status of order %1$d ("%2$s") is invalid. It could not be restored.', 'poocommerce' ),
 					$id,
 					$previous_status
 				)
@@ -2663,7 +2663,7 @@ FROM $order_meta_table
 		 * @param int    $order_id        Order ID.
 		 * @param string $previous_status The status of the order before it was trashed.
 		 */
-		do_action( 'woocommerce_untrash_order', $order->get_id(), $previous_status );
+		do_action( 'poocommerce_untrash_order', $order->get_id(), $previous_status );
 
 		$order->set_status( $previous_status );
 		$order->save();
@@ -2682,7 +2682,7 @@ FROM $order_meta_table
 		wc_get_logger()->warning(
 			sprintf(
 				/* translators: 1: order ID, 2: order status */
-				__( 'Something went wrong when trying to restore order %d from the trash. It could not be restored.', 'woocommerce' ),
+				__( 'Something went wrong when trying to restore order %d from the trash. It could not be restored.', 'poocommerce' ),
 				$id
 			)
 		);
@@ -2728,7 +2728,7 @@ FROM $order_meta_table
 
 		$this->persist_save( $order );
 
-		// Do not fire 'woocommerce_new_order' for draft statuses for backwards compatibility.
+		// Do not fire 'poocommerce_new_order' for draft statuses for backwards compatibility.
 		if ( in_array( $order->get_status( 'edit' ), array( 'auto-draft', 'draft', 'checkout-draft' ), true ) ) {
 			return;
 		}
@@ -2741,7 +2741,7 @@ FROM $order_meta_table
 		 * @param int       Order ID.
 		 * @param \WC_Order Order object.
 		 */
-		do_action( 'woocommerce_new_order', $order->get_id(), $order );
+		do_action( 'poocommerce_new_order', $order->get_id(), $order );
 	}
 
 	/**
@@ -2759,7 +2759,7 @@ FROM $order_meta_table
 	 */
 	protected function persist_save( &$order, bool $force_all_fields = false, $backfill = true ) {
 		$order->set_version( Constants::get_constant( 'WC_VERSION' ) );
-		$order->set_currency( $order->get_currency() ? $order->get_currency() : get_woocommerce_currency() );
+		$order->set_currency( $order->get_currency() ? $order->get_currency() : get_poocommerce_currency() );
 
 		if ( ! $order->get_date_created( 'edit' ) ) {
 			$order->set_date_created( time() );
@@ -2797,7 +2797,7 @@ FROM $order_meta_table
 		if (
 			! $order->get_date_paid( 'edit' )
 			&& version_compare( $order->get_version( 'edit' ), '3.0', '<' )
-			&& $order->has_status( apply_filters( 'woocommerce_payment_complete_order_status', $order->needs_processing() ? 'processing' : 'completed', $order->get_id(), $order ) ) // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			&& $order->has_status( apply_filters( 'poocommerce_payment_complete_order_status', $order->needs_processing() ? 'processing' : 'completed', $order->get_id(), $order ) ) // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		) {
 			$order->set_date_paid( $order->get_date_created( 'edit' ) );
 		}
@@ -2835,7 +2835,7 @@ FROM $order_meta_table
 			&& ! in_array( $changes['status'], $draft_statuses, true )
 			&& in_array( $previous_status, $draft_statuses, true )
 		) {
-			do_action( 'woocommerce_new_order', $order->get_id(), $order ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'poocommerce_new_order', $order->get_id(), $order ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			return;
 		}
 
@@ -2845,7 +2845,7 @@ FROM $order_meta_table
 			return;
 		}
 
-		do_action( 'woocommerce_update_order', $order->get_id(), $order ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_update_order', $order->get_id(), $order ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 
 	/**
@@ -3163,7 +3163,7 @@ CREATE TABLE $operational_data_table_name (
 	id bigint(20) unsigned auto_increment primary key,
 	order_id bigint(20) unsigned NULL,
 	created_via varchar(100) NULL,
-	woocommerce_version varchar(20) NULL,
+	poocommerce_version varchar(20) NULL,
 	prices_include_tax tinyint(1) NULL,
 	coupon_usages_are_counted tinyint(1) NULL,
 	download_permission_granted tinyint(1) NULL,
@@ -3348,6 +3348,6 @@ CREATE TABLE $meta_table (
 		 *
 		 * @param bool $should_save Whether to trigger a full save after metadata is changed.
 		 */
-		return apply_filters( 'woocommerce_orders_table_datastore_should_save_after_meta_change', $should_save );
+		return apply_filters( 'poocommerce_orders_table_datastore_should_save_after_meta_change', $should_save );
 	}
 }

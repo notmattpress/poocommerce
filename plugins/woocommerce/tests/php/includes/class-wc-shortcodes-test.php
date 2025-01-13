@@ -1,9 +1,9 @@
 <?php
 /**
- * @package WooCommerce\Tests\WC_Shortcodes
+ * @package PooCommerce\Tests\WC_Shortcodes
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Class WC_Shortcodes_Test.
@@ -206,7 +206,7 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 		$product->save();
 		$product_id = $product->get_id();
 		wp_trash_post( $product_id );
-		add_filter( 'woocommerce_shortcode_product_page_invalid_statuses', '__return_empty_array' );
+		add_filter( 'poocommerce_shortcode_product_page_invalid_statuses', '__return_empty_array' );
 		$this->disable_deprecation_notice();
 
 		$product_page = WC_Shortcodes::product_page(
@@ -220,7 +220,7 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 
 		$this->assertNotEmpty( $product_page );
 
-		remove_filter( 'woocommerce_shortcode_product_page_invalid_statuses', '__return_empty_array' );
+		remove_filter( 'poocommerce_shortcode_product_page_invalid_statuses', '__return_empty_array' );
 	}
 
 	/**
@@ -348,7 +348,7 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 		$this->assertNotEmpty( $product_page );
 
 		wp_set_current_user( self::$user_contributor );
-		add_filter( 'woocommerce_shortcode_product_page_force_rendering', '__return_true' );
+		add_filter( 'poocommerce_shortcode_product_page_force_rendering', '__return_true' );
 		$this->disable_deprecation_notice();
 
 		$product_page = WC_Shortcodes::product_page(
@@ -362,8 +362,8 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 
 		$this->assertNotEmpty( $product_page );
 
-		remove_filter( 'woocommerce_shortcode_product_page_force_rendering', '__return_true' );
-		add_filter( 'woocommerce_shortcode_product_page_force_rendering', '__return_null' );
+		remove_filter( 'poocommerce_shortcode_product_page_force_rendering', '__return_true' );
+		add_filter( 'poocommerce_shortcode_product_page_force_rendering', '__return_null' );
 
 		$product_page = WC_Shortcodes::product_page(
 			array(
@@ -374,7 +374,7 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 
 		$this->assertEmpty( $product_page );
 
-		remove_filter( 'woocommerce_shortcode_product_page_force_rendering', '__return_null' );
+		remove_filter( 'poocommerce_shortcode_product_page_force_rendering', '__return_null' );
 	}
 
 	/**
@@ -397,7 +397,7 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 
 		$this->assertNotEmpty( $product_page );
 
-		add_filter( 'woocommerce_shortcode_product_page_force_rendering', '__return_false' );
+		add_filter( 'poocommerce_shortcode_product_page_force_rendering', '__return_false' );
 
 		$product_page = WC_Shortcodes::product_page(
 			array(
@@ -408,7 +408,7 @@ class WC_Shortcodes_Test extends WC_Unit_Test_Case {
 
 		$this->assertEmpty( $product_page );
 
-		remove_filter( 'woocommerce_shortcode_product_page_force_rendering', '__return_false' );
+		remove_filter( 'poocommerce_shortcode_product_page_force_rendering', '__return_false' );
 	}
 
 	/**

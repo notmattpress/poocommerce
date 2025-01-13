@@ -1,15 +1,15 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Blocks\QueryFilters;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\QueryFilters;
+use Automattic\PooCommerce\Blocks\Package;
 
 
 /**
  * Product Filter: Rating Block
  *
- * @package Automattic\WooCommerce\Blocks\BlockTypes
+ * @package Automattic\PooCommerce\Blocks\BlockTypes
  */
 final class ProductFilterRating extends AbstractBlock {
 	/**
@@ -80,7 +80,7 @@ final class ProductFilterRating extends AbstractBlock {
 			function ( $rating ) {
 				return array(
 					/* translators: %d is the rating value. */
-					'title'      => sprintf( __( 'Rated %d out of 5', 'woocommerce' ), $rating ),
+					'title'      => sprintf( __( 'Rated %d out of 5', 'poocommerce' ), $rating ),
 					'attributes' => array(
 						'data-wc-on--click' => esc_attr( "{$this->get_full_block_name()}::actions.toggleFilter" ),
 						'value'             => esc_attr( $rating ),
@@ -91,7 +91,7 @@ final class ProductFilterRating extends AbstractBlock {
 		);
 
 		$data['rating'] = array(
-			'type'  => __( 'Rating', 'woocommerce' ),
+			'type'  => __( 'Rating', 'poocommerce' ),
 			'items' => $active_ratings,
 		);
 
@@ -173,7 +173,7 @@ final class ProductFilterRating extends AbstractBlock {
 
 		$rating_label = sprintf(
 			/* translators: %1$d is referring to rating value. Example: Rated 4 out of 5. */
-			__( 'Rated %1$d out of 5', 'woocommerce' ),
+			__( 'Rated %1$d out of 5', 'poocommerce' ),
 			$rating,
 		);
 
@@ -208,7 +208,7 @@ final class ProductFilterRating extends AbstractBlock {
 
 				$aria_label = sprintf(
 					/* translators: %1$d is referring to rating value. Example: Rated 4 out of 5. */
-					__( 'Rated %s out of 5', 'woocommerce' ),
+					__( 'Rated %s out of 5', 'poocommerce' ),
 					$value,
 				);
 
@@ -235,7 +235,7 @@ final class ProductFilterRating extends AbstractBlock {
 	 */
 	private function get_dropdown_props( $rating_counts, $selected_ratings_query, $show_counts, $select_type ) {
 		$ratings_array    = explode( ',', $selected_ratings_query );
-		$placeholder_text = 'single' === $select_type ? __( 'Select a rating', 'woocommerce' ) : __( 'Select ratings', 'woocommerce' );
+		$placeholder_text = 'single' === $select_type ? __( 'Select a rating', 'poocommerce' ) : __( 'Select ratings', 'poocommerce' );
 
 		$selected_items = array_reduce(
 			$rating_counts,
@@ -246,7 +246,7 @@ final class ProductFilterRating extends AbstractBlock {
 					$rating_str  = (string) $rating['rating'];
 					$carry[]     = array(
 						/* translators: %d is referring to the average rating value. Example: Rated 4 out of 5. */
-						'label' => sprintf( __( 'Rated %d out of 5', 'woocommerce' ), $rating_str ) . ' ' . $count_label,
+						'label' => sprintf( __( 'Rated %d out of 5', 'poocommerce' ), $rating_str ) . ' ' . $count_label,
 						'value' => $rating['rating'],
 					);
 				}
@@ -263,7 +263,7 @@ final class ProductFilterRating extends AbstractBlock {
 					$rating_str = (string) $rating['rating'];
 					return array(
 						/* translators: %d is referring to the average rating value. Example: Rated 4 out of 5. */
-						'label' => sprintf( __( 'Rated %d out of 5', 'woocommerce' ), $rating_str ) . ' ' . $count_label,
+						'label' => sprintf( __( 'Rated %d out of 5', 'poocommerce' ), $rating_str ) . ' ' . $count_label,
 						'value' => $rating['rating'],
 					);
 				},

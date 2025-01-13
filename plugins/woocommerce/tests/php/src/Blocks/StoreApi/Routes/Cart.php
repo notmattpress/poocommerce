@@ -3,12 +3,12 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
 use Spy_REST_Server;
 
 /**
@@ -162,7 +162,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			409,
 			array(
-				'code' => 'woocommerce_rest_cart_invalid_key',
+				'code' => 'poocommerce_rest_cart_invalid_key',
 			)
 		);
 	}
@@ -198,7 +198,7 @@ class Cart extends ControllerTestCase {
 			$request,
 			409,
 			array(
-				'code' => 'woocommerce_rest_cart_invalid_key',
+				'code' => 'poocommerce_rest_cart_invalid_key',
 			)
 		);
 	}
@@ -250,7 +250,7 @@ class Cart extends ControllerTestCase {
 		$action_callback->shouldReceive( 'do_customer_callback' )->once();
 
 		add_action(
-			'woocommerce_store_api_cart_update_customer_from_request',
+			'poocommerce_store_api_cart_update_customer_from_request',
 			array(
 				$action_callback,
 				'do_customer_callback',
@@ -277,7 +277,7 @@ class Cart extends ControllerTestCase {
 		);
 
 		remove_action(
-			'woocommerce_store_api_cart_update_customer_from_request',
+			'poocommerce_store_api_cart_update_customer_from_request',
 			array(
 				$action_callback,
 				'do_customer_callback',
@@ -559,7 +559,7 @@ class Cart extends ControllerTestCase {
 	 * Test conversion of cart item to rest response.
 	 */
 	public function test_prepare_item() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart', 'v1' );
 		$cart       = wc()->cart;
 		$response   = $controller->prepare_item_for_response( $cart, new \WP_REST_Request() );
@@ -580,7 +580,7 @@ class Cart extends ControllerTestCase {
 	 * Test schema matches responses.
 	 */
 	public function test_get_item_schema() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'cart', 'v1' );
 		$cart       = wc()->cart;
 		$response   = $controller->prepare_item_for_response( $cart, new \WP_REST_Request() );

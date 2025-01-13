@@ -3,7 +3,7 @@
  */
 import { SVG } from '@wordpress/primitives';
 import clsx from 'clsx';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 interface ComponentProps {
 	className?: string;

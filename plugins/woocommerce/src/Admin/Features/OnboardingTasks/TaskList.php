@@ -3,10 +3,10 @@
  * Handles storage and retrieval of a task list
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
 
 
 /**
@@ -21,17 +21,17 @@ class TaskList {
 	/**
 	 * Option name hidden task lists.
 	 */
-	const HIDDEN_OPTION = 'woocommerce_task_list_hidden_lists';
+	const HIDDEN_OPTION = 'poocommerce_task_list_hidden_lists';
 
 	/**
 	 * Option name of completed task lists.
 	 */
-	const COMPLETED_OPTION = 'woocommerce_task_list_completed_lists';
+	const COMPLETED_OPTION = 'poocommerce_task_list_completed_lists';
 
 	/**
 	 * Option name of hidden reminder bar.
 	 */
-	const REMINDER_BAR_HIDDEN_OPTION = 'woocommerce_task_list_reminder_bar_hidden';
+	const REMINDER_BAR_HIDDEN_OPTION = 'poocommerce_task_list_reminder_bar_hidden';
 
 	/**
 	 * ID.
@@ -144,7 +144,7 @@ class TaskList {
 		$this->display_progress_header = $data['display_progress_header'];
 
 		foreach ( $data['tasks'] as $task_name ) {
-			$class = 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\\' . $task_name;
+			$class = 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\\' . $task_name;
 			$task  = new $class( $this );
 			$this->add_task( $task );
 		}
@@ -216,7 +216,7 @@ class TaskList {
 	 */
 	public function maybe_set_default_layout( $completed_or_hidden_tasklist_ids ) {
 		if ( in_array( 'setup', $completed_or_hidden_tasklist_ids, true ) ) {
-			update_option( 'woocommerce_default_homepage_layout', 'two_columns' );
+			update_option( 'poocommerce_default_homepage_layout', 'two_columns' );
 		}
 	}
 
@@ -262,10 +262,10 @@ class TaskList {
 	 * @param Task $task Task class.
 	 */
 	public function add_task( $task ) {
-		if ( ! is_subclass_of( $task, 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task' ) ) {
+		if ( ! is_subclass_of( $task, 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task' ) ) {
 			return new \WP_Error(
-				'woocommerce_task_list_invalid_task',
-				__( 'Task is not a subclass of `Task`', 'woocommerce' )
+				'poocommerce_task_list_invalid_task',
+				__( 'Task is not a subclass of `Task`', 'poocommerce' )
 			);
 		}
 		if ( array_search( $task, $this->tasks, true ) ) {
@@ -389,7 +389,7 @@ class TaskList {
 	 * @return string
 	 */
 	public function get_keep_completed_task_list() {
-		return get_option( 'woocommerce_task_list_keep_completed', 'no' );
+		return get_option( 'poocommerce_task_list_keep_completed', 'no' );
 	}
 
 	/**

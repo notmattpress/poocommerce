@@ -4,7 +4,7 @@
 import { tags } from '../../fixtures/fixtures';
 const { setComingSoon } = require( '../../utils/coming-soon' );
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 test.describe(
 	'Cart > Redirect to cart from shop',
@@ -35,7 +35,7 @@ test.describe(
 					productId = response.data.id;
 				} );
 			await api.put(
-				'settings/products/woocommerce_cart_redirect_after_add',
+				'settings/products/poocommerce_cart_redirect_after_add',
 				{
 					value: 'yes',
 				}
@@ -58,7 +58,7 @@ test.describe(
 				force: true,
 			} );
 			await api.put(
-				'settings/products/woocommerce_cart_redirect_after_add',
+				'settings/products/poocommerce_cart_redirect_after_add',
 				{
 					value: 'no',
 				}

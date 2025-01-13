@@ -1,23 +1,23 @@
-:where(.wp-block-woocommerce-legacy-template) {
+:where(.wp-block-poocommerce-legacy-template) {
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.wp-block-woocommerce-classic-template__placeholder-warning {
+.wp-block-poocommerce-classic-template__placeholder-warning {
 	border-left: 5px solid #2181d2;
 	padding-left: em(40px);
 }
-.wp-block-woocommerce-classic-template__placeholder .components-placeholder__fieldset {
+.wp-block-poocommerce-classic-template__placeholder .components-placeholder__fieldset {
 	display: grid;
 	grid-template-columns: 1fr;
 }
-.wp-block-woocommerce-classic-template__placeholder-wireframe,
-.wp-block-woocommerce-classic-template__placeholder-copy {
+.wp-block-poocommerce-classic-template__placeholder-wireframe,
+.wp-block-poocommerce-classic-template__placeholder-copy {
 	grid-row-start: 1;
 	grid-column-start: 1;
 	transition: 0.3s all ease;
 }
-.wp-block-woocommerce-classic-template__placeholder-copy {
+.wp-block-poocommerce-classic-template__placeholder-copy {
 	border: 1px solid $gray-900;
 	background-color: #fff;
 	padding: $gap-large $gap-larger;
@@ -30,7 +30,7 @@
 	opacity: 0;
 	z-index: 10;
 
-	.wp-block-woocommerce-classic-template__placeholder-copy__icon-container {
+	.wp-block-poocommerce-classic-template__placeholder-copy__icon-container {
 		margin: 0 0 $gap;
 
 		span {
@@ -38,7 +38,7 @@
 			display: block;
 		}
 		.woo-icon-wrapper {
-			color: #{$studio-woocommerce-purple};
+			color: #{$studio-poocommerce-purple};
 			display: flex;
 			gap: 0.5rem;
 			align-items: center;
@@ -52,12 +52,12 @@
 	p {
 		margin: 0 0 $gap;
 	}
-	.wp-block-woocommerce-classic-template__placeholder-migration-button-container {
+	.wp-block-poocommerce-classic-template__placeholder-migration-button-container {
 		justify-content: center;
 		margin: $gap 0;
 	}
 }
-.wp-block-woocommerce-classic-template__placeholder-wireframe {
+.wp-block-poocommerce-classic-template__placeholder-wireframe {
 	pointer-events: none;
 
 	// Image based placeholders should fill horizontal width.
@@ -66,14 +66,14 @@
 	}
 }
 
-.wp-block-woocommerce-legacy-template {
+.wp-block-poocommerce-legacy-template {
 	.components-placeholder {
 		box-shadow: none;
 		padding: 0;
 	}
 }
-.wp-block-woocommerce-legacy-template.is-selected {
-	.wp-block-woocommerce-classic-template__placeholder-wireframe {
+.wp-block-poocommerce-legacy-template.is-selected {
+	.wp-block-poocommerce-classic-template__placeholder-wireframe {
 		filter: blur(3px);
 		opacity: 0.5;
 
@@ -82,7 +82,7 @@
 			border-color: $gray-200 !important;
 		}
 	}
-	.wp-block-woocommerce-classic-template__placeholder-copy {
+	.wp-block-poocommerce-classic-template__placeholder-copy {
 		opacity: 1;
 	}
 	.components-placeholder {

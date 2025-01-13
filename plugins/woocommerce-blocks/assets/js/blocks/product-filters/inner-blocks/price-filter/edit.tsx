@@ -7,7 +7,7 @@ import {
 	InnerBlocks,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import { BlockEditProps, TemplateArray } from '@wordpress/blocks';
@@ -38,9 +38,9 @@ const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls group="styles">
-				<PanelBody title={ __( 'Display', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Clear button', 'woocommerce' ) }
+						label={ __( 'Clear button', 'poocommerce' ) }
 						checked={ clearButton }
 						onChange={ ( value ) => {
 							setAttributes( { clearButton: value } );
@@ -73,7 +73,7 @@ const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 										flexWrap: 'nowrap',
 									},
 									metadata: {
-										name: __( 'Header', 'woocommerce' ),
+										name: __( 'Header', 'poocommerce' ),
 									},
 									style: {
 										spacing: {
@@ -88,13 +88,13 @@ const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 											level: 4,
 											content: __(
 												'Price',
-												'woocommerce'
+												'poocommerce'
 											),
 										},
 									],
 									clearButton
 										? [
-												'woocommerce/product-filter-clear-button',
+												'poocommerce/product-filter-clear-button',
 												{
 													lock: {
 														remove: true,
@@ -105,7 +105,7 @@ const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 										: null,
 								].filter( Boolean ) as unknown as TemplateArray,
 							],
-							[ 'woocommerce/product-filter-price-slider', {} ],
+							[ 'poocommerce/product-filter-price-slider', {} ],
 						] }
 					/>
 				</BlockContextProvider>

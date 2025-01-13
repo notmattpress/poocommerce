@@ -2,7 +2,7 @@
 /**
  * Class WC_Tests_Session_Handler file.
  *
- * @package WooCommerce\Tests\Session
+ * @package PooCommerce\Tests\Session
  */
 
 /**
@@ -94,7 +94,7 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		$session_id = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT `session_id` FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key = %s",
+				"SELECT `session_id` FROM {$wpdb->prefix}poocommerce_sessions WHERE session_key = %s",
 				$this->session_key
 			)
 		);
@@ -115,7 +115,7 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		$session_expiry = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT session_expiry FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key = %s",
+				"SELECT session_expiry FROM {$wpdb->prefix}poocommerce_sessions WHERE session_key = %s",
 				$this->session_key
 			)
 		);
@@ -123,11 +123,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test that nonce of user logged out is only changed by WooCommerce.
+	 * @testdox Test that nonce of user logged out is only changed by PooCommerce.
 	 */
 	public function test_maybe_update_nonce_user_logged_out() {
 		$this->assertEquals( 1, $this->handler->maybe_update_nonce_user_logged_out( 1, 'wp_rest' ) );
-		$this->assertEquals( $this->handler->get_customer_unique_id(), $this->handler->maybe_update_nonce_user_logged_out( 1, 'woocommerce-something' ) );
+		$this->assertEquals( $this->handler->get_customer_unique_id(), $this->handler->maybe_update_nonce_user_logged_out( 1, 'poocommerce-something' ) );
 	}
 
 	/**
@@ -149,11 +149,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 			->method( 'get_session_cookie' )
 			->willReturn( array( $customer_id, $session_expiration, $session_expiring, $cookie_hash ) );
 
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$handler->init_session_cookie();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$this->assertFalse( wp_cache_get( $this->cache_prefix . $this->session_key, WC_SESSION_CACHE_GROUP ) );
 		$this->assertNull( $this->get_session_from_db( $this->session_key ) );
@@ -181,11 +181,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 			->method( 'get_session_cookie' )
 			->willReturn( array( $customer_id, $session_expiration, $session_expiring, $cookie_hash ) );
 
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$handler->init_session_cookie();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$this->assertFalse( wp_cache_get( $this->cache_prefix . $this->session_key, WC_SESSION_CACHE_GROUP ) );
 		$this->assertNull( $this->get_session_from_db( $this->session_key ) );
@@ -218,11 +218,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		wp_set_current_user( 1 );
 
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$handler->init_session_cookie();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$this->assertFalse( wp_cache_get( $this->cache_prefix . $customer_id, WC_SESSION_CACHE_GROUP ) );
 		$this->assertNull( $this->get_session_from_db( $customer_id ) );
@@ -252,7 +252,7 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		$session_data = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_sessions WHERE `session_key` = %s",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_sessions WHERE `session_key` = %s",
 				$session_key
 			)
 		);

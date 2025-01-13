@@ -62,7 +62,7 @@ type ConnectJetpackResponse = {
 export function* getActivePlugins() {
 	yield setIsRequesting( 'getActivePlugins', true );
 	try {
-		yield checkUserCapability( 'manage_woocommerce' );
+		yield checkUserCapability( 'manage_poocommerce' );
 
 		const url = WC_ADMIN_NAMESPACE + '/plugins/active';
 		const results: PluginGetResponse = yield apiFetch( {
@@ -80,7 +80,7 @@ export function* getInstalledPlugins() {
 	yield setIsRequesting( 'getInstalledPlugins', true );
 
 	try {
-		yield checkUserCapability( 'manage_woocommerce' );
+		yield checkUserCapability( 'manage_poocommerce' );
 
 		const url = WC_ADMIN_NAMESPACE + '/plugins/installed';
 		const results: PluginGetResponse = yield apiFetch( {
@@ -116,7 +116,7 @@ export function* getJetpackConnectionData() {
 	yield setIsRequesting( 'getJetpackConnectionData', true );
 
 	try {
-		yield checkUserCapability( 'manage_woocommerce' );
+		yield checkUserCapability( 'manage_poocommerce' );
 
 		const url = JETPACK_NAMESPACE + '/connection/data';
 
@@ -166,7 +166,7 @@ function* setOnboardingStatusWithOptions() {
 	} = yield resolveSelect(
 		OPTIONS_STORE_NAME,
 		'getOption',
-		'woocommerce-ppcp-settings'
+		'poocommerce-ppcp-settings'
 	);
 	const onboarded =
 		options.merchant_email_production &&

@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Admin: Add First Product.
+ * PooCommerce Admin: Add First Product.
  *
  * Adds a note (type `email`) to bring the client back to the store setup flow.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Add_First_Product.
@@ -61,14 +61,14 @@ class AddFirstProduct {
 		}
 
 		// If you're updating the following please use sprintf to separate HTML tags.
-		// https://github.com/woocommerce/woocommerce-admin/pull/6617#discussion_r596889685.
+		// https://github.com/poocommerce/poocommerce-admin/pull/6617#discussion_r596889685.
 		$content_lines = array(
 			'{greetings}<br/><br/>',
 			/* translators: %s: line break */
-			sprintf( __( 'Nice one; you\'ve created a WooCommerce store! Now it\'s time to add your first product and get ready to start selling.%s', 'woocommerce' ), '<br/><br/>' ),
-			__( 'There are three ways to add your products: you can <strong>create products manually, import them at once via CSV file</strong>, or <strong>migrate them from another service</strong>.<br/><br/>', 'woocommerce' ),
+			sprintf( __( 'Nice one; you\'ve created a PooCommerce store! Now it\'s time to add your first product and get ready to start selling.%s', 'poocommerce' ), '<br/><br/>' ),
+			__( 'There are three ways to add your products: you can <strong>create products manually, import them at once via CSV file</strong>, or <strong>migrate them from another service</strong>.<br/><br/>', 'poocommerce' ),
 			/* translators: %1$s is an open anchor tag (<a>) and %2$s is a close link tag (</a>). */
-			sprintf( __( '%1$1sExplore our docs%2$2s for more information, or just get started!', 'woocommerce' ), '<a href="https://woocommerce.com/document/managing-products/?utm_source=help_panel&utm_medium=product">', '</a>' ),
+			sprintf( __( '%1$1sExplore our docs%2$2s for more information, or just get started!', 'poocommerce' ), '<a href="https://poocommerce.com/document/managing-products/?utm_source=help_panel&utm_medium=product">', '</a>' ),
 		);
 
 		$additional_data = array(
@@ -76,7 +76,7 @@ class AddFirstProduct {
 		);
 
 		$note = new Note();
-		$note->set_title( __( 'Add your first product', 'woocommerce' ) );
+		$note->set_title( __( 'Add your first product', 'poocommerce' ) );
 		$note->set_content( implode( '', $content_lines ) );
 		$note->set_content_data( (object) $additional_data );
 		$note->set_image(
@@ -87,8 +87,8 @@ class AddFirstProduct {
 		);
 		$note->set_type( Note::E_WC_ADMIN_NOTE_EMAIL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
-		$note->add_action( 'add-first-product', __( 'Add a product', 'woocommerce' ), admin_url( 'admin.php?page=wc-admin&task=products' ) );
+		$note->set_source( 'poocommerce-admin' );
+		$note->add_action( 'add-first-product', __( 'Add a product', 'poocommerce' ), admin_url( 'admin.php?page=wc-admin&task=products' ) );
 		return $note;
 	}
 }

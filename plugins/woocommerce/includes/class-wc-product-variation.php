@@ -2,14 +2,14 @@
 /**
  * Product Variation
  *
- * The WooCommerce product variation class handles product variation data.
+ * The PooCommerce product variation class handles product variation data.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -65,7 +65,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 	 * @return string
 	 */
 	protected function get_hook_prefix() {
-		return 'woocommerce_product_variation_get_';
+		return 'poocommerce_product_variation_get_';
 	}
 
 	/**
@@ -93,7 +93,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 	 * @return string
 	 */
 	public function get_title() {
-		return apply_filters( 'woocommerce_product_title', $this->parent_data['title'], $this );
+		return apply_filters( 'poocommerce_product_title', $this->parent_data['title'], $this );
 	}
 
 	/**
@@ -204,7 +204,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 				$this->get_permalink()
 			)
 		) : $this->get_permalink();
-		return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_url', $url, $this );
 	}
 
 	/**
@@ -558,7 +558,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 		 * @param bool $purchasable If the variation is purchasable.
 		 * @param object $variation The variation object.
 		 */
-		return apply_filters( 'woocommerce_variation_is_purchasable', $this->variation_is_visible() && parent::is_purchasable() && ( ProductStatus::PUBLISH === $this->parent_data['status'] || current_user_can( 'edit_post', $this->get_parent_id() ) ), $this );
+		return apply_filters( 'poocommerce_variation_is_purchasable', $this->variation_is_visible() && parent::is_purchasable() && ( ProductStatus::PUBLISH === $this->parent_data['status'] || current_user_can( 'edit_post', $this->get_parent_id() ) ), $this );
 	}
 
 	/**
@@ -569,7 +569,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 	 * @return bool
 	 */
 	public function variation_is_active() {
-		return apply_filters( 'woocommerce_variation_is_active', true, $this );
+		return apply_filters( 'poocommerce_variation_is_active', true, $this );
 	}
 
 	/**
@@ -589,7 +589,7 @@ class WC_Product_Variation extends WC_Product_Simple {
 		 * @param int $product_id The product ID.
 		 * @param object $variation The variation object.
 		 */
-		return apply_filters( 'woocommerce_variation_is_visible', ProductStatus::PUBLISH === get_post_status( $this->get_id() ) && '' !== $this->get_price(), $this->get_id(), $this->get_parent_id(), $this );
+		return apply_filters( 'poocommerce_variation_is_visible', ProductStatus::PUBLISH === get_post_status( $this->get_id() ) && '' !== $this->get_price(), $this->get_id(), $this->get_parent_id(), $this );
 	}
 
 	/**

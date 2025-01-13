@@ -4,8 +4,8 @@
 import { createElement, useEffect, Fragment } from '@wordpress/element';
 import { KeyboardEvent, ReactElement, useMemo } from 'react';
 import { NavigableMenu, Slot } from '@wordpress/components';
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { select } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 
@@ -117,7 +117,7 @@ export function Tabs( { selected, onChange }: TabsProps ) {
 			role="tablist"
 			onNavigate={ selectTabOnNavigate }
 			onKeyDown={ handleKeyDown }
-			className="woocommerce-product-tabs"
+			className="poocommerce-product-tabs"
 			orientation="horizontal"
 		>
 			<Slot

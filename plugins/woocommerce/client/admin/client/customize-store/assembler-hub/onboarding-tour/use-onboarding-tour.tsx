@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME } from '@poocommerce/data';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from 'react';
 
 export const CUSTOMIZE_STORE_ONBOARDING_TOUR_HIDDEN =
-	'woocommerce_customize_store_onboarding_tour_hidden';
+	'poocommerce_customize_store_onboarding_tour_hidden';
 
 export const useOnboardingTour = () => {
 	const [ showWelcomeTour, setShowWelcomeTour ] = useState( true );
@@ -19,9 +19,9 @@ export const useOnboardingTour = () => {
 			select( OPTIONS_STORE_NAME );
 
 		const wasTourShown =
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			getOption( CUSTOMIZE_STORE_ONBOARDING_TOUR_HIDDEN ) === 'yes' ||
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			! hasFinishedResolution( 'getOption', [
 				CUSTOMIZE_STORE_ONBOARDING_TOUR_HIDDEN,
 			] );

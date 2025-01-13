@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
 import { Icon, button } from '@wordpress/icons';
 import type { BlockConfiguration } from '@wordpress/blocks';
 
@@ -32,7 +32,7 @@ const blockConfig = {
 			/>
 		),
 	},
-	ancestor: [ 'woocommerce/single-product' ],
+	ancestor: [ 'poocommerce/single-product' ],
 	save() {
 		return null;
 	},

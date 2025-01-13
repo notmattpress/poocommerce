@@ -1,39 +1,39 @@
 <?php
 /**
- * WooCommerce Updates
+ * PooCommerce Updates
  *
  * Functions for updating data, used by the background updater. These functions must be included
  * in the list returned by WC_Install::get_db_update_callbacks.
  *
- * Please note that these functions are invoked when WooCommerce is updated from a previous version,
- * but NOT when WooCommerce is newly installed.
+ * Please note that these functions are invoked when PooCommerce is updated from a previous version,
+ * but NOT when PooCommerce is newly installed.
  *
  * Database schema changes must be incorporated to the SQL returned by WC_Install::get_schema, which is applied
  * via dbDelta at both install and update time. If any other kind of database change is required
- * at install time (e.g. populating tables), use the 'woocommerce_installed' hook.
+ * at install time (e.g. populating tables), use the 'poocommerce_installed' hook.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.3.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Database\Migrations\MigrationHelper;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\Admin\Marketing\MarketingSpecs;
-use Automattic\WooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes;
-use Automattic\WooCommerce\Internal\AssignDefaultCategory;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize as Download_Directories_Sync;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Database\Migrations\MigrationHelper;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Admin\Marketing\MarketingSpecs;
+use Automattic\PooCommerce\Internal\Admin\Notes\WooSubscriptionsNotes;
+use Automattic\PooCommerce\Internal\AssignDefaultCategory;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize as Download_Directories_Sync;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Update file paths for 2.0
@@ -58,7 +58,7 @@ function wc_update_200_file_paths() {
 
 				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->postmeta} SET meta_key = '_file_paths', meta_value = %s WHERE meta_id = %d", $file_paths, $existing_file_path->meta_id ) );
 
-				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}woocommerce_downloadable_product_permissions SET download_id = %s WHERE product_id = %d", md5( $old_file_path ), $existing_file_path->post_id ) );
+				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}poocommerce_downloadable_product_permissions SET download_id = %s WHERE product_id = %d", md5( $old_file_path ), $existing_file_path->post_id ) );
 
 			}
 		}
@@ -72,29 +72,29 @@ function wc_update_200_file_paths() {
  */
 function wc_update_200_permalinks() {
 	// Setup default permalinks if shop page is defined.
-	$permalinks   = get_option( 'woocommerce_permalinks' );
+	$permalinks   = get_option( 'poocommerce_permalinks' );
 	$shop_page_id = wc_get_page_id( 'shop' );
 
 	if ( empty( $permalinks ) && $shop_page_id > 0 ) {
 
 		$base_slug = $shop_page_id > 0 && get_post( $shop_page_id ) ? get_page_uri( $shop_page_id ) : 'shop';
 
-		$category_base = 'yes' === get_option( 'woocommerce_prepend_shop_page_to_urls' ) ? trailingslashit( $base_slug ) : '';
-		$category_slug = get_option( 'woocommerce_product_category_slug' ) ? get_option( 'woocommerce_product_category_slug' ) : _x( 'product-category', 'slug', 'woocommerce' );
-		$tag_slug      = get_option( 'woocommerce_product_tag_slug' ) ? get_option( 'woocommerce_product_tag_slug' ) : _x( 'product-tag', 'slug', 'woocommerce' );
+		$category_base = 'yes' === get_option( 'poocommerce_prepend_shop_page_to_urls' ) ? trailingslashit( $base_slug ) : '';
+		$category_slug = get_option( 'poocommerce_product_category_slug' ) ? get_option( 'poocommerce_product_category_slug' ) : _x( 'product-category', 'slug', 'poocommerce' );
+		$tag_slug      = get_option( 'poocommerce_product_tag_slug' ) ? get_option( 'poocommerce_product_tag_slug' ) : _x( 'product-tag', 'slug', 'poocommerce' );
 
-		if ( 'yes' === get_option( 'woocommerce_prepend_shop_page_to_products' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_prepend_shop_page_to_products' ) ) {
 			$product_base = trailingslashit( $base_slug );
 		} else {
-			$product_slug = get_option( 'woocommerce_product_slug' );
+			$product_slug = get_option( 'poocommerce_product_slug' );
 			if ( false !== $product_slug && ! empty( $product_slug ) ) {
 				$product_base = trailingslashit( $product_slug );
 			} else {
-				$product_base = trailingslashit( _x( 'product', 'slug', 'woocommerce' ) );
+				$product_base = trailingslashit( _x( 'product', 'slug', 'poocommerce' ) );
 			}
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_prepend_category_to_products' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_prepend_category_to_products' ) ) {
 			$product_base .= trailingslashit( '%product_cat%' );
 		}
 
@@ -105,7 +105,7 @@ function wc_update_200_permalinks() {
 			'tag_base'       => untrailingslashit( $category_base . $tag_slug ),
 		);
 
-		update_option( 'woocommerce_permalinks', $permalinks );
+		update_option( 'poocommerce_permalinks', $permalinks );
 	}
 }
 
@@ -116,19 +116,19 @@ function wc_update_200_permalinks() {
  */
 function wc_update_200_subcat_display() {
 	// Update subcat display settings.
-	if ( 'yes' === get_option( 'woocommerce_shop_show_subcategories' ) ) {
-		if ( 'yes' === get_option( 'woocommerce_hide_products_when_showing_subcategories' ) ) {
-			update_option( 'woocommerce_shop_page_display', 'subcategories' );
+	if ( 'yes' === get_option( 'poocommerce_shop_show_subcategories' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_products_when_showing_subcategories' ) ) {
+			update_option( 'poocommerce_shop_page_display', 'subcategories' );
 		} else {
-			update_option( 'woocommerce_shop_page_display', 'both' );
+			update_option( 'poocommerce_shop_page_display', 'both' );
 		}
 	}
 
-	if ( 'yes' === get_option( 'woocommerce_show_subcategories' ) ) {
-		if ( 'yes' === get_option( 'woocommerce_hide_products_when_showing_subcategories' ) ) {
-			update_option( 'woocommerce_category_archive_display', 'subcategories' );
+	if ( 'yes' === get_option( 'poocommerce_show_subcategories' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_products_when_showing_subcategories' ) ) {
+			update_option( 'poocommerce_category_archive_display', 'subcategories' );
 		} else {
-			update_option( 'woocommerce_category_archive_display', 'both' );
+			update_option( 'poocommerce_category_archive_display', 'both' );
 		}
 	}
 }
@@ -143,7 +143,7 @@ function wc_update_200_taxrates() {
 
 	// Update tax rates.
 	$loop      = 0;
-	$tax_rates = get_option( 'woocommerce_tax_rates' );
+	$tax_rates = get_option( 'poocommerce_tax_rates' );
 
 	if ( $tax_rates ) {
 		foreach ( $tax_rates as $tax_rate ) {
@@ -159,7 +159,7 @@ function wc_update_200_taxrates() {
 					}
 
 					$wpdb->insert(
-						$wpdb->prefix . 'woocommerce_tax_rates',
+						$wpdb->prefix . 'poocommerce_tax_rates',
 						array(
 							'tax_rate_country'  => $country,
 							'tax_rate_state'    => $state,
@@ -179,7 +179,7 @@ function wc_update_200_taxrates() {
 		}
 	}
 
-	$local_tax_rates = get_option( 'woocommerce_local_tax_rates' );
+	$local_tax_rates = get_option( 'poocommerce_local_tax_rates' );
 
 	if ( $local_tax_rates ) {
 		foreach ( $local_tax_rates as $tax_rate ) {
@@ -191,7 +191,7 @@ function wc_update_200_taxrates() {
 			}
 
 			$wpdb->insert(
-				$wpdb->prefix . 'woocommerce_tax_rates',
+				$wpdb->prefix . 'poocommerce_tax_rates',
 				array(
 					'tax_rate_country'  => $tax_rate['country'],
 					'tax_rate_state'    => $tax_rate['state'],
@@ -211,7 +211,7 @@ function wc_update_200_taxrates() {
 				foreach ( $tax_rate['locations'] as $location ) {
 
 					$wpdb->insert(
-						$wpdb->prefix . 'woocommerce_tax_rate_locations',
+						$wpdb->prefix . 'poocommerce_tax_rate_locations',
 						array(
 							'location_code' => $location,
 							'tax_rate_id'   => $tax_rate_id,
@@ -226,10 +226,10 @@ function wc_update_200_taxrates() {
 		}
 	}
 
-	update_option( 'woocommerce_tax_rates_backup', $tax_rates );
-	update_option( 'woocommerce_local_tax_rates_backup', $local_tax_rates );
-	delete_option( 'woocommerce_tax_rates' );
-	delete_option( 'woocommerce_local_tax_rates' );
+	update_option( 'poocommerce_tax_rates_backup', $tax_rates );
+	update_option( 'poocommerce_local_tax_rates_backup', $local_tax_rates );
+	delete_option( 'poocommerce_tax_rates' );
+	delete_option( 'poocommerce_local_tax_rates' );
 }
 
 /**
@@ -301,7 +301,7 @@ function wc_update_200_line_items() {
 				if ( count( $meta_rows ) > 0 ) {
 					$wpdb->query(
 						$wpdb->prepare(
-							"INSERT INTO {$wpdb->prefix}woocommerce_order_itemmeta ( order_item_id, meta_key, meta_value )
+							"INSERT INTO {$wpdb->prefix}poocommerce_order_itemmeta ( order_item_id, meta_key, meta_value )
 							VALUES " . implode( ',', $meta_rows ) . ';', // @codingStandardsIgnoreLine
 							$order_item_row->post_id
 						)
@@ -384,17 +384,17 @@ function wc_update_200_images() {
 
 		$old_settings = array_filter(
 			array(
-				'width'  => get_option( 'woocommerce_' . $value . '_image_width' ),
-				'height' => get_option( 'woocommerce_' . $value . '_image_height' ),
-				'crop'   => get_option( 'woocommerce_' . $value . '_image_crop' ),
+				'width'  => get_option( 'poocommerce_' . $value . '_image_width' ),
+				'height' => get_option( 'poocommerce_' . $value . '_image_height' ),
+				'crop'   => get_option( 'poocommerce_' . $value . '_image_crop' ),
 			)
 		);
 
 		if ( ! empty( $old_settings ) && update_option( 'shop_' . $value . '_image_size', $old_settings ) ) {
 
-			delete_option( 'woocommerce_' . $value . '_image_width' );
-			delete_option( 'woocommerce_' . $value . '_image_height' );
-			delete_option( 'woocommerce_' . $value . '_image_crop' );
+			delete_option( 'poocommerce_' . $value . '_image_width' );
+			delete_option( 'poocommerce_' . $value . '_image_height' );
+			delete_option( 'poocommerce_' . $value . '_image_crop' );
 
 		}
 	}
@@ -480,12 +480,12 @@ function wc_update_209_db_version() {
  */
 function wc_update_210_remove_pages() {
 	// Pages no longer used.
-	wp_trash_post( get_option( 'woocommerce_pay_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_thanks_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_view_order_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_change_password_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_edit_address_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_lost_password_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_pay_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_thanks_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_view_order_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_change_password_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_edit_address_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_lost_password_page_id' ) );
 }
 
 /**
@@ -545,21 +545,21 @@ function wc_update_210_db_version() {
  * @return void
  */
 function wc_update_220_shipping() {
-	$woocommerce_ship_to_destination = 'shipping';
+	$poocommerce_ship_to_destination = 'shipping';
 
-	if ( get_option( 'woocommerce_ship_to_billing_address_only' ) === 'yes' ) {
-		$woocommerce_ship_to_destination = 'billing_only';
-	} elseif ( get_option( 'woocommerce_ship_to_billing' ) === 'yes' ) {
-		$woocommerce_ship_to_destination = 'billing';
+	if ( get_option( 'poocommerce_ship_to_billing_address_only' ) === 'yes' ) {
+		$poocommerce_ship_to_destination = 'billing_only';
+	} elseif ( get_option( 'poocommerce_ship_to_billing' ) === 'yes' ) {
+		$poocommerce_ship_to_destination = 'billing';
 	}
 
-	add_option( 'woocommerce_ship_to_destination', $woocommerce_ship_to_destination, '', 'no' );
+	add_option( 'poocommerce_ship_to_destination', $poocommerce_ship_to_destination, '', 'no' );
 }
 
 /**
  * Update order statuses for 2.2
  *
- * Keeping the internal statuses names as strings to avoid regression issues (not referencing Automattic\WooCommerce\Enums\OrderInternalStatus class).
+ * Keeping the internal statuses names as strings to avoid regression issues (not referencing Automattic\PooCommerce\Enums\OrderInternalStatus class).
  *
  * @return void
  */
@@ -677,15 +677,15 @@ function wc_update_220_variations() {
 function wc_update_220_attributes() {
 	global $wpdb;
 	// Update taxonomy names with correct sanitized names.
-	$attribute_taxonomies = $wpdb->get_results( 'SELECT attribute_name, attribute_id FROM ' . $wpdb->prefix . 'woocommerce_attribute_taxonomies' );
+	$attribute_taxonomies = $wpdb->get_results( 'SELECT attribute_name, attribute_id FROM ' . $wpdb->prefix . 'poocommerce_attribute_taxonomies' );
 
 	foreach ( $attribute_taxonomies as $attribute_taxonomy ) {
 		$sanitized_attribute_name = wc_sanitize_taxonomy_name( $attribute_taxonomy->attribute_name );
 		if ( $sanitized_attribute_name !== $attribute_taxonomy->attribute_name ) {
-			if ( ! $wpdb->get_var( $wpdb->prepare( "SELECT 1=1 FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_name = %s;", $sanitized_attribute_name ) ) ) {
+			if ( ! $wpdb->get_var( $wpdb->prepare( "SELECT 1=1 FROM {$wpdb->prefix}poocommerce_attribute_taxonomies WHERE attribute_name = %s;", $sanitized_attribute_name ) ) ) {
 				// Update attribute.
 				$wpdb->update(
-					"{$wpdb->prefix}woocommerce_attribute_taxonomies",
+					"{$wpdb->prefix}poocommerce_attribute_taxonomies",
 					array(
 						'attribute_name' => $sanitized_attribute_name,
 					),
@@ -705,7 +705,7 @@ function wc_update_220_attributes() {
 	}
 
 	delete_transient( 'wc_attribute_taxonomies' );
-	WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+	WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 }
 
 /**
@@ -728,9 +728,9 @@ function wc_update_230_options() {
 	delete_metadata( 'user', 0, '_order_count', '', true );
 	delete_metadata( 'user', 0, '_last_order', '', true );
 
-	// To prevent taxes being hidden when using a default 'no address' in a store with tax inc prices, set the woocommerce_default_customer_address to use the store base address by default.
-	if ( '' === get_option( 'woocommerce_default_customer_address', false ) && wc_prices_include_tax() ) {
-		update_option( 'woocommerce_default_customer_address', 'base' );
+	// To prevent taxes being hidden when using a default 'no address' in a store with tax inc prices, set the poocommerce_default_customer_address to use the store base address by default.
+	if ( '' === get_option( 'poocommerce_default_customer_address', false ) && wc_prices_include_tax() ) {
+		update_option( 'poocommerce_default_customer_address', 'base' );
 	}
 }
 
@@ -753,7 +753,7 @@ function wc_update_240_options() {
 	 * Coupon discount calculations.
 	 * Maintain the old coupon logic for upgrades.
 	 */
-	update_option( 'woocommerce_calc_discounts_sequentially', 'yes' );
+	update_option( 'poocommerce_calc_discounts_sequentially', 'yes' );
 }
 
 /**
@@ -767,8 +767,8 @@ function wc_update_240_shipping_methods() {
 	 * Update legacy options to new math based options.
 	 */
 	$shipping_methods = array(
-		'woocommerce_flat_rates'                        => new WC_Shipping_Legacy_Flat_Rate(),
-		'woocommerce_international_delivery_flat_rates' => new WC_Shipping_Legacy_International_Delivery(),
+		'poocommerce_flat_rates'                        => new WC_Shipping_Legacy_Flat_Rate(),
+		'poocommerce_international_delivery_flat_rates' => new WC_Shipping_Legacy_International_Delivery(),
 	);
 	foreach ( $shipping_methods as $flat_rate_option_key => $shipping_method ) {
 		// Stop this running more than once if routine is repeated.
@@ -842,7 +842,7 @@ function wc_update_240_api_keys() {
 	/**
 	 * Update the old user API keys to the new Apps keys.
 	 */
-	$api_users = $wpdb->get_results( "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'woocommerce_api_consumer_key'" );
+	$api_users = $wpdb->get_results( "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'poocommerce_api_consumer_key'" );
 	$apps_keys = array();
 
 	// Get user data.
@@ -850,10 +850,10 @@ function wc_update_240_api_keys() {
 		$user        = get_userdata( $_user->user_id );
 		$apps_keys[] = array(
 			'user_id'         => $user->ID,
-			'permissions'     => $user->woocommerce_api_key_permissions,
-			'consumer_key'    => wc_api_hash( $user->woocommerce_api_consumer_key ),
-			'consumer_secret' => $user->woocommerce_api_consumer_secret,
-			'truncated_key'   => substr( $user->woocommerce_api_consumer_secret, -7 ),
+			'permissions'     => $user->poocommerce_api_key_permissions,
+			'consumer_key'    => wc_api_hash( $user->poocommerce_api_consumer_key ),
+			'consumer_secret' => $user->poocommerce_api_consumer_secret,
+			'truncated_key'   => substr( $user->poocommerce_api_consumer_secret, -7 ),
 		);
 	}
 
@@ -861,7 +861,7 @@ function wc_update_240_api_keys() {
 		// Create new apps.
 		foreach ( $apps_keys as $app ) {
 			$wpdb->insert(
-				$wpdb->prefix . 'woocommerce_api_keys',
+				$wpdb->prefix . 'poocommerce_api_keys',
 				$app,
 				array(
 					'%d',
@@ -876,9 +876,9 @@ function wc_update_240_api_keys() {
 		// Delete old user keys from usermeta.
 		foreach ( $api_users as $_user ) {
 			$user_id = intval( $_user->user_id );
-			delete_user_meta( $user_id, 'woocommerce_api_consumer_key' );
-			delete_user_meta( $user_id, 'woocommerce_api_consumer_secret' );
-			delete_user_meta( $user_id, 'woocommerce_api_key_permissions' );
+			delete_user_meta( $user_id, 'poocommerce_api_consumer_key' );
+			delete_user_meta( $user_id, 'poocommerce_api_consumer_secret' );
+			delete_user_meta( $user_id, 'poocommerce_api_key_permissions' );
 		}
 	}
 }
@@ -893,7 +893,7 @@ function wc_update_240_webhooks() {
 
 	/**
 	 * Webhooks.
-	 * Make sure order.update webhooks get the woocommerce_order_edit_status hook.
+	 * Make sure order.update webhooks get the poocommerce_order_edit_status hook.
 	 */
 	$order_update_webhooks = get_posts(
 		array(
@@ -931,10 +931,10 @@ function wc_update_240_refunds() {
 	);
 
 	// Ensure emails are disabled during this update routine.
-	remove_all_actions( 'woocommerce_order_status_refunded_notification' );
-	remove_all_actions( 'woocommerce_order_partially_refunded_notification' );
-	remove_action( 'woocommerce_order_status_refunded', array( 'WC_Emails', 'send_transactional_email' ) );
-	remove_action( 'woocommerce_order_partially_refunded', array( 'WC_Emails', 'send_transactional_email' ) );
+	remove_all_actions( 'poocommerce_order_status_refunded_notification' );
+	remove_all_actions( 'poocommerce_order_partially_refunded_notification' );
+	remove_action( 'poocommerce_order_status_refunded', array( 'WC_Emails', 'send_transactional_email' ) );
+	remove_action( 'poocommerce_order_partially_refunded', array( 'WC_Emails', 'send_transactional_email' ) );
 
 	foreach ( $refunded_orders as $refunded_order ) {
 		$order_total    = get_post_meta( $refunded_order->ID, '_order_total', true );
@@ -953,7 +953,7 @@ function wc_update_240_refunds() {
 			wc_create_refund(
 				array(
 					'amount'     => $order_total - $refunded_total,
-					'reason'     => __( 'Order fully refunded', 'woocommerce' ),
+					'reason'     => __( 'Order fully refunded', 'poocommerce' ),
 					'order_id'   => $refunded_order->ID,
 					'line_items' => array(),
 					'date'       => $refunded_order->post_modified,
@@ -982,7 +982,7 @@ function wc_update_240_db_version() {
 function wc_update_241_variations() {
 	global $wpdb;
 
-	// Select variations that don't have any _stock_status implemented on WooCommerce 2.2.
+	// Select variations that don't have any _stock_status implemented on PooCommerce 2.2.
 	$update_variations = $wpdb->get_results(
 		"SELECT DISTINCT posts.ID AS variation_id, posts.post_parent AS variation_parent
 		FROM {$wpdb->posts} as posts
@@ -1023,10 +1023,10 @@ function wc_update_241_db_version() {
 function wc_update_250_currency() {
 	global $wpdb;
 	// Fix currency settings for LAK currency.
-	$current_currency = get_option( 'woocommerce_currency' );
+	$current_currency = get_option( 'poocommerce_currency' );
 
 	if ( 'KIP' === $current_currency ) {
-		update_option( 'woocommerce_currency', 'LAK' );
+		update_option( 'poocommerce_currency', 'LAK' );
 	}
 
 	// phpcs:disable WordPress.DB.SlowDBQuery
@@ -1061,9 +1061,9 @@ function wc_update_250_db_version() {
  * @return void
  */
 function wc_update_260_options() {
-	// woocommerce_calc_shipping option has been removed in 2.6.
-	if ( 'no' === get_option( 'woocommerce_calc_shipping' ) ) {
-		update_option( 'woocommerce_ship_to_countries', 'disabled' );
+	// poocommerce_calc_shipping option has been removed in 2.6.
+	if ( 'no' === get_option( 'poocommerce_calc_shipping' ) ) {
+		update_option( 'poocommerce_ship_to_countries', 'disabled' );
 	}
 
 	WC_Admin_Notices::add_notice( 'legacy_shipping' );
@@ -1079,9 +1079,9 @@ function wc_update_260_termmeta() {
 	/**
 	 * Migrate term meta to WordPress tables.
 	 */
-	if ( get_option( 'db_version' ) >= 34370 && $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_termmeta';" ) ) {
-		if ( $wpdb->query( "INSERT INTO {$wpdb->termmeta} ( term_id, meta_key, meta_value ) SELECT woocommerce_term_id, meta_key, meta_value FROM {$wpdb->prefix}woocommerce_termmeta;" ) ) {
-			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}woocommerce_termmeta" );
+	if ( get_option( 'db_version' ) >= 34370 && $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_termmeta';" ) ) {
+		if ( $wpdb->query( "INSERT INTO {$wpdb->termmeta} ( term_id, meta_key, meta_value ) SELECT poocommerce_term_id, meta_key, meta_value FROM {$wpdb->prefix}poocommerce_termmeta;" ) ) {
+			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}poocommerce_termmeta" );
 			wp_cache_flush();
 		}
 	}
@@ -1098,9 +1098,9 @@ function wc_update_260_zones() {
 	 * Old (table rate) shipping zones to new core shipping zones migration.
 	 * zone_enabled and zone_type are no longer used, but it's safe to leave them be.
 	 */
-	if ( $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}woocommerce_shipping_zones` LIKE 'zone_enabled';" ) ) {
-		$wpdb->query( "ALTER TABLE {$wpdb->prefix}woocommerce_shipping_zones CHANGE `zone_type` `zone_type` VARCHAR(40) NOT NULL DEFAULT '';" );
-		$wpdb->query( "ALTER TABLE {$wpdb->prefix}woocommerce_shipping_zones CHANGE `zone_enabled` `zone_enabled` INT(1) NOT NULL DEFAULT 1;" );
+	if ( $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}poocommerce_shipping_zones` LIKE 'zone_enabled';" ) ) {
+		$wpdb->query( "ALTER TABLE {$wpdb->prefix}poocommerce_shipping_zones CHANGE `zone_type` `zone_type` VARCHAR(40) NOT NULL DEFAULT '';" );
+		$wpdb->query( "ALTER TABLE {$wpdb->prefix}poocommerce_shipping_zones CHANGE `zone_enabled` `zone_enabled` INT(1) NOT NULL DEFAULT 1;" );
 	}
 }
 
@@ -1113,18 +1113,18 @@ function wc_update_260_zone_methods() {
 	global $wpdb;
 
 	/**
-	 * Shipping zones in WC 2.6.0 use a table named woocommerce_shipping_zone_methods.
-	 * Migrate the old data out of woocommerce_shipping_zone_shipping_methods into the new table and port over any known options (used by table rates and flat rate boxes).
+	 * Shipping zones in WC 2.6.0 use a table named poocommerce_shipping_zone_methods.
+	 * Migrate the old data out of poocommerce_shipping_zone_shipping_methods into the new table and port over any known options (used by table rates and flat rate boxes).
 	 */
-	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_shipping_zone_shipping_methods';" ) ) {
-		$old_methods = $wpdb->get_results( "SELECT zone_id, shipping_method_type, shipping_method_order, shipping_method_id FROM {$wpdb->prefix}woocommerce_shipping_zone_shipping_methods;" );
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_shipping_zone_shipping_methods';" ) ) {
+		$old_methods = $wpdb->get_results( "SELECT zone_id, shipping_method_type, shipping_method_order, shipping_method_id FROM {$wpdb->prefix}poocommerce_shipping_zone_shipping_methods;" );
 
 		if ( $old_methods ) {
-			$max_new_id = $wpdb->get_var( "SELECT MAX(instance_id) FROM {$wpdb->prefix}woocommerce_shipping_zone_methods" );
-			$max_old_id = $wpdb->get_var( "SELECT MAX(shipping_method_id) FROM {$wpdb->prefix}woocommerce_shipping_zone_shipping_methods" );
+			$max_new_id = $wpdb->get_var( "SELECT MAX(instance_id) FROM {$wpdb->prefix}poocommerce_shipping_zone_methods" );
+			$max_old_id = $wpdb->get_var( "SELECT MAX(shipping_method_id) FROM {$wpdb->prefix}poocommerce_shipping_zone_shipping_methods" );
 
 			// Avoid ID conflicts.
-			$wpdb->query( $wpdb->prepare( "ALTER TABLE {$wpdb->prefix}woocommerce_shipping_zone_methods AUTO_INCREMENT = %d;", max( $max_new_id, $max_old_id ) + 1 ) );
+			$wpdb->query( $wpdb->prepare( "ALTER TABLE {$wpdb->prefix}poocommerce_shipping_zone_methods AUTO_INCREMENT = %d;", max( $max_new_id, $max_old_id ) + 1 ) );
 
 			// Store changes.
 			$changes = array();
@@ -1132,7 +1132,7 @@ function wc_update_260_zone_methods() {
 			// Move data.
 			foreach ( $old_methods as $old_method ) {
 				$wpdb->insert(
-					$wpdb->prefix . 'woocommerce_shipping_zone_methods',
+					$wpdb->prefix . 'poocommerce_shipping_zone_methods',
 					array(
 						'zone_id'      => $old_method->zone_id,
 						'method_id'    => $old_method->shipping_method_type,
@@ -1143,19 +1143,19 @@ function wc_update_260_zone_methods() {
 				$new_instance_id = $wpdb->insert_id;
 
 				// Move main settings.
-				$older_settings_key = 'woocommerce_' . $old_method->shipping_method_type . '-' . $old_method->shipping_method_id . '_settings';
-				$old_settings_key   = 'woocommerce_' . $old_method->shipping_method_type . '_' . $old_method->shipping_method_id . '_settings';
-				add_option( 'woocommerce_' . $old_method->shipping_method_type . '_' . $new_instance_id . '_settings', get_option( $old_settings_key, get_option( $older_settings_key ) ) );
+				$older_settings_key = 'poocommerce_' . $old_method->shipping_method_type . '-' . $old_method->shipping_method_id . '_settings';
+				$old_settings_key   = 'poocommerce_' . $old_method->shipping_method_type . '_' . $old_method->shipping_method_id . '_settings';
+				add_option( 'poocommerce_' . $old_method->shipping_method_type . '_' . $new_instance_id . '_settings', get_option( $old_settings_key, get_option( $older_settings_key ) ) );
 
 				// Handling for table rate and flat rate box shipping.
 				if ( 'table_rate' === $old_method->shipping_method_type ) {
 					// Move priority settings.
-					add_option( 'woocommerce_table_rate_default_priority_' . $new_instance_id, get_option( 'woocommerce_table_rate_default_priority_' . $old_method->shipping_method_id ) );
-					add_option( 'woocommerce_table_rate_priorities_' . $new_instance_id, get_option( 'woocommerce_table_rate_priorities_' . $old_method->shipping_method_id ) );
+					add_option( 'poocommerce_table_rate_default_priority_' . $new_instance_id, get_option( 'poocommerce_table_rate_default_priority_' . $old_method->shipping_method_id ) );
+					add_option( 'poocommerce_table_rate_priorities_' . $new_instance_id, get_option( 'poocommerce_table_rate_priorities_' . $old_method->shipping_method_id ) );
 
 					// Move rates.
 					$wpdb->update(
-						$wpdb->prefix . 'woocommerce_shipping_table_rates',
+						$wpdb->prefix . 'poocommerce_shipping_table_rates',
 						array(
 							'shipping_method_id' => $new_instance_id,
 						),
@@ -1165,7 +1165,7 @@ function wc_update_260_zone_methods() {
 					);
 				} elseif ( 'flat_rate_boxes' === $old_method->shipping_method_type ) {
 					$wpdb->update(
-						$wpdb->prefix . 'woocommerce_shipping_flat_rate_boxes',
+						$wpdb->prefix . 'poocommerce_shipping_flat_rate_boxes',
 						array(
 							'shipping_method_id' => $new_instance_id,
 						),
@@ -1180,13 +1180,13 @@ function wc_update_260_zone_methods() {
 
 			// $changes contains keys (old method ids) and values (new instance ids) if extra processing is needed in plugins.
 			// Store this to an option so extensions can pick it up later, then fire an action.
-			update_option( 'woocommerce_updated_instance_ids', $changes );
-			do_action( 'woocommerce_updated_instance_ids', $changes );
+			update_option( 'poocommerce_updated_instance_ids', $changes );
+			do_action( 'poocommerce_updated_instance_ids', $changes );
 		}
 	}
 
 	// Change ranges used to ...
-	$wpdb->query( "UPDATE {$wpdb->prefix}woocommerce_shipping_zone_locations SET location_code = REPLACE( location_code, '-', '...' );" );
+	$wpdb->query( "UPDATE {$wpdb->prefix}poocommerce_shipping_zone_locations SET location_code = REPLACE( location_code, '-', '...' );" );
 }
 
 /**
@@ -1200,8 +1200,8 @@ function wc_update_260_refunds() {
 	 * Refund item qty should be negative.
 	 */
 	$wpdb->query(
-		"UPDATE {$wpdb->prefix}woocommerce_order_itemmeta as item_meta
-		LEFT JOIN {$wpdb->prefix}woocommerce_order_items as items ON item_meta.order_item_id = items.order_item_id
+		"UPDATE {$wpdb->prefix}poocommerce_order_itemmeta as item_meta
+		LEFT JOIN {$wpdb->prefix}poocommerce_order_items as items ON item_meta.order_item_id = items.order_item_id
 		LEFT JOIN {$wpdb->posts} as posts ON items.order_id = posts.ID
 		SET item_meta.meta_value = item_meta.meta_value * -1
 		WHERE item_meta.meta_value > 0 AND item_meta.meta_key = '_qty' AND posts.post_type = 'shop_order_refund'"
@@ -1226,8 +1226,8 @@ function wc_update_300_webhooks() {
 	// phpcs:disable WordPress.DB.SlowDBQuery
 
 	/**
-	 * Make sure product.update webhooks get the woocommerce_product_quick_edit_save
-	 * and woocommerce_product_bulk_edit_save hooks.
+	 * Make sure product.update webhooks get the poocommerce_product_quick_edit_save
+	 * and poocommerce_product_bulk_edit_save hooks.
 	 */
 	$product_update_webhooks = get_posts(
 		array(
@@ -1302,11 +1302,11 @@ function wc_update_300_grouped_products() {
  * @return void
  */
 function wc_update_300_settings() {
-	$woocommerce_shipping_tax_class = get_option( 'woocommerce_shipping_tax_class' );
-	if ( '' === $woocommerce_shipping_tax_class ) {
-		update_option( 'woocommerce_shipping_tax_class', 'inherit' );
-	} elseif ( 'standard' === $woocommerce_shipping_tax_class ) {
-		update_option( 'woocommerce_shipping_tax_class', '' );
+	$poocommerce_shipping_tax_class = get_option( 'poocommerce_shipping_tax_class' );
+	if ( '' === $poocommerce_shipping_tax_class ) {
+		update_option( 'poocommerce_shipping_tax_class', 'inherit' );
+	} elseif ( 'standard' === $poocommerce_shipping_tax_class ) {
+		update_option( 'poocommerce_shipping_tax_class', '' );
 	}
 }
 
@@ -1386,10 +1386,10 @@ function wc_update_300_db_version() {
 function wc_update_310_downloadable_products() {
 	global $wpdb;
 
-	$index_exists = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE column_name = 'order_id' and key_name = 'order_id'" );
+	$index_exists = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE column_name = 'order_id' and key_name = 'order_id'" );
 
 	if ( is_null( $index_exists ) ) {
-		$wpdb->query( "ALTER TABLE {$wpdb->prefix}woocommerce_downloadable_product_permissions ADD INDEX order_id (order_id)" );
+		$wpdb->query( "ALTER TABLE {$wpdb->prefix}poocommerce_downloadable_product_permissions ADD INDEX order_id (order_id)" );
 	}
 }
 
@@ -1477,7 +1477,7 @@ function wc_update_320_mexican_states() {
 			)
 		);
 		$wpdb->update(
-			"{$wpdb->prefix}woocommerce_shipping_zone_locations",
+			"{$wpdb->prefix}poocommerce_shipping_zone_locations",
 			array(
 				'location_code' => 'MX:' . $new,
 			),
@@ -1486,7 +1486,7 @@ function wc_update_320_mexican_states() {
 			)
 		);
 		$wpdb->update(
-			"{$wpdb->prefix}woocommerce_tax_rates",
+			"{$wpdb->prefix}poocommerce_tax_rates",
 			array(
 				'tax_rate_state' => strtoupper( $new ),
 			),
@@ -1524,28 +1524,28 @@ function wc_update_330_image_options() {
 			$height = $width;
 		}
 
-		update_option( 'woocommerce_thumbnail_image_width', $width );
+		update_option( 'poocommerce_thumbnail_image_width', $width );
 
 		// Calculate cropping mode from old image options.
 		if ( ! $hard_crop ) {
-			update_option( 'woocommerce_thumbnail_cropping', 'uncropped' );
+			update_option( 'poocommerce_thumbnail_cropping', 'uncropped' );
 		} elseif ( $width === $height ) {
-			update_option( 'woocommerce_thumbnail_cropping', '1:1' );
+			update_option( 'poocommerce_thumbnail_cropping', '1:1' );
 		} else {
 			$ratio    = $width / $height;
 			$fraction = wc_decimal_to_fraction( $ratio );
 
 			if ( $fraction ) {
-				update_option( 'woocommerce_thumbnail_cropping', 'custom' );
-				update_option( 'woocommerce_thumbnail_cropping_custom_width', $fraction[0] );
-				update_option( 'woocommerce_thumbnail_cropping_custom_height', $fraction[1] );
+				update_option( 'poocommerce_thumbnail_cropping', 'custom' );
+				update_option( 'poocommerce_thumbnail_cropping_custom_width', $fraction[0] );
+				update_option( 'poocommerce_thumbnail_cropping_custom_height', $fraction[1] );
 			}
 		}
 	}
 
 	// Single is uncropped.
 	if ( ! empty( $old_single_size['width'] ) ) {
-		update_option( 'woocommerce_single_image_width', absint( $old_single_size['width'] ) );
+		update_option( 'poocommerce_single_image_width', absint( $old_single_size['width'] ) );
 	}
 }
 
@@ -1606,11 +1606,11 @@ function wc_update_330_set_default_product_cat() {
 function wc_update_330_product_stock_status() {
 	global $wpdb;
 
-	if ( 'yes' !== get_option( 'woocommerce_manage_stock' ) ) {
+	if ( 'yes' !== get_option( 'poocommerce_manage_stock' ) ) {
 		return;
 	}
 
-	$min_stock_amount = (int) get_option( 'woocommerce_notify_no_stock_amount', 0 );
+	$min_stock_amount = (int) get_option( 'poocommerce_notify_no_stock_amount', 0 );
 
 	// Get all products that have stock management enabled, stock less than or equal to min stock amount, and backorders enabled.
 	$post_ids = $wpdb->get_col(
@@ -1656,7 +1656,7 @@ function wc_update_330_clear_transients() {
  */
 function wc_update_330_set_paypal_sandbox_credentials() {
 
-	$paypal_settings = get_option( 'woocommerce_paypal_settings' );
+	$paypal_settings = get_option( 'poocommerce_paypal_settings' );
 
 	if ( isset( $paypal_settings['testmode'] ) && 'yes' === $paypal_settings['testmode'] ) {
 		foreach ( array( 'api_username', 'api_password', 'api_signature' ) as $credential ) {
@@ -1665,7 +1665,7 @@ function wc_update_330_set_paypal_sandbox_credentials() {
 			}
 		}
 
-		update_option( 'woocommerce_paypal_settings', $paypal_settings );
+		update_option( 'poocommerce_paypal_settings', $paypal_settings );
 	}
 }
 
@@ -1754,7 +1754,7 @@ function wc_update_340_states() {
 		),
 	);
 
-	update_option( 'woocommerce_update_340_states', $country_states );
+	update_option( 'poocommerce_update_340_states', $country_states );
 }
 
 /**
@@ -1765,7 +1765,7 @@ function wc_update_340_states() {
 function wc_update_340_state() {
 	global $wpdb;
 
-	$country_states = array_filter( (array) get_option( 'woocommerce_update_340_states', array() ) );
+	$country_states = array_filter( (array) get_option( 'poocommerce_update_340_states', array() ) );
 
 	if ( empty( $country_states ) ) {
 		return false;
@@ -1784,7 +1784,7 @@ function wc_update_340_state() {
 				)
 			);
 			$wpdb->update(
-				"{$wpdb->prefix}woocommerce_shipping_zone_locations",
+				"{$wpdb->prefix}poocommerce_shipping_zone_locations",
 				array(
 					'location_code' => $country . ':' . $new,
 				),
@@ -1793,7 +1793,7 @@ function wc_update_340_state() {
 				)
 			);
 			$wpdb->update(
-				"{$wpdb->prefix}woocommerce_tax_rates",
+				"{$wpdb->prefix}poocommerce_tax_rates",
 				array(
 					'tax_rate_state' => strtoupper( $new ),
 				),
@@ -1811,10 +1811,10 @@ function wc_update_340_state() {
 	}
 
 	if ( ! empty( $country_states ) ) {
-		return update_option( 'woocommerce_update_340_states', $country_states );
+		return update_option( 'poocommerce_update_340_states', $country_states );
 	}
 
-	delete_option( 'woocommerce_update_340_states' );
+	delete_option( 'poocommerce_update_340_states' );
 
 	return false;
 }
@@ -1978,10 +1978,10 @@ function wc_update_360_term_meta() {
 function wc_update_360_downloadable_product_permissions_index() {
 	global $wpdb;
 
-	$index_exists = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE key_name = 'user_order_remaining_expires'" );
+	$index_exists = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE key_name = 'user_order_remaining_expires'" );
 
 	if ( is_null( $index_exists ) ) {
-		$wpdb->query( "ALTER TABLE {$wpdb->prefix}woocommerce_downloadable_product_permissions ADD INDEX user_order_remaining_expires (user_id,order_id,downloads_remaining,access_expires)" );
+		$wpdb->query( "ALTER TABLE {$wpdb->prefix}poocommerce_downloadable_product_permissions ADD INDEX user_order_remaining_expires (user_id,order_id,downloads_remaining,access_expires)" );
 	}
 }
 
@@ -2000,7 +2000,7 @@ function wc_update_360_db_version() {
 function wc_update_370_tax_rate_classes() {
 	global $wpdb;
 
-	$classes = array_map( 'trim', explode( "\n", get_option( 'woocommerce_tax_classes' ) ) );
+	$classes = array_map( 'trim', explode( "\n", get_option( 'poocommerce_tax_classes' ) ) );
 
 	if ( $classes ) {
 		foreach ( $classes as $class ) {
@@ -2010,7 +2010,7 @@ function wc_update_370_tax_rate_classes() {
 			WC_Tax::create_tax_class( $class );
 		}
 	}
-	delete_option( 'woocommerce_tax_classes' );
+	delete_option( 'poocommerce_tax_classes' );
 }
 
 /**
@@ -2022,14 +2022,14 @@ function wc_update_370_mro_std_currency() {
 	global $wpdb;
 
 	// Fix currency settings for MRU and STN currency.
-	$current_currency = get_option( 'woocommerce_currency' );
+	$current_currency = get_option( 'poocommerce_currency' );
 
 	if ( 'MRO' === $current_currency ) {
-		update_option( 'woocommerce_currency', 'MRU' );
+		update_option( 'poocommerce_currency', 'MRU' );
 	}
 
 	if ( 'STD' === $current_currency ) {
-		update_option( 'woocommerce_currency', 'STN' );
+		update_option( 'poocommerce_currency', 'STN' );
 	}
 
 	// Update MRU currency code.
@@ -2070,17 +2070,17 @@ function wc_update_370_db_version() {
  */
 function wc_update_390_move_maxmind_database() {
 	// Make sure to use all of the correct filters to pull the local database path.
-	$old_path = apply_filters( 'woocommerce_geolocation_local_database_path', WP_CONTENT_DIR . '/uploads/GeoLite2-Country.mmdb', 2 );
+	$old_path = apply_filters( 'poocommerce_geolocation_local_database_path', WP_CONTENT_DIR . '/uploads/GeoLite2-Country.mmdb', 2 );
 
 	// Generate a prefix for the old file and store it in the integration as it would expect it.
 	$prefix = wp_generate_password( 32, false );
-	update_option( 'woocommerce_maxmind_geolocation_settings', array( 'database_prefix' => $prefix ) );
+	update_option( 'poocommerce_maxmind_geolocation_settings', array( 'database_prefix' => $prefix ) );
 
 	// Generate the new path in the same way that the integration will.
 	$uploads_dir = wp_upload_dir();
-	$new_path    = trailingslashit( $uploads_dir['basedir'] ) . 'woocommerce_uploads/' . $prefix . '-GeoLite2-Country.mmdb';
-	$new_path    = apply_filters( 'woocommerce_geolocation_local_database_path', $new_path, 2 );
-	$new_path    = apply_filters( 'woocommerce_maxmind_geolocation_database_path', $new_path );
+	$new_path    = trailingslashit( $uploads_dir['basedir'] ) . 'poocommerce_uploads/' . $prefix . '-GeoLite2-Country.mmdb';
+	$new_path    = apply_filters( 'poocommerce_geolocation_local_database_path', $new_path, 2 );
+	$new_path    = apply_filters( 'poocommerce_maxmind_geolocation_database_path', $new_path );
 
 	// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 	@rename( $old_path, $new_path );
@@ -2090,8 +2090,8 @@ function wc_update_390_move_maxmind_database() {
  * So that we can best meet MaxMind's TOS, the geolocation database update cron should run once per 15 days.
  */
 function wc_update_390_change_geolocation_database_update_cron() {
-	wp_clear_scheduled_hook( 'woocommerce_geoip_updater' );
-	wp_schedule_event( time() + ( DAY_IN_SECONDS * 15 ), 'fifteendays', 'woocommerce_geoip_updater' );
+	wp_clear_scheduled_hook( 'poocommerce_geoip_updater' );
+	wp_schedule_event( time() + ( DAY_IN_SECONDS * 15 ), 'fifteendays', 'poocommerce_geoip_updater' );
 }
 
 /**
@@ -2133,8 +2133,8 @@ function wc_update_400_db_version() {
  * Register attributes as terms for variable products, in increments of 100 products.
  *
  * This migration was added to support a new mechanism to improve the filtering of
- * variable products by attribute (https://github.com/woocommerce/woocommerce/pull/26260),
- * however that mechanism was later reverted (https://github.com/woocommerce/woocommerce/pull/27625)
+ * variable products by attribute (https://github.com/poocommerce/poocommerce/pull/26260),
+ * however that mechanism was later reverted (https://github.com/poocommerce/poocommerce/pull/27625)
  * due to numerous issues found. Thus the migration is no longer needed.
  *
  * @return bool true if the migration needs to be run again.
@@ -2166,7 +2166,7 @@ function wc_update_450_sanitize_coupons_code() {
 	global $wpdb;
 
 	$coupon_id      = 0;
-	$last_coupon_id = get_option( 'woocommerce_update_450_last_coupon_id', '0' );
+	$last_coupon_id = get_option( 'poocommerce_update_450_last_coupon_id', '0' );
 
 	$coupons = $wpdb->get_results(
 		$wpdb->prepare(
@@ -2177,7 +2177,7 @@ function wc_update_450_sanitize_coupons_code() {
 	);
 
 	if ( empty( $coupons ) ) {
-		delete_option( 'woocommerce_update_450_last_coupon_id' );
+		delete_option( 'poocommerce_update_450_last_coupon_id' );
 		return false;
 	}
 
@@ -2210,23 +2210,23 @@ function wc_update_450_sanitize_coupons_code() {
 
 	// Start the run again.
 	if ( $coupon_id ) {
-		return update_option( 'woocommerce_update_450_last_coupon_id', $coupon_id );
+		return update_option( 'poocommerce_update_450_last_coupon_id', $coupon_id );
 	}
 
-	delete_option( 'woocommerce_update_450_last_coupon_id' );
+	delete_option( 'poocommerce_update_450_last_coupon_id' );
 	return false;
 }
 
 /**
  * Fixes product review count that might have been incorrect.
  *
- * See @link https://github.com/woocommerce/woocommerce/issues/27688.
+ * See @link https://github.com/poocommerce/poocommerce/issues/27688.
  */
 function wc_update_500_fix_product_review_count() {
 	global $wpdb;
 
 	$product_id      = 0;
-	$last_product_id = get_option( 'woocommerce_update_500_last_product_id', '0' );
+	$last_product_id = get_option( 'poocommerce_update_500_last_product_id', '0' );
 
 	$products_data = $wpdb->get_results(
 		$wpdb->prepare(
@@ -2249,7 +2249,7 @@ function wc_update_500_fix_product_review_count() {
 	);
 
 	if ( empty( $products_data ) ) {
-		delete_option( 'woocommerce_update_500_last_product_id' );
+		delete_option( 'poocommerce_update_500_last_product_id' );
 		return false;
 	}
 
@@ -2267,10 +2267,10 @@ function wc_update_500_fix_product_review_count() {
 
 	// Start the run again.
 	if ( $product_id ) {
-		return update_option( 'woocommerce_update_500_last_product_id', $product_id );
+		return update_option( 'poocommerce_update_500_last_product_id', $product_id );
 	}
 
-	delete_option( 'woocommerce_update_500_last_product_id' );
+	delete_option( 'poocommerce_update_500_last_product_id' );
 	return false;
 }
 
@@ -2284,7 +2284,7 @@ function wc_update_500_db_version() {
 /**
  * Creates the refund and returns policy page.
  *
- * See @link https://github.com/woocommerce/woocommerce/issues/29235.
+ * See @link https://github.com/poocommerce/poocommerce/issues/29235.
  */
 function wc_update_560_create_refund_returns_page() {
 	/**
@@ -2298,11 +2298,11 @@ function wc_update_560_create_refund_returns_page() {
 		return array_intersect_key( $pages, array_flip( $page_to_create ) );
 	}
 
-	add_filter( 'woocommerce_create_pages', 'filter_created_pages' );
+	add_filter( 'poocommerce_create_pages', 'filter_created_pages' );
 
 	WC_Install::create_pages();
 
-	remove_filter( 'woocommerce_create_pages', 'filter_created_pages' );
+	remove_filter( 'poocommerce_create_pages', 'filter_created_pages' );
 }
 
 /**
@@ -2315,7 +2315,7 @@ function wc_update_560_db_version() {
 /**
  * Migrate rate limit options to the new table.
  *
- * See @link https://github.com/woocommerce/woocommerce/issues/27103.
+ * See @link https://github.com/poocommerce/poocommerce/issues/27103.
  */
 function wc_update_600_migrate_rate_limit_options() {
 	global $wpdb;
@@ -2324,11 +2324,11 @@ function wc_update_600_migrate_rate_limit_options() {
 		"
 			SELECT option_name, option_value
 			FROM $wpdb->options
-			WHERE option_name LIKE 'woocommerce_rate_limit_add_payment_method_%'
+			WHERE option_name LIKE 'poocommerce_rate_limit_add_payment_method_%'
 		",
 		ARRAY_A
 	);
-	$prefix_length = strlen( 'woocommerce_rate_limit_' );
+	$prefix_length = strlen( 'poocommerce_rate_limit_' );
 
 	foreach ( $rate_limits as $rate_limit ) {
 		$new_delay = (int) $rate_limit['option_value'] - time();
@@ -2399,7 +2399,7 @@ function wc_update_640_db_version() {
 }
 
 /**
- * Add the standard WooCommerce upload directories to the Approved Product Download Directories list
+ * Add the standard PooCommerce upload directories to the Approved Product Download Directories list
  * and start populating it based on existing product download URLs, but do not enable the feature
  * (for existing installations, a site admin should review and make a conscious decision to enable).
  */
@@ -2587,8 +2587,8 @@ function wc_update_750_add_columns_to_order_stats_table() {
  * @return void
  */
 function wc_update_750_disable_new_product_management_experience() {
-	if ( 'yes' === get_option( 'woocommerce_new_product_management_enabled' ) ) {
-		update_option( 'woocommerce_new_product_management_enabled', 'no' );
+	if ( 'yes' === get_option( 'poocommerce_new_product_management_enabled' ) ) {
+		update_option( 'poocommerce_new_product_management_enabled', 'no' );
 	}
 }
 
@@ -2596,8 +2596,8 @@ function wc_update_750_disable_new_product_management_experience() {
  * Remove the multichannel marketing feature flag and options. This feature is now enabled by default.
  */
 function wc_update_770_remove_multichannel_marketing_feature_options() {
-	delete_option( 'woocommerce_multichannel_marketing_enabled' );
-	delete_option( 'woocommerce_marketing_overview_welcome_hidden' );
+	delete_option( 'poocommerce_multichannel_marketing_enabled' );
+	delete_option( 'poocommerce_marketing_overview_welcome_hidden' );
 }
 
 /**
@@ -2651,7 +2651,7 @@ LIMIT 250
  * Remove the transient data for recommended marketing extensions.
  *
  * This is removed because it is not used anymore.
- * It is replaced by `woocommerce_admin_marketing_recommendations_specs` transient that is created by `MarketingRecommendationsDataSourcePoller`.
+ * It is replaced by `poocommerce_admin_marketing_recommendations_specs` transient that is created by `MarketingRecommendationsDataSourcePoller`.
  */
 function wc_update_860_remove_recommended_marketing_plugins_transient() {
 	delete_transient( 'wc_marketing_recommended_plugins' );
@@ -2664,7 +2664,7 @@ function wc_update_860_remove_recommended_marketing_plugins_transient() {
 function wc_update_870_prevent_listing_of_transient_files_directory() {
 	global $wp_filesystem;
 
-	$default_transient_files_dir = untrailingslashit( wp_upload_dir()['basedir'] ) . '/woocommerce_transient_files';
+	$default_transient_files_dir = untrailingslashit( wp_upload_dir()['basedir'] ) . '/poocommerce_transient_files';
 	if ( ! is_dir( $default_transient_files_dir ) ) {
 		return;
 	}
@@ -2678,9 +2678,9 @@ function wc_update_870_prevent_listing_of_transient_files_directory() {
 /**
  * If it exists, remove the inbox note that asks users to connect to `Woo.com`.
  */
-function wc_update_890_update_connect_to_woocommerce_note() {
+function wc_update_890_update_connect_to_poocommerce_note() {
 	$note = Notes::get_note_by_name( WooSubscriptionsNotes::CONNECTION_NOTE_NAME );
-	if ( ! is_a( $note, 'Automattic\WooCommerce\Admin\Notes\Note' ) ) {
+	if ( ! is_a( $note, 'Automattic\PooCommerce\Admin\Notes\Note' ) ) {
 		return;
 	}
 	if ( ! str_contains( $note->get_title(), 'Woo.com' ) ) {
@@ -2695,8 +2695,8 @@ function wc_update_890_update_connect_to_woocommerce_note() {
 /**
  * Disables the PayPal Standard gateway for stores that aren't using it.
  *
- * PayPal Standard has been deprecated since WooCommerce 5.5, but there are some stores that have it showing up in their
- * list of available Payment methods even if it's not setup. In WooCommerce 8.9 we will disable PayPal Standard for those stores
+ * PayPal Standard has been deprecated since PooCommerce 5.5, but there are some stores that have it showing up in their
+ * list of available Payment methods even if it's not setup. In PooCommerce 8.9 we will disable PayPal Standard for those stores
  * to reduce the amount of new connections to the legacy gateway.
  *
  * Shows an admin notice to inform the store owner that PayPal Standard has been disabled and suggests installing PayPal Payments.
@@ -2715,35 +2715,35 @@ function wc_update_890_update_paypal_standard_load_eligibility() {
 }
 
 /**
- * Create the woocommerce_history_of_autoinstalled_plugins option if it doesn't exist
- * as a copy of woocommerce_autoinstalled_plugins if it exists.
+ * Create the poocommerce_history_of_autoinstalled_plugins option if it doesn't exist
+ * as a copy of poocommerce_autoinstalled_plugins if it exists.
  */
 function wc_update_891_create_plugin_autoinstall_history_option() {
-	$autoinstalled_plugins_history_info = get_site_option( 'woocommerce_history_of_autoinstalled_plugins' );
+	$autoinstalled_plugins_history_info = get_site_option( 'poocommerce_history_of_autoinstalled_plugins' );
 	if ( false === $autoinstalled_plugins_history_info ) {
-		$autoinstalled_plugins_info = get_site_option( 'woocommerce_autoinstalled_plugins' );
+		$autoinstalled_plugins_info = get_site_option( 'poocommerce_autoinstalled_plugins' );
 		if ( false !== $autoinstalled_plugins_info ) {
-			update_site_option( 'woocommerce_history_of_autoinstalled_plugins', $autoinstalled_plugins_info );
+			update_site_option( 'poocommerce_history_of_autoinstalled_plugins', $autoinstalled_plugins_info );
 		}
 	}
 }
 
 /**
- * Add woocommerce_show_lys_tour.
+ * Add poocommerce_show_lys_tour.
  */
 function wc_update_910_add_launch_your_store_tour_option() {
-	add_option( 'woocommerce_show_lys_tour', 'yes' );
+	add_option( 'poocommerce_show_lys_tour', 'yes' );
 }
 
 /**
- * Add woocommerce_hooked_blocks_version option for existing stores that are using a theme that supports the Block Hooks API
+ * Add poocommerce_hooked_blocks_version option for existing stores that are using a theme that supports the Block Hooks API
  */
 function wc_update_920_add_wc_hooked_blocks_version_option() {
 	if ( ! wc_current_theme_is_fse_theme() && ! current_theme_supports( 'block-template-parts' ) ) {
 		return;
 	}
 
-	$option_name  = 'woocommerce_hooked_blocks_version';
+	$option_name  = 'poocommerce_hooked_blocks_version';
 	$option_value = get_option( $option_name );
 
 	// If the option already exists, we don't need to do anything.
@@ -2757,7 +2757,7 @@ function wc_update_920_add_wc_hooked_blocks_version_option() {
 	 *
 	 * @since 8.4.0
 	 */
-	$theme_include_list               = apply_filters( 'woocommerce_hooked_blocks_theme_include_list', array( 'Twenty Twenty-Four', 'Twenty Twenty-Three', 'Twenty Twenty-Two', 'Tsubaki', 'Zaino', 'Thriving Artist', 'Amulet', 'Tazza' ) );
+	$theme_include_list               = apply_filters( 'poocommerce_hooked_blocks_theme_include_list', array( 'Twenty Twenty-Four', 'Twenty Twenty-Three', 'Twenty Twenty-Two', 'Tsubaki', 'Zaino', 'Thriving Artist', 'Amulet', 'Tazza' ) );
 	$active_theme_name                = wp_get_theme()->get( 'Name' );
 	$should_set_hooked_blocks_version = in_array( $active_theme_name, $theme_include_list, true );
 
@@ -2803,7 +2803,7 @@ function wc_update_910_remove_obsolete_user_meta() {
 
 	if ( false === $deletions ) {
 		$logger->notice(
-			'During the update to 9.1.0, WooCommerce attempted to remove user meta with the keys "_last_order", "_order_count" and "_money_spent" but was unable to do so.',
+			'During the update to 9.1.0, PooCommerce attempted to remove user meta with the keys "_last_order", "_order_count" and "_money_spent" but was unable to do so.',
 			array(
 				'source' => 'wc-updater',
 			)
@@ -2812,8 +2812,8 @@ function wc_update_910_remove_obsolete_user_meta() {
 		$logger->info(
 			sprintf(
 				1 === $deletions
-					? 'During the update to 9.1.0, WooCommerce removed %d user meta row associated with the meta keys "_last_order", "_order_count" or "_money_spent".'
-					: 'During the update to 9.1.0, WooCommerce removed %d user meta rows associated with the meta keys "_last_order", "_order_count" or "_money_spent".',
+					? 'During the update to 9.1.0, PooCommerce removed %d user meta row associated with the meta keys "_last_order", "_order_count" or "_money_spent".'
+					: 'During the update to 9.1.0, PooCommerce removed %d user meta rows associated with the meta keys "_last_order", "_order_count" or "_money_spent".',
 				number_format_i18n( $deletions )
 			),
 			array(
@@ -2824,36 +2824,36 @@ function wc_update_910_remove_obsolete_user_meta() {
 }
 
 /**
- * Add woocommerce_coming_soon option when it is not currently present.
+ * Add poocommerce_coming_soon option when it is not currently present.
  */
-function wc_update_930_add_woocommerce_coming_soon_option() {
-	add_option( 'woocommerce_coming_soon', 'no' );
+function wc_update_930_add_poocommerce_coming_soon_option() {
+	add_option( 'poocommerce_coming_soon', 'no' );
 }
 
 /**
- * Migrate Launch Your Store tour meta keys to the woocommerce_meta user data fields.
+ * Migrate Launch Your Store tour meta keys to the poocommerce_meta user data fields.
  */
 function wc_update_930_migrate_user_meta_for_launch_your_store_tour() {
-	// Rename `woocommerce_launch_your_store_tour_hidden` meta key to `woocommerce_admin_launch_your_store_tour_hidden`.
+	// Rename `poocommerce_launch_your_store_tour_hidden` meta key to `poocommerce_admin_launch_your_store_tour_hidden`.
 	global $wpdb;
 	$wpdb->query(
 		$wpdb->prepare(
 			"UPDATE {$wpdb->usermeta}
 			SET meta_key = %s
 			WHERE meta_key = %s",
-			'woocommerce_admin_launch_your_store_tour_hidden',
-			'woocommerce_launch_your_store_tour_hidden'
+			'poocommerce_admin_launch_your_store_tour_hidden',
+			'poocommerce_launch_your_store_tour_hidden'
 		)
 	);
 
-	// Rename `woocommerce_coming_soon_banner_dismissed` meta key to `woocommerce_admin_coming_soon_banner_dismissed`.
+	// Rename `poocommerce_coming_soon_banner_dismissed` meta key to `poocommerce_admin_coming_soon_banner_dismissed`.
 	$wpdb->query(
 		$wpdb->prepare(
 			"UPDATE {$wpdb->usermeta}
 			SET meta_key = %s
 			WHERE meta_key = %s",
-			'woocommerce_admin_coming_soon_banner_dismissed',
-			'woocommerce_coming_soon_banner_dismissed'
+			'poocommerce_admin_coming_soon_banner_dismissed',
+			'poocommerce_coming_soon_banner_dismissed'
 		)
 	);
 }
@@ -2877,7 +2877,7 @@ function wc_update_940_add_phone_to_order_address_fts_index(): void {
 }
 
 /**
- * Remove user meta associated with the key 'woocommerce_admin_help_panel_highlight_shown'.
+ * Remove user meta associated with the key 'poocommerce_admin_help_panel_highlight_shown'.
  *
  * This key is no longer needed since the help panel spotlight tour has been removed.
  *
@@ -2886,7 +2886,7 @@ function wc_update_940_add_phone_to_order_address_fts_index(): void {
 function wc_update_940_remove_help_panel_highlight_shown() {
 	global $wpdb;
 
-	$meta_key = 'woocommerce_admin_help_panel_highlight_shown';
+	$meta_key = 'poocommerce_admin_help_panel_highlight_shown';
 
 	$deletions = $wpdb->query(
 		$wpdb->prepare(
@@ -2895,7 +2895,7 @@ function wc_update_940_remove_help_panel_highlight_shown() {
 		)
 	);
 
-	// Get the WooCommerce logger to track the results of the deletion.
+	// Get the PooCommerce logger to track the results of the deletion.
 	$logger = wc_get_logger();
 
 	if ( null === $logger ) {
@@ -2904,7 +2904,7 @@ function wc_update_940_remove_help_panel_highlight_shown() {
 
 	if ( false === $deletions ) {
 		$logger->notice(
-			'During the update to 9.4.0, WooCommerce attempted to remove user meta with the key "woocommerce_admin_help_panel_highlight_shown", but was unable to do so.',
+			'During the update to 9.4.0, PooCommerce attempted to remove user meta with the key "poocommerce_admin_help_panel_highlight_shown", but was unable to do so.',
 			array(
 				'source' => 'wc-updater',
 			)
@@ -2913,8 +2913,8 @@ function wc_update_940_remove_help_panel_highlight_shown() {
 		$logger->info(
 			sprintf(
 				1 === $deletions
-					? 'During the update to 9.4.0, WooCommerce removed %d user meta row associated with the meta key "woocommerce_admin_help_panel_highlight_shown".'
-					: 'During the update to 9.4.0, WooCommerce removed %d user meta rows associated with the meta key "woocommerce_admin_help_panel_highlight_shown".',
+					? 'During the update to 9.4.0, PooCommerce removed %d user meta row associated with the meta key "poocommerce_admin_help_panel_highlight_shown".'
+					: 'During the update to 9.4.0, PooCommerce removed %d user meta rows associated with the meta key "poocommerce_admin_help_panel_highlight_shown".',
 				number_format_i18n( $deletions )
 			),
 			array(
@@ -2925,11 +2925,11 @@ function wc_update_940_remove_help_panel_highlight_shown() {
 }
 
 /**
- * Autoloads woocommerce_allow_tracking option.
+ * Autoloads poocommerce_allow_tracking option.
  */
 function wc_update_950_tracking_option_autoload() {
 	$options = array(
-		'woocommerce_allow_tracking' => 'yes',
+		'poocommerce_allow_tracking' => 'yes',
 	);
 	wp_set_option_autoload_values( $options );
 }

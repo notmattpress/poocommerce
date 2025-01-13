@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { eye } from '@woocommerce/icons';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { eye } from '@poocommerce/icons';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	Icon,
 	ToolbarGroup,
@@ -41,7 +41,7 @@ export default function ToolbarProductTypeGroup() {
 				icon={ <Icon icon={ eye } /> }
 				text={
 					currentProductType?.label ||
-					__( 'Switch product type', 'woocommerce' )
+					__( 'Switch product type', 'poocommerce' )
 				}
 				value={ currentProductType?.slug }
 				controls={ productTypes.map( ( productType ) => ( {

@@ -2,11 +2,11 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Steps\SetWCPaymentGateways;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Steps\SetWCPaymentGateways;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 /**
  * ExportWCPaymentGateways class
@@ -17,7 +17,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	 *
 	 * @var array|string[] Payment gateway IDs to exclude from export
 	 */
-	protected array $exclude_ids = array( 'pre_install_woocommerce_payments_promotion' );
+	protected array $exclude_ids = array( 'pre_install_poocommerce_payments_promotion' );
 
 	/**
 	 * Export the step
@@ -44,7 +44,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	}
 
 	/**
-	 * Return the payment gateways resgietered in WooCommerce
+	 * Return the payment gateways resgietered in PooCommerce
 	 *
 	 * @return string
 	 */
@@ -62,7 +62,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	}
 
 	/**
-	 * Maybe hide WooCommerce Payments gateways
+	 * Maybe hide PooCommerce Payments gateways
 	 *
 	 * @return void
 	 */
@@ -78,7 +78,7 @@ class ExportWCPaymentGateways implements StepExporter {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Payments', 'woocommerce' );
+		return __( 'Payments', 'poocommerce' );
 	}
 
 	/**
@@ -87,6 +87,6 @@ class ExportWCPaymentGateways implements StepExporter {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'It includes payment gateways and their settings.', 'woocommerce' );
+		return __( 'It includes payment gateways and their settings.', 'poocommerce' );
 	}
 }

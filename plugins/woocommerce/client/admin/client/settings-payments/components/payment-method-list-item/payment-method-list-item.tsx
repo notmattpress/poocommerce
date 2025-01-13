@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { type RecommendedPaymentMethod } from '@woocommerce/data';
+import { type RecommendedPaymentMethod } from '@poocommerce/data';
 import { ToggleControl } from '@wordpress/components';
 
 /**
@@ -31,24 +31,24 @@ export const PaymentMethodListItem = ( {
 	return (
 		<div
 			id={ method.id }
-			className="woocommerce-list__item woocommerce-list__item-enter-done"
+			className="poocommerce-list__item poocommerce-list__item-enter-done"
 			{ ...props }
 		>
-			<div className="woocommerce-list__item-inner">
+			<div className="poocommerce-list__item-inner">
 				{ method.id !== 'apple_google' && (
 					<>
-						<div className="woocommerce-list__item-before">
+						<div className="poocommerce-list__item-before">
 							<img
 								src={ method.icon }
 								alt={ method.title + ' logo' }
 							/>
 						</div>
-						<div className="woocommerce-list__item-text">
-							<span className="woocommerce-list__item-title">
+						<div className="poocommerce-list__item-text">
+							<span className="poocommerce-list__item-title">
 								{ method.title }
 							</span>
 							<span
-								className="woocommerce-list__item-content"
+								className="poocommerce-list__item-content"
 								// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 								dangerouslySetInnerHTML={ sanitizeHTML(
 									decodeEntities( method.description )
@@ -58,20 +58,20 @@ export const PaymentMethodListItem = ( {
 					</>
 				) }
 				{ method.id === 'apple_google' && (
-					<div className="woocommerce-list__item-multi">
-						<div className="woocommerce-list__item-multi-row multi-row-space">
-							<div className="woocommerce-list__item-before">
+					<div className="poocommerce-list__item-multi">
+						<div className="poocommerce-list__item-multi-row multi-row-space">
+							<div className="poocommerce-list__item-before">
 								<img
 									src={ method.icon }
 									alt={ method.title + ' logo' }
 								/>
 							</div>
-							<div className="woocommerce-list__item-text">
-								<span className="woocommerce-list__item-title">
+							<div className="poocommerce-list__item-text">
+								<span className="poocommerce-list__item-title">
 									{ method.title }
 								</span>
 								<span
-									className="woocommerce-list__item-content"
+									className="poocommerce-list__item-content"
 									// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 									dangerouslySetInnerHTML={ sanitizeHTML(
 										decodeEntities( method.description )
@@ -79,19 +79,19 @@ export const PaymentMethodListItem = ( {
 								/>
 							</div>
 						</div>
-						<div className="woocommerce-list__item-multi-row">
-							<div className="woocommerce-list__item-before">
+						<div className="poocommerce-list__item-multi-row">
+							<div className="poocommerce-list__item-before">
 								<img
 									src={ method.extraIcon }
 									alt={ method.extraTitle + ' logo' }
 								/>
 							</div>
-							<div className="woocommerce-list__item-text">
-								<span className="woocommerce-list__item-title">
+							<div className="poocommerce-list__item-text">
+								<span className="poocommerce-list__item-title">
 									{ method.extraTitle }
 								</span>
 								<span
-									className="woocommerce-list__item-content"
+									className="poocommerce-list__item-content"
 									// eslint-disable-next-line react/no-danger -- This string is sanitized by the PaymentGateway class.
 									dangerouslySetInnerHTML={ sanitizeHTML(
 										decodeEntities(
@@ -103,8 +103,8 @@ export const PaymentMethodListItem = ( {
 						</div>
 					</div>
 				) }
-				<div className="woocommerce-list__item-after">
-					<div className="woocommerce-list__item-after__actions wc-settings-prevent-change-event">
+				<div className="poocommerce-list__item-after">
+					<div className="poocommerce-list__item-after__actions wc-settings-prevent-change-event">
 						<ToggleControl
 							checked={
 								paymentMethodsState[ method.id ] ?? false

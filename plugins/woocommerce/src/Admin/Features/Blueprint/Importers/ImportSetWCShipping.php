@@ -2,26 +2,26 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Importers;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Importers;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Steps\SetWCShipping;
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Steps\SetWCShipping;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 use WC_Tax;
 
 /**
  * Class ImportSetWCShipping
  *
- * This class imports WooCommerce shipping settings and implements the StepProcessor interface.
+ * This class imports PooCommerce shipping settings and implements the StepProcessor interface.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Importers
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Importers
  */
 class ImportSetWCShipping implements StepProcessor {
 	use UseWPFunctions;
 
 	/**
-	 * Process the import of WooCommerce shipping settings.
+	 * Process the import of PooCommerce shipping settings.
 	 *
 	 * @param object $schema The schema object containing import details.
 	 * @return StepProcessorResult
@@ -32,9 +32,9 @@ class ImportSetWCShipping implements StepProcessor {
 		$fields = array(
 			'terms'              => array( 'terms', array( '%d', '%s', '%s', '%d' ) ),
 			'classes'            => array( 'term_taxonomy', array( '%d', '%d', '%s', '%s', '%d', '%d' ) ),
-			'shipping_zones'     => array( 'woocommerce_shipping_zones', array( '%d', '%s', '%d' ) ),
-			'shipping_methods'   => array( 'woocommerce_shipping_zone_methods', array( '%d', '%d', '%s', '%d', '%d' ) ),
-			'shipping_locations' => array( 'woocommerce_shipping_zone_locations', array( '%d', '%d', '%s', '%s' ) ),
+			'shipping_zones'     => array( 'poocommerce_shipping_zones', array( '%d', '%s', '%d' ) ),
+			'shipping_methods'   => array( 'poocommerce_shipping_zone_methods', array( '%d', '%d', '%s', '%d', '%d' ) ),
+			'shipping_locations' => array( 'poocommerce_shipping_zone_locations', array( '%d', '%d', '%s', '%s' ) ),
 		);
 
 		foreach ( $fields as $name => $data ) {
@@ -126,7 +126,7 @@ class ImportSetWCShipping implements StepProcessor {
 	 */
 	private function add_local_pickup( $local_pickup ) {
 		if ( isset( $local_pickup->general ) ) {
-			$this->wp_update_option( 'woocommerce_pickup_location_settings', (array) $local_pickup->general );
+			$this->wp_update_option( 'poocommerce_pickup_location_settings', (array) $local_pickup->general );
 		}
 
 		if ( isset( $local_pickup->locations ) ) {

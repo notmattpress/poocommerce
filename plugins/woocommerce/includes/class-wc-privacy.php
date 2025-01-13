@@ -3,10 +3,10 @@
  * Privacy/GDPR related functionality which ties into WordPress functionality.
  *
  * @since 3.4.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,13 +36,13 @@ class WC_Privacy extends WC_Abstract_Privacy {
 		add_action( 'init', array( $this, 'register_erasers_exporters' ) );
 
 		// Cleanup orders daily - this is a callback on a daily cron event.
-		add_action( 'woocommerce_cleanup_personal_data', array( $this, 'queue_cleanup_personal_data' ) );
+		add_action( 'poocommerce_cleanup_personal_data', array( $this, 'queue_cleanup_personal_data' ) );
 
 		// Handles custom anonymization types not included in core.
 		add_filter( 'wp_privacy_anonymize_data', array( $this, 'anonymize_custom_data_types' ), 10, 3 );
 
 		// When this is fired, data is removed in a given order. Called from bulk actions.
-		add_action( 'woocommerce_remove_order_personal_data', array( 'WC_Privacy_Erasers', 'remove_order_personal_data' ) );
+		add_action( 'poocommerce_remove_order_personal_data', array( 'WC_Privacy_Erasers', 'remove_order_personal_data' ) );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	 * Due to the use of translation functions, this should run only after plugins loaded.
 	 */
 	public function register_erasers_exporters() {
-		$this->name = __( 'WooCommerce', 'woocommerce' );
+		$this->name = __( 'PooCommerce', 'poocommerce' );
 
 		if ( ! self::$background_process ) {
 			self::$background_process = new WC_Privacy_Background_Process();
@@ -61,17 +61,17 @@ class WC_Privacy extends WC_Abstract_Privacy {
 		include_once __DIR__ . '/class-wc-privacy-erasers.php';
 		include_once __DIR__ . '/class-wc-privacy-exporters.php';
 
-		// This hook registers WooCommerce data exporters.
-		$this->add_exporter( 'woocommerce-customer-data', __( 'WooCommerce Customer Data', 'woocommerce' ), array( 'WC_Privacy_Exporters', 'customer_data_exporter' ) );
-		$this->add_exporter( 'woocommerce-customer-orders', __( 'WooCommerce Customer Orders', 'woocommerce' ), array( 'WC_Privacy_Exporters', 'order_data_exporter' ) );
-		$this->add_exporter( 'woocommerce-customer-downloads', __( 'WooCommerce Customer Downloads', 'woocommerce' ), array( 'WC_Privacy_Exporters', 'download_data_exporter' ) );
-		$this->add_exporter( 'woocommerce-customer-tokens', __( 'WooCommerce Customer Payment Tokens', 'woocommerce' ), array( 'WC_Privacy_Exporters', 'customer_tokens_exporter' ) );
+		// This hook registers PooCommerce data exporters.
+		$this->add_exporter( 'poocommerce-customer-data', __( 'PooCommerce Customer Data', 'poocommerce' ), array( 'WC_Privacy_Exporters', 'customer_data_exporter' ) );
+		$this->add_exporter( 'poocommerce-customer-orders', __( 'PooCommerce Customer Orders', 'poocommerce' ), array( 'WC_Privacy_Exporters', 'order_data_exporter' ) );
+		$this->add_exporter( 'poocommerce-customer-downloads', __( 'PooCommerce Customer Downloads', 'poocommerce' ), array( 'WC_Privacy_Exporters', 'download_data_exporter' ) );
+		$this->add_exporter( 'poocommerce-customer-tokens', __( 'PooCommerce Customer Payment Tokens', 'poocommerce' ), array( 'WC_Privacy_Exporters', 'customer_tokens_exporter' ) );
 
-		// This hook registers WooCommerce data erasers.
-		$this->add_eraser( 'woocommerce-customer-data', __( 'WooCommerce Customer Data', 'woocommerce' ), array( 'WC_Privacy_Erasers', 'customer_data_eraser' ) );
-		$this->add_eraser( 'woocommerce-customer-orders', __( 'WooCommerce Customer Orders', 'woocommerce' ), array( 'WC_Privacy_Erasers', 'order_data_eraser' ) );
-		$this->add_eraser( 'woocommerce-customer-downloads', __( 'WooCommerce Customer Downloads', 'woocommerce' ), array( 'WC_Privacy_Erasers', 'download_data_eraser' ) );
-		$this->add_eraser( 'woocommerce-customer-tokens', __( 'WooCommerce Customer Payment Tokens', 'woocommerce' ), array( 'WC_Privacy_Erasers', 'customer_tokens_eraser' ) );
+		// This hook registers PooCommerce data erasers.
+		$this->add_eraser( 'poocommerce-customer-data', __( 'PooCommerce Customer Data', 'poocommerce' ), array( 'WC_Privacy_Erasers', 'customer_data_eraser' ) );
+		$this->add_eraser( 'poocommerce-customer-orders', __( 'PooCommerce Customer Orders', 'poocommerce' ), array( 'WC_Privacy_Erasers', 'order_data_eraser' ) );
+		$this->add_eraser( 'poocommerce-customer-downloads', __( 'PooCommerce Customer Downloads', 'poocommerce' ), array( 'WC_Privacy_Erasers', 'download_data_eraser' ) );
+		$this->add_eraser( 'poocommerce-customer-tokens', __( 'PooCommerce Customer Payment Tokens', 'poocommerce' ), array( 'WC_Privacy_Erasers', 'customer_tokens_eraser' ) );
 	}
 
 	/**
@@ -82,51 +82,51 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	public function get_privacy_message() {
 		$content = '<div class="wp-suggested-text">' .
 			'<p class="privacy-policy-tutorial">' .
-				__( 'This sample language includes the basics around what personal data your store may be collecting, storing and sharing, as well as who may have access to that data. Depending on what settings are enabled and which additional plugins are used, the specific information shared by your store will vary. We recommend consulting with a lawyer when deciding what information to disclose on your privacy policy.', 'woocommerce' ) .
+				__( 'This sample language includes the basics around what personal data your store may be collecting, storing and sharing, as well as who may have access to that data. Depending on what settings are enabled and which additional plugins are used, the specific information shared by your store will vary. We recommend consulting with a lawyer when deciding what information to disclose on your privacy policy.', 'poocommerce' ) .
 			'</p>' .
-			'<p>' . __( 'We collect information about you during the checkout process on our store.', 'woocommerce' ) . '</p>' .
-			'<h2>' . __( 'What we collect and store', 'woocommerce' ) . '</h2>' .
-			'<p>' . __( 'While you visit our site, we’ll track:', 'woocommerce' ) . '</p>' .
+			'<p>' . __( 'We collect information about you during the checkout process on our store.', 'poocommerce' ) . '</p>' .
+			'<h2>' . __( 'What we collect and store', 'poocommerce' ) . '</h2>' .
+			'<p>' . __( 'While you visit our site, we’ll track:', 'poocommerce' ) . '</p>' .
 			'<ul>' .
-				'<li>' . __( 'Products you’ve viewed: we’ll use this to, for example, show you products you’ve recently viewed', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Location, IP address and browser type: we’ll use this for purposes like estimating taxes and shipping', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Shipping address: we’ll ask you to enter this so we can, for instance, estimate shipping before you place an order, and send you the order!', 'woocommerce' ) . '</li>' .
+				'<li>' . __( 'Products you’ve viewed: we’ll use this to, for example, show you products you’ve recently viewed', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Location, IP address and browser type: we’ll use this for purposes like estimating taxes and shipping', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Shipping address: we’ll ask you to enter this so we can, for instance, estimate shipping before you place an order, and send you the order!', 'poocommerce' ) . '</li>' .
 			'</ul>' .
-			'<p>' . __( 'We’ll also use cookies to keep track of cart contents while you’re browsing our site.', 'woocommerce' ) . '</p>' .
+			'<p>' . __( 'We’ll also use cookies to keep track of cart contents while you’re browsing our site.', 'poocommerce' ) . '</p>' .
 			'<p class="privacy-policy-tutorial">' .
-				__( 'Note: you may want to further detail your cookie policy, and link to that section from here.', 'woocommerce' ) .
+				__( 'Note: you may want to further detail your cookie policy, and link to that section from here.', 'poocommerce' ) .
 			'</p>' .
-			'<p>' . __( 'When you purchase from us, we’ll ask you to provide information including your name, billing address, shipping address, email address, phone number, credit card/payment details and optional account information like username and password. We’ll use this information for purposes, such as, to:', 'woocommerce' ) . '</p>' .
+			'<p>' . __( 'When you purchase from us, we’ll ask you to provide information including your name, billing address, shipping address, email address, phone number, credit card/payment details and optional account information like username and password. We’ll use this information for purposes, such as, to:', 'poocommerce' ) . '</p>' .
 			'<ul>' .
-				'<li>' . __( 'Send you information about your account and order', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Respond to your requests, including refunds and complaints', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Process payments and prevent fraud', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Set up your account for our store', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Comply with any legal obligations we have, such as calculating taxes', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Improve our store offerings', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Send you marketing messages, if you choose to receive them', 'woocommerce' ) . '</li>' .
+				'<li>' . __( 'Send you information about your account and order', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Respond to your requests, including refunds and complaints', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Process payments and prevent fraud', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Set up your account for our store', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Comply with any legal obligations we have, such as calculating taxes', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Improve our store offerings', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Send you marketing messages, if you choose to receive them', 'poocommerce' ) . '</li>' .
 			'</ul>' .
-			'<p>' . __( 'If you create an account, we will store your name, address, email and phone number, which will be used to populate the checkout for future orders.', 'woocommerce' ) . '</p>' .
-			'<p>' . __( 'We generally store information about you for as long as we need the information for the purposes for which we collect and use it, and we are not legally required to continue to keep it. For example, we will store order information for XXX years for tax and accounting purposes. This includes your name, email address and billing and shipping addresses.', 'woocommerce' ) . '</p>' .
-			'<p>' . __( 'We will also store comments or reviews, if you choose to leave them.', 'woocommerce' ) . '</p>' .
-			'<h2>' . __( 'Who on our team has access', 'woocommerce' ) . '</h2>' .
-			'<p>' . __( 'Members of our team have access to the information you provide us. For example, both Administrators and Shop Managers can access:', 'woocommerce' ) . '</p>' .
+			'<p>' . __( 'If you create an account, we will store your name, address, email and phone number, which will be used to populate the checkout for future orders.', 'poocommerce' ) . '</p>' .
+			'<p>' . __( 'We generally store information about you for as long as we need the information for the purposes for which we collect and use it, and we are not legally required to continue to keep it. For example, we will store order information for XXX years for tax and accounting purposes. This includes your name, email address and billing and shipping addresses.', 'poocommerce' ) . '</p>' .
+			'<p>' . __( 'We will also store comments or reviews, if you choose to leave them.', 'poocommerce' ) . '</p>' .
+			'<h2>' . __( 'Who on our team has access', 'poocommerce' ) . '</h2>' .
+			'<p>' . __( 'Members of our team have access to the information you provide us. For example, both Administrators and Shop Managers can access:', 'poocommerce' ) . '</p>' .
 			'<ul>' .
-				'<li>' . __( 'Order information like what was purchased, when it was purchased and where it should be sent, and', 'woocommerce' ) . '</li>' .
-				'<li>' . __( 'Customer information like your name, email address, and billing and shipping information.', 'woocommerce' ) . '</li>' .
+				'<li>' . __( 'Order information like what was purchased, when it was purchased and where it should be sent, and', 'poocommerce' ) . '</li>' .
+				'<li>' . __( 'Customer information like your name, email address, and billing and shipping information.', 'poocommerce' ) . '</li>' .
 			'</ul>' .
-			'<p>' . __( 'Our team members have access to this information to help fulfill orders, process refunds and support you.', 'woocommerce' ) . '</p>' .
-			'<h2>' . __( 'What we share with others', 'woocommerce' ) . '</h2>' .
+			'<p>' . __( 'Our team members have access to this information to help fulfill orders, process refunds and support you.', 'poocommerce' ) . '</p>' .
+			'<h2>' . __( 'What we share with others', 'poocommerce' ) . '</h2>' .
 			'<p class="privacy-policy-tutorial">' .
-				__( 'In this section you should list who you’re sharing data with, and for what purpose. This could include, but may not be limited to, analytics, marketing, payment gateways, shipping providers, and third party embeds.', 'woocommerce' ) .
+				__( 'In this section you should list who you’re sharing data with, and for what purpose. This could include, but may not be limited to, analytics, marketing, payment gateways, shipping providers, and third party embeds.', 'poocommerce' ) .
 			'</p>' .
-			'<p>' . __( 'We share information with third parties who help us provide our orders and store services to you; for example --', 'woocommerce' ) . '</p>' .
-			'<h3>' . __( 'Payments', 'woocommerce' ) . '</h3>' .
+			'<p>' . __( 'We share information with third parties who help us provide our orders and store services to you; for example --', 'poocommerce' ) . '</p>' .
+			'<h3>' . __( 'Payments', 'poocommerce' ) . '</h3>' .
 			'<p class="privacy-policy-tutorial">' .
-				__( 'In this subsection you should list which third party payment processors you’re using to take payments on your store since these may handle customer data. We’ve included PayPal as an example, but you should remove this if you’re not using PayPal.', 'woocommerce' ) .
+				__( 'In this subsection you should list which third party payment processors you’re using to take payments on your store since these may handle customer data. We’ve included PayPal as an example, but you should remove this if you’re not using PayPal.', 'poocommerce' ) .
 			'</p>' .
-			'<p>' . __( 'We accept payments through PayPal. When processing payments, some of your data will be passed to PayPal, including information required to process or support the payment, such as the purchase total and billing information.', 'woocommerce' ) . '</p>' .
-			'<p>' . __( 'Please see the <a href="https://www.paypal.com/us/webapps/mpp/ua/privacy-full">PayPal Privacy Policy</a> for more details.', 'woocommerce' ) . '</p>' .
+			'<p>' . __( 'We accept payments through PayPal. When processing payments, some of your data will be passed to PayPal, including information required to process or support the payment, such as the purchase total and billing information.', 'poocommerce' ) . '</p>' .
+			'<p>' . __( 'Please see the <a href="https://www.paypal.com/us/webapps/mpp/ua/privacy-full">PayPal Privacy Policy</a> for more details.', 'poocommerce' ) . '</p>' .
 			'</div>';
 
 		return apply_filters( 'wc_privacy_policy_content', $content );
@@ -176,7 +176,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	 * @return int Number of orders processed.
 	 */
 	public static function trash_pending_orders( $limit = 20 ) {
-		$option = wc_parse_relative_date_option( get_option( 'woocommerce_trash_pending_orders' ) );
+		$option = wc_parse_relative_date_option( get_option( 'poocommerce_trash_pending_orders' ) );
 
 		if ( empty( $option['number'] ) ) {
 			return 0;
@@ -184,7 +184,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 
 		return self::trash_orders_query(
 			apply_filters(
-				'woocommerce_trash_pending_orders_query_args',
+				'poocommerce_trash_pending_orders_query_args',
 				array(
 					'date_created' => '<' . strtotime( '-' . $option['number'] . ' ' . $option['unit'] ),
 					'limit'        => $limit, // Batches of 20.
@@ -203,7 +203,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	 * @return int Number of orders processed.
 	 */
 	public static function trash_failed_orders( $limit = 20 ) {
-		$option = wc_parse_relative_date_option( get_option( 'woocommerce_trash_failed_orders' ) );
+		$option = wc_parse_relative_date_option( get_option( 'poocommerce_trash_failed_orders' ) );
 
 		if ( empty( $option['number'] ) ) {
 			return 0;
@@ -211,7 +211,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 
 		return self::trash_orders_query(
 			apply_filters(
-				'woocommerce_trash_failed_orders_query_args',
+				'poocommerce_trash_failed_orders_query_args',
 				array(
 					'date_created' => '<' . strtotime( '-' . $option['number'] . ' ' . $option['unit'] ),
 					'limit'        => $limit, // Batches of 20.
@@ -230,7 +230,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	 * @return int Number of orders processed.
 	 */
 	public static function trash_cancelled_orders( $limit = 20 ) {
-		$option = wc_parse_relative_date_option( get_option( 'woocommerce_trash_cancelled_orders' ) );
+		$option = wc_parse_relative_date_option( get_option( 'poocommerce_trash_cancelled_orders' ) );
 
 		if ( empty( $option['number'] ) ) {
 			return 0;
@@ -238,7 +238,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 
 		return self::trash_orders_query(
 			apply_filters(
-				'woocommerce_trash_cancelled_orders_query_args',
+				'poocommerce_trash_cancelled_orders_query_args',
 				array(
 					'date_created' => '<' . strtotime( '-' . $option['number'] . ' ' . $option['unit'] ),
 					'limit'        => $limit, // Batches of 20.
@@ -278,7 +278,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	 * @return int Number of orders processed.
 	 */
 	public static function anonymize_completed_orders( $limit = 20 ) {
-		$option = wc_parse_relative_date_option( get_option( 'woocommerce_anonymize_completed_orders' ) );
+		$option = wc_parse_relative_date_option( get_option( 'poocommerce_anonymize_completed_orders' ) );
 
 		if ( empty( $option['number'] ) ) {
 			return 0;
@@ -286,7 +286,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 
 		return self::anonymize_orders_query(
 			apply_filters(
-				'woocommerce_anonymize_completed_orders_query_args',
+				'poocommerce_anonymize_completed_orders_query_args',
 				array(
 					'date_created' => '<' . strtotime( '-' . $option['number'] . ' ' . $option['unit'] ),
 					'limit'        => $limit, // Batches of 20.
@@ -327,7 +327,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 	 * @return int Number of users processed.
 	 */
 	public static function delete_inactive_accounts( $limit = 20 ) {
-		$option = wc_parse_relative_date_option( get_option( 'woocommerce_delete_inactive_accounts' ) );
+		$option = wc_parse_relative_date_option( get_option( 'poocommerce_delete_inactive_accounts' ) );
 
 		if ( empty( $option['number'] ) ) {
 			return 0;
@@ -351,7 +351,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 				'fields'     => 'ID',
 				'number'     => $limit,
 				'role__in'   => apply_filters(
-					'woocommerce_delete_inactive_account_roles',
+					'poocommerce_delete_inactive_account_roles',
 					array(
 						'Customer',
 						'Subscriber',
@@ -387,7 +387,7 @@ class WC_Privacy extends WC_Abstract_Privacy {
 				wc_get_logger()->info(
 					sprintf(
 						/* translators: %d user ID. */
-						__( "User #%d was deleted by WooCommerce in accordance with the site's personal data retention settings. Any content belonging to that user has been retained but unassigned.", 'woocommerce' ),
+						__( "User #%d was deleted by PooCommerce in accordance with the site's personal data retention settings. Any content belonging to that user has been retained but unassigned.", 'poocommerce' ),
 						$user_id
 					)
 				);

@@ -26,7 +26,7 @@ test( 'Merchant can add brands', async ( { page } ) => {
 		description,
 		thumbnailFileName
 	) => {
-		// Create "WooCommerce" brand if it does not exist.
+		// Create "PooCommerce" brand if it does not exist.
 		const cellVisible = await page
 			.locator( '#posts-filter' )
 			.getByRole( 'cell', { name: slug, exact: true } )
@@ -142,42 +142,42 @@ test( 'Merchant can add brands', async ( { page } ) => {
 
 	await goToBrandsPage();
 	await createBrandIfNotExist(
-		'WooCommerce',
-		'woocommerce',
+		'PooCommerce',
+		'poocommerce',
 		'None',
-		'All things WooCommerce!',
+		'All things PooCommerce!',
 		'image-01'
 	);
 
-	// Create child brand under the "WooCommerce" parent brand.
+	// Create child brand under the "PooCommerce" parent brand.
 	await createBrandIfNotExist(
-		'WooCommerce Apparels',
-		'woocommerce-apparels',
-		'WooCommerce',
-		'Cool WooCommerce clothings!',
+		'PooCommerce Apparels',
+		'poocommerce-apparels',
+		'PooCommerce',
+		'Cool PooCommerce clothings!',
 		'image-02'
 	);
 
-	// Create a dummy child brand called "WooCommerce Dummy" under the "WooCommerce" parent brand.
+	// Create a dummy child brand called "PooCommerce Dummy" under the "PooCommerce" parent brand.
 	await createBrandIfNotExist(
-		'WooCommerce Dummy',
-		'woocommerce-dummy',
-		'WooCommerce',
-		'Dummy WooCommerce brand!',
+		'PooCommerce Dummy',
+		'poocommerce-dummy',
+		'PooCommerce',
+		'Dummy PooCommerce brand!',
 		'image-02'
 	);
 
-	// Edit the dummy child brand from "WooCommerce Dummy" to "WooCommerce Dummy Edited".
-	await editBrand( 'WooCommerce Dummy', {
-		name: 'WooCommerce Dummy Edited',
-		slug: 'woocommerce-dummy-edited',
-		parentBrand: 'WooCommerce',
-		description: 'Dummy WooCommerce brand edited!',
+	// Edit the dummy child brand from "PooCommerce Dummy" to "PooCommerce Dummy Edited".
+	await editBrand( 'PooCommerce Dummy', {
+		name: 'PooCommerce Dummy Edited',
+		slug: 'poocommerce-dummy-edited',
+		parentBrand: 'PooCommerce',
+		description: 'Dummy PooCommerce brand edited!',
 		thumbnailFileName: 'image-03',
 	} );
 
 	// Delete brands.
-	await deleteBrand( 'WooCommerce Dummy Edited' );
-	await deleteBrand( 'WooCommerce Apparels' );
-	await deleteBrand( 'WooCommerce' );
+	await deleteBrand( 'PooCommerce Dummy Edited' );
+	await deleteBrand( 'PooCommerce Apparels' );
+	await deleteBrand( 'PooCommerce' );
 } );

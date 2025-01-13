@@ -16,25 +16,25 @@ export const EmailSentPage: React.FC< EmailSentProps > = ( {
 		<div className="email-sent-modal-body">
 			<div className="email-sent-illustration"></div>
 			<div className="email-sent-title">
-				<h1>{ __( 'Check your email!', 'woocommerce' ) }</h1>
+				<h1>{ __( 'Check your email!', 'poocommerce' ) }</h1>
 			</div>
 			<div className="email-sent-subheader-spacer">
 				<div className="email-sent-subheader">
 					{ __(
 						'We just sent you the magic link. Open it on your mobile device and follow the instructions.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 			</div>
 			<div className="email-sent-footer">
 				<div className="email-sent-footer-prompt">
-					{ __( 'DIDN’T GET IT?', 'woocommerce' ) }
+					{ __( 'DIDN’T GET IT?', 'poocommerce' ) }
 				</div>
 				<div className="email-sent-footer-text">
 					{ interpolateComponents( {
 						mixedString: __(
 							'Check your spam/junk email folder or {{ sendAnotherLink /}}.',
-							'woocommerce'
+							'poocommerce'
 						),
 						components: {
 							sendAnotherLink: (
@@ -44,7 +44,7 @@ export const EmailSentPage: React.FC< EmailSentProps > = ( {
 										returnToSendLinkPage();
 									} }
 								>
-									{ __( 'send another link', 'woocommerce' ) }
+									{ __( 'send another link', 'poocommerce' ) }
 								</Button>
 							),
 						},

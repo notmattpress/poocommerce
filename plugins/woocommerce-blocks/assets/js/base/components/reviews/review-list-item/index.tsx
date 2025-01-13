@@ -3,8 +3,8 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
-import ReadMore from '@woocommerce/base-components/read-more';
-import { ReviewBlockAttributes } from '@woocommerce/blocks/reviews/attributes';
+import ReadMore from '@poocommerce/base-components/read-more';
+import { ReviewBlockAttributes } from '@poocommerce/blocks/reviews/attributes';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**
@@ -35,7 +35,7 @@ function getReviewImage(
 			) : (
 				// The alt text is left empty on purpose, as it's considered a decorative image.
 				// More can be found here: https://www.w3.org/WAI/tutorials/images/decorative/.
-				// Github discussion for a context: https://github.com/woocommerce/woocommerce-blocks/pull/7651#discussion_r1019560494.
+				// Github discussion for a context: https://github.com/poocommerce/poocommerce-blocks/pull/7651#discussion_r1019560494.
 				<img
 					aria-hidden="true"
 					alt=""
@@ -45,9 +45,9 @@ function getReviewImage(
 			{ review.verified && (
 				<div
 					className="wc-block-review-list-item__verified wc-block-components-review-list-item__verified"
-					title={ __( 'Verified buyer', 'woocommerce' ) }
+					title={ __( 'Verified buyer', 'poocommerce' ) }
 				>
-					{ __( 'Verified buyer', 'woocommerce' ) }
+					{ __( 'Verified buyer', 'poocommerce' ) }
 				</div>
 			) }
 		</div>
@@ -58,8 +58,8 @@ function getReviewContent( review: Review ): JSX.Element {
 	return (
 		<ReadMore
 			maxLines={ 10 }
-			moreText={ __( 'Read full review', 'woocommerce' ) }
-			lessText={ __( 'Hide full review', 'woocommerce' ) }
+			moreText={ __( 'Read full review', 'poocommerce' ) }
+			lessText={ __( 'Hide full review', 'poocommerce' ) }
 			className="wc-block-review-list-item__text wc-block-components-review-list-item__text"
 		>
 			<div
@@ -115,13 +115,13 @@ function getReviewRating( review: Review ): JSX.Element {
 	};
 	const ratingText = sprintf(
 		/* translators: %f is referring to the average rating value */
-		__( 'Rated %f out of 5', 'woocommerce' ),
+		__( 'Rated %f out of 5', 'poocommerce' ),
 		rating
 	);
 	const ratingHTML = {
 		__html: sprintf(
 			/* translators: %s is referring to the average rating value */
-			__( 'Rated %s out of 5', 'woocommerce' ),
+			__( 'Rated %s out of 5', 'poocommerce' ),
 			sprintf( '<strong class="rating">%f</strong>', rating )
 		),
 	};

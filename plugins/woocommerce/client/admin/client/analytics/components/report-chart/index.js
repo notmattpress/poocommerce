@@ -8,21 +8,21 @@ import { format as formatDate } from '@wordpress/date';
 import { withSelect } from '@wordpress/data';
 import { get, isEqual } from 'lodash';
 import PropTypes from 'prop-types';
-import { Chart, AnalyticsError } from '@woocommerce/components';
+import { Chart, AnalyticsError } from '@poocommerce/components';
 import {
 	getReportChartData,
 	getTooltipValueFormat,
 	SETTINGS_STORE_NAME,
 	REPORTS_STORE_NAME,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import {
 	getAllowedIntervalsForQuery,
 	getCurrentDates,
 	getDateFormatsForInterval,
 	getIntervalForQuery,
 	getChartTypeForQuery,
-} from '@woocommerce/date';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/date';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -148,8 +148,8 @@ export class ReportChart extends Component {
 			{ type: 'php' }
 		);
 		const emptyMessage = emptySearchResults
-			? __( 'No data for the current search', 'woocommerce' )
-			: __( 'No data for the selected date range', 'woocommerce' );
+			? __( 'No data for the current search', 'poocommerce' )
+			: __( 'No data for the selected date range', 'poocommerce' );
 		const { formatAmount, getCurrencyConfig } = this.context;
 		return (
 			<Chart
@@ -344,7 +344,7 @@ export default compose(
 			props.mode ||
 			getChartMode( selectedFilter, query ) ||
 			'time-comparison';
-		const { woocommerce_default_date_range: defaultDateRange } = select(
+		const { poocommerce_default_date_range: defaultDateRange } = select(
 			SETTINGS_STORE_NAME
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 

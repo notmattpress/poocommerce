@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 import { createElement } from '@wordpress/element';
 import { __experimentalHeading as Heading } from '@wordpress/components';
 import { sanitize } from 'dompurify';
-/* eslint-enable @woocommerce/dependency-group */
+/* eslint-enable @poocommerce/dependency-group */
 
 /**
  * Internal dependencies
@@ -22,14 +22,14 @@ export const SettingsGroup = ( { group }: { group: GroupSettingsField } ) => {
 		};
 	};
 	return (
-		<fieldset className="woocommerce-settings-group">
-			<div className="woocommerce-settings-group-title">
+		<fieldset className="poocommerce-settings-group">
+			<div className="poocommerce-settings-group-title">
 				<Heading level={ 4 }>{ group.title }</Heading>
 				<legend
 					dangerouslySetInnerHTML={ sanitizeHTML( group.desc ) }
 				/>
 			</div>
-			<div className="woocommerce-settings-group-content">
+			<div className="poocommerce-settings-group-content">
 				{ group.settings.map( ( setting, index ) => {
 					return (
 						<SettingsItem

@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { __ } from '@wordpress/i18n';
 import { isInteger } from 'lodash';
 import { closeSmall } from '@wordpress/icons';
-import { CustomerFeedbackSimple } from '@woocommerce/customer-effort-score';
+import { CustomerFeedbackSimple } from '@poocommerce/customer-effort-score';
 import { Button, TextareaControl, Icon } from '@wordpress/components';
 
 /**
@@ -46,19 +46,19 @@ export const LysSurvey = ( {
 			{ isShowSurvey && <hr className="separator" /> }
 
 			{ isShowSurvey && (
-				<div className="woocommerce-launch-store__congrats-survey">
+				<div className="poocommerce-launch-store__congrats-survey">
 					{ isShowThanks ? (
-						<div className="woocommerce-launch-store__congrats-thanks">
+						<div className="poocommerce-launch-store__congrats-thanks">
 							<p className="thanks-copy">
 								🙌{ ' ' }
 								{ __(
 									'We appreciate your feedback!',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 							<Button
 								className="close-button"
-								label={ __( 'Close', 'woocommerce' ) }
+								label={ __( 'Close', 'poocommerce' ) }
 								icon={
 									<Icon
 										icon={ closeSmall }
@@ -74,19 +74,19 @@ export const LysSurvey = ( {
 							></Button>
 						</div>
 					) : (
-						<div className="woocommerce-launch-store__congrats-section_1">
-							<div className="woocommerce-launch-store__congrats-survey__selection">
+						<div className="poocommerce-launch-store__congrats-section_1">
+							<div className="poocommerce-launch-store__congrats-survey__selection">
 								<CustomerFeedbackSimple
 									label={ __(
 										'How was the experience of launching your store?',
-										'woocommerce'
+										'poocommerce'
 									) }
 									onSelect={ setScore }
 									selectedValue={ score }
 								/>
 							</div>
 							{ shouldShowComment && (
-								<div className="woocommerce-launch-store__congrats-survey__comment">
+								<div className="poocommerce-launch-store__congrats-survey__comment">
 									<label
 										className="comment-label"
 										htmlFor="launch-your-store-comment"
@@ -94,7 +94,7 @@ export const LysSurvey = ( {
 										{ createInterpolateElement(
 											__(
 												'Why do you feel that way? <smallText>(optional)</smallText>',
-												'woocommerce'
+												'poocommerce'
 											),
 											{
 												smallText: (
@@ -114,8 +114,8 @@ export const LysSurvey = ( {
 									<span className="privacy-text">
 										{ createInterpolateElement(
 											__(
-												'Your feedback will be only be shared with WooCommerce and treated in accordance with our <privacyLink>privacy policy</privacyLink>.',
-												'woocommerce'
+												'Your feedback will be only be shared with PooCommerce and treated in accordance with our <privacyLink>privacy policy</privacyLink>.',
+												'poocommerce'
 											),
 											{
 												privacyLink: (
@@ -135,8 +135,8 @@ export const LysSurvey = ( {
 						</div>
 					) }
 					{ shouldShowComment && ! isShowThanks && (
-						<div className="woocommerce-launch-store__congrats-section_2">
-							<div className="woocommerce-launch-store__congrats-buttons">
+						<div className="poocommerce-launch-store__congrats-section_2">
+							<div className="poocommerce-launch-store__congrats-buttons">
 								<Button
 									className=""
 									variant="tertiary"
@@ -144,7 +144,7 @@ export const LysSurvey = ( {
 										setScore( null );
 									} }
 								>
-									{ __( 'Cancel', 'woocommerce' ) }
+									{ __( 'Cancel', 'poocommerce' ) }
 								</Button>
 								<Button
 									className=""
@@ -158,7 +158,7 @@ export const LysSurvey = ( {
 										sendData();
 									} }
 								>
-									{ __( 'Send', 'woocommerce' ) }
+									{ __( 'Send', 'poocommerce' ) }
 								</Button>
 							</div>
 						</div>

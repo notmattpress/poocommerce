@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
 use WP_Block;
 
 /**
@@ -104,7 +104,7 @@ class ProductTemplate extends AbstractBlock {
 			)->render( array( 'dynamic' => false ) );
 
 			$interactive = array(
-				'namespace' => 'woocommerce/product-collection',
+				'namespace' => 'poocommerce/product-collection',
 			);
 
 			$context = array(
@@ -182,7 +182,7 @@ class ProductTemplate extends AbstractBlock {
 	 * @return array
 	 */
 	public function add_block_type_metadata_settings( $settings, $metadata ) {
-		if ( ! empty( $metadata['name'] ) && 'woocommerce/product-template' === $metadata['name'] ) {
+		if ( ! empty( $metadata['name'] ) && 'poocommerce/product-template' === $metadata['name'] ) {
 			$settings['skip_inner_blocks'] = true;
 		}
 			return $settings;

@@ -2,11 +2,11 @@
 /**
  * Send Tracks events on behalf of a user.
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,12 +63,12 @@ class WC_Tracks_Client {
 			return false;
 		}
 		$user_id = $user->ID;
-		$anon_id = get_user_meta( $user_id, '_woocommerce_tracks_anon_id', true );
+		$anon_id = get_user_meta( $user_id, '_poocommerce_tracks_anon_id', true );
 
 		// If an id is still not found, create one and save it.
 		if ( ! $anon_id ) {
 			$anon_id = self::get_anon_id();
-			update_user_meta( $user_id, '_woocommerce_tracks_anon_id', $anon_id );
+			update_user_meta( $user_id, '_poocommerce_tracks_anon_id', $anon_id );
 		}
 
 		// Don't set cookie on API requests.
@@ -176,14 +176,14 @@ class WC_Tracks_Client {
 
 		// If there is no cookie, apply a saved id.
 		if ( ! $anon_id ) {
-			$anon_id = get_user_meta( $user_id, '_woocommerce_tracks_anon_id', true );
+			$anon_id = get_user_meta( $user_id, '_poocommerce_tracks_anon_id', true );
 		}
 
 		// If an id is still not found, create one and save it.
 		if ( ! $anon_id ) {
 			$anon_id = self::get_anon_id();
 
-			update_user_meta( $user_id, '_woocommerce_tracks_anon_id', $anon_id );
+			update_user_meta( $user_id, '_poocommerce_tracks_anon_id', $anon_id );
 		}
 
 		return array(

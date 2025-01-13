@@ -241,7 +241,7 @@ function FormComponent< Values extends Record< string, any > >(
 					deprecated( 'onChangeCallback', {
 						version: '9.0.0',
 						alternative: 'onChange',
-						plugin: '@woocommerce/components',
+						plugin: '@poocommerce/components',
 					} );
 				}
 
@@ -332,7 +332,7 @@ function FormComponent< Values extends Record< string, any > >(
 				deprecated( 'onSubmitCallback', {
 					version: '9.0.0',
 					alternative: 'onSubmit',
-					plugin: '@woocommerce/components',
+					plugin: '@poocommerce/components',
 				} );
 			}
 

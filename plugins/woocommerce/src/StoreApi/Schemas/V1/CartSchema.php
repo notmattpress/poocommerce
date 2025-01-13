@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 use WC_Tax;
 
 /**
@@ -106,7 +106,7 @@ class CartSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'coupons'                 => [
-				'description' => __( 'List of applied cart coupons.', 'woocommerce' ),
+				'description' => __( 'List of applied cart coupons.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -116,7 +116,7 @@ class CartSchema extends AbstractSchema {
 				],
 			],
 			'shipping_rates'          => [
-				'description' => __( 'List of available shipping rates for the cart.', 'woocommerce' ),
+				'description' => __( 'List of available shipping rates for the cart.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -126,21 +126,21 @@ class CartSchema extends AbstractSchema {
 				],
 			],
 			'shipping_address'        => [
-				'description' => __( 'Current set shipping address for the customer.', 'woocommerce' ),
+				'description' => __( 'Current set shipping address for the customer.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => $this->force_schema_readonly( $this->shipping_address_schema->get_properties() ),
 			],
 			'billing_address'         => [
-				'description' => __( 'Current set billing address for the customer.', 'woocommerce' ),
+				'description' => __( 'Current set billing address for the customer.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => $this->force_schema_readonly( $this->billing_address_schema->get_properties() ),
 			],
 			'items'                   => [
-				'description' => __( 'List of cart items.', 'woocommerce' ),
+				'description' => __( 'List of cart items.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -150,19 +150,19 @@ class CartSchema extends AbstractSchema {
 				],
 			],
 			'items_count'             => [
-				'description' => __( 'Number of items in the cart.', 'woocommerce' ),
+				'description' => __( 'Number of items in the cart.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'items_weight'            => [
-				'description' => __( 'Total weight (in grams) of all products in the cart.', 'woocommerce' ),
+				'description' => __( 'Total weight (in grams) of all products in the cart.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'cross_sells'             => [
-				'description' => __( 'List of cross-sells items related to cart items.', 'woocommerce' ),
+				'description' => __( 'List of cross-sells items related to cart items.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -172,25 +172,25 @@ class CartSchema extends AbstractSchema {
 				],
 			],
 			'needs_payment'           => [
-				'description' => __( 'True if the cart needs payment. False for carts with only free products and no shipping costs.', 'woocommerce' ),
+				'description' => __( 'True if the cart needs payment. False for carts with only free products and no shipping costs.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'needs_shipping'          => [
-				'description' => __( 'True if the cart needs shipping. False for carts with only digital goods or stores with no shipping methods set-up.', 'woocommerce' ),
+				'description' => __( 'True if the cart needs shipping. False for carts with only digital goods or stores with no shipping methods set-up.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'has_calculated_shipping' => [
-				'description' => __( 'True if the cart meets the criteria for showing shipping costs, and rates have been calculated and included in the totals.', 'woocommerce' ),
+				'description' => __( 'True if the cart meets the criteria for showing shipping costs, and rates have been calculated and included in the totals.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'fees'                    => [
-				'description' => __( 'List of cart fees.', 'woocommerce' ),
+				'description' => __( 'List of cart fees.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -200,7 +200,7 @@ class CartSchema extends AbstractSchema {
 				],
 			],
 			'totals'                  => [
-				'description' => __( 'Cart total amounts provided using the smallest unit of the currency.', 'woocommerce' ),
+				'description' => __( 'Cart total amounts provided using the smallest unit of the currency.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -208,67 +208,67 @@ class CartSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					[
 						'total_items'        => [
-							'description' => __( 'Total price of items in the cart.', 'woocommerce' ),
+							'description' => __( 'Total price of items in the cart.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_items_tax'    => [
-							'description' => __( 'Total tax on items in the cart.', 'woocommerce' ),
+							'description' => __( 'Total tax on items in the cart.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_fees'         => [
-							'description' => __( 'Total price of any applied fees.', 'woocommerce' ),
+							'description' => __( 'Total price of any applied fees.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_fees_tax'     => [
-							'description' => __( 'Total tax on fees.', 'woocommerce' ),
+							'description' => __( 'Total tax on fees.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_discount'     => [
-							'description' => __( 'Total discount from applied coupons.', 'woocommerce' ),
+							'description' => __( 'Total discount from applied coupons.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_discount_tax' => [
-							'description' => __( 'Total tax removed due to discount from applied coupons.', 'woocommerce' ),
+							'description' => __( 'Total tax removed due to discount from applied coupons.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_shipping'     => [
-							'description' => __( 'Total price of shipping. If shipping has not been calculated, a null response will be sent.', 'woocommerce' ),
+							'description' => __( 'Total price of shipping. If shipping has not been calculated, a null response will be sent.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_shipping_tax' => [
-							'description' => __( 'Total tax on shipping. If shipping has not been calculated, a null response will be sent.', 'woocommerce' ),
+							'description' => __( 'Total tax on shipping. If shipping has not been calculated, a null response will be sent.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_price'        => [
-							'description' => __( 'Total price the customer will pay.', 'woocommerce' ),
+							'description' => __( 'Total price the customer will pay.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_tax'          => [
-							'description' => __( 'Total tax applied to items and shipping.', 'woocommerce' ),
+							'description' => __( 'Total tax applied to items and shipping.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'tax_lines'          => [
-							'description' => __( 'Lines of taxes applied to items and shipping.', 'woocommerce' ),
+							'description' => __( 'Lines of taxes applied to items and shipping.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -276,19 +276,19 @@ class CartSchema extends AbstractSchema {
 								'type'       => 'object',
 								'properties' => [
 									'name'  => [
-										'description' => __( 'The name of the tax.', 'woocommerce' ),
+										'description' => __( 'The name of the tax.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit' ],
 										'readonly'    => true,
 									],
 									'price' => [
-										'description' => __( 'The amount of tax charged.', 'woocommerce' ),
+										'description' => __( 'The amount of tax charged.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit' ],
 										'readonly'    => true,
 									],
 									'rate'  => [
-										'description' => __( 'The rate at which tax is applied.', 'woocommerce' ),
+										'description' => __( 'The rate at which tax is applied.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit' ],
 										'readonly'    => true,
@@ -300,7 +300,7 @@ class CartSchema extends AbstractSchema {
 				),
 			],
 			'errors'                  => [
-				'description' => __( 'List of cart item errors, for example, items in the cart which are out of stock.', 'woocommerce' ),
+				'description' => __( 'List of cart item errors, for example, items in the cart which are out of stock.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -310,13 +310,13 @@ class CartSchema extends AbstractSchema {
 				],
 			],
 			'payment_methods'         => [
-				'description' => __( 'List of available payment method IDs that can be used to process the order.', 'woocommerce' ),
+				'description' => __( 'List of available payment method IDs that can be used to process the order.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'payment_requirements'    => [
-				'description' => __( 'List of required payment gateway features to process the order.', 'woocommerce' ),
+				'description' => __( 'List of required payment gateway features to process the order.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -404,7 +404,7 @@ class CartSchema extends AbstractSchema {
 	protected function get_tax_lines( $cart ) {
 		$tax_lines = [];
 
-		if ( 'itemized' !== get_option( 'woocommerce_tax_total_display' ) ) {
+		if ( 'itemized' !== get_option( 'poocommerce_tax_total_display' ) ) {
 			return $tax_lines;
 		}
 

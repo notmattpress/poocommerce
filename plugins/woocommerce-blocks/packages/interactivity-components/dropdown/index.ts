@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getContext, store } from '@woocommerce/interactivity';
+import { getContext, store } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ type DropdownStore = {
 	};
 };
 
-store< DropdownStore >( 'woocommerce/interactivity-dropdown', {
+store< DropdownStore >( 'poocommerce/interactivity-dropdown', {
 	state: {
 		get placeholderText(): string {
 			const { selectType, selectedItems, defaultPlaceholder } =

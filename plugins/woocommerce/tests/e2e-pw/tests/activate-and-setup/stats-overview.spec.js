@@ -1,7 +1,7 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 
-test.describe( 'WooCommerce Home', () => {
+test.describe( 'PooCommerce Home', () => {
 	test.use( { storageState: process.env.ADMINSTATE } );
 
 	// TODO (E2E Audit): This test should be combined with other WC Homepage setup tests like the tests in activate-and-setup/task-list.spec.js into a single spec.
@@ -9,7 +9,7 @@ test.describe( 'WooCommerce Home', () => {
 		'Can access Analytics Reports from Stats Overview',
 		{ tag: [ tags.NOT_E2E ] },
 		async ( { page } ) => {
-			await test.step( 'Navigate to the WooCommerce Home page', async () => {
+			await test.step( 'Navigate to the PooCommerce Home page', async () => {
 				await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 				await expect(
 					page.getByText( 'Stats overview' )
