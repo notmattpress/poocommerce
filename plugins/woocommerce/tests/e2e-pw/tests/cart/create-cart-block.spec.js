@@ -7,7 +7,7 @@ import {
 	insertBlock,
 	transformIntoBlocks,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies

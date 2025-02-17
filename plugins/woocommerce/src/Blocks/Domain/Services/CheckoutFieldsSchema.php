@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Domain\Services\Schema\DocumentObject;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Domain\Services\Schema\DocumentObject;
 use Opis\JsonSchema\Helper;
 use Opis\JsonSchema\Validator;
 
@@ -163,7 +163,7 @@ class CheckoutFieldsSchema {
 			}
 		} catch ( \Exception $e ) {
 			$message = sprintf( 'Unable to register field with id: "%s". %s', $options['id'], $e->getMessage() );
-			_doing_it_wrong( 'woocommerce_register_additional_checkout_field', esc_html( $message ), esc_html( $this->release_version ) );
+			_doing_it_wrong( 'poocommerce_register_additional_checkout_field', esc_html( $message ), esc_html( $this->release_version ) );
 			return false;
 		}
 

@@ -1,10 +1,10 @@
 export const PRODUCT_EDITOR_SHOW_FEEDBACK_BAR_OPTION_NAME =
-	'woocommerce_product_editor_show_feedback_bar';
+	'poocommerce_product_editor_show_feedback_bar';
 export const PRODUCT_EDITOR_FEEDBACK_CES_ACTION = 'product_editor';
 export const SINGLE_VARIATION_NOTICE_DISMISSED_OPTION =
-	'woocommerce_single_variation_notice_dismissed';
+	'poocommerce_single_variation_notice_dismissed';
 export const SHOW_PREPUBLISH_CHECKS_ENABLED_OPTION_NAME =
-	'woocommerce_show_prepublish_checks_enabled';
+	'poocommerce_show_prepublish_checks_enabled';
 
 export const NUMBERS_AND_ALLOWED_CHARS = '[^-0-9%s1%s2]';
 export const NUMBERS_AND_DECIMAL_SEPARATOR = '[^-\\d\\%s]+';
@@ -55,7 +55,7 @@ export const PRODUCT_SCHEDULED_SALE_SLUG = 'product-scheduled-sale';
 
 export const TRACKS_SOURCE = 'product-block-editor-v1';
 
-export const HEADER_PINNED_ITEMS_SCOPE = 'woocommerce/product-editor';
+export const HEADER_PINNED_ITEMS_SCOPE = 'poocommerce/product-editor';
 
 /**
  * Since the pagination component does not exposes the way of
@@ -63,7 +63,7 @@ export const HEADER_PINNED_ITEMS_SCOPE = 'woocommerce/product-editor';
  * the default per page option will be the min in the list to
  * keep compatibility.
  *
- * @see https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/components/src/pagination/index.js#L12
+ * @see https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/components/src/pagination/index.js#L12
  */
 export const DEFAULT_PER_PAGE_OPTION = 25;
 

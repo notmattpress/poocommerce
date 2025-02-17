@@ -27,7 +27,7 @@ export function BlockFill( {
 			const { getBlockParentsByBlockName } =
 				select( 'core/block-editor' );
 
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			const [ closestParentClientId ] = getBlockParentsByBlockName(
 				clientId,
 				slotContainerBlockName,

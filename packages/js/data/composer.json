@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/data",
-	"description": "WooCommerce Admin data store and utilities",
+	"name": "poocommerce/data",
+	"description": "PooCommerce Admin data store and utilities",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

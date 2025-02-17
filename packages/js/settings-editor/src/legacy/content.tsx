@@ -17,7 +17,7 @@ const Form = ( { settings }: { settings: SettingsField[] } ) => {
 
 	return (
 		<form id="mainform">
-			<div className="woocommerce-settings-content">
+			<div className="poocommerce-settings-content">
 				<DataForm
 					fields={ fields }
 					form={ form }
@@ -25,9 +25,9 @@ const Form = ( { settings }: { settings: SettingsField[] } ) => {
 					onChange={ updateField }
 				/>
 			</div>
-			<div className="woocommerce-settings-content-footer">
+			<div className="poocommerce-settings-content-footer">
 				<Button variant="primary">
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 		</form>

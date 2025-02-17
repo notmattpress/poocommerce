@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Templates\SingleProductTemplateCompatibility;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * SingleProductTemplate class.
@@ -32,7 +32,7 @@ class SingleProductTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Single Product', 'Template name', 'woocommerce' );
+		return _x( 'Single Product', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class SingleProductTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Displays a single product.', 'woocommerce' );
+		return __( 'Displays a single product.', 'poocommerce' );
 	}
 
 	/**
@@ -79,10 +79,10 @@ class SingleProductTemplate extends AbstractTemplate {
 			}
 
 			if ( isset( $template ) && BlockTemplateUtils::template_has_legacy_template_block( $template ) ) {
-				add_filter( 'woocommerce_disable_compatibility_layer', '__return_true' );
+				add_filter( 'poocommerce_disable_compatibility_layer', '__return_true' );
 			}
 
-			add_filter( 'woocommerce_has_block_template', '__return_true', 10, 0 );
+			add_filter( 'poocommerce_has_block_template', '__return_true', 10, 0 );
 		}
 	}
 
@@ -98,7 +98,7 @@ class SingleProductTemplate extends AbstractTemplate {
 				if ( str_contains( $template->slug, self::SLUG ) ) {
 					// We don't want to add the compatibility layer on the Editor Side.
 					// The second condition is necessary to not apply the compatibility layer on the REST API. Gutenberg uses the REST API to clone the template.
-					// More details: https://github.com/woocommerce/woocommerce-blocks/issues/9662.
+					// More details: https://github.com/poocommerce/poocommerce-blocks/issues/9662.
 					if ( ( ! is_admin() && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) && ! BlockTemplateUtils::template_has_legacy_template_block( $template ) ) {
 						// Add the product class to the body. We should move this to a more appropriate place.
 						add_filter(
@@ -141,7 +141,7 @@ class SingleProductTemplate extends AbstractTemplate {
 	private static function replace_first_single_product_template_block_with_password_form( $parsed_blocks, $is_already_replaced ) {
 		// We want to replace the first single product template block with the password form. We also want to remove all other single product template blocks.
 		// This array doesn't contains all the blocks. For example, it missing the breadcrumbs blocks: it doesn't make sense replace the breadcrumbs with the password form.
-		$single_product_template_blocks = array( 'woocommerce/product-image-gallery', 'woocommerce/product-details', 'woocommerce/add-to-cart-form', 'woocommerce/product-meta', 'woocommerce/product-rating', 'woocommerce/product-price', 'woocommerce/related-products' );
+		$single_product_template_blocks = array( 'poocommerce/product-image-gallery', 'poocommerce/product-details', 'poocommerce/add-to-cart-form', 'poocommerce/product-meta', 'poocommerce/product-rating', 'poocommerce/product-price', 'poocommerce/related-products' );
 		return array_reduce(
 			$parsed_blocks,
 			function ( $carry, $block ) use ( $single_product_template_blocks ) {

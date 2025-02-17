@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportDeactivatePlugin;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\DeactivatePlugin;
+use Automattic\PooCommerce\Blueprint\Importers\ImportDeactivatePlugin;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\DeactivatePlugin;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 

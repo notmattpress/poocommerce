@@ -3,19 +3,19 @@
  * Order syncing related functions and actions.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Internal\Admin\Schedulers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\Overrides\Order;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\Overrides\Order;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * OrdersScheduler Class.
@@ -35,13 +35,13 @@ class OrdersScheduler extends ImportScheduler {
 	 */
 	public static function init() {
 		// Activate WC_Order extension.
-		\Automattic\WooCommerce\Admin\Overrides\Order::add_filters();
-		\Automattic\WooCommerce\Admin\Overrides\OrderRefund::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\Order::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\OrderRefund::add_filters();
 
 		// Order and refund data must be run on these hooks to ensure meta data is set.
-		add_action( 'woocommerce_update_order', array( __CLASS__, 'possibly_schedule_import' ) );
-		add_filter( 'woocommerce_create_order', array( __CLASS__, 'possibly_schedule_import' ) );
-		add_action( 'woocommerce_refund_created', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_action( 'poocommerce_update_order', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_filter( 'poocommerce_create_order', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_action( 'poocommerce_refund_created', array( __CLASS__, 'possibly_schedule_import' ) );
 
 		OrdersStatsDataStore::init();
 		CouponsDataStore::init();
@@ -59,7 +59,7 @@ class OrdersScheduler extends ImportScheduler {
 	 */
 	public static function get_dependencies() {
 		return array(
-			'import_batch_init' => \Automattic\WooCommerce\Internal\Admin\Schedulers\CustomersScheduler::get_action( 'import_batch_init' ),
+			'import_batch_init' => \Automattic\PooCommerce\Internal\Admin\Schedulers\CustomersScheduler::get_action( 'import_batch_init' ),
 		);
 	}
 
@@ -213,7 +213,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 	 * @returns int The order id
 	 */
 	public static function possibly_schedule_import( $order_id ) {
-		if ( ! OrderUtil::is_order( $order_id, array( 'shop_order' ) ) && 'woocommerce_refund_created' !== current_filter() ) {
+		if ( ! OrderUtil::is_order( $order_id, array( 'shop_order' ) ) && 'poocommerce_refund_created' !== current_filter() ) {
 			return $order_id;
 		}
 

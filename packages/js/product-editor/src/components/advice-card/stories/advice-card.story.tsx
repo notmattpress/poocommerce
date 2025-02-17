@@ -27,7 +27,7 @@ Default.args = {
 
 	tip: __(
 		'Tip: Upsells are typically products that are extra profitable or better quality or more expensive. Experiment with combinations to boost sales.',
-		'woocommerce'
+		'poocommerce'
 	),
 	children: <ShoppingBags />,
 	isDismissible: true,
@@ -40,7 +40,7 @@ export const MultipleChildren = ( args: AdviceCardProps ) => (
 MultipleChildren.args = {
 	tip: __(
 		'Tip: Group together items that have a clear relationship or compliment each other well, e.g., garment bundles, camera kits, or skincare product sets.',
-		'woocommerce'
+		'poocommerce'
 	),
 
 	children: (

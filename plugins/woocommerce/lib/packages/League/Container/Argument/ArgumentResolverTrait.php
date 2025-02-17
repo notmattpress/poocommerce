@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Argument;
+namespace Automattic\PooCommerce\Vendor\League\Container\Argument;
 
-use Automattic\WooCommerce\Vendor\League\Container\Container;
-use Automattic\WooCommerce\Vendor\League\Container\Exception\{ContainerException, NotFoundException};
-use Automattic\WooCommerce\Vendor\League\Container\ReflectionContainer;
-use Automattic\WooCommerce\Vendor\Psr\Container\ContainerInterface;
+use Automattic\PooCommerce\Vendor\League\Container\Container;
+use Automattic\PooCommerce\Vendor\League\Container\Exception\{ContainerException, NotFoundException};
+use Automattic\PooCommerce\Vendor\League\Container\ReflectionContainer;
+use Automattic\PooCommerce\Vendor\Psr\Container\ContainerInterface;
 use ReflectionFunctionAbstract;
 use ReflectionParameter;
 

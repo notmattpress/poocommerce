@@ -10,7 +10,7 @@ const {
 	createSimpleProduct,
 	createVariableProduct,
 	withRestApi,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies

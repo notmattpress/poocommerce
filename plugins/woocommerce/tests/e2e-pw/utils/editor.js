@@ -1,4 +1,4 @@
-const { getCanvas } = require( '@woocommerce/e2e-utils-playwright/src' );
+const { getCanvas } = require( '@poocommerce/e2e-utils-playwright/src' );
 
 const fillPageTitle = async ( page, title ) => {
 	// Gutenberg 19.9-nightly: Block Inserter expanded by default and showing patterns tab.

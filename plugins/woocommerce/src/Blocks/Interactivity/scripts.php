@@ -6,8 +6,8 @@ use Automattic\Jetpack\Constants;
  * it work with `wc_store` and it should be replaced with deferred scripts or
  * modules.
  */
-function woocommerce_interactivity_move_interactive_scripts_to_the_footer() {
-	// Move the @woocommerce/interactivity package to the footer.
+function poocommerce_interactivity_move_interactive_scripts_to_the_footer() {
+	// Move the @poocommerce/interactivity package to the footer.
 	wp_script_add_data( 'wc-interactivity', 'group', 1 );
 
 	// Move all the view scripts of the interactive blocks to the footer.
@@ -20,14 +20,14 @@ function woocommerce_interactivity_move_interactive_scripts_to_the_footer() {
 		}
 	}
 }
-add_action( 'wp_enqueue_scripts', 'woocommerce_interactivity_move_interactive_scripts_to_the_footer', 11 );
+add_action( 'wp_enqueue_scripts', 'poocommerce_interactivity_move_interactive_scripts_to_the_footer', 11 );
 
 /**
  * Register the Interactivity API runtime and make it available to be enqueued
  * as a dependency in interactive blocks.
  */
-function woocommerce_interactivity_register_runtime() {
-	$plugin_path = \Automattic\WooCommerce\Blocks\Package::get_path();
+function poocommerce_interactivity_register_runtime() {
+	$plugin_path = \Automattic\PooCommerce\Blocks\Package::get_path();
 	$plugin_url  = plugin_dir_url( $plugin_path . '/index.php' );
 
 	$file = 'assets/client/blocks/wc-interactivity.js';
@@ -50,4 +50,4 @@ function woocommerce_interactivity_register_runtime() {
 		true
 	);
 }
-add_action( 'wp_enqueue_scripts', 'woocommerce_interactivity_register_runtime' );
+add_action( 'wp_enqueue_scripts', 'poocommerce_interactivity_register_runtime' );

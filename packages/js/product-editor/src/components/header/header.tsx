@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WooHeaderItem, useAdminSidebarWidth } from '@woocommerce/admin-layout';
+import { WooHeaderItem, useAdminSidebarWidth } from '@poocommerce/admin-layout';
 import { useEntityId, useEntityRecord } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import {
@@ -15,14 +15,14 @@ import {
 import { __ } from '@wordpress/i18n';
 import { Button, Tooltip } from '@wordpress/components';
 import { box, chevronLeft, group, Icon } from '@wordpress/icons';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import classNames from 'classnames';
-import { Tag } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { Tag } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { PinnedItems } from '@wordpress/interface';
 
 /**
@@ -47,7 +47,7 @@ const PublishButton = lazy( () =>
 
 const RETURN_TO_MAIN_PRODUCT = __(
 	'Return to the main product',
-	'woocommerce'
+	'poocommerce'
 );
 
 export function Header( {
@@ -129,7 +129,7 @@ export function Header( {
 			tags.push(
 				<Tag
 					key={ 'draft-tag' }
-					label={ __( 'Draft', 'woocommerce' ) }
+					label={ __( 'Draft', 'poocommerce' ) }
 				/>
 			);
 		}
@@ -137,7 +137,7 @@ export function Header( {
 			tags.push(
 				<Tag
 					key={ 'scheduled-tag' }
-					label={ __( 'Scheduled', 'woocommerce' ) }
+					label={ __( 'Scheduled', 'poocommerce' ) }
 				/>
 			);
 		}
@@ -148,7 +148,7 @@ export function Header( {
 			tags.push(
 				<Tag
 					key={ 'hidden-tag' }
-					label={ __( 'Hidden', 'woocommerce' ) }
+					label={ __( 'Hidden', 'poocommerce' ) }
 				/>
 			);
 		}
@@ -157,20 +157,20 @@ export function Header( {
 
 	return (
 		<div
-			className="woocommerce-product-header"
+			className="poocommerce-product-header"
 			role="region"
-			aria-label={ __( 'Product Editor top bar.', 'woocommerce' ) }
+			aria-label={ __( 'Product Editor top bar.', 'poocommerce' ) }
 			tabIndex={ -1 }
 		>
-			<div className="woocommerce-product-header__inner">
+			<div className="poocommerce-product-header__inner">
 				{ isVariation ? (
-					<div className="woocommerce-product-header__back">
+					<div className="poocommerce-product-header__back">
 						<Tooltip
 							// @ts-expect-error className is missing in TS, should remove this when it is included.
-							className="woocommerce-product-header__back-tooltip"
+							className="poocommerce-product-header__back-tooltip"
 							text={ RETURN_TO_MAIN_PRODUCT }
 						>
-							<div className="woocommerce-product-header__back-tooltip-wrapper">
+							<div className="poocommerce-product-header__back-tooltip-wrapper">
 								<Button
 									icon={ chevronLeft }
 									isTertiary={ true }
@@ -188,7 +188,7 @@ export function Header( {
 										navigateTo( { url } );
 									} }
 								>
-									{ __( 'Main product', 'woocommerce' ) }
+									{ __( 'Main product', 'poocommerce' ) }
 								</Button>
 							</div>
 						</Tooltip>
@@ -199,13 +199,13 @@ export function Header( {
 
 				<div
 					className={ classNames(
-						'woocommerce-product-header-title-bar',
+						'poocommerce-product-header-title-bar',
 						{
 							'is-variation': isVariation,
 						}
 					) }
 				>
-					<div className="woocommerce-product-header-title-bar__image">
+					<div className="poocommerce-product-header-title-bar__image">
 						{ isHeaderImageVisible ? (
 							<img
 								alt={ getImagePropertyValue(
@@ -216,17 +216,17 @@ export function Header( {
 									selectedImage,
 									'src'
 								) }
-								className="woocommerce-product-header-title-bar__product-image"
+								className="poocommerce-product-header-title-bar__product-image"
 							/>
 						) : (
 							<Icon icon={ isVariation ? group : box } />
 						) }
 					</div>
-					<h1 className="woocommerce-product-header__title">
+					<h1 className="poocommerce-product-header__title">
 						{ isVariation ? (
 							<>
 								{ lastPersistedProduct?.name }
-								<span className="woocommerce-product-header__variable-product-id">
+								<span className="poocommerce-product-header__variable-product-id">
 									# { lastPersistedProduct?.id }
 								</span>
 							</>
@@ -238,13 +238,13 @@ export function Header( {
 								lastPersistedProduct?.name
 							)
 						) }
-						<div className="woocommerce-product-header__visibility-tags">
+						<div className="poocommerce-product-header__visibility-tags">
 							{ getVisibilityTags() }
 						</div>
 					</h1>
 				</div>
 
-				<div className="woocommerce-product-header__actions">
+				<div className="poocommerce-product-header__actions">
 					{ ! isVariation && (
 						<SaveDraftButton
 							productType={ productType }

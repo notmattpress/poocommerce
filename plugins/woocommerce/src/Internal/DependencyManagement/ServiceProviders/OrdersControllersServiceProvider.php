@@ -3,15 +3,15 @@
  * OrdersControllersServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\Orders\CouponsController;
-use Automattic\WooCommerce\Internal\Orders\OrderActionsRestController;
-use Automattic\WooCommerce\Internal\Orders\TaxesController;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Orders\CouponsController;
+use Automattic\PooCommerce\Internal\Orders\OrderActionsRestController;
+use Automattic\PooCommerce\Internal\Orders\TaxesController;
 
 /**
- * Service provider for the orders controller classes in the Automattic\WooCommerce\Internal\Orders namespace.
+ * Service provider for the orders controller classes in the Automattic\PooCommerce\Internal\Orders namespace.
  */
 class OrdersControllersServiceProvider extends AbstractInterfaceServiceProvider {
 

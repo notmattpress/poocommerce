@@ -5,8 +5,8 @@ import {
 	CURRENT_USER_IS_ADMIN,
 	FormFields,
 	KeyedFormField,
-} from '@woocommerce/settings';
-import { useSchemaParser } from '@woocommerce/base-hooks';
+} from '@poocommerce/settings';
+import { useSchemaParser } from '@poocommerce/base-hooks';
 import { useRef } from '@wordpress/element';
 import fastDeepEqual from 'fast-deep-equal/es6';
 

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { store, getContext, getElement } from '@woocommerce/interactivity';
+import { store, getContext, getElement } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -12,12 +12,12 @@ type ProductFilterActiveContext = {
 	removeLabelTemplate: string;
 };
 
-const productFilterActiveStore = store( 'woocommerce/product-filter-active', {
+const productFilterActiveStore = store( 'poocommerce/product-filter-active', {
 	state: {
 		get items() {
 			const context = getContext< ProductFilterActiveContext >();
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			return productFiltersStore.state.activeFilters.map( ( item ) => ( {
@@ -30,7 +30,7 @@ const productFilterActiveStore = store( 'woocommerce/product-filter-active', {
 		},
 		get hasSelectedFilters() {
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			return productFiltersStore.state.activeFilters.length > 0;
 		},
@@ -48,7 +48,7 @@ const productFilterActiveStore = store( 'woocommerce/product-filter-active', {
 			if ( ! type || ! value ) return;
 
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			productFiltersStore.actions.removeActiveFilter( type, value );
@@ -57,12 +57,12 @@ const productFilterActiveStore = store( 'woocommerce/product-filter-active', {
 		},
 		clearFilters: () => {
 			const productFiltersContext = getContext< ProductFiltersContext >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			productFiltersContext.activeFilters = [];
 
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			productFiltersStore.actions.navigate();
 		},

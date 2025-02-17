@@ -8,8 +8,8 @@ jQuery( function( $ ) {
 
 	$( 'body' )
 		// Tabs
-		.on( 'init', '.wc-tabs-wrapper, .woocommerce-tabs', function() {
-			$( this ).find( '.wc-tab, .woocommerce-tabs .panel:not(.panel .panel)' ).hide();
+		.on( 'init', '.wc-tabs-wrapper, .poocommerce-tabs', function() {
+			$( this ).find( '.wc-tab, .poocommerce-tabs .panel:not(.panel .panel)' ).hide();
 
 			var hash  = window.location.hash;
 			var url   = window.location.href;
@@ -28,7 +28,7 @@ jQuery( function( $ ) {
 		.on( 'click', '.wc-tabs li a, ul.tabs li a', function( e ) {
 			e.preventDefault();
 			var $tab          = $( this );
-			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .woocommerce-tabs' );
+			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .poocommerce-tabs' );
 			var $tabs         = $tabs_wrapper.find( '.wc-tabs, ul.tabs' );
 
 			$tabs.find( 'li' ).removeClass( 'active' );
@@ -58,7 +58,7 @@ jQuery( function( $ ) {
 			e.preventDefault();
 
 			var $tab          = $( this );
-			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .woocommerce-tabs' );
+			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .poocommerce-tabs' );
 			var $tabsList     = $tabs_wrapper.find( '.wc-tabs, ul.tabs' );
 			var $tabs         = $tabsList.find( 'a[role="tab"]' );
 			var endIndex	  = $tabs.length - 1;
@@ -93,7 +93,7 @@ jQuery( function( $ ) {
 			}, 0);
 		} )
 		// Review link
-		.on( 'click', 'a.woocommerce-review-link', function() {
+		.on( 'click', 'a.poocommerce-review-link', function() {
 			$( '.reviews_tab a' ).trigger( 'click' );
 			return true;
 		} )
@@ -174,7 +174,7 @@ jQuery( function( $ ) {
 		} );
 
 	// Init Tabs and Star Ratings
-	$( '.wc-tabs-wrapper, .woocommerce-tabs, #rating' ).trigger( 'init' );
+	$( '.wc-tabs-wrapper, .poocommerce-tabs, #rating' ).trigger( 'init' );
 
 	var productGalleryElement;
 
@@ -183,7 +183,7 @@ jQuery( function( $ ) {
 	 */
 	var ProductGallery = function( $target, args ) {
 		this.$target = $target;
-		this.$images = $( '.woocommerce-product-gallery__image', $target );
+		this.$images = $( '.poocommerce-product-gallery__image', $target );
 
 		// No images? Abort.
 		if ( 0 === this.$images.length ) {
@@ -224,14 +224,14 @@ jQuery( function( $ ) {
 
 		if ( this.flexslider_enabled ) {
 			this.initFlexslider( args.flexslider );
-			$target.on( 'woocommerce_gallery_reset_slide_position', this.onResetSlidePosition );
+			$target.on( 'poocommerce_gallery_reset_slide_position', this.onResetSlidePosition );
 		} else {
 			this.$target.css( 'opacity', 1 );
 		}
 
 		if ( this.zoom_enabled ) {
 			this.initZoom();
-			$target.on( 'woocommerce_gallery_init_zoom', this.initZoom );
+			$target.on( 'poocommerce_gallery_init_zoom', this.initZoom );
 		}
 
 		if ( this.photoswipe_enabled ) {
@@ -247,7 +247,7 @@ jQuery( function( $ ) {
 			gallery = this;
 
 		var options = $.extend( {
-			selector: '.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image',
+			selector: '.poocommerce-product-gallery__wrapper > .poocommerce-product-gallery__image',
 			start: function() {
 				$target.css( 'opacity', 1 );
 			},
@@ -259,12 +259,12 @@ jQuery( function( $ ) {
 		$target.flexslider( options );
 
 		// Trigger resize after main image loads to ensure correct gallery size.
-		$( '.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:eq(0) .wp-post-image' ).one( 'load', function() {
+		$( '.poocommerce-product-gallery__wrapper .poocommerce-product-gallery__image:eq(0) .wp-post-image' ).one( 'load', function() {
 			var $image = $( this );
 
 			if ( $image ) {
 				setTimeout( function() {
-					var setHeight = $image.closest( '.woocommerce-product-gallery__image' ).height();
+					var setHeight = $image.closest( '.poocommerce-product-gallery__image' ).height();
 					var $viewport = $image.closest( '.flex-viewport' );
 
 					if ( setHeight && $viewport ) {
@@ -342,22 +342,22 @@ jQuery( function( $ ) {
 	ProductGallery.prototype.initPhotoswipe = function() {
 		if ( this.zoom_enabled && this.$images.length > 0 ) {
 			this.$target.prepend(
-				'<a href="#" role="button" class="woocommerce-product-gallery__trigger" aria-haspopup="dialog" aria-label="'+
+				'<a href="#" role="button" class="poocommerce-product-gallery__trigger" aria-haspopup="dialog" aria-label="'+
 				wc_single_product_params.i18n_product_gallery_trigger_text + '">' +
 					'<span aria-hidden="true">🔍</span>' +
 				'</a>'
 			);
-			this.$target.on( 'click', '.woocommerce-product-gallery__trigger', this.openPhotoswipe );
-			this.$target.on( 'click', '.woocommerce-product-gallery__image a', function( e ) {
+			this.$target.on( 'click', '.poocommerce-product-gallery__trigger', this.openPhotoswipe );
+			this.$target.on( 'click', '.poocommerce-product-gallery__image a', function( e ) {
 				e.preventDefault();
 			});
 
 			// If flexslider is disabled, gallery images also need to trigger photoswipe on click.
 			if ( ! this.flexslider_enabled ) {
-				this.$target.on( 'click', '.woocommerce-product-gallery__image a', this.openPhotoswipe );
+				this.$target.on( 'click', '.poocommerce-product-gallery__image a', this.openPhotoswipe );
 			}
 		} else {
-			this.$target.on( 'click', '.woocommerce-product-gallery__image a', this.openPhotoswipe );
+			this.$target.on( 'click', '.poocommerce-product-gallery__image a', this.openPhotoswipe );
 		}
 	};
 
@@ -412,10 +412,10 @@ jQuery( function( $ ) {
 			self          = this,
 			clicked;
 
-		if ( 0 < eventTarget.closest( '.woocommerce-product-gallery__trigger' ).length ) {
+		if ( 0 < eventTarget.closest( '.poocommerce-product-gallery__trigger' ).length ) {
 			clicked = this.$target.find( '.flex-active-slide' );
 		} else {
-			clicked = eventTarget.closest( '.woocommerce-product-gallery__image' );
+			clicked = eventTarget.closest( '.poocommerce-product-gallery__image' );
 		}
 
 		var options = $.extend( {
@@ -505,7 +505,7 @@ jQuery( function( $ ) {
 	/*
 	 * Initialize all galleries on page.
 	 */
-	$( '.woocommerce-product-gallery' ).each( function() {
+	$( '.poocommerce-product-gallery' ).each( function() {
 
 		$( this ).trigger( 'wc-product-gallery-before-init', [ this, wc_single_product_params ] );
 

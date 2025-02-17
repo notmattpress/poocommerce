@@ -2,35 +2,35 @@ const webpackOverride = require( '../webpack.config' );
 
 const staticDirs = [
 	{
-		from: '../../../plugins/woocommerce/client/admin/client',
-		to: 'main/plugins/woocommerce/client/admin/client',
+		from: '../../../plugins/poocommerce/client/admin/client',
+		to: 'main/plugins/poocommerce/client/admin/client',
 	},
 ];
 if ( process.env.NODE_ENV && process.env.NODE_ENV === 'production' ) {
-	// Add WooCommerce Blocks Storybook for build process.
+	// Add PooCommerce Blocks Storybook for build process.
 	staticDirs.push( {
-		from: '../../../plugins/woocommerce-blocks/storybook/dist',
-		to: '/assets/woocommerce-blocks',
+		from: '../../../plugins/poocommerce-blocks/storybook/dist',
+		to: '/assets/poocommerce-blocks',
 	} );
 }
 module.exports = {
 	stories: [
 		// Introductory documentation
 		'../stories/**/*.mdx',
-		// WooCommerce Admin / @woocommerce/components components
+		// PooCommerce Admin / @poocommerce/components components
 		'../../../packages/js/components/src/**/stories/*.story.@(js|tsx)',
-		// WooCommerce Admin / @woocommerce/experimental components
+		// PooCommerce Admin / @poocommerce/experimental components
 		'../../../packages/js/experimental/src/**/stories/*.story.@(js|tsx)',
-		// WooCommerce Admin / @woocommerce/onboarding components
+		// PooCommerce Admin / @poocommerce/onboarding components
 		'../../../packages/js/onboarding/src/**/stories/*.story.@(js|tsx)',
 		'../../../packages/js/product-editor/src/**/*.(stories|story).@(js|tsx)',
-		'../../../plugins/woocommerce/client/admin/client/**/stories/*.story.@(js|tsx)',
+		'../../../plugins/poocommerce/client/admin/client/**/stories/*.story.@(js|tsx)',
 	],
 	refs: ( config, { configType } ) => {
 		if ( configType === 'DEVELOPMENT' ) {
-			// WooCommerce Blocks gets automatically on port 6006 run when you run pnpm --filter=@woocommerce/storybook watch:build
+			// PooCommerce Blocks gets automatically on port 6006 run when you run pnpm --filter=@poocommerce/storybook watch:build
 			return {
-				'woocommerce-blocks': {
+				'poocommerce-blocks': {
 					expanded: false,
 					title: 'Blocks',
 					url: 'http://localhost:6006',
@@ -45,10 +45,10 @@ module.exports = {
 			pathPrefix = '/' + pathPrefix;
 		}
 		return {
-			'woocommerce-blocks': {
+			'poocommerce-blocks': {
 				expanded: false,
 				title: 'Blocks',
-				url: pathPrefix + '/assets/woocommerce-blocks',
+				url: pathPrefix + '/assets/poocommerce-blocks',
 			},
 		};
 	},
@@ -103,7 +103,7 @@ module.exports = {
 
 	previewBody: ( body ) => `
 	<div id="wpwrap">
-		<div class="woocommerce-layout woocommerce-admin-page">
+		<div class="poocommerce-layout poocommerce-admin-page">
 			${ body }
 
 	`,

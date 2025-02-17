@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_Error;
 use WP_REST_Request;
 
@@ -41,7 +41,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 	protected string $rest_base = 'settings/email';
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -113,14 +113,14 @@ class EmailPreviewRestController extends RestApiControllerBase {
 	private function get_args_for_send_preview() {
 		return array(
 			'type'  => array(
-				'description'       => __( 'The email type to preview.', 'woocommerce' ),
+				'description'       => __( 'The email type to preview.', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'validate_callback' => fn( $key ) => $this->validate_email_type( $key ),
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'email' => array(
-				'description'       => __( 'Email address to send the email preview to.', 'woocommerce' ),
+				'description'       => __( 'Email address to send the email preview to.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'email',
 				'required'          => true,
@@ -138,7 +138,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 	private function get_args_for_preview_subject() {
 		return array(
 			'type' => array(
-				'description'       => __( 'The email type to get subject for.', 'woocommerce' ),
+				'description'       => __( 'The email type to get subject for.', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'validate_callback' => fn( $key ) => $this->validate_email_type( $key ),
@@ -161,7 +161,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 				'validate_callback' => function ( $key ) {
 					if ( ! in_array( $key, EmailPreview::get_all_email_settings_ids(), true ) ) {
 						return new \WP_Error(
-							'woocommerce_rest_not_allowed_key',
+							'poocommerce_rest_not_allowed_key',
 							sprintf( 'The provided key "%s" is not allowed.', $key ),
 							array( 'status' => 400 ),
 						);
@@ -178,7 +178,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 				'sanitize_callback' => function ( $value, $request ) {
 					$key = $request->get_param( 'key' );
 					if (
-						'woocommerce_email_footer_text' === $key
+						'poocommerce_email_footer_text' === $key
 						|| preg_match( '/_additional_content$/', $key )
 					) {
 						return wp_kses_post( trim( $value ) );
@@ -201,7 +201,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'message' => array(
-					'description' => __( 'A message indicating that the action completed successfully.', 'woocommerce' ),
+					'description' => __( 'A message indicating that the action completed successfully.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -222,7 +222,7 @@ class EmailPreviewRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'subject' => array(
-					'description' => __( 'A subject for provided email type after filters are applied and placeholders replaced.', 'woocommerce' ),
+					'description' => __( 'A subject for provided email type after filters are applied and placeholders replaced.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
@@ -242,8 +242,8 @@ class EmailPreviewRestController extends RestApiControllerBase {
 			$this->email_preview->set_email_type( $email_type );
 		} catch ( \InvalidArgumentException $e ) {
 			return new WP_Error(
-				'woocommerce_rest_invalid_email_type',
-				__( 'Invalid email type.', 'woocommerce' ),
+				'poocommerce_rest_invalid_email_type',
+				__( 'Invalid email type.', 'poocommerce' ),
 				array( 'status' => 400 ),
 			);
 		}
@@ -261,11 +261,11 @@ class EmailPreviewRestController extends RestApiControllerBase {
 		if ( ! wp_verify_nonce( $nonce, self::NONCE_KEY ) ) {
 			return new WP_Error(
 				'invalid_nonce',
-				__( 'Invalid nonce.', 'woocommerce' ),
+				__( 'Invalid nonce.', 'poocommerce' ),
 				array( 'status' => 403 ),
 			);
 		}
-		return $this->check_permission( $request, 'manage_woocommerce' );
+		return $this->check_permission( $request, 'manage_poocommerce' );
 	}
 
 	/**
@@ -284,12 +284,12 @@ class EmailPreviewRestController extends RestApiControllerBase {
 		if ( $sent ) {
 			return array(
 				// translators: %s: Email address.
-				'message' => sprintf( __( 'Test email sent to %s.', 'woocommerce' ), $email_address ),
+				'message' => sprintf( __( 'Test email sent to %s.', 'poocommerce' ), $email_address ),
 			);
 		}
 		return new WP_Error(
-			'woocommerce_rest_email_preview_not_sent',
-			__( 'Error sending test email. Please try again.', 'woocommerce' ),
+			'poocommerce_rest_email_preview_not_sent',
+			__( 'Error sending test email. Please try again.', 'poocommerce' ),
 			array( 'status' => 500 )
 		);
 	}
@@ -306,14 +306,14 @@ class EmailPreviewRestController extends RestApiControllerBase {
 		$is_set = set_transient( $key, $value, HOUR_IN_SECONDS );
 		if ( ! $is_set ) {
 			return new WP_Error(
-				'woocommerce_rest_transient_not_set',
-				__( 'Error saving transient. Please try again.', 'woocommerce' ),
+				'poocommerce_rest_transient_not_set',
+				__( 'Error saving transient. Please try again.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
 		return array(
-			// translators: %s: Email settings color key, e.g., "woocommerce_email_base_color".
-			'message' => sprintf( __( 'Transient saved for key %s.', 'woocommerce' ), $key ),
+			// translators: %s: Email settings color key, e.g., "poocommerce_email_base_color".
+			'message' => sprintf( __( 'Transient saved for key %s.', 'poocommerce' ), $key ),
 		);
 	}
 }

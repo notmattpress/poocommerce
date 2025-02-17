@@ -4,7 +4,7 @@
 import {
 	addAProductToCart,
 	getOrderIdFromUrl,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
@@ -28,7 +28,7 @@ const methodInfo = {
 	method_id: 'free_shipping',
 };
 
-const storeName = 'WooCommerce Core E2E Test Suite';
+const storeName = 'PooCommerce Core E2E Test Suite';
 
 //todo audit follow-up: these checks should be part of the end-to-end flow of placing an order
 test.describe(

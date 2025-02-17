@@ -9,17 +9,17 @@ import {
 	useRef,
 	useState,
 } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { resolveSelect } from '@wordpress/data';
-import { PRODUCTS_STORE_NAME, Product } from '@woocommerce/data';
+import { PRODUCTS_STORE_NAME, Product } from '@poocommerce/data';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { reusableBlock } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDebounce } from '@wordpress/compose';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId } from '@wordpress/core-data';
 
 /**
@@ -79,7 +79,7 @@ async function getProductsBySearchValue(
 		orderby: 'title',
 		order: 'asc',
 		per_page: 5,
-		// @ts-expect-error TODO react-18-upgrade: getProducts type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error TODO react-18-upgrade: getProducts type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 		exclude: excludedIds,
 	} );
 }
@@ -277,11 +277,11 @@ export function LinkedProductListBlockEdit( {
 					isBusy={ isChoosingProducts }
 					disabled={ isChoosingProducts }
 				>
-					{ __( 'Choose products for me', 'woocommerce' ) }
+					{ __( 'Choose products for me', 'poocommerce' ) }
 				</Button>
 			</SectionActions>
 
-			<div className="wp-block-woocommerce-product-linked-list-field__form-group-content">
+			<div className="wp-block-poocommerce-product-linked-list-field__form-group-content">
 				<ProductSelect
 					items={ searchedProducts }
 					filter={ debouncedFilter }
@@ -296,7 +296,7 @@ export function LinkedProductListBlockEdit( {
 			{ ! state.isLoading && state.linkedProducts.length === 0 && (
 				<AdviceCard
 					tip={ emptyState.tip }
-					dismissPreferenceId={ `woocommerce-product-${ property }-advice-card-dismissed` }
+					dismissPreferenceId={ `poocommerce-product-${ property }-advice-card-dismissed` }
 					isDismissible={ emptyState.isDismissible }
 					onDismiss={ handleAdviceCardDismiss }
 				>

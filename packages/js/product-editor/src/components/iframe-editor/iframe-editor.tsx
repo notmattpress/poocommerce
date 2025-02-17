@@ -14,12 +14,12 @@ import {
 import { useResizeObserver } from '@wordpress/compose';
 import { PluginArea } from '@wordpress/plugins';
 import classNames from 'classnames';
-import { isWpVersion } from '@woocommerce/settings';
+import { isWpVersion } from '@poocommerce/settings';
 import {
 	store as preferencesStore,
 	// @ts-expect-error No types for this exist yet.
 } from '@wordpress/preferences';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	BlockEditorProvider,
 	BlockList,
@@ -33,7 +33,7 @@ import {
 	// @ts-ignore
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	ComplementaryArea,
 	// @ts-expect-error No types for this exist yet.
@@ -119,7 +119,7 @@ export function IframeEditor( {
 
 	// Pick the blocks from the store.
 	const blocks: BlockInstance[] = useSelect( ( select ) => {
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		return select( productEditorUiStore ).getModalEditorBlocks();
 	}, [] );
 
@@ -168,7 +168,7 @@ export function IframeEditor( {
 		useDispatch( blockEditorStore );
 
 	const parentEditorSettings = useSelect( ( select ) => {
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		return select( blockEditorStore ).getSettings();
 	}, [] );
 
@@ -209,7 +209,7 @@ export function IframeEditor( {
 		isWpVersion( '6.5', '>=' ) || getGutenbergVersion() > 17.3;
 
 	return (
-		<div className="woocommerce-iframe-editor">
+		<div className="poocommerce-iframe-editor">
 			<EditorContext.Provider
 				value={ {
 					hasRedo,
@@ -257,11 +257,11 @@ export function IframeEditor( {
 							onClose?.();
 						} }
 					/>
-					<div className="woocommerce-iframe-editor__main">
+					<div className="poocommerce-iframe-editor__main">
 						<SecondarySidebar />
 						<BlockTools
 							className={ classNames(
-								'woocommerce-iframe-editor__content',
+								'poocommerce-iframe-editor__content',
 								{
 									'old-fixed-toolbar-shown':
 										! inlineFixedBlockToolbar,
@@ -310,13 +310,13 @@ export function IframeEditor( {
 								 that is happening because the inserter is positioned using a transforms,
 								 which take it outside of the normal layout, thus ignoring the parent's
 								 bounds. */ }
-							<div className="woocommerce-iframe-editor__content-inserter-clipper" />
+							<div className="poocommerce-iframe-editor__content-inserter-clipper" />
 						</BlockTools>
 						<ComplementaryArea.Slot
 							scope={ SIDEBAR_COMPLEMENTARY_AREA_SCOPE }
 						/>
 					</div>
-					<PluginArea scope="woocommerce-product-editor-modal-block-editor" />
+					<PluginArea scope="poocommerce-product-editor-modal-block-editor" />
 					<SettingsSidebar smallScreenTitle={ name } />
 				</BlockEditorProvider>
 			</EditorContext.Provider>

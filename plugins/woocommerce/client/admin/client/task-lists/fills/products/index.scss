@@ -1,4 +1,4 @@
-.woocommerce-task-products {
+.poocommerce-task-products {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -8,17 +8,17 @@
 		color: #007cba;
 	}
 
-	.woocommerce-task-products__title {
+	.poocommerce-task-products__title {
 		font-size: 24px;
 		text-align: center;
 	}
 
-	.woocommerce-product-content {
+	.poocommerce-product-content {
 		display: flex;
 		flex-direction: column;
 	}
 
-	.woocommerce-task-products__button-view-less-product-types {
+	.poocommerce-task-products__button-view-less-product-types {
 		color: #007cba;
 		padding: 0;
 		height: fit-content;
@@ -36,13 +36,13 @@
 		}
 	}
 
-	.woocommerce-products-footer {
+	.poocommerce-products-footer {
 		margin-top: 53px;
 		display: flex;
 		flex-direction: column;
 	}
 
-	.woocommerce-products-footer__selling-somewhere-else {
+	.poocommerce-products-footer__selling-somewhere-else {
 		text-transform: uppercase;
 		color: $gray-700;
 		font-weight: 500;
@@ -51,7 +51,7 @@
 		margin-bottom: 8px;
 	}
 
-	.woocommerce-products-stack {
+	.poocommerce-products-stack {
 		max-width: 550px;
 		margin-top: 24px;
 
@@ -60,7 +60,7 @@
 		}
 	}
 
-	.woocommerce-list__item-before > svg {
+	.poocommerce-list__item-before > svg {
 		fill: var(--wp-admin-theme-color);
 		.stroke-admin-theme {
 			stroke: var(--wp-admin-theme-color);

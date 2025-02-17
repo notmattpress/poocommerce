@@ -2,12 +2,12 @@
 /**
  * Debug/Status page
  *
- * @package WooCommerce\Admin\System Status
+ * @package PooCommerce\Admin\System Status
  * @version 2.2.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\PageController as LoggingPageController;
+use Automattic\PooCommerce\Internal\Admin\Logging\PageController as LoggingPageController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -66,15 +66,15 @@ class WC_Admin_Status {
 				$tool                  = array_merge( $tool, $response );
 
 				/**
-				 * Fires after a WooCommerce system status tool has been executed.
+				 * Fires after a PooCommerce system status tool has been executed.
 				 *
 				 * @param array  $tool  Details about the tool that has been executed.
 				 */
-				do_action( 'woocommerce_system_status_tool_executed', $tool );
+				do_action( 'poocommerce_system_status_tool_executed', $tool );
 			} else {
 				$response = array(
 					'success' => false,
-					'message' => __( 'Tool does not exist.', 'woocommerce' ),
+					'message' => __( 'Tool does not exist.', 'poocommerce' ),
 				);
 			}
 
@@ -87,7 +87,7 @@ class WC_Admin_Status {
 
 		// Display message if settings settings have been saved.
 		if ( isset( $_REQUEST['settings-updated'] ) ) { // WPCS: input var ok.
-			echo '<div class="updated inline"><p>' . esc_html__( 'Your changes have been saved.', 'woocommerce' ) . '</p></div>';
+			echo '<div class="updated inline"><p>' . esc_html__( 'Your changes have been saved.', 'poocommerce' ) . '</p></div>';
 		}
 
 		if ( $tool_requires_refresh ) {
@@ -302,7 +302,7 @@ class WC_Admin_Status {
 	 */
 	public static function remove_log() {
 		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_REQUEST['_wpnonce'] ), 'remove_log' ) ) { // WPCS: input var ok, sanitization ok.
-			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'poocommerce' ) );
 		}
 
 		if ( ! empty( $_REQUEST['handle'] ) ) {  // WPCS: input var ok.
@@ -336,8 +336,8 @@ class WC_Admin_Status {
 	private static function flush_db_logs() {
 		check_admin_referer( 'bulk-logs' );
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You do not have permission to manage log entries.', 'woocommerce' ) );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'You do not have permission to manage log entries.', 'poocommerce' ) );
 		}
 
 		WC_Log_Handler_DB::flush();
@@ -356,8 +356,8 @@ class WC_Admin_Status {
 	private static function log_table_bulk_actions() {
 		check_admin_referer( 'bulk-logs' );
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'You do not have permission to manage log entries.', 'woocommerce' ) );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			wp_die( esc_html__( 'You do not have permission to manage log entries.', 'poocommerce' ) );
 		}
 
 		$log_ids = (array) filter_input( INPUT_GET, 'log', FILTER_CALLBACK, array( 'options' => 'absint' ) );
@@ -391,7 +391,7 @@ class WC_Admin_Status {
 				echo esc_html(
 					sprintf(
 					// translators: Comma separated list of missing tables.
-						__( 'Missing base tables: %s. Some WooCommerce functionality may not work as expected.', 'woocommerce' ),
+						__( 'Missing base tables: %s. Some PooCommerce functionality may not work as expected.', 'poocommerce' ),
 						implode( ', ', $missing_tables )
 					)
 				);
@@ -406,7 +406,7 @@ class WC_Admin_Status {
 	 * Used for both active and inactive plugins sections.
 	 *
 	 * @param array $plugins List of plugins to display.
-	 * @param array $untested_plugins List of plugins that haven't been tested with the current WooCommerce version.
+	 * @param array $untested_plugins List of plugins that haven't been tested with the current PooCommerce version.
 	 * @return void
 	 */
 	private static function output_plugins_info( $plugins, $untested_plugins ) {
@@ -422,20 +422,20 @@ class WC_Admin_Status {
 				// Link the plugin name to the plugin url if available.
 				$plugin_name = esc_html( $plugin['name'] );
 				if ( ! empty( $plugin['url'] ) ) {
-					$plugin_name = '<a href="' . esc_url( $plugin['url'] ) . '" aria-label="' . esc_attr__( 'Visit plugin homepage', 'woocommerce' ) . '" target="_blank">' . $plugin_name . '</a>';
+					$plugin_name = '<a href="' . esc_url( $plugin['url'] ) . '" aria-label="' . esc_attr__( 'Visit plugin homepage', 'poocommerce' ) . '" target="_blank">' . $plugin_name . '</a>';
 				}
 
 				$has_newer_version = false;
 				$version_string    = $plugin['version'];
 				$network_string    = '';
-				if ( strstr( $plugin['url'], 'woothemes.com' ) || strstr( $plugin['url'], 'woocommerce.com' ) || strstr( $plugin['url'], 'woo.com' ) ) {
+				if ( strstr( $plugin['url'], 'woothemes.com' ) || strstr( $plugin['url'], 'poocommerce.com' ) || strstr( $plugin['url'], 'woo.com' ) ) {
 					if ( ! empty( $plugin['version_latest'] ) && version_compare( $plugin['version_latest'], $plugin['version'], '>' ) ) {
 						/* translators: 1: current version. 2: latest version */
-						$version_string = sprintf( __( '%1$s (update to version %2$s is available)', 'woocommerce' ), $plugin['version'], $plugin['version_latest'] );
+						$version_string = sprintf( __( '%1$s (update to version %2$s is available)', 'poocommerce' ), $plugin['version'], $plugin['version_latest'] );
 					}
 
 					if ( false !== $plugin['network_activated'] ) {
-						$network_string = ' &ndash; <strong style="color: black;">' . esc_html__( 'Network enabled', 'woocommerce' ) . '</strong>';
+						$network_string = ' &ndash; <strong style="color: black;">' . esc_html__( 'Network enabled', 'poocommerce' ) . '</strong>';
 					}
 				}
 				$untested_string = '';
@@ -443,7 +443,7 @@ class WC_Admin_Status {
 					$untested_string = ' &ndash; <strong style="color: #a00;">';
 
 					/* translators: %s: version */
-					$untested_string .= esc_html( sprintf( __( 'Installed version not tested with active version of WooCommerce %s', 'woocommerce' ), $wc_version ) );
+					$untested_string .= esc_html( sprintf( __( 'Installed version not tested with active version of PooCommerce %s', 'poocommerce' ), $wc_version ) );
 
 					$untested_string .= '</strong>';
 				}
@@ -454,7 +454,7 @@ class WC_Admin_Status {
 					<td>
 						<?php
 						/* translators: %s: plugin author */
-						printf( esc_html__( 'by %s', 'woocommerce' ), esc_html( $plugin['author_name'] ) );
+						printf( esc_html__( 'by %s', 'poocommerce' ), esc_html( $plugin['author_name'] ) );
 						echo ' &ndash; ' . esc_html( $version_string ) . $untested_string . $network_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
 					</td>

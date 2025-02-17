@@ -19,7 +19,7 @@ import LegacyListItem from './list-item';
  */
 function List( props ) {
 	const { className, items, children } = props;
-	const listClassName = classnames( 'woocommerce-list', className );
+	const listClassName = classnames( 'poocommerce-list', className );
 
 	deprecated( 'List with items prop is deprecated', {
 		version: '9.0.0',
@@ -32,7 +32,7 @@ function List( props ) {
 				const { className: itemClasses, href, key, onClick } = item;
 				const hasAction = typeof onClick === 'function' || href;
 				const itemClassName = classnames(
-					'woocommerce-list__item',
+					'poocommerce-list__item',
 					itemClasses,
 					{
 						'has-action': hasAction,
@@ -43,7 +43,7 @@ function List( props ) {
 					<CSSTransition
 						key={ key || index }
 						timeout={ 500 }
-						classNames="woocommerce-list__item"
+						classNames="poocommerce-list__item"
 					>
 						<li className={ itemClassName }>
 							{ children ? (

@@ -10,7 +10,7 @@ import {
 	useEffect,
 	Fragment,
 } from '@wordpress/element';
-import { Product, ProductQuery } from '@woocommerce/data';
+import { Product, ProductQuery } from '@poocommerce/data';
 import { drawerRight, seen, unseen } from '@wordpress/icons';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { store as coreStore } from '@wordpress/core-data';
@@ -26,7 +26,7 @@ import {
 	Button,
 } from '@wordpress/components';
 // @ts-expect-error missing type.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { privateApis as editorPrivateApis } from '@wordpress/editor';
 
 /**
@@ -198,11 +198,11 @@ export default function ProductList( {
 			const { getProducts, getProductsTotalCount, isResolving } =
 				select( 'wc/admin/products' );
 			return {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				records: getProducts( queryParams ) as Product[],
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				totalCount: getProductsTotalCount( queryParams ) as number,
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				isLoading: isResolving( 'getProducts', [ queryParams ] ),
 			};
 		},
@@ -222,11 +222,11 @@ export default function ProductList( {
 			const { getPostType, canUser } = select( coreStore );
 			const postTypeData:
 				| { labels: Record< string, string > }
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				| undefined = getPostType( postType );
 			return {
 				labels: postTypeData?.labels,
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				canCreateRecord: canUser( 'create', {
 					kind: 'postType',
 					name: postType,
@@ -251,7 +251,7 @@ export default function ProductList( {
 	return (
 		<NavigableRegion
 			className={ classes }
-			ariaLabel={ __( 'Products', 'woocommerce' ) }
+			ariaLabel={ __( 'Products', 'poocommerce' ) }
 		>
 			<div className="edit-site-page-content">
 				{ ! hideTitleFromUI && (
@@ -268,7 +268,7 @@ export default function ProductList( {
 								className="edit-site-page-header__title"
 								truncate
 							>
-								{ __( 'Products', 'woocommerce' ) }
+								{ __( 'Products', 'poocommerce' ) }
 							</Heading>
 							<FlexItem className="edit-site-page-header__actions">
 								{ labels?.add_new_item && canCreateRecord && (
@@ -315,7 +315,7 @@ export default function ProductList( {
 								icon={ showNewNavigation ? seen : unseen }
 								label={ __(
 									'Toggle navigation',
-									'woocommerce'
+									'poocommerce'
 								) }
 								onClick={ () => {
 									setNewNavigation( ! showNewNavigation );
@@ -327,7 +327,7 @@ export default function ProductList( {
 								icon={ drawerRight }
 								label={ __(
 									'Toggle details panel',
-									'woocommerce'
+									'poocommerce'
 								) }
 								onClick={ () => {
 									history.push( {

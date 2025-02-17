@@ -4,11 +4,11 @@
  *
  * Handle comments (reviews and order notes).
  *
- * @package WooCommerce\Classes\Products
+ * @package PooCommerce\Classes\Products
  * @version 2.3.0
  */
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -158,7 +158,7 @@ class WC_Comments {
 	public static function check_comment_rating( $comment_data ) {
 		// If posting a comment (not trackback etc) and not logged in.
 		if ( ! is_admin() && isset( $_POST['comment_post_ID'], $_POST['rating'], $comment_data['comment_type'] ) && 'product' === get_post_type( absint( $_POST['comment_post_ID'] ) ) && empty( $_POST['rating'] ) && self::is_default_comment_type( $comment_data['comment_type'] ) && wc_review_ratings_enabled() && wc_review_ratings_required() ) { // WPCS: input var ok, CSRF ok.
-			wp_die( esc_html__( 'Please rate the product.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Please rate the product.', 'poocommerce' ) );
 			exit;
 		}
 		return $comment_data;
@@ -312,7 +312,7 @@ class WC_Comments {
 	 * @return array
 	 */
 	public static function add_review_comment_filter( array $comment_types ): array {
-		$comment_types['review'] = __( 'Product Reviews', 'woocommerce' );
+		$comment_types['review'] = __( 'Product Reviews', 'poocommerce' );
 		return $comment_types;
 	}
 
@@ -477,7 +477,7 @@ class WC_Comments {
 	 */
 	public static function validate_product_review_verified_owners( $comment_post_id ) {
 		// Only validate if option is enabled.
-		if ( 'yes' !== get_option( 'woocommerce_review_rating_verification_required' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_review_rating_verification_required' ) ) {
 			return;
 		}
 
@@ -492,8 +492,8 @@ class WC_Comments {
 		}
 
 		wp_die(
-			esc_html__( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ),
-			esc_html__( 'Reviews can only be left by "verified owners"', 'woocommerce' ),
+			esc_html__( 'Only logged in customers who have purchased this product may leave a review.', 'poocommerce' ),
+			esc_html__( 'Reviews can only be left by "verified owners"', 'poocommerce' ),
 			array(
 				'code' => 403,
 			)

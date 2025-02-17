@@ -140,7 +140,7 @@ describe.skip( 'ReportSummary', () => {
 		const { container } = renderChart( 'number', null, null, false, true );
 
 		expect(
-			container.querySelector( '.woocommerce-summary.is-placeholder' )
+			container.querySelector( '.poocommerce-summary.is-placeholder' )
 		).toBeInTheDocument();
 	} );
 } );

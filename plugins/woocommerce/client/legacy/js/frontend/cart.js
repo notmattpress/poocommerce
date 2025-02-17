@@ -79,24 +79,24 @@ jQuery( function ( $ ) {
 	};
 
 	/**
-	 * Update the .woocommerce div with a string of html.
+	 * Update the .poocommerce div with a string of html.
 	 *
 	 * @param {String} html_str The HTML string with which to replace the div.
 	 * @param {bool} preserve_notices Should notices be kept? False by default.
 	 */
 	var update_wc_div = function ( html_str, preserve_notices ) {
 		var $html = $.parseHTML( html_str );
-		var $new_form = $( '.woocommerce-cart-form', $html );
+		var $new_form = $( '.poocommerce-cart-form', $html );
 		var $new_totals = $( '.cart_totals', $html );
 		var $notices = remove_duplicate_notices(
 			$(
-				'.woocommerce-error, .woocommerce-message, .woocommerce-info, .is-error, .is-info, .is-success',
+				'.poocommerce-error, .poocommerce-message, .poocommerce-info, .is-error, .is-info, .is-success',
 				$html
 			)
 		);
 
 		// No form, cannot do this.
-		if ( $( '.woocommerce-cart-form' ).length === 0 ) {
+		if ( $( '.poocommerce-cart-form' ).length === 0 ) {
 			window.location.reload();
 			return;
 		}
@@ -104,23 +104,23 @@ jQuery( function ( $ ) {
 		// Remove errors
 		if ( ! preserve_notices ) {
 			$(
-				'.woocommerce-error, .woocommerce-message, .woocommerce-info, .is-error, .is-info, .is-success, .coupon-error-notice'
+				'.poocommerce-error, .poocommerce-message, .poocommerce-info, .is-error, .is-info, .is-success, .coupon-error-notice'
 			).remove();
 		}
 
 		if ( $new_form.length === 0 ) {
 			// If the checkout is also displayed on this page, trigger reload instead.
-			if ( $( '.woocommerce-checkout' ).length ) {
+			if ( $( '.poocommerce-checkout' ).length ) {
 				window.location.reload();
 				return;
 			}
 
 			// No items to display now! Replace all cart content.
 			var $cart_html = $( '.wc-empty-cart-message', $html ).closest(
-				'.woocommerce'
+				'.poocommerce'
 			);
-			$( '.woocommerce-cart-form__contents' )
-				.closest( '.woocommerce' )
+			$( '.poocommerce-cart-form__contents' )
+				.closest( '.poocommerce' )
 				.replaceWith( $cart_html );
 
 			// Display errors
@@ -132,24 +132,24 @@ jQuery( function ( $ ) {
 			$( document.body ).trigger( 'wc_cart_emptied' );
 		} else {
 			// If the checkout is also displayed on this page, trigger update event.
-			if ( $( '.woocommerce-checkout' ).length ) {
+			if ( $( '.poocommerce-checkout' ).length ) {
 				$( document.body ).trigger( 'update_checkout' );
 			}
 			
 			// Store the old coupon error message and value before the 
-			// .woocommerce-cart-form is replaced with the new form.
+			// .poocommerce-cart-form is replaced with the new form.
 			var $old_coupon_field_val = $( '#coupon_code' ).val();
 			var $old_coupon_error_msg = $( '#coupon_code' )
 					.closest( '.coupon' )
 					.find( '.coupon-error-notice' );
 
-			$( '.woocommerce-cart-form' ).replaceWith( $new_form );
-			$( '.woocommerce-cart-form' )
+			$( '.poocommerce-cart-form' ).replaceWith( $new_form );
+			$( '.poocommerce-cart-form' )
 				.find( ':input[name="update_cart"]' )
 				.prop( 'disabled', true );
 
 			if ( preserve_notices && $old_coupon_error_msg.length > 0 ) {
-				var $new_coupon_field = $( '.woocommerce-cart-form' ).find( '#coupon_code' );
+				var $new_coupon_field = $( '.poocommerce-cart-form' ).find( '#coupon_code' );
 				var $new_coupon_field_wrapper = $new_coupon_field.closest( '.coupon' );
 				
 				$new_coupon_field.val( $old_coupon_field_val );
@@ -187,9 +187,9 @@ jQuery( function ( $ ) {
 	var show_notice = function ( html_element, $target ) {
 		if ( ! $target ) {
 			$target =
-				$( '.woocommerce-notices-wrapper:first' ) ||
-				$( '.wc-empty-cart-message' ).closest( '.woocommerce' ) ||
-				$( '.woocommerce-cart-form' );
+				$( '.poocommerce-notices-wrapper:first' ) ||
+				$( '.wc-empty-cart-message' ).closest( '.poocommerce' ) ||
+				$( '.poocommerce-cart-form' );
 		}
 		$target.prepend( html_element );
 	};
@@ -258,7 +258,7 @@ jQuery( function ( $ ) {
 			);
 			$( document ).on(
 				'submit',
-				'form.woocommerce-shipping-calculator',
+				'form.poocommerce-shipping-calculator',
 				this.shipping_calculator_submit
 			);
 
@@ -392,37 +392,37 @@ jQuery( function ( $ ) {
 			} );
 			$( document ).on(
 				'click',
-				'.woocommerce-cart-form :input[type=submit]',
+				'.poocommerce-cart-form :input[type=submit]',
 				this.submit_click
 			);
 			$( document ).on(
 				'keypress',
-				'.woocommerce-cart-form :input[type=number]',
+				'.poocommerce-cart-form :input[type=number]',
 				this.input_keypress
 			);
 			$( document ).on(
 				'submit',
-				'.woocommerce-cart-form',
+				'.poocommerce-cart-form',
 				this.cart_submit
 			);
 			$( document ).on(
 				'click',
-				'a.woocommerce-remove-coupon',
+				'a.poocommerce-remove-coupon',
 				this.remove_coupon_clicked
 			);
 			$( document ).on(
 				'click',
-				'.woocommerce-cart-form .product-remove > a',
+				'.poocommerce-cart-form .product-remove > a',
 				this.item_remove_clicked
 			);
 			$( document ).on(
 				'click',
-				'.woocommerce-cart .restore-item',
+				'.poocommerce-cart .restore-item',
 				this.item_restore_clicked
 			);
 			$( document ).on(
 				'change input',
-				'.woocommerce-cart-form .cart_item :input',
+				'.poocommerce-cart-form .cart_item :input',
 				this.input_changed
 			);
 			$( document ).on(
@@ -431,7 +431,7 @@ jQuery( function ( $ ) {
 				this.remove_coupon_error
 			);
 
-			$( '.woocommerce-cart-form :input[name="update_cart"]' ).prop(
+			$( '.poocommerce-cart-form :input[name="update_cart"]' ).prop(
 				'disabled',
 				true
 			);
@@ -441,7 +441,7 @@ jQuery( function ( $ ) {
 		 * After an input is changed, enable the update cart button.
 		 */
 		input_changed: function () {
-			$( '.woocommerce-cart-form :input[name="update_cart"]' ).prop(
+			$( '.poocommerce-cart-form :input[name="update_cart"]' ).prop(
 				'disabled',
 				false
 			);
@@ -451,7 +451,7 @@ jQuery( function ( $ ) {
 		 * Update entire cart via ajax.
 		 */
 		update_cart: function ( preserve_notices ) {
-			var $form = $( '.woocommerce-cart-form' );
+			var $form = $( '.poocommerce-cart-form' );
 
 			block( $form );
 			block( $( 'div.cart_totals' ) );
@@ -536,7 +536,7 @@ jQuery( function ( $ ) {
 			}
 
 			if (
-				0 === $form.find( '.woocommerce-cart-form__contents' ).length
+				0 === $form.find( '.poocommerce-cart-form__contents' ).length
 			) {
 				return;
 			}
@@ -597,13 +597,13 @@ jQuery( function ( $ ) {
 				dataType: 'html',
 				success: function ( response ) {
 					$(
-						'.woocommerce-error, .woocommerce-message, .woocommerce-info, ' +
+						'.poocommerce-error, .poocommerce-message, .poocommerce-info, ' +
 						'.is-error, .is-info, .is-success, .coupon-error-notice'
 					).remove();
 					
 					// We only want to show coupon notices if they are not errors.
 					// Coupon errors are shown under the input.
-					if ( response.indexOf( 'woocommerce-error' ) === -1 && response.indexOf( 'is-error' ) === -1 ) {
+					if ( response.indexOf( 'poocommerce-error' ) === -1 && response.indexOf( 'is-error' ) === -1 ) {
 						show_notice( response );						
 					} else {
 						var $coupon_wrapper = $text_field.closest( '.coupon' );
@@ -650,7 +650,7 @@ jQuery( function ( $ ) {
 				dataType: 'html',
 				success: function ( response ) {
 					$(
-						'.woocommerce-error, .woocommerce-message, .woocommerce-info, .is-error, .is-info, .is-success'
+						'.poocommerce-error, .poocommerce-message, .poocommerce-info, .is-error, .is-info, .is-success'
 					).remove();
 					show_notice( response );
 					$( document.body ).trigger( 'removed_coupon', [ coupon ] );
@@ -749,7 +749,7 @@ jQuery( function ( $ ) {
 			evt.preventDefault();
 
 			var $a = $( evt.currentTarget );
-			var $form = $( 'form.woocommerce-cart-form' );
+			var $form = $( 'form.poocommerce-cart-form' );
 
 			block( $form );
 			block( $( 'div.cart_totals' ) );

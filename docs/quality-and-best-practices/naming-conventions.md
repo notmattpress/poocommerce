@@ -6,29 +6,29 @@ tags: reference
 
 ## PHP
 
-WooCommerce core generally follows [WordPress PHP naming conventions](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/#naming-conventions). 
+PooCommerce core generally follows [WordPress PHP naming conventions](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/#naming-conventions). 
 
 There are some additional conventions that apply, depending on the location of the code.
 
 ### `/src`
 
-Classes defined inside `/src` follow the [PSR-4](https://www.php-fig.org/psr/psr-4/) standard. See the [README for `/src`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/README.md) for more information.
+Classes defined inside `/src` follow the [PSR-4](https://www.php-fig.org/psr/psr-4/) standard. See the [README for `/src`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/README.md) for more information.
 
 The following conventions apply to this directory:
 
-- No class name prefix is needed, as all classes in this location live within the `Automattic\WooCommerce` namespace.
+- No class name prefix is needed, as all classes in this location live within the `Automattic\PooCommerce` namespace.
 - Classes are named using `CamelCase` convention.
 - Functions are named using `snake_case` convention.
 - Class file names should match the class name. They do not need a `class-` prefix.
 - The namespace should match the directory structure.
-- Hooks are prefixed with `woocommerce_`.
+- Hooks are prefixed with `poocommerce_`.
 - Hooks are named using `snake_case` convention.
 
-For example, the class defined in `src/Util/StringUtil.php` should be named `StringUtil` and should be in the `Automattic\WooCommerce\Util` namespace.  
+For example, the class defined in `src/Util/StringUtil.php` should be named `StringUtil` and should be in the `Automattic\PooCommerce\Util` namespace.  
 
 ### `/includes`
 
-The `/includes` directory contains legacy code that does not follow the PSR-4 standard. See the [README for `/includes`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/README.md) for more information.
+The `/includes` directory contains legacy code that does not follow the PSR-4 standard. See the [README for `/includes`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/README.md) for more information.
 
 The following conventions apply to this directory:
 
@@ -36,7 +36,7 @@ The following conventions apply to this directory:
 - Classes are named using `Upper_Snake_Case` convention.
 - Functions are prefixed with `wc_`.
 - Functions are named using `snake_case` convention.
-- Hooks are prefixed with `woocommerce_`.
+- Hooks are prefixed with `poocommerce_`.
 - Hooks are named using `snake_case` convention.
 
 Class name examples:
@@ -51,12 +51,12 @@ Function name examples:
 
 Hook name examples (actions or filters):
 
-- `woocommerce_after_checkout_validation`
-- `woocommerce_get_formatted_order_total`
+- `poocommerce_after_checkout_validation`
+- `poocommerce_get_formatted_order_total`
 
 ## JS
 
-WooCommerce core follows [WordPress JS naming conventions](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/#naming-conventions).
+PooCommerce core follows [WordPress JS naming conventions](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/#naming-conventions).
 
 As with PHP, function, class, and hook names should be prefixed, but the convention for JS is slightly different.
 
@@ -64,7 +64,7 @@ As with PHP, function, class, and hook names should be prefixed, but the convent
 - Classes are named using `UpperCamelCase` convention.
 - Global function names are prefixed with `wc`. Function names exported from modules are not prefixed.
 - Functions are named using `camelCase` convention.
-- Hooks names are prefixed with `woocommerce`.
+- Hooks names are prefixed with `poocommerce`.
 - Hooks are named using `camelCase` convention.
 
 Global class name example:
@@ -77,7 +77,7 @@ Global function name example:
 
 Hook name example (actions or filters):
 
-- `woocommerceTracksEventProperties`
+- `poocommerceTracksEventProperties`
 
 ## CSS and SASS
 

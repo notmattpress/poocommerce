@@ -25,7 +25,7 @@ const test = baseTest.extend( {
 
 test.skip(
 	process.env.IS_MULTISITE,
-	'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55082'
+	'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55082'
 );
 
 test.describe(
@@ -98,7 +98,7 @@ test.describe(
 				).toHaveText( user.email );
 				await expect(
 					page.getByRole( 'cell', {
-						name: '[WooCommerce Core E2E Test Suite] Login Details',
+						name: '[PooCommerce Core E2E Test Suite] Login Details',
 					} )
 				).toBeVisible();
 
@@ -182,7 +182,7 @@ test.describe(
 				).toHaveText( user.email );
 				await expect(
 					page.getByRole( 'cell', {
-						name: '[WooCommerce Core E2E Test Suite] Password Reset',
+						name: '[PooCommerce Core E2E Test Suite] Password Reset',
 					} )
 				).toBeVisible();
 

@@ -6,7 +6,7 @@ import { createElement } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
-import { evaluate } from '@woocommerce/expression-evaluation';
+import { evaluate } from '@poocommerce/expression-evaluation';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ const maybeHideInventoryAdvancedCollapsible = createHigherOrderComponent(
 						);
 						const advancedCollapsibleBlock = select(
 							'core/block-editor'
-							// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+							// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 						).getBlock( props?.clientId as string );
 
 						let allBlocksInvisible = false;
@@ -93,7 +93,7 @@ const maybeHideInventoryAdvancedCollapsible = createHigherOrderComponent(
 export default function () {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce/handle-hide-inventory-advanced-collapsible',
+		'poocommerce/handle-hide-inventory-advanced-collapsible',
 		maybeHideInventoryAdvancedCollapsible
 	);
 }

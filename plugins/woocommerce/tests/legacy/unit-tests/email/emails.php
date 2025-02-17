@@ -1,10 +1,10 @@
 <?php
 /**
  * Test for the email class.
- * @package WooCommerce\Tests\Emails
+ * @package PooCommerce\Tests\Emails
  */
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * WC_Tests_WC_Emails.

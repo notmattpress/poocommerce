@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * ProductCategoriesById class.
@@ -48,7 +48,7 @@ class ProductCategoriesById extends AbstractRoute {
 		return [
 			'args'   => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 				),
 			),
@@ -79,7 +79,7 @@ class ProductCategoriesById extends AbstractRoute {
 		$object = get_term( (int) $request['id'], 'product_cat' );
 
 		if ( ! $object || 0 === $object->id ) {
-			throw new RouteException( 'woocommerce_rest_category_invalid_id', __( 'Invalid category ID.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_category_invalid_id', __( 'Invalid category ID.', 'poocommerce' ), 404 );
 		}
 
 		$data = $this->prepare_item_for_response( $object, $request );

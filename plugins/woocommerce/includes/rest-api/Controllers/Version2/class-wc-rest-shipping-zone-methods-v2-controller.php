@@ -4,7 +4,7 @@
  *
  * Handles requests to the /shipping/zones/<id>/methods endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Shipping Zone Methods class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Shipping_Zones_Controller_Base
  */
 class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones_Controller_Base {
@@ -26,7 +26,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 			$this->namespace, '/' . $this->rest_base . '/(?P<zone_id>[\d]+)/methods', array(
 				'args'   => array(
 					'zone_id' => array(
-						'description' => __( 'Unique ID for the zone.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the zone.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -44,7 +44,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 							'method_id' => array(
 								'required'    => true,
 								'readonly'    => false,
-								'description' => __( 'Shipping method ID.', 'woocommerce' ),
+								'description' => __( 'Shipping method ID.', 'poocommerce' ),
 							),
 						)
 					),
@@ -57,11 +57,11 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 			$this->namespace, '/' . $this->rest_base . '/(?P<zone_id>[\d]+)/methods/(?P<instance_id>[\d]+)', array(
 				'args'   => array(
 					'zone_id'     => array(
-						'description' => __( 'Unique ID for the zone.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the zone.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 					'instance_id' => array(
-						'description' => __( 'Unique ID for the instance.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the instance.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -84,7 +84,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Whether to bypass trash and force deletion.', 'woocommerce' ),
+							'description' => __( 'Whether to bypass trash and force deletion.', 'poocommerce' ),
 						),
 					),
 				),
@@ -118,7 +118,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 		}
 
 		if ( false === $method ) {
-			return new WP_Error( 'woocommerce_rest_shipping_zone_method_invalid', __( 'Resource does not exist.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_zone_method_invalid', __( 'Resource does not exist.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$data = $this->prepare_item_for_response( $method, $request );
@@ -174,7 +174,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 		}
 
 		if ( false === $method ) {
-			return new WP_Error( 'woocommerce_rest_shipping_zone_not_created', __( 'Resource cannot be created.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_zone_not_created', __( 'Resource cannot be created.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$method = $this->update_fields( $instance_id, $method, $request );
@@ -212,7 +212,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 		}
 
 		if ( false === $method ) {
-			return new WP_Error( 'woocommerce_rest_shipping_zone_method_invalid', __( 'Resource does not exist.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_zone_method_invalid', __( 'Resource does not exist.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$method = $this->update_fields( $instance_id, $method, $request );
@@ -227,7 +227,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 		if ( $force ) {
 			$zone->delete_shipping_method( $instance_id );
 		} else {
-			return new WP_Error( 'rest_trash_not_supported', __( 'Shipping methods do not support trashing.', 'woocommerce' ), array( 'status' => 501 ) );
+			return new WP_Error( 'rest_trash_not_supported', __( 'Shipping methods do not support trashing.', 'poocommerce' ), array( 'status' => 501 ) );
 		}
 
 		/**
@@ -240,7 +240,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 		 * @param WP_REST_Response   $response The response data.
 		 * @param WP_REST_Request    $request  The request sent to the API.
 		 */
-		do_action( 'woocommerce_rest_delete_shipping_zone_method', $method, $zone, $response, $request );
+		do_action( 'poocommerce_rest_delete_shipping_zone_method', $method, $zone, $response, $request );
 
 		return $response;
 	}
@@ -269,7 +269,7 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 		}
 
 		if ( false === $method ) {
-			return new WP_Error( 'woocommerce_rest_shipping_zone_method_invalid', __( 'Resource does not exist.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_zone_method_invalid', __( 'Resource does not exist.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$method = $this->update_fields( $instance_id, $method, $request );
@@ -314,22 +314,22 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 			}
 
 			if ( $errors_found ) {
-				return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'rest_setting_value_invalid', __( 'An invalid setting value was passed.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 
-			update_option( $method->get_instance_option_key(), apply_filters( 'woocommerce_shipping_' . $method->id . '_instance_settings_values', $instance_settings, $method ) );
+			update_option( $method->get_instance_option_key(), apply_filters( 'poocommerce_shipping_' . $method->id . '_instance_settings_values', $instance_settings, $method ) );
 		}
 
 		// Update order.
 		if ( isset( $request['order'] ) ) {
-			$wpdb->update( "{$wpdb->prefix}woocommerce_shipping_zone_methods", array( 'method_order' => absint( $request['order'] ) ), array( 'instance_id' => absint( $instance_id ) ) );
+			$wpdb->update( "{$wpdb->prefix}poocommerce_shipping_zone_methods", array( 'method_order' => absint( $request['order'] ) ), array( 'instance_id' => absint( $instance_id ) ) );
 			$method->method_order = absint( $request['order'] );
 		}
 
 		// Update if this method is enabled or not.
 		if ( isset( $request['enabled'] ) ) {
-			if ( $wpdb->update( "{$wpdb->prefix}woocommerce_shipping_zone_methods", array( 'is_enabled' => $request['enabled'] ), array( 'instance_id' => absint( $instance_id ) ) ) ) {
-				do_action( 'woocommerce_shipping_zone_method_status_toggled', $instance_id, $method->id, $request['zone_id'], $request['enabled'] );
+			if ( $wpdb->update( "{$wpdb->prefix}poocommerce_shipping_zone_methods", array( 'is_enabled' => $request['enabled'] ), array( 'instance_id' => absint( $instance_id ) ) ) ) {
+				do_action( 'poocommerce_shipping_zone_method_status_toggled', $instance_id, $method->id, $request['zone_id'], $request['enabled'] );
 				$method->enabled = ( true === $request['enabled'] ? 'yes' : 'no' );
 			}
 		}
@@ -436,100 +436,100 @@ class WC_REST_Shipping_Zone_Methods_V2_Controller extends WC_REST_Shipping_Zones
 			'type'       => 'object',
 			'properties' => array(
 				'id'                 => array(
-					'description' => __( 'Shipping method instance ID.', 'woocommerce' ),
+					'description' => __( 'Shipping method instance ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'instance_id'        => array(
-					'description' => __( 'Shipping method instance ID.', 'woocommerce' ),
+					'description' => __( 'Shipping method instance ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'title'              => array(
-					'description' => __( 'Shipping method customer facing title.', 'woocommerce' ),
+					'description' => __( 'Shipping method customer facing title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'order'              => array(
-					'description' => __( 'Shipping method sort order.', 'woocommerce' ),
+					'description' => __( 'Shipping method sort order.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'enabled'            => array(
-					'description' => __( 'Shipping method enabled status.', 'woocommerce' ),
+					'description' => __( 'Shipping method enabled status.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'method_id'          => array(
-					'description' => __( 'Shipping method ID.', 'woocommerce' ),
+					'description' => __( 'Shipping method ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'method_title'       => array(
-					'description' => __( 'Shipping method title.', 'woocommerce' ),
+					'description' => __( 'Shipping method title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'method_description' => array(
-					'description' => __( 'Shipping method description.', 'woocommerce' ),
+					'description' => __( 'Shipping method description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'settings'           => array(
-					'description' => __( 'Shipping method settings.', 'woocommerce' ),
+					'description' => __( 'Shipping method settings.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
 						'id'          => array(
-							'description' => __( 'A unique identifier for the setting.', 'woocommerce' ),
+							'description' => __( 'A unique identifier for the setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'label'       => array(
-							'description' => __( 'A human readable label for the setting used in interfaces.', 'woocommerce' ),
+							'description' => __( 'A human readable label for the setting used in interfaces.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'description' => array(
-							'description' => __( 'A human readable description for the setting used in interfaces.', 'woocommerce' ),
+							'description' => __( 'A human readable description for the setting used in interfaces.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'type'        => array(
-							'description' => __( 'Type of setting.', 'woocommerce' ),
+							'description' => __( 'Type of setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'enum'        => array( 'text', 'email', 'number', 'color', 'password', 'textarea', 'select', 'multiselect', 'radio', 'image_width', 'checkbox' ),
 							'readonly'    => true,
 						),
 						'value'       => array(
-							'description' => __( 'Setting value.', 'woocommerce' ),
+							'description' => __( 'Setting value.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'default'     => array(
-							'description' => __( 'Default value for the setting.', 'woocommerce' ),
+							'description' => __( 'Default value for the setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'tip'         => array(
-							'description' => __( 'Additional help text shown to the user about the setting.', 'woocommerce' ),
+							'description' => __( 'Additional help text shown to the user about the setting.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'placeholder' => array(
-							'description' => __( 'Placeholder text to be displayed in text inputs.', 'woocommerce' ),
+							'description' => __( 'Placeholder text to be displayed in text inputs.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,

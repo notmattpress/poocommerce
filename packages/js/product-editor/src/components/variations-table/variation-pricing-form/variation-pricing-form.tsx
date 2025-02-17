@@ -53,7 +53,7 @@ export function VariationPricingForm( {
 			if ( regularPrice < 0 ) {
 				validationErrors.regular_price = __(
 					'Regular price must be greater than or equals to zero.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 
@@ -63,7 +63,7 @@ export function VariationPricingForm( {
 			) {
 				validationErrors.regular_price = __(
 					'Regular price must be greater than the sale price.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 		}
@@ -84,7 +84,7 @@ export function VariationPricingForm( {
 			if ( salePrice < 0 ) {
 				validationErrors.sale_price = __(
 					'Sale price must be greater than or equals to zero.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 
@@ -94,7 +94,7 @@ export function VariationPricingForm( {
 			) {
 				validationErrors.sale_price = __(
 					'Sale price must be lower than the regular price.',
-					'woocommerce'
+					'poocommerce'
 				);
 			}
 		}
@@ -115,14 +115,14 @@ export function VariationPricingForm( {
 	return (
 		<form
 			onSubmit={ handleSubmit }
-			className="woocommerce-variation-pricing-form"
-			aria-label={ __( 'Variation pricing form', 'woocommerce' ) }
+			className="poocommerce-variation-pricing-form"
+			aria-label={ __( 'Variation pricing form', 'poocommerce' ) }
 		>
-			<div className="woocommerce-variation-pricing-form__controls">
+			<div className="poocommerce-variation-pricing-form__controls">
 				<InputControl
 					{ ...regularPriceInputProps }
 					name="regular_price"
-					label={ __( 'Regular price', 'woocommerce' ) }
+					label={ __( 'Regular price', 'poocommerce' ) }
 					help={ errors.regular_price }
 					className={ classNames( regularPriceInputProps.className, {
 						'has-error': errors.regular_price,
@@ -133,7 +133,7 @@ export function VariationPricingForm( {
 				<InputControl
 					{ ...salePriceInputProps }
 					name="sale_price"
-					label={ __( 'Sale price', 'woocommerce' ) }
+					label={ __( 'Sale price', 'poocommerce' ) }
 					help={ errors.sale_price }
 					className={ classNames( salePriceInputProps.className, {
 						'has-error': errors.sale_price,
@@ -142,7 +142,7 @@ export function VariationPricingForm( {
 				/>
 			</div>
 
-			<div className="woocommerce-variation-pricing-form__actions">
+			<div className="poocommerce-variation-pricing-form__actions">
 				<Button variant="tertiary" onClick={ onCancel }>
 					Cancel
 				</Button>

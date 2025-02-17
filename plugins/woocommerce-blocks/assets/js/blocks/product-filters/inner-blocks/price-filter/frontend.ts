@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { store, getContext } from '@woocommerce/interactivity';
-import { HTMLElementEvent } from '@woocommerce/types';
-import { formatPrice, getCurrency } from '@woocommerce/price-format';
+import { store, getContext } from '@poocommerce/interactivity';
+import { HTMLElementEvent } from '@poocommerce/types';
+import { formatPrice, getCurrency } from '@poocommerce/price-format';
 
 /**
  * Internal dependencies
@@ -28,12 +28,12 @@ function activeFilterValue( min: null | number, max: null | number ) {
 	return `${ min }-${ max }`;
 }
 
-const { state, actions } = store( 'woocommerce/product-filter-price', {
+const { state, actions } = store( 'poocommerce/product-filter-price', {
 	state: {
 		get minPrice() {
 			const context = getContext< ProductFilterPriceContext >();
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			return productFiltersStore.state.params?.min_price
 				? parseInt( productFiltersStore.state.params.min_price, 10 )
@@ -42,7 +42,7 @@ const { state, actions } = store( 'woocommerce/product-filter-price', {
 		get maxPrice() {
 			const context = getContext< ProductFilterPriceContext >();
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			return productFiltersStore.state.params?.max_price
 				? parseInt( productFiltersStore.state.params.max_price, 10 )
@@ -107,7 +107,7 @@ const { state, actions } = store( 'woocommerce/product-filter-price', {
 		setPrice: ( type: 'min' | 'max', value: number ) => {
 			const context = getContext< ProductFilterPriceContext >();
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			const price: ActiveFilter[ 'price' ] = {
@@ -155,7 +155,7 @@ const { state, actions } = store( 'woocommerce/product-filter-price', {
 		},
 		clearFilters: () => {
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			productFiltersStore.actions.removeActiveFiltersByType( 'price' );

@@ -24,7 +24,7 @@ setup( 'configure HPOS', async ( { api } ) => {
 					} HPOS...`
 				);
 				const response = await api.post(
-					'settings/advanced/woocommerce_custom_orders_table_enabled',
+					'settings/advanced/poocommerce_custom_orders_table_enabled',
 					{ value }
 				);
 				if ( response.data.value === value ) {
@@ -53,16 +53,16 @@ setup( 'configure HPOS', async ( { api } ) => {
 	}
 
 	const response = await api.get(
-		'settings/advanced/woocommerce_custom_orders_table_enabled'
+		'settings/advanced/poocommerce_custom_orders_table_enabled'
 	);
 	const dataValue = response.data.value;
 	const enabledOption = response.data.options[ dataValue ];
 	console.log(
-		`HPOS configuration (woocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
+		`HPOS configuration (poocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
 	);
 } );
 
-//todo to remove, see https://github.com/woocommerce/woocommerce/issues/50758
+//todo to remove, see https://github.com/poocommerce/poocommerce/issues/50758
 setup( 'convert Cart and Checkout pages to shortcode', async ( { wpApi } ) => {
 	// List all pages
 	const response_list = await wpApi.get(
@@ -85,7 +85,7 @@ setup( 'convert Cart and Checkout pages to shortcode', async ( { wpApi } ) => {
 	await wpApi.put( `./wp-json/wp/v2/pages/${ cart.id }`, {
 		data: {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->',
 			},
 		},
 		failOnStatusCode: true,
@@ -94,7 +94,7 @@ setup( 'convert Cart and Checkout pages to shortcode', async ( { wpApi } ) => {
 	await wpApi.put( `./wp-json/wp/v2/pages/${ checkout.id }`, {
 		data: {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->',
 			},
 		},
 		failOnStatusCode: true,

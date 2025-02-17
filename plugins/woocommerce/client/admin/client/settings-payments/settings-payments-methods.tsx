@@ -5,7 +5,7 @@ import {
 	type RecommendedPaymentMethod,
 	PAYMENT_SETTINGS_STORE_NAME,
 	type PaymentSettingsSelectors,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useEffect, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
@@ -129,7 +129,7 @@ export const SettingsPaymentsMethods: React.FC<
 				<ListPlaceholder rows={ 3 } hasDragIcon={ false } />
 			) : (
 				<>
-					<div className="woocommerce-list">
+					<div className="poocommerce-list">
 						{ paymentMethods.map(
 							( method: RecommendedPaymentMethod ) => (
 								<PaymentMethodListItem
@@ -155,7 +155,7 @@ export const SettingsPaymentsMethods: React.FC<
 						>
 							{ sprintf(
 								/* translators: %s: number of disabled payment methods */
-								__( 'Show more (%s)', 'woocommerce' ),
+								__( 'Show more (%s)', 'poocommerce' ),
 								paymentMethods.filter(
 									( pm: RecommendedPaymentMethod ) =>
 										pm.enabled === false

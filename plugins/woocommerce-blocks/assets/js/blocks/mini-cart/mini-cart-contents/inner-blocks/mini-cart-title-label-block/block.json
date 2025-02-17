@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-title-label-block",
+	"name": "poocommerce/mini-cart-title-label-block",
 	"version": "1.0.0",
 	"title": "Mini-Cart Title Label",
 	"description": "Block that displays the 'Your cart' part of the Mini-Cart Title block.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -28,9 +28,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/mini-cart-title-block"
+		"poocommerce/mini-cart-title-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

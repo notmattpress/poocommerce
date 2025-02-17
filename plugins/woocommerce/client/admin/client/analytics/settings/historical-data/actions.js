@@ -5,10 +5,10 @@ import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import { Button } from '@wordpress/components';
 import { Fragment } from '@wordpress/element';
-import { IMPORT_STORE_NAME } from '@woocommerce/data';
+import { IMPORT_STORE_NAME } from '@poocommerce/data';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ function HistoricalDataActions( {
 		);
 		const errorMessage = __(
 			'There was a problem rebuilding your report data.',
-			'woocommerce'
+			'poocommerce'
 		);
 
 		const importStarted = true;
@@ -68,7 +68,7 @@ function HistoricalDataActions( {
 		const path = '/wc-analytics/reports/import/cancel';
 		const errorMessage = __(
 			'There was a problem stopping your current import.',
-			'woocommerce'
+			'poocommerce'
 		);
 		makeQuery( path, errorMessage );
 	};
@@ -77,7 +77,7 @@ function HistoricalDataActions( {
 		const path = '/wc-analytics/reports/import/delete';
 		const errorMessage = __(
 			'There was a problem deleting your previous data.',
-			'woocommerce'
+			'poocommerce'
 		);
 		makeQuery( path, errorMessage );
 
@@ -102,21 +102,21 @@ function HistoricalDataActions( {
 			return (
 				<Fragment>
 					<Button
-						className="woocommerce-settings-historical-data__action-button"
+						className="poocommerce-settings-historical-data__action-button"
 						isPrimary
 						onClick={ onStopImport }
 					>
-						{ __( 'Stop Import', 'woocommerce' ) }
+						{ __( 'Stop Import', 'poocommerce' ) }
 					</Button>
-					<div className="woocommerce-setting__help woocommerce-settings-historical-data__action-help">
+					<div className="poocommerce-setting__help poocommerce-settings-historical-data__action-help">
 						{ __(
 							'Imported data will not be lost if the import is stopped.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						<br />
 						{ __(
 							'Navigating away from this page will not affect the import.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 				</Fragment>
@@ -132,12 +132,12 @@ function HistoricalDataActions( {
 							onClick={ onStartImport }
 							disabled={ importDisabled }
 						>
-							{ __( 'Start', 'woocommerce' ) }
+							{ __( 'Start', 'poocommerce' ) }
 						</Button>
 						<Button isSecondary onClick={ deletePreviousData }>
 							{ __(
 								'Delete Previously Imported Data',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Button>
 					</Fragment>
@@ -151,7 +151,7 @@ function HistoricalDataActions( {
 						onClick={ onStartImport }
 						disabled={ importDisabled }
 					>
-						{ __( 'Start', 'woocommerce' ) }
+						{ __( 'Start', 'poocommerce' ) }
 					</Button>
 				</Fragment>
 			);
@@ -162,7 +162,7 @@ function HistoricalDataActions( {
 				'error',
 				__(
 					'Something went wrong with the importation process.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}
@@ -171,17 +171,17 @@ function HistoricalDataActions( {
 		return (
 			<Fragment>
 				<Button isSecondary onClick={ reimportData }>
-					{ __( 'Re-import Data', 'woocommerce' ) }
+					{ __( 'Re-import Data', 'poocommerce' ) }
 				</Button>
 				<Button isSecondary onClick={ deletePreviousData }>
-					{ __( 'Delete Previously Imported Data', 'woocommerce' ) }
+					{ __( 'Delete Previously Imported Data', 'poocommerce' ) }
 				</Button>
 			</Fragment>
 		);
 	};
 
 	return (
-		<div className="woocommerce-settings__actions woocommerce-settings-historical-data__actions">
+		<div className="poocommerce-settings__actions poocommerce-settings-historical-data__actions">
 			{ getActions() }
 		</div>
 	);

@@ -3,7 +3,7 @@ const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 const { admin } = require( '../../test-data/data' );
 const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 test.describe(
 	'Merchant > Order Action emails received',
@@ -15,7 +15,7 @@ test.describe(
 			email: `john.doe.merchant.test.${ Date.now() }@example.com`,
 		};
 
-		const storeName = 'WooCommerce Core E2E Test Suite';
+		const storeName = 'PooCommerce Core E2E Test Suite';
 		let orderId, newOrderId, cancelledOrderId, completedOrderId;
 
 		test.beforeAll( async ( { baseURL } ) => {
@@ -116,7 +116,7 @@ test.describe(
 				page.getByText( `Receiver ${ admin.email }` )
 			).toBeVisible();
 			await expect(
-				page.getByText( 'Subject [WooCommerce Core E2E' )
+				page.getByText( 'Subject [PooCommerce Core E2E' )
 			).toBeVisible();
 			await page.getByRole( 'link', { name: 'json' } ).click();
 			await expect(

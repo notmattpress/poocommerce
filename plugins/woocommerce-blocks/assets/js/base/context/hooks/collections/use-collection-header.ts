@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { COLLECTIONS_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { COLLECTIONS_STORE_KEY as storeKey } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
-import { useShallowEqual } from '@woocommerce/base-hooks';
+import { useShallowEqual } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

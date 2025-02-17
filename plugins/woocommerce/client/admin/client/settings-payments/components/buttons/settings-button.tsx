@@ -30,7 +30,7 @@ interface SettingsButtonProps {
 export const SettingsButton = ( {
 	settingsHref,
 	installingPlugin,
-	buttonText = __( 'Manage', 'woocommerce' ),
+	buttonText = __( 'Manage', 'poocommerce' ),
 }: SettingsButtonProps ) => {
 	return (
 		<Button

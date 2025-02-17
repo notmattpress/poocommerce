@@ -3,13 +3,13 @@
  */
 import { dispatch, resolveSelect, useSelect } from '@wordpress/data';
 import { useCallback, useMemo, useState } from '@wordpress/element';
-import { getNewPath, getPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, getPath, navigateTo } from '@poocommerce/navigation';
 import {
 	EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME,
 	Product,
 	ProductDefaultAttribute,
 	ProductVariation,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { applyFilters } from '@wordpress/hooks';
 import {
 	useEntityProp,
@@ -41,7 +41,7 @@ async function getDefaultVariationValues(
 		const products = await resolveSelect(
 			EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
 		).getProductVariations( {
-			// @ts-expect-error TODO react-18-upgrade: param type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error TODO react-18-upgrade: param type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 			product_id: productId,
 			per_page: 1,
 			has_price: true,
@@ -83,11 +83,11 @@ export function useProductVariationsHelper() {
 				generateProductVariationsError,
 			} = select( EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME );
 			return {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				isGeneratingVariations: getIsGeneratingVariations( {
 					product_id: productId,
 				} ),
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				generateError: generateProductVariationsError( {
 					product_id: productId,
 				} ),
@@ -121,7 +121,7 @@ export function useProductVariationsHelper() {
 
 		await Promise.all(
 			variations.map( ( variationId: number ) =>
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				dispatch( coreStore ).invalidateResolution( 'getEntityRecord', [
 					'postType',
 					'product_variation',
@@ -129,24 +129,24 @@ export function useProductVariationsHelper() {
 				] )
 			)
 		);
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		await dispatch(
 			EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
 		).invalidateResolutionForStore();
 		/**
 		 * Filters the meta_data array for generated variations.
 		 *
-		 * @filter woocommerce.product.variations.generate.meta_data
+		 * @filter poocommerce.product.variations.generate.meta_data
 		 * @param {Object} product Main product object.
 		 * @return {Object} meta_data array for variations.
 		 */
 		const meta_data = applyFilters(
-			'woocommerce.product.variations.generate.meta_data',
+			'poocommerce.product.variations.generate.meta_data',
 			[],
 			product
 		);
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		return dispatch( EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME )
 			.generateProductVariations< {
 				count: number;
@@ -167,7 +167,7 @@ export function useProductVariationsHelper() {
 				}
 			)
 			.then( async ( response: ProductVariation[] ) => {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				await dispatch( coreStore ).invalidateResolution(
 					'getEntityRecord',
 					[ 'postType', 'product', productId ]
@@ -179,7 +179,7 @@ export function useProductVariationsHelper() {
 					productId
 				);
 
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				await dispatch(
 					EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
 				).invalidateResolutionForStore();

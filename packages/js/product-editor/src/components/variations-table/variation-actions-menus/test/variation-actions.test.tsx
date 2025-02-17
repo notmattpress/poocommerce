@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { render, fireEvent } from '@testing-library/react';
-import { ProductVariation } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { ProductVariation } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import React, { createElement } from 'react';
 
 /**
@@ -13,7 +13,7 @@ import { SingleUpdateMenu, MultipleUpdateMenu } from '..';
 import { TRACKS_SOURCE } from '../../../../constants';
 import { PRODUCT_STOCK_STATUS_KEYS } from '../../../../utils/get-product-stock-status';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

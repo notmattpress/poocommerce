@@ -9,7 +9,7 @@ import {
 	goToPageEditor,
 	transformIntoBlocks,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -160,7 +160,7 @@ test.describe(
 				await expect(
 					page
 						.locator(
-							'.wp-block-woocommerce-checkout-order-summary-block'
+							'.wp-block-poocommerce-checkout-order-summary-block'
 						)
 						.first()
 				).toBeVisible();

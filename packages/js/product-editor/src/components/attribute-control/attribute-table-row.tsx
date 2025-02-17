@@ -23,7 +23,7 @@ import { cleanForSlug } from '@wordpress/url';
 import {
 	EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME,
 	type ProductAttributeTerm,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import type { MouseEventHandler } from 'react';
 
 /**
@@ -309,7 +309,7 @@ export const AttributeTableRow: React.FC< AttributeTableRowProps > = ( {
 						/* translators: %s: the attribute term */
 						__(
 							'There was an error trying to create the attribute term "%s".',
-							'woocommerce'
+							'poocommerce'
 						),
 						token.value
 					)
@@ -367,9 +367,9 @@ export const AttributeTableRow: React.FC< AttributeTableRowProps > = ( {
 	return (
 		<tr
 			key={ index }
-			className={ `woocommerce-new-attribute-modal__table-row woocommerce-new-attribute-modal__table-row-${ index }` }
+			className={ `poocommerce-new-attribute-modal__table-row poocommerce-new-attribute-modal__table-row-${ index }` }
 		>
-			<td className="woocommerce-new-attribute-modal__table-attribute-column">
+			<td className="poocommerce-new-attribute-modal__table-attribute-column">
 				<AttributesComboboxControl
 					instanceNumber={ index }
 					placeholder={ attributePlaceholder }
@@ -392,7 +392,7 @@ export const AttributeTableRow: React.FC< AttributeTableRowProps > = ( {
 			</td>
 
 			<td
-				className={ `woocommerce-new-attribute-modal__table-attribute-value-column${
+				className={ `poocommerce-new-attribute-modal__table-attribute-value-column${
 					hasAvailableSuggestions ? ' has-values' : ''
 				}` }
 			>
@@ -495,7 +495,7 @@ export const AttributeTableRow: React.FC< AttributeTableRowProps > = ( {
 					__experimentalShowHowTo={ true }
 				/>
 			</td>
-			<td className="woocommerce-new-attribute-modal__table-attribute-trash-column">
+			<td className="poocommerce-new-attribute-modal__table-attribute-trash-column">
 				<Button
 					icon={ closeSmall }
 					disabled={ clearButtonDisabled }

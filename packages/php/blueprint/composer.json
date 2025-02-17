@@ -1,10 +1,10 @@
 {
-  "name": "woocommerce/blueprint",
+  "name": "poocommerce/blueprint",
   "version": "0.0.1",
   "autoload": {
 	"psr-4": {
-	  "Automattic\\WooCommerce\\Blueprint\\": "src/",
-	  "Automattic\\WooCommerce\\Blueprint\\Tests\\": "tests/"
+	  "Automattic\\PooCommerce\\Blueprint\\": "src/",
+	  "Automattic\\PooCommerce\\Blueprint\\Tests\\": "tests/"
 	}
   },
   "require": {

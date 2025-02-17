@@ -6,7 +6,7 @@ import {
 	insertBlockByShortcut,
 	goToPageEditor,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ test.describe(
 
 		test.beforeAll( async ( { api } ) => {
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 
@@ -126,7 +126,7 @@ test.describe(
 			} );
 
 			// confirm that we allow shipping to any country
-			await api.put( 'settings/general/woocommerce_allowed_countries', {
+			await api.put( 'settings/general/poocommerce_allowed_countries', {
 				value: 'all',
 			} );
 		} );

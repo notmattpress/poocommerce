@@ -2,28 +2,28 @@
 /**
  * Auth header
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/auth/header.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/auth/header.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Auth
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Auth
  * @version 9.7.0
  */
 
-use Automattic\WooCommerce\Internal\BrandingController;
+use Automattic\PooCommerce\Internal\BrandingController;
 
 defined( 'ABSPATH' ) || exit;
 
 // Old branding.
-$logo_filename = 'woocommerce_logo.png';
+$logo_filename = 'poocommerce_logo.png';
 
 if (
-	class_exists( 'Automattic\WooCommerce\Internal\BrandingController' )
+	class_exists( 'Automattic\PooCommerce\Internal\BrandingController' )
 	&& BrandingController::use_new_branding()
 ) {
 	// New branding.
@@ -37,7 +37,7 @@ if (
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="robots" content="noindex, nofollow" />
-	<title><?php esc_html_e( 'Application authentication request', 'woocommerce' ); ?></title>
+	<title><?php esc_html_e( 'Application authentication request', 'poocommerce' ); ?></title>
 	<?php wp_admin_css( 'install', true ); ?>
 	<link rel="stylesheet" href="<?php echo esc_url( str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/css/auth.css' ); ?>" type="text/css" />
 </head>
@@ -46,8 +46,8 @@ if (
 	<img src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/' . $logo_filename ); ?>" alt="
 						<?php
 							esc_attr_e(
-								'WooCommerce',
-								'woocommerce'
+								'PooCommerce',
+								'poocommerce'
 							);
 							?>
 		" /></h1>

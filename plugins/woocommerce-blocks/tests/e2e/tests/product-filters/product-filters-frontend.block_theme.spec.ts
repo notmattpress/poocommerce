@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TemplateCompiler, test as base, expect } from '@woocommerce/e2e-utils';
+import { TemplateCompiler, test as base, expect } from '@poocommerce/e2e-utils';
 
 const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	templateCompiler: async ( { requestUtils }, use ) => {
@@ -12,7 +12,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filters - Frontend', () => {
+test.describe( 'poocommerce/product-filters - Frontend', () => {
 	test.describe( 'Overlay', () => {
 		test.beforeEach( async ( { requestUtils, templateCompiler } ) => {
 			await requestUtils.setFeatureFlag( 'experimental-blocks', true );

@@ -1,7 +1,7 @@
 $foreground-color: var(--wp-admin-theme-color);
 $task-alert-yellow: #f0b849;
 
-.woocommerce-task-list__item {
+.poocommerce-task-list__item {
 	position: relative;
 	display: grid;
 	grid-template-columns: 72px auto 48px;
@@ -37,7 +37,7 @@ $task-alert-yellow: #f0b849;
 		}
 	}
 
-	.woocommerce-task-list__item-title {
+	.poocommerce-task-list__item-title {
 		color: $foreground-color;
 		display: flex;
 		column-gap: $gap-small;
@@ -45,7 +45,7 @@ $task-alert-yellow: #f0b849;
 		flex-wrap: wrap;
 	}
 
-	.woocommerce-task-list__item-badge {
+	.poocommerce-task-list__item-badge {
 		padding: 0 10px;
 		background-color: #f6f7f7;
 		border-radius: 2px;
@@ -55,80 +55,80 @@ $task-alert-yellow: #f0b849;
 		line-height: 20px;
 	}
 
-	.woocommerce-task__additional-info,
-	.woocommerce-task-list__item-expandable-content,
-	.woocommerce-task__estimated-time {
+	.poocommerce-task__additional-info,
+	.poocommerce-task-list__item-expandable-content,
+	.poocommerce-task__estimated-time {
 		color: $gray-700;
 		font-weight: 400;
 		font-size: 12px;
 	}
 
-	.woocommerce-task__estimated-time {
+	.poocommerce-task__estimated-time {
 		margin-top: $gap-smallest;
 	}
 
-	.woocommerce-task-list__item-before {
+	.poocommerce-task-list__item-before {
 		display: flex;
 		align-items: center;
 		padding: $gap 0 $gap $gap-large;
 	}
 
-	.woocommerce-task-list__item-text {
+	.poocommerce-task-list__item-text {
 		padding: $gap 0;
 
-		.woocommerce-pill {
+		.poocommerce-pill {
 			padding: 1px $gap-smaller;
 			margin-left: $gap-smaller;
 		}
 	}
 
-	.woocommerce-task-list__item-expandable-content {
+	.poocommerce-task-list__item-expandable-content {
 		margin-top: $gap-smallest;
 		overflow: hidden;
 
-		&.woocommerce-task-list__item-expandable-content-enter {
+		&.poocommerce-task-list__item-expandable-content-enter {
 			opacity: 0;
 		}
 
-		&.woocommerce-task-list__item-expandable-content-enter-active {
+		&.poocommerce-task-list__item-expandable-content-enter-active {
 			opacity: 1;
 		}
 
-		&.woocommerce-task-list__item-expandable-content-enter-done {
+		&.poocommerce-task-list__item-expandable-content-enter-done {
 			opacity: 1;
 		}
 
-		&.woocommerce-task-list__item-expandable-content-exit {
+		&.poocommerce-task-list__item-expandable-content-exit {
 			opacity: 1;
 		}
 
-		&.woocommerce-task-list__item-expandable-content-exit-active {
+		&.poocommerce-task-list__item-expandable-content-exit-active {
 			opacity: 0;
 		}
 
-		.woocommerce-task__additional-info {
+		.poocommerce-task__additional-info {
 			margin-top: $gap-smaller;
 		}
 	}
 
-	.woocommerce-task-list__item-action {
+	.poocommerce-task-list__item-action {
 		margin-top: $gap-smaller;
 		margin-bottom: $gap-smallest;
 		display: block;
 	}
 
-	.woocommerce-task-list__item-after {
+	.poocommerce-task-list__item-after {
 		display: flex;
 		align-items: center;
 	}
 
-	.woocommerce-task-list__item-before .woocommerce-task__icon {
+	.poocommerce-task-list__item-before .poocommerce-task__icon {
 		border-radius: 50%;
 		width: 32px;
 		height: 32px;
 	}
 
-	.woocommerce-task-list__item-before .woocommerce-task__icon svg {
+	.poocommerce-task-list__item-before .poocommerce-task__icon svg {
 		fill: $white;
 		position: relative;
 		top: 4px;
@@ -136,22 +136,22 @@ $task-alert-yellow: #f0b849;
 	}
 
 	&.complete {
-		.woocommerce-task__icon {
+		.poocommerce-task__icon {
 			background-color: var(--wp-admin-theme-color);
 		}
 
-		.woocommerce-task-list__item-title {
+		.poocommerce-task-list__item-title {
 			color: $gray-700;
 		}
 
-		.woocommerce-task-list__item-expandable-content,
-		.woocommerce-task__estimated-time {
+		.poocommerce-task-list__item-expandable-content,
+		.poocommerce-task__estimated-time {
 			display: none;
 		}
 	}
 
 	&:not(.complete) {
-		.woocommerce-task__icon {
+		.poocommerce-task__icon {
 			border: 1px solid $gray-100;
 			background: $white;
 		}
@@ -162,7 +162,7 @@ $task-alert-yellow: #f0b849;
 		white-space: normal;
 	}
 
-	.woocommerce-task-card__section-controls {
+	.poocommerce-task-card__section-controls {
 		text-align: left;
 	}
 }

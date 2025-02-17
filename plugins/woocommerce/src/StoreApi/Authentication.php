@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Utilities\RateLimits;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\RateLimits;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
 
 /**
  * Authentication class.
@@ -28,7 +28,7 @@ class Authentication {
 		// Validate returns early if no token, so no performance penalty.
 		if ( JsonWebToken::validate( $this->get_cart_token(), $this->get_cart_token_secret() ) ) {
 			add_filter(
-				'woocommerce_session_handler',
+				'poocommerce_session_handler',
 				function () {
 					return SessionHandler::class;
 				}
@@ -164,7 +164,7 @@ class Authentication {
 			&& 'POST' === $_SERVER['REQUEST_METHOD']
 		) {
 			add_filter(
-				'woocommerce_store_api_rate_limit_options',
+				'poocommerce_store_api_rate_limit_options',
 				function ( $options ) {
 					$options['enabled'] = true;
 					$options['limit']   = 3;
@@ -208,7 +208,7 @@ class Authentication {
 				 * @since 9.8.0 Added $action_id parameter.
 				 */
 				do_action(
-					'woocommerce_store_api_rate_limit_exceeded',
+					'poocommerce_store_api_rate_limit_exceeded',
 					self::get_ip_address( $rate_limiting_options->proxy_support ),
 					$action_id
 				);
@@ -253,7 +253,7 @@ class Authentication {
 		 *
 		 * @since 9.8.0
 		 */
-		$id = apply_filters( 'woocommerce_store_api_rate_limit_id', $id );
+		$id = apply_filters( 'poocommerce_store_api_rate_limit_id', $id );
 
 		return sanitize_key( $id );
 	}

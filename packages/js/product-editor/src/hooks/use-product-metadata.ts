@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId } from '@wordpress/core-data';
 /**
  * External dependencies
  */
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 /**
  * Internal dependencies
  */
@@ -32,13 +32,13 @@ function useProductMetadata( options?: Options ) {
 			// @ts-ignore
 			const { getEditedEntityRecord, hasFinishedResolution } =
 				select( 'core' );
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			const { meta_data: metadata }: Product = getEditedEntityRecord(
 				'postType',
 				postType,
 				id
 			);
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			const isResolutionFinished = hasFinishedResolution(
 				'getEditedEntityRecord',
 				[ 'postType', postType, id ]

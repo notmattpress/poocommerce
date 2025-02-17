@@ -8,13 +8,13 @@ import {
 	PaymentProvider,
 	PAYMENT_SETTINGS_STORE_NAME,
 	WC_ADMIN_NAMESPACE,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 import { useMemo, useState } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { Popover } from '@wordpress/components';
-import { Link } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { Link } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 import InfoOutline from 'gridicons/dist/info-outline';
 import interpolateComponents from '@automattic/interpolate-components';
 import { useDebounce } from '@wordpress/compose';
@@ -62,11 +62,11 @@ export const PaymentGateways = ( {
 	const [ isPopoverVisible, setIsPopoverVisible ] = useState( false );
 	const storeCountryCode = (
 		window.wcSettings?.admin?.preloadSettings?.general
-			?.woocommerce_default_country || 'US'
+			?.poocommerce_default_country || 'US'
 	).split( ':' )[ 0 ]; // Retrieve the default store country code, by removing the state code if present.
 
 	/**
-	 * Generates a list of country options from the WooCommerce settings.
+	 * Generates a list of country options from the PooCommerce settings.
 	 */
 	const countryOptions = useMemo( () => {
 		return Object.entries( window.wcSettings.countries || [] )
@@ -99,12 +99,12 @@ export const PaymentGateways = ( {
 		<div className="settings-payment-gateways">
 			<div className="settings-payment-gateways__header">
 				<div className="settings-payment-gateways__header-title">
-					{ __( 'Payment providers', 'woocommerce' ) }
+					{ __( 'Payment providers', 'poocommerce' ) }
 				</div>
 				<div className={ selectContainerClass }>
 					<CountrySelector
-						className="woocommerce-select-control__country"
-						label={ __( 'Business location:', 'woocommerce' ) }
+						className="poocommerce-select-control__country"
+						label={ __( 'Business location:', 'poocommerce' ) }
 						placeholder={ '' }
 						value={
 							countryOptions.find(
@@ -168,7 +168,7 @@ export const PaymentGateways = ( {
 											{ interpolateComponents( {
 												mixedString: __(
 													'Your business location does not match your store location. {{link}}Edit store location.{{/link}}',
-													'woocommerce'
+													'poocommerce'
 												),
 												components: {
 													link: (

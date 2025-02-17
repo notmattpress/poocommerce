@@ -6,7 +6,7 @@ import { Button } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { arrowLeft, arrowRight, Icon } from '@wordpress/icons';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ export function VariationSwitcherFooter( {
 				return {
 					previousVariation:
 						previousVariationId !== null &&
-						// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+						// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 						getEntityRecord(
 							'postType',
 							'product_variation',
@@ -55,7 +55,7 @@ export function VariationSwitcherFooter( {
 						),
 					nextVariation:
 						nextVariationId !== null &&
-						// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+						// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 						getEntityRecord(
 							'postType',
 							'product_variation',
@@ -96,11 +96,11 @@ export function VariationSwitcherFooter( {
 	}
 
 	return (
-		<div className="woocommerce-product-variation-switcher-footer">
+		<div className="poocommerce-product-variation-switcher-footer">
 			{ previousVariation && (
 				<Button
-					className="woocommerce-product-variation-switcher-footer__button woocommerce-product-variation-switcher-footer__button-previous"
-					label={ __( 'Previous', 'woocommerce' ) }
+					className="poocommerce-product-variation-switcher-footer__button poocommerce-product-variation-switcher-footer__button-previous"
+					label={ __( 'Previous', 'poocommerce' ) }
 					onClick={ onPrevious }
 				>
 					<Icon icon={ arrowLeft } size={ 16 } />
@@ -108,10 +108,10 @@ export function VariationSwitcherFooter( {
 						<img
 							alt={ previousVariation.image.alt || '' }
 							src={ previousVariation.image.src }
-							className="woocommerce-product-variation-switcher-footer__product-image"
+							className="poocommerce-product-variation-switcher-footer__product-image"
 						/>
 					) : (
-						<VariationImagePlaceholder className="woocommerce-product-variation-switcher-footer__product-image" />
+						<VariationImagePlaceholder className="poocommerce-product-variation-switcher-footer__product-image" />
 					) }
 					{ previousVariation.name }
 				</Button>
@@ -121,8 +121,8 @@ export function VariationSwitcherFooter( {
 			) }
 			{ nextVariation && (
 				<Button
-					className="woocommerce-product-variation-switcher-footer__button woocommerce-product-variation-switcher-footer__button-next"
-					label={ __( 'Next', 'woocommerce' ) }
+					className="poocommerce-product-variation-switcher-footer__button poocommerce-product-variation-switcher-footer__button-next"
+					label={ __( 'Next', 'poocommerce' ) }
 					onClick={ onNext }
 				>
 					{ nextVariation.name }
@@ -130,10 +130,10 @@ export function VariationSwitcherFooter( {
 						<img
 							alt={ nextVariation.image.alt || '' }
 							src={ nextVariation.image.src }
-							className="woocommerce-product-variation-switcher-footer__product-image"
+							className="poocommerce-product-variation-switcher-footer__product-image"
 						/>
 					) : (
-						<VariationImagePlaceholder className="woocommerce-product-variation-switcher-footer__product-image" />
+						<VariationImagePlaceholder className="poocommerce-product-variation-switcher-footer__product-image" />
 					) }
 					<Icon icon={ arrowRight } size={ 16 } />
 				</Button>

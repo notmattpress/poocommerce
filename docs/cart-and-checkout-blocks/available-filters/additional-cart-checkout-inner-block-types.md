@@ -23,7 +23,7 @@ This filter is called once for each inner block area, so it is possible to be ve
 -   _defaultValue_ `array` (default: `[]`) - The default value of the filter.
 -   _extensions_ `object` (default: `{}`) - The extensions object.
 -   _args_ `object` - The arguments object with the following key:
-    -   _block_ `string` - The block name of the inner block area, e.g. `woocommerce/checkout-shipping-address-block`.
+    -   _block_ `string` - The block name of the inner block area, e.g. `poocommerce/checkout-shipping-address-block`.
 -   _validation_ `boolean` or `Error` - Checks if the returned value is an array of strings. If an error occurs, it will be thrown.
 
 ### Returns <!-- omit in toc -->
@@ -51,7 +51,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	) => {
 		defaultValue.push( 'core/quote' );
 
-		if ( args?.block === 'woocommerce/checkout-shipping-address-block' ) {
+		if ( args?.block === 'poocommerce/checkout-shipping-address-block' ) {
 			defaultValue.push( 'core/table' );
 		}
 
@@ -72,4 +72,4 @@ To call this filter within the editor, wrap the filter registration in a `DOMCon
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Additional Cart and Checkout inner block types filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/0d4560c8-c2b1-4ed8-8aee-469b248ccb08) |![After applying the Additional Cart and Checkout inner block types filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/d38cd568-6c8c-4158-9269-d8dffdf66988) |
+|![Before applying the Additional Cart and Checkout inner block types filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/0d4560c8-c2b1-4ed8-8aee-469b248ccb08) |![After applying the Additional Cart and Checkout inner block types filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/d38cd568-6c8c-4158-9269-d8dffdf66988) |

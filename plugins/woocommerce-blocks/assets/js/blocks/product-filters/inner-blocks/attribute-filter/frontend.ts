@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { store, getContext, getElement } from '@woocommerce/interactivity';
+import { store, getContext, getElement } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -16,12 +16,12 @@ type ProductFilterAttributeContext = {
 	activeLabelTemplate: string;
 };
 
-const { state, actions } = store( 'woocommerce/product-filter-attribute', {
+const { state, actions } = store( 'poocommerce/product-filter-attribute', {
 	state: {
 		get selectedFilters() {
 			const context = getContext< ProductFilterAttributeContext >();
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 			return ( productFiltersStore.state.activeFilters || [] )
 				.filter(
@@ -62,7 +62,7 @@ const { state, actions } = store( 'woocommerce/product-filter-attribute', {
 
 			const context = getContext< ProductFilterAttributeContext >();
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			if ( state.selectedFilters.includes( value ) ) {

@@ -26,7 +26,7 @@ export const Loader = ( {
 	return (
 		<div
 			className={ classNames(
-				'woocommerce-onboarding-loader',
+				'poocommerce-onboarding-loader',
 				className
 			) }
 		>
@@ -50,13 +50,13 @@ Loader.Layout = ( {
 	return (
 		<div
 			className={ classNames(
-				'woocommerce-onboarding-loader-wrapper',
+				'poocommerce-onboarding-loader-wrapper',
 				className
 			) }
 		>
 			<div
 				className={ classNames(
-					'woocommerce-onboarding-loader-container',
+					'poocommerce-onboarding-loader-container',
 					className
 				) }
 			>
@@ -77,7 +77,7 @@ Loader.Title = ( {
 	return (
 		<h1
 			className={ classNames(
-				'woocommerce-onboarding-loader__title',
+				'poocommerce-onboarding-loader__title',
 				className
 			) }
 		>
@@ -107,7 +107,7 @@ Loader.Subtext = ( {
 	return (
 		<p
 			className={ classNames(
-				'woocommerce-onboarding-loader__paragraph',
+				'poocommerce-onboarding-loader__paragraph',
 				className
 			) }
 		>

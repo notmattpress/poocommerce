@@ -5,10 +5,10 @@
  * Handles requests to install and activate dependent plugins.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\Init as Suggestions;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\Init as Suggestions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,7 +49,7 @@ class PaymentGatewaySuggestions extends \WC_REST_Data_Controller {
 					'args'                => array(
 						'force_default_suggestions' => array(
 							'type'        => 'boolean',
-							'description' => __( 'Return the default payment suggestions when woocommerce_show_marketplace_suggestions and woocommerce_setting_payments_recommendations_hidden options are set to no', 'woocommerce' ),
+							'description' => __( 'Return the default payment suggestions when poocommerce_show_marketplace_suggestions and poocommerce_setting_payments_recommendations_hidden options are set to no', 'poocommerce' ),
 						),
 					),
 				),
@@ -80,7 +80,7 @@ class PaymentGatewaySuggestions extends \WC_REST_Data_Controller {
 	 */
 	public function get_permission_check( $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -127,49 +127,49 @@ class PaymentGatewaySuggestions extends \WC_REST_Data_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'content'                 => array(
-					'description' => __( 'Suggestion description.', 'woocommerce' ),
+					'description' => __( 'Suggestion description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'id'                      => array(
-					'description' => __( 'Suggestion ID.', 'woocommerce' ),
+					'description' => __( 'Suggestion ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'image'                   => array(
-					'description' => __( 'Gateway image.', 'woocommerce' ),
+					'description' => __( 'Gateway image.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'is_visible'              => array(
-					'description' => __( 'Suggestion visibility.', 'woocommerce' ),
+					'description' => __( 'Suggestion visibility.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'plugins'                 => array(
-					'description' => __( 'Array of plugin slugs.', 'woocommerce' ),
+					'description' => __( 'Array of plugin slugs.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'recommendation_priority' => array(
-					'description' => __( 'Priority of recommendation.', 'woocommerce' ),
+					'description' => __( 'Priority of recommendation.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'title'                   => array(
-					'description' => __( 'Gateway title.', 'woocommerce' ),
+					'description' => __( 'Gateway title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'transaction_processors'  => array(
-					'description'         => __( 'Array of transaction processors and their images.', 'woocommerce' ),
+					'description'         => __( 'Array of transaction processors and their images.', 'poocommerce' ),
 					'type'                => 'object',
 					'addtionalProperties' => array(
 						'type'   => 'string',

@@ -127,7 +127,7 @@ const TableCard: React.VFC< TableCardProps > = ( {
 			} )
 			.filter( Boolean );
 	} );
-	const classes = classnames( 'woocommerce-table', className, {
+	const classes = classnames( 'poocommerce-table', className, {
 		'has-actions': !! actions,
 		'has-menu': showMenu,
 		'has-search': hasSearch,
@@ -139,18 +139,18 @@ const TableCard: React.VFC< TableCardProps > = ( {
 				<Text size={ 16 } weight={ 600 } as="h2" color="#23282d">
 					{ title }
 				</Text>
-				<div className="woocommerce-table__actions">{ actions }</div>
+				<div className="poocommerce-table__actions">{ actions }</div>
 				{ showMenu && (
 					<EllipsisMenu
 						label={ __(
 							'Choose which values to display',
-							'woocommerce'
+							'poocommerce'
 						) }
 						placement="bottom-end"
 						renderContent={ () => (
 							<Fragment>
 								<MenuTitle>
-									{ __( 'Columns:', 'woocommerce' ) }
+									{ __( 'Columns:', 'poocommerce' ) }
 								</MenuTitle>
 								{ allHeaders.map(
 									( { key, label, required } ) => {
@@ -185,7 +185,7 @@ const TableCard: React.VFC< TableCardProps > = ( {
 			{ /* @ts-expect-error: size must be one of small, medium, largel, xSmall, extraSmall. */ }
 			<CardBody size={ null }>
 				{ tablePreface && (
-					<div className="woocommerce-table__preface">
+					<div className="poocommerce-table__preface">
 						{ tablePreface }
 					</div>
 				) }
@@ -194,7 +194,7 @@ const TableCard: React.VFC< TableCardProps > = ( {
 						<span className="screen-reader-text">
 							{ __(
 								'Your requested data is loading',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 						<TablePlaceholder

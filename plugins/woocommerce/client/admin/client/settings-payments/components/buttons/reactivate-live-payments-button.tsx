@@ -5,7 +5,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { dispatch, useDispatch } from '@wordpress/data';
-import { PAYMENT_SETTINGS_STORE_NAME } from '@woocommerce/data';
+import { PAYMENT_SETTINGS_STORE_NAME } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 interface ReactivateLivePaymentsButtonProps {
@@ -23,7 +23,7 @@ interface ReactivateLivePaymentsButtonProps {
  * A button component that allows users to disable test mode payments (only for WooPayments at the moment).
  */
 export const ReactivateLivePaymentsButton = ( {
-	buttonText = __( 'Reactivate payments', 'woocommerce' ),
+	buttonText = __( 'Reactivate payments', 'poocommerce' ),
 	settingsHref,
 }: ReactivateLivePaymentsButtonProps ) => {
 	const [ isUpdating, setIsUpdating ] = useState( false );
@@ -50,7 +50,7 @@ export const ReactivateLivePaymentsButton = ( {
 						/* translators: %s: WooPayments */
 						__(
 							'%s is now processing live payments (real payment methods and charges).',
-							'woocommerce'
+							'poocommerce'
 						),
 						'WooPayments'
 					),
@@ -74,7 +74,7 @@ export const ReactivateLivePaymentsButton = ( {
 						/* translators: %s: WooPayments */
 						__(
 							'An error occurred. You will be redirected to the %s settings page to manage payments processing mode from there.',
-							'woocommerce'
+							'poocommerce'
 						),
 						'WooPayments'
 					),

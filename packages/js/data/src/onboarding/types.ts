@@ -28,20 +28,20 @@ export type TaskType = {
 	recordViewEvent: boolean;
 	badge?: string;
 	additionalData?: {
-		woocommerceTaxCountries?: string[];
+		poocommerceTaxCountries?: string[];
 		stripeTaxCountries?: string[];
 		taxJarActivated?: boolean;
 		avalaraActivated?: boolean;
 		stripeTaxActivated?: boolean;
-		woocommerceTaxActivated?: boolean;
-		woocommerceShippingActivated?: boolean;
+		poocommerceTaxActivated?: boolean;
+		poocommerceShippingActivated?: boolean;
 		wooPaymentsIncentiveId?: string;
 	};
 	// Possibly added in DeprecatedTasks.mergeDeprecatedCallbackFunctions
 	isDeprecated?: boolean;
 };
 
-// reference: https://github.com/woocommerce/woocommerce-admin/blob/75cf5292f66bf69202f67356d143743a8796a7f6/docs/examples/extensions/add-task/js/index.js#L77-L101
+// reference: https://github.com/poocommerce/poocommerce-admin/blob/75cf5292f66bf69202f67356d143743a8796a7f6/docs/examples/extensions/add-task/js/index.js#L77-L101
 export type DeprecatedTaskType = {
 	key: string;
 	title: string;
@@ -137,7 +137,7 @@ export type RevenueTypeSlug =
 	| '50000-250000'
 	| 'more-than-250000';
 
-/** Types should match the schema in plugins/woocommerce/src/Admin/API/OnboardingProfile.php */
+/** Types should match the schema in plugins/poocommerce/src/Admin/API/OnboardingProfile.php */
 export type ProfileItems = {
 	business_extensions?: string[] | null;
 	completed?: boolean | null;

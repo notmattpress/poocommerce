@@ -10,7 +10,7 @@
 	}
 }
 // The welcome modal is presented outside the homescreen class namespace
-.components-guide.woocommerce__mobile-app-welcome-modal {
+.components-guide.poocommerce__mobile-app-welcome-modal {
 	max-width: 964px;
 	min-width: 534px;
 	// Overrides the default modal max-height.
@@ -114,7 +114,7 @@
 		fill: var(--wp-admin-theme-color);
 	}
 
-	.components-button.woocommerce__mobile-app-welcome-modal__close-button {
+	.components-button.poocommerce__mobile-app-welcome-modal__close-button {
 		width: 24px;
 		height: 24px;
 		min-width: 24px;
@@ -175,7 +175,7 @@
 	}
 }
 
-.woocommerce-stepper.is-vertical .woocommerce-stepper__step {
+.poocommerce-stepper.is-vertical .poocommerce-stepper__step {
 	// default vertical step distance is 36px which is too much and doesn't match the design
 	padding-bottom: 16px;
 }
@@ -199,7 +199,7 @@ button.components-button.send-magic-link-button {
 		left: 0;
 		right: 0;
 
-		.woocommerce-spinner__circle {
+		.poocommerce-spinner__circle {
 			stroke: #fff;
 		}
 	}

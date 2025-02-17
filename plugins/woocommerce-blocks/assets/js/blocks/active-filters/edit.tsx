@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
-import BlockTitle from '@woocommerce/editor-components/block-title';
+import BlockTitle from '@poocommerce/editor-components/block-title';
 import {
 	Disabled,
 	PanelBody,
@@ -37,9 +37,9 @@ const Edit = ( {
 	const getInspectorControls = () => {
 		return (
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Display Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
-						label={ __( 'Display Style', 'woocommerce' ) }
+						label={ __( 'Display Style', 'poocommerce' ) }
 						isBlock
 						value={ displayStyle }
 						onChange={ ( value: Attributes[ 'displayStyle' ] ) =>
@@ -51,11 +51,11 @@ const Edit = ( {
 					>
 						<ToggleGroupControlOption
 							value="list"
-							label={ __( 'List', 'woocommerce' ) }
+							label={ __( 'List', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="chips"
-							label={ __( 'Chips', 'woocommerce' ) }
+							label={ __( 'Chips', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 				</PanelBody>

@@ -3,7 +3,7 @@
  */
 import { resolveSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { onboardingStore, optionsStore } from '@woocommerce/data';
+import { onboardingStore, optionsStore } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -46,7 +46,7 @@ export const fetchIntroData = async () => {
 
 	const maybePreviousTemplatePromise = resolveSelect(
 		optionsStore
-	).getOption( 'woocommerce_admin_customize_store_completed_theme_id' );
+	).getOption( 'poocommerce_admin_customize_store_completed_theme_id' );
 
 	const getTaskPromise =
 		resolveSelect( onboardingStore ).getTask( 'customize-store' );

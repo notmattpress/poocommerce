@@ -7,8 +7,8 @@ import type {
 	ApiErrorResponse,
 	CartShippingAddress,
 	CartBillingAddress,
-} from '@woocommerce/types';
-import { FormField, defaultFields } from '@woocommerce/settings';
+} from '@poocommerce/types';
+import { FormField, defaultFields } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

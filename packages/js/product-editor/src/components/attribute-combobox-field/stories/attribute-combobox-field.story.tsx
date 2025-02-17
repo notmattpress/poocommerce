@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import React, { useState } from 'react';
-import type { ProductAttribute } from '@woocommerce/data';
+import type { ProductAttribute } from '@poocommerce/data';
 import '@wordpress/interface/src/style.scss';
 
 /**
@@ -82,11 +82,11 @@ export const Default = ( args: AttributesComboboxControlComponent ) => {
 	return (
 		<AttributesComboboxControl
 			{ ...args }
-			label={ __( 'Attributes', 'woocommerce' ) }
+			label={ __( 'Attributes', 'poocommerce' ) }
 			items={ items }
 			help={ __(
 				'Select or create attributes for this product.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onChange={ selectAttribute }
 			current={ selectedAttribute }
@@ -107,14 +107,14 @@ export const MultipleInstances = (
 		<>
 			<AttributesComboboxControl
 				{ ...args }
-				label={ __( 'Attributes 1', 'woocommerce' ) }
+				label={ __( 'Attributes 1', 'poocommerce' ) }
 				items={ items }
 				instanceNumber={ 1 }
 			/>
 
 			<AttributesComboboxControl
 				{ ...args }
-				label={ __( 'Attributes 2', 'woocommerce' ) }
+				label={ __( 'Attributes 2', 'poocommerce' ) }
 				items={ items }
 				instanceNumber={ 2 }
 			/>

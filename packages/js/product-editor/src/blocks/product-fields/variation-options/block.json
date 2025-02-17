@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-variations-options-field",
+	"name": "poocommerce/product-variations-options-field",
 	"title": "Product variations options",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product variations options.",
 	"keywords": [
 		"products",

@@ -3,12 +3,12 @@
  * Handles storage and retrieval of task lists
  */
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\DeprecatedExtendedTask;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\ReviewShippingOptions;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\DeprecatedExtendedTask;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\ReviewShippingOptions;
 /**
  * Task Lists class.
  */
@@ -45,7 +45,7 @@ class TaskLists {
 	const DEFAULT_TASKS = array(
 		'StoreDetails',
 		'Products',
-		'WooCommercePayments',
+		'PooCommercePayments',
 		'Payments',
 		'Tax',
 		'Shipping',
@@ -74,7 +74,7 @@ class TaskLists {
 		add_action( 'admin_init', array( __CLASS__, 'set_active_task' ), 5 );
 		add_action( 'init', array( __CLASS__, 'init_tasks' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'menu_task_count' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( __CLASS__, 'task_list_preloaded_settings' ), 20 );
+		add_filter( 'poocommerce_admin_shared_settings', array( __CLASS__, 'task_list_preloaded_settings' ), 20 );
 	}
 
 	/**
@@ -85,10 +85,10 @@ class TaskLists {
 	 */
 	public static function is_experiment_treatment( $name ) {
 		$anon_id        = isset( $_COOKIE['tk_ai'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['tk_ai'] ) ) : '';
-		$allow_tracking = 'yes' === get_option( 'woocommerce_allow_tracking' );
-		$abtest         = new \WooCommerce\Admin\Experimental_Abtest(
+		$allow_tracking = 'yes' === get_option( 'poocommerce_allow_tracking' );
+		$abtest         = new \PooCommerce\Admin\Experimental_Abtest(
 			$anon_id,
-			'woocommerce',
+			'poocommerce',
 			$allow_tracking
 		);
 
@@ -113,7 +113,7 @@ class TaskLists {
 			'StoreDetails',
 			'Products',
 			'Appearance',
-			'WooCommercePayments',
+			'PooCommercePayments',
 			'Payments',
 			'Tax',
 			'Shipping',
@@ -136,7 +136,7 @@ class TaskLists {
 
 		// If the React-based Payments settings page is enabled, we don't need the dedicated WooPayments task.
 		if ( Features::is_enabled( 'reactify-classic-payments-settings' ) ) {
-			$key = array_search( 'WooCommercePayments', $tasks, true );
+			$key = array_search( 'PooCommercePayments', $tasks, true );
 			if ( false !== $key ) {
 				unset( $tasks[ $key ] );
 			}
@@ -145,7 +145,7 @@ class TaskLists {
 		self::add_list(
 			array(
 				'id'                      => 'setup',
-				'title'                   => __( 'Get ready to start selling', 'woocommerce' ),
+				'title'                   => __( 'Get ready to start selling', 'poocommerce' ),
 				'tasks'                   => $tasks,
 				'display_progress_header' => true,
 				'event_prefix'            => 'tasklist_',
@@ -159,7 +159,7 @@ class TaskLists {
 		self::add_list(
 			array(
 				'id'      => 'extended',
-				'title'   => __( 'Things to do next', 'woocommerce' ),
+				'title'   => __( 'Things to do next', 'poocommerce' ),
 				'sort_by' => array(
 					array(
 						'key'   => 'is_complete',
@@ -202,14 +202,14 @@ class TaskLists {
 			);
 		}
 
-		if ( has_filter( 'woocommerce_admin_experimental_onboarding_tasklists' ) ) {
+		if ( has_filter( 'poocommerce_admin_experimental_onboarding_tasklists' ) ) {
 			/**
 			 * Filter to override default task lists.
 			 *
 			 * @since 7.4
 			 * @param array     $lists Array of tasklists.
 			 */
-			self::$lists = apply_filters( 'woocommerce_admin_experimental_onboarding_tasklists', self::$lists );
+			self::$lists = apply_filters( 'poocommerce_admin_experimental_onboarding_tasklists', self::$lists );
 		}
 	}
 
@@ -218,7 +218,7 @@ class TaskLists {
 	 */
 	public static function init_tasks() {
 		foreach ( self::DEFAULT_TASKS as $task ) {
-			$class = 'Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\\' . $task;
+			$class = 'Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\\' . $task;
 			if ( ! method_exists( $class, 'init' ) ) {
 				continue;
 			}
@@ -231,7 +231,7 @@ class TaskLists {
 	 * Most tasks do not need this.
 	 */
 	public static function set_active_task() {
-		if ( ! isset( $_GET[ Task::ACTIVE_TASK_TRANSIENT ] ) || ! current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore csrf ok.
+		if ( ! isset( $_GET[ Task::ACTIVE_TASK_TRANSIENT ] ) || ! current_user_can( 'manage_poocommerce' ) ) { // phpcs:ignore csrf ok.
 			return;
 		}
 		$referer = wp_get_referer();
@@ -259,8 +259,8 @@ class TaskLists {
 	public static function add_list( $args ) {
 		if ( isset( self::$lists[ $args['id'] ] ) ) {
 			return new \WP_Error(
-				'woocommerce_task_list_exists',
-				__( 'Task list ID already exists', 'woocommerce' )
+				'poocommerce_task_list_exists',
+				__( 'Task list ID already exists', 'poocommerce' )
 			);
 		}
 
@@ -279,8 +279,8 @@ class TaskLists {
 	public static function add_task( $list_id, $task ) {
 		if ( ! isset( self::$lists[ $list_id ] ) ) {
 			return new \WP_Error(
-				'woocommerce_task_list_invalid_list',
-				__( 'Task list ID does not exist', 'woocommerce' )
+				'poocommerce_task_list_invalid_list',
+				__( 'Task list ID does not exist', 'poocommerce' )
 			);
 		}
 
@@ -445,13 +445,13 @@ class TaskLists {
 
 		$tasks_count = self::setup_tasks_remaining();
 
-		if ( ! $tasks_count || ! isset( $submenu['woocommerce'] ) ) {
+		if ( ! $tasks_count || ! isset( $submenu['poocommerce'] ) ) {
 			return;
 		}
 
-		foreach ( $submenu['woocommerce'] as $key => $menu_item ) {
-			if ( 0 === strpos( $menu_item[0], _x( 'Home', 'Admin menu name', 'woocommerce' ) ) ) {
-				$submenu['woocommerce'][ $key ][0] .= ' <span class="awaiting-mod update-plugins remaining-tasks-badge woocommerce-task-list-remaining-tasks-badge"><span class="count-' . esc_attr( $tasks_count ) . '">' . absint( $tasks_count ) . '</span></span>'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		foreach ( $submenu['poocommerce'] as $key => $menu_item ) {
+			if ( 0 === strpos( $menu_item[0], _x( 'Home', 'Admin menu name', 'poocommerce' ) ) ) {
+				$submenu['poocommerce'][ $key ][0] .= ' <span class="awaiting-mod update-plugins remaining-tasks-badge poocommerce-task-list-remaining-tasks-badge"><span class="count-' . esc_attr( $tasks_count ) . '">' . absint( $tasks_count ) . '</span></span>'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				break;
 			}
 		}

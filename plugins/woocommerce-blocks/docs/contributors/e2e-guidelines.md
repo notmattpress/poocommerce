@@ -1,21 +1,21 @@
-# WooCommerce Blocks End-to-End Tests
+# PooCommerce Blocks End-to-End Tests
 
-This living document serves as a guide for writing end-to-end (E2E) tests with Playwright in the WooCommerce Blocks project.
+This living document serves as a guide for writing end-to-end (E2E) tests with Playwright in the PooCommerce Blocks project.
 
 ## Preparing the environment
 
-Please refer to [the Getting Started section of the main `README.md`](https://github.com/woocommerce/woocommerce/blob/trunk/README.md) for a general-purpose guide on getting started. The rest of this document will assume that you've installed all of the prerequisites and setup described there.
+Please refer to [the Getting Started section of the main `README.md`](https://github.com/poocommerce/poocommerce/blob/trunk/README.md) for a general-purpose guide on getting started. The rest of this document will assume that you've installed all of the prerequisites and setup described there.
 
-Run the following command from the repository root to build the WooCommerce plugin:
+Run the following command from the repository root to build the PooCommerce plugin:
 
 ```sh
-pnpm --filter='@woocommerce/plugin-woocommerce' watch:build
+pnpm --filter='@poocommerce/plugin-poocommerce' watch:build
 ```
 
-Next, run the following command from the [`woocommerce-blocks` plugin folder](../../../woocommerce-blocks/) to start a `wp-env` instance and install all the testing products, languages, etc.:
+Next, run the following command from the [`poocommerce-blocks` plugin folder](../../../poocommerce-blocks/) to start a `wp-env` instance and install all the testing products, languages, etc.:
 
 ```sh
-cd plugins/woocommerce-blocks/
+cd plugins/poocommerce-blocks/
 pnpm env:start
 ```
 
@@ -106,11 +106,11 @@ To use a custom plugin with your tests, first create the plugin PHP file and sav
 
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test My Fancy Plugin
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin Name: PooCommerce Blocks Test My Fancy Plugin
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-my-fancy-plugin
+ * @package poocommerce-blocks-test-my-fancy-plugin
  */
 
 function my_fancy_plugin() {
@@ -125,11 +125,11 @@ Once the plugin is saved, it will be automatically picked up by `wp-env` - no ne
 ```ts
 // tests/my-fancy-plugin.spec.ts
 
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 test( 'My fancy plugin', async ( { page, requestUtils } ) => {
 	await requestUtils.activatePlugin(
-		'woocommerce-blocks-test-my-fancy-plugin'
+		'poocommerce-blocks-test-my-fancy-plugin'
 	);
 
 	await page.goto( '/shop' );
@@ -139,7 +139,7 @@ test( 'My fancy plugin', async ( { page, requestUtils } ) => {
 ```
 
 > [!IMPORTANT]
-> A plugin's slug is created automatically **from the plugin's name**, not from the `@package` statement as you might think. So, if your plugin is named `WooCommerce Blocks Test Bazzinga`, you'll need to activate it by `woocommerce-blocks-test-bazzinga`.
+> A plugin's slug is created automatically **from the plugin's name**, not from the `@package` statement as you might think. So, if your plugin is named `PooCommerce Blocks Test Bazzinga`, you'll need to activate it by `poocommerce-blocks-test-bazzinga`.
 
 ### Themes
 
@@ -167,7 +167,7 @@ We have a handful of [custom utilities](../../tests/e2e/utils/) built on top of 
 Most of the time, it's better to do a little repetition instead of creating a utility, as over-abstracting can make the code too vague, complicated, or confusing. However, if the piece is complex and repeated enough, we recommend abstracting it into a [POM (Page Object Model)](https://playwright.dev/docs/pom), for example:
 
 ```ts
-import { test as base, expect, Editor } from '@woocommerce/e2e-utils';
+import { test as base, expect, Editor } from '@poocommerce/e2e-utils';
 
 class CartUtils {
 	editor: Editor;
@@ -233,7 +233,7 @@ When you have the template ready, we recommend creating a [test fixture](https:/
 ```ts
 // tests/product-collection.spec.ts
 
-import { test as base, expect, TemplateCompiler } from '@woocommerce/e2e-utils';
+import { test as base, expect, TemplateCompiler } from '@poocommerce/e2e-utils';
 
 const test = base.extend< {
 	filteredProductsTemplate: TemplateCompiler;

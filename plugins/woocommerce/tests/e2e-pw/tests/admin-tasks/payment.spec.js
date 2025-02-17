@@ -11,9 +11,9 @@ const test = baseTest.extend( {
 		// Ensure store's base country location is a WooPayments non-supported country (AF).
 		// Otherwise, the WooPayments task page logic or WooPayments redirects will kick in.
 		const initialDefaultCountry = await api.get(
-			'settings/general/woocommerce_default_country'
+			'settings/general/poocommerce_default_country'
 		);
-		await api.put( 'settings/general/woocommerce_default_country', {
+		await api.put( 'settings/general/poocommerce_default_country', {
 			value: 'AF',
 		} );
 
@@ -23,7 +23,7 @@ const test = baseTest.extend( {
 		// Disable the help popover.
 		await wpApi.post( './wp-json/wp/v2/users/1?_locale=user', {
 			data: {
-				woocommerce_meta: {
+				poocommerce_meta: {
 					help_panel_highlight_shown: '"yes"',
 				},
 			},
@@ -38,7 +38,7 @@ const test = baseTest.extend( {
 		await api.put( 'payment_gateways/cod', {
 			enabled: codInitialState.data.enabled,
 		} );
-		await api.put( 'settings/general/woocommerce_default_country', {
+		await api.put( 'settings/general/poocommerce_default_country', {
 			value: initialDefaultCountry.data.value,
 		} );
 	},
@@ -106,7 +106,7 @@ test.describe( 'Payment setup task', () => {
 			await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 			await page.getByRole( 'button', { name: '3 Get paid' } ).click();
 			await expect(
-				page.locator( '.woocommerce-layout__header-wrapper > h1' )
+				page.locator( '.poocommerce-layout__header-wrapper > h1' )
 			).toHaveText( 'Get paid' );
 		}
 	);
@@ -131,13 +131,13 @@ test.describe( 'Payment setup task', () => {
 
 			// Enable COD payment option.
 			await page
-				.locator( 'div.woocommerce-task-payment-cod' )
+				.locator( 'div.poocommerce-task-payment-cod' )
 				.getByRole( 'button', { name: 'Enable' } )
 				.click();
 			// Check that COD was set up.
 			await expect(
 				page
-					.locator( 'div.woocommerce-task-payment-cod' )
+					.locator( 'div.poocommerce-task-payment-cod' )
 					.getByRole( 'button', { name: 'Manage' } )
 			).toBeVisible();
 

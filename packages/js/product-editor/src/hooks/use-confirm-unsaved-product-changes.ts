@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useConfirmUnsavedChanges } from '@woocommerce/navigation';
+import { useConfirmUnsavedChanges } from '@poocommerce/navigation';
 import { useEntityId } from '@wordpress/core-data';
 
 /**
@@ -24,7 +24,7 @@ export function useConfirmUnsavedProductChanges(
 			const { isSavingEntityRecord } = select( 'core' );
 
 			return {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				isSaving: isSavingEntityRecord(
 					'postType',
 					productType,

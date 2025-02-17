@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { isPostcode } from '@woocommerce/blocks-checkout';
+import { isPostcode } from '@poocommerce/blocks-checkout';
 import { isEmail } from '@wordpress/url';
 
 /**
@@ -27,14 +27,14 @@ const customValidationHandler = (
 		} )
 	) {
 		inputObject.setCustomValidity(
-			__( 'Please enter a valid postcode', 'woocommerce' )
+			__( 'Please enter a valid postcode', 'poocommerce' )
 		);
 		return false;
 	}
 
 	if ( field === 'email' && ! isEmail( inputObject.value ) ) {
 		inputObject.setCustomValidity(
-			__( 'Please enter a valid email address', 'woocommerce' )
+			__( 'Please enter a valid email address', 'poocommerce' )
 		);
 		return false;
 	}

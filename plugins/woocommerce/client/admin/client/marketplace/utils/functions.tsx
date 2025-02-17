@@ -104,7 +104,7 @@ async function fetchJsonWithCache(
 	} );
 }
 
-// Fetch search results for a given set of URLSearchParams from the WooCommerce.com API
+// Fetch search results for a given set of URLSearchParams from the PooCommerce.com API
 async function fetchSearchResults(
 	params: URLSearchParams,
 	abortSignal?: AbortSignal
@@ -172,7 +172,7 @@ async function fetchSearchResults(
 	} );
 }
 
-// Fetch data for the discover page from the WooCommerce.com API
+// Fetch data for the discover page from the PooCommerce.com API
 async function fetchDiscoverPageData(): Promise< ProductGroup[] > {
 	let url = '/wc/v3/marketplace/featured';
 
@@ -294,7 +294,7 @@ function wpAjax(
 ): Promise< WpAjaxReponse > {
 	return new Promise( ( resolve, reject ) => {
 		if ( ! window.wp.updates ) {
-			reject( __( 'Please reload and try again', 'woocommerce' ) );
+			reject( __( 'Please reload and try again', 'poocommerce' ) );
 			return;
 		}
 
@@ -342,7 +342,7 @@ function activateProduct( subscription: Subscription ): Promise< void > {
 						// translators: %s is the product name.
 						__(
 							'%s could not be activated. Please activate it manually.',
-							'woocommerce'
+							'poocommerce'
 						),
 						subscription.product_name
 					),

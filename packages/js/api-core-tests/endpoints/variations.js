@@ -10,9 +10,9 @@ const {
 const { getVariationExample, shared } = require( '../data' );
 
 /**
- * WooCommerce Product Variation endpoints.
+ * PooCommerce Product Variation endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#product-variations
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#product-variations
  */
 const variationsApi = {
 	name: 'Product variations',

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { Icon } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
@@ -44,7 +44,7 @@ export function useSaveDraft( {
 			// @ts-ignore
 			const { hasEditsForEntityRecord, isSavingEntityRecord } =
 				select( 'core' );
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			const isSaving = isSavingEntityRecord(
 				'postType',
 				productType,
@@ -53,7 +53,7 @@ export function useSaveDraft( {
 
 			return {
 				isDisabled: isSaving,
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				hasEdits: hasEditsForEntityRecord(
 					'postType',
 					productType,
@@ -132,14 +132,14 @@ export function useSaveDraft( {
 
 	let children: ReactNode;
 	if ( productStatus === 'publish' ) {
-		children = __( 'Switch to draft', 'woocommerce' );
+		children = __( 'Switch to draft', 'poocommerce' );
 	} else if ( hasEdits || productStatus === 'auto-draft' ) {
-		children = __( 'Save draft', 'woocommerce' );
+		children = __( 'Save draft', 'poocommerce' );
 	} else {
 		children = (
 			<>
 				<Icon icon={ check } />
-				{ __( 'Saved', 'woocommerce' ) }
+				{ __( 'Saved', 'poocommerce' ) }
 			</>
 		);
 	}

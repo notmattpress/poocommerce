@@ -16,7 +16,7 @@ type SiteIconProps = {
 function SiteIcon( { className }: SiteIconProps ) {
 	const { isRequestingSite, siteIconUrl } = useSelect( ( select ) => {
 		const { getEntityRecord } = select( coreDataStore );
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const siteData = getEntityRecord( 'root', '__unstableBase' ) as
 			| { site_icon_url?: string }
 			| undefined;
@@ -34,7 +34,7 @@ function SiteIcon( { className }: SiteIconProps ) {
 	const icon = siteIconUrl ? (
 		<img
 			className="edit-site-site-icon__image"
-			alt={ __( 'Site Icon', 'woocommerce' ) }
+			alt={ __( 'Site Icon', 'poocommerce' ) }
 			src={ siteIconUrl }
 		/>
 	) : (

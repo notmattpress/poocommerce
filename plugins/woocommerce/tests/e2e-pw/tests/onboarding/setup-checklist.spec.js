@@ -4,17 +4,17 @@ const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
 const get_task_list_state = async ( wcAdminApi ) => {
 	const {
 		statusText,
-		data: { woocommerce_task_list_hidden },
-	} = await wcAdminApi.get( 'options?options=woocommerce_task_list_hidden' );
+		data: { poocommerce_task_list_hidden },
+	} = await wcAdminApi.get( 'options?options=poocommerce_task_list_hidden' );
 
 	expect( statusText ).toEqual( 'OK' );
 
-	return woocommerce_task_list_hidden;
+	return poocommerce_task_list_hidden;
 };
 
 const update_task_list_state = async ( wcAdminApi, new_state ) => {
 	// Send request to update task list.
-	const data = { woocommerce_task_list_hidden: new_state };
+	const data = { poocommerce_task_list_hidden: new_state };
 	const { statusText } = await wcAdminApi.put( 'options', data );
 	expect( statusText ).toEqual( 'OK' );
 

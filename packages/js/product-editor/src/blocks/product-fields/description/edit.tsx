@@ -10,7 +10,7 @@ import {
 import { BlockInstance, parse, serialize } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
 import classNames from 'classnames';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import {
@@ -66,11 +66,11 @@ export function DescriptionBlockEdit( {
 	const { isModalEditorOpen, modalEditorBlocks, hasChanged } = useSelect(
 		( select ) => {
 			return {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				isModalEditorOpen: select( store ).isModalEditorOpen(),
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				modalEditorBlocks: select( store ).getModalEditorBlocks(),
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				hasChanged: select( store ).getModalEditorContentHasChanged(),
 			};
 		},
@@ -123,7 +123,7 @@ export function DescriptionBlockEdit( {
 		{},
 		{
 			templateLock: 'contentOnly',
-			allowedBlocks: [ 'woocommerce/product-summary-field' ],
+			allowedBlocks: [ 'poocommerce/product-summary-field' ],
 		}
 	);
 
@@ -133,7 +133,7 @@ export function DescriptionBlockEdit( {
 				<>
 					<BlockControls>
 						<FullEditorToolbarButton
-							text={ __( 'Edit in full editor', 'woocommerce' ) }
+							text={ __( 'Edit in full editor', 'poocommerce' ) }
 						/>
 					</BlockControls>
 

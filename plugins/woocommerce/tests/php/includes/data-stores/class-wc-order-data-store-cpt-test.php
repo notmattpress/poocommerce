@@ -1,8 +1,8 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 //phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Legacy class name.
 /**
@@ -298,7 +298,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox A 'suppress_filters' argument can be passed to 'delete', if true no 'woocommerce_(before_)trash/delete_order' actions will be fired.
+	 * @testDox A 'suppress_filters' argument can be passed to 'delete', if true no 'poocommerce_(before_)trash/delete_order' actions will be fired.
 	 *
 	 * @testWith [null, true]
 	 *           [true, true]
@@ -319,7 +319,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		$trash_or_delete = $force_delete ? 'delete' : 'trash';
 
 		add_action(
-			"woocommerce_before_{$trash_or_delete}_order",
+			"poocommerce_before_{$trash_or_delete}_order",
 			function ( $order_id, $order ) use ( &$order_id_from_before_delete, &$order_from_before_delete ) {
 				$order_id_from_before_delete = $order_id;
 				$order_from_before_delete    = $order;
@@ -329,7 +329,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 		);
 
 		add_action(
-			"woocommerce_{$trash_or_delete}_order",
+			"poocommerce_{$trash_or_delete}_order",
 			function ( $order_id ) use ( &$order_id_from_after_delete ) {
 				$order_id_from_after_delete = $order_id;
 			}
@@ -441,7 +441,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox Creating an order with a draft status should not trigger the "woocommerce_new_order" action.
+	 * @testDox Creating an order with a draft status should not trigger the "poocommerce_new_order" action.
 	 */
 	public function test_create_draft_order_doesnt_trigger_hook() {
 
@@ -451,7 +451,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$draft_statuses = array( OrderStatus::AUTO_DRAFT, 'checkout-draft' );
 
@@ -465,11 +465,11 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 0, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
-	 * @testDox Updating an order status correctly triggers the "woocommerce_new_order" action.
+	 * @testDox Updating an order status correctly triggers the "poocommerce_new_order" action.
 	 */
 	public function test_update_order_status_correctly_triggers_new_order_hook() {
 
@@ -479,7 +479,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$order_data_store_cpt = new WC_Order_Data_Store_CPT();
 
@@ -508,11 +508,11 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			);
 		}
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
-	 * @testDox Create a new order with processing status without saving and updating it should trigger the "woocommerce_new_order" action.
+	 * @testDox Create a new order with processing status without saving and updating it should trigger the "poocommerce_new_order" action.
 	 */
 	public function test_update_new_processing_order_correctly_triggers_new_order_hook() {
 
@@ -522,7 +522,7 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$order_data_store_cpt = new WC_Order_Data_Store_CPT();
 
@@ -535,6 +535,6 @@ class WC_Order_Data_Store_CPT_Test extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 1, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 }

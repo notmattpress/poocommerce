@@ -1,18 +1,18 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\AmazonPay;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\MercadoPago;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\Mollie;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\PaymentGateway;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\PayPal;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\Stripe;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\WCCore;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\WooPayments;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions as ExtensionSuggestions;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\AmazonPay;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\MercadoPago;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\Mollie;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\PaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\PayPal;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\Stripe;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\WCCore;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\WooPayments;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions as ExtensionSuggestions;
 use Exception;
 use WC_Payment_Gateway;
 use WC_Gateway_BACS;
@@ -40,7 +40,7 @@ class PaymentProviders {
 
 	public const EXTENSION_TYPE_WPORG = 'wporg';
 
-	public const PROVIDERS_ORDER_OPTION         = 'woocommerce_gateway_order';
+	public const PROVIDERS_ORDER_OPTION         = 'poocommerce_gateway_order';
 	public const SUGGESTION_ORDERING_PREFIX     = '_wc_pes_';
 	public const OFFLINE_METHODS_ORDERING_GROUP = '_wc_offline_payment_methods_group';
 
@@ -59,7 +59,7 @@ class PaymentProviders {
 		WC_Gateway_Cheque::ID       => WCCore::class,
 		WC_Gateway_COD::ID          => WCCore::class,
 		WC_Gateway_Paypal::ID       => WCCore::class,
-		'woocommerce_payments'      => WooPayments::class,
+		'poocommerce_payments'      => WooPayments::class,
 		'ppcp-gateway'              => PayPal::class,
 		'stripe'                    => Stripe::class,
 		'mollie'                    => Mollie::class,
@@ -125,7 +125,7 @@ class PaymentProviders {
 			 *
 			 * @since 1.5.7
 			 */
-			do_action( 'woocommerce_admin_field_payment_gateways' );
+			do_action( 'poocommerce_admin_field_payment_gateways' );
 			ob_end_clean();
 
 			// Get all payment gateways, ordered by the user.
@@ -414,7 +414,7 @@ class PaymentProviders {
 
 		$suggestion = $this->get_extension_suggestion_by_id( $id );
 		if ( is_null( $suggestion ) ) {
-			throw new Exception( esc_html__( 'Invalid suggestion ID.', 'woocommerce' ) );
+			throw new Exception( esc_html__( 'Invalid suggestion ID.', 'poocommerce' ) );
 		}
 
 		$user_payments_nox_profile = get_user_meta( get_current_user_id(), Payments::USER_PAYMENTS_NOX_PROFILE_KEY, true );
@@ -457,26 +457,26 @@ class PaymentProviders {
 		$categories[] = array(
 			'id'          => self::CATEGORY_EXPRESS_CHECKOUT,
 			'_priority'   => 10,
-			'title'       => esc_html__( 'Express Checkouts', 'woocommerce' ),
-			'description' => esc_html__( 'Allow shoppers to fast-track the checkout process with express options like Apple Pay and Google Pay.', 'woocommerce' ),
+			'title'       => esc_html__( 'Express Checkouts', 'poocommerce' ),
+			'description' => esc_html__( 'Allow shoppers to fast-track the checkout process with express options like Apple Pay and Google Pay.', 'poocommerce' ),
 		);
 		$categories[] = array(
 			'id'          => self::CATEGORY_BNPL,
 			'_priority'   => 20,
-			'title'       => esc_html__( 'Buy Now, Pay Later', 'woocommerce' ),
-			'description' => esc_html__( 'Offer flexible payment options to your shoppers.', 'woocommerce' ),
+			'title'       => esc_html__( 'Buy Now, Pay Later', 'poocommerce' ),
+			'description' => esc_html__( 'Offer flexible payment options to your shoppers.', 'poocommerce' ),
 		);
 		$categories[] = array(
 			'id'          => self::CATEGORY_CRYPTO,
 			'_priority'   => 30,
-			'title'       => esc_html__( 'Crypto Payments', 'woocommerce' ),
-			'description' => esc_html__( 'Offer cryptocurrency payment options to your shoppers.', 'woocommerce' ),
+			'title'       => esc_html__( 'Crypto Payments', 'poocommerce' ),
+			'description' => esc_html__( 'Offer cryptocurrency payment options to your shoppers.', 'poocommerce' ),
 		);
 		$categories[] = array(
 			'id'          => self::CATEGORY_PSP,
 			'_priority'   => 40,
-			'title'       => esc_html__( 'Payment Providers', 'woocommerce' ),
-			'description' => esc_html__( 'Give your shoppers additional ways to pay.', 'woocommerce' ),
+			'title'       => esc_html__( 'Payment Providers', 'poocommerce' ),
+			'description' => esc_html__( 'Give your shoppers additional ways to pay.', 'poocommerce' ),
 		);
 
 		return $categories;

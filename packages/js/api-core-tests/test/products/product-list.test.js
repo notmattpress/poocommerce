@@ -9,7 +9,7 @@ const {
 const { productsApi } = require( '../../endpoints/products' );
 
 /**
- * Tests for the WooCommerce "List all products" API.
+ * Tests for the PooCommerce "List all products" API.
  *
  * @group api
  * @group products
@@ -717,7 +717,7 @@ describe( 'Products API tests: List All Products', () => {
 			} );
 
 			// This case will remain skipped until orderby include is fixed.
-			// See: https://github.com/woocommerce/woocommerce/issues/30354#issuecomment-925955099.
+			// See: https://github.com/poocommerce/poocommerce/issues/30354#issuecomment-925955099.
 			it( 'include', async () => {
 				const includeIds = [
 					sampleData.groupedProducts[ 0 ].id,
@@ -767,7 +767,7 @@ describe( 'Products API tests: List All Products', () => {
 			} );
 
 			// This case will remain skipped until ratings can be sorted ascending.
-			// See: https://github.com/woocommerce/woocommerce/issues/30354#issuecomment-925955099.
+			// See: https://github.com/poocommerce/poocommerce/issues/30354#issuecomment-925955099.
 			it.skip( 'rating (asc)', async () => {
 				const result1 = await productsApi.listAll.products( {
 					order: 'asc',
@@ -797,7 +797,7 @@ describe( 'Products API tests: List All Products', () => {
 			} );
 
 			// This case will remain skipped until popularity can be sorted ascending.
-			// See: https://github.com/woocommerce/woocommerce/issues/30354#issuecomment-925955099.
+			// See: https://github.com/poocommerce/poocommerce/issues/30354#issuecomment-925955099.
 			it.skip( 'popularity (asc)', async () => {
 				const result1 = await productsApi.listAll.products( {
 					order: 'asc',

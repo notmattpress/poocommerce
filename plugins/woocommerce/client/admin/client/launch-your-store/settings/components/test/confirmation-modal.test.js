@@ -29,7 +29,7 @@ describe( 'ConfirmationModal', () => {
 	const mockSelectComingSoon = ( value ) => {
 		// Set up form data
 		const input = document.createElement( 'input' );
-		input.name = 'woocommerce_coming_soon';
+		input.name = 'poocommerce_coming_soon';
 		input.value = value;
 		formRef.current.appendChild( input );
 	};
@@ -55,7 +55,7 @@ describe( 'ConfirmationModal', () => {
 	} );
 
 	it( 'should prompt the modal if current setting is live and submit the form', () => {
-		const currentSetting = { woocommerce_coming_soon: 'no' };
+		const currentSetting = { poocommerce_coming_soon: 'no' };
 
 		render(
 			<ConfirmationModal
@@ -102,7 +102,7 @@ describe( 'ConfirmationModal', () => {
 	} );
 
 	it( 'should not prompt the modal if current setting is already "coming soon"', () => {
-		const currentSetting = { woocommerce_coming_soon: 'yes' };
+		const currentSetting = { poocommerce_coming_soon: 'yes' };
 
 		render(
 			<ConfirmationModal
@@ -122,7 +122,7 @@ describe( 'ConfirmationModal', () => {
 	} );
 
 	it( 'should close the modal on cancel', () => {
-		const currentSetting = { woocommerce_coming_soon: 'no' };
+		const currentSetting = { poocommerce_coming_soon: 'no' };
 
 		render(
 			<ConfirmationModal
@@ -150,7 +150,7 @@ describe( 'ConfirmationModal', () => {
 	} );
 
 	it( 'should handle the save button correctly', () => {
-		const currentSetting = { woocommerce_coming_soon: 'no' };
+		const currentSetting = { poocommerce_coming_soon: 'no' };
 		saveButtonRef.current.name = 'save';
 		saveButtonRef.current.value = 'Save changes';
 

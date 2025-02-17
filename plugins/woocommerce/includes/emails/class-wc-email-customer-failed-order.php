@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Failed_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Failed_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Failed_Order
 	 * @version     2.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Failed_Order extends WC_Email {
@@ -29,7 +29,7 @@ if ( ! class_exists( 'WC_Email_Customer_Failed_Order', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_failed_order';
 			$this->customer_email = true;
-			$this->title          = __( 'Failed order', 'woocommerce' );
+			$this->title          = __( 'Failed order', 'poocommerce' );
 			$this->template_html  = 'emails/customer-failed-order.php';
 			$this->template_plain = 'emails/plain/customer-failed-order.php';
 			$this->placeholders   = array(
@@ -38,15 +38,15 @@ if ( ! class_exists( 'WC_Email_Customer_Failed_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_failed_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Let shoppers know when their order has failed and what to do next.', 'woocommerce' )
-				: __( 'Order failed emails are sent to customers when their orders are marked as failed.', 'woocommerce' );
+				? __( 'Let shoppers know when their order has failed and what to do next.', 'poocommerce' )
+				: __( 'Order failed emails are sent to customers when their orders are marked as failed.', 'poocommerce' );
 		}
 
 		/**
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WC_Email_Customer_Failed_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Your order at {site_title} was unsuccessful', 'woocommerce' );
+			return __( 'Your order at {site_title} was unsuccessful', 'poocommerce' );
 		}
 
 		/**
@@ -92,7 +92,7 @@ if ( ! class_exists( 'WC_Email_Customer_Failed_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Sorry, your order was unsuccessful', 'woocommerce' );
+			return __( 'Sorry, your order was unsuccessful', 'poocommerce' );
 		}
 
 		/**
@@ -143,7 +143,7 @@ if ( ! class_exists( 'WC_Email_Customer_Failed_Order', false ) ) :
 		 */
 		public function get_default_additional_content() {
 			return $this->email_improvements_enabled
-				? __( 'If you need any help with your order, please contact us at {store_email}.', 'woocommerce' )
+				? __( 'If you need any help with your order, please contact us at {store_email}.', 'poocommerce' )
 				: '';
 		}
 	}

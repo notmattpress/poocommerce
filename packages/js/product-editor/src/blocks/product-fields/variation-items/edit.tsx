@@ -8,14 +8,14 @@ import {
 	ProductVariation,
 	Product,
 	useUserPreferences,
-} from '@woocommerce/data';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { recordEvent } from '@poocommerce/tracks';
 import { createElement, useMemo, useRef } from '@wordpress/element';
 import { resolveSelect, useDispatch, useSelect } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId, useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -81,7 +81,7 @@ export function Edit( {
 
 			return {
 				totalCountWithoutPrice: productHasOptions
-					? // @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+					? // @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 					  getProductVariationsTotalCount(
 							totalCountWithoutPriceRequestParams
 					  )
@@ -125,7 +125,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Set variation prices before adding this product.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -144,7 +144,7 @@ export function Edit( {
 		).getProductVariations( {
 			product_id: productId,
 			order: 'asc',
-			// @ts-expect-error TODO react-18-upgrade: getProductVariations type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error TODO react-18-upgrade: getProductVariations type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 			orderby: 'menu_order',
 			has_price: false,
 			_fields: [ 'id' ],
@@ -178,7 +178,7 @@ export function Edit( {
 					/** Translators: Number of variations without price */
 					__(
 						'%d variations do not have prices. Variations that do not have prices will not be visible to customers.',
-						'woocommerce'
+						'poocommerce'
 					),
 					totalCountWithoutPrice
 			  )
@@ -188,9 +188,9 @@ export function Edit( {
 		return (
 			<EmptyState
 				names={ [
-					__( 'Variation', 'woocommerce' ),
-					__( 'Colors', 'woocommerce' ),
-					__( 'Sizes', 'woocommerce' ),
+					__( 'Variation', 'poocommerce' ),
+					__( 'Colors', 'poocommerce' ),
+					__( 'Sizes', 'poocommerce' ),
 				] }
 			/>
 		);
@@ -213,7 +213,7 @@ export function Edit( {
 				} }
 				noticeActions={ [
 					{
-						label: __( 'Set prices', 'woocommerce' ),
+						label: __( 'Set prices', 'poocommerce' ),
 						onClick: onSetPrices,
 						className: 'is-destructive',
 					},

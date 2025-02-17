@@ -26,51 +26,51 @@
 		"paths": {
 			"@wordpress/notices": ["./node_modules/@wordpress/notices/build-types"],
 			"@wordpress/data": ["./node_modules/@wordpress/data/build-types"],
-			"@woocommerce/atomic-blocks": [ "assets/js/base/atomic/blocks" ],
-			"@woocommerce/atomic-blocks/*": [
+			"@poocommerce/atomic-blocks": [ "assets/js/base/atomic/blocks" ],
+			"@poocommerce/atomic-blocks/*": [
 				"assets/js/base/atomic/blocks/*"
 			],
-			"@woocommerce/atomic-utils": [ "assets/js/atomic/utils" ],
-			"@woocommerce/base-components/*": [ "assets/js/base/components/*" ],
-			"@woocommerce/base-context": [ "assets/js/base/context" ],
-			"@woocommerce/base-context/*": [ "assets/js/base/context/*" ],
-			"@woocommerce/base-context/hooks": [
+			"@poocommerce/atomic-utils": [ "assets/js/atomic/utils" ],
+			"@poocommerce/base-components/*": [ "assets/js/base/components/*" ],
+			"@poocommerce/base-context": [ "assets/js/base/context" ],
+			"@poocommerce/base-context/*": [ "assets/js/base/context/*" ],
+			"@poocommerce/base-context/hooks": [
 				"assets/js/base/context/hooks"
 			],
-			"@woocommerce/base-context/components": [
+			"@poocommerce/base-context/components": [
 				"assets/js/base/context/components"
 			],
-			"@woocommerce/base-hocs/*": [ "assets/js/base/hocs/*" ],
-			"@woocommerce/base-hooks": [ "assets/js/base/hooks" ],
-			"@woocommerce/interactivity": [ "assets/js/interactivity" ],
-			"@woocommerce/interactivity/*": [ "assets/js/interactivity/*" ],
-			"@woocommerce/base-utils": [ "assets/js/base/utils" ],
-			"@woocommerce/base-utils/*": [ "assets/js/base/utils/*" ],
-			"@woocommerce/blocks/*": [ "assets/js/blocks/*" ],
-			"@woocommerce/editor-components/*": [
+			"@poocommerce/base-hocs/*": [ "assets/js/base/hocs/*" ],
+			"@poocommerce/base-hooks": [ "assets/js/base/hooks" ],
+			"@poocommerce/interactivity": [ "assets/js/interactivity" ],
+			"@poocommerce/interactivity/*": [ "assets/js/interactivity/*" ],
+			"@poocommerce/base-utils": [ "assets/js/base/utils" ],
+			"@poocommerce/base-utils/*": [ "assets/js/base/utils/*" ],
+			"@poocommerce/blocks/*": [ "assets/js/blocks/*" ],
+			"@poocommerce/editor-components/*": [
 				"assets/js/editor-components/*"
 			],
-			"@woocommerce/block-data": [ "assets/js/data" ],
-			"@woocommerce/block-hocs": [ "assets/js/hocs" ],
-			"@woocommerce/blocks-registry": [ "assets/js/blocks-registry" ],
-			"@woocommerce/blocks-checkout": [ "packages/checkout" ],
-			"@woocommerce/blocks-components": [ "packages/components" ],
-			"@woocommerce/interactivity-components/*": [
+			"@poocommerce/block-data": [ "assets/js/data" ],
+			"@poocommerce/block-hocs": [ "assets/js/hocs" ],
+			"@poocommerce/blocks-registry": [ "assets/js/blocks-registry" ],
+			"@poocommerce/blocks-checkout": [ "packages/checkout" ],
+			"@poocommerce/blocks-components": [ "packages/components" ],
+			"@poocommerce/interactivity-components/*": [
 				"packages/interactivity-components/*"
 			],
-			"@woocommerce/price-format": [ "packages/prices" ],
-			"@woocommerce/block-settings": [ "assets/js/settings/blocks" ],
-			"@woocommerce/icons": [ "assets/js/icons" ],
-			"@woocommerce/resource-previews": [ "assets/js/previews" ],
-			"@woocommerce/settings": [ "assets/js/settings/shared" ],
-			"@woocommerce/shared-context": [ "assets/js/shared/context" ],
-			"@woocommerce/shared-hocs": [ "assets/js/shared/hocs" ],
-			"@woocommerce/type-defs/*": [ "assets/js/types/type-defs/*" ],
-			"@woocommerce/types": [ "assets/js/types" ],
-			"@woocommerce/storybook-controls": [ "storybook/custom-controls" ],
-			"@woocommerce/utils": [ "assets/js/utils" ],
-			"@woocommerce/e2e-utils": [ "tests/e2e/utils" ],
-			"@woocommerce/templates/*": [ "assets/js/templates/*" ]
+			"@poocommerce/price-format": [ "packages/prices" ],
+			"@poocommerce/block-settings": [ "assets/js/settings/blocks" ],
+			"@poocommerce/icons": [ "assets/js/icons" ],
+			"@poocommerce/resource-previews": [ "assets/js/previews" ],
+			"@poocommerce/settings": [ "assets/js/settings/shared" ],
+			"@poocommerce/shared-context": [ "assets/js/shared/context" ],
+			"@poocommerce/shared-hocs": [ "assets/js/shared/hocs" ],
+			"@poocommerce/type-defs/*": [ "assets/js/types/type-defs/*" ],
+			"@poocommerce/types": [ "assets/js/types" ],
+			"@poocommerce/storybook-controls": [ "storybook/custom-controls" ],
+			"@poocommerce/utils": [ "assets/js/utils" ],
+			"@poocommerce/e2e-utils": [ "tests/e2e/utils" ],
+			"@poocommerce/templates/*": [ "assets/js/templates/*" ]
 		}
 	}
 }

@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/blockified-product-details",
+	"name": "poocommerce/blockified-product-details",
 	"version": "1.0.0",
 	"title": "Blockified Product Details",
 	"description": "Display a product's description, attributes, and reviews",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {},
 	"usesContext": [ "query", "queryId", "postId" ]
 }

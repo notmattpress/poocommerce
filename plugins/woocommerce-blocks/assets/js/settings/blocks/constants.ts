@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { getSetting, STORE_PAGES } from '@woocommerce/settings';
-import { CountryData } from '@woocommerce/types';
+import { getSetting, STORE_PAGES } from '@poocommerce/settings';
+import { CountryData } from '@poocommerce/types';
 import type {
 	AdditionalValues,
 	AddressForm,
 	ContactForm,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 
 export type WordCountType =
 	| 'words'

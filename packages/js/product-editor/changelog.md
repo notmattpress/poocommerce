@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.5.0](https://www.npmjs.com/package/@woocommerce/product-editor/v/1.5.0) - 2024-04-12 
+## [1.5.0](https://www.npmjs.com/package/@poocommerce/product-editor/v/1.5.0) - 2024-04-12 
 
 -   Patch - Always use productTemplateId when available and use editedRecord in useEntityRecord hooks [#46395]
 -   Patch - BlockEditor loads global settings itself instead of having them passed in. Handles case where global is set after initial render. [#45490]
@@ -15,7 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Fix word break inside columns in product editor [#45687]
 -   Patch - Header tag Hidden now is aligned with the Visibility: Hidden from the pre publish modal [#45679]
 -   Patch - Product Editor: "Upload files" quick update menu for variations does not crash variations list. [#45748]
--   Patch - Product Editor: Fix accessibility of woocommerce/product-text-area-field label. [#45968]
+-   Patch - Product Editor: Fix accessibility of poocommerce/product-text-area-field label. [#45968]
 -   Patch - Product Editor: Fixes issue where saves would fail when certain extensions were installed. [#45958]
 -   Patch - Product Editor: Prevent description full editor usage if a version of Gutenberg plugin is installed that causes crashes. [#45650]
 -   Patch - Product Editor: Show correct Publish/Schedule button label. [#45848]
@@ -33,35 +33,35 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add menu item to publish button to schedule product updates [#44783]
 -   Minor - Add menu item to publish button with 'Move to trash' [#44940]
 -   Minor - Add message after publishing a product to pre-publish panel #44864 [#44864]
--   Minor - Allow using woocommerce icons for product details section description and add gift icon [#45348]
+-   Minor - Allow using poocommerce icons for product details section description and add gift icon [#45348]
 -   Minor - Apply filter to get meta_data to generate variations [#45953]
--   Minor - Create woocommerce/product-custom-fields-toggle-field block [#45291]
--   Minor - Create woocommerce/product-custom-fields block [#45360]
--   Minor - Create woocommerce/product-select-field block [#45531]
+-   Minor - Create poocommerce/product-custom-fields-toggle-field block [#45291]
+-   Minor - Create poocommerce/product-custom-fields block [#45360]
+-   Minor - Create poocommerce/product-select-field block [#45531]
 -   Minor - Disable the fields that are not required in variable products because they are set in each variation [#45838]
 -   Minor - Edit Custom Fields for New Product Editor [#45396]
 -   Minor - Product Editor: Add loading state functionality to Schedule Product modal [#45645]
--   Minor - Product Editor: Add support for tooltip attribute for woocommerce/product-select-field block [#46447]
+-   Minor - Product Editor: Add support for tooltip attribute for poocommerce/product-select-field block [#46447]
 -   Minor - Remove Custom Fields for New Product Editor [#45493]
 -   Minor - Use isSelectableByUser product template attribute to show/hide product templates in the list [#46394]
 -   Patch - [Product Block Editor]: disable TextArea RichText instance according to `disabled` attribute value [#46089]
--   Patch - [Product Block Editor]: document woocommerce/product-text-area-field field block [#45513]
--   Patch - [Product Block Editor]: introduce `woocommerce/entity-product` binding source handler [#45616]
+-   Patch - [Product Block Editor]: document poocommerce/product-text-area-field field block [#45513]
+-   Patch - [Product Block Editor]: introduce `poocommerce/entity-product` binding source handler [#45616]
 -   Minor - Match template based on different attributes besides product types [#45454]
 -   Patch - Product Block Editor: expose __experimentalSectionActions component [#46515]
 -   Minor - Set product editor blocks multiple support to true. [#45283]
--   Patch - Update Woo.com references to WooCommerce.com. [#46259]
+-   Patch - Update Woo.com references to PooCommerce.com. [#46259]
 -   Patch - [Product Block Editor]: update Name field block name [#45657]
 -   Minor - Add menu item to Publish button with copy to draft #46294 [#46294]
 -   Minor - Change hidden tag behavior #45766 [#45766]
--   Minor - Exports handlePrompt from @woocommerce/product-editor for use by extensions expanding the variation quick update menu. Also introduces handleConfirm and exposes it also [#44226]
+-   Minor - Exports handlePrompt from @poocommerce/product-editor for use by extensions expanding the variation quick update menu. Also introduces handleConfirm and exposes it also [#44226]
 -   Patch - Improve webpack cache-busting version parameter by using file contents hash [#44838]
 -   Minor - Modify product header #44711 [#44711]
 -   Minor - Update Attributes tooltip copy #45485 [#45485]
 -   Minor - Update copy of inventory management fields #45801 [#45801]
 -   Minor - [Linked products] - Change number of 'choose products for me' to 4 #46094 [#46094]
 
-## [1.4.0](https://www.npmjs.com/package/@woocommerce/product-editor/v/1.4.0) - 2024-02-20 
+## [1.4.0](https://www.npmjs.com/package/@poocommerce/product-editor/v/1.4.0) - 2024-02-20 
 
 -   Patch - Add empty state when filtering variations by attribute terms and the response is empty [#44505]
 -   Patch - Fix toggle visibility on bach update variations [#44508]
@@ -75,7 +75,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - [Product editor block]: Modify pre-publish sidebar title after scheduling a product #44651 [#44652]
 -   Minor - [Product editor block]: Rename the Add button to Publish #44461 [#44461]
 
-## [1.3.0](https://www.npmjs.com/package/@woocommerce/product-editor/v/1.3.0) - 2024-02-09 
+## [1.3.0](https://www.npmjs.com/package/@poocommerce/product-editor/v/1.3.0) - 2024-02-09 
 
 -   Patch - Corrected build configuration for packages that weren't outputting minified code.
 -   Patch - Export __experimentalVariationQUickUpdateMenuItem, __experimentalPluginHeaderItemModal, __experimentalPluginHeaderItemPopover
@@ -140,11 +140,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add isLoading to useProductMetadata hook
 -   Minor - Load layout templates via the REST API. Note that layout template modifications must now be hooked up in an action that is called when REST API endpoints are handled, such as `rest_api_init`.
 -   Minor - Use different delays for initial click and hold when incrementing number on NumberControl
--   Minor - Use woocommerce's Tooltip component for Label and checkbox instead of wordpress Tooltip
+-   Minor - Use poocommerce's Tooltip component for Label and checkbox instead of wordpress Tooltip
 -   Minor - Add slotFill for variation menus #43441
 -   Minor - Modify feedback modal actions #43005
 
-## [1.2.0](https://www.npmjs.com/package/@woocommerce/product-editor/v/1.2.0) - 2023-12-20 
+## [1.2.0](https://www.npmjs.com/package/@poocommerce/product-editor/v/1.2.0) - 2023-12-20 
 
 -   Patch - Fix menu not being pinned correctly with certain screen widths [#42791]
 -   Patch - [Product Block Editor]: fix Input control issue in Manage download limit form [#41796]
@@ -165,7 +165,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Create section description block [#41929]
 -   Minor - Move action button ( reorder and add products ) inline with the section header [#42929]
 -   Minor - Support HTML in checkbox-control tooltip and Label tooltip [#42926]
--   Minor - Use DisplayState as a direct wrapper of the woocommerce/conditional block [#42909]
+-   Minor - Use DisplayState as a direct wrapper of the poocommerce/conditional block [#42909]
 -   Minor - Expose Taxonomy and TaxonomyMetadata types [#42962]
 -   Minor - Remove deprecated use of position for Dropdown component, using popoverProps.placement instead. [#41845]
 -   Minor - Update products list field to add re-order option. [#42766]
@@ -173,13 +173,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add max-width to tooltip #41797 [#41797]
 -   Minor - Show feedback bar only once #41787 [#41787]
 
-## [1.1.0](https://www.npmjs.com/package/@woocommerce/product-editor/v/1.1.0) - 2023-11-28 
+## [1.1.0](https://www.npmjs.com/package/@poocommerce/product-editor/v/1.1.0) - 2023-11-28 
 
 -   Patch - Update internal dependency.
 -   Patch - [Product Block Editor]: remove unused block attributes [#41674]
 -   Minor - Remove downloads list fixed height #41744 [#41744]
 
-## [1.0.0](https://www.npmjs.com/package/@woocommerce/product-editor/v/1.0.0) - 2023-11-27 
+## [1.0.0](https://www.npmjs.com/package/@poocommerce/product-editor/v/1.0.0) - 2023-11-27 
 
 -   Patch - Add cursor: not-allowed; to the disabled Quick updates button [#40448]
 -   Patch - Feedback bar is mis-aligned; transient notices overlap [#39233]
@@ -215,18 +215,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - The Select all and Clear selection buttons are only displayed when at least 1 item is selected [#40434]
 -   Patch - Add dialogNameHelpText attribute to product-taxonomy-field block [#40059]
 -   Patch - Disable dragging and dropping of images within Product Images block. [#38045]
--   Patch - Rename woocommerce/taxonomy-field to woocommerce/product-taxonomy-field [#40021]
--   Patch - update references to woocommerce.com to now reference woo.com [#41241]
+-   Patch - Rename poocommerce/taxonomy-field to poocommerce/product-taxonomy-field [#40021]
+-   Patch - update references to poocommerce.com to now reference woo.com [#41241]
 -   Patch - Fixed some i18n related lint rule violations. [#41450]
 -   Patch - Lint fixes for @wordpress/i18n lint rule violation [#41450]
 -   Patch - Lint fixes [#38523]
 -   Patch - Make eslint emit JSON report for annotating PRs. [#39704]
 -   Patch - Update eslint to 8.32.0 across the monorepo. [#36700]
--   Patch - Update webpack config to use @woocommerce/internal-style-build's parser config [#37195]
+-   Patch - Update webpack config to use @poocommerce/internal-style-build's parser config [#37195]
 -   Patch - Disable autocomplete for the product name field. [#39211]
 -   Patch - Improve Variable product editor tour [#41250]
 -   Patch - Product Blocks editor: enable/disable header Update button depending on product content chnages [#41473]
--   Patch - Remove __experimentalDetailsCategoriesField and woocommerce/product-category-field block [#40021]
+-   Patch - Remove __experimentalDetailsCategoriesField and poocommerce/product-category-field block [#40021]
 -   Patch - [Product blocks editor]: Add help text to Shipping toggle [#41590]
 -   Patch - [Product Blocks editor]: set max width for the description general field [#41555]
 -   Patch - Do not allow to select text in the Paginator component [#41405]
@@ -350,23 +350,23 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add variation options block [#39256]
 -   Minor - Add virtual and downloads related controls to variation management quick actions [#40567]
 -   Minor - Add visibility and filter icons to attributes list with tooltip. [#39685]
--   Minor - Add woocommerce/product-number-field block [#40619]
--   Minor - Add woocommerce/product-text-field block [#40337]
--   Minor - Add woocommerce/taxonomy-field block [#39947]
+-   Minor - Add poocommerce/product-number-field block [#40619]
+-   Minor - Add poocommerce/product-text-field block [#40337]
+-   Minor - Add poocommerce/taxonomy-field block [#39947]
 -   Minor - Allow the user to delete the description [#39229]
 -   Minor - append a unique string to the filename if the settings are configured to do so [#41621]
 -   Minor - Auto select one or more attribute terms when selecting an attribute [#40004]
 -   Minor - Check for unsaved changes before leaving product editor [#38430]
--   Minor - Copy over the product slot fill components from @woocommerce/components [#36830]
--   Minor - Create 'woocommerce/product-password-field' block [#39464]
+-   Minor - Copy over the product slot fill components from @poocommerce/components [#36830]
+-   Minor - Create 'poocommerce/product-password-field' block [#39464]
 -   Minor - Create ManageDownloadLimitsModal component [#40797]
 -   Minor - Create product page skeleton [#40939]
 -   Minor - Create product search and catalog visibility blocks [#39477]
 -   Minor - Create product variations filter component [#40978]
 -   Minor - Create TableEmptyState component [#40940]
 -   Minor - Create the product block editor [#37023]
--   Minor - Create woocommerce/product-shipping-dimensions-fields block [#37683]
--   Minor - Create woocommerce/product-variations-fields block [#39038]
+-   Minor - Create poocommerce/product-shipping-dimensions-fields block [#37683]
+-   Minor - Create poocommerce/product-variations-fields block [#39038]
 -   Minor - Disable attributes used in different sections [#39770]
 -   Minor - Display an alert icon for variations that contains "any" values [#41433]
 -   Minor - Fix validation behavior#37984 [#38194]
@@ -402,7 +402,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Allow plugins to access PostTypeContext and blocks (through core/block-editor data store). [#41106]
 -   Minor - Bringing in use-product-helper and related hooks. [#37006]
 -   Minor - Content lock all blocks in the product editor [#37382]
--   Minor - Deprecate woocommerce/conditional block in favor of general conditional visibility support. [#40883]
+-   Minor - Deprecate poocommerce/conditional block in favor of general conditional visibility support. [#40883]
 -   Minor - Export RemoveConfirmationModal to be used outside of the product editor package [#40672]
 -   Minor - Fix issue were template was not re-synced when switching between products. [#37283]
 -   Minor - Improve accessibility around product editor tabs [#37217]
@@ -414,7 +414,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Remove use of @automattic/interpolate-components using createInterpolateElement instead. [#37453]
 -   Minor - Remove visibility toggle from variations table and remove with tooltip icon. [#40150]
 -   Minor - Support ordering of more menu items in product editor header. [#41104]
--   Minor - Update blocks to use registerWooBlockType and useWooBlockProps from @woocommerce/block-templates. Deprecates initBlock. [#40263]
+-   Minor - Update blocks to use registerWooBlockType and useWooBlockProps from @poocommerce/block-templates. Deprecates initBlock. [#40263]
 -   Minor - Update current block names to reflect use case and avoid conflicts#37704 [#37851]
 -   Minor - Update Editor and BlockEditor components to add support for multiple product/post types. [#40605]
 -   Minor - Update pagination look of the Pagination table. [#39967]
@@ -441,7 +441,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Fix field label styling in the edit attribute modal #40449 [#40449]
 -   Minor - Fix lint issues [#36988]
 -   Minor - Improve copy in variation management notifications #40467 [#40467]
--   Minor - Move CES-related components to @woocommerce/product-editor [#37131]
+-   Minor - Move CES-related components to @poocommerce/product-editor [#37131]
 -   Minor - Remove confirmation modal for dismissing unsaved attributes or variation options #40500 [#40500]
 -   Minor - Split product editor blocks into 'generic' and 'product-fields' directories [#40571]
 -   Minor - Suppress errant TS lint errors. [#37094]
@@ -460,4 +460,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update default visibility settings for variation options [#40949]
 -   Minor - Use SelectTree in the Parent Category field [#38261]
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/product-editor/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/product-editor/CHANGELOG.md).

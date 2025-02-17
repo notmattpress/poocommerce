@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useRef } from '@wordpress/element';
@@ -45,7 +45,7 @@ export function usePreview( {
 			// @ts-ignore
 			const { hasEditsForEntityRecord, isSavingEntityRecord } =
 				select( 'core' );
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			const isSaving = isSavingEntityRecord(
 				'postType',
 				productType,
@@ -54,7 +54,7 @@ export function usePreview( {
 
 			return {
 				isDisabled: isSaving,
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				hasEdits: hasEditsForEntityRecord(
 					'postType',
 					productType,
@@ -140,8 +140,8 @@ export function usePreview( {
 	}
 
 	return {
-		'aria-label': __( 'Preview in new tab', 'woocommerce' ),
-		children: __( 'Preview', 'woocommerce' ),
+		'aria-label': __( 'Preview in new tab', 'poocommerce' ),
+		children: __( 'Preview', 'poocommerce' ),
 		target: '_blank',
 		...props,
 		ref( element: HTMLAnchorElement ) {

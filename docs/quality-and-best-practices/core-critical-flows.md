@@ -1,10 +1,10 @@
 ---
-post_title: WooCommerce core critical flows
+post_title: PooCommerce core critical flows
 menu_title: Core critical flows
 tags: reference
 ---
 
-We have identified what we consider to be our most critical user flows within WooCommerce Core. These flows will help us focus and prioritize our testing efforts. They will also help us consider the impact of changes and priority of issues.
+We have identified what we consider to be our most critical user flows within PooCommerce Core. These flows will help us focus and prioritize our testing efforts. They will also help us consider the impact of changes and priority of issues.
 
 These flows will continually evolve as the platform evolves with flows updated, added or re-prioritised.
 
@@ -254,13 +254,13 @@ These flows will continually evolve as the platform evolves with flows updated, 
 
 | User Type | Flow Area | Flow Name              | Test File                              |
 | --------- | --------- | ---------------------- | -------------------------------------- |
-| Merchant  | Plugins   | Can update WooCommerce | smoke-tests/update-woocommerce.spec.js |
+| Merchant  | Plugins   | Can update PooCommerce | smoke-tests/update-poocommerce.spec.js |
 
 ### Merchant - My Subscriptions
 
 | User Type | Flow Area        | Flow Name                               | Test File                         |
 | --------- | ---------------- | --------------------------------------- | --------------------------------- |
-| Merchant  | My Subscriptions | Can initiate WooCommerce.com Connection | merchant/settings-woo-com.spec.js |
+| Merchant  | My Subscriptions | Can initiate PooCommerce.com Connection | merchant/settings-woo-com.spec.js |
 
 ### Merchant - Pages
 

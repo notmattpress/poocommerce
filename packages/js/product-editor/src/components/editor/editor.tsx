@@ -11,21 +11,21 @@ import {
 import {
 	LayoutContextProvider,
 	useExtendLayout,
-} from '@woocommerce/admin-layout';
-import { navigateTo, getNewPath, getQuery } from '@woocommerce/navigation';
+} from '@poocommerce/admin-layout';
+import { navigateTo, getNewPath, getQuery } from '@poocommerce/navigation';
 import { useSelect } from '@wordpress/data';
 import { Popover } from '@wordpress/components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { EntityProvider } from '@wordpress/core-data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { ShortcutProvider } from '@wordpress/keyboard-shortcuts';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { InterfaceSkeleton } from '@wordpress/interface';
 
 /**

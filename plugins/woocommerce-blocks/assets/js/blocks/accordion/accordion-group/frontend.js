@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { store, getContext } from '@woocommerce/interactivity';
+import { store, getContext } from '@poocommerce/interactivity';
 
-const { state } = store( 'woocommerce/accordion', {
+const { state } = store( 'poocommerce/accordion', {
 	state: {
 		get isOpen() {
 			const { isOpen, id } = getContext();

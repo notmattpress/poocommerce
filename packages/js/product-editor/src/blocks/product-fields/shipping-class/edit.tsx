@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Link } from '@woocommerce/components';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Link } from '@poocommerce/components';
 import {
 	EXPERIMENTAL_PRODUCT_SHIPPING_CLASSES_STORE_NAME,
 	ProductShippingClass,
 	PartialProduct,
-} from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import { BaseControl, SelectControl } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
@@ -40,10 +40,10 @@ type Select = {
 };
 
 export const DEFAULT_SHIPPING_CLASS_OPTIONS: Array< Select > = [
-	{ value: '', label: __( 'No shipping class', 'woocommerce' ) },
+	{ value: '', label: __( 'No shipping class', 'poocommerce' ) },
 	{
 		value: ADD_NEW_SHIPPING_CLASS_OPTION_VALUE,
-		label: __( 'Add new shipping class', 'woocommerce' ),
+		label: __( 'Add new shipping class', 'poocommerce' ),
 	},
 ];
 
@@ -115,13 +115,13 @@ export function Edit( {
 	): Promise< ProductShippingClass > {
 		let message = __(
 			'We couldn’t add this shipping class. Try again in a few seconds.',
-			'woocommerce'
+			'poocommerce'
 		);
 
 		if ( error.code === 'term_exists' ) {
 			message = __(
 				'A shipping class with that slug already exists.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -140,7 +140,7 @@ export function Edit( {
 			return {
 				shippingClasses:
 					( isInSelectedTab &&
-						// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+						// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 						getProductShippingClasses(
 							shippingClassRequestQuery
 						) ) ||
@@ -152,7 +152,7 @@ export function Edit( {
 
 	const shippingClassControlId = useInstanceId(
 		BaseControl,
-		'wp-block-woocommerce-product-shipping-class-field'
+		'wp-block-poocommerce-product-shipping-class-field'
 	) as string;
 
 	return (
@@ -172,7 +172,7 @@ export function Edit( {
 							}
 							setShippingClass( value );
 						} }
-						label={ __( 'Shipping class', 'woocommerce' ) }
+						label={ __( 'Shipping class', 'poocommerce' ) }
 						options={ [
 							...DEFAULT_SHIPPING_CLASS_OPTIONS,
 							...mapShippingClassToSelectOption(
@@ -183,7 +183,7 @@ export function Edit( {
 						help={ createInterpolateElement(
 							__(
 								'Manage shipping classes and rates in <Link>global settings</Link>.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								Link: (

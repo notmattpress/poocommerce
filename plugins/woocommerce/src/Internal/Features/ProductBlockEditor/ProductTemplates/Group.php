@@ -1,15 +1,15 @@
 <?php
 /**
- * WooCommerce Product Group Block class.
+ * PooCommerce Product Group Block class.
  */
 
-namespace Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\ContainerInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\GroupInterface;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SectionInterface;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\BlockContainerTrait;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\ContainerInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\GroupInterface;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\SectionInterface;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\BlockContainerTrait;
 
 /**
  * Class for Group block.
@@ -30,13 +30,13 @@ class Group extends ProductBlock implements GroupInterface {
 	 */
 	public function __construct( array $config, BlockTemplateInterface &$root_template, ContainerInterface &$parent = null ) {
 		if ( ! empty( $config['blockName'] ) ) {
-			throw new \InvalidArgumentException( 'Unexpected key "blockName", this defaults to "woocommerce/product-tab".' );
+			throw new \InvalidArgumentException( 'Unexpected key "blockName", this defaults to "poocommerce/product-tab".' );
 		}
 		if ( $config['id'] && ( empty( $config['attributes'] ) || empty( $config['attributes']['id'] ) ) ) {
 			$config['attributes']       = empty( $config['attributes'] ) ? array() : $config['attributes'];
 			$config['attributes']['id'] = $config['id'];
 		}
-		parent::__construct( array_merge( array( 'blockName' => 'woocommerce/product-tab' ), $config ), $root_template, $parent );
+		parent::__construct( array_merge( array( 'blockName' => 'poocommerce/product-tab' ), $config ), $root_template, $parent );
 	}
 	// phpcs:enable Squiz.Commenting.FunctionCommentThrowTag.WrongNumber
 

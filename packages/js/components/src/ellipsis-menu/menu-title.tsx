@@ -17,7 +17,7 @@ const MenuTitle = ( {
 	 */
 	children: React.ReactNode;
 } ) => {
-	return <div className="woocommerce-ellipsis-menu__title">{ children }</div>;
+	return <div className="poocommerce-ellipsis-menu__title">{ children }</div>;
 };
 
 export default MenuTitle;

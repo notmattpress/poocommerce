@@ -30,7 +30,7 @@ export const UpgradeNotice = ( {
 			return (
 				getBlockParentsByBlockName(
 					clientId,
-					'woocommerce/filter-wrapper'
+					'poocommerce/filter-wrapper'
 				).length > 0
 			);
 		},
@@ -39,7 +39,7 @@ export const UpgradeNotice = ( {
 
 	const upgradeFilterBlockHandler = () => {
 		const filterWrapperInnerBlocks: BlockInstance[] = [
-			createBlock( `woocommerce/${ filterType }`, {
+			createBlock( `poocommerce/${ filterType }`, {
 				...attributes,
 				heading: '',
 			} ),
@@ -57,7 +57,7 @@ export const UpgradeNotice = ( {
 		replaceBlock(
 			clientId,
 			createBlock(
-				'woocommerce/filter-wrapper',
+				'poocommerce/filter-wrapper',
 				{
 					heading,
 					filterType,
@@ -83,7 +83,7 @@ export const UpgradeNotice = ( {
 			onClick={ upgradeFilterBlockHandler }
 			variant="primary"
 		>
-			{ __( 'Upgrade block', 'woocommerce' ) }
+			{ __( 'Upgrade block', 'poocommerce' ) }
 		</Button>,
 	];
 
@@ -91,7 +91,7 @@ export const UpgradeNotice = ( {
 		<Warning actions={ actions }>
 			{ __(
 				'Filter block: We have improved this block to make styling easier. Upgrade it using the button below.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</Warning>
 	);

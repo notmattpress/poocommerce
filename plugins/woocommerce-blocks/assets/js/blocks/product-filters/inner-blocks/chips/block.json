@@ -1,18 +1,18 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-chips",
+	"name": "poocommerce/product-filter-chips",
 	"version": "1.0.0",
 	"title": "Chips",
 	"description": "Display filter options as chips.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"ancestor": [
-		"woocommerce/product-filter-attribute",
-		"woocommerce/product-filter-status"
+		"poocommerce/product-filter-attribute",
+		"poocommerce/product-filter-status"
 	],
 	"supports": {},
 	"usesContext": [

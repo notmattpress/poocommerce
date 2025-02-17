@@ -17,13 +17,13 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import * as icons from '@wordpress/icons';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import type { ProductStatus, Product } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import type { ProductStatus, Product } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId, useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -55,7 +55,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 	const { productTemplates, productTemplate: selectedProductTemplate } =
 		useSelect( ( select ) => {
 			const { getEditorSettings } = select( 'core/editor' );
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			return getEditorSettings();
 		}, [] );
 
@@ -97,7 +97,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 	const rootClientId = useSelect(
 		( select ) => {
 			const { getBlockRootClientId } = select( 'core/block-editor' );
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			return getBlockRootClientId( clientId );
 		},
 		[ clientId ]
@@ -138,7 +138,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 			const { isSavingEntityRecord } = select( 'core' );
 
 			return {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 				isSaving: isSavingEntityRecord(
 					'postType',
 					'product',
@@ -195,7 +195,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 				);
 
 				createSuccessNotice(
-					__( 'Product type changed.', 'woocommerce' )
+					__( 'Product type changed.', 'poocommerce' )
 				);
 
 				recordEvent( 'product_template_changed', {
@@ -314,7 +314,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 				}
 			);
 
-			createSuccessNotice( __( 'Product type changed.', 'woocommerce' ) );
+			createSuccessNotice( __( 'Product type changed.', 'poocommerce' ) );
 
 			recordEvent( 'product_template_changed', {
 				source: TRACKS_SOURCE,
@@ -360,13 +360,13 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 	return (
 		<BlockFill
 			name="section-description"
-			slotContainerBlockName="woocommerce/product-section"
+			slotContainerBlockName="poocommerce/product-section"
 		>
 			<div { ...blockProps }>
 				<p>
 					{ createInterpolateElement(
 						/* translators: <ProductTemplate />: the product template. */
-						__( 'This is a <ProductTemplate />.', 'woocommerce' ),
+						__( 'This is a <ProductTemplate />.', 'poocommerce' ),
 						{
 							ProductTemplate: (
 								<span>
@@ -392,12 +392,12 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 							) }
 						>
 							<span>
-								{ __( 'Change product type', 'woocommerce' ) }
+								{ __( 'Change product type', 'poocommerce' ) }
 							</span>
 						</Button>
 					) }
 					renderContent={ ( { onClose } ) => (
-						<div className="wp-block-woocommerce-product-details-section-description__dropdown components-dropdown-menu__menu">
+						<div className="wp-block-poocommerce-product-details-section-description__dropdown components-dropdown-menu__menu">
 							<MenuGroup>
 								{ supportedProductTemplates.map(
 									getMenuItem( onClose )
@@ -441,13 +441,13 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 												<span>
 													{ __(
 														'More',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</span>
 											</MenuItem>
 										) }
 										renderContent={ () => (
-											<div className="wp-block-woocommerce-product-details-section-description__dropdown components-dropdown-menu__menu">
+											<div className="wp-block-poocommerce-product-details-section-description__dropdown components-dropdown-menu__menu">
 												<MenuGroup>
 													{ unsupportedProductTemplates.map(
 														getMenuItem( onClose )
@@ -464,8 +464,8 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 
 				{ Boolean( unsupportedProductTemplate ) && (
 					<Modal
-						title={ __( 'Change product type?', 'woocommerce' ) }
-						className="wp-block-woocommerce-product-details-section-description__modal"
+						title={ __( 'Change product type?', 'poocommerce' ) }
+						className="wp-block-poocommerce-product-details-section-description__modal"
 						onRequestClose={ () => {
 							setUnsupportedProductTemplate( undefined );
 						} }
@@ -474,7 +474,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 							<b>
 								{ __(
 									'This product type isn’t supported by the updated product editing experience yet.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</b>
 						</p>
@@ -482,11 +482,11 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 						<p>
 							{ __(
 								'You’ll be taken to the classic editing screen that isn’t optimized for commerce but offers advanced functionality and supports all extensions.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 
-						<div className="wp-block-woocommerce-product-details-section-description__modal-actions">
+						<div className="wp-block-poocommerce-product-details-section-description__modal-actions">
 							<Button
 								variant="secondary"
 								aria-disabled={ isSaving }
@@ -495,7 +495,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 									setUnsupportedProductTemplate( undefined );
 								} }
 							>
-								{ __( 'Cancel', 'woocommerce' ) }
+								{ __( 'Cancel', 'poocommerce' ) }
 							</Button>
 
 							<Button
@@ -504,7 +504,7 @@ export function ProductDetailsSectionDescriptionBlockEdit( {
 								aria-disabled={ isSaving }
 								onClick={ handleModalChangeClick }
 							>
-								{ __( 'Change', 'woocommerce' ) }
+								{ __( 'Change', 'poocommerce' ) }
 							</Button>
 						</div>
 					</Modal>

@@ -41,7 +41,7 @@ export const ImageGalleryItem: React.FC< ImageGalleryItemProps > = ( {
 		) }
 	>
 		<div
-			className={ `woocommerce-image-gallery__item ${ className }` }
+			className={ `poocommerce-image-gallery__item ${ className }` }
 			onKeyPress={ () => {} }
 			tabIndex={ 0 }
 			role="button"
@@ -56,7 +56,7 @@ export const ImageGalleryItem: React.FC< ImageGalleryItemProps > = ( {
 				</SortableHandle>
 			) : (
 				<>
-					{ isCover && <Pill>{ __( 'Cover', 'woocommerce' ) }</Pill> }
+					{ isCover && <Pill>{ __( 'Cover', 'poocommerce' ) }</Pill> }
 					<img alt={ alt } src={ src } id={ id } />
 				</>
 			) }

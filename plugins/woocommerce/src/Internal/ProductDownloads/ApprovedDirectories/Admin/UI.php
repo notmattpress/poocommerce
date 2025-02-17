@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin;
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 use Exception;
 use WC_Admin_Settings;
 
@@ -46,9 +46,9 @@ class UI {
 			return;
 		}
 
-		add_filter( 'woocommerce_get_sections_products', array( $this, 'add_section' ) );
-		add_action( 'load-woocommerce_page_wc-settings', array( $this, 'setup' ) );
-		add_action( 'woocommerce_settings_products', array( $this, 'render' ) );
+		add_filter( 'poocommerce_get_sections_products', array( $this, 'add_section' ) );
+		add_action( 'load-poocommerce_page_wc-settings', array( $this, 'setup' ) );
+		add_action( 'poocommerce_settings_products', array( $this, 'render' ) );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class UI {
 	 * @return array
 	 */
 	public function add_section( array $sections ): array {
-		$sections['download_urls'] = __( 'Approved download directories', 'woocommerce' );
+		$sections['download_urls'] = __( 'Approved download directories', 'poocommerce' );
 		return $sections;
 	}
 
@@ -97,7 +97,7 @@ class UI {
 		wp_nonce_field( 'modify_approved_directories', 'check' );
 		$this->display_title();
 		$this->table->render_views();
-		$this->table->search_box( _x( 'Search', 'Approved Directory URLs', 'woocommerce' ), 'download_url_search' );
+		$this->table->search_box( _x( 'Search', 'Approved Directory URLs', 'poocommerce' ), 'download_url_search' );
 		$this->table->display();
 	}
 
@@ -314,13 +314,13 @@ class UI {
 	 */
 	private function display_title() {
 		$turn_on_off = $this->register->get_mode() === Register::MODE_ENABLED
-			? '<a href="' . esc_url( $this->table->get_action_url( 'turn-off', 0 ) ) . '" class="page-title-action">' . esc_html_x( 'Stop Enforcing Rules', 'Approved product download directories', 'woocommerce' ) . '</a>'
-			: '<a href="' . esc_url( $this->table->get_action_url( 'turn-on', 0 ) ) . '" class="page-title-action">' . esc_html_x( 'Start Enforcing Rules', 'Approved product download directories', 'woocommerce' ) . '</a>';
+			? '<a href="' . esc_url( $this->table->get_action_url( 'turn-off', 0 ) ) . '" class="page-title-action">' . esc_html_x( 'Stop Enforcing Rules', 'Approved product download directories', 'poocommerce' ) . '</a>'
+			: '<a href="' . esc_url( $this->table->get_action_url( 'turn-on', 0 ) ) . '" class="page-title-action">' . esc_html_x( 'Start Enforcing Rules', 'Approved product download directories', 'poocommerce' ) . '</a>';
 
 		?>
 			<h2 class='wc-table-list-header'>
-				<?php esc_html_e( 'Approved Download Directories', 'woocommerce' ); ?>
-				<a href='<?php echo esc_url( $this->table->get_action_url( 'edit', 0 ) ); ?>' class='page-title-action'><?php esc_html_e( 'Add New', 'woocommerce' ); ?></a>
+				<?php esc_html_e( 'Approved Download Directories', 'poocommerce' ); ?>
+				<a href='<?php echo esc_url( $this->table->get_action_url( 'edit', 0 ) ); ?>' class='page-title-action'><?php esc_html_e( 'Add New', 'poocommerce' ); ?></a>
 				<?php echo $turn_on_off; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</h2>
 		<?php
@@ -336,14 +336,14 @@ class UI {
 		$existing = $this->register->get_by_id( $url_id );
 
 		if ( 0 !== $url_id && ! $existing ) {
-			WC_Admin_Settings::add_error( _x( 'The provided ID was invalid.', 'Approved product download directories', 'woocommerce' ) );
+			WC_Admin_Settings::add_error( _x( 'The provided ID was invalid.', 'Approved product download directories', 'poocommerce' ) );
 			WC_Admin_Settings::show_messages();
 			return;
 		}
 
 		$title = $existing
-			? __( 'Edit Approved Directory', 'woocommerce' )
-			: __( 'Add New Approved Directory', 'woocommerce' );
+			? __( 'Edit Approved Directory', 'poocommerce' )
+			: __( 'Add New Approved Directory', 'poocommerce' );
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$submitted    = sanitize_text_field( wp_unslash( $_GET['submitted-url'] ?? '' ) );
@@ -355,15 +355,15 @@ class UI {
 			<h2 class='wc-table-list-header'>
 				<?php echo esc_html( $title ); ?>
 				<?php if ( $existing ) : ?>
-					<a href="<?php echo esc_url( $this->table->get_action_url( 'edit', 0 ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'woocommerce' ); ?></a>
+					<a href="<?php echo esc_url( $this->table->get_action_url( 'edit', 0 ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add New', 'poocommerce' ); ?></a>
 				<?php endif; ?>
-				<a href="<?php echo esc_url( $this->table->get_base_url() ); ?> " class="page-title-action"><?php esc_html_e( 'Cancel', 'woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( $this->table->get_base_url() ); ?> " class="page-title-action"><?php esc_html_e( 'Cancel', 'poocommerce' ); ?></a>
 			</h2>
 			<table class='form-table'>
 				<tbody>
 					<tr valign='top'>
 						<th scope='row' class='titledesc'>
-							<label for='approved_directory_url'> <?php echo esc_html_x( 'Directory URL', 'Approved product download directories', 'woocommerce' ); ?> </label>
+							<label for='approved_directory_url'> <?php echo esc_html_x( 'Directory URL', 'Approved product download directories', 'poocommerce' ); ?> </label>
 						</th>
 						<td class='forminp'>
 							<input name='approved_directory_url' id='approved_directory_url' type='text' class='input-text regular-input' value='<?php echo esc_attr( empty( $submitted ) ? $existing_url : $submitted ); ?>'>
@@ -371,7 +371,7 @@ class UI {
 					</tr>
 					<tr valign='top'>
 						<th scope='row' class='titledesc'>
-							<label for='approved_directory_enabled'> <?php echo esc_html_x( 'Enabled', 'Approved product download directories', 'woocommerce' ); ?> </label>
+							<label for='approved_directory_enabled'> <?php echo esc_html_x( 'Enabled', 'Approved product download directories', 'poocommerce' ); ?> </label>
 						</th>
 						<td class='forminp'>
 							<input name='approved_directory_enabled' id='approved_directory_enabled' type='checkbox' value='1' <?php checked( true, $enabled ); ?>'>
@@ -400,7 +400,7 @@ class UI {
 			WC_Admin_Settings::add_message(
 				sprintf(
 					/* translators: %d: count */
-					_n( '%d approved directory URL deleted.', '%d approved directory URLs deleted.', $successfully_deleted, 'woocommerce' ),
+					_n( '%d approved directory URL deleted.', '%d approved directory URLs deleted.', $successfully_deleted, 'poocommerce' ),
 					$successfully_deleted
 				)
 			);
@@ -408,7 +408,7 @@ class UI {
 			WC_Admin_Settings::add_message(
 				sprintf(
 				/* translators: %d: count */
-					_n( '%d approved directory URL enabled.', '%d approved directory URLs enabled.', $successfully_enabled, 'woocommerce' ),
+					_n( '%d approved directory URL enabled.', '%d approved directory URLs enabled.', $successfully_enabled, 'poocommerce' ),
 					$successfully_enabled
 				)
 			);
@@ -416,7 +416,7 @@ class UI {
 			WC_Admin_Settings::add_message(
 				sprintf(
 				/* translators: %d: count */
-					_n( '%d approved directory URL disabled.', '%d approved directory URLs disabled.', $successfully_disabled, 'woocommerce' ),
+					_n( '%d approved directory URL disabled.', '%d approved directory URLs disabled.', $successfully_disabled, 'poocommerce' ),
 					$successfully_disabled
 				)
 			);
@@ -426,25 +426,25 @@ class UI {
 			WC_Admin_Settings::add_error(
 				sprintf(
 					/* translators: %d: count */
-					_n( '%d URL could not be updated.', '%d URLs could not be updated.', $failed_updates, 'woocommerce' ),
+					_n( '%d URL could not be updated.', '%d URLs could not be updated.', $failed_updates, 'poocommerce' ),
 					$failed_updates
 				)
 			);
 		}
 
 		if ( 'added' === $edit_status ) {
-			WC_Admin_Settings::add_message( __( 'URL was successfully added.', 'woocommerce' ) );
+			WC_Admin_Settings::add_message( __( 'URL was successfully added.', 'poocommerce' ) );
 		}
 
 		if ( 'updated' === $edit_status ) {
-			WC_Admin_Settings::add_message( __( 'URL was successfully updated.', 'woocommerce' ) );
+			WC_Admin_Settings::add_message( __( 'URL was successfully updated.', 'poocommerce' ) );
 		}
 
 		if ( 'failure' === $edit_status && ! empty( $edit_url ) ) {
 			WC_Admin_Settings::add_error(
 				sprintf(
 					/* translators: %s is the submitted URL. */
-					__( '"%s" could not be saved. Please review, ensure it is a valid URL and try again.', 'woocommerce' ),
+					__( '"%s" could not be saved. Please review, ensure it is a valid URL and try again.', 'poocommerce' ),
 					$edit_url
 				)
 			);
@@ -456,7 +456,7 @@ class UI {
 	 */
 	private function security_check() {
 		if ( ! Users::is_site_administrator() || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['check'] ?? '' ) ), 'modify_approved_directories' ) ) {
-			wp_die( esc_html__( 'You do not have permission to modify the list of approved directories for product downloads.', 'woocommerce' ) );
+			wp_die( esc_html__( 'You do not have permission to modify the list of approved directories for product downloads.', 'poocommerce' ) );
 		}
 	}
 }

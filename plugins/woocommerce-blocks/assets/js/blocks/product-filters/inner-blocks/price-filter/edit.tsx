@@ -6,7 +6,7 @@ import {
 	useBlockProps,
 	InnerBlocks,
 } from '@wordpress/block-editor';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { TemplateArray } from '@wordpress/blocks';
 
@@ -48,7 +48,7 @@ const Edit = () => {
 										flexWrap: 'nowrap',
 									},
 									metadata: {
-										name: __( 'Header', 'woocommerce' ),
+										name: __( 'Header', 'poocommerce' ),
 									},
 									style: {
 										spacing: {
@@ -63,13 +63,13 @@ const Edit = () => {
 											level: 4,
 											content: __(
 												'Price',
-												'woocommerce'
+												'poocommerce'
 											),
 										},
 									],
 								].filter( Boolean ) as unknown as TemplateArray,
 							],
-							[ 'woocommerce/product-filter-price-slider', {} ],
+							[ 'poocommerce/product-filter-price-slider', {} ],
 						] }
 					/>
 				</BlockContextProvider>

@@ -6,7 +6,7 @@ import { ProductCategorySuggestions } from './product-category-suggestions';
 
 if ( window.JP_CONNECTION_INITIAL_STATE?.connectionStatus?.isActive ) {
 	const root = document.createElement( 'div' );
-	root.id = 'woocommerce-ai-app-product-category-suggestions';
+	root.id = 'poocommerce-ai-app-product-category-suggestions';
 
 	renderWrappedComponent( ProductCategorySuggestions, root );
 

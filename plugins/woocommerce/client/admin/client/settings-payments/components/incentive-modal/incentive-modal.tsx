@@ -11,8 +11,8 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { Link } from '@woocommerce/components';
-import { PaymentIncentive, PaymentProvider } from '@woocommerce/data';
+import { Link } from '@poocommerce/components';
+import { PaymentIncentive, PaymentProvider } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -115,17 +115,17 @@ export const IncentiveModal = ( {
 			{ isOpen && (
 				<Modal
 					title=""
-					className="woocommerce-incentive-modal"
+					className="poocommerce-incentive-modal"
 					onRequestClose={ () => {
 						onDismiss( incentive._links.dismiss.href, context );
 						handleClose();
 					} }
 				>
-					<Card className={ 'woocommerce-incentive-modal__card' }>
-						<div className="woocommerce-incentive-modal__content">
+					<Card className={ 'poocommerce-incentive-modal__card' }>
+						<div className="poocommerce-incentive-modal__content">
 							<CardMedia
 								className={
-									'woocommerce-incentive-modal__media'
+									'poocommerce-incentive-modal__media'
 								}
 							>
 								<img
@@ -135,13 +135,13 @@ export const IncentiveModal = ( {
 									}
 									alt={ __(
 										'Incentive illustration',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							</CardMedia>
 							<CardBody
 								className={
-									'woocommerce-incentive-modal__body'
+									'poocommerce-incentive-modal__body'
 								}
 							>
 								<div>
@@ -149,7 +149,7 @@ export const IncentiveModal = ( {
 										status={ 'has_incentive' }
 										message={ __(
 											'Limited time offer',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</div>
@@ -157,13 +157,13 @@ export const IncentiveModal = ( {
 								<p>{ incentive.description }</p>
 								<p
 									className={
-										'woocommerce-incentive-modal__terms'
+										'poocommerce-incentive-modal__terms'
 									}
 								>
 									{ createInterpolateElement(
 										__(
 											'See <termsLink /> for details.',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											termsLink: (
@@ -175,14 +175,14 @@ export const IncentiveModal = ( {
 												>
 													{ __(
 														'Terms and Conditions',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</Link>
 											),
 										}
 									) }
 								</p>
-								<div className="woocommerce-incentive-model__actions">
+								<div className="poocommerce-incentive-model__actions">
 									<Button
 										variant={ 'primary' }
 										isBusy={ isBusy }

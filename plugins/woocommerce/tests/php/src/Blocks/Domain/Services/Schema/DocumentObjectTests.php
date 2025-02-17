@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services\Schema;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services\Schema;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\Schema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Domain\Services\Schema\DocumentObject;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 use WC_Customer;
 

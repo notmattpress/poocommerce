@@ -14,10 +14,10 @@ import {
 import { dispatch, select, useDispatch, useSelect } from '@wordpress/data';
 import { uploadMedia } from '@wordpress/media-utils';
 import { __ } from '@wordpress/i18n';
-import { useLayoutTemplate } from '@woocommerce/block-templates';
+import { useLayoutTemplate } from '@poocommerce/block-templates';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { Product } from '@woocommerce/data';
-import { getPath, getQuery } from '@woocommerce/navigation';
+import { Product } from '@poocommerce/data';
+import { getPath, getQuery } from '@poocommerce/navigation';
 import {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore No types for this exist yet.
@@ -31,7 +31,7 @@ import {
 	ObserveTyping,
 } from '@wordpress/block-editor';
 // It doesn't seem to notice the External dependency block when @ts-ignore is added.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore store should be included.
@@ -114,7 +114,7 @@ export function BlockEditor( {
 			registerShortcut( {
 				name: 'core/editor/save',
 				category: 'global',
-				description: __( 'Save your changes.', 'woocommerce' ),
+				description: __( 'Save your changes.', 'poocommerce' ),
 				keyCombination: {
 					modifier: 'primary',
 					character: 's',
@@ -361,7 +361,7 @@ export function BlockEditor( {
 
 	if ( isEditorLoading ) {
 		return (
-			<div className="woocommerce-product-block-editor">
+			<div className="poocommerce-product-block-editor">
 				<LoadingState />
 			</div>
 		);
@@ -378,10 +378,10 @@ export function BlockEditor( {
 							}
 						 ).closeModalEditor
 					}
-					title={ __( 'Edit description', 'woocommerce' ) }
+					title={ __( 'Edit description', 'poocommerce' ) }
 					name={
 						product.name === 'AUTO-DRAFT'
-							? __( '(no product name)', 'woocommerce' )
+							? __( '(no product name)', 'poocommerce' )
 							: product.name
 					}
 				/>
@@ -390,7 +390,7 @@ export function BlockEditor( {
 	}
 
 	return (
-		<div className="woocommerce-product-block-editor">
+		<div className="poocommerce-product-block-editor">
 			<BlockContextProvider value={ context }>
 				<BlockEditorProvider
 					value={ blocks }
@@ -404,13 +404,13 @@ export function BlockEditor( {
 					<BlockEditorKeyboardShortcuts.Register />
 					<BlockTools>
 						<ObserveTyping>
-							<BlockList className="woocommerce-product-block-editor__block-list" />
+							<BlockList className="poocommerce-product-block-editor__block-list" />
 						</ObserveTyping>
 					</BlockTools>
 					{ /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */ }
 					<PostTypeContext.Provider value={ context.postType! }>
 						<Suspense fallback={ null }>
-							<PluginArea scope="woocommerce-product-block-editor" />
+							<PluginArea scope="poocommerce-product-block-editor" />
 						</Suspense>
 					</PostTypeContext.Provider>
 				</BlockEditorProvider>

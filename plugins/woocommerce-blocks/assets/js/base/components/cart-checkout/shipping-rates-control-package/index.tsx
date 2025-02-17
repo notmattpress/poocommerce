@@ -3,13 +3,13 @@
  */
 import clsx from 'clsx';
 import { decodeEntities } from '@wordpress/html-entities';
-import { Panel } from '@woocommerce/blocks-components';
+import { Panel } from '@poocommerce/blocks-components';
 import { useCallback, useEffect, useMemo, useState } from '@wordpress/element';
-import { useShippingData } from '@woocommerce/base-context/hooks';
-import { sanitizeHTML } from '@woocommerce/utils';
+import { useShippingData } from '@poocommerce/base-context/hooks';
+import { sanitizeHTML } from '@poocommerce/utils';
 import type { ReactElement } from 'react';
 import { useSelect } from '@wordpress/data';
-import { CART_STORE_KEY } from '@woocommerce/block-data';
+import { CART_STORE_KEY } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

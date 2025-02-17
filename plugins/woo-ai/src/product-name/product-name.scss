@@ -6,7 +6,7 @@ $z-index-container: 1001;
 $z-index-header: 1002;
 $border-radius: 4px;
 
-#woocommerce-ai-app-product-name-suggestions {
+#poocommerce-ai-app-product-name-suggestions {
 	position: relative;
 }
 
@@ -50,7 +50,7 @@ $border-radius: 4px;
 			align-items: center;
 		}
 
-		.woocommerce-pill {
+		.poocommerce-pill {
 			display: inline-block;
 			font-size: 0.8em;
 			color: $base-text-color;
@@ -128,7 +128,7 @@ $border-radius: 4px;
 
 		.woo-ai-loading-message_spinner {
 
-			svg.woocommerce-spinner {
+			svg.poocommerce-spinner {
 				width: 28px;
 				height: 28px;
 				vertical-align: middle;
@@ -161,7 +161,7 @@ $border-radius: 4px;
 	}
 }
 
-.woocommerce-layout > .woocommerce-layout__header {
+.poocommerce-layout > .poocommerce-layout__header {
 	z-index: $z-index-header;
 }
 
