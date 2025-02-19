@@ -5,8 +5,8 @@ import {
 	getContext,
 	store,
 	navigate as navigateFn,
-} from '@woocommerce/interactivity';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/interactivity';
+import { getSetting } from '@poocommerce/settings';
 
 const isBlockTheme = getSetting< boolean >( 'isBlockTheme' );
 const isProductArchive = getSetting< boolean >( 'isProductArchive' );
@@ -88,7 +88,7 @@ export type ProductFiltersContext = {
 	activeFilters: ActiveFilter[];
 };
 
-const productFiltersStore = store( 'woocommerce/product-filters', {
+const productFiltersStore = store( 'poocommerce/product-filters', {
 	state: {
 		get params() {
 			const { activeFilters } = getContext< ProductFiltersContext >();

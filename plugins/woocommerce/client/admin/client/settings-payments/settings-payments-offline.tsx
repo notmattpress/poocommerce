@@ -7,7 +7,7 @@ import {
 	type OfflinePaymentMethodProvider,
 	PAYMENT_SETTINGS_STORE_NAME,
 	type PaymentSettingsSelectors,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import './settings-payments-body.scss';
 import { OfflinePaymentGateways } from './components/offline-payment-gateways';
 
 /**
- * A component for managing offline payment gateways in WooCommerce.
+ * A component for managing offline payment gateways in PooCommerce.
  * It retrieves and displays a list of offline payment gateways,
  * allows users to reorder them, and updates the order in the store.
  */

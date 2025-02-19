@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from '@wordpress/components';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -38,15 +38,15 @@ export const Edit = ( {
 				{ taxesEnabled &&
 					displayItemizedTaxes &&
 					! displayCartPricesIncludingTax && (
-						<PanelBody title={ __( 'Taxes', 'woocommerce' ) }>
+						<PanelBody title={ __( 'Taxes', 'poocommerce' ) }>
 							<ToggleControl
 								label={ __(
 									'Show rate after tax name',
-									'woocommerce'
+									'poocommerce'
 								) }
 								help={ __(
 									'Show the percentage rate alongside each tax line in the summary.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ showRateAfterTaxName }
 								onChange={ () =>

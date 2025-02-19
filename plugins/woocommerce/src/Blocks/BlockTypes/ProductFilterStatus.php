@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Blocks\QueryFilters;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\QueryFilters;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * Product Filter: Status Block.
@@ -29,8 +29,8 @@ final class ProductFilterStatus extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_param_keys', array( $this, 'get_filter_query_param_keys' ), 10, 2 );
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_param_keys', array( $this, 'get_filter_query_param_keys' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 	}
 
 	/**
@@ -88,7 +88,7 @@ final class ProductFilterStatus extends AbstractBlock {
 				'type'  => 'status',
 				'value' => $status,
 				// translators: %s: status.
-				'label' => sprintf( __( 'Status: %s', 'woocommerce' ), $status_options[ $status ] ),
+				'label' => sprintf( __( 'Status: %s', 'poocommerce' ), $status_options[ $status ] ),
 			);
 		}
 
@@ -105,7 +105,7 @@ final class ProductFilterStatus extends AbstractBlock {
 	protected function enqueue_data( array $stock_statuses = array() ) {
 		parent::enqueue_data( $stock_statuses );
 		$this->asset_data_registry->add( 'stockStatusOptions', wc_get_product_stock_status_options() );
-		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 	}
 
 	/**
@@ -154,7 +154,7 @@ final class ProductFilterStatus extends AbstractBlock {
 				array(
 					'hasFilterOptions'    => ! empty( $filter_options ),
 					/* translators: {{label}} is the status filter item label. */
-					'activeLabelTemplate' => __( 'Status: {{label}}', 'woocommerce' ),
+					'activeLabelTemplate' => __( 'Status: {{label}}', 'poocommerce' ),
 				),
 				JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 			),

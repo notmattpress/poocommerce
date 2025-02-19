@@ -19,7 +19,7 @@ import memoize from 'memoize-one';
 import PropTypes from 'prop-types';
 import { withViewportMatch } from '@wordpress/viewport';
 import { sanitize } from 'dompurify';
-import { getIdsFromQuery, updateQueryString } from '@woocommerce/navigation';
+import { getIdsFromQuery, updateQueryString } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -238,16 +238,16 @@ class Chart extends Component {
 		}
 
 		const intervalLabels = {
-			hour: __( 'By hour', 'woocommerce' ),
-			day: __( 'By day', 'woocommerce' ),
-			week: __( 'By week', 'woocommerce' ),
-			month: __( 'By month', 'woocommerce' ),
-			quarter: __( 'By quarter', 'woocommerce' ),
-			year: __( 'By year', 'woocommerce' ),
+			hour: __( 'By hour', 'poocommerce' ),
+			day: __( 'By day', 'poocommerce' ),
+			week: __( 'By week', 'poocommerce' ),
+			month: __( 'By month', 'poocommerce' ),
+			quarter: __( 'By quarter', 'poocommerce' ),
+			year: __( 'By year', 'poocommerce' ),
 		};
 
 		return (
-			<div className="woocommerce-chart__interval-select">
+			<div className="poocommerce-chart__interval-select">
 				<SelectControl
 					value={ interval }
 					options={ allowedIntervals.map( ( allowedInterval ) => ( {
@@ -371,26 +371,26 @@ class Chart extends Component {
 			}
 		}
 		return (
-			<div className="woocommerce-chart">
+			<div className="poocommerce-chart">
 				{ showHeaderControls && (
-					<div className="woocommerce-chart__header">
-						<H className="woocommerce-chart__title">{ title }</H>
+					<div className="poocommerce-chart__header">
+						<H className="poocommerce-chart__title">{ title }</H>
 						{ legendPosition === 'top' && legend }
 						{ this.renderIntervalSelector() }
 						<NavigableMenu
-							className="woocommerce-chart__types"
+							className="poocommerce-chart__types"
 							orientation="horizontal"
 							role="menubar"
 						>
 							<Button
 								className={ classNames(
-									'woocommerce-chart__type-button',
+									'poocommerce-chart__type-button',
 									{
-										'woocommerce-chart__type-button-selected':
+										'poocommerce-chart__type-button-selected':
 											chartType === 'line',
 									}
 								) }
-								title={ __( 'Line chart', 'woocommerce' ) }
+								title={ __( 'Line chart', 'poocommerce' ) }
 								aria-checked={ chartType === 'line' }
 								role="menuitemradio"
 								tabIndex={ chartType === 'line' ? 0 : -1 }
@@ -403,13 +403,13 @@ class Chart extends Component {
 							</Button>
 							<Button
 								className={ classNames(
-									'woocommerce-chart__type-button',
+									'poocommerce-chart__type-button',
 									{
-										'woocommerce-chart__type-button-selected':
+										'poocommerce-chart__type-button-selected':
 											chartType === 'bar',
 									}
 								) }
-								title={ __( 'Bar chart', 'woocommerce' ) }
+								title={ __( 'Bar chart', 'poocommerce' ) }
 								aria-checked={ chartType === 'bar' }
 								role="menuitemradio"
 								tabIndex={ chartType === 'bar' ? 0 : -1 }
@@ -426,8 +426,8 @@ class Chart extends Component {
 				<Section component={ false }>
 					<div
 						className={ classNames(
-							'woocommerce-chart__body',
-							`woocommerce-chart__body-${ chartDirection }`
+							'poocommerce-chart__body',
+							`poocommerce-chart__body-${ chartDirection }`
 						) }
 						ref={ this.chartBodyRef }
 					>
@@ -437,7 +437,7 @@ class Chart extends Component {
 								<span className="screen-reader-text">
 									{ __(
 										'Your requested data is loading',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</span>
 								<ChartPlaceholder height={ chartHeight } />
@@ -477,7 +477,7 @@ class Chart extends Component {
 						) }
 					</div>
 					{ legendPosition === 'bottom' && (
-						<div className="woocommerce-chart__footer">
+						<div className="poocommerce-chart__footer">
 							{ legend }
 						</div>
 					) }

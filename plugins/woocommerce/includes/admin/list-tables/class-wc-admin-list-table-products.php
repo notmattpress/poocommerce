@@ -2,11 +2,11 @@
 /**
  * List tables: products.
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  3.3.0
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -49,14 +49,14 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 * Render blank state.
 	 */
 	protected function render_blank_state() {
-		echo '<div class="woocommerce-BlankState">';
+		echo '<div class="poocommerce-BlankState">';
 
-		echo '<h2 class="woocommerce-BlankState-message">' . esc_html__( 'Ready to start selling something awesome?', 'woocommerce' ) . '</h2>';
+		echo '<h2 class="poocommerce-BlankState-message">' . esc_html__( 'Ready to start selling something awesome?', 'poocommerce' ) . '</h2>';
 
-		echo '<div class="woocommerce-BlankState-buttons">';
+		echo '<div class="poocommerce-BlankState-buttons">';
 
-		echo '<a class="woocommerce-BlankState-cta button-primary button" href="' . esc_url( admin_url( 'post-new.php?post_type=product&tutorial=true' ) ) . '">' . esc_html__( 'Create Product', 'woocommerce' ) . '</a>';
-		echo '<a class="woocommerce-BlankState-cta button" href="' . esc_url( admin_url( 'edit.php?post_type=product&page=product_importer' ) ) . '">' . esc_html__( 'Start Import', 'woocommerce' ) . '</a>';
+		echo '<a class="poocommerce-BlankState-cta button-primary button" href="' . esc_url( admin_url( 'post-new.php?post_type=product&tutorial=true' ) ) . '">' . esc_html__( 'Create Product', 'poocommerce' ) . '</a>';
+		echo '<a class="poocommerce-BlankState-cta button" href="' . esc_url( admin_url( 'edit.php?post_type=product&page=product_importer' ) ) . '">' . esc_html__( 'Start Import', 'poocommerce' ) . '</a>';
 
 		echo '</div>';
 
@@ -83,7 +83,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 */
 	protected function get_row_actions( $actions, $post ) {
 		/* translators: %d: product ID. */
-		return array_merge( array( 'id' => sprintf( __( 'ID: %d', 'woocommerce' ), $post->ID ) ), $actions );
+		return array_merge( array( 'id' => sprintf( __( 'ID: %d', 'poocommerce' ), $post->ID ) ), $actions );
 	}
 
 	/**
@@ -116,22 +116,22 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 
 		$show_columns          = array();
 		$show_columns['cb']    = '<input type="checkbox" />';
-		$show_columns['thumb'] = '<span class="wc-image tips" data-tip="' . esc_attr__( 'Image', 'woocommerce' ) . '">' . __( 'Image', 'woocommerce' ) . '</span>';
-		$show_columns['name']  = __( 'Name', 'woocommerce' );
+		$show_columns['thumb'] = '<span class="wc-image tips" data-tip="' . esc_attr__( 'Image', 'poocommerce' ) . '">' . __( 'Image', 'poocommerce' ) . '</span>';
+		$show_columns['name']  = __( 'Name', 'poocommerce' );
 
 		if ( wc_product_sku_enabled() ) {
-			$show_columns['sku'] = __( 'SKU', 'woocommerce' );
+			$show_columns['sku'] = __( 'SKU', 'poocommerce' );
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_manage_stock' ) ) {
-			$show_columns['is_in_stock'] = __( 'Stock', 'woocommerce' );
+		if ( 'yes' === get_option( 'poocommerce_manage_stock' ) ) {
+			$show_columns['is_in_stock'] = __( 'Stock', 'poocommerce' );
 		}
 
-		$show_columns['price']       = __( 'Price', 'woocommerce' );
-		$show_columns['product_cat'] = __( 'Categories', 'woocommerce' );
-		$show_columns['product_tag'] = __( 'Tags', 'woocommerce' );
-		$show_columns['featured']    = '<span class="wc-featured parent-tips" data-tip="' . esc_attr__( 'Featured', 'woocommerce' ) . '">' . __( 'Featured', 'woocommerce' ) . '</span>';
-		$show_columns['date']        = __( 'Date', 'woocommerce' );
+		$show_columns['price']       = __( 'Price', 'poocommerce' );
+		$show_columns['product_cat'] = __( 'Categories', 'poocommerce' );
+		$show_columns['product_tag'] = __( 'Tags', 'poocommerce' );
+		$show_columns['featured']    = '<span class="wc-featured parent-tips" data-tip="' . esc_attr__( 'Featured', 'poocommerce' ) . '">' . __( 'Featured', 'poocommerce' ) . '</span>';
+		$show_columns['date']        = __( 'Date', 'poocommerce' );
 
 		return array_merge( $show_columns, $columns );
 	}
@@ -178,9 +178,9 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 
 		get_inline_data( $post );
 
-		/* Custom inline data for woocommerce. */
+		/* Custom inline data for poocommerce. */
 		echo '
-			<div class="hidden" id="woocommerce_inline_' . absint( $this->object->get_id() ) . '">
+			<div class="hidden" id="poocommerce_inline_' . absint( $this->object->get_id() ) . '">
 				<div class="menu_order">' . esc_html( $this->object->get_menu_order() ) . '</div>
 				<div class="sku">' . esc_html( $this->object->get_sku() ) . '</div>
 				<div class="regular_price">' . esc_html( $this->object->get_regular_price() ) . '</div>
@@ -232,7 +232,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 				$termlist[] = '<a href="' . esc_url( admin_url( 'edit.php?product_cat=' . $term->slug . '&post_type=product' ) ) . ' ">' . esc_html( $term->name ) . '</a>';
 			}
 
-			echo apply_filters( 'woocommerce_admin_product_term_list', implode( ', ', $termlist ), 'product_cat', $this->object->get_id(), $termlist, $terms ); // WPCS: XSS ok.
+			echo apply_filters( 'poocommerce_admin_product_term_list', implode( ', ', $termlist ), 'product_cat', $this->object->get_id(), $termlist, $terms ); // WPCS: XSS ok.
 		}
 	}
 
@@ -249,7 +249,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 				$termlist[] = '<a href="' . esc_url( admin_url( 'edit.php?product_tag=' . $term->slug . '&post_type=product' ) ) . ' ">' . esc_html( $term->name ) . '</a>';
 			}
 
-			echo apply_filters( 'woocommerce_admin_product_term_list', implode( ', ', $termlist ), 'product_tag', $this->object->get_id(), $termlist, $terms ); // WPCS: XSS ok.
+			echo apply_filters( 'poocommerce_admin_product_term_list', implode( ', ', $termlist ), 'product_tag', $this->object->get_id(), $termlist, $terms ); // WPCS: XSS ok.
 		}
 	}
 
@@ -257,12 +257,12 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 * Render column: featured.
 	 */
 	protected function render_featured_column() {
-		$url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_feature_product&product_id=' . $this->object->get_id() ), 'woocommerce-feature-product' );
-		echo '<a href="' . esc_url( $url ) . '" aria-label="' . esc_attr__( 'Toggle featured', 'woocommerce' ) . '">';
+		$url = wp_nonce_url( admin_url( 'admin-ajax.php?action=poocommerce_feature_product&product_id=' . $this->object->get_id() ), 'poocommerce-feature-product' );
+		echo '<a href="' . esc_url( $url ) . '" aria-label="' . esc_attr__( 'Toggle featured', 'poocommerce' ) . '">';
 		if ( $this->object->is_featured() ) {
-			echo '<span class="wc-featured tips" data-tip="' . esc_attr__( 'Yes', 'woocommerce' ) . '">' . esc_html__( 'Yes', 'woocommerce' ) . '</span>';
+			echo '<span class="wc-featured tips" data-tip="' . esc_attr__( 'Yes', 'poocommerce' ) . '">' . esc_html__( 'Yes', 'poocommerce' ) . '</span>';
 		} else {
-			echo '<span class="wc-featured not-featured tips" data-tip="' . esc_attr__( 'No', 'woocommerce' ) . '">' . esc_html__( 'No', 'woocommerce' ) . '</span>';
+			echo '<span class="wc-featured not-featured tips" data-tip="' . esc_attr__( 'No', 'poocommerce' ) . '">' . esc_html__( 'No', 'poocommerce' ) . '</span>';
 		}
 		echo '</a>';
 	}
@@ -272,18 +272,18 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 */
 	protected function render_is_in_stock_column() {
 		if ( $this->object->is_on_backorder() ) {
-			$stock_html = '<mark class="onbackorder">' . __( 'On backorder', 'woocommerce' ) . '</mark>';
+			$stock_html = '<mark class="onbackorder">' . __( 'On backorder', 'poocommerce' ) . '</mark>';
 		} elseif ( $this->object->is_in_stock() ) {
-			$stock_html = '<mark class="instock">' . __( 'In stock', 'woocommerce' ) . '</mark>';
+			$stock_html = '<mark class="instock">' . __( 'In stock', 'poocommerce' ) . '</mark>';
 		} else {
-			$stock_html = '<mark class="outofstock">' . __( 'Out of stock', 'woocommerce' ) . '</mark>';
+			$stock_html = '<mark class="outofstock">' . __( 'Out of stock', 'poocommerce' ) . '</mark>';
 		}
 
 		if ( $this->object->managing_stock() ) {
 			$stock_html .= ' (' . wc_stock_amount( $this->object->get_stock_quantity() ) . ')';
 		}
 
-		echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $this->object ) );
+		echo wp_kses_post( apply_filters( 'poocommerce_admin_stock_html', $stock_html, $this->object ) );
 	}
 
 	/**
@@ -302,7 +302,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 */
 	protected function render_filters() {
 		$filters = apply_filters(
-			'woocommerce_products_admin_list_table_filters',
+			'poocommerce_products_admin_list_table_filters',
 			array(
 				'product_category' => array( $this, 'render_products_category_filter' ),
 				'product_type'     => array( $this, 'render_products_type_filter' ),
@@ -316,7 +316,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 		}
 		$output = ob_get_clean();
 
-		echo apply_filters( 'woocommerce_product_filters', $output ); // WPCS: XSS ok.
+		echo apply_filters( 'poocommerce_product_filters', $output ); // WPCS: XSS ok.
 	}
 
 	/**
@@ -327,10 +327,10 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	protected function render_products_category_filter() {
 		$categories_count = (int) wp_count_terms( 'product_cat' );
 
-		if ( $categories_count <= apply_filters( 'woocommerce_product_category_filter_threshold', 100 ) ) {
+		if ( $categories_count <= apply_filters( 'poocommerce_product_category_filter_threshold', 100 ) ) {
 			wc_product_dropdown_categories(
 				array(
-					'option_select_text' => __( 'Filter by category', 'woocommerce' ),
+					'option_select_text' => __( 'Filter by category', 'poocommerce' ),
 					'hide_empty'         => 0,
 				)
 			);
@@ -338,7 +338,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 			$current_category_slug = isset( $_GET['product_cat'] ) ? wc_clean( wp_unslash( $_GET['product_cat'] ) ) : false; // WPCS: input var ok, CSRF ok.
 			$current_category      = $current_category_slug ? get_term_by( 'slug', $current_category_slug, 'product_cat' ) : false;
 			?>
-			<select class="wc-category-search" name="product_cat" data-placeholder="<?php esc_attr_e( 'Filter by category', 'woocommerce' ); ?>" data-allow_clear="true">
+			<select class="wc-category-search" name="product_cat" data-placeholder="<?php esc_attr_e( 'Filter by category', 'poocommerce' ); ?>" data-allow_clear="true">
 				<?php if ( $current_category_slug && $current_category ) : ?>
 					<option value="<?php echo esc_attr( $current_category_slug ); ?>" selected="selected"><?php echo esc_html( htmlspecialchars( wp_kses_post( $current_category->name ) ) ); ?></option>
 				<?php endif; ?>
@@ -354,7 +354,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 */
 	protected function render_products_type_filter() {
 		$current_product_type = isset( $_REQUEST['product_type'] ) ? wc_clean( wp_unslash( $_REQUEST['product_type'] ) ) : false; // WPCS: input var ok, sanitization ok.
-		$output               = '<select name="product_type" id="dropdown_product_type"><option value="">' . esc_html__( 'Filter by product type', 'woocommerce' ) . '</option>';
+		$output               = '<select name="product_type" id="dropdown_product_type"><option value="">' . esc_html__( 'Filter by product type', 'poocommerce' ) . '</option>';
 
 		foreach ( wc_get_product_types() as $value => $label ) {
 			$output .= '<option value="' . esc_attr( $value ) . '" ';
@@ -365,11 +365,11 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 
 				$output .= '<option value="downloadable" ';
 				$output .= selected( 'downloadable', $current_product_type, false );
-				$output .= '> ' . ( is_rtl() ? '&larr;' : '&rarr;' ) . ' ' . esc_html__( 'Downloadable', 'woocommerce' ) . '</option>';
+				$output .= '> ' . ( is_rtl() ? '&larr;' : '&rarr;' ) . ' ' . esc_html__( 'Downloadable', 'poocommerce' ) . '</option>';
 
 				$output .= '<option value="virtual" ';
 				$output .= selected( 'virtual', $current_product_type, false );
-				$output .= '> ' . ( is_rtl() ? '&larr;' : '&rarr;' ) . ' ' . esc_html__( 'Virtual', 'woocommerce' ) . '</option>';
+				$output .= '> ' . ( is_rtl() ? '&larr;' : '&rarr;' ) . ' ' . esc_html__( 'Virtual', 'poocommerce' ) . '</option>';
 			}
 		}
 
@@ -385,7 +385,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	public function render_products_stock_status_filter() {
 		$current_stock_status = isset( $_REQUEST['stock_status'] ) ? wc_clean( wp_unslash( $_REQUEST['stock_status'] ) ) : false; // WPCS: input var ok, sanitization ok.
 		$stock_statuses       = wc_get_product_stock_status_options();
-		$output               = '<select name="stock_status"><option value="">' . esc_html__( 'Filter by stock status', 'woocommerce' ) . '</option>';
+		$output               = '<select name="stock_status"><option value="">' . esc_html__( 'Filter by stock status', 'poocommerce' ) . '</option>';
 
 		foreach ( $stock_statuses as $status => $label ) {
 			$output .= '<option ' . selected( $status, $current_stock_status, false ) . ' value="' . esc_attr( $status ) . '">' . esc_html( $label ) . '</option>';
@@ -425,7 +425,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 			$query_string     = remove_query_arg( array( 'orderby', 'order' ) );
 			$query_string     = add_query_arg( 'orderby', rawurlencode( 'menu_order title' ), $query_string );
 			$query_string     = add_query_arg( 'order', rawurlencode( 'ASC' ), $query_string );
-			$views['byorder'] = '<a href="' . esc_url( $query_string ) . '" class="' . esc_attr( $class ) . '">' . __( 'Sorting', 'woocommerce' ) . '</a>';
+			$views['byorder'] = '<a href="' . esc_url( $query_string ) . '" class="' . esc_attr( $class ) . '">' . __( 'Sorting', 'poocommerce' ) . '</a>';
 		}
 
 		return $views;
@@ -673,7 +673,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 		$is_sample_product = 'product' === get_post_type( $post_id ) && get_post_meta( $post_id, '_headstart_post', true );
 
 		if ( $is_sample_product && 'name' === $column_name ) {
-			echo '<span class="sample-product-badge" style="margin-right: 6px;border-radius: 4px; background: #F6F7F7; padding: 4px; color: #3C434A;font-size: 12px;font-style: normal;font-weight: 400;line-height: 16px; height: 24px;">' . esc_html__( 'Sample', 'woocommerce' ) . '</span>';
+			echo '<span class="sample-product-badge" style="margin-right: 6px;border-radius: 4px; background: #F6F7F7; padding: 4px; color: #3C434A;font-size: 12px;font-style: normal;font-weight: 400;line-height: 16px; height: 24px;">' . esc_html__( 'Sample', 'poocommerce' ) . '</span>';
 		}
 	}
 }

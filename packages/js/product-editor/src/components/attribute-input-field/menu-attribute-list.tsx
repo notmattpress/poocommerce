@@ -5,7 +5,7 @@ import { sprintf, __ } from '@wordpress/i18n';
 import { plus } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
-import { __experimentalSelectControlMenuItem as MenuItem } from '@woocommerce/components';
+import { __experimentalSelectControlMenuItem as MenuItem } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -54,16 +54,16 @@ export const MenuAttributeList: React.FC< MenuAttributeListProps > = ( {
 						}
 					>
 						{ isNewAttributeListItem( item ) ? (
-							<div className="woocommerce-attribute-input-field__add-new">
+							<div className="poocommerce-attribute-input-field__add-new">
 								<Icon
 									icon={ plus }
 									size={ 20 }
-									className="woocommerce-attribute-input-field__add-new-icon"
+									className="poocommerce-attribute-input-field__add-new-icon"
 								/>
 								<span>
 									{ sprintf(
 										/* translators: The name of the new attribute term to be created */
-										__( 'Create "%s"', 'woocommerce' ),
+										__( 'Create "%s"', 'poocommerce' ),
 										item.name
 									) }
 								</span>
@@ -77,8 +77,8 @@ export const MenuAttributeList: React.FC< MenuAttributeListProps > = ( {
 		);
 	}
 	return (
-		<div className="woocommerce-attribute-input-field__no-results">
-			{ __( 'Nothing yet. Type to create.', 'woocommerce' ) }
+		<div className="poocommerce-attribute-input-field__no-results">
+			{ __( 'Nothing yet. Type to create.', 'poocommerce' ) }
 		</div>
 	);
 };

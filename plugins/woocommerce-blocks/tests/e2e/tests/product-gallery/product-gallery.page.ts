@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { Editor, FrontendUtils } from '@woocommerce/e2e-utils';
+import { Editor, FrontendUtils } from '@poocommerce/e2e-utils';
 
 const selectors = {
 	editor: {
@@ -37,13 +37,13 @@ export class ProductGalleryPage {
 			await this.editor.setContent( '' );
 		}
 		await this.editor.insertBlock( {
-			name: 'woocommerce/product-gallery',
+			name: 'poocommerce/product-gallery',
 		} );
 	}
 
 	async addAddToCartWithOptionsBlock() {
 		await this.editor.insertBlock( {
-			name: 'woocommerce/add-to-cart-form',
+			name: 'poocommerce/add-to-cart-form',
 		} );
 	}
 
@@ -98,7 +98,7 @@ export class ProductGalleryPage {
 	}
 
 	async getMainImageBlock( { page }: { page: 'frontend' | 'editor' } ) {
-		const blockName = 'woocommerce/product-gallery-large-image';
+		const blockName = 'poocommerce/product-gallery-large-image';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )
@@ -110,7 +110,7 @@ export class ProductGalleryPage {
 	}
 
 	async getThumbnailsBlock( { page }: { page: 'frontend' | 'editor' } ) {
-		const blockName = 'woocommerce/product-gallery-thumbnails';
+		const blockName = 'poocommerce/product-gallery-thumbnails';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )
@@ -127,7 +127,7 @@ export class ProductGalleryPage {
 		page: 'frontend' | 'editor';
 	} ) {
 		const blockName =
-			'woocommerce/product-gallery-large-image-next-previous';
+			'poocommerce/product-gallery-large-image-next-previous';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )
@@ -139,7 +139,7 @@ export class ProductGalleryPage {
 	}
 
 	async getPagerBlock( { page }: { page: 'frontend' | 'editor' } ) {
-		const blockName = 'woocommerce/product-gallery-pager';
+		const blockName = 'poocommerce/product-gallery-pager';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )
@@ -151,7 +151,7 @@ export class ProductGalleryPage {
 	}
 
 	async getBlock( { page }: { page: 'frontend' | 'editor' } ) {
-		const blockName = 'woocommerce/product-gallery';
+		const blockName = 'poocommerce/product-gallery';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )
@@ -167,7 +167,7 @@ export class ProductGalleryPage {
 	}: {
 		page: 'frontend' | 'editor';
 	} ) {
-		const blockName = 'woocommerce/add-to-cart-form';
+		const blockName = 'poocommerce/add-to-cart-form';
 		if ( page === 'frontend' ) {
 			return (
 				await this.frontendUtils.getBlockByName( blockName )

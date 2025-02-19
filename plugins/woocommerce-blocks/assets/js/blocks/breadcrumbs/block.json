@@ -1,13 +1,13 @@
 {
-	"name": "woocommerce/breadcrumbs",
+	"name": "poocommerce/breadcrumbs",
 	"version": "1.0.0",
 	"title": "Store Breadcrumbs",
 	"description": "Enable customers to keep track of their location within the store and navigate back to parent pages.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"contentJustification": {
 			"type": "string"

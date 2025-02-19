@@ -6,7 +6,7 @@ import {
 	insertBlockByShortcut,
 	publishPage,
 	goToPageEditor,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -72,7 +72,7 @@ test.describe(
 
 		test.beforeAll( async ( { api } ) => {
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 			// add a product

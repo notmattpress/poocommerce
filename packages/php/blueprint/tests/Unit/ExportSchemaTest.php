@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit;
 
-use Automattic\WooCommerce\Blueprint\BuiltInExporters;
-use Automattic\WooCommerce\Blueprint\ExportSchema;
-use Automattic\WooCommerce\Blueprint\Tests\stubs\Exporters\EmptySetSiteOptionsExporter;
-use Automattic\WooCommerce\Blueprint\Tests\TestCase;
+use Automattic\PooCommerce\Blueprint\BuiltInExporters;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\Tests\stubs\Exporters\EmptySetSiteOptionsExporter;
+use Automattic\PooCommerce\Blueprint\Tests\TestCase;
 use Mockery;
 use Mockery\Mock;
 

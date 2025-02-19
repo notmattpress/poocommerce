@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/filled-mini-cart-contents-block",
+	"name": "poocommerce/filled-mini-cart-contents-block",
 	"version": "1.0.0",
 	"title": "Filled Mini-Cart view",
 	"description": "Contains blocks that display the content of the Mini-Cart.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -22,9 +22,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/mini-cart-contents"
+		"poocommerce/mini-cart-contents"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

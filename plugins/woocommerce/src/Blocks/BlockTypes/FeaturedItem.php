@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * FeaturedItem class.
@@ -97,7 +97,7 @@ abstract class FeaturedItem extends AbstractDynamicBlock {
 		$styles  = $this->get_styles( $attributes );
 		$classes = $this->get_classes( $attributes );
 
-		$output  = sprintf( '<div class="%1$s wp-block-woocommerce-%2$s" style="%3$s">', esc_attr( trim( $classes ) ), $this->block_name, esc_attr( $styles ) );
+		$output  = sprintf( '<div class="%1$s wp-block-poocommerce-%2$s" style="%3$s">', esc_attr( trim( $classes ) ), $this->block_name, esc_attr( $styles ) );
 		$output .= sprintf( '<div class="wc-block-%s__wrapper">', $this->block_name );
 		$output .= $this->render_overlay( $attributes );
 

@@ -3,11 +3,11 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { createElement } from '@wordpress/element';
-import { STORE_KEY } from '@woocommerce/customer-effort-score';
-import { recordEvent } from '@woocommerce/tracks';
-import { getAdminLink, getSetting } from '@woocommerce/settings';
-import { useFormContext } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { STORE_KEY } from '@poocommerce/customer-effort-score';
+import { recordEvent } from '@poocommerce/tracks';
+import { getAdminLink, getSetting } from '@poocommerce/settings';
+import { useFormContext } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ export const ProductMVPFeedbackModalContainer: React.FC< {
 	const { isProductMVPModalVisible } = useSelect( ( select ) => {
 		const { isProductMVPFeedbackModalVisible } = select( STORE_KEY );
 		return {
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			isProductMVPModalVisible: isProductMVPFeedbackModalVisible(),
 		};
 	}, [] );

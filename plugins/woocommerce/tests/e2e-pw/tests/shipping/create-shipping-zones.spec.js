@@ -7,25 +7,25 @@ const shippingZoneNameFreeShip = 'BC with Free shipping';
 const shippingZoneNameLocalPickup = 'Mayne Island with Local pickup';
 
 test.beforeAll( async ( { api } ) => {
-	await api.put( 'settings/general/woocommerce_allowed_countries', {
+	await api.put( 'settings/general/poocommerce_allowed_countries', {
 		value: 'all',
 	} );
-	await api.put( 'settings/general/woocommerce_currency', {
+	await api.put( 'settings/general/poocommerce_currency', {
 		value: 'USD',
 	} );
-	await api.put( 'settings/general/woocommerce_price_thousand_sep', {
+	await api.put( 'settings/general/poocommerce_price_thousand_sep', {
 		value: ',',
 	} );
-	await api.put( 'settings/general/woocommerce_price_decimal_sep', {
+	await api.put( 'settings/general/poocommerce_price_decimal_sep', {
 		value: '.',
 	} );
-	await api.put( 'settings/general/woocommerce_price_num_decimals', {
+	await api.put( 'settings/general/poocommerce_price_num_decimals', {
 		value: '2',
 	} );
 } );
 
 test.describe(
-	'WooCommerce Shipping Settings - Add new shipping zone',
+	'PooCommerce Shipping Settings - Add new shipping zone',
 	{ tag: [ tags.SERVICES ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -401,7 +401,7 @@ test.describe(
 					)
 					.click();
 				await page
-					.locator( '#woocommerce_flat_rate_cost' )
+					.locator( '#poocommerce_flat_rate_cost' )
 					.fill( '10' );
 				await page.locator( '#btn-ok' ).click();
 

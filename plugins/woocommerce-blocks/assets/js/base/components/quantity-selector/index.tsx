@@ -186,7 +186,7 @@ const QuantitySelector = ( {
 				} }
 				aria-label={ sprintf(
 					/* translators: %s refers to the item name in the cart. */
-					__( 'Quantity of %s in your cart.', 'woocommerce' ),
+					__( 'Quantity of %s in your cart.', 'poocommerce' ),
 					itemName
 				) }
 			/>
@@ -196,7 +196,7 @@ const QuantitySelector = ( {
 						ref={ decreaseButtonRef }
 						aria-label={ sprintf(
 							/* translators: %s refers to the item name in the cart. */
-							__( 'Reduce quantity of %s', 'woocommerce' ),
+							__( 'Reduce quantity of %s', 'poocommerce' ),
 							itemName
 						) }
 						className="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus"
@@ -209,7 +209,7 @@ const QuantitySelector = ( {
 									/* translators: %s refers to the item's new quantity in the cart. */
 									__(
 										'Quantity reduced to %s.',
-										'woocommerce'
+										'poocommerce'
 									),
 									newQuantity
 								)
@@ -223,7 +223,7 @@ const QuantitySelector = ( {
 						ref={ increaseButtonRef }
 						aria-label={ sprintf(
 							/* translators: %s refers to the item's name in the cart. */
-							__( 'Increase quantity of %s', 'woocommerce' ),
+							__( 'Increase quantity of %s', 'poocommerce' ),
 							itemName
 						) }
 						disabled={ ! canIncrease }
@@ -236,7 +236,7 @@ const QuantitySelector = ( {
 									/* translators: %s refers to the item's new quantity in the cart. */
 									__(
 										'Quantity increased to %s.',
-										'woocommerce'
+										'poocommerce'
 									),
 									newQuantity
 								)

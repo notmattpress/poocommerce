@@ -1,11 +1,11 @@
 # End to End Testing Environment
 
-A reusable and extendable E2E testing environment for WooCommerce extensions.
+A reusable and extendable E2E testing environment for PooCommerce extensions.
 
 ## Installation
 
 ```bash
-npm install @woocommerce/e2e-environment --save
+npm install @poocommerce/e2e-environment --save
 npm install jest --global
 ```
 
@@ -13,25 +13,25 @@ npm install jest --global
 
 Version 0.3.0 added a test installer that will populate the `tests/e2e/*` folder with test scripts and configuration files. The installer will create test scripts for E2E test packages that include support for the installer.
 
-- [Adding test scaffolding to E2E test packages](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-environment/test-packages.md)
+- [Adding test scaffolding to E2E test packages](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-environment/test-packages.md)
 
 #### Using the installer
 
 - Install a default test environment: `npx wc-e2e install`
-- Install test specs from an E2E tests package: `npx wc-e2e install @woocommerce-e2e-tests [--format cjs] [--ext spec.js]`
+- Install test specs from an E2E tests package: `npx wc-e2e install @poocommerce-e2e-tests [--format cjs] [--ext spec.js]`
 - The default test spec format and extension are `ES6` and `test.js`
-- Remove test specs for an E2E tests package: `npx wc-e2e uninstall @woocommerce-e2e-tests`
+- Remove test specs for an E2E tests package: `npx wc-e2e uninstall @poocommerce-e2e-tests`
 
 ## Configuration
 
-The `@woocommerce/e2e-environment` package exports configuration objects that can be consumed in JavaScript config files in your project. Additionally, it includes a basic hosting container for running tests and includes instructions for creating your Travis CI setup.
+The `@poocommerce/e2e-environment` package exports configuration objects that can be consumed in JavaScript config files in your project. Additionally, it includes a basic hosting container for running tests and includes instructions for creating your Travis CI setup.
 
 ### Babel Config
 
 Make sure you `npm install @babel/preset-env --save` if you have not already done so. Afterwards, extend your project's `babel.config.js` to contain the expected presets for E2E testing.
 
 ```js
-const { useE2EBabelConfig } = require( '@woocommerce/e2e-environment' );
+const { useE2EBabelConfig } = require( '@poocommerce/e2e-environment' );
 
 module.exports = function( api ) {
 	api.cache( true );
@@ -49,7 +49,7 @@ module.exports = function( api ) {
 The E2E environment uses Puppeteer for headless browser testing, which uses certain globals variables. Avoid ES Lint errors by extending the config.
 
 ```js
-const { useE2EEsLintConfig } = require( '@woocommerce/e2e-environment' );
+const { useE2EEsLintConfig } = require( '@poocommerce/e2e-environment' );
 
 module.exports = useE2EEsLintConfig( {
 	root: true,
@@ -73,7 +73,7 @@ The E2E environment uses Jest as a test runner. Extending the base config is nec
 
 ```js
 const path = require( 'path' );
-const { useE2EJestConfig, resolveLocalE2ePath } = require( '@woocommerce/e2e-environment' );
+const { useE2EJestConfig, resolveLocalE2ePath } = require( '@poocommerce/e2e-environment' );
 
 const jestConfig = useE2EJestConfig( {
 	roots: [ resolveLocalE2ePath( 'specs' ) ],
@@ -176,7 +176,7 @@ The test sequencer uses the following default Puppeteer configuration:
 You can customize the configuration in [`config/jest-puppeteer.config.js`](config/jest-puppeteer.config.js)
 
 ```js
-const { useE2EJestPuppeteerConfig } = require( '@woocommerce/e2e-environment' );
+const { useE2EJestPuppeteerConfig } = require( '@poocommerce/e2e-environment' );
 
 const puppeteerConfig = useE2EJestPuppeteerConfig( {
 	launch: {
@@ -189,7 +189,7 @@ module.exports = puppeteerConfig;
 
 ### Jest Setup
 
-Jest provides [setup and teardown functions](https://jestjs.io/docs/setup-teardown) similar to PHPUnit. The default setup and teardown is in [`src/setup/jest.setup.js`](src/setup/jest.setup.js). Additional setup and teardown functions can be added to [`tests/e2e/config/jest.setup.js`](../../../plugins/woocommerce/tests/e2e/config/jest.setup.js)
+Jest provides [setup and teardown functions](https://jestjs.io/docs/setup-teardown) similar to PHPUnit. The default setup and teardown is in [`src/setup/jest.setup.js`](src/setup/jest.setup.js). Additional setup and teardown functions can be added to [`tests/e2e/config/jest.setup.js`](../../../plugins/poocommerce/tests/e2e/config/jest.setup.js)
 
 #### Console filtering
 
@@ -213,8 +213,8 @@ removeConsoleSuppression( 'suppress this after the first instance' );
 
 Depending on the project and testing scenario, the built in testing environment container might not be the best solution for testing. This could be local testing where there is already a testing container, a repository that isn't a plugin or theme and there are multiple folders mapped into the container, or similar. The `e2e-environment` test runner supports using either the built in container or an external container. See the appropriate readme for  details:
 
-- [Built In Container](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-environment/builtin.md)
-- [External Container](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-environment/external.md)
+- [Built In Container](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-environment/builtin.md)
+- [External Container](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-environment/external.md)
 
 ### Slackbot Setup
 
@@ -242,10 +242,10 @@ To test your setup, create a pull request that triggers an error in the E2E test
 
 Depending on the testing scenario, you may wish to upload a plugin that can be used in the tests from a remote location.
 
-To download a zip file, you can use `getRemotePluginZip( fileUrl )` to get the remote zip. This returns the filepath of the location where the zip file was downloaded to. For example, you could use this method to download the latest nightly version of WooCommerce:
+To download a zip file, you can use `getRemotePluginZip( fileUrl )` to get the remote zip. This returns the filepath of the location where the zip file was downloaded to. For example, you could use this method to download the latest nightly version of PooCommerce:
 
 ```javascript
-const pluginZipUrl = 'https://github.com/woocommerce/woocommerce/releases/download/nightly/woocommerce-trunk-nightly.zip';
+const pluginZipUrl = 'https://github.com/poocommerce/poocommerce/releases/download/nightly/poocommerce-trunk-nightly.zip';
 await getRemotePluginZip( pluginZipUrl );
 ```
 
@@ -264,4 +264,4 @@ This will return a string with the latest release URL. Optionally, you can use t
 
 ## Additional information
 
-Refer to [`@woocommerce/e2e-core-tests`](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/e2e-core-tests) for some test examples, and [`plugins/woocommerce/tests/e2e`](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/e2e) for general information on e2e tests.
+Refer to [`@poocommerce/e2e-core-tests`](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/e2e-core-tests) for some test examples, and [`plugins/poocommerce/tests/e2e`](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/e2e) for general information on e2e tests.

@@ -3,7 +3,7 @@
  */
 import { button } from '@wordpress/icons';
 import { getPlugin, registerPlugin } from '@wordpress/plugins';
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
 import type { BlockConfiguration } from '@wordpress/blocks';
 
 /**
@@ -34,7 +34,7 @@ if ( shouldBlockifiedAddToCartWithOptionsBeRegistered ) {
 			},
 			edit: AddToCartOptionsEdit,
 			save: () => null,
-			ancestor: [ 'woocommerce/single-product' ],
+			ancestor: [ 'poocommerce/single-product' ],
 		},
 		{
 			isAvailableOnPostEditor: true,

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { test as base, expect } from '@woocommerce/e2e-utils';
 import { ProductGalleryPage } from '../../product-gallery.page';
 
 const blockData = {
-	name: 'woocommerce/product-gallery-pager',
+	name: 'poocommerce/product-gallery-pager',
 	slug: 'single-product',
 	productPage: '/product/hoodie/',
 };
@@ -29,7 +29,7 @@ const test = base.extend< { pageObject: ProductGalleryPage } >( {
 test.describe( `${ blockData.name }`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//${ blockData.slug }`,
+			postId: `poocommerce/poocommerce//${ blockData.slug }`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );

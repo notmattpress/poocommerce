@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import { Loader } from '@woocommerce/onboarding';
+import { Loader } from '@poocommerce/onboarding';
 /**
  * Internal dependencies
  */

@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-gallery-pager",
+	"name": "poocommerce/product-gallery-pager",
 	"version": "1.0.0",
 	"title": "Pager",
 	"description": "Display the gallery pager in format \"current image/total images\".",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
-	"ancestor": [ "woocommerce/product-gallery" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
+	"ancestor": [ "poocommerce/product-gallery" ],
 	"supports": {
 		"color": {
 			"text": true,

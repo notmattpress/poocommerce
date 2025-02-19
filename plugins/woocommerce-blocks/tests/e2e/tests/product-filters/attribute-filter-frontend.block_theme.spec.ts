@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TemplateCompiler, test as base, expect } from '@woocommerce/e2e-utils';
+import { TemplateCompiler, test as base, expect } from '@poocommerce/e2e-utils';
 
 const COLOR_ATTRIBUTE_VALUES = [ 'Blue', 'Gray', 'Green', 'Red', 'Yellow' ];
 const COLOR_ATTRIBUTES_WITH_COUNTS = [
@@ -21,7 +21,7 @@ const test = base.extend< { templateCompiler: TemplateCompiler } >( {
 	},
 } );
 
-test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
+test.describe( 'poocommerce/product-filter-attribute - Frontend', () => {
 	test.describe( 'With default display style', () => {
 		test.beforeEach( async ( { requestUtils, templateCompiler } ) => {
 			await requestUtils.setFeatureFlag( 'experimental-blocks', true );

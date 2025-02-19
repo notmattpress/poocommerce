@@ -1,18 +1,18 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI, BlockData, Editor } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI, BlockData, Editor } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 
 const blockData: Partial< BlockData > = {
-	name: 'woocommerce/legacy-template',
+	name: 'poocommerce/legacy-template',
 };
 
 const classicTemplateBlockNames = [
-	'WooCommerce Classic Template',
+	'PooCommerce Classic Template',
 	'Product (Classic)',
 	'Product Attribute (Classic)',
 	'Product Category (Classic)',
@@ -145,7 +145,7 @@ test.describe( `${ blockData.name } Block `, () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//archive-product`,
+			postId: `poocommerce/poocommerce//archive-product`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -182,7 +182,7 @@ test.describe( `${ blockData.name } Block `, () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//archive-product`,
+			postId: `poocommerce/poocommerce//archive-product`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -226,13 +226,13 @@ test.describe( `${ blockData.name } Block `, () => {
 		expect( classicTemplateBlocks ).toHaveLength( 0 );
 	} );
 
-	// @see https://github.com/woocommerce/woocommerce-blocks/issues/9637
+	// @see https://github.com/poocommerce/poocommerce-blocks/issues/9637
 	test( `is still available after resetting a modified WC template`, async ( {
 		admin,
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//single-product`,
+			postId: `poocommerce/poocommerce//single-product`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -282,7 +282,7 @@ test.describe( `${ blockData.name } Block `, () => {
 			page,
 		} ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//${ template.slug }`,
+				postId: `poocommerce/poocommerce//${ template.slug }`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );

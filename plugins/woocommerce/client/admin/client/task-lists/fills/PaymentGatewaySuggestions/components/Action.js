@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button, Spinner } from '@wordpress/components';
-import { updateQueryString } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { updateQueryString } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import { useState } from '@wordpress/element';
 /**
  * Internal dependencies
@@ -24,12 +24,12 @@ export const Action = ( {
 	markConfigured,
 	onSetUp = () => {},
 	onSetupCallback,
-	setupButtonText = __( 'Get started', 'woocommerce' ),
+	setupButtonText = __( 'Get started', 'poocommerce' ),
 	externalLink = null,
 } ) => {
 	const [ isBusy, setIsBusy ] = useState( false );
 
-	const classes = 'woocommerce-task-payment__action';
+	const classes = 'poocommerce-task-payment__action';
 
 	if ( isLoading ) {
 		return <Spinner />;
@@ -73,7 +73,7 @@ export const Action = ( {
 			href={ manageUrl }
 			onClick={ () => recordEvent( 'tasklist_payment_manage', { id } ) }
 		>
-			{ __( 'Manage', 'woocommerce' ) }
+			{ __( 'Manage', 'poocommerce' ) }
 		</Button>
 	);
 
@@ -96,7 +96,7 @@ export const Action = ( {
 			isSecondary
 			onClick={ () => markConfigured( id ) }
 		>
-			{ __( 'Enable', 'woocommerce' ) }
+			{ __( 'Enable', 'poocommerce' ) }
 		</Button>
 	);
 
@@ -135,7 +135,7 @@ export const Action = ( {
 				disabled={ isBusy }
 				onClick={ () => handleClick() }
 			>
-				{ __( 'Finish setup', 'woocommerce' ) }
+				{ __( 'Finish setup', 'poocommerce' ) }
 			</Button>
 		);
 	}

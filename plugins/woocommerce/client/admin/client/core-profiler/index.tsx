@@ -20,7 +20,7 @@ import {
 	updateQueryString,
 	getQuery,
 	getNewPath,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import {
 	ExtensionList,
 	optionsStore,
@@ -36,12 +36,12 @@ import {
 	ProfileItems,
 	CoreProfilerStep,
 	CoreProfilerCompletedSteps,
-} from '@woocommerce/data';
-import { initializeExPlat } from '@woocommerce/explat';
-import { CountryStateOption } from '@woocommerce/onboarding';
-import { getAdminLink } from '@woocommerce/settings';
-import CurrencyFactory, { CountryInfo } from '@woocommerce/currency';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { initializeExPlat } from '@poocommerce/explat';
+import { CountryStateOption } from '@poocommerce/onboarding';
+import { getAdminLink } from '@poocommerce/settings';
+import CurrencyFactory, { CountryInfo } from '@poocommerce/currency';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -137,7 +137,7 @@ export type CoreProfilerStateMachineContext = {
 };
 
 const getAllowTrackingOption = fromPromise( async () =>
-	resolveSelect( optionsStore ).getOption( 'woocommerce_allow_tracking' )
+	resolveSelect( optionsStore ).getOption( 'poocommerce_allow_tracking' )
 );
 
 const handleTrackingOption = assign( {
@@ -170,7 +170,7 @@ const handleStoreNameOption = assign( {
 } );
 
 const getStoreCountryOption = fromPromise( async () =>
-	resolveSelect( optionsStore ).getOption( 'woocommerce_default_country' )
+	resolveSelect( optionsStore ).getOption( 'poocommerce_default_country' )
 );
 
 const handleStoreCountryOption = assign( {
@@ -207,7 +207,7 @@ const handleCountries = assign( {
 } );
 
 const getOnboardingProfileOption = fromPromise( async () =>
-	resolveSelect( optionsStore ).getOption( 'woocommerce_onboarding_profile' )
+	resolveSelect( optionsStore ).getOption( 'poocommerce_onboarding_profile' )
 );
 
 const handleOnboardingProfileOption = assign( {
@@ -370,7 +370,7 @@ const recordUpdateTrackingOption = (
 	newValue: 'yes' | 'no'
 ) => {
 	if ( prevValue !== newValue ) {
-		recordEvent( 'woocommerce_allow_tracking_toggled', {
+		recordEvent( 'poocommerce_allow_tracking_toggled', {
 			previous_value: prevValue,
 			new_value: newValue,
 			context: 'core-profiler',
@@ -382,7 +382,7 @@ const updateTrackingOption = fromPromise(
 	async ( { input }: { input: CoreProfilerStateMachineContext } ) => {
 		const prevValue =
 			( await resolveSelect( optionsStore ).getOption(
-				'woocommerce_allow_tracking'
+				'poocommerce_allow_tracking'
 			) ) === 'yes'
 				? 'yes'
 				: 'no';
@@ -410,7 +410,7 @@ const updateTrackingOption = fromPromise(
 
 		const trackingValue = input.optInDataSharing ? 'yes' : 'no';
 		dispatch( optionsStore ).updateOptions( {
-			woocommerce_allow_tracking: trackingValue,
+			poocommerce_allow_tracking: trackingValue,
 		} );
 	}
 );
@@ -431,7 +431,7 @@ const updateOnboardingProfileOption = fromPromise(
 
 const updateBusinessLocation = ( countryAndState: string ) => {
 	return dispatch( optionsStore ).updateOptions( {
-		woocommerce_default_country: countryAndState,
+		poocommerce_default_country: countryAndState,
 	} );
 };
 
@@ -466,13 +466,13 @@ const updateStoreCurrency = async ( countryAndState: string ) => {
 		{
 			general: {
 				...settings,
-				woocommerce_currency: currencySettings.code,
-				woocommerce_currency_pos: currencySettings.symbolPosition,
-				woocommerce_price_thousand_sep:
+				poocommerce_currency: currencySettings.code,
+				poocommerce_currency_pos: currencySettings.symbolPosition,
+				poocommerce_price_thousand_sep:
 					currencySettings.thousandSeparator,
-				woocommerce_price_decimal_sep:
+				poocommerce_price_decimal_sep:
 					currencySettings.decimalSeparator,
-				woocommerce_price_num_decimals: currencySettings.precision,
+				poocommerce_price_num_decimals: currencySettings.precision,
 			},
 		}
 	);
@@ -509,8 +509,8 @@ const updateStoreMeasurements = async ( countryAndState: string ) => {
 		'products',
 		{
 			products: {
-				woocommerce_weight_unit: weight_unit,
-				woocommerce_dimension_unit: dimension_unit,
+				poocommerce_weight_unit: weight_unit,
+				poocommerce_dimension_unit: dimension_unit,
 			},
 		}
 	);
@@ -566,7 +566,7 @@ const updateBusinessInfo = fromPromise(
 			} ),
 			dispatch( optionsStore ).updateOptions( {
 				blogname: input.payload.storeName,
-				woocommerce_default_country: input.payload.storeLocation,
+				poocommerce_default_country: input.payload.storeLocation,
 			} ),
 		] );
 	}
@@ -598,7 +598,7 @@ const preFetchJetpackAuthUrl = assign( {
 			fromPromise( async () =>
 				resolveSelect( onboardingStore ).getJetpackAuthUrl( {
 					redirectUrl: getAdminLink( 'admin.php?page=wc-admin' ),
-					from: 'woocommerce-core-profiler',
+					from: 'poocommerce-core-profiler',
 				} )
 			)
 		),
@@ -900,8 +900,8 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 							id: 'prefetch-options',
 							input: [
 								'blogname',
-								'woocommerce_onboarding_profile',
-								'woocommerce_default_country',
+								'poocommerce_onboarding_profile',
+								'poocommerce_default_country',
 							],
 						} ),
 					],
@@ -1713,7 +1713,7 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 								redirectUrl: getAdminLink(
 									'admin.php?page=wc-admin'
 								),
-								from: 'woocommerce-core-profiler',
+								from: 'poocommerce-core-profiler',
 							} );
 						} ),
 						onDone: {
@@ -1895,7 +1895,7 @@ export const CoreProfilerController = ( {
 			? Object.keys( state.value )[ 0 ]
 			: state.value;
 
-	useFullScreen( [ 'woocommerce-profile-wizard__body' ] );
+	useFullScreen( [ 'poocommerce-profile-wizard__body' ] );
 
 	const [ CurrentComponent ] =
 		useComponentFromXStateService< CoreProfilerPageComponent >( service );
@@ -1903,7 +1903,7 @@ export const CoreProfilerController = ( {
 	return (
 		<>
 			<div
-				className={ `woocommerce-profile-wizard__container woocommerce-profile-wizard__step-${ currentNodeCssLabel }` }
+				className={ `poocommerce-profile-wizard__container poocommerce-profile-wizard__step-${ currentNodeCssLabel }` }
 			>
 				{ CurrentComponent ? (
 					<CurrentComponent

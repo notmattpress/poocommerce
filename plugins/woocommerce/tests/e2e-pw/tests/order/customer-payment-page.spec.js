@@ -1,14 +1,14 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 let productId, orderId;
 const productName = 'Simple Product Name';
 const productPrice = '15.99';
 
 test.describe(
-	'WooCommerce Merchant Flow: Orders > Customer Payment Page',
+	'PooCommerce Merchant Flow: Orders > Customer Payment Page',
 	{ tag: [ tags.PAYMENTS, tags.SERVICES, tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -101,7 +101,7 @@ test.describe(
 				);
 				await expect(
 					page.locator(
-						'span.woocommerce-Price-amount.amount >> nth=0'
+						'span.poocommerce-Price-amount.amount >> nth=0'
 					)
 				).toContainText( productPrice );
 			}

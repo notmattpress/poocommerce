@@ -4,7 +4,7 @@
 import { createElement } from '@wordpress/element';
 import { ToolbarButton } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { dispatch } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 import { parse, rawHandler } from '@wordpress/blocks';
@@ -36,10 +36,10 @@ function shouldForceFullEditor() {
 }
 
 export default function FullEditorToolbarButton( {
-	label = __( 'Edit Product description', 'woocommerce' ),
-	text = __( 'Full editor', 'woocommerce' ),
+	label = __( 'Edit Product description', 'poocommerce' ),
+	text = __( 'Full editor', 'poocommerce' ),
 } ) {
-	// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+	// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 	const { openModalEditor, setModalEditorBlocks } = dispatch( store );
 	const [ description ] = useEntityProp< string >(
 		'postType',
@@ -57,7 +57,7 @@ export default function FullEditorToolbarButton( {
 						alert(
 							__(
 								'The version of the Gutenberg plugin installed causes a crash in the full editor. You are proceeding at your own risk and may experience crashes.',
-								'woocommerce'
+								'poocommerce'
 							)
 						);
 					} else {
@@ -65,7 +65,7 @@ export default function FullEditorToolbarButton( {
 						alert(
 							__(
 								'The version of the Gutenberg plugin installed causes a crash in the full editor. To prevent this, the full editor has been disabled.',
-								'woocommerce'
+								'poocommerce'
 							)
 						);
 						return;

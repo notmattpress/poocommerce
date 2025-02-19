@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { difference } from 'lodash';
 import { useEffect, useState } from '@wordpress/element';
-import { Stepper } from '@woocommerce/components';
+import { Stepper } from '@poocommerce/components';
 import { Card, CardBody, Button } from '@wordpress/components';
 
 /**
@@ -21,7 +21,7 @@ import { TrackedLink } from '~/components/tracked-link/tracked-link';
 /**
  * Plugins required to automate shipping.
  */
-const AUTOMATION_PLUGINS = [ 'woocommerce-services' ];
+const AUTOMATION_PLUGINS = [ 'poocommerce-services' ];
 
 export const ShippingRecommendation: React.FC<
 	TaskProps & ShippingRecommendationProps
@@ -80,10 +80,10 @@ export const ShippingRecommendation: React.FC<
 	const steps = [
 		{
 			key: 'store_location',
-			label: __( 'Set store location', 'woocommerce' ),
+			label: __( 'Set store location', 'poocommerce' ),
 			description: __(
 				'The address from which your business operates',
-				'woocommerce'
+				'poocommerce'
 			),
 			content: (
 				<StoreLocation
@@ -95,10 +95,10 @@ export const ShippingRecommendation: React.FC<
 		},
 		{
 			key: 'plugins',
-			label: __( 'Install WooCommerce Shipping', 'woocommerce' ),
+			label: __( 'Install PooCommerce Shipping', 'poocommerce' ),
 			description: __(
 				'Enable shipping label printing and discounted rates',
-				'woocommerce'
+				'poocommerce'
 			),
 			content: (
 				<div>
@@ -112,14 +112,14 @@ export const ShippingRecommendation: React.FC<
 		},
 		{
 			key: 'connect',
-			label: __( 'Connect your store', 'woocommerce' ),
+			label: __( 'Connect your store', 'poocommerce' ),
 			description: __(
-				'Connect your store to WordPress.com to enable WooCommerce Shipping',
-				'woocommerce'
+				'Connect your store to WordPress.com to enable PooCommerce Shipping',
+				'poocommerce'
 			),
 			content: isJetpackConnected ? (
 				<Button onClick={ redirect } isBusy={ isRedirecting } isPrimary>
-					{ __( 'Complete task', 'woocommerce' ) }
+					{ __( 'Complete task', 'poocommerce' ) }
 				</Button>
 			) : (
 				<Connect />
@@ -130,8 +130,8 @@ export const ShippingRecommendation: React.FC<
 	const step = steps[ stepIndex ];
 
 	return (
-		<div className="woocommerce-task-shipping-recommendation">
-			<Card className="woocommerce-task-card">
+		<div className="poocommerce-task-shipping-recommendation">
+			<Card className="poocommerce-task-card">
 				<CardBody>
 					<Stepper
 						isPending={ isResolving }
@@ -145,12 +145,12 @@ export const ShippingRecommendation: React.FC<
 				textProps={ {
 					as: 'div',
 					className:
-						'woocommerce-task-dashboard__container woocommerce-task-marketplace-link',
+						'poocommerce-task-dashboard__container poocommerce-task-marketplace-link',
 				} }
 				message={ __(
 					// translators: {{Link}} is a placeholder for a html element.
-					'Visit the {{Link}}Official WooCommerce Marketplace{{/Link}} to find more shipping, delivery, and fulfillment solutions.',
-					'woocommerce'
+					'Visit the {{Link}}Official PooCommerce Marketplace{{/Link}} to find more shipping, delivery, and fulfillment solutions.',
+					'poocommerce'
 				) }
 				eventName="tasklist_shipping_recommendation_visit_marketplace_click"
 				targetUrl="admin.php?page=wc-admin&tab=extensions&path=/extensions&category=shipping-delivery-and-fulfillment"

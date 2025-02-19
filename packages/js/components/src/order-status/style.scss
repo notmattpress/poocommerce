@@ -1,11 +1,11 @@
-.woocommerce-order-status {
+.poocommerce-order-status {
 	display: grid;
 	grid-template-columns: min-content min-content;
 	grid-gap: $gap-smallest * 2;
 	align-items: center;
 }
 
-.woocommerce-order-status__indicator {
+.poocommerce-order-status__indicator {
 	min-width: 16px;
 	width: 16px;
 	height: 16px;

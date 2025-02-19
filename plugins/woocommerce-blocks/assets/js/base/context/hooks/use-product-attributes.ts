@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { getAttributes, getTerms } from '@woocommerce/editor-components/utils';
+import { getAttributes, getTerms } from '@poocommerce/editor-components/utils';
 import {
 	AttributeObject,
 	AttributeTerm,
 	AttributeWithTerms,
-} from '@woocommerce/types';
-import { formatError } from '@woocommerce/base-utils';
+} from '@poocommerce/types';
+import { formatError } from '@poocommerce/base-utils';
 
 export default function useProductAttributes( shouldLoadAttributes: boolean ) {
 	const [ errorLoadingAttributes, setErrorLoadingAttributes ] =
@@ -43,7 +43,7 @@ export default function useProductAttributes( shouldLoadAttributes: boolean ) {
 						...attribute,
 						// Manually adding the parent id because of a Rest API bug
 						// returning always `0` as parent.
-						// see https://github.com/woocommerce/woocommerce-blocks/issues/8501
+						// see https://github.com/poocommerce/poocommerce-blocks/issues/8501
 						parent: 0,
 						terms: terms.map( ( term ) => ( {
 							...term,

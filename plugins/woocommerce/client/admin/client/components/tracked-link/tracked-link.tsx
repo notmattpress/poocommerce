@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { Link } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 
 interface TextProps {
 	/**
@@ -19,7 +19,7 @@ interface TrackedLinkProps {
 	textProps?: TextProps;
 	/**
 	 * The complete translatable string that includes {{Link}} and {{/Link}} placeholders
-	 * Example: "Visit the {{Link}}Official WooCommerce Marketplace{{/Link}} to find more tax solutions"
+	 * Example: "Visit the {{Link}}Official PooCommerce Marketplace{{/Link}} to find more tax solutions"
 	 */
 	message: string;
 	eventName?: string;

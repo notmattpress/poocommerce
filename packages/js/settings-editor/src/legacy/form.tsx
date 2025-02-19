@@ -5,7 +5,7 @@ import { createElement, useRef } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { DataForm } from '@wordpress/dataviews';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -84,7 +84,7 @@ export const Form = ( {
 			{ settingsPage.start && (
 				<CustomView html={ settingsPage.start.content } />
 			) }
-			<div className="woocommerce-settings-content">
+			<div className="poocommerce-settings-content">
 				<DataForm
 					fields={ fields }
 					form={ form }
@@ -92,9 +92,9 @@ export const Form = ( {
 					onChange={ updateField }
 				/>
 			</div>
-			<div className="woocommerce-settings-content-footer">
+			<div className="poocommerce-settings-content-footer">
 				<Button variant="primary" type="submit">
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 			{ settingsPage.end && (

@@ -90,9 +90,9 @@
 			.removeClass( 'wc-variation-is-unavailable' )
 			.addClass( 'disabled wc-variation-selection-needed' );
 		event.data.variationForm.$form
-			.find( '.woocommerce-variation-add-to-cart' )
-			.removeClass( 'woocommerce-variation-add-to-cart-enabled' )
-			.addClass( 'woocommerce-variation-add-to-cart-disabled' );
+			.find( '.poocommerce-variation-add-to-cart' )
+			.removeClass( 'poocommerce-variation-add-to-cart-enabled' )
+			.addClass( 'poocommerce-variation-add-to-cart-disabled' );
 	};
 
 	/**
@@ -105,18 +105,18 @@
 				.find( '.single_add_to_cart_button' )
 				.removeClass( 'disabled wc-variation-selection-needed wc-variation-is-unavailable' );
 			event.data.variationForm.$form
-				.find( '.woocommerce-variation-add-to-cart' )
-				.removeClass( 'woocommerce-variation-add-to-cart-disabled' )
-				.addClass( 'woocommerce-variation-add-to-cart-enabled' );
+				.find( '.poocommerce-variation-add-to-cart' )
+				.removeClass( 'poocommerce-variation-add-to-cart-disabled' )
+				.addClass( 'poocommerce-variation-add-to-cart-enabled' );
 		} else {
 			event.data.variationForm.$form
 				.find( '.single_add_to_cart_button' )
 				.removeClass( 'wc-variation-selection-needed' )
 				.addClass( 'disabled wc-variation-is-unavailable' );
 			event.data.variationForm.$form
-				.find( '.woocommerce-variation-add-to-cart' )
-				.removeClass( 'woocommerce-variation-add-to-cart-enabled' )
-				.addClass( 'woocommerce-variation-add-to-cart-disabled' );
+				.find( '.poocommerce-variation-add-to-cart' )
+				.removeClass( 'poocommerce-variation-add-to-cart-enabled' )
+				.addClass( 'poocommerce-variation-add-to-cart-disabled' );
 		}
 
 		// If present, the media element library needs initialized on the variation description.
@@ -154,10 +154,10 @@
 		var form = event.data.variationForm;
 		form.$product.find( '.product_meta' ).find( '.sku' ).wc_reset_content();
 		form.$product
-			.find( '.product_weight, .woocommerce-product-attributes-item--weight .woocommerce-product-attributes-item__value' )
+			.find( '.product_weight, .poocommerce-product-attributes-item--weight .poocommerce-product-attributes-item__value' )
 			.wc_reset_content();
 		form.$product
-			.find( '.product_dimensions, .woocommerce-product-attributes-item--dimensions .woocommerce-product-attributes-item__value' )
+			.find( '.product_dimensions, .poocommerce-product-attributes-item--dimensions .poocommerce-product-attributes-item__value' )
 			.wc_reset_content();
 		form.$form.trigger( 'reset_image' );
 		form.$singleVariation.slideUp( 200 ).trigger( 'hide_variation' );
@@ -258,10 +258,10 @@
 		var form           = event.data.variationForm,
 			$sku           = form.$product.find( '.product_meta' ).find( '.sku' ),
 			$weight        = form.$product.find(
-				'.product_weight, .woocommerce-product-attributes-item--weight .woocommerce-product-attributes-item__value'
+				'.product_weight, .poocommerce-product-attributes-item--weight .poocommerce-product-attributes-item__value'
 			),
 			$dimensions    = form.$product.find(
-				'.product_dimensions, .woocommerce-product-attributes-item--dimensions .woocommerce-product-attributes-item__value'
+				'.product_dimensions, .poocommerce-product-attributes-item--dimensions .poocommerce-product-attributes-item__value'
 			),
 			$qty_input     = form.$singleVariationWrap.find( '.quantity input.qty[name="quantity"]' ),
 			$qty           = $qty_input.closest( '.quantity' ),
@@ -352,12 +352,12 @@
 		if ( form.useAjax ) {
 			form.$form.trigger( 'check_variations' );
 		} else {
-			form.$form.trigger( 'woocommerce_variation_select_change' );
+			form.$form.trigger( 'poocommerce_variation_select_change' );
 			form.$form.trigger( 'check_variations' );
 		}
 
 		// Custom event for when variation selection has been changed
-		form.$form.trigger( 'woocommerce_variation_has_changed' );
+		form.$form.trigger( 'poocommerce_variation_has_changed' );
 	};
 
 	/**
@@ -511,7 +511,7 @@
 		});
 
 		// Custom event for when variations have been updated.
-		form.$form.trigger( 'woocommerce_update_variation_values' );
+		form.$form.trigger( 'poocommerce_update_variation_values' );
 	};
 
 	/**
@@ -596,7 +596,7 @@
 			.find( '.single_variation' )
 			.after(
 				'<div role="alert">' +
-					'<p class="wc-no-matching-variations woocommerce-info">' +
+					'<p class="wc-no-matching-variations poocommerce-info">' +
 						wc_add_to_cart_variation_params.i18n_no_matching_variations_text +
 					'</p>' +
 				'</div>'
@@ -684,7 +684,7 @@
 		$form.attr( 'current-image', new_image_id );
 
 		if ( reset_slide_position ) {
-			$product_gallery.trigger( 'woocommerce_gallery_reset_slide_position' );
+			$product_gallery.trigger( 'poocommerce_gallery_reset_slide_position' );
 		}
 	};
 
@@ -698,7 +698,7 @@
 			$gallery_nav      = $product.find( '.flex-control-nav' ),
 			$gallery_img      = $gallery_nav.find( 'li:eq(0) img' ),
 			$product_img_wrap = $product_gallery
-				.find( '.woocommerce-product-gallery__image, .woocommerce-product-gallery__image--placeholder' )
+				.find( '.poocommerce-product-gallery__image, .poocommerce-product-gallery__image--placeholder' )
 				.eq( 0 ),
 			$product_img      = $product_img_wrap.find( '.wp-post-image' ),
 			$product_link     = $product_img_wrap.find( 'a' ).eq( 0 );
@@ -720,7 +720,7 @@
 				$form.attr( 'current-image', variation.image_id );
 				window.setTimeout( function() {
 					$( window ).trigger( 'resize' );
-					$product_gallery.trigger( 'woocommerce_gallery_init_zoom' );
+					$product_gallery.trigger( 'poocommerce_gallery_init_zoom' );
 				}, 20 );
 				return;
 			}
@@ -747,7 +747,7 @@
 		window.setTimeout( function() {
 			$( window ).trigger( 'resize' );
 			$form.wc_maybe_trigger_slide_position_reset( variation );
-			$product_gallery.trigger( 'woocommerce_gallery_init_zoom' );
+			$product_gallery.trigger( 'poocommerce_gallery_init_zoom' );
 		}, 20 );
 	};
 
@@ -761,7 +761,7 @@
 			$gallery_nav      = $product.find( '.flex-control-nav' ),
 			$gallery_img      = $gallery_nav.find( 'li:eq(0) img' ),
 			$product_img_wrap = $product_gallery
-				.find( '.woocommerce-product-gallery__image, .woocommerce-product-gallery__image--placeholder' )
+				.find( '.poocommerce-product-gallery__image, .poocommerce-product-gallery__image--placeholder' )
 				.eq( 0 ),
 			$product_img      = $product_img_wrap.find( '.wp-post-image' ),
 			$product_link     = $product_img_wrap.find( 'a' ).eq( 0 );

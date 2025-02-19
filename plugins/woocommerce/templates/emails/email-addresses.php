@@ -2,20 +2,20 @@
 /**
  * Email Addresses
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-addresses.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-addresses.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 9.7.0
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,13 +30,13 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
 	<tr>
 		<td class="font-family text-align-left" style="border:0; padding:0;" valign="top" width="50%">
 			<?php if ( $email_improvements_enabled ) { ?>
-				<b><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></b>
+				<b><?php esc_html_e( 'Billing address', 'poocommerce' ); ?></b>
 			<?php } else { ?>
-				<h2><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></h2>
+				<h2><?php esc_html_e( 'Billing address', 'poocommerce' ); ?></h2>
 			<?php } ?>
 
 			<address class="address">
-				<?php echo wp_kses_post( $address ? $address : esc_html__( 'N/A', 'woocommerce' ) ); ?>
+				<?php echo wp_kses_post( $address ? $address : esc_html__( 'N/A', 'poocommerce' ) ); ?>
 				<?php if ( $order->get_billing_phone() ) : ?>
 					<br/><?php echo wc_make_phone_clickable( $order->get_billing_phone() ); ?>
 				<?php endif; ?>
@@ -54,16 +54,16 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
 				 * @param bool $sent_to_admin If this email is being sent to the admin or not.
 				 * @param bool $plain_text If this email is plain text or not.
 				 */
-				do_action( 'woocommerce_email_customer_address_section', 'billing', $order, $sent_to_admin, false );
+				do_action( 'poocommerce_email_customer_address_section', 'billing', $order, $sent_to_admin, false );
 				?>
 			</address>
 		</td>
 		<?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() && $shipping ) : ?>
 			<td class="font-family text-align-left" style="padding:0;" valign="top" width="50%">
 				<?php if ( $email_improvements_enabled ) { ?>
-					<b><?php esc_html_e( 'Shipping address', 'woocommerce' ); ?></b>
+					<b><?php esc_html_e( 'Shipping address', 'poocommerce' ); ?></b>
 				<?php } else { ?>
-					<h2><?php esc_html_e( 'Shipping address', 'woocommerce' ); ?></h2>
+					<h2><?php esc_html_e( 'Shipping address', 'poocommerce' ); ?></h2>
 				<?php } ?>
 
 				<address class="address">
@@ -82,7 +82,7 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
 					 * @param bool $sent_to_admin If this email is being sent to the admin or not.
 					 * @param bool $plain_text If this email is plain text or not.
 					 */
-					do_action( 'woocommerce_email_customer_address_section', 'shipping', $order, $sent_to_admin, false );
+					do_action( 'poocommerce_email_customer_address_section', 'shipping', $order, $sent_to_admin, false );
 					?>
 				</address>
 			</td>

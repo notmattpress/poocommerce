@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { store, getContext as getContextFn } from '@woocommerce/interactivity';
+import { store, getContext as getContextFn } from '@poocommerce/interactivity';
 import { select, subscribe, dispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
-import { Cart } from '@woocommerce/type-defs/cart';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
+import { Cart } from '@poocommerce/type-defs/cart';
 import { createRoot } from '@wordpress/element';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
 import { decodeEntities } from '@wordpress/html-entities';
 
 interface Context {
@@ -85,7 +85,7 @@ const getButtonText = (
 // The `getContextFn` function is wrapped just to avoid prettier issues.
 const getContext = ( ns?: string ) => getContextFn< Context >( ns );
 
-const { state } = store< Store >( 'woocommerce/product-button', {
+const { state } = store< Store >( 'poocommerce/product-button', {
 	state: {
 		get slideInAnimation() {
 			const { animationStatus } = getContext();

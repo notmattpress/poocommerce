@@ -4,8 +4,8 @@
 import { useState } from '@wordpress/element';
 import { TextareaControl, Button, Spinner } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { ProgressBar } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { ProgressBar } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ export const BusinessInfoDescription = ( {
 			{ isEntrepreneurFlow() && (
 				<WordPressLogo
 					size={ 24 }
-					className="woocommerce-cys-wordpress-header-logo"
+					className="poocommerce-cys-wordpress-header-logo"
 				/>
 			) }
 			{ ! isEntrepreneurFlow() && (
@@ -78,12 +78,12 @@ export const BusinessInfoDescription = ( {
 					} }
 				/>
 			) }
-			<div className="woocommerce-cys-design-with-ai woocommerce-cys-layout">
-				<div className="woocommerce-cys-page">
+			<div className="poocommerce-cys-design-with-ai poocommerce-cys-layout">
+				<div className="poocommerce-cys-page">
 					<h1>
 						{ __(
 							'Tell us a bit more about your business',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</h1>
 					<TextareaControl
@@ -92,34 +92,34 @@ export const BusinessInfoDescription = ( {
 						} }
 						value={ businessInfoDescription }
 					/>
-					<div className="woocommerce-cys-design-with-ai-guide">
+					<div className="poocommerce-cys-design-with-ai-guide">
 						<p>
 							{ __(
 								'The more detail you provide, the better job our AI can do!',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
-						<p>{ __( 'Try to include:', 'woocommerce' ) }</p>
+						<p>{ __( 'Try to include:', 'poocommerce' ) }</p>
 						<ul>
 							<li>
-								{ __( 'What you want to sell', 'woocommerce' ) }
+								{ __( 'What you want to sell', 'poocommerce' ) }
 							</li>
 							<li>
 								{ __(
 									'How many products you plan on displaying',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</li>
 							<li>
 								{ __(
 									'What makes your business unique',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</li>
 							<li>
 								{ __(
 									'Who your target audience is',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</li>
 						</ul>
@@ -140,7 +140,7 @@ export const BusinessInfoDescription = ( {
 						{ isRequesting ? (
 							<Spinner />
 						) : (
-							__( 'Continue', 'woocommerce' )
+							__( 'Continue', 'poocommerce' )
 						) }
 					</Button>
 				</div>

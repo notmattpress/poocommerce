@@ -6,7 +6,7 @@ import { Button, Modal } from '@wordpress/components';
 import { createElement, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { dragHandle } from '@wordpress/icons';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import classNames from 'classnames';
 
 /**
@@ -41,20 +41,20 @@ export function ReorderProductsModal( {
 
 	return (
 		<Modal
-			title={ __( 'Reorder products in this group', 'woocommerce' ) }
-			className="woocommerce-reorder-products-modal"
+			title={ __( 'Reorder products in this group', 'poocommerce' ) }
+			className="poocommerce-reorder-products-modal"
 			onRequestClose={ onClose }
 		>
 			<form
 				noValidate
 				onSubmit={ handleSubmit }
-				className="woocommerce-add-products-modal__form"
+				className="poocommerce-add-products-modal__form"
 			>
-				<fieldset className="woocommerce-add-products-modal__form-group">
-					<legend className="woocommerce-add-products-modal__form-group-title">
+				<fieldset className="poocommerce-add-products-modal__form-group">
+					<legend className="poocommerce-add-products-modal__form-group-title">
 						{ __(
 							'Click and drag to reorder on the product page.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</legend>
 
@@ -62,7 +62,7 @@ export function ReorderProductsModal( {
 						<ul
 							{ ...container }
 							className={ classNames(
-								'woocommerce-add-products-modal__list',
+								'poocommerce-add-products-modal__list',
 								container.className
 							) }
 						>
@@ -70,7 +70,7 @@ export function ReorderProductsModal( {
 								<li
 									{ ...draggable }
 									key={ item.id }
-									className="woocommerce-add-products-modal__list-item"
+									className="poocommerce-add-products-modal__list-item"
 								>
 									<Button
 										{ ...handler }
@@ -79,19 +79,19 @@ export function ReorderProductsModal( {
 										type="button"
 										aria-label={ __(
 											'Sortable handler',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 									<div
-										className="woocommerce-add-products-modal__list-item-image"
+										className="poocommerce-add-products-modal__list-item-image"
 										style={ getProductImageStyle( item ) }
 									/>
-									<div className="woocommerce-add-products-modal__list-item-content">
-										<div className="woocommerce-add-products-modal__list-item-title">
+									<div className="poocommerce-add-products-modal__list-item-content">
+										<div className="poocommerce-add-products-modal__list-item-title">
 											{ item.name }
 										</div>
 
-										<div className="woocommerce-add-products-modal__list-item-description">
+										<div className="poocommerce-add-products-modal__list-item-description">
 											{ item.sku }
 										</div>
 									</div>
@@ -101,16 +101,16 @@ export function ReorderProductsModal( {
 					) }
 				</fieldset>
 
-				<div className="woocommerce-add-products-modal__actions">
+				<div className="poocommerce-add-products-modal__actions">
 					<Button
 						variant="tertiary"
 						type="button"
 						onClick={ handleCancelClick }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button variant="primary" type="submit">
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</form>

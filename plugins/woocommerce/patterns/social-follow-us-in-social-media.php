@@ -1,11 +1,11 @@
 <?php
 /**
  * Title: Social: Follow us on social media
- * Slug: woocommerce-blocks/social-follow-us-in-social-media
- * Categories: WooCommerce, social-media
+ * Slug: poocommerce-blocks/social-follow-us-in-social-media
+ * Categories: PooCommerce, social-media
  */
 
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
 
 $image1 = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/drinkware-liquid-tableware-dishware-bottle-fluid.jpg' );
 $image2 = PatternsHelper::get_image_url( $images, 1, 'assets/images/pattern-placeholders/watch-hand-brand-jewellery-strap-platinum.jpg' );
@@ -51,7 +51,7 @@ $social_title = $content['titles'][0]['default'] ?? '';
 		<div class="wp-block-column" style="flex-basis:25%">
 			<!-- wp:image {"aspectRatio":"1","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->
 			<figure class="wp-block-image is-resized size-large">
-				<img src="<?php echo esc_url( $image1 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 1 out of 4.', 'woocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
+				<img src="<?php echo esc_url( $image1 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 1 out of 4.', 'poocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
 			</figure>
 			<!-- /wp:image -->
 		</div>
@@ -61,7 +61,7 @@ $social_title = $content['titles'][0]['default'] ?? '';
 		<div class="wp-block-column" style="flex-basis:25%">
 			<!-- wp:image {"aspectRatio":"1","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->
 			<figure class="wp-block-image is-resized size-large">
-				<img src="<?php echo esc_url( $image2 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 2 out of 4.', 'woocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
+				<img src="<?php echo esc_url( $image2 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 2 out of 4.', 'poocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
 			</figure>
 			<!-- /wp:image -->
 		</div>
@@ -71,7 +71,7 @@ $social_title = $content['titles'][0]['default'] ?? '';
 		<div class="wp-block-column" style="flex-basis:25%">
 			<!-- wp:image {"aspectRatio":"1","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->
 			<figure class="wp-block-image is-resized size-large">
-				<img src="<?php echo esc_url( $image3 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 3 out of 4.', 'woocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
+				<img src="<?php echo esc_url( $image3 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 3 out of 4.', 'poocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
 			</figure>
 			<!-- /wp:image -->
 		</div>
@@ -81,7 +81,7 @@ $social_title = $content['titles'][0]['default'] ?? '';
 		<div class="wp-block-column" style="flex-basis:25%">
 			<!-- wp:image {"aspectRatio":"1","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->
 			<figure class="wp-block-image is-resized size-large">
-				<img src="<?php echo esc_url( $image4 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 4 out of 4.', 'woocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
+				<img src="<?php echo esc_url( $image4 ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent products being showcased under the social media icons. 4 out of 4.', 'poocommerce' ); ?>" style="aspect-ratio:1;object-fit:cover;"/>
 			</figure>
 			<!-- /wp:image -->
 		</div>

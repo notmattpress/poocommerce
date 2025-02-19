@@ -6,7 +6,7 @@
  * External dependencies
  */
 import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { QUERY_STATE_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { QUERY_STATE_STORE_KEY as storeKey } from '@poocommerce/block-data';
 import { act, renderHook } from '@testing-library/react';
 
 /**
@@ -18,7 +18,7 @@ import {
 	useSynchronizedQueryState,
 } from '../use-query-state';
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	__esModule: true,
 	QUERY_STATE_STORE_KEY: 'test/store',
 } ) );

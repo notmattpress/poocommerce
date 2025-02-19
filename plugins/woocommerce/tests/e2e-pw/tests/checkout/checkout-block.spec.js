@@ -9,7 +9,7 @@ import {
 	getOrderIdFromUrl,
 	fillShippingCheckoutBlocks,
 	fillBillingCheckoutBlocks,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 import { request } from '@playwright/test';
 
 /**
@@ -26,10 +26,10 @@ import { setOption } from '../../utils/options';
 const guestEmail = 'checkout-guest@example.com';
 const newAccountEmail = `marge-${ new Date()
 	.getTime()
-	.toString() }@woocommercecoree2etestsuite.com`;
+	.toString() }@poocommercecoree2etestsuite.com`;
 const newAccountEmailWithCustomPassword = `homer-${ new Date()
 	.getTime()
-	.toString() }@woocommercecoree2etestsuite.com`;
+	.toString() }@poocommercecoree2etestsuite.com`;
 const newAccountCustomPassword = 'sup3rS3cur3P4ssw0rd!#123';
 
 const simpleProductName = 'Very Simple Product';
@@ -90,25 +90,25 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_checkout_phone_field',
+					'poocommerce_checkout_phone_field',
 					'optional'
 				);
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_checkout_company_field',
+					'poocommerce_checkout_company_field',
 					'optional'
 				);
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_checkout_address_2_field',
+					'poocommerce_checkout_address_2_field',
 					'optional'
 				);
 			} );
 
 			await test.step( 'Make sure the currency is USD', async () => {
-				await api.put( 'settings/general/woocommerce_currency', {
+				await api.put( 'settings/general/poocommerce_currency', {
 					value: 'USD',
 				} );
 			} );
@@ -129,7 +129,7 @@ test.describe(
 
 			await test.step( 'Enable logging through checkout', async () => {
 				await api.put(
-					'settings/account/woocommerce_enable_checkout_login_reminder',
+					'settings/account/poocommerce_enable_checkout_login_reminder',
 					{
 						value: 'yes',
 					}
@@ -138,7 +138,7 @@ test.describe(
 
 			await test.step( 'Enable creating account through checkout', async () => {
 				await api.put(
-					'settings/account/woocommerce_enable_signup_and_login_from_checkout',
+					'settings/account/poocommerce_enable_signup_and_login_from_checkout',
 					{
 						value: 'yes',
 					}
@@ -244,19 +244,19 @@ test.describe(
 				enabled: false,
 			} );
 			await api.put(
-				'settings/account/woocommerce_enable_checkout_login_reminder',
+				'settings/account/poocommerce_enable_checkout_login_reminder',
 				{
 					value: 'no',
 				}
 			);
 			await api.put(
-				'settings/account/woocommerce_enable_signup_and_login_from_checkout',
+				'settings/account/poocommerce_enable_signup_and_login_from_checkout',
 				{
 					value: 'no',
 				}
 			);
 			await api.put(
-				'settings/account/woocommerce_registration_generate_password',
+				'settings/account/poocommerce_registration_generate_password',
 				{
 					value: 'yes',
 				}
@@ -307,19 +307,19 @@ test.describe(
 				await api.post( 'settings/general/batch', {
 					update: [
 						{
-							id: 'woocommerce_store_address',
+							id: 'poocommerce_store_address',
 							value: 'addr 1',
 						},
 						{
-							id: 'woocommerce_store_city',
+							id: 'poocommerce_store_city',
 							value: 'San Francisco',
 						},
 						{
-							id: 'woocommerce_default_country',
+							id: 'poocommerce_default_country',
 							value: 'US:CA',
 						},
 						{
-							id: 'woocommerce_store_postcode',
+							id: 'poocommerce_store_postcode',
 							value: '94107',
 						},
 					],
@@ -753,7 +753,7 @@ test.describe(
 			// be presented with a request to verify their email address.
 			await setFilterValue(
 				page,
-				'woocommerce_order_email_verification_grace_period',
+				'poocommerce_order_email_verification_grace_period',
 				0
 			);
 			await page.reload();
@@ -893,7 +893,7 @@ test.describe(
 				`wp-admin/post.php?post=${ customerOrderId }&action=edit`
 			);
 			await expect(
-				page.locator( 'h2.woocommerce-order-data__heading' )
+				page.locator( 'h2.poocommerce-order-data__heading' )
 			).toContainText( `Order #${ customerOrderId } details` );
 			await expect( page.locator( '.wc-order-item-name' ) ).toContainText(
 				simpleProductName
@@ -997,7 +997,7 @@ test.describe(
 		} ) => {
 			// Password generation off
 			await api.put(
-				'settings/account/woocommerce_registration_generate_password',
+				'settings/account/poocommerce_registration_generate_password',
 				{
 					value: 'no',
 				}

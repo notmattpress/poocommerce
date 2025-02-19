@@ -2,12 +2,12 @@
 /**
  * Class WC_Product_CSV_Importer_Controller file.
  *
- * @package WooCommerce\Admin\Importers
+ * @package PooCommerce\Admin\Importers
  */
 
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
-use Automattic\WooCommerce\Internal\Utilities\URL;
-use Automattic\WooCommerce\Utilities\I18nUtil;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Utilities\URL;
+use Automattic\PooCommerce\Utilities\I18nUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WP_Importer' ) ) {
 /**
  * Product importer controller - handles file upload and forms in admin.
  *
- * @package     WooCommerce\Admin\Importers
+ * @package     PooCommerce\Admin\Importers
  * @version     3.1.0
  */
 class WC_Product_CSV_Importer_Controller {
@@ -89,8 +89,8 @@ class WC_Product_CSV_Importer_Controller {
 	 * @return WC_Product_CSV_Importer
 	 */
 	public static function get_importer( $file, $args = array() ) {
-		$importer_class = apply_filters( 'woocommerce_product_csv_importer_class', 'WC_Product_CSV_Importer' );
-		$args           = apply_filters( 'woocommerce_product_csv_importer_args', $args, $importer_class );
+		$importer_class = apply_filters( 'poocommerce_product_csv_importer_class', 'WC_Product_CSV_Importer' );
+		$args           = apply_filters( 'poocommerce_product_csv_importer_args', $args, $importer_class );
 		return new $importer_class( $file, $args );
 	}
 
@@ -130,11 +130,11 @@ class WC_Product_CSV_Importer_Controller {
 		}
 
 		if ( ! $is_valid_file ) {
-			throw new \Exception( esc_html__( 'File path provided for import is invalid.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'File path provided for import is invalid.', 'poocommerce' ) );
 		}
 
 		if ( ! self::is_file_valid_csv( $path ) ) {
-			throw new \Exception( esc_html__( 'Invalid file type. The importer supports CSV and TXT file formats.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid file type. The importer supports CSV and TXT file formats.', 'poocommerce' ) );
 		}
 	}
 
@@ -158,7 +158,7 @@ class WC_Product_CSV_Importer_Controller {
 	 */
 	protected static function get_valid_csv_filetypes() {
 		return apply_filters(
-			'woocommerce_csv_product_import_valid_filetypes',
+			'poocommerce_csv_product_import_valid_filetypes',
 			array(
 				'csv' => 'text/csv',
 				'txt' => 'text/plain',
@@ -172,28 +172,28 @@ class WC_Product_CSV_Importer_Controller {
 	public function __construct() {
 		$default_steps = array(
 			'upload'  => array(
-				'name'    => __( 'Upload CSV file', 'woocommerce' ),
+				'name'    => __( 'Upload CSV file', 'poocommerce' ),
 				'view'    => array( $this, 'upload_form' ),
 				'handler' => array( $this, 'upload_form_handler' ),
 			),
 			'mapping' => array(
-				'name'    => __( 'Column mapping', 'woocommerce' ),
+				'name'    => __( 'Column mapping', 'poocommerce' ),
 				'view'    => array( $this, 'mapping_form' ),
 				'handler' => '',
 			),
 			'import'  => array(
-				'name'    => __( 'Import', 'woocommerce' ),
+				'name'    => __( 'Import', 'poocommerce' ),
 				'view'    => array( $this, 'import' ),
 				'handler' => '',
 			),
 			'done'    => array(
-				'name'    => __( 'Done!', 'woocommerce' ),
+				'name'    => __( 'Done!', 'poocommerce' ),
 				'view'    => array( $this, 'done' ),
 				'handler' => '',
 			),
 		);
 
-		$this->steps = apply_filters( 'woocommerce_product_csv_importer_steps', $default_steps );
+		$this->steps = apply_filters( 'poocommerce_product_csv_importer_steps', $default_steps );
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$this->step               = isset( $_REQUEST['step'] ) ? sanitize_key( $_REQUEST['step'] ) : current( array_keys( $this->steps ) );
@@ -208,7 +208,7 @@ class WC_Product_CSV_Importer_Controller {
 		include_once dirname( __FILE__ ) . '/mappings/mappings.php';
 
 		if ( $this->map_preferences ) {
-			add_filter( 'woocommerce_csv_product_import_mapped_columns', array( $this, 'auto_map_user_preferences' ), 9999 );
+			add_filter( 'poocommerce_csv_product_import_mapped_columns', array( $this, 'auto_map_user_preferences' ), 9999 );
 		}
 	}
 
@@ -244,7 +244,7 @@ class WC_Product_CSV_Importer_Controller {
 			'update_existing'    => $this->update_existing,
 			'map_preferences'    => $this->map_preferences,
 			'character_encoding' => $this->character_encoding,
-			'_wpnonce'           => wp_create_nonce( 'woocommerce-csv-importer' ), // wp_nonce_url() escapes & to &amp; breaking redirects.
+			'_wpnonce'           => wp_create_nonce( 'poocommerce-csv-importer' ), // wp_nonce_url() escapes & to &amp; breaking redirects.
 		);
 
 		return add_query_arg( $params );
@@ -367,7 +367,7 @@ class WC_Product_CSV_Importer_Controller {
 				 *
 				 * @since 3.1.0
 				 */
-				'lines'              => apply_filters( 'woocommerce_product_import_batch_size', 30 ),
+				'lines'              => apply_filters( 'poocommerce_product_import_batch_size', 30 ),
 				'parse'              => true,
 			);
 
@@ -430,7 +430,7 @@ class WC_Product_CSV_Importer_Controller {
 					array(
 						'position'            => 'done',
 						'percentage'          => 100,
-						'url'                 => add_query_arg( array( '_wpnonce' => wp_create_nonce( 'woocommerce-csv-importer' ) ), admin_url( 'edit.php?post_type=product&page=product_importer&step=done' ) ),
+						'url'                 => add_query_arg( array( '_wpnonce' => wp_create_nonce( 'poocommerce-csv-importer' ) ), admin_url( 'edit.php?post_type=product&page=product_importer&step=done' ) ),
 						'imported'            => is_countable( $results['imported'] ) ? count( $results['imported'] ) : 0,
 						'imported_variations' => is_countable( $results['imported_variations'] ) ? count( $results['imported_variations'] ) : 0,
 						'failed'              => is_countable( $results['failed'] ) ? count( $results['failed'] ) : 0,
@@ -471,7 +471,7 @@ class WC_Product_CSV_Importer_Controller {
 	 * Handle the upload form and store options.
 	 */
 	public function upload_form_handler() {
-		check_admin_referer( 'woocommerce-csv-importer' );
+		check_admin_referer( 'poocommerce-csv-importer' );
 
 		$file = $this->handle_upload();
 
@@ -501,14 +501,14 @@ class WC_Product_CSV_Importer_Controller {
 				$path = ABSPATH . $file_url;
 				self::check_file_path( $path );
 			} else {
-				$csv_import_util = wc_get_container()->get( Automattic\WooCommerce\Internal\Admin\ImportExport\CSVUploadHelper::class );
+				$csv_import_util = wc_get_container()->get( Automattic\PooCommerce\Internal\Admin\ImportExport\CSVUploadHelper::class );
 				$upload          = $csv_import_util->handle_csv_upload( 'product', 'import', self::get_valid_csv_filetypes() );
 				$path            = $upload['file'];
 			}
 
 			return $path;
 		} catch ( \Exception $e ) {
-			return new \WP_Error( 'woocommerce_product_csv_importer_upload_invalid_file', $e->getMessage() );
+			return new \WP_Error( 'poocommerce_product_csv_importer_upload_invalid_file', $e->getMessage() );
 		}
 	}
 
@@ -516,7 +516,7 @@ class WC_Product_CSV_Importer_Controller {
 	 * Mapping step.
 	 */
 	protected function mapping_form() {
-		check_admin_referer( 'woocommerce-csv-importer' );
+		check_admin_referer( 'poocommerce-csv-importer' );
 		self::check_file_path( $this->file );
 
 		$args = array(
@@ -532,11 +532,11 @@ class WC_Product_CSV_Importer_Controller {
 
 		if ( empty( $sample ) ) {
 			$this->add_error(
-				__( 'The file is empty or using a different encoding than UTF-8, please try again with a new file.', 'woocommerce' ),
+				__( 'The file is empty or using a different encoding than UTF-8, please try again with a new file.', 'poocommerce' ),
 				array(
 					array(
 						'url'   => admin_url( 'edit.php?post_type=product&page=product_importer' ),
-						'label' => __( 'Upload a new file', 'woocommerce' ),
+						'label' => __( 'Upload a new file', 'poocommerce' ),
 					),
 				)
 			);
@@ -555,7 +555,7 @@ class WC_Product_CSV_Importer_Controller {
 	public function import() {
 		// Displaying this page triggers Ajax action to run the import with a valid nonce,
 		// therefore this page needs to be nonce protected as well.
-		check_admin_referer( 'woocommerce-csv-importer' );
+		check_admin_referer( 'poocommerce-csv-importer' );
 		self::check_file_path( $this->file );
 
 		if ( ! empty( $_POST['map_from'] ) && ! empty( $_POST['map_to'] ) ) {
@@ -563,7 +563,7 @@ class WC_Product_CSV_Importer_Controller {
 			$mapping_to   = wc_clean( wp_unslash( $_POST['map_to'] ) );
 
 			// Save mapping preferences for future imports.
-			update_user_option( get_current_user_id(), 'woocommerce_product_import_mapping', $mapping_to );
+			update_user_option( get_current_user_id(), 'poocommerce_product_import_mapping', $mapping_to );
 		} else {
 			wp_redirect( esc_url_raw( $this->get_next_step_link( 'upload' ) ) );
 			exit;
@@ -593,7 +593,7 @@ class WC_Product_CSV_Importer_Controller {
 	 * Done step.
 	 */
 	protected function done() {
-		check_admin_referer( 'woocommerce-csv-importer' );
+		check_admin_referer( 'poocommerce-csv-importer' );
 		$imported            = isset( $_GET['products-imported'] ) ? absint( $_GET['products-imported'] ) : 0;
 		$imported_variations = isset( $_GET['products-imported-variations'] ) ? absint( $_GET['products-imported-variations'] ) : 0;
 		$updated             = isset( $_GET['products-updated'] ) ? absint( $_GET['products-updated'] ) : 0;
@@ -629,8 +629,8 @@ class WC_Product_CSV_Importer_Controller {
 	 * @return array
 	 */
 	protected function auto_map_columns( $raw_headers, $num_indexes = true ) {
-		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'woocommerce_weight_unit', 'kg' ) );
-		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'woocommerce_dimension_unit', 'cm' ) );
+		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'poocommerce_weight_unit', 'kg' ) );
+		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'poocommerce_dimension_unit', 'cm' ) );
 
 		/*
 		 * @hooked wc_importer_generic_mappings - 10
@@ -639,51 +639,51 @@ class WC_Product_CSV_Importer_Controller {
 		 */
 		$default_columns = $this->normalize_columns_names(
 			apply_filters(
-				'woocommerce_csv_product_import_mapping_default_columns',
+				'poocommerce_csv_product_import_mapping_default_columns',
 				array(
-					__( 'ID', 'woocommerce' )             => 'id',
-					__( 'Type', 'woocommerce' )           => 'type',
-					__( 'SKU', 'woocommerce' )            => 'sku',
-					__( 'Name', 'woocommerce' )           => 'name',
-					__( 'Published', 'woocommerce' )      => 'published',
-					__( 'Is featured?', 'woocommerce' )   => 'featured',
-					__( 'Visibility in catalog', 'woocommerce' ) => 'catalog_visibility',
-					__( 'Short description', 'woocommerce' ) => 'short_description',
-					__( 'Description', 'woocommerce' )    => 'description',
-					__( 'Date sale price starts', 'woocommerce' ) => 'date_on_sale_from',
-					__( 'Date sale price ends', 'woocommerce' ) => 'date_on_sale_to',
-					__( 'Tax status', 'woocommerce' )     => 'tax_status',
-					__( 'Tax class', 'woocommerce' )      => 'tax_class',
-					__( 'In stock?', 'woocommerce' )      => 'stock_status',
-					__( 'Stock', 'woocommerce' )          => 'stock_quantity',
-					__( 'Backorders allowed?', 'woocommerce' ) => 'backorders',
-					__( 'Low stock amount', 'woocommerce' ) => 'low_stock_amount',
-					__( 'Sold individually?', 'woocommerce' ) => 'sold_individually',
+					__( 'ID', 'poocommerce' )             => 'id',
+					__( 'Type', 'poocommerce' )           => 'type',
+					__( 'SKU', 'poocommerce' )            => 'sku',
+					__( 'Name', 'poocommerce' )           => 'name',
+					__( 'Published', 'poocommerce' )      => 'published',
+					__( 'Is featured?', 'poocommerce' )   => 'featured',
+					__( 'Visibility in catalog', 'poocommerce' ) => 'catalog_visibility',
+					__( 'Short description', 'poocommerce' ) => 'short_description',
+					__( 'Description', 'poocommerce' )    => 'description',
+					__( 'Date sale price starts', 'poocommerce' ) => 'date_on_sale_from',
+					__( 'Date sale price ends', 'poocommerce' ) => 'date_on_sale_to',
+					__( 'Tax status', 'poocommerce' )     => 'tax_status',
+					__( 'Tax class', 'poocommerce' )      => 'tax_class',
+					__( 'In stock?', 'poocommerce' )      => 'stock_status',
+					__( 'Stock', 'poocommerce' )          => 'stock_quantity',
+					__( 'Backorders allowed?', 'poocommerce' ) => 'backorders',
+					__( 'Low stock amount', 'poocommerce' ) => 'low_stock_amount',
+					__( 'Sold individually?', 'poocommerce' ) => 'sold_individually',
 					/* translators: %s: Weight unit */
-					sprintf( __( 'Weight (%s)', 'woocommerce' ), $weight_unit_label ) => 'weight',
+					sprintf( __( 'Weight (%s)', 'poocommerce' ), $weight_unit_label ) => 'weight',
 					/* translators: %s: Length unit */
-					sprintf( __( 'Length (%s)', 'woocommerce' ), $dimension_unit_label ) => 'length',
+					sprintf( __( 'Length (%s)', 'poocommerce' ), $dimension_unit_label ) => 'length',
 					/* translators: %s: Width unit */
-					sprintf( __( 'Width (%s)', 'woocommerce' ), $dimension_unit_label ) => 'width',
+					sprintf( __( 'Width (%s)', 'poocommerce' ), $dimension_unit_label ) => 'width',
 					/* translators: %s: Height unit */
-					sprintf( __( 'Height (%s)', 'woocommerce' ), $dimension_unit_label ) => 'height',
-					__( 'Allow customer reviews?', 'woocommerce' ) => 'reviews_allowed',
-					__( 'Purchase note', 'woocommerce' )  => 'purchase_note',
-					__( 'Sale price', 'woocommerce' )     => 'sale_price',
-					__( 'Regular price', 'woocommerce' )  => 'regular_price',
-					__( 'Categories', 'woocommerce' )     => 'category_ids',
-					__( 'Tags', 'woocommerce' )           => 'tag_ids',
-					__( 'Shipping class', 'woocommerce' ) => 'shipping_class_id',
-					__( 'Images', 'woocommerce' )         => 'images',
-					__( 'Download limit', 'woocommerce' ) => 'download_limit',
-					__( 'Download expiry days', 'woocommerce' ) => 'download_expiry',
-					__( 'Parent', 'woocommerce' )         => 'parent_id',
-					__( 'Upsells', 'woocommerce' )        => 'upsell_ids',
-					__( 'Cross-sells', 'woocommerce' )    => 'cross_sell_ids',
-					__( 'Grouped products', 'woocommerce' ) => 'grouped_products',
-					__( 'External URL', 'woocommerce' )   => 'product_url',
-					__( 'Button text', 'woocommerce' )    => 'button_text',
-					__( 'Position', 'woocommerce' )       => 'menu_order',
+					sprintf( __( 'Height (%s)', 'poocommerce' ), $dimension_unit_label ) => 'height',
+					__( 'Allow customer reviews?', 'poocommerce' ) => 'reviews_allowed',
+					__( 'Purchase note', 'poocommerce' )  => 'purchase_note',
+					__( 'Sale price', 'poocommerce' )     => 'sale_price',
+					__( 'Regular price', 'poocommerce' )  => 'regular_price',
+					__( 'Categories', 'poocommerce' )     => 'category_ids',
+					__( 'Tags', 'poocommerce' )           => 'tag_ids',
+					__( 'Shipping class', 'poocommerce' ) => 'shipping_class_id',
+					__( 'Images', 'poocommerce' )         => 'images',
+					__( 'Download limit', 'poocommerce' ) => 'download_limit',
+					__( 'Download expiry days', 'poocommerce' ) => 'download_expiry',
+					__( 'Parent', 'poocommerce' )         => 'parent_id',
+					__( 'Upsells', 'poocommerce' )        => 'upsell_ids',
+					__( 'Cross-sells', 'poocommerce' )    => 'cross_sell_ids',
+					__( 'Grouped products', 'poocommerce' ) => 'grouped_products',
+					__( 'External URL', 'poocommerce' )   => 'product_url',
+					__( 'Button text', 'poocommerce' )    => 'button_text',
+					__( 'Position', 'poocommerce' )       => 'menu_order',
 				),
 				$raw_headers
 			)
@@ -692,26 +692,26 @@ class WC_Product_CSV_Importer_Controller {
 		$special_columns = $this->get_special_columns(
 			$this->normalize_columns_names(
 				apply_filters(
-					'woocommerce_csv_product_import_mapping_special_columns',
+					'poocommerce_csv_product_import_mapping_special_columns',
 					array(
 						/* translators: %d: Attribute number */
-						__( 'Attribute %d name', 'woocommerce' ) => 'attributes:name',
+						__( 'Attribute %d name', 'poocommerce' ) => 'attributes:name',
 						/* translators: %d: Attribute number */
-						__( 'Attribute %d value(s)', 'woocommerce' ) => 'attributes:value',
+						__( 'Attribute %d value(s)', 'poocommerce' ) => 'attributes:value',
 						/* translators: %d: Attribute number */
-						__( 'Attribute %d visible', 'woocommerce' ) => 'attributes:visible',
+						__( 'Attribute %d visible', 'poocommerce' ) => 'attributes:visible',
 						/* translators: %d: Attribute number */
-						__( 'Attribute %d global', 'woocommerce' ) => 'attributes:taxonomy',
+						__( 'Attribute %d global', 'poocommerce' ) => 'attributes:taxonomy',
 						/* translators: %d: Attribute number */
-						__( 'Attribute %d default', 'woocommerce' ) => 'attributes:default',
+						__( 'Attribute %d default', 'poocommerce' ) => 'attributes:default',
 						/* translators: %d: Download number */
-						__( 'Download %d ID', 'woocommerce' ) => 'downloads:id',
+						__( 'Download %d ID', 'poocommerce' ) => 'downloads:id',
 						/* translators: %d: Download number */
-						__( 'Download %d name', 'woocommerce' ) => 'downloads:name',
+						__( 'Download %d name', 'poocommerce' ) => 'downloads:name',
 						/* translators: %d: Download number */
-						__( 'Download %d URL', 'woocommerce' ) => 'downloads:url',
+						__( 'Download %d URL', 'poocommerce' ) => 'downloads:url',
 						/* translators: %d: Meta number */
-						__( 'Meta: %s', 'woocommerce' ) => 'meta:',
+						__( 'Meta: %s', 'poocommerce' ) => 'meta:',
 					),
 					$raw_headers
 				)
@@ -737,7 +737,7 @@ class WC_Product_CSV_Importer_Controller {
 			}
 		}
 
-		return apply_filters( 'woocommerce_csv_product_import_mapped_columns', $headers, $raw_headers );
+		return apply_filters( 'poocommerce_csv_product_import_mapped_columns', $headers, $raw_headers );
 	}
 
 	/**
@@ -747,7 +747,7 @@ class WC_Product_CSV_Importer_Controller {
 	 * @return array
 	 */
 	public function auto_map_user_preferences( $headers ) {
-		$mapping_preferences = get_user_option( 'woocommerce_product_import_mapping' );
+		$mapping_preferences = get_user_option( 'poocommerce_product_import_mapping' );
 
 		if ( ! empty( $mapping_preferences ) && is_array( $mapping_preferences ) ) {
 			return $mapping_preferences;
@@ -802,90 +802,90 @@ class WC_Product_CSV_Importer_Controller {
 		$meta = str_replace( 'meta:', '', $item );
 
 		// Available options.
-		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'woocommerce_weight_unit', 'kg' ) );
-		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'woocommerce_dimension_unit', 'cm' ) );
+		$weight_unit_label    = I18nUtil::get_weight_unit_label( get_option( 'poocommerce_weight_unit', 'kg' ) );
+		$dimension_unit_label = I18nUtil::get_dimensions_unit_label( get_option( 'poocommerce_dimension_unit', 'cm' ) );
 		$options              = array(
-			'id'                 => __( 'ID', 'woocommerce' ),
-			'type'               => __( 'Type', 'woocommerce' ),
-			'sku'                => __( 'SKU', 'woocommerce' ),
-			'global_unique_id'   => __( 'GTIN, UPC, EAN, or ISBN', 'woocommerce' ),
-			'name'               => __( 'Name', 'woocommerce' ),
-			'published'          => __( 'Published', 'woocommerce' ),
-			'featured'           => __( 'Is featured?', 'woocommerce' ),
-			'catalog_visibility' => __( 'Visibility in catalog', 'woocommerce' ),
-			'short_description'  => __( 'Short description', 'woocommerce' ),
-			'description'        => __( 'Description', 'woocommerce' ),
+			'id'                 => __( 'ID', 'poocommerce' ),
+			'type'               => __( 'Type', 'poocommerce' ),
+			'sku'                => __( 'SKU', 'poocommerce' ),
+			'global_unique_id'   => __( 'GTIN, UPC, EAN, or ISBN', 'poocommerce' ),
+			'name'               => __( 'Name', 'poocommerce' ),
+			'published'          => __( 'Published', 'poocommerce' ),
+			'featured'           => __( 'Is featured?', 'poocommerce' ),
+			'catalog_visibility' => __( 'Visibility in catalog', 'poocommerce' ),
+			'short_description'  => __( 'Short description', 'poocommerce' ),
+			'description'        => __( 'Description', 'poocommerce' ),
 			'price'              => array(
-				'name'    => __( 'Price', 'woocommerce' ),
+				'name'    => __( 'Price', 'poocommerce' ),
 				'options' => array(
-					'regular_price'     => __( 'Regular price', 'woocommerce' ),
-					'sale_price'        => __( 'Sale price', 'woocommerce' ),
-					'date_on_sale_from' => __( 'Date sale price starts', 'woocommerce' ),
-					'date_on_sale_to'   => __( 'Date sale price ends', 'woocommerce' ),
+					'regular_price'     => __( 'Regular price', 'poocommerce' ),
+					'sale_price'        => __( 'Sale price', 'poocommerce' ),
+					'date_on_sale_from' => __( 'Date sale price starts', 'poocommerce' ),
+					'date_on_sale_to'   => __( 'Date sale price ends', 'poocommerce' ),
 				),
 			),
-			'tax_status'         => __( 'Tax status', 'woocommerce' ),
-			'tax_class'          => __( 'Tax class', 'woocommerce' ),
-			'stock_status'       => __( 'In stock?', 'woocommerce' ),
-			'stock_quantity'     => _x( 'Stock', 'Quantity in stock', 'woocommerce' ),
-			'backorders'         => __( 'Backorders allowed?', 'woocommerce' ),
-			'low_stock_amount'   => __( 'Low stock amount', 'woocommerce' ),
-			'sold_individually'  => __( 'Sold individually?', 'woocommerce' ),
+			'tax_status'         => __( 'Tax status', 'poocommerce' ),
+			'tax_class'          => __( 'Tax class', 'poocommerce' ),
+			'stock_status'       => __( 'In stock?', 'poocommerce' ),
+			'stock_quantity'     => _x( 'Stock', 'Quantity in stock', 'poocommerce' ),
+			'backorders'         => __( 'Backorders allowed?', 'poocommerce' ),
+			'low_stock_amount'   => __( 'Low stock amount', 'poocommerce' ),
+			'sold_individually'  => __( 'Sold individually?', 'poocommerce' ),
 			/* translators: %s: weight unit */
-			'weight'             => sprintf( __( 'Weight (%s)', 'woocommerce' ), $weight_unit_label ),
+			'weight'             => sprintf( __( 'Weight (%s)', 'poocommerce' ), $weight_unit_label ),
 			'dimensions'         => array(
-				'name'    => __( 'Dimensions', 'woocommerce' ),
+				'name'    => __( 'Dimensions', 'poocommerce' ),
 				'options' => array(
 					/* translators: %s: dimension unit */
-					'length' => sprintf( __( 'Length (%s)', 'woocommerce' ), $dimension_unit_label ),
+					'length' => sprintf( __( 'Length (%s)', 'poocommerce' ), $dimension_unit_label ),
 					/* translators: %s: dimension unit */
-					'width'  => sprintf( __( 'Width (%s)', 'woocommerce' ), $dimension_unit_label ),
+					'width'  => sprintf( __( 'Width (%s)', 'poocommerce' ), $dimension_unit_label ),
 					/* translators: %s: dimension unit */
-					'height' => sprintf( __( 'Height (%s)', 'woocommerce' ), $dimension_unit_label ),
+					'height' => sprintf( __( 'Height (%s)', 'poocommerce' ), $dimension_unit_label ),
 				),
 			),
-			'category_ids'       => __( 'Categories', 'woocommerce' ),
-			'tag_ids'            => __( 'Tags (comma separated)', 'woocommerce' ),
-			'tag_ids_spaces'     => __( 'Tags (space separated)', 'woocommerce' ),
-			'shipping_class_id'  => __( 'Shipping class', 'woocommerce' ),
-			'images'             => __( 'Images', 'woocommerce' ),
-			'parent_id'          => __( 'Parent', 'woocommerce' ),
-			'upsell_ids'         => __( 'Upsells', 'woocommerce' ),
-			'cross_sell_ids'     => __( 'Cross-sells', 'woocommerce' ),
-			'grouped_products'   => __( 'Grouped products', 'woocommerce' ),
+			'category_ids'       => __( 'Categories', 'poocommerce' ),
+			'tag_ids'            => __( 'Tags (comma separated)', 'poocommerce' ),
+			'tag_ids_spaces'     => __( 'Tags (space separated)', 'poocommerce' ),
+			'shipping_class_id'  => __( 'Shipping class', 'poocommerce' ),
+			'images'             => __( 'Images', 'poocommerce' ),
+			'parent_id'          => __( 'Parent', 'poocommerce' ),
+			'upsell_ids'         => __( 'Upsells', 'poocommerce' ),
+			'cross_sell_ids'     => __( 'Cross-sells', 'poocommerce' ),
+			'grouped_products'   => __( 'Grouped products', 'poocommerce' ),
 			'external'           => array(
-				'name'    => __( 'External product', 'woocommerce' ),
+				'name'    => __( 'External product', 'poocommerce' ),
 				'options' => array(
-					'product_url' => __( 'External URL', 'woocommerce' ),
-					'button_text' => __( 'Button text', 'woocommerce' ),
+					'product_url' => __( 'External URL', 'poocommerce' ),
+					'button_text' => __( 'Button text', 'poocommerce' ),
 				),
 			),
 			'downloads'          => array(
-				'name'    => __( 'Downloads', 'woocommerce' ),
+				'name'    => __( 'Downloads', 'poocommerce' ),
 				'options' => array(
-					'downloads:id' . $index   => __( 'Download ID', 'woocommerce' ),
-					'downloads:name' . $index => __( 'Download name', 'woocommerce' ),
-					'downloads:url' . $index  => __( 'Download URL', 'woocommerce' ),
-					'download_limit'          => __( 'Download limit', 'woocommerce' ),
-					'download_expiry'         => __( 'Download expiry days', 'woocommerce' ),
+					'downloads:id' . $index   => __( 'Download ID', 'poocommerce' ),
+					'downloads:name' . $index => __( 'Download name', 'poocommerce' ),
+					'downloads:url' . $index  => __( 'Download URL', 'poocommerce' ),
+					'download_limit'          => __( 'Download limit', 'poocommerce' ),
+					'download_expiry'         => __( 'Download expiry days', 'poocommerce' ),
 				),
 			),
 			'attributes'         => array(
-				'name'    => __( 'Attributes', 'woocommerce' ),
+				'name'    => __( 'Attributes', 'poocommerce' ),
 				'options' => array(
-					'attributes:name' . $index     => __( 'Attribute name', 'woocommerce' ),
-					'attributes:value' . $index    => __( 'Attribute value(s)', 'woocommerce' ),
-					'attributes:taxonomy' . $index => __( 'Is a global attribute?', 'woocommerce' ),
-					'attributes:visible' . $index  => __( 'Attribute visibility', 'woocommerce' ),
-					'attributes:default' . $index  => __( 'Default attribute', 'woocommerce' ),
+					'attributes:name' . $index     => __( 'Attribute name', 'poocommerce' ),
+					'attributes:value' . $index    => __( 'Attribute value(s)', 'poocommerce' ),
+					'attributes:taxonomy' . $index => __( 'Is a global attribute?', 'poocommerce' ),
+					'attributes:visible' . $index  => __( 'Attribute visibility', 'poocommerce' ),
+					'attributes:default' . $index  => __( 'Default attribute', 'poocommerce' ),
 				),
 			),
-			'reviews_allowed'    => __( 'Allow customer reviews?', 'woocommerce' ),
-			'purchase_note'      => __( 'Purchase note', 'woocommerce' ),
-			'meta:' . $meta      => __( 'Import as meta data', 'woocommerce' ),
-			'menu_order'         => __( 'Position', 'woocommerce' ),
+			'reviews_allowed'    => __( 'Allow customer reviews?', 'poocommerce' ),
+			'purchase_note'      => __( 'Purchase note', 'poocommerce' ),
+			'meta:' . $meta      => __( 'Import as meta data', 'poocommerce' ),
+			'menu_order'         => __( 'Position', 'poocommerce' ),
 		);
 
-		return apply_filters( 'woocommerce_csv_product_import_mapping_options', $options, $item );
+		return apply_filters( 'poocommerce_csv_product_import_mapping_options', $options, $item );
 	}
 }

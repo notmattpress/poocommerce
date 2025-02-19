@@ -13,7 +13,7 @@ import { SubscriptionsContext } from '../../../../contexts/subscriptions-context
 import { addNotice, removeNotice } from '../../../../utils/functions';
 import { NoticeStatus } from '../../../../contexts/types';
 
-const NOTICE_ID = 'woocommerce-marketplace-refresh-subscriptions';
+const NOTICE_ID = 'poocommerce-marketplace-refresh-subscriptions';
 
 export function RefreshButton() {
 	const { refreshSubscriptions } = useContext( SubscriptionsContext );
@@ -31,7 +31,7 @@ export function RefreshButton() {
 			.then( () => {
 				addNotice(
 					NOTICE_ID,
-					__( 'Subscriptions refreshed.', 'woocommerce' ),
+					__( 'Subscriptions refreshed.', 'poocommerce' ),
 					NoticeStatus.Success
 				);
 			} )
@@ -42,7 +42,7 @@ export function RefreshButton() {
 						// translators: %s is the error message.
 						__(
 							'Error refreshing subscriptions: %s',
-							'woocommerce'
+							'poocommerce'
 						),
 						error.message
 					),
@@ -50,7 +50,7 @@ export function RefreshButton() {
 					{
 						actions: [
 							{
-								label: __( 'Try again', 'woocommerce' ),
+								label: __( 'Try again', 'poocommerce' ),
 								onClick: refresh,
 								url: '',
 							},
@@ -65,16 +65,16 @@ export function RefreshButton() {
 
 	return (
 		<Button
-			className="woocommerce-marketplace__refresh-subscriptions"
+			className="poocommerce-marketplace__refresh-subscriptions"
 			onClick={ refresh }
 			isBusy={ isLoading }
 		>
 			<img
 				src={ RefreshIcon }
-				alt={ __( 'Refresh subscriptions', 'woocommerce' ) }
-				className="woocommerce-marketplace__refresh-subscriptions-icon"
+				alt={ __( 'Refresh subscriptions', 'poocommerce' ) }
+				className="poocommerce-marketplace__refresh-subscriptions-icon"
 			/>
-			{ __( 'Refresh', 'woocommerce' ) }
+			{ __( 'Refresh', 'poocommerce' ) }
 		</Button>
 	);
 }

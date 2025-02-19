@@ -7,7 +7,7 @@ import {
 	type ProductProductAttribute,
 	ProductAttributeTerm,
 	ProductDefaultAttribute,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 import { useCallback, useState } from '@wordpress/element';
 
@@ -78,7 +78,7 @@ export function useProductAttributes( {
 		( attributeId: number ) => {
 			return (
 				resolveSelect( EXPERIMENTAL_PRODUCT_ATTRIBUTE_TERMS_STORE_NAME )
-					// @ts-expect-error TODO react-18-upgrade: getProductAttributeTerms type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+					// @ts-expect-error TODO react-18-upgrade: getProductAttributeTerms type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 					.getProductAttributeTerms( {
 						attribute_id: attributeId,
 					} )
@@ -182,7 +182,7 @@ export function useProductAttributes( {
 		).then( ( termData ) => {
 			setAttributes( [
 				...globalAttributes.map( ( attr, index ) =>
-					// @ts-expect-error TODO react-18-upgrade: getProductAttributeTerms type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+					// @ts-expect-error TODO react-18-upgrade: getProductAttributeTerms type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 					enhanceAttribute( attr, termData[ index ] )
 				),
 				...localAttributes,

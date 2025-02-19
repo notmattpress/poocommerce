@@ -9,7 +9,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import {
 	SuggestedPaymentExtension,
 	SuggestedPaymentExtensionCategory,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useDebounce } from '@wordpress/compose';
 
 /**
@@ -259,11 +259,11 @@ export const OtherPaymentGateways = ( {
 													extension.id
 														? __(
 																'Installing',
-																'woocommerce'
+																'poocommerce'
 														  )
 														: __(
 																'Install',
-																'woocommerce'
+																'poocommerce'
 														  ) }
 												</Button>
 											</div>
@@ -288,15 +288,15 @@ export const OtherPaymentGateways = ( {
 		<Button
 			variant={ 'link' }
 			target="_blank"
-			href="https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/"
+			href="https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/"
 			className="more-payment-options-link"
 		>
 			<img src={ assetUrl + '/icons/external-link.svg' } alt="" />
-			{ __( 'More payment options', 'woocommerce' ) }
+			{ __( 'More payment options', 'poocommerce' ) }
 		</Button>
 	);
 
-	// If no suggestions are available, return only a link to the WooCommerce.com payment marketplace page.
+	// If no suggestions are available, return only a link to the PooCommerce.com payment marketplace page.
 	if ( ! isFetching && suggestions.length === 0 ) {
 		return (
 			<div className="more-payment-options">
@@ -327,7 +327,7 @@ export const OtherPaymentGateways = ( {
 			>
 				<div className="other-payment-gateways__header__title">
 					<span>
-						{ __( 'Other payment options', 'woocommerce' ) }
+						{ __( 'Other payment options', 'poocommerce' ) }
 					</span>
 					{ ! isExpanded && <>{ collapsedImages }</> }
 				</div>

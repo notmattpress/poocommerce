@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, Editor } from '@woocommerce/e2e-utils';
+import { test, expect, Editor } from '@poocommerce/e2e-utils';
 
 const insertSingleProductBlock = async (
 	blockName: string,
@@ -11,7 +11,7 @@ const insertSingleProductBlock = async (
 	await editor.canvas.getByText( 'Album' ).click();
 	await editor.canvas.getByText( 'Done' ).click();
 	const singleProductBlock = await editor.getBlockByName(
-		'woocommerce/single-product'
+		'poocommerce/single-product'
 	);
 	const singleProductClientId =
 		( await singleProductBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -24,7 +24,7 @@ const insertInSingleProductTemplate = async (
 	admin: Admin
 ) => {
 	await admin.visitSiteEditor( {
-		postId: `woocommerce/woocommerce//single-product`,
+		postId: `poocommerce/poocommerce//single-product`,
 		postType: 'wp_template',
 		canvas: 'edit',
 	} );
@@ -37,7 +37,7 @@ test.describe( 'registerProductBlockType registers', () => {
 		admin,
 		editor,
 	} ) => {
-		const blockName = 'woocommerce/product-price';
+		const blockName = 'poocommerce/product-price';
 
 		await test.step( 'Unavailable in post globally', async () => {
 			await admin.createNewPost();
@@ -75,12 +75,12 @@ test.describe( 'registerProductBlockType registers', () => {
 		editor,
 		page,
 	} ) => {
-		const blockName = 'woocommerce/product-price';
+		const blockName = 'poocommerce/product-price';
 		const blockTitle = 'Product Price';
 		await test.step( 'Blocks not available in non-product template', async () => {
 			// Visit site editor with a non-product template
 			await admin.visitSiteEditor( {
-				postId: 'woocommerce/woocommerce//coming-soon',
+				postId: 'poocommerce/poocommerce//coming-soon',
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
@@ -133,7 +133,7 @@ test.describe( 'registerProductBlockType registers', () => {
 		admin,
 		editor,
 	} ) => {
-		const blockName = 'woocommerce/product-details';
+		const blockName = 'poocommerce/product-details';
 
 		await test.step( 'Unavailable in post, also within Single Product block', async () => {
 			await admin.createNewPost();

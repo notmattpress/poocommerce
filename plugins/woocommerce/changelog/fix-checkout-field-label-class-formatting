@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Fix potential issue when defining label class as a string via woocommerce_checkout_fields
+Fix potential issue when defining label class as a string via poocommerce_checkout_fields

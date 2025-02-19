@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { type ShippingAddress } from '@woocommerce/settings';
+import { type ShippingAddress } from '@poocommerce/settings';
 import { select, dispatch } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 
 // If it's the shipping address form and the user starts entering address
 // values without having set the country first, show an error.
@@ -27,7 +27,7 @@ const validateCountry = (
 		} else {
 			dispatch( validationStore ).setValidationErrors( {
 				[ validationErrorId ]: {
-					message: __( 'Please select your country', 'woocommerce' ),
+					message: __( 'Please select your country', 'poocommerce' ),
 					hidden: false,
 				},
 			} );

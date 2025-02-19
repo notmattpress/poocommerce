@@ -6,10 +6,10 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 
 const unsupportedBlocks = [
 	'core/post-content',
-	'woocommerce/mini-cart',
-	'woocommerce/featured-product',
+	'poocommerce/mini-cart',
+	'poocommerce/featured-product',
 ];
-const supportedPrefixes = [ 'core/', 'woocommerce/' ];
+const supportedPrefixes = [ 'core/', 'poocommerce/' ];
 
 const isBlockSupported = ( blockName: string ) => {
 	// Check for explicitly unsupported blocks

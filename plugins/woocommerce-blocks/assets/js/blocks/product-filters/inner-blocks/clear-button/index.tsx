@@ -3,7 +3,7 @@
  */
 import { registerBlockType } from '@wordpress/blocks';
 import { button as icon } from '@wordpress/icons';
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { addAProductToCart } from '@woocommerce/e2e-utils-playwright';
+import { addAProductToCart } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 const firstProductName = 'Coupon test product';
 const coupons = [
@@ -47,7 +47,7 @@ test.describe(
 				version: 'wc/v3',
 			} );
 			// make sure the currency is USD
-			await api.put( 'settings/general/woocommerce_currency', {
+			await api.put( 'settings/general/poocommerce_currency', {
 				value: 'USD',
 			} );
 			// enable COD
@@ -360,7 +360,7 @@ test.describe(
 						page.locator( '.order-total .amount' )
 					).toContainText( totals[ 0 ] );
 
-					await page.locator( 'a.woocommerce-remove-coupon' ).click();
+					await page.locator( 'a.poocommerce-remove-coupon' ).click();
 
 					await expect(
 						page.locator( '.order-total .amount' )
@@ -389,7 +389,7 @@ test.describe(
 						page.locator( '.order-total .amount' )
 					).toContainText( totals[ 0 ] );
 
-					await page.locator( 'a.woocommerce-remove-coupon' ).click();
+					await page.locator( 'a.poocommerce-remove-coupon' ).click();
 
 					await expect(
 						page.locator( '.order-total .amount' )

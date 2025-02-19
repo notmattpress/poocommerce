@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { PanelBody, ToggleControl, Disabled } from '@wordpress/components';
-import { formatPrice, getCurrency } from '@woocommerce/price-format';
+import { formatPrice, getCurrency } from '@poocommerce/price-format';
 import {
 	useBlockProps,
 	InspectorControls,
@@ -66,7 +66,7 @@ const PriceSliderEdit = ( {
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
 	if ( isLoading ) {
-		return <>{ __( 'Loading…', 'woocommerce' ) }</>;
+		return <>{ __( 'Loading…', 'poocommerce' ) }</>;
 	}
 
 	if ( ! price ) {
@@ -99,9 +99,9 @@ const PriceSliderEdit = ( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Show input fields', 'woocommerce' ) }
+						label={ __( 'Show input fields', 'poocommerce' ) }
 						checked={ showInputFields }
 						onChange={ () =>
 							setAttributes( {
@@ -112,7 +112,7 @@ const PriceSliderEdit = ( {
 
 					{ showInputFields && (
 						<ToggleControl
-							label={ __( 'Inline input fields', 'woocommerce' ) }
+							label={ __( 'Inline input fields', 'poocommerce' ) }
 							checked={ inlineInput }
 							onChange={ () =>
 								setAttributes( { inlineInput: ! inlineInput } )
@@ -128,7 +128,7 @@ const PriceSliderEdit = ( {
 						__experimentalIsRenderedInSidebar
 						settings={ [
 							{
-								label: __( 'Slider Handle', 'woocommerce' ),
+								label: __( 'Slider Handle', 'poocommerce' ),
 								colorValue:
 									sliderHandle.color || customSliderHandle,
 								isShownByDefault: true,
@@ -149,7 +149,7 @@ const PriceSliderEdit = ( {
 							{
 								label: __(
 									'Slider Handle Border',
-									'woocommerce'
+									'poocommerce'
 								),
 								colorValue:
 									sliderHandleBorder.color ||
@@ -170,7 +170,7 @@ const PriceSliderEdit = ( {
 								},
 							},
 							{
-								label: __( 'Slider', 'woocommerce' ),
+								label: __( 'Slider', 'poocommerce' ),
 								colorValue: slider.color || customSlider,
 								isShownByDefault: true,
 								enableAlpha: true,

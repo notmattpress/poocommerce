@@ -13,10 +13,10 @@ interface Props {
 
 const StepControls: React.FunctionComponent< Props > = ( { onDismiss } ) => {
 	return (
-		<Flex className="woocommerce-tour-kit-step-controls" justify="flex-end">
+		<Flex className="poocommerce-tour-kit-step-controls" justify="flex-end">
 			<Button
-				className="woocommerce-tour-kit-step-controls__close-btn"
-				label={ __( 'Close Tour', 'woocommerce' ) }
+				className="poocommerce-tour-kit-step-controls__close-btn"
+				label={ __( 'Close Tour', 'poocommerce' ) }
 				icon={ <Icon icon={ closeSmall } viewBox="6 4 12 14" /> }
 				iconSize={ 16 }
 				onClick={ onDismiss( 'close-btn' ) }

@@ -32,13 +32,13 @@ export const clickTab = async ( tabName ) => {
 };
 
 /**
- * Save changes on a WooCommerce settings page.
+ * Save changes on a PooCommerce settings page.
  */
 export const settingsPageSaveChanges = async () => {
-	await page.focus( 'button.woocommerce-save-button' );
+	await page.focus( 'button.poocommerce-save-button' );
 	await Promise.all( [
 		page.waitForNavigation( { waitUntil: 'networkidle0' } ),
-		page.click( 'button.woocommerce-save-button' ),
+		page.click( 'button.poocommerce-save-button' ),
 	] );
 };
 
@@ -211,7 +211,7 @@ export const verifyValueOfInputField = async ( selector, value ) => {
 };
 
 /**
- * Clicks on a filter on a list page, such as WooCommerce > Orders or Posts > All Posts.
+ * Clicks on a filter on a list page, such as PooCommerce > Orders or Posts > All Posts.
  *
  * @param {string} selector Selector of the filter link to be clicked.
  */
@@ -331,7 +331,7 @@ export const removeCoupon = async ( couponCode ) => {
 		{ text: '[Remove]' }
 	);
 	await uiUnblocked();
-	await expect( page ).toMatchElement( '.woocommerce-message', {
+	await expect( page ).toMatchElement( '.poocommerce-message', {
 		text: 'Coupon has been removed.',
 	} );
 };

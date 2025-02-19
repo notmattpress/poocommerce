@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { addAProductToCart } from '@woocommerce/e2e-utils-playwright';
+import { addAProductToCart } from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */
 import { tags } from '../../fixtures/fixtures';
 const { test, expect, request } = require( '@playwright/test' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const { customer } = require( '../../test-data/data' );
 const { random } = require( '../../utils/helpers' );
 const { setOption } = require( '../../utils/options' );
@@ -48,13 +48,13 @@ test.describe.serial(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'yes',
 			} );
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_checkout_phone_field',
+				'poocommerce_checkout_phone_field',
 				'required'
 			);
 		} );
@@ -66,19 +66,19 @@ test.describe.serial(
 				consumerSecret: process.env.CONSUMER_SECRET,
 				version: 'wc/v3',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+			await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 				value: 'excl',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_display_shop', {
+			await api.put( 'settings/tax/poocommerce_tax_display_shop', {
 				value: 'excl',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_round_at_subtotal', {
+			await api.put( 'settings/tax/poocommerce_tax_round_at_subtotal', {
 				value: 'no',
 			} );
-			await api.put( 'settings/general/woocommerce_calc_taxes', {
+			await api.put( 'settings/general/poocommerce_calc_taxes', {
 				value: 'no',
 			} );
-			await api.put( 'settings/tax/woocommerce_tax_total_display', {
+			await api.put( 'settings/tax/poocommerce_tax_total_display', {
 				value: 'itemized',
 			} );
 		} );
@@ -148,13 +148,13 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_display_cart',
+						'settings/tax/poocommerce_tax_display_cart',
 						{
 							value: 'incl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_display_shop',
+						'settings/tax/poocommerce_tax_display_shop',
 						{
 							value: 'incl',
 						}
@@ -172,7 +172,7 @@ test.describe.serial(
 							page.getByText( '$250.00', { exact: true } )
 						).toBeVisible();
 						expect( await page.title() ).toBe(
-							'Shop – WooCommerce Core E2E Test Suite'
+							'Shop – PooCommerce Core E2E Test Suite'
 						);
 					} );
 
@@ -236,13 +236,13 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_display_cart',
+						'settings/tax/poocommerce_tax_display_cart',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_display_shop',
+						'settings/tax/poocommerce_tax_display_shop',
 						{
 							value: 'excl',
 						}
@@ -349,19 +349,19 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_display_cart',
+						'settings/tax/poocommerce_tax_display_cart',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_display_shop',
+						'settings/tax/poocommerce_tax_display_shop',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_price_display_suffix',
+						'settings/tax/poocommerce_price_display_suffix',
 						{
 							value: 'excluding VAT',
 						}
@@ -482,25 +482,25 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_display_cart',
+						'settings/tax/poocommerce_tax_display_cart',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_display_shop',
+						'settings/tax/poocommerce_tax_display_shop',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_round_at_subtotal',
+						'settings/tax/poocommerce_tax_round_at_subtotal',
 						{
 							value: 'yes',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_total_display',
+						'settings/tax/poocommerce_tax_total_display',
 						{
 							value: 'single',
 						}
@@ -554,25 +554,25 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_display_cart',
+						'settings/tax/poocommerce_tax_display_cart',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_display_shop',
+						'settings/tax/poocommerce_tax_display_shop',
 						{
 							value: 'excl',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_round_at_subtotal',
+						'settings/tax/poocommerce_tax_round_at_subtotal',
 						{
 							value: 'no',
 						}
 					);
 					await api.put(
-						'settings/tax/woocommerce_tax_total_display',
+						'settings/tax/poocommerce_tax_total_display',
 						{
 							value: 'itemized',
 						}
@@ -629,10 +629,10 @@ test.describe.serial(
 					consumerSecret: process.env.CONSUMER_SECRET,
 					version: 'wc/v3',
 				} );
-				await api.put( 'settings/general/woocommerce_calc_taxes', {
+				await api.put( 'settings/general/poocommerce_calc_taxes', {
 					value: 'yes',
 				} );
-				await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+				await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 					value: 'excl',
 				} );
 				await api
@@ -745,7 +745,7 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_total_display',
+						'settings/tax/poocommerce_tax_total_display',
 						{
 							value: 'itemized',
 						}
@@ -856,7 +856,7 @@ test.describe.serial(
 						version: 'wc/v3',
 					} );
 					await api.put(
-						'settings/tax/woocommerce_tax_total_display',
+						'settings/tax/poocommerce_tax_total_display',
 						{
 							value: 'itemized',
 						}
@@ -965,7 +965,7 @@ test.describe.serial(
 					consumerSecret: process.env.CONSUMER_SECRET,
 					version: 'wc/v3',
 				} );
-				await api.put( 'settings/general/woocommerce_calc_taxes', {
+				await api.put( 'settings/general/poocommerce_calc_taxes', {
 					value: 'yes',
 				} );
 				await api
@@ -1018,7 +1018,7 @@ test.describe.serial(
 				await api.put( 'payment_gateways/cod', {
 					enabled: true,
 				} );
-				await api.put( 'settings/tax/woocommerce_tax_display_cart', {
+				await api.put( 'settings/tax/poocommerce_tax_display_cart', {
 					value: 'incl',
 				} );
 			} );

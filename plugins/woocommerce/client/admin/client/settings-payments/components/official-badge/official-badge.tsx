@@ -4,7 +4,7 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { Popover } from '@wordpress/components';
-import { Link, Pill } from '@woocommerce/components';
+import { Link, Pill } from '@poocommerce/components';
 import { createInterpolateElement, useState } from '@wordpress/element';
 import { useDebounce } from '@wordpress/compose';
 
@@ -44,9 +44,9 @@ export const OfficialBadge = ( { variant }: OfficialBadgeProps ) => {
 	};
 
 	return (
-		<Pill className={ `woocommerce-official-extension-badge` }>
+		<Pill className={ `poocommerce-official-extension-badge` }>
 			<span
-				className="woocommerce-official-extension-badge__container"
+				className="poocommerce-official-extension-badge__container"
 				tabIndex={ 0 }
 				role="button"
 				onClick={ () => setPopoverVisible( ! isPopoverVisible ) }
@@ -61,16 +61,16 @@ export const OfficialBadge = ( { variant }: OfficialBadgeProps ) => {
 				<img
 					src={ WC_ASSET_URL + 'images/icons/official-extension.svg' }
 					alt={ __(
-						'Official WooCommerce extension badge',
-						'woocommerce'
+						'Official PooCommerce extension badge',
+						'poocommerce'
 					) }
 				/>
 				{ variant === 'expanded' && (
-					<span>{ __( 'Official', 'woocommerce' ) }</span>
+					<span>{ __( 'Official', 'poocommerce' ) }</span>
 				) }
 				{ isPopoverVisible && (
 					<Popover
-						className="woocommerce-official-extension-badge-popover"
+						className="poocommerce-official-extension-badge-popover"
 						placement="top-start"
 						offset={ 4 }
 						variant="unstyled"
@@ -83,20 +83,20 @@ export const OfficialBadge = ( { variant }: OfficialBadgeProps ) => {
 							<p>
 								{ createInterpolateElement(
 									__(
-										'This is an Official WooCommerce payment extension. <learnMoreLink />',
-										'woocommerce'
+										'This is an Official PooCommerce payment extension. <learnMoreLink />',
+										'poocommerce'
 									),
 									{
 										learnMoreLink: (
 											<Link
-												href="https://woocommerce.com/learn-more-about-official-partner-badging/"
+												href="https://poocommerce.com/learn-more-about-official-partner-badging/"
 												target="_blank"
 												rel="noreferrer"
 												type="external"
 											>
 												{ __(
 													'Learn more',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Link>
 										),

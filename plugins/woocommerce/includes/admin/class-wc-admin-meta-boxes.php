@@ -1,15 +1,15 @@
 <?php
 /**
- * WooCommerce Meta Boxes
+ * PooCommerce Meta Boxes
  *
  * Sets up the write panels used by products and orders (custom post types).
  *
- * @package WooCommerce\Admin\Meta Boxes
+ * @package PooCommerce\Admin\Meta Boxes
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Orders\Edit as OrderEdit;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Admin\Orders\Edit as OrderEdit;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,7 +22,7 @@ class WC_Admin_Meta_Boxes {
 	 *
 	 * @since 6.5.0
 	 */
-	public const ERROR_STORE = 'woocommerce_meta_box_errors';
+	public const ERROR_STORE = 'poocommerce_meta_box_errors';
 
 	/**
 	 * Is meta boxes saved once?
@@ -51,11 +51,11 @@ class WC_Admin_Meta_Boxes {
 		OrderEdit::add_save_meta_boxes();
 
 		// Save Product Meta Boxes.
-		add_action( 'woocommerce_process_product_meta', 'WC_Meta_Box_Product_Data::save', 10, 2 );
-		add_action( 'woocommerce_process_product_meta', 'WC_Meta_Box_Product_Images::save', 20, 2 );
+		add_action( 'poocommerce_process_product_meta', 'WC_Meta_Box_Product_Data::save', 10, 2 );
+		add_action( 'poocommerce_process_product_meta', 'WC_Meta_Box_Product_Images::save', 20, 2 );
 
 		// Save Coupon Meta Boxes.
-		add_action( 'woocommerce_process_shop_coupon_meta', 'WC_Meta_Box_Coupon_Data::save', 10, 2 );
+		add_action( 'poocommerce_process_shop_coupon_meta', 'WC_Meta_Box_Coupon_Data::save', 10, 2 );
 
 		// Save Rating Meta Boxes.
 		add_filter( 'wp_update_comment_data', 'WC_Meta_Box_Product_Reviews::save', 1 );
@@ -109,7 +109,7 @@ class WC_Admin_Meta_Boxes {
 
 		if ( ! empty( $errors ) ) {
 
-			echo '<div id="woocommerce_errors" class="error notice is-dismissible">';
+			echo '<div id="poocommerce_errors" class="error notice is-dismissible">';
 
 			foreach ( $errors as $error ) {
 				echo '<p>' . wp_kses_post( $error ) . '</p>';
@@ -130,9 +130,9 @@ class WC_Admin_Meta_Boxes {
 		$screen_id = $screen ? $screen->id : '';
 
 		// Products.
-		add_meta_box( 'postexcerpt', __( 'Product short description', 'woocommerce' ), 'WC_Meta_Box_Product_Short_Description::output', 'product', 'normal' );
-		add_meta_box( 'woocommerce-product-data', __( 'Product data', 'woocommerce' ), 'WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high' );
-		add_meta_box( 'woocommerce-product-images', __( 'Product gallery', 'woocommerce' ), 'WC_Meta_Box_Product_Images::output', 'product', 'side', 'low' );
+		add_meta_box( 'postexcerpt', __( 'Product short description', 'poocommerce' ), 'WC_Meta_Box_Product_Short_Description::output', 'product', 'normal' );
+		add_meta_box( 'poocommerce-product-data', __( 'Product data', 'poocommerce' ), 'WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high' );
+		add_meta_box( 'poocommerce-product-images', __( 'Product gallery', 'poocommerce' ), 'WC_Meta_Box_Product_Images::output', 'product', 'side', 'low' );
 
 		// Orders.
 		foreach ( wc_get_order_types( 'order-meta-boxes' ) as $type ) {
@@ -141,11 +141,11 @@ class WC_Admin_Meta_Boxes {
 		}
 
 		// Coupons.
-		add_meta_box( 'woocommerce-coupon-data', __( 'Coupon data', 'woocommerce' ), 'WC_Meta_Box_Coupon_Data::output', 'shop_coupon', 'normal', 'high' );
+		add_meta_box( 'poocommerce-coupon-data', __( 'Coupon data', 'poocommerce' ), 'WC_Meta_Box_Coupon_Data::output', 'shop_coupon', 'normal', 'high' );
 
 		// Comment rating.
 		if ( 'comment' === $screen_id && isset( $_GET['c'] ) && metadata_exists( 'comment', wc_clean( wp_unslash( $_GET['c'] ) ), 'rating' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			add_meta_box( 'woocommerce-rating', __( 'Rating', 'woocommerce' ), 'WC_Meta_Box_Product_Reviews::output', 'comment', 'normal', 'high' );
+			add_meta_box( 'poocommerce-rating', __( 'Rating', 'poocommerce' ), 'WC_Meta_Box_Product_Reviews::output', 'comment', 'normal', 'high' );
 		}
 	}
 
@@ -163,8 +163,8 @@ class WC_Admin_Meta_Boxes {
 			get_current_user_id(),
 			'meta-box-order_product',
 			array(
-				'side'     => 'submitdiv,postimagediv,woocommerce-product-images,product_catdiv,tagsdiv-product_tag',
-				'normal'   => 'woocommerce-product-data,postcustom,slugdiv,postexcerpt',
+				'side'     => 'submitdiv,postimagediv,poocommerce-product-images,product_catdiv,tagsdiv-product_tag',
+				'normal'   => 'poocommerce-product-data,postcustom,slugdiv,postexcerpt',
 				'advanced' => '',
 			)
 		);
@@ -202,7 +202,7 @@ class WC_Admin_Meta_Boxes {
 		// Comments/Reviews.
 		if ( isset( $post ) && ( 'publish' === $post->post_status || 'private' === $post->post_status ) && post_type_supports( 'product', 'comments' ) ) {
 			remove_meta_box( 'commentsdiv', 'product', 'normal' );
-			add_meta_box( 'commentsdiv', __( 'Reviews', 'woocommerce' ), 'post_comment_meta_box', 'product', 'normal' );
+			add_meta_box( 'commentsdiv', __( 'Reviews', 'poocommerce' ), 'post_comment_meta_box', 'product', 'normal' );
 		}
 	}
 
@@ -226,7 +226,7 @@ class WC_Admin_Meta_Boxes {
 		}
 
 		// Check the nonce.
-		if ( empty( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( empty( $_POST['poocommerce_meta_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['poocommerce_meta_nonce'] ), 'poocommerce_save_data' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return;
 		}
 
@@ -242,7 +242,7 @@ class WC_Admin_Meta_Boxes {
 
 		// We need this save event to run once to avoid potential endless loops. This would have been perfect:
 		// remove_action( current_filter(), __METHOD__ );
-		// But cannot be used due to https://github.com/woocommerce/woocommerce/issues/6485
+		// But cannot be used due to https://github.com/poocommerce/poocommerce/issues/6485
 		// When that is patched in core we can use the above.
 		self::$saved_meta_boxes = true;
 
@@ -260,7 +260,7 @@ class WC_Admin_Meta_Boxes {
 			 *
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_process_shop_order_meta', $post_id, $post );
+			do_action( 'poocommerce_process_shop_order_meta', $post_id, $post );
 		} elseif ( in_array( $post->post_type, array( 'product', 'shop_coupon' ), true ) ) {
 			/**
 			 * Save meta for product.
@@ -270,7 +270,7 @@ class WC_Admin_Meta_Boxes {
 			 *
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_process_' . $post->post_type . '_meta', $post_id, $post );
+			do_action( 'poocommerce_process_' . $post->post_type . '_meta', $post_id, $post );
 		}
 	}
 

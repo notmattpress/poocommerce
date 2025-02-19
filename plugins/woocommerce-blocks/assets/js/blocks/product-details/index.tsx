@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

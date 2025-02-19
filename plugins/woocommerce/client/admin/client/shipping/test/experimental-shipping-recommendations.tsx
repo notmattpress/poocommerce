@@ -3,7 +3,7 @@
  */
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ jest.mock( '../../settings-recommendations/dismissable-list', () => ( {
 	DismissableList: ( ( { children } ) => children ) as React.FC,
 	DismissableListHeading: ( ( { children } ) => children ) as React.FC,
 } ) );
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -26,12 +26,12 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
 } );
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -41,7 +41,7 @@ const defaultSelectReturn = {
 	isJetpackConnected: () => false,
 	getSettings: () => ( {
 		general: {
-			woocommerce_default_country: 'US',
+			poocommerce_default_country: 'US',
 		},
 	} ),
 	getProfileItems: () => ( {} ),
@@ -60,21 +60,21 @@ describe( 'ShippingRecommendations', () => {
 		( useSelect as jest.Mock ).mockImplementation( ( fn ) =>
 			fn( () => ( {
 				...defaultSelectReturn,
-				getActivePlugins: () => [ 'woocommerce-services' ],
+				getActivePlugins: () => [ 'poocommerce-services' ],
 				isJetpackConnected: () => true,
 			} ) )
 		);
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
 	[
-		[ 'woocommerce-shipping' ],
-		[ 'woocommerce-tax' ],
-		[ 'woocommerce-shipping', 'woocommerce-tax' ],
+		[ 'poocommerce-shipping' ],
+		[ 'poocommerce-tax' ],
+		[ 'poocommerce-shipping', 'poocommerce-tax' ],
 	].forEach( ( activePlugins ) => {
 		it( `should not render if the following plugins are active: ${ JSON.stringify(
 			activePlugins
@@ -89,7 +89,7 @@ describe( 'ShippingRecommendations', () => {
 			render( <ShippingRecommendations /> );
 
 			expect(
-				screen.queryByText( 'WooCommerce Shipping' )
+				screen.queryByText( 'PooCommerce Shipping' )
 			).not.toBeInTheDocument();
 		} );
 	} );
@@ -100,7 +100,7 @@ describe( 'ShippingRecommendations', () => {
 				...defaultSelectReturn,
 				getSettings: () => ( {
 					general: {
-						woocommerce_default_country: 'JP',
+						poocommerce_default_country: 'JP',
 					},
 				} ),
 			} ) )
@@ -108,7 +108,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -124,7 +124,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -132,15 +132,15 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 	} );
 
-	it( 'should trigger event settings_shipping_recommendation_visit_marketplace_click when clicking the Official WooCommerce Marketplace link', () => {
+	it( 'should trigger event settings_shipping_recommendation_visit_marketplace_click when clicking the Official PooCommerce Marketplace link', () => {
 		render( <ShippingRecommendations /> );
 
 		fireEvent.click(
-			screen.getByText( 'Official WooCommerce Marketplace' )
+			screen.getByText( 'Official PooCommerce Marketplace' )
 		);
 
 		expect( recordEvent ).toHaveBeenCalledWith(
@@ -148,7 +148,7 @@ describe( 'ShippingRecommendations', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the Official WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the Official PooCommerce Marketplace link', async () => {
 		const mockLocation = {
 			href: 'test',
 		} as Location;
@@ -161,7 +161,7 @@ describe( 'ShippingRecommendations', () => {
 		render( <ShippingRecommendations /> );
 
 		fireEvent.click(
-			screen.getByText( 'Official WooCommerce Marketplace' )
+			screen.getByText( 'Official PooCommerce Marketplace' )
 		);
 
 		expect( mockLocation.href ).toContain(

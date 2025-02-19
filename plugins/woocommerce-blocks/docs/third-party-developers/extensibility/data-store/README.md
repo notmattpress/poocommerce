@@ -1,6 +1,6 @@
 # Data Store
 
-This document provides an overview of the data stores registered with `wp.data` for use by various blocks. Store descriptions are exported as constants on the `wc.wcBlocksData` export (externally registered as `@woocommerce/block-data` and enqueued via handle `wc-blocks-data-store`). For any block using the store, it's recommended to import the store description rather than using the reference directly to ensure dependencies are extracted correctly. It is assumed readers have some familiarity with the `wp.data` API. You can read more about that [here](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/).
+This document provides an overview of the data stores registered with `wp.data` for use by various blocks. Store descriptions are exported as constants on the `wc.wcBlocksData` export (externally registered as `@poocommerce/block-data` and enqueued via handle `wc-blocks-data-store`). For any block using the store, it's recommended to import the store description rather than using the reference directly to ensure dependencies are extracted correctly. It is assumed readers have some familiarity with the `wp.data` API. You can read more about that [here](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/).
 
 ## [Cart Store (wc/store/cart)](cart.md)
 
@@ -72,8 +72,8 @@ const { validationStore } = window.wc.wcBlocksData;
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/README.md)
 
 <!-- /FEEDBACK -->

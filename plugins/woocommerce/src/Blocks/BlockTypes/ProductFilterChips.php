@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Chips Block.
@@ -54,7 +54,7 @@ final class ProductFilterChips extends AbstractBlock {
 		$count                       = 0;
 
 		$wrapper_attributes = array(
-			'data-wc-interactive' => esc_attr( wp_json_encode( array( 'namespace' => 'woocommerce/product-filter-chips' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) ),
+			'data-wc-interactive' => esc_attr( wp_json_encode( array( 'namespace' => 'poocommerce/product-filter-chips' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) ),
 			'data-wc-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'class'               => esc_attr( $classes ),
 			'style'               => esc_attr( $style ),
@@ -63,13 +63,13 @@ final class ProductFilterChips extends AbstractBlock {
 		ob_start();
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-			<div class="wc-block-product-filter-chips__items" aria-label="<?php echo esc_attr__( 'Filter Options', 'woocommerce' ); ?>">
+			<div class="wc-block-product-filter-chips__items" aria-label="<?php echo esc_attr__( 'Filter Options', 'poocommerce' ); ?>">
 				<?php foreach ( $items as $item ) { ?>
 					<?php
 					$item['id'] = $item['id'] ?? uniqid( 'chips-' );
 					unset( $item['data'] );
 					// translators: %s: item label.
-					$aria_label = sprintf( __( 'Filter item: %s', 'woocommerce' ), $item['ariaLabel'] ?? $item['label'] );
+					$aria_label = sprintf( __( 'Filter item: %s', 'poocommerce' ), $item['ariaLabel'] ?? $item['label'] );
 					?>
 					<button
 						data-wc-key="<?php echo esc_attr( $item['id'] ); ?>"
@@ -104,7 +104,7 @@ final class ProductFilterChips extends AbstractBlock {
 					data-wc-on--click="actions.showAllItems"
 					hidden
 				>
-					<?php echo esc_html__( 'Show more...', 'woocommerce' ); ?>
+					<?php echo esc_html__( 'Show more...', 'poocommerce' ); ?>
 				</button>
 			<?php endif; ?>
 		</div>

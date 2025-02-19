@@ -94,7 +94,7 @@ export const EmailPreviewIframe: React.FC< EmailPreviewIframeProps > = ( {
 				ref={ iframeRef }
 				className={ isLoading ? 'iframe-is-loading' : '' }
 				src={ src }
-				title={ __( 'Email preview frame', 'woocommerce' ) }
+				title={ __( 'Email preview frame', 'poocommerce' ) }
 				onLoad={ () => setIsLoading( false ) }
 			/>
 		</div>

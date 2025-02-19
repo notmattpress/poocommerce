@@ -2,20 +2,20 @@
 /**
  * Email Header
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-header.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-header.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 9.7.0
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -42,14 +42,14 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
 								<td align="center" valign="top">
 									<div id="template_header_image">
 										<?php
-										$img = get_option( 'woocommerce_email_header_image' );
+										$img = get_option( 'poocommerce_email_header_image' );
 										/**
 										 * This filter is documented in templates/emails/email-styles.php
 										 *
 										 * @since 9.6.0
 										 */
-										if ( apply_filters( 'woocommerce_is_email_preview', false ) ) {
-											$img_transient = get_transient( 'woocommerce_email_header_image' );
+										if ( apply_filters( 'poocommerce_is_email_preview', false ) ) {
+											$img_transient = get_transient( 'poocommerce_email_header_image' );
 											$img           = false !== $img_transient ? $img_transient : $img;
 										}
 

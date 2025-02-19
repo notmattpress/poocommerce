@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import { isString, isObject } from '@woocommerce/types';
+import { isString, isObject } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
-import type { PaymentResult, CheckoutResponse } from '@woocommerce/types';
+import type { PaymentResult, CheckoutResponse } from '@poocommerce/types';
 import type { createErrorNotice as originalCreateErrorNotice } from '@wordpress/notices/store/actions';
 import {
 	type ActionCreatorsOf,
 	type ConfigOf,
 } from '@wordpress/data/build-types/types';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -105,7 +105,7 @@ export const runCheckoutFailObservers = ( {
 				data.processingResponse?.message ||
 				__(
 					'Something went wrong. Please contact us to get assistance.',
-					'woocommerce'
+					'poocommerce'
 				);
 			createErrorNotice( message, {
 				id: 'checkout',
@@ -217,7 +217,7 @@ export const getPaymentResultFromCheckoutResponse = (
 	) {
 		paymentResult.message = __(
 			'Something went wrong. Please contact us to get assistance.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 

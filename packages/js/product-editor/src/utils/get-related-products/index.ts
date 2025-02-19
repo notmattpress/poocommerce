@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { select, resolveSelect, dispatch } from '@wordpress/data';
-import { PRODUCTS_STORE_NAME } from '@woocommerce/data';
-import type { Product } from '@woocommerce/data';
+import { PRODUCTS_STORE_NAME } from '@poocommerce/data';
+import type { Product } from '@poocommerce/data';
 
 type getRelatedProductsOptions = {
 	// If true, return random products if no related products are found.
@@ -110,14 +110,14 @@ export async function getSuggestedProductsFor( {
 	};
 
 	if ( forceRequest ) {
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		await dispatch( PRODUCTS_STORE_NAME ).invalidateResolution(
 			'getSuggestedProducts',
 			[ options ]
 		);
 	}
 
-	// @ts-expect-error TODO react-18-upgrade: getSuggestedProducts type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+	// @ts-expect-error TODO react-18-upgrade: getSuggestedProducts type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 	return await resolveSelect( PRODUCTS_STORE_NAME ).getSuggestedProducts(
 		options
 	);

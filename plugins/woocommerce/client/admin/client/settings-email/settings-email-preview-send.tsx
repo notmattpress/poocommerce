@@ -6,7 +6,7 @@ import { Icon, check, warning } from '@wordpress/icons';
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { isValidEmail } from '@woocommerce/product-editor';
+import { isValidEmail } from '@poocommerce/product-editor';
 
 /**
  * Internal dependencies
@@ -64,12 +64,12 @@ export const EmailPreviewSend: React.FC< EmailPreviewSendProps > = ( {
 				variant="secondary"
 				onClick={ () => setIsModalOpen( true ) }
 			>
-				{ __( 'Send a test email', 'woocommerce' ) }
+				{ __( 'Send a test email', 'poocommerce' ) }
 			</Button>
 
 			{ isModalOpen && (
 				<Modal
-					title={ __( 'Send a test email', 'woocommerce' ) }
+					title={ __( 'Send a test email', 'poocommerce' ) }
 					onRequestClose={ () => {
 						setIsModalOpen( false );
 						setIsSending( false );
@@ -79,15 +79,15 @@ export const EmailPreviewSend: React.FC< EmailPreviewSendProps > = ( {
 					<p>
 						{ __(
 							'Send yourself a test email to check how your email looks in different email apps.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 
 					<TextControl
-						label={ __( 'Send to', 'woocommerce' ) }
+						label={ __( 'Send to', 'poocommerce' ) }
 						type="email"
 						value={ email }
-						placeholder={ __( 'Enter an email', 'woocommerce' ) }
+						placeholder={ __( 'Enter an email', 'poocommerce' ) }
 						onChange={ setEmail }
 					/>
 					{ notice && (
@@ -108,7 +108,7 @@ export const EmailPreviewSend: React.FC< EmailPreviewSendProps > = ( {
 							variant="tertiary"
 							onClick={ () => setIsModalOpen( false ) }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -117,8 +117,8 @@ export const EmailPreviewSend: React.FC< EmailPreviewSendProps > = ( {
 							disabled={ ! isValidEmail( email ) || isSending }
 						>
 							{ isSending
-								? __( 'Sending…', 'woocommerce' )
-								: __( 'Send test email', 'woocommerce' ) }
+								? __( 'Sending…', 'poocommerce' )
+								: __( 'Send test email', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

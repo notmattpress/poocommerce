@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
 use Exception;
 
 defined( 'ABSPATH' ) || exit;
@@ -27,9 +27,9 @@ class PaymentsController {
 	 */
 	public function register() {
 		// Because we gate the hooking based on a feature flag,
-		// we need to delay the registration until the 'woocommerce_init' hook.
+		// we need to delay the registration until the 'poocommerce_init' hook.
 		// Otherwise, we end up in an infinite loop.
-		add_action( 'woocommerce_init', array( $this, 'delayed_register' ) );
+		add_action( 'poocommerce_init', array( $this, 'delayed_register' ) );
 	}
 
 	/**
@@ -42,8 +42,8 @@ class PaymentsController {
 		}
 
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
-		add_filter( 'woocommerce_admin_allowed_promo_notes', array( $this, 'add_allowed_promo_notes' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
+		add_filter( 'poocommerce_admin_allowed_promo_notes', array( $this, 'add_allowed_promo_notes' ) );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class PaymentsController {
 			return;
 		}
 
-		$menu_title = esc_html__( 'Payments', 'woocommerce' );
+		$menu_title = esc_html__( 'Payments', 'poocommerce' );
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NTIiIGhlaWdodD0iNjg0Ij48cGF0aCBmaWxsPSIjYTJhYWIyIiBkPSJNODIgODZ2NTEyaDY4NFY4NlptMCA1OThjLTQ4IDAtODQtMzgtODQtODZWODZDLTIgMzggMzQgMCA4MiAwaDY4NGM0OCAwIDg0IDM4IDg0IDg2djUxMmMwIDQ4LTM2IDg2LTg0IDg2em0zODQtNTU2djQ0aDg2djg0SDM4MnY0NGgxMjhjMjQgMCA0MiAxOCA0MiA0MnYxMjhjMCAyNC0xOCA0Mi00MiA0MmgtNDR2NDRoLTg0di00NGgtODZ2LTg0aDE3MHYtNDRIMzM4Yy0yNCAwLTQyLTE4LTQyLTQyVjIxNGMwLTI0IDE4LTQyIDQyLTQyaDQ0di00NHoiLz48L3N2Zz4=';
 		// Link to the Payments settings page.
 		$menu_path = 'admin.php?page=wc-settings&tab=checkout';
@@ -77,11 +77,11 @@ class PaymentsController {
 		add_menu_page(
 			$menu_title,
 			$menu_title,
-			'manage_woocommerce', // Capability required to see the menu item.
+			'manage_poocommerce', // Capability required to see the menu item.
 			$menu_path,
 			null,
 			$menu_icon,
-			56, // Position after WooCommerce Product menu item.
+			56, // Position after PooCommerce Product menu item.
 		);
 
 		// If there are providers with active incentive, add a notice badge to the Payments menu item.

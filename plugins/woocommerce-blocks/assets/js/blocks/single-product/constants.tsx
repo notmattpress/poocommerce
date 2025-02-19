@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Icon, mediaAndText } from '@wordpress/icons';
-import { getBlockMap } from '@woocommerce/atomic-utils';
+import { getBlockMap } from '@poocommerce/atomic-utils';
 import type { InnerBlockTemplate } from '@wordpress/blocks';
 
 /**
@@ -29,7 +29,7 @@ export const DEFAULT_INNER_BLOCKS: InnerBlockTemplate[] = [
 				{},
 				[
 					[
-						'woocommerce/product-image',
+						'poocommerce/product-image',
 						{
 							showSaleBadge: false,
 							isDescendentOfSingleProductBlock: true,
@@ -47,24 +47,24 @@ export const DEFAULT_INNER_BLOCKS: InnerBlockTemplate[] = [
 						{
 							headingLevel: 2,
 							isLink: true,
-							__woocommerceNamespace:
+							__poocommerceNamespace:
 								PRODUCT_TITLE_VARIATION_NAME,
 						},
 					],
 					[
-						'woocommerce/product-rating',
+						'poocommerce/product-rating',
 						{ isDescendentOfSingleProductBlock: true },
 					],
 					[
-						'woocommerce/product-price',
+						'poocommerce/product-price',
 						{ isDescendentOfSingleProductBlock: true },
 					],
 					[
-						'woocommerce/product-summary',
+						'poocommerce/product-summary',
 						{ isDescendentOfSingleProductBlock: true },
 					],
-					[ 'woocommerce/add-to-cart-form' ],
-					[ 'woocommerce/product-meta' ],
+					[ 'poocommerce/add-to-cart-form' ],
+					[ 'poocommerce/product-meta' ],
 				],
 			],
 		],
@@ -76,9 +76,9 @@ export const ALLOWED_INNER_BLOCKS = [
 	'core/column',
 	'core/post-title',
 	'core/post-excerpt',
-	'woocommerce/add-to-cart-form',
-	'woocommerce/add-to-cart-with-options',
-	'woocommerce/product-meta',
-	'woocommerce/product-gallery',
+	'poocommerce/add-to-cart-form',
+	'poocommerce/add-to-cart-with-options',
+	'poocommerce/product-meta',
+	'poocommerce/product-gallery',
 	...Object.keys( getBlockMap( metadata.name ) ),
 ];

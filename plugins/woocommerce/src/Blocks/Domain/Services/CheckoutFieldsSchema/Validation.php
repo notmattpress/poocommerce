@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
 use Opis\JsonSchema\{
 	Helper,
 	Validator
@@ -81,7 +81,7 @@ class Validation {
 		}
 
 		// Return generic error message.
-		return new WP_Error( 'woocommerce_rest_checkout_invalid_field', __( 'Invalid field.', 'woocommerce' ) );
+		return new WP_Error( 'poocommerce_rest_checkout_invalid_field', __( 'Invalid field.', 'poocommerce' ) );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Validation {
 				continue;
 			}
 			if ( ! is_array( $rules[ $rule ] ) ) {
-				return new WP_Error( 'woocommerce_rest_checkout_invalid_field_schema', sprintf( 'The %s rules must be an array.', esc_html( $rule ) ) );
+				return new WP_Error( 'poocommerce_rest_checkout_invalid_field_schema', sprintf( 'The %s rules must be an array.', esc_html( $rule ) ) );
 			}
 			$result = $validator->validate(
 				Helper::toJSON(
@@ -145,7 +145,7 @@ class Validation {
 				self::$meta_schema_json
 			);
 			if ( $result->hasError() ) {
-				return new WP_Error( 'woocommerce_rest_checkout_invalid_field_schema', esc_html( (string) $result->error() ) );
+				return new WP_Error( 'poocommerce_rest_checkout_invalid_field_schema', esc_html( (string) $result->error() ) );
 			}
 		}
 		return true;

@@ -2,7 +2,7 @@
 /**
  * PHP Tracks Client
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 /**
@@ -78,7 +78,7 @@ class WC_Tracks {
 			'role'                   => ! empty( $user->roles ) ? reset( $user->roles ) : '',
 			'can_install_plugins'    => $user->has_cap( 'install_plugins' ),
 			'can_activate_plugins'   => $user->has_cap( 'activate_plugins' ),
-			'can_manage_woocommerce' => $user->has_cap( 'manage_woocommerce' ),
+			'can_manage_poocommerce' => $user->has_cap( 'manage_poocommerce' ),
 		);
 	}
 
@@ -117,7 +117,7 @@ class WC_Tracks {
 
 	/**
 	 * Track when the user attempts to toggle
-	 * woocommerce_allow_tracking option.
+	 * poocommerce_allow_tracking option.
 	 *
 	 * @since x.x.x
 	 *
@@ -125,10 +125,10 @@ class WC_Tracks {
 	 * @param string $new_value The new value for the setting. 'yes' or 'no'.
 	 * @param string $context Which avenue the user utilized to toggle.
 	 */
-	public static function track_woocommerce_allow_tracking_toggled( $prev_value, $new_value, $context = 'settings' ) {
+	public static function track_poocommerce_allow_tracking_toggled( $prev_value, $new_value, $context = 'settings' ) {
 		if ( $new_value !== $prev_value ) {
 			self::record_event(
-				'woocommerce_allow_tracking_toggled',
+				'poocommerce_allow_tracking_toggled',
 				array(
 					'previous_value' => $prev_value,
 					'new_value'      => $new_value,
@@ -151,7 +151,7 @@ class WC_Tracks {
 		 *
 		 * @since 4.1.0
 		 */
-		$properties = apply_filters( 'woocommerce_tracks_event_properties', $event_properties, $event_name );
+		$properties = apply_filters( 'poocommerce_tracks_event_properties', $event_properties, $event_name );
 		$user       = wp_get_current_user();
 		$identity   = WC_Tracks_Client::get_identity( $user->ID );
 

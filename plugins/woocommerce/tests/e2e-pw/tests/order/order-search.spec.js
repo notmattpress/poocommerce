@@ -1,7 +1,7 @@
 const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 
 const searchString = 'James Doe';
 const itemName = 'Wanted Product';
@@ -72,7 +72,7 @@ const deleteCustomer = async ( api ) => {
 };
 
 test.describe(
-	'WooCommerce Orders > Search orders',
+	'PooCommerce Orders > Search orders',
 	{ tag: [ tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );

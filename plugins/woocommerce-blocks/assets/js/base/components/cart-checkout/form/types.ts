@@ -7,7 +7,7 @@ import type {
 	FormFields,
 	FormType,
 	KeyedFormField,
-} from '@woocommerce/settings';
+} from '@poocommerce/settings';
 
 export type AddressFormFields = {
 	fields: KeyedFormField[];

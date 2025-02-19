@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CheckoutResponse } from '@woocommerce/types';
+import type { CheckoutResponse } from '@poocommerce/types';
 import { store as noticesStore } from '@wordpress/notices';
 import { dispatch as wpDispatch, select as wpSelect } from '@wordpress/data';
 import type {
@@ -11,7 +11,7 @@ import type {
 	DispatchFunction,
 	SelectFunction,
 } from '@wordpress/data/build-types/types';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

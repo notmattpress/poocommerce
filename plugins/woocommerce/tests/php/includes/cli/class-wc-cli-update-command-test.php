@@ -40,7 +40,7 @@ class WC_CLI_Update_Command_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox After `wp wc update` has run, the `woocommerce_db_option` should be left at the expected value.
+	 * @testdox After `wp wc update` has run, the `poocommerce_db_option` should be left at the expected value.
 	 */
 	public function test_db_version_is_updated_if_have_callbacks() {
 		$this->mock_wp_cli();
@@ -53,19 +53,19 @@ class WC_CLI_Update_Command_Test extends WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_db_version', '4.0.0' );
+		update_option( 'poocommerce_db_version', '4.0.0' );
 		$sut = new WC_CLI_Update_Command();
 		$sut->update();
 
 		$this->assertEquals(
 			WC()->version,
-			get_option( 'woocommerce_db_version' ),
-			'After applying updates via WP CLI, the `woocommerce_db_version` option should match the current `WC()->version` property.'
+			get_option( 'poocommerce_db_version' ),
+			'After applying updates via WP CLI, the `poocommerce_db_version` option should match the current `WC()->version` property.'
 		);
 	}
 
 	/**
-	 * @testdox After `wp wc update` has run, the `woocommerce_db_option` should be left at the expected value (even if no update callbacks were executed)
+	 * @testdox After `wp wc update` has run, the `poocommerce_db_option` should be left at the expected value (even if no update callbacks were executed)
 	 */
 	public function test_db_version_is_updated_if_no_callbacks() {
 		$this->mock_wp_cli();
@@ -73,14 +73,14 @@ class WC_CLI_Update_Command_Test extends WC_Unit_Test_Case {
 		// Overwrite with some alternative update callbacks.
 		$this->db_updates_property->setValue( array() );
 
-		update_option( 'woocommerce_db_version', '4.0.0' );
+		update_option( 'poocommerce_db_version', '4.0.0' );
 		$sut = new WC_CLI_Update_Command();
 		$sut->update();
 
 		$this->assertEquals(
 			WC()->version,
-			get_option( 'woocommerce_db_version' ),
-			'After applying updates via WP CLI, the `woocommerce_db_version` option should match the current `WC()->version` property.'
+			get_option( 'poocommerce_db_version' ),
+			'After applying updates via WP CLI, the `poocommerce_db_version` option should match the current `WC()->version` property.'
 		);
 	}
 

@@ -5,11 +5,11 @@ import { __ } from '@wordpress/i18n';
 import { createElement, Fragment, useRef, useEffect } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useEntityProp } from '@wordpress/core-data';
 import { closeSmall } from '@wordpress/icons';
 import classnames from 'classnames';
-import type { Product } from '@woocommerce/data';
+import type { Product } from '@poocommerce/data';
 import { isInTheFuture } from '@wordpress/date';
 
 /**
@@ -25,10 +25,10 @@ import { PostPublishSection, PostPublishTitle } from './post-publish';
 
 export function PrepublishPanel( {
 	productType = 'product',
-	title = __( 'Are you ready to publish this product?', 'woocommerce' ),
+	title = __( 'Are you ready to publish this product?', 'poocommerce' ),
 	description = __(
 		'Double-check your settings before sharing this product with customers.',
-		'woocommerce'
+		'poocommerce'
 	),
 }: PrepublishPanelProps ) {
 	const [ editedDate ] = useEntityProp< string >(
@@ -49,10 +49,10 @@ export function PrepublishPanel( {
 			: true;
 
 	if ( isInTheFuture( editedDate ) ) {
-		title = __( 'Are you ready to schedule this product?', 'woocommerce' );
+		title = __( 'Are you ready to schedule this product?', 'poocommerce' );
 		description = __(
 			'Your product will be published at the specified date and time.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 	const panelRef = useRef< HTMLDivElement >( null );
@@ -80,9 +80,9 @@ export function PrepublishPanel( {
 		if ( isPublishedOrScheduled ) {
 			return (
 				<Button
-					className="woocommerce-publish-panel-close"
+					className="poocommerce-publish-panel-close"
 					icon={ closeSmall }
-					label={ __( 'Close panel', 'woocommerce' ) }
+					label={ __( 'Close panel', 'poocommerce' ) }
 					onClick={ () => {
 						recordEvent( 'product_prepublish_panel', {
 							source: TRACKS_SOURCE,
@@ -106,7 +106,7 @@ export function PrepublishPanel( {
 						closePrepublishPanel();
 					} }
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 			</>
 		);
@@ -139,20 +139,20 @@ export function PrepublishPanel( {
 	return (
 		<div
 			ref={ panelRef }
-			className={ classnames( 'woocommerce-product-publish-panel', {
+			className={ classnames( 'poocommerce-product-publish-panel', {
 				'is-published': isPublishedOrScheduled,
 			} ) }
 		>
-			<div className="woocommerce-product-publish-panel__header">
+			<div className="poocommerce-product-publish-panel__header">
 				{ getHeaderActions() }
 			</div>
-			<div className="woocommerce-product-publish-panel__title">
+			<div className="poocommerce-product-publish-panel__title">
 				{ getPanelTitle() }
 			</div>
-			<div className="woocommerce-product-publish-panel__content">
+			<div className="poocommerce-product-publish-panel__content">
 				{ getPanelSections() }
 			</div>
-			<div className="woocommerce-product-publish-panel__footer" />
+			<div className="poocommerce-product-publish-panel__footer" />
 		</div>
 	);
 }

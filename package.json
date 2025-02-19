@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce-monorepo",
-	"title": "WooCommerce Monorepo",
-	"description": "Monorepo for the WooCommerce ecosystem",
-	"homepage": "https://woocommerce.com/",
+	"name": "poocommerce-monorepo",
+	"title": "PooCommerce Monorepo",
+	"description": "Monorepo for the PooCommerce ecosystem",
+	"homepage": "https://poocommerce.com/",
 	"packageManager": "pnpm@9.15.0",
 	"engines": {
 		"node": "^20.11.1"
@@ -10,12 +10,12 @@
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"author": "Automattic",
 	"license": "GPL-3.0-or-later",
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"scripts": {
 		"build": "pnpm -r --workspace-concurrency=Infinity --stream '/^build:project:.*$/'",
@@ -23,7 +23,7 @@
 		"lint": "pnpm -r lint",
 		"cherry-pick": "node ./tools/cherry-pick/bin/run",
 		"clean": "rimraf -g '**/node_modules' '**/.wireit' 'packages/*/*/vendor' 'plugins/*/vendor' && pnpm store prune",
-		"clean:build": "rimraf -g 'packages/js/*/build' 'packages/js/*/build-*' 'packages/js/*/dist' 'plugins/*/build' 'plugins/woocommerce/client/*/build' && git clean --force -d -X --quiet ./plugins/woocommerce/assets",
+		"clean:build": "rimraf -g 'packages/js/*/build' 'packages/js/*/build-*' 'packages/js/*/dist' 'plugins/*/build' 'plugins/poocommerce/client/*/build' && git clean --force -d -X --quiet ./plugins/poocommerce/assets",
 		"preinstall": "npx only-allow pnpm",
 		"postinstall": "husky",
 		"sync-dependencies": "pnpm exec syncpack -- fix-mismatches",
@@ -33,8 +33,8 @@
 		"@babel/preset-env": "^7.23.5",
 		"@babel/runtime": "^7.23.5",
 		"@types/node": "20.x.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/monorepo-utils": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/monorepo-utils": "workspace:*",
 		"@wordpress/data": "wp-6.6",
 		"@wordpress/eslint-plugin": "14.7.0",
 		"@wordpress/prettier-config": "2.17.0",

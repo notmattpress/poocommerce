@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base, wpCLI } from '@woocommerce/e2e-utils';
+import { expect, test as base, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ test.describe( 'Shopper → Notices', () => {
 			postType: 'wp_template_part',
 			canvas: 'edit',
 		} );
-		const miniCart = await editor.getBlockByName( 'woocommerce/mini-cart' );
+		const miniCart = await editor.getBlockByName( 'poocommerce/mini-cart' );
 		await editor.selectBlocks( miniCart );
 		const openDrawerControl = editor.page.getByLabel(
 			'Open drawer when adding'
@@ -126,8 +126,8 @@ test.describe( 'Shopper → Translations', () => {
 
 test.describe( 'Shopper → Tax', () => {
 	test.beforeEach( async () => {
-		await wpCLI( 'option set woocommerce_prices_include_tax no' );
-		await wpCLI( 'option set woocommerce_tax_display_cart incl' );
+		await wpCLI( 'option set poocommerce_prices_include_tax no' );
+		await wpCLI( 'option set poocommerce_tax_display_cart incl' );
 	} );
 
 	test( 'User can see tax label and price including tax', async ( {
@@ -144,7 +144,7 @@ test.describe( 'Shopper → Tax', () => {
 		).toContainText( '(incl. tax)' );
 
 		// Hovering over the mini cart should not change the label,
-		// see https://github.com/woocommerce/woocommerce/issues/43691
+		// see https://github.com/poocommerce/poocommerce/issues/43691
 		await page
 			.getByTestId( 'mini-cart' )
 			.getByLabel( '1 item in cart' )
@@ -154,8 +154,8 @@ test.describe( 'Shopper → Tax', () => {
 			page.getByTestId( 'mini-cart' ).getByLabel( '1 item in cart' )
 		).toContainText( '(incl. tax)' );
 
-		await wpCLI( 'option set woocommerce_prices_include_tax yes' );
-		await wpCLI( 'option set woocommerce_tax_display_cart excl' );
+		await wpCLI( 'option set poocommerce_prices_include_tax yes' );
+		await wpCLI( 'option set poocommerce_tax_display_cart excl' );
 		await page.reload();
 
 		await expect(

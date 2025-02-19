@@ -7,7 +7,7 @@ import {
 	OnboardingProductType,
 	OnboardingProductTypes,
 	ProfileItems,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies

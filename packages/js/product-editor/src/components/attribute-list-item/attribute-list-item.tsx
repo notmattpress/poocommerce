@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { DragEventHandler } from 'react';
-import { ListItem, Tag } from '@woocommerce/components';
-import { ProductProductAttribute } from '@woocommerce/data';
+import { ListItem, Tag } from '@poocommerce/components';
+import { ProductProductAttribute } from '@poocommerce/data';
 import { sprintf, __ } from '@wordpress/i18n';
 import { Button, Tooltip } from '@wordpress/components';
 import { closeSmall } from '@wordpress/icons';
@@ -25,16 +25,16 @@ type AttributeListItemProps = {
 	onRemoveClick?: ( attribute: ProductProductAttribute ) => void;
 };
 
-const VISIBLE_TEXT = __( 'Visible in product details', 'woocommerce' );
+const VISIBLE_TEXT = __( 'Visible in product details', 'poocommerce' );
 const NOT_FILTERABLE_CUSTOM_ATTR_TEXT = __(
 	'Custom attribute. Customers can’t filter or search by it to find this product',
-	'woocommerce'
+	'poocommerce'
 );
 
 export const AttributeListItem: React.FC< AttributeListItemProps > = ( {
 	attribute,
-	editLabel = __( 'Edit', 'woocommerce' ),
-	removeLabel = __( 'Remove attribute', 'woocommerce' ),
+	editLabel = __( 'Edit', 'poocommerce' ),
+	removeLabel = __( 'Remove attribute', 'poocommerce' ),
 	onDragStart,
 	onDragEnd,
 	onEditClick,
@@ -42,7 +42,7 @@ export const AttributeListItem: React.FC< AttributeListItemProps > = ( {
 } ) => {
 	return (
 		<ListItem
-			className="woocommerce-attribute-list-item"
+			className="poocommerce-attribute-list-item"
 			onDragStart={ onDragStart }
 			onDragEnd={ onDragEnd }
 		>
@@ -57,34 +57,34 @@ export const AttributeListItem: React.FC< AttributeListItemProps > = ( {
 					<Tag
 						label={ sprintf(
 							/* translators: %i: number of additional attribute values that are hidden */
-							__( '+ %d more', 'woocommerce' ),
+							__( '+ %d more', 'poocommerce' ),
 							attribute.options.length - 2
 						) }
 					/>
 				) }
 			</div>
-			<div className="woocommerce-attribute-list-item__actions">
+			<div className="poocommerce-attribute-list-item__actions">
 				{ attribute.id === 0 && (
 					<Tooltip
 						// @ts-expect-error className is missing in TS, should remove this when it is included.
-						className="woocommerce-attribute-list-item__actions-tooltip"
+						className="poocommerce-attribute-list-item__actions-tooltip"
 						position="top center"
 						text={ NOT_FILTERABLE_CUSTOM_ATTR_TEXT }
 					>
-						<div className="woocommerce-attribute-list-item__actions-icon-wrapper">
-							<NotFilterableIcon className="woocommerce-attribute-list-item__actions-icon-wrapper-icon" />
+						<div className="poocommerce-attribute-list-item__actions-icon-wrapper">
+							<NotFilterableIcon className="poocommerce-attribute-list-item__actions-icon-wrapper-icon" />
 						</div>
 					</Tooltip>
 				) }
 				{ attribute.visible && (
 					<Tooltip
 						// @ts-expect-error className is missing in TS, should remove this when it is included.
-						className="woocommerce-attribute-list-item__actions-tooltip"
+						className="poocommerce-attribute-list-item__actions-tooltip"
 						position="top center"
 						text={ VISIBLE_TEXT }
 					>
-						<div className="woocommerce-attribute-list-item__actions-icon-wrapper">
-							<SeenIcon className="woocommerce-attribute-list-item__actions-icon-wrapper-icon" />
+						<div className="poocommerce-attribute-list-item__actions-icon-wrapper">
+							<SeenIcon className="poocommerce-attribute-list-item__actions-icon-wrapper-icon" />
 						</div>
 					</Tooltip>
 				) }

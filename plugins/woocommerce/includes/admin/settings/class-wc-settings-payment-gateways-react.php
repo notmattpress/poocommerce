@@ -3,12 +3,12 @@ declare( strict_types = 1 );
 
 // @codingStandardsIgnoreLine.
 /**
- * WooCommerce Checkout Settings
+ * PooCommerce Checkout Settings
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Internal\Admin\Loader;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 	 * @return array List of section identifiers.
 	 */
 	private function get_reactify_render_sections() {
-		// Add 'woocommerce_payments' when WooPayments reactified settings page is done.
+		// Add 'poocommerce_payments' when WooPayments reactified settings page is done.
 		$sections = array(
 			'offline',
 			'main',
@@ -40,7 +40,7 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 		 *
 		 * @param array $sections List of section identifiers.
 		 */
-		return apply_filters( 'experimental_woocommerce_admin_payment_reactify_render_sections', $sections );
+		return apply_filters( 'experimental_poocommerce_admin_payment_reactify_render_sections', $sections );
 	}
 
 	/**
@@ -48,7 +48,7 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'checkout';
-		$this->label = esc_html_x( 'Payments', 'Settings tab label', 'woocommerce' );
+		$this->label = esc_html_x( 'Payments', 'Settings tab label', 'poocommerce' );
 
 		// Add filters and actions.
 		add_action( 'admin_head', array( $this, 'hide_help_tabs' ) );
@@ -73,7 +73,7 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 		 *
 		 * @since 1.5.7
 		 */
-		do_action( 'woocommerce_admin_field_payment_gateways' );
+		do_action( 'poocommerce_admin_field_payment_gateways' );
 		ob_end_clean();
 
 		if ( $this->should_render_react_section( $current_section ) ) {
@@ -177,7 +177,7 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 					 *
 					 * @param int $gateway->id Gateway ID.
 					 */
-					do_action( 'woocommerce_update_options_payment_gateways_' . $gateway->id );
+					do_action( 'poocommerce_update_options_payment_gateways_' . $gateway->id );
 					$wc_payment_gateways->init();
 				}
 			}
@@ -192,7 +192,7 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 	public function hide_help_tabs() {
 		$screen = get_current_screen();
 
-		if ( ! $screen instanceof WP_Screen || 'woocommerce_page_wc-settings' !== $screen->id ) {
+		if ( ! $screen instanceof WP_Screen || 'poocommerce_page_wc-settings' !== $screen->id ) {
 			return;
 		}
 
@@ -205,14 +205,14 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 	}
 
 	/**
-	 * Suppress WP admin notices on the WooCommerce Payments settings page.
+	 * Suppress WP admin notices on the PooCommerce Payments settings page.
 	 */
 	public function suppress_admin_notices() {
 		global $wp_filter;
 
 		$screen = get_current_screen();
 
-		if ( ! $screen instanceof WP_Screen || 'woocommerce_page_wc-settings' !== $screen->id ) {
+		if ( ! $screen instanceof WP_Screen || 'poocommerce_page_wc-settings' !== $screen->id ) {
 			return;
 		}
 
@@ -224,8 +224,8 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 		// Generic admin notices are definitely not needed.
 		remove_all_actions( 'all_admin_notices' );
 
-		// WooCommerce uses the 'admin_notices' hook for its own notices.
-		// We will only allow WooCommerce core notices to be displayed.
+		// PooCommerce uses the 'admin_notices' hook for its own notices.
+		// We will only allow PooCommerce core notices to be displayed.
 		$wp_admin_notices_hook = $wp_filter['admin_notices'] ?? null;
 		if ( ! $wp_admin_notices_hook || ! $wp_admin_notices_hook->has_filters() ) {
 			// Nothing to do if there are no actions hooked into `admin_notices`.
@@ -234,13 +234,13 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 
 		$wc_admin_notices = WC_Admin_Notices::get_notices();
 		if ( empty( $wc_admin_notices ) ) {
-			// If there are no WooCommerce core notices, we can remove all actions hooked into `admin_notices`.
+			// If there are no PooCommerce core notices, we can remove all actions hooked into `admin_notices`.
 			remove_all_actions( 'admin_notices' );
 			return;
 		}
 
 		// Go through the callbacks hooked into `admin_notices` and
-		// remove any that are NOT from the WooCommerce core (i.e. from the `WC_Admin_Notices` class).
+		// remove any that are NOT from the PooCommerce core (i.e. from the `WC_Admin_Notices` class).
 		foreach ( $wp_admin_notices_hook->callbacks as $priority => $callbacks ) {
 			if ( ! is_array( $callbacks ) ) {
 				continue;
@@ -251,8 +251,8 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 				if ( ! is_array( $callback ) ) {
 					continue;
 				}
-				// WooCommerce doesn't use closures to handle notices.
-				// WooCommerce core notices are handled by `WC_Admin_Notices` class methods.
+				// PooCommerce doesn't use closures to handle notices.
+				// PooCommerce core notices are handled by `WC_Admin_Notices` class methods.
 				// Remove plain functions or closures.
 				if ( ! is_array( $callback['function'] ) ) {
 					remove_action( 'admin_notices', $callback['function'], $priority );
@@ -260,10 +260,10 @@ class WC_Settings_Payment_Gateways_React extends WC_Settings_Page {
 				}
 
 				$class_or_object = $callback['function'][0] ?? null;
-				// We need to allow Automattic\WooCommerce\Internal\Admin\Loader methods callbacks
+				// We need to allow Automattic\PooCommerce\Internal\Admin\Loader methods callbacks
 				// because they are used to wrap notices.
-				// @see Automattic\WooCommerce\Internal\Admin\Loader::inject_before_notices().
-				// @see Automattic\WooCommerce\Internal\Admin\Loader::inject_after_notices().
+				// @see Automattic\PooCommerce\Internal\Admin\Loader::inject_before_notices().
+				// @see Automattic\PooCommerce\Internal\Admin\Loader::inject_after_notices().
 				if (
 					(
 						// We have a class name.

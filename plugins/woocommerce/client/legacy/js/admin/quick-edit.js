@@ -1,4 +1,4 @@
-/*global inlineEditPost, woocommerce_admin, woocommerce_quick_edit */
+/*global inlineEditPost, poocommerce_admin, poocommerce_quick_edit */
 jQuery(
 	function( $ ) {
 		$( '#the-list' ).on(
@@ -12,7 +12,7 @@ jQuery(
 
 				post_id = post_id.replace( 'post-', '' );
 
-				var $wc_inline_data = $( '#woocommerce_inline_' + post_id );
+				var $wc_inline_data = $( '#poocommerce_inline_' + post_id );
 
 				var sku        = $wc_inline_data.find( '.sku' ).text(),
 				regular_price  = $wc_inline_data.find( '.regular_price' ).text(),
@@ -33,8 +33,8 @@ jQuery(
 				backorders     = $wc_inline_data.find( '.backorders' ).text(),
 				product_type   = $wc_inline_data.find( '.product_type' ).text();
 
-				var formatted_regular_price = regular_price.replace( '.', woocommerce_admin.mon_decimal_point ),
-				formatted_sale_price        = sale_price.replace( '.', woocommerce_admin.mon_decimal_point );
+				var formatted_regular_price = regular_price.replace( '.', poocommerce_admin.mon_decimal_point ),
+				formatted_sale_price        = sale_price.replace( '.', poocommerce_admin.mon_decimal_point );
 
 				$( 'input[name="_sku"]', '.inline-edit-row' ).val( sku );
 				$( 'input[name="_regular_price"]', '.inline-edit-row' ).val( formatted_regular_price );
@@ -112,7 +112,7 @@ jQuery(
 				}
 
 				// Rename core strings.
-				$( 'input[name="comment_status"]' ).parent().find( '.checkbox-title' ).text( woocommerce_quick_edit.strings.allow_reviews );
+				$( 'input[name="comment_status"]' ).parent().find( '.checkbox-title' ).text( poocommerce_quick_edit.strings.allow_reviews );
 			}
 		);
 
@@ -137,14 +137,14 @@ jQuery(
 			'#doaction, #doaction2',
 			function() {
 				$( 'input.text', '.inline-edit-row' ).val( '' );
-				$( '#woocommerce-fields' ).find( 'select' ).prop( 'selectedIndex', 0 );
-				$( '#woocommerce-fields-bulk' ).find( '.inline-edit-group .change-input' ).hide();
+				$( '#poocommerce-fields' ).find( 'select' ).prop( 'selectedIndex', 0 );
+				$( '#poocommerce-fields-bulk' ).find( '.inline-edit-group .change-input' ).hide();
 			}
 		);
 
 		$( '#wpbody' ).on(
 			'change',
-			'#woocommerce-fields-bulk .inline-edit-group .change_to',
+			'#poocommerce-fields-bulk .inline-edit-group .change_to',
 			function() {
 
 				if ( 0 < $( this ).val() ) {
@@ -160,7 +160,7 @@ jQuery(
 			'click',
 			'.trash-product',
 			function() {
-				return window.confirm( woocommerce_admin.i18n_delete_product_notice );
+				return window.confirm( poocommerce_admin.i18n_delete_product_notice );
 			}
 		);
 	}

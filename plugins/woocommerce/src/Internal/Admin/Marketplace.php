@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Marketplace.
+ * PooCommerce Marketplace.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 use WC_Helper_Updater;
 use WC_Woo_Update_Manager_Plugin;
 
@@ -66,10 +66,10 @@ class Marketplace {
 	public static function get_marketplace_pages() {
 		$marketplace_pages = array(
 			array(
-				'id'         => 'woocommerce-marketplace',
-				'parent'     => 'woocommerce',
-				'title'      => __( 'Extensions', 'woocommerce' ) . WC_Helper_Updater::get_updates_count_html(),
-				'page_title' => __( 'Extensions', 'woocommerce' ),
+				'id'         => 'poocommerce-marketplace',
+				'parent'     => 'poocommerce',
+				'title'      => __( 'Extensions', 'poocommerce' ) . WC_Helper_Updater::get_updates_count_html(),
+				'page_title' => __( 'Extensions', 'poocommerce' ),
 				'path'       => '/extensions',
 			),
 		);
@@ -79,7 +79,7 @@ class Marketplace {
 		 *
 		 * @since 8.0
 		 */
-		return apply_filters( 'woocommerce_marketplace_menu_items', $marketplace_pages );
+		return apply_filters( 'poocommerce_marketplace_menu_items', $marketplace_pages );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Marketplace {
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		if ( 'woocommerce_page_wc-admin' !== $hook_suffix ) {
+		if ( 'poocommerce_page_wc-admin' !== $hook_suffix ) {
 			return;
 		}
 

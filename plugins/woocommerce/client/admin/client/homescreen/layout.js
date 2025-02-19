@@ -17,12 +17,12 @@ import {
 	notesStore,
 	onboardingStore,
 	optionsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 import { Button, Card, CardHeader, CardFooter } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -130,10 +130,10 @@ export const Layout = ( {
 					{ ! isLoadingTaskLists && ! showingProgressHeader && (
 						<ActivityHeader
 							className="your-store-today"
-							title={ __( 'Your store today', 'woocommerce' ) }
+							title={ __( 'Your store today', 'poocommerce' ) }
 							subtitle={ __(
 								'To-dos, tips, and insights for your business',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
@@ -152,16 +152,16 @@ export const Layout = ( {
 	};
 
 	return (
-		<div className="woocommerce-homescreen">
+		<div className="poocommerce-homescreen">
 			{ isDashboardShown && (
 				<WooHomescreenHeaderBanner
-					className={ clsx( 'woocommerce-homescreen', {
-						'woocommerce-homescreen-column': ! twoColumns,
+					className={ clsx( 'poocommerce-homescreen', {
+						'poocommerce-homescreen-column': ! twoColumns,
 					} ) }
 				/>
 			) }
 			<div
-				className={ clsx( 'woocommerce-homescreen', {
+				className={ clsx( 'poocommerce-homescreen', {
 					'two-columns': twoColumns,
 				} ) }
 			>
@@ -170,27 +170,27 @@ export const Layout = ( {
 			</div>
 			<Card
 				className={ clsx( {
-					'woocommerce-home-browse-marketplace': ! twoColumns,
-					'woocommerce-home-browse-marketplace--wide': twoColumns,
+					'poocommerce-home-browse-marketplace': ! twoColumns,
+					'poocommerce-home-browse-marketplace--wide': twoColumns,
 				} ) }
 			>
 				<CardHeader>
 					<Text
 						variant="title.small"
 						as="h2"
-						className="woocommerce-browse-marketplace-card__title"
+						className="poocommerce-browse-marketplace-card__title"
 					>
 						{ __(
 							'Power up your store with business-critical features',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Text>
 				</CardHeader>
 				<CardFooter>
 					<Text variant="body.small" as="p">
 						{ __(
-							'Visit the Official WooCommerce Marketplace to access hundreds of vetted products and services.',
-							'woocommerce'
+							'Visit the Official PooCommerce Marketplace to access hundreds of vetted products and services.',
+							'poocommerce'
 						) }
 					</Text>
 					<Button
@@ -206,7 +206,7 @@ export const Layout = ( {
 							'admin.php?page=wc-admin&path=/extensions'
 						) }
 					>
-						{ __( 'Browse the Marketplace', 'woocommerce' ) }
+						{ __( 'Browse the Marketplace', 'poocommerce' ) }
 					</Button>
 				</CardFooter>
 			</Card>
@@ -242,7 +242,7 @@ export default compose(
 		const { isNotesRequesting } = select( notesStore );
 		const { getOption } = select( optionsStore );
 		const defaultHomescreenLayout =
-			getOption( 'woocommerce_default_homepage_layout' ) ||
+			getOption( 'poocommerce_default_homepage_layout' ) ||
 			'single_column';
 
 		const {

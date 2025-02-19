@@ -2,7 +2,7 @@
 /**
  * Class WC_Shipping_Legacy_Local_Delivery file.
  *
- * @package WooCommerce\Shipping
+ * @package PooCommerce\Shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @deprecated  2.6.0
  * @version     2.3.0
- * @package     WooCommerce\Classes\Shipping
+ * @package     PooCommerce\Classes\Shipping
  */
 class WC_Shipping_Legacy_Local_Delivery extends WC_Shipping_Local_Pickup {
 
@@ -41,9 +41,9 @@ class WC_Shipping_Legacy_Local_Delivery extends WC_Shipping_Local_Pickup {
 	 */
 	public function __construct() {
 		$this->id           = 'legacy_local_delivery';
-		$this->method_title = __( 'Local delivery (legacy)', 'woocommerce' );
+		$this->method_title = __( 'Local delivery (legacy)', 'poocommerce' );
 		/* translators: %s: Admin shipping settings URL */
-		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'woocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
+		$this->method_description = '<strong>' . sprintf( __( 'This method is deprecated in 2.6.0 and will be removed in future versions - we recommend disabling it and instead setting up a new rate within your <a href="%s">Shipping zones</a>.', 'poocommerce' ), admin_url( 'admin.php?page=wc-settings&tab=shipping' ) ) . '</strong>';
 		$this->init();
 	}
 
@@ -86,7 +86,7 @@ class WC_Shipping_Legacy_Local_Delivery extends WC_Shipping_Local_Pickup {
 		$this->availability = $this->get_option( 'availability' );
 		$this->countries    = $this->get_option( 'countries' );
 
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -129,66 +129,66 @@ class WC_Shipping_Legacy_Local_Delivery extends WC_Shipping_Local_Pickup {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'      => array(
-				'title'   => __( 'Enable', 'woocommerce' ),
+				'title'   => __( 'Enable', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Once disabled, this legacy method will no longer be available.', 'woocommerce' ),
+				'label'   => __( 'Once disabled, this legacy method will no longer be available.', 'poocommerce' ),
 				'default' => 'no',
 			),
 			'title'        => array(
-				'title'       => __( 'Title', 'woocommerce' ),
+				'title'       => __( 'Title', 'poocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-				'default'     => __( 'Local delivery', 'woocommerce' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+				'default'     => __( 'Local delivery', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'type'         => array(
-				'title'       => __( 'Fee type', 'woocommerce' ),
+				'title'       => __( 'Fee type', 'poocommerce' ),
 				'type'        => 'select',
 				'class'       => 'wc-enhanced-select',
-				'description' => __( 'How to calculate delivery charges', 'woocommerce' ),
+				'description' => __( 'How to calculate delivery charges', 'poocommerce' ),
 				'default'     => 'fixed',
 				'options'     => array(
-					'fixed'   => __( 'Fixed amount', 'woocommerce' ),
-					'percent' => __( 'Percentage of cart total', 'woocommerce' ),
-					'product' => __( 'Fixed amount per product', 'woocommerce' ),
+					'fixed'   => __( 'Fixed amount', 'poocommerce' ),
+					'percent' => __( 'Percentage of cart total', 'poocommerce' ),
+					'product' => __( 'Fixed amount per product', 'poocommerce' ),
 				),
 				'desc_tip'    => true,
 			),
 			'fee'          => array(
-				'title'       => __( 'Delivery fee', 'woocommerce' ),
+				'title'       => __( 'Delivery fee', 'poocommerce' ),
 				'type'        => 'price',
-				'description' => __( 'What fee do you want to charge for local delivery, disregarded if you choose free. Leave blank to disable.', 'woocommerce' ),
+				'description' => __( 'What fee do you want to charge for local delivery, disregarded if you choose free. Leave blank to disable.', 'poocommerce' ),
 				'default'     => '',
 				'desc_tip'    => true,
 				'placeholder' => wc_format_localized_price( 0 ),
 			),
 			'codes'        => array(
-				'title'       => __( 'Allowed ZIP/post codes', 'woocommerce' ),
+				'title'       => __( 'Allowed ZIP/post codes', 'poocommerce' ),
 				'type'        => 'text',
-				'desc_tip'    => __( 'What ZIP/post codes are available for local delivery?', 'woocommerce' ),
+				'desc_tip'    => __( 'What ZIP/post codes are available for local delivery?', 'poocommerce' ),
 				'default'     => '',
-				'description' => __( 'Separate codes with a comma. Accepts wildcards, e.g. <code>P*</code> will match a postcode of PE30. Also accepts a pattern, e.g. <code>NG1___</code> would match NG1 1AA but not NG10 1AA', 'woocommerce' ),
+				'description' => __( 'Separate codes with a comma. Accepts wildcards, e.g. <code>P*</code> will match a postcode of PE30. Also accepts a pattern, e.g. <code>NG1___</code> would match NG1 1AA but not NG10 1AA', 'poocommerce' ),
 				'placeholder' => 'e.g. 12345, 56789',
 			),
 			'availability' => array(
-				'title'   => __( 'Method availability', 'woocommerce' ),
+				'title'   => __( 'Method availability', 'poocommerce' ),
 				'type'    => 'select',
 				'default' => 'all',
 				'class'   => 'availability wc-enhanced-select',
 				'options' => array(
-					'all'      => __( 'All allowed countries', 'woocommerce' ),
-					'specific' => __( 'Specific Countries', 'woocommerce' ),
+					'all'      => __( 'All allowed countries', 'poocommerce' ),
+					'specific' => __( 'Specific Countries', 'poocommerce' ),
 				),
 			),
 			'countries'    => array(
-				'title'             => __( 'Specific countries', 'woocommerce' ),
+				'title'             => __( 'Specific countries', 'poocommerce' ),
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'width: 400px;',
 				'default'           => '',
 				'options'           => WC()->countries->get_shipping_countries(),
 				'custom_attributes' => array(
-					'data-placeholder' => __( 'Select some countries', 'woocommerce' ),
+					'data-placeholder' => __( 'Select some countries', 'poocommerce' ),
 				),
 			),
 		);

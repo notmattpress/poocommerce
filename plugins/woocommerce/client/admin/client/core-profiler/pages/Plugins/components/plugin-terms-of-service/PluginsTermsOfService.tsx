@@ -3,8 +3,8 @@
  */
 import { sprintf, _n } from '@wordpress/i18n';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
-import { ExtensionList } from '@woocommerce/data';
+import { Link } from '@poocommerce/components';
+import { ExtensionList } from '@poocommerce/data';
 /**
  * Internal dependencies
  */
@@ -18,11 +18,11 @@ export const PluginsTermsOfService = ( {
 	const pluginsWithTOS = selectedPlugins.filter( ( plugin ) =>
 		[
 			'jetpack',
-			'woocommerce-services:shipping',
-			'woocommerce-services:tax',
-			'woocommerce-shipping',
-			'woocommerce-tax',
-			'woocommerce-payments',
+			'poocommerce-services:shipping',
+			'poocommerce-services:tax',
+			'poocommerce-shipping',
+			'poocommerce-tax',
+			'poocommerce-payments',
 		].includes( plugin.key )
 	);
 
@@ -31,7 +31,7 @@ export const PluginsTermsOfService = ( {
 	}
 
 	return (
-		<p className="woocommerce-profiler-plugins-jetpack-agreement">
+		<p className="poocommerce-profiler-plugins-jetpack-agreement">
 			{ interpolateComponents( {
 				mixedString: sprintf(
 					/* translators: %s: a list of plugins, e.g. Jetpack */
@@ -39,7 +39,7 @@ export const PluginsTermsOfService = ( {
 						'By installing %s plugin for free you agree to our {{link}}Terms of Service{{/link}}.',
 						'By installing %s plugins for free you agree to our {{link}}Terms of Service{{/link}}.',
 						pluginsWithTOS.length,
-						'woocommerce'
+						'poocommerce'
 					),
 					joinWithAnd(
 						pluginsWithTOS.map( ( plugin ) => plugin.name )

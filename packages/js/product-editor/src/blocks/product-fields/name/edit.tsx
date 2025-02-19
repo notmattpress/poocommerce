@@ -12,8 +12,8 @@ import {
 import { __ } from '@wordpress/i18n';
 import { starEmpty, starFilled } from '@wordpress/icons';
 import { cleanForSlug } from '@wordpress/url';
-import { Product } from '@woocommerce/data';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { Product } from '@poocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import classNames from 'classnames';
 import {
 	Button,
@@ -23,7 +23,7 @@ import {
 } from '@wordpress/components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp, useEntityId } from '@wordpress/core-data';
 
 /**
@@ -56,7 +56,7 @@ export function NameBlockEdit( {
 	const productId = useEntityId( 'postType', 'product' );
 	const product: Product = useSelect(
 		( select ) =>
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			select( 'core' ).getEditedEntityRecord(
 				'postType',
 				'product',
@@ -84,7 +84,7 @@ export function NameBlockEdit( {
 		async function nameValidator() {
 			if ( ! name || name === AUTO_DRAFT_NAME ) {
 				return {
-					message: __( 'Product name is required.', 'woocommerce' ),
+					message: __( 'Product name is required.', 'poocommerce' ),
 				};
 			}
 
@@ -92,7 +92,7 @@ export function NameBlockEdit( {
 				return {
 					message: __(
 						'Please enter a product name shorter than 120 characters.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -112,8 +112,8 @@ export function NameBlockEdit( {
 		( productId &&
 			[ 'publish', 'draft' ].includes( product.status ) &&
 			permalinkPrefix && (
-				<span className="woocommerce-product-form__secondary-text product-details-section__product-link">
-					{ __( 'Product link', 'woocommerce' ) }
+				<span className="poocommerce-product-form__secondary-text product-details-section__product-link">
+					{ __( 'Product link', 'poocommerce' ) }
 					:&nbsp;
 					<a
 						href={ product.permalink }
@@ -128,7 +128,7 @@ export function NameBlockEdit( {
 						variant="link"
 						onClick={ () => setShowProductLinkEditModal( true ) }
 					>
-						{ __( 'Edit', 'woocommerce' ) }
+						{ __( 'Edit', 'poocommerce' ) }
 					</Button>
 				</span>
 			) );
@@ -155,8 +155,8 @@ export function NameBlockEdit( {
 	}
 
 	function renderFeaturedSuffix() {
-		const markedText = __( 'Mark as featured', 'woocommerce' );
-		const unmarkedText = __( 'Unmark as featured', 'woocommerce' );
+		const markedText = __( 'Mark as featured', 'poocommerce' );
+		const unmarkedText = __( 'Unmark as featured', 'poocommerce' );
 		const tooltipText = featured ? unmarkedText : markedText;
 
 		return (
@@ -184,7 +184,7 @@ export function NameBlockEdit( {
 				<BaseControl
 					id={ nameControlId }
 					label={
-						<Label label={ __( 'Name', 'woocommerce' ) } required />
+						<Label label={ __( 'Name', 'poocommerce' ) } required />
 					}
 					className={ classNames( {
 						'has-error': nameValidationError,
@@ -199,7 +199,7 @@ export function NameBlockEdit( {
 						autoFocus={ attributes.autoFocus }
 						placeholder={ __(
 							'e.g. 12 oz Coffee Mug',
-							'woocommerce'
+							'poocommerce'
 						) }
 						onChange={ ( nextValue ) => {
 							setName( nextValue ?? '' );

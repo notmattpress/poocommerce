@@ -1,19 +1,19 @@
 <?php
 /**
- * WooCommerce Formatting
+ * PooCommerce Formatting
  *
  * Functions for formatting data.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.1.0
  */
 
-use Automattic\WooCommerce\Utilities\I18nUtil;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Utilities\I18nUtil;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 defined( 'ABSPATH' ) || exit;
 
-// Once WooCommerce requires PHP 7.4, the "$x = $x ?? ''" constructs can be replaced with "$x ??= ''".
+// Once PooCommerce requires PHP 7.4, the "$x = $x ?? ''" constructs can be replaced with "$x ??= ''".
 
 /**
  * Converts a string (e.g. 'yes' or 'no') to a bool.
@@ -120,7 +120,7 @@ function wc_get_dimension( $dimension, $to_unit, $from_unit = '' ) {
 	$to_unit = strtolower( $to_unit );
 
 	if ( empty( $from_unit ) ) {
-		$from_unit = strtolower( get_option( 'woocommerce_dimension_unit' ) );
+		$from_unit = strtolower( get_option( 'poocommerce_dimension_unit' ) );
 	}
 
 	// Unify all units to cm first.
@@ -180,7 +180,7 @@ function wc_get_weight( $weight, $to_unit, $from_unit = '' ) {
 	$to_unit = strtolower( $to_unit );
 
 	if ( empty( $from_unit ) ) {
-		$from_unit = strtolower( get_option( 'woocommerce_weight_unit' ) );
+		$from_unit = strtolower( get_option( 'poocommerce_weight_unit' ) );
 	}
 
 	// Unify all units to kg first.
@@ -281,7 +281,7 @@ function wc_format_refund_total( $amount ) {
  * This function does not remove thousands - this should be done before passing a value to the function.
  *
  * @param  float|string $number     Expects either a float or a string with a decimal separator only (no thousands).
- * @param  mixed        $dp number  Number of decimal points to use, blank to use woocommerce_price_num_decimals, or false to avoid all rounding.
+ * @param  mixed        $dp number  Number of decimal points to use, blank to use poocommerce_price_num_decimals, or false to avoid all rounding.
  * @param  bool         $trim_zeros From end of string.
  * @return string
  */
@@ -341,7 +341,7 @@ function wc_float_to_string( $float ) {
  * @return string
  */
 function wc_format_localized_price( $value ) {
-	return apply_filters( 'woocommerce_format_localized_price', str_replace( '.', wc_get_price_decimal_separator(), strval( $value ) ), $value );
+	return apply_filters( 'poocommerce_format_localized_price', str_replace( '.', wc_get_price_decimal_separator(), strval( $value ) ), $value );
 }
 
 /**
@@ -354,7 +354,7 @@ function wc_format_localized_decimal( $value ) {
 	$locale        = localeconv();
 	$decimal_point = isset( $locale['decimal_point'] ) ? $locale['decimal_point'] : '.';
 	$decimal       = ( ! empty( wc_get_price_decimal_separator() ) ) ? wc_get_price_decimal_separator() : $decimal_point;
-	return apply_filters( 'woocommerce_format_localized_decimal', str_replace( '.', $decimal, strval( $value ) ), $value );
+	return apply_filters( 'poocommerce_format_localized_decimal', str_replace( '.', $decimal, strval( $value ) ), $value );
 }
 
 /**
@@ -365,7 +365,7 @@ function wc_format_localized_decimal( $value ) {
  * @return string
  */
 function wc_format_coupon_code( $value ) {
-	return apply_filters( 'woocommerce_coupon_code', $value );
+	return apply_filters( 'poocommerce_coupon_code', $value );
 }
 
 /**
@@ -478,7 +478,7 @@ function wc_array_overlay( $a1, $a2 ) {
  * @return int|float
  */
 function wc_stock_amount( $amount ) {
-	return apply_filters( 'woocommerce_stock_amount', $amount );
+	return apply_filters( 'poocommerce_stock_amount', $amount );
 }
 
 /**
@@ -486,8 +486,8 @@ function wc_stock_amount( $amount ) {
  *
  * @return string
  */
-function get_woocommerce_price_format() {
-	$currency_pos = get_option( 'woocommerce_currency_pos' );
+function get_poocommerce_price_format() {
+	$currency_pos = get_option( 'poocommerce_currency_pos' );
 	$format       = '%1$s%2$s';
 
 	switch ( $currency_pos ) {
@@ -505,7 +505,7 @@ function get_woocommerce_price_format() {
 			break;
 	}
 
-	return apply_filters( 'woocommerce_price_format', $format, $currency_pos );
+	return apply_filters( 'poocommerce_price_format', $format, $currency_pos );
 }
 
 /**
@@ -515,7 +515,7 @@ function get_woocommerce_price_format() {
  * @return string
  */
 function wc_get_price_thousand_separator() {
-	return stripslashes( apply_filters( 'wc_get_price_thousand_separator', get_option( 'woocommerce_price_thousand_sep' ) ) );
+	return stripslashes( apply_filters( 'wc_get_price_thousand_separator', get_option( 'poocommerce_price_thousand_sep' ) ) );
 }
 
 /**
@@ -525,7 +525,7 @@ function wc_get_price_thousand_separator() {
  * @return string
  */
 function wc_get_price_decimal_separator() {
-	$separator = apply_filters( 'wc_get_price_decimal_separator', get_option( 'woocommerce_price_decimal_sep' ) );
+	$separator = apply_filters( 'wc_get_price_decimal_separator', get_option( 'poocommerce_price_decimal_sep' ) );
 	return $separator ? stripslashes( $separator ) : '.';
 }
 
@@ -536,7 +536,7 @@ function wc_get_price_decimal_separator() {
  * @return int
  */
 function wc_get_price_decimals() {
-	return absint( apply_filters( 'wc_get_price_decimals', get_option( 'woocommerce_price_num_decimals', 2 ) ) );
+	return absint( apply_filters( 'wc_get_price_decimals', get_option( 'poocommerce_price_num_decimals', 2 ) ) );
 }
 
 /**
@@ -550,7 +550,7 @@ function wc_get_price_decimals() {
  *     @type bool   $ex_tax_label       Adds exclude tax label.
  *                                      Defaults to false.
  *     @type string $currency           Currency code.
- *                                      Defaults to empty string (Use the result from get_woocommerce_currency()).
+ *                                      Defaults to empty string (Use the result from get_poocommerce_currency()).
  *     @type string $decimal_separator  Decimal separator.
  *                                      Defaults the result of wc_get_price_decimal_separator().
  *     @type string $thousand_separator Thousand separator.
@@ -558,7 +558,7 @@ function wc_get_price_decimals() {
  *     @type string $decimals           Number of decimals.
  *                                      Defaults the result of wc_get_price_decimals().
  *     @type string $price_format       Price format depending on the currency position.
- *                                      Defaults the result of get_woocommerce_price_format().
+ *                                      Defaults the result of get_poocommerce_price_format().
  * }
  * @return string
  */
@@ -573,7 +573,7 @@ function wc_price( $price, $args = array() ) {
 				'decimal_separator'  => wc_get_price_decimal_separator(),
 				'thousand_separator' => wc_get_price_thousand_separator(),
 				'decimals'           => wc_get_price_decimals(),
-				'price_format'       => get_woocommerce_price_format(),
+				'price_format'       => get_poocommerce_price_format(),
 			)
 		)
 	);
@@ -592,7 +592,7 @@ function wc_price( $price, $args = array() ) {
 	 * @param float        $raw_price      Raw price.
 	 * @param float|string $original_price Original price as float, or empty string. Since 5.0.0.
 	 */
-	$price = apply_filters( 'raw_woocommerce_price', $negative ? $price * -1 : $price, $original_price );
+	$price = apply_filters( 'raw_poocommerce_price', $negative ? $price * -1 : $price, $original_price );
 
 	/**
 	 * Filter formatted price.
@@ -604,17 +604,17 @@ function wc_price( $price, $args = array() ) {
 	 * @param string       $thousand_separator Thousand separator.
 	 * @param float|string $original_price     Original price as float, or empty string. Since 5.0.0.
 	 */
-	$price = apply_filters( 'formatted_woocommerce_price', number_format( $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'] ), $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'], $original_price );
+	$price = apply_filters( 'formatted_poocommerce_price', number_format( $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'] ), $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'], $original_price );
 
-	if ( apply_filters( 'woocommerce_price_trim_zeros', false ) && $args['decimals'] > 0 ) {
+	if ( apply_filters( 'poocommerce_price_trim_zeros', false ) && $args['decimals'] > 0 ) {
 		$price = wc_trim_zeros( $price );
 	}
 
-	$formatted_price = ( $negative ? '-' : '' ) . sprintf( $args['price_format'], '<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>', $price );
-	$return          = '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
+	$formatted_price = ( $negative ? '-' : '' ) . sprintf( $args['price_format'], '<span class="poocommerce-Price-currencySymbol">' . get_poocommerce_currency_symbol( $args['currency'] ) . '</span>', $price );
+	$return          = '<span class="poocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
 
 	if ( $args['ex_tax_label'] && wc_tax_enabled() ) {
-		$return .= ' <small class="woocommerce-Price-taxLabel tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
+		$return .= ' <small class="poocommerce-Price-taxLabel tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 	}
 
 	/**
@@ -663,7 +663,7 @@ function wc_let_to_num( $size ) {
 }
 
 /**
- * WooCommerce Date Format - Allows to change date format for everything WooCommerce.
+ * PooCommerce Date Format - Allows to change date format for everything PooCommerce.
  *
  * @return string
  */
@@ -673,11 +673,11 @@ function wc_date_format() {
 		// Return default date format if the option is empty.
 		$date_format = 'F j, Y';
 	}
-	return apply_filters( 'woocommerce_date_format', $date_format );
+	return apply_filters( 'poocommerce_date_format', $date_format );
 }
 
 /**
- * WooCommerce Time Format - Allows to change time format for everything WooCommerce.
+ * PooCommerce Time Format - Allows to change time format for everything PooCommerce.
  *
  * @return string
  */
@@ -687,7 +687,7 @@ function wc_time_format() {
 		// Return default time format if the option is empty.
 		$time_format = 'g:i a';
 	}
-	return apply_filters( 'woocommerce_time_format', $time_format );
+	return apply_filters( 'poocommerce_time_format', $time_format );
 }
 
 /**
@@ -750,7 +750,7 @@ function wc_string_to_datetime( $time_string ) {
 }
 
 /**
- * WooCommerce Timezone - helper to retrieve the timezone string for a site until.
+ * PooCommerce Timezone - helper to retrieve the timezone string for a site until.
  * a WP core method exists (see https://core.trac.wordpress.org/ticket/24730).
  *
  * Adapted from https://secure.php.net/manual/en/function.timezone-name-from-abbr.php#89155.
@@ -1020,7 +1020,7 @@ function wc_format_postcode( $postcode, $country ) {
 			break;
 	}
 
-	return apply_filters( 'woocommerce_format_postcode', trim( $postcode ), $country );
+	return apply_filters( 'poocommerce_format_postcode', trim( $postcode ), $country );
 }
 
 /**
@@ -1120,7 +1120,7 @@ function wc_trim_string( $string, $chars = 200, $suffix = '...' ) {
  */
 function wc_format_content( $raw_string ) {
 	$raw_string = $raw_string ?? '';
-	return apply_filters( 'woocommerce_format_content', apply_filters( 'woocommerce_short_description', $raw_string ), $raw_string );
+	return apply_filters( 'poocommerce_format_content', apply_filters( 'poocommerce_short_description', $raw_string ), $raw_string );
 }
 
 /**
@@ -1162,8 +1162,8 @@ function wc_format_product_short_description( $content ) {
 function wc_format_option_price_separators( $value, $option, $raw_value ) {
 	return wp_kses_post( $raw_value ?? '' );
 }
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_price_decimal_sep', 'wc_format_option_price_separators', 10, 3 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_price_thousand_sep', 'wc_format_option_price_separators', 10, 3 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_price_decimal_sep', 'wc_format_option_price_separators', 10, 3 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_price_thousand_sep', 'wc_format_option_price_separators', 10, 3 );
 
 /**
  * Formats decimals when saved in settings.
@@ -1177,7 +1177,7 @@ add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_price_thousa
 function wc_format_option_price_num_decimals( $value, $option, $raw_value ) {
 	return is_null( $raw_value ) ? 2 : absint( $raw_value );
 }
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_price_num_decimals', 'wc_format_option_price_num_decimals', 10, 3 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_price_num_decimals', 'wc_format_option_price_num_decimals', 10, 3 );
 
 /**
  * Formats hold stock option and sets cron event up.
@@ -1191,16 +1191,16 @@ add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_price_num_de
 function wc_format_option_hold_stock_minutes( $value, $option, $raw_value ) {
 	$value = ! empty( $raw_value ) ? absint( $raw_value ) : ''; // Allow > 0 or set to ''.
 
-	wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
+	wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
 
 	if ( '' !== $value ) {
-		$cancel_unpaid_interval = apply_filters( 'woocommerce_cancel_unpaid_orders_interval_minutes', absint( $value ) );
-		wp_schedule_single_event( time() + ( absint( $cancel_unpaid_interval ) * 60 ), 'woocommerce_cancel_unpaid_orders' );
+		$cancel_unpaid_interval = apply_filters( 'poocommerce_cancel_unpaid_orders_interval_minutes', absint( $value ) );
+		wp_schedule_single_event( time() + ( absint( $cancel_unpaid_interval ) * 60 ), 'poocommerce_cancel_unpaid_orders' );
 	}
 
 	return $value;
 }
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_hold_stock_minutes', 'wc_format_option_hold_stock_minutes', 10, 3 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_hold_stock_minutes', 'wc_format_option_hold_stock_minutes', 10, 3 );
 
 /**
  * Sanitize terms from an attribute text based.
@@ -1253,24 +1253,24 @@ if ( ! function_exists( 'wc_make_numeric_postcode' ) ) {
  * @return string
  */
 function wc_format_stock_for_display( $product ) {
-	$display      = __( 'In stock', 'woocommerce' );
+	$display      = __( 'In stock', 'poocommerce' );
 	$stock_amount = $product->get_stock_quantity();
 
-	switch ( get_option( 'woocommerce_stock_format' ) ) {
+	switch ( get_option( 'poocommerce_stock_format' ) ) {
 		case 'low_amount':
 			if ( $stock_amount <= wc_get_low_stock_amount( $product ) ) {
 				/* translators: %s: stock amount */
-				$display = sprintf( __( 'Only %s left in stock', 'woocommerce' ), wc_format_stock_quantity_for_display( $stock_amount, $product ) );
+				$display = sprintf( __( 'Only %s left in stock', 'poocommerce' ), wc_format_stock_quantity_for_display( $stock_amount, $product ) );
 			}
 			break;
 		case '':
 			/* translators: %s: stock amount */
-			$display = sprintf( __( '%s in stock', 'woocommerce' ), wc_format_stock_quantity_for_display( $stock_amount, $product ) );
+			$display = sprintf( __( '%s in stock', 'poocommerce' ), wc_format_stock_quantity_for_display( $stock_amount, $product ) );
 			break;
 	}
 
 	if ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
-		$display .= ' ' . __( '(can be backordered)', 'woocommerce' );
+		$display .= ' ' . __( '(can be backordered)', 'poocommerce' );
 	}
 
 	return $display;
@@ -1285,7 +1285,7 @@ function wc_format_stock_for_display( $product ) {
  * @return string
  */
 function wc_format_stock_quantity_for_display( $stock_quantity, $product ) {
-	return apply_filters( 'woocommerce_format_stock_quantity', $stock_quantity, $product );
+	return apply_filters( 'poocommerce_format_stock_quantity', $stock_quantity, $product );
 }
 
 /**
@@ -1307,7 +1307,7 @@ function wc_format_sale_price( $regular_price, $sale_price ) {
 	// For accessibility (a11y) we'll also display that information to screen readers.
 	$price .= '<span class="screen-reader-text">';
 	// translators: %s is a product's regular price.
-	$price .= esc_html( sprintf( __( 'Original price was: %s.', 'woocommerce' ), wp_strip_all_tags( $formatted_regular_price ) ) );
+	$price .= esc_html( sprintf( __( 'Original price was: %s.', 'poocommerce' ), wp_strip_all_tags( $formatted_regular_price ) ) );
 	$price .= '</span>';
 
 	// Add the sale price.
@@ -1316,10 +1316,10 @@ function wc_format_sale_price( $regular_price, $sale_price ) {
 	// For accessibility (a11y) we'll also display that information to screen readers.
 	$price .= '<span class="screen-reader-text">';
 	// translators: %s is a product's current (sale) price.
-	$price .= esc_html( sprintf( __( 'Current price is: %s.', 'woocommerce' ), wp_strip_all_tags( $formatted_sale_price ) ) );
+	$price .= esc_html( sprintf( __( 'Current price is: %s.', 'poocommerce' ), wp_strip_all_tags( $formatted_sale_price ) ) );
 	$price .= '</span>';
 
-	return apply_filters( 'woocommerce_format_sale_price', $price, $regular_price, $sale_price );
+	return apply_filters( 'poocommerce_format_sale_price', $price, $regular_price, $sale_price );
 }
 
 /**
@@ -1331,8 +1331,8 @@ function wc_format_sale_price( $regular_price, $sale_price ) {
  */
 function wc_format_price_range( $from, $to ) {
 	/* translators: 1: price from 2: price to */
-	$price = sprintf( _x( '%1$s &ndash; %2$s', 'Price range: from-to', 'woocommerce' ), is_numeric( $from ) ? wc_price( $from ) : $from, is_numeric( $to ) ? wc_price( $to ) : $to );
-	return apply_filters( 'woocommerce_format_price_range', $price, $from, $to );
+	$price = sprintf( _x( '%1$s &ndash; %2$s', 'Price range: from-to', 'poocommerce' ), is_numeric( $from ) ? wc_price( $from ) : $from, is_numeric( $to ) ? wc_price( $to ) : $to );
+	return apply_filters( 'poocommerce_format_price_range', $price, $from, $to );
 }
 
 /**
@@ -1346,19 +1346,19 @@ function wc_format_weight( $weight ) {
 	$weight_string = wc_format_localized_decimal( $weight );
 
 	if ( ! empty( $weight_string ) ) {
-		$weight_label = I18nUtil::get_weight_unit_label( get_option( 'woocommerce_weight_unit' ) );
+		$weight_label = I18nUtil::get_weight_unit_label( get_option( 'poocommerce_weight_unit' ) );
 
 		$weight_string = sprintf(
 			// translators: 1. A formatted number; 2. A label for a weight unit of measure. E.g. 2.72 kg.
-			_x( '%1$s %2$s', 'formatted weight', 'woocommerce' ),
+			_x( '%1$s %2$s', 'formatted weight', 'poocommerce' ),
 			$weight_string,
 			$weight_label
 		);
 	} else {
-		$weight_string = __( 'N/A', 'woocommerce' );
+		$weight_string = __( 'N/A', 'poocommerce' );
 	}
 
-	return apply_filters( 'woocommerce_format_weight', $weight_string, $weight );
+	return apply_filters( 'poocommerce_format_weight', $weight_string, $weight );
 }
 
 /**
@@ -1372,19 +1372,19 @@ function wc_format_dimensions( $dimensions ) {
 	$dimension_string = implode( ' &times; ', array_filter( array_map( 'wc_format_localized_decimal', $dimensions ) ) );
 
 	if ( ! empty( $dimension_string ) ) {
-		$dimension_label = I18nUtil::get_dimensions_unit_label( get_option( 'woocommerce_dimension_unit' ) );
+		$dimension_label = I18nUtil::get_dimensions_unit_label( get_option( 'poocommerce_dimension_unit' ) );
 
 		$dimension_string = sprintf(
 			// translators: 1. A formatted number; 2. A label for a dimensions unit of measure. E.g. 3.14 cm.
-			_x( '%1$s %2$s', 'formatted dimensions', 'woocommerce' ),
+			_x( '%1$s %2$s', 'formatted dimensions', 'poocommerce' ),
 			$dimension_string,
 			$dimension_label
 		);
 	} else {
-		$dimension_string = __( 'N/A', 'woocommerce' );
+		$dimension_string = __( 'N/A', 'poocommerce' );
 	}
 
-	return apply_filters( 'woocommerce_format_dimensions', $dimension_string, $dimensions );
+	return apply_filters( 'poocommerce_format_dimensions', $dimension_string, $dimensions );
 }
 
 /**
@@ -1535,10 +1535,10 @@ function wc_esc_json( $json, $html = false ) {
  */
 function wc_parse_relative_date_option( $raw_value ) {
 	$periods = array(
-		'days'   => __( 'Day(s)', 'woocommerce' ),
-		'weeks'  => __( 'Week(s)', 'woocommerce' ),
-		'months' => __( 'Month(s)', 'woocommerce' ),
-		'years'  => __( 'Year(s)', 'woocommerce' ),
+		'days'   => __( 'Day(s)', 'poocommerce' ),
+		'weeks'  => __( 'Week(s)', 'poocommerce' ),
+		'months' => __( 'Month(s)', 'poocommerce' ),
+		'years'  => __( 'Year(s)', 'poocommerce' ),
 	);
 
 	$value = wp_parse_args(
@@ -1568,16 +1568,16 @@ function wc_parse_relative_date_option( $raw_value ) {
 function wc_sanitize_endpoint_slug( $raw_value ) {
 	return sanitize_title( $raw_value ?? '' );
 }
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_checkout_pay_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_checkout_order_received_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_add_payment_method_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_delete_payment_method_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_set_default_payment_method_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_orders_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_view_order_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_downloads_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_edit_account_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_edit_address_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_payment_methods_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_myaccount_lost_password_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
-add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_logout_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_checkout_pay_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_checkout_order_received_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_add_payment_method_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_delete_payment_method_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_set_default_payment_method_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_orders_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_view_order_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_downloads_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_edit_account_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_edit_address_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_payment_methods_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_myaccount_lost_password_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );
+add_filter( 'poocommerce_admin_settings_sanitize_option_poocommerce_logout_endpoint', 'wc_sanitize_endpoint_slug', 10, 1 );

@@ -4,7 +4,7 @@
  *
  * Handles requests to the /shipping_methods endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Shipping methods controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
@@ -51,7 +51,7 @@ class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
 			$this->namespace, '/' . $this->rest_base . '/(?P<id>[\w-]+)', array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),
@@ -76,7 +76,7 @@ class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'shipping_methods', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -89,7 +89,7 @@ class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
 	 */
 	public function get_item_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'shipping_methods', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -121,7 +121,7 @@ class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
 		$wc_shipping = WC_Shipping::instance();
 		$methods     = $wc_shipping->get_shipping_methods();
 		if ( empty( $methods[ $request['id'] ] ) ) {
-			return new WP_Error( 'woocommerce_rest_shipping_method_invalid', __( 'Resource does not exist.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_shipping_method_invalid', __( 'Resource does not exist.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$method   = $methods[ $request['id'] ];
@@ -160,7 +160,7 @@ class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
 		 * @param WC_Shipping_Method $method   Shipping method object used to create response.
 		 * @param WP_REST_Request    $request  Request object.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_shipping_method', $response, $method, $request );
+		return apply_filters( 'poocommerce_rest_prepare_shipping_method', $response, $method, $request );
 	}
 
 	/**
@@ -195,19 +195,19 @@ class WC_REST_Shipping_Methods_V2_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'          => array(
-					'description' => __( 'Method ID.', 'woocommerce' ),
+					'description' => __( 'Method ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'title'       => array(
-					'description' => __( 'Shipping method title.', 'woocommerce' ),
+					'description' => __( 'Shipping method title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'Shipping method description.', 'woocommerce' ),
+					'description' => __( 'Shipping method description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

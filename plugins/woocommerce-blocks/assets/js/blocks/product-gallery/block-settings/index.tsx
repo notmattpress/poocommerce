@@ -17,12 +17,12 @@ export const ProductGalleryBlockSettings = ( {
 	const { cropImages, hoverZoom, fullScreenOnClick } = attributes;
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Media Settings', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Media Settings', 'poocommerce' ) }>
 				<ToggleControl
-					label={ __( 'Crop images to fit', 'woocommerce' ) }
+					label={ __( 'Crop images to fit', 'poocommerce' ) }
 					help={ __(
 						'Images will be cropped to fit within a square space.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ cropImages }
 					onChange={ () =>
@@ -33,10 +33,10 @@ export const ProductGalleryBlockSettings = ( {
 					className="wc-block-product-gallery__crop-images"
 				/>
 				<ToggleControl
-					label={ __( 'Zoom while hovering', 'woocommerce' ) }
+					label={ __( 'Zoom while hovering', 'poocommerce' ) }
 					help={ __(
 						'While hovering the large image will zoom in by 30%.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ hoverZoom }
 					onChange={ () =>
@@ -46,10 +46,10 @@ export const ProductGalleryBlockSettings = ( {
 					}
 				/>
 				<ToggleControl
-					label={ __( 'Open pop-up when clicked', 'woocommerce' ) }
+					label={ __( 'Open pop-up when clicked', 'poocommerce' ) }
 					help={ __(
 						'Clicking on the large image will open a full-screen gallery experience.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ fullScreenOnClick }
 					onChange={ () =>

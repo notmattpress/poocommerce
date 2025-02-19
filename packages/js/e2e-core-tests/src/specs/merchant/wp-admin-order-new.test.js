@@ -6,7 +6,7 @@ const {
 	uiUnblocked,
 	withRestApi,
 	AdminEdit,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 const config = require( 'config' );
 const {
 	HTTPClientFactory,
@@ -15,7 +15,7 @@ const {
 	SimpleProduct,
 	ProductVariation,
 	ExternalProduct,
-} = require( '@woocommerce/api' );
+} = require( '@poocommerce/api' );
 
 const taxClasses = [
 	{
@@ -59,7 +59,7 @@ const initProducts = async () => {
 
 	await withRestApi.updateSettingOption(
 		'general',
-		'woocommerce_calc_taxes',
+		'poocommerce_calc_taxes',
 		{ value: 'yes' }
 	);
 	await withRestApi.addTaxClasses( taxClasses );
@@ -156,7 +156,7 @@ const initProducts = async () => {
 let products;
 
 const runCreateOrderTest = () => {
-	describe( 'WooCommerce Orders > Add new order', () => {
+	describe( 'PooCommerce Orders > Add new order', () => {
 		beforeAll( async () => {
 			// Initialize products for each product type
 			products = await initProducts();
@@ -199,7 +199,7 @@ const runCreateOrderTest = () => {
 				}
 			);
 			await expect( page ).toMatchElement(
-				'#woocommerce-order-notes .note_content',
+				'#poocommerce-order-notes .note_content',
 				{
 					text: 'Order status changed from Pending payment to Processing.',
 				}

@@ -6,7 +6,7 @@ import {
 	PartialProductVariation,
 	ProductProductAttribute,
 	ProductVariation,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
 import { useCallback, useMemo, useRef, useState } from '@wordpress/element';
 
@@ -45,7 +45,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 		};
 
 		try {
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 			const { invalidateResolution } = dispatch(
 				EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
 			);
@@ -65,10 +65,10 @@ export function useVariations( { productId }: UseVariationsProps ) {
 			setIsLoading( true );
 			setGetVariationsError( undefined );
 
-			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 			const data = await getProductVariations( requestParams );
 
-			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 			const total = await getProductVariationsTotalCount( requestParams );
 
 			setVariations( data );
@@ -176,7 +176,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 				page: currentPage++,
 				per_page: 50,
 				order: 'asc',
-				// @ts-expect-error TODO react-18-upgrade: param type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+				// @ts-expect-error TODO react-18-upgrade: param type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 				orderby: 'menu_order',
 				attributes: filters,
 			} );
@@ -281,7 +281,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 			} )
 		);
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const { updateProductVariation } = dispatch(
 			EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
 		);
@@ -310,7 +310,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 	async function onDelete( variationId: number ) {
 		if ( isUpdating[ variationId ] ) return;
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const { deleteProductVariation, invalidateResolutionForStore } =
 			dispatch( EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME );
 
@@ -353,7 +353,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 		const { invalidateResolution: coreInvalidateResolution } =
 			dispatch( 'core' );
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const { batchUpdateProductVariations, invalidateResolutionForStore } =
 			dispatch( EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME );
 
@@ -423,7 +423,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 		const { invalidateResolution: coreInvalidateResolution } =
 			dispatch( 'core' );
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/poocommerce/poocommerce/pull/54146
 		const { batchUpdateProductVariations, invalidateResolutionForStore } =
 			dispatch( EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME );
 

@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
 
-Update reviews store import to use reviewsStore from @woocommerce/data
+Update reviews store import to use reviewsStore from @poocommerce/data

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductImage class.
@@ -108,8 +108,8 @@ class ProductImage extends AbstractBlock {
 			esc_attr( $attributes['saleBadgeAlign'] ),
 			isset( $font_size['class'] ) ? esc_attr( $font_size['class'] ) : '',
 			isset( $font_size['style'] ) ? esc_attr( $font_size['style'] ) : '',
-			esc_html__( 'Sale', 'woocommerce' ),
-			esc_html__( 'Product on sale', 'woocommerce' )
+			esc_html__( 'Sale', 'poocommerce' ),
+			esc_html__( 'Product on sale', 'poocommerce' )
 		);
 		return $on_sale_badge;
 	}
@@ -128,7 +128,7 @@ class ProductImage extends AbstractBlock {
 
 		$is_link        = true === $attributes['showProductLink'];
 		$pointer_events = $is_link ? '' : 'pointer-events: none;';
-		$directive      = $is_link ? 'data-wc-on--click="woocommerce/product-collection::actions.viewProduct"' : '';
+		$directive      = $is_link ? 'data-wc-on--click="poocommerce/product-collection::actions.viewProduct"' : '';
 
 		return sprintf(
 			'<a href="%1$s" style="%2$s" %3$s>%4$s %5$s</a>',
@@ -150,7 +150,7 @@ class ProductImage extends AbstractBlock {
 	 * @return string
 	 */
 	private function render_image( $product, $attributes ) {
-		$image_size = 'single' === $attributes['imageSizing'] ? 'woocommerce_single' : 'woocommerce_thumbnail';
+		$image_size = 'single' === $attributes['imageSizing'] ? 'poocommerce_single' : 'poocommerce_thumbnail';
 
 		$image_style = 'max-width:none;';
 		if ( ! empty( $attributes['height'] ) ) {

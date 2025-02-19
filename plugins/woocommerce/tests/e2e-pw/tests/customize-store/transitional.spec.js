@@ -28,7 +28,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'yes'
 			);
 
@@ -41,7 +41,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'no'
 				);
 			} catch ( error ) {
@@ -57,7 +57,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'no'
 			);
 		} );
@@ -111,7 +111,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'yes'
 				);
 
@@ -133,14 +133,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_survey_completed',
+					'poocommerce_admin_customize_store_survey_completed',
 					'no'
 				);
 
@@ -151,7 +151,7 @@ test.describe(
 					name: 'Share feedback',
 				} );
 				const shareFeedbackModal = assembler.locator(
-					'.woocommerce-ai-survey-modal'
+					'.poocommerce-ai-survey-modal'
 				);
 				const sendButton = assembler.getByRole( 'button', {
 					name: 'Send',
@@ -162,7 +162,7 @@ test.describe(
 
 				await expect(
 					page.locator(
-						'.woocommerce-edit-site-site-hub__site-title'
+						'.poocommerce-edit-site-site-hub__site-title'
 					)
 				).toBeVisible();
 

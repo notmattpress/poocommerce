@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailPreview;
+namespace Automattic\PooCommerce\Internal\Admin\EmailPreview;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Email;
 use WC_Order;
 use WC_Product;
@@ -34,16 +34,16 @@ class EmailPreview {
 	 * @var array
 	 */
 	private static array $email_style_setting_ids = array(
-		'woocommerce_email_background_color',
-		'woocommerce_email_base_color',
-		'woocommerce_email_body_background_color',
-		'woocommerce_email_font_family',
-		'woocommerce_email_footer_text',
-		'woocommerce_email_footer_text_color',
-		'woocommerce_email_header_alignment',
-		'woocommerce_email_header_image',
-		'woocommerce_email_header_image_width',
-		'woocommerce_email_text_color',
+		'poocommerce_email_background_color',
+		'poocommerce_email_base_color',
+		'poocommerce_email_body_background_color',
+		'poocommerce_email_font_family',
+		'poocommerce_email_footer_text',
+		'poocommerce_email_footer_text_color',
+		'poocommerce_email_header_alignment',
+		'poocommerce_email_header_image',
+		'poocommerce_email_header_image_width',
+		'poocommerce_email_text_color',
 	);
 
 	/**
@@ -126,7 +126,7 @@ class EmailPreview {
 		 *
 		 * @since 9.8.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_email_style_setting_ids', self::$email_style_setting_ids );
+		return apply_filters( 'poocommerce_email_preview_email_style_setting_ids', self::$email_style_setting_ids );
 	}
 
 	/**
@@ -139,10 +139,10 @@ class EmailPreview {
 			return array();
 		}
 		$setting_ids = array(
-			"woocommerce_{$email_id}_subject",
-			"woocommerce_{$email_id}_heading",
-			"woocommerce_{$email_id}_additional_content",
-			"woocommerce_{$email_id}_email_type",
+			"poocommerce_{$email_id}_subject",
+			"poocommerce_{$email_id}_heading",
+			"poocommerce_{$email_id}_additional_content",
+			"poocommerce_{$email_id}_email_type",
 		);
 
 		/**
@@ -153,7 +153,7 @@ class EmailPreview {
 		 *
 		 * @since 9.8.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_email_content_setting_ids', $setting_ids, $email_id );
+		return apply_filters( 'poocommerce_email_preview_email_content_setting_ids', $setting_ids, $email_id );
 	}
 
 	/**
@@ -199,7 +199,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		$this->email = apply_filters( 'woocommerce_prepare_email_for_preview', $this->email );
+		$this->email = apply_filters( 'poocommerce_prepare_email_for_preview', $this->email );
 	}
 
 	/**
@@ -215,7 +215,7 @@ class EmailPreview {
 	}
 
 	/**
-	 * Ensure links open in new tab. User in WooCommerce Settings,
+	 * Ensure links open in new tab. User in PooCommerce Settings,
 	 * so the links don't open inside the iframe.
 	 *
 	 * @param string $content Email content HTML.
@@ -272,7 +272,7 @@ class EmailPreview {
 		$mailer = WC()->mailer();
 
 		// get the preview email subject.
-		$email_heading = __( 'HTML email template', 'woocommerce' );
+		$email_heading = __( 'HTML email template', 'poocommerce' );
 
 		// get the preview email content.
 		ob_start();
@@ -287,7 +287,7 @@ class EmailPreview {
 		 *
 		 * @since 2.6.0
 		 */
-		return apply_filters( 'woocommerce_mail_content', $email->style_inline( $mailer->wrap_message( $email_heading, $message ) ) );
+		return apply_filters( 'poocommerce_mail_content', $email->style_inline( $mailer->wrap_message( $email_heading, $message ) ) );
 	}
 
 	/**
@@ -314,7 +314,7 @@ class EmailPreview {
 		$this->clean_up_filters();
 
 		/** This filter is documented in src/Internal/Admin/EmailPreview/EmailPreview.php */
-		return apply_filters( 'woocommerce_mail_content', $inlined ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		return apply_filters( 'poocommerce_mail_content', $inlined ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -339,8 +339,8 @@ class EmailPreview {
 		$order->set_discount_total( 10 );
 		$order->set_shipping_total( 5 );
 		$order->set_total( 65 );
-		$order->set_payment_method_title( __( 'Direct bank transfer', 'woocommerce' ) );
-		$order->set_customer_note( __( "This is a customer note. Customers can add a note to their order on checkout.\n\nIt can be multiple lines. If there’s no note, this section is hidden.", 'woocommerce' ) );
+		$order->set_payment_method_title( __( 'Direct bank transfer', 'poocommerce' ) );
+		$order->set_customer_note( __( "This is a customer note. Customers can add a note to their order on checkout.\n\nIt can be multiple lines. If there’s no note, this section is hidden.", 'poocommerce' ) );
 
 		$address = $this->get_dummy_address();
 		$order->set_billing_address( $address );
@@ -354,11 +354,11 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_order', $order, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_order', $order, $this->email_type );
 	}
 
 	/**
-	 * Get a dummy product. Also used with `woocommerce_order_item_product` filter
+	 * Get a dummy product. Also used with `poocommerce_order_item_product` filter
 	 * when email templates tries to get the product from the database.
 	 *
 	 * @return WC_Product
@@ -376,7 +376,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_product', $product, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_product', $product, $this->email_type );
 	}
 
 	/**
@@ -403,7 +403,7 @@ class EmailPreview {
 		 *
 		 * @since 9.7.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_product_variation', $variation, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_product_variation', $variation, $this->email_type );
 	}
 
 	/**
@@ -433,7 +433,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_dummy_address', $address, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_dummy_address', $address, $this->email_type );
 	}
 
 	/**
@@ -459,7 +459,7 @@ class EmailPreview {
 		 *
 		 * @since 9.6.0
 		 */
-		return apply_filters( 'woocommerce_email_preview_placeholders', $placeholders, $this->email_type );
+		return apply_filters( 'poocommerce_email_preview_placeholders', $placeholders, $this->email_type );
 	}
 
 	/**
@@ -467,24 +467,24 @@ class EmailPreview {
 	 */
 	private function set_up_filters() {
 		// Always show shipping address in the preview email.
-		add_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
+		add_filter( 'poocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
 		// Email templates fetch product from the database to show additional information, which are not
 		// saved in WC_Order_Item_Product. This filter enables fetching that data also in email preview.
-		add_filter( 'woocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10, 1 );
+		add_filter( 'poocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10, 1 );
 		// Enable email preview mode - this way transient values are fetched for live preview.
-		add_filter( 'woocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
+		add_filter( 'poocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
 		// Get shipping method without needing to save it in the order.
-		add_filter( 'woocommerce_order_shipping_method', array( $this, 'get_shipping_method' ) );
+		add_filter( 'poocommerce_order_shipping_method', array( $this, 'get_shipping_method' ) );
 	}
 
 	/**
 	 * Clean up filters after email preview.
 	 */
 	private function clean_up_filters() {
-		remove_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
-		remove_filter( 'woocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10 );
-		remove_filter( 'woocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
-		remove_filter( 'woocommerce_order_shipping_method', array( $this, 'get_shipping_method' ) );
+		remove_filter( 'poocommerce_order_needs_shipping_address', array( $this, 'enable_shipping_address' ) );
+		remove_filter( 'poocommerce_order_item_product', array( $this, 'get_dummy_product_when_not_set' ), 10 );
+		remove_filter( 'poocommerce_is_email_preview', array( $this, 'enable_preview_mode' ) );
+		remove_filter( 'poocommerce_order_shipping_method', array( $this, 'get_shipping_method' ) );
 	}
 
 	/**
@@ -493,7 +493,7 @@ class EmailPreview {
 	 * @return string
 	 */
 	public function get_shipping_method() {
-		return __( 'Flat rate', 'woocommerce' );
+		return __( 'Flat rate', 'poocommerce' );
 	}
 
 	/**

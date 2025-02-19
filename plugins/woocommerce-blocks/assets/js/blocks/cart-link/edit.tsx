@@ -7,7 +7,7 @@ import {
 	useBlockProps,
 	PlainText,
 } from '@wordpress/block-editor';
-import { cartOutline, bag, bagAlt } from '@woocommerce/icons';
+import { cartOutline, bag, bagAlt } from '@poocommerce/icons';
 import { __ } from '@wordpress/i18n';
 import {
 	Icon,
@@ -40,11 +40,11 @@ const Edit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
 						className="wc-block-editor-mini-cart__cart-icon-toggle"
 						isBlock
-						label={ __( 'Cart Icon', 'woocommerce' ) }
+						label={ __( 'Cart Icon', 'poocommerce' ) }
 						value={ cartIcon }
 						onChange={ ( value: 'cart' | 'bag' | 'bag-alt' ) => {
 							setAttributes( {
@@ -75,7 +75,7 @@ const Edit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 				<PlainText
 					className="wc-block-cart-link__text"
 					value={
-						content !== null ? content : __( 'Cart', 'woocommerce' )
+						content !== null ? content : __( 'Cart', 'poocommerce' )
 					}
 					__experimentalVersion={ 2 }
 					onChange={ ( value: string ) =>
