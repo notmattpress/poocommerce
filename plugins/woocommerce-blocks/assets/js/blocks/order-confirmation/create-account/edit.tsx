@@ -15,7 +15,7 @@ import {
 	useBlockProps,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { getSetting, ADMIN_URL } from '@woocommerce/settings';
+import { getSetting, ADMIN_URL } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ const defaultTemplate = [
 			level: 3,
 			content: sprintf(
 				/* translators: %s: site name */
-				__( 'Create an account with %s', 'woocommerce' ),
+				__( 'Create an account with %s', 'poocommerce' ),
 				SITE_TITLE
 			),
 		},
@@ -45,13 +45,13 @@ const defaultTemplate = [
 			[
 				'core/list-item',
 				{
-					content: __( 'Faster future purchases', 'woocommerce' ),
+					content: __( 'Faster future purchases', 'poocommerce' ),
 				},
 			],
 			[
 				'core/list-item',
 				{
-					content: __( 'Securely save payment info', 'woocommerce' ),
+					content: __( 'Securely save payment info', 'poocommerce' ),
 				},
 			],
 			[
@@ -59,7 +59,7 @@ const defaultTemplate = [
 				{
 					content: __(
 						'Track orders & view shopping history',
-						'woocommerce'
+						'poocommerce'
 					),
 				},
 			],
@@ -110,12 +110,12 @@ export const Edit = ( {
 			</Disabled>
 			{ ! generatePassword && (
 				<InspectorControls>
-					<PanelBody title={ __( 'Style', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Style', 'poocommerce' ) }>
 						<ToggleControl
-							label={ __( 'Dark mode inputs', 'woocommerce' ) }
+							label={ __( 'Dark mode inputs', 'poocommerce' ) }
 							help={ __(
 								'Inputs styled specifically for use on dark background colors.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ attributes.hasDarkControls }
 							onChange={ () =>
@@ -133,13 +133,13 @@ export const Edit = ( {
 					<p>
 						{ __(
 							'Configure this feature in your store settings.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<ExternalLink
 						href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=account` }
 					>
-						{ __( 'Manage account settings', 'woocommerce' ) }
+						{ __( 'Manage account settings', 'poocommerce' ) }
 					</ExternalLink>
 				</PanelBody>
 			</InspectorControls>

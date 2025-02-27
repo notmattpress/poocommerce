@@ -4,7 +4,7 @@ menu_title: Checkout Flow and Events
 tags: reference
 ---
 
-This document gives an overview of the flow for the checkout in the WooCommerce checkout block, and some general architectural overviews.
+This document gives an overview of the flow for the checkout in the PooCommerce checkout block, and some general architectural overviews.
 
 The architecture of the Checkout Block is derived from the following principles:
 
@@ -35,7 +35,7 @@ The following statuses exist in the Checkout.
 
 #### Checkout Data Store Status
 
-There are various statuses that are exposed on the Checkout data store via selectors. All the selectors are detailed below and in the [Checkout API docs](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/docs/internal-developers/block-client-apis/checkout/checkout-api.md).
+There are various statuses that are exposed on the Checkout data store via selectors. All the selectors are detailed below and in the [Checkout API docs](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/docs/internal-developers/block-client-apis/checkout/checkout-api.md).
 
 You can use them in your component like so
 
@@ -167,17 +167,17 @@ import {
 	noticeContexts,
 	responseTypes,
 	shouldRetry,
-} from '@woocommerce/base-context';
+} from '@poocommerce/base-context';
 };
 ```
 
 The helper functions are described below:
 
--   `isSuccessResponse`, `isErrorResponse` and `isFailResponse`: These are helper functions that receive a value and report via boolean whether the object is a type of response expected. For event emitters that receive responses from registered observers, a `type` property on the returned object from the observer indicates what type of response it is and event emitters will react according to that type. So for instance if an observer returned `{ type: 'success' }` the emitter could feed that to `isSuccessResponse` and it would return `true`. You can see an example of this being implemented for the payment processing emitted event [here](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/assets/js/base/context/cart-checkout/payment-methods/payment-method-data-context.js#L281-L307).
+-   `isSuccessResponse`, `isErrorResponse` and `isFailResponse`: These are helper functions that receive a value and report via boolean whether the object is a type of response expected. For event emitters that receive responses from registered observers, a `type` property on the returned object from the observer indicates what type of response it is and event emitters will react according to that type. So for instance if an observer returned `{ type: 'success' }` the emitter could feed that to `isSuccessResponse` and it would return `true`. You can see an example of this being implemented for the payment processing emitted event [here](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/assets/js/base/context/cart-checkout/payment-methods/payment-method-data-context.js#L281-L307).
 -   `noticeContexts`: This is an object containing properties referencing areas where notices can be targeted in the checkout. The object has the following properties:
     -   `PAYMENTS`: This is a reference to the notice area in the payment methods step.
     -   `EXPRESS_PAYMENTS`: This is a reference to the notice area in the express payment methods step.
--   `responseTypes`: This is an object containing properties referencing the various response types that can be returned by observers for some event emitters. It makes it easier for autocompleting the types and avoiding typos due to human error. The types are `SUCCESS`, `FAIL`, `ERROR`. The values for these types also correspond to the [payment status types](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/src/Payments/PaymentResult.php#L21) from the [checkout endpoint response from the server](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/src/RestApi/StoreApi/Schemas/CheckoutSchema.php#L103-L113).
+-   `responseTypes`: This is an object containing properties referencing the various response types that can be returned by observers for some event emitters. It makes it easier for autocompleting the types and avoiding typos due to human error. The types are `SUCCESS`, `FAIL`, `ERROR`. The values for these types also correspond to the [payment status types](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/src/Payments/PaymentResult.php#L21) from the [checkout endpoint response from the server](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/src/RestApi/StoreApi/Schemas/CheckoutSchema.php#L103-L113).
 -   `shouldRetry`: This is a function containing the logic whether the checkout flow should allow the user to retry the payment after a previous payment failed. It receives the `response` object and by default checks whether the `retry` property is true/undefined or false. Refer to the [`onCheckoutSuccess`](#oncheckoutsuccess) documentation for more details.
 
 Note: `noticeContexts` and `responseTypes` are exposed to payment methods via the `emitResponse` prop given to their component:
@@ -208,7 +208,7 @@ This event emitter subscriber can be obtained via the checkout context using the
 _For internal development:_
 
 ```jsx
-import { useCheckoutContext } from '@woocommerce/base-contexts';
+import { useCheckoutContext } from '@poocommerce/base-contexts';
 import { useEffect } from '@wordpress/element';
 
 const Component = () => {
@@ -258,8 +258,8 @@ const successResponse = { type: 'success' };
 When a success response is returned, the payment method context status will be changed to `SUCCESS`. In addition, including any of the additional properties will result in extra actions:
 
 -   `paymentMethodData`: The contents of this object will be included as the value for `payment_data` when checkout sends a request to the checkout endpoint for processing the order. This is useful if a payment method does additional server side processing.
--   `billingAddress`: This allows payment methods to update any billing data information in the checkout (typically used by Express payment methods) so it's included in the checkout processing request to the server. This data should be in the [shape outlined here](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/assets/js/settings/shared/default-fields.ts).
--   `shippingAddress`: This allows payment methods to update any shipping data information for the order (typically used by Express payment methods) so it's included in the checkout processing request to the server. This data should be in the [shape outlined here](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce-blocks/assets/js/settings/shared/default-fields.ts).
+-   `billingAddress`: This allows payment methods to update any billing data information in the checkout (typically used by Express payment methods) so it's included in the checkout processing request to the server. This data should be in the [shape outlined here](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce-blocks/assets/js/settings/shared/default-fields.ts).
+-   `shippingAddress`: This allows payment methods to update any shipping data information for the order (typically used by Express payment methods) so it's included in the checkout processing request to the server. This data should be in the [shape outlined here](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce-blocks/assets/js/settings/shared/default-fields.ts).
 
 If `billingAddress` or `shippingAddress` properties aren't in the response object, then the state for the data is left alone.
 
@@ -302,7 +302,7 @@ This event emitter subscriber can be obtained via the checkout context using the
 _For internal development:_
 
 ```jsx
-import { usePaymentEventsContext } from '@woocommerce/base-contexts';
+import { usePaymentEventsContext } from '@poocommerce/base-contexts';
 import { useEffect } from '@wordpress/element';
 
 const Component = () => {
@@ -351,7 +351,7 @@ The properties are:
 -   `orderId`: Is the id of the current order being processed.
 -   `customerId`: Is the id for the customer making the purchase (that is attached to the order).
 -   `orderNotes`: This will be any custom note the customer left on the order.
--   `paymentResult`: This is the value of [`payment_result` from the /checkout StoreApi response](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/src/RestApi/StoreApi/Schemas/CheckoutSchema.php#L103-L138). The data exposed on this object is (via the object properties):
+-   `paymentResult`: This is the value of [`payment_result` from the /checkout StoreApi response](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/34e17c3622637dbe8b02fac47b5c9b9ebf9e3596/src/RestApi/StoreApi/Schemas/CheckoutSchema.php#L103-L138). The data exposed on this object is (via the object properties):
     -   `paymentStatus`: Whatever the status is for the payment after it was processed server side. Will be one of `success`, `failure`, `pending`, `error`.
     -   `paymentDetails`: This will be an arbitrary object that contains any data the payment method processing server side sends back to the client in the checkout processing response. Payment methods are able to hook in on the processing server side and set this data for returning.
 
@@ -375,7 +375,7 @@ This event emitter subscriber can be obtained via the checkout context using the
 _For internal development:_
 
 ```jsx
-import { useCheckoutContext } from '@woocommerce/base-contexts';
+import { useCheckoutContext } from '@poocommerce/base-contexts';
 import { useEffect } from '@wordpress/element';
 
 const Component = () => {
@@ -417,7 +417,7 @@ This event emitter subscriber can be obtained via the checkout context using the
 _For internal development:_
 
 ```jsx
-import { useCheckoutContext } from '@woocommerce/base-contexts';
+import { useCheckoutContext } from '@poocommerce/base-contexts';
 import { useEffect } from '@wordpress/element';
 
 const Component = () => {

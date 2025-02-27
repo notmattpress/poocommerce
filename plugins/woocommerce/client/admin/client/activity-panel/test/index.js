@@ -9,7 +9,7 @@ import {
 	createEvent,
 } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
-import { useUser } from '@woocommerce/data';
+import { useUser } from '@poocommerce/data';
 import { useState } from '@wordpress/element';
 
 /**
@@ -18,7 +18,7 @@ import { useState } from '@wordpress/element';
 import { ActivityPanel } from '../activity-panel';
 import { Panel } from '../panel';
 
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'home' ],
 		layoutString: 'home',
@@ -26,7 +26,7 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
@@ -40,8 +40,8 @@ jest.mock( '~/launch-your-store', () => ( {
 	} ) ),
 } ) );
 
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUser: jest.fn().mockReturnValue( { currentUserCan: () => true } ),
 	useUserPreferences: jest.fn().mockReturnValue( {
 		updateUserPreferences: () => {},
@@ -272,20 +272,20 @@ describe( 'Activity Panel', () => {
 			expect( queryByText( 'test' ) ).toBeInTheDocument();
 			expect( document.activeElement ).toEqual(
 				container.getElementsByClassName(
-					'woocommerce-layout__activity-panel-wrapper'
+					'poocommerce-layout__activity-panel-wrapper'
 				)[ 0 ]
 			);
 			getByRole( 'button' ).focus();
 			expect( document.activeElement ).not.toEqual(
 				container.getElementsByClassName(
-					'woocommerce-layout__activity-panel-wrapper'
+					'poocommerce-layout__activity-panel-wrapper'
 				)[ 0 ]
 			);
 			fireEvent.click( getByRole( 'button' ) );
 			fireEvent.click( getByRole( 'button' ) );
 			const event = createEvent.transitionEnd(
 				container.getElementsByClassName(
-					'woocommerce-layout__activity-panel-wrapper'
+					'poocommerce-layout__activity-panel-wrapper'
 				)[ 0 ]
 			);
 			Object.defineProperty( event, 'propertyName', {
@@ -294,13 +294,13 @@ describe( 'Activity Panel', () => {
 
 			fireEvent(
 				container.getElementsByClassName(
-					'woocommerce-layout__activity-panel-wrapper'
+					'poocommerce-layout__activity-panel-wrapper'
 				)[ 0 ],
 				event
 			);
 			expect( document.activeElement ).toEqual(
 				container.getElementsByClassName(
-					'woocommerce-layout__activity-panel-wrapper'
+					'poocommerce-layout__activity-panel-wrapper'
 				)[ 0 ]
 			);
 		} );

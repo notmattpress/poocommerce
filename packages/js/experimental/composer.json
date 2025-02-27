@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/experimental",
-	"description": "WooCommerce experimental components.",
+	"name": "poocommerce/experimental",
+	"description": "PooCommerce experimental components.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

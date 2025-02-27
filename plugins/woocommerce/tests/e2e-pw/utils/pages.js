@@ -5,7 +5,7 @@ import {
 	goToPageEditor,
 	insertBlockByShortcut,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright/src';
+} from '@poocommerce/e2e-utils-playwright/src';
 
 /**
  * Internal dependencies

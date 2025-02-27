@@ -3,7 +3,7 @@
  */
 import type { AllHTMLAttributes, AriaAttributes } from 'react';
 import type { JSONSchemaType } from 'ajv';
-import type { DocumentSchema } from '@woocommerce/base-hooks';
+import type { DocumentSchema } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

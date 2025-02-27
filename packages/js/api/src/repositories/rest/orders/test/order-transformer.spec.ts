@@ -19,7 +19,7 @@ import {
 	createShippingAddressTransformer,
 } from '../transformer';
 /*
-	This Object is a JSON representation of single Order GET operation from the WooCommerce REST API.
+	This Object is a JSON representation of single Order GET operation from the PooCommerce REST API.
 
 	Developer note:
 	We use JSON.stringify here to convert an Object into a String, as JavaScript passes Objects
@@ -290,8 +290,8 @@ describe( 'OrderTransformer', () => {
 		expect( shipping.country ).toStrictEqual( 'Shipping Country' );
 
 		/*
-		 * Shipping Address does not have e-mail or phone fields according to WooCommerce API
-		 * @link https://woocommerce.github.io/woocommerce-rest-api-docs/#order-shipping-properties
+		 * Shipping Address does not have e-mail or phone fields according to PooCommerce API
+		 * @link https://poocommerce.github.io/poocommerce-rest-api-docs/#order-shipping-properties
 		 */
 		//expect(shipping.email).toStrictEqual('Shipping Email');
 		//expect(shipping.phone).toStrictEqual('Shipping Phone');

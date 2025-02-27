@@ -8,7 +8,7 @@
 	verbose="true"
 	>
 	<testsuites>
-		<testsuite name="WooCommerce Blocks Test Suite">
+		<testsuite name="PooCommerce Blocks Test Suite">
 			<directory suffix=".php">./tests/php</directory>
 		</testsuite>
 	</testsuites>

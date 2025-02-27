@@ -7,7 +7,7 @@ const {
 	selectOptionInSelect2,
 	withRestApi,
 	uiUnblocked,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -164,7 +164,7 @@ const runCartAndCheckoutConsistentShippingTest = () => {
 			// Verify shipping costs on checkout page
 			await shopper.goToCheckout();
 			await expect( page ).toMatchElement(
-				'.woocommerce-shipping-totals > td',
+				'.poocommerce-shipping-totals > td',
 				{
 					// Test fails here because actual text is 'Enter your address to view shipping options.'
 					// Logged in GitHub as issue #33205

@@ -5,8 +5,8 @@ import { Component } from '@wordpress/element';
 import { first, last } from 'lodash';
 import { Spinner } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
-import { Link } from '@woocommerce/components';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
+import { Link } from '@poocommerce/components';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
 
 export default class CategoryBreadcrumbs extends Component {
 	getCategoryAncestorIds( category, categories ) {
@@ -49,7 +49,7 @@ export default class CategoryBreadcrumbs extends Component {
 		const persistedQuery = getPersistedQuery( query );
 
 		return category ? (
-			<div className="woocommerce-table__breadcrumbs">
+			<div className="poocommerce-table__breadcrumbs">
 				{ decodeEntities(
 					this.getCategoryAncestors( category, categories )
 				) }

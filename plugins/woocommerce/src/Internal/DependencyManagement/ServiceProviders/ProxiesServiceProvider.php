@@ -3,14 +3,14 @@
  * ProxiesServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Proxies\ActionsProxy;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\ActionsProxy;
 
 /**
- * Service provider for the classes in the Automattic\WooCommerce\Proxies namespace.
+ * Service provider for the classes in the Automattic\PooCommerce\Proxies namespace.
  */
 class ProxiesServiceProvider extends AbstractServiceProvider {
 

@@ -1,13 +1,13 @@
 /**
  * External dependencies
  */
-import { getContext, store } from '@woocommerce/interactivity';
+import { getContext, store } from '@poocommerce/interactivity';
 
 type CheckboxListContext = {
 	showAll: boolean;
 };
 
-store( 'woocommerce/product-filter-checkbox-list', {
+store( 'poocommerce/product-filter-checkbox-list', {
 	actions: {
 		showAllItems: () => {
 			const context = getContext< CheckboxListContext >();

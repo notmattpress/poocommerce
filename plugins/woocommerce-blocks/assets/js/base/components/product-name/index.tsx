@@ -56,7 +56,7 @@ export const ProductName = ( {
 	const classes = clsx( 'wc-block-components-product-name', className );
 	const DisabledTagName = disabledTagName as DisabledTagNameType;
 	// This HTML is safe because the store API runs titles through `wp_kses_post()` which removes dangerous HTML tags.
-	// Ref: https://github.com/woocommerce/woocommerce/blob/trunk/src/StoreApi/Schemas/V1/ProductSchema.php#L100
+	// Ref: https://github.com/poocommerce/poocommerce/blob/trunk/src/StoreApi/Schemas/V1/ProductSchema.php#L100
 	const decodedName = decodeEntities( name );
 
 	if ( disabled ) {

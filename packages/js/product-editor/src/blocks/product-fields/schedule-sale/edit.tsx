@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { DateTimePickerControl } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { DateTimePickerControl } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { ToggleControl } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
 import { createElement, useEffect, useState } from '@wordpress/element';
@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 import moment from 'moment';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore We need this to get the datetime format for the DateTimePickerControl.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { getSettings } from '@wordpress/date';
 
 /**
@@ -103,7 +103,7 @@ export function Edit( {
 					return {
 						message: __(
 							'Please enter a valid date.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -112,7 +112,7 @@ export function Edit( {
 					return {
 						message: __(
 							'The start date of the sale must be before the end date.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -133,7 +133,7 @@ export function Edit( {
 					return {
 						message: __(
 							'Please enter a valid date.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -142,7 +142,7 @@ export function Edit( {
 					return {
 						message: __(
 							'The end date of the sale must be after the start date.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -154,7 +154,7 @@ export function Edit( {
 	return (
 		<div { ...blockProps }>
 			<ToggleControl
-				label={ __( 'Schedule sale', 'woocommerce' ) }
+				label={ __( 'Schedule sale', 'poocommerce' ) }
 				checked={ showScheduleSale }
 				onChange={ handleToggleChange }
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -163,16 +163,16 @@ export function Edit( {
 			/>
 
 			{ showScheduleSale && (
-				<div className="wp-block-columns wp-block-woocommerce-product-schedule-sale-fields__content">
+				<div className="wp-block-columns wp-block-poocommerce-product-schedule-sale-fields__content">
 					<div className="wp-block-column">
 						<DateTimePickerControl
 							ref={
 								dateOnSaleFromGmtRef as React.Ref< HTMLInputElement >
 							}
-							label={ __( 'From', 'woocommerce' ) }
+							label={ __( 'From', 'poocommerce' ) }
 							placeholder={ __(
 								'Sale start date and time (optional)',
-								'woocommerce'
+								'poocommerce'
 							) }
 							dateTimeFormat={ dateTimeFormat }
 							currentDate={ dateOnSaleFromGmt }
@@ -190,10 +190,10 @@ export function Edit( {
 							ref={
 								dateOnSaleToGmtRef as React.Ref< HTMLInputElement >
 							}
-							label={ __( 'To', 'woocommerce' ) }
+							label={ __( 'To', 'poocommerce' ) }
 							placeholder={ __(
 								'Sale end date and time (optional)',
-								'woocommerce'
+								'poocommerce'
 							) }
 							dateTimeFormat={ dateTimeFormat }
 							currentDate={ dateOnSaleToGmt }

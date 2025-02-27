@@ -1,13 +1,13 @@
 {
-	"name": "woocommerce/add-to-cart-with-options-variation-selector",
+	"name": "poocommerce/add-to-cart-with-options-variation-selector",
 	"version": "1.0.0",
 	"title": "Variation Selector (Experimental)",
 	"description": "Display a dropdown to select a variation to add to cart.",
-	"category": "woocommerce-product-elements",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce-product-elements",
+	"keywords": [ "PooCommerce" ],
 	"usesContext": [ "postId" ],
-	"ancestor": [ "woocommerce/add-to-cart-with-options" ],
-	"textdomain": "woocommerce",
+	"ancestor": [ "poocommerce/add-to-cart-with-options" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

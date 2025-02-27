@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
 use WP_HTML_Tag_Processor;
 
 /**
@@ -34,11 +34,11 @@ class Renderer {
 	 */
 	public function __construct() {
 		// Interactivity API: Add navigation directives to the product collection block.
-		add_filter( 'render_block_woocommerce/product-collection', array( $this, 'handle_rendering' ), 10, 2 );
+		add_filter( 'render_block_poocommerce/product-collection', array( $this, 'handle_rendering' ), 10, 2 );
 
 		// Disable block render if the ProductTemplate block is empty.
 		add_filter(
-			'render_block_woocommerce/product-template',
+			'render_block_poocommerce/product-template',
 			function ( $html ) {
 				$this->render_state['has_results'] = ! empty( $html );
 				return $html;
@@ -49,7 +49,7 @@ class Renderer {
 
 		// Enable block render if the NoResults block is rendered.
 		add_filter(
-			'render_block_woocommerce/product-collection-no-results',
+			'render_block_poocommerce/product-collection-no-results',
 			function ( $html ) {
 				$this->render_state['has_no_results_block'] = ! empty( $html );
 				return $html;
@@ -154,7 +154,7 @@ class Renderer {
 	 * @return bool Answer if PC block is available.
 	 */
 	private function is_next_tag_product_collection( $p ) {
-		return $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-product-collection' ) );
+		return $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-product-collection' ) );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Renderer {
 	 * @param WP_HTML_Tag_processor $p Initial tag processor.
 	 */
 	private function set_product_collection_namespace( $p ) {
-		$p->set_attribute( 'data-wc-interactive', wp_json_encode( array( 'namespace' => 'woocommerce/product-collection' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
+		$p->set_attribute( 'data-wc-interactive', wp_json_encode( array( 'namespace' => 'poocommerce/product-collection' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
 	}
 
 	/**
@@ -261,8 +261,8 @@ class Renderer {
 						$current_context,
 						array(
 							// The message to be announced by the screen reader when the page is loading or loaded.
-							'accessibilityLoadingMessage'  => __( 'Loading page, please wait.', 'woocommerce' ),
-							'accessibilityLoadedMessage'   => __( 'Page Loaded.', 'woocommerce' ),
+							'accessibilityLoadingMessage'  => __( 'Loading page, please wait.', 'poocommerce' ),
+							'accessibilityLoadedMessage'   => __( 'Page Loaded.', 'poocommerce' ),
 							// We don't prefetch the links if user haven't clicked on pagination links yet.
 							// This way we avoid prefetching when the page loads.
 							'isPrefetchNextOrPreviousLink' => false,
@@ -282,13 +282,13 @@ class Renderer {
 		$last_tag_position                = strripos( $block_content, '</div>' );
 		$accessibility_and_animation_html = '
 				<div
-					data-wc-interactive="{&quot;namespace&quot;:&quot;woocommerce/product-collection&quot;}"
+					data-wc-interactive="{&quot;namespace&quot;:&quot;poocommerce/product-collection&quot;}"
 					class="wc-block-product-collection__pagination-animation"
 					data-wc-class--start-animation="state.startAnimation"
 					data-wc-class--finish-animation="state.finishAnimation">
 				</div>
 				<div
-					data-wc-interactive="{&quot;namespace&quot;:&quot;woocommerce/product-collection&quot;}"
+					data-wc-interactive="{&quot;namespace&quot;:&quot;poocommerce/product-collection&quot;}"
 					class="screen-reader-text"
 					aria-live="polite"
 					data-wc-text="context.accessibilityMessage">
@@ -406,7 +406,7 @@ class Renderer {
 	 */
 	public function provide_location_context_for_inner_blocks( $context ) {
 		// Run only on frontend.
-		// This is needed to avoid SSR renders while in editor. @see https://github.com/woocommerce/woocommerce/issues/45181.
+		// This is needed to avoid SSR renders while in editor. @see https://github.com/poocommerce/poocommerce/issues/45181.
 		if ( is_admin() || \WC()->is_rest_api_request() ) {
 			return $context;
 		}

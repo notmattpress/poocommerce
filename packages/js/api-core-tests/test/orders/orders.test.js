@@ -36,7 +36,7 @@ const updatedCustomerShipping = {
 };
 
 /**
- * Tests for the WooCommerce Orders API.
+ * Tests for the PooCommerce Orders API.
  *
  * @group api
  * @group orders

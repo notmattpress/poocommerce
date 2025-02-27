@@ -7,15 +7,15 @@ import {
 } from '@wordpress/blocks';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { stacks } from '@woocommerce/icons';
-import { isWpVersion, getSettingWithCoercion } from '@woocommerce/settings';
+import { stacks } from '@poocommerce/icons';
+import { isWpVersion, getSettingWithCoercion } from '@poocommerce/settings';
 import { select, subscribe } from '@wordpress/data';
 import {
 	QueryBlockAttributes,
 	ProductQueryBlockQuery,
-} from '@woocommerce/blocks/product-query/types';
-import { isSiteEditorPage } from '@woocommerce/utils';
-import { isNumber } from '@woocommerce/types';
+} from '@poocommerce/blocks/product-query/types';
+import { isSiteEditorPage } from '@poocommerce/utils';
+import { isNumber } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -29,22 +29,22 @@ import {
 } from '../constants';
 
 const ARCHIVE_PRODUCT_TEMPLATES = [
-	'woocommerce/woocommerce//archive-product',
-	'woocommerce/woocommerce//taxonomy-product_cat',
-	'woocommerce/woocommerce//taxonomy-product_tag',
-	'woocommerce/woocommerce//taxonomy-product_attribute',
-	'woocommerce/woocommerce//product-search-results',
+	'poocommerce/poocommerce//archive-product',
+	'poocommerce/poocommerce//taxonomy-product_cat',
+	'poocommerce/poocommerce//taxonomy-product_tag',
+	'poocommerce/poocommerce//taxonomy-product_attribute',
+	'poocommerce/poocommerce//product-search-results',
 ];
 
 const registerProductsBlock = ( attributes: QueryBlockAttributes ) => {
 	registerBlockVariation( QUERY_LOOP_ID, {
 		description: __(
 			'A block that displays a selection of products in your store.',
-			'woocommerce'
+			'poocommerce'
 		),
 		name: PRODUCT_QUERY_VARIATION_NAME,
 		/* translators: “Products“ is the name of the block. */
-		title: __( 'Products (Beta)', 'woocommerce' ),
+		title: __( 'Products (Beta)', 'poocommerce' ),
 		isActive: ( blockAttributes ) =>
 			blockAttributes.namespace === PRODUCT_QUERY_VARIATION_NAME,
 		icon: (

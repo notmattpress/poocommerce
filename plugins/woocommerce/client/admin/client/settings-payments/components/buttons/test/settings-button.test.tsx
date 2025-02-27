@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent } from '@testing-library/react';
 
 /**
@@ -9,7 +9,7 @@ import { render, fireEvent } from '@testing-library/react';
  */
 import { SettingsButton } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

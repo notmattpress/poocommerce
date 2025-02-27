@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
-use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Patterns\PatternRegistry;
-use Automattic\WooCommerce\Blocks\Patterns\PTKPatternsStore;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Patterns\PatternRegistry;
+use Automattic\PooCommerce\Blocks\Patterns\PTKPatternsStore;
 use WP_Error;
 
 /**
@@ -170,7 +170,7 @@ class BlockPatterns {
 	 * @return array|false Returns an array of patterns if cache is found, otherwise false.
 	 */
 	private function get_pattern_cache() {
-		$pattern_data = get_site_transient( 'woocommerce_blocks_patterns' );
+		$pattern_data = get_site_transient( 'poocommerce_blocks_patterns' );
 
 		if ( is_array( $pattern_data ) && WOOCOMMERCE_VERSION === $pattern_data['version'] ) {
 			return $pattern_data['patterns'];
@@ -190,7 +190,7 @@ class BlockPatterns {
 			'patterns' => $patterns,
 		);
 
-		set_site_transient( 'woocommerce_blocks_patterns', $pattern_data, MONTH_IN_SECONDS );
+		set_site_transient( 'poocommerce_blocks_patterns', $pattern_data, MONTH_IN_SECONDS );
 	}
 
 	/**
@@ -200,7 +200,7 @@ class BlockPatterns {
 	 */
 	public function register_ptk_patterns() {
 		// Only if the user has allowed tracking, we register the patterns from the PTK.
-		$allow_tracking = 'yes' === get_option( 'woocommerce_allow_tracking' );
+		$allow_tracking = 'yes' === get_option( 'poocommerce_allow_tracking' );
 		if ( ! $allow_tracking ) {
 			return;
 		}
@@ -218,7 +218,7 @@ class BlockPatterns {
 			// such as when the pattern fetching mechanism has failed entirely.
 			if ( ! get_transient( $transient_key ) && ! call_user_func( $has_scheduled_action, 'fetch_patterns' ) ) {
 				wc_get_logger()->warning(
-					__( 'Empty patterns received from the PTK Pattern Store', 'woocommerce' ),
+					__( 'Empty patterns received from the PTK Pattern Store', 'poocommerce' ),
 				);
 				// Set the transient to true to indicate that the warning has been logged in the current day.
 				set_transient( $transient_key, true, DAY_IN_SECONDS );
@@ -237,7 +237,7 @@ class BlockPatterns {
 	}
 
 	/**
-	 * Parse prefixed categories from the PTK patterns into the actual WooCommerce categories.
+	 * Parse prefixed categories from the PTK patterns into the actual PooCommerce categories.
 	 *
 	 * @param array $patterns The patterns to parse.
 	 * @return array The parsed patterns.

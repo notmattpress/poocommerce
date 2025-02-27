@@ -9,9 +9,9 @@ const {
 } = require( '../utils/request' );
 
 /**
- * WooCommerce Shipping zone endpoints.
+ * PooCommerce Shipping zone endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#shipping-zones
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#shipping-zones
  */
 const shippingZonesApi = {
 	name: 'Shipping zones',

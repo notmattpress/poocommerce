@@ -1,12 +1,12 @@
-# WooCommerce End to End Test Utilities
+# PooCommerce End to End Test Utilities
 
-This package contains utilities to simplify writing e2e tests specific to WooCommerce.
+This package contains utilities to simplify writing e2e tests specific to PooCommerce.
 
 
 ## Installation
 
 ```bash
-npm install @woocommerce/e2e-utils --save
+npm install @poocommerce/e2e-utils --save
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ import {
 	shopper,
 	merchant,
 	createSimpleProduct
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 describe( 'Cart page', () => {
 	beforeAll( async () => {
@@ -59,12 +59,12 @@ This package provides support for enabling retries in tests:
 - `WP_ADMIN_NEW_PRODUCT` - New product
 - `WP_ADMIN_IMPORT_PRODUCTS` - Import products
 - `WP_ADMIN_PLUGIN_PAGE` - Plugin settings page root
-- `WP_ADMIN_WC_HOME` - WooCommerce home screen
-- `WP_ADMIN_SETUP_WIZARD` - WooCommerce setup/onboarding wizard
-- `WP_ADMIN_ANALYTICS_PAGES` - WooCommerce analytics page root
-- `WP_ADMIN_WC_SETTINGS` - WooCommerce settings page root
-- `WP_ADMIN_NEW_SHIPPING_ZONE` - WooCommerce new shipping zone
-- `WP_ADMIN_WC_EXTENSIONS` - WooCommerce extensions page
+- `WP_ADMIN_WC_HOME` - PooCommerce home screen
+- `WP_ADMIN_SETUP_WIZARD` - PooCommerce setup/onboarding wizard
+- `WP_ADMIN_ANALYTICS_PAGES` - PooCommerce analytics page root
+- `WP_ADMIN_WC_SETTINGS` - PooCommerce settings page root
+- `WP_ADMIN_NEW_SHIPPING_ZONE` - PooCommerce new shipping zone
+- `WP_ADMIN_WC_EXTENSIONS` - PooCommerce extensions page
 - `WP_ADMIN_PLUGIN_INSTALL` - WordPress plugin install page
 
 #### Front end
@@ -99,13 +99,13 @@ This package provides support for enabling retries in tests:
 | `openNewProduct` | | Go to the new product editor |
 | `openPermalinkSettings` | | Go to Settings -> Permalinks |
 | `openPlugins` | | Go to the Plugins screen |
-| `openSettings` | | Go to WooCommerce -> Settings |
+| `openSettings` | | Go to PooCommerce -> Settings |
 | `updateOrderStatus` | `orderId, status` | Update the status of an order |
 | `openEmailLog` | | Open the WP Mail Log page |
 | `openAnalyticsPage` | | Open any Analytics page |
 | `openAllUsersView` | | Open the All Users page |
 | `openImportProducts` | | Open the Import Products page |
-| `openExtensions` | | Go to WooCommerce -> Extensions |
+| `openExtensions` | | Go to PooCommerce -> Extensions |
 | `openWordPressUpdatesPage` | | Go to Dashboard -> Updates |
 | `revokeDownloadableProductPermission` | `productName` | Remove a downloadable product permission from order |
 | `installAllUpdates` | | Install all pending updates on Dashboard -> Updates|
@@ -148,7 +148,7 @@ This package provides support for enabling retries in tests:
 
 ### REST API `withRestApi`
 
-Please note: if you're using a non-SSL environment (such as a Docker container from [`wc-e2e`](https://www.npmjs.com/package/@woocommerce/e2e-environment)) you will need to use Basic Auth in order to authenticate with the API and use the `withRestApi` methods listed below. To do so, you will need to install the [the Basic Auth plugin](https://github.com/WP-API/Basic-Auth). One way this can be accomplished is by adding `wp plugin install https://github.com/WP-API/Basic-Auth/archive/master.zip --activate` to your `initialize.sh` script.
+Please note: if you're using a non-SSL environment (such as a Docker container from [`wc-e2e`](https://www.npmjs.com/package/@poocommerce/e2e-environment)) you will need to use Basic Auth in order to authenticate with the API and use the `withRestApi` methods listed below. To do so, you will need to install the [the Basic Auth plugin](https://github.com/WP-API/Basic-Auth). One way this can be accomplished is by adding `wp plugin install https://github.com/WP-API/Basic-Auth/archive/master.zip --activate` to your `initialize.sh` script.
 
 | Function | Parameters | Description |
 |----------|------------|-------------|
@@ -169,7 +169,7 @@ Please note: if you're using a non-SSL environment (such as a Docker container f
 | `deleteCustomerByEmail` | `emailAddress` | Delete customer user account. Posts are reassigned to user ID 1 |
 | `deleteOrder` | `orderId` | Permanently delete an order |
 | `deleteProduct` | `productId` | Permanently delete a simple product |
-| `getSystemEnvironment` | | Get the current environment from the WooCommerce system status API. |
+| `getSystemEnvironment` | | Get the current environment from the PooCommerce system status API. |
 | `resetOnboarding` | | Reset onboarding settings |
 | `resetSettingsGroupToDefault` | `settingsGroup`, `testResponse` | Reset settings in settings group to default except `select` fields |
 | `updateSettingOption` | `settingsGroup`, `settingID`, `payload` | Update a settings group |
@@ -207,7 +207,7 @@ There is a general utilities object `utils` with the following functions:
 | `applyCoupon` | `couponName` | helper method which applies a coupon in cart or checkout |
 | `clearAndFillInput` | `selector, value` | Replace the contents of an input with the passed value |
 | `clickFilter` | `selector` | helper method that clicks on a list page filter |
-| `clickTab` | `tabName` | Click on a WooCommerce -> Settings tab |
+| `clickTab` | `tabName` | Click on a PooCommerce -> Settings tab |
 | `clickUpdateOrder` | `noticeText`, `waitForSave` | Helper method to click the Update button on the order details page |
 | `createCoupon` | `couponAmount`, `couponType` | creates a basic coupon. Default amount is 5. Default coupon type is fixed discount. Returns the generated coupon code. |
 | `createGroupedProduct` | | creates a grouped product for the grouped product tests. Returns the product id. |
@@ -226,7 +226,7 @@ There is a general utilities object `utils` with the following functions:
 | `selectOptionInSelect2` | `selector, value` | helper method that searches for select2 type fields and select plus insert value inside |
 | `selectOrderAction` | `action` | Helper method to select an order action in the `Order Actions` postbox |
 | `setCheckbox` | `selector` | Check a checkbox |
-| `settingsPageSaveChanges` |  | Save the current WooCommerce settings page |
+| `settingsPageSaveChanges` |  | Save the current PooCommerce settings page |
 | `uiUnblocked` |  | Wait until the page is unblocked |
 | `unsetCheckbox` | `selector` | Uncheck a checkbox |
 | `verifyAndPublish` | `noticeText` | Verify that an item can be published |

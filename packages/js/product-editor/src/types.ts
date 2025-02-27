@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { BlockAttributes, BlockEditProps } from '@wordpress/blocks';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 export type ProductTemplate = {
 	id: string;

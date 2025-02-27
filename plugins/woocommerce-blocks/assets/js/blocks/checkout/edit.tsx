@@ -7,19 +7,19 @@ import {
 	useBlockProps,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { SidebarLayout } from '@woocommerce/base-components/sidebar-layout';
-import { CheckoutProvider, EditorProvider } from '@woocommerce/base-context';
+import { SidebarLayout } from '@poocommerce/base-components/sidebar-layout';
+import { CheckoutProvider, EditorProvider } from '@poocommerce/base-context';
 import {
 	previewCart,
 	previewSavedPaymentMethods,
-} from '@woocommerce/resource-previews';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
+} from '@poocommerce/resource-previews';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
 import { useEffect, useRef } from '@wordpress/element';
 import { getQueryArg } from '@wordpress/url';
 import { dispatch, select as selectData, useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { defaultFields as defaultFieldsSetting } from '@woocommerce/settings';
+import { defaultFields as defaultFieldsSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -40,8 +40,8 @@ addClassToBody();
 
 // Array of allowed block names.
 const ALLOWED_BLOCKS: string[] = [
-	'woocommerce/checkout-fields-block',
-	'woocommerce/checkout-totals-block',
+	'poocommerce/checkout-fields-block',
+	'poocommerce/checkout-totals-block',
 ];
 
 export const Edit = ( {
@@ -82,7 +82,7 @@ export const Edit = ( {
 					( [ field, defaultValue ] ) => {
 						const value =
 							settings[
-								`woocommerce_checkout_${ field }_field`
+								`poocommerce_checkout_${ field }_field`
 							] || defaultValue;
 						return [
 							field,
@@ -115,8 +115,8 @@ export const Edit = ( {
 	}, [ clientId ] );
 
 	const defaultTemplate = [
-		[ 'woocommerce/checkout-totals-block', {}, [] ],
-		[ 'woocommerce/checkout-fields-block', {}, [] ],
+		[ 'poocommerce/checkout-totals-block', {}, [] ],
+		[ 'poocommerce/checkout-fields-block', {}, [] ],
 	] as TemplateArray;
 
 	const blockProps = useBlockPropsWithLocking();

@@ -3,9 +3,9 @@
  * RestockRefundedItemsAdjuster class file.
  */
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,13 +27,13 @@ class RestockRefundedItemsAdjuster {
 	 */
 	final public function init() {
 		$this->order_factory = wc_get_container()->get( LegacyProxy::class )->get_instance_of( \WC_Order_Factory::class );
-		add_action( 'woocommerce_before_save_order_items', array( $this, 'initialize_restock_refunded_items' ), 10, 2 );
+		add_action( 'poocommerce_before_save_order_items', array( $this, 'initialize_restock_refunded_items' ), 10, 2 );
 	}
 
 	/**
 	 * Initializes the restock refunded items meta for order version less than 5.5.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/29502
+	 * @see https://github.com/poocommerce/poocommerce/issues/29502
 	 *
 	 * @param int   $order_id Order ID.
 	 * @param array $items Order items to save.

@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\EmailPatterns;
+namespace Automattic\PooCommerce\Internal\EmailEditor\EmailPatterns;
 
 use MailPoet\EmailEditor\Engine\Patterns\Abstract_Pattern;
 
 /**
- * Pattern class for WooCommerce email content.
+ * Pattern class for PooCommerce email content.
  *
- * Provides a default content pattern that can be used in WooCommerce email templates.
+ * Provides a default content pattern that can be used in PooCommerce email templates.
  */
 class WooEmailContentPattern extends Abstract_Pattern {
 	/**
@@ -43,7 +43,7 @@ class WooEmailContentPattern extends Abstract_Pattern {
 	 *
 	 * @var string
 	 */
-	public $namespace = 'woocommerce';      // Required.
+	public $namespace = 'poocommerce';      // Required.
 
 	/**
 	 * Get the pattern content.
@@ -75,6 +75,6 @@ class WooEmailContentPattern extends Abstract_Pattern {
 	 */
 	public function get_title(): string {
 		/* translators: Name of a content pattern used as starting content of an email */
-		return __( 'Woo Email Content Pattern', 'woocommerce' );
+		return __( 'Woo Email Content Pattern', 'poocommerce' );
 	}
 }

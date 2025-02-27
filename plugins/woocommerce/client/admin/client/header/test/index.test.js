@@ -8,8 +8,8 @@ import { render, fireEvent } from '@testing-library/react';
  */
 import { Header } from '../index';
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting() {
 		return 'Fake Site Title';
 	},
@@ -74,7 +74,7 @@ describe( 'Header', () => {
 		);
 
 		expect( document.title ).toBe(
-			'Accounts & Privacy ‹ Settings ‹ Fake Site Title — WooCommerce'
+			'Accounts & Privacy ‹ Settings ‹ Fake Site Title — PooCommerce'
 		);
 	} );
 } );

@@ -41,7 +41,7 @@ test.beforeEach( async ( { baseURL } ) => {
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_email_improvements_enabled',
+		'poocommerce_feature_email_improvements_enabled',
 		'no'
 	);
 } );

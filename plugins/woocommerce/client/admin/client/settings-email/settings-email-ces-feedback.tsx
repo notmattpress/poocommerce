@@ -6,7 +6,7 @@ import { isEmail } from '@wordpress/url';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { useCallback, useEffect } from '@wordpress/element';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ export const EmailCesFeedback = ( {
 	const handleFeedbackClick = useCallback( () => {
 		showCesModal( {
 			action,
-			title: __( 'Share your experience', 'woocommerce' ),
+			title: __( 'Share your experience', 'poocommerce' ),
 			showDescription: !! description,
 			description,
 			firstQuestion: question,
@@ -48,7 +48,7 @@ export const EmailCesFeedback = ( {
 						<TextareaControl
 							label={ __(
 								'How can we improve the email customizer for you? (Optional)',
-								'woocommerce'
+								'poocommerce'
 							) }
 							value={ extraFieldsValues.feedback_comment || '' }
 							onChange={ ( value ) =>
@@ -59,13 +59,13 @@ export const EmailCesFeedback = ( {
 							}
 							placeholder={ __(
 								'What did you try to achieve with the customizer? What did and didn’t work?',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 						<TextControl
 							label={ __(
 								'Email address (Optional)',
-								'woocommerce'
+								'poocommerce'
 							) }
 							type="email"
 							value={ extraFieldsValues.email || '' }
@@ -77,13 +77,13 @@ export const EmailCesFeedback = ( {
 							}
 							help={
 								errors?.email ? (
-									<span className="woocommerce-customer-effort-score__errors">
+									<span className="poocommerce-customer-effort-score__errors">
 										{ errors.email }
 									</span>
 								) : (
 									__(
 										'Share if you would like to discuss your experience or participate in future research.',
-										'woocommerce'
+										'poocommerce'
 									)
 								)
 							}
@@ -96,7 +96,7 @@ export const EmailCesFeedback = ( {
 				if ( email.length > 0 && ! isEmail( email ) ) {
 					errors.email = __(
 						'Please enter a valid email address.',
-						'woocommerce'
+						'poocommerce'
 					);
 				}
 				return errors;
@@ -119,7 +119,7 @@ export const EmailCesFeedback = ( {
 				iconSize={ 12 }
 				onClick={ handleFeedbackClick }
 			>
-				{ __( 'Help us improve', 'woocommerce' ) }
+				{ __( 'Help us improve', 'poocommerce' ) }
 			</Button>
 		)
 	);

@@ -8,7 +8,7 @@ If you are already familiar with writing blocks for the WordPress site editor th
 To get started we would recommend reading through the [fundamentals of block development docs](https://developer.wordpress.org/block-editor/getting-started/fundamentals/) in WordPress. This gives a good overview of working with blocks, the block structure, and the [JavaScript build process](https://developer.wordpress.org/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/).
 
 This tutorial will use vanilla JavaScript to render a new field in the product form for those that already have a plugin and may not have a JavaScript build process set up yet.
-If you want to create a plugin from scratch with the necessary build tools, we recommend using the `@wordpress/create-block` script. We also have a specific template for the product form: [README](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/create-product-editor-block/README.md).
+If you want to create a plugin from scratch with the necessary build tools, we recommend using the `@wordpress/create-block` script. We also have a specific template for the product form: [README](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/create-product-editor-block/README.md).
 
 ## Creating a custom field
 
@@ -24,7 +24,7 @@ Inside a new folder within your plugin, let's create a `block.json` file with th
 	"apiVersion": 3,
 	"name": "tutorial/new-product-form-field",
 	"title": "Product form field",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "A sample field for the product form",
 	"keywords": [ "products" ],
 	"attributes": {},
@@ -34,7 +34,7 @@ Inside a new folder within your plugin, let's create a `block.json` file with th
 		// Setting inserter to false is important so that it doesn't show in the site editor.
 		"inserter": false
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"editorScript": "file:./index.js"
 }
 ```
@@ -83,7 +83,7 @@ Now that we have all the for the field we need to register it and add it to the 
 Registering can be done on `init` by calling `BlockRegistry::get_instance()->register_block_type_from_metadata` like so:
 
 ```php
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
 
 function example_custom_product_form_init() {
 	if ( isset( $_GET['page'] ) && $_GET['page'] === 'wc-admin' ) {
@@ -94,9 +94,9 @@ function example_custom_product_form_init() {
 add_action( 'init', 'example_custom_product_form_init' );
 ```
 
-We can add it to the product form by hooking into the `woocommerce_layout_template_after_instantiation` action ( see [block addition and removal](https://github.com/woocommerce/woocommerce/blob/trunk/docs/product-editor-development/block-template-lifecycle.md#block-addition-and-removal) ).
+We can add it to the product form by hooking into the `poocommerce_layout_template_after_instantiation` action ( see [block addition and removal](https://github.com/poocommerce/poocommerce/blob/trunk/docs/product-editor-development/block-template-lifecycle.md#block-addition-and-removal) ).
 
-What we did was the following ( see [here](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/Features/ProductBlockEditor/ProductTemplates/README.md#usage) for more related functions ):
+What we did was the following ( see [here](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/Features/ProductBlockEditor/ProductTemplates/README.md#usage) for more related functions ):
 
 -   Get a group by the `general` id, this is the General tab.
 -   Create a new section on the general tab called `Tutorial Section`
@@ -104,7 +104,7 @@ What we did was the following ( see [here](https://github.com/woocommerce/woocom
 
 ```php
 add_action(
-    'woocommerce_layout_template_after_instantiation',
+    'poocommerce_layout_template_after_instantiation',
     function( $layout_template_id, $layout_template_area, $layout_template ) {
         $general = $layout_template->get_group_by_id( 'general' );
 
@@ -115,8 +115,8 @@ add_action(
 					'id'         => 'tutorial-section',
 					'order'      => 15,
 					'attributes' => array(
-						'title'       => __( 'Tutorial Section', 'woocommerce' ),
-						'description' => __( 'Fields related to the tutorial', 'woocommerce' ),
+						'title'       => __( 'Tutorial Section', 'poocommerce' ),
+						'description' => __( 'Fields related to the tutorial', 'poocommerce' ),
 					),
 				)
 			);
@@ -208,7 +208,7 @@ In React:
 ```jsx
 import { createElement, useState } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 
 function Edit( { attributes } ) {
 	const [ value, setValue ] = useState();

@@ -4,7 +4,7 @@
 import { act, render, waitFor, screen } from '@testing-library/react';
 import { useState, createElement } from '@wordpress/element';
 import { resolveSelect } from '@wordpress/data';
-import { ProductAttributeTerm } from '@woocommerce/data';
+import { ProductAttributeTerm } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ jest.mock( '@wordpress/components', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/components', () => {
+jest.mock( '@poocommerce/components', () => {
 	return {
 		__esModule: true,
 		__experimentalSelectControlMenu: ( {

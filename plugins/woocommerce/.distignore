@@ -24,8 +24,8 @@ global.d.ts
 none
 package-lock.json
 package.json
-packages/woocommerce-admin/docs
-packages/woocommerce-blocks/docs
+packages/poocommerce-admin/docs
+packages/poocommerce-blocks/docs
 phpcs.xml
 phpunit.xml
 phpunit.xml.dist

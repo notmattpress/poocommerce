@@ -3,7 +3,7 @@
  * Filterer class file.
  */
 
-namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Internal\ProductAttributesLookup;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,7 +44,7 @@ class Filterer {
 	 * @return bool
 	 */
 	public function filtering_via_lookup_table_is_active() {
-		return 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' );
+		return 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Filterer {
 		// The extra derived table ("SELECT product_or_parent_id FROM") is needed for performance
 		// (causes the filtering subquery to be executed only once).
 		$clause_root = " {$wpdb->posts}.ID IN ( SELECT product_or_parent_id FROM (";
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$in_stock_clause = ' AND in_stock = 1';
 		} else {
 			$in_stock_clause = '';
@@ -165,13 +165,13 @@ class Filterer {
 			$query = $this->get_product_counts_query_not_using_lookup_table( $tax_query, $meta_query, $term_ids );
 		}
 
-		$query     = apply_filters( 'woocommerce_get_filtered_term_product_counts_query', $query );
+		$query     = apply_filters( 'poocommerce_get_filtered_term_product_counts_query', $query );
 		$query_sql = implode( ' ', $query );
 
 		// We have a query - let's see if cached results of this query already exist.
 		$query_hash = md5( $query_sql );
 		// Maybe store a transient of the count values.
-		$cache = apply_filters( 'woocommerce_layered_nav_count_maybe_cache', true );
+		$cache = apply_filters( 'poocommerce_layered_nav_count_maybe_cache', true );
 		if ( true === $cache ) {
 			$cached_counts = (array) get_transient( 'wc_layered_nav_counts_' . sanitize_title( $taxonomy ) );
 		} else {
@@ -203,7 +203,7 @@ class Filterer {
 
 		$meta_query_sql    = $meta_query->get_sql( 'post', $this->lookup_table_name, 'product_or_parent_id' );
 		$tax_query_sql     = $tax_query->get_sql( $this->lookup_table_name, 'product_or_parent_id' );
-		$hide_out_of_stock = 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' );
+		$hide_out_of_stock = 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' );
 		$in_stock_clause   = $hide_out_of_stock ? ' AND in_stock = 1' : '';
 
 		$query           = array();

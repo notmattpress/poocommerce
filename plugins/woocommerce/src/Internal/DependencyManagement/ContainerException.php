@@ -3,7 +3,7 @@
  * ExtendedContainer class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Internal\DependencyManagement;
 
 /**
  * Class ContainerException.

@@ -6,16 +6,16 @@ tags: how-to
 
 ## Introduction
 
-WooCommerce allows developers to extend the product type onboarding list, offering a more customizable and engaging experience during the Add Products onboarding task. This tutorial will guide you through adding custom product types to your WooCommerce store using the `experimental_woocommerce_tasklist_product_types` JavaScript filter.
+PooCommerce allows developers to extend the product type onboarding list, offering a more customizable and engaging experience during the Add Products onboarding task. This tutorial will guide you through adding custom product types to your PooCommerce store using the `experimental_poocommerce_tasklist_product_types` JavaScript filter.
 
 ## Prerequisites
 
 - A basic understanding of JavaScript and PHP.
-- WooCommerce 8.8 or later installed on your WordPress site.
+- PooCommerce 8.8 or later installed on your WordPress site.
 
 ## Step 1: Adding a JavaScript Filter
 
-To add a new product type to the onboarding list, we'll utilize the `@wordpress/hooks` package, specifically the addFilter function. If you're not already familiar, `@wordpress/hooks` allows you to modify or extend features within the WordPress and WooCommerce ecosystem without altering the core code.
+To add a new product type to the onboarding list, we'll utilize the `@wordpress/hooks` package, specifically the addFilter function. If you're not already familiar, `@wordpress/hooks` allows you to modify or extend features within the WordPress and PooCommerce ecosystem without altering the core code.
 
 First, ensure you have the `@wordpress/hooks` package installed. If not, you can add it to your project using `npm` or `yarn`:
 
@@ -37,7 +37,7 @@ import { __ } from '@wordpress/i18n';
 import FolderMultipleIcon from 'gridicons/dist/folder-multiple';
 
 addFilter(
-   'experimental_woocommerce_tasklist_product_types',
+   'experimental_poocommerce_tasklist_product_types',
    'custom-product',
    (productTypes) => [
        ...productTypes,
@@ -62,10 +62,10 @@ By default, if no onClick handler is supplied, the onboarding task will utilize 
 
 ## Step 3: Modifying the CSV Template Path (Optional)
 
-If you wish to use a different CSV template for your custom product type, you can modify the template path using the woocommerce_product_template_csv_file_path filter in PHP. Here's an example of how to change the template path:
+If you wish to use a different CSV template for your custom product type, you can modify the template path using the poocommerce_product_template_csv_file_path filter in PHP. Here's an example of how to change the template path:
 
 ```php
-add_filter('woocommerce_product_template_csv_file_path', function($path) {
+add_filter('poocommerce_product_template_csv_file_path', function($path) {
    // Specify your custom template path here
    return $newPath;
 });
@@ -73,4 +73,4 @@ add_filter('woocommerce_product_template_csv_file_path', function($path) {
 
 ## Conclusion
 
-With WooCommerce, extending the product type onboarding list is straightforward and offers significant flexibility for customizing the onboarding experience. By following the steps outlined in this tutorial, you can enhance your WooCommerce store and make the Add Products task more relevant and helpful to your specific needs.
+With PooCommerce, extending the product type onboarding list is straightforward and offers significant flexibility for customizing the onboarding experience. By following the steps outlined in this tutorial, you can enhance your PooCommerce store and make the Add Products task more relevant and helpful to your specific needs.

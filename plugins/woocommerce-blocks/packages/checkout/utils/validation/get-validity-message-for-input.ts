@@ -13,18 +13,18 @@ const defaultValidityMessage =
 
 		const fieldLabel = shouldKeepOriginalCase
 			? label
-			: label?.toLocaleLowerCase() || __( 'field', 'woocommerce' );
+			: label?.toLocaleLowerCase() || __( 'field', 'poocommerce' );
 
 		let invalidFieldMessage = sprintf(
 			/* translators: %s field label */
-			__( 'Please enter a valid %s', 'woocommerce' ),
+			__( 'Please enter a valid %s', 'poocommerce' ),
 			fieldLabel
 		);
 
 		if ( inputElement.type === 'checkbox' ) {
 			invalidFieldMessage = __(
 				'Please check this box if you want to proceed.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 

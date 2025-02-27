@@ -3,14 +3,14 @@
  */
 import { useRef } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { snakeCaseKeys } from '@woocommerce/base-utils';
-import type { CoreAddress, AdditionalValues } from '@woocommerce/settings';
+import { snakeCaseKeys } from '@poocommerce/base-utils';
+import type { CoreAddress, AdditionalValues } from '@poocommerce/settings';
 import fastDeepEqual from 'fast-deep-equal/es6';
 import {
 	cartStore,
 	checkoutStore,
 	paymentStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import type Ajv from 'ajv';
 
 const useDocumentObject = ( formType: string ): DocumentObject => {

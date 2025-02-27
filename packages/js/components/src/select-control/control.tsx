@@ -241,7 +241,7 @@ class Control extends Component< Props, State > {
 		}
 
 		return (
-			<div className="woocommerce-select-control__control-value">
+			<div className="poocommerce-select-control__control-value">
 				{ selected[ 0 ].label }
 			</div>
 		);
@@ -267,8 +267,8 @@ class Control extends Component< Props, State > {
 		return (
 			<input
 				autoComplete={ autoComplete || 'off' }
-				className="woocommerce-select-control__control-input"
-				id={ `woocommerce-select-control-${ instanceId }__control-input` }
+				className="poocommerce-select-control__control-input"
+				id={ `poocommerce-select-control-${ instanceId }__control-input` }
 				ref={ this.input }
 				type={ isSearchable ? searchInputType : 'button' }
 				value={ this.getInputValue() }
@@ -350,7 +350,7 @@ class Control extends Component< Props, State > {
 			<div
 				className={ classnames(
 					'components-base-control',
-					'woocommerce-select-control__control',
+					'poocommerce-select-control__control',
 					className,
 					{
 						empty: ! query || query.length === 0,
@@ -376,7 +376,7 @@ class Control extends Component< Props, State > {
 			>
 				{ isSearchable && (
 					<Icon
-						className="woocommerce-select-control__control-icon"
+						className="poocommerce-select-control__control-icon"
 						icon={ search }
 					/>
 				) }
@@ -391,7 +391,7 @@ class Control extends Component< Props, State > {
 				<div className="components-base-control__field">
 					{ !! label && (
 						<label
-							htmlFor={ `woocommerce-select-control-${ instanceId }__control-input` }
+							htmlFor={ `poocommerce-select-control-${ instanceId }__control-input` }
 							className="components-base-control__label"
 						>
 							{ label }
@@ -405,13 +405,13 @@ class Control extends Component< Props, State > {
 						>
 							{ __(
 								'Move backward for selected items',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 					) }
 					{ !! help && (
 						<p
-							id={ `woocommerce-select-control-${ instanceId }__help` }
+							id={ `poocommerce-select-control-${ instanceId }__help` }
 							className="components-base-control__help"
 						>
 							{ help }

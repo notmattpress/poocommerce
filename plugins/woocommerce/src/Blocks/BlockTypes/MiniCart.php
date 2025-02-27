@@ -1,16 +1,16 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Utils\Utils;
-use Automattic\WooCommerce\Blocks\Utils\MiniCartUtils;
-use Automattic\WooCommerce\Blocks\Utils\BlockHooksTrait;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Payments\PaymentMethodRegistry;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Utils\Utils;
+use Automattic\PooCommerce\Blocks\Utils\MiniCartUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockHooksTrait;
 
 /**
  * Mini-Cart class.
@@ -90,7 +90,7 @@ class MiniCart extends AbstractBlock {
 		parent::initialize();
 		add_action( 'wp_loaded', array( $this, 'register_empty_cart_message_block_pattern' ) );
 		add_action( 'wp_print_footer_scripts', array( $this, 'print_lazy_load_scripts' ), 2 );
-		add_filter( 'hooked_block_woocommerce/mini-cart', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
+		add_filter( 'hooked_block_poocommerce/mini-cart', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
 		add_filter( 'hooked_block_types', array( $this, 'register_hooked_block' ), 9, 4 );
 	}
 
@@ -106,7 +106,7 @@ class MiniCart extends AbstractBlock {
 	 * @return array|null
 	 */
 	public function modify_hooked_block_attributes( $parsed_hooked_block, $hooked_block_type, $relative_position, $parsed_anchor_block, $context ) {
-		$mini_cart_block_font_size = wp_get_global_styles( array( 'blocks', 'woocommerce/mini-cart', 'typography', 'fontSize' ) );
+		$mini_cart_block_font_size = wp_get_global_styles( array( 'blocks', 'poocommerce/mini-cart', 'typography', 'fontSize' ) );
 
 		if ( ! is_string( $mini_cart_block_font_size ) ) {
 			$navigation_block_font_size = wp_get_global_styles( array( 'blocks', 'core/navigation', 'typography', 'fontSize' ) );
@@ -239,7 +239,7 @@ class MiniCart extends AbstractBlock {
 		 *
 		 * @since 5.8.0
 		 */
-		do_action( 'woocommerce_blocks_cart_enqueue_data' );
+		do_action( 'poocommerce_blocks_cart_enqueue_data' );
 	}
 
 	/**
@@ -441,7 +441,7 @@ class MiniCart extends AbstractBlock {
 		}
 
 		$classes_styles  = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes, array( 'text_color', 'background_color', 'font_size', 'font_weight', 'font_family', 'extra_classes' ) );
-		$wrapper_classes = sprintf( 'wc-block-mini-cart wp-block-woocommerce-mini-cart %s', $classes_styles['classes'] );
+		$wrapper_classes = sprintf( 'wc-block-mini-cart wp-block-poocommerce-mini-cart %s', $classes_styles['classes'] );
 		$wrapper_styles  = $classes_styles['styles'];
 
 		$icon_color          = array_key_exists( 'iconColor', $attributes ) ? esc_attr( $attributes['iconColor']['color'] ) : 'currentColor';
@@ -464,13 +464,13 @@ class MiniCart extends AbstractBlock {
 
 			// It is not necessary to load the Mini-Cart Block on Cart and Checkout page.
 			return '<div class="' . esc_attr( $wrapper_classes ) . '" style="visibility:hidden" aria-hidden="true">
-				<button class="wc-block-mini-cart__button" disabled aria-label="' . __( 'Cart', 'woocommerce' ) . '">' . $button_html . '</button>
+				<button class="wc-block-mini-cart__button" disabled aria-label="' . __( 'Cart', 'poocommerce' ) . '">' . $button_html . '</button>
 			</div>';
 		}
 
 		$template_part_contents = '';
 
-		// Determine if we need to load the template part from the DB, the theme or WooCommerce in that order.
+		// Determine if we need to load the template part from the DB, the theme or PooCommerce in that order.
 		$templates_from_db = BlockTemplateUtils::get_block_templates_from_db( array( 'mini-cart' ), 'wp_template_part' );
 		if ( is_countable( $templates_from_db ) && count( $templates_from_db ) > 0 ) {
 			$template_slug_to_load = $templates_from_db[0]->theme;
@@ -492,7 +492,7 @@ class MiniCart extends AbstractBlock {
 		}
 
 		return '<div class="' . esc_attr( $wrapper_classes ) . '" style="' . esc_attr( $wrapper_styles ) . '">
-			<button class="wc-block-mini-cart__button" aria-label="' . __( 'Cart', 'woocommerce' ) . '">' . $button_html . '</button>
+			<button class="wc-block-mini-cart__button" aria-label="' . __( 'Cart', 'poocommerce' ) . '">' . $button_html . '</button>
 			<div class="is-loading wc-block-components-drawer__screen-overlay wc-block-components-drawer__screen-overlay--is-hidden" aria-hidden="true">
 				<div class="wc-block-mini-cart__drawer wc-block-components-drawer">
 					<div class="wc-block-components-drawer__content">
@@ -523,7 +523,7 @@ class MiniCart extends AbstractBlock {
 	/**
 	 * Get array with data for handle the tax label.
 	 * the entire logic of this function is was taken from:
-	 * https://github.com/woocommerce/woocommerce/blob/e730f7463c25b50258e97bf56e31e9d7d3bc7ae7/includes/class-wc-cart.php#L1582
+	 * https://github.com/poocommerce/poocommerce/blob/e730f7463c25b50258e97bf56e31e9d7d3bc7ae7/includes/class-wc-cart.php#L1582
 	 *
 	 * @return array;
 	 */
@@ -587,11 +587,11 @@ class MiniCart extends AbstractBlock {
 	 */
 	public function register_empty_cart_message_block_pattern() {
 		register_block_pattern(
-			'woocommerce/mini-cart-empty-cart-message',
+			'poocommerce/mini-cart-empty-cart-message',
 			array(
-				'title'    => __( 'Empty Mini-Cart Message', 'woocommerce' ),
+				'title'    => __( 'Empty Mini-Cart Message', 'poocommerce' ),
 				'inserter' => false,
-				'content'  => '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><strong>' . __( 'Your cart is currently empty!', 'woocommerce' ) . '</strong></p><!-- /wp:paragraph -->',
+				'content'  => '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><strong>' . __( 'Your cart is currently empty!', 'poocommerce' ) . '</strong></p><!-- /wp:paragraph -->',
 			)
 		);
 	}

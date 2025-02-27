@@ -1,19 +1,19 @@
 <?php
 /**
- * WooCommerce Order Functions
+ * PooCommerce Order Functions
  *
  * Functions for order specific things.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.4.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\Utilities\Users;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * This function should be used for order retrieval so that when we move to
  * custom tables, functions still work.
  *
- * Args and usage: https://github.com/woocommerce/woocommerce/wiki/wc_get_orders-and-WC_Order_Query
+ * Args and usage: https://github.com/poocommerce/poocommerce/wiki/wc_get_orders-and-WC_Order_Query
  *
  * @since  2.6.0
  * @param  array $args Array of args (above).
@@ -83,8 +83,8 @@ function wc_get_orders( $args ) {
  * @return bool|WC_Order|WC_Order_Refund
  */
 function wc_get_order( $the_order = false ) {
-	if ( ! did_action( 'woocommerce_after_register_post_type' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, 'wc_get_order should not be called before post types are registered (woocommerce_after_register_post_type action)', '2.5' );
+	if ( ! did_action( 'poocommerce_after_register_post_type' ) ) {
+		wc_doing_it_wrong( __FUNCTION__, 'wc_get_order should not be called before post types are registered (poocommerce_after_register_post_type action)', '2.5' );
 		return false;
 	}
 	return WC()->order_factory->get_order( $the_order );
@@ -99,13 +99,13 @@ function wc_get_order( $the_order = false ) {
  */
 function wc_get_order_statuses() {
 	$order_statuses = array(
-		OrderInternalStatus::PENDING    => _x( 'Pending payment', 'Order status', 'woocommerce' ),
-		OrderInternalStatus::PROCESSING => _x( 'Processing', 'Order status', 'woocommerce' ),
-		OrderInternalStatus::ON_HOLD    => _x( 'On hold', 'Order status', 'woocommerce' ),
-		OrderInternalStatus::COMPLETED  => _x( 'Completed', 'Order status', 'woocommerce' ),
-		OrderInternalStatus::CANCELLED  => _x( 'Cancelled', 'Order status', 'woocommerce' ),
-		OrderInternalStatus::REFUNDED   => _x( 'Refunded', 'Order status', 'woocommerce' ),
-		OrderInternalStatus::FAILED     => _x( 'Failed', 'Order status', 'woocommerce' ),
+		OrderInternalStatus::PENDING    => _x( 'Pending payment', 'Order status', 'poocommerce' ),
+		OrderInternalStatus::PROCESSING => _x( 'Processing', 'Order status', 'poocommerce' ),
+		OrderInternalStatus::ON_HOLD    => _x( 'On hold', 'Order status', 'poocommerce' ),
+		OrderInternalStatus::COMPLETED  => _x( 'Completed', 'Order status', 'poocommerce' ),
+		OrderInternalStatus::CANCELLED  => _x( 'Cancelled', 'Order status', 'poocommerce' ),
+		OrderInternalStatus::REFUNDED   => _x( 'Refunded', 'Order status', 'poocommerce' ),
+		OrderInternalStatus::FAILED     => _x( 'Failed', 'Order status', 'poocommerce' ),
 	);
 	return apply_filters( 'wc_order_statuses', $order_statuses );
 }
@@ -135,7 +135,7 @@ function wc_get_is_paid_statuses() {
 	 *
 	 * @param array $statuses List of statuses.
 	 */
-	return apply_filters( 'woocommerce_order_is_paid_statuses', array( OrderStatus::PROCESSING, OrderStatus::COMPLETED ) );
+	return apply_filters( 'poocommerce_order_is_paid_statuses', array( OrderStatus::PROCESSING, OrderStatus::COMPLETED ) );
 }
 
 /**
@@ -152,7 +152,7 @@ function wc_get_is_pending_statuses() {
 	 *
 	 * @param array $statuses List of statuses.
 	 */
-	return apply_filters( 'woocommerce_order_is_pending_statuses', array( OrderStatus::PENDING ) );
+	return apply_filters( 'poocommerce_order_is_pending_statuses', array( OrderStatus::PENDING ) );
 }
 
 /**
@@ -163,7 +163,7 @@ function wc_get_is_pending_statuses() {
  * @return string
  */
 function wc_get_order_status_name( $status ) {
-	// "Special statuses": these are in common usage across WooCommerce, but are not normally returned by
+	// "Special statuses": these are in common usage across PooCommerce, but are not normally returned by
 	// wc_get_order_statuses().
 	$special_statuses = array(
 		'wc-' . OrderStatus::AUTO_DRAFT => OrderStatus::AUTO_DRAFT,
@@ -178,7 +178,7 @@ function wc_get_order_status_name( $status ) {
 	if ( ! is_string( $status ) ) {
 		wc_doing_it_wrong(
 			__FUNCTION__,
-			__( 'An invalid order status slug was supplied.', 'woocommerce' ),
+			__( 'An invalid order status slug was supplied.', 'poocommerce' ),
 			'9.6'
 		);
 	}
@@ -198,7 +198,7 @@ function wc_generate_order_key( $key = '' ) {
 		$key = wp_generate_password( 13, false );
 	}
 
-	return 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' . $key );
+	return 'wc_' . apply_filters( 'poocommerce_generate_order_key', 'order_' . $key );
 }
 
 /**
@@ -286,7 +286,7 @@ function wc_get_order_types( $for = '' ) {
 				get_post_types(
 					array(
 						'show_ui'      => true,
-						'show_in_menu' => 'woocommerce',
+						'show_in_menu' => 'poocommerce',
 					)
 				)
 			);
@@ -450,7 +450,7 @@ function wc_downloadable_file_permission( $download_id, $product, $order, $qty =
 		$download->set_access_expires( strtotime( $from_date . ' + ' . $expiry . ' DAY' ) );
 	}
 
-	$download = apply_filters( 'woocommerce_downloadable_file_permission', $download, $product, $order, $qty, $item );
+	$download = apply_filters( 'poocommerce_downloadable_file_permission', $download, $product, $order, $qty, $item );
 
 	return $download->save();
 }
@@ -468,7 +468,7 @@ function wc_downloadable_product_permissions( $order_id, $force = false ) {
 		return;
 	}
 
-	if ( $order->has_status( OrderStatus::PROCESSING ) && 'no' === get_option( 'woocommerce_downloads_grant_access_after_payment' ) ) {
+	if ( $order->has_status( OrderStatus::PROCESSING ) && 'no' === get_option( 'poocommerce_downloads_grant_access_after_payment' ) ) {
 		return;
 	}
 
@@ -487,10 +487,10 @@ function wc_downloadable_product_permissions( $order_id, $force = false ) {
 	}
 
 	$order->get_data_store()->set_download_permissions_granted( $order, true );
-	do_action( 'woocommerce_grant_product_download_permissions', $order_id );
+	do_action( 'poocommerce_grant_product_download_permissions', $order_id );
 }
-add_action( 'woocommerce_order_status_completed', 'wc_downloadable_product_permissions' );
-add_action( 'woocommerce_order_status_processing', 'wc_downloadable_product_permissions' );
+add_action( 'poocommerce_order_status_completed', 'wc_downloadable_product_permissions' );
+add_action( 'poocommerce_order_status_processing', 'wc_downloadable_product_permissions' );
 
 /**
  * Clear all transients cache for order data.
@@ -532,7 +532,7 @@ function wc_delete_shop_order_transients( $order = 0 ) {
 	// Do the same for regular cache.
 	WC_Cache_Helper::invalidate_cache_group( 'orders' );
 
-	do_action( 'woocommerce_delete_shop_order_transients', $order_id );
+	do_action( 'poocommerce_delete_shop_order_transients', $order_id );
 }
 
 /**
@@ -541,7 +541,7 @@ function wc_delete_shop_order_transients( $order = 0 ) {
  * @return bool
  */
 function wc_ship_to_billing_address_only() {
-	return 'billing_only' === get_option( 'woocommerce_ship_to_destination' );
+	return 'billing_only' === get_option( 'poocommerce_ship_to_destination' );
 }
 
 /**
@@ -570,7 +570,7 @@ function wc_create_refund( $args = array() ) {
 		$order = wc_get_order( $args['order_id'] );
 
 		if ( ! $order ) {
-			throw new Exception( __( 'Invalid order ID.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid order ID.', 'poocommerce' ) );
 		}
 
 		$remaining_refund_amount     = $order->get_remaining_refund_amount();
@@ -580,7 +580,7 @@ function wc_create_refund( $args = array() ) {
 		$refunded_order_and_products = array();
 
 		if ( 0 > $args['amount'] || $args['amount'] > $remaining_refund_amount ) {
-			throw new Exception( __( 'Invalid refund amount.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid refund amount.', 'poocommerce' ) );
 		}
 
 		$refund->set_currency( $order->get_currency() );
@@ -660,7 +660,7 @@ function wc_create_refund( $args = array() ) {
 		 *
 		 * @since 3.0.0
 		 */
-		do_action( 'woocommerce_create_refund', $refund, $args );
+		do_action( 'poocommerce_create_refund', $refund, $args );
 
 		if ( $refund->save() ) {
 			if ( $args['refund_payment'] ) {
@@ -703,10 +703,10 @@ function wc_create_refund( $args = array() ) {
 			 * @param int  $order_id The order id.
 			 * @param int  $refund_id The refund id.
 			 */
-			if ( (bool) apply_filters( 'woocommerce_order_is_partially_refunded', ( $remaining_refund_amount - $args['amount'] ) > 0 || ( $order->has_free_item() && ( $remaining_refund_items - $refund_item_count ) > 0 ), $order->get_id(), $refund->get_id() ) ) {
-				do_action( 'woocommerce_order_partially_refunded', $order->get_id(), $refund->get_id() );
+			if ( (bool) apply_filters( 'poocommerce_order_is_partially_refunded', ( $remaining_refund_amount - $args['amount'] ) > 0 || ( $order->has_free_item() && ( $remaining_refund_items - $refund_item_count ) > 0 ), $order->get_id(), $refund->get_id() ) ) {
+				do_action( 'poocommerce_order_partially_refunded', $order->get_id(), $refund->get_id() );
 			} else {
-				do_action( 'woocommerce_order_fully_refunded', $order->get_id(), $refund->get_id() );
+				do_action( 'poocommerce_order_fully_refunded', $order->get_id(), $refund->get_id() );
 
 				/**
 				 * Filter the status to set the order to when fully refunded.
@@ -717,7 +717,7 @@ function wc_create_refund( $args = array() ) {
 				 * @param int    $order_id      The order ID.
 				 * @param int    $refund_id     The refund ID.
 				 */
-				$parent_status = apply_filters( 'woocommerce_order_fully_refunded_status', OrderStatus::REFUNDED, $order->get_id(), $refund->get_id() );
+				$parent_status = apply_filters( 'poocommerce_order_fully_refunded_status', OrderStatus::REFUNDED, $order->get_id(), $refund->get_id() );
 
 				if ( $parent_status ) {
 					$order->update_status( $parent_status );
@@ -728,8 +728,8 @@ function wc_create_refund( $args = array() ) {
 		$order->set_date_modified( time() );
 		$order->save();
 
-		do_action( 'woocommerce_refund_created', $refund->get_id(), $args );
-		do_action( 'woocommerce_order_refunded', $order->get_id(), $refund->get_id() );
+		do_action( 'poocommerce_refund_created', $refund->get_id(), $args );
+		do_action( 'poocommerce_order_refunded', $order->get_id(), $refund->get_id() );
 
 	} catch ( Exception $e ) {
 		if ( isset( $refund ) && is_a( $refund, 'WC_Order_Refund' ) ) {
@@ -754,7 +754,7 @@ function wc_create_refund( $args = array() ) {
 function wc_refund_payment( $order, $amount, $reason = '' ) {
 	try {
 		if ( ! is_a( $order, 'WC_Order' ) ) {
-			throw new Exception( __( 'Invalid order.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid order.', 'poocommerce' ) );
 		}
 
 		$gateway_controller = WC_Payment_Gateways::instance();
@@ -763,17 +763,17 @@ function wc_refund_payment( $order, $amount, $reason = '' ) {
 		$gateway            = isset( $all_gateways[ $payment_method ] ) ? $all_gateways[ $payment_method ] : false;
 
 		if ( ! $gateway ) {
-			throw new Exception( __( 'The payment gateway for this order does not exist.', 'woocommerce' ) );
+			throw new Exception( __( 'The payment gateway for this order does not exist.', 'poocommerce' ) );
 		}
 
 		if ( ! $gateway->supports( 'refunds' ) ) {
-			throw new Exception( __( 'The payment gateway for this order does not support automatic refunds.', 'woocommerce' ) );
+			throw new Exception( __( 'The payment gateway for this order does not support automatic refunds.', 'poocommerce' ) );
 		}
 
 		$result = $gateway->process_refund( $order->get_id(), $amount, $reason );
 
 		if ( ! $result ) {
-			throw new Exception( __( 'An error occurred while attempting to create the refund using the payment gateway API.', 'woocommerce' ) );
+			throw new Exception( __( 'An error occurred while attempting to create the refund using the payment gateway API.', 'poocommerce' ) );
 		}
 
 		if ( is_wp_error( $result ) ) {
@@ -795,7 +795,7 @@ function wc_refund_payment( $order, $amount, $reason = '' ) {
  * @param array    $refunded_line_items Refunded items list.
  */
 function wc_restock_refunded_items( $order, $refunded_line_items ) {
-	if ( ! apply_filters( 'woocommerce_can_restock_refunded_items', true, $order, $refunded_line_items ) ) {
+	if ( ! apply_filters( 'poocommerce_can_restock_refunded_items', true, $order, $refunded_line_items ) ) {
 		return;
 	}
 
@@ -827,7 +827,7 @@ function wc_restock_refunded_items( $order, $refunded_line_items ) {
 		$item->update_meta_data( '_restock_refunded_items', $qty_to_refund + $restock_refunded_items );
 
 		/* translators: 1: product ID 2: old stock level 3: new stock level */
-		$restock_note = sprintf( __( 'Item #%1$s stock increased from %2$s to %3$s.', 'woocommerce' ), $product->get_id(), $old_stock, $new_stock );
+		$restock_note = sprintf( __( 'Item #%1$s stock increased from %2$s to %3$s.', 'poocommerce' ), $product->get_id(), $old_stock, $new_stock );
 
 		/**
 		 * Allow the restock note to be modified.
@@ -840,13 +840,13 @@ function wc_restock_refunded_items( $order, $refunded_line_items ) {
 		 * @param WC_Order $order The order the refund was done for.
 		 * @param bool|WC_Product $product The product the refund was done for.
 		 */
-		$restock_note = apply_filters( 'woocommerce_refund_restock_note', $restock_note, $old_stock, $new_stock, $order, $product );
+		$restock_note = apply_filters( 'poocommerce_refund_restock_note', $restock_note, $old_stock, $new_stock, $order, $product );
 
 		$order->add_order_note( $restock_note );
 
 		$item->save();
 
-		do_action( 'woocommerce_restock_refunded_item', $product->get_id(), $old_stock, $new_stock, $order, $product );
+		do_action( 'poocommerce_restock_refunded_item', $product->get_id(), $old_stock, $new_stock, $order, $product );
 	}
 }
 
@@ -859,7 +859,7 @@ function wc_restock_refunded_items( $order, $refunded_line_items ) {
  */
 function wc_get_tax_class_by_tax_id( $tax_id ) {
 	global $wpdb;
-	return $wpdb->get_var( $wpdb->prepare( "SELECT tax_rate_class FROM {$wpdb->prefix}woocommerce_tax_rates WHERE tax_rate_id = %d", $tax_id ) );
+	return $wpdb->get_var( $wpdb->prepare( "SELECT tax_rate_class FROM {$wpdb->prefix}poocommerce_tax_rates WHERE tax_rate_id = %d", $tax_id ) );
 }
 
 /**
@@ -905,16 +905,16 @@ function wc_order_fully_refunded( $order_id ) {
 	wc_create_refund(
 		array(
 			'amount'     => $max_refund,
-			'reason'     => __( 'Order fully refunded.', 'woocommerce' ),
+			'reason'     => __( 'Order fully refunded.', 'poocommerce' ),
 			'order_id'   => $order_id,
 			'line_items' => array(),
 		)
 	);
 	wc_restore_locale();
 
-	$order->add_order_note( __( 'Order status set to refunded. To return funds to the customer you will need to issue a refund through your payment gateway.', 'woocommerce' ) );
+	$order->add_order_note( __( 'Order status set to refunded. To return funds to the customer you will need to issue a refund through your payment gateway.', 'poocommerce' ) );
 }
-add_action( 'woocommerce_order_status_refunded', 'wc_order_fully_refunded' );
+add_action( 'poocommerce_order_status_refunded', 'wc_order_fully_refunded' );
 
 /**
  * Search orders.
@@ -944,7 +944,7 @@ function wc_update_total_sales_counts( $order_id ) {
 	$recorded_sales  = $order->get_data_store()->get_recorded_sales( $order );
 	$reflected_order = in_array( $order->get_status(), array( OrderStatus::CANCELLED, OrderStatus::TRASH ), true );
 
-	if ( ! $reflected_order && 'woocommerce_before_delete_order' === current_action() ) {
+	if ( ! $reflected_order && 'poocommerce_before_delete_order' === current_action() ) {
 		$reflected_order = true;
 	}
 
@@ -976,17 +976,17 @@ function wc_update_total_sales_counts( $order_id ) {
 	 *
 	 * @param int $order_id order id
 	 */
-	do_action( 'woocommerce_recorded_sales', $order_id );
+	do_action( 'poocommerce_recorded_sales', $order_id );
 }
-add_action( 'woocommerce_order_status_completed', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_order_status_processing', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_order_status_on-hold', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_order_status_completed_to_cancelled', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_order_status_processing_to_cancelled', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_order_status_on-hold_to_cancelled', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_trash_order', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_untrash_order', 'wc_update_total_sales_counts' );
-add_action( 'woocommerce_before_delete_order', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_order_status_completed', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_order_status_processing', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_order_status_on-hold', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_order_status_completed_to_cancelled', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_order_status_processing_to_cancelled', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_order_status_on-hold_to_cancelled', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_trash_order', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_untrash_order', 'wc_update_total_sales_counts' );
+add_action( 'poocommerce_before_delete_order', 'wc_update_total_sales_counts' );
 
 /**
  * Update used coupon amount for each coupon within an order.
@@ -1012,7 +1012,7 @@ function wc_update_coupon_usage_counts( $order_id ) {
 	 * @param array $invalid_statuses Array of statuses to consider invalid.
 	 */
 	$invalid_statuses = apply_filters(
-		'woocommerce_update_coupon_usage_invalid_statuses',
+		'poocommerce_update_coupon_usage_invalid_statuses',
 		$invalid_statuses
 	);
 
@@ -1054,27 +1054,27 @@ function wc_update_coupon_usage_counts( $order_id ) {
 		wc_release_coupons_for_order( $order );
 	}
 }
-add_action( 'woocommerce_order_status_pending', 'wc_update_coupon_usage_counts' );
-add_action( 'woocommerce_order_status_completed', 'wc_update_coupon_usage_counts' );
-add_action( 'woocommerce_order_status_processing', 'wc_update_coupon_usage_counts' );
-add_action( 'woocommerce_order_status_on-hold', 'wc_update_coupon_usage_counts' );
-add_action( 'woocommerce_order_status_cancelled', 'wc_update_coupon_usage_counts' );
-add_action( 'woocommerce_order_status_failed', 'wc_update_coupon_usage_counts' );
-add_action( 'woocommerce_trash_order', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_order_status_pending', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_order_status_completed', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_order_status_processing', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_order_status_on-hold', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_order_status_cancelled', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_order_status_failed', 'wc_update_coupon_usage_counts' );
+add_action( 'poocommerce_trash_order', 'wc_update_coupon_usage_counts' );
 
 /**
  * Cancel all unpaid orders after held duration to prevent stock lock for those products.
  */
 function wc_cancel_unpaid_orders() {
-	$held_duration = get_option( 'woocommerce_hold_stock_minutes' );
+	$held_duration = get_option( 'poocommerce_hold_stock_minutes' );
 
 	// Re-schedule the event before cancelling orders
 	// this way in case of a DB timeout or (plugin) crash the event is always scheduled for retry.
-	wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
-	$cancel_unpaid_interval = apply_filters( 'woocommerce_cancel_unpaid_orders_interval_minutes', absint( $held_duration ) );
-	wp_schedule_single_event( time() + ( absint( $cancel_unpaid_interval ) * 60 ), 'woocommerce_cancel_unpaid_orders' );
+	wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
+	$cancel_unpaid_interval = apply_filters( 'poocommerce_cancel_unpaid_orders_interval_minutes', absint( $held_duration ) );
+	wp_schedule_single_event( time() + ( absint( $cancel_unpaid_interval ) * 60 ), 'poocommerce_cancel_unpaid_orders' );
 
-	if ( $held_duration < 1 || 'yes' !== get_option( 'woocommerce_manage_stock' ) ) {
+	if ( $held_duration < 1 || 'yes' !== get_option( 'poocommerce_manage_stock' ) ) {
 		return;
 	}
 
@@ -1085,13 +1085,13 @@ function wc_cancel_unpaid_orders() {
 		foreach ( $unpaid_orders as $unpaid_order ) {
 			$order = wc_get_order( $unpaid_order );
 
-			if ( apply_filters( 'woocommerce_cancel_unpaid_order', 'checkout' === $order->get_created_via(), $order ) ) {
-				$order->update_status( OrderStatus::CANCELLED, __( 'Unpaid order cancelled - time limit reached.', 'woocommerce' ) );
+			if ( apply_filters( 'poocommerce_cancel_unpaid_order', 'checkout' === $order->get_created_via(), $order ) ) {
+				$order->update_status( OrderStatus::CANCELLED, __( 'Unpaid order cancelled - time limit reached.', 'poocommerce' ) );
 			}
 		}
 	}
 }
-add_action( 'woocommerce_cancel_unpaid_orders', 'wc_cancel_unpaid_orders' );
+add_action( 'poocommerce_cancel_unpaid_orders', 'wc_cancel_unpaid_orders' );
 
 /**
  * Sanitize order id removing unwanted characters.
@@ -1105,7 +1105,7 @@ add_action( 'woocommerce_cancel_unpaid_orders', 'wc_cancel_unpaid_orders' );
 function wc_sanitize_order_id( $order_id ) {
 	return (int) filter_var( $order_id, FILTER_SANITIZE_NUMBER_INT );
 }
-add_filter( 'woocommerce_shortcode_order_tracking_order_id', 'wc_sanitize_order_id' );
+add_filter( 'poocommerce_shortcode_order_tracking_order_id', 'wc_sanitize_order_id' );
 
 /**
  * Get an order note.
@@ -1124,13 +1124,13 @@ function wc_get_order_note( $data ) {
 	}
 
 	return (object) apply_filters(
-		'woocommerce_get_order_note',
+		'poocommerce_get_order_note',
 		array(
 			'id'            => (int) $data->comment_ID,
 			'date_created'  => wc_string_to_datetime( $data->comment_date ),
 			'content'       => $data->comment_content,
 			'customer_note' => (bool) get_comment_meta( $data->comment_ID, 'is_customer_note', true ),
-			'added_by'      => __( 'WooCommerce', 'woocommerce' ) === $data->comment_author ? 'system' : $data->comment_author,
+			'added_by'      => __( 'PooCommerce', 'poocommerce' ) === $data->comment_author ? 'system' : $data->comment_author,
 			'order_id'      => absint( $data->comment_post_ID ),
 		),
 		$data
@@ -1188,7 +1188,7 @@ function wc_get_order_notes( $args ) {
 
 	$args['orderby'] = ! empty( $args['orderby'] ) && in_array( $args['orderby'], array( 'date_created', 'date_created_gmt', 'id' ), true ) ? $orderby_mapping[ $args['orderby'] ] : 'comment_ID';
 
-	// Set WooCommerce order type.
+	// Set PooCommerce order type.
 	if ( isset( $args['type'] ) && 'customer' === $args['type'] ) {
 		$args['meta_query'] = array( // WPCS: slow query ok.
 			array(
@@ -1238,7 +1238,7 @@ function wc_create_order_note( $order_id, $note, $is_customer_note = false, $add
 	$order = wc_get_order( $order_id );
 
 	if ( ! $order ) {
-		return new WP_Error( 'invalid_order_id', __( 'Invalid order ID.', 'woocommerce' ), array( 'status' => 400 ) );
+		return new WP_Error( 'invalid_order_id', __( 'Invalid order ID.', 'poocommerce' ), array( 'status' => 400 ) );
 	}
 
 	return $order->add_order_note( $note, (int) $is_customer_note, $added_by_user );
@@ -1262,7 +1262,7 @@ function wc_delete_order_note( $note_id ) {
 		 *
 		 * @since 9.1.0
 		 */
-		do_action( 'woocommerce_order_note_deleted', $note_id, $note );
+		do_action( 'poocommerce_order_note_deleted', $note_id, $note );
 
 		return true;
 	}

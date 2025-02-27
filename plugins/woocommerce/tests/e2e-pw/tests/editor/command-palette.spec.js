@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { disableWelcomeModal } from '@woocommerce/e2e-utils-playwright';
+import { disableWelcomeModal } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -121,7 +121,7 @@ test( 'can use the product search command', async ( { page, product } ) => {
 test( 'can use a settings command', async ( { page } ) => {
 	await clickOnCommandPaletteOption( {
 		page,
-		optionName: 'WooCommerce Settings: Products',
+		optionName: 'PooCommerce Settings: Products',
 	} );
 
 	// Verify that the page has loaded.
@@ -131,7 +131,7 @@ test( 'can use a settings command', async ( { page } ) => {
 test( 'can use an analytics command', async ( { page } ) => {
 	await clickOnCommandPaletteOption( {
 		page,
-		optionName: 'WooCommerce Analytics: Products',
+		optionName: 'PooCommerce Analytics: Products',
 	} );
 
 	// Verify that the page has loaded.

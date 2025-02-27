@@ -21,7 +21,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'no'
 				);
 			} catch ( error ) {
@@ -37,14 +37,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 			} catch ( error ) {
@@ -68,14 +68,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'yes'
 				);
 			} catch ( error ) {
@@ -96,21 +96,21 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_private_link',
+					'poocommerce_private_link',
 					'no'
 				);
 			} catch ( error ) {
@@ -192,14 +192,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'yes'
 				);
 			} catch ( error ) {
@@ -224,14 +224,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'yes'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 			} catch ( error ) {
@@ -253,14 +253,14 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_coming_soon',
+					'poocommerce_coming_soon',
 					'no'
 				);
 
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_store_pages_only',
+					'poocommerce_store_pages_only',
 					'no'
 				);
 			} catch ( error ) {
@@ -290,13 +290,13 @@ async function runComingSoonTests( themeContext = '' ) {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_coming_soon',
+				'poocommerce_coming_soon',
 				'yes'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_store_pages_only',
+				'poocommerce_store_pages_only',
 				'no'
 			);
 		} catch ( error ) {
@@ -306,7 +306,7 @@ async function runComingSoonTests( themeContext = '' ) {
 		await page.goto( './' );
 
 		await page
-			.locator( '.woocommerce-coming-soon-banner' )
+			.locator( '.poocommerce-coming-soon-banner' )
 			.waitFor( { state: 'visible' } );
 
 		await expect(
@@ -324,13 +324,13 @@ async function runComingSoonTests( themeContext = '' ) {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_coming_soon',
+				'poocommerce_coming_soon',
 				'yes'
 			);
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_store_pages_only',
+				'poocommerce_store_pages_only',
 				'yes'
 			);
 		} catch ( error ) {
@@ -355,7 +355,7 @@ test.describe( 'Launch Your Store front end - logged out', () => {
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_coming_soon',
+				'poocommerce_coming_soon',
 				'no'
 			);
 		} catch ( error ) {

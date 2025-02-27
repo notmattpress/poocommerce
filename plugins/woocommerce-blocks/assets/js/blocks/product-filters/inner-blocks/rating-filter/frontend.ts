@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getContext, store, getElement } from '@woocommerce/interactivity';
+import { getContext, store, getElement } from '@poocommerce/interactivity';
 
 /**
  * Internal dependencies
@@ -13,11 +13,11 @@ type ProductFilterRatingContext = {
 	activeLabelTemplate: string;
 };
 
-const { state, actions } = store( 'woocommerce/product-filter-rating', {
+const { state, actions } = store( 'poocommerce/product-filter-rating', {
 	state: {
 		get selectedFilters() {
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			return ( productFiltersStore.state.activeFilters || [] )
@@ -54,7 +54,7 @@ const { state, actions } = store( 'woocommerce/product-filter-rating', {
 			if ( ! value || ! ariaLabel ) return;
 
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			if ( state.selectedFilters.includes( value ) ) {
@@ -74,7 +74,7 @@ const { state, actions } = store( 'woocommerce/product-filter-rating', {
 		},
 		clearFilters: () => {
 			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
+				'poocommerce/product-filters'
 			);
 
 			productFiltersStore.actions.removeActiveFiltersByType( 'rating' );

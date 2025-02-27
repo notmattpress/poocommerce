@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/classic-shortcode",
+	"name": "poocommerce/classic-shortcode",
 	"version": "1.0.0",
 	"title": "Classic Shortcode",
-	"description": "Renders classic WooCommerce shortcodes.",
-	"category": "woocommerce",
+	"description": "Renders classic PooCommerce shortcodes.",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"align": true,
@@ -28,7 +28,7 @@
 			"default": "wide"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

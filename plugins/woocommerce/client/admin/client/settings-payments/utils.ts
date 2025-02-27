@@ -5,8 +5,8 @@ import {
 	PaymentProvider,
 	PaymentIncentive,
 	RecommendedPaymentMethod,
-} from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+} from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -72,7 +72,7 @@ export const parseScriptTag = ( elementId: string ) => {
 };
 
 export const isWooPayments = ( id: string ) => {
-	return [ '_wc_pes_woopayments', 'woocommerce_payments' ].includes( id );
+	return [ '_wc_pes_woopayments', 'poocommerce_payments' ].includes( id );
 };
 
 /**

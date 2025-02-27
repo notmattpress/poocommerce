@@ -1,11 +1,11 @@
 <?php
 /**
  * Title: Testimonials Single
- * Slug: woocommerce-blocks/testimonials-single
- * Categories: WooCommerce, Reviews
+ * Slug: poocommerce-blocks/testimonials-single
+ * Categories: PooCommerce, Reviews
  */
 
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
 
 $testimonials_title = $content['titles'][0]['default'] ?? '';
 $description        = $content['descriptions'][0]['default'] ?? '';
@@ -16,13 +16,13 @@ $description        = $content['descriptions'][0]['default'] ?? '';
 	<div style="height:calc( 0.25 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))" aria-hidden="true" class="wp-block-spacer"></div>
 	<!-- /wp:spacer -->
 
-	<!-- wp:columns {"metadata":{"categories":["woo-commerce"],"patternName":"woocommerce-blocks/testimonials-single"},"align":"wide","style":{"spacing":{"blockGap":{"top":"0","left":"var:preset|spacing|40"}}}} -->
+	<!-- wp:columns {"metadata":{"categories":["woo-commerce"],"patternName":"poocommerce-blocks/testimonials-single"},"align":"wide","style":{"spacing":{"blockGap":{"top":"0","left":"var:preset|spacing|40"}}}} -->
 	<div class="wp-block-columns alignwide">
 		<!-- wp:column {"verticalAlignment":"center","width":"160px"} -->
 		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:160px">
 			<!-- wp:image {"width":"164px","className":"is-style-rounded"} -->
 			<figure class="wp-block-image is-resized is-style-rounded">
-				<img src="<?php echo esc_url( PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/portrait.png' ) ); ?>" alt="<?php esc_attr_e( 'Placeholder image with the avatar of the user who is writing the testimonial.', 'woocommerce' ); ?>" style="width:164px"/>
+				<img src="<?php echo esc_url( PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/portrait.png' ) ); ?>" alt="<?php esc_attr_e( 'Placeholder image with the avatar of the user who is writing the testimonial.', 'poocommerce' ); ?>" style="width:164px"/>
 			</figure>
 			<!-- /wp:image -->
 		</div>

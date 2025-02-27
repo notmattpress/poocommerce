@@ -4,10 +4,10 @@
 import { __, _n } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import { map } from 'lodash';
-import { Link } from '@woocommerce/components';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { formatValue } from '@woocommerce/number';
-import { CurrencyContext } from '@woocommerce/currency';
+import { Link } from '@poocommerce/components';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { formatValue } from '@poocommerce/number';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -26,35 +26,35 @@ class TaxesReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Tax code', 'woocommerce' ),
+				label: __( 'Tax code', 'poocommerce' ),
 				key: 'tax_code',
 				required: true,
 				isLeftAligned: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'Rate', 'woocommerce' ),
+				label: __( 'Rate', 'poocommerce' ),
 				key: 'rate',
 				isSortable: true,
 				isNumeric: true,
 			},
 			{
-				label: __( 'Total tax', 'woocommerce' ),
+				label: __( 'Total tax', 'poocommerce' ),
 				key: 'total_tax',
 				isSortable: true,
 			},
 			{
-				label: __( 'Order tax', 'woocommerce' ),
+				label: __( 'Order tax', 'poocommerce' ),
 				key: 'order_tax',
 				isSortable: true,
 			},
 			{
-				label: __( 'Shipping tax', 'woocommerce' ),
+				label: __( 'Shipping tax', 'poocommerce' ),
 				key: 'shipping_tax',
 				isSortable: true,
 			},
 			{
-				label: __( 'Orders', 'woocommerce' ),
+				label: __( 'Orders', 'poocommerce' ),
 				key: 'orders_count',
 				required: true,
 				defaultSort: true,
@@ -143,7 +143,7 @@ class TaxesReportTable extends Component {
 		const currency = getCurrencyConfig();
 		return [
 			{
-				label: _n( 'tax', 'taxes', totalResults, 'woocommerce' ),
+				label: _n( 'tax', 'taxes', totalResults, 'poocommerce' ),
 				value: formatValue( currency, 'number', totalResults ),
 			},
 			{
@@ -151,24 +151,24 @@ class TaxesReportTable extends Component {
 					'distinct code',
 					'distinct codes',
 					taxesCodes,
-					'woocommerce'
+					'poocommerce'
 				),
 				value: formatValue( currency, 'number', taxesCodes ),
 			},
 			{
-				label: __( 'total tax', 'woocommerce' ),
+				label: __( 'total tax', 'poocommerce' ),
 				value: formatAmount( totalTax ),
 			},
 			{
-				label: __( 'order tax', 'woocommerce' ),
+				label: __( 'order tax', 'poocommerce' ),
 				value: formatAmount( orderTax ),
 			},
 			{
-				label: __( 'shipping tax', 'woocommerce' ),
+				label: __( 'shipping tax', 'poocommerce' ),
 				value: formatAmount( shippingTax ),
 			},
 			{
-				label: _n( 'order', 'orders', ordersCount, 'woocommerce' ),
+				label: _n( 'order', 'orders', ordersCount, 'poocommerce' ),
 				value: formatValue( currency, 'number', ordersCount ),
 			},
 		];
@@ -198,7 +198,7 @@ class TaxesReportTable extends Component {
 				tableQuery={ {
 					orderby: query.orderby || 'tax_rate_id',
 				} }
-				title={ __( 'Taxes', 'woocommerce' ) }
+				title={ __( 'Taxes', 'poocommerce' ) }
 				columnPrefsKey="taxes_report_columns"
 				filters={ filters }
 				advancedFilters={ advancedFilters }

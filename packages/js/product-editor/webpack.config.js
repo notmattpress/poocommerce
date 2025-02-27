@@ -13,7 +13,7 @@ const {
 	webpackConfig,
 	plugin,
 	StyleAssetPlugin,
-} = require( '@woocommerce/internal-style-build' );
+} = require( '@poocommerce/internal-style-build' );
 const {
 	blockEntryPoints,
 	getBlockMetaData,

@@ -23,7 +23,7 @@ export const CategorySuggestionFeedback = () => {
 		<div className="category-suggestions-feedback">
 			{ ! hide && (
 				<div className="notice notice-info">
-					<span>{ __( 'How did we do?', 'woocommerce' ) }</span>
+					<span>{ __( 'How did we do?', 'poocommerce' ) }</span>
 					<span className="button-group">
 						<button
 							type="button"

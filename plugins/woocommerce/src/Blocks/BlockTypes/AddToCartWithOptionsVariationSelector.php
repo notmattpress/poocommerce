@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Block type for variation selector in add to cart with options.
@@ -56,7 +56,7 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 			esc_attr( sanitize_title( $attribute_name ) )
 		);
 
-		$html .= '<option value="">' . esc_html__( 'Choose an option', 'woocommerce' ) . '</option>';
+		$html .= '<option value="">' . esc_html__( 'Choose an option', 'poocommerce' ) . '</option>';
 		$html .= $this->get_variation_options_html( $product, $attribute_name, $options, $selected, taxonomy_exists( $attribute_name ) );
 		$html .= '</select>';
 
@@ -114,7 +114,7 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 				 * @param WC_Product $product         Product object.
 				 */
 				$filtered_label = apply_filters(
-					'woocommerce_variation_option_name',
+					'poocommerce_variation_option_name',
 					$option_label,
 					$is_taxonomy ? $item : null,
 					$attribute_name,
@@ -171,7 +171,7 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 		 * @param int        $threshold Maximum number of variations to load upfront.
 		 * @param WC_Product $product   Product object.
 		 */
-		$get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+		$get_variations = count( $product->get_children() ) <= apply_filters( 'poocommerce_ajax_variation_threshold', 30, $product );
 		return $get_variations ? $product->get_available_variations() : false;
 	}
 
@@ -224,7 +224,7 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 		 *
 		 * @since 9.7.0
 		 */
-		do_action( 'woocommerce_before_variations_table' );
+		do_action( 'poocommerce_before_variations_table' );
 		$before_table = ob_get_clean();
 
 		$table = '<table class="variations" cellspacing="0" role="presentation"><tbody>';
@@ -242,7 +242,7 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 		 *
 		 * @since 9.7.0
 		 */
-		do_action( 'woocommerce_after_variations_table' );
+		do_action( 'poocommerce_after_variations_table' );
 		$after_table = ob_get_clean();
 
 		return $before_table . $table . $after_table;
@@ -288,11 +288,11 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 				 * @since 9.7.0
 				 */
 				apply_filters(
-					'woocommerce_reset_variations_link',
+					'poocommerce_reset_variations_link',
 					sprintf(
 						'<button class="reset_variations" aria-label="%1$s">%2$s</button>',
-						esc_html__( 'Clear options', 'woocommerce' ),
-						esc_html__( 'Clear', 'woocommerce' )
+						esc_html__( 'Clear options', 'poocommerce' ),
+						esc_html__( 'Clear', 'poocommerce' )
 					)
 				)
 			)

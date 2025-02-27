@@ -6,7 +6,7 @@ const {
 	createSimpleProductWithCategory,
 	utils,
 	getEnvironmentContext,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -27,7 +27,7 @@ const singleProductPrice3 = config.has( 'products.simple.price' )
 const clothing = 'Clothing';
 const audio = 'Audio';
 const hardware = 'Hardware';
-const productTitle = 'li.first > a > h2.woocommerce-loop-product__title';
+const productTitle = 'li.first > a > h2.poocommerce-loop-product__title';
 
 const getWordPressVersion = async () => {
 	const context = await getEnvironmentContext();

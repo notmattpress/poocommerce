@@ -4,7 +4,7 @@ if [ ! -z ${CI+y} ]; then
     # In CI we want to execute the setup behind single container call, while in dev-environments we use the script as it is.
     # Inside the container the command executed from /var/www/html path as pwd
     echo -e '--> Dispatching script execution into tests-cli\n'
-    wp-env run --debug tests-cli cp wp-content/plugins/woocommerce/tests/e2e-pw/bin/test-env-setup.sh test-env-setup-ci.sh
+    wp-env run --debug tests-cli cp wp-content/plugins/poocommerce/tests/e2e-pw/bin/test-env-setup.sh test-env-setup-ci.sh
     wp-env run --debug tests-cli sed -i -e 's/wp-env run tests-cli //' test-env-setup-ci.sh
     wp-env run --debug tests-cli bash test-env-setup-ci.sh
     exit $?
@@ -34,7 +34,7 @@ echo -e 'Install Plugin-check utility plugin \n'
 wp-env run tests-cli wp plugin install plugin-check --activate
 
 echo -e 'Add Customer user \n'
-wp-env run tests-cli wp user create customer customer@woocommercecoree2etestsuite.com \
+wp-env run tests-cli wp user create customer customer@poocommercecoree2etestsuite.com \
 	--user_pass=password \
 	--role=customer \
 	--first_name='Jane' \
@@ -42,16 +42,16 @@ wp-env run tests-cli wp user create customer customer@woocommercecoree2etestsuit
 	--user_registered='2022-01-01 12:23:45'
 
 echo -e 'Update Blog Name \n'
-wp-env run tests-cli wp option update blogname 'WooCommerce Core E2E Test Suite'
+wp-env run tests-cli wp option update blogname 'PooCommerce Core E2E Test Suite'
 
 echo -e 'Preparing Test Files \n'
-wp-env run tests-cli sudo cp /var/www/html/wp-content/plugins/woocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
+wp-env run tests-cli sudo cp /var/www/html/wp-content/plugins/poocommerce/tests/legacy/unit-tests/importer/sample.csv /var/www/sample.csv
 
 ENABLE_TRACKING="${ENABLE_TRACKING:-0}"
 
 if [ $ENABLE_TRACKING == 1 ]; then
 	echo -e 'Enable tracking\n'
-	wp-env run tests-cli wp option update woocommerce_allow_tracking 'yes'
+	wp-env run tests-cli wp option update poocommerce_allow_tracking 'yes'
 fi
 
 echo -e 'Upload test images \n'

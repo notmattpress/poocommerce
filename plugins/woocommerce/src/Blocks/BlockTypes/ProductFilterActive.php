@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Active Block.
@@ -37,7 +37,7 @@ final class ProductFilterActive extends AbstractBlock {
 			'data-wc-key'          => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wc-bind--hidden' => '!state.hasSelectedFilters',
 			/* translators:  {{label}} is the label of the active filter item. */
-			'data-wc-context'      => wp_json_encode( array( 'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'woocommerce' ) ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ),
+			'data-wc-context'      => wp_json_encode( array( 'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'poocommerce' ) ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ),
 		);
 
 		if ( empty( $active_filters ) ) {

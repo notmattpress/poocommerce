@@ -4,6 +4,6 @@ category_slug: theme-development
 post_title: Classic theme development
 ---
 
-Learn to design and integrate custom themes in WooCommerce, focusing on responsive design and ecommerce optimization.
+Learn to design and integrate custom themes in PooCommerce, focusing on responsive design and ecommerce optimization.
 
 For blocks themes, see our [block theme documentation](../block-theme-development/README.md).
