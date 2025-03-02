@@ -27,7 +27,7 @@ for ( const userData of users ) {
 	test( `can create a new ${ userData.role }`, async ( { page, user } ) => {
 		test.skip(
 			process.env.IS_MULTISITE,
-			'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55082'
+			'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55082'
 		);
 		await page.goto( `wp-admin/user-new.php` );
 

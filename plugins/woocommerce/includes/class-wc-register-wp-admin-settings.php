@@ -2,7 +2,7 @@
 /**
  * Take settings registered for WP-Admin and hooks them up to the REST API
  *
- * @package  WooCommerce\Classes
+ * @package  PooCommerce\Classes
  * @version  3.0.0
  * @since    3.0.0
  */
@@ -37,11 +37,11 @@ class WC_Register_WP_Admin_Settings {
 		$this->object = $object;
 
 		if ( 'page' === $type ) {
-			add_filter( 'woocommerce_settings_groups', array( $this, 'register_page_group' ) );
-			add_filter( 'woocommerce_settings-' . $this->object->get_id(), array( $this, 'register_page_settings' ) );
+			add_filter( 'poocommerce_settings_groups', array( $this, 'register_page_group' ) );
+			add_filter( 'poocommerce_settings-' . $this->object->get_id(), array( $this, 'register_page_settings' ) );
 		} elseif ( 'email' === $type ) {
-			add_filter( 'woocommerce_settings_groups', array( $this, 'register_email_group' ) );
-			add_filter( 'woocommerce_settings-email_' . $this->object->id, array( $this, 'register_email_settings' ) );
+			add_filter( 'poocommerce_settings_groups', array( $this, 'register_email_group' ) );
+			add_filter( 'poocommerce_settings-email_' . $this->object->id, array( $this, 'register_email_settings' ) );
 		}
 	}
 

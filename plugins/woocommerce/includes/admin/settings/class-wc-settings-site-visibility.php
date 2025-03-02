@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce site visibility settings
+ * PooCommerce site visibility settings
  *
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -24,7 +24,7 @@ class WC_Settings_Site_Visibility extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'site-visibility';
-		$this->label = __( 'Site visibility', 'woocommerce' );
+		$this->label = __( 'Site visibility', 'poocommerce' );
 
 		parent::__construct();
 	}

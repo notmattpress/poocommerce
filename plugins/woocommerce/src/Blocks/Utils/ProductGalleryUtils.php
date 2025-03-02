@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 /**
  * Utility methods used for the Product Gallery block.
@@ -169,11 +169,11 @@ class ProductGalleryUtils {
 	 * @return string
 	 */
 	public static function get_product_image_placeholder_html( $size, $attributes, $crop_images ) {
-		$placeholder_image_id = get_option( 'woocommerce_placeholder_image', 0 );
+		$placeholder_image_id = get_option( 'poocommerce_placeholder_image', 0 );
 
 		if ( ! $placeholder_image_id ) {
 
-			// Return default fallback WooCommerce placeholder image.
+			// Return default fallback PooCommerce placeholder image.
 			return wc_placeholder_img( array( '', '' ), $attributes );
 		}
 

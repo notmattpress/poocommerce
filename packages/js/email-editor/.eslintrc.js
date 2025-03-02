@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	overrides: [
 		{
 			files: [ '**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx' ],

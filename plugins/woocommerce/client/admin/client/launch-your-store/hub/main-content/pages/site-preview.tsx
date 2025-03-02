@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { useState, useRef, useEffect } from '@wordpress/element';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 import { useResizeObserver } from '@wordpress/compose';
 import {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -3,7 +3,7 @@
  * Gets the processor for the specified rule type.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -59,7 +59,7 @@ class GetRuleProcessor {
 			case 'option':
 				return new OptionRuleProcessor();
 			case 'wca_updated':
-				return new WooCommerceAdminUpdatedRuleProcessor();
+				return new PooCommerceAdminUpdatedRuleProcessor();
 			case 'total_payments_value':
 				return new TotalPaymentsVolumeProcessor();
 		}

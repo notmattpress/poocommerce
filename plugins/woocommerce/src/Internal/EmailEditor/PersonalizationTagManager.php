@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
 use MailPoet\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
 use MailPoet\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
@@ -10,7 +10,7 @@ use MailPoet\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registr
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Manages personalization tags for WooCommerce emails.
+ * Manages personalization tags for PooCommerce emails.
  *
  * @internal
  */
@@ -27,7 +27,7 @@ class PersonalizationTagManager {
 	}
 
 	/**
-	 * Register WooCommerce personalization tags with the registry.
+	 * Register PooCommerce personalization tags with the registry.
 	 *
 	 * @param Personalization_Tags_Registry $registry The personalization tags registry.
 	 * @return Personalization_Tags_Registry
@@ -35,9 +35,9 @@ class PersonalizationTagManager {
 	public function register_personalization_tags( Personalization_Tags_Registry $registry ) {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Shopper Email', 'woocommerce' ),
-				'woocommerce/shopper-email',
-				__( 'Shopper', 'woocommerce' ),
+				__( 'Shopper Email', 'poocommerce' ),
+				'poocommerce/shopper-email',
+				__( 'Shopper', 'poocommerce' ),
 				function ( array $context ): string {
 					return $context['recipient_email'] ?? '';
 				},
@@ -47,9 +47,9 @@ class PersonalizationTagManager {
 		// Site Personalization Tags.
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Site Title', 'woocommerce' ),
-				'woocommerce/site-title',
-				__( 'Site', 'woocommerce' ),
+				__( 'Site Title', 'poocommerce' ),
+				'poocommerce/site-title',
+				__( 'Site', 'poocommerce' ),
 				function (): string {
 					return htmlspecialchars_decode( get_bloginfo( 'name' ) );
 				},
@@ -57,9 +57,9 @@ class PersonalizationTagManager {
 		);
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Homepage URL', 'woocommerce' ),
-				'woocommerce/site-homepage-url',
-				__( 'Site', 'woocommerce' ),
+				__( 'Homepage URL', 'poocommerce' ),
+				'poocommerce/site-homepage-url',
+				__( 'Site', 'poocommerce' ),
 				function (): string {
 					return get_bloginfo( 'url' );
 				},

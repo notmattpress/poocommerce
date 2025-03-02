@@ -59,7 +59,7 @@ const generateNoticeId = () => {
 };
 
 const { state } = store< StoreNoticesStore >(
-	'woocommerce/product-collection-notices',
+	'poocommerce/product-collection-notices',
 	{
 		state: {
 			get role() {

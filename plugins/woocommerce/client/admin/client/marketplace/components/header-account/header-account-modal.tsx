@@ -26,37 +26,37 @@ export default function HeaderAccountModal(
 		<Modal
 			title={ __(
 				'Are you sure you want to disconnect?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ closeModal }
 			focusOnMount={ true }
-			className="woocommerce-marketplace__header-account-modal"
+			className="poocommerce-marketplace__header-account-modal"
 			style={ { borderRadius: 4 } }
-			overlayClassName="woocommerce-marketplace__header-account-modal-overlay"
+			overlayClassName="poocommerce-marketplace__header-account-modal-overlay"
 		>
-			<p className="woocommerce-marketplace__header-account-modal-text">
+			<p className="poocommerce-marketplace__header-account-modal-text">
 				{ __(
-					'Keep your store connected to WooCommerce.com to get updates, manage your subscriptions, and receive streamlined support for your extensions and themes.',
-					'woocommerce'
+					'Keep your store connected to PooCommerce.com to get updates, manage your subscriptions, and receive streamlined support for your extensions and themes.',
+					'poocommerce'
 				) }
 			</p>
-			<ButtonGroup className="woocommerce-marketplace__header-account-modal-button-group">
+			<ButtonGroup className="poocommerce-marketplace__header-account-modal-button-group">
 				<Button
 					variant="tertiary"
 					href={ disconnectURL }
 					onClick={ toggleIsBusy }
 					isBusy={ isBusy }
 					isDestructive={ true }
-					className="woocommerce-marketplace__header-account-modal-button"
+					className="poocommerce-marketplace__header-account-modal-button"
 				>
-					{ __( 'Disconnect', 'woocommerce' ) }
+					{ __( 'Disconnect', 'poocommerce' ) }
 				</Button>
 				<Button
 					variant="primary"
 					onClick={ closeModal }
-					className="woocommerce-marketplace__header-account-modal-button"
+					className="poocommerce-marketplace__header-account-modal-button"
 				>
-					{ __( 'Keep connected', 'woocommerce' ) }
+					{ __( 'Keep connected', 'poocommerce' ) }
 				</Button>
 			</ButtonGroup>
 		</Modal>

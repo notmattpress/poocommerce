@@ -10,7 +10,7 @@ function resolvePath( path ) {
 /**
  * Updates the value of a setting at the specified path.
  *
- * @param {string} path         - The API path of the setting to update. E.g. 'settings/general/woocommerce_calc_taxes'.
+ * @param {string} path         - The API path of the setting to update. E.g. 'settings/general/poocommerce_calc_taxes'.
  * @param {string} desiredValue - The new value to set for the setting. E.g. 'yes'.
  * @return {Promise<void>} A promise that resolves when the update is complete.
  */
@@ -21,7 +21,7 @@ export async function updateValue( path, desiredValue ) {
 /**
  * Updates the value of a setting if it is different from the desired value.
  *
- * @param {string} path         - The API path of the setting to check and update. E.g. 'settings/general/woocommerce_calc_taxes'.
+ * @param {string} path         - The API path of the setting to check and update. E.g. 'settings/general/poocommerce_calc_taxes'.
  * @param {string} desiredValue - The desired value to set for the setting. E.g. 'yes'.
  * @return {Promise<{initial: string, updated: string}>} A promise that resolves to an object containing the initial and updated values.
  */
@@ -38,7 +38,7 @@ export async function updateIfNeeded( path, desiredValue ) {
 /**
  * Resets the value of a setting to its initial value if it was changed.
  *
- * @param {string}                             path   - The API path of the setting to reset. E.g. 'settings/general/woocommerce_calc_taxes'.
+ * @param {string}                             path   - The API path of the setting to reset. E.g. 'settings/general/poocommerce_calc_taxes'.
  * @param {{initial: string, updated: string}} values - An object containing the initial and updated values of the setting. E.g. { initial: 'no', updated: 'yes' }.
  * @return {Promise<void>} A promise that resolves when the reset is complete.
  */

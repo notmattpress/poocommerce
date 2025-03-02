@@ -7,7 +7,7 @@ const {
 	withRestApi,
 	createSimpleProduct,
 	uiUnblocked,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -51,21 +51,21 @@ const runCheckoutPageTest = () => {
 			// Set base location with state CA.
 			await withRestApi.updateSettingOption(
 				'general',
-				'woocommerce_default_country',
+				'poocommerce_default_country',
 				{ value: 'US:CA' }
 			);
 
 			// Sell to all countries
 			await withRestApi.updateSettingOption(
 				'general',
-				'woocommerce_allowed_countries',
+				'poocommerce_allowed_countries',
 				{ value: 'all' }
 			);
 
 			// Set currency to USD
 			await withRestApi.updateSettingOption(
 				'general',
-				'woocommerce_currency',
+				'poocommerce_currency',
 				{ value: 'USD' }
 			);
 			// Tax calculation should have been enabled by another test - no-op
@@ -188,7 +188,7 @@ const runCheckoutPageTest = () => {
 
 			// Get order ID from the order received html element on the page
 			const orderReceivedHtmlElement = await page.$(
-				'.woocommerce-order-overview__order.order'
+				'.poocommerce-order-overview__order.order'
 			);
 			const orderReceivedText = await page.evaluate(
 				( element ) => element.textContent,
@@ -227,7 +227,7 @@ const runCheckoutPageTest = () => {
 
 			// Get order ID from the order received html element on the page
 			const orderReceivedHtmlElement = await page.$(
-				'.woocommerce-order-overview__order.order'
+				'.poocommerce-order-overview__order.order'
 			);
 			const orderReceivedText = await page.evaluate(
 				( element ) => element.textContent,

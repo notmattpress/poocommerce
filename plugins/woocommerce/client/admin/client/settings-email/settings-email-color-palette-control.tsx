@@ -77,15 +77,15 @@ export const ResetStylesControl: React.FC< ResetStylesControlProps > = ( {
 			{ ! isResetShown && (
 				<span className="wc-settings-email-color-palette-message">
 					{ hasThemeJson
-						? __( 'Synced with theme.', 'woocommerce' )
-						: __( 'Using default values.', 'woocommerce' ) }
+						? __( 'Synced with theme.', 'poocommerce' )
+						: __( 'Using default values.', 'poocommerce' ) }
 				</span>
 			) }
 			{ hasThemeJson && ! isResetShown && (
 				<ToggleControl
 					label={ __(
 						'Auto-sync with theme changes',
-						'woocommerce'
+						'poocommerce'
 					) }
 					checked={ isAutoSyncEnabled }
 					onChange={ handleAutoSyncToggle }
@@ -95,13 +95,13 @@ export const ResetStylesControl: React.FC< ResetStylesControlProps > = ( {
 			{ isResetShown && (
 				<Button variant="secondary" onClick={ handleReset }>
 					{ hasThemeJson
-						? __( 'Sync with theme', 'woocommerce' )
-						: __( 'Reset', 'woocommerce' ) }
+						? __( 'Sync with theme', 'poocommerce' )
+						: __( 'Reset', 'poocommerce' ) }
 				</Button>
 			) }
 			{ changed && (
 				<Button variant="tertiary" onClick={ handleUndo }>
-					{ __( 'Undo changes', 'woocommerce' ) }
+					{ __( 'Undo changes', 'poocommerce' ) }
 				</Button>
 			) }
 		</>

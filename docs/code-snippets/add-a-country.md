@@ -21,7 +21,7 @@ if ( ! function_exists( 'YOUR_PREFIX_add_country_to_countries_list' ) ) {
 
     return array_merge( $countries, $new_countries );
   }
-  add_filter( 'woocommerce_countries',  'YOUR_PREFIX_add_country_to_countries_list' );
+  add_filter( 'poocommerce_countries',  'YOUR_PREFIX_add_country_to_countries_list' );
 }
 
 if ( ! function_exists( 'YOUR_PREFIX_add_country_to_continents_list' ) ) {
@@ -36,6 +36,6 @@ if ( ! function_exists( 'YOUR_PREFIX_add_country_to_continents_list' ) ) {
 
     return $continents;
   }
-  add_filter( 'woocommerce_continents', 'YOUR_PREFIX_add_country_to_continents_list' );
+  add_filter( 'poocommerce_continents', 'YOUR_PREFIX_add_country_to_continents_list' );
 }
 ```

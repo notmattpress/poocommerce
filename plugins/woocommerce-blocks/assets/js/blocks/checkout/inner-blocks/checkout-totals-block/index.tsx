@@ -10,7 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import './style.scss';
 
-registerBlockType( 'woocommerce/checkout-totals-block', {
+registerBlockType( 'poocommerce/checkout-totals-block', {
 	icon: {
 		src: (
 			<Icon

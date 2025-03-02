@@ -1,19 +1,19 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestions;
 
 /**
  * Class WCPayWelcomePage
  *
- * @package Automattic\WooCommerce\Admin\Features
+ * @package Automattic\PooCommerce\Admin\Features
  */
 class WcPayWelcomePage {
 	/**
@@ -58,9 +58,9 @@ class WcPayWelcomePage {
 	 */
 	public function register() {
 		// Because we gate the hooking based on a feature flag,
-		// we need to delay the registration until the 'woocommerce_init' hook.
+		// we need to delay the registration until the 'poocommerce_init' hook.
 		// Otherwise, we end up in an infinite loop.
-		add_action( 'woocommerce_init', array( $this, 'delayed_register' ) );
+		add_action( 'poocommerce_init', array( $this, 'delayed_register' ) );
 	}
 
 	/**
@@ -73,10 +73,10 @@ class WcPayWelcomePage {
 		}
 
 		add_action( 'admin_menu', array( $this, 'register_menu_and_page' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'shared_settings' ) );
-		add_filter( 'woocommerce_admin_allowed_promo_notes', array( $this, 'allowed_promo_notes' ) );
-		add_filter( 'woocommerce_admin_woopayments_onboarding_task_badge', array( $this, 'onboarding_task_badge' ) );
-		add_filter( 'woocommerce_admin_woopayments_onboarding_task_additional_data', array( $this, 'onboarding_task_additional_data' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'shared_settings' ) );
+		add_filter( 'poocommerce_admin_allowed_promo_notes', array( $this, 'allowed_promo_notes' ) );
+		add_filter( 'poocommerce_admin_woopayments_onboarding_task_badge', array( $this, 'onboarding_task_badge' ) );
+		add_filter( 'poocommerce_admin_woopayments_onboarding_task_additional_data', array( $this, 'onboarding_task_additional_data' ) );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class WcPayWelcomePage {
 			return;
 		}
 
-		$menu_title = esc_html__( 'Payments', 'woocommerce' );
+		$menu_title = esc_html__( 'Payments', 'poocommerce' );
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NTIiIGhlaWdodD0iNjg0Ij48cGF0aCBmaWxsPSIjYTJhYWIyIiBkPSJNODIgODZ2NTEyaDY4NFY4NlptMCA1OThjLTQ4IDAtODQtMzgtODQtODZWODZDLTIgMzggMzQgMCA4MiAwaDY4NGM0OCAwIDg0IDM4IDg0IDg2djUxMmMwIDQ4LTM2IDg2LTg0IDg2em0zODQtNTU2djQ0aDg2djg0SDM4MnY0NGgxMjhjMjQgMCA0MiAxOCA0MiA0MnYxMjhjMCAyNC0xOCA0Mi00MiA0MmgtNDR2NDRoLTg0di00NGgtODZ2LTg0aDE3MHYtNDRIMzM4Yy0yNCAwLTQyLTE4LTQyLTQyVjIxNGMwLTI0IDE4LTQyIDQyLTQyaDQ0di00NHoiLz48L3N2Zz4=';
 
 		// If we have an incentive to show, we register the WooPayments welcome/incentives page.
@@ -100,7 +100,7 @@ class WcPayWelcomePage {
 			$page_options = array(
 				'id'         => $page_id,
 				'title'      => $menu_title,
-				'capability' => 'manage_woocommerce',
+				'capability' => 'manage_poocommerce',
 				'path'       => '/wc-pay-welcome-page',
 				'position'   => '56',
 				'icon'       => $menu_icon,
@@ -111,15 +111,15 @@ class WcPayWelcomePage {
 			$menu_path = PageController::get_instance()->get_path_from_id( $page_id );
 
 			// Registering a top level menu via wc_admin_register_page doesn't work when the new
-			// nav is enabled. The new nav disabled everything, except the 'WooCommerce' menu.
+			// nav is enabled. The new nav disabled everything, except the 'PooCommerce' menu.
 			// We need to register this menu via add_menu_page so that it doesn't become a child of
-			// WooCommerce menu.
-			if ( get_option( 'woocommerce_navigation_enabled', 'no' ) === 'yes' ) {
+			// PooCommerce menu.
+			if ( get_option( 'poocommerce_navigation_enabled', 'no' ) === 'yes' ) {
 				$menu_path          = 'admin.php?page=wc-admin&path=/wc-pay-welcome-page';
 				$menu_with_nav_data = array(
 					$menu_title,
 					$menu_title,
-					'manage_woocommerce',
+					'manage_poocommerce',
 					$menu_path,
 					null,
 					$menu_icon,
@@ -156,7 +156,7 @@ class WcPayWelcomePage {
 			add_menu_page(
 				$menu_title,
 				$menu_title,
-				'manage_woocommerce',
+				'manage_poocommerce',
 				$menu_path,
 				null,
 				$menu_icon,
@@ -262,7 +262,7 @@ class WcPayWelcomePage {
 		}
 
 		// Suggestions not disabled via a setting.
-		if ( get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) === 'no' ) {
+		if ( get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) === 'no' ) {
 			return false;
 		}
 
@@ -273,7 +273,7 @@ class WcPayWelcomePage {
 		 *
 		 * @since 3.6.0
 		 */
-		if ( ! apply_filters( 'woocommerce_allow_marketplace_suggestions', true ) ) {
+		if ( ! apply_filters( 'poocommerce_allow_marketplace_suggestions', true ) ) {
 			return false;
 		}
 
@@ -349,9 +349,9 @@ class WcPayWelcomePage {
 	/**
 	 * Get the slug of the active payments task.
 	 *
-	 * It can be either 'woocommerce-payments' or 'payments'.
+	 * It can be either 'poocommerce-payments' or 'payments'.
 	 *
-	 * @return string Either 'woocommerce-payments' or 'payments'. Empty string if no task is found.
+	 * @return string Either 'poocommerce-payments' or 'payments'. Empty string if no task is found.
 	 */
 	private function get_active_payments_task_slug(): string {
 		$setup_task_list    = TaskLists::get_list( 'setup' );
@@ -384,9 +384,9 @@ class WcPayWelcomePage {
 
 		// The WooPayments task in the setup task list.
 		if ( ! empty( $setup_task_list ) && $setup_task_list->is_visible() ) {
-			$payments_task = $setup_task_list->get_task( 'woocommerce-payments' );
+			$payments_task = $setup_task_list->get_task( 'poocommerce-payments' );
 			if ( ! empty( $payments_task ) && $payments_task->can_view() ) {
-				return 'woocommerce-payments';
+				return 'poocommerce-payments';
 			}
 		}
 
@@ -394,7 +394,7 @@ class WcPayWelcomePage {
 	}
 
 	/**
-	 * Get the WooCommerce setup task list Payments task instance.
+	 * Get the PooCommerce setup task list Payments task instance.
 	 *
 	 * @return Task|null The Payments task instance. null if the task is not found.
 	 */
@@ -413,7 +413,7 @@ class WcPayWelcomePage {
 	}
 
 	/**
-	 * Determine if the WooCommerce setup task list Payments task is complete.
+	 * Determine if the PooCommerce setup task list Payments task is complete.
 	 *
 	 * @return bool True if the Payments task is complete, false otherwise.
 	 */

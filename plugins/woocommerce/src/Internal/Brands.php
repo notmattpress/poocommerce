@@ -5,7 +5,7 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -41,7 +41,7 @@ class Brands {
 	}
 
 	/**
-	 * As of WooCommerce 9.6, Brands is enabled for all users.
+	 * As of PooCommerce 9.6, Brands is enabled for all users.
 	 *
 	 * @return bool
 	 */
@@ -50,8 +50,8 @@ class Brands {
 	}
 
 	/**
-	 * If WooCommerce Brands gets activated forcibly, without WooCommerce active (e.g. via '--skip-plugins'),
-	 * remove WooCommerce Brands initialization functions early on in the 'plugins_loaded' timeline.
+	 * If PooCommerce Brands gets activated forcibly, without PooCommerce active (e.g. via '--skip-plugins'),
+	 * remove PooCommerce Brands initialization functions early on in the 'plugins_loaded' timeline.
 	 */
 	public static function prepare() {
 

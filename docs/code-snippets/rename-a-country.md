@@ -18,6 +18,6 @@ if ( ! function_exists( 'YOUR_PREFIX_rename_country' ) ) {
 
      return $countries;
   }
-  add_filter( 'woocommerce_countries', 'YOUR_PREFIX_rename_country' );
+  add_filter( 'poocommerce_countries', 'YOUR_PREFIX_rename_country' );
 }
 ```

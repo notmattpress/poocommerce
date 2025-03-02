@@ -2,10 +2,10 @@
 /**
  * Unit tests for the WC_Admin_Functions_Test class
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Functions_Test_Test
@@ -47,7 +47,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order does not have meta `_reduced_stock` already.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27445.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27445.
 	 */
 	public function test_wc_maybe_adjust_line_item_product_stock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -74,7 +74,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a full refund with restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_full_refund_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -129,7 +129,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a full refund with no restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_full_refund_no_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -182,7 +182,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a partial refund with restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_partial_refund_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -237,7 +237,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is deleted after a partial refund with no restock.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/27504.
+	 * @link https://github.com/poocommerce/poocommerce/issues/27504.
 	 */
 	public function test_admin_delete_order_item_after_partial_refund_no_restock() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -292,7 +292,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is refunded with restock and then update order.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/29502.
+	 * @link https://github.com/poocommerce/poocommerce/issues/29502.
 	 */
 	public function test_admin_refund_with_restock_and_update_order() {
 		$product = WC_Helper_Product::create_simple_product();
@@ -351,7 +351,7 @@ class WC_Admin_Functions_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test adjust line item function when order item is refunded without restock and then update order.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/29502.
+	 * @link https://github.com/poocommerce/poocommerce/issues/29502.
 	 */
 	public function test_admin_refund_without_restock_and_update_order() {
 		$product = WC_Helper_Product::create_simple_product();

@@ -2,7 +2,7 @@
 
 namespace MailPoet\EmailEditor;
 
-use Automattic\WooCommerce\Blocks\Registry\Container;
+use Automattic\PooCommerce\Blocks\Registry\Container;
 use MailPoet\EmailEditor\Engine\Dependency_Check;
 use MailPoet\EmailEditor\Engine\Email_Api_Controller;
 use MailPoet\EmailEditor\Engine\Email_Editor;

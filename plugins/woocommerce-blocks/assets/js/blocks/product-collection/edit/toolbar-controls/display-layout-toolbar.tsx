@@ -25,7 +25,7 @@ const DisplayLayoutToolbar = ( props: DisplayLayoutControlProps ) => {
 	const displayLayoutControls = [
 		{
 			icon: list,
-			title: __( 'List view', 'woocommerce' ),
+			title: __( 'List view', 'poocommerce' ),
 			onClick: () =>
 				setDisplayLayout( {
 					type: LayoutOptions.STACK,
@@ -36,7 +36,7 @@ const DisplayLayoutToolbar = ( props: DisplayLayoutControlProps ) => {
 		},
 		{
 			icon: grid,
-			title: __( 'Grid view', 'woocommerce' ),
+			title: __( 'Grid view', 'poocommerce' ),
 			onClick: () =>
 				setDisplayLayout( {
 					type: LayoutOptions.GRID,

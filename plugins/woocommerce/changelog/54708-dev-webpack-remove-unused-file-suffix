@@ -1,4 +1,4 @@
 Significance: minor
 Type: dev
 
-Remove unused `fileSuffix` variable from shared Webpack configs in `@woocommerce/block-library`
+Remove unused `fileSuffix` variable from shared Webpack configs in `@poocommerce/block-library`

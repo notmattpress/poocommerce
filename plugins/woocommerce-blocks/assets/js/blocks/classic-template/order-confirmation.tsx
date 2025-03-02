@@ -13,24 +13,24 @@ const isConversionPossible = () => {
 	return true;
 };
 
-const getButtonLabel = () => __( 'Transform into blocks', 'woocommerce' );
+const getButtonLabel = () => __( 'Transform into blocks', 'poocommerce' );
 
 const getBlockifiedTemplate = ( inheritedAttributes: InheritedAttributes ) =>
 	[
-		createBlock( 'woocommerce/order-confirmation-status', {
+		createBlock( 'poocommerce/order-confirmation-status', {
 			...inheritedAttributes,
 			fontSize: 'large',
 		} ),
 		createBlock(
-			'woocommerce/order-confirmation-summary',
+			'poocommerce/order-confirmation-summary',
 			inheritedAttributes
 		),
 		createBlock(
-			'woocommerce/order-confirmation-totals-wrapper',
+			'poocommerce/order-confirmation-totals-wrapper',
 			inheritedAttributes
 		),
 		createBlock(
-			'woocommerce/order-confirmation-downloads-wrapper',
+			'poocommerce/order-confirmation-downloads-wrapper',
 			inheritedAttributes
 		),
 		createBlock(
@@ -42,24 +42,24 @@ const getBlockifiedTemplate = ( inheritedAttributes: InheritedAttributes ) =>
 			[
 				createBlock( 'core/column', inheritedAttributes, [
 					createBlock(
-						'woocommerce/order-confirmation-shipping-wrapper',
+						'poocommerce/order-confirmation-shipping-wrapper',
 						inheritedAttributes
 					),
 				] ),
 				createBlock( 'core/column', inheritedAttributes, [
 					createBlock(
-						'woocommerce/order-confirmation-billing-wrapper',
+						'poocommerce/order-confirmation-billing-wrapper',
 						inheritedAttributes
 					),
 				] ),
 			]
 		),
 		createBlock(
-			'woocommerce/order-confirmation-additional-fields-wrapper',
+			'poocommerce/order-confirmation-additional-fields-wrapper',
 			inheritedAttributes
 		),
 		createBlock(
-			'woocommerce/order-confirmation-additional-information',
+			'poocommerce/order-confirmation-additional-information',
 			inheritedAttributes
 		),
 	].filter( Boolean ) as BlockInstance[];
@@ -80,7 +80,7 @@ const onClickCallback = ( {
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
 				( innerBlock ) =>
-					innerBlock.name === 'woocommerce/store-notices'
+					innerBlock.name === 'poocommerce/store-notices'
 			)
 	);
 
@@ -92,65 +92,65 @@ const onClickCallback = ( {
 const getDescription = () => {
 	return __(
 		'This block represents the classic template used to display the order confirmation. The actual rendered template may appear different from this placeholder.',
-		'woocommerce'
+		'poocommerce'
 	);
 };
 
 const getSkeleton = () => {
 	return (
-		<div className="woocommerce-page">
-			<div className="woocommerce-order">
-				<h1>{ __( 'Order received', 'woocommerce' ) }</h1>
-				<p className="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-confirmation">
+		<div className="poocommerce-page">
+			<div className="poocommerce-order">
+				<h1>{ __( 'Order received', 'poocommerce' ) }</h1>
+				<p className="poocommerce-notice poocommerce-notice--success poocommerce-thankyou-order-confirmation">
 					{ __(
 						'Thank you. Your order has been received.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
-				<ul className="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
-					<li className="woocommerce-order-overview__order order">
-						{ __( 'Order number', 'woocommerce' ) }:{ ' ' }
+				<ul className="poocommerce-order-overview poocommerce-thankyou-order-details order_details">
+					<li className="poocommerce-order-overview__order order">
+						{ __( 'Order number', 'poocommerce' ) }:{ ' ' }
 						<strong>123</strong>
 					</li>
-					<li className="woocommerce-order-overview__date date">
-						{ __( 'Date', 'woocommerce' ) }:{ ' ' }
+					<li className="poocommerce-order-overview__date date">
+						{ __( 'Date', 'poocommerce' ) }:{ ' ' }
 						<strong>May 25, 2023</strong>
 					</li>
-					<li className="woocommerce-order-overview__email email">
-						{ __( 'Email', 'woocommerce' ) }:{ ' ' }
-						<strong>shopper@woocommerce.com</strong>
+					<li className="poocommerce-order-overview__email email">
+						{ __( 'Email', 'poocommerce' ) }:{ ' ' }
+						<strong>shopper@poocommerce.com</strong>
 					</li>
-					<li className="woocommerce-order-overview__total total">
-						{ __( 'Total', 'woocommerce' ) }:{ ' ' }
+					<li className="poocommerce-order-overview__total total">
+						{ __( 'Total', 'poocommerce' ) }:{ ' ' }
 						<strong>$20.00</strong>
 					</li>
 				</ul>
 
-				<section className="woocommerce-order-details">
-					<h2 className="woocommerce-order-details__title">
-						{ __( 'Order details', 'woocommerce' ) }
+				<section className="poocommerce-order-details">
+					<h2 className="poocommerce-order-details__title">
+						{ __( 'Order details', 'poocommerce' ) }
 					</h2>
-					<table className="woocommerce-table woocommerce-table--order-details shop_table order_details">
+					<table className="poocommerce-table poocommerce-table--order-details shop_table order_details">
 						<thead>
 							<tr>
-								<th className="woocommerce-table__product-name product-name">
-									{ __( 'Product', 'woocommerce' ) }
+								<th className="poocommerce-table__product-name product-name">
+									{ __( 'Product', 'poocommerce' ) }
 								</th>
-								<th className="woocommerce-table__product-table product-total">
-									{ __( 'Total', 'woocommerce' ) }
+								<th className="poocommerce-table__product-table product-total">
+									{ __( 'Total', 'poocommerce' ) }
 								</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr className="woocommerce-table__line-item order_item">
-								<td className="woocommerce-table__product-name product-name">
+							<tr className="poocommerce-table__line-item order_item">
+								<td className="poocommerce-table__product-name product-name">
 									Sample Product{ ' ' }
 									<strong className="product-quantity">
 										×&nbsp;2
 									</strong>{ ' ' }
 								</td>
 
-								<td className="woocommerce-table__product-total product-total">
+								<td className="poocommerce-table__product-total product-total">
 									$20.00
 								</td>
 							</tr>
@@ -158,13 +158,13 @@ const getSkeleton = () => {
 						<tfoot>
 							<tr>
 								<th scope="row">
-									{ __( 'Subtotal', 'woocommerce' ) }:
+									{ __( 'Subtotal', 'poocommerce' ) }:
 								</th>
 								<td>$20.00</td>
 							</tr>
 							<tr>
 								<th scope="row">
-									{ __( 'Total', 'woocommerce' ) }:
+									{ __( 'Total', 'poocommerce' ) }:
 								</th>
 								<td>$20.00</td>
 							</tr>
@@ -172,11 +172,11 @@ const getSkeleton = () => {
 					</table>
 				</section>
 
-				<section className="woocommerce-customer-details">
-					<section className="woocommerce-columns woocommerce-columns--2 woocommerce-columns--addresses col2-set addresses">
-						<div className="woocommerce-column woocommerce-column--1 woocommerce-column--billing-address col-1">
-							<h2 className="woocommerce-column__title">
-								{ __( 'Billing address', 'woocommerce' ) }
+				<section className="poocommerce-customer-details">
+					<section className="poocommerce-columns poocommerce-columns--2 poocommerce-columns--addresses col2-set addresses">
+						<div className="poocommerce-column poocommerce-column--1 poocommerce-column--billing-address col-1">
+							<h2 className="poocommerce-column__title">
+								{ __( 'Billing address', 'poocommerce' ) }
 							</h2>
 							<address>
 								123 Main St
@@ -187,9 +187,9 @@ const getSkeleton = () => {
 							</address>
 						</div>
 
-						<div className="woocommerce-column woocommerce-column--2 woocommerce-column--shipping-address col-2">
-							<h2 className="woocommerce-column__title">
-								{ __( 'Shipping address', 'woocommerce' ) }
+						<div className="poocommerce-column poocommerce-column--2 poocommerce-column--shipping-address col-2">
+							<h2 className="poocommerce-column__title">
+								{ __( 'Shipping address', 'poocommerce' ) }
 							</h2>
 							<address>
 								123 Main St

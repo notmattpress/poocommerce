@@ -7,7 +7,7 @@ const {
 	createVariableProduct,
 	createGroupedProduct,
 	uiUnblocked,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -52,7 +52,7 @@ const runSingleProductPageTest = () => {
 			await shopper.goToProduct( simplePostIdValue );
 			await expect( page ).toFill( 'div.quantity input.qty', '5' );
 			await shopper.addToCart();
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text: 'have been added to your cart.',
 			} );
 
@@ -89,7 +89,7 @@ const runSingleProductPageTest = () => {
 			}
 
 			await shopper.addToCart();
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text: 'has been added to your cart.',
 			} );
 
@@ -118,7 +118,7 @@ const runSingleProductPageTest = () => {
 			await shopper.goToProduct( groupedPostIdValue );
 			await page.waitForSelector( 'form.grouped_form' );
 			await shopper.addToCart();
-			await expect( page ).toMatchElement( '.woocommerce-error', {
+			await expect( page ).toMatchElement( '.poocommerce-error', {
 				text: 'Please choose the quantity of items you wish to add to your cart…',
 			} );
 			const quantityFields = await page.$$( 'div.quantity input.qty' );
@@ -127,7 +127,7 @@ const runSingleProductPageTest = () => {
 			await quantityFields[ 1 ].click( { clickCount: 3 } );
 			await quantityFields[ 1 ].type( '5' );
 			await shopper.addToCart();
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text:
 					'“' +
 					simpleProductName +
@@ -146,7 +146,7 @@ const runSingleProductPageTest = () => {
 			// Remove items from cart
 			await shopper.removeFromCart( simpleProductName + ' 1' );
 			await uiUnblocked();
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text: '“' + simpleProductName + ' 1” removed.',
 			} );
 			await Promise.all( [
@@ -156,7 +156,7 @@ const runSingleProductPageTest = () => {
 			] );
 			await shopper.removeFromCart( simpleProductName + ' 2' );
 			await uiUnblocked();
-			await expect( page ).toMatchElement( '.woocommerce-message', {
+			await expect( page ).toMatchElement( '.poocommerce-message', {
 				text: '“' + simpleProductName + ' 2” removed.',
 			} );
 			await expect( page ).toMatchElement( '.cart-empty', {

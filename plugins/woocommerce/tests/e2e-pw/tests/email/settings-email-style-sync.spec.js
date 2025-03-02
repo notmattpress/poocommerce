@@ -13,7 +13,7 @@ const setFeatureFlag = async ( baseURL, value ) =>
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_email_improvements_enabled',
+		'poocommerce_feature_email_improvements_enabled',
 		value
 	);
 
@@ -28,7 +28,7 @@ const setAutoSyncFlag = async ( baseURL, value ) =>
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_email_auto_sync_with_theme',
+		'poocommerce_email_auto_sync_with_theme',
 		value
 	);
 
@@ -44,7 +44,7 @@ test.describe( 'Email Style Sync', () => {
 		await setOption(
 			request,
 			baseURL,
-			'woocommerce_email_base_color',
+			'poocommerce_email_base_color',
 			'#123456'
 		);
 	} );
@@ -58,7 +58,7 @@ test.describe( 'Email Style Sync', () => {
 	test( 'Auto-sync toggle in email settings works correctly', async ( {
 		page,
 	} ) => {
-		// Navigate to WooCommerce email settings
+		// Navigate to PooCommerce email settings
 		await page.goto( 'wp-admin/admin.php?page=wc-settings&tab=email' );
 
 		const autoSyncToggle = page.locator(
@@ -80,7 +80,7 @@ test.describe( 'Email Style Sync', () => {
 		await expect( autoSyncToggle ).toBeChecked();
 
 		// Save settings
-		await page.locator( 'button.woocommerce-save-button' ).click();
+		await page.locator( 'button.poocommerce-save-button' ).click();
 
 		// Reload page and check if setting persisted
 		await page.reload();
@@ -92,11 +92,11 @@ test.describe( 'Email Style Sync', () => {
 		await expect( autoSyncToggle ).not.toBeChecked();
 
 		// Change any color to check that auto-sync is hidden
-		await page.locator( '#woocommerce_email_base_color' ).fill( '#123456' );
-		await page.locator( '#woocommerce_email_base_color' ).blur();
+		await page.locator( '#poocommerce_email_base_color' ).fill( '#123456' );
+		await page.locator( '#poocommerce_email_base_color' ).blur();
 		await expect( autoSyncToggle ).toBeHidden();
 
 		// Save settings
-		await page.locator( 'button.woocommerce-save-button' ).click();
+		await page.locator( 'button.poocommerce-save-button' ).click();
 	} );
 } );

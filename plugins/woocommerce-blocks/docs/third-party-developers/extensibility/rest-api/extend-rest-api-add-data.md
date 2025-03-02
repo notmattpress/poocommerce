@@ -30,10 +30,10 @@ This example below uses the Cart endpoint, [see passed parameters.](./available-
 **Note: Make sure to read the "Things to consider" section below.**
 
 ```php
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema;
 
-add_action('woocommerce_blocks_loaded', function() {
- woocommerce_store_api_register_endpoint_data(
+add_action('poocommerce_blocks_loaded', function() {
+ poocommerce_store_api_register_endpoint_data(
 	array(
 		'endpoint' => CartSchema::IDENTIFIER,
 		'namespace' => 'plugin_namespace',
@@ -88,13 +88,13 @@ The ExtendSchema is stored as a shared instance between the API and consumers (t
 $extend = StoreApi::container()->get( ExtendSchema::class );
 ```
 
-Also note that the dependency injection container is not available until after the `woocommerce_blocks_loaded` action has been fired, so you should hook your file that action:
+Also note that the dependency injection container is not available until after the `poocommerce_blocks_loaded` action has been fired, so you should hook your file that action:
 
 ```php
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 
-add_action( 'woocommerce_blocks_loaded', function() {
+add_action( 'poocommerce_blocks_loaded', function() {
 	$extend = StoreApi::container()->get( ExtendSchema::class );
 	// my logic.
 });
@@ -102,14 +102,14 @@ add_action( 'woocommerce_blocks_loaded', function() {
 
 Or use the global helper functions:
 
--   `woocommerce_store_api_register_endpoint_data( $args )`
--   `woocommerce_store_api_register_update_callback( $args )`
--   `woocommerce_store_api_register_payment_requirements( $args )`
--   `woocommerce_store_api_get_formatter( $name )`
+-   `poocommerce_store_api_register_endpoint_data( $args )`
+-   `poocommerce_store_api_register_update_callback( $args )`
+-   `poocommerce_store_api_register_payment_requirements( $args )`
+-   `poocommerce_store_api_get_formatter( $name )`
 
 ### Errors and fatals are silence for non-admins
 
-If your callback functions `data_callback` and `schema_callback` throw an exception or an error, or you passed the incorrect type of parameter to `register_endpoint_data`; that error would be caught and logged into WooCommerce error logs. If the current user is a shop manager or an admin, and has WP_DEBUG enabled, the error would be surfaced to the frontend.
+If your callback functions `data_callback` and `schema_callback` throw an exception or an error, or you passed the incorrect type of parameter to `register_endpoint_data`; that error would be caught and logged into PooCommerce error logs. If the current user is a shop manager or an admin, and has WP_DEBUG enabled, the error would be surfaced to the frontend.
 
 ### Callbacks should always return an array
 
@@ -129,23 +129,23 @@ To reduce the chances of breaking your client code or passing the wrong type, an
 
 ## Putting it all together
 
-This is a complete example that shows how you can register contextual WooCommerce Subscriptions data in each cart item (simplified). This example uses [Formatters](./extend-rest-api-formatters.md), utility classes that allow you to format values so that they are compatible with the StoreAPI.
+This is a complete example that shows how you can register contextual PooCommerce Subscriptions data in each cart item (simplified). This example uses [Formatters](./extend-rest-api-formatters.md), utility classes that allow you to format values so that they are compatible with the StoreAPI.
 
 ```php
 <?php
 /**
- * WooCommerce Subscriptions Extend Store API.
+ * PooCommerce Subscriptions Extend Store API.
  *
  * A class to extend the store public API with subscription related data
  * for each subscription item
  *
- * @package WooCommerce Subscriptions
+ * @package PooCommerce Subscriptions
  */
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 
-add_action( 'woocommerce_blocks_loaded', function() {
+add_action( 'poocommerce_blocks_loaded', function() {
 	$extend = StoreApi::container()->get( ExtendSchema::class );
 	WC_Subscriptions_Extend_Store_Endpoint::init( $extend );
 });
@@ -238,45 +238,45 @@ class WC_Subscriptions_Extend_Store_Endpoint {
 	public static function extend_cart_item_schema() {
 		return array(
 			'billing_period'      => array(
-				'description' => __( 'Billing period for the subscription.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Billing period for the subscription.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'string', 'null' ),
 				'enum'        => array_keys( wcs_get_subscription_period_strings() ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'billing_interval'    => array(
-				'description' => __( 'The number of billing periods between subscription renewals.', 'woocommerce-subscriptions' ),
+				'description' => __( 'The number of billing periods between subscription renewals.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'integer', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'subscription_length' => array(
-				'description' => __( 'Subscription Product length.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Subscription Product length.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'integer', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'trial_period'        => array(
-				'description' => __( 'Subscription Product trial period.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Subscription Product trial period.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'string', 'null' ),
 				'enum'        => array_keys( wcs_get_subscription_period_strings() ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'trial_length'        => array(
-				'description' => __( 'Subscription Product trial interval.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Subscription Product trial interval.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'integer', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'sign_up_fees'        => array(
-				'description' => __( 'Subscription Product signup fees.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Subscription Product signup fees.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'string', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'sign_up_fees_tax'    => array(
-				'description' => __( 'Subscription Product signup fees taxes.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Subscription Product signup fees taxes.', 'poocommerce-subscriptions' ),
 				'type'        => array( 'string', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -332,9 +332,9 @@ You may wish to use our pre-existing Formatters to ensure your data is passed th
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/extend-rest-api-add-data.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/rest-api/extend-rest-api-add-data.md)
 
 <!-- /FEEDBACK -->
 

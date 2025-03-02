@@ -1,4 +1,4 @@
-.woocommerce-select-control {
+.poocommerce-select-control {
 	position: relative;
 
 	.components-base-control {
@@ -12,11 +12,11 @@
 		padding: $gap-small;
 		position: relative;
 
-		.woocommerce-select-control__tags {
+		.poocommerce-select-control__tags {
 			margin: $gap-small $gap-smallest 0 0;
 		}
 
-		.woocommerce-tag {
+		.poocommerce-tag {
 			max-height: 20px;
 		}
 
@@ -37,7 +37,7 @@
 			line-height: 1.5em;
 		}
 
-		.woocommerce-select-control__control-input {
+		.poocommerce-select-control__control-input {
 			font-size: 16px;
 			border: 0;
 			box-shadow: none;
@@ -85,12 +85,12 @@
 		}
 	}
 
-	.woocommerce-select-control__autofill-input {
+	.poocommerce-select-control__autofill-input {
 		position: absolute;
 		z-index: -1;
 	}
 
-	.woocommerce-select-control__tags {
+	.poocommerce-select-control__tags {
 		position: relative;
 		margin: $gap-small 0 0 0;
 
@@ -99,11 +99,11 @@
 		}
 	}
 
-	.woocommerce-tag {
+	.poocommerce-tag {
 		max-height: 24px;
 	}
 
-	.woocommerce-select-control__clear {
+	.poocommerce-select-control__clear {
 		position: absolute;
 		right: 10px;
 		top: calc(50% - 10px);
@@ -113,7 +113,7 @@
 		}
 	}
 
-	.woocommerce-select-control__listbox {
+	.poocommerce-select-control__listbox {
 		background: $studio-white;
 		display: flex;
 		flex-direction: column;
@@ -133,7 +133,7 @@
 		}
 	}
 
-	.woocommerce-select-control__option {
+	.poocommerce-select-control__option {
 		padding: $gap;
 		min-height: 56px;
 		font-size: 16px;
@@ -155,7 +155,7 @@
 			margin-top: -$gap-small;
 		}
 
-		.woocommerce-select-control__control-input {
+		.poocommerce-select-control__control-input {
 			padding-left: 12px;
 		}
 	}

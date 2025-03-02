@@ -2,10 +2,10 @@
 /**
  * Class WCPaymentGatewayPreInstallWCPayPromotion
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\WCPayPromotion;
+namespace Automattic\PooCommerce\Internal\Admin\WCPayPromotion;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WCPaymentGatewayPreInstallWCPayPromotion extends \WC_Payment_Gateway {
 
-	const GATEWAY_ID = 'pre_install_woocommerce_payments_promotion';
+	const GATEWAY_ID = 'pre_install_poocommerce_payments_promotion';
 
 	/**
 	 * Constructor
@@ -78,9 +78,9 @@ class WCPaymentGatewayPreInstallWCPayPromotion extends \WC_Payment_Gateway {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'is_dismissed' => array(
-				'title'   => __( 'Dismiss', 'woocommerce' ),
+				'title'   => __( 'Dismiss', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Dismiss the gateway', 'woocommerce' ),
+				'label'   => __( 'Dismiss the gateway', 'poocommerce' ),
 				'default' => 'no',
 			),
 		);
@@ -92,7 +92,7 @@ class WCPaymentGatewayPreInstallWCPayPromotion extends \WC_Payment_Gateway {
 	 * @return bool
 	 */
 	public static function is_dismissed() {
-		$settings = get_option( 'woocommerce_' . self::GATEWAY_ID . '_settings', array() );
+		$settings = get_option( 'poocommerce_' . self::GATEWAY_ID . '_settings', array() );
 		return isset( $settings['is_dismissed'] ) && 'yes' === $settings['is_dismissed'];
 	}
 }

@@ -9,7 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/cart-order-summary-coupon-form-block', {
+registerBlockType( 'poocommerce/cart-order-summary-coupon-form-block', {
 	icon: {
 		src: (
 			<Icon

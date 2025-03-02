@@ -102,28 +102,28 @@
 		.components-card__body {
 			padding: 0;
 
-			.woocommerce-list__item {
-				> .woocommerce-list__item-inner {
+			.poocommerce-list__item {
+				> .poocommerce-list__item-inner {
 					padding: $gap-large;
 
-					.woocommerce-list__item-title {
+					.poocommerce-list__item-title {
 						color: $gray-900;
 						font-weight: 700;
 						font-size: 14px;
 						line-height: 18px;
 					}
 
-					.woocommerce-list__item-content {
+					.poocommerce-list__item-content {
 						color: $gray-700;
 						font-size: 13px;
 						line-height: 16px;
 					}
 
-					.woocommerce-list__item-after {
+					.poocommerce-list__item-after {
 						margin-left: $gap-large;
 					}
 
-					.woocommerce-list__item-before {
+					.poocommerce-list__item-before {
 						img {
 							width: 36px;
 						}

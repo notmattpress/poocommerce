@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 import { __ } from '@wordpress/i18n';
-import { getPaymentMethodData } from '@woocommerce/settings';
+import { getPaymentMethodData } from '@poocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
-import { sanitizeHTML } from '@woocommerce/utils';
+import { sanitizeHTML } from '@poocommerce/utils';
 import { RawHTML } from '@wordpress/element';
 
 /**
@@ -14,7 +14,7 @@ import { RawHTML } from '@wordpress/element';
 import { PAYMENT_METHOD_NAME } from './constants';
 
 const settings = getPaymentMethodData( 'bacs', {} );
-const defaultLabel = __( 'Direct bank transfer', 'woocommerce' );
+const defaultLabel = __( 'Direct bank transfer', 'poocommerce' );
 const label = decodeEntities( settings?.title || '' ) || defaultLabel;
 
 /**

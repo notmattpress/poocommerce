@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Traits\AccessiblePrivateMethods;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\Traits\AccessiblePrivateMethods;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Server;
 
 /**
- * Controller for the REST endpoint to add order statuses to the WooCommerce REST API.
+ * Controller for the REST endpoint to add order statuses to the PooCommerce REST API.
  */
 class OrderStatusRestController extends RestApiControllerBase {
 
@@ -29,7 +29,7 @@ class OrderStatusRestController extends RestApiControllerBase {
 	protected $rest_base = 'orders/statuses';
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -75,7 +75,7 @@ class OrderStatusRestController extends RestApiControllerBase {
 		}
 
 		if ( ! $formatted_statuses ) {
-			return new WP_Error( 'woocommerce_rest_not_found', __( 'Order statuses not found', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_not_found', __( 'Order statuses not found', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		return rest_ensure_response( $formatted_statuses );
@@ -93,13 +93,13 @@ class OrderStatusRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'slug' => array(
-					'description' => __( 'Order status slug.', 'woocommerce' ),
+					'description' => __( 'Order status slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name' => array(
-					'description' => __( 'Order status name.', 'woocommerce' ),
+					'description' => __( 'Order status name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

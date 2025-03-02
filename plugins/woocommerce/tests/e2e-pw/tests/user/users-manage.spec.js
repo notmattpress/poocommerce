@@ -329,7 +329,7 @@ test( `can update shop manager data`, async ( { page, manager } ) => {
 test( `can delete a customer`, async ( { page, customer } ) => {
 	test.skip(
 		process.env.IS_MULTISITE,
-		'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55082'
+		'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55082'
 	);
 	expect( await userDeletionTest( page, customer.username ) ).toBeTruthy();
 } );
@@ -337,7 +337,7 @@ test( `can delete a customer`, async ( { page, customer } ) => {
 test( `can delete a shop manager`, async ( { page, manager } ) => {
 	test.skip(
 		process.env.IS_MULTISITE,
-		'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55082'
+		'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55082'
 	);
 	expect( await userDeletionTest( page, manager.username ) ).toBeTruthy();
 } );

@@ -22,14 +22,14 @@ tests/cli/vendor
 .phpunit.result.cache
 
 # Test translations
-/i18n/languages/woocommerce*
+/i18n/languages/poocommerce*
 
 # Packages
 /packages/*
 !/packages/README.md
 
 # Language files
-i18n/languages/woocommerce.pot
+i18n/languages/poocommerce.pot
 
 # Environment files
 .wp-env.override.json

@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 
 // Pick the value of the "blockify add to cart flag"
 const isBlockifiedAddToCart = getSettingWithCoercion(

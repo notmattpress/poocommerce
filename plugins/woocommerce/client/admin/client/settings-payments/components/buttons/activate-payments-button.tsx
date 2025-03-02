@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-import { PaymentIncentive } from '@woocommerce/data';
+import { PaymentIncentive } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ interface ActivatePaymentsButtonProps {
 export const ActivatePaymentsButton = ( {
 	acceptIncentive,
 	installingPlugin,
-	buttonText = __( 'Activate payments', 'woocommerce' ),
+	buttonText = __( 'Activate payments', 'poocommerce' ),
 	incentive = null,
 }: ActivatePaymentsButtonProps ) => {
 	const [ isUpdating, setIsUpdating ] = useState( false );

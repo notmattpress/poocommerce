@@ -19,9 +19,9 @@ import type { AllReviewsEditorProps } from './types';
  * Register and run the "All Reviews" block.
  * This block lists all product reviews.
  */
-registerBlockType( 'woocommerce/all-reviews', {
+registerBlockType( 'poocommerce/all-reviews', {
 	apiVersion: 3,
-	title: __( 'All Reviews', 'woocommerce' ),
+	title: __( 'All Reviews', 'poocommerce' ),
 	icon: {
 		src: (
 			<Icon
@@ -30,9 +30,9 @@ registerBlockType( 'woocommerce/all-reviews', {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
-	description: __( 'Show a list of all product reviews.', 'woocommerce' ),
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
+	description: __( 'Show a list of all product reviews.', 'poocommerce' ),
 	supports: {
 		html: false,
 		color: {
@@ -67,9 +67,9 @@ registerBlockType( 'woocommerce/all-reviews', {
 				blocks: [ 'core/legacy-widget' ],
 				// We can't transform if raw instance isn't shown in the REST API.
 				isMatch: ( { idBase, instance }: AllReviewsEditorProps ) =>
-					idBase === 'woocommerce_recent_reviews' && !! instance?.raw,
+					idBase === 'poocommerce_recent_reviews' && !! instance?.raw,
 				transform: ( { instance } ) =>
-					createBlock( 'woocommerce/all-reviews', {
+					createBlock( 'poocommerce/all-reviews', {
 						reviewsOnPageLoad: instance.raw.number,
 						imageType: 'product',
 						showLoadMore: false,

@@ -4,24 +4,24 @@
 import clsx from 'clsx';
 import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
-import QuantitySelector from '@woocommerce/base-components/quantity-selector';
-import ProductPrice from '@woocommerce/base-components/product-price';
-import ProductName from '@woocommerce/base-components/product-name';
+import QuantitySelector from '@poocommerce/base-components/quantity-selector';
+import ProductPrice from '@poocommerce/base-components/product-price';
+import ProductName from '@poocommerce/base-components/product-name';
 import {
 	useStoreCartItemQuantity,
 	useStoreEvents,
 	useStoreCart,
-} from '@woocommerce/base-context/hooks';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+} from '@poocommerce/base-context/hooks';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	applyCheckoutFilter,
 	productPriceValidation,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 import Dinero from 'dinero.js';
 import { forwardRef, useMemo } from '@wordpress/element';
-import type { CartItem } from '@woocommerce/types';
-import { objectHasProp, Currency } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import type { CartItem } from '@poocommerce/types';
+import { objectHasProp, Currency } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -314,7 +314,7 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 										/* translators: %s refers to the item's name in the cart. */
 										__(
 											'Remove %s from cart',
-											'woocommerce'
+											'poocommerce'
 										),
 										name
 									) }
@@ -333,7 +333,7 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 												/* translators: %s refers to the item name in the cart. */
 												__(
 													'%s has been removed from your cart.',
-													'woocommerce'
+													'poocommerce'
 												),
 												name
 											)
@@ -341,7 +341,7 @@ const CartLineItemRow: React.ForwardRefExoticComponent<
 									} }
 									disabled={ isPendingDelete }
 								>
-									{ __( 'Remove item', 'woocommerce' ) }
+									{ __( 'Remove item', 'poocommerce' ) }
 								</button>
 							) }
 						</div>

@@ -1,11 +1,11 @@
 // css resets some wp-admin specific rules so that the app fits better in the extension container
-.woocommerce-admin-page {
+.poocommerce-admin-page {
 	.wrap {
 		margin: 0;
 	}
 
 	#wpcontent,
-	&.woocommerce_page_wc-admin #wpbody-content {
+	&.poocommerce_page_wc-admin #wpbody-content {
 		padding: 0;
 		overflow-x: hidden !important;
 		min-height: calc(100vh - #{$adminbar-height});
@@ -19,7 +19,7 @@
 
 	@include breakpoint( "<782px" ) {
 		// WP breakpoint for mobile menu
-		.wp-responsive-open #woocommerce-embedded-root,
+		.wp-responsive-open #poocommerce-embedded-root,
 		.wp-responsive-open #wpbody {
 			position: relative;
 			right: -14.5em;
@@ -32,14 +32,14 @@
 	}
 
 	@include breakpoint( ">960px" ) {
-		#toplevel_page_woocommerce.menu-top > a:focus,
+		#toplevel_page_poocommerce.menu-top > a:focus,
 		#toplevel_page_wcadmin--analytics.menu-top > a:focus {
 			padding-bottom: 1px;
 		}
 	}
 }
 
-.woocommerce-layout * {
+.poocommerce-layout * {
 	box-sizing: border-box;
 }
 
@@ -55,9 +55,9 @@
 	display: none;
 }
 
-.woocommerce_page_wc-admin {
-	.woocommerce-filters-date__content:not(.is-mobile) {
-		z-index: 2; /* below of woocommerce-layout__header */
+.poocommerce_page_wc-admin {
+	.poocommerce-filters-date__content:not(.is-mobile) {
+		z-index: 2; /* below of poocommerce-layout__header */
 	}
 }
 
@@ -80,7 +80,7 @@
 		}
 
 		// #wpwrap id added for specificity
-		#wpwrap .woocommerce-layout__header-heading {
+		#wpwrap .poocommerce-layout__header-heading {
 			padding-left: 60px;
 		}
 

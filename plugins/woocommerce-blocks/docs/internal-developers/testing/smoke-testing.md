@@ -18,7 +18,7 @@ To make future testing more efficient, we recommend setting up some Blocks in ad
 Note: some blocks might fail to render because they are based on products having a specific id or depend on the site URL. You will need to remove and re-insert them.
 
 ```html
-<!-- wp:woocommerce/featured-product {"editMode":false,"productId":15} -->
+<!-- wp:poocommerce/featured-product {"editMode":false,"productId":15} -->
 <!-- wp:button {"align":"center"} -->
 <div class="wp-block-button aligncenter">
 	<a
@@ -28,9 +28,9 @@ Note: some blocks might fail to render because they are based on products having
 	>
 </div>
 <!-- /wp:button -->
-<!-- /wp:woocommerce/featured-product -->
+<!-- /wp:poocommerce/featured-product -->
 
-<!-- wp:woocommerce/featured-category {"editMode":false,"categoryId":16} -->
+<!-- wp:poocommerce/featured-category {"editMode":false,"categoryId":16} -->
 <!-- wp:button {"align":"center"} -->
 <div class="wp-block-button aligncenter">
 	<a
@@ -40,31 +40,31 @@ Note: some blocks might fail to render because they are based on products having
 	>
 </div>
 <!-- /wp:button -->
-<!-- /wp:woocommerce/featured-category -->
+<!-- /wp:poocommerce/featured-category -->
 
-<!-- wp:woocommerce/handpicked-products {"editMode":false,"products":[15,32,16]} /-->
+<!-- wp:poocommerce/handpicked-products {"editMode":false,"products":[15,32,16]} /-->
 
-<!-- wp:woocommerce/product-best-sellers /-->
+<!-- wp:poocommerce/product-best-sellers /-->
 
-<!-- wp:woocommerce/product-top-rated /-->
+<!-- wp:poocommerce/product-top-rated /-->
 
-<!-- wp:woocommerce/product-new /-->
+<!-- wp:poocommerce/product-new /-->
 
-<!-- wp:woocommerce/product-on-sale /-->
+<!-- wp:poocommerce/product-on-sale /-->
 
-<!-- wp:woocommerce/product-category {"categories":[16]} /-->
+<!-- wp:poocommerce/product-category {"categories":[16]} /-->
 
-<!-- wp:woocommerce/product-tag /-->
+<!-- wp:poocommerce/product-tag /-->
 
-<!-- wp:woocommerce/products-by-attribute {"attributes":[{"id":22,"attr_slug":"pa_color"}],"editMode":false} /-->
+<!-- wp:poocommerce/products-by-attribute {"attributes":[{"id":22,"attr_slug":"pa_color"}],"editMode":false} /-->
 
-<!-- wp:woocommerce/product-categories /-->
+<!-- wp:poocommerce/product-categories /-->
 
-<!-- wp:woocommerce/product-categories {"isDropdown":true} /-->
+<!-- wp:poocommerce/product-categories {"isDropdown":true} /-->
 
-<!-- wp:woocommerce/reviews-by-product {"editMode":false,"productId":15} -->
+<!-- wp:poocommerce/reviews-by-product {"editMode":false,"productId":15} -->
 <div
-	class="wp-block-woocommerce-reviews-by-product wc-block-reviews-by-product has-image has-name has-date has-rating has-content"
+	class="wp-block-poocommerce-reviews-by-product wc-block-reviews-by-product has-image has-name has-date has-rating has-content"
 	data-image-type="reviewer"
 	data-orderby="most-recent"
 	data-reviews-on-page-load="10"
@@ -73,11 +73,11 @@ Note: some blocks might fail to render because they are based on products having
 	data-show-orderby="true"
 	data-product-id="15"
 ></div>
-<!-- /wp:woocommerce/reviews-by-product -->
+<!-- /wp:poocommerce/reviews-by-product -->
 
-<!-- wp:woocommerce/reviews-by-category {"editMode":false,"categoryIds":[16]} -->
+<!-- wp:poocommerce/reviews-by-category {"editMode":false,"categoryIds":[16]} -->
 <div
-	class="wp-block-woocommerce-reviews-by-category wc-block-reviews-by-category has-image has-name has-date has-rating has-content has-product-name"
+	class="wp-block-poocommerce-reviews-by-category wc-block-reviews-by-category has-image has-name has-date has-rating has-content has-product-name"
 	data-image-type="reviewer"
 	data-orderby="most-recent"
 	data-reviews-on-page-load="10"
@@ -86,11 +86,11 @@ Note: some blocks might fail to render because they are based on products having
 	data-show-orderby="true"
 	data-category-ids="16"
 ></div>
-<!-- /wp:woocommerce/reviews-by-category -->
+<!-- /wp:poocommerce/reviews-by-category -->
 
-<!-- wp:woocommerce/all-reviews -->
+<!-- wp:poocommerce/all-reviews -->
 <div
-	class="wp-block-woocommerce-all-reviews wc-block-all-reviews has-image has-name has-date has-rating has-content has-product-name"
+	class="wp-block-poocommerce-all-reviews wc-block-all-reviews has-image has-name has-date has-rating has-content has-product-name"
 	data-image-type="reviewer"
 	data-orderby="most-recent"
 	data-reviews-on-page-load="10"
@@ -98,17 +98,17 @@ Note: some blocks might fail to render because they are based on products having
 	data-show-load-more="true"
 	data-show-orderby="true"
 ></div>
-<!-- /wp:woocommerce/all-reviews -->
+<!-- /wp:poocommerce/all-reviews -->
 
 <!-- wp:search {"label":"Search","placeholder":"Search products…","buttonText":"Search","query":{"post_type":"product"}} /-->
 
-<!-- wp:woocommerce/mini-cart /-->
+<!-- wp:poocommerce/mini-cart /-->
 
-<!-- wp:woocommerce/customer-account {"iconClass":"wc-block-customer-account__account-icon"} /-->
+<!-- wp:poocommerce/customer-account {"iconClass":"wc-block-customer-account__account-icon"} /-->
 
-<!-- wp:woocommerce/all-products {"columns":3,"rows":3,"alignButtons":false,"contentVisibility":{"orderBy":true},"orderby":"date","layoutConfig":[["woocommerce/product-image",{"imageSizing":"cropped"}],["woocommerce/product-title"],["woocommerce/product-price"],["woocommerce/product-rating"],["woocommerce/product-button"]]} -->
-<div class="wp-block-woocommerce-all-products wc-block-all-products" data-attributes="{&quot;alignButtons&quot;:false,&quot;columns&quot;:3,&quot;contentVisibility&quot;:{&quot;orderBy&quot;:true},&quot;isPreview&quot;:false,&quot;layoutConfig&quot;:[[&quot;woocommerce/product-image&quot;,{&quot;imageSizing&quot;:&quot;cropped&quot;}],[&quot;woocommerce/product-title&quot;],[&quot;woocommerce/product-price&quot;],[&quot;woocommerce/product-rating&quot;],[&quot;woocommerce/product-button&quot;]],&quot;orderby&quot;:&quot;date&quot;,&quot;rows&quot;:3}"></div>
-<!-- /wp:woocommerce/all-products -->
+<!-- wp:poocommerce/all-products {"columns":3,"rows":3,"alignButtons":false,"contentVisibility":{"orderBy":true},"orderby":"date","layoutConfig":[["poocommerce/product-image",{"imageSizing":"cropped"}],["poocommerce/product-title"],["poocommerce/product-price"],["poocommerce/product-rating"],["poocommerce/product-button"]]} -->
+<div class="wp-block-poocommerce-all-products wc-block-all-products" data-attributes="{&quot;alignButtons&quot;:false,&quot;columns&quot;:3,&quot;contentVisibility&quot;:{&quot;orderBy&quot;:true},&quot;isPreview&quot;:false,&quot;layoutConfig&quot;:[[&quot;poocommerce/product-image&quot;,{&quot;imageSizing&quot;:&quot;cropped&quot;}],[&quot;poocommerce/product-title&quot;],[&quot;poocommerce/product-price&quot;],[&quot;poocommerce/product-rating&quot;],[&quot;poocommerce/product-button&quot;]],&quot;orderby&quot;:&quot;date&quot;,&quot;rows&quot;:3}"></div>
+<!-- /wp:poocommerce/all-products -->
 ```
 
 </details>
@@ -121,68 +121,68 @@ Note: some blocks might fail to render because they are based on products having
 ```html
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"width":"33.33%"} -->
-<div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:woocommerce/filter-wrapper {"filterType":"price-filter","heading":"Filter by price"} -->
-<div class="wp-block-woocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column" style="flex-basis:33.33%"><!-- wp:poocommerce/filter-wrapper {"filterType":"price-filter","heading":"Filter by price"} -->
+<div class="wp-block-poocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Filter by price</h3>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/price-filter {"heading":"","lock":{"remove":true}} -->
-<div class="wp-block-woocommerce-price-filter is-loading"><span aria-hidden="true" class="wc-block-product-categories__placeholder"></span></div>
-<!-- /wp:woocommerce/price-filter --></div>
-<!-- /wp:woocommerce/filter-wrapper -->
+<!-- wp:poocommerce/price-filter {"heading":"","lock":{"remove":true}} -->
+<div class="wp-block-poocommerce-price-filter is-loading"><span aria-hidden="true" class="wc-block-product-categories__placeholder"></span></div>
+<!-- /wp:poocommerce/price-filter --></div>
+<!-- /wp:poocommerce/filter-wrapper -->
 
-<!-- wp:woocommerce/filter-wrapper {"filterType":"attribute-filter","heading":"Filter by attribute"} -->
-<div class="wp-block-woocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
+<!-- wp:poocommerce/filter-wrapper {"filterType":"attribute-filter","heading":"Filter by attribute"} -->
+<div class="wp-block-poocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Filter by attribute</h3>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/attribute-filter {"attributeId":1,"showCounts":true,"queryType":"and","displayStyle":"dropdown","heading":"","lock":{"remove":true}} -->
-<div class="wp-block-woocommerce-attribute-filter is-loading"></div>
-<!-- /wp:woocommerce/attribute-filter --></div>
-<!-- /wp:woocommerce/filter-wrapper -->
+<!-- wp:poocommerce/attribute-filter {"attributeId":1,"showCounts":true,"queryType":"and","displayStyle":"dropdown","heading":"","lock":{"remove":true}} -->
+<div class="wp-block-poocommerce-attribute-filter is-loading"></div>
+<!-- /wp:poocommerce/attribute-filter --></div>
+<!-- /wp:poocommerce/filter-wrapper -->
 
-<!-- wp:woocommerce/filter-wrapper {"filterType":"stock-filter","heading":"Filter by stock status"} -->
-<div class="wp-block-woocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
+<!-- wp:poocommerce/filter-wrapper {"filterType":"stock-filter","heading":"Filter by stock status"} -->
+<div class="wp-block-poocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Filter by stock status</h3>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/stock-filter {"showCounts":true,"heading":"","lock":{"remove":true}} -->
-<div class="wp-block-woocommerce-stock-filter is-loading"></div>
-<!-- /wp:woocommerce/stock-filter --></div>
-<!-- /wp:woocommerce/filter-wrapper -->
+<!-- wp:poocommerce/stock-filter {"showCounts":true,"heading":"","lock":{"remove":true}} -->
+<div class="wp-block-poocommerce-stock-filter is-loading"></div>
+<!-- /wp:poocommerce/stock-filter --></div>
+<!-- /wp:poocommerce/filter-wrapper -->
 
-<!-- wp:woocommerce/filter-wrapper {"filterType":"rating-filter","heading":"Filter by rating"} -->
-<div class="wp-block-woocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
+<!-- wp:poocommerce/filter-wrapper {"filterType":"rating-filter","heading":"Filter by rating"} -->
+<div class="wp-block-poocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Filter by rating</h3>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/rating-filter {"showCounts":true,"displayStyle":"dropdown","lock":{"remove":true}} -->
-<div class="wp-block-woocommerce-rating-filter is-loading"></div>
-<!-- /wp:woocommerce/rating-filter --></div>
-<!-- /wp:woocommerce/filter-wrapper -->
+<!-- wp:poocommerce/rating-filter {"showCounts":true,"displayStyle":"dropdown","lock":{"remove":true}} -->
+<div class="wp-block-poocommerce-rating-filter is-loading"></div>
+<!-- /wp:poocommerce/rating-filter --></div>
+<!-- /wp:poocommerce/filter-wrapper -->
 
-<!-- wp:woocommerce/filter-wrapper {"filterType":"active-filters","heading":"Active filters"} -->
-<div class="wp-block-woocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
+<!-- wp:poocommerce/filter-wrapper {"filterType":"active-filters","heading":"Active filters"} -->
+<div class="wp-block-poocommerce-filter-wrapper"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Active filters</h3>
 <!-- /wp:heading -->
 
-<!-- wp:woocommerce/active-filters {"heading":"","lock":{"remove":true}} -->
-<div class="wp-block-woocommerce-active-filters is-loading"><span aria-hidden="true" class="wc-block-active-filters__placeholder"></span></div>
-<!-- /wp:woocommerce/active-filters --></div>
-<!-- /wp:woocommerce/filter-wrapper --></div>
+<!-- wp:poocommerce/active-filters {"heading":"","lock":{"remove":true}} -->
+<div class="wp-block-poocommerce-active-filters is-loading"><span aria-hidden="true" class="wc-block-active-filters__placeholder"></span></div>
+<!-- /wp:poocommerce/active-filters --></div>
+<!-- /wp:poocommerce/filter-wrapper --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66.66%"} -->
-<div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:woocommerce/product-collection {"query":{"perPage":9,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title"","search":"","exclude":[],"inherit":false,"taxQuery":{},"isProductCollectionBlock":true,"woocommerceOnSale":false,"woocommerceStockStatus":["instock","outofstock","onbackorder"],"woocommerceAttributes":[],"woocommerceHandPickedProducts":[]},"tagName":"div","displayLayout":{"type":"flex","columns":3}} -->
-<div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template -->
-<!-- wp:woocommerce/product-image {"imageSizing":"thumbnail","isDescendentOfQueryLoop":true} /-->
+<div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:poocommerce/product-collection {"query":{"perPage":9,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title"","search":"","exclude":[],"inherit":false,"taxQuery":{},"isProductCollectionBlock":true,"poocommerceOnSale":false,"poocommerceStockStatus":["instock","outofstock","onbackorder"],"poocommerceAttributes":[],"poocommerceHandPickedProducts":[]},"tagName":"div","displayLayout":{"type":"flex","columns":3}} -->
+<div class="wp-block-poocommerce-product-collection"><!-- wp:poocommerce/product-template -->
+<!-- wp:poocommerce/product-image {"imageSizing":"thumbnail","isDescendentOfQueryLoop":true} /-->
 
-<!-- wp:post-title {"textAlign":"center","level":3,"isLink":true,"style":{"spacing":{"margin":{"bottom":"0.75rem","top":"0"}}},"fontSize":"medium","__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
+<!-- wp:post-title {"textAlign":"center","level":3,"isLink":true,"style":{"spacing":{"margin":{"bottom":"0.75rem","top":"0"}}},"fontSize":"medium","__poocommerceNamespace":"poocommerce/product-collection/product-title"} /-->
 
-<!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"center","fontSize":"small"} /-->
+<!-- wp:poocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"center","fontSize":"small"} /-->
 
-<!-- wp:woocommerce/product-button {"textAlign":"center","isDescendentOfQueryLoop":true,"fontSize":"small"} /-->
-<!-- /wp:woocommerce/product-template -->
+<!-- wp:poocommerce/product-button {"textAlign":"center","isDescendentOfQueryLoop":true,"fontSize":"small"} /-->
+<!-- /wp:poocommerce/product-template -->
 
 <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
 <!-- wp:query-pagination-previous /-->
@@ -197,7 +197,7 @@ Note: some blocks might fail to render because they are based on products having
 <p></p>
 <!-- /wp:paragraph -->
 <!-- /wp:query-no-results --></div>
-<!-- /wp:woocommerce/product-collection --></div>
+<!-- /wp:poocommerce/product-collection --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 ```
@@ -208,7 +208,7 @@ Note: some blocks might fail to render because they are based on products having
 
 ## Editor Tests
 
--   [ ] Ensure all WooCommerce Blocks are shown in the Block Inserter.
+-   [ ] Ensure all PooCommerce Blocks are shown in the Block Inserter.
 -   [ ] Check behaviour of Blocks added to a previous saved page from earlier plugin version
     -   [ ] Do they look correct?
     -   [ ] Ensure there are no block invalidation errors for blocks added to a page in a prior version.

@@ -11,8 +11,8 @@ import {
 	textContentMatcher,
 	textContentMatcherAcrossSiblings,
 } from '../../../../../../../tests/utils/find-by-text';
-const baseContextHooks = jest.requireMock( '@woocommerce/base-context/hooks' );
-const woocommerceSettings = jest.requireMock( '@woocommerce/settings' );
+const baseContextHooks = jest.requireMock( '@poocommerce/base-context/hooks' );
+const poocommerceSettings = jest.requireMock( '@poocommerce/settings' );
 import SummaryBlock from '../frontend';
 import SubtotalBlock from '../../checkout-order-summary-subtotal/frontend';
 import FeeBlock from '../../checkout-order-summary-fee/frontend';
@@ -53,8 +53,8 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	SITE_CURRENCY: {
 		code: 'USD',
 		symbol: '$',
@@ -66,8 +66,8 @@ jest.mock( '@woocommerce/settings', () => ( {
 	},
 } ) );
 
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
-	...jest.requireActual( '@woocommerce/base-context/hooks' ),
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
+	...jest.requireActual( '@poocommerce/base-context/hooks' ),
 
 	/*
 	We need to redefine this here despite the defaultUseStoreCartValue above
@@ -189,16 +189,16 @@ jest.mock( '@woocommerce/base-context/hooks', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/base-context', () => ( {
-	...jest.requireActual( '@woocommerce/base-context' ),
+jest.mock( '@poocommerce/base-context', () => ( {
+	...jest.requireActual( '@poocommerce/base-context' ),
 	useContainerWidthContext: jest.fn().mockReturnValue( {
 		hasContainerWidth: true,
 		isLarge: true,
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => {
-	const originalModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const originalModule = jest.requireActual( '@poocommerce/settings' );
 
 	return {
 		...originalModule,
@@ -225,7 +225,7 @@ const setUseStoreCartReturnValue = ( value = defaultUseStoreCartValue ) => {
 };
 
 const setGetSettingImplementation = ( implementation ) => {
-	woocommerceSettings.getSetting.mockImplementation( implementation );
+	poocommerceSettings.getSetting.mockImplementation( implementation );
 };
 
 const setUseShippingDataReturnValue = ( value ) => {
@@ -361,7 +361,7 @@ describe( 'Checkout Order Summary', () => {
 				return false;
 			}
 			const originalModule = jest.requireActual(
-				'@woocommerce/settings'
+				'@poocommerce/settings'
 			);
 			return originalModule.getSetting( setting, ...rest );
 		} );
@@ -398,7 +398,7 @@ describe( 'Checkout Order Summary', () => {
 				return true;
 			}
 			const originalModule = jest.requireActual(
-				'@woocommerce/settings'
+				'@poocommerce/settings'
 			);
 			return originalModule.getSetting( setting, ...rest );
 		} );
@@ -427,7 +427,7 @@ describe( 'Checkout Order Summary', () => {
 				return true;
 			}
 			const originalModule = jest.requireActual(
-				'@woocommerce/settings'
+				'@poocommerce/settings'
 			);
 			return originalModule.getSetting( setting, ...rest );
 		} );

@@ -1,4 +1,4 @@
-/** @typedef { import('@woocommerce/type-defs/hooks').StoreCart } StoreCart */
+/** @typedef { import('@poocommerce/type-defs/hooks').StoreCart } StoreCart */
 
 /**
  * External dependencies
@@ -18,7 +18,7 @@ import {
 	EMPTY_PAYMENT_METHODS,
 	EMPTY_PAYMENT_REQUIREMENTS,
 	EMPTY_EXTENSIONS,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import type {
@@ -30,8 +30,8 @@ import type {
 	CartResponseShippingAddress,
 	CartResponseCouponItem,
 	CartResponseCoupons,
-} from '@woocommerce/types';
-import { emptyHiddenAddressFields } from '@woocommerce/base-utils';
+} from '@poocommerce/types';
+import { emptyHiddenAddressFields } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

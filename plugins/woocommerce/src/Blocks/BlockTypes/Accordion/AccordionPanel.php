@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Accordion;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Accordion;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * AccordionPanel class.

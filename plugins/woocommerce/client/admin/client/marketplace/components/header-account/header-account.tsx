@@ -10,7 +10,7 @@ import {
 } from '@wordpress/components';
 import { Icon, commentAuthorAvatar, external, linkOff } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -58,15 +58,15 @@ export default function HeaderAccount( {
 			<img
 				src={ avatarURL }
 				alt=""
-				className="woocommerce-marketplace__menu-avatar-image"
+				className="poocommerce-marketplace__menu-avatar-image"
 				onError={ () => setUseDefaultAvatar( true ) }
 			/>
 		);
 	};
 
 	const connectionStatusText = isConnected
-		? __( 'Connected to WooCommerce.com', 'woocommerce' )
-		: __( 'Connect to WooCommerce.com', 'woocommerce' );
+		? __( 'Connected to PooCommerce.com', 'poocommerce' )
+		: __( 'Connect to PooCommerce.com', 'poocommerce' );
 
 	const connectionDetails = () => {
 		if ( isConnected ) {
@@ -75,9 +75,9 @@ export default function HeaderAccount( {
 					<Icon
 						icon={ commentAuthorAvatar }
 						size={ 24 }
-						className="woocommerce-marketplace__menu-icon"
+						className="poocommerce-marketplace__menu-icon"
 					/>
-					<span className="woocommerce-marketplace__main-text">
+					<span className="poocommerce-marketplace__main-text">
 						{ userEmail }
 					</span>
 				</>
@@ -88,14 +88,14 @@ export default function HeaderAccount( {
 				<Icon
 					icon={ commentAuthorAvatar }
 					size={ 24 }
-					className="woocommerce-marketplace__menu-icon"
+					className="poocommerce-marketplace__menu-icon"
 				/>
-				<div className="woocommerce-marketplace__menu-text">
-					{ __( 'Connect account', 'woocommerce' ) }
-					<span className="woocommerce-marketplace__sub-text">
+				<div className="poocommerce-marketplace__menu-text">
+					{ __( 'Connect account', 'poocommerce' ) }
+					<span className="poocommerce-marketplace__sub-text">
 						{ __(
 							'Get product updates, manage your subscriptions from your store admin, and get streamlined support.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</span>
 				</div>
@@ -106,26 +106,26 @@ export default function HeaderAccount( {
 	return (
 		<>
 			<DropdownMenu
-				className="woocommerce-layout__activity-panel-tab woocommerce-marketplace__user-menu"
+				className="poocommerce-layout__activity-panel-tab poocommerce-marketplace__user-menu"
 				icon={ avatar() }
-				label={ __( 'User options', 'woocommerce' ) }
+				label={ __( 'User options', 'poocommerce' ) }
 				toggleProps={ {
-					className: 'woocommerce-layout__activity-panel-tab',
+					className: 'poocommerce-layout__activity-panel-tab',
 					onClick: () =>
 						recordEvent( 'header_account_click', { page } ),
 				} }
 				popoverProps={ {
-					className: 'woocommerce-layout__activity-panel-popover',
+					className: 'poocommerce-layout__activity-panel-popover',
 				} }
 			>
 				{ () => (
 					<>
 						<MenuGroup
-							className="woocommerce-layout__homescreen-display-options"
+							className="poocommerce-layout__homescreen-display-options"
 							label={ connectionStatusText }
 						>
 							<MenuItem
-								className="woocommerce-marketplace__menu-item"
+								className="poocommerce-marketplace__menu-item"
 								href={ accountOrConnect }
 								onClick={ () => {
 									if ( isConnected ) {
@@ -156,17 +156,17 @@ export default function HeaderAccount( {
 									<Icon
 										icon={ external }
 										size={ 24 }
-										className="woocommerce-marketplace__menu-icon"
+										className="poocommerce-marketplace__menu-icon"
 									/>
 									{ __(
-										'WooCommerce.com account',
-										'woocommerce'
+										'PooCommerce.com account',
+										'poocommerce'
 									) }
 								</MenuItem>
 							) }
 						</MenuGroup>
 						{ isConnected && (
-							<MenuGroup className="woocommerce-layout__homescreen-display-options">
+							<MenuGroup className="poocommerce-layout__homescreen-display-options">
 								<MenuItem
 									onClick={ () => {
 										recordEvent(
@@ -179,11 +179,11 @@ export default function HeaderAccount( {
 									<Icon
 										icon={ linkOff }
 										size={ 24 }
-										className="woocommerce-marketplace__menu-icon"
+										className="poocommerce-marketplace__menu-icon"
 									/>
 									{ __(
 										'Disconnect account',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</MenuItem>
 							</MenuGroup>

@@ -4,8 +4,8 @@
 import { CheckboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { Extension } from '@woocommerce/data';
-import { Link } from '@woocommerce/components';
+import { Extension } from '@poocommerce/data';
+import { Link } from '@poocommerce/components';
 import React from 'react';
 
 /**
@@ -58,7 +58,7 @@ export const PluginCard = ( {
 	} );
 	return (
 		<div
-			className={ clsx( 'woocommerce-profiler-plugins-plugin-card', {
+			className={ clsx( 'poocommerce-profiler-plugins-plugin-card', {
 				'is-installed': installed,
 				disabled,
 			} ) }
@@ -66,7 +66,7 @@ export const PluginCard = ( {
 		>
 			<label htmlFor={ `${ pluginKey }-checkbox` }>
 				{ /* this label element acts as the catchment area for the checkbox */ }
-				<div className="woocommerce-profiler-plugin-card-top">
+				<div className="poocommerce-profiler-plugin-card-top">
 					{ ! installed && (
 						<CheckboxControl
 							id={ `${ pluginKey }-checkbox` }
@@ -85,7 +85,7 @@ export const PluginCard = ( {
 					) : null }
 					<div
 						className={ clsx(
-							'woocommerce-profiler-plugins-plugin-card-text-header',
+							'poocommerce-profiler-plugins-plugin-card-text-header',
 							{
 								installed,
 							}
@@ -93,14 +93,14 @@ export const PluginCard = ( {
 					>
 						<h3>{ title }</h3>
 						{ installed && (
-							<span>{ __( 'Installed', 'woocommerce' ) }</span>
+							<span>{ __( 'Installed', 'poocommerce' ) }</span>
 						) }
 					</div>
 				</div>
 
 				<div
 					className={ clsx(
-						'woocommerce-profiler-plugins-plugin-card-text',
+						'poocommerce-profiler-plugins-plugin-card-text',
 						{ 'smaller-margin-left': installed }
 					) }
 				>
@@ -131,6 +131,6 @@ PluginCard.LearnMoreLink = ( {
 		target="_blank"
 		type="external"
 	>
-		{ __( 'Learn More', 'woocommerce' ) }
+		{ __( 'Learn More', 'poocommerce' ) }
 	</Link>
 );

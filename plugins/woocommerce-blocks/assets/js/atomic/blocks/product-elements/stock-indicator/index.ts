@@ -30,6 +30,6 @@ const blockConfig: BlockConfiguration = {
 	usesContext: [ 'query', 'queryId', 'postId' ],
 };
 
-registerBlockType( 'woocommerce/product-stock-indicator', {
+registerBlockType( 'poocommerce/product-stock-indicator', {
 	...blockConfig,
 } );

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { test as base, expect } from '@woocommerce/e2e-utils';
 
 import { ProductGalleryPage } from '../../product-gallery.page';
 const blockData = {
-	name: 'woocommerce/product-gallery-large-image',
+	name: 'poocommerce/product-gallery-large-image',
 	selectors: {
 		frontend: {},
 		editor: {},
@@ -32,7 +32,7 @@ const test = base.extend< { pageObject: ProductGalleryPage } >( {
 test.describe( `${ blockData.name }`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//${ blockData.slug }`,
+			postId: `poocommerce/poocommerce//${ blockData.slug }`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -187,7 +187,7 @@ test.describe( `${ blockData.name }`, () => {
 		} );
 
 		const largeImageElement = largeImageBlockOnFrontend.locator(
-			'.wc-block-woocommerce-product-gallery-large-image__image--active-image-slide'
+			'.wc-block-poocommerce-product-gallery-large-image__image--active-image-slide'
 		);
 
 		const imageSourceForLargeImageElement =
@@ -207,7 +207,7 @@ test.describe( `${ blockData.name }`, () => {
 
 		const largeImageElementAfterSelectingVariation =
 			largeImageBlockOnFrontend.locator(
-				'.wc-block-woocommerce-product-gallery-large-image__image--active-image-slide'
+				'.wc-block-poocommerce-product-gallery-large-image__image--active-image-slide'
 			);
 
 		const imageSourceForLargeImageElementAfterSelectingVariation =
@@ -245,7 +245,7 @@ test.describe( `${ blockData.name }`, () => {
 			await expect( blockFrontend ).toBeVisible();
 
 			const largeImageElement = blockFrontend.locator(
-				'.wc-block-woocommerce-product-gallery-large-image__image--active-image-slide'
+				'.wc-block-poocommerce-product-gallery-large-image__image--active-image-slide'
 			);
 
 			// Get the element's bounding box
@@ -321,7 +321,7 @@ test.describe( `${ blockData.name }`, () => {
 
 			// Verify the next image is shown
 			const nextImage = blockFrontend.locator(
-				'.wc-block-woocommerce-product-gallery-large-image__image--active-image-slide'
+				'.wc-block-poocommerce-product-gallery-large-image__image--active-image-slide'
 			);
 			const nextImageSrc = await nextImage.getAttribute( 'src' );
 

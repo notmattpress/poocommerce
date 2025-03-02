@@ -10,7 +10,7 @@ import {
 	WooHeaderNavigationItem,
 	WooHeaderPageTitle,
 	WooHeaderItem,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 import { Button } from '@wordpress/components';
 
 /**
@@ -66,7 +66,7 @@ export const Header = ( {
 		 * Unregister existing header plugins since we don't want to show the default items such as activity panel.
 		 */
 		const unRegisterHeaderItems = () => {
-			const plugins = getPlugins( 'woocommerce-admin' );
+			const plugins = getPlugins( 'poocommerce-admin' );
 			plugins.forEach( ( plugin ) => {
 				if ( ITEMS_TO_REMOVE.includes( plugin.name ) ) {
 					unregisterPlugin( plugin.name );
@@ -85,7 +85,7 @@ export const Header = ( {
 						</WooHeaderNavigationItem>
 					) }
 					<WooHeaderPageTitle>
-						<span className="woocommerce-settings-payments-header__title">
+						<span className="poocommerce-settings-payments-header__title">
 							{ title }
 						</span>
 					</WooHeaderPageTitle>
@@ -103,14 +103,14 @@ export const Header = ( {
 					) }
 					{ description && (
 						<WooHeaderItem>
-							<div className="woocommerce-settings-payments-header__description">
+							<div className="poocommerce-settings-payments-header__description">
 								{ description }
 							</div>
 						</WooHeaderItem>
 					) }
 				</>
 			),
-			scope: 'woocommerce-admin',
+			scope: 'poocommerce-admin',
 		} );
 
 		hasRegisteredPlugins = true;

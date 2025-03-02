@@ -6,12 +6,12 @@ const test = baseTest.extend( {
 
 	page: async ( { page, wcAdminApi }, use ) => {
 		const initialTaskListState = await wcAdminApi.get(
-			'options?options=woocommerce_task_list_hidden'
+			'options?options=poocommerce_task_list_hidden'
 		);
 
 		// Ensure task list is visible.
 		await wcAdminApi.put( 'options', {
-			woocommerce_task_list_hidden: 'no',
+			poocommerce_task_list_hidden: 'no',
 		} );
 
 		await page.goto( 'wp-admin/admin.php?page=wc-admin' );
@@ -26,16 +26,16 @@ const test = baseTest.extend( {
 		// Ensure store's base country location is a WooPayments non-supported country (e.g. AF).
 		// Otherwise, the WooPayments task page logic or WooPayments redirects will kick in.
 		const initialDefaultCountry = await api.get(
-			'settings/general/woocommerce_default_country'
+			'settings/general/poocommerce_default_country'
 		);
-		await api.put( 'settings/general/woocommerce_default_country', {
+		await api.put( 'settings/general/poocommerce_default_country', {
 			value: 'AF',
 		} );
 
 		await use( page );
 
 		// Reset the default country to its initial state.
-		await api.put( 'settings/general/woocommerce_default_country', {
+		await api.put( 'settings/general/poocommerce_default_country', {
 			value: initialDefaultCountry.data.value,
 		} );
 	},
@@ -82,19 +82,19 @@ test(
 			'wp-admin/admin.php?page=wc-admin'
 		);
 		await nonSupportedWooPaymentsCountryPage
-			.locator( '.woocommerce-task-list__item' )
+			.locator( '.poocommerce-task-list__item' )
 			.filter( { hasText: 'Get paid' } )
 			.click();
 
 		await expect(
 			nonSupportedWooPaymentsCountryPage.locator(
-				'.woocommerce-layout__header-wrapper > h1'
+				'.poocommerce-layout__header-wrapper > h1'
 			)
 		).toHaveText( 'Get paid' );
 	}
 );
 
-test( 'Can connect to WooCommerce.com', async ( { page } ) => {
+test( 'Can connect to PooCommerce.com', async ( { page } ) => {
 	await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 	await test.step( 'Go to WC Home and make sure the total sales is visible', async () => {
 		await page

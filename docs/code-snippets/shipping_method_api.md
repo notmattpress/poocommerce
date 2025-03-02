@@ -2,17 +2,17 @@
 post_title: Shipping Method API
 menu_title: Shipping method API
 tags: shipping, API
-current wccom url: https://woocommerce.com/document/shipping-method-api/
+current wccom url: https://poocommerce.com/document/shipping-method-api/
 ---
 
 
 # Shipping Method API
 
-WooCommerce has a shipping method API which plugins can use to add their own rates. This article outlines steps to create a new shipping method and interact with the API. 
+PooCommerce has a shipping method API which plugins can use to add their own rates. This article outlines steps to create a new shipping method and interact with the API. 
 
 ## Create a plugin
 
-First, create a regular WordPress/WooCommerce plugin (see [Create a plugin](https://woocommerce.com/document/create-a-plugin/)). You’ll define your shipping method class in this plugin file and maintain it outside of WooCommerce.
+First, create a regular WordPress/PooCommerce plugin (see [Create a plugin](https://poocommerce.com/document/create-a-plugin/)). You’ll define your shipping method class in this plugin file and maintain it outside of PooCommerce.
 
 ## Create a function to house your class
 
@@ -23,7 +23,7 @@ function your_shipping_method_init() {
     // Your class will go here
 }
 
-add_action( 'woocommerce_shipping_init', 'your_shipping_method_init' );
+add_action( 'poocommerce_shipping_init', 'your_shipping_method_init' );
 ```
 
 ## Create your class
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WC_Your_Shipping_Method' ) ) {
             $this->init_settings(); // This is part of the settings API. Loads settings you previously init.
 
             // Save settings in admin if you have any defined
-            add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+            add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
         }
 
         /**
@@ -76,7 +76,7 @@ if ( ! class_exists( 'WC_Your_Shipping_Method' ) ) {
 }
 ```
 
-As well as declaring your class, you also need to tell WooCommerce it exists with another function:
+As well as declaring your class, you also need to tell PooCommerce it exists with another function:
 
 ```php
 function add_your_shipping_method( $methods ) {
@@ -84,16 +84,16 @@ function add_your_shipping_method( $methods ) {
     return $methods;
 }
 
-add_filter( 'woocommerce_shipping_methods', 'add_your_shipping_method' );
+add_filter( 'poocommerce_shipping_methods', 'add_your_shipping_method' );
 ```
 
 ## Defining settings/options
 
-You can define your options once the above is in place by using the settings API. In the snippets above you’ll notice we `init_form_fields` and `init_settings`. These load up the settings API. To see how to add settings, see [WooCommerce settings API](https://woocommerce.com/document/settings-api/).
+You can define your options once the above is in place by using the settings API. In the snippets above you’ll notice we `init_form_fields` and `init_settings`. These load up the settings API. To see how to add settings, see [PooCommerce settings API](https://poocommerce.com/document/settings-api/).
 
 ## The calculate_shipping() method
 
-Add your rates by usign the `calculate_shipping()` method. WooCommerce calls this when doing shipping calculations. Do your plugin specific calculations here and then add the rates via the API. Like so:
+Add your rates by usign the `calculate_shipping()` method. PooCommerce calls this when doing shipping calculations. Do your plugin specific calculations here and then add the rates via the API. Like so:
 
 ```php
 $rate = array(
@@ -128,17 +128,17 @@ The skeleton shipping method code all put together looks like this:
 <?php
 /*
 Plugin Name: Your Shipping plugin
-Plugin URI: https://woocommerce.com/
+Plugin URI: https://poocommerce.com/
 Description: Your shipping method plugin
 Version: 1.0.0
 Author: WooThemes
-Author URI: https://woocommerce.com/
+Author URI: https://poocommerce.com/
 */
 
 /**
- * Check if WooCommerce is active
+ * Check if PooCommerce is active
  */
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+if ( in_array( 'poocommerce/poocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
 	function your_shipping_method_init() {
 		if ( ! class_exists( 'WC_Your_Shipping_Method' ) ) {
@@ -172,7 +172,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$this->init_settings(); // This is part of the settings API. Loads settings you previously init.
 
 					// Save settings in admin if you have any defined
-					add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+					add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 				}
 
 				/**
@@ -196,15 +196,15 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 	}
 
-	add_action( 'woocommerce_shipping_init', 'your_shipping_method_init' );
+	add_action( 'poocommerce_shipping_init', 'your_shipping_method_init' );
 
 	function add_your_shipping_method( $methods ) {
 		$methods['your_shipping_method'] = 'WC_Your_Shipping_Method';
 		return $methods;
 	}
 
-	add_filter( 'woocommerce_shipping_methods', 'add_your_shipping_method' );
+	add_filter( 'poocommerce_shipping_methods', 'add_your_shipping_method' );
 }
 ```
 
-For further information, please check out the [Shipping Method API Wiki](https://github.com/woocommerce/woocommerce/wiki/Shipping-Method-API).
+For further information, please check out the [Shipping Method API Wiki](https://github.com/poocommerce/poocommerce/wiki/Shipping-Method-API).

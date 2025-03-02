@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\PaymentGateway;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\PaymentGateway;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use WC_Unit_Test_Case;
 
 /**
@@ -42,7 +42,7 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 	public function test_get_details() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                     => true,
 				'account_connected'           => true,
@@ -52,8 +52,8 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 				'onboarding_started'          => true,
 				'onboarding_completed'        => true,
 				'test_mode_onboarding'        => true,
-				'plugin_slug'                 => 'woocommerce-payments',
-				'plugin_file'                 => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                 => 'poocommerce-payments',
+				'plugin_file'                 => 'poocommerce-payments/poocommerce-payments.php',
 				'method_title'                => 'WooPayments has a very long title that should be truncated after some length like this',
 				'method_description'          => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 				'supports'                    => array( 'products', 'something', 'bogus' ),
@@ -108,7 +108,7 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 		// Assert that we have all the details.
 		$this->assertEquals(
 			array(
-				'id'          => 'woocommerce_payments',
+				'id'          => 'poocommerce_payments',
 				'_order'      => 999,
 				'title'       => 'WooPayments has a very long title that should be truncated after some length',
 				'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim…',
@@ -130,8 +130,8 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 				),
 				'plugin'      => array(
 					'_type'  => PaymentProviders::EXTENSION_TYPE_WPORG,
-					'slug'   => 'woocommerce-payments',
-					'file'   => 'woocommerce-payments/woocommerce-payments',
+					'slug'   => 'poocommerce-payments',
+					'file'   => 'poocommerce-payments/poocommerce-payments',
 					'status' => PaymentProviders::EXTENSION_ACTIVE,
 				),
 				'onboarding'  => array(
@@ -193,7 +193,7 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 	 * Test get_title.
 	 */
 	public function test_get_title() {
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'method_title' => 'WooPayments' ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'method_title' => 'WooPayments' ) );
 		$this->assertEquals( 'WooPayments', $this->sut->get_title( $fake_gateway ) );
 	}
 
@@ -201,7 +201,7 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 	 * Test get_description.
 	 */
 	public function test_get_description() {
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'method_description' => 'Accept payments with WooPayments.' ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'method_description' => 'Accept payments with WooPayments.' ) );
 		$this->assertEquals( 'Accept payments with WooPayments.', $this->sut->get_description( $fake_gateway ) );
 	}
 
@@ -209,28 +209,28 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 	 * Test get_icon.
 	 */
 	public function test_get_icon() {
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'icon' => 'https://example.com/icon.png' ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'icon' => 'https://example.com/icon.png' ) );
 		$this->assertEquals( 'https://example.com/icon.png', $this->sut->get_icon( $fake_gateway ) );
 
 		// Test invalid URL falls back to default icon.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'icon' => 'not_good_url/icon.svg' ) );
-		$this->assertStringContainsString( 'wp-content/plugins/woocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'icon' => 'not_good_url/icon.svg' ) );
+		$this->assertStringContainsString( 'wp-content/plugins/poocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
 
 		// Test empty icon falls back to default icon.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'icon' => '' ) );
-		$this->assertStringContainsString( 'wp-content/plugins/woocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'icon' => '' ) );
+		$this->assertStringContainsString( 'wp-content/plugins/poocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
 
 		// Test missing icon falls back to default icon.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array() );
-		$this->assertStringContainsString( 'wp-content/plugins/woocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array() );
+		$this->assertStringContainsString( 'wp-content/plugins/poocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
 
 		// Test icon with img tag falls back to default icon.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'icon' => '<img src="https://example.com/icon.png" />' ) );
-		$this->assertStringContainsString( 'wp-content/plugins/woocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'icon' => '<img src="https://example.com/icon.png" />' ) );
+		$this->assertStringContainsString( 'wp-content/plugins/poocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
 
 		// Test icon with list of images falls back to default icon.
-		$fake_gateway = new FakePaymentGateway( 'woocommerce_payments', array( 'icon' => '<img src="https://example.com/icon.png" /><img src="https://example.com/icon2.png" />' ) );
-		$this->assertStringContainsString( 'wp-content/plugins/woocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'poocommerce_payments', array( 'icon' => '<img src="https://example.com/icon.png" /><img src="https://example.com/icon2.png" />' ) );
+		$this->assertStringContainsString( 'wp-content/plugins/poocommerce/assets/images/icons/default-payments.svg', $this->sut->get_icon( $fake_gateway ) );
 	}
 
 	/**
@@ -334,16 +334,16 @@ class PaymentGatewayTest extends WC_Unit_Test_Case {
 	 * Test get_plugin_slug.
 	 */
 	public function test_get_plugin_slug() {
-		$fake_gateway = new FakePaymentGateway( 'gateway1', array( 'plugin_slug' => 'woocommerce-payments' ) );
-		$this->assertEquals( 'woocommerce-payments', $this->sut->get_plugin_slug( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'gateway1', array( 'plugin_slug' => 'poocommerce-payments' ) );
+		$this->assertEquals( 'poocommerce-payments', $this->sut->get_plugin_slug( $fake_gateway ) );
 	}
 
 	/**
 	 * Test get_plugin_file.
 	 */
 	public function test_get_plugin_file() {
-		$fake_gateway = new FakePaymentGateway( 'gateway1', array( 'plugin_file' => 'woocommerce-payments/woocommerce-payments.php' ) );
-		$this->assertEquals( 'woocommerce-payments/woocommerce-payments', $this->sut->get_plugin_file( $fake_gateway ) );
+		$fake_gateway = new FakePaymentGateway( 'gateway1', array( 'plugin_file' => 'poocommerce-payments/poocommerce-payments.php' ) );
+		$this->assertEquals( 'poocommerce-payments/poocommerce-payments', $this->sut->get_plugin_file( $fake_gateway ) );
 	}
 
 	/**

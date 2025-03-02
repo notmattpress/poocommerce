@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
 
-Update settings store import to use settingsStore from @woocommerce/data
+Update settings store import to use settingsStore from @poocommerce/data

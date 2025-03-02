@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
-import { isExperimentalBlocksEnabled } from '@woocommerce/block-settings';
-import { productFilterRating as icon } from '@woocommerce/icons';
+import { isExperimentalBlocksEnabled } from '@poocommerce/block-settings';
+import { productFilterRating as icon } from '@poocommerce/icons';
 
 /**
  * Internal dependencies

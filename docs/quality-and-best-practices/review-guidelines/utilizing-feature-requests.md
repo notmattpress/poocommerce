@@ -1,5 +1,5 @@
 ---
-post_title: Utilizing WooCommerce extension feature requests
+post_title: Utilizing PooCommerce extension feature requests
 menu_title: Utilizing feature requests
 ---
 

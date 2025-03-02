@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { removeCart } from '@woocommerce/icons';
+import { removeCart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -11,7 +11,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import './style.scss';
 
-registerBlockType( 'woocommerce/empty-cart-block', {
+registerBlockType( 'poocommerce/empty-cart-block', {
 	icon: {
 		src: (
 			<Icon
