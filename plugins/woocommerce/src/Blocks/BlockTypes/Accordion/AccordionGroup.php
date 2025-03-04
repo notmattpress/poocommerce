@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Accordion;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Accordion;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * AccordionGroup class.
@@ -32,12 +32,12 @@ class AccordionGroup extends AbstractBlock {
 
 		$p = new \WP_HTML_Tag_Processor( $content );
 
-		if ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-accordion-group' ) ) ) {
+		if ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-accordion-group' ) ) ) {
 			$interactivity_context = array(
 				'autoclose' => $attributes['autoclose'],
 				'isOpen'    => array(),
 			);
-			$p->set_attribute( 'data-wc-interactive', wp_json_encode( array( 'namespace' => 'woocommerce/accordion' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
+			$p->set_attribute( 'data-wc-interactive', wp_json_encode( array( 'namespace' => 'poocommerce/accordion' ), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
 			$p->set_attribute( 'data-wc-context', wp_json_encode( $interactivity_context, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) );
 
 			// Only modify content if directives have been set.

@@ -5,10 +5,10 @@ menu_title: Changelog.txt
 
 ## The Changelog.txt file
 
-WooCommerce extensions use a standard changelog format. Your `changelog.txt` file should look like this:
+PooCommerce extensions use a standard changelog format. Your `changelog.txt` file should look like this:
 
 ```php
-*** WooCommerce Extension Name Changelog ***
+*** PooCommerce Extension Name Changelog ***
 
 YYYY-MM-DD - version 1.1.0
 * Added - Useful new feature
@@ -39,4 +39,4 @@ To showcase the different types of work done in a product update, use any of the
 - fixed
 - fix
 
-![Example changelog as shown on WooCommerce.com](https://woocommerce.com/wp-content/uploads/2023/12/image-9.png)
+![Example changelog as shown on PooCommerce.com](https://poocommerce.com/wp-content/uploads/2023/12/image-9.png)

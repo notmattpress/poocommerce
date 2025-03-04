@@ -31,25 +31,25 @@ export const PartnerCard: React.FC< {
 	children,
 } ) => {
 	return (
-		<div className="woocommerce-tax-partner-card">
-			<div className="woocommerce-tax-partner-card__logo">
+		<div className="poocommerce-tax-partner-card">
+			<div className="poocommerce-tax-partner-card__logo">
 				<img src={ logo } alt={ name } />
 			</div>
 
-			<div className="woocommerce-tax-partner-card__description">
+			<div className="poocommerce-tax-partner-card__description">
 				{ description }
 			</div>
-			<ul className="woocommerce-tax-partner-card__benefits">
+			<ul className="poocommerce-tax-partner-card__benefits">
 				{ benefits.map( ( benefit, i ) => {
 					return (
 						<li
-							className="woocommerce-tax-partner-card__benefit"
+							className="poocommerce-tax-partner-card__benefit"
 							key={ i }
 						>
-							<span className="woocommerce-tax-partner-card__benefit-bullet">
+							<span className="poocommerce-tax-partner-card__benefit-bullet">
 								<Bullet />
 							</span>
-							<span className="woocommerce-tax-partner-card__benefit-text">
+							<span className="poocommerce-tax-partner-card__benefit-text">
 								{ benefit }
 							</span>
 						</li>
@@ -57,8 +57,8 @@ export const PartnerCard: React.FC< {
 				} ) }
 			</ul>
 
-			<div className="woocommerce-tax-partner-card__action">
-				<div className="woocommerce-tax-partner-card__terms">
+			<div className="poocommerce-tax-partner-card__action">
+				<div className="poocommerce-tax-partner-card__terms">
 					{ terms }
 				</div>
 				{ children ? (

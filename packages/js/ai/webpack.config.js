@@ -9,7 +9,7 @@ const WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
 const {
 	webpackConfig,
 	plugin,
-} = require( '@woocommerce/internal-style-build' );
+} = require( '@poocommerce/internal-style-build' );
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 

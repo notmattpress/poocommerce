@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
 
 /**
  * Class ExportSchema
  *
- * Handles the export schema functionality for WooCommerce.
+ * Handles the export schema functionality for PooCommerce.
  *
- * @package Automattic\WooCommerce\Blueprint
+ * @package Automattic\PooCommerce\Blueprint
  */
 class ExportSchema {
 	use UseWPFunctions, UsePubSub;

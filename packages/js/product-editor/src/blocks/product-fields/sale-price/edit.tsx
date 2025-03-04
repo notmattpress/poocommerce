@@ -2,8 +2,8 @@
  * External dependencies
  */
 import classNames from 'classnames';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Product } from '@poocommerce/data';
 import { useInstanceId } from '@wordpress/compose';
 import { useEntityProp } from '@wordpress/core-data';
 import { createElement } from '@wordpress/element';
@@ -46,7 +46,7 @@ export function Edit( {
 
 	const salePriceId = useInstanceId(
 		BaseControl,
-		'wp-block-woocommerce-product-sale-price-field'
+		'wp-block-poocommerce-product-sale-price-field'
 	) as string;
 
 	const {
@@ -61,7 +61,7 @@ export function Edit( {
 					return {
 						message: __(
 							'Sale price must be greater than or equals to zero.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -73,7 +73,7 @@ export function Edit( {
 					return {
 						message: __(
 							'Sale price must be lower than the regular price.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}

@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates;
+namespace Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates;
 
 use MailPoet\EmailEditor\Engine\Templates\Template;
 use MailPoet\EmailEditor\Engine\Templates\Templates_Registry;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Controller for managing WooCommerce email templates.
+ * Controller for managing PooCommerce email templates.
  *
  * @internal
  */
@@ -22,7 +22,7 @@ class TemplatesController {
 	 *
 	 * @var string
 	 */
-	private string $template_prefix = 'woocommerce';
+	private string $template_prefix = 'poocommerce';
 
 	/**
 	 * Initialize the controller by registering hooks.
@@ -35,7 +35,7 @@ class TemplatesController {
 	}
 
 	/**
-	 * Register WooCommerce email templates with the template registry.
+	 * Register PooCommerce email templates with the template registry.
 	 *
 	 * @param Templates_Registry $templates_registry The template registry instance.
 	 * @return Templates_Registry

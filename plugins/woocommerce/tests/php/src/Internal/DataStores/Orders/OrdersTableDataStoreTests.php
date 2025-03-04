@@ -1,20 +1,20 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStoreMeta;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableQuery;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStoreMeta;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableQuery;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use DateTime;
 use DateTimeZone;
 use WC_Helper_Order;
@@ -107,8 +107,8 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$this->disable_cogs_feature();
 
 		remove_all_filters( 'wc_allow_changing_orders_storage_while_sync_is_pending' );
-		remove_all_filters( 'woocommerce_load_order_cogs_value' );
-		remove_all_filters( 'woocommerce_save_order_cogs_value' );
+		remove_all_filters( 'poocommerce_load_order_cogs_value' );
+		remove_all_filters( 'poocommerce_save_order_cogs_value' );
 		wc()->cart->empty_cart();
 		parent::tearDown();
 	}
@@ -549,7 +549,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$this->assertEquals( OrderStatus::TRASH, $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$orders_table} WHERE id = %d", $order_id ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		// Make sure order data persists in the database.
-		$this->assertNotEmpty( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d", $order_id ) ) );
+		$this->assertNotEmpty( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d", $order_id ) ) );
 
 		foreach ( $this->sut->get_all_table_names() as $table ) {
 			if ( $table === $orders_table ) {
@@ -607,7 +607,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$order->delete( true );
 
 		// Make sure no data order persists in the database.
-		$this->assertEmpty( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d", $order_id ) ) );
+		$this->assertEmpty( $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d", $order_id ) ) );
 
 		foreach ( $this->sut->get_all_table_names() as $table ) {
 			$field_name = ( $table === $this->sut::get_orders_table_name() ) ? 'id' : 'order_id';
@@ -1565,8 +1565,8 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 	 * Test methods get_total_tax_refunded and get_total_shipping_refunded.
 	 */
 	public function test_get_total_tax_refunded_and_get_total_shipping_refunded() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -2614,7 +2614,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 	}
 
 	/**
-	 * @testDox A 'suppress_filters' argument can be passed to 'delete', if true no 'woocommerce_(before_)trash/delete_order' actions will be fired.
+	 * @testDox A 'suppress_filters' argument can be passed to 'delete', if true no 'poocommerce_(before_)trash/delete_order' actions will be fired.
 	 *
 	 * @testWith [null, true]
 	 *           [true, true]
@@ -2638,7 +2638,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$trash_or_delete = $force_delete ? 'delete' : 'trash';
 
 		add_action(
-			"woocommerce_before_{$trash_or_delete}_order",
+			"poocommerce_before_{$trash_or_delete}_order",
 			function ( $order_id, $order ) use ( &$order_id_from_before_delete, &$order_from_before_delete ) {
 				$order_id_from_before_delete = $order_id;
 				$order_from_before_delete    = $order;
@@ -2648,7 +2648,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		);
 
 		add_action(
-			"woocommerce_{$trash_or_delete}_order",
+			"poocommerce_{$trash_or_delete}_order",
 			function ( $order_id ) use ( &$order_id_from_after_delete ) {
 				$order_id_from_after_delete = $order_id;
 			}
@@ -2801,25 +2801,25 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 
 		// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		$callback = function ( $order_id ) use ( &$new_count, &$update_count ) {
-			$new_count    += 'woocommerce_new_order' === current_action() ? 1 : 0;
-			$update_count += 'woocommerce_update_order' === current_action() ? 1 : 0;
+			$new_count    += 'poocommerce_new_order' === current_action() ? 1 : 0;
+			$update_count += 'poocommerce_update_order' === current_action() ? 1 : 0;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
-		add_action( 'woocommerce_update_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
+		add_action( 'poocommerce_update_order', $callback );
 
-		// Creating a new order should trigger 'woocommerce_new_order' but not 'woocommerce_update_order'.
+		// Creating a new order should trigger 'poocommerce_new_order' but not 'poocommerce_update_order'.
 		$order = new WC_Order();
 		$order->save();
 		$this->assertEquals( 1, $new_count );
 		$this->assertEquals( 0, $update_count );
 
-		// Saving an order again (with no changes) should still trigger 'woocommerce_update_order'.
+		// Saving an order again (with no changes) should still trigger 'poocommerce_update_order'.
 		$order->save();
 		$this->assertEquals( 1, $new_count );
 		$this->assertEquals( 1, $update_count );
 
-		// An update to the order should only trigger 'woocommerce_update_order'.
+		// An update to the order should only trigger 'poocommerce_update_order'.
 		$order->set_billing_city( 'Los Angeles' );
 		$order->save();
 		$this->assertEquals( 1, $new_count );
@@ -2846,7 +2846,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$this->assertNotEquals( $order->get_status(), OrderStatus::TRASH );
 		$this->assertEquals( 2, $update_count );
 
-		// An auto-draft order should not trigger 'woocommerce_new_order' until first saved with a valid status.
+		// An auto-draft order should not trigger 'poocommerce_new_order' until first saved with a valid status.
 		if ( $cot_is_authoritative ) {
 			$order = new WC_Order();
 			$order->set_status( OrderStatus::AUTO_DRAFT );
@@ -2862,8 +2862,8 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 			$this->assertEquals( 2, $update_count );
 		}
 
-		remove_action( 'woocommerce_new_order', $callback );
-		remove_action( 'woocommerce_update_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
+		remove_action( 'poocommerce_update_order', $callback );
 	}
 
 	/**
@@ -2928,7 +2928,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 			self::$reading_order_ids     = array();
 		};
 		$reset_state->call( $sut );
-		wc_get_container()->get( \Automattic\WooCommerce\Caches\OrderCache::class )->flush();
+		wc_get_container()->get( \Automattic\PooCommerce\Caches\OrderCache::class )->flush();
 	}
 
 	/**
@@ -3131,14 +3131,14 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 	}
 
 	/**
-	 * @testDox Hooking into woocommerce_delete_shop_order_transients does not cause data loss.
+	 * @testDox Hooking into poocommerce_delete_shop_order_transients does not cause data loss.
 	 */
 	public function test_data_retained_when_hooked_in_cache_filter() {
 		$this->toggle_cot_authoritative( true );
 		$this->enable_cot_sync();
 
 		add_action(
-			'woocommerce_delete_shop_order_transients',
+			'poocommerce_delete_shop_order_transients',
 			function ( $order_id ) {
 				wc_get_order( $order_id );
 			}
@@ -3157,7 +3157,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$r_order = wc_get_order( $order->get_id() );
 		$this->assertEquals( 2, $r_order->get_customer_id() );
 
-		remove_all_actions( 'woocommerce_delete_shop_order_transients' );
+		remove_all_actions( 'poocommerce_delete_shop_order_transients' );
 	}
 
 	/**
@@ -3187,7 +3187,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$this->enable_cot_sync();
 
 		$orders_table_data_store = fn() => wc_get_container()->get( OrdersTableDataStore::class );
-		add_filter( 'woocommerce_order_data_store', $orders_table_data_store, 1000, 0 );
+		add_filter( 'poocommerce_order_data_store', $orders_table_data_store, 1000, 0 );
 
 		$order = wc_create_order();
 
@@ -3204,7 +3204,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		// count the calls to the filter to ensure it's called only once.
 		$count = 0;
 		add_filter(
-			'woocommerce_before_order_object_save',
+			'poocommerce_before_order_object_save',
 			function () use ( &$count ) {
 				$count++;
 			}
@@ -3242,8 +3242,8 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$this->assertEquals( 1, $count );
 		$this->assertTrue( $current_time_called, 'current_time mock was not called' );
 
-		remove_filter( 'woocommerce_order_data_store', $orders_table_data_store, 1000 );
-		remove_all_actions( 'woocommerce_before_order_object_save' );
+		remove_filter( 'poocommerce_order_data_store', $orders_table_data_store, 1000 );
+		remove_all_actions( 'poocommerce_before_order_object_save' );
 	}
 
 	/**
@@ -3263,8 +3263,8 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$order->save();
 
 		$this->assertTrue( wc_load_webhooks( 'active' ) );
-		add_action( 'woocommerce_webhook_process_delivery', array( $webhook_tests, 'woocommerce_webhook_process_delivery' ), 1, 2 );
-		add_filter( 'woocommerce_webhook_should_deliver', '__return_true' );
+		add_action( 'poocommerce_webhook_process_delivery', array( $webhook_tests, 'poocommerce_webhook_process_delivery' ), 1, 2 );
+		add_filter( 'poocommerce_webhook_should_deliver', '__return_true' );
 		$call_private = function ( $order ) {
 			return $this->should_save_after_meta_change( $order );
 		};
@@ -3280,8 +3280,8 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$order->delete_meta_data( 'key1' );
 		$order->save_meta_data();
 		$this->assertEquals( 1, $webhook_tests->delivery_counter[ $webhook->get_id() . $order->get_id() ] );
-		remove_all_actions( 'woocommerce_webhook_process_delivery' );
-		remove_all_actions( 'woocommerce_webhook_should_deliver' );
+		remove_all_actions( 'poocommerce_webhook_process_delivery' );
+		remove_all_actions( 'poocommerce_webhook_should_deliver' );
 	}
 
 	/**
@@ -3458,7 +3458,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 	}
 
 	/**
-	 * @testDox Creating an order with a draft status should not trigger the "woocommerce_new_order" action.
+	 * @testDox Creating an order with a draft status should not trigger the "poocommerce_new_order" action.
 	 */
 	public function test_create_draft_order_doesnt_trigger_hook() {
 
@@ -3471,7 +3471,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$draft_statuses = array( OrderStatus::AUTO_DRAFT, 'checkout-draft' );
 
@@ -3484,11 +3484,11 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 
 		$this->assertEquals( 0, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
-	 * @testDox Updating an order status correctly triggers the "woocommerce_new_order" action.
+	 * @testDox Updating an order status correctly triggers the "poocommerce_new_order" action.
 	 */
 	public function test_update_order_status_correctly_triggers_new_order_hook() {
 
@@ -3498,7 +3498,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$order = new WC_Order();
 		$order->set_status( OrderStatus::DRAFT );
@@ -3521,11 +3521,11 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 
 		$this->assertEquals( 4, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 	/**
-	 * @testDox Create a new order with processing status without saving and updating it should trigger the "woocommerce_new_order" action.
+	 * @testDox Create a new order with processing status without saving and updating it should trigger the "poocommerce_new_order" action.
 	 */
 	public function test_update_new_processing_order_correctly_triggers_new_order_hook() {
 
@@ -3535,7 +3535,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 			++$new_count;
 		};
 
-		add_action( 'woocommerce_new_order', $callback );
+		add_action( 'poocommerce_new_order', $callback );
 
 		$order = new WC_Order();
 		$order->set_status( OrderStatus::PROCESSING );
@@ -3547,7 +3547,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 
 		$this->assertEquals( 1, $new_count );
 
-		remove_action( 'woocommerce_new_order', $callback );
+		remove_action( 'poocommerce_new_order', $callback );
 	}
 
 
@@ -3669,7 +3669,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 	}
 
 	/**
-	 * @testdox It's possible to modify the Cost of Goods Sold value that gets loaded from the database for an order using the 'woocommerce_load_order_cogs_value' filter.
+	 * @testdox It's possible to modify the Cost of Goods Sold value that gets loaded from the database for an order using the 'poocommerce_load_order_cogs_value' filter.
 	 */
 	public function test_loaded_cogs_value_can_be_modified_via_filter() {
 		$received_filter_cogs_value = null;
@@ -3683,7 +3683,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$order->save();
 
 		add_filter(
-			'woocommerce_load_order_cogs_value',
+			'poocommerce_load_order_cogs_value',
 			function ( $cogs_value, $item ) use ( &$received_filter_cogs_value, &$received_filter_item ) {
 				$received_filter_cogs_value = $cogs_value;
 				$received_filter_item       = $item;
@@ -3701,7 +3701,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 	}
 
 	/**
-	 * @testdox It's possible to modify the Cost of Goods Sold value that gets persisted for an order using the 'woocommerce_save_order_cogs_value' filter, returning null suppresses the saving.
+	 * @testdox It's possible to modify the Cost of Goods Sold value that gets persisted for an order using the 'poocommerce_save_order_cogs_value' filter, returning null suppresses the saving.
 	 *
 	 * @testWith [56.78, "56.78"]
 	 *           [null, "12.34"]
@@ -3721,7 +3721,7 @@ class OrdersTableDataStoreTests extends \HposTestCase {
 		$order->save();
 
 		add_filter(
-			'woocommerce_save_order_cogs_value',
+			'poocommerce_save_order_cogs_value',
 			function ( $cogs_value, $item ) use ( &$received_filter_cogs_value, &$received_filter_item, $filter_return_value ) {
 				$received_filter_cogs_value = $cogs_value;
 				$received_filter_item       = $item;

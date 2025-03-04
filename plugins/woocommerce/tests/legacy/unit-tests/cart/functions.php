@@ -2,7 +2,7 @@
 
 /**
  * Class Functions.
- * @package WooCommerce\Tests\Cart
+ * @package PooCommerce\Tests\Cart
  */
 class WC_Tests_Cart_Functions extends WC_Unit_Test_Case {
 
@@ -27,12 +27,12 @@ class WC_Tests_Cart_Functions extends WC_Unit_Test_Case {
 			$checkout_url = get_permalink( $checkout_page_id );
 
 			// Force SSL if needed.
-			if ( is_ssl() || 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) ) {
+			if ( is_ssl() || 'yes' === get_option( 'poocommerce_force_ssl_checkout' ) ) {
 				$checkout_url = str_replace( 'http:', 'https:', $checkout_url );
 			}
 
 			// Allow filtering of checkout URL.
-			$checkout_url = apply_filters( 'woocommerce_get_checkout_url', $checkout_url );
+			$checkout_url = apply_filters( 'poocommerce_get_checkout_url', $checkout_url );
 		}
 
 		return $checkout_url;
@@ -48,7 +48,7 @@ class WC_Tests_Cart_Functions extends WC_Unit_Test_Case {
 		WC_Install::create_pages();
 
 		// Force SSL checkout.
-		update_option( 'woocommerce_force_ssl_checkout', 'no' );
+		update_option( 'poocommerce_force_ssl_checkout', 'no' );
 
 		$this->assertEquals( $this->get_checkout_url(), wc_get_checkout_url() );
 	}
@@ -63,7 +63,7 @@ class WC_Tests_Cart_Functions extends WC_Unit_Test_Case {
 		WC_Install::create_pages();
 
 		// Force SSL checkout.
-		update_option( 'woocommerce_force_ssl_checkout', 'yes' );
+		update_option( 'poocommerce_force_ssl_checkout', 'yes' );
 
 		$this->assertEquals( $this->get_checkout_url(), wc_get_checkout_url() );
 	}
@@ -119,7 +119,7 @@ class WC_Tests_Cart_Functions extends WC_Unit_Test_Case {
 	public function test_wc_cart_totals_coupon_label() {
 		$coupon = WC_Helper_Coupon::create_coupon();
 
-		$this->expectOutputString( apply_filters( 'woocommerce_cart_totals_coupon_label', 'Coupon: ' . $coupon->get_code() ), wc_cart_totals_coupon_label( $coupon ) );
+		$this->expectOutputString( apply_filters( 'poocommerce_cart_totals_coupon_label', 'Coupon: ' . $coupon->get_code() ), wc_cart_totals_coupon_label( $coupon ) );
 	}
 
 	/**
@@ -130,7 +130,7 @@ class WC_Tests_Cart_Functions extends WC_Unit_Test_Case {
 	public function test_wc_get_cart_url() {
 		$cart_page_url = wc_get_page_permalink( 'cart' );
 
-		$this->assertEquals( apply_filters( 'woocommerce_get_cart_url', $cart_page_url ? $cart_page_url : '' ), wc_get_cart_url() );
+		$this->assertEquals( apply_filters( 'poocommerce_get_cart_url', $cart_page_url ? $cart_page_url : '' ), wc_get_cart_url() );
 	}
 
 	/**

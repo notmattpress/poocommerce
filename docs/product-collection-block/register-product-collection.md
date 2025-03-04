@@ -6,16 +6,16 @@ tags: how-to
 
 # Register Product Collection
 
-The `__experimentalRegisterProductCollection` function is part of the `@woocommerce/blocks-registry` package. This function allows third party developers to register a new collection. This function accepts most of the arguments that are accepted by [Block Variation](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/#defining-a-block-variation).
+The `__experimentalRegisterProductCollection` function is part of the `@poocommerce/blocks-registry` package. This function allows third party developers to register a new collection. This function accepts most of the arguments that are accepted by [Block Variation](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/#defining-a-block-variation).
 
 **CAUTION:** It's experimental and may change in the future. Please use it with caution.
 
 **There are two ways to use this function:**
 
-1. Using `@woocommerce/dependency-extraction-webpack-plugin` in a Webpack configuration: This will allow you to import the function from the package & use it in your code. For example:
+1. Using `@poocommerce/dependency-extraction-webpack-plugin` in a Webpack configuration: This will allow you to import the function from the package & use it in your code. For example:
 
 	```tsx
-	import { __experimentalRegisterProductCollection } from "@woocommerce/blocks-registry";
+	import { __experimentalRegisterProductCollection } from "@poocommerce/blocks-registry";
 	```
 
 2. Using the global `wc` object: This will allow you to use the function using the global JS object without importing it. For example:
@@ -74,11 +74,11 @@ Attributes are the properties that define the behavior of the collection. All th
     - `timeFrame` (type `object`): The time frame to query by.
         - `operator` (type `string`): The operator to use for the time frame query. Accepted values are `in` and `not-in`.
         - `value` (type `string`): The value to query by. It should be a valid date string that PHP's `strtotime` function can parse.
-    - `woocommerceOnSale` (type `boolean`): Whether to query for items on sale.
-    - `woocommerceStockStatus` (type `array`): The stock status to query by. Some of the accepted values are `instock`, `outofstock`, `onbackorder`.
-    - `woocommerceAttributes` (type `array`): The attributes to query by.
-        - For example, if you wanna fetch products with color `blue` & `gray` and size `Large` then you can pass `woocommerceAttributes` as `[{"termId":23,"taxonomy":"pa_color"},{"termId":26,"taxonomy":"pa_size"},{"termId":29,"taxonomy":"pa_color"}]`.
-    - `woocommerceHandPickedProducts` (type `array`): The hand-picked products to query by. It should contain the product IDs.
+    - `poocommerceOnSale` (type `boolean`): Whether to query for items on sale.
+    - `poocommerceStockStatus` (type `array`): The stock status to query by. Some of the accepted values are `instock`, `outofstock`, `onbackorder`.
+    - `poocommerceAttributes` (type `array`): The attributes to query by.
+        - For example, if you wanna fetch products with color `blue` & `gray` and size `Large` then you can pass `poocommerceAttributes` as `[{"termId":23,"taxonomy":"pa_color"},{"termId":26,"taxonomy":"pa_size"},{"termId":29,"taxonomy":"pa_color"}]`.
+    - `poocommerceHandPickedProducts` (type `array`): The hand-picked products to query by. It should contain the product IDs.
     - `priceRange` (type `object`): The price range to query by.
         - `min` (type `number`): The minimum price.
         - `max` (type `number`): The maximum price.
@@ -112,7 +112,7 @@ The `preview` attribute is optional, and it is used to set the preview state of 
     - `attributes` (type `object`): The current attributes of the collection.
     - `location` (type `object`): The location of the collection. Accepted values are `product`, `archive`, `cart`, `order`, `site`.
 
-For more info, you may check [PR #46369](https://github.com/woocommerce/woocommerce/pull/46369), in which the Preview feature was added
+For more info, you may check [PR #46369](https://github.com/poocommerce/poocommerce/pull/46369), in which the Preview feature was added
 
 ## Examples
 
@@ -128,8 +128,8 @@ __experimentalRegisterProductCollection({
 });
 ```
 
-As you can see in the example above, we are registering a new collection with the name `woocommerce/product-collection/my-custom-collection` & title `My Custom Collection`. Here is screenshot of how it will look like:
-![image](https://github.com/woocommerce/woocommerce/assets/16707866/7fddbc02-a6cd-494e-b2f4-13dd5ef9cf96)
+As you can see in the example above, we are registering a new collection with the name `poocommerce/product-collection/my-custom-collection` & title `My Custom Collection`. Here is screenshot of how it will look like:
+![image](https://github.com/poocommerce/poocommerce/assets/16707866/7fddbc02-a6cd-494e-b2f4-13dd5ef9cf96)
 
 ### Example 2: Register a new collection with a preview
 
@@ -165,7 +165,7 @@ __experimentalRegisterProductCollection({
 ```
 
 Here is how it will look like:
-![image](https://github.com/woocommerce/woocommerce/assets/16707866/5fc1aa20-552a-4e09-b811-08babab46665)
+![image](https://github.com/poocommerce/poocommerce/assets/16707866/5fc1aa20-552a-4e09-b811-08babab46665)
 
 ### Example 3: Advanced usage of preview
 
@@ -237,12 +237,12 @@ __experimentalRegisterProductCollection({
       },
     ],
     [
-      "woocommerce/product-template",
+      "poocommerce/product-template",
       {},
       [
-        ["woocommerce/product-image"],
+        ["poocommerce/product-image"],
         [
-          "woocommerce/product-price",
+          "poocommerce/product-price",
           {
             textAlign: "center",
             fontSize: "small",
@@ -256,7 +256,7 @@ __experimentalRegisterProductCollection({
 
 This will create a collection with a heading, product image, and product price. Here is how it will look like:
 
-![image](https://github.com/woocommerce/woocommerce/assets/16707866/3d92c084-91e9-4872-a898-080b4b93afca)
+![image](https://github.com/poocommerce/poocommerce/assets/16707866/3d92c084-91e9-4872-a898-080b4b93afca)
 
 **Tip:** You can learn more about inner blocks template in the [Inner Blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/#template) documentation.
 
@@ -335,4 +335,4 @@ __experimentalRegisterProductCollection({
 
 ---
 
-**Tip:** You can also take a look at how we are defining our core collections at `plugins/woocommerce-blocks/assets/js/blocks/product-collection/collections` directory. Our core collections will also evolve over time.
+**Tip:** You can also take a look at how we are defining our core collections at `plugins/poocommerce-blocks/assets/js/blocks/product-collection/collections` directory. Our core collections will also evolve over time.

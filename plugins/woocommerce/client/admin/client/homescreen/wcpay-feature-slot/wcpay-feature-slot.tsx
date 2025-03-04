@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useSlot } from '@woocommerce/experimental';
+import { useSlot } from '@poocommerce/experimental';
 import clsx from 'clsx';
 
 /**
@@ -24,7 +24,7 @@ export const WooHomescreenWCPayFeature = ( {
 		return null;
 	}
 	return (
-		<div className={ clsx( 'woocommerce-homescreen__header', className ) }>
+		<div className={ clsx( 'poocommerce-homescreen__header', className ) }>
 			<WooHomescreenWCPayFeatureItem.Slot />
 		</div>
 	);

@@ -1,83 +1,83 @@
-'package: @woocommerce/api':
+'package: @poocommerce/api':
   - packages/js/api/**/*
 
-'package: @woocommerce/e2e-utils':
+'package: @poocommerce/e2e-utils':
   - packages/js/e2e-utils/**/*
     
-'package: @woocommerce/e2e-utils-playwright':
+'package: @poocommerce/e2e-utils-playwright':
   - packages/js/e2e-utils-playwright/**/*
 
-'package: @woocommerce/e2e-environment':
+'package: @poocommerce/e2e-environment':
   - packages/js/e2e-environment/**/*
 
-'package: @woocommerce/api-core-tests':
+'package: @poocommerce/api-core-tests':
   - packages/js/api-core-tests/**/*
 
-'package: @woocommerce/e2e-core-tests':
+'package: @poocommerce/e2e-core-tests':
   - packages/js/e2e-core-tests/**/*
 
-'package: @woocommerce/admin-e2e-tests':
+'package: @poocommerce/admin-e2e-tests':
   - packages/js/admin-e2e-tests/**/*
 
-'package: @woocommerce/components':
+'package: @poocommerce/components':
   - packages/js/components/**/*
 
-'package: @woocommerce/csv-export':
+'package: @poocommerce/csv-export':
   - packages/js/csv-export/**/*
 
-'package: @woocommerce/currency':
+'package: @poocommerce/currency':
   - packages/js/currency/**/*
 
-'package: @woocommerce/customer-effort-score':
+'package: @poocommerce/customer-effort-score':
   - packages/js/customer-effort-score/**/*
 
-'package: @woocommerce/data':
+'package: @poocommerce/data':
   - packages/js/data/**/*
 
-'package: @woocommerce/date':
+'package: @poocommerce/date':
   - packages/js/date/**/*
 
 'package: dependency-extraction-webpack-plugin':
   - packages/js/dependency-extraction-webpack-plugin/**/*
 
-'package: @woocommerce/eslint-plugin':
+'package: @poocommerce/eslint-plugin':
   - packages/js/eslint-plugin/**/*
 
-'package: @woocommerce/experimental':
+'package: @poocommerce/experimental':
   - packages/js/experimental/**/*
 
-'package: @woocommerce/explat':
+'package: @poocommerce/explat':
   - packages/js/explat/**/*
 
-'package: @woocommerce/navigation':
+'package: @poocommerce/navigation':
   - packages/js/navigation/**/*
 
-'package: @woocommerce/number':
+'package: @poocommerce/number':
   - packages/js/number/**/*
 
-'package: @woocommerce/onboarding':
+'package: @poocommerce/onboarding':
   - packages/js/onboarding/**/*
 
-'package: @woocommerce/tracks':
+'package: @poocommerce/tracks':
   - packages/js/tracks/**/*
 
-'plugin: woocommerce':
-  - plugins/woocommerce/**/*
+'plugin: poocommerce':
+  - plugins/poocommerce/**/*
 
-'plugin: woocommerce beta tester':
-  - plugins/woocommerce-beta-tester/**/*
+'plugin: poocommerce beta tester':
+  - plugins/poocommerce-beta-tester/**/*
 
 'plugin: woo-ai':
   - plugins/woo-ai/**/*
 
 'focus: performance tests':
-  - plugins/woocommerce/tests/performance/**/*
+  - plugins/poocommerce/tests/performance/**/*
 
 'focus: api tests':
-  - plugins/woocommerce/tests/api-core-tests/**/*
+  - plugins/poocommerce/tests/api-core-tests/**/*
 
 'focus: e2e tests':
-  - plugins/woocommerce/tests/e2e-pw/**/*
+  - plugins/poocommerce/tests/e2e-pw/**/*
 
 'focus: documentation':
   - docs/**/*

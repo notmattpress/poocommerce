@@ -5,15 +5,15 @@
  * Handles requests to the /reports/products endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Variations;
+namespace Automattic\PooCommerce\Admin\API\Reports\Variations;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
-use Automattic\WooCommerce\Admin\API\Reports\ExportableTraits;
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableInterface;
+use Automattic\PooCommerce\Admin\API\Reports\ExportableTraits;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\OrderAwareControllerTrait;
 
 
 /**
@@ -86,7 +86,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @param object           $report   The original report object.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_report_variations', $response, $report, $request );
+		return apply_filters( 'poocommerce_rest_prepare_report_variations', $response, $report, $request );
 	}
 
 	/**
@@ -107,7 +107,7 @@ class Controller extends GenericController implements ExportableInterface {
 		 * @since 6.5.0
 		 */
 		$collection_params = apply_filters(
-			'experimental_woocommerce_analytics_variations_collection_params',
+			'experimental_poocommerce_analytics_variations_collection_params',
 			$this->get_collection_params()
 		);
 		$registered        = array_keys( $collection_params );
@@ -157,80 +157,80 @@ class Controller extends GenericController implements ExportableInterface {
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Product ID.', 'woocommerce' ),
+					'description' => __( 'Product ID.', 'poocommerce' ),
 				),
 				'variation_id'  => array(
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Product ID.', 'woocommerce' ),
+					'description' => __( 'Product ID.', 'poocommerce' ),
 				),
 				'items_sold'    => array(
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Number of items sold.', 'woocommerce' ),
+					'description' => __( 'Number of items sold.', 'poocommerce' ),
 				),
 				'net_revenue'   => array(
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Total Net sales of all items sold.', 'woocommerce' ),
+					'description' => __( 'Total Net sales of all items sold.', 'poocommerce' ),
 				),
 				'orders_count'  => array(
 					'type'        => 'integer',
 					'readonly'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'description' => __( 'Number of orders product appeared in.', 'woocommerce' ),
+					'description' => __( 'Number of orders product appeared in.', 'poocommerce' ),
 				),
 				'extended_info' => array(
 					'name'             => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product name.', 'woocommerce' ),
+						'description' => __( 'Product name.', 'poocommerce' ),
 					),
 					'price'            => array(
 						'type'        => 'number',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product price.', 'woocommerce' ),
+						'description' => __( 'Product price.', 'poocommerce' ),
 					),
 					'image'            => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product image.', 'woocommerce' ),
+						'description' => __( 'Product image.', 'poocommerce' ),
 					),
 					'permalink'        => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product link.', 'woocommerce' ),
+						'description' => __( 'Product link.', 'poocommerce' ),
 					),
 					'attributes'       => array(
 						'type'        => 'array',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product attributes.', 'woocommerce' ),
+						'description' => __( 'Product attributes.', 'poocommerce' ),
 					),
 					'stock_status'     => array(
 						'type'        => 'string',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product inventory status.', 'woocommerce' ),
+						'description' => __( 'Product inventory status.', 'poocommerce' ),
 					),
 					'stock_quantity'   => array(
 						'type'        => 'integer',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product inventory quantity.', 'woocommerce' ),
+						'description' => __( 'Product inventory quantity.', 'poocommerce' ),
 					),
 					'low_stock_amount' => array(
 						'type'        => 'integer',
 						'readonly'    => true,
 						'context'     => array( 'view', 'edit' ),
-						'description' => __( 'Product inventory threshold for low stock.', 'woocommerce' ),
+						'description' => __( 'Product inventory threshold for low stock.', 'poocommerce' ),
 					),
 				),
 			),
@@ -256,7 +256,7 @@ class Controller extends GenericController implements ExportableInterface {
 			)
 		);
 		$params['match']             = array(
-			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories', 'woocommerce' ),
+			'description'       => __( 'Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'all',
 			'enum'              => array(
@@ -266,7 +266,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['product_includes']  = array(
-			'description'       => __( 'Limit result set to items that have the specified parent product(s).', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that have the specified parent product(s).', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -276,7 +276,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['product_excludes']  = array(
-			'description'       => __( 'Limit result set to items that don\'t have the specified parent product(s).', 'woocommerce' ),
+			'description'       => __( 'Limit result set to items that don\'t have the specified parent product(s).', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -286,7 +286,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['variations']        = array(
-			'description'       => __( 'Limit result to items with specified variation ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified variation ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -295,14 +295,14 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['extended_info']     = array(
-			'description'       => __( 'Add additional piece of info about each variation to the report.', 'woocommerce' ),
+			'description'       => __( 'Add additional piece of info about each variation to the report.', 'poocommerce' ),
 			'type'              => 'boolean',
 			'default'           => false,
 			'sanitize_callback' => 'wc_string_to_bool',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['attribute_is']      = array(
-			'description'       => __( 'Limit result set to variations that include the specified attributes.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to variations that include the specified attributes.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'array',
@@ -311,7 +311,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['attribute_is_not']  = array(
-			'description'       => __( 'Limit result set to variations that don\'t include the specified attributes.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to variations that don\'t include the specified attributes.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'array',
@@ -320,7 +320,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['category_includes'] = array(
-			'description'       => __( 'Limit result set to variations in the specified categories.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to variations in the specified categories.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -329,7 +329,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['category_excludes'] = array(
-			'description'       => __( 'Limit result set to variations not in the specified categories.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to variations not in the specified categories.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -338,7 +338,7 @@ class Controller extends GenericController implements ExportableInterface {
 			),
 		);
 		$params['products']          = array(
-			'description'       => __( 'Limit result to items with specified product ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result to items with specified product ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -369,16 +369,16 @@ class Controller extends GenericController implements ExportableInterface {
 	 */
 	public function get_export_columns() {
 		$export_columns = array(
-			'product_name' => __( 'Product / Variation title', 'woocommerce' ),
-			'sku'          => __( 'SKU', 'woocommerce' ),
-			'items_sold'   => __( 'Items sold', 'woocommerce' ),
-			'net_revenue'  => __( 'N. Revenue', 'woocommerce' ),
-			'orders_count' => __( 'Orders', 'woocommerce' ),
+			'product_name' => __( 'Product / Variation title', 'poocommerce' ),
+			'sku'          => __( 'SKU', 'poocommerce' ),
+			'items_sold'   => __( 'Items sold', 'poocommerce' ),
+			'net_revenue'  => __( 'N. Revenue', 'poocommerce' ),
+			'orders_count' => __( 'Orders', 'poocommerce' ),
 		);
 
-		if ( 'yes' === get_option( 'woocommerce_manage_stock' ) ) {
-			$export_columns['stock_status'] = __( 'Status', 'woocommerce' );
-			$export_columns['stock']        = __( 'Stock', 'woocommerce' );
+		if ( 'yes' === get_option( 'poocommerce_manage_stock' ) ) {
+			$export_columns['stock_status'] = __( 'Status', 'poocommerce' );
+			$export_columns['stock']        = __( 'Stock', 'poocommerce' );
 		}
 
 		return $export_columns;
@@ -399,7 +399,7 @@ class Controller extends GenericController implements ExportableInterface {
 			'orders_count' => $item['orders_count'],
 		);
 
-		if ( 'yes' === get_option( 'woocommerce_manage_stock' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_manage_stock' ) ) {
 			$export_item['stock_status'] = $this->get_stock_status( $item['extended_info']['stock_status'] );
 			$export_item['stock']        = $item['extended_info']['stock_quantity'];
 		}

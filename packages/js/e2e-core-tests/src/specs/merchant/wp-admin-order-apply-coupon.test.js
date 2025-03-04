@@ -9,7 +9,7 @@ const {
 	merchant,
 	createOrder,
 	utils,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 const config = require( 'config' );
 const simpleProductPrice = config.has( 'products.simple.price' )
@@ -25,7 +25,7 @@ let orderId;
 let productId;
 
 const runOrderApplyCouponTest = () => {
-	describe( 'WooCommerce Orders > Apply coupon', () => {
+	describe( 'PooCommerce Orders > Apply coupon', () => {
 		beforeAll( async () => {
 			productId = await createSimpleProduct();
 			couponCode = await createCoupon();
@@ -70,7 +70,7 @@ const runOrderApplyCouponTest = () => {
 				text: '5.00',
 			} );
 			await expect( page ).toMatchElement(
-				'.line_cost > .view > .woocommerce-Price-amount',
+				'.line_cost > .view > .poocommerce-Price-amount',
 				{ text: discountedPrice }
 			);
 		} );
@@ -102,13 +102,13 @@ const runOrderApplyCouponTest = () => {
 				{ text: '5.00' }
 			);
 			await expect( page ).not.toMatchElement(
-				'.line-cost .view .woocommerce-Price-amount',
+				'.line-cost .view .poocommerce-Price-amount',
 				{ text: discountedPrice }
 			);
 
 			// Verify the original price is the order total
 			await expect( page ).toMatchElement(
-				'.line_cost > .view > .woocommerce-Price-amount',
+				'.line_cost > .view > .poocommerce-Price-amount',
 				{ text: simpleProductPrice }
 			);
 		} );

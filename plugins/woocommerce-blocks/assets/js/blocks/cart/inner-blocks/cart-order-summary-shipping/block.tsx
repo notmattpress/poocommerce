@@ -3,17 +3,17 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { TotalsShipping } from '@woocommerce/base-components/cart-checkout';
-import { ShippingCalculatorContext } from '@woocommerce/base-components/cart-checkout/shipping-calculator/context';
-import { useEditorContext, useStoreCart } from '@woocommerce/base-context';
-import { TotalsWrapper } from '@woocommerce/blocks-checkout';
+import { TotalsShipping } from '@poocommerce/base-components/cart-checkout';
+import { ShippingCalculatorContext } from '@poocommerce/base-components/cart-checkout/shipping-calculator/context';
+import { useEditorContext, useStoreCart } from '@poocommerce/base-context';
+import { TotalsWrapper } from '@poocommerce/blocks-checkout';
 import {
 	getShippingRatesPackageCount,
 	selectedRatesAreCollectable,
 	allRatesAreCollectable,
-} from '@woocommerce/base-utils';
-import { getSetting } from '@woocommerce/settings';
-import { SHIPPING_METHODS_EXIST } from '@woocommerce/block-settings';
+} from '@poocommerce/base-utils';
+import { getSetting } from '@poocommerce/settings';
+import { SHIPPING_METHODS_EXIST } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -54,15 +54,15 @@ const Block = ( { className }: { className: string } ): JSX.Element | null => {
 				<TotalsShipping
 					label={
 						hasSelectedCollectionOnly
-							? __( 'Pickup', 'woocommerce' )
-							: __( 'Delivery', 'woocommerce' )
+							? __( 'Pickup', 'poocommerce' )
+							: __( 'Delivery', 'poocommerce' )
 					}
 					placeholder={
 						! showCalculator ? (
 							<span className="wc-block-components-shipping-placeholder__value">
 								{ __(
 									'Calculated at checkout',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</span>
 						) : null
@@ -75,7 +75,7 @@ const Block = ( { className }: { className: string } ): JSX.Element | null => {
 									<div className="wc-block-components-totals-shipping__delivery-options-notice">
 										{ __(
 											'Delivery options will be calculated during checkout',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</div>
 								) }

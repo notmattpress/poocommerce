@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 /**
  * OrderAuthorizationTrait
@@ -26,9 +26,9 @@ trait OrderAuthorizationTrait {
 		try {
 			// In this context, pay_for_order capability checks that the current user ID matches the customer ID stored
 			// within the order, or if the order was placed by a guest.
-			// See https://github.com/woocommerce/woocommerce/blob/abcedbefe02f9e89122771100c42ff588da3e8e0/plugins/woocommerce/includes/wc-user-functions.php#L458.
+			// See https://github.com/poocommerce/poocommerce/blob/abcedbefe02f9e89122771100c42ff588da3e8e0/plugins/poocommerce/includes/wc-user-functions.php#L458.
 			if ( ! current_user_can( 'pay_for_order', $order_id ) ) {
-				throw new RouteException( 'woocommerce_rest_invalid_user', __( 'This order belongs to a different customer.', 'woocommerce' ), 403 );
+				throw new RouteException( 'poocommerce_rest_invalid_user', __( 'This order belongs to a different customer.', 'poocommerce' ), 403 );
 			}
 			if ( get_current_user_id() === 0 ) {
 				$this->order_controller->validate_order_key( $order_id, $order_key );
@@ -56,7 +56,7 @@ trait OrderAuthorizationTrait {
 		$order = wc_get_order( $order_id );
 
 		if ( ! $order || Users::should_user_verify_order_email( $order_id, $billing_email ) ) {
-			throw new RouteException( 'woocommerce_rest_invalid_billing_email', __( 'Invalid billing email provided.', 'woocommerce' ), 401 );
+			throw new RouteException( 'poocommerce_rest_invalid_billing_email', __( 'Invalid billing email provided.', 'poocommerce' ), 401 );
 		}
 	}
 

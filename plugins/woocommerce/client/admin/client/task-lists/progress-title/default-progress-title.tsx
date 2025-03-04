@@ -4,8 +4,8 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { getVisibleTasks, onboardingStore } from '@woocommerce/data';
-import { getSetting } from '@woocommerce/settings';
+import { getVisibleTasks, onboardingStore } from '@poocommerce/data';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -50,18 +50,18 @@ export const DefaultProgressTitle: React.FC< DefaultProgressTitleProps > = ( {
 			return siteTitle
 				? sprintf(
 						/* translators: %s = site title */
-						__( 'Welcome to %s', 'woocommerce' ),
+						__( 'Welcome to %s', 'poocommerce' ),
 						siteTitle
 				  )
-				: __( 'Welcome to your store', 'woocommerce' );
+				: __( 'Welcome to your store', 'poocommerce' );
 		}
 		if ( completedCount <= 3 ) {
-			return __( 'Let’s get you started', 'woocommerce' ) + '   🚀';
+			return __( 'Let’s get you started', 'poocommerce' ) + '   🚀';
 		}
 		if ( completedCount > 3 && completedCount < 6 ) {
-			return __( 'You’re on the right track', 'woocommerce' );
+			return __( 'You’re on the right track', 'poocommerce' );
 		}
-		return __( 'You’re almost there', 'woocommerce' );
+		return __( 'You’re almost there', 'poocommerce' );
 	}, [ completedCount, hasVisitedTasks, tasksCount ] );
 
 	if ( loading ) {
@@ -70,7 +70,7 @@ export const DefaultProgressTitle: React.FC< DefaultProgressTitleProps > = ( {
 
 	return (
 		<h1
-			className="woocommerce-task-progress-header__title"
+			className="poocommerce-task-progress-header__title"
 			dangerouslySetInnerHTML={ sanitizeHTML( title ) }
 		/>
 	);

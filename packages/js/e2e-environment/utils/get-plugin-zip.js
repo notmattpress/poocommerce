@@ -32,7 +32,7 @@ const getRemotePluginZip = async ( fileUrl, authorizationToken = '' ) => {
 /**
  * Get the latest release zip for a plugin from a GiHub repository.
  *
- * @param {string} repository The repository owner and name. For example: `woocommerce/woocommerce`.
+ * @param {string} repository The repository owner and name. For example: `poocommerce/poocommerce`.
  * @param {string} authorizationToken Authorization token used to authenticate with the GitHub API if required.
  * @param {boolean} getPrerelease Flag on whether to get a prelease or not.
  * @param {number} perPage Limit of entries returned from the latest releases list, defaults to 3.

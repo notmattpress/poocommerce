@@ -3,18 +3,18 @@ post_title: Useful core functions
 tags: code-snippet
 ---
 
-WooCommerce core functions are available on both front-end and admin. They can be found in `includes/wc-core-functions.php` and can be used by themes in plugins.
+PooCommerce core functions are available on both front-end and admin. They can be found in `includes/wc-core-functions.php` and can be used by themes in plugins.
 
 ## Conditional Functions
 
-WooCommerce conditional functions help determine the current query/page.
+PooCommerce conditional functions help determine the current query/page.
 
-### is_woocommerce
+### is_poocommerce
 
-Returns true if on a page which uses WooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included).
+Returns true if on a page which uses PooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included).
 
 ```php
-is_woocommerce()
+is_poocommerce()
 ```
 
 ### is_shop
@@ -89,7 +89,7 @@ wc_get_customer_order_count( $user_id )
 
 ### wc_get_dimension
 
-Takes a measurement `$dimension` measured in WooCommerce's dimension unit and converts it to the target unit `$to_unit`.
+Takes a measurement `$dimension` measured in PooCommerce's dimension unit and converts it to the target unit `$to_unit`.
 
 ```php
 wc_get_dimension( $dimension, $to_unit, $from_unit = '' )
@@ -104,7 +104,7 @@ wc_get_dimension( 55, 'in', 'm' );
 
 ### wc_get_weight
 
-Takes a weight `$weight` weighed in WooCommerce's weight unit and converts it to the target weight unit `$to_unit`.
+Takes a weight `$weight` weighed in PooCommerce's weight unit and converts it to the target weight unit `$to_unit`.
 
 ```php
 wc_get_weight( $weight, $to_unit, $from_unit = '' )
@@ -145,7 +145,7 @@ This function is the standard way of retrieving orders based on certain paramete
 wc_get_orders( $args )
 ```
 
-[Arguments and usage](https://github.com/woocommerce/woocommerce/wiki/wc_get_orders-and-WC_Order_Query)
+[Arguments and usage](https://github.com/poocommerce/poocommerce/wiki/wc_get_orders-and-WC_Order_Query)
 
 ### wc_get_order
 
@@ -177,7 +177,7 @@ wc_order_search( $term )
 
 ### wc_get_page_id
 
-Gets a WooCommerce page ID by name, e.g. thankyou
+Gets a PooCommerce page ID by name, e.g. thankyou
 
 ```php
 wc_get_page_id( $page )
@@ -201,7 +201,7 @@ This function is the standard way of retrieving products based on certain parame
 wc_get_products( $args )
 ```
 
-[Arguments and usage](https://github.com/woocommerce/woocommerce/wiki/wc_get_products-and-WC_Product_Query)
+[Arguments and usage](https://github.com/poocommerce/poocommerce/wiki/wc_get_products-and-WC_Product_Query)
 
 ### wc_get_product
 

@@ -40,7 +40,7 @@ class Woo_AI {
 	 */
 	public static function activate() {
 		delete_site_transient( 'update_plugins' );
-		delete_site_transient( 'woocommerce_latest_tag' );
+		delete_site_transient( 'poocommerce_latest_tag' );
 	}
 
 	/**
@@ -58,11 +58,11 @@ class Woo_AI {
 	public function __construct() {
 		$this->plugin_name   = plugin_basename( WOO_AI_FILE );
 		$this->plugin_config = array(
-			'plugin_file'        => 'woocommerce/woocommerce.php',
-			'slug'               => 'woocommerce',
-			'proper_folder_name' => 'woocommerce',
-			'api_url'            => 'https://K.wordpress.org/plugins/info/1.0/woocommerce.json',
-			'repo_url'           => 'https://wordpress.org/plugins/woocommerce/',
+			'plugin_file'        => 'poocommerce/poocommerce.php',
+			'slug'               => 'poocommerce',
+			'proper_folder_name' => 'poocommerce',
+			'api_url'            => 'https://K.wordpress.org/plugins/info/1.0/poocommerce.json',
+			'repo_url'           => 'https://wordpress.org/plugins/poocommerce/',
 		);
 
 		add_filter( 'jetpack_offline_mode', '__return_false' );

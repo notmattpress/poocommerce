@@ -7,9 +7,9 @@
 
 ## Setup
 
--   You will need an item that is [sold individually](https://docs.woocommerce.com/wp-content/uploads/2016/06/disable-stock-mgmt.png).
--   You will need a low stock item with a [low threshold quantity](https://docs.woocommerce.com/wp-content/uploads/2016/06/simpleproduct-inventory.png) below the stock quantity.
--   You will need a low stock item with a [low threshold quantity](https://docs.woocommerce.com/wp-content/uploads/2016/06/simpleproduct-inventory.png) above 0 and a stock quantity below the threshold.
+-   You will need an item that is [sold individually](https://docs.poocommerce.com/wp-content/uploads/2016/06/disable-stock-mgmt.png).
+-   You will need a low stock item with a [low threshold quantity](https://docs.poocommerce.com/wp-content/uploads/2016/06/simpleproduct-inventory.png) below the stock quantity.
+-   You will need a low stock item with a [low threshold quantity](https://docs.poocommerce.com/wp-content/uploads/2016/06/simpleproduct-inventory.png) above 0 and a stock quantity below the threshold.
 
 ## What to test
 

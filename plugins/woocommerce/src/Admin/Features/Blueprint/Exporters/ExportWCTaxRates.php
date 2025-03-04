@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
-use Automattic\WooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\Util;
 
 /**
  * Class ExportWCTaxRates
  *
- * This class exports WooCommerce tax rates and implements the StepExporter interface.
+ * This class exports PooCommerce tax rates and implements the StepExporter interface.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCTaxRates implements StepExporter, HasAlias {
 
 	/**
-	 * Export WooCommerce tax rates.
+	 * Export PooCommerce tax rates.
 	 *
 	 * @return array RunSql
 	 */
 	public function export(): array {
 		return array_merge(
-			$this->generateSteps( 'woocommerce_tax_rates' ),
-			$this->generateSteps( 'woocommerce_tax_rate_locations' )
+			$this->generateSteps( 'poocommerce_tax_rates' ),
+			$this->generateSteps( 'poocommerce_tax_rate_locations' )
 		);
 	}
 
@@ -61,7 +61,7 @@ class ExportWCTaxRates implements StepExporter, HasAlias {
 	 * @return string Label text.
 	 */
 	public function get_label(): string {
-		return __( 'Tax', 'woocommerce' );
+		return __( 'Tax', 'poocommerce' );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class ExportWCTaxRates implements StepExporter, HasAlias {
 	 * @return string Description text.
 	 */
 	public function get_description(): string {
-		return __( 'It includes all settings in WooCommerce | Settings | Tax.', 'woocommerce' );
+		return __( 'It includes all settings in PooCommerce | Settings | Tax.', 'poocommerce' );
 	}
 
 	/**

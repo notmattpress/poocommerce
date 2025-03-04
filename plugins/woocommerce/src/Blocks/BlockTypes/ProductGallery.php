@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductGallery class.
@@ -64,7 +64,7 @@ class ProductGallery extends AbstractBlock {
 					</div>
 				</div>
 			</dialog>',
-			esc_attr__( 'Close dialog', 'woocommerce' ),
+			esc_attr__( 'Close dialog', 'poocommerce' ),
 			$images_html
 		);
 	}

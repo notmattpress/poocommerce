@@ -19,22 +19,22 @@ class SectionHeader extends Component {
 	render() {
 		const { children, menu, title } = this.props;
 		const className = classnames(
-			'woocommerce-section-header',
+			'poocommerce-section-header',
 			this.props.className
 		);
 		return (
 			<div className={ className }>
-				<H className="woocommerce-section-header__title woocommerce-section-header__header-item">
+				<H className="poocommerce-section-header__title poocommerce-section-header__header-item">
 					{ title }
 				</H>
 				<hr role="presentation" />
 				{ children && (
-					<div className="woocommerce-section-header__actions woocommerce-section-header__header-item">
+					<div className="poocommerce-section-header__actions poocommerce-section-header__header-item">
 						{ children }
 					</div>
 				) }
 				{ menu && (
-					<div className="woocommerce-section-header__menu woocommerce-section-header__header-item">
+					<div className="poocommerce-section-header__menu poocommerce-section-header__header-item">
 						{ menu }
 					</div>
 				) }

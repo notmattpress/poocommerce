@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry;
 
 /**
  * Service provider for layout templates.

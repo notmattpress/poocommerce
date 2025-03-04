@@ -6,13 +6,13 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
-import { getQuery, getSearchWords } from '@woocommerce/navigation';
-import { searchItemsByString, ITEMS_STORE_NAME } from '@woocommerce/data';
-import { AnalyticsError } from '@woocommerce/components';
+import { getQuery, getSearchWords } from '@poocommerce/navigation';
+import { searchItemsByString, ITEMS_STORE_NAME } from '@poocommerce/data';
+import { AnalyticsError } from '@poocommerce/components';
 import {
 	CurrencyContext,
 	getFilteredCurrencyInstance,
-} from '@woocommerce/currency';
+} from '@poocommerce/currency';
 
 /**
  * Internal dependencies

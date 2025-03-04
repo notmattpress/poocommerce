@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import { cartStore, processErrorResponse } from '@woocommerce/block-data';
+import { cartStore, processErrorResponse } from '@poocommerce/block-data';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { isObject } from '@woocommerce/types';
+import { isObject } from '@poocommerce/types';
 import { useEffect, useRef, useCallback } from '@wordpress/element';
 import {
 	hasCollectableRate,
 	deriveSelectedShippingRates,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import isShallowEqual from '@wordpress/is-shallow-equal';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies

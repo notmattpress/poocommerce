@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Extension Guidelines - Onboarding
+post_title: PooCommerce Extension Guidelines - Onboarding
 menu_title: Onboarding
 ---
 
@@ -9,7 +9,7 @@ The first experience your users have with your extension is crucial. A user acti
 
 **If necessary, provide a dismissible notification in the plugin area**. Add a notification to communicate next steps if setup or connection is required to successfully enable the plugin.
 
-- Use the standard WordPress notice format and WooCommerce admin notices API.
+- Use the standard WordPress notice format and PooCommerce admin notices API.
 - Notices should be dismissible. Users should always have a clear way to close the notice.
 - Keep the post-activation notice with the WordPress plugin area in context of the plugin listing-do not display it on the dashboard, or any other parts of the platform.
 - Don't display more than one notice.

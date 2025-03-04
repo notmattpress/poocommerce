@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { objectHasProp } from '@woocommerce/types';
+import { objectHasProp } from '@poocommerce/types';
 import deprecated from '@wordpress/deprecated';
-import { getSetting } from '@woocommerce/settings';
-import type { GlobalPaymentMethod } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import type { GlobalPaymentMethod } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -27,8 +27,8 @@ export const isPaymentPristine = ( state: PaymentState ) => {
 	deprecated( 'isPaymentPristine', {
 		since: '9.6.0',
 		alternative: 'isPaymentIdle',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 	} );
 
 	return state.status === PAYMENT_STATUS.IDLE;
@@ -41,8 +41,8 @@ export const isPaymentStarted = ( state: PaymentState ) => {
 	deprecated( 'isPaymentStarted', {
 		since: '9.6.0',
 		alternative: 'isExpressPaymentStarted',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 	} );
 	return state.status === PAYMENT_STATUS.EXPRESS_STARTED;
 };
@@ -61,8 +61,8 @@ export const isPaymentSuccess = ( state: PaymentState ) => {
 	deprecated( 'isPaymentSuccess', {
 		since: '9.6.0',
 		alternative: 'isPaymentReady',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 	} );
 
 	return state.status === PAYMENT_STATUS.READY;
@@ -74,8 +74,8 @@ export const hasPaymentError = ( state: PaymentState ) =>
 export const isPaymentFailed = ( state: PaymentState ) => {
 	deprecated( 'isPaymentFailed', {
 		since: '9.6.0',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 	} );
 
 	return state.status === PAYMENT_STATUS.ERROR;
@@ -170,8 +170,8 @@ export const getCurrentStatus = ( state: PaymentState ) => {
 	deprecated( 'getCurrentStatus', {
 		since: '8.9.0',
 		alternative: 'isPaymentIdle, isPaymentProcessing, hasPaymentError',
-		plugin: 'WooCommerce Blocks',
-		link: 'https://github.com/woocommerce/woocommerce-blocks/pull/7666',
+		plugin: 'PooCommerce Blocks',
+		link: 'https://github.com/poocommerce/poocommerce-blocks/pull/7666',
 	} );
 
 	return {
@@ -179,7 +179,7 @@ export const getCurrentStatus = ( state: PaymentState ) => {
 			deprecated( 'isPristine', {
 				since: '9.6.0',
 				alternative: 'isIdle',
-				plugin: 'WooCommerce Blocks',
+				plugin: 'PooCommerce Blocks',
 			} );
 			return isPaymentIdle( state );
 		}, // isPristine is the same as isIdle.
@@ -189,8 +189,8 @@ export const getCurrentStatus = ( state: PaymentState ) => {
 		get isFinished() {
 			deprecated( 'isFinished', {
 				since: '9.6.0',
-				plugin: 'WooCommerce Blocks',
-				link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+				plugin: 'PooCommerce Blocks',
+				link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 			} );
 			return hasPaymentError( state ) || isPaymentReady( state );
 		},
@@ -198,16 +198,16 @@ export const getCurrentStatus = ( state: PaymentState ) => {
 		get hasFailed() {
 			deprecated( 'hasFailed', {
 				since: '9.6.0',
-				plugin: 'WooCommerce Blocks',
-				link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+				plugin: 'PooCommerce Blocks',
+				link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 			} );
 			return hasPaymentError( state );
 		},
 		get isSuccessful() {
 			deprecated( 'isSuccessful', {
 				since: '9.6.0',
-				plugin: 'WooCommerce Blocks',
-				link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8110',
+				plugin: 'PooCommerce Blocks',
+				link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8110',
 			} );
 			return isPaymentReady( state );
 		},

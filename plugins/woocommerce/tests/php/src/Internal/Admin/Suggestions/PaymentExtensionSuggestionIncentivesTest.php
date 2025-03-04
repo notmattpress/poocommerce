@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
-use Automattic\WooCommerce\Tests\Internal\Admin\Suggestions\Mocks\FakeIncentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentExtensionSuggestionIncentives;
+use Automattic\PooCommerce\Tests\Internal\Admin\Suggestions\Mocks\FakeIncentive;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 

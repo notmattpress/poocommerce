@@ -2,19 +2,19 @@
 /**
  * Reports product stats tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free product reports.
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports product stats tests class
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free product reports.
  */
 class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
@@ -419,7 +419,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 
 	/**
 	 * Test that filters get properly parsed for CSV exports.
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/5503.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/5503.
 	 *
 	 * @since 3.5.0
 	 */

@@ -33,7 +33,7 @@ export function TabButton( {
 	order?: number;
 } ) {
 	const classes = classnames(
-		'wp-block-woocommerce-product-tab__button',
+		'wp-block-poocommerce-product-tab__button',
 		className,
 		{ 'is-selected': selected }
 	);
@@ -48,8 +48,8 @@ export function TabButton( {
 							key={ id }
 							className={ classes }
 							onClick={ () => onClick( id ) }
-							id={ `woocommerce-product-tab__${ id }` }
-							aria-controls={ `woocommerce-product-tab__${ id }-content` }
+							id={ `poocommerce-product-tab__${ id }` }
+							aria-controls={ `poocommerce-product-tab__${ id }-content` }
 							aria-selected={ selected }
 							tabIndex={ selected ? undefined : -1 }
 							role="tab"

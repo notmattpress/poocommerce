@@ -98,7 +98,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 			for ( const product of groupedProductsData ) {
 				await page
 					.locator(
-						'.woocommerce-add-products-modal__form-group-content'
+						'.poocommerce-add-products-modal__form-group-content'
 					)
 					.getByPlaceholder( 'Search for products' )
 					.fill( product.name );
@@ -107,14 +107,14 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 			}
 
 			await page
-				.locator( '.woocommerce-add-products-modal__actions' )
+				.locator( '.poocommerce-add-products-modal__actions' )
 				.getByRole( 'button', {
 					name: 'Add',
 				} )
 				.click();
 
 			await page
-				.locator( '.woocommerce-product-header__actions' )
+				.locator( '.poocommerce-product-header__actions' )
 				.getByRole( 'button', {
 					name: 'Publish',
 				} )
@@ -131,7 +131,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 					response.status() === 200
 			);
 
-			const title = page.locator( '.woocommerce-product-header__title' );
+			const title = page.locator( '.poocommerce-product-header__title' );
 
 			// Save product ID
 			const productIdRegex = /product%2F(\d+)/;

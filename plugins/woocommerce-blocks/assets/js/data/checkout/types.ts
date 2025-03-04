@@ -2,8 +2,8 @@
  * External dependencies
  */
 import type { WPNotice } from '@wordpress/notices/build-types/store/selectors';
-import type { FieldValidationStatus } from '@woocommerce/types';
-import { AdditionalValues } from '@woocommerce/settings';
+import type { FieldValidationStatus } from '@poocommerce/types';
+import { AdditionalValues } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

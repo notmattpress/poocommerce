@@ -5,7 +5,7 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { BlockEditProps } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
-import { isSiteEditorPage } from '@woocommerce/utils';
+import { isSiteEditorPage } from '@poocommerce/utils';
 import {
 	Disabled,
 	PanelBody,
@@ -33,13 +33,13 @@ const getHelpText = ( quantitySelectorStyle: QuantitySelectorStyle ) => {
 	if ( quantitySelectorStyle === QuantitySelectorStyle.Input ) {
 		return __(
 			'Shoppers can enter a number of items to add to cart.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 	if ( quantitySelectorStyle === QuantitySelectorStyle.Stepper ) {
 		return __(
 			'Shoppers can use buttons to change the number of items to add to cart.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 };
@@ -67,7 +67,7 @@ const AddToCartWithOptionsQuantitySelectorEdit = (
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
 						className="wc-block-editor-add-to-cart-with-options__quantity-selector"
 						__nextHasNoMarginBottom
@@ -82,11 +82,11 @@ const AddToCartWithOptionsQuantitySelectorEdit = (
 						help={ getHelpText( quantitySelectorStyle ) }
 					>
 						<ToggleGroupControlOption
-							label={ __( 'Input', 'woocommerce' ) }
+							label={ __( 'Input', 'poocommerce' ) }
 							value={ QuantitySelectorStyle.Input }
 						/>
 						<ToggleGroupControlOption
-							label={ __( 'Stepper', 'woocommerce' ) }
+							label={ __( 'Stepper', 'poocommerce' ) }
 							value={ QuantitySelectorStyle.Stepper }
 						/>
 					</ToggleGroupControl>

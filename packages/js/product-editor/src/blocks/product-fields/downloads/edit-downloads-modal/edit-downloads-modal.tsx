@@ -5,8 +5,8 @@ import { __, sprintf } from '@wordpress/i18n';
 import { createElement, useState } from '@wordpress/element';
 import { trash } from '@wordpress/icons';
 import { useDispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { ImageGallery, ImageGalleryItem } from '@woocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
+import { ImageGallery, ImageGalleryItem } from '@poocommerce/components';
 import {
 	Button,
 	Modal,
@@ -44,7 +44,7 @@ export const EditDownloadsModal: React.FC< EditDownloadsModalProps > = ( {
 	const onCopySuccess = () => {
 		createNotice(
 			'success',
-			__( 'URL copied successfully.', 'woocommerce' )
+			__( 'URL copied successfully.', 'poocommerce' )
 		);
 	};
 
@@ -82,7 +82,7 @@ export const EditDownloadsModal: React.FC< EditDownloadsModalProps > = ( {
 		<Modal
 			title={ sprintf(
 				/* translators: %s is the attribute name */
-				__( 'Edit %s', 'woocommerce' ),
+				__( 'Edit %s', 'poocommerce' ),
 				name
 			) }
 			onRequestClose={ ( event ) => {
@@ -95,9 +95,9 @@ export const EditDownloadsModal: React.FC< EditDownloadsModalProps > = ( {
 					onCancel();
 				}
 			} }
-			className="woocommerce-edit-downloads-modal"
+			className="poocommerce-edit-downloads-modal"
 		>
-			<div className="woocommerce-edit-downloads-modal__preview">
+			<div className="poocommerce-edit-downloads-modal__preview">
 				<ImageGallery allowDragging={ false } columns={ 1 }>
 					{ isImage( file ) ? (
 						<ImageGalleryItem
@@ -118,15 +118,15 @@ export const EditDownloadsModal: React.FC< EditDownloadsModalProps > = ( {
 			</div>
 			<BaseControl
 				id={ 'file-name-help' }
-				className="woocommerce-edit-downloads-modal__file-name"
+				className="poocommerce-edit-downloads-modal__file-name"
 				help={ __(
 					'Your customers will see this on the thank-you page and in their order confirmation email.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			>
 				<InputControl
 					id={ 'file-name' }
-					label={ __( 'FILE NAME', 'woocommerce' ) }
+					label={ __( 'FILE NAME', 'poocommerce' ) }
 					name={ 'file-name' }
 					value={ name || '' }
 					onChange={ ( value ) => {
@@ -135,11 +135,11 @@ export const EditDownloadsModal: React.FC< EditDownloadsModalProps > = ( {
 				/>
 			</BaseControl>
 
-			<div className="woocommerce-edit-downloads-modal__file-url">
+			<div className="poocommerce-edit-downloads-modal__file-url">
 				<InputControl
 					disabled
 					id={ 'file-url' }
-					label={ __( 'FILE URL', 'woocommerce' ) }
+					label={ __( 'FILE URL', 'poocommerce' ) }
 					name={ 'file-url' }
 					value={ file || '' }
 					suffix={
@@ -150,41 +150,41 @@ export const EditDownloadsModal: React.FC< EditDownloadsModalProps > = ( {
 					}
 				/>
 			</div>
-			<div className="woocommerce-edit-downloads-modal__buttons">
-				<div className="woocommerce-edit-downloads-modal__buttons-left">
+			<div className="poocommerce-edit-downloads-modal__buttons">
+				<div className="poocommerce-edit-downloads-modal__buttons-left">
 					<Button
 						icon={ trash }
 						isDestructive
 						variant="tertiary"
-						label={ __( 'Delete', 'woocommerce' ) }
+						label={ __( 'Delete', 'poocommerce' ) }
 						onClick={ () => {
 							recordEvent( 'product_downloads_modal_delete' );
 							onRemove();
 						} }
 					>
-						{ __( 'Delete file', 'woocommerce' ) }
+						{ __( 'Delete file', 'poocommerce' ) }
 					</Button>
 				</div>
-				<div className="woocommerce-edit-downloads-modal__buttons-right">
+				<div className="poocommerce-edit-downloads-modal__buttons-right">
 					<Button
-						label={ __( 'Cancel', 'woocommerce' ) }
+						label={ __( 'Cancel', 'poocommerce' ) }
 						onClick={ () => {
 							recordEvent( 'product_downloads_modal_cancel' );
 							onCancel();
 						} }
 						variant="tertiary"
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
-						label={ __( 'Update', 'woocommerce' ) }
+						label={ __( 'Update', 'poocommerce' ) }
 						onClick={ () => {
 							recordEvent( 'product_downloads_modal_update' );
 							onSave();
 						} }
 						variant="primary"
 					>
-						{ __( 'Update', 'woocommerce' ) }
+						{ __( 'Update', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

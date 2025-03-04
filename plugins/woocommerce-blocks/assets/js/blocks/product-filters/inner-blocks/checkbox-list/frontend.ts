@@ -7,7 +7,7 @@ type CheckboxListContext = {
 	showAll: boolean;
 };
 
-store( 'woocommerce/product-filter-checkbox-list', {
+store( 'poocommerce/product-filter-checkbox-list', {
 	actions: {
 		showAllItems: () => {
 			const context = getContext< CheckboxListContext >();

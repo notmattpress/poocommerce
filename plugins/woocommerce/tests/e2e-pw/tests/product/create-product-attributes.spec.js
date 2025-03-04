@@ -31,7 +31,7 @@ const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
 	page: async ( { page, wcAdminApi }, use ) => {
 		await wcAdminApi.put( 'options', {
-			woocommerce_task_list_reminder_bar_hidden: 'yes',
+			poocommerce_task_list_reminder_bar_hidden: 'yes',
 		} );
 
 		await use( page );
@@ -162,7 +162,7 @@ test( 'can add custom product attributes', async ( { page, product } ) => {
 				response.url().includes( 'options' ) &&
 				response
 					.url()
-					.includes( 'woocommerce_task_list_reminder_bar_hidden' )
+					.includes( 'poocommerce_task_list_reminder_bar_hidden' )
 		);
 
 		await page

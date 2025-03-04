@@ -1,4 +1,4 @@
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const wcApi = require( '@poocommerce/poocommerce-rest-api' ).default;
 const config = require( '../playwright.config' ).default;
 
 let api;
@@ -54,19 +54,19 @@ const update = {
 		await api.post( 'settings/general/batch', {
 			update: [
 				{
-					id: 'woocommerce_store_address',
+					id: 'poocommerce_store_address',
 					value: store.address,
 				},
 				{
-					id: 'woocommerce_store_city',
+					id: 'poocommerce_store_city',
 					value: store.city,
 				},
 				{
-					id: 'woocommerce_default_country',
+					id: 'poocommerce_default_country',
 					value: store.countryCode,
 				},
 				{
-					id: 'woocommerce_store_postcode',
+					id: 'poocommerce_store_postcode',
 					value: store.zip,
 				},
 			],
@@ -100,7 +100,7 @@ const get = {
 	},
 	defaultCountry: async () => {
 		const response = await api.get(
-			'settings/general/woocommerce_default_country'
+			'settings/general/poocommerce_default_country'
 		);
 
 		const code = response.data.default;
@@ -262,9 +262,9 @@ const create = {
 	/**
 	 * Batch create product variations.
 	 *
-	 * @see {@link [Batch update product variations](https://woocommerce.github.io/woocommerce-rest-api-docs/#batch-update-product-variations)}
+	 * @see {@link [Batch update product variations](https://poocommerce.github.io/poocommerce-rest-api-docs/#batch-update-product-variations)}
 	 * @param {number|string} productId  Product ID to add variations to
-	 * @param {object[]}      variations Array of variations to add. See [Product variation properties](https://woocommerce.github.io/woocommerce-rest-api-docs/#product-variation-properties)
+	 * @param {object[]}      variations Array of variations to add. See [Product variation properties](https://poocommerce.github.io/poocommerce-rest-api-docs/#product-variation-properties)
 	 * @return {Promise<number[]>} Array of variation ID's.
 	 */
 	productVariations: async ( productId, variations ) => {

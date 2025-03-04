@@ -1,14 +1,14 @@
 <?php
 /**
- * Enables WooCommerce, via the command line.
+ * Enables PooCommerce, via the command line.
  *
- * @package WooCommerce\CLI
+ * @package PooCommerce\CLI
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\CLIRunner as CustomOrdersTableCLIRunner;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\CLIRunner as ProductAttributesLookupCLIRunner;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\CLIRunner as CustomOrdersTableCLIRunner;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\CLIRunner as ProductAttributesLookupCLIRunner;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,8 +53,8 @@ class WC_CLI {
 		$cli_runner = wc_get_container()->get( ProductAttributesLookupCLIRunner::class );
 		WP_CLI::add_hook( 'after_wp_load', fn() => \WP_CLI::add_command( 'wc palt', $cli_runner ) );
 
-		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) && class_exists( \Automattic\WooCommerce\Blueprint\Cli::class ) ) {
-			WP_CLI::add_hook( 'after_wp_load', 'Automattic\WooCommerce\Blueprint\Cli::register_commands' );
+		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) && class_exists( \Automattic\PooCommerce\Blueprint\Cli::class ) ) {
+			WP_CLI::add_hook( 'after_wp_load', 'Automattic\PooCommerce\Blueprint\Cli::register_commands' );
 		}
 	}
 
@@ -63,7 +63,7 @@ class WC_CLI {
 	 */
 	private function maybe_include_blueprint_cli() {
 		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) ) {
-			require_once dirname( WC_PLUGIN_FILE ) . '/vendor/woocommerce/blueprint/src/Cli.php';
+			require_once dirname( WC_PLUGIN_FILE ) . '/vendor/poocommerce/blueprint/src/Cli.php';
 		}
 	}
 }

@@ -19,7 +19,7 @@ if ( ! function_exists( 'YOUR_PREFIX_add_currency_name' ) ) {
 
     return $currencies;
   }
-  add_filter( 'woocommerce_currencies', 'YOUR_PREFIX_add_currency_name' );
+  add_filter( 'poocommerce_currencies', 'YOUR_PREFIX_add_currency_name' );
 }
 
 if ( ! function_exists( 'YOUR_PREFIX_add_currency_symbol' ) ) {
@@ -37,6 +37,6 @@ if ( ! function_exists( 'YOUR_PREFIX_add_currency_symbol' ) ) {
 
     return $currency_symbol;
   }
-  add_filter('woocommerce_currency_symbol', 'YOUR_PREFIX_add_currency_symbol', 10, 2);
+  add_filter('poocommerce_currency_symbol', 'YOUR_PREFIX_add_currency_symbol', 10, 2);
 }
 ```

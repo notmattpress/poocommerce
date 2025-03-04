@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TableRow } from '@woocommerce/components/build-types/table/types';
+import { TableRow } from '@poocommerce/components/build-types/table/types';
 import { gmdateI18n } from '@wordpress/date';
 import { __, sprintf } from '@wordpress/i18n';
 import { Icon, plugins } from '@wordpress/icons';
@@ -47,12 +47,12 @@ function getStatusBadge(
 		 * If there is no subscription, we don't need to check for the expiry.
 		 */
 		return {
-			text: __( 'No subscription', 'woocommerce' ),
+			text: __( 'No subscription', 'poocommerce' ),
 			level: StatusLevel.Error,
 			explanation: createInterpolateElement(
 				__(
 					'To receive updates and support, please <purchase>purchase</purchase> a subscription or use a subscription from another account by <sharing>sharing</sharing> or <transferring>transferring</transferring>.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					purchase: (
@@ -86,12 +86,12 @@ function getStatusBadge(
 
 	if ( subscription.expired ) {
 		return {
-			text: __( 'Expired', 'woocommerce' ),
+			text: __( 'Expired', 'poocommerce' ),
 			level: StatusLevel.Error,
 			explanation: createInterpolateElement(
 				__(
 					'To receive updates and support, please <renew>renew</renew> this subscription or use a subscription from another account by <sharing>sharing</sharing> or <transferring>transferring</transferring>.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					renew: (
@@ -125,12 +125,12 @@ function getStatusBadge(
 
 	if ( subscription.expiring && ! subscription.autorenew ) {
 		return {
-			text: __( 'Expires soon', 'woocommerce' ),
+			text: __( 'Expires soon', 'poocommerce' ),
 			level: StatusLevel.Error,
 			explanation: createInterpolateElement(
 				__(
 					'To receive updates and support, please <renew>renew</renew> this subscription before it expires or use a subscription from another account by <sharing>sharing</sharing> or <transferring>transferring</transferring>.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					renew: (
@@ -168,11 +168,11 @@ function getStatusBadge(
 		! subscription.active
 	) {
 		return {
-			text: __( 'Not connected', 'woocommerce' ),
+			text: __( 'Not connected', 'poocommerce' ),
 			level: StatusLevel.Warning,
 			explanation: __(
 				'To receive updates and support, please connect your subscription to this store.',
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}
@@ -234,7 +234,7 @@ export function nameAndStatus( subscription: Subscription ): TableRow {
 				src={ subscription.product_icon }
 				alt={ sprintf(
 					/* translators: %s is the product name. */
-					__( '%s icon', 'woocommerce' ),
+					__( '%s icon', 'poocommerce' ),
 					subscription.product_name
 				) }
 			/>
@@ -242,35 +242,35 @@ export function nameAndStatus( subscription: Subscription ): TableRow {
 	}
 
 	const displayElement = (
-		<div className="woocommerce-marketplace__my-subscriptions__product">
+		<div className="poocommerce-marketplace__my-subscriptions__product">
 			<a
 				href={ appendUTMParams( subscription.product_url ) }
 				target="_blank"
 				rel="noreferrer"
 			>
-				<span className="woocommerce-marketplace__my-subscriptions__product-icon">
+				<span className="poocommerce-marketplace__my-subscriptions__product-icon">
 					{ iconElement }
 				</span>
 			</a>
 			<a
 				href={ appendUTMParams( subscription.product_url ) }
-				className="woocommerce-marketplace__my-subscriptions__product-name"
+				className="poocommerce-marketplace__my-subscriptions__product-name"
 				target="_blank"
 				rel="noreferrer"
 			>
 				{ subscription.product_name }
 			</a>
-			<span className="woocommerce-marketplace__my-subscriptions__product-statuses">
+			<span className="poocommerce-marketplace__my-subscriptions__product-statuses">
 				{ subscription.is_shared && (
 					<StatusPopover
-						text={ __( 'Shared with you', 'woocommerce' ) }
+						text={ __( 'Shared with you', 'poocommerce' ) }
 						level={ StatusLevel.Info }
 						explanation={ createInterpolateElement(
 							sprintf(
 								/* translators: %s is the email address of the user who shared the subscription. */
 								__(
 									'This subscription was shared by <email>%s</email>. <link>Learn more</link>.',
-									'woocommerce'
+									'poocommerce'
 								),
 								subscription.owner_email
 							),
@@ -317,7 +317,7 @@ export function expiry( subscription: Subscription ): TableRow {
 		};
 	}
 
-	let expiryDateElement = __( 'Never expires', 'woocommerce' );
+	let expiryDateElement = __( 'Never expires', 'poocommerce' );
 
 	if ( expiryDate ) {
 		expiryDateElement = gmdateI18n(
@@ -327,7 +327,7 @@ export function expiry( subscription: Subscription ): TableRow {
 	}
 
 	const displayElement = (
-		<span className="woocommerce-marketplace__my-subscriptions__expiry-date">
+		<span className="poocommerce-marketplace__my-subscriptions__expiry-date">
 			{ expiryDateElement }
 		</span>
 	);
@@ -357,11 +357,11 @@ export function subscriptionStatus(
 
 		let status;
 		if ( subscription.lifetime ) {
-			status = __( 'Lifetime', 'woocommerce' );
+			status = __( 'Lifetime', 'poocommerce' );
 		} else if ( subscription.autorenew ) {
-			status = __( 'Active', 'woocommerce' );
+			status = __( 'Active', 'poocommerce' );
 		} else {
-			status = __( 'Cancelled', 'woocommerce' );
+			status = __( 'Cancelled', 'poocommerce' );
 		}
 
 		return status;
@@ -404,7 +404,7 @@ export function actions( subscription: Subscription ): TableRow {
 
 	return {
 		display: (
-			<div className="woocommerce-marketplace__my-subscriptions__actions">
+			<div className="poocommerce-marketplace__my-subscriptions__actions">
 				{ actionButton }
 
 				<ActionsDropdownMenu subscription={ subscription } />

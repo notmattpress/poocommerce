@@ -6,31 +6,31 @@ tags: how-to
 
 ## Introduction
 
-Building a WooCommerce extension that provides a first-class experience for merchants and shoppers requires a hybrid development approach combining PHP and modern JavaScript. The PHP handles the lifecycle and server-side operations of your extension, while the modern JavaScript lets you shape the appearance and behavior of its user interface.
+Building a PooCommerce extension that provides a first-class experience for merchants and shoppers requires a hybrid development approach combining PHP and modern JavaScript. The PHP handles the lifecycle and server-side operations of your extension, while the modern JavaScript lets you shape the appearance and behavior of its user interface.
 
 ## The main plugin file
 
-Your extension's main PHP file is a bootstrapping file. It contains important metadata about your extension that WordPress and WooCommerce use for a number of ecosystem integration processes, and it serves as the primary entry point for your extension's functionality. While there is not a particular rule enforced around naming this file, using a hyphenated version of the plugin name is a common best practice. (i.e. my-extension.php)
+Your extension's main PHP file is a bootstrapping file. It contains important metadata about your extension that WordPress and PooCommerce use for a number of ecosystem integration processes, and it serves as the primary entry point for your extension's functionality. While there is not a particular rule enforced around naming this file, using a hyphenated version of the plugin name is a common best practice. (i.e. my-extension.php)
 
 ## Declaring extension metadata
 
-Your extension's main plugin file should have a header comment that includes a number of important pieces of metadata about your extension. WordPress has a list of header requirements to which all plugins must adhere, but there are additional considerations for WooCommerce extensions:
+Your extension's main plugin file should have a header comment that includes a number of important pieces of metadata about your extension. WordPress has a list of header requirements to which all plugins must adhere, but there are additional considerations for PooCommerce extensions:
 
 - The `Author` and `Developer` fields are required and should be set to  
   either your name or your company name.
 
 - The `Developer URI` field should be your official webpage URL.
 
-- The `Plugin URI` field should contain the URL of the extension's product page in the WooCommerce Marketplace or the extension's official landing page on your website.
+- The `Plugin URI` field should contain the URL of the extension's product page in the PooCommerce Marketplace or the extension's official landing page on your website.
 
-- For extensions listed in the WooCommerce Marketplace, to help facilitate the update process, add a `Woo` field and an appropriate value. WooCommerce Marketplace vendors can find this snippet by logging in to the Vendors Dashboard and navigating to `Extensions > All Extensions`. Then, select the product and click Edit product page. This snippet will be in the upper-right-hand corner of the screen.
+- For extensions listed in the PooCommerce Marketplace, to help facilitate the update process, add a `Woo` field and an appropriate value. PooCommerce Marketplace vendors can find this snippet by logging in to the Vendors Dashboard and navigating to `Extensions > All Extensions`. Then, select the product and click Edit product page. This snippet will be in the upper-right-hand corner of the screen.
 
-Below is an example of what the header content might look like for an extension listed in the WooCommerce Marketplace.
+Below is an example of what the header content might look like for an extension listed in the PooCommerce Marketplace.
 
 ```php
 /**
- * Plugin Name: My Great WooCommerce Extension
- * Plugin URI: https://woocommerce.com/products/woocommerce-extension/
+ * Plugin Name: My Great PooCommerce Extension
+ * Plugin URI: https://poocommerce.com/products/poocommerce-extension/
  * Description: Your extension's description text.
  * Version: 1.0.0
  * Author: Your Name
@@ -67,7 +67,7 @@ Starting with these three broad lifecycle areas, you can begin to break your ext
 
 ## Handling activation and deactivation
 
-A common pattern in WooCommerce extensions is to create dedicated functions in your main PHP file to serve as activation and deactivation hooks. You then register these hooks with WordPress using the applicable registration function. This tells WordPress to call the function when the plugin is activated or deactivated. Consider the following examples:
+A common pattern in PooCommerce extensions is to create dedicated functions in your main PHP file to serve as activation and deactivation hooks. You then register these hooks with WordPress using the applicable registration function. This tells WordPress to call the function when the plugin is activated or deactivated. Consider the following examples:
 
 ```php
 function my_extension_activate() {
@@ -148,13 +148,13 @@ if ( ! class_exists( 'My_Extension' ) ) :
 endif;
 ```
 
-Notice that the example class above is designed to be instantiated by calling the static class method `instance()`, which will either return an existing instance of the class or create one and return it. In order to fully protect against unwanted instantiation, it's also necessary to override the built-in magic methods `__clone()` and `__wakeup()`. You can implement your own error logging here or use something like `_doing_it_wrong()` which handles error logging for you. You can also use WooCommerce's wrapper function `wc_doing_it_wrong()` here. Just be sure your code checks that the function exists first.
+Notice that the example class above is designed to be instantiated by calling the static class method `instance()`, which will either return an existing instance of the class or create one and return it. In order to fully protect against unwanted instantiation, it's also necessary to override the built-in magic methods `__clone()` and `__wakeup()`. You can implement your own error logging here or use something like `_doing_it_wrong()` which handles error logging for you. You can also use PooCommerce's wrapper function `wc_doing_it_wrong()` here. Just be sure your code checks that the function exists first.
 
 ## Constructor
 
-The example above includes an empty constructor for demonstration. In a real-world WooCommerce extension, however, this constructor should handle a few important tasks:
+The example above includes an empty constructor for demonstration. In a real-world PooCommerce extension, however, this constructor should handle a few important tasks:
 
-- Check for an active installation of WooCommerce & other sibling dependencies.
+- Check for an active installation of PooCommerce & other sibling dependencies.
 
 - Call a setup method that loads other files that your class depends on.
 - Call an initialization method that gets your class and its dependencies ready to go.
@@ -211,14 +211,14 @@ There are many different ways that your core class' initialization method might 
 
 ## Delaying initialization
 
-The WordPress activation hook we set up above with register_activation_hook() may seem like a great place to instantiate our extension's main class, and in some cases it will work. By virtue of being a plugin for a plugin, however, WooCommerce extensions typically require WooCommerce to be loaded in order to function properly, so it's often best to delay instantiation and initialization until after WordPress has loaded other plugins.
+The WordPress activation hook we set up above with register_activation_hook() may seem like a great place to instantiate our extension's main class, and in some cases it will work. By virtue of being a plugin for a plugin, however, PooCommerce extensions typically require PooCommerce to be loaded in order to function properly, so it's often best to delay instantiation and initialization until after WordPress has loaded other plugins.
 
 To do that, instead of hooking your instantiation to your extension's activation hook, use the plugins_loaded action in WordPress to instantiate your extension's core class and add its singleton to the $GLOBALS array.
 
 ```php
 function my_extension_initialize() {
-    // This is also a great place to check for the existence of the WooCommerce class
-    if ( ! class_exists( 'WooCommerce' ) ) {
+    // This is also a great place to check for the existence of the PooCommerce class
+    if ( ! class_exists( 'PooCommerce' ) ) {
     // You can handle this situation in a variety of ways,
     //   but adding a WordPress admin notice is often a good tactic.
         return;
@@ -229,23 +229,23 @@ function my_extension_initialize() {
 add_action( 'plugins_loaded', 'my_extension_initialize', 10 );
 ```
 
-In the example above, WordPress will wait until after all plugins have been loaded before trying to instantiate your core class. The third argument in add_action() represents the priority of the function, which ultimately determines the order of execution for functions that hook into the plugins_loaded action. Using a value of 10 here ensures that other WooCommerce-related functionality will run before our extension is instantiated.
+In the example above, WordPress will wait until after all plugins have been loaded before trying to instantiate your core class. The third argument in add_action() represents the priority of the function, which ultimately determines the order of execution for functions that hook into the plugins_loaded action. Using a value of 10 here ensures that other PooCommerce-related functionality will run before our extension is instantiated.
 
 ## Handling execution
 
 Once your extension is active and initialized, the possibilities are wide open. This is where the proverbial magic happens in an extension, and it's largely up to you to define. While implementing specific functionality is outside the scope of this guide, there are some best practices to keep in mind as you think about how to build out your extension's functionality.
 
-- Keep an event-driven mindset. Merchants and shoppers who use your extension will be interacting with WooCommerce using web requests, so it can be helpful to anchor your extension to some of the critical flows that users follow in WooCommerce.
+- Keep an event-driven mindset. Merchants and shoppers who use your extension will be interacting with PooCommerce using web requests, so it can be helpful to anchor your extension to some of the critical flows that users follow in PooCommerce.
 
 - Keep business logic and presentation logic separate. This could be as simple as maintaining separate classes for handling back-end processing and front-end rendering.
 
 - Where possible, break functionality into smaller parts and delegate responsibility to dedicated classes instead of building bloated classes and lengthy functions.
 
-You can find detailed documentation of classes and hooks in the WooCommerce Core Code Reference and additional documentation of the REST API endpoints in the WooCommerce REST API Documentation.
+You can find detailed documentation of classes and hooks in the PooCommerce Core Code Reference and additional documentation of the REST API endpoints in the PooCommerce REST API Documentation.
 
 ## Handling deactivation
 
-The WordPress deactivation hook we set up earlier in our main PHP file with register_deactivation_hook() is a great place to aggregate functionality for any cleanup that you need to handle when a merchant deactivates your extension. In addition to any WordPress-related deactivation tasks your extension needs to do, you should also account for WooCommerce-related cleanup, including:
+The WordPress deactivation hook we set up earlier in our main PHP file with register_deactivation_hook() is a great place to aggregate functionality for any cleanup that you need to handle when a merchant deactivates your extension. In addition to any WordPress-related deactivation tasks your extension needs to do, you should also account for PooCommerce-related cleanup, including:
 
 - Removing Scheduled Actions
 - Removing Notes in the Admin Inbox
@@ -263,8 +263,8 @@ Below is an example of what a main plugin file might look like for a very simple
 
 ```php
 /**
- * Plugin Name: My Great WooCommerce Extension
- * Plugin URI: https://woocommerce.com/products/woocommerce-extension/
+ * Plugin Name: My Great PooCommerce Extension
+ * Plugin URI: https://poocommerce.com/products/poocommerce-extension/
  * Description: Your extension's description text.
  * Version: 1.0.0
  * Author: Your Name
@@ -382,12 +382,12 @@ if ( ! class_exists( 'My_Extension' ) ) :
 endif;
 
 /**
- * Function for delaying initialization of the extension until after WooCommerce is loaded.
+ * Function for delaying initialization of the extension until after PooCommerce is loaded.
  */
 function my_extension_initialize() {
 
-    // This is also a great place to check for the existence of the WooCommerce class
-    if ( ! class_exists( 'WooCommerce' ) ) {
+    // This is also a great place to check for the existence of the PooCommerce class
+    if ( ! class_exists( 'PooCommerce' ) ) {
     // You can handle this situation in a variety of ways,
     //   but adding a WordPress admin notice is often a good tactic.
         return;

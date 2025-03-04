@@ -4,12 +4,12 @@
 
 ### POT (Portable Object Template) file
 
-POT stands for `Portable Object Template` and contains all original strings, in English. It can be created manually using [WP-CLI](https://wp-cli.org/) or [Poedit](https://poedit.net/). As the WooCommerce Blocks plugin is hosted on WordPress.org, we don't need to manually create the POT file. GlotPress automatically generates that file in the background, once we release a new version of the plugin.
+POT stands for `Portable Object Template` and contains all original strings, in English. It can be created manually using [WP-CLI](https://wp-cli.org/) or [Poedit](https://poedit.net/). As the PooCommerce Blocks plugin is hosted on WordPress.org, we don't need to manually create the POT file. GlotPress automatically generates that file in the background, once we release a new version of the plugin.
 
-The POT file is human-readable and named `woo-gutenberg-products-block.pot`. It will not be downloaded to the site that is using the WooCommerce Blocks plugin. If we would generate the POT file manually, it would look like this:
+The POT file is human-readable and named `woo-gutenberg-products-block.pot`. It will not be downloaded to the site that is using the PooCommerce Blocks plugin. If we would generate the POT file manually, it would look like this:
 
 ```pot
-"Project-Id-Version: WooCommerce Blocks\n"
+"Project-Id-Version: PooCommerce Blocks\n"
 "POT-Creation-Date: 2022-05-25 19:01+0700\n"
 "PO-Revision-Date: 2022-05-25 19:00+0700\n"
 "Last-Translator: \n"
@@ -21,7 +21,7 @@ The POT file is human-readable and named `woo-gutenberg-products-block.pot`. It 
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: woocommerce-gutenberg-products-block.php\n"
+"X-Poedit-WPHeader: poocommerce-gutenberg-products-block.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
@@ -50,13 +50,13 @@ See also <https://developer.wordpress.org/plugins/internationalization/localizat
 
 ### PO (Portable Object) file
 
-PO stands for `Portable Object`, contains both the original and the translated strings and is based on the POT file. Similar to the POT file, it can also be created manually using [WP-CLI](https://wp-cli.org/) or [Poedit](https://poedit.net/). As mentioned before, this step is not necessary for the WooCommerce Blocks plugin, as it's hosted on WordPress.org. The PO file will be generated within 30 minutes after a new translation had been added via <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>.
+PO stands for `Portable Object`, contains both the original and the translated strings and is based on the POT file. Similar to the POT file, it can also be created manually using [WP-CLI](https://wp-cli.org/) or [Poedit](https://poedit.net/). As mentioned before, this step is not necessary for the PooCommerce Blocks plugin, as it's hosted on WordPress.org. The PO file will be generated within 30 minutes after a new translation had been added via <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>.
 
 The PO file is human-readable and named `woo-gutenberg-products-block-{LANGUAGE-CODE}.po`, e.g. `woo-gutenberg-products-block-de_DE.po`. It can be found in the `/wp-content/languages/plugin` folder. The PO file looks like this:
 
 ```po
-# Translation of Plugins - WooCommerce Blocks - Stable (latest release) in German
-# This file is distributed under the same license as the Plugins - WooCommerce Blocks - Stable (latest release) package.
+# Translation of Plugins - PooCommerce Blocks - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - PooCommerce Blocks - Stable (latest release) package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2022-05-22 10:58:25+0000\n"
@@ -66,7 +66,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: de\n"
-"Project-Id-Version: Plugins - WooCommerce Blocks - Stable (latest release)\n"
+"Project-Id-Version: Plugins - PooCommerce Blocks - Stable (latest release)\n"
 
 #: assets/js/blocks/featured-product/block.json
 #: build/featured-product/block.json
@@ -87,7 +87,7 @@ See also <https://developer.wordpress.org/plugins/internationalization/localizat
 
 ### MO (Machine Object) file
 
-MO stands for `Machine Object`, contains both the original and the translated strings and is based on the PO file. As the POT and the PO files, the MO file can be created manually, but this is not necessary for the WooCommerce Blocks plugin.
+MO stands for `Machine Object`, contains both the original and the translated strings and is based on the PO file. As the POT and the PO files, the MO file can be created manually, but this is not necessary for the PooCommerce Blocks plugin.
 
 The MO file is only machine-readable and named `woo-gutenberg-products-block-{LANGUAGE-CODE}.mo`, e.g. `woo-gutenberg-products-block-de_DE.mo` It can be found in the `/wp-content/languages/plugin` folder. As the MO file is machine-readable only, it cannot be viewed and the MO file only handles translations within PHP files.
 
@@ -177,7 +177,7 @@ public function register_script( $handle, $relative_src, $dependencies = [], $ha
    * @param string $handle The script's handle.
    * @return array
    */
-  $script_dependencies = apply_filters( 'woocommerce_blocks_register_script_dependencies', $script_data['dependencies'], $handle );
+  $script_dependencies = apply_filters( 'poocommerce_blocks_register_script_dependencies', $script_data['dependencies'], $handle );
 
   wp_register_script( $handle, $script_data['src'], $script_dependencies, $script_data['version'], true );
 
@@ -189,9 +189,9 @@ public function register_script( $handle, $relative_src, $dependencies = [], $ha
 
 ## Loading fallback translations
 
-By default, the WooCommerce Blocks plugin tries to load the translation from <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>. If a translation cannot be loaded, the plugin tries to load the corresponding translation from <https://translate.wordpress.org/projects/wp-plugins/woocommerce/>.
+By default, the PooCommerce Blocks plugin tries to load the translation from <https://translate.wordpress.org/projects/wp-plugins/woo-gutenberg-products-block/>. If a translation cannot be loaded, the plugin tries to load the corresponding translation from <https://translate.wordpress.org/projects/wp-plugins/poocommerce/>.
 
-The code that loads the fallback translation, is located in `woocommerce-gutenberg-products-block.php`.
+The code that loads the fallback translation, is located in `poocommerce-gutenberg-products-block.php`.
 
 ## Loading fallback translations for PHP files
 
@@ -207,7 +207,7 @@ The following function handles the loading of fallback translations for PHP file
  * @param string $domain      The text domain.
  * @return string WC Blocks translation. In case it's the same as $text, Core translation.
  */
-function woocommerce_blocks_get_php_translation_from_core( $translation, $text, $domain ) {
+function poocommerce_blocks_get_php_translation_from_core( $translation, $text, $domain ) {
 	if ( 'woo-gutenberg-products-block' !== $domain ) {
 		return $translation;
 	}
@@ -215,12 +215,12 @@ function woocommerce_blocks_get_php_translation_from_core( $translation, $text, 
 	// When translation is the same, that could mean the string is not translated.
 	// In that case, load it from core.
 	if ( $translation === $text ) {
-		return translate( $text, 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction, WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.TextDomainMismatch
+		return translate( $text, 'poocommerce' ); // phpcs:ignore WordPress.WP.I18n.LowLevelTranslationFunction, WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.TextDomainMismatch
 	}
 	return $translation;
 }
 
-add_filter( 'gettext', 'woocommerce_blocks_get_php_translation_from_core', 10, 3 );
+add_filter( 'gettext', 'poocommerce_blocks_get_php_translation_from_core', 10, 3 );
 ```
 
 ## Loading fallback translations for JS/TS files
@@ -230,8 +230,8 @@ The following function handles the loading of fallback translations for JS/TS fi
 ```php
 /**
  * WordPress will look for translation in the following order:
- * - wp-content/plugins/woocommerce-blocks/languages/woo-gutenberg-products-block-{locale}-{handle}.json
- * - wp-content/plugins/woocommerce-blocks/languages/woo-gutenberg-products-block-{locale}-{md5-handle}.json
+ * - wp-content/plugins/poocommerce-blocks/languages/woo-gutenberg-products-block-{locale}-{handle}.json
+ * - wp-content/plugins/poocommerce-blocks/languages/woo-gutenberg-products-block-{locale}-{md5-handle}.json
  * - wp-content/languages/plugins/woo-gutenberg-products-block-{locale}-{md5-handle}.json
  *
  * We check if the last one exists, and if it doesn't we try to load the
@@ -243,7 +243,7 @@ The following function handles the loading of fallback translations for JS/TS fi
  *
  * @return string|false        Path to the translation file to load. False if there isn't one.
  */
-function load_woocommerce_core_js_translation( $file, $handle, $domain ) {
+function load_poocommerce_core_js_translation( $file, $handle, $domain ) {
 	if ( 'woo-gutenberg-products-block' !== $domain ) {
 		return $file;
 	}
@@ -279,15 +279,15 @@ function load_woocommerce_core_js_translation( $file, $handle, $domain ) {
 		$handle_filename = substr( $handle_filename, 0, -7 ) . '.js';
 	}
 
-	$core_path_md5 = md5( 'packages/woocommerce-blocks/build/' . $handle_filename );
+	$core_path_md5 = md5( 'packages/poocommerce-blocks/build/' . $handle_filename );
 
 	/**
 	 * Return file path of the corresponding translation file in the WC Core is
 	 * enough because `load_script_translations()` will check for its existence
 	 * before loading it.
 	 */
-	return $lang_dir . '/woocommerce-' . $locale . '-' . $core_path_md5 . '.json';
+	return $lang_dir . '/poocommerce-' . $locale . '-' . $core_path_md5 . '.json';
 }
 
-add_filter( 'load_script_translation_file', 'load_woocommerce_core_js_translation', 10, 3 );
+add_filter( 'load_script_translation_file', 'load_poocommerce_core_js_translation', 10, 3 );
 ```

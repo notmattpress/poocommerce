@@ -7,7 +7,7 @@ const test = baseTest.extend( {
 		// Disable the help popover.
 		await wpApi.post( './wp-json/wp/v2/users/1?_locale=user', {
 			data: {
-				woocommerce_meta: {
+				poocommerce_meta: {
 					help_panel_highlight_shown: '"yes"',
 				},
 			},
@@ -16,19 +16,19 @@ const test = baseTest.extend( {
 		// Ensure store's base country location is a WooPayments non-supported country (AF).
 		// Otherwise, the WooPayments task page logic or WooPayments redirects will kick in.
 		const initialDefaultCountry = await api.get(
-			'settings/general/woocommerce_default_country'
+			'settings/general/poocommerce_default_country'
 		);
-		await api.put( 'settings/general/woocommerce_default_country', {
+		await api.put( 'settings/general/poocommerce_default_country', {
 			value: 'AF',
 		} );
 
 		// Ensure the task list is not hidden.
 		// Otherwise, the direct url page=wc-admin&task=payments will not work
 		const initialTaskListHiddenState = await wcAdminApi.get(
-			'options?options=woocommerce_task_list_hidden'
+			'options?options=poocommerce_task_list_hidden'
 		);
 		await wcAdminApi.put( 'options', {
-			woocommerce_task_list_hidden: 'no',
+			poocommerce_task_list_hidden: 'no',
 		} );
 
 		const bacsInitialState = await api.get( 'payment_gateways/bacs' );
@@ -43,7 +43,7 @@ const test = baseTest.extend( {
 		await api.put( 'payment_gateways/cod', {
 			enabled: codInitialState.data.enabled,
 		} );
-		await api.put( 'settings/general/woocommerce_default_country', {
+		await api.put( 'settings/general/poocommerce_default_country', {
 			value: initialDefaultCountry.data.value,
 		} );
 		await wcAdminApi.put( 'options', initialTaskListHiddenState.data );
@@ -124,13 +124,13 @@ test.describe( 'Payment setup task', () => {
 
 			// Enable COD payment option.
 			await page
-				.locator( 'div.woocommerce-task-payment-cod' )
+				.locator( 'div.poocommerce-task-payment-cod' )
 				.getByRole( 'button', { name: 'Enable' } )
 				.click();
 			// Check that COD was set up.
 			await expect(
 				page
-					.locator( 'div.woocommerce-task-payment-cod' )
+					.locator( 'div.poocommerce-task-payment-cod' )
 					.getByRole( 'button', { name: 'Manage' } )
 			).toBeVisible();
 

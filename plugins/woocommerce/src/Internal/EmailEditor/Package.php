@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ class Package {
 			return;
 		}
 
-		\MailPoet\EmailEditor\Package::init(); // The namespace will be changed to Automattic\WooCommerce\EmailEditor\Package in the future.
+		\MailPoet\EmailEditor\Package::init(); // The namespace will be changed to Automattic\PooCommerce\EmailEditor\Package in the future.
 		self::initialize();
 	}
 

@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { DocumentObject } from '@woocommerce/base-hooks';
+import { DocumentObject } from '@poocommerce/base-hooks';
 import {
 	AddressForm,
 	AddressFormValues,
 	Field,
 	KeyedFormFields,
-} from '@woocommerce/settings';
-import { isObject, objectHasProp } from '@woocommerce/types';
+} from '@poocommerce/settings';
+import { isObject, objectHasProp } from '@poocommerce/types';
 import { JSONSchemaType } from 'ajv';
 
 export interface FieldProps {

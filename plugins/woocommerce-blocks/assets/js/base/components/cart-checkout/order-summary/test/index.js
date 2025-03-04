@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies
  */
 import OrderSummary from '../index';
 
-jest.mock( '@woocommerce/base-context', () => ( {
-	...jest.requireActual( '@woocommerce/base-context' ),
+jest.mock( '@poocommerce/base-context', () => ( {
+	...jest.requireActual( '@poocommerce/base-context' ),
 	useContainerWidthContext: () => ( {
 		isLarge: true,
 		hasContainerWidth: true,

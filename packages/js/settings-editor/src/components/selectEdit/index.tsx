@@ -42,7 +42,7 @@ export const getSelectEdit =
 			 * - in bulk editing
 			 *
 			 */
-			{ label: __( 'Select item', 'woocommerce' ), value: '' },
+			{ label: __( 'Select item', 'poocommerce' ), value: '' },
 			...( field?.elements ?? [] ),
 		];
 

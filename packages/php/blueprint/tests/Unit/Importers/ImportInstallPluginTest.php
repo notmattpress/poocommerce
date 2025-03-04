@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportInstallPlugin;
-use Automattic\WooCommerce\Blueprint\ResourceStorages;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\InstallPlugin;
+use Automattic\PooCommerce\Blueprint\Importers\ImportInstallPlugin;
+use Automattic\PooCommerce\Blueprint\ResourceStorages;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\InstallPlugin;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 

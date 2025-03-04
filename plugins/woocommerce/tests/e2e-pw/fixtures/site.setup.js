@@ -25,7 +25,7 @@ setup( 'configure HPOS', async ( { api } ) => {
 					} HPOS...`
 				);
 				const response = await api.post(
-					'settings/advanced/woocommerce_custom_orders_table_enabled',
+					'settings/advanced/poocommerce_custom_orders_table_enabled',
 					{ value }
 				);
 				if ( response.data.value === value ) {
@@ -54,16 +54,16 @@ setup( 'configure HPOS', async ( { api } ) => {
 	}
 
 	const response = await api.get(
-		'settings/advanced/woocommerce_custom_orders_table_enabled'
+		'settings/advanced/poocommerce_custom_orders_table_enabled'
 	);
 	const dataValue = response.data.value;
 	const enabledOption = response.data.options[ dataValue ];
 	console.log(
-		`HPOS configuration (woocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
+		`HPOS configuration (poocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
 	);
 } );
 
-//todo to remove, see https://github.com/woocommerce/woocommerce/issues/50758
+//todo to remove, see https://github.com/poocommerce/poocommerce/issues/50758
 setup( 'convert Cart and Checkout pages to shortcode', async ( { wpApi } ) => {
 	// List all pages
 	const response_list = await wpApi.get(
@@ -86,7 +86,7 @@ setup( 'convert Cart and Checkout pages to shortcode', async ( { wpApi } ) => {
 	await wpApi.put( `./wp-json/wp/v2/pages/${ cart.id }`, {
 		data: {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->',
 			},
 		},
 		failOnStatusCode: true,
@@ -95,7 +95,7 @@ setup( 'convert Cart and Checkout pages to shortcode', async ( { wpApi } ) => {
 	await wpApi.put( `./wp-json/wp/v2/pages/${ checkout.id }`, {
 		data: {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->',
 			},
 		},
 		failOnStatusCode: true,
@@ -125,15 +125,15 @@ setup( 'determine if multisite', async ( { api } ) => {
 setup( 'general settings', async ( { api } ) => {
 	await api.post( 'settings/general/batch', {
 		update: [
-			{ id: 'woocommerce_allowed_countries', value: 'all' },
-			{ id: 'woocommerce_currency', value: 'USD' },
-			{ id: 'woocommerce_price_thousand_sep', value: ',' },
-			{ id: 'woocommerce_price_decimal_sep', value: '.' },
-			{ id: 'woocommerce_price_num_decimals', value: '2' },
-			{ id: 'woocommerce_store_address', value: 'addr 1' },
-			{ id: 'woocommerce_store_city', value: 'San Francisco' },
-			{ id: 'woocommerce_default_country', value: 'US:CA' },
-			{ id: 'woocommerce_store_postcode', value: '94107' },
+			{ id: 'poocommerce_allowed_countries', value: 'all' },
+			{ id: 'poocommerce_currency', value: 'USD' },
+			{ id: 'poocommerce_price_thousand_sep', value: ',' },
+			{ id: 'poocommerce_price_decimal_sep', value: '.' },
+			{ id: 'poocommerce_price_num_decimals', value: '2' },
+			{ id: 'poocommerce_store_address', value: 'addr 1' },
+			{ id: 'poocommerce_store_city', value: 'San Francisco' },
+			{ id: 'poocommerce_default_country', value: 'US:CA' },
+			{ id: 'poocommerce_store_postcode', value: '94107' },
 		],
 	} );
 } );

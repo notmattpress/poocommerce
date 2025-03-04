@@ -9,11 +9,11 @@ const createAccordionItem = (
 	content: InnerBlockTemplate[]
 ): InnerBlockTemplate => {
 	return [
-		'woocommerce/accordion-item',
+		'poocommerce/accordion-item',
 		{},
 		[
-			[ 'woocommerce/accordion-header', { title }, [] ],
-			[ 'woocommerce/accordion-panel', {}, content ],
+			[ 'poocommerce/accordion-header', { title }, [] ],
+			[ 'poocommerce/accordion-panel', {}, content ],
 		],
 	];
 };
@@ -53,7 +53,7 @@ const reviewsAccordion = createAccordionItem( 'Reviews', [
 
 const TEMPLATE: InnerBlockTemplate[] = [
 	[
-		'woocommerce/accordion-group',
+		'poocommerce/accordion-group',
 		{},
 		[
 			descriptionAccordion,

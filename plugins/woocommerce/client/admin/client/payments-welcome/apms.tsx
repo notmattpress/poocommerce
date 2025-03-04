@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { List } from '@woocommerce/components';
+import { List } from '@poocommerce/components';
 import { download, Icon } from '@wordpress/icons';
 
 import {
@@ -35,16 +35,16 @@ export const apms: Apm[] = [
 		title: strings.apms.paypal.title,
 		icon: `${ WC_ASSET_URL }images/payment_methods/72x72/paypal.png`,
 		description: strings.apms.paypal.description,
-		link: 'https://woocommerce.com/products/woocommerce-paypal-payments/',
-		extension: 'woocommerce-paypal-payments',
+		link: 'https://poocommerce.com/products/poocommerce-paypal-payments/',
+		extension: 'poocommerce-paypal-payments',
 	},
 	{
 		id: 'amazonpay',
 		title: strings.apms.amazonpay.title,
 		icon: `${ WC_ASSET_URL }images/payment_methods/72x72/amazonpay.png`,
 		description: strings.apms.amazonpay.description,
-		link: 'https://woocommerce.com/products/pay-with-amazon/',
-		extension: 'woocommerce-gateway-amazon-payments-advanced',
+		link: 'https://poocommerce.com/products/pay-with-amazon/',
+		extension: 'poocommerce-gateway-amazon-payments-advanced',
 	},
 ];
 
@@ -117,7 +117,7 @@ const ApmList: React.FunctionComponent< ApmListProps > = ( {
 					<List items={ apmsList } />
 				</CardBody>
 				<CardFooter>
-					<ExternalLink href="https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/wallets/?categoryIds=28682&collections=product&page=1">
+					<ExternalLink href="https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/wallets/?categoryIds=28682&collections=product&page=1">
 						{ strings.apms.seeMore }
 					</ExternalLink>
 				</CardFooter>

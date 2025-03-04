@@ -3,7 +3,7 @@
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 import type { BlockEditProps } from '@wordpress/blocks';
 
 /**

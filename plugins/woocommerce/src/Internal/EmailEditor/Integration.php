@@ -2,12 +2,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
 use MailPoet\EmailEditor\EmailEditorContainer;
 use MailPoet\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,7 +74,7 @@ class Integration {
 	}
 
 	/**
-	 * Add WooCommerce email post type to the list of supported post types.
+	 * Add PooCommerce email post type to the list of supported post types.
 	 *
 	 * @param array $post_types List of post types.
 	 * @return array Modified list of post types.
@@ -84,13 +84,13 @@ class Integration {
 			'name' => self::EMAIL_POST_TYPE,
 			'args' => array(
 				'labels'       => array(
-					'name'          => __( 'Woo Emails', 'woocommerce' ),
-					'singular_name' => __( 'Woo Email', 'woocommerce' ),
-					'add_new_item'  => __( 'Add New Woo Email', 'woocommerce' ),
-					'edit_item'     => __( 'Edit Woo Email', 'woocommerce' ),
-					'new_item'      => __( 'New Woo Email', 'woocommerce' ),
-					'view_item'     => __( 'View Woo Email', 'woocommerce' ),
-					'search_items'  => __( 'Search Woo Emails', 'woocommerce' ),
+					'name'          => __( 'Woo Emails', 'poocommerce' ),
+					'singular_name' => __( 'Woo Email', 'poocommerce' ),
+					'add_new_item'  => __( 'Add New Woo Email', 'poocommerce' ),
+					'edit_item'     => __( 'Edit Woo Email', 'poocommerce' ),
+					'new_item'      => __( 'New Woo Email', 'poocommerce' ),
+					'view_item'     => __( 'View Woo Email', 'poocommerce' ),
+					'search_items'  => __( 'Search Woo Emails', 'poocommerce' ),
 				),
 				'rewrite'      => array( 'slug' => self::EMAIL_POST_TYPE ),
 				'supports'     => array( 'title', 'editor' ),

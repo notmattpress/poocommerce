@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
 use MailPoet\EmailEditor\Engine\Settings_Controller;
 use MailPoet\EmailEditor\Engine\Theme_Controller;
 use MailPoet\EmailEditor\Engine\User_Theme;
 use MailPoet\EmailEditor\EmailEditorContainer;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -82,7 +82,7 @@ class PageRenderer {
 	 */
 	private function load_editor_assets( \WP_Post $post ): void {
 		// Load the email editor integration script.
-		// The JS file is located in plugins/woocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/index.ts.
+		// The JS file is located in plugins/poocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/index.ts.
 		WCAdminAssets::register_script( 'wp-admin-scripts', 'email-editor-integration', true );
 
 		$email_editor_assets_path = WC_ABSPATH . WC_ADMIN_DIST_JS_FOLDER . 'email-editor/';
@@ -105,14 +105,14 @@ class PageRenderer {
 		$assets_params = require $email_editor_assets_path . "{$file_name}.asset.php";
 
 		wp_enqueue_script(
-			'woocommerce_email_editor',
+			'poocommerce_email_editor',
 			$email_editor_assets_url . "{$file_name}.js",
 			$assets_params['dependencies'],
 			$assets_params['version'],
 			true
 		);
 		wp_enqueue_style(
-			'woocommerce_email_editor',
+			'poocommerce_email_editor',
 			$email_editor_assets_url . "{$file_name}.css",
 			array(),
 			$assets_params['version']
@@ -120,7 +120,7 @@ class PageRenderer {
 
 		$current_user_email = wp_get_current_user()->user_email;
 		wp_localize_script(
-			'woocommerce_email_editor',
+			'poocommerce_email_editor',
 			'MailPoetEmailEditor',
 			array(
 				'current_post_type'     => esc_js( $post->post_type ),

@@ -52,11 +52,11 @@ interface Store {
 	};
 }
 
-// TS error should be fixed by https://github.com/woocommerce/gutenberg/pull/1
+// TS error should be fixed by https://github.com/poocommerce/gutenberg/pull/1
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const { state: wooState } = store< WooStore >(
-	'woocommerce',
+	'poocommerce',
 	{},
 	{
 		// Stores are locked to prevent 3PD usage until the API is stable.
@@ -65,7 +65,7 @@ const { state: wooState } = store< WooStore >(
 );
 
 const { state } = store< Store >(
-	'woocommerce/product-button',
+	'poocommerce/product-button',
 	{
 		state: {
 			get quantity() {
@@ -129,7 +129,7 @@ const { state } = store< Store >(
 
 					const { actions: noticeActions } =
 						store< StoreNoticesStore >(
-							'woocommerce/product-collection-notices',
+							'poocommerce/product-collection-notices',
 							{},
 							{
 								// Stores are locked to prevent 3PD usage until the API is stable.

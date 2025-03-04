@@ -3,12 +3,12 @@
  * A class of utilities for dealing with orders.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
-use Automattic\WooCommerce\Caches\OrderCacheController;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\Utilities\COTMigrationUtil;
+use Automattic\PooCommerce\Caches\OrderCacheController;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\Utilities\COTMigrationUtil;
 use WC_Order;
 use WP_Post;
 

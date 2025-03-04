@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { registerProductBlockType } from '@woocommerce/atomic-utils';
+import { registerProductBlockType } from '@poocommerce/atomic-utils';
 import { Icon } from '@wordpress/icons';
-import { productDetails } from '@woocommerce/icons';
+import { productDetails } from '@poocommerce/icons';
 
 /**
  * Internal dependencies

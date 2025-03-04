@@ -4,7 +4,7 @@
 import {
 	__experimentalUseCompletion as useCompletion,
 	UseCompletionError,
-} from '@woocommerce/ai';
+} from '@poocommerce/ai';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ export const useNewCategorySuggestions = (
 			excludeProps: [ ProductProps.Categories ],
 		} );
 		const instructions = [
-			'You are a WooCommerce SEO and marketing expert.',
+			'You are a PooCommerce SEO and marketing expert.',
 			`Using the product's ${ productPropsInstructions.includedProps.join(
 				', '
 			) } suggest the best matching category from the Google standard product category taxonomy hierarchy.`,

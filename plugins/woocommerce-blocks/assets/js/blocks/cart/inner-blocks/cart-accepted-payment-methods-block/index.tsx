@@ -9,7 +9,7 @@ import { Icon, payment } from '@wordpress/icons';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/cart-accepted-payment-methods-block', {
+registerBlockType( 'poocommerce/cart-accepted-payment-methods-block', {
 	icon: {
 		src: (
 			<Icon

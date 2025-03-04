@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductFilters class.
@@ -56,7 +56,7 @@ class ProductFilters extends AbstractBlock {
 		 *
 		 * @since 9.7.0
 		 */
-		$active_filters = apply_filters( 'woocommerce_blocks_product_filters_selected_items', array(), $filter_params );
+		$active_filters = apply_filters( 'poocommerce_blocks_product_filters_selected_items', array(), $filter_params );
 
 		usort(
 			$active_filters,
@@ -114,7 +114,7 @@ class ProductFilters extends AbstractBlock {
 				data-wp-on--click="actions.openOverlay"
 			>
 				<?php echo $this->get_svg_icon( 'filter-icon-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<span><?php echo esc_html__( 'Filter products', 'woocommerce' ); ?></span>
+				<span><?php echo esc_html__( 'Filter products', 'poocommerce' ); ?></span>
 			</button>
 			<div class="wc-block-product-filters__overlay">
 				<div class="wc-block-product-filters__overlay-wrapper">
@@ -127,7 +127,7 @@ class ProductFilters extends AbstractBlock {
 								class="wc-block-product-filters__close-overlay"
 								data-wp-on--click="actions.closeOverlay"
 							>
-								<span><?php echo esc_html__( 'Close', 'woocommerce' ); ?></span>
+								<span><?php echo esc_html__( 'Close', 'poocommerce' ); ?></span>
 								<?php echo $this->get_svg_icon( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</button>
 						</header>
@@ -142,7 +142,7 @@ class ProductFilters extends AbstractBlock {
 								data-wp-interactive="<?php echo esc_attr( $this->get_full_block_name() ); ?>"
 								data-wp-on--click="actions.closeOverlay"
 							>
-								<span><?php echo esc_html__( 'Apply', 'woocommerce' ); ?></span>
+								<span><?php echo esc_html__( 'Apply', 'poocommerce' ); ?></span>
 							</button>
 						</footer>
 					</div>
@@ -218,7 +218,7 @@ class ProductFilters extends AbstractBlock {
 		 *
 		 * @return array Active filters params.
 		 */
-		$filter_param_keys = array_unique( apply_filters( 'woocommerce_blocks_product_filters_param_keys', array(), array_keys( $url_query_params ) ) );
+		$filter_param_keys = array_unique( apply_filters( 'poocommerce_blocks_product_filters_param_keys', array(), array_keys( $url_query_params ) ) );
 
 		return array_filter(
 			$url_query_params,

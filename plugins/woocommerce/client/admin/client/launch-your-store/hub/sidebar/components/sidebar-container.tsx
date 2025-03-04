@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -44,7 +44,7 @@ export const SidebarContainer = ( {
 		<>
 			<VStack
 				className={ clsx(
-					'woocommerce-edit-site-sidebar-navigation-screen__main',
+					'poocommerce-edit-site-sidebar-navigation-screen__main',
 					{
 						'has-footer': !! footer,
 					}
@@ -55,7 +55,7 @@ export const SidebarContainer = ( {
 				<HStack
 					spacing={ 4 }
 					alignment="flex-start"
-					className="woocommerce-edit-site-sidebar-navigation-screen__title-icon"
+					className="poocommerce-edit-site-sidebar-navigation-screen__title-icon"
 				>
 					<SidebarButton
 						onClick={
@@ -64,12 +64,12 @@ export const SidebarContainer = ( {
 								: undefined
 						}
 						icon={ chevronIcon }
-						label={ __( 'Back', 'woocommerce' ) }
+						label={ __( 'Back', 'poocommerce' ) }
 						showTooltip={ false }
 					/>
 
 					<Heading
-						className="woocommerce-edit-site-sidebar-navigation-screen__title"
+						className="poocommerce-edit-site-sidebar-navigation-screen__title"
 						level={ 1 }
 						as="h1"
 					>
@@ -77,9 +77,9 @@ export const SidebarContainer = ( {
 					</Heading>
 				</HStack>
 
-				<div className="woocommerce-edit-site-sidebar-navigation-screen__content">
+				<div className="poocommerce-edit-site-sidebar-navigation-screen__content">
 					{ description && (
-						<p className="woocommerce-edit-site-sidebar-navigation-screen__description">
+						<p className="poocommerce-edit-site-sidebar-navigation-screen__description">
 							{ description }
 						</p>
 					) }
@@ -87,7 +87,7 @@ export const SidebarContainer = ( {
 				</div>
 			</VStack>
 			{ footer && (
-				<footer className="woocommerce-edit-site-sidebar-navigation-screen__footer">
+				<footer className="poocommerce-edit-site-sidebar-navigation-screen__footer">
 					{ footer }
 				</footer>
 			) }

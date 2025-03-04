@@ -84,11 +84,11 @@ export const SelectTree = function SelectTree( {
 
 	const selectTreeInstanceId = useInstanceId(
 		SelectTree,
-		'woocommerce-experimental-select-tree-control__dropdown'
+		'poocommerce-experimental-select-tree-control__dropdown'
 	) as string;
 	const menuInstanceId = useInstanceId(
 		SelectTree,
-		'woocommerce-select-tree-control__menu'
+		'poocommerce-select-tree-control__menu'
 	) as string;
 
 	const selectedItemsFocusHandle = useRef< SelectedItemFocusHandle >( null );
@@ -105,11 +105,11 @@ export const SelectTree = function SelectTree( {
 		const isInsidePopover = document
 			.getElementById( menuInstanceId )
 			?.closest(
-				'.woocommerce-experimental-select-tree-control__popover-menu'
+				'.poocommerce-experimental-select-tree-control__popover-menu'
 			)
 			?.contains( target );
 		const isInRemoveTag = target?.classList.contains(
-			'woocommerce-tag__remove'
+			'poocommerce-tag__remove'
 		);
 		return ! isInsideSelect && ! isInRemoveTag && ! isInsidePopover;
 	}
@@ -146,7 +146,7 @@ export const SelectTree = function SelectTree( {
 		() =>
 			document
 				.querySelector(
-					'.experimental-woocommerce-tree-item--highlighted'
+					'.experimental-poocommerce-tree-item--highlighted'
 				)
 				?.scrollIntoView?.( {
 					block: 'nearest',
@@ -175,12 +175,12 @@ export const SelectTree = function SelectTree( {
 		React.InputHTMLAttributes< HTMLInputElement >,
 		'type'
 	> = {
-		className: 'woocommerce-experimental-select-control__input',
+		className: 'poocommerce-experimental-select-control__input',
 		id: `${ props.id }-input`,
 		'aria-autocomplete': 'list',
 		'aria-activedescendant':
 			highlightedIndex >= 0
-				? `woocommerce-experimental-tree-control__menu-item-${ highlightedIndex }`
+				? `poocommerce-experimental-tree-control__menu-item-${ highlightedIndex }`
 				: undefined,
 		'aria-controls': menuInstanceId,
 		'aria-owns': menuInstanceId,
@@ -194,7 +194,7 @@ export const SelectTree = function SelectTree( {
 				speak(
 					__(
 						'To select existing items, type its exact label and separate with commas or the Enter key.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			}
@@ -359,12 +359,12 @@ export const SelectTree = function SelectTree( {
 	return (
 		<div
 			id={ selectTreeInstanceId }
-			className={ `woocommerce-experimental-select-tree-control__dropdown` }
+			className={ `poocommerce-experimental-select-tree-control__dropdown` }
 			tabIndex={ -1 }
 		>
 			<div
 				className={ classNames(
-					'woocommerce-experimental-select-control',
+					'poocommerce-experimental-select-control',
 					{
 						'is-read-only': isReadOnly,
 						'is-focused': isFocused,
@@ -382,7 +382,7 @@ export const SelectTree = function SelectTree( {
 						props.multiple && ! help
 							? __(
 									'Separate with commas or the Enter key.',
-									'woocommerce'
+									'poocommerce'
 							  )
 							: help
 					}
@@ -392,21 +392,21 @@ export const SelectTree = function SelectTree( {
 							<ComboBox
 								comboBoxProps={ {
 									className:
-										'woocommerce-experimental-select-control__combo-box-wrapper',
+										'poocommerce-experimental-select-control__combo-box-wrapper',
 								} }
 								inputProps={ inputProps }
 								suffix={
-									<div className="woocommerce-experimental-select-control__suffix-items">
+									<div className="poocommerce-experimental-select-control__suffix-items">
 										{ isClearingAllowed && isOpen && (
 											<Button
 												label={ __(
 													'Remove all',
-													'woocommerce'
+													'poocommerce'
 												) }
 												onClick={ handleClear }
 											>
 												<SuffixIcon
-													className="woocommerce-experimental-select-control__icon-clear"
+													className="poocommerce-experimental-select-control__icon-clear"
 													icon={ closeSmall }
 												/>
 											</Button>

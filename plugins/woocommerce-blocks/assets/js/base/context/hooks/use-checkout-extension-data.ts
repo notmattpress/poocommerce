@@ -3,7 +3,7 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useRef } from '@wordpress/element';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
