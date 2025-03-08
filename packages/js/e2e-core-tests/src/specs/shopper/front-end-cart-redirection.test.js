@@ -9,7 +9,7 @@ const {
 	unsetCheckbox,
 	settingsPageSaveChanges,
 	utils,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -28,7 +28,7 @@ const runCartRedirectionTest = () => {
 			// Set checkbox in settings to enable cart redirection
 			await merchant.login();
 			await merchant.openSettings( 'products' );
-			await setCheckbox( '#woocommerce_cart_redirect_after_add' );
+			await setCheckbox( '#poocommerce_cart_redirect_after_add' );
 			await settingsPageSaveChanges();
 
 			await merchant.logout();
@@ -63,7 +63,7 @@ const runCartRedirectionTest = () => {
 		afterAll( async () => {
 			await merchant.login();
 			await merchant.openSettings( 'products' );
-			await unsetCheckbox( '#woocommerce_cart_redirect_after_add' );
+			await unsetCheckbox( '#poocommerce_cart_redirect_after_add' );
 			await settingsPageSaveChanges();
 		} );
 	} );

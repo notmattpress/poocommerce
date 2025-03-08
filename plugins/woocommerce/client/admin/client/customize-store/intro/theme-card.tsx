@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -48,12 +48,12 @@ export const ThemeCard = ( {
 			<div>
 				{ is_active && (
 					<span className="theme-card__active">
-						{ __( 'Active theme', 'woocommerce' ) }
+						{ __( 'Active theme', 'poocommerce' ) }
 					</span>
 				) }
 				{ ! is_free && (
 					<span className="theme-card__paid">
-						{ __( 'Paid', 'woocommerce' ) }
+						{ __( 'Paid', 'poocommerce' ) }
 					</span>
 				) }
 				<span className="theme-card__free">{ price }</span>

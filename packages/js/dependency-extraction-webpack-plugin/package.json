@@ -1,23 +1,23 @@
 {
-	"name": "@woocommerce/dependency-extraction-webpack-plugin",
+	"name": "@poocommerce/dependency-extraction-webpack-plugin",
 	"version": "3.1.0",
-	"description": "WooCommerce Dependency Extraction Webpack Plugin",
+	"description": "PooCommerce Dependency Extraction Webpack Plugin",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce"
+		"poocommerce"
 	],
 	"engines": {
 		"node": "^20.11.1"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/dependency-extraction-webpack-plugin/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/dependency-extraction-webpack-plugin/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "src/index.js",
 	"files": [
@@ -32,7 +32,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.23.5",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "27.5.x",
 		"jest-cli": "27.5.x",

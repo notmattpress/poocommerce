@@ -1,5 +1,5 @@
 ---
-post_title: How to respond to negative WooCommerce extension reviews
+post_title: How to respond to negative PooCommerce extension reviews
 menu_title: Responding to negative reviews
 ---
 

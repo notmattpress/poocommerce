@@ -23,7 +23,7 @@ setup( 'configure HPOS', async ( { restApi } ) => {
 					} HPOS...`
 				);
 				const response = await restApi.post(
-					`${ WC_API_PATH }/settings/advanced/woocommerce_custom_orders_table_enabled`,
+					`${ WC_API_PATH }/settings/advanced/poocommerce_custom_orders_table_enabled`,
 					{ value }
 				);
 				if ( response.data.value === value ) {
@@ -52,16 +52,16 @@ setup( 'configure HPOS', async ( { restApi } ) => {
 	}
 
 	const response = await restApi.get(
-		`${ WC_API_PATH }/settings/advanced/woocommerce_custom_orders_table_enabled`
+		`${ WC_API_PATH }/settings/advanced/poocommerce_custom_orders_table_enabled`
 	);
 	const dataValue = response.data.value;
 	const enabledOption = response.data.options[ dataValue ];
 	console.log(
-		`HPOS configuration (woocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
+		`HPOS configuration (poocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
 	);
 } );
 
-//todo to remove, see https://github.com/woocommerce/woocommerce/issues/50758
+//todo to remove, see https://github.com/poocommerce/poocommerce/issues/50758
 setup(
 	'convert Cart and Checkout pages to shortcode',
 	async ( { restApi } ) => {
@@ -93,14 +93,14 @@ setup(
 		// Convert their contents to shortcodes
 		const r = await restApi.put( `${ WP_API_PATH }/pages/${ cart.id }`, {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->',
 			},
 			failOnStatusCode: true,
 		} );
 
 		await restApi.put( `${ WP_API_PATH }/pages/${ checkout.id }`, {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->',
 			},
 			failOnStatusCode: true,
 		} );
@@ -130,15 +130,15 @@ setup( 'determine if multisite', async ( { restApi } ) => {
 setup( 'general settings', async ( { restApi } ) => {
 	await restApi.post( `${ WC_API_PATH }/settings/general/batch`, {
 		update: [
-			{ id: 'woocommerce_allowed_countries', value: 'all' },
-			{ id: 'woocommerce_currency', value: 'USD' },
-			{ id: 'woocommerce_price_thousand_sep', value: ',' },
-			{ id: 'woocommerce_price_decimal_sep', value: '.' },
-			{ id: 'woocommerce_price_num_decimals', value: '2' },
-			{ id: 'woocommerce_store_address', value: 'addr 1' },
-			{ id: 'woocommerce_store_city', value: 'San Francisco' },
-			{ id: 'woocommerce_default_country', value: 'US:CA' },
-			{ id: 'woocommerce_store_postcode', value: '94107' },
+			{ id: 'poocommerce_allowed_countries', value: 'all' },
+			{ id: 'poocommerce_currency', value: 'USD' },
+			{ id: 'poocommerce_price_thousand_sep', value: ',' },
+			{ id: 'poocommerce_price_decimal_sep', value: '.' },
+			{ id: 'poocommerce_price_num_decimals', value: '2' },
+			{ id: 'poocommerce_store_address', value: 'addr 1' },
+			{ id: 'poocommerce_store_city', value: 'San Francisco' },
+			{ id: 'poocommerce_default_country', value: 'US:CA' },
+			{ id: 'poocommerce_store_postcode', value: '94107' },
 		],
 	} );
 } );

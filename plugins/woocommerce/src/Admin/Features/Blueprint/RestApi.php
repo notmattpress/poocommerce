@@ -2,25 +2,25 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
-use Automattic\WooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
-use Automattic\WooCommerce\Blueprint\ExportSchema;
-use Automattic\WooCommerce\Blueprint\ImportSchema;
-use Automattic\WooCommerce\Blueprint\ResultFormatters\JsonResultFormatter;
-use Automattic\WooCommerce\Blueprint\ImportStep;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\ZipExportedSchema;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallPluginSteps;
+use Automattic\PooCommerce\Blueprint\Exporters\ExportInstallThemeSteps;
+use Automattic\PooCommerce\Blueprint\ExportSchema;
+use Automattic\PooCommerce\Blueprint\ImportSchema;
+use Automattic\PooCommerce\Blueprint\ResultFormatters\JsonResultFormatter;
+use Automattic\PooCommerce\Blueprint\ImportStep;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\ZipExportedSchema;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
 /**
  * Class RestApi
  *
- * This class handles the REST API endpoints for importing and exporting WooCommerce Blueprints.
+ * This class handles the REST API endpoints for importing and exporting PooCommerce Blueprints.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint
  */
 class RestApi {
 	/**
@@ -47,7 +47,7 @@ class RestApi {
 		 * @since 9.3.0
 		 * @param int $max_size Maximum file size in bytes.
 		 */
-		return apply_filters( 'woocommerce_blueprint_upload_max_file_size', self::MAX_FILE_SIZE );
+		return apply_filters( 'poocommerce_blueprint_upload_max_file_size', self::MAX_FILE_SIZE );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_permission' ),
 					'args'                => array(
 						'steps'         => array(
-							'description' => __( 'A list of plugins to install', 'woocommerce' ),
+							'description' => __( 'A list of plugins to install', 'poocommerce' ),
 							'type'        => 'object',
 							'properties'  => array(
 								'settings' => array(
@@ -92,7 +92,7 @@ class RestApi {
 							'required'    => true,
 						),
 						'export_as_zip' => array(
-							'description' => __( 'Export as a zip file', 'woocommerce' ),
+							'description' => __( 'Export as a zip file', 'poocommerce' ),
 							'type'        => 'boolean',
 							'default'     => false,
 							'required'    => false,
@@ -112,7 +112,7 @@ class RestApi {
 					'permission_callback' => array( $this, 'check_permission' ),
 					'args'                => array(
 						'step_definition' => array(
-							'description' => __( 'The step definition to import', 'woocommerce' ),
+							'description' => __( 'The step definition to import', 'poocommerce' ),
 							'type'        => 'object',
 							'required'    => true,
 						),
@@ -130,7 +130,7 @@ class RestApi {
 	 */
 	public function check_permission() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -235,14 +235,14 @@ class RestApi {
 	 */
 	private function get_settings_to_overwrite( array $requested_steps ): array {
 		$settings_map = array(
-			'setWCSettings'            => __( 'Settings', 'woocommerce' ),
-			'setWCCoreProfilerOptions' => __( 'Core Profiler Options', 'woocommerce' ),
-			'setWCPaymentGateways'     => __( 'Payment Gateways', 'woocommerce' ),
-			'setWCShipping'            => __( 'Shipping', 'woocommerce' ),
-			'setWCTaskOptions'         => __( 'Task Options', 'woocommerce' ),
-			'setWCTaxRates'            => __( 'Tax Rates', 'woocommerce' ),
-			'installPlugin'            => __( 'Plugins', 'woocommerce' ),
-			'installTheme'             => __( 'Themes', 'woocommerce' ),
+			'setWCSettings'            => __( 'Settings', 'poocommerce' ),
+			'setWCCoreProfilerOptions' => __( 'Core Profiler Options', 'poocommerce' ),
+			'setWCPaymentGateways'     => __( 'Payment Gateways', 'poocommerce' ),
+			'setWCShipping'            => __( 'Shipping', 'poocommerce' ),
+			'setWCTaskOptions'         => __( 'Task Options', 'poocommerce' ),
+			'setWCTaxRates'            => __( 'Tax Rates', 'poocommerce' ),
+			'installPlugin'            => __( 'Plugins', 'poocommerce' ),
+			'installTheme'             => __( 'Themes', 'poocommerce' ),
 		);
 
 		$settings = array();
@@ -274,7 +274,7 @@ class RestApi {
 					array(
 						'message' => sprintf(
 							// Translators: %s is the maximum file size in megabytes.
-							__( 'Blueprint step definition size exceeds maximum limit of %s MB', 'woocommerce' ),
+							__( 'Blueprint step definition size exceeds maximum limit of %s MB', 'poocommerce' ),
 							( $this->get_max_file_size() / ( 1024 * 1024 ) )
 						),
 						'type'    => 'error',

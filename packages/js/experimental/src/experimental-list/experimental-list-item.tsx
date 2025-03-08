@@ -71,7 +71,7 @@ export const ExperimentalListItem: React.FC< ListItemProps > = ( {
 	return (
 		<CSSTransition
 			timeout={ 500 }
-			classNames={ className || 'woocommerce-list__item' }
+			classNames={ className || 'poocommerce-list__item' }
 			in={ transitionIn }
 			exit={ exit }
 			enter={ enter }
@@ -81,7 +81,7 @@ export const ExperimentalListItem: React.FC< ListItemProps > = ( {
 				// spread role props first, in case it is desired to override them
 				{ ...roleProps }
 				{ ...otherProps }
-				className={ `woocommerce-experimental-list__item ${ tagClasses } ${ className }` }
+				className={ `poocommerce-experimental-list__item ${ tagClasses } ${ className }` }
 			>
 				{ children }
 			</li>

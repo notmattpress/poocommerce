@@ -12,9 +12,9 @@ import {
 	MenuItem,
 	MenuTitle,
 	SectionHeader,
-} from '@woocommerce/components';
-import { useUserPreferences, ITEMS_STORE_NAME } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { useUserPreferences, ITEMS_STORE_NAME } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -110,13 +110,13 @@ const Leaderboards = ( props ) => {
 		<EllipsisMenu
 			label={ __(
 				'Choose which leaderboards to display and other settings',
-				'woocommerce'
+				'poocommerce'
 			) }
 			placement={ 'bottom-end' }
 			renderContent={ ( { onToggle } ) => (
 				<Fragment>
 					<MenuTitle>
-						{ __( 'Leaderboards', 'woocommerce' ) }
+						{ __( 'Leaderboards', 'poocommerce' ) }
 					</MenuTitle>
 					{ renderLeaderboardToggles( {
 						allLeaderboards,
@@ -125,8 +125,8 @@ const Leaderboards = ( props ) => {
 					} ) }
 					<MenuItem>
 						<SelectControl
-							className="woocommerce-dashboard__dashboard-leaderboards__select"
-							label={ __( 'Rows per table', 'woocommerce' ) }
+							className="poocommerce-dashboard__dashboard-leaderboards__select"
+							label={ __( 'Rows per table', 'poocommerce' ) }
 							value={ rowsPerTable }
 							options={ Array.from(
 								{ length: 20 },
@@ -155,12 +155,12 @@ const Leaderboards = ( props ) => {
 
 	return (
 		<Fragment>
-			<div className="woocommerce-dashboard__dashboard-leaderboards">
+			<div className="poocommerce-dashboard__dashboard-leaderboards">
 				<SectionHeader
-					title={ title || __( 'Leaderboards', 'woocommerce' ) }
+					title={ title || __( 'Leaderboards', 'poocommerce' ) }
 					menu={ renderMenu() }
 				/>
-				<div className="woocommerce-dashboard__columns">
+				<div className="poocommerce-dashboard__columns">
 					{ renderLeaderboards( {
 						allLeaderboards,
 						hiddenBlocks,

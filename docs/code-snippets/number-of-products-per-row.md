@@ -26,5 +26,5 @@ if ( ! function_exists( 'YOUR_PREFIX_related_products_args' ) ) {
 		return $args;
 	}
 }
-add_filter( 'woocommerce_output_related_products_args', 'YOUR_PREFIX_related_products_args', 20 );
+add_filter( 'poocommerce_output_related_products_args', 'YOUR_PREFIX_related_products_args', 20 );
 ```

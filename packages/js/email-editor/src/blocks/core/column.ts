@@ -7,7 +7,7 @@ import { Block } from '@wordpress/blocks/index';
 function enhanceColumnBlock() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/change-column',
+		'poocommerce-email-editor/change-column',
 		( settings: Block, name ) => {
 			if ( name === 'core/column' ) {
 				return {

@@ -19,7 +19,7 @@ const {
 	uiUnblocked,
 } = require( '../page-utils' );
 
-const { waitAndClick } = require( '@woocommerce/e2e-environment' );
+const { waitAndClick } = require( '@poocommerce/e2e-environment' );
 
 const {
 	WP_ADMIN_ALL_ORDERS_VIEW,
@@ -52,7 +52,7 @@ const WP_ADMIN_SINGLE_CPT_VIEW = ( postId ) =>
 const BTN_COPY_DOWNLOAD_LINK = '#copy-download-link';
 const INPUT_DOWNLOADS_REMAINING = 'input[name="downloads_remaining[0]"]';
 const INPUT_EXPIRATION_DATE = 'input[name="access_expires[0]"]';
-const ORDER_DOWNLOADS = '#woocommerce-order-downloads';
+const ORDER_DOWNLOADS = '#poocommerce-order-downloads';
 const INPUT_VARIATION = {
 	SKU: '#variable_sku0',
 	REGULAR_PRICE: '#variable_regular_price_0',
@@ -207,7 +207,7 @@ const merchant = {
 		// Verify that the order page is indeed of the order that was placed
 		// Verify order number
 		await expect( page ).toMatchElement(
-			'.woocommerce-order-data__heading',
+			'.poocommerce-order-data__heading',
 			{ text: 'Order #' + orderId + ' details' }
 		);
 
@@ -218,7 +218,7 @@ const merchant = {
 
 		// Verify product cost
 		await expect( page ).toMatchElement(
-			'.woocommerce-Price-amount.amount',
+			'.poocommerce-Price-amount.amount',
 			{ text: productPrice }
 		);
 
@@ -329,7 +329,7 @@ const merchant = {
 	openDownloadLink: async () => {
 		// Open downloadable product permission details
 		await expect( page ).toClick(
-			'#woocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div'
+			'#poocommerce-order-downloads > div.inside > div > div.wc-metaboxes > div'
 		);
 
 		// Get download link
@@ -615,7 +615,7 @@ const merchant = {
 	/* Uploads and activates a plugin located at the provided file path. This will also deactivate and delete the plugin if it exists.
 	 *
 	 * @param {string} pluginFilePath The location of the plugin zip file to upload.
-	 * @param {string} pluginName The name of the plugin. For example, `WooCommerce`.
+	 * @param {string} pluginName The name of the plugin. For example, `PooCommerce`.
 	 */
 	uploadAndActivatePlugin: async ( pluginFilePath, pluginName ) => {
 		await merchant.openPlugins();
@@ -661,7 +661,7 @@ const merchant = {
 	/**
 	 * Activate a given plugin by the plugin's name.
 	 *
-	 * @param {string} pluginName The name of the plugin to activate. For example, `WooCommerce`.
+	 * @param {string} pluginName The name of the plugin to activate. For example, `PooCommerce`.
 	 */
 	activatePlugin: async ( pluginName ) => {
 		const pluginSlug = getSlug( pluginName );
@@ -674,7 +674,7 @@ const merchant = {
 	/**
 	 * Deactivate a plugin by the plugin's name with the option to delete the plugin as well.
 	 *
-	 * @param {string}  pluginName   The name of the plugin to deactivate. For example, `WooCommerce`.
+	 * @param {string}  pluginName   The name of the plugin to deactivate. For example, `PooCommerce`.
 	 * @param {boolean} deletePlugin Pass in `true` to delete the plugin. Defaults to `false`.
 	 */
 	deactivatePlugin: async ( pluginName, deletePlugin = false ) => {
@@ -692,7 +692,7 @@ const merchant = {
 	/**
 	 * Delete a plugin by the plugin's name.
 	 *
-	 * @param {string} pluginName The name of the plugin to delete. For example, `WooCommerce`.
+	 * @param {string} pluginName The name of the plugin to delete. For example, `PooCommerce`.
 	 */
 	deletePlugin: async ( pluginName ) => {
 		const pluginSlug = getSlug( pluginName );
@@ -704,15 +704,15 @@ const merchant = {
 	},
 
 	/**
-	 * Runs the database update if needed. For example, after uploading the WooCommerce plugin or updating WooCommerce.
+	 * Runs the database update if needed. For example, after uploading the PooCommerce plugin or updating PooCommerce.
 	 */
 	runDatabaseUpdate: async () => {
 		if (
-			( await page.$( '.updated.woocommerce-message.wc-connect' ) ) !==
+			( await page.$( '.updated.poocommerce-message.wc-connect' ) ) !==
 			null
 		) {
 			await expect( page ).toMatchElement( 'a.wc-update-now', {
-				text: 'Update WooCommerce Database',
+				text: 'Update PooCommerce Database',
 			} );
 			await expect( page ).toClick( 'a.wc-update-now' );
 			await page.waitForNavigation( { waitUntil: 'networkidle0' } );

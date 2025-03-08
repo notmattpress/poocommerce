@@ -49,7 +49,7 @@ describe( 'updateLinkHref', () => {
 		);
 	} );
 
-	it( 'should not update WooCommerce urls', () => {
+	it( 'should not update PooCommerce urls', () => {
 		const item = { href: WOO_URL };
 		updateLinkHref( item, nextQuery, timeExcludedScreens );
 

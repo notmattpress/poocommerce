@@ -4,5 +4,5 @@
 import { initialize } from './editor';
 
 window.addEventListener( 'DOMContentLoaded', () => {
-	initialize( 'woocommerce-email-editor' );
+	initialize( 'poocommerce-email-editor' );
 } );

@@ -71,7 +71,7 @@ function emitSyncEvent( {
 }
 
 export const { state, actions } = store< Store >(
-	'woocommerce',
+	'poocommerce',
 	{
 		actions: {
 			*addCartItem( { id, quantity }: { id: number; quantity: number } ) {

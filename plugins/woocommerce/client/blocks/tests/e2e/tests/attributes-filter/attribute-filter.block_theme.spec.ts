@@ -6,11 +6,11 @@ import {
 	expect,
 	wpCLI,
 	TemplateCompiler,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Filter by Attribute',
-	slug: 'woocommerce/attribute-filter',
+	slug: 'poocommerce/attribute-filter',
 	urlSearchParamWhenFilterIsApplied: 'filter_size=small&query_type_size=or',
 };
 
@@ -27,7 +27,7 @@ test.describe( `${ blockData.name } Block`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.createNewPost();
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'attribute-filter',
 				heading: 'Filter By Attribute',
@@ -42,7 +42,7 @@ test.describe( `${ blockData.name } Block`, () => {
 
 	test( "should allow changing the block's title", async ( { editor } ) => {
 		const textSelector =
-			'.wp-block-woocommerce-filter-wrapper .wp-block-heading';
+			'.wp-block-poocommerce-filter-wrapper .wp-block-heading';
 
 		const title = 'New Title';
 
@@ -109,13 +109,13 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		);
 
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//archive-product',
+			postId: 'poocommerce/poocommerce//archive-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'attribute-filter',
 				heading: 'Filter By Attribute',
@@ -134,7 +134,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 
 	test( 'should show all products', async ( { frontendUtils, page } ) => {
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 
 		const products = legacyTemplate
@@ -163,7 +163,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		await page.getByRole( 'checkbox', { name: 'Small' } ).click();
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 
 		const products = legacyTemplate
@@ -184,7 +184,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 
 		await page.goto( '/shop' );
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 16 );
@@ -204,7 +204,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		);
 
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 1 );
@@ -246,7 +246,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		);
 
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 1 );

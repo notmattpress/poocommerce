@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -311,7 +311,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		await expect( pageObject.products ).toHaveCount( 5 );
 	} );
 
-	// See https://github.com/woocommerce/woocommerce/pull/49917
+	// See https://github.com/poocommerce/poocommerce/pull/49917
 	test( 'Price range is inclusive in both editor and frontend.', async ( {
 		page,
 		pageObject,
@@ -346,7 +346,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		await expect( pageObject.products ).toHaveCount( 9 );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: { filterType: 'price-filter' },
 		} );
 
@@ -393,11 +393,11 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		} );
 
 		[
-			'woocommerce/woocommerce//archive-product',
-			'woocommerce/woocommerce//taxonomy-product_cat',
-			'woocommerce/woocommerce//taxonomy-product_tag',
-			'woocommerce/woocommerce//taxonomy-product_attribute',
-			'woocommerce/woocommerce//product-search-results',
+			'poocommerce/poocommerce//archive-product',
+			'poocommerce/poocommerce//taxonomy-product_cat',
+			'poocommerce/poocommerce//taxonomy-product_tag',
+			'poocommerce/poocommerce//taxonomy-product_attribute',
+			'poocommerce/poocommerce//product-search-results',
 		].forEach( ( slug ) => {
 			test( `should be visible in archive template: ${ slug }`, async ( {
 				pageObject,
@@ -418,7 +418,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		} );
 
 		[
-			'woocommerce/woocommerce//single-product',
+			'poocommerce/poocommerce//single-product',
 			'twentytwentyfour//home',
 			'twentytwentyfour//index',
 		].forEach( ( slug ) => {
@@ -562,7 +562,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 			await page.goto( `/?p=${ postId }` );
 
 			const productCollection = page.locator(
-				'.wp-block-woocommerce-product-collection'
+				'.wp-block-poocommerce-product-collection'
 			);
 
 			await expect(

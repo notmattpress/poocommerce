@@ -323,7 +323,7 @@ export class Search extends Component< Props, State > {
 		return (
 			<div>
 				<SelectControl
-					className={ classnames( 'woocommerce-search', className, {
+					className={ classnames( 'poocommerce-search', className, {
 						'is-static-results': staticResults,
 					} ) }
 					disabled={ disabled }

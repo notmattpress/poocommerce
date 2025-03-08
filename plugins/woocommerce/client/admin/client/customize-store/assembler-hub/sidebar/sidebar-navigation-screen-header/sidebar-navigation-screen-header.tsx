@@ -13,7 +13,7 @@ import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { BlockInstance } from '@wordpress/blocks';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { __experimentalBlockPatternsList as BlockPatternList } from '@wordpress/block-editor';
 
 /**
@@ -34,11 +34,11 @@ import './style.scss';
 import { PatternWithBlocks } from '~/customize-store/types/pattern';
 
 const SUPPORTED_HEADER_PATTERNS = [
-	'woocommerce-blocks/header-centered-menu',
-	'woocommerce-blocks/header-essential',
-	'woocommerce-blocks/header-minimal',
-	'woocommerce-blocks/header-large',
-	'woocommerce-blocks/header-distraction-free',
+	'poocommerce-blocks/header-centered-menu',
+	'poocommerce-blocks/header-essential',
+	'poocommerce-blocks/header-minimal',
+	'poocommerce-blocks/header-large',
+	'poocommerce-blocks/header-distraction-free',
 ];
 export const SidebarNavigationScreenHeader = ( {
 	onNavigateBackClick,
@@ -46,7 +46,7 @@ export const SidebarNavigationScreenHeader = ( {
 	onNavigateBackClick: () => void;
 } ) => {
 	const { scroll } = useEditorScroll( {
-		editorSelector: '.woocommerce-customize-store__block-editor iframe',
+		editorSelector: '.poocommerce-customize-store__block-editor iframe',
 		scrollDirection: 'top',
 	} );
 
@@ -124,8 +124,8 @@ export const SidebarNavigationScreenHeader = ( {
 	const aiOnline = context.flowType === FlowType.AIOnline;
 
 	const title = aiOnline
-		? __( 'Change your header', 'woocommerce' )
-		: __( 'Choose your header', 'woocommerce' );
+		? __( 'Change your header', 'poocommerce' )
+		: __( 'Choose your header', 'poocommerce' );
 
 	return (
 		<SidebarNavigationScreen
@@ -136,11 +136,11 @@ export const SidebarNavigationScreenHeader = ( {
 			} }
 			description={ __(
 				"Select a new header from the options below. Your header includes your site's navigation and will be added to every page. You can continue customizing this via the Editor.",
-				'woocommerce'
+				'poocommerce'
 			) }
 			content={
 				<>
-					<div className="woocommerce-customize-store__sidebar-header-content">
+					<div className="poocommerce-customize-store__sidebar-header-content">
 						{ isLoading && (
 							<span className="components-placeholder__preview">
 								<Spinner />

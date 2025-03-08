@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\InstallPlugin;
+use Automattic\PooCommerce\Blueprint\Steps\InstallPlugin;
 
 /**
  * Unit tests for InstallPlugin class.

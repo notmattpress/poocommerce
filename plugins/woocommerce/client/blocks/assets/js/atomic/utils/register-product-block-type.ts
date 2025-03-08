@@ -11,7 +11,7 @@ import {
 	BlockConfiguration,
 } from '@wordpress/blocks';
 import { subscribe, select } from '@wordpress/data';
-import { isNumber, isEmpty } from '@woocommerce/types';
+import { isNumber, isEmpty } from '@poocommerce/types';
 
 /**
  * Settings for product block registration.
@@ -57,7 +57,7 @@ type ProductBlockRegistrationConfig< T extends BlockAttributes > = Partial<
 	ProductBlockSettings;
 
 /**
- * Manages block registration and unregistration for WooCommerce product blocks in different contexts.
+ * Manages block registration and unregistration for PooCommerce product blocks in different contexts.
  * Implements the Singleton pattern to ensure consistent block management across the application.
  */
 export class BlockRegistrationManager {
@@ -284,7 +284,7 @@ export class BlockRegistrationManager {
 				);
 			} else {
 				const ancestor = isEmpty( settings?.ancestor )
-					? [ 'woocommerce/single-product' ]
+					? [ 'poocommerce/single-product' ]
 					: settings?.ancestor;
 
 				// Only remove ancestor if we're in site editor AND in single-product template
@@ -323,7 +323,7 @@ export class BlockRegistrationManager {
 }
 
 /**
- * Registers a block type specifically for WooCommerce product templates and optionally makes it available
+ * Registers a block type specifically for PooCommerce product templates and optionally makes it available
  * in the post editor. This function serves as the main entry point for registering product-related blocks.
  *
  * This function is specifically designed for blocks that require a product context to function properly.
@@ -351,9 +351,9 @@ export class BlockRegistrationManager {
  * @example
  * ```typescript
  * registerProductBlockType({
- *     name: 'woocommerce/product-price',
+ *     name: 'poocommerce/product-price',
  *     title: 'Product Price',
- *     category: 'woocommerce',
+ *     category: 'poocommerce',
  *     edit: () => <div>Price Editor</div>,
  *     save: () => <div>Saved Price</div>
  * }, {

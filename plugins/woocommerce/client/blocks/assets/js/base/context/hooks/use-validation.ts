@@ -5,9 +5,9 @@ import { useCallback } from '@wordpress/element';
 import type {
 	ValidationData,
 	ValidationContextError,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { validationStore } from '@woocommerce/block-data';
+import { validationStore } from '@poocommerce/block-data';
 
 /**
  * Custom hook for setting for adding errors to the validation system.

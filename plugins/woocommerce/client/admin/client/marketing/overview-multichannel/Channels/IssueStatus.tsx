@@ -15,7 +15,7 @@ type IssueStatusPropsType = {
 	registeredChannel: RegisteredChannel;
 };
 
-const issueStatusClassName = 'woocommerce-marketing-issue-status';
+const issueStatusClassName = 'poocommerce-marketing-issue-status';
 
 export const IssueStatus: React.FC< IssueStatusPropsType > = ( {
 	registeredChannel,

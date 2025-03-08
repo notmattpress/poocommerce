@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, CLASSIC_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test, expect, CLASSIC_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 test.describe( 'Merchant → Checkout', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
@@ -17,7 +17,7 @@ test.describe( 'Merchant → Checkout', () => {
 			await editor.openGlobalBlockInserter();
 			await editor.page
 				.getByLabel( 'Search for blocks and patterns' )
-				.fill( 'woocommerce/checkout' );
+				.fill( 'poocommerce/checkout' );
 			const checkoutButton = editor.page.getByRole( 'option', {
 				name: 'Checkout',
 				exact: true,

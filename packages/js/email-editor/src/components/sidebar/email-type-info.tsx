@@ -38,18 +38,18 @@ export function EmailTypeInfo() {
 
 	return (
 		<>
-			<Panel className="woocommerce-email-sidebar-email-type-info">
+			<Panel className="poocommerce-email-sidebar-email-type-info">
 				<PanelBody>
 					<PanelRow>
-						<span className="woocommerce-email-type-info-icon">
+						<span className="poocommerce-email-type-info-icon">
 							<Icon icon={ megaphone } />
 						</span>
-						<div className="woocommerce-email-type-info-content">
-							<h2>{ __( 'Newsletter', 'woocommerce' ) }</h2>
+						<div className="poocommerce-email-type-info-content">
+							<h2>{ __( 'Newsletter', 'poocommerce' ) }</h2>
 							<span>
 								{ __(
 									'Send or schedule a newsletter to connect with your subscribers.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</span>
 						</div>
@@ -58,7 +58,7 @@ export function EmailTypeInfo() {
 						<PanelRow>
 							<Flex justify={ 'start' }>
 								<FlexItem className="editor-post-panel__row-label">
-									{ __( 'Template', 'woocommerce' ) }
+									{ __( 'Template', 'poocommerce' ) }
 								</FlexItem>
 								<FlexItem>
 									<DropdownMenu
@@ -67,7 +67,7 @@ export function EmailTypeInfo() {
 										toggleProps={ { variant: 'tertiary' } }
 										label={ __(
 											'Template actions',
-											'woocommerce'
+											'poocommerce'
 										) }
 										onToggle={ ( isOpen ) =>
 											recordEvent(
@@ -95,7 +95,7 @@ export function EmailTypeInfo() {
 												>
 													{ __(
 														'Edit template',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</MenuItem>
 												<MenuItem
@@ -111,7 +111,7 @@ export function EmailTypeInfo() {
 												>
 													{ __(
 														'Swap template',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</MenuItem>
 											</>

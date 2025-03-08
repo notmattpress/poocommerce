@@ -51,13 +51,13 @@ export const WooPaymentsResetAccountModal = ( {
 		<>
 			{ isOpen && (
 				<Modal
-					title={ __( 'Reset your test account', 'woocommerce' ) }
-					className="woocommerce-woopayments-modal"
+					title={ __( 'Reset your test account', 'poocommerce' ) }
+					className="poocommerce-woopayments-modal"
 					isDismissible={ true }
 					onRequestClose={ onClose }
 				>
-					<div className="woocommerce-woopayments-modal__content">
-						<div className="woocommerce-woopayments-modal__content__item">
+					<div className="poocommerce-woopayments-modal__content">
+						<div className="poocommerce-woopayments-modal__content__item">
 							<div>
 								<span>
 									{ isTestMode
@@ -65,7 +65,7 @@ export const WooPaymentsResetAccountModal = ( {
 												/* translators: %s: plugin name */
 												__(
 													'When you reset your test account, all payment data — including your %s account details, test transactions, and payouts history — will be lost. Your order history will remain. This action cannot be undone, but you can create a new test account at any time.',
-													'woocommerce'
+													'poocommerce'
 												),
 												'WooPayments'
 										  )
@@ -73,23 +73,23 @@ export const WooPaymentsResetAccountModal = ( {
 												/* translators: %s: plugin name */
 												__(
 													'When you reset your account, all payment data — including your %s account details, test transactions, and payouts history — will be lost. Your order history will remain. This action cannot be undone, but you can create a new test account at any time.',
-													'woocommerce'
+													'poocommerce'
 												),
 												'WooPayments'
 										  ) }
 								</span>
 							</div>
 						</div>
-						<div className="woocommerce-woopayments-modal__content__item">
+						<div className="poocommerce-woopayments-modal__content__item">
 							<h3>
 								{ __(
 									"Are you sure you'd like to continue?",
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h3>
 						</div>
 					</div>
-					<div className="woocommerce-woopayments-modal__actions">
+					<div className="poocommerce-woopayments-modal__actions">
 						<Button
 							className="danger"
 							variant="secondary"
@@ -97,7 +97,7 @@ export const WooPaymentsResetAccountModal = ( {
 							disabled={ isResettingAccount }
 							onClick={ handleResetAccount }
 						>
-							{ __( 'Yes, reset account', 'woocommerce' ) }
+							{ __( 'Yes, reset account', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

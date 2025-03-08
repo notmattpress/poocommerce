@@ -1,19 +1,19 @@
 {
-	"name": "woocommerce/product-reviews",
+	"name": "poocommerce/product-reviews",
 	"version": "1.0.0",
 	"icon": "admin-comments",
 	"title": "Product Reviews",
 	"description": "A block that shows the reviews for a product.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {},
 	"attributes": {},
 	"usesContext": [
 		"postId"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { Icon } from '@wordpress/icons';
-import { filledCart, removeCart } from '@woocommerce/icons';
+import { filledCart, removeCart } from '@poocommerce/icons';
 
-export const blockName = 'woocommerce/cart';
+export const blockName = 'poocommerce/cart';
 export const blockAttributes = {
 	isPreview: {
 		type: 'boolean',
@@ -14,20 +14,20 @@ export const blockAttributes = {
 	},
 	currentView: {
 		type: 'string',
-		default: 'woocommerce/filled-cart-block',
+		default: 'poocommerce/filled-cart-block',
 		source: 'readonly', // custom source to prevent saving to post content
 	},
 	editorViews: {
 		type: 'object',
 		default: [
 			{
-				view: 'woocommerce/filled-cart-block',
-				label: __( 'Filled Cart', 'woocommerce' ),
+				view: 'poocommerce/filled-cart-block',
+				label: __( 'Filled Cart', 'poocommerce' ),
 				icon: <Icon icon={ filledCart } />,
 			},
 			{
-				view: 'woocommerce/empty-cart-block',
-				label: __( 'Empty Cart', 'woocommerce' ),
+				view: 'poocommerce/empty-cart-block',
+				label: __( 'Empty Cart', 'poocommerce' ),
 				icon: <Icon icon={ removeCart } />,
 			},
 		],

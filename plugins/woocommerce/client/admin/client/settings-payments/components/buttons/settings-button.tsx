@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ export const SettingsButton = ( {
 	gatewayId,
 	settingsHref,
 	isInstallingPlugin,
-	buttonText = __( 'Manage', 'woocommerce' ),
+	buttonText = __( 'Manage', 'poocommerce' ),
 }: SettingsButtonProps ) => {
 	const recordButtonClickEvent = () => {
 		recordEvent( 'settings_payments_provider_manage_click', {

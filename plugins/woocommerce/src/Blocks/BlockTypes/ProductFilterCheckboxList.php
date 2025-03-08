@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Checkbox List Block.
@@ -65,12 +65,12 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 		ob_start();
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-			<ul class="wc-block-product-filter-checkbox-list__list" aria-label="<?php echo esc_attr__( 'Filter Options', 'woocommerce' ); ?>">
+			<ul class="wc-block-product-filter-checkbox-list__list" aria-label="<?php echo esc_attr__( 'Filter Options', 'poocommerce' ); ?>">
 				<?php foreach ( $items as $item ) { ?>
 					<?php
 					$item['id'] = $item['id'] ?? uniqid( 'checkbox-' );
 					// translators: %s: item label.
-					$aria_label = sprintf( __( 'Filter item: %s', 'woocommerce' ), $item['ariaLabel'] ?? $item['label'] );
+					$aria_label = sprintf( __( 'Filter item: %s', 'poocommerce' ), $item['ariaLabel'] ?? $item['label'] );
 					?>
 					<li
 						data-wp-key="<?php echo esc_attr( $item['id'] ); ?>"
@@ -117,7 +117,7 @@ final class ProductFilterCheckboxList extends AbstractBlock {
 					data-wp-on--click="actions.showAllItems"
 					hidden
 				>
-					<?php echo esc_html__( 'Show more...', 'woocommerce' ); ?>
+					<?php echo esc_html__( 'Show more...', 'poocommerce' ); ?>
 				</button>
 			<?php endif; ?>
 		</div>

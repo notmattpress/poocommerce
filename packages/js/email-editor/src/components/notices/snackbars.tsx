@@ -22,7 +22,7 @@ export function EditorSnackbars( { context = 'email-editor' } ) {
 	const globalNoticeChangeMap = useMemo( () => {
 		return {
 			'site-editor-save-success': {
-				content: __( 'Email design updated.', 'woocommerce' ),
+				content: __( 'Email design updated.', 'poocommerce' ),
 				removeActions: true,
 			},
 		};

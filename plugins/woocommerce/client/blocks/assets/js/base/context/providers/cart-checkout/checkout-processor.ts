@@ -13,7 +13,7 @@ import {
 import {
 	emptyHiddenAddressFields,
 	removeAllNotices,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import { useDispatch, useSelect, select as selectStore } from '@wordpress/data';
 import {
 	checkoutStore,
@@ -22,18 +22,18 @@ import {
 	cartStore,
 	processErrorResponse,
 	clearCheckoutPutRequests,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import {
 	getPaymentMethods,
 	getExpressPaymentMethods,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import {
 	ApiResponse,
 	CheckoutResponseSuccess,
 	CheckoutResponseError,
 	assertResponseIsValid,
-} from '@woocommerce/types';
-import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
+} from '@poocommerce/types';
+import { checkoutEvents } from '@poocommerce/blocks-checkout-events';
 
 /**
  * Internal dependencies
@@ -176,7 +176,7 @@ const CheckoutProcessor = () => {
 				return {
 					errorMessage: __(
 						'Sorry, this order requires a shipping option.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -186,7 +186,7 @@ const CheckoutProcessor = () => {
 			return {
 				errorMessage: __(
 					'There was a problem with your payment option.',
-					'woocommerce'
+					'poocommerce'
 				),
 				context: 'wc/checkout/payments',
 			};
@@ -195,7 +195,7 @@ const CheckoutProcessor = () => {
 			return {
 				errorMessage: __(
 					'There was a problem with your shipping option.',
-					'woocommerce'
+					'poocommerce'
 				),
 				context: 'wc/checkout/shipping-methods',
 			};
@@ -311,13 +311,13 @@ const CheckoutProcessor = () => {
 				} catch {
 					let errorMessage = __(
 						'Something went wrong when placing the order. Check your email for order updates before retrying.',
-						'woocommerce'
+						'poocommerce'
 					);
 
 					if ( customerId !== 0 ) {
 						errorMessage = __(
 							"Something went wrong when placing the order. Check your account's order history or your email for order updates before retrying.",
-							'woocommerce'
+							'poocommerce'
 						);
 					}
 					processErrorResponse( {

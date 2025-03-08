@@ -27,6 +27,6 @@ export class Analytics extends BasePage {
 
 	async isDisplayed(): Promise< void > {
 		// This is a smoke test that ensures the single page was rendered without crashing
-		await this.page.waitForSelector( '#woocommerce-layout__primary' );
+		await this.page.waitForSelector( '#poocommerce-layout__primary' );
 	}
 }

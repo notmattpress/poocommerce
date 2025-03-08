@@ -1,4 +1,4 @@
-.woocommerce-chart {
+.poocommerce-chart {
 	margin-top: -$gap;
 	margin-bottom: $gap-large;
 	background: $studio-white;
@@ -13,7 +13,7 @@
 		width: auto;
 	}
 
-	.woocommerce-chart__header {
+	.poocommerce-chart__header {
 		min-height: 50px;
 		border-bottom: 1px solid $table-border;
 		display: flex;
@@ -22,30 +22,30 @@
 		align-items: center;
 		width: 100%;
 
-		.woocommerce-chart__title {
+		.poocommerce-chart__title {
 			margin-left: $gap-large;
 			margin-right: $gap;
 		}
 	}
 
-	.woocommerce-chart__body {
+	.poocommerce-chart__body {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		align-items: flex-start;
 		width: 100%;
 
-		&.woocommerce-chart__body-column {
+		&.poocommerce-chart__body-column {
 			flex-direction: column;
 		}
 	}
 
-	.woocommerce-chart__footer {
+	.poocommerce-chart__footer {
 		width: 100%;
 	}
 }
 
-.woocommerce-chart-placeholder {
+.poocommerce-chart-placeholder {
 	@include placeholder();
 	padding: 0;
 	width: 100%;
@@ -57,7 +57,7 @@
 	}
 }
 
-.woocommerce-chart__interval-select {
+.poocommerce-chart__interval-select {
 	align-items: start;
 	border-right: 1px solid $table-border;
 	display: flex;
@@ -100,12 +100,12 @@
 	}
 }
 
-.woocommerce-chart__types {
+.poocommerce-chart__types {
 	padding: 0 8px;
 	white-space: nowrap;
 }
 
-.woocommerce-chart__type-button {
+.poocommerce-chart__type-button {
 	background: transparent !important;
 
 	&.components-button {
@@ -113,19 +113,19 @@
 		display: inline-flex;
 		padding: 8px;
 
-		&.woocommerce-chart__type-button-selected {
+		&.poocommerce-chart__type-button-selected {
 			color: $gray-700;
 		}
 	}
 }
 
 @include breakpoint( '<960px' ) {
-	.woocommerce-summary + .woocommerce-chart {
-		.woocommerce-chart__title {
+	.poocommerce-summary + .poocommerce-chart {
+		.poocommerce-chart__title {
 			display: none;
 		}
 
-		.woocommerce-chart__interval-select {
+		.poocommerce-chart__interval-select {
 			width: auto;
 			order: 0;
 			margin-top: 0;

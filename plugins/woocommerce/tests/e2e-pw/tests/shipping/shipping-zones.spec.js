@@ -181,7 +181,7 @@ async function checkShippingRateInCart( page, product, checks ) {
 
 			if ( cost ) {
 				await page
-					.locator( '#woocommerce_flat_rate_cost' )
+					.locator( '#poocommerce_flat_rate_cost' )
 					.fill( cost );
 			}
 

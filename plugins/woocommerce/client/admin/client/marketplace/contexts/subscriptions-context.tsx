@@ -75,12 +75,12 @@ export function SubscriptionsContextProvider( props: {
 		if ( installKey ) {
 			refreshSubscriptions( true ).catch( ( error ) => {
 				addNotice(
-					'woocommerce-marketplace-refresh-subscriptions',
+					'poocommerce-marketplace-refresh-subscriptions',
 					sprintf(
 						// translators: %s is the error message.
 						__(
 							'Error refreshing subscriptions: %s',
-							'woocommerce'
+							'poocommerce'
 						),
 						error.message
 					),
@@ -93,10 +93,10 @@ export function SubscriptionsContextProvider( props: {
 
 		loadSubscriptions( true ).catch( ( error ) => {
 			addNotice(
-				'woocommerce-marketplace-load-subscriptions',
+				'poocommerce-marketplace-load-subscriptions',
 				sprintf(
 					// translators: %s is the error message.
-					__( 'Error loading subscriptions: %s', 'woocommerce' ),
+					__( 'Error loading subscriptions: %s', 'poocommerce' ),
 					error.message
 				),
 				NoticeStatus.Error

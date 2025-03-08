@@ -4,7 +4,7 @@
 import { Button, Modal } from '@wordpress/components';
 import { Sender } from 'xstate';
 import { __ } from '@wordpress/i18n';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { createInterpolateElement } from '@wordpress/element';
 
 /**
@@ -16,7 +16,7 @@ import { trackEvent } from '../tracking';
 export const DesignChangeWarningModal = ( {
 	setOpenDesignChangeWarningModal,
 	sendEvent,
-	classname = 'woocommerce-customize-store__design-change-warning-modal',
+	classname = 'poocommerce-customize-store__design-change-warning-modal',
 }: {
 	setOpenDesignChangeWarningModal: ( arg0: boolean ) => void;
 	sendEvent: Sender< customizeStoreStateMachineEvents >;
@@ -27,7 +27,7 @@ export const DesignChangeWarningModal = ( {
 			className={ classname }
 			title={ __(
 				'Are you sure you want to start a new design?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ () => setOpenDesignChangeWarningModal( false ) }
 			shouldCloseOnClickOutside={ false }
@@ -36,7 +36,7 @@ export const DesignChangeWarningModal = ( {
 				{ createInterpolateElement(
 					__(
 						"The Store Designer will create a new store design for you, and you'll lose any changes you've made to your active theme. If you'd prefer to continue editing your theme, you can do so via the <EditorLink>Editor</EditorLink>.",
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						EditorLink: (
@@ -54,18 +54,18 @@ export const DesignChangeWarningModal = ( {
 					}
 				) }
 			</p>
-			<div className="woocommerce-customize-store__design-change-warning-modal-footer">
+			<div className="poocommerce-customize-store__design-change-warning-modal-footer">
 				<Button
 					onClick={ () => setOpenDesignChangeWarningModal( false ) }
 					variant="link"
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					onClick={ () => sendEvent( { type: 'DESIGN_WITH_AI' } ) }
 					variant="primary"
 				>
-					{ __( 'Design with AI', 'woocommerce' ) }
+					{ __( 'Design with AI', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>
@@ -75,7 +75,7 @@ export const DesignChangeWarningModal = ( {
 export const StartNewDesignWarningModal = ( {
 	setOpenDesignChangeWarningModal,
 	sendEvent,
-	classname = 'woocommerce-customize-store__design-change-warning-modal',
+	classname = 'poocommerce-customize-store__design-change-warning-modal',
 }: {
 	setOpenDesignChangeWarningModal: ( arg0: boolean ) => void;
 	sendEvent: Sender< customizeStoreStateMachineEvents >;
@@ -86,7 +86,7 @@ export const StartNewDesignWarningModal = ( {
 			className={ classname }
 			title={ __(
 				'Are you sure you want to start a new design?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ () => setOpenDesignChangeWarningModal( false ) }
 			shouldCloseOnClickOutside={ false }
@@ -95,7 +95,7 @@ export const StartNewDesignWarningModal = ( {
 				{ createInterpolateElement(
 					__(
 						"The Store Designer will create a new store design for you, and you'll lose any changes you've made to your active theme. If you'd prefer to continue editing your theme, you can do so via the <EditorLink>Editor</EditorLink>.",
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						EditorLink: (
@@ -113,18 +113,18 @@ export const StartNewDesignWarningModal = ( {
 					}
 				) }
 			</p>
-			<div className="woocommerce-customize-store__design-change-warning-modal-footer">
+			<div className="poocommerce-customize-store__design-change-warning-modal-footer">
 				<Button
 					onClick={ () => setOpenDesignChangeWarningModal( false ) }
 					variant="link"
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					onClick={ () => sendEvent( { type: 'DESIGN_WITH_AI' } ) }
 					variant="primary"
 				>
-					{ __( 'Design with AI', 'woocommerce' ) }
+					{ __( 'Design with AI', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>
@@ -134,7 +134,7 @@ export const StartNewDesignWarningModal = ( {
 export const StartOverWarningModal = ( {
 	setOpenDesignChangeWarningModal,
 	sendEvent,
-	classname = 'woocommerce-customize-store__design-change-warning-modal',
+	classname = 'poocommerce-customize-store__design-change-warning-modal',
 }: {
 	setOpenDesignChangeWarningModal: ( arg0: boolean ) => void;
 	sendEvent: Sender< customizeStoreStateMachineEvents >;
@@ -145,7 +145,7 @@ export const StartOverWarningModal = ( {
 			className={ classname }
 			title={ __(
 				'Are you sure you want to start over?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ () => setOpenDesignChangeWarningModal( false ) }
 			shouldCloseOnClickOutside={ false }
@@ -154,7 +154,7 @@ export const StartOverWarningModal = ( {
 				{ createInterpolateElement(
 					__(
 						"You'll be asked to provide your business info again, and will lose your existing AI design. If you want to customize your existing design, you can do so via the <EditorLink>Editor</EditorLink>.",
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						EditorLink: (
@@ -172,12 +172,12 @@ export const StartOverWarningModal = ( {
 					}
 				) }
 			</p>
-			<div className="woocommerce-customize-store__design-change-warning-modal-footer">
+			<div className="poocommerce-customize-store__design-change-warning-modal-footer">
 				<Button
 					onClick={ () => setOpenDesignChangeWarningModal( false ) }
 					variant="link"
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					onClick={ () => {
@@ -188,7 +188,7 @@ export const StartOverWarningModal = ( {
 					} }
 					variant="primary"
 				>
-					{ __( 'Start again', 'woocommerce' ) }
+					{ __( 'Start again', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>
@@ -207,11 +207,11 @@ export const ThemeSwitchWarningModal = ( {
 	return (
 		<Modal
 			className={
-				'woocommerce-customize-store__theme-switch-warning-modal'
+				'poocommerce-customize-store__theme-switch-warning-modal'
 			}
 			title={ __(
 				'Are you sure you want to design a new theme?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ () => setIsModalOpen( false ) }
 			shouldCloseOnClickOutside={ false }
@@ -220,12 +220,12 @@ export const ThemeSwitchWarningModal = ( {
 				{ isNoAiFlow
 					? __(
 							'Your active theme will be changed and you could lose any changes you’ve made to it.',
-							'woocommerce'
+							'poocommerce'
 					  )
 					: createInterpolateElement(
 							__(
 								"The Store Designer will create a new store design for you, and you'll lose any changes you've made to your active theme. If you'd prefer to continue editing your theme, you can do so via the <EditorLink>Editor</EditorLink>.",
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								EditorLink: (
@@ -243,14 +243,14 @@ export const ThemeSwitchWarningModal = ( {
 							}
 					  ) }
 			</p>
-			<div className="woocommerce-customize-store__theme-switch-warning-modal-footer">
+			<div className="poocommerce-customize-store__theme-switch-warning-modal-footer">
 				<Button
 					onClick={ () => {
 						setIsModalOpen( false );
 					} }
 					variant="link"
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					onClick={ () => {
@@ -262,7 +262,7 @@ export const ThemeSwitchWarningModal = ( {
 					} }
 					variant="primary"
 				>
-					{ __( 'Design a new theme', 'woocommerce' ) }
+					{ __( 'Design a new theme', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

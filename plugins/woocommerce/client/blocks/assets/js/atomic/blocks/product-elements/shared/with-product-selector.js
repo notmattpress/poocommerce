@@ -3,11 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import ProductControl from '@woocommerce/editor-components/product-control';
+import ProductControl from '@poocommerce/editor-components/product-control';
 import { Placeholder, Button, ToolbarGroup } from '@wordpress/components';
 import { BlockControls } from '@wordpress/block-editor';
-import TextToolbarButton from '@woocommerce/editor-components/text-toolbar-button';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import TextToolbarButton from '@poocommerce/editor-components/text-toolbar-button';
+import { useProductDataContext } from '@poocommerce/shared-context';
 
 /**
  * Internal dependencies
@@ -64,7 +64,7 @@ const withProductSelector = ( selectorArgs ) => ( OriginalComponent ) => {
 									setIsEditing( false );
 								} }
 							>
-								{ __( 'Done', 'woocommerce' ) }
+								{ __( 'Done', 'poocommerce' ) }
 							</Button>
 						</div>
 					</Placeholder>
@@ -75,7 +75,7 @@ const withProductSelector = ( selectorArgs ) => ( OriginalComponent ) => {
 								<TextToolbarButton
 									onClick={ () => setIsEditing( true ) }
 								>
-									{ __( 'Switch product…', 'woocommerce' ) }
+									{ __( 'Switch product…', 'poocommerce' ) }
 								</TextToolbarButton>
 							</ToolbarGroup>
 						</BlockControls>

@@ -5,13 +5,13 @@
  * Handles requests to /orders/*
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Controller as ReportsController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Controller as ReportsController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Orders controller.
@@ -36,7 +36,7 @@ class Orders extends \WC_REST_Orders_Controller {
 		$params = parent::get_collection_params();
 		// This needs to remain a string to support extensions that filter Order Number.
 		$params['number'] = array(
-			'description'       => __( 'Limit result set to orders matching part of an order number.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to orders matching part of an order number.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -122,8 +122,8 @@ class Orders extends \WC_REST_Orders_Controller {
 	 */
 	protected function get_products_by_order_id( $order_id ) {
 		global $wpdb;
-		$order_items_table    = $wpdb->prefix . 'woocommerce_order_items';
-		$order_itemmeta_table = $wpdb->prefix . 'woocommerce_order_itemmeta';
+		$order_items_table    = $wpdb->prefix . 'poocommerce_order_items';
+		$order_itemmeta_table = $wpdb->prefix . 'poocommerce_order_itemmeta';
 		$products             = $wpdb->get_results(
 			$wpdb->prepare(
 				// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -197,7 +197,7 @@ class Orders extends \WC_REST_Orders_Controller {
 		}
 
 		// Initially skip line items if we can.
-		$using_order_class_override = is_a( $object, '\Automattic\WooCommerce\Admin\Overrides\Order' );
+		$using_order_class_override = is_a( $object, '\Automattic\PooCommerce\Admin\Overrides\Order' );
 		if ( $using_order_class_override ) {
 			$data = $object->get_data_without_line_items();
 		} else {

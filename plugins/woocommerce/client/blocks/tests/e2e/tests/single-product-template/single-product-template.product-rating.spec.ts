@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Editor, test as base, expect } from '@woocommerce/e2e-utils';
+import { Editor, test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { Editor, test as base, expect } from '@woocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Single Product',
-	slug: 'woocommerce/single-product',
+	slug: 'poocommerce/single-product',
 	product: 'Hoodie',
 	productSlug: 'hoodie',
 };
@@ -25,7 +25,7 @@ class BlockUtils {
 
 	async configureSingleProductBlockForProduct( product: string ) {
 		const singleProductBlock = await this.editor.getBlockByName(
-			'woocommerce/single-product'
+			'poocommerce/single-product'
 		);
 
 		await singleProductBlock

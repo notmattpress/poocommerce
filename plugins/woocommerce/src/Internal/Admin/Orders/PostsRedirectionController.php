@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * When {@see OrdersTableDataStore} is in use, this class takes care of redirecting admins from CPT-based URLs

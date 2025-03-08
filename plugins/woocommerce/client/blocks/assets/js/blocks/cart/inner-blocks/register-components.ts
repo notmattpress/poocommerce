@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { lazy } from '@wordpress/element';
-import { WC_BLOCKS_BUILD_URL } from '@woocommerce/block-settings';
-import { registerCheckoutBlock } from '@woocommerce/blocks-checkout';
+import { WC_BLOCKS_BUILD_URL } from '@poocommerce/block-settings';
+import { registerCheckoutBlock } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Admin\API\Reports;
+namespace Automattic\PooCommerce\Admin\API\Reports;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericController;
+use Automattic\PooCommerce\Admin\API\Reports\GenericController;
 
 /**
  * Generic base for all stats controllers.
@@ -61,7 +61,7 @@ abstract class GenericStatsController extends GenericController {
 	public function get_collection_params() {
 		$params             = parent::get_collection_params();
 		$params['fields']   = array(
-			'description'       => __( 'Limit stats fields to the specified items.', 'woocommerce' ),
+			'description'       => __( 'Limit stats fields to the specified items.', 'poocommerce' ),
 			'type'              => 'array',
 			'sanitize_callback' => 'wp_parse_slug_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -70,7 +70,7 @@ abstract class GenericStatsController extends GenericController {
 			),
 		);
 		$params['interval'] = array(
-			'description'       => __( 'Time interval to use for buckets in the returned data.', 'woocommerce' ),
+			'description'       => __( 'Time interval to use for buckets in the returned data.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'week',
 			'enum'              => array(
@@ -108,7 +108,7 @@ abstract class GenericStatsController extends GenericController {
 
 		$segments = array(
 			'segments' => array(
-				'description' => __( 'Reports data grouped by segment condition.', 'woocommerce' ),
+				'description' => __( 'Reports data grouped by segment condition.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -116,13 +116,13 @@ abstract class GenericStatsController extends GenericController {
 					'type'       => 'object',
 					'properties' => array(
 						'segment_id' => array(
-							'description' => __( 'Segment identificator.', 'woocommerce' ),
+							'description' => __( 'Segment identificator.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'subtotals'  => array(
-							'description' => __( 'Interval subtotals.', 'woocommerce' ),
+							'description' => __( 'Interval subtotals.', 'poocommerce' ),
 							'type'        => 'object',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
@@ -141,14 +141,14 @@ abstract class GenericStatsController extends GenericController {
 			'type'       => 'object',
 			'properties' => array(
 				'totals'    => array(
-					'description' => __( 'Totals data.', 'woocommerce' ),
+					'description' => __( 'Totals data.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 					'properties'  => $totals,
 				),
 				'intervals' => array(
-					'description' => __( 'Reports data grouped by intervals.', 'woocommerce' ),
+					'description' => __( 'Reports data grouped by intervals.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -156,42 +156,42 @@ abstract class GenericStatsController extends GenericController {
 						'type'       => 'object',
 						'properties' => array(
 							'interval'       => array(
-								'description' => __( 'Type of interval.', 'woocommerce' ),
+								'description' => __( 'Type of interval.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 								'enum'        => array( 'day', 'week', 'month', 'year' ),
 							),
 							'date_start'     => array(
-								'description' => __( "The date the report start, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the report start, in the site's timezone.", 'poocommerce' ),
 								'type'        => 'string',
 								'format'      => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_start_gmt' => array(
-								'description' => __( 'The date the report start, as GMT.', 'woocommerce' ),
+								'description' => __( 'The date the report start, as GMT.', 'poocommerce' ),
 								'type'        => 'string',
 								'format'      => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_end'       => array(
-								'description' => __( "The date the report end, in the site's timezone.", 'woocommerce' ),
+								'description' => __( "The date the report end, in the site's timezone.", 'poocommerce' ),
 								'type'        => 'string',
 								'format'      => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'date_end_gmt'   => array(
-								'description' => __( 'The date the report end, as GMT.', 'woocommerce' ),
+								'description' => __( 'The date the report end, as GMT.', 'poocommerce' ),
 								'type'        => 'string',
 								'format'      => 'date-time',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'subtotals'      => array(
-								'description' => __( 'Interval subtotals.', 'woocommerce' ),
+								'description' => __( 'Interval subtotals.', 'poocommerce' ),
 								'type'        => 'object',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,

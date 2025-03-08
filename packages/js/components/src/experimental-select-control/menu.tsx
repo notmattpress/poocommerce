@@ -40,7 +40,7 @@ export const Menu = ( {
 
 	useLayoutEffect( () => {
 		const comboboxWrapper = selectControlMenuRef.current?.closest(
-			'.woocommerce-experimental-select-control__combo-box-wrapper'
+			'.poocommerce-experimental-select-control__combo-box-wrapper'
 		);
 		const popoverContent =
 			popoverRef.current?.querySelector< HTMLDivElement >(
@@ -71,14 +71,14 @@ export const Menu = ( {
 	return (
 		<div
 			ref={ selectControlMenuRef }
-			className="woocommerce-experimental-select-control__menu"
+			className="poocommerce-experimental-select-control__menu"
 		>
 			<div>
 				<Popover
-					__unstableSlotName="woocommerce-select-control-menu"
+					__unstableSlotName="poocommerce-select-control-menu"
 					focusOnMount={ false }
 					className={ classnames(
-						'woocommerce-experimental-select-control__popover-menu',
+						'poocommerce-experimental-select-control__popover-menu',
 						{
 							'is-open': isOpen,
 							'has-results': Children.count( children ) > 0,
@@ -92,7 +92,7 @@ export const Menu = ( {
 					<ul
 						{ ...getMenuProps() }
 						className={ classnames(
-							'woocommerce-experimental-select-control__popover-menu-container',
+							'poocommerce-experimental-select-control__popover-menu-container',
 							className
 						) }
 						onMouseUp={ ( e ) =>
@@ -113,7 +113,7 @@ export const MenuSlot: React.FC = () =>
 	createPortal(
 		<div aria-live="off">
 			{ /* @ts-expect-error name does exist on PopoverSlot see: https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/popover/index.tsx#L555 */ }
-			<Popover.Slot name="woocommerce-select-control-menu" />
+			<Popover.Slot name="poocommerce-select-control-menu" />
 		</div>,
 		document.body
 	);

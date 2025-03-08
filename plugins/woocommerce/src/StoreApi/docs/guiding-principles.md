@@ -22,7 +22,7 @@ Well-defined schema also provides a layer of security, as it enables us to valid
 When defining schema, take note of the [WordPress REST API handbook](https://developer.wordpress.org/rest-api/extending-the-rest-api/schema/) which documents available properties and types, as well as the [JSON schema standard](http://json-schema.org/). In addition to this:
 
 -   Properties should use snake_case 🐍
--   Ambiguous terms should be avoided, and property names should try to use understandable language, rather than "WooCommerce" terminology or setting names
+-   Ambiguous terms should be avoided, and property names should try to use understandable language, rather than "PooCommerce" terminology or setting names
 -   Properties should be defined using US English, but the descriptions of fields should be localized
 -   Multiple types are permitted, for example, using a `null` type if a value is not applicable
 -   `sanitize_callback` and `validate_callback` are encouraged where possible to ensure data is received in the correct format before processing requests
@@ -74,7 +74,7 @@ Errors, including validation errors, should return an error response code (4xx o
 
 Error messages should be localized, but do not need to be written with language aimed at customers (clients should use the given error code to create customer-facing notices as needed).
 
-Error codes should have the prefix `woocommerce_rest_`.
+Error codes should have the prefix `poocommerce_rest_`.
 
 ### Cart Operations
 
@@ -86,7 +86,7 @@ An example would be the `wc/store/v1/cart/add-item` endpoint which accepts a qua
 
 Resources, including customer and order data, should reflect only the current session. Do not return data for other customers as this would be a breach of privacy and security issue.
 
-Store data such as settings (for example, store currency) is permitted in responses, but _private or sensitive data_ must be avoided. To allow more extensive access to data, you must use the authenticated [WC REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/#introduction).
+Store data such as settings (for example, store currency) is permitted in responses, but _private or sensitive data_ must be avoided. To allow more extensive access to data, you must use the authenticated [WC REST API](https://poocommerce.github.io/poocommerce-rest-api-docs/#introduction).
 
 Data returned from the API should not be [escaped](https://developer.wordpress.org/themes/theme-security/data-sanitization-escaping/) (this is left to the client rendering it), but it should be sanitized. For example, HTML should be run through [`wp_kses_post`](https://developer.wordpress.org/reference/functions/wp_kses_post/).
 
@@ -135,9 +135,9 @@ The version will not increase for bug fixes unless the scope of the bug causes a
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/guiding-principles.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/guiding-principles.md)
 
 <!-- /FEEDBACK -->
 

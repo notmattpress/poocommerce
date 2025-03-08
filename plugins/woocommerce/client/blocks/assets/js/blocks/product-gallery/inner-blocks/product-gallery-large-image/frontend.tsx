@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store, getContext as getContextFn } from '@wordpress/interactivity';
-import type { StorePart } from '@woocommerce/utils';
+import type { StorePart } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -20,14 +20,14 @@ type Context = {
 const getContext = ( ns?: string ) => getContextFn< Context >( ns );
 
 type Store = typeof productGalleryLargeImage & StorePart< ProductGallery >;
-const { actions } = store< Store >( 'woocommerce/product-gallery' );
+const { actions } = store< Store >( 'poocommerce/product-gallery' );
 
 const productGalleryLargeImage = {
 	actions: {
 		startZoom: ( event: MouseEvent ) => {
 			const target = event.target as HTMLElement;
 			const isMouseEventFromLargeImage = target.classList.contains(
-				'wc-block-woocommerce-product-gallery-large-image__image'
+				'wc-block-poocommerce-product-gallery-large-image__image'
 			);
 
 			if ( ! isMouseEventFromLargeImage ) {
@@ -57,7 +57,7 @@ const productGalleryLargeImage = {
 			}
 
 			const image = target.querySelector(
-				'.wc-block-woocommerce-product-gallery-large-image__image--active-image-slide'
+				'.wc-block-poocommerce-product-gallery-large-image__image--active-image-slide'
 			) as HTMLElement;
 
 			if ( ! image ) {
@@ -70,4 +70,4 @@ const productGalleryLargeImage = {
 	},
 };
 
-store< Store >( 'woocommerce/product-gallery', productGalleryLargeImage );
+store< Store >( 'poocommerce/product-gallery', productGalleryLargeImage );

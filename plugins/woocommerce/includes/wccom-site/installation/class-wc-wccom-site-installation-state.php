@@ -2,7 +2,7 @@
 /**
  * State for the WCCOM Site installation process.
  *
- * @package WooCommerce\WCCOM
+ * @package PooCommerce\WCCOM
  */
 
 defined( 'ABSPATH' ) || exit;

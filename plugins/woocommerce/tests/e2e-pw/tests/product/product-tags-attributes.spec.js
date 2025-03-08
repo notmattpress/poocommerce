@@ -6,7 +6,7 @@ import {
 	goToPageEditor,
 	insertBlockByShortcut,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ test.describe(
 		test.beforeAll( async ( { restApi } ) => {
 			// make sure the attribute term page is visible in the shop
 			await restApi.put(
-				`${ WC_API_PATH }/settings/products/woocommerce_attribute_lookup_enabled`,
+				`${ WC_API_PATH }/settings/products/poocommerce_attribute_lookup_enabled`,
 				{
 					value: 'yes',
 				}
@@ -173,7 +173,7 @@ test.describe(
 				delete: [ attributeId ],
 			} );
 			await restApi.put(
-				`${ WC_API_PATH }/settings/products/woocommerce_attribute_lookup_enabled`,
+				`${ WC_API_PATH }/settings/products/poocommerce_attribute_lookup_enabled`,
 				{
 					value: 'no',
 				}
@@ -208,19 +208,19 @@ test.describe(
 				page.getByRole( 'heading', { name: 'Shop' } )
 			).toBeVisible();
 			await expect(
-				page.locator( '.woocommerce-ordering' )
+				page.locator( '.poocommerce-ordering' )
 			).toBeVisible();
 
 			const addToCart = page.getByRole( 'add_to_cart_button' );
 			for ( let i = 0; i < addToCart.count(); ++i )
 				await expect( addToCart.nth( i ) ).toBeVisible();
 
-			const productPrice = page.getByRole( 'woocommerce-Price-amount' );
+			const productPrice = page.getByRole( 'poocommerce-Price-amount' );
 			for ( let i = 0; i < productPrice.count(); ++i )
 				await expect( productPrice.nth( i ) ).toBeVisible();
 
 			const productTitle = page.getByRole(
-				'woocommerce-loop-product__title'
+				'poocommerce-loop-product__title'
 			);
 			for ( let i = 0; i < productTitle.count(); ++i )
 				await expect( productTitle.nth( i ) ).toBeVisible();
@@ -258,7 +258,7 @@ test.describe(
 			await page.goto( 'wp-admin/admin.php?page=wc-settings' );
 			// Modify a random unrelated settings so we can save the form.
 			await page
-				.locator( '#woocommerce_allowed_countries' )
+				.locator( '#poocommerce_allowed_countries' )
 				.selectOption( 'all' );
 			await page.locator( 'text=Save changes' ).click();
 
@@ -266,7 +266,7 @@ test.describe(
 			await page.goto( `product/${ slug }` );
 			await page
 				.locator(
-					'.woocommerce-product-attributes-item__value > p > a',
+					'.poocommerce-product-attributes-item__value > p > a',
 					{
 						hasText: productAttributeTerm,
 					}
@@ -276,7 +276,7 @@ test.describe(
 				page.getByRole( 'heading', { name: productAttributeTerm } )
 			).toBeVisible();
 			await expect(
-				page.locator( '.woocommerce-breadcrumb' )
+				page.locator( '.poocommerce-breadcrumb' )
 			).toContainText(
 				` / Product ${ productAttributeName } / ${ productAttributeTerm }`
 			);
@@ -295,7 +295,7 @@ test.describe(
 			// Product Collection requires choosing some collection.
 			await canvas
 				.locator(
-					'[data-type="woocommerce/product-collection"] .components-placeholder'
+					'[data-type="poocommerce/product-collection"] .components-placeholder'
 				)
 				.getByRole( 'button', {
 					name: 'create your own',
@@ -315,12 +315,12 @@ test.describe(
 					.count()
 			).toBeGreaterThan( 0 );
 
-			const productPrice = page.locator( '.woocommerce-Price-amount' );
+			const productPrice = page.locator( '.poocommerce-Price-amount' );
 			for ( let i = 0; i < productPrice.count(); ++i )
 				await expect( productPrice.nth( i ) ).toBeVisible();
 
 			const productTitle = page.locator(
-				'.woocommerce-loop-product__title'
+				'.poocommerce-loop-product__title'
 			);
 			for ( let i = 0; i < productTitle.count(); ++i )
 				await expect( productTitle.nth( i ) ).toBeVisible();

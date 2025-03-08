@@ -30,7 +30,7 @@ class WC_Beta_Tester_Admin_Assets {
 		$version = WC_VERSION;
 
 		// Need admin styles for the modal.
-		wp_register_style( 'wc-beta-tester-admin', WC_Beta_Tester::instance()->plugin_url() . '/assets/css/admin.css', array( 'woocommerce_admin_styles' ), WC_BETA_TESTER_VERSION );
+		wp_register_style( 'wc-beta-tester-admin', WC_Beta_Tester::instance()->plugin_url() . '/assets/css/admin.css', array( 'poocommerce_admin_styles' ), WC_BETA_TESTER_VERSION );
 
 		// Register scripts.
 		wp_register_script( 'wc-beta-tester-version-info', WC_Beta_Tester::instance()->plugin_url() . '/assets/js/version-information' . $suffix . '.js', array( 'wc-backbone-modal' ), WC_BETA_TESTER_VERSION, false );
@@ -42,7 +42,7 @@ class WC_Beta_Tester_Admin_Assets {
 			array(
 				'version'     => $version,
 				/* translators: %s: Release version number */
-				'description' => sprintf( __( 'Release of version %s', 'woocommerce-beta-tester' ), $version ),
+				'description' => sprintf( __( 'Release of version %s', 'poocommerce-beta-tester' ), $version ),
 			)
 		);
 
@@ -50,7 +50,7 @@ class WC_Beta_Tester_Admin_Assets {
 			'wc-beta-tester-version-picker',
 			'wc_beta_tester_version_picker_params',
 			array(
-				'i18n_pick_version' => __( 'Please pick a WooCommerce version.', 'woocommerce-beta-tester' ),
+				'i18n_pick_version' => __( 'Please pick a PooCommerce version.', 'poocommerce-beta-tester' ),
 			)
 		);
 

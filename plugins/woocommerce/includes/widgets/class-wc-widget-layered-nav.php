@@ -2,11 +2,11 @@
 /**
  * Layered nav widget
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.6.0
  */
 
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\Filterer;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\Filterer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,10 +19,10 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_layered_nav woocommerce-widget-layered-nav';
-		$this->widget_description = __( 'Display a list of attributes to filter products in your store.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_layered_nav';
-		$this->widget_name        = __( 'Filter Products by Attribute', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_layered_nav poocommerce-widget-layered-nav';
+		$this->widget_description = __( 'Display a list of attributes to filter products in your store.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_layered_nav';
+		$this->widget_name        = __( 'Filter Products by Attribute', 'poocommerce' );
 		parent::__construct();
 	}
 
@@ -73,31 +73,31 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 		$this->settings = array(
 			'title'        => array(
 				'type'  => 'text',
-				'std'   => __( 'Filter by', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Filter by', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'attribute'    => array(
 				'type'    => 'select',
 				'std'     => $std_attribute,
-				'label'   => __( 'Attribute', 'woocommerce' ),
+				'label'   => __( 'Attribute', 'poocommerce' ),
 				'options' => $attribute_array,
 			),
 			'display_type' => array(
 				'type'    => 'select',
 				'std'     => 'list',
-				'label'   => __( 'Display type', 'woocommerce' ),
+				'label'   => __( 'Display type', 'poocommerce' ),
 				'options' => array(
-					'list'     => __( 'List', 'woocommerce' ),
-					'dropdown' => __( 'Dropdown', 'woocommerce' ),
+					'list'     => __( 'List', 'poocommerce' ),
+					'dropdown' => __( 'Dropdown', 'poocommerce' ),
 				),
 			),
 			'query_type'   => array(
 				'type'    => 'select',
 				'std'     => 'and',
-				'label'   => __( 'Query type', 'woocommerce' ),
+				'label'   => __( 'Query type', 'poocommerce' ),
 				'options' => array(
-					'and' => __( 'AND', 'woocommerce' ),
-					'or'  => __( 'OR', 'woocommerce' ),
+					'and' => __( 'AND', 'poocommerce' ),
+					'or'  => __( 'OR', 'poocommerce' ),
 				),
 			),
 		);
@@ -247,7 +247,7 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 			$taxonomy_label       = wc_attribute_label( $taxonomy );
 
 			/* translators: %s: taxonomy name */
-			$any_label      = apply_filters( 'woocommerce_layered_nav_any_label', sprintf( __( 'Any %s', 'woocommerce' ), $taxonomy_label ), $taxonomy_label, $taxonomy );
+			$any_label      = apply_filters( 'poocommerce_layered_nav_any_label', sprintf( __( 'Any %s', 'poocommerce' ), $taxonomy_label ), $taxonomy_label, $taxonomy );
 			$multiple       = 'or' === $query_type;
 			$current_values = isset( $_chosen_attributes[ $taxonomy ]['terms'] ) ? $_chosen_attributes[ $taxonomy ]['terms'] : array();
 
@@ -257,8 +257,8 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 				$form_action = preg_replace( '%\/page/[0-9]+%', '', home_url( user_trailingslashit( $wp->request ) ) );
 			}
 
-			echo '<form method="get" action="' . esc_url( $form_action ) . '" class="woocommerce-widget-layered-nav-dropdown">';
-			echo '<select class="woocommerce-widget-layered-nav-dropdown dropdown_layered_nav_' . esc_attr( $taxonomy_filter_name ) . '"' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
+			echo '<form method="get" action="' . esc_url( $form_action ) . '" class="poocommerce-widget-layered-nav-dropdown">';
+			echo '<select class="poocommerce-widget-layered-nav-dropdown dropdown_layered_nav_' . esc_attr( $taxonomy_filter_name ) . '"' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
 			echo '<option value="">' . esc_html( $any_label ) . '</option>';
 
 			foreach ( $terms as $term ) {
@@ -285,7 +285,7 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 			echo '</select>';
 
 			if ( $multiple ) {
-				echo '<button class="woocommerce-widget-layered-nav-dropdown__submit" type="submit" value="' . esc_attr__( 'Apply', 'woocommerce' ) . '">' . esc_html__( 'Apply', 'woocommerce' ) . '</button>';
+				echo '<button class="poocommerce-widget-layered-nav-dropdown__submit" type="submit" value="' . esc_attr__( 'Apply', 'poocommerce' ) . '">' . esc_html__( 'Apply', 'poocommerce' ) . '</button>';
 			}
 
 			if ( 'or' === $query_type ) {
@@ -319,7 +319,7 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 							allowClear: " . ( $multiple ? 'false' : 'true' ) . ",
 							language: {
 								noResults: function() {
-									return '" . esc_js( _x( 'No matches found', 'enhanced select', 'woocommerce' ) ) . "';
+									return '" . esc_js( _x( 'No matches found', 'enhanced select', 'poocommerce' ) ) . "';
 								}
 							}
 						} );
@@ -387,7 +387,7 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 	 */
 	protected function layered_nav_list( $terms, $taxonomy, $query_type ) {
 		// List display.
-		echo '<ul class="woocommerce-widget-layered-nav-list">';
+		echo '<ul class="poocommerce-widget-layered-nav-list">';
 
 		$term_counts        = $this->get_filtered_term_product_counts( wp_list_pluck( $terms, 'term_id' ), $taxonomy, $query_type );
 		$_chosen_attributes = WC_Query::get_layered_nav_chosen_attributes();
@@ -447,18 +447,18 @@ class WC_Widget_Layered_Nav extends WC_Widget {
 			}
 
 			if ( $count > 0 || $option_is_set ) {
-				$link      = apply_filters( 'woocommerce_layered_nav_link', $link, $term, $taxonomy );
+				$link      = apply_filters( 'poocommerce_layered_nav_link', $link, $term, $taxonomy );
 				$term_html = '<a rel="nofollow" href="' . esc_url( $link ) . '">' . esc_html( $term->name ) . '</a>';
 			} else {
 				$link      = false;
 				$term_html = '<span>' . esc_html( $term->name ) . '</span>';
 			}
 
-			$term_html .= ' ' . apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
+			$term_html .= ' ' . apply_filters( 'poocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
 
-			echo '<li class="woocommerce-widget-layered-nav-list__item wc-layered-nav-term ' . ( $option_is_set ? 'woocommerce-widget-layered-nav-list__item--chosen chosen' : '' ) . '">';
+			echo '<li class="poocommerce-widget-layered-nav-list__item wc-layered-nav-term ' . ( $option_is_set ? 'poocommerce-widget-layered-nav-list__item--chosen chosen' : '' ) . '">';
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo apply_filters( 'woocommerce_layered_nav_term_html', $term_html, $term, $link, $count );
+			echo apply_filters( 'poocommerce_layered_nav_term_html', $term_html, $term, $link, $count );
 			echo '</li>';
 		}
 

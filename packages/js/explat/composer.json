@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/explat",
-	"description": "WooCommerce component and utils for A/B testing.",
+	"name": "poocommerce/explat",
+	"description": "PooCommerce component and utils for A/B testing.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

@@ -13,7 +13,7 @@ import {
 	flattenFilters,
 	updateQueryString,
 	getQueryFromActiveFilters,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -212,7 +212,7 @@ class FilterPicker extends Component {
 			return (
 				<Search
 					autocompleter={ autocompleter }
-					className="woocommerce-filters-filter__search"
+					className="poocommerce-filters-filter__search"
 					type={ type }
 					placeholder={ labels.placeholder }
 					selected={ selectedTag ? [ selectedTag ] : [] }
@@ -257,7 +257,7 @@ class FilterPicker extends Component {
 
 		return (
 			<Button
-				className="woocommerce-filters-filter__button"
+				className="poocommerce-filters-filter__button"
 				onClick={ onClick }
 			>
 				{ filter.label }
@@ -286,21 +286,21 @@ class FilterPicker extends Component {
 			: false;
 		const selectedFilter = this.getFilter();
 		return (
-			<div className="woocommerce-filters-filter">
+			<div className="poocommerce-filters-filter">
 				{ config.label && (
-					<span className="woocommerce-filters-label">
+					<span className="poocommerce-filters-label">
 						{ config.label }:
 					</span>
 				) }
 				<Dropdown
-					contentClassName="woocommerce-filters-filter__content"
+					contentClassName="poocommerce-filters-filter__content"
 					popoverProps={ {
 						placement: 'bottom',
 					} }
 					expandOnMobile
 					headerTitle={ __(
 						'filter report to show:',
-						'woocommerce'
+						'poocommerce'
 					) }
 					renderToggle={ ( { isOpen, onToggle } ) => (
 						<DropdownButton
@@ -316,11 +316,11 @@ class FilterPicker extends Component {
 							onExited={ this.onContentMount }
 						>
 							{ () => (
-								<ul className="woocommerce-filters-filter__content-list">
+								<ul className="poocommerce-filters-filter__content-list">
 									{ parentFilter && (
-										<li className="woocommerce-filters-filter__content-list-item">
+										<li className="poocommerce-filters-filter__content-list-item">
 											<Button
-												className="woocommerce-filters-filter__button"
+												className="poocommerce-filters-filter__button"
 												onClick={ this.goBack }
 											>
 												<Icon icon={ chevronLeft } />
@@ -332,7 +332,7 @@ class FilterPicker extends Component {
 										<li
 											key={ filter.value }
 											className={ classnames(
-												'woocommerce-filters-filter__content-list-item',
+												'poocommerce-filters-filter__content-list-item',
 												{
 													'is-selected':
 														selectedFilter.value ===

@@ -4,7 +4,7 @@
  *
  * Handles requests to /installer.
  *
- * @package WooCommerce\WCCom\API
+ * @package PooCommerce\WCCom\API
  * @since 7.7.0
  */
 
@@ -95,7 +95,7 @@ class WC_REST_WCCOM_Site_Installer_Controller extends WC_REST_WCCOM_Site_Control
 	}
 
 	/**
-	 * Install WooCommerce.com products.
+	 * Install PooCommerce.com products.
 	 *
 	 * @since 7.7.0
 	 * @param WP_REST_Request $request Full details about the request.

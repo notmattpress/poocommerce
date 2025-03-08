@@ -6,7 +6,7 @@ import { useState, useEffect } from '@wordpress/element';
 import {
 	__experimentalUseCompletion as useCompletion,
 	UseCompletionError,
-} from '@woocommerce/ai';
+} from '@poocommerce/ai';
 import { useDispatch } from '@wordpress/data';
 
 /**
@@ -30,7 +30,7 @@ const recordShortDescriptionTracks = recordTracksFactory(
 
 export function buildShortDescriptionPrompt( longDesc: string ) {
 	return [
-		'Please write a high-converting Meta Description for the WooCommerce product description below.',
+		'Please write a high-converting Meta Description for the PooCommerce product description below.',
 		'It should strictly adhere to the following guidelines:',
 		'It should entice someone from a search results page to click on the product link.',
 		'It should be no more than 155 characters so that the entire meta description fits within the space provided by the search engine result without being cut off or truncated.',
@@ -123,7 +123,7 @@ export function WriteShortDescriptionButtonContainer() {
 				/* translators: %d: Message shown when short description button is disabled because of a minimum description length */
 				__(
 					'Please write a product description before generating a short description. It must be at least %d characters long.',
-					'woocommerce'
+					'poocommerce'
 				),
 				MIN_DESC_LENGTH_FOR_SHORT_DESC
 			) }

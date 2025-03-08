@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\Init;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\Init;
 
 /**
  * Payments Task
@@ -43,7 +43,7 @@ class AdditionalPayments extends Payments {
 	public function get_title() {
 		return __(
 			'Set up additional payment options',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -55,7 +55,7 @@ class AdditionalPayments extends Payments {
 	public function get_content() {
 		return __(
 			'Choose payment providers and enable payment methods at checkout.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -65,7 +65,7 @@ class AdditionalPayments extends Payments {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class AdditionalPayments extends Payments {
 		// Note: For now, we rely on the old Payment Gateways Suggestions lists to determine the visibility of this task.
 		// This will need to be updated to use the new Payment Extension Suggestions/ Payments Providers system.
 		$this->can_view_result = (
-			WooCommercePayments::is_connected() ||
+			PooCommercePayments::is_connected() ||
 			self::has_enabled_other_category_gateways()
 		);
 

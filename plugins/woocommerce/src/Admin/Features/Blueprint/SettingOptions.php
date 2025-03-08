@@ -2,15 +2,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
-use Automattic\WooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Util;
 use WC_Admin_Settings;
 use WC_Settings_Page;
 
 /**
- * Handles getting options from WooCommerce settings pages.
+ * Handles getting options from PooCommerce settings pages.
  *
  * Class SettingOptions
  */

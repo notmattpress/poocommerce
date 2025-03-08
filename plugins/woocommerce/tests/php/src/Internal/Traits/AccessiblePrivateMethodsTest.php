@@ -1,15 +1,15 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Traits;
+namespace Automattic\PooCommerce\Tests\Internal\Traits;
 
-use Automattic\WooCommerce\Internal\Traits\AccessiblePrivateMethods;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\Traits\AccessiblePrivateMethods;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Tests for the AccessiblePrivateMethods trait.
  *
- * DON'T USE THE TRAIT. It will be removed in TWooCommerce 10.5.
+ * DON'T USE THE TRAIT. It will be removed in TPooCommerce 10.5.
  * Instead, make the hook target methods public and mark them with an @internal annotation.
  */
 class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
@@ -158,7 +158,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 				$this->mark_method_as_accessible( 'private_return_three' );
 			}
 
-			//phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
+			//phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
 			final public static function init() {
 				self::mark_static_method_as_accessible( 'protected_return_twenty' );
 				self::mark_static_method_as_accessible( 'private_return_thirty' );
@@ -208,7 +208,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 				$this->mark_method_as_accessible( 'non_existing' );
 			}
 
-			//phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
+			//phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
 			final public static function init() {
 				self::mark_static_method_as_accessible( 'non_existing' );
 			}
@@ -245,7 +245,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 				self::add_filter( 'filter_handled_privately', array( $this, 'handle_filter' ) );
 			}
 
-			//phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
+			//phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
 			final public static function init() {
 				self::add_action( 'static_action_handled_privately', array( __CLASS__, 'handle_static_action' ) );
 				self::add_filter( 'static_filter_handled_privately', array( __CLASS__, 'handle_static_filter' ) );
@@ -271,7 +271,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 
 		$sut::init();
 
-		//phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		do_action( 'action_handled_privately', 'foo' );
 		$this->assertEquals( 'foo', $sut->action_argument );
@@ -285,7 +285,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 		$filter_result = apply_filters( 'static_filter_handled_privately', 'buzz' );
 		$this->assertEquals( 'Static filter argument: buzz', $filter_result );
 
-		//phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 
 	/**
@@ -304,7 +304,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 				self::add_action( 'action_handled_publicly', array( $this, 'handle_action_publicly' ) );
 			}
 
-			//phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
+			//phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
 			final public static function init() {
 				self::add_action( 'static_action_handled_publicly', array( __CLASS__, 'handle_static_action_publicly' ) );
 			}
@@ -321,14 +321,14 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 
 		$sut::init();
 
-		//phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'action_handled_publicly', 'foo' );
 		$this->assertEquals( 'foo', $sut->action_argument );
 
 		do_action( 'static_action_handled_publicly', 'bar' );
 		$this->assertEquals( 'bar', $sut::$static_action_argument );
 
-		//phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 
 	/**
@@ -348,7 +348,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 				self::add_filter( 'filter_handled_privately', array( $this, 'handle_filter' ) );
 			}
 
-			//phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
+			//phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag
 			final public static function init() {
 				self::add_action( 'static_action_handled_privately', array( __CLASS__, 'handle_static_action' ) );
 				self::add_filter( 'static_filter_handled_privately', array( __CLASS__, 'handle_static_filter' ) );
@@ -374,7 +374,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 
 		$sut::init();
 
-		//phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$filter_result = apply_filters( 'filter_handled_privately', 'foo' );
 		$this->assertEquals( 'Filter argument: foo', $filter_result );
@@ -405,7 +405,7 @@ class AccessiblePrivateMethodsTest extends \WC_Unit_Test_Case {
 		do_action( 'static_action_handled_privately', 'buzz2' );
 		$this->assertEquals( 'bar2', $sut::$static_action_argument );
 
-		//phpcs:enable WooCommerce.Commenting.CommentHooks.MissingHookComment
+		//phpcs:enable PooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 
 	/**

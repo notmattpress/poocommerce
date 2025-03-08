@@ -4,7 +4,7 @@
  *
  * Handle requests to /connection.
  *
- * @package WooCommerce\WCCom\API
+ * @package PooCommerce\WCCom\API
  * @since   9.6.0
  */
 
@@ -57,7 +57,7 @@ class WC_REST_WCCOM_Site_Connection_Controller extends WC_REST_WCCOM_Site_Contro
 	}
 
 	/**
-	 * Disconnect the site from WooCommerce.com.
+	 * Disconnect the site from PooCommerce.com.
 	 *
 	 * @since  9.6.0
 	 * @param  WP_REST_Request $request Full details about the request.

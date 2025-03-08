@@ -7,7 +7,7 @@ import {
 	getElement,
 	withScope,
 } from '@wordpress/interactivity';
-import type { StorePart } from '@woocommerce/utils';
+import type { StorePart } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ const getContext = ( ns?: string ) =>
 	getContextFn< ProductGalleryContext >( ns );
 
 type Store = typeof productGallery & StorePart< ProductGallery >;
-const { actions } = store< Store >( 'woocommerce/product-gallery' );
+const { actions } = store< Store >( 'poocommerce/product-gallery' );
 
 const getArrowsState = ( imageNumber: number, totalImages: number ) => ( {
 	// One-based index so it ranges from 1 to imagesIds.length.
@@ -49,7 +49,7 @@ const scrollImageIntoView = ( imageId: number ) => {
 		return;
 	}
 	const imageElement = document.querySelector(
-		`.wp-block-woocommerce-product-gallery-large-image img[data-image-id="${ imageId }"]`
+		`.wp-block-poocommerce-product-gallery-large-image img[data-image-id="${ imageId }"]`
 	);
 	if ( imageElement ) {
 		imageElement.scrollIntoView( {
@@ -438,6 +438,6 @@ const productGallery = {
 	},
 };
 
-store( 'woocommerce/product-gallery', productGallery );
+store( 'poocommerce/product-gallery', productGallery );
 
 export type ProductGallery = typeof productGallery;

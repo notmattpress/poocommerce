@@ -13,12 +13,12 @@ import { store as coreStore } from '@wordpress/core-data';
 import { BlockInstance } from '@wordpress/blocks';
 import { select, useSelect } from '@wordpress/data';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useIsSiteEditorLoading } from '@wordpress/edit-site/build-module/components/layout/hooks';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error No types for this exist yet.
 	__experimentalBlockPatternsList as BlockPatternList,
@@ -49,7 +49,7 @@ export const SidebarNavigationScreenHomepage = ( {
 	onNavigateBackClick: () => void;
 } ) => {
 	const { scroll } = useEditorScroll( {
-		editorSelector: '.woocommerce-customize-store__block-editor iframe',
+		editorSelector: '.poocommerce-customize-store__block-editor iframe',
 		scrollDirection: 'top',
 	} );
 	const { isLoading, homeTemplates } = useHomeTemplates();
@@ -207,16 +207,16 @@ export const SidebarNavigationScreenHomepage = ( {
 	const aiOnline = context.flowType === FlowType.AIOnline;
 
 	const title = aiOnline
-		? __( 'Change your homepage', 'woocommerce' )
-		: __( 'Choose your homepage', 'woocommerce' );
+		? __( 'Change your homepage', 'poocommerce' )
+		: __( 'Choose your homepage', 'poocommerce' );
 	const sidebarMessage = aiOnline
 		? __(
 				'Based on the most successful stores in your industry and location, our AI tool has recommended this template for your business. Prefer a different layout? Choose from the templates below now, or later via the Editor.',
-				'woocommerce'
+				'poocommerce'
 		  )
 		: __(
 				'Create an engaging homepage by selecting one of our pre-designed layouts. You can continue customizing this page, including the content, later via the Editor.',
-				'woocommerce'
+				'poocommerce'
 		  );
 
 	return (
@@ -225,11 +225,11 @@ export const SidebarNavigationScreenHomepage = ( {
 			onNavigateBackClick={ onNavigateBackClick }
 			description={ sidebarMessage }
 			content={
-				<div className="woocommerce-customize-store__sidebar-homepage-content">
-					<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage">
-						{ /* This is necessary to fix this issue: https://github.com/woocommerce/woocommerce/issues/45711
+				<div className="poocommerce-customize-store__sidebar-homepage-content">
+					<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage">
+						{ /* This is necessary to fix this issue: https://github.com/poocommerce/poocommerce/issues/45711
 						  If the user switch the homepage while the editor is loading, header and footer could disappear.
-						  For more details check: https://github.com/woocommerce/woocommerce/pull/45735
+						  For more details check: https://github.com/poocommerce/poocommerce/pull/45735
 						  */ }
 						{ isLoading || isEditorLoading ? (
 							<span className="components-placeholder__preview">

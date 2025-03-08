@@ -6,7 +6,7 @@ import {
 	insertBlockByShortcut,
 	goToPageEditor,
 	publishPage,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -73,7 +73,7 @@ test.describe(
 		test.beforeAll( async ( { restApi } ) => {
 			// make sure the currency is USD
 			await restApi.put(
-				`${ WC_API_PATH }/settings/general/woocommerce_currency`,
+				`${ WC_API_PATH }/settings/general/poocommerce_currency`,
 				{
 					value: 'USD',
 				}

@@ -110,7 +110,7 @@ export function* saveEditedEmail() {
 
 	result.then( () => {
 		void dispatch( noticesStore ).createErrorNotice(
-			__( 'Email saved!', 'woocommerce' ),
+			__( 'Email saved!', 'poocommerce' ),
 			{
 				type: 'snackbar',
 				isDismissible: true,
@@ -123,7 +123,7 @@ export function* saveEditedEmail() {
 		void dispatch( noticesStore ).createErrorNotice(
 			__(
 				'The email could not be saved. Please, clear browser cache and reload the page. If the problem persists, duplicate the email and try again.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				type: 'default',
@@ -163,7 +163,7 @@ export function* requestSendingNewsletterPreview( email: string ) {
 		const postId = select( storeName ).getEmailPostId();
 
 		yield apiFetch( {
-			path: '/woocommerce-email-editor/v1/send_preview_email',
+			path: '/poocommerce-email-editor/v1/send_preview_email',
 			method: 'POST',
 			data: {
 				email,
@@ -245,7 +245,7 @@ export function revertAndSaveTemplate( template ) {
 			void registry.dispatch( noticesStore ).createSuccessNotice(
 				sprintf(
 					/* translators: The template/part's name. */
-					__( '"%s" reset.', 'woocommerce' ),
+					__( '"%s" reset.', 'poocommerce' ),
 					decodeEntities( template.title )
 				),
 				{
@@ -259,7 +259,7 @@ export function revertAndSaveTemplate( template ) {
 				.createErrorNotice(
 					__(
 						'An error occurred while reverting the template.',
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						type: 'snackbar',

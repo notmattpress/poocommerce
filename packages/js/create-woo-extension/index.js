@@ -4,11 +4,11 @@ module.exports = {
 		npmDependencies: [
 			'@wordpress/hooks',
 			'@wordpress/i18n',
-			'@woocommerce/components',
+			'@poocommerce/components',
 		],
 		npmDevDependencies: [
-			'@woocommerce/dependency-extraction-webpack-plugin',
-			'@woocommerce/eslint-plugin',
+			'@poocommerce/dependency-extraction-webpack-plugin',
+			'@poocommerce/eslint-plugin',
 			'@wordpress/prettier-config',
 			'@wordpress/scripts@24.6.0',
 		],

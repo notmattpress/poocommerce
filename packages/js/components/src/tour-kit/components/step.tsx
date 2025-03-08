@@ -93,17 +93,17 @@ const Step: React.FunctionComponent<
 	return (
 		<Card
 			ref={ stepRef as React.LegacyRef< HTMLDivElement > }
-			className="woocommerce-tour-kit-step"
+			className="poocommerce-tour-kit-step"
 			elevation={ 2 }
 		>
 			<CardHeader isBorderless={ true } size="small">
 				<StepControls onDismiss={ onDismiss } />
 			</CardHeader>
-			<CardBody className="woocommerce-tour-kit-step__body" size="small">
-				<h2 className="woocommerce-tour-kit-step__heading">
+			<CardBody className="poocommerce-tour-kit-step__body" size="small">
+				<h2 className="poocommerce-tour-kit-step__heading">
 					{ heading }
 				</h2>
-				<p className="woocommerce-tour-kit-step__description">
+				<p className="poocommerce-tour-kit-step__description">
 					{ description }
 				</p>
 			</CardBody>
