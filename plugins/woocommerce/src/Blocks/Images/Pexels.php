@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\Images;
+namespace Automattic\PooCommerce\Blocks\Images;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
-use Automattic\WooCommerce\Blocks\AIContent\ContentProcessor;
-use Automattic\WooCommerce\Blocks\AIContent\UpdatePatterns;
+use Automattic\PooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AIContent\ContentProcessor;
+use Automattic\PooCommerce\Blocks\AIContent\UpdatePatterns;
 
 /**
  * Pexels API client.
@@ -89,11 +89,11 @@ class Pexels {
 		}
 
 		if ( $refined_images_count < $required_images && ! empty( $errors ) ) {
-			return new \WP_Error( 'ai_service_unavailable', __( 'AI Service is unavailable, try again later.', 'woocommerce' ), $errors );
+			return new \WP_Error( 'ai_service_unavailable', __( 'AI Service is unavailable, try again later.', 'poocommerce' ), $errors );
 		}
 
 		if ( empty( $refined_images ) ) {
-			return new \WP_Error( 'woocommerce_no_images_found', __( 'No images found.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_no_images_found', __( 'No images found.', 'poocommerce' ) );
 		}
 
 		return array(
@@ -124,11 +124,11 @@ class Pexels {
 		}
 
 		if ( isset( $response['code'] ) && 'completion_error' === $response['code'] ) {
-			return new \WP_Error( 'search_term_definition_failed', __( 'The search term definition failed.', 'woocommerce' ) );
+			return new \WP_Error( 'search_term_definition_failed', __( 'The search term definition failed.', 'poocommerce' ) );
 		}
 
 		if ( ! isset( $response['completion'] ) ) {
-			return new \WP_Error( 'search_term_definition_failed', __( 'The search term definition failed.', 'woocommerce' ) );
+			return new \WP_Error( 'search_term_definition_failed', __( 'The search term definition failed.', 'poocommerce' ) );
 		}
 
 		return $response['completion'];
@@ -173,7 +173,7 @@ class Pexels {
 		}
 
 		if ( ! is_array( $filtered_image_titles ) ) {
-			return new \WP_Error( 'ai_service_unavailable', __( 'AI Service is unavailable, try again later.', 'woocommerce' ) );
+			return new \WP_Error( 'ai_service_unavailable', __( 'AI Service is unavailable, try again later.', 'poocommerce' ) );
 		}
 
 		// Remove the images that are not aligned with the business description.
@@ -210,7 +210,7 @@ class Pexels {
 				'data' => $response_data,
 			];
 
-			return new \WP_Error( 'pexels_api_error', __( 'Request to the Pexels API failed.', 'woocommerce' ), $error_msg );
+			return new \WP_Error( 'pexels_api_error', __( 'Request to the Pexels API failed.', 'poocommerce' ), $error_msg );
 		}
 
 		$response = $response_data['media'] ?? $response_data;

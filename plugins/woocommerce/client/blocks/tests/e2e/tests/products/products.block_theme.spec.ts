@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -28,31 +28,31 @@ const templates = {
 	//	templateTitle: 'Product Attribute',
 	//	slug: 'taxonomy-product_attribute',
 	//	frontendPage: '/product-attribute/color/',
-	//	legacyBlockName: 'woocommerce/legacy-template',
+	//	legacyBlockName: 'poocommerce/legacy-template',
 	//},
 	'taxonomy-product_cat': {
 		templateTitle: 'Product Category',
 		slug: 'taxonomy-product_cat',
 		frontendPage: '/product-category/music/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 	},
 	'taxonomy-product_tag': {
 		templateTitle: 'Product Tag',
 		slug: 'taxonomy-product_tag',
 		frontendPage: '/product-tag/recommended/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 	},
 	'archive-product': {
 		templateTitle: 'Product Catalog',
 		slug: 'archive-product',
 		frontendPage: '/shop/',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 	},
 	'product-search-results': {
 		templateTitle: 'Product Search Results',
 		slug: 'product-search-results',
 		frontendPage: '/?s=shirt&post_type=product',
-		legacyBlockName: 'woocommerce/legacy-template',
+		legacyBlockName: 'poocommerce/legacy-template',
 	},
 };
 
@@ -63,7 +63,7 @@ test.describe( `${ blockData.name } Block `, () => {
 		page,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//archive-product',
+			postId: 'poocommerce/poocommerce//archive-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -102,7 +102,7 @@ for ( const {
 			page,
 		} ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//${ slug }`,
+				postId: `poocommerce/poocommerce//${ slug }`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );

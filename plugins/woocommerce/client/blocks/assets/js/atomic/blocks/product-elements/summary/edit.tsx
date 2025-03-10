@@ -32,10 +32,10 @@ const ShowDescriptionIfEmptyControl = ( {
 	showDescriptionIfEmpty,
 	setAttributes,
 }: ControlProps< 'showDescriptionIfEmpty' > ) => {
-	const label = __( 'Show description if empty', 'woocommerce' );
+	const label = __( 'Show description if empty', 'poocommerce' );
 	const help = __(
 		"Display the product description if it doesn't have a summary",
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (
@@ -65,10 +65,10 @@ const MaxWordCountControl = ( {
 	summaryLength,
 	setAttributes,
 }: ControlProps< 'summaryLength' > ) => {
-	const label = __( 'Max word count', 'woocommerce' );
+	const label = __( 'Max word count', 'poocommerce' );
 	const help = __(
 		'When there is a word limit, only the first paragraph will be considered and displayed. Set to 0 to remove the word limit.',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (
@@ -99,10 +99,10 @@ const LinkToDescriptionControl = ( {
 	showLink,
 	setAttributes,
 }: ControlProps< 'showLink' > ) => {
-	const label = __( 'Link to description', 'woocommerce' );
+	const label = __( 'Link to description', 'poocommerce' );
 	const help = __(
 		"Display a button to let shoppers jump to the product's description",
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (
@@ -136,8 +136,8 @@ const LinkToDescription = ( {
 				identifier="linkToDescrption"
 				className="wc-block-components-product-summary__more-link"
 				tagName="a"
-				aria-label={ __( '“Read more” link text', 'woocommerce' ) }
-				placeholder={ __( 'Add "read more" link text', 'woocommerce' ) }
+				aria-label={ __( '“Read more” link text', 'poocommerce' ) }
+				placeholder={ __( 'Add "read more" link text', 'poocommerce' ) }
 				value={ linkText }
 				onChange={ ( value ) => setAttributes( { linkText: value } ) }
 				withoutInteractiveFormatting
@@ -191,7 +191,7 @@ const Edit = ( {
 			<Block { ...attributes } />
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Settings', 'woocommerce' ) }
+					label={ __( 'Settings', 'poocommerce' ) }
 					resetAll={ () => {
 						const defaultSettings = {};
 						setAttributes( defaultSettings );

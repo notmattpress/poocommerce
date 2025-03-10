@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Product Forms Controller
+ * PooCommerce Product Forms Controller
  */
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
 /**
  * Handle retrieval of product forms.
@@ -22,12 +22,12 @@ class ProductFormsController {
 	/**
 	 * Set up the product forms controller.
 	 */
-	public function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingFinal, WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag -- Not an injection.
+	public function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingFinal, PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag -- Not an injection.
 		add_action( 'upgrader_process_complete', array( $this, 'migrate_templates_when_plugin_updated' ), 10, 2 );
 	}
 
 	/**
-	 * Migrate form templates after WooCommerce plugin update.
+	 * Migrate form templates after PooCommerce plugin update.
 	 *
 	 * @param \WP_Upgrader $upgrader The WP_Upgrader instance.
 	 * @param array        $hook_extra Extra arguments passed to hooked filters.
@@ -40,10 +40,10 @@ class ProductFormsController {
 			return;
 		}
 
-		// If it is not the WooCommerce plugin, bail early.
+		// If it is not the PooCommerce plugin, bail early.
 		$plugins = isset( $hook_extra['plugins'] ) ? $hook_extra['plugins'] : array();
 		if (
-			! in_array( 'woocommerce/woocommerce.php', $plugins, true )
+			! in_array( 'poocommerce/poocommerce.php', $plugins, true )
 		) {
 			return;
 		}
@@ -74,7 +74,7 @@ class ProductFormsController {
 		 * @param array $templates List of templates to auto-generate.
 		 */
 		$templates = apply_filters(
-			'woocommerce_product_form_templates',
+			'poocommerce_product_form_templates',
 			$this->product_form_templates
 		);
 

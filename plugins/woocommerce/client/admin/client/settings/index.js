@@ -6,7 +6,7 @@ import {
 	SettingsEditor,
 	useActiveRoute,
 	RouterProvider,
-} from '@woocommerce/settings-editor';
+} from '@poocommerce/settings-editor';
 
 /**
  * Internal dependencies

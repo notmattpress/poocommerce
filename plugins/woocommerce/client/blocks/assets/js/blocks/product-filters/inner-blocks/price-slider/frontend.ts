@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -47,15 +47,15 @@ const debounce = < T extends ( ...args: any[] ) => any >(
 	return debounced;
 };
 
-store( 'woocommerce/product-filter-price-slider', {
+store( 'poocommerce/product-filter-price-slider', {
 	state: {
 		rangeStyle: () => {
 			const { minRange, maxRange } =
 				getContext< ProductFilterPriceContext >(
-					'woocommerce/product-filter-price'
+					'poocommerce/product-filter-price'
 				);
 			const productFilterPriceStore = store< ProductFilterPriceStore >(
-				'woocommerce/product-filter-price'
+				'poocommerce/product-filter-price'
 			);
 			const { minPrice, maxPrice } = productFilterPriceStore.state;
 
@@ -81,7 +81,7 @@ store( 'woocommerce/product-filter-price-slider', {
 		),
 		limitRange: ( e: HTMLElementEvent< HTMLInputElement > ) => {
 			const productFilterPriceStore = store< ProductFilterPriceStore >(
-				'woocommerce/product-filter-price'
+				'poocommerce/product-filter-price'
 			);
 			const { minPrice, maxPrice } = productFilterPriceStore.state;
 			if ( e.target.classList.contains( 'min' ) ) {

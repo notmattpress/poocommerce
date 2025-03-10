@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\AI;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\AI;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
-use Automattic\WooCommerce\Blocks\AIContent\UpdateProducts;
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractRoute;
+use Automattic\PooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AIContent\UpdateProducts;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractRoute;
 
 /**
  * Products class.
@@ -58,11 +58,11 @@ class Products extends AbstractRoute {
 				'permission_callback' => [ Middleware::class, 'is_authorized' ],
 				'args'                => [
 					'business_description' => [
-						'description' => __( 'The business description for a given store.', 'woocommerce' ),
+						'description' => __( 'The business description for a given store.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'images'               => [
-						'description' => __( 'The images for a given store.', 'woocommerce' ),
+						'description' => __( 'The images for a given store.', 'poocommerce' ),
 						'type'        => 'object',
 					],
 				],
@@ -85,14 +85,14 @@ class Products extends AbstractRoute {
 	 * @return bool|string|\WP_Error|\WP_REST_Response
 	 */
 	protected function get_route_post_response( \WP_REST_Request $request ) {
-		$allow_ai_connection = get_option( 'woocommerce_blocks_allow_ai_connection' );
+		$allow_ai_connection = get_option( 'poocommerce_blocks_allow_ai_connection' );
 
 		if ( ! $allow_ai_connection ) {
 			return rest_ensure_response(
 				$this->error_to_response(
 					new \WP_Error(
 						'ai_connection_not_allowed',
-						__( 'AI content generation is not allowed on this store. Update your store settings if you wish to enable this feature.', 'woocommerce' )
+						__( 'AI content generation is not allowed on this store. Update your store settings if you wish to enable this feature.', 'poocommerce' )
 					)
 				)
 			);
@@ -127,7 +127,7 @@ class Products extends AbstractRoute {
 		}
 
 		if ( ! isset( $populate_products['product_content'] ) ) {
-			return $this->error_to_response( new \WP_Error( 'product_content_not_found', __( 'Product content not found.', 'woocommerce' ) ) );
+			return $this->error_to_response( new \WP_Error( 'product_content_not_found', __( 'Product content not found.', 'poocommerce' ) ) );
 		}
 
 		$product_content = $populate_products['product_content'];

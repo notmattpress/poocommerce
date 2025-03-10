@@ -4,17 +4,17 @@
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import { useContext, useEffect, useMemo } from '@wordpress/element';
 import { BlockInstance, createBlock } from '@wordpress/blocks';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import useSiteEditorSettings from '@wordpress/edit-site/build-module/components/block-editor/use-site-editor-settings';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { store as editSiteStore } from '@wordpress/edit-site/build-module/store';
 
 /**
@@ -41,8 +41,8 @@ export const BlockEditorContainer = () => {
 		[]
 	);
 
-	// This is necessary to avoid this issue: https://github.com/woocommerce/woocommerce/issues/45593
-	// Related PR: https://github.com/woocommerce/woocommerce/pull/45600
+	// This is necessary to avoid this issue: https://github.com/poocommerce/poocommerce/issues/45593
+	// Related PR: https://github.com/poocommerce/poocommerce/pull/45600
 	const { templateType } = useSelect( ( select ) => {
 		const { getEditedPostType } = unlock( select( editSiteStore ) );
 
@@ -65,7 +65,7 @@ export const BlockEditorContainer = () => {
 			: 'topDown';
 
 	const previewOpacity = useScrollOpacity(
-		'.woocommerce-customize-store__block-editor iframe',
+		'.poocommerce-customize-store__block-editor iframe',
 		scrollDirection
 	);
 

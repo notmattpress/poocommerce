@@ -5,7 +5,7 @@ import { ComponentProps } from 'react';
 import { Button } from '@wordpress/components';
 import { useContext, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -46,7 +46,7 @@ export default function ConnectButton( props: ConnectProps ) {
 						props.subscription.product_key,
 						sprintf(
 							// translators: %s is the product name.
-							__( '%s successfully connected.', 'woocommerce' ),
+							__( '%s successfully connected.', 'poocommerce' ),
 							props.subscription.product_name
 						),
 						NoticeStatus.Success
@@ -62,14 +62,14 @@ export default function ConnectButton( props: ConnectProps ) {
 					props.subscription.product_key,
 					sprintf(
 						// translators: %s is the product name.
-						__( '%s couldn’t be connected.', 'woocommerce' ),
+						__( '%s couldn’t be connected.', 'poocommerce' ),
 						props.subscription.product_name
 					),
 					NoticeStatus.Error,
 					{
 						actions: [
 							{
-								label: __( 'Try again', 'woocommerce' ),
+								label: __( 'Try again', 'poocommerce' ),
 								onClick: connect,
 								url: '',
 							},
@@ -89,7 +89,7 @@ export default function ConnectButton( props: ConnectProps ) {
 			isBusy={ isConnecting }
 			disabled={ isConnecting }
 		>
-			{ __( 'Connect', 'woocommerce' ) }
+			{ __( 'Connect', 'poocommerce' ) }
 		</Button>
 	);
 }

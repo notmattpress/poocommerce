@@ -22,13 +22,13 @@ export function TemplateRevertModal( { close } ) {
 			<p>
 				{ __(
 					'This will clear ANY and ALL template customization. All updates made to the template will be lost. Do you want to proceed?',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<Flex justify={ 'end' }>
 				<FlexItem>
 					<Button variant="tertiary" onClick={ close }>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 				</FlexItem>
 				<FlexItem>
@@ -39,7 +39,7 @@ export function TemplateRevertModal( { close } ) {
 							close();
 						} }
 					>
-						{ __( 'Reset', 'woocommerce' ) }
+						{ __( 'Reset', 'poocommerce' ) }
 					</Button>
 				</FlexItem>
 			</Flex>

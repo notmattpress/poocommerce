@@ -3,7 +3,7 @@ const { ordersApi } = require( '../../endpoints/orders' );
 const { coupon, order } = require( '../../data' );
 
 /**
- * Tests for the WooCommerce Coupons API.
+ * Tests for the PooCommerce Coupons API.
  *
  * @group api
  * @group coupons
@@ -315,7 +315,7 @@ describe( 'Coupons API tests', () => {
 			expect( body.coupon_lines ).toHaveLength( 1 );
 			expect( body.coupon_lines[ 0 ].code ).toEqual( testCoupon.code );
 			// Test that the coupon meta data exists.
-			// See: https://github.com/woocommerce/woocommerce/issues/28166.
+			// See: https://github.com/poocommerce/poocommerce/issues/28166.
 			expect( body.coupon_lines[ 0 ].meta_data ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {

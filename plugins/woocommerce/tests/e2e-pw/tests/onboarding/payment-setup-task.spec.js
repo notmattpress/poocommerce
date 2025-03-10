@@ -15,7 +15,7 @@ const test = baseTest.extend( {
 		// Disable the help popover.
 		await restApi.post( `${ WP_API_PATH }/users/1?_locale=user`, {
 			data: {
-				woocommerce_meta: {
+				poocommerce_meta: {
 					help_panel_highlight_shown: '"yes"',
 				},
 			},
@@ -24,10 +24,10 @@ const test = baseTest.extend( {
 		// Ensure store's base country location is a WooPayments non-supported country (AF).
 		// Otherwise, the WooPayments task page logic or WooPayments redirects will kick in.
 		const initialDefaultCountry = await restApi.get(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`
 		);
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`,
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`,
 			{
 				value: 'AF',
 			}
@@ -36,10 +36,10 @@ const test = baseTest.extend( {
 		// Ensure the task list is not hidden.
 		// Otherwise, the direct url page=wc-admin&task=payments will not work
 		const initialTaskListHiddenState = await restApi.get(
-			`${ WC_ADMIN_API_PATH }/options?options=woocommerce_task_list_hidden`
+			`${ WC_ADMIN_API_PATH }/options?options=poocommerce_task_list_hidden`
 		);
 		await restApi.put( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_hidden: 'no',
+			poocommerce_task_list_hidden: 'no',
 		} );
 
 		const bacsInitialState = await restApi.get(
@@ -59,7 +59,7 @@ const test = baseTest.extend( {
 			enabled: codInitialState.data.enabled,
 		} );
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_default_country`,
+			`${ WC_API_PATH }/settings/general/poocommerce_default_country`,
 			{
 				value: initialDefaultCountry.data.value,
 			}
@@ -145,13 +145,13 @@ test.describe( 'Payment setup task', () => {
 
 			// Enable COD payment option.
 			await page
-				.locator( 'div.woocommerce-task-payment-cod' )
+				.locator( 'div.poocommerce-task-payment-cod' )
 				.getByRole( 'button', { name: 'Enable' } )
 				.click();
 			// Check that COD was set up.
 			await expect(
 				page
-					.locator( 'div.woocommerce-task-payment-cod' )
+					.locator( 'div.poocommerce-task-payment-cod' )
 					.getByRole( 'button', { name: 'Manage' } )
 			).toBeVisible();
 

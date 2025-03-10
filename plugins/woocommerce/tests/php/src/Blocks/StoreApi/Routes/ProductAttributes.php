@@ -3,11 +3,11 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\ValidateSchema;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\ValidateSchema;
 
 /**
  * Product Attributes Controller Tests.
@@ -66,7 +66,7 @@ class ProductAttributes extends ControllerTestCase {
 	 * Test conversion of product to rest response.
 	 */
 	public function test_prepare_item() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-attributes' );
 		$attribute  = wc_get_attribute( $this->attributes[0]['attribute_id'] );
 		$response   = $controller->prepare_item_for_response( $attribute, new \WP_REST_Request() );
@@ -84,7 +84,7 @@ class ProductAttributes extends ControllerTestCase {
 	 * Test schema matches responses.
 	 */
 	public function test_get_item_schema() {
-		$routes     = new \Automattic\WooCommerce\StoreApi\RoutesController( new \Automattic\WooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
+		$routes     = new \Automattic\PooCommerce\StoreApi\RoutesController( new \Automattic\PooCommerce\StoreApi\SchemaController( $this->mock_extend ) );
 		$controller = $routes->get( 'product-attributes' );
 		$attribute  = wc_get_attribute( $this->attributes[0]['attribute_id'] );
 		$response   = $controller->prepare_item_for_response( $attribute, new \WP_REST_Request() );

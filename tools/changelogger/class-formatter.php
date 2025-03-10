@@ -2,13 +2,13 @@
 /**
  * Formatter class
  *
- * @package  WooCommerce
+ * @package  PooCommerce
  */
 
-namespace Automattic\WooCommerce\MonorepoTools\Changelogger;
+namespace Automattic\PooCommerce\MonorepoTools\Changelogger;
 
 /**
- * Base Jetpack Changelogger Formatter for WooCommerce
+ * Base Jetpack Changelogger Formatter for PooCommerce
  */
 
 use Automattic\Jetpack\Changelog\Changelog;
@@ -16,7 +16,7 @@ use Automattic\Jetpack\Changelog\KeepAChangelogParser;
 use Automattic\Jetpack\Changelogger\PluginTrait;
 
 /**
- * Base Jetpack Changelogger Formatter for WooCommerce
+ * Base Jetpack Changelogger Formatter for PooCommerce
  *
  * Note: Since the "filename" loading relies on a single class implementing the plugin interface,
  * we have to implement it in the child class, even though the base class satisfies it.
@@ -84,7 +84,7 @@ class Formatter extends KeepAChangelogParser {
 	 * @return string Link to the version's release.
 	 */
 	public function getReleaseLink( $version ) {
-		return 'https://github.com/woocommerce/woocommerce/releases/tag/' . $version;
+		return 'https://github.com/poocommerce/poocommerce/releases/tag/' . $version;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { OrderFormValues } from '@woocommerce/settings';
+import { OrderFormValues } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

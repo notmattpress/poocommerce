@@ -48,14 +48,14 @@ If applicable, add screenshots to help explain your problem.
 A clear and concise description of what you expected to happen.
 
 **Isolating the problem (mark completed items with an [x]):**
-- [ ] I have deactivated other plugins and confirmed this bug occurs when only WooCommerce plugin is active.
-- [ ] This bug happens with a default WordPress theme active, or [Storefront](https://woocommerce.com/storefront/).
+- [ ] I have deactivated other plugins and confirmed this bug occurs when only PooCommerce plugin is active.
+- [ ] This bug happens with a default WordPress theme active, or [Storefront](https://poocommerce.com/storefront/).
 - [ ] I can reproduce this bug consistently using the steps above.
 
 **WordPress Environment**
 <details>
 ```
-Copy and paste the system status report from **WooCommerce > System Status** in WordPress admin.
+Copy and paste the system status report from **PooCommerce > System Status** in WordPress admin.
 ```
 </details>
 		<?php
@@ -71,25 +71,25 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 	 * @return string
 	 */
 	private function get_theme_ssr_info( $theme ) {
-		$theme_info = __( "\n\n### Theme ###\n\n", 'woocommerce-beta-tester' );
+		$theme_info = __( "\n\n### Theme ###\n\n", 'poocommerce-beta-tester' );
 
 		$version = $theme['version'];
 		if ( version_compare( $theme['version'], $theme['version_latest'], '<' ) ) {
 			/* translators: 1: latest version */
-			$version .= sprintf( __( ' - %s is available', 'woocommerce-beta-tester' ), esc_html( $theme['version_latest'] ) );
+			$version .= sprintf( __( ' - %s is available', 'poocommerce-beta-tester' ), esc_html( $theme['version_latest'] ) );
 		}
 
-		$child_theme = $theme['is_child_theme'] ? __( 'Yes', 'woocommerce-beta-tester' ) : __( 'No - If you are modifying WooCommerce on a parent theme that you did not build personally we recommend using a child theme.', 'woocommerce-beta-tester' );
+		$child_theme = $theme['is_child_theme'] ? __( 'Yes', 'poocommerce-beta-tester' ) : __( 'No - If you are modifying PooCommerce on a parent theme that you did not build personally we recommend using a child theme.', 'poocommerce-beta-tester' );
 
 		if ( $theme['is_child_theme'] ) {
 			$parent_version = $theme['parent_version'];
 			if ( version_compare( $theme['parent_version'], $theme['parent_version_latest'], '<' ) ) {
 				/* translators: 1: latest version */
-				$parent_version .= sprintf( __( ' - %s is available', 'woocommerce-beta-tester' ), esc_html( $theme['parent_version_latest'] ) );
+				$parent_version .= sprintf( __( ' - %s is available', 'poocommerce-beta-tester' ), esc_html( $theme['parent_version_latest'] ) );
 			}
 
 			$child_theme .= sprintf(
-				__( "Parent theme name: %1\$s\nParent theme version: %2\$s\nParent theme author URL: %3\$s\n", 'woocommerce-beta-tester' ),
+				__( "Parent theme name: %1\$s\nParent theme version: %2\$s\nParent theme author URL: %3\$s\n", 'poocommerce-beta-tester' ),
 				$theme['parent_name'],
 				$parent_version,
 				$theme['parent_author_url']
@@ -97,12 +97,12 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 		}
 
 		$theme_info .= sprintf(
-			__( "Name: %1\$s\nVersion: %2\$s\nAuthor URL: %3\$s\nChild Theme: %4\$s\nWooCommerce Support: %5\$s", 'woocommerce-beta-tester' ),
+			__( "Name: %1\$s\nVersion: %2\$s\nAuthor URL: %3\$s\nChild Theme: %4\$s\nPooCommerce Support: %5\$s", 'poocommerce-beta-tester' ),
 			$theme['name'],
 			$version,
 			esc_html( $theme['author_url'] ),
 			$child_theme,
-			! $theme['has_woocommerce_support'] ? __( 'Not declared', 'woocommerce-beta-tester' ) : __( 'Yes', 'woocommerce-beta-tester' )
+			! $theme['has_poocommerce_support'] ? __( 'Not declared', 'poocommerce-beta-tester' ) : __( 'Yes', 'poocommerce-beta-tester' )
 		);
 
 		return $theme_info;
@@ -116,7 +116,7 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 	 * @return string
 	 */
 	private function get_plugins_ssr_info( $active_plugins, $untested_plugins ) {
-		$plugins_info = __( "\n\n### Plugins ###\n\n", 'woocommerce-beta-tester' );
+		$plugins_info = __( "\n\n### Plugins ###\n\n", 'poocommerce-beta-tester' );
 
 		foreach ( $active_plugins as $plugin ) {
 			if ( ! empty( $plugin['name'] ) ) {
@@ -128,19 +128,19 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 				if ( strstr( $plugin['url'], 'woothemes.com' ) || strstr( $plugin['url'], 'woo.com' ) ) {
 					if ( ! empty( $plugin['version_latest'] ) && version_compare( $plugin['version_latest'], $plugin['version'], '>' ) ) {
 						/* translators: %s: plugin latest version */
-						$version_string = sprintf( esc_html__( '%s is available', 'woocommerce-beta-tester' ), $plugin['version_latest'] );
+						$version_string = sprintf( esc_html__( '%s is available', 'poocommerce-beta-tester' ), $plugin['version_latest'] );
 					}
 
 					if ( false !== (bool) $plugin['network_activated'] ) {
-						$network_string = __( 'Network enabled', 'woocommerce-beta-tester' );
+						$network_string = __( 'Network enabled', 'poocommerce-beta-tester' );
 					}
 				}
 				$untested_string = '';
 				if ( array_key_exists( $plugin['plugin'], $untested_plugins ) ) {
-					$untested_string = __( 'Not tested with the active version of WooCommerce', 'woocommerce-beta-tester' );
+					$untested_string = __( 'Not tested with the active version of PooCommerce', 'poocommerce-beta-tester' );
 				}
 
-				$plugins_info .= sprintf( __( "%1\$s: by %2\$s - %3\$s - %4\$s\n", 'woocommerce-beta-tester' ), $plugin_name, $plugin['author_name'], $plugin['version'], $version_string . $untested_string . $network_string );
+				$plugins_info .= sprintf( __( "%1\$s: by %2\$s - %3\$s - %4\$s\n", 'poocommerce-beta-tester' ), $plugin_name, $plugin['author_name'], $plugin['version'], $version_string . $untested_string . $network_string );
 			}
 		}
 
@@ -229,7 +229,7 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 	protected function get_github_ticket_url() {
 		$bug_tpl = $this->get_ticket_template();
 		$ssr     = $this->construct_ssr();
-		$body    = str_replace( 'Copy and paste the system status report from **WooCommerce > System Status** in WordPress admin.', $ssr, $bug_tpl );
+		$body    = str_replace( 'Copy and paste the system status report from **PooCommerce > System Status** in WordPress admin.', $ssr, $bug_tpl );
 		$body    = str_replace( '```', '', $body ); // Remove since this break how is displayed.
 
 		$wc_plugin_data = get_plugin_data( WC_PLUGIN_FILE );
@@ -242,10 +242,10 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 		return add_query_arg(
 			array(
 				'body'  => rawurlencode( $body ),
-				/* translators: %s: woocommerce version */
-				'title' => rawurlencode( sprintf( __( '[WC Beta Tester] Bug report for version "%s"', 'woocommerce-beta-tester' ), $version ) ),
+				/* translators: %s: poocommerce version */
+				'title' => rawurlencode( sprintf( __( '[WC Beta Tester] Bug report for version "%s"', 'poocommerce-beta-tester' ), $version ) ),
 			),
-			'https://github.com/woocommerce/woocommerce/issues/new'
+			'https://github.com/poocommerce/poocommerce/issues/new'
 		);
 	}
 
@@ -269,20 +269,20 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 			array(
 				'parent' => 0,
 				'id'     => 'wc-beta-tester',
-				'title'  => __( 'WC Beta Tester', 'woocommerce-beta-tester' ),
+				'title'  => __( 'WC Beta Tester', 'poocommerce-beta-tester' ),
 			)
 		);
 
 		$settings = WC_Beta_Tester::get_settings();
 		switch ( $settings->channel ) {
 			case 'beta':
-				$current_channel = __( 'Beta', 'woocommerce-beta-tester' );
+				$current_channel = __( 'Beta', 'poocommerce-beta-tester' );
 				break;
 			case 'rc':
-				$current_channel = __( 'Release Candidate', 'woocommerce-beta-tester' );
+				$current_channel = __( 'Release Candidate', 'poocommerce-beta-tester' );
 				break;
 			default:
-				$current_channel = __( 'Stable', 'woocommerce-beta-tester' );
+				$current_channel = __( 'Stable', 'poocommerce-beta-tester' );
 				break;
 		}
 
@@ -291,32 +291,32 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 				'parent' => 'wc-beta-tester',
 				'id'     => 'update-channel',
 				/* translators: %s: current channel */
-				'title'  => sprintf( __( 'Channel: %s', 'woocommerce-beta-tester' ), $current_channel ),
+				'title'  => sprintf( __( 'Channel: %s', 'poocommerce-beta-tester' ), $current_channel ),
 				'href'   => admin_url( 'plugins.php?page=wc-beta-tester' ),
 			),
 			array(
 				'parent' => 'wc-beta-tester',
 				'id'     => 'import-export-settings',
-				'title'  => __( 'Import/Export Settings', 'woocommerce-beta-tester' ),
+				'title'  => __( 'Import/Export Settings', 'poocommerce-beta-tester' ),
 				'href'   => admin_url( 'admin.php?page=wc-beta-tester-settings' ),
 			),
 			array(
 				'parent' => 'wc-beta-tester',
 				'id'     => 'show-version-info',
 				/* translators: %s: current version */
-				'title'  => sprintf( __( 'Release %s information', 'woocommerce-beta-tester' ), WC_VERSION ),
+				'title'  => sprintf( __( 'Release %s information', 'poocommerce-beta-tester' ), WC_VERSION ),
 				'href'   => '#',
 			),
 			array(
 				'parent' => 'wc-beta-tester',
 				'id'     => 'switch-version',
-				'title'  => __( 'Switch versions', 'woocommerce-beta-tester' ),
+				'title'  => __( 'Switch versions', 'poocommerce-beta-tester' ),
 				'href'   => admin_url( 'plugins.php?page=wc-beta-tester-version-picker' ),
 			),
 			array(
 				'parent' => 'wc-beta-tester',
 				'id'     => 'submit-gh-ticket',
-				'title'  => __( 'Submit bug report', 'woocommerce-beta-tester' ),
+				'title'  => __( 'Submit bug report', 'poocommerce-beta-tester' ),
 				'href'   => '#',
 				'meta'   => array(
 					// We can't simply use the href here since WP core calls esc_url on it which strips some parts.
@@ -359,20 +359,20 @@ Copy and paste the system status report from **WooCommerce > System Status** in 
 							<h1>
 							<?php
 								/* translators: %s: version number */
-								echo esc_html( sprintf( __( 'Release %s information', 'woocommerce-beta-tester' ), '{{ data.version }}' ) );
+								echo esc_html( sprintf( __( 'Release %s information', 'poocommerce-beta-tester' ), '{{ data.version }}' ) );
 							?>
 							</h1>
 							<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-								<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce-beta-tester' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'poocommerce-beta-tester' ); ?></span>
 							</button>
 						</header>
 						<article>
-							<?php do_action( 'woocommerce_admin_version_information_start' ); ?>
+							<?php do_action( 'poocommerce_admin_version_information_start' ); ?>
 							{{ data.description }}
-							<?php do_action( 'woocommerce_admin_version_information_end' ); ?>
+							<?php do_action( 'poocommerce_admin_version_information_end' ); ?>
 						</article>
 						<footer>
-							<a target="_blank" href="https://github.com/woocommerce/woocommerce/releases/tag/{{ data.version }}"><?php esc_html_e( 'Read more on GitHub', 'woocommerce-beta-tester' ); ?></a>
+							<a target="_blank" href="https://github.com/poocommerce/poocommerce/releases/tag/{{ data.version }}"><?php esc_html_e( 'Read more on GitHub', 'poocommerce-beta-tester' ); ?></a>
 						</footer>
 					</section>
 				</div>

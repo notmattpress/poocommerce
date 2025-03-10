@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import type { EmptyObjectType, PaymentResult } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import type { EmptyObjectType, PaymentResult } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 import {
 	PlainPaymentMethods,
 	PlainExpressPaymentMethods,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-category",
+	"name": "poocommerce/product-category",
 	"title": "Products by Category",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Display a grid of products from your selected categories.",
 	"supports": {
@@ -92,7 +92,7 @@
 			"default": "date"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

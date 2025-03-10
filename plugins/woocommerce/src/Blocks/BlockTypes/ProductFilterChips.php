@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Chips Block.
@@ -65,13 +65,13 @@ final class ProductFilterChips extends AbstractBlock {
 		ob_start();
 		?>
 		<div <?php echo get_block_wrapper_attributes( $wrapper_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-			<div class="wc-block-product-filter-chips__items" aria-label="<?php echo esc_attr__( 'Filter Options', 'woocommerce' ); ?>">
+			<div class="wc-block-product-filter-chips__items" aria-label="<?php echo esc_attr__( 'Filter Options', 'poocommerce' ); ?>">
 				<?php foreach ( $items as $item ) { ?>
 					<?php
 					$item['id'] = $item['id'] ?? uniqid( 'chips-' );
 					unset( $item['data'] );
 					// translators: %s: item label.
-					$aria_label = sprintf( __( 'Filter item: %s', 'woocommerce' ), $item['ariaLabel'] ?? $item['label'] );
+					$aria_label = sprintf( __( 'Filter item: %s', 'poocommerce' ), $item['ariaLabel'] ?? $item['label'] );
 					?>
 					<button
 						data-wp-key="<?php echo esc_attr( $item['id'] ); ?>"
@@ -105,7 +105,7 @@ final class ProductFilterChips extends AbstractBlock {
 					data-wp-on--click="actions.showAllItems"
 					hidden
 				>
-					<?php echo esc_html__( 'Show more...', 'woocommerce' ); ?>
+					<?php echo esc_html__( 'Show more...', 'poocommerce' ); ?>
 				</button>
 			<?php endif; ?>
 		</div>

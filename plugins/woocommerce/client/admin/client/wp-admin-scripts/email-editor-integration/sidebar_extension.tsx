@@ -19,7 +19,7 @@ import { NAME_SPACE } from './constants';
 
 const SidebarExtensionComponent = () => {
 	const { current_post_id, current_post_type, email_types } =
-		window.WooCommerceEmailEditor;
+		window.PooCommerceEmailEditor;
 	const email = useEntityRecord(
 		'postType',
 		current_post_type,
@@ -30,7 +30,7 @@ const SidebarExtensionComponent = () => {
 
 	return (
 		<SelectControl
-			label={ __( 'Email type', 'woocommerce' ) }
+			label={ __( 'Email type', 'poocommerce' ) }
 			options={ email_type_options }
 			value={ email.editedRecord.slug }
 			onChange={ ( value ) => {
@@ -48,7 +48,7 @@ const SidebarExtensionComponent = () => {
 
 export function modifySidebar() {
 	addFilter(
-		'woocommerce_email_editor_setting_sidebar_extension_component',
+		'poocommerce_email_editor_setting_sidebar_extension_component',
 		NAME_SPACE,
 		() => SidebarExtensionComponent
 	);

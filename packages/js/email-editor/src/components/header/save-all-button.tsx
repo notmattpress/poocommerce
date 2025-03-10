@@ -20,7 +20,7 @@ const SaveAllContent = ( { onToggle } ) => {
 	// Hacky way to change the text in the templates row of the save dropdown
 	useEffect( () => {
 		const panels = document.querySelectorAll(
-			'.woocommerce-email-editor-save-button-dropdown  .components-panel__body'
+			'.poocommerce-email-editor-save-button-dropdown  .components-panel__body'
 		);
 		panels.forEach( ( panel ) => {
 			const titleButton = panel.querySelector(
@@ -29,13 +29,13 @@ const SaveAllContent = ( { onToggle } ) => {
 			if (
 				titleButton &&
 				titleButton.textContent.trim() ===
-					__( 'Templates', 'woocommerce' )
+					__( 'Templates', 'poocommerce' )
 			) {
 				const rows = panel.querySelectorAll( '.components-panel__row' );
 				if ( rows.length ) {
 					rows[ 0 ].textContent = __(
 						'This change will affect emails that use this template.',
-						'woocommerce'
+						'poocommerce'
 					);
 				}
 			}
@@ -54,9 +54,9 @@ export function SaveAllButton() {
 
 	const buttonRef = useRef( null );
 
-	let label = __( 'Save', 'woocommerce' );
+	let label = __( 'Save', 'poocommerce' );
 	if ( isSaving ) {
-		label = __( 'Saving', 'woocommerce' );
+		label = __( 'Saving', 'poocommerce' );
 	}
 
 	return (
@@ -66,7 +66,7 @@ export function SaveAllButton() {
 					placement: 'bottom',
 					anchor: buttonRef.current,
 				} }
-				contentClassName="woocommerce-email-editor-save-button-dropdown"
+				contentClassName="poocommerce-email-editor-save-button-dropdown"
 				renderToggle={ ( { onToggle } ) => (
 					<Button
 						onClick={ () => {

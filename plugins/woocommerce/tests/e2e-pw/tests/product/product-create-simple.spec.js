@@ -123,7 +123,7 @@ for ( const productType of Object.keys( productData ) ) {
 				// Product attributes
 				const attributeName = 'attribute name';
 				await page
-					.locator( '#woocommerce-product-data' )
+					.locator( '#poocommerce-product-data' )
 					.getByRole( 'link', { name: 'Attributes' } )
 					.click();
 				await page

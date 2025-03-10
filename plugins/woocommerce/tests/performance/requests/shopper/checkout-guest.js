@@ -43,7 +43,7 @@ import {
 import { checkResponse } from '../../utils.js';
 
 export function checkoutGuest() {
-	let woocommerce_process_checkout_nonce_guest;
+	let poocommerce_process_checkout_nonce_guest;
 	let update_order_review_nonce_guest;
 
 	group( 'Proceed to checkout', function () {
@@ -61,14 +61,14 @@ export function checkoutGuest() {
 		} );
 		checkResponse( response, 200, {
 			title: `Checkout – ${ STORE_NAME }`,
-			body: 'class="checkout woocommerce-checkout"',
+			body: 'class="checkout poocommerce-checkout"',
 			footer: FOOTER_TEXT,
 		} );
 
 		// Correlate nonce values for use in subsequent requests.
-		woocommerce_process_checkout_nonce_guest = response
+		poocommerce_process_checkout_nonce_guest = response
 			.html()
-			.find( 'input[name=woocommerce-process-checkout-nonce]' )
+			.find( 'input[name=poocommerce-process-checkout-nonce]' )
 			.first()
 			.attr( 'value' );
 		update_order_review_nonce_guest = findBetween(
@@ -141,7 +141,7 @@ export function checkoutGuest() {
 				billing_email: `${ addresses_guest_billing_email }`,
 				order_comments: '',
 				payment_method: `${ payment_method }`,
-				'woocommerce-process-checkout-nonce': `${ woocommerce_process_checkout_nonce_guest }`,
+				'poocommerce-process-checkout-nonce': `${ poocommerce_process_checkout_nonce_guest }`,
 				_wp_http_referer: '%2F%3Fwc-ajax%3Dupdate_order_review',
 			},
 			{

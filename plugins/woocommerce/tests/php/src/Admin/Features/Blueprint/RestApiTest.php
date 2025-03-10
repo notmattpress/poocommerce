@@ -3,9 +3,9 @@
  * Unit tests for RestApi class.
  */
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\RestApi;
+use Automattic\PooCommerce\Admin\Features\Blueprint\RestApi;
 use WP_REST_Request;
 use WP_Test_REST_TestCase;
 
@@ -37,8 +37,8 @@ class RestApiTest extends WP_Test_REST_TestCase {
 				[
 					'step' => 'setWCSettings',
 					'settings' => [
-						'woocommerce_store_address' => '123 Test St',
-						'woocommerce_store_city' => 'Test City'
+						'poocommerce_store_address' => '123 Test St',
+						'poocommerce_store_city' => 'Test City'
 					]
 				]
 			]

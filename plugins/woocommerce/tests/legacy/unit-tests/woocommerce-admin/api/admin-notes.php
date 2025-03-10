@@ -2,11 +2,11 @@
 /**
  * Admin notes REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 
 /**
  * Class WC_Admin_Tests_API_Admin_Notes
@@ -96,16 +96,16 @@ class WC_Admin_Tests_API_Admin_Notes extends WC_REST_Unit_Test_Case {
 		WC_Helper_Admin_Notes::reset_notes_dbs();
 
 		// Create a new note containing an action with a nonce.
-		$note = new \Automattic\WooCommerce\Admin\Notes\Note();
+		$note = new \Automattic\PooCommerce\Admin\Notes\Note();
 		$note->set_name( 'nonce-note' );
-		$note->add_action( 'learn-more', __( 'Learn More', 'woocommerce' ), 'https://woocommerce.com/', 'unactioned' );
+		$note->add_action( 'learn-more', __( 'Learn More', 'poocommerce' ), 'https://poocommerce.com/', 'unactioned' );
 		$note->add_nonce_to_action( 'learn-more', 'foo', 'bar' );
 		$note->save();
 
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', $this->endpoint . '/1' ) );
 		$note     = $response->get_data();
 
-		$expected_url = 'https://woocommerce.com/?bar=' . wp_create_nonce( 'foo' );
+		$expected_url = 'https://poocommerce.com/?bar=' . wp_create_nonce( 'foo' );
 
 		$this->assertSame( $expected_url, $note['actions'][0]->url );
 	}
@@ -119,9 +119,9 @@ class WC_Admin_Tests_API_Admin_Notes extends WC_REST_Unit_Test_Case {
 		WC_Helper_Admin_Notes::reset_notes_dbs();
 
 		// Create a new note containing an action with a nonce.
-		$note = new \Automattic\WooCommerce\Admin\Notes\Note();
+		$note = new \Automattic\PooCommerce\Admin\Notes\Note();
 		$note->set_name( 'nonce-note' );
-		$note->add_action( 'learn-more', __( 'Learn More', 'woocommerce' ), 'https://example.com/?x=1&y=2', 'unactioned' );
+		$note->add_action( 'learn-more', __( 'Learn More', 'poocommerce' ), 'https://example.com/?x=1&y=2', 'unactioned' );
 		$note->add_nonce_to_action( 'learn-more', 'foo', 'bar' );
 		$note->save();
 

@@ -240,14 +240,14 @@ const shopper = {
 		}
 
 		// Remove coupons if they exist
-		if ( ( await page.$( '.woocommerce-remove-coupon' ) ) !== null ) {
-			await page.click( '.woocommerce-remove-coupon' );
+		if ( ( await page.$( '.poocommerce-remove-coupon' ) ) !== null ) {
+			await page.click( '.poocommerce-remove-coupon' );
 			await uiUnblocked();
 		}
 
-		await page.waitForSelector( '.woocommerce-info' );
+		await page.waitForSelector( '.poocommerce-info' );
 		// eslint-disable-next-line jest/no-standalone-expect
-		await expect( page ).toMatchElement( '.woocommerce-info', {
+		await expect( page ).toMatchElement( '.poocommerce-info', {
 			text: 'Your cart is currently empty.',
 		} );
 	},
@@ -329,7 +329,7 @@ const shopper = {
 
 		await expect( page.title() ).resolves.toMatch( 'My account' );
 		await page.click(
-			'.woocommerce-MyAccount-navigation-link--customer-logout a'
+			'.poocommerce-MyAccount-navigation-link--customer-logout a'
 		);
 	},
 };

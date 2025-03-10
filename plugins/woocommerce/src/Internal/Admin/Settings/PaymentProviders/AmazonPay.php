@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
 use WC_Payment_Gateway;
 

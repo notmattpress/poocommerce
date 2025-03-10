@@ -2,12 +2,12 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
-use Automattic\WooCommerce\Caching\ObjectCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * A class to cache counts for various order statuses.
@@ -41,7 +41,7 @@ class OrderCountCache {
 		$invalid_statuses = array_diff( $statuses, $valid_statuses );
 
 		if ( ! empty( $invalid_statuses ) ) {
-			throw new \Exception( sprintf( __( '%s is not one of: %s', 'woocommerce' ), implode( ', ', $invalid_statuses ), implode( ', ', $valid_statuses ) ) );
+			throw new \Exception( sprintf( __( '%s is not one of: %s', 'poocommerce' ), implode( ', ', $invalid_statuses ), implode( ', ', $valid_statuses ) ) );
 		}
 	}
 

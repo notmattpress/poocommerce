@@ -6,7 +6,7 @@
  *
  * This product includes GeoLite data created by MaxMind, available from http://www.maxmind.com.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.9.0
  */
 
@@ -111,7 +111,7 @@ class WC_Geolocation {
 
 		if ( false === $external_ip_address ) {
 			$external_ip_address     = '0.0.0.0';
-			$ip_lookup_services      = apply_filters( 'woocommerce_geolocation_ip_lookup_apis', self::$ip_lookup_apis );
+			$ip_lookup_services      = apply_filters( 'poocommerce_geolocation_ip_lookup_apis', self::$ip_lookup_apis );
 			$ip_lookup_services_keys = array_keys( $ip_lookup_services );
 			shuffle( $ip_lookup_services_keys );
 
@@ -121,12 +121,12 @@ class WC_Geolocation {
 					$service_endpoint,
 					array(
 						'timeout'    => 2,
-						'user-agent' => 'WooCommerce/' . wc()->version,
+						'user-agent' => 'PooCommerce/' . wc()->version,
 					)
 				);
 
 				if ( ! is_wp_error( $response ) && rest_is_ip_address( $response['body'] ) ) {
-					$external_ip_address = apply_filters( 'woocommerce_geolocation_ip_lookup_api_response', wc_clean( $response['body'] ), $service_name );
+					$external_ip_address = apply_filters( 'poocommerce_geolocation_ip_lookup_api_response', wc_clean( $response['body'] ), $service_name );
 					break;
 				}
 			}
@@ -156,7 +156,7 @@ class WC_Geolocation {
 		 * @param bool $api_fallback If true, uses geolocation APIs if the database file doesn't exist (can be slower).
 		 * @return string
 		 */
-		$country_code = apply_filters( 'woocommerce_geolocate_ip', false, $ip_address, $fallback, $api_fallback );
+		$country_code = apply_filters( 'poocommerce_geolocate_ip', false, $ip_address, $fallback, $api_fallback );
 
 		if ( false !== $country_code ) {
 			return array(
@@ -180,7 +180,7 @@ class WC_Geolocation {
 		 * @param string $ip_address  IP Address.
 		 */
 		$geolocation = apply_filters(
-			'woocommerce_get_geolocation',
+			'poocommerce_get_geolocation',
 			array(
 				'country'  => $country_code,
 				'state'    => '',
@@ -270,7 +270,7 @@ class WC_Geolocation {
 	/**
 	 * Use APIs to Geolocate the user.
 	 *
-	 * Geolocation APIs can be added through the use of the woocommerce_geolocation_geoip_apis filter.
+	 * Geolocation APIs can be added through the use of the poocommerce_geolocation_geoip_apis filter.
 	 * Provide a name=>value pair for service-slug=>endpoint.
 	 *
 	 * If APIs are defined, one will be chosen at random to fulfil the request. After completing, the result
@@ -283,7 +283,7 @@ class WC_Geolocation {
 		$country_code = get_transient( 'geoip_' . $ip_address );
 
 		if ( false === $country_code ) {
-			$geoip_services = apply_filters( 'woocommerce_geolocation_geoip_apis', self::$geoip_apis );
+			$geoip_services = apply_filters( 'poocommerce_geolocation_geoip_apis', self::$geoip_apis );
 
 			if ( empty( $geoip_services ) ) {
 				return '';
@@ -299,7 +299,7 @@ class WC_Geolocation {
 					sprintf( $service_endpoint, $ip_address ),
 					array(
 						'timeout'    => 2,
-						'user-agent' => 'WooCommerce/' . wc()->version,
+						'user-agent' => 'PooCommerce/' . wc()->version,
 					)
 				);
 
@@ -314,7 +314,7 @@ class WC_Geolocation {
 							$country_code = isset( $data->countryCode ) ? $data->countryCode : ''; // @codingStandardsIgnoreLine
 							break;
 						default:
-							$country_code = apply_filters( 'woocommerce_geolocation_geoip_response_' . $service_name, '', $response['body'] );
+							$country_code = apply_filters( 'poocommerce_geolocation_geoip_response_' . $service_name, '', $response['body'] );
 							break;
 					}
 

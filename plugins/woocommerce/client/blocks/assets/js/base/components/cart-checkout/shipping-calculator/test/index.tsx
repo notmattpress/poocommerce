@@ -3,7 +3,7 @@
  */
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import type { ShippingAddress } from '@woocommerce/settings';
+import type { ShippingAddress } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

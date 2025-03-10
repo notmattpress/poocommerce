@@ -24,7 +24,7 @@ interface FeedbackPromptProps {
  */
 const FeedbackPrompt = ( {
 	text,
-	title = __( 'Feedback?', 'woocommerce' ),
+	title = __( 'Feedback?', 'poocommerce' ),
 	url,
 }: FeedbackPromptProps ) => {
 	// By returning false we ensure that this component is not entered into the InspectorControls
@@ -51,7 +51,7 @@ const FeedbackPrompt = ( {
 						rel="noreferrer noopener"
 						target="_blank"
 					>
-						{ __( 'Give us your feedback.', 'woocommerce' ) }
+						{ __( 'Give us your feedback.', 'poocommerce' ) }
 						<Icon icon={ external } size={ 16 } />
 					</a>
 				</div>
@@ -66,9 +66,9 @@ export const CartCheckoutFeedbackPrompt = () => (
 	<FeedbackPrompt
 		text={ __(
 			'We are currently working on improving our cart and checkout blocks to provide merchants with the tools and customization options they need.',
-			'woocommerce'
+			'poocommerce'
 		) }
-		url="https://github.com/woocommerce/woocommerce/discussions/new?category=checkout-flow&labels=type%3A+product%20feedback"
+		url="https://github.com/poocommerce/poocommerce/discussions/new?category=checkout-flow&labels=type%3A+product%20feedback"
 	/>
 );
 
@@ -76,9 +76,9 @@ export const ProductQueryFeedbackPrompt = () => (
 	<FeedbackPrompt
 		text={ __(
 			'Thanks for trying out the Products block! Help us make it better by sharing your feedback.',
-			'woocommerce'
+			'poocommerce'
 		) }
-		title={ __( 'Share your feedback!', 'woocommerce' ) }
+		title={ __( 'Share your feedback!', 'poocommerce' ) }
 		url={ 'https://airtable.com/shrFX5FAqmCY6hVYI' }
 	/>
 );

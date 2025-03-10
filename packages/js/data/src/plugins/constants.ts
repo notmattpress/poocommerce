@@ -10,55 +10,55 @@ export const PAYPAL_NAMESPACE = '/wc-paypal/v1';
  * Plugin slugs and names as key/value pairs.
  */
 export const pluginNames = {
-	'facebook-for-woocommerce': __( 'Facebook for WooCommerce', 'woocommerce' ),
-	jetpack: __( 'Jetpack', 'woocommerce' ),
-	'klarna-checkout-for-woocommerce': __(
-		'Klarna Checkout for WooCommerce',
-		'woocommerce'
+	'facebook-for-poocommerce': __( 'Facebook for PooCommerce', 'poocommerce' ),
+	jetpack: __( 'Jetpack', 'poocommerce' ),
+	'klarna-checkout-for-poocommerce': __(
+		'Klarna Checkout for PooCommerce',
+		'poocommerce'
 	),
-	'klarna-payments-for-woocommerce': __(
-		'Klarna Payments for WooCommerce',
-		'woocommerce'
+	'klarna-payments-for-poocommerce': __(
+		'Klarna Payments for PooCommerce',
+		'poocommerce'
 	),
-	'mailchimp-for-woocommerce': __(
-		'Mailchimp for WooCommerce',
-		'woocommerce'
+	'mailchimp-for-poocommerce': __(
+		'Mailchimp for PooCommerce',
+		'poocommerce'
 	),
 	'creative-mail-by-constant-contact': __(
-		'Creative Mail for WooCommerce',
-		'woocommerce'
+		'Creative Mail for PooCommerce',
+		'poocommerce'
 	),
-	'woocommerce-gateway-paypal-express-checkout': __(
-		'WooCommerce PayPal',
-		'woocommerce'
+	'poocommerce-gateway-paypal-express-checkout': __(
+		'PooCommerce PayPal',
+		'poocommerce'
 	),
-	'woocommerce-gateway-stripe': __( 'WooCommerce Stripe', 'woocommerce' ),
-	'woocommerce-payfast-gateway': __( 'WooCommerce Payfast', 'woocommerce' ),
-	'woocommerce-payments': __( 'WooPayments', 'woocommerce' ),
-	'woocommerce-services': __( 'WooCommerce Shipping & Tax', 'woocommerce' ),
-	'woocommerce-services:shipping': __(
-		'WooCommerce Shipping & Tax',
-		'woocommerce'
+	'poocommerce-gateway-stripe': __( 'PooCommerce Stripe', 'poocommerce' ),
+	'poocommerce-payfast-gateway': __( 'PooCommerce Payfast', 'poocommerce' ),
+	'poocommerce-payments': __( 'WooPayments', 'poocommerce' ),
+	'poocommerce-services': __( 'PooCommerce Shipping & Tax', 'poocommerce' ),
+	'poocommerce-services:shipping': __(
+		'PooCommerce Shipping & Tax',
+		'poocommerce'
 	),
-	'woocommerce-services:tax': __(
-		'WooCommerce Shipping & Tax',
-		'woocommerce'
+	'poocommerce-services:tax': __(
+		'PooCommerce Shipping & Tax',
+		'poocommerce'
 	),
-	'woocommerce-shipstation-integration': __(
-		'WooCommerce ShipStation Gateway',
-		'woocommerce'
+	'poocommerce-shipstation-integration': __(
+		'PooCommerce ShipStation Gateway',
+		'poocommerce'
 	),
-	'woocommerce-mercadopago': __(
-		'Mercado Pago payments for WooCommerce',
-		'woocommerce'
+	'poocommerce-mercadopago': __(
+		'Mercado Pago payments for PooCommerce',
+		'poocommerce'
 	),
-	'google-listings-and-ads': __( 'Google for WooCommerce', 'woocommerce' ),
-	'woo-razorpay': __( 'Razorpay', 'woocommerce' ),
-	mailpoet: __( 'MailPoet', 'woocommerce' ),
-	'pinterest-for-woocommerce': __(
-		'Pinterest for WooCommerce',
-		'woocommerce'
+	'google-listings-and-ads': __( 'Google for PooCommerce', 'poocommerce' ),
+	'woo-razorpay': __( 'Razorpay', 'poocommerce' ),
+	mailpoet: __( 'MailPoet', 'poocommerce' ),
+	'pinterest-for-poocommerce': __(
+		'Pinterest for PooCommerce',
+		'poocommerce'
 	),
-	'tiktok-for-business:alt': __( 'TikTok for WooCommerce', 'woocommerce' ),
-	codistoconnect: __( 'Omnichannel for WooCommerce', 'woocommerce' ),
+	'tiktok-for-business:alt': __( 'TikTok for PooCommerce', 'poocommerce' ),
+	codistoconnect: __( 'Omnichannel for PooCommerce', 'poocommerce' ),
 };

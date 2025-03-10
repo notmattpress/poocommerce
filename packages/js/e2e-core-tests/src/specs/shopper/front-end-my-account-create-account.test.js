@@ -7,7 +7,7 @@ const {
 	setCheckbox,
 	settingsPageSaveChanges,
 	withRestApi,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -24,7 +24,7 @@ const runMyAccountCreateAccountTest = () => {
 
 			// Set checkbox in the settings to enable registration in my account
 			await merchant.openSettings( 'account' );
-			await setCheckbox( '#woocommerce_enable_myaccount_registration' );
+			await setCheckbox( '#poocommerce_enable_myaccount_registration' );
 			await settingsPageSaveChanges();
 
 			await merchant.logout();
@@ -36,7 +36,7 @@ const runMyAccountCreateAccountTest = () => {
 
 		it( 'can create a new account via my account', async () => {
 			await shopper.gotoMyAccount();
-			await page.waitForSelector( '.woocommerce-form-register' );
+			await page.waitForSelector( '.poocommerce-form-register' );
 			await expect( page ).toFill(
 				'input#reg_email',
 				customerEmailAddress

@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Admin Helper API
+ * PooCommerce Admin Helper API
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WC_Helper_API Class
  *
- * Provides a communication interface with the WooCommerce.com Helper API.
+ * Provides a communication interface with the PooCommerce.com Helper API.
  */
 class WC_Helper_API {
 	/**
@@ -26,11 +26,11 @@ class WC_Helper_API {
 	 * Load
 	 *
 	 * Allow devs to point the API base to a local API development or staging server.
-	 * Note that sslverify will be turned off for the woocommerce.dev + WP_DEBUG combination.
+	 * Note that sslverify will be turned off for the poocommerce.dev + WP_DEBUG combination.
 	 * The URL can be changed on plugins_loaded before priority 10.
 	 */
 	public static function load() {
-		self::$api_base = apply_filters( 'woocommerce_helper_api_base', 'https://woocommerce.com/wp-json/helper/1.0' );
+		self::$api_base = apply_filters( 'poocommerce_helper_api_base', 'https://poocommerce.com/wp-json/helper/1.0' );
 	}
 
 	/**
@@ -54,14 +54,14 @@ class WC_Helper_API {
 		}
 
 		if ( ! isset( $args['user-agent'] ) ) {
-			$args['user-agent'] = 'WooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' );
+			$args['user-agent'] = 'PooCommerce/' . WC()->version . '; ' . get_bloginfo( 'url' );
 		}
 
 		/**
 		 * Allow developers to filter the request args passed to wp_safe_remote_request().
 		 * Useful to remove sslverify when working on a local api dev environment.
 		 */
-		$args = apply_filters( 'woocommerce_helper_api_request_args', $args, $endpoint );
+		$args = apply_filters( 'poocommerce_helper_api_request_args', $args, $endpoint );
 
 		// TODO: Check response signatures on certain endpoints.
 		return wp_safe_remote_request( $url, $args );

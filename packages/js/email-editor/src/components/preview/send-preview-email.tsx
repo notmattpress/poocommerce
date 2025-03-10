@@ -26,7 +26,7 @@ import {
 import { recordEvent, recordEventOnce } from '../../events';
 
 const sendingMethodConfigurationLink = applyFilters(
-	'woocommerce_email_editor_check_sending_method_configuration_link',
+	'poocommerce_email_editor_check_sending_method_configuration_link',
 	'admin.php?page=mailpoet-settings#mta'
 ) as string;
 
@@ -70,17 +70,17 @@ function RawSendPreviewEmail() {
 
 	return (
 		<Modal
-			className="woocommerce-send-preview-email"
-			title={ __( 'Send a test email', 'woocommerce' ) }
+			className="poocommerce-send-preview-email"
+			title={ __( 'Send a test email', 'poocommerce' ) }
 			onRequestClose={ closeCallback }
 			focusOnMount={ false }
 		>
 			{ sendingPreviewStatus === SendingPreviewStatus.ERROR ? (
-				<div className="woocommerce-send-preview-modal-notice-error">
+				<div className="poocommerce-send-preview-modal-notice-error">
 					<p>
 						{ __(
 							'Sorry, we were unable to send this email.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 
@@ -88,7 +88,7 @@ function RawSendPreviewEmail() {
 						{ errorMessage &&
 							sprintf(
 								// translators: %s is an error message.
-								__( 'Error: %s', 'woocommerce' ),
+								__( 'Error: %s', 'poocommerce' ),
 								errorMessage
 							) }
 					</strong>
@@ -99,7 +99,7 @@ function RawSendPreviewEmail() {
 								createInterpolateElement(
 									__(
 										'Please check your <link>sending method configuration</link> with your hosting provider.',
-										'woocommerce'
+										'poocommerce'
 									),
 									{
 										link: (
@@ -124,7 +124,7 @@ function RawSendPreviewEmail() {
 							{ createInterpolateElement(
 								__(
 									'Or, sign up for MailPoet Sending Service to easily send emails. <link>Sign up for free</link>',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									link: (
@@ -151,7 +151,7 @@ function RawSendPreviewEmail() {
 				{ createInterpolateElement(
 					__(
 						'Send yourself a test email to test how your email would look like in different email apps. You can also test your spam score by sending a test email to <link1>{$serviceName}</link1>. <link2>Learn more</link2>.',
-						'woocommerce'
+						'poocommerce'
 					).replace( '{$serviceName}', 'Mail Tester' ),
 					{
 						link1: (
@@ -184,7 +184,7 @@ function RawSendPreviewEmail() {
 				) }
 			</p>
 			<TextControl
-				label={ __( 'Send to', 'woocommerce' ) }
+				label={ __( 'Send to', 'poocommerce' ) }
 				onChange={ ( email ) => {
 					void updateSendPreviewEmail( email );
 					recordEventOnce(
@@ -207,12 +207,12 @@ function RawSendPreviewEmail() {
 				required
 			/>
 			{ sendingPreviewStatus === SendingPreviewStatus.SUCCESS ? (
-				<p className="woocommerce-send-preview-modal-notice-success">
+				<p className="poocommerce-send-preview-modal-notice-success">
 					<Icon icon={ check } style={ { fill: '#4AB866' } } />
-					{ __( 'Test email sent successfully!', 'woocommerce' ) }
+					{ __( 'Test email sent successfully!', 'poocommerce' ) }
 				</p>
 			) : null }
-			<div className="woocommerce-send-preview-modal-footer">
+			<div className="poocommerce-send-preview-modal-footer">
 				<Button
 					variant="tertiary"
 					onClick={ () => {
@@ -222,7 +222,7 @@ function RawSendPreviewEmail() {
 						closeCallback();
 					} }
 				>
-					{ __( 'Close', 'woocommerce' ) }
+					{ __( 'Close', 'poocommerce' ) }
 				</Button>
 				<Button
 					variant="primary"
@@ -237,8 +237,8 @@ function RawSendPreviewEmail() {
 					}
 				>
 					{ isSendingPreviewEmail
-						? __( 'Sending…', 'woocommerce' )
-						: __( 'Send test email', 'woocommerce' ) }
+						? __( 'Sending…', 'poocommerce' )
+						: __( 'Send test email', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

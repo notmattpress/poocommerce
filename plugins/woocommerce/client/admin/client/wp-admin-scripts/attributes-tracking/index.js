@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 const addNewAttribute = document.querySelector( '[name="add_new_attribute"]' );
 const saveAttribute = document.querySelector( '[name="save_attribute"]' );

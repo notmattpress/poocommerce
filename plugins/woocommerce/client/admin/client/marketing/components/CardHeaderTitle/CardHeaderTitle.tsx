@@ -7,7 +7,7 @@ export const CardHeaderTitle: React.FC< React.PropsWithChildren > = ( {
 	children,
 } ) => {
 	return (
-		<div className="woocommerce-marketing-card-header-title">
+		<div className="poocommerce-marketing-card-header-title">
 			{ children }
 		</div>
 	);

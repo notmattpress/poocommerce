@@ -2,7 +2,7 @@
 /**
  * Class Functions.
  *
- * @package WooCommerce\Tests\Geolocation
+ * @package PooCommerce\Tests\Geolocation
  */
 
 /**

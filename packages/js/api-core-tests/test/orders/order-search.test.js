@@ -45,7 +45,7 @@ const searchParams = [
 ];
 
 /**
- * Tests for the WooCommerce Order Search API.
+ * Tests for the PooCommerce Order Search API.
  *
  * @group api
  * @group orders

@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportActivateTheme;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\ActivateTheme;
+use Automattic\PooCommerce\Blueprint\Importers\ImportActivateTheme;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\ActivateTheme;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 

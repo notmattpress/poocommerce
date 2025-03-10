@@ -33,7 +33,7 @@ const StarRating = ( {
 	onChange: StarRatingChangeFunction;
 } ): JSX.Element => {
 	return (
-		<div className="woocommerce-survey-star-rating">
+		<div className="poocommerce-survey-star-rating">
 			{ [ ...Array( 5 ) ].map( ( star, index ) => {
 				index += 1;
 				return (
@@ -42,14 +42,14 @@ const StarRating = ( {
 						key={ index }
 						className={
 							index <= value
-								? 'woocommerce-survey-star-rating__button-on'
-								: 'woocommerce-survey-star-rating__button-off'
+								? 'poocommerce-survey-star-rating__button-on'
+								: 'poocommerce-survey-star-rating__button-off'
 						}
 						onClick={ () => {
 							onChange( index );
 						} }
 					>
-						<span className="woocommerce-survey-star-rating__star">
+						<span className="poocommerce-survey-star-rating__star">
 							&#9733;
 						</span>
 					</button>
@@ -112,7 +112,7 @@ export const SurveyForm = ( {
 		createSuccessNotice(
 			__(
 				"Thanks for the feedback. We'll put it to good use!",
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				type: 'snackbar',
@@ -122,19 +122,19 @@ export const SurveyForm = ( {
 
 	return (
 		<>
-			<div className="woocommerce-ai-survey-form">
+			<div className="poocommerce-ai-survey-form">
 				<div className="content">
-					<p className="woocommerce-ai-survey-form__description">
+					<p className="poocommerce-ai-survey-form__description">
 						{ __(
 							'Our goal is to make sure you have all the right tools to start customizing your store. We’d love to know if we hit our mark and how we can improve.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 
 					<h4>
 						{ __(
 							'On a scale of 1 = difficult to 5 = very easy, how would you rate the overall experience?',
-							'woocommerce'
+							'poocommerce'
 						) }
 						<span>*</span>
 					</h4>
@@ -146,11 +146,11 @@ export const SurveyForm = ( {
 						{ showAISurvey
 							? __(
 									'What motivated you to choose the “Design with AI” option?',
-									'woocommerce'
+									'poocommerce'
 							  )
 							: __(
 									'What motivated you to choose the "Design your own theme" option?',
-									'woocommerce'
+									'poocommerce'
 							  ) }
 						<span>*</span>
 					</h4>
@@ -159,11 +159,11 @@ export const SurveyForm = ( {
 							showAISurvey
 								? __(
 										'I wanted to see how AI could help me streamline the process.',
-										'woocommerce'
+										'poocommerce'
 								  )
 								: __(
 										'I wanted to design my own theme.',
-										'woocommerce'
+										'poocommerce'
 								  )
 						}
 						checked={ isStreamlineChecked }
@@ -172,7 +172,7 @@ export const SurveyForm = ( {
 					<CheckboxControl
 						label={ __(
 							"I didn't like any of the available themes.",
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ isDislikeThemesChecked }
 						onChange={ setDislikeChecked }
@@ -180,13 +180,13 @@ export const SurveyForm = ( {
 					<CheckboxControl
 						label={ __(
 							"I didn't find a theme that matched my needs.",
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ isThemeNoMatchChecked }
 						onChange={ setThemeNoMatchChecked }
 					/>
 					<CheckboxControl
-						label={ __( 'Other.', 'woocommerce' ) }
+						label={ __( 'Other.', 'poocommerce' ) }
 						checked={ isOtherChecked }
 						onChange={ setOtherChecked }
 					/>
@@ -196,7 +196,7 @@ export const SurveyForm = ( {
 					<h4>
 						{ __(
 							'Did you find anything confusing, irrelevant, or not useful?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</h4>
 					<TextareaControl
@@ -210,11 +210,11 @@ export const SurveyForm = ( {
 						{ showAISurvey
 							? __(
 									'Feel free to spill the beans here. All suggestions, feedback, or comments about the AI-generated store experience are welcome.',
-									'woocommerce'
+									'poocommerce'
 							  )
 							: __(
 									'Feel free to spill the beans here. All suggestions, feedback, or comments about the "Design your own theme" experience are welcome.',
-									'woocommerce'
+									'poocommerce'
 							  ) }
 					</h4>
 					<TextareaControl
@@ -231,7 +231,7 @@ export const SurveyForm = ( {
 							variant="tertiary"
 							onClick={ closeFunction }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 
 						<Button
@@ -239,7 +239,7 @@ export const SurveyForm = ( {
 							onClick={ sendData }
 							disabled={ disableSendButton }
 						>
-							{ __( 'Send', 'woocommerce' ) }
+							{ __( 'Send', 'poocommerce' ) }
 						</Button>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
 /**
  * Pseudo payment gateway for registering pseudo payment gateways for the settings page.

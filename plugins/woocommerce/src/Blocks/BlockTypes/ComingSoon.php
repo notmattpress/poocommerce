@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ComingSoon class.
@@ -36,7 +36,7 @@ class ComingSoon extends AbstractBlock {
 		if ( isset( $attributes['style']['color']['background'] ) ) {
 			wp_add_inline_style(
 				'wc-blocks-style',
-				':root{--woocommerce-coming-soon-color: ' . esc_html( $attributes['style']['color']['background'] ) . '}'
+				':root{--poocommerce-coming-soon-color: ' . esc_html( $attributes['style']['color']['background'] ) . '}'
 			);
 		}
 	}

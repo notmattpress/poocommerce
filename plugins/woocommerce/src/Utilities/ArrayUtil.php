@@ -3,7 +3,7 @@
  * A class of utilities for dealing with arrays.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * A class of utilities for dealing with arrays.

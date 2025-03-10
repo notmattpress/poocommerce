@@ -14,13 +14,13 @@ import {
 	isErrorResponse,
 	isFailResponse,
 	isSuccessResponse,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import type { createErrorNotice as originalCreateErrorNotice } from '@wordpress/notices/store/actions';
 import {
 	type ActionCreatorsOf,
 	type ConfigOf,
 } from '@wordpress/data/build-types/types';
-import { checkoutStore } from '@woocommerce/block-data';
+import { checkoutStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -109,7 +109,7 @@ export const runCheckoutFailObservers = ( {
 				data.processingResponse?.message ||
 				__(
 					'Something went wrong. Please contact us to get assistance.',
-					'woocommerce'
+					'poocommerce'
 				);
 			createErrorNotice( message, {
 				id: 'checkout',
@@ -224,7 +224,7 @@ export const getPaymentResultFromCheckoutResponse = (
 	) {
 		paymentResult.message = __(
 			'Something went wrong. Please contact us to get assistance.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 

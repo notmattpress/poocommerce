@@ -1,18 +1,18 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/accordion-item",
+	"name": "poocommerce/accordion-item",
 	"version": "0.1.0",
 	"title": "Accordion",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "A single accordion that displays a header and expandable content.",
 	"example": {},
 	"__experimental": true,
-	"parent": [ "woocommerce/accordion-group" ],
+	"parent": [ "poocommerce/accordion-group" ],
 	"allowedBlocks": [
-		"woocommerce/accordion-header",
-		"woocommerce/accordion-panel"
+		"poocommerce/accordion-header",
+		"poocommerce/accordion-panel"
 	],
 	"supports": {
 		"align": [ "wide", "full" ],
@@ -46,5 +46,5 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce"
+	"textdomain": "poocommerce"
 }
