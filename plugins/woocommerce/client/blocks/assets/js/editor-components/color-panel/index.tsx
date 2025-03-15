@@ -4,7 +4,7 @@
  */
 import { useMemo, RefObject } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { getElementBackgroundColor } from '@woocommerce/utils';
+import { getElementBackgroundColor } from '@poocommerce/utils';
 import {
 	store as blockEditorStore,
 	getColorClassName,

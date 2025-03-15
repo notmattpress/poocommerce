@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer as EmailRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\Renderer\Blocks\WooContent;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer as EmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\Renderer\Blocks\WooContent;
 
 /**
  * Class responsible for rendering block-based emails.
@@ -47,11 +47,11 @@ class BlockEmailRenderer {
 	 * @internal
 	 */
 	final public function init(): void {
-		add_action( 'woocommerce_blocks_renderer_initialized', array( $this, 'register_block_renderers' ) );
+		add_action( 'poocommerce_blocks_renderer_initialized', array( $this, 'register_block_renderers' ) );
 	}
 
 	/**
-	 * Callback for registering WooCommerce email block renderers.
+	 * Callback for registering PooCommerce email block renderers.
 	 *
 	 * @param Blocks_Registry $blocks_registry Block renderer registry.
 	 */
@@ -63,8 +63,8 @@ class BlockEmailRenderer {
 	 * Maybe render block-based email content.
 	 *
 	 * @param \WP_Post  $email_post Email post.
-	 * @param string    $woo_content WooCommerce email content.
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param string    $woo_content PooCommerce email content.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string Modified email content
 	 */
 	public function render_block_email( \WP_Post $email_post, string $woo_content, \WC_Email $wc_email ): ?string {
@@ -86,7 +86,7 @@ class BlockEmailRenderer {
 	 * Get the email post for a given WC_Email.
 	 * Temporarily using the email ID as the post title for storing the association.
 	 *
-	 * @param \WC_Email $email WooCommerce email.
+	 * @param \WC_Email $email PooCommerce email.
 	 * @return \WP_Post|null
 	 */
 	public function get_email_post_by_wc_email( \WC_Email $email ): ?\WP_Post {
@@ -108,7 +108,7 @@ class BlockEmailRenderer {
 	/**
 	 * Prepare context data for personalization.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return array
 	 */
 	private function prepare_context_data( \WC_Email $wc_email ): array {

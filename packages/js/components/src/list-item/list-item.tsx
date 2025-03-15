@@ -28,7 +28,7 @@ export const ListItem = ( {
 		<SortableItem
 			{ ...props }
 			index={ index }
-			className={ classnames( 'woocommerce-list-item', className ) }
+			className={ classnames( 'poocommerce-list-item', className ) }
 		>
 			{ isDraggable && <SortableHandle /> }
 			{ children }

@@ -2,14 +2,14 @@
 /**
  * Reports Orders Stats REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**
  * WC_Admin_Tests_API_Reports_Orders_Stats
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Tests_API_Reports_Orders_Stats
@@ -190,7 +190,7 @@ class WC_Admin_Tests_API_Reports_Orders_Stats extends WC_REST_Unit_Test_Case {
 		}
 
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
-		WC_Helper_Queue::run_all_pending( 'woocommerce-db-updates' );
+		WC_Helper_Queue::run_all_pending( 'poocommerce-db-updates' );
 
 		$request = new WP_REST_Request( 'GET', $this->endpoint );
 		$request->set_query_params( array( 'per_page' => 15 ) );

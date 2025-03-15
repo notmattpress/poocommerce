@@ -39,14 +39,14 @@ class WebPreview extends Component {
 		const { className, loadingContent, src, title } = this.props;
 		const { isLoading } = this.state;
 
-		const classes = classnames( 'woocommerce-web-preview', className, {
+		const classes = classnames( 'poocommerce-web-preview', className, {
 			'is-loading': isLoading,
 		} );
 
 		return (
 			<div className={ classes }>
 				{ isLoading && loadingContent }
-				<div className="woocommerce-web-preview__iframe-wrapper">
+				<div className="poocommerce-web-preview__iframe-wrapper">
 					<iframe
 						ref={ this.iframeRef }
 						title={ title }

@@ -49,7 +49,7 @@ export type ProductFiltersContext = {
 	activeFilters: ActiveFilter[];
 };
 
-const productFiltersStore = store( 'woocommerce/product-filters', {
+const productFiltersStore = store( 'poocommerce/product-filters', {
 	state: {
 		get params() {
 			const { activeFilters } = getContext< ProductFiltersContext >();

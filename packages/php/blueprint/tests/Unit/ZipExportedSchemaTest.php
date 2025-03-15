@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit;
 
-use Automattic\WooCommerce\Blueprint\Tests\TestCase;
-use Automattic\WooCommerce\Blueprint\ZipExportedSchema;
+use Automattic\PooCommerce\Blueprint\Tests\TestCase;
+use Automattic\PooCommerce\Blueprint\ZipExportedSchema;
 
 /**
  * Class ZipExportedSchemaTest

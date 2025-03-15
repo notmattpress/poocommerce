@@ -19,7 +19,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 
 	return (
 		<RangeControl
-			label={ __( 'Number of Thumbnails', 'woocommerce' ) }
+			label={ __( 'Number of Thumbnails', 'poocommerce' ) }
 			value={ numberOfThumbnails }
 			onChange={ ( value: number ) =>
 				setAttributes( {
@@ -28,7 +28,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 			}
 			help={ __(
 				'Choose how many thumbnails (3-8) will display. If more images exist, a “View all” button will display.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			max={ maxNumberOfThumbnails }
 			min={ minNumberOfThumbnails }

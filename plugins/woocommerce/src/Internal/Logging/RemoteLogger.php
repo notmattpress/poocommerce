@@ -1,33 +1,33 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Logging;
+namespace Automattic\PooCommerce\Internal\Logging;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
-use Automattic\WooCommerce\Internal\McStats;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\McStats;
 use Jetpack_Options;
 use WC_Rate_Limiter;
 use WC_Log_Levels;
 use WC_Site_Tracking;
 
 /**
- * WooCommerce Remote Logger
+ * PooCommerce Remote Logger
  *
- * The WooCommerce remote logger class adds functionality to log WooCommerce errors remotely based on if the customer opted in and several other conditions.
+ * The PooCommerce remote logger class adds functionality to log PooCommerce errors remotely based on if the customer opted in and several other conditions.
  *
  * No personal information is logged, only error information and relevant context.
  *
  * @class RemoteLogger
  * @since 9.2.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 class RemoteLogger extends \WC_Log_Handler {
 
 	const LOG_ENDPOINT             = 'https://public-api.wordpress.com/rest/v1.1/logstash';
-	const RATE_LIMIT_ID            = 'woocommerce_remote_logging';
+	const RATE_LIMIT_ID            = 'poocommerce_remote_logging';
 	const RATE_LIMIT_DELAY         = 60; // 1 minute.
-	const WC_NEW_VERSION_TRANSIENT = 'woocommerce_new_version';
+	const WC_NEW_VERSION_TRANSIENT = 'poocommerce_new_version';
 
 	/**
 	 * Handle a log entry.
@@ -71,11 +71,11 @@ class RemoteLogger extends \WC_Log_Handler {
 	public function get_formatted_log( $level, $message, $context = array() ) {
 		$log_data = array(
 			// Default fields.
-			'feature'    => 'woocommerce_core',
+			'feature'    => 'poocommerce_core',
 			'severity'   => $level,
 			'message'    => $this->sanitize( $message ),
 			'host'       => SafeGlobalFunctionProxy::wp_parse_url( SafeGlobalFunctionProxy::home_url(), PHP_URL_HOST ) ?? 'Unable to retrieve host',
-			'tags'       => array( 'woocommerce', 'php' ),
+			'tags'       => array( 'poocommerce', 'php' ),
 			'properties' => array(
 				'wc_version'  => $this->get_wc_version(),
 				'php_version' => phpversion(),
@@ -130,7 +130,7 @@ class RemoteLogger extends \WC_Log_Handler {
 		 *
 		 * @return array The filtered log data.
 		 */
-		return apply_filters( 'woocommerce_remote_logger_formatted_log_data', $log_data, $level, $message, $context );
+		return apply_filters( 'poocommerce_remote_logger_formatted_log_data', $log_data, $level, $message, $context );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class RemoteLogger extends \WC_Log_Handler {
 	 * 1. The feature flag for remote error logging is enabled.
 	 * 2. The user has opted into tracking/logging.
 	 * 3. The store is allowed to log based on the variant assignment percentage.
-	 * 4. The current WooCommerce version is the latest so we don't log errors that might have been fixed in a newer version.
+	 * 4. The current PooCommerce version is the latest so we don't log errors that might have been fixed in a newer version.
 	 *
 	 * @return bool
 	 */
@@ -262,7 +262,7 @@ class RemoteLogger extends \WC_Log_Handler {
 	}
 
 	/**
-	 * Check if the current WooCommerce version is the latest.
+	 * Check if the current PooCommerce version is the latest.
 	 *
 	 * @return bool
 	 */
@@ -270,7 +270,7 @@ class RemoteLogger extends \WC_Log_Handler {
 		$new_version = SafeGlobalFunctionProxy::get_site_transient( self::WC_NEW_VERSION_TRANSIENT ) ?? '';
 
 		if ( false === $new_version ) {
-			$new_version = $this->fetch_new_woocommerce_version();
+			$new_version = $this->fetch_new_poocommerce_version();
 			// Cache the new version for a week since we want to keep logging in with the same version for a while even if the new version is available.
 			SafeGlobalFunctionProxy::set_site_transient( self::WC_NEW_VERSION_TRANSIENT, $new_version, WEEK_IN_SECONDS );
 		}
@@ -285,9 +285,9 @@ class RemoteLogger extends \WC_Log_Handler {
 	}
 
 	/**
-	 * Get the current WooCommerce version reliably through a series of fallbacks
+	 * Get the current PooCommerce version reliably through a series of fallbacks
 	 *
-	 * @return string The current WooCommerce version.
+	 * @return string The current PooCommerce version.
 	 */
 	private function get_wc_version() {
 		if ( class_exists( '\Automattic\Jetpack\Constants' ) && method_exists( '\Automattic\Jetpack\Constants', 'get_constant' ) ) {
@@ -325,7 +325,7 @@ class RemoteLogger extends \WC_Log_Handler {
 
 		$wc_plugin_dir = StringUtil::normalize_local_path_slashes( WC_ABSPATH );
 
-		// Check if the error message contains the WooCommerce plugin directory.
+		// Check if the error message contains the PooCommerce plugin directory.
 		if ( str_contains( $message, $wc_plugin_dir ) ) {
 			return false;
 		}
@@ -351,7 +351,7 @@ class RemoteLogger extends \WC_Log_Handler {
 				break;
 			}
 
-			// Check if the relevant frame is from WooCommerce.
+			// Check if the relevant frame is from PooCommerce.
 			if ( $relevant_frame && strpos( $relevant_frame, $wc_plugin_dir ) !== false ) {
 				return false;
 			}
@@ -369,18 +369,18 @@ class RemoteLogger extends \WC_Log_Handler {
 		 * @param string $message              The error message.
 		 * @param array  $context              The error context.
 		 */
-		return apply_filters( 'woocommerce_remote_logging_is_third_party_error', true, $message, $context );
+		return apply_filters( 'poocommerce_remote_logging_is_third_party_error', true, $message, $context );
 	}
 
 	/**
-	 * Fetch the new version of WooCommerce from the WordPress API.
+	 * Fetch the new version of PooCommerce from the WordPress API.
 	 *
 	 * @return string|null New version if an update is available, null otherwise.
 	 */
-	private function fetch_new_woocommerce_version() {
+	private function fetch_new_poocommerce_version() {
 		$plugin_updates = SafeGlobalFunctionProxy::get_plugin_updates();
 
-		// Check if WooCommerce plugin update information is available.
+		// Check if PooCommerce plugin update information is available.
 		if ( ! is_array( $plugin_updates ) || ! isset( $plugin_updates[ WC_PLUGIN_BASENAME ] ) ) {
 			return null;
 		}
@@ -407,8 +407,8 @@ class RemoteLogger extends \WC_Log_Handler {
 	 *
 	 * For example, the trace:
 	 *
-	 * /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-remote-logger.php on line 123
-	 * will be sanitized to: **\/woocommerce/includes/class-wc-remote-logger.php on line 123
+	 * /var/www/html/wp-content/plugins/poocommerce/includes/class-wc-remote-logger.php on line 123
+	 * will be sanitized to: **\/poocommerce/includes/class-wc-remote-logger.php on line 123
 	 *
 	 * Additionally, any user data like email addresses or phone numbers will be redacted.
 	 *
@@ -436,7 +436,7 @@ class RemoteLogger extends \WC_Log_Handler {
 		 * @param string $sanitized The sanitized content.
 		 * @param string $content The original content.
 		 */
-		return apply_filters( 'woocommerce_remote_logger_sanitized_content', $sanitized, $content );
+		return apply_filters( 'poocommerce_remote_logger_sanitized_content', $sanitized, $content );
 	}
 
 	/**
@@ -577,7 +577,7 @@ class RemoteLogger extends \WC_Log_Handler {
 		 *
 		 * @param string   $default_whitelist The default whitelist of query parameters.
 		 */
-		$whitelist = apply_filters( 'woocommerce_remote_logger_request_uri_whitelist', $default_whitelist );
+		$whitelist = apply_filters( 'poocommerce_remote_logger_request_uri_whitelist', $default_whitelist );
 
 		$parsed_url = SafeGlobalFunctionProxy::wp_parse_url( $request_uri );
 		if ( ! is_array( $parsed_url ) || ! isset( $parsed_url['query'] ) ) {

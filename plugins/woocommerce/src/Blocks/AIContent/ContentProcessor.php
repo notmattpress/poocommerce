@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AIContent;
+namespace Automattic\PooCommerce\Blocks\AIContent;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
-use Automattic\WooCommerce\Blocks\Images\Pexels;
+use Automattic\PooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\Images\Pexels;
 use WP_Error;
 
 /**
@@ -27,7 +27,7 @@ class ContentProcessor {
 	 */
 	public static function summarize_business_description( $business_description, $ai_connection, $token, $character_limit = 150 ) {
 		if ( empty( $business_description ) ) {
-			return new WP_Error( 'business_description_not_found', __( 'No business description provided for generating AI content.', 'woocommerce' ) );
+			return new WP_Error( 'business_description_not_found', __( 'No business description provided for generating AI content.', 'poocommerce' ) );
 		}
 
 		if ( strlen( $business_description ) > $character_limit ) {
@@ -63,7 +63,7 @@ class ContentProcessor {
 		}
 
 		if ( empty( $images['images'] ) || empty( $images['search_term'] ) ) {
-			return new WP_Error( 'images_not_found', __( 'No images provided for generating AI content.', 'woocommerce' ) );
+			return new WP_Error( 'images_not_found', __( 'No images provided for generating AI content.', 'poocommerce' ) );
 		}
 
 		return $images;

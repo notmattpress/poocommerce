@@ -20,15 +20,15 @@ export function RadioField( {
 	return (
 		<RadioControl
 			{ ...props }
-			className={ classNames( className, 'woocommerce-radio-field' ) }
+			className={ classNames( className, 'poocommerce-radio-field' ) }
 			label={
 				<>
-					<span className="woocommerce-radio-field__title">
+					<span className="poocommerce-radio-field__title">
 						{ title }
 					</span>
 					{ description && (
 						<span
-							className="woocommerce-radio-field__description"
+							className="poocommerce-radio-field__description"
 							dangerouslySetInnerHTML={ sanitizeHTML(
 								description
 							) }

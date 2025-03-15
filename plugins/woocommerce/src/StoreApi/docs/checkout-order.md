@@ -114,7 +114,7 @@ curl --header "Nonce: 12345" --request POST https://example-store.com/wp-json/wc
 
 There are many payment gateways available for merchants to use, and each one will be expecting different `payment_data`. We cannot comprehensively list all expected requests for all payment gateways, and we would recommend reaching out to the authors of the payment gateway plugins you're working with for further information.
 
-An example of the payment data sent to the Checkout Order endpoint when using the [WooCommerce Stripe Payment Gateway](https://wordpress.org/plugins/woocommerce-gateway-stripe/) is shown below.
+An example of the payment data sent to the Checkout Order endpoint when using the [PooCommerce Stripe Payment Gateway](https://wordpress.org/plugins/poocommerce-gateway-stripe/) is shown below.
 
 For further information on generating a `stripe_source` please check [the Stripe documentation](https://stripe.com/docs).
 
@@ -157,9 +157,9 @@ For further information on generating a `stripe_source` please check [the Stripe
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/checkout-order.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./src/StoreApi/docs/checkout-order.md)
 
 <!-- /FEEDBACK -->
 

@@ -6,8 +6,8 @@ import ProductIcon from 'gridicons/dist/product';
 import CloudOutlineIcon from 'gridicons/dist/cloud-outline';
 import TypesIcon from 'gridicons/dist/types';
 import { Icon, chevronRight } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
-import { getAdminLink } from '@woocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -21,45 +21,45 @@ import Upload from './icon/upload_40px.js';
 export const productTypes = Object.freeze( [
 	{
 		key: 'physical' as const,
-		title: __( 'Physical product', 'woocommerce' ),
+		title: __( 'Physical product', 'poocommerce' ),
 		content: __(
 			'A tangible item that gets delivered to customers.',
-			'woocommerce'
+			'poocommerce'
 		),
 		before: <ProductIcon />,
 		after: <Icon icon={ chevronRight } />,
 	},
 	{
 		key: 'digital' as const,
-		title: __( 'Digital product', 'woocommerce' ),
+		title: __( 'Digital product', 'poocommerce' ),
 		content: __(
 			'A digital product like service, downloadable book, music or video.',
-			'woocommerce'
+			'poocommerce'
 		),
 		before: <CloudOutlineIcon />,
 		after: <Icon icon={ chevronRight } />,
 	},
 	{
 		key: 'variable' as const,
-		title: __( 'Variable product', 'woocommerce' ),
+		title: __( 'Variable product', 'poocommerce' ),
 		content: __(
 			'A product with variations like color or size.',
-			'woocommerce'
+			'poocommerce'
 		),
 		before: <TypesIcon />,
 		after: <Icon icon={ chevronRight } />,
 	},
 	{
 		key: 'grouped' as const,
-		title: __( 'Grouped product', 'woocommerce' ),
-		content: __( 'A collection of related products.', 'woocommerce' ),
+		title: __( 'Grouped product', 'poocommerce' ),
+		content: __( 'A collection of related products.', 'poocommerce' ),
 		before: <Widget />,
 		after: <Icon icon={ chevronRight } />,
 	},
 	{
 		key: 'external' as const,
-		title: __( 'External product', 'woocommerce' ),
-		content: __( 'Link a product to an external website.', 'woocommerce' ),
+		title: __( 'External product', 'poocommerce' ),
+		content: __( 'Link a product to an external website.', 'poocommerce' ),
 		before: <Link />,
 		after: <Icon icon={ chevronRight } />,
 	},
@@ -67,28 +67,28 @@ export const productTypes = Object.freeze( [
 
 export const LoadSampleProductType = {
 	key: 'load-sample-product' as const,
-	title: __( 'can’t decide?', 'woocommerce' ),
+	title: __( 'can’t decide?', 'poocommerce' ),
 	content: __(
 		'Load sample products and see what they look like in your store.',
-		'woocommerce'
+		'poocommerce'
 	),
 	before: <LightBulb />,
 	after: <Icon icon={ chevronRight } />,
-	className: 'woocommerce-products-list__item-load-sample-product',
+	className: 'poocommerce-products-list__item-load-sample-product',
 };
 
 export const PrintfulAdvertProductPlacement = {
 	key: 'printful-advert' as const,
 	title: (
 		<span className="printful-sponsored__text">
-			{ __( 'Print-on-demand products', 'woocommerce' ) }
+			{ __( 'Print-on-demand products', 'poocommerce' ) }
 		</span>
 	),
 	content: __(
 		'Design and easily sell custom print products online with Printful.',
-		'woocommerce'
+		'poocommerce'
 	),
-	className: 'woocommerce-products-list__item-advert',
+	className: 'poocommerce-products-list__item-advert',
 	before: (
 		<img
 			className="printful-sponsored__icon"
@@ -97,14 +97,14 @@ export const PrintfulAdvertProductPlacement = {
 		/>
 	),
 	after: (
-		<div className="woocommerce-label">
-			{ __( 'Promoted', 'woocommerce' ) }
+		<div className="poocommerce-label">
+			{ __( 'Promoted', 'poocommerce' ) }
 		</div>
 	),
 	onClick: () => {
 		recordEvent( 'tasklist_product_printful_advert_click' );
 		window.open(
-			'https://woocommerce.com/products/printful',
+			'https://poocommerce.com/products/printful',
 			'_blank',
 			'noopener,noreferrer'
 		);
@@ -115,11 +115,11 @@ export const ImportCSVItem = {
 	key: 'import-csv' as const,
 	title: (
 		<span className="printful-sponsored__text">
-			{ __( 'Are you already selling somewhere else?', 'woocommerce' ) }
+			{ __( 'Are you already selling somewhere else?', 'poocommerce' ) }
 		</span>
 	),
-	content: __( 'Import your products from a CSV file.', 'woocommerce' ),
-	className: 'woocommerce-products-list__item-advert',
+	content: __( 'Import your products from a CSV file.', 'poocommerce' ),
+	className: 'poocommerce-products-list__item-advert',
 	before: <Upload />,
 	after: null,
 	onClick: () => {
@@ -156,7 +156,7 @@ export const defaultSurfacedProductTypes =
 export const supportedOnboardingProductTypes = [ 'physical', 'downloads' ];
 
 export const SETUP_TASKLIST_PRODUCT_TYPES_FILTER =
-	'experimental_woocommerce_tasklist_product_types';
+	'experimental_poocommerce_tasklist_product_types';
 
 export const SETUP_TASKLIST_PRODUCTS_AFTER_FILTER =
-	'woocommerce_admin_task_products_after';
+	'poocommerce_admin_task_products_after';

@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Testimonials 3 Columns
- * Slug: woocommerce-blocks/testimonials-3-columns
- * Categories: WooCommerce, Reviews
+ * Slug: poocommerce-blocks/testimonials-3-columns
+ * Categories: PooCommerce, Reviews
  */
 
 $main_header        = $content['titles'][3]['default'] ?? '';

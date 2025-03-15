@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /**
  * External dependencies
  */
@@ -28,10 +28,10 @@ import SidebarNavigationItem from '@wordpress/edit-site/build-module/components/
 import { SidebarNavigationScreen } from '../sidebar-navigation-screen';
 import { trackEvent } from '~/customize-store/tracking';
 import { CustomizeStoreContext } from '../..';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { PATTERN_CATEGORIES } from '../pattern-screen/categories';
 import { capitalize } from 'lodash';
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 import { useSelect } from '@wordpress/data';
 import { useNetworkStatus } from '~/utils/react-hooks/use-network-status';
 import { useEditorBlocks } from '../../hooks/use-editor-blocks';
@@ -108,7 +108,7 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 	const patternsFromPTK = blockPatterns.filter(
 		( pattern ) =>
 			! pattern.name.includes( THEME_SLUG ) &&
-			! pattern.name.includes( 'woocommerce' ) &&
+			! pattern.name.includes( 'poocommerce' ) &&
 			pattern.source !== 'core' &&
 			pattern.source !== 'pattern-directory/featured' &&
 			pattern.source !== 'pattern-directory/theme' &&
@@ -120,22 +120,22 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 		if ( isNetworkOffline ) {
 			noticeText = __(
 				"Looks like we can't detect your network. Please double-check your internet connection and refresh the page.",
-				'woocommerce'
+				'poocommerce'
 			);
 		} else if ( ! isPTKPatternsAPIAvailable ) {
 			noticeText = __(
 				"Unfortunately, we're experiencing some technical issues — please come back later to access more patterns.",
-				'woocommerce'
+				'poocommerce'
 			);
 		} else if ( ! isTrackingAllowed() ) {
 			noticeText = __(
 				'Opt in to <OptInModal>usage tracking</OptInModal> to get access to more patterns.',
-				'woocommerce'
+				'poocommerce'
 			);
 		} else if ( ! isLoadingPatterns && patternsFromPTK.length === 0 ) {
 			noticeText = __(
 				'Unfortunately, a technical issue is preventing more patterns from being displayed. Please <FetchPatterns>try again</FetchPatterns> later.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 		return noticeText;
@@ -168,11 +168,11 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 		);
 	};
 
-	const title = __( 'Design your homepage', 'woocommerce' );
+	const title = __( 'Design your homepage', 'poocommerce' );
 
 	const sidebarMessage = __(
 		'Create an engaging homepage by adding and combining different patterns and layouts. You can continue customizing this page, including the content, later via the Editor.',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	const path = useQuery().path;
@@ -183,14 +183,14 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 			onNavigateBackClick={ onNavigateBackClick }
 			description={ sidebarMessage }
 			content={
-				<div className="woocommerce-customize-store__sidebar-homepage-content">
-					<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage">
+				<div className="poocommerce-customize-store__sidebar-homepage-content">
+					<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage">
 						{ Object.entries( PATTERN_CATEGORIES ).map(
 							( [ categoryKey, { label } ], index ) => (
 								<ItemGroup key={ index }>
 									<NavigatorButton
 										className={ clsx( {
-											'woocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-item--active':
+											'poocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-item--active':
 												isActiveElement(
 													path,
 													categoryKey
@@ -214,13 +214,13 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 										as={ SidebarNavigationItem }
 										withChevron
 									>
-										<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-label-container">
+										<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-label-container">
 											<span>{ capitalize( label ) }</span>
 											{ blocks.length > 0 &&
 												numberOfPatternsAdded[
 													categoryKey
 												] > 0 && (
-													<span className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-number-pattern">
+													<span className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-homepage-number-pattern">
 														{
 															numberOfPatternsAdded[
 																categoryKey
@@ -234,11 +234,11 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 							)
 						) }
 						{ notice && (
-							<div className="woocommerce-customize-store_sidebar-patterns-upgrade-notice">
+							<div className="poocommerce-customize-store_sidebar-patterns-upgrade-notice">
 								<h4>
 									{ __(
 										'Want more patterns?',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</h4>
 								<p>
@@ -269,11 +269,11 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 								{ isModalOpen && (
 									<Modal
 										className={
-											'woocommerce-customize-store__opt-in-usage-tracking-modal'
+											'poocommerce-customize-store__opt-in-usage-tracking-modal'
 										}
 										title={ __(
 											'Access more patterns',
-											'woocommerce'
+											'poocommerce'
 										) }
 										onRequestClose={ closeModal }
 										shouldCloseOnClickOutside={ false }
@@ -283,13 +283,13 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 											// @ts-expect-error Types are incorrect for this prop.
 											label={ interpolateComponents( {
 												mixedString: __(
-													'More patterns from the WooCommerce.com library are available! Opt in to connect your store and access the full library, plus get more relevant content and a tailored store setup experience. Opting in will enable {{link}}usage tracking{{/link}}, which you can opt out of at any time via WooCommerce settings.',
-													'woocommerce'
+													'More patterns from the PooCommerce.com library are available! Opt in to connect your store and access the full library, plus get more relevant content and a tailored store setup experience. Opting in will enable {{link}}usage tracking{{/link}}, which you can opt out of at any time via PooCommerce settings.',
+													'poocommerce'
 												),
 												components: {
 													link: (
 														<Link
-															href="https://woocommerce.com/usage-tracking?utm_medium=product"
+															href="https://poocommerce.com/usage-tracking?utm_medium=product"
 															target="_blank"
 															type="external"
 														/>
@@ -299,7 +299,7 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 											checked={ optInDataSharing }
 											onChange={ setIsOptInDataSharing }
 										/>
-										<div className="woocommerce-customize-store__design-change-warning-modal-footer">
+										<div className="poocommerce-customize-store__design-change-warning-modal-footer">
 											<Button
 												onClick={ () => {
 													skipOptIn();
@@ -309,7 +309,7 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 											>
 												{ __(
 													'Cancel',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Button>
 											<Button
@@ -332,7 +332,7 @@ export const SidebarNavigationScreenHomepagePTK = ( {
 												) : (
 													__(
 														'Opt in',
-														'woocommerce'
+														'poocommerce'
 													)
 												) }
 											</Button>

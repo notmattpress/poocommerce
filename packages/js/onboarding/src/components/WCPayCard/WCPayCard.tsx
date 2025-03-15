@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { Card, CardBody, CardHeader, CardFooter } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import { createElement } from '@wordpress/element';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -45,7 +45,7 @@ export const WCPayCardBody: React.VFC< WCPayCardBodyProps > = ( {
 		{ heading && <Text as="h2">{ heading }</Text> }
 
 		<Text
-			className="woocommerce-task-payment-wcpay__description"
+			className="poocommerce-task-payment-wcpay__description"
 			as="p"
 			lineHeight="1.5em"
 		>
@@ -55,10 +55,10 @@ export const WCPayCardBody: React.VFC< WCPayCardBodyProps > = ( {
 				target="_blank"
 				type="external"
 				rel="noreferrer"
-				href="https://woocommerce.com/payments/?utm_medium=product"
+				href="https://poocommerce.com/payments/?utm_medium=product"
 				onClick={ onLinkClick }
 			>
-				{ __( 'Learn more', 'woocommerce' ) }
+				{ __( 'Learn more', 'poocommerce' ) }
 			</Link>
 		</Text>
 
@@ -73,5 +73,5 @@ export const WCPayCardFooter: React.FC< { children?: React.ReactNode } > = ( {
 export const WCPayCard: React.FC< { children?: React.ReactNode } > = ( {
 	children,
 } ) => {
-	return <Card className="woocommerce-task-payment-wcpay">{ children }</Card>;
+	return <Card className="poocommerce-task-payment-wcpay">{ children }</Card>;
 };

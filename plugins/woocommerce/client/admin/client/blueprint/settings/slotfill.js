@@ -12,7 +12,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { useState, createInterpolateElement } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
 import { __, sprintf } from '@wordpress/i18n';
-import { CollapsibleContent } from '@woocommerce/components';
+import { CollapsibleContent } from '@poocommerce/components';
 import { settings, plugins, brush } from '@wordpress/icons';
 
 /**
@@ -115,38 +115,38 @@ const Blueprint = () => {
 					{ error }
 				</Notice>
 			) }
-			<h3>{ __( 'Blueprint', 'woocommerce' ) }</h3>
+			<h3>{ __( 'Blueprint', 'poocommerce' ) }</h3>
 			<p className="blueprint-settings-intro-text">
 				{ createInterpolateElement(
 					__(
 						'Blueprints are setup files that contain all the installation instructions, including plugins, themes, and setting. Ease the setup process, allow teams to apply each others’ changes and much more. <docLink />',
-						'woocommerce'
+						'poocommerce'
 					),
 					{
 						docLink: (
 							<a
 								href="#tba"
-								className="woocommerce-admin-inline-documentation-link"
+								className="poocommerce-admin-inline-documentation-link"
 							>
-								{ __( 'Learn more', 'woocommerce' ) }
+								{ __( 'Learn more', 'poocommerce' ) }
 							</a>
 						),
 					}
 				) }
 			</p>
-			<h4>{ __( 'Import', 'woocommerce' ) }</h4>
+			<h4>{ __( 'Import', 'poocommerce' ) }</h4>
 			<p>
 				{ __(
 					'Import .json file, max size 50 MB. Only one Blueprint can be imported at a time.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<BlueprintUploadDropzone />
-			<h4>{ __( 'Export', 'woocommerce' ) }</h4>
+			<h4>{ __( 'Export', 'poocommerce' ) }</h4>
 			<p className="blueprint-settings-export-intro">
 				{ __(
 					'Choose what you want to include, and export it as a .zip file.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			{ blueprintStepGroups.map( ( group, index ) => (
@@ -155,7 +155,7 @@ const Blueprint = () => {
 						icon={ icons[ group.icon ] ?? icons.settings }
 						alt={ sprintf(
 							// translators: %s: icon name. Does not need to be translated.
-							__( 'Blueprint setting icon - %s', 'woocommerce' ),
+							__( 'Blueprint setting icon - %s', 'poocommerce' ),
 							group.icon
 						) }
 					/>
@@ -202,7 +202,7 @@ const Blueprint = () => {
 				disabled={ ! exportEnabled }
 				isBusy={ ! exportEnabled }
 			>
-				{ __( 'Export', 'woocommerce' ) }
+				{ __( 'Export', 'poocommerce' ) }
 			</Button>
 		</div>
 	);
@@ -217,8 +217,8 @@ const BlueprintSlotfill = () => {
 };
 
 export const registerBlueprintSlotfill = () => {
-	registerPlugin( 'woocommerce-admin-blueprint-settings-slotfill', {
-		scope: 'woocommerce-blueprint-settings',
+	registerPlugin( 'poocommerce-admin-blueprint-settings-slotfill', {
+		scope: 'poocommerce-blueprint-settings',
 		render: BlueprintSlotfill,
 	} );
 };

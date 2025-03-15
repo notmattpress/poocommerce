@@ -22,17 +22,17 @@ const transformModules = {
 module.exports = {
 	moduleNameMapper: {
 		tinymce: path.resolve( __dirname, 'build/mocks/tinymce' ),
-		'@woocommerce/settings': path.resolve(
+		'@poocommerce/settings': path.resolve(
 			__dirname,
-			'build/mocks/woocommerce-settings'
+			'build/mocks/poocommerce-settings'
 		),
-		'@woocommerce/tracks': path.resolve(
+		'@poocommerce/tracks': path.resolve(
 			__dirname,
-			'build/mocks/woocommerce-tracks'
+			'build/mocks/poocommerce-tracks'
 		),
 		'~/(.*)': path.resolve(
 			__dirname,
-			'../../../plugins/woocommerce/client/admin/client/$1'
+			'../../../plugins/poocommerce/client/admin/client/$1'
 		),
 		'\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
 			path.resolve( __dirname, 'build/mocks/static' ),

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Logging;
+namespace Automattic\PooCommerce\Internal\Admin\Logging;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController };
 use WC_Log_Handler;
 
 /**
@@ -94,10 +94,10 @@ class LogHandlerFileV2 extends WC_Log_Handler {
 
 		$entry = "$time_string $level_string $message";
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		/** This filter is documented in includes/abstracts/abstract-wc-log-handler.php */
 		return apply_filters(
-			'woocommerce_format_log_entry',
+			'poocommerce_format_log_entry',
 			$entry,
 			array(
 				'timestamp' => $timestamp,
@@ -106,7 +106,7 @@ class LogHandlerFileV2 extends WC_Log_Handler {
 				'context'   => $context,
 			)
 		);
-		// phpcs:enable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:enable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -200,7 +200,7 @@ class LogHandlerFileV2 extends WC_Log_Handler {
 							'%1$s log file from source %2$s was deleted.',
 							'%1$s log files from source %2$s were deleted.',
 							$deleted,
-							'woocommerce'
+							'poocommerce'
 						)
 					),
 					number_format_i18n( $deleted ),
@@ -255,7 +255,7 @@ class LogHandlerFileV2 extends WC_Log_Handler {
 				 *
 				 * @since 8.7.0
 				 */
-				$delete = apply_filters( 'woocommerce_logger_delete_expired_file', true, $file, $timestamp );
+				$delete = apply_filters( 'poocommerce_logger_delete_expired_file', true, $file, $timestamp );
 
 				return boolval( $delete );
 			}
@@ -284,7 +284,7 @@ class LogHandlerFileV2 extends WC_Log_Handler {
 							'%s expired log file was deleted.',
 							'%s expired log files were deleted.',
 							$deleted,
-							'woocommerce'
+							'poocommerce'
 						)
 					),
 					number_format_i18n( $deleted )

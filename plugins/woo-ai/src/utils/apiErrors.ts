@@ -8,12 +8,12 @@ export const translateApiErrors = ( error?: string ) => {
 		case 'connection_error':
 			return __(
 				'❗ We were unable to reach the experimental service. Please check back in shortly.',
-				'woocommerce'
+				'poocommerce'
 			);
 		default:
 			return __(
 				`❗ We encountered an issue with this experimental feature. Please check back in shortly.`,
-				'woocommerce'
+				'poocommerce'
 			);
 	}
 };

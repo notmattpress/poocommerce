@@ -75,7 +75,7 @@
 				"webpack*"
 			],
 			"packages": [
-				"@woocommerce/block-library"
+				"@poocommerce/block-library"
 			],
 			"isIgnored": true
 		},
@@ -125,7 +125,7 @@
 			]
 		},
 		{
-			"label": "React-related dependencies: @woocommerce/blocks-library",
+			"label": "React-related dependencies: @poocommerce/blocks-library",
 			"dependencies": [
 				"react",
 				"react-dom",
@@ -134,8 +134,8 @@
 			],
 			"pinVersion": "18.3.x",
 			"packages": [
-				"@woocommerce/block-library",
-				"@woocommerce/storybook"
+				"@poocommerce/block-library",
+				"@poocommerce/storybook"
 			]
 		},
 		{
@@ -253,11 +253,11 @@
 				"@wordpress/icons"
 			],
 			"packages": [
-				"@woocommerce/block-templates",
-				"@woocommerce/product-editor",
-				"@woocommerce/settings-editor",
-				"@woocommerce/admin-library",
-				"@woocommerce/components"
+				"@poocommerce/block-templates",
+				"@poocommerce/product-editor",
+				"@poocommerce/settings-editor",
+				"@poocommerce/admin-library",
+				"@poocommerce/components"
 			],
 			"isIgnored": true
 		},
@@ -266,7 +266,7 @@
 				"@wordpress/**"
 			],
 			"packages": [
-				"@woocommerce/experimental"
+				"@poocommerce/experimental"
 			],
 			"isIgnored": true
 		},
@@ -307,9 +307,9 @@
 			"pinVersion": "^1.15.0"
 		},
 		{
-			"label": "Ensure @woocommerce/* dependencies are locked to the monorepo itself - except certain dependencies (migration pending).",
+			"label": "Ensure @poocommerce/* dependencies are locked to the monorepo itself - except certain dependencies (migration pending).",
 			"dependencies": [
-				"@woocommerce/settings"
+				"@poocommerce/settings"
 			],
 			"packages": [
 				"**"
@@ -317,13 +317,13 @@
 			"pinVersion": "1.0.0"
 		},
 		{
-			"label": "Ensure @woocommerce/* dependencies are locked to the monorepo itself (except peer-deps for now).",
+			"label": "Ensure @poocommerce/* dependencies are locked to the monorepo itself (except peer-deps for now).",
 			"dependencyTypes": [
 				"prod",
 				"dev"
 			],
 			"dependencies": [
-				"@woocommerce/*"
+				"@poocommerce/*"
 			],
 			"packages": [
 				"**"
@@ -463,8 +463,8 @@
 				"babel-jest"
 			],
 			"packages": [
-				"@woocommerce/block-library",
-				"@woocommerce/storybook"
+				"@poocommerce/block-library",
+				"@poocommerce/storybook"
 			],
 			"pinVersion": "29.7.x"
 		},

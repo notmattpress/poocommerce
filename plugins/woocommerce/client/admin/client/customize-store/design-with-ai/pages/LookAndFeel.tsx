@@ -3,9 +3,9 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { ProgressBar } from '@woocommerce/components';
+import { ProgressBar } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -35,27 +35,27 @@ export const LookAndFeel = ( {
 } ) => {
 	const choices = [
 		{
-			title: __( 'Contemporary', 'woocommerce' ),
+			title: __( 'Contemporary', 'poocommerce' ),
 			key: 'Contemporary' as const,
 			subtitle: __(
 				'Clean lines, neutral colors, sleek and modern look.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
-			title: __( 'Classic', 'woocommerce' ),
+			title: __( 'Classic', 'poocommerce' ),
 			key: 'Classic' as const,
 			subtitle: __(
 				'Elegant and timeless with a nostalgic touch.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		{
-			title: __( 'Bold', 'woocommerce' ),
+			title: __( 'Bold', 'poocommerce' ),
 			key: 'Bold' as const,
 			subtitle: __(
 				'Vibrant with eye-catching colors and visuals.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	];
@@ -77,7 +77,7 @@ export const LookAndFeel = ( {
 			{ isEntrepreneurFlow() && (
 				<WordPressLogo
 					size={ 24 }
-					className="woocommerce-cys-wordpress-header-logo"
+					className="poocommerce-cys-wordpress-header-logo"
 				/>
 			) }
 			{ ! isEntrepreneurFlow() && (
@@ -105,12 +105,12 @@ export const LookAndFeel = ( {
 					} }
 				/>
 			) }
-			<div className="woocommerce-cys-design-with-ai-look-and-feel woocommerce-cys-layout">
-				<div className="woocommerce-cys-page">
+			<div className="poocommerce-cys-design-with-ai-look-and-feel poocommerce-cys-layout">
+				<div className="poocommerce-cys-page">
 					<h1>
 						{ __(
 							'How would you like your store to look?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</h1>
 					<div className="choices">
@@ -155,7 +155,7 @@ export const LookAndFeel = ( {
 							} );
 						} }
 					>
-						{ __( 'Continue', 'woocommerce' ) }
+						{ __( 'Continue', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

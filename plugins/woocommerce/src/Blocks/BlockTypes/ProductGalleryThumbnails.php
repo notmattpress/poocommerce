@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 
 /**
  * ProductGalleryThumbnails class.
@@ -84,7 +84,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 		$thumbnails_layout          = max( min( $number_of_images, $number_of_thumbnails ), $default_number_of_thumbnails );
 		$number_of_thumbnails_class = 'wc-block-product-gallery-thumbnails--number-of-thumbnails-' . $thumbnails_layout;
 		$remaining_thumbnails_count = $number_of_images - $number_of_thumbnails;
-		wp_interactivity_config( 'woocommerce/product-gallery', array( 'numberOfThumbnails' => $number_of_thumbnails ) );
+		wp_interactivity_config( 'poocommerce/product-gallery', array( 'numberOfThumbnails' => $number_of_thumbnails ) );
 		// End of temporary solution.
 
 		ob_start();
@@ -93,7 +93,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 			class="wc-block-product-gallery-thumbnails
 						<?php echo esc_attr( $classes_and_styles['classes'] . ' ' . $number_of_thumbnails_class ); ?>" 
 			style="<?php echo esc_attr( $classes_and_styles['styles'] ); ?>"
-			data-wp-interactive="woocommerce/product-gallery">
+			data-wp-interactive="poocommerce/product-gallery">
 			<template
 				data-wp-each--image="state.thumbnails"
 				data-wp-each-key="context.image.id">
@@ -115,7 +115,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 						data-wp-on--keydown="actions.onViewAllImagesKeyDown"
 						tabindex="0">
 						<span class="wc-block-product-gallery-thumbnails__thumbnail__remaining-thumbnails-count">+<?php echo esc_html( $remaining_thumbnails_count ); ?></span>
-						<span class="wc-block-product-gallery-thumbnails__thumbnail__view-all"><?php echo esc_html__( 'View all', 'woocommerce' ); ?></span>
+						<span class="wc-block-product-gallery-thumbnails__thumbnail__view-all"><?php echo esc_html__( 'View all', 'poocommerce' ); ?></span>
 					</div>
 				</div>
 			</template>

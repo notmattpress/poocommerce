@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         WooCommerce Live Branches
+// @name         PooCommerce Live Branches
 // @namespace    https://wordpress.com/
 // @version      1.1.1
 // @description  Adds links to PRs pointing to Jurassic Ninja sites for live-testing a changeset
 // @grant        GM_xmlhttpRequest
 // @connect      jurassic.ninja
 // @require      https://code.jquery.com/jquery-3.3.1.min.js
-// @match        https://github.com/woocommerce/woocommerce/pull/*
+// @match        https://github.com/poocommerce/poocommerce/pull/*
 // ==/UserScript==
 
 // Need to declare "jQuery" for linting within TamperMonkey, but in the monorepo it's already declared.
@@ -20,7 +20,7 @@
 
 	// Watch for relevant DOM changes that indicate we need to re-run `doit()`:
 	// - Adding a new `.markdown-body`.
-	// - Removing `#woocommerce-live-branches`.
+	// - Removing `#poocommerce-live-branches`.
 	const observer = new MutationObserver( ( list ) => {
 		for ( const m of list ) {
 			for ( const n of m.addedNodes ) {
@@ -35,9 +35,9 @@
 			}
 			for ( const n of m.removedNodes ) {
 				if (
-					n.id === 'woocommerce-live-branches' ||
+					n.id === 'poocommerce-live-branches' ||
 					( n.querySelector &&
-						n.querySelector( '#woocommerce-live-branches' ) )
+						n.querySelector( '#poocommerce-live-branches' ) )
 				) {
 					doit();
 					return;
@@ -68,7 +68,7 @@
 			document.querySelectorAll( markdownBodySelector )[ 0 ];
 		if (
 			! markdownBody ||
-			markdownBody.querySelector( '#woocommerce-live-branches' )
+			markdownBody.querySelector( '#poocommerce-live-branches' )
 		) {
 			// No body or Live Branches is already there, no need to do it again.
 			return;
@@ -154,7 +154,7 @@
 						${ getOptionsList(
 							[
 								{
-									label: 'WooCommerce Smooth Generator',
+									label: 'PooCommerce Smooth Generator',
 									name: 'wc-smooth-generator',
 								},
 								{
@@ -209,14 +209,14 @@
 						${ getOptionsList(
 							featureFlags.map( ( flag ) => ( {
 								label: flag,
-								name: 'woocommerce-beta-tester-feature-flags',
+								name: 'poocommerce-beta-tester-feature-flags',
 								value: flag,
 							} ) ),
 							50
 						) }
 					</details>
 					<p>
-						<a id="woocommerce-beta-branch-link" target="_blank" rel="nofollow noopener" href="#">…</a>
+						<a id="poocommerce-beta-branch-link" target="_blank" rel="nofollow noopener" href="#">…</a>
 					</p>
 					`;
 			appendHtml( markdownBody, contents );
@@ -243,16 +243,16 @@
 		 */
 		function getLink() {
 			const query = [
-				'woocommerce-beta-tester',
-				`woocommerce-beta-tester-live-branch=${ currentBranch }`,
+				'poocommerce-beta-tester',
+				`poocommerce-beta-tester-live-branch=${ currentBranch }`,
 			];
 
 			const enabledFeatureFlags = [];
 
 			$(
-				'#woocommerce-live-branches input[type=checkbox]:checked:not([data-invert]), #woocommerce-live-branches input[type=checkbox][data-invert]:not(:checked)'
+				'#poocommerce-live-branches input[type=checkbox]:checked:not([data-invert]), #poocommerce-live-branches input[type=checkbox][data-invert]:not(:checked)'
 			).each( ( i, input ) => {
-				if ( input.name === 'woocommerce-beta-tester-feature-flags' ) {
+				if ( input.name === 'poocommerce-beta-tester-feature-flags' ) {
 					enabledFeatureFlags.push( input.value );
 					return;
 				}
@@ -270,7 +270,7 @@
 
 			if ( enabledFeatureFlags.length ) {
 				query.push(
-					`woocommerce-beta-tester-feature-flags=${ encodeURIComponent(
+					`poocommerce-beta-tester-feature-flags=${ encodeURIComponent(
 						enabledFeatureFlags.join( ',' )
 					) }`
 				);
@@ -345,9 +345,9 @@
 		function appendHtml( el, contents ) {
 			const $el = $( el );
 			const liveBranches = $(
-				'<div id="woocommerce-live-branches" />'
-			).append( `<h2>WooCommerce Live Branches</h2> ${ contents }` );
-			$( '#woocommerce-live-branches' ).remove();
+				'<div id="poocommerce-live-branches" />'
+			).append( `<h2>PooCommerce Live Branches</h2> ${ contents }` );
+			$( '#poocommerce-live-branches' ).remove();
 			$el.append( liveBranches );
 			liveBranches
 				.find( 'input[type=checkbox]' )
@@ -376,7 +376,7 @@
 		 * Update the link.
 		 */
 		function updateLink() {
-			const $link = $( '#woocommerce-beta-branch-link' );
+			const $link = $( '#poocommerce-beta-branch-link' );
 			const url = getLink();
 
 			$link

@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Layout\Flex_Layout_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Layout\Flex_Layout_Renderer;
 
 /**
  * Initializes the core blocks renderers.
@@ -19,8 +19,8 @@ class Initializer {
 	 * Initializes the core blocks renderers.
 	 */
 	public function initialize(): void {
-		add_action( 'woocommerce_blocks_renderer_initialized', array( $this, 'register_core_blocks_renderers' ), 10, 1 );
-		add_filter( 'woocommerce_email_editor_theme_json', array( $this, 'adjust_theme_json' ), 10, 1 );
+		add_action( 'poocommerce_blocks_renderer_initialized', array( $this, 'register_core_blocks_renderers' ), 10, 1 );
+		add_filter( 'poocommerce_email_editor_theme_json', array( $this, 'adjust_theme_json' ), 10, 1 );
 		add_filter( 'safe_style_css', array( $this, 'allow_styles' ) );
 	}
 

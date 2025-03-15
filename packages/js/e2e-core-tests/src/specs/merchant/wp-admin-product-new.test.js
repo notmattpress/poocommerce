@@ -12,8 +12,8 @@ const {
 	verifyAndPublish,
 	waitForSelector,
 	waitForSelectorWithoutThrow,
-} = require( '@woocommerce/e2e-utils' );
-const { waitAndClick } = require( '@woocommerce/e2e-environment' );
+} = require( '@poocommerce/e2e-utils' );
+const { waitAndClick } = require( '@poocommerce/e2e-environment' );
 
 /**
  * External dependencies
@@ -66,7 +66,7 @@ const expandVariations = async () => {
 const runAddSimpleProductTest = () => {
 	describe( 'Add New Simple Product Page', () => {
 		it( 'can create simple virtual product and add it to the cart', async () => {
-			// @todo: remove this once https://github.com/woocommerce/woocommerce/issues/31337 has been addressed
+			// @todo: remove this once https://github.com/poocommerce/poocommerce/issues/31337 has been addressed
 			await setBrowserViewport( {
 				width: 970,
 				height: 700,
@@ -105,7 +105,7 @@ const runAddSimpleProductTest = () => {
 		} );
 
 		it( 'can create simple non-virtual product and add it to the cart', async () => {
-			// @todo: remove this once https://github.com/woocommerce/woocommerce/issues/31337 has been addressed
+			// @todo: remove this once https://github.com/poocommerce/poocommerce/issues/31337 has been addressed
 			await setBrowserViewport( {
 				width: 960,
 				height: 700,
@@ -355,7 +355,7 @@ const runAddVariableProductTest = () => {
 			await uiUnblocked();
 
 			// Verify that no variations were displayed.
-			const variationsCount = await page.$$( '.woocommerce_variation' );
+			const variationsCount = await page.$$( '.poocommerce_variation' );
 			expect( variationsCount ).toHaveLength( 0 );
 		} );
 
@@ -466,7 +466,7 @@ const runAddVariableProductTest = () => {
 			await uiUnblocked();
 
 			// Verify that no variations were displayed.
-			const variationsCount = await page.$$( '.woocommerce_variation' );
+			const variationsCount = await page.$$( '.poocommerce_variation' );
 			expect( variationsCount ).toHaveLength( 0 );
 		} );
 	} );

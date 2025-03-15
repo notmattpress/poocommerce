@@ -1,52 +1,52 @@
 <?php
 /**
- * WooCommerce setup
+ * PooCommerce setup
  *
- * @package WooCommerce
+ * @package PooCommerce
  * @since   3.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\AssignDefaultCategory;
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonAdminBarBadge;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DownloadPermissionsAdjuster;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as ProductDownloadDirectories;
-use Automattic\WooCommerce\Internal\ProductImage\MatchImageBySKU;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\RestockRefundedItemsAdjuster;
-use Automattic\WooCommerce\Internal\Settings\OptionSanitizer;
-use Automattic\WooCommerce\Internal\Utilities\LegacyRestApiStub;
-use Automattic\WooCommerce\Internal\Utilities\WebhookUtil;
-use Automattic\WooCommerce\Internal\Admin\Marketplace;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\{LoggingUtil, RestApiUtil, TimeUtil};
-use Automattic\WooCommerce\Internal\Logging\RemoteLogger;
-use Automattic\WooCommerce\Caches\OrderCountCacheService;
+use Automattic\PooCommerce\Internal\AssignDefaultCategory;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonAdminBarBadge;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonRequestHandler;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DownloadPermissionsAdjuster;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as ProductDownloadDirectories;
+use Automattic\PooCommerce\Internal\ProductImage\MatchImageBySKU;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RestockRefundedItemsAdjuster;
+use Automattic\PooCommerce\Internal\Settings\OptionSanitizer;
+use Automattic\PooCommerce\Internal\Utilities\LegacyRestApiStub;
+use Automattic\PooCommerce\Internal\Utilities\WebhookUtil;
+use Automattic\PooCommerce\Internal\Admin\Marketplace;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\{LoggingUtil, RestApiUtil, TimeUtil};
+use Automattic\PooCommerce\Internal\Logging\RemoteLogger;
+use Automattic\PooCommerce\Caches\OrderCountCacheService;
 
 /**
- * Main WooCommerce Class.
+ * Main PooCommerce Class.
  *
- * @class WooCommerce
+ * @class PooCommerce
  */
-final class WooCommerce {
+final class PooCommerce {
 
 	/**
-	 * WooCommerce version.
+	 * PooCommerce version.
 	 *
 	 * @var string
 	 */
 	public $version = '9.9.0';
 
 	/**
-	 * WooCommerce Schema version.
+	 * PooCommerce Schema version.
 	 *
 	 * @since 4.3 started with version string 430.
 	 *
@@ -57,7 +57,7 @@ final class WooCommerce {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var WooCommerce
+	 * @var PooCommerce
 	 * @since 2.1
 	 */
 	protected static $_instance = null;
@@ -79,7 +79,7 @@ final class WooCommerce {
 	/**
 	 * API instance
 	 *
-	 * @deprecated 9.0.0 The Legacy REST API has been removed from WooCommerce core. Now this property points to a RestApiUtil instance, unless the Legacy REST API plugin is installed.
+	 * @deprecated 9.0.0 The Legacy REST API has been removed from PooCommerce core. Now this property points to a RestApiUtil instance, unless the Legacy REST API plugin is installed.
 	 *
 	 * @var WC_API
 	 */
@@ -142,14 +142,14 @@ final class WooCommerce {
 	public $deprecated_hook_handlers = array();
 
 	/**
-	 * Main WooCommerce Instance.
+	 * Main PooCommerce Instance.
 	 *
-	 * Ensures only one instance of WooCommerce is loaded or can be loaded.
+	 * Ensures only one instance of PooCommerce is loaded or can be loaded.
 	 *
 	 * @since 2.1
 	 * @static
 	 * @see WC()
-	 * @return WooCommerce - Main instance.
+	 * @return PooCommerce - Main instance.
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
@@ -164,7 +164,7 @@ final class WooCommerce {
 	 * @since 2.1
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -173,7 +173,7 @@ final class WooCommerce {
 	 * @since 2.1
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'poocommerce' ), '2.1' );
 	}
 
 	/**
@@ -184,7 +184,7 @@ final class WooCommerce {
 	 */
 	public function __get( $key ) {
 		if ( 'api' === $key ) {
-			// The Legacy REST API was removed from WooCommerce core as of version 9.0 (moved to a dedicated plugin),
+			// The Legacy REST API was removed from PooCommerce core as of version 9.0 (moved to a dedicated plugin),
 			// but some plugins are still using wc()->api->get_endpoint_data. This method now lives in the RestApiUtil class,
 			// but we expose it through LegacyRestApiStub to limit the scope of what can be done via WC()->api.
 			//
@@ -229,7 +229,7 @@ final class WooCommerce {
 	}
 
 	/**
-	 * WooCommerce Constructor.
+	 * PooCommerce Constructor.
 	 */
 	public function __construct() {
 		$this->define_constants();
@@ -239,9 +239,9 @@ final class WooCommerce {
 	}
 
 	/**
-	 * When WP has loaded all plugins, trigger the `woocommerce_loaded` hook.
+	 * When WP has loaded all plugins, trigger the `poocommerce_loaded` hook.
 	 *
-	 * This ensures `woocommerce_loaded` is called only after all other plugins
+	 * This ensures `poocommerce_loaded` is called only after all other plugins
 	 * are loaded, to avoid issues caused by plugin directory naming changing
 	 * the load order. See #21524 for details.
 	 *
@@ -249,11 +249,11 @@ final class WooCommerce {
 	 */
 	public function on_plugins_loaded() {
 		/**
-		 * Action to signal that WooCommerce has finished loading.
+		 * Action to signal that PooCommerce has finished loading.
 		 *
 		 * @since 3.6.0
 		 */
-		do_action( 'woocommerce_loaded' );
+		do_action( 'poocommerce_loaded' );
 	}
 
 	/**
@@ -266,10 +266,10 @@ final class WooCommerce {
 		$config->ensure(
 			'connection',
 			array(
-				'slug' => 'woocommerce',
+				'slug' => 'poocommerce',
 				// Cannot use __() here because it would cause translations to be loaded too early.
-				// See https://github.com/woocommerce/woocommerce/pull/47113.
-				'name' => 'WooCommerce',
+				// See https://github.com/poocommerce/poocommerce/pull/47113.
+				'name' => 'PooCommerce',
 			)
 		);
 	}
@@ -300,17 +300,17 @@ final class WooCommerce {
 		add_action( 'switch_blog', array( $this, 'wpdb_table_fix' ), 0 );
 		add_action( 'activated_plugin', array( $this, 'activated_plugin' ) );
 		add_action( 'deactivated_plugin', array( $this, 'deactivated_plugin' ) );
-		add_action( 'woocommerce_installed', array( $this, 'add_woocommerce_inbox_variant' ) );
-		add_action( 'woocommerce_updated', array( $this, 'add_woocommerce_inbox_variant' ) );
+		add_action( 'poocommerce_installed', array( $this, 'add_poocommerce_inbox_variant' ) );
+		add_action( 'poocommerce_updated', array( $this, 'add_poocommerce_inbox_variant' ) );
 		add_action( 'rest_api_init', array( $this, 'register_wp_admin_settings' ) );
-		add_action( 'woocommerce_installed', array( $this, 'add_woocommerce_remote_variant' ) );
-		add_action( 'woocommerce_updated', array( $this, 'add_woocommerce_remote_variant' ) );
-		add_action( 'woocommerce_newly_installed', 'wc_set_hooked_blocks_version', 10 );
-		add_action( 'update_option_woocommerce_allow_tracking', array( $this, 'get_tracking_history' ), 10, 2 );
+		add_action( 'poocommerce_installed', array( $this, 'add_poocommerce_remote_variant' ) );
+		add_action( 'poocommerce_updated', array( $this, 'add_poocommerce_remote_variant' ) );
+		add_action( 'poocommerce_newly_installed', 'wc_set_hooked_blocks_version', 10 );
+		add_action( 'update_option_poocommerce_allow_tracking', array( $this, 'get_tracking_history' ), 10, 2 );
 
 		add_filter( 'robots_txt', array( $this, 'robots_txt' ) );
-		add_filter( 'wp_plugin_dependencies_slug', array( $this, 'convert_woocommerce_slug' ) );
-		add_filter( 'woocommerce_register_log_handlers', array( $this, 'register_remote_log_handler' ) );
+		add_filter( 'wp_plugin_dependencies_slug', array( $this, 'convert_poocommerce_slug' ) );
+		add_filter( 'poocommerce_register_log_handlers', array( $this, 'register_remote_log_handler' ) );
 
 		// These classes set up hooks on instantiation.
 		$container = wc_get_container();
@@ -336,45 +336,45 @@ final class WooCommerce {
 		/**
 		 * These classes have a register method for attaching hooks.
 		 */
-		$container->get( Automattic\WooCommerce\Internal\Utilities\PluginInstaller::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Orders\OrderAttributionController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Orders\OrderAttributionBlocksController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\CostOfGoodsSold\CostOfGoodsSoldController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Admin\Settings\PaymentsController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Utilities\LegacyRestApiStub::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Email\EmailStyleSync::class )->register();
-		Automattic\WooCommerce\Internal\Admin\WcPayWelcomePage::instance()->register();
+		$container->get( Automattic\PooCommerce\Internal\Utilities\PluginInstaller::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Orders\OrderAttributionController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Orders\OrderAttributionBlocksController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\CostOfGoodsSold\CostOfGoodsSoldController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Admin\Settings\PaymentsController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Utilities\LegacyRestApiStub::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Email\EmailStyleSync::class )->register();
+		Automattic\PooCommerce\Internal\Admin\WcPayWelcomePage::instance()->register();
 
 		// Classes inheriting from RestApiControllerBase.
-		$container->get( Automattic\WooCommerce\Internal\ReceiptRendering\ReceiptRenderingRestController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Orders\OrderActionsRestController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Orders\OrderStatusRestController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Admin\Settings\PaymentsRestController::class )->register();
-		$container->get( Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreviewRestController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\ReceiptRendering\ReceiptRenderingRestController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Orders\OrderActionsRestController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Orders\OrderStatusRestController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Admin\Settings\PaymentsRestController::class )->register();
+		$container->get( Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreviewRestController::class )->register();
 	}
 
 	/**
-	 * Add woocommerce_inbox_variant for the Remote Inbox Notification.
+	 * Add poocommerce_inbox_variant for the Remote Inbox Notification.
 	 *
 	 * P2 post can be found at https://wp.me/paJDYF-1uJ.
 	 *
-	 * This will no longer be used. The more flexible add_woocommerce_remote_variant
+	 * This will no longer be used. The more flexible add_poocommerce_remote_variant
 	 * below will be used instead.
 	 */
-	public function add_woocommerce_inbox_variant() {
-		$config_name = 'woocommerce_inbox_variant_assignment';
+	public function add_poocommerce_inbox_variant() {
+		$config_name = 'poocommerce_inbox_variant_assignment';
 		if ( false === get_option( $config_name, false ) ) {
 			update_option( $config_name, wp_rand( 1, 12 ) );
 		}
 	}
 
 	/**
-	 * Add woocommerce_remote_variant_assignment used to determine cohort
+	 * Add poocommerce_remote_variant_assignment used to determine cohort
 	 * or group assignment for Remote Spec Engines.
 	 */
-	public function add_woocommerce_remote_variant() {
-		$config_name = 'woocommerce_remote_variant_assignment';
+	public function add_poocommerce_remote_variant() {
+		$config_name = 'poocommerce_remote_variant_assignment';
 		if ( false === get_option( $config_name, false ) ) {
 			update_option( $config_name, wp_rand( 1, 120 ) );
 		}
@@ -423,7 +423,7 @@ final class WooCommerce {
 			 *
 			 * @since 3.2.0
 			 */
-			do_action( 'woocommerce_shutdown_error', $error );
+			do_action( 'poocommerce_shutdown_error', $error );
 		}
 	}
 
@@ -437,13 +437,13 @@ final class WooCommerce {
 		$this->define( 'WOOCOMMERCE_VERSION', $this->version );
 		$this->define( 'WC_ROUNDING_PRECISION', 6 );
 		$this->define( 'WC_DISCOUNT_ROUNDING_MODE', 2 );
-		$this->define( 'WC_TAX_ROUNDING_MODE', 'yes' === get_option( 'woocommerce_prices_include_tax', 'no' ) ? 2 : 1 );
+		$this->define( 'WC_TAX_ROUNDING_MODE', 'yes' === get_option( 'poocommerce_prices_include_tax', 'no' ) ? 2 : 1 );
 		$this->define( 'WC_DELIMITER', '|' );
 		$this->define( 'WC_SESSION_CACHE_GROUP', 'wc_session_id' );
 		$this->define( 'WC_TEMPLATE_DEBUG_MODE', false );
 
 		/**
-		 * As of 8.8.0, it is preferable to use the `woocommerce_log_directory` filter hook to change the log
+		 * As of 8.8.0, it is preferable to use the `poocommerce_log_directory` filter hook to change the log
 		 * directory. WC_LOG_DIR_CUSTOM is a back-compatibility measure so we can tell if `WC_LOG_DIR` has been
 		 * defined outside of WC Core.
 		 */
@@ -460,7 +460,7 @@ final class WooCommerce {
 
 		/** Define if we're checking against major, minor or no versions in the following places:
 		 *   - plugin screen in WP Admin (displaying extra warning when updating to new major versions)
-		 *   - System Status Report ('Installed version not tested with active version of WooCommerce' warning)
+		 *   - System Status Report ('Installed version not tested with active version of PooCommerce' warning)
 		 *   - core update screen in WP Admin (displaying extra warning when updating to new major versions)
 		 *   - enable/disable automated updates in the plugin screen in WP Admin (if there are any plugins
 		 *      that don't declare compatibility, the auto-update is disabled)
@@ -479,8 +479,8 @@ final class WooCommerce {
 
 		// List of tables without prefixes.
 		$tables = array(
-			'payment_tokenmeta'      => 'woocommerce_payment_tokenmeta',
-			'order_itemmeta'         => 'woocommerce_order_itemmeta',
+			'payment_tokenmeta'      => 'poocommerce_payment_tokenmeta',
+			'order_itemmeta'         => 'poocommerce_order_itemmeta',
 			'wc_product_meta_lookup' => 'wc_product_meta_lookup',
 			'wc_tax_rate_classes'    => 'wc_tax_rate_classes',
 			'wc_reserved_stock'      => 'wc_reserved_stock',
@@ -526,7 +526,7 @@ final class WooCommerce {
 		 *
 		 * @since 3.6.0
 		 */
-		return apply_filters( 'woocommerce_is_rest_api_request', $is_rest_api_request );
+		return apply_filters( 'poocommerce_is_rest_api_request', $is_rest_api_request );
 	}
 
 	/**
@@ -546,7 +546,7 @@ final class WooCommerce {
 	 * Load REST API.
 	 */
 	public function load_rest_api() {
-		\Automattic\WooCommerce\RestApi\Server::instance()->init();
+		\Automattic\PooCommerce\RestApi\Server::instance()->init();
 	}
 
 	/**
@@ -735,7 +735,7 @@ final class WooCommerce {
 			include_once WC_ABSPATH . 'includes/admin/class-wc-admin.php';
 			// Simulate loading plugin for the legacy reports.
 			// This will be removed after moving the legacy reports to a separate plugin.
-			include_once WC_ABSPATH . 'includes/admin/woocommerce-legacy-reports.php';
+			include_once WC_ABSPATH . 'includes/admin/poocommerce-legacy-reports.php';
 		}
 
 		// We load frontend includes in the post editor, because they may be invoked via pre-loading of blocks.
@@ -745,7 +745,7 @@ final class WooCommerce {
 			$this->frontend_includes();
 		}
 
-		if ( $this->is_request( 'cron' ) && 'yes' === get_option( 'woocommerce_allow_tracking', 'no' ) ) {
+		if ( $this->is_request( 'cron' ) && 'yes' === get_option( 'poocommerce_allow_tracking', 'no' ) ) {
 			include_once WC_ABSPATH . 'includes/class-wc-tracker.php';
 			WC_Tracker::init();
 		}
@@ -824,23 +824,23 @@ final class WooCommerce {
 	}
 
 	/**
-	 * Function used to Init WooCommerce Template Functions - This makes them pluggable by plugins and themes.
+	 * Function used to Init PooCommerce Template Functions - This makes them pluggable by plugins and themes.
 	 */
 	public function include_template_functions() {
 		include_once WC_ABSPATH . 'includes/wc-template-functions.php';
 	}
 
 	/**
-	 * Init WooCommerce when WordPress Initialises.
+	 * Init PooCommerce when WordPress Initialises.
 	 */
 	public function init() {
 		// See the comment inside FeaturesController::__construct.
 		wc_get_container()->get( FeaturesController::class )->register_additional_features();
 
 		/**
-		 * Action triggered before WooCommerce initialization begins.
+		 * Action triggered before PooCommerce initialization begins.
 		 */
-		do_action( 'before_woocommerce_init' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		do_action( 'before_poocommerce_init' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		// Set up localisation.
 		$this->load_plugin_textdomain();
@@ -862,9 +862,9 @@ final class WooCommerce {
 		$this->load_webhooks();
 
 		/**
-		 * Action triggered after WooCommerce initialization finishes.
+		 * Action triggered after PooCommerce initialization finishes.
 		 */
-		do_action( 'woocommerce_init' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		do_action( 'poocommerce_init' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -873,24 +873,24 @@ final class WooCommerce {
 	 * Note: the first-loaded translation file overrides any following ones if the same translation is present.
 	 *
 	 * Locales found in:
-	 *      - WP_LANG_DIR/woocommerce/woocommerce-LOCALE.mo
-	 *      - WP_LANG_DIR/plugins/woocommerce-LOCALE.mo
+	 *      - WP_LANG_DIR/poocommerce/poocommerce-LOCALE.mo
+	 *      - WP_LANG_DIR/plugins/poocommerce-LOCALE.mo
 	 */
 	public function load_plugin_textdomain() {
 		/**
-		 * Filter to adjust the WooCommerce locale to use for translations.
+		 * Filter to adjust the PooCommerce locale to use for translations.
 		 */
-		$locale                  = apply_filters( 'plugin_locale', determine_locale(), 'woocommerce' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
-		$custom_translation_path = WP_LANG_DIR . '/woocommerce/woocommerce-' . $locale . '.mo';
-		$plugin_translation_path = WP_LANG_DIR . '/plugins/woocommerce-' . $locale . '.mo';
+		$locale                  = apply_filters( 'plugin_locale', determine_locale(), 'poocommerce' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$custom_translation_path = WP_LANG_DIR . '/poocommerce/poocommerce-' . $locale . '.mo';
+		$plugin_translation_path = WP_LANG_DIR . '/plugins/poocommerce-' . $locale . '.mo';
 
 		// If a custom translation exists (by default it will not, as it is not a standard WordPress convention)
 		// we unload the existing translation, then essentially layer the custom translation on top of the canonical
 		// translation. Otherwise, we simply step back and let WP manage things.
 		if ( is_readable( $custom_translation_path ) ) {
-			unload_textdomain( 'woocommerce' );
-			load_textdomain( 'woocommerce', $custom_translation_path );
-			load_textdomain( 'woocommerce', $plugin_translation_path );
+			unload_textdomain( 'poocommerce' );
+			load_textdomain( 'poocommerce', $custom_translation_path );
+			load_textdomain( 'poocommerce', $plugin_translation_path );
 		}
 	}
 
@@ -921,14 +921,14 @@ final class WooCommerce {
 	/**
 	 * Add WC Image sizes to WP.
 	 *
-	 * As of 3.3, image sizes can be registered via themes using add_theme_support for woocommerce
+	 * As of 3.3, image sizes can be registered via themes using add_theme_support for poocommerce
 	 * and defining an array of args. If these are not defined, we will use defaults. This is
 	 * handled in wc_get_image_size function.
 	 *
 	 * 3.3 sizes:
 	 *
-	 * woocommerce_thumbnail - Used in product listings. We assume these work for a 3 column grid layout.
-	 * woocommerce_single - Used on single product pages for the main image.
+	 * poocommerce_thumbnail - Used in product listings. We assume these work for a 3 column grid layout.
+	 * poocommerce_single - Used on single product pages for the main image.
 	 *
 	 * @since 2.3
 	 */
@@ -937,9 +937,9 @@ final class WooCommerce {
 		$single            = wc_get_image_size( 'single' );
 		$gallery_thumbnail = wc_get_image_size( 'gallery_thumbnail' );
 
-		add_image_size( 'woocommerce_thumbnail', $thumbnail['width'], $thumbnail['height'], $thumbnail['crop'] );
-		add_image_size( 'woocommerce_single', $single['width'], $single['height'], $single['crop'] );
-		add_image_size( 'woocommerce_gallery_thumbnail', $gallery_thumbnail['width'], $gallery_thumbnail['height'], $gallery_thumbnail['crop'] );
+		add_image_size( 'poocommerce_thumbnail', $thumbnail['width'], $thumbnail['height'], $thumbnail['crop'] );
+		add_image_size( 'poocommerce_single', $single['width'], $single['height'], $single['crop'] );
+		add_image_size( 'poocommerce_gallery_thumbnail', $gallery_thumbnail['width'], $gallery_thumbnail['height'], $gallery_thumbnail['crop'] );
 	}
 
 	/**
@@ -969,7 +969,7 @@ final class WooCommerce {
 		/**
 		 * Filter to adjust the base templates path.
 		 */
-		return apply_filters( 'woocommerce_template_path', 'woocommerce/' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		return apply_filters( 'poocommerce_template_path', 'poocommerce/' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -1008,7 +1008,7 @@ final class WooCommerce {
 		/**
 		 * Filter to adjust the url of an incoming API request.
 		 */
-		return esc_url_raw( apply_filters( 'woocommerce_api_request_url', $api_request_url, $request, $ssl ) );  // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		return esc_url_raw( apply_filters( 'poocommerce_api_request_url', $api_request_url, $request, $ssl ) );  // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -1023,12 +1023,12 @@ final class WooCommerce {
 		}
 
 		/**
-		 * Hook: woocommerce_load_webhooks_limit.
+		 * Hook: poocommerce_load_webhooks_limit.
 		 *
 		 * @since 3.6.0
 		 * @param int $limit Used to limit how many webhooks are loaded. Default: no limit.
 		 */
-		$limit = apply_filters( 'woocommerce_load_webhooks_limit', null );
+		$limit = apply_filters( 'poocommerce_load_webhooks_limit', null );
 
 		wc_load_webhooks( 'active', $limit );
 	}
@@ -1062,7 +1062,7 @@ final class WooCommerce {
 		/**
 		 * Filter to overwrite the session class that handles session data for users.
 		 */
-		$session_class = apply_filters( 'woocommerce_session_handler', 'WC_Session_Handler' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$session_class = apply_filters( 'poocommerce_session_handler', 'WC_Session_Handler' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		if ( is_null( $this->session ) || ! $this->session instanceof $session_class ) {
 			$this->session = new $session_class();
 			$this->session->init();
@@ -1070,7 +1070,7 @@ final class WooCommerce {
 	}
 
 	/**
-	 * Tell bots not to index some WooCommerce-created directories.
+	 * Tell bots not to index some PooCommerce-created directories.
 	 *
 	 * We try to detect the default "User-agent: *" added by WordPress and add our rules to that group, because
 	 * it's possible that some bots will only interpret the first group of rules if there are multiple groups with
@@ -1080,7 +1080,7 @@ final class WooCommerce {
 	 *
 	 * @return string
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function robots_txt( $output ) {
 		$path = ( ! empty( $site_url['path'] ) ) ? $site_url['path'] : '';
@@ -1100,8 +1100,8 @@ final class WooCommerce {
 		}
 
 		$above[] = "Disallow: $path/wp-content/uploads/wc-logs/";
-		$above[] = "Disallow: $path/wp-content/uploads/woocommerce_transient_files/";
-		$above[] = "Disallow: $path/wp-content/uploads/woocommerce_uploads/";
+		$above[] = "Disallow: $path/wp-content/uploads/poocommerce_transient_files/";
+		$above[] = "Disallow: $path/wp-content/uploads/poocommerce_uploads/";
 
 		$lines = array_merge( $above, $below );
 
@@ -1124,8 +1124,8 @@ final class WooCommerce {
 	public function activated_plugin( $filename ) {
 		include_once __DIR__ . '/admin/helper/class-wc-helper.php';
 
-		if ( '/woocommerce.php' === substr( $filename, -16 ) ) {
-			set_transient( 'woocommerce_activated_plugin', $filename );
+		if ( '/poocommerce.php' === substr( $filename, -16 ) ) {
+			set_transient( 'poocommerce_activated_plugin', $filename );
 		}
 
 		WC_Helper::activated_plugin( $filename );
@@ -1200,7 +1200,7 @@ final class WooCommerce {
 		}
 
 		// Check if we have minified JS.
-		if ( ! file_exists( WC()->plugin_path() . '/assets/js/admin/woocommerce_admin.min.js' ) ) {
+		if ( ! file_exists( WC()->plugin_path() . '/assets/js/admin/poocommerce_admin.min.js' ) ) {
 			return false;
 		}
 
@@ -1217,18 +1217,18 @@ final class WooCommerce {
 			return;
 		}
 
-		$message_one = __( 'You have installed a development version of WooCommerce which requires files to be built and minified. From the plugin directory, run <code>pnpm install</code> and then <code>pnpm --filter=\'@woocommerce/plugin-woocommerce\' build</code> to build and minify assets.', 'woocommerce' );
+		$message_one = __( 'You have installed a development version of PooCommerce which requires files to be built and minified. From the plugin directory, run <code>pnpm install</code> and then <code>pnpm --filter=\'@poocommerce/plugin-poocommerce\' build</code> to build and minify assets.', 'poocommerce' );
 		$message_two = sprintf(
 			/* translators: 1: URL of WordPress.org Repository 2: URL of the GitHub Repository release page */
-			__( 'Or you can download a pre-built version of the plugin from the <a href="%1$s">WordPress.org repository</a> or by visiting <a href="%2$s">the releases page in the GitHub repository</a>.', 'woocommerce' ),
-			'https://wordpress.org/plugins/woocommerce/',
-			'https://github.com/woocommerce/woocommerce/releases'
+			__( 'Or you can download a pre-built version of the plugin from the <a href="%1$s">WordPress.org repository</a> or by visiting <a href="%2$s">the releases page in the GitHub repository</a>.', 'poocommerce' ),
+			'https://wordpress.org/plugins/poocommerce/',
+			'https://github.com/poocommerce/poocommerce/releases'
 		);
 		printf( '<div class="error"><p>%s %s</p></div>', $message_one, $message_two ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
-	 * Is the WooCommerce Admin actively included in the WooCommerce core?
+	 * Is the PooCommerce Admin actively included in the PooCommerce core?
 	 * Based on presence of a basic WC Admin function.
 	 *
 	 * @return boolean
@@ -1310,7 +1310,7 @@ final class WooCommerce {
 	 *
 	 * @since 9.0.0
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function register_wp_admin_settings() {
 		$pages = WC_Admin_Settings::get_settings_pages();
@@ -1325,7 +1325,7 @@ final class WooCommerce {
 	}
 
 	/**
-	 * Converts the WooCommerce slug to the correct slug for the current version.
+	 * Converts the PooCommerce slug to the correct slug for the current version.
 	 * This ensures that when the plugin is installed in a different folder name, the correct slug is used so that dependent plugins can be installed/activated.
 	 *
 	 * @since 9.0.0
@@ -1333,8 +1333,8 @@ final class WooCommerce {
 	 *
 	 * @return string
 	 */
-	public function convert_woocommerce_slug( $slug ) {
-		if ( 'woocommerce' === $slug ) {
+	public function convert_poocommerce_slug( $slug ) {
+		if ( 'poocommerce' === $slug ) {
 			$slug = dirname( WC_PLUGIN_BASENAME );
 		}
 		return $slug;
@@ -1347,7 +1347,7 @@ final class WooCommerce {
 	 *
 	 * @return \WC_Log_Handler[]
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function register_remote_log_handler( $handlers ) {
 		$handlers[] = wc_get_container()->get( RemoteLogger::class );
@@ -1355,23 +1355,23 @@ final class WooCommerce {
 	}
 
 	/**
-	 * Tracks the history WooCommerce Allow Tracking option.
+	 * Tracks the history PooCommerce Allow Tracking option.
 	 * - When the field was first set to allow tracking
 	 * - Last time the option was changed
 	 *
-	 * @param string $old_value The old value for the woocommerce_allow_tracking option.
-	 * @param string $value The current value for the woocommerce_allow_tracking option.
+	 * @param string $old_value The old value for the poocommerce_allow_tracking option.
+	 * @param string $value The current value for the poocommerce_allow_tracking option.
 	 * @since x.x.x
 	 *
 	 * @return void
 	 */
 	public function get_tracking_history( $old_value, $value ) {
-		// If woocommerce_allow_tracking_first_optin is not set. It means is the first time it gets set.
-		if ( ! get_option( 'woocommerce_allow_tracking_first_optin' ) && 'yes' === $value ) {
-			update_option( 'woocommerce_allow_tracking_first_optin', time() );
+		// If poocommerce_allow_tracking_first_optin is not set. It means is the first time it gets set.
+		if ( ! get_option( 'poocommerce_allow_tracking_first_optin' ) && 'yes' === $value ) {
+			update_option( 'poocommerce_allow_tracking_first_optin', time() );
 		}
 
 		// Always update the last change.
-		update_option( 'woocommerce_allow_tracking_last_modified', time() );
+		update_option( 'poocommerce_allow_tracking_last_modified', time() );
 	}
 }

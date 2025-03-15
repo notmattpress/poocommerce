@@ -2,20 +2,20 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { usePrevious, useShallowEqual } from '@woocommerce/base-hooks';
+import { usePrevious, useShallowEqual } from '@poocommerce/base-hooks';
 import {
 	useCollection,
 	useQueryStateByKey,
 	useQueryStateByContext,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import { useCallback, useEffect, useState, useMemo } from '@wordpress/element';
-import Label from '@woocommerce/base-components/filter-element-label';
-import FilterResetButton from '@woocommerce/base-components/filter-reset-button';
-import FilterSubmitButton from '@woocommerce/base-components/filter-submit-button';
+import Label from '@poocommerce/base-components/filter-element-label';
+import FilterResetButton from '@poocommerce/base-components/filter-reset-button';
+import FilterSubmitButton from '@poocommerce/base-components/filter-submit-button';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { decodeEntities } from '@wordpress/html-entities';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import { getQueryArgs, removeQueryArgs } from '@wordpress/url';
 import {
 	AttributeQuery,
@@ -25,15 +25,15 @@ import {
 	isString,
 	objectHasProp,
 	isObject,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { Icon, chevronDown } from '@wordpress/icons';
 import {
 	changeUrl,
 	PREFIX_QUERY_ARG_FILTER_TYPE,
 	PREFIX_QUERY_ARG_QUERY_TYPE,
-} from '@woocommerce/utils';
-import FormTokenField from '@woocommerce/base-components/form-token-field';
-import FilterTitlePlaceholder from '@woocommerce/base-components/filter-placeholder';
+} from '@poocommerce/utils';
+import FormTokenField from '@poocommerce/base-components/form-token-field';
+import FilterTitlePlaceholder from '@poocommerce/base-components/filter-placeholder';
 import clsx from 'clsx';
 
 /**
@@ -109,7 +109,7 @@ const AttributeFilterBlock = ( {
 	/*
 		FormTokenField forces the dropdown to reopen on reset, so we create a unique ID to use as the components key.
 		This will force the component to remount on reset when we change this value.
-		More info: https://github.com/woocommerce/woocommerce-blocks/pull/6920#issuecomment-1222402482
+		More info: https://github.com/poocommerce/poocommerce-blocks/pull/6920#issuecomment-1222402482
 	 */
 	const [ remountKey, setRemountKey ] = useState( generateUniqueId() );
 
@@ -563,7 +563,7 @@ const AttributeFilterBlock = ( {
 							disabled={ isLoading }
 							placeholder={ sprintf(
 								/* translators: %s attribute name. */
-								__( 'Select %s', 'woocommerce' ),
+								__( 'Select %s', 'poocommerce' ),
 								attributeObject.label
 							) }
 							onChange={ ( tokens: string[] ) => {
@@ -614,22 +614,22 @@ const AttributeFilterBlock = ( {
 							messages={ {
 								added: sprintf(
 									/* translators: %s is the attribute label. */
-									__( '%s filter added.', 'woocommerce' ),
+									__( '%s filter added.', 'poocommerce' ),
 									attributeObject.label
 								),
 								removed: sprintf(
 									/* translators: %s is the attribute label. */
-									__( '%s filter removed.', 'woocommerce' ),
+									__( '%s filter removed.', 'poocommerce' ),
 									attributeObject.label
 								),
 								remove: sprintf(
 									/* translators: %s is the attribute label. */
-									__( 'Remove %s filter.', 'woocommerce' ),
+									__( 'Remove %s filter.', 'poocommerce' ),
 									attributeObject.label.toLocaleLowerCase()
 								),
 								__experimentalInvalid: sprintf(
 									/* translators: %s is the attribute label. */
-									__( 'Invalid %s filter.', 'woocommerce' ),
+									__( 'Invalid %s filter.', 'poocommerce' ),
 									attributeObject.label.toLocaleLowerCase()
 								),
 							} }
@@ -661,7 +661,7 @@ const AttributeFilterBlock = ( {
 						} }
 						screenReaderLabel={ __(
 							'Reset attribute filter',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				) }
@@ -673,7 +673,7 @@ const AttributeFilterBlock = ( {
 						onClick={ () => onSubmit( checked ) }
 						screenReaderLabel={ sprintf(
 							/* translators: %s is the attribute label */
-							__( 'Apply attribute filter: %s', 'woocommerce' ),
+							__( 'Apply attribute filter: %s', 'poocommerce' ),
 							attributeObject.label
 						) }
 					/>

@@ -33,7 +33,7 @@ export const WooProductSectionItem: React.FC< WooProductSectionItemProps > & {
 		<>
 			{ tabs.map( ( { name: tabName, order: sectionOrder } ) => (
 				<Fill
-					name={ `woocommerce_product_section_${ tabName }` }
+					name={ `poocommerce_product_section_${ tabName }` }
 					key={ tabName }
 				>
 					{ ( fillProps ) => {
@@ -54,7 +54,7 @@ export const WooProductSectionItem: React.FC< WooProductSectionItemProps > & {
 
 WooProductSectionItem.Slot = ( { fillProps, tab } ) => (
 	<Slot
-		name={ `woocommerce_product_section_${ tab }` }
+		name={ `poocommerce_product_section_${ tab }` }
 		fillProps={ fillProps }
 	>
 		{ ( fills ) => {

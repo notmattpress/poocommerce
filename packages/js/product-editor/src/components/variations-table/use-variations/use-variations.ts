@@ -6,7 +6,7 @@ import {
 	PartialProductVariation,
 	ProductProductAttribute,
 	ProductVariation,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
 import { useCallback, useMemo, useRef, useState } from '@wordpress/element';
 
@@ -64,10 +64,10 @@ export function useVariations( { productId }: UseVariationsProps ) {
 			setIsLoading( true );
 			setGetVariationsError( undefined );
 
-			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 			const data = await getProductVariations( requestParams );
 
-			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
+			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/poocommerce/poocommerce/pull/54146
 			const total = await getProductVariationsTotalCount( requestParams );
 
 			setVariations( data );

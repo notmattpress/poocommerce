@@ -22,13 +22,13 @@ export function getInitialState(): State {
 		theme: getEditorTheme(),
 		styles: {
 			globalStylesPostId:
-				window.WooCommerceEmailEditor.user_theme_post_id,
+				window.PooCommerceEmailEditor.user_theme_post_id,
 		},
 		autosaveInterval: 60,
 		urls: getUrls(),
 		preview: {
 			deviceType: 'Desktop',
-			toEmail: window.WooCommerceEmailEditor.current_wp_user_email,
+			toEmail: window.PooCommerceEmailEditor.current_wp_user_email,
 			isModalOpened: false,
 			isSendingPreviewEmail: false,
 			sendingPreviewStatus: null,

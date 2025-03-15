@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-top-rated",
+	"name": "poocommerce/product-top-rated",
 	"title": "Top Rated Products",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Display a grid of your top rated products.",
 	"supports": {
@@ -92,7 +92,7 @@
 			"default": "rating"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

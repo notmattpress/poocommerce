@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [12.3.0](https://www.npmjs.com/package/@woocommerce/components/v/12.3.0) - 2024-04-26 
+## [12.3.0](https://www.npmjs.com/package/@poocommerce/components/v/12.3.0) - 2024-04-26 
 
 -   Minor - Add className prop to Tooltip component #41435 [#41435]
 -   Minor - Add popoverProps to DatePicker #41404 [#41404]
@@ -26,19 +26,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - bump php version in packages/js/*/composer.json [#42020]
 -   Minor - Change current page to 1 after selecting a diferent per page amount [#41008]
 -   Minor - Improve keyboard interaction of Tree Select Control component. [#41480]
--   Minor - Remove dependency on Jetpack from WooCommerce Shipping & Tax onboarding tasks [#39992]
+-   Minor - Remove dependency on Jetpack from PooCommerce Shipping & Tax onboarding tasks [#39992]
 -   Minor - Remove deprecated use of position for Dropdown component, using popoverProps.placement instead. [#41845]
 -   Minor - Remove legacy context API usage from Link component. [#41845]
--   Patch - update references to woocommerce.com to now reference woo.com [#41241]
+-   Patch - update references to poocommerce.com to now reference woo.com [#41241]
 -   Minor - Update Tree Select Control to allow for searching parent values when `individuallySelectParent` is turned on. [#41559]
--   Patch - Update Woo.com references to WooCommerce.com. [#46259]
+-   Patch - Update Woo.com references to PooCommerce.com. [#46259]
 -   Minor - Add 'helperText' prop to Tooltip #41251 [#41251]
 -   Patch - Fix all lint rule violations for @wordpress/i18n lint rules [#41450]
 -   Patch - Fixed some i18n related lint rule violations. [#41450]
 -   Patch - Update / tweak a few more links in docs and comments. [#41598]
 -   Patch - Update Tree Select Control component to handle accented characters in search. [#41495]
 
-## [12.2.0](https://www.npmjs.com/package/@woocommerce/components/v/12.2.0) - 2023-10-17 
+## [12.2.0](https://www.npmjs.com/package/@poocommerce/components/v/12.2.0) - 2023-10-17 
 
 -   Patch - Add class back in for increase specificity of css for dropdown button. [#40494]
 -   Patch - Fixed empty component logo color, used generic rather than old pink [#39182]
@@ -65,9 +65,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Allow users to select multiple items from the media library while adding images #39741 [#39741]
 -   Minor - Update pnpm to 8.6.7 [#39245]
 -   Minor - Upgrade TypeScript to 5.1.6 [#39531]
--   Minor - Remove unnecessary use of woocommerce-page selector for DropdownButton styling. [#40218]
+-   Minor - Remove unnecessary use of poocommerce-page selector for DropdownButton styling. [#40218]
 
-## [12.1.0](https://www.npmjs.com/package/@woocommerce/components/v/12.1.0) - 2023-07-13 
+## [12.1.0](https://www.npmjs.com/package/@poocommerce/components/v/12.1.0) - 2023-07-13 
 
 -   Patch - Altering styles to correctly target fields within slot fills on product editor. [#36500]
 -   Patch - Fix collapsible content heading alignment [#38325]
@@ -78,7 +78,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Add an optional "InputProps" to experimental SelectControl component [#36470]
 -   Patch - Add onKeyDown and readOnlyWhenClosed options to experimentalSelectControl [#38328]
 -   Patch - Opt out of Reset and Help buttons in DateTimePickerControl, as these will be removed in a future @wordpress/components version. [#38480]
--   Patch - Add instructions on how to run the tests when using @woocommerce/components [#38821]
+-   Patch - Add instructions on how to run the tests when using @poocommerce/components [#38821]
 -   Patch - Lint fixes [#38523]
 -   Patch - Migrate ellipsis-menu component to TS [#36405]
 -   Patch - Migrate Link component to TS [#36285]
@@ -90,7 +90,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Migrate Tag component to TS [#36265]
 -   Patch - Update eslint to 8.32.0 across the monorepo. [#36700]
 -   Patch - Update TourKit README to correct primaryButton example and formatting. [#37427]
--   Patch - Update webpack config to use @woocommerce/internal-style-build's parser config [#37195]
+-   Patch - Update webpack config to use @poocommerce/internal-style-build's parser config [#37195]
 -   Patch - Correct spelling errors [#37887]
 -   Patch - Update positioning of DateTimePickerControl's dropdown. [#38466]
 -   Minor - Fix issue where single item can not be cleared and text can not be selected upon click. [#36869]
@@ -136,7 +136,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Small tweak to update reference to currencyContext component. [#36959]
 -   Minor - Use BaseControl in the SelectTree label [#38261]
 
-## [12.0.0](https://www.npmjs.com/package/@woocommerce/components/v/12.0.0) - 2022-12-28 
+## [12.0.0](https://www.npmjs.com/package/@poocommerce/components/v/12.0.0) - 2022-12-28 
 
 -   Patch - Add name to exported popover slot used to display SelectControl Menu, so it is only used for SelectControl menus. [#36124]
 -   Patch - Close DateTimePickerControl's dropdown when blurring from input. [#36124]
@@ -171,11 +171,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add noDataLabel property into table.js component to allow No Data label customization. [#36124]
 -   Minor - Switch DateTimePickerControl formatting to PHP style, for WP compatibility. [#36124]
 
-## [11.1.0](https://www.npmjs.com/package/@woocommerce/components/v/11.1.0) - 2022-10-24 
+## [11.1.0](https://www.npmjs.com/package/@poocommerce/components/v/11.1.0) - 2022-10-24 
 
 -   Minor - Allow passing of additional props to form inputs [#35160]
 
-## [11.0.0](https://www.npmjs.com/package/@woocommerce/components/v/11.0.0) - 2022-10-20 
+## [11.0.0](https://www.npmjs.com/package/@poocommerce/components/v/11.0.0) - 2022-10-20 
 
 -   Patch - Export StepperProps for external usage [#35140]
 -   Patch - Fixed the initial setting of DateTimePickerControl's input field. [#35140]
@@ -224,7 +224,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Improve Sortable component acessibility [#35140]
 -   Major [ **BREAKING CHANGE** ] - Create new experimental SelectControl component [#35140]
 
-## [10.3.0](https://www.npmjs.com/package/@woocommerce/components/v/10.3.0) - 2022-08-12 
+## [10.3.0](https://www.npmjs.com/package/@poocommerce/components/v/10.3.0) - 2022-08-12 
 
 -   Patch - Added in missing TS definitions in package.json [#34279]
 -   Patch - fixed button rendering for 1 step tour which was not showing completion button due to bug in logic [#34279]
@@ -233,11 +233,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update types for Form component and allow Form state to be reset. [#34279]
 -   Minor - Removed Step 1 of 1 step description for 1 step tours [#34279]
 
-## [10.2.1](https://www.npmjs.com/package/@woocommerce/components/v/10.2.1) - 2022-07-19 
+## [10.2.1](https://www.npmjs.com/package/@poocommerce/components/v/10.2.1) - 2022-07-19 
 
 -   Patch - Fix missing text domain
 
-## [10.2.0](https://www.npmjs.com/package/@woocommerce/components/v/10.2.0) - 2022-07-08 
+## [10.2.0](https://www.npmjs.com/package/@poocommerce/components/v/10.2.0) - 2022-07-08 
 
 -   Minor - Add step name to tour kit step type and export CloseHandler type to be reused elsewhere
 -   Minor - Tree Select Control Component
@@ -246,7 +246,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 -   Patch - Tweak tour kit gap between content and controls
 
-## [10.1.0](https://www.npmjs.com/package/@woocommerce/components/v/10.1.0) - 2022-06-09 
+## [10.1.0](https://www.npmjs.com/package/@poocommerce/components/v/10.1.0) - 2022-06-09 
 
 -   Minor - Add tour kit component
 -   Minor - Update dependency `memoize-one` to ^6.0.0. #32936
@@ -260,4 +260,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Fix documentation for `TableCard` component
 -   Patch - Update `StepperProps` prop types. #32712
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/components/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/components/CHANGELOG.md).

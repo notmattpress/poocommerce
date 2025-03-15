@@ -3,16 +3,16 @@
  * API\Reports\Orders\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Orders;
+namespace Automattic\PooCommerce\Admin\API\Reports\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\Traits\OrderAttributionMeta;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\Traits\OrderAttributionMeta;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 
 /**
@@ -24,7 +24,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	/**
 	 * The transient name.
 	 */
-	const ORDERS_STATUSES_ALL_TRANSIENT = 'woocommerce_analytics_orders_statuses_all';
+	const ORDERS_STATUSES_ALL_TRANSIENT = 'poocommerce_analytics_orders_statuses_all';
 
 	/**
 	 * Dynamically sets the date column name based on configuration
@@ -32,7 +32,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * @override ReportsDataStore::__construct()
 	 */
 	public function __construct() {
-		$this->date_column_name = get_option( 'woocommerce_date_type', 'date_paid' );
+		$this->date_column_name = get_option( 'poocommerce_date_type', 'date_paid' );
 		parent::__construct();
 	}
 
@@ -42,7 +42,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * @internal
 	 */
 	final public static function init() {
-		add_action( 'woocommerce_analytics_update_order_stats', array( __CLASS__, 'maybe_update_order_statuses_transient' ) );
+		add_action( 'poocommerce_analytics_update_order_stats', array( __CLASS__, 'maybe_update_order_statuses_transient' ) );
 	}
 
 	/**
@@ -396,7 +396,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				 *
 				 * @since 4.0.0
 				 */
-				$separator = apply_filters( 'woocommerce_product_variation_title_attributes_separator', ' - ', $variation );
+				$separator = apply_filters( 'poocommerce_product_variation_title_attributes_separator', ' - ', $variation );
 
 				if ( false === strpos( $product_data['name'], $separator ) ) {
 					$attributes            = wc_get_formatted_variation( $variation, true, false );

@@ -17,35 +17,35 @@ export const AiOfflineModal = ( {
 }: AiOfflineModalProps ) => {
 	return (
 		<Modal
-			className="woocommerce-customize-store__onboarding-welcome-modal"
-			title={ __( 'Welcome to your store!', 'woocommerce' ) }
+			className="poocommerce-customize-store__onboarding-welcome-modal"
+			title={ __( 'Welcome to your store!', 'poocommerce' ) }
 			onRequestClose={ skipTour }
 			shouldCloseOnClickOutside={ false }
 		>
-			<span className="woocommerce-customize-store__title">
+			<span className="poocommerce-customize-store__title">
 				{ __(
 					'Our AI tool had a few issues generating your content.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 			<p>
 				{ __(
 					"But don't let that stop you! Start customizing the look and feel of your store by adding your logo and selecting your colors and layout. ",
-					'woocommerce'
+					'poocommerce'
 				) }
 				{ shouldTourBeShown &&
 					__(
 						"Take a quick tour to discover what's possible.",
-						'woocommerce'
+						'poocommerce'
 					) }
 			</p>
 			{ shouldTourBeShown && (
-				<div className="woocommerce-customize-store__design-change-warning-modal-footer">
+				<div className="poocommerce-customize-store__design-change-warning-modal-footer">
 					<Button onClick={ skipTour } variant="link">
-						{ __( 'Skip', 'woocommerce' ) }
+						{ __( 'Skip', 'poocommerce' ) }
 					</Button>
 					<Button onClick={ takeTour } variant="primary">
-						{ __( 'Take a tour', 'woocommerce' ) }
+						{ __( 'Take a tour', 'poocommerce' ) }
 					</Button>
 				</div>
 			) }

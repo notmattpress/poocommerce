@@ -3,7 +3,7 @@
 /**
  * External dependencies
  */
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import { __experimentalGrid as Grid, Spinner } from '@wordpress/components';
@@ -21,10 +21,10 @@ export const ColorPalette = () => {
 		const { getOption, hasFinishedResolution } = select( optionsStore );
 		return {
 			aiSuggestions: getOption(
-				'woocommerce_customize_store_ai_suggestions'
+				'poocommerce_customize_store_ai_suggestions'
 			) as { defaultColorPalette: ColorPaletteResponse },
 			isLoading: ! hasFinishedResolution( 'getOption', [
-				'woocommerce_customize_store_ai_suggestions',
+				'poocommerce_customize_store_ai_suggestions',
 			] ),
 		};
 	}, [] );
@@ -60,7 +60,7 @@ export const ColorPalette = () => {
 
 	if ( isLoading ) {
 		return (
-			<div className="woocommerce-customize-store_color-palette-spinner-container">
+			<div className="poocommerce-customize-store_color-palette-spinner-container">
 				<Spinner />
 			</div>
 		);
@@ -69,7 +69,7 @@ export const ColorPalette = () => {
 	return (
 		<Grid
 			columns={ 3 }
-			className="woocommerce-customize-store_color-palette-container"
+			className="poocommerce-customize-store_color-palette-container"
 		>
 			{ colorPalettes?.map( ( variation, index ) => (
 				<VariationContainer key={ index } variation={ variation }>

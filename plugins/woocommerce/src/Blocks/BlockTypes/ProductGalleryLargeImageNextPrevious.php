@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductGalleryLargeImage class.
@@ -65,7 +65,7 @@ class ProductGalleryLargeImageNextPrevious extends AbstractBlock {
 			);
 			$p->set_attribute(
 				'aria-label',
-				__( 'Previous image', 'woocommerce' )
+				__( 'Previous image', 'poocommerce' )
 			);
 			$prev_button = $p->get_updated_html();
 		}
@@ -80,14 +80,14 @@ class ProductGalleryLargeImageNextPrevious extends AbstractBlock {
 			);
 			$p->set_attribute(
 				'aria-label',
-				__( 'Next image', 'woocommerce' )
+				__( 'Next image', 'poocommerce' )
 			);
 			$next_button = $p->get_updated_html();
 		}
 
 		return strtr(
 			'<div
-				class="wc-block-product-gallery-large-image-next-previous wp-block-woocommerce-product-gallery-large-image-next-previous"
+				class="wc-block-product-gallery-large-image-next-previous wp-block-poocommerce-product-gallery-large-image-next-previous"
 				data-wp-interactive=\'{data_wp_interactive}\'
 			>
 				<div class="wc-block-product-gallery-large-image-next-previous-container">
@@ -98,7 +98,7 @@ class ProductGalleryLargeImageNextPrevious extends AbstractBlock {
 			array(
 				'{prev_button}'         => $prev_button,
 				'{next_button}'         => $next_button,
-				'{data_wp_interactive}' => 'woocommerce/product-gallery',
+				'{data_wp_interactive}' => 'poocommerce/product-gallery',
 			)
 		);
 	}

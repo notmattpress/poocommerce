@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
 
 /**
  * ClassicTemplatesCompatibility class.
@@ -32,7 +32,7 @@ class ClassicTemplatesCompatibility {
 	/**
 	 * Initialization method.
 	 */
-	protected function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingPublic
+	protected function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingPublic
 		if ( ! wc_current_theme_is_fse_theme() ) {
 			add_action( 'template_redirect', array( $this, 'set_classic_template_data' ) );
 			// We need to set this data on the widgets screen so the filters render previews.
@@ -68,7 +68,7 @@ class ClassicTemplatesCompatibility {
 	 * This method passes the value `is_rendering_php_template` to the front-end of Classic themes,
 	 * so that widget product filter blocks are aware of how to filter the products.
 	 *
-	 * This data only matters on WooCommerce product archive pages.
+	 * This data only matters on PooCommerce product archive pages.
 	 * On non-archive pages the merchant could be using the All Products block which is not a PHP template.
 	 *
 	 * @return void

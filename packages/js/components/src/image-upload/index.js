@@ -25,9 +25,9 @@ class ImageUpload extends Component {
 		}
 
 		const frame = wp.media( {
-			title: __( 'Select or upload image', 'woocommerce' ),
+			title: __( 'Select or upload image', 'poocommerce' ),
 			button: {
-				text: __( 'Select', 'woocommerce' ),
+				text: __( 'Select', 'poocommerce' ),
 			},
 			library: {
 				type: 'image',
@@ -63,38 +63,38 @@ class ImageUpload extends Component {
 				{ !! image && (
 					<div
 						className={ classNames(
-							'woocommerce-image-upload',
+							'poocommerce-image-upload',
 							'has-image',
 							className
 						) }
 					>
-						<div className="woocommerce-image-upload__image-preview">
+						<div className="poocommerce-image-upload__image-preview">
 							<img src={ image.url } alt="" />
 						</div>
 						<Button
 							isSecondary
-							className="woocommerce-image-upload__remove-image"
+							className="poocommerce-image-upload__remove-image"
 							onClick={ this.removeImage }
 						>
-							{ __( 'Remove image', 'woocommerce' ) }
+							{ __( 'Remove image', 'poocommerce' ) }
 						</Button>
 					</div>
 				) }
 				{ ! image && (
 					<div
 						className={ classNames(
-							'woocommerce-image-upload',
+							'poocommerce-image-upload',
 							'no-image',
 							className
 						) }
 					>
 						<Button
-							className="woocommerce-image-upload__add-image"
+							className="poocommerce-image-upload__add-image"
 							onClick={ this.openModal }
 							isSecondary
 						>
 							<Icon icon={ upload } />
-							{ __( 'Add an image', 'woocommerce' ) }
+							{ __( 'Add an image', 'poocommerce' ) }
 						</Button>
 					</div>
 				) }

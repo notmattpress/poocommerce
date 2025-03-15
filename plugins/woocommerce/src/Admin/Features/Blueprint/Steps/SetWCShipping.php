@@ -2,16 +2,16 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Steps;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Steps;
 
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 /**
  * Class SetWCShipping
  *
- * This class sets WooCommerce shipping settings and extends the Step class.
+ * This class sets PooCommerce shipping settings and extends the Step class.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Steps
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Steps
  */
 class SetWCShipping extends Step {
 

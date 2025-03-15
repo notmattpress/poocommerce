@@ -12,19 +12,19 @@ import {
 	createElement,
 	Fragment,
 } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDebounce } from '@wordpress/compose';
 import { plus } from '@wordpress/icons';
 import {
 	ProductAttributeTerm,
 	experimentalProductAttributeTermsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import {
 	selectControlStateChangeTypes,
 	__experimentalSelectControl as SelectControl,
 	__experimentalSelectControlMenu as Menu,
 	__experimentalSelectControlMenuItem as MenuItem,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import { cleanForSlug } from '@wordpress/url';
 
 /**
@@ -64,7 +64,7 @@ export const AttributeTermInputField: React.FC<
 	readOnlyWhenClosed = false,
 } ) => {
 	const attributeTermInputId = useRef(
-		`woocommerce-attribute-term-field-${ ++uniqueId }`
+		`poocommerce-attribute-term-field-${ ++uniqueId }`
 	);
 	const [ fetchedItems, setFetchedItems ] = useState<
 		ProductAttributeTerm[]
@@ -121,7 +121,7 @@ export const AttributeTermInputField: React.FC<
 			document.querySelector(
 				'.' +
 					attributeTermInputId.current +
-					' .woocommerce-experimental-select-control__input'
+					' .poocommerce-experimental-select-control__input'
 			);
 		if ( selectControlInputField ) {
 			setTimeout( () => {
@@ -156,7 +156,7 @@ export const AttributeTermInputField: React.FC<
 			};
 			let noticeMessage = __(
 				'Failed to create attribute term.',
-				'woocommerce'
+				'poocommerce'
 			);
 			const errorResponse = err as customError;
 			if ( errorResponse?.code && errorResponse?.message ) {
@@ -168,7 +168,7 @@ export const AttributeTermInputField: React.FC<
 				if ( errorResponse.code === 'term_exists' ) {
 					noticeMessage = __(
 						'Attribute term already exists.',
-						'woocommerce'
+						'poocommerce'
 					);
 				}
 			}
@@ -266,7 +266,7 @@ export const AttributeTermInputField: React.FC<
 				onRemove={ onRemove }
 				readOnlyWhenClosed={ readOnlyWhenClosed }
 				className={
-					'woocommerce-attribute-term-field ' +
+					'poocommerce-attribute-term-field ' +
 					attributeTermInputId.current
 				}
 				__experimentalOpenMenuOnFocus
@@ -284,7 +284,7 @@ export const AttributeTermInputField: React.FC<
 								isFetching || isCreatingTerm ? (
 									<div
 										key="loading-spinner"
-										className="woocommerce-attribute-term-field__loading-spinner"
+										className="poocommerce-attribute-term-field__loading-spinner"
 									>
 										<Spinner />
 									</div>
@@ -315,18 +315,18 @@ export const AttributeTermInputField: React.FC<
 													}
 												/>
 											) : (
-												<div className="woocommerce-attribute-term-field__add-new">
+												<div className="poocommerce-attribute-term-field__add-new">
 													<Icon
 														icon={ plus }
 														size={ 20 }
-														className="woocommerce-attribute-term-field__add-new-icon"
+														className="poocommerce-attribute-term-field__add-new-icon"
 													/>
 													<span>
 														{ sprintf(
 															/* translators: The name of the new attribute term to be created */
 															__(
 																'Create "%s"',
-																'woocommerce'
+																'poocommerce'
 															),
 															item.name
 														) }

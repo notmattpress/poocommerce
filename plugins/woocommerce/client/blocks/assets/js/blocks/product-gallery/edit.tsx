@@ -30,7 +30,7 @@ const TEMPLATE: InnerBlockTemplate[] = [
 			className: 'wc-block-product-gallery__gallery-area',
 		},
 		[
-			[ 'woocommerce/product-gallery-thumbnails' ],
+			[ 'poocommerce/product-gallery-thumbnails' ],
 			[
 				'core/group',
 				{
@@ -51,11 +51,11 @@ const TEMPLATE: InnerBlockTemplate[] = [
 				},
 				[
 					[
-						'woocommerce/product-gallery-large-image',
+						'poocommerce/product-gallery-large-image',
 						{},
 						[
 							[
-								'woocommerce/product-sale-badge',
+								'poocommerce/product-sale-badge',
 								{
 									align: 'right',
 									style: {
@@ -71,7 +71,7 @@ const TEMPLATE: InnerBlockTemplate[] = [
 								},
 							],
 							[
-								'woocommerce/product-gallery-large-image-next-previous',
+								'poocommerce/product-gallery-large-image-next-previous',
 								{
 									layout: {
 										type: 'flex',
@@ -105,8 +105,8 @@ export const Edit = ( {
 			</InspectorControls>
 			<InnerBlocks
 				allowedBlocks={ [
-					'woocommerce/product-gallery-large-image',
-					'woocommerce/product-gallery-thumbnails',
+					'poocommerce/product-gallery-large-image',
+					'poocommerce/product-gallery-thumbnails',
 				] }
 				templateLock={ false }
 				template={ TEMPLATE }

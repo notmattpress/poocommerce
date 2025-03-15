@@ -1,5 +1,5 @@
 {
-	"name": "@woocommerce/internal-e2e-builds",
+	"name": "@poocommerce/internal-e2e-builds",
 	"version": "0.1.0",
 	"description": "Utility build files for e2e packages",
 	"private": true,
@@ -16,13 +16,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/woocommerce/woocommerce.git"
+		"url": "git+https://github.com/poocommerce/poocommerce.git"
 	},
 	"license": "GPL-3.0+",
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce#readme",
+	"homepage": "https://github.com/poocommerce/poocommerce#readme",
 	"scripts": {
 		"lint": "pnpm --if-present '/^lint:lang:.*$/'",
 		"lint:fix": "pnpm --if-present '/^lint:fix:lang:.*$/'",
@@ -31,7 +31,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "7.12.9",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"chalk": "^4.1.2",
 		"eslint": "^8.55.0",
 		"glob": "^10.3.10",

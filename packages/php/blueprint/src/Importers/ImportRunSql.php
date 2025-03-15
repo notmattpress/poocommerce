@@ -1,19 +1,19 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Importers;
+namespace Automattic\PooCommerce\Blueprint\Importers;
 
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\ActivatePlugin;
-use Automattic\WooCommerce\Blueprint\Steps\ActivateTheme;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
-use Automattic\WooCommerce\Blueprint\UsePluginHelpers;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\ActivatePlugin;
+use Automattic\PooCommerce\Blueprint\Steps\ActivateTheme;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\UsePluginHelpers;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ImportRunSql
  *
- * @package Automattic\WooCommerce\Blueprint\Importers
+ * @package Automattic\PooCommerce\Blueprint\Importers
  */
 class ImportRunSql implements StepProcessor {
 	use UsePluginHelpers;

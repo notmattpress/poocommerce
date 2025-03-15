@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 /**
  * Utility methods used for the Product Gallery block.
@@ -23,7 +23,7 @@ class ProductGalleryUtils {
 		);
 
 		if ( ! $product instanceof \WC_Product ) {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'woocommerce' ), '9.8.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'poocommerce' ), '9.8.0' );
 			return $image_data;
 		}
 
@@ -93,7 +93,7 @@ class ProductGalleryUtils {
 		$variation_image_ids = array();
 
 		if ( ! $product instanceof \WC_Product ) {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'woocommerce' ), '9.8.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Invalid product object.', 'poocommerce' ), '9.8.0' );
 			return $variation_image_ids;
 		}
 

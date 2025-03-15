@@ -15,7 +15,7 @@ type PluginCardBodyProps = {
 	name: string;
 
 	/**
-	 * WooCommerce's Pill component to be rendered beside the name.
+	 * PooCommerce's Pill component to be rendered beside the name.
 	 */
 	pills?: Array< JSX.Element >;
 
@@ -37,19 +37,19 @@ export const PluginCardBody: React.FC< PluginCardBodyProps > = ( {
 	return (
 		<CardBody
 			className={ clsx(
-				'woocommerce_marketing_plugin_card_body',
+				'poocommerce_marketing_plugin_card_body',
 				className
 			) }
 		>
-			<div className="woocommerce_marketing_plugin_card_body__icon">
+			<div className="poocommerce_marketing_plugin_card_body__icon">
 				{ icon }
 			</div>
-			<div className="woocommerce_marketing_plugin_card_body__details">
-				<div className="woocommerce_marketing_plugin_card_body__details-name">
+			<div className="poocommerce_marketing_plugin_card_body__details">
+				<div className="poocommerce_marketing_plugin_card_body__details-name">
 					{ name }
 					{ pills }
 				</div>
-				<div className="woocommerce_marketing_plugin_card_body__details-description">
+				<div className="poocommerce_marketing_plugin_card_body__details-description">
 					{ description }
 				</div>
 			</div>

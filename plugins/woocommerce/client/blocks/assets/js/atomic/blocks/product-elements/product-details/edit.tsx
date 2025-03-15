@@ -26,11 +26,11 @@ const Edit = ( {
 		<>
 			<div { ...blockProps }>
 				<InspectorControls key="inspector">
-					<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 						<ToggleControl
 							label={ __(
 								'Show tab title in content',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ ! hideTabTitle }
 							onChange={ () =>

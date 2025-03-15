@@ -89,7 +89,7 @@ function PersonalizationTagsButton( { contentRef }: Props ) {
 				richTextValue = applyFormat(
 					richTextValue,
 					{
-						type: 'woocommerce-email-editor/link-shortcode',
+						type: 'poocommerce-email-editor/link-shortcode',
 						// @ts-expect-error attributes property is missing in build type for WPFormat type
 						attributes: {
 							'data-link-href': tag,
@@ -124,7 +124,7 @@ function PersonalizationTagsButton( { contentRef }: Props ) {
 			<ToolbarGroup>
 				<ToolbarButton
 					icon="shortcode"
-					title={ __( 'Personalization Tags', 'woocommerce' ) }
+					title={ __( 'Personalization Tags', 'poocommerce' ) }
 					onClick={ () => {
 						setIsModalOpened( true );
 						recordEvent(
@@ -188,10 +188,10 @@ function PersonalizationTagsButton( { contentRef }: Props ) {
  * Extend the rich text formats with a button for personalization tags.
  */
 function extendRichTextFormats() {
-	registerFormatType( 'woocommerce-email-editor/shortcode', {
-		name: 'woocommerce-email-editor/shortcode',
-		title: __( 'Personalization Tags', 'woocommerce' ),
-		className: 'woocommerce-email-editor-personalization-tags',
+	registerFormatType( 'poocommerce-email-editor/shortcode', {
+		name: 'poocommerce-email-editor/shortcode',
+		title: __( 'Personalization Tags', 'poocommerce' ),
+		className: 'poocommerce-email-editor-personalization-tags',
 		tagName: 'span',
 		// @ts-expect-error attributes property is missing in build type for WPFormat type
 		attributes: {},
@@ -199,10 +199,10 @@ function extendRichTextFormats() {
 	} );
 
 	// Register format type for using personalization tags as link attributes
-	registerFormatType( 'woocommerce-email-editor/link-shortcode', {
-		name: 'woocommerce-email-editor/link-shortcode',
-		title: __( 'Personalization Tags Link', 'woocommerce' ),
-		className: 'woocommerce-email-editor-personalization-tags-link',
+	registerFormatType( 'poocommerce-email-editor/link-shortcode', {
+		name: 'poocommerce-email-editor/link-shortcode',
+		title: __( 'Personalization Tags Link', 'poocommerce' ),
+		className: 'poocommerce-email-editor-personalization-tags-link',
 		tagName: 'a',
 		// @ts-expect-error attributes property is missing in build type for WPFormat type
 		attributes: {
@@ -283,7 +283,7 @@ const personalizationTagsLiveContentUpdate = createHigherOrderComponent(
 function activatePersonalizationTagsReplacing() {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/with-live-content-update',
+		'poocommerce-email-editor/with-live-content-update',
 		personalizationTagsLiveContentUpdate
 	);
 }

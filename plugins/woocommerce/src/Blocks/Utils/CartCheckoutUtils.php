@@ -1,5 +1,5 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 /**
  * Class containing utility methods for dealing with the Cart and Checkout blocks.
@@ -39,7 +39,7 @@ class CartCheckoutUtils {
 		} else {
 			global $post;
 			// Check page contents for block/shortcode.
-			self::$is_cart_page = is_a( $post, 'WP_Post' ) && ( wc_post_content_has_shortcode( 'woocommerce_cart' ) || self::has_block_variation( 'woocommerce/classic-shortcode', 'shortcode', 'cart', $post->post_content ) );
+			self::$is_cart_page = is_a( $post, 'WP_Post' ) && ( wc_post_content_has_shortcode( 'poocommerce_cart' ) || self::has_block_variation( 'poocommerce/classic-shortcode', 'shortcode', 'cart', $post->post_content ) );
 		}
 
 		return self::$is_cart_page;
@@ -85,7 +85,7 @@ class CartCheckoutUtils {
 		} else {
 			global $post;
 			// Check page contents for block/shortcode.
-			self::$is_checkout_page = is_a( $post, 'WP_Post' ) && ( wc_post_content_has_shortcode( 'woocommerce_checkout' ) || self::has_block_variation( 'woocommerce/classic-shortcode', 'shortcode', 'checkout', $post->post_content ) );
+			self::$is_checkout_page = is_a( $post, 'WP_Post' ) && ( wc_post_content_has_shortcode( 'poocommerce_checkout' ) || self::has_block_variation( 'poocommerce/classic-shortcode', 'shortcode', 'checkout', $post->post_content ) );
 		}
 
 		return self::$is_checkout_page;
@@ -119,8 +119,8 @@ class CartCheckoutUtils {
 					return true;
 				}
 
-				// `Cart` is default for `woocommerce/classic-shortcode` so it will be empty in the block attributes.
-				if ( 'woocommerce/classic-shortcode' === $block_id && 'shortcode' === $attribute && 'cart' === $value && ! isset( $block['attrs']['shortcode'] ) ) {
+				// `Cart` is default for `poocommerce/classic-shortcode` so it will be empty in the block attributes.
+				if ( 'poocommerce/classic-shortcode' === $block_id && 'shortcode' === $attribute && 'cart' === $value && ! isset( $block['attrs']['shortcode'] ) ) {
 					return true;
 				}
 			}
@@ -139,13 +139,13 @@ class CartCheckoutUtils {
 			// Ignore the pages and check the templates.
 			$templates_from_db = BlockTemplateUtils::get_block_templates_from_db( array( 'cart' ), 'wp_template' );
 			foreach ( $templates_from_db as $template ) {
-				if ( has_block( 'woocommerce/cart', $template->content ) ) {
+				if ( has_block( 'poocommerce/cart', $template->content ) ) {
 					return true;
 				}
 			}
 		}
 		$cart_page_id = wc_get_page_id( 'cart' );
-		return $cart_page_id && has_block( 'woocommerce/cart', $cart_page_id );
+		return $cart_page_id && has_block( 'poocommerce/cart', $cart_page_id );
 	}
 
 	/**
@@ -158,20 +158,20 @@ class CartCheckoutUtils {
 			// Ignore the pages and check the templates.
 			$templates_from_db = BlockTemplateUtils::get_block_templates_from_db( array( 'checkout' ), 'wp_template' );
 			foreach ( $templates_from_db as $template ) {
-				if ( has_block( 'woocommerce/checkout', $template->content ) ) {
+				if ( has_block( 'poocommerce/checkout', $template->content ) ) {
 					return true;
 				}
 			}
 		}
 		$checkout_page_id = wc_get_page_id( 'checkout' );
-		return $checkout_page_id && has_block( 'woocommerce/checkout', $checkout_page_id );
+		return $checkout_page_id && has_block( 'poocommerce/checkout', $checkout_page_id );
 	}
 
 	/**
 	 * Migrate checkout block field visibility attributes to settings when using the checkout block.
 	 *
-	 * This migration routine is called if the options (woocommerce_checkout_phone_field, woocommerce_checkout_company_field,
-	 * woocommerce_checkout_address_2_field) are not set. They are not set by default; they were orignally set by the
+	 * This migration routine is called if the options (poocommerce_checkout_phone_field, poocommerce_checkout_company_field,
+	 * poocommerce_checkout_address_2_field) are not set. They are not set by default; they were orignally set by the
 	 * customizer interface of the legacy shortcode based checkout.
 	 *
 	 * Once migration is initiated, the settings will be updated and will not trigger this routine again.
@@ -184,12 +184,12 @@ class CartCheckoutUtils {
 	 */
 	protected static function migrate_checkout_block_field_visibility_attributes() {
 		// Before migrating attributes, migrate the "default" options checkout block uses into the settings.
-		update_option( 'woocommerce_checkout_phone_field', 'optional' );
-		update_option( 'woocommerce_checkout_company_field', 'hidden' );
-		update_option( 'woocommerce_checkout_address_2_field', 'optional' );
+		update_option( 'poocommerce_checkout_phone_field', 'optional' );
+		update_option( 'poocommerce_checkout_company_field', 'hidden' );
+		update_option( 'poocommerce_checkout_address_2_field', 'optional' );
 
 		// Parse the block from the checkout page.
-		$checkout_blocks = \WC_Blocks_Utils::get_blocks_from_page( 'woocommerce/checkout', 'checkout' );
+		$checkout_blocks = \WC_Blocks_Utils::get_blocks_from_page( 'poocommerce/checkout', 'checkout' );
 
 		if ( empty( $checkout_blocks ) || ! isset( $checkout_blocks[0]['attrs'] ) ) {
 			return;
@@ -209,21 +209,21 @@ class CartCheckoutUtils {
 		);
 
 		if ( $block_attributes['showPhoneField'] ) {
-			update_option( 'woocommerce_checkout_phone_field', $block_attributes['requirePhoneField'] ? 'required' : 'optional' );
+			update_option( 'poocommerce_checkout_phone_field', $block_attributes['requirePhoneField'] ? 'required' : 'optional' );
 		} else {
-			update_option( 'woocommerce_checkout_phone_field', 'hidden' );
+			update_option( 'poocommerce_checkout_phone_field', 'hidden' );
 		}
 
 		if ( $block_attributes['showCompanyField'] ) {
-			update_option( 'woocommerce_checkout_company_field', $block_attributes['requireCompanyField'] ? 'required' : 'optional' );
+			update_option( 'poocommerce_checkout_company_field', $block_attributes['requireCompanyField'] ? 'required' : 'optional' );
 		} else {
-			update_option( 'woocommerce_checkout_company_field', 'hidden' );
+			update_option( 'poocommerce_checkout_company_field', 'hidden' );
 		}
 
 		if ( $block_attributes['showApartmentField'] ) {
-			update_option( 'woocommerce_checkout_address_2_field', $block_attributes['requireApartmentField'] ? 'required' : 'optional' );
+			update_option( 'poocommerce_checkout_address_2_field', $block_attributes['requireApartmentField'] ? 'required' : 'optional' );
 		} else {
-			update_option( 'woocommerce_checkout_address_2_field', 'hidden' );
+			update_option( 'poocommerce_checkout_address_2_field', 'hidden' );
 		}
 	}
 
@@ -233,7 +233,7 @@ class CartCheckoutUtils {
 	 * @return string
 	 */
 	public static function get_company_field_visibility() {
-		$option_value = get_option( 'woocommerce_checkout_company_field' );
+		$option_value = get_option( 'poocommerce_checkout_company_field' );
 
 		if ( $option_value ) {
 			return $option_value;
@@ -241,7 +241,7 @@ class CartCheckoutUtils {
 
 		if ( self::is_checkout_block_default() ) {
 			self::migrate_checkout_block_field_visibility_attributes();
-			return get_option( 'woocommerce_checkout_company_field', 'hidden' );
+			return get_option( 'poocommerce_checkout_company_field', 'hidden' );
 		}
 
 		return 'optional';
@@ -253,7 +253,7 @@ class CartCheckoutUtils {
 	 * @return string
 	 */
 	public static function get_address_2_field_visibility() {
-		$option_value = get_option( 'woocommerce_checkout_address_2_field' );
+		$option_value = get_option( 'poocommerce_checkout_address_2_field' );
 
 		if ( $option_value ) {
 			return $option_value;
@@ -261,7 +261,7 @@ class CartCheckoutUtils {
 
 		if ( self::is_checkout_block_default() ) {
 			self::migrate_checkout_block_field_visibility_attributes();
-			return get_option( 'woocommerce_checkout_address_2_field', 'optional' );
+			return get_option( 'poocommerce_checkout_address_2_field', 'optional' );
 		}
 
 		return 'optional';
@@ -273,7 +273,7 @@ class CartCheckoutUtils {
 	 * @return string
 	 */
 	public static function get_phone_field_visibility() {
-		$option_value = get_option( 'woocommerce_checkout_phone_field' );
+		$option_value = get_option( 'poocommerce_checkout_phone_field' );
 
 		if ( $option_value ) {
 			return $option_value;
@@ -281,7 +281,7 @@ class CartCheckoutUtils {
 
 		if ( self::is_checkout_block_default() ) {
 			self::migrate_checkout_block_field_visibility_attributes();
-			return get_option( 'woocommerce_checkout_phone_field', 'optional' );
+			return get_option( 'poocommerce_checkout_phone_field', 'optional' );
 		}
 
 		return 'required';
@@ -297,13 +297,13 @@ class CartCheckoutUtils {
 	 */
 	public static function is_overriden_by_custom_template_content( string $block ): bool {
 
-		$block = str_replace( 'woocommerce/', '', $block );
+		$block = str_replace( 'poocommerce/', '', $block );
 
 		if ( wc_current_theme_is_fse_theme() ) {
 			$templates_from_db = BlockTemplateUtils::get_block_templates_from_db( array( 'page-' . $block ) );
 			foreach ( $templates_from_db as $template ) {
-				if ( ! has_block( 'woocommerce/page-content-wrapper', $template->content ) ) {
-					// Return true if the template does not load the page content via the  woocommerce/page-content-wrapper block.
+				if ( ! has_block( 'poocommerce/page-content-wrapper', $template->content ) ) {
+					// Return true if the template does not load the page content via the  poocommerce/page-content-wrapper block.
 					return true;
 				}
 			}
@@ -377,7 +377,7 @@ class CartCheckoutUtils {
 	}
 
 	/**
-	 * Retrieves formatted shipping zones from WooCommerce.
+	 * Retrieves formatted shipping zones from PooCommerce.
 	 *
 	 * @return array An array of formatted shipping zones.
 	 */
@@ -397,8 +397,8 @@ class CartCheckoutUtils {
 		);
 		$formatted_shipping_zones[] = [
 			'id'          => 0,
-			'title'       => __( 'International', 'woocommerce' ),
-			'description' => __( 'Locations outside all other zones', 'woocommerce' ),
+			'title'       => __( 'International', 'poocommerce' ),
+			'description' => __( 'Locations outside all other zones', 'poocommerce' ),
 		];
 		return $formatted_shipping_zones;
 	}
@@ -411,7 +411,7 @@ class CartCheckoutUtils {
 	 * @param string $cart_or_checkout The block type to check.
 	 */
 	public static function find_express_checkout_attributes( $blocks, $cart_or_checkout ) {
-		$express_block_name = 'woocommerce/' . $cart_or_checkout . '-express-payment-block';
+		$express_block_name = 'poocommerce/' . $cart_or_checkout . '-express-payment-block';
 		foreach ( $blocks as $block ) {
 			if ( ! empty( $block['blockName'] ) && $express_block_name === $block['blockName'] && ! empty( $block['attrs'] ) ) {
 				return $block['attrs'];
@@ -434,7 +434,7 @@ class CartCheckoutUtils {
 	 * @param array  $updated_attrs The new attributes to set.
 	 */
 	public static function update_blocks_with_new_attrs( &$blocks, $cart_or_checkout, $updated_attrs ) {
-		$express_block_name = 'woocommerce/' . $cart_or_checkout . '-express-payment-block';
+		$express_block_name = 'poocommerce/' . $cart_or_checkout . '-express-payment-block';
 		foreach ( $blocks as $key => &$block ) {
 			if ( ! empty( $block['blockName'] ) && $express_block_name === $block['blockName'] ) {
 				$blocks[ $key ]['attrs'] = $updated_attrs;

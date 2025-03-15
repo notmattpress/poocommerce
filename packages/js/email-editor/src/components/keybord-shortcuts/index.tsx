@@ -35,9 +35,9 @@ export function KeyboardShortcuts(): null {
 
 	useEffect( () => {
 		void registerShortcut( {
-			name: 'woocommerce/email-editor/toggle-fullscreen',
+			name: 'poocommerce/email-editor/toggle-fullscreen',
 			category: 'global',
-			description: __( 'Toggle fullscreen mode.', 'woocommerce' ),
+			description: __( 'Toggle fullscreen mode.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'secondary',
 				character: 'f',
@@ -45,11 +45,11 @@ export function KeyboardShortcuts(): null {
 		} );
 
 		void registerShortcut( {
-			name: 'woocommerce/email-editor/toggle-sidebar',
+			name: 'poocommerce/email-editor/toggle-sidebar',
 			category: 'global',
 			description: __(
 				'Show or hide the settings sidebar.',
-				'woocommerce'
+				'poocommerce'
 			),
 			keyCombination: {
 				modifier: 'primaryShift',
@@ -58,9 +58,9 @@ export function KeyboardShortcuts(): null {
 		} );
 
 		void registerShortcut( {
-			name: 'woocommerce/email-editor/save',
+			name: 'poocommerce/email-editor/save',
 			category: 'global',
-			description: __( 'Save your changes.', 'woocommerce' ),
+			description: __( 'Save your changes.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'primary',
 				character: 's',
@@ -68,9 +68,9 @@ export function KeyboardShortcuts(): null {
 		} );
 
 		void registerShortcut( {
-			name: 'woocommerce/email-editor/undo',
+			name: 'poocommerce/email-editor/undo',
 			category: 'block',
-			description: __( 'Undo your last changes.', 'woocommerce' ),
+			description: __( 'Undo your last changes.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'primary',
 				character: 'z',
@@ -78,9 +78,9 @@ export function KeyboardShortcuts(): null {
 		} );
 
 		void registerShortcut( {
-			name: 'woocommerce/email-editor/redo',
+			name: 'poocommerce/email-editor/redo',
 			category: 'block',
-			description: __( 'Redo your last undo.', 'woocommerce' ),
+			description: __( 'Redo your last undo.', 'poocommerce' ),
 			keyCombination: {
 				modifier: 'primaryShift',
 				character: 'z',
@@ -88,12 +88,12 @@ export function KeyboardShortcuts(): null {
 		} );
 	}, [ registerShortcut ] );
 
-	useShortcut( 'woocommerce/email-editor/toggle-fullscreen', () => {
+	useShortcut( 'poocommerce/email-editor/toggle-fullscreen', () => {
 		recordEvent( 'keyboard_shortcuts_toggle_fullscreen' );
 		void toggleFeature( 'fullscreenMode' );
 	} );
 
-	useShortcut( 'woocommerce/email-editor/toggle-sidebar', ( event ) => {
+	useShortcut( 'poocommerce/email-editor/toggle-sidebar', ( event ) => {
 		recordEvent( 'keyboard_shortcuts_toggle_sidebar' );
 		event.preventDefault();
 
@@ -104,7 +104,7 @@ export function KeyboardShortcuts(): null {
 		}
 	} );
 
-	useShortcut( 'woocommerce/email-editor/save', ( event ) => {
+	useShortcut( 'poocommerce/email-editor/save', ( event ) => {
 		recordEvent( 'keyboard_shortcuts_save' );
 		event.preventDefault();
 		if ( ! hasEdits || isSaving ) {
@@ -115,7 +115,7 @@ export function KeyboardShortcuts(): null {
 
 	useShortcut(
 		// Shortcut name
-		'woocommerce/email-editor/undo',
+		'poocommerce/email-editor/undo',
 		// Shortcut callback
 		( event ): void => {
 			void undoAction();
@@ -125,7 +125,7 @@ export function KeyboardShortcuts(): null {
 
 	useShortcut(
 		// Shortcut name
-		'woocommerce/email-editor/redo',
+		'poocommerce/email-editor/redo',
 		// Shortcut callback
 		( event ): void => {
 			void redoAction();

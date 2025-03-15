@@ -31,7 +31,7 @@ export const TextControl = forwardRef( function ForwardedTextControl(
 			{ ...props }
 			ref={ ref }
 			className={ classNames(
-				'woocommerce-product-text-control',
+				'poocommerce-product-text-control',
 				className,
 				{
 					'has-error': error,

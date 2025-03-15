@@ -1,4 +1,4 @@
-Feature: Manage WooCommerce Products
+Feature: Manage PooCommerce Products
 
 Background:
 

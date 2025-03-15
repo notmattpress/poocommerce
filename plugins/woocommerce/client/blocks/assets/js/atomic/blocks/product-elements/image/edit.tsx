@@ -4,10 +4,10 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { createInterpolateElement, useEffect } from '@wordpress/element';
-import { getAdminLink, getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+import { getAdminLink, getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 import {
 	Disabled,
 	PanelBody,
@@ -70,12 +70,12 @@ const Edit = ( {
 					height={ height }
 					setAttributes={ setAttributes }
 				/>
-				<PanelBody title={ __( 'Content', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Content', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Link to Product Page', 'woocommerce' ) }
+						label={ __( 'Link to Product Page', 'poocommerce' ) }
 						help={ __(
 							'Links the image to the single product listing.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showProductLink }
 						onChange={ () =>
@@ -85,10 +85,10 @@ const Edit = ( {
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Show On-Sale Badge', 'woocommerce' ) }
+						label={ __( 'Show On-Sale Badge', 'poocommerce' ) }
 						help={ __(
 							'Display a “sale” badge if the product is on-sale.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ showSaleBadge }
 						onChange={ () =>
@@ -101,7 +101,7 @@ const Edit = ( {
 						<ToggleGroupControl
 							label={ __(
 								'Sale Badge Alignment',
-								'woocommerce'
+								'poocommerce'
 							) }
 							isBlock
 							value={ saleBadgeAlign }
@@ -111,27 +111,27 @@ const Edit = ( {
 						>
 							<ToggleGroupControlOption
 								value="left"
-								label={ __( 'Left', 'woocommerce' ) }
+								label={ __( 'Left', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="center"
-								label={ __( 'Center', 'woocommerce' ) }
+								label={ __( 'Center', 'poocommerce' ) }
 							/>
 							<ToggleGroupControlOption
 								value="right"
-								label={ __( 'Right', 'woocommerce' ) }
+								label={ __( 'Right', 'poocommerce' ) }
 							/>
 						</ToggleGroupControl>
 					) }
 					<ToggleGroupControl
-						label={ __( 'Image Sizing', 'woocommerce' ) }
+						label={ __( 'Image Sizing', 'poocommerce' ) }
 						isBlock
 						help={
 							! isBlockThemeEnabled
 								? createInterpolateElement(
 										__(
 											'Product image cropping can be modified in the <a>Customizer</a>.',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											a: (
@@ -139,7 +139,7 @@ const Edit = ( {
 												<a
 													href={ `${ getAdminLink(
 														'customize.php'
-													) }?autofocus[panel]=woocommerce&autofocus[section]=woocommerce_product_images` }
+													) }?autofocus[panel]=poocommerce&autofocus[section]=poocommerce_product_images` }
 													target="_blank"
 													rel="noopener noreferrer"
 												/>
@@ -155,11 +155,11 @@ const Edit = ( {
 					>
 						<ToggleGroupControlOption
 							value={ ImageSizing.SINGLE }
-							label={ __( 'Full Size', 'woocommerce' ) }
+							label={ __( 'Full Size', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value={ ImageSizing.THUMBNAIL }
-							label={ __( 'Cropped', 'woocommerce' ) }
+							label={ __( 'Cropped', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 				</PanelBody>

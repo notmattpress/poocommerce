@@ -3,16 +3,16 @@ $banner-height: 56px;
 
 // This class is a hack, added conditionally when displaying the app banner, it
 // can be refactored away when the activity panel goes away.
-.woocommerce-layout__show-app-banner {
+.poocommerce-layout__show-app-banner {
 	@include breakpoint( "<782px" ) {
-		.woocommerce-layout__header-wrapper {
+		.poocommerce-layout__header-wrapper {
 			padding-top: $banner-height;
 		}
 	}
 }
 
-.woocommerce-mobile-app-banner {
-	background-color: $woocommerce-brand-purple;
+.poocommerce-mobile-app-banner {
+	background-color: $poocommerce-brand-purple;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -48,7 +48,7 @@ $banner-height: 56px;
 		}
 	}
 
-	.woocommerce-mobile-app-banner__description {
+	.poocommerce-mobile-app-banner__description {
 		color: $white;
 		margin-left: 8px;
 
@@ -56,7 +56,7 @@ $banner-height: 56px;
 			margin-left: $element-spacing;
 		}
 
-		.woocommerce-mobile-app-banner__description__text {
+		.poocommerce-mobile-app-banner__description__text {
 			&:first-child {
 				font-weight: bold;
 			}

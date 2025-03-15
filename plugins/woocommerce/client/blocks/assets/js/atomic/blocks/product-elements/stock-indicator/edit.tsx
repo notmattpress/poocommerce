@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import EditProductLink from '@woocommerce/editor-components/edit-product-link';
+import EditProductLink from '@poocommerce/editor-components/edit-product-link';
 import { useBlockProps } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 import { useEffect } from '@wordpress/element';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { filledCart } from '@woocommerce/icons';
+import { filledCart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -10,7 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/filled-cart-block', {
+registerBlockType( 'poocommerce/filled-cart-block', {
 	icon: {
 		src: (
 			<Icon

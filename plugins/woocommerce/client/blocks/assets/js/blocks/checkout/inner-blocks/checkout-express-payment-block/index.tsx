@@ -10,7 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import expressIcon from '../../../cart-checkout-shared/icon';
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/checkout-express-payment-block', {
+registerBlockType( 'poocommerce/checkout-express-payment-block', {
 	icon: {
 		src: (
 			<Icon

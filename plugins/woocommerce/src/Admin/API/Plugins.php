@@ -5,10 +5,10 @@
  * Handles requests to install and activate dependent plugins.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -215,7 +215,7 @@ class Plugins extends \WC_REST_Data_Controller {
 	 */
 	public function update_item_permissions_check( $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -227,7 +227,7 @@ class Plugins extends \WC_REST_Data_Controller {
 	 * @return \WP_Error|array Plugin Status
 	 */
 	public function install_plugin( $request ) {
-		wc_deprecated_function( 'install_plugin', '4.3', '\Automattic\WooCommerce\Admin\API\Plugins()->install_plugins' );
+		wc_deprecated_function( 'install_plugin', '4.3', '\Automattic\PooCommerce\Admin\API\Plugins()->install_plugins' );
 		// This method expects a `plugin` argument to be sent, install plugins requires plugins.
 		$request['plugins'] = $request['plugin'];
 		return self::install_plugins( $request );
@@ -243,7 +243,7 @@ class Plugins extends \WC_REST_Data_Controller {
 		$plugins = explode( ',', $request['plugins'] );
 
 		if ( empty( $request['plugins'] ) || ! is_array( $plugins ) ) {
-			return new \WP_Error( 'woocommerce_rest_invalid_plugins', __( 'Plugins must be a non-empty array.', 'woocommerce' ), 404 );
+			return new \WP_Error( 'poocommerce_rest_invalid_plugins', __( 'Plugins must be a non-empty array.', 'poocommerce' ), 404 );
 		}
 
 		if ( isset( $request['async'] ) && $request['async'] ) {
@@ -254,7 +254,7 @@ class Plugins extends \WC_REST_Data_Controller {
 					'job_id'  => $job_id,
 					'plugins' => $plugins,
 				),
-				'message' => __( 'Plugin installation has been scheduled.', 'woocommerce' ),
+				'message' => __( 'Plugin installation has been scheduled.', 'poocommerce' ),
 			);
 		}
 
@@ -288,8 +288,8 @@ class Plugins extends \WC_REST_Data_Controller {
 			'errors'  => $data['errors'],
 			'success' => count( $data['errors']->errors ) === 0,
 			'message' => count( $data['errors']->errors ) === 0
-				? __( 'Plugins were successfully installed.', 'woocommerce' )
-				: __( 'There was a problem installing some of the requested plugins.', 'woocommerce' ),
+				? __( 'Plugins were successfully installed.', 'poocommerce' )
+				: __( 'There was a problem installing some of the requested plugins.', 'poocommerce' ),
 		);
 	}
 
@@ -357,7 +357,7 @@ class Plugins extends \WC_REST_Data_Controller {
 		$plugins = explode( ',', $request['plugins'] );
 
 		if ( empty( $request['plugins'] ) || ! is_array( $plugins ) ) {
-			return new \WP_Error( 'woocommerce_rest_invalid_plugins', __( 'Plugins must be a non-empty array.', 'woocommerce' ), 404 );
+			return new \WP_Error( 'poocommerce_rest_invalid_plugins', __( 'Plugins must be a non-empty array.', 'poocommerce' ), 404 );
 		}
 
 		if ( isset( $request['async'] ) && $request['async'] ) {
@@ -368,7 +368,7 @@ class Plugins extends \WC_REST_Data_Controller {
 					'job_id'  => $job_id,
 					'plugins' => $plugins,
 				),
-				'message' => __( 'Plugin activation has been scheduled.', 'woocommerce' ),
+				'message' => __( 'Plugin activation has been scheduled.', 'poocommerce' ),
 			);
 		}
 
@@ -401,8 +401,8 @@ class Plugins extends \WC_REST_Data_Controller {
 			'errors'  => $data['errors'],
 			'success' => count( $data['errors']->errors ) === 0,
 			'message' => count( $data['errors']->errors ) === 0
-				? __( 'Plugins were successfully activated.', 'woocommerce' )
-				: __( 'There was a problem activating some of the requested plugins.', 'woocommerce' ),
+				? __( 'Plugins were successfully activated.', 'poocommerce' )
+				: __( 'There was a problem activating some of the requested plugins.', 'poocommerce' ),
 		) );
 	}
 
@@ -436,18 +436,18 @@ class Plugins extends \WC_REST_Data_Controller {
 	 */
 	public function connect_jetpack( $request ) {
 		if ( ! class_exists( '\Jetpack' ) ) {
-			return new \WP_Error( 'woocommerce_rest_jetpack_not_active', __( 'Jetpack is not installed or active.', 'woocommerce' ), 404 );
+			return new \WP_Error( 'poocommerce_rest_jetpack_not_active', __( 'Jetpack is not installed or active.', 'poocommerce' ), 404 );
 		}
 
-		$redirect_url = apply_filters( 'woocommerce_admin_onboarding_jetpack_connect_redirect_url', esc_url_raw( $request['redirect_url'] ) );
-		$connect_url  = \Jetpack::init()->build_connect_url( true, $redirect_url, 'woocommerce-onboarding' );
+		$redirect_url = apply_filters( 'poocommerce_admin_onboarding_jetpack_connect_redirect_url', esc_url_raw( $request['redirect_url'] ) );
+		$connect_url  = \Jetpack::init()->build_connect_url( true, $redirect_url, 'poocommerce-onboarding' );
 
 		$calypso_env = defined( 'WOOCOMMERCE_CALYPSO_ENVIRONMENT' ) && in_array( WOOCOMMERCE_CALYPSO_ENVIRONMENT, array( 'development', 'wpcalypso', 'horizon', 'stage' ), true ) ? WOOCOMMERCE_CALYPSO_ENVIRONMENT : 'production';
 		$connect_url = add_query_arg( array( 'calypso_env' => $calypso_env ), $connect_url );
 
 		return( array(
 			'slug'          => 'jetpack',
-			'name'          => __( 'Jetpack', 'woocommerce' ),
+			'name'          => __( 'Jetpack', 'poocommerce' ),
 			'connectAction' => $connect_url,
 		) );
 	}
@@ -455,12 +455,12 @@ class Plugins extends \WC_REST_Data_Controller {
 	/**
 	 *  Kicks off the WCCOM Connect process.
 	 *
-	 * @return \WP_Error|array Connection URL for WooCommerce.com
+	 * @return \WP_Error|array Connection URL for PooCommerce.com
 	 */
 	public function request_wccom_connect() {
 		include_once WC_ABSPATH . 'includes/admin/helper/class-wc-helper-api.php';
 		if ( ! class_exists( 'WC_Helper_API' ) ) {
-			return new \WP_Error( 'woocommerce_rest_helper_not_active', __( 'There was an error loading the WooCommerce.com Helper API.', 'woocommerce' ), 404 );
+			return new \WP_Error( 'poocommerce_rest_helper_not_active', __( 'There was an error loading the PooCommerce.com Helper API.', 'poocommerce' ), 404 );
 		}
 
 		$redirect_uri = wc_admin_url( '&task=connect&wccom-connected=1' );
@@ -477,15 +477,15 @@ class Plugins extends \WC_REST_Data_Controller {
 
 		$code = wp_remote_retrieve_response_code( $request );
 		if ( 200 !== $code ) {
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error connecting to WooCommerce.com. Please try again.', 'woocommerce' ), 500 );
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error connecting to PooCommerce.com. Please try again.', 'poocommerce' ), 500 );
 		}
 
 		$secret = json_decode( wp_remote_retrieve_body( $request ) );
 		if ( empty( $secret ) ) {
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error connecting to WooCommerce.com. Please try again.', 'woocommerce' ), 500 );
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error connecting to PooCommerce.com. Please try again.', 'poocommerce' ), 500 );
 		}
 
-		do_action( 'woocommerce_helper_connect_start' );
+		do_action( 'poocommerce_helper_connect_start' );
 
 		$connect_url = add_query_arg(
 			array(
@@ -512,7 +512,7 @@ class Plugins extends \WC_REST_Data_Controller {
 	}
 
 	/**
-	 * Finishes connecting to WooCommerce.com.
+	 * Finishes connecting to PooCommerce.com.
 	 *
 	 * @param  object $rest_request Request details.
 	 * @return \WP_Error|array Contains success status.
@@ -523,7 +523,7 @@ class Plugins extends \WC_REST_Data_Controller {
 		include_once WC_ABSPATH . 'includes/admin/helper/class-wc-helper-updater.php';
 		include_once WC_ABSPATH . 'includes/admin/helper/class-wc-helper-options.php';
 		if ( ! class_exists( 'WC_Helper_API' ) ) {
-			return new \WP_Error( 'woocommerce_rest_helper_not_active', __( 'There was an error loading the WooCommerce.com Helper API.', 'woocommerce' ), 404 );
+			return new \WP_Error( 'poocommerce_rest_helper_not_active', __( 'There was an error loading the PooCommerce.com Helper API.', 'poocommerce' ), 404 );
 		}
 
 		// Obtain an access token.
@@ -539,12 +539,12 @@ class Plugins extends \WC_REST_Data_Controller {
 
 		$code = wp_remote_retrieve_response_code( $request );
 		if ( 200 !== $code ) {
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error connecting to WooCommerce.com. Please try again.', 'woocommerce' ), 500 );
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error connecting to PooCommerce.com. Please try again.', 'poocommerce' ), 500 );
 		}
 
 		$access_token = json_decode( wp_remote_retrieve_body( $request ), true );
 		if ( ! $access_token ) {
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error connecting to WooCommerce.com. Please try again.', 'woocommerce' ), 500 );
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error connecting to PooCommerce.com. Please try again.', 'poocommerce' ), 500 );
 		}
 
 		\WC_Helper_Options::update(
@@ -560,13 +560,13 @@ class Plugins extends \WC_REST_Data_Controller {
 
 		if ( ! \WC_Helper::_flush_authentication_cache() ) {
 			\WC_Helper_Options::update( 'auth', array() );
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error connecting to WooCommerce.com. Please try again.', 'woocommerce' ), 500 );
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error connecting to PooCommerce.com. Please try again.', 'poocommerce' ), 500 );
 		}
 
-		delete_transient( '_woocommerce_helper_subscriptions' );
+		delete_transient( '_poocommerce_helper_subscriptions' );
 		\WC_Helper_Updater::flush_updates_cache();
 
-		do_action( 'woocommerce_helper_connected' );
+		do_action( 'poocommerce_helper_connected' );
 
 		return array(
 			'success' => true,
@@ -580,8 +580,8 @@ class Plugins extends \WC_REST_Data_Controller {
 	 * @return \WP_Error|array Connect URL.
 	 */
 	public function connect_square() {
-		if ( ! class_exists( '\WooCommerce\Square\Handlers\Connection' ) ) {
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error connecting to Square.', 'woocommerce' ), 500 );
+		if ( ! class_exists( '\PooCommerce\Square\Handlers\Connection' ) ) {
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error connecting to Square.', 'poocommerce' ), 500 );
 		}
 		$has_cbd_industry = false;
 		if ( 'US' === WC()->countries->get_base_country() ) {
@@ -592,9 +592,9 @@ class Plugins extends \WC_REST_Data_Controller {
 		}
 
 		if ( $has_cbd_industry ) {
-			$url = 'https://squareup.com/t/f_partnerships/d_referrals/p_woocommerce/c_general/o_none/l_us/dt_alldevice/pr_payments/?route=/solutions/cbd';
+			$url = 'https://squareup.com/t/f_partnerships/d_referrals/p_poocommerce/c_general/o_none/l_us/dt_alldevice/pr_payments/?route=/solutions/cbd';
 		} else {
-			$url = \WooCommerce\Square\Handlers\Connection::CONNECT_URL_PRODUCTION;
+			$url = \PooCommerce\Square\Handlers\Connection::CONNECT_URL_PRODUCTION;
 		}
 
 		$redirect_url = wp_nonce_url( wc_admin_url( '&task=payments&method=square&square-connect-finish=1' ), 'wc_square_connected' );
@@ -633,7 +633,7 @@ class Plugins extends \WC_REST_Data_Controller {
 	 */
 	public function connect_wcpay() {
 		if ( ! class_exists( 'WC_Payments' ) ) {
-			return new \WP_Error( 'woocommerce_rest_helper_connect', __( 'There was an error communicating with the WooPayments plugin.', 'woocommerce' ), 500 );
+			return new \WP_Error( 'poocommerce_rest_helper_connect', __( 'There was an error communicating with the WooPayments plugin.', 'poocommerce' ), 500 );
 		}
 
 		// Use a WooPayments connect link to let the WooPayments plugin handle the connection flow.
@@ -661,19 +661,19 @@ class Plugins extends \WC_REST_Data_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'slug'   => array(
-					'description' => __( 'Plugin slug.', 'woocommerce' ),
+					'description' => __( 'Plugin slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'   => array(
-					'description' => __( 'Plugin name.', 'woocommerce' ),
+					'description' => __( 'Plugin name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status' => array(
-					'description' => __( 'Plugin status.', 'woocommerce' ),
+					'description' => __( 'Plugin status.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -693,7 +693,7 @@ class Plugins extends \WC_REST_Data_Controller {
 		$schema = $this->get_item_schema();
 		unset( $schema['properties']['status'] );
 		$schema['properties']['connectAction'] = array(
-			'description' => __( 'Action that should be completed to connect Jetpack.', 'woocommerce' ),
+			'description' => __( 'Action that should be completed to connect Jetpack.', 'poocommerce' ),
 			'type'        => 'string',
 			'context'     => array( 'view', 'edit' ),
 			'readonly'    => true,

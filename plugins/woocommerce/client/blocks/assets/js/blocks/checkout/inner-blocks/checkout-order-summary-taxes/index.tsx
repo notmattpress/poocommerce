@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { totals } from '@woocommerce/icons';
+import { totals } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -11,7 +11,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import attributes from './attributes';
 
-registerBlockType( 'woocommerce/checkout-order-summary-taxes-block', {
+registerBlockType( 'poocommerce/checkout-order-summary-taxes-block', {
 	icon: {
 		src: (
 			<Icon
