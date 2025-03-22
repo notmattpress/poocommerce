@@ -20,8 +20,8 @@ const PaymentsBannerFill = () => {
 };
 
 export const registerPaymentsSettingsBannerFill = () => {
-	registerPlugin( 'woocommerce-admin-paymentsgateways-settings-banner', {
-		scope: 'woocommerce-payments-settings',
+	registerPlugin( 'poocommerce-admin-paymentsgateways-settings-banner', {
+		scope: 'poocommerce-payments-settings',
 		render: PaymentsBannerFill,
 	} );
 };

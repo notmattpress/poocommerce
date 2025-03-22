@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/internal-style-build",
+	"name": "@poocommerce/internal-style-build",
 	"version": "1.0.0",
-	"description": "WooCommerce Components SASS Build",
+	"description": "PooCommerce Components SASS Build",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"engines": {
@@ -9,15 +9,15 @@
 	},
 	"keywords": [
 		"wordpress",
-		"woocommerce"
+		"poocommerce"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/internal-style-build/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/internal-style-build/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "index.js",
 	"files": [
@@ -51,7 +51,7 @@
 	"private": true,
 	"devDependencies": {
 		"@babel/core": "^7.23.5",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "27.5.x",
 		"jest-cli": "27.5.x",

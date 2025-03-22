@@ -3,14 +3,14 @@
  * LegacyProxy class file.
  */
 
-namespace Automattic\WooCommerce\Proxies;
+namespace Automattic\PooCommerce\Proxies;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\Definition;
-use Automattic\WooCommerce\Utilities\StringUtil;
-use Automattic\WooCommerce\Vendor\Psr\Container\ContainerInterface;
+use Automattic\PooCommerce\Internal\DependencyManagement\Definition;
+use Automattic\PooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Vendor\Psr\Container\ContainerInterface;
 
 /**
- * Proxy class to access legacy WooCommerce functionality.
+ * Proxy class to access legacy PooCommerce functionality.
  *
  * This class should be used to interact with code outside the `src` directory, especially functions and classes
  * in the `includes` directory, unless a more specific proxy exists for the functionality at hand (e.g. `ActionsProxy`).
@@ -32,12 +32,12 @@ class LegacyProxy {
 	 * @param mixed  ...$args Parameters to be passed to the class constructor or to the appropriate internal 'get_instance_of_' method.
 	 *
 	 * @return object The instance of the class.
-	 * @throws \Exception The requested class has a namespace starting with ' Automattic\WooCommerce', or there was an error creating an instance of the class.
+	 * @throws \Exception The requested class has a namespace starting with ' Automattic\PooCommerce', or there was an error creating an instance of the class.
 	 */
 	public function get_instance_of( string $class_name, ...$args ) {
-		if ( StringUtil::starts_with( $class_name, 'Automattic\\WooCommerce\\' ) ) {
+		if ( StringUtil::starts_with( $class_name, 'Automattic\\PooCommerce\\' ) ) {
 			throw new \Exception(
-				'The LegacyProxy class is not intended for getting instances of classes whose namespace starts with \'Automattic\\WooCommerce\', please use ' .
+				'The LegacyProxy class is not intended for getting instances of classes whose namespace starts with \'Automattic\\PooCommerce\', please use ' .
 				Definition::INJECTION_METHOD . ' method injection or the instance of ' . ContainerInterface::class . ' for that.'
 			);
 		}

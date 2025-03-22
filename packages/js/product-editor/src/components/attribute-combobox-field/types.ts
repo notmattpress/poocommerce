@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { ProductAttribute } from '@woocommerce/data';
+import type { ProductAttribute } from '@poocommerce/data';
 
 /*
  * Define the attributes combobox control item type,

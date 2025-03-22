@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartSelectShippingRate class.
@@ -45,12 +45,12 @@ class CartSelectShippingRate extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'package_id' => array(
-						'description' => __( 'The ID of the package being shipped. Leave blank to apply to all packages.', 'woocommerce' ),
+						'description' => __( 'The ID of the package being shipped. Leave blank to apply to all packages.', 'poocommerce' ),
 						'type'        => [ 'integer', 'string', 'null' ],
 						'required'    => false,
 					),
 					'rate_id'    => [
-						'description' => __( 'The chosen rate ID for the package.', 'woocommerce' ),
+						'description' => __( 'The chosen rate ID for the package.', 'poocommerce' ),
 						'type'        => 'string',
 						'required'    => true,
 					],
@@ -70,11 +70,11 @@ class CartSelectShippingRate extends AbstractCartRoute {
 	 */
 	protected function get_route_post_response( \WP_REST_Request $request ) {
 		if ( ! wc_shipping_enabled() ) {
-			throw new RouteException( 'woocommerce_rest_shipping_disabled', esc_html__( 'Shipping is disabled.', 'woocommerce' ), 404 );
+			throw new RouteException( 'poocommerce_rest_shipping_disabled', esc_html__( 'Shipping is disabled.', 'poocommerce' ), 404 );
 		}
 
 		if ( ! isset( $request['rate_id'] ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_missing_rate_id', esc_html__( 'Invalid Rate ID.', 'woocommerce' ), 400 );
+			throw new RouteException( 'poocommerce_rest_cart_missing_rate_id', esc_html__( 'Invalid Rate ID.', 'poocommerce' ), 400 );
 		}
 
 		$cart       = $this->cart_controller->get_cart_instance();
@@ -105,7 +105,7 @@ class CartSelectShippingRate extends AbstractCartRoute {
 		 * @param string $rate_id The sanitized chosen rate ID for the package.
 		 * @param \WP_REST_Request $request Full details about the request.
 		 */
-		do_action( 'woocommerce_store_api_cart_select_shipping_rate', $package_id, $rate_id, $request );
+		do_action( 'poocommerce_store_api_cart_select_shipping_rate', $package_id, $rate_id, $request );
 
 		$cart->calculate_totals();
 

@@ -1,16 +1,16 @@
 ---
-post_title: A large store's guide to enable HPOS on WooCommerce
+post_title: A large store's guide to enable HPOS on PooCommerce
 menu_title: Enable HPOS for large stores
 tags: how-to
 ---
 
-Do you run a high-volume WooCommerce store? Are you about to embark on the task to enable High Performance Order Storage (HPOS) on said store? As we move more and more high-volume store to HPOS, we decided to document the guidelines for those of you who may be faced with this task.
+Do you run a high-volume PooCommerce store? Are you about to embark on the task to enable High Performance Order Storage (HPOS) on said store? As we move more and more high-volume store to HPOS, we decided to document the guidelines for those of you who may be faced with this task.
 
-## Before you begin: [Get familiar with the HPOS project and related documentation](https://developer.woocommerce.com/docs/category/hpos/)
+## Before you begin: [Get familiar with the HPOS project and related documentation](https://developer.poocommerce.com/docs/category/hpos/)
 
-1. [High-Performance Order Storage](https://woocommerce.com/document/high-performance-order-storage/)
-2. [High-Performance Order Storage Upgrade Recipe Book](https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book)
-3. [High-Performance Order Storage: Backward Compatibility and Synchronization](https://developer.woocommerce.com/2022/09/29/high-performance-order-storage-backward-compatibility-and-synchronization/)
+1. [High-Performance Order Storage](https://poocommerce.com/document/high-performance-order-storage/)
+2. [High-Performance Order Storage Upgrade Recipe Book](https://github.com/poocommerce/poocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book)
+3. [High-Performance Order Storage: Backward Compatibility and Synchronization](https://developer.poocommerce.com/2022/09/29/high-performance-order-storage-backward-compatibility-and-synchronization/)
 
 ## Phase 1: Test out HPOS on a local development system
 
@@ -20,21 +20,21 @@ At the very least, we suggest you focus on the following tests:
 
 1. Test checkout with every payment method.
 2. Test refunds for those checkouts.
-3. If you are using WooCommerce Subscriptions, check that subscriptions can be purchased and renewals come through.
+3. If you are using PooCommerce Subscriptions, check that subscriptions can be purchased and renewals come through.
 4. Any critical flows you've defined for your site.
 
 You can repeat the tests with both synchronization enabled and disabled.
 
-Remember that you can [toggle synchronization](https://woocommerce.com/document/high-performance-order-storage/#section-5) by going to **WooCommerce > Settings > Advanced > Features**, and toggling the "**Enable compatibility mode**" checkbox.
+Remember that you can [toggle synchronization](https://poocommerce.com/document/high-performance-order-storage/#section-5) by going to **PooCommerce > Settings > Advanced > Features**, and toggling the "**Enable compatibility mode**" checkbox.
 
-![Toggle synchronization](https://woocommerce.com/wp-content/uploads/2023/10/image-18.png)
+![Toggle synchronization](https://poocommerce.com/wp-content/uploads/2023/10/image-18.png)
 
 ### Review: Phase 1 Checklist
 
-- [ ] Make sure code on your test site is up to date by installing the latest versions of all WooCommerce-related plugins you're running.
+- [ ] Make sure code on your test site is up to date by installing the latest versions of all PooCommerce-related plugins you're running.
 - [ ] Test checkout functionality for every payment method.
 - [ ] Verify refund process for test checkouts.
-- [ ] If WooCommerce Subscriptions is installed, test subscription purchases and renewal.
+- [ ] If PooCommerce Subscriptions is installed, test subscription purchases and renewal.
 - [ ] Test critical site flows with synchronization both enabled and disabled.
 
 ## Phase 2: Migrations and testing on a staging site
@@ -52,7 +52,7 @@ You may have non-PHP systems directly connected to DB that would escape a normal
 
 ### Review: Phase 2 Checklist
 
-1. [ ] Make sure the code on your staging site is up to date by installing the latest versions of all WooCommerce-related plugins you're running.
+1. [ ] Make sure the code on your staging site is up to date by installing the latest versions of all PooCommerce-related plugins you're running.
 2. [ ] Migrate production database to staging site using CLI.
 3. [ ] Monitor migration time for insights into production migration duration.
 4. [ ] Test Phase 1 flows on the staging site with synchronization on.
@@ -66,7 +66,7 @@ If you are happy with testing on your local setup and staging site, it's time to
 
 ### Enable synchronization, keeping posts authoritative
 
-Just like in the previous phases, you'll want to enable synchronization while still using the WordPress posts storage as order storage. As usual, do this by going to **WooCommerce > Settings > Advanced > Features** and making sure that **Use the WordPress posts tables** is selected as the order data storage.
+Just like in the previous phases, you'll want to enable synchronization while still using the WordPress posts storage as order storage. As usual, do this by going to **PooCommerce > Settings > Advanced > Features** and making sure that **Use the WordPress posts tables** is selected as the order data storage.
 
 
 This will make sure that orders will start appearing in the HPOS tables, and that existing orders will stay up to date.
@@ -87,7 +87,7 @@ Also, we didn't see a noticeable negative performance impact when keeping synchr
 
 ### Switch to HPOS as authoritative
 
-It's time to switch to HPOS. Go to **WooCommerce > Settings > Advanced > Features** and set HPOS to be authoritative (select "**Use the WooCommerce orders tables**").
+It's time to switch to HPOS. Go to **PooCommerce > Settings > Advanced > Features** and set HPOS to be authoritative (select "**Use the PooCommerce orders tables**").
 
 As mentioned above, don't turn off synchronization yet. If there are any issues, the system can be instantaneously reverted to the posts table, resulting in no downtime.
 
@@ -100,14 +100,14 @@ Revisit all your critical flows from the previous phases and run some tests. Mak
 In the previous steps you have enabled HPOS with sync on, now it's time to disable synchronization progressively in order to start seeing most of the benefits from HPOS. The first step in this process would be to disable sync on read, which you can do via the following snippet:
 
 ```php
-add_filter( 'woocommerce_hpos_enable_sync_on_read', '__return_false' );
+add_filter( 'poocommerce_hpos_enable_sync_on_read', '__return_false' );
 ```
 
 We disable sync on read first because it demands more resources. If your site is running as expected, and you see some orders coming in, you can disable sync on read. We disabled this on our high-volume store migration after just 6 hours of setting HPOS to authoritative.
 
 ### Switch off sync on write
 
-If everything is working as expected, you can disable sync on write as well. Given sync on read was already disabled, you can disable sync altogether from the settings. As usual, go to **WooCommerce > Settings > Advanced > Features**, and uncheck **"Enable compatibility mode"**.
+If everything is working as expected, you can disable sync on write as well. Given sync on read was already disabled, you can disable sync altogether from the settings. As usual, go to **PooCommerce > Settings > Advanced > Features**, and uncheck **"Enable compatibility mode"**.
 
 On our high-volume site, we fully disabled sync after 1 week. We still run some manual synchronization (via `wp wc cot sync`) periodically so that we have the opportunity to fall back to posts immediately should anything happen.
 
@@ -118,14 +118,14 @@ Now with synchronization fully disabled, test out various critical flows, check 
 ### Review: Phase 3 Checklist
 
 1. [ ] Plan to be online and monitoring your live site for a period of time.
-2. [ ] Enable synchronization with posts set as authoritative: in **WooCommerce > Settings > Advanced > Features** > select "**Use the WordPress posts tables**".
+2. [ ] Enable synchronization with posts set as authoritative: in **PooCommerce > Settings > Advanced > Features** > select "**Use the WordPress posts tables**".
 3. [ ] Start migration via CLI using the `wp wc cot sync` command.
 4. [ ] Monitor for errors during migration; halt or resume as necessary.
 5. [ ] Verify migrated data integrity using the verify command `wp wc cot verify_cot_data`.
-6. [ ] Enable synchronization with HPOS set as authoritative: in **WooCommerce > Settings > Advanced > Features** > select "Use the **WooCommerce orders tables**".
+6. [ ] Enable synchronization with HPOS set as authoritative: in **PooCommerce > Settings > Advanced > Features** > select "Use the **PooCommerce orders tables**".
 7. [ ] Test all critical flows, perform checkouts with multiple payment methods, and verify order data accuracy.
 8. [ ] Monitor support tickets for any issues.
-9. [ ] Disable synchronization on read using the provided snippet: `add_filter( 'woocommerce_hpos_enable_sync_on_read', '__return_false' );`
+9. [ ] Disable synchronization on read using the provided snippet: `add_filter( 'poocommerce_hpos_enable_sync_on_read', '__return_false' );`
 10. [ ] Monitor site performance.
 11. [ ] After one week of stable operation, fully disable sync.
 12. [ ] Continuously monitor site performance, order processing, and support tickets.
@@ -137,4 +137,4 @@ Now with synchronization fully disabled, test out various critical flows, check 
 3. [ ] Regularly communicate with stakeholders regarding testing progress and outcomes.
 4. [ ] Plan for potential fallback scenarios, ensuring the ability to revert to posts if issues arise.
 
-Did you follow this guide? Drop us a comment below to let us know how it went. Still have more questions? Reach to us on our dedicated HPOS upgrade channel in the Community Slack: [#hpos-upgrade-party](https://woocommercecommunity.slack.com/archives/C043X91E72M). If you are not yet a member of the Woo Slack Community, you can join [here](https://woocommerce.com/community-slack/).
+Did you follow this guide? Drop us a comment below to let us know how it went. Still have more questions? Reach to us on our dedicated HPOS upgrade channel in the Community Slack: [#hpos-upgrade-party](https://poocommercecommunity.slack.com/archives/C043X91E72M). If you are not yet a member of the Woo Slack Community, you can join [here](https://poocommerce.com/community-slack/).

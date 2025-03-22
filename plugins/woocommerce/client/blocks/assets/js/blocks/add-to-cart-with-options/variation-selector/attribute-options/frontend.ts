@@ -21,7 +21,7 @@ type PillsContext = Context & {
 };
 
 const { state, actions } = store(
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options__pills',
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options__pills',
 	{
 		state: {
 			get isPillSelected() {
@@ -127,7 +127,7 @@ const { state, actions } = store(
 );
 
 store(
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options__dropdown',
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options__dropdown',
 	{
 		actions: {
 			handleChange() {

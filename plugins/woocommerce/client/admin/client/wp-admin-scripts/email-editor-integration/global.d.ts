@@ -1,5 +1,5 @@
 interface Window {
-	WooCommerceEmailEditor: {
+	PooCommerceEmailEditor: {
 		current_post_type: string;
 		current_post_id: string;
 		email_types: {

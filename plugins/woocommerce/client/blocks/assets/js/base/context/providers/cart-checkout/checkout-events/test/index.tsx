@@ -3,8 +3,8 @@
  */
 import { act, render } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
-import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
+import { checkoutStore } from '@poocommerce/block-data';
+import { checkoutEvents } from '@poocommerce/blocks-checkout-events';
 
 /**
  * Internal dependencies

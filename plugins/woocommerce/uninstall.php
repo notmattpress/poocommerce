@@ -1,29 +1,29 @@
 <?php
 /**
- * WooCommerce Uninstall
+ * PooCommerce Uninstall
  *
- * Uninstalling WooCommerce deletes user roles, pages, tables, and options.
+ * Uninstalling PooCommerce deletes user roles, pages, tables, and options.
  *
- * @package WooCommerce\Uninstaller
+ * @package PooCommerce\Uninstaller
  * @version 2.3.0
  */
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\ReportsSync;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\ReportsSync;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 global $wpdb, $wp_version;
 
-wp_clear_scheduled_hook( 'woocommerce_scheduled_sales' );
-wp_clear_scheduled_hook( 'woocommerce_cancel_unpaid_orders' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_sessions' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_personal_data' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_logs' );
-wp_clear_scheduled_hook( 'woocommerce_geoip_updater' );
-wp_clear_scheduled_hook( 'woocommerce_tracker_send_event' );
-wp_clear_scheduled_hook( 'woocommerce_cleanup_rate_limits' );
+wp_clear_scheduled_hook( 'poocommerce_scheduled_sales' );
+wp_clear_scheduled_hook( 'poocommerce_cancel_unpaid_orders' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_sessions' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_personal_data' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_logs' );
+wp_clear_scheduled_hook( 'poocommerce_geoip_updater' );
+wp_clear_scheduled_hook( 'poocommerce_tracker_send_event' );
+wp_clear_scheduled_hook( 'poocommerce_cleanup_rate_limits' );
 wp_clear_scheduled_hook( 'wc_admin_daily' );
 wp_clear_scheduled_hook( 'generate_category_lookup_table' );
 wp_clear_scheduled_hook( 'wc_admin_unsnooze_admin_notes' );
@@ -34,24 +34,24 @@ wp_clear_scheduled_hook( 'wc_admin_unsnooze_admin_notes' );
  * and to ensure only the site owner can perform this action.
  */
 if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
-	// Load WooCommerce so we can access the container, install routines, etc, during uninstall.
-	require_once __DIR__ . '/woocommerce.php';
+	// Load PooCommerce so we can access the container, install routines, etc, during uninstall.
+	require_once __DIR__ . '/poocommerce.php';
 
 	// Roles + caps.
 	WC_Install::remove_roles();
 
 	// Pages.
-	wp_trash_post( get_option( 'woocommerce_shop_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_cart_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_checkout_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_myaccount_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_edit_address_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_view_order_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_change_password_page_id' ) );
-	wp_trash_post( get_option( 'woocommerce_logout_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_shop_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_cart_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_checkout_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_myaccount_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_edit_address_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_view_order_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_change_password_page_id' ) );
+	wp_trash_post( get_option( 'poocommerce_logout_page_id' ) );
 
-	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_attribute_taxonomies';" ) ) {
-		$wc_attributes = array_filter( (array) $wpdb->get_col( "SELECT attribute_name FROM {$wpdb->prefix}woocommerce_attribute_taxonomies;" ) );
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}poocommerce_attribute_taxonomies';" ) ) {
+		$wc_attributes = array_filter( (array) $wpdb->get_col( "SELECT attribute_name FROM {$wpdb->prefix}poocommerce_attribute_taxonomies;" ) );
 	} else {
 		$wc_attributes = array();
 	}
@@ -60,11 +60,11 @@ if ( defined( 'WC_REMOVE_ALL_DATA' ) && true === WC_REMOVE_ALL_DATA ) {
 	WC_Install::drop_tables();
 
 	// Delete options.
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'woocommerce\_%';" );
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'widget\_woocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'poocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'widget\_poocommerce\_%';" );
 
 	// Delete usermeta.
-	$wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key LIKE 'woocommerce\_%';" );
+	$wpdb->query( "DELETE FROM $wpdb->usermeta WHERE meta_key LIKE 'poocommerce\_%';" );
 
 	// Delete our data from the post and post meta tables, and remove any additional tables we created.
 	$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'product', 'product_variation', 'shop_coupon', 'shop_order', 'shop_order_refund' );" );

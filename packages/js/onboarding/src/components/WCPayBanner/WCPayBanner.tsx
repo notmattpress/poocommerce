@@ -8,7 +8,7 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Card, CardFooter, CardBody } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 
 /**
  * Internal dependencies
@@ -19,12 +19,12 @@ import { WCPayBannerImage } from './WCPayBannerImage';
 export const WCPayBannerFooter: React.VFC< {
 	isWooPayEligible: boolean;
 } > = ( { isWooPayEligible } ) => (
-	<CardFooter className="woocommerce-recommended-payments-banner__footer">
+	<CardFooter className="poocommerce-recommended-payments-banner__footer">
 		<div>
 			<Text variant="caption" as="p" size="12" lineHeight="16px">
 				{ __(
 					'WooPayments is pre-integrated with popular payment options:',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Text>
 		</div>
@@ -40,9 +40,9 @@ export const WCPayBannerText: React.VFC< {
 	isWooPayEligible: boolean;
 } > = ( { actionButton } ) => {
 	return (
-		<div className="woocommerce-recommended-payments-banner__text_container">
+		<div className="poocommerce-recommended-payments-banner__text_container">
 			<Text
-				className="woocommerce-recommended-payments__header-title"
+				className="poocommerce-recommended-payments__header-title"
 				variant="title.small"
 				as="p"
 				size="24"
@@ -51,8 +51,8 @@ export const WCPayBannerText: React.VFC< {
 			>
 				{ createInterpolateElement(
 					__(
-						'Payments made simple, designed exclusively<br/>for WooCommerce stores.',
-						'woocommerce'
+						'Payments made simple, designed exclusively<br/>for PooCommerce stores.',
+						'poocommerce'
 					),
 					{
 						br: <br />,
@@ -76,20 +76,20 @@ export const WCPayBannerBody: React.VFC< {
 	isWooPayEligible,
 } ) => {
 	return (
-		<CardBody className="woocommerce-recommended-payments-banner__body">
+		<CardBody className="poocommerce-recommended-payments-banner__body">
 			{ textPosition === 'left' ? (
 				<>
 					<WCPayBannerText
 						actionButton={ actionButton }
 						isWooPayEligible={ isWooPayEligible }
 					/>
-					<div className="woocommerce-recommended-payments-banner__image_container">
+					<div className="poocommerce-recommended-payments-banner__image_container">
 						{ bannerImage }
 					</div>
 				</>
 			) : (
 				<>
-					<div className="woocommerce-recommended-payments-banner__image_container">
+					<div className="poocommerce-recommended-payments-banner__image_container">
 						{ bannerImage }
 					</div>
 					<WCPayBannerText
@@ -106,7 +106,7 @@ export const WCPayBanner: React.FC< { children?: React.ReactNode } > = ( {
 	children,
 } ) => {
 	return (
-		<Card size="medium" className="woocommerce-recommended-payments-banner">
+		<Card size="medium" className="poocommerce-recommended-payments-banner">
 			{ children }
 		</Card>
 	);

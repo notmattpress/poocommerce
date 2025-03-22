@@ -33,7 +33,7 @@ const scrollImageIntoView = ( imageId: number ) => {
 		return;
 	}
 	const imageElement = document.querySelector(
-		`.wp-block-woocommerce-product-gallery-large-image img[data-image-id="${ imageId }"]`
+		`.wp-block-poocommerce-product-gallery-large-image img[data-image-id="${ imageId }"]`
 	);
 	if ( imageElement ) {
 		imageElement.scrollIntoView( {
@@ -412,7 +412,7 @@ const productGallery = {
 	},
 };
 
-const { actions } = store( 'woocommerce/product-gallery', productGallery, {
+const { actions } = store( 'poocommerce/product-gallery', productGallery, {
 	lock: true,
 } );
 

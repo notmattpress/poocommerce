@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Inflector;
+namespace Automattic\PooCommerce\Vendor\League\Container\Inflector;
 
 use Generator;
-use Automattic\WooCommerce\Vendor\League\Container\ContainerAwareTrait;
+use Automattic\PooCommerce\Vendor\League\Container\ContainerAwareTrait;
 
 class InflectorAggregate implements InflectorAggregateInterface
 {

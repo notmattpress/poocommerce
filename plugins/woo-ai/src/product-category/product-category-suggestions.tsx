@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useCallback, useEffect, useState } from '@wordpress/element';
-import { UseCompletionError } from '@woocommerce/ai';
+import { UseCompletionError } from '@poocommerce/ai';
 
 /**
  * Internal dependencies
@@ -77,7 +77,7 @@ export const ProductCategorySuggestions = () => {
 		selectedCategories: string[]
 	) => {
 		return (
-			suggestion !== __( 'Uncategorized', 'woocommerce' ) &&
+			suggestion !== __( 'Uncategorized', 'poocommerce' ) &&
 			! selectedCategories.includes( suggestion )
 		);
 	};
@@ -279,7 +279,7 @@ export const ProductCategorySuggestions = () => {
 					existingSuggestionsState === SuggestionsState.Fetching ||
 					newSuggestionsState === SuggestionsState.Fetching
 				}
-				label={ __( 'Suggest a category using AI', 'woocommerce' ) }
+				label={ __( 'Suggest a category using AI', 'poocommerce' ) }
 			/>
 			{ ( existingSuggestionsState === SuggestionsState.Fetching ||
 				newSuggestionsState === SuggestionsState.Fetching ) && (
@@ -302,7 +302,7 @@ export const ProductCategorySuggestions = () => {
 						<p>
 							{ __(
 								'Unable to generate a matching category for the product. Please try including more information about the product in the title and description.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 					</div>
@@ -316,7 +316,7 @@ export const ProductCategorySuggestions = () => {
 							<img src={ AlertIcon } alt="" />
 							{ __(
 								`We're currently experiencing high demand for our experimental feature. Please check back in shortly!`,
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 					</div>
@@ -330,7 +330,7 @@ export const ProductCategorySuggestions = () => {
 								<button
 									title={ __(
 										'Select category',
-										'woocommerce'
+										'poocommerce'
 									) }
 									className="button-link"
 									onClick={ () =>
@@ -348,7 +348,7 @@ export const ProductCategorySuggestions = () => {
 								<button
 									title={ __(
 										'Add and select category',
-										'woocommerce'
+										'poocommerce'
 									) }
 									className="button-link"
 									onClick={ () =>

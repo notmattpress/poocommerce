@@ -59,7 +59,7 @@ const getScreenReaderText = ( {
 	const filterStr = createInterpolateElement(
 		/* eslint-disable-next-line max-len */
 		/* translators: Sentence fragment describing a product attribute match. Example: "Color Is Not Blue" - attribute = Color, equals = Is Not, value = Blue */
-		__( '<attribute/> <equals/> <value/>', 'woocommerce' ),
+		__( '<attribute/> <equals/> <value/>', 'poocommerce' ),
 		{
 			attribute: <Fragment>{ attributeName }</Fragment>,
 			equals: <Fragment>{ rule.label }</Fragment>,
@@ -138,13 +138,13 @@ const AttributeFilter = ( props ) => {
 	/*eslint-disable jsx-a11y/no-noninteractive-tabindex*/
 	return (
 		<fieldset
-			className="woocommerce-filters-advanced__line-item"
+			className="poocommerce-filters-advanced__line-item"
 			tabIndex="0"
 		>
 			<legend className="screen-reader-text">{ labels.add || '' }</legend>
 			<div
 				className={ classnames(
-					'woocommerce-filters-advanced__fieldset',
+					'poocommerce-filters-advanced__fieldset',
 					{
 						'is-english': isEnglish,
 					}
@@ -156,7 +156,7 @@ const AttributeFilter = ( props ) => {
 						<Select
 							className={ classnames(
 								className,
-								'woocommerce-filters-advanced__rule'
+								'poocommerce-filters-advanced__rule'
 							) }
 							options={ rules }
 							value={ rule }
@@ -173,14 +173,14 @@ const AttributeFilter = ( props ) => {
 						<div
 							className={ classnames(
 								className,
-								'woocommerce-filters-advanced__attribute-fieldset'
+								'poocommerce-filters-advanced__attribute-fieldset'
 							) }
 						>
 							{ ! Array.isArray( value ) ||
 							! value.length ||
 							selectedAttribute.length ? (
 								<Search
-									className="woocommerce-filters-advanced__input woocommerce-search"
+									className="poocommerce-filters-advanced__input poocommerce-search"
 									onChange={ ( [ attr ] ) => {
 										setSelectedAttribute(
 											attr ? [ attr ] : []
@@ -196,14 +196,14 @@ const AttributeFilter = ( props ) => {
 									type="attributes"
 									placeholder={ __(
 										'Attribute name',
-										'woocommerce'
+										'poocommerce'
 									) }
 									multiple={ false }
 									selected={ selectedAttribute }
 									inlineTags
 									aria-label={ __(
 										'Attribute name',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							) : (
@@ -212,14 +212,14 @@ const AttributeFilter = ( props ) => {
 							{ selectedAttribute.length > 0 &&
 								( attributeTerms.length ? (
 									<Fragment>
-										<span className="woocommerce-filters-advanced__attribute-field-separator">
+										<span className="poocommerce-filters-advanced__attribute-field-separator">
 											=
 										</span>
 										<SelectControl
-											className="woocommerce-filters-advanced__input woocommerce-search"
+											className="poocommerce-filters-advanced__input poocommerce-search"
 											placeholder={ __(
 												'Attribute value',
-												'woocommerce'
+												'poocommerce'
 											) }
 											inlineTags
 											isSearchable

@@ -7,7 +7,7 @@ import {
 	// @ts-expect-error No types for this exist yet.
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	unlock,
 	// @ts-expect-error No types for this exist yet.

@@ -4,14 +4,14 @@
 import { Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { useStyleProps } from '@woocommerce/base-hooks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { useStoreEvents } from '@woocommerce/base-context/hooks';
+} from '@poocommerce/shared-context';
+import { useStyleProps } from '@poocommerce/base-hooks';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { useStoreEvents } from '@poocommerce/base-context/hooks';
 import type { HTMLAttributes } from 'react';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -141,7 +141,7 @@ export const Block = ( props: Props ): JSX.Element | null => {
 	const ParentComponent = showProductLink ? 'a' : Fragment;
 	const anchorLabel = sprintf(
 		/* translators: %s is referring to the product name */
-		__( 'Link to %s', 'woocommerce' ),
+		__( 'Link to %s', 'poocommerce' ),
 		product.name
 	);
 	const anchorProps = {

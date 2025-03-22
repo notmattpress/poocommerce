@@ -1,6 +1,6 @@
 # Woo AI
 
-Woo AI is a WooCommerce plugin that utilizes the power of artificial intelligence to enhance your eCommerce experience. With features like AI-powered product title optimization and automated product description generation, Woo AI is designed to boost your store's efficiency and sales potential.
+Woo AI is a PooCommerce plugin that utilizes the power of artificial intelligence to enhance your eCommerce experience. With features like AI-powered product title optimization and automated product description generation, Woo AI is designed to boost your store's efficiency and sales potential.
 
 ## Installation
 
@@ -13,14 +13,14 @@ Woo AI is a WooCommerce plugin that utilizes the power of artificial intelligenc
 
 **Improve Product Titles using AI Recommendations**
 
-1. Go to the WooCommerce `Products` page.
+1. Go to the PooCommerce `Products` page.
 2. Select a product and click `Edit` or `Add New` to create a new product.
 3. Start typing a product title.
 4. Review and apply AI-generated title recommendations.
 
 **Generate Product Descriptions based on existing product data**
 
-1. Go to the WooCommerce `Products` page.
+1. Go to the PooCommerce `Products` page.
 2. Select a product and click `Edit`.
 3. Make sure the product has a sufficient title length and click on the `Write It For Me` button.
 4. Review and apply the AI-generated product description.

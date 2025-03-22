@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/product-stock-indicator",
+	"name": "poocommerce/product-stock-indicator",
 	"version": "1.0.0",
 	"icon": "info",
 	"title": "Product Stock Indicator",
@@ -15,8 +15,8 @@
 		}
 	},
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

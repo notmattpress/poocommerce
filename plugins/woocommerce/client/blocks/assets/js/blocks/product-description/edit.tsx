@@ -18,7 +18,7 @@ import {
 } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useMemo } from '@wordpress/element';
-import { useQueryLoopProductContextValidation } from '@woocommerce/base-hooks';
+import { useQueryLoopProductContextValidation } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies
@@ -82,7 +82,7 @@ function ReadOnlyContent( {
 	return content?.protected ? (
 		<div { ...blockProps }>
 			<Warning>
-				{ __( 'This content is password protected.', 'woocommerce' ) }
+				{ __( 'This content is password protected.', 'poocommerce' ) }
 			</Warning>
 		</div>
 	) : (
@@ -157,7 +157,7 @@ function Placeholder( { layoutClassNames } ) {
 			<p>
 				{ __(
 					'This block displays the product description. When viewing a product page, the description content will automatically appear here.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		</div>
@@ -171,7 +171,7 @@ function RecursionError() {
 			<Warning>
 				{ __(
 					'Block cannot be rendered inside itself.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Warning>
 		</div>
@@ -190,7 +190,7 @@ export default function ProductDescriptionEdit( {
 		useQueryLoopProductContextValidation( {
 			clientId,
 			postType: contextPostType,
-			blockName: __( 'Product Description', 'woocommerce' ),
+			blockName: __( 'Product Description', 'poocommerce' ),
 		} );
 	if ( hasInvalidContext ) {
 		return warningElement;

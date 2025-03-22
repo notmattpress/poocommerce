@@ -4,13 +4,13 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
 import { Icon, chevronDown } from '@wordpress/icons';
-import { usePrevious, useShallowEqual } from '@woocommerce/base-hooks';
+import { usePrevious, useShallowEqual } from '@poocommerce/base-hooks';
 import {
 	useQueryStateByKey,
 	useQueryStateByContext,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
+} from '@poocommerce/base-context/hooks';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
 import {
 	useCallback,
 	useEffect,
@@ -18,21 +18,21 @@ import {
 	useMemo,
 	useRef,
 } from '@wordpress/element';
-import { CheckboxList } from '@woocommerce/blocks-components';
-import FilterSubmitButton from '@woocommerce/base-components/filter-submit-button';
-import FilterResetButton from '@woocommerce/base-components/filter-reset-button';
-import FilterTitlePlaceholder from '@woocommerce/base-components/filter-placeholder';
-import Label from '@woocommerce/base-components/filter-element-label';
-import FormTokenField from '@woocommerce/base-components/form-token-field';
+import { CheckboxList } from '@poocommerce/blocks-components';
+import FilterSubmitButton from '@poocommerce/base-components/filter-submit-button';
+import FilterResetButton from '@poocommerce/base-components/filter-reset-button';
+import FilterTitlePlaceholder from '@poocommerce/base-components/filter-placeholder';
+import Label from '@poocommerce/base-components/filter-element-label';
+import FormTokenField from '@poocommerce/base-components/form-token-field';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { decodeEntities } from '@wordpress/html-entities';
-import { isBoolean, objectHasProp } from '@woocommerce/types';
+import { isBoolean, objectHasProp } from '@poocommerce/types';
 import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
 import {
 	changeUrl,
 	PREFIX_QUERY_ARG_FILTER_TYPE,
 	normalizeQueryParams,
-} from '@woocommerce/utils';
+} from '@poocommerce/utils';
 import clsx from 'clsx';
 
 /**
@@ -132,7 +132,7 @@ const StockStatusFilterBlock = ( {
 	/*
 		FormTokenField forces the dropdown to reopen on reset, so we create a unique ID to use as the components key.
 		This will force the component to remount on reset when we change this value.
-		More info: https://github.com/woocommerce/woocommerce-blocks/pull/6920#issuecomment-1222402482
+		More info: https://github.com/poocommerce/poocommerce-blocks/pull/6920#issuecomment-1222402482
 	 */
 	const [ remountKey, setRemountKey ] = useState( generateUniqueId() );
 
@@ -319,7 +319,7 @@ const StockStatusFilterBlock = ( {
 					speak(
 						sprintf(
 							/* translators: %s stock statuses (for example: 'instock'...) */
-							__( '%s filter added.', 'woocommerce' ),
+							__( '%s filter added.', 'poocommerce' ),
 							filterAddedName
 						)
 					);
@@ -327,7 +327,7 @@ const StockStatusFilterBlock = ( {
 					speak(
 						sprintf(
 							/* translators: %s stock statuses (for example:'instock'...) */
-							__( '%s filter removed.', 'woocommerce' ),
+							__( '%s filter removed.', 'poocommerce' ),
 							filterRemovedName
 						)
 					);
@@ -463,7 +463,7 @@ const StockStatusFilterBlock = ( {
 							disabled={ isLoading }
 							placeholder={ __(
 								'Select stock status',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onChange={ onDropdownChange }
 							value={ checked }
@@ -477,19 +477,19 @@ const StockStatusFilterBlock = ( {
 							messages={ {
 								added: __(
 									'Stock filter added.',
-									'woocommerce'
+									'poocommerce'
 								),
 								removed: __(
 									'Stock filter removed.',
-									'woocommerce'
+									'poocommerce'
 								),
 								remove: __(
 									'Remove stock filter.',
-									'woocommerce'
+									'poocommerce'
 								),
 								__experimentalInvalid: __(
 									'Invalid stock filter.',
-									'woocommerce'
+									'poocommerce'
 								),
 							} }
 						/>
@@ -518,7 +518,7 @@ const StockStatusFilterBlock = ( {
 							} }
 							screenReaderLabel={ __(
 								'Reset stock filter',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
@@ -530,7 +530,7 @@ const StockStatusFilterBlock = ( {
 							onClick={ () => onSubmit( checked ) }
 							screenReaderLabel={ __(
 								'Apply stock filter',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }

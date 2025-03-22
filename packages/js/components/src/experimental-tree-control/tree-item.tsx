@@ -51,19 +51,19 @@ export const TreeItem = forwardRef( function ForwardedTreeItem(
 			{ ...treeItemProps }
 			className={ classNames(
 				treeItemProps.className,
-				'experimental-woocommerce-tree-item',
+				'experimental-poocommerce-tree-item',
 				{
-					'experimental-woocommerce-tree-item--highlighted':
+					'experimental-poocommerce-tree-item--highlighted':
 						props.isHighlighted,
 				}
 			) }
 		>
 			<div
 				{ ...headingProps }
-				className="experimental-woocommerce-tree-item__heading"
+				className="experimental-poocommerce-tree-item__heading"
 			>
 				{ /* eslint-disable-next-line jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control */ }
-				<label className="experimental-woocommerce-tree-item__label">
+				<label className="experimental-poocommerce-tree-item__label">
 					{ selection.multiple ? (
 						<CheckboxControl
 							indeterminate={
@@ -79,7 +79,7 @@ export const TreeItem = forwardRef( function ForwardedTreeItem(
 					) : (
 						<input
 							type="checkbox"
-							className="experimental-woocommerce-tree-item__checkbox"
+							className="experimental-poocommerce-tree-item__checkbox"
 							checked={ selection.checkedStatus === 'checked' }
 							onChange={ ( event ) =>
 								selection.onSelectChild( event.target.checked )
@@ -96,7 +96,7 @@ export const TreeItem = forwardRef( function ForwardedTreeItem(
 				</label>
 
 				{ Boolean( item.children?.length ) && (
-					<div className="experimental-woocommerce-tree-item__expander">
+					<div className="experimental-poocommerce-tree-item__expander">
 						<Button
 							icon={
 								item.data.isExpanded ? chevronUp : chevronDown
@@ -110,11 +110,11 @@ export const TreeItem = forwardRef( function ForwardedTreeItem(
 								}
 							} }
 							onKeyDown={ handleKeyDown }
-							className="experimental-woocommerce-tree-item__expander"
+							className="experimental-poocommerce-tree-item__expander"
 							aria-label={
 								item.data.isExpanded
-									? __( 'Collapse', 'woocommerce' )
-									: __( 'Expand', 'woocommerce' )
+									? __( 'Collapse', 'poocommerce' )
+									: __( 'Expand', 'poocommerce' )
 							}
 						/>
 					</div>

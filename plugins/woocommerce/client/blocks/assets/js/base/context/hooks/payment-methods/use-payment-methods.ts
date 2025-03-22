@@ -1,19 +1,19 @@
 /**
  * External dependencies
  */
-import { useShallowEqual } from '@woocommerce/base-hooks';
+import { useShallowEqual } from '@poocommerce/base-hooks';
 import type {
 	PaymentMethods,
 	ExpressPaymentMethods,
 	PaymentMethodConfigInstance,
 	ExpressPaymentMethodConfigInstance,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	getPaymentMethods,
 	getExpressPaymentMethods,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 import { useSelect } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
+import { paymentStore } from '@poocommerce/block-data';
 
 interface PaymentMethodState {
 	paymentMethods: PaymentMethods;

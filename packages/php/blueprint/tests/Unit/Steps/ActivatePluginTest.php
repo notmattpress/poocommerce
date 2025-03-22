@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\ActivatePlugin;
+use Automattic\PooCommerce\Blueprint\Steps\ActivatePlugin;
 
 /**
  * Unit tests for ActivatePlugin class.

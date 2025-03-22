@@ -13,7 +13,7 @@ const mockNavigateTo = jest.fn();
 const mockFocusByValidatorId = jest.fn();
 const mockGetFieldByValidatorId = jest.fn();
 
-jest.mock( '@woocommerce/navigation', () => ( {
+jest.mock( '@poocommerce/navigation', () => ( {
 	getNewPath: jest.fn().mockReturnValue( '/new-path' ),
 	navigateTo: jest.fn( ( args ) => mockNavigateTo( args ) ),
 } ) );

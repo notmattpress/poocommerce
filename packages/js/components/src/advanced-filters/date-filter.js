@@ -6,7 +6,7 @@ import { SelectControl } from '@wordpress/components';
 import { find, partial } from 'lodash';
 import classnames from 'classnames';
 import { __, _x } from '@wordpress/i18n';
-import { isoDateFormat, toMoment } from '@woocommerce/date';
+import { isoDateFormat, toMoment } from '@poocommerce/date';
 import moment from 'moment';
 
 /**
@@ -18,8 +18,8 @@ import {
 	textContent,
 } from './utils';
 
-const dateStringFormat = __( 'MMM D, YYYY', 'woocommerce' );
-const dateFormat = __( 'MM/DD/YYYY', 'woocommerce' );
+const dateStringFormat = __( 'MMM D, YYYY', 'poocommerce' );
+const dateFormat = __( 'MM/DD/YYYY', 'poocommerce' );
 
 class DateFilter extends Component {
 	constructor( { filter } ) {
@@ -50,7 +50,7 @@ class DateFilter extends Component {
 		return _x(
 			'<after/><span> and </span><before/>',
 			'Date range inputs arranged on a single line',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -233,7 +233,7 @@ class DateFilter extends Component {
 				<SelectControl
 					className={ classnames(
 						className,
-						'woocommerce-filters-advanced__rule'
+						'poocommerce-filters-advanced__rule'
 					) }
 					options={ rules }
 					value={ rule }
@@ -245,7 +245,7 @@ class DateFilter extends Component {
 				<div
 					className={ classnames(
 						className,
-						'woocommerce-filters-advanced__input-range',
+						'poocommerce-filters-advanced__input-range',
 						{
 							'is-between': rule === 'between',
 						}
@@ -258,7 +258,7 @@ class DateFilter extends Component {
 		/*eslint-disable jsx-a11y/no-noninteractive-tabindex*/
 		return (
 			<fieldset
-				className="woocommerce-filters-advanced__line-item"
+				className="poocommerce-filters-advanced__line-item"
 				tabIndex="0"
 			>
 				<legend className="screen-reader-text">
@@ -266,7 +266,7 @@ class DateFilter extends Component {
 				</legend>
 				<div
 					className={ classnames(
-						'woocommerce-filters-advanced__fieldset',
+						'poocommerce-filters-advanced__fieldset',
 						{
 							'is-english': isEnglish,
 						}

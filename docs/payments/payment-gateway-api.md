@@ -1,10 +1,10 @@
 ---
-post_title: WooCommerce Payment Gateway API
+post_title: PooCommerce Payment Gateway API
 menu_title: Payment Gateway API
 tags: reference
 ---
 
-Payment gateways in WooCommerce are class based and can be added through traditional plugins. This guide provides an intro to gateway development.
+Payment gateways in PooCommerce are class based and can be added through traditional plugins. This guide provides an intro to gateway development.
 
 ## Types of payment gateway
 
@@ -15,19 +15,19 @@ Payment gateways come in several varieties:
 3.  **Direct** - This is when the payment fields are shown directly on the checkout page and the payment is made when 'place order' is pressed. _Example_: PayPal Pro, Authorize.net AIM
 4.  **Offline** - No online payment is made. _Example_: Cheque, Bank Transfer
 
-Form and iFrame based gateways post data offsite, meaning there are less security issues for you to think about. Direct gateways, however, require server security to be implemented ([SSL certificates](https://woocommerce.com/document/ssl-and-https/), etc.) and may also require a level of [PCI compliance](https://woocommerce.com/document/pci-dss-compliance-and-woocommerce/).
+Form and iFrame based gateways post data offsite, meaning there are less security issues for you to think about. Direct gateways, however, require server security to be implemented ([SSL certificates](https://poocommerce.com/document/ssl-and-https/), etc.) and may also require a level of [PCI compliance](https://poocommerce.com/document/pci-dss-compliance-and-poocommerce/).
 
 ## Creating a basic payment gateway
 
 **Note:** The instructions below are for the default Checkout page. If you're looking to add a custom payment method for the new Checkout block, check out [the payment method integration documentation](../cart-and-checkout-blocks/checkout-payment-methods/payment-method-integration.md).
 
-Payment gateways should be created as additional plugins that hook into WooCommerce. Inside the plugin, you need to create a class after plugins are loaded. Example:
+Payment gateways should be created as additional plugins that hook into PooCommerce. Inside the plugin, you need to create a class after plugins are loaded. Example:
 
 ```php
 add_action( 'plugins_loaded', 'init_your_gateway_class' );
 ```
 
-It is also important that your gateway class extends the WooCommerce base gateway class, so you have access to important methods and the [settings API](https://developer.woocommerce.com/docs/settings-api/):
+It is also important that your gateway class extends the PooCommerce base gateway class, so you have access to important methods and the [settings API](https://developer.poocommerce.com/docs/settings-api/):
 
 ```php
 function init_your_gateway_class() {
@@ -35,9 +35,9 @@ class WC_Gateway_Your_Gateway extends WC_Payment_Gateway {}
 }
 ```
 
-You can view the [WC_Payment_Gateway class in the API Docs](https://woocommerce.github.io/code-reference/classes/WC-Payment-Gateway.html).
+You can view the [WC_Payment_Gateway class in the API Docs](https://poocommerce.github.io/code-reference/classes/WC-Payment-Gateway.html).
 
-As well as defining your class, you need to also tell WooCommerce (WC) that it exists. Do this by filtering _woocommerce_payment_gateways_:
+As well as defining your class, you need to also tell PooCommerce (WC) that it exists. Do this by filtering _poocommerce_payment_gateways_:
 
 ```php
 function add_your_gateway_class( $methods ) {
@@ -47,7 +47,7 @@ return $methods;
 ```
 
 ```php
-add_filter( 'woocommerce_payment_gateways', 'add_your_gateway_class' );
+add_filter( 'poocommerce_payment_gateways', 'add_your_gateway_class' );
 ```
 
 ### Required Methods
@@ -82,32 +82,32 @@ $this->title = $this->get_option( 'title' );
 Finally, you need to add a save hook for your settings:
 
 ```php
-add_action( 'woocommerce_update_options_payment_gateways\_' . $this->id, array( $this, 'process_admin_options' ) );
+add_action( 'poocommerce_update_options_payment_gateways\_' . $this->id, array( $this, 'process_admin_options' ) );
 ```
 
 #### init_form_fields()
 
-Use this method to set `$this->form_fields` - these are options you'll show in admin on your gateway settings page and make use of the [WC Settings API](https://developer.woocommerce.com/docs/settings-api/).
+Use this method to set `$this->form_fields` - these are options you'll show in admin on your gateway settings page and make use of the [WC Settings API](https://developer.poocommerce.com/docs/settings-api/).
 
 A basic set of settings for your gateway would consist of _enabled_, _title_ and _description_:
 
 ```php
 $this->form_fields = array(
 'enabled' => array(
-'title' => \_\_( 'Enable/Disable', 'woocommerce' ),
+'title' => \_\_( 'Enable/Disable', 'poocommerce' ),
 'type' => 'checkbox',
-'label' => \_\_( 'Enable Cheque Payment', 'woocommerce' ),
+'label' => \_\_( 'Enable Cheque Payment', 'poocommerce' ),
 'default' => 'yes'
 ),
 'title' => array(
-'title' => \_\_( 'Title', 'woocommerce' ),
+'title' => \_\_( 'Title', 'poocommerce' ),
 'type' => 'text',
-'description' => \_\_( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-'default' => \_\_( 'Cheque Payment', 'woocommerce' ),
+'description' => \_\_( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+'default' => \_\_( 'Cheque Payment', 'poocommerce' ),
 'desc_tip' => true,
 ),
 'description' => array(
-'title' => \_\_( 'Customer Message', 'woocommerce' ),
+'title' => \_\_( 'Customer Message', 'poocommerce' ),
 'type' => 'textarea',
 'default' => ''
 )
@@ -122,14 +122,14 @@ Here is an example of a process_payment function from the Cheque gateway:
 
 ```php
 function process_payment( $order_id ) {
-global $woocommerce;
+global $poocommerce;
 $order = new WC_Order( $order_id );
 
     // Mark as on-hold (we're awaiting the cheque)
-    $order->update\_status('on-hold', \_\_( 'Awaiting cheque payment', 'woocommerce' ));
+    $order->update\_status('on-hold', \_\_( 'Awaiting cheque payment', 'poocommerce' ));
 
     // Remove cart
-    $woocommerce->cart->empty\_cart();
+    $poocommerce->cart->empty\_cart();
 
     // Return thankyou redirect
     return array(
@@ -162,9 +162,9 @@ return array(
 );
 ```
 
-WooCommerce will catch this error and show it on the checkout page.
+PooCommerce will catch this error and show it on the checkout page.
 
-Stock levels are updated via actions (`woocommerce_payment_complete` and in transitions between order statuses), so it's no longer needed to manually call the methods reducing stock levels while processing the payment.
+Stock levels are updated via actions (`poocommerce_payment_complete` and in transitions between order statuses), so it's no longer needed to manually call the methods reducing stock levels while processing the payment.
 
 ### Updating Order Status and Adding Notes
 
@@ -185,7 +185,7 @@ $order->add_order_note( \_\_('IPN payment completed', 'woothemes') );
 
 - If the order has completed but the admin needs to manually verify payment, use **On-Hold**
 - If the order fails and has already been created, set to **Failed**
-- If payment is complete, let WooCommerce handle the status and use `$order->payment_complete()`. WooCommerce will use either **Completed** or **Processing** status and handle stock.
+- If payment is complete, let PooCommerce handle the status and use `$order->payment_complete()`. PooCommerce will use either **Completed** or **Processing** status and handle stock.
 
 ## Notes on Direct Gateways
 
@@ -240,12 +240,12 @@ str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_Paypal', ho
 Then hooks in its handler to the hook:
 
 ```php
-add_action( 'woocommerce_api_wc_gateway_paypal', array( $this, 'check_ipn_response' ) );
+add_action( 'poocommerce_api_wc_gateway_paypal', array( $this, 'check_ipn_response' ) );
 ```
 
-WooCommerce will call your gateway and run the action when the URL is called.
+PooCommerce will call your gateway and run the action when the URL is called.
 
-For more information, see [WC_API - The WooCommerce API Callback](https://woocommerce.com/document/wc_api-the-woocommerce-api-callback/).
+For more information, see [WC_API - The PooCommerce API Callback](https://poocommerce.com/document/wc_api-the-poocommerce-api-callback/).
 
 ## Hooks in Gateways
 

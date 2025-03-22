@@ -1,6 +1,6 @@
 @import "../_mixins.scss";
 
-.woocommerce-customize-store-edit-site-sidebar__screen-wrapper {
+.poocommerce-customize-store-edit-site-sidebar__screen-wrapper {
 	height: 100%;
 	overflow-x: auto;
 	@include custom-scrollbars-on-hover(transparent, $gray-700);

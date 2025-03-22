@@ -1,11 +1,11 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
-use Automattic\WooCommerce\StoreApi\Exceptions\InvalidStockLevelsInCartException;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderAuthorizationTrait;
-use Automattic\WooCommerce\StoreApi\Utilities\CheckoutTrait;
+use Automattic\PooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\PooCommerce\StoreApi\Exceptions\InvalidStockLevelsInCartException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderAuthorizationTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\CheckoutTrait;
 
 /**
  * CheckoutOrder class.
@@ -67,7 +67,7 @@ class CheckoutOrder extends AbstractCartRoute {
 				'args'                => array_merge(
 					[
 						'payment_data' => [
-							'description' => __( 'Data to pass through to the payment method when processing payment.', 'woocommerce' ),
+							'description' => __( 'Data to pass through to the payment method when processing payment.', 'poocommerce' ),
 							'type'        => 'array',
 							'items'       => [
 								'type'       => 'object',
@@ -112,7 +112,7 @@ class CheckoutOrder extends AbstractCartRoute {
 		if ( ! $this->order || ! $this->order->needs_payment() ) {
 			return new \WP_Error(
 				'invalid_order_update_status',
-				__( 'This order cannot be paid for.', 'woocommerce' )
+				__( 'This order cannot be paid for.', 'poocommerce' )
 			);
 		}
 
@@ -144,18 +144,18 @@ class CheckoutOrder extends AbstractCartRoute {
 		 *
 		 * This hook informs extensions that $order has completed processing and is ready for payment.
 		 *
-		 * This is similar to existing core hook woocommerce_checkout_order_processed. We're using a new action:
+		 * This is similar to existing core hook poocommerce_checkout_order_processed. We're using a new action:
 		 * - To keep the interface focused (only pass $order, not passing request data).
 		 * - This also explicitly indicates these orders are from checkout block/StoreAPI.
 		 *
 		 * @since 7.2.0
 		 *
-		 * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/3238
+		 * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/3238
 		 * @example See docs/examples/checkout-order-processed.md
 
 		 * @param \WC_Order $order Order object.
 		 */
-		do_action( 'woocommerce_store_api_checkout_order_processed', $this->order );
+		do_action( 'poocommerce_store_api_checkout_order_processed', $this->order );
 
 		/**
 		 * Process the payment and return the results.
@@ -215,7 +215,7 @@ class CheckoutOrder extends AbstractCartRoute {
 		 * @param \WC_Customer $customer Customer object.
 		 * @param \WP_REST_Request $request Full details about the request.
 		 */
-		do_action( 'woocommerce_store_api_checkout_update_customer_from_request', $customer, $request );
+		do_action( 'poocommerce_store_api_checkout_update_customer_from_request', $customer, $request );
 
 		$customer->save();
 
@@ -240,8 +240,8 @@ class CheckoutOrder extends AbstractCartRoute {
 		if ( empty( $request_payment_method ) ) {
 			if ( $requires_payment_method ) {
 				throw new RouteException(
-					'woocommerce_rest_checkout_missing_payment_method',
-					__( 'No payment method provided.', 'woocommerce' ),
+					'poocommerce_rest_checkout_missing_payment_method',
+					__( 'No payment method provided.', 'poocommerce' ),
 					400
 				);
 			}
@@ -250,10 +250,10 @@ class CheckoutOrder extends AbstractCartRoute {
 
 		if ( ! isset( $available_gateways[ $request_payment_method ] ) ) {
 			throw new RouteException(
-				'woocommerce_rest_checkout_payment_method_disabled',
+				'poocommerce_rest_checkout_payment_method_disabled',
 				sprintf(
 					// Translators: %s Payment method ID.
-					__( 'The %s payment gateway is not available.', 'woocommerce' ),
+					__( 'The %s payment gateway is not available.', 'poocommerce' ),
 					esc_html( $request_payment_method )
 				),
 				400

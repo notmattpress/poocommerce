@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { CART_URL } from '@woocommerce/block-settings';
-import Button from '@woocommerce/base-components/button';
+import { CART_URL } from '@poocommerce/block-settings';
+import Button from '@poocommerce/base-components/button';
 import clsx from 'clsx';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

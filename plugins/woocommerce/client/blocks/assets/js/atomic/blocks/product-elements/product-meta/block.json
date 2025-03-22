@@ -1,23 +1,23 @@
 {
-	"name": "woocommerce/product-meta",
+	"name": "poocommerce/product-meta",
 	"version": "1.0.0",
 	"title": "Product Meta",
 	"icon": "product",
 	"description": "Display a product’s SKU, categories, tags, and more.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"supports": {
 		"align": true,
 		"reusable": false
 	},
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"usesContext": [
 		"postId",
 		"postType",
 		"queryId"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

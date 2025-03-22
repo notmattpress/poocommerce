@@ -103,12 +103,12 @@ describe( 'Changelog project functions', () => {
 	it( 'getTouchedChangeloggerProjectsPathsMappedToProjects should map plugins and js packages to the correct name', async () => {
 		const touchedFiles = [
 			'plugins/beta-tester/src/index.js',
-			'plugins/woocommerce/src/index.js',
+			'plugins/poocommerce/src/index.js',
 			'packages/js/components/src/index.js',
 			'packages/js/data/src/index.js',
 		];
 		const changeLoggerProjects = [
-			'plugins/woocommerce',
+			'plugins/poocommerce',
 			'plugins/beta-tester',
 			'packages/js/data',
 			'packages/js/components',
@@ -120,10 +120,10 @@ describe( 'Changelog project functions', () => {
 			);
 
 		expect( intersectedProjects ).toMatchObject( {
-			woocommerce: 'plugins/woocommerce',
+			poocommerce: 'plugins/poocommerce',
 			'beta-tester': 'plugins/beta-tester',
-			'@woocommerce/components': 'packages/js/components',
-			'@woocommerce/data': 'packages/js/data',
+			'@poocommerce/components': 'packages/js/components',
+			'@poocommerce/data': 'packages/js/data',
 		} );
 	} );
 } );

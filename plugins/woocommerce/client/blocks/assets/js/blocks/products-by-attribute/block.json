@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/products-by-attribute",
+	"name": "poocommerce/products-by-attribute",
 	"title": "Products by Attribute",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"description": "Display a grid of products with selected attributes.",
 	"supports": {
@@ -92,7 +92,7 @@
 			"type": "array"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

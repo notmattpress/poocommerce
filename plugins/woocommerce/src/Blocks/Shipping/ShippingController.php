@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Shipping;
+namespace Automattic\PooCommerce\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\StoreApi\Utilities\LocalPickupUtils;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Utils\CartCheckoutUtils;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\StoreApi\Utilities\LocalPickupUtils;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 use WC_Customer;
 use WC_Shipping_Rate;
 use WC_Tracks;
@@ -69,20 +69,20 @@ class ShippingController {
 				}
 			);
 		}
-		$this->asset_data_registry->add( 'shippingCostRequiresAddress', get_option( 'woocommerce_shipping_cost_requires_address', false ) === 'yes' );
+		$this->asset_data_registry->add( 'shippingCostRequiresAddress', get_option( 'poocommerce_shipping_cost_requires_address', false ) === 'yes' );
 		add_action( 'rest_api_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_footer', array( $this, 'hydrate_client_settings' ), 0 );
-		add_action( 'woocommerce_load_shipping_methods', array( $this, 'register_local_pickup' ) );
-		add_filter( 'woocommerce_local_pickup_methods', array( $this, 'register_local_pickup_method' ) );
-		add_filter( 'woocommerce_order_hide_shipping_address', array( $this, 'hide_shipping_address_for_local_pickup' ), 10 );
-		add_filter( 'woocommerce_customer_taxable_address', array( $this, 'filter_taxable_address' ) );
-		add_filter( 'woocommerce_shipping_settings', array( $this, 'remove_shipping_settings' ) );
-		add_filter( 'woocommerce_shipping_packages', array( $this, 'filter_shipping_packages' ) );
-		add_filter( 'pre_update_option_woocommerce_pickup_location_settings', array( $this, 'flush_cache' ) );
+		add_action( 'poocommerce_load_shipping_methods', array( $this, 'register_local_pickup' ) );
+		add_filter( 'poocommerce_local_pickup_methods', array( $this, 'register_local_pickup_method' ) );
+		add_filter( 'poocommerce_order_hide_shipping_address', array( $this, 'hide_shipping_address_for_local_pickup' ), 10 );
+		add_filter( 'poocommerce_customer_taxable_address', array( $this, 'filter_taxable_address' ) );
+		add_filter( 'poocommerce_shipping_settings', array( $this, 'remove_shipping_settings' ) );
+		add_filter( 'poocommerce_shipping_packages', array( $this, 'filter_shipping_packages' ) );
+		add_filter( 'pre_update_option_poocommerce_pickup_location_settings', array( $this, 'flush_cache' ) );
 		add_filter( 'pre_update_option_pickup_location_pickup_locations', array( $this, 'flush_cache' ) );
-		add_filter( 'woocommerce_shipping_packages', array( $this, 'remove_shipping_if_no_address' ), 11 );
-		add_filter( 'woocommerce_order_shipping_to_display', array( $this, 'show_local_pickup_details' ), 10, 2 );
+		add_filter( 'poocommerce_shipping_packages', array( $this, 'remove_shipping_if_no_address' ), 11 );
+		add_filter( 'poocommerce_order_shipping_to_display', array( $this, 'show_local_pickup_details' ), 10, 2 );
 
 		add_action( 'rest_pre_serve_request', array( $this, 'track_local_pickup' ), 10, 4 );
 	}
@@ -119,7 +119,7 @@ class ShippingController {
 
 		return sprintf(
 			// Translators: %s location name.
-			__( 'Collection from <strong>%s</strong>:', 'woocommerce' ),
+			__( 'Collection from <strong>%s</strong>:', 'poocommerce' ),
 			$location
 		) . '<br/><address>' . str_replace( ',', ',<br/>', $address ) . '</address><br/>' . $details;
 	}
@@ -133,9 +133,9 @@ class ShippingController {
 	public function remove_shipping_settings( $settings ) {
 		if ( CartCheckoutUtils::is_checkout_block_default() && $this->local_pickup_enabled ) {
 			foreach ( $settings as $index => $setting ) {
-				if ( 'woocommerce_shipping_cost_requires_address' === $setting['id'] ) {
+				if ( 'poocommerce_shipping_cost_requires_address' === $setting['id'] ) {
 					$settings[ $index ]['desc_tip'] =
-						__( 'Local pickup rates will display in the Cart and Checkout blocks, even without an address.', 'woocommerce' );
+						__( 'Local pickup rates will display in the Cart and Checkout blocks, even without an address.', 'poocommerce' );
 					break;
 				}
 			}
@@ -150,10 +150,10 @@ class ShippingController {
 	public function register_settings() {
 		register_setting(
 			'options',
-			'woocommerce_pickup_location_settings',
+			'poocommerce_pickup_location_settings',
 			array(
 				'type'         => 'object',
-				'description'  => 'WooCommerce Local Pickup Method Settings',
+				'description'  => 'PooCommerce Local Pickup Method Settings',
 				'default'      => array(),
 				'show_in_rest' => array(
 					'name'   => 'pickup_location_settings',
@@ -161,21 +161,21 @@ class ShippingController {
 						'type'       => 'object',
 						'properties' => array(
 							'enabled'    => array(
-								'description' => __( 'If enabled, this method will appear on the block based checkout.', 'woocommerce' ),
+								'description' => __( 'If enabled, this method will appear on the block based checkout.', 'poocommerce' ),
 								'type'        => 'string',
 								'enum'        => array( 'yes', 'no' ),
 							),
 							'title'      => array(
-								'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
+								'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
 								'type'        => 'string',
 							),
 							'tax_status' => array(
-								'description' => __( 'If a cost is defined, this controls if taxes are applied to that cost.', 'woocommerce' ),
+								'description' => __( 'If a cost is defined, this controls if taxes are applied to that cost.', 'poocommerce' ),
 								'type'        => 'string',
 								'enum'        => array( ProductTaxStatus::TAXABLE, ProductTaxStatus::NONE ),
 							),
 							'cost'       => array(
-								'description' => __( 'Optional cost to charge for local pickup.', 'woocommerce' ),
+								'description' => __( 'Optional cost to charge for local pickup.', 'poocommerce' ),
 								'type'        => 'string',
 							),
 						),
@@ -188,7 +188,7 @@ class ShippingController {
 			'pickup_location_pickup_locations',
 			array(
 				'type'         => 'array',
-				'description'  => 'WooCommerce Local Pickup Locations',
+				'description'  => 'PooCommerce Local Pickup Locations',
 				'default'      => array(),
 				'show_in_rest' => array(
 					'name'   => 'pickup_locations',
@@ -317,7 +317,7 @@ class ShippingController {
 	}
 
 	/**
-	 * Declares the Pickup Location shipping method as a Local Pickup method for WooCommerce.
+	 * Declares the Pickup Location shipping method as a Local Pickup method for PooCommerce.
 	 *
 	 * @param array $methods Shipping method ids.
 	 * @return array
@@ -364,8 +364,8 @@ class ShippingController {
 		$chosen_method_id       = explode( ':', $chosen_method )[0];
 		$chosen_method_instance = explode( ':', $chosen_method )[1] ?? 0;
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		if ( $chosen_method_id && true === apply_filters( 'woocommerce_apply_base_tax_for_local_pickup', true ) && in_array( $chosen_method_id, LocalPickupUtils::get_local_pickup_method_ids(), true ) ) {
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		if ( $chosen_method_id && true === apply_filters( 'poocommerce_apply_base_tax_for_local_pickup', true ) && in_array( $chosen_method_id, LocalPickupUtils::get_local_pickup_method_ids(), true ) ) {
 			$pickup_locations = get_option( 'pickup_location_pickup_locations', array() );
 			$pickup_location  = $pickup_locations[ $chosen_method_instance ] ?? array();
 
@@ -434,7 +434,7 @@ class ShippingController {
 	 * @return array
 	 */
 	public function remove_shipping_if_no_address( $packages ) {
-		$shipping_cost_requires_address = wc_string_to_bool( get_option( 'woocommerce_shipping_cost_requires_address', 'no' ) );
+		$shipping_cost_requires_address = wc_string_to_bool( get_option( 'poocommerce_shipping_cost_requires_address', 'no' ) );
 
 		// Return early here for a small performance gain if we don't need to hide shipping costs until an address is entered.
 		if ( ! $shipping_cost_requires_address ) {
@@ -485,7 +485,7 @@ class ShippingController {
 
 		$data = array(
 			'local_pickup_enabled'     => 'yes' === $settings['enabled'] ? true : false,
-			'title'                    => __( 'Pickup', 'woocommerce' ) === $settings['title'],
+			'title'                    => __( 'Pickup', 'poocommerce' ) === $settings['title'],
 			'price'                    => '' === $settings['cost'] ? true : false,
 			'cost'                     => '' === $settings['cost'] ? 0 : $settings['cost'],
 			'taxes'                    => $settings['tax_status'],

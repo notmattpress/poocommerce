@@ -1,9 +1,9 @@
-# WooCommerce Email Editor
+# PooCommerce Email Editor
 
-This folder contains the code for the WooCommerce Email Editor JS Package.
+This folder contains the code for the PooCommerce Email Editor JS Package.
 We aim to extract the package as an independent library, so it can be used in other projects.
 
-You can try the email editor in [the WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/woocommerce/woocommerce/refs/heads/trunk/packages/js/email-editor/blueprint.json).
+You can try the email editor in [the WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/poocommerce/poocommerce/refs/heads/trunk/packages/js/email-editor/blueprint.json).
 
 You can locate the PHP package here `packages/php/email-editor`
 
@@ -94,19 +94,19 @@ We may add, update and delete any of them.
 
 | Name                              | Argument           | Description         |
 | --------------------------------- | ------------------ | ------------------- |
-| `woocommerce_email_editor_events` | `EventData.detail` | Email editor events |
+| `poocommerce_email_editor_events` | `EventData.detail` | Email editor events |
 
 ### Filters
 
 | Name                                                               | Argument                         | Return                                     | Description                                                                                                         |
 |--------------------------------------------------------------------|----------------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| `woocommerce_email_editor_events_tracking_enabled`                 | `boolean` (false-default)        | `boolean`                                  | Used to enable the email editor events tracking and collection                                                      |
-| `woocommerce_email_editor_wrap_editor_component`                   | `JSX.Element` Editor             | `JSX.Element` Editor                       | The main editor component. Custom component can wrap the editor and provide additional functionality                |
-| `woocommerce_email_editor_send_button_label`                       | `string` 'Send'                  | `string` 'Send' (default)                  | Email editor send button label. The `Send` text can be updated using this filter                                    |
-| `woocommerce_email_editor_send_action_callback`                    | `function` sendAction            | `function` sendAction                      | Action to perform when the Send button is clicked                                                                   |
-| `woocommerce_email_editor_content_validation_rules`                | `array` rules                    | `EmailContentValidationRule[]` rules       | Email editor content validation rules. The validation is done on `send btton` click and revalidated on `save draft` |
-| `woocommerce_email_editor_check_sending_method_configuration_link` | `string` link                    | `string` link                              | Edit or remove the sending configuration link message                                                               |
-| `woocommerce_email_editor_setting_sidebar_extension_component`     | `JSX.Element` RichTextWithButton | `JSX.Element` Sidebar extension component  | Add components to the Email settings sidebar                                                                        |
-| `woocommerce_email_editor_preferred_template_title`                | `string` '', `Post` post         | `string` custom (preferred) template title | Custom title for Email preset template selector                                                                     |
-| `woocommerce_email_editor_sidebar_email_type_info_icon`            | none                             | `JSX.Element` icon component               | Return an icon from @wordpress/icons e.g. () => <Icon icon={ postContent } />                                       |
-| `woocommerce_email_editor_sidebar_email_type_info_content`         | none                             | `JSX.Element` info content                 | Return a React component containing information about the current template or content                               |
+| `poocommerce_email_editor_events_tracking_enabled`                 | `boolean` (false-default)        | `boolean`                                  | Used to enable the email editor events tracking and collection                                                      |
+| `poocommerce_email_editor_wrap_editor_component`                   | `JSX.Element` Editor             | `JSX.Element` Editor                       | The main editor component. Custom component can wrap the editor and provide additional functionality                |
+| `poocommerce_email_editor_send_button_label`                       | `string` 'Send'                  | `string` 'Send' (default)                  | Email editor send button label. The `Send` text can be updated using this filter                                    |
+| `poocommerce_email_editor_send_action_callback`                    | `function` sendAction            | `function` sendAction                      | Action to perform when the Send button is clicked                                                                   |
+| `poocommerce_email_editor_content_validation_rules`                | `array` rules                    | `EmailContentValidationRule[]` rules       | Email editor content validation rules. The validation is done on `send btton` click and revalidated on `save draft` |
+| `poocommerce_email_editor_check_sending_method_configuration_link` | `string` link                    | `string` link                              | Edit or remove the sending configuration link message                                                               |
+| `poocommerce_email_editor_setting_sidebar_extension_component`     | `JSX.Element` RichTextWithButton | `JSX.Element` Sidebar extension component  | Add components to the Email settings sidebar                                                                        |
+| `poocommerce_email_editor_preferred_template_title`                | `string` '', `Post` post         | `string` custom (preferred) template title | Custom title for Email preset template selector                                                                     |
+| `poocommerce_email_editor_sidebar_email_type_info_icon`            | none                             | `JSX.Element` icon component               | Return an icon from @wordpress/icons e.g. () => <Icon icon={ postContent } />                                       |
+| `poocommerce_email_editor_sidebar_email_type_info_content`         | none                             | `JSX.Element` info content                 | Return a React component containing information about the current template or content                               |

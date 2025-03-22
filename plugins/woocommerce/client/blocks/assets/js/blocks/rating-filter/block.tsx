@@ -4,23 +4,23 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
 import { Icon, chevronDown } from '@wordpress/icons';
-import Rating from '@woocommerce/base-components/product-rating';
-import { usePrevious, useShallowEqual } from '@woocommerce/base-hooks';
+import Rating from '@poocommerce/base-components/product-rating';
+import { usePrevious, useShallowEqual } from '@poocommerce/base-hooks';
 import {
 	useQueryStateByKey,
 	useQueryStateByContext,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean, isObject, objectHasProp } from '@woocommerce/types';
+} from '@poocommerce/base-context/hooks';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean, isObject, objectHasProp } from '@poocommerce/types';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { useState, useCallback, useMemo, useEffect } from '@wordpress/element';
-import { CheckboxList } from '@woocommerce/blocks-components';
-import FilterSubmitButton from '@woocommerce/base-components/filter-submit-button';
-import FilterResetButton from '@woocommerce/base-components/filter-reset-button';
-import FormTokenField from '@woocommerce/base-components/form-token-field';
+import { CheckboxList } from '@poocommerce/blocks-components';
+import FilterSubmitButton from '@poocommerce/base-components/filter-submit-button';
+import FilterResetButton from '@poocommerce/base-components/filter-reset-button';
+import FormTokenField from '@poocommerce/base-components/form-token-field';
 import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
-import { changeUrl, normalizeQueryParams } from '@woocommerce/utils';
+import { changeUrl, normalizeQueryParams } from '@poocommerce/utils';
 import clsx from 'clsx';
 import type { ReactElement } from 'react';
 
@@ -40,13 +40,13 @@ const translations = {
 	ratingAdded: ( rating: string ): string =>
 		sprintf(
 			/* translators: %s is referring to the average rating value */
-			__( 'Rated %s out of 5 filter added.', 'woocommerce' ),
+			__( 'Rated %s out of 5 filter added.', 'poocommerce' ),
 			rating
 		),
 	ratingRemoved: ( rating: string ): string =>
 		sprintf(
 			/* translators: %s is referring to the average rating value */
-			__( 'Rated %s out of 5 filter added.', 'woocommerce' ),
+			__( 'Rated %s out of 5 filter added.', 'poocommerce' ),
 			rating
 		),
 };
@@ -108,7 +108,7 @@ const RatingFilterBlock = ( {
 	/*
 		FormTokenField forces the dropdown to reopen on reset, so we create a unique ID to use as the components key.
 		This will force the component to remount on reset when we change this value.
-		More info: https://github.com/woocommerce/woocommerce-blocks/pull/6920#issuecomment-1222402482
+		More info: https://github.com/poocommerce/poocommerce-blocks/pull/6920#issuecomment-1222402482
 	 */
 	const [ remountKey, setRemountKey ] = useState( generateUniqueId() );
 	const [ displayNoProductRatingsNotice, setDisplayNoProductRatingsNotice ] =
@@ -347,7 +347,7 @@ const RatingFilterBlock = ( {
 								)
 								.map( ( option ) => option.value ) }
 							disabled={ isLoading }
-							placeholder={ __( 'Select Rating', 'woocommerce' ) }
+							placeholder={ __( 'Select Rating', 'poocommerce' ) }
 							onChange={ ( tokens: string[] ) => {
 								if ( ! multiple && tokens.length > 1 ) {
 									tokens = [ tokens[ tokens.length - 1 ] ];
@@ -431,19 +431,19 @@ const RatingFilterBlock = ( {
 							messages={ {
 								added: __(
 									'Rating filter added.',
-									'woocommerce'
+									'poocommerce'
 								),
 								removed: __(
 									'Rating filter removed.',
-									'woocommerce'
+									'poocommerce'
 								),
 								remove: __(
 									'Remove rating filter.',
-									'woocommerce'
+									'poocommerce'
 								),
 								__experimentalInvalid: __(
 									'Invalid rating filter.',
-									'woocommerce'
+									'poocommerce'
 								),
 							} }
 						/>
@@ -475,7 +475,7 @@ const RatingFilterBlock = ( {
 							} }
 							screenReaderLabel={ __(
 								'Reset rating filter',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
@@ -487,7 +487,7 @@ const RatingFilterBlock = ( {
 							onClick={ () => onSubmit( checked ) }
 							screenReaderLabel={ __(
 								'Apply rating filter',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }

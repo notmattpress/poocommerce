@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductReviews class.
@@ -43,7 +43,7 @@ class ProductReviews extends AbstractBlock {
 		$reviews = ob_get_clean();
 
 		return sprintf(
-			'<div class="wp-block-woocommerce-product-reviews %1$s">
+			'<div class="wp-block-poocommerce-product-reviews %1$s">
 				%2$s
 			</div>',
 			StyleAttributesUtils::get_classes_by_attributes( $attributes, array( 'extra_classes' ) ),

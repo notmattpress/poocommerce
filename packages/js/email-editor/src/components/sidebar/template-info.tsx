@@ -31,23 +31,23 @@ export function TemplateInfo() {
 
 	return (
 		<>
-			<Panel className="woocommerce-email-sidebar-email-type-info">
+			<Panel className="poocommerce-email-sidebar-email-type-info">
 				<PanelBody>
 					<PanelRow>
-						<span className="woocommerce-email-type-info-icon">
+						<span className="poocommerce-email-type-info-icon">
 							<Icon icon={ layout } />
 						</span>
-						<div className="woocommerce-email-type-info-content">
-							<div className="woocommerce-email-type-info-content-heading">
+						<div className="poocommerce-email-type-info-content">
+							<div className="poocommerce-email-type-info-content-heading">
 								<h2>
 									{ template?.title ||
-										__( 'Template', 'woocommerce' ) }
+										__( 'Template', 'poocommerce' ) }
 								</h2>
 								<DropdownMenu
 									icon={ moreVertical }
 									label={ __(
 										'Template actions',
-										'woocommerce'
+										'poocommerce'
 									) }
 								>
 									{ ( { onClose } ) => (
@@ -58,10 +58,10 @@ export function TemplateInfo() {
 											} }
 											info={ __(
 												'Reset to default to clear all customizations',
-												'woocommerce'
+												'poocommerce'
 											) }
 										>
-											{ __( 'Reset', 'woocommerce' ) }
+											{ __( 'Reset', 'poocommerce' ) }
 										</MenuItem>
 									) }
 								</DropdownMenu>
@@ -70,7 +70,7 @@ export function TemplateInfo() {
 							<p>
 								{ __(
 									'Edit this template to be used across multiple emails.',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</div>

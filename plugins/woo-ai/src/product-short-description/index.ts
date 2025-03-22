@@ -8,7 +8,7 @@ if ( window.JP_CONNECTION_INITIAL_STATE?.connectionStatus?.isActive ) {
 	renderWrappedComponent(
 		WriteShortDescriptionButtonContainer,
 		document.getElementById(
-			'woocommerce-ai-app-product-short-description-gpt-button'
+			'poocommerce-ai-app-product-short-description-gpt-button'
 		)
 	);
 }

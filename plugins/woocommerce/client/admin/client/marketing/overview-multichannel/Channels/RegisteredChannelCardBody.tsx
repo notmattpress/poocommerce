@@ -30,11 +30,11 @@ export const RegisteredChannelCardBody: React.FC<
 	const description = ! registeredChannel.isSetupCompleted ? (
 		registeredChannel.description
 	) : (
-		<div className="woocommerce-marketing-registered-channel-description">
+		<div className="poocommerce-marketing-registered-channel-description">
 			{ !! registeredChannel.syncStatus && (
 				<>
 					<SyncStatus status={ registeredChannel.syncStatus } />
-					<div className="woocommerce-marketing-registered-channel-description__separator" />
+					<div className="poocommerce-marketing-registered-channel-description__separator" />
 				</>
 			) }
 			<IssueStatus registeredChannel={ registeredChannel } />
@@ -50,17 +50,17 @@ export const RegisteredChannelCardBody: React.FC<
 	 */
 	const button = ! registeredChannel.isSetupCompleted ? (
 		<Button variant="primary" href={ registeredChannel.setupUrl }>
-			{ __( 'Finish setup', 'woocommerce' ) }
+			{ __( 'Finish setup', 'poocommerce' ) }
 		</Button>
 	) : (
 		<Button variant="secondary" href={ registeredChannel.manageUrl }>
-			{ __( 'Manage', 'woocommerce' ) }
+			{ __( 'Manage', 'poocommerce' ) }
 		</Button>
 	);
 
 	return (
 		<PluginCardBody
-			className="woocommerce-marketing-registered-channel-card-body"
+			className="poocommerce-marketing-registered-channel-card-body"
 			icon={
 				<img
 					src={ registeredChannel.icon }

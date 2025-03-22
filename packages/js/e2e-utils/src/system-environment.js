@@ -1,7 +1,7 @@
 import { withRestApi } from './flows';
 
 /**
- * Uses the WooCommerce API to get the environment context.
+ * Uses the PooCommerce API to get the environment context.
  */
 export const getEnvironmentContext = async () => {
 	try {

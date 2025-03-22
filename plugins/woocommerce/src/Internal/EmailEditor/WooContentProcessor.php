@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Css_Inliner;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Email_Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Class responsible for extracting the main content from a WC_Email object.
@@ -36,9 +36,9 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Get the WooCommerce content excluding headers and footers.
+	 * Get the PooCommerce content excluding headers and footers.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string
 	 */
 	public function get_woo_content( \WC_Email $wc_email ): string {
@@ -64,7 +64,7 @@ class WooContentProcessor {
 	/**
 	 * Inline the CSS from the email theme and user email settings.
 	 *
-	 * @param string $woo_content WooCommerce content.
+	 * @param string $woo_content PooCommerce content.
 	 * @return string
 	 */
 	private function inline_css( string $woo_content ): string {
@@ -73,20 +73,20 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Capture the WooCommerce content excluding headers and footers.
+	 * Capture the PooCommerce content excluding headers and footers.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string
 	 */
 	private function capture_woo_content( \WC_Email $wc_email ): string {
 		// Store the existing header and footer callbacks.
 		global $wp_filter;
-		$original_header_filters = isset( $wp_filter['woocommerce_email_header'] ) ? clone $wp_filter['woocommerce_email_header'] : null;
-		$original_footer_filters = isset( $wp_filter['woocommerce_email_footer'] ) ? clone $wp_filter['woocommerce_email_footer'] : null;
+		$original_header_filters = isset( $wp_filter['poocommerce_email_header'] ) ? clone $wp_filter['poocommerce_email_header'] : null;
+		$original_footer_filters = isset( $wp_filter['poocommerce_email_footer'] ) ? clone $wp_filter['poocommerce_email_footer'] : null;
 
 		// Remove header and footer filters because we want to get only the main content.
-		remove_all_filters( 'woocommerce_email_header' );
-		remove_all_filters( 'woocommerce_email_footer' );
+		remove_all_filters( 'poocommerce_email_header' );
+		remove_all_filters( 'poocommerce_email_footer' );
 
 		$woo_content = $wc_email->get_content_html();
 
@@ -94,14 +94,14 @@ class WooContentProcessor {
 		if ( $original_header_filters ) {
 			foreach ( $original_header_filters->callbacks as $priority => $callbacks ) {
 				foreach ( $callbacks as $filter ) {
-					add_filter( 'woocommerce_email_header', $filter['function'], $priority, $filter['accepted_args'] );
+					add_filter( 'poocommerce_email_header', $filter['function'], $priority, $filter['accepted_args'] );
 				}
 			}
 		}
 		if ( $original_footer_filters ) {
 			foreach ( $original_footer_filters->callbacks as $priority => $callbacks ) {
 				foreach ( $callbacks as $filter ) {
-					add_filter( 'woocommerce_email_footer', $filter['function'], $priority, $filter['accepted_args'] );
+					add_filter( 'poocommerce_email_footer', $filter['function'], $priority, $filter['accepted_args'] );
 				}
 			}
 		}

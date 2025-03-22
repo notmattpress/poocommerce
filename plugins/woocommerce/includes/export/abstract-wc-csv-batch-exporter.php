@@ -4,7 +4,7 @@
  *
  * Based on https://pippinsplugins.com/batch-processing-for-big-data/
  *
- * @package  WooCommerce\Export
+ * @package  PooCommerce\Export
  * @version  3.1.0
  */
 
@@ -130,7 +130,7 @@ abstract class WC_CSV_Batch_Exporter extends WC_CSV_Exporter {
 			wc_get_logger()->error(
 				sprintf(
 					/* translators: %s is file path. */
-					__( 'Unable to create or write to %s during CSV export. Please check file permissions.', 'woocommerce' ),
+					__( 'Unable to create or write to %s during CSV export. Please check file permissions.', 'poocommerce' ),
 					esc_html( $this->get_file_path() )
 				)
 			);
@@ -147,7 +147,7 @@ abstract class WC_CSV_Batch_Exporter extends WC_CSV_Exporter {
 		 *
 		 * @param string $fopen_mode, either (r, r+, w, w+, a, a+, x, x+, c, c+, e)
 		 */
-		$fopen_mode = apply_filters( 'woocommerce_csv_exporter_fopen_mode', 'a+' );
+		$fopen_mode = apply_filters( 'poocommerce_csv_exporter_fopen_mode', 'a+' );
 		$fp         = fopen( $this->get_file_path(), $fopen_mode );
 
 		if ( $fp ) {

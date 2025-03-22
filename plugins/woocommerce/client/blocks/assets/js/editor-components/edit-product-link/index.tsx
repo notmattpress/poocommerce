@@ -3,9 +3,9 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Icon, external } from '@wordpress/icons';
-import { ADMIN_URL } from '@woocommerce/settings';
+import { ADMIN_URL } from '@poocommerce/settings';
 import { InspectorControls } from '@wordpress/block-editor';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 
 interface EditProductLinkProps {
 	id?: number | undefined;
@@ -35,14 +35,14 @@ const EditProductLink = ( props: EditProductLinkProps ): JSX.Element | null => {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						{ __( "Edit this product's details", 'woocommerce' ) }
+						{ __( "Edit this product's details", 'poocommerce' ) }
 						<Icon icon={ external } size={ 16 } />
 					</a>
 				</div>
 				<div className="wc-block-single-product__edit-card-description">
 					{ __(
 						'Edit details such as title, price, description and more.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 			</div>

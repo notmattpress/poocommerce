@@ -3,7 +3,7 @@
  */
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { BlockEditProps } from '@wordpress/blocks';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 
 /**
  * Internal dependencies

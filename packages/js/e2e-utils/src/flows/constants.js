@@ -20,7 +20,7 @@ export const WP_ADMIN_PERMALINK_SETTINGS =
 export const WP_ADMIN_ALL_USERS_VIEW = WP_ADMIN_DASHBOARD + 'users.php';
 
 /**
- * WooCommerce core post type pages.
+ * PooCommerce core post type pages.
  *
  * @type {string}
  */
@@ -37,7 +37,7 @@ export const WP_ADMIN_IMPORT_PRODUCTS =
 	WP_ADMIN_ALL_PRODUCTS_VIEW + '&page=product_importer';
 
 /**
- * WooCommerce settings pages.
+ * PooCommerce settings pages.
  *
  * @type {string}
  */

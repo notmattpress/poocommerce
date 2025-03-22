@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Migration;
-use Automattic\WooCommerce\Blocks\Options;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\BlockTemplatesRegistry;
+use Automattic\PooCommerce\Blocks\Migration;
+use Automattic\PooCommerce\Blocks\Options;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\BlockTemplatesRegistry;
 use WP_UnitTestCase;
 
 /**
@@ -120,10 +120,10 @@ class BlockTemplateUtilsTest extends WP_UnitTestCase {
 		switch_theme( 'storefront' );
 		$template_file = array(
 			'slug'        => 'single-product',
-			'id'          => 'woocommerce/woocommerce//single-product',
+			'id'          => 'poocommerce/poocommerce//single-product',
 			'path'        => __DIR__ . '/single-product.html',
 			'type'        => 'wp_template',
-			'theme'       => 'woocommerce/woocommerce',
+			'theme'       => 'poocommerce/poocommerce',
 			'source'      => 'plugin',
 			'title'       => 'Single Product',
 			'description' => 'Displays a single product.',
@@ -191,10 +191,10 @@ class BlockTemplateUtilsTest extends WP_UnitTestCase {
 	public function test_create_new_block_template_object() {
 		$expected_template = (object) array(
 			'slug'        => 'single-product',
-			'id'          => 'woocommerce/woocommerce//single-product',
+			'id'          => 'poocommerce/poocommerce//single-product',
 			'path'        => __DIR__ . '/single-product.html',
 			'type'        => 'wp_template',
-			'theme'       => 'woocommerce/woocommerce',
+			'theme'       => 'poocommerce/poocommerce',
 			'source'      => 'plugin',
 			'title'       => 'Single Product',
 			'description' => 'Displays a single product.',
@@ -256,7 +256,7 @@ class BlockTemplateUtilsTest extends WP_UnitTestCase {
 	 * Test inject_theme_attribute_in_content with no template part.
 	 */
 	public function test_inject_theme_attribute_in_content_with_no_template_part() {
-		$template_content = '<!-- wp:woocommerce/legacy-template {"template":"archive-product"} /-->';
+		$template_content = '<!-- wp:poocommerce/legacy-template {"template":"archive-product"} /-->';
 
 		$this->assertEquals( $template_content, BlockTemplateUtils::inject_theme_attribute_in_content( $template_content ) );
 	}

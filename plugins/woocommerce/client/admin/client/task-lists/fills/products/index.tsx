@@ -2,16 +2,16 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { WooOnboardingTask } from '@woocommerce/onboarding';
-import { Text } from '@woocommerce/experimental';
+import { WooOnboardingTask } from '@poocommerce/onboarding';
+import { Text } from '@poocommerce/experimental';
 import { registerPlugin } from '@wordpress/plugins';
 import { useMemo, useState } from '@wordpress/element';
 import { Button } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 import { Icon, chevronDown, chevronUp } from '@wordpress/icons';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { applyFilters } from '@wordpress/hooks';
-import { pluginsStore } from '@woocommerce/data';
+import { pluginsStore } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -47,12 +47,12 @@ const ViewControlButton: React.FC< {
 	onClick: () => void;
 } > = ( { isExpanded, onClick } ) => (
 	<Button
-		className="woocommerce-task-products__button-view-less-product-types"
+		className="poocommerce-task-products__button-view-less-product-types"
 		onClick={ onClick }
 	>
 		{ isExpanded
-			? __( `View less product types`, 'woocommerce' )
-			: __( `View more product types`, 'woocommerce' ) }
+			? __( `View less product types`, 'poocommerce' )
+			: __( `View more product types`, 'poocommerce' ) }
 		<Icon icon={ isExpanded ? chevronUp : chevronDown } />
 	</Button>
 );
@@ -118,7 +118,7 @@ export const Products = () => {
 		/**
 		 * Can be used to add an item to the end of the Products task list.
 		 *
-		 * @filter woocommerce_admin_task_products_after
+		 * @filter poocommerce_admin_task_products_after
 		 * @param {Array.<Object>} productTypes Array of product types.
 		 */
 		const surfacedProductTypesAndAppendedProducts = applyFilters(
@@ -144,7 +144,7 @@ export const Products = () => {
 		if (
 			!! window.wcAdminFeatures?.printful &&
 			! isRequestingPlugins &&
-			! installedPlugins.includes( 'printful-shipping-for-woocommerce' )
+			! installedPlugins.includes( 'printful-shipping-for-poocommerce' )
 		) {
 			options.push( PrintfulAdvertProductPlacement );
 		}
@@ -152,16 +152,16 @@ export const Products = () => {
 	}, [ recordCompletionTime, isRequestingPlugins, installedPlugins ] );
 
 	return (
-		<div className="woocommerce-task-products">
+		<div className="poocommerce-task-products">
 			<Text
 				variant="title"
 				as="h2"
-				className="woocommerce-task-products__title"
+				className="poocommerce-task-products__title"
 			>
-				{ __( 'What product do you want to add?', 'woocommerce' ) }
+				{ __( 'What product do you want to add?', 'poocommerce' ) }
 			</Text>
 
-			<div className="woocommerce-product-content">
+			<div className="poocommerce-product-content">
 				<Stack
 					items={ visibleProductTypes }
 					onClickLoadSampleProduct={ () =>
@@ -188,12 +188,12 @@ export const Products = () => {
 				/>
 				<TrackedLink
 					textProps={ {
-						className: 'woocommerce-products-marketplace-link',
+						className: 'poocommerce-products-marketplace-link',
 					} }
 					message={ __(
 						// translators: {{Link}} is a placeholder for a html element.
-						'Visit the {{Link}}Official WooCommerce Marketplace{{/Link}} to enhance your store with additional options such as Subscriptions, Gift Cards, and more.',
-						'woocommerce'
+						'Visit the {{Link}}Official PooCommerce Marketplace{{/Link}} to enhance your store with additional options such as Subscriptions, Gift Cards, and more.',
+						'poocommerce'
 					) }
 					eventName="tasklist_add_product_visit_marketplace_click"
 					targetUrl={ getAdminLink(
@@ -232,6 +232,6 @@ const ProductsFill = () => {
 };
 
 registerPlugin( 'wc-admin-onboarding-task-products', {
-	scope: 'woocommerce-tasks',
+	scope: 'poocommerce-tasks',
 	render: () => <ProductsFill />,
 } );

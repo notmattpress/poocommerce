@@ -39,7 +39,7 @@ const combinedConfig = {
 		'*.(test|spec).js'
 	],
 	moduleNameMapper: {
-		'@woocommerce/e2e/tests/(.*)': moduleNameMap,
+		'@poocommerce/e2e/tests/(.*)': moduleNameMap,
 	},
 
 	setupFiles: [ '<rootDir>/config/env.setup.js' ],
@@ -53,7 +53,7 @@ const combinedConfig = {
 	testTimeout: parseInt( global.process.env.jest_test_timeout ),
 
 	transformIgnorePatterns: [
-		'node_modules/(?!(woocommerce)/)',
+		'node_modules/(?!(poocommerce)/)',
 	],
 
 	testRunner: 'jest-circus/runner',
