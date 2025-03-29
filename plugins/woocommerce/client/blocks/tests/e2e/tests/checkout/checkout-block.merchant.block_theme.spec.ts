@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test as base, expect, BlockData } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -21,11 +21,11 @@ declare global {
 }
 const blockData: BlockData = {
 	name: 'Checkout',
-	slug: 'woocommerce/checkout',
-	mainClass: '.wp-block-woocommerce-checkout',
+	slug: 'poocommerce/checkout',
+	mainClass: '.wp-block-poocommerce-checkout',
 	selectors: {
 		editor: {
-			block: '.wp-block-woocommerce-checkout',
+			block: '.wp-block-poocommerce-checkout',
 			insertButton: "//button//span[text()='Checkout']",
 		},
 		frontend: {},
@@ -47,7 +47,7 @@ test.describe( 'Merchant → Checkout', () => {
 
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//page-checkout',
+			postId: 'poocommerce/poocommerce//page-checkout',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -102,7 +102,7 @@ test.describe( 'Merchant → Checkout', () => {
 	test.describe( 'Can adjust T&S and Privacy Policy options', () => {
 		test.beforeEach( async ( { requestUtils } ) => {
 			await requestUtils.activatePlugin(
-				'woocommerce-blocks-test-helper'
+				'poocommerce-blocks-test-helper'
 			);
 		} );
 
@@ -164,14 +164,14 @@ test.describe( 'Merchant → Checkout', () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//page-checkout',
+			postId: 'poocommerce/poocommerce//page-checkout',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
 		await editor.openDocumentSettingsSidebar();
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-terms-block"]'
+				'  [data-type="poocommerce/checkout-terms-block"]'
 		);
 		let requireTermsCheckbox = editor.page.getByRole( 'checkbox', {
 			name: 'Require checkbox',
@@ -207,14 +207,14 @@ test.describe( 'Merchant → Checkout', () => {
 		).toBeVisible();
 
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//page-checkout',
+			postId: 'poocommerce/poocommerce//page-checkout',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
 		await editor.openDocumentSettingsSidebar();
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				'  [data-type="woocommerce/checkout-terms-block"]'
+				'  [data-type="poocommerce/checkout-terms-block"]'
 		);
 		requireTermsCheckbox = editor.page.getByRole( 'checkbox', {
 			name: 'Require checkbox',
@@ -244,12 +244,12 @@ test.describe( 'Merchant → Checkout', () => {
 		).toHaveCount( 0 );
 
 		// Register a checkout filter to allow `core/table` block in the Checkout block's inner blocks, add
-		// core/audio into the woocommerce/checkout-fields-block.
+		// core/audio into the poocommerce/checkout-fields-block.
 		await page.evaluate(
 			`wc.blocksCheckout.registerCheckoutFilters( 'woo-test-namespace', {
 					additionalCartCheckoutInnerBlockTypes: ( value, extensions, { block } ) => {
 						value.push( 'core/table' );
-						if ( block === 'woocommerce/checkout-totals-block' ) {
+						if ( block === 'poocommerce/checkout-totals-block' ) {
 							value.push( 'core/audio' );
 						}
 						return value;
@@ -257,7 +257,7 @@ test.describe( 'Merchant → Checkout', () => {
 				} );`
 		);
 
-		await editor.insertBlock( { name: 'woocommerce/checkout' } );
+		await editor.insertBlock( { name: 'poocommerce/checkout' } );
 		await expect(
 			await editor.getBlockByName( blockData.slug )
 		).not.toHaveCount( 0 );
@@ -265,11 +265,11 @@ test.describe( 'Merchant → Checkout', () => {
 		// Select the checkout-fields-block block and try to insert a block. Check the Table block is available.
 		await editor.selectBlocks(
 			blockData.selectors.editor.block +
-				' .wp-block-woocommerce-checkout-fields-block'
+				' .wp-block-poocommerce-checkout-fields-block'
 		);
 
 		const addBlockButton = editor.canvas
-			.locator( '.wp-block-woocommerce-checkout-totals-block' )
+			.locator( '.wp-block-poocommerce-checkout-totals-block' )
 			.getByRole( 'button', { name: 'Add block' } );
 		await addBlockButton.dispatchEvent( 'click' );
 
@@ -286,7 +286,7 @@ test.describe( 'Merchant → Checkout', () => {
 		// Now check the filled Checkout order summary block and expect only the Table block to be available there.
 		await editor.selectBlocks(
 			blockSelectorInEditor +
-				' [data-type="woocommerce/checkout-order-summary-block"]'
+				' [data-type="poocommerce/checkout-order-summary-block"]'
 		);
 		const orderSummaryAddBlockButton = editor.canvas
 			.getByRole( 'document', { name: 'Block: Order Summary' } )
@@ -316,7 +316,7 @@ test.describe( 'Merchant → Checkout', () => {
 			await toggleLabel.check();
 
 			const shippingAddressBlock = await editor.getBlockByName(
-				'woocommerce/checkout'
+				'poocommerce/checkout'
 			);
 
 			const darkControls = shippingAddressBlock.locator(
@@ -338,11 +338,11 @@ test.describe( 'Merchant → Checkout', () => {
 			} ) => {
 				await editor.selectBlocks(
 					blockSelectorInEditor +
-						'  [data-type="woocommerce/checkout-shipping-address-block"]'
+						'  [data-type="poocommerce/checkout-shipping-address-block"]'
 				);
 
 				const shippingAddressBlock = await editor.getBlockByName(
-					'woocommerce/checkout-shipping-address-block'
+					'poocommerce/checkout-shipping-address-block'
 				);
 
 				const shippingCompanyInput =
@@ -396,11 +396,11 @@ test.describe( 'Merchant → Checkout', () => {
 
 				await editor.selectBlocks(
 					blockSelectorInEditor +
-						'  [data-type="woocommerce/checkout-billing-address-block"]'
+						'  [data-type="poocommerce/checkout-billing-address-block"]'
 				);
 
 				const billingAddressBlock = await editor.getBlockByName(
-					'woocommerce/checkout-billing-address-block'
+					'poocommerce/checkout-billing-address-block'
 				);
 
 				const billingCompanyInput =
@@ -424,11 +424,11 @@ test.describe( 'Merchant → Checkout', () => {
 			} ) => {
 				await editor.selectBlocks(
 					blockSelectorInEditor +
-						'  [data-type="woocommerce/checkout-shipping-address-block"]'
+						'  [data-type="poocommerce/checkout-shipping-address-block"]'
 				);
 
 				const shippingAddressBlock = await editor.getBlockByName(
-					'woocommerce/checkout-shipping-address-block'
+					'poocommerce/checkout-shipping-address-block'
 				);
 
 				const shippingApartmentInput = shippingAddressBlock.getByLabel(
@@ -488,11 +488,11 @@ test.describe( 'Merchant → Checkout', () => {
 
 				await editor.selectBlocks(
 					blockSelectorInEditor +
-						'  [data-type="woocommerce/checkout-billing-address-block"]'
+						'  [data-type="poocommerce/checkout-billing-address-block"]'
 				);
 
 				const billingAddressBlock = await editor.getBlockByName(
-					'woocommerce/checkout-billing-address-block'
+					'poocommerce/checkout-billing-address-block'
 				);
 
 				const billingApartmentInput = billingAddressBlock.getByLabel(
@@ -525,11 +525,11 @@ test.describe( 'Merchant → Checkout', () => {
 			} ) => {
 				await editor.selectBlocks(
 					blockSelectorInEditor +
-						'  [data-type="woocommerce/checkout-shipping-address-block"]'
+						'  [data-type="poocommerce/checkout-shipping-address-block"]'
 				);
 
 				const shippingAddressBlock = await editor.getBlockByName(
-					'woocommerce/checkout-shipping-address-block'
+					'poocommerce/checkout-shipping-address-block'
 				);
 
 				const shippingPhoneInput =
@@ -577,11 +577,11 @@ test.describe( 'Merchant → Checkout', () => {
 
 				await editor.selectBlocks(
 					blockSelectorInEditor +
-						'  [data-type="woocommerce/checkout-billing-address-block"]'
+						'  [data-type="poocommerce/checkout-billing-address-block"]'
 				);
 
 				const billingAddressBlock = await editor.getBlockByName(
-					'woocommerce/checkout-billing-address-block'
+					'poocommerce/checkout-billing-address-block'
 				);
 
 				const billingPhoneInput =
@@ -609,7 +609,7 @@ test.describe( 'Merchant → Checkout', () => {
 			editor,
 		} ) => {
 			await editor.selectBlocks(
-				`${ blockSelectorInEditor } .wp-block-woocommerce-checkout-actions-block`
+				`${ blockSelectorInEditor } .wp-block-poocommerce-checkout-actions-block`
 			);
 
 			// Turn on return to cart link and check it's visible in the block.
@@ -619,7 +619,7 @@ test.describe( 'Merchant → Checkout', () => {
 			);
 			await returnToCartLinkToggle.check();
 			const shippingAddressBlock = await editor.getBlockByName(
-				'woocommerce/checkout-actions-block'
+				'poocommerce/checkout-actions-block'
 			);
 
 			// Turn on return to cart link and check it shows in the block.

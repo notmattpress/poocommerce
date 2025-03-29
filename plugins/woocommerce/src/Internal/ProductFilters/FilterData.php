@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
 use WC_Cache_Helper;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -280,7 +280,7 @@ class FilterData {
 		/**
 		 * Allows offloading the filter data to external services like Elasticsearch.
 		 *
-		 * @hook woocommerce_pre_product_filter_data
+		 * @hook poocommerce_pre_product_filter_data
 		 *
 		 * @since 9.9.0
 		 *
@@ -289,7 +289,7 @@ class FilterData {
 		 * @param array $query_vars   The query arguments to calculate the filter data.
 		 * @param array $extra        Some filter types require extra arguments for calculation, like attribute.
 		 */
-		return apply_filters( 'woocommerce_pre_product_filter_data', null, $filter_type, $query_vars, $extra );
+		return apply_filters( 'poocommerce_pre_product_filter_data', null, $filter_type, $query_vars, $extra );
 	}
 
 	/**

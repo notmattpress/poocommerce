@@ -1,15 +1,15 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
-use Automattic\WooCommerce\Admin\WCAdminHelper;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+use Automattic\PooCommerce\Admin\WCAdminHelper;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 use WC_Abstract_Order;
 use WC_Payment_Gateway;
-use WooCommerce\Admin\Experimental_Abtest;
+use PooCommerce\Admin\Experimental_Abtest;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WooPayments extends PaymentGateway {
 
-	const PREFIX = 'woocommerce_admin_settings_payments__woopayments__';
+	const PREFIX = 'poocommerce_admin_settings_payments__woopayments__';
 
 	/**
 	 * Check if the payment gateway needs setup.
@@ -175,9 +175,9 @@ class WooPayments extends PaymentGateway {
 		 * - Store has an active payments gateway (other than WooPayments).
 		 * - Store has processed a live electronic payment in the past 90 days (any gateway).
 		 *
-		 * @see plugins/woocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
+		 * @see plugins/poocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
 		 */
-		if ( filter_var( get_option( 'woocommerce_coming_soon' ), FILTER_VALIDATE_BOOLEAN ) ) {
+		if ( filter_var( get_option( 'poocommerce_coming_soon' ), FILTER_VALIDATE_BOOLEAN ) ) {
 			$onboarding_profile = get_option( OnboardingProfile::DATA_OPTION, array() );
 			if (
 				isset( $onboarding_profile['business_choice'] ) && 'im_already_selling' === $onboarding_profile['business_choice'] &&
@@ -202,7 +202,7 @@ class WooPayments extends PaymentGateway {
 		// Stores that are determined by our routing logic that they should do straight-to-live onboarding
 		// will not be affected by the experiment.
 		if ( ! $live_onboarding ) {
-			$transient_key = 'wc_experiment_failure_woocommerce_payment_settings_onboarding_2025_v1';
+			$transient_key = 'wc_experiment_failure_poocommerce_payment_settings_onboarding_2025_v1';
 
 			// Try to get cached result first.
 			$cached_result = get_transient( $transient_key );
@@ -210,7 +210,7 @@ class WooPayments extends PaymentGateway {
 			// If we have a cache entry that indicates an error, don't enforce anything. Just let the routing logic decide.
 			if ( 'error' !== $cached_result ) {
 				try {
-					if ( Experimental_Abtest::in_treatment( 'woocommerce_payment_settings_onboarding_2025_v1' ) ) {
+					if ( Experimental_Abtest::in_treatment( 'poocommerce_payment_settings_onboarding_2025_v1' ) ) {
 						$live_onboarding = true;
 					}
 				} catch ( \Exception $e ) {
@@ -300,7 +300,7 @@ class WooPayments extends PaymentGateway {
 				return 'yes' === $gateway->enabled &&
 					! in_array(
 						$gateway->id,
-						array( 'woocommerce_payments', ...PaymentProviders::OFFLINE_METHODS ),
+						array( 'poocommerce_payments', ...PaymentProviders::OFFLINE_METHODS ),
 						true
 					);
 			}

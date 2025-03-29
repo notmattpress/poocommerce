@@ -29,7 +29,7 @@ export default function ProductList( props: ProductListProps ): JSX.Element {
 	} = props;
 
 	return (
-		<div className="woocommerce-marketplace__product-list">
+		<div className="poocommerce-marketplace__product-list">
 			<ProductListHeader
 				title={ title }
 				groupURL={ groupURL }

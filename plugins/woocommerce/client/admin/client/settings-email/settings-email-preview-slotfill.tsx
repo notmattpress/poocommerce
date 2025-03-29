@@ -73,12 +73,12 @@ const EmailPreviewFill = ( {
 
 	const cesQuestion = __(
 		'I am able to customize my email designs to match my store’s brand.',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (
 		<Fill>
-			{ ! isWide && <h2>{ __( 'Email preview', 'woocommerce' ) }</h2> }
+			{ ! isWide && <h2>{ __( 'Email preview', 'poocommerce' ) }</h2> }
 			<div
 				className={ `wc-settings-email-preview-container ${
 					isWide ? 'wc-settings-email-preview-container-floating' : ''
@@ -155,8 +155,8 @@ export const registerSettingsEmailPreviewFill = (
 		settingsIds = JSON.parse( settingsIdsData || '' );
 	} catch ( e ) {}
 
-	registerPlugin( 'woocommerce-admin-settings-email-preview', {
-		scope: 'woocommerce-email-preview-settings',
+	registerPlugin( 'poocommerce-admin-settings-email-preview', {
+		scope: 'poocommerce-email-preview-settings',
 		render: () => (
 			<EmailPreviewFill
 				settingsIds={ settingsIds }

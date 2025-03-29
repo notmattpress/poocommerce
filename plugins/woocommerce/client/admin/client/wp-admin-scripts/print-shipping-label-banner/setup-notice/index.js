@@ -13,11 +13,11 @@ export const setupErrorTypes = {
 };
 
 const setupErrorDescriptions = {
-	[ setupErrorTypes.DOWNLOAD ]: __( 'download', 'woocommerce' ),
-	[ setupErrorTypes.INSTALL ]: __( 'install', 'woocommerce' ),
-	[ setupErrorTypes.ACTIVATE ]: __( 'activate', 'woocommerce' ),
-	[ setupErrorTypes.SETUP ]: __( 'set up', 'woocommerce' ),
-	[ setupErrorTypes.START ]: __( 'start', 'woocommerce' ),
+	[ setupErrorTypes.DOWNLOAD ]: __( 'download', 'poocommerce' ),
+	[ setupErrorTypes.INSTALL ]: __( 'install', 'poocommerce' ),
+	[ setupErrorTypes.ACTIVATE ]: __( 'activate', 'poocommerce' ),
+	[ setupErrorTypes.SETUP ]: __( 'set up', 'poocommerce' ),
+	[ setupErrorTypes.START ]: __( 'start', 'poocommerce' ),
 };
 
 export default function SetupNotice( { isSetupError, errorReason } ) {
@@ -32,7 +32,7 @@ export default function SetupNotice( { isSetupError, errorReason } ) {
 			/* translators: %s is the action from the setup error description above */
 			__(
 				'Unable to %s the plugin. Refresh the page and try again.',
-				'woocommerce'
+				'poocommerce'
 			),
 			description
 		);

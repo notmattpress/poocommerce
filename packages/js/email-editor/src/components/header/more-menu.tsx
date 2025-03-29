@@ -48,7 +48,7 @@ export function MoreMenu(): JSX.Element {
 					className: 'edit-site-more-menu__content',
 				} }
 				icon={ moreVertical }
-				label={ __( 'More', 'woocommerce' ) }
+				label={ __( 'More', 'poocommerce' ) }
 				onToggle={ ( isOpened ) =>
 					recordEvent( 'header_more_menu_dropdown_toggle', {
 						isOpened,
@@ -58,23 +58,23 @@ export function MoreMenu(): JSX.Element {
 				{ ( { onClose } ) => (
 					<>
 						<MenuGroup
-							label={ _x( 'View', 'noun', 'woocommerce' ) }
+							label={ _x( 'View', 'noun', 'poocommerce' ) }
 						>
 							<PreferenceToggleMenuItem
 								scope="core"
 								name="fixedToolbar"
-								label={ __( 'Top toolbar', 'woocommerce' ) }
+								label={ __( 'Top toolbar', 'poocommerce' ) }
 								info={ __(
 									'Access all block and document tools in a single place',
-									'woocommerce'
+									'poocommerce'
 								) }
 								messageActivated={ __(
 									'Top toolbar activated',
-									'woocommerce'
+									'poocommerce'
 								) }
 								messageDeactivated={ __(
 									'Top toolbar deactivated',
-									'woocommerce'
+									'poocommerce'
 								) }
 								onToggle={ () =>
 									recordEvent(
@@ -85,18 +85,18 @@ export function MoreMenu(): JSX.Element {
 							<PreferenceToggleMenuItem
 								scope="core"
 								name="focusMode"
-								label={ __( 'Spotlight mode', 'woocommerce' ) }
+								label={ __( 'Spotlight mode', 'poocommerce' ) }
 								info={ __(
 									'Focus at one block at a time',
-									'woocommerce'
+									'poocommerce'
 								) }
 								messageActivated={ __(
 									'Spotlight mode activated',
-									'woocommerce'
+									'poocommerce'
 								) }
 								messageDeactivated={ __(
 									'Spotlight mode deactivated',
-									'woocommerce'
+									'poocommerce'
 								) }
 								onToggle={ () =>
 									recordEvent(
@@ -107,18 +107,18 @@ export function MoreMenu(): JSX.Element {
 							<PreferenceToggleMenuItem
 								scope={ storeName }
 								name="fullscreenMode"
-								label={ __( 'Fullscreen mode', 'woocommerce' ) }
+								label={ __( 'Fullscreen mode', 'poocommerce' ) }
 								info={ __(
 									'Work without distraction',
-									'woocommerce'
+									'poocommerce'
 								) }
 								messageActivated={ __(
 									'Fullscreen mode activated',
-									'woocommerce'
+									'poocommerce'
 								) }
 								messageDeactivated={ __(
 									'Fullscreen mode deactivated',
-									'woocommerce'
+									'poocommerce'
 								) }
 								shortcut={ displayShortcut.secondary( 'f' ) }
 								onToggle={ () =>
@@ -141,7 +141,7 @@ export function MoreMenu(): JSX.Element {
 								>
 									{ __(
 										'Restore from trash',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</MenuItem>
 							) : (
@@ -155,7 +155,7 @@ export function MoreMenu(): JSX.Element {
 									} }
 									isDestructive
 								>
-									{ __( 'Move to trash', 'woocommerce' ) }
+									{ __( 'Move to trash', 'poocommerce' ) }
 								</MenuItem>
 							) }
 						</MenuGroup>

@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-logging-levels/v1',
 	'tools_get_logging_levels',
 	array(
@@ -10,7 +10,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/get-block-template-logging-threshold/v1',
 	'tools_get_block_template_logging_threshold',
 	array(
@@ -18,7 +18,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/tools/update-block-template-logging-threshold/v1',
 	'tools_update_block_template_logging_threshold',
 	array(
@@ -79,7 +79,7 @@ function tools_get_logging_levels() {
  * Get the block template logging threshold.
  */
 function tools_get_block_template_logging_threshold() {
-	$threshold = get_option( 'woocommerce_block_template_logging_threshold', \WC_Log_Levels::WARNING );
+	$threshold = get_option( 'poocommerce_block_template_logging_threshold', \WC_Log_Levels::WARNING );
 
 	return new WP_REST_Response( $threshold, 200 );
 }
@@ -96,7 +96,7 @@ function tools_update_block_template_logging_threshold( $request ) {
 		return new WP_REST_Response( 'Invalid threshold', 400 );
 	}
 
-	update_option( 'woocommerce_block_template_logging_threshold', $threshold );
+	update_option( 'poocommerce_block_template_logging_threshold', $threshold );
 
 	return new WP_REST_Response( $threshold, 200 );
 }

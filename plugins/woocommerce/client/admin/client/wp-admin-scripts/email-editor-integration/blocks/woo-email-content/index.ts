@@ -10,7 +10,7 @@ import { Edit } from './edit';
 import { Save } from './save';
 
 export const wooContentPlaceholderBlock = {
-	title: __( 'Woo Email Content', 'woocommerce' ),
+	title: __( 'Woo Email Content', 'poocommerce' ),
 	category: 'text',
 	attributes: {},
 	edit: Edit,

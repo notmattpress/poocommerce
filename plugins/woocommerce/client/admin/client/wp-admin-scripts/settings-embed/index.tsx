@@ -14,7 +14,7 @@ import { isFeatureEnabled } from '~/utils/features';
 import {
 	SettingsPaymentsMainWrapper,
 	SettingsPaymentsOfflineWrapper,
-	SettingsPaymentsWooCommercePaymentsWrapper,
+	SettingsPaymentsPooCommercePaymentsWrapper,
 } from '../../settings-payments';
 
 import { possiblyRenderSettingsSlots } from '../../settings/settings-slots';
@@ -39,8 +39,8 @@ const renderPaymentsSettings = () => {
 	const paymentsOfflineRoot = document.getElementById(
 		'experimental_wc_settings_payments_offline'
 	);
-	const paymentsWooCommercePaymentsRoot = document.getElementById(
-		'experimental_wc_settings_payments_woocommerce_payments'
+	const paymentsPooCommercePaymentsRoot = document.getElementById(
+		'experimental_wc_settings_payments_poocommerce_payments'
 	);
 
 	if ( paymentsMainRoot ) {
@@ -61,13 +61,13 @@ const renderPaymentsSettings = () => {
 		).render( <SettingsPaymentsOfflineWrapper /> );
 	}
 
-	if ( paymentsWooCommercePaymentsRoot ) {
+	if ( paymentsPooCommercePaymentsRoot ) {
 		createRoot(
-			paymentsWooCommercePaymentsRoot.insertBefore(
+			paymentsPooCommercePaymentsRoot.insertBefore(
 				document.createElement( 'div' ),
 				null
 			)
-		).render( <SettingsPaymentsWooCommercePaymentsWrapper /> );
+		).render( <SettingsPaymentsPooCommercePaymentsWrapper /> );
 	}
 };
 

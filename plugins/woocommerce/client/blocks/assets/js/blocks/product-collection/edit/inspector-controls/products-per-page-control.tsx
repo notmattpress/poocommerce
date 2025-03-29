@@ -30,7 +30,7 @@ const ProductsPerPageControl = ( {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Products per page', 'woocommerce' ) }
+			label={ __( 'Products per page', 'poocommerce' ) }
 			isShownByDefault
 			hasValue={ () => query.perPage !== DEFAULT_QUERY.perPage }
 			onDeselect={ deselectCallback }
@@ -39,7 +39,7 @@ const ProductsPerPageControl = ( {
 			<RangeControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Products per page', 'woocommerce' ) }
+				label={ __( 'Products per page', 'poocommerce' ) }
 				min={ MIN_PRODUCTS_PER_PAGE }
 				max={ MAX_PRODUCTS_PER_PAGE }
 				onChange={ ( newPerPage: number ) => {

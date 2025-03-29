@@ -16,7 +16,7 @@ import classnames from 'classnames';
  */
 const DropdownButton = ( props ) => {
 	const { labels, isOpen, ...otherProps } = props;
-	const buttonClasses = classnames( 'woocommerce-dropdown-button', {
+	const buttonClasses = classnames( 'poocommerce-dropdown-button', {
 		'is-open': isOpen,
 		'is-multi-line': labels.length > 1,
 	} );
@@ -26,7 +26,7 @@ const DropdownButton = ( props ) => {
 			aria-expanded={ isOpen }
 			{ ...otherProps }
 		>
-			<div className="woocommerce-dropdown-button__labels">
+			<div className="poocommerce-dropdown-button__labels">
 				{ labels.map( ( label, i ) => (
 					<span key={ i }>{ decodeEntities( label ) }</span>
 				) ) }

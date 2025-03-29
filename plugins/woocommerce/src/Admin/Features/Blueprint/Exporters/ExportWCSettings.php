@@ -2,20 +2,20 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions;
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ExportWCSettingsGeneral
  *
- * This class exports WooCommerce settings and implements the StepExporter and HasAlias interfaces.
+ * This class exports PooCommerce settings and implements the StepExporter and HasAlias interfaces.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 abstract class ExportWCSettings implements StepExporter, HasAlias {
 	use UseWPFunctions;
@@ -28,7 +28,7 @@ abstract class ExportWCSettings implements StepExporter, HasAlias {
 	abstract protected function get_page_id(): string;
 
 	/**
-	 * Export WooCommerce settings.
+	 * Export PooCommerce settings.
 	 *
 	 * @return SetSiteOptions
 	 */
@@ -62,7 +62,7 @@ abstract class ExportWCSettings implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'General', 'woocommerce' );
+		return __( 'General', 'poocommerce' );
 	}
 
 	/**
@@ -71,6 +71,6 @@ abstract class ExportWCSettings implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes all settings in WooCommerce | Settings | General.', 'woocommerce' );
+		return __( 'Includes all settings in PooCommerce | Settings | General.', 'poocommerce' );
 	}
 }

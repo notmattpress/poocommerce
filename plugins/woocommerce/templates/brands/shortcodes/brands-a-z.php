@@ -2,16 +2,16 @@
 /**
  * Brand A-Z listing
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/brands/shortcodes/brands-a-z.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/brands/shortcodes/brands-a-z.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates
  * @usedby [product_brand_list]
  * @version 9.4.0
  */
@@ -52,7 +52,7 @@ declare( strict_types = 1);
 			</ul>
 
 			<?php if ( $show_top_links ) { ?>
-				<a class="top" href="#brands_a_z"><?php esc_html_e( '&uarr; Top', 'woocommerce' ); ?></a>
+				<a class="top" href="#brands_a_z"><?php esc_html_e( '&uarr; Top', 'poocommerce' ); ?></a>
 			<?php } ?>
 
 			<?php

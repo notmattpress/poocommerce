@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/admin-layout",
-	"description": "WooCommerce Admin layout component library",
+	"name": "poocommerce/admin-layout",
+	"description": "PooCommerce Admin layout component library",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

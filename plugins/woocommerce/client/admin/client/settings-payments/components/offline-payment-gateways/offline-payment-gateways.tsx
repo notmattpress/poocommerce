@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { type OfflinePaymentMethodProvider } from '@woocommerce/data';
+import { type OfflinePaymentMethodProvider } from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -27,7 +27,7 @@ interface OfflinePaymentGatewaysProps {
 }
 
 /**
- * A component that renders the list of offline payment gateways in the WooCommerce settings.
+ * A component that renders the list of offline payment gateways in the PooCommerce settings.
  * Displays a loading placeholder while data is being fetched and the list of gateways once available.
  */
 export const OfflinePaymentGateways = ( {
@@ -39,7 +39,7 @@ export const OfflinePaymentGateways = ( {
 		<div className="settings-payment-gateways">
 			<div className="settings-payment-gateways__header">
 				<div className="settings-payment-gateways__header-title">
-					{ __( 'Payment methods', 'woocommerce' ) }
+					{ __( 'Payment methods', 'poocommerce' ) }
 				</div>
 			</div>
 			{ isFetching ? (

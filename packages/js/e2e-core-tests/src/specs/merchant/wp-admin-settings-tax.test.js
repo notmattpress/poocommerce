@@ -9,7 +9,7 @@ const {
 	uiUnblocked,
 	verifyCheckboxIsSet,
 	verifyValueOfInputField,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -17,7 +17,7 @@ const {
 const { it, describe, beforeAll } = require( '@jest/globals' );
 
 const runTaxSettingsTest = () => {
-	describe( 'WooCommerce Tax Settings', () => {
+	describe( 'PooCommerce Tax Settings', () => {
 		beforeAll( async () => {
 			await merchant.login();
 		} );
@@ -32,7 +32,7 @@ const runTaxSettingsTest = () => {
 			} );
 
 			// Enable tax calculation
-			await setCheckbox( 'input[name="woocommerce_calc_taxes"]' );
+			await setCheckbox( 'input[name="poocommerce_calc_taxes"]' );
 			await settingsPageSaveChanges();
 
 			// Verify that settings have been saved
@@ -40,7 +40,7 @@ const runTaxSettingsTest = () => {
 				expect( page ).toMatchElement( '#message', {
 					text: 'Your settings have been saved.',
 				} ),
-				verifyCheckboxIsSet( '#woocommerce_calc_taxes' ),
+				verifyCheckboxIsSet( '#poocommerce_calc_taxes' ),
 			] );
 
 			// Verify that tax settings are now present
@@ -58,32 +58,32 @@ const runTaxSettingsTest = () => {
 
 			// Prices exclusive of tax
 			await expect( page ).toClick(
-				'input[name="woocommerce_prices_include_tax"][value="no"]'
+				'input[name="poocommerce_prices_include_tax"][value="no"]'
 			);
 			// Tax based on customer shipping address
 			await expect( page ).toSelect(
-				'#woocommerce_tax_based_on',
+				'#poocommerce_tax_based_on',
 				'Customer shipping address'
 			);
 			// Standard tax class for shipping
 			await expect( page ).toSelect(
-				'#woocommerce_shipping_tax_class',
+				'#poocommerce_shipping_tax_class',
 				'Standard'
 			);
 			// Leave rounding unchecked (no-op)
 			// Display prices excluding tax
 			await expect( page ).toSelect(
-				'#woocommerce_tax_display_shop',
+				'#poocommerce_tax_display_shop',
 				'Excluding tax'
 			);
 			// Display prices including tax in cart and at checkout
 			await expect( page ).toSelect(
-				'#woocommerce_tax_display_cart',
+				'#poocommerce_tax_display_cart',
 				'Including tax'
 			);
 			// Display a single tax total
 			await expect( page ).toSelect(
-				'#woocommerce_tax_total_display',
+				'#poocommerce_tax_total_display',
 				'As a single total'
 			);
 
@@ -95,28 +95,28 @@ const runTaxSettingsTest = () => {
 					text: 'Your settings have been saved.',
 				} ),
 				verifyValueOfInputField(
-					'input[name="woocommerce_prices_include_tax"][value="no"]',
+					'input[name="poocommerce_prices_include_tax"][value="no"]',
 					'no'
 				),
-				expect( page ).toMatchElement( '#woocommerce_tax_based_on', {
+				expect( page ).toMatchElement( '#poocommerce_tax_based_on', {
 					text: 'Customer shipping address',
 				} ),
 				expect( page ).toMatchElement(
-					'#woocommerce_shipping_tax_class',
+					'#poocommerce_shipping_tax_class',
 					{
 						text: 'Standard',
 					}
 				),
 				expect( page ).toMatchElement(
-					'#woocommerce_tax_display_shop',
+					'#poocommerce_tax_display_shop',
 					{ text: 'Excluding tax' }
 				),
 				expect( page ).toMatchElement(
-					'#woocommerce_tax_display_cart',
+					'#poocommerce_tax_display_cart',
 					{ text: 'Including tax' }
 				),
 				expect( page ).toMatchElement(
-					'#woocommerce_tax_total_display',
+					'#poocommerce_tax_total_display',
 					{ text: 'As a single total' }
 				),
 			] );
@@ -132,7 +132,7 @@ const runTaxSettingsTest = () => {
 			} );
 
 			// Remove additional tax classes
-			await clearAndFillInput( '#woocommerce_tax_classes', '' );
+			await clearAndFillInput( '#poocommerce_tax_classes', '' );
 			await settingsPageSaveChanges();
 
 			// Verify that settings have been saved
@@ -140,13 +140,13 @@ const runTaxSettingsTest = () => {
 				expect( page ).toMatchElement( '#message', {
 					text: 'Your settings have been saved.',
 				} ),
-				expect( page ).toMatchElement( '#woocommerce_tax_classes', {
+				expect( page ).toMatchElement( '#poocommerce_tax_classes', {
 					text: '',
 				} ),
 			] );
 
 			// Add a "fancy" tax class
-			await clearAndFillInput( '#woocommerce_tax_classes', 'Fancy' );
+			await clearAndFillInput( '#poocommerce_tax_classes', 'Fancy' );
 			await settingsPageSaveChanges();
 
 			// Verify that settings have been saved
@@ -217,7 +217,7 @@ const runTaxSettingsTest = () => {
 			);
 
 			// Save changes (AJAX here)
-			await expect( page ).toClick( 'button.woocommerce-save-button' );
+			await expect( page ).toClick( 'button.poocommerce-save-button' );
 			await uiUnblocked();
 
 			// Verify 2 tax rates
@@ -228,7 +228,7 @@ const runTaxSettingsTest = () => {
 			await expect( page ).toClick( '.wc_tax_rates a.remove_tax_rates' );
 
 			// Save changes (AJAX here)
-			await expect( page ).toClick( 'button.woocommerce-save-button' );
+			await expect( page ).toClick( 'button.poocommerce-save-button' );
 			await uiUnblocked();
 
 			// Verify 1 rate
@@ -248,7 +248,7 @@ const runTaxSettingsTest = () => {
 			} );
 
 			// Remove "fancy" tax class
-			await clearAndFillInput( '#woocommerce_tax_classes', ' ' );
+			await clearAndFillInput( '#poocommerce_tax_classes', ' ' );
 			await settingsPageSaveChanges();
 
 			// Verify that settings have been saved

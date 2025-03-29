@@ -1,27 +1,27 @@
-/* global woocommerce_price_slider_params, accounting */
+/* global poocommerce_price_slider_params, accounting */
 jQuery( function( $ ) {
 
-	// woocommerce_price_slider_params is required to continue, ensure the object exists
-	if ( typeof woocommerce_price_slider_params === 'undefined' ) {
+	// poocommerce_price_slider_params is required to continue, ensure the object exists
+	if ( typeof poocommerce_price_slider_params === 'undefined' ) {
 		return false;
 	}
 
 	$( document.body ).on( 'price_slider_create price_slider_slide', function( event, min, max ) {
 
 		$( '.price_slider_amount span.from' ).html( accounting.formatMoney( min, {
-			symbol:    woocommerce_price_slider_params.currency_format_symbol,
-			decimal:   woocommerce_price_slider_params.currency_format_decimal_sep,
-			thousand:  woocommerce_price_slider_params.currency_format_thousand_sep,
-			precision: woocommerce_price_slider_params.currency_format_num_decimals,
-			format:    woocommerce_price_slider_params.currency_format
+			symbol:    poocommerce_price_slider_params.currency_format_symbol,
+			decimal:   poocommerce_price_slider_params.currency_format_decimal_sep,
+			thousand:  poocommerce_price_slider_params.currency_format_thousand_sep,
+			precision: poocommerce_price_slider_params.currency_format_num_decimals,
+			format:    poocommerce_price_slider_params.currency_format
 		} ) );
 
 		$( '.price_slider_amount span.to' ).html( accounting.formatMoney( max, {
-			symbol:    woocommerce_price_slider_params.currency_format_symbol,
-			decimal:   woocommerce_price_slider_params.currency_format_decimal_sep,
-			thousand:  woocommerce_price_slider_params.currency_format_thousand_sep,
-			precision: woocommerce_price_slider_params.currency_format_num_decimals,
-			format:    woocommerce_price_slider_params.currency_format
+			symbol:    poocommerce_price_slider_params.currency_format_symbol,
+			decimal:   poocommerce_price_slider_params.currency_format_decimal_sep,
+			thousand:  poocommerce_price_slider_params.currency_format_thousand_sep,
+			precision: poocommerce_price_slider_params.currency_format_num_decimals,
+			format:    poocommerce_price_slider_params.currency_format
 		} ) );
 
 		$( document.body ).trigger( 'price_slider_updated', [ min, max ] );

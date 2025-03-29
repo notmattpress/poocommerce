@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductGalleryLargeImage class.
@@ -76,12 +76,12 @@ class ProductGalleryLargeImage extends AbstractBlock {
 
 		$processor = new \WP_HTML_Tag_Processor( $content );
 		$processor->next_tag();
-		$processor->remove_class( 'wp-block-woocommerce-product-gallery-large-image' );
+		$processor->remove_class( 'wp-block-poocommerce-product-gallery-large-image' );
 		$content = $processor->get_updated_html();
 
 		ob_start();
 		?>
-			<div class="wc-block-product-gallery-large-image wp-block-woocommerce-product-gallery-large-image">
+			<div class="wc-block-product-gallery-large-image wp-block-poocommerce-product-gallery-large-image">
 				<?php // No need to use wp_kses here because the image HTML is built internally. ?>
 				<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php echo $images_html; ?>
@@ -103,7 +103,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 	 * @return array
 	 */
 	private function get_main_images_html( $context ) {
-		$base_classes = 'wc-block-woocommerce-product-gallery-large-image__image';
+		$base_classes = 'wc-block-poocommerce-product-gallery-large-image__image';
 
 		$directives      = $this->get_directives( $context );
 		$directives_html = array_reduce(
@@ -115,10 +115,10 @@ class ProductGalleryLargeImage extends AbstractBlock {
 		);
 
 		if ( $context['fullScreenOnClick'] ) {
-			$base_classes .= ' wc-block-woocommerce-product-gallery-large-image__image--full-screen-on-click';
+			$base_classes .= ' wc-block-poocommerce-product-gallery-large-image__image--full-screen-on-click';
 		}
 		if ( $context['hoverZoom'] ) {
-			$base_classes .= ' wc-block-woocommerce-product-gallery-large-image__image--hoverZoom';
+			$base_classes .= ' wc-block-poocommerce-product-gallery-large-image__image--hoverZoom';
 		}
 
 		ob_start();
@@ -136,7 +136,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 							data-wp-bind--data-image-id="context.image.id"
 							data-wp-bind--tabindex="context.image.tabIndex"
 							data-wp-on--keydown="actions.onSelectedLargeImageKeyDown"
-							data-wp-class--wc-block-woocommerce-product-gallery-large-image__image--active-image-slide="context.image.isActive"
+							data-wp-class--wc-block-poocommerce-product-gallery-large-image__image--active-image-slide="context.image.isActive"
 							data-wp-on--touchstart="actions.onTouchStart"
 							data-wp-on--touchmove="actions.onTouchMove"
 							data-wp-on--touchend="actions.onTouchEnd"
@@ -179,7 +179,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 		}
 
 		return array(
-			'data-wp-interactive'    => 'woocommerce/product-gallery',
+			'data-wp-interactive'    => 'poocommerce/product-gallery',
 			'data-wp-on--mousemove'  => 'actions.startZoom',
 			'data-wp-on--mouseleave' => 'actions.resetZoom',
 		);

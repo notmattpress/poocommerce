@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * Product Filter: Rating Block
  *
- * @package Automattic\WooCommerce\Blocks\BlockTypes
+ * @package Automattic\PooCommerce\Blocks\BlockTypes
  */
 final class ProductFilterRating extends AbstractBlock {
 	/**
@@ -32,8 +32,8 @@ final class ProductFilterRating extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_param_keys', array( $this, 'get_filter_query_param_keys' ), 10, 2 );
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_param_keys', array( $this, 'get_filter_query_param_keys' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 	}
 
 	/**
@@ -83,7 +83,7 @@ final class ProductFilterRating extends AbstractBlock {
 				'type'        => 'rating',
 				'value'       => $rating,
 				/* translators: %s is referring to rating value. Example: Rated 4 out of 5. */
-				'activeLabel' => sprintf( __( 'Rating: Rated %d out of 5', 'woocommerce' ), $rating ),
+				'activeLabel' => sprintf( __( 'Rating: Rated %d out of 5', 'poocommerce' ), $rating ),
 			);
 		}
 
@@ -123,7 +123,7 @@ final class ProductFilterRating extends AbstractBlock {
 
 				$aria_label = sprintf(
 					/* translators: %s is referring to rating value. Example: Rated 4 out of 5. */
-					__( 'Rated %s out of 5', 'woocommerce' ),
+					__( 'Rated %s out of 5', 'poocommerce' ),
 					$value,
 				);
 
@@ -149,7 +149,7 @@ final class ProductFilterRating extends AbstractBlock {
 			'data-wp-context' => wp_json_encode(
 				array(
 					/* translators: {{label}} is the rating filter item label. */
-					'activeLabelTemplate' => __( 'Rating: {{label}}', 'woocommerce' ),
+					'activeLabelTemplate' => __( 'Rating: {{label}}', 'poocommerce' ),
 					'filterType'          => 'rating',
 				),
 				JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
@@ -185,7 +185,7 @@ final class ProductFilterRating extends AbstractBlock {
 
 		$rating_label = sprintf(
 			/* translators: %1$d is referring to rating value. Example: Rated 4 out of 5. */
-			__( 'Rated %1$d out of 5', 'woocommerce' ),
+			__( 'Rated %1$d out of 5', 'poocommerce' ),
 			$rating,
 		);
 

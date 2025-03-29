@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/expression-evaluation",
-	"description": "WooCommerce expression evaluation library",
+	"name": "poocommerce/expression-evaluation",
+	"description": "PooCommerce expression evaluation library",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SHIPPING_COUNTRIES } from '@woocommerce/block-settings';
+import { SHIPPING_COUNTRIES } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

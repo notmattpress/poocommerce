@@ -3,25 +3,25 @@
  * UtilsClassesServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\Utilities\COTMigrationUtil;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Internal\Utilities\HtmlSanitizer;
-use Automattic\WooCommerce\Internal\Utilities\LegacyRestApiStub;
-use Automattic\WooCommerce\Internal\Utilities\PluginInstaller;
-use Automattic\WooCommerce\Internal\Utilities\WebhookUtil;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\PluginUtil;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Utilities\RestApiUtil;
-use Automattic\WooCommerce\Utilities\TimeUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\Utilities\COTMigrationUtil;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\Utilities\HtmlSanitizer;
+use Automattic\PooCommerce\Internal\Utilities\LegacyRestApiStub;
+use Automattic\PooCommerce\Internal\Utilities\PluginInstaller;
+use Automattic\PooCommerce\Internal\Utilities\WebhookUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\RestApiUtil;
+use Automattic\PooCommerce\Utilities\TimeUtil;
 
 /**
- * Service provider for the non-static utils classes in the Automattic\WooCommerce\src namespace.
+ * Service provider for the non-static utils classes in the Automattic\PooCommerce\src namespace.
  */
 class UtilsClassesServiceProvider extends AbstractInterfaceServiceProvider {
 

@@ -1,11 +1,11 @@
 <?php
 /**
- * \Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution test class.
+ * \Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution test class.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution;
+use Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes\OrderAttribution;
 use WC_Helper_Order;
 use WP_UnitTestCase;
 
@@ -41,7 +41,7 @@ class OrderAttributionTest extends WP_UnitTestCase {
 
 		// Hook into the template to check the args.
 		add_action(
-			'woocommerce_before_template_part',
+			'poocommerce_before_template_part',
 			function( $template_name, $template_path, $located, $args ) {
 				$this->assertEquals( 'Unknown', $args['meta']['origin'] ?? '' );
 				$this->assertFalse( $args['has_more_details'] );
@@ -66,7 +66,7 @@ class OrderAttributionTest extends WP_UnitTestCase {
 
 		// Hook into the template to check the args.
 		add_action(
-			'woocommerce_before_template_part',
+			'poocommerce_before_template_part',
 			function( $template_name, $template_path, $located, $args ) {
 				$this->assertEquals( 'Unknown', $args['meta']['origin'] ?? '' );
 				$this->assertEquals( 'Desktop', $args['meta']['device_type'] ?? '' );
@@ -91,7 +91,7 @@ class OrderAttributionTest extends WP_UnitTestCase {
 		$order = WC_Helper_Order::create_order();
 
 		$meta = array(
-			'_wc_order_attribution_origin'             => 'Referral: WooCommerce.com',
+			'_wc_order_attribution_origin'             => 'Referral: PooCommerce.com',
 			'_wc_order_attribution_device_type'        => 'Desktop',
 			'_wc_order_attribution_user_agent'         => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
 			'_wc_order_attribution_session_count'      => 1,
@@ -100,8 +100,8 @@ class OrderAttributionTest extends WP_UnitTestCase {
 			'_wc_order_attribution_session_entry'      => 'https://wordpress.ddev.site/product/belt/',
 			'_wc_order_attribution_utm_content'        => '/',
 			'_wc_order_attribution_utm_medium'         => 'referral',
-			'_wc_order_attribution_utm_source'         => 'woocommerce.com',
-			'_wc_order_attribution_referrer'           => 'https://woocommerce.com/',
+			'_wc_order_attribution_utm_source'         => 'poocommerce.com',
+			'_wc_order_attribution_referrer'           => 'https://poocommerce.com/',
 			'_wc_order_attribution_source_type'        => 'referral',
 		);
 		foreach ( $meta as $key => $value ) {
@@ -110,7 +110,7 @@ class OrderAttributionTest extends WP_UnitTestCase {
 
 		// Hook into the template to check the args.
 		add_action(
-			'woocommerce_before_template_part',
+			'poocommerce_before_template_part',
 			function( $template_name, $template_path, $located, $args ) {
 				$this->assertEquals( 'Referral: Woocommerce.com', $args['meta']['origin'] ?? '' );
 				$this->assertEquals( 'Desktop', $args['meta']['device_type'] ?? '' );
@@ -124,8 +124,8 @@ class OrderAttributionTest extends WP_UnitTestCase {
 				$this->assertEquals( 'https://wordpress.ddev.site/product/belt/', $args['meta']['session_entry'] ?? '' );
 				$this->assertEquals( '/', $args['meta']['utm_content'] ?? '' );
 				$this->assertEquals( 'referral', $args['meta']['utm_medium'] ?? '' );
-				$this->assertEquals( 'woocommerce.com', $args['meta']['utm_source'] ?? '' );
-				$this->assertEquals( 'https://woocommerce.com/', $args['meta']['referrer'] ?? '' );
+				$this->assertEquals( 'poocommerce.com', $args['meta']['utm_source'] ?? '' );
+				$this->assertEquals( 'https://poocommerce.com/', $args['meta']['referrer'] ?? '' );
 				$this->assertEquals( 'referral', $args['meta']['source_type'] ?? '' );
 
 				$this->assertTrue( $args['has_more_details'] );

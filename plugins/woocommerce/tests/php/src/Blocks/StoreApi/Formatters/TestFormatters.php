@@ -3,13 +3,13 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Formatters;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Formatters;
 
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\DefaultFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\DefaultFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
 
 /**
  * TestFormatters tests.

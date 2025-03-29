@@ -5,19 +5,19 @@ import { z } from 'zod';
 
 const headerChoices = [
 	{
-		slug: 'woocommerce-blocks/header-essential',
+		slug: 'poocommerce-blocks/header-essential',
 		label: 'Essential Header',
 	},
 	{
-		slug: 'woocommerce-blocks/header-centered-menu',
+		slug: 'poocommerce-blocks/header-centered-menu',
 		label: 'Centered Menu with search Header',
 	},
 	{
-		slug: 'woocommerce-blocks/header-minimal',
+		slug: 'poocommerce-blocks/header-minimal',
 		label: 'Minimal Header',
 	},
 	{
-		slug: 'woocommerce-blocks/header-large',
+		slug: 'poocommerce-blocks/header-large',
 		label: 'Large Header',
 	},
 ];

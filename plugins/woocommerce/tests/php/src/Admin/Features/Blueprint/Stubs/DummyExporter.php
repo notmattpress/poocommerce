@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Stubs;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Stubs;
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
 
 class DummyExporter implements StepExporter {
 

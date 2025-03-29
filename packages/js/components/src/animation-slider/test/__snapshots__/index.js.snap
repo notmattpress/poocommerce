@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="woocommerce-slide-animation animate-left"
+        class="poocommerce-slide-animation animate-left"
       >
         <div>
           <div />
@@ -16,7 +16,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-slide-animation animate-left"
+      class="poocommerce-slide-animation animate-left"
     >
       <div>
         <div />

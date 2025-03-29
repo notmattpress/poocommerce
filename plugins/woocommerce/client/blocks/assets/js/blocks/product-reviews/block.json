@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/blockified-product-reviews",
+	"name": "poocommerce/blockified-product-reviews",
 	"version": "1.0.0",
 	"icon": "admin-comments",
 	"title": "Blockified Product Reviews",
 	"description": "Display a product's reviews",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"tagName": {
 			"type": "string",
@@ -59,8 +59,8 @@
 	},
 	"usesContext": [ "postId", "postType" ],
 	"ancestor": [
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	]
 }

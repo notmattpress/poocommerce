@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ test.describe( 'Add to Cart with Options Block', () => {
 		await pageObject.setFeatureFlags();
 
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -59,13 +59,13 @@ test.describe( 'Add to Cart with Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-product-type'
+			'poocommerce-blocks-test-custom-product-type'
 		);
 
 		await pageObject.setFeatureFlags();
 
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );

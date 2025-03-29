@@ -4,7 +4,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { Icon, closeSmall, arrowRight, arrowDown } from '@wordpress/icons';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { getBlockSupport } from '@wordpress/blocks';
 import {
@@ -63,7 +63,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 	const removeText = ( label: string ): string => {
 		return sprintf(
 			/* translators: %s attribute value used in the filter. For example: yellow, green, small, large. */
-			__( 'Remove %s filter', 'woocommerce' ),
+			__( 'Remove %s filter', 'poocommerce' ),
 			label
 		);
 	};
@@ -74,7 +74,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 				<ToolbarGroup>
 					<ToolbarButton
 						icon={ arrowRight }
-						label={ __( 'Horizontal', 'woocommerce' ) }
+						label={ __( 'Horizontal', 'poocommerce' ) }
 						onClick={ () =>
 							setAttributes( {
 								layout: {
@@ -90,7 +90,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 					/>
 					<ToolbarButton
 						icon={ arrowDown }
-						label={ __( 'Vertical', 'woocommerce' ) }
+						label={ __( 'Vertical', 'poocommerce' ) }
 						onClick={ () =>
 							setAttributes( {
 								layout: {
@@ -133,7 +133,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 						__experimentalIsRenderedInSidebar
 						settings={ [
 							{
-								label: __( 'Chip Text', 'woocommerce' ),
+								label: __( 'Chip Text', 'poocommerce' ),
 								colorValue: chipText.color || customChipText,
 								onColorChange: ( colorValue: string ) => {
 									setChipText( colorValue );
@@ -149,7 +149,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 								},
 							},
 							{
-								label: __( 'Chip Border', 'woocommerce' ),
+								label: __( 'Chip Border', 'poocommerce' ),
 								colorValue:
 									chipBorder.color || customChipBorder,
 								onColorChange: ( colorValue: string ) => {
@@ -166,7 +166,7 @@ const Edit = ( props: EditProps ): JSX.Element => {
 								},
 							},
 							{
-								label: __( 'Chip Background', 'woocommerce' ),
+								label: __( 'Chip Background', 'poocommerce' ),
 								colorValue:
 									chipBackground.color ||
 									customChipBackground,

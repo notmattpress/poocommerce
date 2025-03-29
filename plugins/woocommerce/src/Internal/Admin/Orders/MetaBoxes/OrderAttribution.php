@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Internal\Traits\OrderAttributionMeta;
+use Automattic\PooCommerce\Internal\Traits\OrderAttributionMeta;
 use WC_Order;
 
 /**
@@ -37,17 +37,17 @@ class OrderAttribution {
 
 			switch ( $meta['device_type'] ) {
 				case 'Mobile':
-					$meta['device_type'] = __( 'Mobile', 'woocommerce' );
+					$meta['device_type'] = __( 'Mobile', 'poocommerce' );
 					break;
 				case 'Tablet':
-					$meta['device_type'] = __( 'Tablet', 'woocommerce' );
+					$meta['device_type'] = __( 'Tablet', 'poocommerce' );
 					break;
 				case 'Desktop':
-					$meta['device_type'] = __( 'Desktop', 'woocommerce' );
+					$meta['device_type'] = __( 'Desktop', 'poocommerce' );
 					break;
 
 				default:
-					$meta['device_type'] = __( 'Unknown', 'woocommerce' );
+					$meta['device_type'] = __( 'Unknown', 'poocommerce' );
 					break;
 			}
 		}

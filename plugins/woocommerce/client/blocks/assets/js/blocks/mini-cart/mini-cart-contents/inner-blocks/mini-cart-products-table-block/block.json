@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/mini-cart-products-table-block",
+	"name": "poocommerce/mini-cart-products-table-block",
 	"version": "1.0.0",
 	"title": "Mini-Cart Products Table",
 	"description": "Block that displays the products table of the Mini-Cart block.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -22,9 +22,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/mini-cart-items-block"
+		"poocommerce/mini-cart-items-block"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

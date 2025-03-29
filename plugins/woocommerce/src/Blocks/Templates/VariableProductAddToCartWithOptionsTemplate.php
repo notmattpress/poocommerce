@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * VariableProductAddToCartWithOptionsTemplate class.
@@ -36,7 +36,7 @@ class VariableProductAddToCartWithOptionsTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Variable Product Add to Cart with Options', 'Template name', 'woocommerce' );
+		return _x( 'Variable Product Add to Cart with Options', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -45,6 +45,6 @@ class VariableProductAddToCartWithOptionsTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Template used to display the Add to Cart with Options form for Variable Products.', 'woocommerce' );
+		return __( 'Template used to display the Add to Cart with Options form for Variable Products.', 'poocommerce' );
 	}
 }

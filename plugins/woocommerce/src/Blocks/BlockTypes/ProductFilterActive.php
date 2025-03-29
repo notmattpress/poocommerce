@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Active Block.
@@ -52,10 +52,10 @@ final class ProductFilterActive extends AbstractBlock {
 		}
 
 		wp_interactivity_config(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				/* translators:  {{label}} is the label of the active filter item. */
-				'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'woocommerce' ),
+				'removeLabelTemplate' => __( 'Remove filter: {{label}}', 'poocommerce' ),
 			)
 		);
 

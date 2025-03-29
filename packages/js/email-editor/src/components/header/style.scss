@@ -1,6 +1,6 @@
 // Document actions
 // Component in header for displaying email/campaign title edit popup
-.woocommerce-email-editor-campaign-name {
+.poocommerce-email-editor-campaign-name {
 	align-items: center;
 	display: flex;
 	flex-direction: row;
@@ -16,7 +16,7 @@
 		padding: 0;
 	}
 
-	.woocommerce-email-campaign-name-link {
+	.poocommerce-email-campaign-name-link {
 		display: inline-flex;
 		height: fit-content;
 		margin-right: 10px;
@@ -25,18 +25,18 @@
 }
 
 // Document actions - Popup for editing email/campaign title
-.woocommerce-email-editor-campaign-name-dropdown {
+.poocommerce-email-editor-campaign-name-dropdown {
 	.components-popover__content {
 		min-width: 280px;
 		padding: 0;
 	}
 
-	.woocommerce-email-editor-email-title-edit {
+	.poocommerce-email-editor-email-title-edit {
 		padding: 16px;
 	}
 }
 
-.woocommerce-email-editor-save-button-dropdown {
+.poocommerce-email-editor-save-button-dropdown {
 	.components-popover__content {
 		min-width: 280px;
 	}
@@ -56,7 +56,7 @@
 }
 
 // Ensure checkbox controls in save panel dropdown to span the full width
-.woocommerce-email-editor-save-button-dropdown
+.poocommerce-email-editor-save-button-dropdown
 	.components-panel__row
 	.components-checkbox-control {
 	width: 100%;

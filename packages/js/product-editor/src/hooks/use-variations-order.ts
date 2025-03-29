@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { useFormContext } from '@woocommerce/components';
-import type { ProductVariation } from '@woocommerce/data';
+import { useFormContext } from '@poocommerce/components';
+import type { ProductVariation } from '@poocommerce/data';
 
 const KEY_SEPARATOR = ':';
 

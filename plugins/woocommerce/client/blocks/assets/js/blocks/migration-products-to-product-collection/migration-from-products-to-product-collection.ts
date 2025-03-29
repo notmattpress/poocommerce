@@ -29,9 +29,9 @@ import {
 const mapAttributes = ( attributes: Record< string, unknown > ) => {
 	const { query, namespace, ...restAttributes } = attributes;
 	const {
-		__woocommerceAttributes,
-		__woocommerceStockStatus,
-		__woocommerceOnSale,
+		__poocommerceAttributes,
+		__poocommerceStockStatus,
+		__poocommerceOnSale,
 		include,
 		...restQuery
 	} = query;
@@ -39,10 +39,10 @@ const mapAttributes = ( attributes: Record< string, unknown > ) => {
 	return {
 		...restAttributes,
 		query: {
-			woocommerceAttributes: __woocommerceAttributes,
-			woocommerceStockStatus: __woocommerceStockStatus,
-			woocommerceOnSale: __woocommerceOnSale,
-			woocommerceHandPickedProducts: include,
+			poocommerceAttributes: __poocommerceAttributes,
+			poocommerceStockStatus: __poocommerceStockStatus,
+			poocommerceOnSale: __poocommerceOnSale,
+			poocommerceHandPickedProducts: include,
 			taxQuery: {},
 			isProductCollectionBlock: true,
 			...restQuery,
@@ -53,37 +53,37 @@ const mapAttributes = ( attributes: Record< string, unknown > ) => {
 
 const isPostTemplate: IsBlockType = ( { name, attributes } ) =>
 	name === 'core/post-template' &&
-	attributes.__woocommerceNamespace ===
-		'woocommerce/product-query/product-template';
+	attributes.__poocommerceNamespace ===
+		'poocommerce/product-query/product-template';
 
 const isPostTitle: IsBlockType = ( { name, attributes } ) =>
 	name === 'core/post-title' &&
-	attributes.__woocommerceNamespace ===
-		'woocommerce/product-query/product-title';
+	attributes.__poocommerceNamespace ===
+		'poocommerce/product-query/product-title';
 
 const isPostSummary: IsBlockType = ( { name, attributes } ) =>
 	name === 'core/post-excerpt' &&
-	attributes.__woocommerceNamespace ===
-		'woocommerce/product-query/product-summary';
+	attributes.__poocommerceNamespace ===
+		'poocommerce/product-query/product-summary';
 
 const transformPostTemplate: TransformBlock = ( block, innerBlocks ) => {
-	const { __woocommerceNamespace, className, layout, ...restAttrributes } =
+	const { __poocommerceNamespace, className, layout, ...restAttrributes } =
 		block.attributes;
 
 	return createBlock(
-		'woocommerce/product-template',
+		'poocommerce/product-template',
 		restAttrributes,
 		innerBlocks
 	);
 };
 
 const transformPostTitle: TransformBlock = ( block, innerBlocks ) => {
-	const { __woocommerceNamespace, ...restAttrributes } = block.attributes;
+	const { __poocommerceNamespace, ...restAttrributes } = block.attributes;
 	return createBlock(
 		'core/post-title',
 		{
-			__woocommerceNamespace:
-				'woocommerce/product-collection/product-title',
+			__poocommerceNamespace:
+				'poocommerce/product-collection/product-title',
 			...restAttrributes,
 		},
 		innerBlocks
@@ -91,12 +91,12 @@ const transformPostTitle: TransformBlock = ( block, innerBlocks ) => {
 };
 
 const transformPostSummary: TransformBlock = ( block, innerBlocks ) => {
-	const { __woocommerceNamespace, ...restAttrributes } = block.attributes;
+	const { __poocommerceNamespace, ...restAttrributes } = block.attributes;
 	return createBlock(
 		'core/post-excerpt',
 		{
-			__woocommerceNamespace:
-				'woocommerce/product-collection/product-summary',
+			__poocommerceNamespace:
+				'poocommerce/product-collection/product-summary',
 			...restAttrributes,
 		},
 		innerBlocks
@@ -171,7 +171,7 @@ const replaceProductsBlock = ( clientId: string ) => {
 	const productsBlock = select( 'core/block-editor' ).getBlock( clientId );
 	const canBeInserted = checkIfBlockCanBeInserted(
 		clientId,
-		'woocommerce/product-collection'
+		'poocommerce/product-collection'
 	);
 
 	if ( productsBlock && canBeInserted ) {
@@ -184,7 +184,7 @@ const replaceProductsBlock = ( clientId: string ) => {
 		const adjustedInnerBlocks = mapInnerBlocks( innerBlocks );
 
 		const productCollectionBlock = createBlock(
-			'woocommerce/product-collection',
+			'poocommerce/product-collection',
 			adjustedAttributes,
 			adjustedInnerBlocks
 		);

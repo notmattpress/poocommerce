@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	overrides: [
 		{
 			files: [
@@ -14,7 +14,7 @@ module.exports = {
 				'@wordpress/i18n-text-domain': [
 					'error',
 					{
-						allowedTextDomain: [ 'woocommerce' ],
+						allowedTextDomain: [ 'poocommerce' ],
 					},
 				],
 			},

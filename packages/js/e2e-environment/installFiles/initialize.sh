@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Initializing WooCommerce E2E"
+echo "Initializing PooCommerce E2E"
 
 # This is a workaround to accommodate different directory names.
 wp plugin activate --all
@@ -8,7 +8,7 @@ wp plugin deactivate akismet
 wp plugin deactivate hello
 
 wp theme install twentynineteen --activate
-wp user create customer customer@woocommercecoree2etestsuite.com \
+wp user create customer customer@poocommercecoree2etestsuite.com \
 	--user_pass=password \
 	--role=subscriber \
 	--first_name='Jane' \

@@ -27,7 +27,7 @@ if ( ! isGithubCI() ) {
 	Logger.notice(
 		chalk
 			.rgb( 150, 88, 138 )
-			.bold( figlet.textSync( 'WooCommerce \n Utils' ) )
+			.bold( figlet.textSync( 'PooCommerce \n Utils' ) )
 	);
 }
 

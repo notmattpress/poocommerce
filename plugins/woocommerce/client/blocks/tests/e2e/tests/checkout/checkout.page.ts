@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { expect } from '@woocommerce/e2e-utils';
+import { expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import {
 } from './constants';
 
 export class CheckoutPage {
-	private BLOCK_NAME = 'woocommerce/checkout';
+	private BLOCK_NAME = 'poocommerce/checkout';
 	public page: Page;
 	private testData = {
 		...{
@@ -255,7 +255,7 @@ export class CheckoutPage {
 			...overrideAddressDetails,
 		};
 
-		const legacySelector = `.woocommerce-column--${ shippingOrBilling }-address`;
+		const legacySelector = `.poocommerce-column--${ shippingOrBilling }-address`;
 		const blockSelector = `.wc-block-order-confirmation-${ shippingOrBilling }-address`;
 
 		let addressContainer = this.page.locator( blockSelector );
@@ -518,19 +518,19 @@ export class CheckoutPage {
 
 	async verifyOrderConfirmationDetails( toBeVisible = true ) {
 		const statusSection = this.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-status"]'
+			'[data-block-name="poocommerce/order-confirmation-status"]'
 		);
 		const summarySection = this.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-summary"]'
+			'[data-block-name="poocommerce/order-confirmation-summary"]'
 		);
 		const totalsSection = this.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-totals"]'
+			'[data-block-name="poocommerce/order-confirmation-totals"]'
 		);
 		const shippingAddressSection = this.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-shipping-address"]'
+			'[data-block-name="poocommerce/order-confirmation-shipping-address"]'
 		);
 		const billingAddressSection = this.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-billing-address"]'
+			'[data-block-name="poocommerce/order-confirmation-billing-address"]'
 		);
 
 		if ( toBeVisible ) {
@@ -631,7 +631,7 @@ export class CheckoutPage {
 			addresssecondline,
 		} = testData;
 		const billingAddressSection = this.page.locator(
-			'[data-block-name="woocommerce/order-confirmation-billing-address"]'
+			'[data-block-name="poocommerce/order-confirmation-billing-address"]'
 		);
 		await expect(
 			billingAddressSection.getByText( `${ firstname } ${ lastname }` )

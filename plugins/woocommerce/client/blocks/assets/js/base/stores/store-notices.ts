@@ -60,7 +60,7 @@ const generateNoticeId = () => {
 
 // Todo: export this store once the store is public.
 store< Store >(
-	'woocommerce/store-notices',
+	'poocommerce/store-notices',
 	{
 		state: {
 			get role() {

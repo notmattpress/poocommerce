@@ -25,19 +25,19 @@ import { SelectTemplateModal } from '../template-select';
 import { recordEvent } from '../../events';
 
 const TypeInfoIcon = applyFilters(
-	'woocommerce_email_editor_sidebar_email_type_info_icon',
+	'poocommerce_email_editor_sidebar_email_type_info_icon',
 	() => <Icon icon={ postContent } />
 ) as () => JSX.Element;
 
 const TypeInfoContent = applyFilters(
-	'woocommerce_email_editor_sidebar_email_type_info_content',
+	'poocommerce_email_editor_sidebar_email_type_info_content',
 	() => (
 		<>
-			<h2>{ __( 'Email content', 'woocommerce' ) }</h2>
+			<h2>{ __( 'Email content', 'poocommerce' ) }</h2>
 			<span>
 				{ __(
 					'This block represents the main content of your email, such as the invoice or order details. When the email is sent, it will be replaced with the actual email content.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</span>
 		</>
@@ -64,13 +64,13 @@ export function EmailTypeInfo() {
 
 	return (
 		<>
-			<Panel className="woocommerce-email-sidebar-email-type-info">
+			<Panel className="poocommerce-email-sidebar-email-type-info">
 				<PanelBody>
 					<PanelRow>
-						<span className="woocommerce-email-type-info-icon">
+						<span className="poocommerce-email-type-info-icon">
 							<TypeInfoIcon />
 						</span>
-						<div className="woocommerce-email-type-info-content">
+						<div className="poocommerce-email-type-info-content">
 							<TypeInfoContent />
 						</div>
 					</PanelRow>
@@ -78,7 +78,7 @@ export function EmailTypeInfo() {
 						<PanelRow>
 							<Flex justify={ 'start' }>
 								<FlexItem className="editor-post-panel__row-label">
-									{ __( 'Template', 'woocommerce' ) }
+									{ __( 'Template', 'poocommerce' ) }
 								</FlexItem>
 								<FlexItem>
 									<DropdownMenu
@@ -87,7 +87,7 @@ export function EmailTypeInfo() {
 										toggleProps={ { variant: 'tertiary' } }
 										label={ __(
 											'Template actions',
-											'woocommerce'
+											'poocommerce'
 										) }
 										onToggle={ ( isOpen ) =>
 											recordEvent(
@@ -116,7 +116,7 @@ export function EmailTypeInfo() {
 													>
 														{ __(
 															'Edit template',
-															'woocommerce'
+															'poocommerce'
 														) }
 													</MenuItem>
 												) }
@@ -134,7 +134,7 @@ export function EmailTypeInfo() {
 												>
 													{ __(
 														'Swap template',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</MenuItem>
 											</>

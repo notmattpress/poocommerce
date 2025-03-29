@@ -16,11 +16,11 @@ export function validate(
 	const errors = {} as ValidationError;
 
 	if ( ! customField.key ) {
-		errors.key = __( 'The name is required.', 'woocommerce' );
+		errors.key = __( 'The name is required.', 'poocommerce' );
 	} else if ( customField.key.startsWith( '_' ) ) {
 		errors.key = __(
 			'The name cannot begin with the underscore (_) character.',
-			'woocommerce'
+			'poocommerce'
 		);
 	} else if (
 		customFields.some(
@@ -28,11 +28,11 @@ export function validate(
 				field.id !== customField.id && field.key === customField.key
 		)
 	) {
-		errors.key = __( 'The name must be unique.', 'woocommerce' );
+		errors.key = __( 'The name must be unique.', 'poocommerce' );
 	}
 
 	if ( ! customField.value ) {
-		errors.value = __( 'The value is required.', 'woocommerce' );
+		errors.value = __( 'The value is required.', 'poocommerce' );
 	}
 
 	return errors;

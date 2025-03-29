@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AIContent;
+namespace Automattic\PooCommerce\Blocks\AIContent;
 
-use Automattic\WooCommerce\Blocks\AI\Connection;
+use Automattic\PooCommerce\Blocks\AI\Connection;
 use WP_Error;
 
 /**
@@ -16,15 +16,15 @@ class UpdatePatterns {
 	 * All patterns that are actively in use in the Assembler.
 	 */
 	const WC_PATTERNS_IN_THE_ASSEMBLER = [
-		'woocommerce-blocks/featured-category-triple',
-		'woocommerce-blocks/hero-product-3-split',
-		'woocommerce-blocks/hero-product-chessboard',
-		'woocommerce-blocks/hero-product-split',
-		'woocommerce-blocks/product-collection-4-columns',
-		'woocommerce-blocks/product-collection-5-columns',
-		'woocommerce-blocks/social-follow-us-in-social-media',
-		'woocommerce-blocks/testimonials-3-columns',
-		'woocommerce-blocks/product-collection-featured-products-5-columns',
+		'poocommerce-blocks/featured-category-triple',
+		'poocommerce-blocks/hero-product-3-split',
+		'poocommerce-blocks/hero-product-chessboard',
+		'poocommerce-blocks/hero-product-split',
+		'poocommerce-blocks/product-collection-4-columns',
+		'poocommerce-blocks/product-collection-5-columns',
+		'poocommerce-blocks/social-follow-us-in-social-media',
+		'poocommerce-blocks/testimonials-3-columns',
+		'poocommerce-blocks/product-collection-featured-products-5-columns',
 	];
 
 	/**
@@ -52,13 +52,13 @@ class UpdatePatterns {
 		$patterns = $this->assign_selected_images_to_patterns( $patterns_dictionary, $images['images'] );
 
 		if ( is_wp_error( $patterns ) ) {
-			return new WP_Error( 'failed_to_set_pattern_images', __( 'Failed to set the pattern images.', 'woocommerce' ) );
+			return new WP_Error( 'failed_to_set_pattern_images', __( 'Failed to set the pattern images.', 'poocommerce' ) );
 		}
 
 		$ai_generated_patterns_content = $this->generate_ai_content_for_patterns( $ai_connection, $token, $patterns, $business_description );
 
 		if ( is_wp_error( $ai_generated_patterns_content ) ) {
-			return new WP_Error( 'failed_to_set_pattern_content', __( 'Failed to set the pattern content.', 'woocommerce' ) );
+			return new WP_Error( 'failed_to_set_pattern_content', __( 'Failed to set the pattern content.', 'poocommerce' ) );
 		}
 
 		$patterns_ai_data_post = PatternsHelper::get_patterns_ai_data_post();
@@ -70,7 +70,7 @@ class UpdatePatterns {
 		$updated_content = PatternsHelper::upsert_patterns_ai_data_post( $ai_generated_patterns_content );
 
 		if ( is_wp_error( $updated_content ) ) {
-			return new WP_Error( 'failed_to_update_patterns_content', __( 'Failed to update patterns content.', 'woocommerce' ) );
+			return new WP_Error( 'failed_to_update_patterns_content', __( 'Failed to update patterns content.', 'poocommerce' ) );
 		}
 
 		return true;
@@ -275,7 +275,7 @@ class UpdatePatterns {
 		}
 
 		if ( ! $success ) {
-			return new WP_Error( 'failed_to_fetch_ai_responses', __( 'Failed to fetch AI responses.', 'woocommerce' ) );
+			return new WP_Error( 'failed_to_fetch_ai_responses', __( 'Failed to fetch AI responses.', 'poocommerce' ) );
 		}
 
 		return $ai_responses;
@@ -407,7 +407,7 @@ class UpdatePatterns {
 		$patterns_dictionary = PatternsDictionary::get();
 
 		if ( empty( $patterns_dictionary ) ) {
-			return new WP_Error( 'missing_patterns_dictionary', __( 'The patterns dictionary is missing.', 'woocommerce' ) );
+			return new WP_Error( 'missing_patterns_dictionary', __( 'The patterns dictionary is missing.', 'poocommerce' ) );
 		}
 
 		return $patterns_dictionary;

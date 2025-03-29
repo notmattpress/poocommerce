@@ -1,16 +1,16 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-description",
+	"name": "poocommerce/product-description",
 	"version": "1.0.0",
 	"title": "Product Description",
 	"description": "Displays the description of the product.",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"usesContext": [ "postId", "postType", "queryId" ],
 	"ancestor": [
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	],
 	"supports": {

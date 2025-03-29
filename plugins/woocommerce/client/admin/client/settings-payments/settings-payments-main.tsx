@@ -7,12 +7,12 @@ import {
 	pluginsStore,
 	paymentSettingsStore,
 	PaymentProvider,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { resolveSelect, useDispatch, useSelect } from '@wordpress/data';
 import React, { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import { Button } from '@wordpress/components';
 
 /**
@@ -39,7 +39,7 @@ import { WooPaymentsPostSandboxAccountSetupModal } from '~/settings-payments/com
 import { getAdminSetting } from '~/utils/admin-settings';
 
 /**
- * A component that renders the main settings page for managing payment gateways in WooCommerce.
+ * A component that renders the main settings page for managing payment gateways in PooCommerce.
  * It handles fetching and displaying payment providers, managing plugin installations, and
  * displaying incentive banners or modals when applicable.
  */
@@ -61,7 +61,7 @@ export const SettingsPaymentsMain = () => {
 	] = useState( false );
 
 	const [ storeCountry, setStoreCountry ] = useState< string | null >(
-		window.wcSettings?.admin?.woocommerce_payments_nox_profile
+		window.wcSettings?.admin?.poocommerce_payments_nox_profile
 			?.business_country_code || null
 	);
 
@@ -81,7 +81,7 @@ export const SettingsPaymentsMain = () => {
 					/* translators: %s: plugin name */
 					__(
 						'%s: An error occurred while setting up your sandbox account — please try again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 				)
@@ -97,7 +97,7 @@ export const SettingsPaymentsMain = () => {
 					/* translators: %s: plugin name */
 					__(
 						'%s: There was a problem connecting your WordPress.com account — please try again.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 				)
@@ -216,7 +216,7 @@ export const SettingsPaymentsMain = () => {
 				referenceTimestamp.setDate( referenceTimestamp.getDate() - 30 );
 				// If the merchant dismissed the switcher incentive modal more than 30 days ago,
 				// show the banner instead of just highlighting the incentive.
-				// @see its server brother in plugins/woocommerce/src/Internal/Admin/Settings/PaymentsController::store_has_providers_with_incentive()
+				// @see its server brother in plugins/poocommerce/src/Internal/Admin/Settings/PaymentsController::store_has_providers_with_incentive()
 				// for the admin menu red dot notice logic.
 				if (
 					isIncentiveDismissedEarlierThanTimestamp(
@@ -261,7 +261,7 @@ export const SettingsPaymentsMain = () => {
 		triggeredPageViewRef.current = true;
 
 		const eventProps: { [ key: string ]: boolean } = {
-			woocommerce_payments_displayed: providers.some( ( provider ) =>
+			poocommerce_payments_displayed: providers.some( ( provider ) =>
 				isWooPayments( provider.id )
 			),
 		};
@@ -417,12 +417,12 @@ export const SettingsPaymentsMain = () => {
 		<Button
 			variant={ 'link' }
 			target="_blank"
-			href="https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/"
+			href="https://poocommerce.com/product-category/poocommerce-extensions/payment-gateways/"
 			className="more-payment-options-link"
 			onClick={ trackMorePaymentsOptionsClicked }
 		>
 			<img src={ assetUrl + '/icons/external-link.svg' } alt="" />
-			{ __( 'More payment options', 'woocommerce' ) }
+			{ __( 'More payment options', 'poocommerce' ) }
 		</Button>
 	);
 
@@ -480,7 +480,7 @@ export const SettingsPaymentsMain = () => {
 					setBusinessRegistrationCountry={ setStoreCountry }
 				/>
 				{
-					// If no suggestions are available, only show a link to the WooCommerce.com payment marketplace page.
+					// If no suggestions are available, only show a link to the PooCommerce.com payment marketplace page.
 					! isFetching && suggestions.length === 0 && (
 						<div className="more-payment-options">
 							{ morePaymentOptionsLink }

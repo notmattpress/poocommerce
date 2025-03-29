@@ -3,19 +3,19 @@
  * AbstractServiceProviderTests class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\Definition;
-use Automattic\WooCommerce\Internal\DependencyManagement\ExtendedContainer;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithInjectionMethodArgumentWithoutTypeHint;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithDependencies;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNonFinalInjectionMethod;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithPrivateInjectionMethod;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithScalarInjectionMethodArgument;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
-use Automattic\WooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\Definition;
+use Automattic\PooCommerce\Internal\DependencyManagement\ExtendedContainer;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithInjectionMethodArgumentWithoutTypeHint;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithDependencies;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNonFinalInjectionMethod;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithPrivateInjectionMethod;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithScalarInjectionMethodArgument;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
+use Automattic\PooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
 
 /**
  * Tests for AbstractServiceProvider.
@@ -84,7 +84,7 @@ class AbstractServiceProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_add_with_auto_arguments_throws_on_non_class_passed_as_class_name() {
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "You cannot add 'foobar', only classes in the Automattic\WooCommerce\ namespace are allowed." );
+		$this->expectExceptionMessage( "You cannot add 'foobar', only classes in the Automattic\PooCommerce\ namespace are allowed." );
 
 		$this->sut->add_with_auto_arguments( 'foobar' );
 	}

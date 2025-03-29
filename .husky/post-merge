@@ -24,16 +24,16 @@ fi
 staleWireitDirectories=$(( \
 	$( find plugins/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -print 2>/dev/null | wc -l ) + \
 	$( find packages/js/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -print 2>/dev/null | wc -l ) + \
-	$( find plugins/woocommerce/client/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -print 2>/dev/null | wc -l ) \
+	$( find plugins/poocommerce/client/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -print 2>/dev/null | wc -l ) \
 ))
 if [ $staleWireitDirectories -gt 0 ]; then
 	echo "Cleaning up stale wireit-cache ($staleWireitDirectories directories)"
 	# Main cleanup step - disk space usage reduction
 	find plugins/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
 	find packages/js/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
-	find plugins/woocommerce/client/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
+	find plugins/poocommerce/client/*/.wireit/*/cache/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
 	# Extra cleanup step - housekeeping `.wireit` directories
 	find plugins/*/.wireit/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
 	find packages/js/*/.wireit/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
-	find plugins/woocommerce/client/*/.wireit/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
+	find plugins/poocommerce/client/*/.wireit/* -maxdepth 0 -type d -ctime +14 -exec rm -rf {} \; 2>/dev/null
 fi

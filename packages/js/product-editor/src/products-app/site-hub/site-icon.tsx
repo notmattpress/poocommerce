@@ -34,7 +34,7 @@ function SiteIcon( { className }: SiteIconProps ) {
 	const icon = siteIconUrl ? (
 		<img
 			className="edit-site-site-icon__image"
-			alt={ __( 'Site Icon', 'woocommerce' ) }
+			alt={ __( 'Site Icon', 'poocommerce' ) }
 			src={ siteIconUrl }
 		/>
 	) : (

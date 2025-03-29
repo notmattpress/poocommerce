@@ -27,11 +27,11 @@ export function SaveEmailButton() {
 	const isSaved = ! isEmpty && ! isSaving && ! hasEdits;
 	const isDisabled = ! hasEdits && ( isEmpty || isSaving || isSaved );
 
-	let label = __( 'Save Draft', 'woocommerce' );
+	let label = __( 'Save Draft', 'poocommerce' );
 	if ( isSaved ) {
-		label = __( 'Saved', 'woocommerce' );
+		label = __( 'Saved', 'poocommerce' );
 	} else if ( isSaving ) {
-		label = __( 'Saving', 'woocommerce' );
+		label = __( 'Saving', 'poocommerce' );
 	}
 
 	return (

@@ -1,13 +1,13 @@
 {
-	"name": "woocommerce/page-content-wrapper",
+	"name": "poocommerce/page-content-wrapper",
 	"version": "1.0.0",
-	"title": "WooCommerce Page",
-	"description": "Displays WooCommerce page content.",
-	"category": "woocommerce",
+	"title": "PooCommerce Page",
+	"description": "Displays PooCommerce page content.",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"html": false,
 		"multiple": false,

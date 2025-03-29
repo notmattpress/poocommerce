@@ -13,14 +13,14 @@ import { __ } from '@wordpress/i18n';
 import { wooContentPlaceholderBlock } from './blocks/woo-email-content';
 import { NAME_SPACE } from './constants';
 
-addFilter( 'woocommerce_email_editor_send_button_label', NAME_SPACE, () =>
-	__( 'Save email', 'woocommerce' )
+addFilter( 'poocommerce_email_editor_send_button_label', NAME_SPACE, () =>
+	__( 'Save email', 'poocommerce' )
 );
 
 addFilter(
-	'woocommerce_email_editor_check_sending_method_configuration_link',
+	'poocommerce_email_editor_check_sending_method_configuration_link',
 	NAME_SPACE,
-	() => 'https://woocommerce.com/document/email-faq/'
+	() => 'https://poocommerce.com/document/email-faq/'
 );
 
 registerBlockType( 'woo/email-content', wooContentPlaceholderBlock );

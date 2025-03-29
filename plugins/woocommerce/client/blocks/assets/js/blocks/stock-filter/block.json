@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/stock-filter",
+	"name": "poocommerce/stock-filter",
 	"version": "1.0.0",
 	"title": "Filter by Stock Controls",
 	"description": "Enable customers to filter the product grid by stock status.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"html": false,
@@ -48,7 +48,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal;
+namespace Automattic\PooCommerce\Internal;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Utilities\StringUtil;
 use WP_HTTP_Response;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -18,7 +18,7 @@ use Exception;
  * container with the 'share_with_implements_tags' method inside a service provider that inherits from
  * 'AbstractInterfaceServiceProvider'. This ensures that 'register_routes' is invoked.
  *
- * Also, the following must be added at the end of the 'init_hooks' method in the 'WooCommerce' class,
+ * Also, the following must be added at the end of the 'init_hooks' method in the 'PooCommerce' class,
  * otherwise the routes won't be registered:
  * $container->get( <full class name>::class )->register();
  *
@@ -53,7 +53,7 @@ use Exception;
  * private function get_args_for_get_foobar(): array {
  *   return array(
  *     'id' => array(
- *       'description' => __( 'Unique identifier of the foobar.', 'woocommerce' ),
+ *       'description' => __( 'Unique identifier of the foobar.', 'poocommerce' ),
  *       'type'        => 'integer',
  *       'context'     => array( 'view', 'edit' ),
  *       'readonly'    => true,
@@ -65,7 +65,7 @@ use Exception;
  *   $schema               = $this->get_base_schema();
  *   $schema['properties'] = array(
  *     'message'     => array(
- *       'description' => __( 'A message.', 'woocommerce' ),
+ *       'description' => __( 'A message.', 'poocommerce' ),
  *       'type'        => 'string',
  *       'context'     => array( 'view', 'edit' ),
  *       'readonly'    => true,
@@ -89,25 +89,25 @@ abstract class RestApiControllerBase implements RegisterHooksInterface {
 	 * Register the hooks used by the class.
 	 */
 	public function register() {
-		add_filter( 'woocommerce_rest_api_get_rest_namespaces', array( $this, 'handle_woocommerce_rest_api_get_rest_namespaces' ) );
+		add_filter( 'poocommerce_rest_api_get_rest_namespaces', array( $this, 'handle_poocommerce_rest_api_get_rest_namespaces' ) );
 	}
 
 	/**
-	 * Handle the woocommerce_rest_api_get_rest_namespaces filter
-	 * to add ourselves to the list of REST API controllers registered by WooCommerce.
+	 * Handle the poocommerce_rest_api_get_rest_namespaces filter
+	 * to add ourselves to the list of REST API controllers registered by PooCommerce.
 	 *
-	 * @param array $namespaces The original list of WooCommerce REST API namespaces/controllers.
-	 * @return array The updated list of WooCommerce REST API namespaces/controllers.
+	 * @param array $namespaces The original list of PooCommerce REST API namespaces/controllers.
+	 * @return array The updated list of PooCommerce REST API namespaces/controllers.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
-	public function handle_woocommerce_rest_api_get_rest_namespaces( array $namespaces ): array {
+	public function handle_poocommerce_rest_api_get_rest_namespaces( array $namespaces ): array {
 		$namespaces['wc/v3'][ $this->get_rest_api_namespace() ] = static::class;
 		return $namespaces;
 	}
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class. It must be unique across all other derived classes
+	 * Get the PooCommerce REST API namespace for the class. It must be unique across all other derived classes
 	 * and the keys returned by the 'get_vX_controllers' methods in includes/rest-api/Server.php.
 	 * Note that this value is NOT related to the route namespace.
 	 *
@@ -127,7 +127,7 @@ abstract class RestApiControllerBase implements RegisterHooksInterface {
 	 * Handle a request for one of the provided REST API endpoints.
 	 *
 	 * If an exception is thrown, the exception message will be returned as part of the response
-	 * if the user has the 'manage_woocommerce' capability.
+	 * if the user has the 'manage_poocommerce' capability.
 	 *
 	 * Note that the method specified in $method_name must have a 'protected' visibility and accept one argument of type 'WP_REST_Request'.
 	 *
@@ -140,7 +140,7 @@ abstract class RestApiControllerBase implements RegisterHooksInterface {
 			return rest_ensure_response( $this->$method_name( $request ) );
 		} catch ( InvalidArgumentException $ex ) {
 			$message = $ex->getMessage();
-			return new WP_Error( 'woocommerce_rest_invalid_argument', $message ? $message : __( 'Internal server error', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'poocommerce_rest_invalid_argument', $message ? $message : __( 'Internal server error', 'poocommerce' ), array( 'status' => 400 ) );
 		} catch ( Exception $ex ) {
 			wc_get_logger()->error( StringUtil::class_name_without_namespace( static::class ) . ": when executing method $method_name: {$ex->getMessage()}" );
 			return $this->internal_wp_error( $ex );
@@ -155,14 +155,14 @@ abstract class RestApiControllerBase implements RegisterHooksInterface {
 	 */
 	protected function internal_wp_error( Exception $exception ): WP_Error {
 		$data = array( 'status' => 500 );
-		if ( current_user_can( 'manage_woocommerce' ) ) {
+		if ( current_user_can( 'manage_poocommerce' ) ) {
 			$data['exception_class']   = get_class( $exception );
 			$data['exception_message'] = $exception->getMessage();
 			$data['exception_trace']   = (array) $exception->getTrace();
 		}
 		$data['exception_message'] = $exception->getMessage();
 
-		return new WP_Error( 'woocommerce_rest_internal_error', __( 'Internal server error', 'woocommerce' ), $data );
+		return new WP_Error( 'poocommerce_rest_internal_error', __( 'Internal server error', 'poocommerce' ), $data );
 	}
 
 	/**
@@ -174,16 +174,16 @@ abstract class RestApiControllerBase implements RegisterHooksInterface {
 	protected function get_authentication_error_by_method( string $method ) {
 		$errors = array(
 			'GET'    => array(
-				'code'    => 'woocommerce_rest_cannot_view',
-				'message' => __( 'Sorry, you cannot view resources.', 'woocommerce' ),
+				'code'    => 'poocommerce_rest_cannot_view',
+				'message' => __( 'Sorry, you cannot view resources.', 'poocommerce' ),
 			),
 			'POST'   => array(
-				'code'    => 'woocommerce_rest_cannot_create',
-				'message' => __( 'Sorry, you cannot create resources.', 'woocommerce' ),
+				'code'    => 'poocommerce_rest_cannot_create',
+				'message' => __( 'Sorry, you cannot create resources.', 'poocommerce' ),
 			),
 			'DELETE' => array(
-				'code'    => 'woocommerce_rest_cannot_delete',
-				'message' => __( 'Sorry, you cannot delete resources.', 'woocommerce' ),
+				'code'    => 'poocommerce_rest_cannot_delete',
+				'message' => __( 'Sorry, you cannot delete resources.', 'poocommerce' ),
 			),
 		);
 

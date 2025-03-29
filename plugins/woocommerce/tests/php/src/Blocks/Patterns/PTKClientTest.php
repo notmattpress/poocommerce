@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Patterns;
+namespace Automattic\PooCommerce\Tests\Blocks\Patterns;
 
-use Automattic\WooCommerce\Blocks\Patterns\PTKClient;
+use Automattic\PooCommerce\Blocks\Patterns\PTKClient;
 use WP_Error;
 
 /**
