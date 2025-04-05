@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\ImportExport;
+namespace Automattic\PooCommerce\Internal\Admin\ImportExport;
 
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 
 /**
  * Helper for CSV import functionality.
@@ -72,7 +72,7 @@ class CSVUploadHelper {
 
 		$file = $_FILES[ $files_index ] ?? null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
 		if ( ! isset( $file['tmp_name'] ) || ! is_uploaded_file( $file['tmp_name'] ) ) {
-			throw new \Exception( esc_html__( 'File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.', 'poocommerce' ) );
 		}
 
 		if ( ! function_exists( 'wp_import_handle_upload' ) ) {
@@ -119,7 +119,7 @@ class CSVUploadHelper {
 
 		if ( ! wc_is_file_valid_csv( $upload['file'], false ) ) {
 			wp_delete_attachment( $file['id'], true );
-			throw new \Exception( esc_html__( 'Invalid file type for a CSV import.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid file type for a CSV import.', 'poocommerce' ) );
 		}
 
 		return $upload;
@@ -131,7 +131,7 @@ class CSVUploadHelper {
 	 * @param array $uploads WP upload dir details.
 	 * @return array
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function override_upload_dir( $uploads ): array {
 		$new_subdir = '/' . $this->get_import_subdir_name();
@@ -150,7 +150,7 @@ class CSVUploadHelper {
 	 * @param string $ext      File extension.
 	 * @return string
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function override_unique_filename( string $filename, string $ext ): string {
 		$length = min( 10, 255 - strlen( $filename ) - 1 );
@@ -169,7 +169,7 @@ class CSVUploadHelper {
 	 * @param array $file File details in the form of a $_FILES entry.
 	 * @return array Modified file details.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function remove_txt_from_uploaded_file( array $file ): array {
 		$file['name'] = substr( $file['name'], 0, -4 );

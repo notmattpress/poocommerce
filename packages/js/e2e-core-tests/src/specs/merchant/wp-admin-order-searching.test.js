@@ -7,7 +7,7 @@ const {
 	createSimpleProduct,
 	factories,
 	createOrder,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 const searchString = 'John Doe';
 const itemName = 'Wanted Product';
@@ -89,7 +89,7 @@ const queries = [
 ];
 
 const runOrderSearchingTest = () => {
-	describe( 'WooCommerce Orders > Search orders', () => {
+	describe( 'PooCommerce Orders > Search orders', () => {
 		let productId;
 		let orderId;
 		let customerId;

@@ -1,8 +1,8 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * ProductReviews class.

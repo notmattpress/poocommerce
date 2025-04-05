@@ -9,7 +9,7 @@ export const test = baseTest.extend( {
 	page: async ( { page, restApi }, use ) => {
 		// Enable product block editor
 		await restApi.put(
-			`${ WC_API_PATH }/settings/advanced/woocommerce_feature_product_block_editor_enabled`,
+			`${ WC_API_PATH }/settings/advanced/poocommerce_feature_product_block_editor_enabled`,
 			{
 				value: 'yes',
 			}
@@ -17,14 +17,14 @@ export const test = baseTest.extend( {
 
 		// Disable the product editor tour
 		await restApi.post( 'wc-admin/options', {
-			woocommerce_block_product_tour_shown: 'yes',
+			poocommerce_block_product_tour_shown: 'yes',
 		} );
 
 		await use( page );
 
 		// Disable product block editor
 		await restApi.put(
-			`${ WC_API_PATH }/settings/advanced/woocommerce_feature_product_block_editor_enabled`,
+			`${ WC_API_PATH }/settings/advanced/poocommerce_feature_product_block_editor_enabled`,
 			{
 				value: 'no',
 			}

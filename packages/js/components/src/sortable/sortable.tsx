@@ -140,7 +140,7 @@ export const Sortable = ( {
 						/** Translators: Selected item label */
 						__(
 							'%s selected, use up and down arrow keys to reorder',
-							'woocommerce'
+							'poocommerce'
 						),
 						selectedLabel
 					),
@@ -157,7 +157,7 @@ export const Sortable = ( {
 					/* translators: %1$s: Selected item label, %2$d: Current position in list, %3$d: List total length */
 					__(
 						'%1$s dropped, position in list: %2$d of %3$d',
-						'woocommerce'
+						'poocommerce'
 					),
 					selectedLabel,
 					dropIndex + 1,
@@ -184,7 +184,7 @@ export const Sortable = ( {
 			speak(
 				sprintf(
 					/* translators: %1$s: Selected item label, %2$d: Current position in list, %3$d: List total length */
-					__( '%1$s, position in list: %2$d of %3$d', 'woocommerce' ),
+					__( '%1$s, position in list: %2$d of %3$d', 'poocommerce' ),
 					selectedLabel,
 					previousDropIndex + 1,
 					items.length
@@ -204,7 +204,7 @@ export const Sortable = ( {
 			speak(
 				sprintf(
 					/* translators: %1$s: Selected item label, %2$d: Current position in list, %3$d: List total length */
-					__( '%1$s, position in list: %2$d of %3$d', 'woocommerce' ),
+					__( '%1$s, position in list: %2$d of %3$d', 'poocommerce' ),
 					selectedLabel,
 					nextDropIndex + 1,
 					items.length
@@ -219,7 +219,7 @@ export const Sortable = ( {
 			speak(
 				__(
 					'Reordering cancelled. Restoring the original list order',
-					'woocommerce'
+					'poocommerce'
 				),
 				'assertive'
 			);
@@ -230,7 +230,7 @@ export const Sortable = ( {
 		<SortableContext.Provider value={ {} }>
 			<div
 				{ ...props }
-				className={ classnames( 'woocommerce-sortable', className, {
+				className={ classnames( 'poocommerce-sortable', className, {
 					'is-dragging': dragIndex !== null,
 					'is-horizontal': isHorizontal,
 				} ) }

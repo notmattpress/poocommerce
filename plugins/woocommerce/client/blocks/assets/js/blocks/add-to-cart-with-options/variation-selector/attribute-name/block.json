@@ -1,14 +1,14 @@
 {
-	"name": "woocommerce/add-to-cart-with-options-variation-selector-attribute-name",
+	"name": "poocommerce/add-to-cart-with-options-variation-selector-attribute-name",
 	"version": "1.0.0",
 	"title": "Variation Selector Attribute Name (Experimental)",
 	"description": "The name of a given variable product attribute.",
-	"category": "woocommerce-product-elements",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce-product-elements",
+	"keywords": [ "PooCommerce" ],
 	"ancestor": [
-		"woocommerce/add-to-cart-with-options-variation-selector-item"
+		"poocommerce/add-to-cart-with-options-variation-selector-item"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"supports": {
@@ -57,8 +57,8 @@
 		}
 	},
 	"usesContext": [
-		"woocommerce/attributeId",
-		"woocommerce/attributeName",
-		"woocommerce/attributeTerms"
+		"poocommerce/attributeId",
+		"poocommerce/attributeName",
+		"poocommerce/attributeTerms"
 	]
 }

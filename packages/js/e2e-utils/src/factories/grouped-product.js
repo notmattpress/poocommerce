@@ -1,4 +1,4 @@
-import { GroupedProduct } from '@woocommerce/api';
+import { GroupedProduct } from '@poocommerce/api';
 import { Factory } from 'fishery';
 
 /**

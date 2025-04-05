@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -29,21 +29,21 @@ test.describe( 'Product Collection: Product Picker', () => {
 			name: 'My Custom Collection - Product Context',
 			label: 'Block: My Custom Collection - Product Context',
 			collection:
-				'woocommerce/product-collection/my-custom-collection-product-context',
+				'poocommerce/product-collection/my-custom-collection-product-context',
 		},
 		{
 			id: 'myCustomCollectionMultipleContexts',
 			name: 'My Custom Collection - Multiple Contexts',
 			label: 'Block: My Custom Collection - Multiple Contexts',
 			collection:
-				'woocommerce/product-collection/my-custom-collection-multiple-contexts',
+				'poocommerce/product-collection/my-custom-collection-multiple-contexts',
 		},
 	];
 
 	// Activate plugin which registers custom product collections
 	test.beforeEach( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-register-product-collection'
+			'poocommerce-blocks-test-register-product-collection'
 		);
 	} );
 
@@ -145,7 +145,7 @@ test.describe( 'Product Collection: Product Picker', () => {
 			editor,
 		} ) => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//single-product`,
+				postId: `poocommerce/poocommerce//single-product`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
@@ -168,7 +168,7 @@ test.describe( 'Product Collection: Product Picker', () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//page-cart`,
+			postId: `poocommerce/poocommerce//page-cart`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -190,7 +190,7 @@ test.describe( 'Product Collection: Product Picker', () => {
 		editor,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//order-confirmation`,
+			postId: `poocommerce/poocommerce//order-confirmation`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );

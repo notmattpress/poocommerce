@@ -34,16 +34,16 @@ const CategorySection = ( {
 			{ categoriesToRender.map(
 				( [ category, items ]: [ string, PersonalizationTag[] ] ) => (
 					<div key={ category }>
-						<div className="woocommerce-personalization-tags-modal-category">
+						<div className="poocommerce-personalization-tags-modal-category">
 							{ category }
 						</div>
-						<div className="woocommerce-personalization-tags-modal-category-group">
+						<div className="poocommerce-personalization-tags-modal-category-group">
 							{ items.map( ( item ) => (
 								<div
-									className="woocommerce-personalization-tags-modal-category-group-item"
+									className="poocommerce-personalization-tags-modal-category-group-item"
 									key={ item.token }
 								>
-									<div className="woocommerce-personalization-tags-modal-item-text">
+									<div className="poocommerce-personalization-tags-modal-item-text">
 										<strong>{ item.name }</strong>
 										{ item.valueToInsert }
 									</div>
@@ -65,10 +65,10 @@ const CategorySection = ( {
 												}
 											} }
 										>
-											{ __( 'Insert', 'woocommerce' ) }
+											{ __( 'Insert', 'poocommerce' ) }
 										</Button>
 										{ category ===
-											__( 'Link', 'woocommerce' ) &&
+											__( 'Link', 'poocommerce' ) &&
 											canInsertLink && (
 												<>
 													<Button
@@ -82,7 +82,7 @@ const CategorySection = ( {
 													>
 														{ __(
 															'Insert as link',
-															'woocommerce'
+															'poocommerce'
 														) }
 													</Button>
 												</>

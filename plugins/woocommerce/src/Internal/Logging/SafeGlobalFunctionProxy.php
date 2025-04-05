@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Logging;
+namespace Automattic\PooCommerce\Internal\Logging;
 
 /**
  * SafeGlobalFunctionProxy Class
@@ -10,7 +10,7 @@ namespace Automattic\WooCommerce\Internal\Logging;
  * This class creates a wrapper for non-built-in functions for safety.
  *
  * @since 9.4.0
- * @package Automattic\WooCommerce\Internal\Logging
+ * @package Automattic\PooCommerce\Internal\Logging
  */
 class SafeGlobalFunctionProxy {
 

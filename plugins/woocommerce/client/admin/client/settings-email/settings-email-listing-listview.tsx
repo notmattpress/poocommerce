@@ -7,7 +7,7 @@ import { edit, external } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 // @ts-expect-error - We need to use this /wp see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-dataviews/#dataviews
-import { DataViews, View } from '@wordpress/dataviews/wp'; // eslint-disable-line @woocommerce/dependency-group
+import { DataViews, View } from '@wordpress/dataviews/wp'; // eslint-disable-line @poocommerce/dependency-group
 
 /**
  * Internal dependencies
@@ -39,14 +39,14 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 		() => [
 			{
 				id: 'title',
-				label: __( 'Title', 'woocommerce' ),
+				label: __( 'Title', 'poocommerce' ),
 				enableHiding: false,
 				render: ( row: { item: EmailType } ) => {
 					return (
-						<div className="woocommerce-email-listing-title">
+						<div className="poocommerce-email-listing-title">
 							{ row.item.title }
 							<br />
-							<span className="woocommerce-email-listing-description">
+							<span className="poocommerce-email-listing-description">
 								{ row.item.description }
 							</span>
 						</div>
@@ -55,7 +55,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'recipients',
-				label: __( 'Recipient(s)', 'woocommerce' ),
+				label: __( 'Recipient(s)', 'poocommerce' ),
 				enableSorting: false,
 				enableHiding: false,
 				render: ( row: { item: EmailType } ) => {
@@ -66,7 +66,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'status',
-				label: __( 'Status', 'woocommerce' ),
+				label: __( 'Status', 'poocommerce' ),
 				enableHiding: true,
 				filterBy: {
 					operators: [ 'isAny' ],
@@ -84,7 +84,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 		() => [
 			{
 				id: 'preview',
-				label: __( 'Preview', 'woocommerce' ),
+				label: __( 'Preview', 'poocommerce' ),
 				icon: <Icon icon={ external } />,
 				supportsBulk: false,
 				callback: ( items: EmailType[] ) => {
@@ -95,7 +95,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'edit',
-				label: __( 'Edit', 'woocommerce' ),
+				label: __( 'Edit', 'poocommerce' ),
 				icon: <Icon icon={ edit } />,
 				supportsBulk: false,
 				callback: ( items: EmailType[] ) => {
@@ -114,7 +114,7 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 			},
 			{
 				id: 'test',
-				label: __( 'Send test email', 'woocommerce' ),
+				label: __( 'Send test email', 'poocommerce' ),
 				disabled: true,
 				supportsBulk: false,
 				callback: () => {
@@ -125,8 +125,8 @@ export const ListView = ( { emailTypes }: { emailTypes: EmailType[] } ) => {
 				id: 'change-status',
 				label: ( items: EmailType[] ) =>
 					items[ 0 ].status === 'enabled'
-						? __( 'Disable email', 'woocommerce' )
-						: __( 'Enable email', 'woocommerce' ),
+						? __( 'Disable email', 'poocommerce' )
+						: __( 'Enable email', 'poocommerce' ),
 				supportsBulk: false,
 				isEligible: ( item: EmailType ) =>
 					item.status === 'enabled' || item.status === 'disabled',

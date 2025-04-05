@@ -53,7 +53,7 @@ export function TrashModal( {
 					? ( lastError.message as string )
 					: __(
 							'An error occurred while moving the email to the trash.',
-							'woocommerce'
+							'poocommerce'
 					  );
 				recordEvent( 'trash_modal_move_to_trash_error', {
 					errorMessage,
@@ -68,8 +68,8 @@ export function TrashModal( {
 	};
 	return (
 		<Modal
-			className="woocommerce-move-to-trash-modal"
-			title={ __( 'Move to trash', 'woocommerce' ) }
+			className="poocommerce-move-to-trash-modal"
+			title={ __( 'Move to trash', 'poocommerce' ) }
 			onRequestClose={ () => {
 				closeCallback();
 				recordEvent( 'trash_modal_closed' );
@@ -79,10 +79,10 @@ export function TrashModal( {
 			<p>
 				{ __(
 					'Are you sure you want to move this email to trash?',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
-			<div className="woocommerce-send-preview-modal-footer">
+			<div className="poocommerce-send-preview-modal-footer">
 				<Button
 					variant="tertiary"
 					onClick={ () => {
@@ -90,10 +90,10 @@ export function TrashModal( {
 						recordEvent( 'trash_modal_cancel_button_clicked' );
 					} }
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button variant="primary" onClick={ trashCallback }>
-					{ __( 'Move to trash', 'woocommerce' ) }
+					{ __( 'Move to trash', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

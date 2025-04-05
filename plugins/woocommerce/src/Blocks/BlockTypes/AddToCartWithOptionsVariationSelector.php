@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Block type for variation selector in add to cart with options.
@@ -29,7 +29,7 @@ class AddToCartWithOptionsVariationSelector extends AbstractBlock {
 		 * @param int        $threshold Maximum number of variations to load upfront.
 		 * @param WC_Product $product   Product object.
 		 */
-		$get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
+		$get_variations = count( $product->get_children() ) <= apply_filters( 'poocommerce_ajax_variation_threshold', 30, $product );
 		return $get_variations ? $product->get_available_variations() : false;
 	}
 

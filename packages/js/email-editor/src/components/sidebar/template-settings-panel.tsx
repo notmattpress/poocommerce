@@ -11,7 +11,7 @@ interface TemplatePanelSection {
 export function TemplateSettingsPanel() {
 	// Allow plugins to add custom template sections
 	const templateSections = applyFilters(
-		'woocommerce_email_editor_template_sections',
+		'poocommerce_email_editor_template_sections',
 		[]
 	) as TemplatePanelSection[];
 

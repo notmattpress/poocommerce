@@ -8,8 +8,8 @@ const htmlMap = new Map< string, string >();
 const data = document.getElementById( 'wp-interactivity-data' );
 if ( data ) {
 	const interactivityData = JSON.parse( data.textContent );
-	if ( interactivityData.state?.[ 'woocommerce/product-button' ] ) {
-		interactivityData.state[ 'woocommerce/product-button' ].addToCartText =
+	if ( interactivityData.state?.[ 'poocommerce/product-button' ] ) {
+		interactivityData.state[ 'poocommerce/product-button' ].addToCartText =
 			undefined;
 		data.textContent = JSON.stringify( interactivityData );
 	}
@@ -62,9 +62,9 @@ async function fetchUrlAndReplaceState( url: string ): Promise< string > {
 		const dataElement = dom.getElementById( 'wp-interactivity-data' );
 		const interactivityData = JSON.parse( data.textContent );
 
-		if ( interactivityData.state?.[ 'woocommerce/product-button' ] ) {
+		if ( interactivityData.state?.[ 'poocommerce/product-button' ] ) {
 			interactivityData.state[
-				'woocommerce/product-button'
+				'poocommerce/product-button'
 			].addToCartText = undefined;
 			dataElement.textContent = JSON.stringify( interactivityData );
 		}
@@ -176,6 +176,6 @@ const productCollectionStore = {
 	},
 };
 
-store( 'woocommerce/product-collection', productCollectionStore, {
+store( 'poocommerce/product-collection', productCollectionStore, {
 	lock: true,
 } );

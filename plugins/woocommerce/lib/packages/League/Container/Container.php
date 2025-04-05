@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container;
+namespace Automattic\PooCommerce\Vendor\League\Container;
 
-use Automattic\WooCommerce\Vendor\League\Container\Definition\{DefinitionAggregate, DefinitionInterface, DefinitionAggregateInterface};
-use Automattic\WooCommerce\Vendor\League\Container\Exception\{NotFoundException, ContainerException};
-use Automattic\WooCommerce\Vendor\League\Container\Inflector\{InflectorAggregate, InflectorInterface, InflectorAggregateInterface};
-use Automattic\WooCommerce\Vendor\League\Container\ServiceProvider\{
+use Automattic\PooCommerce\Vendor\League\Container\Definition\{DefinitionAggregate, DefinitionInterface, DefinitionAggregateInterface};
+use Automattic\PooCommerce\Vendor\League\Container\Exception\{NotFoundException, ContainerException};
+use Automattic\PooCommerce\Vendor\League\Container\Inflector\{InflectorAggregate, InflectorInterface, InflectorAggregateInterface};
+use Automattic\PooCommerce\Vendor\League\Container\ServiceProvider\{
     ServiceProviderAggregate,
     ServiceProviderAggregateInterface,
     ServiceProviderInterface
 };
-use Automattic\WooCommerce\Vendor\Psr\Container\ContainerInterface;
+use Automattic\PooCommerce\Vendor\Psr\Container\ContainerInterface;
 
 class Container implements ContainerInterface
 {

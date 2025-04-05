@@ -30,11 +30,11 @@ Object {
     />
     <div>
       <button
-        class="components-button woocommerce-dropdown-button"
+        class="components-button poocommerce-dropdown-button"
         type="button"
       >
         <div
-          class="woocommerce-dropdown-button__labels"
+          class="poocommerce-dropdown-button__labels"
         >
           <span>
             foo
@@ -45,11 +45,11 @@ Object {
   </body>,
   "container": <div>
     <button
-      class="components-button woocommerce-dropdown-button"
+      class="components-button poocommerce-dropdown-button"
       type="button"
     >
       <div
-        class="woocommerce-dropdown-button__labels"
+        class="poocommerce-dropdown-button__labels"
       >
         <span>
           foo

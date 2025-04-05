@@ -3,17 +3,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div id="advanced_product_data" class="panel woocommerce_options_panel hidden">
+<div id="advanced_product_data" class="panel poocommerce_options_panel hidden">
 
 	<div class="options_group hide_if_external hide_if_grouped">
 		<?php
-		woocommerce_wp_textarea_input(
+		poocommerce_wp_textarea_input(
 			array(
 				'id'          => '_purchase_note',
 				'value'       => $product_object->get_purchase_note( 'edit' ),
-				'label'       => __( 'Purchase note', 'woocommerce' ),
+				'label'       => __( 'Purchase note', 'poocommerce' ),
 				'desc_tip'    => true,
-				'description' => __( 'Enter an optional note to send the customer after purchase.', 'woocommerce' ),
+				'description' => __( 'Enter an optional note to send the customer after purchase.', 'poocommerce' ),
 			)
 		);
 		?>
@@ -21,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="options_group">
 		<?php
-		woocommerce_wp_text_input(
+		poocommerce_wp_text_input(
 			array(
 				'id'                => 'menu_order',
 				'value'             => $product_object->get_menu_order( 'edit' ),
-				'label'             => __( 'Menu order', 'woocommerce' ),
+				'label'             => __( 'Menu order', 'poocommerce' ),
 				'desc_tip'          => true,
-				'description'       => __( 'Custom ordering position.', 'woocommerce' ),
+				'description'       => __( 'Custom ordering position.', 'poocommerce' ),
 				'type'              => 'number',
 				'custom_attributes' => array(
 					'step' => '1',
@@ -40,18 +40,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( post_type_supports( 'product', 'comments' ) ) : ?>
 		<div class="options_group reviews">
 			<?php
-				woocommerce_wp_checkbox(
+				poocommerce_wp_checkbox(
 					array(
 						'id'      => 'comment_status',
 						'value'   => $product_object->get_reviews_allowed( 'edit' ) ? 'open' : 'closed',
-						'label'   => __( 'Enable reviews', 'woocommerce' ),
+						'label'   => __( 'Enable reviews', 'poocommerce' ),
 						'cbvalue' => 'open',
 					)
 				);
-				do_action( 'woocommerce_product_options_reviews' );
+				do_action( 'poocommerce_product_options_reviews' );
 			?>
 		</div>
 	<?php endif; ?>
 
-	<?php do_action( 'woocommerce_product_options_advanced' ); ?>
+	<?php do_action( 'poocommerce_product_options_advanced' ); ?>
 </div>

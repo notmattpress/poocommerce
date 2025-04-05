@@ -3,7 +3,7 @@
  */
 import { useMachine, useSelector } from '@xstate/react';
 import { useEffect, useState } from '@wordpress/element';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 import { useSelect } from '@wordpress/data';
 import { AnyInterpreter, Sender } from 'xstate';
 
@@ -99,7 +99,7 @@ export const DesignWithAiController = ( {
 
 	return (
 		<div
-			className={ `woocommerce-design-with-ai__container woocommerce-design-with-ai-wizard__step-${ currentNodeCssLabel }` }
+			className={ `poocommerce-design-with-ai__container poocommerce-design-with-ai-wizard__step-${ currentNodeCssLabel }` }
 		>
 			{ CurrentComponent ? (
 				<CurrentComponent

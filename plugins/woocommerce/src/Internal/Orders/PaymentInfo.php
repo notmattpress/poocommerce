@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 use WC_Abstract_Order;
 
 /**
@@ -35,7 +35,7 @@ class PaymentInfo {
 	public static function get_card_info( WC_Abstract_Order $order ): array {
 		$method = $order->get_payment_method();
 
-		if ( 'woocommerce_payments' === $method ) {
+		if ( 'poocommerce_payments' === $method ) {
 			$info = self::get_wcpay_card_info( $order );
 		} else {
 			/**
@@ -96,11 +96,11 @@ class PaymentInfo {
 	 * @return array
 	 */
 	private static function get_wcpay_card_info( WC_Abstract_Order $order ): array {
-		if ( 'woocommerce_payments' !== $order->get_payment_method() ) {
+		if ( 'poocommerce_payments' !== $order->get_payment_method() ) {
 			return array();
 		}
 
-		// For testing purposes: if WooCommerce Payments development mode is enabled, an order meta item with
+		// For testing purposes: if PooCommerce Payments development mode is enabled, an order meta item with
 		// key '_wcpay_payment_details' will be used if it exists as a replacement for the call to the Stripe
 		// API's 'get intent' endpoint. The value must be the JSON encoding of an array simulating the
 		// "payment_details" part of the response from the endpoint.

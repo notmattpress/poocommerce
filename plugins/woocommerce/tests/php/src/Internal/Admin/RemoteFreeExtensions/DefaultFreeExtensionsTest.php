@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\RemoteFreeExtensions;
 
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
-use Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions\EvaluateExtension;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\DefaultFreeExtensions;
+use Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions\EvaluateExtension;
 use WC_Unit_Test_Case;
 
 /**
@@ -28,13 +28,13 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		update_option( 'woocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
 
 		/*
 		 * Required for the BaseLocationCountryRuleProcessor
 		 * to not return false for "US:CA" country-state combo.
 		 */
-		update_option( 'woocommerce_store_address', 'foo' );
+		update_option( 'poocommerce_store_address', 'foo' );
 
 		update_option( 'active_plugins', array( 'foo/foo.php' ) );
 
@@ -43,15 +43,15 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 				'key'     => 'foo',
 				'title'   => 'Test bundle',
 				'plugins' => array(
-					DefaultFreeExtensions::get_plugin( 'woocommerce-shipping' ),
-					DefaultFreeExtensions::get_plugin( 'woocommerce-services:tax' ),
+					DefaultFreeExtensions::get_plugin( 'poocommerce-shipping' ),
+					DefaultFreeExtensions::get_plugin( 'poocommerce-services:tax' ),
 				),
 			),
 			array(
 				'key'     => 'obw/core-profiler',
 				'title'   => 'Core Profiler Bundle',
 				'plugins' => array(
-					DefaultFreeExtensions::get_plugin( 'woocommerce-payments' ),
+					DefaultFreeExtensions::get_plugin( 'poocommerce-payments' ),
 					DefaultFreeExtensions::get_plugin( 'mailpoet' ),
 				),
 			),
@@ -66,7 +66,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	public function test_wcservices_is_recommended_for_tax() {
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
-		$this->assertContains( 'woocommerce-services:tax', $recommended_plugin_slugs );
+		$this->assertContains( 'poocommerce-services:tax', $recommended_plugin_slugs );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	public function test_wcshipping_is_recommended_for_shipping() {
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
-		$this->assertContains( 'woocommerce-shipping', $recommended_plugin_slugs );
+		$this->assertContains( 'poocommerce-shipping', $recommended_plugin_slugs );
 	}
 
 	/**
@@ -86,11 +86,11 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_wcservices_is_not_recommended_if_in_an_unsupported_country() {
-		update_option( 'woocommerce_default_country', 'FOO' );
+		update_option( 'poocommerce_default_country', 'FOO' );
 
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
-		$this->assertNotContains( 'woocommerce-services:tax', $recommended_plugin_slugs );
+		$this->assertNotContains( 'poocommerce-services:tax', $recommended_plugin_slugs );
 	}
 
 	/**
@@ -99,22 +99,22 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_wcshipping_is_not_recommended_if_in_an_unsupported_country() {
-		update_option( 'woocommerce_default_country', 'FOO' );
+		update_option( 'poocommerce_default_country', 'FOO' );
 
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
-		$this->assertNotContains( 'woocommerce-shipping', $recommended_plugin_slugs );
+		$this->assertNotContains( 'poocommerce-shipping', $recommended_plugin_slugs );
 	}
 
 	/**
-	 * Asserts WCS&T is still recommended if WooCommerce Shipping is active.
+	 * Asserts WCS&T is still recommended if PooCommerce Shipping is active.
 	 *
 	 * @return void
 	 */
-	public function test_wcservices_is_recommended_if_woocommerce_shipping_is_active() {
+	public function test_wcservices_is_recommended_if_poocommerce_shipping_is_active() {
 		// Arrange.
 		// Make sure the plugin passes as active.
-		$shipping_plugin_file = 'woocommerce-shipping/woocommerce-shipping.php';
+		$shipping_plugin_file = 'poocommerce-shipping/poocommerce-shipping.php';
 		// To pass the validation, we need to the plugin file to exist.
 		$shipping_plugin_file_path = WP_PLUGIN_DIR . '/' . $shipping_plugin_file;
 		self::touch( $shipping_plugin_file_path );
@@ -124,7 +124,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 		$recommended_plugin_slugs = $this->get_recommended_plugin_slugs( $this->bundles_mock );
 
 		// Assert.
-		$this->assertContains( 'woocommerce-services:tax', $recommended_plugin_slugs );
+		$this->assertContains( 'poocommerce-services:tax', $recommended_plugin_slugs );
 
 		// Clean up.
 		self::rmdir( dirname( $shipping_plugin_file_path ) );
@@ -165,10 +165,10 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 			$config['disable-core-profiler-fallback'] = true;
 			return $config;
 		};
-		add_filter( 'woocommerce_admin_get_feature_config', $filter );
+		add_filter( 'poocommerce_admin_get_feature_config', $filter );
 
 		// Set user in rollout group (1-60).
-		update_option( 'woocommerce_remote_variant_assignment', 30 );
+		update_option( 'poocommerce_remote_variant_assignment', 30 );
 
 		$bundles     = DefaultFreeExtensions::get_all();
 		$bundle_keys = array_map(
@@ -181,7 +181,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 		$this->assertNotContains( 'obw/core-profiler', $bundle_keys );
 
 		// Cleanup.
-		remove_filter( 'woocommerce_admin_get_feature_config', $filter );
+		remove_filter( 'poocommerce_admin_get_feature_config', $filter );
 	}
 
 	/**
@@ -193,10 +193,10 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 			$config['disable-core-profiler-fallback'] = true;
 			return $config;
 		};
-		add_filter( 'woocommerce_admin_get_feature_config', $filter );
+		add_filter( 'poocommerce_admin_get_feature_config', $filter );
 
 		// Set user outside rollout group (61-120).
-		update_option( 'woocommerce_remote_variant_assignment', 90 );
+		update_option( 'poocommerce_remote_variant_assignment', 90 );
 
 		$bundles     = DefaultFreeExtensions::get_all();
 		$bundle_keys = array_map(
@@ -209,7 +209,7 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 		$this->assertContains( 'obw/core-profiler', $bundle_keys );
 
 		// Cleanup.
-		remove_filter( 'woocommerce_admin_get_feature_config', $filter );
+		remove_filter( 'poocommerce_admin_get_feature_config', $filter );
 	}
 
 	/**
@@ -221,10 +221,10 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 			$config['disable-core-profiler-fallback'] = false;
 			return $config;
 		};
-		add_filter( 'woocommerce_admin_get_feature_config', $filter );
+		add_filter( 'poocommerce_admin_get_feature_config', $filter );
 
 		// Set user in rollout group (shouldn't matter).
-		update_option( 'woocommerce_remote_variant_assignment', 30 );
+		update_option( 'poocommerce_remote_variant_assignment', 30 );
 
 		$bundles     = DefaultFreeExtensions::get_all();
 		$bundle_keys = array_map(
@@ -237,6 +237,6 @@ class DefaultFreeExtensionsTest extends WC_Unit_Test_Case {
 		$this->assertContains( 'obw/core-profiler', $bundle_keys );
 
 		// Cleanup.
-		remove_filter( 'woocommerce_admin_get_feature_config', $filter );
+		remove_filter( 'poocommerce_admin_get_feature_config', $filter );
 	}
 }

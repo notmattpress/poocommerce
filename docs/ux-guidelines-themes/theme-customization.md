@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Theme Guidelines - Customization
+post_title: PooCommerce Theme Guidelines - Customization
 menu_title: Customization
 ---
 

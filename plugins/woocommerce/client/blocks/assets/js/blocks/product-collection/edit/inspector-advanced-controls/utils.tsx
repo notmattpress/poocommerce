@@ -6,29 +6,29 @@ import { store as blockEditorStore } from '@wordpress/block-editor';
 
 const unsupportedBlocks = [
 	'core/post-content',
-	'woocommerce/mini-cart',
-	'woocommerce/product-search',
-	'woocommerce/product-title',
+	'poocommerce/mini-cart',
+	'poocommerce/product-search',
+	'poocommerce/product-title',
 	// Classic wrapper blocks
-	'woocommerce/classic-shortcode',
-	'woocommerce/legacy-template',
+	'poocommerce/classic-shortcode',
+	'poocommerce/legacy-template',
 	// Legacy filter blocks
-	'woocommerce/active-filters',
-	'woocommerce/price-filter',
-	'woocommerce/stock-filter',
-	'woocommerce/attribute-filter',
-	'woocommerce/rating-filter',
+	'poocommerce/active-filters',
+	'poocommerce/price-filter',
+	'poocommerce/stock-filter',
+	'poocommerce/attribute-filter',
+	'poocommerce/rating-filter',
 	// Deprecated product grid blocks
-	'woocommerce/handpicked-products',
-	'woocommerce/product-best-sellers',
-	'woocommerce/product-category',
-	'woocommerce/product-new',
-	'woocommerce/product-on-sale',
-	'woocommerce/product-tag',
-	'woocommerce/product-top-rated',
+	'poocommerce/handpicked-products',
+	'poocommerce/product-best-sellers',
+	'poocommerce/product-category',
+	'poocommerce/product-new',
+	'poocommerce/product-on-sale',
+	'poocommerce/product-tag',
+	'poocommerce/product-top-rated',
 ];
 
-const supportedPrefixes = [ 'core/', 'woocommerce/' ];
+const supportedPrefixes = [ 'core/', 'poocommerce/' ];
 
 const isBlockSupported = ( blockName: string ) => {
 	// Check for explicitly unsupported blocks

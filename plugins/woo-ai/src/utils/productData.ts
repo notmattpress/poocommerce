@@ -75,7 +75,7 @@ export const getCategories = (): string[] => {
 
 		return (
 			element.checked &&
-			categoryLabel !== __( 'Uncategorized', 'woocommerce' )
+			categoryLabel !== __( 'Uncategorized', 'poocommerce' )
 		);
 	} );
 
@@ -98,7 +98,7 @@ export const getTags = (): string[] => {
 
 export const getAttributes = (): Attribute[] => {
 	const attributeContainerEls = Array.from(
-		document.querySelectorAll( '.woocommerce_attribute' )
+		document.querySelectorAll( '.poocommerce_attribute' )
 	);
 
 	return attributeContainerEls.reduce( ( acc, item ) => {
@@ -107,12 +107,12 @@ export const getAttributes = (): Attribute[] => {
 				name: () =>
 					(
 						item.querySelector(
-							'.woocommerce_attribute_data input.attribute_name'
+							'.poocommerce_attribute_data input.attribute_name'
 						) as HTMLInputElement | null
 					 )?.value,
 				values: () =>
 					item
-						.querySelector( '.woocommerce_attribute_data textarea' )
+						.querySelector( '.poocommerce_attribute_data textarea' )
 						?.textContent?.split( '|' )
 						.map( ( attrName ) => attrName.trim() ),
 			},

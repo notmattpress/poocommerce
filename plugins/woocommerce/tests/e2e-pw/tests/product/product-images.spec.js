@@ -46,7 +46,7 @@ const test = baseTest.extend( {
 			.put( `${ WC_API_PATH }/products/${ product.id }`, {
 				images: [
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
 					},
 				],
 			} )
@@ -62,13 +62,13 @@ const test = baseTest.extend( {
 			.put( `${ WC_API_PATH }/products/${ product.id }`, {
 				images: [
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg',
 					},
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg',
 					},
 					{
-						src: 'http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
+						src: 'http://demo.woothemes.com/poocommerce/wp-content/uploads/sites/56/2013/06/T_3_front.jpg',
 					},
 				],
 			} )
@@ -249,7 +249,7 @@ test.describe( 'Products > Product Images', () => {
 			await page.goto( productWithImage.permalink );
 			await expect(
 				page
-					.locator( `.woocommerce-product-gallery ol img` )
+					.locator( `.poocommerce-product-gallery ol img` )
 					.nth( images.length ),
 				'all gallery images should be visible'
 			).toBeVisible(); // +1 for the featured image
@@ -295,7 +295,7 @@ test.describe( 'Products > Product Images', () => {
 		await test.step( 'Verify product gallery', async () => {
 			// Verify gallery in store frontend
 			await page.goto( productWithGallery.permalink );
-			const selector = `.woocommerce-product-gallery ol img`;
+			const selector = `.poocommerce-product-gallery ol img`;
 			await expect(
 				page.locator( selector ).nth( imagesCount - 1 ),
 				'gallery images should be visible'

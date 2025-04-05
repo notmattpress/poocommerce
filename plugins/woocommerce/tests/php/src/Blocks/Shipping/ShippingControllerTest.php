@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Blocks\Shipping;
+namespace Automattic\PooCommerce\Tests\Blocks\Shipping;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Shipping\ShippingController;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Shipping\ShippingController;
 
 /**
  * Unit tests for the PatternRegistry class.
@@ -61,7 +61,7 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 
 		// Now add a filter to set US state to optional, and UK state to required.
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['US']['state']['required']      = false;
 				$locale['GB']['state']['required']      = true;
@@ -88,6 +88,6 @@ class ShippingControllerTest extends \WP_UnitTestCase {
 		$this->assertTrue( WC()->customer->has_full_shipping_address() );
 
 		// Remove filter.
-		remove_all_filters( 'woocommerce_get_country_locale' );
+		remove_all_filters( 'poocommerce_get_country_locale' );
 	}
 }

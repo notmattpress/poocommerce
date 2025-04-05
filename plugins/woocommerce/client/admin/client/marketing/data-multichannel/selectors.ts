@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { WPDataSelector, WPDataSelectors } from '@woocommerce/data';
+import type { WPDataSelector, WPDataSelectors } from '@poocommerce/data';
 
 /**
  * Internal dependencies

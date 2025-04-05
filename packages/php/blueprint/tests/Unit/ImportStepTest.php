@@ -1,9 +1,9 @@
 <?php
 
-use Automattic\WooCommerce\Blueprint\Tests\stubs\Importers\DummyImporter;
+use Automattic\PooCommerce\Blueprint\Tests\stubs\Importers\DummyImporter;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\ImportStep;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\ImportStep;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
 
 /**
  * Class ImportStepTest

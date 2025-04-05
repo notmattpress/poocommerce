@@ -41,7 +41,7 @@ function SidebarContent( props: Props ) {
 	return (
 		<ComplementaryArea
 			identifier={ mainSidebarId }
-			closeLabel={ __( 'Close sidebar', 'woocommerce' ) }
+			closeLabel={ __( 'Close sidebar', 'poocommerce' ) }
 			headerClassName="editor-sidebar__panel-tabs"
 			className="edit-post-sidebar"
 			header={

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\ServiceProvider;
+namespace Automattic\PooCommerce\Vendor\League\Container\ServiceProvider;
 
 interface BootableServiceProviderInterface extends ServiceProviderInterface
 {

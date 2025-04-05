@@ -1,23 +1,23 @@
 <?php
 /**
- * Tests for the WooCommerce instance and general constants.
+ * Tests for the PooCommerce instance and general constants.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 use Automattic\Jetpack\Constants;
 
 /**
- * WC_Test_WooCommerce class.
+ * WC_Test_PooCommerce class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
-class WC_Test_WooCommerce extends WC_Unit_Test_Case {
+class WC_Test_PooCommerce extends WC_Unit_Test_Case {
 
 	/**
-	 * WooCommerce instance.
+	 * PooCommerce instance.
 	 *
-	 * @var \WooCommerce instance
+	 * @var \PooCommerce instance
 	 */
 	protected $wc;
 
@@ -37,7 +37,7 @@ class WC_Test_WooCommerce extends WC_Unit_Test_Case {
 	 * @since 2.2
 	 */
 	public function test_wc_instance() {
-		$this->assertTrue( property_exists( WooCommerce::class, '_instance' ) );
+		$this->assertTrue( property_exists( PooCommerce::class, '_instance' ) );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class WC_Test_WooCommerce extends WC_Unit_Test_Case {
 	 * @since 2.2
 	 */
 	public function test_constants() {
-		$this->assertEquals( str_replace( 'tests/legacy/unit-tests/core/', '', plugin_dir_path( __FILE__ ) ) . 'woocommerce.php', WC_PLUGIN_FILE );
+		$this->assertEquals( str_replace( 'tests/legacy/unit-tests/core/', '', plugin_dir_path( __FILE__ ) ) . 'poocommerce.php', WC_PLUGIN_FILE );
 		$this->assertEquals( $this->wc->version, Constants::get_constant( 'WC_VERSION' ) );
 		$this->assertEquals( WC_VERSION, WOOCOMMERCE_VERSION );
 		$this->assertEquals( 6, WC_ROUNDING_PRECISION );
@@ -65,7 +65,7 @@ class WC_Test_WooCommerce extends WC_Unit_Test_Case {
 	 * @since 2.2
 	 */
 	public function test_wc_class_instances() {
-		$this->assertInstanceOf( 'WooCommerce', $this->wc );
+		$this->assertInstanceOf( 'PooCommerce', $this->wc );
 		$this->assertInstanceOf( 'WC_Product_Factory', $this->wc->product_factory );
 		$this->assertInstanceOf( 'WC_Order_Factory', $this->wc->order_factory );
 		$this->assertInstanceOf( 'WC_Countries', $this->wc->countries );

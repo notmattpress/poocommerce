@@ -27,7 +27,7 @@ export class AnalyticsOverview extends Analytics {
 
 	async getSections(): Promise< Section[] > {
 		const list = await this.page.$$(
-			'.woocommerce-dashboard-section .woocommerce-section-header'
+			'.poocommerce-dashboard-section .poocommerce-section-header'
 		);
 		const sections = await Promise.all(
 			list.map( async ( item ) => {
@@ -60,11 +60,11 @@ export class AnalyticsOverview extends Analytics {
 		);
 		if ( section ) {
 			const ellipsisMenu = await section.element.$(
-				'.woocommerce-ellipsis-menu .woocommerce-ellipsis-menu__toggle'
+				'.poocommerce-ellipsis-menu .poocommerce-ellipsis-menu__toggle'
 			);
 			await ellipsisMenu?.click();
 			await this.page.waitForSelector(
-				'.woocommerce-ellipsis-menu div[role=menu]'
+				'.poocommerce-ellipsis-menu div[role=menu]'
 			);
 		}
 	}
@@ -75,13 +75,13 @@ export class AnalyticsOverview extends Analytics {
 		);
 		if ( section ) {
 			const ellipsisMenu = await section.element.$(
-				'.woocommerce-ellipsis-menu .woocommerce-ellipsis-menu__toggle'
+				'.poocommerce-ellipsis-menu .poocommerce-ellipsis-menu__toggle'
 			);
 			await ellipsisMenu?.click();
 			await page.waitForFunction(
 				() =>
 					! document.querySelector(
-						'.woocommerce-ellipsis-menu div[role=menu]'
+						'.poocommerce-ellipsis-menu div[role=menu]'
 					)
 			);
 		}
@@ -121,7 +121,7 @@ export class AnalyticsOverview extends Analytics {
 	> {
 		await this.openSectionEllipsis( sectionTitle );
 		const list = await this.page.$$(
-			'.woocommerce-ellipsis-menu div[role=menuitem]'
+			'.poocommerce-ellipsis-menu div[role=menuitem]'
 		);
 		return Promise.all(
 			list.map( async ( item ) => ( {
@@ -140,7 +140,7 @@ export class AnalyticsOverview extends Analytics {
 	> {
 		await this.openSectionEllipsis( sectionTitle );
 		const list = await this.page.$$(
-			'.woocommerce-ellipsis-menu div[role=menuitemcheckbox]'
+			'.poocommerce-ellipsis-menu div[role=menuitemcheckbox]'
 		);
 		return Promise.all(
 			list.map( async ( item ) => ( {

@@ -6,7 +6,7 @@ const setNewPaymentsSettingsPage = async ( { baseURL, enabled } ) => {
 		await setOption(
 			request,
 			baseURL,
-			'woocommerce_feature_reactify-classic-payments-settings_enabled',
+			'poocommerce_feature_reactify-classic-payments-settings_enabled',
 			enabled
 		);
 	} catch ( error ) {
@@ -16,7 +16,7 @@ const setNewPaymentsSettingsPage = async ( { baseURL, enabled } ) => {
 
 const resetGatewayOrder = async ( baseURL ) => {
 	try {
-		await deleteOption( request, baseURL, 'woocommerce_gateway_order' );
+		await deleteOption( request, baseURL, 'poocommerce_gateway_order' );
 	} catch ( error ) {
 		console.log( error );
 	}

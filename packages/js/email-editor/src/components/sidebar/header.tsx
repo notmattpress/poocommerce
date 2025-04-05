@@ -17,11 +17,11 @@ export function HeaderTabs( _, ref ) {
 		<Tabs.TabList ref={ ref }>
 			<Tabs.Tab tabId={ mainSidebarDocumentTab }>
 				{ editorMode === 'template'
-					? __( 'Template', 'woocommerce' )
-					: __( 'Email', 'woocommerce' ) }
+					? __( 'Template', 'poocommerce' )
+					: __( 'Email', 'poocommerce' ) }
 			</Tabs.Tab>
 			<Tabs.Tab tabId={ mainSidebarBlockTab }>
-				{ __( 'Block', 'woocommerce' ) }
+				{ __( 'Block', 'poocommerce' ) }
 			</Tabs.Tab>
 		</Tabs.TabList>
 	);

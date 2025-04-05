@@ -1,12 +1,12 @@
 {
-	"name": "woocommerce/add-to-cart-with-options-variation-selector-attribute-options",
+	"name": "poocommerce/add-to-cart-with-options-variation-selector-attribute-options",
 	"version": "1.0.0",
 	"title": "Variation Selector Attribute Options (Experimental)",
 	"description": "The attribute options of a given variable product attribute.",
-	"category": "woocommerce-product-elements",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce-product-elements",
+	"keywords": [ "PooCommerce" ],
 	"ancestor": [
-		"woocommerce/add-to-cart-with-options-variation-selector-item"
+		"poocommerce/add-to-cart-with-options-variation-selector-item"
 	],
 	"attributes": {
 		"style": {
@@ -15,7 +15,7 @@
 			"default": "pills"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"supports": {
@@ -23,8 +23,8 @@
 		"interactivity": true
 	},
 	"usesContext": [
-		"woocommerce/attributeId",
-		"woocommerce/attributeName",
-		"woocommerce/attributeTerms"
+		"poocommerce/attributeId",
+		"poocommerce/attributeName",
+		"poocommerce/attributeTerms"
 	]
 }

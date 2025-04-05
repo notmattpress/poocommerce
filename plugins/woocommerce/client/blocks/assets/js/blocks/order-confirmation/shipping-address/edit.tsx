@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { AdditionalFieldsPlaceholder } from '@woocommerce/base-components/cart-checkout';
-import { ADDRESS_FORM_FIELDS } from '@woocommerce/block-settings';
+import { AdditionalFieldsPlaceholder } from '@poocommerce/base-components/cart-checkout';
+import { ADDRESS_FORM_FIELDS } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies

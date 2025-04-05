@@ -23,13 +23,13 @@ type EmailContentValidationRule = {
 	actions: [];
 };
 
-addFilter( 'woocommerce_email_editor_send_button_label', NAME_SPACE, () =>
-	__( 'Save email', 'woocommerce' )
+addFilter( 'poocommerce_email_editor_send_button_label', NAME_SPACE, () =>
+	__( 'Save email', 'poocommerce' )
 );
 
 // Add email validation rule
 addFilter(
-	'woocommerce_email_editor_content_validation_rules',
+	'poocommerce_email_editor_content_validation_rules',
 	NAME_SPACE,
 	( rules: EmailContentValidationRule[] ) => {
 		const emailValidationRule: EmailContentValidationRule = {
@@ -44,8 +44,8 @@ addFilter(
 				return ! email || ! input?.checkValidity();
 			},
 			message: __(
-				'The "from" email address is invalid. Please enter a valid email address that will appear as the sender in outgoing WooCommerce emails.',
-				'woocommerce'
+				'The "from" email address is invalid. Please enter a valid email address that will appear as the sender in outgoing PooCommerce emails.',
+				'poocommerce'
 			),
 			actions: [],
 		};
@@ -54,9 +54,9 @@ addFilter(
 );
 
 addFilter(
-	'woocommerce_email_editor_check_sending_method_configuration_link',
+	'poocommerce_email_editor_check_sending_method_configuration_link',
 	NAME_SPACE,
-	() => 'https://woocommerce.com/document/email-faq/'
+	() => 'https://poocommerce.com/document/email-faq/'
 );
 
 registerBlockType( 'woo/email-content', wooContentPlaceholderBlock );

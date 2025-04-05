@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/active-filters",
+	"name": "poocommerce/active-filters",
 	"version": "1.0.0",
 	"title": "Active Filters Controls",
 	"description": "Display the currently active filters.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": false
@@ -28,7 +28,7 @@
 			"default": 3
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

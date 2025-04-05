@@ -3,7 +3,7 @@ post_title: Technical Documentation Style Guide
 menu_title: Style Guide
 ---
 
-This style guide is intended to provide guidelines for creating effective and user-friendly tutorials and how-to guides for WooCommerce technical documentation that will live in repo and be editable and iterative by open source contributors and WooCommerce teams.
+This style guide is intended to provide guidelines for creating effective and user-friendly tutorials and how-to guides for PooCommerce technical documentation that will live in repo and be editable and iterative by open source contributors and PooCommerce teams.
 
 ## Writing style
 
@@ -28,7 +28,7 @@ This style guide is intended to provide guidelines for creating effective and us
 
 - Use language understable even by readers with little technical knowledge and readers whose first language might not be English.
 
-- Consider that this might be the first WooCommerce documentation page the reader has seen. They may have arrived here via a Google search or another website. Give the reader enough context about the topic and link words and phrases to other relevant Docs articles as often as possible.
+- Consider that this might be the first PooCommerce documentation page the reader has seen. They may have arrived here via a Google search or another website. Give the reader enough context about the topic and link words and phrases to other relevant Docs articles as often as possible.
 
 - Consider notes and sections that provide insights, tips, or cautionary information to expand on topics with context that would be relevant to the reader.
 
@@ -57,7 +57,7 @@ How-to guides are focused and specific, providing instructions on how to accompl
 
 ## Custom Linting Rules
 
-At WooCommerce, we're dedicated to maintaining a consistent and high-quality standard for our technical documentation. Our documents primarily adhere to the linting rules provided by `markdownlint`. To assist our contributors, we've detailed our custom configurations and exceptions below.
+At PooCommerce, we're dedicated to maintaining a consistent and high-quality standard for our technical documentation. Our documents primarily adhere to the linting rules provided by `markdownlint`. To assist our contributors, we've detailed our custom configurations and exceptions below.
 
 Note: While we've outlined specific rules above, all other default linting rules from `markdownlint` apply unless otherwise stated. We've only highlighted custom configurations or exceptions here. For a complete list of `markdownlint` rules, you can refer to [this link](https://github.com/DavidAnson/markdownlint/blob/3561fc3f38b05b3c55f44e371c2cd9bda194598a/doc/Rules.md).
 
@@ -115,7 +115,7 @@ Note: While we've outlined specific rules above, all other default linting rules
 - References to a single directory should have a trailing slash (eg. "/" appended) to the name.
   Example: "uploads/"
 - References to repositories should appear without forward slashes and not be formatted in any way. The first appearance of a repository in article content should link to the URL of the repository source whenever possible.
-  Example: "[woocommerce-blocks](https://github.com/woocommerce/woocommerce-blocks)" followed by "woocommerce-blocks"
+  Example: "[poocommerce-blocks](https://github.com/poocommerce/poocommerce-blocks)" followed by "poocommerce-blocks"
 - Inline references to functions and command line operations should be formatted as inline code.
   Example: "Use `dig` to retrieve DNS information."
 - Functions should be styled with "Inline code" formatting and retain upper and lower case formatting as established from their source.
@@ -129,7 +129,7 @@ Visual aids such as screenshots, diagrams, code snippets and videos can be very 
 
 Phrases that are more familiarly known in their acronym form can be used. The first time an acronym appears on any page, the full phrase must be included, followed by its acronym in parentheticals.
 
-Example: We've enhanced the querying functionality in WooCommerce with the introduction of High Performance Order Storage (HPOS).
+Example: We've enhanced the querying functionality in PooCommerce with the introduction of High Performance Order Storage (HPOS).
 
 After that, the acronym can be used for the remainder of the page.
 

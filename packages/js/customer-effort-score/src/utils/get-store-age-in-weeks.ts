@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WEEK } from '@woocommerce/data';
+import { WEEK } from '@poocommerce/data';
 
 export function getStoreAgeInWeeks( adminInstallTimestamp: number ) {
 	if ( adminInstallTimestamp === 0 ) {

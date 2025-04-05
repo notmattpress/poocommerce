@@ -1,15 +1,15 @@
 <?php
 /**
  * Title: Four Image Grid Content Left
- * Slug: woocommerce-blocks/form-image-grid-content-left
- * Categories: WooCommerce, About
+ * Slug: poocommerce-blocks/form-image-grid-content-left
+ * Categories: PooCommerce, About
  */
 declare(strict_types=1);
-use Automattic\WooCommerce\Blocks\AIContent\PatternsHelper;
+use Automattic\PooCommerce\Blocks\AIContent\PatternsHelper;
 
-$header  = __( 'Create anything', 'woocommerce' );
-$content = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'woocommerce' );
-$button  = __( 'Get Started', 'woocommerce' );
+$header  = __( 'Create anything', 'poocommerce' );
+$content = __( 'Navigating life\'s intricate fabric, choices unfold paths to the extraordinary, demanding creativity, curiosity, and courage for a truly fulfilling journey.', 'poocommerce' );
+$button  = __( 'Get Started', 'poocommerce' );
 
 $image_0 = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/sun-glass-vase-green-ceramic-shelf.jpg' );
 $image_1 = PatternsHelper::get_image_url( $images, 0, 'assets/images/pattern-placeholders/white-vase-decoration-pattern-ceramic-lamp.jpg' );

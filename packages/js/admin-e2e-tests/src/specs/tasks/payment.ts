@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { afterAll, beforeAll, describe, it } from '@jest/globals';
-import { takeScreenshotFor } from '@woocommerce/e2e-environment';
+import { takeScreenshotFor } from '@poocommerce/e2e-environment';
 
 /**
  * Internal dependencies

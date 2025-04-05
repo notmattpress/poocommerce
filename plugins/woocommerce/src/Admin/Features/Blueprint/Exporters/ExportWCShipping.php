@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Util;
 
 /**
  * Class ExportWCShipping
  *
- * Exports WooCommerce shipping settings and implements the StepExporter interface.
+ * Exports PooCommerce shipping settings and implements the StepExporter interface.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCShipping implements StepExporter, HasAlias {
 	/**
-	 * Export WooCommerce shipping settings.
+	 * Export PooCommerce shipping settings.
 	 *
 	 * @return array Array of RunSql|SetSiteOptions instances.
 	 */
@@ -98,7 +98,7 @@ class ExportWCShipping implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_label(): string {
-		return __( 'Shipping', 'woocommerce' );
+		return __( 'Shipping', 'poocommerce' );
 	}
 
 	/**
@@ -107,7 +107,7 @@ class ExportWCShipping implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_description(): string {
-		return __( 'Includes all settings in WooCommerce | Settings | Shipping.', 'woocommerce' );
+		return __( 'Includes all settings in PooCommerce | Settings | Shipping.', 'poocommerce' );
 	}
 
 	/**
@@ -128,8 +128,8 @@ class ExportWCShipping implements StepExporter, HasAlias {
 		global $wpdb;
 
 		return array_map(
-			fn( $zone ) => new RunSql( Util::array_to_insert_sql( $zone, $wpdb->prefix . 'woocommerce_shipping_zones', 'replace into' ) ),
-			$wpdb->get_results( "SELECT * FROM {$wpdb->prefix}woocommerce_shipping_zones", ARRAY_A )
+			fn( $zone ) => new RunSql( Util::array_to_insert_sql( $zone, $wpdb->prefix . 'poocommerce_shipping_zones', 'replace into' ) ),
+			$wpdb->get_results( "SELECT * FROM {$wpdb->prefix}poocommerce_shipping_zones", ARRAY_A )
 		);
 	}
 
@@ -142,8 +142,8 @@ class ExportWCShipping implements StepExporter, HasAlias {
 		global $wpdb;
 
 		return array_map(
-			fn( $location ) => new RunSql( Util::array_to_insert_sql( $location, $wpdb->prefix . 'woocommerce_shipping_zone_locations', 'replace into' ) ),
-			$wpdb->get_results( "SELECT * FROM {$wpdb->prefix}woocommerce_shipping_zone_locations", ARRAY_A )
+			fn( $location ) => new RunSql( Util::array_to_insert_sql( $location, $wpdb->prefix . 'poocommerce_shipping_zone_locations', 'replace into' ) ),
+			$wpdb->get_results( "SELECT * FROM {$wpdb->prefix}poocommerce_shipping_zone_locations", ARRAY_A )
 		);
 	}
 
@@ -155,16 +155,16 @@ class ExportWCShipping implements StepExporter, HasAlias {
 	private function get_steps_for_methods_and_options(): array {
 		global $wpdb;
 
-		$methods        = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}woocommerce_shipping_zone_methods", ARRAY_A );
+		$methods        = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}poocommerce_shipping_zone_methods", ARRAY_A );
 		$method_options = $wpdb->get_results(
-			"SELECT * FROM {$wpdb->prefix}options WHERE option_name LIKE 'woocommerce_flat_rate_%_settings'
-            OR option_name LIKE 'woocommerce_free_shipping_%_settings'",
+			"SELECT * FROM {$wpdb->prefix}options WHERE option_name LIKE 'poocommerce_flat_rate_%_settings'
+            OR option_name LIKE 'poocommerce_free_shipping_%_settings'",
 			ARRAY_A
 		);
 
 		return array_merge(
 			array_map(
-				fn( $method ) => new RunSql( Util::array_to_insert_sql( $method, $wpdb->prefix . 'woocommerce_shipping_zone_methods', 'replace into' ) ),
+				fn( $method ) => new RunSql( Util::array_to_insert_sql( $method, $wpdb->prefix . 'poocommerce_shipping_zone_methods', 'replace into' ) ),
 				$methods
 			),
 			array_map(
@@ -182,7 +182,7 @@ class ExportWCShipping implements StepExporter, HasAlias {
 	private function get_step_for_local_pickup(): SetSiteOptions {
 		return new SetSiteOptions(
 			array(
-				'woocommerce_pickup_location_settings' => get_option( 'woocommerce_pickup_location_settings', array() ),
+				'poocommerce_pickup_location_settings' => get_option( 'poocommerce_pickup_location_settings', array() ),
 				'pickup_location_pickup_locations'     => get_option( 'pickup_location_pickup_locations', array() ),
 			)
 		);

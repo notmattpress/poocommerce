@@ -55,7 +55,7 @@
 				"eslint*"
 			],
 			"packages": [
-				"@woocommerce/block-library"
+				"@poocommerce/block-library"
 			],
 			"isIgnored": true
 		},
@@ -343,9 +343,9 @@
 				"@wordpress/icons"
 			],
 			"packages": [
-				"@woocommerce/product-editor",
-				"@woocommerce/settings-editor",
-				"@woocommerce/admin-library"
+				"@poocommerce/product-editor",
+				"@poocommerce/settings-editor",
+				"@poocommerce/admin-library"
 			],
 			"isIgnored": true
 		},
@@ -354,7 +354,7 @@
 				"@wordpress/**"
 			],
 			"packages": [
-				"@woocommerce/experimental"
+				"@poocommerce/experimental"
 			],
 			"isIgnored": true
 		},
@@ -395,9 +395,9 @@
 			"pinVersion": "wp-6.8"
 		},
 		{
-			"label": "Ensure @woocommerce/* dependencies are locked to the monorepo itself - except certain dependencies (migration pending).",
+			"label": "Ensure @poocommerce/* dependencies are locked to the monorepo itself - except certain dependencies (migration pending).",
 			"dependencies": [
-				"@woocommerce/settings"
+				"@poocommerce/settings"
 			],
 			"packages": [
 				"**"
@@ -405,13 +405,13 @@
 			"pinVersion": "1.0.0"
 		},
 		{
-			"label": "Ensure @woocommerce/* dependencies are locked to the monorepo itself (except peer-deps for now).",
+			"label": "Ensure @poocommerce/* dependencies are locked to the monorepo itself (except peer-deps for now).",
 			"dependencyTypes": [
 				"prod",
 				"dev"
 			],
 			"dependencies": [
-				"@woocommerce/*"
+				"@poocommerce/*"
 			],
 			"packages": [
 				"**"
@@ -545,8 +545,8 @@
 				"babel-jest"
 			],
 			"packages": [
-				"@woocommerce/block-library",
-				"@woocommerce/storybook"
+				"@poocommerce/block-library",
+				"@poocommerce/storybook"
 			],
 			"pinVersion": "29.5.x"
 		},

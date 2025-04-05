@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Importers;
+namespace Automattic\PooCommerce\Blueprint\Importers;
 
-use Automattic\WooCommerce\Blueprint\ResourceStorages;
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\InstallTheme;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\ResourceStorages;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\InstallTheme;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 use Plugin_Upgrader;
 
 /**
@@ -14,7 +14,7 @@ use Plugin_Upgrader;
  *
  * This class handles the import process for installing themes.
  *
- * @package Automattic\WooCommerce\Blueprint\Importers
+ * @package Automattic\PooCommerce\Blueprint\Importers
  */
 class ImportInstallTheme implements StepProcessor {
 	use UseWPFunctions;

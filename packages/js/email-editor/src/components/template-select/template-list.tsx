@@ -33,11 +33,11 @@ function TemplateNoResults() {
 				className="block-editor-inserter__no-results-icon"
 				icon={ blockDefault }
 			/>
-			<p>{ __( 'No recent templates.', 'woocommerce' ) }</p>
+			<p>{ __( 'No recent templates.', 'poocommerce' ) }</p>
 			<p>
 				{ __(
 					'Your recent creations will appear here as soon as you begin.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 		</div>
@@ -95,7 +95,7 @@ function TemplateListBox( {
 								<p>
 									{ __(
 										'rendering template',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 							}
@@ -152,7 +152,7 @@ export function TemplateList( {
 						<p>
 							{ __(
 								'Templates created on the legacy editor will not appear here.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 					</HStack>

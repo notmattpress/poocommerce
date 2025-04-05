@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
 use WC_Helper_Order;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**

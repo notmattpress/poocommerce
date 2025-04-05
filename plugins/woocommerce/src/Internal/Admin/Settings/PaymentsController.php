@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\FeaturePlugin;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Admin\FeaturePlugin;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use Exception;
-use WooCommerce\Admin\Experimental_Abtest;
+use PooCommerce\Admin\Experimental_Abtest;
 
 defined( 'ABSPATH' ) || exit;
 /**
@@ -29,9 +29,9 @@ class PaymentsController {
 	 */
 	public function register() {
 		// Because we gate the hooking based on a feature flag,
-		// we need to delay the registration until the 'woocommerce_init' hook.
+		// we need to delay the registration until the 'poocommerce_init' hook.
 		// Otherwise, we end up in an infinite loop.
-		add_action( 'woocommerce_init', array( $this, 'delayed_register' ) );
+		add_action( 'poocommerce_init', array( $this, 'delayed_register' ) );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class PaymentsController {
 		}
 
 		// Transient key to handle the experiment group assignment failure.
-		$transient_key = 'wc_experiment_failure_woocommerce_payment_settings_2025_v2';
+		$transient_key = 'wc_experiment_failure_poocommerce_payment_settings_2025_v2';
 
 		// If we failed to determine the experiment group assignment in the previous hour, don't do anything.
 		if ( 'error' === get_transient( $transient_key ) ) {
@@ -67,7 +67,7 @@ class PaymentsController {
 		}
 
 		try {
-			$in_treatment = Experimental_Abtest::in_treatment( 'woocommerce_payment_settings_2025_v2' );
+			$in_treatment = Experimental_Abtest::in_treatment( 'poocommerce_payment_settings_2025_v2' );
 		} catch ( \Exception $e ) {
 			// If the experiment group assignment fails, set a transient to avoid repeated fetches and
 			// consider the user not in the treatment group.
@@ -91,8 +91,8 @@ class PaymentsController {
 		}
 
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
-		add_filter( 'woocommerce_admin_allowed_promo_notes', array( $this, 'add_allowed_promo_notes' ) );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'preload_settings' ) );
+		add_filter( 'poocommerce_admin_allowed_promo_notes', array( $this, 'add_allowed_promo_notes' ) );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class PaymentsController {
 			remove_menu_page( 'wc-admin&path=/payments/connect' );
 		}
 
-		$menu_title = esc_html__( 'Payments', 'woocommerce' );
+		$menu_title = esc_html__( 'Payments', 'poocommerce' );
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NTIiIGhlaWdodD0iNjg0Ij48cGF0aCBmaWxsPSIjYTJhYWIyIiBkPSJNODIgODZ2NTEyaDY4NFY4NlptMCA1OThjLTQ4IDAtODQtMzgtODQtODZWODZDLTIgMzggMzQgMCA4MiAwaDY4NGM0OCAwIDg0IDM4IDg0IDg2djUxMmMwIDQ4LTM2IDg2LTg0IDg2em0zODQtNTU2djQ0aDg2djg0SDM4MnY0NGgxMjhjMjQgMCA0MiAxOCA0MiA0MnYxMjhjMCAyNC0xOCA0Mi00MiA0MmgtNDR2NDRoLTg0di00NGgtODZ2LTg0aDE3MHYtNDRIMzM4Yy0yNCAwLTQyLTE4LTQyLTQyVjIxNGMwLTI0IDE4LTQyIDQyLTQyaDQ0di00NHoiLz48L3N2Zz4=';
 		// Link to the Payments settings page.
 		$menu_path = 'admin.php?page=wc-settings&tab=checkout';
@@ -128,11 +128,11 @@ class PaymentsController {
 		add_menu_page(
 			$menu_title,
 			$menu_title,
-			'manage_woocommerce', // Capability required to see the menu item.
+			'manage_poocommerce', // Capability required to see the menu item.
 			$menu_path,
 			null,
 			$menu_icon,
-			56, // Position after WooCommerce Product menu item.
+			56, // Position after PooCommerce Product menu item.
 		);
 
 		// If there are providers with active incentive, add a notice badge to the Payments menu item.

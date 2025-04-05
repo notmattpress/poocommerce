@@ -1,4 +1,4 @@
-// TODO: wp-interactivity-migration - Make sure we remove this entire file when we port @woocommerce-settings to script modules.
+// TODO: wp-interactivity-migration - Make sure we remove this entire file when we port @poocommerce-settings to script modules.
 
 // export interface Currency {
 // 	/**
@@ -42,7 +42,7 @@ import {
 	type Currency,
 	type CurrencyResponse,
 	type CartShippingPackageShippingRate,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 const siteCurrency = window.wc.wcSettings.SITE_CURRENCY;
 

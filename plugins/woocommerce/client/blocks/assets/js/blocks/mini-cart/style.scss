@@ -3,14 +3,14 @@
 }
 
 .wc-block-mini-cart__template-part,
-.wp-block-woocommerce-mini-cart-contents {
+.wp-block-poocommerce-mini-cart-contents {
 	height: 100%;
 }
 
 // Remove the stickiness from the footer when there isn't enough room
 // to display the items.
 @media screen and (max-height: 500px) {
-	.wp-block-woocommerce-mini-cart-contents {
+	.wp-block-poocommerce-mini-cart-contents {
 		height: auto;
 	}
 	.wc-block-mini-cart__drawer {
@@ -72,7 +72,7 @@
 .wc-block-mini-cart__drawer {
 	font-size: 1rem;
 
-	.wp-block-woocommerce-mini-cart-contents {
+	.wp-block-poocommerce-mini-cart-contents {
 		box-sizing: border-box;
 		padding: 0;
 		position: relative;
@@ -92,12 +92,12 @@
 		}
 	}
 }
-:where(.wp-block-woocommerce-mini-cart-contents) {
+:where(.wp-block-poocommerce-mini-cart-contents) {
 	background: #fff;
 }
 
-.wp-block-woocommerce-empty-mini-cart-contents-block,
-.wp-block-woocommerce-filled-mini-cart-contents-block {
+.wp-block-poocommerce-empty-mini-cart-contents-block,
+.wp-block-poocommerce-filled-mini-cart-contents-block {
 	background: inherit;
 	height: 100%;
 	max-height: -webkit-fill-available;
@@ -107,15 +107,15 @@
 	flex-direction: column;
 }
 
-.wp-block-woocommerce-empty-mini-cart-contents-block {
+.wp-block-poocommerce-empty-mini-cart-contents-block {
 	justify-content: center;
 }
 
-.wp-block-woocommerce-filled-mini-cart-contents-block {
+.wp-block-poocommerce-filled-mini-cart-contents-block {
 	justify-content: space-between;
 }
 
-.wp-block-woocommerce-empty-mini-cart-contents-block .wc-block-mini-cart__empty-cart-wrapper {
+.wp-block-poocommerce-empty-mini-cart-contents-block .wc-block-mini-cart__empty-cart-wrapper {
 	overflow-y: auto;
 	padding: $gap-largest $gap $gap;
 }
@@ -183,13 +183,13 @@ h2.wc-block-mini-cart__title {
 
 		.wc-block-components-button,
 		.wp-block-button,
-		.wp-block-woocommerce-mini-cart-cart-button-block,
-		.wp-block-woocommerce-mini-cart-checkout-button-block {
+		.wp-block-poocommerce-mini-cart-cart-button-block,
+		.wp-block-poocommerce-mini-cart-checkout-button-block {
 			flex-grow: 1;
 			display: inline-flex;
 		}
 
-		.wp-block-woocommerce-mini-cart-cart-button-block {
+		.wp-block-poocommerce-mini-cart-cart-button-block {
 			@media only screen and (min-width: 480px) {
 				display: inline-flex;
 			}

@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/single-product",
+	"name": "poocommerce/single-product",
 	"version": "1.0.0",
 	"icon": "info",
 	"title": "Single Product",
 	"description": "Display a single product.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -27,7 +27,7 @@
 		}
 	},
 	"usesContext": [ "postId", "postType", "queryId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

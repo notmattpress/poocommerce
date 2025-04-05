@@ -1,5 +1,5 @@
 {
-	"name": "eslint-plugin-woocommerce",
+	"name": "eslint-plugin-poocommerce",
 	"version": "0.0.2",
 	"main": "index.js",
 	"devDependencies": {

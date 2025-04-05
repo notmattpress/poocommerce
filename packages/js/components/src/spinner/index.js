@@ -11,7 +11,7 @@ import classnames from 'classnames';
 class Spinner extends Component {
 	render() {
 		const { className } = this.props;
-		const classes = classnames( 'woocommerce-spinner', className );
+		const classes = classnames( 'poocommerce-spinner', className );
 		return (
 			<svg
 				className={ classes }
@@ -19,7 +19,7 @@ class Spinner extends Component {
 				xmlns="http://www.w3.org/2000/svg"
 			>
 				<circle
-					className="woocommerce-spinner__circle"
+					className="poocommerce-spinner__circle"
 					fill="none"
 					strokeWidth="5"
 					strokeLinecap="round"

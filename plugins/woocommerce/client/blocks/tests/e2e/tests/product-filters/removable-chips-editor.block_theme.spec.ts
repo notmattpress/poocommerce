@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { test as base, expect } from '@woocommerce/e2e-utils';
 import { ProductFiltersPage } from './product-filters.page';
 
 const blockData = {
-	name: 'woocommerce/product-filter-active',
+	name: 'poocommerce/product-filter-active',
 	selectors: {
 		frontend: {},
 		editor: {
@@ -39,7 +39,7 @@ const test = base.extend< { pageObject: ProductFiltersPage } >( {
 test.describe( `${ blockData.name }`, () => {
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
-			postId: `woocommerce/woocommerce//${ blockData.slug }`,
+			postId: `poocommerce/poocommerce//${ blockData.slug }`,
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );

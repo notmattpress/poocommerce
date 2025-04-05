@@ -2,7 +2,7 @@
 /**
  * Layered Navigation Filters Widget.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.3.0
  */
 
@@ -17,15 +17,15 @@ class WC_Widget_Layered_Nav_Filters extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_layered_nav_filters';
-		$this->widget_description = __( 'Display a list of active product filters.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_layered_nav_filters';
-		$this->widget_name        = __( 'Active Product Filters', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_layered_nav_filters';
+		$this->widget_description = __( 'Display a list of active product filters.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_layered_nav_filters';
+		$this->widget_name        = __( 'Active Product Filters', 'poocommerce' );
 		$this->settings           = array(
 			'title' => array(
 				'type'  => 'text',
-				'std'   => __( 'Active filters', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Active filters', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 		);
 
@@ -64,7 +64,7 @@ class WC_Widget_Layered_Nav_Filters extends WC_Widget {
 			 * @param array $args     Arguments.
 			 * @param array $instance Widget instance.
 			 */
-			do_action( 'woocommerce_widget_layered_nav_filters_start', $args, $instance );
+			do_action( 'poocommerce_widget_layered_nav_filters_start', $args, $instance );
 
 			// Attributes.
 			if ( ! empty( $_chosen_attributes ) ) {
@@ -96,8 +96,8 @@ class WC_Widget_Layered_Nav_Filters extends WC_Widget {
 						 *
 						 * @since 8.8.0
 						 */
-						$anchor_text = apply_filters( 'woocommerce_widget_layered_nav_term_anchor_text', $term->name, $term, $taxonomy );
-						echo '<li class="' . esc_attr( implode( ' ', $filter_classes ) ) . '"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'woocommerce' ) . '" href="' . esc_url( $link ) . '">' . esc_html( $anchor_text ) . '</a></li>';
+						$anchor_text = apply_filters( 'poocommerce_widget_layered_nav_term_anchor_text', $term->name, $term, $taxonomy );
+						echo '<li class="' . esc_attr( implode( ' ', $filter_classes ) ) . '"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'poocommerce' ) . '" href="' . esc_url( $link ) . '">' . esc_html( $anchor_text ) . '</a></li>';
 					}
 				}
 			}
@@ -105,13 +105,13 @@ class WC_Widget_Layered_Nav_Filters extends WC_Widget {
 			if ( $min_price ) {
 				$link = remove_query_arg( 'min_price', $base_link );
 				/* translators: %s: minimum price */
-				echo '<li class="chosen"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'woocommerce' ) . '" href="' . esc_url( $link ) . '">' . sprintf( __( 'Min %s', 'woocommerce' ), wc_price( $min_price ) ) . '</a></li>'; // WPCS: XSS ok.
+				echo '<li class="chosen"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'poocommerce' ) . '" href="' . esc_url( $link ) . '">' . sprintf( __( 'Min %s', 'poocommerce' ), wc_price( $min_price ) ) . '</a></li>'; // WPCS: XSS ok.
 			}
 
 			if ( $max_price ) {
 				$link = remove_query_arg( 'max_price', $base_link );
 				/* translators: %s: maximum price */
-				echo '<li class="chosen"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'woocommerce' ) . '" href="' . esc_url( $link ) . '">' . sprintf( __( 'Max %s', 'woocommerce' ), wc_price( $max_price ) ) . '</a></li>'; // WPCS: XSS ok.
+				echo '<li class="chosen"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'poocommerce' ) . '" href="' . esc_url( $link ) . '">' . sprintf( __( 'Max %s', 'poocommerce' ), wc_price( $max_price ) ) . '</a></li>'; // WPCS: XSS ok.
 			}
 
 			if ( ! empty( $rating_filter ) ) {
@@ -120,7 +120,7 @@ class WC_Widget_Layered_Nav_Filters extends WC_Widget {
 					$link         = $link_ratings ? add_query_arg( 'rating_filter', $link_ratings ) : remove_query_arg( 'rating_filter', $base_link );
 
 					/* translators: %s: rating */
-					echo '<li class="chosen"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'woocommerce' ) . '" href="' . esc_url( $link ) . '">' . sprintf( esc_html__( 'Rated %s out of 5', 'woocommerce' ), esc_html( $rating ) ) . '</a></li>';
+					echo '<li class="chosen"><a rel="nofollow" aria-label="' . esc_attr__( 'Remove filter', 'poocommerce' ) . '" href="' . esc_url( $link ) . '">' . sprintf( esc_html__( 'Rated %s out of 5', 'poocommerce' ), esc_html( $rating ) ) . '</a></li>';
 				}
 			}
 
@@ -132,7 +132,7 @@ class WC_Widget_Layered_Nav_Filters extends WC_Widget {
 			 * @param array $args     Arguments.
 			 * @param array $instance Widget instance.
 			 */
-			do_action( 'woocommerce_widget_layered_nav_filters_end', $args, $instance );
+			do_action( 'poocommerce_widget_layered_nav_filters_end', $args, $instance );
 
 			echo '</ul>';
 

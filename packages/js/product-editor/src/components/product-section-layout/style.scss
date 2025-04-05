@@ -1,4 +1,4 @@
-.woocommerce-form-section {
+.poocommerce-form-section {
 	a {
 		text-decoration: none;
 	}
@@ -13,7 +13,7 @@
 
 				.components-base-control,
 				.components-dropdown,
-				.woocommerce-rich-text-editor {
+				.poocommerce-rich-text-editor {
 					&:not(:first-child):not(.components-radio-control) {
 						margin-top: $gap-large - $gap-smaller;
 						margin-bottom: 0;
@@ -22,7 +22,7 @@
 			}
 		}
 
-		.woocommerce-product-form__field:not(:first-child) {
+		.poocommerce-product-form__field:not(:first-child) {
 			margin-top: $gap-large;
 
 			> .components-base-control {
@@ -34,7 +34,7 @@
 			gap: $gap-small;
 		}
 
-		.woocommerce-collapsible-content {
+		.poocommerce-collapsible-content {
 			margin-top: $gap-large;
 		}
 	}

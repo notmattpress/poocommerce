@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 import { dispatch, resolveSelect, select, useSelect } from '@wordpress/data';
 import { useContext, useEffect } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { unlock } from '@wordpress/edit-site/build-module/lock-unlock';
 
 /**
@@ -125,7 +125,7 @@ export const OptInSubscribe = () => {
 
 	const isOptedIn = useSelect( ( selectStore ) => {
 		const allowTracking = selectStore( optionsStore ).getOption(
-			'woocommerce_allow_tracking'
+			'poocommerce_allow_tracking'
 		);
 		return allowTracking === 'yes';
 	}, [] );
@@ -145,7 +145,7 @@ export const OptInSubscribe = () => {
 				setOptInFlowStatus( OPTIN_FLOW_STATUS.DONE );
 			} );
 		},
-		// We don't want to run this effect on every render, only when `woocommerce_allow_tracking` changes.
+		// We don't want to run this effect on every render, only when `poocommerce_allow_tracking` changes.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[ isOptedIn ]
 	);
