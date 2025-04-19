@@ -2,7 +2,7 @@
 /**
  * Product Categories Widget
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.3.0
  */
 
@@ -33,54 +33,54 @@ class WC_Widget_Product_Categories extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_product_categories';
-		$this->widget_description = __( 'A list or dropdown of product categories.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_product_categories';
-		$this->widget_name        = __( 'Product Categories', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_product_categories';
+		$this->widget_description = __( 'A list or dropdown of product categories.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_product_categories';
+		$this->widget_name        = __( 'Product Categories', 'poocommerce' );
 		$this->settings           = array(
 			'title'              => array(
 				'type'  => 'text',
-				'std'   => __( 'Product categories', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Product categories', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'orderby'            => array(
 				'type'    => 'select',
 				'std'     => 'name',
-				'label'   => __( 'Order by', 'woocommerce' ),
+				'label'   => __( 'Order by', 'poocommerce' ),
 				'options' => array(
-					'order' => __( 'Category order', 'woocommerce' ),
-					'name'  => __( 'Name', 'woocommerce' ),
+					'order' => __( 'Category order', 'poocommerce' ),
+					'name'  => __( 'Name', 'poocommerce' ),
 				),
 			),
 			'dropdown'           => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Show as dropdown', 'woocommerce' ),
+				'label' => __( 'Show as dropdown', 'poocommerce' ),
 			),
 			'count'              => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Show product counts', 'woocommerce' ),
+				'label' => __( 'Show product counts', 'poocommerce' ),
 			),
 			'hierarchical'       => array(
 				'type'  => 'checkbox',
 				'std'   => 1,
-				'label' => __( 'Show hierarchy', 'woocommerce' ),
+				'label' => __( 'Show hierarchy', 'poocommerce' ),
 			),
 			'show_children_only' => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Only show children of the current category', 'woocommerce' ),
+				'label' => __( 'Only show children of the current category', 'poocommerce' ),
 			),
 			'hide_empty'         => array(
 				'type'  => 'checkbox',
 				'std'   => 0,
-				'label' => __( 'Hide empty categories', 'woocommerce' ),
+				'label' => __( 'Hide empty categories', 'poocommerce' ),
 			),
 			'max_depth'          => array(
 				'type'  => 'text',
 				'std'   => '',
-				'label' => __( 'Maximum depth', 'woocommerce' ),
+				'label' => __( 'Maximum depth', 'poocommerce' ),
 			),
 		);
 
@@ -137,7 +137,7 @@ class WC_Widget_Product_Categories extends WC_Widget {
 				$post->ID,
 				'product_cat',
 				apply_filters(
-					'woocommerce_product_categories_widget_product_terms_args',
+					'poocommerce_product_categories_widget_product_terms_args',
 					array(
 						'orderby' => 'parent',
 						'order'   => 'DESC',
@@ -146,7 +146,7 @@ class WC_Widget_Product_Categories extends WC_Widget {
 			);
 
 			if ( $terms ) {
-				$main_term           = apply_filters( 'woocommerce_product_categories_widget_main_term', $terms[0], $terms );
+				$main_term           = apply_filters( 'poocommerce_product_categories_widget_main_term', $terms[0], $terms );
 				$this->current_cat   = $main_term;
 				$this->cat_ancestors = get_ancestors( $main_term->term_id, 'product_cat' );
 			}
@@ -227,7 +227,7 @@ class WC_Widget_Product_Categories extends WC_Widget {
 		if ( $dropdown ) {
 			wc_product_dropdown_categories(
 				apply_filters(
-					'woocommerce_product_categories_widget_dropdown_args',
+					'poocommerce_product_categories_widget_dropdown_args',
 					wp_parse_args(
 						$dropdown_args,
 						array(
@@ -263,13 +263,13 @@ class WC_Widget_Product_Categories extends WC_Widget {
 				if ( jQuery().selectWoo ) {
 					var wc_product_cat_select = function() {
 						jQuery( '.dropdown_product_cat' ).selectWoo( {
-							placeholder: '" . esc_js( __( 'Select a category', 'woocommerce' ) ) . "',
+							placeholder: '" . esc_js( __( 'Select a category', 'poocommerce' ) ) . "',
 							minimumResultsForSearch: 5,
 							width: '100%',
 							allowClear: true,
 							language: {
 								noResults: function() {
-									return '" . esc_js( _x( 'No matches found', 'enhanced select', 'woocommerce' ) ) . "';
+									return '" . esc_js( _x( 'No matches found', 'enhanced select', 'poocommerce' ) ) . "';
 								}
 							}
 						} );
@@ -284,14 +284,14 @@ class WC_Widget_Product_Categories extends WC_Widget {
 			$list_args['walker']                     = new WC_Product_Cat_List_Walker();
 			$list_args['title_li']                   = '';
 			$list_args['pad_counts']                 = 1;
-			$list_args['show_option_none']           = __( 'No product categories exist.', 'woocommerce' );
+			$list_args['show_option_none']           = __( 'No product categories exist.', 'poocommerce' );
 			$list_args['current_category']           = ( $this->current_cat ) ? $this->current_cat->term_id : '';
 			$list_args['current_category_ancestors'] = $this->cat_ancestors;
 			$list_args['max_depth']                  = $max_depth;
 
 			echo '<ul class="product-categories">';
 
-			wp_list_categories( apply_filters( 'woocommerce_product_categories_widget_args', $list_args ) );
+			wp_list_categories( apply_filters( 'poocommerce_product_categories_widget_args', $list_args ) );
 
 			echo '</ul>';
 		}

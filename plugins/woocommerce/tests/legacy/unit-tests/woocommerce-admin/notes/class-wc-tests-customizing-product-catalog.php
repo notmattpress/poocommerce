@@ -2,12 +2,12 @@
 /**
  * CustomizingProductCatalog note tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Internal\Admin\Notes\CustomizingProductCatalog;
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\Admin\Notes\CustomizingProductCatalog;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 
 /**
@@ -81,7 +81,7 @@ class WC_Admin_Tests_Customizing_Product_Catalog extends WC_Unit_Test_Case {
 	 */
 	public function test_it_does_not_add_note_if_store_has_been_active_for_14_days_or_more() {
 		// Given.
-		update_option( 'woocommerce_admin_install_timestamp', time() - ( DAY_IN_SECONDS * 14 ) );
+		update_option( 'poocommerce_admin_install_timestamp', time() - ( DAY_IN_SECONDS * 14 ) );
 		wp_insert_post(
 			array(
 				'post_title'   => 'a product',
@@ -107,7 +107,7 @@ class WC_Admin_Tests_Customizing_Product_Catalog extends WC_Unit_Test_Case {
 	 */
 	public function test_it_adds_note() {
 		// Given.
-		update_option( 'woocommerce_admin_install_timestamp', time() - ( DAY_IN_SECONDS * 13 ) );
+		update_option( 'poocommerce_admin_install_timestamp', time() - ( DAY_IN_SECONDS * 13 ) );
 		$day_before = gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS );
 		$product    = new \WC_Product();
 		$product->set_props(

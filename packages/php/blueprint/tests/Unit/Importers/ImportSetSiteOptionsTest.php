@@ -1,17 +1,17 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportSetSiteOptions;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Importers\ImportSetSiteOptions;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test the ImportSetSiteOptions class.
  *
- * @package Automattic\WooCommerce\Blueprint\Tests\Unit\Importers
+ * @package Automattic\PooCommerce\Blueprint\Tests\Unit\Importers
  */
 class ImportSetSiteOptionsTest extends TestCase {
 	/**

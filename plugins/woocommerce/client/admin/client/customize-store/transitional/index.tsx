@@ -1,12 +1,12 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 /**
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
+import { getSetting } from '@poocommerce/settings';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
 import { Button, Modal } from '@wordpress/components';
 
 /**
@@ -53,13 +53,13 @@ export const Transitional = ( {
 	const showAISurvey = isWooExpress && aiOnline;
 
 	return (
-		<div className="woocommerce-customize-store__transitional">
+		<div className="poocommerce-customize-store__transitional">
 			{ isSurveyOpen && (
 				<Modal
-					title={ __( 'Share feedback', 'woocommerce' ) }
+					title={ __( 'Share feedback', 'poocommerce' ) }
 					onRequestClose={ () => closeSurvey() }
 					shouldCloseOnClickOutside={ false }
-					className="woocommerce-ai-survey-modal"
+					className="poocommerce-ai-survey-modal"
 				>
 					<SurveyForm
 						showAISurvey={ showAISurvey }
@@ -75,29 +75,29 @@ export const Transitional = ( {
 			) }
 			<SiteHub
 				isTransparent={ false }
-				className="woocommerce-edit-site-layout__hub"
+				className="poocommerce-edit-site-layout__hub"
 			/>
-			<div className="woocommerce-customize-store__transitional-content">
-				<h1 className="woocommerce-customize-store__transitional-heading">
-					{ __( 'Your store looks great!', 'woocommerce' ) }
+			<div className="poocommerce-customize-store__transitional-content">
+				<h1 className="poocommerce-customize-store__transitional-heading">
+					{ __( 'Your store looks great!', 'poocommerce' ) }
 				</h1>
-				<h2 className="woocommerce-customize-store__transitional-subheading">
+				<h2 className="poocommerce-customize-store__transitional-subheading">
 					{ isEntrepreneurFlow()
 						? __(
 								"Congratulations! You've successfully designed your store. Now you can go back to the Home screen to complete your store setup and start selling.",
-								'woocommerce'
+								'poocommerce'
 						  )
 						: __(
 								"Congratulations! You've successfully designed your store. Take a look at your hard work before continuing to set up your store.",
-								'woocommerce'
+								'poocommerce'
 						  ) }
 				</h2>
 
 				<WooCYSSecondaryButtonSlot />
-				<div className="woocommerce-customize-store__transitional-buttons">
+				<div className="poocommerce-customize-store__transitional-buttons">
 					{ showSurveyButton && (
 						<Button
-							className="woocommerce-customize-store__transitional-preview-buttonwoocommerce-customize-store__transitional-preview-button"
+							className="poocommerce-customize-store__transitional-preview-buttonpoocommerce-customize-store__transitional-preview-button"
 							variant="secondary"
 							onClick={ () => {
 								trackEvent(
@@ -108,13 +108,13 @@ export const Transitional = ( {
 								setSurveyOpen( true );
 							} }
 						>
-							{ __( 'Share feedback', 'woocommerce' ) }
+							{ __( 'Share feedback', 'poocommerce' ) }
 						</Button>
 					) }
 
 					<Button
 						href={ homeUrl }
-						className="woocommerce-customize-store__transitional-preview-button"
+						className="poocommerce-customize-store__transitional-preview-button"
 						variant={
 							isEntrepreneurFlow() ? 'secondary' : 'primary'
 						}
@@ -124,7 +124,7 @@ export const Transitional = ( {
 							);
 						} }
 					>
-						{ __( 'View store', 'woocommerce' ) }
+						{ __( 'View store', 'poocommerce' ) }
 					</Button>
 
 					{ isEntrepreneurFlow() && (
@@ -137,34 +137,34 @@ export const Transitional = ( {
 								);
 							} }
 						>
-							{ __( 'Back to Home', 'woocommerce' ) }
+							{ __( 'Back to Home', 'poocommerce' ) }
 						</Button>
 					) }
 				</div>
 				{ ! isEntrepreneurFlow() && (
 					<>
-						<h2 className="woocommerce-customize-store__transitional-main-actions-title">
-							{ __( "What's next?", 'woocommerce' ) }
+						<h2 className="poocommerce-customize-store__transitional-main-actions-title">
+							{ __( "What's next?", 'poocommerce' ) }
 						</h2>
-						<div className="woocommerce-customize-store__transitional-main-actions">
-							<div className="woocommerce-customize-store__transitional-action">
+						<div className="poocommerce-customize-store__transitional-main-actions">
+							<div className="poocommerce-customize-store__transitional-action">
 								<Icon
 									className={
-										'woocommerce-customize-store__transitional-action__icon'
+										'poocommerce-customize-store__transitional-action__icon'
 									}
 									icon={ tag }
 								/>
-								<div className="woocommerce-customize-store__transitional-action__content">
+								<div className="poocommerce-customize-store__transitional-action__content">
 									<h3>
 										{ __(
 											'Add your products',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</h3>
 									<p>
 										{ __(
 											'Start stocking your virtual shelves by adding or importing your products, or edit the sample products.',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</p>
 									<Button
@@ -178,30 +178,30 @@ export const Transitional = ( {
 									>
 										{ __(
 											'Go to Products',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Button>
 								</div>
 							</div>
 
-							<div className="woocommerce-customize-store__transitional-action">
+							<div className="poocommerce-customize-store__transitional-action">
 								<Icon
 									className={
-										'woocommerce-customize-store__transitional-action__icon'
+										'poocommerce-customize-store__transitional-action__icon'
 									}
 									icon={ brush }
 								/>
-								<div className="woocommerce-customize-store__transitional-action__content">
+								<div className="poocommerce-customize-store__transitional-action__content">
 									<h3>
 										{ __(
 											'Fine-tune your design',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</h3>
 									<p>
 										{ __(
 											'Head to the Editor to change your images and text, add more pages, and make any further customizations.',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</p>
 									<Button
@@ -215,30 +215,30 @@ export const Transitional = ( {
 									>
 										{ __(
 											'Go to the Editor',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Button>
 								</div>
 							</div>
 
-							<div className="woocommerce-customize-store__transitional-action">
+							<div className="poocommerce-customize-store__transitional-action">
 								<Icon
 									className={
-										'woocommerce-customize-store__transitional-action__icon'
+										'poocommerce-customize-store__transitional-action__icon'
 									}
 									icon={ lessonPlan }
 								/>
-								<div className="woocommerce-customize-store__transitional-action__content">
+								<div className="poocommerce-customize-store__transitional-action__content">
 									<h3>
 										{ __(
 											'Continue setting up your store',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</h3>
 									<p>
 										{ __(
 											'Go back to the Home screen to complete your store setup and start selling',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</p>
 									<Button
@@ -250,7 +250,7 @@ export const Transitional = ( {
 											);
 										} }
 									>
-										{ __( 'Back to Home', 'woocommerce' ) }
+										{ __( 'Back to Home', 'poocommerce' ) }
 									</Button>
 								</div>
 							</div>

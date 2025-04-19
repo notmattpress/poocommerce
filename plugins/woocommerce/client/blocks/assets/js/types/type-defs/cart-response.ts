@@ -67,7 +67,7 @@ export interface CartResponseShippingPackageShippingRate
 }
 
 export interface CartResponseShippingRate {
-	/* PackageId can be a string, WooCommerce Subscriptions uses strings for example, but WooCommerce core uses numbers */
+	/* PackageId can be a string, PooCommerce Subscriptions uses strings for example, but PooCommerce core uses numbers */
 	package_id: number | string;
 	name: string;
 	destination: ResponseBaseAddress;

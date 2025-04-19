@@ -3,7 +3,7 @@
  */
 import { paramCase as kebabCase } from 'change-case';
 import { decodeEntities } from '@wordpress/html-entities';
-import type { ProductResponseItemData } from '@woocommerce/types';
+import type { ProductResponseItemData } from '@poocommerce/types';
 
 /**
  * Internal dependencies

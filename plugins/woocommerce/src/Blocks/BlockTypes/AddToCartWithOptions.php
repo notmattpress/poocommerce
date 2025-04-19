@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * AddToCartWithOptions class.
@@ -41,8 +41,8 @@ class AddToCartWithOptions extends AbstractBlock {
 	 * @return array Modified block context.
 	 */
 	public function set_is_descendant_of_add_to_cart_with_options_context( $context, $block ) {
-		if ( 'woocommerce/product-button' === $block['blockName'] ) {
-			$context['woocommerce/isDescendantOfAddToCartWithOptions'] = true;
+		if ( 'poocommerce/product-button' === $block['blockName'] ) {
+			$context['poocommerce/isDescendantOfAddToCartWithOptions'] = true;
 		}
 
 		return $context;
@@ -81,7 +81,7 @@ class AddToCartWithOptions extends AbstractBlock {
 		if ( in_array( $product_type, array( ProductType::SIMPLE, ProductType::EXTERNAL, ProductType::VARIABLE, ProductType::GROUPED ), true ) ) {
 			$template_part_contents = '';
 			$slug                   = $product_type . '-product-add-to-cart-with-options';
-			// Determine if we need to load the template part from the DB, the theme or WooCommerce in that order.
+			// Determine if we need to load the template part from the DB, the theme or PooCommerce in that order.
 			$templates_from_db = BlockTemplateUtils::get_block_templates_from_db( array( $slug ), 'wp_template_part' );
 			if ( is_countable( $templates_from_db ) && count( $templates_from_db ) > 0 ) {
 				$template_slug_to_load = $templates_from_db[0]->theme;
@@ -118,7 +118,7 @@ class AddToCartWithOptions extends AbstractBlock {
 			 * @param number $default_quantity The default quantity.
 			 * @param number $product_id The product id.
 			 */
-			$default_quantity = apply_filters( 'woocommerce_add_to_cart_quantity', 1, $product->get_id() );
+			$default_quantity = apply_filters( 'poocommerce_add_to_cart_quantity', 1, $product->get_id() );
 
 			$context = array(
 				'productId' => $product->get_id(),
@@ -128,7 +128,7 @@ class AddToCartWithOptions extends AbstractBlock {
 
 			$wrapper_attributes = get_block_wrapper_attributes(
 				array(
-					'data-wp-interactive' => 'woocommerce/add-to-cart-with-options',
+					'data-wp-interactive' => 'poocommerce/add-to-cart-with-options',
 					'data-wp-context'     => wp_json_encode(
 						$context,
 						JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
@@ -150,82 +150,82 @@ class AddToCartWithOptions extends AbstractBlock {
 			* @since 7.6.0
 			* @param boolean.
 			*/
-			$is_disabled_compatibility_layer = apply_filters( 'woocommerce_disable_compatibility_layer', false );
+			$is_disabled_compatibility_layer = apply_filters( 'poocommerce_disable_compatibility_layer', false );
 
 			if ( ! $is_disabled_compatibility_layer ) {
 				ob_start();
 				if ( ProductType::SIMPLE === $product_type && $product->is_in_stock() && $product->is_purchasable() ) {
 					/**
-					 * Hook: woocommerce_before_add_to_cart_quantity.
+					 * Hook: poocommerce_before_add_to_cart_quantity.
 					 *
 					 * @since 2.7.0
 					 */
-					do_action( 'woocommerce_before_add_to_cart_quantity' );
+					do_action( 'poocommerce_before_add_to_cart_quantity' );
 					/**
-					 * Hook: woocommerce_before_add_to_cart_button.
+					 * Hook: poocommerce_before_add_to_cart_button.
 					 *
 					 * @since 1.5.0
 					 */
-					do_action( 'woocommerce_before_add_to_cart_button' );
+					do_action( 'poocommerce_before_add_to_cart_button' );
 				} elseif ( ProductType::EXTERNAL === $product_type ) {
 					/**
-					 * Hook: woocommerce_before_add_to_cart_button.
+					 * Hook: poocommerce_before_add_to_cart_button.
 					 *
 					 * @since 1.5.0
 					 */
-					do_action( 'woocommerce_before_add_to_cart_button' );
+					do_action( 'poocommerce_before_add_to_cart_button' );
 				} elseif ( ProductType::GROUPED === $product_type ) {
 					/**
-					 * Hook: woocommerce_before_add_to_cart_button.
+					 * Hook: poocommerce_before_add_to_cart_button.
 					 *
 					 * @since 1.5.0
 					 */
-					do_action( 'woocommerce_before_add_to_cart_button' );
+					do_action( 'poocommerce_before_add_to_cart_button' );
 				} elseif ( ProductType::VARIABLE === $product_type ) {
 					/**
-					 * Hook: woocommerce_before_variations_form.
+					 * Hook: poocommerce_before_variations_form.
 					 *
 					 * @since 2.4.0
 					 */
-					do_action( 'woocommerce_before_variations_form' );
+					do_action( 'poocommerce_before_variations_form' );
 				}
 				$hooks_before = ob_get_clean();
 
 				ob_start();
 				if ( ProductType::SIMPLE === $product_type && $product->is_in_stock() && $product->is_purchasable() ) {
 					/**
-					 * Hook: woocommerce_after_add_to_cart_quantity.
+					 * Hook: poocommerce_after_add_to_cart_quantity.
 					 *
 					 * @since 2.7.0
 					 */
-					do_action( 'woocommerce_after_add_to_cart_quantity' );
+					do_action( 'poocommerce_after_add_to_cart_quantity' );
 					/**
-					 * Hook: woocommerce_after_add_to_cart_button.
+					 * Hook: poocommerce_after_add_to_cart_button.
 					 *
 					 * @since 1.5.0
 					 */
-					do_action( 'woocommerce_after_add_to_cart_button' );
+					do_action( 'poocommerce_after_add_to_cart_button' );
 				} elseif ( ProductType::EXTERNAL === $product_type ) {
 					/**
-					 * Hook: woocommerce_after_add_to_cart_button.
+					 * Hook: poocommerce_after_add_to_cart_button.
 					 *
 					 * @since 1.5.0
 					 */
-					do_action( 'woocommerce_after_add_to_cart_button' );
+					do_action( 'poocommerce_after_add_to_cart_button' );
 				} elseif ( ProductType::GROUPED === $product_type ) {
 					/**
-					 * Hook: woocommerce_after_add_to_cart_button.
+					 * Hook: poocommerce_after_add_to_cart_button.
 					 *
 					 * @since 1.5.0
 					 */
-					do_action( 'woocommerce_after_add_to_cart_button' );
+					do_action( 'poocommerce_after_add_to_cart_button' );
 				} elseif ( ProductType::VARIABLE === $product_type ) {
 					/**
-					 * Hook: woocommerce_after_variations_form.
+					 * Hook: poocommerce_after_variations_form.
 					 *
 					 * @since 2.4.0
 					 */
-					do_action( 'woocommerce_after_variations_form' );
+					do_action( 'poocommerce_after_variations_form' );
 				}
 				$hooks_after = ob_get_clean();
 			}
@@ -246,14 +246,14 @@ class AddToCartWithOptions extends AbstractBlock {
 
 			ob_start();
 
-			remove_action( 'woocommerce_' . $product_type . '_add_to_cart', 'woocommerce_' . $product_type . '_add_to_cart', 30 );
+			remove_action( 'poocommerce_' . $product_type . '_add_to_cart', 'poocommerce_' . $product_type . '_add_to_cart', 30 );
 			/**
 			 * Trigger the single product add to cart action that prints the markup.
 			 *
 			 * @since 9.9.0
 			 */
-			do_action( 'woocommerce_' . $product->get_type() . '_add_to_cart' );
-			add_action( 'woocommerce_' . $product_type . '_add_to_cart', 'woocommerce_' . $product_type . '_add_to_cart', 30 );
+			do_action( 'poocommerce_' . $product->get_type() . '_add_to_cart' );
+			add_action( 'poocommerce_' . $product_type . '_add_to_cart', 'poocommerce_' . $product_type . '_add_to_cart', 30 );
 
 			$form_html = $form_html . ob_get_clean();
 		} else {
@@ -264,7 +264,7 @@ class AddToCartWithOptions extends AbstractBlock {
 			 *
 			 * @since 9.7.0
 			 */
-			do_action( 'woocommerce_' . $product->get_type() . '_add_to_cart' );
+			do_action( 'poocommerce_' . $product->get_type() . '_add_to_cart' );
 
 			$form_html = ob_get_clean();
 		}

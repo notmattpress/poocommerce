@@ -12,13 +12,13 @@ You are an extension developer, and to allow users to interact with your extensi
 
 You may use the `IntegrationRegistry` to register an `IntegrationInterface` this will be a class that will handle the enqueuing of scripts, styles, and data. You may have a different `IntegrationInterface` for each block (Mini-Cart, Cart and Checkout), or you may use the same one, it is entirely dependent on your use case.
 
-You should use the hooks: `woocommerce_blocks_mini-cart_block_registration`. `woocommerce_blocks_cart_block_registration` and `woocommerce_blocks_checkout_block_registration`. These hooks pass an instance of [`IntegrationRegistry`](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/trunk/src/Integrations/IntegrationRegistry.php) to the callback.
+You should use the hooks: `poocommerce_blocks_mini-cart_block_registration`. `poocommerce_blocks_cart_block_registration` and `poocommerce_blocks_checkout_block_registration`. These hooks pass an instance of [`IntegrationRegistry`](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/trunk/src/Integrations/IntegrationRegistry.php) to the callback.
 
 You may then use the `register` method on this object to register your `IntegrationInterface`.
 
 ## `IntegrationInterface` methods
 
-To begin, we'll need to create our integration class, our `IntegrationInterface`. This will be a class that implements WooCommerce Blocks' interface named [`IntegrationInterface`](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/trunk/src/Integrations/IntegrationInterface.php).
+To begin, we'll need to create our integration class, our `IntegrationInterface`. This will be a class that implements PooCommerce Blocks' interface named [`IntegrationInterface`](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/trunk/src/Integrations/IntegrationInterface.php).
 
 In this section, we will step through the interface's members and discuss what they are used for.
 
@@ -46,7 +46,7 @@ The keys and values of this array should all be serializable.
 
 ## Usage example
 
-Let's suppose we're the author of an extension: `WooCommerce Example Plugin`. We want to enqueue scripts, styles, and data on the frontend when either the Mini-Cart, Cart or Checkout blocks are being used.
+Let's suppose we're the author of an extension: `PooCommerce Example Plugin`. We want to enqueue scripts, styles, and data on the frontend when either the Mini-Cart, Cart or Checkout blocks are being used.
 
 We also want some data from a server-side function to be available to our front-end scripts.
 
@@ -56,19 +56,19 @@ Let's create our `IntegrationInterface`.
 
 ```php
 <?php
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationInterface;
 
 /**
- * Class for integrating with WooCommerce Blocks
+ * Class for integrating with PooCommerce Blocks
  */
-class WooCommerce_Example_Plugin_Integration implements IntegrationInterface {
+class PooCommerce_Example_Plugin_Integration implements IntegrationInterface {
 	/**
 	 * The name of the integration.
 	 *
 	 * @return string
 	 */
 	public function get_name() {
-		return 'woocommerce-example-plugin';
+		return 'poocommerce-example-plugin';
 	}
 
 	/**
@@ -80,12 +80,12 @@ class WooCommerce_Example_Plugin_Integration implements IntegrationInterface {
 
     /**
      * The assets linked below should be a path to a file, for the sake of brevity
-     * we will assume \WooCommerce_Example_Plugin_Assets::$plugin_file is a valid file path
+     * we will assume \PooCommerce_Example_Plugin_Assets::$plugin_file is a valid file path
     */
-		$script_url = plugins_url( $script_path, \WooCommerce_Example_Plugin_Assets::$plugin_file );
-		$style_url = plugins_url( $style_path, \WooCommerce_Example_Plugin_Assets::$plugin_file );
+		$script_url = plugins_url( $script_path, \PooCommerce_Example_Plugin_Assets::$plugin_file );
+		$style_url = plugins_url( $style_path, \PooCommerce_Example_Plugin_Assets::$plugin_file );
 
-		$script_asset_path = dirname( \WooCommerce_Example_Plugin_Assets::$plugin_file ) . '/build/index.asset.php';
+		$script_asset_path = dirname( \PooCommerce_Example_Plugin_Assets::$plugin_file ) . '/build/index.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 			? require $script_asset_path
 			: array(
@@ -109,8 +109,8 @@ class WooCommerce_Example_Plugin_Integration implements IntegrationInterface {
 		);
 		wp_set_script_translations(
 			'wc-blocks-integration',
-			'woocommerce-example-plugin',
-			dirname( \WooCommerce_Example_Plugin_Assets::$plugin_file ) . '/languages'
+			'poocommerce-example-plugin',
+			dirname( \PooCommerce_Example_Plugin_Assets::$plugin_file ) . '/languages'
 		);
 	}
 
@@ -138,9 +138,9 @@ class WooCommerce_Example_Plugin_Integration implements IntegrationInterface {
 	 * @return array
 	 */
 	public function get_script_data() {
-	    $woocommerce_example_plugin_data = some_expensive_serverside_function();
+	    $poocommerce_example_plugin_data = some_expensive_serverside_function();
 	    return [
-	        'expensive_data_calculation' => $woocommerce_example_plugin_data
+	        'expensive_data_calculation' => $poocommerce_example_plugin_data
         ];
 	}
 
@@ -155,32 +155,32 @@ class WooCommerce_Example_Plugin_Integration implements IntegrationInterface {
 			return filemtime( $file );
 		}
 
-		// As above, let's assume that WooCommerce_Example_Plugin_Assets::VERSION resolves to some versioning number our
+		// As above, let's assume that PooCommerce_Example_Plugin_Assets::VERSION resolves to some versioning number our
 		// extension uses.
-		return \WooCommerce_Example_Plugin_Assets::VERSION;
+		return \PooCommerce_Example_Plugin_Assets::VERSION;
 	}
 }
 ```
 
-As mentioned, we will need register our `IntegrationInterface` with WooCommerce Blocks, as we want our scripts to be included when either the Mini-Cart, Cart or Checkout is used, we need to register callbacks for three actions.
+As mentioned, we will need register our `IntegrationInterface` with PooCommerce Blocks, as we want our scripts to be included when either the Mini-Cart, Cart or Checkout is used, we need to register callbacks for three actions.
 
 ```php
 add_action(
-    'woocommerce_blocks_mini-cart_block_registration',
+    'poocommerce_blocks_mini-cart_block_registration',
     function( $integration_registry ) {
-        $integration_registry->register( new WooCommerce_Example_Plugin_Integration() );
+        $integration_registry->register( new PooCommerce_Example_Plugin_Integration() );
     }
 );
 add_action(
-    'woocommerce_blocks_cart_block_registration',
+    'poocommerce_blocks_cart_block_registration',
     function( $integration_registry ) {
-        $integration_registry->register( new WooCommerce_Example_Plugin_Integration() );
+        $integration_registry->register( new PooCommerce_Example_Plugin_Integration() );
     }
 );
 add_action(
-    'woocommerce_blocks_checkout_block_registration',
+    'poocommerce_blocks_checkout_block_registration',
     function( $integration_registry ) {
-        $integration_registry->register( new WooCommerce_Example_Plugin_Integration() );
+        $integration_registry->register( new PooCommerce_Example_Plugin_Integration() );
     }
 );
 ```
@@ -191,6 +191,6 @@ Now, when we load a page containing either block, we should see the scripts we r
 
 We associated some data with the extension in the `get_script_data` method of our interface, we need to know how to get this!
 
-In the `@woocommerce/settings` package there is a method you can import called `getSetting`. This method accepts a string. The name of the setting containing the data added in `get_script_data` is the name of your integration (i.e. the value returned by `get_name`) suffixed with `_data`. In our example it would be: `woocommerce-example-plugin_data`.
+In the `@poocommerce/settings` package there is a method you can import called `getSetting`. This method accepts a string. The name of the setting containing the data added in `get_script_data` is the name of your integration (i.e. the value returned by `get_name`) suffixed with `_data`. In our example it would be: `poocommerce-example-plugin_data`.
 
 The value returned here is a plain old JavaScript object, keyed by the keys of the array returned by `get_script_data`, the values will serialized.

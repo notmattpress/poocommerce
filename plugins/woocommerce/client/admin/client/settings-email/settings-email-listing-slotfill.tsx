@@ -55,8 +55,8 @@ export const registerSettingsEmailListingFill = () => {
 		emailTypes = JSON.parse( emailTypesData || '' );
 	} catch ( e ) {}
 
-	registerPlugin( 'woocommerce-admin-settings-email-listing', {
-		scope: 'woocommerce-email-listing',
+	registerPlugin( 'poocommerce-admin-settings-email-listing', {
+		scope: 'poocommerce-email-listing',
 		render: () => <EmailListingFill emailTypes={ emailTypes } />,
 	} );
 };

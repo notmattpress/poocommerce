@@ -3,17 +3,17 @@
  * AbstractInterfaceServiceProviderTest class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\ContainerException;
-use Automattic\WooCommerce\Internal\DependencyManagement\ExtendedContainer;
-use Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders\AbstractInterfaceServiceProvider;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\AnotherClassInterface;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassInterface;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithInterface;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithMultipleInterfaces;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNoInterface;
-use Automattic\WooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
+use Automattic\PooCommerce\Internal\DependencyManagement\ContainerException;
+use Automattic\PooCommerce\Internal\DependencyManagement\ExtendedContainer;
+use Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders\AbstractInterfaceServiceProvider;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\AnotherClassInterface;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassInterface;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithInterface;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithMultipleInterfaces;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\ClassWithNoInterface;
+use Automattic\PooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
 use stdClass;
 
 /**
@@ -95,7 +95,7 @@ class AbstractInterfaceServiceProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_add_with_implements_tags_throws_on_a_scalar_passed() {
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "You cannot add '123', only classes in the Automattic\WooCommerce\ namespace are allowed." );
+		$this->expectExceptionMessage( "You cannot add '123', only classes in the Automattic\PooCommerce\ namespace are allowed." );
 
 		$this->sut->add_with_implements_tags( 123 );
 	}
@@ -107,7 +107,7 @@ class AbstractInterfaceServiceProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_add_with_implements_tags_throws_on_not_a_proper_namespace_class_passed() {
 		$this->expectException( ContainerException::class );
-		$this->expectExceptionMessage( "You cannot add 'stdClass', only classes in the Automattic\WooCommerce\ namespace are allowed." );
+		$this->expectExceptionMessage( "You cannot add 'stdClass', only classes in the Automattic\PooCommerce\ namespace are allowed." );
 
 		$this->sut->add_with_implements_tags( stdClass::class );
 	}

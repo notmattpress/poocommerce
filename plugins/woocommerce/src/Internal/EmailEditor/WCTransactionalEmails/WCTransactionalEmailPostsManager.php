@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
 /**
- * Class responsible for managing WooCommerce email editor post templates.
+ * Class responsible for managing PooCommerce email editor post templates.
  */
 class WCTransactionalEmailPostsManager {
 	/**
@@ -70,7 +70,7 @@ class WCTransactionalEmailPostsManager {
 	 * @param int    $post_id    The post ID to save.
 	 */
 	public function save_email_template_post_id( $email_type, $post_id ) {
-		$option_name = 'woocommerce_email_templates_' . $email_type . '_post_id';
+		$option_name = 'poocommerce_email_templates_' . $email_type . '_post_id';
 		update_option( $option_name, $post_id );
 	}
 
@@ -81,7 +81,7 @@ class WCTransactionalEmailPostsManager {
 	 * @return int|false The post ID if found, false otherwise.
 	 */
 	public function get_email_template_post_id( $email_type ) {
-		$option_name = 'woocommerce_email_templates_' . $email_type . '_post_id';
+		$option_name = 'poocommerce_email_templates_' . $email_type . '_post_id';
 		return get_option( $option_name );
 	}
 
@@ -91,7 +91,7 @@ class WCTransactionalEmailPostsManager {
 	 * @param string $email_type The type of email template e.g. 'customer_new_account' from the WC_Email->id property.
 	 */
 	public function delete_email_template( $email_type ) {
-		$option_name = 'woocommerce_email_templates_' . $email_type . '_post_id';
+		$option_name = 'poocommerce_email_templates_' . $email_type . '_post_id';
 		if ( ! get_option( $option_name ) ) {
 			return;
 		}

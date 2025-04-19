@@ -2,14 +2,14 @@
 /**
  * Onboarding Tasks REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\OnboardingTasks;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Admin\API\OnboardingTasks;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 require_once __DIR__ . '/../features/onboarding-tasks/test-task.php';
 
@@ -209,8 +209,8 @@ class WC_Admin_Tests_API_Onboarding_Tasks extends WC_REST_Unit_Test_Case {
 
 		$this->assertEquals( 200, $response->get_status() );
 		$this->assertEquals( 'success', $data['status'] );
-		$this->assertEquals( get_option( 'woocommerce_onboarding_homepage_post_id' ), $data['post_id'] );
-		$this->assertEquals( htmlspecialchars_decode( get_edit_post_link( get_option( 'woocommerce_onboarding_homepage_post_id' ) ) ), $data['edit_post_link'] );
+		$this->assertEquals( get_option( 'poocommerce_onboarding_homepage_post_id' ), $data['post_id'] );
+		$this->assertEquals( htmlspecialchars_decode( get_edit_post_link( get_option( 'poocommerce_onboarding_homepage_post_id' ) ) ), $data['edit_post_link'] );
 	}
 
 	/**
@@ -220,7 +220,7 @@ class WC_Admin_Tests_API_Onboarding_Tasks extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		add_filter(
-			'woocommerce_admin_onboarding_homepage_template',
+			'poocommerce_admin_onboarding_homepage_template',
 			function ( $template ) {
 				return 'Custom post content';
 			}
@@ -324,7 +324,7 @@ class WC_Admin_Tests_API_Onboarding_Tasks extends WC_REST_Unit_Test_Case {
 		$response_data = $response->get_data();
 
 		$this->assertEquals( $response_data['data']['status'], 404 );
-		$this->assertEquals( $response_data['code'], 'woocommerce_rest_invalid_task' );
+		$this->assertEquals( $response_data['code'], 'poocommerce_rest_invalid_task' );
 	}
 
 	/**
@@ -376,7 +376,7 @@ class WC_Admin_Tests_API_Onboarding_Tasks extends WC_REST_Unit_Test_Case {
 		$response_data = $response->get_data();
 
 		$this->assertEquals( $response_data['data']['status'], 404 );
-		$this->assertEquals( $response_data['code'], 'woocommerce_rest_invalid_task_list' );
+		$this->assertEquals( $response_data['code'], 'poocommerce_rest_invalid_task_list' );
 	}
 
 

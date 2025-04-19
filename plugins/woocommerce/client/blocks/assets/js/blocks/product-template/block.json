@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-template",
+	"name": "poocommerce/product-template",
 	"title": "Product Template",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "Contains the block elements used to render a product.",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"usesContext": [
 		"queryId",
 		"query",

@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/blueprint",
+	"name": "poocommerce/blueprint",
 	"version": "0.0.1",
 	"autoload": {
 		"psr-4": {
-			"Automattic\\WooCommerce\\Blueprint\\": "src/",
-			"Automattic\\WooCommerce\\Blueprint\\Tests\\": "tests/"
+			"Automattic\\PooCommerce\\Blueprint\\": "src/",
+			"Automattic\\PooCommerce\\Blueprint\\Tests\\": "tests/"
 		}
 	},
 	"require": {
@@ -24,7 +24,7 @@
 		"phpunit/phpunit": "^9",
 		"mockery/mockery": "^1.6",
 		"automattic/jetpack-changelogger": "3.3.0",
-		"woocommerce/woocommerce-sniffs": "^1.0.0",
+		"poocommerce/poocommerce-sniffs": "^1.0.0",
 		"yoast/phpunit-polyfills": "^2.0"
 	},
 	"extra": {

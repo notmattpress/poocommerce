@@ -1,4 +1,4 @@
-import { SimpleProduct } from '@woocommerce/api';
+import { SimpleProduct } from '@poocommerce/api';
 import { Factory } from 'fishery';
 import { randomUUID as v4 } from 'crypto';
 

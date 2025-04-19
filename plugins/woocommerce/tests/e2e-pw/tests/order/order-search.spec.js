@@ -79,7 +79,7 @@ const deleteCustomer = async ( restApi ) => {
 };
 
 test.describe(
-	'WooCommerce Orders > Search orders',
+	'PooCommerce Orders > Search orders',
 	{ tag: [ tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );

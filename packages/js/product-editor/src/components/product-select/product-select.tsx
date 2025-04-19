@@ -4,7 +4,7 @@
 import { createElement, useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { BaseControl, Spinner } from '@wordpress/components';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import classnames from 'classnames';
 
 /**
@@ -41,22 +41,22 @@ function ComboboxControlOption( props: {
 } ): JSX.Element {
 	const { item } = props;
 	return (
-		<div className="woocommerce-product-select__menu-item">
+		<div className="poocommerce-product-select__menu-item">
 			{ item.product && (
 				<ProductImage
 					product={ item.product }
-					className="woocommerce-product-select__menu-item-image"
+					className="poocommerce-product-select__menu-item-image"
 				/>
 			) }
-			<div className="woocommerce-product-select__menu-item-content">
-				<div className="woocommerce-product-select__menu-item-title">
+			<div className="poocommerce-product-select__menu-item-content">
+				<div className="poocommerce-product-select__menu-item-title">
 					{ item.label }
 				</div>
 
 				{ item.product && (
 					<FormattedPrice
 						product={ item.product }
-						className="woocommerce-product-select__menu-item-description"
+						className="poocommerce-product-select__menu-item-description"
 					/>
 				) }
 			</div>
@@ -110,16 +110,16 @@ export function ProductSelect( {
 
 	if ( ! help ) {
 		help = (
-			<div className="woocommerce-product-combobox-help">
-				{ __( 'Search for products', 'woocommerce' ) }
+			<div className="poocommerce-product-combobox-help">
+				{ __( 'Search for products', 'poocommerce' ) }
 			</div>
 		);
 
 		if ( isLoading ) {
 			help = (
-				<div className="woocommerce-product-combobox-help">
+				<div className="poocommerce-product-combobox-help">
 					<Spinner />
-					{ __( 'Loading…', 'woocommerce' ) }
+					{ __( 'Loading…', 'poocommerce' ) }
 				</div>
 			);
 		}
@@ -128,7 +128,7 @@ export function ProductSelect( {
 	return (
 		<div
 			className={ classnames(
-				'woocommerce-product-select',
+				'poocommerce-product-select',
 				{
 					'no-items': ! options.length,
 				},
@@ -137,7 +137,7 @@ export function ProductSelect( {
 		>
 			<BaseControl label={ label } help={ help } id={ labelFor }>
 				<ComboboxControl
-					className="woocommerce-product-combobox"
+					className="poocommerce-product-combobox"
 					allowReset={ false }
 					options={ options }
 					value={ value }

@@ -30,7 +30,7 @@ class AnimationSlider extends Component {
 	render() {
 		const { children, animationKey, animate } = this.props;
 		const containerClasses = classnames(
-			'woocommerce-slide-animation',
+			'poocommerce-slide-animation',
 			animate && `animate-${ animate }`
 		);
 		return (

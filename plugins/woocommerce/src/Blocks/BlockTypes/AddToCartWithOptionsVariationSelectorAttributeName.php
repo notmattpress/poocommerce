@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Block type for variation selector attribute name in add to cart with options.
@@ -49,8 +49,8 @@ class AddToCartWithOptionsVariationSelectorAttributeName extends AbstractBlock {
 			return '';
 		}
 
-		$attribute_id   = $block->context['woocommerce/attributeId'];
-		$attribute_name = $block->context['woocommerce/attributeName'];
+		$attribute_id   = $block->context['poocommerce/attributeId'];
+		$attribute_name = $block->context['poocommerce/attributeName'];
 
 		if ( ! isset( $attribute_id ) || ! isset( $attribute_name ) ) {
 			return '';

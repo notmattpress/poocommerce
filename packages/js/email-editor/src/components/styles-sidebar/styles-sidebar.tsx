@@ -38,9 +38,9 @@ export function RawStylesSidebar( props: Props ): JSX.Element {
 		userCanEditGlobalStyles && (
 			<ComplementaryArea
 				identifier={ stylesSidebarId }
-				className="woocommerce-email-editor-styles-panel"
-				header={ __( 'Styles', 'woocommerce' ) }
-				closeLabel={ __( 'Close styles sidebar', 'woocommerce' ) }
+				className="poocommerce-email-editor-styles-panel"
+				header={ __( 'Styles', 'poocommerce' ) }
+				closeLabel={ __( 'Close styles sidebar', 'poocommerce' ) }
 				icon={ styles }
 				scope={ storeName }
 				{ ...props }

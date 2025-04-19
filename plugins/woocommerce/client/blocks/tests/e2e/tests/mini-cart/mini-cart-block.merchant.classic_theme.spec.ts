@@ -6,11 +6,11 @@ import {
 	test,
 	CLASSIC_THEME_SLUG,
 	BlockData,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},

@@ -16,15 +16,15 @@ export const SummaryNumberPlaceholder = ( { className } ) => (
 	<li
 		data-testid="summary-placeholder"
 		className={ classnames(
-			'woocommerce-summary__item-container is-placeholder',
+			'poocommerce-summary__item-container is-placeholder',
 			className
 		) }
 	>
-		<div className="woocommerce-summary__item">
-			<div className="woocommerce-summary__item-label" />
-			<div className="woocommerce-summary__item-data">
-				<div className="woocommerce-summary__item-value" />
-				<div className="woocommerce-summary__item-delta" />
+		<div className="poocommerce-summary__item">
+			<div className="poocommerce-summary__item-label" />
+			<div className="poocommerce-summary__item-data">
+				<div className="poocommerce-summary__item-value" />
+				<div className="poocommerce-summary__item-delta" />
 			</div>
 		</div>
 	</li>
@@ -42,7 +42,7 @@ class SummaryListPlaceholder extends Component {
 			: this.props.numberOfItems;
 
 		const hasItemsClass = getHasItemsClass( numberOfItems );
-		const classes = classnames( 'woocommerce-summary', {
+		const classes = classnames( 'poocommerce-summary', {
 			[ hasItemsClass ]: ! isDropdownBreakpoint,
 			'is-placeholder': true,
 		} );

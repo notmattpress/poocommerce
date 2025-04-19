@@ -82,11 +82,11 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 					<p>
 						{ __(
 							'You are attempting to edit a part of the template. Only site admins can edit email templates.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 
-					<div className="woocommerce-send-preview-modal-footer">
+					<div className="poocommerce-send-preview-modal-footer">
 						<Button
 							variant="tertiary"
 							onClick={ () => {
@@ -96,7 +96,7 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 								);
 							} }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>
@@ -104,7 +104,7 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 
 			<ConfirmDialog
 				isOpen={ isDialogOpen === 'confirm' }
-				confirmButtonText={ __( 'Edit template', 'woocommerce' ) }
+				confirmButtonText={ __( 'Edit template', 'poocommerce' ) }
 				onConfirm={ () => {
 					setIsDialogOpen( '' );
 					onNavigateToEntityRecord( {
@@ -127,7 +127,7 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 			>
 				{ __(
 					'The block you’ve selected is part of a template that might be used in other emails. Are you sure you want to edit the template?',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</ConfirmDialog>
 		</>

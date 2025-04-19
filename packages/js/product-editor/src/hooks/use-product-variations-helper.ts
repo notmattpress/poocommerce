@@ -3,13 +3,13 @@
  */
 import { dispatch, resolveSelect, useSelect } from '@wordpress/data';
 import { useCallback, useMemo, useState } from '@wordpress/element';
-import { getNewPath, getPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, getPath, navigateTo } from '@poocommerce/navigation';
 import {
 	Product,
 	ProductDefaultAttribute,
 	ProductVariation,
 	experimentalProductVariationsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { applyFilters } from '@wordpress/hooks';
 import {
 	useEntityProp,
@@ -120,7 +120,7 @@ export function useProductVariationsHelper() {
 
 		await Promise.all(
 			variations.map( ( variationId: number ) =>
-				// @ts-expect-error invalidateResolution is not typed correctly because we are overriding the type definition. https://github.com/woocommerce/woocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
+				// @ts-expect-error invalidateResolution is not typed correctly because we are overriding the type definition. https://github.com/poocommerce/poocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
 				dispatch( coreStore ).invalidateResolution( 'getEntityRecord', [
 					'postType',
 					'product_variation',
@@ -134,12 +134,12 @@ export function useProductVariationsHelper() {
 		/**
 		 * Filters the meta_data array for generated variations.
 		 *
-		 * @filter woocommerce.product.variations.generate.meta_data
+		 * @filter poocommerce.product.variations.generate.meta_data
 		 * @param {Object} product Main product object.
 		 * @return {Object} meta_data array for variations.
 		 */
 		const meta_data = applyFilters(
-			'woocommerce.product.variations.generate.meta_data',
+			'poocommerce.product.variations.generate.meta_data',
 			[],
 			product
 		);
@@ -161,7 +161,7 @@ export function useProductVariationsHelper() {
 				}
 			)
 			.then( async ( response ) => {
-				// @ts-expect-error invalidateResolution is not typed correctly because we are overriding the type definition. https://github.com/woocommerce/woocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
+				// @ts-expect-error invalidateResolution is not typed correctly because we are overriding the type definition. https://github.com/poocommerce/poocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
 				await dispatch( coreStore ).invalidateResolution(
 					'getEntityRecord',
 					[ 'postType', 'product', productId ]

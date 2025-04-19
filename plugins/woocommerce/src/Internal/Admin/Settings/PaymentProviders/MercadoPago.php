@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
 use WC_Payment_Gateway;
 
 defined( 'ABSPATH' ) || exit;
@@ -30,13 +30,13 @@ class MercadoPago extends PaymentGateway {
 		$title = $payment_gateway->get_method_title();
 		switch ( $payment_gateway->id ) {
 			case 'woo-mercado-pago-basic':
-				$title = $title . ' (' . esc_html__( 'Installments without cards', 'woocommerce' ) . ')';
+				$title = $title . ' (' . esc_html__( 'Installments without cards', 'poocommerce' ) . ')';
 				break;
 			case 'woo-mercado-pago-custom':
-				$title = $title . ' (' . esc_html__( 'Credit and debit cards', 'woocommerce' ) . ')';
+				$title = $title . ' (' . esc_html__( 'Credit and debit cards', 'poocommerce' ) . ')';
 				break;
 			case 'woo-mercado-pago-ticket':
-				$title = $title . ' (' . esc_html__( 'Invoice', 'woocommerce' ) . ')';
+				$title = $title . ' (' . esc_html__( 'Invoice', 'poocommerce' ) . ')';
 				break;
 			default:
 				break;

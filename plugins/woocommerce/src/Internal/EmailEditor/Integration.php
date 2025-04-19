@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
 use WP_Post;
 
 defined( 'ABSPATH' ) || exit;
@@ -63,7 +63,7 @@ class Integration {
 			return;
 		}
 
-		add_action( 'woocommerce_init', array( $this, 'initialize' ) );
+		add_action( 'poocommerce_init', array( $this, 'initialize' ) );
 	}
 
 	/**
@@ -93,14 +93,14 @@ class Integration {
 	 * Register hooks for the integration.
 	 */
 	public function register_hooks() {
-		add_filter( 'woocommerce_email_editor_post_types', array( $this, 'add_email_post_type' ) );
-		add_filter( 'woocommerce_is_email_editor_page', array( $this, 'is_editor_page' ), 10, 1 );
+		add_filter( 'poocommerce_email_editor_post_types', array( $this, 'add_email_post_type' ) );
+		add_filter( 'poocommerce_is_email_editor_page', array( $this, 'is_editor_page' ), 10, 1 );
 		add_filter( 'replace_editor', array( $this, 'replace_editor' ), 10, 2 );
 		add_action( 'before_delete_post', array( $this, 'delete_email_template_associated_with_email_editor_post' ), 10, 2 );
 	}
 
 	/**
-	 * Add WooCommerce email post type to the list of supported post types.
+	 * Add PooCommerce email post type to the list of supported post types.
 	 *
 	 * @param array $post_types List of post types.
 	 * @return array Modified list of post types.
@@ -110,13 +110,13 @@ class Integration {
 			'name' => self::EMAIL_POST_TYPE,
 			'args' => array(
 				'labels'   => array(
-					'name'          => __( 'Woo Emails', 'woocommerce' ),
-					'singular_name' => __( 'Woo Email', 'woocommerce' ),
-					'add_new_item'  => __( 'Add New Woo Email', 'woocommerce' ),
-					'edit_item'     => __( 'Edit Woo Email', 'woocommerce' ),
-					'new_item'      => __( 'New Woo Email', 'woocommerce' ),
-					'view_item'     => __( 'View Woo Email', 'woocommerce' ),
-					'search_items'  => __( 'Search Woo Emails', 'woocommerce' ),
+					'name'          => __( 'Woo Emails', 'poocommerce' ),
+					'singular_name' => __( 'Woo Email', 'poocommerce' ),
+					'add_new_item'  => __( 'Add New Woo Email', 'poocommerce' ),
+					'edit_item'     => __( 'Edit Woo Email', 'poocommerce' ),
+					'new_item'      => __( 'New Woo Email', 'poocommerce' ),
+					'view_item'     => __( 'View Woo Email', 'poocommerce' ),
+					'search_items'  => __( 'Search Woo Emails', 'poocommerce' ),
 				),
 				'rewrite'  => array( 'slug' => self::EMAIL_POST_TYPE ),
 				'supports' => array(
@@ -187,12 +187,12 @@ class Integration {
 	}
 
 	/**
-	 * Extend the post API for the wp_template post type to add and save the woocommerce_data field.
+	 * Extend the post API for the wp_template post type to add and save the poocommerce_data field.
 	 */
 	public function extend_template_post_api(): void {
 		register_rest_field(
 			'wp_template',
-			'woocommerce_data',
+			'poocommerce_data',
 			array(
 				'get_callback'    => array( $this->template_api_controller, 'get_template_data' ),
 				'update_callback' => array( $this->template_api_controller, 'save_template_data' ),

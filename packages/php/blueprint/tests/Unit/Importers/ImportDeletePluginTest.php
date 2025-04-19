@@ -1,17 +1,17 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportDeletePlugin;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\DeletePlugin;
+use Automattic\PooCommerce\Blueprint\Importers\ImportDeletePlugin;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\DeletePlugin;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test the ImportDeletePlugin class.
  *
- * @package Automattic\WooCommerce\Blueprint\Tests\Unit\Importers
+ * @package Automattic\PooCommerce\Blueprint\Tests\Unit\Importers
  */
 class ImportDeletePluginTest extends TestCase {
 	/**

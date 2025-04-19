@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store } from '@wordpress/interactivity';
-import type { HTMLElementEvent } from '@woocommerce/types';
+import type { HTMLElementEvent } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -59,12 +59,12 @@ const dispatchChangeEvent = ( inputElement: HTMLInputElement ) => {
 
 const { actions: wooAddToCartWithOptionsActions } =
 	store< AddToCartWithOptionsStore >(
-		'woocommerce/add-to-cart-with-options',
+		'poocommerce/add-to-cart-with-options',
 		{},
 		{ lock: universalLock }
 	);
 
-store( 'woocommerce/add-to-cart-with-options', {
+store( 'poocommerce/add-to-cart-with-options', {
 	actions: {
 		addQuantity: ( event: HTMLElementEvent< HTMLButtonElement > ) => {
 			const inputData = getInputData( event );

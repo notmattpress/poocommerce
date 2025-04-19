@@ -20,7 +20,7 @@ Checkout fields still respect country locale, which means you can modify fields 
 Let's say that in Algeria, we know for sure that postal code and city are redundant, so we can remove them:
 
 ```php
-add_filter('woocommerce_get_country_locale', function( $locale ) {
+add_filter('poocommerce_get_country_locale', function( $locale ) {
 
 	$locale['DZ']['postcode']['required'] = false;
 	$locale['DZ']['postcode']['hidden'] = true;
@@ -43,7 +43,7 @@ Keep in mind that this will remove fields for both shipping and billing. We thin
 We can follow up with removing all other fields except Country, removing the country would fail your order, as we need country to know which fields to remove:
 
 ```php
-add_filter('woocommerce_get_country_locale', function( $locale ) {
+add_filter('poocommerce_get_country_locale', function( $locale ) {
 
 	$locale['DZ']['address_1'] = [
 		'required' => false,
@@ -99,9 +99,9 @@ This would be the result:
 
 Unlike other fields, Phone, Company, and Address 2 state is persisted to the database via an option:
 
-- `woocommerce_checkout_phone_field`
-- `woocommerce_checkout_company_field`
-- `woocommerce_checkout_address_2_field`
+- `poocommerce_checkout_phone_field`
+- `poocommerce_checkout_company_field`
+- `poocommerce_checkout_address_2_field`
 
 The value of those options can be: `required`, `optional`, or `hidden`. They manage the default state of the field. So you can edit that, but still leave agency to the merchant to set it as they see fit. You can also edit them based on locale/country.
 
@@ -109,7 +109,7 @@ To edit the default value:
 
 ```php
 add_filter(
-	'default_option_woocommerce_checkout_phone_field',
+	'default_option_poocommerce_checkout_phone_field',
 	function ( $default_value ) {
 		return "required";
 	},
@@ -129,7 +129,7 @@ Till now, all changes are applied to Algeria only, customers switching would see
 As with the above, this is not something we recommend unless you sell to a very controlled set of countries and tested this with each country. Some payment gateways would only enable fraud detection on production mode and not test mode, and your fields that passed test mode fails in production mode, but here it is regardless:
 
 ```php
-add_filter('woocommerce_get_country_locale', function( $locale ) {
+add_filter('poocommerce_get_country_locale', function( $locale ) {
 	foreach ( $locale as $key => $value ) {
 		$locale[ $key ]['address_1'] = [
 			'required' => false,
@@ -163,7 +163,7 @@ The above code would loop over all counties you sell and disable the fields ther
 We can choose to remove fields for virtual cart (ones that only require billing and no shipping), this can be done with some extra checks:
 
 ```php
-add_filter('woocommerce_get_country_locale', function( $locale ) {
+add_filter('poocommerce_get_country_locale', function( $locale ) {
 	$cart = wc()->cart;
 
 	// Only remove fields if we're operating on a cart.
@@ -184,12 +184,12 @@ For future visits, Checkout will show an address card for saved addresses, this 
 
 ![Image](https://github.com/user-attachments/assets/ab56c4ca-39ba-47ab-83d1-1ce6dfefc0c3)
 
-We can edit that using PHP, because the value is coming from `get_address_formats` function, which passes through the `woocommerce_localisation_address_formats` filter.
+We can edit that using PHP, because the value is coming from `get_address_formats` function, which passes through the `poocommerce_localisation_address_formats` filter.
 
 We can use the following code:
 
 ```php
-add_filter( 'woocommerce_localisation_address_formats', function( $formats ) {
+add_filter( 'poocommerce_localisation_address_formats', function( $formats ) {
 	foreach ( $formats as $key => $format ) {
 		$formats[ $key ] = "{first_name} {last_name}\n{country}";
 		// You can also use `{name}` instead of first name and last name.

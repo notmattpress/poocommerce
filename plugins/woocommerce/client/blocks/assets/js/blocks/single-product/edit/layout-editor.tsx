@@ -7,10 +7,10 @@ import { useDispatch } from '@wordpress/data';
 import {
 	InnerBlockLayoutContextProvider,
 	ProductDataContextProvider,
-} from '@woocommerce/shared-context';
+} from '@poocommerce/shared-context';
 import { PanelBody, Button } from '@wordpress/components';
 import { backup } from '@wordpress/icons';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import {
 	InnerBlocks,
 	InspectorControls,
@@ -18,7 +18,7 @@ import {
 	// @ts-ignore
 	BlockContextProvider,
 } from '@wordpress/block-editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error Type definitions for this function are missing in Gutenberg
 	createBlocksFromInnerBlocksTemplate,
@@ -64,20 +64,20 @@ const LayoutEditor = ( {
 			>
 				<InspectorControls>
 					<PanelBody
-						title={ __( 'Layout', 'woocommerce' ) }
+						title={ __( 'Layout', 'poocommerce' ) }
 						initialOpen={ true }
 					>
 						<Button
 							label={ __(
 								'Reset layout to default',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onClick={ resetInnerBlocks }
 							variant="tertiary"
 							className="wc-block-editor-single-product__reset-layout"
 							icon={ backup }
 						>
-							{ __( 'Reset layout', 'woocommerce' ) }
+							{ __( 'Reset layout', 'poocommerce' ) }
 						</Button>
 					</PanelBody>
 				</InspectorControls>

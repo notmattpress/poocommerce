@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Manages personalization tags for WooCommerce emails.
+ * Manages personalization tags for PooCommerce emails.
  *
  * @internal
  */
@@ -23,11 +23,11 @@ class PersonalizationTagManager {
 	 * @return void
 	 */
 	final public function init(): void {
-		add_filter( 'woocommerce_email_editor_register_personalization_tags', array( $this, 'register_personalization_tags' ) );
+		add_filter( 'poocommerce_email_editor_register_personalization_tags', array( $this, 'register_personalization_tags' ) );
 	}
 
 	/**
-	 * Register WooCommerce personalization tags with the registry.
+	 * Register PooCommerce personalization tags with the registry.
 	 *
 	 * @param Personalization_Tags_Registry $registry The personalization tags registry.
 	 * @return Personalization_Tags_Registry
@@ -35,9 +35,9 @@ class PersonalizationTagManager {
 	public function register_personalization_tags( Personalization_Tags_Registry $registry ) {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Shopper Email', 'woocommerce' ),
-				'woocommerce/shopper-email',
-				__( 'Shopper', 'woocommerce' ),
+				__( 'Shopper Email', 'poocommerce' ),
+				'poocommerce/shopper-email',
+				__( 'Shopper', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_billing_email() ?? '';
@@ -49,9 +49,9 @@ class PersonalizationTagManager {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Shopper First Name', 'woocommerce' ),
-				'woocommerce/shopper-first-name',
-				__( 'Shopper', 'woocommerce' ),
+				__( 'Shopper First Name', 'poocommerce' ),
+				'poocommerce/shopper-first-name',
+				__( 'Shopper', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_billing_first_name() ?? '';
@@ -65,9 +65,9 @@ class PersonalizationTagManager {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Shopper Last Name', 'woocommerce' ),
-				'woocommerce/shopper-last-name',
-				__( 'Shopper', 'woocommerce' ),
+				__( 'Shopper Last Name', 'poocommerce' ),
+				'poocommerce/shopper-last-name',
+				__( 'Shopper', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_billing_last_name() ?? '';
@@ -81,9 +81,9 @@ class PersonalizationTagManager {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Shopper Full Name', 'woocommerce' ),
-				'woocommerce/shopper-full-name',
-				__( 'Shopper', 'woocommerce' ),
+				__( 'Shopper Full Name', 'poocommerce' ),
+				'poocommerce/shopper-full-name',
+				__( 'Shopper', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_formatted_billing_full_name() ?? '';
@@ -99,9 +99,9 @@ class PersonalizationTagManager {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Shopper Username', 'woocommerce' ),
-				'woocommerce/shopper-username',
-				__( 'Shopper', 'woocommerce' ),
+				__( 'Shopper Username', 'poocommerce' ),
+				'poocommerce/shopper-username',
+				__( 'Shopper', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wp_user'] ) ) {
 						return stripslashes( $context['wp_user']->user_login ?? '' );
@@ -114,9 +114,9 @@ class PersonalizationTagManager {
 		// Order Personalization Tags.
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Number', 'woocommerce' ),
-				'woocommerce/order-number',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Number', 'poocommerce' ),
+				'poocommerce/order-number',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -129,9 +129,9 @@ class PersonalizationTagManager {
 		// Site Personalization Tags.
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Site Title', 'woocommerce' ),
-				'woocommerce/site-title',
-				__( 'Site', 'woocommerce' ),
+				__( 'Site Title', 'poocommerce' ),
+				'poocommerce/site-title',
+				__( 'Site', 'poocommerce' ),
 				function (): string {
 					return htmlspecialchars_decode( get_bloginfo( 'name' ) );
 				},
@@ -139,9 +139,9 @@ class PersonalizationTagManager {
 		);
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Homepage URL', 'woocommerce' ),
-				'woocommerce/site-homepage-url',
-				__( 'Site', 'woocommerce' ),
+				__( 'Homepage URL', 'poocommerce' ),
+				'poocommerce/site-homepage-url',
+				__( 'Site', 'poocommerce' ),
 				function (): string {
 					return get_bloginfo( 'url' );
 				},
@@ -151,9 +151,9 @@ class PersonalizationTagManager {
 		// Store Personalization Tags.
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Store Email', 'woocommerce' ),
-				'woocommerce/store-email',
-				__( 'Store', 'woocommerce' ),
+				__( 'Store Email', 'poocommerce' ),
+				'poocommerce/store-email',
+				__( 'Store', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wc_email'], $context['wc_email']->get_from_address ) ) {
 						return $context['wc_email']->get_from_address();
@@ -164,9 +164,9 @@ class PersonalizationTagManager {
 		);
 		$registry->register(
 			new Personalization_Tag(
-				__( 'My Account URL', 'woocommerce' ),
-				'woocommerce/my-account-url',
-				__( 'Store', 'woocommerce' ),
+				__( 'My Account URL', 'poocommerce' ),
+				'poocommerce/my-account-url',
+				__( 'Store', 'poocommerce' ),
 				function (): string {
 					return esc_attr( wc_get_page_permalink( 'myaccount' ) );
 				},
@@ -177,9 +177,9 @@ class PersonalizationTagManager {
 		// This is temporary untill we create it's block.
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Admin Order Note', 'woocommerce' ),
-				'woocommerce/admin-order-note',
-				__( 'Store', 'woocommerce' ),
+				__( 'Admin Order Note', 'poocommerce' ),
+				'poocommerce/admin-order-note',
+				__( 'Store', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wc_email'], $context['wc_email']->customer_note ) ) {
 						return wptexturize( $context['wc_email']->customer_note );

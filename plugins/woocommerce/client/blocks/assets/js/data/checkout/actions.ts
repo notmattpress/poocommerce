@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { OrderFormValues } from '@woocommerce/settings';
+import { OrderFormValues } from '@poocommerce/settings';
 import deprecated from '@wordpress/deprecated';
 
 /**
@@ -200,7 +200,7 @@ export const __internalSetExtensionData = (
 ) => {
 	deprecated( '__internalSetExtensionData', {
 		alternative: 'setExtensionData',
-		plugin: 'WooCommerce',
+		plugin: 'PooCommerce',
 	} );
 	return setExtensionData( ...args );
 };

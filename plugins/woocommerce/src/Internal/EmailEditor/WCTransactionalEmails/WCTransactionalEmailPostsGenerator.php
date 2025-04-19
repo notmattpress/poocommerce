@@ -2,25 +2,25 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Class WCTransactionalEmailPostsGenerator
  *
- * Handles the generation of WooCommerce transactional email templates.
+ * Handles the generation of PooCommerce transactional email templates.
  * This class is responsible for initializing and managing default email templates,
  * as well as generating new templates when required.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  */
 class WCTransactionalEmailPostsGenerator {
 	/**
-	 * WooCommerce Email Template Manager instance.
+	 * PooCommerce Email Template Manager instance.
 	 *
 	 * @var WCTransactionalEmailPostsManager
 	 */
@@ -68,17 +68,17 @@ class WCTransactionalEmailPostsGenerator {
 	}
 
 	/**
-	 * Initialize the default WooCommerce Transactional Emails.
+	 * Initialize the default PooCommerce Transactional Emails.
 	 *
 	 * This function initializes the default templates for the core transactional emails.
-	 * It fetches all the emails from WooCommerce and filters them to include only the core transactional emails.
+	 * It fetches all the emails from PooCommerce and filters them to include only the core transactional emails.
 	 */
 	public function init_default_transactional_emails() {
 		$core_transactional_emails = WCTransactionalEmails::get_transactional_emails();
 
 		$wc_emails = \WC_Emails::instance();
 		/**
-		 * WooCommerce Transactional Emails instance.
+		 * PooCommerce Transactional Emails instance.
 		 *
 		 * @var \WC_Email[]
 		 */
@@ -105,7 +105,7 @@ class WCTransactionalEmailPostsGenerator {
 	/**
 	 * Get the email template for the given email.
 	 *
-	 * Looks for the initial email block content in plugins/woocommerce/templates/emails/block.
+	 * Looks for the initial email block content in plugins/poocommerce/templates/emails/block.
 	 *
 	 * @param \WC_Email $email The email object.
 	 * @return string The email template.

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\Blueprint\Steps\DeletePlugin;
+use Automattic\PooCommerce\Blueprint\Steps\DeletePlugin;
 
 /**
  * Unit tests for DeletePlugin class.

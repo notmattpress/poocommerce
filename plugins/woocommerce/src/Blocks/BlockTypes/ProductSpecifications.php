@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductSpecifications class.
@@ -46,14 +46,14 @@ class ProductSpecifications extends AbstractBlock {
 
 		if ( $product->has_weight() ) {
 			$product_data['weight'] = array(
-				'label' => __( 'Weight', 'woocommerce' ),
+				'label' => __( 'Weight', 'poocommerce' ),
 				'value' => wc_format_weight( $product->get_weight() ),
 			);
 		}
 
 		if ( $product->has_dimensions() ) {
 			$product_data['dimensions'] = array(
-				'label' => __( 'Dimensions', 'woocommerce' ),
+				'label' => __( 'Dimensions', 'poocommerce' ),
 				'value' => wc_format_dimensions( $product->get_dimensions( false ) ),
 			);
 		}
@@ -98,7 +98,7 @@ class ProductSpecifications extends AbstractBlock {
 			array( 'class' => 'wc-block-product-specifications' )
 		);
 		?>
-		<table <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> aria-label="<?php esc_attr_e( 'Product Specifications', 'woocommerce' ); ?>">
+		<table <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> aria-label="<?php esc_attr_e( 'Product Specifications', 'poocommerce' ); ?>">
 			<tbody>
 				<?php foreach ( $product_data as $product_attribute_key => $product_attribute ) : ?>
 					<tr class="wc-block-product-specifications-item wc-block-product-specifications-item__<?php echo esc_attr( $product_attribute_key ); ?>" scope="row">

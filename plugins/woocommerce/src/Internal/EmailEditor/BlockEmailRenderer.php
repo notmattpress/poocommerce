@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer as EmailRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\Renderer\Blocks\WooContent;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer as EmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\Renderer\Blocks\WooContent;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 /**
  * Class responsible for rendering block-based emails.
  */
@@ -32,14 +32,14 @@ class BlockEmailRenderer {
 	private $personalizer;
 
 	/**
-	 * Service for extracting WooCommerce content from WC_Email object.
+	 * Service for extracting PooCommerce content from WC_Email object.
 	 *
 	 * @var WooContentProcessor
 	 */
 	private $woo_content_processor;
 
 	/**
-	 * WooCommerce Email Template Manager instance.
+	 * PooCommerce Email Template Manager instance.
 	 *
 	 * @var WCTransactionalEmailPostsManager
 	 */
@@ -58,16 +58,16 @@ class BlockEmailRenderer {
 	/**
 	 * Initialize the renderer.
 	 *
-	 * @param WooContentProcessor $woo_content_processor Service for extracting WooCommerce content from WC_Email object.
+	 * @param WooContentProcessor $woo_content_processor Service for extracting PooCommerce content from WC_Email object.
 	 * @internal
 	 */
 	final public function init( WooContentProcessor $woo_content_processor ): void {
 		$this->woo_content_processor = $woo_content_processor;
-		add_action( 'woocommerce_email_blocks_renderer_initialized', array( $this, 'register_block_renderers' ) );
+		add_action( 'poocommerce_email_blocks_renderer_initialized', array( $this, 'register_block_renderers' ) );
 	}
 
 	/**
-	 * Callback for registering WooCommerce email block renderers.
+	 * Callback for registering PooCommerce email block renderers.
 	 *
 	 * @param Blocks_Registry $blocks_registry Block renderer registry.
 	 */
@@ -78,7 +78,7 @@ class BlockEmailRenderer {
 	/**
 	 * Maybe render block-based email content.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string|null Modified email content
 	 */
 	public function maybe_render_block_email( \WC_Email $wc_email ): ?string {
@@ -95,8 +95,8 @@ class BlockEmailRenderer {
 	 * Maybe render block-based email content.
 	 *
 	 * @param \WP_Post  $email_post Email post.
-	 * @param string    $woo_content WooCommerce email content.
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param string    $woo_content PooCommerce email content.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string Modified email content
 	 */
 	private function render_block_email( \WP_Post $email_post, string $woo_content, \WC_Email $wc_email ): ?string {
@@ -107,7 +107,7 @@ class BlockEmailRenderer {
 			$rendered_email_data = $this->renderer->render( $email_post, $subject, $preheader, 'en' );
 			$personalized_email  = $this->personalizer->personalize_content( $rendered_email_data['html'] );
 			$rendered_email      = str_replace( self::WOO_EMAIL_CONTENT_PLACEHOLDER, $woo_content, $personalized_email );
-			add_filter( 'woocommerce_email_styles', array( $this->woo_content_processor, 'prepare_css' ), 10, 2 );
+			add_filter( 'poocommerce_email_styles', array( $this->woo_content_processor, 'prepare_css' ), 10, 2 );
 			return $rendered_email;
 		} catch ( \Exception $e ) {
 			wc_caught_exception( $e, __METHOD__, array( $email_post, $woo_content, $wc_email ) );
@@ -118,7 +118,7 @@ class BlockEmailRenderer {
 	/**
 	 * Get the email post for a given WC_Email.
 	 *
-	 * @param \WC_Email $email WooCommerce email.
+	 * @param \WC_Email $email PooCommerce email.
 	 * @return \WP_Post|null
 	 */
 	private function get_email_post_by_wc_email( \WC_Email $email ): ?\WP_Post {
@@ -128,7 +128,7 @@ class BlockEmailRenderer {
 	/**
 	 * Prepare context data for personalization.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return array
 	 */
 	private function prepare_context_data( \WC_Email $wc_email ): array {

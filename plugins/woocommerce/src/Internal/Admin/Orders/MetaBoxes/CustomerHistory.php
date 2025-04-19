@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Query as CustomersQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Query as CustomersQuery;
 use WC_Order;
 
 /**

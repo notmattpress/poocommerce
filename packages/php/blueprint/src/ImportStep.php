@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint;
+namespace Automattic\PooCommerce\Blueprint;
 
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Opis\JsonSchema\Validator;
@@ -10,7 +10,7 @@ use Opis\JsonSchema\Validator;
  *
  * Import a signle step from a JSON definition.
  *
- * @package Automattic\WooCommerce\Blueprint
+ * @package Automattic\PooCommerce\Blueprint
  */
 class ImportStep {
 	use UseWPFunctions;

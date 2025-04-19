@@ -19,18 +19,18 @@ const Timeline = ( {
 	groupBy = 'day',
 	orderBy = 'desc',
 	/* translators: PHP date format string used to display dates, see php.net/date. */
-	dateFormat = __( 'F j, Y', 'woocommerce' ),
+	dateFormat = __( 'F j, Y', 'poocommerce' ),
 	/* translators: PHP clock format string used to display times, see php.net/date. */
-	clockFormat = __( 'g:ia', 'woocommerce' ),
+	clockFormat = __( 'g:ia', 'poocommerce' ),
 } ) => {
-	const timelineClassName = classnames( 'woocommerce-timeline', className );
+	const timelineClassName = classnames( 'poocommerce-timeline', className );
 
 	// Early return in case no data was passed to the component.
 	if ( ! items || items.length === 0 ) {
 		return (
 			<div className={ timelineClassName }>
 				<p className={ 'timeline_no_events' }>
-					{ __( 'No data to display', 'woocommerce' ) }
+					{ __( 'No data to display', 'poocommerce' ) }
 				</p>
 			</div>
 		);

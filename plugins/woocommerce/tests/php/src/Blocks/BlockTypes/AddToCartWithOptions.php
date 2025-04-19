@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Blocks\Utils\WC_Product_Custom;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsQuantitySelectorMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsGroupedProductSelectorMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsGroupedProductSelectorItemCTAMock;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsGroupedProductSelectorItemTemplateMock;
+use Automattic\PooCommerce\Tests\Blocks\Utils\WC_Product_Custom;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsQuantitySelectorMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsGroupedProductSelectorMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsGroupedProductSelectorItemCTAMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AddToCartWithOptionsGroupedProductSelectorItemTemplateMock;
 
 /**
  * Tests for the AddToCartWithOptions block type
@@ -64,7 +64,7 @@ class AddToCartWithOptions extends \WP_UnitTestCase {
 	/**
 	 * Hook into the add to cart button action.
 	 *
-	 * Outputs a test message when the `woocommerce_before_add_to_cart_button` action is triggered.
+	 * Outputs a test message when the `poocommerce_before_add_to_cart_button` action is triggered.
 	 * Used for testing that hooks are properly called during add to cart.
 	 */
 	public function hook_into_add_to_cart_button_action() {
@@ -75,36 +75,36 @@ class AddToCartWithOptions extends \WP_UnitTestCase {
 	 * Tests that the correct content is rendered for each product type.
 	 */
 	public function test_product_type_add_to_cart_render() {
-		add_action( 'woocommerce_custom_add_to_cart', array( $this, 'print_custom_product_type_add_to_cart_markup' ) );
+		add_action( 'poocommerce_custom_add_to_cart', array( $this, 'print_custom_product_type_add_to_cart_markup' ) );
 
 		global $product;
 		$product = new \WC_Product_Simple();
 		$product->set_regular_price( 10 );
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		// Single Products contain the Add to Cart button and the quantity selector blocks.
-		$this->assertStringContainsString( 'wp-block-woocommerce-product-button', $markup, 'The Simple Product Add to Cart with Options contains the product button block.' );
+		$this->assertStringContainsString( 'wp-block-poocommerce-product-button', $markup, 'The Simple Product Add to Cart with Options contains the product button block.' );
 		$this->assertStringContainsString( 'Add to cart', $markup, 'The Simple Product Add to Cart Button reads "Add to cart".' );
-		$this->assertStringContainsString( 'woocommerce/add-to-cart-with-options-quantity-selector', $markup, 'The Simple Product Add to Cart with Options contains the quantity selector block.' );
+		$this->assertStringContainsString( 'poocommerce/add-to-cart-with-options-quantity-selector', $markup, 'The Simple Product Add to Cart with Options contains the quantity selector block.' );
 
 		$product    = new \WC_Product_External();
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		// External Products contain the Add to Cart button block but do not contain the quantity selector block.
-		$this->assertStringContainsString( 'wp-block-woocommerce-product-button', $markup, 'The External Product Add to Cart with Options contains the product button block.' );
+		$this->assertStringContainsString( 'wp-block-poocommerce-product-button', $markup, 'The External Product Add to Cart with Options contains the product button block.' );
 		$this->assertStringContainsString( 'Buy product', $markup, 'The External Product Add to Cart Button reads "Buy product".' );
-		$this->assertStringNotContainsString( 'woocommerce/add-to-cart-with-options-quantity-selector', $markup, 'The External Product Add to Cart with Options does not contain the quantity selector block.' );
+		$this->assertStringNotContainsString( 'poocommerce/add-to-cart-with-options-quantity-selector', $markup, 'The External Product Add to Cart with Options does not contain the quantity selector block.' );
 
 		$product    = new WC_Product_Custom();
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		// Third-party product types use their own template.
 		$this->assertStringContainsString( 'Custom Product Type Add to Cart Form', $markup, 'The Custom Product Type Add to Cart with Options contains the custom product type add to cart form.' );
 
-		remove_action( 'woocommerce_custom_add_to_cart', array( $this, 'print_custom_product_type_add_to_cart_markup' ) );
+		remove_action( 'poocommerce_custom_add_to_cart', array( $this, 'print_custom_product_type_add_to_cart_markup' ) );
 	}
 
 	/**
@@ -121,49 +121,49 @@ class AddToCartWithOptions extends \WP_UnitTestCase {
 		global $product;
 		$product    = new \WC_Product_Simple();
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringNotContainsString( 'Add to cart', $markup, 'The Simple Product Add to Cart Button is not visible for not purchasable simple products.' );
 
 		$product->set_regular_price( 10 );
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'Add to cart', $markup, 'The Simple Product Add to Cart Button is visible for purchasable in stock products.' );
 
 		$product->set_stock_status( 'outofstock' );
 		$product->save();
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringNotContainsString( 'Add to cart', $markup, 'The Simple Product Add to Cart Button is not visible for out of stock products.' );
 		$this->assertStringContainsString( 'Out of stock', $markup, 'The stock indicator is visible for out of stock products.' );
 	}
 
 	/**
-	 * Tests that the  woocommerce_<product_type>_add_to_cart hooks are rendered when rendering the block.
+	 * Tests that the  poocommerce_<product_type>_add_to_cart hooks are rendered when rendering the block.
 	 */
 	public function test_product_type_add_to_cart_hooks_are_rendered() {
-		add_action( 'woocommerce_simple_add_to_cart', array( $this, 'hook_into_add_to_cart_action' ) );
-		add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hook_into_add_to_cart_button_action' ) );
+		add_action( 'poocommerce_simple_add_to_cart', array( $this, 'hook_into_add_to_cart_action' ) );
+		add_action( 'poocommerce_before_add_to_cart_button', array( $this, 'hook_into_add_to_cart_button_action' ) );
 
 		global $product;
 		$product = new \WC_Product_Simple();
 		$product->set_regular_price( 10 );
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'Hook into add to cart action', $markup, 'The Add to Cart with Options correctly renders the contents from the wrapper hook.' );
 		$this->assertStringContainsString( 'Hook into add to cart button action', $markup, 'The Add to Cart with Options doesn\'t render the contents from the inner hooks.' );
 
 		$product->set_stock_status( 'outofstock' );
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 
 		$this->assertStringContainsString( 'Hook into add to cart action', $markup, 'The Add to Cart with Options correctly renders the contents from the wrapper hook if the product is out of stock.' );
 		$this->assertStringNotContainsString( 'Hook into add to cart button action', $markup, 'The Add to Cart with Options doesn\'t render the contents from the inner hooks if the product is out of stock.' );
 
-		remove_action( 'woocommerce_simple_add_to_cart', array( $this, 'hook_into_add_to_cart_action' ) );
-		remove_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hook_into_add_to_cart_button_action' ) );
+		remove_action( 'poocommerce_simple_add_to_cart', array( $this, 'hook_into_add_to_cart_action' ) );
+		remove_action( 'poocommerce_before_add_to_cart_button', array( $this, 'hook_into_add_to_cart_button_action' ) );
 	}
 
 	/**
@@ -177,17 +177,17 @@ class AddToCartWithOptions extends \WP_UnitTestCase {
 		$grouped_product->set_children( array( $simple_product_id ) );
 		$grouped_product_id = $grouped_product->save();
 
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $grouped_product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $grouped_product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 		$this->assertStringContainsString( 'type="number"', $markup, 'The Grouped Product Add to Cart with Options form contains a numeric input.' );
 
 		$simple_product->set_sold_individually( true );
 		$simple_product->save();
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $grouped_product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $grouped_product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 		$this->assertStringContainsString( 'type="checkbox"', $markup, 'The Grouped Product Add to Cart with Options form contains a checkbox.' );
 
 		$simple_product->set_stock_status( 'outofstock' );
 		$simple_product->save();
-		$markup = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $grouped_product_id . '} --><!-- wp:woocommerce/add-to-cart-with-options /--><!-- /wp:woocommerce/single-product -->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $grouped_product_id . '} --><!-- wp:poocommerce/add-to-cart-with-options /--><!-- /wp:poocommerce/single-product -->' );
 		$this->assertStringContainsString( 'Read more', $markup, 'The Grouped Product Add to Cart with Options form contains a button.' );
 	}
 }

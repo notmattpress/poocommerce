@@ -2,10 +2,10 @@
 /**
  * Custom task example.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Custom task class.
@@ -26,7 +26,7 @@ class MyTask extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'My task', 'woocommerce' );
+		return __( 'My task', 'poocommerce' );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class MyTask extends Task {
 	 * @return string
 	 */
 	public function get_content() {
-		return __( 'Add your task description here for display in the task list.', 'woocommerce' );
+		return __( 'Add your task description here for display in the task list.', 'poocommerce' );
 	}
 
 	/**
@@ -44,6 +44,6 @@ class MyTask extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 }

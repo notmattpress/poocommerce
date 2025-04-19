@@ -47,7 +47,7 @@ const Tag = forwardRef(
 		const [ isVisible, setIsVisible ] = useState( false );
 
 		const instanceId = useInstanceId( Tag ).toString();
-		const labelId = `woocommerce-tag__label-${ instanceId }`;
+		const labelId = `poocommerce-tag__label-${ instanceId }`;
 
 		screenReaderLabel = screenReaderLabel || label;
 		if ( ! label ) {
@@ -56,7 +56,7 @@ const Tag = forwardRef(
 			return null;
 		}
 		label = decodeEntities( label );
-		const classes = classnames( 'woocommerce-tag', className, {
+		const classes = classnames( 'poocommerce-tag', className, {
 			'has-remove': !! remove,
 		} );
 		const labelTextNode = (
@@ -72,14 +72,14 @@ const Tag = forwardRef(
 			<span className={ classes }>
 				{ popoverContents ? (
 					<Button
-						className="woocommerce-tag__text"
+						className="poocommerce-tag__text"
 						id={ labelId }
 						onClick={ () => setIsVisible( true ) }
 					>
 						{ labelTextNode }
 					</Button>
 				) : (
-					<span className="woocommerce-tag__text" id={ labelId }>
+					<span className="poocommerce-tag__text" id={ labelId }>
 						{ labelTextNode }
 					</span>
 				) }
@@ -90,12 +90,12 @@ const Tag = forwardRef(
 				) }
 				{ remove && (
 					<Button
-						className="woocommerce-tag__remove"
+						className="poocommerce-tag__remove"
 						ref={ removeButtonRef }
 						onClick={ remove( id ) }
 						label={ sprintf(
 							// translators: %s is the name of the tag being removed.
-							__( 'Remove %s', 'woocommerce' ),
+							__( 'Remove %s', 'poocommerce' ),
 							label
 						) }
 						aria-describedby={ labelId }

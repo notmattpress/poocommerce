@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { renderFrontend } from '@woocommerce/base-utils';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
+import { renderFrontend } from '@poocommerce/base-utils';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
 import {
 	Fragment,
 	Suspense,
@@ -13,9 +13,9 @@ import parse from 'html-react-parser';
 import {
 	getRegisteredBlocks,
 	hasInnerBlocks,
-} from '@woocommerce/blocks-checkout';
-import BlockErrorBoundary from '@woocommerce/base-components/block-error-boundary';
-import type { ReactRootWithContainer } from '@woocommerce/base-utils';
+} from '@poocommerce/blocks-checkout';
+import BlockErrorBoundary from '@poocommerce/base-components/block-error-boundary';
+import type { ReactRootWithContainer } from '@poocommerce/base-utils';
 
 /**
  * This file contains logic used on the frontend to convert DOM elements (saved by the block editor) to React
@@ -23,7 +23,7 @@ import type { ReactRootWithContainer } from '@woocommerce/base-utils';
  * to a block by name.
  *
  * Blocks using this system will have their blockName stored as a data attribute, for example:
- * 		<div data-block-name="woocommerce/product-title"></div>
+ * 		<div data-block-name="poocommerce/product-title"></div>
  *
  * This block name is then read, and using the map, dynamically converted to a real React Component.
  *

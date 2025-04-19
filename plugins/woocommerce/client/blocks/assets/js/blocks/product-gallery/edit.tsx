@@ -8,7 +8,7 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { BlockEditProps, InnerBlockTemplate } from '@wordpress/blocks';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 
 /**
  * Internal dependencies
@@ -31,13 +31,13 @@ const TEMPLATE: InnerBlockTemplate[] = [
 			className: 'wc-block-product-gallery__gallery-area',
 		},
 		[
-			[ 'woocommerce/product-gallery-thumbnails' ],
+			[ 'poocommerce/product-gallery-thumbnails' ],
 			[
-				'woocommerce/product-gallery-large-image',
+				'poocommerce/product-gallery-large-image',
 				{},
 				[
 					[
-						'woocommerce/product-sale-badge',
+						'poocommerce/product-sale-badge',
 						{
 							align: 'right',
 							style: {
@@ -53,7 +53,7 @@ const TEMPLATE: InnerBlockTemplate[] = [
 						},
 					],
 					[
-						'woocommerce/product-gallery-large-image-next-previous',
+						'poocommerce/product-gallery-large-image-next-previous',
 						{
 							style: {
 								border: { radius: '100%' },
@@ -85,8 +85,8 @@ export const Edit = withProductDataContext(
 				</InspectorControls>
 				<InnerBlocks
 					allowedBlocks={ [
-						'woocommerce/product-gallery-large-image',
-						'woocommerce/product-gallery-thumbnails',
+						'poocommerce/product-gallery-large-image',
+						'poocommerce/product-gallery-thumbnails',
 					] }
 					templateLock={ false }
 					template={ TEMPLATE }

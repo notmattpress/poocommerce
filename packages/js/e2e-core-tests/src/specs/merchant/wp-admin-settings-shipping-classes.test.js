@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { merchant, withRestApi } = require( '@woocommerce/e2e-utils' );
+const { merchant, withRestApi } = require( '@poocommerce/e2e-utils' );
 
 const runAddShippingClassesTest = () => {
 	describe( 'Merchant can add shipping classes', () => {

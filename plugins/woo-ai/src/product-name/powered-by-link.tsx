@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createInterpolateElement } from '@wordpress/element';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -13,7 +13,7 @@ import { recordNameTracks } from './index';
 export const PoweredByLink = () => (
 	<span className="woo-ai-get-suggestions-powered_by">
 		{ createInterpolateElement(
-			__( 'Powered by experimental AI. <link/>', 'woocommerce' ),
+			__( 'Powered by experimental AI. <link/>', 'poocommerce' ),
 			{
 				link: (
 					<Link
@@ -24,7 +24,7 @@ export const PoweredByLink = () => (
 							recordNameTracks( 'learn_more_click' );
 						} }
 					>
-						{ __( 'Learn more', 'woocommerce' ) }
+						{ __( 'Learn more', 'poocommerce' ) }
 					</Link>
 				),
 			}

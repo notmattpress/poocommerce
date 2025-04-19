@@ -21,31 +21,31 @@ const createAccordionItem = (
 	content: InnerBlockTemplate[]
 ): InnerBlockTemplate => {
 	return [
-		'woocommerce/accordion-item',
+		'poocommerce/accordion-item',
 		{},
 		[
-			[ 'woocommerce/accordion-header', { title }, [] ],
-			[ 'woocommerce/accordion-panel', {}, content ],
+			[ 'poocommerce/accordion-header', { title }, [] ],
+			[ 'poocommerce/accordion-panel', {}, content ],
 		],
 	];
 };
 
 const descriptionAccordion = createAccordionItem( 'Description', [
-	[ 'woocommerce/product-description', {}, [] ],
+	[ 'poocommerce/product-description', {}, [] ],
 ] );
 
 const additionalInformationAccordion = createAccordionItem(
 	'Additional Information',
-	[ [ 'woocommerce/product-specifications', {} ] ]
+	[ [ 'poocommerce/product-specifications', {} ] ]
 );
 
 const reviewsAccordion = createAccordionItem( 'Reviews', [
-	[ 'woocommerce/blockified-product-reviews', {} ],
+	[ 'poocommerce/blockified-product-reviews', {} ],
 ] );
 
 const TEMPLATE: InnerBlockTemplate[] = [
 	[
-		'woocommerce/accordion-group',
+		'poocommerce/accordion-group',
 		{},
 		[
 			descriptionAccordion,
@@ -91,7 +91,7 @@ const Edit = ( { clientId, context }: ProductDetailsEditProps ) => {
 				<Warning>
 					{ __(
 						'The Product Details block requires a product context. When used in a Query Loop, the Query Loop must be configured to display products.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Warning>
 			</div>

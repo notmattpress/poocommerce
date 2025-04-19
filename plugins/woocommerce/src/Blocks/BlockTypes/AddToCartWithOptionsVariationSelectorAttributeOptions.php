@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Block type for variation selector attribute options in add to cart with options.
@@ -55,7 +55,7 @@ class AddToCartWithOptionsVariationSelectorAttributeOptions extends AbstractBloc
 			return '';
 		}
 
-		$attribute_name = $block->context['woocommerce/attributeName'];
+		$attribute_name = $block->context['poocommerce/attributeName'];
 
 		if ( isset( $attribute_name ) ) {
 			wp_enqueue_script_module( $this->get_full_block_name() );
@@ -68,7 +68,7 @@ class AddToCartWithOptionsVariationSelectorAttributeOptions extends AbstractBloc
 
 			$wrapper_attributes = get_block_wrapper_attributes(
 				array(
-					'data-wp-interactive' => 'woocommerce/add-to-cart-with-options',
+					'data-wp-interactive' => 'poocommerce/add-to-cart-with-options',
 					'class'               => esc_attr( $classes_and_styles['classes'] ),
 					'style'               => esc_attr( $classes_and_styles['styles'] ),
 				)
@@ -143,9 +143,9 @@ class AddToCartWithOptionsVariationSelectorAttributeOptions extends AbstractBloc
 	 * @return string The pills.
 	 */
 	protected function render_pills( $attributes, $content, $block ) {
-		$attribute_id    = $block->context['woocommerce/attributeId'];
-		$attribute_name  = $block->context['woocommerce/attributeName'];
-		$attribute_terms = $block->context['woocommerce/attributeTerms'];
+		$attribute_id    = $block->context['poocommerce/attributeId'];
+		$attribute_name  = $block->context['poocommerce/attributeName'];
+		$attribute_terms = $block->context['poocommerce/attributeTerms'];
 
 		$pills = '';
 		foreach ( $attribute_terms as $attribute_term ) {
@@ -200,11 +200,11 @@ class AddToCartWithOptionsVariationSelectorAttributeOptions extends AbstractBloc
 	 * @return string The dropdown.
 	 */
 	protected function render_dropdown( $attributes, $content, $block ) {
-		$attribute_id    = $block->context['woocommerce/attributeId'];
-		$attribute_name  = $block->context['woocommerce/attributeName'];
-		$attribute_terms = $block->context['woocommerce/attributeTerms'];
+		$attribute_id    = $block->context['poocommerce/attributeId'];
+		$attribute_name  = $block->context['poocommerce/attributeName'];
+		$attribute_terms = $block->context['poocommerce/attributeTerms'];
 		$default_option  = array(
-			'label'      => esc_html__( 'Choose an option', 'woocommerce' ),
+			'label'      => esc_html__( 'Choose an option', 'poocommerce' ),
 			'value'      => '',
 			'isSelected' => false,
 		);

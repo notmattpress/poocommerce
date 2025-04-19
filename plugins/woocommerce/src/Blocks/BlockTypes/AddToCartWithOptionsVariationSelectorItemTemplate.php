@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_Block;
 
@@ -83,9 +83,9 @@ class AddToCartWithOptionsVariationSelectorItemTemplate extends AbstractBlock {
 		$new_block = new WP_Block(
 			$block_instance,
 			array(
-				'woocommerce/attributeId'    => 'wc_product_attribute_' . uniqid(),
-				'woocommerce/attributeName'  => $attribute_name,
-				'woocommerce/attributeTerms' => $attribute_terms,
+				'poocommerce/attributeId'    => 'wc_product_attribute_' . uniqid(),
+				'poocommerce/attributeName'  => $attribute_name,
+				'poocommerce/attributeTerms' => $attribute_terms,
 			),
 		);
 
@@ -124,7 +124,7 @@ class AddToCartWithOptionsVariationSelectorItemTemplate extends AbstractBlock {
 						 * @param WC_Product $product         Product object.
 						 */
 						'label'      => apply_filters(
-							'woocommerce_variation_option_name',
+							'poocommerce_variation_option_name',
 							$term->name,
 							$term,
 							$attribute_name,
@@ -151,7 +151,7 @@ class AddToCartWithOptionsVariationSelectorItemTemplate extends AbstractBlock {
 						 * @param WC_Product $product         Product object.
 						 */
 						'label'      => apply_filters(
-							'woocommerce_variation_option_name',
+							'poocommerce_variation_option_name',
 							$term,
 							null,
 							$attribute_name,

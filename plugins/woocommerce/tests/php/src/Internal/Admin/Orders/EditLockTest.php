@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Orders;
 
-use Automattic\WooCommerce\Internal\Admin\Orders\EditLock;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Internal\Admin\Orders\EditLock;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 /**
  * Tests related to order edit locking in admin.
@@ -128,7 +128,7 @@ class EditLockTest extends \WC_Unit_Test_Case {
 		$this->sut->lock( $this->order );
 
 		// Simulate a heartbeat, which for user 1 should result in a renewed lock.
-		$response = apply_filters( 'heartbeat_received', array(), $request_data, 'woocommerce_page_wc-orders' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment,WooCommerce.Commenting.CommentHooks.HookCommentWrongStyle
+		$response = apply_filters( 'heartbeat_received', array(), $request_data, 'poocommerce_page_wc-orders' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment,PooCommerce.Commenting.CommentHooks.HookCommentWrongStyle
 		$this->assertArrayHasKey( 'wc-refresh-order-lock', $response );
 		$this->assertArrayHasKey( 'lock', $response['wc-refresh-order-lock'] );
 
@@ -141,7 +141,7 @@ class EditLockTest extends \WC_Unit_Test_Case {
 
 		// user1 now gets the "taken over" message when the heartbeat attempts to renew the lock.
 		wp_set_current_user( $this->user1 );
-		$response = apply_filters( 'heartbeat_received', array(), $request_data, 'woocommerce_page_wc-orders' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment,WooCommerce.Commenting.CommentHooks.HookCommentWrongStyle
+		$response = apply_filters( 'heartbeat_received', array(), $request_data, 'poocommerce_page_wc-orders' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment,PooCommerce.Commenting.CommentHooks.HookCommentWrongStyle
 		$this->assertArrayHasKey( 'wc-refresh-order-lock', $response );
 		$this->assertArrayHasKey( 'error', $response['wc-refresh-order-lock'] );
 

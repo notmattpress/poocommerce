@@ -176,18 +176,18 @@
 	}
 }
 
-.wp-block-woocommerce-cart.is-loading {
-	.wp-block-woocommerce-empty-cart-block {
+.wp-block-poocommerce-cart.is-loading {
+	.wp-block-poocommerce-empty-cart-block {
 		display: none;
 	}
-	.wp-block-woocommerce-filled-cart-block {
+	.wp-block-poocommerce-filled-cart-block {
 		display: flex;
 		flex-wrap: wrap;
 		margin: 0 auto $gap;
 		position: relative;
 	}
 
-	.wp-block-woocommerce-cart-items-block {
+	.wp-block-poocommerce-cart-items-block {
 		box-sizing: border-box;
 		margin: 0;
 		padding-right: math.percentage(math.div($gap-largest, 1060px)); // ~1060px is the default width of the content area in Storefront.
@@ -195,13 +195,13 @@
 		min-height: 10em;
 	}
 
-	.wp-block-woocommerce-cart-line-items-block {
+	.wp-block-poocommerce-cart-line-items-block {
 		min-height: 15em;
 		display: block;
 		@include placeholder();
 	}
 
-	.wp-block-woocommerce-cart-totals-block {
+	.wp-block-poocommerce-cart-totals-block {
 		box-sizing: border-box;
 		margin: 0;
 		padding-left: math.percentage(math.div($gap-large, 1060px));
@@ -209,37 +209,37 @@
 		min-height: 12em;
 	}
 
-	.wp-block-woocommerce-cart-order-summary-block,
-	.wp-block-woocommerce-cart-express-payment-block,
-	.wp-block-woocommerce-proceed-to-checkout-block,
-	.wp-block-woocommerce-cart-accepted-payment-methods-block {
+	.wp-block-poocommerce-cart-order-summary-block,
+	.wp-block-poocommerce-cart-express-payment-block,
+	.wp-block-poocommerce-proceed-to-checkout-block,
+	.wp-block-poocommerce-cart-accepted-payment-methods-block {
 		min-height: 3em;
 		display: block;
 		@include placeholder();
 		margin: 0 0 1em 0;
 	}
 
-	.wp-block-woocommerce-cart-order-summary-block {
+	.wp-block-poocommerce-cart-order-summary-block {
 		height: 20em;
 	}
 }
 
 // Skeleton is shown before mobile classes are appended.
 @media only screen and (max-width: 700px) {
-	.wp-block-woocommerce-cart.is-loading {
+	.wp-block-poocommerce-cart.is-loading {
 		padding-top: $gap;
 
-		.wp-block-woocommerce-filled-cart-block {
+		.wp-block-poocommerce-filled-cart-block {
 			flex-direction: column;
 			margin: 0 auto $gap;
 		}
 
-		.wp-block-woocommerce-cart-items-block {
+		.wp-block-poocommerce-cart-items-block {
 			padding: 0;
 			width: 100%;
 		}
 
-		.wp-block-woocommerce-cart-totals-block {
+		.wp-block-poocommerce-cart-totals-block {
 			padding: 0;
 			width: 100%;
 		}

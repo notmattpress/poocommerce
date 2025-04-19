@@ -1,4 +1,4 @@
-.woocommerce {
+.poocommerce {
 	/**
 	 * Generic forms styles used in places such as my account and the shortcode based checkout.
 	 */
@@ -23,7 +23,7 @@
 			}
 		}
 
-		.woocommerce-input-wrapper .description {
+		.poocommerce-input-wrapper .description {
 			background: #1e85be;
 			color: #fff;
 			border-radius: 3px;
@@ -113,7 +113,7 @@
 			visibility: visible;
 		}
 
-		&.woocommerce-invalid {
+		&.poocommerce-invalid {
 			label {
 				color: var(--wc-red);
 			}
@@ -126,7 +126,7 @@
 			}
 		}
 
-		&.woocommerce-validated {
+		&.poocommerce-validated {
 			input.input-text,
 			select {
 				border-color: var(--wc-green);

@@ -35,7 +35,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { actions: wooAddToCartWithOptions } = store< AddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{},
 	{ lock: universalLock }
 );
@@ -54,7 +54,7 @@ function setDefaultSelectedAttribute() {
 }
 
 const { state, actions } = store(
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options__pills',
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options__pills',
 	{
 		state: {
 			get isPillSelected() {
@@ -168,7 +168,7 @@ const { state, actions } = store(
 );
 
 store(
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options__dropdown',
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options__dropdown',
 	{
 		actions: {
 			handleChange( event: ChangeEvent< HTMLSelectElement > ) {

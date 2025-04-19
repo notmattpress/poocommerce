@@ -1,19 +1,19 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-collection",
+	"name": "poocommerce/product-collection",
 	"title": "Product Collection",
 	"description": "Display a collection of products from your store.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce",
+		"PooCommerce",
 		"Products (Beta)",
 		"all products",
 		"by category",
 		"by tag",
 		"by attribute"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"queryId": {
 			"type": "number"

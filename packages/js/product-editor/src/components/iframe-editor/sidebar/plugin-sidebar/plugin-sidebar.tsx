@@ -33,7 +33,7 @@ export function PluginSidebar( { className, ...props }: PluginSidebarProps ) {
 		<ComplementaryArea
 			// @ts-expect-error No types for this exist yet
 			panelClassName={ className }
-			className="woocommerce-iframe-editor__sidebar"
+			className="poocommerce-iframe-editor__sidebar"
 			scope={ SIDEBAR_COMPLEMENTARY_AREA_SCOPE }
 			{ ...props }
 		/>

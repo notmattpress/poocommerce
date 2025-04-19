@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptionsQuantitySelector;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptionsQuantitySelector;
 use WP_Block;
 
 /**
@@ -28,7 +28,7 @@ class AddToCartWithOptionsGroupedProductSelectorItemCTA extends AbstractBlock {
 	private function get_quantity_selector_markup( $product ) {
 		ob_start();
 
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				/**
 				 * Filter the minimum quantity value allowed for the product.
@@ -37,7 +37,7 @@ class AddToCartWithOptionsGroupedProductSelectorItemCTA extends AbstractBlock {
 				 * @param int        $min_value Minimum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+				'min_value'   => apply_filters( 'poocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
 				/**
 				 * Filter the maximum quantity value allowed for the product.
 				 *
@@ -45,7 +45,7 @@ class AddToCartWithOptionsGroupedProductSelectorItemCTA extends AbstractBlock {
 				 * @param int        $max_value Maximum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+				'max_value'   => apply_filters( 'poocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
 				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			)
 		);
@@ -63,7 +63,7 @@ class AddToCartWithOptionsGroupedProductSelectorItemCTA extends AbstractBlock {
 	 */
 	private function get_button_markup( $product_to_render ) {
 		ob_start();
-		woocommerce_template_loop_add_to_cart();
+		poocommerce_template_loop_add_to_cart();
 		$button_html = ob_get_clean();
 
 		return $button_html;
@@ -79,7 +79,7 @@ class AddToCartWithOptionsGroupedProductSelectorItemCTA extends AbstractBlock {
 		if ( $product->is_on_sale() ) {
 			$label = sprintf(
 				/* translators: %1$s: Product name. %2$s: Sale price. %3$s: Regular price */
-				esc_html__( 'Buy one of %1$s on sale for %2$s, original price was %3$s', 'woocommerce' ),
+				esc_html__( 'Buy one of %1$s on sale for %2$s, original price was %3$s', 'poocommerce' ),
 				esc_html( $product->get_name() ),
 				esc_html( wp_strip_all_tags( wc_price( $product->get_price() ) ) ),
 				esc_html( wp_strip_all_tags( wc_price( $product->get_regular_price() ) ) )
@@ -87,7 +87,7 @@ class AddToCartWithOptionsGroupedProductSelectorItemCTA extends AbstractBlock {
 		} else {
 			$label = sprintf(
 				/* translators: %1$s: Product name. %2$s: Product price */
-				esc_html__( 'Buy one of %1$s for %2$s', 'woocommerce' ),
+				esc_html__( 'Buy one of %1$s for %2$s', 'poocommerce' ),
 				esc_html( $product->get_name() ),
 				esc_html( wp_strip_all_tags( wc_price( $product->get_price() ) ) )
 			);

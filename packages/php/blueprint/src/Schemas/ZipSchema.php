@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Schemas;
+namespace Automattic\PooCommerce\Blueprint\Schemas;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ZipSchema
  *
- * Handles the import schema functionality for WooCommerce.
+ * Handles the import schema functionality for PooCommerce.
  *
- * @package Automattic\WooCommerce\Blueprint
+ * @package Automattic\PooCommerce\Blueprint
  */
 class ZipSchema extends JsonSchema {
 	use UseWPFunctions;

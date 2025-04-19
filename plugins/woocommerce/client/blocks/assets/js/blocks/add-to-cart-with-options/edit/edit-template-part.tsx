@@ -86,7 +86,7 @@ export const AddToCartWithOptionsEditTemplatePart = ( {
 
 			const templatePartSlug = `${ productType }-product-add-to-cart-with-options`;
 			const themeTemplatePartId = `${ currentTheme }//${ templatePartSlug }`;
-			const wooCommerceTemplatePartId = `woocommerce/woocommerce//${ templatePartSlug }`;
+			const wooCommerceTemplatePartId = `poocommerce/poocommerce//${ templatePartSlug }`;
 
 			const getThemeEntityArgs = [
 				'postType',

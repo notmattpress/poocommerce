@@ -168,7 +168,7 @@ const productFiltersStore = {
 			}
 			actions.navigate();
 		},
-		// TODO: Remove the hardcoded type once https://github.com/woocommerce/gutenberg/pull/8 is merged.
+		// TODO: Remove the hardcoded type once https://github.com/poocommerce/gutenberg/pull/8 is merged.
 		*navigate(): Generator {
 			const context = getServerContext
 				? getServerContext< ProductFiltersContext >()
@@ -225,6 +225,6 @@ const productFiltersStore = {
 export type ProductFiltersStore = typeof productFiltersStore;
 
 const { state, actions } = store< ProductFiltersStore >(
-	'woocommerce/product-filters',
+	'poocommerce/product-filters',
 	productFiltersStore
 );

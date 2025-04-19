@@ -14,7 +14,7 @@ class WC_Coupon_Tests extends WC_Unit_Test_Case {
 	 * the product's eligibility can no longer be assessed (therefore, it is up to the merchant to manually adjust if
 	 * this is problematic).
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/27077
+	 * @see https://github.com/poocommerce/poocommerce/issues/27077
 	 *
 	 * @return void
 	 */
