@@ -107,7 +107,7 @@ test.describe.serial( 'Import Products from a CSV file', () => {
 	test.beforeAll( async ( { restApi } ) => {
 		// make sure the currency is USD
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_currency`,
+			`${ WC_API_PATH }/settings/general/poocommerce_currency`,
 			{
 				value: 'USD',
 			}
@@ -212,7 +212,7 @@ test.describe.serial( 'Import Products from a CSV file', () => {
 
 			// Confirm that the import is done
 			await expect(
-				page.locator( '.woocommerce-importer-done' )
+				page.locator( '.poocommerce-importer-done' )
 			).toContainText( 'Import complete!', { timeout: 120000 } );
 
 			// View the products
@@ -249,7 +249,7 @@ test.describe.serial( 'Import Products from a CSV file', () => {
 			] );
 			await fileChooser.setFiles( filePathOverride );
 			await page
-				.locator( '#woocommerce-importer-update-existing' )
+				.locator( '#poocommerce-importer-update-existing' )
 				.click();
 			await page.locator( 'button[value="Continue"]' ).click();
 
@@ -258,7 +258,7 @@ test.describe.serial( 'Import Products from a CSV file', () => {
 
 			// Confirm that the import is done
 			await expect(
-				page.locator( '.woocommerce-importer-done' )
+				page.locator( '.poocommerce-importer-done' )
 			).toContainText( 'Import complete!', { timeout: 120000 } ); // import can take a while
 
 			// View the products

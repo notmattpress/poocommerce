@@ -42,14 +42,14 @@ export function CampaignName() {
 	return (
 		<div
 			ref={ titleRef }
-			className="woocommerce-email-editor-campaign-name"
+			className="poocommerce-email-editor-campaign-name"
 		>
 			<Dropdown
 				popoverProps={ {
 					placement: 'bottom',
 					anchor: titleRef.current,
 				} }
-				contentClassName="woocommerce-email-editor-campaign-name-dropdown"
+				contentClassName="poocommerce-email-editor-campaign-name-dropdown"
 				renderToggle={ ( { isOpen, onToggle } ) => (
 					<>
 						<Button
@@ -60,17 +60,17 @@ export function CampaignName() {
 									{ isOpen }
 								);
 							} }
-							className="woocommerce-email-campaign-name-link"
+							className="poocommerce-email-campaign-name-link"
 						>
 							<Text size="body" as="h1">
 								<VisuallyHidden as="span">
-									{ __( 'Editing email:', 'woocommerce' ) }
+									{ __( 'Editing email:', 'poocommerce' ) }
 								</VisuallyHidden>
 								{ emailTitle }
 							</Text>
 						</Button>
 						<Button
-							className="woocommerce-email-campaign-name__toggle"
+							className="poocommerce-email-campaign-name__toggle"
 							icon={ chevronDown }
 							aria-expanded={ isOpen }
 							aria-haspopup="true"
@@ -83,17 +83,17 @@ export function CampaignName() {
 							} }
 							label={ __(
 								'Change campaign name',
-								'woocommerce'
+								'poocommerce'
 							) }
 						>
-							{ showIconLabels && __( 'Rename', 'woocommerce' ) }
+							{ showIconLabels && __( 'Rename', 'poocommerce' ) }
 						</Button>
 					</>
 				) }
 				renderContent={ () => (
-					<div className="woocommerce-email-editor-email-title-edit">
+					<div className="poocommerce-email-editor-email-title-edit">
 						<TextControl
-							label={ __( 'Campaign name', 'woocommerce' ) }
+							label={ __( 'Campaign name', 'poocommerce' ) }
 							value={ emailTitle }
 							onChange={ ( newTitle ) => {
 								setTitle( newTitle );
@@ -104,7 +104,7 @@ export function CampaignName() {
 							name="campaign_name"
 							help={ __(
 								`Name your email campaign to indicate its purpose. This would only be visible to you and not shown to your subscribers.`,
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</div>

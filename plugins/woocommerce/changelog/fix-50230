@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Prevent email validation adding the woocommerce-invalid-phone classname
+Prevent email validation adding the poocommerce-invalid-phone classname

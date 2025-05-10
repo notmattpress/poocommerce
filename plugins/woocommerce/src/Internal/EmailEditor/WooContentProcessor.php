@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Css_Inliner;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Email_Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Class responsible for extracting the main content from a WC_Email object.
@@ -36,9 +36,9 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Get the WooCommerce content excluding headers and footers.
+	 * Get the PooCommerce content excluding headers and footers.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string
 	 */
 	public function get_woo_content( \WC_Email $wc_email ): string {
@@ -50,14 +50,14 @@ class WooContentProcessor {
 	/**
 	 * Filter CSS for the email.
 	 * The CSS was from email editor was already inlined.
-	 * The method hookes to woocommerce_email_styles and removes CSS rules that we don't want to apply to the email.
+	 * The method hookes to poocommerce_email_styles and removes CSS rules that we don't want to apply to the email.
 	 *
 	 * @param string $css CSS.
 	 * @return string
 	 */
 	public function prepare_css( string $css ): string {
-		remove_filter( 'woocommerce_email_styles', array( $this, 'prepare_css' ) );
-		// Remove color and font-family declarations from WooCommerce CSS.
+		remove_filter( 'poocommerce_email_styles', array( $this, 'prepare_css' ) );
+		// Remove color and font-family declarations from PooCommerce CSS.
 		$css = preg_replace( '/color\s*:\s*[^;]+;/', '', $css );
 		$css = preg_replace( '/font-family\s*:\s*[^;]+;/', '', $css );
 		return $css;
@@ -80,7 +80,7 @@ class WooContentProcessor {
 	/**
 	 * Inline the CSS from the email theme and user email settings.
 	 *
-	 * @param string $woo_content WooCommerce content.
+	 * @param string $woo_content PooCommerce content.
 	 * @return string
 	 */
 	private function inline_css( string $woo_content ): string {
@@ -92,9 +92,9 @@ class WooContentProcessor {
 	}
 
 	/**
-	 * Capture the WooCommerce content excluding headers and footers.
+	 * Capture the PooCommerce content excluding headers and footers.
 	 *
-	 * @param \WC_Email $wc_email WooCommerce email.
+	 * @param \WC_Email $wc_email PooCommerce email.
 	 * @return string
 	 */
 	private function capture_woo_content( \WC_Email $wc_email ): string {

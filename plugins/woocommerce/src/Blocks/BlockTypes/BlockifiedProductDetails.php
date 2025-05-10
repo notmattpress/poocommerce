@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_Block;
 use WP_HTML_Tag_Processor;
@@ -71,7 +71,7 @@ class BlockifiedProductDetails extends AbstractBlock {
 		$p = new WP_HTML_Tag_Processor( $content );
 
 		$counter = 0;
-		while ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-accordion-item' ) ) ) {
+		while ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-accordion-item' ) ) ) {
 			if ( ! $accordion_items_visibility[ $counter ] ) {
 				$p->set_attribute( 'style', 'display:none;' );
 				$p->set_attribute( 'hidden', true );
@@ -90,7 +90,7 @@ class BlockifiedProductDetails extends AbstractBlock {
 	 * @return array|false Accordion items.
 	 */
 	private function find_accordion_items( $block ) {
-		if ( 'woocommerce/accordion-group' === $block['blockName'] ) {
+		if ( 'poocommerce/accordion-group' === $block['blockName'] ) {
 			return $block['innerBlocks'];
 		}
 

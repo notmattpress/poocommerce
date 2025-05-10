@@ -2,27 +2,27 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Blocks\Package as BlocksPackage;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Blocks\Package as BlocksPackage;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Dependency injection container used at runtime.
  *
  * This is a simple container that doesn't implement explicit class registration.
- * Instead, all the classes in the Automattic\WooCommerce namespace can be resolved
+ * Instead, all the classes in the Automattic\PooCommerce namespace can be resolved
  * and are considered as implicitly registered as single-instance classes
  * (so each class will be instantiated only once and the instance will be cached).
  */
 class RuntimeContainer {
 	/**
-	 * The root namespace of all WooCommerce classes in the `src` directory.
+	 * The root namespace of all PooCommerce classes in the `src` directory.
 	 *
 	 * @var string
 	 */
-	const WOOCOMMERCE_NAMESPACE = 'Automattic\\WooCommerce\\';
+	const WOOCOMMERCE_NAMESPACE = 'Automattic\\PooCommerce\\';
 
 	/**
 	 * Cache of classes already resolved.
@@ -53,7 +53,7 @@ class RuntimeContainer {
 	 *
 	 * ContainerException will be thrown in these cases:
 	 *
-	 * - $class_name is outside the WooCommerce root namespace (and wasn't included in the initial resolve cache).
+	 * - $class_name is outside the PooCommerce root namespace (and wasn't included in the initial resolve cache).
 	 * - The class referred by $class_name doesn't exist.
 	 * - Recursive resolution condition found.
 	 * - Reflection exception thrown when instantiating or initializing the class.
@@ -103,10 +103,10 @@ class RuntimeContainer {
 		}
 
 		// Account for the containers used by the Store API and Blocks.
-		if ( StringUtil::starts_with( $class_name, 'Automattic\WooCommerce\StoreApi\\' ) ) {
+		if ( StringUtil::starts_with( $class_name, 'Automattic\PooCommerce\StoreApi\\' ) ) {
 			return StoreApi::container()->get( $class_name );
 		}
-		if ( StringUtil::starts_with( $class_name, 'Automattic\WooCommerce\Blocks\\' ) ) {
+		if ( StringUtil::starts_with( $class_name, 'Automattic\PooCommerce\Blocks\\' ) ) {
 			return BlocksPackage::container()->get( $class_name );
 		}
 
@@ -199,27 +199,27 @@ class RuntimeContainer {
 	}
 
 	/**
-	 * Tells if this class should be used as the core WooCommerce dependency injection container (or if the old ExtendedContainer should be used instead).
+	 * Tells if this class should be used as the core PooCommerce dependency injection container (or if the old ExtendedContainer should be used instead).
 	 *
 	 * By default, this returns true, to have it return false you can:
 	 *
 	 * 1. Define the WOOCOMMERCE_USE_OLD_DI_CONTAINER constant with a value of true; or
-	 * 2. Hook on the 'woocommerce_use_old_di_container' filter and have it return false (it receives the value of WOOCOMMERCE_USE_OLD_DI_CONTAINER, or false if the constant doesn't exist).
+	 * 2. Hook on the 'poocommerce_use_old_di_container' filter and have it return false (it receives the value of WOOCOMMERCE_USE_OLD_DI_CONTAINER, or false if the constant doesn't exist).
 	 *
-	 * @return bool True if this class should be used as the core WooCommerce dependency injection container, false if ExtendedContainer should be used instead.
+	 * @return bool True if this class should be used as the core PooCommerce dependency injection container, false if ExtendedContainer should be used instead.
 	 */
 	public static function should_use(): bool {
 		$should_use = ! defined( 'WOOCOMMERCE_USE_OLD_DI_CONTAINER' ) || true !== WOOCOMMERCE_USE_OLD_DI_CONTAINER;
 
 		/**
-		 * Hook to decide if the old ExtendedContainer class (instead of RuntimeContainer) should be used as the underlying WooCommerce dependency injection container.
+		 * Hook to decide if the old ExtendedContainer class (instead of RuntimeContainer) should be used as the underlying PooCommerce dependency injection container.
 		 *
-		 * NOTE: This hook will be removed in WooCommerce 9.5.
+		 * NOTE: This hook will be removed in PooCommerce 9.5.
 		 *
 		 * @param bool $should_use Value of the WOOCOMMERCE_USE_OLD_DI_CONTAINER constant, false if the constant doesn't exist.
 		 *
 		 * @since 9.5.0
 		 */
-		return apply_filters( 'woocommerce_use_old_di_container', $should_use );
+		return apply_filters( 'poocommerce_use_old_di_container', $should_use );
 	}
 }

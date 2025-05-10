@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WooCommerce Admin Table Column Example
+ * Plugin Name: PooCommerce Admin Table Column Example
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
@@ -10,7 +10,7 @@
  */
 function table_column_register_script() {
 
-	if ( ! class_exists( 'Automattic\WooCommerce\Admin\PageController' ) || ! \Automattic\WooCommerce\Admin\PageController::is_admin_page() ) {
+	if ( ! class_exists( 'Automattic\PooCommerce\Admin\PageController' ) || ! \Automattic\PooCommerce\Admin\PageController::is_admin_page() ) {
 		return;
 	}
 
@@ -46,7 +46,7 @@ function add_product_extended_attributes_schema( $properties ) {
 	return $properties;
 }
 
-add_filter( 'woocommerce_rest_report_products_schema', 'add_product_extended_attributes_schema' );
+add_filter( 'poocommerce_rest_report_products_schema', 'add_product_extended_attributes_schema' );
 
 /**
  * Extended attributes can be used to obtain any attribute from a WC_Product instance that is
@@ -60,7 +60,7 @@ function add_product_extended_attributes( $extended_attributes ) {
 	$extended_attributes[] = 'average_rating';
 	return $extended_attributes;
 }
-add_filter( 'woocommerce_rest_reports_products_extended_attributes', 'add_product_extended_attributes' );
+add_filter( 'poocommerce_rest_reports_products_extended_attributes', 'add_product_extended_attributes' );
 
 
 

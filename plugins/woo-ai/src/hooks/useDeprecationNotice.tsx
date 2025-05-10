@@ -43,7 +43,7 @@ export const useDeprecationNotice = () => {
 
 		const noticePromise: Promise< NoticeItem > = createNotice(
 			'info',
-			__( 'Notice: WooAI is being deprecated.', 'woocommerce' ),
+			__( 'Notice: WooAI is being deprecated.', 'poocommerce' ),
 			{
 				type: 'snackbar',
 				actions: [
@@ -54,11 +54,11 @@ export const useDeprecationNotice = () => {
 								LearnMore: (
 									<a
 										className="woo-ai-deprecation-notice-link"
-										href="https://woocommerce.com/document/woo-ai-deprecation/"
+										href="https://poocommerce.com/document/woo-ai-deprecation/"
 										target="_blank"
 										rel="noreferrer"
 									>
-										{ __( 'Learn More', 'woocommerce' ) }
+										{ __( 'Learn More', 'poocommerce' ) }
 									</a>
 								),
 								Separator: (
@@ -71,7 +71,7 @@ export const useDeprecationNotice = () => {
 										className="woo-ai-deprecation-notice-action"
 										onClick={ handleDismiss }
 									>
-										{ __( 'Dismiss', 'woocommerce' ) }
+										{ __( 'Dismiss', 'poocommerce' ) }
 									</button>
 								),
 							}

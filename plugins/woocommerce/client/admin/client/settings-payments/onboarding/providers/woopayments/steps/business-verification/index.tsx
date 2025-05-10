@@ -32,7 +32,7 @@ export const BusinessVerificationStep: React.FC = () => {
 				: window.wcSettings?.homeUrl + getComingSoonShareKey(),
 		country: (
 			window.wcSettings?.admin?.preloadSettings?.general
-				?.woocommerce_default_country || 'US'
+				?.poocommerce_default_country || 'US'
 		).split( ':' )[ 0 ],
 		...( currentStep?.context?.self_assessment ?? {} ),
 	};

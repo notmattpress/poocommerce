@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useContext } from '@wordpress/element';
-import { Panel } from '@woocommerce/blocks-components';
+import { Panel } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies

@@ -3,10 +3,10 @@
  * Handle product stock reservation during checkout.
  */
 
-namespace Automattic\WooCommerce\Checkout\Helpers;
+namespace Automattic\PooCommerce\Checkout\Helpers;
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ final class ReserveStock {
 	 */
 	public function __construct() {
 		// Table needed for this feature are added in 4.3.
-		$this->enabled = get_option( 'woocommerce_schema_version', 0 ) >= 430;
+		$this->enabled = get_option( 'poocommerce_schema_version', 0 ) >= 430;
 	}
 
 	/**
@@ -64,10 +64,10 @@ final class ReserveStock {
 	 * @throws ReserveStockException If stock cannot be reserved.
 	 *
 	 * @param \WC_Order $order Order object.
-	 * @param int       $minutes How long to reserve stock in minutes. Defaults to woocommerce_hold_stock_minutes.
+	 * @param int       $minutes How long to reserve stock in minutes. Defaults to poocommerce_hold_stock_minutes.
 	 */
 	public function reserve_stock_for_order( $order, $minutes = 0 ) {
-		$minutes = $minutes ? $minutes : (int) get_option( 'woocommerce_hold_stock_minutes', 60 );
+		$minutes = $minutes ? $minutes : (int) get_option( 'poocommerce_hold_stock_minutes', 60 );
 		/**
 		 * Filters the number of minutes an order should reserve stock for.
 		 *
@@ -75,10 +75,10 @@ final class ReserveStock {
 		 *
 		 * @since 8.8.0
 		 *
-		 * @param int       $minutes How long to reserve stock for the order in minutes. Defaults to woocommerce_hold_stock_minutes or 10 if block checkout entry.
+		 * @param int       $minutes How long to reserve stock for the order in minutes. Defaults to poocommerce_hold_stock_minutes or 10 if block checkout entry.
 		 * @param \WC_Order $order Order object.
 		 */
-		$minutes = (int) apply_filters( 'woocommerce_order_hold_stock_minutes', $minutes, $order );
+		$minutes = (int) apply_filters( 'poocommerce_order_hold_stock_minutes', $minutes, $order );
 
 		if ( ! $minutes || ! $this->is_enabled() ) {
 			return;
@@ -100,10 +100,10 @@ final class ReserveStock {
 
 				if ( ! $product->is_in_stock() ) {
 					throw new ReserveStockException(
-						'woocommerce_product_out_of_stock',
+						'poocommerce_product_out_of_stock',
 						sprintf(
 							/* translators: %s: product name */
-							__( '&quot;%s&quot; is out of stock and cannot be purchased.', 'woocommerce' ),
+							__( '&quot;%s&quot; is out of stock and cannot be purchased.', 'poocommerce' ),
 							$product->get_name()
 						),
 						403
@@ -124,13 +124,13 @@ final class ReserveStock {
 				 * @param WC_Order              $order    Order data.
 				 * @param WC_Order_Item_Product $item Order item data.
 				 */
-				$item_quantity = apply_filters( 'woocommerce_order_item_quantity', $item->get_quantity(), $order, $item );
+				$item_quantity = apply_filters( 'poocommerce_order_item_quantity', $item->get_quantity(), $order, $item );
 
 				$rows[ $managed_by_id ] = isset( $rows[ $managed_by_id ] ) ? $rows[ $managed_by_id ] + $item_quantity : $item_quantity;
 
 				if ( count( $held_stock_notes ) < 5 ) {
 					// translators: %1$s is a product's formatted name, %2$d: is the quantity of said product to which the stock hold applied.
-					$held_stock_notes[] = sprintf( _x( '- %1$s &times; %2$d', 'held stock note', 'woocommerce' ), $product->get_formatted_name(), $rows[ $managed_by_id ] );
+					$held_stock_notes[] = sprintf( _x( '- %1$s &times; %2$d', 'held stock note', 'poocommerce' ), $product->get_formatted_name(), $rows[ $managed_by_id ] );
 				}
 			}
 
@@ -150,7 +150,7 @@ final class ReserveStock {
 			if ( $remaining_count > 0 ) {
 				$held_stock_notes[] = sprintf(
 					// translators: %d is the remaining order items count.
-					_nx( '- ...and %d more item.', '- ... and %d more items.', $remaining_count, 'held stock note', 'woocommerce' ),
+					_nx( '- ...and %d more item.', '- ... and %d more items.', $remaining_count, 'held stock note', 'poocommerce' ),
 					$remaining_count
 				);
 			}
@@ -158,7 +158,7 @@ final class ReserveStock {
 			$order->add_order_note(
 				sprintf(
 					// translators: %1$s is a time in minutes, %2$s is a list of products and quantities.
-					_x( 'Stock hold of %1$s minutes applied to: %2$s', 'held stock note', 'woocommerce' ),
+					_x( 'Stock hold of %1$s minutes applied to: %2$s', 'held stock note', 'poocommerce' ),
 					$minutes,
 					'<br>' . implode( '<br>', $held_stock_notes )
 				)
@@ -224,10 +224,10 @@ final class ReserveStock {
 		if ( ! $result ) {
 			$product = wc_get_product( $product_id );
 			throw new ReserveStockException(
-				'woocommerce_product_not_enough_stock',
+				'poocommerce_product_not_enough_stock',
 				sprintf(
 					/* translators: %s: product name */
-					__( 'Not enough units of %s are available in stock to fulfil this order.', 'woocommerce' ),
+					__( 'Not enough units of %s are available in stock to fulfil this order.', 'poocommerce' ),
 					$product ? $product->get_name() : '#' . $product_id
 				),
 				403
@@ -268,7 +268,7 @@ final class ReserveStock {
 		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		/**
-		 * Filter: woocommerce_query_for_reserved_stock
+		 * Filter: poocommerce_query_for_reserved_stock
 		 * Allows to filter the query for getting reserved stock of a product.
 		 *
 		 * @since 4.5.0
@@ -276,6 +276,6 @@ final class ReserveStock {
 		 * @param int    $product_id       Product ID.
 		 * @param int    $exclude_order_id Order to exclude from the results.
 		 */
-		return apply_filters( 'woocommerce_query_for_reserved_stock', $query, $product_id, $exclude_order_id );
+		return apply_filters( 'poocommerce_query_for_reserved_stock', $query, $product_id, $exclude_order_id );
 	}
 }

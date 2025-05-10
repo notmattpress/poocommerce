@@ -7,28 +7,28 @@ import { useEntityProp } from '@wordpress/core-data';
 import { useCallback, useRef } from '@wordpress/element';
 
 function TemplateSenderPanel() {
-	const [ woocommerce_template_data, setWoocommerceTemplateData ] =
-		useEntityProp( 'postType', 'wp_template', 'woocommerce_data' );
+	const [ poocommerce_template_data, setWoocommerceTemplateData ] =
+		useEntityProp( 'postType', 'wp_template', 'poocommerce_data' );
 	const emailInputRef = useRef< HTMLInputElement >( null );
 
 	const handleFromNameChange = useCallback(
 		( value: string ) => {
 			setWoocommerceTemplateData( {
-				...woocommerce_template_data,
+				...poocommerce_template_data,
 				sender_settings: {
-					...woocommerce_template_data?.sender_settings,
+					...poocommerce_template_data?.sender_settings,
 					from_name: value,
 				},
 			} );
 		},
-		[ woocommerce_template_data, setWoocommerceTemplateData ]
+		[ poocommerce_template_data, setWoocommerceTemplateData ]
 	);
 	const handleFromAddressChange = useCallback(
 		( value: string ) => {
 			setWoocommerceTemplateData( {
-				...woocommerce_template_data,
+				...poocommerce_template_data,
 				sender_settings: {
-					...woocommerce_template_data?.sender_settings,
+					...poocommerce_template_data?.sender_settings,
 					from_address: value,
 				},
 			} );
@@ -39,32 +39,32 @@ function TemplateSenderPanel() {
 				emailInputRef.current.reportValidity();
 			}
 		},
-		[ woocommerce_template_data, setWoocommerceTemplateData ]
+		[ poocommerce_template_data, setWoocommerceTemplateData ]
 	);
 
 	return (
-		<Panel className="woocommerce-email-sidebar-template-settings-sender-options">
+		<Panel className="poocommerce-email-sidebar-template-settings-sender-options">
 			<PanelBody>
 				<PanelRow>
 					<div>
-						<h2>{ __( 'Sender Options', 'woocommerce' ) }</h2>
+						<h2>{ __( 'Sender Options', 'poocommerce' ) }</h2>
 						<p>
 							{ __(
-								'This is how your sender name and email address would appear in outgoing WooCommerce emails.',
-								'woocommerce'
+								'This is how your sender name and email address would appear in outgoing PooCommerce emails.',
+								'poocommerce'
 							) }
 						</p>
 					</div>
 				</PanelRow>
 				<PanelRow>
 					<TextControl
-						className="woocommerce-email-sidebar-template-settings-sender-options-input"
+						className="poocommerce-email-sidebar-template-settings-sender-options-input"
 						/* translators: Label for the sender's `“from” name` in email settings. */
-						label={ __( '“from” name', 'woocommerce' ) }
+						label={ __( '“from” name', 'poocommerce' ) }
 						name="from_name"
 						type="text"
 						value={
-							woocommerce_template_data?.sender_settings
+							poocommerce_template_data?.sender_settings
 								?.from_name || ''
 						}
 						onChange={ handleFromNameChange }
@@ -73,13 +73,13 @@ function TemplateSenderPanel() {
 				<PanelRow>
 					<TextControl
 						ref={ emailInputRef }
-						className="woocommerce-email-sidebar-template-settings-sender-options-input"
+						className="poocommerce-email-sidebar-template-settings-sender-options-input"
 						/* translators: Label for the sender's `“from” email` in email settings. */
-						label={ __( '“from” email', 'woocommerce' ) }
+						label={ __( '“from” email', 'poocommerce' ) }
 						name="from_email"
 						type="email"
 						value={
-							woocommerce_template_data?.sender_settings
+							poocommerce_template_data?.sender_settings
 								?.from_address || ''
 						}
 						onChange={ handleFromAddressChange }

@@ -5,13 +5,13 @@ import {
 	formatPrice,
 	getCurrency,
 	getCurrencyFromPriceResponse,
-} from '@woocommerce/price-format';
+} from '@poocommerce/price-format';
 import {
 	objectHasProp,
 	CurrencyResponse,
 	Currency,
 	isString,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 function formatPriceInt( price: string | number, currency: Currency ) {
 	const priceInt = typeof price === 'number' ? price : parseInt( price, 10 );

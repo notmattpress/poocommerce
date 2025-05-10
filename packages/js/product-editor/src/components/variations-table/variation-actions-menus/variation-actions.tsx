@@ -4,7 +4,7 @@
 import { MenuGroup, MenuItem } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import classNames from 'classnames';
 
 /**
@@ -49,7 +49,7 @@ export function VariationActions( {
 						? undefined
 						: sprintf(
 								/** Translators: Variation ID */
-								__( 'Variation Id: %s', 'woocommerce' ),
+								__( 'Variation Id: %s', 'poocommerce' ),
 								singleSelection?.id
 						  )
 				}
@@ -82,7 +82,7 @@ export function VariationActions( {
 							} );
 						} }
 					>
-						{ __( 'Preview', 'woocommerce' ) }
+						{ __( 'Preview', 'poocommerce' ) }
 					</MenuItem>
 				) }
 
@@ -137,16 +137,16 @@ export function VariationActions( {
 					isDestructive
 					label={
 						! supportsMultipleSelection
-							? __( 'Delete variation', 'woocommerce' )
+							? __( 'Delete variation', 'poocommerce' )
 							: undefined
 					}
 					onClick={ () => {
 						onDelete( selection );
 						onClose();
 					} }
-					className="woocommerce-product-variations__actions--delete"
+					className="poocommerce-product-variations__actions--delete"
 				>
-					{ __( 'Delete', 'woocommerce' ) }
+					{ __( 'Delete', 'poocommerce' ) }
 				</MenuItem>
 			</MenuGroup>
 			<VariationQuickUpdateMenuItem.Slot

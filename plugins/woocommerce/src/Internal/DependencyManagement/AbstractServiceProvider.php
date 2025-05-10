@@ -3,11 +3,11 @@
  * AbstractServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement;
+namespace Automattic\PooCommerce\Internal\DependencyManagement;
 
-use Automattic\WooCommerce\Vendor\League\Container\Argument\RawArgument;
-use Automattic\WooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
-use Automattic\WooCommerce\Vendor\League\Container\ServiceProvider\AbstractServiceProvider as BaseServiceProvider;
+use Automattic\PooCommerce\Vendor\League\Container\Argument\RawArgument;
+use Automattic\PooCommerce\Vendor\League\Container\Definition\DefinitionInterface;
+use Automattic\PooCommerce\Vendor\League\Container\ServiceProvider\AbstractServiceProvider as BaseServiceProvider;
 
 /**
  * Base class for the service providers used to register classes in the container.

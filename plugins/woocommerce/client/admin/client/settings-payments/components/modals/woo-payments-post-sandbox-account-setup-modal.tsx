@@ -3,11 +3,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button, Modal } from '@wordpress/components';
-import { Link } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { Link } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 import interpolateComponents from '@automattic/interpolate-components';
 import { useState } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 	const handleActivatePayments = () => {
 		// Record the event when the user clicks on the "Activate Payments" button.
 		recordEvent( 'settings_payments_switch_to_live_account_click', {
-			provider_id: 'woocommerce_payments',
+			provider_id: 'poocommerce_payments',
 		} );
 
 		setIsActivatingPayments( true );
@@ -62,12 +62,12 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 
 	/**
 	 * Handles the "Continue Store Setup" action.
-	 * Redirects the user to the WooCommerce admin store setup page.
+	 * Redirects the user to the PooCommerce admin store setup page.
 	 */
 	const handleContinueStoreSetup = () => {
 		// Record the event when the user clicks on the "Continue Store Setup" button.
 		recordEvent( 'settings_payments_continue_store_setup_click', {
-			provider_id: 'woocommerce_payments',
+			provider_id: 'poocommerce_payments',
 		} );
 
 		setIsContinuingStoreSetup( true );
@@ -81,25 +81,25 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 				<Modal
 					title={ __(
 						"You're ready to test payments!",
-						'woocommerce'
+						'poocommerce'
 					) }
-					className="woocommerce-woopayments-modal"
+					className="poocommerce-woopayments-modal"
 					isDismissible={ true }
 					onRequestClose={ onClose }
 				>
-					<div className="woocommerce-woopayments-modal__content">
-						<div className="woocommerce-woopayments-modal__content__item">
-							<div className="woocommerce-woopayments-modal__content__item__description">
+					<div className="poocommerce-woopayments-modal__content">
+						<div className="poocommerce-woopayments-modal__content__item">
+							<div className="poocommerce-woopayments-modal__content__item__description">
 								<p>
 									{ interpolateComponents( {
 										mixedString: __(
 											"We've created a test account for you so that you can begin testing payments on your store. {{break/}}Not sure what to test? Take a look at {{link}}how to test payments{{/link}}.",
-											'woocommerce'
+											'poocommerce'
 										),
 										components: {
 											link: (
 												<Link
-													href="https://woocommerce.com/document/woopayments/testing-and-troubleshooting/sandbox-mode/"
+													href="https://poocommerce.com/document/woopayments/testing-and-troubleshooting/sandbox-mode/"
 													target="_blank"
 													rel="noreferrer"
 													type="external"
@@ -111,42 +111,42 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 								</p>
 							</div>
 						</div>
-						<div className="woocommerce-woopayments-modal__content__item">
-							<h2>{ __( "What's next:", 'woocommerce' ) }</h2>
+						<div className="poocommerce-woopayments-modal__content__item">
+							<h2>{ __( "What's next:", 'poocommerce' ) }</h2>
 						</div>
-						<div className="woocommerce-woopayments-modal__content__item-flex">
+						<div className="poocommerce-woopayments-modal__content__item-flex">
 							<img
 								src={ WC_ASSET_URL + 'images/icons/store.svg' }
 								alt="store icon"
 							/>
-							<div className="woocommerce-woopayments-modal__content__item-flex__description">
+							<div className="poocommerce-woopayments-modal__content__item-flex__description">
 								<h3>
 									{ __(
 										'Continue your store setup',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</h3>
 								<div>
 									{ __(
 										'Finish completing the tasks required to launch your store.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</div>
 							</div>
 						</div>
 						{ ! devMode && (
-							<div className="woocommerce-woopayments-modal__content__item-flex">
+							<div className="poocommerce-woopayments-modal__content__item-flex">
 								<img
 									src={
 										WC_ASSET_URL + 'images/icons/dollar.svg'
 									}
 									alt="dollar icon"
 								/>
-								<div className="woocommerce-woopayments-modal__content__item-flex__description">
+								<div className="poocommerce-woopayments-modal__content__item-flex__description">
 									<h3>
 										{ __(
 											'Activate payments',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</h3>
 									<div>
@@ -154,12 +154,12 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 											{ interpolateComponents( {
 												mixedString: __(
 													'Provide some additional details about your business so you can begin accepting real payments. {{link}}Learn more{{/link}}',
-													'woocommerce'
+													'poocommerce'
 												),
 												components: {
 													link: (
 														<Link
-															href="https://woocommerce.com/document/woopayments/startup-guide/#sign-up-process"
+															href="https://poocommerce.com/document/woopayments/startup-guide/#sign-up-process"
 															target="_blank"
 															rel="noreferrer"
 															type="external"
@@ -173,14 +173,14 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 							</div>
 						) }
 					</div>
-					<div className="woocommerce-woopayments-modal__actions">
+					<div className="poocommerce-woopayments-modal__actions">
 						<Button
 							variant="primary"
 							isBusy={ isContinuingStoreSetup }
 							disabled={ isContinuingStoreSetup }
 							onClick={ handleContinueStoreSetup }
 						>
-							{ __( 'Continue store setup', 'woocommerce' ) }
+							{ __( 'Continue store setup', 'poocommerce' ) }
 						</Button>
 						{ ! devMode && (
 							<Button
@@ -189,7 +189,7 @@ export const WooPaymentsPostSandboxAccountSetupModal = ( {
 								disabled={ isActivatingPayments }
 								onClick={ handleActivatePayments }
 							>
-								{ __( 'Activate payments', 'woocommerce' ) }
+								{ __( 'Activate payments', 'poocommerce' ) }
 							</Button>
 						) }
 					</div>

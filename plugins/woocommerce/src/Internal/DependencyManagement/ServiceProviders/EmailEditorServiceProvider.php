@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailApiController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
-use Automattic\WooCommerce\Internal\EmailEditor\Integration;
-use Automattic\WooCommerce\Internal\EmailEditor\PageRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTagManager;
-use Automattic\WooCommerce\Internal\EmailEditor\TransactionalEmailPersonalizer;
-use Automattic\WooCommerce\Internal\EmailEditor\WooContentProcessor;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailApiController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
+use Automattic\PooCommerce\Internal\EmailEditor\Integration;
+use Automattic\PooCommerce\Internal\EmailEditor\PageRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTagManager;
+use Automattic\PooCommerce\Internal\EmailEditor\TransactionalEmailPersonalizer;
+use Automattic\PooCommerce\Internal\EmailEditor\WooContentProcessor;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
 
 /**
  * Service provider for the EmailEditor namespace.

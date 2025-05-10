@@ -53,9 +53,9 @@ const TEMPLATE = [
 	[ 'core/avatar' ],
 	[ 'core/comment-reply-link' ],
 	[ 'core/comment-edit-link' ],
-	[ 'woocommerce/product-review-author-name' ],
-	[ 'woocommerce/product-review-date' ],
-	[ 'woocommerce/product-review-content' ],
+	[ 'poocommerce/product-review-author-name' ],
+	[ 'poocommerce/product-review-date' ],
+	[ 'poocommerce/product-review-content' ],
 ];
 
 interface ReviewSettings {
@@ -294,7 +294,7 @@ export default function ReviewTemplateEdit( {
 	if ( ! commentTree.length ) {
 		return (
 			<p { ...blockProps }>
-				{ __( 'No results found.', 'woocommerce' ) }
+				{ __( 'No results found.', 'poocommerce' ) }
 			</p>
 		);
 	}

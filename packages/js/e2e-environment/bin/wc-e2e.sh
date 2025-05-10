@@ -38,7 +38,7 @@ cd "$SCRIPTPATH/$(dirname "$REALPATH")/.."
 DEV_PATH=$(pwd | rev | cut -f3 -d/ | rev)
 if [ "$DEV_PATH" != "node_modules" ]; then
 	export WC_E2E_WOOCOMMERCE_DEV='true'
-	export WC_E2E_FOLDER='plugins/woocommerce'
+	export WC_E2E_FOLDER='plugins/poocommerce'
 else
 	export WC_E2E_WOOCOMMERCE_DEV=''
 	if [ -z $WC_E2E_FOLDER ]; then

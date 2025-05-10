@@ -104,21 +104,21 @@ export const BankAccountModal = ( {
 			className="bank-account-modal"
 			title={
 				account
-					? __( 'Edit bank account', 'woocommerce' )
-					: __( 'Add a bank account', 'woocommerce' )
+					? __( 'Edit bank account', 'poocommerce' )
+					: __( 'Add a bank account', 'poocommerce' )
 			}
 			onRequestClose={ onClose }
 			shouldCloseOnClickOutside={ false }
 		>
 			<p className={ 'bank-account-modal__description' }>
 				{ account
-					? __( 'Edit your bank account details.', 'woocommerce' )
-					: __( 'Add your bank account details.', 'woocommerce' ) }
+					? __( 'Edit your bank account details.', 'poocommerce' )
+					: __( 'Add your bank account details.', 'poocommerce' ) }
 			</p>
 
 			<SelectControl
 				className="bank-account-modal__field is-required"
-				label={ __( 'Country', 'woocommerce' ) }
+				label={ __( 'Country', 'poocommerce' ) }
 				required
 				value={ selectedCountry }
 				options={ Object.entries( countries ).map(
@@ -135,7 +135,7 @@ export const BankAccountModal = ( {
 
 			<TextControl
 				className={ 'bank-account-modal__field is-required' }
-				label={ __( 'Account Name', 'woocommerce' ) }
+				label={ __( 'Account Name', 'poocommerce' ) }
 				required
 				value={ formData.account_name }
 				onChange={ ( value ) => updateField( 'account_name', value ) }
@@ -150,14 +150,14 @@ export const BankAccountModal = ( {
 
 			<TextControl
 				className={ 'bank-account-modal__field' }
-				label={ __( 'Bank Name', 'woocommerce' ) }
+				label={ __( 'Bank Name', 'poocommerce' ) }
 				value={ formData.bank_name }
 				onChange={ ( value ) => updateField( 'bank_name', value ) }
 			/>
 
 			<TextControl
 				className={ 'bank-account-modal__field is-required' }
-				label={ __( 'Account Number', 'woocommerce' ) }
+				label={ __( 'Account Number', 'poocommerce' ) }
 				required
 				value={ formData.account_number }
 				onChange={ ( value ) => updateField( 'account_number', value ) }
@@ -187,7 +187,7 @@ export const BankAccountModal = ( {
 
 			<TextControl
 				className={ 'bank-account-modal__field' }
-				label={ __( 'IBAN', 'woocommerce' ) }
+				label={ __( 'IBAN', 'poocommerce' ) }
 				value={ formData.iban }
 				onChange={ ( value ) => updateField( 'iban', value ) }
 				help={
@@ -201,7 +201,7 @@ export const BankAccountModal = ( {
 
 			<TextControl
 				className={ 'bank-account-modal__field' }
-				label={ __( 'BIC / SWIFT', 'woocommerce' ) }
+				label={ __( 'BIC / SWIFT', 'poocommerce' ) }
 				value={ formData.bic }
 				onChange={ ( value ) => updateField( 'bic', value ) }
 				help={
@@ -215,7 +215,7 @@ export const BankAccountModal = ( {
 
 			<div className={ 'bank-account-modal__actions' }>
 				<Button variant={ 'tertiary' } onClick={ onClose }>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					className={ 'bank-account-modal__save' }
@@ -226,7 +226,7 @@ export const BankAccountModal = ( {
 						}
 					} }
 				>
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

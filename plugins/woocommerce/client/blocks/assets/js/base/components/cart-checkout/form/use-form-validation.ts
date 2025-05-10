@@ -5,8 +5,8 @@ import {
 	DocumentObject,
 	usePrevious,
 	useSchemaParser,
-} from '@woocommerce/base-hooks';
-import { getFieldLabel, isPostcode } from '@woocommerce/blocks-checkout';
+} from '@poocommerce/base-hooks';
+import { getFieldLabel, isPostcode } from '@poocommerce/blocks-checkout';
 import {
 	AddressFormValues,
 	ContactFormValues,
@@ -14,8 +14,8 @@ import {
 	FormType,
 	KeyedFormFields,
 	OrderFormValues,
-} from '@woocommerce/settings';
-import { nonNullable } from '@woocommerce/types';
+} from '@poocommerce/settings';
+import { nonNullable } from '@poocommerce/types';
 import { useRef } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { isEmail } from '@wordpress/url';
@@ -62,7 +62,7 @@ const getErrorsMap = (
 		const fieldLabel = getFieldLabel( formField.label );
 		const defaultMessage = sprintf(
 			// translators: %s is the label of the field.
-			__( '%s is invalid', 'woocommerce' ),
+			__( '%s is invalid', 'poocommerce' ),
 			fieldLabel
 		);
 		if ( fieldKey ) {
@@ -73,7 +73,7 @@ const getErrorsMap = (
 				case 'pattern':
 					acc[ fieldKey ] = sprintf(
 						// translators: %1$s is the label of the field, %2$s is the pattern.
-						__( '%1$s must match the pattern %2$s', 'woocommerce' ),
+						__( '%1$s must match the pattern %2$s', 'poocommerce' ),
 						fieldLabel,
 						error.params.pattern
 					);
@@ -241,7 +241,7 @@ export const useFormValidation = (
 			) {
 				return [
 					field.key,
-					__( 'Please enter a valid postcode', 'woocommerce' ),
+					__( 'Please enter a valid postcode', 'poocommerce' ),
 				];
 			}
 
@@ -252,7 +252,7 @@ export const useFormValidation = (
 			) {
 				return [
 					field.key,
-					__( 'Please enter a valid email address', 'woocommerce' ),
+					__( 'Please enter a valid email address', 'poocommerce' ),
 				];
 			}
 

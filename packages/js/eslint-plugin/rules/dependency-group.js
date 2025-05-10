@@ -136,7 +136,7 @@ module.exports = {
 		}
 
 		/**
-		 * Tests if the locality is defined in the correct order (External, WooCommerce, Internal).
+		 * Tests if the locality is defined in the correct order (External, PooCommerce, Internal).
 		 *
 		 * @param {espree.Node}       child            Node to test.
 		 * @param {WCPackageLocality} locality         Package locality.

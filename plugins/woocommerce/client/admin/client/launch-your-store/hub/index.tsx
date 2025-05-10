@@ -38,7 +38,7 @@ export type LaunchYourStoreQueryParams = {
 };
 
 const LaunchStoreController = () => {
-	useFullScreen( [ 'woocommerce-launch-your-store' ] );
+	useFullScreen( [ 'poocommerce-launch-your-store' ] );
 	useEffect( () => {
 		window.sessionStorage.setItem( 'lysWaiting', 'no' );
 	}, [] );

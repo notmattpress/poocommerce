@@ -21,7 +21,7 @@ class WC_Shipping_Test extends WC_Unit_Test_Case {
 		parent::setUp();
 		$this->sut = new WC_Shipping();
 
-		update_option( 'woocommerce_shipping_debug_mode', 'yes' );
+		update_option( 'poocommerce_shipping_debug_mode', 'yes' );
 	}
 
 	/**
@@ -30,25 +30,25 @@ class WC_Shipping_Test extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 
-		update_option( 'woocommerce_shipping_debug_mode', 'no' );
-		update_option( 'woocommerce_shipping_hide_rates_when_free', 'no' );
+		update_option( 'poocommerce_shipping_debug_mode', 'no' );
+		update_option( 'poocommerce_shipping_hide_rates_when_free', 'no' );
 	}
 
 	/**
-	 * @testdox shipping methods are hidden based on `woocommerce_shipping_hide_rates_when_free` option.
+	 * @testdox shipping methods are hidden based on `poocommerce_shipping_hide_rates_when_free` option.
 	 *
 	 * @dataProvider provide_test_calculate_shipping_for_hide_rates_when_free
 	 *
-	 * @param string $option_value Option value for woocommerce_shipping_hide_rates_when_free.
+	 * @param string $option_value Option value for poocommerce_shipping_hide_rates_when_free.
 	 * @param array  $shipping_methods Available shipping methods.
 	 * @param array  $expected_rates Expected rates.
 	 */
 	public function test_calculate_shipping_for_hide_rates_when_free( string $option_value, array $shipping_methods, array $expected_rates ) {
-		update_option( 'woocommerce_shipping_hide_rates_when_free', $option_value );
+		update_option( 'poocommerce_shipping_hide_rates_when_free', $option_value );
 
 		$shipping_methods_hook = fn () => $shipping_methods;
 
-		add_action( 'woocommerce_shipping_methods', $shipping_methods_hook );
+		add_action( 'poocommerce_shipping_methods', $shipping_methods_hook );
 
 		$result = $this->sut->calculate_shipping_for_package(
 			array(
@@ -66,7 +66,7 @@ class WC_Shipping_Test extends WC_Unit_Test_Case {
 			$this->assertArrayHasKey( $rate, $result['rates'] );
 		}
 
-		remove_action( 'woocommerce_shipping_methods', $shipping_methods_hook );
+		remove_action( 'poocommerce_shipping_methods', $shipping_methods_hook );
 	}
 
 	/**

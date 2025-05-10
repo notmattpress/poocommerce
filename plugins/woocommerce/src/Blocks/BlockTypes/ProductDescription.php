@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * BlockifiedProductDetails class.
@@ -41,7 +41,7 @@ class ProductDescription extends AbstractBlock {
 		// Prevent recursive rendering.
 		if ( isset( self::$seen_ids[ $product_id ] ) ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY ) {
-				return __( '[product description rendering halted]', 'woocommerce' );
+				return __( '[product description rendering halted]', 'poocommerce' );
 			}
 			return '';
 		}

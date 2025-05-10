@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { Editor, Admin, RequestUtils } from '@woocommerce/e2e-utils';
+import { Editor, Admin, RequestUtils } from '@poocommerce/e2e-utils';
 
 class AddToCartWithOptionsPage {
 	private page: Page;
 	private admin: Admin;
 	private editor: Editor;
 	private requestUtils: RequestUtils;
-	BLOCK_SLUG = 'woocommerce/add-to-cart-with-options';
+	BLOCK_SLUG = 'poocommerce/add-to-cart-with-options';
 	BLOCK_NAME = 'Add to Cart with Options (Experimental)';
 
 	constructor( {
@@ -82,13 +82,13 @@ class AddToCartWithOptionsPage {
 
 	async updateSingleProductTemplate() {
 		await this.admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
 
 		const addToCartFormBlock = await this.editor.getBlockByName(
-			'woocommerce/add-to-cart-form'
+			'poocommerce/add-to-cart-form'
 		);
 		await this.editor.selectBlocks( addToCartFormBlock );
 

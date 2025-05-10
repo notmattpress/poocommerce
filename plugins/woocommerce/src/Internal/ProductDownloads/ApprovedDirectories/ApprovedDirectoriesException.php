@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories;
 
 use Exception;
 

@@ -1,9 +1,9 @@
 <?php
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Tests relating to WC_REST_Product_Reviews_V1_Controller.
@@ -12,7 +12,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Test that an order can be fetched via REST API V1 without triggering a deprecation notice.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/39006
+	 * @see https://github.com/poocommerce/poocommerce/issues/39006
 	 *
 	 * @return void
 	 */

@@ -6,11 +6,11 @@
  * with a set password link instead of including the new password in email
  * content.
  *
- * @package  WooCommerce/Blocks
+ * @package  PooCommerce/Blocks
  * @version 9.9.0
  */
 
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 <h2>
 <?php
 /* translators: %s: Site title*/
-printf( esc_html__( 'Welcome to %s', 'woocommerce' ), '<!--[woocommerce/site-title]-->' );
+printf( esc_html__( 'Welcome to %s', 'poocommerce' ), '<!--[poocommerce/site-title]-->' );
 ?>
 </h2>
 <!-- /wp:heading -->
@@ -29,7 +29,7 @@ printf( esc_html__( 'Welcome to %s', 'woocommerce' ), '<!--[woocommerce/site-tit
 <p>
 <?php
 	/* translators: %s: Customer first name */
-	printf( esc_html__( 'Hi %s,', 'woocommerce' ), '<!--[woocommerce/customer-first-name]-->' );
+	printf( esc_html__( 'Hi %s,', 'poocommerce' ), '<!--[poocommerce/customer-first-name]-->' );
 ?>
 </p>
 <!-- /wp:paragraph -->
@@ -38,7 +38,7 @@ printf( esc_html__( 'Welcome to %s', 'woocommerce' ), '<!--[woocommerce/site-tit
 <p>
 <?php
 	/* translators: %s: Site title */
-	printf( esc_html__( 'Thanks for creating an account on %s. Here’s a copy of your user details.', 'woocommerce' ), '<!--[woocommerce/site-title]-->' );
+	printf( esc_html__( 'Thanks for creating an account on %s. Here’s a copy of your user details.', 'poocommerce' ), '<!--[poocommerce/site-title]-->' );
 ?>
 </p>
 <!-- /wp:paragraph -->
@@ -47,7 +47,7 @@ printf( esc_html__( 'Welcome to %s', 'woocommerce' ), '<!--[woocommerce/site-tit
 <p>
 <?php
 /* translators: %s: Username */
-echo wp_kses( sprintf( __( 'Username: <b>%s</b>', 'woocommerce' ), '<!--[woocommerce/customer-username]-->' ), array( 'b' => array() ) );
+echo wp_kses( sprintf( __( 'Username: <b>%s</b>', 'poocommerce' ), '<!--[poocommerce/customer-username]-->' ), array( 'b' => array() ) );
 ?>
 </p>
 <!-- /wp:paragraph -->
@@ -57,19 +57,19 @@ echo wp_kses( sprintf( __( 'Username: <b>%s</b>', 'woocommerce' ), '<!--[woocomm
 <!-- /wp:woo/email-content -->
 
 <!-- wp:paragraph -->
-<p><?php echo esc_html__( 'You can access your account area to view orders, change your password, and more via the link below:', 'woocommerce' ); ?></p>
+<p><?php echo esc_html__( 'You can access your account area to view orders, change your password, and more via the link below:', 'poocommerce' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 <p>
 <?php
 	$text = '<a data-link-href="%1$s" contenteditable="false" style="text-decoration: underline;"> %2$s </a>';
-	printf( wp_kses_post( $text ), '[woocommerce/my-account-url]', esc_html__( 'My account', 'woocommerce' ) );
+	printf( wp_kses_post( $text ), '[poocommerce/my-account-url]', esc_html__( 'My account', 'poocommerce' ) );
 ?>
 </p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p> <?php echo esc_html__( 'We look forward to seeing you soon.', 'woocommerce' ); ?> </p>
+<p> <?php echo esc_html__( 'We look forward to seeing you soon.', 'poocommerce' ); ?> </p>
 <!-- /wp:paragraph -->
 

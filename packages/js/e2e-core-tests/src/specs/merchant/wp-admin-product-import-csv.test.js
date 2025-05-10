@@ -6,7 +6,7 @@ const {
 	merchant,
 	setCheckbox,
 	withRestApi,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 const getCoreTestsRoot = require( '../../../core-tests-root' );
 
 /**
@@ -136,12 +136,12 @@ const runImportProductsTest = () => {
 			await expect( page ).toClick( 'button[value="Run the importer"]' );
 
 			// Waiting for importer to finish
-			await page.waitForSelector( 'section.woocommerce-importer-done', {
+			await page.waitForSelector( 'section.poocommerce-importer-done', {
 				visible: true,
 				timeout: 120000,
 			} );
-			await page.waitForSelector( '.woocommerce-importer-done' );
-			await expect( page ).toMatchElement( '.woocommerce-importer-done', {
+			await page.waitForSelector( '.poocommerce-importer-done' );
+			await expect( page ).toMatchElement( '.poocommerce-importer-done', {
 				text: 'Import complete!',
 			} );
 		} );
@@ -172,7 +172,7 @@ const runImportProductsTest = () => {
 			// Put the CSV Override products file, set checkbox and proceed further
 			const uploader = await page.$( 'input[type=file]' );
 			await uploader.uploadFile( filePathOverride );
-			await setCheckbox( '#woocommerce-importer-update-existing' );
+			await setCheckbox( '#poocommerce-importer-update-existing' );
 			await expect( page ).toClick( 'button[value="Continue"]' );
 
 			// Click on Run the importer
@@ -180,12 +180,12 @@ const runImportProductsTest = () => {
 			await expect( page ).toClick( 'button[value="Run the importer"]' );
 
 			// Waiting for importer to finish
-			await page.waitForSelector( 'section.woocommerce-importer-done', {
+			await page.waitForSelector( 'section.poocommerce-importer-done', {
 				visible: true,
 				timeout: 60000,
 			} );
-			await page.waitForSelector( '.woocommerce-importer-done' );
-			await expect( page ).toMatchElement( '.woocommerce-importer-done', {
+			await page.waitForSelector( '.poocommerce-importer-done' );
+			await expect( page ).toMatchElement( '.poocommerce-importer-done', {
 				text: 'Import complete!',
 			} );
 		} );

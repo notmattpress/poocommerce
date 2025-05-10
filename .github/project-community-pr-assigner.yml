@@ -75,38 +75,38 @@
 "packages/js/tracks/**/*":
   - Flux
 
-"plugins/woocommerce/**/*":
+"plugins/poocommerce/**/*":
   - Flux
 
-"plugins/woocommerce/templates/**/*":
+"plugins/poocommerce/templates/**/*":
   - Rubik
   - Kirigami
 
-"plugins/woocommerce/templates/emails/**/*":
+"plugins/poocommerce/templates/emails/**/*":
   - Ballade
 
-"plugins/woocommerce/src/Admin/**/*":
+"plugins/poocommerce/src/Admin/**/*":
   - team: Kirigami
 
-"plugins/woocommerce/src/Blocks/**/*":
+"plugins/poocommerce/src/Blocks/**/*":
   - Rubik
   - Kirigami
 
-"plugins/woocommerce/src/Internal/Admin/**/*":
+"plugins/poocommerce/src/Internal/Admin/**/*":
   - Kirigami
 
-"plugins/woocommerce/src/StoreApi/**/*":
+"plugins/poocommerce/src/StoreApi/**/*":
   - Rubik
   - Kirigami
 
-"plugins/woocommerce/client/admin/**/*":
+"plugins/poocommerce/client/admin/**/*":
   - Kirigami
 
-"plugins/woocommerce/client/blocks/**/*":
+"plugins/poocommerce/client/blocks/**/*":
   - Rubik
   - Kirigami
 
-"plugins/woocommerce-beta-tester/**/*":
+"plugins/poocommerce-beta-tester/**/*":
   - Flux
 
 "tools/**/*":

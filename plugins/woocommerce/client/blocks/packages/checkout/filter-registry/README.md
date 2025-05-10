@@ -44,7 +44,7 @@ type CheckoutFilterFunction = < T >(
 
 ```js
 // Aliased import
-import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { registerCheckoutFilters } from '@poocommerce/blocks-checkout';
 
 // Global import
 const { registerCheckoutFilters } = wc.blocksCheckout;
@@ -82,7 +82,7 @@ This function applies a filter, and all registered callbacks, to a given value.
 
 ```js
 // Aliased import
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
 
 // Global import
 const { applyCheckoutFilter } = wc.blocksCheckout;
@@ -121,15 +121,15 @@ A function that needs to return true when the filtered value is passed in order 
 
 ## Available Filters
 
-Filters are implemented throughout the Mini-Cart, Cart and Checkout Blocks, as well as some components. For a list of filters, [see this document](../../../docs/third-party-developers/extensibility/checkout-block/available-filters.md). You can also search for [usage of `applyCheckoutFilter` within the source code](https://github.com/woocommerce/woocommerce-gutenberg-products-block/search?q=applyCheckoutFilter).
+Filters are implemented throughout the Mini-Cart, Cart and Checkout Blocks, as well as some components. For a list of filters, [see this document](../../../docs/third-party-developers/extensibility/checkout-block/available-filters.md). You can also search for [usage of `applyCheckoutFilter` within the source code](https://github.com/poocommerce/poocommerce-gutenberg-products-block/search?q=applyCheckoutFilter).
 
 <!-- FEEDBACK -->
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/filter-registry/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/filter-registry/README.md)
 
 <!-- /FEEDBACK -->
 

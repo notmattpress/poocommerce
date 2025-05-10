@@ -1,6 +1,6 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Internal\AddressProvider;
+namespace Automattic\PooCommerce\Internal\AddressProvider;
 
 use WC_Address_Provider;
 
@@ -35,13 +35,13 @@ class AddressProviderController {
 		 * @since 9.9.0
 		 * @param WC_Address_Provider[] $providers Array of fully qualified class names that extend WC_Address_Provider.
 		 */
-		$provider_class_names = apply_filters( 'woocommerce_address_providers', array() );
+		$provider_class_names = apply_filters( 'poocommerce_address_providers', array() );
 
 		$logger = wc_get_logger();
 
 		if ( ! is_array( $provider_class_names ) ) {
 			$logger->error(
-				'Invalid return value for woocommerce_address_providers, expected an array of class names.',
+				'Invalid return value for poocommerce_address_providers, expected an array of class names.',
 				array(
 					'context' => 'address_provider_service',
 				)

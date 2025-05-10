@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { dispatch, select } from '@wordpress/data';
-import { UpgradeDowngradeNotice as Notice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
-import { findBlock } from '@woocommerce/utils';
+import { UpgradeDowngradeNotice as Notice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
+import { findBlock } from '@poocommerce/utils';
 import { createBlock } from '@wordpress/blocks';
 
 /**
@@ -28,7 +28,7 @@ const upgradeToBlockifiedAddToCartWithOptions = async (
 		return false;
 	}
 
-	const newBlock = createBlock( 'woocommerce/add-to-cart-with-options' );
+	const newBlock = createBlock( 'poocommerce/add-to-cart-with-options' );
 	dispatch( 'core/block-editor' ).replaceBlock(
 		foundBlock.clientId,
 		newBlock
@@ -45,12 +45,12 @@ export const UpgradeNotice = ( {
 	const notice = createInterpolateElement(
 		__(
 			'Upgrade the Add to Cart with Options block to <strongText /> for more features!',
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			strongText: (
 				<strong>
-					{ __( `a new blockified experience`, 'woocommerce' ) }
+					{ __( `a new blockified experience`, 'poocommerce' ) }
 				</strong>
 			),
 		}
@@ -58,7 +58,7 @@ export const UpgradeNotice = ( {
 
 	const buttonLabel = __(
 		'Upgrade to the blockified Add to Cart with Options block',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	const handleClick = async () => {

@@ -10,7 +10,7 @@ export const initHooks = (): void => {
 	const replaceMediaUpload = (): ComponentType => MediaUpload;
 	addFilter(
 		'editor.MediaUpload',
-		'woocommerce/email-editor/replace-media-upload',
+		'poocommerce/email-editor/replace-media-upload',
 		replaceMediaUpload
 	);
 };

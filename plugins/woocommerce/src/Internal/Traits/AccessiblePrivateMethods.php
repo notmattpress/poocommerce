@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Traits;
+namespace Automattic\PooCommerce\Internal\Traits;
 
 /**
- * DON'T USE THIS TRAIT. It will be removed in WooCommerce 10.5.
+ * DON'T USE THIS TRAIT. It will be removed in PooCommerce 10.5.
  * Instead, make the hook target methods public and mark them with an @internal annotation.
  *
  * This trait allows making private methods of a class accessible from outside.
@@ -37,7 +37,7 @@ namespace Automattic\WooCommerce\Internal\Traits;
  * No special procedure is needed to remove hooks set up with these methods, the regular 'remove_action'
  * and 'remove_filter' functions provided by WordPress can be used as usual.
  *
- * @deprecated 9.6.0 Make the hook target methods public and mark them with an @internal annotation. This trait will be removed in WooCommerce 10.5.
+ * @deprecated 9.6.0 Make the hook target methods public and mark them with an @internal annotation. This trait will be removed in PooCommerce 10.5.
  */
 trait AccessiblePrivateMethods {
 

@@ -25,7 +25,7 @@ export const AddressFieldControls = (): JSX.Element => {
 				'site',
 				undefined,
 				{
-					[ `woocommerce_checkout_${ field }_field` ]: value,
+					[ `poocommerce_checkout_${ field }_field` ]: value,
 				}
 			);
 		}
@@ -33,26 +33,26 @@ export const AddressFieldControls = (): JSX.Element => {
 
 	const requiredOptions = [
 		{
-			label: __( 'Optional', 'woocommerce' ),
+			label: __( 'Optional', 'poocommerce' ),
 			value: 'false',
 		},
 		{
-			label: __( 'Required', 'woocommerce' ),
+			label: __( 'Required', 'poocommerce' ),
 			value: 'true',
 		},
 	];
 
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Address Fields', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Address Fields', 'poocommerce' ) }>
 				<p className="wc-block-checkout__controls-text">
 					{ __(
 						'Show or hide fields in the checkout address forms.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<ToggleControl
-					label={ __( 'Company', 'woocommerce' ) }
+					label={ __( 'Company', 'poocommerce' ) }
 					checked={ ! defaultFields.company.hidden }
 					onChange={ () => {
 						if ( defaultFields.company.hidden ) {
@@ -78,7 +78,7 @@ export const AddressFieldControls = (): JSX.Element => {
 					/>
 				) }
 				<ToggleControl
-					label={ __( 'Address line 2', 'woocommerce' ) }
+					label={ __( 'Address line 2', 'poocommerce' ) }
 					checked={ ! defaultFields.address_2.hidden }
 					onChange={ () => {
 						if ( defaultFields.address_2.hidden ) {
@@ -104,7 +104,7 @@ export const AddressFieldControls = (): JSX.Element => {
 					/>
 				) }
 				<ToggleControl
-					label={ __( 'Phone', 'woocommerce' ) }
+					label={ __( 'Phone', 'poocommerce' ) }
 					checked={ ! defaultFields.phone.hidden }
 					onChange={ () => {
 						if ( defaultFields.phone.hidden ) {

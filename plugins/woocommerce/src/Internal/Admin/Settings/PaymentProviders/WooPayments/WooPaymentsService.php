@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\WooPayments;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders\WooPayments;
 
 use Automattic\Jetpack\Connection\Manager as WPCOM_Connection_Manager;
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiArgumentException;
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiArgumentException;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use WP_Error;
 use WP_Http;
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WooPaymentsService {
 
-	const GATEWAY_ID = 'woocommerce_payments';
+	const GATEWAY_ID = 'poocommerce_payments';
 
 	/**
 	 * The minimum required version of the WooPayments extension.
@@ -40,8 +40,8 @@ class WooPaymentsService {
 	const ACTION_TYPE_REST     = 'REST';
 	const ACTION_TYPE_REDIRECT = 'REDIRECT';
 
-	const NOX_PROFILE_OPTION_KEY    = 'woocommerce_woopayments_nox_profile';
-	const NOX_ONBOARDING_LOCKED_KEY = 'woocommerce_woopayments_nox_onboarding_locked';
+	const NOX_PROFILE_OPTION_KEY    = 'poocommerce_woopayments_nox_profile';
+	const NOX_ONBOARDING_LOCKED_KEY = 'poocommerce_woopayments_nox_onboarding_locked';
 
 	const FROM_PAYMENT_SETTINGS = 'WCADMIN_PAYMENT_SETTINGS';
 	const FROM_NOX_IN_CONTEXT   = 'WCADMIN_NOX_IN_CONTEXT';
@@ -86,7 +86,7 @@ class WooPaymentsService {
 		$this->payment_providers = $payment_providers;
 		$this->proxy             = $proxy;
 
-		$this->wpcom_connection_manager = $this->proxy->get_instance_of( WPCOM_Connection_Manager::class, 'woocommerce' );
+		$this->wpcom_connection_manager = $this->proxy->get_instance_of( WPCOM_Connection_Manager::class, 'poocommerce' );
 		$this->provider                 = $this->payment_providers->get_payment_gateway_provider_instance( self::GATEWAY_ID );
 	}
 
@@ -155,8 +155,8 @@ class WooPaymentsService {
 	public function get_onboarding_step_status( string $step_id, string $location ): string {
 		if ( ! $this->is_valid_onboarding_step_id( $step_id ) ) {
 			throw new ApiArgumentException(
-				'woocommerce_woopayments_onboarding_invalid_step_id',
-				esc_html__( 'Invalid onboarding step ID.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_invalid_step_id',
+				esc_html__( 'Invalid onboarding step ID.', 'poocommerce' ),
 				(int) WP_Http::NOT_ACCEPTABLE
 			);
 		}
@@ -332,8 +332,8 @@ class WooPaymentsService {
 		// If we didn't receive any known data for the step, we consider it an invalid save operation.
 		if ( ! $this->is_valid_onboarding_step_data( $step_id, $request_data ) ) {
 			throw new ApiArgumentException(
-				'woocommerce_woopayments_onboarding_invalid_step_data',
-				esc_html__( 'Invalid onboarding step data.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_invalid_step_data',
+				esc_html__( 'Invalid onboarding step data.', 'poocommerce' ),
 				(int) WP_Http::NOT_ACCEPTABLE
 			);
 		}
@@ -360,8 +360,8 @@ class WooPaymentsService {
 				break;
 			default:
 				throw new ApiException(
-					'woocommerce_woopayments_onboarding_step_action_not_supported',
-					esc_html__( 'Save action not supported for the onboarding step ID.', 'woocommerce' ),
+					'poocommerce_woopayments_onboarding_step_action_not_supported',
+					esc_html__( 'Save action not supported for the onboarding step ID.', 'poocommerce' ),
 					(int) WP_Http::NOT_ACCEPTABLE
 				);
 		}
@@ -465,14 +465,14 @@ class WooPaymentsService {
 		// Nothing to do if we already have a test account.
 		if ( $this->has_test_account() ) {
 			return array(
-				'message' => esc_html__( 'A test account is already set up.', 'woocommerce' ),
+				'message' => esc_html__( 'A test account is already set up.', 'poocommerce' ),
 			);
 		}
 
 		// Nothing to do if there is an account, but it is not a test account.
 		if ( $this->has_account() ) {
 			return array(
-				'message' => esc_html__( 'An account is already set up. Reset the onboarding first.', 'woocommerce' ),
+				'message' => esc_html__( 'An account is already set up. Reset the onboarding first.', 'poocommerce' ),
 			);
 		}
 
@@ -497,8 +497,8 @@ class WooPaymentsService {
 		} catch ( Exception $e ) {
 			// Catch any exceptions to allow for proper error handling and onboarding unlock.
 			$response = new WP_Error(
-				'woocommerce_woopayments_onboarding_client_api_exception',
-				esc_html__( 'An unexpected error happened while initializing the test account.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_exception',
+				esc_html__( 'An unexpected error happened while initializing the test account.', 'poocommerce' ),
 				array(
 					'code'    => $e->getCode(),
 					'message' => $e->getMessage(),
@@ -512,7 +512,7 @@ class WooPaymentsService {
 
 		if ( is_wp_error( $response ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				esc_html( $response->get_error_message() ),
 				(int) WP_Http::FAILED_DEPENDENCY,
 				map_deep( (array) $response->get_error_data(), 'esc_html' )
@@ -521,8 +521,8 @@ class WooPaymentsService {
 
 		if ( ! is_array( $response ) || empty( $response['success'] ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
-				esc_html__( 'Failed to initialize the test account.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_error',
+				esc_html__( 'Failed to initialize the test account.', 'poocommerce' ),
 				(int) WP_Http::FAILED_DEPENDENCY
 			);
 		}
@@ -566,8 +566,8 @@ class WooPaymentsService {
 		} catch ( Exception $e ) {
 			// Catch any exceptions to allow for proper error handling and onboarding unlock.
 			$response = new WP_Error(
-				'woocommerce_woopayments_onboarding_client_api_exception',
-				esc_html__( 'An unexpected error happened while creating the KYC session.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_exception',
+				esc_html__( 'An unexpected error happened while creating the KYC session.', 'poocommerce' ),
 				array(
 					'code'    => $e->getCode(),
 					'message' => $e->getMessage(),
@@ -581,7 +581,7 @@ class WooPaymentsService {
 
 		if ( is_wp_error( $account_session ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				esc_html( $account_session->get_error_message() ),
 				(int) WP_Http::FAILED_DEPENDENCY,
 				map_deep( (array) $account_session->get_error_data(), 'esc_html' )
@@ -590,8 +590,8 @@ class WooPaymentsService {
 
 		if ( ! is_array( $account_session ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
-				esc_html__( 'Failed to get the KYC session data.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_error',
+				esc_html__( 'Failed to get the KYC session data.', 'poocommerce' ),
 				(int) WP_Http::FAILED_DEPENDENCY
 			);
 		}
@@ -634,8 +634,8 @@ class WooPaymentsService {
 		} catch ( Exception $e ) {
 			// Catch any exceptions to allow for proper error handling and onboarding unlock.
 			$response = new WP_Error(
-				'woocommerce_woopayments_onboarding_client_api_exception',
-				esc_html__( 'An unexpected error happened while finalizing the KYC session.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_exception',
+				esc_html__( 'An unexpected error happened while finalizing the KYC session.', 'poocommerce' ),
 				array(
 					'code'    => $e->getCode(),
 					'message' => $e->getMessage(),
@@ -649,7 +649,7 @@ class WooPaymentsService {
 
 		if ( is_wp_error( $response ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				esc_html( $response->get_error_message() ),
 				(int) WP_Http::FAILED_DEPENDENCY,
 				map_deep( (array) $response->get_error_data(), 'esc_html' )
@@ -658,8 +658,8 @@ class WooPaymentsService {
 
 		if ( ! is_array( $response ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
-				esc_html__( 'Failed to finish the KYC session.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_error',
+				esc_html__( 'Failed to finish the KYC session.', 'poocommerce' ),
 				(int) WP_Http::FAILED_DEPENDENCY
 			);
 		}
@@ -701,8 +701,8 @@ class WooPaymentsService {
 		} catch ( Exception $e ) {
 			// Catch any exceptions to allow for proper error handling and onboarding unlock.
 			$response = new WP_Error(
-				'woocommerce_woopayments_onboarding_client_api_exception',
-				esc_html__( 'An unexpected error happened while resetting onboarding.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_exception',
+				esc_html__( 'An unexpected error happened while resetting onboarding.', 'poocommerce' ),
 				array(
 					'code'    => $e->getCode(),
 					'message' => $e->getMessage(),
@@ -716,7 +716,7 @@ class WooPaymentsService {
 
 		if ( is_wp_error( $response ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				esc_html( $response->get_error_message() ),
 				(int) WP_Http::FAILED_DEPENDENCY,
 				map_deep( (array) $response->get_error_data(), 'esc_html' )
@@ -725,8 +725,8 @@ class WooPaymentsService {
 
 		if ( ! is_array( $response ) || empty( $response['success'] ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
-				esc_html__( 'Failed to reset onboarding.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_error',
+				esc_html__( 'Failed to reset onboarding.', 'poocommerce' ),
 				(int) WP_Http::FAILED_DEPENDENCY
 			);
 		}
@@ -770,8 +770,8 @@ class WooPaymentsService {
 		} catch ( Exception $e ) {
 			// Catch any exceptions to allow for proper error handling and onboarding unlock.
 			$response = new WP_Error(
-				'woocommerce_woopayments_onboarding_client_api_exception',
-				esc_html__( 'An unexpected error happened while disabling the test account.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_exception',
+				esc_html__( 'An unexpected error happened while disabling the test account.', 'poocommerce' ),
 				array(
 					'code'    => $e->getCode(),
 					'message' => $e->getMessage(),
@@ -785,7 +785,7 @@ class WooPaymentsService {
 
 		if ( is_wp_error( $response ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
+				'poocommerce_woopayments_onboarding_client_api_error',
 				esc_html( $response->get_error_message() ),
 				(int) WP_Http::FAILED_DEPENDENCY,
 				map_deep( (array) $response->get_error_data(), 'esc_html' )
@@ -794,8 +794,8 @@ class WooPaymentsService {
 
 		if ( ! is_array( $response ) || empty( $response['success'] ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_client_api_error',
-				esc_html__( 'Failed to disable the test account.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_client_api_error',
+				esc_html__( 'Failed to disable the test account.', 'poocommerce' ),
 				(int) WP_Http::FAILED_DEPENDENCY
 			);
 		}
@@ -820,9 +820,9 @@ class WooPaymentsService {
 		// If the WooPayments plugin is not active, we can't do anything.
 		if ( ! $this->is_extension_active() ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_extension_not_active',
+				'poocommerce_woopayments_onboarding_extension_not_active',
 				/* translators: %s: WooPayments. */
-				sprintf( esc_html__( 'The %s extension is not active.', 'woocommerce' ), 'WooPayments' ),
+				sprintf( esc_html__( 'The %s extension is not active.', 'poocommerce' ), 'WooPayments' ),
 				(int) WP_Http::FORBIDDEN
 			);
 		}
@@ -830,9 +830,9 @@ class WooPaymentsService {
 		// If the WooPayments installed version is less than the minimum required version, we can't do anything.
 		if ( defined( 'WCPAY_VERSION_NUMBER' ) && version_compare( WCPAY_VERSION_NUMBER, self::EXTENSION_MINIMUM_VERSION, '<' ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_extension_version',
+				'poocommerce_woopayments_onboarding_extension_version',
 				/* translators: %s: WooPayments. */
-				sprintf( esc_html__( 'The %s extension is not up-to-date. Please update to the latest version and try again.', 'woocommerce' ), 'WooPayments' ),
+				sprintf( esc_html__( 'The %s extension is not up-to-date. Please update to the latest version and try again.', 'poocommerce' ), 'WooPayments' ),
 				(int) WP_Http::FORBIDDEN
 			);
 		}
@@ -840,8 +840,8 @@ class WooPaymentsService {
 		// If the onboarding is locked, we shouldn't do anything.
 		if ( $this->is_onboarding_locked() ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_locked',
-				esc_html__( 'Another onboarding action is already in progress. Please wait for it to finish.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_locked',
+				esc_html__( 'Another onboarding action is already in progress. Please wait for it to finish.', 'poocommerce' ),
 				(int) WP_Http::CONFLICT
 			);
 		}
@@ -865,15 +865,15 @@ class WooPaymentsService {
 		// Second, do onboarding step specific checks.
 		if ( ! $this->is_valid_onboarding_step_id( $step_id ) ) {
 			throw new ApiArgumentException(
-				'woocommerce_woopayments_onboarding_invalid_step_id',
-				esc_html__( 'Invalid onboarding step ID.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_invalid_step_id',
+				esc_html__( 'Invalid onboarding step ID.', 'poocommerce' ),
 				(int) WP_Http::BAD_REQUEST
 			);
 		}
 		if ( ! $this->check_onboarding_step_requirements( $step_id, $location ) ) {
 			throw new ApiException(
-				'woocommerce_woopayments_onboarding_step_requirements_not_met',
-				esc_html__( 'Onboarding step requirements are not met.', 'woocommerce' ),
+				'poocommerce_woopayments_onboarding_step_requirements_not_met',
+				esc_html__( 'Onboarding step requirements are not met.', 'poocommerce' ),
 				(int) WP_Http::FORBIDDEN
 			);
 		}
@@ -1102,12 +1102,12 @@ class WooPaymentsService {
 		// If the required keys are not present, throw.
 		if ( ! isset( $step_details['id'] ) ) {
 			/* translators: %s: The required key that is missing. */
-			throw new Exception( sprintf( esc_html__( 'The onboarding step is missing required entries: %s', 'woocommerce' ), 'id' ) );
+			throw new Exception( sprintf( esc_html__( 'The onboarding step is missing required entries: %s', 'poocommerce' ), 'id' ) );
 		}
 		// Validate the step ID.
 		if ( ! $this->is_valid_onboarding_step_id( $step_details['id'] ) ) {
 			/* translators: %s: The invalid step ID. */
-			throw new Exception( sprintf( esc_html__( 'The onboarding step ID is invalid: %s', 'woocommerce' ), esc_attr( $step_details['id'] ) ) );
+			throw new Exception( sprintf( esc_html__( 'The onboarding step ID is invalid: %s', 'poocommerce' ), esc_attr( $step_details['id'] ) ) );
 		}
 
 		return array(
@@ -1528,7 +1528,7 @@ class WooPaymentsService {
 		}
 
 		if ( ! is_array( $response ) || ! isset( $response['data'] ) ) {
-			throw new Exception( esc_html__( 'Failed to get onboarding fields data.', 'woocommerce' ) );
+			throw new Exception( esc_html__( 'Failed to get onboarding fields data.', 'poocommerce' ) );
 		}
 
 		$fields = $response['data'];

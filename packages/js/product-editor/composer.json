@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/product-editor",
-	"description": "WooCommerce Admin product editor component library",
+	"name": "poocommerce/product-editor",
+	"description": "PooCommerce Admin product editor component library",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

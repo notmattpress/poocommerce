@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
 use WC_Payment_Gateway;
 use WC_Gateway_BACS;
@@ -12,7 +12,7 @@ use WC_Gateway_Paypal;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WooCommerce core payment gateways provider class.
+ * PooCommerce core payment gateways provider class.
  *
  * This class handles all the custom logic for the payment gateways built into the WC core.
  */

@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace {
+.poocommerce-marketplace {
 	&__tabs {
 		box-sizing: content-box;
 		display: flex;
@@ -60,7 +60,7 @@
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-	.woocommerce-marketplace__tabs {
+	.poocommerce-marketplace__tabs {
 		border-bottom: 1px solid $gutenberg-gray-300;
 
 		&::after {
@@ -73,7 +73,7 @@
 			pointer-events: none;
 		}
 
-		.woocommerce-marketplace__tab-my-subscriptions {
+		.poocommerce-marketplace__tab-my-subscriptions {
 			padding-right: 2.5em;
 		}
 	}

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getQuery } from '@woocommerce/navigation';
+import { getQuery } from '@poocommerce/navigation';
 
 export const isProductEditor = () => {
 	const query: { page?: string; path?: string } = getQuery();

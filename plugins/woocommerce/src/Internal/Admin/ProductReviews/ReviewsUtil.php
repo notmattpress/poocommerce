@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Internal\Admin\ProductReviews;
 
 /**
  * A utility class for handling comments that are product reviews.

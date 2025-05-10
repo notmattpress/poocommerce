@@ -7,7 +7,7 @@ import {
 	type ProductProductAttribute,
 	ProductAttributeTerm,
 	ProductDefaultAttribute,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 import { useCallback, useState } from '@wordpress/element';
 

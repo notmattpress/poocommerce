@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { debounce } from '@woocommerce/base-utils';
+import { debounce } from '@poocommerce/base-utils';
 import { select, dispatch } from '@wordpress/data';
-import type { AdditionalValues } from '@woocommerce/settings';
-import { ApiErrorResponse } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import type { AdditionalValues } from '@poocommerce/settings';
+import { ApiErrorResponse } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

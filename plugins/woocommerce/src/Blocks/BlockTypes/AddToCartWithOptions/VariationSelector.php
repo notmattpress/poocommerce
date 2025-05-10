@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * Block type for variation selector in add to cart with options.
@@ -32,7 +32,7 @@ class VariationSelector extends AbstractBlock {
 		global $product;
 
 		if ( $product instanceof \WC_Product && $product->is_type( 'variable' ) ) {
-			add_filter( 'woocommerce_product_supports', array( $this, 'check_product_supports' ), 10, 3 );
+			add_filter( 'poocommerce_product_supports', array( $this, 'check_product_supports' ), 10, 3 );
 
 			return $content;
 		}

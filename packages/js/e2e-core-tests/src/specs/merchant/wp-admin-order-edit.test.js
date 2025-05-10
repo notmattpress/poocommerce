@@ -9,7 +9,7 @@ const {
 	createOrder,
 	verifyValueOfInputField,
 	orderPageSaveChanges,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 let orderId;
 
@@ -19,7 +19,7 @@ const orderStatus = {
 };
 
 const runEditOrderTest = () => {
-	describe( 'WooCommerce Orders > Edit order', () => {
+	describe( 'PooCommerce Orders > Edit order', () => {
 		beforeAll( async () => {
 			orderId = await createOrder( { status: orderStatus.processing } );
 			await merchant.login();
@@ -61,7 +61,7 @@ const runEditOrderTest = () => {
 				}
 			);
 			await expect( page ).toMatchElement(
-				'#woocommerce-order-notes .note_content',
+				'#poocommerce-order-notes .note_content',
 				{
 					text: 'Order status changed from Processing to Completed.',
 				}
@@ -98,7 +98,7 @@ const runEditOrderTest = () => {
 		} );
 	} );
 
-	describe( 'WooCommerce Orders > Edit order > Downloadable product permissions', () => {
+	describe( 'PooCommerce Orders > Edit order > Downloadable product permissions', () => {
 		const productName = 'TDP 001';
 		const customerBilling = {
 			email: 'john.doe@example.com',

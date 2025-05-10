@@ -1,4 +1,4 @@
-.wp-block-woocommerce-product-variations-options-field {
+.wp-block-poocommerce-product-variations-options-field {
 	&__empty-state {
 		border: 1px dashed $gray-400;
 		border-radius: 2px;
@@ -40,11 +40,11 @@
 		}
 	}
 
-	.woocommerce-sortable {
+	.poocommerce-sortable {
 		padding: 0;
 	}
 
-	.woocommerce-sortable__handle {
+	.poocommerce-sortable__handle {
 		display: none;
 	}
 

@@ -1,4 +1,4 @@
 Significance: minor
 Type: enhancement
 
-Move generateUniqueId to @woocommerce/utils package.
+Move generateUniqueId to @poocommerce/utils package.

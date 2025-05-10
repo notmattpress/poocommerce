@@ -3,7 +3,7 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ export default function ConnectNotice(): JSX.Element | null {
 	const noticeType: 'none' | 'short' | 'long' =
 		wccomSettings?.woocomConnectNoticeType || 'none';
 
-	const defaultStoreName = __( 'Your store', 'woocommerce' );
+	const defaultStoreName = __( 'Your store', 'poocommerce' );
 	const storeName: string = wccomSettings?.storeName || defaultStoreName;
 
 	const formattedStoreName =
@@ -52,16 +52,16 @@ export default function ConnectNotice(): JSX.Element | null {
 		long: sprintf(
 			/* translators: %s: store name set from the store settings, if not set, it will be "Your store" */
 			__(
-				'%s might be at risk because it’s running outdated WooCommerce plugins and is not yet connected to a WooCommerce.com account. Please complete the connection to get updates and streamlined support.',
-				'woocommerce'
+				'%s might be at risk because it’s running outdated PooCommerce plugins and is not yet connected to a PooCommerce.com account. Please complete the connection to get updates and streamlined support.',
+				'poocommerce'
 			),
 			formattedStoreName
 		),
 		short: sprintf(
 			/* translators: %s: store name set from the store settings, if not set, it will be "Your store" */
 			__(
-				'%s is not yet connected to a WooCommerce.com account. Please complete the connection to get updates and streamlined support.',
-				'woocommerce'
+				'%s is not yet connected to a PooCommerce.com account. Please complete the connection to get updates and streamlined support.',
+				'poocommerce'
 			),
 			formattedStoreName
 		),
@@ -99,7 +99,7 @@ export default function ConnectNotice(): JSX.Element | null {
 			description={ description }
 			isDismissible={ true }
 			variant="warning"
-			className="woocommerce-marketplace__connect-notice"
+			className="poocommerce-marketplace__connect-notice"
 			onClose={ handleClose }
 			onLoad={ handleLoad }
 		>
@@ -108,15 +108,15 @@ export default function ConnectNotice(): JSX.Element | null {
 				variant="primary"
 				onClick={ handleClick }
 			>
-				{ __( 'Connect your store', 'woocommerce' ) }
+				{ __( 'Connect your store', 'poocommerce' ) }
 			</Button>
 			<Button
-				href="https://woocommerce.com/document/managing-woocommerce-com-subscriptions/#connect-your-site-woocommercecom-account"
+				href="https://poocommerce.com/document/managing-poocommerce-com-subscriptions/#connect-your-site-poocommercecom-account"
 				target="_blank"
 				variant="tertiary"
 				onClick={ handleLearnMoreClick }
 			>
-				{ __( 'Learn more', 'woocommerce' ) }
+				{ __( 'Learn more', 'poocommerce' ) }
 			</Button>
 		</Notice>
 	);

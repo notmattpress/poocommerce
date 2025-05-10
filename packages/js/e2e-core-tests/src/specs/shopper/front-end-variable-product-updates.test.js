@@ -2,7 +2,7 @@
 /**
  * Internal dependencies
  */
-const { shopper, createVariableProduct } = require( '@woocommerce/e2e-utils' );
+const { shopper, createVariableProduct } = require( '@poocommerce/e2e-utils' );
 const config = require( 'config' );
 
 let variablePostIdValue;
@@ -28,7 +28,7 @@ const runVariableProductUpdateTest = () => {
 			}
 
 			await expect( page ).toMatchElement(
-				'.woocommerce-variation-price',
+				'.poocommerce-variation-price',
 				{
 					text: '9.99',
 				}
@@ -51,23 +51,23 @@ const runVariableProductUpdateTest = () => {
 			);
 
 			await expect( page ).toMatchElement(
-				'.woocommerce-variation-price',
+				'.poocommerce-variation-price',
 				{ text: '20.00' }
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-variation-availability',
+				'.poocommerce-variation-availability',
 				{
 					text: 'Out of stock',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-product-attributes-item--weight',
+				'.poocommerce-product-attributes-item--weight',
 				{
 					text: '200 lbs',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-product-attributes-item--dimensions',
+				'.poocommerce-product-attributes-item--dimensions',
 				{ text: '10 × 20 × 15 in' }
 			);
 		} );
@@ -88,7 +88,7 @@ const runVariableProductUpdateTest = () => {
 			);
 
 			await expect( page ).toMatchElement(
-				'.woocommerce-variation-price',
+				'.poocommerce-variation-price',
 				{ text: '11.99' }
 			);
 		} );

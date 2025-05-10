@@ -3,11 +3,11 @@
  * MarketingServiceProvider class file.
  */
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels;
-use Automattic\WooCommerce\Internal\Admin\Marketing\MarketingSpecs;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels;
+use Automattic\PooCommerce\Internal\Admin\Marketing\MarketingSpecs;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 // Indicates that the multichannel marketing classes exist.
 // This constant will be checked by third-party extensions before utilizing any of the classes defined for this feature.
@@ -16,7 +16,7 @@ if ( ! defined( 'WC_MCM_EXISTS' ) ) {
 }
 
 /**
- * Service provider for the non-static utils classes in the Automattic\WooCommerce\src namespace.
+ * Service provider for the non-static utils classes in the Automattic\PooCommerce\src namespace.
  *
  * @since x.x.x
  */

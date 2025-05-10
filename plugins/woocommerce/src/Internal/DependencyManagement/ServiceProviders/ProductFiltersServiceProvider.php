@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\ProductFilters\MainQueryController;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\MainQueryController;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * ProductFiltersServiceProvider class.

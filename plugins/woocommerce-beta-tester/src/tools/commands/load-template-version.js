@@ -140,7 +140,7 @@ export const LoadTemplateVersion = () => {
 	return (
 		<div>
 			<p>
-				Load a specific version of a WooCommerce template for testing.
+				Load a specific version of a PooCommerce template for testing.
 			</p>
 			<div style={ { marginBottom: '10px' } }>
 				<SelectControl

@@ -34,7 +34,7 @@
 	width: 100%;
 }
 
-#woocommerce-email-editor {
+#poocommerce-email-editor {
 	.editor-header__toolbar {
 		flex-grow: 1;
 	}
@@ -67,18 +67,18 @@
 
 // Specific styles for the component EmailTypeInfo
 // Styles are based on the Block Card component from Gutenberg block editor
-.woocommerce-email-sidebar-email-type-info {
+.poocommerce-email-sidebar-email-type-info {
 	.components-panel__row {
 		align-items: flex-start;
 	}
 
-	.woocommerce-email-type-info-icon {
+	.poocommerce-email-type-info-icon {
 		flex: 0 0 24px;
 		margin-left: 0;
 		margin-right: 12px;
 	}
 
-	.woocommerce-email-type-info-content {
+	.poocommerce-email-type-info-content {
 		flex-grow: 1;
 		margin-bottom: 4px;
 
@@ -97,7 +97,7 @@
 		}
 	}
 
-	.woocommerce-email-type-info-content-heading {
+	.poocommerce-email-type-info-content-heading {
 		display: flex;
 
 		div:last-child {
@@ -108,12 +108,12 @@
 	}
 }
 
-.woocommerce-settings-panel-preheader-text {
+.poocommerce-settings-panel-preheader-text {
 	margin-top: 9px;
 }
 
-.woocommerce-email-editor__settings-panel {
-	.woocommerce-settings-panel-richtext {
+.poocommerce-email-editor__settings-panel {
+	.poocommerce-settings-panel-richtext {
 		border: 1px solid var(--wp-components-color-gray-600, #949494);
 		border-radius: 2px;
 		box-shadow: transparent 0 0 0;
@@ -123,7 +123,7 @@
 		width: 100%;
 	}
 
-	.woocommerce-settings-panel-personalization-tags-button.components-button.has-icon {
+	.poocommerce-settings-panel-personalization-tags-button.components-button.has-icon {
 		display: inline-block;
 		float: right;
 		height: 14px;
@@ -135,7 +135,7 @@
 		}
 	}
 
-	.woocommerce-settings-panel-subject .components-base-control__label {
+	.poocommerce-settings-panel-subject .components-base-control__label {
 		width: 100%;
 
 		.components-external-link {
@@ -143,7 +143,7 @@
 		}
 	}
 
-	.woocommerce-settings-panel-help {
+	.poocommerce-settings-panel-help {
 		margin-bottom: 20px;
 
 		.components-text {
@@ -151,22 +151,22 @@
 		}
 	}
 
-	.woocommerce-settings-panel-preview-text .components-base-control__label {
+	.poocommerce-settings-panel-preview-text .components-base-control__label {
 		width: 100%;
 	}
 
-	.woocommerce-settings-panel-preview-text-length {
+	.poocommerce-settings-panel-preview-text-length {
 		color: $black;
 		display: inline-block;
 		float: right;
 		padding: 3px;
 	}
 
-	.woocommerce-settings-panel-preview-text-length-warning {
+	.poocommerce-settings-panel-preview-text-length-warning {
 		color: $alert-yellow;
 	}
 
-	.woocommerce-settings-panel-preview-text-length-error {
+	.poocommerce-settings-panel-preview-text-length-error {
 		color: $alert-red;
 	}
 }

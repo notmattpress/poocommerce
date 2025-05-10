@@ -17,7 +17,7 @@ export const FieldPlaceholder = ( {
 } ) => {
 	return (
 		<div
-			className={ `woocommerce-field-placeholder woocommerce-field-placeholder--${ size }` }
+			className={ `poocommerce-field-placeholder poocommerce-field-placeholder--${ size }` }
 		>
 			<Placeholder />
 		</div>

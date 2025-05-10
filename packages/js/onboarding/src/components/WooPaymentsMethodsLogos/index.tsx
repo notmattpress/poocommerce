@@ -149,7 +149,7 @@ export const WooPaymentsMethodsLogos = ( {
 	maxElementsMobile = 5,
 	/**
 	 * Total number of payment methods that WooPayments supports.
-	 * The default is set according to https://woocommerce.com/document/woopayments/payment-methods.
+	 * The default is set according to https://poocommerce.com/document/woopayments/payment-methods.
 	 * If not eligible for WooPay, the total number of payment methods is reduced by one.
 	 */
 	totalPaymentMethods = 21,
@@ -227,11 +227,11 @@ export const WooPaymentsMethodsLogos = ( {
 	).filter( ( pm ) => isWooPayEligible || pm.name !== 'woopay' );
 
 	return (
-		<div className="woocommerce-woopayments-payment-methods-logos">
+		<div className="poocommerce-woopayments-payment-methods-logos">
 			{ visiblePaymentMethods.map( ( pm ) => pm.component ) }
 			{ maxShownElements < maxSupportedPaymentMethods && (
 				<div
-					className="woocommerce-woopayments-payment-methods-logos-count"
+					className="poocommerce-woopayments-payment-methods-logos-count"
 					role="button"
 					tabIndex={ 0 }
 					onClick={ () => setPopoverVisible( ! isPopoverVisible ) }
@@ -247,13 +247,13 @@ export const WooPaymentsMethodsLogos = ( {
 					{ isPopoverVisible && (
 						<Popover
 							placement="top-start"
-							className="woocommerce-woopayments-payment-methods-logos-popover"
+							className="poocommerce-woopayments-payment-methods-logos-popover"
 							focusOnMount={ false }
 							noArrow={ true }
 							shift={ true }
 							onClose={ hidePopoverDebounced }
 						>
-							<div className="woocommerce-woopayments-payment-methods-logos">
+							<div className="poocommerce-woopayments-payment-methods-logos">
 								{ hiddenPaymentMethods.map(
 									( pm ) => pm.component
 								) }
