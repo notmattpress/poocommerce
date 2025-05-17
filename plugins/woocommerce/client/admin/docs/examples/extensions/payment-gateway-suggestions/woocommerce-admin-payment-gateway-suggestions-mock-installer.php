@@ -2,7 +2,7 @@
 /**
  * This file includes functions that bypass the typical install process for the sake of the example.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
@@ -27,7 +27,7 @@ function payment_gateway_suggestions_mock_install_activate_response( $response, 
 			'errors' => array(),
 		);
 		$response['success'] = true;
-		$response['message'] = __( 'Plugins were successfully installed.', 'woocommerce-admin' );
+		$response['message'] = __( 'Plugins were successfully installed.', 'poocommerce-admin' );
 	}
 
 	if ( '/wc-admin/plugins/activate' === $request->get_route() && in_array( $requested_plugin, $plugins, true ) ) {
@@ -37,7 +37,7 @@ function payment_gateway_suggestions_mock_install_activate_response( $response, 
 			'errors' => array(),
 		);
 		$response['success']           = true;
-		$response['message']           = __( 'Plugins were successfully activated.', 'woocommerce-admin' );
+		$response['message']           = __( 'Plugins were successfully activated.', 'poocommerce-admin' );
 	}
 	return $response;
 }

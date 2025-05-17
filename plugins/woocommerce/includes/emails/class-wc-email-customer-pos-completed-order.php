@@ -2,16 +2,16 @@
 /**
  * Class WC_Email_Customer_POS_Completed_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use Automattic\WooCommerce\Internal\Email\OrderPriceFormatter;
-use Automattic\WooCommerce\Internal\Orders\PointOfSaleOrderUtil;
-use Automattic\WooCommerce\Internal\Settings\PointOfSaleDefaultSettings;
+use Automattic\PooCommerce\Internal\Email\OrderPriceFormatter;
+use Automattic\PooCommerce\Internal\Orders\PointOfSaleOrderUtil;
+use Automattic\PooCommerce\Internal\Settings\PointOfSaleDefaultSettings;
 
 if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_POS_Completed_Order
 	 * @version     2.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_POS_Completed_Order extends WC_Email {
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_pos_completed_order';
 			$this->customer_email = true;
-			$this->title          = __( 'POS completed order', 'woocommerce' );
+			$this->title          = __( 'POS completed order', 'poocommerce' );
 			$this->template_html  = 'emails/customer-pos-completed-order.php';
 			$this->template_plain = 'emails/plain/customer-pos-completed-order.php';
 			$this->placeholders   = array(
@@ -48,8 +48,8 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Let shoppers know once their POS order is complete.', 'woocommerce' )
-				: __( 'Order complete emails are sent to customers when their POS orders are marked completed.', 'woocommerce' );
+				? __( 'Let shoppers know once their POS order is complete.', 'poocommerce' )
+				: __( 'Order complete emails are sent to customers when their POS orders are marked completed.', 'poocommerce' );
 
 			$this->manual = true;
 		}
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		public function get_default_subject() {
 			$store_name = $this->get_pos_store_name();
 			/* translators: %1$s: Order number, %2$s: Store name */
-			return sprintf( __( 'Your in-store purchase #%1$s at %2$s', 'woocommerce' ), '{order_number}', esc_html( $store_name ) );
+			return sprintf( __( 'Your in-store purchase #%1$s at %2$s', 'poocommerce' ), '{order_number}', esc_html( $store_name ) );
 		}
 
 		/**
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Thank you for your in-store purchase', 'woocommerce' );
+			return __( 'Thank you for your in-store purchase', 'poocommerce' );
 		}
 
 		/**
@@ -185,7 +185,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		private function enable_order_email_actions_for_pos_orders() {
 			$this->enable_email_template_for_pos_orders();
 			// Enable send email when requested.
-			add_action( 'woocommerce_rest_order_actions_email_send', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_rest_order_actions_email_send', array( $this, 'trigger' ), 10, 2 );
 		}
 
 		/**
@@ -193,9 +193,9 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function add_pos_customizations() {
 			// Add action to display unit price in the beginning of the order item meta.
-			add_action( 'woocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10, 4 );
+			add_action( 'poocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10, 4 );
 			// Add filter to include additional details in the order item totals table.
-			add_filter( 'woocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10, 3 );
+			add_filter( 'poocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10, 3 );
 		}
 
 		/**
@@ -203,8 +203,8 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function remove_pos_customizations() {
 			// Remove actions and filters after generating content to avoid affecting other emails.
-			remove_action( 'woocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10 );
-			remove_filter( 'woocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10 );
+			remove_action( 'poocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10 );
+			remove_filter( 'poocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10 );
 		}
 
 		/**
@@ -215,7 +215,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 * @param WC_Order $order         Order object.
 		 */
 		public function add_unit_price( $item_id, $item, $order ) {
-			$unit_price = OrderPriceFormatter::get_formatted_item_subtotal( $order, $item, get_option( 'woocommerce_tax_display_cart' ) );
+			$unit_price = OrderPriceFormatter::get_formatted_item_subtotal( $order, $item, get_option( 'poocommerce_tax_display_cart' ) );
 			echo wp_kses_post( '<br /><small>' . $unit_price . '</small>' );
 		}
 
@@ -233,7 +233,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 			if ( ! empty( $cash_payment_change_due_amount ) ) {
 				$total_rows['cash_payment_change_due_amount'] = array(
 					'type'  => 'cash_payment_change_due_amount',
-					'label' => __( 'Change due:', 'woocommerce' ),
+					'label' => __( 'Change due:', 'poocommerce' ),
 					'value' => $formatted_cash_payment_change_due_amount,
 				);
 			}
@@ -242,7 +242,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 			if ( ! empty( $auth_code ) ) {
 				$total_rows['payment_auth_code'] = array(
 					'type'  => 'payment_auth_code',
-					'label' => __( 'Auth code:', 'woocommerce' ),
+					'label' => __( 'Auth code:', 'poocommerce' ),
 					'value' => $auth_code,
 				);
 			}
@@ -250,7 +250,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 			if ( $order->get_date_paid() !== null ) {
 				$total_rows['date_paid'] = array(
 					'type'  => 'date_paid',
-					'label' => __( 'Time of payment:', 'woocommerce' ),
+					'label' => __( 'Time of payment:', 'poocommerce' ),
 					'value' => wc_format_datetime( $order->get_date_paid(), get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
 				);
 			}
@@ -262,7 +262,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 * Enable email template for REST API order valid templates for POS orders.
 		 */
 		private function enable_email_template_for_pos_orders() {
-			add_filter( 'woocommerce_rest_order_actions_email_valid_template_classes', array( $this, 'add_to_valid_template_classes' ), 10, 2 );
+			add_filter( 'poocommerce_rest_order_actions_email_valid_template_classes', array( $this, 'add_to_valid_template_classes' ), 10, 2 );
 		}
 
 		/**
@@ -287,7 +287,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function get_pos_store_name() {
 			return $this->format_string(
-				get_option( 'woocommerce_pos_store_name', PointOfSaleDefaultSettings::get_default_store_name() )
+				get_option( 'poocommerce_pos_store_name', PointOfSaleDefaultSettings::get_default_store_name() )
 			);
 		}
 
@@ -298,7 +298,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function get_pos_store_email() {
 			return $this->format_string(
-				get_option( 'woocommerce_pos_store_email', PointOfSaleDefaultSettings::get_default_store_email() )
+				get_option( 'poocommerce_pos_store_email', PointOfSaleDefaultSettings::get_default_store_email() )
 			);
 		}
 
@@ -309,7 +309,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function get_pos_store_phone_number() {
 			return $this->format_string(
-				get_option( 'woocommerce_pos_store_phone' )
+				get_option( 'poocommerce_pos_store_phone' )
 			);
 		}
 
@@ -320,7 +320,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function get_pos_store_address() {
 			return $this->format_string(
-				get_option( 'woocommerce_pos_store_address', PointOfSaleDefaultSettings::get_default_store_address() )
+				get_option( 'poocommerce_pos_store_address', PointOfSaleDefaultSettings::get_default_store_address() )
 			);
 		}
 
@@ -331,7 +331,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Completed_Order', false ) ) :
 		 */
 		private function get_pos_refund_returns_policy() {
 			return $this->format_string(
-				get_option( 'woocommerce_pos_refund_returns_policy' )
+				get_option( 'poocommerce_pos_refund_returns_policy' )
 			);
 		}
 	}

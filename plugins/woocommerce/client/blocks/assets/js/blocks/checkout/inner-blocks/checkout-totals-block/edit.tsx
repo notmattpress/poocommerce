@@ -3,8 +3,8 @@
  */
 import clsx from 'clsx';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { Sidebar } from '@woocommerce/base-components/sidebar-layout';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { Sidebar } from '@poocommerce/base-components/sidebar-layout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
 
 /**
@@ -31,7 +31,7 @@ export const Edit = ( {
 	const allowedBlocks = getAllowedBlocks( innerBlockAreas.CHECKOUT_TOTALS );
 
 	const defaultTemplate = [
-		[ 'woocommerce/checkout-order-summary-block', {}, [] ],
+		[ 'poocommerce/checkout-order-summary-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {

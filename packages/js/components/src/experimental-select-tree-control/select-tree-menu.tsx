@@ -94,14 +94,14 @@ export const SelectTreeMenu = ( {
 	return (
 		<div
 			ref={ selectControlMenuRef }
-			className="woocommerce-experimental-select-tree-control__menu"
+			className="poocommerce-experimental-select-tree-control__menu"
 		>
 			<div>
 				<Popover
 					focusOnMount={ false }
 					inline
 					className={ classnames(
-						'woocommerce-experimental-select-tree-control__popover-menu',
+						'poocommerce-experimental-select-tree-control__popover-menu',
 						className,
 						{
 							'is-open': isOpen,

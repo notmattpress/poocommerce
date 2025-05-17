@@ -16,7 +16,7 @@ import {
 	EMPTY_PAYMENT_METHODS,
 	EMPTY_PAYMENT_REQUIREMENTS,
 	EMPTY_EXTENSIONS,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import type {
@@ -26,8 +26,8 @@ import type {
 	CartResponseBillingAddress,
 	CartResponseShippingAddress,
 	CartResponseCouponItem,
-} from '@woocommerce/types';
-import { emptyHiddenAddressFields } from '@woocommerce/base-utils';
+} from '@poocommerce/types';
+import { emptyHiddenAddressFields } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

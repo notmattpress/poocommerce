@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\League\Container\Argument;
+namespace Automattic\PooCommerce\Vendor\League\Container\Argument;
 
 class RawArgument implements RawArgumentInterface
 {

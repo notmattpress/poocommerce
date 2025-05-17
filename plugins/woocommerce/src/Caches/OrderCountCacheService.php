@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Caches;
+namespace Automattic\PooCommerce\Caches;
 
 use WC_Order;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * A service class to help with updates to the aggregate orders cache.
@@ -43,11 +43,11 @@ class OrderCountCacheService {
 	 */
 	final public function init() {
 		$this->order_count_cache = new OrderCountCache();
-		add_action( 'woocommerce_new_order', array( $this, 'update_on_new_order' ), 10, 2 );
-		add_action( 'woocommerce_order_status_changed', array( $this, 'update_on_order_status_changed' ), 10, 4 );
-		add_action( 'woocommerce_before_trash_order', array( $this, 'update_on_order_trashed' ), 10, 2 );
-		add_action( 'woocommerce_before_delete_order', array( $this, 'update_on_order_deleted' ), 10, 2 );
-		add_action( 'woocommerce_refresh_order_count_cache', array( $this, 'refresh_cache' ) );
+		add_action( 'poocommerce_new_order', array( $this, 'update_on_new_order' ), 10, 2 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'update_on_order_status_changed' ), 10, 4 );
+		add_action( 'poocommerce_before_trash_order', array( $this, 'update_on_order_trashed' ), 10, 2 );
+		add_action( 'poocommerce_before_delete_order', array( $this, 'update_on_order_deleted' ), 10, 2 );
+		add_action( 'poocommerce_refresh_order_count_cache', array( $this, 'refresh_cache' ) );
 		add_action( 'action_scheduler_ensure_recurring_actions', array( $this, 'schedule_background_actions' ) );
 	}
 
@@ -71,7 +71,7 @@ class OrderCountCacheService {
 		$order_types = wc_get_order_types( 'order-count' );
 		$frequency   = HOUR_IN_SECONDS * 12;
 		foreach ( $order_types as $order_type ) {
-			as_schedule_recurring_action( time() + $frequency, $frequency, 'woocommerce_refresh_order_count_cache', array( $order_type ), 'count', true );
+			as_schedule_recurring_action( time() + $frequency, $frequency, 'poocommerce_refresh_order_count_cache', array( $order_type ), 'count', true );
 		}
 	}
 
@@ -136,8 +136,8 @@ class OrderCountCacheService {
 	 * Update the cache whenver an order status changes.
 	 *
 	 * @param int      $order_id Order id.
-	 * @param string   $previous_status the old WooCommerce order status.
-	 * @param string   $next_status the new WooCommerce order status.
+	 * @param string   $previous_status the old PooCommerce order status.
+	 * @param string   $next_status the new PooCommerce order status.
 	 * @param WC_Order $order The order.
 	 */
 	public function update_on_order_status_changed( $order_id, $previous_status, $next_status, $order ) {

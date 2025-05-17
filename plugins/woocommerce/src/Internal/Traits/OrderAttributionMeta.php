@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Traits;
+namespace Automattic\PooCommerce\Internal\Traits;
 
-use Automattic\WooCommerce\Vendor\Detection\MobileDetect;
+use Automattic\PooCommerce\Vendor\Detection\MobileDetect;
 use Exception;
 use WC_Meta_Data;
 use WC_Order;
@@ -209,7 +209,7 @@ trait OrderAttributionMeta {
 
 		// Throw an exception if we don't have an order object.
 		if ( ! $post_or_order instanceof WC_Order ) {
-			throw new Exception( __( 'Order not found.', 'woocommerce' ) );
+			throw new Exception( __( 'Order not found.', 'poocommerce' ) );
 		}
 
 		return $post_or_order;
@@ -279,44 +279,44 @@ trait OrderAttributionMeta {
 			case 'utm':
 				$label = $translated ?
 					/* translators: %s is the source value */
-					__( 'Source: %s', 'woocommerce' )
+					__( 'Source: %s', 'poocommerce' )
 					: 'Source: %s';
 				break;
 			case 'organic':
 				$label = $translated ?
 					/* translators: %s is the source value */
-					__( 'Organic: %s', 'woocommerce' )
+					__( 'Organic: %s', 'poocommerce' )
 					: 'Organic: %s';
 				break;
 			case 'referral':
 				$label = $translated ?
 					/* translators: %s is the source value */
-					__( 'Referral: %s', 'woocommerce' )
+					__( 'Referral: %s', 'poocommerce' )
 					: 'Referral: %s';
 				break;
 			case 'typein':
 				$label  = '';
 				$source = $translated ?
-					__( 'Direct', 'woocommerce' )
+					__( 'Direct', 'poocommerce' )
 					: 'Direct';
 				break;
 			case 'mobile_app':
 				$label  = '';
 				$source = $translated ?
-					__( 'Mobile app', 'woocommerce' )
+					__( 'Mobile app', 'poocommerce' )
 					: 'Mobile app';
 				break;
 			case 'admin':
 				$label  = '';
 				$source = $translated ?
-					__( 'Web admin', 'woocommerce' )
+					__( 'Web admin', 'poocommerce' )
 					: 'Web admin';
 				break;
 
 			default:
 				$label  = '';
 				$source = $translated ?
-					__( 'Unknown', 'woocommerce' )
+					__( 'Unknown', 'poocommerce' )
 					: 'Unknown';
 				break;
 		}
@@ -372,7 +372,7 @@ trait OrderAttributionMeta {
 	 */
 	private function get_field_description( string $field_name ): string {
 		/* translators: %s is the field name */
-		$description = sprintf( __( 'Order attribution field: %s', 'woocommerce' ), $field_name );
+		$description = sprintf( __( 'Order attribution field: %s', 'poocommerce' ), $field_name );
 
 		/**
 		 * Filter the description for the order attribution field.

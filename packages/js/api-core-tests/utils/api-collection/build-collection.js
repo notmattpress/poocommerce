@@ -37,7 +37,7 @@ const postmanCollection = new Collection( {
 		],
 	},
 	info: {
-		name: 'WooCommerce API - v3',
+		name: 'PooCommerce API - v3',
 	},
 } );
 

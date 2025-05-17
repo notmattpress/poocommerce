@@ -2,29 +2,29 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use WC_Email;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * API Controller for managing WooCommerce email templates via extending the post type API.
+ * API Controller for managing PooCommerce email templates via extending the post type API.
  *
  * @internal
  */
 class EmailApiController {
 	/**
-	 * A list of WooCommerce emails.
+	 * A list of PooCommerce emails.
 	 *
 	 * @var \WC_Email[]
 	 */
 	private array $emails;
 
 	/**
-	 * The WooCommerce transactional email post manager.
+	 * The PooCommerce transactional email post manager.
 	 *
 	 * @var WCTransactionalEmailPostsManager|null
 	 */
@@ -48,7 +48,7 @@ class EmailApiController {
 	 */
 	public function get_email_data( $post_data ): array {
 		$email_type  = $this->post_manager->get_email_type_from_post_id( $post_data['id'] );
-		$post_option = get_option( "woocommerce_{$email_type}_settings" );
+		$post_option = get_option( "poocommerce_{$email_type}_settings" );
 		$email       = $this->get_email_by_type( $email_type ?? '' );
 
 		return array(
@@ -64,7 +64,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Update WooCommerce specific option data by post name.
+	 * Update PooCommerce specific option data by post name.
 	 *
 	 * @param array    $data - Data that are stored in the wp_options table.
 	 * @param \WP_Post $post - WP_Post object.
@@ -74,7 +74,7 @@ class EmailApiController {
 			return;
 		}
 		$email_type  = $this->post_manager->get_email_type_from_post_id( $post->ID );
-		$option_name = "woocommerce_{$email_type}_settings";
+		$option_name = "poocommerce_{$email_type}_settings";
 		$post_option = get_option( $option_name );
 
 		// Handle customer_refunded_order email type because it has two different subjects.
@@ -100,7 +100,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get the schema for the WooCommerce email post data.
+	 * Get the schema for the PooCommerce email post data.
 	 *
 	 * @return array
 	 */

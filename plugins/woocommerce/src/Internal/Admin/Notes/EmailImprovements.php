@@ -8,13 +8,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
-use Automattic\WooCommerce\Internal\Admin\EmailImprovements\EmailImprovements as EmailImprovementsFeature;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Internal\Admin\EmailImprovements\EmailImprovements as EmailImprovementsFeature;
 /**
  * EmailImprovements
  */
@@ -48,14 +48,14 @@ class EmailImprovements {
 	 */
 	private static function get_email_improvements_enabled_note() {
 		$note = new Note();
-		$note->set_title( __( 'Your emails have a new look!', 'woocommerce' ) );
-		$note->set_content( __( 'We’re excited to introduce our refreshed email templates designed to enhance your customers shopping experience. Preview and customize your emails in Settings.', 'woocommerce' ) );
+		$note->set_title( __( 'Your emails have a new look!', 'poocommerce' ) );
+		$note->set_content( __( 'We’re excited to introduce our refreshed email templates designed to enhance your customers shopping experience. Preview and customize your emails in Settings.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'manage-emails',
-			__( 'Manage emails', 'woocommerce' ),
+			__( 'Manage emails', 'poocommerce' ),
 			'?page=wc-settings&tab=email'
 		);
 		return $note;
@@ -68,14 +68,14 @@ class EmailImprovements {
 	 */
 	private static function get_try_email_improvements_note() {
 		$note = new Note();
-		$note->set_title( __( 'Introducing new email templates for your store!', 'woocommerce' ) );
-		$note->set_content( __( 'We’re excited to introduce our refreshed email templates designed to enhance your customers shopping experience. Preview and customize your emails in Settings.', 'woocommerce' ) );
+		$note->set_title( __( 'Introducing new email templates for your store!', 'poocommerce' ) );
+		$note->set_content( __( 'We’re excited to introduce our refreshed email templates designed to enhance your customers shopping experience. Preview and customize your emails in Settings.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'try-new-templates',
-			__( 'Try new templates', 'woocommerce' ),
+			__( 'Try new templates', 'poocommerce' ),
 			'?page=wc-settings&tab=email&try-new-templates'
 		);
 		return $note;

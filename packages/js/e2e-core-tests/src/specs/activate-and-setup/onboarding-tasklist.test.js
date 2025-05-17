@@ -7,7 +7,7 @@ const {
 	withRestApi,
 	addShippingZoneAndMethod,
 	IS_RETEST_MODE,
-} = require( '@woocommerce/e2e-utils' );
+} = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -47,7 +47,7 @@ const runOnboardingFlowTest = () => {
 		it( 'can start and complete onboarding when visiting the site for the first time.', async () => {
 			deprecated( 'runOnboardingFlowTest', {
 				alternative:
-					'@woocommerce/admin-e2e-tests `testAdminOnboardingWizard()`',
+					'@poocommerce/admin-e2e-tests `testAdminOnboardingWizard()`',
 			} );
 			await completeOnboardingWizard();
 		} );
@@ -63,20 +63,20 @@ const runTaskListTest = () => {
 		it( 'can setup shipping', async () => {
 			deprecated( 'runTaskListTest', {
 				alternative:
-					'@woocommerce/admin-e2e-tests `testAdminHomescreenTasklist()`',
+					'@poocommerce/admin-e2e-tests `testAdminHomescreenTasklist()`',
 			} );
 			await page.evaluate( () => {
 				document
-					.querySelector( '.woocommerce-list__item-title' )
+					.querySelector( '.poocommerce-list__item-title' )
 					.scrollIntoView();
 			} );
 			// Query for all tasks on the list
 			const taskListItems = await page.$$(
-				'.woocommerce-list__item-title'
+				'.poocommerce-list__item-title'
 			);
 			expect( taskListItems.length ).toBeInRange( 5, 6 );
 
-			// Work around for https://github.com/woocommerce/woocommerce-admin/issues/6761
+			// Work around for https://github.com/poocommerce/poocommerce-admin/issues/6761
 			if ( taskListItems.length === 6 ) {
 				// Click on "Get your products shipped" task to move to the next step
 				const [ setupTaskListItem ] = await page.$x(

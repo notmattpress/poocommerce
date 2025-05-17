@@ -5,11 +5,11 @@
 import {
 	ProductResponseItem,
 	ProductCategoryResponseItem,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { Placeholder, Icon, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
-import ProductControl from '@woocommerce/editor-components/product-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
+import ProductControl from '@poocommerce/editor-components/product-control';
 import type { ComponentType } from 'react';
 
 /**
@@ -113,7 +113,7 @@ export const withEditMode =
 							/>
 						) }
 						<Button variant="primary" onClick={ onDone }>
-							{ __( 'Done', 'woocommerce' ) }
+							{ __( 'Done', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Placeholder>

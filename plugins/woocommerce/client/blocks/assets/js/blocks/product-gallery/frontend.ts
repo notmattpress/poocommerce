@@ -46,7 +46,7 @@ const scrollImageIntoView = ( imageId: number ) => {
 
 	// Find the closest gallery container
 	const galleryContainer = element.closest(
-		'.wp-block-woocommerce-product-gallery'
+		'.wp-block-poocommerce-product-gallery'
 	);
 
 	if ( ! galleryContainer ) {
@@ -54,7 +54,7 @@ const scrollImageIntoView = ( imageId: number ) => {
 	}
 
 	const imageElement = galleryContainer.querySelector(
-		`.wp-block-woocommerce-product-gallery-large-image img[data-image-id="${ imageId }"]`
+		`.wp-block-poocommerce-product-gallery-large-image img[data-image-id="${ imageId }"]`
 	);
 
 	if ( imageElement ) {
@@ -85,7 +85,7 @@ const scrollThumbnailIntoView = ( imageId: number ) => {
 
 	// Find the closest gallery container
 	const galleryContainer = element.closest(
-		'.wp-block-woocommerce-product-gallery'
+		'.wp-block-poocommerce-product-gallery'
 	);
 
 	if ( ! galleryContainer ) {
@@ -417,7 +417,7 @@ const productGallery = {
 	},
 };
 
-const { actions } = store( 'woocommerce/product-gallery', productGallery, {
+const { actions } = store( 'poocommerce/product-gallery', productGallery, {
 	lock: true,
 } );
 

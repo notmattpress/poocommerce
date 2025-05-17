@@ -2,11 +2,11 @@
 /**
  * Class WC_Gateway_Paypal_PDT_Handler file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,7 +40,7 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 	 * @param string $identity_token Identity token for PDT support.
 	 */
 	public function __construct( $sandbox = false, $identity_token = '' ) {
-		add_action( 'woocommerce_thankyou_paypal', array( $this, 'check_response_for_order' ) );
+		add_action( 'poocommerce_thankyou_paypal', array( $this, 'check_response_for_order' ) );
 		$this->identity_token = $identity_token;
 		$this->sandbox        = $sandbox;
 	}
@@ -69,7 +69,7 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 			),
 			'timeout'     => 60,
 			'httpversion' => '1.1',
-			'user-agent'  => 'WooCommerce/' . Constants::get_constant( 'WC_VERSION' ),
+			'user-agent'  => 'PooCommerce/' . Constants::get_constant( 'WC_VERSION' ),
 		);
 
 		// Post back to get a response.
@@ -104,7 +104,7 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 	 */
 	public function check_response() {
 		global $wp;
-		$order_id = apply_filters( 'woocommerce_thankyou_order_id', absint( $wp->query_vars['order-received'] ) );
+		$order_id = apply_filters( 'poocommerce_thankyou_order_id', absint( $wp->query_vars['order-received'] ) );
 
 		$this->check_response_for_order( $order_id );
 	}
@@ -143,13 +143,13 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 
 			if ( $wc_order->get_id() !== $order->get_id() ) {
 				/* translators: 1: order ID, 2: order ID. */
-				WC_Gateway_Paypal::log( sprintf( __( 'Received PDT notification for order %1$d on endpoint for order %2$d.', 'woocommerce' ), $order->get_id(), $wc_order_id ), 'error' );
+				WC_Gateway_Paypal::log( sprintf( __( 'Received PDT notification for order %1$d on endpoint for order %2$d.', 'poocommerce' ), $order->get_id(), $wc_order_id ), 'error' );
 				return;
 			}
 
 			if ( 0 !== strcasecmp( trim( $transaction_result['receiver_email'] ), trim( $this->receiver_email ) ) ) {
 				/* translators: 1: email address, 2: order ID . */
-				WC_Gateway_Paypal::log( sprintf( __( 'Received PDT notification for another account: %1$s. Order ID: %2$d.', 'woocommerce' ), $transaction_result['receiver_email'], $order->get_id() ), 'error' );
+				WC_Gateway_Paypal::log( sprintf( __( 'Received PDT notification for another account: %1$s. Order ID: %2$d.', 'poocommerce' ), $transaction_result['receiver_email'], $order->get_id() ), 'error' );
 				return;
 			}
 
@@ -163,7 +163,7 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 				if ( number_format( $order->get_total(), 2, '.', '' ) !== number_format( $amount, 2, '.', '' ) ) {
 					WC_Gateway_Paypal::log( 'Payment error: Amounts do not match (amt ' . $amount . ')', 'error' );
 					/* translators: 1: Payment amount */
-					$this->payment_on_hold( $order, sprintf( __( 'Validation error: PayPal amounts do not match (amt %s).', 'woocommerce' ), $amount ) );
+					$this->payment_on_hold( $order, sprintf( __( 'Validation error: PayPal amounts do not match (amt %s).', 'poocommerce' ), $amount ) );
 				} else {
 					// Log paypal transaction fee and payment type.
 					if ( ! empty( $transaction_result['mc_fee'] ) ) {
@@ -173,14 +173,14 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 						$order->add_meta_data( 'Payment type', wc_clean( $transaction_result['payment_type'] ) );
 					}
 
-					$this->payment_complete( $order, $transaction, __( 'PDT payment completed', 'woocommerce' ) );
+					$this->payment_complete( $order, $transaction, __( 'PDT payment completed', 'poocommerce' ) );
 				}
 			} else {
 				if ( 'authorization' === $transaction_result['pending_reason'] ) {
-					$this->payment_on_hold( $order, __( 'Payment authorized. Change payment status to processing or complete to capture funds.', 'woocommerce' ) );
+					$this->payment_on_hold( $order, __( 'Payment authorized. Change payment status to processing or complete to capture funds.', 'poocommerce' ) );
 				} else {
 					/* translators: 1: Pending reason */
-					$this->payment_on_hold( $order, sprintf( __( 'Payment pending (%s).', 'woocommerce' ), $transaction_result['pending_reason'] ) );
+					$this->payment_on_hold( $order, sprintf( __( 'Payment pending (%s).', 'poocommerce' ), $transaction_result['pending_reason'] ) );
 				}
 			}
 		} else {

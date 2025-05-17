@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 
 /**
  * Provider for order-related personalization tags.
@@ -22,9 +22,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 	public function register_tags( Personalization_Tags_Registry $registry ): void {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Number', 'woocommerce' ),
-				'woocommerce/order-number',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Number', 'poocommerce' ),
+				'poocommerce/order-number',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -36,9 +36,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Date', 'woocommerce' ),
-				'woocommerce/order-date',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Date', 'poocommerce' ),
+				'poocommerce/order-date',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context, array $parameters = array() ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -58,9 +58,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Items', 'woocommerce' ),
-				'woocommerce/order-items',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Items', 'poocommerce' ),
+				'poocommerce/order-items',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -76,9 +76,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Subtotal', 'woocommerce' ),
-				'woocommerce/order-subtotal',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Subtotal', 'poocommerce' ),
+				'poocommerce/order-subtotal',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -90,9 +90,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Tax', 'woocommerce' ),
-				'woocommerce/order-tax',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Tax', 'poocommerce' ),
+				'poocommerce/order-tax',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -104,9 +104,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Order Total', 'woocommerce' ),
-				'woocommerce/order-total',
-				__( 'Order', 'woocommerce' ),
+				__( 'Order Total', 'poocommerce' ),
+				'poocommerce/order-total',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -118,9 +118,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Payment Method', 'woocommerce' ),
-				'woocommerce/order-payment-method',
-				__( 'Order', 'woocommerce' ),
+				__( 'Payment Method', 'poocommerce' ),
+				'poocommerce/order-payment-method',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';
@@ -132,9 +132,9 @@ class OrderTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Payment URL', 'woocommerce' ),
-				'woocommerce/order-payment-url',
-				__( 'Order', 'woocommerce' ),
+				__( 'Payment URL', 'poocommerce' ),
+				'poocommerce/order-payment-url',
+				__( 'Order', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( ! isset( $context['order'] ) ) {
 						return '';

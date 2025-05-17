@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { useUserPreferences } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { useUserPreferences } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { recordEvent } from '@woocommerce/tracks';
 import { StatsOverview } from '../index';
 import StatsList from '../stats-list';
 
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/tracks' );
 // Mock the stats list so that it can be tested separately.
 jest.mock( '../stats-list', () =>
 	jest.fn().mockImplementation( () => <div>mocked stats list</div> )
@@ -25,9 +25,9 @@ jest.mock( '../install-jetpack-cta', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/data', () => {
+jest.mock( '@poocommerce/data', () => {
 	// Require the original module to not be mocked...
-	const originalModule = jest.requireActual( '@woocommerce/data' );
+	const originalModule = jest.requireActual( '@poocommerce/data' );
 
 	return {
 		__esModule: true, // Use it when dealing with esModules
@@ -47,7 +47,7 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/data' );
+jest.mock( '@poocommerce/data' );
 
 describe( 'StatsOverview tracking', () => {
 	it( 'should record an event when a stat is toggled', () => {

@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { screen, render, within } from '@testing-library/react';
-import { SlotFillProvider } from '@woocommerce/blocks-checkout';
-import { ShippingCalculatorContext } from '@woocommerce/base-components/cart-checkout/shipping-calculator/context';
+import { SlotFillProvider } from '@poocommerce/blocks-checkout';
+import { ShippingCalculatorContext } from '@poocommerce/base-components/cart-checkout/shipping-calculator/context';
 import * as wpData from '@wordpress/data';
-import { CartShippingRate } from '@woocommerce/types';
-import { previewCart as mockPreviewCart } from '@woocommerce/resource-previews';
-import * as baseContextHooks from '@woocommerce/base-context/hooks';
+import { CartShippingRate } from '@poocommerce/types';
+import { previewCart as mockPreviewCart } from '@poocommerce/resource-previews';
+import * as baseContextHooks from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -101,10 +101,10 @@ const shippingRates = [
 	},
 ] as CartShippingRate[];
 
-jest.mock( '@woocommerce/base-context/hooks', () => {
+jest.mock( '@poocommerce/base-context/hooks', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual( '@woocommerce/base-context/hooks' ),
+		...jest.requireActual( '@poocommerce/base-context/hooks' ),
 		useShippingData: jest.fn(),
 		useStoreCart: jest.fn(),
 	};

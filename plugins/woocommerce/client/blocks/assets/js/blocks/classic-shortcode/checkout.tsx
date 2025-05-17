@@ -13,11 +13,11 @@ const isConversionPossible = () => {
 	return true;
 };
 
-const getButtonLabel = () => __( 'Transform into blocks', 'woocommerce' );
+const getButtonLabel = () => __( 'Transform into blocks', 'poocommerce' );
 
 const getBlockifiedTemplate = ( inheritedAttributes: InheritedAttributes ) =>
 	[
-		createBlock( 'woocommerce/checkout', {
+		createBlock( 'poocommerce/checkout', {
 			...inheritedAttributes,
 			className: 'wc-block-checkout',
 		} ),
@@ -39,7 +39,7 @@ const onClickCallback = ( {
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
 				( innerBlock ) =>
-					innerBlock.name === 'woocommerce/store-notices'
+					innerBlock.name === 'poocommerce/store-notices'
 			)
 	);
 
@@ -49,13 +49,13 @@ const onClickCallback = ( {
 };
 
 const getTitle = () => {
-	return __( 'Classic Checkout', 'woocommerce' );
+	return __( 'Classic Checkout', 'poocommerce' );
 };
 
 const getDescription = () => {
 	return __(
 		'This block will render the classic checkout shortcode. You can optionally transform it into blocks for more control over the checkout experience.',
-		'woocommerce'
+		'poocommerce'
 	);
 };
 

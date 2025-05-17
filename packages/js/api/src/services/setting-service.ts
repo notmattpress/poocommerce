@@ -44,27 +44,27 @@ export class SettingService {
 		const promises: Promise< Setting >[] = [];
 
 		promises.push(
-			this.repository.update( 'general', 'woocommerce_store_address', {
+			this.repository.update( 'general', 'poocommerce_store_address', {
 				value: address1,
 			} )
 		);
 		promises.push(
-			this.repository.update( 'general', 'woocommerce_store_address_2', {
+			this.repository.update( 'general', 'poocommerce_store_address_2', {
 				value: address2,
 			} )
 		);
 		promises.push(
-			this.repository.update( 'general', 'woocommerce_store_city', {
+			this.repository.update( 'general', 'poocommerce_store_city', {
 				value: city,
 			} )
 		);
 		promises.push(
-			this.repository.update( 'general', 'woocommerce_default_country', {
+			this.repository.update( 'general', 'poocommerce_default_country', {
 				value: country,
 			} )
 		);
 		promises.push(
-			this.repository.update( 'general', 'woocommerce_store_postcode', {
+			this.repository.update( 'general', 'poocommerce_store_postcode', {
 				value: postCode,
 			} )
 		);

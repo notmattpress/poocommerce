@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * WC_Email_Customer_POS_Refunded_Order test.
@@ -166,13 +166,13 @@ class WC_Email_Customer_POS_Refunded_Order_Test extends \WC_Unit_Test_Case {
 		$regular_plain_text = $regular_email->get_content_plain();
 
 		// Then POS email should include additional rows.
-		$this->assertStringContainsString( __( 'Change due:', 'woocommerce' ), $pos_plain_text );
-		$this->assertStringContainsString( __( 'Auth code:', 'woocommerce' ), $pos_plain_text );
-		$this->assertStringContainsString( __( 'Time of payment:', 'woocommerce' ), $pos_plain_text );
+		$this->assertStringContainsString( __( 'Change due:', 'poocommerce' ), $pos_plain_text );
+		$this->assertStringContainsString( __( 'Auth code:', 'poocommerce' ), $pos_plain_text );
+		$this->assertStringContainsString( __( 'Time of payment:', 'poocommerce' ), $pos_plain_text );
 
 		// And regular email should not include these rows.
-		$this->assertStringNotContainsString( __( 'Change due:', 'woocommerce' ), $regular_plain_text );
-		$this->assertStringNotContainsString( __( 'Auth code:', 'woocommerce' ), $regular_plain_text );
-		$this->assertStringNotContainsString( __( 'Time of payment:', 'woocommerce' ), $regular_plain_text );
+		$this->assertStringNotContainsString( __( 'Change due:', 'poocommerce' ), $regular_plain_text );
+		$this->assertStringNotContainsString( __( 'Auth code:', 'poocommerce' ), $regular_plain_text );
+		$this->assertStringNotContainsString( __( 'Time of payment:', 'poocommerce' ), $regular_plain_text );
 	}
 }

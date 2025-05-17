@@ -1,19 +1,19 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
-use Automattic\WooCommerce\StoreApi\SessionHandler;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
-use Automattic\WooCommerce\StoreApi\Utilities\JsonWebToken;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartItemSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema;
+use Automattic\PooCommerce\StoreApi\SessionHandler;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\JsonWebToken;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
 
 /**
  * Abstract Cart Route
@@ -126,7 +126,7 @@ abstract class AbstractCartRoute extends AbstractRoute {
 			} catch ( RouteException $error ) {
 				$response = $this->get_route_error_response( $error->getErrorCode(), $error->getMessage(), $error->getCode(), $error->getAdditionalData() );
 			} catch ( \Exception $error ) {
-				$response = $this->get_route_error_response( 'woocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
+				$response = $this->get_route_error_response( 'poocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
 			}
 		}
 
@@ -171,7 +171,7 @@ abstract class AbstractCartRoute extends AbstractRoute {
 		if ( $this->has_cart_token( $request ) ) {
 			// Overrides the core session class.
 			add_filter(
-				'woocommerce_session_handler',
+				'poocommerce_session_handler',
 				function () {
 					return SessionHandler::class;
 				}
@@ -271,14 +271,14 @@ abstract class AbstractCartRoute extends AbstractRoute {
 			$this->order_controller->update_order_from_cart( $draft_order, false );
 
 			wc_do_deprecated_action(
-				'woocommerce_blocks_cart_update_order_from_request',
+				'poocommerce_blocks_cart_update_order_from_request',
 				array(
 					$draft_order,
 					$request,
 				),
 				'7.2.0',
-				'woocommerce_store_api_cart_update_order_from_request',
-				'This action was deprecated in WooCommerce Blocks version 7.2.0. Please use woocommerce_store_api_cart_update_order_from_request instead.'
+				'poocommerce_store_api_cart_update_order_from_request',
+				'This action was deprecated in PooCommerce Blocks version 7.2.0. Please use poocommerce_store_api_cart_update_order_from_request instead.'
 			);
 
 			/**
@@ -290,7 +290,7 @@ abstract class AbstractCartRoute extends AbstractRoute {
 			 * @param \WC_Customer $customer Customer object.
 			 * @param \WP_REST_Request $request Full details about the request.
 			 */
-			do_action( 'woocommerce_store_api_cart_update_order_from_request', $draft_order, $request );
+			do_action( 'poocommerce_store_api_cart_update_order_from_request', $draft_order, $request );
 		}
 	}
 
@@ -322,16 +322,16 @@ abstract class AbstractCartRoute extends AbstractRoute {
 		 *
 		 * @return boolean
 		 */
-		if ( apply_filters( 'woocommerce_store_api_disable_nonce_check', false ) ) {
+		if ( apply_filters( 'poocommerce_store_api_disable_nonce_check', false ) ) {
 			return true;
 		}
 
 		if ( null === $nonce ) {
-			return $this->get_route_error_response( 'woocommerce_rest_missing_nonce', __( 'Missing the Nonce header. This endpoint requires a valid nonce.', 'woocommerce' ), 401 );
+			return $this->get_route_error_response( 'poocommerce_rest_missing_nonce', __( 'Missing the Nonce header. This endpoint requires a valid nonce.', 'poocommerce' ), 401 );
 		}
 
 		if ( ! wp_verify_nonce( $nonce, 'wc_store_api' ) ) {
-			return $this->get_route_error_response( 'woocommerce_rest_invalid_nonce', __( 'Nonce is invalid.', 'woocommerce' ), 403 );
+			return $this->get_route_error_response( 'poocommerce_rest_invalid_nonce', __( 'Nonce is invalid.', 'poocommerce' ), 403 );
 		}
 
 		return true;

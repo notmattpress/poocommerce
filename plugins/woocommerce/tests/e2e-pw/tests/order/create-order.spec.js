@@ -42,7 +42,7 @@ const taxTotals = [ '10.00', '20.00', '240.00' ];
 async function getOrderIdFromPage( page ) {
 	// get order ID from the page
 	const orderText = await page
-		.locator( 'h2.woocommerce-order-data__heading' )
+		.locator( 'h2.poocommerce-order-data__heading' )
 		.textContent();
 	const parts = orderText.match( /([0-9])\w+/ );
 	return parts[ 0 ];
@@ -212,7 +212,7 @@ const test = baseTest.extend( {
 				name: `Product external ${ random() }`,
 				regular_price: '800',
 				tax_class: 'Tax Class External',
-				external_url: 'https://wordpress.org/plugins/woocommerce',
+				external_url: 'https://wordpress.org/plugins/poocommerce',
 				type: 'external',
 				button_text: 'Buy now',
 			} )
@@ -270,13 +270,13 @@ const test = baseTest.extend( {
 } );
 
 test.describe(
-	'WooCommerce Orders > Add new order',
+	'PooCommerce Orders > Add new order',
 	{ tag: [ tags.SERVICES, tags.HPOS ] },
 	() => {
 		test.beforeAll( async ( { restApi } ) => {
 			// enable taxes on the account
 			await restApi.put(
-				`${ WC_API_PATH }/settings/general/woocommerce_calc_taxes`,
+				`${ WC_API_PATH }/settings/general/poocommerce_calc_taxes`,
 				{
 					value: 'yes',
 				}
@@ -304,7 +304,7 @@ test.describe(
 					.catch( ( error ) => {
 						if (
 							error.response.data.code ===
-							'woocommerce_rest_invalid_tax_class'
+							'poocommerce_rest_invalid_tax_class'
 						) {
 							// do nothing, probably the tax class was not created due to a failing test
 						} else {
@@ -315,7 +315,7 @@ test.describe(
 			}
 			// turn off taxes
 			await restApi.put(
-				`${ WC_API_PATH }/settings/general/woocommerce_calc_taxes`,
+				`${ WC_API_PATH }/settings/general/poocommerce_calc_taxes`,
 				{
 					value: 'no',
 				}

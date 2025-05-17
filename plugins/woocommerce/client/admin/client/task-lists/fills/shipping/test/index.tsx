@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
-import { TaskType } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { Shipping } from '../index';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -37,11 +37,11 @@ describe( 'Shipping', () => {
 		task: { id: 'shipping' } as TaskType,
 	};
 
-	it( 'should trigger event tasklist_shipping_visit_marketplace_click when clicking the Official WooCommerce Marketplace link', () => {
+	it( 'should trigger event tasklist_shipping_visit_marketplace_click when clicking the Official PooCommerce Marketplace link', () => {
 		render( <Shipping { ...props } /> );
 
 		fireEvent.click(
-			screen.getByText( 'Official WooCommerce Marketplace' )
+			screen.getByText( 'Official PooCommerce Marketplace' )
 		);
 
 		expect( recordEvent ).toHaveBeenCalledWith(
@@ -50,7 +50,7 @@ describe( 'Shipping', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the Official WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the Official PooCommerce Marketplace link', async () => {
 		const mockLocation = {
 			href: 'test',
 		} as Location;
@@ -63,7 +63,7 @@ describe( 'Shipping', () => {
 		render( <Shipping { ...props } /> );
 
 		fireEvent.click(
-			screen.getByText( 'Official WooCommerce Marketplace' )
+			screen.getByText( 'Official PooCommerce Marketplace' )
 		);
 
 		expect( mockLocation.href ).toContain(

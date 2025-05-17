@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { HTTPClientFactory } from '@woocommerce/api';
+import { HTTPClientFactory } from '@poocommerce/api';
 /**
  * Internal dependencies
  */

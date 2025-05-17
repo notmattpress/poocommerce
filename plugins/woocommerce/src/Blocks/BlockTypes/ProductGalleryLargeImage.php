@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 
 /**
  * ProductGalleryLargeImage class.
@@ -77,12 +77,12 @@ class ProductGalleryLargeImage extends AbstractBlock {
 
 		$processor = new \WP_HTML_Tag_Processor( $content );
 		$processor->next_tag();
-		$processor->remove_class( 'wp-block-woocommerce-product-gallery-large-image' );
+		$processor->remove_class( 'wp-block-poocommerce-product-gallery-large-image' );
 		$content = $processor->get_updated_html();
 
 		ob_start();
 		?>
-			<div class="wc-block-product-gallery-large-image wp-block-woocommerce-product-gallery-large-image">
+			<div class="wc-block-product-gallery-large-image wp-block-poocommerce-product-gallery-large-image">
 				<?php // No need to use wp_kses here because the image HTML is built internally. ?>
 				<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php echo $images_html; ?>
@@ -105,14 +105,14 @@ class ProductGalleryLargeImage extends AbstractBlock {
 	 * @return array
 	 */
 	private function get_main_images_html( $context, $product ) {
-		$image_data   = ProductGalleryUtils::get_product_gallery_image_data( $product, 'woocommerce_single' );
-		$base_classes = 'wc-block-woocommerce-product-gallery-large-image__image';
+		$image_data   = ProductGalleryUtils::get_product_gallery_image_data( $product, 'poocommerce_single' );
+		$base_classes = 'wc-block-poocommerce-product-gallery-large-image__image';
 
 		if ( $context['fullScreenOnClick'] ) {
-			$base_classes .= ' wc-block-woocommerce-product-gallery-large-image__image--full-screen-on-click';
+			$base_classes .= ' wc-block-poocommerce-product-gallery-large-image__image--full-screen-on-click';
 		}
 		if ( $context['hoverZoom'] ) {
-			$base_classes .= ' wc-block-woocommerce-product-gallery-large-image__image--hoverZoom';
+			$base_classes .= ' wc-block-poocommerce-product-gallery-large-image__image--hoverZoom';
 		}
 
 		ob_start();
@@ -120,7 +120,7 @@ class ProductGalleryLargeImage extends AbstractBlock {
 			<ul
 				class="wc-block-product-gallery-large-image__container"
 				tabindex="-1"
-				data-wp-interactive="woocommerce/product-gallery"
+				data-wp-interactive="poocommerce/product-gallery"
 			>
 				<?php foreach ( $image_data as $index => $image ) : ?>
 					<li class="wc-block-product-gallery-large-image__wrapper">

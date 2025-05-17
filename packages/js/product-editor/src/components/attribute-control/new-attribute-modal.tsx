@@ -7,15 +7,15 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	Form,
 	__experimentalSelectControlMenuSlot as SelectControlMenuSlot,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import {
 	EXPERIMENTAL_PRODUCT_ATTRIBUTES_STORE_NAME,
 	type ProductAttributeTerm,
 	type ProductAttribute,
 	experimentalProductAttributesStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { Button, Modal, Notice, Tooltip } from '@wordpress/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -63,19 +63,19 @@ type AttributeForm = {
 const attributeSortCriteria = { order_by: 'name' };
 
 export const NewAttributeModal = ( {
-	title = __( 'Add attributes', 'woocommerce' ),
+	title = __( 'Add attributes', 'poocommerce' ),
 	description = '',
 	notice,
-	attributeLabel = __( 'Attribute', 'woocommerce' ),
-	valueLabel = __( 'Values', 'woocommerce' ),
-	attributePlaceholder = __( 'Search or create attribute', 'woocommerce' ),
-	termPlaceholder = __( 'Search or create value', 'woocommerce' ),
-	removeLabel = __( 'Remove attribute', 'woocommerce' ),
-	addAnotherAccessibleLabel = __( 'Add another attribute', 'woocommerce' ),
-	addAnotherLabel = __( '+ Add another', 'woocommerce' ),
-	cancelLabel = __( 'Cancel', 'woocommerce' ),
-	addAccessibleLabel = __( 'Add attributes', 'woocommerce' ),
-	addLabel = __( 'Add', 'woocommerce' ),
+	attributeLabel = __( 'Attribute', 'poocommerce' ),
+	valueLabel = __( 'Values', 'poocommerce' ),
+	attributePlaceholder = __( 'Search or create attribute', 'poocommerce' ),
+	termPlaceholder = __( 'Search or create value', 'poocommerce' ),
+	removeLabel = __( 'Remove attribute', 'poocommerce' ),
+	addAnotherAccessibleLabel = __( 'Add another attribute', 'poocommerce' ),
+	addAnotherLabel = __( '+ Add another', 'poocommerce' ),
+	cancelLabel = __( 'Cancel', 'poocommerce' ),
+	addAccessibleLabel = __( 'Add attributes', 'poocommerce' ),
+	addLabel = __( 'Add', 'poocommerce' ),
 	onCancel,
 	onAdd,
 	onAddAnother = () => {},
@@ -85,7 +85,7 @@ export const NewAttributeModal = ( {
 	disabledAttributeIds = [],
 	disabledAttributeMessage = __(
 		'Already used in Attributes',
-		'woocommerce'
+		'poocommerce'
 	),
 	termsAutoSelection,
 	defaultVisibility = false,
@@ -94,7 +94,7 @@ export const NewAttributeModal = ( {
 	const scrollAttributeIntoView = ( index: number ) => {
 		setTimeout( () => {
 			const attributeRow = document.querySelector(
-				`.woocommerce-new-attribute-modal__table-row-${ index }`
+				`.poocommerce-new-attribute-modal__table-row-${ index }`
 			);
 			attributeRow?.scrollIntoView( { behavior: 'smooth' } );
 		}, 0 );
@@ -170,7 +170,7 @@ export const NewAttributeModal = ( {
 	useEffect( function focusFirstAttributeField() {
 		const firstAttributeFieldLabel =
 			document.querySelector< HTMLLabelElement >(
-				'.woocommerce-new-attribute-modal__table-row .woocommerce-attribute-input-field label'
+				'.poocommerce-new-attribute-modal__table-row .poocommerce-attribute-input-field label'
 			);
 		const timeoutId = setTimeout( () => {
 			firstAttributeFieldLabel?.focus();
@@ -289,11 +289,11 @@ export const NewAttributeModal = ( {
 							.catch( ( error ) => {
 								let message = __(
 									'Failed to create new attribute.',
-									'woocommerce'
+									'poocommerce'
 								);
 								if (
 									error.code ===
-									'woocommerce_rest_cannot_create'
+									'poocommerce_rest_cannot_create'
 								) {
 									message = error.message;
 								}
@@ -361,7 +361,7 @@ export const NewAttributeModal = ( {
 									onCancel();
 								}
 							} }
-							className="woocommerce-new-attribute-modal"
+							className="poocommerce-new-attribute-modal"
 							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 							// @ts-ignore
 							size="medium"
@@ -374,10 +374,10 @@ export const NewAttributeModal = ( {
 
 							{ description && <p>{ description }</p> }
 
-							<div className="woocommerce-new-attribute-modal__body">
-								<table className="woocommerce-new-attribute-modal__table">
+							<div className="poocommerce-new-attribute-modal__body">
+								<table className="poocommerce-new-attribute-modal__table">
 									<thead>
-										<tr className="woocommerce-new-attribute-modal__table-header">
+										<tr className="poocommerce-new-attribute-modal__table-header">
 											<th>{ attributeLabel }</th>
 											<th>{ valueLabel }</th>
 										</tr>
@@ -434,7 +434,7 @@ export const NewAttributeModal = ( {
 							</div>
 							<div>
 								<Button
-									className="woocommerce-new-attribute-modal__add-attribute"
+									className="poocommerce-new-attribute-modal__add-attribute"
 									variant="tertiary"
 									label={ addAnotherAccessibleLabel }
 									onClick={ () => {
@@ -444,7 +444,7 @@ export const NewAttributeModal = ( {
 									{ addAnotherLabel }
 								</Button>
 							</div>
-							<div className="woocommerce-new-attribute-modal__buttons">
+							<div className="poocommerce-new-attribute-modal__buttons">
 								<Button
 									isSecondary
 									label={ cancelLabel }
@@ -457,7 +457,7 @@ export const NewAttributeModal = ( {
 										isAddButtonDisabled
 											? __(
 													'Add at least one attribute and one value. Press Enter to select.',
-													'woocommerce'
+													'poocommerce'
 											  )
 											: ''
 									}

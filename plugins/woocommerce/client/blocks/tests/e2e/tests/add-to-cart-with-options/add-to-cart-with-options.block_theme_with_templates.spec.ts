@@ -5,7 +5,7 @@ import {
 	test as base,
 	expect,
 	BLOCK_THEME_WITH_TEMPLATES_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ test.describe( `Add to Cart + Options Block (block theme with templates)`, () =>
 		await requestUtils.setFeatureFlag( 'blockified-add-to-cart', true );
 
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );

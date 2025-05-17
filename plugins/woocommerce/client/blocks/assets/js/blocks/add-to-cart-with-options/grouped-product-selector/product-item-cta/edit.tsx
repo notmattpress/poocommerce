@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import { Disabled, Spinner } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
@@ -46,7 +46,7 @@ const CTA = () => {
 			className="button wp-element-button add_to_cart_button wc-block-components-product-button__button"
 			href={ permalink }
 		>
-			{ productCartDetails?.text || __( 'Add to Cart', 'woocommerce' ) }
+			{ productCartDetails?.text || __( 'Add to Cart', 'poocommerce' ) }
 		</a>
 	);
 };

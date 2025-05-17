@@ -2,12 +2,12 @@
 /**
  * Class WC_Email_Customer_POS_Refunded_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Internal\Email\OrderPriceFormatter;
-use Automattic\WooCommerce\Internal\Orders\PointOfSaleOrderUtil;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\Email\OrderPriceFormatter;
+use Automattic\PooCommerce\Internal\Orders\PointOfSaleOrderUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 	 *
 	 * @class    WC_Email_Customer_POS_Refunded_Order
 	 * @version  3.5.0
-	 * @package  WooCommerce\Classes\Emails
+	 * @package  PooCommerce\Classes\Emails
 	 * @extends  WC_Email
 	 */
 	class WC_Email_Customer_POS_Refunded_Order extends WC_Email {
@@ -47,7 +47,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		public function __construct() {
 			$this->customer_email = true;
 			$this->id             = 'customer_pos_refunded_order';
-			$this->title          = __( 'POS refunded order', 'woocommerce' );
+			$this->title          = __( 'POS refunded order', 'poocommerce' );
 			$this->template_html  = 'emails/customer-pos-refunded-order.php';
 			$this->template_plain = 'emails/plain/customer-pos-refunded-order.php';
 			$this->placeholders   = array(
@@ -60,8 +60,8 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Let shoppers know when a full or partial refund is on its way to them for their POS order.', 'woocommerce' )
-				: __( 'Order refunded emails are sent to customers when their POS orders are refunded.', 'woocommerce' );
+				? __( 'Let shoppers know when a full or partial refund is on its way to them for their POS order.', 'poocommerce' )
+				: __( 'Order refunded emails are sent to customers when their POS orders are refunded.', 'poocommerce' );
 
 			$this->disable_default_refund_emails_for_pos_orders();
 			$this->register_refund_email_triggers();
@@ -76,9 +76,9 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 */
 		public function get_default_subject( $partial = false ) {
 			if ( $partial ) {
-				return __( 'Your {site_title} order #{order_number} has been partially refunded', 'woocommerce' );
+				return __( 'Your {site_title} order #{order_number} has been partially refunded', 'poocommerce' );
 			} else {
-				return __( 'Your {site_title} order #{order_number} has been refunded', 'woocommerce' );
+				return __( 'Your {site_title} order #{order_number} has been refunded', 'poocommerce' );
 			}
 		}
 
@@ -92,12 +92,12 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		public function get_default_heading( $partial = false ) {
 			if ( $partial ) {
 				return $this->email_improvements_enabled
-					? __( 'Partial refund: Order {order_number}', 'woocommerce' )
-					: __( 'Partial Refund: Order {order_number}', 'woocommerce' );
+					? __( 'Partial refund: Order {order_number}', 'poocommerce' )
+					: __( 'Partial Refund: Order {order_number}', 'poocommerce' );
 			} else {
 				return $this->email_improvements_enabled
-					? __( 'Order refunded: {order_number}', 'woocommerce' )
-					: __( 'Order Refunded: {order_number}', 'woocommerce' );
+					? __( 'Order refunded: {order_number}', 'poocommerce' )
+					: __( 'Order Refunded: {order_number}', 'poocommerce' );
 			}
 		}
 
@@ -120,7 +120,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 			 * @param WC_Email_Customer_POS_Refunded_Order $email Email object.
 			 * @since 3.7.0
 			 */
-			return apply_filters( 'woocommerce_email_subject_customer_refunded_order', $this->format_string( $subject ), $this->object, $this );
+			return apply_filters( 'poocommerce_email_subject_customer_refunded_order', $this->format_string( $subject ), $this->object, $this );
 		}
 
 		/**
@@ -142,7 +142,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 			 * @param WC_Email_Customer_POS_Refunded_Order $email Email object.
 			 * @since 3.7.0
 			 */
-			return apply_filters( 'woocommerce_email_heading_customer_refunded_order', $this->format_string( $heading ), $this->object, $this );
+			return apply_filters( 'poocommerce_email_heading_customer_refunded_order', $this->format_string( $heading ), $this->object, $this );
 		}
 
 		/**
@@ -292,8 +292,8 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 */
 		public function get_default_additional_content() {
 			return $this->email_improvements_enabled
-				? __( 'If you need any help with your order, please contact us at {store_email}.', 'woocommerce' )
-				: __( 'We hope to see you again soon.', 'woocommerce' );
+				? __( 'If you need any help with your order, please contact us at {store_email}.', 'poocommerce' )
+				: __( 'We hope to see you again soon.', 'poocommerce' );
 		}
 
 		/**
@@ -301,16 +301,16 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 */
 		public function init_form_fields() {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'yes',
 				),
 				'subject_full'       => array(
-					'title'       => __( 'Full refund subject', 'woocommerce' ),
+					'title'       => __( 'Full refund subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -318,7 +318,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'subject_partial'    => array(
-					'title'       => __( 'Partial refund subject', 'woocommerce' ),
+					'title'       => __( 'Partial refund subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -326,7 +326,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'heading_full'       => array(
-					'title'       => __( 'Full refund email heading', 'woocommerce' ),
+					'title'       => __( 'Full refund email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -334,7 +334,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'heading_partial'    => array(
-					'title'       => __( 'Partial refund email heading', 'woocommerce' ),
+					'title'       => __( 'Partial refund email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -342,18 +342,18 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),
@@ -371,9 +371,9 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 */
 		private function add_pos_customizations() {
 			// Add action to display unit price in the beginning of the order item meta.
-			add_action( 'woocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10, 4 );
+			add_action( 'poocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10, 4 );
 			// Add filter to include additional details in the order item totals table.
-			add_filter( 'woocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10, 3 );
+			add_filter( 'poocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10, 3 );
 		}
 
 		/**
@@ -381,8 +381,8 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 */
 		private function remove_pos_customizations() {
 			// Remove actions and filters after generating content to avoid affecting other emails.
-			remove_action( 'woocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10 );
-			remove_filter( 'woocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10 );
+			remove_action( 'poocommerce_order_item_meta_start', array( $this, 'add_unit_price' ), 10 );
+			remove_filter( 'poocommerce_get_order_item_totals', array( $this, 'order_item_totals' ), 10 );
 		}
 
 		/**
@@ -393,25 +393,25 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 * @param WC_Order $order         Order object.
 		 */
 		public function add_unit_price( $item_id, $item, $order ) {
-			$unit_price = OrderPriceFormatter::get_formatted_item_subtotal( $order, $item, get_option( 'woocommerce_tax_display_cart' ) );
+			$unit_price = OrderPriceFormatter::get_formatted_item_subtotal( $order, $item, get_option( 'poocommerce_tax_display_cart' ) );
 			echo wp_kses_post( '<br /><small>' . $unit_price . '</small>' );
 		}
 
 		/**
-		 * Disable default WooCommerce refund emails for POS orders.
+		 * Disable default PooCommerce refund emails for POS orders.
 		 * The core refund email IDs are in WC_Email_Customer_Refunded_Order's trigger method.
 		 *
-		 * This method adds filters to prevent the default WooCommerce refund emails
+		 * This method adds filters to prevent the default PooCommerce refund emails
 		 * from being sent for orders created through the Point of Sale system.
 		 * Instead, the POS-specific refund emails will be used.
 		 */
 		private function disable_default_refund_emails_for_pos_orders() {
-			add_filter( 'woocommerce_email_enabled_customer_partially_refunded_order', array( $this, 'disable_default_refund_email_for_pos_orders' ), 10, 3 );
-			add_filter( 'woocommerce_email_enabled_customer_refunded_order', array( $this, 'disable_default_refund_email_for_pos_orders' ), 10, 3 );
+			add_filter( 'poocommerce_email_enabled_customer_partially_refunded_order', array( $this, 'disable_default_refund_email_for_pos_orders' ), 10, 3 );
+			add_filter( 'poocommerce_email_enabled_customer_refunded_order', array( $this, 'disable_default_refund_email_for_pos_orders' ), 10, 3 );
 		}
 
 		/**
-		 * Disable the default WooCommerce refund email for POS orders.
+		 * Disable the default PooCommerce refund email for POS orders.
 		 *
 		 * @param bool          $enabled Whether the email is enabled.
 		 * @param WC_Order|null $order   The order object.
@@ -434,8 +434,8 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 		 * It ensures that the emails are sent correctly when a full or partial refund is made.
 		 */
 		private function register_refund_email_triggers() {
-			add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'trigger_full' ), 10, 2 );
-			add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'trigger_partial' ), 10, 2 );
+			add_action( 'poocommerce_order_fully_refunded_notification', array( $this, 'trigger_full' ), 10, 2 );
+			add_action( 'poocommerce_order_partially_refunded_notification', array( $this, 'trigger_partial' ), 10, 2 );
 		}
 
 		/**
@@ -452,7 +452,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 			if ( ! empty( $cash_payment_change_due_amount ) ) {
 				$total_rows['cash_payment_change_due_amount'] = array(
 					'type'  => 'cash_payment_change_due_amount',
-					'label' => __( 'Change due:', 'woocommerce' ),
+					'label' => __( 'Change due:', 'poocommerce' ),
 					'value' => $formatted_cash_payment_change_due_amount,
 				);
 			}
@@ -461,7 +461,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 			if ( ! empty( $auth_code ) ) {
 				$total_rows['payment_auth_code'] = array(
 					'type'  => 'payment_auth_code',
-					'label' => __( 'Auth code:', 'woocommerce' ),
+					'label' => __( 'Auth code:', 'poocommerce' ),
 					'value' => $auth_code,
 				);
 			}
@@ -469,7 +469,7 @@ if ( ! class_exists( 'WC_Email_Customer_POS_Refunded_Order', false ) ) :
 			if ( $order->get_date_paid() !== null ) {
 				$total_rows['date_paid'] = array(
 					'type'  => 'date_paid',
-					'label' => __( 'Time of payment:', 'woocommerce' ),
+					'label' => __( 'Time of payment:', 'poocommerce' ),
 					'value' => wc_format_datetime( $order->get_date_paid(), get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
 				);
 			}

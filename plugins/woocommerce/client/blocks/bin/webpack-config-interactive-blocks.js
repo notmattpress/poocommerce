@@ -28,9 +28,9 @@ const entries = {
 	...editorStyleEntries,
 
 	// Other
-	'@woocommerce/stores/woocommerce/cart':
-		'./assets/js/base/stores/woocommerce/cart.ts',
-	'@woocommerce/stores/store-notices':
+	'@poocommerce/stores/poocommerce/cart':
+		'./assets/js/base/stores/poocommerce/cart.ts',
+	'@poocommerce/stores/store-notices':
 		'./assets/js/base/stores/store-notices.ts',
 };
 
@@ -64,7 +64,7 @@ module.exports = {
 			combineAssets: true,
 			combinedOutputFile: './interactivity-blocks-frontend-assets.php',
 			requestToExternalModule( request ) {
-				if ( request.startsWith( '@woocommerce/stores/' ) ) {
+				if ( request.startsWith( '@poocommerce/stores/' ) ) {
 					return `import ${ request }`;
 				}
 			},

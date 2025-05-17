@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
-const templatePath = 'woocommerce/woocommerce//page-checkout';
+const templatePath = 'poocommerce/poocommerce//page-checkout';
 const templateType = 'wp_template';
 
 test.describe( 'Test the checkout template', () => {
@@ -63,10 +63,10 @@ test.describe( 'Test editing the checkout template', () => {
 			canvas: 'edit',
 		} );
 		await editor.setContent(
-			'<!-- wp:woocommerce/classic-shortcode {"shortcode":"checkout"} /-->'
+			'<!-- wp:poocommerce/classic-shortcode {"shortcode":"checkout"} /-->'
 		);
 		await editor.canvas
-			.locator( '.wp-block-woocommerce-classic-shortcode' )
+			.locator( '.wp-block-poocommerce-classic-shortcode' )
 			.waitFor();
 		await editor.canvas
 			.getByRole( 'button', { name: 'Transform into blocks' } )

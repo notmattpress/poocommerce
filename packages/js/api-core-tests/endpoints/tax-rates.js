@@ -10,9 +10,9 @@ const {
 const { getTaxRateExamples, shared } = require( '../data' );
 
 /**
- * WooCommerce Tax Rates endpoints.
+ * PooCommerce Tax Rates endpoints.
  *
- * https://woocommerce.github.io/woocommerce-rest-api-docs/#tax-rates
+ * https://poocommerce.github.io/poocommerce-rest-api-docs/#tax-rates
  */
 const taxRatesApi = {
 	name: 'Tax Rates',

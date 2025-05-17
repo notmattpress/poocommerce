@@ -13,7 +13,7 @@ import { useSelect } from '@wordpress/data';
 import {
 	CustomDataProvider,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
+} from '@poocommerce/shared-context';
 
 /**
  * Internal dependencies

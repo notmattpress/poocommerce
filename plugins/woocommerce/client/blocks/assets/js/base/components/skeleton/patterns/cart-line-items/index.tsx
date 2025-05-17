@@ -10,7 +10,7 @@ export const CartLineItemsSkeleton = ( { rows = 2 }: { rows?: number } ) => {
 	return (
 		// Adding .wc-block-cart and .is-large for inheriting styles from the Cart block.
 		<div className="wc-block-components-skeleton wc-block-components-skeleton--cart-line-items wc-block-cart is-large">
-			<table className="wc-block-cart-items wp-block-woocommerce-cart-line-items-block">
+			<table className="wc-block-cart-items wp-block-poocommerce-cart-line-items-block">
 				<thead>
 					<tr className="wc-block-cart-items__header">
 						<th className="wc-block-cart-items__header-image"></th>

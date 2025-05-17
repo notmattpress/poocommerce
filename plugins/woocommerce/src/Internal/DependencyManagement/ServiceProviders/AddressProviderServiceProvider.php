@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Internal\DependencyManagement\ServiceProviders;
+namespace Automattic\PooCommerce\Internal\DependencyManagement\ServiceProviders;
 
-use Automattic\WooCommerce\Internal\AddressProvider\AddressProviderController;
-use Automattic\WooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
+use Automattic\PooCommerce\Internal\AddressProvider\AddressProviderController;
+use Automattic\PooCommerce\Internal\DependencyManagement\AbstractServiceProvider;
 
 /**
  * Service class for managing address providers.

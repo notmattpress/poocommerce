@@ -5,7 +5,7 @@ import { test as baseTest, expect, tags } from '../../fixtures/fixtures';
 import { ADMIN_STATE_PATH } from '../../playwright.config';
 import { WP_API_PATH } from '../../utils/api-client';
 
-// test case for bug https://github.com/woocommerce/woocommerce/pull/46429
+// test case for bug https://github.com/poocommerce/poocommerce/pull/46429
 const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
 	page: async ( { page, restApi }, use ) => {
@@ -43,7 +43,7 @@ test(
 	async ( { page } ) => {
 		await page.goto( 'shop/' );
 		expect( await page.title() ).toBe(
-			'Shop – WooCommerce Core E2E Test Suite'
+			'Shop – PooCommerce Core E2E Test Suite'
 		);
 	}
 );

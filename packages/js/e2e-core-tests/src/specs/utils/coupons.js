@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-const { createCoupon } = require( '@woocommerce/e2e-utils' );
+const { createCoupon } = require( '@poocommerce/e2e-utils' );
 
 const couponsTable = [
 	[ 'fixed cart', { text: '$5.00' }, { text: '$4.99' } ],

@@ -18,85 +18,85 @@ const previewTextRecommendedLength = 80;
 
 // @ts-expect-error RichTextWithButton has default any type and is not exported yet.
 const SidebarSettings = ( { RichTextWithButton } ) => {
-	const [ woocommerce_email_data ] = useEntityProp(
+	const [ poocommerce_email_data ] = useEntityProp(
 		'postType',
 		'woo_email',
-		'woocommerce_data'
+		'poocommerce_data'
 	);
 
 	const updateWooMailProperty = ( name: string, value: string ) => {
 		const editedPost = select( coreDataStore ).getEditedEntityRecord(
 			'postType',
 			'woo_email',
-			window.WooCommerceEmailEditor.current_post_id
+			window.PooCommerceEmailEditor.current_post_id
 		);
 
 		// @ts-expect-error Property 'mailpoet_data' does not exist on type 'Updatable<Attachment<any>>'.
-		const woocommerce_data = editedPost?.woocommerce_data || {};
+		const poocommerce_data = editedPost?.poocommerce_data || {};
 		void dispatch( coreDataStore ).editEntityRecord(
 			'postType',
 			'woo_email',
-			window.WooCommerceEmailEditor.current_post_id,
+			window.PooCommerceEmailEditor.current_post_id,
 			{
-				woocommerce_data: {
-					...woocommerce_data,
+				poocommerce_data: {
+					...poocommerce_data,
 					[ name ]: value,
 				},
 			}
 		);
 	};
 
-	const previewTextLength = woocommerce_email_data?.preheader?.length ?? 0;
+	const previewTextLength = poocommerce_email_data?.preheader?.length ?? 0;
 
 	return (
 		<>
 			<br />
-			{ woocommerce_email_data.email_type ===
+			{ poocommerce_email_data.email_type ===
 			'customer_refunded_order' ? (
 				<>
 					<RichTextWithButton
 						attributeName="subject_full"
-						attributeValue={ woocommerce_email_data.subject_full }
+						attributeValue={ poocommerce_email_data.subject_full }
 						updateProperty={ updateWooMailProperty }
-						label={ __( 'Full Refund Subject', 'woocommerce' ) }
-						placeholder={ woocommerce_email_data.default_subject }
+						label={ __( 'Full Refund Subject', 'poocommerce' ) }
+						placeholder={ poocommerce_email_data.default_subject }
 					/>
 					<br />
 					<RichTextWithButton
 						attributeName="subject_partial"
 						attributeValue={
-							woocommerce_email_data.subject_partial
+							poocommerce_email_data.subject_partial
 						}
 						updateProperty={ updateWooMailProperty }
-						label={ __( 'Partial Refund Subject', 'woocommerce' ) }
-						placeholder={ woocommerce_email_data.default_subject }
+						label={ __( 'Partial Refund Subject', 'poocommerce' ) }
+						placeholder={ poocommerce_email_data.default_subject }
 					/>
 				</>
 			) : (
 				<RichTextWithButton
 					attributeName="subject"
-					attributeValue={ woocommerce_email_data.subject }
+					attributeValue={ poocommerce_email_data.subject }
 					updateProperty={ updateWooMailProperty }
-					label={ __( 'Subject', 'woocommerce' ) }
-					placeholder={ woocommerce_email_data.default_subject }
+					label={ __( 'Subject', 'poocommerce' ) }
+					placeholder={ poocommerce_email_data.default_subject }
 				/>
 			) }
 
 			<br />
 			<RichTextWithButton
 				attributeName="preheader"
-				attributeValue={ woocommerce_email_data.preheader }
+				attributeValue={ poocommerce_email_data.preheader }
 				updateProperty={ updateWooMailProperty }
-				label={ __( 'Preview text', 'woocommerce' ) }
+				label={ __( 'Preview text', 'poocommerce' ) }
 				help={
 					<span
 						className={ clsx(
-							'woocommerce-settings-panel__preview-text-length',
+							'poocommerce-settings-panel__preview-text-length',
 							{
-								'woocommerce-settings-panel__preview-text-length-warning':
+								'poocommerce-settings-panel__preview-text-length-warning':
 									previewTextLength >
 									previewTextRecommendedLength,
-								'woocommerce-settings-panel__preview-text-length-error':
+								'poocommerce-settings-panel__preview-text-length-error':
 									previewTextLength > previewTextMaxLength,
 							}
 						) }
@@ -106,7 +106,7 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 				}
 				placeholder={ __(
 					'Shown as a preview in the inbox, next to the subject line.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		</>
@@ -115,12 +115,12 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 
 export function modifySidebar() {
 	addFilter(
-		'woocommerce_email_editor_setting_sidebar_email_status_component',
+		'poocommerce_email_editor_setting_sidebar_email_status_component',
 		NAME_SPACE,
 		() => EmailStatus
 	);
 	addFilter(
-		'woocommerce_email_editor_setting_sidebar_extension_component',
+		'poocommerce_email_editor_setting_sidebar_extension_component',
 		NAME_SPACE,
 		( RichTextWithButton ) => {
 			return () => (

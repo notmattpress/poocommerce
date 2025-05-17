@@ -27,13 +27,13 @@ effortlessly with JSON files.
 
 ## Example: Adding a Custom Exporter
 
-1. Create a new class that extends `Automattic\WooCommerce\Blueprint\Exporters\StepExporter`.
+1. Create a new class that extends `Automattic\PooCommerce\Blueprint\Exporters\StepExporter`.
 
 ```php
 <?php
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomExporter extends StepExporter {
     public function export( array $data ): Step {
@@ -53,8 +53,8 @@ class MyCustomExporter extends StepExporter {
 
 ```php
 
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomExporter extends StepExporter {
     public function export(): Step {
@@ -76,8 +76,8 @@ class MyCustomExporter extends StepExporter {
 filter.
 
 ```php
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\Step;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\Step;
 
 class MyCustomExporter extends StepExporter {
     public function export(): Step {

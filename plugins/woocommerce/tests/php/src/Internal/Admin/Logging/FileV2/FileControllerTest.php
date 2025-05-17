@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Logging\FileV2;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Logging\FileV2;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController };
+use Automattic\PooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController };
 use WC_Unit_Test_Case;
 
 // phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_fopen, WordPress.WP.AlternativeFunctions.file_system_read_fclose
@@ -149,7 +149,7 @@ class FileControllerTest extends WC_Unit_Test_Case {
 
 		// Set the file size low to induce log rotation.
 		$filter_callback = fn() => 100;
-		add_filter( 'woocommerce_log_file_size_limit', $filter_callback );
+		add_filter( 'poocommerce_log_file_size_limit', $filter_callback );
 
 		$source      = 'unit-testing';
 		$new_content = 'test';
@@ -179,14 +179,14 @@ class FileControllerTest extends WC_Unit_Test_Case {
 			}
 		}
 
-		remove_filter( 'woocommerce_log_file_size_limit', $filter_callback );
+		remove_filter( 'poocommerce_log_file_size_limit', $filter_callback );
 	}
 
 	/**
 	 * @testdox The get_files method should retrieve log files as File instances, in a specified order.
 	 */
 	public function test_get_files_with_files(): void {
-		$this->handler->handle( strtotime( '-5 days' ), 'debug', '1', array() ); // No source defaults to "plugin-woocommerce" as source.
+		$this->handler->handle( strtotime( '-5 days' ), 'debug', '1', array() ); // No source defaults to "plugin-poocommerce" as source.
 		$this->handler->handle( time(), 'debug', '2', array( 'source' => 'unit-testing' ) );
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_wp_debug_backtrace_summary -- Unit test.
 		$this->handler->handle( time(), 'debug', random_bytes( 100 ), array( 'source' => 'unit-testing' ) ); // Increase file size.
@@ -195,9 +195,9 @@ class FileControllerTest extends WC_Unit_Test_Case {
 		$this->assertCount( 2, $files );
 
 		$first_file = array_shift( $files );
-		$this->assertInstanceOf( 'Automattic\\WooCommerce\\Internal\\Admin\\Logging\\FileV2\\File', $first_file );
+		$this->assertInstanceOf( 'Automattic\\PooCommerce\\Internal\\Admin\\Logging\\FileV2\\File', $first_file );
 		$second_file = array_shift( $files );
-		$this->assertInstanceOf( 'Automattic\\WooCommerce\\Internal\\Admin\\Logging\\FileV2\\File', $second_file );
+		$this->assertInstanceOf( 'Automattic\\PooCommerce\\Internal\\Admin\\Logging\\FileV2\\File', $second_file );
 
 		$files      = $this->sut->get_files(
 			array(
@@ -206,7 +206,7 @@ class FileControllerTest extends WC_Unit_Test_Case {
 			)
 		);
 		$first_file = array_shift( $files );
-		$this->assertEquals( 'plugin-woocommerce', $first_file->get_source() );
+		$this->assertEquals( 'plugin-poocommerce', $first_file->get_source() );
 		$second_file = array_shift( $files );
 		$this->assertEquals( 'unit-testing', $second_file->get_source() );
 
@@ -228,7 +228,7 @@ class FileControllerTest extends WC_Unit_Test_Case {
 		);
 		$this->assertCount( 1, $files );
 		$first_file = array_shift( $files );
-		$this->assertEquals( 'plugin-woocommerce', $first_file->get_source() );
+		$this->assertEquals( 'plugin-poocommerce', $first_file->get_source() );
 	}
 
 	/**
@@ -286,7 +286,7 @@ class FileControllerTest extends WC_Unit_Test_Case {
 		$file_id = 'unit-testing2-' . gmdate( 'Y-m-d', time() );
 
 		$file = $this->sut->get_file_by_id( $file_id );
-		$this->assertInstanceOf( 'Automattic\\WooCommerce\\Internal\\Admin\\Logging\\FileV2\\File', $file );
+		$this->assertInstanceOf( 'Automattic\\PooCommerce\\Internal\\Admin\\Logging\\FileV2\\File', $file );
 		$this->assertEquals( 'unit-testing2', $file->get_source() );
 
 		$file = $this->sut->get_file_by_id( 'zucchini' );
@@ -337,13 +337,13 @@ class FileControllerTest extends WC_Unit_Test_Case {
 	 * @testdox The get_file_sources method should return a unique array of sources.
 	 */
 	public function test_get_file_sources(): void {
-		$this->handler->handle( time(), 'debug', '1', array() ); // No source defaults to "plugin-woocommerce" as source.
+		$this->handler->handle( time(), 'debug', '1', array() ); // No source defaults to "plugin-poocommerce" as source.
 		$this->handler->handle( time(), 'debug', '2', array( 'source' => 'unit-testing' ) );
 		$this->handler->handle( time(), 'debug', '3', array( 'source' => 'unit-testing' ) );
 
 		$sources = $this->sut->get_file_sources();
 		$this->assertCount( 2, $sources );
-		$this->assertContains( 'plugin-woocommerce', $sources );
+		$this->assertContains( 'plugin-poocommerce', $sources );
 		$this->assertContains( 'unit-testing', $sources );
 	}
 
@@ -357,7 +357,7 @@ class FileControllerTest extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 3, $this->sut->get_files( array(), true ) );
 
-		$files   = $this->sut->get_files( array( 'source' => 'plugin-woocommerce' ) );
+		$files   = $this->sut->get_files( array( 'source' => 'plugin-poocommerce' ) );
 		$file_id = $files[0]->get_file_id();
 		$deleted = $this->sut->delete_files( array( $file_id ) );
 		$this->assertEquals( 1, $deleted );

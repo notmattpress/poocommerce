@@ -13,22 +13,22 @@ import { __ } from '@wordpress/i18n';
 export const getSortcodeLabel = ( country: string ) => {
 	switch ( country ) {
 		case 'AU':
-			return __( 'BSB', 'woocommerce' );
+			return __( 'BSB', 'poocommerce' );
 		case 'CA':
-			return __( 'Bank transit number', 'woocommerce' );
+			return __( 'Bank transit number', 'poocommerce' );
 		case 'IN':
-			return __( 'IFSC', 'woocommerce' );
+			return __( 'IFSC', 'poocommerce' );
 		case 'IT':
-			return __( 'Branch sort', 'woocommerce' );
+			return __( 'Branch sort', 'poocommerce' );
 		case 'NZ':
 		case 'SE':
-			return __( 'Bank code', 'woocommerce' );
+			return __( 'Bank code', 'poocommerce' );
 		case 'US':
-			return __( 'Routing number', 'woocommerce' );
+			return __( 'Routing number', 'poocommerce' );
 		case 'ZA':
-			return __( 'Branch code', 'woocommerce' );
+			return __( 'Branch code', 'poocommerce' );
 		default:
-			return __( 'Sort code', 'woocommerce' );
+			return __( 'Sort code', 'poocommerce' );
 	}
 };
 
