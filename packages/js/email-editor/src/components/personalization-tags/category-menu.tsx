@@ -16,19 +16,19 @@ const CategoryMenu = ( {
 } ) => {
 	const getMenuItemClass = ( category: string | null ) =>
 		category === activeCategory
-			? 'woocommerce-personalization-tags-modal-menu-item-active'
+			? 'poocommerce-personalization-tags-modal-menu-item-active'
 			: '';
 
 	return (
-		<MenuGroup className="woocommerce-personalization-tags-modal-menu">
+		<MenuGroup className="poocommerce-personalization-tags-modal-menu">
 			<MenuItem
 				onClick={ () => onCategorySelect( null ) }
 				className={ getMenuItemClass( null ) }
 			>
-				{ __( 'All', 'woocommerce' ) }
+				{ __( 'All', 'poocommerce' ) }
 			</MenuItem>
 			<div
-				className="woocommerce-personalization-tags-modal-menu-separator"
+				className="poocommerce-personalization-tags-modal-menu-separator"
 				aria-hidden="true"
 			></div>
 			{ Object.keys( groupedTags ).map( ( category, index, array ) => (
@@ -41,7 +41,7 @@ const CategoryMenu = ( {
 					</MenuItem>
 					{ index < array.length - 1 && (
 						<div
-							className="woocommerce-personalization-tags-modal-menu-separator"
+							className="poocommerce-personalization-tags-modal-menu-separator"
 							aria-hidden="true"
 						></div>
 					) }

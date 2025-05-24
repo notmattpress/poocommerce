@@ -2,7 +2,7 @@
 /**
  * Class WC_Order_Refund_Data_Store_CPT file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,7 +64,7 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 		 * @param int $id The refund ID.
 		 * @since 3.0.0
 		 */
-		do_action( 'woocommerce_delete_order_refund', $id );
+		do_action( 'poocommerce_delete_order_refund', $id );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 			$updated_props[] = $prop;
 		}
 
-		do_action( 'woocommerce_order_refund_object_updated_props', $refund, $updated_props );
+		do_action( 'poocommerce_order_refund_object_updated_props', $refund, $updated_props );
 	}
 
 	/**
@@ -123,8 +123,8 @@ class WC_Order_Refund_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT im
 	protected function get_post_title() {
 		return sprintf(
 			/* translators: %s: Order date */
-			__( 'Refund &ndash; %s', 'woocommerce' ),
-			( new DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'woocommerce' ) ) // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
+			__( 'Refund &ndash; %s', 'poocommerce' ),
+			( new DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'poocommerce' ) ) // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
 		);
 	}
 }

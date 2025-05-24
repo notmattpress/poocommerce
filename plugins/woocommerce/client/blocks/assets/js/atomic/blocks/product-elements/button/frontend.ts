@@ -6,7 +6,7 @@ import {
 	getContext as getContextFn,
 	useLayoutEffect,
 } from '@wordpress/interactivity';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
 
 // Stores are locked to prevent 3PD usage until the API is stable.
 const universalLock =
@@ -51,14 +51,14 @@ interface Store {
 
 const getContext = () => getContextFn< Context >();
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
 
 const { state } = store< Store >(
-	'woocommerce/product-button',
+	'poocommerce/product-button',
 	{
 		state: {
 			get quantity() {
@@ -108,11 +108,11 @@ const { state } = store< Store >(
 				const { productId, quantityToAdd } = context;
 
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
-				const { actions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);
@@ -126,10 +126,10 @@ const { state } = store< Store >(
 			},
 			*refreshCartItems() {
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
-				const { actions } = store< WooCommerce >(
-					'woocommerce',
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
+				const { actions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);

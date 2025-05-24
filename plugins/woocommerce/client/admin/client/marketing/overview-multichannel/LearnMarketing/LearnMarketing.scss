@@ -1,7 +1,7 @@
 $border-radius: 4px;
 $author-image-size: 16px;
 
-.woocommerce-marketing-learn-marketing-card {
+.poocommerce-marketing-learn-marketing-card {
 	&__body {
 		display: flex;
 		flex-wrap: wrap;
@@ -71,7 +71,7 @@ $author-image-size: 16px;
 		}
 	}
 
-	.woocommerce-empty-content {
+	.poocommerce-empty-content {
 		margin: $gap-large auto;
 	}
 }

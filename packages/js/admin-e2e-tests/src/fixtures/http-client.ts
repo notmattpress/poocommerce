@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { HTTPClientFactory } from '@woocommerce/api';
+import { HTTPClientFactory } from '@poocommerce/api';
 import config from 'config';
 
 // Prepare the HTTP client that will be consumed by the repository.

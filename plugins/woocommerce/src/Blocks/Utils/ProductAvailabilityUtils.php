@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Templates\ProductStockIndicator;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Templates\ProductStockIndicator;
+use Automattic\PooCommerce\Enums\ProductType;
 /**
  * Utility functions for product availability.
  */
@@ -29,7 +29,7 @@ class ProductAvailabilityUtils {
 		// We will show a custom availability message if it does.
 		if ( $product->get_type() === ProductType::VARIABLE ) {
 			if ( ! $product->has_available_variations() ) {
-				$product_availability['availability'] = __( 'This product is currently out of stock and unavailable.', 'woocommerce' );
+				$product_availability['availability'] = __( 'This product is currently out of stock and unavailable.', 'poocommerce' );
 				$product_availability['class']        = 'out-of-stock';
 			}
 		} else {
@@ -43,6 +43,6 @@ class ProductAvailabilityUtils {
 		 * @param array $product_availability The product availability information.
 		 * @param \WC_Product $product Product object.
 		 */
-		return apply_filters( 'woocommerce_product_availability', $product_availability, $product );
+		return apply_filters( 'poocommerce_product_availability', $product_availability, $product );
 	}
 }

@@ -2,29 +2,29 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use WC_Email;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * API Controller for managing WooCommerce email templates via extending the post type API.
+ * API Controller for managing PooCommerce email templates via extending the post type API.
  *
  * @internal
  */
 class EmailApiController {
 	/**
-	 * A list of WooCommerce emails.
+	 * A list of PooCommerce emails.
 	 *
 	 * @var \WC_Email[]
 	 */
 	private array $emails;
 
 	/**
-	 * The WooCommerce transactional email post manager.
+	 * The PooCommerce transactional email post manager.
 	 *
 	 * @var WCTransactionalEmailPostsManager|null
 	 */
@@ -83,7 +83,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Update WooCommerce specific option data by post name.
+	 * Update PooCommerce specific option data by post name.
 	 *
 	 * @param array    $data - Data that are stored in the wp_options table.
 	 * @param \WP_Post $post - WP_Post object.
@@ -126,7 +126,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get the schema for the WooCommerce email post data.
+	 * Get the schema for the PooCommerce email post data.
 	 *
 	 * @return array
 	 */

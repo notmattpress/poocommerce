@@ -15,11 +15,11 @@
 
 ## Overview
 
-The Schema Store manages the routes associated with WooCommerce Blocks, enabling efficient retrieval and updating of route data for a given namespace. This store streamlines the interaction with resource routes, ensuring that modules can easily access endpoint paths as needed.
+The Schema Store manages the routes associated with PooCommerce Blocks, enabling efficient retrieval and updating of route data for a given namespace. This store streamlines the interaction with resource routes, ensuring that modules can easily access endpoint paths as needed.
 
 ## Usage
 
-To utilize this store you will import the `SCHEMA_STORE_KEY` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
+To utilize this store you will import the `SCHEMA_STORE_KEY` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the key via:
 
 ```js
 const { SCHEMA_STORE_KEY } = window.wc.wcBlocksData;
@@ -129,8 +129,8 @@ const route = store.assembleRouteWithPlaceholders( route, routePlaceholders, ids
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/blocks/feature-flags-and-experimental-interfaces.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/blocks/feature-flags-and-experimental-interfaces.md)
 
 <!-- /FEEDBACK -->

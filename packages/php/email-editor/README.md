@@ -1,8 +1,8 @@
-# WooCommerce Email Editor
+# PooCommerce Email Editor
 
-This folder contains the code for the WooCommerce Email Editor PHP Package.
+This folder contains the code for the PooCommerce Email Editor PHP Package.
 We aim to extract the engine as an independent library, so it can be used in other projects.
-As we are still in an exploration phase, we keep it together with the WooCommerce codebase.
+As we are still in an exploration phase, we keep it together with the PooCommerce codebase.
 
 You can locate the JS package here `packages/js/email-editor`
 
@@ -42,7 +42,7 @@ composer run integration-test -- tests/integration/Engine/Theme_Controller_Test.
 
 The **PHP** package is divided into `engine` and `integrations` subdirectories.
 Engine consist of code for the editor core and integrations are for extending the functionality.
-Anything **WooCommerce** specific should be in the `plugins/woocommerce/src/Internal/EmailEditor` folder.
+Anything **PooCommerce** specific should be in the `plugins/poocommerce/src/Internal/EmailEditor` folder.
 
 Please avoid using MailPoet-specific services and modules in the Email editor package.
 
@@ -76,21 +76,21 @@ We may add, update and delete any of them.
 
 | Name                                            | Argument         | Description                                                                                                      |
 | ----------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `woocommerce_email_editor_initialized`          | `null`           | Called when the Email Editor is initialized                                                                      |
-| `woocommerce_email_blocks_renderer_initialized` | `BlocksRegistry` | Called when the block content renderer is initialized. You may use this to add a new BlockRenderer               |
-| `woocommerce_email_editor_register_templates`   |                  | Called when the basic blank email template is registered. You can add more templates via register_block_template |
+| `poocommerce_email_editor_initialized`          | `null`           | Called when the Email Editor is initialized                                                                      |
+| `poocommerce_email_blocks_renderer_initialized` | `BlocksRegistry` | Called when the block content renderer is initialized. You may use this to add a new BlockRenderer               |
+| `poocommerce_email_editor_register_templates`   |                  | Called when the basic blank email template is registered. You can add more templates via register_block_template |
 
 ### Filters
 
 | Name                                                               | Argument                                  | Return                                                       | Description                                                                                                                                                            |
 | ------------------------------------------------------------------ | ----------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `woocommerce_email_editor_post_types`                              | `Array` $postTypes                        | `Array` EmailPostType                                        | Applied to the list of post types used by the `getPostTypes` method                                                                                                    |
-| `woocommerce_email_editor_theme_json`                              | `WP_Theme_JSON` $coreThemeData            | `WP_Theme_JSON` $themeJson                                   | Applied to the theme json data. This theme json data is created from the merging of the `WP_Theme_JSON_Resolver::get_core_data` and WooCommerce owns `theme.json` file |
-| `woocommerce_email_renderer_styles`                                | `string` $templateStyles, `WP_Post` $post | `string` $templateStyles                                     | Applied to the email editor template styles.                                                                                                                           |
-| `woocommerce_email_content_renderer_styles`                        | `string` $contentStyles, `WP_Post` $post  | `string` $contentStyles                                      | Applied to the inline content styles prior to use by the CSS Inliner.                                                                                                  |
-| `woocommerce_is_email_editor_page`                                 | `boolean` $isEditorPage                   | `boolean`                                                    | Check current page is the email editor page                                                                                                                            |
-| `woocommerce_email_editor_send_preview_email`                      | `Array` $postData                         | `boolean` Result of processing. Was email sent successfully? | Allows override of the send preview mail function. Folks may choose to use custom implementation                                                                       |
-| `woocommerce_email_editor_post_sent_status_args`                   | `Array` `sent` post status args           | `Array` register_post_status args                            | Allows update of the argument for the sent post status                                                                                                                 |
-| `woocommerce_email_blocks_renderer_parsed_blocks`                  | `Array` Parsed blocks data                | `Array` Parsed blocks data                                   | You can modify the parsed blocks before they are processed by email renderer.                                                                                          |
-| `woocommerce_email_editor_send_preview_email_rendered_data`        | `string` $data Rendered email             | `string` Rendered email                                      | Allows modifying the rendered email when displaying or sending it in preview                                                                                           |
-| `woocommerce_email_editor_send_preview_email_personalizer_context` | `Array` $personalizerContext              | `Array` Personalizer context data                            | Allows modifying the personalizer context data for the send preview email function                                                                                     |
+| `poocommerce_email_editor_post_types`                              | `Array` $postTypes                        | `Array` EmailPostType                                        | Applied to the list of post types used by the `getPostTypes` method                                                                                                    |
+| `poocommerce_email_editor_theme_json`                              | `WP_Theme_JSON` $coreThemeData            | `WP_Theme_JSON` $themeJson                                   | Applied to the theme json data. This theme json data is created from the merging of the `WP_Theme_JSON_Resolver::get_core_data` and PooCommerce owns `theme.json` file |
+| `poocommerce_email_renderer_styles`                                | `string` $templateStyles, `WP_Post` $post | `string` $templateStyles                                     | Applied to the email editor template styles.                                                                                                                           |
+| `poocommerce_email_content_renderer_styles`                        | `string` $contentStyles, `WP_Post` $post  | `string` $contentStyles                                      | Applied to the inline content styles prior to use by the CSS Inliner.                                                                                                  |
+| `poocommerce_is_email_editor_page`                                 | `boolean` $isEditorPage                   | `boolean`                                                    | Check current page is the email editor page                                                                                                                            |
+| `poocommerce_email_editor_send_preview_email`                      | `Array` $postData                         | `boolean` Result of processing. Was email sent successfully? | Allows override of the send preview mail function. Folks may choose to use custom implementation                                                                       |
+| `poocommerce_email_editor_post_sent_status_args`                   | `Array` `sent` post status args           | `Array` register_post_status args                            | Allows update of the argument for the sent post status                                                                                                                 |
+| `poocommerce_email_blocks_renderer_parsed_blocks`                  | `Array` Parsed blocks data                | `Array` Parsed blocks data                                   | You can modify the parsed blocks before they are processed by email renderer.                                                                                          |
+| `poocommerce_email_editor_send_preview_email_rendered_data`        | `string` $data Rendered email             | `string` Rendered email                                      | Allows modifying the rendered email when displaying or sending it in preview                                                                                           |
+| `poocommerce_email_editor_send_preview_email_personalizer_context` | `Array` $personalizerContext              | `Array` Personalizer context data                            | Allows modifying the personalizer context data for the send preview email function                                                                                     |

@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Internal\Admin\Settings;
 
 use Automattic\Jetpack\Connection\Manager;
-use Automattic\WooCommerce\Admin\API\OnboardingPlugins;
+use Automattic\PooCommerce\Admin\API\OnboardingPlugins;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -328,7 +328,7 @@ class Utils {
 	}
 
 	/**
-	 * Retrieves a URL to relative path inside WooCommerce admin Payments settings with
+	 * Retrieves a URL to relative path inside PooCommerce admin Payments settings with
 	 * the provided query parameters.
 	 *
 	 * @param string|null $path  Relative path of the desired page.
@@ -348,7 +348,7 @@ class Utils {
 	}
 
 	/**
-	 * Get data from a WooCommerce API endpoint.
+	 * Get data from a PooCommerce API endpoint.
 	 *
 	 * @param string $endpoint Endpoint.
 	 * @param array  $params   Params to pass with request query.
@@ -371,13 +371,13 @@ class Utils {
 		// Handle non-200 responses.
 		if ( 200 !== $response->get_status() ) {
 			return new \WP_Error(
-				'woocommerce_settings_payments_rest_error',
+				'poocommerce_settings_payments_rest_error',
 				sprintf(
 					/* translators: 1: the endpoint relative URL, 2: error code, 3: error message */
-					esc_html__( 'REST request GET %1$s failed with: (%2$s) %3$s', 'woocommerce' ),
+					esc_html__( 'REST request GET %1$s failed with: (%2$s) %3$s', 'poocommerce' ),
 					$endpoint,
 					$response_data['code'] ?? 'unknown_error',
-					$response_data['message'] ?? esc_html__( 'Unknown error', 'woocommerce' )
+					$response_data['message'] ?? esc_html__( 'Unknown error', 'poocommerce' )
 				),
 				$response_data
 			);
@@ -388,7 +388,7 @@ class Utils {
 	}
 
 	/**
-	 * Post data to a WooCommerce API endpoint and return the response data.
+	 * Post data to a PooCommerce API endpoint and return the response data.
 	 *
 	 * @param string $endpoint Endpoint.
 	 * @param array  $params   Params to pass with request body.
@@ -411,13 +411,13 @@ class Utils {
 		// Handle non-200 responses.
 		if ( 200 !== $response->get_status() ) {
 			return new \WP_Error(
-				'woocommerce_settings_payments_rest_error',
+				'poocommerce_settings_payments_rest_error',
 				sprintf(
 				/* translators: 1: the endpoint relative URL, 2: error code, 3: error message */
-					esc_html__( 'REST request POST %1$s failed with: (%2$s) %3$s', 'woocommerce' ),
+					esc_html__( 'REST request POST %1$s failed with: (%2$s) %3$s', 'poocommerce' ),
 					$endpoint,
 					$response_data['code'] ?? 'unknown_error',
-					$response_data['message'] ?? esc_html__( 'Unknown error', 'woocommerce' )
+					$response_data['message'] ?? esc_html__( 'Unknown error', 'poocommerce' )
 				),
 				$response_data
 			);
@@ -452,9 +452,9 @@ class Utils {
 			$result['url'] = add_query_arg(
 				array(
 					// We use the new WooDNA value.
-					'from'         => 'woocommerce-onboarding',
+					'from'         => 'poocommerce-onboarding',
 					// We inform Calypso that this is a WooPayments onboarding flow.
-					'plugin_name'  => 'woocommerce-payments',
+					'plugin_name'  => 'poocommerce-payments',
 					// Use the current user's WP admin color scheme.
 					'color_scheme' => $result['color_scheme'],
 				),

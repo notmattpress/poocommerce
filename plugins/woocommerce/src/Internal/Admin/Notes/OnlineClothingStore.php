@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Admin: Start your online clothing store.
+ * PooCommerce Admin: Start your online clothing store.
  *
  * Adds a note to ask the client if they are considering starting an online
  * clothing store.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * Online_Clothing_Store.
@@ -55,7 +55,7 @@ class OnlineClothingStore {
 			return;
 		}
 
-		$onboarding_profile = get_option( 'woocommerce_onboarding_profile', array() );
+		$onboarding_profile = get_option( 'poocommerce_onboarding_profile', array() );
 
 		// Confirm that $onboarding_profile is set.
 		if ( empty( $onboarding_profile ) ) {
@@ -81,16 +81,16 @@ class OnlineClothingStore {
 		}
 
 		$note = new Note();
-		$note->set_title( __( 'Start your online clothing store', 'woocommerce' ) );
-		$note->set_content( __( 'Starting a fashion website is exciting but it may seem overwhelming as well. In this article, we\'ll walk you through the setup process, teach you to create successful product listings, and show you how to market to your ideal audience.', 'woocommerce' ) );
+		$note->set_title( __( 'Start your online clothing store', 'poocommerce' ) );
+		$note->set_content( __( 'Starting a fashion website is exciting but it may seem overwhelming as well. In this article, we\'ll walk you through the setup process, teach you to create successful product listings, and show you how to market to your ideal audience.', 'poocommerce' ) );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
 		$note->set_content_data( (object) array() );
-		$note->set_source( 'woocommerce-admin' );
+		$note->set_source( 'poocommerce-admin' );
 		$note->add_action(
 			'online-clothing-store',
-			__( 'Learn more', 'woocommerce' ),
-			'https://woocommerce.com/posts/starting-an-online-clothing-store/?utm_source=inbox&utm_medium=product',
+			__( 'Learn more', 'poocommerce' ),
+			'https://poocommerce.com/posts/starting-an-online-clothing-store/?utm_source=inbox&utm_medium=product',
 			Note::E_WC_ADMIN_NOTE_ACTIONED
 		);
 		return $note;

@@ -1,4 +1,4 @@
-import { HTTPClientFactory } from '@woocommerce/api';
+import { HTTPClientFactory } from '@poocommerce/api';
 const config = require( 'config' );
 import { simpleProductFactory } from './factories/simple-product';
 import { variableProductFactory } from './factories/variable-product';

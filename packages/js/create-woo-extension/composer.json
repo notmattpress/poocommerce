@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/extend-cart-checkout-block",
-	"description": "A template to be used with `@wordpress/create-block` to create a WooCommerce extension.",
+	"name": "poocommerce/extend-cart-checkout-block",
+	"description": "A template to be used with `@wordpress/create-block` to create a PooCommerce extension.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

@@ -1,6 +1,6 @@
 import factories from '../factories';
 import { getSlug } from './utils';
-import { Coupon, Setting, SimpleProduct, Order } from '@woocommerce/api';
+import { Coupon, Setting, SimpleProduct, Order } from '@poocommerce/api';
 
 const client = factories.api.withDefaultPermalinks;
 const onboardingProfileEndpoint = '/wc-admin/onboarding/profile';
@@ -520,9 +520,9 @@ export const withRestApi = {
 		}
 	},
 	/**
-	 * Get the current environment from the WooCommerce system status API.
+	 * Get the current environment from the PooCommerce system status API.
 	 *
-	 * For more details, see: https://woocommerce.github.io/woocommerce-rest-api-docs/#system-status-environment-properties
+	 * For more details, see: https://poocommerce.github.io/poocommerce-rest-api-docs/#system-status-environment-properties
 	 *
 	 * @return {Promise<object>} The environment object from the API response.
 	 */

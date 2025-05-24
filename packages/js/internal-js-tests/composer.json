@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/internal-js-tests",
+	"name": "poocommerce/internal-js-tests",
 	"description": "JavaScript test tooling.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",

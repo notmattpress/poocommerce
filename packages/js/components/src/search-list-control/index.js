@@ -28,18 +28,18 @@ import SearchListItem from './item';
 import Tag from '../tag';
 
 const defaultMessages = {
-	clear: __( 'Clear all selected items', 'woocommerce' ),
-	noItems: __( 'No items found.', 'woocommerce' ),
+	clear: __( 'Clear all selected items', 'poocommerce' ),
+	noItems: __( 'No items found.', 'poocommerce' ),
 	/* translators: %s: search term */
-	noResults: __( 'No results for %s', 'woocommerce' ),
-	search: __( 'Search for items', 'woocommerce' ),
+	noResults: __( 'No results for %s', 'poocommerce' ),
+	search: __( 'Search for items', 'poocommerce' ),
 	selected: ( n ) =>
 		sprintf(
 			/* translators: Number of items selected from list. */
-			_n( '%d item selected', '%d items selected', n, 'woocommerce' ),
+			_n( '%d item selected', '%d items selected', n, 'poocommerce' ),
 			n
 		),
-	updated: __( 'Search results updated.', 'woocommerce' ),
+	updated: __( 'Search results updated.', 'poocommerce' ),
 };
 
 /**
@@ -146,7 +146,7 @@ export const SearchListControl = ( props ) => {
 	const renderListSection = () => {
 		if ( isLoading ) {
 			return (
-				<div className="woocommerce-search-list__list is-loading">
+				<div className="poocommerce-search-list__list is-loading">
 					<Spinner />
 				</div>
 			);
@@ -155,15 +155,15 @@ export const SearchListControl = ( props ) => {
 
 		if ( ! list.length ) {
 			return (
-				<div className="woocommerce-search-list__list is-not-found">
-					<span className="woocommerce-search-list__not-found-icon">
+				<div className="poocommerce-search-list__list is-not-found">
+					<span className="poocommerce-search-list__not-found-icon">
 						<NoticeOutlineIcon
 							role="img"
 							aria-hidden="true"
 							focusable="false"
 						/>
 					</span>
-					<span className="woocommerce-search-list__not-found-text">
+					<span className="poocommerce-search-list__not-found-text">
 						{ searchValue
 							? // eslint-disable-next-line @wordpress/valid-sprintf
 							  sprintf( messages.noResults, searchValue )
@@ -174,7 +174,7 @@ export const SearchListControl = ( props ) => {
 		}
 
 		return (
-			<ul className="woocommerce-search-list__list">
+			<ul className="poocommerce-search-list__list">
 				{ renderList( list ) }
 			</ul>
 		);
@@ -187,8 +187,8 @@ export const SearchListControl = ( props ) => {
 
 		const selectedCount = selected.length;
 		return (
-			<div className="woocommerce-search-list__selected">
-				<div className="woocommerce-search-list__selected-header">
+			<div className="poocommerce-search-list__selected">
+				<div className="poocommerce-search-list__selected-header">
 					<strong>{ messages.selected( selectedCount ) }</strong>
 					{ selectedCount > 0 ? (
 						<Button
@@ -197,7 +197,7 @@ export const SearchListControl = ( props ) => {
 							onClick={ onChange( [] ) }
 							aria-label={ messages.clear }
 						>
-							{ __( 'Clear all', 'woocommerce' ) }
+							{ __( 'Clear all', 'poocommerce' ) }
 						</Button>
 					) : null }
 				</div>
@@ -220,13 +220,13 @@ export const SearchListControl = ( props ) => {
 
 	return (
 		<div
-			className={ classnames( 'woocommerce-search-list', className, {
+			className={ classnames( 'poocommerce-search-list', className, {
 				'is-compact': isCompact,
 			} ) }
 		>
 			{ renderSelectedSection() }
 
-			<div className="woocommerce-search-list__search">
+			<div className="poocommerce-search-list__search">
 				<TextControl
 					label={ messages.search }
 					type="search"

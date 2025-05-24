@@ -9,7 +9,7 @@ export type BadgeProps = {
 
 export const Badge = ( { count, className = '', ...props }: BadgeProps ) => {
 	return (
-		<span className={ `woocommerce-badge ${ className }` } { ...props }>
+		<span className={ `poocommerce-badge ${ className }` } { ...props }>
 			{ count }
 		</span>
 	);

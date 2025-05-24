@@ -43,7 +43,7 @@ export const validateEmailContent = (
 	}
 ): boolean => {
 	const rules: EmailContentValidationRule[] = applyFilters(
-		'woocommerce_email_editor_content_validation_rules',
+		'poocommerce_email_editor_content_validation_rules',
 		EMPTY_ARRAY
 	) as EmailContentValidationRule[];
 
@@ -101,7 +101,7 @@ export const useContentValidation = (): ContentValidationData => {
 
 		addFilter(
 			'editor.preSavePost',
-			'woocommerce/email-editor/validate-content',
+			'poocommerce/email-editor/validate-content',
 			filterHandler
 		);
 	}, [ validateContent ] );

@@ -3,7 +3,7 @@
  */
 import { useEffect, useMemo, useState } from '@wordpress/element';
 import { WP_REST_API_Category } from 'wp-types';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import { useDispatch, useSelect } from '@wordpress/data';
 import type { ComponentType } from 'react';
 

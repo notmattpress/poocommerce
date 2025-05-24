@@ -3,7 +3,7 @@
  */
 import { useState } from '@wordpress/element';
 import { resolveSelect } from '@wordpress/data';
-import { ProductTag, experimentalProductTagsStore } from '@woocommerce/data';
+import { ProductTag, experimentalProductTagsStore } from '@poocommerce/data';
 
 /**
  * A hook used to handle all the search logic for the tag search component.

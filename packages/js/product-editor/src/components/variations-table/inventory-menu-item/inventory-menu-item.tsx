@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { Dropdown, MenuGroup, MenuItem } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { chevronRight } from '@wordpress/icons';
@@ -46,7 +46,7 @@ export function InventoryMenuItem( {
 					icon={ chevronRight }
 					iconPosition="right"
 				>
-					{ __( 'Inventory', 'woocommerce' ) }
+					{ __( 'Inventory', 'poocommerce' ) }
 				</MenuItem>
 			) }
 			renderContent={ () => (
@@ -78,7 +78,7 @@ export function InventoryMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Toggle "track quantity"', 'woocommerce' ) }
+							{ __( 'Toggle "track quantity"', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -101,7 +101,7 @@ export function InventoryMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Set status to In stock', 'woocommerce' ) }
+							{ __( 'Set status to In stock', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -126,7 +126,7 @@ export function InventoryMenuItem( {
 						>
 							{ __(
 								'Set status to Out of stock',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</MenuItem>
 						<MenuItem
@@ -152,7 +152,7 @@ export function InventoryMenuItem( {
 						>
 							{ __(
 								'Set status to On back order',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</MenuItem>
 						<MenuItem
@@ -192,7 +192,7 @@ export function InventoryMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Edit low stock threshold', 'woocommerce' ) }
+							{ __( 'Edit low stock threshold', 'poocommerce' ) }
 						</MenuItem>
 					</MenuGroup>
 					<VariationQuickUpdateMenuItem.Slot

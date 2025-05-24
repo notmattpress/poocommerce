@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { Tag, __experimentalTooltip as Tooltip } from '@woocommerce/components';
-import { CurrencyContext } from '@woocommerce/currency';
-import { PartialProductVariation, ProductVariation } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { Tag, __experimentalTooltip as Tooltip } from '@poocommerce/components';
+import { CurrencyContext } from '@poocommerce/currency';
+import { PartialProductVariation, ProductVariation } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	Button,
 	CheckboxControl,
@@ -41,7 +41,7 @@ import { VariationStockStatusForm } from '../variation-stock-status-form/variati
 import { VariationPricingForm } from '../variation-pricing-form';
 import { VariationsTableRowProps } from './types';
 
-const NOT_VISIBLE_TEXT = __( 'Not visible to customers', 'woocommerce' );
+const NOT_VISIBLE_TEXT = __( 'Not visible to customers', 'poocommerce' );
 
 function getEditVariationLink( variation: ProductVariation ) {
 	return getNewPath(
@@ -87,7 +87,7 @@ export function VariationsTableRow( {
 					id: attribute.id,
 					label: sprintf(
 						// translators: %s is the attribute's name
-						__( 'Any %s', 'woocommerce' ),
+						__( 'Any %s', 'poocommerce' ),
 						attribute.name
 					),
 				};
@@ -138,11 +138,11 @@ export function VariationsTableRow( {
 				onDelete={ handleDelete }
 				renderToggle={ ( { isOpen, onToggle, isBusy } ) =>
 					isBusy ? (
-						<div className="woocommerce-product-variations__add-image-button">
+						<div className="poocommerce-product-variations__add-image-button">
 							<Spinner
 								aria-label={ __(
 									'Loading image',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 						</div>
@@ -150,8 +150,8 @@ export function VariationsTableRow( {
 						<Button
 							className={ classNames(
 								variation.image
-									? 'woocommerce-product-variations__image-button'
-									: 'woocommerce-product-variations__add-image-button'
+									? 'poocommerce-product-variations__image-button'
+									: 'poocommerce-product-variations__add-image-button'
 							) }
 							icon={ variation.image ? undefined : plus }
 							iconSize={ variation.image ? undefined : 16 }
@@ -166,7 +166,7 @@ export function VariationsTableRow( {
 						>
 							{ variation.image && (
 								<div
-									className="woocommerce-product-variations__image"
+									className="poocommerce-product-variations__image"
 									style={ {
 										backgroundImage: `url('${ variation.image.src }')`,
 									} }
@@ -183,15 +183,15 @@ export function VariationsTableRow( {
 		return (
 			<>
 				{ variation.on_sale && (
-					<span className="woocommerce-product-variations__sale-price">
+					<span className="poocommerce-product-variations__sale-price">
 						{ formatAmount( variation.sale_price ) }
 					</span>
 				) }
 				<span
 					className={ classNames(
-						'woocommerce-product-variations__regular-price',
+						'poocommerce-product-variations__regular-price',
 						{
-							'woocommerce-product-variations__regular-price--on-sale':
+							'poocommerce-product-variations__regular-price--on-sale':
 								variation.on_sale,
 						}
 					) }
@@ -219,7 +219,7 @@ export function VariationsTableRow( {
 		if ( ! variation.regular_price ) return null;
 		return (
 			<Dropdown
-				contentClassName="woocommerce-product-variations__pricing-actions-menu"
+				contentClassName="poocommerce-product-variations__pricing-actions-menu"
 				popoverProps={ {
 					placement: 'bottom',
 				} }
@@ -240,7 +240,7 @@ export function VariationsTableRow( {
 			<>
 				<span
 					className={ classNames(
-						'woocommerce-product-variations__status-dot',
+						'poocommerce-product-variations__status-dot',
 						getProductStockStatusClass( variation )
 					) }
 				>
@@ -269,7 +269,7 @@ export function VariationsTableRow( {
 
 		return (
 			<Dropdown
-				contentClassName="woocommerce-product-variations__stock-status-actions-menu"
+				contentClassName="poocommerce-product-variations__stock-status-actions-menu"
 				popoverProps={ {
 					placement: 'bottom',
 				} }
@@ -291,16 +291,16 @@ export function VariationsTableRow( {
 	return (
 		<>
 			<div
-				className="woocommerce-product-variations__selection"
+				className="poocommerce-product-variations__selection"
 				role="cell"
 			>
 				{ matchesAny && (
 					<Tooltip
 						text={ __(
 							"'Any' variations are no longer fully supported. Use regular variations instead",
-							'woocommerce'
+							'poocommerce'
 						) }
-						helperText={ __( 'View helper text', 'woocommerce' ) }
+						helperText={ __( 'View helper text', 'poocommerce' ) }
 						position="middle right"
 					>
 						<Icon icon={ info } size={ 24 } />
@@ -317,24 +317,24 @@ export function VariationsTableRow( {
 						disabled={ isSelectionDisabled }
 						aria-label={
 							isSelected
-								? __( 'Unselect variation', 'woocommerce' )
-								: __( 'Select variation', 'woocommerce' )
+								? __( 'Unselect variation', 'poocommerce' )
+								: __( 'Select variation', 'poocommerce' )
 						}
 					/>
 				) }
 			</div>
 			<div
-				className="woocommerce-product-variations__attributes-cell"
+				className="poocommerce-product-variations__attributes-cell"
 				role="cell"
 			>
 				{ renderImageActionsMenu() }
 
-				<div className="woocommerce-product-variations__attributes">
+				<div className="poocommerce-product-variations__attributes">
 					{ tags.map( ( tagInfo ) => {
 						const tag = (
 							<Tag
 								id={ tagInfo.id }
-								className="woocommerce-product-variations__attribute"
+								className="poocommerce-product-variations__attribute"
 								key={ tagInfo.id }
 								label={ truncate(
 									tagInfo.label,
@@ -360,9 +360,9 @@ export function VariationsTableRow( {
 			</div>
 			<div
 				className={ classNames(
-					'woocommerce-product-variations__price',
+					'poocommerce-product-variations__price',
 					{
-						'woocommerce-product-variations__price--fade':
+						'poocommerce-product-variations__price--fade':
 							variation.status === 'private',
 					}
 				) }
@@ -372,9 +372,9 @@ export function VariationsTableRow( {
 			</div>
 			<div
 				className={ classNames(
-					'woocommerce-product-variations__quantity',
+					'poocommerce-product-variations__quantity',
 					{
-						'woocommerce-product-variations__quantity--fade':
+						'poocommerce-product-variations__quantity--fade':
 							variation.status === 'private',
 					}
 				) }
@@ -383,18 +383,18 @@ export function VariationsTableRow( {
 				{ renderStockCellContent() }
 			</div>
 			<div
-				className="woocommerce-product-variations__actions"
+				className="poocommerce-product-variations__actions"
 				role="cell"
 			>
 				{ ( variation.status === 'private' ||
 					! variation.regular_price ) && (
 					<Tooltip
-						className="woocommerce-attribute-list-item__actions-tooltip"
+						className="poocommerce-attribute-list-item__actions-tooltip"
 						position="top center"
 						text={ NOT_VISIBLE_TEXT }
 					>
-						<div className="woocommerce-attribute-list-item__actions-icon-wrapper">
-							<HiddenIcon className="woocommerce-attribute-list-item__actions-icon-wrapper-icon" />
+						<div className="poocommerce-attribute-list-item__actions-icon-wrapper">
+							<HiddenIcon className="poocommerce-attribute-list-item__actions-icon-wrapper-icon" />
 						</div>
 					</Tooltip>
 				) }
@@ -405,7 +405,7 @@ export function VariationsTableRow( {
 							href={ getEditVariationLink( variation ) }
 							onClick={ onEdit }
 						>
-							{ __( 'Edit', 'woocommerce' ) }
+							{ __( 'Edit', 'poocommerce' ) }
 						</Button>
 
 						<SingleUpdateMenu

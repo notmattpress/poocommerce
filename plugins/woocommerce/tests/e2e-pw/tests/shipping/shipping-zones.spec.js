@@ -123,17 +123,17 @@ async function checkShippingRateInCart( page, product, checks ) {
 		},
 		page: async ( { restApi, page }, use ) => {
 			const enableShippingCalcState = await updateIfNeeded(
-				'shipping/woocommerce_enable_shipping_calc',
+				'shipping/poocommerce_enable_shipping_calc',
 				'yes'
 			);
 
 			const shippingCostRequiresAddressState = await updateIfNeeded(
-				'shipping/woocommerce_shipping_cost_requires_address',
+				'shipping/poocommerce_shipping_cost_requires_address',
 				'yes'
 			);
 
 			const taxCalcState = await updateIfNeeded(
-				'general/woocommerce_calc_taxes',
+				'general/poocommerce_calc_taxes',
 				'no'
 			);
 
@@ -159,14 +159,14 @@ async function checkShippingRateInCart( page, product, checks ) {
 			}
 
 			await resetValue(
-				`shipping/woocommerce_enable_shipping_calc`,
+				`shipping/poocommerce_enable_shipping_calc`,
 				enableShippingCalcState
 			);
 			await resetValue(
-				`shipping/woocommerce_shipping_cost_requires_address`,
+				`shipping/poocommerce_shipping_cost_requires_address`,
 				shippingCostRequiresAddressState
 			);
-			await resetValue( `general/woocommerce_calc_taxes`, taxCalcState );
+			await resetValue( `general/poocommerce_calc_taxes`, taxCalcState );
 		},
 	} );
 
@@ -210,7 +210,7 @@ async function checkShippingRateInCart( page, product, checks ) {
 
 			if ( cost ) {
 				await page
-					.locator( '#woocommerce_flat_rate_cost' )
+					.locator( '#poocommerce_flat_rate_cost' )
 					.fill( cost );
 			}
 

@@ -5,7 +5,7 @@ import { Guide, Button, Icon } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { closeSmall } from '@wordpress/icons';
-import { updateQueryString } from '@woocommerce/navigation';
+import { updateQueryString } from '@poocommerce/navigation';
 import { useSearchParams } from 'react-router-dom';
 
 /**
@@ -24,12 +24,12 @@ export const EmailImprovementsModal = ( {
 	const [ guideIsOpen, setGuideIsOpen ] = useState( false );
 	const [ searchParams ] = useSearchParams();
 
-	let title = __( 'Your emails have a new look!', 'woocommerce' );
+	let title = __( 'Your emails have a new look!', 'poocommerce' );
 
 	if ( type === 'try' ) {
 		title = __(
 			'Introducing new email templates for your store!',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -62,7 +62,7 @@ export const EmailImprovementsModal = ( {
 				<Guide
 					onFinish={ onFinish }
 					contentLabel=""
-					className="woocommerce__email-improvements-modal"
+					className="poocommerce__email-improvements-modal"
 					pages={ [
 						{
 							content: (
@@ -81,19 +81,19 @@ export const EmailImprovementsModal = ( {
 											<p>
 												{ __(
 													'We’re excited to introduce our refreshed email templates designed to enhance your customers shopping experience. Preview and customize your emails in Settings.',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</p>
 										</div>
 										<div className="email-improvements-modal-footer">
 											<Button
 												variant="tertiary"
-												href="https://developer.woocommerce.com/2025/04/09/woocommerce-9-8-modernized-designs-and-email-previews/"
+												href="https://developer.poocommerce.com/2025/04/09/poocommerce-9-8-modernized-designs-and-email-previews/"
 												target="_blank"
 											>
 												{ __(
 													'Learn more',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</Button>
 											{ type === 'try' ? (
@@ -103,7 +103,7 @@ export const EmailImprovementsModal = ( {
 												>
 													{ __(
 														'Try new templates',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</Button>
 											) : (
@@ -113,7 +113,7 @@ export const EmailImprovementsModal = ( {
 												>
 													{ __(
 														'Manage emails',
-														'woocommerce'
+														'poocommerce'
 													) }
 												</Button>
 											) }
@@ -122,7 +122,7 @@ export const EmailImprovementsModal = ( {
 									<Button
 										variant="tertiary"
 										className="email-improvements-modal-close-button"
-										label={ __( 'Close', 'woocommerce' ) }
+										label={ __( 'Close', 'poocommerce' ) }
 										icon={
 											<Icon
 												icon={ closeSmall }

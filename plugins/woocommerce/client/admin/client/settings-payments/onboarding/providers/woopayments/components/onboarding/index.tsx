@@ -60,7 +60,7 @@ export default function WooPaymentsOnboarding(): React.ReactNode {
 								includeSidebar
 								sidebarTitle={ __(
 									'Set up WooPayments',
-									'woocommerce'
+									'poocommerce'
 								) }
 							/>
 						</div>

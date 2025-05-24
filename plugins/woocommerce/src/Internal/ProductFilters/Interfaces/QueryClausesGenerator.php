@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters\Interfaces;
+namespace Automattic\PooCommerce\Internal\ProductFilters\Interfaces;
 
 defined( 'ABSPATH' ) || exit;
 

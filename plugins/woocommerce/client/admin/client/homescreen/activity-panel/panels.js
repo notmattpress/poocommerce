@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { __experimentalErrorBoundary as ErrorBoundary } from '@woocommerce/components';
+import { __experimentalErrorBoundary as ErrorBoundary } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ export function getAllPanels( {
 
 	return [
 		totalOrderCount > 0 && {
-			className: 'woocommerce-homescreen-card',
+			className: 'poocommerce-homescreen-card',
 			count: unreadOrdersCount,
 			collapsible: true,
 			id: 'orders-panel',
@@ -39,10 +39,10 @@ export function getAllPanels( {
 						<>
 							{ __(
 								'There was an error getting your orders.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							<br />
-							{ __( 'Please try again.', 'woocommerce' ) }
+							{ __( 'Please try again.', 'poocommerce' ) }
 						</>
 					}
 				>
@@ -52,12 +52,12 @@ export function getAllPanels( {
 					/>
 				</ErrorBoundary>
 			),
-			title: __( 'Orders', 'woocommerce' ),
+			title: __( 'Orders', 'poocommerce' ),
 		},
 		totalOrderCount > 0 &&
 			publishedProductCount > 0 &&
 			manageStock === 'yes' && {
-				className: 'woocommerce-homescreen-card',
+				className: 'poocommerce-homescreen-card',
 				count: lowStockProductsCount,
 				id: 'stock-panel',
 				initialOpen: false,
@@ -68,10 +68,10 @@ export function getAllPanels( {
 							<>
 								{ __(
 									'There was an error getting your low stock products.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								<br />
-								{ __( 'Please try again.', 'woocommerce' ) }
+								{ __( 'Please try again.', 'poocommerce' ) }
 							</>
 						}
 					>
@@ -80,12 +80,12 @@ export function getAllPanels( {
 						/>
 					</ErrorBoundary>
 				),
-				title: __( 'Stock', 'woocommerce' ),
+				title: __( 'Stock', 'poocommerce' ),
 			},
 		publishedProductCount > 0 &&
 			unapprovedReviewsCount > 0 &&
 			reviewsEnabled === 'yes' && {
-				className: 'woocommerce-homescreen-card',
+				className: 'poocommerce-homescreen-card',
 				id: 'reviews-panel',
 				count: unapprovedReviewsCount,
 				initialOpen: false,
@@ -96,10 +96,10 @@ export function getAllPanels( {
 							<>
 								{ __(
 									'There was an error getting your reviews.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								<br />
-								{ __( 'Please try again.', 'woocommerce' ) }
+								{ __( 'Please try again.', 'poocommerce' ) }
 							</>
 						}
 					>
@@ -108,7 +108,7 @@ export function getAllPanels( {
 						/>
 					</ErrorBoundary>
 				),
-				title: __( 'Reviews', 'woocommerce' ),
+				title: __( 'Reviews', 'poocommerce' ),
 			},
 		// Add another panel row here
 	].filter( Boolean );

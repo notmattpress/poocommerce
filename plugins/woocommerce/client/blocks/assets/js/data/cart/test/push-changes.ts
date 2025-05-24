@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { cartStore, validationStore } from '@woocommerce/block-data';
+import { cartStore, validationStore } from '@poocommerce/block-data';
 import type { StoreDescriptor } from '@wordpress/data';
 
 /**
@@ -60,12 +60,12 @@ jest.mock( '../update-payment-methods', () => ( {
 	updatePaymentMethods: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => {
-	const originalModule = jest.requireActual( '@woocommerce/settings' );
+jest.mock( '@poocommerce/settings', () => {
+	const originalModule = jest.requireActual( '@poocommerce/settings' );
 
 	return {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore We know @woocommerce/settings is an object.
+		// @ts-ignore We know @poocommerce/settings is an object.
 		...originalModule,
 		getSetting: ( setting, ...rest ) => {
 			if ( setting === 'addressFieldsForShippingRates' ) {

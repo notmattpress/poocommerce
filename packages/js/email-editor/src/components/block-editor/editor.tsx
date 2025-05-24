@@ -6,7 +6,7 @@ import { useMemo, useEffect } from '@wordpress/element';
 import { SlotFillProvider, Spinner } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 import { CommandMenu } from '@wordpress/commands';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	AutosaveMonitor,
 	// @ts-expect-error Type is missing in @types/wordpress__editor

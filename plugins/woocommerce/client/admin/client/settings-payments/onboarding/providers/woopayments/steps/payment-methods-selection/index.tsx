@@ -3,8 +3,8 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { Button, Icon } from '@wordpress/components';
-import { RecommendedPaymentMethod } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { RecommendedPaymentMethod } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useState, useEffect, useMemo, useRef } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { close } from '@wordpress/icons';
@@ -160,13 +160,13 @@ export default function PaymentMethodsSelection() {
 
 	return (
 		<div className="settings-payments-onboarding-modal__step--content">
-			<div className="woocommerce-layout__header woocommerce-recommended-payment-methods">
-				<div className="woocommerce-layout__header-wrapper">
-					<div className="woocommerce-layout__header-title-and-close">
-						<h1 className="components-truncate components-text woocommerce-layout__header-heading woocommerce-layout__header-left-align woocommerce-settings-payments-header__title">
+			<div className="poocommerce-layout__header poocommerce-recommended-payment-methods">
+				<div className="poocommerce-layout__header-wrapper">
+					<div className="poocommerce-layout__header-title-and-close">
+						<h1 className="components-truncate components-text poocommerce-layout__header-heading poocommerce-layout__header-left-align poocommerce-settings-payments-header__title">
 							{ __(
 								'Choose your payment methods',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</h1>
 						<Button
@@ -177,19 +177,19 @@ export default function PaymentMethodsSelection() {
 						</Button>
 					</div>
 
-					<div className="woocommerce-settings-payments-header__description">
+					<div className="poocommerce-settings-payments-header__description">
 						{ __(
 							"Select which payment methods you'd like to offer to your shoppers. You can update these at any time.",
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 				</div>
-				<div className="woocommerce-recommended-payment-methods__list">
+				<div className="poocommerce-recommended-payment-methods__list">
 					<div
 						className="settings-payments-methods__container"
 						ref={ scrollRef }
 					>
-						<div className="woocommerce-list">
+						<div className="poocommerce-list">
 							{ recommendedPaymentMethods?.map(
 								( method: RecommendedPaymentMethod ) => (
 									<PaymentMethodListItem
@@ -237,7 +237,7 @@ export default function PaymentMethodsSelection() {
 								>
 									{ sprintf(
 										/* translators: %s: number of hidden payment methods */
-										__( 'Show more (%s)', 'woocommerce' ),
+										__( 'Show more (%s)', 'poocommerce' ),
 										hiddenCount
 									) }
 								</Button>
@@ -247,7 +247,7 @@ export default function PaymentMethodsSelection() {
 				</div>
 				<div
 					className={ clsx(
-						'woocommerce-recommended-payment-methods__list_footer',
+						'poocommerce-recommended-payment-methods__list_footer',
 						{
 							'has-border': hasOverflow,
 						}
@@ -299,7 +299,7 @@ export default function PaymentMethodsSelection() {
 											.join( ', ' ),
 										store_country:
 											window.wcSettings?.admin
-												?.woocommerce_payments_nox_profile
+												?.poocommerce_payments_nox_profile
 												?.business_country_code ??
 											'unknown',
 									}
@@ -311,7 +311,7 @@ export default function PaymentMethodsSelection() {
 						isBusy={ isContinueButtonLoading }
 						disabled={ isContinueButtonLoading }
 					>
-						{ __( 'Continue', 'woocommerce' ) }
+						{ __( 'Continue', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

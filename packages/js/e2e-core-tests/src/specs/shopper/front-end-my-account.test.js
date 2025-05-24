@@ -2,7 +2,7 @@
 /**
  * Internal dependencies
  */
-const { shopper } = require( '@woocommerce/e2e-utils' );
+const { shopper } = require( '@poocommerce/e2e-utils' );
 
 /**
  * External dependencies
@@ -30,37 +30,37 @@ const runMyAccountPageTest = () => {
 			await shopper.login();
 			expect( page ).toMatch( 'Hello' );
 			await expect( page ).toMatchElement(
-				'.woocommerce-MyAccount-navigation-link',
+				'.poocommerce-MyAccount-navigation-link',
 				{
 					text: 'Dashboard',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-MyAccount-navigation-link',
+				'.poocommerce-MyAccount-navigation-link',
 				{
 					text: 'Orders',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-MyAccount-navigation-link',
+				'.poocommerce-MyAccount-navigation-link',
 				{
 					text: 'Downloads',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-MyAccount-navigation-link',
+				'.poocommerce-MyAccount-navigation-link',
 				{
 					text: 'Addresses',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-MyAccount-navigation-link',
+				'.poocommerce-MyAccount-navigation-link',
 				{
 					text: 'Account details',
 				}
 			);
 			await expect( page ).toMatchElement(
-				'.woocommerce-MyAccount-navigation-link',
+				'.poocommerce-MyAccount-navigation-link',
 				{
 					text: 'Logout',
 				}

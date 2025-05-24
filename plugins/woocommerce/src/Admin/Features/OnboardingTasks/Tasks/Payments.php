@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Payments Task
@@ -33,7 +33,7 @@ class Payments extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Get paid', 'woocommerce' );
+		return __( 'Get paid', 'poocommerce' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Payments extends Task {
 	public function get_content() {
 		return __(
 			'Choose payment providers and enable payment methods at checkout.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -54,7 +54,7 @@ class Payments extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 
 	/**

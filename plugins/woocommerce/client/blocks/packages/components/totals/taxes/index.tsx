@@ -3,8 +3,8 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import type { CartTotalsTaxLineItem, Currency } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import type { CartTotalsTaxLineItem, Currency } from '@poocommerce/types';
 import type { ReactElement } from 'react';
 
 /**
@@ -77,7 +77,7 @@ const TotalsTaxes = ( {
 					className
 				) }
 				currency={ currency }
-				label={ __( 'Taxes', 'woocommerce' ) }
+				label={ __( 'Taxes', 'poocommerce' ) }
 				value={ parseInt( totalTax, 10 ) }
 				description={ null }
 			/>

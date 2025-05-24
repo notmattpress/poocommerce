@@ -8,10 +8,10 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Button, Notice } from '@wordpress/components';
-import { SelectControl } from '@woocommerce/components';
+import { SelectControl } from '@poocommerce/components';
 import { Icon, chevronDown } from '@wordpress/icons';
-import { findCountryOption, getCountry } from '@woocommerce/onboarding';
-import { GeolocationResponse } from '@woocommerce/data';
+import { findCountryOption, getCountry } from '@poocommerce/onboarding';
+import { GeolocationResponse } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -76,9 +76,9 @@ export const GeolocationCountrySelect = ( {
 	}, [ selectedCountry, geolocationMatch, geolocatedLocation ] );
 
 	return (
-		<div className="woocommerce-geolocation-country-select">
+		<div className="poocommerce-geolocation-country-select">
 			<SelectControl
-				className="woocommerce-profiler-select-control__country"
+				className="poocommerce-profiler-select-control__country"
 				instanceId={ 2 }
 				placeholder={ placeholder }
 				label={ selectedCountry.key === '' ? label : '' }
@@ -100,11 +100,11 @@ export const GeolocationCountrySelect = ( {
 				virtualListHeight={ 40 * 9 }
 			/>
 
-			<div className="woocommerce-profiler-select-control__country-spacer" />
+			<div className="poocommerce-profiler-select-control__country-spacer" />
 
 			{ geolocationOverruled && ! dismissedNotice && (
 				<Notice
-					className="woocommerce-profiler-geolocation-notice"
+					className="poocommerce-profiler-geolocation-notice"
 					onRemove={ () => setDismissedNotice( true ) }
 					status="warning"
 				>
@@ -112,7 +112,7 @@ export const GeolocationCountrySelect = ( {
 						{ createInterpolateElement(
 							__(
 								'It looks like you’re located in <geolocatedCountry></geolocatedCountry>. Are you sure you want to create a store in <selectedCountry></selectedCountry>?',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								geolocatedCountry: (
@@ -140,15 +140,15 @@ export const GeolocationCountrySelect = ( {
 					<p>
 						{ __(
 							'Setting up your store in the wrong country may lead to the following issues:',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
-					<ul className="woocommerce-profiler-geolocation-notice__list">
+					<ul className="poocommerce-profiler-geolocation-notice__list">
 						<li>
-							{ __( 'Tax and duty obligations', 'woocommerce' ) }
+							{ __( 'Tax and duty obligations', 'poocommerce' ) }
 						</li>
-						<li>{ __( 'Payment issues', 'woocommerce' ) }</li>
-						<li>{ __( 'Shipping issues', 'woocommerce' ) }</li>
+						<li>{ __( 'Payment issues', 'poocommerce' ) }</li>
+						<li>{ __( 'Shipping issues', 'poocommerce' ) }</li>
 					</ul>
 				</Notice>
 			) }

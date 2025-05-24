@@ -1,4 +1,4 @@
-# WooCommerce End-to-End Test Packages
+# PooCommerce End-to-End Test Packages
 
 There are two limitations which significantly impact the architecture of E2E test packages:
 

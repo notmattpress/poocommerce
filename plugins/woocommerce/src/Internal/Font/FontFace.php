@@ -3,7 +3,7 @@
  * FontFace class file
  */
 
-namespace Automattic\WooCommerce\Internal\Font;
+namespace Automattic\PooCommerce\Internal\Font;
 
 // IMPORTANT: We have to switch to the WordPress API to create the FontFace post type when they will be implemented: https://github.com/WordPress/gutenberg/issues/58670!
 
@@ -65,7 +65,7 @@ class FontFace {
 		$status = 500;
 		$code   = 'rest_font_upload_unknown_error';
 
-		if ( __( 'Sorry, you are not allowed to upload this file type.', 'woocommerce' ) === $message ) {
+		if ( __( 'Sorry, you are not allowed to upload this file type.', 'poocommerce' ) === $message ) {
 			$status = 400;
 			$code   = 'rest_font_upload_invalid_file_type';
 		}
@@ -169,7 +169,7 @@ class FontFace {
 			return new \WP_Error(
 				'duplicate_font_face',
 				/* translators: %s: Font face slug. */
-				sprintf( __( 'A font face with slug "%s" already exists.', 'woocommerce' ), $slug ),
+				sprintf( __( 'A font face with slug "%s" already exists.', 'poocommerce' ), $slug ),
 			);
 		}
 
@@ -215,7 +215,7 @@ class FontFace {
 		if ( empty( $font_face['fontFamily'] ) ) {
 			return new \WP_Error(
 				'invalid_font_face_font_family',
-				__( 'The font face family name is required.', 'woocommerce' ),
+				__( 'The font face family name is required.', 'poocommerce' ),
 			);
 		}
 
@@ -223,7 +223,7 @@ class FontFace {
 		if ( empty( $font_face['fontStyle'] ) ) {
 			return new \WP_Error(
 				'invalid_font_face_font_style',
-				__( 'The font face font style is required.', 'woocommerce' ),
+				__( 'The font face font style is required.', 'poocommerce' ),
 			);
 		}
 
@@ -231,7 +231,7 @@ class FontFace {
 		if ( empty( $font_face['fontWeight'] ) ) {
 			return new \WP_Error(
 				'invalid_font_face_font_weight',
-				__( 'The font face weight is required.', 'woocommerce' ),
+				__( 'The font face weight is required.', 'poocommerce' ),
 			);
 		}
 
@@ -239,7 +239,7 @@ class FontFace {
 		if ( empty( $font_face['src'] ) ) {
 			return new \WP_Error(
 				'invalid_font_face_src',
-				__( 'The font face src is required.', 'woocommerce' ),
+				__( 'The font face src is required.', 'poocommerce' ),
 			);
 		}
 	}

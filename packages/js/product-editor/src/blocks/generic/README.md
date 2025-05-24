@@ -7,32 +7,32 @@ for more information on how to use these blocks.
 
 ## Blocks list
 
-### [woocommerce/conditional](conditional/README.md)
+### [poocommerce/conditional](conditional/README.md)
 
-> ⚠️ **Note:** `woocommerce/conditional` is deprecated. Use conditional visibility
+> ⚠️ **Note:** `poocommerce/conditional` is deprecated. Use conditional visibility
 support in the Block Template API instead, through the `hideConditions` attribute on
 any block and the `BlockInterface::add_hide_condition()` method.
 
-See [Block Template API usage examples](../../../../../../plugins/woocommerce/src/Admin/Features/ProductBlockEditor/ProductTemplates/README.md) for more information.
+See [Block Template API usage examples](../../../../../../plugins/poocommerce/src/Admin/Features/ProductBlockEditor/ProductTemplates/README.md) for more information.
 
-### [woocommerce/product-checkbox-field](checkbox/README.md)
+### [poocommerce/product-checkbox-field](checkbox/README.md)
 
-### [woocommerce/product-collapsible](collapsible/README.md)
+### [poocommerce/product-collapsible](collapsible/README.md)
 
-### [woocommerce/product-number-field](number/README.md)
+### [poocommerce/product-number-field](number/README.md)
 
-### [woocommerce/product-pricing-field](pricing/README.md)
+### [poocommerce/product-pricing-field](pricing/README.md)
 
-### [woocommerce/product-radio-field](radio/README.md)
+### [poocommerce/product-radio-field](radio/README.md)
 
-### [woocommerce/product-select-field](select/README.md)
+### [poocommerce/product-select-field](select/README.md)
 
-### [woocommerce/product-taxonomy-field](taxonomy/README.md)
+### [poocommerce/product-taxonomy-field](taxonomy/README.md)
 
-### [woocommerce/product-text-field](text/README.md)
+### [poocommerce/product-text-field](text/README.md)
 
-### [woocommerce/product-textarea-field](textarea/README.md)
+### [poocommerce/product-textarea-field](textarea/README.md)
 
-### [woocommerce/product-toggle-field](toggle/README.md)
+### [poocommerce/product-toggle-field](toggle/README.md)
 
 

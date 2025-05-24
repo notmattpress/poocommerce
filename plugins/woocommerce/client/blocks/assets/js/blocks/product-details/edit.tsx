@@ -18,61 +18,61 @@ import { ProductDetailsEditProps } from './types';
 
 const TEMPLATE: InnerBlockTemplate[] = [
 	[
-		'woocommerce/accordion-group',
+		'poocommerce/accordion-group',
 		{},
 		[
 			[
-				'woocommerce/accordion-item',
+				'poocommerce/accordion-item',
 				{
 					openByDefault: true,
 				},
 				[
 					[
-						'woocommerce/accordion-header',
-						{ title: __( 'Description', 'woocommerce' ) },
+						'poocommerce/accordion-header',
+						{ title: __( 'Description', 'poocommerce' ) },
 						[],
 					],
 					[
-						'woocommerce/accordion-panel',
+						'poocommerce/accordion-panel',
 						{},
-						[ [ 'woocommerce/product-description', {}, [] ] ],
+						[ [ 'poocommerce/product-description', {}, [] ] ],
 					],
 				],
 			],
 			[
-				'woocommerce/accordion-item',
+				'poocommerce/accordion-item',
 				{},
 				[
 					[
-						'woocommerce/accordion-header',
+						'poocommerce/accordion-header',
 						{
 							title: __(
 								'Additional Information',
-								'woocommerce'
+								'poocommerce'
 							),
 						},
 						[],
 					],
 					[
-						'woocommerce/accordion-panel',
+						'poocommerce/accordion-panel',
 						{},
-						[ [ 'woocommerce/product-specifications', {} ] ],
+						[ [ 'poocommerce/product-specifications', {} ] ],
 					],
 				],
 			],
 			[
-				'woocommerce/accordion-item',
+				'poocommerce/accordion-item',
 				{},
 				[
 					[
-						'woocommerce/accordion-header',
-						{ title: __( 'Reviews', 'woocommerce' ) },
+						'poocommerce/accordion-header',
+						{ title: __( 'Reviews', 'poocommerce' ) },
 						[],
 					],
 					[
-						'woocommerce/accordion-panel',
+						'poocommerce/accordion-panel',
 						{},
-						[ [ 'woocommerce/blockified-product-reviews', {} ] ],
+						[ [ 'poocommerce/blockified-product-reviews', {} ] ],
 					],
 				],
 			],
@@ -116,7 +116,7 @@ const Edit = ( { clientId, context }: ProductDetailsEditProps ) => {
 				<Warning>
 					{ __(
 						'The Product Details block requires a product context. When used in a Query Loop, the Query Loop must be configured to display products.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Warning>
 			</div>

@@ -3,9 +3,9 @@
  */
 import { MenuGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useSelect } from '@wordpress/data';
-import { Product, ProductVariation } from '@woocommerce/data';
+import { Product, ProductVariation } from '@poocommerce/data';
 import { store as coreStore, useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -46,7 +46,7 @@ export const MoreMenuFill = ( {
 
 	return (
 		<>
-			<MenuGroup label={ __( 'New product form (Beta)', 'woocommerce' ) }>
+			<MenuGroup label={ __( 'New product form (Beta)', 'poocommerce' ) }>
 				<AboutTheEditorMenuItem
 					onClick={ () => {
 						recordClick( 'about' );

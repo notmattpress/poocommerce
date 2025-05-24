@@ -10,7 +10,7 @@ const productName = 'Simple Product Name';
 const productPrice = '15.99';
 
 test.describe(
-	'WooCommerce Merchant Flow: Orders > Customer Payment Page',
+	'PooCommerce Merchant Flow: Orders > Customer Payment Page',
 	{ tag: [ tags.PAYMENTS, tags.SERVICES, tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -97,7 +97,7 @@ test.describe(
 				);
 				await expect(
 					page.locator(
-						'span.woocommerce-Price-amount.amount >> nth=0'
+						'span.poocommerce-Price-amount.amount >> nth=0'
 					)
 				).toContainText( productPrice );
 			}

@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
 use PHPUnit\Framework\TestCase;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 
 /**
  * Test cases for the Personalization_Tags_Registry class.
@@ -157,7 +157,7 @@ class PersonalizationTagsRegistryTest extends TestCase {
 		$wp_filter_applied = false;
 
 		add_filter(
-			'woocommerce_email_editor_register_personalization_tags',
+			'poocommerce_email_editor_register_personalization_tags',
 			function ( $registry ) use ( &$wp_filter_applied ) {
 				$wp_filter_applied = true;
 				return $registry;

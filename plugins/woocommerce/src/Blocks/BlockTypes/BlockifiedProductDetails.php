@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 use WP_Block;
 use WP_HTML_Tag_Processor;
@@ -44,7 +44,7 @@ class BlockifiedProductDetails extends AbstractBlock {
 		 * @see AddToCartWithOptions::render() for full documentation.
 		 * @since 7.6.0
 		 */
-		if ( ! apply_filters( 'woocommerce_disable_compatibility_layer', false ) ) {
+		if ( ! apply_filters( 'poocommerce_disable_compatibility_layer', false ) ) {
 			$parsed_block = $this->inject_compatible_tabs( $parsed_block );
 		}
 
@@ -83,13 +83,13 @@ class BlockifiedProductDetails extends AbstractBlock {
 		 * @param array $tabs Array of product tabs.
 		 */
 		$product_tabs = apply_filters(
-			'woocommerce_product_tabs',
+			'poocommerce_product_tabs',
 			array()
 		);
 
 		$default_tabs_callbacks = array(
-			'woocommerce_product_description_tab',
-			'woocommerce_product_additional_information_tab',
+			'poocommerce_product_description_tab',
+			'poocommerce_product_additional_information_tab',
 			'comments_template',
 		);
 
@@ -131,22 +131,22 @@ class BlockifiedProductDetails extends AbstractBlock {
 	 * @return array Accordion item.
 	 */
 	private function create_accordion_item_block( $title, $content ) {
-		$template = '<!-- wp:woocommerce/accordion-item -->
-			<div class="wp-block-woocommerce-accordion-item"><!-- wp:woocommerce/accordion-header -->
-			<h3 class="wp-block-woocommerce-accordion-header accordion-item__heading">
+		$template = '<!-- wp:poocommerce/accordion-item -->
+			<div class="wp-block-poocommerce-accordion-item"><!-- wp:poocommerce/accordion-header -->
+			<h3 class="wp-block-poocommerce-accordion-header accordion-item__heading">
 			<button class="accordion-item__toggle">
 			<span>%1$s</span>
 			<span class="accordion-item__toggle-icon has-icon-plus" style="width:1.2em;height:1.2em"><svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 12.5V17.5H12.5V12.5H17.5V11H12.5V6H11V11H6V12.5H11Z" fill="currentColor"></path></svg></span>
 			</button>
 			</h3>
-			<!-- /wp:woocommerce/accordion-header -->
+			<!-- /wp:poocommerce/accordion-header -->
 
-			<!-- wp:woocommerce/accordion-panel -->
-			<div class="wp-block-woocommerce-accordion-panel"><div class="accordion-content__wrapper">
+			<!-- wp:poocommerce/accordion-panel -->
+			<div class="wp-block-poocommerce-accordion-panel"><div class="accordion-content__wrapper">
 			%2$s
 			</div></div>
-			<!-- /wp:woocommerce/accordion-panel --></div>
-			<!-- /wp:woocommerce/accordion-item -->';
+			<!-- /wp:poocommerce/accordion-panel --></div>
+			<!-- /wp:poocommerce/accordion-item -->';
 
 		return parse_blocks( sprintf( $template, $title, $content ) )[0];
 	}
@@ -160,7 +160,7 @@ class BlockifiedProductDetails extends AbstractBlock {
 	 * @return array Parsed block.
 	 */
 	private function inject_parsed_accordion_blocks( $parsed_block, $accordion_blocks ) {
-		if ( 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			$parsed_block['innerBlocks']  = array_merge( $parsed_block['innerBlocks'], $accordion_blocks );
 			$parsed_block['innerBlocks']  = array_values( array_filter( $parsed_block['innerBlocks'] ) );
 			$opening_tag                  = reset( $parsed_block['innerContent'] );
@@ -193,7 +193,7 @@ class BlockifiedProductDetails extends AbstractBlock {
 			return $parsed_block;
 		}
 
-		if ( 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			foreach ( $parsed_block['innerBlocks'] as $key => $inner_block ) {
 				$parsed_block['innerBlocks'][ $key ] = $this->mark_accordion_item_hidden( $inner_block, $context );
 			}
@@ -249,7 +249,7 @@ class BlockifiedProductDetails extends AbstractBlock {
 	 * @return bool True if the block has an accordion, false otherwise.
 	 */
 	private function has_accordion( $parsed_block ) {
-		if ( 'woocommerce/accordion-group' === $parsed_block['blockName'] ) {
+		if ( 'poocommerce/accordion-group' === $parsed_block['blockName'] ) {
 			return true;
 		}
 

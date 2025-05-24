@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Admin Helper - React admin interface
+ * PooCommerce Admin Helper - React admin interface
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
-use Automattic\WooCommerce\Internal\Admin\Marketplace;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Marketplace;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * The main entry-point for all things related to the Helper.
  * The Helper manages the connection between the store and
- * an account on WooCommerce.com.
+ * an account on PooCommerce.com.
  */
 class WC_Helper_Admin {
 
@@ -33,7 +33,7 @@ class WC_Helper_Admin {
 			);
 
 			if ( $is_wc_home_or_in_app_marketplace ) {
-				add_filter( 'woocommerce_admin_shared_settings', array( __CLASS__, 'add_marketplace_settings' ) );
+				add_filter( 'poocommerce_admin_shared_settings', array( __CLASS__, 'add_marketplace_settings' ) );
 			}
 		}
 
@@ -41,7 +41,7 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * Pushes settings onto the WooCommerce Admin global settings object (wcSettings).
+	 * Pushes settings onto the PooCommerce Admin global settings object (wcSettings).
 	 *
 	 * @param mixed $settings The settings object we're amending.
 	 *
@@ -103,7 +103,7 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * Generates the URL for connecting or disconnecting the store to/from WooCommerce.com.
+	 * Generates the URL for connecting or disconnecting the store to/from PooCommerce.com.
 	 * Approach taken from existing helper code that isn't exposed.
 	 *
 	 * @param bool $reconnect indicate if the site is being reconnected.
@@ -146,7 +146,7 @@ class WC_Helper_Admin {
 	 * previews endpoints.
 	 */
 	public static function register_rest_routes() {
-		/* Used by the WooCommerce > Extensions > Discover page. */
+		/* Used by the PooCommerce > Extensions > Discover page. */
 		register_rest_route(
 			'wc/v3',
 			'/marketplace/featured',
@@ -170,15 +170,15 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * The Extensions page can only be accessed by users with the manage_woocommerce
+	 * The Extensions page can only be accessed by users with the manage_poocommerce
 	 * capability. So the API mimics that behavior.
 	 */
 	public static function get_permission() {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 
 	/**
-	 * Fetch featured products from WooCommerce.com and serve them
+	 * Fetch featured products from PooCommerce.com and serve them
 	 * as JSON.
 	 */
 	public static function get_featured() {
@@ -192,7 +192,7 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * Fetch data for product previews from WooCommerce.com.
+	 * Fetch data for product previews from PooCommerce.com.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
@@ -202,7 +202,7 @@ class WC_Helper_Admin {
 		if ( ! $product_id ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Missing product ID', 'woocommerce' ),
+					'message' => __( 'Missing product ID', 'poocommerce' ),
 				),
 				400
 			);
@@ -213,7 +213,7 @@ class WC_Helper_Admin {
 		if ( ! $product_preview ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'We couldn\'t find a preview for this product.', 'woocommerce' ),
+					'message' => __( 'We couldn\'t find a preview for this product.', 'poocommerce' ),
 				),
 				404
 			);
@@ -237,7 +237,7 @@ class WC_Helper_Admin {
 				array(
 					'message' => __(
 						'API response is missing required elements, or they are in the wrong form.',
-						'woocommerce'
+						'poocommerce'
 					),
 				),
 				500

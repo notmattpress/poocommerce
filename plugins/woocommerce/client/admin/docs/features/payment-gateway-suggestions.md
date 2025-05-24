@@ -1,4 +1,4 @@
-# WooCommerce Payment Gateway Suggestions
+# PooCommerce Payment Gateway Suggestions
 
 This feature uses JSON to retrieve the currently recommended payment gateways. The feature is capable of polling remote JSON sources to retrieve a list of recommended and visible gateways based on rulesets to be shown to the user.
 
@@ -6,17 +6,17 @@ After merchants click on a recommendation, plugins from this source will then wa
 
 ## Quick start
 
-Gateway suggestions are retrieved from a REST API and can be added via a remote JSON data source or filtered with the `woocommerce_admin_payment_gateway_suggestion_specs` filter.
+Gateway suggestions are retrieved from a REST API and can be added via a remote JSON data source or filtered with the `poocommerce_admin_payment_gateway_suggestion_specs` filter.
 
 To quickly get started with an example plugin, run the following:
 
-`WC_EXT=payment-gateway-suggestions pnpm example --filter=@woocommerce/admin-library`
+`WC_EXT=payment-gateway-suggestions pnpm example --filter=@poocommerce/admin-library`
 
 This will create a new plugin that when activated will add two new gateway suggestions. The first is a simple gateway demonstrating how configuration fields can be pulled from the gateway class to create a configuration form. The second gateway shows a more customized approach via SlotFill.
 
 ## Data Source Polling
 
-If a store is opted into marketplace suggestions via `woocommerce_show_marketplace_suggestions` the suggestions by default will be retrieved from `https://woocommerce.com/wp-json/wccom/payment-gateway-suggestions/2.0/suggestions.json`.
+If a store is opted into marketplace suggestions via `poocommerce_show_marketplace_suggestions` the suggestions by default will be retrieved from `https://poocommerce.com/wp-json/wccom/payment-gateway-suggestions/2.0/suggestions.json`.
 
 If a user is not opted into marketplace suggestions or polling fails, the gateway suggestions will fall back to the defaults in the `DefaultPaymentGateways` class.
 
@@ -41,13 +41,13 @@ The data source schema defines the recommended payment gateways and required plu
 ]
 ```
 
-The specs use the [rule processor](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/Admin/RemoteInboxNotifications#rule) to determine if a gateway should be shown using the `is_visible` property.
+The specs use the [rule processor](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/src/Admin/RemoteInboxNotifications#rule) to determine if a gateway should be shown using the `is_visible` property.
 
 ## Payment Gateway Configs
 
 Information concerning the configuration and status of the payment gateway is determined by the payment gateway itself. This allows a single source of truth for this information, but more importantly allows the latest and most accurate settings to be included with the plugin downloaded from WordPress.org.
 
-Additional information is added to the existing payment gateway in the WooCommerce REST API response. The following public methods can be added to the payment gateway class to pass information to the recommended payment gateways task:
+Additional information is added to the existing payment gateway in the PooCommerce REST API response. The following public methods can be added to the payment gateway class to pass information to the recommended payment gateways task:
 
 | Name                                | Return  | Default | Description                                                                                                                                                                                                                                                                    |
 | ----------------------------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -63,13 +63,13 @@ By default, the client will generate a payment gateway setup form from the setti
 
 ### WooPaymentGatewayConfigure
 
-To customize the configuration form used in the payment setup, you can use [WooPaymentGatewayConfigure](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/onboarding/src/components/WooPaymentGatewayConfigure).
+To customize the configuration form used in the payment setup, you can use [WooPaymentGatewayConfigure](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/onboarding/src/components/WooPaymentGatewayConfigure).
 
 This will leave the default gateway installation and stepper in place, but allow the form to be customized as needed.
 
 ### WooPaymentGatewaySetup
 
-To completely override the stepper and default installation behavior, the gateway can be SlotFilled using [WooPaymentGatewaySetup](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/onboarding/src/components/WooPaymentGatewaySetup).
+To completely override the stepper and default installation behavior, the gateway can be SlotFilled using [WooPaymentGatewaySetup](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/onboarding/src/components/WooPaymentGatewaySetup).
 
 ## Post install setup
 

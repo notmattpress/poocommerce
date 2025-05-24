@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
 use WC_Payment_Gateway;
 
@@ -39,8 +39,8 @@ class Mollie extends PaymentGateway {
 	 * @return bool True if the payment gateway is in test mode, false otherwise.
 	 */
 	public function is_in_test_mode( WC_Payment_Gateway $payment_gateway ): bool {
-		$test_mode_enabled = get_option( 'mollie-payments-for-woocommerce_test_mode_enabled', true );
-		$test_key_entered  = get_option( 'mollie-payments-for-woocommerce_test_api_key', true );
+		$test_mode_enabled = get_option( 'mollie-payments-for-poocommerce_test_mode_enabled', true );
+		$test_key_entered  = get_option( 'mollie-payments-for-poocommerce_test_api_key', true );
 
 		return filter_var( $test_mode_enabled, FILTER_VALIDATE_BOOLEAN ) && ! empty( $test_key_entered );
 	}

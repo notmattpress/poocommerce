@@ -1,5 +1,5 @@
 {
-	"name": "woocommerce/onboarding",
+	"name": "poocommerce/onboarding",
 	"description": "Onboarding utilities.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",

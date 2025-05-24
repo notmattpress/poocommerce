@@ -4,13 +4,13 @@ html {
 	font-family: $font-sf-pro-display;
 }
 
-body.woocommerce-settings-payments-tab {
+body.poocommerce-settings-payments-tab {
 	#mainform,
 	#wpcontent {
 		background-color: #fff;
 	}
 
-	.woocommerce-layout .woocommerce-store-alerts {
+	.poocommerce-layout .poocommerce-store-alerts {
 		margin-top: $gap-large;
 	}
 

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
 use Throwable;
 use WC_HTTPS;
 use WC_Payment_Gateway;
@@ -23,11 +23,11 @@ class PaymentGateway {
 	// It means that the payment extension will handle the onboarding.
 	const ONBOARDING_TYPE_EXTERNAL = 'external';
 
-	// This is the onboarding type for gateways that have a WooCommerce-tailored onboarding flow.
-	// This might mean just having the payment methods select step in the WooCommerce settings.
+	// This is the onboarding type for gateways that have a PooCommerce-tailored onboarding flow.
+	// This might mean just having the payment methods select step in the PooCommerce settings.
 	const ONBOARDING_TYPE_NATIVE = 'native';
 
-	// This is the onboarding type for gateways that have a WooCommerce in-context onboarding flow.
+	// This is the onboarding type for gateways that have a PooCommerce in-context onboarding flow.
 	const ONBOARDING_TYPE_NATIVE_IN_CONTEXT = 'native_in_context';
 
 	// Payment method categories to inform the UI about grouping or the emphasis of payment methods.
@@ -99,7 +99,7 @@ class PaymentGateway {
 	public function get_title( WC_Payment_Gateway $payment_gateway ): string {
 		$title = $payment_gateway->get_method_title();
 		if ( ! is_string( $title ) || empty( $title ) ) {
-			return esc_html__( 'Unknown', 'woocommerce' );
+			return esc_html__( 'Unknown', 'poocommerce' );
 		}
 		$title = wp_strip_all_tags( html_entity_decode( $title ), true );
 

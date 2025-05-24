@@ -13,8 +13,8 @@ import {
 	woopaymentsOnboardingStore,
 	WooPaymentsOnboardingStepContent,
 	paymentSettingsStore,
-} from '@woocommerce/data';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

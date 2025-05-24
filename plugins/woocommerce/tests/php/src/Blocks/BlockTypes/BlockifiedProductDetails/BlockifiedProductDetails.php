@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\BlockifiedProductDetails;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\BlockifiedProductDetails;
 
 use WC_Helper_Product;
 
@@ -80,7 +80,7 @@ class BlockifiedProductDetails extends \WP_UnitTestCase {
 
 
 	/**
-	 * Test Product Details render function when `woocommerce_product_tabs` hook isn't used
+	 * Test Product Details render function when `poocommerce_product_tabs` hook isn't used
 	 * IMPORTANT: The current test doesn't validate the entire HTML, but only the text content inside the HTML.
 	 * This is because some ids are generated dynamically via wp_unique_id that it is not straightforward to mock.
 	 */
@@ -97,13 +97,13 @@ class BlockifiedProductDetails extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test Product Details render function when `woocommerce_product_tabs` hook is used.
+	 * Test Product Details render function when `poocommerce_product_tabs` hook is used.
 	 * IMPORTANT: The current test doesn't validate the entire HTML, but only the text content inside the HTML.
 	 * This is because some ids are generated dynamically via wp_unique_id that it is not straightforward to mock.
 	 */
 	public function test_product_details_render_with_hook() {
 		add_filter(
-			'woocommerce_product_tabs',
+			'poocommerce_product_tabs',
 			function ( $tabs ) {
 				$tabs['custom_info_tab'] = array(
 					'title'    => 'Custom Info',

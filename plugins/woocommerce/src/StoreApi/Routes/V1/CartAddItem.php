@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
 
 /**
  * CartAddItem class.
@@ -45,13 +45,13 @@ class CartAddItem extends AbstractCartRoute {
 				'permission_callback' => '__return_true',
 				'args'                => [
 					'id'        => [
-						'description'       => __( 'The cart item product or variation ID.', 'woocommerce' ),
+						'description'       => __( 'The cart item product or variation ID.', 'poocommerce' ),
 						'type'              => 'integer',
 						'context'           => [ 'view', 'edit' ],
 						'sanitize_callback' => 'absint',
 					],
 					'quantity'  => [
-						'description' => __( 'Quantity of this item to add to the cart.', 'woocommerce' ),
+						'description' => __( 'Quantity of this item to add to the cart.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => [ 'view', 'edit' ],
 						'arg_options' => [
@@ -59,19 +59,19 @@ class CartAddItem extends AbstractCartRoute {
 						],
 					],
 					'variation' => [
-						'description' => __( 'Chosen attributes (for variations).', 'woocommerce' ),
+						'description' => __( 'Chosen attributes (for variations).', 'poocommerce' ),
 						'type'        => 'array',
 						'context'     => [ 'view', 'edit' ],
 						'items'       => [
 							'type'       => 'object',
 							'properties' => [
 								'attribute' => [
-									'description' => __( 'Variation attribute name.', 'woocommerce' ),
+									'description' => __( 'Variation attribute name.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => [ 'view', 'edit' ],
 								],
 								'value'     => [
-									'description' => __( 'Variation attribute value.', 'woocommerce' ),
+									'description' => __( 'Variation attribute value.', 'poocommerce' ),
 									'type'        => 'string',
 									'context'     => [ 'view', 'edit' ],
 								],
@@ -95,7 +95,7 @@ class CartAddItem extends AbstractCartRoute {
 	protected function get_route_post_response( \WP_REST_Request $request ) {
 		// Do not allow key to be specified during creation.
 		if ( ! empty( $request['key'] ) ) {
-			throw new RouteException( 'woocommerce_rest_cart_item_exists', esc_html__( 'Cannot create an existing cart item.', 'woocommerce' ), 400 );
+			throw new RouteException( 'poocommerce_rest_cart_item_exists', esc_html__( 'Cannot create an existing cart item.', 'poocommerce' ), 400 );
 		}
 
 		/**
@@ -106,7 +106,7 @@ class CartAddItem extends AbstractCartRoute {
 		 *
 		 * CartController::add_to_cart only expects the keys id, quantity, variation, and cart_item_data, so other values
 		 * may be ignored. CartController::add_to_cart (and core) do already have a filter hook called
-		 * woocommerce_add_cart_item, but this does not have access to the original Store API request like this hook does.
+		 * poocommerce_add_cart_item, but this does not have access to the original Store API request like this hook does.
 		 *
 		 * @since 8.8.0
 		 *
@@ -114,7 +114,7 @@ class CartAddItem extends AbstractCartRoute {
 		 * @return array
 		 */
 		$add_to_cart_data = apply_filters(
-			'woocommerce_store_api_add_to_cart_data',
+			'poocommerce_store_api_add_to_cart_data',
 			array(
 				'id'             => $request['id'],
 				'quantity'       => $request['quantity'],

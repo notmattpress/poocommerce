@@ -25,89 +25,89 @@ const previewTextRecommendedLength = 80;
 
 // @ts-expect-error RichTextWithButton has default any type and is not exported yet.
 const SidebarSettings = ( { RichTextWithButton } ) => {
-	const [ woocommerce_email_data ] = useEntityProp(
+	const [ poocommerce_email_data ] = useEntityProp(
 		'postType',
 		'woo_email',
-		'woocommerce_data'
+		'poocommerce_data'
 	);
 
 	// Initialize toggle control state
-	const [ addBCC, setAddBCC ] = useState( !! woocommerce_email_data?.bcc );
-	const [ addCC, setAddCC ] = useState( !! woocommerce_email_data?.cc );
+	const [ addBCC, setAddBCC ] = useState( !! poocommerce_email_data?.bcc );
+	const [ addCC, setAddCC ] = useState( !! poocommerce_email_data?.cc );
 
 	const updateWooMailProperty = ( name: string, value: string | boolean ) => {
 		const editedPost = select( coreDataStore ).getEditedEntityRecord(
 			'postType',
 			'woo_email',
-			window.WooCommerceEmailEditor.current_post_id
+			window.PooCommerceEmailEditor.current_post_id
 		);
 
 		// @ts-expect-error Property 'mailpoet_data' does not exist on type 'Updatable<Attachment<any>>'.
-		const woocommerce_data = editedPost?.woocommerce_data || {};
+		const poocommerce_data = editedPost?.poocommerce_data || {};
 		void dispatch( coreDataStore ).editEntityRecord(
 			'postType',
 			'woo_email',
-			window.WooCommerceEmailEditor.current_post_id,
+			window.PooCommerceEmailEditor.current_post_id,
 			{
-				woocommerce_data: {
-					...woocommerce_data,
+				poocommerce_data: {
+					...poocommerce_data,
 					[ name ]: value,
 				},
 			}
 		);
 	};
 
-	const previewTextLength = woocommerce_email_data?.preheader?.length ?? 0;
+	const previewTextLength = poocommerce_email_data?.preheader?.length ?? 0;
 
 	return (
 		<>
 			<br />
-			{ woocommerce_email_data.email_type ===
+			{ poocommerce_email_data.email_type ===
 			'customer_refunded_order' ? (
 				<>
 					<RichTextWithButton
 						attributeName="subject_full"
-						attributeValue={ woocommerce_email_data.subject_full }
+						attributeValue={ poocommerce_email_data.subject_full }
 						updateProperty={ updateWooMailProperty }
-						label={ __( 'Full Refund Subject', 'woocommerce' ) }
-						placeholder={ woocommerce_email_data.default_subject }
+						label={ __( 'Full Refund Subject', 'poocommerce' ) }
+						placeholder={ poocommerce_email_data.default_subject }
 					/>
 					<br />
 					<RichTextWithButton
 						attributeName="subject_partial"
 						attributeValue={
-							woocommerce_email_data.subject_partial
+							poocommerce_email_data.subject_partial
 						}
 						updateProperty={ updateWooMailProperty }
-						label={ __( 'Partial Refund Subject', 'woocommerce' ) }
-						placeholder={ woocommerce_email_data.default_subject }
+						label={ __( 'Partial Refund Subject', 'poocommerce' ) }
+						placeholder={ poocommerce_email_data.default_subject }
 					/>
 				</>
 			) : (
 				<RichTextWithButton
 					attributeName="subject"
-					attributeValue={ woocommerce_email_data.subject }
+					attributeValue={ poocommerce_email_data.subject }
 					updateProperty={ updateWooMailProperty }
-					label={ __( 'Subject', 'woocommerce' ) }
-					placeholder={ woocommerce_email_data.default_subject }
+					label={ __( 'Subject', 'poocommerce' ) }
+					placeholder={ poocommerce_email_data.default_subject }
 				/>
 			) }
 
 			<br />
 			<RichTextWithButton
 				attributeName="preheader"
-				attributeValue={ woocommerce_email_data.preheader }
+				attributeValue={ poocommerce_email_data.preheader }
 				updateProperty={ updateWooMailProperty }
-				label={ __( 'Preview text', 'woocommerce' ) }
+				label={ __( 'Preview text', 'poocommerce' ) }
 				help={
 					<span
 						className={ clsx(
-							'woocommerce-settings-panel__preview-text-length',
+							'poocommerce-settings-panel__preview-text-length',
 							{
-								'woocommerce-settings-panel__preview-text-length-warning':
+								'poocommerce-settings-panel__preview-text-length-warning':
 									previewTextLength >
 									previewTextRecommendedLength,
-								'woocommerce-settings-panel__preview-text-length-error':
+								'poocommerce-settings-panel__preview-text-length-error':
 									previewTextLength > previewTextMaxLength,
 							}
 						) }
@@ -117,20 +117,20 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 				}
 				placeholder={ __(
 					'Shown as a preview in the inbox, next to the subject line.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<PanelRow>
 				<BaseControl
 					__nextHasNoMarginBottom
-					label={ __( 'Recipients', 'woocommerce' ) }
-					id="woocommerce-email-editor-recipients"
+					label={ __( 'Recipients', 'poocommerce' ) }
+					id="poocommerce-email-editor-recipients"
 				>
-					{ woocommerce_email_data.recipient === null ? (
-						<p className="woocommerce-email-editor-recipients-help">
+					{ poocommerce_email_data.recipient === null ? (
+						<p className="poocommerce-email-editor-recipients-help">
 							{ __(
 								'This email is sent to Customer.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 					) : (
@@ -138,13 +138,13 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
 							name="recipient"
-							value={ woocommerce_email_data.recipient }
+							value={ poocommerce_email_data.recipient }
 							onChange={ ( value ) => {
 								updateWooMailProperty( 'recipient', value );
 							} }
 							help={ __(
 								'Separate with commas to add multiple email addresses.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
@@ -156,7 +156,7 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 						__nextHasNoMarginBottom
 						name="add_cc"
 						checked={ addCC }
-						label={ __( 'Add CC', 'woocommerce' ) }
+						label={ __( 'Add CC', 'poocommerce' ) }
 						onChange={ ( value ) => {
 							setAddCC( value );
 							if ( ! value ) {
@@ -172,13 +172,13 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 						<TextControl
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
-							value={ woocommerce_email_data?.cc || '' }
+							value={ poocommerce_email_data?.cc || '' }
 							onChange={ ( value ) => {
 								updateWooMailProperty( 'cc', value );
 							} }
 							help={ __(
 								'Add recipients who will receive a copy of the email. Separate multiple addresses with commas.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</BaseControl>
@@ -190,7 +190,7 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 						__nextHasNoMarginBottom
 						name="add_bcc"
 						checked={ addBCC }
-						label={ __( 'Add BCC', 'woocommerce' ) }
+						label={ __( 'Add BCC', 'poocommerce' ) }
 						onChange={ ( value ) => {
 							setAddBCC( value );
 							if ( ! value ) {
@@ -206,13 +206,13 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 						<TextControl
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize
-							value={ woocommerce_email_data?.bcc || '' }
+							value={ poocommerce_email_data?.bcc || '' }
 							onChange={ ( value ) => {
 								updateWooMailProperty( 'bcc', value );
 							} }
 							help={ __(
 								'Add recipients who will receive a hidden copy of the email. Separate multiple addresses with commas.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</BaseControl>
@@ -224,12 +224,12 @@ const SidebarSettings = ( { RichTextWithButton } ) => {
 
 export function modifySidebar() {
 	addFilter(
-		'woocommerce_email_editor_setting_sidebar_email_status_component',
+		'poocommerce_email_editor_setting_sidebar_email_status_component',
 		NAME_SPACE,
 		() => EmailStatus
 	);
 	addFilter(
-		'woocommerce_email_editor_setting_sidebar_extension_component',
+		'poocommerce_email_editor_setting_sidebar_extension_component',
 		NAME_SPACE,
 		( RichTextWithButton ) => {
 			return () => (

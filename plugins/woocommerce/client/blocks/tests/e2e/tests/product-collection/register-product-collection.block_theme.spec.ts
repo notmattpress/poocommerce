@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -66,7 +66,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 		while ( retryCount < maxRetries ) {
 			try {
 				await requestUtils.activatePlugin(
-					'woocommerce-blocks-test-register-product-collection'
+					'poocommerce-blocks-test-register-product-collection'
 				);
 
 				// Verify plugin is active by making a test request
@@ -330,20 +330,20 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 			id: 'myCustomCollectionWithProductContext',
 			name: 'My Custom Collection - Product Context',
 			label: 'Block: My Custom Collection - Product Context',
-			previewLabelTemplate: [ 'woocommerce/woocommerce//single-product' ],
+			previewLabelTemplate: [ 'poocommerce/poocommerce//single-product' ],
 		},
 		{
 			id: 'myCustomCollectionWithCartContext',
 			name: 'My Custom Collection - Cart Context',
 			label: 'Block: My Custom Collection - Cart Context',
-			previewLabelTemplate: [ 'woocommerce/woocommerce//page-cart' ],
+			previewLabelTemplate: [ 'poocommerce/poocommerce//page-cart' ],
 		},
 		{
 			id: 'myCustomCollectionWithOrderContext',
 			name: 'My Custom Collection - Order Context',
 			label: 'Block: My Custom Collection - Order Context',
 			previewLabelTemplate: [
-				'woocommerce/woocommerce//order-confirmation',
+				'poocommerce/poocommerce//order-confirmation',
 			],
 		},
 		{
@@ -351,7 +351,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 			name: 'My Custom Collection - Archive Context',
 			label: 'Block: My Custom Collection - Archive Context',
 			previewLabelTemplate: [
-				'woocommerce/woocommerce//taxonomy-product_cat',
+				'poocommerce/poocommerce//taxonomy-product_cat',
 			],
 		},
 		{
@@ -359,8 +359,8 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 			name: 'My Custom Collection - Multiple Contexts',
 			label: 'Block: My Custom Collection - Multiple Contexts',
 			previewLabelTemplate: [
-				'woocommerce/woocommerce//single-product',
-				'woocommerce/woocommerce//order-confirmation',
+				'poocommerce/poocommerce//single-product',
+				'poocommerce/poocommerce//order-confirmation',
 			],
 		},
 	].forEach( ( collection ) => {
@@ -514,7 +514,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 				name: 'My Custom Collection - Product Context',
 				label: 'Block: My Custom Collection - Product Context',
 				previewLabelTemplate: [
-					'woocommerce/woocommerce//single-product',
+					'poocommerce/poocommerce//single-product',
 				],
 				shouldShowProductPicker: true,
 			},
@@ -522,7 +522,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 				id: 'myCustomCollectionWithCartContext',
 				name: 'My Custom Collection - Cart Context',
 				label: 'Block: My Custom Collection - Cart Context',
-				previewLabelTemplate: [ 'woocommerce/woocommerce//page-cart' ],
+				previewLabelTemplate: [ 'poocommerce/poocommerce//page-cart' ],
 				shouldShowProductPicker: false,
 			},
 			{
@@ -530,7 +530,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 				name: 'My Custom Collection - Order Context',
 				label: 'Block: My Custom Collection - Order Context',
 				previewLabelTemplate: [
-					'woocommerce/woocommerce//order-confirmation',
+					'poocommerce/poocommerce//order-confirmation',
 				],
 				shouldShowProductPicker: false,
 			},
@@ -539,7 +539,7 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 				name: 'My Custom Collection - Archive Context',
 				label: 'Block: My Custom Collection - Archive Context',
 				previewLabelTemplate: [
-					'woocommerce/woocommerce//taxonomy-product_cat',
+					'poocommerce/poocommerce//taxonomy-product_cat',
 				],
 				shouldShowProductPicker: false,
 			},
@@ -548,8 +548,8 @@ test.describe( 'Product Collection: Register Product Collection', () => {
 				name: 'My Custom Collection - Multiple Contexts',
 				label: 'Block: My Custom Collection - Multiple Contexts',
 				previewLabelTemplate: [
-					'woocommerce/woocommerce//single-product',
-					'woocommerce/woocommerce//order-confirmation',
+					'poocommerce/poocommerce//single-product',
+					'poocommerce/poocommerce//order-confirmation',
 				],
 				shouldShowProductPicker: true,
 			},

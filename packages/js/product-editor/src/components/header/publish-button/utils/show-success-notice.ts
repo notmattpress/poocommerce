@@ -3,7 +3,7 @@
  */
 import { dispatch } from '@wordpress/data';
 import { __, sprintf } from '@wordpress/i18n';
-import type { Product, ProductStatus } from '@woocommerce/data';
+import type { Product, ProductStatus } from '@poocommerce/data';
 import type { ReactElement } from 'react';
 /**
  * Internal dependencies
@@ -14,16 +14,16 @@ function getNoticeContent( product: Product, prevStatus?: ProductStatus ) {
 	if ( product.status === 'future' ) {
 		return sprintf(
 			// translators: %s: The datetime the product is scheduled for.
-			__( 'Product scheduled for %s.', 'woocommerce' ),
+			__( 'Product scheduled for %s.', 'poocommerce' ),
 			formatScheduleDatetime( `${ product.date_created_gmt }+00:00` )
 		);
 	}
 
 	if ( prevStatus === 'publish' || prevStatus === 'future' ) {
-		return __( 'Product updated.', 'woocommerce' );
+		return __( 'Product updated.', 'poocommerce' );
 	}
 
-	return __( 'Product published.', 'woocommerce' );
+	return __( 'Product published.', 'poocommerce' );
 }
 
 export function showSuccessNotice(
@@ -37,7 +37,7 @@ export function showSuccessNotice(
 		icon: '🎉' as unknown as ReactElement,
 		actions: [
 			{
-				label: __( 'View in store', 'woocommerce' ),
+				label: __( 'View in store', 'poocommerce' ),
 				// Leave the url to support a11y.
 				url: product.permalink,
 				onClick( event: React.MouseEvent< HTMLAnchorElement > ) {

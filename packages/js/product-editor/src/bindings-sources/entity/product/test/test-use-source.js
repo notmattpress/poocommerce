@@ -25,11 +25,11 @@ describe( 'useSource', () => {
 
 	beforeEach( () => {
 		blockInstance = {
-			name: 'woocommerce/block-with-entity',
+			name: 'poocommerce/block-with-entity',
 			attributes: {
 				prop: 'value',
 			},
-			className: 'wp-block-woocommerce-block-with-entity',
+			className: 'wp-block-poocommerce-block-with-entity',
 			context: {},
 			clientId: '<client-id-instance>',
 			isSelected: false,

@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { debounce } from '@woocommerce/base-utils';
-import { CartBillingAddress, CartShippingAddress } from '@woocommerce/types';
+import { debounce } from '@poocommerce/base-utils';
+import { CartBillingAddress, CartShippingAddress } from '@poocommerce/types';
 import { select, dispatch } from '@wordpress/data';
 import isShallowEqual from '@wordpress/is-shallow-equal';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
