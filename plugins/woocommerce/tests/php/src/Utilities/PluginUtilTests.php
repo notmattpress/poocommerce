@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Utilities\PluginUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Utilities\PluginUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * A collection of tests for the PluginUtil class.
@@ -92,10 +92,10 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get_woocommerce_aware_plugins' properly gets the names of all the existing WooCommerce aware plugins.
+	 * @testdox 'get_poocommerce_aware_plugins' properly gets the names of all the existing PooCommerce aware plugins.
 	 */
 	public function test_get_all_woo_aware_plugins() {
-		$result = $this->sut->get_woocommerce_aware_plugins( false );
+		$result = $this->sut->get_poocommerce_aware_plugins( false );
 
 		$expected = array(
 			'woo_aware_1',
@@ -107,10 +107,10 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get_woocommerce_aware_plugins' properly gets the names of the active WooCommerce aware plugins.
+	 * @testdox 'get_poocommerce_aware_plugins' properly gets the names of the active PooCommerce aware plugins.
 	 */
 	public function test_get_active_woo_aware_plugins() {
-		$result = $this->sut->get_woocommerce_aware_plugins( true );
+		$result = $this->sut->get_poocommerce_aware_plugins( true );
 
 		$expected = array(
 			'woo_aware_1',
@@ -125,7 +125,7 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_plugin_name_with_name() {
 		$result = $this->sut->get_plugin_name( 'woo_aware_1' );
-		$this->assertEquals( 'The WooCommerce aware plugin #1', $result );
+		$this->assertEquals( 'The PooCommerce aware plugin #1', $result );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox 'is_woocommerce_aware_plugin' works as expected when a plugin id (path/file.php) is passed.
+	 * @testDox 'is_poocommerce_aware_plugin' works as expected when a plugin id (path/file.php) is passed.
 	 *
 	 * @testWith ["woo_aware_1", true]
 	 *           ["not_woo_aware_2", false]
@@ -146,17 +146,17 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 	 * @param string $plugin_file The plugin file name to test.
 	 * @param bool   $expected_result The expected result from the method.
 	 */
-	public function test_is_woocommerce_aware_plugin_by_plugin_file( string $plugin_file, bool $expected_result ) {
-		$result = $this->sut->is_woocommerce_aware_plugin( $plugin_file );
+	public function test_is_poocommerce_aware_plugin_by_plugin_file( string $plugin_file, bool $expected_result ) {
+		$result = $this->sut->is_poocommerce_aware_plugin( $plugin_file );
 		$this->assertEquals( $expected_result, $result );
 	}
 
 	/**
-	 * Data provider for test_is_woocommerce_aware_plugin_by_plugin_data.
+	 * Data provider for test_is_poocommerce_aware_plugin_by_plugin_data.
 	 *
 	 * @return array[]
 	 */
-	public function data_provider_for_test_is_woocommerce_aware_plugin_by_plugin_data() {
+	public function data_provider_for_test_is_poocommerce_aware_plugin_by_plugin_data() {
 		return array(
 			array( array( 'WC tested up to' => '1.0' ), true ),
 			array( array( 'WC tested up to' => '' ), false ),
@@ -165,15 +165,15 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testDox 'is_woocommerce_aware_plugin' works as expected when a an array of plugin data is passed.
+	 * @testDox 'is_poocommerce_aware_plugin' works as expected when a an array of plugin data is passed.
 	 *
-	 * @dataProvider data_provider_for_test_is_woocommerce_aware_plugin_by_plugin_data
+	 * @dataProvider data_provider_for_test_is_poocommerce_aware_plugin_by_plugin_data
 	 *
 	 * @param array $plugin_data The plugin data to test.
 	 * @param bool  $expected_result The expected result from the method.
 	 */
-	public function test_get_is_woocommerce_aware_plugin_by_plugin_data( array $plugin_data, bool $expected_result ) {
-		$result = $this->sut->is_woocommerce_aware_plugin( $plugin_data );
+	public function test_get_is_poocommerce_aware_plugin_by_plugin_data( array $plugin_data, bool $expected_result ) {
+		$result = $this->sut->is_poocommerce_aware_plugin( $plugin_data );
 		$this->assertEquals( $expected_result, $result );
 	}
 
@@ -186,7 +186,7 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 			array(
 				'get_plugins' => function () {
 					return array(
-						'woocommerce/woocommerce.php' => array( 'WC tested up to' => '1.0' ),
+						'poocommerce/poocommerce.php' => array( 'WC tested up to' => '1.0' ),
 						'jetpack/jetpack.php'         => array( 'foo' => 'bar' ),
 						'classic-editor/classic-editor.php' => array( 'foo' => 'bar' ),
 					);
@@ -195,19 +195,19 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 		);
 
 		// Unix style.
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( 'woocommerce/woocommerce.php' ) );
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( '6.9.2/woocommerce.php' ) );
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( '/srv/htdocs/woocommerce/latest/woocommerce.php' ) );
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( '../../../../wordpress/plugins/woocommerce/latest/woocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( 'poocommerce/poocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( '6.9.2/poocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( '/srv/htdocs/poocommerce/latest/poocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( '../../../../wordpress/plugins/poocommerce/latest/poocommerce.php' ) );
 
 		// Windows style.
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( 'woocommerce\\woocommerce.php' ) );
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( '6.9.2\\woocommerce.php' ) );
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( 'D:\\WordPress\\plugins\\woocommerce\\6.9.2\\woocommerce.php' ) );
-		$this->assertEquals( 'woocommerce/woocommerce.php', $this->sut->get_wp_plugin_id( '..\\..\\..\\..\\WordPress\\plugins\\woocommerce\\6.9.2\\woocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( 'poocommerce\\poocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( '6.9.2\\poocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( 'D:\\WordPress\\plugins\\poocommerce\\6.9.2\\poocommerce.php' ) );
+		$this->assertEquals( 'poocommerce/poocommerce.php', $this->sut->get_wp_plugin_id( '..\\..\\..\\..\\WordPress\\plugins\\poocommerce\\6.9.2\\poocommerce.php' ) );
 
 		// This shouldn't throw an exception.
-		$this->assertFalse( $this->sut->get_wp_plugin_id( 'woocommerce-bookings/woocommerce-bookings.php' ) );
+		$this->assertFalse( $this->sut->get_wp_plugin_id( 'poocommerce-bookings/poocommerce-bookings.php' ) );
 	}
 
 	/**
@@ -232,7 +232,7 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 					return StringUtil::ends_with( $plugin_name, 'woo_aware_1' ) ?
 						array(
 							'WC tested up to' => '1.0',
-							'Name'            => 'The WooCommerce aware plugin #1',
+							'Name'            => 'The PooCommerce aware plugin #1',
 						) :
 						array( 'WC tested up to' => '1.0' );
 				},
@@ -247,7 +247,7 @@ class PluginUtilTests extends \WC_Unit_Test_Case {
 		$this->reset_container_resolutions();
 
 		add_action(
-			'woocommerce_register_feature_definitions',
+			'poocommerce_register_feature_definitions',
 			function ( $features_controller ) {
 				$features = array(
 					'test_feature_1' => array(

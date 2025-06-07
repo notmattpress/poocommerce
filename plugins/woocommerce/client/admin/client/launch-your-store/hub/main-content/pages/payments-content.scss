@@ -18,11 +18,11 @@
 		margin: 0;
 	}
 
-	.woocommerce-recommended-payment-methods {
+	.poocommerce-recommended-payment-methods {
 		margin-top: 24px;
 		background: transparent;
 
-		.woocommerce-layout__header-wrapper {
+		.poocommerce-layout__header-wrapper {
 			background: transparent;
 			align-items: start;
 		}
@@ -32,7 +32,7 @@
 		background-color: $white;
 	}
 
-	.woocommerce-layout__header {
+	.poocommerce-layout__header {
 		&-wrapper {
 			display: flex;
 			flex-direction: column;

@@ -23,7 +23,7 @@ describe( 'AbbreviatedCard', () => {
 
 		// should have correct class
 		expect(
-			container.getElementsByClassName( 'woocommerce-abbreviated-card' )
+			container.getElementsByClassName( 'poocommerce-abbreviated-card' )
 		).toHaveLength( 1 );
 	} );
 } );

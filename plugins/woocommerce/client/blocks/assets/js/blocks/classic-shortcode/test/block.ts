@@ -15,7 +15,7 @@ import '../../checkout';
 import { initializeEditor } from '../../../../../tests/integration/helpers/integration-test-editor';
 
 async function setup( attributes: BlockAttributes ) {
-	const testBlock = [ { name: 'woocommerce/classic-shortcode', attributes } ];
+	const testBlock = [ { name: 'poocommerce/classic-shortcode', attributes } ];
 	return initializeEditor( testBlock );
 }
 

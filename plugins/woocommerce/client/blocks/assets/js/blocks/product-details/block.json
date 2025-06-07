@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/blockified-product-details",
+	"name": "poocommerce/blockified-product-details",
 	"title": "Blockified Product Details",
 	"description": "Display a product's description, attributes, and reviews",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"ancestor": [
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	],
 	"supports": {

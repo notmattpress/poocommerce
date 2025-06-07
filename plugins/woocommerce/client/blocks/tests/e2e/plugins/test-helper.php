@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Helper
+ * Plugin Name: PooCommerce Blocks Test Helper
  * Description: A helper plugin to control settings within Woo E2E tests.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-helper
+ * @package poocommerce-blocks-test-helper
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Define URL endpoints for setting up and tearing down the T&C and Privacy Policy pages.
  */
-function woocommerce_setup_terms_and_privacy_page() {
+function poocommerce_setup_terms_and_privacy_page() {
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['setup_terms_and_privacy'] ) ) {
 		publish_privacy_page();
@@ -28,7 +28,7 @@ function woocommerce_setup_terms_and_privacy_page() {
 		exit( 'Terms & Privacy pages teared down.' );
 	}
 }
-add_action( 'init', 'woocommerce_setup_terms_and_privacy_page' );
+add_action( 'init', 'poocommerce_setup_terms_and_privacy_page' );
 
 /**
  * Publish Privacy Policy page.
@@ -59,7 +59,7 @@ function publish_terms_page() {
 		'post_author' => 1,
 	);
 	$wpdb->replace( $table, $data );
-	update_option( 'woocommerce_terms_page_id', $wpdb->insert_id );
+	update_option( 'poocommerce_terms_page_id', $wpdb->insert_id );
 }
 
 /**
@@ -97,7 +97,7 @@ function register_third_party_local_pickup_method() {
 	 */
 	function woo_collection_shipping_init() {
 
-		if ( 'yes' !== get_option( 'woocommerce_enable_third_party_local_pickup_method_registration' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_enable_third_party_local_pickup_method_registration' ) ) {
 			return;
 		}
 
@@ -176,10 +176,10 @@ function register_third_party_local_pickup_method() {
 	}
 
 	// Use this hook to initialize your new custom method.
-	add_action( 'woocommerce_shipping_init', 'woo_collection_shipping_init' );
+	add_action( 'poocommerce_shipping_init', 'woo_collection_shipping_init' );
 
 	/**
-	 * Adds the Woo Collection shipping method to the list of available methods in WooCommerce.
+	 * Adds the Woo Collection shipping method to the list of available methods in PooCommerce.
 	 * @param array $methods The current list of methods.
 	 * @return array The modified list of methods.
 	 */
@@ -188,7 +188,7 @@ function register_third_party_local_pickup_method() {
 
 		return $methods;
 	}
-	add_filter( 'woocommerce_shipping_methods', 'add_woo_collection_shipping' );
+	add_filter( 'poocommerce_shipping_methods', 'add_woo_collection_shipping' );
 }
 
 register_third_party_local_pickup_method();
@@ -196,19 +196,19 @@ register_third_party_local_pickup_method();
 /**
  * Define URL endpoints for setting an option to determine if the third party local pickup method is registered.
  */
-function woocommerce_enable_third_party_local_pickup_method_registration() {
+function poocommerce_enable_third_party_local_pickup_method_registration() {
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['enable_third_party_local_pickup_method_registration'] ) ) {
-		update_option( 'woocommerce_enable_third_party_local_pickup_method_registration', 'yes' );
+		update_option( 'poocommerce_enable_third_party_local_pickup_method_registration', 'yes' );
 		exit( 'Third party local pickup method registration enabled.' );
 	}
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['disable_third_party_local_pickup_method_registration'] ) ) {
-		delete_option( 'woocommerce_enable_third_party_local_pickup_method_registration' );
+		delete_option( 'poocommerce_enable_third_party_local_pickup_method_registration' );
 		exit( 'Third party local pickup method registration disabled.' );
 	}
 }
-add_action( 'init', 'woocommerce_enable_third_party_local_pickup_method_registration' );
+add_action( 'init', 'poocommerce_enable_third_party_local_pickup_method_registration' );
 
 /**
  * Define URL endpoint for setting up third party local pickup method.
@@ -217,7 +217,7 @@ function check_third_party_local_pickup_method() {
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['check_third_party_local_pickup_method'] ) ) {
 		add_action(
-			'woocommerce_blocks_loaded',
+			'poocommerce_blocks_loaded',
 			function () {
 				$method_titles = array_map(
 					function ( $method ) {

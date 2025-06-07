@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation;
 
 /**
  * AdditionalInformation class.
@@ -29,8 +29,8 @@ class AdditionalInformation extends AbstractOrderConfirmationBlock {
 		}
 
 		$this->remove_core_hooks();
-		$content .= $this->get_hook_content( 'woocommerce_thankyou_' . $order->get_payment_method(), [ $order->get_id() ] );
-		$content .= $this->get_hook_content( 'woocommerce_thankyou', [ $order->get_id() ] );
+		$content .= $this->get_hook_content( 'poocommerce_thankyou_' . $order->get_payment_method(), [ $order->get_id() ] );
+		$content .= $this->get_hook_content( 'poocommerce_thankyou', [ $order->get_id() ] );
 		$this->restore_core_hooks();
 
 		return $content;
@@ -40,13 +40,13 @@ class AdditionalInformation extends AbstractOrderConfirmationBlock {
 	 * Remove core hooks from the thankyou page.
 	 */
 	protected function remove_core_hooks() {
-		remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
+		remove_action( 'poocommerce_thankyou', 'poocommerce_order_details_table', 10 );
 	}
 
 	/**
 	 * Restore core hooks from the thankyou page.
 	 */
 	protected function restore_core_hooks() {
-		add_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
+		add_action( 'poocommerce_thankyou', 'poocommerce_order_details_table', 10 );
 	}
 }

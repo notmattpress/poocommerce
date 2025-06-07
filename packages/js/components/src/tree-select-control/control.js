@@ -72,13 +72,13 @@ const Control = forwardRef(
 		return (
 			/**
 			 * ESLint Disable reason
-			 * https://github.com/woocommerce/woocommerce-admin/blob/main/packages/components/src/select-control/control.js#L200
+			 * https://github.com/poocommerce/poocommerce-admin/blob/main/packages/components/src/select-control/control.js#L200
 			 */
 			/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 			<div
 				className={ classnames(
 					'components-base-control',
-					'woocommerce-tree-select-control__control',
+					'poocommerce-tree-select-control__control',
 					{
 						'is-disabled': disabled,
 						'has-tags': hasTags,
@@ -101,11 +101,11 @@ const Control = forwardRef(
 				<div className="components-base-control__field">
 					<input
 						ref={ ref }
-						id={ `woocommerce-tree-select-control-${ instanceId }__control-input` }
+						id={ `poocommerce-tree-select-control-${ instanceId }__control-input` }
 						type="search"
 						placeholder={ showPlaceholder ? placeholder : '' }
 						autoComplete="off"
-						className="woocommerce-tree-select-control__control-input"
+						className="poocommerce-tree-select-control__control-input"
 						role="combobox"
 						aria-autocomplete="list"
 						value={ value }

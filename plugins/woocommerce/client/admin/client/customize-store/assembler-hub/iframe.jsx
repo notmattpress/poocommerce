@@ -140,7 +140,7 @@ function Iframe( {
 				// mode. Also preload the styles to avoid a flash of unstyled
 				// content.
 				src={ src }
-				title={ __( 'Editor canvas', 'woocommerce' ) }
+				title={ __( 'Editor canvas', 'poocommerce' ) }
 				name="editor-canvas"
 			>
 				{ iframeDocument &&

@@ -91,7 +91,7 @@ test.describe( 'Publish dropdown options', { tag: tags.GUTENBERG }, () => {
 		await page.goto( `wp-admin/post.php?post=${ product.id }&action=edit` );
 
 		await page
-			.locator( '.woocommerce-product-header__actions' )
+			.locator( '.poocommerce-product-header__actions' )
 			.first()
 			.locator( 'button[aria-label="More options"]' )
 			.click();
@@ -103,12 +103,12 @@ test.describe( 'Publish dropdown options', { tag: tags.GUTENBERG }, () => {
 		).toBeVisible();
 
 		await page
-			.locator( '.woocommerce-schedule-publish-modal' )
+			.locator( '.poocommerce-schedule-publish-modal' )
 			.locator( 'button[aria-label="View next month"]' )
 			.click();
 
 		await page
-			.locator( '.woocommerce-schedule-publish-modal' )
+			.locator( '.poocommerce-schedule-publish-modal' )
 			.getByText( '14' )
 			.click();
 
@@ -121,7 +121,7 @@ test.describe( 'Publish dropdown options', { tag: tags.GUTENBERG }, () => {
 	test( 'can duplicate a product', async ( { page, product } ) => {
 		await page.goto( `wp-admin/post.php?post=${ product.id }&action=edit` );
 		await page
-			.locator( '.woocommerce-product-header__actions' )
+			.locator( '.poocommerce-product-header__actions' )
 			.first()
 			.locator( 'button[aria-label="More options"]' )
 			.click();
@@ -138,13 +138,13 @@ test.describe( 'Publish dropdown options', { tag: tags.GUTENBERG }, () => {
 
 		await expect(
 			page
-				.locator( '.woocommerce-product-header__visibility-tags' )
+				.locator( '.poocommerce-product-header__visibility-tags' )
 				.getByText( 'Draft' )
 				.first()
 		).toBeVisible();
 
 		await page
-			.locator( '.woocommerce-product-header__actions' )
+			.locator( '.poocommerce-product-header__actions' )
 			.first()
 			.locator( 'button[aria-label="More options"]' )
 			.click();
@@ -154,7 +154,7 @@ test.describe( 'Publish dropdown options', { tag: tags.GUTENBERG }, () => {
 	test( 'can delete a product', async ( { page, product } ) => {
 		await page.goto( `wp-admin/post.php?post=${ product.id }&action=edit` );
 		await page
-			.locator( '.woocommerce-product-header__actions' )
+			.locator( '.poocommerce-product-header__actions' )
 			.first()
 			.locator( 'button[aria-label="More options"]' )
 			.click();

@@ -4,8 +4,8 @@
 import {
 	InnerBlockLayoutContextProvider,
 	ProductDataContextProvider,
-} from '@woocommerce/shared-context';
-import { ProductResponseItem } from '@woocommerce/types';
+} from '@poocommerce/shared-context';
+import { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ const CartCrossSellsProduct = ( {
 	return (
 		<div className="cross-sells-product">
 			<InnerBlockLayoutContextProvider
-				parentName={ 'woocommerce/cart-cross-sells-block' }
+				parentName={ 'poocommerce/cart-cross-sells-block' }
 				parentClassName={ 'wp-block-cart-cross-sells-product' }
 			>
 				<ProductDataContextProvider

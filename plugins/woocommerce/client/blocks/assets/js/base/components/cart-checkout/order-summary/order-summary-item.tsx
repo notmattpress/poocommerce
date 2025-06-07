@@ -3,22 +3,22 @@
  */
 import clsx from 'clsx';
 import { sprintf, _n } from '@wordpress/i18n';
-import { Label } from '@woocommerce/blocks-components';
-import ProductPrice from '@woocommerce/base-components/product-price';
-import ProductName from '@woocommerce/base-components/product-name';
+import { Label } from '@poocommerce/blocks-components';
+import ProductPrice from '@poocommerce/base-components/product-price';
+import ProductName from '@poocommerce/base-components/product-name';
 import {
 	getCurrencyFromPriceResponse,
 	formatPrice,
-} from '@woocommerce/price-format';
+} from '@poocommerce/price-format';
 import {
 	applyCheckoutFilter,
 	productPriceValidation,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 import Dinero from 'dinero.js';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { useMemo } from '@wordpress/element';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
-import { CartItem, isString } from '@woocommerce/types';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
+import { CartItem, isString } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -155,7 +155,7 @@ const OrderSummaryItem = ( {
 								'%d item',
 								'%d items',
 								quantity,
-								'woocommerce'
+								'poocommerce'
 							),
 							quantity
 						) }
@@ -200,7 +200,7 @@ const OrderSummaryItem = ( {
 						'Total price for %1$d %2$s item: %3$s',
 						'Total price for %1$d %2$s items: %3$s',
 						quantity,
-						'woocommerce'
+						'poocommerce'
 					),
 					quantity,
 					name,

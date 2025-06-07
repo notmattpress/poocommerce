@@ -8,8 +8,8 @@ import type {
 	CartVariationItem,
 	ApiErrorResponse,
 	CartResponseTotals,
-} from '@woocommerce/types';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
+} from '@poocommerce/types';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ function emitSyncEvent( {
 
 // Todo: export this store once the store is public.
 const { state, actions } = store< Store >(
-	'woocommerce',
+	'poocommerce',
 	{
 		actions: {
 			*addCartItem( { id, quantity, variation }: OptimisticCartItem ) {
@@ -179,9 +179,9 @@ const { state, actions } = store< Store >(
 			*showNoticeError( error: Error | ApiErrorResponse ) {
 				// Todo: Use the module exports instead of `store()` once the store-notices
 				// store is public.
-				yield import( '@woocommerce/stores/store-notices' );
+				yield import( '@poocommerce/stores/store-notices' );
 				const { actions: noticeActions } = store< StoreNotices >(
-					'woocommerce/store-notices',
+					'poocommerce/store-notices',
 					{},
 					{
 						lock: 'I acknowledge that using a private store means my plugin will inevitably break on the next store release.',

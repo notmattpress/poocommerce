@@ -8,7 +8,7 @@ import type { TemplateArray } from '@wordpress/blocks';
  */
 export const GROUPED_PRODUCT_ITEM_TEMPLATE: TemplateArray = [
 	[
-		'woocommerce/add-to-cart-with-options-grouped-product-selector-item',
+		'poocommerce/add-to-cart-with-options-grouped-product-selector-item',
 		{},
 		[
 			[
@@ -30,10 +30,10 @@ export const GROUPED_PRODUCT_ITEM_TEMPLATE: TemplateArray = [
 				},
 				[
 					[
-						'woocommerce/add-to-cart-with-options-grouped-product-selector-item-cta',
+						'poocommerce/add-to-cart-with-options-grouped-product-selector-item-cta',
 					],
 					[
-						'woocommerce/add-to-cart-with-options-grouped-product-selector-item-label',
+						'poocommerce/add-to-cart-with-options-grouped-product-selector-item-label',
 						{
 							fontSize: 'medium',
 							style: {
@@ -68,7 +68,7 @@ export const GROUPED_PRODUCT_ITEM_TEMPLATE: TemplateArray = [
 						},
 						[
 							[
-								'woocommerce/product-price',
+								'poocommerce/product-price',
 								{
 									isDescendentOfSingleProductBlock: true,
 									fontSize: 'medium',
@@ -80,7 +80,7 @@ export const GROUPED_PRODUCT_ITEM_TEMPLATE: TemplateArray = [
 									},
 								},
 							],
-							[ 'woocommerce/product-stock-indicator' ],
+							[ 'poocommerce/product-stock-indicator' ],
 						],
 					],
 				],

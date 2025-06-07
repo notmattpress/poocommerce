@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -26,8 +26,8 @@ export default function CategoryLink( props: Category ): JSX.Element {
 
 	const isLoading = props.label === '';
 
-	const classes = clsx( 'woocommerce-marketplace__category-item-button', {
-		'woocommerce-marketplace__category-item-button--selected':
+	const classes = clsx( 'poocommerce-marketplace__category-item-button', {
+		'poocommerce-marketplace__category-item-button--selected':
 			props.selected,
 		'is-loading': isLoading,
 	} );

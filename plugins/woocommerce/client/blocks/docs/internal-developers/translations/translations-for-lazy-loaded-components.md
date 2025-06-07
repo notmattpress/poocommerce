@@ -132,9 +132,9 @@ Please note that the snippet above serves for demo purposes and only lists a few
 
 ## Related PRs
 
-Lazy-loading translations within the WooCommerce Blocks plugin changed over time. The following PRs allow to dive deeper into the topic:
+Lazy-loading translations within the PooCommerce Blocks plugin changed over time. The following PRs allow to dive deeper into the topic:
 
--   [Refactor webpack splitting to fix missing translation](https://github.com/woocommerce/woocommerce-blocks/pull/6420)
--   [Lazy load missing translation files](https://github.com/woocommerce/woocommerce-blocks/pull/5112)
--   [Extract function from lazyLoadScript to simplify code](https://github.com/woocommerce/woocommerce-blocks/pull/4631)
--   [Lazy Loading Atomic Components](https://github.com/woocommerce/woocommerce-blocks/pull/2777)
+-   [Refactor webpack splitting to fix missing translation](https://github.com/poocommerce/poocommerce-blocks/pull/6420)
+-   [Lazy load missing translation files](https://github.com/poocommerce/poocommerce-blocks/pull/5112)
+-   [Extract function from lazyLoadScript to simplify code](https://github.com/poocommerce/poocommerce-blocks/pull/4631)
+-   [Lazy Loading Atomic Components](https://github.com/poocommerce/poocommerce-blocks/pull/2777)

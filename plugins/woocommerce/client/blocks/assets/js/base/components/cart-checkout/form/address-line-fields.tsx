@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ValidatedTextInput } from '@woocommerce/blocks-components';
+import { ValidatedTextInput } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies

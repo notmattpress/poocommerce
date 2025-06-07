@@ -37,7 +37,7 @@ export const SettingsButton = ( {
 	gatewayId,
 	settingsHref,
 	isInstallingPlugin,
-	buttonText = __( 'Manage', 'woocommerce' ),
+	buttonText = __( 'Manage', 'poocommerce' ),
 }: SettingsButtonProps ) => {
 	const recordButtonClickEvent = () => {
 		recordPaymentsEvent( 'provider_manage_click', {

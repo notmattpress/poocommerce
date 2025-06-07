@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Shipping Rate
+ * PooCommerce Shipping Rate
  *
  * Simple Class for storing rates.
  *
- * @package WooCommerce\Classes\Shipping
+ * @package PooCommerce\Classes\Shipping
  * @since   2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 /**
  * Shipping rate class.
@@ -78,7 +78,7 @@ class WC_Shipping_Rate {
 	 */
 	public function __isset( $key ) {
 		if ( 'meta_data' === $key ) {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Use `array_key_exists` to check for meta_data on WC_Shipping_Rate to get the correct result.', 'woocommerce' ), '6.0' );
+			wc_doing_it_wrong( __FUNCTION__, __( 'Use `array_key_exists` to check for meta_data on WC_Shipping_Rate to get the correct result.', 'poocommerce' ), '6.0' );
 		}
 		return isset( $this->data[ $key ] );
 	}
@@ -215,7 +215,7 @@ class WC_Shipping_Rate {
 	 * @return string
 	 */
 	public function get_id() {
-		return apply_filters( 'woocommerce_shipping_rate_id', $this->data['id'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_id', $this->data['id'], $this );
 	}
 
 	/**
@@ -225,7 +225,7 @@ class WC_Shipping_Rate {
 	 * @return string
 	 */
 	public function get_method_id() {
-		return apply_filters( 'woocommerce_shipping_rate_method_id', $this->data['method_id'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_method_id', $this->data['method_id'], $this );
 	}
 
 	/**
@@ -235,7 +235,7 @@ class WC_Shipping_Rate {
 	 * @return int
 	 */
 	public function get_instance_id() {
-		return apply_filters( 'woocommerce_shipping_rate_instance_id', $this->data['instance_id'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_instance_id', $this->data['instance_id'], $this );
 	}
 
 	/**
@@ -244,7 +244,7 @@ class WC_Shipping_Rate {
 	 * @return string
 	 */
 	public function get_label() {
-		return apply_filters( 'woocommerce_shipping_rate_label', $this->data['label'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_label', $this->data['label'], $this );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class WC_Shipping_Rate {
 	 * @return string
 	 */
 	public function get_cost() {
-		return apply_filters( 'woocommerce_shipping_rate_cost', $this->data['cost'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_cost', $this->data['cost'], $this );
 	}
 
 	/**
@@ -264,7 +264,7 @@ class WC_Shipping_Rate {
 	 * @return array
 	 */
 	public function get_taxes() {
-		return apply_filters( 'woocommerce_shipping_rate_taxes', $this->data['taxes'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_taxes', $this->data['taxes'], $this );
 	}
 
 	/**
@@ -273,7 +273,7 @@ class WC_Shipping_Rate {
 	 * @return float
 	 */
 	public function get_shipping_tax() {
-		return apply_filters( 'woocommerce_get_shipping_tax', count( $this->taxes ) > 0 && ! WC()->customer->get_is_vat_exempt() ? (float) array_sum( $this->taxes ) : 0.0, $this );
+		return apply_filters( 'poocommerce_get_shipping_tax', count( $this->taxes ) > 0 && ! WC()->customer->get_is_vat_exempt() ? (float) array_sum( $this->taxes ) : 0.0, $this );
 	}
 
 
@@ -290,7 +290,7 @@ class WC_Shipping_Rate {
 		 * @param string $tax_status Tax status.
 		 * @param WC_Shipping_Rate $this Shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_tax_status', $this->data['tax_status'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_tax_status', $this->data['tax_status'], $this );
 	}
 
 	/**
@@ -308,7 +308,7 @@ class WC_Shipping_Rate {
 		 * @param string            $description The current description.
 		 * @param WC_Shipping_Rate  $this        The shipping rate.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_description', $this->data['description'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_description', $this->data['description'], $this );
 	}
 
 	/**
@@ -326,7 +326,7 @@ class WC_Shipping_Rate {
 		 * @param string            $delivery_time The current description.
 		 * @param WC_Shipping_Rate  $this          The shipping rate.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_delivery_time', $this->data['delivery_time'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_delivery_time', $this->data['delivery_time'], $this );
 	}
 
 	/**

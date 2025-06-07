@@ -5,9 +5,9 @@
 	}
 
 	/**
-	* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+	* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 	*
-	* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+	* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 	*/
 	.quantity .input-text {
 		font-size: var(--wp--preset--font-size--small);
@@ -43,9 +43,9 @@
 			color: currentColor;
 			margin: 0;
 			/**
-			* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+			* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 			*
-			* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+			* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 			*/
 			padding: 0.9rem 0;
 			margin-right: unset;
@@ -65,7 +65,7 @@
 }
 
 .wc-block-add-to-cart-with-options.is-invalid
-	.wp-block-woocommerce-product-button
+	.wp-block-poocommerce-product-button
 	.add_to_cart_button {
 	cursor: not-allowed;
 }

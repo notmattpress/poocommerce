@@ -3,7 +3,7 @@
  */
 import { _n, sprintf } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
-import { Label } from '@woocommerce/blocks-components';
+import { Label } from '@poocommerce/blocks-components';
 
 /**
  * Internal dependencies
@@ -38,7 +38,7 @@ export const PackageItems = ( {
 									'%1$s (%2$d unit)',
 									'%1$s (%2$d units)',
 									quantity,
-									'woocommerce'
+									'poocommerce'
 								),
 								name,
 								quantity

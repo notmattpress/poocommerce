@@ -46,7 +46,7 @@ export function categoryPage() {
 		);
 		checkResponse( response, 200, {
 			title: `Accessories – ${ STORE_NAME }`,
-			body: `<h1 class="woocommerce-products-header__title page-title">${ product_category }</h1>`,
+			body: `<h1 class="poocommerce-products-header__title page-title">${ product_category }</h1>`,
 			footer: FOOTER_TEXT,
 		} );
 	} );

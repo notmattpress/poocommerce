@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
 use \Exception;
-use Automattic\WooCommerce\StoreApi\Formatters\DefaultFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\DefaultFormatter;
 
 /**
  * Formatters class.
@@ -27,7 +27,7 @@ class Formatters {
 	 */
 	public function __get( $name ) {
 		if ( ! isset( $this->formatters[ $name ] ) ) {
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && current_user_can( 'manage_woocommerce' ) ) {
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && current_user_can( 'manage_poocommerce' ) ) {
 				throw new Exception( $name . ' formatter does not exist' );
 			}
 			return new DefaultFormatter();

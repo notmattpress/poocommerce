@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ProductReviews;
 
-use Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
+use Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil;
 use Generator;
 use WC_Unit_Test_Case;
 
 /**
- * @covers \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil()
+ * @covers \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil()
  */
 class ReviewsUtilTest extends WC_Unit_Test_Case {
 
@@ -39,7 +39,7 @@ class ReviewsUtilTest extends WC_Unit_Test_Case {
 	 * @testdox      `comments_clauses_without_product_reviews` modifies the comment query clauses to exclude product reviews for most queries
 	 *                where it can be assumed reviews are not being explicitly requested.
 	 *
-	 * @covers       \Automattic\WooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::comments_clauses_without_product_reviews()
+	 * @covers       \Automattic\PooCommerce\Internal\Admin\ProductReviews\ReviewsUtil::comments_clauses_without_product_reviews()
 	 * @dataProvider provider_comments_clauses_without_product_reviews_filter
 	 *
 	 * @param array $args The query args passed to WP_Comment_Query.

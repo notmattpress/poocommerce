@@ -23,7 +23,7 @@ import { storeName, CoreDataError, PostWithPermissions } from '../../store';
 import { recordEvent } from '../../events';
 
 const shouldPermanentlyDelete = applyFilters(
-	'woocommerce_email_editor_trash_modal_should_permanently_delete',
+	'poocommerce_email_editor_trash_modal_should_permanently_delete',
 	false
 ) as boolean;
 
@@ -51,7 +51,7 @@ function getModalTitle( items: PostWithPermissions[] ) {
 						'Are you sure you want to permanently delete %d item?',
 						'Are you sure you want to permanently delete %d items?',
 						items.length,
-						'woocommerce'
+						'poocommerce'
 					),
 					items.length
 			  )
@@ -59,7 +59,7 @@ function getModalTitle( items: PostWithPermissions[] ) {
 					// translators: %s: The post's title
 					__(
 						'Are you sure you want to permanently delete "%s"?',
-						'woocommerce'
+						'poocommerce'
 					),
 					decodeEntities( getItemTitle( items[ 0 ] ) )
 			  );
@@ -72,7 +72,7 @@ function getModalTitle( items: PostWithPermissions[] ) {
 					'Are you sure you want to move %d item to the trash ?',
 					'Are you sure you want to move %d items to the trash ?',
 					items.length,
-					'woocommerce'
+					'poocommerce'
 				),
 				items.length
 		  )
@@ -80,7 +80,7 @@ function getModalTitle( items: PostWithPermissions[] ) {
 				// translators: %s: The item's title.
 				__(
 					'Are you sure you want to move "%s" to the trash?',
-					'woocommerce'
+					'poocommerce'
 				),
 				getItemTitle( items[ 0 ] )
 		  );
@@ -94,8 +94,8 @@ function getModalTitle( items: PostWithPermissions[] ) {
 const trashEmailPost = {
 	id: 'trash-email-post',
 	label: shouldPermanentlyDelete
-		? __( 'Permanently delete', 'woocommerce' )
-		: __( 'Move to trash', 'woocommerce' ),
+		? __( 'Permanently delete', 'poocommerce' )
+		: __( 'Move to trash', 'poocommerce' ),
 	supportsBulk: true,
 	icon: trash,
 	isEligible( item ) {
@@ -143,7 +143,7 @@ const trashEmailPost = {
 						disabled={ isBusy }
 						__next40pxDefaultSize
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						variant="primary"
@@ -177,7 +177,7 @@ const trashEmailPost = {
 												/* translators: The posts's title. */
 												__(
 													'"%s" permanently deleted.',
-													'woocommerce'
+													'poocommerce'
 												),
 												getItemTitle( items[ 0 ] )
 										  )
@@ -185,7 +185,7 @@ const trashEmailPost = {
 												/* translators: The item's title. */
 												__(
 													'"%s" moved to the trash.',
-													'woocommerce'
+													'poocommerce'
 												),
 												getItemTitle( items[ 0 ] )
 										  );
@@ -193,7 +193,7 @@ const trashEmailPost = {
 									successMessage = shouldPermanentlyDelete
 										? __(
 												'The items were permanently deleted.',
-												'woocommerce'
+												'poocommerce'
 										  )
 										: sprintf(
 												/* translators: The number of items. */
@@ -201,7 +201,7 @@ const trashEmailPost = {
 													'%s item moved to the trash.',
 													'%s items moved to the trash.',
 													items.length,
-													'woocommerce'
+													'poocommerce'
 												),
 												items.length
 										  );
@@ -226,7 +226,7 @@ const trashEmailPost = {
 									} else {
 										errorMessage = __(
 											'An error occurred while performing the action.',
-											'woocommerce'
+											'poocommerce'
 										);
 									}
 									// If we were trying to permanently delete multiple posts
@@ -248,14 +248,14 @@ const trashEmailPost = {
 									if ( errorMessages.size === 0 ) {
 										errorMessage = __(
 											'An error occurred while performing the action.',
-											'woocommerce'
+											'poocommerce'
 										);
 									} else if ( errorMessages.size === 1 ) {
 										errorMessage = sprintf(
 											/* translators: %s: an error message */
 											__(
 												'An error occurred while performing the action: %s',
-												'woocommerce'
+												'poocommerce'
 											),
 											[ ...errorMessages ][ 0 ]
 										);
@@ -264,7 +264,7 @@ const trashEmailPost = {
 											/* translators: %s: a list of comma separated error messages */
 											__(
 												'Some errors occurred while performing the action: %s',
-												'woocommerce'
+												'poocommerce'
 											),
 											[ ...errorMessages ].join( ',' )
 										);
@@ -289,8 +289,8 @@ const trashEmailPost = {
 						__next40pxDefaultSize
 					>
 						{ shouldPermanentlyDelete
-							? __( 'Delete permanently', 'woocommerce' )
-							: __( 'Move to trash', 'woocommerce' ) }
+							? __( 'Delete permanently', 'poocommerce' )
+							: __( 'Move to trash', 'poocommerce' ) }
 					</Button>
 				</HStack>
 			</VStack>

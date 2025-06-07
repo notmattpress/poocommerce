@@ -3,11 +3,11 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
-import { Text } from '@woocommerce/experimental';
-import { Pill } from '@woocommerce/components';
-import { type TagsSlug } from '@woocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { Text } from '@poocommerce/experimental';
+import { Pill } from '@poocommerce/components';
+import { type TagsSlug } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ export type PluginProps = {
 };
 
 const tagsToPillsMap = {
-	marketplace: __( 'Marketplace', 'woocommerce' ),
+	marketplace: __( 'Marketplace', 'poocommerce' ),
 };
 
 export const Plugin = ( {
@@ -54,25 +54,25 @@ export const Plugin = ( {
 	installExternal = false,
 }: PluginProps ) => {
 	return (
-		<div className="woocommerce-plugin-list__plugin">
+		<div className="poocommerce-plugin-list__plugin">
 			{ imageUrl && (
-				<div className="woocommerce-plugin-list__plugin-logo">
+				<div className="poocommerce-plugin-list__plugin-logo">
 					<img
 						src={ imageUrl }
 						alt={ sprintf(
 							/* translators: %s = name of the plugin */
-							__( '%s logo', 'woocommerce' ),
+							__( '%s logo', 'poocommerce' ),
 							name
 						) }
 					/>
 				</div>
 			) }
-			<div className="woocommerce-plugin-list__plugin-text">
+			<div className="poocommerce-plugin-list__plugin-text">
 				<Text variant="subtitle.small" as="h4">
 					{ name }
 					{ isBuiltByWC && (
 						<Pill>
-							{ __( 'Built by WooCommerce', 'woocommerce' ) }
+							{ __( 'Built by PooCommerce', 'poocommerce' ) }
 						</Pill>
 					) }
 					{ tags?.map(
@@ -86,7 +86,7 @@ export const Plugin = ( {
 				</Text>
 				<Text variant="subtitle.small">{ description }</Text>
 			</div>
-			<div className="woocommerce-plugin-list__plugin-action">
+			<div className="poocommerce-plugin-list__plugin-action">
 				{ isActive && manageUrl && (
 					<Button
 						disabled={ isDisabled }
@@ -100,7 +100,7 @@ export const Plugin = ( {
 							onManage( slug );
 						} }
 					>
-						{ __( 'Manage', 'woocommerce' ) }
+						{ __( 'Manage', 'poocommerce' ) }
 					</Button>
 				) }
 				{ isInstalled && ! isActive && (
@@ -110,7 +110,7 @@ export const Plugin = ( {
 						variant="secondary"
 						onClick={ () => installAndActivate( slug ) }
 					>
-						{ __( 'Activate', 'woocommerce' ) }
+						{ __( 'Activate', 'poocommerce' ) }
 					</Button>
 				) }
 				{ ! isInstalled && ! installExternal && (
@@ -122,7 +122,7 @@ export const Plugin = ( {
 							installAndActivate( slug );
 						} }
 					>
-						{ __( 'Get started', 'woocommerce' ) }
+						{ __( 'Get started', 'poocommerce' ) }
 					</Button>
 				) }
 				{ ! isInstalled && installExternal && (
@@ -136,11 +136,11 @@ export const Plugin = ( {
 									window.open( learnMoreLink, '_blank' );
 								} }
 							>
-								{ __( 'View extension', 'woocommerce' ) }
+								{ __( 'View extension', 'poocommerce' ) }
 							</Button>
 						) : (
 							<Button disabled={ true } variant="secondary">
-								{ __( 'View extension', 'woocommerce' ) }
+								{ __( 'View extension', 'poocommerce' ) }
 							</Button>
 						) }
 					</>

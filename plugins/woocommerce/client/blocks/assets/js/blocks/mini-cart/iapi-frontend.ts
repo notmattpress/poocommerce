@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { store, getContext, getConfig } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/cart';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/cart';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -17,8 +17,8 @@ import {
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooStoreState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooStoreState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -46,7 +46,7 @@ type MiniCart = {
 };
 
 const { state } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{
 		state: {
 			get totalItemsInCart() {
@@ -107,12 +107,12 @@ const { state } = store< MiniCart >(
 );
 
 store(
-	'woocommerce/mini-cart-title-items-counter-block',
+	'poocommerce/mini-cart-title-items-counter-block',
 	{
 		state: {
 			get itemsInCartText() {
 				const { singularItemsText, pluralItemsText } = getConfig(
-					'woocommerce/mini-cart-title-items-counter-block'
+					'poocommerce/mini-cart-title-items-counter-block'
 				);
 
 				const cartItemsCount = state.totalItemsInCart;
@@ -128,15 +128,15 @@ store(
 );
 
 store(
-	'woocommerce/mini-cart-footer-block',
+	'poocommerce/mini-cart-footer-block',
 	{
 		state: {
 			get formattedSubtotal(): string {
 				const { displayCartPriceIncludingTax } = getConfig(
-					'woocommerce/mini-cart-footer-block'
+					'poocommerce/mini-cart-footer-block'
 				);
 
-				const { currency } = getConfig( 'woocommerce' );
+				const { currency } = getConfig( 'poocommerce' );
 
 				const subtotal = displayCartPriceIncludingTax
 					? parseInt( wooStoreState.cart.totals.total_items, 10 ) +

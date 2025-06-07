@@ -6,19 +6,19 @@ import { filterSidebarItems } from "./src/js/sidebar-filters";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-	title: 'WooCommerce developer docs',
+	title: 'PooCommerce developer docs',
 	favicon: 'img/favicon.ico',
 
 	// Set the production url of your site here
-	url: 'https://developer.woocommerce.com',
+	url: 'https://developer.poocommerce.com',
 	// Set the /<baseUrl>/ pathname under which your site is served
 	// For GitHub pages deployment, it is often '/<projectName>/'
 	baseUrl: '/docs/',
 
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
-	organizationName: 'woocommerce', // Usually your GitHub org/user name.
-	projectName: 'woocommerce', // Usually your repo name.
+	organizationName: 'poocommerce', // Usually your GitHub org/user name.
+	projectName: 'poocommerce', // Usually your repo name.
 
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
@@ -44,7 +44,7 @@ const config: Config = {
 					// Please change this to your repo.
 					// Remove this to remove the "edit this page" links.
 					editUrl:
-						'https://github.com/woocommerce/woocommerce/tree/trunk/docs/docs/',
+						'https://github.com/poocommerce/poocommerce/tree/trunk/docs/docs/',
 					routeBasePath: '/',
 
 					// Custom sidebar filter to remove some items from the docs sidebar.
@@ -67,7 +67,7 @@ const config: Config = {
 		image: 'img/woo-dev-site-logo.svg',
 		navbar: {
 			logo: {
-				alt: 'WooCommerce developer docs',
+				alt: 'PooCommerce developer docs',
 				src: 'img/woo-dev-site-logo.svg',
 				srcDark: 'img/woo-dev-site-logo-dark.svg',
 				href: '/docs',
@@ -94,12 +94,12 @@ const config: Config = {
 					label: 'CLI',
 				},
 				{
-					href: 'https://developer.woocommerce.com/',
+					href: 'https://developer.poocommerce.com/',
 					label: 'Blog',
 					position: 'right',
 				},
 				{
-					href: 'https://github.com/woocommerce/woocommerce/tree/trunk/docs',
+					href: 'https://github.com/poocommerce/poocommerce/tree/trunk/docs',
 					label: 'GitHub',
 					position: 'right',
 				},
@@ -112,23 +112,23 @@ const config: Config = {
 					items: [
 						{
 							label: 'GitHub Discussions',
-							href: 'https://github.com/woocommerce/woocommerce/discussions',
+							href: 'https://github.com/poocommerce/poocommerce/discussions',
 						},
 						{
 							label: 'Community Slack',
-							href: 'https://woocommerce.com/community-slack/',
+							href: 'https://poocommerce.com/community-slack/',
 						},
 						{
 							label: 'Community Forum',
-							href: 'https://wordpress.org/support/plugin/woocommerce/',
+							href: 'https://wordpress.org/support/plugin/poocommerce/',
 						},
 						{
 							label: 'Code of Conduct',
-							href: 'https://developer.woocommerce.com/code-of-conduct/',
+							href: 'https://developer.poocommerce.com/code-of-conduct/',
 						},
 						{
 							label: 'Community Participation Guide',
-							href: 'https://developer.woocommerce.com/community-participation-guide/',
+							href: 'https://developer.poocommerce.com/community-participation-guide/',
 						},
 					],
 				},
@@ -137,14 +137,14 @@ const config: Config = {
 					items: [
 						{
 							label: 'Become a Woo agency partner',
-							href: 'https://woocommerce.com/for-agencies/',
+							href: 'https://poocommerce.com/for-agencies/',
 						},
 						{
 							label: 'Become a Marketplace partner',
-							href: 'https://woocommerce.com/partners/',
+							href: 'https://poocommerce.com/partners/',
 						},
 						{
-							label: 'Contribute to WooCommerce',
+							label: 'Contribute to PooCommerce',
 							href: '/docs/contribution/contributing',
 						},
 					],
@@ -154,32 +154,32 @@ const config: Config = {
 					items: [
 						{
 							label: 'Woo Developer Blog',
-							href: 'https://developer.woocommerce.com/',
+							href: 'https://developer.poocommerce.com/',
 						},
 						{
-							label: 'WooCommerce Monorepo',
-							href: 'https://github.com/woocommerce/woocommerce/',
+							label: 'PooCommerce Monorepo',
+							href: 'https://github.com/poocommerce/poocommerce/',
 						},
 						{
 							label: 'Woo Storybook',
-							href: 'https://woocommerce.github.io/woocommerce/',
+							href: 'https://poocommerce.github.io/poocommerce/',
 						},
 						{
 							label: 'Merchant Documentation',
-							href: 'https://woocommerce.com/docs',
+							href: 'https://poocommerce.com/docs',
 						},
 						{
-							label: 'WooCommerce Marketplace',
-							href: 'https://woocommerce.com/woocommerce-marketplace/',
+							label: 'PooCommerce Marketplace',
+							href: 'https://poocommerce.com/poocommerce-marketplace/',
 						},
 						{
 							label: 'GitHub',
-							href: 'https://github.com/woocommerce/woocommerce/',
+							href: 'https://github.com/poocommerce/poocommerce/',
 						},
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()} Built with Docusaurus. Documentation is licensed under <a href="https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/license.txt/">GPLv3</a> and can be modified in the <a href="https://github.com/woocommerce/woocommerce/">WooCommerce Monorepo</a>.
+			copyright: `Copyright © ${new Date().getFullYear()} Built with Docusaurus. Documentation is licensed under <a href="https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/license.txt/">GPLv3</a> and can be modified in the <a href="https://github.com/poocommerce/poocommerce/">PooCommerce Monorepo</a>.
 				<div class="docusaurus-footer-for-automattic">
 					<a href="https://automattic.com/">
 						An
@@ -204,7 +204,7 @@ const config: Config = {
 			appId: 'DGCTEY3UZR',
 			// Public API key: it is safe to commit it
 			apiKey: '8b541e433184605374ff8fb8985b3dc4',
-			indexName: 'developer-woocommerce',
+			indexName: 'developer-poocommerce',
 			contextualSearch: true,
 		},
 	} satisfies Preset.ThemeConfig,

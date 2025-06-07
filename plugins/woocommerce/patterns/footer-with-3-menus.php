@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Footer with menus
- * Slug: woocommerce-blocks/footer-with-3-menus
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/footer-with-3-menus
+ * Categories: PooCommerce
  * Block Types: core/template-part/footer
  */
 ?>
@@ -37,7 +37,7 @@
 
 		<!-- wp:column {"verticalAlignment":"stretch","width":"30%","style":{"spacing":{"blockGap":"60px"}},"layout":{"type":"default"}} -->
 		<div class="wp-block-column is-vertically-aligned-stretch" style="flex-basis:30%">
-			<!-- wp:search {"style":{"border":{"radius":"0px"}}, "label":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","showLabel":false,"placeholder":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","buttonText":"<?php esc_html_e( 'Search', 'woocommerce' ); ?>","buttonUseIcon":true,"query":{"post_type":"product"},"width":100,"widthUnit":"%"} /-->
+			<!-- wp:search {"style":{"border":{"radius":"0px"}}, "label":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","showLabel":false,"placeholder":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","buttonText":"<?php esc_html_e( 'Search', 'poocommerce' ); ?>","buttonUseIcon":true,"query":{"post_type":"product"},"width":100,"widthUnit":"%"} /-->
 			<!-- wp:group {"style":{"spacing":{"blockGap":"0","padding":{"right":"0","left":"0"},"margin":{"top":"56px","bottom":"0"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"right"}} -->
 			<div class="wp-block-group" style="margin-top:56px;margin-bottom:0;padding-right:0;padding-left:0">
 				<!-- wp:site-title {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}}} /-->
@@ -45,13 +45,13 @@
 				<!-- wp:paragraph {"align":"right"} --><p class="has-text-align-right">
 					<?php
 					echo sprintf(
-					/* translators: Footer powered by text. %1$s being WordPress, %2$s being WooCommerce */
+					/* translators: Footer powered by text. %1$s being WordPress, %2$s being PooCommerce */
 						esc_html__(
 							'Powered by %1$s with %2$s',
-							'woocommerce'
+							'poocommerce'
 						),
 						'<a href="https://wordpress.org" target="_blank" rel="noreferrer nofollow">WordPress</a>',
-						'<a href="https://woocommerce.com" target="_blank" rel="noreferrer nofollow">WooCommerce</a>'
+						'<a href="https://poocommerce.com" target="_blank" rel="noreferrer nofollow">PooCommerce</a>'
 					);
 					?>
 				</p><!-- /wp:paragraph -->

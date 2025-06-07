@@ -4,7 +4,7 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { useLocation } from 'react-router-dom';
-import { getHistory, getNewPath, getQuery } from '@woocommerce/navigation';
+import { getHistory, getNewPath, getQuery } from '@poocommerce/navigation';
 import { getQueryArg } from '@wordpress/url';
 import { dispatch } from '@wordpress/data';
 
@@ -74,7 +74,7 @@ export default function WooPaymentsModal( {
 				'woopayments_onboarding_wpcom_connection_cancelled'
 			);
 
-			createErrorNotice( __( 'Setup was cancelled!', 'woocommerce' ), {
+			createErrorNotice( __( 'Setup was cancelled!', 'poocommerce' ), {
 				type: 'snackbar',
 				explicitDismiss: false,
 			} );

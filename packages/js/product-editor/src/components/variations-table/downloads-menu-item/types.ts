@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductVariation } from '@woocommerce/data';
+import { ProductVariation } from '@poocommerce/data';
 
 export type ShippingMenuItemProps = {
 	variation: ProductVariation;

@@ -1,16 +1,16 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments\WooPaymentsService;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use WC_Unit_Test_Case;
 
 /**
@@ -40,7 +40,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 	public function test_get_details() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                     => true,
 				'account_connected'           => true,
@@ -50,8 +50,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 				'onboarding_started'          => true,
 				'onboarding_completed'        => true,
 				'test_mode_onboarding'        => true,
-				'plugin_slug'                 => 'woocommerce-payments',
-				'plugin_file'                 => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                 => 'poocommerce-payments',
+				'plugin_file'                 => 'poocommerce-payments/poocommerce-payments.php',
 				'method_title'                => 'WooPayments has a very long title that should be truncated after some length like this',
 				'method_description'          => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 				'supports'                    => array( 'products', 'something', 'bogus' ),
@@ -113,7 +113,7 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 		// Assert that we have all the details.
 		$this->assertEquals(
 			array(
-				'id'          => 'woocommerce_payments',
+				'id'          => 'poocommerce_payments',
 				'_order'      => 999,
 				'title'       => 'WooPayments has a very long title that should be truncated after some length',
 				'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim…',
@@ -135,8 +135,8 @@ class WooPaymentsTest extends WC_Unit_Test_Case {
 				),
 				'plugin'      => array(
 					'_type'  => PaymentsProviders::EXTENSION_TYPE_WPORG,
-					'slug'   => 'woocommerce-payments',
-					'file'   => 'woocommerce-payments/woocommerce-payments',
+					'slug'   => 'poocommerce-payments',
+					'file'   => 'poocommerce-payments/poocommerce-payments',
 					'status' => PaymentsProviders::EXTENSION_ACTIVE,
 				),
 				'onboarding'  => array(

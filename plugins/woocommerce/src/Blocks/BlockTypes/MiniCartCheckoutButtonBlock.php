@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartCheckoutButtonBlock class.
@@ -23,13 +23,13 @@ class MiniCartCheckoutButtonBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render_experimental_iapi_markup( $attributes, $content, $block ) {
-		$go_to_checkout_text = __( 'Go to checkout', 'woocommerce' );
+		$go_to_checkout_text = __( 'Go to checkout', 'poocommerce' );
 		$checkout_page_id    = wc_get_page_id( 'checkout' );
 		$checkout_page_url   = get_permalink( $checkout_page_id );
 
 		ob_start();
 		?>
-		<a href="<?php echo esc_url( $checkout_page_url ); ?>" class="wc-block-components-button wp-element-button wp-block-woocommerce-mini-cart-checkout-button-block wc-block-mini-cart__footer-checkout contained">
+		<a href="<?php echo esc_url( $checkout_page_url ); ?>" class="wc-block-components-button wp-element-button wp-block-poocommerce-mini-cart-checkout-button-block wc-block-mini-cart__footer-checkout contained">
 			<div class="wc-block-components-button__text">
 				<?php echo esc_html( $go_to_checkout_text ); ?>
 			</div>

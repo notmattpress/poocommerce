@@ -1,5 +1,5 @@
 Significance: patch
 Type: fix
-Comment: Fix TypeScript errors in @woocommerce/email-editor introduced in previous commit
+Comment: Fix TypeScript errors in @poocommerce/email-editor introduced in previous commit
 
 

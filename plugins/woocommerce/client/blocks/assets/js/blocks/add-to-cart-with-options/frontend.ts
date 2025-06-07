@@ -3,8 +3,8 @@
  */
 import type { FormEvent, HTMLElementEvent } from 'react';
 import { store, getContext } from '@wordpress/interactivity';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
-import type { CartVariationItem } from '@woocommerce/types';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
+import type { CartVariationItem } from '@poocommerce/types';
 
 export type AvailableVariation = {
 	attributes: Record< string, string >;
@@ -25,8 +25,8 @@ export type Context = {
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -111,7 +111,7 @@ const dispatchChangeEvent = ( inputElement: HTMLInputElement ) => {
 };
 
 const addToCartWithOptionsStore = store(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get isFormValid(): boolean {
@@ -205,11 +205,11 @@ const addToCartWithOptionsStore = store(
 				event.preventDefault();
 
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
-				const { actions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);

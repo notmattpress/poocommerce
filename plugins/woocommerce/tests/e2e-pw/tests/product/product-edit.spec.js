@@ -257,7 +257,7 @@ test(
 				).toFixed( 2 );
 
 				const productPriceLocator = page
-					.locator( `[data-block-name="woocommerce/product-price"]` )
+					.locator( `[data-block-name="poocommerce/product-price"]` )
 					.first();
 
 				await expect( productPriceLocator ).toContainText(
@@ -294,7 +294,7 @@ test(
 				await page.goto( `product/${ product.slug }` );
 
 				const productPriceLocator = page
-					.locator( `[data-block-name="woocommerce/product-price"]` )
+					.locator( `[data-block-name="poocommerce/product-price"]` )
 					.first();
 
 				await expect( productPriceLocator ).toHaveText(

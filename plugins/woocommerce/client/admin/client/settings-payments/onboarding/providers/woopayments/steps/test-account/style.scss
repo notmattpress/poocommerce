@@ -5,7 +5,7 @@
 	}
 }
 
-.woocommerce-payments-test-account-step {
+.poocommerce-payments-test-account-step {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -100,14 +100,14 @@
 		border: 1px solid $gray-200;
 		padding: $gap-large;
 
-		.woocommerce-woopayments-modal__content__item h2 {
+		.poocommerce-woopayments-modal__content__item h2 {
 			font-size: 15px;
 			line-height: 20px;
 			color: $gray-900;
 			font-weight: 500;
 		}
 
-		.woocommerce-woopayments-modal__content__item h3 {
+		.poocommerce-woopayments-modal__content__item h3 {
 			font-size: 13px;
 			line-height: 20px;
 			color: $gray-900;

@@ -2,11 +2,11 @@
 /**
  * Class WC_Settings_Emails_Test file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -33,7 +33,7 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 	/**
 	 * get_settings should trigger the appropriate filter depending on the requested section name.
 	 *
-	 * @testWith ["", "woocommerce_email_settings"]
+	 * @testWith ["", "poocommerce_email_settings"]
 	 *
 	 * @param string $section_name The section name to test getting the settings for.
 	 * @param string $filter_name The name of the filter that is expected to be triggered.
@@ -74,22 +74,22 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 			''                                        => array( 'email_notification', 'email_preview' ),
 			'email_recipient_options'                 => 'sectionend',
 			'email_options'                           => array( 'title', 'sectionend' ),
-			'woocommerce_email_from_name'             => 'text',
-			'woocommerce_email_from_address'          => 'email',
+			'poocommerce_email_from_name'             => 'text',
+			'poocommerce_email_from_address'          => 'email',
 			'email_template_options'                  => array( 'title', 'sectionend' ),
 			'previewing_new_templates'                => 'previewing_new_templates',
-			'woocommerce_email_header_image'          => 'email_image_url',
-			'woocommerce_email_header_image_width'    => 'number',
-			'woocommerce_email_header_alignment'      => 'select',
-			'woocommerce_email_font_family'           => 'email_font_family',
-			'woocommerce_email_footer_text'           => 'textarea',
+			'poocommerce_email_header_image'          => 'email_image_url',
+			'poocommerce_email_header_image_width'    => 'number',
+			'poocommerce_email_header_alignment'      => 'select',
+			'poocommerce_email_font_family'           => 'email_font_family',
+			'poocommerce_email_footer_text'           => 'textarea',
 			'email_color_palette'                     => array( 'email_color_palette', 'sectionend' ),
-			'woocommerce_email_base_color'            => 'color',
-			'woocommerce_email_background_color'      => 'color',
-			'woocommerce_email_body_background_color' => 'color',
-			'woocommerce_email_text_color'            => 'color',
-			'woocommerce_email_footer_text_color'     => 'color',
-			'woocommerce_email_auto_sync_with_theme'  => 'hidden',
+			'poocommerce_email_base_color'            => 'color',
+			'poocommerce_email_background_color'      => 'color',
+			'poocommerce_email_body_background_color' => 'color',
+			'poocommerce_email_text_color'            => 'color',
+			'poocommerce_email_footer_text_color'     => 'color',
+			'poocommerce_email_auto_sync_with_theme'  => 'hidden',
 			'email_improvements_button'               => 'email_improvements_button',
 		);
 
@@ -176,6 +176,6 @@ class WC_Settings_Emails_Test extends WC_Settings_Unit_Test_Case {
 		$sut->save();
 
 		$this->assertEquals( $expect_save_settings_for_current_section, $save_settings_for_current_section_invoked );
-		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'woocommerce_update_options_email_new_order' ) );
+		$this->assertEquals( '' === $section_name ? 0 : 1, did_action( 'poocommerce_update_options_email_new_order' ) );
 	}
 }

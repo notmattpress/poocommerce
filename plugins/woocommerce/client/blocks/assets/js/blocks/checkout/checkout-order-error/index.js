@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { CART_URL } from '@woocommerce/block-settings';
-import { removeCart } from '@woocommerce/icons';
+import { CART_URL } from '@poocommerce/block-settings';
+import { removeCart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { decodeEntities } from '@wordpress/html-entities';
 
 /**
@@ -37,10 +37,10 @@ const preloadedCheckoutData = getSetting( 'checkoutData', {} );
  * @param {Object} props.errorData Object containing code and message.
  */
 const ErrorTitle = ( { errorData } ) => {
-	let heading = __( 'Checkout error', 'woocommerce' );
+	let heading = __( 'Checkout error', 'poocommerce' );
 
 	if ( cartItemErrorCodes.includes( errorData.code ) ) {
-		heading = __( 'There is a problem with your cart', 'woocommerce' );
+		heading = __( 'There is a problem with your cart', 'poocommerce' );
 	}
 
 	return (
@@ -61,7 +61,7 @@ const ErrorMessage = ( { errorData } ) => {
 		message =
 			message +
 			' ' +
-			__( 'Please edit your cart and try again.', 'woocommerce' );
+			__( 'Please edit your cart and try again.', 'poocommerce' );
 	}
 
 	return <p className="wc-block-checkout-error__description">{ message }</p>;
@@ -74,11 +74,11 @@ const ErrorMessage = ( { errorData } ) => {
  * @param {Object} props.errorData Object containing code and message.
  */
 const ErrorButton = ( { errorData } ) => {
-	let buttonText = __( 'Retry', 'woocommerce' );
+	let buttonText = __( 'Retry', 'poocommerce' );
 	let buttonUrl = 'javascript:window.location.reload(true)';
 
 	if ( cartItemErrorCodes.includes( errorData.code ) ) {
-		buttonText = __( 'Edit your cart', 'woocommerce' );
+		buttonText = __( 'Edit your cart', 'poocommerce' );
 		buttonUrl = CART_URL;
 	}
 
@@ -111,7 +111,7 @@ const CheckoutOrderError = () => {
 			decodeEntities( checkoutData.message ) ||
 			__(
 				'There was a problem checking out. Please try again. If the problem persists, please get in touch with us so we can assist.',
-				'woocommerce'
+				'poocommerce'
 			),
 	};
 

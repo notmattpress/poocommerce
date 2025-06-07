@@ -8,8 +8,8 @@ import {
 	PaymentsProviderState,
 	PaymentsProviderOnboardingState,
 	woopaymentsOnboardingStore,
-} from '@woocommerce/data';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -73,7 +73,7 @@ export const CompleteSetupButton = ( {
 	onboardingHref,
 	gatewayHasRecommendedPaymentMethods,
 	installingPlugin,
-	buttonText = __( 'Complete setup', 'woocommerce' ),
+	buttonText = __( 'Complete setup', 'poocommerce' ),
 	setOnboardingModalOpen,
 	onboardingType,
 }: CompleteSetupButtonProps ) => {
@@ -93,7 +93,7 @@ export const CompleteSetupButton = ( {
 	useEffect( () => {
 		// Prefetch WooPayments onboarding data if conditions are met
 		if (
-			gatewayId === 'woocommerce_payments' &&
+			gatewayId === 'poocommerce_payments' &&
 			onboardingType === 'native_in_context' &&
 			! onboardingCompleted
 		) {

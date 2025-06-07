@@ -21,7 +21,7 @@ export const CheckoutExpressPaymentsSkeleton = ( {
 				<div className="wc-block-components-express-payment__title-container">
 					{ showLabels ? (
 						<div className="wc-block-components-title wc-block-components-express-payment__title">
-							{ __( 'Express Payments', 'woocommerce' ) }
+							{ __( 'Express Payments', 'poocommerce' ) }
 						</div>
 					) : (
 						<div className="wc-block-components-title wc-block-components-express-payment__title wc-block-components-express-payment__title--skeleton">
@@ -42,7 +42,7 @@ export const CheckoutExpressPaymentsSkeleton = ( {
 			</div>
 			<div className="wc-block-components-express-payment-continue-rule wc-block-components-express-payment-continue-rule--checkout">
 				{ showLabels ? (
-					__( 'Or continue below', 'woocommerce' )
+					__( 'Or continue below', 'poocommerce' )
 				) : (
 					<Skeleton width="127px" height="18px" />
 				) }

@@ -28,12 +28,12 @@ const entries = {
 	...editorStyleEntries,
 
 	// Experimental mini cart frontend modules, only enqueued when experimental-iapi-mini-cart feature flag is enabled.
-	'woocommerce/mini-cart': './assets/js/blocks/mini-cart/iapi-frontend.ts',
+	'poocommerce/mini-cart': './assets/js/blocks/mini-cart/iapi-frontend.ts',
 
 	// Other
-	'@woocommerce/stores/woocommerce/cart':
-		'./assets/js/base/stores/woocommerce/cart.ts',
-	'@woocommerce/stores/store-notices':
+	'@poocommerce/stores/poocommerce/cart':
+		'./assets/js/base/stores/poocommerce/cart.ts',
+	'@poocommerce/stores/store-notices':
 		'./assets/js/base/stores/store-notices.ts',
 };
 
@@ -67,7 +67,7 @@ module.exports = {
 			combineAssets: true,
 			combinedOutputFile: './interactivity-blocks-frontend-assets.php',
 			requestToExternalModule( request ) {
-				if ( request.startsWith( '@woocommerce/stores/' ) ) {
+				if ( request.startsWith( '@poocommerce/stores/' ) ) {
 					return `import ${ request }`;
 				}
 			},

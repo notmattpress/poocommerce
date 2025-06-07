@@ -127,7 +127,7 @@ const originalActions = {};
 
 export const initStoreTracking = () => {
 	const isEventTrackingEnabled = applyFilters(
-		'woocommerce_email_editor_events_tracking_enabled',
+		'poocommerce_email_editor_events_tracking_enabled',
 		false
 	);
 
