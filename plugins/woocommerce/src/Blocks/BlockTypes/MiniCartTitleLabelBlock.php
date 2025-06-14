@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartTitleLabelBlock class.
@@ -38,11 +38,11 @@ class MiniCartTitleLabelBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render_experimental_iapi_title_label_block( $attributes, $content, $block ) {
-		$cart_label = __( 'Your cart', 'woocommerce' );
+		$cart_label = __( 'Your cart', 'poocommerce' );
 
 		ob_start();
 		?>
-		<span class="wp-block-woocommerce-mini-cart-title-label-block">
+		<span class="wp-block-poocommerce-mini-cart-title-label-block">
 			<?php echo esc_html( $cart_label ); ?>
 		</span>
 		<?php

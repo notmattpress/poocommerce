@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 import { useBlockProps } from '@wordpress/block-editor';
 import { Disabled } from '@wordpress/components';
 

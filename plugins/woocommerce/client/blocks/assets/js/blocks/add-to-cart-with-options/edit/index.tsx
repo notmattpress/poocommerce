@@ -6,8 +6,8 @@ import { useEffect } from '@wordpress/element';
 import { BlockEditProps } from '@wordpress/blocks';
 
 import { Disabled } from '@wordpress/components';
-import { ProductShortDescriptionSkeleton } from '@woocommerce/base-components/skeleton/patterns/product-short-description';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { ProductShortDescriptionSkeleton } from '@poocommerce/base-components/skeleton/patterns/product-short-description';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import {
 	BlockControls,
 	InspectorControls,
@@ -62,14 +62,14 @@ const AddToCartOptionsEdit = ( props: BlockEditProps< Attributes > ) => {
 				/>
 			) : (
 				<div { ...blockProps }>
-					<div className="wp-block-woocommerce-add-to-cart-with-options__skeleton-wrapper">
+					<div className="wp-block-poocommerce-add-to-cart-with-options__skeleton-wrapper">
 						<ProductShortDescriptionSkeleton />
 					</div>
 					<Disabled>
 						<button
 							className={ `alt wp-element-button ${ productType }_add_to_cart_button` }
 						>
-							{ __( 'Add to cart', 'woocommerce' ) }
+							{ __( 'Add to cart', 'poocommerce' ) }
 						</button>
 					</Disabled>
 				</div>

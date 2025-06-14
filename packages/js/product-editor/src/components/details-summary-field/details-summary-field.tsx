@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 import {
 	useFormContext,
 	__experimentalRichTextEditor as RichTextEditor,
-} from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+} from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 import { BlockInstance, serialize, parse } from '@wordpress/blocks';
 import { useState, createElement } from '@wordpress/element';
 
@@ -18,7 +18,7 @@ export const DetailsSummaryField = () => {
 
 	return (
 		<RichTextEditor
-			label={ __( 'Summary', 'woocommerce' ) }
+			label={ __( 'Summary', 'poocommerce' ) }
 			blocks={ summaryBlocks }
 			onChange={ ( blocks ) => {
 				setSummaryBlocks( blocks );
@@ -29,7 +29,7 @@ export const DetailsSummaryField = () => {
 			} }
 			placeholder={ __(
 				"Summarize this product in 1-2 short sentences. We'll show it at the top of the page.",
-				'woocommerce'
+				'poocommerce'
 			) }
 		/>
 	);

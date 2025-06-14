@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartFooterBlock class.
@@ -26,9 +26,9 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 		ob_start();
 
 		$cart                             = $this->get_cart_instance();
-		$subtotal_label                   = __( 'Subtotal', 'woocommerce' );
-		$other_costs_label                = __( 'Shipping, taxes, and discounts calculated at checkout.', 'woocommerce' );
-		$display_cart_price_including_tax = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+		$subtotal_label                   = __( 'Subtotal', 'poocommerce' );
+		$other_costs_label                = __( 'Shipping, taxes, and discounts calculated at checkout.', 'poocommerce' );
+		$display_cart_price_including_tax = get_option( 'poocommerce_tax_display_cart' ) === 'incl';
 		$subtotal                         = $display_cart_price_including_tax ? $cart->get_subtotal_tax() : $cart->get_subtotal();
 		$formatted_subtotal               = '';
 		$html                             = new \WP_HTML_Tag_Processor( wc_price( $subtotal ) );
@@ -57,7 +57,7 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 
 		?>
 		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		<div data-wp-interactive="woocommerce/mini-cart-footer-block" class="wp-block-woocommerce-mini-cart-footer-block wc-block-mini-cart__footer">
+		<div data-wp-interactive="poocommerce/mini-cart-footer-block" class="wp-block-poocommerce-mini-cart-footer-block wc-block-mini-cart__footer">
 			<div class="wc-block-components-totals-item wc-block-mini-cart__footer-subtotal">
 				<span class="wc-block-components-totals-item__label">
 					<?php echo esc_html( $subtotal_label ); ?>

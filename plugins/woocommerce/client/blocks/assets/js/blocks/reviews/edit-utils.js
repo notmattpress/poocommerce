@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
 import { BlockControls } from '@wordpress/block-editor';
-import { getAdminLink, getSetting } from '@woocommerce/settings';
+import { getAdminLink, getSetting } from '@poocommerce/settings';
 import {
 	Notice,
 	ToggleControl,
@@ -38,7 +38,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 	return (
 		<>
 			<ToggleControl
-				label={ __( 'Product rating', 'woocommerce' ) }
+				label={ __( 'Product rating', 'poocommerce' ) }
 				checked={ attributes.showReviewRating }
 				onChange={ () =>
 					setAttributes( {
@@ -54,7 +54,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 					{ createInterpolateElement(
 						__(
 							'Product rating is disabled in your <a>store settings</a>.',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							a: (
@@ -72,7 +72,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 				</Notice>
 			) }
 			<ToggleControl
-				label={ __( 'Reviewer name', 'woocommerce' ) }
+				label={ __( 'Reviewer name', 'poocommerce' ) }
 				checked={ attributes.showReviewerName }
 				onChange={ () =>
 					setAttributes( {
@@ -81,7 +81,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 				}
 			/>
 			<ToggleControl
-				label={ __( 'Image', 'woocommerce' ) }
+				label={ __( 'Image', 'poocommerce' ) }
 				checked={ attributes.showReviewImage }
 				onChange={ () =>
 					setAttributes( {
@@ -90,7 +90,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 				}
 			/>
 			<ToggleControl
-				label={ __( 'Review date', 'woocommerce' ) }
+				label={ __( 'Review date', 'poocommerce' ) }
 				checked={ attributes.showReviewDate }
 				onChange={ () =>
 					setAttributes( {
@@ -99,7 +99,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 				}
 			/>
 			<ToggleControl
-				label={ __( 'Review content', 'woocommerce' ) }
+				label={ __( 'Review content', 'poocommerce' ) }
 				checked={ attributes.showReviewContent }
 				onChange={ () =>
 					setAttributes( {
@@ -110,7 +110,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 			{ attributes.showReviewImage && (
 				<>
 					<ToggleGroupControl
-						label={ __( 'Review image', 'woocommerce' ) }
+						label={ __( 'Review image', 'poocommerce' ) }
 						isBlock
 						value={ attributes.imageType }
 						onChange={ ( value ) =>
@@ -119,11 +119,11 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 					>
 						<ToggleGroupControlOption
 							value="reviewer"
-							label={ __( 'Reviewer photo', 'woocommerce' ) }
+							label={ __( 'Reviewer photo', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="product"
-							label={ __( 'Product', 'woocommerce' ) }
+							label={ __( 'Product', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 					{ attributes.imageType === 'reviewer' && ! showAvatars && (
@@ -134,7 +134,7 @@ export const getSharedReviewContentControls = ( attributes, setAttributes ) => {
 							{ createInterpolateElement(
 								__(
 									'Reviewer photo is disabled in your <a>site settings</a>.',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									a: (
@@ -164,14 +164,14 @@ export const getSharedReviewListControls = ( attributes, setAttributes ) => {
 	return (
 		<>
 			<ToggleControl
-				label={ __( 'Order by', 'woocommerce' ) }
+				label={ __( 'Order by', 'poocommerce' ) }
 				checked={ attributes.showOrderby }
 				onChange={ () =>
 					setAttributes( { showOrderby: ! attributes.showOrderby } )
 				}
 			/>
 			<SelectControl
-				label={ __( 'Order Product Reviews by', 'woocommerce' ) }
+				label={ __( 'Order Product Reviews by', 'poocommerce' ) }
 				value={ attributes.orderby }
 				options={ [
 					{ label: 'Most recent', value: 'most-recent' },
@@ -181,7 +181,7 @@ export const getSharedReviewListControls = ( attributes, setAttributes ) => {
 				onChange={ ( orderby ) => setAttributes( { orderby } ) }
 			/>
 			<RangeControl
-				label={ __( 'Starting Number of Reviews', 'woocommerce' ) }
+				label={ __( 'Starting Number of Reviews', 'poocommerce' ) }
 				value={ attributes.reviewsOnPageLoad }
 				onChange={ ( reviewsOnPageLoad ) =>
 					setAttributes( { reviewsOnPageLoad } )
@@ -190,7 +190,7 @@ export const getSharedReviewListControls = ( attributes, setAttributes ) => {
 				min={ minPerPage }
 			/>
 			<ToggleControl
-				label={ __( 'Load more', 'woocommerce' ) }
+				label={ __( 'Load more', 'poocommerce' ) }
 				checked={ attributes.showLoadMore }
 				onChange={ () =>
 					setAttributes( { showLoadMore: ! attributes.showLoadMore } )
@@ -198,7 +198,7 @@ export const getSharedReviewListControls = ( attributes, setAttributes ) => {
 			/>
 			{ attributes.showLoadMore && (
 				<RangeControl
-					label={ __( 'Load More Reviews', 'woocommerce' ) }
+					label={ __( 'Load More Reviews', 'poocommerce' ) }
 					value={ attributes.reviewsOnLoadMore }
 					onChange={ ( reviewsOnLoadMore ) =>
 						setAttributes( { reviewsOnLoadMore } )

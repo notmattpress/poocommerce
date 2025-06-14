@@ -46,18 +46,18 @@ $dialog-padding: 20px;
 		}
 	}
 
-	.wc-block-woocommerce-product-gallery-large-image__image {
+	.wc-block-poocommerce-product-gallery-large-image__image {
 		display: block;
 		position: relative;
 		transition: all 0.1s linear;
 		z-index: 1;
 
 		// Keep the order in this way. The hoverZoom class should override the full-screen-on-click class when both are applied.
-		&.wc-block-woocommerce-product-gallery-large-image__image--full-screen-on-click {
+		&.wc-block-poocommerce-product-gallery-large-image__image--full-screen-on-click {
 			cursor: pointer;
 		}
 
-		&.wc-block-woocommerce-product-gallery-large-image__image--hoverZoom {
+		&.wc-block-poocommerce-product-gallery-large-image__image--hoverZoom {
 			cursor: zoom-in;
 		}
 

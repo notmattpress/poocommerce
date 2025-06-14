@@ -2,12 +2,12 @@
 /**
  * Tests for the WC_Shopping_Zones class.
  *
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 
 /**
  * Class Shipping_Zones.
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 class WC_Tests_Shipping_Zones extends WC_Unit_Test_Case {
 

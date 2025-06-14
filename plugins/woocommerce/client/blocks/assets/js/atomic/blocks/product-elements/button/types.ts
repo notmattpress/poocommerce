@@ -13,7 +13,7 @@ export interface BlockAttributes {
 	isDescendentOfSingleProductBlock?: boolean | undefined;
 	width?: number | undefined;
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	'woocommerce/isDescendantOfAddToCartWithOptions'?: boolean | undefined;
+	'poocommerce/isDescendantOfAddToCartWithOptions'?: boolean | undefined;
 	blockClientId?: string;
 }
 

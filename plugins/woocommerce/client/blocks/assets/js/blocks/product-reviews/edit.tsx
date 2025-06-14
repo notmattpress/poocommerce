@@ -4,7 +4,7 @@
 
 import { SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useQueryLoopProductContextValidation } from '@woocommerce/base-hooks';
+import { useQueryLoopProductContextValidation } from '@poocommerce/base-hooks';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -35,7 +35,7 @@ const Edit = ( {
 		useQueryLoopProductContextValidation( {
 			clientId,
 			postType: context.postType,
-			blockName: __( 'Product Reviews', 'woocommerce' ),
+			blockName: __( 'Product Reviews', 'poocommerce' ),
 		} );
 
 	if ( hasInvalidContext ) {
@@ -50,10 +50,10 @@ const Edit = ( {
 					// @ts-expect-error missing types.
 					__nextHasNoMarginBottom
 					__next40pxDefaultSize
-					label={ __( 'HTML element', 'woocommerce' ) }
+					label={ __( 'HTML element', 'poocommerce' ) }
 					options={ [
 						{
-							label: __( 'Default (<div>)', 'woocommerce' ),
+							label: __( 'Default (<div>)', 'poocommerce' ),
 							value: 'div',
 						},
 						{ label: '<section>', value: 'section' },

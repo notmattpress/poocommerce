@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\PersonalizationTags;
+namespace Automattic\PooCommerce\Internal\EmailEditor\PersonalizationTags;
 
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 
 /**
  * Provider for customer-related personalization tags.
@@ -22,9 +22,9 @@ class CustomerTagsProvider extends AbstractTagProvider {
 	public function register_tags( Personalization_Tags_Registry $registry ): void {
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Customer Email', 'woocommerce' ),
-				'woocommerce/customer-email',
-				__( 'Customer', 'woocommerce' ),
+				__( 'Customer Email', 'poocommerce' ),
+				'poocommerce/customer-email',
+				__( 'Customer', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_billing_email() ?? '';
@@ -36,9 +36,9 @@ class CustomerTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Customer First Name', 'woocommerce' ),
-				'woocommerce/customer-first-name',
-				__( 'Customer', 'woocommerce' ),
+				__( 'Customer First Name', 'poocommerce' ),
+				'poocommerce/customer-first-name',
+				__( 'Customer', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_billing_first_name() ?? '';
@@ -52,9 +52,9 @@ class CustomerTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Customer Last Name', 'woocommerce' ),
-				'woocommerce/customer-last-name',
-				__( 'Customer', 'woocommerce' ),
+				__( 'Customer Last Name', 'poocommerce' ),
+				'poocommerce/customer-last-name',
+				__( 'Customer', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_billing_last_name() ?? '';
@@ -68,9 +68,9 @@ class CustomerTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Customer Full Name', 'woocommerce' ),
-				'woocommerce/customer-full-name',
-				__( 'Customer', 'woocommerce' ),
+				__( 'Customer Full Name', 'poocommerce' ),
+				'poocommerce/customer-full-name',
+				__( 'Customer', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						return $context['order']->get_formatted_billing_full_name() ?? '';
@@ -86,9 +86,9 @@ class CustomerTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Customer Username', 'woocommerce' ),
-				'woocommerce/customer-username',
-				__( 'Customer', 'woocommerce' ),
+				__( 'Customer Username', 'poocommerce' ),
+				'poocommerce/customer-username',
+				__( 'Customer', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['wp_user'] ) ) {
 						return stripslashes( $context['wp_user']->user_login ?? '' );
@@ -100,9 +100,9 @@ class CustomerTagsProvider extends AbstractTagProvider {
 
 		$registry->register(
 			new Personalization_Tag(
-				__( 'Customer Country', 'woocommerce' ),
-				'woocommerce/customer-country',
-				__( 'Customer', 'woocommerce' ),
+				__( 'Customer Country', 'poocommerce' ),
+				'poocommerce/customer-country',
+				__( 'Customer', 'poocommerce' ),
 				function ( array $context ): string {
 					if ( isset( $context['order'] ) ) {
 						$country_code = $context['order']->get_billing_country();

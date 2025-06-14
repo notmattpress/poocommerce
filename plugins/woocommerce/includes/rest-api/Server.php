@@ -2,15 +2,15 @@
 /**
  * Initialize this version of the REST API.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
-namespace Automattic\WooCommerce\RestApi;
+namespace Automattic\PooCommerce\RestApi;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\Utilities\SingletonTrait;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\Utilities\SingletonTrait;
 
 /**
  * Class responsible for loading the REST API and all REST API namespaces.
@@ -28,7 +28,7 @@ class Server {
 	/**
 	 * Hook into WordPress ready to init the REST API as needed.
 	 */
-	public function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod -- Not an injection method.
+	public function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod -- Not an injection method.
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ), 10 );
 
 		\WC_REST_System_Status_V2_Controller::register_cache_clean();
@@ -64,7 +64,7 @@ class Server {
 		 * @param array $controllers List of $namespace => $controllers to load.
 		 */
 		return apply_filters(
-			'woocommerce_rest_api_get_rest_namespaces',
+			'poocommerce_rest_api_get_rest_namespaces',
 			array(
 				'wc/v1'        => wc_rest_should_load_namespace( 'wc/v1' ) ? $this->get_v1_controllers() : array(),
 				'wc/v2'        => wc_rest_should_load_namespace( 'wc/v2' ) ? $this->get_v2_controllers() : array(),

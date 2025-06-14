@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Utils;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Utils;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Integration test for Renderer
@@ -109,12 +109,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$styles_callback = function ( $styles ) {
 			return $styles . 'body { color: pink; }';
 		};
-		add_filter( 'woocommerce_email_renderer_styles', $styles_callback );
+		add_filter( 'poocommerce_email_renderer_styles', $styles_callback );
 		$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'en' );
 		$style    = $this->getStylesValueForTag( $rendered['html'], array( 'tag_name' => 'body' ) );
 		$this->assertIsString( $style );
 		$this->assertStringContainsString( 'color: pink', $style );
-		remove_filter( 'woocommerce_email_renderer_styles', $styles_callback );
+		remove_filter( 'poocommerce_email_renderer_styles', $styles_callback );
 	}
 
 	/**

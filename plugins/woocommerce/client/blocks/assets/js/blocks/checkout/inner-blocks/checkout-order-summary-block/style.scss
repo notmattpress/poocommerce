@@ -1,4 +1,4 @@
-.wp-block-woocommerce-checkout-order-summary-block {
+.wp-block-poocommerce-checkout-order-summary-block {
 	border: 1px solid $universal-border-light;
 	border-radius: 5px;
 
@@ -54,13 +54,13 @@
 }
 
 .has-dark-controls {
-	.wp-block-woocommerce-checkout-order-summary-block {
+	.wp-block-poocommerce-checkout-order-summary-block {
 		border: 1px solid $input-border-dark;
 	}
 }
 
 @include cart-checkout-below-large {
-	.wp-block-woocommerce-checkout-order-summary-block {
+	.wp-block-poocommerce-checkout-order-summary-block {
 		margin-top: 0;
 		border: none;
 

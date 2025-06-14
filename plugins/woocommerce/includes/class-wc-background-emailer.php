@@ -3,7 +3,7 @@
  * Background Emailer
  *
  * @version 3.0.1
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 use Automattic\Jetpack\Constants;

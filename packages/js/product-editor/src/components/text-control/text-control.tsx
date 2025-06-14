@@ -30,7 +30,7 @@ export const TextControl = forwardRef( function ForwardedTextControl(
 		<InputControl
 			{ ...props }
 			ref={ ref }
-			className={ clsx( 'woocommerce-product-text-control', className, {
+			className={ clsx( 'poocommerce-product-text-control', className, {
 				'has-error': error,
 			} ) }
 			label={

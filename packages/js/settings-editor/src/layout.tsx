@@ -6,7 +6,7 @@ import {
 	useResizeObserver,
 	useReducedMotion,
 } from '@wordpress/compose';
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 import {
 	// @ts-expect-error missing type.
 	EditorSnackbars,
@@ -48,8 +48,8 @@ export function Layout( {
 	return (
 		<>
 			{ fullResizer }
-			<div className="woocommerce-site-layout">
-				<div className="woocommerce-site-layout__content">
+			<div className="poocommerce-site-layout">
+				<div className="poocommerce-site-layout__content">
 					{ /*
 						The NavigableRegion must always be rendered and not use
 						`inert` otherwise `useNavigateRegions` will fail.
@@ -71,7 +71,7 @@ export function Layout( {
 											: ANIMATION_DURATION,
 									ease: 'easeOut',
 								} }
-								className="woocommerce-site-layout__sidebar a8c-site-admin-sidebar"
+								className="poocommerce-site-layout__sidebar a8c-site-admin-sidebar"
 							>
 								<SidebarContent
 									shouldAnimate={ false }
@@ -87,7 +87,7 @@ export function Layout( {
 
 					{ ! isMobileViewport && areas.content && (
 						<div
-							className="woocommerce-site-layout__area"
+							className="poocommerce-site-layout__area"
 							style={ {
 								maxWidth: widths?.content,
 							} }
@@ -107,7 +107,7 @@ export function Layout( {
 
 					{ ! isMobileViewport && areas.edit && (
 						<div
-							className="woocommerce-site-layout__area"
+							className="poocommerce-site-layout__area"
 							style={ {
 								maxWidth: widths?.edit,
 							} }

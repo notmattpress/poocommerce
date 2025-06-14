@@ -12,7 +12,7 @@ import {
 	enqueueActions,
 } from 'xstate5';
 import clsx from 'clsx';
-import { getQuery, navigateTo } from '@woocommerce/navigation';
+import { getQuery, navigateTo } from '@poocommerce/navigation';
 import {
 	optionsStore,
 	settingsStore,
@@ -20,9 +20,9 @@ import {
 	TaskType,
 	PaymentGateway,
 	paymentGatewaysStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -82,7 +82,7 @@ const sidebarQueryParamListener = fromCallback( ( { sendBack } ) => {
 
 const launchStoreAction = async () => {
 	const results = await dispatch( optionsStore ).updateOptions( {
-		woocommerce_coming_soon: 'no',
+		poocommerce_coming_soon: 'no',
 	} );
 	if ( results.success ) {
 		return results;
@@ -133,7 +133,7 @@ export const getWooPaymentsStatus = async () => {
 	// Quick (performant) check for the plugin.
 	if (
 		window?.wcSettings?.admin?.plugins?.activePlugins.includes(
-			'woocommerce-payments'
+			'poocommerce-payments'
 		) === false
 	) {
 		return false;
@@ -149,7 +149,7 @@ export const getWooPaymentsStatus = async () => {
 	// Return true when WooPayments is the only enabled gateway.
 	return (
 		enabledPaymentGateways.length === 1 &&
-		enabledPaymentGateways[ 0 ].id === 'woocommerce_payments'
+		enabledPaymentGateways[ 0 ].id === 'poocommerce_payments'
 	);
 };
 
@@ -159,7 +159,7 @@ export const getSiteCachedStatus = async () => {
 	);
 
 	// if store URL exists, check both storeUrl and siteUrl otherwise only check siteUrl
-	// we want to check both because there's a chance that caching is especially disabled for woocommerce pages, e.g WPEngine
+	// we want to check both because there's a chance that caching is especially disabled for poocommerce pages, e.g WPEngine
 	const requests = [] as Promise< boolean >[];
 	if ( settings?.shopUrl ) {
 		requests.push(

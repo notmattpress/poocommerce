@@ -24,7 +24,7 @@ function modifyMoveToTrashAction() {
 	// Available in WordPress 6.8+
 	addAction(
 		'core.registerPostTypeSchema',
-		'woocommerce-email-editor/modify-move-to-trash-action',
+		'poocommerce-email-editor/modify-move-to-trash-action',
 		( postType ) => {
 			removeDefaultMoveToTrashActionAddCustom( postType );
 		}
@@ -33,7 +33,7 @@ function modifyMoveToTrashAction() {
 	// Support for WordPress 6.7+
 	addAction(
 		'core.registerPostTypeActions',
-		'woocommerce-email-editor/modify-move-to-trash-action',
+		'poocommerce-email-editor/modify-move-to-trash-action',
 		( postType ) => {
 			removeDefaultMoveToTrashActionAddCustom( postType );
 		}

@@ -1,17 +1,17 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\Importers;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\Importers;
 
-use Automattic\WooCommerce\Blueprint\Importers\ImportSetSiteOptions;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\Importers\ImportSetSiteOptions;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test the ImportSetSiteOptions class.
  *
- * @package Automattic\WooCommerce\Blueprint\Tests\Unit\Importers
+ * @package Automattic\PooCommerce\Blueprint\Tests\Unit\Importers
  */
 class ImportSetSiteOptionsTest extends TestCase {
 	/**
@@ -33,7 +33,7 @@ class ImportSetSiteOptionsTest extends TestCase {
 		$schema          = Mockery::mock();
 		$schema->options = array(
 			'site_name'                   => 'My New Site',
-			'woocommerce_default_country' => 'JP',
+			'poocommerce_default_country' => 'JP',
 		);
 
 		$import_set_site_options = Mockery::mock( ImportSetSiteOptions::class )
@@ -45,7 +45,7 @@ class ImportSetSiteOptionsTest extends TestCase {
 			->with( 'site_name', 'My New Site' )
 			->andReturn( true );
 		$import_set_site_options->shouldReceive( 'wp_update_option' )
-			->with( 'woocommerce_default_country', 'JP' )
+			->with( 'poocommerce_default_country', 'JP' )
 			->andReturn( true );
 
 		$result = $import_set_site_options->process( $schema );
@@ -56,7 +56,7 @@ class ImportSetSiteOptionsTest extends TestCase {
 		$messages = $result->get_messages( 'info' );
 		$this->assertCount( 2, $messages );
 		$this->assertEquals( 'site_name has been updated.', $messages[0]['message'] );
-		$this->assertEquals( 'woocommerce_default_country has been updated.', $messages[1]['message'] );
+		$this->assertEquals( 'poocommerce_default_country has been updated.', $messages[1]['message'] );
 	}
 
 	/**

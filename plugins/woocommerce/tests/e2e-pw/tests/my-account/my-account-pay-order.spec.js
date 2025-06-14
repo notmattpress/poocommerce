@@ -8,7 +8,7 @@ const randomNum = new Date().getTime().toString();
 const customer = {
 	username: `customer${ randomNum }`,
 	password: 'password',
-	email: `customer${ randomNum }@woocommercecoree2etestsuite.com`,
+	email: `customer${ randomNum }@poocommercecoree2etestsuite.com`,
 };
 
 test.describe(

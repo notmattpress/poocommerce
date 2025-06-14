@@ -10,9 +10,9 @@ sidebar_label: Payment method integration
 
 The client side integration consists of an API for registering both _regular_ and _express_ payment methods.
 
-In both cases, the client side integration is done using registration methods exposed on the `blocks-registry` API. You can access this via the `wc` global in a WooCommerce environment (`wc.wcBlocksRegistry`).
+In both cases, the client side integration is done using registration methods exposed on the `blocks-registry` API. You can access this via the `wc` global in a PooCommerce environment (`wc.wcBlocksRegistry`).
 
-> Note: In your build process, you could do something similar to what is done in the blocks repository which [aliases this API as an external on `@woocommerce/blocks-registry`](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/e089ae17043fa525e8397d605f0f470959f2ae95/bin/webpack-helpers.js#L16-L35).
+> Note: In your build process, you could do something similar to what is done in the blocks repository which [aliases this API as an external on `@poocommerce/blocks-registry`](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/e089ae17043fa525e8397d605f0f470959f2ae95/bin/webpack-helpers.js#L16-L35).
 
 ## Express Payment Methods
 
@@ -28,10 +28,10 @@ To register an express payment method, you use the `registerExpressPaymentMethod
 const { registerExpressPaymentMethod } = window.wc.wcBlocksRegistry;
 ```
 
-If you're using an aliased import for `@woocommerce/blocks-registry`, you can import the function like this:
+If you're using an aliased import for `@poocommerce/blocks-registry`, you can import the function like this:
 
 ```js
-import { registerExpressPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerExpressPaymentMethod } from '@poocommerce/blocks-registry';
 ```
 
 The registry function expects a JavaScript object with options specific to the payment method:
@@ -91,7 +91,7 @@ canMakePayment( {
 } )
 ```
 
-`canMakePayment` returns a boolean value. If your gateway needs to perform async initialization to determine availability, you can return a promise (resolving to boolean). This allows a payment method to be hidden based on the cart, e.g. if the cart has physical/shippable products (example: [`Cash on delivery`](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/e089ae17043fa525e8397d605f0f470959f2ae95/assets/js/payment-method-extensions/payment-methods/cod/index.js#L48-L70)); or for payment methods to control whether they are available depending on other conditions.
+`canMakePayment` returns a boolean value. If your gateway needs to perform async initialization to determine availability, you can return a promise (resolving to boolean). This allows a payment method to be hidden based on the cart, e.g. if the cart has physical/shippable products (example: [`Cash on delivery`](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/e089ae17043fa525e8397d605f0f470959f2ae95/assets/js/payment-method-extensions/payment-methods/cod/index.js#L48-L70)); or for payment methods to control whether they are available depending on other conditions.
 
 `canMakePayment` only runs on the frontend of the Store. In editor context, rather than use `canMakePayment`, the editor will assume the payment method is available (true) so that the defined `edit` component is shown to the merchant.
 
@@ -134,10 +134,10 @@ To register a payment method, you use the `registerPaymentMethod` function from 
 const { registerPaymentMethod } = window.wc.wcBlocksRegistry;
 ```
 
-If you're using an aliased import for `@woocommerce/blocks-registry`, you can import the function like this:
+If you're using an aliased import for `@poocommerce/blocks-registry`, you can import the function like this:
 
 ```js
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 ```
 
 The registry function expects a JavaScript object with options specific to the payment method:
@@ -160,7 +160,7 @@ The options you feed the configuration instance should be an object in this shap
 
 ## Props Fed to Payment Method Nodes
 
-A big part of the payment method integration is the interface that is exposed for payment methods to use via props when the node provided is cloned and rendered on block mount. While all the props are listed below, you can find more details about what the props reference, their types etc via the [typedefs described in this file](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/assets/js/types/type-defs/payment-method-interface.ts).
+A big part of the payment method integration is the interface that is exposed for payment methods to use via props when the node provided is cloned and rendered on block mount. While all the props are listed below, you can find more details about what the props reference, their types etc via the [typedefs described in this file](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/assets/js/types/type-defs/payment-method-interface.ts).
 
 | Property | Type | Description |
 |----------|------|-------------|

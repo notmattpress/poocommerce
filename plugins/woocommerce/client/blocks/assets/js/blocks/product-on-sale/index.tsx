@@ -31,10 +31,10 @@ registerBlockType( metadata, {
 			{
 				type: 'block',
 				blocks: sharedAttributeBlockTypes.filter(
-					( value ) => value !== 'woocommerce/product-on-sale'
+					( value ) => value !== 'poocommerce/product-on-sale'
 				),
 				transform: ( attributes ) =>
-					createBlock( 'woocommerce/product-on-sale', attributes ),
+					createBlock( 'poocommerce/product-on-sale', attributes ),
 			},
 		],
 	},

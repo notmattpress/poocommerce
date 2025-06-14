@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Layout;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Layout;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Settings_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Settings_Controller;
 
 /**
  * This class provides functionality to render inner blocks of a block that supports reduced flex layout.

@@ -20,9 +20,9 @@ import EmptyContent from '../../empty-content';
 function AnalyticsError( { className } ) {
 	const title = __(
 		'There was an error getting your stats. Please try again.',
-		'woocommerce'
+		'poocommerce'
 	);
-	const actionLabel = __( 'Reload', 'woocommerce' );
+	const actionLabel = __( 'Reload', 'poocommerce' );
 	const actionCallback = () => {
 		// @todo Add tracking for how often an error is displayed, and the reload action is clicked.
 		window.location.reload();

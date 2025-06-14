@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\StoreApi\Utilities\QuantityLimits;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Utilities\QuantityLimits;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
@@ -24,7 +24,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$product->set_manage_stock( true );
 		$product->set_stock_quantity( 10 );
@@ -50,14 +50,14 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$product->set_stock_quantity( 10 );
 		$product->set_backorders( 'yes' );
 		$product->save();
 
 		// Disable stock management.
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		$quantity_limits = new QuantityLimits();
 		$limits          = $quantity_limits->get_add_to_cart_limits( $product );
@@ -78,7 +78,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		$product->set_stock_quantity( 10 );
 		$product->set_backorders( 'yes' );
@@ -105,7 +105,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		// Set up product with stock management and backorders allowed.
 		$product->set_manage_stock( 'no' );
@@ -132,7 +132,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		// Set up product with stock management and backorders not allowed.
 		$product->set_manage_stock( true );
@@ -159,7 +159,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Enable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'yes' );
+		update_option( 'poocommerce_manage_stock', 'yes' );
 
 		// Set up product as sold individually with stock management.
 		$product->set_manage_stock( true );
@@ -187,7 +187,7 @@ class QuantityLimitsTests extends TestCase {
 		);
 
 		// Disable stock management globally.
-		update_option( 'woocommerce_manage_stock', 'no' );
+		update_option( 'poocommerce_manage_stock', 'no' );
 
 		// Set up product as sold individually without stock management.
 		$product->set_manage_stock( false );

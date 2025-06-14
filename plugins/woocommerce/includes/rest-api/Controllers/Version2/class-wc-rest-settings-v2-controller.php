@@ -4,7 +4,7 @@
  *
  * Handles requests to the /settings endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.0.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Settings controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Settings_V2_Controller extends WC_REST_Controller {
@@ -58,9 +58,9 @@ class WC_REST_Settings_V2_Controller extends WC_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$groups = apply_filters( 'woocommerce_settings_groups', array() );
+		$groups = apply_filters( 'poocommerce_settings_groups', array() );
 		if ( empty( $groups ) ) {
-			return new WP_Error( 'rest_setting_groups_empty', __( 'No setting groups have been registered.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new WP_Error( 'rest_setting_groups_empty', __( 'No setting groups have been registered.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		$defaults        = $this->group_defaults();
@@ -176,7 +176,7 @@ class WC_REST_Settings_V2_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -195,31 +195,31 @@ class WC_REST_Settings_V2_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'          => array(
-					'description' => __( 'A unique identifier that can be used to link settings together.', 'woocommerce' ),
+					'description' => __( 'A unique identifier that can be used to link settings together.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'label'       => array(
-					'description' => __( 'A human readable label for the setting used in interfaces.', 'woocommerce' ),
+					'description' => __( 'A human readable label for the setting used in interfaces.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'A human readable description for the setting used in interfaces.', 'woocommerce' ),
+					'description' => __( 'A human readable description for the setting used in interfaces.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'parent_id'   => array(
-					'description' => __( 'ID of parent grouping.', 'woocommerce' ),
+					'description' => __( 'ID of parent grouping.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'sub_groups'  => array(
-					'description' => __( 'IDs for settings sub groups.', 'woocommerce' ),
+					'description' => __( 'IDs for settings sub groups.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,

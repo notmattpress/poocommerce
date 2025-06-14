@@ -4,12 +4,12 @@
  *
  * Admin Settings API used by Integrations, Shipping Methods, and Payment Gateways.
  *
- * @package  WooCommerce\Abstracts
+ * @package  PooCommerce\Abstracts
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Utilities\HtmlSanitizer;
+use Automattic\PooCommerce\Internal\Utilities\HtmlSanitizer;
 
 /**
  * WC_Settings_API class.
@@ -21,7 +21,7 @@ abstract class WC_Settings_API {
 	 *
 	 * @var string
 	 */
-	public $plugin_id = 'woocommerce_';
+	public $plugin_id = 'poocommerce_';
 
 	/**
 	 * ID of the class extending the settings API. Used in option names.
@@ -64,7 +64,7 @@ abstract class WC_Settings_API {
 	 * @return array of options
 	 */
 	public function get_form_fields() {
-		return apply_filters( 'woocommerce_settings_api_form_fields_' . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
+		return apply_filters( 'poocommerce_settings_api_form_fields_' . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
 	}
 
 	/**
@@ -194,7 +194,7 @@ abstract class WC_Settings_API {
 
 		$this->settings[ $key ] = $value;
 
-		return update_option( $this->get_option_key(), apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' );
+		return update_option( $this->get_option_key(), apply_filters( 'poocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' );
 	}
 
 	/**
@@ -219,7 +219,7 @@ abstract class WC_Settings_API {
 						 * @since 7.8.0
 						 */
 						do_action(
-							'woocommerce_update_non_option_setting',
+							'poocommerce_update_non_option_setting',
 							array(
 								'id'    => $key,
 								'type'  => $field['type'],
@@ -234,8 +234,8 @@ abstract class WC_Settings_API {
 		}
 
 		$option_key = $this->get_option_key();
-		do_action( 'woocommerce_update_option', array( 'id' => $option_key ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		return update_option( $option_key, apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_update_option', array( 'id' => $option_key ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		return update_option( $option_key, apply_filters( 'poocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings ), 'yes' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 
 	/**
@@ -259,7 +259,7 @@ abstract class WC_Settings_API {
 	 */
 	public function display_errors() {
 		if ( $this->get_errors() ) {
-			echo '<div id="woocommerce_errors" class="error notice is-dismissible">';
+			echo '<div id="poocommerce_errors" class="error notice is-dismissible">';
 			foreach ( $this->get_errors() as $error ) {
 				echo '<p>' . wp_kses_post( $error ) . '</p>';
 			}
@@ -346,13 +346,13 @@ abstract class WC_Settings_API {
 
 			if ( method_exists( $this, 'generate_' . $type . '_html' ) ) {
 				$html .= $this->{'generate_' . $type . '_html'}( $k, $v );
-			} elseif ( has_filter( 'woocommerce_generate_' . $type . '_html' ) ) {
+			} elseif ( has_filter( 'poocommerce_generate_' . $type . '_html' ) ) {
 				/**
 				 * Allow the generation of custom field types on the settings screen.
 				 *
 				 * The dynamic portion of the hook name refers to the slug of the custom field type.
 				 * For instance, to introduce a new field type `fancy_lazy_dropdown` you would use
-				 * the hook `woocommerce_generate_fancy_lazy_dropdown_html`.
+				 * the hook `poocommerce_generate_fancy_lazy_dropdown_html`.
 				 *
 				 * @since 6.5.0
 				 *
@@ -361,7 +361,7 @@ abstract class WC_Settings_API {
 				 * @param array  $data The attributes of the field as an associative array.
 				 * @param object $wc_settings The current WC_Settings_API object.
 				 */
-				$html .= apply_filters( 'woocommerce_generate_' . $type . '_html', '', $k, $v, $this );
+				$html .= apply_filters( 'poocommerce_generate_' . $type . '_html', '', $k, $v, $this );
 			} else {
 				$html .= $this->generate_text_html( $k, $v );
 			}
@@ -829,7 +829,7 @@ abstract class WC_Settings_API {
 					</select>
 					<?php echo $this->get_description_html( $data ); // WPCS: XSS ok. ?>
 					<?php if ( $data['select_buttons'] ) : ?>
-						<br/><a class="select_all button" href="#"><?php esc_html_e( 'Select all', 'woocommerce' ); ?></a> <a class="select_none button" href="#"><?php esc_html_e( 'Select none', 'woocommerce' ); ?></a>
+						<br/><a class="select_all button" href="#"><?php esc_html_e( 'Select all', 'poocommerce' ); ?></a> <a class="select_none button" href="#"><?php esc_html_e( 'Select none', 'poocommerce' ); ?></a>
 					<?php endif; ?>
 				</fieldset>
 			</td>
