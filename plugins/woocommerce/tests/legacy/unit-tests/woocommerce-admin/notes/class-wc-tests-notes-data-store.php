@@ -2,12 +2,12 @@
 /**
  * Admin notes tests
  *
- * @package WooCommerce\Admin\Tests\Notes
+ * @package PooCommerce\Admin\Tests\Notes
  */
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\DataStore;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\DataStore;
 
 /**
  * Class WC_Admin_Tests_Notes_Data_Store
@@ -223,7 +223,7 @@ class WC_Admin_Tests_Notes_Data_Store extends WC_Unit_Test_Case {
 		$note_id = $note->get_id();
 
 		// Sub in a mock datastore that throws an error on read().
-		$mock_datastore = $this->getMockBuilder( \Automattic\WooCommerce\Admin\Notes\DataStore::class )
+		$mock_datastore = $this->getMockBuilder( \Automattic\PooCommerce\Admin\Notes\DataStore::class )
 			->setMethods( array( 'read' ) )
 			->getMock();
 		$mock_datastore->method( 'read' )->will( $this->throwException( new \Exception() ) );
@@ -235,17 +235,17 @@ class WC_Admin_Tests_Notes_Data_Store extends WC_Unit_Test_Case {
 			return $mock_datastore;
 		};
 
-		add_filter( 'woocommerce_admin-note_data_store', $filter_datastore );
+		add_filter( 'poocommerce_admin-note_data_store', $filter_datastore );
 
 		// Attempt to retrieve the test note.
 		$note = Notes::get_note( $note_id );
 
-		remove_filter( 'woocommerce_admin-note_data_store', $filter_datastore );
+		remove_filter( 'poocommerce_admin-note_data_store', $filter_datastore );
 
 		ini_set( 'error_log', $log_file );  // phpcs:ignore WordPress.PHP.IniSet.Risky
 
 		$this->assertFalse( $note );
-		$this->assertEquals( 1, did_action( 'woocommerce_caught_exception' ) );
+		$this->assertEquals( 1, did_action( 'poocommerce_caught_exception' ) );
 	}
 
 	/**
@@ -375,13 +375,13 @@ class WC_Admin_Tests_Notes_Data_Store extends WC_Unit_Test_Case {
 			$note->save();
 		}
 
-		// Add filter for 'woocommerce_note_where_clauses' that should be called only once.
+		// Add filter for 'poocommerce_note_where_clauses' that should be called only once.
 		$filter_hit_count = 0;
 		$filter_callback  = function( $arg ) use ( &$filter_hit_count ) {
 			$filter_hit_count++;
 			return $arg;
 		};
-		add_filter( 'woocommerce_note_where_clauses', $filter_callback, 1 );
+		add_filter( 'poocommerce_note_where_clauses', $filter_callback, 1 );
 
 		// Retrieve test notes by lookup_notes and get_notes.
 		$data_store = WC_Data_Store::load( 'admin-note' );
@@ -448,7 +448,7 @@ class WC_Admin_Tests_Notes_Data_Store extends WC_Unit_Test_Case {
 			$note->save();
 		}
 
-		// Add filter for 'woocommerce_note_where_clauses' that applies only in context.
+		// Add filter for 'poocommerce_note_where_clauses' that applies only in context.
 		$context_filter_hit_count = 0;
 		$context_filter_callback  = function( $where_clauses, $args, $context ) use ( $test_context, $global_context, $context_name, &$context_filter_hit_count ) {
 			if ( $context === $test_context ) {
@@ -457,9 +457,9 @@ class WC_Admin_Tests_Notes_Data_Store extends WC_Unit_Test_Case {
 			}
 			return $where_clauses;
 		};
-		add_filter( 'woocommerce_note_where_clauses', $context_filter_callback, 10, 3 );
+		add_filter( 'poocommerce_note_where_clauses', $context_filter_callback, 10, 3 );
 
-		// Add filter for 'woocommerce_note_where_clauses' that applies in any context.
+		// Add filter for 'poocommerce_note_where_clauses' that applies in any context.
 		$no_context_filter_hit_count = 0;
 		$global_context_received     = null;
 		$no_context_filter_callback  = function( $where_clauses, $args, $context ) use ( $test_context, &$global_context_received, &$no_context_filter_hit_count ) {
@@ -473,7 +473,7 @@ class WC_Admin_Tests_Notes_Data_Store extends WC_Unit_Test_Case {
 			$where_clauses .= ' AND source = "PHPUNIT_TEST"';
 			return $where_clauses;
 		};
-		add_filter( 'woocommerce_note_where_clauses', $no_context_filter_callback, 10, 3 );
+		add_filter( 'poocommerce_note_where_clauses', $no_context_filter_callback, 10, 3 );
 
 		// Get note counts.
 		$no_context_note_count   = $data_store->get_notes_count( array( Note::E_WC_ADMIN_NOTE_INFORMATIONAL ), array() );

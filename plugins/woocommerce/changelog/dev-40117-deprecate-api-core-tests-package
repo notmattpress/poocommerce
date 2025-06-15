@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
 
-Monorepo: drop unsupported @woocommerce/api-core-tests package.
+Monorepo: drop unsupported @poocommerce/api-core-tests package.

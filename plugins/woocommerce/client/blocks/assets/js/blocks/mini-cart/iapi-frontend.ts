@@ -7,8 +7,8 @@ import {
 	getConfig,
 	getElement,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/cart';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/cart';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -23,8 +23,8 @@ import { CartItem } from '../../types';
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooStoreState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooStoreState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -56,13 +56,13 @@ type MiniCart = {
 
 // Destructure state in an empty call to the store, to ensure that state can be correctly typed.
 const { state: miniCartState } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{},
 	{ lock: true }
 );
 
 store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{
 		state: {
 			get totalItemsInCart() {
@@ -127,7 +127,7 @@ type CartItemContext = {
 };
 
 const { state } = store(
-	'woocommerce/mini-cart-items-block',
+	'poocommerce/mini-cart-items-block',
 	{
 		state: {
 			// get cartItem() {
@@ -138,7 +138,7 @@ const { state } = store(
 			get reduceQuantityLabel(): string {
 				const { cartItem } = getContext< CartItemContext >();
 				const { reduceQuantityLabel } = getConfig(
-					'woocommerce/mini-cart-items-block'
+					'poocommerce/mini-cart-items-block'
 				);
 				return reduceQuantityLabel.replace( '%s', cartItem.name );
 			},
@@ -147,7 +147,7 @@ const { state } = store(
 			get increaseQuantityLabel(): string {
 				const { cartItem } = getContext< CartItemContext >();
 				const { increaseQuantityLabel } = getConfig(
-					'woocommerce/mini-cart-items-block'
+					'poocommerce/mini-cart-items-block'
 				);
 
 				return increaseQuantityLabel.replace( '%s', cartItem.name );
@@ -157,7 +157,7 @@ const { state } = store(
 			get quantityDescriptionLabel(): string {
 				const { cartItem } = getContext< CartItemContext >();
 				const { quantityDescriptionLabel } = getConfig(
-					'woocommerce/mini-cart-items-block'
+					'poocommerce/mini-cart-items-block'
 				);
 
 				return quantityDescriptionLabel.replace( '%s', cartItem.name );
@@ -167,7 +167,7 @@ const { state } = store(
 			get removeFromCartLabel(): string {
 				const { cartItem } = getContext< CartItemContext >();
 				const { removeFromCartLabel } = getConfig(
-					'woocommerce/mini-cart-items-block'
+					'poocommerce/mini-cart-items-block'
 				);
 
 				return removeFromCartLabel.replace( '%s', cartItem.name );
@@ -210,7 +210,7 @@ const { state } = store(
 			// Intended to be used in context of a cart item in wp-each
 			get itemPrice(): string {
 				const { cartItem } = getContext< CartItemContext >();
-				const { currency } = getConfig( 'woocommerce' );
+				const { currency } = getConfig( 'poocommerce' );
 
 				const normalizedCurrency = normalizeCurrencyResponse(
 					wooStoreState.cart.totals,
@@ -227,9 +227,9 @@ const { state } = store(
 			get lineItemTotal(): string {
 				const { cartItem } = getContext< CartItemContext >();
 				const { displayCartPriceIncludingTax } = getConfig(
-					'woocommerce/mini-cart'
+					'poocommerce/mini-cart'
 				);
-				const { currency } = getConfig( 'woocommerce' );
+				const { currency } = getConfig( 'poocommerce' );
 
 				const normalizedCurrency = normalizeCurrencyResponse(
 					wooStoreState.cart.totals,
@@ -253,8 +253,8 @@ const { state } = store(
 		actions: {
 			*incrementQuantity(): Generator< unknown, void > {
 				const { cartItem } = getContext< CartItemContext >();
-				const { actions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);
@@ -267,8 +267,8 @@ const { state } = store(
 
 			*decrementQuantity(): Generator< unknown, void > {
 				const { cartItem } = getContext< CartItemContext >();
-				const { actions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);
@@ -284,7 +284,7 @@ const { state } = store(
 );
 
 store(
-	'woocommerce/mini-cart-title-items-counter-block',
+	'poocommerce/mini-cart-title-items-counter-block',
 	{
 		state: {
 			get cartItems() {
@@ -293,7 +293,7 @@ store(
 
 			get itemsInCartText() {
 				const { singularItemsText, pluralItemsText } = getConfig(
-					'woocommerce/mini-cart-title-items-counter-block'
+					'poocommerce/mini-cart-title-items-counter-block'
 				);
 
 				const cartItemsCount = miniCartState.totalItemsInCart;
@@ -309,15 +309,15 @@ store(
 );
 
 store(
-	'woocommerce/mini-cart-footer-block',
+	'poocommerce/mini-cart-footer-block',
 	{
 		state: {
 			get formattedSubtotal(): string {
 				const { displayCartPriceIncludingTax } = getConfig(
-					'woocommerce/mini-cart-footer-block'
+					'poocommerce/mini-cart-footer-block'
 				);
 
-				const { currency } = getConfig( 'woocommerce' );
+				const { currency } = getConfig( 'poocommerce' );
 
 				const subtotal = displayCartPriceIncludingTax
 					? parseInt( wooStoreState.cart.totals.total_items, 10 ) +

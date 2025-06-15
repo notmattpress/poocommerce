@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartItemsBlock class.
@@ -39,20 +39,20 @@ class MiniCartItemsBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render_experimental_iapi_markup( $attributes, $content, $block ) {
-		$screen_reader_text = __( 'Products in cart', 'woocommerce' );
-		$remove_item_label  = __( 'Remove item', 'woocommerce' );
+		$screen_reader_text = __( 'Products in cart', 'poocommerce' );
+		$remove_item_label  = __( 'Remove item', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$reduce_quantity_label = __( 'Reduce quantity of %s', 'woocommerce' );
+		$reduce_quantity_label = __( 'Reduce quantity of %s', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$increase_quantity_label = __( 'Increase quantity of %s', 'woocommerce' );
+		$increase_quantity_label = __( 'Increase quantity of %s', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$quantity_description_label = __( 'Quantity of %s in your cart', 'woocommerce' );
+		$quantity_description_label = __( 'Quantity of %s in your cart', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$remove_from_cart_label = __( 'Remove %s from cart', 'woocommerce' );
+		$remove_from_cart_label = __( 'Remove %s from cart', 'poocommerce' );
 
 		wp_interactivity_config(
 			$this->get_full_block_name(),
@@ -67,15 +67,15 @@ class MiniCartItemsBlock extends AbstractInnerBlock {
 		wp_interactivity_state(
 			$this->get_full_block_name(),
 			array(
-				'cartItems' => wp_interactivity_state( 'woocommerce' )['cart']['items'] ?? [],
+				'cartItems' => wp_interactivity_state( 'poocommerce' )['cart']['items'] ?? [],
 			)
 		);
 
 		ob_start();
 		?>
 		<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		<div data-wp-interactive="<?php echo esc_attr( $this->get_full_block_name() ); ?>" class="wp-block-woocommerce-mini-cart-items-block wc-block-mini-cart__items" tabindex="-1">
-			<div class="wp-block-woocommerce-mini-cart-products-table-block wc-block-mini-cart__products-table">
+		<div data-wp-interactive="<?php echo esc_attr( $this->get_full_block_name() ); ?>" class="wp-block-poocommerce-mini-cart-items-block wc-block-mini-cart__items" tabindex="-1">
+			<div class="wp-block-poocommerce-mini-cart-products-table-block wc-block-mini-cart__products-table">
 				<table class="wc-block-cart-items wc-block-mini-cart-items" tabindex="-1">
 					<caption class="screen-reader-text">
 						<h2>

@@ -7,7 +7,7 @@ import { Button } from '@wordpress/components';
 import { useInView } from 'react-intersection-observer';
 import moment from 'moment';
 import clsx from 'clsx';
-import { H, Section } from '@woocommerce/components';
+import { H, Section } from '@poocommerce/components';
 import { sanitize } from 'dompurify';
 
 /**
@@ -91,10 +91,10 @@ const InboxNoteCard = ( {
 
 		return (
 			<Button
-				className="woocommerce-admin-dismiss-notification"
+				className="poocommerce-admin-dismiss-notification"
 				onClick={ () => onDismiss && onDismiss( note ) }
 			>
-				{ __( 'Dismiss', 'woocommerce' ) }
+				{ __( 'Dismiss', 'poocommerce' ) }
 			</Button>
 		);
 	};
@@ -158,7 +158,7 @@ const InboxNoteCard = ( {
 	const unread = is_read === false;
 	const hasImage = layout === 'thumbnail';
 	const cardClassName = clsx(
-		'woocommerce-inbox-message',
+		'poocommerce-inbox-message',
 		className,
 		layout,
 		{
@@ -166,28 +166,28 @@ const InboxNoteCard = ( {
 		}
 	);
 
-	const actionWrapperClassName = clsx( 'woocommerce-inbox-message__actions', {
+	const actionWrapperClassName = clsx( 'poocommerce-inbox-message__actions', {
 		'has-multiple-actions': note.actions?.length > 1,
 	} );
 
 	return (
 		<section ref={ ref } className={ cardClassName }>
 			{ hasImage && (
-				<div className="woocommerce-inbox-message__image">
+				<div className="poocommerce-inbox-message__image">
 					<img src={ image } alt="" />
 				</div>
 			) }
-			<div className="woocommerce-inbox-message__wrapper">
-				<div className="woocommerce-inbox-message__content">
+			<div className="poocommerce-inbox-message__wrapper">
+				<div className="poocommerce-inbox-message__content">
 					{ unread && (
-						<div className="woocommerce-inbox-message__unread-indicator" />
+						<div className="poocommerce-inbox-message__unread-indicator" />
 					) }
 					{ dateCreatedGmt && (
-						<span className="woocommerce-inbox-message__date">
+						<span className="poocommerce-inbox-message__date">
 							{ moment.utc( dateCreatedGmt ).fromNow() }
 						</span>
 					) }
-					<H className="woocommerce-inbox-message__title">
+					<H className="poocommerce-inbox-message__title">
 						{ note.actions && note.actions.length === 1 && (
 							<InboxNoteActionButton
 								key={ note.actions[ 0 ].id }
@@ -208,7 +208,7 @@ const InboxNoteCard = ( {
 
 						{ note.actions && note.actions.length > 1 && title }
 					</H>
-					<Section className="woocommerce-inbox-message__text">
+					<Section className="poocommerce-inbox-message__text">
 						<span
 							dangerouslySetInnerHTML={ sanitizeHTML( content ) }
 							ref={ linkCallbackRef }

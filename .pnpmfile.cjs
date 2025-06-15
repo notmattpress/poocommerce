@@ -203,20 +203,20 @@ module.exports = {
 				) {
 					const blocksPackageJsonPath = path.resolve(
 						__dirname,
-						'plugins/woocommerce/client/blocks/package.json'
+						'plugins/poocommerce/client/blocks/package.json'
 					);
 
 					const blocksPackageJson = require( blocksPackageJsonPath );
 					const a11yVersion =
 						blocksPackageJson.dependencies?.[ '@wordpress/a11y' ];
 
-					//  Use the version installed in @woocommerce/block-library, fallback if the version is somehow no longer installed.
+					//  Use the version installed in @poocommerce/block-library, fallback if the version is somehow no longer installed.
 					pkg.dependencies[ '@wordpress/a11y' ] =
 						a11yVersion || '4.22.0';
 
-					// Use the WooCommerce fork
+					// Use the PooCommerce fork
 					pkg.dependencies[ '@wordpress/interactivity' ] =
-						'github:woocommerce/gutenberg#interactivity-api-001&path:/packages/interactivity';
+						'github:poocommerce/gutenberg#interactivity-api-001&path:/packages/interactivity';
 				}
 			}
 

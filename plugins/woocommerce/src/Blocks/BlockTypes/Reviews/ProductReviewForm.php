@@ -1,7 +1,7 @@
 <?php declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes\Reviews;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\Reviews;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
 
 /**
  * ProductReviewForm class.
@@ -48,8 +48,8 @@ class ProductReviewForm extends AbstractBlock {
 			return '';
 		}
 
-		if ( get_option( 'woocommerce_review_rating_verification_required' ) !== 'no' && ! wc_customer_bought_product( '', get_current_user_id(), $product->get_id() ) ) {
-			return '<p class="woocommerce-verification-required">' . esc_html__( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ) . '</p>';
+		if ( get_option( 'poocommerce_review_rating_verification_required' ) !== 'no' && ! wc_customer_bought_product( '', get_current_user_id(), $product->get_id() ) ) {
+			return '<p class="poocommerce-verification-required">' . esc_html__( 'Only logged in customers who have purchased this product may leave a review.', 'poocommerce' ) . '</p>';
 		}
 
 		$classes = array( 'comment-respond' );
@@ -64,13 +64,13 @@ class ProductReviewForm extends AbstractBlock {
 		$commenter    = wp_get_current_commenter();
 		$comment_form = array(
 			/* translators: %s is product title */
-			'title_reply'         => have_comments() ? esc_html__( 'Add a review', 'woocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'woocommerce' ), get_the_title() ),
+			'title_reply'         => have_comments() ? esc_html__( 'Add a review', 'poocommerce' ) : sprintf( esc_html__( 'Be the first to review &ldquo;%s&rdquo;', 'poocommerce' ), get_the_title() ),
 			/* translators: %s is product title */
-			'title_reply_to'      => esc_html__( 'Leave a Reply to %s', 'woocommerce' ),
+			'title_reply_to'      => esc_html__( 'Leave a Reply to %s', 'poocommerce' ),
 			'title_reply_before'  => '<span id="reply-title" class="comment-reply-title" role="heading" aria-level="3">',
 			'title_reply_after'   => '</span>',
 			'comment_notes_after' => '',
-			'label_submit'        => esc_html__( 'Submit', 'woocommerce' ),
+			'label_submit'        => esc_html__( 'Submit', 'poocommerce' ),
 			'logged_in_as'        => '',
 			'comment_field'       => '',
 		);
@@ -78,14 +78,14 @@ class ProductReviewForm extends AbstractBlock {
 		$name_email_required = (bool) get_option( 'require_name_email', 1 );
 				$fields      = array(
 					'author' => array(
-						'label'        => __( 'Name', 'woocommerce' ),
+						'label'        => __( 'Name', 'poocommerce' ),
 						'type'         => 'text',
 						'value'        => $commenter['comment_author'],
 						'required'     => $name_email_required,
 						'autocomplete' => 'name',
 					),
 					'email'  => array(
-						'label'        => __( 'Email', 'woocommerce' ),
+						'label'        => __( 'Email', 'poocommerce' ),
 						'type'         => 'email',
 						'value'        => $commenter['comment_author_email'],
 						'required'     => $name_email_required,
@@ -111,24 +111,24 @@ class ProductReviewForm extends AbstractBlock {
 				$account_page_url = wc_get_page_permalink( 'myaccount' );
 				if ( $account_page_url ) {
 					/* translators: %s opening and closing link tags respectively */
-					$comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( esc_html__( 'You must be %1$slogged in%2$s to post a review.', 'woocommerce' ), '<a href="' . esc_url( $account_page_url ) . '">', '</a>' ) . '</p>';
+					$comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf( esc_html__( 'You must be %1$slogged in%2$s to post a review.', 'poocommerce' ), '<a href="' . esc_url( $account_page_url ) . '">', '</a>' ) . '</p>';
 				}
 
 				if ( wc_review_ratings_enabled() ) {
 					$comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating" id="comment-form-rating-label">' .
-						esc_html__( 'Your rating', 'woocommerce' ) .
+						esc_html__( 'Your rating', 'poocommerce' ) .
 						( wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '' ) .
 					'</label><select name="rating" id="rating" required>
-					<option value="">' . esc_html__( 'Rate&hellip;', 'woocommerce' ) . '</option>
-					<option value="5">' . esc_html__( 'Perfect', 'woocommerce' ) . '</option>
-					<option value="4">' . esc_html__( 'Good', 'woocommerce' ) . '</option>
-					<option value="3">' . esc_html__( 'Average', 'woocommerce' ) . '</option>
-					<option value="2">' . esc_html__( 'Not that bad', 'woocommerce' ) . '</option>
-					<option value="1">' . esc_html__( 'Very poor', 'woocommerce' ) . '</option>
+					<option value="">' . esc_html__( 'Rate&hellip;', 'poocommerce' ) . '</option>
+					<option value="5">' . esc_html__( 'Perfect', 'poocommerce' ) . '</option>
+					<option value="4">' . esc_html__( 'Good', 'poocommerce' ) . '</option>
+					<option value="3">' . esc_html__( 'Average', 'poocommerce' ) . '</option>
+					<option value="2">' . esc_html__( 'Not that bad', 'poocommerce' ) . '</option>
+					<option value="1">' . esc_html__( 'Very poor', 'poocommerce' ) . '</option>
 				</select></div>';
 				}
 
-				$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'woocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></p>';
+				$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__( 'Your review', 'poocommerce' ) . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></p>';
 
 				add_filter( 'comment_form_defaults', 'post_comments_form_block_form_defaults' );
 
@@ -141,7 +141,7 @@ class ProductReviewForm extends AbstractBlock {
 				 * @param array $comment_form The comment form arguments.
 				 * @param int   $post_id      The post ID.
 				 */
-				comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ), $block->context['postId'] );
+				comment_form( apply_filters( 'poocommerce_product_review_comment_form_args', $comment_form ), $block->context['postId'] );
 				echo '</div></div>';
 				$form = ob_get_clean();
 

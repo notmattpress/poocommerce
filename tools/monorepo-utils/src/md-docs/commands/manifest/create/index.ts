@@ -32,7 +32,7 @@ export const generateManifestCommand = new Command( 'create' )
 	.option(
 		'-b --baseUrl <baseUrl>',
 		'Base url to resolve markdown file URLs to in the manifest.',
-		'https://raw.githubusercontent.com/woocommerce/woocommerce/trunk'
+		'https://raw.githubusercontent.com/poocommerce/poocommerce/trunk'
 	)
 	.option(
 		'-r --rootDir <rootDir>',
@@ -42,7 +42,7 @@ export const generateManifestCommand = new Command( 'create' )
 	.option(
 		'-be --baseEditUrl <baseEditUrl>',
 		'Base url to provide edit links to. This option will be ignored if your baseUrl is not a GitHub URL.',
-		'https://github.com/woocommerce/woocommerce/edit/trunk'
+		'https://github.com/poocommerce/poocommerce/edit/trunk'
 	)
 	.action( async ( dir, projectName, options ) => {
 		const { outputFilePath, baseUrl, rootDir, baseEditUrl } = options;

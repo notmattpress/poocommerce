@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
  */
 import { SettingsPaymentsMethods } from '..';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 

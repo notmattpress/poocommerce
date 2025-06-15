@@ -3,26 +3,26 @@
  * DataRegenerator class file.
  */
 
-namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * This class handles the (re)generation of the product attributes lookup table.
  * It schedules the regeneration in small product batches by itself, so it can be used outside the
- * regular WooCommerce data regenerations mechanism.
+ * regular PooCommerce data regenerations mechanism.
  *
  * After the regeneration is completed a wp_wc_product_attributes_lookup table will exist with entries for
  * all the products that existed when initiate_regeneration was invoked; entries for products created after that
  * are supposed to be created/updated by the appropriate data store classes (or by the code that uses
  * the data store classes) whenever a product is created/updated.
  *
- * Additionally, after the regeneration is completed a 'woocommerce_attribute_lookup_enabled' option
+ * Additionally, after the regeneration is completed a 'poocommerce_attribute_lookup_enabled' option
  * with a value of 'yes' will have been created, thus effectively enabling the table usage
  * (with an exception: if the regeneration was manually aborted via deleting the
- * 'woocommerce_attribute_lookup_regeneration_in_progress' option) the option will be set to 'no'.
+ * 'poocommerce_attribute_lookup_regeneration_in_progress' option) the option will be set to 'no'.
  *
  * This class also adds two entries to the Status - Tools menu: one for manually regenerating the table contents,
  * and another one for enabling or disabling the actual lookup table usage.
@@ -60,9 +60,9 @@ class DataRegenerator {
 
 		$this->lookup_table_name = $wpdb->prefix . 'wc_product_attributes_lookup';
 
-		add_filter( 'woocommerce_debug_tools', array( $this, 'add_initiate_regeneration_entry_to_tools_array' ), 1, 999 );
-		add_action( 'woocommerce_run_product_attribute_lookup_regeneration_callback', array( $this, 'run_regeneration_step_callback' ) );
-		add_action( 'woocommerce_installed', array( $this, 'run_woocommerce_installed_callback' ) );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'add_initiate_regeneration_entry_to_tools_array' ), 1, 999 );
+		add_action( 'poocommerce_run_product_attribute_lookup_regeneration_callback', array( $this, 'run_regeneration_step_callback' ) );
+		add_action( 'poocommerce_installed', array( $this, 'run_poocommerce_installed_callback' ) );
 	}
 
 	/**
@@ -125,9 +125,9 @@ class DataRegenerator {
 	private function delete_all_attributes_lookup_data( bool $truncate_table ) {
 		global $wpdb;
 
-		delete_option( 'woocommerce_attribute_lookup_enabled' );
-		delete_option( 'woocommerce_attribute_lookup_last_product_id_to_process' );
-		delete_option( 'woocommerce_attribute_lookup_processed_count' );
+		delete_option( 'poocommerce_attribute_lookup_enabled' );
+		delete_option( 'poocommerce_attribute_lookup_last_product_id_to_process' );
+		delete_option( 'poocommerce_attribute_lookup_processed_count' );
 		$this->data_store->unset_regeneration_in_progress_flag();
 		$this->data_store->unset_regeneration_aborted_flag();
 
@@ -161,8 +161,8 @@ class DataRegenerator {
 			return 0;
 		}
 
-		update_option( 'woocommerce_attribute_lookup_last_product_id_to_process', $last_existing_product_id );
-		update_option( 'woocommerce_attribute_lookup_processed_count', 0 );
+		update_option( 'poocommerce_attribute_lookup_last_product_id_to_process', $last_existing_product_id );
+		update_option( 'poocommerce_attribute_lookup_processed_count', 0 );
 
 		return $last_existing_product_id;
 	}
@@ -192,12 +192,12 @@ class DataRegenerator {
 	 * Action scheduler callback, performs one regeneration step and then
 	 * schedules the next step if necessary.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function run_regeneration_step_callback() {
 		if ( ! $this->data_store->regeneration_is_in_progress() ) {
 			// No regeneration in progress at this point means that the regeneration process
-			// was manually aborted via deleting the 'woocommerce_attribute_lookup_regeneration_in_progress' option.
+			// was manually aborted via deleting the 'poocommerce_attribute_lookup_regeneration_in_progress' option.
 			$this->data_store->set_regeneration_aborted_flag();
 			$this->finalize_regeneration( false );
 			return;
@@ -218,9 +218,9 @@ class DataRegenerator {
 		$queue = WC()->get_instance_of( \WC_Queue::class );
 		$queue->schedule_single(
 			WC()->call_function( 'time' ) + 1,
-			'woocommerce_run_product_attribute_lookup_regeneration_callback',
+			'poocommerce_run_product_attribute_lookup_regeneration_callback',
 			array(),
-			'woocommerce-db-updates'
+			'poocommerce-db-updates'
 		);
 	}
 
@@ -239,9 +239,9 @@ class DataRegenerator {
 		 * @since 6.3
 		 * @param int $count Default processing step size.
 		 */
-		$products_per_generation_step = apply_filters( 'woocommerce_attribute_lookup_regeneration_step_size', $step_size ?? self::PRODUCTS_PER_GENERATION_STEP );
+		$products_per_generation_step = apply_filters( 'poocommerce_attribute_lookup_regeneration_step_size', $step_size ?? self::PRODUCTS_PER_GENERATION_STEP );
 
-		$products_already_processed = get_option( 'woocommerce_attribute_lookup_processed_count', 0 );
+		$products_already_processed = get_option( 'poocommerce_attribute_lookup_processed_count', 0 );
 
 		$product_ids = WC()->call_function(
 			'wc_get_products',
@@ -266,9 +266,9 @@ class DataRegenerator {
 		}
 
 		$products_already_processed += count( $product_ids );
-		update_option( 'woocommerce_attribute_lookup_processed_count', $products_already_processed );
+		update_option( 'poocommerce_attribute_lookup_processed_count', $products_already_processed );
 
-		$last_product_id_to_process = get_option( 'woocommerce_attribute_lookup_last_product_id_to_process', PHP_INT_MAX );
+		$last_product_id_to_process = get_option( 'poocommerce_attribute_lookup_last_product_id_to_process', PHP_INT_MAX );
 		return end( $product_ids ) < $last_product_id_to_process;
 	}
 
@@ -280,16 +280,16 @@ class DataRegenerator {
 	public function finalize_regeneration( bool $enable_usage ) {
 		$this->cancel_regeneration_scheduled_action();
 		$this->delete_all_attributes_lookup_data( false );
-		update_option( 'woocommerce_attribute_lookup_enabled', $enable_usage ? 'yes' : 'no' );
+		update_option( 'poocommerce_attribute_lookup_enabled', $enable_usage ? 'yes' : 'no' );
 	}
 
 	/**
 	 * Add a 'Regenerate product attributes lookup table' entry to the Status - Tools page.
 	 *
-	 * @param array $tools_array The tool definitions array that is passed ro the woocommerce_debug_tools filter.
+	 * @param array $tools_array The tool definitions array that is passed ro the poocommerce_debug_tools filter.
 	 * @return array The tools array with the entry added.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function add_initiate_regeneration_entry_to_tools_array( array $tools_array ) {
 		if ( ! $this->data_store->check_lookup_table_exists() ) {
@@ -300,63 +300,63 @@ class DataRegenerator {
 		$generation_was_aborted    = $this->data_store->regeneration_was_aborted();
 
 		$entry = array(
-			'name'             => __( 'Regenerate the product attributes lookup table', 'woocommerce' ),
-			'desc'             => __( 'This tool will regenerate the product attributes lookup table data from existing product(s) data. This process may take a while.', 'woocommerce' ),
+			'name'             => __( 'Regenerate the product attributes lookup table', 'poocommerce' ),
+			'desc'             => __( 'This tool will regenerate the product attributes lookup table data from existing product(s) data. This process may take a while.', 'poocommerce' ),
 			'requires_refresh' => true,
 			'callback'         => function () {
 				$this->initiate_regeneration_from_tools_page();
-				return __( 'Product attributes lookup table data is regenerating', 'woocommerce' );
+				return __( 'Product attributes lookup table data is regenerating', 'poocommerce' );
 			},
 			'selector'         => array(
-				'description'   => __( 'Select a product to regenerate the data for, or leave empty for a full table regeneration:', 'woocommerce' ),
+				'description'   => __( 'Select a product to regenerate the data for, or leave empty for a full table regeneration:', 'poocommerce' ),
 				'class'         => 'wc-product-search',
-				'search_action' => 'woocommerce_json_search_products',
+				'search_action' => 'poocommerce_json_search_products',
 				'name'          => 'regenerate_product_attribute_lookup_data_product_id',
-				'placeholder'   => esc_attr__( 'Search for a product&hellip;', 'woocommerce' ),
+				'placeholder'   => esc_attr__( 'Search for a product&hellip;', 'poocommerce' ),
 			),
 		);
 
 		if ( $generation_is_in_progress ) {
 			$entry['button'] = sprintf(
 				/* translators: %d: How many products have been processed so far. */
-				__( 'Filling in progress (%d)', 'woocommerce' ),
-				get_option( 'woocommerce_attribute_lookup_processed_count', 0 )
+				__( 'Filling in progress (%d)', 'poocommerce' ),
+				get_option( 'poocommerce_attribute_lookup_processed_count', 0 )
 			);
 			$entry['disabled'] = true;
 		} else {
-			$entry['button'] = __( 'Regenerate', 'woocommerce' );
+			$entry['button'] = __( 'Regenerate', 'poocommerce' );
 		}
 
 		$tools_array['regenerate_product_attributes_lookup_table'] = $entry;
 
 		if ( $generation_is_in_progress ) {
 			$entry = array(
-				'name'             => __( 'Abort the product attributes lookup table regeneration', 'woocommerce' ),
-				'desc'             => __( 'This tool will abort the regenerate product attributes lookup table regeneration. After this is done the process can be either started over, or resumed to continue where it stopped.', 'woocommerce' ),
+				'name'             => __( 'Abort the product attributes lookup table regeneration', 'poocommerce' ),
+				'desc'             => __( 'This tool will abort the regenerate product attributes lookup table regeneration. After this is done the process can be either started over, or resumed to continue where it stopped.', 'poocommerce' ),
 				'requires_refresh' => true,
 				'callback'         => function () {
 					$this->abort_regeneration( true );
-					return __( 'Product attributes lookup table regeneration process has been aborted.', 'woocommerce' );
+					return __( 'Product attributes lookup table regeneration process has been aborted.', 'poocommerce' );
 				},
-				'button'           => __( 'Abort', 'woocommerce' ),
+				'button'           => __( 'Abort', 'poocommerce' ),
 			);
 			$tools_array['abort_product_attributes_lookup_table_regeneration'] = $entry;
 		} elseif ( $generation_was_aborted ) {
-			$processed_count = get_option( 'woocommerce_attribute_lookup_processed_count', 0 );
+			$processed_count = get_option( 'poocommerce_attribute_lookup_processed_count', 0 );
 			$entry           = array(
-				'name'             => __( 'Resume the product attributes lookup table regeneration', 'woocommerce' ),
+				'name'             => __( 'Resume the product attributes lookup table regeneration', 'poocommerce' ),
 				'desc'             =>
 					sprintf(
 						/* translators: %1$s = count of products already processed. */
-						__( 'This tool will resume the product attributes lookup table regeneration at the point in which it was aborted (%1$s products were already processed).', 'woocommerce' ),
+						__( 'This tool will resume the product attributes lookup table regeneration at the point in which it was aborted (%1$s products were already processed).', 'poocommerce' ),
 						$processed_count
 					),
 				'requires_refresh' => true,
 				'callback'         => function () {
 					$this->resume_regeneration( true );
-					return __( 'Product attributes lookup table regeneration process has been resumed.', 'woocommerce' );
+					return __( 'Product attributes lookup table regeneration process has been resumed.', 'poocommerce' );
 				},
-				'button'           => __( 'Resume', 'woocommerce' ),
+				'button'           => __( 'Resume', 'poocommerce' ),
 			);
 			$tools_array['resume_product_attributes_lookup_table_regeneration'] = $entry;
 		}
@@ -394,7 +394,7 @@ class DataRegenerator {
 			throw new \Exception( "Can't enable or disable the attributes lookup table usage while it's regenerating." );
 		}
 
-		update_option( 'woocommerce_attribute_lookup_enabled', $enable ? 'yes' : 'no' );
+		update_option( 'poocommerce_attribute_lookup_enabled', $enable ? 'yes' : 'no' );
 	}
 
 	/**
@@ -448,7 +448,7 @@ class DataRegenerator {
 	 */
 	public function cancel_regeneration_scheduled_action() {
 		$queue = WC()->get_instance_of( \WC_Queue::class );
-		$queue->cancel_all( 'woocommerce_run_product_attribute_lookup_regeneration_callback' );
+		$queue->cancel_all( 'poocommerce_run_product_attribute_lookup_regeneration_callback' );
 	}
 
 	/**
@@ -460,7 +460,7 @@ class DataRegenerator {
 		$queue   = WC()->get_instance_of( \WC_Queue::class );
 		$actions = $queue->search(
 			array(
-				'hook'   => 'woocommerce_run_product_attribute_lookup_regeneration_callback',
+				'hook'   => 'poocommerce_run_product_attribute_lookup_regeneration_callback',
 				'status' => \ActionScheduler_Store::STATUS_PENDING,
 			),
 			'ids'
@@ -558,11 +558,11 @@ class DataRegenerator {
 	}
 
 	/**
-	 * Run additional setup needed after a WooCommerce install or update finishes.
+	 * Run additional setup needed after a PooCommerce install or update finishes.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
-	public function run_woocommerce_installed_callback() {
+	public function run_poocommerce_installed_callback() {
 		// The table must exist at this point (created via dbDelta), but we check just in case.
 		if ( ! $this->data_store->check_lookup_table_exists() ) {
 			return;
@@ -576,9 +576,9 @@ class DataRegenerator {
 		// If the lookup table has data, or if it's empty because there are no products yet, we're good.
 		// Otherwise (lookup table is empty but products exist) we need to initiate a regeneration if one isn't already in progress.
 		if ( $this->data_store->lookup_table_has_data() || ! $this->get_last_existing_product_id() ) {
-			$must_enable = get_option( 'woocommerce_attribute_lookup_enabled' ) !== 'no';
+			$must_enable = get_option( 'poocommerce_attribute_lookup_enabled' ) !== 'no';
 			$this->delete_all_attributes_lookup_data( false );
-			update_option( 'woocommerce_attribute_lookup_enabled', $must_enable ? 'yes' : 'no' );
+			update_option( 'poocommerce_attribute_lookup_enabled', $must_enable ? 'yes' : 'no' );
 		} else {
 			$this->initiate_regeneration();
 		}

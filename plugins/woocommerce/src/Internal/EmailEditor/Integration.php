@@ -2,19 +2,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\Internal\EmailEditor\TransactionalEmailPersonalizer;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailPatterns\PatternsController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplatesController;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmails;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\TransactionalEmailPersonalizer;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
 use Throwable;
 use WP_Post;
 
@@ -73,7 +73,7 @@ class Integration {
 			return;
 		}
 
-		add_action( 'woocommerce_init', array( $this, 'initialize' ) );
+		add_action( 'poocommerce_init', array( $this, 'initialize' ) );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Integration {
 		$editor_container = Email_Editor_Container::container();
 		$logger           = $editor_container->get( Email_Editor_Logger::class );
 
-		// Register the WooCommerce logger with the email editor package.
+		// Register the PooCommerce logger with the email editor package.
 		$logger->set_logger( new Logger( wc_get_logger() ) );
 	}
 
@@ -117,17 +117,17 @@ class Integration {
 	 * Register hooks for the integration.
 	 */
 	public function register_hooks() {
-		add_filter( 'woocommerce_email_editor_post_types', array( $this, 'add_email_post_type' ) );
-		add_filter( 'woocommerce_is_email_editor_page', array( $this, 'is_editor_page' ), 10, 1 );
+		add_filter( 'poocommerce_email_editor_post_types', array( $this, 'add_email_post_type' ) );
+		add_filter( 'poocommerce_is_email_editor_page', array( $this, 'is_editor_page' ), 10, 1 );
 		add_filter( 'replace_editor', array( $this, 'replace_editor' ), 10, 2 );
 		add_action( 'before_delete_post', array( $this, 'delete_email_template_associated_with_email_editor_post' ), 10, 2 );
-		add_filter( 'woocommerce_email_editor_send_preview_email_rendered_data', array( $this, 'update_send_preview_email_rendered_data' ) );
-		add_filter( 'woocommerce_email_editor_send_preview_email_personalizer_context', array( $this, 'update_send_preview_email_personalizer_context' ) );
-		add_filter( 'woocommerce_email_editor_preview_post_template_html', array( $this, 'update_preview_post_template_html_data' ), 100, 1 );
+		add_filter( 'poocommerce_email_editor_send_preview_email_rendered_data', array( $this, 'update_send_preview_email_rendered_data' ) );
+		add_filter( 'poocommerce_email_editor_send_preview_email_personalizer_context', array( $this, 'update_send_preview_email_personalizer_context' ) );
+		add_filter( 'poocommerce_email_editor_preview_post_template_html', array( $this, 'update_preview_post_template_html_data' ), 100, 1 );
 	}
 
 	/**
-	 * Add WooCommerce email post type to the list of supported post types.
+	 * Add PooCommerce email post type to the list of supported post types.
 	 *
 	 * @param array $post_types List of post types.
 	 * @return array Modified list of post types.
@@ -137,13 +137,13 @@ class Integration {
 			'name' => self::EMAIL_POST_TYPE,
 			'args' => array(
 				'labels'   => array(
-					'name'          => __( 'Emails', 'woocommerce' ),
-					'singular_name' => __( 'Email', 'woocommerce' ),
-					'add_new_item'  => __( 'Add Email', 'woocommerce' ),
-					'edit_item'     => __( 'Edit Email', 'woocommerce' ),
-					'new_item'      => __( 'New Email', 'woocommerce' ),
-					'view_item'     => __( 'View Email', 'woocommerce' ),
-					'search_items'  => __( 'Search Emails', 'woocommerce' ),
+					'name'          => __( 'Emails', 'poocommerce' ),
+					'singular_name' => __( 'Email', 'poocommerce' ),
+					'add_new_item'  => __( 'Add Email', 'poocommerce' ),
+					'edit_item'     => __( 'Edit Email', 'poocommerce' ),
+					'new_item'      => __( 'New Email', 'poocommerce' ),
+					'view_item'     => __( 'View Email', 'poocommerce' ),
+					'search_items'  => __( 'Search Emails', 'poocommerce' ),
 				),
 				'rewrite'  => array( 'slug' => self::EMAIL_POST_TYPE ),
 				'supports' => array(
@@ -217,12 +217,12 @@ class Integration {
 	}
 
 	/**
-	 * Extend the post API for the wp_template post type to add and save the woocommerce_data field.
+	 * Extend the post API for the wp_template post type to add and save the poocommerce_data field.
 	 */
 	public function extend_template_post_api(): void {
 		register_rest_field(
 			'wp_template',
-			'woocommerce_data',
+			'poocommerce_data',
 			array(
 				'get_callback'    => array( $this->template_api_controller, 'get_template_data' ),
 				'update_callback' => array( $this->template_api_controller, 'save_template_data' ),
@@ -334,12 +334,12 @@ class Integration {
 	}
 
 	/**
-	 * Extend the post API for the woo_email post type to add and save the woocommerce_data field.
+	 * Extend the post API for the woo_email post type to add and save the poocommerce_data field.
 	 */
 	public function extend_post_api(): void {
 		register_rest_field(
 			self::EMAIL_POST_TYPE,
-			'woocommerce_data',
+			'poocommerce_data',
 			array(
 				'get_callback'    => array( $this->email_api_controller, 'get_email_data' ),
 				'update_callback' => array( $this->email_api_controller, 'save_email_data' ),

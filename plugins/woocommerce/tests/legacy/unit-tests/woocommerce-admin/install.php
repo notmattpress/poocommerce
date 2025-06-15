@@ -2,15 +2,15 @@
 /**
  * Install tests
  *
- * @package WooCommerce\Admin\Tests
+ * @package PooCommerce\Admin\Tests
  */
 
 /**
- * Tests for \Automattic\WooCommerce\Internal\Admin\Install class.
+ * Tests for \Automattic\PooCommerce\Internal\Admin\Install class.
  */
 class WC_Admin_Tests_Install extends WP_UnitTestCase {
 
-	const VERSION_OPTION = 'woocommerce_admin_version';
+	const VERSION_OPTION = 'poocommerce_admin_version';
 
 	/**
 	 * @var null|string Initial installed version number.
@@ -118,10 +118,10 @@ class WC_Admin_Tests_Install extends WP_UnitTestCase {
 
 	/**
 	 * Test missed DB version number update.
-	 * See: https:// github.com/woocommerce/woocommerce-admin/issues/5058
+	 * See: https:// github.com/poocommerce/poocommerce-admin/issues/5058
 	 */
 	public function test_missed_version_number_update() {
-		$this->markTestSkipped( 'We no longer update WooCommerce Admin versions' );
+		$this->markTestSkipped( 'We no longer update PooCommerce Admin versions' );
 		$old_version = '1.6.0'; // This should get updated to later versions as we add more migrations.
 
 		// Simulate an upgrade from an older version.
@@ -144,7 +144,7 @@ class WC_Admin_Tests_Install extends WP_UnitTestCase {
 	/**
 	 * Test the following options are created.
 	 *
-	 * - woocommerce_admin_install_timestamp
+	 * - poocommerce_admin_install_timestamp
 	 * - WC_Install::NEWLY_INSTALLED_OPTION
 	 *
 	 * @return void
@@ -154,7 +154,7 @@ class WC_Admin_Tests_Install extends WP_UnitTestCase {
 		WC_Install::install();
 
 		$options = array(
-			'woocommerce_admin_install_timestamp',
+			'poocommerce_admin_install_timestamp',
 			WC_Install::NEWLY_INSTALLED_OPTION,
 		);
 
@@ -164,41 +164,41 @@ class WC_Admin_Tests_Install extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test woocommerce_admin_installed action.
+	 * Test poocommerce_admin_installed action.
 	 * @return void
 	 */
-	public function test_woocommerce_admin_installed_action() {
+	public function test_poocommerce_admin_installed_action() {
 		delete_transient( 'wc_installing' );
 		WC_Install::install();
-		$this->assertTrue( did_action( 'woocommerce_admin_installed' ) > 0 );
+		$this->assertTrue( did_action( 'poocommerce_admin_installed' ) > 0 );
 	}
 
 	/**
-	 * Test woocommerce_updated action gets fired.
+	 * Test poocommerce_updated action gets fired.
 	 *
 	 * @return void
 	 */
-	public function test_woocommerce_updated_action() {
+	public function test_poocommerce_updated_action() {
 		$versions     = array_keys( WC_Install::get_db_update_callbacks() );
 		$prev_version = $versions[ count( $versions ) - 2 ];
-		update_option( 'woocommerce_version', $prev_version );
+		update_option( 'poocommerce_version', $prev_version );
 		WC_Install::check_version();
-		$this->assertTrue( did_action( 'woocommerce_updated' ) > 0 );
+		$this->assertTrue( did_action( 'poocommerce_updated' ) > 0 );
 	}
 
 	/**
-	 * Test woocommerce_newly_installed action gets fired and the option is set to 'no'.
+	 * Test poocommerce_newly_installed action gets fired and the option is set to 'no'.
 	 *
 	 * @return void
 	 */
-	public function test_woocommerce_newly_installed_action() {
+	public function test_poocommerce_newly_installed_action() {
 		update_option( WC_Install::NEWLY_INSTALLED_OPTION, 'yes' );
 
-		// Call twice to ensure `woocommerce_newly_installed` is only triggered once.
+		// Call twice to ensure `poocommerce_newly_installed` is only triggered once.
 		WC_Install::newly_installed();
 		WC_Install::newly_installed();
 
-		$this->assertTrue( 1 === did_action( 'woocommerce_newly_installed' ) );
+		$this->assertTrue( 1 === did_action( 'poocommerce_newly_installed' ) );
 		$this->assertEquals( get_option( WC_Install::NEWLY_INSTALLED_OPTION ), 'no' );
 		$this->assertEquals( get_option( WC_Install::INITIAL_INSTALLED_VERSION ), self::$initial_installed_version_number );
 	}
@@ -212,18 +212,18 @@ class WC_Admin_Tests_Install extends WP_UnitTestCase {
 		WC_Install::install();
 		$this->assertTrue( defined( 'WC_ADMIN_MIGRATING_OPTIONS' ) );
 		$migrated_options = array(
-			'woocommerce_onboarding_profile'           => 'wc_onboarding_profile',
-			'woocommerce_admin_install_timestamp'      => 'wc_admin_install_timestamp',
-			'woocommerce_onboarding_opt_in'            => 'wc_onboarding_opt_in',
-			'woocommerce_admin_import_stats'           => 'wc_admin_import_stats',
-			'woocommerce_admin_version'                => 'wc_admin_version',
-			'woocommerce_admin_last_orders_milestone'  => 'wc_admin_last_orders_milestone',
-			'woocommerce_admin-wc-helper-last-refresh' => 'wc-admin-wc-helper-last-refresh',
-			'woocommerce_admin_report_export_status'   => 'wc_admin_report_export_status',
-			'woocommerce_task_list_complete'           => 'woocommerce_task_list_complete',
-			'woocommerce_task_list_hidden'             => 'woocommerce_task_list_hidden',
-			'woocommerce_extended_task_list_complete'  => 'woocommerce_extended_task_list_complete',
-			'woocommerce_extended_task_list_hidden'    => 'woocommerce_extended_task_list_hidden',
+			'poocommerce_onboarding_profile'           => 'wc_onboarding_profile',
+			'poocommerce_admin_install_timestamp'      => 'wc_admin_install_timestamp',
+			'poocommerce_onboarding_opt_in'            => 'wc_onboarding_opt_in',
+			'poocommerce_admin_import_stats'           => 'wc_admin_import_stats',
+			'poocommerce_admin_version'                => 'wc_admin_version',
+			'poocommerce_admin_last_orders_milestone'  => 'wc_admin_last_orders_milestone',
+			'poocommerce_admin-wc-helper-last-refresh' => 'wc-admin-wc-helper-last-refresh',
+			'poocommerce_admin_report_export_status'   => 'wc_admin_report_export_status',
+			'poocommerce_task_list_complete'           => 'poocommerce_task_list_complete',
+			'poocommerce_task_list_hidden'             => 'poocommerce_task_list_hidden',
+			'poocommerce_extended_task_list_complete'  => 'poocommerce_extended_task_list_complete',
+			'poocommerce_extended_task_list_hidden'    => 'poocommerce_extended_task_list_hidden',
 		);
 
 		foreach ( $migrated_options as $new_option => $old_option ) {

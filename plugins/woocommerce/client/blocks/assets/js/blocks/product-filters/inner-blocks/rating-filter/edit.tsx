@@ -12,9 +12,9 @@ import {
 	useQueryStateByKey,
 	useQueryStateByContext,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import { isBoolean } from '@woocommerce/types';
+} from '@poocommerce/base-context/hooks';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import { isBoolean } from '@poocommerce/types';
 import { useState, useMemo, useEffect } from '@wordpress/element';
 import { withSpokenMessages } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
@@ -46,7 +46,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 					'core/heading',
 					{
 						level: 3,
-						content: __( 'Rating', 'woocommerce' ),
+						content: __( 'Rating', 'poocommerce' ),
 						style: {
 							spacing: {
 								margin: {
@@ -57,7 +57,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 						},
 					},
 				],
-				[ 'woocommerce/product-filter-checkbox-list' ],
+				[ 'poocommerce/product-filter-checkbox-list' ],
 			],
 		}
 	);
@@ -168,7 +168,7 @@ const RatingFilterEdit = ( props: BlockEditProps< Attributes > ) => {
 						<Notice>
 							{ __(
 								"Your store doesn't have any products with ratings yet. This filter option will display when a product receives a review.",
-								'woocommerce'
+								'poocommerce'
 							) }
 						</Notice>
 					) }

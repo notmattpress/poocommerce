@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductPrice class.
@@ -80,12 +80,12 @@ class ProductPrice extends AbstractBlock {
 			$is_interactive                            = ! $is_descendant_of_product_collection && ! $is_descendant_of_grouped_product_selector && $product->is_type( 'variable' );
 
 			$wrapper_attributes = array(
-				'class' => 'wp-block-woocommerce-product-price',
+				'class' => 'wp-block-poocommerce-product-price',
 			);
 
 			if ( $is_interactive ) {
-				wp_enqueue_script_module( 'woocommerce/product-price' );
-				$wrapper_attributes['data-wp-interactive'] = 'woocommerce/product-price';
+				wp_enqueue_script_module( 'poocommerce/product-price' );
+				$wrapper_attributes['data-wp-interactive'] = 'poocommerce/product-price';
 				$wrapper_attributes['data-wp-watch']       = 'callbacks.updatePrice';
 			}
 

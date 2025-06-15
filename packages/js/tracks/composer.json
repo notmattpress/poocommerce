@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/tracks",
-	"description": "WooCommerce user event tracking utilities for Automattic based projects.",
+	"name": "poocommerce/tracks",
+	"description": "PooCommerce user event tracking utilities for Automattic based projects.",
 	"type": "library",
 	"license": "GPL-3.0-or-later",
 	"minimum-stability": "dev",

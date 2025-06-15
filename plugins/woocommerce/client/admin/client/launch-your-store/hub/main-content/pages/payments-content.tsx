@@ -5,9 +5,9 @@ import { useCallback } from 'react';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import React, { useState } from '@wordpress/element';
-import { pluginsStore, paymentSettingsStore } from '@woocommerce/data';
+import { pluginsStore, paymentSettingsStore } from '@poocommerce/data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { WooPaymentsMethodsLogos } from '@woocommerce/onboarding';
+import { WooPaymentsMethodsLogos } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies
@@ -33,18 +33,18 @@ const InstallWooPaymentsStep = ( {
 		return store.getIsWooPayEligible();
 	}, [] );
 
-	let buttonText = __( 'Install', 'woocommerce' );
+	let buttonText = __( 'Install', 'poocommerce' );
 
 	if ( isPluginInstalled && ! isPluginInstalling ) {
-		buttonText = __( 'Enable', 'woocommerce' );
+		buttonText = __( 'Enable', 'poocommerce' );
 	}
 
 	if ( isPluginInstalled && isPluginInstalling ) {
-		buttonText = __( 'Enabling', 'woocommerce' );
+		buttonText = __( 'Enabling', 'poocommerce' );
 	}
 
 	if ( ! isPluginInstalled && isPluginInstalling ) {
-		buttonText = __( 'Installing', 'woocommerce' );
+		buttonText = __( 'Installing', 'poocommerce' );
 	}
 
 	return (
@@ -56,12 +56,12 @@ const InstallWooPaymentsStep = ( {
 				/>
 			</div>
 			<h1 className="launch-your-store-payments-content__step--install-woopayments-title">
-				{ __( 'Accept payments with Woo', 'woocommerce' ) }
+				{ __( 'Accept payments with Woo', 'poocommerce' ) }
 			</h1>
 			<p className="launch-your-store-payments-content__step--install-woopayments-description">
 				{ __(
 					'Set up payments for your store in just a few steps. With WooPayments, you can accept online and in-person payments, track revenue, and handle all payment activity from one place.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<div className="launch-your-store-payments-content__step--install-woopayments-logos">
@@ -103,7 +103,7 @@ export const PaymentsContent = ( {} ) => {
 		setIsPluginInstalling( true );
 
 		// Install and activate the WooPayments plugin.
-		installAndActivatePlugins( [ 'woocommerce-payments' ] )
+		installAndActivatePlugins( [ 'poocommerce-payments' ] )
 			.then( async () => {
 				setWooPaymentsRecentlyActivated( true );
 				// Refresh store data after installation.

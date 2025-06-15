@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { useContainerWidthContext } from '@woocommerce/base-context';
-import type { CartItem } from '@woocommerce/types';
+import { useContainerWidthContext } from '@poocommerce/base-context';
+import type { CartItem } from '@poocommerce/types';
 import clsx from 'clsx';
 
 /**

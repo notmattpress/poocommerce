@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories;
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\SyncUI;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\UI;
-use Automattic\WooCommerce\Internal\Utilities\URL;
-use Automattic\WooCommerce\Internal\Utilities\URLException;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\SyncUI;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin\UI;
+use Automattic\PooCommerce\Internal\Utilities\URL;
+use Automattic\PooCommerce\Internal\Utilities\URLException;
 
 /**
  * Maintains and manages the list of approved directories, within which product downloads can
@@ -46,7 +46,7 @@ class Register {
 		);
 
 		add_action(
-			'before_woocommerce_init',
+			'before_poocommerce_init',
 			function() {
 				if ( get_option( Synchronize::SYNC_TASK_PAGE ) > 0 ) {
 					wc_get_container()->get( Synchronize::class )->init_hooks();
@@ -127,7 +127,7 @@ class Register {
 			return $wpdb->insert_id;
 		}
 
-		throw new ApprovedDirectoriesException( __( 'URL could not be added (probable database error).', 'woocommerce' ), ApprovedDirectoriesException::DB_ERROR );
+		throw new ApprovedDirectoriesException( __( 'URL could not be added (probable database error).', 'poocommerce' ), ApprovedDirectoriesException::DB_ERROR );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Register {
 		);
 
 		if ( false === $wpdb->update( $this->get_table(), $fields, array( 'url_id' => $id ) ) ) {
-			throw new ApprovedDirectoriesException( __( 'URL could not be updated (probable database error).', 'woocommerce' ), ApprovedDirectoriesException::DB_ERROR );
+			throw new ApprovedDirectoriesException( __( 'URL could not be updated (probable database error).', 'poocommerce' ), ApprovedDirectoriesException::DB_ERROR );
 		}
 
 		return true;
@@ -286,7 +286,7 @@ class Register {
 		$url = trailingslashit( $this->normalize_url( $url ) );
 
 		if ( mb_strlen( $url ) > 256 ) {
-			throw new ApprovedDirectoriesException( __( 'Approved directory URLs cannot be longer than 256 characters.', 'woocommerce' ), ApprovedDirectoriesException::INVALID_URL );
+			throw new ApprovedDirectoriesException( __( 'Approved directory URLs cannot be longer than 256 characters.', 'poocommerce' ), ApprovedDirectoriesException::INVALID_URL );
 		}
 
 		return $url;

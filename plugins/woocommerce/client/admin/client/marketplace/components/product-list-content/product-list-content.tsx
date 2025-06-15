@@ -56,7 +56,7 @@ export default function ProductListContent( props: {
 
 	/**
 	 * If the product group is set, we are showing featured products. This a curated list
-	 * of products, fetched from WooCommerce.com API.
+	 * of products, fetched from PooCommerce.com API.
 	 *
 	 * As a design choice, we decided to:
 	 * - Always try to show a full row.
@@ -108,7 +108,7 @@ export default function ProductListContent( props: {
 	const bannerPosition = columns * 2 - 1;
 
 	const classes = clsx(
-		'woocommerce-marketplace__product-list-content',
+		'poocommerce-marketplace__product-list-content',
 		props.className
 	);
 

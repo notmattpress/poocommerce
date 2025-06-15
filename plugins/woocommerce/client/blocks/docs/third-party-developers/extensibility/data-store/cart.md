@@ -59,11 +59,11 @@
 
 ## Overview
 
-The Cart Store provides a collection of selectors and methods to manage and retrieve cart-related data for WooCommerce Blocks. It offers functionality ranging from fetching cart details to managing customer interactions, such as applying coupons or updating shipping information.
+The Cart Store provides a collection of selectors and methods to manage and retrieve cart-related data for PooCommerce Blocks. It offers functionality ranging from fetching cart details to managing customer interactions, such as applying coupons or updating shipping information.
 
 ## Usage
 
-To utilize this store you will import the `cartStore` `StoreDescriptor` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
+To utilize this store you will import the `cartStore` `StoreDescriptor` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
 
 ```js
 const { cartStore } = window.wc.wcBlocksData;
@@ -988,8 +988,8 @@ const itemsPendingDelete = store.getItemsPendingDelete();
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/cart.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/cart.md)
 
 <!-- /FEEDBACK -->

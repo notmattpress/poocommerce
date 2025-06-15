@@ -1,16 +1,16 @@
 {
-	"name": "woocommerce/product-details",
+	"name": "poocommerce/product-details",
 	"icon": "info",
 	"title": "Product Details",
 	"description": "Display a product's description, attributes, and reviews.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"hideTabTitle": {
 			"type": "boolean",
 			"default": false
 		}
 	},
-	"keywords": [ "WooCommerce" ],
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -20,7 +20,7 @@
 			"margin": true
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

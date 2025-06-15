@@ -2,10 +2,10 @@
 /**
  * Class WC_Gateway_Cheque file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @class       WC_Gateway_Cheque
  * @extends     WC_Payment_Gateway
  * @version     2.1.0
- * @package     WooCommerce\Classes\Payment
+ * @package     PooCommerce\Classes\Payment
  */
 class WC_Gateway_Cheque extends WC_Payment_Gateway {
 
@@ -42,10 +42,10 @@ class WC_Gateway_Cheque extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 		$this->id                 = self::ID;
-		$this->icon               = apply_filters( 'woocommerce_cheque_icon', '' );
+		$this->icon               = apply_filters( 'poocommerce_cheque_icon', '' );
 		$this->has_fields         = false;
-		$this->method_title       = _x( 'Check payments', 'Check payment method', 'woocommerce' );
-		$this->method_description = __( 'Take payments in person via checks. This offline gateway can also be useful to test purchases.', 'woocommerce' );
+		$this->method_title       = _x( 'Check payments', 'Check payment method', 'poocommerce' );
+		$this->method_description = __( 'Take payments in person via checks. This offline gateway can also be useful to test purchases.', 'poocommerce' );
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -57,11 +57,11 @@ class WC_Gateway_Cheque extends WC_Payment_Gateway {
 		$this->instructions = $this->get_option( 'instructions' );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_thankyou_cheque', array( $this, 'thankyou_page' ) );
+		add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_thankyou_cheque', array( $this, 'thankyou_page' ) );
 
 		// Customer Emails.
-		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
+		add_action( 'poocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
 	}
 
 	/**
@@ -71,29 +71,29 @@ class WC_Gateway_Cheque extends WC_Payment_Gateway {
 
 		$this->form_fields = array(
 			'enabled'      => array(
-				'title'   => __( 'Enable/Disable', 'woocommerce' ),
+				'title'   => __( 'Enable/Disable', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable check payments', 'woocommerce' ),
+				'label'   => __( 'Enable check payments', 'poocommerce' ),
 				'default' => 'no',
 			),
 			'title'        => array(
-				'title'       => __( 'Title', 'woocommerce' ),
+				'title'       => __( 'Title', 'poocommerce' ),
 				'type'        => 'safe_text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-				'default'     => _x( 'Check payments', 'Check payment method', 'woocommerce' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+				'default'     => _x( 'Check payments', 'Check payment method', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'description'  => array(
-				'title'       => __( 'Description', 'woocommerce' ),
+				'title'       => __( 'Description', 'poocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Payment method description that the customer will see on your checkout.', 'woocommerce' ),
-				'default'     => __( 'Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.', 'woocommerce' ),
+				'description' => __( 'Payment method description that the customer will see on your checkout.', 'poocommerce' ),
+				'default'     => __( 'Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'instructions' => array(
-				'title'       => __( 'Instructions', 'woocommerce' ),
+				'title'       => __( 'Instructions', 'poocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Instructions that will be added to the thank you page and emails.', 'woocommerce' ),
+				'description' => __( 'Instructions that will be added to the thank you page and emails.', 'poocommerce' ),
 				'default'     => '',
 				'desc_tip'    => true,
 			),
@@ -127,7 +127,7 @@ class WC_Gateway_Cheque extends WC_Payment_Gateway {
 			 * @param string $status The default status.
 			 * @param object $order  The order object.
 			 */
-			$instructions_order_status = apply_filters( 'woocommerce_cheque_email_instructions_order_status', OrderStatus::ON_HOLD, $order );
+			$instructions_order_status = apply_filters( 'poocommerce_cheque_email_instructions_order_status', OrderStatus::ON_HOLD, $order );
 			if ( $order->has_status( $instructions_order_status ) ) {
 				echo wp_kses_post( wpautop( wptexturize( $this->instructions ) ) . PHP_EOL );
 			}
@@ -153,9 +153,9 @@ class WC_Gateway_Cheque extends WC_Payment_Gateway {
 			 * @param string $status The default status.
 			 * @param object $order  The order object.
 			 */
-			$process_payment_status = apply_filters( 'woocommerce_cheque_process_payment_order_status', OrderStatus::ON_HOLD, $order );
+			$process_payment_status = apply_filters( 'poocommerce_cheque_process_payment_order_status', OrderStatus::ON_HOLD, $order );
 			// Mark as on-hold (we're awaiting the cheque).
-			$order->update_status( $process_payment_status, _x( 'Awaiting check payment', 'Check payment method', 'woocommerce' ) );
+			$order->update_status( $process_payment_status, _x( 'Awaiting check payment', 'Check payment method', 'poocommerce' ) );
 		} else {
 			$order->payment_complete();
 		}
