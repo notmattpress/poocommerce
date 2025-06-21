@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CouponHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * Tests relating to WC_REST_Product_Reviews_V1_Controller.
@@ -25,7 +25,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 	/**
 	 * Test that an order can be fetched via REST API V1 without triggering a deprecation notice.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/39006
+	 * @see https://github.com/poocommerce/poocommerce/issues/39006
 	 *
 	 * @return void
 	 */
@@ -91,7 +91,7 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not created, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 
 		// Repeat the last test, except by performing an order update (instead of order creation).
 		$request = new WP_REST_Request( 'PUT', '/wc/v1/orders/' . $order_id );
@@ -99,6 +99,6 @@ class WC_REST_Orders_V1_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not updated, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 	}
 }

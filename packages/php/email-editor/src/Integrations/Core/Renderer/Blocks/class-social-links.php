@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Social_Links_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Social_Links_Helper;
 /**
  * Renders the social links block.
  */
@@ -189,7 +189,7 @@ class Social_Links extends Abstract_Block_Renderer {
 			esc_url( $service_url ), // %2$s -> The a href link.
 			esc_url( $service_icon_url ), // %3$s -> The Img src.
 			// translators: %s is the social service name.
-			sprintf( __( '%s icon', 'woocommerce' ), $service_name ), // %4$s -> The Img alt.
+			sprintf( __( '%s icon', 'poocommerce' ), $service_name ), // %4$s -> The Img alt.
 			$anchor_html, // %5$s -> The a styles plus rel and target attributes.
 			esc_html( $service_label ), // %6$s -> The a text (label).
 			esc_attr( $row_container_styles ), // %7$s -> The tr row container styles.

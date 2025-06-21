@@ -3,16 +3,16 @@
  */
 import { render, screen, waitFor, act, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch, select } from '@wordpress/data';
 import {
 	cartStore,
 	checkoutStore,
 	validationStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { default as fetchMock } from 'jest-fetch-mock';
-import { allSettings } from '@woocommerce/settings';
-import { registerPaymentMethod } from '@woocommerce/blocks-registry';
+import { allSettings } from '@poocommerce/settings';
+import { registerPaymentMethod } from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies

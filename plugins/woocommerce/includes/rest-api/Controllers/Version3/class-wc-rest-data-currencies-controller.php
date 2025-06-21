@@ -4,7 +4,7 @@
  *
  * Handles requests to the /data/currencies endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   3.5.0
  */
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Data Currencies controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 
@@ -69,7 +69,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 					'args'                => array(
 						'location' => array(
-							'description' => __( 'ISO4217 currency code.', 'woocommerce' ),
+							'description' => __( 'ISO4217 currency code.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 					),
@@ -87,7 +87,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 	 * @return array|mixed Response data, ready for insertion into collection data.
 	 */
 	public function get_currency( $code, $request ) {
-		$currencies = get_woocommerce_currencies();
+		$currencies = get_poocommerce_currencies();
 		$data       = array();
 
 		if ( ! array_key_exists( $code, $currencies ) ) {
@@ -97,7 +97,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 		$currency = array(
 			'code'   => $code,
 			'name'   => $currencies[ $code ],
-			'symbol' => get_woocommerce_currency_symbol( $code ),
+			'symbol' => get_poocommerce_currency_symbol( $code ),
 		);
 
 		return $currency;
@@ -110,7 +110,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
-		$currencies = get_woocommerce_currencies();
+		$currencies = get_poocommerce_currencies();
 		$data       = array();
 		foreach ( array_keys( $currencies ) as $code ) {
 			$currency = $this->get_currency( $code, $request );
@@ -130,7 +130,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 	public function get_item( $request ) {
 		$data = $this->get_currency( strtoupper( $request['currency'] ), $request );
 		if ( empty( $data ) ) {
-			return new WP_Error( 'woocommerce_rest_data_invalid_currency', __( 'There are no currencies matching these parameters.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_data_invalid_currency', __( 'There are no currencies matching these parameters.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 		return $this->prepare_item_for_response( $data, $request );
 	}
@@ -142,7 +142,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_current_item( $request ) {
-		$currency = get_option( 'woocommerce_currency' );
+		$currency = get_option( 'poocommerce_currency' );
 		return $this->prepare_item_for_response( $this->get_currency( $currency, $request ), $request );
 	}
 
@@ -167,7 +167,7 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 		 * @param array            $item     Currency data.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_data_currency', $response, $item, $request );
+		return apply_filters( 'poocommerce_rest_prepare_data_currency', $response, $item, $request );
 	}
 
 	/**
@@ -204,19 +204,19 @@ class WC_REST_Data_Currencies_Controller extends WC_REST_Data_Controller {
 			'properties' => array(
 				'code'   => array(
 					'type'        => 'string',
-					'description' => __( 'ISO4217 currency code.', 'woocommerce' ),
+					'description' => __( 'ISO4217 currency code.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'name'   => array(
 					'type'        => 'string',
-					'description' => __( 'Full name of currency.', 'woocommerce' ),
+					'description' => __( 'Full name of currency.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'symbol' => array(
 					'type'        => 'string',
-					'description' => __( 'Currency symbol.', 'woocommerce' ),
+					'description' => __( 'Currency symbol.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),

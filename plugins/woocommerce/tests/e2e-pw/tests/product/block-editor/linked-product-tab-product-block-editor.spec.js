@@ -127,7 +127,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 
 			await page
 				.locator(
-					'.wp-block-woocommerce-product-linked-list-field__form-group-content'
+					'.wp-block-poocommerce-product-linked-list-field__form-group-content'
 				)
 				.first()
 				.getByRole( 'combobox' )
@@ -152,14 +152,14 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 			).toHaveCount( 4 );
 
 			const upsellsRows = page.locator(
-				'div.woocommerce-product-list div[role="table"] div[role="rowgroup"] div[role="row"]'
+				'div.poocommerce-product-list div[role="table"] div[role="rowgroup"] div[role="row"]'
 			);
 
 			await expect( upsellsRows ).toHaveCount( 4 );
 
 			await page
 				.locator(
-					'.wp-block-woocommerce-product-linked-list-field__form-group-content'
+					'.wp-block-poocommerce-product-linked-list-field__form-group-content'
 				)
 				.last()
 				.getByRole( 'combobox' )
@@ -171,7 +171,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 				.click();
 
 			await page
-				.locator( '.woocommerce-product-header__actions' )
+				.locator( '.poocommerce-product-header__actions' )
 				.getByRole( 'button', {
 					name: 'Publish',
 				} )
@@ -181,7 +181,7 @@ test.describe( 'General tab', { tag: tags.GUTENBERG }, () => {
 				page.getByLabel( 'Dismiss this notice' )
 			).toContainText( 'Product published' );
 
-			const title = page.locator( '.woocommerce-product-header__title' );
+			const title = page.locator( '.poocommerce-product-header__title' );
 
 			// Save product ID
 			const productIdRegex = /product%2F(\d+)/;

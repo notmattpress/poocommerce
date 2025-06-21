@@ -3,12 +3,12 @@
  */
 import { createElement } from '@wordpress/element';
 import { ToggleControl } from '@wordpress/components';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { recordEvent } from '@woocommerce/tracks';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { recordEvent } from '@poocommerce/tracks';
 import { ReactNode } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp, useEntityId } from '@wordpress/core-data';
 
 /**
@@ -115,7 +115,7 @@ export function Edit( {
 			/>
 			{ disabled && (
 				<p
-					className="wp-block-woocommerce-product-toggle__disable-copy"
+					className="wp-block-poocommerce-product-toggle__disable-copy"
 					dangerouslySetInnerHTML={ sanitizeHTML( disabledCopy ) }
 				/>
 			) }

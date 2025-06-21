@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * ProductSKU class.
@@ -69,7 +69,7 @@ class ProductSKU extends AbstractBlock {
 
 		$styles_and_classes = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
 
-		$prefix = isset( $attributes['prefix'] ) ? wp_kses_post( ( $attributes['prefix'] ) ) : __( 'SKU: ', 'woocommerce' );
+		$prefix = isset( $attributes['prefix'] ) ? wp_kses_post( ( $attributes['prefix'] ) ) : __( 'SKU: ', 'poocommerce' );
 		if ( ! empty( $prefix ) ) {
 			$prefix = sprintf( '<span class="wp-block-post-terms__prefix">%s</span>', $prefix );
 		}
@@ -80,7 +80,7 @@ class ProductSKU extends AbstractBlock {
 		}
 
 		return sprintf(
-			'<div class="wc-block-components-product-sku wc-block-grid__product-sku wp-block-woocommerce-product-sku product_meta wp-block-post-terms %1$s" style="%2$s">
+			'<div class="wc-block-components-product-sku wc-block-grid__product-sku wp-block-poocommerce-product-sku product_meta wp-block-post-terms %1$s" style="%2$s">
 				%3$s
 				<span class="sku">%4$s</span>
 				%5$s

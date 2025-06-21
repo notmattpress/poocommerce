@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockContainerInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 /**
  * Interface for group containers, which contain sections and blocks.

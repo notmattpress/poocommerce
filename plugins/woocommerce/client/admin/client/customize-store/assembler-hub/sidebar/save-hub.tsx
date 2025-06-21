@@ -8,7 +8,7 @@ import {
 	useEffect,
 	useState,
 } from '@wordpress/element';
-import { useQuery } from '@woocommerce/navigation';
+import { useQuery } from '@poocommerce/navigation';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	__experimentalHStack as HStack,
@@ -20,10 +20,10 @@ import { store as coreStore } from '@wordpress/core-data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { store as noticesStore } from '@wordpress/notices';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntitiesSavedStatesIsDirty as useIsDirty } from '@wordpress/editor';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useIsSiteEditorLoading } from '@wordpress/edit-site/build-module/components/layout/hooks';
 
 /**
@@ -152,7 +152,7 @@ export const SaveHub = () => {
 			sendEvent( 'FINISH_CUSTOMIZATION' );
 		} catch ( error ) {
 			createErrorNotice(
-				`${ __( 'Saving failed.', 'woocommerce' ) } ${ error }`
+				`${ __( 'Saving failed.', 'poocommerce' ) } ${ error }`
 			);
 			setIsResolving( false );
 		}
@@ -161,14 +161,14 @@ export const SaveHub = () => {
 	if ( isMainScreen ) {
 		return (
 			<HStack
-				className="woocommerce-edit-site-save-hub"
+				className="poocommerce-edit-site-save-hub"
 				alignment="right"
 				spacing={ 4 }
 			>
 				<Button
 					variant="primary"
 					onClick={ onDone }
-					className="woocommerce-edit-site-save-hub__button"
+					className="poocommerce-edit-site-save-hub__button"
 					disabled={
 						isResolving ||
 						isEditorLoading ||
@@ -180,7 +180,7 @@ export const SaveHub = () => {
 					{ isResolving ? (
 						<Spinner />
 					) : (
-						__( 'Finish customizing', 'woocommerce' )
+						__( 'Finish customizing', 'poocommerce' )
 					) }
 				</Button>
 			</HStack>

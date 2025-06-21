@@ -21,7 +21,7 @@ const orderStatus = [
 ];
 
 test.describe(
-	'WooCommerce Orders > Filter Order by Status',
+	'PooCommerce Orders > Filter Order by Status',
 	{ tag: [ tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );

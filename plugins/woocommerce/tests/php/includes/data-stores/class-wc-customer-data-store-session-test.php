@@ -8,7 +8,7 @@ class WC_Customer_Data_Store_Session_Test extends WC_Unit_Test_Case {
 	 * Ensure that the country and state shipping address fields only inherit
 	 * the corresponding billing address values if a shipping address is not set.
 	 *
-	 * @see https://github.com/woocommerce/woocommerce/issues/28759
+	 * @see https://github.com/poocommerce/poocommerce/issues/28759
 	 * @dataProvider provide_customers_with_different_addresses
 	 *
 	 * @param Closure $customer_closure The customer object being tested.

@@ -35,8 +35,8 @@ const createTestCampaign = ( programId: string ) => {
 		description: '',
 		cost: `USD 30`,
 		manageUrl: `https://wc1.test/wp-admin/admin.php?page=wc-admin&path=/google/dashboard&subpath=/campaigns/edit&programId=${ programId }`,
-		icon: 'https://woocommerce.com/wp-content/uploads/2021/06/woo-GoogleListingsAds-jworee.png',
-		channelName: 'Google for WooCommerce',
+		icon: 'https://poocommerce.com/wp-content/uploads/2021/06/woo-GoogleListingsAds-jworee.png',
+		channelName: 'Google for PooCommerce',
 		channelSlug: 'google-listings-and-ads',
 	};
 };
@@ -55,7 +55,7 @@ describe( 'Campaigns component', () => {
 
 		const { container } = render( <Campaigns /> );
 		const tablePlaceholder = container.querySelector(
-			'div.woocommerce-table__table.is-loading'
+			'div.poocommerce-table__table.is-loading'
 		);
 
 		expect( tablePlaceholder ).toBeInTheDocument();
@@ -117,7 +117,7 @@ describe( 'Campaigns component', () => {
 		expect( screen.getByText( 'Campaign 1' ) ).toBeInTheDocument();
 		expect( screen.getByText( 'USD 30' ) ).toBeInTheDocument();
 
-		const pagination = container.querySelector( '.woocommerce-pagination' );
+		const pagination = container.querySelector( '.poocommerce-pagination' );
 		expect( pagination ).not.toBeInTheDocument();
 	} );
 
@@ -198,12 +198,12 @@ describe( 'Campaigns component', () => {
 						'Boost your product listings with a campaign that is automatically optimized to meet your goals.',
 					channel: {
 						slug: 'google-listings-and-ads',
-						name: 'Google for WooCommerce',
+						name: 'Google for PooCommerce',
 					},
 					create_url:
 						'https://wc1.test/wp-admin/admin.php?page=wc-admin&path=/google/dashboard&subpath=/campaigns/create',
 					icon_url:
-						'https://woocommerce.com/wp-content/uploads/2021/06/woo-GoogleListingsAds-jworee.png',
+						'https://poocommerce.com/wp-content/uploads/2021/06/woo-GoogleListingsAds-jworee.png',
 				},
 			],
 		} );

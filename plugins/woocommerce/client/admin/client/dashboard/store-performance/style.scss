@@ -1,18 +1,18 @@
-.woocommerce-dashboard__store-performance {
+.poocommerce-dashboard__store-performance {
 	margin-bottom: $gap-large;
 
 	@include breakpoint( "<782px" ) {
 		border-width: 0;
 	}
 
-	.woocommerce-summary__item {
+	.poocommerce-summary__item {
 		background-color: $studio-white;
 		&:hover {
 			background-color: $gray-100;
 		}
 	}
 
-	.woocommerce-summary {
+	.poocommerce-summary {
 		background-color: $gray-100;
 		margin: 0;
 
@@ -22,8 +22,8 @@
 			}
 
 			&:not(.is-placeholder) {
-				.woocommerce-summary__item-container:first-child {
-					.woocommerce-summary__item {
+				.poocommerce-summary__item-container:first-child {
+					.poocommerce-summary__item {
 						border-top: 1px solid $gray-400;
 					}
 				}

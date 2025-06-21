@@ -5,7 +5,7 @@ import * as iAPI from '@wordpress/interactivity';
 
 const { getContext, store, getServerContext, getConfig } = iAPI;
 
-const BLOCK_NAME = 'woocommerce/product-filters';
+const BLOCK_NAME = 'poocommerce/product-filters';
 
 function selectFilter() {
 	const context = getContext< ProductFiltersContext >();
@@ -169,7 +169,7 @@ const productFiltersStore = {
 			}
 			actions.navigate();
 		},
-		// TODO: Remove the hardcoded type once https://github.com/woocommerce/gutenberg/pull/8 is merged.
+		// TODO: Remove the hardcoded type once https://github.com/poocommerce/gutenberg/pull/8 is merged.
 		*navigate(): Generator {
 			const context = getServerContext
 				? getServerContext< ProductFiltersContext >()
@@ -191,7 +191,7 @@ const productFiltersStore = {
 				return;
 			}
 
-			const sharedSettings = getConfig( 'woocommerce' );
+			const sharedSettings = getConfig( 'poocommerce' );
 			const productFilterSettings = getConfig( BLOCK_NAME );
 			const isBlockTheme = sharedSettings?.isBlockTheme || false;
 			const isProductArchive =

@@ -1,9 +1,9 @@
 ---
-post_title: Backporting in WooCommerce
+post_title: Backporting in PooCommerce
 sidebar_label: Backporting
 ---
 
-# Backporting in WooCommerce
+# Backporting in PooCommerce
 
 Backporting is the process of applying a change from `trunk` to an open release branch.  When a release branch is created, it is copied from the `trunk` branch at the time of code freeze.  Changes are applied to `trunk` and then backported to the release branch as needed.
 
@@ -26,9 +26,9 @@ On occassion, more urgent changes may occur where we need to target the release 
 Changes are qualified for backporting if they are:
 
 - A bug fix.
-- A change that impacts the performance of WooCommerce.
-- A new feature that is time sensitive and impacts WooCommerce's business goals.
-- A new feature that is contractually required by WooCommerce.
+- A change that impacts the performance of PooCommerce.
+- A new feature that is time sensitive and impacts PooCommerce's business goals.
+- A new feature that is contractually required by PooCommerce.
 
 ## Manually backporting pull requests (Release Lead)
 
@@ -37,7 +37,7 @@ Changes are qualified for backporting if they are:
 Before cutting a new RC, you should manually backport any PRs with the respective labels.
 
 1. Check out the release branch `git checkout release/x.y`.
-2. Find all the [PRs labeled to be cherry picked](https://github.com/woocommerce/woocommerce/pulls?q=is%3Apr+label%3A%22cherry+pick+to+frozen+release%22) to the release branch.  Filter by the current release milestone (`X.Y.0`) to limit to PRs relevant to this release.
+2. Find all the [PRs labeled to be cherry picked](https://github.com/poocommerce/poocommerce/pulls?q=is%3Apr+label%3A%22cherry+pick+to+frozen+release%22) to the release branch.  Filter by the current release milestone (`X.Y.0`) to limit to PRs relevant to this release.
 3. Cherry-pick each PR (in chronological order) using `git cherry-pick [SHA]`.
 4. After cherry-picking all PRs, push to the release branch using `git push`.
 5. Remove the `cherry pick to frozen release` label and update the milestone to the current release for all cherry-picked PRs.

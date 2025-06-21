@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
-use Automattic\WooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
 
 /**
  * ProductSearchResultsTemplate class.
@@ -32,7 +32,7 @@ class ProductSearchResultsTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Product Search Results', 'Template name', 'woocommerce' );
+		return _x( 'Product Search Results', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class ProductSearchResultsTemplate extends AbstractTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Displays search results for your store.', 'woocommerce' );
+		return __( 'Displays search results for your store.', 'poocommerce' );
 	}
 
 	/**
@@ -55,10 +55,10 @@ class ProductSearchResultsTemplate extends AbstractTemplate {
 			$templates = get_block_templates( array( 'slug__in' => array( self::SLUG ) ) );
 
 			if ( isset( $templates[0] ) && BlockTemplateUtils::template_has_legacy_template_block( $templates[0] ) ) {
-				add_filter( 'woocommerce_disable_compatibility_layer', '__return_true' );
+				add_filter( 'poocommerce_disable_compatibility_layer', '__return_true' );
 			}
 
-			add_filter( 'woocommerce_has_block_template', '__return_true', 10, 0 );
+			add_filter( 'poocommerce_has_block_template', '__return_true', 10, 0 );
 		}
 	}
 

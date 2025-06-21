@@ -52,7 +52,7 @@ export function initialize( elementId: string ) {
 		return;
 	}
 	const WrappedEditor = applyFilters(
-		'woocommerce_email_editor_wrap_editor_component',
+		'poocommerce_email_editor_wrap_editor_component',
 		Editor
 	) as typeof Editor;
 	initEventCollector();

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartTitleBlock class.
@@ -40,7 +40,7 @@ class MiniCartTitleBlock extends AbstractInnerBlock {
 	protected function render_experimental_iapi_title_block( $attributes, $content, $block ) {
 		ob_start();
 		?>
-		<div class="wp-block-woocommerce-mini-cart-title-block">
+		<div class="wp-block-poocommerce-mini-cart-title-block">
 			<h2 class="wc-block-mini-cart__title">
 				<?php
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

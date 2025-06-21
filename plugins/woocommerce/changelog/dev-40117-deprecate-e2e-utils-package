@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
 
-Monorepo: drop unsupported @woocommerce/e2e-utils package.
+Monorepo: drop unsupported @poocommerce/e2e-utils package.

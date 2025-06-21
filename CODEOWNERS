@@ -1,24 +1,24 @@
 # Monorepo CI and package managers manifests.
-/.github/ @woocommerce/flux
-**/composer.json @woocommerce/flux
-**/package.json @woocommerce/flux
+/.github/ @poocommerce/flux
+**/composer.json @poocommerce/flux
+**/package.json @poocommerce/flux
 
 # Monorepo tooling folders.
-/bin/ @woocommerce/flux
-/tools/ @woocommerce/flux
-/packages/js/eslint-plugin/ @woocommerce/flux
-/packages/js/dependency-extraction-webpack-plugin/ @woocommerce/flux
-/packages/js/e2e-utils-playwright/ @woocommerce/flux
+/bin/ @poocommerce/flux
+/tools/ @poocommerce/flux
+/packages/js/eslint-plugin/ @poocommerce/flux
+/packages/js/dependency-extraction-webpack-plugin/ @poocommerce/flux
+/packages/js/e2e-utils-playwright/ @poocommerce/flux
 
 # Files in root of repository
-/.* @woocommerce/flux
-/*.* @woocommerce/flux
+/.* @poocommerce/flux
+/*.* @poocommerce/flux
 /changelog.txt
 /pnpm-lock.yaml
 
-# Docs resources, which gets published to https://developer.woocommerce.com
-/docs/ @woocommerce/developer-advocacy
+# Docs resources, which gets published to https://developer.poocommerce.com
+/docs/ @poocommerce/developer-advocacy
 
 # Interactivity API - public stores
-/plugins/woocommerce/client/blocks/assets/js/base/stores/ @woocommerce/billow
-/plugins/woocommerce/src/Blocks/Utils/BlocksSharedState.php @woocommerce/billow
+/plugins/poocommerce/client/blocks/assets/js/base/stores/ @poocommerce/billow
+/plugins/poocommerce/src/Blocks/Utils/BlocksSharedState.php @poocommerce/billow

@@ -1,4 +1,4 @@
-.woocommerce-product-combobox {
+.poocommerce-product-combobox {
 	position: relative;
 	background-color: white;
 
@@ -43,7 +43,7 @@
 		}
 	}
 
-	.woocommerce-product-select__menu-item {
+	.poocommerce-product-select__menu-item {
 		display: flex;
 		align-items: center;
 		padding: $grid-unit;
@@ -69,10 +69,10 @@
 		}
 	}
 
-	.woocommerce-experimental-select-control__combo-box-wrapper {
+	.poocommerce-experimental-select-control__combo-box-wrapper {
 		margin-bottom: 0;
 	}
-	.woocommerce-product-combobox-help {
+	.poocommerce-product-combobox-help {
 		display: flex;
 		align-items: center;
 

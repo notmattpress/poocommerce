@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 use Exception;
 
 /**
@@ -62,12 +62,12 @@ class CouponsController {
 		);
 
 		if ( ! $order ) {
-			throw new Exception( __( 'Invalid order', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid order', 'poocommerce' ) );
 		}
 
 		$coupon = ArrayUtil::get_value_or_default( $post_variables, 'coupon' );
 		if ( StringUtil::is_null_or_whitespace( $coupon ) ) {
-			throw new Exception( __( 'Invalid coupon', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid coupon', 'poocommerce' ) );
 		}
 
 		// Add user ID and/or email so validation for coupon limits works.
@@ -92,7 +92,7 @@ class CouponsController {
 		}
 
 		// translators: %s coupon code.
-		$order->add_order_note( esc_html( sprintf( __( 'Coupon applied: "%s".', 'woocommerce' ), $code ) ), 0, true );
+		$order->add_order_note( esc_html( sprintf( __( 'Coupon applied: "%s".', 'poocommerce' ), $code ) ), 0, true );
 
 		return $order;
 	}

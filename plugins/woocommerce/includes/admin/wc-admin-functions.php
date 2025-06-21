@@ -1,25 +1,25 @@
 <?php
 /**
- * WooCommerce Admin Functions
+ * PooCommerce Admin Functions
  *
- * @package  WooCommerce\Admin\Functions
+ * @package  PooCommerce\Admin\Functions
  * @version  2.4.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Get all WooCommerce screen ids.
+ * Get all PooCommerce screen ids.
  *
  * @return array
  */
 function wc_get_screen_ids() {
-	$wc_screen_id = 'woocommerce';
+	$wc_screen_id = 'poocommerce';
 	$screen_ids   = array(
 		'toplevel_page_' . $wc_screen_id,
 		$wc_screen_id . '_page_wc-orders',
@@ -57,8 +57,8 @@ function wc_get_screen_ids() {
 		}
 	}
 
-	/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-	return apply_filters( 'woocommerce_screen_ids', $screen_ids );
+	/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+	return apply_filters( 'poocommerce_screen_ids', $screen_ids );
 	/* phpcs: enable */
 }
 
@@ -75,7 +75,7 @@ function wc_get_page_screen_id( $for ) {
 
 	if ( in_array( $for, wc_get_order_types( 'admin-menu' ), true ) ) {
 		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
-			$screen_id = 'woocommerce_page_wc-orders' . ( 'shop_order' === $for ? '' : '--' . $for );
+			$screen_id = 'poocommerce_page_wc-orders' . ( 'shop_order' === $for ? '' : '--' . $for );
 		} else {
 			$screen_id = $for;
 		}
@@ -118,8 +118,8 @@ function wc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 		$valid_page_found = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type='page' AND post_status NOT IN ( 'pending', 'trash', 'future', 'auto-draft' )  AND post_name = %s LIMIT 1;", $slug ) );
 	}
 
-	/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-	$valid_page_found = apply_filters( 'woocommerce_create_page_id', $valid_page_found, $slug, $page_content );
+	/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+	$valid_page_found = apply_filters( 'poocommerce_create_page_id', $valid_page_found, $slug, $page_content );
 	/* phpcs: enable */
 
 	if ( $valid_page_found ) {
@@ -158,8 +158,8 @@ function wc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 		);
 		$page_id   = wp_insert_post( $page_data );
 
-		/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-		do_action( 'woocommerce_page_created', $page_id, $page_data );
+		/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+		do_action( 'poocommerce_page_created', $page_id, $page_data );
 		/* phpcs: enable */
 	}
 
@@ -173,11 +173,11 @@ function wc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 /**
  * Output admin fields.
  *
- * Loops through the woocommerce options array and outputs each field.
+ * Loops through the poocommerce options array and outputs each field.
  *
  * @param array $options Opens array to output.
  */
-function woocommerce_admin_fields( $options ) {
+function poocommerce_admin_fields( $options ) {
 
 	if ( ! class_exists( 'WC_Admin_Settings', false ) ) {
 		include dirname( __FILE__ ) . '/class-wc-admin-settings.php';
@@ -192,7 +192,7 @@ function woocommerce_admin_fields( $options ) {
  * @param array $options Option fields to save.
  * @param array $data Passed data.
  */
-function woocommerce_update_options( $options, $data = null ) {
+function poocommerce_update_options( $options, $data = null ) {
 
 	if ( ! class_exists( 'WC_Admin_Settings', false ) ) {
 		include dirname( __FILE__ ) . '/class-wc-admin-settings.php';
@@ -208,7 +208,7 @@ function woocommerce_update_options( $options, $data = null ) {
  * @param mixed $default Default value to save.
  * @return string
  */
-function woocommerce_settings_get_option( $option_name, $default = '' ) {
+function poocommerce_settings_get_option( $option_name, $default = '' ) {
 
 	if ( ! class_exists( 'WC_Admin_Settings', false ) ) {
 		include dirname( __FILE__ ) . '/class-wc-admin-settings.php';
@@ -238,7 +238,7 @@ function wc_maybe_adjust_line_item_product_stock( $item, $item_quantity = -1 ) {
 	 * @param WC_Order_Item $item Item object.
 	 * @param int           $item_quantity Optional quantity to check against.
 	 */
-	if ( apply_filters( 'woocommerce_prevent_adjust_line_item_product_stock', false, $item, $item_quantity ) ) {
+	if ( apply_filters( 'poocommerce_prevent_adjust_line_item_product_stock', false, $item, $item_quantity ) ) {
 		return false;
 	}
 
@@ -300,8 +300,8 @@ function wc_maybe_adjust_line_item_product_stock( $item, $item_quantity = -1 ) {
  */
 function wc_save_order_items( $order_id, $items ) {
 	// Allow other plugins to check change in order items before they are saved.
-	/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-	do_action( 'woocommerce_before_save_order_items', $order_id, $items );
+	/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+	do_action( 'poocommerce_before_save_order_items', $order_id, $items );
 	/* phpcs: enable */
 
 	$qty_change_order_notes = array();
@@ -376,8 +376,8 @@ function wc_save_order_items( $order_id, $items ) {
 			}
 
 			// Allow other plugins to change item object before it is saved.
-			/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-			do_action( 'woocommerce_before_save_order_item', $item );
+			/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+			do_action( 'poocommerce_before_save_order_item', $item );
 			/* phpcs: enable */
 
 			$item->save();
@@ -448,15 +448,15 @@ function wc_save_order_items( $order_id, $items ) {
 
 	if ( ! empty( $qty_change_order_notes ) ) {
 		/* translators: %s item name. */
-		$order->add_order_note( sprintf( __( 'Adjusted stock: %s', 'woocommerce' ), implode( ', ', $qty_change_order_notes ) ), false, true );
+		$order->add_order_note( sprintf( __( 'Adjusted stock: %s', 'poocommerce' ), implode( ', ', $qty_change_order_notes ) ), false, true );
 	}
 
 	$order->update_taxes();
 	$order->calculate_totals( false );
 
 	// Inform other plugins that the items have been saved.
-	/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-	do_action( 'woocommerce_saved_order_items', $order_id, $items );
+	/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+	do_action( 'poocommerce_saved_order_items', $order_id, $items );
 	/* phpcs: enable */
 }
 
@@ -491,8 +491,8 @@ function wc_render_invalid_variation_notice( $product_object ) {
 	global $wpdb;
 
 	// Give ability for extensions to hide this notice.
-	/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-	if ( ! apply_filters( 'woocommerce_show_invalid_variations_notice', true, $product_object ) ) {
+	/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+	if ( ! apply_filters( 'poocommerce_show_invalid_variations_notice', true, $product_object ) ) {
 		return;
 	}
 	/* phpcs: enable */
@@ -522,21 +522,21 @@ function wc_render_invalid_variation_notice( $product_object ) {
 
 	if ( 0 < $invalid_variation_count ) {
 		?>
-		<div id="message" class="inline notice notice-warning woocommerce-message woocommerce-notice-invalid-variation">
+		<div id="message" class="inline notice notice-warning poocommerce-message poocommerce-notice-invalid-variation">
 			<p>
 			<?php
 			echo wp_kses_post(
 				sprintf(
 					/* Translators: %d variation count. */
-					_n( '%d variation does not have a price.', '%d variations do not have prices.', $invalid_variation_count, 'woocommerce' ),
+					_n( '%d variation does not have a price.', '%d variations do not have prices.', $invalid_variation_count, 'poocommerce' ),
 					$invalid_variation_count
 				) . '&nbsp;' .
-				__( 'Variations (and their attributes) that do not have prices will not be shown in your store.', 'woocommerce' )
+				__( 'Variations (and their attributes) that do not have prices will not be shown in your store.', 'poocommerce' )
 			);
 			?>
 			</p>
-			<div class="woocommerce-add-variation-price-container">
-				<button type="button" class="button add_price_for_variations"><?php esc_html_e( 'Add price', 'woocommerce' ); ?></button>
+			<div class="poocommerce-add-variation-price-container">
+				<button type="button" class="button add_price_for_variations"><?php esc_html_e( 'Add price', 'poocommerce' ); ?></button>
 			</div>
 		</div>
 		<?php
@@ -575,15 +575,15 @@ function wc_get_default_product_type_options() {
 		'virtual'      => array(
 			'id'            => '_virtual',
 			'wrapper_class' => 'show_if_simple',
-			'label'         => __( 'Virtual', 'woocommerce' ),
-			'description'   => __( 'Virtual products are intangible and are not shipped.', 'woocommerce' ),
+			'label'         => __( 'Virtual', 'poocommerce' ),
+			'description'   => __( 'Virtual products are intangible and are not shipped.', 'poocommerce' ),
 			'default'       => 'no',
 		),
 		'downloadable' => array(
 			'id'            => '_downloadable',
 			'wrapper_class' => 'show_if_simple',
-			'label'         => __( 'Downloadable', 'woocommerce' ),
-			'description'   => __( 'Downloadable products give access to a file upon purchase.', 'woocommerce' ),
+			'label'         => __( 'Downloadable', 'poocommerce' ),
+			'description'   => __( 'Downloadable products give access to a file upon purchase.', 'poocommerce' ),
 			'default'       => 'no',
 		),
 	);

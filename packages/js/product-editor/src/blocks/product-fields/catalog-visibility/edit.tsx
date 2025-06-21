@@ -3,8 +3,8 @@
  */
 import { useEntityProp } from '@wordpress/core-data';
 import { createElement } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies

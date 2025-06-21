@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 /**
@@ -21,7 +21,7 @@ class MainQueryController implements RegisterHooksInterface {
 	/**
 	 * Initialize dependencies.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @param QueryClauses $query_clauses Instance of QueryClauses.
 	 *
@@ -41,7 +41,7 @@ class MainQueryController implements RegisterHooksInterface {
 	/**
 	 * Filter the posts clauses of the main query to suport global filters.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @param array     $args     Query args.
 	 * @param \WP_Query $wp_query WP_Query object.

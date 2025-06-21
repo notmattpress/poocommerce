@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.0](https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin/v/3.1.0) - 2025-01-06 
+## [3.1.0](https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin/v/3.1.0) - 2025-01-06 
 
 -   Minor - Add JS remote logging package [#49702]
 -   Minor - Add Settings package, feature flag, and initial page. [#52391]
@@ -12,22 +12,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update pnpm to 9.1.0 [#47385]
 -   Minor - Upgraded Typescript in the monorepo to 5.7.2 [#53165]
 
-## [3.0.1](https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin/v/3.0.1) - 2024-05-07 
+## [3.0.1](https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin/v/3.0.1) - 2024-05-07 
 
--   Patch - Add @woocommerce/price-format package. [#47099]
+-   Patch - Add @poocommerce/price-format package. [#47099]
 
-## [3.0.0](https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin/v/3.0.0) - 2024-04-23 
+## [3.0.0](https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin/v/3.0.0) - 2024-04-23 
 
--   Patch - Fix a bug where the assets folder was not distributed with @woocommerce/dependency-extraction-webpack-plugin [#46755]
+-   Patch - Fix a bug where the assets folder was not distributed with @poocommerce/dependency-extraction-webpack-plugin [#46755]
 -   Patch - bump php version in packages/js/*/composer.json [#42020]
 -   Bump node to version 20 [#46702]
 -   Minor - Bump node version. [#45148]
 
-## [2.3.0](https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin/v/2.3.0) - 2023-10-27 
+## [2.3.0](https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin/v/2.3.0) - 2023-10-27 
 
--   Minor - Add @woocommerce/admin-layout package. [#37094]
--   Minor - Add @woocommerce/product-editor package to the packages list. [#36600]
--   Minor - Add @woocommerce/block-templates. [#40263]
+-   Minor - Add @poocommerce/admin-layout package. [#37094]
+-   Minor - Add @poocommerce/product-editor package to the packages list. [#36600]
+-   Minor - Add @poocommerce/block-templates. [#40263]
 -   Minor - Fix node and pnpm versions via engines [#34773]
 -   Minor - Match TypeScript version with syncpack [#34787]
 -   Minor - Remove direct dependency on eslint so that linting works properly with pnpm7 [#34661]
@@ -37,18 +37,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update pnpm to version 8. [#37915]
 -   Minor - Update pnpm version constraint to 7.13.3 to avoid auto-install-peers issues [#35007]
 -   Minor - Upgrade TypeScript to 5.1.6 [#39531]
--   Minor - Add `@woocommerce/blocks-components` to the list of packages that will be resolved. [#41042]
+-   Minor - Add `@poocommerce/blocks-components` to the list of packages that will be resolved. [#41042]
 -   Patch - Make eslint emit JSON report for annotating PRs. [#39704]
 -   Patch - Update eslint to 8.32.0 across the monorepo. [#36700]
 
-## [2.2.0](https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin/v/2.2.0) - 2022-07-08 
+## [2.2.0](https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin/v/2.2.0) - 2022-07-08 
 
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [2.1.0](https://www.npmjs.com/package/@woocommerce/dependency-extraction-webpack-plugin/v/2.1.0) - 2022-06-14 
+## [2.1.0](https://www.npmjs.com/package/@poocommerce/dependency-extraction-webpack-plugin/v/2.1.0) - 2022-06-14 
 
--   Patch - Add '@woocommerce/extend-cart-checkout-block' to list of packages
+-   Patch - Add '@poocommerce/extend-cart-checkout-block' to list of packages
 -   Patch - Standardize lint scripts: add lint:fix
 -   Minor - Add Jetpack Changelogger
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/dependency-extraction-webpack-plugin/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/dependency-extraction-webpack-plugin/CHANGELOG.md).

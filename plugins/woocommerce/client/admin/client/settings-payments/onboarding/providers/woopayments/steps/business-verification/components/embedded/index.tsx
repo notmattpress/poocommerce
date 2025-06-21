@@ -65,7 +65,7 @@ const useInitializeStripe = ( onboardingData: OnboardingFields ) => {
 					throw new Error(
 						__(
 							'Unable to start onboarding. If this problem persists, please contact support.',
-							'woocommerce'
+							'poocommerce'
 						)
 					);
 				}
@@ -87,7 +87,7 @@ const useInitializeStripe = ( onboardingData: OnboardingFields ) => {
 						? err.message
 						: __(
 								'Unable to start onboarding. If this problem persists, please contact support.',
-								'woocommerce'
+								'poocommerce'
 						  )
 				);
 			} finally {

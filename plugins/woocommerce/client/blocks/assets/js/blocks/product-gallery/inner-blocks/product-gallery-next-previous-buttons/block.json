@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-gallery-large-image-next-previous",
+	"name": "poocommerce/product-gallery-large-image-next-previous",
 	"title": "Next/Previous Buttons",
 	"description": "Display next and previous buttons.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"usesContext": [ "postId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"supports": {
 		"interactivity": true,
 		"color": {
@@ -37,6 +37,6 @@
 		},
 		"__experimentalSelector": ".wc-block-product-gallery-large-image-next-previous__button"
 	},
-	"ancestor": [ "woocommerce/product-gallery-large-image" ],
-	"editorStyle": "file:../woocommerce/product-gallery-large-image-next-previous-editor.css"
+	"ancestor": [ "poocommerce/product-gallery-large-image" ],
+	"editorStyle": "file:../poocommerce/product-gallery-large-image-next-previous-editor.css"
 }

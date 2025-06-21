@@ -5,10 +5,10 @@
  * Handles requests to /marketing/campaign-types.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaignType;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaignType;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
 use WC_REST_Controller;
 use WP_Error;
 use WP_REST_Request;
@@ -79,7 +79,7 @@ class MarketingCampaignTypes extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -152,37 +152,37 @@ class MarketingCampaignTypes extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => [
 				'id'          => [
-					'description' => __( 'The unique identifier for the marketing campaign type.', 'woocommerce' ),
+					'description' => __( 'The unique identifier for the marketing campaign type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'name'        => [
-					'description' => __( 'Name of the marketing campaign type.', 'woocommerce' ),
+					'description' => __( 'Name of the marketing campaign type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'description' => [
-					'description' => __( 'Description of the marketing campaign type.', 'woocommerce' ),
+					'description' => __( 'Description of the marketing campaign type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'channel'     => [
-					'description' => __( 'The marketing channel that this campaign type belongs to.', 'woocommerce' ),
+					'description' => __( 'The marketing channel that this campaign type belongs to.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 					'properties'  => [
 						'slug' => [
-							'description' => __( 'The unique identifier of the marketing channel that this campaign type belongs to.', 'woocommerce' ),
+							'description' => __( 'The unique identifier of the marketing channel that this campaign type belongs to.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view' ],
 							'readonly'    => true,
 						],
 						'name' => [
-							'description' => __( 'The name of the marketing channel that this campaign type belongs to.', 'woocommerce' ),
+							'description' => __( 'The name of the marketing channel that this campaign type belongs to.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view' ],
 							'readonly'    => true,
@@ -190,13 +190,13 @@ class MarketingCampaignTypes extends WC_REST_Controller {
 					],
 				],
 				'create_url'  => [
-					'description' => __( 'URL to the create campaign page for this campaign type.', 'woocommerce' ),
+					'description' => __( 'URL to the create campaign page for this campaign type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'icon_url'    => [
-					'description' => __( 'URL to an image/icon for the campaign type.', 'woocommerce' ),
+					'description' => __( 'URL to an image/icon for the campaign type.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,

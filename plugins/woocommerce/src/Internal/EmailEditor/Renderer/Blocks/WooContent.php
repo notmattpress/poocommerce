@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
 
 /**
  * Renders a list item block.

@@ -10,7 +10,7 @@ import { Block } from '@wordpress/blocks';
 export function setEmailBlockSupport() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/supports-email',
+		'poocommerce-email-editor/supports-email',
 		( settings: Block, name ) => {
 			const ALLOWED_BLOCK_TYPES = new Set( [
 				'core/button',

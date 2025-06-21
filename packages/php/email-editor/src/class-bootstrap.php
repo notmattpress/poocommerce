@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer as CoreEmailEditorIntegration;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer as CoreEmailEditorIntegration;
 
 /**
  * Bootstrap class for initializing the Email Editor functionality.
@@ -57,7 +57,7 @@ class Bootstrap {
 		);
 
 		add_filter(
-			'woocommerce_email_editor_initialized',
+			'poocommerce_email_editor_initialized',
 			array(
 				$this,
 				'setup_email_editor_integrations',

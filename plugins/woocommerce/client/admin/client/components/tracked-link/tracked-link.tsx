@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
-import { recordEvent, ExtraProperties } from '@woocommerce/tracks';
+import { Link } from '@poocommerce/components';
+import { recordEvent, ExtraProperties } from '@poocommerce/tracks';
 import { __ } from '@wordpress/i18n';
 
 interface TextProps {
@@ -19,7 +19,7 @@ interface TrackedLinkProps {
 	textProps?: TextProps;
 	/**
 	 * The complete translatable string that includes {{Link}} and {{/Link}} placeholders
-	 * Example: "Visit {{Link}}the WooCommerce Marketplace{{/Link}} to find more tax solutions"
+	 * Example: "Visit {{Link}}the PooCommerce Marketplace{{/Link}} to find more tax solutions"
 	 */
 	message: string;
 	eventName?: string;
@@ -76,7 +76,7 @@ export const TrackedLink = ( {
 								shouldOpenInNewTab
 									? `${ linkText } (${ __(
 											'opens in a new tab',
-											'woocommerce'
+											'poocommerce'
 									  ) })`
 									: undefined
 							}

@@ -11,17 +11,17 @@ const test = baseTest.extend( {
 	page: async ( { page, restApi }, use ) => {
 		// Disable the task list reminder bar, it can interfere with the quick actions
 		await restApi.post( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_reminder_bar_hidden: 'yes',
+			poocommerce_task_list_reminder_bar_hidden: 'yes',
 		} );
 
 		// Disable the orders report date tour
 		await restApi.post( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_orders_report_date_tour_shown: 'yes',
+			poocommerce_orders_report_date_tour_shown: 'yes',
 		} );
 
 		// Disable the revenue report date tour
 		await restApi.post( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_revenue_report_date_tour_shown: 'yes',
+			poocommerce_revenue_report_date_tour_shown: 'yes',
 		} );
 
 		await use( page );
@@ -168,7 +168,7 @@ test.beforeAll( async ( { browser, restApi } ) => {
 	// Reset 'Excluded statuses' to default values.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_excluded_report_order_statuses',
+			'wc-analytics/settings/wc_admin/poocommerce_excluded_report_order_statuses',
 			{
 				value: [ 'pending', 'cancelled', 'failed' ],
 			}
@@ -193,7 +193,7 @@ test.beforeAll( async ( { browser, restApi } ) => {
 	// Reset 'Actionable statuses' to default values.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_actionable_order_statuses',
+			'wc-analytics/settings/wc_admin/poocommerce_actionable_order_statuses',
 			{
 				value: [ 'processing', 'on-hold' ],
 			}
@@ -217,7 +217,7 @@ test.beforeAll( async ( { browser, restApi } ) => {
 	// Reset 'Default date range' to default values.
 	await restApi
 		.post(
-			'wc-analytics/settings/wc_admin/woocommerce_default_date_range',
+			'wc-analytics/settings/wc_admin/poocommerce_default_date_range',
 			{
 				value: 'period=month&compare=previous_year',
 			}

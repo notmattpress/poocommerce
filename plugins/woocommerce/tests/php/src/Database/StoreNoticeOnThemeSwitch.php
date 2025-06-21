@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Database;
+namespace Automattic\PooCommerce\Tests\Database;
 
 use WC_Install;
 
@@ -14,14 +14,14 @@ class StoreNoticeOnThemeSwitch extends \WC_Unit_Test_Case {
 	 *
 	 * @var string
 	 */
-	protected static $enable_store_notice_in_classic_theme_option = 'woocommerce_enable_store_notice_in_classic_theme';
+	protected static $enable_store_notice_in_classic_theme_option = 'poocommerce_enable_store_notice_in_classic_theme';
 
 	/**
 	 * Option name for storing whether the Store Notice is active.
 	 *
 	 * @var string
 	 */
-	protected static $is_store_notice_active_option = 'woocommerce_demo_store';
+	protected static $is_store_notice_active_option = 'poocommerce_demo_store';
 
 	/**
 	 * Run before each test.

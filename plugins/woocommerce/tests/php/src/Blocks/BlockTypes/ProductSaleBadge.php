@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 /**
  * Tests for the ProductSaleBadge block type
@@ -18,9 +18,9 @@ class ProductSaleBadge extends \WP_UnitTestCase {
 		$product->set_regular_price( 10 );
 		$product->set_sale_price( 5 );
 		$product_id = $product->save();
-		$markup     = do_blocks( '<!-- wp:woocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:woocommerce/product-sale-badge /--><!-- /wp:woocommerce/single-product -->' );
+		$markup     = do_blocks( '<!-- wp:poocommerce/single-product {"productId":' . $product_id . '} --><!-- wp:poocommerce/product-sale-badge /--><!-- /wp:poocommerce/single-product -->' );
 
-		$this->assertStringContainsString( 'wp-block-woocommerce-product-sale-badge', $markup, 'The Single Product Block contains the Product Sale Badge block.' );
+		$this->assertStringContainsString( 'wp-block-poocommerce-product-sale-badge', $markup, 'The Single Product Block contains the Product Sale Badge block.' );
 		$this->assertStringContainsString( 'Sale', $markup, 'The Product Sale Badge block contains the sale text.' );
 	}
 }

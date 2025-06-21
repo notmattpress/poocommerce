@@ -57,7 +57,7 @@
 			window.wp.data
 				.dispatch( window.wc.wcBlocksData.CHECKOUT_STORE_KEY )
 				.setExtensionData(
-					'woocommerce/order-attribution',
+					'poocommerce/order-attribution',
 					values,
 					true
 				);
