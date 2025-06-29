@@ -1,15 +1,15 @@
 ---
 description: 
-globs: plugins/woocommerce/tests/**/*.php
+globs: plugins/poocommerce/tests/**/*.php
 alwaysApply: false
 ---
-# WooCommerce PHPUnit Tests
+# PooCommerce PHPUnit Tests
 
-Rules for running WooCommerce PHPUnit tests.
+Rules for running PooCommerce PHPUnit tests.
 
 ## Run PHPUnit Tests
 
-Run WooCommerce PHPUnit tests for specific files or directories.
+Run PooCommerce PHPUnit tests for specific files or directories.
 
 The command to run is
 
@@ -17,6 +17,6 @@ The command to run is
 pnpm run test:php:env {relative_path} --verbose
 ```
 
-And the command must be run in the `plugins/woocommerce` directory.
+And the command must be run in the `plugins/poocommerce` directory.
 
 

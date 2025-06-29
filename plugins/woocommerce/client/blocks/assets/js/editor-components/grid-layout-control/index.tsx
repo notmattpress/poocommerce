@@ -56,7 +56,7 @@ const GridLayoutControl = ( {
 	return (
 		<>
 			<RangeControl
-				label={ __( 'Columns', 'woocommerce' ) }
+				label={ __( 'Columns', 'poocommerce' ) }
 				value={ columns }
 				onChange={ ( value: number ) => {
 					const newValue = clamp( value, minColumns, maxColumns );
@@ -68,7 +68,7 @@ const GridLayoutControl = ( {
 				max={ maxColumns }
 			/>
 			<RangeControl
-				label={ __( 'Rows', 'woocommerce' ) }
+				label={ __( 'Rows', 'poocommerce' ) }
 				value={ rows }
 				onChange={ ( value: number ) => {
 					const newValue = clamp( value, minRows, maxRows );
@@ -82,17 +82,17 @@ const GridLayoutControl = ( {
 			<ToggleControl
 				label={ __(
 					'Align the last block to the bottom',
-					'woocommerce'
+					'poocommerce'
 				) }
 				help={
 					alignButtons
 						? __(
 								'Align the last block to the bottom.',
-								'woocommerce'
+								'poocommerce'
 						  )
 						: __(
 								'The last inner block will follow other content.',
-								'woocommerce'
+								'poocommerce'
 						  )
 				}
 				checked={ alignButtons }

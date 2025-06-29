@@ -47,7 +47,7 @@ export class AxiosOAuthInterceptor extends AxiosInterceptor {
 	}
 
 	/**
-	 * Adds WooCommerce API authentication details to the outgoing request.
+	 * Adds PooCommerce API authentication details to the outgoing request.
 	 *
 	 * @param {AxiosRequestConfig} request The request that was intercepted.
 	 * @return {AxiosRequestConfig} The request with the additional authorization headers.

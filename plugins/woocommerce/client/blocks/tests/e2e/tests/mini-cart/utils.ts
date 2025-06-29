@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { FrontendUtils, BlockData } from '@woocommerce/e2e-utils';
+import { FrontendUtils, BlockData } from '@poocommerce/e2e-utils';
 
 export const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},
@@ -14,6 +14,6 @@ export const blockData: BlockData = {
 };
 
 export const openMiniCart = async ( frontendUtils: FrontendUtils ) => {
-	const block = await frontendUtils.getBlockByName( 'woocommerce/mini-cart' );
+	const block = await frontendUtils.getBlockByName( 'poocommerce/mini-cart' );
 	await block.click();
 };

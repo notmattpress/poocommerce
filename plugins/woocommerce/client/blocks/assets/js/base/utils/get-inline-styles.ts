@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 import { paramCase as kebabCase } from 'change-case';
 import { getCSSRules } from '@wordpress/style-engine';
-import { isObject } from '@woocommerce/types';
+import { isObject } from '@poocommerce/types';
 import type { Style as StyleEngineProperties } from '@wordpress/style-engine/src/types';
 
 /**

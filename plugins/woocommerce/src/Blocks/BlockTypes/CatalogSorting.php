@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * CatalogSorting class.
@@ -28,7 +28,7 @@ class CatalogSorting extends AbstractBlock {
 	 */
 	protected function render( $attributes, $content, $block ) {
 		ob_start();
-		woocommerce_catalog_ordering( $attributes );
+		poocommerce_catalog_ordering( $attributes );
 		$catalog_sorting = ob_get_clean();
 
 		if ( ! $catalog_sorting ) {
@@ -42,7 +42,7 @@ class CatalogSorting extends AbstractBlock {
 					' ',
 					array_filter(
 						[
-							'woocommerce wc-block-catalog-sorting',
+							'poocommerce wc-block-catalog-sorting',
 							esc_attr( $classes_and_styles['classes'] ),
 						]
 					)

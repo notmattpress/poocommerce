@@ -4,8 +4,8 @@
 import clsx from 'clsx';
 import { isValidElement } from '@wordpress/element';
 import type { ReactElement, ReactNode } from 'react';
-import type { Currency } from '@woocommerce/types';
-import { Skeleton } from '@woocommerce/base-components/skeleton';
+import type { Currency } from '@poocommerce/types';
+import { Skeleton } from '@poocommerce/base-components/skeleton';
 
 /**
  * Internal dependencies

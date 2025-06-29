@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState } from '@wordpress/element';
-import { TreeSelectControl } from '@woocommerce/components';
+import { TreeSelectControl } from '@poocommerce/components';
 import { __ } from '@wordpress/i18n';
 
 export const RegionPicker = ( { options, initialValues } ) => {
@@ -19,8 +19,8 @@ export const RegionPicker = ( { options, initialValues } ) => {
 			value={ selected }
 			onChange={ onChange }
 			options={ options }
-			placeholder={ __( 'Start typing to filter zones', 'woocommerce' ) }
-			selectAllLabel={ __( 'Select all countries', 'woocommerce' ) }
+			placeholder={ __( 'Start typing to filter zones', 'poocommerce' ) }
+			selectAllLabel={ __( 'Select all countries', 'poocommerce' ) }
 			individuallySelectParent
 			maxVisibleTags={ 5 }
 		/>

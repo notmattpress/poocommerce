@@ -3,12 +3,12 @@
  */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import apiFetch from '@wordpress/api-fetch';
-import { Loader } from '@woocommerce/onboarding';
+import { Loader } from '@poocommerce/onboarding';
 import { __ } from '@wordpress/i18n';
 import interpolateComponents from '@automattic/interpolate-components';
 import { Notice, Button } from '@wordpress/components';
-import { Link } from '@woocommerce/components';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
+import { Link } from '@poocommerce/components';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -32,8 +32,8 @@ const TestDriveLoader: React.FunctionComponent< {
 	title?: string;
 	message?: string;
 } > = ( { progress, title, message } ) => (
-	<Loader className="woocommerce-payments-test-account-step__preloader">
-		<Loader.Layout className="woocommerce-payments-test-account-step__preloader-layout">
+	<Loader className="poocommerce-payments-test-account-step__preloader">
+		<Loader.Layout className="poocommerce-payments-test-account-step__preloader-layout">
 			<Loader.Illustration>
 				<img
 					src={ `${ WC_ASSET_URL }images/onboarding/test-account-setup.svg` }
@@ -43,14 +43,14 @@ const TestDriveLoader: React.FunctionComponent< {
 			</Loader.Illustration>
 
 			<Loader.Title>
-				{ title || __( 'Finishing payments setup', 'woocommerce' ) }
+				{ title || __( 'Finishing payments setup', 'poocommerce' ) }
 			</Loader.Title>
 			<Loader.ProgressBar progress={ progress ?? 0 } />
 			<Loader.Sequence interval={ 0 }>
 				{ message ||
 					__(
 						"In just a few moments, you'll be ready to test payments on your store.",
-						'woocommerce'
+						'poocommerce'
 					) }
 			</Loader.Sequence>
 		</Loader.Layout>
@@ -82,9 +82,9 @@ type Status =
 	| 'failed';
 
 const PHASE_MESSAGES = [
-	__( 'Setting up your test account', 'woocommerce' ),
-	__( 'Finishing payments setup', 'woocommerce' ),
-	__( 'Almost there!', 'woocommerce' ),
+	__( 'Setting up your test account', 'poocommerce' ),
+	__( 'Finishing payments setup', 'poocommerce' ),
+	__( 'Almost there!', 'poocommerce' ),
 ];
 
 const TestAccountStep = () => {
@@ -217,7 +217,7 @@ const TestAccountStep = () => {
 					currentStep?.errors?.[ 0 ]?.message ||
 						__(
 							'There are environment or store setup issues which are blocking progress. Please resolve them to proceed.',
-							'woocommerce'
+							'poocommerce'
 						)
 				);
 				setStatus( 'blocked' );
@@ -268,7 +268,7 @@ const TestAccountStep = () => {
 								response?.message ||
 									__(
 										'Creating test account failed. Please try again.',
-										'woocommerce'
+										'poocommerce'
 									)
 							);
 							setStatus( 'error' );
@@ -433,13 +433,13 @@ const TestAccountStep = () => {
 		if ( phase === 1 ) {
 			return __(
 				"The test account creation is taking a bit longer than expected, but don't worry — we're on it! Please bear with us for a few seconds more as we set everything up for your store.",
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 		if ( phase === 2 ) {
 			return __(
 				"Thank you for your patience! Unfortunately, the test account creation is taking a bit longer than we anticipated. But don't worry — we won't give up! Feel free to close this modal and check back later. We appreciate your understanding!",
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 		return undefined;
@@ -451,26 +451,26 @@ const TestAccountStep = () => {
 			<>
 				<WooPaymentsStepHeader onClose={ closeModal } />
 				<div className="settings-payments-onboarding-modal__step--content">
-					<div className="woocommerce-payments-test-account-step__success_content_container">
-						<div className="woocommerce-woopayments-modal__content woocommerce-payments-test-account-step__success_content">
-							<h1 className="woocommerce-payments-test-account-step__success_content_title">
+					<div className="poocommerce-payments-test-account-step__success_content_container">
+						<div className="poocommerce-woopayments-modal__content poocommerce-payments-test-account-step__success_content">
+							<h1 className="poocommerce-payments-test-account-step__success_content_title">
 								{ __(
 									"You're ready to test payments!",
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h1>
-							<div className="woocommerce-woopayments-modal__content__item">
-								<div className="woocommerce-woopayments-modal__content__item__description">
+							<div className="poocommerce-woopayments-modal__content__item">
+								<div className="poocommerce-woopayments-modal__content__item__description">
 									<p>
 										{ interpolateComponents( {
 											mixedString: __(
 												"We've created a test account for you so that you can begin {{link}}testing payments on your store{{/link}}.",
-												'woocommerce'
+												'poocommerce'
 											),
 											components: {
 												link: (
 													<Link
-														href="https://woocommerce.com/document/woopayments/testing-and-troubleshooting/sandbox-mode/"
+														href="https://poocommerce.com/document/woopayments/testing-and-troubleshooting/sandbox-mode/"
 														target="_blank"
 														rel="noreferrer"
 														type="external"
@@ -482,13 +482,13 @@ const TestAccountStep = () => {
 									</p>
 								</div>
 							</div>
-							<div className="woocommerce-payments-test-account-step__success-whats-next">
-								<div className="woocommerce-woopayments-modal__content__item">
+							<div className="poocommerce-payments-test-account-step__success-whats-next">
+								<div className="poocommerce-woopayments-modal__content__item">
 									<h2>
-										{ __( "What's next:", 'woocommerce' ) }
+										{ __( "What's next:", 'poocommerce' ) }
 									</h2>
 								</div>
-								<div className="woocommerce-woopayments-modal__content__item-flex">
+								<div className="poocommerce-woopayments-modal__content__item-flex">
 									<img
 										src={
 											WC_ASSET_URL +
@@ -496,17 +496,17 @@ const TestAccountStep = () => {
 										}
 										alt="store icon"
 									/>
-									<div className="woocommerce-woopayments-modal__content__item-flex__description">
+									<div className="poocommerce-woopayments-modal__content__item-flex__description">
 										<h3>
 											{ __(
 												'Continue setting up your store',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</h3>
 										<div>
 											{ __(
 												'Test payments and finish off any other tasks required to launch your store.',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</div>
 									</div>
@@ -535,17 +535,17 @@ const TestAccountStep = () => {
 								>
 									{ __(
 										'Continue store setup',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</Button>
 
-								<div className="woocommerce-payments-test-account-step__success_content_or-divider">
+								<div className="poocommerce-payments-test-account-step__success_content_or-divider">
 									<hr />
-									{ __( 'OR', 'woocommerce' ) }
+									{ __( 'OR', 'poocommerce' ) }
 									<hr />
 								</div>
 
-								<div className="woocommerce-woopayments-modal__content__item-flex">
+								<div className="poocommerce-woopayments-modal__content__item-flex">
 									<img
 										src={
 											WC_ASSET_URL +
@@ -553,11 +553,11 @@ const TestAccountStep = () => {
 										}
 										alt="dollar icon"
 									/>
-									<div className="woocommerce-woopayments-modal__content__item-flex__description">
+									<div className="poocommerce-woopayments-modal__content__item-flex__description">
 										<h3>
 											{ __(
 												'Activate real payments',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</h3>
 										<div>
@@ -565,12 +565,12 @@ const TestAccountStep = () => {
 												{ interpolateComponents( {
 													mixedString: __(
 														'Provide additional details about your business so you can begin accepting real payments. {{link}}Learn more{{/link}}',
-														'woocommerce'
+														'poocommerce'
 													),
 													components: {
 														link: (
 															<Link
-																href="https://woocommerce.com/document/woopayments/startup-guide/#sign-up-process"
+																href="https://poocommerce.com/document/woopayments/startup-guide/#sign-up-process"
 																target="_blank"
 																rel="noreferrer"
 																type="external"
@@ -588,7 +588,7 @@ const TestAccountStep = () => {
 									disabled={ isContinueButtonLoading }
 									onClick={ handleContinue }
 								>
-									{ __( 'Activate payments', 'woocommerce' ) }
+									{ __( 'Activate payments', 'poocommerce' ) }
 								</Button>
 							</div>
 						</div>
@@ -600,7 +600,7 @@ const TestAccountStep = () => {
 
 	// Render loading/error state.
 	return (
-		<div className="woocommerce-payments-test-account-step">
+		<div className="poocommerce-payments-test-account-step">
 			<WooPaymentsStepHeader onClose={ closeModal } />
 
 			{ /* Error Notice */ }
@@ -613,7 +613,7 @@ const TestAccountStep = () => {
 						status !== 'blocked'
 							? [
 									{
-										label: __( 'Try Again', 'woocommerce' ),
+										label: __( 'Try Again', 'poocommerce' ),
 										variant: 'primary',
 										onClick: () => {
 											recordPaymentsOnboardingEvent(
@@ -633,10 +633,10 @@ const TestAccountStep = () => {
 										},
 									},
 									{
-										label: __( 'Cancel', 'woocommerce' ),
+										label: __( 'Cancel', 'poocommerce' ),
 										variant: 'secondary',
 										className:
-											'woocommerce-payments-test-account-step__error-cancel-button',
+											'poocommerce-payments-test-account-step__error-cancel-button',
 										onClick: () => {
 											recordPaymentsOnboardingEvent(
 												'woopayments_onboarding_modal_click',
@@ -656,13 +656,13 @@ const TestAccountStep = () => {
 							  ]
 							: []
 					}
-					className="woocommerce-payments-test-account-step__error"
+					className="poocommerce-payments-test-account-step__error"
 				>
-					<p className="woocommerce-payments-test-account-step__error-message">
+					<p className="poocommerce-payments-test-account-step__error-message">
 						{ errorMessage ||
 							__(
 								'An error occurred while creating your test account. Please try again.',
-								'woocommerce'
+								'poocommerce'
 							) }
 					</p>
 				</Notice>

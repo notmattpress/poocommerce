@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
 
 /**
  * Block type for quantity selector in add to cart with options.
@@ -69,7 +69,7 @@ class QuantitySelector extends AbstractBlock {
 
 		ob_start();
 
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				/**
 				 * Filter the minimum quantity value allowed for the product.
@@ -78,7 +78,7 @@ class QuantitySelector extends AbstractBlock {
 				 * @param int        $min_value Minimum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+				'min_value'   => apply_filters( 'poocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
 				/**
 				 * Filter the maximum quantity value allowed for the product.
 				 *
@@ -86,7 +86,7 @@ class QuantitySelector extends AbstractBlock {
 				 * @param int        $max_value Maximum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+				'max_value'   => apply_filters( 'poocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
 				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			)
 		);

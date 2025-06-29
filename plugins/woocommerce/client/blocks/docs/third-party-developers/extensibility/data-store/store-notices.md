@@ -17,10 +17,10 @@ The Store Notices Store allows to register and unregister containers for notices
 
 ## Usage
 
-To utilize this store you will import the `storeNoticesStore` `StoreDescriptor` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
+To utilize this store you will import the `storeNoticesStore` `StoreDescriptor` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
 
 ```js
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 ```
 
 If it's not, then access it from the window like so:
@@ -77,7 +77,7 @@ This action will register a new container.
 #### _Example_ <!-- omit in toc -->
 
 ```javascript
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 
 dispatch( storeNoticesStore ).registerContainer( 'someContainerContext' );
 ```
@@ -99,7 +99,7 @@ This action will unregister an existing container.
 #### _Example_ <!-- omit in toc -->
 
 ```js
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 
 dispatch( storeNoticesStore ).unregisterContainer( 'someContainerContext' );
 ```
@@ -117,7 +117,7 @@ Returns the list of currently registered containers from the state.
 #### _Example_ <!-- omit in toc -->
 
 ```js
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 
 const store = select( storeNoticesStore );
 const registeredContainers = store.getRegisteredContainers();
@@ -127,8 +127,8 @@ const registeredContainers = store.getRegisteredContainers();
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/validation.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/third-party-developers/extensibility/data-store/validation.md)
 
 <!-- /FEEDBACK -->

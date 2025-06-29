@@ -20,11 +20,11 @@ fi
 
 # Create build directory structure
 echo "📁 Creating build directory structure..."
-mkdir -p "$BUILD_DIR/woocommerce/email-editor"
+mkdir -p "$BUILD_DIR/poocommerce/email-editor"
 
 # Create mirrors.txt file
 echo "📝 Creating mirrors.txt file..."
-echo "woocommerce/email-editor" > "$BUILD_DIR/mirrors.txt"
+echo "poocommerce/email-editor" > "$BUILD_DIR/mirrors.txt"
 
 # Copy required files and directories using rsync
 echo "📋 Copying package files..."
@@ -33,11 +33,11 @@ rsync -avhW --quiet \
     "$PACKAGE_DIR/composer.json" \
     "$PACKAGE_DIR/composer.lock" \
     "$PACKAGE_DIR/changelog.md" \
-    "$BUILD_DIR/woocommerce/email-editor/"
+    "$BUILD_DIR/poocommerce/email-editor/"
 
 # Copy mirror-readme.md as README.md
 echo "📝 Copying mirror-readme.md as README.md..."
-cp "$PACKAGE_DIR/tasks/mirror-readme.md" "$BUILD_DIR/woocommerce/email-editor/README.md"
+cp "$PACKAGE_DIR/tasks/mirror-readme.md" "$BUILD_DIR/poocommerce/email-editor/README.md"
 
 echo "✅ Build completed successfully!"
 

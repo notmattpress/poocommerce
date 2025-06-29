@@ -2,10 +2,10 @@
 /**
  * Reports Performance indicators REST API Tests
  *
- * @package WooCommerce\Admin\Tests\API.
+ * @package PooCommerce\Admin\Tests\API.
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Admin_Tests_API_Reports_Performance_Indicators
@@ -58,7 +58,7 @@ class WC_Admin_Tests_API_Reports_Performance_Indicators extends WC_REST_Unit_Tes
 
 		// Populate all of the data. We'll create an order and a download.
 		$prod_download = new WC_Product_Download();
-		$prod_download->set_file( plugin_dir_url( WC_ABSPATH ) . 'woocommerce/assets/images/help.png' );
+		$prod_download->set_file( plugin_dir_url( WC_ABSPATH ) . 'poocommerce/assets/images/help.png' );
 		$prod_download->set_id( '1' );
 
 		$product = new WC_Product_Simple();
@@ -329,8 +329,8 @@ class WC_Admin_Tests_API_Reports_Performance_Indicators extends WC_REST_Unit_Tes
 	 * Mock the Jetpack stats module as active.
 	 */
 	public function mock_jetpack_modules() {
-		$api_init        = \Automattic\WooCommerce\Admin\API\Init::instance();
-		$controller_name = 'Automattic\WooCommerce\Admin\API\Reports\PerformanceIndicators\Controller';
+		$api_init        = \Automattic\PooCommerce\Admin\API\Init::instance();
+		$controller_name = 'Automattic\PooCommerce\Admin\API\Reports\PerformanceIndicators\Controller';
 
 		$api_init->$controller_name->set_active_jetpack_modules( array( 'stats' ) );
 	}

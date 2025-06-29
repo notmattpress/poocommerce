@@ -3,10 +3,10 @@
  */
 import type { FormEvent, HTMLElementEvent } from 'react';
 import { store, getContext } from '@wordpress/interactivity';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
-import type { CartVariationItem } from '@woocommerce/types';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
+import type { CartVariationItem } from '@poocommerce/types';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 
 export type AvailableVariation = {
 	attributes: Record< string, string >;
@@ -35,8 +35,8 @@ interface GroupedCartItem {
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -143,7 +143,7 @@ const dispatchChangeEvent = ( inputElement: HTMLInputElement ) => {
 };
 
 const addToCartWithOptionsStore = store(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get isFormValid(): boolean {
@@ -299,8 +299,8 @@ const addToCartWithOptionsStore = store(
 				event.preventDefault();
 
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const {
 					productId,
@@ -337,8 +337,8 @@ const addToCartWithOptionsStore = store(
 						return;
 					}
 
-					const { actions } = store< WooCommerce >(
-						'woocommerce',
+					const { actions } = store< PooCommerce >(
+						'poocommerce',
 						{},
 						{ lock: universalLock }
 					);
@@ -350,8 +350,8 @@ const addToCartWithOptionsStore = store(
 						quantity[ productId ]
 					);
 
-					const { actions } = store< WooCommerce >(
-						'woocommerce',
+					const { actions } = store< PooCommerce >(
+						'poocommerce',
 						{},
 						{ lock: universalLock }
 					);
@@ -374,7 +374,7 @@ const addToCartWithOptionsStore = store(
 				);
 
 				const { actions } = store< ProductDataStore >(
-					'woocommerce/product-data',
+					'poocommerce/product-data',
 					{},
 					{ lock: universalLock }
 				);

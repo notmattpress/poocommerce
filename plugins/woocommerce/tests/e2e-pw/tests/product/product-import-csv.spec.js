@@ -201,7 +201,7 @@ test.describe( 'Import Products from a CSV file', () => {
 
 			// Confirm that the import is done
 			await expect(
-				page.locator( '.woocommerce-importer-done' )
+				page.locator( '.poocommerce-importer-done' )
 			).toContainText( 'Import complete!', { timeout: 120000 } );
 
 			// View the products
@@ -238,7 +238,7 @@ test.describe( 'Import Products from a CSV file', () => {
 			] );
 			await fileChooser.setFiles( filePathOverride );
 			await page
-				.locator( '#woocommerce-importer-update-existing' )
+				.locator( '#poocommerce-importer-update-existing' )
 				.click();
 			await page.locator( 'button[value="Continue"]' ).click();
 
@@ -247,7 +247,7 @@ test.describe( 'Import Products from a CSV file', () => {
 
 			// Confirm that the import is done
 			await expect(
-				page.locator( '.woocommerce-importer-done' )
+				page.locator( '.poocommerce-importer-done' )
 			).toContainText( 'Import complete!', { timeout: 120000 } ); // import can take a while
 
 			// View the products

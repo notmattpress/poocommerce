@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
 use WC_Cache_Helper;
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -39,7 +39,7 @@ class FilterData {
 		/**
 		 * Allows offloading the filter data to external services like Elasticsearch.
 		 *
-		 * @hook woocommerce_pre_product_filter_data
+		 * @hook poocommerce_pre_product_filter_data
 		 *
 		 * @since 9.9.0
 		 *
@@ -49,7 +49,7 @@ class FilterData {
 		 * @param array  $extra        Some filter types require extra arguments for calculation, like attribute.
 		 * @return array The filtered results or null to continue with default processing.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'price', $query_vars, array() );
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'price', $query_vars, array() );
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -84,7 +84,7 @@ class FilterData {
 		/**
 		 * Filters the product filter data before it is returned.
 		 *
-		 * @hook woocommerce_product_filter_data
+		 * @hook poocommerce_product_filter_data
 		 * @since 9.9.0
 		 *
 		 * @param array  $results      The results for current query.
@@ -93,7 +93,7 @@ class FilterData {
 		 * @param array  $extra        Some filter types require extra arguments for calculation, like attribute.
 		 * @return array The filtered results
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'price', $query_vars, array() );
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'price', $query_vars, array() );
 
 		$this->set_cache( $transient_key, $results );
 
@@ -111,7 +111,7 @@ class FilterData {
 		/**
 		 * Filter the data. @see get_filtered_price() for full documentation.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'stock', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'stock', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -153,7 +153,7 @@ class FilterData {
 		/**
 		 * Filter the results. @see get_filtered_price() for full documentation.
 		 */
-		$stock_status_counts = apply_filters( 'woocommerce_product_filter_data', $stock_status_counts, 'stock', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$stock_status_counts = apply_filters( 'poocommerce_product_filter_data', $stock_status_counts, 'stock', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		$this->set_cache( $transient_key, $stock_status_counts );
 
@@ -170,7 +170,7 @@ class FilterData {
 		/**
 		 * Filter the data. @see get_filtered_price() for full documentation.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'rating', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'rating', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -209,7 +209,7 @@ class FilterData {
 		/**
 		 * Filter the results. @see get_filtered_price() for full documentation.
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'rating', $query_vars, array() ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'rating', $query_vars, array() ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		$this->set_cache( $transient_key, $results );
 
@@ -227,7 +227,7 @@ class FilterData {
 		/**
 		 * Filter the data. @see get_filtered_price() for full documentation.
 		 */
-		$pre_filter_counts = apply_filters( 'woocommerce_pre_product_filter_data', null, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$pre_filter_counts = apply_filters( 'poocommerce_pre_product_filter_data', null, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		if ( is_array( $pre_filter_counts ) ) {
 			return $pre_filter_counts;
@@ -269,7 +269,7 @@ class FilterData {
 		/**
 		 * Filter the results. @see get_filtered_price() for full documentation.
 		 */
-		$results = apply_filters( 'woocommerce_product_filter_data', $results, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		$results = apply_filters( 'poocommerce_product_filter_data', $results, 'attribute', $query_vars, array( 'taxonomy' => $attribute_to_count ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingSinceComment
 
 		$this->set_cache( $transient_key, $results );
 

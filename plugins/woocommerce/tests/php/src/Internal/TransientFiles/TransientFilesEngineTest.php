@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\TransientFiles;
+namespace Automattic\PooCommerce\Tests\Internal\TransientFiles;
 
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
 
 /**
  * Tests for the TransientFilesEngine class.
@@ -49,7 +49,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		parent::setUpBeforeClass();
 
 		self::$base_transient_files_dir = sys_get_temp_dir() . '/wp-uploads';
-		self::$transient_files_dir      = self::$base_transient_files_dir . '/woocommerce_transient_files';
+		self::$transient_files_dir      = self::$base_transient_files_dir . '/poocommerce_transient_files';
 		if ( ! is_dir( self::$transient_files_dir ) ) {
 			wp_mkdir_p( self::$transient_files_dir );
 		}
@@ -104,7 +104,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$this->expectException( \Exception::class );
-		$this->expectExceptionMessage( "Can't create directory: /real/wordpress/uploads/woocommerce_transient_files" );
+		$this->expectExceptionMessage( "Can't create directory: /real/wordpress/uploads/poocommerce_transient_files" );
 
 		$this->sut->create_transient_file( 'foobar', '2023-12-02' );
 	}
@@ -139,7 +139,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$this->expectException( \Exception::class );
-		$this->expectExceptionMessage( "Can't create file: /real/wordpress/uploads/woocommerce_transient_files/2023-12-02/000102030405060708090a0b0c0d0e0f" );
+		$this->expectExceptionMessage( "Can't create file: /real/wordpress/uploads/poocommerce_transient_files/2023-12-02/000102030405060708090a0b0c0d0e0f" );
 
 		$this->sut->create_transient_file( 'foobar', '2023-12-02' );
 	}
@@ -176,7 +176,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The default base directory for the transient files is woocommerce_transient_files inside the WordPress uploads directory.
+	 * @testdox The default base directory for the transient files is poocommerce_transient_files inside the WordPress uploads directory.
 	 */
 	public function test_transient_files_directory_is_rooted_in_uploads_directory() {
 		$this->register_legacy_proxy_function_mocks(
@@ -188,17 +188,17 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 
 		$result = $this->sut->get_transient_files_directory();
 
-		$this->assertEquals( '/real/wordpress/uploads/woocommerce_transient_files', $result );
+		$this->assertEquals( '/real/wordpress/uploads/poocommerce_transient_files', $result );
 	}
 
 	/**
-	 * @testdox The base directory for the transient files can be modified with the woocommerce_transient_files_directory hook.
+	 * @testdox The base directory for the transient files can be modified with the poocommerce_transient_files_directory hook.
 	 */
 	public function test_transient_files_directory_can_be_changed_via_hook() {
 		$original_directory = null;
 
 		add_filter(
-			'woocommerce_transient_files_directory',
+			'poocommerce_transient_files_directory',
 			function( $path ) use ( &$original_directory ) {
 				$original_directory = $path;
 				return '/my/files';
@@ -214,9 +214,9 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 
 		$result = $this->sut->get_transient_files_directory();
 
-		remove_all_filters( 'woocommerce_transient_files_directory' );
+		remove_all_filters( 'poocommerce_transient_files_directory' );
 
-		$this->assertEquals( '/wordpress/uploads/woocommerce_transient_files', $original_directory );
+		$this->assertEquals( '/wordpress/uploads/poocommerce_transient_files', $original_directory );
 		$this->assertEquals( '/real/my/files', $result );
 	}
 
@@ -224,7 +224,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 	 * @testdox get_transient_files_directory throws if the calculated directory doesn't exist.
 	 */
 	public function test_get_transient_files_directory_throws_if_filter_is_used_and_directory_does_not_exist() {
-		add_filter( 'woocommerce_transient_files_directory', fn( $default_dir) => 'foobar_dir' );
+		add_filter( 'poocommerce_transient_files_directory', fn( $default_dir) => 'foobar_dir' );
 
 		$this->register_legacy_proxy_function_mocks(
 			array(
@@ -239,12 +239,12 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		try {
 			$this->sut->get_transient_files_directory();
 		} finally {
-			remove_all_filters( 'woocommerce_transient_files_directory' );
+			remove_all_filters( 'poocommerce_transient_files_directory' );
 		}
 	}
 
 	/**
-	 * @testdox get_transient_files_directory creates the default base directory if it doesn't exist and the woocommerce_transient_files_directory filter is not used.
+	 * @testdox get_transient_files_directory creates the default base directory if it doesn't exist and the poocommerce_transient_files_directory filter is not used.
 	 */
 	public function test_get_transient_files_directory_creates_default_directory_if_it_does_not_exist() {
 		$created_dir = null;
@@ -277,11 +277,11 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		$this->sut->get_transient_files_directory();
-		$this->assertEquals( '/wordpress/uploads/woocommerce_transient_files', $created_dir );
+		$this->assertEquals( '/wordpress/uploads/poocommerce_transient_files', $created_dir );
 
 		$expected_created_files = array(
-			'/wordpress/uploads/woocommerce_transient_files/.htaccess' => 'deny from all',
-			'/wordpress/uploads/woocommerce_transient_files/index.html' => '',
+			'/wordpress/uploads/poocommerce_transient_files/.htaccess' => 'deny from all',
+			'/wordpress/uploads/poocommerce_transient_files/index.html' => '',
 		);
 		$this->assertEquals( $expected_created_files, $fake_wp_filesystem->created_files );
 	}
@@ -554,10 +554,10 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		);
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-			do_action( 'woocommerce_expired_transient_files_cleanup' );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'poocommerce_expired_transient_files_cleanup' );
 		} finally {
-			remove_all_filters( 'woocommerce_expired_transient_files_cleanup' );
+			remove_all_filters( 'poocommerce_expired_transient_files_cleanup' );
 		}
 
 		$this->assertEquals( 10000000 + DAY_IN_SECONDS, $actual_next_time );
@@ -581,21 +581,21 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 			)
 		);
 
-		add_filter( 'woocommerce_delete_expired_transient_files_interval', fn( $interval ) => HOUR_IN_SECONDS );
+		add_filter( 'poocommerce_delete_expired_transient_files_interval', fn( $interval ) => HOUR_IN_SECONDS );
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-			do_action( 'woocommerce_expired_transient_files_cleanup' );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'poocommerce_expired_transient_files_cleanup' );
 		} finally {
-			remove_all_filters( 'woocommerce_expired_transient_files_cleanup' );
-			remove_all_filters( 'woocommerce_delete_expired_transient_files_interval' );
+			remove_all_filters( 'poocommerce_expired_transient_files_cleanup' );
+			remove_all_filters( 'poocommerce_delete_expired_transient_files_interval' );
 		}
 
 		$this->assertEquals( 10000000 + HOUR_IN_SECONDS, $actual_next_time );
 	}
 
 	/**
-	 * @testdox The interval for the next expired files cleanup scheduled action can be modified via the woocommerce_expired_transient_files_cleanup hook.
+	 * @testdox The interval for the next expired files cleanup scheduled action can be modified via the poocommerce_expired_transient_files_cleanup hook.
 	 */
 	public function test_cleanup_scheduled_action_reschedules_immediately_if_files_are_deleted() {
 		$today            = '2023-12-01';
@@ -627,10 +627,10 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		$today = '2023-12-03';
 
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-			do_action( 'woocommerce_expired_transient_files_cleanup' );
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'poocommerce_expired_transient_files_cleanup' );
 		} finally {
-			remove_all_filters( 'woocommerce_expired_transient_files_cleanup' );
+			remove_all_filters( 'poocommerce_expired_transient_files_cleanup' );
 		}
 
 		$this->assertEquals( 10000001, $actual_next_time );
@@ -643,7 +643,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 	 * created before the tests started and having a non-mockable LegacyProxy passed as dependency.
 	 */
 	private function recreate_sut() {
-		remove_all_filters( 'woocommerce_expired_transient_files_cleanup' );
+		remove_all_filters( 'poocommerce_expired_transient_files_cleanup' );
 		$this->reset_container_resolutions();
 		$this->sut = $this->get_instance_of( TransientFilesEngine::class );
 		$this->sut->register();
@@ -701,7 +701,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		$_GET['wc-transient-file-name'] = $file_name;
 		$_SERVER['REQUEST_METHOD']      = 'GET';
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			do_action( 'parse_request' );
 		} catch ( \LogicException $ex ) {
 			$response_body = ob_get_clean();
@@ -754,7 +754,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		$_GET['wc-transient-file-name'] = 'NOT_EXISTING';
 		$_SERVER['REQUEST_METHOD']      = 'GET';
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			do_action( 'parse_request' );
 		} catch ( \LogicException $ex ) {
 			$response_body = ob_get_clean();
@@ -809,7 +809,7 @@ class TransientFilesEngineTest extends \WC_REST_Unit_Test_Case {
 		$_GET['wc-transient-file-name'] = $file_name;
 		$_SERVER['REQUEST_METHOD']      = 'GET';
 		try {
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			do_action( 'parse_request' );
 		} catch ( \LogicException $ex ) {
 			$response_body = ob_get_clean();

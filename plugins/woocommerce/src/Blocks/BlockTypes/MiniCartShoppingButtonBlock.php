@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartShoppingButtonBlock class.
@@ -44,12 +44,12 @@ class MiniCartShoppingButtonBlock extends AbstractInnerBlock {
 		?>
 		<div class="wp-block-button has-text-align-center">
 			<a
-				data-wp-interactive="woocommerce/mini-cart-shopping-button-block"
+				data-wp-interactive="poocommerce/mini-cart-shopping-button-block"
 				href="<?php echo esc_attr( $shop_url ); ?>"
-				class="wc-block-components-button wp-element-button wp-block-woocommerce-mini-cart-shopping-button-block wc-block-mini-cart__shopping-button contained"
+				class="wc-block-components-button wp-element-button wp-block-poocommerce-mini-cart-shopping-button-block wc-block-mini-cart__shopping-button contained"
 			>
 				<div class="wc-block-components-button__text">
-					<?php esc_html_e( 'Start shopping', 'woocommerce' ); ?>
+					<?php esc_html_e( 'Start shopping', 'poocommerce' ); ?>
 				</div>
 			</a>
 		</div>

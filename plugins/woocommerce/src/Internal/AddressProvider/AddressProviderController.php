@@ -1,6 +1,6 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\Internal\AddressProvider;
+namespace Automattic\PooCommerce\Internal\AddressProvider;
 
 use WC_Address_Provider;
 
@@ -28,7 +28,7 @@ class AddressProviderController {
 	 * @internal
 	 */
 	final public function init() {
-		$this->preferred_provider_option = get_option( 'woocommerce_address_autocomplete_provider', '' );
+		$this->preferred_provider_option = get_option( 'poocommerce_address_autocomplete_provider', '' );
 		$this->providers                 = $this->get_registered_providers();
 	}
 
@@ -53,7 +53,7 @@ class AddressProviderController {
 		 * @since 9.9.0
 		 * @param WC_Address_Provider[] $providers Array of fully qualified class names that extend WC_Address_Provider.
 		 */
-		$provider_class_names = apply_filters( 'woocommerce_address_providers', array() );
+		$provider_class_names = apply_filters( 'poocommerce_address_providers', array() );
 
 		// The filter returned nothing but an empty array, so we can skip the rest of the function.
 		if ( empty( $provider_class_names ) && is_array( $provider_class_names ) ) {
@@ -64,7 +64,7 @@ class AddressProviderController {
 
 		if ( ! is_array( $provider_class_names ) ) {
 			$logger->error(
-				'Invalid return value for woocommerce_address_providers, expected an array of class names.',
+				'Invalid return value for poocommerce_address_providers, expected an array of class names.',
 				array(
 					'context' => 'address_provider_service',
 				)
@@ -169,7 +169,7 @@ class AddressProviderController {
 	}
 
 	/**
-	 * Get the preferred provider; this is what was selected in the WooCommerce "preferred provider" setting *or* the
+	 * Get the preferred provider; this is what was selected in the PooCommerce "preferred provider" setting *or* the
 	 * first registered provider if no preference was set. If the provider selected in WC Settings is not registered
 	 * anymore, it will fall back to the first registered provider. Any other case will return an empty string.
 	 *

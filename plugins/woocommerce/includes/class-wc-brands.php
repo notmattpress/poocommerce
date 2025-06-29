@@ -7,7 +7,7 @@ use Automattic\Jetpack\Constants;
 /**
  * WC_Brands class.
  *
- * Important: For internal use only by the Automattic\WooCommerce\Internal\Brands package.
+ * Important: For internal use only by the Automattic\PooCommerce\Internal\Brands package.
  *
  * @version 9.5.0
  */
@@ -24,7 +24,7 @@ class WC_Brands {
 	 * __construct function.
 	 */
 	public function __construct() {
-		$this->template_url = apply_filters( 'woocommerce_template_url', 'woocommerce/' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		$this->template_url = apply_filters( 'poocommerce_template_url', 'poocommerce/' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		add_action( 'plugins_loaded', array( $this, 'register_hooks' ), 11 );
 
@@ -35,7 +35,7 @@ class WC_Brands {
 	 * Register our hooks
 	 */
 	public function register_hooks() {
-		add_action( 'woocommerce_register_taxonomy', array( __CLASS__, 'init_taxonomy' ) );
+		add_action( 'poocommerce_register_taxonomy', array( __CLASS__, 'init_taxonomy' ) );
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
 
 		if ( ! wp_is_block_theme() ) {
@@ -45,44 +45,44 @@ class WC_Brands {
 		add_action( 'wp_enqueue_scripts', array( $this, 'styles' ) );
 		add_action( 'wp', array( $this, 'body_class' ) );
 
-		add_action( 'woocommerce_product_meta_end', array( $this, 'show_brand' ) );
-		add_filter( 'woocommerce_structured_data_product', array( $this, 'add_structured_data' ), 20 );
+		add_action( 'poocommerce_product_meta_end', array( $this, 'show_brand' ) );
+		add_filter( 'poocommerce_structured_data_product', array( $this, 'add_structured_data' ), 20 );
 
 		// duplicate product brands.
-		add_action( 'woocommerce_product_duplicate_before_save', array( $this, 'duplicate_store_temporary_brands' ), 10, 2 );
-		add_action( 'woocommerce_new_product', array( $this, 'duplicate_add_product_brand_terms' ) );
-		add_action( 'woocommerce_new_product', array( $this, 'invalidate_wc_layered_nav_counts_cache' ), 10, 0 );
-		add_action( 'woocommerce_update_product', array( $this, 'invalidate_wc_layered_nav_counts_cache' ), 10, 0 );
+		add_action( 'poocommerce_product_duplicate_before_save', array( $this, 'duplicate_store_temporary_brands' ), 10, 2 );
+		add_action( 'poocommerce_new_product', array( $this, 'duplicate_add_product_brand_terms' ) );
+		add_action( 'poocommerce_new_product', array( $this, 'invalidate_wc_layered_nav_counts_cache' ), 10, 0 );
+		add_action( 'poocommerce_update_product', array( $this, 'invalidate_wc_layered_nav_counts_cache' ), 10, 0 );
 		add_action( 'transition_post_status', array( $this, 'reset_layered_nav_counts_on_status_change' ), 10, 3 );
 
 		add_filter( 'post_type_link', array( $this, 'post_type_link' ), 11, 2 );
 
 		if ( 'yes' === get_option( 'wc_brands_show_description' ) ) {
-			add_action( 'woocommerce_archive_description', array( $this, 'brand_description' ) );
+			add_action( 'poocommerce_archive_description', array( $this, 'brand_description' ) );
 		}
 
-		add_filter( 'woocommerce_product_query_tax_query', array( $this, 'update_product_query_tax_query' ), 10, 1 );
+		add_filter( 'poocommerce_product_query_tax_query', array( $this, 'update_product_query_tax_query' ), 10, 1 );
 
 		// REST API.
 		add_action( 'rest_api_init', array( $this, 'rest_api_register_routes' ) );
-		add_action( 'woocommerce_rest_insert_product', array( $this, 'rest_api_maybe_set_brands' ), 10, 2 );
-		add_filter( 'woocommerce_rest_prepare_product', array( $this, 'rest_api_prepare_brands_to_product' ), 10, 2 ); // WC 2.6.x.
-		add_filter( 'woocommerce_rest_prepare_product_object', array( $this, 'rest_api_prepare_brands_to_product' ), 10, 2 ); // WC 3.x.
-		add_action( 'woocommerce_rest_insert_product', array( $this, 'rest_api_add_brands_to_product' ), 10, 3 ); // WC 2.6.x.
-		add_action( 'woocommerce_rest_insert_product_object', array( $this, 'rest_api_add_brands_to_product' ), 10, 3 ); // WC 3.x.
-		add_filter( 'woocommerce_rest_product_object_query', array( $this, 'rest_api_filter_products_by_brand' ), 10, 2 );
+		add_action( 'poocommerce_rest_insert_product', array( $this, 'rest_api_maybe_set_brands' ), 10, 2 );
+		add_filter( 'poocommerce_rest_prepare_product', array( $this, 'rest_api_prepare_brands_to_product' ), 10, 2 ); // WC 2.6.x.
+		add_filter( 'poocommerce_rest_prepare_product_object', array( $this, 'rest_api_prepare_brands_to_product' ), 10, 2 ); // WC 3.x.
+		add_action( 'poocommerce_rest_insert_product', array( $this, 'rest_api_add_brands_to_product' ), 10, 3 ); // WC 2.6.x.
+		add_action( 'poocommerce_rest_insert_product_object', array( $this, 'rest_api_add_brands_to_product' ), 10, 3 ); // WC 3.x.
+		add_filter( 'poocommerce_rest_product_object_query', array( $this, 'rest_api_filter_products_by_brand' ), 10, 2 );
 		add_filter( 'rest_product_collection_params', array( $this, 'rest_api_product_collection_params' ), 10, 2 );
 
 		// Layered nav widget compatibility.
-		add_filter( 'woocommerce_layered_nav_term_html', array( $this, 'woocommerce_brands_update_layered_nav_link' ), 10, 4 );
+		add_filter( 'poocommerce_layered_nav_term_html', array( $this, 'poocommerce_brands_update_layered_nav_link' ), 10, 4 );
 
 		// Filter the list of taxonomies overridden for the original term count.
-		add_filter( 'woocommerce_change_term_counts', array( $this, 'add_brands_to_terms' ) );
-		add_action( 'woocommerce_product_set_stock_status', array( $this, 'recount_after_stock_change' ) );
-		add_action( 'woocommerce_update_options_products_inventory', array( $this, 'recount_all_brands' ) );
+		add_filter( 'poocommerce_change_term_counts', array( $this, 'add_brands_to_terms' ) );
+		add_action( 'poocommerce_product_set_stock_status', array( $this, 'recount_after_stock_change' ) );
+		add_action( 'poocommerce_update_options_products_inventory', array( $this, 'recount_all_brands' ) );
 
 		// Product Editor compatibility.
-		add_action( 'woocommerce_layout_template_after_instantiation', array( $this, 'wc_brands_on_block_template_register' ), 10, 3 );
+		add_action( 'poocommerce_layout_template_after_instantiation', array( $this, 'wc_brands_on_block_template_register' ), 10, 3 );
 
 		// Block theme integration.
 		add_filter( 'hooked_block_types', array( $this, 'hook_product_brand_block' ), 10, 4 );
@@ -107,7 +107,7 @@ class WC_Brands {
 	 * @param int $product_id Product ID.
 	 */
 	public function recount_after_stock_change( $product_id ) {
-		if ( 'yes' !== get_option( 'woocommerce_hide_out_of_stock_items' ) || empty( $product_id ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_hide_out_of_stock_items' ) || empty( $product_id ) ) {
 			return;
 		}
 
@@ -188,7 +188,7 @@ class WC_Brands {
 		$terms = get_the_terms( $post->ID, 'product_brand' );
 
 		// If no terms are assigned to this post, use a string instead (can't leave the placeholder there).
-		$product_brand = _x( 'uncategorized', 'slug', 'woocommerce' );
+		$product_brand = _x( 'uncategorized', 'slug', 'poocommerce' );
 
 		if ( is_array( $terms ) && ! empty( $terms ) ) {
 			// Replace the placeholder rewrite tag with the first term's slug.
@@ -228,8 +228,8 @@ class WC_Brands {
 	 * @param array $classes Classes array.
 	 */
 	public function add_body_class( $classes ) {
-		$classes[] = 'woocommerce';
-		$classes[] = 'woocommerce-page';
+		$classes[] = 'poocommerce';
+		$classes[] = 'poocommerce-page';
 		return $classes;
 	}
 
@@ -248,16 +248,16 @@ class WC_Brands {
 		$shop_page_id = wc_get_page_id( 'shop' );
 
 		$base_slug     = $shop_page_id > 0 && get_page( $shop_page_id ) ? get_page_uri( $shop_page_id ) : 'shop';
-		$category_base = get_option( 'woocommerce_prepend_shop_page_to_urls' ) === 'yes' ? trailingslashit( $base_slug ) : '';
+		$category_base = get_option( 'poocommerce_prepend_shop_page_to_urls' ) === 'yes' ? trailingslashit( $base_slug ) : '';
 
-		$slug = $category_base . __( 'brand', 'woocommerce' );
+		$slug = $category_base . __( 'brand', 'poocommerce' );
 		if ( '' === $category_base ) {
-			$slug = get_option( 'woocommerce_brand_permalink', '' );
+			$slug = get_option( 'poocommerce_brand_permalink', '' );
 		}
 
 		// Can't provide transatable string as get_option default.
 		if ( '' === $slug ) {
-			$slug = __( 'brand', 'woocommerce' );
+			$slug = __( 'brand', 'poocommerce' );
 		}
 
 		register_taxonomy(
@@ -275,21 +275,21 @@ class WC_Brands {
 				array(
 					'hierarchical'          => true,
 					'update_count_callback' => '_update_post_term_count',
-					'label'                 => __( 'Brands', 'woocommerce' ),
+					'label'                 => __( 'Brands', 'poocommerce' ),
 					'labels'                => array(
-						'name'              => __( 'Brands', 'woocommerce' ),
-						'singular_name'     => __( 'Brand', 'woocommerce' ),
-						'template_name'     => _x( 'Products by Brand', 'Template name', 'woocommerce' ),
-						'search_items'      => __( 'Search Brands', 'woocommerce' ),
-						'all_items'         => __( 'All Brands', 'woocommerce' ),
-						'parent_item'       => __( 'Parent Brand', 'woocommerce' ),
-						'parent_item_colon' => __( 'Parent Brand:', 'woocommerce' ),
-						'edit_item'         => __( 'Edit Brand', 'woocommerce' ),
-						'update_item'       => __( 'Update Brand', 'woocommerce' ),
-						'add_new_item'      => __( 'Add New Brand', 'woocommerce' ),
-						'new_item_name'     => __( 'New Brand Name', 'woocommerce' ),
-						'not_found'         => __( 'No Brands Found', 'woocommerce' ),
-						'back_to_items'     => __( '&larr; Go to Brands', 'woocommerce' ),
+						'name'              => __( 'Brands', 'poocommerce' ),
+						'singular_name'     => __( 'Brand', 'poocommerce' ),
+						'template_name'     => _x( 'Products by Brand', 'Template name', 'poocommerce' ),
+						'search_items'      => __( 'Search Brands', 'poocommerce' ),
+						'all_items'         => __( 'All Brands', 'poocommerce' ),
+						'parent_item'       => __( 'Parent Brand', 'poocommerce' ),
+						'parent_item_colon' => __( 'Parent Brand:', 'poocommerce' ),
+						'edit_item'         => __( 'Edit Brand', 'poocommerce' ),
+						'update_item'       => __( 'Update Brand', 'poocommerce' ),
+						'add_new_item'      => __( 'Add New Brand', 'poocommerce' ),
+						'new_item_name'     => __( 'New Brand Name', 'poocommerce' ),
+						'not_found'         => __( 'No Brands Found', 'poocommerce' ),
+						'back_to_items'     => __( '&larr; Go to Brands', 'poocommerce' ),
 					),
 
 					'show_ui'               => true,
@@ -332,17 +332,17 @@ class WC_Brands {
 	 *
 	 * Handles template usage so that we can use our own templates instead of the themes.
 	 *
-	 * Templates are in the 'templates' folder. woocommerce looks for theme
-	 * overides in /theme/woocommerce/ by default
+	 * Templates are in the 'templates' folder. poocommerce looks for theme
+	 * overides in /theme/poocommerce/ by default
 	 *
-	 * For beginners, it also looks for a woocommerce.php template first. If the user adds
-	 * this to the theme (containing a woocommerce() inside) this will be used for all
-	 * woocommerce templates.
+	 * For beginners, it also looks for a poocommerce.php template first. If the user adds
+	 * this to the theme (containing a poocommerce() inside) this will be used for all
+	 * poocommerce templates.
 	 *
 	 * @param string $template Template.
 	 */
 	public function template_loader( $template ) {
-		$find = array( 'woocommerce.php' );
+		$find = array( 'poocommerce.php' );
 		$file = '';
 
 		if ( is_tax( 'product_brand' ) ) {
@@ -389,7 +389,7 @@ class WC_Brands {
 			array(
 				'thumbnail' => $thumbnail,
 			),
-			'woocommerce',
+			'poocommerce',
 			WC()->plugin_path() . '/templates/brands/'
 		);
 	}
@@ -408,7 +408,7 @@ class WC_Brands {
 			$labels   = $taxonomy->labels;
 
 			/* translators: %s - Label name */
-			$brand_output = wc_get_brands( $post->ID, ', ', ' <span class="posted_in">' . sprintf( _n( '%s: ', '%s: ', $brand_count, 'woocommerce' ), $labels->singular_name, $labels->name ), '</span>' );
+			$brand_output = wc_get_brands( $post->ID, ', ', ' <span class="posted_in">' . sprintf( _n( '%s: ', '%s: ', $brand_count, 'poocommerce' ), $labels->singular_name, $labels->name ), '</span>' );
 
 			/**
 			 * Filter the brand output in product meta.
@@ -419,7 +419,7 @@ class WC_Brands {
 			 * @param array  $terms        Array of brand term objects.
 			 * @param int    $post_id      The product ID.
 			 */
-			echo apply_filters( 'woocommerce_product_brands_output', $brand_output, $terms, $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput
+			echo apply_filters( 'poocommerce_product_brands_output', $brand_output, $terms, $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 	}
 
@@ -521,7 +521,7 @@ class WC_Brands {
 			wc_get_template(
 				'shortcodes/single-brand.php',
 				$args,
-				'woocommerce',
+				'poocommerce',
 				WC()->plugin_path() . '/templates/brands/'
 			);
 		}
@@ -564,8 +564,8 @@ class WC_Brands {
 		$product_brands = array();
         //phpcs:disable
 		$terms          = get_terms( array( 'taxonomy' => 'product_brand', 'hide_empty' => ( $show_empty_brands ? false : true ) ) );
-		$alphabet       = apply_filters( 'woocommerce_brands_list_alphabet', range( 'a', 'z' ) );
-		$numbers        = apply_filters( 'woocommerce_brands_list_numbers', '0-9' );
+		$alphabet       = apply_filters( 'poocommerce_brands_list_alphabet', range( 'a', 'z' ) );
+		$numbers        = apply_filters( 'poocommerce_brands_list_numbers', '0-9' );
 
 		/**
 		 * Check for empty brands and remove them from the list.
@@ -578,8 +578,8 @@ class WC_Brands {
 			$term_letter = $this->get_brand_name_first_character( $term->name );
 
 			// Allow a locale to be set for ctype_alpha().
-			if ( has_filter( 'woocommerce_brands_list_locale' ) ) {
-				setLocale( LC_CTYPE, apply_filters( 'woocommerce_brands_list_locale', 'en_US.UTF-8' ) );
+			if ( has_filter( 'poocommerce_brands_list_locale' ) ) {
+				setLocale( LC_CTYPE, apply_filters( 'poocommerce_brands_list_locale', 'en_US.UTF-8' ) );
 			}
 
 			if ( ctype_alpha( $term_letter ) ) {
@@ -606,7 +606,7 @@ class WC_Brands {
 				'show_empty'     => $show_empty,
 				'show_top_links' => $show_top_links,
 			),
-			'woocommerce',
+			'poocommerce',
 			WC()->plugin_path() . '/templates/brands/'
 		);
 
@@ -685,7 +685,7 @@ class WC_Brands {
 				'columns'       => is_numeric( $args['columns'] ) ? intval( $args['columns'] ) : 4,
 				'fluid_columns' => wp_validate_boolean( $args['fluid_columns'] ),
 			),
-			'woocommerce',
+			'poocommerce',
 			WC()->plugin_path() . '/templates/brands/'
 		);
 
@@ -747,7 +747,7 @@ class WC_Brands {
 				'brands'  => $brands,
 				'columns' => $args['columns'],
 			),
-			'woocommerce',
+			'poocommerce',
 			WC()->plugin_path() . '/templates/brands/'
 		);
 
@@ -767,19 +767,19 @@ class WC_Brands {
 
 		// Add the brand attributes and query arguments.
 		add_filter( 'shortcode_atts_brand_products', array( __CLASS__, 'add_brand_products_shortcode_atts' ), 10, 4 );
-		add_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'get_brand_products_query_args' ), 10, 3 );
+		add_filter( 'poocommerce_shortcode_products_query', array( __CLASS__, 'get_brand_products_query_args' ), 10, 3 );
 
 		$shortcode = new WC_Shortcode_Products( $atts, 'brand_products' );
 
 		// Remove the brand attributes and query arguments.
 		remove_filter( 'shortcode_atts_brand_products', array( __CLASS__, 'add_brand_products_shortcode_atts' ), 10 );
-		remove_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'get_brand_products_query_args' ), 10 );
+		remove_filter( 'poocommerce_shortcode_products_query', array( __CLASS__, 'get_brand_products_query_args' ), 10 );
 
 		return $shortcode->get_content();
 	}
 
 	/**
-	 * Adds the taxonomy query to the WooCommerce products shortcode query arguments.
+	 * Adds the taxonomy query to the PooCommerce products shortcode query arguments.
 	 *
 	 * @param array  $query_args
 	 * @param array  $attributes
@@ -803,7 +803,7 @@ class WC_Brands {
 	}
 
 	/**
-	 * Adds the "brand" attribute to the list of WooCommerce products shortcode attributes.
+	 * Adds the "brand" attribute to the list of PooCommerce products shortcode attributes.
 	 *
 	 * @param array  $out       The output array of shortcode attributes.
 	 * @param array  $pairs     The supported attributes and their defaults.
@@ -942,7 +942,7 @@ class WC_Brands {
 	 */
 	public function rest_api_product_collection_params( $params, $post_type ) {
 		$params['brand'] = array(
-			'description'       => __( 'Limit result set to products assigned a specific brand ID.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to products assigned a specific brand ID.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
@@ -961,7 +961,7 @@ class WC_Brands {
 	 * @return string            Term html.
 	 * @version 9.4.0
 	 */
-	public function woocommerce_brands_update_layered_nav_link( $term_html, $term, $link, $count ) {
+	public function poocommerce_brands_update_layered_nav_link( $term_html, $term, $link, $count ) {
 		if ( empty( $_GET['filter_product_brand'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return $term_html;
 		}
@@ -977,7 +977,7 @@ class WC_Brands {
 			wp_specialchars_decode( $link )
 		);
 		$term_html            = '<a rel="nofollow" href="' . esc_url( $link ) . '">' . esc_html( $term->name ) . '</a>';
-		$term_html           .= ' ' . apply_filters( 'woocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
+		$term_html           .= ' ' . apply_filters( 'poocommerce_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
 		return $term_html;
 	}
 
@@ -1081,12 +1081,12 @@ class WC_Brands {
 			if ( $section !== null ) {
 				$section->add_block(
 					array(
-						'id'         => 'woocommerce-brands-select',
-						'blockName'  => 'woocommerce/product-taxonomy-field',
+						'id'         => 'poocommerce-brands-select',
+						'blockName'  => 'poocommerce/product-taxonomy-field',
 						'order'      => 15,
 						'attributes' => array(
-							'label'       => __( 'Brands', 'woocommerce-brands' ),
-							'createTitle' => __( 'Create new brand', 'woocommerce-brands' ),
+							'label'       => __( 'Brands', 'poocommerce-brands' ),
+							'createTitle' => __( 'Create new brand', 'poocommerce-brands' ),
 							'slug'        => 'product_brand',
 							'property'    => 'brands',
 						),
@@ -1109,12 +1109,12 @@ class WC_Brands {
 	public function hook_product_brand_block( $hooked_block_types, $relative_position, $anchor_block_type, $context ) {
 
 		// Only add the block as the last child of the product meta block
-		if ( 'woocommerce/product-meta' === $anchor_block_type &&
+		if ( 'poocommerce/product-meta' === $anchor_block_type &&
 			 'last_child' === $relative_position &&
 			 $context instanceof WP_Block_Template &&
 			 'single-product' === $context->slug ) {
 
-				remove_action( 'woocommerce_product_meta_end', array( $this, 'show_brand' ) );
+				remove_action( 'poocommerce_product_meta_end', array( $this, 'show_brand' ) );
 
 				// Check if the template already has a product brand block
 				if ( ! $this->template_already_has_brand_block( $context ) ) {
@@ -1159,12 +1159,12 @@ class WC_Brands {
 
 		if ( 'core/post-terms' === $hooked_block_type &&
 			 'last_child' === $relative_position &&
-			 'woocommerce/product-meta' === $parsed_anchor_block['blockName'] &&
+			 'poocommerce/product-meta' === $parsed_anchor_block['blockName'] &&
 			 empty( $parsed_anchor_block['attrs'] ) ) {
 
 			$parsed_hooked_block['attrs'] = array(
 				'term'	 => 'product_brand',
-				'prefix' => __( 'Brands: ', 'woocommerce' ),
+				'prefix' => __( 'Brands: ', 'poocommerce' ),
 			);
 		}
 

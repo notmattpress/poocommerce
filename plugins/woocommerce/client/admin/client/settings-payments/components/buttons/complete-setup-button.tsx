@@ -7,8 +7,8 @@ import { useState, useEffect } from '@wordpress/element';
 import {
 	PaymentGatewayProvider,
 	woopaymentsOnboardingStore,
-} from '@woocommerce/data';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -66,7 +66,7 @@ export const CompleteSetupButton = ( {
 	onboardingHref,
 	gatewayHasRecommendedPaymentMethods,
 	installingPlugin,
-	buttonText = __( 'Complete setup', 'woocommerce' ),
+	buttonText = __( 'Complete setup', 'poocommerce' ),
 	setOnboardingModalOpen,
 	onboardingType,
 }: CompleteSetupButtonProps ) => {

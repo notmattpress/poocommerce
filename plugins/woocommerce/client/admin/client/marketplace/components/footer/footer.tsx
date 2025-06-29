@@ -23,7 +23,7 @@ export const refundPolicyTitle = ( location: string ) => {
 			} }
 			message={ __(
 				'30-day {{Link}}money-back guarantee{{/Link}}',
-				'woocommerce'
+				'poocommerce'
 			) }
 			target="_blank"
 		/>
@@ -41,7 +41,7 @@ export const supportTitle = ( location: string ) => {
 			} }
 			message={ __(
 				'{{Link}}Get help{{/Link}} when you need it',
-				'woocommerce'
+				'poocommerce'
 			) }
 			target="_blank"
 		/>
@@ -59,7 +59,7 @@ export const paymentTitle = ( location: string ) => {
 			} }
 			message={ __(
 				'{{Link}}Products{{/Link}} you can trust',
-				'woocommerce'
+				'poocommerce'
 			) }
 			target="_blank"
 		/>
@@ -68,20 +68,20 @@ export const paymentTitle = ( location: string ) => {
 
 function FooterContent(): JSX.Element {
 	return (
-		<div className="woocommerce-marketplace__footer-content">
-			<h2 className="woocommerce-marketplace__footer-title">
+		<div className="poocommerce-marketplace__footer-content">
+			<h2 className="poocommerce-marketplace__footer-title">
 				{ __(
 					'Hundreds of vetted products and services. Unlimited potential.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</h2>
-			<div className="woocommerce-marketplace__footer-columns">
+			<div className="poocommerce-marketplace__footer-columns">
 				<IconWithText
 					icon={ check }
 					title={ refundPolicyTitle( 'footer' ) }
 					description={ __(
 						"If you change your mind within 30 days of your purchase, we'll give you a full refund — hassle-free.",
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				<IconWithText
@@ -89,7 +89,7 @@ function FooterContent(): JSX.Element {
 					title={ supportTitle( 'footer' ) }
 					description={ __(
 						'With detailed documentation and a global support team, help is always available if you need it.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				<IconWithText
@@ -97,15 +97,15 @@ function FooterContent(): JSX.Element {
 					title={ paymentTitle( 'footer' ) }
 					description={ __(
 						'Everything in the Marketplace has been built by our own team or by our trusted partners, so you can be sure of its quality.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 				<IconWithText
 					icon={ people }
-					title={ __( 'Support the ecosystem', 'woocommerce' ) }
+					title={ __( 'Support the ecosystem', 'poocommerce' ) }
 					description={ __(
-						'Our team and partners are continuously improving your extensions, themes, and WooCommerce experience.',
-						'woocommerce'
+						'Our team and partners are continuously improving your extensions, themes, and PooCommerce experience.',
+						'poocommerce'
 					) }
 				/>
 			</div>
@@ -115,7 +115,7 @@ function FooterContent(): JSX.Element {
 
 export default function Footer(): JSX.Element {
 	return (
-		<div className="woocommerce-marketplace__footer">
+		<div className="poocommerce-marketplace__footer">
 			<FooterContent />
 		</div>
 	);

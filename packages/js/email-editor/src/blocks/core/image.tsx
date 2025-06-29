@@ -35,7 +35,7 @@ const imageEditCallback = createHigherOrderComponent(
 function disableImageFilter() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/deactivate-image-filter',
+		'poocommerce-email-editor/deactivate-image-filter',
 		( settings: Block, name ) => {
 			if ( name === 'core/image' ) {
 				return {
@@ -56,7 +56,7 @@ function disableImageFilter() {
 function hideExpandOnClick() {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/hide-expand-on-click',
+		'poocommerce-email-editor/hide-expand-on-click',
 		imageEditCallback
 	);
 }

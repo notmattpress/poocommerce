@@ -6,7 +6,7 @@ import { Button } from '@wordpress/components';
 import {
 	OfflinePaymentMethodProvider,
 	PaymentGatewayProvider,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ export const SettingsButton = ( {
 	gatewayProvider,
 	settingsHref,
 	isInstallingPlugin,
-	buttonText = __( 'Manage', 'woocommerce' ),
+	buttonText = __( 'Manage', 'poocommerce' ),
 }: SettingsButtonProps ) => {
 	const recordButtonClickEvent = () => {
 		recordPaymentsProviderEvent( 'provider_manage_click', gatewayProvider );

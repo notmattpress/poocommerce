@@ -4,10 +4,10 @@
  *
  * The default product type kinda product.
  *
- * @package WooCommerce\Classes\Products
+ * @package PooCommerce\Classes\Products
  */
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -50,7 +50,7 @@ class WC_Product_Simple extends WC_Product {
 				( function_exists( 'is_feed' ) && is_feed() ) || ( function_exists( 'is_404' ) && is_404() ) ? $this->get_permalink() : ''
 			)
 		) : $this->get_permalink();
-		return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_url', $url, $this );
 	}
 
 	/**
@@ -59,9 +59,9 @@ class WC_Product_Simple extends WC_Product {
 	 * @return string
 	 */
 	public function add_to_cart_text() {
-		$text = $this->is_purchasable() && $this->is_in_stock() ? __( 'Add to cart', 'woocommerce' ) : __( 'Read more', 'woocommerce' );
+		$text = $this->is_purchasable() && $this->is_in_stock() ? __( 'Add to cart', 'poocommerce' ) : __( 'Read more', 'poocommerce' );
 
-		return apply_filters( 'woocommerce_product_add_to_cart_text', $text, $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_text', $text, $this );
 	}
 
 	/**
@@ -72,9 +72,9 @@ class WC_Product_Simple extends WC_Product {
 	 */
 	public function add_to_cart_description() {
 		/* translators: %s: Product title */
-		$text = $this->is_purchasable() && $this->is_in_stock() ? __( 'Add to cart: &ldquo;%s&rdquo;', 'woocommerce' ) : __( 'Read more about &ldquo;%s&rdquo;', 'woocommerce' );
+		$text = $this->is_purchasable() && $this->is_in_stock() ? __( 'Add to cart: &ldquo;%s&rdquo;', 'poocommerce' ) : __( 'Read more about &ldquo;%s&rdquo;', 'poocommerce' );
 
-		return apply_filters( 'woocommerce_product_add_to_cart_description', sprintf( $text, $this->get_name() ), $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_description', sprintf( $text, $this->get_name() ), $this );
 	}
 
 	/**
@@ -87,7 +87,7 @@ class WC_Product_Simple extends WC_Product {
 
 		if ( $this->is_purchasable() && $this->is_in_stock() ) {
 			/* translators: %s: Product title */
-			$text = __( '&ldquo;%s&rdquo; has been added to your cart', 'woocommerce' );
+			$text = __( '&ldquo;%s&rdquo; has been added to your cart', 'poocommerce' );
 			$text = sprintf( $text, $this->get_name() );
 		}
 
@@ -98,6 +98,6 @@ class WC_Product_Simple extends WC_Product {
 		 * @param string $text The success message when a product is added to the cart.
 		 * @param WC_Product_Simple $this Reference to the current WC_Product_Simple instance.
 		 */
-		return apply_filters( 'woocommerce_product_add_to_cart_success_message', $text, $this );
+		return apply_filters( 'poocommerce_product_add_to_cart_success_message', $text, $this );
 	}
 }

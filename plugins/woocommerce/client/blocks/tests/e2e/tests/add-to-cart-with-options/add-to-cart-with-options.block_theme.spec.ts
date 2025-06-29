@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		admin,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -56,11 +56,11 @@ test.describe( 'Add to Cart + Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-product-type'
+			'poocommerce-blocks-test-custom-product-type'
 		);
 
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -127,7 +127,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		const colorGreenOption = page.locator( 'label:has-text("Green")' );
 		const addToCartButton = page.getByText( 'Add to cart' ).first();
 		const productPrice = page
-			.locator( '.wp-block-woocommerce-product-price' )
+			.locator( '.wp-block-poocommerce-product-price' )
 			.first();
 
 		await test.step( 'displays an error when attributes are not selected', async () => {
@@ -226,14 +226,14 @@ test.describe( 'Add to Cart + Options Block', () => {
 		await pageObject.switchProductType( 'Variable Product' );
 
 		const attributeOptionsBlock = await editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options-variation-selector-attribute-options'
+			'poocommerce/add-to-cart-with-options-variation-selector-attribute-options'
 		);
 		await editor.selectBlocks( attributeOptionsBlock.first() );
 
 		await page.getByRole( 'radio', { name: 'Dropdown' } ).click();
 
 		// We need to make sure the block updated before saving.
-		// @see https://github.com/woocommerce/woocommerce/issues/57718
+		// @see https://github.com/poocommerce/poocommerce/issues/57718
 		await expect(
 			editor.canvas.getByLabel( 'Color', { exact: true } )
 		).toBeVisible();

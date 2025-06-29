@@ -9,9 +9,9 @@ sidebar_label: Available slots
 
 This document presents the list of available Slots that you can use for adding your custom content (Fill).
 
-If you want to add a new SlotFill component, check the [Checkout - Slot Fill document](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/packages/checkout/slot/README.md). To read more about Slot and Fill, check the [Slot and Fill document](./slot-fills.md).
+If you want to add a new SlotFill component, check the [Checkout - Slot Fill document](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/packages/checkout/slot/README.md). To read more about Slot and Fill, check the [Slot and Fill document](./slot-fills.md).
 
-**Note About Naming:** Slots that are prefixed with `Experimental` are experimental and subject to change or remove. Once they graduate from the experimental stage, the naming would change and the `Experimental` prefix would be dropped. Check the [Feature Gating document](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/internal-developers/blocks/feature-flags-and-experimental-interfaces.md) from more information.
+**Note About Naming:** Slots that are prefixed with `Experimental` are experimental and subject to change or remove. Once they graduate from the experimental stage, the naming would change and the `Experimental` prefix would be dropped. Check the [Feature Gating document](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/internal-developers/blocks/feature-flags-and-experimental-interfaces.md) from more information.
 
 ## ExperimentalOrderMeta
 
@@ -34,7 +34,7 @@ const render = () => {
 
 registerPlugin( 'slot-and-fill-examples', {
 	render,
-	scope: 'woocommerce-checkout',
+	scope: 'poocommerce-checkout',
 } );
 ```
 
@@ -48,9 +48,9 @@ Checkout:
 
 ### Passed parameters
 
--   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
+-   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
 -   `extensions`: external data registered by third-party developers using `ExtendSchema`. If you used `ExtendSchema` on `wc/store/cart` you would find your data under your namespace here.
--   `context`, equal to the name of the Block in which the fill is rendered: `woocommerce/cart` or `woocommerce/checkout`
+-   `context`, equal to the name of the Block in which the fill is rendered: `poocommerce/cart` or `poocommerce/checkout`
 
 ## ExperimentalOrderShippingPackages
 
@@ -71,7 +71,7 @@ const render = () => {
 
 registerPlugin( 'slot-and-fill-examples', {
 	render,
-	scope: 'woocommerce-checkout',
+	scope: 'poocommerce-checkout',
 } );
 ```
 
@@ -90,10 +90,10 @@ Checkout:
 -   `showItems`: `Boolean|undefined` If we should show the content of each package, this is undefined in Cart and Checkout and is left to the actual package logic to decide.
 -   `noResultsMessage`: A React element that you can render if there are no shipping options.
 -   `renderOption`: a render function that takes a rate object and returns a render option.
--   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
+-   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
 -   `extensions`: external data registered by third-party developers using `ExtendSchema`, if you used `ExtendSchema` on `wc/store/cart` you would find your data under your namespace here.
 -   `components`: an object containing components you can use to render your own shipping rates, it contains `ShippingRatesControlPackage`.
--   `context`, equal to the name of the Block in which the fill is rendered: `woocommerce/cart` or `woocommerce/checkout`
+-   `context`, equal to the name of the Block in which the fill is rendered: `poocommerce/cart` or `poocommerce/checkout`
 
 ## ExperimentalOrderLocalPickupPackages
 
@@ -119,7 +119,7 @@ const render = () => {
 
 registerPlugin( 'slot-and-fill-examples', {
 	render,
-	scope: 'woocommerce-checkout',
+	scope: 'poocommerce-checkout',
 } );
 ```
 
@@ -130,7 +130,7 @@ Checkout:
 ### Passed parameters
 
 -   `renderPickupLocation`: a render function that renders the address details of a local pickup option.
--   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
+-   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
 -   `extensions`: external data registered by third-party developers using `ExtendSchema`, if you used `ExtendSchema` on `wc/store/cart` you would find your data under your namespace here.
 -   `components`: an object containing components you can use to render your own pickup rates, it contains `ShippingRatesControlPackage` and `RadioControl`.
 
@@ -155,7 +155,7 @@ const render = () => {
 
 registerPlugin( 'slot-and-fill-examples', {
 	render,
-	scope: 'woocommerce-checkout',
+	scope: 'poocommerce-checkout',
 } );
 ```
 
@@ -169,6 +169,6 @@ Checkout:
 
 ### Passed parameters
 
--   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/woocommerce/woocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
+-   `cart`: `wc/store/cart` data but in `camelCase` instead of `snake_case`. [Object breakdown.](https://github.com/poocommerce/poocommerce-gutenberg-products-block/blob/c00da597efe4c16fcf5481c213d8052ec5df3766/assets/js/type-defs/cart.ts#L172-L188)
 -   `extensions`: external data registered by third-party developers using `ExtendSchema`, if you used `ExtendSchema` on `wc/store/cart` you would find your data under your namespace here.
--   `context`, equal to the name of the Block in which the fill is rendered: `woocommerce/cart` or `woocommerce/checkout`
+-   `context`, equal to the name of the Block in which the fill is rendered: `poocommerce/cart` or `poocommerce/checkout`
