@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Formatters;
+namespace Automattic\PooCommerce\StoreApi\Formatters;
 
 /**
  * Default Formatter.

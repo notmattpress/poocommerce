@@ -14,7 +14,7 @@ export const CheckoutShippingSkeleton = () => {
 	return (
 		<>
 			<VisuallyHidden aria-live="polite">
-				{ __( 'Loading shipping options…', 'woocommerce' ) }
+				{ __( 'Loading shipping options…', 'poocommerce' ) }
 			</VisuallyHidden>
 			<div className="wc-block-components-skeleton wc-block-components-skeleton--checkout-shipping">
 				<Skeleton height="22px" width="22px" borderRadius="100%" />

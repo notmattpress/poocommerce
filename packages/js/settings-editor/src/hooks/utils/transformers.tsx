@@ -82,7 +82,7 @@ export const transformToInitialData = (
 };
 
 /**
- * Transforms a WooCommerce setting into a DataViews Field configuration.
+ * Transforms a PooCommerce setting into a DataViews Field configuration.
  * Handles various field types including groups, checkboxes, text inputs, and selects.
  *
  * @param setting The setting to transform

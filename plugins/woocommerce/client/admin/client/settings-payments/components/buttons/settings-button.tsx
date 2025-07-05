@@ -7,7 +7,7 @@ import {
 	OfflinePaymentMethodProvider,
 	PaymentGatewayProvider,
 	PaymentsProviderType,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -46,7 +46,7 @@ export const SettingsButton = ( {
 	gatewayProvider,
 	settingsHref,
 	isInstallingPlugin,
-	buttonText = __( 'Manage', 'woocommerce' ),
+	buttonText = __( 'Manage', 'poocommerce' ),
 }: SettingsButtonProps ) => {
 	const isOffline = gatewayProvider._type === PaymentsProviderType.OfflinePm;
 	const navigate = useNavigate();

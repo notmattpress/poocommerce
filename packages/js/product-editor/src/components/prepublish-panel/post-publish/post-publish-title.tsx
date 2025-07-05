@@ -31,14 +31,14 @@ export function PostPublishTitle( {
 					/* translators: %s is the date when the product will be published */
 					__(
 						'<productURL /> is now scheduled. It will go live on %s',
-						'woocommerce'
+						'poocommerce'
 					),
 					formattedDate
 				),
 				{
 					productURL: (
 						<a
-							className="woocommerce-product-list__product-name"
+							className="poocommerce-product-list__product-name"
 							href={ productURLString }
 							target="_blank"
 							rel="noreferrer"
@@ -50,11 +50,11 @@ export function PostPublishTitle( {
 			);
 		}
 		return createInterpolateElement(
-			__( '<productURL /> is now live.', 'woocommerce' ),
+			__( '<productURL /> is now live.', 'poocommerce' ),
 			{
 				productURL: (
 					<a
-						className="woocommerce-product-list__product-name"
+						className="poocommerce-product-list__product-name"
 						href={ productURLString }
 						target="_blank"
 						rel="noreferrer"
@@ -67,7 +67,7 @@ export function PostPublishTitle( {
 	};
 
 	return (
-		<div className="woocommerce-product-publish-panel__published">
+		<div className="poocommerce-product-publish-panel__published">
 			{ getPostPublishedTitle() }
 		</div>
 	);

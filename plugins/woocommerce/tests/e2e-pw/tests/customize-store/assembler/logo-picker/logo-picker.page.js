@@ -27,7 +27,7 @@ export class LogoPickerPage {
 	 */
 	getLogoPickerLocator( assemblerLocator ) {
 		return assemblerLocator.locator(
-			'.woocommerce-customize-store__sidebar-logo-container'
+			'.poocommerce-customize-store__sidebar-logo-container'
 		);
 	}
 

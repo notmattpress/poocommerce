@@ -1,4 +1,4 @@
-.woocommerce-address-suggestions {
+.poocommerce-address-suggestions {
 	position: absolute;
 	z-index: 1000;
 	width: 100%;
@@ -46,7 +46,7 @@
 }
 
 // Ensure the input container has relative positioning
-.woocommerce-input-wrapper:has(#billing_address_1, #shipping_address_1) {
+.poocommerce-input-wrapper:has(#billing_address_1, #shipping_address_1) {
 	position: relative;
 	display: block;
 

@@ -3,8 +3,8 @@
  */
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
-import { getSetting } from '@woocommerce/settings';
-import { blocksConfig } from '@woocommerce/block-settings';
+import { getSetting } from '@poocommerce/settings';
+import { blocksConfig } from '@poocommerce/block-settings';
 
 /**
  * Get product query requests for the Store API.

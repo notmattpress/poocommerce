@@ -3,7 +3,7 @@
  */
 import type { ChangeEvent } from 'react';
 import { store, getContext } from '@wordpress/interactivity';
-import type { CartVariationItem } from '@woocommerce/types';
+import type { CartVariationItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -36,7 +36,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { actions: wooAddToCartWithOptions } = store< AddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{},
 	{ lock: universalLock }
 );
@@ -134,7 +134,7 @@ const isAttributeValueValid = ( {
 };
 
 const { state } = store(
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options__pills',
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options__pills',
 	{
 		state: {
 			get isPillSelected() {
@@ -145,7 +145,7 @@ const { state } = store(
 				const { name, option } = getContext< Context >();
 				const { selectedAttributes, availableVariations } =
 					getContext< AddToCartWithOptionsStoreContext >(
-						'woocommerce/add-to-cart-with-options'
+						'poocommerce/add-to-cart-with-options'
 					);
 
 				return ! isAttributeValueValid( {
@@ -184,7 +184,7 @@ const { state } = store(
 );
 
 store(
-	'woocommerce/add-to-cart-with-options-variation-selector-attribute-options__dropdown',
+	'poocommerce/add-to-cart-with-options-variation-selector-attribute-options__dropdown',
 	{
 		state: {
 			get isOptionDisabled() {
@@ -196,7 +196,7 @@ store(
 
 				const { selectedAttributes, availableVariations } =
 					getContext< AddToCartWithOptionsStoreContext >(
-						'woocommerce/add-to-cart-with-options'
+						'poocommerce/add-to-cart-with-options'
 					);
 
 				return ! isAttributeValueValid( {

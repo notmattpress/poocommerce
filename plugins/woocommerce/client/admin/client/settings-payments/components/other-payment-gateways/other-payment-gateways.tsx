@@ -11,7 +11,7 @@ import {
 	PaymentsEntity,
 	SuggestedPaymentsExtension,
 	SuggestedPaymentsExtensionCategory,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -53,7 +53,7 @@ interface OtherPaymentGatewaysProps {
 	 */
 	isFetching: boolean;
 	/**
-	 * A link to view more payment options in the WooCommerce marketplace.
+	 * A link to view more payment options in the PooCommerce marketplace.
 	 */
 	morePaymentOptionsLink: JSX.Element;
 }
@@ -323,11 +323,11 @@ export const OtherPaymentGateways = ( {
 													extension.id
 														? __(
 																'Installing',
-																'woocommerce'
+																'poocommerce'
 														  )
 														: __(
 																'Install',
-																'woocommerce'
+																'poocommerce'
 														  ) }
 												</Button>
 											</div>
@@ -368,7 +368,7 @@ export const OtherPaymentGateways = ( {
 			>
 				<div className="other-payment-gateways__header__title">
 					<span>
-						{ __( 'Other payment options', 'woocommerce' ) }
+						{ __( 'Other payment options', 'poocommerce' ) }
 					</span>
 					{ ! isExpanded && <>{ collapsedImages }</> }
 				</div>

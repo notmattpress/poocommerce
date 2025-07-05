@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { Icon, external } from '@wordpress/icons';
 import { VisuallyHidden } from '@wordpress/components';
-import { sanitizeHTML } from '@woocommerce/utils';
-import { Alert } from '@woocommerce/icons';
+import { sanitizeHTML } from '@poocommerce/utils';
+import { Alert } from '@poocommerce/icons';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ const ExternalLinkCard = ( {
 			<VisuallyHidden as="span">
 				{
 					/* translators: accessibility text */
-					__( '(opens in a new tab)', 'woocommerce' )
+					__( '(opens in a new tab)', 'poocommerce' )
 				}
 			</VisuallyHidden>
 			<Icon

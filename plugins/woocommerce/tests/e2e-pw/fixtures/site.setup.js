@@ -24,7 +24,7 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 						} HPOS...`
 					);
 					const response = await restApi.post(
-						`${ WC_API_PATH }/settings/advanced/woocommerce_custom_orders_table_enabled`,
+						`${ WC_API_PATH }/settings/advanced/poocommerce_custom_orders_table_enabled`,
 						{ value }
 					);
 					if ( response.data.value === value ) {
@@ -53,12 +53,12 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 		}
 
 		const response = await restApi.get(
-			`${ WC_API_PATH }/settings/advanced/woocommerce_custom_orders_table_enabled`
+			`${ WC_API_PATH }/settings/advanced/poocommerce_custom_orders_table_enabled`
 		);
 		const dataValue = response.data.value;
 		const enabledOption = response.data.options[ dataValue ];
 		console.log(
-			`HPOS configuration (woocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
+			`HPOS configuration (poocommerce_custom_orders_table_enabled): ${ dataValue } - ${ enabledOption }`
 		);
 	} );
 
@@ -85,15 +85,15 @@ setup( 'setup site', async ( { baseURL, restApi } ) => {
 	await setup.step( 'general settings', async () => {
 		await restApi.post( `${ WC_API_PATH }/settings/general/batch`, {
 			update: [
-				{ id: 'woocommerce_allowed_countries', value: 'all' },
-				{ id: 'woocommerce_currency', value: 'USD' },
-				{ id: 'woocommerce_price_thousand_sep', value: ',' },
-				{ id: 'woocommerce_price_decimal_sep', value: '.' },
-				{ id: 'woocommerce_price_num_decimals', value: '2' },
-				{ id: 'woocommerce_store_address', value: 'addr 1' },
-				{ id: 'woocommerce_store_city', value: 'San Francisco' },
-				{ id: 'woocommerce_default_country', value: 'US:CA' },
-				{ id: 'woocommerce_store_postcode', value: '94107' },
+				{ id: 'poocommerce_allowed_countries', value: 'all' },
+				{ id: 'poocommerce_currency', value: 'USD' },
+				{ id: 'poocommerce_price_thousand_sep', value: ',' },
+				{ id: 'poocommerce_price_decimal_sep', value: '.' },
+				{ id: 'poocommerce_price_num_decimals', value: '2' },
+				{ id: 'poocommerce_store_address', value: 'addr 1' },
+				{ id: 'poocommerce_store_city', value: 'San Francisco' },
+				{ id: 'poocommerce_default_country', value: 'US:CA' },
+				{ id: 'poocommerce_store_postcode', value: '94107' },
 			],
 		} );
 	} );

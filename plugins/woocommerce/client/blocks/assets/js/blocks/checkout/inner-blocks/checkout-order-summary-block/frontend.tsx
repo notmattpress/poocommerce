@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { TotalsFooterItem } from '@woocommerce/base-components/cart-checkout';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { TotalsFooterItem } from '@poocommerce/base-components/cart-checkout';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 import { Icon, chevronDown, chevronUp } from '@wordpress/icons';
 import { useId, useState } from '@wordpress/element';
@@ -65,7 +65,7 @@ const FrontendBlock = ( {
 						className="wc-block-components-checkout-order-summary__title-text"
 						role="heading"
 					>
-						{ __( 'Order summary', 'woocommerce' ) }
+						{ __( 'Order summary', 'poocommerce' ) }
 					</p>
 					<FormattedMonetaryAmount
 						currency={ totalsCurrency }
@@ -103,7 +103,7 @@ const FrontendBlock = ( {
 						className={ `${ className } checkout-order-summary-block-fill-wrapper` }
 					>
 						<FormStepHeading>
-							<>{ __( 'Order summary', 'woocommerce' ) }</>
+							<>{ __( 'Order summary', 'poocommerce' ) }</>
 						</FormStepHeading>
 						<div className="checkout-order-summary-block-fill">
 							{ children }

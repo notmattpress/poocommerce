@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0](https://github.com/woocommerce/email-editor/releases/tag/1.0.0) - 2025-06-27 
+## [1.0.0](https://github.com/poocommerce/email-editor/releases/tag/1.0.0) - 2025-06-27 
 
 -   Patch - Address PHP 8.4 deprecation warnings. [#57722]
 -   Patch - Fix default rendering mode for WordPress 6.8 [#56820]
@@ -13,13 +13,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add email block renderer for the Quote core block. [#57280]
 -   Minor - Add support for rendering Social Link and Social Links block in the Email Editor. [#58194]
 -   Minor - Add Woo email content to the preview in the email editor [#57337]
--   Minor - Add `woocommerce_email_editor_send_preview_email_personalizer_context` filter to modify the personalizer context data for the send preview email function [#57795]
+-   Minor - Add `poocommerce_email_editor_send_preview_email_personalizer_context` filter to modify the personalizer context data for the send preview email function [#57795]
 -   Minor - Handle Personalization Tags in href attributes [#57958]
 -   Minor - Implement logging support in the email editor [#58607]
 -   Minor - Add support for a block custom callback render_email_callback and remove Blocks_Registry class. [#59070]
 -   Patch - Refactor Email Editor Container to use email editor container instead of Blocks registry container for better library export compatibility. [#59209]
--   Major [ **BREAKING CHANGE** ] - Updated post type for theme from `mailpoet_email_theme` to `woocommerce_email_theme` for consistency with WooCommerce naming conventions. [#55938]
--   Major [ **BREAKING CHANGE** ] - Updated user theme post name from `wp-global-styles-mailpoet` to `wp-global-styles-woocommerce-email` to align with WooCommerce naming standards. [#55938]
+-   Major [ **BREAKING CHANGE** ] - Updated post type for theme from `mailpoet_email_theme` to `poocommerce_email_theme` for consistency with PooCommerce naming conventions. [#55938]
+-   Major [ **BREAKING CHANGE** ] - Updated user theme post name from `wp-global-styles-mailpoet` to `wp-global-styles-poocommerce-email` to align with PooCommerce naming standards. [#55938]
 -   Major [ **BREAKING CHANGE** ] - Update minimum supported WordPress version to 6.7 [#58246]
 -   Patch - Add command for PHP static analysis. [#58135]
 -   Patch - Add email editor files to the Woo Monorepo [#55598]

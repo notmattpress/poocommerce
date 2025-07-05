@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { TotalsTaxes, TotalsWrapper } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
-import { getSetting } from '@woocommerce/settings';
+import { TotalsTaxes, TotalsWrapper } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
+import { getSetting } from '@poocommerce/settings';
 
 const Block = ( {
 	className,

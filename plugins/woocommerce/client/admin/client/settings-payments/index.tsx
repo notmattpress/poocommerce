@@ -3,7 +3,7 @@
  */
 import { Gridicon } from '@automattic/components';
 import { Button, Placeholder, SelectControl } from '@wordpress/components';
-import { paymentSettingsStore } from '@woocommerce/data';
+import { paymentSettingsStore } from '@poocommerce/data';
 import { useSelect, useDispatch } from '@wordpress/data';
 import React, {
 	useState,
@@ -18,9 +18,9 @@ import {
 	Routes,
 	useLocation,
 } from 'react-router-dom';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -70,7 +70,7 @@ const SettingsPaymentsOfflineChunk = lazy(
 const SettingsPaymentsWooPaymentsChunk = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "settings-payments-woocommerce-payments" */ './settings-payments-woopayments'
+			/* webpackChunkName: "settings-payments-poocommerce-payments" */ './settings-payments-woopayments'
 		)
 );
 
@@ -138,14 +138,14 @@ const OfflinePaymentGatewayWrapper = ( {
 								href={ getNewPath( {}, '/offline' ) }
 								title={ __(
 									'Return to payments settings',
-									'woocommerce'
+									'poocommerce'
 								) }
 								isRoute={ true }
 								from={ 'woopayments_payment_methods' }
 							/>
 						</div>
-						<h1 className="components-truncate components-text woocommerce-layout__header-heading woocommerce-layout__header-left-align settings-payments-offline__header-title">
-							<span className="woocommerce-settings-payments-header__title">
+						<h1 className="components-truncate components-text poocommerce-layout__header-heading poocommerce-layout__header-left-align settings-payments-offline__header-title">
+							<span className="poocommerce-settings-payments-header__title">
 								{ title }
 							</span>
 						</h1>
@@ -160,9 +160,9 @@ const OfflinePaymentGatewayWrapper = ( {
 };
 
 /**
- * Hides or displays the WooCommerce navigation tab based on the provided display style.
+ * Hides or displays the PooCommerce navigation tab based on the provided display style.
  */
-const hideWooCommerceNavTab = ( display: string ) => {
+const hidePooCommerceNavTab = ( display: string ) => {
 	const externalElement = document.querySelector< HTMLElement >(
 		'.woo-nav-tab-wrapper'
 	);
@@ -181,7 +181,7 @@ const SettingsPaymentsMain = () => {
 
 	useEffect( () => {
 		if ( location.pathname === '' ) {
-			hideWooCommerceNavTab( 'flex' );
+			hidePooCommerceNavTab( 'flex' );
 		}
 	}, [ location ] );
 	return (
@@ -195,15 +195,15 @@ const SettingsPaymentsMain = () => {
 									<div className="settings-payment-gateways__header-title">
 										{ __(
 											'Payment providers',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</div>
 									<div className="settings-payment-gateways__header-select-container">
 										<SelectControl
-											className="woocommerce-select-control__country"
+											className="poocommerce-select-control__country"
 											prefix={ __(
 												'Business location :',
-												'woocommerce'
+												'poocommerce'
 											) }
 											// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 											// @ts-ignore placeholder prop exists
@@ -222,7 +222,7 @@ const SettingsPaymentsMain = () => {
 										<span>
 											{ __(
 												'Other payment options',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</span>
 										<>
@@ -264,7 +264,7 @@ export const SettingsPaymentsMethods = () => {
 			isFetching: select( paymentSettingsStore ).isFetching(),
 			providers:
 				select( paymentSettingsStore ).getPaymentProviders(
-					window.wcSettings?.admin?.woocommerce_payments_nox_profile
+					window.wcSettings?.admin?.poocommerce_payments_nox_profile
 						?.business_country_code || null
 				) || [],
 		};
@@ -289,7 +289,7 @@ export const SettingsPaymentsMethods = () => {
 				)
 				.join( ', ' ),
 			business_country:
-				window.wcSettings?.admin?.woocommerce_payments_nox_profile
+				window.wcSettings?.admin?.poocommerce_payments_nox_profile
 					?.business_country_code ?? 'unknown',
 		} );
 
@@ -311,29 +311,29 @@ export const SettingsPaymentsMethods = () => {
 		window.scrollTo( 0, 0 ); // Scrolls to the top-left corner of the page.
 
 		if ( location.pathname === '/payment-methods' ) {
-			hideWooCommerceNavTab( 'none' );
+			hidePooCommerceNavTab( 'none' );
 			recordEvent( 'wcpay_settings_payment_methods_pageview' );
 		}
 	}, [ location ] );
 
 	return (
 		<>
-			<div className="woocommerce-layout__header woocommerce-recommended-payment-methods">
-				<div className="woocommerce-layout__header-wrapper">
+			<div className="poocommerce-layout__header poocommerce-recommended-payment-methods">
+				<div className="poocommerce-layout__header-wrapper">
 					<BackButton
 						href={ getNewPath( {}, '' ) }
 						title={ __(
 							'Return to payments settings',
-							'woocommerce'
+							'poocommerce'
 						) }
 						isRoute={ true }
 						from={ 'woopayments_payment_methods' }
 					/>
-					<h1 className="components-truncate components-text woocommerce-layout__header-heading woocommerce-layout__header-left-align">
-						<span className="woocommerce-settings-payments-header__title">
+					<h1 className="components-truncate components-text poocommerce-layout__header-heading poocommerce-layout__header-left-align">
+						<span className="poocommerce-settings-payments-header__title">
 							{ __(
 								'Choose your payment methods',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 					</h1>
@@ -343,12 +343,12 @@ export const SettingsPaymentsMethods = () => {
 						isBusy={ isCompleted }
 						disabled={ isCompleted }
 					>
-						{ __( 'Continue', 'woocommerce' ) }
+						{ __( 'Continue', 'poocommerce' ) }
 					</Button>
-					<div className="woocommerce-settings-payments-header__description">
+					<div className="poocommerce-settings-payments-header__description">
 						{ __(
 							"Select which payment methods you'd like to offer to your shoppers. You can update these here at any time.",
-							'woocommerce'
+							'poocommerce'
 						) }
 					</div>
 				</div>
@@ -392,14 +392,14 @@ export const SettingsPaymentsOfflineWrapper = () => {
 						) }
 						title={ __(
 							'Return to payments settings',
-							'woocommerce'
+							'poocommerce'
 						) }
 						isRoute={ true }
 						from={ 'woopayments_payment_methods' }
 					/>
-					<h1 className="components-truncate components-text woocommerce-layout__header-heading woocommerce-layout__header-left-align">
-						<span className="woocommerce-settings-payments-header__title">
-							{ __( 'Take offline payments', 'woocommerce' ) }
+					<h1 className="components-truncate components-text poocommerce-layout__header-heading poocommerce-layout__header-left-align">
+						<span className="poocommerce-settings-payments-header__title">
+							{ __( 'Take offline payments', 'poocommerce' ) }
 						</span>
 					</h1>
 				</div>
@@ -418,7 +418,7 @@ export const SettingsPaymentsWooPaymentsWrapper = () => {
 	return (
 		<>
 			<Header
-				title={ __( 'Settings', 'woocommerce' ) }
+				title={ __( 'Settings', 'poocommerce' ) }
 				context={ 'wc_settings_payments__woopayments' }
 			/>
 			<Suspense fallback={ <div>Loading WooPayments settings...</div> }>
@@ -430,19 +430,19 @@ export const SettingsPaymentsWooPaymentsWrapper = () => {
 
 export const SettingsPaymentsBacsWrapper = () =>
 	OfflinePaymentGatewayWrapper( {
-		title: __( 'Direct bank transfer', 'woocommerce' ),
+		title: __( 'Direct bank transfer', 'poocommerce' ),
 		chunkComponent: SettingsPaymentsBacsChunk,
 	} );
 
 export const SettingsPaymentsCodWrapper = () =>
 	OfflinePaymentGatewayWrapper( {
-		title: __( 'Cash on delivery', 'woocommerce' ),
+		title: __( 'Cash on delivery', 'poocommerce' ),
 		chunkComponent: SettingsPaymentsCodChunk,
 	} );
 
 export const SettingsPaymentsChequeWrapper = () =>
 	OfflinePaymentGatewayWrapper( {
-		title: __( 'Check payments', 'woocommerce' ),
+		title: __( 'Check payments', 'poocommerce' ),
 		chunkComponent: SettingsPaymentsChequeChunk,
 	} );
 
@@ -453,7 +453,7 @@ export const SettingsPaymentsMainWrapper = () => {
 	return (
 		<>
 			<Header
-				title={ __( 'Settings', 'woocommerce' ) }
+				title={ __( 'Settings', 'poocommerce' ) }
 				context={ 'wc_settings_payments__main' }
 			/>
 			<HistoryRouter history={ getHistory() }>

@@ -6,7 +6,7 @@ import { SlotFillProvider } from '@wordpress/components';
 import {
 	useStoreCart,
 	useStoreCartCoupons,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -14,15 +14,15 @@ import {
 import Block from '../block';
 
 // We only need to mock the hooks since we're using real components
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useStoreCart: jest.fn(),
 	useStoreCartCoupons: jest.fn(),
 } ) );
 
 // Mock the ExperimentalDiscountsMeta to track when slot is rendered
 const mockSlotRender = jest.fn();
-jest.mock( '@woocommerce/blocks-checkout', () => {
-	const actual = jest.requireActual( '@woocommerce/blocks-checkout' );
+jest.mock( '@poocommerce/blocks-checkout', () => {
+	const actual = jest.requireActual( '@poocommerce/blocks-checkout' );
 	return {
 		...actual,
 		ExperimentalDiscountsMeta: {
@@ -85,7 +85,7 @@ describe( 'Cart Order Summary Discount Block', () => {
 		// Verify the slot was called with correct props
 		expect( mockSlotRender ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				context: 'woocommerce/cart',
+				context: 'poocommerce/cart',
 				extensions: { some: 'data' },
 				cart: expect.objectContaining( {
 					cartTotals: mockCartTotals,
@@ -182,7 +182,7 @@ describe( 'Cart Order Summary Discount Block', () => {
 		// Check the props structure
 		expect( mockSlotRender ).toHaveBeenCalledWith(
 			expect.objectContaining( {
-				context: 'woocommerce/cart',
+				context: 'poocommerce/cart',
 				extensions: expect.any( Object ),
 				cart: expect.objectContaining( {
 					cartTotals: expect.any( Object ),

@@ -14,7 +14,7 @@ const couponAmount = '5';
 const discountedPrice = ( productPrice - couponAmount ).toString();
 
 test.describe(
-	'WooCommerce Orders > Apply Coupon',
+	'PooCommerce Orders > Apply Coupon',
 	{ tag: [ tags.SERVICES, tags.HPOS ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
@@ -100,7 +100,7 @@ test.describe(
 
 			await expect(
 				page
-					.locator( '#woocommerce-order-items li' )
+					.locator( '#poocommerce-order-items li' )
 					.filter( { hasText: couponCode } )
 			).toBeVisible();
 			await expect(
@@ -124,7 +124,7 @@ test.describe(
 			// assert that there is a coupon on the order
 			await expect(
 				page
-					.locator( '#woocommerce-order-items li' )
+					.locator( '#poocommerce-order-items li' )
 					.filter( { hasText: couponCode } )
 			).toBeVisible();
 			await expect(

@@ -1,12 +1,12 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -68,7 +68,7 @@ class Container_Test extends TestCase { // phpcs:ignore
 
 		// Attempt to get a non-existing service should throw an exception.
 		$this->expectException( Exception::class );
-		$this->expectExceptionMessage( 'Service not found: Automattic\WooCommerce\EmailEditor\Simple_Service' );
+		$this->expectExceptionMessage( 'Service not found: Automattic\PooCommerce\EmailEditor\Simple_Service' );
 
 		$container->get( Simple_Service::class );
 	}

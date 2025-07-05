@@ -129,7 +129,7 @@ export const getBackgroundColorVisibilityStatus = ( {
 				isBackgroundVisible: false,
 				message: __(
 					'You’ve set a background color behind an image set to repeat, the background color cannot be seen.',
-					'woocommerce'
+					'poocommerce'
 				),
 			};
 		}
@@ -138,7 +138,7 @@ export const getBackgroundColorVisibilityStatus = ( {
 			isBackgroundVisible: false,
 			message: __(
 				'You’ve set a background color behind an image set to cover, the background color cannot be seen.',
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}
@@ -153,7 +153,7 @@ export const getBackgroundColorVisibilityStatus = ( {
 			isBackgroundVisible: false,
 			message: __(
 				"You've set background color to an opaque image, the background color cannot be seen.",
-				'woocommerce'
+				'poocommerce'
 			),
 		};
 	}
