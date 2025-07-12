@@ -10,7 +10,7 @@ describe( 'Address Autocomplete Provider Registration', () => {
 			wc_checkout_params: {
 				address_providers: [
 					{ id: 'test-provider', name: 'Test provider' },
-					{ id: 'wc-payments', name: 'WooCommerce Payments' },
+					{ id: 'wc-payments', name: 'PooCommerce Payments' },
 					{ id: 'provider-1', name: 'Provider 1' },
 					{ id: 'provider-2', name: 'Provider 2' },
 				],
@@ -399,7 +399,7 @@ describe( 'Address Suggestions Component', () => {
 
 		// Create wrapper for billing address
 		const billingWrapper = document.createElement( 'div' );
-		billingWrapper.className = 'woocommerce-input-wrapper';
+		billingWrapper.className = 'poocommerce-input-wrapper';
 		billingWrapper.appendChild( billingAddress1 );
 
 		// Shipping fields
@@ -429,7 +429,7 @@ describe( 'Address Suggestions Component', () => {
 
 		// Create wrapper for shipping address
 		const shippingWrapper = document.createElement( 'div' );
-		shippingWrapper.className = 'woocommerce-input-wrapper';
+		shippingWrapper.className = 'poocommerce-input-wrapper';
 		shippingWrapper.appendChild( shippingAddress1 );
 
 		form.appendChild( billingCountry );
@@ -507,7 +507,7 @@ describe( 'Address Suggestions Component', () => {
 			expect( shippingSuggestions ).toBeTruthy();
 
 			expect( billingSuggestions.className ).toBe(
-				'woocommerce-address-suggestions'
+				'poocommerce-address-suggestions'
 			);
 			expect( billingSuggestions.style.display ).toBe( 'none' );
 			expect( billingSuggestions.getAttribute( 'role' ) ).toBe(
@@ -544,10 +544,10 @@ describe( 'Address Suggestions Component', () => {
 
 		test( 'should add autocomplete-available class when provider is active', () => {
 			const billingWrapper = billingAddressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 			const shippingWrapper = shippingAddressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 
 			expect(
@@ -589,7 +589,7 @@ describe( 'Address Suggestions Component', () => {
 		test( 'should remove autocomplete-available class when no provider is active', () => {
 			const billingCountry = document.getElementById( 'billing_country' );
 			const billingWrapper = billingAddressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 
 			billingCountry.value = 'FR';

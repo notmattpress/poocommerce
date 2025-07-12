@@ -65,7 +65,7 @@ export default function WooPaymentsOnboarding( {
 								includeSidebar={ includeSidebar }
 								sidebarTitle={ __(
 									'Set up WooPayments',
-									'woocommerce'
+									'poocommerce'
 								) }
 								context={ {
 									sessionEntryPoint,

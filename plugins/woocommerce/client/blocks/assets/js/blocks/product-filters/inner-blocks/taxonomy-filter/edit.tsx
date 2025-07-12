@@ -87,7 +87,7 @@ const Edit = ( props: EditProps ) => {
 					<p>
 						{ __(
 							'Please select a taxonomy to use this filter!',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>

@@ -125,6 +125,6 @@ const productCollectionStore = {
 	},
 };
 
-store( 'woocommerce/product-collection', productCollectionStore, {
+store( 'poocommerce/product-collection', productCollectionStore, {
 	lock: true,
 } );

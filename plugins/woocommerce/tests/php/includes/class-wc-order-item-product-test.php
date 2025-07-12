@@ -2,12 +2,12 @@
 /**
  * Unit tests for the WC_Order_Item_Product class functionalities.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Order_Item_Product unit tests.

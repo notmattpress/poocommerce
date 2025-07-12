@@ -31,12 +31,12 @@ const productDataStore = store< {
 		) => void;
 	};
 } >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{
 		state: {
 			get productData(): ProductData {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -46,7 +46,7 @@ const productDataStore = store< {
 			},
 			get originalProductData(): ProductData {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -58,7 +58,7 @@ const productDataStore = store< {
 		actions: {
 			setProductData: ( key, value ) => {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				if ( context?.productData ) {

@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartTitleItemsCounterBlock class.
@@ -38,12 +38,12 @@ class MiniCartTitleItemsCounterBlock extends AbstractInnerBlock {
 		$cart            = $this->get_cart_instance();
 		$cart_item_count = $cart ? $cart->get_cart_contents_count() : 0;
 		// translators: %d number of items in the cart.
-		$cart_item_text = _n( '(%d item)', '(%d items)', $cart_item_count, 'woocommerce' );
+		$cart_item_text = _n( '(%d item)', '(%d items)', $cart_item_count, 'poocommerce' );
 
 		// translators: item is an item in cart.
-		$singular = __( '(%d item)', 'woocommerce' );
+		$singular = __( '(%d item)', 'poocommerce' );
 		// translators: items is items in a cart.
-		$plural = __( '(%d items)', 'woocommerce' );
+		$plural = __( '(%d items)', 'poocommerce' );
 
 		wp_interactivity_config(
 			$this->get_full_block_name(),
@@ -63,7 +63,7 @@ class MiniCartTitleItemsCounterBlock extends AbstractInnerBlock {
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'data-wp-text'        => 'state.itemsInCartText',
-				'data-wp-interactive' => 'woocommerce/mini-cart-title-items-counter-block',
+				'data-wp-interactive' => 'poocommerce/mini-cart-title-items-counter-block',
 			)
 		);
 

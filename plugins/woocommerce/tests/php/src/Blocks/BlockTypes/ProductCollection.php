@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
 use WC_Helper_Product;
 use WC_Tax;
 use WP_Query;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests for the ProductCollection block type
@@ -25,7 +25,7 @@ class ProductCollection extends \WP_UnitTestCase {
 	 */
 	private function get_base_parsed_block() {
 		return array(
-			'blockName' => 'woocommerce/product-collection',
+			'blockName' => 'poocommerce/product-collection',
 			'attrs'     => array(
 				'query' => array(
 					'perPage'                  => 9,
@@ -39,8 +39,8 @@ class ProductCollection extends \WP_UnitTestCase {
 					'sticky'                   => '',
 					'inherit'                  => true,
 					'isProductCollectionBlock' => true,
-					'woocommerceAttributes'    => array(),
-					'woocommerceStockStatus'   => array(
+					'poocommerceAttributes'    => array(),
+					'poocommerceStockStatus'   => array(
 						ProductStockStatus::IN_STOCK,
 						ProductStockStatus::OUT_OF_STOCK,
 						ProductStockStatus::ON_BACKORDER,
@@ -87,9 +87,9 @@ class ProductCollection extends \WP_UnitTestCase {
 			$params,
 			array(
 				'featured'               => false,
-				'woocommerceOnSale'      => false,
-				'woocommerceAttributes'  => array(),
-				'woocommerceStockStatus' => array(),
+				'poocommerceOnSale'      => false,
+				'poocommerceAttributes'  => array(),
+				'poocommerceStockStatus' => array(),
 				'timeFrame'              => array(),
 				'priceRange'             => array(),
 			)
@@ -134,7 +134,7 @@ class ProductCollection extends \WP_UnitTestCase {
 		set_transient( 'wc_products_onsale', $on_sale_product_ids, DAY_IN_SECONDS * 30 );
 
 		$parsed_block                                        = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceOnSale'] = true;
+		$parsed_block['attrs']['query']['poocommerceOnSale'] = true;
 
 		$merged_query = $this->initialize_merged_query( $parsed_block );
 
@@ -152,7 +152,7 @@ class ProductCollection extends \WP_UnitTestCase {
 	 */
 	public function test_merging_stock_status_queries() {
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -175,7 +175,7 @@ class ProductCollection extends \WP_UnitTestCase {
 	 */
 	public function test_merging_default_stock_queries() {
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 			ProductStockStatus::ON_BACKORDER,
@@ -187,7 +187,7 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		// Test with hide out of stock items option enabled.
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::ON_BACKORDER,
 		);
@@ -202,7 +202,7 @@ class ProductCollection extends \WP_UnitTestCase {
 	 */
 	public function test_merging_attribute_queries() {
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceAttributes'] = array(
+		$parsed_block['attrs']['query']['poocommerceAttributes'] = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -281,11 +281,11 @@ class ProductCollection extends \WP_UnitTestCase {
 	public function test_merging_multiple_queries() {
 		$parsed_block                              = $this->get_base_parsed_block();
 		$parsed_block['attrs']['query']['orderBy'] = 'rating';
-		$parsed_block['attrs']['query']['woocommerceStockStatus'] = array(
+		$parsed_block['attrs']['query']['poocommerceStockStatus'] = array(
 			ProductStockStatus::IN_STOCK,
 			ProductStockStatus::OUT_OF_STOCK,
 		);
-		$parsed_block['attrs']['query']['woocommerceAttributes']  = array(
+		$parsed_block['attrs']['query']['poocommerceAttributes']  = array(
 			array(
 				'taxonomy' => 'pa_test',
 				'termId'   => 1,
@@ -674,14 +674,14 @@ class ProductCollection extends \WP_UnitTestCase {
 		$time_frame_date = gmdate( 'Y-m-d H:i:s' );
 		$params          = array(
 			'featured'               => 'true',
-			'woocommerceOnSale'      => 'true',
-			'woocommerceAttributes'  => array(
+			'poocommerceOnSale'      => 'true',
+			'poocommerceAttributes'  => array(
 				array(
 					'taxonomy' => 'pa_test',
 					'termId'   => 1,
 				),
 			),
-			'woocommerceStockStatus' => array( ProductStockStatus::IN_STOCK, ProductStockStatus::OUT_OF_STOCK ),
+			'poocommerceStockStatus' => array( ProductStockStatus::IN_STOCK, ProductStockStatus::OUT_OF_STOCK ),
 			'timeFrame'              => array(
 				'operator' => 'in',
 				'value'    => $time_frame_date,
@@ -875,8 +875,8 @@ class ProductCollection extends \WP_UnitTestCase {
 	 * Tests that the both the minimum and maximum in a price range is added if set.
 	 */
 	public function test_price_range_clauses_min_max_price_tax_exclusive() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$parsed_block                                 = $this->get_base_parsed_block();
 		$parsed_block['attrs']['query']['priceRange'] = array(
@@ -896,8 +896,8 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		$query = new WP_Query( $merged_query );
 
-		delete_option( 'woocommerce_tax_display_shop' );
-		delete_option( 'woocommerce_prices_include_tax' );
+		delete_option( 'poocommerce_tax_display_shop' );
+		delete_option( 'poocommerce_prices_include_tax' );
 
 		$this->assertStringContainsString( 'wc_product_meta_lookup.max_price >= 1.', $query->request );
 		$this->assertStringContainsString( 'wc_product_meta_lookup.min_price <= 2.', $query->request );
@@ -907,8 +907,8 @@ class ProductCollection extends \WP_UnitTestCase {
 	 * Tests that the both the minimum and maximum in a price range with taxes inclusive is added if set.
 	 */
 	public function test_price_range_clauses_min_max_price_tax_inclusive() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 		WC_Tax::create_tax_class( 'collection-test' );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -933,8 +933,8 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		$query = new WP_Query( $merged_query );
 
-		delete_option( 'woocommerce_tax_display_shop' );
-		delete_option( 'woocommerce_prices_include_tax' );
+		delete_option( 'poocommerce_tax_display_shop' );
+		delete_option( 'poocommerce_prices_include_tax' );
 		$product->delete();
 		WC_Tax::delete_tax_class_by( 'slug', 'collection-test' );
 
@@ -949,7 +949,7 @@ class ProductCollection extends \WP_UnitTestCase {
 		$handpicked_product_ids = array( 1, 2, 3, 4 );
 
 		$parsed_block = $this->get_base_parsed_block();
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = $this->initialize_merged_query( $parsed_block );
 
@@ -971,7 +971,7 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		$parsed_block                               = $this->get_base_parsed_block();
 		$parsed_block['attrs']['query']['post__in'] = $existing_id_filter;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = $this->initialize_merged_query( $parsed_block );
 
@@ -991,7 +991,7 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		$parsed_block                               = $this->get_base_parsed_block();
 		$parsed_block['attrs']['query']['post__in'] = $existing_id_filter;
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $handpicked_product_ids;
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $handpicked_product_ids;
 
 		$merged_query = $this->initialize_merged_query( $parsed_block );
 
@@ -1146,16 +1146,16 @@ class ProductCollection extends \WP_UnitTestCase {
 		$expected_product_ids = array( 2, 3, 4 );
 
 		// This filter will turn off the data store so we don't need dummy products.
-		add_filter( 'woocommerce_product_related_posts_force_display', '__return_true', 0 );
+		add_filter( 'poocommerce_product_related_posts_force_display', '__return_true', 0 );
 		$related_filter->expects( $this->exactly( 2 ) )
 			->method( '__invoke' )
 			->with( array(), 1 )
 			->willReturn( $expected_product_ids );
-		add_filter( 'woocommerce_related_products', array( $related_filter, '__invoke' ), 10, 2 );
+		add_filter( 'poocommerce_related_products', array( $related_filter, '__invoke' ), 10, 2 );
 
 		// Frontend.
 		$parsed_block                                       = $this->get_base_parsed_block();
-		$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/related';
+		$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/related';
 		$parsed_block['attrs']['query']['productReference'] = 1;
 		$result_frontend                                    = $this->initialize_merged_query( $parsed_block );
 
@@ -1166,13 +1166,13 @@ class ProductCollection extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/related',
+				'collection' => 'poocommerce/product-collection/related',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
 
-		remove_filter( 'woocommerce_product_related_posts_force_display', '__return_true', 0 );
-		remove_filter( 'woocommerce_related_products', array( $related_filter, '__invoke' ) );
+		remove_filter( 'poocommerce_product_related_posts_force_display', '__return_true', 0 );
+		remove_filter( 'poocommerce_related_products', array( $related_filter, '__invoke' ) );
 
 		$this->assertEqualsCanonicalizing( $expected_product_ids, $result_frontend['post__in'] );
 		$this->assertEqualsCanonicalizing( $expected_product_ids, $result_editor['post__in'] );
@@ -1189,7 +1189,7 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		// Frontend.
 		$parsed_block                                       = $this->get_base_parsed_block();
-		$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/upsells';
+		$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/upsells';
 		$parsed_block['attrs']['query']['productReference'] = $test_product->get_id();
 		$result_frontend                                    = $this->initialize_merged_query( $parsed_block );
 
@@ -1200,7 +1200,7 @@ class ProductCollection extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/upsells',
+				'collection' => 'poocommerce/product-collection/upsells',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -1220,7 +1220,7 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		// Frontend.
 		$parsed_block                                       = $this->get_base_parsed_block();
-		$parsed_block['attrs']['collection']                = 'woocommerce/product-collection/cross-sells';
+		$parsed_block['attrs']['collection']                = 'poocommerce/product-collection/cross-sells';
 		$parsed_block['attrs']['query']['productReference'] = $test_product->get_id();
 		$result_frontend                                    = $this->initialize_merged_query( $parsed_block );
 
@@ -1231,7 +1231,7 @@ class ProductCollection extends \WP_UnitTestCase {
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/cross-sells',
+				'collection' => 'poocommerce/product-collection/cross-sells',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -1533,18 +1533,18 @@ class ProductCollection extends \WP_UnitTestCase {
 	public function test_collection_hand_picked_empty() {
 		// Frontend.
 		$parsed_block                        = $this->get_base_parsed_block();
-		$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/hand-picked';
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = array();
+		$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/hand-picked';
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = array();
 		$result_frontend = $this->initialize_merged_query( $parsed_block );
 
 		// Editor.
 		$request = $this->build_request(
-			array( 'woocommerceHandPickedProducts' => array() )
+			array( 'poocommerceHandPickedProducts' => array() )
 		);
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/hand-picked',
+				'collection' => 'poocommerce/product-collection/hand-picked',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );
@@ -1561,18 +1561,18 @@ class ProductCollection extends \WP_UnitTestCase {
 
 		// Frontend.
 		$parsed_block                        = $this->get_base_parsed_block();
-		$parsed_block['attrs']['collection'] = 'woocommerce/product-collection/hand-picked';
-		$parsed_block['attrs']['query']['woocommerceHandPickedProducts'] = $product_ids;
+		$parsed_block['attrs']['collection'] = 'poocommerce/product-collection/hand-picked';
+		$parsed_block['attrs']['query']['poocommerceHandPickedProducts'] = $product_ids;
 		$result_frontend = $this->initialize_merged_query( $parsed_block );
 
 		// Editor.
 		$request = $this->build_request(
-			array( 'woocommerceHandPickedProducts' => $product_ids )
+			array( 'poocommerceHandPickedProducts' => $product_ids )
 		);
 		$request->set_param(
 			'productCollectionQueryContext',
 			array(
-				'collection' => 'woocommerce/product-collection/hand-picked',
+				'collection' => 'poocommerce/product-collection/hand-picked',
 			)
 		);
 		$result_editor = $this->block_instance->update_rest_query_in_editor( array(), $request );

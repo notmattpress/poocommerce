@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 use WC_Cache_Helper;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hooks into WooCommerce actions to register cache invalidation.
+ * Hooks into PooCommerce actions to register cache invalidation.
  */
 class CacheController implements RegisterHooksInterface {
 	const CACHE_GROUP = 'filter_data';
@@ -18,14 +18,14 @@ class CacheController implements RegisterHooksInterface {
 	 * Hook into actions and filters.
 	 */
 	public function register() {
-		add_action( 'woocommerce_after_product_object_save', array( $this, 'clear_filter_data_cache' ) );
-		add_action( 'woocommerce_delete_product_transients', array( $this, 'clear_filter_data_cache' ) );
+		add_action( 'poocommerce_after_product_object_save', array( $this, 'clear_filter_data_cache' ) );
+		add_action( 'poocommerce_delete_product_transients', array( $this, 'clear_filter_data_cache' ) );
 	}
 
 	/**
 	 * Invalidate all cache under filter data group.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function clear_filter_data_cache() {
 		WC_Cache_Helper::get_transient_version( self::CACHE_GROUP, true );

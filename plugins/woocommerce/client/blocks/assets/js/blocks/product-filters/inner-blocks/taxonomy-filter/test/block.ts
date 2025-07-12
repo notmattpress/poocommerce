@@ -16,7 +16,7 @@ import '../';
 import '../../checkbox-list';
 
 // Mock the getSetting function to return mock taxonomy data
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest.fn( ( key: string, defaultValue: unknown ) => {
 		if ( key === 'filterableProductTaxonomies' ) {
 			return [
@@ -39,7 +39,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 async function setup( attributes: BlockAttributes ) {
 	const testBlock = [
 		{
-			name: 'woocommerce/product-filter-taxonomy',
+			name: 'poocommerce/product-filter-taxonomy',
 			attributes,
 		},
 	];

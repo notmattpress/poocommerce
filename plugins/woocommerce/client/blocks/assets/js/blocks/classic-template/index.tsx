@@ -9,7 +9,7 @@ import {
 	unregisterBlockType,
 } from '@wordpress/blocks';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
 import {
 	useBlockProps,
 	BlockPreview,
@@ -91,7 +91,7 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 	const { createInfoNotice } = useDispatch( noticesStore );
 
 	return (
-		<div className="wp-block-woocommerce-classic-template__placeholder-migration-button-container">
+		<div className="wp-block-poocommerce-classic-template__placeholder-migration-button-container">
 			<Button
 				variant="primary"
 				onClick={ () => {
@@ -105,12 +105,12 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 					createInfoNotice(
 						__(
 							'Template transformed into blocks!',
-							'woocommerce'
+							'poocommerce'
 						),
 						{
 							actions: [
 								{
-									label: __( 'Undo', 'woocommerce' ),
+									label: __( 'Undo', 'poocommerce' ),
 									onClick: () => {
 										const clientIds = pickBlockClientIds(
 											getBlocks()
@@ -128,7 +128,7 @@ const ConvertTemplate = ( { blockifyConfig, clientId, attributes } ) => {
 												},
 												[
 													createBlock(
-														'woocommerce/legacy-template',
+														'poocommerce/legacy-template',
 														{
 															template:
 																attributes.template,
@@ -230,7 +230,7 @@ const Edit = ( {
 		getSkeleton()
 	) : (
 		<img
-			className="wp-block-woocommerce-classic-template__placeholder-image"
+			className="wp-block-poocommerce-classic-template__placeholder-image"
 			src={ `${ WC_BLOCKS_IMAGE_URL }template-placeholders/${ templatePlaceholder }.svg` }
 			alt={ templateTitle }
 		/>
@@ -241,17 +241,17 @@ const Edit = ( {
 
 	return (
 		<div { ...blockProps }>
-			<Placeholder className="wp-block-woocommerce-classic-template__placeholder">
-				<div className="wp-block-woocommerce-classic-template__placeholder-wireframe">
+			<Placeholder className="wp-block-poocommerce-classic-template__placeholder">
+				<div className="wp-block-poocommerce-classic-template__placeholder-wireframe">
 					{ skeleton }
 				</div>
-				<div className="wp-block-woocommerce-classic-template__placeholder-copy">
-					<div className="wp-block-woocommerce-classic-template__placeholder-copy__icon-container">
-						<h1>{ __( 'WooCommerce', 'woocommerce' ) }</h1>
+				<div className="wp-block-poocommerce-classic-template__placeholder-copy">
+					<div className="wp-block-poocommerce-classic-template__placeholder-copy__icon-container">
+						<h1>{ __( 'PooCommerce', 'poocommerce' ) }</h1>
 						<span>
 							{ __(
 								'Classic Template Placeholder',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</span>
 					</div>
@@ -263,7 +263,7 @@ const Edit = ( {
 					<p>
 						{ __(
 							'You cannot edit the content of this block. However, you can move it and place other blocks around it.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					{ canConvert && blockifyConfig && (
@@ -287,33 +287,33 @@ const registerClassicTemplateBlock = ( {
 	inserter: boolean;
 } ) => {
 	/**
-	 * The 'WooCommerce Legacy Template' block was renamed to 'WooCommerce Classic Template', however, the internal block
-	 * name 'woocommerce/legacy-template' needs to remain the same. Otherwise, it would result in a corrupt block when
+	 * The 'PooCommerce Legacy Template' block was renamed to 'PooCommerce Classic Template', however, the internal block
+	 * name 'poocommerce/legacy-template' needs to remain the same. Otherwise, it would result in a corrupt block when
 	 * loaded for users who have customized templates using the legacy-template (since the internal block name is
 	 * stored in the database).
 	 *
-	 * See https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5861 for more context
+	 * See https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/5861 for more context
 	 */
 	registerBlockType( BLOCK_SLUG, {
 		title:
 			template && TEMPLATES[ template ]
 				? TEMPLATES[ template ].title
-				: __( 'WooCommerce Classic Template', 'woocommerce' ),
+				: __( 'PooCommerce Classic Template', 'poocommerce' ),
 		icon: (
 			<Icon
 				icon={ box }
 				className="wc-block-editor-components-block-icon"
 			/>
 		),
-		category: 'woocommerce',
+		category: 'poocommerce',
 		apiVersion: 3,
-		keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
+		keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
 		description:
 			template && TEMPLATES[ template ]
 				? TEMPLATES[ template ].description
 				: __(
-						'Renders classic WooCommerce PHP templates.',
-						'woocommerce'
+						'Renders classic PooCommerce PHP templates.',
+						'poocommerce'
 				  ),
 		supports: {
 			interactivity: {

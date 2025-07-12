@@ -14,7 +14,7 @@ export const CheckoutPaymentSkeleton = () => {
 	return (
 		<>
 			<VisuallyHidden aria-live="polite">
-				{ __( 'Loading payment options… ', 'woocommerce' ) }
+				{ __( 'Loading payment options… ', 'poocommerce' ) }
 			</VisuallyHidden>
 			<div className="wc-block-components-skeleton wc-block-components-skeleton--checkout-payment">
 				<div className="wc-block-components-skeleton--checkout-payment-container">

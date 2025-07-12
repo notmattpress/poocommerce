@@ -4,7 +4,7 @@
 import {
 	WC_API_PATH,
 	WC_ADMIN_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
 	page: async ( { page, restApi }, use ) => {
 		await restApi.put( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_reminder_bar_hidden: 'yes',
+			poocommerce_task_list_reminder_bar_hidden: 'yes',
 		} );
 
 		await use( page );

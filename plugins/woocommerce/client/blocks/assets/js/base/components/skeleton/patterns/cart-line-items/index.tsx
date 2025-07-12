@@ -16,11 +16,11 @@ export const CartLineItemsSkeleton = ( { rows = 2 }: { rows?: number } ) => {
 	return (
 		<>
 			<VisuallyHidden aria-live="polite">
-				{ __( 'Loading your cart…', 'woocommerce' ) }
+				{ __( 'Loading your cart…', 'poocommerce' ) }
 			</VisuallyHidden>
 
 			<div className="wc-block-components-skeleton wc-block-components-skeleton--cart-line-items wc-block-cart is-large">
-				<table className="wc-block-cart-items wp-block-woocommerce-cart-line-items-block">
+				<table className="wc-block-cart-items wp-block-poocommerce-cart-line-items-block">
 					<thead>
 						<tr className="wc-block-cart-items__header">
 							<th className="wc-block-cart-items__header-image"></th>

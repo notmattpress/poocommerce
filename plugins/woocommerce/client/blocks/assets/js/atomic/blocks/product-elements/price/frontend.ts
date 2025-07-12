@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { getElement, store } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 import { sanitize } from 'dompurify'; // eslint-disable-line import/named
 
 // Stores are locked to prevent 3PD usage until the API is stable.
@@ -11,7 +11,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -40,7 +40,7 @@ const ALLOWED_ATTR = [
 ];
 
 const productPriceStore = store(
-	'woocommerce/product-price',
+	'poocommerce/product-price',
 	{
 		callbacks: {
 			updatePrice: () => {

@@ -2,11 +2,11 @@
 /**
  * Class WC_Tests_Admin_Report file.
  *
- * @package WooCommerce\Tests\Admin\Reports
+ * @package PooCommerce\Tests\Admin\Reports
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Tests for the WC_Admin_Report class.
@@ -14,7 +14,7 @@ use Automattic\WooCommerce\Enums\OrderStatus;
 class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 
 	/**
-	 * Load the necessary files, as they're not automatically loaded by WooCommerce.
+	 * Load the necessary files, as they're not automatically loaded by PooCommerce.
 	 *
 	 */
 	public static function setUpBeforeClass(): void {
@@ -26,7 +26,7 @@ class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$this->markTestSkipped( 'This test is not compatible with the custom orders table.' );
 		}
 	}
@@ -72,7 +72,7 @@ class WC_Tests_Admin_Report extends WC_Unit_Test_Case {
 	public function test_get_order_report_data_returns_empty_string_if_data_is_empty() {
 		$report = new WC_Admin_Report();
 
-		add_filter( 'woocommerce_reports_get_order_report_data_args', '__return_empty_string' );
+		add_filter( 'poocommerce_reports_get_order_report_data_args', '__return_empty_string' );
 
 		$this->assertEmpty( $report->get_order_report_data() );
 	}

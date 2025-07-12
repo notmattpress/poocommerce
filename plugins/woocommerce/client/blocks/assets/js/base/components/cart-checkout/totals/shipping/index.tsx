@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { TotalsItem } from '@woocommerce/blocks-components';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { TotalsItem } from '@poocommerce/blocks-components';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	hasSelectedShippingRate,
 	getSelectedShippingRateNames,
-} from '@woocommerce/base-utils';
-import { useStoreCart } from '@woocommerce/base-context';
+} from '@poocommerce/base-utils';
+import { useStoreCart } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ export interface TotalShippingProps {
 }
 
 export const TotalsShipping = ( {
-	label = __( 'Shipping', 'woocommerce' ),
+	label = __( 'Shipping', 'poocommerce' ),
 	placeholder = null,
 	collaterals = null,
 }: TotalShippingProps ): JSX.Element | null => {

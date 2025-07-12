@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { AttributeMetadata, EditorBlock } from '@woocommerce/types';
+import type { AttributeMetadata, EditorBlock } from '@poocommerce/types';
 
 // The interface below disables the forbidden underscores
 // naming convention because we are namespacing our
@@ -16,7 +16,7 @@ export interface ProductQueryArguments {
 	 * the choice to those.
 	 */
 	orderBy: 'date' | 'popularity';
-	__woocommerceAttributes?: AttributeMetadata[];
+	__poocommerceAttributes?: AttributeMetadata[];
 	/**
 	 * Display only products on sale.
 	 *
@@ -40,8 +40,8 @@ export interface ProductQueryArguments {
 	 * )
 	 * ```
 	 */
-	__woocommerceOnSale?: boolean;
-	__woocommerceInherit?: boolean;
+	__poocommerceOnSale?: boolean;
+	__poocommerceInherit?: boolean;
 	/**
 	 * Filter products by their stock status.
 	 *
@@ -55,7 +55,7 @@ export interface ProductQueryArguments {
 	 * ),
 	 * ```
 	 */
-	__woocommerceStockStatus?: string[];
+	__poocommerceStockStatus?: string[];
 }
 /* eslint-enable */
 
@@ -101,6 +101,6 @@ export interface ProductQueryContext {
 
 export enum QueryVariation {
 	/** The main, fully customizable, Product Query block */
-	PRODUCT_QUERY = 'woocommerce/product-query',
-	RELATED_PRODUCTS = 'woocommerce/related-products',
+	PRODUCT_QUERY = 'poocommerce/product-query',
+	RELATED_PRODUCTS = 'poocommerce/related-products',
 }

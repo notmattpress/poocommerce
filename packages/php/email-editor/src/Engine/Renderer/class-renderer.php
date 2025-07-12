@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 use Soundasleep\Html2Text;
 use WP_Style_Engine;
 
@@ -113,7 +113,7 @@ class Renderer {
 		);
 		$template_styles  .= '.email_layout_wrapper { box-sizing: border-box;}';
 		$template_styles  .= file_get_contents( __DIR__ . '/' . self::TEMPLATE_STYLES_FILE );
-		$template_styles   = '<style>' . wp_strip_all_tags( (string) apply_filters( 'woocommerce_email_renderer_styles', $template_styles, $post ) ) . '</style>';
+		$template_styles   = '<style>' . wp_strip_all_tags( (string) apply_filters( 'poocommerce_email_renderer_styles', $template_styles, $post ) ) . '</style>';
 		$rendered_template = $this->inline_css_styles( $template_styles . $rendered_template );
 
 		// This is a workaround to support link :hover in some clients. Ideally we would remove the ability to set :hover

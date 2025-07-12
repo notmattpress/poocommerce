@@ -5,52 +5,52 @@ import { __ } from '@wordpress/i18n';
 
 export const PATTERN_CATEGORIES = {
 	intro: {
-		label: __( 'Intro', 'woocommerce' ),
+		label: __( 'Intro', 'poocommerce' ),
 		description: __(
 			'Welcome shoppers to your store with one of our introductory patterns.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	'featured-selling': {
-		label: __( 'Featured selling', 'woocommerce' ),
+		label: __( 'Featured selling', 'poocommerce' ),
 		description: __(
 			'Put the spotlight on one or more of your products or product categories.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	about: {
-		label: __( 'About', 'woocommerce' ),
+		label: __( 'About', 'poocommerce' ),
 		description: __(
 			'Show your shoppers what’s special about your business.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	services: {
-		label: __( 'Services', 'woocommerce' ),
+		label: __( 'Services', 'poocommerce' ),
 		description: __(
 			'Share information on any services that your business can provide.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	reviews: {
-		label: __( 'Reviews', 'woocommerce' ),
+		label: __( 'Reviews', 'poocommerce' ),
 		description: __(
 			'Encourage sales by sharing positive feedback from happy shoppers.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	'social-media': {
-		label: __( 'Social media', 'woocommerce' ),
+		label: __( 'Social media', 'poocommerce' ),
 		description: __(
 			'Promote your social channels and give shoppers a way to see your latest products and news.',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	// newsletter: {
-	// 	label: __( 'Newsletter', 'woocommerce' ),
+	// 	label: __( 'Newsletter', 'poocommerce' ),
 	// 	description: __(
 	// 		'Keep in touch with your shoppers with a newsletter signup form.',
-	// 		'woocommerce'
+	// 		'poocommerce'
 	// 	),
 	// },
 };

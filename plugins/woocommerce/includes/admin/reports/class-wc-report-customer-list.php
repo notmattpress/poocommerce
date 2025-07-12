@@ -2,7 +2,7 @@
 /**
  * Class WC_Report_Customer_List file.
  *
- * @package WooCommerce\Reports
+ * @package PooCommerce\Reports
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 /**
  * WC_Report_Customer_List.
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 class WC_Report_Customer_List extends WP_List_Table {
@@ -39,7 +39,7 @@ class WC_Report_Customer_List extends WP_List_Table {
 	 * No items found text.
 	 */
 	public function no_items() {
-		esc_html_e( 'No customers found.', 'woocommerce' );
+		esc_html_e( 'No customers found.', 'poocommerce' );
 	}
 
 	/**
@@ -48,12 +48,12 @@ class WC_Report_Customer_List extends WP_List_Table {
 	public function output_report() {
 		$this->prepare_items();
 
-		echo '<div id="poststuff" class="woocommerce-reports-wide">';
+		echo '<div id="poststuff" class="poocommerce-reports-wide">';
 
 		if ( ! empty( $_GET['link_orders'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'link_orders' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 			$linked = wc_update_new_customer_past_orders( absint( $_GET['link_orders'] ) );
 			/* translators: single or plural number of orders */
-			echo '<div class="updated"><p>' . esc_html( sprintf( _n( '%s previous order linked', '%s previous orders linked', $linked, 'woocommerce' ), $linked ) ) . '</p></div>';
+			echo '<div class="updated"><p>' . esc_html( sprintf( _n( '%s previous order linked', '%s previous orders linked', $linked, 'poocommerce' ), $linked ) ) . '</p></div>';
 		}
 
 		if ( ! empty( $_GET['refresh'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'refresh' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
@@ -64,12 +64,12 @@ class WC_Report_Customer_List extends WP_List_Table {
 			delete_user_meta( $user_id, '_order_count' );
 			delete_user_meta( $user_id, '_last_order' );
 			/* translators: User display name */
-			echo '<div class="updated"><p>' . sprintf( esc_html__( 'Refreshed stats for %s', 'woocommerce' ), esc_html( $user->display_name ) ) . '</p></div>';
+			echo '<div class="updated"><p>' . sprintf( esc_html__( 'Refreshed stats for %s', 'poocommerce' ), esc_html( $user->display_name ) ) . '</p></div>';
 		}
 
-		echo '<form method="post" id="woocommerce_customers">';
+		echo '<form method="post" id="poocommerce_customers">';
 
-		$this->search_box( __( 'Search customers', 'woocommerce' ), 'customer_search' );
+		$this->search_box( __( 'Search customers', 'poocommerce' ), 'customer_search' );
 		$this->display();
 
 		echo '</form>';
@@ -137,7 +137,7 @@ class WC_Report_Customer_List extends WP_List_Table {
 
 				if ( ! empty( $orders ) ) {
 					$order = $orders[0];
-					return '<a href="' . admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' ) . '">' . _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number() . '</a> &ndash; ' . wc_format_datetime( $order->get_date_created() );
+					return '<a href="' . admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' ) . '">' . _x( '#', 'hash before order number', 'poocommerce' ) . $order->get_order_number() . '</a> &ndash; ' . wc_format_datetime( $order->get_date_created() );
 				} else {
 					return '-';
 				}
@@ -148,25 +148,25 @@ class WC_Report_Customer_List extends WP_List_Table {
 				ob_start();
 				?><p>
 					<?php
-					do_action( 'woocommerce_admin_user_actions_start', $user );
+					do_action( 'poocommerce_admin_user_actions_start', $user );
 
 					$actions = array();
 
 					$actions['refresh'] = array(
 						'url'    => wp_nonce_url( add_query_arg( 'refresh', $user->ID ), 'refresh' ),
-						'name'   => __( 'Refresh stats', 'woocommerce' ),
+						'name'   => __( 'Refresh stats', 'poocommerce' ),
 						'action' => 'refresh',
 					);
 
 					$actions['edit'] = array(
 						'url'    => admin_url( 'user-edit.php?user_id=' . $user->ID ),
-						'name'   => __( 'Edit', 'woocommerce' ),
+						'name'   => __( 'Edit', 'poocommerce' ),
 						'action' => 'edit',
 					);
 
 					$actions['view'] = array(
 						'url'    => admin_url( 'edit.php?post_type=shop_order&_customer_user=' . $user->ID ),
-						'name'   => __( 'View orders', 'woocommerce' ),
+						'name'   => __( 'View orders', 'poocommerce' ),
 						'action' => 'view',
 					);
 
@@ -181,18 +181,18 @@ class WC_Report_Customer_List extends WP_List_Table {
 					if ( $orders ) {
 						$actions['link'] = array(
 							'url'    => wp_nonce_url( add_query_arg( 'link_orders', $user->ID ), 'link_orders' ),
-							'name'   => __( 'Link previous orders', 'woocommerce' ),
+							'name'   => __( 'Link previous orders', 'poocommerce' ),
 							'action' => 'link',
 						);
 					}
 
-					$actions = apply_filters( 'woocommerce_admin_user_actions', $actions, $user );
+					$actions = apply_filters( 'poocommerce_admin_user_actions', $actions, $user );
 
 					foreach ( $actions as $action ) {
 						printf( '<a class="button tips %s" href="%s" data-tip="%s">%s</a>', esc_attr( $action['action'] ), esc_url( $action['url'] ), esc_attr( $action['name'] ), esc_attr( $action['name'] ) );
 					}
 
-					do_action( 'woocommerce_admin_user_actions_end', $user );
+					do_action( 'poocommerce_admin_user_actions_end', $user );
 					?>
 				</p>
 				<?php
@@ -212,14 +212,14 @@ class WC_Report_Customer_List extends WP_List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'customer_name' => __( 'Name (Last, First)', 'woocommerce' ),
-			'username'      => __( 'Username', 'woocommerce' ),
-			'email'         => __( 'Email', 'woocommerce' ),
-			'location'      => __( 'Location', 'woocommerce' ),
-			'orders'        => __( 'Orders', 'woocommerce' ),
-			'spent'         => __( 'Money spent', 'woocommerce' ),
-			'last_order'    => __( 'Last order', 'woocommerce' ),
-			'wc_actions'    => __( 'Actions', 'woocommerce' ),
+			'customer_name' => __( 'Name (Last, First)', 'poocommerce' ),
+			'username'      => __( 'Username', 'poocommerce' ),
+			'email'         => __( 'Email', 'poocommerce' ),
+			'location'      => __( 'Location', 'poocommerce' ),
+			'orders'        => __( 'Orders', 'poocommerce' ),
+			'spent'         => __( 'Money spent', 'poocommerce' ),
+			'last_order'    => __( 'Last order', 'poocommerce' ),
+			'wc_actions'    => __( 'Actions', 'poocommerce' ),
 		);
 
 		return $columns;
@@ -282,7 +282,7 @@ class WC_Report_Customer_List extends WP_List_Table {
 
 		$query = new WP_User_Query(
 			apply_filters(
-				'woocommerce_admin_report_customer_list_user_query_args',
+				'poocommerce_admin_report_customer_list_user_query_args',
 				array(
 					'exclude' => array_merge( $admin_users->get_results(), $manager_users->get_results() ),
 					'number'  => $per_page,

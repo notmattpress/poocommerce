@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * FilledMiniCartContentsBlock class.
@@ -42,7 +42,7 @@ class FilledMiniCartContentsBlock extends AbstractInnerBlock {
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'data-wp-bind--hidden' => 'state.cartIsEmpty',
-				'data-wp-interactive'  => 'woocommerce/mini-cart',
+				'data-wp-interactive'  => 'poocommerce/mini-cart',
 			)
 		);
 

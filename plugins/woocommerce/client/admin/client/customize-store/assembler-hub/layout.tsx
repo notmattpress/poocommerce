@@ -1,5 +1,5 @@
 // Reference: https://github.com/WordPress/gutenberg/tree/v16.4.0/packages/edit-site/src/components/layout/index.js
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -138,26 +138,26 @@ export const Layout = () => {
 						id={ templateId }
 					>
 						<div
-							className={ clsx( 'woocommerce-edit-site-layout' ) }
+							className={ clsx( 'poocommerce-edit-site-layout' ) }
 						>
 							<motion.div
-								className="woocommerce-edit-site-layout__header-container"
+								className="poocommerce-edit-site-layout__header-container"
 								animate={ 'view' }
 							>
 								<SiteHub
 									isTransparent={ false }
-									className="woocommerce-edit-site-layout__hub"
+									className="poocommerce-edit-site-layout__hub"
 								/>
 							</motion.div>
 
-							<div className="woocommerce-edit-site-layout__content">
-								<div className="woocommerce-edit-site-layout__sidebar">
+							<div className="poocommerce-edit-site-layout__content">
+								<div className="poocommerce-edit-site-layout__sidebar">
 									<NavigableRegion
 										ariaLabel={ __(
 											'Navigation',
-											'woocommerce'
+											'poocommerce'
 										) }
-										className="woocommerce-edit-site-layout__sidebar-region"
+										className="poocommerce-edit-site-layout__sidebar-region"
 									>
 										<motion.div
 											animate={ { opacity: 1 } }
@@ -171,7 +171,7 @@ export const Layout = () => {
 														: ANIMATION_DURATION,
 												ease: 'easeOut',
 											} }
-											className="woocommerce-edit-site-layout__sidebar"
+											className="poocommerce-edit-site-layout__sidebar"
 										>
 											<Sidebar />
 										</motion.div>
@@ -180,14 +180,14 @@ export const Layout = () => {
 								</div>
 
 								{ ! isMobileViewport && (
-									<div className="woocommerce-edit-site-layout__canvas-container">
+									<div className="poocommerce-edit-site-layout__canvas-container">
 										{ canvasResizer }
 										{ !! canvasSize.width && (
 											<motion.div
 												initial={ false }
 												layout="position"
 												className={ clsx(
-													'woocommerce-edit-site-layout__canvas'
+													'poocommerce-edit-site-layout__canvas'
 												) }
 											>
 												<ErrorBoundary>

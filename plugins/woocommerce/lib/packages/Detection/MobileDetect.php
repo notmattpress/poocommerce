@@ -20,7 +20,7 @@
  *
  * @version 3.74.3
  */
-namespace Automattic\WooCommerce\Vendor\Detection;
+namespace Automattic\PooCommerce\Vendor\Detection;
 
 use BadMethodCallException;
 

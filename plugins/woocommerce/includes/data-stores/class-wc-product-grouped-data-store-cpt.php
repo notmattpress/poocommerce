@@ -2,7 +2,7 @@
 /**
  * Class WC_Product_Grouped_Data_Store_CPT file.
  *
- * @package WooCommerce\DataStores
+ * @package PooCommerce\DataStores
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -95,6 +95,6 @@ class WC_Product_Grouped_Data_Store_CPT extends WC_Product_Data_Store_CPT implem
 		 * @since 3.6
 		 * @param int $product_id Product ID that was updated directly.
 		 */
-		do_action( 'woocommerce_updated_product_price', $product->get_id() );
+		do_action( 'poocommerce_updated_product_price', $product->get_id() );
 	}
 }

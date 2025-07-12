@@ -7,10 +7,10 @@ import { BlockInstance } from '@wordpress/blocks';
 import { createElement, useEffect, useState, useRef } from '@wordpress/element';
 import { debounce } from 'lodash';
 import { uploadMedia } from '@wordpress/media-utils';
-import { useUser } from '@woocommerce/data';
+import { useUser } from '@poocommerce/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { ShortcutProvider } from '@wordpress/keyboard-shortcuts';
 
 /**
@@ -74,7 +74,7 @@ export const RichTextEditor: React.VFC< RichTextEditorProps > = ( {
 		: undefined;
 
 	return (
-		<div className="woocommerce-rich-text-editor">
+		<div className="poocommerce-rich-text-editor">
 			{ label && (
 				<BaseControl.VisualLabel>{ label }</BaseControl.VisualLabel>
 			) }

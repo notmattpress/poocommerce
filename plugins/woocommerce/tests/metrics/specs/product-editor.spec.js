@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */
+/* eslint-disable @poocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */
 
 /**
  * WordPress dependencies
@@ -32,7 +32,7 @@ test.describe( 'Product editor performance', () => {
 
 	test.beforeAll( async () => {
 		await wpCLI(
-			'wp option set woocommerce_feature_product_block_editor_enabled yes'
+			'wp option set poocommerce_feature_product_block_editor_enabled yes'
 		);
 	} );
 
@@ -47,7 +47,7 @@ test.describe( 'Product editor performance', () => {
 		} );
 
 		await wpCLI(
-			'wp option set woocommerce_feature_product_block_editor_enabled no'
+			'wp option set poocommerce_feature_product_block_editor_enabled no'
 		);
 	} );
 
@@ -172,4 +172,4 @@ test.describe( 'Product editor performance', () => {
 	} );
 } );
 
-/* eslint-enable @woocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */
+/* eslint-enable @poocommerce/dependency-group, jest/expect-expect, jest/no-test-callback, array-callback-return, jest/no-identical-title */

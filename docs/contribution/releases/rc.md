@@ -1,16 +1,16 @@
 ---
-post_title: WooCommerce Release Candidates
+post_title: PooCommerce Release Candidates
 sidebar_label: Release Candidates
 ---
 
-# WooCommerce Release Candidates
+# PooCommerce Release Candidates
 
-Release candidates are pre-release WooCommerce versions made available for testing by plugin authors and users.
+Release candidates are pre-release PooCommerce versions made available for testing by plugin authors and users.
 They are versioned incrementally, starting with `-rc.1`, then `-rc.2`, and so on (released if any regressions have been
 discovered or any crucial features need to make it into the final release).
 
 The date of the very first release candidate is announced along with the final release date as part of the published release 
-checklist and [release schedule](https://developer.woocommerce.com/release-calendar/).
+checklist and [release schedule](https://developer.poocommerce.com/release-calendar/).
 
 > Note on timeline: The expected timeframe between the RC1 and a final release is three weeks.
 
