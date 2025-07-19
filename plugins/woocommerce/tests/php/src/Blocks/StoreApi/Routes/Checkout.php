@@ -3,27 +3,27 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use WC_Gateway_BACS;
 
 /**
  * Checkout Controller Tests.
  *
- * phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r, WooCommerce.Commenting.CommentHooks.MissingHookComment
+ * phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_print_r, PooCommerce.Commenting.CommentHooks.MissingHookComment
  */
 class Checkout extends MockeryTestCase {
 
@@ -34,10 +34,10 @@ class Checkout extends MockeryTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ), 10, 4 );
+		add_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ), 10, 4 );
 
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 		global $wp_rest_server;
 		$wp_rest_server = new \Spy_REST_Server();
@@ -117,19 +117,19 @@ class Checkout extends MockeryTestCase {
 	protected function tearDown(): void {
 		parent::tearDown();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ) );
+		remove_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ) );
 
-		remove_all_filters( 'woocommerce_get_country_locale' );
-		remove_all_filters( 'woocommerce_register_shop_order_post_statuses' );
+		remove_all_filters( 'poocommerce_get_country_locale' );
+		remove_all_filters( 'poocommerce_register_shop_order_post_statuses' );
 		remove_all_filters( 'wc_order_statuses' );
-		remove_all_actions( 'woocommerce_checkout_validate_order_before_payment' );
-		remove_all_actions( 'woocommerce_store_api_checkout_order_processed' );
-		remove_all_actions( 'woocommerce_valid_order_statuses_for_payment' );
+		remove_all_actions( 'poocommerce_checkout_validate_order_before_payment' );
+		remove_all_actions( 'poocommerce_store_api_checkout_order_processed' );
+		remove_all_actions( 'poocommerce_valid_order_statuses_for_payment' );
 
-		update_option( 'woocommerce_ship_to_countries', 'all' );
-		update_option( 'woocommerce_allowed_countries', 'all' );
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		update_option( 'poocommerce_ship_to_countries', 'all' );
+		update_option( 'poocommerce_allowed_countries', 'all' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 		$fixtures = new FixtureData();
 		$fixtures->shipping_remove_pickup_location();
@@ -160,7 +160,7 @@ class Checkout extends MockeryTestCase {
 	 *
 	 * @return false
 	 */
-	public function filter_woocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
+	public function filter_poocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
 		if ( $expire < time() ) {
 			unset( $_COOKIE[ $name ] );
 		} else {
@@ -626,7 +626,7 @@ class Checkout extends MockeryTestCase {
 	 */
 	public function test_locale_required_filtering_post_data() {
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['US']['state']['required'] = false;
 				return $locale;
@@ -644,7 +644,7 @@ class Checkout extends MockeryTestCase {
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
 
-		// Test that a country that usually requires state can be overridden with woocommerce_get_country_locale filter.
+		// Test that a country that usually requires state can be overridden with poocommerce_get_country_locale filter.
 		$request->set_body_params(
 			array(
 				'billing_address'  => (object) array(
@@ -684,7 +684,7 @@ class Checkout extends MockeryTestCase {
 	 */
 	public function test_locale_label_filtering_post_data() {
 		add_filter(
-			'woocommerce_get_country_locale',
+			'poocommerce_get_country_locale',
 			function ( $locale ) {
 				$locale['FR']['state']['label']    = 'French state';
 				$locale['FR']['state']['required'] = true;
@@ -698,7 +698,7 @@ class Checkout extends MockeryTestCase {
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
 
-		// Test that a country that usually requires state can be overridden with woocommerce_get_country_locale filter.
+		// Test that a country that usually requires state can be overridden with poocommerce_get_country_locale filter.
 		$request->set_body_params(
 			array(
 				'billing_address'  => (object) array(
@@ -803,10 +803,10 @@ class Checkout extends MockeryTestCase {
 				),
 			)
 		)->once();
-		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $action_callback, 'do_callback' ), 10, 2 );
+		add_action( 'poocommerce_store_api_checkout_update_order_from_request', array( $action_callback, 'do_callback' ), 10, 2 );
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 200, $response->get_status() );
-		remove_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $action_callback, 'do_callback' ), 10, 2 );
+		remove_action( 'poocommerce_store_api_checkout_update_order_from_request', array( $action_callback, 'do_callback' ), 10, 2 );
 	}
 
 	/**
@@ -1062,8 +1062,8 @@ class Checkout extends MockeryTestCase {
 		WC()->session->set_customer_session_cookie( true );
 		WC()->session->save_data();
 
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1167,7 +1167,7 @@ class Checkout extends MockeryTestCase {
 		global $wpdb;
 		$shipping_methods = \WC_Shipping_Zones::get_zone( 0 )->get_shipping_methods();
 		foreach ( $shipping_methods as $shipping_method ) {
-			$wpdb->update( "{$wpdb->prefix}woocommerce_shipping_zone_methods", array( 'is_enabled' => '0' ), array( 'instance_id' => absint( $shipping_method->instance_id ) ) );
+			$wpdb->update( "{$wpdb->prefix}poocommerce_shipping_zone_methods", array( 'is_enabled' => '0' ), array( 'instance_id' => absint( $shipping_method->instance_id ) ) );
 		}
 		$fixtures = new FixtureData();
 		$fixtures->shipping_remove_pickup_location();
@@ -1214,7 +1214,7 @@ class Checkout extends MockeryTestCase {
 		$status   = $response->get_status();
 		$data     = $response->get_data();
 		$this->assertEquals( 400, $status, print_r( $data, true ) );
-		$this->assertEquals( 'woocommerce_rest_invalid_shipping_option', $data['code'], print_r( $data, true ) );
+		$this->assertEquals( 'poocommerce_rest_invalid_shipping_option', $data['code'], print_r( $data, true ) );
 		$this->assertEquals( 'Sorry, this order requires a shipping option.', $data['message'], print_r( $data, true ) );
 	}
 
@@ -1227,8 +1227,8 @@ class Checkout extends MockeryTestCase {
 		WC()->session->set_customer_session_cookie( true );
 		WC()->session->save_data();
 
-		update_option( 'woocommerce_enable_guest_checkout', 'no' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'no' );
+		update_option( 'poocommerce_enable_guest_checkout', 'no' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'no' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1273,7 +1273,7 @@ class Checkout extends MockeryTestCase {
 		$data     = $response->get_data();
 
 		$this->assertEquals( 403, $status, print_r( $data, true ) );
-		$this->assertEquals( 'woocommerce_rest_guest_checkout_disabled', $data['code'], print_r( $data, true ) );
+		$this->assertEquals( 'poocommerce_rest_guest_checkout_disabled', $data['code'], print_r( $data, true ) );
 		$this->assertEquals( 'You must be logged in to checkout.', $data['message'], print_r( $data, true ) );
 	}
 
@@ -1310,12 +1310,12 @@ class Checkout extends MockeryTestCase {
 			),
 			array(
 				'id'       => 'plugin-namespace/leave-on-porch',
-				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'woocommerce' ),
+				'label'    => __( 'Please leave my package on the porch if I\'m not home', 'poocommerce' ),
 				'location' => 'order',
 				'type'     => 'checkbox',
 			),
 		);
-		array_map( 'woocommerce_register_additional_checkout_field', $fields );
+		array_map( 'poocommerce_register_additional_checkout_field', $fields );
 
 		$request = new \WP_REST_Request( 'PUT', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );
@@ -1385,12 +1385,12 @@ class Checkout extends MockeryTestCase {
 	 * @testDox Test that perform_custom_order_validation throws a RouteException with a custom error.
 	 */
 	public function test_perform_custom_order_validation() {
-		$order_controller = new \Automattic\WooCommerce\StoreApi\Utilities\OrderController();
+		$order_controller = new \Automattic\PooCommerce\StoreApi\Utilities\OrderController();
 		$order            = new \WC_Order();
 
 		// Set up a test action to add a custom validation error.
 		add_action(
-			'woocommerce_checkout_validate_order_before_payment',
+			'poocommerce_checkout_validate_order_before_payment',
 			function ( $order, $errors ) {
 				$errors->add( 'custom_error', 'This is a custom validation error' );
 			},
@@ -1404,7 +1404,7 @@ class Checkout extends MockeryTestCase {
 		$method->setAccessible( true );
 
 		// Assert that the method throws a RouteException with our custom error.
-		$this->expectException( \Automattic\WooCommerce\StoreApi\Exceptions\RouteException::class );
+		$this->expectException( \Automattic\PooCommerce\StoreApi\Exceptions\RouteException::class );
 		$this->expectExceptionMessage( 'This is a custom validation error' );
 
 		$method->invoke( $order_controller, $order );
@@ -1415,8 +1415,8 @@ class Checkout extends MockeryTestCase {
 	 */
 	public function test_local_pickup_country_validation() {
 		// Set shipping to a country that's not enabled for shipping.
-		update_option( 'woocommerce_ship_to_countries', 'specific' );
-		update_option( 'woocommerce_specific_ship_to_countries', array( 'GB' ) );
+		update_option( 'poocommerce_ship_to_countries', 'specific' );
+		update_option( 'poocommerce_specific_ship_to_countries', array( 'GB' ) );
 
 		// Set chosen shipping method to pickup location.
 		WC()->session->set( 'chosen_shipping_methods', array( 'pickup_location:0' ) );
@@ -1460,8 +1460,8 @@ class Checkout extends MockeryTestCase {
 	 */
 	public function test_local_pickup_invalid_billing_country() {
 		// Set allowed countries to just US.
-		update_option( 'woocommerce_allowed_countries', 'specific' );
-		update_option( 'woocommerce_specific_allowed_countries', array( 'US' ) );
+		update_option( 'poocommerce_allowed_countries', 'specific' );
+		update_option( 'poocommerce_specific_allowed_countries', array( 'US' ) );
 
 		// Set chosen shipping method.
 		WC()->session->set( 'chosen_shipping_methods', array( 'pickup_location:0' ) );
@@ -1498,7 +1498,7 @@ class Checkout extends MockeryTestCase {
 
 		$response = rest_get_server()->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_address_country', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_address_country', $response->get_data()['code'] );
 		$this->assertStringContainsString( 'Sorry, we do not allow orders from the provided country (FR)', $response->get_data()['message'] );
 	}
 
@@ -1510,7 +1510,7 @@ class Checkout extends MockeryTestCase {
 	 */
 	private function register_custom_order_status( $status_name, $add_to_payment_statuses = false ) {
 		add_filter(
-			'woocommerce_register_shop_order_post_statuses',
+			'poocommerce_register_shop_order_post_statuses',
 			function ( $order_statuses ) use ( $status_name ) {
 				$order_statuses[ 'wc-' . $status_name ] = array(
 					'label'                     => 'Custom status for testing',
@@ -1533,7 +1533,7 @@ class Checkout extends MockeryTestCase {
 
 		if ( $add_to_payment_statuses ) {
 			add_filter(
-				'woocommerce_valid_order_statuses_for_payment',
+				'poocommerce_valid_order_statuses_for_payment',
 				function ( $statuses ) use ( $status_name ) {
 					$statuses[] = $status_name;
 					return $statuses;
@@ -1561,7 +1561,7 @@ class Checkout extends MockeryTestCase {
 
 		// Hook into the checkout process to set the custom status.
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( $status_name ) {
 				$order->set_status( $status_name );
 				$order->save();
@@ -1678,7 +1678,7 @@ class Checkout extends MockeryTestCase {
 
 		// Hook into the checkout process to set the custom status.
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( $status_name ) {
 				$order->set_status( $status_name );
 				$order->save();
@@ -1743,7 +1743,7 @@ class Checkout extends MockeryTestCase {
 
 		// Add a hook to check the needs_payment() result and set the status.
 		add_action(
-			'woocommerce_store_api_checkout_order_processed',
+			'poocommerce_store_api_checkout_order_processed',
 			function ( \WC_Order $order ) use ( $status_name ) {
 				// Set our custom status.
 				$order->set_status( $status_name );

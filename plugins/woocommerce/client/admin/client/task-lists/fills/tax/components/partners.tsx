@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { Button, Card, CardBody, CardHeader } from '@wordpress/components';
 import { Children } from '@wordpress/element';
 import clsx from 'clsx';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -22,9 +22,9 @@ export const Partners = ( {
 	onDisable,
 }: TaxChildProps ) => {
 	const classes = clsx(
-		'woocommerce-task-card',
-		'woocommerce-tax-partners',
-		`woocommerce-tax-partners__partners-count-${ Children.count(
+		'poocommerce-task-card',
+		'poocommerce-tax-partners',
+		`poocommerce-tax-partners__partners-count-${ Children.count(
 			children
 		) }`
 	);
@@ -32,13 +32,13 @@ export const Partners = ( {
 		<>
 			<Card className={ classes }>
 				<CardHeader>
-					{ __( 'Choose a tax partner', 'woocommerce' ) }
+					{ __( 'Choose a tax partner', 'poocommerce' ) }
 				</CardHeader>
 				<CardBody>
-					<div className="woocommerce-tax-partners__partners">
+					<div className="poocommerce-tax-partners__partners">
 						{ children }
 					</div>
-					<ul className="woocommerce-tax-partners__other-actions">
+					<ul className="poocommerce-tax-partners__other-actions">
 						<li>
 							<Button
 								isTertiary
@@ -48,7 +48,7 @@ export const Partners = ( {
 									onManual();
 								} }
 							>
-								{ __( 'Set up taxes manually', 'woocommerce' ) }
+								{ __( 'Set up taxes manually', 'poocommerce' ) }
 							</Button>
 						</li>
 						<li>
@@ -62,7 +62,7 @@ export const Partners = ( {
 							>
 								{ __(
 									'I don’t charge sales tax',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Button>
 						</li>
@@ -73,12 +73,12 @@ export const Partners = ( {
 				textProps={ {
 					as: 'div',
 					className:
-						'woocommerce-task-dashboard__container woocommerce-task-marketplace-link',
+						'poocommerce-task-dashboard__container poocommerce-task-marketplace-link',
 				} }
 				message={ __(
 					// translators: {{Link}} is a placeholder for a html element.
-					'Visit {{Link}}the WooCommerce Marketplace{{/Link}} to find more tax solutions.',
-					'woocommerce'
+					'Visit {{Link}}the PooCommerce Marketplace{{/Link}} to find more tax solutions.',
+					'poocommerce'
 				) }
 				eventName="tasklist_tax_visit_marketplace_click"
 				targetUrl={
@@ -86,7 +86,7 @@ export const Partners = ( {
 						? getAdminLink(
 								'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=operations'
 						  )
-						: 'https://woocommerce.com/product-category/woocommerce-extensions/operations/'
+						: 'https://poocommerce.com/product-category/poocommerce-extensions/operations/'
 				}
 				linkType={
 					isFeatureEnabled( 'marketplace' ) ? 'wc-admin' : 'external'

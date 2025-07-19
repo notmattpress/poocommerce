@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid ESLint errors */
+/* eslint-disable @poocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid ESLint errors */
 import '../../test/__mocks__/setup-shared-mocks';
 
 /**
@@ -50,15 +50,15 @@ describe( 'CategorySection', () => {
 		General: [
 			{
 				name: 'Customer Name',
-				token: 'woocommerce/customer-name',
-				valueToInsert: '[woocommerce/customer-name]',
+				token: 'poocommerce/customer-name',
+				valueToInsert: '[poocommerce/customer-name]',
 				category: 'Customer',
 				attributes: [],
 			},
 			{
 				name: 'Customer Email',
-				token: 'woocommerce/customer-email',
-				valueToInsert: '[woocommerce/customer-email]',
+				token: 'poocommerce/customer-email',
+				valueToInsert: '[poocommerce/customer-email]',
 				category: 'Customer',
 				attributes: [],
 			},
@@ -66,8 +66,8 @@ describe( 'CategorySection', () => {
 		Link: [
 			{
 				name: 'Profile URL',
-				token: 'woocommerce/profile-url',
-				valueToInsert: '[woocommerce/profile-url]',
+				token: 'poocommerce/profile-url',
+				valueToInsert: '[poocommerce/profile-url]',
 				category: 'Link',
 				attributes: [],
 			},
@@ -118,7 +118,7 @@ describe( 'CategorySection', () => {
 
 		fireEvent.click( screen.getAllByText( 'Insert' )[ 0 ] );
 		expect( onInsert ).toHaveBeenCalledWith(
-			'[woocommerce/customer-name]',
+			'[poocommerce/customer-name]',
 			false
 		);
 	} );
@@ -139,7 +139,7 @@ describe( 'CategorySection', () => {
 
 		fireEvent.click( screen.getByText( 'Set as URL' ) );
 		expect( updateBlockAttributes ).toHaveBeenCalledWith( '123', {
-			url: '[woocommerce/profile-url]',
+			url: '[poocommerce/profile-url]',
 		} );
 		expect( closeCallback ).toHaveBeenCalled();
 	} );

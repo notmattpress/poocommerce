@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
  */
 import { SettingsPaymentsMain } from '../settings-payments-main';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -34,14 +34,14 @@ describe( 'SettingsPaymentsMain', () => {
 		);
 	} );
 
-	it( 'should trigger event recommendations_other_options when clicking the WooCommerce Marketplace link', () => {
+	it( 'should trigger event recommendations_other_options when clicking the PooCommerce Marketplace link', () => {
 		render(
 			<Router>
 				<SettingsPaymentsMain />
 			</Router>
 		);
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'settings_payments_recommendations_other_options',
@@ -52,7 +52,7 @@ describe( 'SettingsPaymentsMain', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', () => {
+	it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
 
@@ -71,7 +71,7 @@ describe( 'SettingsPaymentsMain', () => {
 			</Router>
 		);
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( mockLocation.href ).toContain(
 			'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=payment-gateways'

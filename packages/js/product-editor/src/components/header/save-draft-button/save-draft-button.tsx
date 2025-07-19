@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { Product } from '@woocommerce/data';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { Product } from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 
 /**
@@ -38,7 +38,7 @@ export function SaveDraftButton( {
 			recordProductEvent( 'product_edit', savedProduct );
 
 			createSuccessNotice(
-				__( 'Product saved as draft.', 'woocommerce' )
+				__( 'Product saved as draft.', 'poocommerce' )
 			);
 
 			maybeShowFeedbackBar();

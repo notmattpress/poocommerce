@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\Renderer\Blocks;
+namespace Automattic\PooCommerce\Internal\EmailEditor\Renderer\Blocks;
 
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
 
 /**
  * Renders a list item block.

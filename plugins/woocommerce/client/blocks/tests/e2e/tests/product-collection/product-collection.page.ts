@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { FrameLocator, Locator, Page } from '@playwright/test';
-import { Editor, Admin } from '@woocommerce/e2e-utils';
+import { Editor, Admin } from '@poocommerce/e2e-utils';
 import { BlockRepresentation } from '@wordpress/e2e-test-utils-playwright/build-types/editor/insert-block';
 
 /**
@@ -20,17 +20,17 @@ export const SELECTORS = {
 	productTemplate: '.wc-block-product-template',
 	product: '.wc-block-product-template .wc-block-product',
 	productImage: {
-		inEditor: '[data-type="woocommerce/product-image"]',
-		onFrontend: '[data-block-name="woocommerce/product-image"]',
+		inEditor: '[data-type="poocommerce/product-image"]',
+		onFrontend: '[data-block-name="poocommerce/product-image"]',
 	},
 	productTitle: '.wp-block-post-title',
 	productPrice: {
-		inEditor: '[data-type="woocommerce/product-price"]',
-		onFrontend: '[data-block-name="woocommerce/product-price"]',
+		inEditor: '[data-type="poocommerce/product-price"]',
+		onFrontend: '[data-block-name="poocommerce/product-price"]',
 	},
 	addToCartButton: {
-		inEditor: '[data-type="woocommerce/product-button"]',
-		onFrontend: '[data-block-name="woocommerce/product-button"]',
+		inEditor: '[data-type="poocommerce/product-button"]',
+		onFrontend: '[data-block-name="poocommerce/product-button"]',
 	},
 	pagination: {
 		inEditor: '[data-type="core/query-pagination"]',
@@ -60,7 +60,7 @@ export const SELECTORS = {
 	},
 	previewButtonTestID: 'product-collection-preview-button',
 	collectionPlaceholder:
-		'[data-type="woocommerce/product-collection"] .components-placeholder',
+		'[data-type="poocommerce/product-collection"] .components-placeholder',
 	productPicker: '.wc-blocks-product-collection__editor-product-picker',
 	linkedProductControl: {
 		button: '.wc-block-product-collection-linked-product-control__button',
@@ -114,7 +114,7 @@ const collectionToButtonNameMap = {
 };
 
 class ProductCollectionPage {
-	private BLOCK_SLUG = 'woocommerce/product-collection';
+	private BLOCK_SLUG = 'poocommerce/product-collection';
 	private page: Page;
 	private admin: Admin;
 	private editor: Editor;
@@ -269,21 +269,21 @@ class ProductCollectionPage {
 	}
 	async insertProductElements() {
 		// By default there are inner blocks:
-		// - woocommerce/product-image
+		// - poocommerce/product-image
 		// - core/post-title
-		// - woocommerce/product-price
-		// - woocommerce/product-button
+		// - poocommerce/product-price
+		// - poocommerce/product-button
 		// We're adding remaining ones
 		const productElements = [
-			{ name: 'woocommerce/product-rating', attributes: {} },
-			{ name: 'woocommerce/product-sku', attributes: {} },
-			{ name: 'woocommerce/product-stock-indicator', attributes: {} },
-			{ name: 'woocommerce/product-sale-badge', attributes: {} },
+			{ name: 'poocommerce/product-rating', attributes: {} },
+			{ name: 'poocommerce/product-sku', attributes: {} },
+			{ name: 'poocommerce/product-stock-indicator', attributes: {} },
+			{ name: 'poocommerce/product-sale-badge', attributes: {} },
 			{
 				name: 'core/post-excerpt',
 				attributes: {
-					__woocommerceNamespace:
-						'woocommerce/product-collection/product-summary',
+					__poocommerceNamespace:
+						'poocommerce/product-collection/product-summary',
 				},
 			},
 			{
@@ -336,7 +336,7 @@ class ProductCollectionPage {
 
 	// Going to Product Catalog by default
 	async goToEditorTemplate(
-		template = 'woocommerce/woocommerce//archive-product'
+		template = 'poocommerce/poocommerce//archive-product'
 	) {
 		await this.admin.visitSiteEditor( {
 			postId: template,
@@ -348,7 +348,7 @@ class ProductCollectionPage {
 
 	async goToProductCatalogAndInsertCollection( collection: Collections ) {
 		await this.goToTemplateAndInsertCollection(
-			'woocommerce/woocommerce//archive-product',
+			'poocommerce/poocommerce//archive-product',
 			collection
 		);
 	}
@@ -643,7 +643,7 @@ class ProductCollectionPage {
 		const sidebarSettings = this.locateSidebarSettings();
 
 		const productAttributesContainer = sidebarSettings.locator(
-			'.woocommerce-product-attributes'
+			'.poocommerce-product-attributes'
 		);
 
 		// Whenever attributes filter is added, it fetched the attributes from the server.
@@ -695,7 +695,7 @@ class ProductCollectionPage {
 		attributes: object;
 	} ) {
 		const productTemplate = await this.editor.getBlockByName(
-			'woocommerce/product-template'
+			'poocommerce/product-template'
 		);
 		const productTemplateId =
 			( await productTemplate.getAttribute( 'data-block' ) ) ?? '';
@@ -708,7 +708,7 @@ class ProductCollectionPage {
 		await this.insertSingleProductBlock();
 
 		const siblingBlock = await this.editor.getBlockByName(
-			'woocommerce/product-price'
+			'poocommerce/product-price'
 		);
 		const clientId =
 			( await siblingBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -748,9 +748,9 @@ class ProductCollectionPage {
 	 * Private methods to be used by the class.
 	 */
 	private async insertSingleProductBlock() {
-		await this.editor.insertBlock( { name: 'woocommerce/single-product' } );
+		await this.editor.insertBlock( { name: 'poocommerce/single-product' } );
 		const singleProductBlock = await this.editor.getBlockByName(
-			'woocommerce/single-product'
+			'poocommerce/single-product'
 		);
 		await singleProductBlock
 			.locator( 'input[type="radio"]' )

@@ -20,17 +20,17 @@ const CatalogSorting = ( {
 				<>
 					<label
 						className="orderby-label"
-						htmlFor="woocommerce-orderby"
+						htmlFor="poocommerce-orderby"
 					>
-						{ __( 'Sort by', 'woocommerce' ) }
+						{ __( 'Sort by', 'poocommerce' ) }
 					</label>
-					<select className="orderby" id="woocommerce-orderby">
-						<option>{ __( 'Default', 'woocommerce' ) }</option>
+					<select className="orderby" id="poocommerce-orderby">
+						<option>{ __( 'Default', 'poocommerce' ) }</option>
 					</select>
 				</>
 			) : (
 				<select className="orderby">
-					<option>{ __( 'Default sorting', 'woocommerce' ) }</option>
+					<option>{ __( 'Default sorting', 'poocommerce' ) }</option>
 				</select>
 			) }
 		</>
@@ -43,18 +43,18 @@ const Edit = ( {
 }: BlockEditProps< BlockAttributes > ) => {
 	const { useLabel } = attributes;
 	const blockProps = useBlockProps( {
-		className: 'woocommerce wc-block-catalog-sorting',
+		className: 'poocommerce wc-block-catalog-sorting',
 	} );
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Accessibility', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Accessibility', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Show visual label', 'woocommerce' ) }
+						label={ __( 'Show visual label', 'poocommerce' ) }
 						help={ __(
 							'Displays "Sort by" text before the dropdown menu to improve clarity and accessibility.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ useLabel }
 						onChange={ ( isChecked ) =>

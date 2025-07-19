@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
-const templatePath = 'woocommerce/woocommerce//page-cart';
+const templatePath = 'poocommerce/poocommerce//page-cart';
 const templateType = 'wp_template';
 
 test.describe( 'Test the cart template', () => {

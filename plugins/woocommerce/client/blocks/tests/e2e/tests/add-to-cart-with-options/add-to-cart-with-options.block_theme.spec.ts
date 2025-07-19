@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		admin,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postId: 'woocommerce/woocommerce//single-product',
+			postId: 'poocommerce/poocommerce//single-product',
 			postType: 'wp_template',
 			canvas: 'edit',
 		} );
@@ -55,7 +55,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-product-type'
+			'poocommerce-blocks-test-custom-product-type'
 		);
 
 		await pageObject.updateSingleProductTemplate();
@@ -119,7 +119,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		const colorGreenOption = page.locator( 'label:has-text("Green")' );
 		const addToCartButton = page.getByText( 'Add to cart' ).first();
 		const productPrice = page
-			.locator( '.wp-block-woocommerce-product-price' )
+			.locator( '.wp-block-poocommerce-product-price' )
 			.first();
 
 		await test.step( 'displays an error when attributes are not selected', async () => {
@@ -251,16 +251,16 @@ test.describe( 'Add to Cart + Options Block', () => {
 		).toBeVisible();
 
 		const attributeOptionsBlock = await editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options-variation-selector-attribute-options'
+			'poocommerce/add-to-cart-with-options-variation-selector-attribute-options'
 		);
 		await editor.selectBlocks( attributeOptionsBlock.first() );
 
 		await page.getByRole( 'radio', { name: 'Dropdown' } ).click();
 
 		// We need to make sure the block updated before saving.
-		// @see https://github.com/woocommerce/woocommerce/issues/57718
+		// @see https://github.com/poocommerce/poocommerce/issues/57718
 		// Verify that `.editor-post-publish-button__button` has an attribute
-		// `aria-haspopup="dialog"`. When https://github.com/woocommerce/woocommerce/issues/48936
+		// `aria-haspopup="dialog"`. When https://github.com/poocommerce/poocommerce/issues/48936
 		// is fixed, we can simply check that the Save button becomes enabled.
 		await expect(
 			page.getByRole( 'button', { name: 'Save', exact: true } )

@@ -3,7 +3,7 @@
  */
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	SelectControl,
 	ToggleControl,
@@ -45,7 +45,7 @@ export const TaxonomyFilterInspectorControls = ( {
 	return (
 		<InspectorControls>
 			<ToolsPanel
-				label={ __( 'Taxonomy Filter Settings', 'woocommerce' ) }
+				label={ __( 'Taxonomy Filter Settings', 'poocommerce' ) }
 				resetAll={ () => {
 					setAttributes( {
 						taxonomy: metadata.attributes.taxonomy.default,
@@ -62,7 +62,7 @@ export const TaxonomyFilterInspectorControls = ( {
 				} }
 			>
 				<ToolsPanelItem
-					label={ __( 'Taxonomy', 'woocommerce' ) }
+					label={ __( 'Taxonomy', 'poocommerce' ) }
 					hasValue={ () => !! taxonomy }
 					onDeselect={ () =>
 						setAttributes( {
@@ -72,15 +72,15 @@ export const TaxonomyFilterInspectorControls = ( {
 					isShownByDefault={ true }
 				>
 					<SelectControl
-						label={ __( 'Taxonomy', 'woocommerce' ) }
+						label={ __( 'Taxonomy', 'poocommerce' ) }
 						help={ __(
 							'Select a taxonomy to filter by.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ taxonomy }
 						options={ [
 							{
-								label: __( 'Select a taxonomy', 'woocommerce' ),
+								label: __( 'Select a taxonomy', 'poocommerce' ),
 								value: '',
 							},
 							...taxonomyOptions,
@@ -95,7 +95,7 @@ export const TaxonomyFilterInspectorControls = ( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					label={ __( 'Sort Order', 'woocommerce' ) }
+					label={ __( 'Sort Order', 'poocommerce' ) }
 					hasValue={ () => sortOrder !== 'count-desc' }
 					onDeselect={ () =>
 						setAttributes( {
@@ -104,29 +104,29 @@ export const TaxonomyFilterInspectorControls = ( {
 					}
 				>
 					<SelectControl
-						label={ __( 'Sort Order', 'woocommerce' ) }
+						label={ __( 'Sort Order', 'poocommerce' ) }
 						value={ sortOrder }
 						options={ [
 							{
 								label: __(
 									'Count (High to Low)',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: 'count-desc',
 							},
 							{
 								label: __(
 									'Count (Low to High)',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: 'count-asc',
 							},
 							{
-								label: __( 'Name (A to Z)', 'woocommerce' ),
+								label: __( 'Name (A to Z)', 'poocommerce' ),
 								value: 'name-asc',
 							},
 							{
-								label: __( 'Name (Z to A)', 'woocommerce' ),
+								label: __( 'Name (Z to A)', 'poocommerce' ),
 								value: 'name-desc',
 							},
 						] }
@@ -136,10 +136,10 @@ export const TaxonomyFilterInspectorControls = ( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					label={ __( 'Display Style', 'woocommerce' ) }
+					label={ __( 'Display Style', 'poocommerce' ) }
 					hasValue={ () =>
 						displayStyle !==
-						'woocommerce/product-filter-checkbox-list'
+						'poocommerce/product-filter-checkbox-list'
 					}
 					isShownByDefault={ true }
 					onDeselect={ () => {
@@ -164,7 +164,7 @@ export const TaxonomyFilterInspectorControls = ( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					label={ __( 'Product counts', 'woocommerce' ) }
+					label={ __( 'Product counts', 'poocommerce' ) }
 					hasValue={ () => showCounts }
 					onDeselect={ () =>
 						setAttributes( {
@@ -174,7 +174,7 @@ export const TaxonomyFilterInspectorControls = ( {
 					isShownByDefault={ true }
 				>
 					<ToggleControl
-						label={ __( 'Product counts', 'woocommerce' ) }
+						label={ __( 'Product counts', 'poocommerce' ) }
 						checked={ showCounts }
 						onChange={ ( value: boolean ) =>
 							setAttributes( { showCounts: value } )
@@ -182,7 +182,7 @@ export const TaxonomyFilterInspectorControls = ( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					label={ __( 'Hide items with no products', 'woocommerce' ) }
+					label={ __( 'Hide items with no products', 'poocommerce' ) }
 					hasValue={ () => ! hideEmpty }
 					onDeselect={ () =>
 						setAttributes( {
@@ -193,7 +193,7 @@ export const TaxonomyFilterInspectorControls = ( {
 					<ToggleControl
 						label={ __(
 							'Hide items with no products',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ hideEmpty }
 						onChange={ ( value: boolean ) =>

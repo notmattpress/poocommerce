@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace {
+.poocommerce-marketplace {
 	&__menu-item span {
 		white-space: normal;
 	}
@@ -49,8 +49,8 @@
 		margin-top: $grid-unit-30;
 		width: 100%;
 
-		.woocommerce-marketplace__header-account-modal-button,
-		.woocommerce-marketplace__header-account-modal-button.is-primary {
+		.poocommerce-marketplace__header-account-modal-button,
+		.poocommerce-marketplace__header-account-modal-button.is-primary {
 			border-radius: 2px;
 			box-shadow: none;
 		}
@@ -58,7 +58,7 @@
 }
 
 @media screen and (min-width: $break-small) {
-	.woocommerce-marketplace {
+	.poocommerce-marketplace {
 		&__header-account-modal {
 			max-width: $header-account-modal-width;
 

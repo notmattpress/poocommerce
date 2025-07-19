@@ -16,7 +16,7 @@ jest.mock( '../../../../../data/cart/resolvers', () => {
 		getCartData: jest
 			.fn()
 			.mockResolvedValue(
-				jest.requireActual( '@woocommerce/resource-previews' )
+				jest.requireActual( '@poocommerce/resource-previews' )
 					.previewCart
 			),
 	};
@@ -179,7 +179,7 @@ describe( 'useStoreCartCoupons hook API integration', () => {
 			// Mock an error response
 			fetchMock.mockRejectOnce( ( resolve, reject ) =>
 				reject( {
-					code: 'woocommerce_rest_cart_coupon_error',
+					code: 'poocommerce_rest_cart_coupon_error',
 					message: 'Coupon "INVALID" does not exist!',
 					data: {
 						status: 400,

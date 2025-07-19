@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductSpecifications class.
@@ -51,14 +51,14 @@ class ProductSpecifications extends AbstractBlock {
 
 		if ( $show_weight && $product->has_weight() ) {
 			$product_data['weight'] = array(
-				'label' => __( 'Weight', 'woocommerce' ),
+				'label' => __( 'Weight', 'poocommerce' ),
 				'value' => wc_format_weight( $product->get_weight() ),
 			);
 		}
 
 		if ( $show_dimensions && $product->has_dimensions() ) {
 			$product_data['dimensions'] = array(
-				'label' => __( 'Dimensions', 'woocommerce' ),
+				'label' => __( 'Dimensions', 'poocommerce' ),
 				'value' => wc_format_dimensions( $product->get_dimensions( false ) ),
 			);
 		}
@@ -109,8 +109,8 @@ class ProductSpecifications extends AbstractBlock {
 			<table>
 				<thead class="screen-reader-text">
 					<tr>
-						<th><?php esc_html_e( 'Attributes', 'woocommerce' ); ?></th>
-						<th><?php esc_html_e( 'Value', 'woocommerce' ); ?></th>
+						<th><?php esc_html_e( 'Attributes', 'poocommerce' ); ?></th>
+						<th><?php esc_html_e( 'Value', 'poocommerce' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>

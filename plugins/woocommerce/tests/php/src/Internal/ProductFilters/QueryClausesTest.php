@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * Tests related to QueryClauses service.
@@ -127,7 +127,7 @@ class QueryClausesTest extends AbstractProductFiltersTest {
 	 *           ["pa_color",["red-slug","not-exist-slug"],"or"]
 	 *           ["pa_color",["red-slug","green-slug"],"or"]
 	 *
-	 * @todo Add tests for `and` query type once https://github.com/woocommerce/woocommerce/pull/44825 is merged.
+	 * @todo Add tests for `and` query type once https://github.com/poocommerce/poocommerce/pull/44825 is merged.
 	 *
 	 * @param string   $taxonomy   Attribute taxonomy name.
 	 * @param string[] $terms      Chosen terms' slug.

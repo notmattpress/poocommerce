@@ -2,13 +2,13 @@
 /**
  * Email CSS Inliner class file.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Css_Inliner;
 use Pelago\Emogrifier\CssInliner;
 
 /**

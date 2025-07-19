@@ -3,10 +3,10 @@
  */
 import clsx from 'clsx';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import { useRef, useState, useEffect } from '@wordpress/element';
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
-import type { ProductResponseImageItem } from '@woocommerce/types';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
+import type { ProductResponseImageItem } from '@poocommerce/types';
 import type { BlockEditProps } from '@wordpress/blocks';
 
 /**

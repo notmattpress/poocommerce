@@ -7,24 +7,24 @@ import { createInterpolateElement } from '@wordpress/element';
 import {
 	FormattedMonetaryAmount,
 	TotalsItem,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import {
 	applyCheckoutFilter,
 	productPriceValidation,
-} from '@woocommerce/blocks-checkout';
+} from '@poocommerce/blocks-checkout';
 import {
 	useStoreCart,
 	useOrderSummaryLoadingState,
-} from '@woocommerce/base-context/hooks';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/base-context/hooks';
+import { getSetting } from '@poocommerce/settings';
 import {
 	CartResponseTotals,
 	Currency,
 	LooselyMustHave,
-} from '@woocommerce/types';
-import { formatPrice } from '@woocommerce/price-format';
-import { hasSelectedShippingRate } from '@woocommerce/base-utils';
-import { Skeleton } from '@woocommerce/base-components/skeleton';
+} from '@poocommerce/types';
+import { formatPrice } from '@poocommerce/price-format';
+import { hasSelectedShippingRate } from '@poocommerce/base-utils';
+import { Skeleton } from '@poocommerce/base-components/skeleton';
 
 /**
  * Internal dependencies
@@ -82,8 +82,8 @@ const TotalsFooterItem = ( {
 	const label = applyCheckoutFilter( {
 		filterName: 'totalLabel',
 		defaultValue: isEstimate
-			? __( 'Estimated total', 'woocommerce' )
-			: __( 'Total', 'woocommerce' ),
+			? __( 'Estimated total', 'poocommerce' )
+			: __( 'Total', 'poocommerce' ),
 		extensions: cart.extensions,
 		arg: { cart },
 	} );
@@ -114,7 +114,7 @@ const TotalsFooterItem = ( {
 		taxLines && taxLines.length > 0
 			? sprintf(
 					/* translators: %s is a list of tax rates */
-					__( 'Including %s', 'woocommerce' ),
+					__( 'Including %s', 'poocommerce' ),
 					taxLines
 						.map( ( { name, price } ) => {
 							return `${ formatPrice(
@@ -124,7 +124,7 @@ const TotalsFooterItem = ( {
 						} )
 						.join( ', ' )
 			  )
-			: __( 'Including <TaxAmount/> in taxes', 'woocommerce' );
+			: __( 'Including <TaxAmount/> in taxes', 'poocommerce' );
 
 	const hasSelectedRates = hasSelectedShippingRate( cart.shippingRates );
 	const cartNeedsShipping = cart.cartNeedsShipping;
@@ -145,14 +145,14 @@ const TotalsFooterItem = ( {
 							{ isLoading ? (
 								<>
 									<span>
-										{ __( 'Including', 'woocommerce' ) }
+										{ __( 'Including', 'poocommerce' ) }
 									</span>
 									<Skeleton
 										height="1em"
 										width="45px"
 										ariaMessage={ __(
 											'Loading price… ',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</>
@@ -173,7 +173,7 @@ const TotalsFooterItem = ( {
 						<p className="wc-block-components-totals-footer-item-shipping">
 							{ __(
 								'Shipping will be calculated at checkout',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 					) }
