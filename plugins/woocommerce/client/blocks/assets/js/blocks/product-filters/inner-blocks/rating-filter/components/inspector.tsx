@@ -35,7 +35,7 @@ function MinimumRatingLabel( {
 			<FlexItem>
 				<RatingStars stars={ stars } />
 			</FlexItem>
-			<FlexItem>{ __( '& up', 'woocommerce' ) }</FlexItem>
+			<FlexItem>{ __( '& up', 'poocommerce' ) }</FlexItem>
 		</Flex>
 	);
 }
@@ -63,9 +63,9 @@ export const Inspector = ( {
 
 	return (
 		<InspectorControls key="inspector">
-			<PanelBody title={ __( 'Display', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Display', 'poocommerce' ) }>
 				<RadioControl
-					label={ __( 'Minimum rating', 'woocommerce' ) }
+					label={ __( 'Minimum rating', 'poocommerce' ) }
 					selected={ minRating }
 					className="wc-block-rating-filter__rating-control"
 					options={ [
@@ -75,7 +75,7 @@ export const Inspector = ( {
 									stars={ 4 }
 									ariaLabel={ __(
 										'Four stars and up',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							),
@@ -87,7 +87,7 @@ export const Inspector = ( {
 									stars={ 3 }
 									ariaLabel={ __(
 										'Three stars and up',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							),
@@ -99,21 +99,21 @@ export const Inspector = ( {
 									stars={ 2 }
 									ariaLabel={ __(
 										'Two stars and up',
-										'woocommerce'
+										'poocommerce'
 									) }
 								/>
 							),
 							value: '2',
 						},
 						{
-							label: __( 'No limit', 'woocommerce' ),
+							label: __( 'No limit', 'poocommerce' ),
 							value: '0', // no limit
 						},
 					] }
 					onChange={ setMinRating }
 				/>
 				<ToggleControl
-					label={ __( 'Product counts', 'woocommerce' ) }
+					label={ __( 'Product counts', 'poocommerce' ) }
 					checked={ showCounts }
 					onChange={ setCountVisibility }
 					__nextHasNoMarginBottom

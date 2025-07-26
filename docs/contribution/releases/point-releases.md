@@ -1,5 +1,5 @@
 ---
-post_title: WooCommerce Point Releases
+post_title: PooCommerce Point Releases
 sidebar_label: Point Releases
 ---
 
@@ -15,7 +15,7 @@ Point releases are patch releases that address specific issues without adding su
 
 ## The Point Release Requests (PRR) flow
 
-The **Point Release Request (PRR) flow** is a structured process for requesting and managing critical fixes that need to be included in WooCommerce point releases. This process ensures that urgent bug fixes can be safely incorporated into current stable release and automatically forward-port them to trunk and any frozen branches, preserving code quality, enforcing thorough reviews, and preventing regressions.
+The **Point Release Request (PRR) flow** is a structured process for requesting and managing critical fixes that need to be included in PooCommerce point releases. This process ensures that urgent bug fixes can be safely incorporated into current stable release and automatically forward-port them to trunk and any frozen branches, preserving code quality, enforcing thorough reviews, and preventing regressions.
 
 **⚠️ Important:** Security Vulnerability reports must not go through the PRR flow. All potential security issues should be reported privately via Automattic’s HackerOne program: [https://hackerone.com/automattic/](https://hackerone.com/automattic/).
 
@@ -25,13 +25,13 @@ The **Point Release Request (PRR) flow** is a structured process for requesting 
 
 **Author Action**: Create a pull request against the release branch (`release/x.y`) instead of the trunk branch, following the standard PR creation process.
 
-- The PR should target the specific release branch (e.g., `release/9.5` for an issue found on WooCommerce 9.5.x)
+- The PR should target the specific release branch (e.g., `release/9.5` for an issue found on PooCommerce 9.5.x)
 - Include a regular changelog file as you would for trunk PRs
 - Ensure all standard PR requirements are met (description, testing, etc.)
 
 #### 2. Point Release Request Submission
 
-**Author Action**: Submit a PRR using the [Point Release Request template](https://github.com/woocommerce/woocommerce/issues/new?template=new-prr-template.yml).
+**Author Action**: Submit a PRR using the [Point Release Request template](https://github.com/poocommerce/poocommerce/issues/new?template=new-prr-template.yml).
 
 Provide the required PRR template information:
 
@@ -101,4 +101,4 @@ Once all required PRs are merged into:
 
 the **release lead** creates and publishes the new point release that contains every approved PRR since the last shipment.
 
-Follow the established [WooCommerce release process](/docs/contribution/releases/building-and-publishing).
+Follow the established [PooCommerce release process](/docs/contribution/releases/building-and-publishing).

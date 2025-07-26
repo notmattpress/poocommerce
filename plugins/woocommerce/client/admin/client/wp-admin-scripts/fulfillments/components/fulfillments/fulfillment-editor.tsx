@@ -86,15 +86,15 @@ export default function FulfillmentEditor( {
 	return (
 		<div
 			className={ [
-				'woocommerce-fulfillment-stored-fulfillment-list-item',
+				'poocommerce-fulfillment-stored-fulfillment-list-item',
 				disabled
-					? 'woocommerce-fulfillment-stored-fulfillment-list-item__disabled'
+					? 'poocommerce-fulfillment-stored-fulfillment-list-item__disabled'
 					: '',
 			].join( ' ' ) }
 		>
 			<div
 				className={ [
-					'woocommerce-fulfillment-stored-fulfillment-list-item-header',
+					'poocommerce-fulfillment-stored-fulfillment-list-item-header',
 					expanded ? 'is-open' : '',
 				].join( ' ' ) }
 				onClick={ handleChevronClick }
@@ -112,9 +112,9 @@ export default function FulfillmentEditor( {
 						sprintf(
 							isEditing
 								? /* translators: %s: Fulfillment ID */
-								  __( 'Editing fulfillment #%s', 'woocommerce' )
+								  __( 'Editing fulfillment #%s', 'poocommerce' )
 								: /* translators: %s: Fulfillment ID */
-								  __( 'Fulfillment #%s', 'woocommerce' ),
+								  __( 'Fulfillment #%s', 'poocommerce' ),
 							index + 1
 						)
 					}
@@ -134,7 +134,7 @@ export default function FulfillmentEditor( {
 				) }
 			</div>
 			{ expanded && (
-				<div className="woocommerce-fulfillment-stored-fulfillment-list-item-content">
+				<div className="poocommerce-fulfillment-stored-fulfillment-list-item-content">
 					{ error && <ErrorLabel error={ error } /> }
 
 					<ShipmentFormProvider fulfillment={ fulfillment }>
@@ -161,13 +161,13 @@ export default function FulfillmentEditor( {
 								<CustomerNotificationBox type="update" />
 							) }
 							{ fulfillmentLockState.isLocked ? (
-								<div className="woocommerce-fulfillment-item-lock-container">
+								<div className="poocommerce-fulfillment-item-lock-container">
 									<LockLabel
 										message={ fulfillmentLockState.reason }
 									/>
 								</div>
 							) : (
-								<div className="woocommerce-fulfillment-item-actions">
+								<div className="poocommerce-fulfillment-item-actions">
 									{ ! isEditing ? (
 										<>
 											<EditFulfillmentButton

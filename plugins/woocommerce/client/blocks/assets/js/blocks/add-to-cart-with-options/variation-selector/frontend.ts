@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { store, getContext } from '@wordpress/interactivity';
-import { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 import type { ChangeEvent } from 'react';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 
 /**
  * Internal dependencies
@@ -182,7 +182,7 @@ export type VariableProductAddToCartWithOptionsStore =
 	};
 
 const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get isVariableProductFormValid(): boolean {
@@ -312,7 +312,7 @@ const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
 
 				const { actions: productDataActions } =
 					store< ProductDataStore >(
-						'woocommerce/product-data',
+						'poocommerce/product-data',
 						{},
 						{ lock: universalLock }
 					);

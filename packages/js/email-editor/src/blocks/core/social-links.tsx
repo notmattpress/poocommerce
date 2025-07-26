@@ -43,7 +43,7 @@ function unregisterBlockVariations() {
 	// Remove unsupported social links
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/disable-social-link-variations',
+		'poocommerce-email-editor/disable-social-link-variations',
 		( settings, name ) => {
 			if ( name === 'core/social-link' ) {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -141,7 +141,7 @@ const disableIconColor =
 function removeSocialLinksIconColor(): void {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/disable-social-links-icon-color',
+		'poocommerce-email-editor/disable-social-links-icon-color',
 		disableIconColor
 	);
 }

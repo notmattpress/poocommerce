@@ -3,10 +3,10 @@
  */
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import apiFetch from '@wordpress/api-fetch';
-import { Loader } from '@woocommerce/onboarding';
+import { Loader } from '@poocommerce/onboarding';
 import { __ } from '@wordpress/i18n';
 import { Notice } from '@wordpress/components';
-import { navigateTo, getNewPath } from '@woocommerce/navigation';
+import { navigateTo, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import './style.scss';
 
 const TEST_ACCOUNT_ERROR_CODES = {
 	ACCOUNT_ALREADY_EXISTS:
-		'woocommerce_woopayments_test_account_already_exists',
+		'poocommerce_woopayments_test_account_already_exists',
 };
 
 interface StepCheckResponse {
@@ -33,25 +33,25 @@ const TestDriveLoader: React.FunctionComponent< {
 	title?: string;
 	message?: string;
 } > = ( { progress, title, message } ) => (
-	<Loader className="woocommerce-payments-test-account-step__preloader">
-		<Loader.Layout className="woocommerce-payments-test-account-step__preloader-layout">
+	<Loader className="poocommerce-payments-test-account-step__preloader">
+		<Loader.Layout className="poocommerce-payments-test-account-step__preloader-layout">
 			<Loader.Illustration>
 				<img
 					src={ `${ WC_ASSET_URL }images/onboarding/test-account-setup.svg` }
-					alt={ __( 'Setup', 'woocommerce' ) }
+					alt={ __( 'Setup', 'poocommerce' ) }
 					style={ { maxWidth: '223px' } }
 				/>
 			</Loader.Illustration>
 
 			<Loader.Title>
-				{ title || __( 'Finishing payments setup', 'woocommerce' ) }
+				{ title || __( 'Finishing payments setup', 'poocommerce' ) }
 			</Loader.Title>
 			<Loader.ProgressBar progress={ progress ?? 0 } />
 			<Loader.Sequence interval={ 0 }>
 				{ message ||
 					__(
 						"In just a few moments, you'll be ready to test payments on your store.",
-						'woocommerce'
+						'poocommerce'
 					) }
 			</Loader.Sequence>
 		</Loader.Layout>
@@ -83,9 +83,9 @@ type Status =
 	| 'failed';
 
 const PHASE_MESSAGES = [
-	__( 'Setting up your test account', 'woocommerce' ),
-	__( 'Finishing payments setup', 'woocommerce' ),
-	__( 'Almost there!', 'woocommerce' ),
+	__( 'Setting up your test account', 'poocommerce' ),
+	__( 'Finishing payments setup', 'poocommerce' ),
+	__( 'Almost there!', 'poocommerce' ),
 ];
 
 const TestAccountStep = () => {
@@ -191,7 +191,7 @@ const TestAccountStep = () => {
 					currentStep?.errors?.[ 0 ]?.message ||
 						__(
 							'There are environment or store setup issues which are blocking progress. Please resolve them to proceed.',
-							'woocommerce'
+							'poocommerce'
 						)
 				);
 				setStatus( 'blocked' );
@@ -247,7 +247,7 @@ const TestAccountStep = () => {
 								response?.message ||
 									__(
 										'Creating test account failed. Please try again.',
-										'woocommerce'
+										'poocommerce'
 									)
 							);
 							setStatus( 'error' );
@@ -413,13 +413,13 @@ const TestAccountStep = () => {
 		if ( phase === 1 ) {
 			return __(
 				"The test account creation is taking a bit longer than expected, but don't worry — we're on it! Please bear with us for a few seconds more as we set everything up for your store.",
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 		if ( phase === 2 ) {
 			return __(
 				"Thank you for your patience! Unfortunately, the test account creation is taking a bit longer than we anticipated. But don't worry — we won't give up! Feel free to close this modal and check back later. We appreciate your understanding!",
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 		return undefined;
@@ -441,7 +441,7 @@ const TestAccountStep = () => {
 	const actions = isAccountAlreadyExistsError
 		? [
 				{
-					label: __( 'Reset Account', 'woocommerce' ),
+					label: __( 'Reset Account', 'poocommerce' ),
 					variant: 'secondary' as const,
 					onClick: () => {
 						setIsResetAccountModalOpen( true );
@@ -450,7 +450,7 @@ const TestAccountStep = () => {
 		  ]
 		: [
 				{
-					label: __( 'Try Again', 'woocommerce' ),
+					label: __( 'Try Again', 'poocommerce' ),
 					variant: 'primary' as const,
 					onClick: () => {
 						recordPaymentsOnboardingEvent(
@@ -468,10 +468,10 @@ const TestAccountStep = () => {
 					},
 				},
 				{
-					label: __( 'Cancel', 'woocommerce' ),
+					label: __( 'Cancel', 'poocommerce' ),
 					variant: 'secondary' as const,
 					className:
-						'woocommerce-payments-test-account-step__error-cancel-button',
+						'poocommerce-payments-test-account-step__error-cancel-button',
 					onClick: () => {
 						recordPaymentsOnboardingEvent(
 							'woopayments_onboarding_modal_click',
@@ -490,7 +490,7 @@ const TestAccountStep = () => {
 
 	// Render loading/error state.
 	return (
-		<div className="woocommerce-payments-test-account-step">
+		<div className="poocommerce-payments-test-account-step">
 			<WooPaymentsStepHeader onClose={ closeModal } />
 
 			{ /* Error Notice */ }
@@ -502,13 +502,13 @@ const TestAccountStep = () => {
 						// Only show actions if the step is not blocked.
 						status !== 'blocked' ? actions : []
 					}
-					className="woocommerce-payments-test-account-step__error"
+					className="poocommerce-payments-test-account-step__error"
 				>
-					<p className="woocommerce-payments-test-account-step__error-message">
+					<p className="poocommerce-payments-test-account-step__error-message">
 						{ errorMessage ||
 							__(
 								'An error occurred while creating your test account. Please try again.',
-								'woocommerce'
+								'poocommerce'
 							) }
 					</p>
 				</Notice>
@@ -534,7 +534,7 @@ const TestAccountStep = () => {
 						show: true,
 						message: __(
 							'Your test account was successfully reset.',
-							'woocommerce'
+							'poocommerce'
 						),
 					} );
 				} }

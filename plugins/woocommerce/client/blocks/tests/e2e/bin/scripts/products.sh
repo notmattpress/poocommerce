@@ -3,7 +3,7 @@
 ###################################################################################################
 # Import sample products and regenerate product lookup tables
 ###################################################################################################
-wp import wp-content/plugins/woocommerce/sample-data/sample_products.xml --authors=skip
+wp import wp-content/plugins/poocommerce/sample-data/sample_products.xml --authors=skip
 wp wc tool run regenerate_product_lookup_tables --user=1
 
 # This is a hacky work around to fix product categories not having their parent category correctly assigned.

@@ -4,11 +4,11 @@
 import type { FormEvent, HTMLElementEvent } from 'react';
 import { store, getContext } from '@wordpress/interactivity';
 import type {
-	Store as WooCommerce,
+	Store as PooCommerce,
 	SelectedAttributes,
-} from '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
+} from '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
 
 /**
  * Internal dependencies
@@ -48,8 +48,8 @@ interface GroupedCartItem {
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -159,7 +159,7 @@ const addToCartWithOptionsStore = store<
 	AddToCartWithOptionsStore &
 		Partial< VariableProductAddToCartWithOptionsStore >
 >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get isFormValid(): boolean {
@@ -341,8 +341,8 @@ const addToCartWithOptionsStore = store<
 				event.preventDefault();
 
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const {
 					productId,
@@ -379,10 +379,10 @@ const addToCartWithOptionsStore = store<
 					if ( addedItems.length === 0 ) {
 						// Todo: Use the module exports instead of `store()` once the store-notices
 						// store is public.
-						yield import( '@woocommerce/stores/store-notices' );
+						yield import( '@poocommerce/stores/store-notices' );
 						const { actions: noticeActions } =
 							store< StoreNotices >(
-								'woocommerce/store-notices',
+								'poocommerce/store-notices',
 								{},
 								{
 									lock: 'I acknowledge that using a private store means my plugin will inevitably break on the next store release.',
@@ -404,8 +404,8 @@ const addToCartWithOptionsStore = store<
 						return;
 					}
 
-					const { actions } = store< WooCommerce >(
-						'woocommerce',
+					const { actions } = store< PooCommerce >(
+						'poocommerce',
 						{},
 						{ lock: universalLock }
 					);
@@ -417,8 +417,8 @@ const addToCartWithOptionsStore = store<
 						quantity[ productId ]
 					);
 
-					const { actions } = store< WooCommerce >(
-						'woocommerce',
+					const { actions } = store< PooCommerce >(
+						'poocommerce',
 						{},
 						{ lock: universalLock }
 					);

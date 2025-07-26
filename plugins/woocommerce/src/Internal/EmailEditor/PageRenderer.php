@@ -2,15 +2,15 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Settings_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Template;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\User_Theme;
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\EmailEditor\Engine\Settings_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Template;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\User_Theme;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -90,7 +90,7 @@ class PageRenderer {
 		$this->preload_rest_api_data( $post_id, $post_type );
 
 		require_once ABSPATH . 'wp-admin/admin-header.php';
-		echo '<div id="woocommerce-email-editor" class="block-editor block-editor__container hide-if-no-js"></div>';
+		echo '<div id="poocommerce-email-editor" class="block-editor block-editor__container hide-if-no-js"></div>';
 	}
 
 	/**
@@ -102,7 +102,7 @@ class PageRenderer {
 		$post_type = $edited_item instanceof \WP_Post ? $edited_item->post_type : 'wp_template';
 		$post_id   = $edited_item instanceof \WP_Post ? $edited_item->ID : $edited_item->id;
 		// Load the email editor integration script.
-		// The JS file is located in plugins/woocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/index.ts.
+		// The JS file is located in plugins/poocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/index.ts.
 		WCAdminAssets::register_script( 'wp-admin-scripts', 'email-editor-integration', true );
 		WCAdminAssets::register_style( 'email-editor-integration', 'style', true );
 
@@ -147,7 +147,7 @@ class PageRenderer {
 
 		$current_user_email = wp_get_current_user()->user_email;
 
-		// Fetch all email types from WooCommerce including those added by other plugins.
+		// Fetch all email types from PooCommerce including those added by other plugins.
 		$wc_emails   = \WC_Emails::instance();
 		$email_types = $wc_emails->get_emails();
 		$email_types = array_values(
@@ -169,7 +169,7 @@ class PageRenderer {
 
 		wp_localize_script(
 			'wc-admin-email-editor-integration',
-			'WooCommerceEmailEditor',
+			'PooCommerceEmailEditor',
 			array(
 				'current_post_type'     => esc_js( $post_type ),
 				'current_post_id'       => $post_id,
@@ -183,7 +183,7 @@ class PageRenderer {
 					'back'     => admin_url( 'admin.php?page=wc-settings&tab=email' ),
 				),
 				'email_types'           => $email_types,
-				'block_preview_url'     => esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail_editor_content=true' ), 'preview-mail' ) ),
+				'block_preview_url'     => esc_url( wp_nonce_url( admin_url( '?preview_poocommerce_mail_editor_content=true' ), 'preview-mail' ) ),
 			)
 		);
 	}

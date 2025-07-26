@@ -2,23 +2,23 @@
  * External dependencies
  */
 import { getElement, store, getContext } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
 import { sanitize } from 'dompurify'; // eslint-disable-line import/named
 
 // Stores are locked to prevent 3PD usage until the API is stable.
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -51,7 +51,7 @@ export type Context = {
 };
 
 const productElementStore = store(
-	'woocommerce/product-elements',
+	'poocommerce/product-elements',
 	{
 		callbacks: {
 			updateValue: () => {

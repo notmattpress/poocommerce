@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useEditorContext, noticeContexts } from '@woocommerce/base-context';
-import { Title, StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { CURRENT_USER_IS_ADMIN } from '@woocommerce/settings';
-import { checkoutStore, paymentStore } from '@woocommerce/block-data';
+import { useEditorContext, noticeContexts } from '@poocommerce/base-context';
+import { Title, StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { CURRENT_USER_IS_ADMIN } from '@poocommerce/settings';
+import { checkoutStore, paymentStore } from '@poocommerce/block-data';
 import { useSelect } from '@wordpress/data';
-import { Skeleton } from '@woocommerce/base-components/skeleton';
+import { Skeleton } from '@poocommerce/base-components/skeleton';
 import clsx from 'clsx';
 
 /**
@@ -109,7 +109,7 @@ const CheckoutExpressPayment = () => {
 				aria-live="polite"
 				aria-label={ __(
 					'Processing express checkout',
-					'woocommerce'
+					'poocommerce'
 				) }
 			>
 				<div className="wc-block-components-express-payment__title-container">
@@ -120,7 +120,7 @@ const CheckoutExpressPayment = () => {
 						{ hasRegisteredNotInitializedExpressPayments ? (
 							<Skeleton width="127px" height="18px" />
 						) : (
-							__( ' Express Checkout', 'woocommerce' )
+							__( ' Express Checkout', 'poocommerce' )
 						) }
 					</Title>
 				</div>
@@ -144,7 +144,7 @@ const CheckoutExpressPayment = () => {
 				</div>
 			</div>
 			<div className="wc-block-components-express-payment-continue-rule wc-block-components-express-payment-continue-rule--checkout">
-				{ __( 'Or continue below', 'woocommerce' ) }
+				{ __( 'Or continue below', 'poocommerce' ) }
 			</div>
 		</>
 	);

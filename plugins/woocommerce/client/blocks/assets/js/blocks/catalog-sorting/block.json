@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/catalog-sorting",
+	"name": "poocommerce/catalog-sorting",
 	"title": "Catalog Sorting",
 	"description": "Enable customers to change the sorting order of the products.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -26,7 +26,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

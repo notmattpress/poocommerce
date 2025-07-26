@@ -2,12 +2,12 @@
 /**
  * Class WC_Abstract_Order file.
  *
- * @package WooCommerce\Tests\Abstracts
+ * @package PooCommerce\Tests\Abstracts
  */
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -21,8 +21,8 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test when rounding is different when doing per line and in subtotal.
 	 */
 	public function test_order_calculate_26582() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -56,7 +56,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param WC_Order $order Order object.
 	 */
 	private function order_calculate_rounding_line( $order ) {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 
 		$order->calculate_totals( true );
 
@@ -71,7 +71,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * @param WC_Order $order Order object.
 	 */
 	private function order_calculate_rounding_subtotal( $order ) {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$order->calculate_totals( true );
 
@@ -84,10 +84,10 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test that coupon taxes are not affected by logged in admin user.
 	 */
 	public function test_apply_coupon_for_correct_location_taxes() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_based_on', 'billing' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_based_on', 'billing' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$password = wp_generate_password( 8, false, false );
 		$admin_id = wp_insert_user(
@@ -104,7 +104,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		WC()->customer = null;
 		WC()->initialize_cart();
 
-		update_option( 'woocommerce_default_country', 'IN:AP' );
+		update_option( 'poocommerce_default_country', 'IN:AP' );
 
 		$tax_rate = array(
 			'tax_rate_country' => 'IN',
@@ -277,7 +277,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * Test apply_coupon() stores coupon meta data.
-	 * See: https://github.com/woocommerce/woocommerce/issues/28166.
+	 * See: https://github.com/poocommerce/poocommerce/issues/28166.
 	 */
 	public function test_apply_coupon_stores_meta_data() {
 		$coupon_code = 'coupon_test_meta_data';
@@ -301,13 +301,13 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 * Test for get_discount_to_display which must return a value
 	 * with and without tax whatever the setting of the options.
 	 *
-	 * Issue :https://github.com/woocommerce/woocommerce/issues/36794
+	 * Issue :https://github.com/poocommerce/poocommerce/issues/36794
 	 */
 	public function test_get_discount_to_display() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_currency', 'USD' );
-		update_option( 'woocommerce_tax_display_cart', 'incl' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_currency', 'USD' );
+		update_option( 'poocommerce_tax_display_cart', 'incl' );
 
 		// Set dummy data.
 		$tax_rate = array(
@@ -338,7 +338,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_cache_does_not_interferes_with_order_object() {
 		add_action(
-			'woocommerce_new_order',
+			'poocommerce_new_order',
 			function ( $order_id ) {
 				// this makes the cache store a specific order class instance, but it's quickly replaced by a generic one
 				// as we're in the middle of a save and this gets executed before the logic in WC_Abstract_Order.
@@ -349,7 +349,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$order->save();
 
 		$order = wc_get_order( $order->get_id() );
-		$this->assertInstanceOf( Automattic\WooCommerce\Admin\Overrides\Order::class, $order );
+		$this->assertInstanceOf( Automattic\PooCommerce\Admin\Overrides\Order::class, $order );
 	}
 
 	/**
@@ -504,7 +504,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'woocommerce_calculated_order_cogs_value' filter.
+	 * @testdox The calculated value for Cost of Goods Sold can be modified using the 'poocommerce_calculated_order_cogs_value' filter.
 	 */
 	public function test_filter_can_be_used_to_alter_calculated_cogs_value() {
 		$filter_received_value = null;
@@ -517,7 +517,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$this->add_product_with_cogs_to_order( $order, 56.78, 3 );
 
 		add_filter(
-			'woocommerce_calculated_order_cogs_value',
+			'poocommerce_calculated_order_cogs_value',
 			function ( $value, $order ) use ( &$filter_received_value, &$filter_received_order ) {
 				$filter_received_value = $value;
 				$filter_received_order = $order;
@@ -568,14 +568,14 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 				throw new \RuntimeException( 'Interrupt order persistence.' );
 			}
 		};
-		add_action( 'woocommerce_before_order_object_save', $callback );
+		add_action( 'poocommerce_before_order_object_save', $callback );
 
 		// Simple action to make sure hook is not triggered.
 		$triggered                     = false;
 		$should_not_be_called_callback = static function () use ( &$triggered ) {
 			$triggered = true;
 		};
-		add_action( 'woocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
+		add_action( 'poocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
 
 		$order = new Wc_Order();
 		$order->set_status( $initial_status );
@@ -593,11 +593,11 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		);
 		$this->assertFalse(
 			$triggered,
-			'"woocommerce_order_status_' . $refunded_status . '" action hook has been triggered but shouldn\'t have been'
+			'"poocommerce_order_status_' . $refunded_status . '" action hook has been triggered but shouldn\'t have been'
 		);
 
-		remove_action( 'woocommerce_before_order_object_save', $callback );
-		remove_action( 'woocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
+		remove_action( 'poocommerce_before_order_object_save', $callback );
+		remove_action( 'poocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
 	}
 
 	/**
@@ -614,7 +614,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$should_not_be_called_callback = static function () use ( &$triggered ) {
 			$triggered = true;
 		};
-		add_action( 'woocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
+		add_action( 'poocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
 
 		$order_item = new WC_Order_Item_Product();
 		$order_item->set_name( $initial_order_item_name );
@@ -630,7 +630,7 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		$callback = static function () {
 			throw new \RuntimeException( 'Error while saving WC_Order_Item' );
 		};
-		add_action( 'woocommerce_before_order_item_object_save', $callback, 10, 0 );
+		add_action( 'poocommerce_before_order_item_object_save', $callback, 10, 0 );
 
 		$order->get_items()[ $order_item_id ]->set_name( 'CHANGED Order Item name' );
 		$order->set_status( $refunded_status );
@@ -645,10 +645,10 @@ class WC_Abstract_Order_Test extends WC_Unit_Test_Case {
 		);
 		$this->assertFalse(
 			$triggered,
-			'"woocommerce_order_status_' . $refunded_status . '" action hook has been triggered but shouldn\'t have been'
+			'"poocommerce_order_status_' . $refunded_status . '" action hook has been triggered but shouldn\'t have been'
 		);
 
-		remove_action( 'woocommerce_before_order_item_object_save', $callback );
-		remove_action( 'woocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
+		remove_action( 'poocommerce_before_order_item_object_save', $callback );
+		remove_action( 'poocommerce_order_status_' . $refunded_status, $should_not_be_called_callback );
 	}
 }

@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Admin
+ * PooCommerce Admin
  *
  * @class    WC_Admin
- * @package  WooCommerce\Admin
+ * @package  PooCommerce\Admin
  * @version  2.6.0
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -28,7 +28,7 @@ class WC_Admin {
 		add_action( 'init', array( $this, 'includes' ) );
 
 		// Hook in early (priority 1) to make sure the PageController's hooks are added before any WC admin pages or
-		// menus logic is run, including the enqueuing of assets via \Automattic\WooCommerce\Internal\Admin\WCAdminAssets.
+		// menus logic is run, including the enqueuing of assets via \Automattic\PooCommerce\Internal\Admin\WCAdminAssets.
 		// While it may not sound like it, the admin_menu action is triggered quite early,
 		// before the admin_init or admin_enqueue_scripts  action.
 		// @see https://developer.wordpress.org/apis/hooks/action-reference/#actions-run-during-an-admin-page-request.
@@ -86,7 +86,7 @@ class WC_Admin {
 		 *
 		 * @since 3.6.0
 		 */
-		if ( apply_filters( 'woocommerce_enable_admin_help_tab', true ) ) {
+		if ( apply_filters( 'poocommerce_enable_admin_help_tab', true ) ) {
 			include_once __DIR__ . '/class-wc-admin-help.php';
 		}
 
@@ -159,7 +159,7 @@ class WC_Admin {
 		if ( ! empty( $_GET['wc-install-plugin-redirect'] ) ) {
 			$plugin_slug = wc_clean( wp_unslash( $_GET['wc-install-plugin-redirect'] ) );
 
-			if ( current_user_can( 'install_plugins' ) && in_array( $plugin_slug, array( 'woocommerce-gateway-stripe' ), true ) ) {
+			if ( current_user_can( 'install_plugins' ) && in_array( $plugin_slug, array( 'poocommerce-gateway-stripe' ), true ) ) {
 				$nonce = wp_create_nonce( 'install-plugin_' . $plugin_slug );
 				$url   = self_admin_url( 'update.php?action=install-plugin&plugin=' . $plugin_slug . '&_wpnonce=' . $nonce );
 			} else {
@@ -219,12 +219,12 @@ class WC_Admin {
 			 *
 			 * @since 3.6.0
 			 */
-			apply_filters( 'woocommerce_disable_admin_bar', true )
+			apply_filters( 'poocommerce_disable_admin_bar', true )
 			&& isset( $_SERVER['SCRIPT_FILENAME'] )
 			&& ! in_array( basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_FILENAME'] ) ) ), $exempted_paths, true )
 		) {
 			$has_cap     = false;
-			$access_caps = array( 'edit_posts', 'manage_woocommerce', 'view_admin_dashboard' );
+			$access_caps = array( 'edit_posts', 'manage_poocommerce', 'view_admin_dashboard' );
 
 			foreach ( $access_caps as $access_cap ) {
 				if ( current_user_can( $access_cap ) ) {
@@ -243,7 +243,7 @@ class WC_Admin {
 		 *
 		 * @since 3.6.0
 		 */
-		if ( apply_filters( 'woocommerce_prevent_admin_access', $prevent_access ) ) {
+		if ( apply_filters( 'poocommerce_prevent_admin_access', $prevent_access ) ) {
 			wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
 			exit;
 		}
@@ -254,7 +254,7 @@ class WC_Admin {
 	 */
 	public function preview_emails() {
 
-		if ( isset( $_GET['preview_woocommerce_mail'] ) ) {
+		if ( isset( $_GET['preview_poocommerce_mail'] ) ) {
 			if ( ! ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'preview-mail' ) ) ) {
 				die( 'Security check' );
 			}
@@ -266,7 +266,7 @@ class WC_Admin {
 				try {
 					$email_preview->set_email_type( $type_param );
 				} catch ( InvalidArgumentException $e ) {
-					wp_die( esc_html__( 'Invalid email type.', 'woocommerce' ), 400 );
+					wp_die( esc_html__( 'Invalid email type.', 'poocommerce' ), 400 );
 				}
 			}
 
@@ -284,7 +284,7 @@ class WC_Admin {
 					wp_die(
 						esc_html__(
 							'There was an error rendering the email preview. This doesn\'t affect actual email delivery. Please contact the extension author for assistance.',
-							'woocommerce'
+							'poocommerce'
 						),
 						404
 					);
@@ -305,7 +305,7 @@ class WC_Admin {
 	 */
 	public function preview_email_editor_dummy_content() {
 		$message = '';
-		if ( ! isset( $_GET['preview_woocommerce_mail_editor_content'] ) ) {
+		if ( ! isset( $_GET['preview_poocommerce_mail_editor_content'] ) ) {
 			return;
 		}
 
@@ -329,7 +329,7 @@ class WC_Admin {
 			$message = $email_preview->generate_placeholder_content( $type_param );
 		} catch ( \Exception $e ) {
 			// Catch other potential errors during content generation.
-			wp_die( esc_html__( 'There was an error rendering the email preview.', 'woocommerce' ), 404 );
+			wp_die( esc_html__( 'There was an error rendering the email preview.', 'poocommerce' ), 404 );
 		}
 
 		// Print the placeholder content.
@@ -339,14 +339,14 @@ class WC_Admin {
 	}
 
 	/**
-	 * Change the admin footer text on WooCommerce admin pages.
+	 * Change the admin footer text on PooCommerce admin pages.
 	 *
 	 * @since  2.3
 	 * @param  string $footer_text text to be rendered in the footer.
 	 * @return string
 	 */
 	public function admin_footer_text( $footer_text ) {
-		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
 			return $footer_text;
 		}
 		$current_screen = get_current_screen();
@@ -355,29 +355,29 @@ class WC_Admin {
 		// Set only WC pages.
 		$wc_pages = array_diff( $wc_pages, array( 'profile', 'user-edit' ) );
 
-		// Check to make sure we're on a WooCommerce admin page.
+		// Check to make sure we're on a PooCommerce admin page.
 		/**
 		 * Filter to determine if admin footer text should be displayed.
 		 *
 		 * @since 2.3
 		 */
-		if ( isset( $current_screen->id ) && apply_filters( 'woocommerce_display_admin_footer_text', in_array( $current_screen->id, $wc_pages, true ) ) ) {
+		if ( isset( $current_screen->id ) && apply_filters( 'poocommerce_display_admin_footer_text', in_array( $current_screen->id, $wc_pages, true ) ) ) {
 			// Change the footer text.
-			if ( ! get_option( 'woocommerce_admin_footer_text_rated' ) ) {
+			if ( ! get_option( 'poocommerce_admin_footer_text_rated' ) ) {
 				$footer_text = sprintf(
-					/* translators: 1: WooCommerce 2:: five stars */
-					__( 'If you like %1$s please leave us a %2$s rating. A huge thanks in advance!', 'woocommerce' ),
-					sprintf( '<strong>%s</strong>', esc_html__( 'WooCommerce', 'woocommerce' ) ),
-					'<a href="https://wordpress.org/support/plugin/woocommerce/reviews?rate=5#new-post" target="_blank" class="wc-rating-link" aria-label="' . esc_attr__( 'five star', 'woocommerce' ) . '" data-rated="' . esc_attr__( 'Thanks :)', 'woocommerce' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+					/* translators: 1: PooCommerce 2:: five stars */
+					__( 'If you like %1$s please leave us a %2$s rating. A huge thanks in advance!', 'poocommerce' ),
+					sprintf( '<strong>%s</strong>', esc_html__( 'PooCommerce', 'poocommerce' ) ),
+					'<a href="https://wordpress.org/support/plugin/poocommerce/reviews?rate=5#new-post" target="_blank" class="wc-rating-link" aria-label="' . esc_attr__( 'five star', 'poocommerce' ) . '" data-rated="' . esc_attr__( 'Thanks :)', 'poocommerce' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 				);
 				wc_enqueue_js(
 					"jQuery( 'a.wc-rating-link' ).on( 'click', function() {
-						jQuery.post( '" . WC()->ajax_url() . "', { action: 'woocommerce_rated' } );
+						jQuery.post( '" . WC()->ajax_url() . "', { action: 'poocommerce_rated' } );
 						jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
 					});"
 				);
 			} else {
-				$footer_text = __( 'Thank you for selling with WooCommerce.', 'woocommerce' );
+				$footer_text = __( 'Thank you for selling with PooCommerce.', 'poocommerce' );
 			}
 		}
 

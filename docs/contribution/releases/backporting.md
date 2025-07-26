@@ -1,9 +1,9 @@
 ---
-post_title: Backporting in WooCommerce
+post_title: Backporting in PooCommerce
 sidebar_label: Backporting
 ---
 
-# Backporting in WooCommerce
+# Backporting in PooCommerce
 
 Backporting is the process of applying changes from `trunk` to a release branch. This ensures critical fixes reach customers in upcoming releases.  Note that these flows apply only to UPCOMING RELEASES  (not patches to already-released versions).
 
@@ -20,9 +20,9 @@ When a release branch is created, it's copied from `trunk` at the time of code f
 Changes qualify for backporting only if they are:
 
 - **Bug fixes** that affect the release
-- **Performance improvements** that impact WooCommerce functionality
+- **Performance improvements** that impact PooCommerce functionality
 - **Time-sensitive features** that impact business goals
-- **Contractually required features** for WooCommerce
+- **Contractually required features** for PooCommerce
 
 ## Backporting Process for Contributors
 

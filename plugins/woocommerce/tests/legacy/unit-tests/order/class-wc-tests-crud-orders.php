@@ -2,18 +2,18 @@
 /**
  * Class WC_Tests_CRUD_Orders file.
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 
 /**
  * Meta
  *
- * @package WooCommerce\Tests\CRUD
+ * @package PooCommerce\Tests\CRUD
  */
 class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 
@@ -357,7 +357,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: get_taxes
 	 */
 	public function test_get_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -618,7 +618,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes
 	 */
 	public function test_calculate_taxes() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -658,7 +658,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes_is_vat_excempt
 	 */
 	public function test_calculate_taxes_is_vat_excempt() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -703,7 +703,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_taxes_issue_with_addresses
 	 */
 	public function test_calculate_taxes_issue_with_addresses() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		$taxes = array();
 
@@ -734,8 +734,8 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			)
 		);
 
-		update_option( 'woocommerce_default_country', 'PY:Central' );
-		update_option( 'woocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_default_country', 'PY:Central' );
+		update_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		$order = new WC_Order();
 		$order->set_billing_country( 'US' );
@@ -752,7 +752,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 * Test: calculate_totals
 	 */
 	public function test_calculate_totals() {
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$tax_rate = array(
 			'tax_rate_country'  => '',
 			'tax_rate_state'    => '',
@@ -799,7 +799,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	/**
 	 * Test: calculate_totals negative fees should not make order total negative.
 	 *
-	 * See: https://github.com/woocommerce/woocommerce/commit/804feb93333a8f00d0f93a163c6de58204f31f14
+	 * See: https://github.com/poocommerce/poocommerce/commit/804feb93333a8f00d0f93a163c6de58204f31f14
 	 */
 	public function test_calculate_totals_negative_fees_should_not_make_order_total_negative() {
 		$order = WC_Helper_Order::create_order();
@@ -970,7 +970,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_action( 'woocommerce_payment_complete', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_payment_complete', array( $this, 'throwAnException' ) );
 
 		$this->assertFalse( $object->payment_complete( '12345' ) );
 		$note = current(
@@ -982,7 +982,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Payment complete event failed', $note->content );
 
-		remove_action( 'woocommerce_payment_complete', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_payment_complete', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -992,7 +992,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->set_total( 100 );
 		$object->set_currency( 'USD' );
-		$this->assertEquals( '<span class="woocommerce-Price-amount amount"><bdi class="woocommerce-Price-bidi"><span class="woocommerce-Price-currencySymbol">&#36;</span>100.00</bdi></span>', $object->get_formatted_order_total() );
+		$this->assertEquals( '<span class="poocommerce-Price-amount amount"><bdi class="poocommerce-Price-bidi"><span class="poocommerce-Price-currencySymbol">&#36;</span>100.00</bdi></span>', $object->get_formatted_order_total() );
 	}
 
 	/**
@@ -1025,7 +1025,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
+		add_filter( 'poocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
 
 		$this->assertFalse( $object->update_status( OrderStatus::ON_HOLD ) );
 		$note = current(
@@ -1037,7 +1037,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Update status event failed', $note->content );
 
-		remove_filter( 'woocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
+		remove_filter( 'poocommerce_payment_complete_order_status', array( $this, 'throwAnException' ) );
 	}
 
 	/**
@@ -1047,9 +1047,9 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_filter( 'woocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
+		add_filter( 'poocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
 		$object->update_status( OrderStatus::ON_HOLD );
-		remove_filter( 'woocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
+		remove_filter( 'poocommerce_order_status_on-hold', array( $this, 'throwAnException' ) );
 
 		$note = current(
 			wc_get_order_notes(
@@ -1059,7 +1059,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 			)
 		);
 
-		$this->assertStringContainsString( __( 'Error during status transition.', 'woocommerce' ), $note->content );
+		$this->assertStringContainsString( __( 'Error during status transition.', 'poocommerce' ), $note->content );
 	}
 
 	/**
@@ -1402,7 +1402,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_get_created_via() {
 		$object = new WC_Order();
-		$set_to = 'WooCommerce';
+		$set_to = 'PooCommerce';
 		$object->set_created_via( $set_to );
 		$this->assertEquals( $set_to, $object->get_created_via() );
 	}
@@ -1874,7 +1874,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 	 */
 	public function test_refund_exception() {
 		$order = WC_Helper_Order::create_order();
-		add_action( 'woocommerce_create_refund', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_create_refund', array( $this, 'throwAnException' ) );
 		$refund = wc_create_refund(
 			array(
 				'order_id'   => $order->get_id(),
@@ -1882,7 +1882,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 				'line_items' => array(),
 			)
 		);
-		remove_action( 'woocommerce_create_refund', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_create_refund', array( $this, 'throwAnException' ) );
 		$this->assertEmpty( $order->get_refunds() );
 	}
 
@@ -2018,7 +2018,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		$object = new WC_Order();
 		$object->save();
 
-		add_action( 'woocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
+		add_action( 'poocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
 
 		$object->save();
 		$note = current(
@@ -2030,7 +2030,7 @@ class WC_Tests_CRUD_Orders extends WC_Unit_Test_Case {
 		);
 		$this->assertStringContainsString( 'Error saving order', $note->content );
 
-		remove_action( 'woocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
+		remove_action( 'poocommerce_before_order_object_save', array( $this, 'throwAnException' ) );
 	}
 
 	/**

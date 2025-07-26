@@ -2,12 +2,12 @@
 /**
  * Duplicate product functionality
  *
- * @package     WooCommerce\Admin
+ * @package     PooCommerce\Admin
  * @version     3.0.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -41,7 +41,7 @@ class WC_Admin_Duplicate_Product {
 	public function dupe_link( $actions, $post ) {
 		global $the_product;
 
-		if ( ! current_user_can( apply_filters( 'woocommerce_duplicate_product_capability', 'manage_woocommerce' ) ) ) {
+		if ( ! current_user_can( apply_filters( 'poocommerce_duplicate_product_capability', 'manage_poocommerce' ) ) ) {
 			return $actions;
 		}
 
@@ -59,13 +59,13 @@ class WC_Admin_Duplicate_Product {
 				'<a href="%s" class="submitdelete trash-product" aria-label="%s">%s</a>',
 				get_delete_post_link( $the_product->get_id(), '', false ),
 				/* translators: %s: post title */
-				esc_attr( sprintf( __( 'Move &#8220;%s&#8221; to the Trash', 'woocommerce' ), $the_product->get_name() ) ),
-				esc_html__( 'Trash', 'woocommerce' )
+				esc_attr( sprintf( __( 'Move &#8220;%s&#8221; to the Trash', 'poocommerce' ), $the_product->get_name() ) ),
+				esc_html__( 'Trash', 'poocommerce' )
 			);
 		}
 
-		$actions['duplicate'] = '<a href="' . wp_nonce_url( admin_url( 'edit.php?post_type=product&action=duplicate_product&amp;post=' . $post->ID ), 'woocommerce-duplicate-product_' . $post->ID ) . '" aria-label="' . esc_attr__( 'Make a duplicate from this product', 'woocommerce' )
-			. '" rel="permalink">' . esc_html__( 'Duplicate', 'woocommerce' ) . '</a>';
+		$actions['duplicate'] = '<a href="' . wp_nonce_url( admin_url( 'edit.php?post_type=product&action=duplicate_product&amp;post=' . $post->ID ), 'poocommerce-duplicate-product_' . $post->ID ) . '" aria-label="' . esc_attr__( 'Make a duplicate from this product', 'poocommerce' )
+			. '" rel="permalink">' . esc_html__( 'Duplicate', 'poocommerce' ) . '</a>';
 
 		return $actions;
 	}
@@ -76,7 +76,7 @@ class WC_Admin_Duplicate_Product {
 	public function dupe_button() {
 		global $post;
 
-		if ( ! current_user_can( apply_filters( 'woocommerce_duplicate_product_capability', 'manage_woocommerce' ) ) ) {
+		if ( ! current_user_can( apply_filters( 'poocommerce_duplicate_product_capability', 'manage_poocommerce' ) ) ) {
 			return;
 		}
 
@@ -88,9 +88,9 @@ class WC_Admin_Duplicate_Product {
 			return;
 		}
 
-		$notify_url = wp_nonce_url( admin_url( 'edit.php?post_type=product&action=duplicate_product&post=' . absint( $post->ID ) ), 'woocommerce-duplicate-product_' . $post->ID );
+		$notify_url = wp_nonce_url( admin_url( 'edit.php?post_type=product&action=duplicate_product&post=' . absint( $post->ID ) ), 'poocommerce-duplicate-product_' . $post->ID );
 		?>
-		<div id="duplicate-action"><a class="submitduplicate duplication" href="<?php echo esc_url( $notify_url ); ?>"><?php esc_html_e( 'Copy to a new draft', 'woocommerce' ); ?></a></div>
+		<div id="duplicate-action"><a class="submitduplicate duplication" href="<?php echo esc_url( $notify_url ); ?>"><?php esc_html_e( 'Copy to a new draft', 'poocommerce' ); ?></a></div>
 		<?php
 	}
 
@@ -99,25 +99,25 @@ class WC_Admin_Duplicate_Product {
 	 */
 	public function duplicate_product_action() {
 		if ( empty( $_REQUEST['post'] ) ) {
-			wp_die( esc_html__( 'No product to duplicate has been supplied!', 'woocommerce' ) );
+			wp_die( esc_html__( 'No product to duplicate has been supplied!', 'poocommerce' ) );
 		}
 
 		$product_id = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : '';
 
-		check_admin_referer( 'woocommerce-duplicate-product_' . $product_id );
+		check_admin_referer( 'poocommerce-duplicate-product_' . $product_id );
 
 		$product = wc_get_product( $product_id );
 
 		if ( false === $product ) {
 			/* translators: %s: product id */
-			wp_die( sprintf( esc_html__( 'Product creation failed, could not find original product: %s', 'woocommerce' ), esc_html( $product_id ) ) );
+			wp_die( sprintf( esc_html__( 'Product creation failed, could not find original product: %s', 'poocommerce' ), esc_html( $product_id ) ) );
 		}
 
 		$duplicate = $this->product_duplicate( $product );
 
-		// Hook rename to match other woocommerce_product_* hooks, and to move away from depending on a response from the wp_posts table.
-		do_action( 'woocommerce_product_duplicate', $duplicate, $product );
-		wc_do_deprecated_action( 'woocommerce_duplicate_product', array( $duplicate->get_id(), $this->get_product_to_duplicate( $product_id ) ), '3.0', 'Use woocommerce_product_duplicate action instead.' );
+		// Hook rename to match other poocommerce_product_* hooks, and to move away from depending on a response from the wp_posts table.
+		do_action( 'poocommerce_product_duplicate', $duplicate, $product );
+		wc_do_deprecated_action( 'poocommerce_duplicate_product', array( $duplicate->get_id(), $this->get_product_to_duplicate( $product_id ) ), '3.0', 'Use poocommerce_product_duplicate action instead.' );
 
 		// Redirect to the edit screen for the new draft page.
 		wp_redirect( admin_url( 'post.php?action=edit&post=' . $duplicate->get_id() ) );
@@ -140,7 +140,7 @@ class WC_Admin_Duplicate_Product {
 		 */
 		$meta_to_exclude = array_filter(
 			apply_filters(
-				'woocommerce_duplicate_product_exclude_meta',
+				'poocommerce_duplicate_product_exclude_meta',
 				array(),
 				array_map(
 					function ( $datum ) {
@@ -154,7 +154,7 @@ class WC_Admin_Duplicate_Product {
 		$duplicate = clone $product;
 		$duplicate->set_id( 0 );
 		/* translators: %s contains the name of the original product. */
-		$duplicate->set_name( sprintf( esc_html__( '%s (Copy)', 'woocommerce' ), $duplicate->get_name() ) );
+		$duplicate->set_name( sprintf( esc_html__( '%s (Copy)', 'poocommerce' ), $duplicate->get_name() ) );
 		$duplicate->set_total_sales( 0 );
 		if ( '' !== $product->get_sku( 'edit' ) ) {
 			$duplicate->set_sku( wc_product_generate_unique_sku( 0, $product->get_sku( 'edit' ) ) );
@@ -178,7 +178,7 @@ class WC_Admin_Duplicate_Product {
 		 *
 		 * @since 3.0
 		 */
-		do_action( 'woocommerce_product_duplicate_before_save', $duplicate, $product );
+		do_action( 'poocommerce_product_duplicate_before_save', $duplicate, $product );
 
 		// Save parent product.
 		$duplicate->save();
@@ -188,7 +188,7 @@ class WC_Admin_Duplicate_Product {
 		 *
 		 * @since 2.7
 		 */
-		if ( ! apply_filters( 'woocommerce_duplicate_product_exclude_children', false, $product ) && $product->is_type( ProductType::VARIABLE ) ) {
+		if ( ! apply_filters( 'poocommerce_duplicate_product_exclude_children', false, $product ) && $product->is_type( ProductType::VARIABLE ) ) {
 			foreach ( $product->get_children() as $child_id ) {
 				$child           = wc_get_product( $child_id );
 				$child_duplicate = clone $child;
@@ -218,7 +218,7 @@ class WC_Admin_Duplicate_Product {
 				 *
 				 * @since 3.0
 				 */
-				do_action( 'woocommerce_product_duplicate_before_save', $child_duplicate, $child );
+				do_action( 'poocommerce_product_duplicate_before_save', $child_duplicate, $child );
 
 				$child_duplicate->save();
 			}

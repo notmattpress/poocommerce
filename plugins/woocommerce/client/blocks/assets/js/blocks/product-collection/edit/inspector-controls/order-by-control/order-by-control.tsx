@@ -28,7 +28,7 @@ const OrderByControl = ( {
 } ) => {
 	return (
 		<ToolsPanelItem
-			label={ label || __( 'Order by', 'woocommerce' ) }
+			label={ label || __( 'Order by', 'poocommerce' ) }
 			hasValue={ hasValue }
 			isShownByDefault
 			onDeselect={ onDeselect }
@@ -37,7 +37,7 @@ const OrderByControl = ( {
 			<SelectControl
 				value={ selectedValue }
 				options={ orderOptions }
-				label={ label || __( 'Order by', 'woocommerce' ) }
+				label={ label || __( 'Order by', 'poocommerce' ) }
 				onChange={ onChange }
 				help={ help }
 			/>

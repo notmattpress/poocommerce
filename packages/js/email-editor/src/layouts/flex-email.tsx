@@ -39,17 +39,17 @@ function JustificationControls( {
 		{
 			value: 'left',
 			icon: justifyLeft,
-			label: __( 'Justify items left', 'woocommerce' ),
+			label: __( 'Justify items left', 'poocommerce' ),
 		},
 		{
 			value: 'center',
 			icon: justifyCenter,
-			label: __( 'Justify items center', 'woocommerce' ),
+			label: __( 'Justify items center', 'poocommerce' ),
 		},
 		{
 			value: 'right',
 			icon: justifyRight,
-			label: __( 'Justify items right', 'woocommerce' ),
+			label: __( 'Justify items right', 'poocommerce' ),
 		},
 	];
 
@@ -72,7 +72,7 @@ function JustificationControls( {
 	return (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
-			label={ __( 'Justification', 'woocommerce' ) }
+			label={ __( 'Justification', 'poocommerce' ) }
 			value={ justificationValue }
 			onChange={ onChange }
 			className="block-editor-hooks__flex-layout-justification-controls"
@@ -125,7 +125,7 @@ function LayoutControls( { setAttributes, attributes, name: blockName } ) {
 		<>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Layout', 'woocommerce' ) }
+					label={ __( 'Layout', 'poocommerce' ) }
 					resetAll={ resetAll }
 				>
 					<ToolsPanelItem
@@ -134,7 +134,7 @@ function LayoutControls( { setAttributes, attributes, name: blockName } ) {
 						hasValue={ () =>
 							attributes.layout?.justifyContent || false
 						}
-						label={ __( 'Justification', 'woocommerce' ) }
+						label={ __( 'Justification', 'poocommerce' ) }
 					>
 						<Flex>
 							<FlexItem>
@@ -243,17 +243,17 @@ export const withLayoutStyles = createHigherOrderComponent(
 export function initializeLayout() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/layout/addAttribute',
+		'poocommerce-email-editor/layout/addAttribute',
 		addAttribute
 	);
 	addFilter(
 		'editor.BlockListBlock',
-		'woocommerce-email-editor/with-layout-styles',
+		'poocommerce-email-editor/with-layout-styles',
 		withLayoutStyles
 	);
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/with-inspector-controls',
+		'poocommerce-email-editor/with-inspector-controls',
 		withLayoutControls
 	);
 }

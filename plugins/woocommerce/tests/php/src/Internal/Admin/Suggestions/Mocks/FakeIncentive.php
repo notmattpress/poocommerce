@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Suggestions\Mocks;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Suggestions\Mocks;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
 
 /**
  * Fake incentive provider for testing.

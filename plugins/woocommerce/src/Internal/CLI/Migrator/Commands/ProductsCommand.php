@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Commands;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Commands;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
 use WP_CLI;
 
 /**
@@ -35,7 +35,7 @@ final class ProductsCommand {
 	 *
 	 * @internal
 	 */
-	final public function init( CredentialManager $credential_manager, PlatformRegistry $platform_registry ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by WooCommerce injection method rules
+	final public function init( CredentialManager $credential_manager, PlatformRegistry $platform_registry ): void { // phpcs:ignore Generic.CodeAnalysis.UnnecessaryFinalModifier.Found -- Required by PooCommerce injection method rules
 		$this->credential_manager = $credential_manager;
 		$this->platform_registry  = $platform_registry;
 	}

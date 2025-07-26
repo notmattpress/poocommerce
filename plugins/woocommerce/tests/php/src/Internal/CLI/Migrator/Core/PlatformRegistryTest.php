@@ -2,14 +2,14 @@
 /**
  * Platform Registry Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
 
 /**
  * PlatformRegistryTest class.
@@ -21,7 +21,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_filters( 'woocommerce_migrator_platforms' );
+		remove_all_filters( 'poocommerce_migrator_platforms' );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_registration() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['test-platform'] = array(
 					'name'    => 'Test Platform',
@@ -54,7 +54,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_single_platform() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['test-platform'] = array(
 					'name'    => 'Test Platform',
@@ -87,7 +87,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_incomplete_platform_is_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['incomplete-platform'] = array(
 					'name' => 'Incomplete Platform',
@@ -108,7 +108,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_only_fetcher_is_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['partial-platform'] = array(
 					'name'    => 'Partial Platform',
@@ -130,7 +130,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_only_mapper_is_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['partial-platform'] = array(
 					'name'   => 'Partial Platform',
@@ -152,7 +152,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_filter_non_array_return_handled_gracefully() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function () {
 				return 'invalid-return-value';
 			}
@@ -170,7 +170,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_multiple_platforms_registration() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['platform-one'] = array(
 					'name'    => 'Platform One',
@@ -199,7 +199,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_registration_workflow() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['shopify'] = array(
 					'name'    => 'Shopify',

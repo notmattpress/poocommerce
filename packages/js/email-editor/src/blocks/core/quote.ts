@@ -10,7 +10,7 @@ import { Block } from '@wordpress/blocks/index';
 function enhanceQuoteBlock() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/change-quote',
+		'poocommerce-email-editor/change-quote',
 		( settings: Block, name ) => {
 			if ( name === 'core/quote' ) {
 				return {

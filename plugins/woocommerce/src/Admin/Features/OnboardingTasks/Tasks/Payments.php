@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments as SettingsPaymentsService;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments as SettingsPaymentsService;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
 use WC_Gateway_COD;
@@ -39,7 +39,7 @@ class Payments extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Set up payments', 'woocommerce' );
+		return __( 'Set up payments', 'poocommerce' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Payments extends Task {
 	public function get_content() {
 		return __(
 			'Choose payment providers and enable payment methods at checkout.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -60,7 +60,7 @@ class Payments extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '5 minutes', 'woocommerce' );
+		return __( '5 minutes', 'poocommerce' );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Payments extends Task {
 	 * @return string
 	 */
 	public function in_progress_label() {
-		return esc_html__( 'Test account', 'woocommerce' );
+		return esc_html__( 'Test account', 'poocommerce' );
 	}
 
 	/**
@@ -274,7 +274,7 @@ class Payments extends Task {
 			if (
 				! empty( $provider['state']['enabled'] ) &&
 				! empty( $provider['id'] ) &&
-				'woocommerce_payments' !== $provider['id']
+				'poocommerce_payments' !== $provider['id']
 			) {
 				return true;
 			}
@@ -296,7 +296,7 @@ class Payments extends Task {
 			if (
 				! empty( $provider['state']['needs_setup'] ) &&
 				! empty( $provider['id'] ) &&
-				'woocommerce_payments' !== $provider['id']
+				'poocommerce_payments' !== $provider['id']
 			) {
 				return true;
 			}
@@ -343,7 +343,7 @@ class Payments extends Task {
 
 			return $settings_payments_service->get_country();
 		} catch ( \Throwable $e ) {
-			// In case of any error, return the WooCommerce base country.
+			// In case of any error, return the PooCommerce base country.
 			return WC()->countries->get_base_country();
 		}
 	}

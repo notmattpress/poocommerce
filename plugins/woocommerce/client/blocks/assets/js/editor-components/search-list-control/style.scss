@@ -1,10 +1,10 @@
-.woocommerce-search-list {
+.poocommerce-search-list {
 	width: 100%;
 	padding: 0 0 $gap;
 	text-align: left;
 
 	&.is-compact {
-		.woocommerce-search-list__selected {
+		.poocommerce-search-list__selected {
 			margin: 0 0 $gap;
 			padding: 0;
 			border-top: none;
@@ -12,7 +12,7 @@
 			min-height: 54px;
 		}
 
-		.woocommerce-search-list__search {
+		.poocommerce-search-list__search {
 			margin: 0 0 $gap;
 			padding: 0;
 			border-top: none;
@@ -24,7 +24,7 @@
 	}
 
 	&.is-loading {
-		.woocommerce-search-list__list {
+		.poocommerce-search-list__list {
 			padding: $gap-small 0;
 			text-align: center;
 			border: none;
@@ -38,11 +38,11 @@
 	}
 
 	&.is-token {
-		.woocommerce-search-list__list {
+		.poocommerce-search-list__list {
 			border-top: 0;
 		}
 
-		.woocommerce-search-list__search {
+		.poocommerce-search-list__search {
 			margin-bottom: 0;
 
 			.components-form-token-field__input-container {
@@ -53,21 +53,21 @@
 		}
 	}
 
-	.woocommerce-search-list__list {
+	.poocommerce-search-list__list {
 		// Here to increase specificity compared to default editor styles
 		// wrapping `ul`s and `ol`s.
 		padding-left: 0;
 	}
 }
 
-.woocommerce-search-list__selected {
+.poocommerce-search-list__selected {
 	margin: $gap 0;
 	padding: $gap 0 0;
 	// 76px is the height of 1 row of tags.
 	min-height: 76px;
 	border-top: 1px solid $gray-100;
 
-	.woocommerce-search-list__selected-header {
+	.poocommerce-search-list__selected-header {
 		margin-bottom: $gap-smaller;
 
 		button {
@@ -75,7 +75,7 @@
 		}
 	}
 
-	.woocommerce-tag__text {
+	.poocommerce-tag__text {
 		max-width: 13em;
 	}
 
@@ -90,7 +90,7 @@
 	}
 }
 
-.woocommerce-search-list__search {
+.poocommerce-search-list__search {
 	margin: $gap 0;
 	padding: $gap 0 0;
 	border-top: 1px solid $gray-100;
@@ -101,7 +101,7 @@
 	}
 }
 
-.woocommerce-search-list__list {
+.poocommerce-search-list__list {
 	border: 1px solid $gray-200;
 	margin: 0;
 	padding: 0;
@@ -121,14 +121,14 @@
 		display: flex;
 		justify-content: center;
 
-		.woocommerce-search-list__not-found-icon,
-		.woocommerce-search-list__not-found-text {
+		.poocommerce-search-list__not-found-icon,
+		.poocommerce-search-list__not-found-text {
 			display: flex;
 			align-content: center;
 			flex-wrap: wrap;
 		}
 
-		.woocommerce-search-list__not-found-icon {
+		.poocommerce-search-list__not-found-icon {
 			margin-right: $gap;
 
 			.gridicon {
@@ -152,7 +152,7 @@
 		border-bottom: none;
 	}
 
-	.woocommerce-search-list__item {
+	.poocommerce-search-list__item {
 		display: flex;
 		align-items: center;
 		margin-bottom: 0;
@@ -200,11 +200,11 @@
 			}
 		}
 
-		.woocommerce-search-list__item-input {
+		.poocommerce-search-list__item-input {
 			margin: 0;
 		}
 
-		.woocommerce-search-list__item-input[type="radio"] {
+		.poocommerce-search-list__item-input[type="radio"] {
 			margin-right: $gap-smaller;
 		}
 
@@ -212,7 +212,7 @@
 			margin: 0;
 		}
 
-		.woocommerce-search-list__item-label {
+		.poocommerce-search-list__item-label {
 			display: flex;
 			flex: 1;
 		}
@@ -231,12 +231,12 @@
 		}
 
 		// Anything deeper than 5 levels will use this fallback depth
-		&[class*="depth-"] .woocommerce-search-list__item-label::before {
+		&[class*="depth-"] .poocommerce-search-list__item-label::before {
 			margin-right: $gap-smallest;
 			content: str-repeat("— ", 5);
 		}
 
-		&.depth-0 .woocommerce-search-list__item-label::before {
+		&.depth-0 .poocommerce-search-list__item-label::before {
 			margin-right: 0;
 			content: "";
 		}
@@ -246,28 +246,28 @@
 				padding-left: $gap * ($i + 1);
 			}
 
-			&.depth-#{$i} .woocommerce-search-list__item-label::before {
+			&.depth-#{$i} .poocommerce-search-list__item-label::before {
 				content: str-repeat("— ", $i);
 			}
 		}
 
-		.woocommerce-search-list__item-name {
+		.poocommerce-search-list__item-name {
 			display: inline-block;
 		}
 
-		.woocommerce-search-list__item-prefix {
+		.poocommerce-search-list__item-prefix {
 			display: none;
 			color: $gray-700;
 		}
 
 		&.is-searching,
 		&.is-skip-level {
-			.woocommerce-search-list__item-label {
+			.poocommerce-search-list__item-label {
 				// Un-flex the label, so the prefix (breadcrumbs) and name are aligned.
 				display: inline-block;
 			}
 
-			.woocommerce-search-list__item-prefix {
+			.poocommerce-search-list__item-prefix {
 				display: inline;
 
 				&::after {
@@ -278,7 +278,7 @@
 		}
 
 		&.is-searching {
-			.woocommerce-search-list__item-name {
+			.poocommerce-search-list__item-name {
 				color: $gray-900;
 			}
 		}
@@ -289,7 +289,7 @@
 			}
 		}
 
-		.woocommerce-search-list__item-count {
+		.poocommerce-search-list__item-count {
 			flex: 0 1 auto;
 			padding: math.div($gap-smallest, 2) $gap-smaller;
 			border: 1px solid $gray-100;
@@ -303,7 +303,7 @@
 		}
 	}
 
-	li:last-child .woocommerce-search-list__item {
+	li:last-child .poocommerce-search-list__item {
 		border-bottom: none;
 	}
 }

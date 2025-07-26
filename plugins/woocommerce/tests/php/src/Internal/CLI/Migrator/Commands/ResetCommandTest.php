@@ -2,16 +2,16 @@
 /**
  * Reset Command Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Commands
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Commands
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Commands;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Commands;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Commands\ResetCommand;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Commands\ResetCommand;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
 
 /**
  * Test cases for ResetCommand.
