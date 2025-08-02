@@ -4,16 +4,16 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { useMemo } from '@wordpress/element';
-import { EditorBlock } from '@woocommerce/types';
+import { EditorBlock } from '@poocommerce/types';
 import { addFilter } from '@wordpress/hooks';
 import {
 	revertMigration,
 	getUpgradeStatus,
 	HOURS_TO_DISPLAY_UPGRADE_NOTICE,
 	UPGRADE_NOTICE_DISPLAY_COUNT_THRESHOLD,
-} from '@woocommerce/blocks/migration-products-to-product-collection';
-import { recordEvent } from '@woocommerce/tracks';
-import { CesFeedbackButton } from '@woocommerce/editor-components/ces-feedback-button';
+} from '@poocommerce/blocks/migration-products-to-product-collection';
+import { recordEvent } from '@poocommerce/tracks';
+import { CesFeedbackButton } from '@poocommerce/editor-components/ces-feedback-button';
 import {
 	PanelBody,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -161,7 +161,7 @@ const ProductCollectionInspectorControls = (
 			/>
 
 			<ToolsPanel
-				label={ __( 'Settings', 'woocommerce' ) }
+				label={ __( 'Settings', 'poocommerce' ) }
 				resetAll={ () => {
 					const defaultSettings = getDefaultSettings(
 						props.attributes
@@ -205,7 +205,7 @@ const ProductCollectionInspectorControls = (
 
 			{ showCustomQueryControls ? (
 				<ToolsPanel
-					label={ __( 'Filters', 'woocommerce' ) }
+					label={ __( 'Filters', 'poocommerce' ) }
 					resetAll={ ( resetAllFilters: ( () => void )[] ) => {
 						resetAllFilters.forEach( ( resetFilter ) => {
 							resetFilter();

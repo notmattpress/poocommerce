@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
 use WP_Block;
 
 /**
@@ -49,7 +49,7 @@ class GroupedProductItemSelector extends AbstractBlock {
 		 * @param int        $min_value Minimum quantity value.
 		 * @param WC_Product $product   Product object.
 		 */
-		$min_value = apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product );
+		$min_value = apply_filters( 'poocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product );
 
 		// By default, products have a min value of 1. In that case, we can
 		// safely override it to 0 when they are a child of a grouped product.
@@ -67,13 +67,13 @@ class GroupedProductItemSelector extends AbstractBlock {
 		 * @param int        $max_value Maximum quantity value.
 		 * @param WC_Product $product   Product object.
 		 */
-		$max_value = apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product );
+		$max_value = apply_filters( 'poocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product );
 
 		if ( $min_value === $max_value && $min_value > 0 ) {
-			add_filter( 'woocommerce_quantity_input_type', array( $this, 'set_quantity_input_type' ) );
+			add_filter( 'poocommerce_quantity_input_type', array( $this, 'set_quantity_input_type' ) );
 		}
 
-		woocommerce_quantity_input(
+		poocommerce_quantity_input(
 			array(
 				'input_name'  => 'quantity[' . $product->get_id() . ']',
 				'input_id'    => 'quantity_' . $product->get_id(),
@@ -87,12 +87,12 @@ class GroupedProductItemSelector extends AbstractBlock {
 				 * @param int        $max_value Maximum quantity value.
 				 * @param WC_Product $product   Product object.
 				 */
-				'placeholder' => apply_filters( 'woocommerce_quantity_input_placeholder', 0, $product ),
+				'placeholder' => apply_filters( 'poocommerce_quantity_input_placeholder', 0, $product ),
 			)
 		);
 
 		if ( $min_value === $max_value && $min_value > 0 ) {
-			remove_filter( 'woocommerce_quantity_input_type', array( $this, 'set_quantity_input_type' ) );
+			remove_filter( 'poocommerce_quantity_input_type', array( $this, 'set_quantity_input_type' ) );
 		}
 
 		$quantity_html = ob_get_clean();
@@ -132,7 +132,7 @@ class GroupedProductItemSelector extends AbstractBlock {
 	 */
 	private function get_button_markup( $product_to_render ) {
 		ob_start();
-		woocommerce_template_loop_add_to_cart();
+		poocommerce_template_loop_add_to_cart();
 		$button_html = ob_get_clean();
 
 		return $button_html;
@@ -148,7 +148,7 @@ class GroupedProductItemSelector extends AbstractBlock {
 		if ( $product->is_on_sale() ) {
 			$label = sprintf(
 				/* translators: %1$s: Product name. %2$s: Sale price. %3$s: Regular price */
-				esc_html__( 'Buy one of %1$s on sale for %2$s, original price was %3$s', 'woocommerce' ),
+				esc_html__( 'Buy one of %1$s on sale for %2$s, original price was %3$s', 'poocommerce' ),
 				esc_html( $product->get_name() ),
 				esc_html( wp_strip_all_tags( wc_price( $product->get_price() ) ) ),
 				esc_html( wp_strip_all_tags( wc_price( $product->get_regular_price() ) ) )
@@ -156,7 +156,7 @@ class GroupedProductItemSelector extends AbstractBlock {
 		} else {
 			$label = sprintf(
 				/* translators: %1$s: Product name. %2$s: Product price */
-				esc_html__( 'Buy one of %1$s for %2$s', 'woocommerce' ),
+				esc_html__( 'Buy one of %1$s for %2$s', 'poocommerce' ),
 				esc_html( $product->get_name() ),
 				esc_html( wp_strip_all_tags( wc_price( $product->get_price() ) ) )
 			);

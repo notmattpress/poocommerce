@@ -41,7 +41,7 @@ const scrollCarousel = ( pixels: number ) => {
 	const { ref } = getElement();
 
 	const productCollection = ref?.closest(
-		'.wp-block-woocommerce-product-collection'
+		'.wp-block-poocommerce-product-collection'
 	);
 	const productTemplate = productCollection?.querySelector(
 		'.wc-block-product-template'
@@ -174,6 +174,6 @@ const productCollectionStore = {
 	},
 };
 
-store( 'woocommerce/product-collection', productCollectionStore, {
+store( 'poocommerce/product-collection', productCollectionStore, {
 	lock: true,
 } );

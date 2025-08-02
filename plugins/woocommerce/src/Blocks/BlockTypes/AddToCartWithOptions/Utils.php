@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 use WP_Block;
 
 /**
@@ -23,10 +23,10 @@ class Utils {
 		$pattern = '/(<input[^>]*id="quantity_[^"]*"[^>]*\/>)/';
 		// Replacement string to add button AFTER the matched <input> element.
 		/* translators: %s refers to the item name in the cart. */
-		$minus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Reduce quantity of %s', 'woocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.decreaseQuantity" data-wp-bind--disabled="!state.allowsDecrease" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus">−</button>';
+		$minus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Reduce quantity of %s', 'poocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.decreaseQuantity" data-wp-bind--disabled="!state.allowsDecrease" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus">−</button>';
 		// Replacement string to add button AFTER the matched <input> element.
 		/* translators: %s refers to the item name in the cart. */
-		$plus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Increase quantity of %s', 'woocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.increaseQuantity" data-wp-bind--disabled="!state.allowsIncrease" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus">+</button>';
+		$plus_button = '$1<button aria-label="' . esc_attr( sprintf( __( 'Increase quantity of %s', 'poocommerce' ), $product_name ) ) . '" type="button" data-wp-on--click="actions.increaseQuantity" data-wp-bind--disabled="!state.allowsIncrease" class="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus">+</button>';
 		$new_html    = preg_replace( $pattern, $plus_button, $quantity_html );
 		$new_html    = preg_replace( $pattern, $minus_button, $new_html );
 		return $new_html;
@@ -84,14 +84,14 @@ class Utils {
 
 		if ( ! empty( $wrapper_attributes ) ) {
 			return sprintf(
-				'<div %1$s data-wp-interactive="woocommerce/add-to-cart-with-options"%2$s>%3$s</div>',
+				'<div %1$s data-wp-interactive="poocommerce/add-to-cart-with-options"%2$s>%3$s</div>',
 				$wrapper_attributes,
 				$context_attribute,
 				$quantity_html
 			);
 		}
 
-		return '<div data-wp-interactive="woocommerce/add-to-cart-with-options"' . $context_attribute . '>' . $quantity_html . '</div>';
+		return '<div data-wp-interactive="poocommerce/add-to-cart-with-options"' . $context_attribute . '>' . $quantity_html . '</div>';
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Utils {
 		 * @param int        $min_purchase_quantity The minimum purchase quantity.
 		 * @param WC_Product $product               The product object.
 		 */
-		$min_purchase_quantity = apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product );
+		$min_purchase_quantity = apply_filters( 'poocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product );
 		/**
 		 * Filter the maximum quantity value allowed for the product.
 		 *
@@ -177,7 +177,7 @@ class Utils {
 		 * @param int        $max_purchase_quantity The maximum purchase quantity.
 		 * @param WC_Product $product               The product object.
 		 */
-		$max_purchase_quantity = apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product );
+		$max_purchase_quantity = apply_filters( 'poocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product );
 		return $min_purchase_quantity === $max_purchase_quantity;
 	}
 

@@ -2,14 +2,14 @@
 /**
  * Shopify Fetcher
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
 
 defined( 'ABSPATH' ) || exit;
 

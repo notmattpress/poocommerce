@@ -1,13 +1,13 @@
 # Platform Development Guide
 
-This directory contains platform implementations for the WooCommerce Migrator.
+This directory contains platform implementations for the PooCommerce Migrator.
 
 ## Architecture Overview
 
-The WooCommerce Migrator uses a **hybrid platform architecture**:
+The PooCommerce Migrator uses a **hybrid platform architecture**:
 
 1. **Built-in Default Platform** - Shopify ships with the core plugin as the primary migration source
-2. **External Platform Plugins** - Additional platforms hook into the migrator via filters (e.g., "WooCommerce Magento Migrator", "WooCommerce BigCommerce Migrator")
+2. **External Platform Plugins** - Additional platforms hook into the migrator via filters (e.g., "PooCommerce Magento Migrator", "PooCommerce BigCommerce Migrator")
 
 ## Creating a Platform Plugin
 
@@ -29,15 +29,15 @@ your-platform-migrator/
 
 Your platform plugin must implement:
 
-- `WooCommerce\Migrator\ImporterCore\Interfaces\PlatformFetcherInterface`
-- `WooCommerce\Migrator\ImporterCore\Interfaces\PlatformMapperInterface`
+- `PooCommerce\Migrator\ImporterCore\Interfaces\PlatformFetcherInterface`
+- `PooCommerce\Migrator\ImporterCore\Interfaces\PlatformMapperInterface`
 
 ### 3. Register Your Platform
 
-Hook into the `woocommerce_migrator_platforms` filter:
+Hook into the `poocommerce_migrator_platforms` filter:
 
 ```php
-add_filter( 'woocommerce_migrator_platforms', function( $platforms ) {
+add_filter( 'poocommerce_migrator_platforms', function( $platforms ) {
     $platforms['your-platform'] = [
         'name'    => 'Your Platform',
         'fetcher' => 'YourNamespace\PlatformFetcher',
@@ -51,15 +51,15 @@ add_filter( 'woocommerce_migrator_platforms', function( $platforms ) {
 
 Your plugin should:
 
-- Check if WooCommerce Migrator is active
+- Check if PooCommerce Migrator is active
 - Handle its own autoloading
 - Initialize during appropriate WordPress hooks
 
 ## Built-in Shopify Platform
 
-The `Shopify/` directory contains the **default platform implementation** that ships with WooCommerce Migrator. This provides:
+The `Shopify/` directory contains the **default platform implementation** that ships with PooCommerce Migrator. This provides:
 
-- ✅ Complete Shopify-to-WooCommerce migration capabilities
+- ✅ Complete Shopify-to-PooCommerce migration capabilities
 - ✅ Reference implementation for external platform developers
 - ✅ Interface implementations showing best practices
 - ✅ Proper namespacing and PSR-4 autoloading
@@ -87,4 +87,4 @@ Platform plugins should include comprehensive tests that verify:
 - Provide configuration options for API credentials
 - Support resumable migrations (via ImportSession)
 
-For more details, refer to the WooCommerce Migrator documentation.
+For more details, refer to the PooCommerce Migrator documentation.

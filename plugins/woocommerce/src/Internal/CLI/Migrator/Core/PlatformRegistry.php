@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Core;
 
 use InvalidArgumentException;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
 use WP_CLI;
 
 /**
@@ -46,7 +46,7 @@ class PlatformRegistry {
 		 *                         is another array containing 'name', 'fetcher', and 'mapper' class names.
 		 * @since 1.0.0
 		 */
-		$platforms = apply_filters( 'woocommerce_migrator_platforms', array() );
+		$platforms = apply_filters( 'poocommerce_migrator_platforms', array() );
 
 		if ( ! is_array( $platforms ) ) {
 			return;
@@ -95,7 +95,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Platform %s not found.', 'woocommerce' ),
+					esc_html__( 'Platform %s not found.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -107,7 +107,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Invalid fetcher class for platform %s.', 'woocommerce' ),
+					esc_html__( 'Invalid fetcher class for platform %s.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -132,7 +132,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Platform %s not found.', 'woocommerce' ),
+					esc_html__( 'Platform %s not found.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -144,7 +144,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Invalid mapper class for platform %s.', 'woocommerce' ),
+					esc_html__( 'Invalid mapper class for platform %s.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);

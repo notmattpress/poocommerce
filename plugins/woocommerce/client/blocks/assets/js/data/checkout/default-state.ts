@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { isSameAddress } from '@woocommerce/base-utils';
-import { OrderFormValues } from '@woocommerce/settings';
+import { isSameAddress } from '@poocommerce/base-utils';
+import { OrderFormValues } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

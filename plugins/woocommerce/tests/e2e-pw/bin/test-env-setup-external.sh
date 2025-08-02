@@ -38,7 +38,7 @@ mu_plugins=(
     "filter-setter"
     "process-waiting-actions"
     "test-helper-apis"
-	"woocommerce-cleanup"
+	"poocommerce-cleanup"
 )
 
 # Process each plugin
@@ -46,7 +46,7 @@ for plugin in "${mu_plugins[@]}"; do
     echo "Processing $plugin..."
 
     # Download the PHP file
-    curl -o "$plugin.php" "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/tests/e2e-pw/bin/$plugin.php"
+    curl -o "$plugin.php" "https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/plugins/poocommerce/tests/e2e-pw/bin/$plugin.php"
 
     # Create a zip file
     (chmod 755 "$plugin.php" && zip "${plugin%}.zip" "$plugin.php")
@@ -62,7 +62,7 @@ printf "\n\n\n"
 echo "--------------------------------------------------------"
 echo -e 'Add Customer user'
 echo "--------------------------------------------------------"
-wp user create customer customer@woocommercecoree2etestsuite.com \
+wp user create customer customer@poocommercecoree2etestsuite.com \
     --user_pass=$CUSTOMER_PASSWORD \
     --role=customer \
     --first_name='Jane' \
@@ -74,14 +74,14 @@ printf "\n\n\n"
 echo "--------------------------------------------------------"
 echo -e 'Update Blog Name'
 echo "--------------------------------------------------------"
-wp option update blogname 'WooCommerce Core E2E Test Suite'
+wp option update blogname 'PooCommerce Core E2E Test Suite'
 
 printf "\n\n\n"
 
 echo "--------------------------------------------------------"
 echo -e 'Enable tracking'
 echo "--------------------------------------------------------"
-wp option update woocommerce_allow_tracking 'yes'
+wp option update poocommerce_allow_tracking 'yes'
 
 printf "\n\n\n"
 
@@ -89,6 +89,6 @@ echo "--------------------------------------------------------"
 echo -e 'Upload test images'
 echo "--------------------------------------------------------"
 echo "Importing test images..."
-wp media import https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/tests/e2e-pw/test-data/images/image-01.png \
-    https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/tests/e2e-pw/test-data/images/image-02.png \
-    https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/tests/e2e-pw/test-data/images/image-03.png
+wp media import https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/plugins/poocommerce/tests/e2e-pw/test-data/images/image-01.png \
+    https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/plugins/poocommerce/tests/e2e-pw/test-data/images/image-02.png \
+    https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/plugins/poocommerce/tests/e2e-pw/test-data/images/image-03.png

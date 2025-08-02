@@ -2,7 +2,7 @@
 /**
  * Leaderboards REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
 /**
@@ -168,7 +168,7 @@ class WC_Admin_Tests_API_Leaderboards extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		add_filter(
-			'woocommerce_leaderboards',
+			'poocommerce_leaderboards',
 			function( $leaderboards, $per_page, $after, $before, $persisted_query ) {
 				$leaderboards[] = array(
 					'id'      => 'top_widgets',

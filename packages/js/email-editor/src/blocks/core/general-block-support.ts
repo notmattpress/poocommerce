@@ -30,7 +30,7 @@ const BLOCK_STYLES_TO_PRESERVE = [ 'core/social-links' ];
 function alterSupportConfiguration() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/block-support',
+		'poocommerce-email-editor/block-support',
 		( settings: Block ) => {
 			if ( settings.supports?.shadow ) {
 				return {

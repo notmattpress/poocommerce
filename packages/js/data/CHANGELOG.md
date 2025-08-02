@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.0.0](https://www.npmjs.com/package/@woocommerce/data/v/5.0.0) - 2024-06-11 
+## [5.0.0](https://www.npmjs.com/package/@poocommerce/data/v/5.0.0) - 2024-06-11 
 
 -   Patch - Added in missing TS definitions in package.json [#34154]
 -   Patch - Add is_plugins_page_skipped parameter to onboarding API [#38764]
@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Fix missing resolver import in data/import [#34054]
 -   Minor - Fix up updateItem query in CRUD data store [#36155]
 -   Minor - Moved setIsRequesting(false) to the finally block so that it always runs even if an exception is thrown. [#36873]
--   Patch - Redirect users to WooCommerce Home when Jetpack auth endpoint returns an invalid URL [#38760]
+-   Patch - Redirect users to PooCommerce Home when Jetpack auth endpoint returns an invalid URL [#38760]
 -   Patch - Removing unused code from ProductForm data store. [#36592]
 -   Patch - Rewrite withCurrentUserHydration to work with Gutenberg 15.5+ [#37908]
 -   Patch - Rewrite withNavigationHydration to work Gutenberg 15.5+ [#37901]
@@ -98,10 +98,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add missing reviews property to product data [#35592]
 -   Patch - Add missing shipping class property [#35034]
 -   Minor - Add new shippping class modal to a shipping class section in product page [#34937]
--   Minor - Add type definitions for @woocommerce/data reviews [#34844]
+-   Minor - Add type definitions for @poocommerce/data reviews [#34844]
 -   Patch - Add types to plugin response data [#34787]
 -   Minor - Adjust build/test scripts to remove -- -- that was required for pnpm 6. [#34661]
--   Patch - Branding rollout - change WooCommerce Payments to WooPayments [#39188]
+-   Patch - Branding rollout - change PooCommerce Payments to WooPayments [#39188]
 -   Minor - Clean errors when generate variations is successfull #41525 [#41525]
 -   Minor - Deprecate "theme" prop from profileItem type [#37671]
 -   Patch - Dev dependency bump [#35651]
@@ -140,7 +140,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Use createSelector for getPermalinkParts selector, to cache result. [#36848]
 -   Minor - Add tracks for plugin actions and handle plugin error properly [#37261]
 
-## [4.1.0](https://www.npmjs.com/package/@woocommerce/data/v/4.1.0) - 2022-07-08 
+## [4.1.0](https://www.npmjs.com/package/@poocommerce/data/v/4.1.0) - 2022-07-08 
 
 -   Minor - Fix 'Cannot read properties of undefined' error when clicking Export button on Analytic pages.
 -   Minor - Add CRUD data store utilities
@@ -149,10 +149,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Migrate onboarding data store to TS
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 -   Patch - Fix product type
--   Patch - Migrate @woocommerce/data user and use-select-with-refresh to TS
+-   Patch - Migrate @poocommerce/data user and use-select-with-refresh to TS
 -   Patch - Migrate item store to TS
 
-## [4.0.0](https://www.npmjs.com/package/@woocommerce/data/v/4.0.0) - 2022-06-14 
+## [4.0.0](https://www.npmjs.com/package/@poocommerce/data/v/4.0.0) - 2022-06-14 
 
 -    - Remove `PaymentMethodsState` type. Use `Plugin` instead. #32683
 -   Minor - Add create product actions in products data store #33278
@@ -180,4 +180,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Standardize lint scripts: add lint:fix
 -   Patch - Update @woocomerce/data client api error types. #32939
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/data/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/data/CHANGELOG.md).

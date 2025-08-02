@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Suggestions;
+namespace Automattic\PooCommerce\Internal\Admin\Suggestions;
 
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives\WooPayments;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\Incentive;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives\WooPayments;
 
 defined( 'ABSPATH' ) || exit;
 

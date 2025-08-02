@@ -5,8 +5,8 @@ jest.mock( '../utils', () => ( {
 		.mockReturnValue( Promise.resolve( { reviews: [], totalReviews: 0 } ) ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getSetting: jest
 		.fn()
 		.mockImplementation( ( setting, defaultValue ) => defaultValue ),
@@ -16,7 +16,7 @@ jest.mock( '@woocommerce/settings', () => ( {
  * External dependencies
  */
 import { act, render } from '@testing-library/react';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

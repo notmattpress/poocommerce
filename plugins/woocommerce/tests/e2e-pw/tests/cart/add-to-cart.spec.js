@@ -4,7 +4,7 @@
 import {
 	addAProductToCart,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -49,15 +49,15 @@ test.describe(
 			{ tag: [ tags.COULD_BE_LOWER_LEVEL_TEST ] },
 			async ( { page, restApi } ) => {
 				// Set settings combination that allowed reproducing the bug.
-				// @see https://github.com/woocommerce/woocommerce/issues/33077
+				// @see https://github.com/poocommerce/poocommerce/issues/33077
 				await restApi.put(
-					`${ WC_API_PATH }/settings/general/woocommerce_default_customer_address`,
+					`${ WC_API_PATH }/settings/general/poocommerce_default_customer_address`,
 					{
 						value: 'geolocation_ajax',
 					}
 				);
 				await restApi.put(
-					`${ WC_API_PATH }/settings/products/woocommerce_enable_ajax_add_to_cart`,
+					`${ WC_API_PATH }/settings/products/poocommerce_enable_ajax_add_to_cart`,
 					{
 						value: 'no',
 					}
@@ -78,13 +78,13 @@ test.describe(
 
 				// Reset settings.
 				await restApi.put(
-					`${ WC_API_PATH }/settings/general/woocommerce_default_customer_address`,
+					`${ WC_API_PATH }/settings/general/poocommerce_default_customer_address`,
 					{
 						value: 'base',
 					}
 				);
 				await restApi.put(
-					`${ WC_API_PATH }/settings/products/woocommerce_enable_ajax_add_to_cart`,
+					`${ WC_API_PATH }/settings/products/poocommerce_enable_ajax_add_to_cart`,
 					{
 						value: 'yes',
 					}

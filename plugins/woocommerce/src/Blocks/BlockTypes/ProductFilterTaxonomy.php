@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 
 /**
  * Product Filter: Taxonomy Block.
@@ -29,7 +29,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 	/**
 	 * Prepare the active filter items.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @param array $items  The active filter items.
 	 * @param array $params The query param parsed from the URL.
@@ -58,7 +58,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 	 */
 	public function prepare_selected_filters( $items, $params ) {
 		$container      = wc_get_container();
-		$params_handler = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\Params::class );
+		$params_handler = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\Params::class );
 
 		// Use centralized parameter mapping to avoid hardcoding URL parameter formats.
 		$taxonomy_params = $params_handler->get_param( 'taxonomy' );
@@ -128,7 +128,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 
 		// Validate that this taxonomy is configured in the parameter map.
 		$container       = wc_get_container();
-		$params_handler  = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\Params::class );
+		$params_handler  = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\Params::class );
 		$taxonomy_params = $params_handler->get_param( 'taxonomy' );
 
 		if ( ! isset( $taxonomy_params[ $taxonomy ] ) ) {
@@ -137,7 +137,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 
 		// Pass taxonomy parameter mapping to frontend via interactivity config.
 		wp_interactivity_config(
-			'woocommerce/product-filters',
+			'poocommerce/product-filters',
 			array(
 				'taxonomyParamsMap' => $taxonomy_params,
 			)
@@ -190,7 +190,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 		}
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_block_type() ),
 			'data-wp-context'     => wp_json_encode(
 				array(
@@ -236,7 +236,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 
 		// Remove current taxonomy from query vars to avoid circular counting.
 		$container       = wc_get_container();
-		$params_handler  = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\Params::class );
+		$params_handler  = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\Params::class );
 		$taxonomy_params = $params_handler->get_param( 'taxonomy' );
 
 		if ( isset( $taxonomy_params[ $taxonomy ] ) ) {
@@ -248,7 +248,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 		 * Prevent circular counting when calculating filter counts with active attribute filters.
 		 * Removes product attribute taxonomy filters to ensure accurate cross-filter counting.
 		 *
-		 * @see https://github.com/woocommerce/woocommerce/pull/52759
+		 * @see https://github.com/poocommerce/poocommerce/pull/52759
 		 */
 		if ( isset( $query_vars['taxonomy'] ) && false !== strpos( $query_vars['taxonomy'], 'pa_' ) ) {
 			unset(
@@ -275,7 +275,7 @@ final class ProductFilterTaxonomy extends AbstractBlock {
 	 */
 	private function get_taxonomies() {
 		$container       = wc_get_container();
-		$params_handler  = $container->get( \Automattic\WooCommerce\Internal\ProductFilters\Params::class );
+		$params_handler  = $container->get( \Automattic\PooCommerce\Internal\ProductFilters\Params::class );
 		$taxonomy_params = $params_handler->get_param( 'taxonomy' );
 		$taxonomy_data   = array();
 

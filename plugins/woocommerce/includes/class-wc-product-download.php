@@ -2,14 +2,14 @@
 /**
  * Represents a file which can be downloaded.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   3.0.0
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
-use Automattic\WooCommerce\Internal\Utilities\URL;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\Utilities\URL;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -46,7 +46,7 @@ class WC_Product_Download implements ArrayAccess {
 	 * @return array
 	 */
 	public function get_allowed_mime_types() {
-		return apply_filters( 'woocommerce_downloadable_file_allowed_mime_types', get_allowed_mime_types() );
+		return apply_filters( 'poocommerce_downloadable_file_allowed_mime_types', get_allowed_mime_types() );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class WC_Product_Download implements ArrayAccess {
 			throw new Exception(
 				sprintf(
 					/* translators: %s: Downloadable file. */
-					__( 'The downloadable file %s cannot be used as it has been disabled.', 'woocommerce' ),
+					__( 'The downloadable file %s cannot be used as it has been disabled.', 'poocommerce' ),
 					'<code>' . basename( $download_file ) . '</code>'
 				)
 			);
@@ -121,7 +121,7 @@ class WC_Product_Download implements ArrayAccess {
 			throw new Exception(
 				sprintf(
 					/* translators: 1: Downloadable file, 2: List of allowed filetypes. */
-					__( 'The downloadable file %1$s cannot be used as it does not have an allowed file type. Allowed types include: %2$s', 'woocommerce' ),
+					__( 'The downloadable file %1$s cannot be used as it does not have an allowed file type. Allowed types include: %2$s', 'poocommerce' ),
 					'<code>' . basename( $download_file ) . '</code>',
 					'<code>' . implode( ', ', array_keys( $this->get_allowed_mime_types() ) ) . '</code>'
 				)
@@ -185,7 +185,7 @@ class WC_Product_Download implements ArrayAccess {
 		} elseif ( substr( WP_CONTENT_DIR, strlen( untrailingslashit( ABSPATH ) ) ) === substr( $file_url, 0, strlen( substr( WP_CONTENT_DIR, strlen( untrailingslashit( ABSPATH ) ) ) ) ) ) {
 			$file_url = realpath( WP_CONTENT_DIR . substr( $file_url, 11 ) );
 		}
-		return apply_filters( 'woocommerce_downloadable_file_exists', file_exists( $file_url ), $this->get_file() );
+		return apply_filters( 'poocommerce_downloadable_file_exists', file_exists( $file_url ), $this->get_file() );
 	}
 
 	/**
@@ -213,7 +213,7 @@ class WC_Product_Download implements ArrayAccess {
 		 *
 		 * @param bool $should_validate
 		 */
-		if ( apply_filters( 'woocommerce_product_downloads_approved_directory_validation_for_shortcodes', true ) && 'shortcode' === $this->get_type_of_file_path() ) {
+		if ( apply_filters( 'poocommerce_product_downloads_approved_directory_validation_for_shortcodes', true ) && 'shortcode' === $this->get_type_of_file_path() ) {
 			$download_file = do_shortcode( $download_file );
 		}
 
@@ -253,9 +253,9 @@ class WC_Product_Download implements ArrayAccess {
 		throw new Exception(
 			sprintf(
 				/* translators: %1$s is the downloadable file path, %2$s is an opening link tag, %3%s is a closing link tag. */
-				__( 'The downloadable file %s cannot be used as it does not exist on the server, or is not located within an approved directory. Please contact a site administrator for help. %2$sLearn more.%3$s', 'woocommerce' ),
+				__( 'The downloadable file %s cannot be used as it does not exist on the server, or is not located within an approved directory. Please contact a site administrator for help. %2$sLearn more.%3$s', 'poocommerce' ),
 				'<code>' . $download_file . '</code>',
-				'<a href="https://woocommerce.com/document/approved-download-directories">',
+				'<a href="https://poocommerce.com/document/approved-download-directories">',
 				'</a>'
 			)
 		);

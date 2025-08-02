@@ -5,9 +5,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\WCPayPromotion;
+namespace Automattic\PooCommerce\Internal\Admin\WCPayPromotion;
 
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,11 +24,11 @@ class DefaultPromotions {
 	public static function get_all(): array {
 		return array(
 			array(
-				'id'         => 'woocommerce_payments:woopay',
-				'title'      => __( 'WooPayments', 'woocommerce' ),
-				'content'    => __( 'Payments made simple — including WooPay, a new express checkout feature.', 'woocommerce' ),
+				'id'         => 'poocommerce_payments:woopay',
+				'title'      => __( 'WooPayments', 'poocommerce' ),
+				'content'    => __( 'Payments made simple — including WooPay, a new express checkout feature.', 'poocommerce' ),
 				'image'      => plugins_url( 'assets/images/onboarding/wcpay.svg', WC_PLUGIN_FILE ),
-				'plugins'    => array( 'woocommerce-payments' ),
+				'plugins'    => array( 'poocommerce-payments' ),
 				'is_visible' => array(
 					DefaultPaymentGateways::get_rules_for_cbd( false ),
 					DefaultPaymentGateways::get_rules_for_countries( self::get_woopay_available_countries() ),
@@ -36,11 +36,11 @@ class DefaultPromotions {
 				'sub_title'  => self::get_wcpay_payment_icons(),
 			),
 			array(
-				'id'         => 'woocommerce_payments',
-				'title'      => __( 'WooPayments', 'woocommerce' ),
-				'content'    => __( 'Payments made simple, with no monthly fees – designed exclusively for WooCommerce stores. Accept credit cards, debit cards, and other popular payment methods.', 'woocommerce' ),
+				'id'         => 'poocommerce_payments',
+				'title'      => __( 'WooPayments', 'poocommerce' ),
+				'content'    => __( 'Payments made simple, with no monthly fees – designed exclusively for PooCommerce stores. Accept credit cards, debit cards, and other popular payment methods.', 'poocommerce' ),
 				'image'      => plugins_url( 'assets/images/onboarding/wcpay.svg', WC_PLUGIN_FILE ),
-				'plugins'    => array( 'woocommerce-payments' ),
+				'plugins'    => array( 'poocommerce-payments' ),
 				'is_visible' => array(
 					DefaultPaymentGateways::get_rules_for_cbd( false ),
 					DefaultPaymentGateways::get_rules_for_countries( DefaultPaymentGateways::get_wcpay_countries() ),

@@ -1,16 +1,16 @@
-# Add a new inner block containing a custom field to the WooCommerce Checkout Block
+# Add a new inner block containing a custom field to the PooCommerce Checkout Block
 
 This document describes how a developer can insert an input field into the Checkout block and have its value passed to the Store API so it's available when processing the checkout.
 
 ## Overview
 
-Developers can extend the Checkout block to add new inner blocks and process additional data through the checkout POST request. This involves leveraging the extensibility interfaces provided by Gutenberg and WooCommerce Blocks. This is demonstrated in more detail in our tutorial: [Tutorial: Extending the WooCommerce Checkout Block
-](https://developer.woocommerce.com/2023/08/07/extending-the-woocommerce-checkout-block-to-add-custom-shipping-options/).
+Developers can extend the Checkout block to add new inner blocks and process additional data through the checkout POST request. This involves leveraging the extensibility interfaces provided by Gutenberg and PooCommerce Blocks. This is demonstrated in more detail in our tutorial: [Tutorial: Extending the PooCommerce Checkout Block
+](https://developer.poocommerce.com/2023/08/07/extending-the-poocommerce-checkout-block-to-add-custom-shipping-options/).
 
 ## Prerequisites
 
 - Basic understanding of React and the Gutenberg block editor.
-- Familiarity with WooCommerce Blocks' extensibility interfaces and the Store API.
+- Familiarity with PooCommerce Blocks' extensibility interfaces and the Store API.
 
 ## Step-by-Step Guide
 
@@ -24,14 +24,14 @@ Ensure you have the following files in your project:
 - `block.js`: Manages the block's state and user interactions.
 - `frontend.js`: Registers the checkout block component for the frontend.
 
-Refer to [this tutorial](https://developer.woocommerce.com/2023/08/07/extending-the-woocommerce-checkout-block-to-add-custom-shipping-options/) for an example of adding a custom shipping option to the checkout block.
+Refer to [this tutorial](https://developer.poocommerce.com/2023/08/07/extending-the-poocommerce-checkout-block-to-add-custom-shipping-options/) for an example of adding a custom shipping option to the checkout block.
 
 ### 2. Add a new field block to the Checkout Block
 
 To add a field block to the Checkout Block you will need to add the following entries to the `block.json` file of your block:
 
 ```json
-"parent": [ "woocommerce/checkout-shipping-methods-block" ],
+"parent": [ "poocommerce/checkout-shipping-methods-block" ],
 "attributes": {
 	"lock": {
 		"type": "object",
@@ -44,7 +44,7 @@ To add a field block to the Checkout Block you will need to add the following en
 ```
 
 - The [lock attribute](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-templates/#individual-block-locking) is an object that controls whether the block can be removed or moved. By default, the lock attribute is set to allow the block to be removed and moved. However, by modifying the lock attribute, you can “force” the block to be non-removable. For example, you can set both remove and move properties to false in order to prevent the block from being removed or moved.
-- The [parent attribute](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#parent) specifies the parent block that this block should be nested within it. It determines where the block will render. In our example, the block is a child of the `woocommerce/checkout-shipping-methods-block`. This means that your block will be rendered within the `woocommerce/checkout-shipping-methods-block`. If the shipping methods block is not required, your block will not be rendered.
+- The [parent attribute](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#parent) specifies the parent block that this block should be nested within it. It determines where the block will render. In our example, the block is a child of the `poocommerce/checkout-shipping-methods-block`. This means that your block will be rendered within the `poocommerce/checkout-shipping-methods-block`. If the shipping methods block is not required, your block will not be rendered.
 
 ### 3. Setting custom checkout data
 
@@ -103,23 +103,23 @@ Screenshots of Redux Dev tool showing the data store before and after the setExt
 
 | Before | After |
 | ------ | ----- |
-|    <img width="713" alt="image" src="https://github.com/woocommerce/woocommerce-blocks/assets/14235870/948581f5-fdc2-4df1-963f-9aeb4b18b042">    |    <img width="723" alt="image" src="https://github.com/woocommerce/woocommerce-blocks/assets/14235870/ddc7dbe7-3fad-44cd-bd19-ce78bc49b951">   |
+|    <img width="713" alt="image" src="https://github.com/poocommerce/poocommerce-blocks/assets/14235870/948581f5-fdc2-4df1-963f-9aeb4b18b042">    |    <img width="723" alt="image" src="https://github.com/poocommerce/poocommerce-blocks/assets/14235870/ddc7dbe7-3fad-44cd-bd19-ce78bc49b951">   |
 
 ### 4. Processing the Checkout POST Request
 
-To process the added field data, we'll need extend the Store API to tell it to expect additional data. See more details in the [Exposing your data in the Store API](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/docs/third-party-developers/extensibility/rest-api/extend-rest-api-add-data.md)
+To process the added field data, we'll need extend the Store API to tell it to expect additional data. See more details in the [Exposing your data in the Store API](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/docs/third-party-developers/extensibility/rest-api/extend-rest-api-add-data.md)
 
 #### Code Example
 
 We will use the following PHP files in our example:
 
-- The `custom-inner-block-blocks-integration.php` file: Enqueue scripts, styles, and data on the frontend when the Checkout blocks is being used. See more details in the [IntegrationInterface](https://github.com/woocommerce/woocommerce-blocks/blob/trunk/docs/third-party-developers/extensibility/checkout-block/integration-interface.md) documentation.
+- The `custom-inner-block-blocks-integration.php` file: Enqueue scripts, styles, and data on the frontend when the Checkout blocks is being used. See more details in the [IntegrationInterface](https://github.com/poocommerce/poocommerce-blocks/blob/trunk/docs/third-party-developers/extensibility/checkout-block/integration-interface.md) documentation.
 
 ```php
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationInterface;
 
 /**
- * Class for integrating with WooCommerce Blocks
+ * Class for integrating with PooCommerce Blocks
  */
 class Custom_Inner_Block_Blocks_Integration implements IntegrationInterface {
 
@@ -143,12 +143,12 @@ class Custom_Inner_Block_Blocks_Integration implements IntegrationInterface {
 }
 ```
 
-- The `custom-inner-block-extend-store-endpoint.php` file: extends the [Store API](https://github.com/woocommerce/woocommerce-blocks/tree/trunk/src/StoreApi) and adds hooks to save and display your new field block instructions. This doesn't save the data from the custom block anywhere by default, but you can add your own logic to save the data to the database.
+- The `custom-inner-block-extend-store-endpoint.php` file: extends the [Store API](https://github.com/poocommerce/poocommerce-blocks/tree/trunk/src/StoreApi) and adds hooks to save and display your new field block instructions. This doesn't save the data from the custom block anywhere by default, but you can add your own logic to save the data to the database.
 
 ```php
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartSchema;
-use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CheckoutSchema;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\StoreApi\Schemas\CartSchema;
+use Automattic\PooCommerce\Blocks\StoreApi\Schemas\CheckoutSchema;
 
 /**
  * Your New Field Block Extend Store API.
@@ -173,7 +173,7 @@ class Custom_Inner_Block_Extend_Store_Endpoint {
 	 *
 	 */
 	public static function init() {
-		self::$extend = Automattic\WooCommerce\StoreApi\StoreApi::container()->get( Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema::class );
+		self::$extend = Automattic\PooCommerce\StoreApi\StoreApi::container()->get( Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema::class );
 		self::extend_store();
 	}
 
@@ -235,7 +235,7 @@ class Custom_Inner_Block_Extend_Store_Endpoint {
  * Include the dependencies needed to instantiate the block.
  */
 add_action(
-	'woocommerce_blocks_loaded',
+	'poocommerce_blocks_loaded',
 	function() {
 		require_once __DIR__ . '/custom-inner-block-blocks-integration.php';
 		require_once __DIR__ . '/custom-inner-block-blocks-integration.php';
@@ -244,7 +244,7 @@ add_action(
 		Custom_Inner_Block_Extend_Store_Endpoint::init();
 
 		add_action(
-			'woocommerce_blocks_checkout_block_registration',
+			'poocommerce_blocks_checkout_block_registration',
 			function( $integration_registry ) {
 				$integration_registry->register( new Custom_Inner_Block_Blocks_Integration() );
 			}
@@ -255,18 +255,18 @@ add_action(
 // ... Some code here
 ```
 
-Here is an example from our [tutorial](https://developer.woocommerce.com/2023/08/07/extending-the-woocommerce-checkout-block-to-add-custom-shipping-options/) of how to get this custom field's data while processing the checkout. This example is from the `shipping-workshop-blocks-integration.php` file. The complete code can be found in this [GitHub repository](https://github.com/woocommerce/wceu23-shipping-workshop-final/blob/main/shipping-workshop-blocks-integration.php#L42-L83).
+Here is an example from our [tutorial](https://developer.poocommerce.com/2023/08/07/extending-the-poocommerce-checkout-block-to-add-custom-shipping-options/) of how to get this custom field's data while processing the checkout. This example is from the `shipping-workshop-blocks-integration.php` file. The complete code can be found in this [GitHub repository](https://github.com/poocommerce/wceu23-shipping-workshop-final/blob/main/shipping-workshop-blocks-integration.php#L42-L83).
 
 ```php
 private function save_shipping_instructions() {
 	/**
-	 * We write a hook, using the `woocommerce_store_api_checkout_update_order_from_request` action
+	 * We write a hook, using the `poocommerce_store_api_checkout_update_order_from_request` action
 	 * that will update the order metadata with the shipping-workshop alternate shipping instruction.
 	 *
-	 * The documentation for this hook is at: https://github.com/woocommerce/woocommerce-blocks/blob/b73fbcacb68cabfafd7c3e7557cf962483451dc1/docs/third-party-developers/extensibility/hooks/actions.md#woocommerce_store_api_checkout_update_order_from_request
+	 * The documentation for this hook is at: https://github.com/poocommerce/poocommerce-blocks/blob/b73fbcacb68cabfafd7c3e7557cf962483451dc1/docs/third-party-developers/extensibility/hooks/actions.md#poocommerce_store_api_checkout_update_order_from_request
 	 */
 	add_action(
-		'woocommerce_store_api_checkout_update_order_from_request',
+		'poocommerce_store_api_checkout_update_order_from_request',
 		function( \WC_Order $order, \WP_REST_Request $request ) {
 			$shipping_workshop_request_data = $request['extensions'][$this->get_name()];
 			$alternate_shipping_instruction = $shipping_workshop_request_data['alternateShippingInstruction'];
@@ -282,4 +282,4 @@ private function save_shipping_instructions() {
 
 ## Conclusion
 
-By following the steps above, you can add and process new field blocks in the WooCommerce checkout block. For complete implementation and additional examples, refer to the provided [tutorial](https://developer.woocommerce.com/2023/08/07/extending-the-woocommerce-checkout-block-to-add-custom-shipping-options/) and the corresponding [GitHub repository](https://github.com/woocommerce/wceu23-shipping-workshop-final/).
+By following the steps above, you can add and process new field blocks in the PooCommerce checkout block. For complete implementation and additional examples, refer to the provided [tutorial](https://developer.poocommerce.com/2023/08/07/extending-the-poocommerce-checkout-block-to-add-custom-shipping-options/) and the corresponding [GitHub repository](https://github.com/poocommerce/wceu23-shipping-workshop-final/).

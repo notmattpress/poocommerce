@@ -5,7 +5,7 @@
  * Used for our image cropping settings.
  *
  * @version 3.3.0
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ class WC_Customizer_Control_Cropping extends WP_Customize_Control {
 	 *
 	 * @var string
 	 */
-	public $type = 'woocommerce-cropping-control';
+	public $type = 'poocommerce-cropping-control';
 
 	/**
 	 * Render control.
@@ -45,14 +45,14 @@ class WC_Customizer_Control_Cropping extends WP_Customize_Control {
 			<span class="description customize-control-description"><?php echo esc_html( $this->description ); ?></span>
 		<?php endif; ?>
 
-		<ul id="input_<?php echo esc_attr( $this->id ); ?>" class="woocommerce-cropping-control">
+		<ul id="input_<?php echo esc_attr( $this->id ); ?>" class="poocommerce-cropping-control">
 			<?php foreach ( $this->choices as $key => $radio ) : ?>
 				<li>
 					<input type="radio" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $key ); ?>" id="<?php echo esc_attr( $this->id . $key ); ?>" <?php $this->link( 'cropping' ); ?> <?php checked( $value, $key ); ?> />
 					<label for="<?php echo esc_attr( $this->id . $key ); ?>"><?php echo esc_html( $radio['label'] ); ?><br/><span class="description"><?php echo esc_html( $radio['description'] ); ?></span></label>
 
 					<?php if ( 'custom' === $key ) : ?>
-						<span class="woocommerce-cropping-control-aspect-ratio">
+						<span class="poocommerce-cropping-control-aspect-ratio">
 							<input type="text" pattern="\d*" size="3" value="<?php echo esc_attr( $custom_width ); ?>" <?php $this->link( 'custom_width' ); ?> /> : <input type="text" pattern="\d*" size="3" value="<?php echo esc_attr( $custom_height ); ?>" <?php $this->link( 'custom_height' ); ?> />
 						</span>
 					<?php endif; ?>
