@@ -2,12 +2,12 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { VARIATION_NAME as PRODUCT_TITLE_VARIATION_NAME } from '@woocommerce/blocks/product-query/variations/elements/product-title';
+import { VARIATION_NAME as PRODUCT_TITLE_VARIATION_NAME } from '@poocommerce/blocks/product-query/variations/elements/product-title';
 import {
 	INNER_BLOCKS_PRODUCT_TEMPLATE as productCollectionInnerBlocksTemplate,
 	DEFAULT_ATTRIBUTES as productCollectionDefaultAttributes,
 	DEFAULT_QUERY as productCollectionDefaultQuery,
-} from '@woocommerce/blocks/product-collection/constants';
+} from '@poocommerce/blocks/product-collection/constants';
 import {
 	BlockInstance,
 	createBlock,
@@ -22,8 +22,8 @@ import { OnClickCallbackParameter } from './types';
 
 const getBlockifiedTemplate = () =>
 	[
-		createBlock( 'woocommerce/breadcrumbs' ),
-		createBlock( 'woocommerce/store-notices' ),
+		createBlock( 'poocommerce/breadcrumbs' ),
+		createBlock( 'poocommerce/store-notices' ),
 		createBlock(
 			'core/columns',
 			{
@@ -37,44 +37,44 @@ const getBlockifiedTemplate = () =>
 						justifyContent: 'right',
 						width: '512px',
 					},
-					[ createBlock( 'woocommerce/product-image-gallery' ) ]
+					[ createBlock( 'poocommerce/product-image-gallery' ) ]
 				),
 				createBlock( 'core/column', {}, [
 					createBlock( 'core/post-title', {
-						__woocommerceNamespace: PRODUCT_TITLE_VARIATION_NAME,
+						__poocommerceNamespace: PRODUCT_TITLE_VARIATION_NAME,
 						level: 1,
 					} ),
-					createBlock( 'woocommerce/product-rating' ),
-					createBlock( 'woocommerce/product-price', {
+					createBlock( 'poocommerce/product-rating' ),
+					createBlock( 'poocommerce/product-price', {
 						fontSize: 'large',
 					} ),
-					createBlock( 'woocommerce/product-summary', {
+					createBlock( 'poocommerce/product-summary', {
 						isDescendentOfSingleProductTemplate: true,
 					} ),
-					createBlock( 'woocommerce/add-to-cart-form' ),
-					createBlock( 'woocommerce/product-meta' ),
+					createBlock( 'poocommerce/add-to-cart-form' ),
+					createBlock( 'poocommerce/product-meta' ),
 				] ),
 			]
 		),
-		createBlock( 'woocommerce/product-details', {
+		createBlock( 'poocommerce/product-details', {
 			align: 'wide',
 			className: 'is-style-minimal',
 		} ),
 		createBlock( 'core/heading', {
 			align: 'wide',
 			level: 2,
-			content: __( 'Related Products', 'woocommerce' ),
+			content: __( 'Related Products', 'poocommerce' ),
 			style: { spacing: { margin: { bottom: '1rem' } } },
 		} ),
 		createBlock(
-			'woocommerce/product-collection',
+			'poocommerce/product-collection',
 			{
 				...productCollectionDefaultAttributes,
 				query: {
 					...productCollectionDefaultQuery,
 					perPage: 5,
 					pages: 1,
-					woocommerceStockStatus: [ 'instock', 'onbackorder' ],
+					poocommerceStockStatus: [ 'instock', 'onbackorder' ],
 					filterable: false,
 				},
 				displayLayout: {
@@ -82,7 +82,7 @@ const getBlockifiedTemplate = () =>
 					columns: 5,
 					shrinkColumns: true,
 				},
-				collection: 'woocommerce/product-collection/related',
+				collection: 'poocommerce/product-collection/related',
 				hideControls: [ 'inherit' ],
 				align: 'wide',
 			},
@@ -97,12 +97,12 @@ const getDescription = ( templateTitle: string ) =>
 		/* translators: %s is the template title */
 		__(
 			'Transform this template into multiple blocks so you can add, remove, reorder, and customize your %s template.',
-			'woocommerce'
+			'poocommerce'
 		),
 		templateTitle
 	);
 
-const getButtonLabel = () => __( 'Transform into blocks', 'woocommerce' );
+const getButtonLabel = () => __( 'Transform into blocks', 'poocommerce' );
 
 const onClickCallback = ( {
 	clientId,
@@ -117,7 +117,7 @@ const onClickCallback = ( {
 		( block ) =>
 			block.name === 'core/group' &&
 			block.innerBlocks.some(
-				( innerBlock ) => innerBlock.name === 'woocommerce/breadcrumbs'
+				( innerBlock ) => innerBlock.name === 'poocommerce/breadcrumbs'
 			)
 	);
 

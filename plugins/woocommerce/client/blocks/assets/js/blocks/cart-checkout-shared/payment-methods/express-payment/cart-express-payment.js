@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { noticeContexts } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
+import { noticeContexts } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
 import { useSelect } from '@wordpress/data';
-import { checkoutStore, paymentStore } from '@woocommerce/block-data';
-import { Skeleton } from '@woocommerce/base-components/skeleton';
+import { checkoutStore, paymentStore } from '@poocommerce/block-data';
+import { Skeleton } from '@poocommerce/base-components/skeleton';
 import clsx from 'clsx';
 
 /**
@@ -72,7 +72,7 @@ const CartExpressPayment = () => {
 				aria-live="polite"
 				aria-label={ __(
 					'Processing express checkout',
-					'woocommerce'
+					'poocommerce'
 				) }
 			>
 				<div className="wc-block-components-express-payment__content">
@@ -90,7 +90,7 @@ const CartExpressPayment = () => {
 										height="48px"
 										ariaMessage={ __(
 											'Loading express payment method…',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</li>
@@ -103,7 +103,7 @@ const CartExpressPayment = () => {
 			</div>
 			<div className="wc-block-components-express-payment-continue-rule wc-block-components-express-payment-continue-rule--cart">
 				{ /* translators: Shown in the Cart block between the express payment methods and the Proceed to Checkout button */ }
-				{ __( 'Or', 'woocommerce' ) }
+				{ __( 'Or', 'poocommerce' ) }
 			</div>
 		</>
 	);

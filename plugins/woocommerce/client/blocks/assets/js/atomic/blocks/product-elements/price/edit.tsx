@@ -8,8 +8,8 @@ import {
 } from '@wordpress/block-editor';
 import { useEffect } from '@wordpress/element';
 import type { BlockAlignment } from '@wordpress/blocks';
-import { isExperimentalWcRestApiEnabled } from '@woocommerce/block-settings';
-import { useProduct } from '@woocommerce/entities';
+import { isExperimentalWcRestApiEnabled } from '@poocommerce/block-settings';
+import { useProduct } from '@poocommerce/entities';
 
 /**
  * Internal dependencies

@@ -2,15 +2,15 @@
 /**
  * Shopify Mapper Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyMapper;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify\ShopifyMapper;
 
 /**
  * Test cases for ShopifyMapper implementation.
@@ -139,7 +139,7 @@ class ShopifyMapperTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_stub_implementation_ready_for_enhancement() {
 		// This test documents that this is a stub implementation.
-		// Future PRs should replace this method with actual Shopify to WooCommerce data mapping.
+		// Future PRs should replace this method with actual Shopify to PooCommerce data mapping.
 
 		$shopify_product = (object) array(
 			'id'          => 'gid://shopify/Product/123456789',

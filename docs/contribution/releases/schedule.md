@@ -1,11 +1,11 @@
 ---
-post_title: WooCommerce Release Schedule
+post_title: PooCommerce Release Schedule
 sidebar_label: Release Schedule
 ---
 
-# WooCommerce Release Schedule
+# PooCommerce Release Schedule
 
-The schedule can be found on [this page](https://developer.woocommerce.com/release-calendar/), which also explains the types 
+The schedule can be found on [this page](https://developer.poocommerce.com/release-calendar/), which also explains the types 
 of events in the calendar like `Releases`, `Release Candidates (RC)` and `Feature Freeze Dates`.
 
 While the calendar reflects the events made public, there are specific steps in the release process that are internal, 
@@ -18,7 +18,7 @@ This section will use the publicly available release schedule as anchors and cla
 ### Feature Freeze (start of the release cycle)
 
 This step is mostly automated and creates a dedicated release branch where the future release undergoes testing and stabilization.
-At this point, the Developer Advocacy team publishes pre-release updates ([example](https://developer.woocommerce.com/2025/05/12/woocommerce-9-9-pre-release-updates/))
+At this point, the Developer Advocacy team publishes pre-release updates ([example](https://developer.poocommerce.com/2025/05/12/poocommerce-9-9-pre-release-updates/))
 
 ### RC1 (Feature Freeze + 1 week)
 
@@ -35,7 +35,7 @@ At this point, the Developer Advocacy team continues to update the pre-release a
 ### Final Release (RC2 + 1 week)
 
 This step is where the stable release version becomes available to everyone.
-At this point, the Developer Advocacy team publishes release highlights that are prepared in-advance ([example](https://developer.woocommerce.com/2025/06/09/woocommerce-9-9-its-fast-period/)).
+At this point, the Developer Advocacy team publishes release highlights that are prepared in-advance ([example](https://developer.poocommerce.com/2025/06/09/poocommerce-9-9-its-fast-period/)).
 
 ## Delays
 
@@ -45,7 +45,7 @@ Once the need for changes in the release schedule is confirmed, the Woo team cre
 
 Once the feedback and release schedule changes have been finalized, we procced to:
 
-- ask the Developer Advocacy team to communicate the changes publicly ([example](https://developer.woocommerce.com/2025/06/02/woocommerce-9-9-release-is-delayed/))
-- update [the calendar](https://developer.woocommerce.com/release-calendar/) with the new release dates
+- ask the Developer Advocacy team to communicate the changes publicly ([example](https://developer.poocommerce.com/2025/06/02/poocommerce-9-9-release-is-delayed/))
+- update [the calendar](https://developer.poocommerce.com/release-calendar/) with the new release dates
 
 > Note: To reduce disruption for internal teams and contributors, we avoid changing the time between release candidates (RCs) and the final release. Instead, we adjust the overall release schedule. These intervals are based on several factors, including team capacity.

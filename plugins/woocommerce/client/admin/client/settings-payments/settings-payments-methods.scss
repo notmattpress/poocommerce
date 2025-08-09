@@ -28,8 +28,8 @@
 		}
 	}
 
-	// Override styles for woocommerce list items.
-	.woocommerce-list {
+	// Override styles for poocommerce list items.
+	.poocommerce-list {
 		border-bottom: 1px solid $gray-200;
 
 		&__item {
@@ -39,7 +39,7 @@
 			&:hover {
 				background-color: $white;
 
-				.woocommerce-list__item-title {
+				.poocommerce-list__item-title {
 					color: $gray-900;
 				}
 			}
@@ -82,7 +82,7 @@
 			line-height: 20px;
 			color: $gray-700;
 
-			.woocommerce-woopayments-payment-methods-logos {
+			.poocommerce-woopayments-payment-methods-logos {
 				flex-wrap: wrap;
 			}
 		}
@@ -130,7 +130,7 @@
 	}
 }
 
-.woocommerce-recommended-payment-methods {
+.poocommerce-recommended-payment-methods {
 	margin-left: -20px;
 }
 

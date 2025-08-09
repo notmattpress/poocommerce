@@ -1,4 +1,4 @@
-# woocommerce/product-select-field
+# poocommerce/product-select-field
 
 A reusable select field for the product editor.
 
@@ -72,7 +72,7 @@ single selection field:
 $section->add_block(
   array(
     'id'         => 'unique-block-id',
-    'blockName'  => 'woocommerce/product-select-field',
+    'blockName'  => 'poocommerce/product-select-field',
     'order'      => 13,
     'attributes' => array(
       'label'    => 'Tax class',

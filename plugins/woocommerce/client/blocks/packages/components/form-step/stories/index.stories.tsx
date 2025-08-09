@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { StoryFn, Meta } from '@storybook/react';
-import { ValidatedTextInput } from '@woocommerce/blocks-checkout';
+import { ValidatedTextInput } from '@poocommerce/blocks-checkout';
 import { useState } from '@wordpress/element';
 
 /**

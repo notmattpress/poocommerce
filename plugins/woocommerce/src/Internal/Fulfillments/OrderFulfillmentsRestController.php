@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
 use WC_Order;
 use WP_Http;
 use WP_REST_Request;
@@ -24,7 +24,7 @@ use WP_REST_Server;
  * !>
  * !> If you are using another entity type for your fulfillments, you should create a new controller.
  *
- * @package Automattic\WooCommerce\Internal\Fulfillments
+ * @package Automattic\PooCommerce\Internal\Fulfillments
  */
 class OrderFulfillmentsRestController extends RestApiControllerBase {
 	/**
@@ -42,7 +42,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	protected $rest_base = '/orders/(?P<order_id>[\d]+)/fulfillments';
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -169,16 +169,16 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 
 			if ( ! $order ) {
 				return new \WP_Error(
-					'woocommerce_rest_order_invalid_id',
-					esc_html__( 'Invalid order ID.', 'woocommerce' ),
+					'poocommerce_rest_order_invalid_id',
+					esc_html__( 'Invalid order ID.', 'poocommerce' ),
 					array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 				);
 			}
 		}
 
 		// Check if the user is logged in as admin, and has the required capability.
-		// Admins who can manage WooCommerce can view all fulfillments.
-		if ( current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		// Admins who can manage PooCommerce can view all fulfillments.
+		if ( current_user_can( 'manage_poocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 			return true;
 		}
 
@@ -265,7 +265,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 				 *
 				 * @since 10.1.0
 				 */
-				do_action( 'woocommerce_fulfillment_created_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
+				do_action( 'poocommerce_fulfillment_created_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
 			}
 		} catch ( ApiException $ex ) {
 			return $this->prepare_error_response(
@@ -304,7 +304,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 			$this->validate_fulfillment( $fulfillment, $fulfillment_id, $order_id );
 			if ( $fulfillment->get_date_deleted() ) {
 				throw new \Exception(
-					esc_html__( 'Fulfillment not found.', 'woocommerce' ),
+					esc_html__( 'Fulfillment not found.', 'poocommerce' ),
 					WP_Http::NOT_FOUND
 				);
 			}
@@ -367,14 +367,14 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 					 *
 					 * @since 10.1.0
 					 */
-					do_action( 'woocommerce_fulfillment_created_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
+					do_action( 'poocommerce_fulfillment_created_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
 				} elseif ( $next_state ) {
 					/**
 					 * Trigger the fulfillment updated notification on updating a fulfillment.
 					 *
 					 * @since 10.1.0
 					 */
-					do_action( 'woocommerce_fulfillment_updated_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
+					do_action( 'poocommerce_fulfillment_updated_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
 				}
 			}
 		} catch ( ApiException $ex ) {
@@ -434,11 +434,11 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 			 *
 			 * @since 10.1.0
 			 */
-			do_action( 'woocommerce_fulfillment_deleted_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
+			do_action( 'poocommerce_fulfillment_deleted_notification', $order_id, $fulfillment, wc_get_order( $order_id ) );
 		}
 		return new WP_REST_Response(
 			array(
-				'message' => __( 'Fulfillment deleted successfully.', 'woocommerce' ),
+				'message' => __( 'Fulfillment deleted successfully.', 'poocommerce' ),
 			),
 			WP_Http::OK
 		);
@@ -579,16 +579,16 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 
 		if ( empty( $tracking_number ) ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_tracking_number_missing',
-				__( 'Tracking number is required.', 'woocommerce' ),
+				'poocommerce_rest_tracking_number_missing',
+				__( 'Tracking number is required.', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
 
 		if ( ! $order_id ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_id_missing',
-				__( 'Order ID is required.', 'woocommerce' ),
+				'poocommerce_rest_order_id_missing',
+				__( 'Order ID is required.', 'poocommerce' ),
 				array( 'status' => WP_Http::BAD_REQUEST )
 			);
 		}
@@ -596,8 +596,8 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 		$order = wc_get_order( $order_id );
 		if ( ! $order || ! $order instanceof WC_Order ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_invalid_id',
-				__( 'Invalid order ID.', 'woocommerce' ),
+				'poocommerce_rest_order_invalid_id',
+				__( 'Invalid order ID.', 'poocommerce' ),
 				array( 'status' => WP_Http::NOT_FOUND )
 			);
 		}
@@ -608,7 +608,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 		 * @since 10.1.0
 		 */
 		$tracking_number_parse_result = apply_filters(
-			'woocommerce_fulfillment_parse_tracking_number',
+			'poocommerce_fulfillment_parse_tracking_number',
 			$tracking_number,
 			WC()->countries->get_base_country(),
 			$order->get_shipping_country(),
@@ -625,7 +625,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_get_fulfillments(): array {
 		return array(
 			'order_id' => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
@@ -640,10 +640,10 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_get_fulfillments(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Get fulfillments response.', 'woocommerce' );
+		$schema['title']      = __( 'Get fulfillments response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'fulfillment' => array(
-				'description' => __( 'The fulfillment object.', 'woocommerce' ),
+				'description' => __( 'The fulfillment object.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'schema'      => $this->get_read_schema_for_fulfillment(),
@@ -668,10 +668,10 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_create_fulfillment(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Create fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Create fulfillment response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'fulfillment' => array(
-				'description' => __( 'The created fulfillment object.', 'woocommerce' ),
+				'description' => __( 'The created fulfillment object.', 'poocommerce' ),
 				'type'        => 'object',
 				'required'    => true,
 				'schema'      => $this->get_read_schema_for_fulfillment(),
@@ -688,13 +688,13 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_get_fulfillment(): array {
 		return array(
 			'order_id'       => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
 			),
 			'fulfillment_id' => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
@@ -709,10 +709,10 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_get_fulfillment(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Get fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Get fulfillment response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'fulfillment' => array(
-				'description' => __( 'The fulfillment object.', 'woocommerce' ),
+				'description' => __( 'The fulfillment object.', 'poocommerce' ),
 				'type'        => 'object',
 				'required'    => true,
 				'schema'      => $this->get_read_schema_for_fulfillment(),
@@ -738,10 +738,10 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_update_fulfillment(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Update fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Update fulfillment response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'fulfillment' => array(
-				'description' => __( 'The fulfillment object.', 'woocommerce' ),
+				'description' => __( 'The fulfillment object.', 'poocommerce' ),
 				'type'        => 'object',
 				'required'    => true,
 				'schema'      => $this->get_read_schema_for_fulfillment(),
@@ -759,19 +759,19 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_delete_fulfillment(): array {
 		return array(
 			'order_id'        => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'fulfillment_id'  => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'notify_customer' => array(
-				'description' => __( 'Whether to notify the customer about the fulfillment update.', 'woocommerce' ),
+				'description' => __( 'Whether to notify the customer about the fulfillment update.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 				'required'    => false,
@@ -787,10 +787,10 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_delete_fulfillment(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Delete fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Delete fulfillment response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'message' => array(
-				'description' => __( 'The response message.', 'woocommerce' ),
+				'description' => __( 'The response message.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 			),
@@ -807,13 +807,13 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_get_fulfillment_meta(): array {
 		return array(
 			'order_id'       => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'fulfillment_id' => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
@@ -828,14 +828,14 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_get_fulfillment_meta(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Get fulfillment meta data response.', 'woocommerce' );
+		$schema['title']      = __( 'Get fulfillment meta data response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'meta_data' => array(
-				'description' => __( 'The meta data array.', 'woocommerce' ),
+				'description' => __( 'The meta data array.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'items'       => array(
-					'description' => __( 'The meta data object.', 'woocommerce' ),
+					'description' => __( 'The meta data object.', 'poocommerce' ),
 					'type'        => 'object',
 					'schema'      => $this->get_schema_for_meta_data(),
 				),
@@ -853,23 +853,23 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_update_fulfillment_meta(): array {
 		return array(
 			'order_id'       => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'fulfillment_id' => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'meta_data'      => array(
-				'description' => __( 'The meta data array.', 'woocommerce' ),
+				'description' => __( 'The meta data array.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'items'       => array(
-					'description' => __( 'The meta data object.', 'woocommerce' ),
+					'description' => __( 'The meta data object.', 'poocommerce' ),
 					'type'        => 'object',
 					'schema'      => $this->get_schema_for_meta_data(),
 				),
@@ -884,14 +884,14 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_update_fulfillment_meta(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Update fulfillment meta data response.', 'woocommerce' );
+		$schema['title']      = __( 'Update fulfillment meta data response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'meta_data' => array(
-				'description' => __( 'The meta data array.', 'woocommerce' ),
+				'description' => __( 'The meta data array.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'items'       => array(
-					'description' => __( 'The meta data object.', 'woocommerce' ),
+					'description' => __( 'The meta data object.', 'poocommerce' ),
 					'type'        => 'object',
 					'schema'      => $this->get_schema_for_meta_data(),
 				),
@@ -909,19 +909,19 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_delete_fulfillment_meta(): array {
 		return array(
 			'order_id'       => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'fulfillment_id' => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'meta_key'       => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'description' => __( 'The meta key to delete.', 'woocommerce' ),
+				'description' => __( 'The meta key to delete.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 			),
@@ -935,14 +935,14 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_delete_fulfillment_meta(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'Delete fulfillment meta data response.', 'woocommerce' );
+		$schema['title']      = __( 'Delete fulfillment meta data response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'meta_data' => array(
-				'description' => __( 'The meta data array.', 'woocommerce' ),
+				'description' => __( 'The meta data array.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'items'       => array(
-					'description' => __( 'The meta data object.', 'woocommerce' ),
+					'description' => __( 'The meta data object.', 'poocommerce' ),
 					'type'        => 'object',
 					'schema'      => $this->get_schema_for_meta_data(),
 				),
@@ -960,13 +960,13 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_args_for_get_tracking_number_details(): array {
 		return array(
 			'order_id'        => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'tracking_number' => array(
-				'description' => __( 'The tracking number to look up.', 'woocommerce' ),
+				'description' => __( 'The tracking number to look up.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
@@ -981,25 +981,25 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function get_schema_for_get_tracking_number_details(): array {
 		$schema               = $this->get_base_schema();
-		$schema['title']      = __( 'The tracking number details response.', 'woocommerce' );
+		$schema['title']      = __( 'The tracking number details response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'tracking_number_details' => array(
-				'description' => __( 'The tracking number details.', 'woocommerce' ),
+				'description' => __( 'The tracking number details.', 'poocommerce' ),
 				'type'        => 'object',
 				'required'    => true,
 				'properties'  => array(
 					'tracking_number'   => array(
-						'description' => __( 'The tracking number.', 'woocommerce' ),
+						'description' => __( 'The tracking number.', 'poocommerce' ),
 						'type'        => 'string',
 						'required'    => true,
 					),
 					'shipping_provider' => array(
-						'description' => __( 'The shipping provider.', 'woocommerce' ),
+						'description' => __( 'The shipping provider.', 'poocommerce' ),
 						'type'        => 'string',
 						'required'    => true,
 					),
 					'tracking_url'      => array(
-						'description' => __( 'The tracking URL.', 'woocommerce' ),
+						'description' => __( 'The tracking URL.', 'poocommerce' ),
 						'type'        => 'string',
 						'required'    => true,
 					),
@@ -1017,46 +1017,46 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	private function get_read_schema_for_fulfillment() {
 		return array(
 			'fulfillment_id' => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'entity_type'    => array(
-				'description' => __( 'The type of entity for which the fulfillment is created.', 'woocommerce' ),
+				'description' => __( 'The type of entity for which the fulfillment is created.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'entity_id'      => array(
-				'description' => __( 'Unique identifier for the entity.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the entity.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'status'         => array(
-				'description' => __( 'The status of the fulfillment.', 'woocommerce' ),
+				'description' => __( 'The status of the fulfillment.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => 'unfulfilled',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'is_fulfilled'   => array(
-				'description' => __( 'Whether the fulfillment is fulfilled.', 'woocommerce' ),
+				'description' => __( 'Whether the fulfillment is fulfilled.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'date_updated'   => array(
-				'description' => __( 'The date the fulfillment was created.', 'woocommerce' ),
+				'description' => __( 'The date the fulfillment was created.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'required'    => true,
 			),
 			'date_deleted'   => array(
-				'description' => __( 'The date the fulfillment was deleted.', 'woocommerce' ),
+				'description' => __( 'The date the fulfillment was deleted.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => null,
 				'context'     => array( 'view', 'edit' ),
@@ -1064,7 +1064,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 				'required'    => true,
 			),
 			'meta_data'      => array(
-				'description' => __( 'Meta data for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Meta data for the fulfillment.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'schema'      => $this->get_schema_for_meta_data(),
@@ -1083,7 +1083,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 		return array_merge(
 			! $is_create ? array(
 				'fulfillment_id' => array(
-					'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -1091,27 +1091,27 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 			) : array(),
 			array(
 				'status'          => array(
-					'description' => __( 'The status of the fulfillment.', 'woocommerce' ),
+					'description' => __( 'The status of the fulfillment.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'unfulfilled',
 					'required'    => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'is_fulfilled'    => array(
-					'description' => __( 'Whether the fulfillment is fulfilled.', 'woocommerce' ),
+					'description' => __( 'Whether the fulfillment is fulfilled.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'required'    => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'meta_data'       => array(
-					'description' => __( 'Meta data for the fulfillment.', 'woocommerce' ),
+					'description' => __( 'Meta data for the fulfillment.', 'poocommerce' ),
 					'type'        => 'array',
 					'required'    => true,
 					'schema'      => $this->get_schema_for_meta_data(),
 				),
 				'notify_customer' => array(
-					'description' => __( 'Whether to notify the customer about the fulfillment update.', 'woocommerce' ),
+					'description' => __( 'Whether to notify the customer about the fulfillment update.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'required'    => false,
@@ -1131,19 +1131,19 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 			'type'       => 'object',
 			'properties' => array(
 				'id'    => array(
-					'description' => __( 'The unique identifier for the meta data. Set `0` for new records.', 'woocommerce' ),
+					'description' => __( 'The unique identifier for the meta data. Set `0` for new records.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'key'   => array(
-					'description' => __( 'The key of the meta data.', 'woocommerce' ),
+					'description' => __( 'The key of the meta data.', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'value' => array(
-					'description' => __( 'The value of the meta data.', 'woocommerce' ),
+					'description' => __( 'The value of the meta data.', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
@@ -1186,7 +1186,7 @@ class OrderFulfillmentsRestController extends RestApiControllerBase {
 	 */
 	private function validate_fulfillment( Fulfillment $fulfillment, int $fulfillment_id, int $order_id ) {
 		if ( $fulfillment->get_id() !== $fulfillment_id || $fulfillment->get_entity_type() !== WC_Order::class || $fulfillment->get_entity_id() !== "$order_id" ) {
-			throw new \Exception( esc_html__( 'Invalid fulfillment ID.', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid fulfillment ID.', 'poocommerce' ) );
 		}
 	}
 }

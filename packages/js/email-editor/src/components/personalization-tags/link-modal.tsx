@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 
 const LinkModal = ( { onInsert, isOpened, closeCallback, tag } ) => {
-	const [ linkText, setLinkText ] = useState( __( 'Link', 'woocommerce' ) );
+	const [ linkText, setLinkText ] = useState( __( 'Link', 'poocommerce' ) );
 	if ( ! isOpened ) {
 		return null;
 	}
@@ -14,12 +14,12 @@ const LinkModal = ( { onInsert, isOpened, closeCallback, tag } ) => {
 	return (
 		<Modal
 			size="small"
-			title={ __( 'Insert Link', 'woocommerce' ) }
+			title={ __( 'Insert Link', 'poocommerce' ) }
 			onRequestClose={ closeCallback }
-			className="woocommerce-personalization-tags-modal"
+			className="poocommerce-personalization-tags-modal"
 		>
 			<TextControl
-				label={ __( 'Link Text', 'woocommerce' ) }
+				label={ __( 'Link Text', 'poocommerce' ) }
 				value={ linkText }
 				onChange={ setLinkText }
 			/>
@@ -31,7 +31,7 @@ const LinkModal = ( { onInsert, isOpened, closeCallback, tag } ) => {
 					}
 				} }
 			>
-				{ __( 'Insert', 'woocommerce' ) }
+				{ __( 'Insert', 'poocommerce' ) }
 			</Button>
 		</Modal>
 	);

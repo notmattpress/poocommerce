@@ -3,12 +3,12 @@
  */
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { ProductShortDescriptionSkeleton } from '@woocommerce/base-components/skeleton/patterns/product-short-description';
+import { ProductShortDescriptionSkeleton } from '@poocommerce/base-components/skeleton/patterns/product-short-description';
 import { BlockEditProps } from '@wordpress/blocks';
 import { Disabled, Tooltip } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { isSiteEditorPage } from '@woocommerce/utils';
-import { getSetting } from '@woocommerce/settings';
+import { isSiteEditorPage } from '@poocommerce/utils';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ const AddToCartFormEdit = ( props: BlockEditProps< Attributes > ) => {
 				<Tooltip
 					text={ __(
 						'Customer will see product add-to-cart options in this space, dependent on the product type.',
-						'woocommerce'
+						'poocommerce'
 					) }
 					position="bottom right"
 				>
@@ -94,7 +94,7 @@ const AddToCartFormEdit = ( props: BlockEditProps< Attributes > ) => {
 										>
 											{ __(
 												'Add to cart',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</button>
 									</div>
@@ -138,7 +138,7 @@ const AddToCartFormEdit = ( props: BlockEditProps< Attributes > ) => {
 										>
 											{ __(
 												'Add to cart',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</button>
 									</div>

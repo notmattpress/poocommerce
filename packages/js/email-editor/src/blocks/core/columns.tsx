@@ -35,7 +35,7 @@ const columnsEditCallback = createHigherOrderComponent(
 function deactivateStackOnMobile() {
 	addFilter(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/deactivate-stack-on-mobile',
+		'poocommerce-email-editor/deactivate-stack-on-mobile',
 		columnsEditCallback
 	);
 }
@@ -51,7 +51,7 @@ const COLUMN_BLOCKS = [ 'core/column', 'core/columns' ];
 function disableColumnsLayoutAndEnhanceColumnsBlock() {
 	addFilter(
 		'blocks.registerBlockType',
-		'woocommerce-email-editor/disable-columns-layout',
+		'poocommerce-email-editor/disable-columns-layout',
 		( settings: Block, name ) => {
 			if ( COLUMN_BLOCKS.includes( name ) ) {
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-return

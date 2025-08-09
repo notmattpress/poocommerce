@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Brands Unit tests suite
+ * PooCommerce Brands Unit tests suite
  *
- * @package woocommerce-brands
+ * @package poocommerce-brands
  */
 
 declare( strict_types = 1);

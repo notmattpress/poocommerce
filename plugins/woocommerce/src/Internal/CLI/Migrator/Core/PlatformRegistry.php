@@ -1,11 +1,11 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Core;
 
 use InvalidArgumentException;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
 use WP_CLI;
 
 /**
@@ -46,7 +46,7 @@ class PlatformRegistry {
 		 *                         is another array containing 'name', 'fetcher', and 'mapper' class names.
 		 * @since 1.0.0
 		 */
-		$platforms = apply_filters( 'woocommerce_migrator_platforms', array() );
+		$platforms = apply_filters( 'poocommerce_migrator_platforms', array() );
 
 		if ( ! is_array( $platforms ) ) {
 			return;
@@ -98,7 +98,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Platform %s not found.', 'woocommerce' ),
+					esc_html__( 'Platform %s not found.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -111,7 +111,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Invalid fetcher class for platform %s. Fetcher must be a non-empty string.', 'woocommerce' ),
+					esc_html__( 'Invalid fetcher class for platform %s. Fetcher must be a non-empty string.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -121,7 +121,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %1$s: Platform ID, %2$s: Class name */
-					esc_html__( 'Invalid fetcher class for platform %1$s. Class %2$s does not exist.', 'woocommerce' ),
+					esc_html__( 'Invalid fetcher class for platform %1$s. Class %2$s does not exist.', 'poocommerce' ),
 					esc_html( $platform_id ),
 					esc_html( $fetcher_class )
 				)
@@ -132,7 +132,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %1$s: Platform ID, %2$s: Class name, %3$s: Interface name */
-					esc_html__( 'Invalid fetcher class for platform %1$s. Class %2$s does not implement %3$s.', 'woocommerce' ),
+					esc_html__( 'Invalid fetcher class for platform %1$s. Class %2$s does not implement %3$s.', 'poocommerce' ),
 					esc_html( $platform_id ),
 					esc_html( $fetcher_class ),
 					esc_html( PlatformFetcherInterface::class )
@@ -140,7 +140,7 @@ class PlatformRegistry {
 			);
 		}
 
-		// Use the WooCommerce DI container to properly inject dependencies.
+		// Use the PooCommerce DI container to properly inject dependencies.
 		$container = wc_get_container();
 		return $container->get( $fetcher_class );
 	}
@@ -161,7 +161,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Platform %s not found.', 'woocommerce' ),
+					esc_html__( 'Platform %s not found.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -174,7 +174,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: Platform ID */
-					esc_html__( 'Invalid mapper class for platform %s. Mapper must be a non-empty string.', 'woocommerce' ),
+					esc_html__( 'Invalid mapper class for platform %s. Mapper must be a non-empty string.', 'poocommerce' ),
 					esc_html( $platform_id )
 				)
 			);
@@ -184,7 +184,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %1$s: Platform ID, %2$s: Class name */
-					esc_html__( 'Invalid mapper class for platform %1$s. Class %2$s does not exist.', 'woocommerce' ),
+					esc_html__( 'Invalid mapper class for platform %1$s. Class %2$s does not exist.', 'poocommerce' ),
 					esc_html( $platform_id ),
 					esc_html( $mapper_class )
 				)
@@ -195,7 +195,7 @@ class PlatformRegistry {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %1$s: Platform ID, %2$s: Class name, %3$s: Interface name */
-					esc_html__( 'Invalid mapper class for platform %1$s. Class %2$s does not implement %3$s.', 'woocommerce' ),
+					esc_html__( 'Invalid mapper class for platform %1$s. Class %2$s does not implement %3$s.', 'poocommerce' ),
 					esc_html( $platform_id ),
 					esc_html( $mapper_class ),
 					esc_html( PlatformMapperInterface::class )
@@ -203,7 +203,7 @@ class PlatformRegistry {
 			);
 		}
 
-		// Use the WooCommerce DI container to properly inject dependencies.
+		// Use the PooCommerce DI container to properly inject dependencies.
 		$container = wc_get_container();
 		return $container->get( $mapper_class );
 	}

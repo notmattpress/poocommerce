@@ -2,11 +2,11 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.2](https://www.npmjs.com/package/@woocommerce/email-editor/v/1.0.2) - 2025-08-01 
+## [1.0.2](https://www.npmjs.com/package/@poocommerce/email-editor/v/1.0.2) - 2025-08-01 
 
 -   Patch - Fix backward compatibility when personalization tag post types are not set. [#60134]
 
-## [1.0.1](https://www.npmjs.com/package/@woocommerce/email-editor/v/1.0.1) - 2025-07-31 
+## [1.0.1](https://www.npmjs.com/package/@poocommerce/email-editor/v/1.0.1) - 2025-07-31 
 
 -   Patch - Email Editor: show “Send” button when editing a new (unsaved) email draft. [#59931]
 -   Patch - Email Editor: validation now correctly runs when both the email body and its template are modified, preventing silent skips of template-only edits. [#59903]
@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Add filtering personalization tags by the email post type. [#60072]
 -   Patch - Use ToolsPanel component instead of PanelBody component [#59632]
 
-## [1.0.0](https://www.npmjs.com/package/@woocommerce/email-editor/v/1.0.0) - 2025-07-09 
+## [1.0.0](https://www.npmjs.com/package/@poocommerce/email-editor/v/1.0.0) - 2025-07-09 
 
 -   Patch - Add fallback for Navigator component to the email editor [#58083]
 -   Patch - Fix an error with the Email Editor not loading Global Styles for non-admin WordPress users and ensure permissions are correctly checked when required. [#56261]
@@ -38,16 +38,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Monorepo: used babel transforms cleanup. [#56486]
 -   Patch - Monorepo: watch startup time optimization. [#59166]
 -   Patch - Monorepo: Webpack deps review and consolidation and a bit of deps grooming [#56746]
--   Patch - Update package json. Move copy assets commands to the @woocommerce/plugin-woocommerce package. The command will run when required. [#55754]
+-   Patch - Update package json. Move copy assets commands to the @poocommerce/plugin-poocommerce package. The command will run when required. [#55754]
 -   Patch - Add new filters for updating Email settings sidebar info content [#56365]
 -   Patch - Move const with allowed blocks back to the PHP package. [#59070]
 -   Minor - Add filter to remove the alignment controls for core/quote block [#57280]
 -   Minor - Add loading allowed blocks in the email editor by metadata `supports.email`. [#58966]
 -   Minor - Allow using Personalization Tags as button text or URL [#57958]
 -   Minor - Enable Social Link block in the Email Editor. [#58194]
--   Minor - The trash model now supports permanent deletion option. Returning `true` for filter `woocommerce_email_editor_trash_modal_should_permanently_delete` will activate the permanent delete option (Skipping trash which is the default) [#57827]
+-   Minor - The trash model now supports permanent deletion option. Returning `true` for filter `poocommerce_email_editor_trash_modal_should_permanently_delete` will activate the permanent delete option (Skipping trash which is the default) [#57827]
 -   Minor - Remove hardcoded post type and ID from constants in email editor store. This change is made to dynamically retrieve these values, enhancing flexibility and maintainability. [#59186]
--   Minor - This adds a back button to the WooCommerce Email Editor, allowing navigation back to the email listings page from the editor. The back button appears when the editor is in full-screen mode, which is now enforced by default. [#58154]
+-   Minor - This adds a back button to the PooCommerce Email Editor, allowing navigation back to the email listings page from the editor. The back button appears when the editor is in full-screen mode, which is now enforced by default. [#58154]
 -   Minor - Update editor to support editing only email template without a content post [#57246]
 -   Minor - Update email editor email preview, switch to template modal and style preview componets [#58078]
 -   Minor - Update telemetry tracking to restore events removed by refactoring components [#58294]
@@ -55,4 +55,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Major [ **BREAKING CHANGE** ] - Refactor email editor to work on top of wordpress/editor Editor component [#57775]
 -   Major [ **BREAKING CHANGE** ] - Refactor the package and its build to be prepared for publishing [#58874]
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/email-editor/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/email-editor/CHANGELOG.md).

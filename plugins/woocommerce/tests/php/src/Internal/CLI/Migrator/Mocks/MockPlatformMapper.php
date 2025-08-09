@@ -2,14 +2,14 @@
 /**
  * Mock Platform Mapper class for testing.
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Mocks
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Mocks
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Mocks;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Mocks;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
 
 /**
  * A mock mapper class for testing purposes.

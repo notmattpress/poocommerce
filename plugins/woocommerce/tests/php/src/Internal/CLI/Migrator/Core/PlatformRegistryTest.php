@@ -2,14 +2,14 @@
 /**
  * Platform Registry Test
  *
- * @package Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Tests\Internal\CLI\Migrator\Core;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
 
 /**
  * PlatformRegistryTest class.
@@ -21,7 +21,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_filters( 'woocommerce_migrator_platforms' );
+		remove_all_filters( 'poocommerce_migrator_platforms' );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_registration() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['test-platform'] = array(
 					'name'    => 'Test Platform',
@@ -54,7 +54,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_single_platform() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['test-platform'] = array(
 					'name'    => 'Test Platform',
@@ -87,7 +87,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_incomplete_platform_is_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['incomplete-platform'] = array(
 					'name' => 'Incomplete Platform',
@@ -108,7 +108,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_only_fetcher_is_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['partial-platform'] = array(
 					'name'    => 'Partial Platform',
@@ -130,7 +130,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_only_mapper_is_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['partial-platform'] = array(
 					'name'   => 'Partial Platform',
@@ -152,7 +152,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_filter_non_array_return_handled_gracefully() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function () {
 				return 'invalid-return-value';
 			}
@@ -170,7 +170,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_multiple_platforms_registration() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['platform-one'] = array(
 					'name'    => 'Platform One',
@@ -199,7 +199,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_registration_workflow() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['shopify'] = array(
 					'name'    => 'Shopify',
@@ -284,7 +284,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_empty_string_fetcher_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['empty-fetcher-platform'] = array(
 					'name'    => 'Empty Fetcher Platform',
@@ -306,7 +306,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_empty_string_mapper_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['empty-mapper-platform'] = array(
 					'name'    => 'Empty Mapper Platform',
@@ -328,7 +328,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_fetcher_for_non_existent_class_throws_exception() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['invalid-fetcher-platform'] = array(
 					'name'    => 'Invalid Fetcher Platform',
@@ -351,7 +351,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_mapper_for_non_existent_class_throws_exception() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['invalid-mapper-platform'] = array(
 					'name'    => 'Invalid Mapper Platform',
@@ -374,7 +374,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_fetcher_for_wrong_interface_throws_exception() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['wrong-fetcher-interface'] = array(
 					'name'    => 'Wrong Fetcher Interface Platform',
@@ -386,7 +386,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->expectException( \InvalidArgumentException::class );
-		$this->expectExceptionMessage( 'Invalid fetcher class for platform wrong-fetcher-interface. Class stdClass does not implement Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface.' );
+		$this->expectExceptionMessage( 'Invalid fetcher class for platform wrong-fetcher-interface. Class stdClass does not implement Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface.' );
 
 		$registry = new PlatformRegistry();
 		$registry->get_fetcher( 'wrong-fetcher-interface' );
@@ -397,7 +397,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_mapper_for_wrong_interface_throws_exception() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['wrong-mapper-interface'] = array(
 					'name'    => 'Wrong Mapper Interface Platform',
@@ -409,7 +409,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 		);
 
 		$this->expectException( \InvalidArgumentException::class );
-		$this->expectExceptionMessage( 'Invalid mapper class for platform wrong-mapper-interface. Class stdClass does not implement Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface.' );
+		$this->expectExceptionMessage( 'Invalid mapper class for platform wrong-mapper-interface. Class stdClass does not implement Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface.' );
 
 		$registry = new PlatformRegistry();
 		$registry->get_mapper( 'wrong-mapper-interface' );
@@ -420,7 +420,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_null_values_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['null-values-platform'] = array(
 					'name'    => 'Null Values Platform',
@@ -442,7 +442,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_malformed_class_names() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['malformed-class-names'] = array(
 					'name'    => 'Malformed Class Names Platform',
@@ -465,7 +465,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_array_values_not_registered() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				$platforms['array-values-platform'] = array(
 					'name'    => 'Array Values Platform',
@@ -531,7 +531,7 @@ class PlatformRegistryTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_platform_with_special_characters_in_id() {
 		add_filter(
-			'woocommerce_migrator_platforms',
+			'poocommerce_migrator_platforms',
 			function ( $platforms ) {
 				// Test various special characters in platform ID.
 				$platforms['platform@with#special$chars'] = array(

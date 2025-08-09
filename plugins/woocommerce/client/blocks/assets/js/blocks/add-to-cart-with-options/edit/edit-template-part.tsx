@@ -9,7 +9,7 @@ import {
 	useInnerBlocksProps,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 const TemplatePartInnerBlocks = ( {
 	blockProps,

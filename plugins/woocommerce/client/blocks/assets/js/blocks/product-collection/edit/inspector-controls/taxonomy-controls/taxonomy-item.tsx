@@ -187,7 +187,7 @@ const TaxonomyItem = ( { taxonomy, termIds, onChange }: TaxonomyItemProps ) => {
 		if ( term ) {
 			// Terms that are missing will be identified as such.
 			if ( ! term.name ) {
-				display = `(#${ term.id } ${ __( 'Missing', 'woocommerce' ) })`;
+				display = `(#${ term.id } ${ __( 'Missing', 'poocommerce' ) })`;
 			}
 			// Terms with names that are non-unique will have the ID appended.
 			else if ( duplicateNames.has( term.name ) ) {

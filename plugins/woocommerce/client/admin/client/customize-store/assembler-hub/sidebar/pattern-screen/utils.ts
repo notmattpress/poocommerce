@@ -113,19 +113,19 @@ export const sortPatternsByCategory = (
 	patterns: Pattern[],
 	category: keyof typeof PATTERN_CATEGORIES
 ) => {
-	const prefix = 'woocommerce-blocks';
+	const prefix = 'poocommerce-blocks';
 	if ( category === 'intro' || category === 'about' ) {
 		return patterns.sort( ( a, b ) => {
 			if (
 				a.name ===
-				'woocommerce-blocks/centered-content-with-image-below'
+				'poocommerce-blocks/centered-content-with-image-below'
 			) {
 				return -1;
 			}
 
 			if (
 				b.name ===
-				'woocommerce-blocks/centered-content-with-image-below'
+				'poocommerce-blocks/centered-content-with-image-below'
 			) {
 				return 1;
 			}

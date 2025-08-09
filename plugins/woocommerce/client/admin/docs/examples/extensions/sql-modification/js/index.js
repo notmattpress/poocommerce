@@ -26,37 +26,37 @@ const addCurrencyFilters = ( filters ) => {
 };
 
 addFilter(
-	'woocommerce_admin_revenue_report_filters',
+	'poocommerce_admin_revenue_report_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
 addFilter(
-	'woocommerce_admin_orders_report_filters',
+	'poocommerce_admin_orders_report_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
 addFilter(
-	'woocommerce_admin_products_report_filters',
+	'poocommerce_admin_products_report_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
 addFilter(
-	'woocommerce_admin_categories_report_filters',
+	'poocommerce_admin_categories_report_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
 addFilter(
-	'woocommerce_admin_coupons_report_filters',
+	'poocommerce_admin_coupons_report_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
 addFilter(
-	'woocommerce_admin_taxes_report_filters',
+	'poocommerce_admin_taxes_report_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
 addFilter(
-	'woocommerce_admin_dashboard_filters',
+	'poocommerce_admin_dashboard_filters',
 	'plugin-domain',
 	addCurrencyFilters
 );
@@ -110,7 +110,7 @@ const addTableColumn = ( reportTableData ) => {
 	return reportTableData;
 };
 
-addFilter( 'woocommerce_admin_report_table', 'plugin-domain', addTableColumn );
+addFilter( 'poocommerce_admin_report_table', 'plugin-domain', addTableColumn );
 
 /**
  * Add 'currency' to the list of persisted queries so that the parameter remains
@@ -125,7 +125,7 @@ const persistQueries = ( params ) => {
 };
 
 addFilter(
-	'woocommerce_admin_persisted_queries',
+	'poocommerce_admin_persisted_queries',
 	'plugin-domain',
 	persistQueries
 );
@@ -157,7 +157,7 @@ const updateReportCurrencies = ( config, { currency } ) => {
 };
 
 addFilter(
-	'woocommerce_admin_report_currency',
+	'poocommerce_admin_report_currency',
 	'plugin-domain',
 	updateReportCurrencies
 );

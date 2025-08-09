@@ -5,7 +5,7 @@ import { initialize } from './editor';
 
 /**
  * This method is used to initialize the email editor.
- * This method expects some data set on the global window object set on window.WooCommerceEmailEditor
+ * This method expects some data set on the global window object set on window.PooCommerceEmailEditor
  *
  * {
  *    "current_post_type": "", // The post type of the current post.

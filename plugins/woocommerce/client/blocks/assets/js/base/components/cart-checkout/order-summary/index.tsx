@@ -4,10 +4,10 @@
 import {
 	useContainerWidthContext,
 	useStoreCart,
-} from '@woocommerce/base-context';
-import type { CartItem } from '@woocommerce/types';
+} from '@poocommerce/base-context';
+import type { CartItem } from '@poocommerce/types';
 import clsx from 'clsx';
-import { CartLineItemsCheckoutSkeleton } from '@woocommerce/base-components/skeleton/patterns/cart-line-items';
+import { CartLineItemsCheckoutSkeleton } from '@poocommerce/base-components/skeleton/patterns/cart-line-items';
 /**
  * Internal dependencies
  */

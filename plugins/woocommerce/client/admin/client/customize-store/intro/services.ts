@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { resolveSelect } from '@wordpress/data';
-import { onboardingStore } from '@woocommerce/data';
+import { onboardingStore } from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**

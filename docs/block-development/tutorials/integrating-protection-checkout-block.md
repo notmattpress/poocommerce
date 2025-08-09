@@ -5,11 +5,11 @@ sidebar_position: 6
 
 # Integrating Protection with the Checkout Block
 
-If you're a developer of a Captcha or fraud protection plugin, make sure your solution is hooking into the [Store API](/docs/apis/store-api/) and integrating with the Checkout block. This tutorial will guide you through the process of adding protection mechanisms to the WooCommerce Checkout block.
+If you're a developer of a Captcha or fraud protection plugin, make sure your solution is hooking into the [Store API](/docs/apis/store-api/) and integrating with the Checkout block. This tutorial will guide you through the process of adding protection mechanisms to the PooCommerce Checkout block.
 
 ## Overview
 
-The WooCommerce Checkout block uses the [Store API](/docs/apis/store-api/) for processing orders, which provides a secure, unauthenticated API for customer-facing functionality. To integrate protection mechanisms like CAPTCHA or fraud detection, you'll need to:
+The PooCommerce Checkout block uses the [Store API](/docs/apis/store-api/) for processing orders, which provides a secure, unauthenticated API for customer-facing functionality. To integrate protection mechanisms like CAPTCHA or fraud detection, you'll need to:
 
 1. **Render your protection element** in the checkout block using WordPress block filters
 2. **Handle client-side validation** using the checkout data store
@@ -21,11 +21,11 @@ The first step is to render your CAPTCHA or protection element in the checkout b
 
 ### Using the render_block Filter
 
-The `render_block` filter allows you to modify the output of any WordPress block. For the checkout block, you'll want to target the `woocommerce/checkout-actions-block` which contains the "Place order" button.
+The `render_block` filter allows you to modify the output of any WordPress block. For the checkout block, you'll want to target the `poocommerce/checkout-actions-block` which contains the "Place order" button.
 
 ```php
 add_filter(
-    'render_block_woocommerce/checkout-actions-block',
+    'render_block_poocommerce/checkout-actions-block',
     function( $block_content ) {
         $captcha = '<div class="my-captcha-element" data-sitekey="' . esc_attr( get_option( 'plugin_captcha_sitekey' ) ) . '"></div>';
         return $block_content . $captcha;
@@ -37,7 +37,7 @@ add_filter(
 
 **Key points about this code:**
 
-- The filter targets `woocommerce/checkout-actions-block` which is the block containing the place order button
+- The filter targets `poocommerce/checkout-actions-block` which is the block containing the place order button
 - We use a priority of `999` to ensure our content is added after other modifications
 - The `data-sitekey` attribute stores your CAPTCHA configuration, but this may be different for your plugin
 - We append our protection element after the original block content by concatenating it to `$block_content` (no output buffering needed)
@@ -83,7 +83,7 @@ if ( wp && wp.data ) {
 
 ### Data Store Integration
 
-For more information about the checkout data store and available methods, see the [Checkout Data Store documentation](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/data-store/checkout.md).
+For more information about the checkout data store and available methods, see the [Checkout Data Store documentation](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/data-store/checkout.md).
 
 ## Step 3: Server-Side Validation
 
@@ -118,7 +118,7 @@ function plugin_check_turnstile_token( $result ) {
         $chosen_payment_method = sanitize_text_field(  $request_body['payment_method'] );
 
         // Provide ability to short circuit the check to allow express payments or hosted checkouts to bypass the check.
-        $selected_payment_methods = apply_filters(  'plugin_payment_methods_to_skip', array('woocommerce_payments' ) );
+        $selected_payment_methods = apply_filters(  'plugin_payment_methods_to_skip', array('poocommerce_payments' ) );
         if( is_array( $selected_payment_methods ) ) {
             if ( in_array( $chosen_payment_method, $selected_payment_methods, true ) ) {
                 return $result;
@@ -150,7 +150,7 @@ function plugin_check_turnstile_token( $result ) {
 
 - **Check for POST requests and the correct endpoint:** Ensure your validation logic only runs for POST requests to the checkout endpoint. This prevents unnecessary processing and avoids interfering with unrelated requests.
 - **Safely access the protection token:** Always verify that the `extensions` key and your namespace exist in the request body before accessing the token. This prevents PHP notices and ensures your code handles malformed requests gracefully.
-- **Return the `$result` parameter unless validation fails:** Always return the original `$result` parameter if your validation passes or if your logic should not run. Only return a `WP_Error` object if validation fails. This avoids interfering with other authentication or validation logic that may be running in WooCommerce or other plugins.
+- **Return the `$result` parameter unless validation fails:** Always return the original `$result` parameter if your validation passes or if your logic should not run. Only return a `WP_Error` object if validation fails. This avoids interfering with other authentication or validation logic that may be running in PooCommerce or other plugins.
 - **Allow certain payment methods to bypass protection (optional):** For example, you may want to skip CAPTCHA for express payment methods or hosted checkouts. Make this configurable via a filter so other developers can extend or override the behavior.
 
 ## Important Notes

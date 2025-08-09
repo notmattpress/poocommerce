@@ -289,7 +289,7 @@ const frontendEntries = getBlockEntries( 'frontend.{t,j}s{,x}', {
 		Object.entries( { ...blocks, ...genericBlocks } ).filter(
 			( [ blockName ] ) => {
 				return ! frontendScriptModuleBlocksToSkip.includes(
-					`woocommerce/${ blockName }`
+					`poocommerce/${ blockName }`
 				);
 			}
 		)
@@ -309,7 +309,7 @@ const blockStylingEntries = getBlockEntries(
 				...cartAndCheckoutBlocks,
 			} ).filter( ( [ blockName ] ) => {
 				return ! frontendScriptModuleBlocksToSkip.includes(
-					`woocommerce/${ blockName }`
+					`poocommerce/${ blockName }`
 				);
 			} )
 		),

@@ -1,24 +1,24 @@
 <?php
 /**
- * This file is part of the WooCommerce package.
+ * This file is part of the PooCommerce package.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor
+ * @package Automattic\PooCommerce\Internal\EmailEditor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger_Interface;
 
 /**
- * WooCommerce logger adapter for the email editor.
+ * PooCommerce logger adapter for the email editor.
  *
- * This class adapts the WooCommerce logger to work with the email editor logging interface.
+ * This class adapts the PooCommerce logger to work with the email editor logging interface.
  */
 class Logger implements Email_Editor_Logger_Interface {
 	/**
-	 * The WooCommerce logger instance.
+	 * The PooCommerce logger instance.
 	 *
 	 * @var \WC_Logger_Interface
 	 */
@@ -27,7 +27,7 @@ class Logger implements Email_Editor_Logger_Interface {
 	/**
 	 * Constructor.
 	 *
-	 * @param \WC_Logger_Interface $wc_logger The WooCommerce logger instance.
+	 * @param \WC_Logger_Interface $wc_logger The PooCommerce logger instance.
 	 */
 	public function __construct( \WC_Logger_Interface $wc_logger ) {
 		$this->wc_logger = $wc_logger;

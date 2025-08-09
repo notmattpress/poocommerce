@@ -12,7 +12,7 @@ import {
 import {
 	useSlotContext,
 	SlotContextHelpersType,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ const WooProductFieldFill = ( {
 
 	return (
 		<Fill
-			name={ `woocommerce_product_field_${ sectionName }` }
+			name={ `poocommerce_product_field_${ sectionName }` }
 			key={ fieldId }
 		>
 			{ ( fillProps ) =>
@@ -114,7 +114,7 @@ WooProductFieldItem.Slot = ( {
 
 	return (
 		<Slot
-			name={ `woocommerce_product_field_${ section }` }
+			name={ `poocommerce_product_field_${ section }` }
 			fillProps={ fillProps }
 		>
 			{ ( fills ) => {
@@ -127,7 +127,7 @@ WooProductFieldItem.Slot = ( {
 					sortFillsByOrder( filterRegisteredFills( fills ) )?.props
 						.children,
 					( child ) => (
-						<div className="woocommerce-product-form__field">
+						<div className="poocommerce-product-form__field">
 							{ child }
 						</div>
 					)
