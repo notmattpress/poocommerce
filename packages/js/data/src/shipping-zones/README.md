@@ -1,6 +1,6 @@
 # Shipping Zones Data Store
 
-This data store provides functions to interact with the [Shipping Zones REST endpoints](https://woocommerce.github.io/woocommerce-rest-api-docs/#shipping-zones).
+This data store provides functions to interact with the [Shipping Zones REST endpoints](https://poocommerce.github.io/poocommerce-rest-api-docs/#shipping-zones).
 Under the hood this data store makes use of the [CRUD data store](../crud/README.md).
 
 **Note: This data store is listed as experimental still as it is still in active development.**
@@ -14,7 +14,7 @@ Example:
 ```ts
 import {
 	experimentalShippingZonesStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 
 function Component() {

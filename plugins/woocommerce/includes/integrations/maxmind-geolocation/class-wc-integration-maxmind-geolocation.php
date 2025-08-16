@@ -3,7 +3,7 @@
  * MaxMind Geolocation Integration
  *
  * @version 3.9.0
- * @package WooCommerce\Integrations
+ * @package PooCommerce\Integrations
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -29,8 +29,8 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 	 */
 	public function __construct() {
 		$this->id                 = 'maxmind_geolocation';
-		$this->method_title       = __( 'MaxMind Geolocation', 'woocommerce' );
-		$this->method_description = __( 'An integration for utilizing MaxMind to do Geolocation lookups. Please note that this integration will only do country lookups.', 'woocommerce' );
+		$this->method_title       = __( 'MaxMind Geolocation', 'poocommerce' );
+		$this->method_description = __( 'An integration for utilizing MaxMind to do Geolocation lookups. Please note that this integration will only do country lookups.', 'poocommerce' );
 
 		/**
 		 * Supports overriding the database service to be used.
@@ -38,7 +38,7 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 		 * @since 3.9.0
 		 * @return mixed|null The geolocation database service.
 		 */
-		$this->database_service = apply_filters( 'woocommerce_maxmind_geolocation_database_service', null );
+		$this->database_service = apply_filters( 'poocommerce_maxmind_geolocation_database_service', null );
 		if ( null === $this->database_service ) {
 			$this->database_service = new WC_Integration_MaxMind_Database_Service( $this->get_database_prefix() );
 		}
@@ -47,10 +47,10 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 		$this->init_settings();
 
 		// Bind to the save action for the settings.
-		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 
 		// Trigger notice if license key is missing.
-		add_action( 'update_option_woocommerce_default_customer_address', array( $this, 'display_missing_license_key_notice' ), 1000, 2 );
+		add_action( 'update_option_poocommerce_default_customer_address', array( $this, 'display_missing_license_key_notice' ), 1000, 2 );
 
 		/**
 		 * Allows for the automatic database update to be disabled.
@@ -59,10 +59,10 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 		 * @return bool Whether or not the database should be updated periodically.
 		 */
 		$bind_updater = apply_filters_deprecated(
-			'woocommerce_geolocation_update_database_periodically',
+			'poocommerce_geolocation_update_database_periodically',
 			array( true ),
 			'3.9.0',
-			'woocommerce_maxmind_geolocation_update_database_periodically'
+			'poocommerce_maxmind_geolocation_update_database_periodically'
 		);
 
 		/**
@@ -72,15 +72,15 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 		 * @since 3.9.0
 		 * @param bool $bind_updater Whether or not the database should be updated periodically.
 		 */
-		$bind_updater = apply_filters( 'woocommerce_maxmind_geolocation_update_database_periodically', $bind_updater );
+		$bind_updater = apply_filters( 'poocommerce_maxmind_geolocation_update_database_periodically', $bind_updater );
 
 		// Bind to the scheduled updater action.
 		if ( $bind_updater ) {
-			add_action( 'woocommerce_geoip_updater', array( $this, 'update_database' ) );
+			add_action( 'poocommerce_geoip_updater', array( $this, 'update_database' ) );
 		}
 
 		// Bind to the geolocation filter for MaxMind database lookups.
-		add_filter( 'woocommerce_get_geolocation', array( $this, 'get_geolocation' ), 10, 2 );
+		add_filter( 'poocommerce_get_geolocation', array( $this, 'get_geolocation' ), 10, 2 );
 	}
 
 	/**
@@ -98,15 +98,15 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'license_key' => array(
-				'title'       => __( 'MaxMind License Key', 'woocommerce' ),
+				'title'       => __( 'MaxMind License Key', 'poocommerce' ),
 				'type'        => 'password',
 				'description' => sprintf(
 					/* translators: %1$s: Documentation URL */
 					__(
 						'The key that will be used when dealing with MaxMind Geolocation services. You can read how to generate one in <a href="%1$s">MaxMind Geolocation Integration documentation</a>.',
-						'woocommerce'
+						'poocommerce'
 					),
-					'https://woocommerce.com/document/maxmind-geolocation-integration/'
+					'https://poocommerce.com/document/maxmind-geolocation-integration/'
 				),
 				'desc_tip'    => false,
 				'default'     => '',
@@ -169,7 +169,7 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 		// Allow us to easily interact with the filesystem.
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		if ( ! WP_Filesystem() ) {
-			wc_get_logger()->warning( __( 'Failed to initialise WC_Filesystem API while trying to update the MaxMind Geolocation database.', 'woocommerce' ) );
+			wc_get_logger()->warning( __( 'Failed to initialise WC_Filesystem API while trying to update the MaxMind Geolocation database.', 'poocommerce' ) );
 			return;
 		}
 		global $wp_filesystem;
@@ -215,7 +215,7 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 	 * @return array Geolocation including country code, state, city and postcode based on an IP address.
 	 */
 	public function get_geolocation( $data, $ip_address ) {
-		// WooCommerce look for headers first, and at this moment could be just enough.
+		// PooCommerce look for headers first, and at this moment could be just enough.
 		if ( ! empty( $data['country'] ) ) {
 			return $data;
 		}
@@ -276,7 +276,7 @@ class WC_Integration_MaxMind_Geolocation extends WC_Integration {
 	 * @param mixed $new_value Current value.
 	 */
 	public function display_missing_license_key_notice( $old_value, $new_value ) {
-		if ( ! apply_filters( 'woocommerce_maxmind_geolocation_display_notices', true ) ) {
+		if ( ! apply_filters( 'poocommerce_maxmind_geolocation_display_notices', true ) ) {
 			return;
 		}
 

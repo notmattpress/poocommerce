@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WooCommerce Admin Add Report Example
+ * Plugin Name: PooCommerce Admin Add Report Example
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
@@ -10,7 +10,7 @@
  */
 function add_report_register_script() {
 
-	if ( ! class_exists( 'Automattic\WooCommerce\Admin\PageController' ) || ! \Automattic\WooCommerce\Admin\PageController::is_admin_page() ) {
+	if ( ! class_exists( 'Automattic\PooCommerce\Admin\PageController' ) || ! \Automattic\PooCommerce\Admin\PageController::is_admin_page() ) {
 		return;
 	}
 
@@ -36,11 +36,11 @@ add_action( 'admin_enqueue_scripts', 'add_report_register_script' );
 function add_report_add_report_menu_item( $report_pages ) {
 	$report_pages[] = array(
 		'id'     => 'example-analytics-report',
-		'title'  => __( 'Example', 'woocommerce-admin' ),
-		'parent' => 'woocommerce-analytics',
+		'title'  => __( 'Example', 'poocommerce-admin' ),
+		'parent' => 'poocommerce-analytics',
 		'path'   => '/analytics/example',
 	);
 
 	return $report_pages;
 }
-add_filter( 'woocommerce_analytics_report_menu_items', 'add_report_add_report_menu_item' );
+add_filter( 'poocommerce_analytics_report_menu_items', 'add_report_add_report_menu_item' );

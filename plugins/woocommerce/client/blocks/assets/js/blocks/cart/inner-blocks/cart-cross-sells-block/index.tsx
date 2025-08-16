@@ -10,7 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { Edit, Save } from './edit';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/cart-cross-sells-block', {
+registerBlockType( 'poocommerce/cart-cross-sells-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

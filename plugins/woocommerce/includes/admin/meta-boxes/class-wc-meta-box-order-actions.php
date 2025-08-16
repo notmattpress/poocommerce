@@ -4,13 +4,13 @@
  *
  * Functions for displaying the order actions meta box.
  *
- * @package     WooCommerce\Admin\Meta Boxes
+ * @package     PooCommerce\Admin\Meta Boxes
  * @version     2.1.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -43,18 +43,18 @@ class WC_Meta_Box_Order_Actions {
 			 *
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_order_actions_start', $order_id );
+			do_action( 'poocommerce_order_actions_start', $order_id );
 			?>
 
 
 			<li class="wide" id="actions">
 				<select name="wc_order_action">
-					<option value=""><?php esc_html_e( 'Choose an action...', 'woocommerce' ); ?></option>
+					<option value=""><?php esc_html_e( 'Choose an action...', 'poocommerce' ); ?></option>
 					<?php foreach ( $order_actions as $action => $title ) { ?>
 						<option value="<?php echo esc_attr( $action ); ?>"><?php echo esc_html( $title ); ?></option>
 					<?php } ?>
 				</select>
-				<button class="button wc-reload"><span><?php esc_html_e( 'Apply', 'woocommerce' ); ?></span></button>
+				<button class="button wc-reload"><span><?php esc_html_e( 'Apply', 'poocommerce' ); ?></span></button>
 			</li>
 
 			<li class="wide">
@@ -63,9 +63,9 @@ class WC_Meta_Box_Order_Actions {
 					if ( current_user_can( 'delete_post', $order_id ) ) {
 
 						if ( ! EMPTY_TRASH_DAYS ) {
-							$delete_text = __( 'Delete permanently', 'woocommerce' );
+							$delete_text = __( 'Delete permanently', 'poocommerce' );
 						} else {
-							$delete_text = __( 'Move to Trash', 'woocommerce' );
+							$delete_text = __( 'Move to Trash', 'poocommerce' );
 						}
 						?>
 						<a class="submitdelete deletion" href="<?php echo esc_url( self::get_trash_or_delete_order_link( $order_id ) ); ?>"><?php echo esc_html( $delete_text ); ?></a>
@@ -74,7 +74,7 @@ class WC_Meta_Box_Order_Actions {
 					?>
 				</div>
 
-				<button type="submit" class="button save_order button-primary" name="save" value="<?php echo OrderStatus::AUTO_DRAFT === $order->get_status() ? esc_attr__( 'Create', 'woocommerce' ) : esc_attr__( 'Update', 'woocommerce' ); ?>"><?php echo OrderStatus::AUTO_DRAFT === $order->get_status() ? esc_html__( 'Create', 'woocommerce' ) : esc_html__( 'Update', 'woocommerce' ); ?></button>
+				<button type="submit" class="button save_order button-primary" name="save" value="<?php echo OrderStatus::AUTO_DRAFT === $order->get_status() ? esc_attr__( 'Create', 'poocommerce' ) : esc_attr__( 'Update', 'poocommerce' ); ?>"><?php echo OrderStatus::AUTO_DRAFT === $order->get_status() ? esc_html__( 'Create', 'poocommerce' ) : esc_html__( 'Update', 'poocommerce' ); ?></button>
 			</li>
 
 			<?php
@@ -83,7 +83,7 @@ class WC_Meta_Box_Order_Actions {
 			 *
 			 * @since 2.1.0
 			 */
-			do_action( 'woocommerce_order_actions_end', $order_id );
+			do_action( 'poocommerce_order_actions_end', $order_id );
 			?>
 
 		</ul>
@@ -137,7 +137,7 @@ class WC_Meta_Box_Order_Actions {
 				 *
 				 * @since 1.0.0
 				 */
-				do_action( 'woocommerce_before_resend_order_emails', $order, 'customer_invoice' );
+				do_action( 'poocommerce_before_resend_order_emails', $order, 'customer_invoice' );
 
 				// Send the customer invoice email.
 				WC()->payment_gateways();
@@ -145,29 +145,29 @@ class WC_Meta_Box_Order_Actions {
 				WC()->mailer()->customer_invoice( $order );
 
 				// Note the event.
-				$order->add_order_note( __( 'Order details manually sent to customer.', 'woocommerce' ), false, true );
+				$order->add_order_note( __( 'Order details manually sent to customer.', 'poocommerce' ), false, true );
 
 				/**
 				 * Fires after an order email has been resent.
 				 *
 				 * @since 1.0.0
 				 */
-				do_action( 'woocommerce_after_resend_order_email', $order, 'customer_invoice' );
+				do_action( 'poocommerce_after_resend_order_email', $order, 'customer_invoice' );
 
 				// Change the post saved message.
 				add_filter( 'redirect_post_location', array( __CLASS__, 'set_email_sent_message' ) );
 
 			} elseif ( 'send_order_details_admin' === $action ) {
 
-				do_action( 'woocommerce_before_resend_order_emails', $order, 'new_order' );
+				do_action( 'poocommerce_before_resend_order_emails', $order, 'new_order' );
 
 				WC()->payment_gateways();
 				WC()->shipping();
-				add_filter( 'woocommerce_new_order_email_allows_resend', '__return_true' );
+				add_filter( 'poocommerce_new_order_email_allows_resend', '__return_true' );
 				WC()->mailer()->emails['WC_Email_New_Order']->trigger( $order->get_id(), $order, true );
-				remove_filter( 'woocommerce_new_order_email_allows_resend', '__return_true' );
+				remove_filter( 'poocommerce_new_order_email_allows_resend', '__return_true' );
 
-				do_action( 'woocommerce_after_resend_order_email', $order, 'new_order' );
+				do_action( 'poocommerce_after_resend_order_email', $order, 'new_order' );
 
 				// Change the post saved message.
 				add_filter( 'redirect_post_location', array( __CLASS__, 'set_email_sent_message' ) );
@@ -180,8 +180,8 @@ class WC_Meta_Box_Order_Actions {
 
 			} else {
 
-				if ( ! did_action( 'woocommerce_order_action_' . sanitize_title( $action ) ) ) {
-					do_action( 'woocommerce_order_action_' . sanitize_title( $action ), $order );
+				if ( ! did_action( 'poocommerce_order_action_' . sanitize_title( $action ) ) ) {
+					do_action( 'poocommerce_order_action_' . sanitize_title( $action ), $order );
 				}
 			}
 		}
@@ -210,13 +210,13 @@ class WC_Meta_Box_Order_Actions {
 	 */
 	private static function get_available_order_actions_for_order( $order ) {
 		$actions = array(
-			'send_order_details'              => __( 'Send order details to customer', 'woocommerce' ),
-			'send_order_details_admin'        => __( 'Resend new order notification', 'woocommerce' ),
-			'regenerate_download_permissions' => __( 'Regenerate download permissions', 'woocommerce' ),
+			'send_order_details'              => __( 'Send order details to customer', 'poocommerce' ),
+			'send_order_details_admin'        => __( 'Resend new order notification', 'poocommerce' ),
+			'regenerate_download_permissions' => __( 'Regenerate download permissions', 'poocommerce' ),
 		);
 
 		/**
-		 * Filter: woocommerce_order_actions
+		 * Filter: poocommerce_order_actions
 		 * Allows filtering of the available order actions for an order.
 		 *
 		 * @since 2.1.0 Filter was added.
@@ -225,6 +225,6 @@ class WC_Meta_Box_Order_Actions {
 		 * @param array         $actions The available order actions for the order.
 		 * @param WC_Order|null $order   The order object or null if no order is available.
 		 */
-		return apply_filters( 'woocommerce_order_actions', $actions, $order );
+		return apply_filters( 'poocommerce_order_actions', $actions, $order );
 	}
 }

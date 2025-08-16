@@ -77,7 +77,7 @@ export const initContentValidationMiddleware = () => {
 									new Error(
 										__(
 											'Content validation failed.',
-											'woocommerce'
+											'poocommerce'
 										)
 									)
 								);

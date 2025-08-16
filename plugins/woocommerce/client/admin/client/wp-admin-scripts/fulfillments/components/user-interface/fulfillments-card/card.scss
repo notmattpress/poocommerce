@@ -1,4 +1,4 @@
-.woocommerce-fulfillment-card {
+.poocommerce-fulfillment-card {
 	border: 1px solid #e0e0e0;
 	border-radius: 4px;
 	display: flex;
@@ -59,11 +59,11 @@
 	}
 }
 
-.woocommerce-fulfillment-card__size-small {
-	.woocommerce-fulfillment-card__header {
+.poocommerce-fulfillment-card__size-small {
+	.poocommerce-fulfillment-card__header {
 		padding: 16px 24px 0;
 	}
-	.woocommerce-fulfillment-card__body {
+	.poocommerce-fulfillment-card__body {
 		padding: 8px 24px 16px 24px !important;
 	}
 }

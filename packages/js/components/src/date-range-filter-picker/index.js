@@ -14,7 +14,7 @@ import clsx from 'clsx';
 import DatePickerContent from './content';
 import DropdownButton from '../dropdown-button';
 
-const shortDateFormat = __( 'MM/DD/YYYY', 'woocommerce' );
+const shortDateFormat = __( 'MM/DD/YYYY', 'poocommerce' );
 
 /**
  * Select a range of dates or single dates.
@@ -86,7 +86,7 @@ class DateRangeFilterPicker extends Component {
 		const { primaryDate, secondaryDate } = this.props.dateQuery;
 		return [
 			`${ primaryDate.label } (${ primaryDate.range })`,
-			`${ __( 'vs.', 'woocommerce' ) } ${ secondaryDate.label } (${
+			`${ __( 'vs.', 'poocommerce' ) } ${ secondaryDate.label } (${
 				secondaryDate.range
 			})`,
 		];
@@ -133,13 +133,13 @@ class DateRangeFilterPicker extends Component {
 		if ( ! popoverProps.placement ) {
 			popoverProps.placement = 'bottom';
 		}
-		const contentClasses = clsx( 'woocommerce-filters-date__content', {
+		const contentClasses = clsx( 'poocommerce-filters-date__content', {
 			'is-mobile': isViewportMobile,
 		} );
 		return (
-			<div className="woocommerce-filters-filter">
-				<span className="woocommerce-filters-label">
-					{ __( 'Date range', 'woocommerce' ) }:
+			<div className="poocommerce-filters-filter">
+				<span className="poocommerce-filters-label">
+					{ __( 'Date range', 'poocommerce' ) }:
 				</span>
 				<Dropdown
 					contentClassName={ contentClasses }

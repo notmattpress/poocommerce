@@ -4,7 +4,7 @@
 import { useMachine } from '@xstate5/react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from '@wordpress/data';
-import { onboardingStore } from '@woocommerce/data';
+import { onboardingStore } from '@poocommerce/data';
 import clsx from 'clsx';
 
 /**
@@ -43,7 +43,7 @@ export type LaunchYourStoreQueryParams = {
 };
 
 const LaunchStoreController = () => {
-	useFullScreen( [ 'woocommerce-launch-your-store' ] );
+	useFullScreen( [ 'poocommerce-launch-your-store' ] );
 	useEffect( () => {
 		window.sessionStorage.setItem( 'lysWaiting', 'no' );
 	}, [] );

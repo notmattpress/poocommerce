@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Unit tests for the CartController class.
@@ -37,7 +37,7 @@ class CartControllerTests extends TestCase {
 		// Test maximum quantity after normalizing.
 		$product_key = wc()->cart->add_to_cart( $product->get_id(), 5 );
 		add_filter(
-			'woocommerce_store_api_product_quantity_maximum',
+			'poocommerce_store_api_product_quantity_maximum',
 			function () {
 				return 2;
 			},
@@ -45,13 +45,13 @@ class CartControllerTests extends TestCase {
 		);
 		$class->normalize_cart();
 		$this->assertEquals( 2, wc()->cart->get_cart_item( $product_key )['quantity'] );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_maximum' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_maximum' );
 		wc()->cart->empty_cart();
 
 		// Test minimum quantity after normalizing.
 		$product_key = wc()->cart->add_to_cart( $product->get_id(), 1 );
 		add_filter(
-			'woocommerce_store_api_product_quantity_minimum',
+			'poocommerce_store_api_product_quantity_minimum',
 			function () {
 				return 5;
 			},
@@ -59,13 +59,13 @@ class CartControllerTests extends TestCase {
 		);
 		$class->normalize_cart();
 		$this->assertEquals( 5, wc()->cart->get_cart_item( $product_key )['quantity'] );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_minimum' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_minimum' );
 		wc()->cart->empty_cart();
 
 		// Test multiple of after normalizing.
 		$product_key = wc()->cart->add_to_cart( $product->get_id(), 7 );
 		add_filter(
-			'woocommerce_store_api_product_quantity_multiple_of',
+			'poocommerce_store_api_product_quantity_multiple_of',
 			function () {
 				return 3;
 			},
@@ -73,7 +73,7 @@ class CartControllerTests extends TestCase {
 		);
 		$class->normalize_cart();
 		$this->assertEquals( 6, wc()->cart->get_cart_item( $product_key )['quantity'] );
-		remove_all_filters( 'woocommerce_store_api_product_quantity_multiple_of' );
+		remove_all_filters( 'poocommerce_store_api_product_quantity_multiple_of' );
 		wc()->cart->empty_cart();
 	}
 
@@ -130,7 +130,7 @@ class CartControllerTests extends TestCase {
 
 		// This function will force the $product->is_purchasable() function to return false for our $not_purchasable_product.
 		add_filter(
-			'woocommerce_is_purchasable',
+			'poocommerce_is_purchasable',
 			function ( $is_purchasable, $product ) use ( $not_purchasable_product ) {
 				if ( $product->get_id() === $not_purchasable_product->get_id() ) {
 					return false;
@@ -148,10 +148,10 @@ class CartControllerTests extends TestCase {
 
 		$error_codes     = $errors->get_error_codes();
 		$expected_errors = array(
-			'woocommerce_rest_product_partially_out_of_stock',
-			'woocommerce_rest_product_out_of_stock',
-			'woocommerce_rest_product_not_purchasable',
-			'woocommerce_rest_product_too_many_in_cart',
+			'poocommerce_rest_product_partially_out_of_stock',
+			'poocommerce_rest_product_out_of_stock',
+			'poocommerce_rest_product_not_purchasable',
+			'poocommerce_rest_product_too_many_in_cart',
 		);
 
 		foreach ( $expected_errors as $expected_error ) {

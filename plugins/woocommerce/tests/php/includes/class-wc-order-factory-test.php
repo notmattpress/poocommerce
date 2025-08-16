@@ -1,14 +1,14 @@
 <?php
 
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
 /**
  * WC_Order_Factory_Test Class.
  */
 class WC_Order_Factory_Test extends WC_Unit_Test_Case {
 
-	use \Automattic\WooCommerce\RestApi\UnitTests\SerializingCacheTrait;
+	use \Automattic\PooCommerce\RestApi\UnitTests\SerializingCacheTrait;
 
 	/**
 	 * Store COT state at the start of the test so we can restore it later.
@@ -24,7 +24,7 @@ class WC_Order_Factory_Test extends WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->cot_state = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		$this->cot_state = \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 		OrderHelper::toggle_cot_feature_and_usage( false );
 		add_filter( 'wc_allow_changing_orders_storage_while_sync_is_pending', '__return_true' );
 	}

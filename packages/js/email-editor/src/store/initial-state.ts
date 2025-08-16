@@ -5,9 +5,9 @@ import { State } from './types';
 import { getEditorSettings, getEditorTheme, getUrls } from './settings';
 
 export function getInitialState(): State {
-	if ( ! window.WooCommerceEmailEditor ) {
+	if ( ! window.PooCommerceEmailEditor ) {
 		throw new Error(
-			'WooCommerceEmailEditor global object is not available. This is required for the email editor to work.'
+			'PooCommerceEmailEditor global object is not available. This is required for the email editor to work.'
 		);
 	}
 
@@ -16,11 +16,11 @@ export function getInitialState(): State {
 		theme: getEditorTheme(),
 		styles: {
 			globalStylesPostId:
-				window.WooCommerceEmailEditor.user_theme_post_id,
+				window.PooCommerceEmailEditor.user_theme_post_id,
 		},
 		urls: getUrls(),
 		preview: {
-			toEmail: window.WooCommerceEmailEditor.current_wp_user_email,
+			toEmail: window.PooCommerceEmailEditor.current_wp_user_email,
 			isModalOpened: false,
 			isSendingPreviewEmail: false,
 			sendingPreviewStatus: null,

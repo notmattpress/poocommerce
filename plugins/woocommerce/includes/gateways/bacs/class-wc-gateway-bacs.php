@@ -2,10 +2,10 @@
 /**
  * Class WC_Gateway_BACS file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @class       WC_Gateway_BACS
  * @extends     WC_Payment_Gateway
  * @version     2.1.0
- * @package     WooCommerce\Classes\Payment
+ * @package     PooCommerce\Classes\Payment
  */
 class WC_Gateway_BACS extends WC_Payment_Gateway {
 
@@ -57,10 +57,10 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 	public function __construct() {
 
 		$this->id                 = self::ID;
-		$this->icon               = apply_filters( 'woocommerce_bacs_icon', '' );
+		$this->icon               = apply_filters( 'poocommerce_bacs_icon', '' );
 		$this->has_fields         = false;
-		$this->method_title       = __( 'Direct bank transfer', 'woocommerce' );
-		$this->method_description = __( 'Take payments in person via BACS. More commonly known as direct bank/wire transfer.', 'woocommerce' );
+		$this->method_title       = __( 'Direct bank transfer', 'poocommerce' );
+		$this->method_description = __( 'Take payments in person via BACS. More commonly known as direct bank/wire transfer.', 'poocommerce' );
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -73,7 +73,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 
 		// BACS account fields shown on the thanks page and in emails.
 		$this->account_details = get_option(
-			'woocommerce_bacs_accounts',
+			'poocommerce_bacs_accounts',
 			array(
 				array(
 					'account_name'   => $this->get_option( 'account_name' ),
@@ -87,12 +87,12 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 		);
 
 		// Actions.
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_account_details' ) );
-		add_action( 'woocommerce_thankyou_bacs', array( $this, 'thankyou_page' ) );
+		add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_account_details' ) );
+		add_action( 'poocommerce_thankyou_bacs', array( $this, 'thankyou_page' ) );
 
 		// Customer Emails.
-		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
+		add_action( 'poocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
 	}
 
 	/**
@@ -102,29 +102,29 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 
 		$this->form_fields = array(
 			'enabled'         => array(
-				'title'   => __( 'Enable/Disable', 'woocommerce' ),
+				'title'   => __( 'Enable/Disable', 'poocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable bank transfer', 'woocommerce' ),
+				'label'   => __( 'Enable bank transfer', 'poocommerce' ),
 				'default' => 'no',
 			),
 			'title'           => array(
-				'title'       => __( 'Title', 'woocommerce' ),
+				'title'       => __( 'Title', 'poocommerce' ),
 				'type'        => 'safe_text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-				'default'     => __( 'Direct bank transfer', 'woocommerce' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'poocommerce' ),
+				'default'     => __( 'Direct bank transfer', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'description'     => array(
-				'title'       => __( 'Description', 'woocommerce' ),
+				'title'       => __( 'Description', 'poocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Payment method description that the customer will see on your checkout.', 'woocommerce' ),
-				'default'     => __( 'Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.', 'woocommerce' ),
+				'description' => __( 'Payment method description that the customer will see on your checkout.', 'poocommerce' ),
+				'default'     => __( 'Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'instructions'    => array(
-				'title'       => __( 'Instructions', 'woocommerce' ),
+				'title'       => __( 'Instructions', 'poocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Instructions that will be added to the thank you page and emails.', 'woocommerce' ),
+				'description' => __( 'Instructions that will be added to the thank you page and emails.', 'poocommerce' ),
 				'default'     => '',
 				'desc_tip'    => true,
 			),
@@ -148,14 +148,14 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 		$locale  = $this->get_country_locale();
 
 		// Get sortcode label in the $locale array and use appropriate one.
-		$sortcode = isset( $locale[ $country ]['sortcode']['label'] ) ? $locale[ $country ]['sortcode']['label'] : __( 'Sort code', 'woocommerce' );
+		$sortcode = isset( $locale[ $country ]['sortcode']['label'] ) ? $locale[ $country ]['sortcode']['label'] : __( 'Sort code', 'poocommerce' );
 
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc">
 				<label>
-					<?php esc_html_e( 'Account details:', 'woocommerce' ); ?>
-					<?php echo wp_kses_post( wc_help_tip( __( 'These account details will be displayed within the order thank you page and confirmation email.', 'woocommerce' ) ) ); ?>
+					<?php esc_html_e( 'Account details:', 'poocommerce' ); ?>
+					<?php echo wp_kses_post( wc_help_tip( __( 'These account details will be displayed within the order thank you page and confirmation email.', 'poocommerce' ) ) ); ?>
 				</label>
 			</th>
 			<td class="forminp" id="bacs_accounts">
@@ -164,12 +164,12 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 						<thead>
 							<tr>
 								<th class="sort">&nbsp;</th>
-								<th><?php esc_html_e( 'Account name', 'woocommerce' ); ?></th>
-								<th><?php esc_html_e( 'Account number', 'woocommerce' ); ?></th>
-								<th><?php esc_html_e( 'Bank name', 'woocommerce' ); ?></th>
+								<th><?php esc_html_e( 'Account name', 'poocommerce' ); ?></th>
+								<th><?php esc_html_e( 'Account number', 'poocommerce' ); ?></th>
+								<th><?php esc_html_e( 'Bank name', 'poocommerce' ); ?></th>
 								<th><?php echo esc_html( $sortcode ); ?></th>
-								<th><?php esc_html_e( 'IBAN', 'woocommerce' ); ?></th>
-								<th><?php esc_html_e( 'BIC / Swift', 'woocommerce' ); ?></th>
+								<th><?php esc_html_e( 'IBAN', 'poocommerce' ); ?></th>
+								<th><?php esc_html_e( 'BIC / Swift', 'poocommerce' ); ?></th>
 							</tr>
 						</thead>
 						<tbody class="accounts">
@@ -194,7 +194,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 						</tbody>
 						<tfoot>
 							<tr>
-								<th colspan="7"><a href="#" class="add button"><?php esc_html_e( '+ Add account', 'woocommerce' ); ?></a> <a href="#" class="remove_rows button"><?php esc_html_e( 'Remove selected account(s)', 'woocommerce' ); ?></a></th>
+								<th colspan="7"><a href="#" class="add button"><?php esc_html_e( '+ Add account', 'poocommerce' ); ?></a> <a href="#" class="remove_rows button"><?php esc_html_e( 'Remove selected account(s)', 'poocommerce' ); ?></a></th>
 							</tr>
 						</tfoot>
 					</table>
@@ -261,8 +261,8 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 		}
 		// phpcs:enable
 
-		do_action( 'woocommerce_update_option', array( 'id' => 'woocommerce_bacs_accounts' ) );
-		update_option( 'woocommerce_bacs_accounts', $accounts );
+		do_action( 'poocommerce_update_option', array( 'id' => 'poocommerce_bacs_accounts' ) );
+		update_option( 'poocommerce_bacs_accounts', $accounts );
 	}
 
 	/**
@@ -296,7 +296,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 			 * @param string $terms The order status.
 			 * @param object $order The order object.
 			 */
-			$instructions_order_status = apply_filters( 'woocommerce_bacs_email_instructions_order_status', OrderStatus::ON_HOLD, $order );
+			$instructions_order_status = apply_filters( 'poocommerce_bacs_email_instructions_order_status', OrderStatus::ON_HOLD, $order );
 			if ( $order->has_status( $instructions_order_status ) ) {
 				if ( $this->instructions ) {
 					echo wp_kses_post( wpautop( wptexturize( $this->instructions ) ) . PHP_EOL );
@@ -325,9 +325,9 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 		$locale  = $this->get_country_locale();
 
 		// Get sortcode label in the $locale array and use appropriate one.
-		$sortcode = isset( $locale[ $country ]['sortcode']['label'] ) ? $locale[ $country ]['sortcode']['label'] : __( 'Sort code', 'woocommerce' );
+		$sortcode = isset( $locale[ $country ]['sortcode']['label'] ) ? $locale[ $country ]['sortcode']['label'] : __( 'Sort code', 'poocommerce' );
 
-		$bacs_accounts = apply_filters( 'woocommerce_bacs_accounts', $this->account_details, $order_id );
+		$bacs_accounts = apply_filters( 'poocommerce_bacs_accounts', $this->account_details, $order_id );
 
 		if ( ! empty( $bacs_accounts ) ) {
 			$account_html = '';
@@ -344,14 +344,14 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 
 				// BACS account fields shown on the thanks page and in emails.
 				$account_fields = apply_filters(
-					'woocommerce_bacs_account_fields',
+					'poocommerce_bacs_account_fields',
 					array(
 						'bank_name'      => array(
-							'label' => __( 'Bank', 'woocommerce' ),
+							'label' => __( 'Bank', 'poocommerce' ),
 							'value' => $bacs_account->bank_name,
 						),
 						'account_number' => array(
-							'label' => __( 'Account number', 'woocommerce' ),
+							'label' => __( 'Account number', 'poocommerce' ),
 							'value' => $bacs_account->account_number,
 						),
 						'sort_code'      => array(
@@ -359,11 +359,11 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 							'value' => $bacs_account->sort_code,
 						),
 						'iban'           => array(
-							'label' => __( 'IBAN', 'woocommerce' ),
+							'label' => __( 'IBAN', 'poocommerce' ),
 							'value' => $bacs_account->iban,
 						),
 						'bic'            => array(
-							'label' => __( 'BIC', 'woocommerce' ),
+							'label' => __( 'BIC', 'poocommerce' ),
 							'value' => $bacs_account->bic,
 						),
 					),
@@ -381,7 +381,7 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 			}
 
 			if ( $has_details ) {
-				echo '<section class="woocommerce-bacs-bank-details"><h2 class="wc-bacs-bank-details-heading">' . esc_html__( 'Our bank details', 'woocommerce' ) . '</h2>' . wp_kses_post( PHP_EOL . $account_html ) . '</section>';
+				echo '<section class="poocommerce-bacs-bank-details"><h2 class="wc-bacs-bank-details-heading">' . esc_html__( 'Our bank details', 'poocommerce' ) . '</h2>' . wp_kses_post( PHP_EOL . $account_html ) . '</section>';
 			}
 		}
 
@@ -406,9 +406,9 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 			 * @param string $default_status The default order status.
 			 * @param object $order          The order object.
 			 */
-			$process_payment_status = apply_filters( 'woocommerce_bacs_process_payment_order_status', OrderStatus::ON_HOLD, $order );
+			$process_payment_status = apply_filters( 'poocommerce_bacs_process_payment_order_status', OrderStatus::ON_HOLD, $order );
 			// Mark as on-hold (we're awaiting the payment).
-			$order->update_status( $process_payment_status, __( 'Awaiting BACS payment', 'woocommerce' ) );
+			$order->update_status( $process_payment_status, __( 'Awaiting BACS payment', 'poocommerce' ) );
 		} else {
 			$order->payment_complete();
 		}
@@ -435,46 +435,46 @@ class WC_Gateway_BACS extends WC_Payment_Gateway {
 
 			// Locale information to be used - only those that are not 'Sort Code'.
 			$this->locale = apply_filters(
-				'woocommerce_get_bacs_locale',
+				'poocommerce_get_bacs_locale',
 				array(
 					'AU' => array(
 						'sortcode' => array(
-							'label' => __( 'BSB', 'woocommerce' ),
+							'label' => __( 'BSB', 'poocommerce' ),
 						),
 					),
 					'CA' => array(
 						'sortcode' => array(
-							'label' => __( 'Bank transit number', 'woocommerce' ),
+							'label' => __( 'Bank transit number', 'poocommerce' ),
 						),
 					),
 					'IN' => array(
 						'sortcode' => array(
-							'label' => __( 'IFSC', 'woocommerce' ),
+							'label' => __( 'IFSC', 'poocommerce' ),
 						),
 					),
 					'IT' => array(
 						'sortcode' => array(
-							'label' => __( 'Branch sort', 'woocommerce' ),
+							'label' => __( 'Branch sort', 'poocommerce' ),
 						),
 					),
 					'NZ' => array(
 						'sortcode' => array(
-							'label' => __( 'Bank code', 'woocommerce' ),
+							'label' => __( 'Bank code', 'poocommerce' ),
 						),
 					),
 					'SE' => array(
 						'sortcode' => array(
-							'label' => __( 'Bank code', 'woocommerce' ),
+							'label' => __( 'Bank code', 'poocommerce' ),
 						),
 					),
 					'US' => array(
 						'sortcode' => array(
-							'label' => __( 'Routing number', 'woocommerce' ),
+							'label' => __( 'Routing number', 'poocommerce' ),
 						),
 					),
 					'ZA' => array(
 						'sortcode' => array(
-							'label' => __( 'Branch code', 'woocommerce' ),
+							'label' => __( 'Branch code', 'poocommerce' ),
 						),
 					),
 				)

@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/featured-product",
+	"name": "poocommerce/featured-product",
 	"title": "Featured Product",
 	"description": "Highlight a product or variation.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -105,7 +105,7 @@
 			"default": true
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

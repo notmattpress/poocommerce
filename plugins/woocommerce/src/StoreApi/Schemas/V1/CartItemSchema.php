@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\ProductItemTrait;
-use Automattic\WooCommerce\StoreApi\Utilities\QuantityLimits;
+use Automattic\PooCommerce\StoreApi\Utilities\ProductItemTrait;
+use Automattic\PooCommerce\StoreApi\Utilities\QuantityLimits;
 
 /**
  * CartItemSchema class.
@@ -25,7 +25,7 @@ class CartItemSchema extends ItemSchema {
 	const IDENTIFIER = 'cart-item';
 
 	/**
-	 * Convert a WooCommerce cart item to an object suitable for the response.
+	 * Convert a PooCommerce cart item to an object suitable for the response.
 	 *
 	 * @param array $cart_item Cart item array.
 	 * @return array
@@ -49,7 +49,7 @@ class CartItemSchema extends ItemSchema {
 		 * @param array  $cart_item         Cart item array.
 		 * @param string $cart_item_key     Cart item key.
 		 */
-		$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $product->get_permalink(), $cart_item, $cart_item['key'] );
+		$product_permalink = apply_filters( 'poocommerce_cart_item_permalink', $product->get_permalink(), $cart_item, $cart_item['key'] );
 
 		return [
 			'key'                  => $cart_item['key'],
@@ -69,7 +69,7 @@ class CartItemSchema extends ItemSchema {
 			'images'               => $this->get_cart_images( $product, $cart_item, $cart_item['key'] ),
 			'variation'            => $this->format_variation_data( $cart_item['variation'], $product ),
 			'item_data'            => $this->get_item_data( $cart_item ),
-			'prices'               => (object) $this->prepare_product_price_response( $product, get_option( 'woocommerce_tax_display_cart' ) ),
+			'prices'               => (object) $this->prepare_product_price_response( $product, get_option( 'poocommerce_tax_display_cart' ) ),
 			'totals'               => (object) $this->prepare_currency_response(
 				[
 					'line_subtotal'     => $this->prepare_money_response( $cart_item['line_subtotal'], wc_get_price_decimals() ),
@@ -104,7 +104,7 @@ class CartItemSchema extends ItemSchema {
 		 * @param string $cart_item_key  Cart item key.
 		 * @since 9.6.0
 		 */
-		$filtered_images = apply_filters( 'woocommerce_store_api_cart_item_images', $product_images, $cart_item, $cart_item_key );
+		$filtered_images = apply_filters( 'poocommerce_store_api_cart_item_images', $product_images, $cart_item, $cart_item_key );
 
 		if ( ! is_array( $filtered_images ) || count( $filtered_images ) === 0 ) {
 			return $product_images;
@@ -117,19 +117,19 @@ class CartItemSchema extends ItemSchema {
 		foreach ( $filtered_images as $image ) {
 			// If id is not set then something is wrong with the image, and further logging would break (it uses the ID).
 			if ( ! isset( $image->id ) ) {
-				$logger->warning( 'After passing through woocommerce_cart_item_images filter, one of the images did not have an id property.' );
+				$logger->warning( 'After passing through poocommerce_cart_item_images filter, one of the images did not have an id property.' );
 				continue;
 			}
 
 			// Check if thumbnail is a valid url.
 			if ( empty( $image->thumbnail ) || ! filter_var( $image->thumbnail, FILTER_VALIDATE_URL ) ) {
-				$logger->warning( sprintf( 'After passing through woocommerce_cart_item_images filter, image with id %s did not have a valid thumbnail property.', $image->id ) );
+				$logger->warning( sprintf( 'After passing through poocommerce_cart_item_images filter, image with id %s did not have a valid thumbnail property.', $image->id ) );
 				continue;
 			}
 
 			// Check if src is a valid url.
 			if ( empty( $image->src ) || ! filter_var( $image->src, FILTER_VALIDATE_URL ) ) {
-				$logger->warning( sprintf( 'After passing through woocommerce_cart_item_images filter, image with id %s did not have a valid src property.', $image->id ) );
+				$logger->warning( sprintf( 'After passing through poocommerce_cart_item_images filter, image with id %s did not have a valid src property.', $image->id ) );
 				continue;
 			}
 
@@ -160,13 +160,13 @@ class CartItemSchema extends ItemSchema {
 		 *
 		 * @since 4.3.0
 		 *
-		 * @internal Matches filter name in WooCommerce core.
+		 * @internal Matches filter name in PooCommerce core.
 		 *
 		 * @param array $item_data Cart item data. Empty by default.
 		 * @param array $cart_item Cart item array.
 		 * @return array
 		 */
-		$item_data       = apply_filters( 'woocommerce_get_item_data', array(), $cart_item );
+		$item_data       = apply_filters( 'poocommerce_get_item_data', array(), $cart_item );
 		$clean_item_data = [];
 		foreach ( $item_data as $data ) {
 			// We will check each piece of data in the item data element to ensure it is scalar. Extensions could add arrays
@@ -183,14 +183,14 @@ class CartItemSchema extends ItemSchema {
 	}
 
 	/**
-	 * Remove HTML tags from cart item data and set the `hidden` property to `__experimental_woocommerce_blocks_hidden`.
+	 * Remove HTML tags from cart item data and set the `hidden` property to `__experimental_poocommerce_blocks_hidden`.
 	 *
 	 * @param array $item_data_element Individual element of a cart item data.
 	 * @return array
 	 */
 	protected function format_item_data_element( $item_data_element ) {
-		if ( array_key_exists( '__experimental_woocommerce_blocks_hidden', $item_data_element ) ) {
-			$item_data_element['hidden'] = $item_data_element['__experimental_woocommerce_blocks_hidden'];
+		if ( array_key_exists( '__experimental_poocommerce_blocks_hidden', $item_data_element ) ) {
+			$item_data_element['hidden'] = $item_data_element['__experimental_poocommerce_blocks_hidden'];
 		}
 		return array_map( 'wp_strip_all_tags', $item_data_element );
 	}

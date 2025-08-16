@@ -46,6 +46,6 @@ const activeFiltersStore = {
 };
 
 const { actions } = store< ProductFiltersStore & typeof activeFiltersStore >(
-	'woocommerce/product-filters',
+	'poocommerce/product-filters',
 	activeFiltersStore
 );

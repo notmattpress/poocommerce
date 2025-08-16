@@ -1,6 +1,6 @@
 /**
- * woocommerce-smallscreen.scss
- * Optimises the default WooCommerce frontend layout when viewed on smaller screens.
+ * poocommerce-smallscreen.scss
+ * Optimises the default PooCommerce frontend layout when viewed on smaller screens.
  */
 
 /**
@@ -12,8 +12,8 @@
 /**
  * Style begins
  */
-.woocommerce,
-.woocommerce-page {
+.poocommerce,
+.poocommerce-page {
 
 	table.shop_table_responsive {
 		thead {
@@ -184,7 +184,7 @@
 	/**
 	 * Checkout
 	 */
-	&.woocommerce-checkout {
+	&.poocommerce-checkout {
 		form.login {
 			.form-row {
 				width: 100%;
@@ -220,9 +220,9 @@
 	}
 }
 
-.woocommerce-account {
-	.woocommerce-MyAccount-navigation,
-	.woocommerce-MyAccount-content {
+.poocommerce-account {
+	.poocommerce-MyAccount-navigation,
+	.poocommerce-MyAccount-content {
 		float: none;
 		width: 100%;
 	}
