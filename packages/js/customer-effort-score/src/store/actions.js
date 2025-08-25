@@ -105,18 +105,18 @@ export function addCesSurveyForAnalytics() {
 		action: 'analytics_filtered',
 		title: __(
 			'How easy was it to filter your store analytics?',
-			'woocommerce'
+			'poocommerce'
 		),
 		firstQuestion: __(
 			'The filters in the analytics screen are easy to use.',
-			'woocommerce'
+			'poocommerce'
 		),
 		secondQuestion: __(
 			`The filters' functionality meets my needs.`,
-			'woocommerce'
+			'poocommerce'
 		),
-		pageNow: 'woocommerce_page_wc-admin',
-		adminPage: 'woocommerce_page_wc-admin',
+		pageNow: 'poocommerce_page_wc-admin',
+		adminPage: 'poocommerce_page_wc-admin',
 	} );
 }
 
@@ -126,17 +126,17 @@ export function addCesSurveyForAnalytics() {
 export function addCesSurveyForCustomerSearch() {
 	return addCesSurvey( {
 		action: 'ces_search',
-		title: __( 'How easy was it to use search?', 'woocommerce' ),
+		title: __( 'How easy was it to use search?', 'poocommerce' ),
 		firstQuestion: __(
-			'The search feature in WooCommerce is easy to use.',
-			'woocommerce'
+			'The search feature in PooCommerce is easy to use.',
+			'poocommerce'
 		),
 		secondQuestion: __(
 			`The search's functionality meets my needs.`,
-			'woocommerce'
+			'poocommerce'
 		),
-		pageNow: 'woocommerce_page_wc-admin',
-		adminPage: 'woocommerce_page_wc-admin',
+		pageNow: 'poocommerce_page_wc-admin',
+		adminPage: 'poocommerce_page_wc-admin',
 		onsubmit_label: undefined,
 		props: {
 			search_area: 'customer',

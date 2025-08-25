@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCTransactionalEmailPostsManager class.
@@ -20,7 +20,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		$this->template_manager = WCTransactionalEmailPostsManager::get_instance();
 	}
 
@@ -116,6 +116,6 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 }

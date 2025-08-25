@@ -9,8 +9,8 @@ import {
 	useLayoutEffect,
 	useRef,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/cart';
-import type { Store as WooCommerce } from '@woocommerce/stores/woocommerce/cart';
+import '@poocommerce/stores/poocommerce/cart';
+import type { Store as PooCommerce } from '@poocommerce/stores/poocommerce/cart';
 import Dinero from 'dinero.js';
 
 /**
@@ -26,23 +26,23 @@ import { CartItem, Currency } from '../../types';
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { currency, placeholderImgSrc } = getConfig( 'woocommerce' );
+const { currency, placeholderImgSrc } = getConfig( 'poocommerce' );
 const {
 	addToCartBehaviour,
 	onCartClickBehaviour,
 	checkoutUrl,
 	displayCartPriceIncludingTax,
 	buttonAriaLabelTemplate,
-} = getConfig( 'woocommerce/mini-cart' );
+} = getConfig( 'poocommerce/mini-cart' );
 const {
 	reduceQuantityLabel,
 	increaseQuantityLabel,
 	quantityDescriptionLabel,
 	removeFromCartLabel,
 	lowInStockLabel,
-} = getConfig( 'woocommerce/mini-cart-products-table-block' );
+} = getConfig( 'poocommerce/mini-cart-products-table-block' );
 const { itemsInCartTextTemplate } = getConfig(
-	'woocommerce/mini-cart-title-items-counter-block'
+	'poocommerce/mini-cart-title-items-counter-block'
 );
 
 // Inject style tags for badge styles based on background colors of the document.
@@ -86,14 +86,14 @@ const trimWords = ( html: string, maxWords = 15 ): string => {
 	return words.slice( 0, maxWords ).join( ' ' ) + '…';
 };
 
-const { state: woocommerceState, actions } = store< WooCommerce >(
-	'woocommerce',
+const { state: poocommerceState, actions } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: miniCartState, callbacks } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{},
 	{ lock: true }
 );
@@ -101,17 +101,17 @@ const { state: miniCartState, callbacks } = store< MiniCart >(
 // Getters cannot access `state` during hydration if it is not declared
 // beforehand. This will be removed once the iAPI allows this case.
 const { state } = store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{},
 	{ lock: universalLock }
 );
 
 store< MiniCart >(
-	'woocommerce/mini-cart',
+	'poocommerce/mini-cart',
 	{
 		state: {
 			get totalItemsInCart() {
-				return woocommerceState.cart.items.reduce< number >(
+				return poocommerceState.cart.items.reduce< number >(
 					( total, { quantity } ) => total + quantity,
 					0
 				);
@@ -119,15 +119,15 @@ store< MiniCart >(
 
 			get formattedSubtotal(): string {
 				const subtotal = displayCartPriceIncludingTax
-					? parseInt( woocommerceState.cart.totals.total_items, 10 ) +
+					? parseInt( poocommerceState.cart.totals.total_items, 10 ) +
 					  parseInt(
-							woocommerceState.cart.totals.total_items_tax,
+							poocommerceState.cart.totals.total_items_tax,
 							10
 					  )
-					: parseInt( woocommerceState.cart.totals.total_items, 10 );
+					: parseInt( poocommerceState.cart.totals.total_items, 10 );
 
 				const normalizedCurrency = normalizeCurrencyResponse(
-					woocommerceState.cart.totals,
+					poocommerceState.cart.totals,
 					currency
 				);
 
@@ -177,7 +177,7 @@ store< MiniCart >(
 			get shouldShowTaxLabel(): boolean {
 				return (
 					parseInt(
-						woocommerceState.cart.totals.total_items_tax,
+						poocommerceState.cart.totals.total_items_tax,
 						10
 					) > 0
 				);
@@ -242,7 +242,7 @@ store< MiniCart >(
 );
 
 const { state: cartItemState } = store(
-	'woocommerce/mini-cart-products-table-block',
+	'poocommerce/mini-cart-products-table-block',
 	{
 		state: {
 			// As a workaround for a bug in context of wp-each we use state to
@@ -251,16 +251,16 @@ const { state: cartItemState } = store(
 			get cartItem() {
 				const {
 					cartItem: { id },
-				} = getContext< CartItemContext >( 'woocommerce' );
+				} = getContext< CartItemContext >( 'poocommerce' );
 
-				return woocommerceState.cart.items.find(
+				return poocommerceState.cart.items.find(
 					( item ) => item.id === id
 				) as CartItem;
 			},
 
 			get currency(): Currency {
 				return normalizeCurrencyResponse(
-					woocommerceState.cart.totals,
+					poocommerceState.cart.totals,
 					currency
 				);
 			},
@@ -306,7 +306,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -359,7 +359,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -439,7 +439,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -479,7 +479,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -505,7 +505,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -551,7 +551,7 @@ const { state: cartItemState } = store(
 								arg: {
 									context: 'cart',
 									cartItem: cartItemState.cartItem,
-									cart: woocommerceState.cart,
+									cart: poocommerceState.cart,
 								},
 							}
 						);
@@ -605,7 +605,7 @@ const { state: cartItemState } = store(
 							arg: {
 								context: 'cart',
 								cartItem: cartItemState.cartItem,
-								cart: woocommerceState.cart,
+								cart: poocommerceState.cart,
 							},
 					  } )
 					: true;
@@ -741,7 +741,7 @@ const { state: cartItemState } = store(
 							arg: {
 								context: 'cart',
 								cartItem: cartItemState.cartItem,
-								cart: woocommerceState.cart,
+								cart: poocommerceState.cart,
 							},
 						} );
 
@@ -761,7 +761,7 @@ const { state: cartItemState } = store(
 );
 
 store(
-	'woocommerce/mini-cart-title-items-counter-block',
+	'poocommerce/mini-cart-title-items-counter-block',
 	{
 		state: {
 			get itemsInCartText() {

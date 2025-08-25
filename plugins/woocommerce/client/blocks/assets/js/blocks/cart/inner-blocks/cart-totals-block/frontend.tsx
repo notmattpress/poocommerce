@@ -2,7 +2,7 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { Sidebar } from '@woocommerce/base-components/sidebar-layout';
+import { Sidebar } from '@poocommerce/base-components/sidebar-layout';
 
 /**
  * Internal dependencies

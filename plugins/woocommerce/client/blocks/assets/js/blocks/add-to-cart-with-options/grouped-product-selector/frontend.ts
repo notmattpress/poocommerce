@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store, getContext, getConfig } from '@wordpress/interactivity';
-import type { ClientCartItem } from '@woocommerce/stores/woocommerce/cart';
+import type { ClientCartItem } from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ export type GroupedProductAddToCartWithOptionsStore =
 	};
 
 const { actions } = store< GroupedProductAddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		actions: {
 			setQuantity( value: number ) {
@@ -46,8 +46,8 @@ const { actions } = store< GroupedProductAddToCartWithOptionsStore >(
 			},
 			*addToCart() {
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const {
 					quantity,
@@ -76,8 +76,8 @@ const { actions } = store< GroupedProductAddToCartWithOptionsStore >(
 					} );
 				}
 
-				const { actions: wooActions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions: wooActions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);

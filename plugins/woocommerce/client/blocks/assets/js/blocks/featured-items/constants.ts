@@ -4,6 +4,6 @@ export const DEFAULT_EDITOR_SIZE = {
 } as const;
 
 export const BLOCK_NAMES = {
-	featuredCategory: 'woocommerce/featured-category',
-	featuredProduct: 'woocommerce/featured-product',
+	featuredCategory: 'poocommerce/featured-category',
+	featuredProduct: 'poocommerce/featured-product',
 } as const;

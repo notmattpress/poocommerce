@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createClient } from '@woocommerce/e2e-utils-playwright';
+import { createClient } from '@poocommerce/e2e-utils-playwright';
 /**
  * Internal dependencies
  */

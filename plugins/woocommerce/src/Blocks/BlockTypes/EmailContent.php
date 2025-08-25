@@ -1,9 +1,9 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
 
 /**
  * EmailContent class.

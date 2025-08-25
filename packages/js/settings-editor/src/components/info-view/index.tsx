@@ -27,7 +27,7 @@ export const InfoView = ( { text, className, css = '' }: InfoViewProps ) => {
 	return (
 		<div
 			ref={ ref }
-			className={ clsx( 'woocommerce-settings-info-view', className ) }
+			className={ clsx( 'poocommerce-settings-info-view', className ) }
 			dangerouslySetInnerHTML={ {
 				__html: sanitizeHTML( text ?? '' ),
 			} }

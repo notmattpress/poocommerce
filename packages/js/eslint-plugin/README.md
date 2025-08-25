@@ -1,8 +1,8 @@
 # ESLint Plugin
 
-This is an [ESLint](https://eslint.org/) plugin including configurations and custom rules for WooCommerce development.
+This is an [ESLint](https://eslint.org/) plugin including configurations and custom rules for PooCommerce development.
 
-**Note:** This primarily extends the [`@wordpress/eslint-plugin/recommended`](https://github.com/WordPress/gutenberg/tree/trunk/packages/eslint-plugin) ruleset and does not change any of the rules exposed on that plugin. As a base, all WooCommerce projects are expected to follow WordPress JavaScript Code Styles.
+**Note:** This primarily extends the [`@wordpress/eslint-plugin/recommended`](https://github.com/WordPress/gutenberg/tree/trunk/packages/eslint-plugin) ruleset and does not change any of the rules exposed on that plugin. As a base, all PooCommerce projects are expected to follow WordPress JavaScript Code Styles.
 
 However, this ruleset does implement the following (which do not conflict with WordPress standards):
 
@@ -17,7 +17,7 @@ However, this ruleset does implement the following (which do not conflict with W
 Install the module
 
 ```bash
-pnpm install @woocommerce/eslint-plugin --save-dev
+pnpm install @poocommerce/eslint-plugin --save-dev
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ To opt-in to the default configuration, extend your own project's `.eslintrc.js`
 
 ```js
 module.exports = {
-  "extends": [ "plugin:@woocommerce/eslint-plugin/recommended" ]
+  "extends": [ "plugin:@poocommerce/eslint-plugin/recommended" ]
 }
 ```
 

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * Block type for grouped product selector in add to cart with options.
@@ -35,7 +35,7 @@ class GroupedProductSelector extends AbstractBlock {
 
 			$p = new \WP_HTML_Tag_Processor( $content );
 
-			if ( $p->next_tag( array( 'class_name' => 'wp-block-woocommerce-add-to-cart-with-options-grouped-product-selector' ) ) ) {
+			if ( $p->next_tag( array( 'class_name' => 'wp-block-poocommerce-add-to-cart-with-options-grouped-product-selector' ) ) ) {
 				$p->set_attribute( 'data-wp-watch--validate', 'callbacks.validateGrouped' );
 			}
 

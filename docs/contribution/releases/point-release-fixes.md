@@ -1,12 +1,12 @@
 ---
-post_title: Point Release Requests in WooCommerce
+post_title: Point Release Requests in PooCommerce
 sidebar_label: Point Release Requests
 sidebar_position: 4
 ---
 
-# Point Release Requests in WooCommerce
+# Point Release Requests in PooCommerce
 
-Point releases address critical issues discovered in already-shipped WooCommerce versions. These are patch releases (e.g., 9.9.0 → 9.9.1) that contain only essential fixes for production environments.
+Point releases address critical issues discovered in already-shipped PooCommerce versions. These are patch releases (e.g., 9.9.0 → 9.9.1) that contain only essential fixes for production environments.
 
 Note that this process applies only to ALREADY-RELEASED VERSIONS that are in customer production environments.
 
@@ -43,7 +43,7 @@ Changes qualify for point releases only if they are:
 
 1. **Create a pull request** against the appropriate release branch (e.g., `release/9.9` for a fix targeting 9.9.x releases)
 
-2. **Create a point release request issue** using the [point release template](https://github.com/woocommerce/woocommerce/issues/new?template=new-prr-template.yml) in the main repository
+2. **Create a point release request issue** using the [point release template](https://github.com/poocommerce/poocommerce/issues/new?template=new-prr-template.yml) in the main repository
 
 3. **Provide detailed justification** in the issue including:
     - Impact assessment (how many customers affected)

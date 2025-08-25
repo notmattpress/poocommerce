@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Templates;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Templates;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
 use WP_Block_Template;
 
 /**
@@ -20,7 +20,7 @@ class Templates {
 	 *
 	 * @var string $plugin_slug
 	 */
-	private string $template_prefix = 'woocommerce';
+	private string $template_prefix = 'poocommerce';
 	/**
 	 * The post type.
 	 *
@@ -57,7 +57,7 @@ class Templates {
 	public function initialize( array $post_types ): void {
 		$this->post_types = $post_types;
 		add_filter( 'theme_templates', array( $this, 'add_theme_templates' ), 10, 4 ); // Workaround needed when saving post – template association.
-		add_filter( 'woocommerce_email_editor_register_templates', array( $this, 'register_templates' ) );
+		add_filter( 'poocommerce_email_editor_register_templates', array( $this, 'register_templates' ) );
 		$this->templates_registry->initialize();
 		$this->register_post_types_to_api();
 	}
@@ -87,8 +87,8 @@ class Templates {
 		$general_email = new Template(
 			$this->template_prefix,
 			$general_email_slug,
-			__( 'General Email', 'woocommerce' ),
-			__( 'A general template for emails.', 'woocommerce' ),
+			__( 'General Email', 'poocommerce' ),
+			__( 'A general template for emails.', 'poocommerce' ),
 			(string) file_get_contents( $this->template_directory . $template_filename ),
 			$this->post_types
 		);

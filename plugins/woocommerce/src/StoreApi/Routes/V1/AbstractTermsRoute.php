@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
 use WP_Term_Query;
 
 /**
@@ -26,7 +26,7 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		$params['context']['default'] = 'view';
 
 		$params['page'] = array(
-			'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+			'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 1,
 			'sanitize_callback' => 'absint',
@@ -35,7 +35,7 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		);
 
 		$params['per_page'] = array(
-			'description'       => __( 'Maximum number of items to be returned in result set. Defaults to no limit if left blank.', 'woocommerce' ),
+			'description'       => __( 'Maximum number of items to be returned in result set. Defaults to no limit if left blank.', 'poocommerce' ),
 			'type'              => 'integer',
 			'minimum'           => 0,
 			'maximum'           => 100,
@@ -44,14 +44,14 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		);
 
 		$params['search'] = array(
-			'description'       => __( 'Limit results to those matching a string.', 'woocommerce' ),
+			'description'       => __( 'Limit results to those matching a string.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['exclude'] = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'woocommerce' ),
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -61,7 +61,7 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		);
 
 		$params['include'] = array(
-			'description'       => __( 'Limit result set to specific ids.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to specific ids.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type' => 'integer',
@@ -71,7 +71,7 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		);
 
 		$params['order'] = array(
-			'description'       => __( 'Sort ascending or descending.', 'woocommerce' ),
+			'description'       => __( 'Sort ascending or descending.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'asc',
 			'enum'              => array( 'asc', 'desc' ),
@@ -79,7 +79,7 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		);
 
 		$params['orderby'] = array(
-			'description'       => __( 'Sort by term property.', 'woocommerce' ),
+			'description'       => __( 'Sort by term property.', 'poocommerce' ),
 			'type'              => 'string',
 			'default'           => 'name',
 			'enum'              => array(
@@ -91,7 +91,7 @@ abstract class AbstractTermsRoute extends AbstractRoute {
 		);
 
 		$params['hide_empty'] = array(
-			'description' => __( 'If true, empty terms will not be returned.', 'woocommerce' ),
+			'description' => __( 'If true, empty terms will not be returned.', 'poocommerce' ),
 			'type'        => 'boolean',
 			'default'     => true,
 		);

@@ -25,23 +25,23 @@ export function WritingMenu() {
 	}
 
 	return (
-		<MenuGroup label={ __( 'View', 'woocommerce' ) }>
+		<MenuGroup label={ __( 'View', 'poocommerce' ) }>
 			<PreferenceToggleMenuItem
 				scope="core"
 				name="fixedToolbar"
 				onToggle={ turnOffDistractionFree }
-				label={ __( 'Top toolbar', 'woocommerce' ) }
+				label={ __( 'Top toolbar', 'poocommerce' ) }
 				info={ __(
 					'Access all block and document tools in a single place',
-					'woocommerce'
+					'poocommerce'
 				) }
 				messageActivated={ __(
 					'Top toolbar activated',
-					'woocommerce'
+					'poocommerce'
 				) }
 				messageDeactivated={ __(
 					'Top toolbar deactivated',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		</MenuGroup>

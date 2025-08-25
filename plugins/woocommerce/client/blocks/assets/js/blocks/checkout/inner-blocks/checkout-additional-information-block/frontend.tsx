@@ -2,14 +2,14 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { FormStep } from '@woocommerce/blocks-components';
-import { ORDER_FORM_KEYS } from '@woocommerce/block-settings';
+import { FormStep } from '@poocommerce/blocks-components';
+import { ORDER_FORM_KEYS } from '@poocommerce/block-settings';
 import { useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
-import { withFilteredAttributes } from '@woocommerce/shared-hocs';
-import { useCheckoutBlockContext } from '@woocommerce/blocks/checkout/context';
-import { useCheckoutAddress } from '@woocommerce/base-context';
-import { useFormFields } from '@woocommerce/base-components/cart-checkout';
+import { checkoutStore } from '@poocommerce/block-data';
+import { withFilteredAttributes } from '@poocommerce/shared-hocs';
+import { useCheckoutBlockContext } from '@poocommerce/blocks/checkout/context';
+import { useCheckoutAddress } from '@poocommerce/base-context';
+import { useFormFields } from '@poocommerce/base-components/cart-checkout';
 
 /**
  * Internal dependencies

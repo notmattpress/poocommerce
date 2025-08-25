@@ -3,9 +3,9 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 import { createElement } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -63,7 +63,7 @@ export const CustomerEffortScoreModalContainer = () => {
 			visibleCESModalData.onSubmitLabel ||
 				__(
 					"Thanks for the feedback. We'll put it to good use!",
-					'woocommerce'
+					'poocommerce'
 				),
 			visibleCESModalData.onSubmitNoticeProps || {}
 		);

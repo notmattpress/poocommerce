@@ -5,11 +5,11 @@
 -   [Replaced classes](#replaced-classes)
 -   [Deprecated classes](#deprecated-classes)
 
-In [WooCommerce Blocks 2.8.0](https://developer.woocommerce.com/2020/06/24/woocommerce-blocks-2-8-release-notes/), we replaced and deprecated some some class names to simplify them, fix inconsistencies, and make it easier to differentiate frontend components from editor components.
+In [PooCommerce Blocks 2.8.0](https://developer.poocommerce.com/2020/06/24/poocommerce-blocks-2-8-release-notes/), we replaced and deprecated some some class names to simplify them, fix inconsistencies, and make it easier to differentiate frontend components from editor components.
 
 ## Replaced classes
 
-Some classes that were introduced in 2.6.0 and 2.7.0 and didn't ship in WooCommerce Core have been replaced by new ones. They can be found in this table:
+Some classes that were introduced in 2.6.0 and 2.7.0 and didn't ship in PooCommerce Core have been replaced by new ones. They can be found in this table:
 
 | Removed                                | New class name                                        |
 | -------------------------------------- | ----------------------------------------------------- |
@@ -62,7 +62,7 @@ In most cases, it should be safe to do a search & replace in the stylesheet repl
 
 ## Deprecated classes
 
-Some classes that were introduced in previous versions or that have shipped in WooCommerce Core, have not been removed but are deprecated. Those classes will not be removed until the next major version but all themes are encouraged to update to the new ones as soon as possible:
+Some classes that were introduced in previous versions or that have shipped in PooCommerce Core, have not been removed but are deprecated. Those classes will not be removed until the next major version but all themes are encouraged to update to the new ones as soon as possible:
 
 | Deprecated                        | New class name                               |
 | --------------------------------- | -------------------------------------------- |
@@ -92,9 +92,9 @@ For example, given that `wc-block-error` changed to `wc-block-components-error`
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/class-names-update-280.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/designers/theming/class-names-update-280.md)
 
 <!-- /FEEDBACK -->
 

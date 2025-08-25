@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Integrations;
+namespace Automattic\PooCommerce\Blocks\Integrations;
 
 /**
  * Class used for tracking registered integrations with various Block types.
@@ -32,7 +32,7 @@ class IntegrationRegistry {
 		}
 
 		if ( empty( $this->registry_identifier ) ) {
-			_doing_it_wrong( __METHOD__, esc_html__( 'Integration registry requires an identifier.', 'woocommerce' ), '4.6.0' );
+			_doing_it_wrong( __METHOD__, esc_html__( 'Integration registry requires an identifier.', 'poocommerce' ), '4.6.0' );
 			return false;
 		}
 
@@ -47,7 +47,7 @@ class IntegrationRegistry {
 		 *
 		 * @param IntegrationRegistry $this Instance of the IntegrationRegistry class which exposes the IntegrationRegistry::register() method.
 		 */
-		do_action( 'woocommerce_blocks_' . $this->registry_identifier . '_registration', $this );
+		do_action( 'poocommerce_blocks_' . $this->registry_identifier . '_registration', $this );
 
 		foreach ( $this->get_all_registered() as $registered_integration ) {
 			$registered_integration->initialize();
@@ -66,7 +66,7 @@ class IntegrationRegistry {
 
 		if ( $this->is_registered( $name ) ) {
 			/* translators: %s: Integration name. */
-			_doing_it_wrong( __METHOD__, esc_html( sprintf( __( '"%s" is already registered.', 'woocommerce' ), $name ) ), '4.6.0' );
+			_doing_it_wrong( __METHOD__, esc_html( sprintf( __( '"%s" is already registered.', 'poocommerce' ), $name ) ), '4.6.0' );
 			return false;
 		}
 
@@ -97,7 +97,7 @@ class IntegrationRegistry {
 
 		if ( ! $this->is_registered( $name ) ) {
 			/* translators: %s: Integration name. */
-			_doing_it_wrong( __METHOD__, esc_html( sprintf( __( 'Integration "%s" is not registered.', 'woocommerce' ), $name ) ), '4.6.0' );
+			_doing_it_wrong( __METHOD__, esc_html( sprintf( __( 'Integration "%s" is not registered.', 'poocommerce' ), $name ) ), '4.6.0' );
 			return false;
 		}
 
