@@ -30,13 +30,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -44,7 +44,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -68,25 +68,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-1"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Apricots
                 </span>
@@ -95,26 +95,26 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-1"
+              class=" poocommerce-search-list__item depth-1"
               for="search-list-item-1-2"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-2"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-prefix"
+                  class="poocommerce-search-list__item-prefix"
                 >
                   Apricots
                 </span>
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Clementine
                 </span>
@@ -123,26 +123,26 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-1"
+              class=" poocommerce-search-list__item depth-1"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-prefix"
+                  class="poocommerce-search-list__item-prefix"
                 >
                   Apricots
                 </span>
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elderberry
                 </span>
@@ -151,26 +151,26 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-2"
+              class=" poocommerce-search-list__item depth-2"
               for="search-list-item-1-4"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-4"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-prefix"
+                  class="poocommerce-search-list__item-prefix"
                 >
                   Apricots › Elderberry
                 </span>
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Guava
                 </span>
@@ -179,21 +179,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-5"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Lychee
                 </span>
@@ -202,21 +202,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mulberry
                 </span>
@@ -229,13 +229,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -243,7 +243,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -267,25 +267,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-1"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Apricots
               </span>
@@ -294,26 +294,26 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-1"
+            class=" poocommerce-search-list__item depth-1"
             for="search-list-item-1-2"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-2"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-prefix"
+                class="poocommerce-search-list__item-prefix"
               >
                 Apricots
               </span>
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Clementine
               </span>
@@ -322,26 +322,26 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-1"
+            class=" poocommerce-search-list__item depth-1"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-prefix"
+                class="poocommerce-search-list__item-prefix"
               >
                 Apricots
               </span>
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elderberry
               </span>
@@ -350,26 +350,26 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-2"
+            class=" poocommerce-search-list__item depth-2"
             for="search-list-item-1-4"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-4"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-prefix"
+                class="poocommerce-search-list__item-prefix"
               >
                 Apricots › Elderberry
               </span>
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Guava
               </span>
@@ -378,21 +378,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-5"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Lychee
               </span>
@@ -401,21 +401,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mulberry
               </span>
@@ -509,13 +509,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -523,7 +523,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -547,25 +547,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-1"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Apricots
                 </span>
@@ -574,21 +574,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-2"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-2"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Clementine
                 </span>
@@ -597,21 +597,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elderberry
                 </span>
@@ -620,21 +620,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-4"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-4"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Guava
                 </span>
@@ -643,21 +643,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-5"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Lychee
                 </span>
@@ -666,21 +666,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mulberry
                 </span>
@@ -693,13 +693,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -707,7 +707,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -731,25 +731,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-1"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Apricots
               </span>
@@ -758,21 +758,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-2"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-2"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Clementine
               </span>
@@ -781,21 +781,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elderberry
               </span>
@@ -804,21 +804,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-4"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-4"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Guava
               </span>
@@ -827,21 +827,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-5"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Lychee
               </span>
@@ -850,21 +850,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mulberry
               </span>
@@ -958,13 +958,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list test-search"
+        class="poocommerce-search-list test-search"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -972,7 +972,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -996,25 +996,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-1"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Apricots
                 </span>
@@ -1023,21 +1023,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-2"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-2"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Clementine
                 </span>
@@ -1046,21 +1046,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elderberry
                 </span>
@@ -1069,21 +1069,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-4"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-4"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Guava
                 </span>
@@ -1092,21 +1092,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-5"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Lychee
                 </span>
@@ -1115,21 +1115,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mulberry
                 </span>
@@ -1142,13 +1142,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list test-search"
+      class="poocommerce-search-list test-search"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -1156,7 +1156,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -1180,25 +1180,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-1"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Apricots
               </span>
@@ -1207,21 +1207,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-2"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-2"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Clementine
               </span>
@@ -1230,21 +1230,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elderberry
               </span>
@@ -1253,21 +1253,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-4"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-4"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Guava
               </span>
@@ -1276,21 +1276,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-5"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Lychee
               </span>
@@ -1299,21 +1299,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mulberry
               </span>
@@ -1407,13 +1407,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -1421,7 +1421,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -1445,7 +1445,7 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <div>
@@ -1489,13 +1489,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -1503,7 +1503,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -1527,7 +1527,7 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <div>
@@ -1652,13 +1652,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -1666,7 +1666,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -1690,25 +1690,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-1"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Apricots
                 </span>
@@ -1717,21 +1717,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-2"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-2"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Clementine
                 </span>
@@ -1740,21 +1740,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elderberry
                 </span>
@@ -1763,21 +1763,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-4"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-4"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Guava
                 </span>
@@ -1786,21 +1786,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-5"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Lychee
                 </span>
@@ -1809,21 +1809,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mulberry
                 </span>
@@ -1836,13 +1836,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -1850,7 +1850,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -1874,25 +1874,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-1"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Apricots
               </span>
@@ -1901,21 +1901,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-2"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-2"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Clementine
               </span>
@@ -1924,21 +1924,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elderberry
               </span>
@@ -1947,21 +1947,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-4"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-4"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Guava
               </span>
@@ -1970,21 +1970,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-5"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Lychee
               </span>
@@ -1993,21 +1993,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mulberry
               </span>
@@ -2101,13 +2101,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -2115,7 +2115,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2139,10 +2139,10 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__list is-not-found"
+          class="poocommerce-search-list__list is-not-found"
         >
           <span
-            class="woocommerce-search-list__not-found-icon"
+            class="poocommerce-search-list__not-found-icon"
           >
             <svg
               aria-hidden="true"
@@ -2162,7 +2162,7 @@ Object {
             </svg>
           </span>
           <span
-            class="woocommerce-search-list__not-found-text"
+            class="poocommerce-search-list__not-found-text"
           >
             No items found.
           </span>
@@ -2172,13 +2172,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -2186,7 +2186,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2210,10 +2210,10 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__list is-not-found"
+        class="poocommerce-search-list__list is-not-found"
       >
         <span
-          class="woocommerce-search-list__not-found-icon"
+          class="poocommerce-search-list__not-found-icon"
         >
           <svg
             aria-hidden="true"
@@ -2233,7 +2233,7 @@ Object {
           </svg>
         </span>
         <span
-          class="woocommerce-search-list__not-found-text"
+          class="poocommerce-search-list__not-found-text"
         >
           No items found.
         </span>
@@ -2324,13 +2324,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -2338,7 +2338,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2362,10 +2362,10 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__list is-not-found"
+          class="poocommerce-search-list__list is-not-found"
         >
           <span
-            class="woocommerce-search-list__not-found-icon"
+            class="poocommerce-search-list__not-found-icon"
           >
             <svg
               aria-hidden="true"
@@ -2385,7 +2385,7 @@ Object {
             </svg>
           </span>
           <span
-            class="woocommerce-search-list__not-found-text"
+            class="poocommerce-search-list__not-found-text"
           >
             No results for no matches
           </span>
@@ -2395,13 +2395,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -2409,7 +2409,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2433,10 +2433,10 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__list is-not-found"
+        class="poocommerce-search-list__list is-not-found"
       >
         <span
-          class="woocommerce-search-list__not-found-icon"
+          class="poocommerce-search-list__not-found-icon"
         >
           <svg
             aria-hidden="true"
@@ -2456,7 +2456,7 @@ Object {
           </svg>
         </span>
         <span
-          class="woocommerce-search-list__not-found-text"
+          class="poocommerce-search-list__not-found-text"
         >
           No results for no matches
         </span>
@@ -2547,13 +2547,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -2561,7 +2561,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2585,25 +2585,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elder
                   <strong>
@@ -2615,21 +2615,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mul
                   <strong>
@@ -2645,13 +2645,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -2659,7 +2659,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2683,25 +2683,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elder
                 <strong>
@@ -2713,21 +2713,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mul
                 <strong>
@@ -2824,13 +2824,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               0 items selected
@@ -2838,7 +2838,7 @@ Object {
           </div>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2862,25 +2862,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elder
                   <strong>
@@ -2892,21 +2892,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mul
                   <strong>
@@ -2922,13 +2922,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             0 items selected
@@ -2936,7 +2936,7 @@ Object {
         </div>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -2960,25 +2960,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elder
                 <strong>
@@ -2990,21 +2990,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mul
                 <strong>
@@ -3101,13 +3101,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               1 item selected
@@ -3123,11 +3123,11 @@ Object {
           <ul>
             <li>
               <span
-                class="woocommerce-tag has-remove"
+                class="poocommerce-tag has-remove"
               >
                 <span
-                  class="woocommerce-tag__text"
-                  id="woocommerce-tag__label-0"
+                  class="poocommerce-tag__text"
+                  id="poocommerce-tag__label-0"
                 >
                   <span
                     class="screen-reader-text"
@@ -3141,9 +3141,9 @@ Object {
                   </span>
                 </span>
                 <button
-                  aria-describedby="woocommerce-tag__label-0"
+                  aria-describedby="poocommerce-tag__label-0"
                   aria-label="Remove Clementine"
-                  class="components-button woocommerce-tag__remove"
+                  class="components-button poocommerce-tag__remove"
                   type="button"
                 >
                   <svg
@@ -3165,7 +3165,7 @@ Object {
           </ul>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -3189,25 +3189,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-1"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Apricots
                 </span>
@@ -3216,22 +3216,22 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-2"
             >
               <input
                 checked=""
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-2"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Clementine
                 </span>
@@ -3240,21 +3240,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elderberry
                 </span>
@@ -3263,21 +3263,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-4"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-4"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Guava
                 </span>
@@ -3286,21 +3286,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-5"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Lychee
                 </span>
@@ -3309,21 +3309,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mulberry
                 </span>
@@ -3336,13 +3336,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             1 item selected
@@ -3358,11 +3358,11 @@ Object {
         <ul>
           <li>
             <span
-              class="woocommerce-tag has-remove"
+              class="poocommerce-tag has-remove"
             >
               <span
-                class="woocommerce-tag__text"
-                id="woocommerce-tag__label-0"
+                class="poocommerce-tag__text"
+                id="poocommerce-tag__label-0"
               >
                 <span
                   class="screen-reader-text"
@@ -3376,9 +3376,9 @@ Object {
                 </span>
               </span>
               <button
-                aria-describedby="woocommerce-tag__label-0"
+                aria-describedby="poocommerce-tag__label-0"
                 aria-label="Remove Clementine"
-                class="components-button woocommerce-tag__remove"
+                class="components-button poocommerce-tag__remove"
                 type="button"
               >
                 <svg
@@ -3400,7 +3400,7 @@ Object {
         </ul>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -3424,25 +3424,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-1"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Apricots
               </span>
@@ -3451,22 +3451,22 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-2"
           >
             <input
               checked=""
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-2"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Clementine
               </span>
@@ -3475,21 +3475,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elderberry
               </span>
@@ -3498,21 +3498,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-4"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-4"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Guava
               </span>
@@ -3521,21 +3521,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-5"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Lychee
               </span>
@@ -3544,21 +3544,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mulberry
               </span>
@@ -3652,13 +3652,13 @@ Object {
     />
     <div>
       <div
-        class="woocommerce-search-list"
+        class="poocommerce-search-list"
       >
         <div
-          class="woocommerce-search-list__selected"
+          class="poocommerce-search-list__selected"
         >
           <div
-            class="woocommerce-search-list__selected-header"
+            class="poocommerce-search-list__selected-header"
           >
             <strong>
               2 items selected
@@ -3674,11 +3674,11 @@ Object {
           <ul>
             <li>
               <span
-                class="woocommerce-tag has-remove"
+                class="poocommerce-tag has-remove"
               >
                 <span
-                  class="woocommerce-tag__text"
-                  id="woocommerce-tag__label-1"
+                  class="poocommerce-tag__text"
+                  id="poocommerce-tag__label-1"
                 >
                   <span
                     class="screen-reader-text"
@@ -3692,9 +3692,9 @@ Object {
                   </span>
                 </span>
                 <button
-                  aria-describedby="woocommerce-tag__label-1"
+                  aria-describedby="poocommerce-tag__label-1"
                   aria-label="Remove Clementine"
-                  class="components-button woocommerce-tag__remove"
+                  class="components-button poocommerce-tag__remove"
                   type="button"
                 >
                   <svg
@@ -3715,11 +3715,11 @@ Object {
             </li>
             <li>
               <span
-                class="woocommerce-tag has-remove"
+                class="poocommerce-tag has-remove"
               >
                 <span
-                  class="woocommerce-tag__text"
-                  id="woocommerce-tag__label-2"
+                  class="poocommerce-tag__text"
+                  id="poocommerce-tag__label-2"
                 >
                   <span
                     class="screen-reader-text"
@@ -3733,9 +3733,9 @@ Object {
                   </span>
                 </span>
                 <button
-                  aria-describedby="woocommerce-tag__label-2"
+                  aria-describedby="poocommerce-tag__label-2"
                   aria-label="Remove Guava"
-                  class="components-button woocommerce-tag__remove"
+                  class="components-button poocommerce-tag__remove"
                   type="button"
                 >
                   <svg
@@ -3757,7 +3757,7 @@ Object {
           </ul>
         </div>
         <div
-          class="woocommerce-search-list__search"
+          class="poocommerce-search-list__search"
         >
           <div
             class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -3781,25 +3781,25 @@ Object {
           </div>
         </div>
         <ul
-          class="woocommerce-search-list__list"
+          class="poocommerce-search-list__list"
         >
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-1"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-1"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Apricots
                 </span>
@@ -3808,22 +3808,22 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-2"
             >
               <input
                 checked=""
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-2"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Clementine
                 </span>
@@ -3832,21 +3832,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-3"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-3"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Elderberry
                 </span>
@@ -3855,22 +3855,22 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-4"
             >
               <input
                 checked=""
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-4"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Guava
                 </span>
@@ -3879,21 +3879,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-5"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-5"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Lychee
                 </span>
@@ -3902,21 +3902,21 @@ Object {
           </li>
           <li>
             <label
-              class=" woocommerce-search-list__item depth-0"
+              class=" poocommerce-search-list__item depth-0"
               for="search-list-item-1-6"
             >
               <input
-                class="woocommerce-search-list__item-input"
+                class="poocommerce-search-list__item-input"
                 id="search-list-item-1-6"
                 name="search-list-item-1"
                 type="checkbox"
                 value=""
               />
               <span
-                class="woocommerce-search-list__item-label"
+                class="poocommerce-search-list__item-label"
               >
                 <span
-                  class="woocommerce-search-list__item-name"
+                  class="poocommerce-search-list__item-name"
                 >
                   Mulberry
                 </span>
@@ -3929,13 +3929,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="woocommerce-search-list"
+      class="poocommerce-search-list"
     >
       <div
-        class="woocommerce-search-list__selected"
+        class="poocommerce-search-list__selected"
       >
         <div
-          class="woocommerce-search-list__selected-header"
+          class="poocommerce-search-list__selected-header"
         >
           <strong>
             2 items selected
@@ -3951,11 +3951,11 @@ Object {
         <ul>
           <li>
             <span
-              class="woocommerce-tag has-remove"
+              class="poocommerce-tag has-remove"
             >
               <span
-                class="woocommerce-tag__text"
-                id="woocommerce-tag__label-1"
+                class="poocommerce-tag__text"
+                id="poocommerce-tag__label-1"
               >
                 <span
                   class="screen-reader-text"
@@ -3969,9 +3969,9 @@ Object {
                 </span>
               </span>
               <button
-                aria-describedby="woocommerce-tag__label-1"
+                aria-describedby="poocommerce-tag__label-1"
                 aria-label="Remove Clementine"
-                class="components-button woocommerce-tag__remove"
+                class="components-button poocommerce-tag__remove"
                 type="button"
               >
                 <svg
@@ -3992,11 +3992,11 @@ Object {
           </li>
           <li>
             <span
-              class="woocommerce-tag has-remove"
+              class="poocommerce-tag has-remove"
             >
               <span
-                class="woocommerce-tag__text"
-                id="woocommerce-tag__label-2"
+                class="poocommerce-tag__text"
+                id="poocommerce-tag__label-2"
               >
                 <span
                   class="screen-reader-text"
@@ -4010,9 +4010,9 @@ Object {
                 </span>
               </span>
               <button
-                aria-describedby="woocommerce-tag__label-2"
+                aria-describedby="poocommerce-tag__label-2"
                 aria-label="Remove Guava"
-                class="components-button woocommerce-tag__remove"
+                class="components-button poocommerce-tag__remove"
                 type="button"
               >
                 <svg
@@ -4034,7 +4034,7 @@ Object {
         </ul>
       </div>
       <div
-        class="woocommerce-search-list__search"
+        class="poocommerce-search-list__search"
       >
         <div
           class="components-base-control css-ij2po-Wrapper-boxSizingReset ej5x27r4"
@@ -4058,25 +4058,25 @@ Object {
         </div>
       </div>
       <ul
-        class="woocommerce-search-list__list"
+        class="poocommerce-search-list__list"
       >
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-1"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-1"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Apricots
               </span>
@@ -4085,22 +4085,22 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-2"
           >
             <input
               checked=""
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-2"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Clementine
               </span>
@@ -4109,21 +4109,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-3"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-3"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Elderberry
               </span>
@@ -4132,22 +4132,22 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-4"
           >
             <input
               checked=""
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-4"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Guava
               </span>
@@ -4156,21 +4156,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-5"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-5"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Lychee
               </span>
@@ -4179,21 +4179,21 @@ Object {
         </li>
         <li>
           <label
-            class=" woocommerce-search-list__item depth-0"
+            class=" poocommerce-search-list__item depth-0"
             for="search-list-item-1-6"
           >
             <input
-              class="woocommerce-search-list__item-input"
+              class="poocommerce-search-list__item-input"
               id="search-list-item-1-6"
               name="search-list-item-1"
               type="checkbox"
               value=""
             />
             <span
-              class="woocommerce-search-list__item-label"
+              class="poocommerce-search-list__item-label"
             >
               <span
-                class="woocommerce-search-list__item-name"
+                class="poocommerce-search-list__item-name"
               >
                 Mulberry
               </span>

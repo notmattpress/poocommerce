@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, wpCLI } from '@woocommerce/e2e-utils';
+import { test as base, expect, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-custom-product-type'
+			'poocommerce-blocks-test-custom-product-type'
 		);
 
 		await pageObject.updateSingleProductTemplate();
@@ -115,15 +115,15 @@ test.describe( 'Add to Cart + Options Block', () => {
 		// We update to the Product Gallery block to test that it scrolls to the
 		// correct variation image.
 		const productImageGalleryBlock = await editor.getBlockByName(
-			'woocommerce/product-image-gallery'
+			'poocommerce/product-image-gallery'
 		);
 		await editor.selectBlocks( productImageGalleryBlock );
-		await editor.transformBlockTo( 'woocommerce/product-gallery' );
+		await editor.transformBlockTo( 'poocommerce/product-gallery' );
 
 		// We insert the blockified Product Details block to test that it updates
 		// with the correct variation data.
 		await editor.insertBlock( {
-			name: 'woocommerce/product-details',
+			name: 'poocommerce/product-details',
 		} );
 
 		await editor.saveSiteEditorEntities( {
@@ -140,7 +140,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		const colorRedOption = page.locator( 'label:has-text("Red")' );
 		const addToCartButton = page.getByText( 'Add to cart' ).first();
 		const productPrice = page
-			.locator( '.wp-block-woocommerce-product-price' )
+			.locator( '.wp-block-poocommerce-product-price' )
 			.first();
 
 		await test.step( 'displays an error when attributes are not selected', async () => {
@@ -321,7 +321,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		).toBeVisible();
 
 		const attributeOptionsBlock = await editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options-variation-selector-attribute-options'
+			'poocommerce/add-to-cart-with-options-variation-selector-attribute-options'
 		);
 		await editor.selectBlocks( attributeOptionsBlock.first() );
 
@@ -359,7 +359,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		requestUtils,
 	} ) => {
 		await requestUtils.activatePlugin(
-			'woocommerce-blocks-test-quantity-constraints'
+			'poocommerce-blocks-test-quantity-constraints'
 		);
 		await pageObject.updateSingleProductTemplate();
 
@@ -530,7 +530,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_enable_ajax_add_to_cart no` );
+		await wpCLI( `option set poocommerce_enable_ajax_add_to_cart no` );
 
 		await pageObject.updateSingleProductTemplate();
 
@@ -554,7 +554,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_cart_redirect_after_add yes` );
+		await wpCLI( `option set poocommerce_cart_redirect_after_add yes` );
 
 		await pageObject.updateSingleProductTemplate();
 
@@ -580,7 +580,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_cart_redirect_after_add yes` );
+		await wpCLI( `option set poocommerce_cart_redirect_after_add yes` );
 
 		await pageObject.updateSingleProductTemplate();
 
@@ -612,7 +612,7 @@ test.describe( 'Add to Cart + Options Block', () => {
 		pageObject,
 		editor,
 	} ) => {
-		await wpCLI( `option set woocommerce_cart_redirect_after_add yes` );
+		await wpCLI( `option set poocommerce_cart_redirect_after_add yes` );
 
 		await pageObject.updateSingleProductTemplate();
 

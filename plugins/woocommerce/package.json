@@ -1,19 +1,19 @@
 {
-	"name": "@woocommerce/plugin-woocommerce",
+	"name": "@poocommerce/plugin-poocommerce",
 	"private": true,
-	"title": "WooCommerce",
+	"title": "PooCommerce",
 	"version": "10.3.0",
-	"homepage": "https://woocommerce.com/",
+	"homepage": "https://poocommerce.com/",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"build": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"$npm_package_name...\" '/^build:project:.*$/'",
-		"build:admin": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"@woocommerce/admin-library...\" --filter=\"$npm_package_name\" '/^build:project:.*$/'",
-		"build:blocks": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"@woocommerce/block-library...\" --filter=\"$npm_package_name\" '/^build:project:.*$/'",
-		"build:classic-assets": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"@woocommerce/classic-assets...\" --filter=\"$npm_package_name\" '/^build:project:.*$/'",
+		"build:admin": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"@poocommerce/admin-library...\" --filter=\"$npm_package_name\" '/^build:project:.*$/'",
+		"build:blocks": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"@poocommerce/block-library...\" --filter=\"$npm_package_name\" '/^build:project:.*$/'",
+		"build:classic-assets": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"@poocommerce/classic-assets...\" --filter=\"$npm_package_name\" '/^build:project:.*$/'",
 		"build:zip": "./bin/build-zip.sh",
 		"build:project": "pnpm --if-present '/^build:project:.*$/'",
 		"build:project:copy-assets:legacy": "rsync -avhW --checksum --delete --quiet client/legacy/build/css/ assets/css && rsync -avhW --checksum --delete --quiet client/legacy/build/js/ assets/js",
@@ -29,12 +29,12 @@
 		"env:performance-init": "./tests/performance/bin/init-sample-products.sh",
 		"env:restart": "pnpm wp-env destroy && pnpm wp-env start --update",
 		"env:start": "pnpm wp-env start",
-		"env:start:blocks": "pnpm --filter='@woocommerce/block-library' env:start && pnpm playwright install chromium",
+		"env:start:blocks": "pnpm --filter='@poocommerce/block-library' env:start && pnpm playwright install chromium",
 		"env:stop": "pnpm wp-env stop",
 		"env:test": "pnpm env:dev",
 		"env:perf": "pnpm env:dev && pnpm env:performance-init",
 		"preinstall": "npx only-allow pnpm",
-		"postinstall": "rimraf -g vendor/woocommerce packages/email-editor packages/blueprint && XDEBUG_MODE=off composer install --quiet",
+		"postinstall": "rimraf -g vendor/poocommerce packages/email-editor packages/blueprint && XDEBUG_MODE=off composer install --quiet",
 		"lint": "pnpm --if-present '/^lint:lang:.*$/'",
 		"lint:changes:branch": "pnpm '/^lint:changes:branch:.*$/'",
 		"lint:fix": "pnpm --if-present '/^lint:fix:lang:.*$/'",
@@ -57,7 +57,7 @@
 		"test:e2e": "pnpm test:e2e:default --project=e2e",
 		"test:e2e:default": "pnpm test:e2e:install && pnpm test:e2e:with-env default",
 		"test:e2e:install": "pnpm playwright install chromium",
-		"test:e2e:blocks": "pnpm --filter='@woocommerce/block-library' test:e2e",
+		"test:e2e:blocks": "pnpm --filter='@poocommerce/block-library' test:e2e",
 		"test:e2e:with-env": "pnpm test:e2e:install && bash ./tests/e2e-pw/run-tests-with-env.sh",
 		"test:e2e:pressable": "pnpm test:e2e:with-env default-pressable",
 		"test:e2e:wpcom": "pnpm test:e2e:with-env default-wpcom",
@@ -72,18 +72,18 @@
 		"test:php:watch": "sh ./client/blocks/bin/copy-blocks-json.sh && ./vendor/bin/phpunit-watcher watch",
 		"test:metrics": "USE_WP_ENV=1 pnpm playwright test --config=tests/metrics/playwright.config.js",
 		"test:metrics:ci": "../../.github/workflows/scripts/run-metrics.sh",
-		"test:php:env": "sh ./client/blocks/bin/copy-blocks-json.sh && wp-env run --env-cwd='wp-content/plugins/woocommerce' tests-cli vendor/bin/phpunit -c phpunit.xml --verbose",
-		"test:php:env:watch": "sh ./client/blocks/bin/copy-blocks-json.sh && wp-env run --env-cwd='wp-content/plugins/woocommerce' tests-cli vendor/bin/phpunit-watcher watch --verbose",
-		"test:plugincheck": "wp-env run tests-cli wp plugin check ${PLUGIN_SLUG:-woocommerce}",
+		"test:php:env": "sh ./client/blocks/bin/copy-blocks-json.sh && wp-env run --env-cwd='wp-content/plugins/poocommerce' tests-cli vendor/bin/phpunit -c phpunit.xml --verbose",
+		"test:php:env:watch": "sh ./client/blocks/bin/copy-blocks-json.sh && wp-env run --env-cwd='wp-content/plugins/poocommerce' tests-cli vendor/bin/phpunit-watcher watch --verbose",
+		"test:plugincheck": "wp-env run tests-cli wp plugin check ${PLUGIN_SLUG:-poocommerce}",
 		"test:unit": "pnpm test:php",
 		"test:unit:watch": "pnpm test:php:watch",
 		"test:unit:env": "pnpm test:php:env",
 		"test:unit:env:watch": "pnpm test:php:env:watch",
 		"update-wp-env": "php ./tests/e2e-pw/bin/update-wp-env.php",
 		"watch:build": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"$npm_package_name...\" --parallel '/^watch:build:project:.*$/'",
-		"watch:build:admin": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"@woocommerce/admin-library...\" --filter=\"$npm_package_name\" --parallel '/^watch:build:project:.*$/'",
-		"watch:build:blocks": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"@woocommerce/block-library...\" --filter=\"$npm_package_name\" --parallel '/^watch:build:project:.*$/'",
-		"watch:build:classic-assets": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"@woocommerce/classic-assets...\" --filter=\"$npm_package_name\" --parallel '/^watch:build:project:.*$/'",
+		"watch:build:admin": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"@poocommerce/admin-library...\" --filter=\"$npm_package_name\" --parallel '/^watch:build:project:.*$/'",
+		"watch:build:blocks": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"@poocommerce/block-library...\" --filter=\"$npm_package_name\" --parallel '/^watch:build:project:.*$/'",
+		"watch:build:classic-assets": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"@poocommerce/classic-assets...\" --filter=\"$npm_package_name\" --parallel '/^watch:build:project:.*$/'",
 		"watch:build:project": "pnpm --if-present run '/^watch:build:project:.*$/'",
 		"watch:build:project:copy-assets": "wireit",
 		"wp-env": "wp-env"
@@ -98,7 +98,7 @@
 		]
 	},
 	"config": {
-		"wp_org_slug": "woocommerce",
+		"wp_org_slug": "poocommerce",
 		"build_step": "pnpm build:zip",
 		"ci": {
 			"lint": {
@@ -236,7 +236,7 @@
 						"templates/**/*.php",
 						"tests/e2e-pw/**",
 						".wp-env.json",
-						"woocommerce.php",
+						"poocommerce.php",
 						"uninstall.php"
 					],
 					"testEnv": {
@@ -268,7 +268,7 @@
 						"tests/e2e-pw/**"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/e2e-utils-playwright"
+						"@poocommerce/e2e-utils-playwright"
 					],
 					"events": [
 						"pull_request",
@@ -299,7 +299,7 @@
 						"tests/e2e-pw/**"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/e2e-utils-playwright"
+						"@poocommerce/e2e-utils-playwright"
 					],
 					"events": [
 						"pull_request",
@@ -325,7 +325,7 @@
 						"tests/e2e-pw/**"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/e2e-utils-playwright"
+						"@poocommerce/e2e-utils-playwright"
 					],
 					"events": [
 						"pull_request",
@@ -357,7 +357,7 @@
 						"tests/e2e-pw/**"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/e2e-utils-playwright"
+						"@poocommerce/e2e-utils-playwright"
 					],
 					"testEnv": {
 						"start": "env:test",
@@ -392,7 +392,7 @@
 						"tests/e2e-pw/**"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/e2e-utils-playwright"
+						"@poocommerce/e2e-utils-playwright"
 					],
 					"testEnv": {
 						"start": "env:test",
@@ -427,7 +427,7 @@
 						"tests/e2e-pw/**"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/e2e-utils-playwright"
+						"@poocommerce/e2e-utils-playwright"
 					],
 					"testEnv": {
 						"start": "env:test",
@@ -463,7 +463,7 @@
 						"tests/e2e-pw/*.js",
 						"tests/e2e-pw/*.sh",
 						".wp-env.json",
-						"woocommerce.php",
+						"poocommerce.php",
 						"uninstall.php"
 					],
 					"onlyForDependencies": [],
@@ -497,7 +497,7 @@
 						"tests/e2e-pw/*.js",
 						"tests/e2e-pw/*.sh",
 						".wp-env.json",
-						"woocommerce.php",
+						"poocommerce.php",
 						"uninstall.php"
 					],
 					"onlyForDependencies": [],
@@ -530,7 +530,7 @@
 						"tests/e2e-pw/*.js",
 						"tests/e2e-pw/*.sh",
 						".wp-env.json",
-						"woocommerce.php",
+						"poocommerce.php",
 						"uninstall.php"
 					],
 					"onlyForDependencies": [],
@@ -582,9 +582,9 @@
 						".wp-env.json"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/admin-library",
-						"@woocommerce/block-library",
-						"@woocommerce/classic-assets"
+						"@poocommerce/admin-library",
+						"@poocommerce/block-library",
+						"@poocommerce/classic-assets"
 					],
 					"testEnv": {
 						"start": "env:test"
@@ -623,7 +623,7 @@
 						"templates/**/*.html"
 					],
 					"onlyForDependencies": [
-						"@woocommerce/block-library"
+						"@poocommerce/block-library"
 					],
 					"testEnv": {
 						"start": "env:start:blocks"
@@ -759,8 +759,8 @@
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
 		"@typescript-eslint/experimental-utils": "^5.62.0",
 		"@typescript-eslint/parser": "^5.62.0",
-		"@woocommerce/e2e-utils-playwright": "workspace:*",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/e2e-utils-playwright": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"@wordpress/browserslist-config": "next",
 		"@wordpress/e2e-test-utils-playwright": "wp-6.8",
 		"@wordpress/env": "10.17.0",
@@ -795,16 +795,16 @@
 		"ie 9"
 	],
 	"dependencies": {
-		"@woocommerce/admin-library": "workspace:*",
-		"@woocommerce/block-library": "workspace:*",
-		"@woocommerce/classic-assets": "workspace:*"
+		"@poocommerce/admin-library": "workspace:*",
+		"@poocommerce/block-library": "workspace:*",
+		"@poocommerce/classic-assets": "workspace:*"
 	},
 	"nodemonConfig": {
 		"delay": 2500,
 		"watch": [
-			"node_modules/@woocommerce/block-library/build",
-			"node_modules/@woocommerce/classic-assets/build",
-			"node_modules/@woocommerce/admin-library/build",
+			"node_modules/@poocommerce/block-library/build",
+			"node_modules/@poocommerce/classic-assets/build",
+			"node_modules/@poocommerce/admin-library/build",
 			"../../packages/php/email-editor/src/",
 			"../../packages/php/blueprint/src/"
 		],
@@ -816,7 +816,7 @@
 			"command": "node ./bin/package-update-textdomain.js",
 			"files": [
 				"packages/action-scheduler/action-scheduler.php",
-				"packages/woocommerce-admin/woocommerce-admin.php"
+				"packages/poocommerce-admin/poocommerce-admin.php"
 			],
 			"output": []
 		},
@@ -828,12 +828,12 @@
 			"allowUsuallyExcludedPaths": true,
 			"files": [
 				"package.json",
-				"node_modules/@woocommerce/admin-library/build",
-				"node_modules/@woocommerce/block-library/build",
-				"node_modules/@woocommerce/classic-assets/build",
-				"node_modules/@woocommerce/eslint-plugin/configs",
-				"node_modules/@woocommerce/eslint-plugin/rules",
-				"node_modules/@woocommerce/eslint-plugin/index.js"
+				"node_modules/@poocommerce/admin-library/build",
+				"node_modules/@poocommerce/block-library/build",
+				"node_modules/@poocommerce/classic-assets/build",
+				"node_modules/@poocommerce/eslint-plugin/configs",
+				"node_modules/@poocommerce/eslint-plugin/rules",
+				"node_modules/@poocommerce/eslint-plugin/index.js"
 			]
 		}
 	}

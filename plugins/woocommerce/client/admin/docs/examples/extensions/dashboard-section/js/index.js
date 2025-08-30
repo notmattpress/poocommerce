@@ -8,14 +8,14 @@ import { wordpress } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 
 /**
- * WooCommerce dependencies
+ * PooCommerce dependencies
  */
 import {
 	EllipsisMenu,
 	MenuTitle,
 	MenuItem,
 	SectionHeader,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -75,11 +75,11 @@ class Section extends Component {
 
 		return (
 			<EllipsisMenu
-				label={ __( 'Choose Apples', 'woocommerce-admin' ) }
+				label={ __( 'Choose Apples', 'poocommerce-admin' ) }
 				renderContent={ ( { onToggle } ) => (
 					<Fragment>
 						<MenuTitle>
-							{ __( 'My Apples', 'woocommerce-admin' ) }
+							{ __( 'My Apples', 'poocommerce-admin' ) }
 						</MenuTitle>
 						{ dashboardItems.map( ( item ) => (
 							<MenuItem
@@ -116,7 +116,7 @@ class Section extends Component {
 		return (
 			<Fragment>
 				<SectionHeader title={ title } menu={ this.renderMenu() } />
-				<div className="woocommerce-dashboard__columns">
+				<div className="poocommerce-dashboard__columns">
 					{ dashboardItems.map( ( item ) => {
 						return hiddenBlocks.includes( item.key ) ? null : (
 							<item.component
@@ -132,7 +132,7 @@ class Section extends Component {
 }
 
 addFilter(
-	'woocommerce_dashboard_default_sections',
+	'poocommerce_dashboard_default_sections',
 	'plugin-domain',
 	( sections ) => {
 		return [
@@ -140,7 +140,7 @@ addFilter(
 			{
 				key: 'dashboard-apples',
 				component: Section,
-				title: __( 'Apples', 'woocommerce-admin' ),
+				title: __( 'Apples', 'poocommerce-admin' ),
 				isVisible: true,
 				icon: wordpress,
 				hiddenBlocks: [],

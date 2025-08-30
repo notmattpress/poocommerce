@@ -9,7 +9,7 @@ import {
 	AlignmentToolbar,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import HeadingToolbar from '@woocommerce/editor-components/heading-toolbar';
+import HeadingToolbar from '@poocommerce/editor-components/heading-toolbar';
 
 /**
  * Internal dependencies
@@ -46,9 +46,9 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Link settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Link settings', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Make title a link', 'woocommerce' ) }
+						label={ __( 'Make title a link', 'poocommerce' ) }
 						checked={ showProductLink }
 						onChange={ () =>
 							setAttributes( {
@@ -59,7 +59,7 @@ const TitleEdit = ( { attributes, setAttributes }: Props ): JSX.Element => {
 					{ showProductLink && (
 						<>
 							<ToggleControl
-								label={ __( 'Open in new tab', 'woocommerce' ) }
+								label={ __( 'Open in new tab', 'poocommerce' ) }
 								onChange={ ( value ) =>
 									setAttributes( {
 										linkTarget: value ? '_blank' : '_self',

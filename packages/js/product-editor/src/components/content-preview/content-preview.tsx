@@ -66,9 +66,9 @@ export function ContentPreview( { content }: ContentPreviewProps ) {
 	}, [] );
 
 	return (
-		<div className="woocommerce-content-preview">
+		<div className="poocommerce-content-preview">
 			<Iframe
-				className="woocommerce-content-preview__iframe"
+				className="poocommerce-content-preview__iframe"
 				tabIndex={ -1 }
 			>
 				<>
@@ -79,7 +79,7 @@ export function ContentPreview( { content }: ContentPreviewProps ) {
 								}` }
 					</style>
 					<div
-						className="woocommerce-content-preview__content"
+						className="poocommerce-content-preview__content"
 						dangerouslySetInnerHTML={ sanitizeHTML( content, {
 							tags: CONTENT_TAGS,
 							attr: CONTENT_ATTR,

@@ -8,7 +8,7 @@ import {
 	RadioControl,
 	TextareaControl,
 } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import { __ } from '@wordpress/i18n';
 
 export type CustomerFeedbackModalProps = {
@@ -67,7 +67,7 @@ export type CustomerFeedbackModalProps = {
  */
 export function CustomerFeedbackModal( {
 	recordScoreCallback,
-	title = __( 'Please share your feedback', 'woocommerce' ),
+	title = __( 'Please share your feedback', 'poocommerce' ),
 	description,
 	showDescription = true,
 	firstQuestion,
@@ -87,23 +87,23 @@ export function CustomerFeedbackModal( {
 			? customOptions
 			: [
 					{
-						label: __( 'Strongly disagree', 'woocommerce' ),
+						label: __( 'Strongly disagree', 'poocommerce' ),
 						value: '1',
 					},
 					{
-						label: __( 'Disagree', 'woocommerce' ),
+						label: __( 'Disagree', 'poocommerce' ),
 						value: '2',
 					},
 					{
-						label: __( 'Neutral', 'woocommerce' ),
+						label: __( 'Neutral', 'poocommerce' ),
 						value: '3',
 					},
 					{
-						label: __( 'Agree', 'woocommerce' ),
+						label: __( 'Agree', 'poocommerce' ),
 						value: '4',
 					},
 					{
-						label: __( 'Strongly Agree', 'woocommerce' ),
+						label: __( 'Strongly Agree', 'poocommerce' ),
 						value: '5',
 					},
 			  ];
@@ -171,7 +171,7 @@ export function CustomerFeedbackModal( {
 
 	return (
 		<Modal
-			className="woocommerce-customer-effort-score"
+			className="poocommerce-customer-effort-score"
 			title={ title }
 			onRequestClose={ closeModal }
 			shouldCloseOnClickOutside={ false }
@@ -180,7 +180,7 @@ export function CustomerFeedbackModal( {
 				<Text
 					variant="body"
 					as="p"
-					className="woocommerce-customer-effort-score__intro"
+					className="poocommerce-customer-effort-score__intro"
 					size={ 14 }
 					lineHeight="20px"
 					marginBottom="1.5em"
@@ -188,7 +188,7 @@ export function CustomerFeedbackModal( {
 					{ description ||
 						__(
 							'Your feedback will help create a better experience for thousands of merchants like you. Please tell us to what extent you agree or disagree with the statements below.',
-							'woocommerce'
+							'poocommerce'
 						) }
 				</Text>
 			) }
@@ -203,7 +203,7 @@ export function CustomerFeedbackModal( {
 				{ firstQuestion }
 			</Text>
 
-			<div className="woocommerce-customer-effort-score__selection">
+			<div className="poocommerce-customer-effort-score__selection">
 				<RadioControl
 					selected={ firstQuestionScore.toString( 10 ) }
 					options={ options }
@@ -213,7 +213,7 @@ export function CustomerFeedbackModal( {
 							setFirstQuestionScore
 						)
 					}
-					className="woocommerce-customer-effort-score__radio-control"
+					className="poocommerce-customer-effort-score__radio-control"
 				/>
 			</div>
 
@@ -230,7 +230,7 @@ export function CustomerFeedbackModal( {
 			) }
 
 			{ secondQuestion && (
-				<div className="woocommerce-customer-effort-score__selection">
+				<div className="poocommerce-customer-effort-score__selection">
 					<RadioControl
 						selected={ secondQuestionScore.toString( 10 ) }
 						options={ options }
@@ -240,7 +240,7 @@ export function CustomerFeedbackModal( {
 								setSecondQuestionScore
 							)
 						}
-						className="woocommerce-customer-effort-score__radio-control"
+						className="poocommerce-customer-effort-score__radio-control"
 					/>
 				</div>
 			) }
@@ -250,21 +250,21 @@ export function CustomerFeedbackModal( {
 					firstQuestionScore,
 					secondQuestionScore
 				) && (
-					<div className="woocommerce-customer-effort-score__comments">
+					<div className="poocommerce-customer-effort-score__comments">
 						<TextareaControl
 							__nextHasNoMarginBottom
 							label={ __(
 								'How is that screen useful to you? What features would you add or change?',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={ __(
-								'Your feedback will go to the WooCommerce development team',
-								'woocommerce'
+								'Your feedback will go to the PooCommerce development team',
+								'poocommerce'
 							) }
 							value={ comments }
 							placeholder={ __(
 								'Optional, but much apprecated. We love reading your feedback!',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onChange={ ( value: string ) =>
 								setComments( value )
@@ -276,13 +276,13 @@ export function CustomerFeedbackModal( {
 
 			{ showNoScoreMessage && (
 				<div
-					className="woocommerce-customer-effort-score__errors"
+					className="poocommerce-customer-effort-score__errors"
 					role="alert"
 				>
 					<Text variant="body" as="p">
 						{ __(
 							'Please tell us to what extent you agree or disagree with the statements above.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Text>
 				</div>
@@ -295,12 +295,12 @@ export function CustomerFeedbackModal( {
 					errors
 				) }
 
-			<div className="woocommerce-customer-effort-score__buttons">
+			<div className="poocommerce-customer-effort-score__buttons">
 				<Button isTertiary onClick={ closeModal } name="cancel">
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button isPrimary onClick={ sendScore } name="send">
-					{ __( 'Share', 'woocommerce' ) }
+					{ __( 'Share', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

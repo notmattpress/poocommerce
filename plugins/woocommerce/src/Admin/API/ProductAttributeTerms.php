@@ -5,7 +5,7 @@
  * Handles requests to /products/attributes/<slug>/terms
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,7 +38,7 @@ class ProductAttributeTerms extends \WC_REST_Product_Attribute_Terms_Controller 
 			array(
 				'args'   => array(
 					'slug' => array(
-						'description' => __( 'Slug identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Slug identifier for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 					),
 				),
@@ -62,8 +62,8 @@ class ProductAttributeTerms extends \WC_REST_Product_Attribute_Terms_Controller 
 	public function get_custom_attribute_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'attributes', 'read' ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_view',
-				__( 'Sorry, you cannot view this resource.', 'woocommerce' ),
+				'poocommerce_rest_cannot_view',
+				__( 'Sorry, you cannot view this resource.', 'poocommerce' ),
 				array(
 					'status' => rest_authorization_required_code(),
 				)

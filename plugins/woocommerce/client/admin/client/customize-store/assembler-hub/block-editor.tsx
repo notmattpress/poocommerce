@@ -33,8 +33,8 @@ export const BlockEditor = memo(
 		) => void;
 	} ) => {
 		return (
-			<div className="woocommerce-customize-store__block-editor">
-				<div className={ 'woocommerce-block-preview-container' }>
+			<div className="poocommerce-customize-store__block-editor">
+				<div className={ 'poocommerce-block-preview-container' }>
 					<BlockPreview
 						blocks={ renderedBlocks }
 						onChange={ onChange }

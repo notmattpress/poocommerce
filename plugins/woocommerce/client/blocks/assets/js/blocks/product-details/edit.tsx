@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { productsStore } from '@woocommerce/data';
+import { productsStore } from '@poocommerce/data';
 import { useEffect, useMemo } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -19,7 +19,7 @@ import {
 /**
  * External dependencies
  */
-import { getInnerBlockByName } from '@woocommerce/utils';
+import { getInnerBlockByName } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -82,7 +82,7 @@ const Edit = ( {
 				// @ts-expect-error - getBlockParentsByBlockName is not typed
 				.getBlockParentsByBlockName(
 					clientId,
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 			const isInnerBlock = singleProductParentBlocks.length > 0;
 
@@ -101,7 +101,7 @@ const Edit = ( {
 
 			const productSpecificationClientId = getInnerBlockByName(
 				productDetailsBlock,
-				'woocommerce/product-specifications'
+				'poocommerce/product-specifications'
 			)?.clientId;
 
 			const accordionClientId = select(
@@ -109,7 +109,7 @@ const Edit = ( {
 				// @ts-expect-error - getBlockParentsByBlockName is not typed
 			).getBlockParentsByBlockName(
 				productSpecificationClientId ?? '',
-				'woocommerce/accordion-item'
+				'poocommerce/accordion-item'
 			)[ 0 ];
 
 			return {
@@ -137,7 +137,7 @@ const Edit = ( {
 	/**
 	 * In some cases, the template variable is calculated before all the props are set.
 	 * This is why we need to do this additional check.
-	 * Check the PR for more details: https://github.com/woocommerce/woocommerce/pull/59686
+	 * Check the PR for more details: https://github.com/poocommerce/poocommerce/pull/59686
 	 */
 	useEffect( () => {
 		if (
@@ -160,7 +160,7 @@ const Edit = ( {
 				<Warning>
 					{ __(
 						'The Product Details block requires a product context. When used in a Query Loop, the Query Loop must be configured to display products.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Warning>
 			</div>
@@ -174,11 +174,11 @@ const Edit = ( {
 	return (
 		<div { ...blockProps }>
 			<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleControl
 						label={ __(
 							'Show tab title in content',
-							'woocommerce'
+							'poocommerce'
 						) }
 						checked={ ! hideTabTitle }
 						onChange={ () =>

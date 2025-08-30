@@ -15,7 +15,7 @@ export type ChipsContext = {
 // Set selected chips styles for proper contrast.
 setStyles();
 
-store( 'woocommerce/product-filters', {
+store( 'poocommerce/product-filters', {
 	actions: {
 		showAllChips: () => {
 			const context = getContext< ChipsContext >();

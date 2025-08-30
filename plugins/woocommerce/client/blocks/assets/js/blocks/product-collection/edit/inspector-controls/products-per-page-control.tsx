@@ -19,8 +19,8 @@ const MIN_PRODUCTS_PER_PAGE = 1;
 const MAX_PRODUCTS_PER_PAGE = 100;
 const CAROUSEL_PERFORMANCE_WARNING_THRESHOLD = 30;
 
-const defaultLabel = __( 'Products per page', 'woocommerce' );
-const carouselLabel = __( 'Products in carousel', 'woocommerce' );
+const defaultLabel = __( 'Products per page', 'poocommerce' );
+const carouselLabel = __( 'Products in carousel', 'poocommerce' );
 
 const getLabel = ( carouselVariant: boolean ) => {
 	return carouselVariant ? carouselLabel : defaultLabel;
@@ -59,7 +59,7 @@ const ProductsPerPageControl = ( {
 					>
 						{ __(
 							'High product counts in carousel may impact performance. Consider reducing the number of products for better user experience.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 				</div>

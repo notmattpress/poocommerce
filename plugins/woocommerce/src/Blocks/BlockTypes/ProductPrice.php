@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductPrice class.
@@ -107,7 +107,7 @@ class ProductPrice extends AbstractBlock {
 					$is_interactive = false;
 				} else {
 					wp_interactivity_state(
-						'woocommerce',
+						'poocommerce',
 						array(
 							'products' => array(
 								$product->get_id() => array(
@@ -118,8 +118,8 @@ class ProductPrice extends AbstractBlock {
 						)
 					);
 
-					wp_enqueue_script_module( 'woocommerce/product-elements' );
-					$wrapper_attributes['data-wp-interactive'] = 'woocommerce/product-elements';
+					wp_enqueue_script_module( 'poocommerce/product-elements' );
+					$wrapper_attributes['data-wp-interactive'] = 'poocommerce/product-elements';
 					$context                                   = array(
 						'productElementKey' => 'price_html',
 					);
