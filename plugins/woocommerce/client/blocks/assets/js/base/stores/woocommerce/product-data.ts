@@ -21,12 +21,12 @@ const productDataStore = store< {
 		setVariationId: ( variationId: EntityId ) => void;
 	};
 } >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{
 		state: {
 			get productId(): EntityId {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -36,7 +36,7 @@ const productDataStore = store< {
 			},
 			get variationId(): EntityId {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				return (
@@ -48,7 +48,7 @@ const productDataStore = store< {
 		actions: {
 			setVariationId: ( variationId: EntityId ) => {
 				const context = getContext< Context >(
-					'woocommerce/single-product'
+					'poocommerce/single-product'
 				);
 
 				if ( context?.variationId !== undefined ) {

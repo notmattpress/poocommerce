@@ -38,7 +38,7 @@ export function SidebarContent( { children }: { children: JSX.Element } ) {
 	);
 
 	const wrapperCls = clsx(
-		'woocommerce-customize-store-edit-site-sidebar__screen-wrapper',
+		'poocommerce-customize-store-edit-site-sidebar__screen-wrapper',
 		{
 			'slide-from-left': navState.direction === 'back',
 			'slide-from-right': navState.direction === 'forward',

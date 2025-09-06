@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Payment_Gateway;
 
@@ -37,7 +37,7 @@ class KlarnaCheckout extends PaymentGateway {
 	 */
 	public function is_account_connected( WC_Payment_Gateway $payment_gateway ): bool {
 		try {
-			// Note: Since the credentials used are tied to the WooCommerce store location country (US and non-US),
+			// Note: Since the credentials used are tied to the PooCommerce store location country (US and non-US),
 			// the account can become disconnected if the store location changes.
 			if ( function_exists( 'KCO_WC' ) ) {
 				$credentials = \KCO_WC()->credentials;

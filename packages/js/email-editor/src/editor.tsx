@@ -104,7 +104,7 @@ export function initialize( elementId: string ) {
 		return;
 	}
 	const { current_post_id, current_post_type } =
-		window.WooCommerceEmailEditor;
+		window.PooCommerceEmailEditor;
 
 	if ( current_post_id === undefined || current_post_id === null ) {
 		throw new Error( 'current_post_id is required but not provided.' );
@@ -115,7 +115,7 @@ export function initialize( elementId: string ) {
 	}
 
 	const WrappedEditor = applyFilters(
-		'woocommerce_email_editor_wrap_editor_component',
+		'poocommerce_email_editor_wrap_editor_component',
 		Editor
 	) as typeof Editor;
 	onInit();
@@ -156,7 +156,7 @@ export function ExperimentalEmailEditor( {
 	}, [] );
 
 	const WrappedEditor = applyFilters(
-		'woocommerce_email_editor_wrap_editor_component',
+		'poocommerce_email_editor_wrap_editor_component',
 		Editor
 	) as typeof Editor;
 

@@ -1,18 +1,18 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\AsyncTasks;
 
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\JobManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\CycleStateService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\StockManagementHelper;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 use WC_Product;
 use WC_Helper_Product;
 
@@ -375,7 +375,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	 */
 	public function test_process_batch_multiple_batches() {
 		tests_add_filter(
-			'woocommerce_customer_stock_notifications_batch_size',
+			'poocommerce_customer_stock_notifications_batch_size',
 			function () {
 				return 1;
 			}
@@ -458,7 +458,7 @@ class NotificationsProcessorTests extends \WC_Unit_Test_Case {
 	public function test_process_batch_skipped() {
 
 		tests_add_filter(
-			'woocommerce_customer_stock_notifications_batch_size',
+			'poocommerce_customer_stock_notifications_batch_size',
 			function () {
 				return 1;
 			}

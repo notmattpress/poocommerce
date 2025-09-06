@@ -4,12 +4,12 @@
 import type { FormEvent, HTMLElementEvent } from 'react';
 import { store, getContext, getConfig } from '@wordpress/interactivity';
 import type {
-	Store as WooCommerce,
+	Store as PooCommerce,
 	SelectedAttributes,
 	ProductData,
-} from '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
+} from '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
 
 /**
  * Internal dependencies
@@ -44,8 +44,8 @@ export type AddToCartError = {
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
@@ -75,7 +75,7 @@ export const getProductData = (
 	let productId = id;
 	let productData: ProductData | undefined;
 
-	const { products } = getConfig( 'woocommerce' );
+	const { products } = getConfig( 'poocommerce' );
 
 	if (
 		productType === 'variable' &&
@@ -203,7 +203,7 @@ const { actions, state } = store<
 		Partial< GroupedProductAddToCartWithOptionsStore > &
 		Partial< VariableProductAddToCartWithOptionsStore >
 >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			noticeIds: [],
@@ -517,8 +517,8 @@ const { actions, state } = store<
 			},
 			*addToCart() {
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const { productId, quantity, selectedAttributes, productType } =
 					getContext< Context >();
@@ -531,8 +531,8 @@ const { actions, state } = store<
 					selectedAttributes
 				);
 
-				const { actions: wooActions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions: wooActions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);
@@ -555,10 +555,10 @@ const { actions, state } = store<
 
 				if ( ! isFormValid ) {
 					// Dynamically import the store module first
-					yield import( '@woocommerce/stores/store-notices' );
+					yield import( '@poocommerce/stores/store-notices' );
 
 					const { actions: noticeActions } = store< StoreNotices >(
-						'woocommerce/store-notices',
+						'poocommerce/store-notices',
 						{},
 						{
 							lock: universalLock,

@@ -4,7 +4,7 @@
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * The ShippingUtil class provides utilities for working with shipping and shipping packages.

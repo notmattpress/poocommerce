@@ -1,6 +1,6 @@
-# @woocommerce/sanitize
+# @poocommerce/sanitize
 
-WooCommerce HTML sanitization utilities using DOMPurify with trusted types support.
+PooCommerce HTML sanitization utilities using DOMPurify with trusted types support.
 
 ## Features
 
@@ -11,14 +11,14 @@ WooCommerce HTML sanitization utilities using DOMPurify with trusted types suppo
 
 ## Installation
 
-This package is part of the WooCommerce monorepo and is automatically available to other packages.
+This package is part of the PooCommerce monorepo and is automatically available to other packages.
 
 ## Usage
 
 ### Basic HTML Sanitization
 
 ```typescript
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 const cleanHTML = sanitizeHTML('<p>Hello <script>alert("xss")</script> World!</p>');
 // Returns: '<p>Hello World!</p>'
@@ -27,7 +27,7 @@ const cleanHTML = sanitizeHTML('<p>Hello <script>alert("xss")</script> World!</p
 ### React Integration
 
 ```javascript
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 function MyComponent( { content } ) {
   const sanitizedContent = {
@@ -43,7 +43,7 @@ function MyComponent( { content } ) {
 ### Custom Configuration
 
 ```javascript
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 const customSanitized = sanitizeHTML(
     html,
@@ -89,7 +89,7 @@ interface SanitizeConfig {
 
 ## Trusted Types
 
-This package automatically configures a trusted types policy named `woocommerce-sanitize` to avoid conflicts with DOMPurify's default policy. The policy is initialized when the module is loaded.
+This package automatically configures a trusted types policy named `poocommerce-sanitize` to avoid conflicts with DOMPurify's default policy. The policy is initialized when the module is loaded.
 
 ## Security
 
@@ -100,4 +100,4 @@ This package automatically configures a trusted types policy named `woocommerce-
 
 ## Contributing
 
-This package follows the same contribution guidelines as the main WooCommerce repository. 
+This package follows the same contribution guidelines as the main PooCommerce repository. 

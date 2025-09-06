@@ -8,18 +8,18 @@ import {
 	BlockData,
 	Editor,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 
 const blockData: Partial< BlockData > = {
-	name: 'woocommerce/legacy-template',
+	name: 'poocommerce/legacy-template',
 };
 
 const classicTemplateBlockNames = [
-	'WooCommerce Classic Template',
+	'PooCommerce Classic Template',
 	'Product (Classic)',
 	'Product Attribute (Classic)',
 	'Product Category (Classic)',
@@ -239,7 +239,7 @@ test.describe( `${ blockData.name } Block `, () => {
 		expect( classicTemplateBlocks ).toHaveLength( 0 );
 	} );
 
-	// @see https://github.com/woocommerce/woocommerce-blocks/issues/9637
+	// @see https://github.com/poocommerce/poocommerce-blocks/issues/9637
 	test( `is still available after resetting a modified WC template`, async ( {
 		admin,
 		editor,

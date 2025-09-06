@@ -1,4 +1,4 @@
 Significance: minor
 Type: update
 
-Remove `block_preview_url` from `WooCommerceEmailEditor` object
+Remove `block_preview_url` from `PooCommerceEmailEditor` object

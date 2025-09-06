@@ -5,7 +5,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { heading } from '@wordpress/icons';
 import { useBlockProps } from '@wordpress/block-editor';
 import type { BlockConfiguration } from '@wordpress/blocks';
-import { useProductDataContext } from '@woocommerce/shared-context';
+import { useProductDataContext } from '@poocommerce/shared-context';
 import { Spinner } from '@wordpress/components';
 
 /**
@@ -24,7 +24,7 @@ registerBlockType( metadata.name, {
 		}
 		return (
 			<div { ...blockProps }>
-				<div className="wp-block-woocommerce-add-to-cart-with-options-grouped-product-item-label">
+				<div className="wp-block-poocommerce-add-to-cart-with-options-grouped-product-item-label">
 					{ product.name }
 				</div>
 			</div>

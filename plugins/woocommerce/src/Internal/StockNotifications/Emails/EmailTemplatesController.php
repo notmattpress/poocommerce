@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * Email templates controller.
@@ -28,10 +28,10 @@ class EmailTemplatesController {
 	 * @internal
 	 */
 	public function register_template_hooks() {
-		add_action( 'woocommerce_email_stock_notification_product', array( $this, 'email_product_image' ), 10, 3 );
-		add_action( 'woocommerce_email_stock_notification_product', array( $this, 'email_product_title' ), 20, 3 );
-		add_action( 'woocommerce_email_stock_notification_product', array( $this, 'email_product_attributes' ), 30, 3 );
-		add_action( 'woocommerce_email_stock_notification_product', array( $this, 'email_product_price' ), 40, 3 );
+		add_action( 'poocommerce_email_stock_notification_product', array( $this, 'email_product_image' ), 10, 3 );
+		add_action( 'poocommerce_email_stock_notification_product', array( $this, 'email_product_title' ), 20, 3 );
+		add_action( 'poocommerce_email_stock_notification_product', array( $this, 'email_product_attributes' ), 30, 3 );
+		add_action( 'poocommerce_email_stock_notification_product', array( $this, 'email_product_price' ), 40, 3 );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class EmailTemplatesController {
 			return;
 		}
 
-		$image     = wp_get_attachment_image_src( $product->get_image_id(), 'woocommerce_thumbnail' );
+		$image     = wp_get_attachment_image_src( $product->get_image_id(), 'poocommerce_thumbnail' );
 		$image_src = is_array( $image ) && isset( $image[0] ) ? $image[0] : '';
 
 		ob_start();

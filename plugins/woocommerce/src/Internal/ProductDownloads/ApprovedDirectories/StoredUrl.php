@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories;
 
 /**
  * Representation of an approved directory URL, bundling the ID and URL in a single entity.

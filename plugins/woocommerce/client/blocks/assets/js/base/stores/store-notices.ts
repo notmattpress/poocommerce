@@ -27,7 +27,7 @@ const getStoreNoticeContext = getContextFn< {
 const getProductCollectionContext = () =>
 	getContextFn< {
 		notices: NoticeWithId[];
-	} >( 'woocommerce/product-collection' );
+	} >( 'poocommerce/product-collection' );
 
 type StoreNoticesState = {
 	get role(): string;
@@ -68,7 +68,7 @@ const generateNoticeId = () => {
 
 // Todo: export this store once the store is public.
 const { state } = store< Store >(
-	'woocommerce/store-notices',
+	'poocommerce/store-notices',
 	{
 		state: {
 			get role() {

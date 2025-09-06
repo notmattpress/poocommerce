@@ -39,7 +39,7 @@ const ShipmentProviderIcon = ( { providerKey }: { providerKey: string } ) => {
 	}
 
 	return (
-		<div className="woocommerce-fulfillment-shipment-provider-icon">
+		<div className="poocommerce-fulfillment-shipment-provider-icon">
 			<img src={ icon } alt={ provider.label } key={ providerKey } />
 		</div>
 	);
@@ -86,7 +86,7 @@ export default function ShipmentTrackingNumberForm() {
 				setError(
 					__(
 						'No information found for this tracking number. Check the number or enter the details manually.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 				return;
@@ -124,7 +124,7 @@ export default function ShipmentTrackingNumberForm() {
 			setEditMode( false );
 		} catch ( err ) {
 			setError(
-				__( 'Failed to fetch shipment information.', 'woocommerce' )
+				__( 'Failed to fetch shipment information.', 'poocommerce' )
 			);
 		} finally {
 			setIsLoading( false );
@@ -139,21 +139,21 @@ export default function ShipmentTrackingNumberForm() {
 
 	return (
 		<>
-			<p className="woocommerce-fulfillment-description">
+			<p className="poocommerce-fulfillment-description">
 				{ __(
 					'Provide the shipment tracking number to find the shipment provider and tracking URL.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			{ editMode ? (
-				<div className="woocommerce-fulfillment-input-container">
-					<div className="woocommerce-fulfillment-input-group">
+				<div className="poocommerce-fulfillment-input-container">
+					<div className="poocommerce-fulfillment-input-group">
 						<TextControl
 							type="text"
-							label={ __( 'Tracking Number', 'woocommerce' ) }
+							label={ __( 'Tracking Number', 'poocommerce' ) }
 							placeholder={ __(
 								'Enter tracking number',
-								'woocommerce'
+								'poocommerce'
 							) }
 							value={ trackingNumberTemp }
 							onChange={ ( value ) => {
@@ -186,9 +186,9 @@ export default function ShipmentTrackingNumberForm() {
 				</div>
 			) : (
 				<>
-					<div className="woocommerce-fulfillment-input-container">
-						<h4>{ __( 'Tracking Number', 'woocommerce' ) }</h4>
-						<div className="woocommerce-fulfillment-input-group space-between">
+					<div className="poocommerce-fulfillment-input-container">
+						<h4>{ __( 'Tracking Number', 'poocommerce' ) }</h4>
+						<div className="poocommerce-fulfillment-input-group space-between">
 							<span
 								onClick={ () => {
 									setEditMode( true );
@@ -220,9 +220,9 @@ export default function ShipmentTrackingNumberForm() {
 							</Button>
 						</div>
 					</div>
-					<div className="woocommerce-fulfillment-input-container">
-						<h4>{ __( 'Provider', 'woocommerce' ) }</h4>
-						<div className="woocommerce-fulfillment-input-group">
+					<div className="poocommerce-fulfillment-input-container">
+						<h4>{ __( 'Provider', 'poocommerce' ) }</h4>
+						<div className="poocommerce-fulfillment-input-group">
 							<div>
 								<ShipmentProviderIcon
 									providerKey={ shipmentProvider }
@@ -236,16 +236,16 @@ export default function ShipmentTrackingNumberForm() {
 						</div>
 						{ isAmbiguousProvider && (
 							<Flex direction={ 'column' } gap={ 0 }>
-								<p className="woocommerce-fulfillment-description">
+								<p className="poocommerce-fulfillment-description">
 									{ __(
 										'Not your provider?',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 								<Button
 									variant="link"
 									size="small"
-									className="woocommerce-fulfillment-description-button"
+									className="poocommerce-fulfillment-description-button"
 									onClick={ () => {
 										setSelectedOption(
 											SHIPMENT_OPTION_MANUAL_ENTRY
@@ -254,15 +254,15 @@ export default function ShipmentTrackingNumberForm() {
 								>
 									{ __(
 										'Select your provider manually',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</Button>
 							</Flex>
 						) }
 					</div>
-					<div className="woocommerce-fulfillment-input-container">
-						<h4>{ __( 'Tracking URL', 'woocommerce' ) }</h4>
-						<div className="woocommerce-fulfillment-input-group">
+					<div className="poocommerce-fulfillment-input-container">
+						<h4>{ __( 'Tracking URL', 'poocommerce' ) }</h4>
+						<div className="poocommerce-fulfillment-input-group">
 							<ExternalLink
 								href={ trackingUrl }
 								style={ {

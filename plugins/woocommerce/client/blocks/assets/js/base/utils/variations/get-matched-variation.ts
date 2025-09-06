@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 
 export type AvailableVariation = {
 	attributes: Record< string, string >;

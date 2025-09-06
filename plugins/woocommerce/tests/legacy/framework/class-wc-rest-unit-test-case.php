@@ -4,7 +4,7 @@
  *
  * Provides REST API specific methods and setup/teardown.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  * @since 3.0
  */
 

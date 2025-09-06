@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Checkout Settings
+ * PooCommerce Checkout Settings
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Internal\Admin\Loader;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +47,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = self::TAB_NAME;
-		$this->label = esc_html_x( 'Payments', 'Settings tab label', 'woocommerce' );
+		$this->label = esc_html_x( 'Payments', 'Settings tab label', 'poocommerce' );
 
 		// Add filters and actions.
 		add_filter( 'admin_body_class', array( $this, 'add_body_classes' ), 30 );
@@ -57,8 +57,8 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 		add_action( 'in_admin_header', array( $this, 'suppress_admin_notices' ), PHP_INT_MAX );
 
 		// Do not show any store alerts (WC admin notes with type: 'error,update' and status: 'unactioned')
-		// on the WooCommerce Payments settings page and Reactified sections.
-		add_filter( 'woocommerce_admin_features', array( $this, 'suppress_store_alerts' ), PHP_INT_MAX );
+		// on the PooCommerce Payments settings page and Reactified sections.
+		add_filter( 'poocommerce_admin_features', array( $this, 'suppress_store_alerts' ), PHP_INT_MAX );
 
 		parent::__construct();
 	}
@@ -91,16 +91,16 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 			return $classes;
 		}
 
-		// If we are not on the WooCommerce Payments settings page, return the classes as they are.
+		// If we are not on the PooCommerce Payments settings page, return the classes as they are.
 		if ( self::TAB_NAME !== $current_tab ) {
 			return $classes;
 		}
 
 		if ( ! $this->should_render_react_section( $current_section ) ) {
 			// Add a class to indicate that the payments settings section page is rendered in legacy mode.
-			$classes .= ' woocommerce-settings-payments-section_legacy';
+			$classes .= ' poocommerce-settings-payments-section_legacy';
 			// Add a class to indicate that the current section is rendered in legacy mode.
-			$classes .= ' woocommerce_page_wc-settings-checkout-section-' . esc_attr( $this->standardize_section_name( $current_section ) ) . '_legacy';
+			$classes .= ' poocommerce_page_wc-settings-checkout-section-' . esc_attr( $this->standardize_section_name( $current_section ) ) . '_legacy';
 		}
 
 		return $classes;
@@ -120,7 +120,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 		 *
 		 * @since 1.5.7
 		 */
-		do_action( 'woocommerce_admin_field_payment_gateways' );
+		do_action( 'poocommerce_admin_field_payment_gateways' );
 		ob_end_clean();
 
 		if ( is_string( $current_section ) && $this->should_render_react_section( $current_section ) ) {
@@ -192,7 +192,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 		 *
 		 * @param array $sections List of section identifiers to be rendered using React.
 		 */
-		$optional_reactified_sections = apply_filters( 'experimental_woocommerce_admin_payment_reactify_render_sections', $optional_reactified_sections );
+		$optional_reactified_sections = apply_filters( 'experimental_poocommerce_admin_payment_reactify_render_sections', $optional_reactified_sections );
 		if ( empty( $optional_reactified_sections ) || ! is_array( $optional_reactified_sections ) ) {
 			// Sanity check: use empty array if the filter returns something unexpected.
 			$optional_reactified_sections = array();
@@ -272,14 +272,14 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	 *
 	 * Reactified section pages won't have any sections.
 	 * The rest of the settings pages will get the default/own section and those added via
-	 * the `woocommerce_get_sections_checkout` filter.
+	 * the `poocommerce_get_sections_checkout` filter.
 	 *
 	 * @return array The sections for this settings page.
 	 */
 	public function get_sections() {
 		global $current_tab, $current_section;
 
-		// We only want to prevent sections on the main WooCommerce Payments settings page and Reactified sections.
+		// We only want to prevent sections on the main PooCommerce Payments settings page and Reactified sections.
 		if ( self::TAB_NAME === $current_tab && $this->should_render_react_section( $current_section ) ) {
 			return array();
 		}
@@ -315,7 +315,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 					 *
 					 * @param int $gateway->id Gateway ID.
 					 */
-					do_action( 'woocommerce_update_options_payment_gateways_' . $gateway->id );
+					do_action( 'poocommerce_update_options_payment_gateways_' . $gateway->id );
 					$wc_payment_gateways->init();
 
 					// There is no need to run the action and gateways init again
@@ -335,11 +335,11 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 		global $current_tab, $current_section;
 
 		$screen = get_current_screen();
-		if ( ! $screen instanceof WP_Screen || 'woocommerce_page_wc-settings' !== $screen->id ) {
+		if ( ! $screen instanceof WP_Screen || 'poocommerce_page_wc-settings' !== $screen->id ) {
 			return;
 		}
 
-		// We only want to hide the help tabs on the main WooCommerce Payments settings page and Reactified sections.
+		// We only want to hide the help tabs on the main PooCommerce Payments settings page and Reactified sections.
 		if ( self::TAB_NAME !== $current_tab ) {
 			return;
 		}
@@ -351,17 +351,17 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	}
 
 	/**
-	 * Suppress WP admin notices on the WooCommerce Payments settings page.
+	 * Suppress WP admin notices on the PooCommerce Payments settings page.
 	 */
 	public function suppress_admin_notices() {
 		global $wp_filter, $current_tab, $current_section;
 
 		$screen = get_current_screen();
-		if ( ! $screen instanceof WP_Screen || 'woocommerce_page_wc-settings' !== $screen->id ) {
+		if ( ! $screen instanceof WP_Screen || 'poocommerce_page_wc-settings' !== $screen->id ) {
 			return;
 		}
 
-		// We only want to suppress notices on the main WooCommerce Payments settings page and Reactified sections.
+		// We only want to suppress notices on the main PooCommerce Payments settings page and Reactified sections.
 		if ( self::TAB_NAME !== $current_tab ) {
 			return;
 		}
@@ -372,8 +372,8 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 		// Generic admin notices are definitely not needed.
 		remove_all_actions( 'all_admin_notices' );
 
-		// WooCommerce uses the 'admin_notices' hook for its own notices.
-		// We will only allow WooCommerce core notices to be displayed.
+		// PooCommerce uses the 'admin_notices' hook for its own notices.
+		// We will only allow PooCommerce core notices to be displayed.
 		$wp_admin_notices_hook = $wp_filter['admin_notices'] ?? null;
 		if ( ! $wp_admin_notices_hook || ! $wp_admin_notices_hook->has_filters() ) {
 			// Nothing to do if there are no actions hooked into `admin_notices`.
@@ -382,13 +382,13 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 
 		$wc_admin_notices = WC_Admin_Notices::get_notices();
 		if ( empty( $wc_admin_notices ) ) {
-			// If there are no WooCommerce core notices, we can remove all actions hooked into `admin_notices`.
+			// If there are no PooCommerce core notices, we can remove all actions hooked into `admin_notices`.
 			remove_all_actions( 'admin_notices' );
 			return;
 		}
 
 		// Go through the callbacks hooked into `admin_notices` and
-		// remove any that are NOT from the WooCommerce core (i.e. from the `WC_Admin_Notices` class).
+		// remove any that are NOT from the PooCommerce core (i.e. from the `WC_Admin_Notices` class).
 		foreach ( $wp_admin_notices_hook->callbacks as $priority => $callbacks ) {
 			if ( ! is_array( $callbacks ) ) {
 				continue;
@@ -399,8 +399,8 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 				if ( ! is_array( $callback ) ) {
 					continue;
 				}
-				// WooCommerce doesn't use closures to handle notices.
-				// WooCommerce core notices are handled by `WC_Admin_Notices` class methods.
+				// PooCommerce doesn't use closures to handle notices.
+				// PooCommerce core notices are handled by `WC_Admin_Notices` class methods.
 				// Remove plain functions or closures.
 				if ( ! is_array( $callback['function'] ) ) {
 					remove_action( 'admin_notices', $callback['function'], $priority );
@@ -408,10 +408,10 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 				}
 
 				$class_or_object = $callback['function'][0] ?? null;
-				// We need to allow Automattic\WooCommerce\Internal\Admin\Loader methods callbacks
+				// We need to allow Automattic\PooCommerce\Internal\Admin\Loader methods callbacks
 				// because they are used to wrap notices.
-				// @see Automattic\WooCommerce\Internal\Admin\Loader::inject_before_notices().
-				// @see Automattic\WooCommerce\Internal\Admin\Loader::inject_after_notices().
+				// @see Automattic\PooCommerce\Internal\Admin\Loader::inject_before_notices().
+				// @see Automattic\PooCommerce\Internal\Admin\Loader::inject_after_notices().
 				if (
 					(
 						// We have a class name.
@@ -431,7 +431,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	}
 
 	/**
-	 * Suppress the store-alerts WCAdmin feature on the WooCommerce Payments settings page and Reactified sections.
+	 * Suppress the store-alerts WCAdmin feature on the PooCommerce Payments settings page and Reactified sections.
 	 *
 	 * @param mixed $features The WCAdmin features list.
 	 *

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { addQueryArgs } from '@wordpress/url';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

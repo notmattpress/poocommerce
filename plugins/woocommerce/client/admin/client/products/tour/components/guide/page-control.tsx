@@ -19,7 +19,7 @@ export default function PageControl( {
 	return (
 		<ul
 			className="components-guide__page-control"
-			aria-label={ __( 'Guide controls', 'woocommerce' ) }
+			aria-label={ __( 'Guide controls', 'poocommerce' ) }
 		>
 			{ Array.from( { length: numberOfPages } ).map( ( _, page ) => (
 				<li
@@ -36,7 +36,7 @@ export default function PageControl( {
 						}
 						aria-label={ sprintf(
 							/* translators: 1: current page number 2: total number of pages */
-							__( 'Page %1$d of %2$d', 'woocommerce' ),
+							__( 'Page %1$d of %2$d', 'poocommerce' ),
 							page + 1,
 							numberOfPages
 						) }

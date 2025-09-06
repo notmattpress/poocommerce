@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -41,7 +41,7 @@ const SidebarNavigationScreenColorPaletteContent = () => {
 	// in mobile viewport sizes, where the editor canvas is hidden.
 	return (
 		<div
-			className="woocommerce-customize-store_sidebar-color-content"
+			className="poocommerce-customize-store_sidebar-color-content"
 			style={ {
 				opacity: 0,
 				animation: 'containerFadeIn 300ms ease-in-out forwards',
@@ -49,8 +49,8 @@ const SidebarNavigationScreenColorPaletteContent = () => {
 		>
 			<ColorPalette />
 			<PanelBody
-				className="woocommerce-customize-store__color-panel-container"
-				title={ __( 'or create your own', 'woocommerce' ) }
+				className="poocommerce-customize-store__color-panel-container"
+				title={ __( 'or create your own', 'poocommerce' ) }
 				initialOpen={ hasCreatedOwnColors }
 				onToggle={ handlePanelBodyToggle }
 			>
@@ -65,10 +65,10 @@ export const SidebarNavigationScreenColorPalette = ( {
 }: {
 	onNavigateBackClick: () => void;
 } ) => {
-	const title = __( 'Choose your color palette', 'woocommerce' );
+	const title = __( 'Choose your color palette', 'poocommerce' );
 	const description = __(
 		'Choose the color palette that best suits your brand. Want to change it? Create your custom color palette below, or update it later in Editor.',
-		'woocommerce'
+		'poocommerce'
 	);
 
 	return (

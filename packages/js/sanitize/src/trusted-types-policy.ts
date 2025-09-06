@@ -32,7 +32,7 @@ interface TrustedTypePolicy {
 /**
  * The name of the trusted types policy.
  */
-export const TRUSTED_POLICY_NAME = 'woocommerce-sanitize';
+export const TRUSTED_POLICY_NAME = 'poocommerce-sanitize';
 
 /**
  * Create a trusted types policy for DOMPurify.

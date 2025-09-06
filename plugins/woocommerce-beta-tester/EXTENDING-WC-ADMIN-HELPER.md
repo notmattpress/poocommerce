@@ -16,7 +16,7 @@ const SuperSekret = () => (
 	</>
 );
 addFilter(
-	'woocommerce_admin_test_helper_tabs',
+	'poocommerce_admin_test_helper_tabs',
 	'wath',
 	( tabs ) => [
 		...tabs,
@@ -42,7 +42,7 @@ const NewTool = () => (
 	</>
 );
 addFilter(
-	'woocommerce_admin_test_helper_tab_options',
+	'poocommerce_admin_test_helper_tab_options',
 	'wath',
 	( entries ) => [
 		...entries,
@@ -64,7 +64,7 @@ add_action( 'rest_api_init', function() {
             'permission_callback' => function( $request ) {
                 if ( ! wc_rest_check_manager_permissions( 'settings', 'edit ) ) {
                     return new \WP_Error(
-                        'woocommerce_rest_cannot_edit',
+                        'poocommerce_rest_cannot_edit',
                         __( 'Sorry, you cannot perform this action', 'your-plugin' )
                     );
                 }

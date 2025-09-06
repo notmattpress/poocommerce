@@ -3,9 +3,9 @@ post_title: How to Add Conditional Additional Checkout Fields
 sidebar_label: How to add additional conditional fields in checkout
 ---
 
-# How to Make Your WooCommerce Additional Checkout Fields Conditionally Visible in the Checkout Block
+# How to Make Your PooCommerce Additional Checkout Fields Conditionally Visible in the Checkout Block
 
-This feature requires a minimum version of WooCommerce 9.9.0
+This feature requires a minimum version of PooCommerce 9.9.0
 
 Conditional visibility allows you to create smart, adaptive checkout forms that only show relevant fields when needed, reducing form clutter and improving the customer experience.
 
@@ -21,7 +21,7 @@ Conditional fields help you:
 
 ## Understanding JSON Schema for Conditions
 
-WooCommerce’s additional checkout fields use JSON Schema to define conditional logic. Don’t worry if you’re not familiar with JSON Schema – we’ll walk through practical examples that you can adapt for your needs.
+PooCommerce’s additional checkout fields use JSON Schema to define conditional logic. Don’t worry if you’re not familiar with JSON Schema – we’ll walk through practical examples that you can adapt for your needs.
 
 The basic structure looks like this:
 
@@ -41,7 +41,7 @@ The basic structure looks like this:
 One of the most common use cases is showing fields only when specific shipping methods are selected (e.g., Local Pickup):
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
 	array(
 		'id'       => 'my-plugin/delivery-instructions',
 		'label'    => __('Special delivery instructions', 'your-text-domain'),
@@ -74,7 +74,7 @@ woocommerce_register_additional_checkout_field(
 Display fields only when specific products are in the cart:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
 	array(
 		'id'       => 'my-plugin/fragile-handling',
 		'label'    => __('This order contains fragile items - special handling required?','your-text-domain'),
@@ -100,7 +100,7 @@ woocommerce_register_additional_checkout_field(
 Display premium service options only for high-value orders:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
 	array(
 		'id'       => 'my-plugin/white-glove-service',
 		'label'    => __('Add white glove delivery service?', 'your-text-domain'),
@@ -128,7 +128,7 @@ woocommerce_register_additional_checkout_field(
 Display fields only for customers from specific countries:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
 	array(
 		'id'       => 'my-plugin/tax-exemption-number',
 		'label'    => __('Tax exemption number', 'your-text-domain'),
@@ -172,7 +172,7 @@ Create dependent fields where one field’s visibility depends on another field�
 
 ```php
 // First field - service type selection
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
 	array(
 		'id'       => 'my-plugin/service-type',
 		'label'    => __('Type of service needed', 'your-text-domain'),
@@ -187,7 +187,7 @@ woocommerce_register_additional_checkout_field(
 );
 
 // Second field - only show when "custom" is selected
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
 	array(
 		'id'       => 'my-plugin/custom-requirements',
 		'label'    => __('Describe your custom requirements', 'your-text-domain'),
@@ -230,13 +230,13 @@ woocommerce_register_additional_checkout_field(
 Here’s a comprehensive example for a store that offers both digital and physical products:
 
 ```php
-add_action( 'woocommerce_init', function() {
-	if ( ! function_exists( 'woocommerce_register_additional_checkout_field' ) ) {
+add_action( 'poocommerce_init', function() {
+	if ( ! function_exists( 'poocommerce_register_additional_checkout_field' ) ) {
 		return;
 	}
 
 	// Delivery preference - only for physical products
-	woocommerce_register_additional_checkout_field(
+	poocommerce_register_additional_checkout_field(
 		array(
 			'id'       => 'my-store/delivery-preference',
 			'label'    => __('Delivery preference', 'your-text-domain'),
@@ -269,7 +269,7 @@ add_action( 'woocommerce_init', function() {
 	);
 
 	// Delivery instructions - only when 'doorstep' is selected
-	woocommerce_register_additional_checkout_field(
+	poocommerce_register_additional_checkout_field(
 		array(
 			'id'       => 'my-store/doorstep-instructions',
 			'label'    => __('Specific doorstep delivery instructions', 'your-text-domain'),
@@ -307,7 +307,7 @@ add_action( 'woocommerce_init', function() {
 	);
 
 	// Digital delivery email - only for digital products
-	woocommerce_register_additional_checkout_field(
+	poocommerce_register_additional_checkout_field(
 		array(
 			'id'       => 'my-store/digital-delivery-email',
 			'label'    => __('Alternative email for digital products', 'your-text-domain'),
