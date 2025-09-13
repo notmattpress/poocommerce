@@ -1,9 +1,9 @@
 <?php
 /**
- * WooCommerce Shipping Label Banner Display Rules.
+ * PooCommerce Shipping Label Banner Display Rules.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 /**
  * Determines whether the Shipping Label Banner should be displayed
@@ -25,7 +25,7 @@ class ShippingLabelBannerDisplayRules {
 	private $no_incompatible_plugins_installed;
 
 	/**
-	 * Holds the installed WooCommerce Shipping & Tax version.
+	 * Holds the installed PooCommerce Shipping & Tax version.
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class ShippingLabelBannerDisplayRules {
 	 * Constructor.
 	 *
 	 * @param bool        $dotcom_connected Is site connected to wordpress.com?.
-	 * @param string|null $wcs_version Installed WooCommerce Shipping version to check, null if not installed.
+	 * @param string|null $wcs_version Installed PooCommerce Shipping version to check, null if not installed.
 	 * @param bool        $incompatible_plugins_installed Are there any incompatible plugins installed?.
 	 */
 	public function __construct( $dotcom_connected, $wcs_version, $incompatible_plugins_installed ) {
@@ -77,7 +77,7 @@ class ShippingLabelBannerDisplayRules {
 	 * @return bool
 	 */
 	private function banner_not_dismissed() {
-		$dismissed_timestamp_ms = get_option( 'woocommerce_shipping_dismissed_timestamp' );
+		$dismissed_timestamp_ms = get_option( 'poocommerce_shipping_dismissed_timestamp' );
 
 		if ( ! is_numeric( $dismissed_timestamp_ms ) ) {
 			return true;
@@ -123,14 +123,14 @@ class ShippingLabelBannerDisplayRules {
 	 * @return bool
 	 */
 	private function store_in_us_and_usd() {
-		$base_currency = get_woocommerce_currency();
+		$base_currency = get_poocommerce_currency();
 		$base_location = wc_get_base_location();
 
 		return in_array( $base_currency, $this->supported_currencies, true ) && in_array( $base_location['country'], $this->supported_countries, true );
 	}
 
 	/**
-	 * Checks if WooCommerce Shipping & Tax is not installed.
+	 * Checks if PooCommerce Shipping & Tax is not installed.
 	 *
 	 * @return bool
 	 */

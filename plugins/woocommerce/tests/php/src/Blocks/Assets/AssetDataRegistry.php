@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Assets;
+namespace Automattic\PooCommerce\Tests\Blocks\Assets;
 
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\AssetDataRegistryMock;
+use Automattic\PooCommerce\Blocks\Package;
 use InvalidArgumentException;
 
 /**
@@ -54,16 +54,16 @@ class AssetDataRegistry extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * This tests the 'woocommerce_shared_settings' filter.
+	 * This tests the 'poocommerce_shared_settings' filter.
 	 */
-	public function test_woocommerce_filter_with_protected_data() {
+	public function test_poocommerce_filter_with_protected_data() {
 		$this->registry->initialize_core_data();
 		$original_data = $this->registry->get();
-		add_filter( 'woocommerce_shared_settings', [ self::class, 'pdatcallback' ] );
+		add_filter( 'poocommerce_shared_settings', [ self::class, 'pdatcallback' ] );
 		$data = $this->registry->get();
 		$this->registry->initialize_core_data();
 		$this->assertEquals( $original_data, $data );
-		remove_filter( 'woocommerce_shared_settings', [ self::class, 'pdatcallback' ] );
+		remove_filter( 'poocommerce_shared_settings', [ self::class, 'pdatcallback' ] );
 	}
 
 	public static function pdatcallback( $existing_data ) {
@@ -76,14 +76,14 @@ class AssetDataRegistry extends \WP_UnitTestCase {
 		return $existing_data;
 	}
 
-	public function test_woocommerce_filter_with_new_data() {
+	public function test_poocommerce_filter_with_new_data() {
 		$this->registry->initialize_core_data();
 		$original_data = $this->registry->get();
-		add_filter( 'woocommerce_shared_settings', [ self::class, 'ndcallback' ] );
+		add_filter( 'poocommerce_shared_settings', [ self::class, 'ndcallback' ] );
 		$this->registry->initialize_core_data();
 		$data = $this->registry->get();
 		$original_data['cheeseburger'] = 'fries';
 		$this->assertEquals( $original_data, $data );
-		remove_filter( 'woocommerce_shared_settings', [ self::class, 'ndcallback' ] );
+		remove_filter( 'poocommerce_shared_settings', [ self::class, 'ndcallback' ] );
 	}
 }

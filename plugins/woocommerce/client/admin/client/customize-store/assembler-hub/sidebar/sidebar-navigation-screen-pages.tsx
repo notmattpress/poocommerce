@@ -11,10 +11,10 @@ import { SidebarNavigationScreen } from './sidebar-navigation-screen';
 export const SidebarNavigationScreenPages = () => {
 	return (
 		<SidebarNavigationScreen
-			title={ __( 'Add more pages', 'woocommerce' ) }
+			title={ __( 'Add more pages', 'poocommerce' ) }
 			description={ __(
 				"Enhance your customers' experience by customizing existing pages or adding new ones. You can continue customizing and adding pages later in Editor.",
-				'woocommerce'
+				'poocommerce'
 			) }
 			content={ <></> }
 		/>

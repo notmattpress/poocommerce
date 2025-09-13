@@ -34,7 +34,7 @@ const v1 = {
 				showSaleBadge: false,
 			},
 			[
-				createBlock( 'woocommerce/product-sale-badge', {
+				createBlock( 'poocommerce/product-sale-badge', {
 					align: saleBadgeAlign,
 				} ),
 			],

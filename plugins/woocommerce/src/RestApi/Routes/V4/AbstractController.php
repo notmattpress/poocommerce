@@ -4,12 +4,12 @@
  *
  * Extends WP_REST_Controller. Implements functionality that applies to all route controllers.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\RestApi\Routes\V4;
+namespace Automattic\PooCommerce\RestApi\Routes\V4;
 
 use WP_Error;
 use WP_Http;
@@ -18,7 +18,7 @@ use WP_REST_Controller;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Abstract REST Controller for WooCommerce REST API V4.
+ * Abstract REST Controller for PooCommerce REST API V4.
  *
  * Provides common functionality for all V4 route controllers including
  * schema generation, error handling, and hook management.
@@ -75,25 +75,25 @@ abstract class AbstractController extends WP_REST_Controller {
 	/**
 	 * Get the hook prefix for actions and filters.
 	 *
-	 * Example: woocommerce_rest_api_v4_orders_
+	 * Example: poocommerce_rest_api_v4_orders_
 	 *
 	 * @return string The hook prefix.
 	 * @since 10.2.0
 	 */
 	protected function get_hook_prefix(): string {
-		return 'woocommerce_rest_api_v4_' . $this->rest_base . '_';
+		return 'poocommerce_rest_api_v4_' . $this->rest_base . '_';
 	}
 
 	/**
 	 * Get the error prefix for errors.
 	 *
-	 * Example: woocommerce_rest_api_v4_orders_
+	 * Example: poocommerce_rest_api_v4_orders_
 	 *
 	 * @return string The error prefix.
 	 * @since 10.2.0
 	 */
 	protected function get_error_prefix(): string {
-		return 'woocommerce_rest_api_v4_' . $this->rest_base . '_';
+		return 'poocommerce_rest_api_v4_' . $this->rest_base . '_';
 	}
 
 	/**
@@ -123,7 +123,7 @@ abstract class AbstractController extends WP_REST_Controller {
 		}
 
 		if ( empty( $error_message ) ) {
-			$error_message = __( 'An error occurred while processing your request.', 'woocommerce' );
+			$error_message = __( 'An error occurred while processing your request.', 'poocommerce' );
 		}
 
 		return new WP_Error(
@@ -147,7 +147,7 @@ abstract class AbstractController extends WP_REST_Controller {
 	 */
 	protected function get_route_error_response_from_object( WP_Error $error_object, int $http_status_code = WP_Http::BAD_REQUEST, array $additional_data = array() ): WP_Error {
 		if ( ! $error_object instanceof WP_Error ) {
-			return $this->get_route_error_response( 'invalid_error_object', __( 'Invalid error object provided.', 'woocommerce' ), $http_status_code, $additional_data );
+			return $this->get_route_error_response( 'invalid_error_object', __( 'Invalid error object provided.', 'poocommerce' ), $http_status_code, $additional_data );
 		}
 
 		$error_object->add_data( array_merge( $additional_data, array( 'status' => $http_status_code ) ) );

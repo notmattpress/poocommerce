@@ -1,4 +1,4 @@
-.woocommerce-fulfillment-drawer {
+.poocommerce-fulfillment-drawer {
 	position: fixed;
 	inset: 0;
 	top: 32px;
@@ -95,7 +95,7 @@
 	}
 }
 
-.woocommerce-fulfillment-drawer__backdrop {
+.poocommerce-fulfillment-drawer__backdrop {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -106,7 +106,7 @@
 }
 
 @media screen and (max-width: 782px) {
-	.woocommerce-fulfillment-drawer {
+	.poocommerce-fulfillment-drawer {
 		top: 46px;
 		height: calc(100vh - 46px);
 		width: 100%;
@@ -123,7 +123,7 @@
 	}
 
 	// Prevent scrolling of the body when the drawer is open.
-	body:has(.woocommerce-fulfillment-drawer__body) {
+	body:has(.poocommerce-fulfillment-drawer__body) {
 		overflow: hidden;
 	}
 }

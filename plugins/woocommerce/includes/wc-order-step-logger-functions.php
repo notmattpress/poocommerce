@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Order Step Logging Functions
+ * PooCommerce Order Step Logging Functions
  *
  * Tracks the steps of the checkout process for place order debugging.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 9.7.0
  */
 

@@ -131,11 +131,11 @@ export function orders( includeTests = {} ) {
 			} );
 
 			response = http.get(
-				`${ base_url }/wp-json/wc-admin/options?options=woocommerce_ces_tracks_queue&_locale=user`,
+				`${ base_url }/wp-json/wc-admin/options?options=poocommerce_ces_tracks_queue&_locale=user`,
 				{
 					headers: requestHeaders,
 					tags: {
-						name: 'Merchant - wc-admin/options?options=woocommerce_ces_tracks_queue',
+						name: 'Merchant - wc-admin/options?options=poocommerce_ces_tracks_queue',
 					},
 				}
 			);

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class Utils
@@ -18,7 +18,7 @@ class Utils {
 	 */
 	public static function get_base_parsed_block() {
 		return array(
-			'blockName' => 'woocommerce/product-collection',
+			'blockName' => 'poocommerce/product-collection',
 			'attrs'     => array(
 				'query' => array(
 					'perPage'                  => 9,
@@ -32,8 +32,8 @@ class Utils {
 					'sticky'                   => '',
 					'inherit'                  => true,
 					'isProductCollectionBlock' => true,
-					'woocommerceAttributes'    => array(),
-					'woocommerceStockStatus'   => array(
+					'poocommerceAttributes'    => array(),
+					'poocommerceStockStatus'   => array(
 						ProductStockStatus::IN_STOCK,
 						ProductStockStatus::OUT_OF_STOCK,
 						ProductStockStatus::ON_BACKORDER,
@@ -54,9 +54,9 @@ class Utils {
 			$params,
 			array(
 				'featured'               => false,
-				'woocommerceOnSale'      => false,
-				'woocommerceAttributes'  => array(),
-				'woocommerceStockStatus' => array(),
+				'poocommerceOnSale'      => false,
+				'poocommerceAttributes'  => array(),
+				'poocommerceStockStatus' => array(),
 				'timeFrame'              => array(),
 				'priceRange'             => array(),
 			)

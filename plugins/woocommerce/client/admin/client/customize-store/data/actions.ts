@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * External dependencies
@@ -163,9 +163,9 @@ const updateTemplatePTK = async () => {
 	registerCoreBlocks( __experimentalGetCoreBlocks() );
 
 	const DEFAULT_PATTERNS = {
-		header: 'woocommerce-blocks/header-essential',
-		intro: 'woocommerce-blocks/centered-content-with-image-below',
-		footer: 'woocommerce-blocks/footer-with-3-menus',
+		header: 'poocommerce-blocks/header-essential',
+		intro: 'poocommerce-blocks/centered-content-with-image-below',
+		footer: 'poocommerce-blocks/footer-with-3-menus',
 	} as const;
 
 	const allPatterns = ( await resolveSelect(

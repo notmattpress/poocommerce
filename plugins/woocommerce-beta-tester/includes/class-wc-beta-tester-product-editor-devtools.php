@@ -22,14 +22,14 @@ class WC_Beta_Tester_Product_Editor_Devtools {
 	 * Register product editor devtools scripts.
 	 */
 	public function register_scripts() {
-		if ( ! class_exists( 'WooCommerce' ) ) {
+		if ( ! class_exists( 'PooCommerce' ) ) {
 			return;
 		}
 
-		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		if ( ! class_exists( 'Automattic\PooCommerce\Utilities\FeaturesUtil' ) ) {
 			return;
 		}
-		if ( ! Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_block_editor' ) || ! \Automattic\WooCommerce\Admin\PageController::is_admin_page() ) {
+		if ( ! Automattic\PooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_block_editor' ) || ! \Automattic\PooCommerce\Admin\PageController::is_admin_page() ) {
 			return;
 		}
 
@@ -44,24 +44,24 @@ class WC_Beta_Tester_Product_Editor_Devtools {
 		$script_url        = WC_Beta_Tester::instance()->plugin_url() . $script_path;
 
 		wp_register_script(
-			'woocommerce-beta-tester-product-editor-devtools',
+			'poocommerce-beta-tester-product-editor-devtools',
 			$script_url,
 			$script_asset['dependencies'],
 			$script_asset['version'],
 			true
 		);
 
-		wp_enqueue_script( 'woocommerce-beta-tester-product-editor-devtools' );
+		wp_enqueue_script( 'poocommerce-beta-tester-product-editor-devtools' );
 
 		$css_file_version = filemtime( dirname( __FILE__ ) . '/../build/product-editor-devtools.css' );
 		wp_register_style(
-			'woocommerce-beta-tester-product-editor-devtools',
+			'poocommerce-beta-tester-product-editor-devtools',
 			plugins_url( '/../build/product-editor-devtools.css', __FILE__ ),
 			array(),
 			$css_file_version
 		);
 
-		wp_enqueue_style( 'woocommerce-beta-tester-product-editor-devtools' );
+		wp_enqueue_style( 'poocommerce-beta-tester-product-editor-devtools' );
 	}
 }
 

@@ -28,13 +28,13 @@ const program = new Command( 'changefile' )
 	.description( 'Changelog utilities' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-d --dev-repo-path <devRepoPath>',

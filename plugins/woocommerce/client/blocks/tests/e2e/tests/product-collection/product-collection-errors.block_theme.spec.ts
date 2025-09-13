@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, wpCLI } from '@woocommerce/e2e-utils';
+import { test as base, expect, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

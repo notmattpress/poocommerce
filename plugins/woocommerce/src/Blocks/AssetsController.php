@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * AssetsController class.
@@ -34,7 +34,7 @@ final class AssetsController {
 	/**
 	 * Initialize class features.
 	 */
-	protected function init() { // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingPublic
+	protected function init() { // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingPublic
 		add_action( 'init', array( $this, 'register_assets' ) );
 		add_action( 'init', array( $this, 'register_script_modules' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_and_enqueue_site_editor_assets' ) );
@@ -53,7 +53,7 @@ final class AssetsController {
 	}
 
 	/**
-	 * Re-registers the iAPI runtime registered by WordPress Core/Gutenberg, allowing WooCommerce to register its own version of the iAPI runtime.
+	 * Re-registers the iAPI runtime registered by WordPress Core/Gutenberg, allowing PooCommerce to register its own version of the iAPI runtime.
 	 */
 	public function reregister_core_iapi_runtime() {
 		$interactivity_api_asset_data = $this->api->get_asset_data(
@@ -208,12 +208,12 @@ final class AssetsController {
 		$checkout_page_id = wc_get_page_id( 'checkout' );
 
 		// Checks a specific page (by ID) to see if it contains the named block.
-		$has_block_cart     = $cart_page_id && has_block( 'woocommerce/cart', $cart_page_id );
-		$has_block_checkout = $checkout_page_id && has_block( 'woocommerce/checkout', $checkout_page_id );
+		$has_block_cart     = $cart_page_id && has_block( 'poocommerce/cart', $cart_page_id );
+		$has_block_checkout = $checkout_page_id && has_block( 'poocommerce/checkout', $checkout_page_id );
 
 		// Checks the current page to see if it contains the named block.
-		$is_block_cart     = has_block( 'woocommerce/cart' );
-		$is_block_checkout = has_block( 'woocommerce/checkout' );
+		$is_block_cart     = has_block( 'poocommerce/cart' );
+		$is_block_checkout = has_block( 'poocommerce/checkout' );
 
 		if ( $has_block_cart && ! $is_block_cart ) {
 			$urls = array_merge( $urls, $this->get_block_asset_resource_hints( 'cart-frontend' ) );
@@ -233,7 +233,7 @@ final class AssetsController {
 	 */
 	private function get_prerender_resource_hints() {
 		$urls          = array();
-		$is_block_cart = has_block( 'woocommerce/cart' );
+		$is_block_cart = has_block( 'poocommerce/cart' );
 
 		if ( ! $is_block_cart ) {
 			return $urls;
@@ -259,10 +259,10 @@ final class AssetsController {
 			return null;
 		}
 
-		$cache = get_site_transient( 'woocommerce_block_asset_resource_hints' );
+		$cache = get_site_transient( 'poocommerce_block_asset_resource_hints' );
 
 		$current_version = array(
-			'woocommerce' => WOOCOMMERCE_VERSION,
+			'poocommerce' => WOOCOMMERCE_VERSION,
 			'wordpress'   => get_bloginfo( 'version' ),
 			'site_url'    => wp_guess_url(),
 		);
@@ -285,14 +285,14 @@ final class AssetsController {
 		$updated = array(
 			'files'   => $cache ?? array(),
 			'version' => array(
-				'woocommerce' => WOOCOMMERCE_VERSION,
+				'poocommerce' => WOOCOMMERCE_VERSION,
 				'wordpress'   => get_bloginfo( 'version' ),
 				'site_url'    => wp_guess_url(),
 			),
 		);
 
 		$updated['files'][ $filename ] = $data;
-		set_site_transient( 'woocommerce_block_asset_resource_hints', $updated, WEEK_IN_SECONDS );
+		set_site_transient( 'poocommerce_block_asset_resource_hints', $updated, WEEK_IN_SECONDS );
 	}
 
 	/**
@@ -412,8 +412,8 @@ final class AssetsController {
 	 * @return string The cache buster value to use for the given file.
 	 */
 	protected function get_file_version( $file ) {
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( \Automattic\WooCommerce\Blocks\Package::get_path() . $file ) ) {
-			return filemtime( \Automattic\WooCommerce\Blocks\Package::get_path() . $file );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( \Automattic\PooCommerce\Blocks\Package::get_path() . $file ) ) {
+			return filemtime( \Automattic\PooCommerce\Blocks\Package::get_path() . $file );
 		}
 		return $this->api->wc_version;
 	}
@@ -450,15 +450,15 @@ final class AssetsController {
 			return;
 		}
 
-		// In WC < 5.5, `woocommerce-general` is not registered in block editor
+		// In WC < 5.5, `poocommerce-general` is not registered in block editor
 		// screens, so we don't add it as a dependency if it's not registered.
-		// In WC >= 5.5, `woocommerce-general` is registered on `admin_enqueue_scripts`,
+		// In WC >= 5.5, `poocommerce-general` is registered on `admin_enqueue_scripts`,
 		// so we need to check if it's registered here instead of on `init`.
 		if (
-			wp_style_is( 'woocommerce-general', 'registered' ) &&
-			! in_array( 'woocommerce-general', $style->deps, true )
+			wp_style_is( 'poocommerce-general', 'registered' ) &&
+			! in_array( 'poocommerce-general', $style->deps, true )
 		) {
-			$style->deps[] = 'woocommerce-general';
+			$style->deps[] = 'poocommerce-general';
 		}
 	}
 
@@ -473,7 +473,7 @@ final class AssetsController {
 	 *
 	 * This only supports packages known to require wc-settings!
 	 *
-	 * @see https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues/5052
+	 * @see https://github.com/poocommerce/poocommerce-gutenberg-products-block/issues/5052
 	 */
 	public function update_block_settings_dependencies() {
 		$wp_scripts     = wp_scripts();
@@ -487,7 +487,7 @@ final class AssetsController {
 				// Show a warning.
 				$error_handle  = 'wc-settings-dep-in-header';
 				$used_deps     = implode( ', ', array_intersect( $known_packages, $script->deps ) );
-				$error_message = "Scripts that have a dependency on [$used_deps] must be loaded in the footer, {$handle} was registered to load in the header, but has been switched to load in the footer instead. See https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/5059";
+				$error_message = "Scripts that have a dependency on [$used_deps] must be loaded in the footer, {$handle} was registered to load in the header, but has been switched to load in the footer instead. See https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/5059";
 				// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter,WordPress.WP.EnqueuedResourceParameters.MissingVersion
 				wp_register_script( $error_handle, '' );
 				wp_enqueue_script( $error_handle );

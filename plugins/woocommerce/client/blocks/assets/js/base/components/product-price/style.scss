@@ -24,11 +24,11 @@
 		margin-bottom: $gap-small;
 	}
 
-	.woocommerce-Price-salePrice {
+	.poocommerce-Price-salePrice {
 		margin-left: 0.5em;
 	}
 
-	.woocommerce-Price-bidi {
+	.poocommerce-Price-bidi {
 		unicode-bidi: bidi-override;
 		direction: ltr;
 	}
@@ -37,7 +37,7 @@
 		text-decoration: none;
 	}
 
-	.woocommerce-Price-amount {
+	.poocommerce-Price-amount {
 		white-space: nowrap;
 	}
 }

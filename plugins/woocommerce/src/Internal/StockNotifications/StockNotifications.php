@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications;
+namespace Automattic\PooCommerce\Internal\StockNotifications;
 
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailActionController;
-use Automattic\WooCommerce\Internal\StockNotifications\StockSyncController;
-use Automattic\WooCommerce\Internal\StockNotifications\Privacy\PrivacyEraser;
-use Automattic\WooCommerce\Internal\StockNotifications\Emails\EmailManager;
-use Automattic\WooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\AdminManager;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\ProductPageIntegration;
-use Automattic\WooCommerce\Internal\StockNotifications\Frontend\FormHandlerService;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailActionController;
+use Automattic\PooCommerce\Internal\StockNotifications\StockSyncController;
+use Automattic\PooCommerce\Internal\StockNotifications\Privacy\PrivacyEraser;
+use Automattic\PooCommerce\Internal\StockNotifications\Emails\EmailManager;
+use Automattic\PooCommerce\Internal\StockNotifications\AsyncTasks\NotificationsProcessor;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\AdminManager;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\ProductPageIntegration;
+use Automattic\PooCommerce\Internal\StockNotifications\Frontend\FormHandlerService;
 
 /**
  * The controller for the stock notifications.
@@ -24,13 +24,13 @@ class StockNotifications {
 	 */
 	public function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'init_hooks' ) );
-		add_action( 'woocommerce_installed', array( $this, 'on_install_or_update' ) );
+		add_action( 'poocommerce_installed', array( $this, 'on_install_or_update' ) );
 	}
 
 	/**
-	 * Handle the WooCommerce installation event.
+	 * Handle the PooCommerce installation event.
 	 *
-	 * This method is called when WooCommerce is installed or updated.
+	 * This method is called when PooCommerce is installed or updated.
 	 * It initializes the data retention controller to set up necessary tasks.
 	 */
 	public function on_install_or_update() {
@@ -43,7 +43,7 @@ class StockNotifications {
 	 * @internal
 	 */
 	public function init_hooks() {
-		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+		add_filter( 'poocommerce_data_stores', array( $this, 'register_data_stores' ) );
 
 		$container = wc_get_container();
 		$container->get( EmailManager::class );

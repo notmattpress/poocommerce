@@ -88,8 +88,8 @@ export const EditorWritingFlow = ( {
 		/* Gutenberg handles the keyboard events when focusing the content editable area. */
 		/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 		<div
-			className="woocommerce-rich-text-editor__writing-flow"
-			id={ `woocommerce-rich-text-editor__writing-flow-${ instanceId }` }
+			className="poocommerce-rich-text-editor__writing-flow"
+			id={ `poocommerce-rich-text-editor__writing-flow-${ instanceId }` }
 			style={ {
 				cursor: isEmpty ? 'text' : 'initial',
 			} }

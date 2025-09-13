@@ -8,7 +8,7 @@ import {
 	PaymentGatewayProvider,
 	PaymentsProviderIncentive,
 	woopaymentsOnboardingStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -78,7 +78,7 @@ export const CompleteSetupButton = ( {
 	onboardingHref,
 	gatewayHasRecommendedPaymentMethods,
 	installingPlugin,
-	buttonText = __( 'Complete setup', 'woocommerce' ),
+	buttonText = __( 'Complete setup', 'poocommerce' ),
 	setOnboardingModalOpen,
 	onboardingType,
 	acceptIncentive = () => {},
