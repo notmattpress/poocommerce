@@ -1,10 +1,10 @@
 <?php
 /**
  * Test for the email class.
- * @package WooCommerce\Tests\Emails
+ * @package PooCommerce\Tests\Emails
  */
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * WC_Tests_WC_Emails.
@@ -164,7 +164,7 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 		$email = new WC_Email();
 
 		add_filter(
-			'woocommerce_email_format_string_replace',
+			'poocommerce_email_format_string_replace',
 			function ( $replace ) {
 				$replace['customer-name'] = 'Jane Smith';
 				return $replace;
@@ -172,7 +172,7 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 			10
 		);
 		add_filter(
-			'woocommerce_email_format_string_find',
+			'poocommerce_email_format_string_find',
 			function ( $find ) {
 				$find['customer-name'] = '{customer_name}';
 				return $find;
@@ -184,8 +184,8 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 		$this->assertEquals( 'Hello Jane Smith', $result );
 
 		// Clean up filters.
-		remove_all_filters( 'woocommerce_email_format_string_replace' );
-		remove_all_filters( 'woocommerce_email_format_string_find' );
+		remove_all_filters( 'poocommerce_email_format_string_replace' );
+		remove_all_filters( 'poocommerce_email_format_string_find' );
 	}
 
 	/**
@@ -197,7 +197,7 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 		$email = new WC_Email();
 
 		add_filter(
-			'woocommerce_email_format_string_replace',
+			'poocommerce_email_format_string_replace',
 			function ( $replace ) {
 				$replace['blogname'] = 'My Custom Shop Name';
 				return $replace;
@@ -205,7 +205,7 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 			10
 		);
 		add_filter(
-			'woocommerce_email_format_string_find',
+			'poocommerce_email_format_string_find',
 			function ( $find ) {
 				$find['blogname'] = '{blogname}';
 				return $find;
@@ -220,8 +220,8 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 		);
 
 		// Clean up filters.
-		remove_all_filters( 'woocommerce_email_format_string_replace' );
-		remove_all_filters( 'woocommerce_email_format_string_find' );
+		remove_all_filters( 'poocommerce_email_format_string_replace' );
+		remove_all_filters( 'poocommerce_email_format_string_find' );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 		$email = new WC_Email();
 
 		add_filter(
-			'woocommerce_email_format_string',
+			'poocommerce_email_format_string',
 			function () {
 				return 'Completely overridden';
 			},
@@ -244,7 +244,7 @@ class WC_Tests_WC_Emails extends WC_Unit_Test_Case {
 		);
 
 		// Clean up.
-		remove_all_filters( 'woocommerce_email_format_string' );
+		remove_all_filters( 'poocommerce_email_format_string' );
 	}
 
 	/**

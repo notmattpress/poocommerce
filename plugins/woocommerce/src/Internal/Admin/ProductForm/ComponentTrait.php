@@ -3,7 +3,7 @@
  * Product Form Traits
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductForm;
+namespace Automattic\PooCommerce\Internal\Admin\ProductForm;
 
 defined( 'ABSPATH' ) || exit;
 

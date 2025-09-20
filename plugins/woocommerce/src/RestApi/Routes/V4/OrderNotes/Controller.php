@@ -4,16 +4,16 @@
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\RestApi\Routes\V4\OrderNotes;
+namespace Automattic\PooCommerce\RestApi\Routes\V4\OrderNotes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\RestApi\Routes\V4\AbstractController;
 use WP_Http;
 use WP_Error;
 use WP_Comment;
@@ -61,7 +61,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'order_id' => array(
-						'description' => __( 'The order ID that notes belong to.', 'woocommerce' ),
+						'description' => __( 'The order ID that notes belong to.', 'poocommerce' ),
 						'type'        => 'integer',
 						'required'    => true,
 					),
@@ -87,7 +87,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -156,11 +156,11 @@ class Controller extends AbstractController {
 	 */
 	protected function order_permissions_check( $order ) {
 		if ( ! $order || ! $order instanceof WC_Order ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid order ID.', 'woocommerce' ), WP_Http::NOT_FOUND );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid order ID.', 'poocommerce' ), WP_Http::NOT_FOUND );
 		}
 
 		if ( ! $this->check_permissions( 'order', 'edit', (int) $order->get_id() ) ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'cannot_edit', __( 'Sorry, you are not allowed to access notes for this order.', 'woocommerce' ), rest_authorization_required_code() );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'cannot_edit', __( 'Sorry, you are not allowed to access notes for this order.', 'poocommerce' ), rest_authorization_required_code() );
 		}
 
 		return true;
@@ -216,7 +216,7 @@ class Controller extends AbstractController {
 		$note = Utils::get_note_by_id( (int) $request['id'] );
 
 		if ( ! $note ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid resource ID.', 'woocommerce' ), WP_Http::NOT_FOUND );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid resource ID.', 'poocommerce' ), WP_Http::NOT_FOUND );
 		}
 
 		return $this->prepare_item_for_response( $note, $request );
@@ -232,7 +232,7 @@ class Controller extends AbstractController {
 		$order = Utils::get_order_by_id( (int) $request['order_id'] );
 
 		if ( ! $order ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid order ID.', 'woocommerce' ), WP_Http::NOT_FOUND );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid order ID.', 'poocommerce' ), WP_Http::NOT_FOUND );
 		}
 
 		$results = QueryUtils::get_query_results( $request, $order );
@@ -254,14 +254,14 @@ class Controller extends AbstractController {
 	public function create_item( $request ) {
 		if ( ! empty( $request['id'] ) ) {
 			/* translators: %s: post type */
-			return $this->get_route_error_response( $this->get_error_prefix() . 'exists', __( 'Cannot create existing order note.', 'woocommerce' ), WP_Http::BAD_REQUEST );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'exists', __( 'Cannot create existing order note.', 'poocommerce' ), WP_Http::BAD_REQUEST );
 		}
 
 		$order   = Utils::get_order_by_id( (int) $request['order_id'] );
 		$note_id = $order ? $order->add_order_note( $request['note'], $request['is_customer_note'], true ) : null;
 
 		if ( ! $note_id ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'cannot_create', __( 'Cannot create order note.', 'woocommerce' ), WP_Http::INTERNAL_SERVER_ERROR );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'cannot_create', __( 'Cannot create order note.', 'poocommerce' ), WP_Http::INTERNAL_SERVER_ERROR );
 		}
 
 		$note = get_comment( $note_id );
@@ -294,7 +294,7 @@ class Controller extends AbstractController {
 		$note = Utils::get_note_by_id( (int) $request['id'] );
 
 		if ( empty( $note ) ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid resource ID.', 'woocommerce' ), WP_Http::NOT_FOUND );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'invalid_id', __( 'Invalid resource ID.', 'poocommerce' ), WP_Http::NOT_FOUND );
 		}
 
 		$request->set_param( 'context', 'edit' );
@@ -303,7 +303,7 @@ class Controller extends AbstractController {
 		$result = wc_delete_order_note( (int) $note->comment_ID );
 
 		if ( ! $result ) {
-			return $this->get_route_error_response( $this->get_error_prefix() . 'cannot_delete', __( 'This object cannot be deleted.', 'woocommerce' ), WP_Http::INTERNAL_SERVER_ERROR );
+			return $this->get_route_error_response( $this->get_error_prefix() . 'cannot_delete', __( 'This object cannot be deleted.', 'poocommerce' ), WP_Http::INTERNAL_SERVER_ERROR );
 		}
 
 		/**

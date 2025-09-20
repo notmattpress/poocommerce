@@ -7,11 +7,11 @@
  * @class       WC_Gateway_Paypal
  * @extends     WC_Payment_Gateway
  * @version     2.3.0
- * @package     WooCommerce\Classes\Payment
+ * @package     PooCommerce\Classes\Payment
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\PaymentGatewayFeature;
+use Automattic\PooCommerce\Enums\PaymentGatewayFeature;
 use Automattic\Jetpack\Connection\Manager as Jetpack_Connection_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -126,10 +126,10 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	public function __construct() {
 		$this->id                = self::ID;
 		$this->has_fields        = false;
-		$this->order_button_text = __( 'Proceed to PayPal', 'woocommerce' );
-		$this->method_title      = __( 'PayPal Standard', 'woocommerce' );
+		$this->order_button_text = __( 'Proceed to PayPal', 'poocommerce' );
+		$this->method_title      = __( 'PayPal Standard', 'poocommerce' );
 		/* translators: %s: Link to WC system status page */
-		$this->method_description = __( 'PayPal Standard redirects customers to PayPal to enter their payment information.', 'woocommerce' );
+		$this->method_description = __( 'PayPal Standard redirects customers to PayPal to enter their payment information.', 'poocommerce' );
 		$this->supports           = array(
 			PaymentGatewayFeature::PRODUCTS,
 			PaymentGatewayFeature::REFUNDS,
@@ -152,14 +152,14 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 
 		if ( $this->testmode ) {
 			/* translators: %s: Link to PayPal sandbox testing guide page */
-			$this->description .= ' ' . sprintf( __( 'SANDBOX ENABLED. You can use sandbox testing accounts only. See the <a href="%s">PayPal Sandbox Testing Guide</a> for more details.', 'woocommerce' ), 'https://developer.paypal.com/docs/classic/lifecycle/ug_sandbox/' );
+			$this->description .= ' ' . sprintf( __( 'SANDBOX ENABLED. You can use sandbox testing accounts only. See the <a href="%s">PayPal Sandbox Testing Guide</a> for more details.', 'poocommerce' ), 'https://developer.paypal.com/docs/classic/lifecycle/ug_sandbox/' );
 			$this->description  = trim( $this->description );
 		}
 
 		// Actions.
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'capture_payment' ) );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'capture_payment' ) );
+		add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_order_status_processing', array( $this, 'capture_payment' ) );
+		add_action( 'poocommerce_order_status_completed', array( $this, 'capture_payment' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 		if ( ! $this->is_valid_for_use() ) {
@@ -176,14 +176,14 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 		}
 
 		if ( 'yes' === $this->enabled ) {
-			add_filter( 'woocommerce_thankyou_order_received_text', array( $this, 'order_received_text' ), 10, 2 );
+			add_filter( 'poocommerce_thankyou_order_received_text', array( $this, 'order_received_text' ), 10, 2 );
 			// Hide action buttons for pending orders as they take a while to be captured with orders v2.
-			add_filter( 'woocommerce_my_account_my_orders_actions', array( $this, 'hide_action_buttons' ), 10, 2 );
+			add_filter( 'poocommerce_my_account_my_orders_actions', array( $this, 'hide_action_buttons' ), 10, 2 );
 
-			add_filter( 'woocommerce_settings_api_form_fields_paypal', array( $this, 'maybe_remove_fields' ), 15 );
+			add_filter( 'poocommerce_settings_api_form_fields_paypal', array( $this, 'maybe_remove_fields' ), 15 );
 
 			// Hook for plugin upgrades.
-			add_action( 'woocommerce_updated', array( $this, 'maybe_onboard_with_transact' ) );
+			add_action( 'poocommerce_updated', array( $this, 'maybe_onboard_with_transact' ) );
 		}
 	}
 
@@ -193,7 +193,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	public function maybe_onboard_with_transact() {
-		if ( ! is_admin() || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! is_admin() || ! current_user_can( 'manage_poocommerce' ) ) {
 			return;
 		}
 
@@ -210,7 +210,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 		 * @since 10.2.0
 		 */
 		$use_orders_v2 = apply_filters(
-			'woocommerce_paypal_use_orders_v2',
+			'poocommerce_paypal_use_orders_v2',
 			WC_Gateway_Paypal_Helper::is_orders_v2_migration_eligible() && WC_Gateway_Paypal_Helper::is_orders_v2_feature_flag_enabled()
 		);
 
@@ -247,7 +247,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	 */
 	public static function log( $message, $level = 'info' ) {
 		if ( is_null( self::$log_enabled ) ) {
-			$settings          = get_option( 'woocommerce_paypal_settings' );
+			$settings          = get_option( 'poocommerce_paypal_settings' );
 			self::$log_enabled = 'yes' === ( $settings['debug'] ?? 'no' );
 		}
 
@@ -299,12 +299,12 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 		$icon      = (array) $this->get_icon_image( $base_country );
 
 		foreach ( $icon as $i ) {
-			$icon_html .= '<img src="' . esc_attr( $i ) . '" alt="' . esc_attr__( 'PayPal acceptance mark', 'woocommerce' ) . '" />';
+			$icon_html .= '<img src="' . esc_attr( $i ) . '" alt="' . esc_attr__( 'PayPal acceptance mark', 'poocommerce' ) . '" />';
 		}
 
-		$icon_html .= sprintf( '<a href="%1$s" class="about_paypal" onclick="javascript:window.open(\'%1$s\',\'WIPaypal\',\'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700\'); return false;">' . esc_attr__( 'What is PayPal?', 'woocommerce' ) . '</a>', esc_url( $this->get_icon_url( $base_country ) ) );
+		$icon_html .= sprintf( '<a href="%1$s" class="about_paypal" onclick="javascript:window.open(\'%1$s\',\'WIPaypal\',\'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700\'); return false;">' . esc_attr__( 'What is PayPal?', 'poocommerce' ) . '</a>', esc_url( $this->get_icon_url( $base_country ) ) );
 
-		return apply_filters( 'woocommerce_gateway_icon', $icon_html, $this->id );
+		return apply_filters( 'poocommerce_gateway_icon', $icon_html, $this->id );
 	}
 
 	/**
@@ -394,7 +394,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 				$icon = WC_HTTPS::force_https_url( WC()->plugin_url() . '/includes/gateways/paypal/assets/images/paypal.png' );
 				break;
 		}
-		return apply_filters( 'woocommerce_paypal_icon', $icon );
+		return apply_filters( 'poocommerce_paypal_icon', $icon );
 	}
 
 	/**
@@ -404,9 +404,9 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	 */
 	public function is_valid_for_use() {
 		return in_array(
-			get_woocommerce_currency(),
+			get_poocommerce_currency(),
 			apply_filters(
-				'woocommerce_paypal_supported_currencies',
+				'poocommerce_paypal_supported_currencies',
 				array( 'AUD', 'BRL', 'CAD', 'MXN', 'NZD', 'HKD', 'SGD', 'USD', 'EUR', 'JPY', 'TRY', 'NOK', 'CZK', 'DKK', 'HUF', 'ILS', 'MYR', 'PHP', 'PLN', 'SEK', 'CHF', 'TWD', 'THB', 'GBP', 'RMB', 'RUB', 'INR' )
 			),
 			true
@@ -426,7 +426,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 			?>
 			<div class="inline error">
 				<p>
-					<strong><?php esc_html_e( 'Gateway disabled', 'woocommerce' ); ?></strong>: <?php esc_html_e( 'PayPal Standard does not support your store currency.', 'woocommerce' ); ?>
+					<strong><?php esc_html_e( 'Gateway disabled', 'poocommerce' ); ?></strong>: <?php esc_html_e( 'PayPal Standard does not support your store currency.', 'poocommerce' ); ?>
 				</p>
 			</div>
 			<?php
@@ -490,11 +490,11 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 			$paypal_order = $paypal_request->create_paypal_order( $order );
 			if ( ! $paypal_order || empty( $paypal_order['id'] ) || empty( $paypal_order['redirect_url'] ) ) {
 				throw new Exception(
-					esc_html__( 'We are unable to process your PayPal payment at this time. Please try again or use a different payment method.', 'woocommerce' )
+					esc_html__( 'We are unable to process your PayPal payment at this time. Please try again or use a different payment method.', 'poocommerce' )
 				);
 			}
 
-			// Save the PayPal order ID. This is different from the WooCommerce order ID.
+			// Save the PayPal order ID. This is different from the PooCommerce order ID.
 			$order->update_meta_data( '_paypal_order_id', $paypal_order['id'] );
 			$order->save();
 
@@ -551,7 +551,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 		$order = wc_get_order( $order_id );
 
 		if ( ! $this->can_refund_order( $order ) ) {
-			return new WP_Error( 'error', __( 'Refund failed.', 'woocommerce' ) );
+			return new WP_Error( 'error', __( 'Refund failed.', 'poocommerce' ) );
 		}
 
 		$this->init_api();
@@ -570,7 +570,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 			case 'successwithwarning':
 				$order->add_order_note(
 					/* translators: 1: Refund amount, 2: Refund ID */
-					sprintf( __( 'Refunded %1$s - Refund ID: %2$s', 'woocommerce' ), $result->GROSSREFUNDAMT, $result->REFUNDTRANSACTIONID ) // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					sprintf( __( 'Refunded %1$s - Refund ID: %2$s', 'poocommerce' ), $result->GROSSREFUNDAMT, $result->REFUNDTRANSACTIONID ) // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				);
 				return true;
 		}
@@ -601,7 +601,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 			if ( is_wp_error( $result ) ) {
 				static::log( 'Capture Failed: ' . $result->get_error_message(), 'error' );
 				/* translators: %s: Paypal gateway error message */
-				$order->add_order_note( sprintf( __( 'Payment could not be captured: %s', 'woocommerce' ), $result->get_error_message() ) );
+				$order->add_order_note( sprintf( __( 'Payment could not be captured: %s', 'poocommerce' ), $result->get_error_message() ) );
 				return;
 			}
 
@@ -612,14 +612,14 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 				switch ( $result->PAYMENTSTATUS ) {
 					case 'Completed':
 						/* translators: 1: Amount, 2: Authorization ID, 3: Transaction ID */
-						$order->add_order_note( sprintf( __( 'Payment of %1$s was captured - Auth ID: %2$s, Transaction ID: %3$s', 'woocommerce' ), $result->AMT, $result->AUTHORIZATIONID, $result->TRANSACTIONID ) );
+						$order->add_order_note( sprintf( __( 'Payment of %1$s was captured - Auth ID: %2$s, Transaction ID: %3$s', 'poocommerce' ), $result->AMT, $result->AUTHORIZATIONID, $result->TRANSACTIONID ) );
 						$order->update_meta_data( '_paypal_status', $result->PAYMENTSTATUS );
 						$order->set_transaction_id( $result->TRANSACTIONID );
 						$order->save();
 						break;
 					default:
 						/* translators: 1: Authorization ID, 2: Payment status */
-						$order->add_order_note( sprintf( __( 'Payment could not be captured - Auth ID: %1$s, Status: %2$s', 'woocommerce' ), $result->AUTHORIZATIONID, $result->PAYMENTSTATUS ) );
+						$order->add_order_note( sprintf( __( 'Payment could not be captured - Auth ID: %1$s, Status: %2$s', 'poocommerce' ), $result->AUTHORIZATIONID, $result->PAYMENTSTATUS ) );
 						break;
 				}
 			}
@@ -636,14 +636,14 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		if ( 'woocommerce_page_wc-settings' !== $screen_id ) {
+		if ( 'poocommerce_page_wc-settings' !== $screen_id ) {
 			return;
 		}
 
 		$suffix  = Constants::is_true( 'SCRIPT_DEBUG' ) ? '' : '.min';
 		$version = Constants::get_constant( 'WC_VERSION' );
 
-		wp_enqueue_script( 'woocommerce_paypal_admin', WC()->plugin_url() . '/includes/gateways/paypal/assets/js/paypal-admin' . $suffix . '.js', array(), $version, true );
+		wp_enqueue_script( 'poocommerce_paypal_admin', WC()->plugin_url() . '/includes/gateways/paypal/assets/js/paypal-admin' . $suffix . '.js', array(), $version, true );
 	}
 
 	/**
@@ -656,7 +656,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	 */
 	public function order_received_text( $text, $order ) {
 		if ( $order && $this->id === $order->get_payment_method() ) {
-			return esc_html__( 'Thank you for your payment. Your transaction has been completed, and a receipt for your purchase has been emailed to you. Log into your PayPal account to view transaction details.', 'woocommerce' );
+			return esc_html__( 'Thank you for your payment. Your transaction has been completed, and a receipt for your purchase has been emailed to you. Log into your PayPal account to view transaction details.', 'poocommerce' );
 		}
 
 		return $text;
@@ -733,7 +733,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 		 * @since 10.2.0
 		 */
 		$use_orders_v2 = apply_filters(
-			'woocommerce_paypal_use_orders_v2',
+			'poocommerce_paypal_use_orders_v2',
 			WC_Gateway_Paypal_Helper::is_orders_v2_migration_eligible() && WC_Gateway_Paypal_Helper::is_orders_v2_feature_flag_enabled()
 		);
 
@@ -777,7 +777,7 @@ class WC_Gateway_Paypal extends WC_Payment_Gateway {
 	 */
 	public function get_jetpack_connection_manager() {
 		if ( ! $this->jetpack_connection_manager ) {
-			$this->jetpack_connection_manager = new Jetpack_Connection_Manager( 'woocommerce' );
+			$this->jetpack_connection_manager = new Jetpack_Connection_Manager( 'poocommerce' );
 		}
 		return $this->jetpack_connection_manager;
 	}

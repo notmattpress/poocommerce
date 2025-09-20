@@ -3,14 +3,14 @@
  * A class of utilities for dealing with orders.
  */
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
-use Automattic\WooCommerce\Caches\OrderCacheController;
-use Automattic\WooCommerce\Caches\OrderCountCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Orders\PageController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\Internal\Utilities\COTMigrationUtil;
+use Automattic\PooCommerce\Caches\OrderCacheController;
+use Automattic\PooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Orders\PageController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\Internal\Utilities\COTMigrationUtil;
 use WC_Order;
 use WP_Post;
 
@@ -264,8 +264,8 @@ final class OrderUtil {
 	 * @return bool
 	 */
 	public static function uses_new_full_refund_data() {
-		$db_version                = get_option( 'woocommerce_db_version', null );
-		$uses_old_full_refund_data = get_option( 'woocommerce_analytics_uses_old_full_refund_data', 'no' );
+		$db_version                = get_option( 'poocommerce_db_version', null );
+		$uses_old_full_refund_data = get_option( 'poocommerce_analytics_uses_old_full_refund_data', 'no' );
 		if ( null === $db_version ) {
 			return 'no' === $uses_old_full_refund_data;
 		}

@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { Fragment } from '@wordpress/element';
-import { noticeContexts, useEditorContext } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
+import { noticeContexts, useEditorContext } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { checkoutStore } from '@woocommerce/block-data';
-import { ORDER_FORM_KEYS } from '@woocommerce/block-settings';
-import { Form } from '@woocommerce/base-components/cart-checkout';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
+import { checkoutStore } from '@poocommerce/block-data';
+import { ORDER_FORM_KEYS } from '@poocommerce/block-settings';
+import { Form } from '@poocommerce/base-components/cart-checkout';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
 import type { FunctionComponent } from 'react';
-import type { OrderFormValues } from '@woocommerce/settings';
+import type { OrderFormValues } from '@poocommerce/settings';
 
 const Block: FunctionComponent = () => {
 	const { additionalFields } = useSelect( ( select ) => {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Admin\BlockTemplates;
 
 /**
  * Interface for block containers.

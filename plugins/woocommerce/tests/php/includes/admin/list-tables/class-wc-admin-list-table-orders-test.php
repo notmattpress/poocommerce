@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for Order List Tables in WooCommerce Admin
+ * Tests for Order List Tables in PooCommerce Admin
  */
 
 declare( strict_types = 1);

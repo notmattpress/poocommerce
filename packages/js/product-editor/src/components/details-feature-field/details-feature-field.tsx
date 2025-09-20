@@ -7,9 +7,9 @@ import {
 	useFormContext,
 	Link,
 	__experimentalTooltip as Tooltip,
-} from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	createElement,
 	Fragment,
@@ -30,17 +30,17 @@ export const DetailsFeatureField = () => {
 			// @ts-expect-error label type is wrong
 			label={
 				<>
-					{ __( 'Feature this product', 'woocommerce' ) }
+					{ __( 'Feature this product', 'poocommerce' ) }
 					<Tooltip
 						text={ createInterpolateElement(
 							__(
 								'Include this product in a featured section on your website with a widget or shortcode. <moreLink />',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								moreLink: (
 									<Link
-										href="https://woocommerce.com/document/woocommerce-shortcodes/#products"
+										href="https://poocommerce.com/document/poocommerce-shortcodes/#products"
 										target="_blank"
 										type="external"
 										onClick={ () =>
@@ -53,7 +53,7 @@ export const DetailsFeatureField = () => {
 											)
 										}
 									>
-										{ __( 'Learn more', 'woocommerce' ) }
+										{ __( 'Learn more', 'poocommerce' ) }
 									</Link>
 								),
 							}

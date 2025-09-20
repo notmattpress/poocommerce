@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\ContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\ContainerInterface;
 
 /**
  * Block configuration used to specify blocks in BlockTemplate.
@@ -248,7 +248,7 @@ class AbstractBlock implements BlockInterface {
 	 * Add a hide condition to the block.
 	 *
 	 * The hide condition is a JavaScript-like expression that will be evaluated on the client to determine if the block should be hidden.
-	 * See [@woocommerce/expression-evaluation](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
+	 * See [@poocommerce/expression-evaluation](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
 	 *
 	 * @param string $expression An expression, which if true, will hide the block.
 	 */
@@ -269,7 +269,7 @@ class AbstractBlock implements BlockInterface {
 		 *
 		 * @since 8.4.0
 		 */
-		do_action( 'woocommerce_block_template_after_add_hide_condition', $this );
+		do_action( 'poocommerce_block_template_after_add_hide_condition', $this );
 
 		return $key;
 	}
@@ -289,7 +289,7 @@ class AbstractBlock implements BlockInterface {
 		 *
 		 * @since 8.4.0
 		 */
-		do_action( 'woocommerce_block_template_after_remove_hide_condition', $this );
+		do_action( 'poocommerce_block_template_after_remove_hide_condition', $this );
 	}
 
 	/**
@@ -303,7 +303,7 @@ class AbstractBlock implements BlockInterface {
 	 * Add a disable condition to the block.
 	 *
 	 * The disable condition is a JavaScript-like expression that will be evaluated on the client to determine if the block should be hidden.
-	 * See [@woocommerce/expression-evaluation](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
+	 * See [@poocommerce/expression-evaluation](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/expression-evaluation/README.md) for more details.
 	 *
 	 * @param string $expression An expression, which if true, will disable the block.
 	 */

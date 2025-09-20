@@ -7,20 +7,20 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import {
 	useStoreEvents,
 	useStoreAddToCart,
-} from '@woocommerce/base-context/hooks';
-import { useStyleProps } from '@woocommerce/base-hooks';
+} from '@poocommerce/base-context/hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import { decodeEntities } from '@wordpress/html-entities';
 import {
 	CART_URL,
 	isExperimentalWcRestApiV4Enabled,
-} from '@woocommerce/block-settings';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/block-settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
-import { ProductEntityResponse } from '@woocommerce/entities';
+} from '@poocommerce/shared-context';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
+import { ProductEntityResponse } from '@poocommerce/entities';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ const getButtonText = ( {
 	if ( addedToCart ) {
 		return sprintf(
 			/* translators: %s number of products in cart. */
-			_n( '%d in cart', '%d in cart', cartQuantity, 'woocommerce' ),
+			_n( '%d in cart', '%d in cart', cartQuantity, 'poocommerce' ),
 			cartQuantity
 		);
 	}
@@ -60,7 +60,7 @@ const getButtonText = ( {
 		return productCartDetails?.single_text;
 	}
 
-	return productCartDetails?.text || __( 'Add to cart', 'woocommerce' );
+	return productCartDetails?.text || __( 'Add to cart', 'poocommerce' );
 };
 
 /**
@@ -97,7 +97,7 @@ const AddToCartButtonAdminSide = ( {
 			{ /* We need to use the button_text for external products*/ }
 			{ isExternal
 				? product.button_text
-				: buttonText || __( 'Add to cart', 'woocommerce' ) }
+				: buttonText || __( 'Add to cart', 'poocommerce' ) }
 		</button>
 	);
 };
@@ -199,7 +199,7 @@ const LoadingAddToCartButton = ( {
 			style={ style }
 			disabled={ true }
 		>
-			{ __( 'Add to cart', 'woocommerce' ) }
+			{ __( 'Add to cart', 'poocommerce' ) }
 		</button>
 	);
 };
@@ -226,8 +226,8 @@ const AddToCartButtonPlaceholder = ( {
 
 	const buttonText =
 		currentProductType?.slug === 'external'
-			? __( 'Buy product', 'woocommerce' )
-			: __( 'Add to cart', 'woocommerce' );
+			? __( 'Buy product', 'poocommerce' )
+			: __( 'Add to cart', 'poocommerce' );
 
 	return (
 		<button
@@ -283,7 +283,7 @@ export const Block = ( props: BlockAttributes ): JSX.Element => {
 							product={ product as ProductEntityResponse }
 							isDescendantOfAddToCartWithOptions={
 								props[
-									'woocommerce/isDescendantOfAddToCartWithOptions'
+									'poocommerce/isDescendantOfAddToCartWithOptions'
 								]
 							}
 						/>
@@ -297,7 +297,7 @@ export const Block = ( props: BlockAttributes ): JSX.Element => {
 								isAdmin={ props.isAdmin }
 								isDescendantOfAddToCartWithOptions={
 									props[
-										'woocommerce/isDescendantOfAddToCartWithOptions'
+										'poocommerce/isDescendantOfAddToCartWithOptions'
 									]
 								}
 								productEntity={ props.product }

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useCallback } from '@wordpress/element';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ function getErrorPropsWithActions(
 	errorContext = '',
 	validatorId: string,
 	focusByValidatorId: ( validatorId: string ) => void,
-	label: string = __( 'View error', 'woocommerce' )
+	label: string = __( 'View error', 'poocommerce' )
 ): ErrorProps {
 	return {
 		explicitDismiss: true,
@@ -129,10 +129,10 @@ export const useErrorHandler = (): UseErrorHandlerTypes => {
 				case 'product_invalid_sku':
 					response.message = __(
 						'Invalid or duplicated SKU.',
-						'woocommerce'
+						'poocommerce'
 					);
 					const errorSkuContext = getParentTabIdByBlockName(
-						'woocommerce/product-sku-field'
+						'poocommerce/product-sku-field'
 					);
 					if (
 						visibleTab !== errorSkuContext &&
@@ -142,14 +142,14 @@ export const useErrorHandler = (): UseErrorHandlerTypes => {
 							errorSkuContext,
 							'sku',
 							focusByValidatorId,
-							__( 'View SKU field', 'woocommerce' )
+							__( 'View SKU field', 'poocommerce' )
 						);
 					}
 					break;
 				case 'product_invalid_global_unique_id':
 					response.message = __(
 						'Invalid or duplicated GTIN, UPC, EAN or ISBN.',
-						'woocommerce'
+						'poocommerce'
 					);
 					const errorUniqueIdContext = errorContext || 'inventory';
 					if ( visibleTab !== errorUniqueIdContext ) {
@@ -157,32 +157,32 @@ export const useErrorHandler = (): UseErrorHandlerTypes => {
 							errorUniqueIdContext,
 							'global_unique_id',
 							focusByValidatorId,
-							__( 'View identifier field', 'woocommerce' )
+							__( 'View identifier field', 'poocommerce' )
 						);
 					}
 					break;
 				case 'product_create_error':
 					response.message = __(
 						'Failed to create product.',
-						'woocommerce'
+						'poocommerce'
 					);
 					break;
 				case 'product_publish_error':
 					response.message = __(
 						'Failed to publish product.',
-						'woocommerce'
+						'poocommerce'
 					);
 					break;
 				case 'product_preview_error':
 					response.message = __(
 						'Failed to preview product.',
-						'woocommerce'
+						'poocommerce'
 					);
 					break;
 				default:
 					response.message = __(
 						'Failed to save product.',
-						'woocommerce'
+						'poocommerce'
 					);
 					break;
 			}

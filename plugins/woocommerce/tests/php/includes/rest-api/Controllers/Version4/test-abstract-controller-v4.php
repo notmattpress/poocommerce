@@ -6,7 +6,7 @@ require_once __DIR__ . '/test-abstract-schema-v4.php';
 /**
  * Test implementation of AbstractController for testing purposes.
  */
-class Test_Abstract_Controller_V4 extends Automattic\WooCommerce\RestApi\Routes\V4\AbstractController {
+class Test_Abstract_Controller_V4 extends Automattic\PooCommerce\RestApi\Routes\V4\AbstractController {
 
 	/**
 	 * Set rest_base for testing.

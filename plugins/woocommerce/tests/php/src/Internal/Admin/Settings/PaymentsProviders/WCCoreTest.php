@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WCCore;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WCCore;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use WC_Unit_Test_Case;
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
@@ -41,8 +41,8 @@ class WCCoreTest extends WC_Unit_Test_Case {
 			WC_Gateway_BACS::ID,
 			array(
 				'enabled'            => true,
-				'plugin_slug'        => 'woocommerce',
-				'plugin_file'        => 'woocommerce/woocommerce.php',
+				'plugin_slug'        => 'poocommerce',
+				'plugin_file'        => 'poocommerce/poocommerce.php',
 				'method_title'       => 'BACS',
 				'method_description' => 'Bacs is good.',
 				'supports'           => array( 'products', 'something', 'bogus' ),
@@ -61,8 +61,8 @@ class WCCoreTest extends WC_Unit_Test_Case {
 			WC_Gateway_Cheque::ID,
 			array(
 				'enabled'            => true,
-				'plugin_slug'        => 'woocommerce',
-				'plugin_file'        => 'woocommerce/woocommerce.php',
+				'plugin_slug'        => 'poocommerce',
+				'plugin_file'        => 'poocommerce/poocommerce.php',
 				'method_title'       => 'Cheque',
 				'method_description' => 'Cheque is good.',
 				'supports'           => array( 'products', 'something', 'bogus' ),
@@ -81,8 +81,8 @@ class WCCoreTest extends WC_Unit_Test_Case {
 			WC_Gateway_COD::ID,
 			array(
 				'enabled'            => true,
-				'plugin_slug'        => 'woocommerce',
-				'plugin_file'        => 'woocommerce/woocommerce.php',
+				'plugin_slug'        => 'poocommerce',
+				'plugin_file'        => 'poocommerce/poocommerce.php',
 				'method_title'       => 'COD',
 				'method_description' => 'COD is good.',
 				'supports'           => array( 'products', 'something', 'bogus' ),
@@ -101,8 +101,8 @@ class WCCoreTest extends WC_Unit_Test_Case {
 			WC_Gateway_Paypal::ID,
 			array(
 				'enabled'            => true,
-				'plugin_slug'        => 'woocommerce',
-				'plugin_file'        => 'woocommerce/woocommerce.php',
+				'plugin_slug'        => 'poocommerce',
+				'plugin_file'        => 'poocommerce/poocommerce.php',
 				'method_title'       => 'Paypal',
 				'method_description' => 'Paypal is good.',
 				'supports'           => array( 'products', 'something', 'bogus' ),

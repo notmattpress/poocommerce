@@ -14,37 +14,37 @@ export const possiblyRenderSettingsSlots = () => {
 	const slots = [
 		{
 			id: 'wc_payments_settings_slotfill',
-			scope: 'woocommerce-payments-settings',
+			scope: 'poocommerce-payments-settings',
 		},
-		{ id: 'wc_tax_settings_slotfill', scope: 'woocommerce-tax-settings' },
-		{ id: 'wc_settings_slotfill', scope: 'woocommerce-settings' },
+		{ id: 'wc_tax_settings_slotfill', scope: 'poocommerce-tax-settings' },
+		{ id: 'wc_settings_slotfill', scope: 'poocommerce-settings' },
 		{
 			id: 'wc_settings_site_visibility_slotfill',
-			scope: 'woocommerce-site-visibility-settings',
+			scope: 'poocommerce-site-visibility-settings',
 		},
 		{
 			id: 'wc_settings_blueprint_slotfill',
-			scope: 'woocommerce-blueprint-settings',
+			scope: 'poocommerce-blueprint-settings',
 		},
 		{
 			id: 'wc_settings_email_preview_slotfill',
-			scope: 'woocommerce-email-preview-settings',
+			scope: 'poocommerce-email-preview-settings',
 		},
 		{
 			id: 'wc_settings_email_listing_slotfill',
-			scope: 'woocommerce-email-listing',
+			scope: 'poocommerce-email-listing',
 		},
 		{
 			id: 'wc_settings_features_email_feedback_slotfill',
-			scope: 'woocommerce-email-feedback-settings',
+			scope: 'poocommerce-email-feedback-settings',
 		},
 		{
 			id: 'wc_settings_email_image_url_slotfill',
-			scope: 'woocommerce-email-image-url-settings',
+			scope: 'poocommerce-email-image-url-settings',
 		},
 		{
 			id: 'wc_settings_email_color_palette_slotfill',
-			scope: 'woocommerce-email-color-palette-settings',
+			scope: 'poocommerce-email-color-palette-settings',
 		},
 	];
 

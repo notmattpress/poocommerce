@@ -4,7 +4,7 @@
  *
  * Handles requests to the /ping endpoint for API v4.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare(strict_types=1);
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Ping controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_V4_Controller
  */
 class WC_REST_Ping_V4_Controller extends WC_REST_V4_Controller {
@@ -85,13 +85,13 @@ class WC_REST_Ping_V4_Controller extends WC_REST_V4_Controller {
 		$schema['title']      = 'ping';
 		$schema['properties'] = array(
 			'message' => array(
-				'description' => __( 'The ping response message.', 'woocommerce' ),
+				'description' => __( 'The ping response message.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view' ),
 				'readonly'    => true,
 			),
 			'version' => array(
-				'description' => __( 'The API version responding to the ping.', 'woocommerce' ),
+				'description' => __( 'The API version responding to the ping.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view' ),
 				'readonly'    => true,

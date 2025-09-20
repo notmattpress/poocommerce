@@ -1,14 +1,14 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 
-use Automattic\WooCommerce\RestApi\Routes\V4\OrderNotes\Controller as OrderNotesController;
+use Automattic\PooCommerce\RestApi\Routes\V4\OrderNotes\Controller as OrderNotesController;
 
 /**
- * class Automattic\WooCommerce\RestApi\Routes\V4\OrderNotes\Controller tests.
+ * class Automattic\PooCommerce\RestApi\Routes\V4\OrderNotes\Controller tests.
  * Order Notes Controller tests for V4 REST API.
  */
 class WC_REST_Order_Notes_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
@@ -27,7 +27,7 @@ class WC_REST_Order_Notes_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -40,7 +40,7 @@ class WC_REST_Order_Notes_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;

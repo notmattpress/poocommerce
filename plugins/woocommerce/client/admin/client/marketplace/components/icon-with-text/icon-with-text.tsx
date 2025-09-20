@@ -18,18 +18,18 @@ export interface IconWithTextProps {
 export default function IconWithText( props: IconWithTextProps ): JSX.Element {
 	const { icon, title, description } = props;
 	return (
-		<div className="woocommerce-marketplace__icon-group">
-			<div className="woocommerce-marketplace__icon-group-headline">
+		<div className="poocommerce-marketplace__icon-group">
+			<div className="poocommerce-marketplace__icon-group-headline">
 				<Icon
 					icon={ icon }
 					size={ 20 }
-					className="woocommerce-marketplace__icon-group-icon"
+					className="poocommerce-marketplace__icon-group-icon"
 				/>
-				<h3 className="woocommerce-marketplace__icon-group-title">
+				<h3 className="poocommerce-marketplace__icon-group-title">
 					{ title }
 				</h3>
 			</div>
-			<p className="woocommerce-marketplace__icon-group-description">
+			<p className="poocommerce-marketplace__icon-group-description">
 				{ description }
 			</p>
 		</div>

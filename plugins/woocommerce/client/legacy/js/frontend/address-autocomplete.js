@@ -1,5 +1,5 @@
 /**
- * Address provider registration for WooCommerce shortcode checkout
+ * Address provider registration for PooCommerce shortcode checkout
  */
 
 // Make functions and state available globally under window.wc.addressAutocomplete
@@ -114,13 +114,13 @@ window.wc.addressAutocomplete.registerAddressAutocompleteProvider =
 
 			if ( provider && provider.canSearch( country ) ) {
 				window.wc.addressAutocomplete.activeProvider[ type ] = provider;
-				// Add autocomplete-available class to parent .woocommerce-input-wrapper
+				// Add autocomplete-available class to parent .poocommerce-input-wrapper
 				const addressInput = document.getElementById(
 					`${ type }_address_1`
 				);
 				if ( addressInput ) {
 					const wrapper = addressInput.closest(
-						'.woocommerce-input-wrapper'
+						'.poocommerce-input-wrapper'
 					);
 					if ( wrapper ) {
 						wrapper.classList.add( 'autocomplete-available' );
@@ -137,11 +137,11 @@ window.wc.addressAutocomplete.registerAddressAutocompleteProvider =
 
 		// No provider can search for this country.
 		window.wc.addressAutocomplete.activeProvider[ type ] = null;
-		// Remove autocomplete-available class from parent .woocommerce-input-wrapper
+		// Remove autocomplete-available class from parent .poocommerce-input-wrapper
 		const addressInput = document.getElementById( `${ type }_address_1` );
 		if ( addressInput ) {
 			const wrapper = addressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 			if ( wrapper ) {
 				wrapper.classList.remove( 'autocomplete-available' );
@@ -207,7 +207,7 @@ window.wc.addressAutocomplete.registerAddressAutocompleteProvider =
 				) {
 					const container = document.createElement( 'div' );
 					container.id = `address_suggestions_${ type }`;
-					container.className = 'woocommerce-address-suggestions';
+					container.className = 'poocommerce-address-suggestions';
 					container.style.display = 'none';
 					container.setAttribute( 'role', 'region' );
 					container.setAttribute( 'aria-live', 'polite' );
@@ -257,7 +257,7 @@ window.wc.addressAutocomplete.registerAddressAutocompleteProvider =
 							const brandingElement = suggestionsContainers[
 								type
 							].querySelector(
-								'.woocommerce-address-autocomplete-branding'
+								'.poocommerce-address-autocomplete-branding'
 							);
 							if ( brandingElement ) {
 								brandingElement.remove();
@@ -558,12 +558,12 @@ window.wc.addressAutocomplete.registerAddressAutocompleteProvider =
 						// Check if branding element already exists.
 						let brandingElement =
 							suggestionsContainer.querySelector(
-								'.woocommerce-address-autocomplete-branding'
+								'.poocommerce-address-autocomplete-branding'
 							);
 						if ( ! brandingElement ) {
 							brandingElement = document.createElement( 'div' );
 							brandingElement.className =
-								'woocommerce-address-autocomplete-branding';
+								'poocommerce-address-autocomplete-branding';
 							suggestionsContainer.appendChild( brandingElement );
 						}
 						// Update branding HTML content and make sure it's visible.
@@ -672,7 +672,7 @@ window.wc.addressAutocomplete.registerAddressAutocompleteProvider =
 
 			// Hide branding element but keep it in DOM (will be removed on country change).
 			const brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 			if ( brandingElement ) {
 				brandingElement.style.display = 'none';

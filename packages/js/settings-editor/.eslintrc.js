@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	overrides: [
 		{
@@ -11,18 +11,18 @@ module.exports = {
 	],
 	settings: {
 		'import/core-modules': [
-			'@woocommerce/admin-layout',
-			'@woocommerce/block-templates',
-			'@woocommerce/components',
-			'@woocommerce/customer-effort-score',
-			'@woocommerce/currency',
-			'@woocommerce/data',
-			'@woocommerce/experimental',
-			'@woocommerce/expression-evaluation',
-			'@woocommerce/navigation',
-			'@woocommerce/number',
-			'@woocommerce/settings',
-			'@woocommerce/tracks',
+			'@poocommerce/admin-layout',
+			'@poocommerce/block-templates',
+			'@poocommerce/components',
+			'@poocommerce/customer-effort-score',
+			'@poocommerce/currency',
+			'@poocommerce/data',
+			'@poocommerce/experimental',
+			'@poocommerce/expression-evaluation',
+			'@poocommerce/navigation',
+			'@poocommerce/number',
+			'@poocommerce/settings',
+			'@poocommerce/tracks',
 			'@wordpress/blocks',
 			'@wordpress/block-editor',
 			'@wordpress/components',

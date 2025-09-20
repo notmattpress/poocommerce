@@ -82,7 +82,7 @@ builtJsFiles.forEach( ( filePath ) => {
 		.digest( 'hex' );
 
 	writeJsonSync(
-		path.join( LANGUAGES_DIR, `woocommerce-${ locale }-${ md5Path }.json` ),
+		path.join( LANGUAGES_DIR, `poocommerce-${ locale }-${ md5Path }.json` ),
 		data
 	);
 } );

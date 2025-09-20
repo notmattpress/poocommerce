@@ -3,9 +3,9 @@
  * Helper used to create fixture data for tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\Helpers;
+namespace Automattic\PooCommerce\Tests\Blocks\Helpers;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 /**
  * FixtureData class.
@@ -163,7 +163,7 @@ class FixtureData {
 
 		// Make sure caches are clean.
 		delete_transient( 'wc_attribute_taxonomies' );
-		\WC_Cache_Helper::invalidate_cache_group( 'woocommerce-attributes' );
+		\WC_Cache_Helper::invalidate_cache_group( 'poocommerce-attributes' );
 
 		// These are exported as labels, so convert the label to a name if possible first.
 		$attribute_labels = wp_list_pluck( wc_get_attribute_taxonomies(), 'attribute_label', 'attribute_name' );
@@ -194,9 +194,9 @@ class FixtureData {
 			// Register as taxonomy.
 			register_taxonomy(
 				$taxonomy_name,
-				apply_filters( 'woocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
+				apply_filters( 'poocommerce_taxonomy_objects_' . $taxonomy_name, array( 'product' ) ),
 				apply_filters(
-					'woocommerce_taxonomy_args_' . $taxonomy_name,
+					'poocommerce_taxonomy_args_' . $taxonomy_name,
 					array(
 						'labels'       => array(
 							'name' => $raw_name,
@@ -413,8 +413,8 @@ class FixtureData {
 			'tax_status'   => ProductTaxStatus::TAXABLE,
 			'cost'         => $cost,
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		\WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 	}
@@ -439,7 +439,7 @@ class FixtureData {
 			'tax_status' => ProductTaxStatus::TAXABLE,
 			'cost'       => '',
 		);
-		update_option( 'woocommerce_pickup_location_settings', $pickup_location_settings );
+		update_option( 'poocommerce_pickup_location_settings', $pickup_location_settings );
 		update_option(
 			'pickup_location_pickup_locations',
 			array(
@@ -457,7 +457,7 @@ class FixtureData {
 				),
 			)
 		);
-		add_filter( 'woocommerce_shipping_methods', array( $this, 'woocommerce_shipping_methods_pickup_location_callback' ) );
+		add_filter( 'poocommerce_shipping_methods', array( $this, 'poocommerce_shipping_methods_pickup_location_callback' ) );
 	}
 
 	/**
@@ -466,8 +466,8 @@ class FixtureData {
 	 * @param array $methods The shipping methods.
 	 * @return array The shipping methods.
 	 */
-	public function woocommerce_shipping_methods_pickup_location_callback( $methods ) {
-		$methods['pickup_location'] = 'Automattic\WooCommerce\Blocks\Shipping\PickupLocation';
+	public function poocommerce_shipping_methods_pickup_location_callback( $methods ) {
+		$methods['pickup_location'] = 'Automattic\PooCommerce\Blocks\Shipping\PickupLocation';
 		return $methods;
 	}
 
@@ -475,9 +475,9 @@ class FixtureData {
 	 * Remove a pickup location.
 	 */
 	public function shipping_remove_pickup_location() {
-		update_option( 'woocommerce_pickup_location_settings', array() );
+		update_option( 'poocommerce_pickup_location_settings', array() );
 		update_option( 'pickup_location_pickup_locations', array() );
-		remove_filter( 'woocommerce_shipping_methods', array( $this, 'woocommerce_shipping_methods_pickup_location_callback' ) );
+		remove_filter( 'poocommerce_shipping_methods', array( $this, 'poocommerce_shipping_methods_pickup_location_callback' ) );
 	}
 
 	/**
@@ -506,8 +506,8 @@ class FixtureData {
 			'tax_status'   => ProductTaxStatus::TAXABLE,
 			'cost'         => $cost,
 		);
-		update_option( 'woocommerce_flat_rate_settings', $flat_rate_settings );
-		update_option( 'woocommerce_flat_rate', array() );
+		update_option( 'poocommerce_flat_rate_settings', $flat_rate_settings );
+		update_option( 'poocommerce_flat_rate', array() );
 		\WC_Cache_Helper::get_transient_version( 'shipping', true );
 		WC()->shipping()->load_shipping_methods();
 	}
@@ -529,7 +529,7 @@ class FixtureData {
 			'iban'            => '',
 			'bic'             => '',
 		);
-		update_option( 'woocommerce_bacs_settings', $bacs_settings );
+		update_option( 'poocommerce_bacs_settings', $bacs_settings );
 		WC()->payment_gateways()->init();
 	}
 }

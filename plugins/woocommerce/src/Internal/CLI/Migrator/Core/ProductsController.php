@@ -2,17 +2,17 @@
 /**
  * Products Controller
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Core;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Core\WooCommerceProductImporter;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Lib\ImportSession;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\CredentialManager;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PlatformRegistry;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Core\PooCommerceProductImporter;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Lib\ImportSession;
 use Exception;
 use WP_CLI;
 
@@ -65,26 +65,26 @@ class ProductsController {
 	private array $fields_to_process = array();
 
 	/**
-	 * WooCommerce Product Importer instance.
+	 * PooCommerce Product Importer instance.
 	 *
-	 * @var WooCommerceProductImporter
+	 * @var PooCommerceProductImporter
 	 */
-	private WooCommerceProductImporter $product_importer;
+	private PooCommerceProductImporter $product_importer;
 
 	/**
 	 * Initialize the controller with its dependencies.
-	 * Called automatically by the WooCommerce DI container.
+	 * Called automatically by the PooCommerce DI container.
 	 *
 	 * @internal
 	 *
 	 * @param CredentialManager          $credential_manager The credential manager.
 	 * @param PlatformRegistry           $platform_registry  The platform registry.
-	 * @param WooCommerceProductImporter $product_importer   The product importer.
+	 * @param PooCommerceProductImporter $product_importer   The product importer.
 	 */
 	final public function init(
 		CredentialManager $credential_manager,
 		PlatformRegistry $platform_registry,
-		WooCommerceProductImporter $product_importer
+		PooCommerceProductImporter $product_importer
 	): void {
 		$this->credential_manager = $credential_manager;
 		$this->platform_registry  = $platform_registry;
@@ -641,9 +641,9 @@ class ProductsController {
 	 */
 	private function display_feedback_survey(): void {
 		WP_CLI::line( '' );
-		WP_CLI::line( WP_CLI::colorize( '%GHelp us improve the WooCommerce Migrator!%n' ) );
+		WP_CLI::line( WP_CLI::colorize( '%GHelp us improve the PooCommerce Migrator!%n' ) );
 		WP_CLI::line( 'Please share your feedback about this migration experience:' );
-		WP_CLI::line( WP_CLI::colorize( '%Chttps://woocommerce.com/migrator-feedback/%n' ) );
+		WP_CLI::line( WP_CLI::colorize( '%Chttps://poocommerce.com/migrator-feedback/%n' ) );
 		WP_CLI::line( '' );
 	}
 

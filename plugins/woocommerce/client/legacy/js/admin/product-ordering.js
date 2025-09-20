@@ -46,7 +46,7 @@ jQuery( function( $ ) {
 			// Go do the sorting stuff via ajax
 			$.post(
 				ajaxurl,
-				{ action: 'woocommerce_product_ordering', id: postid, previd: prevpostid, nextid: nextpostid },
+				{ action: 'poocommerce_product_ordering', id: postid, previd: prevpostid, nextid: nextpostid },
 				function( response ) {
 					$.each( response, function( key, value ) {
 						$( '#inline_' + key + ' .menu_order' ).html( value );

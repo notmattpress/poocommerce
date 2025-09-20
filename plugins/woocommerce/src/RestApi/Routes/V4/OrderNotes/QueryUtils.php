@@ -2,13 +2,13 @@
 /**
  * QueryUtils class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\RestApi\Routes\V4\OrderNotes;
+namespace Automattic\PooCommerce\RestApi\Routes\V4\OrderNotes;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ final class QueryUtils {
 		return array(
 			'note_type' => array(
 				'default'           => 'all',
-				'description'       => __( 'Limit result to customer notes or private notes.', 'woocommerce' ),
+				'description'       => __( 'Limit result to customer notes or private notes.', 'poocommerce' ),
 				'type'              => 'string',
 				'enum'              => array( 'all', 'customer', 'private' ),
 				'sanitize_callback' => 'sanitize_key',

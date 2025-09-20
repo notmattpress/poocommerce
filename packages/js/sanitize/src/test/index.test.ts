@@ -186,7 +186,7 @@ describe( 'trusted types policy', () => {
 	} );
 
 	test( 'should export TRUSTED_POLICY_NAME constant', () => {
-		expect( TRUSTED_POLICY_NAME ).toBe( 'woocommerce-sanitize' );
+		expect( TRUSTED_POLICY_NAME ).toBe( 'poocommerce-sanitize' );
 	} );
 
 	test( 'should create trusted types policy when window.trustedTypes is available', () => {

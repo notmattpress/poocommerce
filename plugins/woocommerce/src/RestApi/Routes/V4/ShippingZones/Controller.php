@@ -4,14 +4,14 @@
  *
  * Handles requests to the /shipping-zones endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\RestApi\Routes\V4\ShippingZones;
+namespace Automattic\PooCommerce\RestApi\Routes\V4\ShippingZones;
 
-use Automattic\WooCommerce\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\RestApi\Routes\V4\AbstractController;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -73,7 +73,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -96,7 +96,7 @@ class Controller extends AbstractController {
 		if ( ! wc_shipping_enabled() ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'disabled',
-				__( 'Shipping is disabled.', 'woocommerce' ),
+				__( 'Shipping is disabled.', 'poocommerce' ),
 				WP_Http::SERVICE_UNAVAILABLE
 			);
 		}
@@ -108,7 +108,7 @@ class Controller extends AbstractController {
 		if ( ! $zone ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'invalid_id',
-				__( 'Invalid resource ID.', 'woocommerce' ),
+				__( 'Invalid resource ID.', 'poocommerce' ),
 				WP_Http::NOT_FOUND
 			);
 		}
@@ -126,7 +126,7 @@ class Controller extends AbstractController {
 		if ( ! wc_shipping_enabled() ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'disabled',
-				__( 'Shipping is disabled.', 'woocommerce' ),
+				__( 'Shipping is disabled.', 'poocommerce' ),
 				WP_Http::SERVICE_UNAVAILABLE
 			);
 		}
@@ -209,7 +209,7 @@ class Controller extends AbstractController {
 	 */
 	protected function get_formatted_zone_locations( WC_Shipping_Zone $zone, string $view = 'summary' ): array {
 		if ( 0 === $zone->get_id() ) {
-			return array( __( 'All regions not covered above', 'woocommerce' ) );
+			return array( __( 'All regions not covered above', 'poocommerce' ) );
 		}
 
 		$locations = $zone->get_zone_locations();
@@ -324,7 +324,7 @@ class Controller extends AbstractController {
 	 */
 	public function get_items_permissions_check( $request ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
-use Automattic\WooCommerce\Blocks\Utils\ProductGalleryUtils;
+use Automattic\PooCommerce\Blocks\Utils\ProductGalleryUtils;
 use WP_UnitTestCase;
 
 /**
@@ -63,7 +63,7 @@ class ProductGalleryUtilsTest extends \WP_UnitTestCase {
 		$variable_product->set_gallery_image_ids( $gallery_image_ids );
 		$variable_product->save();
 
-		$image_data = ProductGalleryUtils::get_product_gallery_image_data( $variable_product, 'woocommerce_thumbnail' );
+		$image_data = ProductGalleryUtils::get_product_gallery_image_data( $variable_product, 'poocommerce_thumbnail' );
 
 		// Assert that $image_data is a non-empty array.
 		$this->assertIsArray( $image_data );

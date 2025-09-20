@@ -1,11 +1,11 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Routes\V1;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Routes\RouteInterface;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Exceptions\InvalidCartException;
-use Automattic\WooCommerce\StoreApi\Schemas\v1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Routes\RouteInterface;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Exceptions\InvalidCartException;
+use Automattic\PooCommerce\StoreApi\Schemas\v1\AbstractSchema;
 use WP_Error;
 
 /**
@@ -101,7 +101,7 @@ abstract class AbstractRoute implements RouteInterface {
 		} catch ( InvalidCartException $error ) {
 			$response = $this->get_route_error_response_from_object( $error->getError(), $error->getCode(), $error->getAdditionalData() );
 		} catch ( \Exception $error ) {
-			$response = $this->get_route_error_response( 'woocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
+			$response = $this->get_route_error_response( 'poocommerce_rest_unknown_server_error', $error->getMessage(), 500 );
 		}
 
 		return is_wp_error( $response ) ? $this->error_to_response( $response ) : $response;
@@ -166,7 +166,7 @@ abstract class AbstractRoute implements RouteInterface {
 	 * @return \WP_REST_Response
 	 */
 	protected function get_route_response( \WP_REST_Request $request ) {
-		return $this->get_route_error_response( 'woocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'woocommerce' ), 404 );
+		return $this->get_route_error_response( 'poocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'poocommerce' ), 404 );
 	}
 
 	/**
@@ -179,7 +179,7 @@ abstract class AbstractRoute implements RouteInterface {
 	 * @return \WP_REST_Response
 	 */
 	protected function get_route_post_response( \WP_REST_Request $request ) {
-		return $this->get_route_error_response( 'woocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'woocommerce' ), 404 );
+		return $this->get_route_error_response( 'poocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'poocommerce' ), 404 );
 	}
 
 	/**
@@ -192,7 +192,7 @@ abstract class AbstractRoute implements RouteInterface {
 	 * @return \WP_REST_Response
 	 */
 	protected function get_route_update_response( \WP_REST_Request $request ) {
-		return $this->get_route_error_response( 'woocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'woocommerce' ), 404 );
+		return $this->get_route_error_response( 'poocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'poocommerce' ), 404 );
 	}
 
 	/**
@@ -205,7 +205,7 @@ abstract class AbstractRoute implements RouteInterface {
 	 * @return \WP_REST_Response
 	 */
 	protected function get_route_delete_response( \WP_REST_Request $request ) {
-		return $this->get_route_error_response( 'woocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'woocommerce' ), 404 );
+		return $this->get_route_error_response( 'poocommerce_rest_invalid_endpoint', __( 'Method not implemented', 'poocommerce' ), 404 );
 	}
 
 	/**
@@ -260,7 +260,7 @@ abstract class AbstractRoute implements RouteInterface {
 	 */
 	protected function get_context_param( $args = array() ) {
 		$param_details = array(
-			'description'       => __( 'Scope under which the request is made; determines fields present in response.', 'woocommerce' ),
+			'description'       => __( 'Scope under which the request is made; determines fields present in response.', 'poocommerce' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_key',
 			'validate_callback' => 'rest_validate_request_arg',

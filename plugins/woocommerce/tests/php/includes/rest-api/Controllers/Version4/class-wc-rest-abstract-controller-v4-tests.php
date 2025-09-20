@@ -31,7 +31,7 @@ class WC_REST_Abstract_Controller_V4_Test extends WC_REST_Unit_Test_Case {
 		$this->controller->set_rest_base( 'orders' );
 		$hook_prefix = $this->controller->get_hook_prefix();
 
-		$this->assertEquals( 'woocommerce_rest_api_v4_orders_', $hook_prefix );
+		$this->assertEquals( 'poocommerce_rest_api_v4_orders_', $hook_prefix );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WC_REST_Abstract_Controller_V4_Test extends WC_REST_Unit_Test_Case {
 		$this->controller->set_rest_base( 'products' );
 		$error_prefix = $this->controller->get_error_prefix();
 
-		$this->assertEquals( 'woocommerce_rest_api_v4_products_', $error_prefix );
+		$this->assertEquals( 'poocommerce_rest_api_v4_products_', $error_prefix );
 	}
 
 	/**
@@ -126,13 +126,13 @@ class WC_REST_Abstract_Controller_V4_Test extends WC_REST_Unit_Test_Case {
 		wp_set_current_user( $this->user );
 
 		// Add filter to override permissions.
-		add_filter( 'woocommerce_rest_api_v4_orders_check_permissions', array( $this, 'override_order_permissions' ), 10, 4 );
+		add_filter( 'poocommerce_rest_api_v4_orders_check_permissions', array( $this, 'override_order_permissions' ), 10, 4 );
 
 		// Test that filter is applied.
 		$this->assertTrue( $this->controller->check_permissions( 'order', 'read' ) );
 
 		// Remove filter.
-		remove_filter( 'woocommerce_rest_api_v4_orders_check_permissions', array( $this, 'override_order_permissions' ) );
+		remove_filter( 'poocommerce_rest_api_v4_orders_check_permissions', array( $this, 'override_order_permissions' ) );
 	}
 
 	/**

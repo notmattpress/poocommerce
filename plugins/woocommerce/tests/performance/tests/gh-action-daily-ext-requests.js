@@ -222,7 +222,7 @@ export const options = {
 		'http_req_duration{name:Merchant - wc-analytics/admin/notes?}': [
 			`${ merchant_request_threshold }`,
 		],
-		'http_req_duration{name:Merchant - wc-admin/options?options=woocommerce_ces_tracks_queue}':
+		'http_req_duration{name:Merchant - wc-admin/options?options=poocommerce_ces_tracks_queue}':
 			[ `${ merchant_request_threshold }` ],
 		'http_req_duration{name:Merchant - action=heartbeat}': [
 			`${ merchant_request_threshold }`,
