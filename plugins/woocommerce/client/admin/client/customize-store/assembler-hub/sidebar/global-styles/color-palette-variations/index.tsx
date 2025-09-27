@@ -16,7 +16,7 @@ export const ColorPalette = () => {
 	return (
 		<Grid
 			columns={ 3 }
-			className="woocommerce-customize-store_color-palette-container"
+			className="poocommerce-customize-store_color-palette-container"
 		>
 			{ DEFAULT_COLOR_PALETTES?.map( ( variation, index ) => (
 				<VariationContainer key={ index } variation={ variation }>

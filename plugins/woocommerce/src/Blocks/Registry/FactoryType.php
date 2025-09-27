@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Registry;
+namespace Automattic\PooCommerce\Blocks\Registry;
 
 /**
  * Definition for the FactoryType dependency type.

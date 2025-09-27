@@ -30,7 +30,7 @@ function EditorHistoryRedo(
 			ref={ ref }
 			icon={ ! isRTL() ? redoIcon : undoIcon }
 			/* translators: button label text should, if possible, be under 16 characters. */
-			label={ __( 'Redo', 'woocommerce' ) }
+			label={ __( 'Redo', 'poocommerce' ) }
 			shortcut={ shortcut }
 			// If there are no redo levels we don't want to actually disable this
 			// button, because it will remove focus for keyboard users.

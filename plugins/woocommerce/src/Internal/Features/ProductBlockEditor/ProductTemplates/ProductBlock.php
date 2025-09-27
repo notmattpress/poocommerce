@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Product Block class.
+ * PooCommerce Product Block class.
  */
 
-namespace Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\ContainerInterface;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\AbstractBlock;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\BlockContainerTrait;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\ContainerInterface;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\AbstractBlock;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\BlockContainerTrait;
 
 /**
  * Class for Product block.

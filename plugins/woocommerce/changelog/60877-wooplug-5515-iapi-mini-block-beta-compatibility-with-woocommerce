@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Fix iAPI minicart compatibility with WooCommerce extensions using IntegrationInterface.
+Fix iAPI minicart compatibility with PooCommerce extensions using IntegrationInterface.

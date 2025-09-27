@@ -2,9 +2,9 @@
 /**
  * REST API General Settings controller
  *
- * Handles requests to the /settings/general endpoints for WooCommerce API v4.
+ * Handles requests to the /settings/general endpoints for PooCommerce API v4.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   4.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API General Settings controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_V4_Controller
  */
 class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
@@ -90,11 +90,11 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 	private function get_update_args() {
 		$args = array(
 			'values' => array(
-				'description'          => __( 'Flat key-value mapping of setting field values to update.', 'woocommerce' ),
+				'description'          => __( 'Flat key-value mapping of setting field values to update.', 'poocommerce' ),
 				'type'                 => 'object',
 				'required'             => false,
 				'additionalProperties' => array(
-					'description' => __( 'Setting field value.', 'woocommerce' ),
+					'description' => __( 'Setting field value.', 'poocommerce' ),
 					'type'        => array( 'string', 'number', 'array', 'boolean' ),
 				),
 			),
@@ -139,7 +139,7 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -164,7 +164,7 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 			// Sanitize the setting ID.
 			$setting_id = sanitize_text_field( $setting_id );
 
-			// Security check: only allow updating valid WooCommerce general settings.
+			// Security check: only allow updating valid PooCommerce general settings.
 			if ( ! in_array( $setting_id, $valid_setting_ids, true ) ) {
 				continue;
 			}
@@ -195,13 +195,13 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 		// Log the update if settings were changed.
 		if ( ! empty( $updated_settings ) ) {
 			/**
-			* Fires when WooCommerce settings are updated.
+			* Fires when PooCommerce settings are updated.
 			*
 			* @param array $updated_settings Array of updated settings IDs.
 			* @param string $rest_base The REST base of the settings.
 			* @since 4.0.0
 			*/
-			do_action( 'woocommerce_settings_updated', $updated_settings, $this->rest_base );
+			do_action( 'poocommerce_settings_updated', $updated_settings, $this->rest_base );
 		}
 
 		// Return updated settings.
@@ -219,22 +219,22 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 	private function validate_setting_value( $setting_id, $value ) {
 		// Custom validation rules for specific settings.
 		switch ( $setting_id ) {
-			case 'woocommerce_price_num_decimals':
+			case 'poocommerce_price_num_decimals':
 				if ( ! is_numeric( $value ) || $value < 0 || $value > 10 ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Number of decimals must be between 0 and 10.', 'woocommerce' ),
+						__( 'Number of decimals must be between 0 and 10.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_default_country':
+			case 'poocommerce_default_country':
 				// Validate country code format (e.g., "US" or "US:CA").
 				if ( ! empty( $value ) && ! preg_match( '/^[A-Z]{2}(:[A-Z0-9]+)?$/', $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid country/state format.', 'woocommerce' ),
+						__( 'Invalid country/state format.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -242,43 +242,43 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 				if ( ! $this->validate_country_or_state_code( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid country/state format.', 'woocommerce' ),
+						__( 'Invalid country/state format.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 
 				break;
 
-			case 'woocommerce_allowed_countries':
+			case 'poocommerce_allowed_countries':
 				$valid_options = array( 'all', 'all_except', 'specific' );
 				if ( ! in_array( $value, $valid_options, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid selling location option.', 'woocommerce' ),
+						__( 'Invalid selling location option.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 
 				break;
 
-			case 'woocommerce_ship_to_countries':
+			case 'poocommerce_ship_to_countries':
 				$valid_options = array( '', 'all', 'specific', 'disabled' );
 				if ( ! in_array( $value, $valid_options, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid shipping location option.', 'woocommerce' ),
+						__( 'Invalid shipping location option.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 
 				break;
 
-			case 'woocommerce_specific_allowed_countries':
-			case 'woocommerce_specific_ship_to_countries':
+			case 'poocommerce_specific_allowed_countries':
+			case 'poocommerce_specific_ship_to_countries':
 				if ( ! is_array( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Expected an array of country codes.', 'woocommerce' ),
+						__( 'Expected an array of country codes.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -287,7 +287,7 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 					if ( ! is_string( $code ) || ! $this->validate_country_or_state_code( $code ) ) {
 						return new WP_Error(
 							'rest_invalid_param',
-							__( 'Invalid country code in list.', 'woocommerce' ),
+							__( 'Invalid country code in list.', 'poocommerce' ),
 							array( 'status' => 400 )
 						);
 					}
@@ -411,17 +411,17 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 
 		return array(
 			'id'          => 'general',
-			'title'       => __( 'General', 'woocommerce' ),
-			'description' => __( 'Set your store\'s address, visibility, currency, language, and timezone.', 'woocommerce' ),
+			'title'       => __( 'General', 'poocommerce' ),
+			'description' => __( 'Set your store\'s address, visibility, currency, language, and timezone.', 'poocommerce' ),
 			'values'      => $values,
 			'groups'      => $groups,
 		);
 	}
 
 	/**
-	 * Transform a WooCommerce setting into REST API field format.
+	 * Transform a PooCommerce setting into REST API field format.
 	 *
-	 * @param array $setting WooCommerce setting array.
+	 * @param array $setting PooCommerce setting array.
 	 * @return array|null Transformed field or null if should be skipped.
 	 */
 	private function transform_setting_to_field( $setting ) {
@@ -431,8 +431,8 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 		// Skip certain settings that shouldn't be exposed via REST API.
 		// This is a temporary array until designs are finalized.
 		$skip_settings = array(
-			'woocommerce_address_autocomplete_enabled',
-			'woocommerce_address_autocomplete_provider',
+			'poocommerce_address_autocomplete_enabled',
+			'poocommerce_address_autocomplete_provider',
 		);
 
 		if ( in_array( $setting_id, $skip_settings, true ) ) {
@@ -478,7 +478,7 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 
 			case 'select':
 				// Handle specific select fields that need custom options.
-				if ( 'woocommerce_currency' === $field_id ) {
+				if ( 'poocommerce_currency' === $field_id ) {
 					return $this->get_currency_options();
 				}
 				break;
@@ -519,11 +519,11 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 	 */
 	private function get_currency_options() {
 		$currency_options = array();
-		$currencies       = get_woocommerce_currencies();
+		$currencies       = get_poocommerce_currencies();
 
 		foreach ( $currencies as $code => $name ) {
 			$label                     = wp_specialchars_decode( (string) $name );
-			$symbol                    = wp_specialchars_decode( (string) get_woocommerce_currency_symbol( $code ) );
+			$symbol                    = wp_specialchars_decode( (string) get_poocommerce_currency_symbol( $code ) );
 			$currency_options[ $code ] = $label . ' (' . $symbol . ') — ' . $code;
 		}
 
@@ -531,9 +531,9 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 	}
 
 	/**
-	 * Normalize WooCommerce field types to REST API field types.
+	 * Normalize PooCommerce field types to REST API field types.
 	 *
-	 * @param string $wc_type WooCommerce field type.
+	 * @param string $wc_type PooCommerce field type.
 	 * @return string Normalized field type.
 	 */
 	private function normalize_field_type( $wc_type ) {
@@ -582,58 +582,58 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'          => array(
-					'description' => __( 'Unique identifier for the settings group.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the settings group.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'title'       => array(
-					'description' => __( 'Settings title.', 'woocommerce' ),
+					'description' => __( 'Settings title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'Settings description.', 'woocommerce' ),
+					'description' => __( 'Settings description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'values'      => array(
-					'description'          => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+					'description'          => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 					'type'                 => 'object',
 					'context'              => array( 'view', 'edit' ),
 					'additionalProperties' => array(
-						'description' => __( 'Setting field value.', 'woocommerce' ),
+						'description' => __( 'Setting field value.', 'poocommerce' ),
 						'type'        => array( 'string', 'number', 'array', 'boolean' ),
 					),
 				),
 				'groups'      => array(
-					'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+					'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 					'type'                 => 'object',
 					'context'              => array( 'view', 'edit' ),
 					'additionalProperties' => array(
 						'type'        => 'object',
-						'description' => __( 'Settings group.', 'woocommerce' ),
+						'description' => __( 'Settings group.', 'poocommerce' ),
 						'properties'  => array(
 							'title'       => array(
-								'description' => __( 'Group title.', 'woocommerce' ),
+								'description' => __( 'Group title.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'description' => array(
-								'description' => __( 'Group description.', 'woocommerce' ),
+								'description' => __( 'Group description.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'order'       => array(
-								'description' => __( 'Display order for the group.', 'woocommerce' ),
+								'description' => __( 'Display order for the group.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'fields'      => array(
-								'description' => __( 'Settings fields.', 'woocommerce' ),
+								'description' => __( 'Settings fields.', 'poocommerce' ),
 								'type'        => 'array',
 								'context'     => array( 'view', 'edit' ),
 								'items'       => $this->get_field_schema(),
@@ -657,28 +657,28 @@ class WC_REST_General_Settings_V4_Controller extends WC_REST_V4_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'      => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'label'   => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'type'    => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'number', 'select', 'multiselect', 'checkbox' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'options' => array(
-					'description' => __( 'Available options for select/multiselect fields.', 'woocommerce' ),
+					'description' => __( 'Available options for select/multiselect fields.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'tip'     => array(
-					'description' => __( 'Help text for the setting field.', 'woocommerce' ),
+					'description' => __( 'Help text for the setting field.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),

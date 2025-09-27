@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
+namespace Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
 use Opis\JsonSchema\{
 	Helper,
 	Validator
@@ -100,11 +100,11 @@ class Validation {
 				return true;
 			}
 		} catch ( \Exception $e ) {
-			return new WP_Error( 'woocommerce_rest_checkout_validation_failed', __( 'Validation failed.', 'woocommerce' ) );
+			return new WP_Error( 'poocommerce_rest_checkout_validation_failed', __( 'Validation failed.', 'poocommerce' ) );
 		}
 
 		// Return generic error message.
-		return new WP_Error( 'woocommerce_rest_checkout_invalid_field', __( 'Invalid field.', 'woocommerce' ) );
+		return new WP_Error( 'poocommerce_rest_checkout_invalid_field', __( 'Invalid field.', 'poocommerce' ) );
 	}
 
 	/**
@@ -138,7 +138,7 @@ class Validation {
 	 */
 	public static function is_valid_schema( $rules ) {
 		if ( ! is_array( $rules ) ) {
-			return new WP_Error( 'woocommerce_rest_checkout_invalid_field_schema', 'Rules must be defined as an array.' );
+			return new WP_Error( 'poocommerce_rest_checkout_invalid_field_schema', 'Rules must be defined as an array.' );
 		}
 
 		if ( empty( $rules ) ) {
@@ -173,7 +173,7 @@ class Validation {
 		);
 
 		if ( $result->hasError() ) {
-			return new WP_Error( 'woocommerce_rest_checkout_invalid_field_schema', esc_html( (string) $result->error() ) );
+			return new WP_Error( 'poocommerce_rest_checkout_invalid_field_schema', esc_html( (string) $result->error() ) );
 		}
 
 		return true;

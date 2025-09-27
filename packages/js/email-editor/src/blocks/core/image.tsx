@@ -54,7 +54,7 @@ function disableImageFilter() {
 function hideExpandOnClick() {
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/hide-expand-on-click',
+		'poocommerce-email-editor/hide-expand-on-click',
 		imageEditCallback
 	);
 }

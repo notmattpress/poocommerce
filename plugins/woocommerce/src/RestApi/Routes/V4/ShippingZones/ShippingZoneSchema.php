@@ -2,16 +2,16 @@
 /**
  * ShippingZoneSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\RestApi\Routes\V4\ShippingZones;
+namespace Automattic\PooCommerce\RestApi\Routes\V4\ShippingZones;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\RestApi\Routes\V4\AbstractSchema;
 use WC_Shipping_Zone;
 use WP_REST_Request;
 
@@ -34,22 +34,22 @@ class ShippingZoneSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'        => array(
-				'description' => __( 'Unique identifier for the shipping zone.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the shipping zone.', 'poocommerce' ),
 				'type'        => 'integer',
 				'readonly'    => true,
 			),
 			'name'      => array(
-				'description' => __( 'Shipping zone name.', 'woocommerce' ),
+				'description' => __( 'Shipping zone name.', 'poocommerce' ),
 				'type'        => 'string',
 				'readonly'    => true,
 			),
 			'order'     => array(
-				'description' => __( 'Shipping zone order.', 'woocommerce' ),
+				'description' => __( 'Shipping zone order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'readonly'    => true,
 			),
 			'locations' => array(
-				'description' => __( 'Array of location names for this zone.', 'woocommerce' ),
+				'description' => __( 'Array of location names for this zone.', 'poocommerce' ),
 				'type'        => 'array',
 				'readonly'    => true,
 				'items'       => array(
@@ -57,30 +57,30 @@ class ShippingZoneSchema extends AbstractSchema {
 				),
 			),
 			'methods'   => array(
-				'description' => __( 'Shipping methods for this zone.', 'woocommerce' ),
+				'description' => __( 'Shipping methods for this zone.', 'poocommerce' ),
 				'type'        => 'array',
 				'readonly'    => true,
 				'items'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'instance_id' => array(
-							'description' => __( 'Shipping method instance ID.', 'woocommerce' ),
+							'description' => __( 'Shipping method instance ID.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 						'title'       => array(
-							'description' => __( 'Shipping method title.', 'woocommerce' ),
+							'description' => __( 'Shipping method title.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 						'enabled'     => array(
-							'description' => __( 'Whether the shipping method is enabled.', 'woocommerce' ),
+							'description' => __( 'Whether the shipping method is enabled.', 'poocommerce' ),
 							'type'        => 'boolean',
 						),
 						'method_id'   => array(
-							'description' => __( 'Shipping method ID (e.g., flat_rate, free_shipping).', 'woocommerce' ),
+							'description' => __( 'Shipping method ID (e.g., flat_rate, free_shipping).', 'poocommerce' ),
 							'type'        => 'string',
 						),
 						'settings'    => array(
-							'description' => __( 'Raw shipping method settings for frontend processing.', 'woocommerce' ),
+							'description' => __( 'Raw shipping method settings for frontend processing.', 'poocommerce' ),
 							'type'        => 'object',
 						),
 					),
@@ -118,7 +118,7 @@ class ShippingZoneSchema extends AbstractSchema {
 	 */
 	protected function get_formatted_zone_locations( WC_Shipping_Zone $zone, string $view = 'summary' ): array {
 		if ( 0 === $zone->get_id() ) {
-			return array( __( 'All regions not covered above', 'woocommerce' ) );
+			return array( __( 'All regions not covered above', 'poocommerce' ) );
 		}
 
 		$locations = $zone->get_zone_locations();

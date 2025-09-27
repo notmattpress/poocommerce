@@ -2,7 +2,7 @@
 /**
  * Email Settings V4 controller unit tests.
  *
- * @package WooCommerce\RestApi\UnitTests
+ * @package PooCommerce\RestApi\UnitTests
  * @since   4.0.0
  */
 
@@ -11,7 +11,7 @@ declare(strict_types=1);
 /**
  * Email Settings V4 controller unit tests.
  *
- * @package WooCommerce\RestApi\UnitTests
+ * @package PooCommerce\RestApi\UnitTests
  * @since   4.0.0
  */
 class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
@@ -45,17 +45,17 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 			return $features;
 		};
 
-		add_filter( 'woocommerce_admin_features', $this->feature_filter );
+		add_filter( 'poocommerce_admin_features', $this->feature_filter );
 
 		parent::setUp();
 
 		// Snapshot current option values to restore on tearDown.
 		$option_ids = array(
-			'woocommerce_email_from_name',
-			'woocommerce_email_from_address',
-			'woocommerce_email_reply_to_enabled',
-			'woocommerce_email_reply_to_name',
-			'woocommerce_email_reply_to_address',
+			'poocommerce_email_from_name',
+			'poocommerce_email_from_address',
+			'poocommerce_email_reply_to_enabled',
+			'poocommerce_email_reply_to_name',
+			'poocommerce_email_reply_to_address',
 		);
 		foreach ( $option_ids as $id ) {
 			$this->prev_options[ $id ] = get_option( $id, null );
@@ -74,7 +74,7 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		if ( isset( $this->feature_filter ) ) {
-			remove_filter( 'woocommerce_admin_features', $this->feature_filter );
+			remove_filter( 'poocommerce_admin_features', $this->feature_filter );
 		}
 
 		// Restore previous option values.
@@ -119,11 +119,11 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 
 		// Extra assertions on values keys.
 		$this->assertIsArray( $data['values'] );
-		$this->assertArrayHasKey( 'woocommerce_email_from_name', $data['values'] );
-		$this->assertArrayHasKey( 'woocommerce_email_from_address', $data['values'] );
-		$this->assertArrayHasKey( 'woocommerce_email_reply_to_enabled', $data['values'] );
-		$this->assertArrayHasKey( 'woocommerce_email_reply_to_name', $data['values'] );
-		$this->assertArrayHasKey( 'woocommerce_email_reply_to_address', $data['values'] );
+		$this->assertArrayHasKey( 'poocommerce_email_from_name', $data['values'] );
+		$this->assertArrayHasKey( 'poocommerce_email_from_address', $data['values'] );
+		$this->assertArrayHasKey( 'poocommerce_email_reply_to_enabled', $data['values'] );
+		$this->assertArrayHasKey( 'poocommerce_email_reply_to_name', $data['values'] );
+		$this->assertArrayHasKey( 'poocommerce_email_reply_to_address', $data['values'] );
 	}
 
 	/**
@@ -137,11 +137,11 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_email_from_name'     => 'Test Sender',
-						'woocommerce_email_from_address'  => 'sender@example.com',
-						'woocommerce_email_reply_to_enabled' => true,
-						'woocommerce_email_reply_to_name' => 'Reply Name',
-						'woocommerce_email_reply_to_address' => 'reply@example.com',
+						'poocommerce_email_from_name'     => 'Test Sender',
+						'poocommerce_email_from_address'  => 'sender@example.com',
+						'poocommerce_email_reply_to_enabled' => true,
+						'poocommerce_email_reply_to_name' => 'Reply Name',
+						'poocommerce_email_reply_to_address' => 'reply@example.com',
 					),
 				)
 			)
@@ -150,11 +150,11 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 		$response->get_data();
 
 		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals( 'Test Sender', get_option( 'woocommerce_email_from_name' ) );
-		$this->assertEquals( 'sender@example.com', get_option( 'woocommerce_email_from_address' ) );
-		$this->assertEquals( 'yes', get_option( 'woocommerce_email_reply_to_enabled' ) );
-		$this->assertEquals( 'Reply Name', get_option( 'woocommerce_email_reply_to_name' ) );
-		$this->assertEquals( 'reply@example.com', get_option( 'woocommerce_email_reply_to_address' ) );
+		$this->assertEquals( 'Test Sender', get_option( 'poocommerce_email_from_name' ) );
+		$this->assertEquals( 'sender@example.com', get_option( 'poocommerce_email_from_address' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_email_reply_to_enabled' ) );
+		$this->assertEquals( 'Reply Name', get_option( 'poocommerce_email_reply_to_name' ) );
+		$this->assertEquals( 'reply@example.com', get_option( 'poocommerce_email_reply_to_address' ) );
 	}
 
 	/**
@@ -169,9 +169,9 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_email_reply_to_enabled' => true,
-						'woocommerce_email_reply_to_name' => '',
-						'woocommerce_email_reply_to_address' => '',
+						'poocommerce_email_reply_to_enabled' => true,
+						'poocommerce_email_reply_to_name' => '',
+						'poocommerce_email_reply_to_address' => '',
 					),
 				)
 			)
@@ -194,9 +194,9 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_email_reply_to_enabled' => true,
-						'woocommerce_email_reply_to_name' => 'Name',
-						'woocommerce_email_reply_to_address' => 'invalid',
+						'poocommerce_email_reply_to_enabled' => true,
+						'poocommerce_email_reply_to_name' => 'Name',
+						'poocommerce_email_reply_to_address' => 'invalid',
 					),
 				)
 			)
@@ -229,7 +229,7 @@ class WC_REST_Email_Settings_V4_Controller_Test extends WC_REST_Unit_Test_Case {
 		$request->set_body(
 			wp_json_encode(
 				array(
-					'woocommerce_email_from_name' => 'Test Sender',
+					'poocommerce_email_from_name' => 'Test Sender',
 				)
 			)
 		);

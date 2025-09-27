@@ -2,16 +2,16 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ExportWCSettingsGeneral
  *
- * This class exports WooCommerce settings on the General page.
+ * This class exports PooCommerce settings on the General page.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCSettingsGeneral extends ExportWCSettings {
 	use UseWPFunctions;
@@ -31,7 +31,7 @@ class ExportWCSettingsGeneral extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'General', 'woocommerce' );
+		return __( 'General', 'poocommerce' );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class ExportWCSettingsGeneral extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes all settings in WooCommerce | Settings | General.', 'woocommerce' );
+		return __( 'Includes all settings in PooCommerce | Settings | General.', 'poocommerce' );
 	}
 
 	/**

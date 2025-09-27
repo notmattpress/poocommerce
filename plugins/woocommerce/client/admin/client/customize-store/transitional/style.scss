@@ -1,17 +1,17 @@
-.woocommerce-customize-store__transitional {
+.poocommerce-customize-store__transitional {
 	display: flex;
 	flex-direction: column;
 	width: 100vw;
 	height: 100vh;
 
-	.woocommerce-edit-site-site-hub.woocommerce-edit-site-layout__hub {
+	.poocommerce-edit-site-site-hub.poocommerce-edit-site-layout__hub {
 		height: 64px;
 		padding: 16px;
 		gap: 12px;
 		width: 100%;
 		position: initial;
 
-		.woocommerce-edit-site-site-hub__view-mode-toggle-container,
+		.poocommerce-edit-site-site-hub__view-mode-toggle-container,
 		.edit-site-site-icon__image,
 		svg {
 			height: 32px;
@@ -19,7 +19,7 @@
 			background: transparent;
 		}
 
-		.woocommerce-edit-site-site-hub__site-title {
+		.poocommerce-edit-site-site-hub__site-title {
 			margin-left: 12px;
 			color: $gray-900;
 			font-size: 13px;
@@ -29,26 +29,26 @@
 		}
 	}
 
-	.woocommerce-customize-store__transitional-content {
+	.poocommerce-customize-store__transitional-content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		padding: 40px;
 
-		.woocommerce-customize-store__transitional-buttons {
+		.poocommerce-customize-store__transitional-buttons {
 			display: flex;
 			align-items: center;
 			margin-top: 20px;
 			gap: 20px;
 
-			.woocommerce-customize-store__transitional-preview-button {
+			.poocommerce-customize-store__transitional-preview-button {
 				flex: 1;
 			}
 		}
 	}
 
-	.woocommerce-customize-store__transitional-heading {
+	.poocommerce-customize-store__transitional-heading {
 		color: $gray-900;
 		text-align: center;
 		font-feature-settings: "clig" off, "liga" off;
@@ -60,7 +60,7 @@
 		margin: 0;
 	}
 
-	.woocommerce-customize-store__transitional-subheading {
+	.poocommerce-customize-store__transitional-subheading {
 		color: $gray-700;
 		text-align: center;
 		font-size: 16px;
@@ -72,7 +72,7 @@
 		max-width: 560px;
 	}
 
-	.woocommerce-customize-store__transitional-main-actions-title {
+	.poocommerce-customize-store__transitional-main-actions-title {
 		font-size: 20px;
 		font-style: normal;
 		font-weight: 500;
@@ -81,7 +81,7 @@
 		margin-bottom: 40px;
 	}
 
-	.woocommerce-customize-store__transitional-main-actions {
+	.poocommerce-customize-store__transitional-main-actions {
 		display: flex;
 		gap: 40px;
 		flex-direction: row;
@@ -103,22 +103,22 @@
 			text-decoration: none;
 		}
 
-		.woocommerce-customize-store__transitional-action {
+		.poocommerce-customize-store__transitional-action {
 			display: flex;
 		}
 
-		.woocommerce-customize-store__transitional-action__icon,
-		.woocommerce-customize-store__transitional-action__content {
+		.poocommerce-customize-store__transitional-action__icon,
+		.poocommerce-customize-store__transitional-action__content {
 			flex: 1;
 		}
 
-		.woocommerce-customize-store__transitional-action__icon {
+		.poocommerce-customize-store__transitional-action__icon {
 			text-align: right;
 			max-width: 40px;
 			padding-right: 16px;
 		}
 
-		.woocommerce-customize-store__transitional-action__content {
+		.poocommerce-customize-store__transitional-action__content {
 			max-width: 250px;
 			padding-right: 2px;
 
@@ -130,7 +130,7 @@
 	}
 }
 
-.woocommerce-ai-survey-modal {
+.poocommerce-ai-survey-modal {
 	max-height: 100%;
 	max-width: 620px;
 	color: var(--gutenberg-gray-900, #1e1e1e);
@@ -159,7 +159,7 @@
 	}
 }
 
-.woocommerce-ai-survey-form {
+.poocommerce-ai-survey-form {
 	.content {
 		padding-left: 32px;
 		padding-right: 32px;
@@ -169,7 +169,7 @@
 		}
 	}
 
-	.woocommerce-ai-survey-form__description {
+	.poocommerce-ai-survey-form__description {
 		margin: 0 0 24px;
 		font-size: 13px;
 		font-style: normal;
@@ -191,7 +191,7 @@
 		}
 	}
 
-	.woocommerce-survey-star-rating {
+	.poocommerce-survey-star-rating {
 		button {
 			background-color: transparent;
 			border: none;
@@ -201,11 +201,11 @@
 			font-size: 20px;
 		}
 
-		.woocommerce-survey-star-rating__button-on {
+		.poocommerce-survey-star-rating__button-on {
 			color: #000;
 		}
 
-		.woocommerce-survey-star-rating__button-off {
+		.poocommerce-survey-star-rating__button-off {
 			color: var(--gray-gray-5, #dcdcde);
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs;
 
 /**
  * Specs data source poller class.
@@ -65,7 +65,7 @@ abstract class DataSourcePoller {
 
 		$arg_defaults = array(
 			'spec_key'         => 'id',
-			'transient_name'   => 'woocommerce_admin_' . $id . '_specs',
+			'transient_name'   => 'poocommerce_admin_' . $id . '_specs',
 			'transient_expiry' => 7 * DAY_IN_SECONDS,
 		);
 		$this->args   = wp_parse_args( $args, $arg_defaults );
@@ -226,7 +226,7 @@ abstract class DataSourcePoller {
 				$url
 			),
 			array(
-				'user-agent' => 'WooCommerce/' . WC_VERSION . '; ' . home_url( '/' ),
+				'user-agent' => 'PooCommerce/' . WC_VERSION . '; ' . home_url( '/' ),
 			)
 		);
 

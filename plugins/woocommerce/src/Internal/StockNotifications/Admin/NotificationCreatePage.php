@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
 
 /**
  * Notification create page for Customer Stock Notifications.
@@ -29,19 +29,19 @@ class NotificationCreatePage {
 			return;
 		}
 
-		check_admin_referer( 'woocommerce-customer-stock-notification-create', 'customer_stock_notification_create_security' );
+		check_admin_referer( 'poocommerce-customer-stock-notification-create', 'customer_stock_notification_create_security' );
 
 		if ( ! isset( $_POST['save'] ) ) {
 			return;
 		}
 
 		if ( ! isset( $_POST['product_id'] ) || empty( $_POST['product_id'] ) ) {
-			NotificationsPage::add_notice( __( 'Please select a product.', 'woocommerce' ), 'error' );
+			NotificationsPage::add_notice( __( 'Please select a product.', 'poocommerce' ), 'error' );
 			return;
 		}
 
 		if ( empty( $_POST['user_id'] ) && empty( $_POST['user_email'] ) ) {
-			NotificationsPage::add_notice( __( 'Please select a customer.', 'woocommerce' ), 'error' );
+			NotificationsPage::add_notice( __( 'Please select a customer.', 'poocommerce' ), 'error' );
 			return;
 		}
 
@@ -53,7 +53,7 @@ class NotificationCreatePage {
 
 			$posted_data['user_id'] = absint( wp_unslash( $_POST['user_id'] ) );
 			if ( 0 === $posted_data['user_id'] ) {
-				NotificationsPage::add_notice( __( 'Please select a customer.', 'woocommerce' ), 'error' );
+				NotificationsPage::add_notice( __( 'Please select a customer.', 'poocommerce' ), 'error' );
 				return;
 			}
 
@@ -64,7 +64,7 @@ class NotificationCreatePage {
 
 			$posted_data['user_email'] = sanitize_text_field( wp_unslash( $_POST['user_email'] ) );
 			if ( ! filter_var( $posted_data['user_email'], FILTER_VALIDATE_EMAIL ) ) {
-				NotificationsPage::add_notice( __( 'Please enter a valid email address.', 'woocommerce' ), 'error' );
+				NotificationsPage::add_notice( __( 'Please enter a valid email address.', 'poocommerce' ), 'error' );
 				return;
 			}
 
@@ -79,7 +79,7 @@ class NotificationCreatePage {
 				// translators: %s: notification edit url.
 				__(
 					'A <a href="%s">notification</a> for the same product and customer already exists in your database.',
-					'woocommerce'
+					'poocommerce'
 				),
 				admin_url( NotificationsPage::PAGE_URL . '&notification_action=edit&notification_id=' . $notification_ids[0] )
 			);
@@ -101,7 +101,7 @@ class NotificationCreatePage {
 			return;
 		} else {
 
-			$notice_message = __( 'Notification created.', 'woocommerce' );
+			$notice_message = __( 'Notification created.', 'poocommerce' );
 			NotificationsPage::add_notice( $notice_message, 'success' );
 
 			// Construct edit url.

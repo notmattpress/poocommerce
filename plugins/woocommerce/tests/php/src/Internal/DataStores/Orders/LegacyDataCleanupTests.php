@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Internal\BatchProcessing\BatchProcessingController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\DataStores\Orders\LegacyDataCleanup;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Internal\BatchProcessing\BatchProcessingController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\DataStores\Orders\LegacyDataCleanup;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 /**
  * Tests for the {@see LegacyDataCleanup} class.
@@ -101,7 +101,7 @@ class LegacyDataCleanupTests extends \WC_Unit_Test_Case {
 		$this->assertNotEquals( 0, $this->sut->get_total_pending_count() );
 
 		// Let the batch processing controller process the rest and confirm.
-		do_action( $batch_processing::PROCESS_SINGLE_BATCH_ACTION_NAME, get_class( $this->sut ) ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.HookCommentWrongStyle -- this is a test
+		do_action( $batch_processing::PROCESS_SINGLE_BATCH_ACTION_NAME, get_class( $this->sut ) ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.HookCommentWrongStyle -- this is a test
 		$this->assertEquals( 0, $this->sut->get_total_pending_count() );
 		$this->assertFalse( $batch_processing->is_enqueued( get_class( $this->sut ) ) );
 	}

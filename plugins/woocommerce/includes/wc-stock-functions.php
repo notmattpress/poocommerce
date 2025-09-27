@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Stock Functions
+ * PooCommerce Stock Functions
  *
  * Functions used to manage product stock levels.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 3.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStock;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStock;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Update a product's stock amount.
@@ -43,13 +43,13 @@ function wc_update_product_stock( $product, $stock_quantity = null, $operation =
 
 		// Fire actions to let 3rd parties know the stock is about to be changed.
 		if ( $product_with_stock->is_type( ProductType::VARIATION ) ) {
-			// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/** This action is documented in includes/data-stores/class-wc-product-data-store-cpt.php */
-			do_action( 'woocommerce_variation_before_set_stock', $product_with_stock );
+			do_action( 'poocommerce_variation_before_set_stock', $product_with_stock );
 		} else {
-			// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/** This action is documented in includes/data-stores/class-wc-product-data-store-cpt.php */
-			do_action( 'woocommerce_product_before_set_stock', $product_with_stock );
+			do_action( 'poocommerce_product_before_set_stock', $product_with_stock );
 		}
 
 		// Update the database.
@@ -65,13 +65,13 @@ function wc_update_product_stock( $product, $stock_quantity = null, $operation =
 
 		// Fire actions to let 3rd parties know the stock changed.
 		if ( $product_with_stock->is_type( ProductType::VARIATION ) ) {
-			// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/** This action is documented in includes/data-stores/class-wc-product-data-store-cpt.php */
-			do_action( 'woocommerce_variation_set_stock', $product_with_stock );
+			do_action( 'poocommerce_variation_set_stock', $product_with_stock );
 		} else {
-			// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+			// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 			/** This action is documented in includes/data-stores/class-wc-product-data-store-cpt.php */
-			do_action( 'woocommerce_product_set_stock', $product_with_stock );
+			do_action( 'poocommerce_product_set_stock', $product_with_stock );
 		}
 
 		return $product_with_stock->get_stock_quantity();
@@ -108,7 +108,7 @@ function wc_maybe_reduce_stock_levels( $order_id ) {
 	}
 
 	$stock_reduced  = $order->get_data_store()->get_stock_reduced( $order_id );
-	$trigger_reduce = apply_filters( 'woocommerce_payment_complete_reduce_order_stock', ! $stock_reduced, $order_id );
+	$trigger_reduce = apply_filters( 'poocommerce_payment_complete_reduce_order_stock', ! $stock_reduced, $order_id );
 
 	// Only continue if we're reducing stock.
 	if ( ! $trigger_reduce ) {
@@ -120,10 +120,10 @@ function wc_maybe_reduce_stock_levels( $order_id ) {
 	// Ensure stock is marked as "reduced" in case payment complete or other stock actions are called.
 	$order->get_data_store()->set_stock_reduced( $order_id, true );
 }
-add_action( 'woocommerce_payment_complete', 'wc_maybe_reduce_stock_levels' );
-add_action( 'woocommerce_order_status_completed', 'wc_maybe_reduce_stock_levels' );
-add_action( 'woocommerce_order_status_processing', 'wc_maybe_reduce_stock_levels' );
-add_action( 'woocommerce_order_status_on-hold', 'wc_maybe_reduce_stock_levels' );
+add_action( 'poocommerce_payment_complete', 'wc_maybe_reduce_stock_levels' );
+add_action( 'poocommerce_order_status_completed', 'wc_maybe_reduce_stock_levels' );
+add_action( 'poocommerce_order_status_processing', 'wc_maybe_reduce_stock_levels' );
+add_action( 'poocommerce_order_status_on-hold', 'wc_maybe_reduce_stock_levels' );
 
 /**
  * When a payment is cancelled, restore stock.
@@ -151,8 +151,8 @@ function wc_maybe_increase_stock_levels( $order_id ) {
 	// Ensure stock is not marked as "reduced" anymore.
 	$order->get_data_store()->set_stock_reduced( $order_id, false );
 }
-add_action( 'woocommerce_order_status_cancelled', 'wc_maybe_increase_stock_levels' );
-add_action( 'woocommerce_order_status_pending', 'wc_maybe_increase_stock_levels' );
+add_action( 'poocommerce_order_status_cancelled', 'wc_maybe_increase_stock_levels' );
+add_action( 'poocommerce_order_status_pending', 'wc_maybe_increase_stock_levels' );
 
 /**
  * Reduce stock levels for items within an order, if stock has not already been reduced for the items.
@@ -168,7 +168,7 @@ function wc_reduce_stock_levels( $order_id ) {
 		$order = wc_get_order( $order_id );
 	}
 	// We need an order, and a store with stock management to continue.
-	if ( ! $order || 'yes' !== get_option( 'woocommerce_manage_stock' ) || ! apply_filters( 'woocommerce_can_reduce_order_stock', true, $order ) ) {
+	if ( ! $order || 'yes' !== get_option( 'poocommerce_manage_stock' ) || ! apply_filters( 'poocommerce_can_reduce_order_stock', true, $order ) ) {
 		return;
 	}
 
@@ -195,13 +195,13 @@ function wc_reduce_stock_levels( $order_id ) {
 		 * @param WC_Order              $order    Order data.
 		 * @param WC_Order_Item_Product $item Order item data.
 		 */
-		$qty       = apply_filters( 'woocommerce_order_item_quantity', $item->get_quantity(), $order, $item );
+		$qty       = apply_filters( 'poocommerce_order_item_quantity', $item->get_quantity(), $order, $item );
 		$item_name = $product->get_formatted_name();
 		$new_stock = wc_update_product_stock( $product, $qty, 'decrease' );
 
 		if ( is_wp_error( $new_stock ) ) {
 			/* translators: %s item name. */
-			$order->add_order_note( sprintf( __( 'Unable to reduce stock for item %s.', 'woocommerce' ), $item_name ) );
+			$order->add_order_note( sprintf( __( 'Unable to reduce stock for item %s.', 'poocommerce' ), $item_name ) );
 			continue;
 		}
 
@@ -223,12 +223,12 @@ function wc_reduce_stock_levels( $order_id ) {
 		 * @param WC_Order $order  Order data.
 		 * @since 7.6.0
 		 */
-		do_action( 'woocommerce_reduce_order_item_stock', $item, $change, $order );
+		do_action( 'poocommerce_reduce_order_item_stock', $item, $change, $order );
 	}
 
 	wc_trigger_stock_change_notifications( $order, $changes );
 
-	do_action( 'woocommerce_reduce_order_stock', $order );
+	do_action( 'poocommerce_reduce_order_stock', $order );
 }
 
 /**
@@ -244,7 +244,7 @@ function wc_trigger_stock_change_notifications( $order, $changes ) {
 	}
 
 	$order_notes     = array();
-	$no_stock_amount = absint( get_option( 'woocommerce_notify_no_stock_amount', 0 ) );
+	$no_stock_amount = absint( get_option( 'poocommerce_notify_no_stock_amount', 0 ) );
 
 	foreach ( $changes as $change ) {
 		$order_notes[]    = $change['product']->get_formatted_name() . ' ' . $change['from'] . '&rarr;' . $change['to'];
@@ -257,7 +257,7 @@ function wc_trigger_stock_change_notifications( $order, $changes ) {
 			 *
 			 * @param int $product The variation whose stock is about to change.
 			 */
-			do_action( 'woocommerce_no_stock', wc_get_product( $change['product']->get_id() ) );
+			do_action( 'poocommerce_no_stock', wc_get_product( $change['product']->get_id() ) );
 		} elseif ( $change['to'] <= $low_stock_amount ) {
 			/**
 			 * Action to signal that the value of 'stock_quantity' for a product is about to change.
@@ -266,7 +266,7 @@ function wc_trigger_stock_change_notifications( $order, $changes ) {
 			 *
 			 * @param int $product The product whose stock is about to change.
 			 */
-			do_action( 'woocommerce_low_stock', wc_get_product( $change['product']->get_id() ) );
+			do_action( 'poocommerce_low_stock', wc_get_product( $change['product']->get_id() ) );
 		}
 
 		if ( $change['to'] < 0 ) {
@@ -282,7 +282,7 @@ function wc_trigger_stock_change_notifications( $order, $changes ) {
 			 * }
 			 */
 			do_action(
-				'woocommerce_product_on_backorder',
+				'poocommerce_product_on_backorder',
 				array(
 					'product'  => wc_get_product( $change['product']->get_id() ),
 					'order_id' => $order->get_id(),
@@ -292,7 +292,7 @@ function wc_trigger_stock_change_notifications( $order, $changes ) {
 		}
 	}
 
-	$order->add_order_note( __( 'Stock levels reduced:', 'woocommerce' ) . ' ' . implode( ', ', $order_notes ) );
+	$order->add_order_note( __( 'Stock levels reduced:', 'poocommerce' ) . ' ' . implode( ', ', $order_notes ) );
 }
 
 /**
@@ -310,7 +310,7 @@ function wc_trigger_stock_change_actions( $product ) {
 		return;
 	}
 
-	$no_stock_amount  = absint( get_option( 'woocommerce_notify_no_stock_amount', 0 ) );
+	$no_stock_amount  = absint( get_option( 'poocommerce_notify_no_stock_amount', 0 ) );
 	$low_stock_amount = absint( wc_get_low_stock_amount( $product ) );
 	$stock_quantity   = $product->get_stock_quantity();
 
@@ -322,7 +322,7 @@ function wc_trigger_stock_change_actions( $product ) {
 		 *
 		 * @param WC_Product $product The product whose stock quantity has changed.
 		 */
-		do_action( 'woocommerce_no_stock', $product );
+		do_action( 'poocommerce_no_stock', $product );
 	} elseif ( $stock_quantity <= $low_stock_amount ) {
 		/**
 		 * Action fires when a product's stock quantity reaches the "low stock" threshold.
@@ -331,7 +331,7 @@ function wc_trigger_stock_change_actions( $product ) {
 		 *
 		 * @param WC_Product $product The product whose stock quantity has changed.
 		 */
-		do_action( 'woocommerce_low_stock', $product );
+		do_action( 'poocommerce_low_stock', $product );
 	}
 }
 
@@ -350,7 +350,7 @@ function wc_increase_stock_levels( $order_id ) {
 	}
 
 	// We need an order, and a store with stock management to continue.
-	if ( ! $order || 'yes' !== get_option( 'woocommerce_manage_stock' ) || ! apply_filters( 'woocommerce_can_restore_order_stock', true, $order ) ) {
+	if ( ! $order || 'yes' !== get_option( 'poocommerce_manage_stock' ) || ! apply_filters( 'poocommerce_can_restore_order_stock', true, $order ) ) {
 		return;
 	}
 
@@ -376,7 +376,7 @@ function wc_increase_stock_levels( $order_id ) {
 
 		if ( is_wp_error( $new_stock ) ) {
 			/* translators: %s item name. */
-			$order->add_order_note( sprintf( __( 'Unable to restore stock for item %s.', 'woocommerce' ), $item_name ) );
+			$order->add_order_note( sprintf( __( 'Unable to restore stock for item %s.', 'poocommerce' ), $item_name ) );
 			continue;
 		}
 
@@ -394,14 +394,14 @@ function wc_increase_stock_levels( $order_id ) {
 		 * @param int $old_stock Old stock.
 		 * @param WC_Order $order  Order data.
 		 */
-		do_action( 'woocommerce_restore_order_item_stock', $item, $new_stock, $old_stock, $order );
+		do_action( 'poocommerce_restore_order_item_stock', $item, $new_stock, $old_stock, $order );
 	}
 
 	if ( $changes ) {
-		$order->add_order_note( __( 'Stock levels increased:', 'woocommerce' ) . ' ' . implode( ', ', $changes ) );
+		$order->add_order_note( __( 'Stock levels increased:', 'poocommerce' ) . ' ' . implode( ', ', $changes ) );
 	}
 
-	do_action( 'woocommerce_restore_order_stock', $order );
+	do_action( 'poocommerce_restore_order_stock', $order );
 }
 
 /**
@@ -414,13 +414,13 @@ function wc_increase_stock_levels( $order_id ) {
  */
 function wc_get_held_stock_quantity( WC_Product $product, $exclude_order_id = 0 ) {
 	/**
-	 * Filter: woocommerce_hold_stock_for_checkout
+	 * Filter: poocommerce_hold_stock_for_checkout
 	 * Allows enable/disable hold stock functionality on checkout.
 	 *
 	 * @since 4.3.0
 	 * @param bool $enabled Default to true if managing stock globally.
 	 */
-	if ( ! apply_filters( 'woocommerce_hold_stock_for_checkout', wc_string_to_bool( get_option( 'woocommerce_manage_stock', 'yes' ) ) ) ) {
+	if ( ! apply_filters( 'poocommerce_hold_stock_for_checkout', wc_string_to_bool( get_option( 'poocommerce_manage_stock', 'yes' ) ) ) ) {
 		return 0;
 	}
 
@@ -438,13 +438,13 @@ function wc_get_held_stock_quantity( WC_Product $product, $exclude_order_id = 0 
  */
 function wc_reserve_stock_for_order( $order ) {
 	/**
-	 * Filter: woocommerce_hold_stock_for_checkout
+	 * Filter: poocommerce_hold_stock_for_checkout
 	 * Allows enable/disable hold stock functionality on checkout.
 	 *
 	 * @since @since 4.1.0
 	 * @param bool $enabled Default to true if managing stock globally.
 	 */
-	if ( ! apply_filters( 'woocommerce_hold_stock_for_checkout', wc_string_to_bool( get_option( 'woocommerce_manage_stock', 'yes' ) ) ) ) {
+	if ( ! apply_filters( 'poocommerce_hold_stock_for_checkout', wc_string_to_bool( get_option( 'poocommerce_manage_stock', 'yes' ) ) ) ) {
 		return;
 	}
 
@@ -455,7 +455,7 @@ function wc_reserve_stock_for_order( $order ) {
 		$reserve_stock->reserve_stock_for_order( $order );
 	}
 }
-add_action( 'woocommerce_checkout_order_created', 'wc_reserve_stock_for_order' );
+add_action( 'poocommerce_checkout_order_created', 'wc_reserve_stock_for_order' );
 
 /**
  * Release held stock for an order.
@@ -465,13 +465,13 @@ add_action( 'woocommerce_checkout_order_created', 'wc_reserve_stock_for_order' )
  */
 function wc_release_stock_for_order( $order ) {
 	/**
-	 * Filter: woocommerce_hold_stock_for_checkout
+	 * Filter: poocommerce_hold_stock_for_checkout
 	 * Allows enable/disable hold stock functionality on checkout.
 	 *
 	 * @since 4.3.0
 	 * @param bool $enabled Default to true if managing stock globally.
 	 */
-	if ( ! apply_filters( 'woocommerce_hold_stock_for_checkout', wc_string_to_bool( get_option( 'woocommerce_manage_stock', 'yes' ) ) ) ) {
+	if ( ! apply_filters( 'poocommerce_hold_stock_for_checkout', wc_string_to_bool( get_option( 'poocommerce_manage_stock', 'yes' ) ) ) ) {
 		return;
 	}
 
@@ -482,12 +482,12 @@ function wc_release_stock_for_order( $order ) {
 		$reserve_stock->release_stock_for_order( $order );
 	}
 }
-add_action( 'woocommerce_checkout_order_exception', 'wc_release_stock_for_order' );
-add_action( 'woocommerce_payment_complete', 'wc_release_stock_for_order', 11 );
-add_action( 'woocommerce_order_status_cancelled', 'wc_release_stock_for_order', 11 );
-add_action( 'woocommerce_order_status_completed', 'wc_release_stock_for_order', 11 );
-add_action( 'woocommerce_order_status_processing', 'wc_release_stock_for_order', 11 );
-add_action( 'woocommerce_order_status_on-hold', 'wc_release_stock_for_order', 11 );
+add_action( 'poocommerce_checkout_order_exception', 'wc_release_stock_for_order' );
+add_action( 'poocommerce_payment_complete', 'wc_release_stock_for_order', 11 );
+add_action( 'poocommerce_order_status_cancelled', 'wc_release_stock_for_order', 11 );
+add_action( 'poocommerce_order_status_completed', 'wc_release_stock_for_order', 11 );
+add_action( 'poocommerce_order_status_processing', 'wc_release_stock_for_order', 11 );
+add_action( 'poocommerce_order_status_on-hold', 'wc_release_stock_for_order', 11 );
 
 /**
  * Release coupons used for another order.
@@ -525,7 +525,7 @@ function wc_get_low_stock_amount( WC_Product $product ) {
 	}
 
 	if ( '' === $low_stock_amount ) {
-		$low_stock_amount = get_option( 'woocommerce_notify_low_stock_amount', 2 );
+		$low_stock_amount = get_option( 'poocommerce_notify_low_stock_amount', 2 );
 	}
 
 	return (int) $low_stock_amount;

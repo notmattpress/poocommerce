@@ -16,11 +16,11 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Tests whether discount tax is rounded properly in cart.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/23916.
+	 * @link https://github.com/poocommerce/poocommerce/issues/23916.
 	 */
 	public function test_discount_tax_rounding() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		WC()->cart->empty_cart();
 
@@ -58,12 +58,12 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * Helper method for assertions when prices are rounded at line.
 	 */
 	private function assert_discount_tax_rounding_when_rounding_at_line() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'no' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'no' );
 		$decimal_precision = wc_get_price_decimals();
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 
 		WC()->cart->calculate_totals();
-		update_option( 'woocommerce_price_num_decimals', $decimal_precision );
+		update_option( 'poocommerce_price_num_decimals', $decimal_precision );
 
 		$this->assertEquals( '1575', wc_format_decimal( WC()->cart->get_discount_total(), 0 ) );
 		$this->assertEquals( '425', wc_format_decimal( WC()->cart->get_discount_tax(), 0 ) );
@@ -74,12 +74,12 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	 * Helper method for assertions when prices are rounded at line.
 	 */
 	private function assert_discount_tax_rounding_when_rounding_at_subtotal() {
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 		$decimal_precision = wc_get_price_decimals();
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 
 		WC()->cart->calculate_totals();
-		update_option( 'woocommerce_price_num_decimals', $decimal_precision );
+		update_option( 'poocommerce_price_num_decimals', $decimal_precision );
 
 		$this->assertEquals( '1575', wc_format_decimal( WC()->cart->get_discount_total(), 0 ) );
 		$this->assertEquals( '425', wc_format_decimal( WC()->cart->get_discount_tax(), 0 ) );
@@ -89,14 +89,14 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Tests whether subtotal is properly rounded, when prices entered have higher precision than displayed.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/28292.
+	 * @link https://github.com/poocommerce/poocommerce/issues/28292.
 	 */
 	public function test_subtotal_rounding_with_changing_precision() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 		$decimal_precision = wc_get_price_decimals();
-		update_option( 'woocommerce_price_num_decimals', 0 );
+		update_option( 'poocommerce_price_num_decimals', 0 );
 
 		WC()->cart->empty_cart();
 
@@ -116,7 +116,7 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 
 		WC()->cart->add_to_cart( $product_301_90909->get_id() );
 		WC()->cart->calculate_totals();
-		update_option( 'woocommerce_price_num_decimals', $decimal_precision );
+		update_option( 'poocommerce_price_num_decimals', $decimal_precision );
 
 		// Notice how subtotal + tax does not equate to total here.
 		// This is feature of round at subtotal property, where since we are not rounding, displayed components of price may not add up to displayed total price.
@@ -128,12 +128,12 @@ class WC_Cart_Totals_Tests extends WC_Unit_Test_Case {
 	/**
 	 * Test subtotal and total are rounded correctly when values are entered with more precision.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/24184#issue-469311323.
+	 * @link https://github.com/poocommerce/poocommerce/issues/24184#issue-469311323.
 	 */
 	public function test_total_rounding_with_price_entered_has_high_precision() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		WC()->cart->empty_cart();
 

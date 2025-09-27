@@ -3,15 +3,15 @@
  */
 import { store, getContext, getConfig } from '@wordpress/interactivity';
 import type {
-	Store as WooCommerce,
+	Store as PooCommerce,
 	SelectedAttributes,
 	ProductData,
 	VariationData,
-	WooCommerceConfig,
-} from '@woocommerce/stores/woocommerce/cart';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { Store as StoreNotices } from '@woocommerce/stores/store-notices';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+	PooCommerceConfig,
+} from '@poocommerce/stores/poocommerce/cart';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { Store as StoreNotices } from '@poocommerce/stores/store-notices';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 
 /**
  * Internal dependencies
@@ -39,14 +39,14 @@ export type AddToCartError = {
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
-const { state: wooState } = store< WooCommerce >(
-	'woocommerce',
+const { state: wooState } = store< PooCommerce >(
+	'poocommerce',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -58,7 +58,7 @@ export const getProductData = (
 	let productId = id;
 	let productData: ProductData | VariationData | undefined;
 
-	const { products } = getConfig( 'woocommerce' ) as WooCommerceConfig;
+	const { products } = getConfig( 'poocommerce' ) as PooCommerceConfig;
 
 	let type: ProductData[ 'type' ] | 'variation' | null = null;
 	if ( selectedAttributes && selectedAttributes.length > 0 ) {
@@ -154,7 +154,7 @@ const { actions, state } = store<
 		Partial< GroupedProductAddToCartWithOptionsStore > &
 		Partial< VariableProductAddToCartWithOptionsStore >
 >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			noticeIds: [],
@@ -213,8 +213,8 @@ const { actions, state } = store<
 			setQuantity( productId: number, value: number ) {
 				const context = getContext< Context >();
 				const { products } = getConfig(
-					'woocommerce'
-				) as WooCommerceConfig;
+					'poocommerce'
+				) as PooCommerceConfig;
 				const variations = products?.[ productId ].variations;
 
 				if ( variations ) {
@@ -269,8 +269,8 @@ const { actions, state } = store<
 			},
 			*addToCart() {
 				// Todo: Use the module exports instead of `store()` once the
-				// woocommerce store is public.
-				yield import( '@woocommerce/stores/woocommerce/cart' );
+				// poocommerce store is public.
+				yield import( '@poocommerce/stores/poocommerce/cart' );
 
 				const { selectedAttributes } = getContext< Context >();
 
@@ -298,8 +298,8 @@ const { actions, state } = store<
 					selectedAttributes
 				);
 
-				const { actions: wooActions } = store< WooCommerce >(
-					'woocommerce',
+				const { actions: wooActions } = store< PooCommerce >(
+					'poocommerce',
 					{},
 					{ lock: universalLock }
 				);
@@ -322,10 +322,10 @@ const { actions, state } = store<
 
 				if ( ! isFormValid ) {
 					// Dynamically import the store module first
-					yield import( '@woocommerce/stores/store-notices' );
+					yield import( '@poocommerce/stores/store-notices' );
 
 					const { actions: noticeActions } = store< StoreNotices >(
-						'woocommerce/store-notices',
+						'poocommerce/store-notices',
 						{},
 						{
 							lock: universalLock,

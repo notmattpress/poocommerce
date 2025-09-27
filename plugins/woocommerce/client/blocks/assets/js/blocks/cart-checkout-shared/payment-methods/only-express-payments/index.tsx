@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import NoticeBanner from '@woocommerce/base-components/notice-banner';
+import NoticeBanner from '@poocommerce/base-components/notice-banner';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ const OnlyExpressPayments = () => {
 		>
 			{ __(
 				'Only express payment methods are available for this order. Please select one to continue.',
-				'woocommerce'
+				'poocommerce'
 			) }
 		</NoticeBanner>
 	);

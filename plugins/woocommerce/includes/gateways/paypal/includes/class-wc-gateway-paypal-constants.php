@@ -5,7 +5,7 @@
  * Provides constants for PayPal payment statuses, intents, and other PayPal-related values.
  *
  * @version     10.3.0
- * @package  WooCommerce\Gateways
+ * @package  PooCommerce\Gateways
  */
 
 declare(strict_types=1);
