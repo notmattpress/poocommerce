@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
 
 /**
  * Class CartExtensionsSchema
@@ -64,7 +64,7 @@ class CartExtensionsSchema extends AbstractSchema {
 			$callback = $this->extend->get_update_callback( $request['namespace'] );
 		} catch ( \Exception $e ) {
 			throw new RouteException(
-				'woocommerce_rest_cart_extensions_error',
+				'poocommerce_rest_cart_extensions_error',
 				esc_html( $e->getMessage() ),
 				400
 			);
@@ -82,7 +82,7 @@ class CartExtensionsSchema extends AbstractSchema {
 			return rest_ensure_response( $response );
 		} catch ( \Exception $e ) {
 			throw new RouteException(
-				'woocommerce_rest_cart_extensions_error',
+				'poocommerce_rest_cart_extensions_error',
 				esc_html( $e->getMessage() ),
 				400
 			);

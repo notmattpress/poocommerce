@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WooCommerce Admin Add Task Example
+ * Plugin Name: PooCommerce Admin Add Task Example
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 /**
@@ -10,7 +10,7 @@
  */
 function add_my_task() {
 	require_once __DIR__ . '/class-mytask.php';
-	$task_lists = \Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists::instance();
+	$task_lists = \Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists::instance();
 
 	// Add the task to the extended list.
 	$task_lists::add_task(
@@ -28,8 +28,8 @@ add_action( 'init', 'add_my_task' );
  */
 function add_task_register_script() {
 	if (
-		! class_exists( 'Automattic\WooCommerce\Internal\Admin\Loader' ) ||
-		! \Automattic\WooCommerce\Admin\PageController::is_admin_or_embed_page()
+		! class_exists( 'Automattic\PooCommerce\Internal\Admin\Loader' ) ||
+		! \Automattic\PooCommerce\Admin\PageController::is_admin_or_embed_page()
 	) {
 		return;
 	}

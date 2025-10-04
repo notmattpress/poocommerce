@@ -4,17 +4,17 @@
 import { __, _x } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { dispatch } from '@wordpress/data';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
  */
 import { getCouponLabels } from '../../../lib/async-requests';
 
-const COUPON_REPORT_CHARTS_FILTER = 'woocommerce_admin_coupons_report_charts';
-const COUPON_REPORT_FILTERS_FILTER = 'woocommerce_admin_coupons_report_filters';
+const COUPON_REPORT_CHARTS_FILTER = 'poocommerce_admin_coupons_report_charts';
+const COUPON_REPORT_FILTERS_FILTER = 'poocommerce_admin_coupons_report_filters';
 const COUPON_REPORT_ADVANCED_FILTERS_FILTER =
-	'woocommerce_admin_coupon_report_advanced_filters';
+	'poocommerce_admin_coupon_report_advanced_filters';
 
 const { addCesSurveyForAnalytics } = dispatch( CES_STORE_KEY );
 
@@ -25,20 +25,20 @@ const { addCesSurveyForAnalytics } = dispatch( CES_STORE_KEY );
 /**
  * Coupons Report charts filter.
  *
- * @filter woocommerce_admin_coupons_report_charts
+ * @filter poocommerce_admin_coupons_report_charts
  * @param {Array.<chart>} charts Report charts.
  */
 export const charts = applyFilters( COUPON_REPORT_CHARTS_FILTER, [
 	{
 		key: 'orders_count',
-		label: __( 'Discounted orders', 'woocommerce' ),
+		label: __( 'Discounted orders', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'orders_count',
 		type: 'number',
 	},
 	{
 		key: 'amount',
-		label: __( 'Amount', 'woocommerce' ),
+		label: __( 'Amount', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'amount',
 		type: 'currency',
@@ -48,7 +48,7 @@ export const charts = applyFilters( COUPON_REPORT_CHARTS_FILTER, [
 /**
  * Coupons Report Advanced Filters.
  *
- * @filter woocommerce_admin_coupon_report_advanced_filters
+ * @filter poocommerce_admin_coupon_report_advanced_filters
  * @param {Object} advancedFilters         Report Advanced Filters.
  * @param {string} advancedFilters.title   Interpolated component string for Advanced Filters title.
  * @param {Object} advancedFilters.filters An object specifying a report's Advanced Filters.
@@ -60,15 +60,15 @@ export const advancedFilters = applyFilters(
 		title: _x(
 			'Coupons match <select/> filters',
 			'A sentence describing filters for Coupons. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ',
-			'woocommerce'
+			'poocommerce'
 		),
 	}
 );
 
 const filterValues = [
-	{ label: __( 'All coupons', 'woocommerce' ), value: 'all' },
+	{ label: __( 'All coupons', 'poocommerce' ), value: 'all' },
 	{
-		label: __( 'Single coupon', 'woocommerce' ),
+		label: __( 'Single coupon', 'poocommerce' ),
 		value: 'select_coupon',
 		chartMode: 'item-comparison',
 		subFilters: [
@@ -84,27 +84,27 @@ const filterValues = [
 					labels: {
 						placeholder: __(
 							'Type to search for a coupon',
-							'woocommerce'
+							'poocommerce'
 						),
-						button: __( 'Single Coupon', 'woocommerce' ),
+						button: __( 'Single Coupon', 'poocommerce' ),
 					},
 				},
 			},
 		],
 	},
 	{
-		label: __( 'Comparison', 'woocommerce' ),
+		label: __( 'Comparison', 'poocommerce' ),
 		value: 'compare-coupons',
 		settings: {
 			type: 'coupons',
 			param: 'coupons',
 			getLabels: getCouponLabels,
 			labels: {
-				title: __( 'Compare Coupon Codes', 'woocommerce' ),
-				update: __( 'Compare', 'woocommerce' ),
+				title: __( 'Compare Coupon Codes', 'poocommerce' ),
+				update: __( 'Compare', 'poocommerce' ),
 				helpText: __(
 					'Check at least two coupon codes below to compare',
-					'woocommerce'
+					'poocommerce'
 				),
 			},
 			onClick: addCesSurveyForAnalytics,
@@ -114,7 +114,7 @@ const filterValues = [
 
 if ( Object.keys( advancedFilters.filters ).length ) {
 	filterValues.push( {
-		label: __( 'Advanced filters', 'woocommerce' ),
+		label: __( 'Advanced filters', 'poocommerce' ),
 		value: 'advanced',
 	} );
 }
@@ -126,12 +126,12 @@ if ( Object.keys( advancedFilters.filters ).length ) {
 /**
  * Coupons Report Filters.
  *
- * @filter woocommerce_admin_coupons_report_filters
+ * @filter poocommerce_admin_coupons_report_filters
  * @param {Array.<filter>} filters Report filters.
  */
 export const filters = applyFilters( COUPON_REPORT_FILTERS_FILTER, [
 	{
-		label: __( 'Show', 'woocommerce' ),
+		label: __( 'Show', 'poocommerce' ),
 		staticParams: [ 'chartType', 'paged', 'per_page' ],
 		param: 'filter',
 		showFilters: () => true,

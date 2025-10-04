@@ -2,7 +2,7 @@
 /**
  * Tests for the reports customers totals REST API.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 
@@ -72,12 +72,12 @@ class WC_Tests_API_Reports_Customers_Totals extends WC_REST_Unit_Test_Case {
 		$data = array(
 			array(
 				'slug'  => 'paying',
-				'name'  => __( 'Paying customer', 'woocommerce' ),
+				'name'  => __( 'Paying customer', 'poocommerce' ),
 				'total' => $total_paying,
 			),
 			array(
 				'slug'  => 'non_paying',
-				'name'  => __( 'Non-paying customer', 'woocommerce' ),
+				'name'  => __( 'Non-paying customer', 'poocommerce' ),
 				'total' => $total_customers - $total_paying,
 			),
 		);
@@ -105,7 +105,7 @@ class WC_Tests_API_Reports_Customers_Totals extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_product_review_schema() {
 		wp_set_current_user( $this->user );
-		$product    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$request    = new WP_REST_Request( 'OPTIONS', '/wc/v3/reports/customers/totals' );
 		$response   = $this->server->dispatch( $request );
 		$data       = $response->get_data();

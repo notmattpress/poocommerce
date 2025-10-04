@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { HTMLElementEvent } from '@woocommerce/types';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { HTMLElementEvent } from '@poocommerce/types';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 
 /**
  * Internal dependencies
@@ -21,13 +21,13 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const addToCartWithOptionsStore = store< AddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -59,7 +59,7 @@ export type QuantitySelectorStore = {
 };
 
 store< QuantitySelectorStore >(
-	'woocommerce/add-to-cart-with-options-quantity-selector',
+	'poocommerce/add-to-cart-with-options-quantity-selector',
 	{
 		state: {
 			get allowsDecrease() {

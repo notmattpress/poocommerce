@@ -2,14 +2,14 @@
 /**
  * Reports order stats tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class WC_Admin_Tests_Reports_Orders_Stats
@@ -21,18 +21,18 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	 * Don't cache report data during these tests.
 	 */
 	public static function setUpBeforeClass(): void {
-		add_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		add_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 
 		$db_version = strstr( WC()->version, '-', true );
 		$db_version = $db_version ? $db_version : WC()->version;
-		update_option( 'woocommerce_db_version', $db_version );
+		update_option( 'poocommerce_db_version', $db_version );
 	}
 
 	/**
 	 * Restore cache for other tests.
 	 */
 	public static function tearDownAfterClass(): void {
-		remove_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		remove_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 	}
 
 	/**
@@ -634,7 +634,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	 */
 	public function test_populate_and_query_refunds_with_old_full_refund_data() {
 		WC_Helper_Reports::reset_stats_dbs();
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'yes' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'yes' );
 
 		// Populate all of the data.
 		$product = new WC_Product_Simple();
@@ -731,7 +731,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 
 		$this->assertEquals( $expected_totals, json_decode( wp_json_encode( $data_store->get_data( $args ) ), true )['totals'] );
 
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -835,7 +835,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 
 		$this->assertEquals( $expected_totals, json_decode( wp_json_encode( $data_store->get_data( $args ) ), true )['totals'] );
 
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -4027,10 +4027,10 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	/**
 	 * Test if lookup tables are cleaned after delete an order.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::delete_order
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::sync_on_order_delete
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore::sync_on_order_delete
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::delete_order
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore::sync_on_order_delete
 	 */
 	public function test_order_deletion() {
 		global $wpdb;
@@ -4046,12 +4046,12 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 		);
 
 		// Enable taxes.
-		$default_calc_taxes       = get_option( 'woocommerce_calc_taxes', 'no' );
-		$default_customer_address = get_option( 'woocommerce_default_customer_address', 'geolocation' );
-		$default_tax_based_on     = get_option( 'woocommerce_tax_based_on', 'shipping' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		$default_calc_taxes       = get_option( 'poocommerce_calc_taxes', 'no' );
+		$default_customer_address = get_option( 'poocommerce_default_customer_address', 'geolocation' );
+		$default_tax_based_on     = get_option( 'poocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 
 		// Create tax.
 		$tax_id = WC_Tax::_insert_tax_rate(
@@ -4122,9 +4122,9 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 		}
 
 		// Reset taxes settings.
-		update_option( 'woocommerce_calc_taxes', $default_customer_address );
-		update_option( 'woocommerce_default_customer_address', $default_calc_taxes );
-		update_option( 'woocommerce_tax_based_on', $default_tax_based_on );
+		update_option( 'poocommerce_calc_taxes', $default_customer_address );
+		update_option( 'poocommerce_default_customer_address', $default_calc_taxes );
+		update_option( 'poocommerce_tax_based_on', $default_tax_based_on );
 	}
 
 	/**

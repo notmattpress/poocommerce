@@ -1,4 +1,4 @@
-.wp-block-woocommerce-product-variation-items-field {
+.wp-block-poocommerce-product-variation-items-field {
 	@media ( min-width: #{ ($break-medium) } ) {
 		min-height: 420px;
 	}
@@ -20,7 +20,7 @@
 		animation: fade-in 0.6s;
 	}
 	.tour-kit-frame__container,
-	.woocommerce-tour-kit-step {
+	.poocommerce-tour-kit-step {
 		border-radius: $gap-smaller;
 		animation: fade-in 0.6s;
 	}

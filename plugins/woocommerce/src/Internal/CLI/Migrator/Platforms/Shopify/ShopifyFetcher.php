@@ -2,14 +2,14 @@
 /**
  * Shopify Fetcher
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformFetcherInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ class ShopifyFetcher implements PlatformFetcherInterface {
 	 * Comprehensive GraphQL query for fetching Shopify products.
 	 *
 	 * This query fetches all necessary product data including variants, images,
-	 * collections, and metadata for migration to WooCommerce.
+	 * collections, and metadata for migration to PooCommerce.
 	 */
 	const SHOPIFY_PRODUCT_QUERY = <<<'GRAPHQL'
 	query GetShopifyProducts(

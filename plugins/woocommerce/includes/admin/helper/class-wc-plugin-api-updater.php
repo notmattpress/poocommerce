@@ -3,7 +3,7 @@
  * Updates the Product API response from WP.org.
  *
  * @class WC_Plugin_Api_Updater
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -65,12 +65,12 @@ class WC_Plugin_Api_Updater {
 			return $response;
 		}
 
-		// Only for slugs that start with woocommerce-com-.
-		if ( 0 !== strpos( $args->slug, 'woocommerce-com-' ) ) {
+		// Only for slugs that start with poocommerce-com-.
+		if ( 0 !== strpos( $args->slug, 'poocommerce-com-' ) ) {
 			return $response;
 		}
 
-		$clean_slug = str_replace( 'woocommerce-com-', '', $args->slug );
+		$clean_slug = str_replace( 'poocommerce-com-', '', $args->slug );
 
 		// Look through update data by slug.
 		$update_data = WC_Helper_Updater::get_update_data();

@@ -5,7 +5,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { useContext, useEffect, useMemo } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import clsx from 'clsx';
-import { getNewPath, navigateTo, useQuery } from '@woocommerce/navigation';
+import { getNewPath, navigateTo, useQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -67,9 +67,9 @@ const renderTabs = (
 			tabs[ tabKey ]?.href ? (
 				<a
 					className={ clsx(
-						'woocommerce-marketplace__tab-button',
+						'poocommerce-marketplace__tab-button',
 						'components-button',
-						`woocommerce-marketplace__tab-${ tabKey }`
+						`poocommerce-marketplace__tab-${ tabKey }`
 					) }
 					href={ tabs[ tabKey ]?.href }
 					key={ tabKey }
@@ -79,8 +79,8 @@ const renderTabs = (
 			) : (
 				<Button
 					className={ clsx(
-						'woocommerce-marketplace__tab-button',
-						`woocommerce-marketplace__tab-${ tabKey }`,
+						'poocommerce-marketplace__tab-button',
+						`poocommerce-marketplace__tab-${ tabKey }`,
 						{
 							'is-active': tabKey === selectedTab,
 						}
@@ -92,8 +92,8 @@ const renderTabs = (
 					{ tabs[ tabKey ]?.showUpdateCount && (
 						<span
 							className={ clsx(
-								'woocommerce-marketplace__update-count',
-								`woocommerce-marketplace__update-count-${ tabKey }`,
+								'poocommerce-marketplace__update-count',
+								`poocommerce-marketplace__update-count-${ tabKey }`,
 								{
 									'is-active': tabKey === selectedTab,
 								}
@@ -106,7 +106,7 @@ const renderTabs = (
 												'%d update available for your subscriptions',
 												'%d updates available for your subscriptions',
 												tabs[ tabKey ]?.updateCount,
-												'woocommerce'
+												'poocommerce'
 											),
 											tabs[ tabKey ]?.updateCount
 									  )
@@ -116,7 +116,7 @@ const renderTabs = (
 												'%d matching item in this category',
 												'%d matching items in this category',
 												tabs[ tabKey ]?.updateCount,
-												'woocommerce'
+												'poocommerce'
 											),
 											tabs[ tabKey ]?.updateCount
 									  )
@@ -129,7 +129,7 @@ const renderTabs = (
 												'%d update available for your subscriptions',
 												'%d updates available for your subscriptions',
 												tabs[ tabKey ]?.updateCount,
-												'woocommerce'
+												'poocommerce'
 											),
 											tabs[ tabKey ]?.updateCount
 									  )
@@ -139,7 +139,7 @@ const renderTabs = (
 												'%d matching item in this category',
 												'%d matching items in this category',
 												tabs[ tabKey ]?.updateCount,
-												'woocommerce'
+												'poocommerce'
 											),
 											tabs[ tabKey ]?.updateCount
 									  )
@@ -167,31 +167,31 @@ const Tabs = ( props: TabsProps ): JSX.Element => {
 		() => ( {
 			discover: {
 				name: 'discover',
-				title: __( 'Discover', 'woocommerce' ),
+				title: __( 'Discover', 'poocommerce' ),
 				showUpdateCount: false,
 				updateCount: 0,
 			},
 			extensions: {
 				name: 'extensions',
-				title: __( 'Extensions', 'woocommerce' ),
+				title: __( 'Extensions', 'poocommerce' ),
 				showUpdateCount: !! query.term && ! isLoading,
 				updateCount: searchResultsCount.extensions,
 			},
 			themes: {
 				name: 'themes',
-				title: __( 'Themes', 'woocommerce' ),
+				title: __( 'Themes', 'poocommerce' ),
 				showUpdateCount: !! query.term && ! isLoading,
 				updateCount: searchResultsCount.themes,
 			},
 			'business-services': {
 				name: 'business-services',
-				title: __( 'Business services', 'woocommerce' ),
+				title: __( 'Business services', 'poocommerce' ),
 				showUpdateCount: !! query.term && ! isLoading,
 				updateCount: searchResultsCount[ 'business-services' ],
 			},
 			'my-subscriptions': {
 				name: 'my-subscriptions',
-				title: __( 'My subscriptions', 'woocommerce' ),
+				title: __( 'My subscriptions', 'poocommerce' ),
 				showUpdateCount: wooUpdateCount > 0,
 				updateCount: wooUpdateCount,
 			},
@@ -210,7 +210,7 @@ const Tabs = ( props: TabsProps ): JSX.Element => {
 	return (
 		<nav
 			className={ clsx(
-				'woocommerce-marketplace__tabs',
+				'poocommerce-marketplace__tabs',
 				additionalClassNames || []
 			) }
 		>

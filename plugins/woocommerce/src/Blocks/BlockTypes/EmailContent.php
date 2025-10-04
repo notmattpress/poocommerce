@@ -1,11 +1,11 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
-use Automattic\WooCommerce\Internal\EmailEditor\WooContentProcessor;
-use Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\WooContentProcessor;
+use Automattic\PooCommerce\Internal\Admin\EmailPreview\EmailPreview;
 
 /**
  * EmailContent class.
@@ -74,7 +74,7 @@ class EmailContent extends AbstractBlock {
 			return $email_preview->generate_placeholder_content( $type_param );
 		} catch ( \Exception $e ) {
 			// Catch other potential errors during content generation.
-			return esc_html__( 'There was an error rendering the email preview.', 'woocommerce' );
+			return esc_html__( 'There was an error rendering the email preview.', 'poocommerce' );
 		}
 	}
 

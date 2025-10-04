@@ -166,7 +166,7 @@
  * Ems are used in order to prevent text being cropped in the credit
  * card form based on the font size set for the element.
  *
- * See: https://github.com/woocommerce/woocommerce/issues/60516
+ * See: https://github.com/poocommerce/poocommerce/issues/60516
  */
 @container (max-width: 32em) {
 	@include small-mobile-styles;

@@ -3,10 +3,10 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
-import { useEditorContext } from '@woocommerce/base-context';
-import { SHOP_URL } from '@woocommerce/block-settings';
+import { useEditorContext } from '@poocommerce/base-context';
+import { SHOP_URL } from '@poocommerce/block-settings';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ const browseStoreTemplate = SHOP_URL
 				align: 'center',
 				content: sprintf(
 					/* translators: %s is the link to the store product directory. */
-					__( '<a href="%s">Browse store</a>', 'woocommerce' ),
+					__( '<a href="%s">Browse store</a>', 'poocommerce' ),
 					SHOP_URL
 				),
 				dropCap: false,
@@ -36,7 +36,7 @@ const defaultTemplate = [
 		'core/heading',
 		{
 			textAlign: 'center',
-			content: __( 'Your cart is currently empty!', 'woocommerce' ),
+			content: __( 'Your cart is currently empty!', 'poocommerce' ),
 			level: 2,
 			className: 'with-empty-cart-icon wc-block-cart__empty-cart__title',
 		},
@@ -52,12 +52,12 @@ const defaultTemplate = [
 		'core/heading',
 		{
 			textAlign: 'center',
-			content: __( 'New in store', 'woocommerce' ),
+			content: __( 'New in store', 'poocommerce' ),
 			level: 2,
 		},
 	],
 	[
-		'woocommerce/product-new',
+		'poocommerce/product-new',
 		{
 			columns: 4,
 			rows: 1,
@@ -79,7 +79,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	return (
 		<div
 			{ ...blockProps }
-			hidden={ currentView !== 'woocommerce/empty-cart-block' }
+			hidden={ currentView !== 'poocommerce/empty-cart-block' }
 		>
 			<InnerBlocks
 				template={ defaultTemplate }

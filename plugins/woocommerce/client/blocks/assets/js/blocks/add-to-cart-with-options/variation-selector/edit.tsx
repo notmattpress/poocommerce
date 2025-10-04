@@ -3,8 +3,8 @@
  */
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { BlockEditProps } from '@wordpress/blocks';
-import { useProductDataContext } from '@woocommerce/shared-context';
-import { isProductResponseItem } from '@woocommerce/entities';
+import { useProductDataContext } from '@poocommerce/shared-context';
+import { isProductResponseItem } from '@poocommerce/entities';
 
 /**
  * Internal dependencies

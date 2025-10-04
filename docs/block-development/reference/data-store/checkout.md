@@ -16,10 +16,10 @@ The Checkout Store provides a collection of selectors to access and manage data 
 
 ## Usage
 
-To utilize this store you will import the `checkoutStore` `StoreDescriptor` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
+To utilize this store you will import the `checkoutStore` `StoreDescriptor` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
 
 ```js
-const { checkoutStore } = '@woocommerce/block-data'
+const { checkoutStore } = '@poocommerce/block-data'
 ```
 
 If it is not you can import it via:
@@ -47,11 +47,11 @@ const customerId = store.getCustomerId();
 
 ### getOrderId
 
-Returns the WooCommerce order ID of the order that is currently being processed by the Checkout block.
+Returns the PooCommerce order ID of the order that is currently being processed by the Checkout block.
 
 #### _Returns_ <!-- omit in toc -->
 
--   `number`: The WooCommerce order ID.
+-   `number`: The PooCommerce order ID.
 
 #### _Example_ <!-- omit in toc -->
 

@@ -25,7 +25,7 @@ type UseRegisteredChannels = {
 
 /**
  * An object that maps the product listings status in
- * plugins/woocommerce/src/Admin/Marketing/MarketingChannelInterface.php backend
+ * plugins/poocommerce/src/Admin/Marketing/MarketingChannelInterface.php backend
  * to SyncStatusType frontend.
  */
 const statusMap: Record< string, SyncStatusType > = {
@@ -40,10 +40,10 @@ const convert = ( data: APIRegisteredChannel ): RegisteredChannel => {
 		data.errors_count >= 1
 			? sprintf(
 					// translators: %d: The number of issues to resolve.
-					__( '%d issues to resolve', 'woocommerce' ),
+					__( '%d issues to resolve', 'poocommerce' ),
 					data.errors_count
 			  )
-			: __( 'No issues to resolve', 'woocommerce' );
+			: __( 'No issues to resolve', 'poocommerce' );
 
 	return {
 		slug: data.slug,

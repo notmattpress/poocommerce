@@ -1,13 +1,13 @@
 <?php
 /**
- * Connect existing WooCommerce pages to WooCommerce Admin.
+ * Connect existing PooCommerce pages to PooCommerce Admin.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Returns core WC pages to connect to WC-Admin.
@@ -24,26 +24,26 @@ function wc_admin_get_core_pages_to_connect() {
 
 	return array(
 		'wc-addons'   => array(
-			'title' => __( 'Extensions', 'woocommerce' ),
+			'title' => __( 'Extensions', 'poocommerce' ),
 			'tabs'  => array(),
 		),
 		'wc-reports'  => array(
-			'title' => __( 'Reports', 'woocommerce' ),
+			'title' => __( 'Reports', 'poocommerce' ),
 			'tabs'  => $report_tabs,
 		),
 		'wc-settings' => array(
-			'title' => __( 'Settings', 'woocommerce' ),
-			'tabs'  => apply_filters( 'woocommerce_settings_tabs_array', array() ), // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			'title' => __( 'Settings', 'poocommerce' ),
+			'tabs'  => apply_filters( 'poocommerce_settings_tabs_array', array() ), // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		),
 		'wc-status'   => array(
-			'title' => __( 'Status', 'woocommerce' ),
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			'title' => __( 'Status', 'poocommerce' ),
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			'tabs'  => apply_filters(
-				'woocommerce_admin_status_tabs',
+				'poocommerce_admin_status_tabs',
 				array(
-					'status' => __( 'System status', 'woocommerce' ),
-					'tools'  => __( 'Tools', 'woocommerce' ),
-					'logs'   => __( 'Logs', 'woocommerce' ),
+					'status' => __( 'System status', 'poocommerce' ),
+					'tools'  => __( 'Tools', 'poocommerce' ),
+					'logs'   => __( 'Logs', 'poocommerce' ),
 				)
 			),
 		),
@@ -59,21 +59,21 @@ function wc_admin_get_core_pages_to_connect() {
 function wc_admin_filter_core_page_breadcrumbs( $breadcrumbs ) {
 	$screen_id              = PageController::get_instance()->get_current_screen_id();
 	$pages_to_connect       = wc_admin_get_core_pages_to_connect();
-	$woocommerce_breadcrumb = array(
+	$poocommerce_breadcrumb = array(
 		'admin.php?page=wc-admin',
-		__( 'WooCommerce', 'woocommerce' ),
+		__( 'PooCommerce', 'poocommerce' ),
 	);
 
 	foreach ( $pages_to_connect as $page_id => $page_data ) {
-		if ( preg_match( "/^woocommerce_page_{$page_id}\-/", $screen_id ) ) {
+		if ( preg_match( "/^poocommerce_page_{$page_id}\-/", $screen_id ) ) {
 			if ( empty( $page_data['tabs'] ) ) {
 				$new_breadcrumbs = array(
-					$woocommerce_breadcrumb,
+					$poocommerce_breadcrumb,
 					$page_data['title'],
 				);
 			} else {
 				$new_breadcrumbs = array(
-					$woocommerce_breadcrumb,
+					$poocommerce_breadcrumb,
 					array(
 						add_query_arg( 'page', $page_id, 'admin.php' ),
 						$page_data['title'],
@@ -99,7 +99,7 @@ function wc_admin_filter_core_page_breadcrumbs( $breadcrumbs ) {
 }
 
 /**
- * Render the WC-Admin header bar on all WooCommerce core pages.
+ * Render the WC-Admin header bar on all PooCommerce core pages.
  *
  * @param bool $is_connected Whether the current page is connected.
  * @param bool $current_page The current page, if connected.
@@ -111,8 +111,8 @@ function wc_admin_connect_core_pages( $is_connected, $current_page ) {
 		$pages_to_connect = wc_admin_get_core_pages_to_connect();
 
 		foreach ( $pages_to_connect as $page_id => $page_data ) {
-			if ( preg_match( "/^woocommerce_page_{$page_id}\-/", $screen_id ) ) {
-				add_filter( 'woocommerce_navigation_get_breadcrumbs', 'wc_admin_filter_core_page_breadcrumbs' );
+			if ( preg_match( "/^poocommerce_page_{$page_id}\-/", $screen_id ) ) {
+				add_filter( 'poocommerce_navigation_get_breadcrumbs', 'wc_admin_filter_core_page_breadcrumbs' );
 
 				return true;
 			}
@@ -122,189 +122,189 @@ function wc_admin_connect_core_pages( $is_connected, $current_page ) {
 	return $is_connected;
 }
 
-add_filter( 'woocommerce_navigation_is_connected_page', 'wc_admin_connect_core_pages', 10, 2 );
+add_filter( 'poocommerce_navigation_is_connected_page', 'wc_admin_connect_core_pages', 10, 2 );
 
 $posttype_list_base = 'edit.php';
 
-// WooCommerce > Orders.
+// PooCommerce > Orders.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-orders',
+		'id'        => 'poocommerce-orders',
 		'screen_id' => 'edit-shop_order',
-		'title'     => __( 'Orders', 'woocommerce' ),
+		'title'     => __( 'Orders', 'poocommerce' ),
 		'path'      => add_query_arg( 'post_type', 'shop_order', $posttype_list_base ),
 	)
 );
 
-// WooCommerce > Orders > Add New.
+// PooCommerce > Orders > Add New.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-add-order',
-		'parent'    => 'woocommerce-orders',
+		'id'        => 'poocommerce-add-order',
+		'parent'    => 'poocommerce-orders',
 		'screen_id' => 'shop_order-add',
-		'title'     => __( 'Add New', 'woocommerce' ),
+		'title'     => __( 'Add New', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Orders > Edit Order.
+// PooCommerce > Orders > Edit Order.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-edit-order',
-		'parent'    => 'woocommerce-orders',
+		'id'        => 'poocommerce-edit-order',
+		'parent'    => 'poocommerce-orders',
 		'screen_id' => 'shop_order',
-		'title'     => __( 'Edit Order', 'woocommerce' ),
+		'title'     => __( 'Edit Order', 'poocommerce' ),
 	)
 );
 
 if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
-	// WooCommerce > Orders (COT).
+	// PooCommerce > Orders (COT).
 	wc_admin_connect_page(
 		array(
-			'id'        => 'woocommerce-custom-orders',
+			'id'        => 'poocommerce-custom-orders',
 			'screen_id' => wc_get_page_screen_id( 'shop-order' ),
-			'title'     => __( 'Orders', 'woocommerce' ),
+			'title'     => __( 'Orders', 'poocommerce' ),
 			'path'      => 'admin.php?page=wc-orders',
 		)
 	);
 }
 
-// WooCommerce > Coupons.
+// PooCommerce > Coupons.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-coupons',
-		'parent'    => Features::is_enabled( 'coupons' ) ? 'woocommerce-marketing' : null,
+		'id'        => 'poocommerce-coupons',
+		'parent'    => Features::is_enabled( 'coupons' ) ? 'poocommerce-marketing' : null,
 		'screen_id' => 'edit-shop_coupon',
-		'title'     => __( 'Coupons', 'woocommerce' ),
+		'title'     => __( 'Coupons', 'poocommerce' ),
 		'path'      => add_query_arg( 'post_type', 'shop_coupon', $posttype_list_base ),
 	)
 );
 
-// WooCommerce > Coupons > Add New.
+// PooCommerce > Coupons > Add New.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-add-coupon',
-		'parent'    => 'woocommerce-coupons',
+		'id'        => 'poocommerce-add-coupon',
+		'parent'    => 'poocommerce-coupons',
 		'screen_id' => 'shop_coupon-add',
-		'title'     => __( 'Add New', 'woocommerce' ),
+		'title'     => __( 'Add New', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Coupons > Edit Coupon.
+// PooCommerce > Coupons > Edit Coupon.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-edit-coupon',
-		'parent'    => 'woocommerce-coupons',
+		'id'        => 'poocommerce-edit-coupon',
+		'parent'    => 'poocommerce-coupons',
 		'screen_id' => 'shop_coupon',
-		'title'     => __( 'Edit Coupon', 'woocommerce' ),
+		'title'     => __( 'Edit Coupon', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products.
+// PooCommerce > Products.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-products',
+		'id'        => 'poocommerce-products',
 		'screen_id' => 'edit-product',
-		'title'     => __( 'Products', 'woocommerce' ),
+		'title'     => __( 'Products', 'poocommerce' ),
 		'path'      => add_query_arg( 'post_type', 'product', $posttype_list_base ),
 	)
 );
 
-// WooCommerce > Products > Add New.
+// PooCommerce > Products > Add New.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-add-product',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-add-product',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product-add',
-		'title'     => __( 'Add New', 'woocommerce' ),
+		'title'     => __( 'Add New', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Edit Order.
+// PooCommerce > Products > Edit Order.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-edit-product',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-edit-product',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product',
-		'title'     => __( 'Edit Product', 'woocommerce' ),
+		'title'     => __( 'Edit Product', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Import Products.
+// PooCommerce > Products > Import Products.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-import-products',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-import-products',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product_page_product_importer',
-		'title'     => __( 'Import Products', 'woocommerce' ),
+		'title'     => __( 'Import Products', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Export Products.
+// PooCommerce > Products > Export Products.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-export-products',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-export-products',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product_page_product_exporter',
-		'title'     => __( 'Export Products', 'woocommerce' ),
+		'title'     => __( 'Export Products', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Product categories.
+// PooCommerce > Products > Product categories.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-product-categories',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-product-categories',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'edit-product_cat',
-		'title'     => __( 'Product categories', 'woocommerce' ),
+		'title'     => __( 'Product categories', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Edit category.
+// PooCommerce > Products > Edit category.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-product-edit-category',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-product-edit-category',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product_cat',
-		'title'     => __( 'Edit category', 'woocommerce' ),
+		'title'     => __( 'Edit category', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Product tags.
+// PooCommerce > Products > Product tags.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-product-tags',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-product-tags',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'edit-product_tag',
-		'title'     => __( 'Product tags', 'woocommerce' ),
+		'title'     => __( 'Product tags', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Edit tag.
+// PooCommerce > Products > Edit tag.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-product-edit-tag',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-product-edit-tag',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product_tag',
-		'title'     => __( 'Edit tag', 'woocommerce' ),
+		'title'     => __( 'Edit tag', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Attributes.
+// PooCommerce > Products > Attributes.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-product-attributes',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-product-attributes',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product_page_product_attributes',
-		'title'     => __( 'Attributes', 'woocommerce' ),
+		'title'     => __( 'Attributes', 'poocommerce' ),
 	)
 );
 
-// WooCommerce > Products > Edit attribute.
+// PooCommerce > Products > Edit attribute.
 wc_admin_connect_page(
 	array(
-		'id'        => 'woocommerce-product-edit-attribute',
-		'parent'    => 'woocommerce-products',
+		'id'        => 'poocommerce-product-edit-attribute',
+		'parent'    => 'poocommerce-products',
 		'screen_id' => 'product_page_product_attribute-edit',
-		'title'     => __( 'Edit attribute', 'woocommerce' ),
+		'title'     => __( 'Edit attribute', 'poocommerce' ),
 	)
 );

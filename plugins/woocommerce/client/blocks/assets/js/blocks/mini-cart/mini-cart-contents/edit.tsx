@@ -7,7 +7,7 @@ import {
 	InnerBlocks,
 	InspectorControls,
 } from '@wordpress/block-editor';
-import { EditorProvider } from '@woocommerce/base-context';
+import { EditorProvider } from '@poocommerce/base-context';
 import type { TemplateArray } from '@wordpress/blocks';
 import type { FocusEvent, ReactElement } from 'react';
 import { __ } from '@wordpress/i18n';
@@ -28,8 +28,8 @@ import { useThemeColors } from '../../../shared/hooks/use-theme-colors';
 
 // Array of allowed block names.
 const ALLOWED_BLOCKS = [
-	'woocommerce/filled-mini-cart-contents-block',
-	'woocommerce/empty-mini-cart-contents-block',
+	'poocommerce/filled-mini-cart-contents-block',
+	'poocommerce/empty-mini-cart-contents-block',
 ];
 const MIN_WIDTH = 300;
 
@@ -49,8 +49,8 @@ const Edit = ( {
 	const blockProps = useBlockProps();
 
 	const defaultTemplate = [
-		[ 'woocommerce/filled-mini-cart-contents-block', {}, [] ],
-		[ 'woocommerce/empty-mini-cart-contents-block', {}, [] ],
+		[ 'poocommerce/filled-mini-cart-contents-block', {}, [] ],
+		[ 'poocommerce/empty-mini-cart-contents-block', {}, [] ],
 	] as TemplateArray;
 
 	useForcedLayout( {
@@ -64,7 +64,7 @@ const Edit = ( {
 	useThemeColors(
 		'mini-cart-contents',
 		( { editorBackgroundColor, editorColor } ) => `
-				div:where(.wp-block-woocommerce-mini-cart-contents) {
+				div:where(.wp-block-poocommerce-mini-cart-contents) {
 					background-color: ${ editorBackgroundColor };
 					color: ${ editorColor };
 				}
@@ -75,7 +75,7 @@ const Edit = ( {
 		<>
 			<InspectorControls key="inspector">
 				<PanelBody
-					title={ __( 'Dimensions', 'woocommerce' ) }
+					title={ __( 'Dimensions', 'poocommerce' ) }
 					initialOpen
 				>
 					<UnitControl

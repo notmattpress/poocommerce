@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders;
+namespace Automattic\PooCommerce\Internal\Admin\Orders;
 
 /**
  * When Custom Order Tables are not the default order store (ie, posts are authoritative), we should take care of
@@ -29,7 +29,7 @@ class COTRedirectionController {
 	 *
 	 * @param array|null $query_params The query parameters to use when determining the redirect. If not provided, the $_GET superglobal will be used.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_hpos_admin_requests( $query_params = null ) {
 		$query_params = is_array( $query_params ) ? $query_params : $_GET;
