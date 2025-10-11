@@ -1,20 +1,20 @@
 <?php
 /**
- * WooCommerce Admin Updates
+ * PooCommerce Admin Updates
  *
  * Functions for updating data, used by the background updater.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Internal\Admin\Notes\UnsecuredReportFiles;
-use Automattic\WooCommerce\Admin\ReportExporter;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskLists;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Internal\Admin\Notes\UnsecuredReportFiles;
+use Automattic\PooCommerce\Admin\ReportExporter;
 
 /**
  * Update order stats `status` index length.
- * See: https://github.com/woocommerce/woocommerce-admin/issues/2969.
+ * See: https://github.com/poocommerce/poocommerce-admin/issues/2969.
  */
 function wc_admin_update_0201_order_status_index() {
 	global $wpdb;
@@ -40,7 +40,7 @@ function wc_admin_update_0201_order_status_index() {
 
 /**
  * Rename "gross_total" to "total_sales".
- * See: https://github.com/woocommerce/woocommerce-admin/issues/3175
+ * See: https://github.com/poocommerce/poocommerce-admin/issues/3175
  */
 function wc_admin_update_0230_rename_gross_total() {
 	global $wpdb;
@@ -101,7 +101,7 @@ function wc_admin_update_160_remove_facebook_note() {
  * Set "two column" homescreen layout as default for existing stores.
  */
 function wc_admin_update_170_homescreen_layout() {
-	add_option( 'woocommerce_default_homepage_layout', 'two_columns', '', 'no' );
+	add_option( 'poocommerce_default_homepage_layout', 'two_columns', '', 'no' );
 }
 
 /**
@@ -193,9 +193,9 @@ function wc_admin_update_270_delete_report_downloads() {
  * Update the old task list options.
  */
 function wc_admin_update_271_update_task_list_options() {
-	$hidden_lists         = get_option( 'woocommerce_task_list_hidden_lists', array() );
-	$setup_list_hidden    = get_option( 'woocommerce_task_list_hidden', 'no' );
-	$extended_list_hidden = get_option( 'woocommerce_extended_task_list_hidden', 'no' );
+	$hidden_lists         = get_option( 'poocommerce_task_list_hidden_lists', array() );
+	$setup_list_hidden    = get_option( 'poocommerce_task_list_hidden', 'no' );
+	$extended_list_hidden = get_option( 'poocommerce_extended_task_list_hidden', 'no' );
 	if ( 'yes' === $setup_list_hidden ) {
 		$hidden_lists[] = 'setup';
 	}
@@ -203,9 +203,9 @@ function wc_admin_update_271_update_task_list_options() {
 		$hidden_lists[] = 'extended';
 	}
 
-	update_option( 'woocommerce_task_list_hidden_lists', array_unique( $hidden_lists ) );
-	delete_option( 'woocommerce_task_list_hidden' );
-	delete_option( 'woocommerce_extended_task_list_hidden' );
+	update_option( 'poocommerce_task_list_hidden_lists', array_unique( $hidden_lists ) );
+	delete_option( 'poocommerce_task_list_hidden' );
+	delete_option( 'poocommerce_extended_task_list_hidden' );
 }
 
 /**
@@ -227,29 +227,29 @@ function wc_admin_update_280_order_status() {
  * Update the old task list options.
  */
 function wc_admin_update_290_update_apperance_task_option() {
-	$is_actioned = get_option( 'woocommerce_task_list_appearance_complete', false );
+	$is_actioned = get_option( 'poocommerce_task_list_appearance_complete', false );
 
 	$task = TaskLists::get_task( 'appearance' );
 	if ( $task && $is_actioned ) {
 		$task->mark_actioned();
 	}
 
-	delete_option( 'woocommerce_task_list_appearance_complete' );
+	delete_option( 'poocommerce_task_list_appearance_complete' );
 }
 
 /**
- * Delete the old woocommerce_default_homepage_layout option.
+ * Delete the old poocommerce_default_homepage_layout option.
  */
 function wc_admin_update_290_delete_default_homepage_layout_option() {
-	delete_option( 'woocommerce_default_homepage_layout' );
+	delete_option( 'poocommerce_default_homepage_layout' );
 }
 
 /**
- * Use woocommerce_admin_activity_panel_inbox_last_read from the user meta to set wc_admin_notes.is_read col.
+ * Use poocommerce_admin_activity_panel_inbox_last_read from the user meta to set wc_admin_notes.is_read col.
  */
 function wc_admin_update_300_update_is_read_from_last_read() {
 	global $wpdb;
-	$meta_key = 'woocommerce_admin_activity_panel_inbox_last_read';
+	$meta_key = 'poocommerce_admin_activity_panel_inbox_last_read';
 	// phpcs:ignore
 	$users    = get_users( "meta_key={$meta_key}&orderby={$meta_key}&fields=all_with_meta&number=1" );
 

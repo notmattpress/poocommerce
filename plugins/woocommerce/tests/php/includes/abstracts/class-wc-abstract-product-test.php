@@ -1,7 +1,7 @@
 <?php
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps -- Backward compatibility.
 /**
@@ -16,7 +16,7 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 		$this->disable_cogs_feature();
-		remove_all_filters( 'woocommerce_get_cogs_total_value' );
+		remove_all_filters( 'poocommerce_get_cogs_total_value' );
 	}
 
 	/**
@@ -296,7 +296,7 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The total Cost of Goods Sold value van be modified using the woocommerce_get_cogs_total_value filter.
+	 * @testdox The total Cost of Goods Sold value van be modified using the poocommerce_get_cogs_total_value filter.
 	 */
 	public function test_cogs_total_value_can_be_altered_via_filter() {
 		$this->enable_cogs_feature();
@@ -304,7 +304,7 @@ class WC_Abstract_Product_Test extends WC_Unit_Test_Case {
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_cogs_value( 12.34 );
 
-		add_filter( 'woocommerce_get_product_cogs_total_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
+		add_filter( 'poocommerce_get_product_cogs_total_value', fn( $value, $product ) => $value + $product->get_id(), 10, 2 );
 
 		$this->assertEquals( 12.34 + $product->get_id(), $product->get_cogs_total_value() );
 	}

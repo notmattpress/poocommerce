@@ -1,12 +1,12 @@
-# Claude Code Documentation for WooCommerce
+# Claude Code Documentation for PooCommerce
 
-This document provides Claude Code with essential information about working with the WooCommerce plugin codebase.
+This document provides Claude Code with essential information about working with the PooCommerce plugin codebase.
 
 ## Running Tests
 
 ### PHP Unit Tests
 
-To run PHP unit tests in the WooCommerce plugin directory, use the following commands:
+To run PHP unit tests in the PooCommerce plugin directory, use the following commands:
 
 ```bash
 # Run all PHP unit tests
@@ -31,7 +31,7 @@ pnpm run test:php:env -- --filter PaymentsExtensionSuggestionsTest::test_get_cou
 - Tests run in a Docker-based WordPress environment using `wp-env`
 - The test environment is automatically set up and configured
 - Tests use PHPUnit 9.6.24 with PHP 8.0.30
-- WordPress and WooCommerce are automatically installed in the test environment
+- WordPress and PooCommerce are automatically installed in the test environment
 
 ### Test File Locations
 
@@ -105,5 +105,5 @@ Key directories for testing:
 - Always run tests after making changes to verify functionality
 - Use specific test filters to run only relevant tests during development
 - Test failures provide detailed output showing expected vs actual values
-- The test environment handles WordPress/WooCommerce setup automatically
+- The test environment handles WordPress/PooCommerce setup automatically
 - Extension counts in payment tests must match the actual implementation exactly

@@ -12,7 +12,7 @@ export { useIsEmailEditor } from './hooks';
 
 /**
  * This method is used to initialize the email editor.
- * This method expects some data set on the global window object set on window.WooCommerceEmailEditor
+ * This method expects some data set on the global window object set on window.PooCommerceEmailEditor
  *
  * {
  *    "current_post_type": "", // The post type of the current post.
@@ -54,7 +54,7 @@ export function initializeEditor( htmlId: string ) {
  *
  * @example
  * ```jsx
- * import { ExperimentalEmailEditor } from '@woocommerce/email-editor';
+ * import { ExperimentalEmailEditor } from '@poocommerce/email-editor';
  *
  * <ExperimentalEmailEditor
  *   postId="123"

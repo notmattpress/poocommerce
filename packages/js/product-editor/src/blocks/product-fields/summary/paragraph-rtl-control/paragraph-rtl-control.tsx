@@ -29,7 +29,7 @@ export function ParagraphRTLControl( {
 					title={ _x(
 						'Left to right',
 						'editor button',
-						'woocommerce'
+						'poocommerce'
 					) }
 					isActive={ direction === 'ltr' }
 					onClick={ handleClick }

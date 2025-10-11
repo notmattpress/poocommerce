@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { parseAdminUrl } from '@woocommerce/navigation';
-import { captureException } from '@woocommerce/remote-logging';
-import { getAdminLink } from '@woocommerce/settings';
+import { parseAdminUrl } from '@poocommerce/navigation';
+import { captureException } from '@poocommerce/remote-logging';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ export function isIframe( windowObject ) {
 	return (
 		windowObject.document !== windowObject.parent.document &&
 		windowObject.parent.document.body.querySelector(
-			'.woocommerce-customize-store__container'
+			'.poocommerce-customize-store__container'
 		) !== null
 	);
 }
@@ -208,6 +208,6 @@ export const redirectToThemes = () => {
 		);
 	} else {
 		window.location.href =
-			'https://woocommerce.com/product-category/themes/';
+			'https://poocommerce.com/product-category/themes/';
 	}
 };

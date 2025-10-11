@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/featured-product",
+	"name": "poocommerce/featured-product",
 	"title": "Featured Product",
 	"description": "Highlight a product or variation.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -34,8 +34,8 @@
 		"core/post-title",
 		"core/buttons",
 		"core/heading",
-		"woocommerce/product-price",
-		"woocommerce/product-summary"
+		"poocommerce/product-price",
+		"poocommerce/product-summary"
 	],
 	"attributes": {
 		"alt": {
@@ -100,7 +100,7 @@
 			"default": null
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

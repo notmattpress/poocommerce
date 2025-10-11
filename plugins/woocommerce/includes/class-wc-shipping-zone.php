@@ -4,7 +4,7 @@
  *
  * @since   2.6.0
  * @version 3.0.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -140,12 +140,12 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		if ( count( $location_parts ) > $max ) {
 			$remaining = count( $location_parts ) - $max;
 			// @codingStandardsIgnoreStart
-			return sprintf( _n( '%s and %d other region', '%s and %d other regions', $remaining, 'woocommerce' ), implode( ', ', array_splice( $location_parts, 0, $max ) ), $remaining );
+			return sprintf( _n( '%s and %d other region', '%s and %d other regions', $remaining, 'poocommerce' ), implode( ', ', array_splice( $location_parts, 0, $max ) ), $remaining );
 			// @codingStandardsIgnoreEnd
 		} elseif ( ! empty( $location_parts ) ) {
 			return implode( ', ', $location_parts );
 		} else {
-			return __( 'Everywhere', 'woocommerce' );
+			return __( 'Everywhere', 'poocommerce' );
 		}
 	}
 
@@ -205,7 +205,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 
 		uasort( $methods, 'wc_shipping_zone_method_order_uasort_comparison' );
 
-		return apply_filters( 'woocommerce_shipping_zone_shipping_methods', $methods, $raw_methods, $allowed_classes, $this );
+		return apply_filters( 'poocommerce_shipping_zone_shipping_methods', $methods, $raw_methods, $allowed_classes, $this );
 	}
 
 	/**
@@ -270,7 +270,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		 * @param WC_Data          $this The object being saved.
 		 * @param WC_Data_Store_WP $data_store THe data store persisting the data.
 		 */
-		do_action( 'woocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		if ( null !== $this->get_id() ) {
 			$this->data_store->update( $this );
@@ -284,7 +284,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		 * @param WC_Data          $this The object being saved.
 		 * @param WC_Data_Store_WP $data_store THe data store persisting the data.
 		 */
-		do_action( 'woocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		return $this->get_id();
 	}
@@ -298,7 +298,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		$zone_name = $this->get_formatted_location();
 
 		if ( empty( $zone_name ) ) {
-			$zone_name = __( 'Zone', 'woocommerce' );
+			$zone_name = __( 'Zone', 'poocommerce' );
 		}
 
 		return $zone_name;
@@ -351,7 +351,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 	 * @return boolean
 	 */
 	public function is_valid_location_type( $type ) {
-		return in_array( $type, apply_filters( 'woocommerce_valid_location_types', array( 'postcode', 'state', 'country', 'continent' ) ), true );
+		return in_array( $type, apply_filters( 'poocommerce_valid_location_types', array( 'postcode', 'state', 'country', 'continent' ) ), true );
 	}
 
 	/**
@@ -428,7 +428,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		}
 
 		if ( $instance_id ) {
-			do_action( 'woocommerce_shipping_zone_method_added', $instance_id, $type, $this->get_id() );
+			do_action( 'poocommerce_shipping_zone_method_added', $instance_id, $type, $this->get_id() );
 		}
 
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
@@ -452,7 +452,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 
 		if ( $method ) {
 			$this->data_store->delete_method( $instance_id );
-			do_action( 'woocommerce_shipping_zone_method_deleted', $instance_id, $method->method_id, $this->get_id() );
+			do_action( 'poocommerce_shipping_zone_method_deleted', $instance_id, $method->method_id, $this->get_id() );
 		}
 
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
@@ -480,7 +480,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 	public function update_shipping_method( $instance_id, $data ) {
 		$method = $this->get_shipping_method( $instance_id );
 		if ( ! $method ) {
-			return new \WP_Error( 'woocommerce_rest_shipping_zone_method_invalid', __( 'Shipping method not found.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'poocommerce_rest_shipping_zone_method_invalid', __( 'Shipping method not found.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		// Update method using the standardized, validated API.
@@ -510,7 +510,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 
 		$enabled = wc_string_to_bool( $enabled );
 		$result  = $wpdb->update(
-			"{$wpdb->prefix}woocommerce_shipping_zone_methods",
+			"{$wpdb->prefix}poocommerce_shipping_zone_methods",
 			array( 'is_enabled' => (int) $enabled ),
 			array( 'instance_id' => absint( $instance_id ) ),
 			array( '%d' ),
@@ -530,7 +530,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 				 * @param int    $zone_id     Zone ID.
 				 * @param bool   $enabled     Whether method is enabled.
 				 */
-				do_action( 'woocommerce_shipping_zone_method_status_toggled', $instance_id, $method->id, $this->get_id(), $enabled );
+				do_action( 'poocommerce_shipping_zone_method_status_toggled', $instance_id, $method->id, $this->get_id(), $enabled );
 			}
 			return true;
 		}
@@ -549,7 +549,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		global $wpdb;
 
 		$result = $wpdb->update(
-			"{$wpdb->prefix}woocommerce_shipping_zone_methods",
+			"{$wpdb->prefix}poocommerce_shipping_zone_methods",
 			array( 'method_order' => absint( $order ) ),
 			array( 'instance_id' => absint( $instance_id ) ),
 			array( '%d' ),
@@ -579,22 +579,22 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		if ( 0 === $this->get_id() ) {
 			if ( isset( $params['name'] ) && ! is_null( $params['name'] ) ) {
 				return new WP_Error(
-					'woocommerce_rest_cannot_edit_zone',
-					__( 'Cannot change name of "Rest of the World" zone.', 'woocommerce' ),
+					'poocommerce_rest_cannot_edit_zone',
+					__( 'Cannot change name of "Rest of the World" zone.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
 			if ( isset( $params['order'] ) && ! is_null( $params['order'] ) ) {
 				return new WP_Error(
-					'woocommerce_rest_cannot_edit_zone',
-					__( 'Cannot change order of "Rest of the World" zone.', 'woocommerce' ),
+					'poocommerce_rest_cannot_edit_zone',
+					__( 'Cannot change order of "Rest of the World" zone.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
 			if ( isset( $params['locations'] ) && ! is_null( $params['locations'] ) ) {
 				return new WP_Error(
-					'woocommerce_rest_cannot_edit_zone',
-					__( 'Cannot change locations of "Rest of the World" zone.', 'woocommerce' ),
+					'poocommerce_rest_cannot_edit_zone',
+					__( 'Cannot change locations of "Rest of the World" zone.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}
@@ -605,8 +605,8 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 			$name = trim( $params['name'] );
 			if ( '' === $name ) {
 				return new WP_Error(
-					'woocommerce_rest_invalid_zone_name',
-					__( 'Zone name cannot be empty.', 'woocommerce' ),
+					'poocommerce_rest_invalid_zone_name',
+					__( 'Zone name cannot be empty.', 'poocommerce' ),
 					array( 'status' => WP_Http::BAD_REQUEST )
 				);
 			}

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Messages;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Messages;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\Specs\ErrorCode;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\Specs\MessageType;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\Specs\ErrorCode;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\Specs\MessageType;
 
 /**
  * MessageError class.

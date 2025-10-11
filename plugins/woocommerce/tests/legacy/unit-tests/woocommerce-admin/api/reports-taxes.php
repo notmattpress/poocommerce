@@ -2,11 +2,11 @@
 /**
  * Reports Taxes REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * WC_Admin_Tests_API_Reports_Taxes
@@ -35,8 +35,8 @@ class WC_Admin_Tests_API_Reports_Taxes extends WC_REST_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->original_tax_option = get_option( 'woocommerce_calc_taxes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		$this->original_tax_option = get_option( 'poocommerce_calc_taxes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$this->user = $this->factory->user->create(
 			array(
 				'role' => 'administrator',
@@ -50,7 +50,7 @@ class WC_Admin_Tests_API_Reports_Taxes extends WC_REST_Unit_Test_Case {
 	public function tearDown(): void {
 		parent::tearDown();
 
-		update_option( 'woocommerce_calc_taxes', $this->original_tax_option );
+		update_option( 'poocommerce_calc_taxes', $this->original_tax_option );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class WC_Admin_Tests_API_Reports_Taxes extends WC_REST_Unit_Test_Case {
 		$product->save();
 
 		$tax_rate_id = $wpdb->insert(
-			$wpdb->prefix . 'woocommerce_tax_rates',
+			$wpdb->prefix . 'poocommerce_tax_rates',
 			array(
 				'tax_rate_id'       => 1,
 				'tax_rate'          => '7',
@@ -281,7 +281,7 @@ class WC_Admin_Tests_API_Reports_Taxes extends WC_REST_Unit_Test_Case {
 		$product->save();
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_tax_rates',
+			$wpdb->prefix . 'poocommerce_tax_rates',
 			array(
 				'tax_rate_id'       => 1,
 				'tax_rate'          => '7',
@@ -294,7 +294,7 @@ class WC_Admin_Tests_API_Reports_Taxes extends WC_REST_Unit_Test_Case {
 		);
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_tax_rates',
+			$wpdb->prefix . 'poocommerce_tax_rates',
 			array(
 				'tax_rate_id'       => 2,
 				'tax_rate'          => '8',
@@ -307,7 +307,7 @@ class WC_Admin_Tests_API_Reports_Taxes extends WC_REST_Unit_Test_Case {
 		);
 
 		$wpdb->insert(
-			$wpdb->prefix . 'woocommerce_tax_rates',
+			$wpdb->prefix . 'poocommerce_tax_rates',
 			array(
 				'tax_rate_id'       => 3,
 				'tax_rate'          => '9',

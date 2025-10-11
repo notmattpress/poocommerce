@@ -2,9 +2,9 @@
 /**
  * REST API Email Settings controller
  *
- * Handles requests to the /settings/email endpoints for WooCommerce API v4.
+ * Handles requests to the /settings/email endpoints for PooCommerce API v4.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   4.0.0
  */
 
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Email Settings controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_V4_Controller
  */
 class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
@@ -70,29 +70,29 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 	 */
 	private function get_update_args() {
 		return array(
-			'woocommerce_email_from_name'        => array(
-				'description' => __( 'Email sender name.', 'woocommerce' ),
+			'poocommerce_email_from_name'        => array(
+				'description' => __( 'Email sender name.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => false,
 			),
-			'woocommerce_email_from_address'     => array(
-				'description' => __( 'Email sender address.', 'woocommerce' ),
+			'poocommerce_email_from_address'     => array(
+				'description' => __( 'Email sender address.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'email',
 				'required'    => false,
 			),
-			'woocommerce_email_reply_to_enabled' => array(
-				'description' => __( 'Enable reply-to email address.', 'woocommerce' ),
+			'poocommerce_email_reply_to_enabled' => array(
+				'description' => __( 'Enable reply-to email address.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'required'    => false,
 			),
-			'woocommerce_email_reply_to_name'    => array(
-				'description' => __( 'Reply-to name.', 'woocommerce' ),
+			'poocommerce_email_reply_to_name'    => array(
+				'description' => __( 'Reply-to name.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => false,
 			),
-			'woocommerce_email_reply_to_address' => array(
-				'description' => __( 'Reply-to email address.', 'woocommerce' ),
+			'poocommerce_email_reply_to_address' => array(
+				'description' => __( 'Reply-to email address.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'email',
 				'required'    => false,
@@ -136,7 +136,7 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -145,12 +145,12 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 		$settings_data = isset( $params['values'] ) && is_array( $params['values'] ) ? $params['values'] : $params;
 
 		// Define valid email settings.
-		$valid_settings     = array( 'woocommerce_email_from_name', 'woocommerce_email_from_address', 'woocommerce_email_reply_to_enabled', 'woocommerce_email_reply_to_name', 'woocommerce_email_reply_to_address' );
+		$valid_settings     = array( 'poocommerce_email_from_name', 'poocommerce_email_from_address', 'poocommerce_email_reply_to_enabled', 'poocommerce_email_reply_to_name', 'poocommerce_email_reply_to_address' );
 		$validated_settings = array();
 
-		$reply_to_enabled = get_option( 'woocommerce_email_reply_to_enabled', 'no' );
-		if ( isset( $settings_data['woocommerce_email_reply_to_enabled'] ) ) {
-			$reply_to_enabled = $this->sanitize_setting_value( 'woocommerce_email_reply_to_enabled', $settings_data['woocommerce_email_reply_to_enabled'] );
+		$reply_to_enabled = get_option( 'poocommerce_email_reply_to_enabled', 'no' );
+		if ( isset( $settings_data['poocommerce_email_reply_to_enabled'] ) ) {
+			$reply_to_enabled = $this->sanitize_setting_value( 'poocommerce_email_reply_to_enabled', $settings_data['poocommerce_email_reply_to_enabled'] );
 		}
 
 		// Process each setting in the payload.
@@ -199,27 +199,27 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 	private function validate_setting_value( $setting_id, $value, $reply_to_enabled ) {
 		$check_reply_to = 'yes' === $reply_to_enabled;
 		switch ( $setting_id ) {
-			case 'woocommerce_email_from_name':
+			case 'poocommerce_email_from_name':
 				if ( empty( $value ) || ! is_string( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Email sender name cannot be empty.', 'woocommerce' ),
+						__( 'Email sender name cannot be empty.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_from_address':
+			case 'poocommerce_email_from_address':
 				if ( empty( $value ) || ! is_email( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Please enter a valid email address.', 'woocommerce' ),
+						__( 'Please enter a valid email address.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_reply_to_enabled':
+			case 'poocommerce_email_reply_to_enabled':
 				// Convert string 'true'/'false' to boolean if needed.
 				if ( is_string( $value ) ) {
 					$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
@@ -227,29 +227,29 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 				if ( ! is_bool( $value ) && null !== $value ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Reply-to enabled must be a boolean value.', 'woocommerce' ),
+						__( 'Reply-to enabled must be a boolean value.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_reply_to_name':
+			case 'poocommerce_email_reply_to_name':
 				// Only validate if reply-to is enabled.
 				if ( $check_reply_to && ( empty( $value ) || ! is_string( $value ) ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Reply-to name cannot be empty when reply-to is enabled.', 'woocommerce' ),
+						__( 'Reply-to name cannot be empty when reply-to is enabled.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_reply_to_address':
+			case 'poocommerce_email_reply_to_address':
 				// Only validate if reply-to is enabled.
 				if ( $check_reply_to && ( empty( $value ) || ! is_email( $value ) ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Please enter a valid reply-to email address.', 'woocommerce' ),
+						__( 'Please enter a valid reply-to email address.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -268,13 +268,13 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 	 */
 	private function sanitize_setting_value( $setting_id, $value ) {
 		switch ( $setting_id ) {
-			case 'woocommerce_email_from_name':
-			case 'woocommerce_email_from_address':
-			case 'woocommerce_email_reply_to_name':
-			case 'woocommerce_email_reply_to_address':
+			case 'poocommerce_email_from_name':
+			case 'poocommerce_email_from_address':
+			case 'poocommerce_email_reply_to_name':
+			case 'poocommerce_email_reply_to_address':
 				return sanitize_text_field( $value );
 
-			case 'woocommerce_email_reply_to_enabled':
+			case 'poocommerce_email_reply_to_enabled':
 				// Convert to boolean and store as string for WordPress options.
 				if ( is_string( $value ) ) {
 					$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
@@ -294,50 +294,50 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 	private function get_email_settings_data() {
 		$fields = array(
 			array(
-				'id'    => 'woocommerce_email_from_name',
-				'label' => __( '"FROM" Name', 'woocommerce' ),
+				'id'    => 'poocommerce_email_from_name',
+				'label' => __( '"FROM" Name', 'poocommerce' ),
 				'type'  => 'text',
 			),
 			array(
-				'id'    => 'woocommerce_email_from_address',
-				'label' => __( '"FROM" Address', 'woocommerce' ),
+				'id'    => 'poocommerce_email_from_address',
+				'label' => __( '"FROM" Address', 'poocommerce' ),
 				'type'  => 'email',
 			),
 			array(
-				'id'          => 'woocommerce_email_reply_to_enabled',
-				'label'       => __( 'Add "Reply-to" email', 'woocommerce' ),
+				'id'          => 'poocommerce_email_reply_to_enabled',
+				'label'       => __( 'Add "Reply-to" email', 'poocommerce' ),
 				'type'        => 'boolean',
-				'description' => __( 'Use a different email address for replies.', 'woocommerce' ),
+				'description' => __( 'Use a different email address for replies.', 'poocommerce' ),
 			),
 			array(
-				'id'    => 'woocommerce_email_reply_to_name',
-				'label' => __( '"Reply-to" Name', 'woocommerce' ),
+				'id'    => 'poocommerce_email_reply_to_name',
+				'label' => __( '"Reply-to" Name', 'poocommerce' ),
 				'type'  => 'text',
 			),
 			array(
-				'id'    => 'woocommerce_email_reply_to_address',
-				'label' => __( '"Reply-to" Address', 'woocommerce' ),
+				'id'    => 'poocommerce_email_reply_to_address',
+				'label' => __( '"Reply-to" Address', 'poocommerce' ),
 				'type'  => 'email',
 			),
 		);
 
 		$values = array(
-			'woocommerce_email_from_name'        => get_option( 'woocommerce_email_from_name', get_option( 'blogname' ) ),
-			'woocommerce_email_from_address'     => get_option( 'woocommerce_email_from_address', get_option( 'admin_email' ) ),
-			'woocommerce_email_reply_to_enabled' => get_option( 'woocommerce_email_reply_to_enabled', 'no' ) === 'yes',
-			'woocommerce_email_reply_to_name'    => get_option( 'woocommerce_email_reply_to_name', '' ),
-			'woocommerce_email_reply_to_address' => get_option( 'woocommerce_email_reply_to_address', '' ),
+			'poocommerce_email_from_name'        => get_option( 'poocommerce_email_from_name', get_option( 'blogname' ) ),
+			'poocommerce_email_from_address'     => get_option( 'poocommerce_email_from_address', get_option( 'admin_email' ) ),
+			'poocommerce_email_reply_to_enabled' => get_option( 'poocommerce_email_reply_to_enabled', 'no' ) === 'yes',
+			'poocommerce_email_reply_to_name'    => get_option( 'poocommerce_email_reply_to_name', '' ),
+			'poocommerce_email_reply_to_address' => get_option( 'poocommerce_email_reply_to_address', '' ),
 		);
 
 		return array(
 			'id'          => 'email',
-			'title'       => __( 'Email design', 'woocommerce' ),
-			'description' => __( 'Customize the look and feel of all you notification emails.', 'woocommerce' ),
+			'title'       => __( 'Email design', 'poocommerce' ),
+			'description' => __( 'Customize the look and feel of all you notification emails.', 'poocommerce' ),
 			'values'      => $values,
 			'groups'      => array(
 				'sender_details' => array(
-					'title'       => __( 'Sender details', 'woocommerce' ),
-					'description' => __( 'This is how your sender name and email address would appear in outgoing emails.', 'woocommerce' ),
+					'title'       => __( 'Sender details', 'poocommerce' ),
+					'description' => __( 'This is how your sender name and email address would appear in outgoing emails.', 'poocommerce' ),
 					'order'       => 1,
 					'fields'      => $fields,
 				),
@@ -357,55 +357,55 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'                                 => array(
-					'description' => __( 'Unique identifier for the settings group.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the settings group.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'title'                              => array(
-					'description' => __( 'Settings title.', 'woocommerce' ),
+					'description' => __( 'Settings title.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'description'                        => array(
-					'description' => __( 'Settings description.', 'woocommerce' ),
+					'description' => __( 'Settings description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'values'                             => array(
-					'description' => __( 'Flattened setting values.', 'woocommerce' ),
+					'description' => __( 'Flattened setting values.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'groups'                             => array(
-					'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+					'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 					'type'                 => 'object',
 					'context'              => array( 'view', 'edit' ),
 					'additionalProperties' => array(
 						'type'        => 'object',
-						'description' => __( 'Settings group.', 'woocommerce' ),
+						'description' => __( 'Settings group.', 'poocommerce' ),
 						'properties'  => array(
 							'title'       => array(
-								'description' => __( 'Group title.', 'woocommerce' ),
+								'description' => __( 'Group title.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'description' => array(
-								'description' => __( 'Group description.', 'woocommerce' ),
+								'description' => __( 'Group description.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'order'       => array(
-								'description' => __( 'Display order for the group.', 'woocommerce' ),
+								'description' => __( 'Display order for the group.', 'poocommerce' ),
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'fields'      => array(
-								'description' => __( 'Settings fields.', 'woocommerce' ),
+								'description' => __( 'Settings fields.', 'poocommerce' ),
 								'type'        => 'array',
 								'context'     => array( 'view', 'edit' ),
 								'items'       => $this->get_field_schema(),
@@ -413,29 +413,29 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 						),
 					),
 				),
-				'woocommerce_email_from_name'        => array(
-					'description' => __( 'Email sender name.', 'woocommerce' ),
+				'poocommerce_email_from_name'        => array(
+					'description' => __( 'Email sender name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'woocommerce_email_from_address'     => array(
-					'description' => __( 'Email sender address.', 'woocommerce' ),
+				'poocommerce_email_from_address'     => array(
+					'description' => __( 'Email sender address.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'email',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'woocommerce_email_reply_to_enabled' => array(
-					'description' => __( 'Enable reply-to email address.', 'woocommerce' ),
+				'poocommerce_email_reply_to_enabled' => array(
+					'description' => __( 'Enable reply-to email address.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'woocommerce_email_reply_to_name'    => array(
-					'description' => __( 'Reply-to name.', 'woocommerce' ),
+				'poocommerce_email_reply_to_name'    => array(
+					'description' => __( 'Reply-to name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'woocommerce_email_reply_to_address' => array(
-					'description' => __( 'Reply-to email address.', 'woocommerce' ),
+				'poocommerce_email_reply_to_address' => array(
+					'description' => __( 'Reply-to email address.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'email',
 					'context'     => array( 'view', 'edit' ),
@@ -456,23 +456,23 @@ class WC_REST_Email_Settings_V4_Controller extends WC_REST_V4_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'          => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'label'       => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'type'        => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'email', 'boolean' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'description' => array(
-					'description' => __( 'Setting field description.', 'woocommerce' ),
+					'description' => __( 'Setting field description.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),

@@ -4,7 +4,7 @@
 import { Button } from '@wordpress/components';
 import { useContext, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ export default function Update( props: UpdateProps ) {
 				props.subscription.product_key,
 				sprintf(
 					// translators: %s is the product name.
-					__( '%s couldn’t be updated.', 'woocommerce' ),
+					__( '%s couldn’t be updated.', 'poocommerce' ),
 					props.subscription.product_name
 				),
 				NoticeStatus.Error,
@@ -66,7 +66,7 @@ export default function Update( props: UpdateProps ) {
 						{
 							label: __(
 								'Reload page and try again',
-								'woocommerce'
+								'poocommerce'
 							),
 							onClick: () => {
 								window.location.reload();
@@ -88,7 +88,7 @@ export default function Update( props: UpdateProps ) {
 						props.subscription.product_key,
 						sprintf(
 							// translators: %s is the product name.
-							__( '%s updated successfully.', 'woocommerce' ),
+							__( '%s updated successfully.', 'poocommerce' ),
 							props.subscription.product_name
 						),
 						NoticeStatus.Success
@@ -109,14 +109,14 @@ export default function Update( props: UpdateProps ) {
 					props.subscription.product_key,
 					sprintf(
 						// translators: %s is the product name.
-						__( '%s couldn’t be updated.', 'woocommerce' ),
+						__( '%s couldn’t be updated.', 'poocommerce' ),
 						props.subscription.product_name
 					),
 					NoticeStatus.Error,
 					{
 						actions: [
 							{
-								label: __( 'Try again', 'woocommerce' ),
+								label: __( 'Try again', 'poocommerce' ),
 								onClick: update,
 								url: '',
 							},
@@ -178,21 +178,21 @@ export default function Update( props: UpdateProps ) {
 			{ modal() }
 			<Button
 				variant="link"
-				className="woocommerce-marketplace__my-subscriptions-update"
+				className="poocommerce-marketplace__my-subscriptions-update"
 				onClick={ update }
 				isBusy={ isUpdating }
 				disabled={ isUpdating }
 				label={ sprintf(
 					// translators: %s is the product version.
-					__( 'Update to %s', 'woocommerce' ),
+					__( 'Update to %s', 'poocommerce' ),
 					props.subscription.version
 				) }
 				showTooltip={ true }
 				tooltipPosition="top center"
 			>
 				{ isUpdating
-					? __( 'Updating', 'woocommerce' )
-					: __( 'Update', 'woocommerce' ) }
+					? __( 'Updating', 'poocommerce' )
+					: __( 'Update', 'poocommerce' ) }
 			</Button>
 		</>
 	);

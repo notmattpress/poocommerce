@@ -3,16 +3,16 @@ post_title: Email editor integration
 sidebar_label: Email editor integration
 ---
 
-# WooCommerce email editor integration guide
+# PooCommerce email editor integration guide
 
-This guide shows how extensions can add custom email notifications that integrate with the WooCommerce Email Editor.  
-**Note:** The WooCommerce Email Editor is currently in alpha. To enable it, go to **WooCommerce > Settings > Advanced > Features** and enable **Block Email Editor (alpha)**.
+This guide shows how extensions can add custom email notifications that integrate with the PooCommerce Email Editor.  
+**Note:** The PooCommerce Email Editor is currently in alpha. To enable it, go to **PooCommerce > Settings > Advanced > Features** and enable **Block Email Editor (alpha)**.
 
 ## Quick start
 
-1. **Extend `WC_Email`** – Create a custom email class for your notification by extending the core WooCommerce email class.
-2. **Register with `woocommerce_email_classes`** – Add your new email class to WooCommerce so it appears in the admin email settings.
-3. **Create a block template** – Design a block-based template to ensure your email works seamlessly with the WooCommerce Email Editor.
+1. **Extend `WC_Email`** – Create a custom email class for your notification by extending the core PooCommerce email class.
+2. **Register with `poocommerce_email_classes`** – Add your new email class to PooCommerce so it appears in the admin email settings.
+3. **Create a block template** – Design a block-based template to ensure your email works seamlessly with the PooCommerce Email Editor.
 4. **Set up triggers** – Define when and under what conditions your custom email should be sent (for example, after a specific user action or event).
 
 ## 1. Create email class
@@ -82,54 +82,54 @@ class YourPlugin_Custom_Email extends WC_Email {
 
 ## 2. Register email
 
-Add your email to WooCommerce:
+Add your email to PooCommerce:
 
 ```php
-// Add the custom email class to the WooCommerce Emails.
+// Add the custom email class to the PooCommerce Emails.
 function your_plugin_add_email_class( $email_classes ) {
     $email_classes['YourPlugin_Custom_Email'] = new YourPlugin_Custom_Email();
     return $email_classes;
 }
-add_filter( 'woocommerce_email_classes', 'your_plugin_add_email_class' );
+add_filter( 'poocommerce_email_classes', 'your_plugin_add_email_class' );
 
 // Add the custom email group.
 function your_plugin_add_email_group( $email_groups ) {
     $email_groups['your-plugin'] = __( 'Your Plugin', 'your-plugin' );
     return $email_groups;
 }
-add_filter( 'woocommerce_email_groups', 'your_plugin_add_email_group' );
+add_filter( 'poocommerce_email_groups', 'your_plugin_add_email_group' );
 ```
 
 ## 3. Create block template
 
 Create `templates/emails/block/your-custom-email.php`:
 
-**Note:** Block templates are the modern approach for email editor integration. However, WooCommerce maintains backward compatibility with traditional email templates. If you don't provide a block template, WooCommerce will fall back to your traditional `template_html` and `template_plain` files defined in your email class. These properties are intended to be used in the `get_content_html` and `get_content_plain` methods to load the corresponding template files. This ensures your emails continue to work even without block template support.
+**Note:** Block templates are the modern approach for email editor integration. However, PooCommerce maintains backward compatibility with traditional email templates. If you don't provide a block template, PooCommerce will fall back to your traditional `template_html` and `template_plain` files defined in your email class. These properties are intended to be used in the `get_content_html` and `get_content_plain` methods to load the corresponding template files. This ensures your emails continue to work even without block template support.
 
 ```php
 <?php
-use Automattic\WooCommerce\Internal\EmailEditor\BlockEmailRenderer;
+use Automattic\PooCommerce\Internal\EmailEditor\BlockEmailRenderer;
 defined( 'ABSPATH' ) || exit;
 ?>
 
 <!-- wp:heading -->
-<h2 class="wp-block-heading"><?php printf( esc_html__( 'Hello %s!', 'your-plugin' ), '<!--[woocommerce/customer-first-name]-->' ); ?></h2>
+<h2 class="wp-block-heading"><?php printf( esc_html__( 'Hello %s!', 'your-plugin' ), '<!--[poocommerce/customer-first-name]-->' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p><?php printf( esc_html__( 'Thank you for your order #%s.', 'your-plugin' ), '<!--[woocommerce/order-number]-->' ); ?></p>
+<p><?php printf( esc_html__( 'Thank you for your order #%s.', 'your-plugin' ), '<!--[poocommerce/order-number]-->' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:woocommerce/email-content {"lock":{"move":false,"remove":true}} -->
-<div class="wp-block-woocommerce-email-content"><?php echo esc_html( BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER ); ?></div>
-<!-- /wp:woocommerce/email-content -->
+<!-- wp:poocommerce/email-content {"lock":{"move":false,"remove":true}} -->
+<div class="wp-block-poocommerce-email-content"><?php echo esc_html( BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER ); ?></div>
+<!-- /wp:poocommerce/email-content -->
 ```
 
 **Email content placeholder:**
 
-The `BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER` is a special placeholder that gets replaced with the main email content when the email is rendered. This placeholder is essential for integrating with WooCommerce's email system and allows the email editor to inject the core email content (like order details, customer information, etc.) into your custom template.
+The `BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER` is a special placeholder that gets replaced with the main email content when the email is rendered. This placeholder is essential for integrating with PooCommerce's email system and allows the email editor to inject the core email content (like order details, customer information, etc.) into your custom template.
 
-When WooCommerce processes your email template, it replaces this placeholder with the appropriate email content based on the email type and context, ensuring your custom template works seamlessly with WooCommerce's email system.
+When PooCommerce processes your email template, it replaces this placeholder with the appropriate email content based on the email type and context, ensuring your custom template works seamlessly with PooCommerce's email system.
 
 **Register the template:**
 
@@ -137,7 +137,7 @@ You need to register your block template with the email editor so it can be used
 
 ```php
 function your_plugin_register_email_templates( $templates_registry ) {
-    $template = new \Automattic\WooCommerce\EmailEditor\Engine\Templates\Template(
+    $template = new \Automattic\PooCommerce\EmailEditor\Engine\Templates\Template(
         // Template prefix (your plugin slug)
         'your-plugin',
         // Template slug (unique identifier)
@@ -160,12 +160,12 @@ function your_plugin_register_email_templates( $templates_registry ) {
 
     return $templates_registry;
 }
-add_filter( 'woocommerce_email_editor_register_templates', 'your_plugin_register_email_templates' );
+add_filter( 'poocommerce_email_editor_register_templates', 'your_plugin_register_email_templates' );
 ```
 
 ## 4. Set Up Triggers
 
-**Set up when your email should be sent** by hooking into WordPress actions. You can trigger emails on WooCommerce events or your own custom actions:
+**Set up when your email should be sent** by hooking into WordPress actions. You can trigger emails on PooCommerce events or your own custom actions:
 
 ```php
 function your_plugin_trigger_custom_email( $order_id ) {
@@ -175,19 +175,19 @@ function your_plugin_trigger_custom_email( $order_id ) {
     $email->trigger( $order_id );
 }
 
-// Trigger on WooCommerce order completion
-add_action( 'woocommerce_order_status_completed', 'your_plugin_trigger_custom_email' );
+// Trigger on PooCommerce order completion
+add_action( 'poocommerce_order_status_completed', 'your_plugin_trigger_custom_email' );
 
 // Trigger on your custom plugin action
 add_action( 'your_plugin_custom_action', 'your_plugin_trigger_custom_email' );
 ```
 
-**Common WooCommerce hooks you can use:**
+**Common PooCommerce hooks you can use:**
 
--   `woocommerce_order_status_completed` - When order is completed
--   `woocommerce_order_status_processing` - When order is processing
--   `woocommerce_new_order` - When new order is created
--   `woocommerce_customer_created` - When new customer registers
+-   `poocommerce_order_status_completed` - When order is completed
+-   `poocommerce_order_status_processing` - When order is processing
+-   `poocommerce_new_order` - When new order is created
+-   `poocommerce_customer_created` - When new customer registers
 
 ## Personalization tags
 
@@ -195,65 +195,65 @@ add_action( 'your_plugin_custom_action', 'your_plugin_trigger_custom_email' );
 
 ### Built-in tags
 
-WooCommerce provides many built-in personalization tags organized by category:
+PooCommerce provides many built-in personalization tags organized by category:
 
 #### Customer tags
 
--   `<!--[woocommerce/customer-email]-->` - Customer's email address
--   `<!--[woocommerce/customer-first-name]-->` - Customer's first name
--   `<!--[woocommerce/customer-last-name]-->` - Customer's last name
--   `<!--[woocommerce/customer-full-name]-->` - Customer's full name
--   `<!--[woocommerce/customer-username]-->` - Customer's username
--   `<!--[woocommerce/customer-country]-->` - Customer's country
+-   `<!--[poocommerce/customer-email]-->` - Customer's email address
+-   `<!--[poocommerce/customer-first-name]-->` - Customer's first name
+-   `<!--[poocommerce/customer-last-name]-->` - Customer's last name
+-   `<!--[poocommerce/customer-full-name]-->` - Customer's full name
+-   `<!--[poocommerce/customer-username]-->` - Customer's username
+-   `<!--[poocommerce/customer-country]-->` - Customer's country
 
 #### Order tags
 
--   `<!--[woocommerce/order-number]-->` - Order number
--   `<!--[woocommerce/order-date]-->` - Order date (supports format parameter)
--   `<!--[woocommerce/order-items]-->` - List of order items
--   `<!--[woocommerce/order-subtotal]-->` - Order subtotal
--   `<!--[woocommerce/order-tax]-->` - Order tax amount
--   `<!--[woocommerce/order-discount]-->` - Order discount amount
--   `<!--[woocommerce/order-shipping]-->` - Order shipping cost
--   `<!--[woocommerce/order-total]-->` - Order total amount
--   `<!--[woocommerce/order-payment-method]-->` - Payment method used
--   `<!--[woocommerce/order-payment-url]-->` - Payment URL for order
--   `<!--[woocommerce/order-transaction-id]-->` - Transaction ID
--   `<!--[woocommerce/order-shipping-method]-->` - Shipping method used
--   `<!--[woocommerce/order-shipping-address]-->` - Formatted shipping address
--   `<!--[woocommerce/order-billing-address]-->` - Formatted billing address
--   `<!--[woocommerce/order-view-url]-->` - Customer order view URL
--   `<!--[woocommerce/order-admin-url]-->` - Admin order edit URL
--   `<!--[woocommerce/order-custom-field]-->` - Custom order field (requires key parameter)
+-   `<!--[poocommerce/order-number]-->` - Order number
+-   `<!--[poocommerce/order-date]-->` - Order date (supports format parameter)
+-   `<!--[poocommerce/order-items]-->` - List of order items
+-   `<!--[poocommerce/order-subtotal]-->` - Order subtotal
+-   `<!--[poocommerce/order-tax]-->` - Order tax amount
+-   `<!--[poocommerce/order-discount]-->` - Order discount amount
+-   `<!--[poocommerce/order-shipping]-->` - Order shipping cost
+-   `<!--[poocommerce/order-total]-->` - Order total amount
+-   `<!--[poocommerce/order-payment-method]-->` - Payment method used
+-   `<!--[poocommerce/order-payment-url]-->` - Payment URL for order
+-   `<!--[poocommerce/order-transaction-id]-->` - Transaction ID
+-   `<!--[poocommerce/order-shipping-method]-->` - Shipping method used
+-   `<!--[poocommerce/order-shipping-address]-->` - Formatted shipping address
+-   `<!--[poocommerce/order-billing-address]-->` - Formatted billing address
+-   `<!--[poocommerce/order-view-url]-->` - Customer order view URL
+-   `<!--[poocommerce/order-admin-url]-->` - Admin order edit URL
+-   `<!--[poocommerce/order-custom-field]-->` - Custom order field (requires key parameter)
 
 #### Site tags
 
--   `<!--[woocommerce/site-title]-->` - Site title
--   `<!--[woocommerce/site-homepage-url]-->` - Homepage URL
+-   `<!--[poocommerce/site-title]-->` - Site title
+-   `<!--[poocommerce/site-homepage-url]-->` - Homepage URL
 
 #### Store tags
 
--   `<!--[woocommerce/store-email]-->` - Store email address
--   `<!--[woocommerce/store-url]-->` - Store URL
--   `<!--[woocommerce/store-name]-->` - Store name
--   `<!--[woocommerce/store-address]-->` - Store address
--   `<!--[woocommerce/my-account-url]-->` - My Account page URL
--   `<!--[woocommerce/admin-order-note]-->` - Admin order note
+-   `<!--[poocommerce/store-email]-->` - Store email address
+-   `<!--[poocommerce/store-url]-->` - Store URL
+-   `<!--[poocommerce/store-name]-->` - Store name
+-   `<!--[poocommerce/store-address]-->` - Store address
+-   `<!--[poocommerce/my-account-url]-->` - My Account page URL
+-   `<!--[poocommerce/admin-order-note]-->` - Admin order note
 
 ### Custom personalization tags
 
-**Create your own tags** for plugin-specific data using the proper WooCommerce hook:
+**Create your own tags** for plugin-specific data using the proper PooCommerce hook:
 
 ```php
 /**
  * Register custom personalization tags for the email editor.
  *
- * @param \Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry $registry The registry.
- * @return \Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry
+ * @param \Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry $registry The registry.
+ * @return \Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry
  */
 function your_plugin_register_personalization_tags( $registry ) {
     // Register custom field tag
-    $custom_field_tag = new \Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag(
+    $custom_field_tag = new \Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag(
         // Display name in editor
         __( 'Custom Field', 'your-plugin' ),
         // Token (unique identifier)
@@ -280,13 +280,13 @@ function your_plugin_get_custom_field_value( $context, $args = array() ) {
     return get_post_meta( $order_id, '_custom_field', true );
 }
 
-// Register with the proper WooCommerce hook
-add_filter( 'woocommerce_email_editor_register_personalization_tags', 'your_plugin_register_personalization_tags' );
+// Register with the proper PooCommerce hook
+add_filter( 'poocommerce_email_editor_register_personalization_tags', 'your_plugin_register_personalization_tags' );
 ```
 
 **Usage in templates:** Use `<!--[your-plugin/custom-field]-->` in your block template, and they will be replaced with the values returned by your callback functions.
 
-To learn more about personalization tags, please see the [personalization tags documentation](https://github.com/woocommerce/woocommerce/blob/trunk/packages/php/email-editor/docs/personalization-tags.md) in the `woocommerce/email-editor` package.
+To learn more about personalization tags, please see the [personalization tags documentation](https://github.com/poocommerce/poocommerce/blob/trunk/packages/php/email-editor/docs/personalization-tags.md) in the `poocommerce/email-editor` package.
 
 ## Complete example
 
@@ -350,16 +350,16 @@ class YourPlugin_Loyalty_Welcome_Email extends WC_Email {
 
 ```php
 <!-- wp:heading -->
-<h2 class="wp-block-heading"><?php printf( esc_html__( 'Welcome %s!', 'your-plugin' ), '<!--[woocommerce/customer-first-name]-->' ); ?></h2>
+<h2 class="wp-block-heading"><?php printf( esc_html__( 'Welcome %s!', 'your-plugin' ), '<!--[poocommerce/customer-first-name]-->' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p><?php esc_html_e( 'Thank you for joining our loyalty program!', 'your-plugin' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:woocommerce/email-content {"lock":{"move":false,"remove":true}} -->
-<div class="wp-block-woocommerce-email-content"><?php echo esc_html( BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER ); ?></div>
-<!-- /wp:woocommerce/email-content -->
+<!-- wp:poocommerce/email-content {"lock":{"move":false,"remove":true}} -->
+<div class="wp-block-poocommerce-email-content"><?php echo esc_html( BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER ); ?></div>
+<!-- /wp:poocommerce/email-content -->
 ```
 
 **Registration and Setup:**
@@ -367,21 +367,21 @@ class YourPlugin_Loyalty_Welcome_Email extends WC_Email {
 This code ties everything together - registering the email class, template, and trigger:
 
 ```php
-// Add the custom email class to the WooCommerce Emails.
-add_filter( 'woocommerce_email_classes', function( $classes ) {
+// Add the custom email class to the PooCommerce Emails.
+add_filter( 'poocommerce_email_classes', function( $classes ) {
     $classes['YourPlugin_Loyalty_Welcome_Email'] = new YourPlugin_Loyalty_Welcome_Email();
     return $classes;
 } );
 
 // Add the custom email group.
-add_filter( 'woocommerce_email_groups', function( $email_groups ) {
+add_filter( 'poocommerce_email_groups', function( $email_groups ) {
     $email_groups['loyalty'] = __( 'Loyalty Program', 'your-plugin' );
     return $email_groups;
 } );
 
 // Register block template for the email editor
-add_filter( 'woocommerce_email_editor_register_templates', function( $registry ) {
-    $template = new \Automattic\WooCommerce\EmailEditor\Engine\Templates\Template(
+add_filter( 'poocommerce_email_editor_register_templates', function( $registry ) {
+    $template = new \Automattic\PooCommerce\EmailEditor\Engine\Templates\Template(
         'your-plugin',
         'loyalty-welcome',
         __( 'Loyalty Welcome Email', 'your-plugin' ),
@@ -405,7 +405,7 @@ add_action( 'your_plugin_customer_joined_loyalty', function( $customer_id, $poin
 
 **How it works:**
 
-1. **Email registration** makes your email appear in **WooCommerce > Settings > Emails**
+1. **Email registration** makes your email appear in **PooCommerce > Settings > Emails**
 2. **Template registration** allows you to register additional email templates for use and editing in the block editor
 3. **Trigger setup** automatically sends the email when a customer joins your loyalty program
 
@@ -420,14 +420,14 @@ add_action( 'your_plugin_customer_joined_loyalty', function( $customer_id, $poin
 ## Troubleshooting
 
 -   **Email not in admin?**  
-    Double-check that your email class is registered with the `woocommerce_email_classes` filter and that the class name is correct.
+    Double-check that your email class is registered with the `poocommerce_email_classes` filter and that the class name is correct.
 -   **Template not loading?**  
     Make sure the template file path is correct and that you’ve registered it with the email editor.
 -   **Tags not working?**  
     Confirm that your personalization tag callbacks are registered and returning the expected values.
 -   **Email not sending?**  
-    Check that the email is enabled in WooCommerce settings and that your trigger action is firing as expected.
+    Check that the email is enabled in PooCommerce settings and that your trigger action is firing as expected.
 
 ---
 
-Your custom email will now be available in **WooCommerce > Settings > Emails** and can be edited using the block editor.
+Your custom email will now be available in **PooCommerce > Settings > Emails** and can be edited using the block editor.

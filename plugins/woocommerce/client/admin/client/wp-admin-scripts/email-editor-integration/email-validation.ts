@@ -20,16 +20,16 @@ type EmailContentValidationRule = {
 };
 
 /**
- * Get the WooCommerce data for the current post.
+ * Get the PooCommerce data for the current post.
  *
- * @return The WooCommerce data for the current post.
+ * @return The PooCommerce data for the current post.
  */
-function getWooCommerceData() {
+function getPooCommerceData() {
 	return select( 'core' ).getEditedEntityRecord(
 		'postType',
-		window.WooCommerceEmailEditor.current_post_type,
-		window.WooCommerceEmailEditor.current_post_id
-	)?.woocommerce_data as EntityWooCommerceData;
+		window.PooCommerceEmailEditor.current_post_type,
+		window.PooCommerceEmailEditor.current_post_id
+	)?.poocommerce_data as EntityPooCommerceData;
 }
 
 /**
@@ -75,7 +75,7 @@ function createValidationRuleForCommaSeparatedEmailsField(
 	return {
 		id: `${ fieldName }-email-validation`,
 		testContent: () => {
-			const wooCommerceData = getWooCommerceData();
+			const wooCommerceData = getPooCommerceData();
 
 			if (
 				! ( fieldName in wooCommerceData ) ||
@@ -92,7 +92,7 @@ function createValidationRuleForCommaSeparatedEmailsField(
 		},
 		get message() {
 			const invalidEmails = getInvalidCommaSeparatedEmails(
-				getWooCommerceData()[ fieldName ] ?? ''
+				getPooCommerceData()[ fieldName ] ?? ''
 			);
 
 			return sprintf( message, invalidEmails.join( ',' ) );
@@ -104,7 +104,7 @@ function createValidationRuleForCommaSeparatedEmailsField(
 const emailValidationRule: EmailContentValidationRule = {
 	id: 'sender-email-validation',
 	testContent: () => {
-		const wooCommerceData = getWooCommerceData();
+		const wooCommerceData = getPooCommerceData();
 		const email = wooCommerceData?.sender_settings?.from_address ?? '';
 
 		if ( ! email.trim() ) return false;
@@ -112,8 +112,8 @@ const emailValidationRule: EmailContentValidationRule = {
 		return ! isValidEmail( email.trim() );
 	},
 	message: __(
-		'The "from" email address is invalid. Please enter a valid email address that will appear as the sender in outgoing WooCommerce emails.',
-		'woocommerce'
+		'The "from" email address is invalid. Please enter a valid email address that will appear as the sender in outgoing PooCommerce emails.',
+		'poocommerce'
 	),
 	actions: [],
 };
@@ -124,7 +124,7 @@ const recipientValidationRule =
 		// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
 		__(
 			'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.',
-			'woocommerce'
+			'poocommerce'
 		)
 	);
 
@@ -133,7 +133,7 @@ const ccValidationRule = createValidationRuleForCommaSeparatedEmailsField(
 	// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
 	__(
 		'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.',
-		'woocommerce'
+		'poocommerce'
 	)
 );
 
@@ -142,14 +142,14 @@ const bccValidationRule = createValidationRuleForCommaSeparatedEmailsField(
 	// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
 	__(
 		'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.',
-		'woocommerce'
+		'poocommerce'
 	)
 );
 
 // Add email validation rules
 export function registerEmailValidationRules() {
 	addFilter(
-		'woocommerce_email_editor_content_validation_rules',
+		'poocommerce_email_editor_content_validation_rules',
 		NAME_SPACE,
 		( rules: EmailContentValidationRule[] ) => {
 			return [

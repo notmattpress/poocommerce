@@ -2,12 +2,12 @@
 /**
  * Tests for the WC_Shopping_Zones class.
  *
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 
 /**
  * Class Shipping_Zones.
- * @package WooCommerce\Tests\Shipping
+ * @package PooCommerce\Tests\Shipping
  */
 class WC_Tests_Shipping_Zones extends WC_Unit_Test_Case {
 
@@ -88,7 +88,7 @@ class WC_Tests_Shipping_Zones extends WC_Unit_Test_Case {
 		// Set enabled to false and order to 5 in database.
 		global $wpdb;
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_shipping_zone_methods',
+			$wpdb->prefix . 'poocommerce_shipping_zone_methods',
 			array(
 				'is_enabled'   => 0,
 				'method_order' => 5,
@@ -109,7 +109,7 @@ class WC_Tests_Shipping_Zones extends WC_Unit_Test_Case {
 
 		// Now set enabled to true and order to 3.
 		$wpdb->update(
-			$wpdb->prefix . 'woocommerce_shipping_zone_methods',
+			$wpdb->prefix . 'poocommerce_shipping_zone_methods',
 			array(
 				'is_enabled'   => 1,
 				'method_order' => 3,

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { useParams } from 'react-router-dom';
 
 /**
@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import ProductPage from '../product-page';
 import ProductVariationPage from '../product-variation-page';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 jest.mock( 'react-router-dom', () => ( { useParams: jest.fn() } ) );
@@ -29,13 +29,13 @@ jest.mock( '../hooks/use-product-entity-record', () => ( {
 jest.mock( '../hooks/use-product-variation-entity-record', () => ( {
 	useProductVariationEntityRecord: jest.fn(),
 } ) );
-jest.mock( '@woocommerce/product-editor', () => ( {
-	...jest.requireActual( '@woocommerce/product-editor' ),
+jest.mock( '@poocommerce/product-editor', () => ( {
+	...jest.requireActual( '@poocommerce/product-editor' ),
 	productEditorHeaderApiFetchMiddleware: jest.fn(),
 	productApiFetchMiddleware: jest.fn(),
 	__experimentalInitBlocks: jest.fn().mockImplementation( () => () => {} ),
 } ) );
-jest.mock( '@woocommerce/product-editor', () => ( {
+jest.mock( '@poocommerce/product-editor', () => ( {
 	__experimentalEditor: jest.fn(),
 	__experimentalInitBlocks: jest.fn().mockImplementation( () => () => {} ),
 	__experimentalWooProductMoreMenuItem: jest.fn(),
