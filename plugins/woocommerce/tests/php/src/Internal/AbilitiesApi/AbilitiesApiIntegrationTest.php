@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\AbilitiesApi;
+namespace Automattic\PooCommerce\Tests\Internal\AbilitiesApi;
 
 /**
- * Tests for the WordPress Abilities API integration with WooCommerce
+ * Tests for the WordPress Abilities API integration with PooCommerce
  *
  * @since 10.4.0
  */
@@ -27,7 +27,7 @@ class AbilitiesApiIntegrationTest extends \WC_REST_Unit_Test_Case {
 		 * WordPress context, which may require manual loading in test environments.
 		 */
 		if ( ! function_exists( 'wp_register_ability' ) ) {
-			$bootstrap_file = WP_PLUGIN_DIR . '/woocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
+			$bootstrap_file = WP_PLUGIN_DIR . '/poocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
 			if ( file_exists( $bootstrap_file ) ) {
 				require $bootstrap_file;
 			}
@@ -117,7 +117,7 @@ class AbilitiesApiIntegrationTest extends \WC_REST_Unit_Test_Case {
 	 * @group abilities-api
 	 */
 	public function test_can_get_registered_ability() {
-		$ability_id                   = 'woocommerce-test/get-test';
+		$ability_id                   = 'poocommerce-test/get-test';
 		$this->registered_abilities[] = $ability_id;
 
 		// Hook ability registration to the init action.
@@ -157,7 +157,7 @@ class AbilitiesApiIntegrationTest extends \WC_REST_Unit_Test_Case {
 	 * @group abilities-api
 	 */
 	public function test_can_execute_ability() {
-		$ability_id                   = 'woocommerce-test/execute-test';
+		$ability_id                   = 'poocommerce-test/execute-test';
 		$this->registered_abilities[] = $ability_id;
 
 		// Hook ability registration to the init action.
@@ -231,8 +231,8 @@ class AbilitiesApiIntegrationTest extends \WC_REST_Unit_Test_Case {
 	 * @group abilities-api
 	 */
 	public function test_rest_fetch_abilities() {
-		$ability_id_1                 = 'woocommerce-test/rest-fetch-1';
-		$ability_id_2                 = 'woocommerce-test/rest-fetch-2';
+		$ability_id_1                 = 'poocommerce-test/rest-fetch-1';
+		$ability_id_2                 = 'poocommerce-test/rest-fetch-2';
 		$this->registered_abilities[] = $ability_id_1;
 		$this->registered_abilities[] = $ability_id_2;
 
@@ -302,7 +302,7 @@ class AbilitiesApiIntegrationTest extends \WC_REST_Unit_Test_Case {
 	 * @group abilities-api
 	 */
 	public function test_rest_execute_ability() {
-		$ability_id                   = 'woocommerce-test/rest-execute-test';
+		$ability_id                   = 'poocommerce-test/rest-execute-test';
 		$this->registered_abilities[] = $ability_id;
 
 		// Hook ability registration to the init action.
@@ -375,8 +375,8 @@ class AbilitiesApiIntegrationTest extends \WC_REST_Unit_Test_Case {
 	 * @group abilities-api
 	 */
 	public function test_can_list_abilities() {
-		$ability_id_1                 = 'woocommerce-test/list-test-1';
-		$ability_id_2                 = 'woocommerce-test/list-test-2';
+		$ability_id_1                 = 'poocommerce-test/list-test-1';
+		$ability_id_2                 = 'poocommerce-test/list-test-2';
 		$this->registered_abilities[] = $ability_id_1;
 		$this->registered_abilities[] = $ability_id_2;
 

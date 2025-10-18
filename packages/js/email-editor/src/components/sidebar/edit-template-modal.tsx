@@ -31,7 +31,7 @@ export function EditTemplateModal( { close } ) {
 			<p>
 				{ __(
 					'This template is used by multiple emails. Any changes made would affect other emails on the site. Are you sure you want to edit the template?',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<Flex justify={ 'end' }>
@@ -45,7 +45,7 @@ export function EditTemplateModal( { close } ) {
 							close();
 						} }
 					>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 				</FlexItem>
 				<FlexItem>
@@ -63,7 +63,7 @@ export function EditTemplateModal( { close } ) {
 						} }
 						disabled={ ! template.id || ! onNavigateToEntityRecord }
 					>
-						{ __( 'Edit template', 'woocommerce' ) }
+						{ __( 'Edit template', 'poocommerce' ) }
 					</Button>
 				</FlexItem>
 			</Flex>

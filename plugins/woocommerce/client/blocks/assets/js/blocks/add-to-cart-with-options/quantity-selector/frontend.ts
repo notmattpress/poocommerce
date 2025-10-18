@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { HTMLElementEvent } from '@woocommerce/types';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { HTMLElementEvent } from '@poocommerce/types';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 
 /**
  * Internal dependencies
@@ -21,13 +21,13 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const addToCartWithOptionsStore = store< AddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{},
 	{ lock: universalLock }
 );
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -40,7 +40,7 @@ const { state: productDataState } = store< ProductDataStore >(
  * rely on the change event to detect quantity changes. This function ensures
  * those extensions continue working by programmatically dispatching the event.
  *
- * @see https://github.com/woocommerce/woocommerce/issues/53031
+ * @see https://github.com/poocommerce/poocommerce/issues/53031
  *
  * @param inputElement - The quantity input element to dispatch the event on.
  */
@@ -71,7 +71,7 @@ export type QuantitySelectorStore = {
 };
 
 store< QuantitySelectorStore >(
-	'woocommerce/add-to-cart-with-options-quantity-selector',
+	'poocommerce/add-to-cart-with-options-quantity-selector',
 	{
 		state: {
 			get allowsDecrease() {

@@ -3,9 +3,9 @@
  */
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { useQueryLoopProductContextValidation } from '@woocommerce/base-hooks';
+import { useQueryLoopProductContextValidation } from '@poocommerce/base-hooks';
 import { useSelect } from '@wordpress/data';
-import { optionsStore, Product, productsStore } from '@woocommerce/data';
+import { optionsStore, Product, productsStore } from '@poocommerce/data';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 
 /**
@@ -59,17 +59,17 @@ const Edit = ( {
 			const { getOption } = select( optionsStore );
 			return {
 				dimensionUnit: getOption(
-					'woocommerce_dimension_unit'
+					'poocommerce_dimension_unit'
 				) as string,
-				weightUnit: getOption( 'woocommerce_weight_unit' ) as string,
+				weightUnit: getOption( 'poocommerce_weight_unit' ) as string,
 				isLoadingUnits:
 					! select( optionsStore ).hasFinishedResolution(
 						'getOption',
-						[ 'woocommerce_dimension_unit' ]
+						[ 'poocommerce_dimension_unit' ]
 					) ||
 					! select( optionsStore ).hasFinishedResolution(
 						'getOption',
-						[ 'woocommerce_weight_unit' ]
+						[ 'poocommerce_weight_unit' ]
 					),
 			};
 		},
@@ -97,7 +97,7 @@ const Edit = ( {
 		useQueryLoopProductContextValidation( {
 			clientId,
 			postType,
-			blockName: __( 'Product Specifications', 'woocommerce' ),
+			blockName: __( 'Product Specifications', 'poocommerce' ),
 		} );
 	if ( hasInvalidContext ) {
 		return warningElement;
@@ -110,7 +110,7 @@ const Edit = ( {
 		return (
 			<div { ...blockProps }>
 				<span className="wc-product-specifications__loading">
-					{ __( 'Loading…', 'woocommerce' ) }
+					{ __( 'Loading…', 'poocommerce' ) }
 				</span>
 			</div>
 		);
@@ -122,7 +122,7 @@ const Edit = ( {
 	if ( postId && ! product ) {
 		return (
 			<div { ...blockProps }>
-				<p>{ __( 'No product found', 'woocommerce' ) }</p>
+				<p>{ __( 'No product found', 'poocommerce' ) }</p>
 			</div>
 		);
 	}
@@ -131,7 +131,7 @@ const Edit = ( {
 
 	if ( showWeight ) {
 		productData.weight = {
-			label: __( 'Weight', 'woocommerce' ),
+			label: __( 'Weight', 'poocommerce' ),
 			value: '',
 		};
 
@@ -146,7 +146,7 @@ const Edit = ( {
 
 	if ( showDimensions ) {
 		productData.dimensions = {
-			label: __( 'Dimensions', 'woocommerce' ),
+			label: __( 'Dimensions', 'poocommerce' ),
 			value: '',
 		};
 
@@ -171,8 +171,8 @@ const Edit = ( {
 			}
 		} else {
 			productData.test_attribute = {
-				label: __( 'Test Attribute', 'woocommerce' ),
-				value: __( 'First, Second, Third', 'woocommerce' ),
+				label: __( 'Test Attribute', 'poocommerce' ),
+				value: __( 'First, Second, Third', 'poocommerce' ),
 			};
 		}
 	}
@@ -180,16 +180,16 @@ const Edit = ( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Display Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Display Settings', 'poocommerce' ) }>
 					<ToggleControl
-						label={ __( 'Show Weight', 'woocommerce' ) }
+						label={ __( 'Show Weight', 'poocommerce' ) }
 						checked={ showWeight }
 						onChange={ () =>
 							setAttributes( { showWeight: ! showWeight } )
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Show Dimensions', 'woocommerce' ) }
+						label={ __( 'Show Dimensions', 'poocommerce' ) }
 						checked={ showDimensions }
 						onChange={ () =>
 							setAttributes( {
@@ -198,7 +198,7 @@ const Edit = ( {
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Show Attributes', 'woocommerce' ) }
+						label={ __( 'Show Attributes', 'poocommerce' ) }
 						checked={ showAttributes }
 						onChange={ () =>
 							setAttributes( {
@@ -212,8 +212,8 @@ const Edit = ( {
 				<table>
 					<thead className="screen-reader-text">
 						<tr>
-							<th>{ __( 'Attributes', 'woocommerce' ) }</th>
-							<th>{ __( 'Value', 'woocommerce' ) }</th>
+							<th>{ __( 'Attributes', 'poocommerce' ) }</th>
+							<th>{ __( 'Value', 'poocommerce' ) }</th>
 						</tr>
 					</thead>
 					<tbody>

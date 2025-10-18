@@ -2,7 +2,7 @@
 /**
  * PayPal Notices Class
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
@@ -48,7 +48,7 @@ class WC_Gateway_Paypal_Notices {
 	 */
 	public function add_paypal_migration_notice() {
 		// Show only to users who can manage the site.
-		if ( ! current_user_can( 'manage_woocommerce' ) && ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) && ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -62,21 +62,21 @@ class WC_Gateway_Paypal_Notices {
 			return;
 		}
 
-		$doc_url     = 'https://woocommerce.com/document/woocommerce-paypal-payments/paypal-payments-upgrade-guide/';
+		$doc_url     = 'https://poocommerce.com/document/poocommerce-paypal-payments/paypal-payments-upgrade-guide/';
 		$dismiss_url = wp_nonce_url(
 			add_query_arg( 'wc-hide-notice', 'paypal_migration_completed' ),
-			'woocommerce_hide_notices_nonce',
+			'poocommerce_hide_notices_nonce',
 			'_wc_notice_nonce'
 		);
 		$message     = sprintf(
 			/* translators: 1: opening <a> tag, 2: closing </a> tag */
-			esc_html__( 'WooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience. If you do not prefer the upgraded integration in WooCommerce, we recommend switching to %1$sPayPal Payments%2$s extension.', 'woocommerce' ),
+			esc_html__( 'PooCommerce has upgraded your PayPal integration from PayPal Standard to PayPal Payments (PPCP), for a more reliable and modern checkout experience. If you do not prefer the upgraded integration in PooCommerce, we recommend switching to %1$sPayPal Payments%2$s extension.', 'poocommerce' ),
 			'<a href="' . esc_url( $doc_url ) . '" target="_blank" rel="noopener noreferrer">',
 			'</a>',
 		);
 
 		$notice_html = '<div class="notice notice-warning is-dismissible">'
-			. '<a class="woocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '"></a>'
+			. '<a class="poocommerce-message-close notice-dismiss" style="text-decoration: none;" href="' . esc_url( $dismiss_url ) . '"></a>'
 			. '<p>' . $message . '</p>'
 			. '</div>';
 
@@ -90,7 +90,7 @@ class WC_Gateway_Paypal_Notices {
 	 */
 	public function add_paypal_migration_notice_on_payments_settings_page() {
 		global $current_tab, $current_section;
-		$is_payments_settings_page = 'woocommerce_page_wc-settings' === get_current_screen()->id && 'checkout' === $current_tab && empty( $current_section );
+		$is_payments_settings_page = 'poocommerce_page_wc-settings' === get_current_screen()->id && 'checkout' === $current_tab && empty( $current_section );
 
 		// Only add the notice from this callback on the payments settings page.
 		if ( ! $is_payments_settings_page ) {

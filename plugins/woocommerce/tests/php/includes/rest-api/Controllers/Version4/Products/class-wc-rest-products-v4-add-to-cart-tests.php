@@ -14,7 +14,7 @@ class WC_REST_Products_V4_Add_To_Cart_Tests extends WC_REST_Unit_Test_Case {
 	public function setUp(): void {
 		// Enable the REST API v4 feature.
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -38,7 +38,7 @@ class WC_REST_Products_V4_Add_To_Cart_Tests extends WC_REST_Unit_Test_Case {
 
 		// Disable the REST API v4 feature.
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;

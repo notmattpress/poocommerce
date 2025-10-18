@@ -2,7 +2,7 @@
 post_title: Using NGINX server to protect your upload directory
 sidebar_label: NGINX server to protect upload directory
 
-current wccom url: https://woocommerce.com/document/digital-downloadable-product-handling/#protecting-your-uploads-directory
+current wccom url: https://poocommerce.com/document/digital-downloadable-product-handling/#protecting-your-uploads-directory
 ---
 
 # Using NGINX server to protect your upload directory
@@ -10,10 +10,10 @@ current wccom url: https://woocommerce.com/document/digital-downloadable-product
 If you using NGINX server for your site along with **X-Accel-Redirect/X-Sendfile** or **Force Downloads** download method, it is necessary that you add this configuration for better security:
 
 ```php
-# Protect WooCommerce upload folder from being accessed directly.
+# Protect PooCommerce upload folder from being accessed directly.
 # You may want to change this config if you are using "X-Accel-Redirect/X-Sendfile" or "Force Downloads" method for downloadable products.
 # Place this config towards the end of "server" block in NGINX configuration.
-location ~* /wp-content/uploads/woocommerce_uploads/ {
+location ~* /wp-content/uploads/poocommerce_uploads/ {
     if ( $upstream_http_x_accel_redirect = "" ) {
         return 403;
     }
@@ -24,10 +24,10 @@ location ~* /wp-content/uploads/woocommerce_uploads/ {
 And this the configuration in case you are using **Redirect only** download method:
 
 ```php
-# Protect WooCommerce upload folder from being accessed directly.
+# Protect PooCommerce upload folder from being accessed directly.
 # You may want to change this config if you are using "Redirect Only" method for downloadable products.
 # Place this config towards the end of "server" block in NGINX configuration.
-location ~* /wp-content/uploads/woocommerce_uploads/ {
+location ~* /wp-content/uploads/poocommerce_uploads/ {
     autoindex off;
 }
 ```

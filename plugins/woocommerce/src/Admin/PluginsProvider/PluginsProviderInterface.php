@@ -4,7 +4,7 @@
  * designed to be mockable for unit tests.
  */
 
-namespace Automattic\WooCommerce\Admin\PluginsProvider;
+namespace Automattic\PooCommerce\Admin\PluginsProvider;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,7 +31,7 @@ interface PluginsProviderInterface {
 	/**
 	 * Get the path to the plugin file relative to the plugins directory from the plugin slug.
 	 *
-	 * E.g. 'woocommerce' returns 'woocommerce/woocommerce.php'
+	 * E.g. 'poocommerce' returns 'poocommerce/poocommerce.php'
 	 *
 	 * @param string $slug Plugin slug to get path for.
 	 *

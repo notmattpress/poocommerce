@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import interpolateComponents from '@automattic/interpolate-components';
 import { Button } from '@wordpress/components';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -42,26 +42,26 @@ const TestOrLiveAccountStep = () => {
 		<>
 			<WooPaymentsStepHeader onClose={ closeModal } />
 			<div className="settings-payments-onboarding-modal__step--content">
-				<div className="woocommerce-payments-test-or-live-account-step__success_content_container">
-					<div className="woocommerce-woopayments-modal__content woocommerce-payments-test-or-live-account-step__success_content">
-						<h1 className="woocommerce-payments-test-or-live-account-step__success_content_title">
+				<div className="poocommerce-payments-test-or-live-account-step__success_content_container">
+					<div className="poocommerce-woopayments-modal__content poocommerce-payments-test-or-live-account-step__success_content">
+						<h1 className="poocommerce-payments-test-or-live-account-step__success_content_title">
 							{ __(
 								"You're almost there — time to activate payments!",
-								'woocommerce'
+								'poocommerce'
 							) }
 						</h1>
-						<div className="woocommerce-woopayments-modal__content__item">
-							<div className="woocommerce-woopayments-modal__content__item__description">
+						<div className="poocommerce-woopayments-modal__content__item">
+							<div className="poocommerce-woopayments-modal__content__item__description">
 								<p>
 									{ __(
 										'Activate payments to accept real orders and process transactions.',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 							</div>
 						</div>
-						<div className="woocommerce-payments-test-or-live-account-step__success-whats-next">
-							<div className="woocommerce-woopayments-modal__content__item-flex">
+						<div className="poocommerce-payments-test-or-live-account-step__success-whats-next">
+							<div className="poocommerce-woopayments-modal__content__item-flex">
 								<img
 									src={
 										WC_ASSET_URL + 'images/icons/dollar.svg'
@@ -69,23 +69,23 @@ const TestOrLiveAccountStep = () => {
 									alt=""
 									role="presentation"
 								/>
-								<div className="woocommerce-woopayments-modal__content__item-flex__description">
+								<div className="poocommerce-woopayments-modal__content__item-flex__description">
 									<h3>
 										{ __(
 											'Activate real payments',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</h3>
 									<div>
 										{ interpolateComponents( {
 											mixedString: __(
 												'Provide some additional details about your business to process real transactions. {{link}}Learn more{{/link}}',
-												'woocommerce'
+												'poocommerce'
 											),
 											components: {
 												link: (
 													<Link
-														href="https://woocommerce.com/document/woopayments/startup-guide/#sign-up-process"
+														href="https://poocommerce.com/document/woopayments/startup-guide/#sign-up-process"
 														target="_blank"
 														rel="noreferrer"
 														type="external"
@@ -172,19 +172,19 @@ const TestOrLiveAccountStep = () => {
 							>
 								{ __(
 									'Start accepting payments',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</Button>
 
 							{ canCreateTestAccount && (
 								<>
-									<div className="woocommerce-payments-test-or-live-account-step__success_content_or-divider">
+									<div className="poocommerce-payments-test-or-live-account-step__success_content_or-divider">
 										<hr />
-										{ __( 'OR', 'woocommerce' ) }
+										{ __( 'OR', 'poocommerce' ) }
 										<hr />
 									</div>
 
-									<div className="woocommerce-woopayments-modal__content__item-flex">
+									<div className="poocommerce-woopayments-modal__content__item-flex">
 										<img
 											src={
 												WC_ASSET_URL +
@@ -193,11 +193,11 @@ const TestOrLiveAccountStep = () => {
 											alt=""
 											role="presentation"
 										/>
-										<div className="woocommerce-woopayments-modal__content__item-flex__description">
+										<div className="poocommerce-woopayments-modal__content__item-flex__description">
 											<h3>
 												{ __(
 													'Test payments first, activate later',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</h3>
 											<div>
@@ -205,12 +205,12 @@ const TestOrLiveAccountStep = () => {
 													{ interpolateComponents( {
 														mixedString: __(
 															"A test account will be created for you to {{link}}test payments on your store{{/link}}. You'll need to activate payments later to process real transactions.",
-															'woocommerce'
+															'poocommerce'
 														),
 														components: {
 															link: (
 																<Link
-																	href="https://woocommerce.com/document/woopayments/testing-and-troubleshooting/test-accounts/"
+																	href="https://poocommerce.com/document/woopayments/testing-and-troubleshooting/test-accounts/"
 																	target="_blank"
 																	rel="noreferrer"
 																	type="external"
@@ -229,7 +229,7 @@ const TestOrLiveAccountStep = () => {
 											navigateToNextStep();
 										} }
 									>
-										{ __( 'Test payments', 'woocommerce' ) }
+										{ __( 'Test payments', 'poocommerce' ) }
 									</Button>
 								</>
 							) }

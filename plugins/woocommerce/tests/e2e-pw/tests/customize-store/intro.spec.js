@@ -26,7 +26,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'yes'
 			);
 
@@ -39,7 +39,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_admin_customize_store_completed',
+					'poocommerce_admin_customize_store_completed',
 					'no'
 				);
 			} catch ( error ) {
@@ -55,7 +55,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_customize_store_onboarding_tour_hidden',
+				'poocommerce_customize_store_onboarding_tour_hidden',
 				'no'
 			);
 		} );
@@ -103,7 +103,7 @@ test.describe(
 					await setOption(
 						request,
 						baseURL,
-						'woocommerce_admin_customize_store_completed',
+						'poocommerce_admin_customize_store_completed',
 						'yes'
 					);
 				} catch ( error ) {

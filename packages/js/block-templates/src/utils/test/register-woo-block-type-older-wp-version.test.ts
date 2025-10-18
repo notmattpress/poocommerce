@@ -11,7 +11,7 @@ jest.mock( '@wordpress/blocks', () => ( {
 	registerBlockType: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	isWpVersion: jest.fn().mockReturnValue( true ),
 	getSetting: jest.fn().mockReturnValue( {} ),
 } ) );

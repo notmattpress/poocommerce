@@ -1,5 +1,5 @@
 interface Window {
-	WooCommerceEmailEditor: {
+	PooCommerceEmailEditor: {
 		current_post_type: string;
 		current_post_id: string;
 		email_types: {
@@ -14,7 +14,7 @@ interface Window {
 	};
 }
 
-interface EntityWooCommerceData {
+interface EntityPooCommerceData {
 	sender_settings?: {
 		from_address?: string;
 		from_name?: string;

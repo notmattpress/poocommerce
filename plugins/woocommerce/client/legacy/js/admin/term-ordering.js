@@ -1,4 +1,4 @@
-/*global ajaxurl, woocommerce_term_ordering_params */
+/*global ajaxurl, poocommerce_term_ordering_params */
 
 /* Modifided script from the simple-page-ordering plugin */
 jQuery( function( $ ) {
@@ -103,7 +103,7 @@ jQuery( function( $ ) {
 
 			window.wcTracks.recordEvent( 'product_attributes_ordering_term', {
 				is_category:
-					woocommerce_term_ordering_params.taxonomy === 'product_cat'
+					poocommerce_term_ordering_params.taxonomy === 'product_cat'
 						? 'yes'
 						: 'no',
 			} );
@@ -118,10 +118,10 @@ jQuery( function( $ ) {
 			$.post(
 				ajaxurl,
 				{
-					action: 'woocommerce_term_ordering',
+					action: 'poocommerce_term_ordering',
 					id: termid,
 					nextid: nexttermid,
-					thetaxonomy: woocommerce_term_ordering_params.taxonomy
+					thetaxonomy: poocommerce_term_ordering_params.taxonomy
 				},
 				function(response) {
 					if ( response === 'children' ) {

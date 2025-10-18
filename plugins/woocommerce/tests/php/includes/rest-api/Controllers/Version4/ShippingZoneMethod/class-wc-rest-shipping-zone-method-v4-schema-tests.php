@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\ShippingZoneMethod;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\ShippingZoneMethod;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingMethodSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingMethodSchema;
 use WC_Shipping_Zone;
 use WC_Unit_Test_Case;
 use WP_REST_Request;
@@ -11,7 +11,7 @@ use WP_REST_Request;
 /**
  * Class ShippingMethodSchemaTest
  *
- * @package Automattic\WooCommerce\Tests\RestApi\Routes\V4\ShippingZoneMethod
+ * @package Automattic\PooCommerce\Tests\RestApi\Routes\V4\ShippingZoneMethod
  */
 class WC_REST_Shipping_Zone_Method_V4_Schema_Tests extends WC_Unit_Test_Case {
 

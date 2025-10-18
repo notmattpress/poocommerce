@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createInterpolateElement, useContext } from '@wordpress/element';
 import {
@@ -29,7 +29,7 @@ import SidebarNavigationItem from '@wordpress/edit-site/build-module/components/
  * Internal dependencies
  */
 import { SidebarNavigationScreen } from './sidebar-navigation-screen';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 import {
 	SidebarNavigationAnimationDirection,
 	SidebarNavigationContext,
@@ -40,17 +40,17 @@ import { redirectToThemes } from '~/customize-store/utils';
 
 const PickYourTheme = () => {
 	return (
-		<div className="woocommerce-edit-site-sidebar-navigation-screen-theme-banner">
-			<h2 className="woocommerce-edit-site-sidebar-navigation-screen-theme-banner__title">
-				{ __( 'Pick your perfect theme', 'woocommerce' ) }
+		<div className="poocommerce-edit-site-sidebar-navigation-screen-theme-banner">
+			<h2 className="poocommerce-edit-site-sidebar-navigation-screen-theme-banner__title">
+				{ __( 'Pick your perfect theme', 'poocommerce' ) }
 			</h2>
-			<p className="woocommerce-edit-site-sidebar-navigation-screen-theme-banner__description">
+			<p className="poocommerce-edit-site-sidebar-navigation-screen-theme-banner__description">
 				{ createInterpolateElement(
 					sprintf(
 						/* translators: %s is a line break */
 						__(
 							'Bring your vision to life%s— no coding required.',
-							'woocommerce'
+							'poocommerce'
 						),
 						'<br />'
 					),
@@ -61,7 +61,7 @@ const PickYourTheme = () => {
 			</p>
 			<Button
 				variant="tertiary"
-				className="woocommerce-edit-site-sidebar-navigation-screen-theme-banner__button"
+				className="poocommerce-edit-site-sidebar-navigation-screen-theme-banner__button"
 				onClick={ () => {
 					trackEvent(
 						'customize_your_store_sidebar_all_themes_click'
@@ -69,7 +69,7 @@ const PickYourTheme = () => {
 					redirectToThemes();
 				} }
 			>
-				{ __( 'Browse free and paid themes', 'woocommerce' ) }
+				{ __( 'Browse free and paid themes', 'poocommerce' ) }
 			</Button>
 		</div>
 	);
@@ -81,16 +81,16 @@ export const SidebarNavigationScreenMain = () => {
 	return (
 		<SidebarNavigationScreen
 			isRoot
-			title={ __( "Let's get creative", 'woocommerce' ) }
+			title={ __( "Let's get creative", 'poocommerce' ) }
 			description={ __(
 				'Use our style and layout tools to customize the design of your store. Content and images can be added or changed via the Editor later.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			content={
 				<>
-					<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
+					<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
 						<Heading level={ 2 }>
-							{ __( 'Style', 'woocommerce' ) }
+							{ __( 'Style', 'poocommerce' ) }
 						</Heading>
 					</div>
 					<ItemGroup>
@@ -118,7 +118,7 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Add your logo', 'woocommerce' ) }
+							{ __( 'Add your logo', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -144,7 +144,7 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Choose your color palette', 'woocommerce' ) }
+							{ __( 'Choose your color palette', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -170,12 +170,12 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Choose fonts', 'woocommerce' ) }
+							{ __( 'Choose fonts', 'poocommerce' ) }
 						</NavigatorButton>
 					</ItemGroup>
-					<div className="woocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
+					<div className="poocommerce-edit-site-sidebar-navigation-screen-patterns__group-header">
 						<Heading level={ 2 }>
-							{ __( 'Layout', 'woocommerce' ) }
+							{ __( 'Layout', 'poocommerce' ) }
 						</Heading>
 					</div>
 					<ItemGroup>
@@ -203,7 +203,7 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Choose your header', 'woocommerce' ) }
+							{ __( 'Choose your header', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -236,7 +236,7 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Design your homepage', 'woocommerce' ) }
+							{ __( 'Design your homepage', 'poocommerce' ) }
 						</NavigatorButton>
 						<NavigatorButton
 							as={ SidebarNavigationItem }
@@ -262,7 +262,7 @@ export const SidebarNavigationScreenMain = () => {
 								);
 							} }
 						>
-							{ __( 'Choose your footer', 'woocommerce' ) }
+							{ __( 'Choose your footer', 'poocommerce' ) }
 						</NavigatorButton>
 					</ItemGroup>
 					<PickYourTheme />

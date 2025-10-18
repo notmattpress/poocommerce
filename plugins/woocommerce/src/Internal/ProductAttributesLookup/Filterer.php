@@ -3,7 +3,7 @@
  * Filterer class file.
  */
 
-namespace Automattic\WooCommerce\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Internal\ProductAttributesLookup;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,7 +44,7 @@ class Filterer {
 	 * @return bool
 	 */
 	public function filtering_via_lookup_table_is_active() {
-		return 'yes' === get_option( 'woocommerce_attribute_lookup_enabled' );
+		return 'yes' === get_option( 'poocommerce_attribute_lookup_enabled' );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Filterer {
 		 *
 		 * @since 9.9.0
 		 */
-		$enable_filtering = apply_filters( 'woocommerce_enable_post_clause_filtering', $wp_query->is_main_query(), $wp_query );
+		$enable_filtering = apply_filters( 'poocommerce_enable_post_clause_filtering', $wp_query->is_main_query(), $wp_query );
 
 		if ( ! $enable_filtering || ! $this->filtering_via_lookup_table_is_active() ) {
 			return $args;
@@ -78,14 +78,14 @@ class Filterer {
 		$clause_root = " {$wpdb->posts}.ID IN ( SELECT product_or_parent_id FROM (";
 
 		/**
-		 * Filters the woocommerce_hide_out_of_stock_items option to override the default behavior in product filtering by attribute.
+		 * Filters the poocommerce_hide_out_of_stock_items option to override the default behavior in product filtering by attribute.
 		 *
-		 * @param bool $option_value The behavior configured in WooCommerce settings.
+		 * @param bool $option_value The behavior configured in PooCommerce settings.
 		 * @return bool The behavior to use in the catalog when product filtering by attribute.
 		 *
 		 * @since 9.8.0.
 		 */
-		$hide_out_of_stock = apply_filters( 'woocommerce_product_attributes_filterer_hide_out_of_stock', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$hide_out_of_stock = apply_filters( 'poocommerce_product_attributes_filterer_hide_out_of_stock', 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 		if ( $hide_out_of_stock ) {
 			$in_stock_clause = ' AND in_stock = 1';
 		} else {
@@ -187,13 +187,13 @@ class Filterer {
 			$query = $this->get_product_counts_query_not_using_lookup_table( $tax_query, $meta_query, $term_ids );
 		}
 
-		$query     = apply_filters( 'woocommerce_get_filtered_term_product_counts_query', $query );
+		$query     = apply_filters( 'poocommerce_get_filtered_term_product_counts_query', $query );
 		$query_sql = implode( ' ', $query );
 
 		// We have a query - let's see if cached results of this query already exist.
 		$query_hash = md5( $query_sql );
 		// Maybe store a transient of the count values.
-		$cache = apply_filters( 'woocommerce_layered_nav_count_maybe_cache', true );
+		$cache = apply_filters( 'poocommerce_layered_nav_count_maybe_cache', true );
 		if ( true === $cache ) {
 			$cached_counts = (array) get_transient( 'wc_layered_nav_counts_' . sanitize_title( $taxonomy ) );
 		} else {
@@ -227,14 +227,14 @@ class Filterer {
 		$tax_query_sql  = $tax_query->get_sql( $this->lookup_table_name, 'product_or_parent_id' );
 
 		/**
-		 * Filters the woocommerce_hide_out_of_stock_items option to override the default behavior in product filtering by attribute.
+		 * Filters the poocommerce_hide_out_of_stock_items option to override the default behavior in product filtering by attribute.
 		 *
-		 * @param bool $option_value The behavior configured in WooCommerce settings.
+		 * @param bool $option_value The behavior configured in PooCommerce settings.
 		 * @return bool The behavior to use in the catalog when product filtering by attribute.
 		 *
 		 * @since 9.5.0.
 		 */
-		$hide_out_of_stock = apply_filters( 'woocommerce_product_attributes_filterer_hide_out_of_stock', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$hide_out_of_stock = apply_filters( 'poocommerce_product_attributes_filterer_hide_out_of_stock', 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 		$in_stock_clause   = $hide_out_of_stock ? ' AND in_stock = 1' : '';
 
 		$query           = array();

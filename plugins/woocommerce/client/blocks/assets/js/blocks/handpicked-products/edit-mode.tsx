@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button, Placeholder } from '@wordpress/components';
 import { Icon, stack } from '@wordpress/icons';
-import ProductsControl from '@woocommerce/editor-components/products-control';
+import ProductsControl from '@poocommerce/editor-components/products-control';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ export const HandpickedProductsEditMode = (
 		debouncedSpeak(
 			__(
 				'Now displaying a preview of the Hand-picked Products block.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
@@ -39,12 +39,12 @@ export const HandpickedProductsEditMode = (
 	return (
 		<Placeholder
 			icon={ <Icon icon={ stack } /> }
-			label={ __( 'Hand-picked Products', 'woocommerce' ) }
+			label={ __( 'Hand-picked Products', 'poocommerce' ) }
 			className="wc-block-products-grid wc-block-handpicked-products"
 		>
 			{ __(
 				'Display a selection of hand-picked products in a grid.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			<div className="wc-block-handpicked-products__selection">
 				<ProductsControl
@@ -55,7 +55,7 @@ export const HandpickedProductsEditMode = (
 					} }
 				/>
 				<Button variant="primary" onClick={ onDone }>
-					{ __( 'Done', 'woocommerce' ) }
+					{ __( 'Done', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Placeholder>
