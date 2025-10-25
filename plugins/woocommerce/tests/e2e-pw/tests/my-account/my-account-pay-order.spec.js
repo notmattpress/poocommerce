@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ const randomNum = new Date().getTime().toString();
 const customer = {
 	username: `customer${ randomNum }`,
 	password: 'password',
-	email: `customer${ randomNum }@woocommercecoree2etestsuite.com`,
+	email: `customer${ randomNum }@poocommercecoree2etestsuite.com`,
 };
 
 test.describe(

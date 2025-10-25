@@ -3,7 +3,7 @@
  */
 import { Button, Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import { createInterpolateElement } from '@wordpress/element';
 
 /**
@@ -24,11 +24,11 @@ export const ThemeSwitchWarningModal = ( {
 	return (
 		<Modal
 			className={
-				'woocommerce-customize-store__theme-switch-warning-modal'
+				'poocommerce-customize-store__theme-switch-warning-modal'
 			}
 			title={ __(
 				'Are you sure you want to design a new theme?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onRequestClose={ () => setIsModalOpen( false ) }
 			shouldCloseOnClickOutside={ false }
@@ -37,12 +37,12 @@ export const ThemeSwitchWarningModal = ( {
 				{ isNoAiFlow
 					? __(
 							'Your active theme will be changed and you could lose any changes you’ve made to it.',
-							'woocommerce'
+							'poocommerce'
 					  )
 					: createInterpolateElement(
 							__(
 								"The Store Designer will create a new store design for you, and you'll lose any changes you've made to your active theme. If you'd prefer to continue editing your theme, you can do so via the <EditorLink>Editor</EditorLink>.",
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								EditorLink: (
@@ -60,14 +60,14 @@ export const ThemeSwitchWarningModal = ( {
 							}
 					  ) }
 			</p>
-			<div className="woocommerce-customize-store__theme-switch-warning-modal-footer">
+			<div className="poocommerce-customize-store__theme-switch-warning-modal-footer">
 				<Button
 					onClick={ () => {
 						setIsModalOpen( false );
 					} }
 					variant="link"
 				>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					onClick={ () => {
@@ -79,7 +79,7 @@ export const ThemeSwitchWarningModal = ( {
 					} }
 					variant="primary"
 				>
-					{ __( 'Design a new theme', 'woocommerce' ) }
+					{ __( 'Design a new theme', 'poocommerce' ) }
 				</Button>
 			</div>
 		</Modal>

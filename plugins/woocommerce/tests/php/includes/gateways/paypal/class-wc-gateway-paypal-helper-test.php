@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Gateway_Paypal_Helper class.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 declare(strict_types=1);
@@ -18,7 +18,7 @@ class WC_Gateway_Paypal_Helper_Test extends \WC_Unit_Test_Case {
 	 * Tear down the test environment.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_paypal_settings' );
+		delete_option( 'poocommerce_paypal_settings' );
 
 		parent::tearDown();
 	}
@@ -82,7 +82,7 @@ class WC_Gateway_Paypal_Helper_Test extends \WC_Unit_Test_Case {
 	 * @param bool  $expected The expected result.
 	 */
 	public function test_is_paypal_gateway_available_scenarios( $settings, $expected ) {
-		update_option( 'woocommerce_paypal_settings', $settings );
+		update_option( 'poocommerce_paypal_settings', $settings );
 
 		$result = WC_Gateway_Paypal_Helper::is_paypal_gateway_available();
 
@@ -166,7 +166,7 @@ class WC_Gateway_Paypal_Helper_Test extends \WC_Unit_Test_Case {
 	 * @param bool  $expected The expected result.
 	 */
 	public function test_is_orders_v2_migration_eligible_scenarios( $settings, $expected ) {
-		update_option( 'woocommerce_paypal_settings', $settings );
+		update_option( 'poocommerce_paypal_settings', $settings );
 
 		$result = WC_Gateway_Paypal_Helper::is_orders_v2_migration_eligible();
 

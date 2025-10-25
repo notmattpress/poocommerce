@@ -11,8 +11,8 @@ import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
-import { useCustomDataContext } from '@woocommerce/shared-context';
-import type { ProductResponseAttributeItem } from '@woocommerce/types';
+import { useCustomDataContext } from '@poocommerce/shared-context';
+import type { ProductResponseAttributeItem } from '@poocommerce/types';
 import clsx from 'clsx';
 
 /**
@@ -92,9 +92,9 @@ export default function AttributeOptionsEdit(
 	return (
 		<div { ...blockProps }>
 			<InspectorControls>
-				<PanelBody title={ __( 'Style', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Style', 'poocommerce' ) }>
 					<ToggleGroupControl
-						label={ __( 'Style', 'woocommerce' ) }
+						label={ __( 'Style', 'poocommerce' ) }
 						value={ optionStyle ?? 'pills' }
 						onChange={ ( newOptionStyle ) => {
 							if (
@@ -112,11 +112,11 @@ export default function AttributeOptionsEdit(
 					>
 						<ToggleGroupControlOption
 							value="pills"
-							label={ __( 'Pills', 'woocommerce' ) }
+							label={ __( 'Pills', 'poocommerce' ) }
 						/>
 						<ToggleGroupControlOption
 							value="dropdown"
-							label={ __( 'Dropdown', 'woocommerce' ) }
+							label={ __( 'Dropdown', 'poocommerce' ) }
 						/>
 					</ToggleGroupControl>
 				</PanelBody>

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
 
 import { ProductGalleryPage } from '../../product-gallery.page';
 const blockData = {
-	name: 'woocommerce/product-gallery-large-image',
+	name: 'poocommerce/product-gallery-large-image',
 	selectors: {
 		frontend: {},
 		editor: {},
@@ -162,7 +162,7 @@ test.describe( `${ blockData.name }`, () => {
 		} );
 	} );
 
-	// TODO: This test is flaky, we will fix it in https://github.com/woocommerce/woocommerce/pull/55246
+	// TODO: This test is flaky, we will fix it in https://github.com/poocommerce/poocommerce/pull/55246
 	test.skip( 'Renders correct image when selecting a product variation in the Add to Cart with Options block', async ( {
 		page,
 		editor,

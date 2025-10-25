@@ -11,25 +11,25 @@ import {
 	useEffect,
 	useCallback,
 } from '@wordpress/element';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import deprecated from '@wordpress/deprecated';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	checkoutStore,
 	paymentStore,
 	validationStore,
-} from '@woocommerce/block-data';
+} from '@poocommerce/block-data';
 import { store as noticesStore } from '@wordpress/notices';
 import type { WPNotice } from '@wordpress/notices/build-types/store/selectors';
-import { checkoutEvents } from '@woocommerce/blocks-checkout-events';
+import { checkoutEvents } from '@poocommerce/blocks-checkout-events';
 import {
 	ExpressPaymentMethods,
 	PlainExpressPaymentMethods,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	getExpressPaymentMethods,
 	getPaymentMethods,
-} from '@woocommerce/blocks-registry';
+} from '@poocommerce/blocks-registry';
 
 /**
  * Internal dependencies
@@ -234,13 +234,13 @@ export const CheckoutEventsProvider = ( {
 	 * we need an extra function between useMemo and event emitters
 	 * so that the deprecated message gets shown only at invocation time.
 	 * (useMemo calls the passed function at render time)
-	 * See: https://github.com/woocommerce/woocommerce-gutenberg-products-block/pull/4039/commits/a502d1be8828848270993264c64220731b0ae181
+	 * See: https://github.com/poocommerce/poocommerce-gutenberg-products-block/pull/4039/commits/a502d1be8828848270993264c64220731b0ae181
 	 */
 	const onCheckoutBeforeProcessing = useMemo( () => {
 		return function ( ...args: Parameters< typeof onCheckoutValidation > ) {
 			deprecated( 'onCheckoutBeforeProcessing', {
 				alternative: 'onCheckoutValidation',
-				plugin: 'WooCommerce Blocks',
+				plugin: 'PooCommerce Blocks',
 			} );
 			return onCheckoutValidation( ...args );
 		};
@@ -254,8 +254,8 @@ export const CheckoutEventsProvider = ( {
 			deprecated( 'onCheckoutValidationBeforeProcessing', {
 				since: '9.7.0',
 				alternative: 'onCheckoutValidation',
-				plugin: 'WooCommerce Blocks',
-				link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8381',
+				plugin: 'PooCommerce Blocks',
+				link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8381',
 			} );
 			return onCheckoutValidation( ...args );
 		};
@@ -269,8 +269,8 @@ export const CheckoutEventsProvider = ( {
 			deprecated( 'onCheckoutAfterProcessingWithSuccess', {
 				since: '9.7.0',
 				alternative: 'onCheckoutSuccess',
-				plugin: 'WooCommerce Blocks',
-				link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8381',
+				plugin: 'PooCommerce Blocks',
+				link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8381',
 			} );
 			return onCheckoutSuccess( ...args );
 		};
@@ -284,8 +284,8 @@ export const CheckoutEventsProvider = ( {
 			deprecated( 'onCheckoutAfterProcessingWithError', {
 				since: '9.7.0',
 				alternative: 'onCheckoutFail',
-				plugin: 'WooCommerce Blocks',
-				link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8381',
+				plugin: 'PooCommerce Blocks',
+				link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8381',
 			} );
 			return onCheckoutFail( ...args );
 		};

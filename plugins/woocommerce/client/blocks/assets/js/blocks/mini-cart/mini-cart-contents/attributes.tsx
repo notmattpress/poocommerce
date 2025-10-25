@@ -3,9 +3,9 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Icon } from '@wordpress/icons';
-import { filledCart, removeCart } from '@woocommerce/icons';
+import { filledCart, removeCart } from '@poocommerce/icons';
 
-export const blockName = 'woocommerce/mini-cart-contents';
+export const blockName = 'poocommerce/mini-cart-contents';
 
 export const attributes = {
 	isPreview: {
@@ -21,20 +21,20 @@ export const attributes = {
 	},
 	currentView: {
 		type: 'string',
-		default: 'woocommerce/filled-mini-cart-contents-block',
+		default: 'poocommerce/filled-mini-cart-contents-block',
 		source: 'readonly', // custom source to prevent saving to post content
 	},
 	editorViews: {
 		type: 'object',
 		default: [
 			{
-				view: 'woocommerce/filled-mini-cart-contents-block',
-				label: __( 'Filled Mini-Cart', 'woocommerce' ),
+				view: 'poocommerce/filled-mini-cart-contents-block',
+				label: __( 'Filled Mini-Cart', 'poocommerce' ),
 				icon: <Icon icon={ filledCart } />,
 			},
 			{
-				view: 'woocommerce/empty-mini-cart-contents-block',
-				label: __( 'Empty Mini-Cart', 'woocommerce' ),
+				view: 'poocommerce/empty-mini-cart-contents-block',
+				label: __( 'Empty Mini-Cart', 'poocommerce' ),
 				icon: <Icon icon={ removeCart } />,
 			},
 		],

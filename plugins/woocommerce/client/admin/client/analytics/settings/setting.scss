@@ -1,4 +1,4 @@
-.woocommerce-setting {
+.poocommerce-setting {
 	display: flex;
 	margin-bottom: $gap-large;
 	@include breakpoint( "<1280px" ) {
@@ -6,7 +6,7 @@
 	}
 }
 
-.woocommerce-setting__label {
+.poocommerce-setting__label {
 	@include font-size( 16 );
 	margin-bottom: $gap;
 	padding-right: $gap;
@@ -16,13 +16,13 @@
 	}
 }
 
-.woocommerce-setting__input {
+.poocommerce-setting__input {
 	display: flex;
 	flex-direction: column;
 	@include breakpoint( ">1280px" ) {
 		width: 35%;
 
-		.woocommerce-filters-filter {
+		.poocommerce-filters-filter {
 			width: 100%;
 		}
 	}
@@ -34,7 +34,7 @@
 		color: $gray-700;
 	}
 
-	.woocommerce-filters-filter label {
+	.poocommerce-filters-filter label {
 		margin-bottom: 0;
 	}
 
@@ -47,18 +47,18 @@
 		display: flex;
 	}
 
-	.woocommerce-filters-date__content-controls {
+	.poocommerce-filters-date__content-controls {
 		padding-bottom: 0;
 	}
 }
 
-.woocommerce-setting__options-group-label {
+.poocommerce-setting__options-group-label {
 	display: block;
 	font-weight: bold;
 	margin-bottom: $gap-small;
 }
 
-.woocommerce-setting__help {
+.poocommerce-setting__help {
 	font-style: italic;
 	color: $gray-700;
 }

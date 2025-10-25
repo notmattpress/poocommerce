@@ -8,14 +8,14 @@ import {
 	Product,
 	useUserPreferences,
 	experimentalProductVariationsStore,
-} from '@woocommerce/data';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { recordEvent } from '@poocommerce/tracks';
 import { createElement, useMemo, useRef } from '@wordpress/element';
 import { resolveSelect, useDispatch, useSelect } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId, useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -124,7 +124,7 @@ export function Edit( {
 				return {
 					message: __(
 						'Set variation prices before adding this product.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -176,7 +176,7 @@ export function Edit( {
 					/** Translators: Number of variations without price */
 					__(
 						'%d variations do not have prices. Variations that do not have prices will not be visible to customers.',
-						'woocommerce'
+						'poocommerce'
 					),
 					totalCountWithoutPrice
 			  )
@@ -186,9 +186,9 @@ export function Edit( {
 		return (
 			<EmptyState
 				names={ [
-					__( 'Variation', 'woocommerce' ),
-					__( 'Colors', 'woocommerce' ),
-					__( 'Sizes', 'woocommerce' ),
+					__( 'Variation', 'poocommerce' ),
+					__( 'Colors', 'poocommerce' ),
+					__( 'Sizes', 'poocommerce' ),
 				] }
 			/>
 		);
@@ -211,7 +211,7 @@ export function Edit( {
 				} }
 				noticeActions={ [
 					{
-						label: __( 'Set prices', 'woocommerce' ),
+						label: __( 'Set prices', 'poocommerce' ),
 						onClick: onSetPrices,
 						className: 'is-destructive',
 					},

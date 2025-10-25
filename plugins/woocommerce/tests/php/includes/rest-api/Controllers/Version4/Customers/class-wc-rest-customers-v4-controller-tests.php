@@ -1,10 +1,10 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\Controller as CustomersController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\CustomerSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\CollectionQuery;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\UpdateUtils;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\Controller as CustomersController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\CustomerSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\CollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\UpdateUtils;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 /**
  * Customers Controller tests for V4 REST API.
@@ -56,7 +56,7 @@ class WC_REST_Customers_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -69,7 +69,7 @@ class WC_REST_Customers_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;
@@ -711,7 +711,7 @@ class WC_REST_Customers_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 404, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_api_v4_customers_invalid_id', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_customers_invalid_id', $response->get_data()['code'] );
 	}
 
 	/**
@@ -789,7 +789,7 @@ class WC_REST_Customers_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 501, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_api_v4_customers_trash_not_supported', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_customers_trash_not_supported', $response->get_data()['code'] );
 	}
 
 	/**
@@ -812,7 +812,7 @@ class WC_REST_Customers_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 403, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit', $response->get_data()['code'] );
 
 		wp_delete_user( $admin_user );
 	}
@@ -833,7 +833,7 @@ class WC_REST_Customers_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 403, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_cannot_delete', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_delete', $response->get_data()['code'] );
 
 		wp_delete_user( $admin_user );
 	}

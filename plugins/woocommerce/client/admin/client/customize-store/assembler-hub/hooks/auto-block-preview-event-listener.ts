@@ -293,7 +293,7 @@ const addPatternButtonClickListener = (
 	insertPatternByName: ( pattern: string ) => void
 ) => {
 	const DEFAULT_PATTTERN_NAME =
-		'woocommerce-blocks/centered-content-with-image-below';
+		'poocommerce-blocks/centered-content-with-image-below';
 	const handlePatternButtonClick = () => {
 		insertPatternByName( DEFAULT_PATTTERN_NAME );
 	};

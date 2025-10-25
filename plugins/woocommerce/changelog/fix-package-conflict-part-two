@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Switch to the cssinliner package to the WooCommerce namespaced version to prevent conflict with other plugins
+Switch to the cssinliner package to the PooCommerce namespaced version to prevent conflict with other plugins

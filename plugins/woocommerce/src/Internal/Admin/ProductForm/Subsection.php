@@ -3,7 +3,7 @@
  * Handles product form SubSection related methods.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductForm;
+namespace Automattic\PooCommerce\Internal\Admin\ProductForm;
 
 /**
  * SubSection class.

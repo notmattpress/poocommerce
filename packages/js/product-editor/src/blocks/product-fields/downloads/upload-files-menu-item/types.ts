@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { MediaItem } from '@wordpress/media-utils';
-import { MediaUploaderErrorCallback } from '@woocommerce/components';
+import { MediaUploaderErrorCallback } from '@poocommerce/components';
 
 export type UploadFilesMenuItemProps = {
 	allowedTypes?: string[];

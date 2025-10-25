@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { resolveSelect } from '@wordpress/data';
-import { productsStore, Product } from '@woocommerce/data';
+import { productsStore, Product } from '@poocommerce/data';
 
 export type State = {
 	linkedProducts: Product[];

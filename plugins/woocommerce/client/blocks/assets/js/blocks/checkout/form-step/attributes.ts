@@ -4,8 +4,8 @@
 import { __ } from '@wordpress/i18n';
 
 const attributes = ( {
-	defaultTitle = __( 'Step', 'woocommerce' ),
-	defaultDescription = __( 'Step description text.', 'woocommerce' ),
+	defaultTitle = __( 'Step', 'poocommerce' ),
+	defaultDescription = __( 'Step description text.', 'poocommerce' ),
 	defaultShowStepNumber = true,
 }: {
 	defaultTitle: string;

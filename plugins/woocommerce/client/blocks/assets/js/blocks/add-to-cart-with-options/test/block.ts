@@ -8,7 +8,7 @@ import { setupServer } from 'msw/node';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { dispatch } from '@wordpress/data';
-import { productsStore } from '@woocommerce/data';
+import { productsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -49,9 +49,9 @@ Object.keys( mockTemplatePartsHTML ).forEach( ( key ) => {
 	);
 } );
 
-jest.mock( '@woocommerce/settings', () => {
+jest.mock( '@poocommerce/settings', () => {
 	return {
-		...jest.requireActual( '@woocommerce/settings' ),
+		...jest.requireActual( '@poocommerce/settings' ),
 		getSetting: jest.fn().mockImplementation( ( key, defaultValue ) => {
 			if ( key === 'productTypes' ) {
 				return {
@@ -63,13 +63,13 @@ jest.mock( '@woocommerce/settings', () => {
 			}
 			if ( key === 'addToCartWithOptionsTemplatePartIds' ) {
 				return {
-					simple: 'woocommerce/woocommerce//simple-product-add-to-cart-with-options',
+					simple: 'poocommerce/poocommerce//simple-product-add-to-cart-with-options',
 					external:
-						'woocommerce/woocommerce//external-product-add-to-cart-with-options',
+						'poocommerce/poocommerce//external-product-add-to-cart-with-options',
 					grouped:
-						'woocommerce/woocommerce//grouped-product-add-to-cart-with-options',
+						'poocommerce/poocommerce//grouped-product-add-to-cart-with-options',
 					variable:
-						'woocommerce/woocommerce//variable-product-add-to-cart-with-options',
+						'poocommerce/poocommerce//variable-product-add-to-cart-with-options',
 				};
 			}
 			return defaultValue;
@@ -112,10 +112,10 @@ const handlers = [
 	http.get( '/wp/v2/template-parts/*', ( request ) => {
 		if (
 			request.params[ 0 ] ===
-			'woocommerce/woocommerce//simple-product-add-to-cart-with-options'
+			'poocommerce/poocommerce//simple-product-add-to-cart-with-options'
 		) {
 			return HttpResponse.json( {
-				id: 'woocommerce/woocommerce//simple-product-add-to-cart-with-options',
+				id: 'poocommerce/poocommerce//simple-product-add-to-cart-with-options',
 				content: {
 					raw: mockTemplatePartsHTML.simple,
 				},
@@ -123,10 +123,10 @@ const handlers = [
 		}
 		if (
 			request.params[ 0 ] ===
-			'woocommerce/woocommerce//external-product-add-to-cart-with-options'
+			'poocommerce/poocommerce//external-product-add-to-cart-with-options'
 		) {
 			return HttpResponse.json( {
-				id: 'woocommerce/woocommerce//external-product-add-to-cart-with-options',
+				id: 'poocommerce/poocommerce//external-product-add-to-cart-with-options',
 				content: {
 					raw: mockTemplatePartsHTML.external,
 				},
@@ -134,10 +134,10 @@ const handlers = [
 		}
 		if (
 			request.params[ 0 ] ===
-			'woocommerce/woocommerce//grouped-product-add-to-cart-with-options'
+			'poocommerce/poocommerce//grouped-product-add-to-cart-with-options'
 		) {
 			return HttpResponse.json( {
-				id: 'woocommerce/woocommerce//grouped-product-add-to-cart-with-options',
+				id: 'poocommerce/poocommerce//grouped-product-add-to-cart-with-options',
 				content: {
 					raw: mockTemplatePartsHTML.grouped,
 				},
@@ -146,10 +146,10 @@ const handlers = [
 
 		if (
 			request.params[ 0 ] ===
-			'woocommerce/woocommerce//variable-product-add-to-cart-with-options'
+			'poocommerce/poocommerce//variable-product-add-to-cart-with-options'
 		) {
 			return HttpResponse.json( {
-				id: 'woocommerce/woocommerce//variable-product-add-to-cart-with-options',
+				id: 'poocommerce/poocommerce//variable-product-add-to-cart-with-options',
 				content: {
 					raw: mockTemplatePartsHTML.variable,
 				},
@@ -171,7 +171,7 @@ afterAll( () => server.close() );
 async function setup() {
 	const addToCartWithOptionsBlock = [
 		{
-			name: 'woocommerce/add-to-cart-with-options',
+			name: 'poocommerce/add-to-cart-with-options',
 		},
 	];
 	return await initializeEditor( addToCartWithOptionsBlock );

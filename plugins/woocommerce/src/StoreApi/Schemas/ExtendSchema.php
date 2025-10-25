@@ -1,21 +1,21 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas;
+namespace Automattic\PooCommerce\StoreApi\Schemas;
 
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema;
-use Automattic\WooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartItemSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\ProductSchema;
+use Automattic\PooCommerce\StoreApi\Formatters;
 
 /**
  * Provides utility functions to extend Store API schemas.
  *
  * Note there are also helpers that map to these methods.
  *
- * @see woocommerce_store_api_register_endpoint_data()
- * @see woocommerce_store_api_register_update_callback()
- * @see woocommerce_store_api_register_payment_requirements()
- * @see woocommerce_store_api_get_formatter()
+ * @see poocommerce_store_api_register_endpoint_data()
+ * @see poocommerce_store_api_register_update_callback()
+ * @see poocommerce_store_api_register_payment_requirements()
+ * @see poocommerce_store_api_get_formatter()
  */
 final class ExtendSchema {
 	/**
@@ -315,7 +315,7 @@ final class ExtendSchema {
 
 		wc_caught_exception( $exception );
 
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && current_user_can( 'manage_woocommerce' ) ) {
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && current_user_can( 'manage_poocommerce' ) ) {
 			throw $exception;
 		}
 	}
@@ -332,7 +332,7 @@ final class ExtendSchema {
 		if ( ARRAY_N === $schema_type ) {
 			return [
 				/* translators: %s: extension namespace */
-				'description' => sprintf( __( 'Extension data registered by %s', 'woocommerce' ), $namespace ),
+				'description' => sprintf( __( 'Extension data registered by %s', 'poocommerce' ), $namespace ),
 				'type'        => [ 'array', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'items'       => $schema,
@@ -340,7 +340,7 @@ final class ExtendSchema {
 		}
 		return [
 			/* translators: %s: extension namespace */
-			'description' => sprintf( __( 'Extension data registered by %s', 'woocommerce' ), $namespace ),
+			'description' => sprintf( __( 'Extension data registered by %s', 'poocommerce' ), $namespace ),
 			'type'        => [ 'object', 'null' ],
 			'context'     => [ 'view', 'edit' ],
 			'properties'  => $schema,

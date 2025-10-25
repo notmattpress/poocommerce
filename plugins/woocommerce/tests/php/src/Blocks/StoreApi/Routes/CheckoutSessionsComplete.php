@@ -2,17 +2,17 @@
 /**
  * Agentic Checkout Sessions Complete Tests.
  *
- * @package Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes
+ * @package Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\StoreApi\RoutesController;
 
 /**
  * CheckoutSessionsComplete Controller Tests.
@@ -48,7 +48,7 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 		}
 
 		// Enable the agentic_checkout feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		$fixtures = new FixtureData();
 		$fixtures->shipping_add_flat_rate();
@@ -74,8 +74,8 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 
 		// Register mock agentic payment gateway.
 		$this->mock_gateway = new MockAgenticPaymentGateway();
-		add_filter( 'woocommerce_payment_gateways', array( $this, 'add_mock_gateway' ) );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'add_mock_gateway' ) );
+		add_filter( 'poocommerce_payment_gateways', array( $this, 'add_mock_gateway' ) );
+		add_filter( 'poocommerce_available_payment_gateways', array( $this, 'add_mock_gateway' ) );
 
 		wc_get_container()->get( RoutesController::class )->register_all_routes();
 	}
@@ -85,7 +85,7 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 	 */
 	protected function tearDown(): void {
 		parent::tearDown();
-		delete_option( 'woocommerce_feature_agentic_checkout_enabled' );
+		delete_option( 'poocommerce_feature_agentic_checkout_enabled' );
 
 		// Clear session data.
 		WC()->session->set( SessionKey::CHOSEN_SHIPPING_METHODS, null );
@@ -684,7 +684,7 @@ class CheckoutSessionsComplete extends ControllerTestCase {
 		);
 
 		// Disable feature.
-		delete_option( 'woocommerce_feature_agentic_checkout_enabled' );
+		delete_option( 'poocommerce_feature_agentic_checkout_enabled' );
 
 		// Try to complete checkout.
 		$complete_response = $this->complete_session(
@@ -795,8 +795,8 @@ class MockAgenticPaymentGateway extends \WC_Payment_Gateway {
 		$this->method_title       = 'Mock Agentic Gateway';
 		$this->method_description = 'Mock Gateway for agentic commerce testing';
 		$this->supports           = array(
-			\Automattic\WooCommerce\Enums\PaymentGatewayFeature::PRODUCTS,
-			\Automattic\WooCommerce\Enums\PaymentGatewayFeature::AGENTIC_COMMERCE,
+			\Automattic\PooCommerce\Enums\PaymentGatewayFeature::PRODUCTS,
+			\Automattic\PooCommerce\Enums\PaymentGatewayFeature::AGENTIC_COMMERCE,
 		);
 
 		$this->init_form_fields();

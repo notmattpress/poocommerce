@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/featured-category",
+	"name": "poocommerce/featured-category",
 	"title": "Featured Category",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
 	"description": "Visually highlight a product category and encourage prompt action.",
 	"supports": {
 		"interactivity": {
@@ -38,8 +38,8 @@
 		}
 	},
 	"allowedBlocks": [
-		"woocommerce/category-title",
-		"woocommerce/category-description",
+		"poocommerce/category-title",
+		"poocommerce/category-description",
 		"core/heading",
 		"core/buttons"
 	],
@@ -108,10 +108,10 @@
 	},
 	"selectors": {
 		"filter": {
-			"duotone": ".wp-block-woocommerce-featured-category .wc-block-featured-category__background-image"
+			"duotone": ".wp-block-poocommerce-featured-category .wc-block-featured-category__background-image"
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"usesContext": [ "termId", "termTaxonomy" ],

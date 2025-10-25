@@ -1,6 +1,6 @@
 @import "../_mixins.scss";
 
-.woocommerce-customize-store-edit-site-sidebar__screen-wrapper {
+.poocommerce-customize-store-edit-site-sidebar__screen-wrapper {
 	height: 100%;
 	overflow-x: auto;
 	@include custom-scrollbars-on-hover(transparent, $gray-700);
@@ -25,7 +25,7 @@
 		animation-name: slide-from-right;
 	}
 
-	.woocommerce-edit-site-sidebar-navigation-screen-theme-banner {
+	.poocommerce-edit-site-sidebar-navigation-screen-theme-banner {
 		margin-top: 32px;
 		background: rgba(242, 237, 255, 0.6) url(../../assets/images/sidebar-theme-banner.svg) no-repeat bottom right;
 		background-size: contain;

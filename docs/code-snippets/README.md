@@ -1,7 +1,7 @@
 ---
 sidebar_label: Code Snippets
 category_slug: code-snippets
-post_title: Using the Code Snippets Plugin for WooCommerce Customizations
+post_title: Using the Code Snippets Plugin for PooCommerce Customizations
 sidebar_position: 1
 ---
 
@@ -9,11 +9,11 @@ sidebar_position: 1
 
 ## What is a Code Snippet?  
 
-Customizing WooCommerce functionality often requires adding code snippets to modify behavior, enhance features, or integrate with third-party tools. Instead of editing theme files or the `functions.php` file directly, we recommend using the **Code Snippets** plugin from the WordPress.org repository. This approach ensures a safer, more manageable, and more organized way to add custom code to your WooCommerce store.  
+Customizing PooCommerce functionality often requires adding code snippets to modify behavior, enhance features, or integrate with third-party tools. Instead of editing theme files or the `functions.php` file directly, we recommend using the **Code Snippets** plugin from the WordPress.org repository. This approach ensures a safer, more manageable, and more organized way to add custom code to your PooCommerce store.  
 
 ## Why Use the Code Snippets Plugin?  
 
-Editing your theme’s `functions.php` file or adding custom code directly to WooCommerce files can lead to several issues:  
+Editing your theme’s `functions.php` file or adding custom code directly to PooCommerce files can lead to several issues:  
 
 - **Loss of Custom Code on Theme Updates:** When you update your theme, modifications made in `functions.php` are lost.  
 - **Potential for Errors and Site Breakage:** A single syntax error can make your website inaccessible.  
@@ -23,7 +23,7 @@ The **Code Snippets** plugin addresses these issues by allowing you to:
 
 - Add, activate, and deactivate snippets without modifying core files.  
 - Organize custom snippets with descriptions and tags.  
-- Avoid losing changes when updating your theme or WooCommerce.  
+- Avoid losing changes when updating your theme or PooCommerce.  
 - Debug and test code safely before deploying to a live site.  
 
 ## How to Install the Code Snippets Plugin  
@@ -34,21 +34,21 @@ The **Code Snippets** plugin addresses these issues by allowing you to:
 4. Click **Install Now** on the "Code Snippets" plugin by **Code Snippets Pro**.  
 5. After installation, click **Activate**.  
 
-## Adding Custom WooCommerce Snippets  
+## Adding Custom PooCommerce Snippets  
 
-Once the plugin is installed and activated, follow these steps to add a WooCommerce customization:  
+Once the plugin is installed and activated, follow these steps to add a PooCommerce customization:  
 
 1. Navigate to **Snippets** in your WordPress dashboard.  
 2. Click **Add New**.  
 3. Give your snippet a descriptive title.  
-4. Enter your WooCommerce-specific PHP code in the code editor.  
+4. Enter your PooCommerce-specific PHP code in the code editor.  
 5. Select **Only run in administration area** or **Run everywhere**, depending on your needs.  
 6. Click **Save Changes and Activate**.  
 
-## Example: Add a Custom Message to the WooCommerce Checkout Page  
+## Example: Add a Custom Message to the PooCommerce Checkout Page  
 
 ```php
-add_action('woocommerce_before_checkout_form', function() {
+add_action('poocommerce_before_checkout_form', function() {
     echo '<p style="color: red; font-weight: bold;">Reminder: Ensure your shipping address is correct before placing your order.</p>';
 });
 ``` 
@@ -61,5 +61,5 @@ add_action('woocommerce_before_checkout_form', function() {
 
 ## Next Steps  
 
-For more advanced customizations, refer to the [WooCommerce Developer Documentation](https://developer.woocommerce.com/) to build blocks, extensions, and more!  
+For more advanced customizations, refer to the [PooCommerce Developer Documentation](https://developer.poocommerce.com/) to build blocks, extensions, and more!  
 

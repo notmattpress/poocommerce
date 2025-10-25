@@ -2,7 +2,7 @@
 /**
  * Recent Reviews Widget.
  *
- * @package WooCommerce\Widgets
+ * @package PooCommerce\Widgets
  * @version 2.3.0
  */
 
@@ -17,15 +17,15 @@ class WC_Widget_Recent_Reviews extends WC_Widget {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->widget_cssclass    = 'woocommerce widget_recent_reviews';
-		$this->widget_description = __( 'Display a list of recent reviews from your store.', 'woocommerce' );
-		$this->widget_id          = 'woocommerce_recent_reviews';
-		$this->widget_name        = __( 'Recent Product Reviews', 'woocommerce' );
+		$this->widget_cssclass    = 'poocommerce widget_recent_reviews';
+		$this->widget_description = __( 'Display a list of recent reviews from your store.', 'poocommerce' );
+		$this->widget_id          = 'poocommerce_recent_reviews';
+		$this->widget_name        = __( 'Recent Product Reviews', 'poocommerce' );
 		$this->settings           = array(
 			'title'  => array(
 				'type'  => 'text',
-				'std'   => __( 'Recent reviews', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Recent reviews', 'poocommerce' ),
+				'label' => __( 'Title', 'poocommerce' ),
 			),
 			'number' => array(
 				'type'  => 'number',
@@ -33,7 +33,7 @@ class WC_Widget_Recent_Reviews extends WC_Widget {
 				'min'   => 1,
 				'max'   => '',
 				'std'   => 10,
-				'label' => __( 'Number of reviews to show', 'woocommerce' ),
+				'label' => __( 'Number of reviews to show', 'poocommerce' ),
 			),
 		);
 
@@ -70,7 +70,7 @@ class WC_Widget_Recent_Reviews extends WC_Widget {
 		if ( $comments ) {
 			$this->widget_start( $args, $instance );
 
-			echo wp_kses_post( apply_filters( 'woocommerce_before_widget_product_review_list', '<ul class="product_list_widget">' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_before_widget_product_review_list', '<ul class="product_list_widget">' ) );
 
 			foreach ( (array) $comments as $comment ) {
 				wc_get_template(
@@ -82,7 +82,7 @@ class WC_Widget_Recent_Reviews extends WC_Widget {
 				);
 			}
 
-			echo wp_kses_post( apply_filters( 'woocommerce_after_widget_product_review_list', '</ul>' ) );
+			echo wp_kses_post( apply_filters( 'poocommerce_after_widget_product_review_list', '</ul>' ) );
 
 			$this->widget_end( $args );
 

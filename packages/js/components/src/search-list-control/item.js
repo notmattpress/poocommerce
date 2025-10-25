@@ -48,7 +48,7 @@ const SearchListItem = ( {
 	...props
 } ) => {
 	const showCount = ! isNil( countLabel ) || ! isNil( item.count );
-	const classes = [ className, 'woocommerce-search-list__item' ];
+	const classes = [ className, 'poocommerce-search-list__item' ];
 	classes.push( `depth-${ depth }` );
 	if ( isSingle ) {
 		classes.push( 'is-radio-button' );
@@ -70,7 +70,7 @@ const SearchListItem = ( {
 					value={ item.value }
 					onChange={ onSelect( item ) }
 					checked={ isSelected }
-					className="woocommerce-search-list__item-input"
+					className="poocommerce-search-list__item-input"
 					{ ...props }
 				></input>
 			) : (
@@ -81,24 +81,24 @@ const SearchListItem = ( {
 					value={ item.value }
 					onChange={ onSelect( item ) }
 					checked={ isSelected }
-					className="woocommerce-search-list__item-input"
+					className="poocommerce-search-list__item-input"
 					{ ...props }
 				></input>
 			) }
 
-			<span className="woocommerce-search-list__item-label">
+			<span className="poocommerce-search-list__item-label">
 				{ hasBreadcrumbs ? (
-					<span className="woocommerce-search-list__item-prefix">
+					<span className="poocommerce-search-list__item-prefix">
 						{ getBreadcrumbsForDisplay( item.breadcrumbs ) }
 					</span>
 				) : null }
-				<span className="woocommerce-search-list__item-name">
+				<span className="poocommerce-search-list__item-name">
 					{ getHighlightedName( item.name, search ) }
 				</span>
 			</span>
 
 			{ !! showCount && (
-				<span className="woocommerce-search-list__item-count">
+				<span className="poocommerce-search-list__item-count">
 					{ countLabel || item.count }
 				</span>
 			) }

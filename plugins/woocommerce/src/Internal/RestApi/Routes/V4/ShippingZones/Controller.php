@@ -4,14 +4,14 @@
  *
  * Handles requests to the /shipping-zones endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -95,7 +95,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -128,7 +128,7 @@ class Controller extends AbstractController {
 		if ( ! $zone ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'invalid_id',
-				__( 'Invalid resource ID.', 'woocommerce' ),
+				__( 'Invalid resource ID.', 'poocommerce' ),
 				WP_Http::NOT_FOUND
 			);
 		}
@@ -190,7 +190,7 @@ class Controller extends AbstractController {
 		if ( ! wc_shipping_enabled() ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'disabled',
-				__( 'Shipping is disabled.', 'woocommerce' ),
+				__( 'Shipping is disabled.', 'poocommerce' ),
 				WP_Http::SERVICE_UNAVAILABLE
 			);
 		}
@@ -225,7 +225,7 @@ class Controller extends AbstractController {
 		if ( 0 === $zone->get_id() ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'cannot_create',
-				__( 'Resource cannot be created. Check for validation errors or server logs for details.', 'woocommerce' ),
+				__( 'Resource cannot be created. Check for validation errors or server logs for details.', 'poocommerce' ),
 				WP_Http::INTERNAL_SERVER_ERROR
 			);
 		}
@@ -247,7 +247,7 @@ class Controller extends AbstractController {
 	protected function get_route_error_by_code( string $error_code ): WP_Error {
 		$custom_errors = array(
 			self::INVALID_ZONE_ID => array(
-				'message' => __( 'Invalid shipping zone ID.', 'woocommerce' ),
+				'message' => __( 'Invalid shipping zone ID.', 'poocommerce' ),
 				'status'  => WP_Http::NOT_FOUND,
 			),
 		);

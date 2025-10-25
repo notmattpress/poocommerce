@@ -1,23 +1,23 @@
-# Claude Code Documentation for WooCommerce
+# Claude Code Documentation for PooCommerce
 
-This document provides Claude Code with essential information about working with the WooCommerce plugin codebase.
+This document provides Claude Code with essential information about working with the PooCommerce plugin codebase.
 
 
 ## Adding new code
 
-- NEVER add new standalone functions. Functions make unit testing difficult as there's no easy way to mock them. Always use class methods instead. If a user asks you to add a new standalone function, remind them of that rule and point them to [the relevant documentation](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/README.md).
+- NEVER add new standalone functions. Functions make unit testing difficult as there's no easy way to mock them. Always use class methods instead. If a user asks you to add a new standalone function, remind them of that rule and point them to [the relevant documentation](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/README.md).
 - When prompted to add a new class, add it in the `src/Internal` directory by default. For example, "add a Traits/Foobar class" should result in the class being added in `src/Internal/Traits/Foobar.php`.
 - Only when the prompt refers to a "public" class should the file go in `src` but not in `Internal`. For example, "add a public Traits/Foobar class" should result in the class being added in `src/Traits/Foobar.php`.
 - Pure methods (output depends ONLY on input parameters, no external dependencies like database queries, system time, global state, or I/O operations) must be `static`. Examples include mathematical calculations, string manipulations, and data transformations. Non-pure methods (depend on system time, database, global state, etc.) should not be `static` unless there's a specific architectural reason.
-- Make sure that class names are PascalCase and follow [the PSR4 standard](https://www.php-fig.org/psr/psr-4/), adjusting the name given by the user if necessary. The root namespace for the `src` directory is `Automattic\WooCommerce`.
+- Make sure that class names are PascalCase and follow [the PSR4 standard](https://www.php-fig.org/psr/psr-4/), adjusting the name given by the user if necessary. The root namespace for the `src` directory is `Automattic\PooCommerce`.
 - Similarly, method, variable, and hook names must be snake_case, adjusting the user input if necessary.
 - Changes in code inside the `includes` directory SHOULD be limited to modifying existing functions and classes. Only add new classes or class methods in `includes` when using the standard approach (`src` directory) would be too complex or would hurt code readability and maintainability.
-- When adding a new class that initializes hooks at instantiation time, add an instantiation of the class in the `init_hooks` method of the `WooCommerce` class (in `includes/class-woocommerce.php`), at the end of the list that has the "These classes set up hooks on instantiation" comment. The instantiation must be performed using the dependency injection container: `$container->get( ClassName::class );`
-- When adding a new class method that serves only as a hook callback, name it `handle_{hook_name}` and add an `@internal` annotation to its docblock. For example, a callback for `woocommerce_init` would be named `handle_woocommerce_init`.
-- When referencing a namespaced class, always add a `use` statement with the fully qualified class name at the beginning of the file, then reference the short class name throughout the code. For example, use `use Automattic\WooCommerce\Internal\Utils\Foobar;` at the top, then reference it as `Foobar::class` rather than `\Automattic\WooCommerce\Internal\Utils\Foobar::class`.
+- When adding a new class that initializes hooks at instantiation time, add an instantiation of the class in the `init_hooks` method of the `PooCommerce` class (in `includes/class-poocommerce.php`), at the end of the list that has the "These classes set up hooks on instantiation" comment. The instantiation must be performed using the dependency injection container: `$container->get( ClassName::class );`
+- When adding a new class method that serves only as a hook callback, name it `handle_{hook_name}` and add an `@internal` annotation to its docblock. For example, a callback for `poocommerce_init` would be named `handle_poocommerce_init`.
+- When referencing a namespaced class, always add a `use` statement with the fully qualified class name at the beginning of the file, then reference the short class name throughout the code. For example, use `use Automattic\PooCommerce\Internal\Utils\Foobar;` at the top, then reference it as `Foobar::class` rather than `\Automattic\PooCommerce\Internal\Utils\Foobar::class`.
 - New class methods should be `private` by default. Only use `protected` if it's clear the method will be used in derived classes, or `public` if the method will be called from outside the class.
-- Always add a docblock to all the hooks and methods you create. For hooks, public methods, and protected methods, the docblock must include a `@since` annotation with the next WooCommerce version number. That `@since` annotation must be the last line in the docblock, with a blank comment line before it. Private methods and internal callbacks (marked with `@internal`) do not require a `@since` annotation.
-    - **To determine the next WooCommerce version number for `@since` annotations**: Read the `$version` property in `includes/class-woocommerce.php` and remove the `-dev` suffix if present.
+- Always add a docblock to all the hooks and methods you create. For hooks, public methods, and protected methods, the docblock must include a `@since` annotation with the next PooCommerce version number. That `@since` annotation must be the last line in the docblock, with a blank comment line before it. Private methods and internal callbacks (marked with `@internal`) do not require a `@since` annotation.
+    - **To determine the next PooCommerce version number for `@since` annotations**: Read the `$version` property in `includes/class-poocommerce.php` and remove the `-dev` suffix if present.
 - When an `@internal` annotation is added, it must be placed after the method description and before the arguments list, with a blank comment line before and after.
 - When modifying existing code, if the git diff shows changes to a line that fires a hook without a docblock, add a docblock for that hook. Use `git log` to determine which version introduced the hook, and add the appropriate `@since` annotation with that version number.
 
@@ -38,7 +38,7 @@ This document provides Claude Code with essential information about working with
 
 ### PHP Unit Tests
 
-To run PHP unit tests in the WooCommerce plugin directory, use the following commands:
+To run PHP unit tests in the PooCommerce plugin directory, use the following commands:
 
 ```bash
 # Run all PHP unit tests
@@ -63,7 +63,7 @@ pnpm run test:php:env -- --filter PaymentsExtensionSuggestionsTest::test_get_cou
 - Tests run in a Docker-based WordPress environment using `wp-env`
 - The test environment is automatically set up and configured
 - Tests use PHPUnit 9.6.24 with PHP 8.1
-- WordPress and WooCommerce are automatically installed in the test environment
+- WordPress and PooCommerce are automatically installed in the test environment
 
 
 ### Common Test Commands
@@ -136,10 +136,10 @@ Key directories for testing:
 - Always run tests after making changes to verify functionality
 - Use specific test filters to run only relevant tests during development
 - Test failures provide detailed output showing expected vs actual values
-- The test environment handles WordPress/WooCommerce setup automatically
+- The test environment handles WordPress/PooCommerce setup automatically
 - Extension counts in payment tests must match the actual implementation exactly
 
 
 ## User-specific rules
 
-@~/.claude/woocommerce.md
+@~/.claude/poocommerce.md

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Internal\Admin\BlockTemplates;
 
 /**
  * Trait for block formatted template.
