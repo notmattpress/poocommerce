@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 
 /**
  * A class of utilities for dealing with post meta.

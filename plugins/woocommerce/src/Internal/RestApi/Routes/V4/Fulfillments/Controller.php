@@ -3,22 +3,22 @@
  * Order Fulfillments REST Controller for API Version 4
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
- * This is a completely independent base controller for WooCommerce API v4.
+ * This is a completely independent base controller for PooCommerce API v4.
  * Unlike previous versions, this does not inherit from v3, v2, or v1 controllers.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Fulfillments;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Fulfillments;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Internal\Fulfillments\OrderFulfillmentsRestController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\Fulfillments\OrderFulfillmentsRestController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
 use WP_Http;
 use WP_Error;
 use WC_Order;
@@ -127,8 +127,8 @@ class Controller extends AbstractController {
 		// Validate the order ID.
 		if ( ! $order_id ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_id_required',
-				__( 'The order ID is required.', 'woocommerce' ),
+				'poocommerce_rest_order_id_required',
+				__( 'The order ID is required.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
@@ -136,8 +136,8 @@ class Controller extends AbstractController {
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_invalid_id',
-				__( 'Invalid order ID.', 'woocommerce' ),
+				'poocommerce_rest_order_invalid_id',
+				__( 'Invalid order ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
@@ -159,16 +159,16 @@ class Controller extends AbstractController {
 		// Validate the entity ID.
 		if ( ! $entity_id ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_entity_id_required',
-				__( 'The entity ID is required.', 'woocommerce' ),
+				'poocommerce_rest_entity_id_required',
+				__( 'The entity ID is required.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
 		$order = wc_get_order( (int) $entity_id );
 		if ( ! $order ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_order_invalid_id',
-				__( 'Invalid order ID.', 'woocommerce' ),
+				'poocommerce_rest_order_invalid_id',
+				__( 'Invalid order ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
@@ -189,16 +189,16 @@ class Controller extends AbstractController {
 
 		if ( ! $fulfillment->get_id() ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_fulfillment_invalid_id',
-				__( 'Invalid fulfillment ID.', 'woocommerce' ),
+				'poocommerce_rest_fulfillment_invalid_id',
+				__( 'Invalid fulfillment ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
 
 		if ( $fulfillment->get_entity_type() !== WC_Order::class ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_invalid_entity_type',
-				__( 'The entity type must be "order".', 'woocommerce' ),
+				'poocommerce_rest_invalid_entity_type',
+				__( 'The entity type must be "order".', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
@@ -220,16 +220,16 @@ class Controller extends AbstractController {
 
 		if ( ! $fulfillment->get_id() ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_fulfillment_invalid_id',
-				__( 'Invalid fulfillment ID.', 'woocommerce' ),
+				'poocommerce_rest_fulfillment_invalid_id',
+				__( 'Invalid fulfillment ID.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::NOT_FOUND ) )
 			);
 		}
 
 		if ( $fulfillment->get_entity_type() !== WC_Order::class ) {
 			return $this->prepare_error_response(
-				'woocommerce_rest_invalid_entity_type',
-				__( 'The entity type must be "order".', 'woocommerce' ),
+				'poocommerce_rest_invalid_entity_type',
+				__( 'The entity type must be "order".', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
@@ -289,7 +289,7 @@ class Controller extends AbstractController {
 					);
 				} catch ( \Exception $e ) {
 					return new WP_Error(
-						'woocommerce_rest_fulfillment_invalid_id',
+						'poocommerce_rest_fulfillment_invalid_id',
 						$e->getMessage(),
 						array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 					);
@@ -302,8 +302,8 @@ class Controller extends AbstractController {
 		if ( ! $order && isset( $body_params['entity_id'] ) && isset( $body_params['entity_type'] ) ) {
 			if ( WC_Order::class !== $body_params['entity_type'] ) {
 				return new WP_Error(
-					'woocommerce_rest_invalid_entity_type',
-					esc_html__( 'The entity type must be "order".', 'woocommerce' ),
+					'poocommerce_rest_invalid_entity_type',
+					esc_html__( 'The entity type must be "order".', 'poocommerce' ),
 					array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 				);
 			}
@@ -315,15 +315,15 @@ class Controller extends AbstractController {
 		// If there's still no order, return an error.
 		if ( ! $order ) {
 			return new WP_Error(
-				'woocommerce_rest_order_id_required',
-				esc_html__( 'The order ID is required.', 'woocommerce' ),
+				'poocommerce_rest_order_id_required',
+				esc_html__( 'The order ID is required.', 'poocommerce' ),
 				array( 'status' => esc_attr( WP_Http::BAD_REQUEST ) )
 			);
 		}
 
 		// Check if the user is logged in as admin, and has the required capability.
-		// Admins who can manage WooCommerce can view all fulfillments.
-		if ( current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		// Admins who can manage PooCommerce can view all fulfillments.
+		if ( current_user_can( 'manage_poocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 			return true;
 		}
 
@@ -379,7 +379,7 @@ class Controller extends AbstractController {
 	private function get_args_for_get_fulfillments(): array {
 		return array(
 			'order_id' => array(
-				'description' => __( 'Unique identifier for the order.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
@@ -398,7 +398,7 @@ class Controller extends AbstractController {
 			'title'   => 'base',
 			'type'    => 'object',
 		);
-		$schema['title'] = __( 'Get fulfillments response.', 'woocommerce' );
+		$schema['title'] = __( 'Get fulfillments response.', 'poocommerce' );
 		$schema['type']  = 'array';
 		$schema['items'] = array(
 			'type'       => 'object',
@@ -427,7 +427,7 @@ class Controller extends AbstractController {
 			'title'   => 'base',
 			'type'    => 'object',
 		);
-		$schema['title']      = __( 'Create fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Create fulfillment response.', 'poocommerce' );
 		$schema['properties'] = $this->get_read_schema_for_fulfillment();
 		return $schema;
 	}
@@ -440,7 +440,7 @@ class Controller extends AbstractController {
 	private function get_args_for_get_fulfillment(): array {
 		return array(
 			'fulfillment_id' => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
@@ -459,7 +459,7 @@ class Controller extends AbstractController {
 			'title'   => 'base',
 			'type'    => 'object',
 		);
-		$schema['title']      = __( 'Get fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Get fulfillment response.', 'poocommerce' );
 		$schema['properties'] = $this->get_read_schema_for_fulfillment();
 
 		return $schema;
@@ -485,7 +485,7 @@ class Controller extends AbstractController {
 			'title'   => 'base',
 			'type'    => 'object',
 		);
-		$schema['title']      = __( 'Update fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Update fulfillment response.', 'poocommerce' );
 		$schema['type']       = 'object';
 		$schema['properties'] = $this->get_read_schema_for_fulfillment();
 
@@ -500,13 +500,13 @@ class Controller extends AbstractController {
 	private function get_args_for_delete_fulfillment(): array {
 		return array(
 			'fulfillment_id'  => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'notify_customer' => array(
-				'description' => __( 'Whether to notify the customer about the fulfillment update.', 'woocommerce' ),
+				'description' => __( 'Whether to notify the customer about the fulfillment update.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 				'required'    => false,
@@ -526,10 +526,10 @@ class Controller extends AbstractController {
 			'title'   => 'base',
 			'type'    => 'object',
 		);
-		$schema['title']      = __( 'Delete fulfillment response.', 'woocommerce' );
+		$schema['title']      = __( 'Delete fulfillment response.', 'poocommerce' );
 		$schema['properties'] = array(
 			'message' => array(
-				'description' => __( 'The response message.', 'woocommerce' ),
+				'description' => __( 'The response message.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 			),
@@ -546,46 +546,46 @@ class Controller extends AbstractController {
 	private function get_read_schema_for_fulfillment() {
 		return array(
 			'id'           => array(
-				'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'entity_type'  => array(
-				'description' => __( 'The type of entity for which the fulfillment is created.', 'woocommerce' ),
+				'description' => __( 'The type of entity for which the fulfillment is created.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'entity_id'    => array(
-				'description' => __( 'Unique identifier for the entity.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the entity.', 'poocommerce' ),
 				'type'        => 'string',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'status'       => array(
-				'description' => __( 'The status of the fulfillment.', 'woocommerce' ),
+				'description' => __( 'The status of the fulfillment.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => 'unfulfilled',
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'is_fulfilled' => array(
-				'description' => __( 'Whether the fulfillment is fulfilled.', 'woocommerce' ),
+				'description' => __( 'Whether the fulfillment is fulfilled.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'default'     => false,
 				'required'    => true,
 				'context'     => array( 'view', 'edit' ),
 			),
 			'date_updated' => array(
-				'description' => __( 'The date the fulfillment was last updated.', 'woocommerce' ),
+				'description' => __( 'The date the fulfillment was last updated.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'required'    => true,
 			),
 			'date_deleted' => array(
-				'description' => __( 'The date the fulfillment was deleted.', 'woocommerce' ),
+				'description' => __( 'The date the fulfillment was deleted.', 'poocommerce' ),
 				'anyOf'       => array(
 					array(
 						'type' => 'string',
@@ -600,7 +600,7 @@ class Controller extends AbstractController {
 				'required'    => true,
 			),
 			'meta_data'    => array(
-				'description' => __( 'Meta data for the fulfillment.', 'woocommerce' ),
+				'description' => __( 'Meta data for the fulfillment.', 'poocommerce' ),
 				'type'        => 'array',
 				'required'    => true,
 				'items'       => $this->get_schema_for_meta_data(),
@@ -619,7 +619,7 @@ class Controller extends AbstractController {
 		return array_merge(
 			! $is_create ? array(
 				'fulfillment_id' => array(
-					'description' => __( 'Unique identifier for the fulfillment.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the fulfillment.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -627,39 +627,39 @@ class Controller extends AbstractController {
 			) : array(),
 			array(
 				'entity_type'     => array(
-					'description' => __( 'The type of entity for which the fulfillment is created. Must be "order".', 'woocommerce' ),
+					'description' => __( 'The type of entity for which the fulfillment is created. Must be "order".', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'entity_id'       => array(
-					'description' => __( 'Unique identifier for the entity.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the entity.', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'status'          => array(
-					'description' => __( 'The status of the fulfillment.', 'woocommerce' ),
+					'description' => __( 'The status of the fulfillment.', 'poocommerce' ),
 					'type'        => 'string',
 					'default'     => 'unfulfilled',
 					'required'    => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'is_fulfilled'    => array(
-					'description' => __( 'Whether the fulfillment is fulfilled.', 'woocommerce' ),
+					'description' => __( 'Whether the fulfillment is fulfilled.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'required'    => false,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'meta_data'       => array(
-					'description' => __( 'Meta data for the fulfillment.', 'woocommerce' ),
+					'description' => __( 'Meta data for the fulfillment.', 'poocommerce' ),
 					'type'        => 'array',
 					'required'    => true,
 					'schema'      => $this->get_schema_for_meta_data(),
 				),
 				'notify_customer' => array(
-					'description' => __( 'Whether to notify the customer about the fulfillment update.', 'woocommerce' ),
+					'description' => __( 'Whether to notify the customer about the fulfillment update.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'default'     => false,
 					'required'    => false,
@@ -679,19 +679,19 @@ class Controller extends AbstractController {
 			'type'       => 'object',
 			'properties' => array(
 				'id'    => array(
-					'description' => __( 'The unique identifier for the meta data. Set `0` for new records.', 'woocommerce' ),
+					'description' => __( 'The unique identifier for the meta data. Set `0` for new records.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'key'   => array(
-					'description' => __( 'The key of the meta data.', 'woocommerce' ),
+					'description' => __( 'The key of the meta data.', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
 				),
 				'value' => array(
-					'description' => __( 'The value of the meta data.', 'woocommerce' ),
+					'description' => __( 'The value of the meta data.', 'poocommerce' ),
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),

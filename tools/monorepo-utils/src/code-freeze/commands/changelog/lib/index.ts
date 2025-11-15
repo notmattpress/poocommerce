@@ -26,7 +26,7 @@ const mergeChangelogEntries = (
 ): string => {
 	let updatedReadme = readme
 		.replace(
-			/^= \d+\.\d+\.\d+.* =\n\n\*\*WooCommerce\*\*\n\n/m,
+			/^= \d+\.\d+\.\d+.* =\n\n\*\*PooCommerce\*\*\n\n/m,
 			nextLogTitle
 		)
 		.trim();
@@ -77,7 +77,7 @@ const processNextChangelog = (
 ) => {
 	let changelogEntries = nextLog
 		.replace(
-			/^= \d+\.\d+\.\d+(-.*?)? YYYY-mm-dd =\n\n\*\*WooCommerce\*\*/,
+			/^= \d+\.\d+\.\d+(-.*?)? YYYY-mm-dd =\n\n\*\*PooCommerce\*\*/,
 			''
 		)
 		.trim();
@@ -85,7 +85,7 @@ const processNextChangelog = (
 	// Convert PR number to markdown link.
 	changelogEntries = changelogEntries.replace(
 		/\[#(\d+)\](?!\()/g,
-		'[#$1](https://github.com/woocommerce/woocommerce/pull/$1)'
+		'[#$1](https://github.com/poocommerce/poocommerce/pull/$1)'
 	);
 
 	const entries = changelogEntries
@@ -93,7 +93,7 @@ const processNextChangelog = (
 		.filter( ( entry ) => entry.trim() );
 
 	return {
-		nextLogTitle: `= ${ version } ${ releaseDate } =\n\n**WooCommerce**\n\n`,
+		nextLogTitle: `= ${ version } ${ releaseDate } =\n\n**PooCommerce**\n\n`,
 		nextLogEntries: entries,
 	};
 };
@@ -118,13 +118,13 @@ const updateReleaseChangelogs = async (
 	const readmeFile = path.join(
 		tmpRepoPath,
 		'plugins',
-		'woocommerce',
+		'poocommerce',
 		'readme.txt'
 	);
 	const nextLogFile = path.join(
 		tmpRepoPath,
 		'plugins',
-		'woocommerce',
+		'poocommerce',
 		'NEXT_CHANGELOG.md'
 	);
 
@@ -203,7 +203,7 @@ export const updateReleaseBranchChangelogs = async (
 		Logger.notice( `Running the changelog script in ${ tmpRepoPath }` );
 
 		execSync(
-			`pnpm --filter=@woocommerce/plugin-woocommerce changelog write --add-pr-num -n -vvv --use-version ${ mainVersion }`,
+			`pnpm --filter=@poocommerce/plugin-poocommerce changelog write --add-pr-num -n -vvv --use-version ${ mainVersion }`,
 			{
 				cwd: tmpRepoPath,
 				stdio: 'inherit',
@@ -212,7 +212,7 @@ export const updateReleaseBranchChangelogs = async (
 		Logger.notice( `Committing deleted files in ${ tmpRepoPath }` );
 		//Checkout pnpm-lock.yaml to prevent issues in case of an out of date lockfile.
 		await git.checkout( 'pnpm-lock.yaml' );
-		await git.add( 'plugins/woocommerce/changelog/' );
+		await git.add( 'plugins/poocommerce/changelog/' );
 		await git.commit( `Delete changelog files from ${ version } release` );
 		const deletionCommitHash = await git.raw( [ 'rev-parse', 'HEAD' ] );
 		Logger.notice( `git deletion hash: ${ deletionCommitHash }` );
@@ -228,7 +228,7 @@ export const updateReleaseBranchChangelogs = async (
 		Logger.notice(
 			`Committing readme.txt changes in ${ branch } on ${ tmpRepoPath }`
 		);
-		await git.add( 'plugins/woocommerce/readme.txt' );
+		await git.add( 'plugins/poocommerce/readme.txt' );
 		await git.commit(
 			`Update the readme files for the ${ version } release`
 		);
@@ -394,12 +394,12 @@ export const updateTrunkChangelog = async (
 };
 
 /**
- * Retrieves the WooCommerce version from the trunk branch
+ * Retrieves the PooCommerce version from the trunk branch
  *
  * @param tmpRepoPath cloned repo path
- * @return the WooCommerce version string if found, or `null` if not found.
+ * @return the PooCommerce version string if found, or `null` if not found.
  */
-async function getTrunkWooCommerceVersion(
+async function getTrunkPooCommerceVersion(
 	tmpRepoPath: string
 ): Promise< string | null > {
 	const git = simpleGit( {
@@ -411,14 +411,14 @@ async function getTrunkWooCommerceVersion(
 
 	const wooCommercePhpPath = path.join(
 		tmpRepoPath,
-		'plugins/woocommerce/woocommerce.php'
+		'plugins/poocommerce/poocommerce.php'
 	);
 	const fileContent = readFileSync( wooCommercePhpPath, 'utf8' );
 
 	const versionMatch = fileContent.match( /\*\s+Version:\s+(\d+\.\d+)/ );
 	const version = versionMatch ? versionMatch[ 1 ] : null;
 
-	Logger.notice( `WooCommerce trunk version is ${ version }` );
+	Logger.notice( `PooCommerce trunk version is ${ version }` );
 
 	return version;
 }
@@ -498,9 +498,9 @@ export const updateIntermediateBranches = async (
 		`Starting intermediate branches update for version ${ options.version }`
 	);
 
-	const trunkVersion = await getTrunkWooCommerceVersion( tmpRepoPath );
+	const trunkVersion = await getTrunkPooCommerceVersion( tmpRepoPath );
 	if ( ! trunkVersion ) {
-		Logger.error( 'Could not determine WooCommerce trunk version.' );
+		Logger.error( 'Could not determine PooCommerce trunk version.' );
 		return;
 	}
 

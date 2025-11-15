@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\Utils;
+namespace Automattic\PooCommerce\Blocks\Utils;
 
 use InvalidArgumentException;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\Hydration;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\Hydration;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CartSchema;
 
 /**
- * Manages the registration of interactivity config and state that is commonly shared by WooCommerce blocks.
+ * Manages the registration of interactivity config and state that is commonly shared by PooCommerce blocks.
  * Initialization only happens on the first call to initialize_shared_config.
  * Intended to be used as a singleton.
  */
@@ -24,14 +24,14 @@ trait BlocksSharedState {
 	 *
 	 * @var string
 	 */
-	private static $consent_statement = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+	private static $consent_statement = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 
 	/**
 	 * The namespace for the config.
 	 *
 	 * @var string
 	 */
-	private static $settings_namespace = 'woocommerce';
+	private static $settings_namespace = 'poocommerce';
 
 	/**
 	 * Whether the core config has been registered.
@@ -114,7 +114,7 @@ trait BlocksSharedState {
 			}
 
 			wp_interactivity_state(
-				'woocommerce',
+				'poocommerce',
 				array(
 					'cart'     => self::$blocks_shared_cart_state,
 					'nonce'    => wp_create_nonce( 'wc_store_api' ),
@@ -142,17 +142,17 @@ trait BlocksSharedState {
 	 * @return array
 	 */
 	private static function get_currency_data() {
-		$currency = get_woocommerce_currency();
+		$currency = get_poocommerce_currency();
 
 		return [
 			'currency' => [
 				'code'              => $currency,
 				'precision'         => wc_get_price_decimals(),
-				'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $currency ) ),
-				'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
+				'symbol'            => html_entity_decode( get_poocommerce_currency_symbol( $currency ) ),
+				'symbolPosition'    => get_option( 'poocommerce_currency_pos' ),
 				'decimalSeparator'  => wc_get_price_decimal_separator(),
 				'thousandSeparator' => wc_get_price_thousand_separator(),
-				'priceFormat'       => html_entity_decode( get_woocommerce_price_format() ),
+				'priceFormat'       => html_entity_decode( get_poocommerce_price_format() ),
 			],
 		];
 	}

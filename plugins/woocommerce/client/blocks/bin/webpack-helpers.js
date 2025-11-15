@@ -9,93 +9,93 @@ const CHECK_CIRCULAR_DEPS = process.env.CHECK_CIRCULAR_DEPS || false;
 const ASSET_CHECK = process.env.ASSET_CHECK === 'true';
 
 const wcDepMap = {
-	'@woocommerce/blocks-registry': [ 'wc', 'wcBlocksRegistry' ],
-	'@woocommerce/blocks-checkout-events': [ 'wc', 'blocksCheckoutEvents' ],
-	'@woocommerce/settings': [ 'wc', 'wcSettings' ],
-	'@woocommerce/block-data': [ 'wc', 'wcBlocksData' ],
-	'@woocommerce/data': [ 'wc', 'data' ],
-	'@woocommerce/shared-context': [ 'wc', 'wcBlocksSharedContext' ],
-	'@woocommerce/shared-hocs': [ 'wc', 'wcBlocksSharedHocs' ],
-	'@woocommerce/price-format': [ 'wc', 'priceFormat' ],
-	'@woocommerce/blocks-checkout': [ 'wc', 'blocksCheckout' ],
-	'@woocommerce/blocks-components': [ 'wc', 'blocksComponents' ],
-	'@woocommerce/types': [ 'wc', 'wcTypes' ],
-	'@woocommerce/customer-effort-score': [ 'wc', 'customerEffortScore' ],
-	'@woocommerce/sanitize': [ 'wc', 'sanitize' ],
+	'@poocommerce/blocks-registry': [ 'wc', 'wcBlocksRegistry' ],
+	'@poocommerce/blocks-checkout-events': [ 'wc', 'blocksCheckoutEvents' ],
+	'@poocommerce/settings': [ 'wc', 'wcSettings' ],
+	'@poocommerce/block-data': [ 'wc', 'wcBlocksData' ],
+	'@poocommerce/data': [ 'wc', 'data' ],
+	'@poocommerce/shared-context': [ 'wc', 'wcBlocksSharedContext' ],
+	'@poocommerce/shared-hocs': [ 'wc', 'wcBlocksSharedHocs' ],
+	'@poocommerce/price-format': [ 'wc', 'priceFormat' ],
+	'@poocommerce/blocks-checkout': [ 'wc', 'blocksCheckout' ],
+	'@poocommerce/blocks-components': [ 'wc', 'blocksComponents' ],
+	'@poocommerce/types': [ 'wc', 'wcTypes' ],
+	'@poocommerce/customer-effort-score': [ 'wc', 'customerEffortScore' ],
+	'@poocommerce/sanitize': [ 'wc', 'sanitize' ],
 };
 
 const wcHandleMap = {
-	'@woocommerce/blocks-registry': 'wc-blocks-registry',
-	'@woocommerce/settings': 'wc-settings',
-	'@woocommerce/block-data': 'wc-blocks-data-store',
-	'@woocommerce/data': 'wc-store-data',
-	'@woocommerce/shared-context': 'wc-blocks-shared-context',
-	'@woocommerce/shared-hocs': 'wc-blocks-shared-hocs',
-	'@woocommerce/price-format': 'wc-price-format',
-	'@woocommerce/blocks-checkout': 'wc-blocks-checkout',
-	'@woocommerce/blocks-checkout-events': 'wc-blocks-checkout-events',
-	'@woocommerce/blocks-components': 'wc-blocks-components',
-	'@woocommerce/types': 'wc-types',
-	'@woocommerce/customer-effort-score': 'wc-customer-effort-score',
-	'@woocommerce/sanitize': 'wc-sanitize',
+	'@poocommerce/blocks-registry': 'wc-blocks-registry',
+	'@poocommerce/settings': 'wc-settings',
+	'@poocommerce/block-data': 'wc-blocks-data-store',
+	'@poocommerce/data': 'wc-store-data',
+	'@poocommerce/shared-context': 'wc-blocks-shared-context',
+	'@poocommerce/shared-hocs': 'wc-blocks-shared-hocs',
+	'@poocommerce/price-format': 'wc-price-format',
+	'@poocommerce/blocks-checkout': 'wc-blocks-checkout',
+	'@poocommerce/blocks-checkout-events': 'wc-blocks-checkout-events',
+	'@poocommerce/blocks-components': 'wc-blocks-components',
+	'@poocommerce/types': 'wc-types',
+	'@poocommerce/customer-effort-score': 'wc-customer-effort-score',
+	'@poocommerce/sanitize': 'wc-sanitize',
 };
 
 const getAlias = ( options = {} ) => {
 	let { pathPart } = options;
 	pathPart = pathPart ? `${ pathPart }/` : '';
 	return {
-		'@woocommerce/atomic-blocks': path.resolve(
+		'@poocommerce/atomic-blocks': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }atomic/blocks`
 		),
-		'@woocommerce/atomic-utils': path.resolve(
+		'@poocommerce/atomic-utils': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }atomic/utils`
 		),
-		'@woocommerce/base-components': path.resolve(
+		'@poocommerce/base-components': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/components/`
 		),
-		'@woocommerce/base-context': path.resolve(
+		'@poocommerce/base-context': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/context/`
 		),
-		'@woocommerce/base-hocs': path.resolve(
+		'@poocommerce/base-hocs': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/hocs/`
 		),
-		'@woocommerce/base-hooks': path.resolve(
+		'@poocommerce/base-hooks': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/hooks/`
 		),
-		'@woocommerce/base-utils': path.resolve(
+		'@poocommerce/base-utils': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }base/utils/`
 		),
-		'@woocommerce/blocks': path.resolve(
+		'@poocommerce/blocks': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }/blocks`
 		),
-		'@woocommerce/editor-components': path.resolve(
+		'@poocommerce/editor-components': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }editor-components/`
 		),
-		'@woocommerce/block-hocs': path.resolve(
+		'@poocommerce/block-hocs': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }hocs`
 		),
-		'@woocommerce/block-settings': path.resolve(
+		'@poocommerce/block-settings': path.resolve(
 			__dirname,
 			'../assets/js/settings/blocks'
 		),
-		'@woocommerce/icons': path.resolve( __dirname, `../assets/js/icons` ),
-		'@woocommerce/resource-previews': path.resolve(
+		'@poocommerce/icons': path.resolve( __dirname, `../assets/js/icons` ),
+		'@poocommerce/resource-previews': path.resolve(
 			__dirname,
 			`../assets/js/${ pathPart }previews/`
 		),
-		'@woocommerce/types': path.resolve( __dirname, `../assets/js/types/` ),
-		'@woocommerce/utils': path.resolve( __dirname, `../assets/js/utils/` ),
-		'@woocommerce/entities': path.resolve(
+		'@poocommerce/types': path.resolve( __dirname, `../assets/js/types/` ),
+		'@poocommerce/utils': path.resolve( __dirname, `../assets/js/utils/` ),
+		'@poocommerce/entities': path.resolve(
 			__dirname,
 			`../assets/js/entities/`
 		),

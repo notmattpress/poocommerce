@@ -4,20 +4,20 @@
  *
  * Handles route registration, permissions, CRUD operations, and schema definition.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\StoreApi\Utilities\Pagination;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\CustomerSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\CollectionQuery;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers\UpdateUtils;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\StoreApi\Utilities\Pagination;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\CustomerSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\CollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers\UpdateUtils;
 use WP_Http;
 use WP_Error;
 use WP_REST_Request;
@@ -113,16 +113,16 @@ class Controller extends AbstractController {
 							'email'    => array(
 								'required'    => true,
 								'type'        => 'string',
-								'description' => __( 'New user email address.', 'woocommerce' ),
+								'description' => __( 'New user email address.', 'poocommerce' ),
 							),
 							'username' => array(
-								'required'    => 'no' === get_option( 'woocommerce_registration_generate_username', 'yes' ),
-								'description' => __( 'New user username.', 'woocommerce' ),
+								'required'    => 'no' === get_option( 'poocommerce_registration_generate_username', 'yes' ),
+								'description' => __( 'New user username.', 'poocommerce' ),
 								'type'        => 'string',
 							),
 							'password' => array(
-								'required'    => 'no' === get_option( 'woocommerce_registration_generate_password', 'no' ),
-								'description' => __( 'New user password.', 'woocommerce' ),
+								'required'    => 'no' === get_option( 'poocommerce_registration_generate_password', 'no' ),
+								'description' => __( 'New user password.', 'poocommerce' ),
 								'type'        => 'string',
 							),
 						)
@@ -138,7 +138,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),
@@ -164,7 +164,7 @@ class Controller extends AbstractController {
 						'force' => array(
 							'default'     => false,
 							'type'        => 'boolean',
-							'description' => __( 'Required to be true, as resource does not support trashing.', 'woocommerce' ),
+							'description' => __( 'Required to be true, as resource does not support trashing.', 'poocommerce' ),
 						),
 					),
 				),
@@ -179,7 +179,7 @@ class Controller extends AbstractController {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+		$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 		if ( is_wp_error( $user ) ) {
 			return $this->get_route_error_by_code( self::INVALID_ID );
 		}
@@ -284,7 +284,7 @@ class Controller extends AbstractController {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_item( $request ) {
-		$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+		$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 		if ( is_wp_error( $user ) ) {
 			return $this->get_route_error_by_code( self::INVALID_ID );
 		}
@@ -334,7 +334,7 @@ class Controller extends AbstractController {
 			return $this->get_route_error_by_code( self::TRASH_NOT_SUPPORTED );
 		}
 
-		$user_data = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $id );
+		$user_data = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $id );
 		if ( is_wp_error( $user_data ) ) {
 			return $this->get_route_error_by_code( self::INVALID_ID );
 		}
@@ -386,7 +386,7 @@ class Controller extends AbstractController {
 	 * @return WP_Error|boolean
 	 */
 	public function get_item_permissions_check( $request ) {
-		$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+		$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 
 		if ( is_wp_error( $user ) ) {
 			return $this->get_route_error_by_code( self::INVALID_ID );
@@ -418,7 +418,7 @@ class Controller extends AbstractController {
 	 * @return WP_Error|boolean
 	 */
 	public function update_item_permissions_check( $request ) {
-		$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+		$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 
 		if ( is_wp_error( $user ) ) {
 			return $this->get_route_error_by_code( self::INVALID_ID );
@@ -439,10 +439,10 @@ class Controller extends AbstractController {
 			foreach ( $non_editable_props as $prop ) {
 				if ( isset( $request[ $prop ] ) && ( 'password' === $prop || $request[ $prop ] !== $customer_prop[ $prop ] ) ) {
 					return new WP_Error(
-						'woocommerce_rest_cannot_edit',
+						'poocommerce_rest_cannot_edit',
 						sprintf(
 							/* translators: 1s: name of the property (email, role), 2: Role of the user (administrator, customer). */
-							__( 'Sorry, %1$s cannot be updated via this endpoint for a user with role %2$s.', 'woocommerce' ),
+							__( 'Sorry, %1$s cannot be updated via this endpoint for a user with role %2$s.', 'poocommerce' ),
 							$prop,
 							$customer->get_role()
 						),
@@ -462,7 +462,7 @@ class Controller extends AbstractController {
 	 * @return bool|WP_Error
 	 */
 	public function delete_item_permissions_check( $request ) {
-		$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+		$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 
 		if ( is_wp_error( $user ) ) {
 			return $this->get_route_error_by_code( self::INVALID_ID );
@@ -479,10 +479,10 @@ class Controller extends AbstractController {
 
 		if ( ! in_array( $customer->get_role(), $allowed_roles, true ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_delete',
+				'poocommerce_rest_cannot_delete',
 				sprintf(
 					/* translators: 1: Role of the user (administrator, customer), 2: comma separated list of allowed roles. egs customer, subscriber */
-					__( 'Sorry, users with %1$s role cannot be deleted via this endpoint. Allowed roles: %2$s', 'woocommerce' ),
+					__( 'Sorry, users with %1$s role cannot be deleted via this endpoint. Allowed roles: %2$s', 'poocommerce' ),
 					$customer->get_role(),
 					implode( ', ', $allowed_roles )
 				),
@@ -508,6 +508,6 @@ class Controller extends AbstractController {
 		 *
 		 * @since 9.5.2
 		 */
-		return apply_filters( 'woocommerce_rest_customer_allowed_roles', array( 'customer', 'subscriber' ) );
+		return apply_filters( 'poocommerce_rest_customer_allowed_roles', array( 'customer', 'subscriber' ) );
 	}
 }

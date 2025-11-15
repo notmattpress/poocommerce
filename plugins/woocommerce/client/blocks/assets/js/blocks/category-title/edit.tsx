@@ -97,7 +97,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 	let titleElement: JSX.Element = createElement(
 		TagName,
 		blockProps,
-		__( 'Category title', 'woocommerce' )
+		__( 'Category title', 'poocommerce' )
 	) as JSX.Element;
 
 	if ( termId ) {
@@ -105,7 +105,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 			<PlainText
 				// @ts-expect-error PlainText component types are not up-to-date
 				tagName={ TagName }
-				placeholder={ __( 'No title', 'woocommerce' ) }
+				placeholder={ __( 'No title', 'poocommerce' ) }
 				value={ rawTitle }
 				onChange={ ( v ) => setTitle( v ) }
 				__experimentalVersion={ 2 }
@@ -133,7 +133,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 					rel={ rel }
 					placeholder={
 						! rawTitle?.length
-							? __( 'No title', 'woocommerce' )
+							? __( 'No title', 'poocommerce' )
 							: undefined
 					}
 					value={ rawTitle }
@@ -174,10 +174,10 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 				/>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={ __( 'Make title a link', 'woocommerce' ) }
+						label={ __( 'Make title a link', 'poocommerce' ) }
 						onChange={ () => setAttributes( { isLink: ! isLink } ) }
 						checked={ isLink }
 					/>
@@ -185,7 +185,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 						<>
 							<ToggleControl
 								__nextHasNoMarginBottom
-								label={ __( 'Open in new tab', 'woocommerce' ) }
+								label={ __( 'Open in new tab', 'poocommerce' ) }
 								onChange={ ( v ) =>
 									setAttributes( {
 										linkTarget: v ? '_blank' : '_self',
@@ -196,7 +196,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 							<TextControl
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-								label={ __( 'Link rel', 'woocommerce' ) }
+								label={ __( 'Link rel', 'poocommerce' ) }
 								value={ rel }
 								onChange={ ( newRel ) =>
 									setAttributes( { rel: newRel } )

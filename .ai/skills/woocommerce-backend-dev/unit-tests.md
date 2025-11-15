@@ -230,7 +230,7 @@ When working with payment extension suggestions:
 ## General Testing Best Practices
 
 1. **Always run tests after making changes** to verify functionality
-2. **Use specific test filters** during development (see running-tests.md in the woocommerce-dev-cycle skill)
+2. **Use specific test filters** during development (see running-tests.md in the poocommerce-dev-cycle skill)
 3. **Write descriptive test names** that explain what is being tested
 4. **Use data providers** for testing multiple scenarios with the same logic
 5. **Include helpful assertion messages** for debugging when tests fail

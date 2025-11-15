@@ -14,17 +14,17 @@
  * - Routes
  * - Collection params/queries
  *
- * @package WooCommerce\RestApi\Tests
+ * @package PooCommerce\RestApi\Tests
  */
 
-namespace Automattic\WooCommerce\RestApi\UnitTests;
+namespace Automattic\PooCommerce\RestApi\UnitTests;
 
 defined( 'ABSPATH' ) || exit;
 
 use WC_REST_Unit_Test_Case;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CustomerHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CustomerHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * Abstract Rest API Test Class

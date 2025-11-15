@@ -5,7 +5,7 @@ import { FormEvent, KeyboardEvent, UIEvent, useEffect, useRef } from 'react';
 import {
 	ProductAttributeTerm,
 	experimentalProductAttributeTermsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { useDebounce, useInstanceId } from '@wordpress/compose';
 import { resolveSelect } from '@wordpress/data';
 import { createElement, useState } from '@wordpress/element';
@@ -196,7 +196,7 @@ export function VariationsFilter( {
 
 	return (
 		<Dropdown
-			className="woocommerce-product-variations-filter"
+			className="poocommerce-product-variations-filter"
 			onClose={ handleClose }
 			renderToggle={ ( { isOpen, onToggle } ) => (
 				<Button
@@ -204,12 +204,12 @@ export function VariationsFilter( {
 					icon={ isOpen ? chevronUp : chevronDown }
 					variant="tertiary"
 					onClick={ dropdownToggleHandler( isOpen, onToggle ) }
-					className="woocommerce-product-variations-filter__toggle"
+					className="poocommerce-product-variations-filter__toggle"
 				>
 					<span>
 						{ sprintf(
 							// translators: %s is the attribute name to filter by
-							__( 'Any %s', 'woocommerce' ),
+							__( 'Any %s', 'poocommerce' ),
 							attribute.name
 						) }
 					</span>
@@ -217,19 +217,19 @@ export function VariationsFilter( {
 			) }
 			renderContent={ ( { onClose } ) => (
 				<form
-					className="woocommerce-product-variations-filter__form"
+					className="poocommerce-product-variations-filter__form"
 					noValidate
 					onSubmit={ submitHandler( onClose ) }
 					onReset={ resetHandler() }
 				>
 					{ attribute.options.length >
 						MIN_OPTIONS_COUNT_FOR_SEARCHING && (
-						<div className="woocommerce-product-variations-filter__form-header">
+						<div className="poocommerce-product-variations-filter__form-header">
 							<label
 								htmlFor={ searchInputId }
 								aria-label={ __(
 									'Search options',
-									'woocommerce'
+									'poocommerce'
 								) }
 							>
 								<InputControl
@@ -245,19 +245,19 @@ export function VariationsFilter( {
 						</div>
 					) }
 					<div
-						className="woocommerce-product-variations-filter__form-body"
+						className="poocommerce-product-variations-filter__form-body"
 						onScroll={ handleScroll }
 					>
 						{ options.length > 0 ? (
-							<ul className="woocommerce-product-variations-filter__form-list">
+							<ul className="poocommerce-product-variations-filter__form-list">
 								{ options.map( ( option ) => (
 									<li
 										key={ option.slug }
-										className="woocommerce-product-variations-filter__form-list-item"
+										className="poocommerce-product-variations-filter__form-list-item"
 									>
 										<label
 											htmlFor={ `${ optionCheckboxId }-${ option.slug }` }
-											className="woocommerce-product-variations-filter__form-list-item-label"
+											className="poocommerce-product-variations-filter__form-list-item-label"
 										>
 											<CheckboxControl
 												id={ `${ optionCheckboxId }-${ option.slug }` }
@@ -275,31 +275,31 @@ export function VariationsFilter( {
 							</ul>
 						) : (
 							! isLoading && (
-								<div className="woocommerce-product-variations-filter__form-list-empty">
+								<div className="poocommerce-product-variations-filter__form-list-empty">
 									{ __(
 										'No options were found for that search',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</div>
 							)
 						) }
 
 						{ isLoading && (
-							<div className="woocommerce-product-variations-filter__loading">
+							<div className="poocommerce-product-variations-filter__loading">
 								<Spinner />
 							</div>
 						) }
 					</div>
-					<div className="woocommerce-product-variations-filter__form-footer">
+					<div className="poocommerce-product-variations-filter__form-footer">
 						<Button
 							type="reset"
 							variant="secondary"
 							aria-disabled={ isDisabled }
 						>
-							{ __( 'Reset', 'woocommerce' ) }
+							{ __( 'Reset', 'poocommerce' ) }
 						</Button>
 						<Button type="submit" variant="primary">
-							{ __( 'Filter', 'woocommerce' ) }
+							{ __( 'Filter', 'poocommerce' ) }
 						</Button>
 					</div>
 				</form>

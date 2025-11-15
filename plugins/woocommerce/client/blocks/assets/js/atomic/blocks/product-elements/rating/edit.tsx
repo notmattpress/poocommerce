@@ -8,8 +8,8 @@ import {
 } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { useEffect } from '@wordpress/element';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
-import { useProduct } from '@woocommerce/entities';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
+import { useProduct } from '@poocommerce/entities';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ const Edit = (
 ): JSX.Element => {
 	const { attributes, setAttributes, context } = props;
 	const blockProps = useBlockProps( {
-		className: 'wp-block-woocommerce-product-rating',
+		className: 'wp-block-poocommerce-product-rating',
 	} );
 	const blockAttrs = {
 		...attributes,

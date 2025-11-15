@@ -1,6 +1,6 @@
-# WooCommerce Block Entities
+# PooCommerce Block Entities
 
-This module contains the entity registration and management system for WooCommerce. Entities provide a standardized way to interact with WordPress data stores and enable consistent data access patterns across the admin interface.
+This module contains the entity registration and management system for PooCommerce. Entities provide a standardized way to interact with WordPress data stores and enable consistent data access patterns across the admin interface.
 
 ## Overview
 
@@ -12,7 +12,7 @@ With this approach, third-party developers can also start using entities outside
 
 ### Product Entity
 
-The product entity provides access to WooCommerce product data through WordPress's core data store. It includes:
+The product entity provides access to PooCommerce product data through WordPress's core data store. It includes:
 
 -   **Constants**: Entity name, kind, and configuration
 -   **Types**: TypeScript interfaces for product data structures

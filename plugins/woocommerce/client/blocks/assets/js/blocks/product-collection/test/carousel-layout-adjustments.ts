@@ -22,15 +22,15 @@ import '../';
 import '../../next-previous-buttons';
 import '../../product-template';
 
-jest.mock( '@woocommerce/block-settings', () => ( {
-	...jest.requireActual( '@woocommerce/block-settings' ),
+jest.mock( '@poocommerce/block-settings', () => ( {
+	...jest.requireActual( '@poocommerce/block-settings' ),
 	isExperimentalBlocksEnabled: () => true,
 } ) );
 
 type SetupAttributes = {
 	query?: {
 		inherit?: boolean;
-		__woocommerceOnSale?: boolean;
+		__poocommerceOnSale?: boolean;
 	};
 };
 
@@ -42,7 +42,7 @@ async function setup( {
 	attributes: SetupAttributes;
 } ) {
 	const productCollectionBlock = {
-		name: 'woocommerce/product-collection',
+		name: 'poocommerce/product-collection',
 		attributes: {
 			query: {
 				type: 'product',
@@ -57,9 +57,9 @@ async function setup( {
 		innerBlocks: withHeading
 			? [
 					{ name: 'core/heading' },
-					{ name: 'woocommerce/product-template' },
+					{ name: 'poocommerce/product-template' },
 			  ]
-			: [ { name: 'woocommerce/product-template' } ],
+			: [ { name: 'poocommerce/product-template' } ],
 	};
 	return initializeEditor( [ productCollectionBlock ] );
 }
@@ -73,7 +73,7 @@ describe( 'Product Collection Block - Carousel Layout Adjustments', () => {
 				attributes: {
 					query: {
 						inherit: false,
-						__woocommerceOnSale: true,
+						__poocommerceOnSale: true,
 					},
 				},
 			} );

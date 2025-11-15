@@ -4,7 +4,7 @@
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import { createElement, Fragment } from '@wordpress/element';
-import { getQuery } from '@woocommerce/navigation';
+import { getQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -45,7 +45,7 @@ function getVariationName( {
 
 const completer: AutoCompleter = {
 	name: 'variations',
-	className: 'woocommerce-search__product-result',
+	className: 'poocommerce-search__product-result',
 	options( search ) {
 		const query = search
 			? {
@@ -99,14 +99,14 @@ const completer: AutoCompleter = {
 			<Fragment>
 				<ProductImage
 					key="thumbnail"
-					className="woocommerce-search__result-thumbnail"
+					className="poocommerce-search__result-thumbnail"
 					product={ variation }
 					width={ 18 }
 					alt=""
 				/>
 				<span
 					key="name"
-					className="woocommerce-search__result-name"
+					className="poocommerce-search__result-name"
 					aria-label={ variation.description }
 				>
 					{ match?.suggestionBeforeMatch }

@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\ShippingZoneMethod;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\ShippingZoneMethod;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\Controller;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingMethodSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\Controller;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingMethodSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZoneMethod\ShippingZoneMethodService;
 use WC_REST_Unit_Test_Case;
 use WC_Shipping_Zone;
 use WP_Error;
@@ -15,7 +15,7 @@ use WP_REST_Request;
 /**
  * Class ControllerTest
  *
- * @package Automattic\WooCommerce\Tests\RestApi\Routes\V4\ShippingZoneMethod
+ * @package Automattic\PooCommerce\Tests\RestApi\Routes\V4\ShippingZoneMethod
  */
 class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
@@ -55,8 +55,8 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 		$this->controller->register_routes();
 
 		// Ensure shipping is enabled for tests.
-		update_option( 'woocommerce_ship_to_countries', '' );
-		update_option( 'woocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'no' );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 	}
 
 	/**
-	 * Test that woocommerce_rest_check_permissions filter is applied.
+	 * Test that poocommerce_rest_check_permissions filter is applied.
 	 */
 	public function test_check_permissions_applies_filter() {
 		wp_set_current_user( self::$admin_user_id );
@@ -223,7 +223,7 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 			}
 			return $permission;
 		};
-		add_filter( 'woocommerce_rest_check_permissions', $filter_callback, 10, 4 );
+		add_filter( 'poocommerce_rest_check_permissions', $filter_callback, 10, 4 );
 
 		$request = new WP_REST_Request( 'POST', '/wc/v4/shipping-zone-method' );
 		$result  = $this->controller->check_permissions( $request );
@@ -231,7 +231,7 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 		// Should be denied by filter.
 		$this->assertInstanceOf( WP_Error::class, $result );
 
-		remove_filter( 'woocommerce_rest_check_permissions', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_check_permissions', $filter_callback, 10 );
 		wp_set_current_user( 0 );
 	}
 
@@ -442,7 +442,7 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 
 		// Register the custom method with high priority to ensure it's loaded.
 		add_filter(
-			'woocommerce_shipping_methods',
+			'poocommerce_shipping_methods',
 			function ( $methods ) use ( $custom_method_class ) {
 				$methods['test_failing_method'] = $custom_method_class;
 				return $methods;
@@ -469,7 +469,7 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 
 		// Should return an error.
 		$this->assertInstanceOf( WP_Error::class, $response );
-		$this->assertEquals( 'woocommerce_rest_shipping_method_invalid_setting', $response->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_shipping_method_invalid_setting', $response->get_error_code() );
 
 		// Verify the method instance was deleted (rollback).
 		$methods_after = $zone->get_shipping_methods( false );
@@ -736,6 +736,6 @@ class WC_REST_Shipping_Zone_Method_V4_Controller_Tests extends WC_REST_Unit_Test
 
 		$prefix = $method->invoke( $this->controller );
 
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zone_method_', $prefix );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zone_method_', $prefix );
 	}
 }

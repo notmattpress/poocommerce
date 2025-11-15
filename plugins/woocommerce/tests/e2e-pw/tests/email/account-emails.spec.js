@@ -3,7 +3,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -36,7 +36,7 @@ test.beforeEach( async ( { baseURL } ) => {
 
 test.skip(
 	process.env.IS_MULTISITE,
-	'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55082'
+	'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55082'
 );
 
 test( 'New customer should receive an email with login details', async ( {

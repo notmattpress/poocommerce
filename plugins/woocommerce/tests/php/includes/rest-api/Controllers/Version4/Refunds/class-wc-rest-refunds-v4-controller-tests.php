@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Controller as RefundsController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema\RefundSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\CollectionQuery;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\DataUtils;
 
 /**
  * Refunds Controller tests for V4 REST API.
@@ -82,7 +82,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -95,7 +95,7 @@ class WC_REST_Refunds_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;

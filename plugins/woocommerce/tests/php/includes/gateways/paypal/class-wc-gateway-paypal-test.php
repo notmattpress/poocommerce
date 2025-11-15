@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Gateway_Paypal class.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 declare(strict_types=1);
@@ -24,7 +24,7 @@ class WC_Gateway_Paypal_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test do_capture when API returns error.
 	 *
-	 * see @link https://github.com/woocommerce/woocommerce/issues/26960
+	 * see @link https://github.com/poocommerce/poocommerce/issues/26960
 	 */
 	public function test_do_capture_when_api_return_error() {
 		$order = WC_Helper_Order::create_order();
@@ -51,7 +51,7 @@ class WC_Gateway_Paypal_Test extends \WC_Unit_Test_Case {
 	/**
 	 * Test do_capture when API returns error.
 	 *
-	 * see @link https://github.com/woocommerce/woocommerce/issues/26960
+	 * see @link https://github.com/poocommerce/poocommerce/issues/26960
 	 */
 	public function test_refund_transaction_when_api_return_error() {
 		$order = WC_Helper_Order::create_order();
@@ -175,7 +175,7 @@ class WC_Gateway_Paypal_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_correct_settings_is_displayed_when_orders_v2_is_enabled() {
 		// Enable the gateway.
-		update_option( 'woocommerce_paypal_settings', array( 'enabled' => 'yes' ) );
+		update_option( 'poocommerce_paypal_settings', array( 'enabled' => 'yes' ) );
 
 		// Mock Orders v2 to be enabled.
 		$mock_gateway = $this->getMockBuilder( WC_Gateway_Paypal::class )
@@ -209,7 +209,7 @@ class WC_Gateway_Paypal_Test extends \WC_Unit_Test_Case {
 		$all_form_fields = include WC_ABSPATH . 'includes/gateways/paypal/includes/settings-paypal.php';
 
 		// Enable the gateway.
-		update_option( 'woocommerce_paypal_settings', array( 'enabled' => 'yes' ) );
+		update_option( 'poocommerce_paypal_settings', array( 'enabled' => 'yes' ) );
 
 		$gateway     = new WC_Gateway_Paypal();
 		$form_fields = $gateway->get_form_fields();

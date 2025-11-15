@@ -7,7 +7,7 @@ import {
 	expect,
 	wpCLI,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ test.describe( 'Product Collection', () => {
 		await editor.insertBlock( {
 			name: 'core/query',
 			attributes: {
-				namespace: 'woocommerce/product-query',
+				namespace: 'poocommerce/product-query',
 			},
 		} );
 
@@ -172,13 +172,13 @@ test.describe( 'Product Collection', () => {
 	test.describe( 'Renders correctly with all Product Elements', () => {
 		const expectedProductContent = [
 			'Beanie', // core/post-title
-			'$20.00 Original price was: $20.00.$18.00Current price is: $18.00.', // woocommerce/product-price
-			'woo-beanie', // woocommerce/product-sku
+			'$20.00 Original price was: $20.00.$18.00Current price is: $18.00.', // poocommerce/product-price
+			'woo-beanie', // poocommerce/product-sku
 			'This is a simple product.', // core/post-excerpt
 			'Accessories', // core/post-terms - product_cat
 			'Recommended', // core/post-terms - product_tag
-			'SaleProduct on sale', // woocommerce/product-sale-badge
-			'Add to cart', // woocommerce/product-button
+			'SaleProduct on sale', // poocommerce/product-sale-badge
+			'Add to cart', // poocommerce/product-button
 		];
 
 		test( 'In a post', async ( { page, editor, pageObject } ) => {
@@ -365,7 +365,7 @@ test.describe( 'Product Collection', () => {
 			await expect( paginations ).toHaveCount( 1 );
 
 			const siblingBlock = await editor.getBlockByName(
-				'woocommerce/product-template'
+				'poocommerce/product-template'
 			);
 			await editor.selectBlocks( siblingBlock );
 			await editor.insertBlockUsingGlobalInserter( 'Pagination' );
@@ -602,7 +602,7 @@ test.describe( 'Product Collection', () => {
 			);
 			expect( collectionName ).toBeTruthy();
 			expect( collectionName ).toBe(
-				'woocommerce/product-collection/on-sale'
+				'poocommerce/product-collection/on-sale'
 			);
 		} );
 	} );
@@ -665,7 +665,7 @@ test.describe( 'Product Collection', () => {
 		} );
 	} );
 
-	// Tests for regressions of https://github.com/woocommerce/woocommerce/pull/47994
+	// Tests for regressions of https://github.com/poocommerce/poocommerce/pull/47994
 	test.describe( 'Product Collection should be visible after Refresh', () => {
 		test( 'Product Collection should be visible after Refresh in a Template', async ( {
 			page,
@@ -741,34 +741,34 @@ test.describe( 'Product Collection', () => {
 		//	templateTitle: 'Product Attribute',
 		//	slug: 'taxonomy-product_attribute',
 		//	frontendPage: '/product-attribute/color/',
-		//	legacyBlockName: 'woocommerce/legacy-template',
+		//	legacyBlockName: 'poocommerce/legacy-template',
 		//},
 		{
 			templateTitle: 'Product Category',
 			slug: 'taxonomy-product_cat',
 			frontendPage: '/product-category/music/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 			expectedProductsCount: 2,
 		},
 		{
 			templateTitle: 'Product Tag',
 			slug: 'taxonomy-product_tag',
 			frontendPage: '/product-tag/recommended/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 			expectedProductsCount: 2,
 		},
 		{
 			templateTitle: 'Product Catalog',
 			slug: 'archive-product',
 			frontendPage: '/shop/',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 			expectedProductsCount: 16,
 		},
 		{
 			templateTitle: 'Product Search Results',
 			slug: 'product-search-results',
 			frontendPage: '/?s=shirt&post_type=product',
-			legacyBlockName: 'woocommerce/legacy-template',
+			legacyBlockName: 'poocommerce/legacy-template',
 			expectedProductsCount: 3,
 		},
 	];
@@ -824,7 +824,7 @@ test.describe( 'Product Collection', () => {
 					await page.goto( frontendPage );
 
 					const classicProducts = page.locator(
-						'.woocommerce-loop-product__title'
+						'.poocommerce-loop-product__title'
 					);
 
 					await expect( classicProducts ).toHaveCount(
@@ -849,7 +849,7 @@ test.describe( 'Product Collection', () => {
 			editor,
 		} ) => {
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby price'
+				'option update poocommerce_default_catalog_orderby price'
 			);
 
 			await pageObject.goToEditorTemplate();
@@ -881,7 +881,7 @@ test.describe( 'Product Collection', () => {
 			await expect( frontendProductTitle ).toContainText( 'Sunglasses' );
 
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby menu_order'
+				'option update poocommerce_default_catalog_orderby menu_order'
 			);
 		} );
 	} );
@@ -894,7 +894,7 @@ test.describe( 'Product Collection', () => {
 			wpCoreVersion,
 		} ) => {
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby price'
+				'option update poocommerce_default_catalog_orderby price'
 			);
 
 			const expectedProducts = [
@@ -941,7 +941,7 @@ test.describe( 'Product Collection', () => {
 			await expect( products ).toHaveText( expectedProducts );
 
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby menu_order'
+				'option update poocommerce_default_catalog_orderby menu_order'
 			);
 		} );
 		test( 'Products by specific tag template displays products from this tag', async ( {
@@ -951,7 +951,7 @@ test.describe( 'Product Collection', () => {
 			wpCoreVersion,
 		} ) => {
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby price'
+				'option update poocommerce_default_catalog_orderby price'
 			);
 
 			const expectedProducts = [ 'Beanie', 'Hoodie' ];
@@ -993,7 +993,7 @@ test.describe( 'Product Collection', () => {
 			await expect( products ).toHaveText( expectedProducts );
 
 			await wpCLI(
-				'option update woocommerce_default_catalog_orderby menu_order'
+				'option update poocommerce_default_catalog_orderby menu_order'
 			);
 		} );
 	} );

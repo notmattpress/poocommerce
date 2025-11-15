@@ -2,14 +2,14 @@
 /**
  * Class WC_Gateway_Paypal_Request file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Gateways\PayPal\AddressRequirements as PayPalAddressRequirements;
-use Automattic\WooCommerce\Utilities\NumberUtil;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Gateways\PayPal\AddressRequirements as PayPalAddressRequirements;
+use Automattic\PooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use Automattic\Jetpack\Connection\Client as Jetpack_Connection_Client;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -93,7 +93,7 @@ class WC_Gateway_Paypal_Request {
 	public function get_request_url( $order, $sandbox = false ) {
 		$this->endpoint    = $sandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr?test_ipn=1&' : 'https://www.paypal.com/cgi-bin/webscr?';
 		$paypal_args       = $this->get_paypal_args( $order );
-		$paypal_args['bn'] = 'WooThemes_Cart'; // Append WooCommerce PayPal Partner Attribution ID. This should not be overridden for this gateway.
+		$paypal_args['bn'] = 'WooThemes_Cart'; // Append PooCommerce PayPal Partner Attribution ID. This should not be overridden for this gateway.
 
 		// Mask (remove) PII from the logs.
 		$mask = array(
@@ -190,7 +190,7 @@ class WC_Gateway_Paypal_Request {
 				$order->add_order_note(
 					sprintf(
 						/* translators: %1$s: PayPal debug ID */
-						__( 'PayPal order creation failed. PayPal debug ID: %1$s', 'woocommerce' ),
+						__( 'PayPal order creation failed. PayPal debug ID: %1$s', 'poocommerce' ),
 						$paypal_debug_id
 					)
 				);
@@ -294,7 +294,7 @@ class WC_Gateway_Paypal_Request {
 			WC_Gateway_Paypal::log( $e->getMessage() );
 			$note_message = sprintf(
 				/* translators: %1$s: Action, %2$s: PayPal order ID */
-				__( 'PayPal %1$s payment failed. PayPal Order ID: %2$s', 'woocommerce' ),
+				__( 'PayPal %1$s payment failed. PayPal Order ID: %2$s', 'poocommerce' ),
 				$action,
 				$paypal_order_id
 			);
@@ -303,7 +303,7 @@ class WC_Gateway_Paypal_Request {
 			if ( $paypal_debug_id ) {
 				$note_message .= sprintf(
 					/* translators: %s: PayPal debug ID */
-					__( '. PayPal debug ID: %s', 'woocommerce' ),
+					__( '. PayPal debug ID: %s', 'poocommerce' ),
 					$paypal_debug_id
 				);
 			}
@@ -362,12 +362,12 @@ class WC_Gateway_Paypal_Request {
 		} catch ( Exception $e ) {
 			WC_Gateway_Paypal::log( $e->getMessage() );
 			$note_message = sprintf(
-				__( 'PayPal capture authorized payment failed', 'woocommerce' ),
+				__( 'PayPal capture authorized payment failed', 'poocommerce' ),
 			);
 			if ( $paypal_debug_id ) {
 				$note_message .= sprintf(
 					/* translators: %s: PayPal debug ID */
-					__( '. PayPal debug ID: %s', 'woocommerce' ),
+					__( '. PayPal debug ID: %s', 'poocommerce' ),
 					$paypal_debug_id
 				);
 			}
@@ -865,7 +865,7 @@ class WC_Gateway_Paypal_Request {
 				'cmd'           => '_cart',
 				'business'      => $this->gateway->get_option( 'email' ),
 				'no_note'       => 1,
-				'currency_code' => get_woocommerce_currency(),
+				'currency_code' => get_poocommerce_currency(),
 				'charset'       => 'utf-8',
 				'rm'            => is_ssl() ? 2 : 1,
 				'upload'        => 1,
@@ -917,7 +917,7 @@ class WC_Gateway_Paypal_Request {
 		}
 
 		return apply_filters(
-			'woocommerce_paypal_args',
+			'poocommerce_paypal_args',
 			array_merge(
 				$this->get_transaction_args( $order ),
 				$this->get_line_item_args( $order, true )
@@ -935,14 +935,14 @@ class WC_Gateway_Paypal_Request {
 	protected function get_paypal_args( $order ) {
 		WC_Gateway_Paypal::log( 'Generating payment form for order ' . $order->get_order_number() . '. Notify URL: ' . $this->notify_url );
 
-		$force_one_line_item = apply_filters( 'woocommerce_paypal_force_one_line_item', false, $order );
+		$force_one_line_item = apply_filters( 'poocommerce_paypal_force_one_line_item', false, $order );
 
 		if ( ( wc_tax_enabled() && wc_prices_include_tax() ) || ! $this->line_items_valid( $order ) ) {
 			$force_one_line_item = true;
 		}
 
 		$paypal_args = apply_filters(
-			'woocommerce_paypal_args',
+			'poocommerce_paypal_args',
 			array_merge(
 				$this->get_transaction_args( $order ),
 				$this->get_line_item_args( $order, $force_one_line_item )
@@ -1034,7 +1034,7 @@ class WC_Gateway_Paypal_Request {
 			$line_item_args['shipping_1'] = $this->number_format( $shipping_total, $order );
 		} elseif ( $order->get_shipping_total() > 0 ) {
 			/* translators: %s: Order shipping method */
-			$this->add_line_item( sprintf( __( 'Shipping via %s', 'woocommerce' ), $order->get_shipping_method() ), 1, $this->number_format( $shipping_total, $order ) );
+			$this->add_line_item( sprintf( __( 'Shipping via %s', 'poocommerce' ), $order->get_shipping_method() ), 1, $this->number_format( $shipping_total, $order ) );
 		}
 
 		return $line_item_args;
@@ -1050,7 +1050,7 @@ class WC_Gateway_Paypal_Request {
 		$this->delete_line_items();
 
 		$all_items_name = $this->get_order_item_names( $order );
-		$this->add_line_item( $all_items_name ? $all_items_name : __( 'Order', 'woocommerce' ), 1, $this->number_format( $order->get_total() - $this->round( $order->get_shipping_total() + $order->get_shipping_tax(), $order ), $order ), $order->get_order_number() );
+		$this->add_line_item( $all_items_name ? $all_items_name : __( 'Order', 'poocommerce' ), 1, $this->number_format( $order->get_total() - $this->round( $order->get_shipping_total() + $order->get_shipping_tax(), $order ), $order ), $order->get_order_number() );
 		$line_item_args = $this->get_shipping_cost_line_item( $order, true );
 
 		return array_merge( $line_item_args, $this->get_line_items() );
@@ -1123,7 +1123,7 @@ class WC_Gateway_Paypal_Request {
 			$item_names[] = $item_name . ' x ' . $item->get_quantity();
 		}
 
-		return apply_filters( 'woocommerce_paypal_get_order_item_names', implode( ', ', $item_names ), $order );
+		return apply_filters( 'poocommerce_paypal_get_order_item_names', implode( ', ', $item_names ), $order );
 	}
 
 	/**
@@ -1152,7 +1152,7 @@ class WC_Gateway_Paypal_Request {
 			$item_name .= ' (' . $item_meta . ')';
 		}
 
-		return apply_filters( 'woocommerce_paypal_get_order_item_name', $item_name, $order, $item );
+		return apply_filters( 'poocommerce_paypal_get_order_item_name', $item_name, $order, $item );
 	}
 
 	/**
@@ -1233,9 +1233,9 @@ class WC_Gateway_Paypal_Request {
 		$index = ( count( $this->line_items ) / 4 ) + 1;
 
 		$item = apply_filters(
-			'woocommerce_paypal_line_item',
+			'poocommerce_paypal_line_item',
 			array(
-				'item_name'   => html_entity_decode( wc_trim_string( $item_name ? wp_strip_all_tags( $item_name ) : __( 'Item', 'woocommerce' ), 127 ), ENT_NOQUOTES, 'UTF-8' ),
+				'item_name'   => html_entity_decode( wc_trim_string( $item_name ? wp_strip_all_tags( $item_name ) : __( 'Item', 'poocommerce' ), 127 ), ENT_NOQUOTES, 'UTF-8' ),
 				'quantity'    => (int) $quantity,
 				'amount'      => wc_float_to_string( (float) $amount ),
 				'item_number' => $item_number,

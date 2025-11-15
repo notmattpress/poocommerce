@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * RelatedProducts class.
@@ -74,7 +74,7 @@ class RelatedProducts extends AbstractBlock {
 
 		$this->parsed_block = $parsed_block;
 
-		if ( ProductQuery::is_woocommerce_variation( $parsed_block ) && 'woocommerce/related-products' === $parsed_block['attrs']['namespace'] ) {
+		if ( ProductQuery::is_poocommerce_variation( $parsed_block ) && 'poocommerce/related-products' === $parsed_block['attrs']['namespace'] ) {
 			// Set this so that our product filters can detect if it's a PHP template.
 			add_filter(
 				'query_loop_block_query_vars',
@@ -145,7 +145,7 @@ class RelatedProducts extends AbstractBlock {
 	 */
 	private function is_related_products_block( $parsed_block, $rendered_block = null ) {
 		$is_product_collection_block = $rendered_block->context['query']['isProductCollectionBlock'] ?? false;
-		if ( ProductQuery::is_woocommerce_variation( $parsed_block ) && isset( $parsed_block['attrs']['namespace'] ) && 'woocommerce/related-products' === $parsed_block['attrs']['namespace'] && ! $is_product_collection_block ) {
+		if ( ProductQuery::is_poocommerce_variation( $parsed_block ) && isset( $parsed_block['attrs']['namespace'] ) && 'poocommerce/related-products' === $parsed_block['attrs']['namespace'] && ! $is_product_collection_block ) {
 			return true;
 		}
 
@@ -154,7 +154,7 @@ class RelatedProducts extends AbstractBlock {
 
 	/**
 	 * Get related products ids.
-	 * The logic is copied from the core function woocommerce_related_products. https://github.com/woocommerce/woocommerce/blob/ca49caabcba84ce9f60a03c6d3534ec14b350b80/plugins/woocommerce/includes/wc-template-functions.php/#L2039-L2074
+	 * The logic is copied from the core function poocommerce_related_products. https://github.com/poocommerce/poocommerce/blob/ca49caabcba84ce9f60a03c6d3534ec14b350b80/plugins/poocommerce/includes/wc-template-functions.php/#L2039-L2074
 	 *
 	 * @param number $product_per_page Products per page.
 	 * @return array Products ids.

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-property-description */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /* eslint-disable import/no-unresolved */
 /**
  * k6 dependencies
@@ -78,12 +78,12 @@ export function setCartCheckoutShortcodes() {
 
 		const body_cart = {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_cart]<!-- /wp:shortcode -->',
 			},
 		};
 		const body_checkout = {
 			content: {
-				raw: '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->',
+				raw: '<!-- wp:shortcode -->[poocommerce_checkout]<!-- /wp:shortcode -->',
 			},
 		};
 

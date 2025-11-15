@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
 use WC_Order;
 
 /**
@@ -17,19 +17,19 @@ class FulfillmentsSettings {
 	 */
 	public function register() {
 		add_filter( 'admin_init', array( $this, 'init_settings_auto_fulfill' ) );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'auto_fulfill_items_on_processing' ), 10, 2 );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'auto_fulfill_items_on_completed' ), 10, 2 );
+		add_action( 'poocommerce_order_status_processing', array( $this, 'auto_fulfill_items_on_processing' ), 10, 2 );
+		add_action( 'poocommerce_order_status_completed', array( $this, 'auto_fulfill_items_on_completed' ), 10, 2 );
 	}
 
 	/**
 	 * Initialize settings for auto-fulfill options.
 	 */
 	public function init_settings_auto_fulfill() {
-		add_filter( 'woocommerce_get_settings_products', array( $this, 'add_auto_fulfill_settings' ), 10, 2 );
+		add_filter( 'poocommerce_get_settings_products', array( $this, 'add_auto_fulfill_settings' ), 10, 2 );
 	}
 
 	/**
-	 * Add auto-fulfill settings to the WooCommerce settings.
+	 * Add auto-fulfill settings to the PooCommerce settings.
 	 *
 	 * @param array       $settings The existing settings.
 	 * @param string|null $current_section The current section being viewed.
@@ -118,7 +118,7 @@ class FulfillmentsSettings {
 		 *
 		 * @return array Filtered list of product or variant ID's to auto-fulfill
 		 */
-		$auto_fulfill_product_ids = apply_filters( 'woocommerce_fulfillments_auto_fulfill_products', array(), $order );
+		$auto_fulfill_product_ids = apply_filters( 'poocommerce_fulfillments_auto_fulfill_products', array(), $order );
 		$auto_fulfill_items       = array();
 
 		foreach ( $order->get_items() as $item ) {

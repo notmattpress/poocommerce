@@ -5,7 +5,7 @@ sidebar_label: Order Querying
 
 `wc_get_orders()` and `WC_Order_Query` provide a standard way of retrieving orders from the database, similar to WordPress' [`get_posts()` and `WP_Query`](https://codex.wordpress.org/Class_Reference/WP_Query) but specifically for orders.
 
-Plugin and theme developers are discouraged from writing custom WordPress queries or direct SQL as changes in the WordPress or WooCommerce database can result in breakage. These APIs provide the best-practices and future-proof way to fetch orders in WooCommerce.
+Plugin and theme developers are discouraged from writing custom WordPress queries or direct SQL as changes in the WordPress or PooCommerce database can result in breakage. These APIs provide the best-practices and future-proof way to fetch orders in PooCommerce.
 
 ## Basic usage
 
@@ -37,9 +37,9 @@ $orders = $query->get_orders();
 ```
 
 ```php
-// Get orders from the customer with email 'woocommerce@woocommerce.com'.
+// Get orders from the customer with email 'poocommerce@poocommerce.com'.
 $query = new WC_Order_Query();
-$query->set( 'customer', 'woocommerce@woocommerce.com' );
+$query->set( 'customer', 'poocommerce@poocommerce.com' );
 $orders = $query->get_orders();
 ```
 
@@ -75,7 +75,7 @@ Query parameters/arguments that can be used with these functions are described b
 |-|-|
 |**status**|Accepts an array of strings: by default is set to the keys of `wc_get_order_statuses()`.|
 |**type**|Accepts a string: `'shop_order'`, `'shop_order_refund'`, or a custom order type.|
-|**version**|Accepts a string: WooCommerce version number the order was created in.|
+|**version**|Accepts a string: PooCommerce version number the order was created in.|
 |**created_via**|Accepts a string: 'checkout', 'rest-api', or a custom creation method slug.|
 |**parent**|Accepts an integer: post ID of the order parent.|
 |**parent_exclude**|Accepts an array of integers: Excludes orders with parent ids in the array.|
@@ -123,7 +123,7 @@ $orders = wc_get_orders( $args );
 ```
 
 ```php
-// Get orders created during WooCommerce 2.6.14 and through site checkout.
+// Get orders created during PooCommerce 2.6.14 and through site checkout.
 $args = array(
     'version'     => '2.6.14',
     'created_via' => 'checkout',
@@ -223,8 +223,8 @@ $orders = wc_get_orders( array( 'discount_total' => 20.00 ) );
 #### Examples
 
 ```php
-// Get orders by customer with email 'woocommerce@woocommerce.com'.
-$orders = wc_get_orders( array( 'customer' => 'woocommerce@woocommerce.com' ) );
+// Get orders by customer with email 'poocommerce@poocommerce.com'.
+$orders = wc_get_orders( array( 'customer' => 'poocommerce@poocommerce.com' ) );
 ```
 
 ```php
@@ -334,7 +334,7 @@ For more details and examples, refer to the [HPOS order querying](/docs/features
 
 :::warning
 
-Support for `meta_query` is only available when HPOS is the configured order data storage (the default since WooCommerce 8.2).
+Support for `meta_query` is only available when HPOS is the configured order data storage (the default since PooCommerce 8.2).
 
 Check if it's enabled with `OrderUtil::custom_orders_table_usage_is_enabled()` before using.
 :::
@@ -375,7 +375,7 @@ For more details and examples, refer to the [HPOS order querying](/docs/features
 
 :::warning
 
-Support for `field_query` is only available when HPOS is the configured order data storage (the default since WooCommerce 8.2).
+Support for `field_query` is only available when HPOS is the configured order data storage (the default since PooCommerce 8.2).
 
 Check if it's enabled with `OrderUtil::custom_orders_table_usage_is_enabled()` before using.
 :::
@@ -415,7 +415,7 @@ For more details and examples, refer to the [HPOS order querying](/docs/features
 
 :::warning
 
-Support for `date_query` is only available when HPOS is the configured order data storage (the default since WooCommerce 8.2).
+Support for `date_query` is only available when HPOS is the configured order data storage (the default since PooCommerce 8.2).
 
 Check if it's enabled with `OrderUtil::custom_orders_table_usage_is_enabled()` before using.
 :::
@@ -447,16 +447,16 @@ $orders = wc_get_orders(
 
 Developers can extend the query capabilities by filtering the generated query to add support for custom parameters to both `wc_get_orders()` and `WC_Order_Query`.
 
-WooCommerce currently supports two order storage mechanisms: HPOS (the default) and legacy (which uses WordPress posts and metadata), each with their own hook to filter the generated query:
+PooCommerce currently supports two order storage mechanisms: HPOS (the default) and legacy (which uses WordPress posts and metadata), each with their own hook to filter the generated query:
 
-- (HPOS) `woocommerce_order_query_args` to translate a parameter into an existing one, or `woocommerce_orders_table_query_clauses` to write your own SQL.
-- (Legacy) `woocommerce_order_data_store_cpt_get_orders_query` to translate a parameter into a `WP_Query` parameter.
+- (HPOS) `poocommerce_order_query_args` to translate a parameter into an existing one, or `poocommerce_orders_table_query_clauses` to write your own SQL.
+- (Legacy) `poocommerce_order_data_store_cpt_get_orders_query` to translate a parameter into a `WP_Query` parameter.
 
 ```php
 /**
  * Example: Handle a custom 'customvar' query var to get orders with the 'customvar' meta.
  */
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 // HPOS version.
 function handle_custom_query_var_hpos( $query_args ) {
@@ -492,13 +492,13 @@ function handle_custom_query_var_legacy( $query, $query_vars ) {
 if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
     // HPOS.
     add_filter(
-        'woocommerce_order_query_args',
+        'poocommerce_order_query_args',
         'handle_custom_query_var_hpos'
     );
 } else {
     // Legacy support.
     add_filter(
-        'woocommerce_order_data_store_cpt_get_orders_query',
+        'poocommerce_order_data_store_cpt_get_orders_query',
         'handle_custom_query_var_legacy',
         10,
         2
