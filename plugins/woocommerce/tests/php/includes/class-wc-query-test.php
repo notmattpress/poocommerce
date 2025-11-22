@@ -47,8 +47,8 @@ class WC_Query_Test extends \WC_Unit_Test_Case {
 				'post_title'  => 'Shop',
 			)
 		);
-		$default_woocommerce_shop_page_id = get_option( 'woocommerce_shop_page_id' );
-		update_option( 'woocommerce_shop_page_id', $shop_page_id );
+		$default_poocommerce_shop_page_id = get_option( 'poocommerce_shop_page_id' );
+		update_option( 'poocommerce_shop_page_id', $shop_page_id );
 
 		// Set the Shop page as the homepage.
 		$default_show_on_front = get_option( 'show_on_front' );
@@ -72,7 +72,7 @@ class WC_Query_Test extends \WC_Unit_Test_Case {
 
 		// Reset main query, options and delete the page we created.
 		$wp_the_query = $previous_wp_the_query; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		update_option( 'woocommerce_shop_page_id', $default_woocommerce_shop_page_id );
+		update_option( 'poocommerce_shop_page_id', $default_poocommerce_shop_page_id );
 		update_option( 'show_on_front', $default_show_on_front );
 		update_option( 'page_on_front', $default_page_on_front );
 		wp_delete_post( $shop_page_id, true );
@@ -92,8 +92,8 @@ class WC_Query_Test extends \WC_Unit_Test_Case {
 				'post_name'   => 'shop',
 			)
 		);
-		$default_woocommerce_shop_page_id = get_option( 'woocommerce_shop_page_id' );
-		update_option( 'woocommerce_shop_page_id', $shop_page_id );
+		$default_poocommerce_shop_page_id = get_option( 'poocommerce_shop_page_id' );
+		update_option( 'poocommerce_shop_page_id', $shop_page_id );
 
 		// Set the Shop page as the homepage.
 		$default_show_on_front = get_option( 'show_on_front' );
@@ -106,7 +106,7 @@ class WC_Query_Test extends \WC_Unit_Test_Case {
 				'post_type' => 'page',
 				'pagename'  => 'shop',
 				// NOTE: We are deliberately NOT setting `page_id` to simulate slug-based resolution.
-				// See https://github.com/woocommerce/woocommerce/issues/61676 for more details.
+				// See https://github.com/poocommerce/poocommerce/issues/61676 for more details.
 			)
 		);
 
@@ -119,7 +119,7 @@ class WC_Query_Test extends \WC_Unit_Test_Case {
 
 		// Reset main query, options and delete the page we created.
 		$wp_the_query = $previous_wp_the_query; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		update_option( 'woocommerce_shop_page_id', $default_woocommerce_shop_page_id );
+		update_option( 'poocommerce_shop_page_id', $default_poocommerce_shop_page_id );
 		update_option( 'show_on_front', $default_show_on_front );
 		update_option( 'page_on_front', $default_page_on_front );
 		wp_delete_post( $shop_page_id, true );

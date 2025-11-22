@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 
 /**
  * Tests for the WCTransactionalEmailPostsManager class.
@@ -20,7 +20,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		add_option( 'woocommerce_feature_block_email_editor_enabled', 'yes' );
+		add_option( 'poocommerce_feature_block_email_editor_enabled', 'yes' );
 		$this->template_manager = WCTransactionalEmailPostsManager::get_instance();
 	}
 
@@ -212,7 +212,7 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 		$this->template_manager->save_email_template_post_id( $email_type, $post_id );
 
 		// Check that the option was saved with the correct name format.
-		$expected_option_name = 'woocommerce_email_templates_' . $email_type . '_post_id';
+		$expected_option_name = 'poocommerce_email_templates_' . $email_type . '_post_id';
 		$this->assertEquals( $post_id, get_option( $expected_option_name ) );
 	}
 
@@ -221,6 +221,6 @@ class WCTransactionalEmailPostsManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		update_option( 'woocommerce_feature_block_email_editor_enabled', 'no' );
+		update_option( 'poocommerce_feature_block_email_editor_enabled', 'no' );
 	}
 }

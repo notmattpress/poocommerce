@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Entities;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Entities;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,24 +35,24 @@ class PushToken {
 	const PLATFORM_BROWSER = 'browser';
 
 	/**
-	 * Origin identifier for WooCommerce Android app.
+	 * Origin identifier for PooCommerce Android app.
 	 */
-	const ORIGIN_WOOCOMMERCE_ANDROID = 'com.woocommerce.android';
+	const ORIGIN_WOOCOMMERCE_ANDROID = 'com.poocommerce.android';
 
 	/**
-	 * Origin identifier for WooCommerce Android app development builds.
+	 * Origin identifier for PooCommerce Android app development builds.
 	 */
-	const ORIGIN_WOOCOMMERCE_ANDROID_DEV = 'com.woocommerce.android:dev';
+	const ORIGIN_WOOCOMMERCE_ANDROID_DEV = 'com.poocommerce.android:dev';
 
 	/**
-	 * Origin identifier for WooCommerce iOS app.
+	 * Origin identifier for PooCommerce iOS app.
 	 */
-	const ORIGIN_WOOCOMMERCE_IOS = 'com.automattic.woocommerce';
+	const ORIGIN_WOOCOMMERCE_IOS = 'com.automattic.poocommerce';
 
 	/**
-	 * Origin identifier for WooCommerce iOS app development builds.
+	 * Origin identifier for PooCommerce iOS app development builds.
 	 */
-	const ORIGIN_WOOCOMMERCE_IOS_DEV = 'com.automattic.woocommerce:dev';
+	const ORIGIN_WOOCOMMERCE_IOS_DEV = 'com.automattic.poocommerce:dev';
 
 	/**
 	 * Origin identifier for browsers.

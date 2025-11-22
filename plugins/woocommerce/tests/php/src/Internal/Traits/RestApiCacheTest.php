@@ -5,11 +5,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Traits;
+namespace Automattic\PooCommerce\Tests\Internal\Traits;
 
-use Automattic\WooCommerce\Internal\Caches\VersionStringGenerator;
-use Automattic\WooCommerce\Internal\Traits\RestApiCache;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Caches\VersionStringGenerator;
+use Automattic\PooCommerce\Internal\Traits\RestApiCache;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Controller;
 use WP_REST_Request;
@@ -22,7 +22,7 @@ use WP_Error;
  */
 class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 
-	private const CACHE_GROUP = 'woocommerce_rest_api_cache';
+	private const CACHE_GROUP = 'poocommerce_rest_api_cache';
 
 	/**
 	 * System under test.
@@ -263,13 +263,13 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 	 * @testdox Caching is skipped when filter returns false.
 	 */
 	public function test_caching_skipped_when_filter_returns_false() {
-		add_filter( 'woocommerce_rest_api_enable_response_caching', '__return_false' );
+		add_filter( 'poocommerce_rest_api_enable_response_caching', '__return_false' );
 
 		$response = $this->query_endpoint( 'single_entity' );
 		$this->assertCacheHeader( $response, 'SKIP' );
 		$this->assertCount( 0, $this->get_all_cache_keys() );
 
-		remove_all_filters( 'woocommerce_rest_api_enable_response_caching' );
+		remove_all_filters( 'poocommerce_rest_api_enable_response_caching' );
 	}
 
 	/**
@@ -341,7 +341,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Filter woocommerce_rest_api_cache_key_info allows customizing cache key parts.
+	 * @testdox Filter poocommerce_rest_api_cache_key_info allows customizing cache key parts.
 	 */
 	public function test_cache_key_info_filter() {
 		$response1 = $this->query_endpoint( 'single_entity' );
@@ -350,7 +350,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 
 		$filter_called = false;
 		add_filter(
-			'woocommerce_rest_api_cache_key_info',
+			'poocommerce_rest_api_cache_key_info',
 			function ( $cache_key_parts, $request, $vary_by_user, $endpoint_id, $controller ) use ( &$filter_called ) {
 				$filter_called = true;
 				$this->assertIsArray( $cache_key_parts );
@@ -369,7 +369,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		$this->assertCacheHeader( $response2, 'MISS' );
 		$this->assertCount( 2, $this->get_all_cache_keys() );
 
-		remove_all_filters( 'woocommerce_rest_api_cache_key_info' );
+		remove_all_filters( 'poocommerce_rest_api_cache_key_info' );
 	}
 
 	/**
@@ -624,7 +624,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The woocommerce_rest_api_cached_headers filter can modify which headers are cached.
+	 * @testdox The poocommerce_rest_api_cached_headers filter can modify which headers are cached.
 	 */
 	public function test_filter_can_modify_cached_headers() {
 		$this->sut->response_headers['standard'] = array(
@@ -637,7 +637,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 			unset( $all_header_names, $request, $response, $endpoint_id, $controller ); // Avoid parameter not used PHPCS errors.
 			return array_values( array_filter( $cached_header_names, fn( $name ) => 'X-Header-Two' !== $name ) );
 		};
-		add_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
+		add_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
 
 		$response1 = $this->query_endpoint( 'standard' );
 		$this->assertCacheHeader( $response1, 'MISS' );
@@ -661,11 +661,11 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayNotHasKey( 'X-Header-Two', $headers, 'Filtered header should not be restored' );
 		$this->assertArrayHasKey( 'X-Header-Three', $headers );
 
-		remove_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10 );
 	}
 
 	/**
-	 * @testdox The woocommerce_rest_api_cached_headers filter can add headers using all_header_names parameter.
+	 * @testdox The poocommerce_rest_api_cached_headers filter can add headers using all_header_names parameter.
 	 */
 	public function test_filter_can_add_headers_from_all_headers() {
 		$this->sut->custom_include_headers = array( 'X-Header-One' );
@@ -686,7 +686,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 			}
 			return $cached_header_names;
 		};
-		add_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
+		add_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
 
 		$response1 = $this->query_endpoint( 'standard' );
 		$this->assertCacheHeader( $response1, 'MISS' );
@@ -713,12 +713,12 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( 'X-Header-Three', $headers );
 		$this->assertEquals( 'value-three', $headers['X-Header-Three'] );
 
-		remove_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10 );
 		$this->sut->custom_include_headers = false;
 	}
 
 	/**
-	 * @testdox The woocommerce_rest_api_cached_headers filter cannot re-introduce always-excluded headers.
+	 * @testdox The poocommerce_rest_api_cached_headers filter cannot re-introduce always-excluded headers.
 	 */
 	public function test_filter_cannot_reintroduce_always_excluded_headers() {
 		$this->sut->response_headers['standard'] = array(
@@ -728,9 +728,9 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		);
 
 		$filter_callback = fn( $cached_header_names, $all_header_names )  => $all_header_names;
-		add_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
+		add_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
 
-		$this->setExpectedIncorrectUsage( 'Automattic\WooCommerce\Internal\Traits\RestApiCache::get_headers_to_cache' );
+		$this->setExpectedIncorrectUsage( 'Automattic\PooCommerce\Internal\Traits\RestApiCache::get_headers_to_cache' );
 
 		$response1 = $this->query_endpoint( 'standard' );
 		$this->assertCacheHeader( $response1, 'MISS' );
@@ -753,7 +753,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayNotHasKey( 'Cache-Control', $headers, 'Cache-Control should not be in cached response' );
 		$this->assertArrayHasKey( 'X-Custom-Header', $headers );
 
-		remove_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10 );
 	}
 
 	/**
@@ -766,13 +766,13 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		);
 
 		$filter_callback = fn( $cached_header_names, $all_header_names )  => $all_header_names;
-		add_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
+		add_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10, 6 );
 
-		$this->setExpectedIncorrectUsage( 'Automattic\WooCommerce\Internal\Traits\RestApiCache::get_headers_to_cache' );
+		$this->setExpectedIncorrectUsage( 'Automattic\PooCommerce\Internal\Traits\RestApiCache::get_headers_to_cache' );
 
 		$this->query_endpoint( 'standard' );
 
-		remove_filter( 'woocommerce_rest_api_cached_headers', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_api_cached_headers', $filter_callback, 10 );
 	}
 
 	/**
@@ -887,7 +887,7 @@ class RestApiCacheTest extends WC_REST_Unit_Test_Case {
 		global $wp_rest_server;
 		$wp_rest_server = new WP_REST_Server();
 		$this->server   = $wp_rest_server;
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'rest_api_init' );
 		$this->sut->register_routes();
 	}

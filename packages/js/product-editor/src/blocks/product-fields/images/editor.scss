@@ -1,26 +1,26 @@
 @import "./place-holder/style.scss";
 
-.wp-block-woocommerce-product-images-field {
-	.woocommerce-sortable {
+.wp-block-poocommerce-product-images-field {
+	.poocommerce-sortable {
 		margin-top: 0;
 		padding: 0;
 	}
 
 	&.has-images {
-		.woocommerce-image-gallery {
+		.poocommerce-image-gallery {
 			margin-top: $gap-largest;
 		}
 	}
 
 	&:not(.has-images) {
-		.woocommerce-sortable {
+		.poocommerce-sortable {
 			display: none;
 		}
 	}
 }
 
-.woocommerce-product-form__media-uploader {
-	.woocommerce-media-uploader {
+.poocommerce-product-form__media-uploader {
+	.poocommerce-media-uploader {
 		.components-drop-zone {
 			// This height cannot be higher than this, otherwise it will invade the area from the block below.
 			min-height: 84px;

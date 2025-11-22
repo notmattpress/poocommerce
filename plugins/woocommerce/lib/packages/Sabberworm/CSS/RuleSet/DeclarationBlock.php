@@ -1,22 +1,22 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList\CSSList;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList\KeyFrame;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\OutputException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\KeyframeSelector;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Rule\Rule;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\Color;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\RuleValueList;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\Size;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\URL;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList\CSSList;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList\KeyFrame;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\OutputException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\KeyframeSelector;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Rule\Rule;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\Color;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\RuleValueList;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\Size;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\URL;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\Value;
 
 /**
  * This class represents a `RuleSet` constrained by a `Selector`.

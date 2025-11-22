@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Gateway_Paypal_Buttons class.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 declare(strict_types=1);
@@ -64,8 +64,8 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 	 * Tear down the test environment.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_paypal_client_id_live' );
-		delete_option( 'woocommerce_paypal_client_id_sandbox' );
+		delete_option( 'poocommerce_paypal_client_id_live' );
+		delete_option( 'poocommerce_paypal_client_id_sandbox' );
 
 		// Restore original global post.
 		global $post;
@@ -73,9 +73,9 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 		$post = $this->original_post;
 
 		// Remove any filters that might have been added.
-		remove_all_filters( 'woocommerce_is_checkout' );
-		remove_all_filters( 'woocommerce_is_cart' );
-		remove_all_filters( 'woocommerce_is_product' );
+		remove_all_filters( 'poocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_is_cart' );
+		remove_all_filters( 'poocommerce_is_product' );
 
 		parent::tearDown();
 	}
@@ -142,9 +142,9 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 	public function test_get_page_type_returns_correct_value( $is_cart, $expected_page_type ) {
 		// Mock WordPress conditional functions using filters.
 		if ( $is_cart ) {
-			add_filter( 'woocommerce_is_cart', '__return_true' );
+			add_filter( 'poocommerce_is_cart', '__return_true' );
 		} else {
-			add_filter( 'woocommerce_is_cart', '__return_false' );
+			add_filter( 'poocommerce_is_cart', '__return_false' );
 		}
 
 		$page_type = $this->buttons->get_page_type();
@@ -188,7 +188,7 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 		$this->mock_gateway->testmode = false;
 
 		// Set cached client ID.
-		update_option( 'woocommerce_paypal_client_id_live', 'cached_client_id' );
+		update_option( 'poocommerce_paypal_client_id_live', 'cached_client_id' );
 
 		$client_id = $this->buttons->get_client_id();
 
@@ -202,7 +202,7 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 		$this->mock_gateway->testmode = true;
 
 		// Set sandbox client ID.
-		update_option( 'woocommerce_paypal_client_id_sandbox', 'sandbox_client_id' );
+		update_option( 'poocommerce_paypal_client_id_sandbox', 'sandbox_client_id' );
 
 		$client_id = $this->buttons->get_client_id();
 
@@ -226,7 +226,7 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 		$client_id = $buttons->get_client_id();
 
 		$this->assertEquals( 'test_client_id', $client_id );
-		$this->assertEquals( 'test_client_id', get_option( 'woocommerce_paypal_client_id_live' ) );
+		$this->assertEquals( 'test_client_id', get_option( 'poocommerce_paypal_client_id_live' ) );
 	}
 
 	/**
@@ -301,13 +301,13 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 		return array(
 			'checkout_page' => array(
 				'page_type'         => 'checkout',
-				'filter_name'       => 'woocommerce_is_checkout',
+				'filter_name'       => 'poocommerce_is_checkout',
 				'post_type'         => 'page',
 				'expected_contains' => true,
 			),
 			'cart_page'     => array(
 				'page_type'         => 'cart',
-				'filter_name'       => 'woocommerce_is_cart',
+				'filter_name'       => 'poocommerce_is_cart',
 				'post_type'         => 'page',
 				'expected_contains' => true,
 			),
@@ -338,8 +338,8 @@ class WC_Gateway_Paypal_Buttons_Test extends \WC_Unit_Test_Case {
 		$post = get_post( $post_id );
 
 		// Mock all page types to return false.
-		add_filter( 'woocommerce_is_checkout', '__return_false' );
-		add_filter( 'woocommerce_is_cart', '__return_false' );
+		add_filter( 'poocommerce_is_checkout', '__return_false' );
+		add_filter( 'poocommerce_is_cart', '__return_false' );
 
 		$url = $this->buttons->get_current_page_for_app_switch();
 

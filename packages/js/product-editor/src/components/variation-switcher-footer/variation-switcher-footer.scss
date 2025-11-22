@@ -1,4 +1,4 @@
-.woocommerce-product-variation-switcher-footer {
+.poocommerce-product-variation-switcher-footer {
 	max-width: 650px;
 	padding: 16px 0;
 	margin: 0 auto;
@@ -11,19 +11,19 @@
 		gap: $gap-small;
 
 		&.is-placeholder {
-			.woocommerce-product-variation-switcher-footer__arrow {
+			.poocommerce-product-variation-switcher-footer__arrow {
 				@include placeholder();
 				background-color: transparent;
 				color: inherit;
 			}
 
-			.woocommerce-product-variation-switcher-footer__item-label {
+			.poocommerce-product-variation-switcher-footer__item-label {
 				@include placeholder();
 				background-color: $gray-200;
 				width: $gap-largest;
 			}
 
-			.woocommerce-product-variation-switcher-footer__product-image {
+			.poocommerce-product-variation-switcher-footer__product-image {
 				@include placeholder();
 				background-color: $gray-200;
 				width: 32px;

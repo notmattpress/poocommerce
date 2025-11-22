@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Traits;
+namespace Automattic\PooCommerce\Internal\Traits;
 
-use Automattic\WooCommerce\Internal\Caches\VersionStringGenerator;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\CallbackUtil;
+use Automattic\PooCommerce\Internal\Caches\VersionStringGenerator;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\CallbackUtil;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -106,7 +106,7 @@ trait RestApiCache {
 	 *
 	 * @var string
 	 */
-	private static string $cache_group = 'woocommerce_rest_api_cache';
+	private static string $cache_group = 'poocommerce_rest_api_cache';
 
 	/**
 	 * Response headers that are always excluded from caching.
@@ -225,7 +225,7 @@ trait RestApiCache {
 		 * @return bool True to enable response caching, false to disable.
 		 */
 		return apply_filters(
-			'woocommerce_rest_api_enable_response_caching',
+			'poocommerce_rest_api_enable_response_caching',
 			$should_cache,
 			$this,
 			$request
@@ -471,7 +471,7 @@ trait RestApiCache {
 	 * 1. If $include_headers is an array, only those headers are included (case-insensitive).
 	 *    If $include_headers is false, all headers are included except those in $exclude_headers.
 	 * 2. Always-excluded headers (X-WC-Cache, Set-Cookie, Date, etc.) are removed.
-	 * 3. The woocommerce_rest_api_cached_headers filter is applied, receiving both the candidate
+	 * 3. The poocommerce_rest_api_cached_headers filter is applied, receiving both the candidate
 	 *    headers list and all available headers. This allows filters to both add and remove
 	 *    headers from the caching list.
 	 * 4. Always-excluded headers are enforced again post-filter to prevent filters from
@@ -530,7 +530,7 @@ trait RestApiCache {
 		 * @return array Filtered list of header names to cache.
 		 */
 		$filtered_header_names = apply_filters(
-			'woocommerce_rest_api_cached_headers',
+			'poocommerce_rest_api_cached_headers',
 			$cached_header_names,
 			$all_header_names,
 			$request,
@@ -552,7 +552,7 @@ trait RestApiCache {
 				__METHOD__,
 				sprintf(
 					/* translators: %s: comma-separated list of header names */
-					'The woocommerce_rest_api_cached_headers filter attempted to cache always-excluded headers: %s. These headers have been removed for security reasons.',
+					'The poocommerce_rest_api_cached_headers filter attempted to cache always-excluded headers: %s. These headers have been removed for security reasons.',
 					implode( ', ', $reintroduced_headers )
 				),
 				'10.5.0'
@@ -627,7 +627,7 @@ trait RestApiCache {
 		 * @return array Filtered cache key information parts.
 		 */
 		$cache_key_parts = apply_filters(
-			'woocommerce_rest_api_cache_key_info',
+			'poocommerce_rest_api_cache_key_info',
 			$cache_key_parts,
 			$request,
 			$vary_by_user,
@@ -669,7 +669,7 @@ trait RestApiCache {
 		 * @param object $controller      Controller instance.
 		 */
 		$cache_hash_data = apply_filters(
-			'woocommerce_rest_api_cache_hooks_hash_data',
+			'poocommerce_rest_api_cache_hooks_hash_data',
 			$cache_hash_data,
 			$hook_names,
 			$this

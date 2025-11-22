@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
 /**
- * Class responsible for managing WooCommerce email editor post templates.
+ * Class responsible for managing PooCommerce email editor post templates.
  */
 class WCTransactionalEmailPostsManager {
-	const WC_OPTION_NAME = 'woocommerce_email_templates_%_post_id';
+	const WC_OPTION_NAME = 'poocommerce_email_templates_%_post_id';
 
 	/**
 	 * Singleton instance of the class.
@@ -54,10 +54,10 @@ class WCTransactionalEmailPostsManager {
 	}
 
 	/**
-	 * Retrieves the WooCommerce email type from the options table when post ID is provided.
+	 * Retrieves the PooCommerce email type from the options table when post ID is provided.
 	 *
 	 * @param int|string $post_id The post ID.
-	 * @return string|null The WooCommerce email type if found, null otherwise.
+	 * @return string|null The PooCommerce email type if found, null otherwise.
 	 */
 	public function get_email_type_from_post_id( $post_id ) {
 		// Early return if post_id is invalid.
@@ -133,7 +133,7 @@ class WCTransactionalEmailPostsManager {
 	 * Gets the option name for a specific email type.
 	 *
 	 * @param string $email_type The type of email template e.g. 'customer_new_account' from the WC_Email->id property.
-	 * @return string The option name e.g. 'woocommerce_email_templates_customer_new_account_post_id'
+	 * @return string The option name e.g. 'poocommerce_email_templates_customer_new_account_post_id'
 	 */
 	private function get_option_name( $email_type ) {
 		return str_replace( '%', $email_type, self::WC_OPTION_NAME );
@@ -142,13 +142,13 @@ class WCTransactionalEmailPostsManager {
 	/**
 	 * Gets the email type from the option name.
 	 *
-	 * @param string $option_name The option name e.g. 'woocommerce_email_templates_customer_new_account_post_id'.
+	 * @param string $option_name The option name e.g. 'poocommerce_email_templates_customer_new_account_post_id'.
 	 * @return string The email type e.g. 'customer_new_account'
 	 */
 	private function get_email_type_from_option_name( $option_name ) {
 		return str_replace(
 			array(
-				'woocommerce_email_templates_',
+				'poocommerce_email_templates_',
 				'_post_id',
 			),
 			'',
@@ -179,7 +179,7 @@ class WCTransactionalEmailPostsManager {
 		}
 
 		/**
-		 * Get all the emails registered in WooCommerce.
+		 * Get all the emails registered in PooCommerce.
 		 *
 		 * @var \WC_Email[]
 		 */

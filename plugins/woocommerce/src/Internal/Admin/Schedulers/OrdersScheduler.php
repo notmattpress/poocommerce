@@ -3,19 +3,19 @@
  * Order syncing related functions and actions.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Internal\Admin\Schedulers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore as OrderDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\DataStore as OrderDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore as TaxesDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * OrdersScheduler Class.
@@ -39,7 +39,7 @@ class OrdersScheduler extends ImportScheduler {
 	 *
 	 * @var string
 	 */
-	const LAST_PROCESSED_ORDER_DATE_OPTION = 'woocommerce_admin_scheduler_last_processed_order_modified_date';
+	const LAST_PROCESSED_ORDER_DATE_OPTION = 'poocommerce_admin_scheduler_last_processed_order_modified_date';
 
 	/**
 	 * Option name for storing the last processed order ID.
@@ -50,14 +50,14 @@ class OrdersScheduler extends ImportScheduler {
 	 *
 	 * @var string
 	 */
-	const LAST_PROCESSED_ORDER_ID_OPTION = 'woocommerce_admin_scheduler_last_processed_order_id';
+	const LAST_PROCESSED_ORDER_ID_OPTION = 'poocommerce_admin_scheduler_last_processed_order_id';
 
 	/**
 	 * Option name for storing whether to enable immediate order import.
 	 *
 	 * @var string
 	 */
-	const IMMEDIATE_IMPORT_OPTION = 'woocommerce_analytics_immediate_import';
+	const IMMEDIATE_IMPORT_OPTION = 'poocommerce_analytics_immediate_import';
 
 	/**
 	 * Attach order lookup update hooks.
@@ -66,14 +66,14 @@ class OrdersScheduler extends ImportScheduler {
 	 */
 	public static function init() {
 		// Activate WC_Order extension.
-		\Automattic\WooCommerce\Admin\Overrides\Order::add_filters();
-		\Automattic\WooCommerce\Admin\Overrides\OrderRefund::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\Order::add_filters();
+		\Automattic\PooCommerce\Admin\Overrides\OrderRefund::add_filters();
 
 		// Legacy behavior: Schedule import immediately on order create/update/delete.
-		add_action( 'woocommerce_update_order', array( __CLASS__, 'possibly_schedule_import' ) );
-		add_filter( 'woocommerce_create_order', array( __CLASS__, 'possibly_schedule_import' ) );
-		add_action( 'woocommerce_refund_created', array( __CLASS__, 'possibly_schedule_import' ) );
-		add_action( 'woocommerce_schedule_import', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_action( 'poocommerce_update_order', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_filter( 'poocommerce_create_order', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_action( 'poocommerce_refund_created', array( __CLASS__, 'possibly_schedule_import' ) );
+		add_action( 'poocommerce_schedule_import', array( __CLASS__, 'possibly_schedule_import' ) );
 
 		// Schedule recurring batch processor.
 		add_action( 'init', array( __CLASS__, 'schedule_recurring_batch_processor' ) );
@@ -95,7 +95,7 @@ class OrdersScheduler extends ImportScheduler {
 	 */
 	public static function get_dependencies() {
 		return array(
-			'import_batch_init' => \Automattic\WooCommerce\Internal\Admin\Schedulers\CustomersScheduler::get_action( 'import_batch_init' ),
+			'import_batch_init' => \Automattic\PooCommerce\Internal\Admin\Schedulers\CustomersScheduler::get_action( 'import_batch_init' ),
 		);
 	}
 
@@ -274,7 +274,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 	/**
 	 * Schedule this import if the post is an order or refund.
 	 * Note: This method is only called when immediate import is enabled
-	 * via the 'woocommerce_analytics_enable_immediate_import' filter.
+	 * via the 'poocommerce_analytics_enable_immediate_import' filter.
 	 * Otherwise, orders are processed in batches periodically.
 	 *
 	 * @param int $order_id Post ID.
@@ -287,7 +287,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 			return $order_id;
 		}
 
-		if ( ! OrderUtil::is_order( $order_id, array( 'shop_order' ) ) && 'woocommerce_refund_created' !== current_filter() && 'woocommerce_schedule_import' !== current_filter() ) {
+		if ( ! OrderUtil::is_order( $order_id, array( 'shop_order' ) ) && 'poocommerce_refund_created' !== current_filter() && 'poocommerce_schedule_import' !== current_filter() ) {
 			return $order_id;
 		}
 
@@ -348,7 +348,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 		 * @since 10.3.0
 		 * @param int $order_id Order or refund ID.
 		 */
-		do_action( 'woocommerce_order_scheduler_after_import_order', $order_id );
+		do_action( 'poocommerce_order_scheduler_after_import_order', $order_id );
 	}
 
 	/**
@@ -374,7 +374,7 @@ AND status NOT IN ( 'wc-auto-draft', 'trash', 'auto-draft' )
 		 * @since 9.5.0
 		 * @param int $interval Interval in seconds. Default 12 hours.
 		 */
-		$interval = apply_filters( 'woocommerce_analytics_import_interval', 12 * HOUR_IN_SECONDS );
+		$interval = apply_filters( 'poocommerce_analytics_import_interval', 12 * HOUR_IN_SECONDS );
 
 		$action_hook = self::get_action( 'process_pending_batch' );
 

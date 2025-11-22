@@ -5,9 +5,9 @@ import { Sender } from 'xstate';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { Button } from '@wordpress/components';
-import { getNewPath } from '@woocommerce/navigation';
+import { getNewPath } from '@poocommerce/navigation';
 import interpolateComponents from '@automattic/interpolate-components';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -48,11 +48,11 @@ export const BaseIntroBanner = ( {
 	return (
 		<div
 			className={ clsx(
-				'woocommerce-customize-store-banner',
+				'poocommerce-customize-store-banner',
 				bannerClass
 			) }
 		>
-			<div className={ `woocommerce-customize-store-banner-content` }>
+			<div className={ `poocommerce-customize-store-banner-content` }>
 				<div className="banner-actions">
 					<TitleTag>{ bannerTitle }</TitleTag>
 					<TextTag>{ bannerText }</TextTag>
@@ -72,7 +72,7 @@ export const BaseIntroBanner = ( {
 							{ interpolateComponents( {
 								mixedString: __(
 									'Powered by experimental AI. {{link}}Learn more{{/link}}',
-									'woocommerce'
+									'poocommerce'
 								),
 								components: {
 									link: (
@@ -99,11 +99,11 @@ export const NetworkOfflineBanner = () => {
 		<BaseIntroBanner
 			bannerTitle={ __(
 				'Looking to design your store using AI?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerText={ __(
 				"Unfortunately, the [AI Store designer] isn't available right now as we can't detect your network. Please check your internet connection.",
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerClass="offline-banner"
 			bannerButtonOnClick={ () => {} }
@@ -121,11 +121,11 @@ export const JetpackOfflineBanner = ( {
 		<BaseIntroBanner
 			bannerTitle={ __(
 				'Looking to design your store using AI?',
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerText={ __(
 				"It looks like you're using Jetpack's offline mode — switch to online mode to start designing with AI.",
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerClass="offline-banner"
 			buttonIsLink={ false }
@@ -134,7 +134,7 @@ export const JetpackOfflineBanner = ( {
 					type: 'JETPACK_OFFLINE_HOWTO',
 				} );
 			} }
-			bannerButtonText={ __( 'Find out how', 'woocommerce' ) }
+			bannerButtonText={ __( 'Find out how', 'poocommerce' ) }
 			showAIDisclaimer={ true }
 		/>
 	);
@@ -147,13 +147,13 @@ export const NoAIBanner = ( {
 } ) => {
 	return (
 		<BaseIntroBanner
-			bannerTitle={ __( 'Design your own', 'woocommerce' ) }
+			bannerTitle={ __( 'Design your own', 'poocommerce' ) }
 			bannerText={ __(
 				'Quickly create a beautiful store using our built-in store designer. Choose your layout, select a style, and much more.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerClass="no-ai-banner"
-			bannerButtonText={ __( 'Start designing', 'woocommerce' ) }
+			bannerButtonText={ __( 'Start designing', 'poocommerce' ) }
 			bannerButtonOnClick={ () => {
 				redirectToCYSFlow();
 			} }
@@ -167,10 +167,10 @@ export const ExistingNoAiThemeBanner = () => {
 
 	return (
 		<BaseIntroBanner
-			bannerTitle={ __( 'Customize your theme', 'woocommerce' ) }
+			bannerTitle={ __( 'Customize your theme', 'poocommerce' ) }
 			bannerText={ __(
 				'Customize everything from the color palette and the fonts to the page layouts, making sure every detail aligns with your brand.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerClass="existing-no-ai-theme-banner"
 			buttonIsLink={ false }
@@ -187,7 +187,7 @@ export const ExistingNoAiThemeBanner = () => {
 					)
 				);
 			} }
-			bannerButtonText={ __( 'Customize your store', 'woocommerce' ) }
+			bannerButtonText={ __( 'Customize your store', 'poocommerce' ) }
 			showAIDisclaimer={ false }
 			previewBanner={ <IntroSiteIframe siteUrl={ siteUrl } /> }
 		></BaseIntroBanner>
@@ -199,10 +199,10 @@ export const ClassicThemeBanner = () => {
 
 	return (
 		<BaseIntroBanner
-			bannerTitle={ __( 'Customize your theme', 'woocommerce' ) }
+			bannerTitle={ __( 'Customize your theme', 'poocommerce' ) }
 			bannerText={ __(
 				'Customize everything from the color palette and the fonts to the page layouts, making sure every detail aligns with your brand.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerClass="existing-no-ai-theme-banner"
 			buttonIsLink={ false }
@@ -215,7 +215,7 @@ export const ClassicThemeBanner = () => {
 					'customize.php?return=/wp-admin/themes.php'
 				);
 			} }
-			bannerButtonText={ __( 'Go to the Customizer', 'woocommerce' ) }
+			bannerButtonText={ __( 'Go to the Customizer', 'poocommerce' ) }
 			showAIDisclaimer={ false }
 			previewBanner={ <IntroSiteIframe siteUrl={ siteUrl } /> }
 		></BaseIntroBanner>
@@ -227,10 +227,10 @@ export const NonDefaultBlockThemeBanner = () => {
 
 	return (
 		<BaseIntroBanner
-			bannerTitle={ __( 'Customize your theme', 'woocommerce' ) }
+			bannerTitle={ __( 'Customize your theme', 'poocommerce' ) }
 			bannerText={ __(
 				'Customize everything from the color palette and the fonts to the page layouts, making sure every detail aligns with your brand.',
-				'woocommerce'
+				'poocommerce'
 			) }
 			bannerClass="existing-no-ai-theme-banner"
 			buttonIsLink={ false }
@@ -240,7 +240,7 @@ export const NonDefaultBlockThemeBanner = () => {
 				} );
 				navigateOrParent( window, `${ ADMIN_URL }site-editor.php` );
 			} }
-			bannerButtonText={ __( 'Go to the Editor', 'woocommerce' ) }
+			bannerButtonText={ __( 'Go to the Editor', 'poocommerce' ) }
 			showAIDisclaimer={ false }
 			previewBanner={ <IntroSiteIframe siteUrl={ siteUrl } /> }
 		></BaseIntroBanner>
@@ -255,35 +255,35 @@ export const PickYourThemeBanner = ( {
 	return (
 		<BaseIntroBanner
 			isSecondaryBanner
-			bannerTitle={ __( 'Pick your perfect theme', 'woocommerce' ) }
+			bannerTitle={ __( 'Pick your perfect theme', 'poocommerce' ) }
 			bannerText={
 				<div className="pick-your-theme-banner__content">
 					<p>
 						{ __(
 							'Bring your vision to life — no coding required. Explore hundreds of free and paid ecommerce-optimized themes.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<ul>
 						<li>
-							{ __( 'Themes for every industry', 'woocommerce' ) }
+							{ __( 'Themes for every industry', 'poocommerce' ) }
 						</li>
 						<li>
 							{ __(
 								'Ready to use out of the box',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</li>
 						<li>
 							{ __(
 								'30-day money-back guarantee',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</li>
 					</ul>
 				</div>
 			}
-			bannerButtonText={ __( 'Browse the Marketplace', 'woocommerce' ) }
+			bannerButtonText={ __( 'Browse the Marketplace', 'poocommerce' ) }
 			bannerButtonOnClick={ () => {
 				sendEvent( {
 					type: 'SELECTED_BROWSE_ALL_THEMES',

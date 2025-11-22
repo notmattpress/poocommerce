@@ -1,5 +1,5 @@
 Significance: patch
 Type: fix
-Comment: Don't trigger block hooks manually in WooCommerce templates on WordPress 6.9 or higher
+Comment: Don't trigger block hooks manually in PooCommerce templates on WordPress 6.9 or higher
 
 

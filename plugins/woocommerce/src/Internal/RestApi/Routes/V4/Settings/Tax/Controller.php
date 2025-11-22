@@ -4,16 +4,16 @@
  *
  * Handles requests to the /settings/tax endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Tax;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Tax;
 
 use WP_Error;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Schema\TaxSettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Schema\TaxSettingsSchema;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -143,7 +143,7 @@ class Controller extends AbstractController {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return $this->get_route_error_response(
 				$this->get_error_prefix() . 'invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				400
 			);
 		}
@@ -178,7 +178,7 @@ class Controller extends AbstractController {
 			// Sanitize the setting ID.
 			$setting_id = sanitize_text_field( $setting_id );
 
-			// Security check: only allow updating valid WooCommerce tax settings.
+			// Security check: only allow updating valid PooCommerce tax settings.
 			if ( ! in_array( $setting_id, $valid_setting_ids, true ) ) {
 				continue;
 			}
@@ -210,13 +210,13 @@ class Controller extends AbstractController {
 		// Log the update if settings were changed.
 		if ( ! empty( $updated_settings ) ) {
 			/**
-			 * Fires when WooCommerce settings are updated.
+			 * Fires when PooCommerce settings are updated.
 			 *
 			 * @param array $updated_settings Array of updated settings IDs.
 			 * @param string $rest_base The REST base of the settings.
 			 * @since 4.0.0
 			 */
-			do_action( 'woocommerce_settings_updated', $updated_settings, $this->rest_base );
+			do_action( 'poocommerce_settings_updated', $updated_settings, $this->rest_base );
 		}
 
 		// Get all settings after update.
@@ -243,13 +243,13 @@ class Controller extends AbstractController {
 
 		// phpcs:ignore Generic.Commenting.Todo.TaskFound
 		// @todo Fix ciab-next plugin's settings transformation.
-		// The ciab-next plugin filters 'woocommerce_tax_settings' and transforms options from the simple
-		// WooCommerce format to a structured format, also clearing out the 'title' field. This causes
+		// The ciab-next plugin filters 'poocommerce_tax_settings' and transforms options from the simple
+		// PooCommerce format to a structured format, also clearing out the 'title' field. This causes
 		// validation issues in the REST API. The plugin should preserve the original format or only
 		// transform settings for UI display purposes without affecting the REST API.
 
 		// Handle both formats of options since plugins can filter the settings structure.
-		// Original WooCommerce format: array( 'yes' => 'Label', 'no' => 'Label' )
+		// Original PooCommerce format: array( 'yes' => 'Label', 'no' => 'Label' )
 		// Transformed format (e.g., ciab-next plugin): array( 0 => array( 'value' => 'yes', 'label' => 'Label', 'desc' => '...' ) )
 		// Without this, validation extracts ['0', '1'] instead of ['yes', 'no'], causing valid requests to fail.
 		$allowed_values = array();
@@ -275,7 +275,7 @@ class Controller extends AbstractController {
 				$this->get_error_prefix() . 'invalid_param',
 				sprintf(
 				/* translators: 1: Setting ID, 2: Allowed values list. */
-					__( 'Invalid value for "%1$s". Allowed values: %2$s.', 'woocommerce' ),
+					__( 'Invalid value for "%1$s". Allowed values: %2$s.', 'poocommerce' ),
 					$setting_id,
 					implode( ', ', $allowed_values )
 				),
@@ -294,7 +294,7 @@ class Controller extends AbstractController {
 	 * @return mixed Sanitized value.
 	 */
 	private function sanitize_setting_value( $setting_type, $value ) {
-		// Normalize WooCommerce setting types to REST API schema types.
+		// Normalize PooCommerce setting types to REST API schema types.
 		$type_map     = array(
 			'single_select_country'  => 'select',
 			'multi_select_countries' => 'multiselect',

@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Importers;
+namespace Automattic\PooCommerce\Blueprint\Importers;
 
-use Automattic\WooCommerce\Blueprint\StepProcessor;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
-use Automattic\WooCommerce\Blueprint\UsePluginHelpers;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\StepProcessor;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\UsePluginHelpers;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Processes SQL execution steps in the Blueprint.
@@ -14,7 +14,7 @@ use Automattic\WooCommerce\Blueprint\UseWPFunctions;
  * Handles the execution of SQL queries with safety checks to prevent
  * unauthorized modifications to sensitive WordPress data.
  *
- * @package Automattic\WooCommerce\Blueprint\Importers
+ * @package Automattic\PooCommerce\Blueprint\Importers
  */
 class ImportRunSql implements StepProcessor {
 	use UsePluginHelpers;
