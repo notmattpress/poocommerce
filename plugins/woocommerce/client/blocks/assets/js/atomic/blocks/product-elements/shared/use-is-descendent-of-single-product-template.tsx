@@ -3,7 +3,7 @@
  */
 import { store as editorStore } from '@wordpress/editor';
 import { useSelect } from '@wordpress/data';
-import { isString } from '@woocommerce/types';
+import { isString } from '@poocommerce/types';
 
 export const useIsDescendentOfSingleProductTemplate = () => {
 	const isDescendentOfSingleProductTemplate = useSelect( ( select ) => {

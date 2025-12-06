@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.0.0](https://www.npmjs.com/package/@woocommerce/data/v/6.0.0) - 2025-10-27 
+## [6.0.0](https://www.npmjs.com/package/@poocommerce/data/v/6.0.0) - 2025-10-27 
 
 -   Minor - Added pre-API call permission checks for some API calls that were being called on non-admin accessible screens [#51406]
 -   Patch - Changes to support React powered settings page [#52785]
@@ -22,10 +22,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Added functionality for core profiler step completion. [#52525]
 -   Patch - Added support for `install_options` property in the extensions feed. [#56769]
 -   Minor - Add native, in-context onboarding flows for WooPayments. [#56229]
--   Minor - Add settings options data store for managing WooCommerce settings [#56516]
+-   Minor - Add settings options data store for managing PooCommerce settings [#56516]
 -   Minor - Add support for provider reordering in payment settings [#53301]
 -   Minor - Add the payment's new onboarding experience flow to the Launch Your Store process. [#58291]
--   Minor - Display payment suggestions for each selected country in WooCommerce > Settings > Payments [#53505]
+-   Minor - Display payment suggestions for each selected country in PooCommerce > Settings > Payments [#53505]
 -   Minor - Add incentives logic to the frontend for payment settings. [#53432]
 -   Minor - Add requires_jpc field to determine plugins that require JPC [#52887]
 -   Patch - Add stripe tax status to task type [#50989]
@@ -53,13 +53,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Fix skipped test suites after React 18 upgrade [#55582]
 -   Patch - Fix TaskType.level type [#54711]
 -   Patch - Fix the import path for the setting options data store in README.md [#56893]
--   Patch - Fix TS warnings in plugins/woocommerce/client/admin/client/marketplace [#54033]
+-   Patch - Fix TS warnings in plugins/poocommerce/client/admin/client/marketplace [#54033]
 -   Patch - Fix withSettingsHydration and withCurrentUserHydration component types [#54710]
 -   Patch - Migrated notes data store to use register(storeDescriptor) pattern [#55440]
--   Patch - Migrate EXPERIMENTAL_TAX_CLASSES_STORE_NAME in @woocommerce/data to storeDescriptor object [#55470]
+-   Patch - Migrate EXPERIMENTAL_TAX_CLASSES_STORE_NAME in @poocommerce/data to storeDescriptor object [#55470]
 -   Minor - Migrate options data store to use createReduxStore and register [#55476]
 -   Minor - Migrate orders data store to register(storeDescriptor) [#55469]
--   Minor - Migrate PAYMENT_SETTINGS_STORE_NAME in @woocommerce/data to storeDescriptor object [#55771]
+-   Minor - Migrate PAYMENT_SETTINGS_STORE_NAME in @poocommerce/data to storeDescriptor object [#55771]
 -   Minor - Migrate shipping zones data store to use register(storeDescriptor) [#55470]
 -   Patch - Migrate to register(storeDescriptor) for plugins data store [#55426]
 -   Minor - Migrate to register(storeDescriptor) for review data store [#55424]
@@ -85,7 +85,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Update the types for the new payment settings page to include recommended payment methods props. [#53601]
 -   Patch - Update wireit to 0.14.10 [#54996]
 -   Minor - Upgraded Typescript in the monorepo to 5.7.2 [#53165]
--   Minor - `@woocommerce/data`: Fix types and enable TS check. [#55621]
+-   Minor - `@poocommerce/data`: Fix types and enable TS check. [#55621]
 -   Patch - @wordpress/data: Improve documentation. [#56067]
 -   Minor - Export the PluginData type. [#55646]
 -   Minor - Fix missing type for `getPluginInstallState` selector. [#54485]
@@ -95,20 +95,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Migrate `Countries` and `Payments Gateways` stores to improve type definitions [#55558]
 -   Patch - Prevent concurrent fetches of WooPayments onboarding data. [#59966]
 -   Patch - Provide better snackbar notices when installing and activating plugins. [#51956]
--   Patch - Rename Google Listings and Ads with Google for WooCommerce #### Comment <!-- If the changes in this pull request don't warrant a changelog entry, you can alternatively supply a comment here. Note that comments are only accepted with a significance of "Patch" --> [#47614]
--   Patch - Rename Google Listings and Ads with Google for WooCommerce [#47614]
+-   Patch - Rename Google Listings and Ads with Google for PooCommerce #### Comment <!-- If the changes in this pull request don't warrant a changelog entry, you can alternatively supply a comment here. Note that comments are only accepted with a significance of "Patch" --> [#47614]
+-   Patch - Rename Google Listings and Ads with Google for PooCommerce [#47614]
 -   Minor - Update cash on delivery gateway copy [#53612]
 -   Minor - Verify if the coming soon cache is displayed when launching the store and alerts the user if it is still present. [#48586]
--   Minor - Adds an 'in progress' state to WooCommerce onboarding tasks, providing visual feedback when tasks are started but not completed. Initially implemented for the Payments setup task. [#59853]
+-   Minor - Adds an 'in progress' state to PooCommerce onboarding tasks, providing visual feedback when tasks are started but not completed. Initially implemented for the Payments setup task. [#59853]
 
-## [5.0.0](https://www.npmjs.com/package/@woocommerce/data/v/5.0.0) - 2024-06-11 
+## [5.0.0](https://www.npmjs.com/package/@poocommerce/data/v/5.0.0) - 2024-06-11 
 
 -   Patch - Added in missing TS definitions in package.json [#34154]
 -   Patch - Add is_plugins_page_skipped parameter to onboarding API [#38764]
 -   Patch - Fix get_option() error that was not being caught properly and rewrite the code using await and async [#48246]
 -   Patch - Fix incorrect usage of dispatch, useSelect, and setState calls in homescreen along with settings and onboarding package [#37641]
 -   Patch - Fix missing resolver import in data/import [#34054]
--   Patch - Redirect users to WooCommerce Home when Jetpack auth endpoint returns an invalid URL [#38760]
+-   Patch - Redirect users to PooCommerce Home when Jetpack auth endpoint returns an invalid URL [#38760]
 -   Patch - Removing unused code from ProductForm data store. [#36592]
 -   Patch - Rewrite withCurrentUserHydration to work with Gutenberg 15.5+ [#37908]
 -   Patch - Rewrite withNavigationHydration to work Gutenberg 15.5+ [#37901]
@@ -219,7 +219,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Added install-and-activate-async to Onboarding and updated related types [#38616]
 -   Minor - Add missing reviews property to product data [#35592]
 -   Minor - Add new shippping class modal to a shipping class section in product page [#34937]
--   Minor - Add type definitions for @woocommerce/data reviews [#34844]
+-   Minor - Add type definitions for @poocommerce/data reviews [#34844]
 -   Minor - Adjust build/test scripts to remove -- -- that was required for pnpm 6. [#34661]
 -   Minor - Clean errors when generate variations is successfull #41525 [#41525]
 -   Minor - Deprecate "theme" prop from profileItem type [#37671]
@@ -239,7 +239,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Add tracks for plugin actions and handle plugin error properly [#37261]
 -   Remove `Product` `date_on_sale_from` and `date_on_sale_to` properties. Use `date_on_sale_from_gmt` and `date_on_sale_to_gmt` instead. [#35096]
 
-## [4.1.0](https://www.npmjs.com/package/@woocommerce/data/v/4.1.0) - 2022-07-08 
+## [4.1.0](https://www.npmjs.com/package/@poocommerce/data/v/4.1.0) - 2022-07-08 
 
 -   Minor - Fix 'Cannot read properties of undefined' error when clicking Export button on Analytic pages.
 -   Minor - Add CRUD data store utilities
@@ -248,10 +248,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Minor - Migrate onboarding data store to TS
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 -   Patch - Fix product type
--   Patch - Migrate @woocommerce/data user and use-select-with-refresh to TS
+-   Patch - Migrate @poocommerce/data user and use-select-with-refresh to TS
 -   Patch - Migrate item store to TS
 
-## [4.0.0](https://www.npmjs.com/package/@woocommerce/data/v/4.0.0) - 2022-06-14 
+## [4.0.0](https://www.npmjs.com/package/@poocommerce/data/v/4.0.0) - 2022-06-14 
 
 -   Remove `PaymentMethodsState` type. Use `Plugin` instead. #32683
 -   Minor - Add create product actions in products data store #33278
@@ -279,4 +279,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Standardize lint scripts: add lint:fix
 -   Patch - Update @woocomerce/data client api error types. #32939
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/data/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/data/CHANGELOG.md).

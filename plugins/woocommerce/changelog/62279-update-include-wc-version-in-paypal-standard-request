@@ -1,4 +1,4 @@
 Significance: patch
 Type: update
 
-Include WooCommerce version in the PayPal Standard request header.
+Include PooCommerce version in the PayPal Standard request header.

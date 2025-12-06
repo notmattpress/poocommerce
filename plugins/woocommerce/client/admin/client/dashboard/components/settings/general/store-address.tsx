@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { countriesStore, Country, Locale } from '@woocommerce/data';
+import { countriesStore, Country, Locale } from '@poocommerce/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { escapeRegExp } from 'lodash';
 import { useEffect, useMemo, useState, useRef } from '@wordpress/element';
@@ -10,7 +10,7 @@ import {
 	SelectControl,
 	TextControl,
 	FormContextType,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import { Spinner } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
@@ -54,7 +54,7 @@ export function getStoreAddressValidator(/* locale: Locale = {} */) {
 		if ( ! values.countryState.trim().length ) {
 			errors.countryState = __(
 				'Please select a country / region',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -269,7 +269,7 @@ export function useGetCountryStateAutofill(
 				value={ autofillCountry }
 				name="country"
 				type="text"
-				className="woocommerce-select-control__autofill-input"
+				className="poocommerce-select-control__autofill-input"
 				tabIndex={ -1 }
 				autoComplete="country"
 			/>
@@ -279,7 +279,7 @@ export function useGetCountryStateAutofill(
 				value={ autofillState }
 				name="state"
 				type="text"
-				className="woocommerce-select-control__autofill-input"
+				className="poocommerce-select-control__autofill-input"
 				tabIndex={ -1 }
 				autoComplete="address-level1"
 			/>
@@ -371,9 +371,9 @@ export function StoreAddress( {
 		getSelectControlProps( 'countryState' );
 
 	return (
-		<div className="woocommerce-store-address-fields">
+		<div className="poocommerce-store-address-fields">
 			<SelectControl
-				label={ __( 'Country / Region', 'woocommerce' ) + ' *' }
+				label={ __( 'Country / Region', 'poocommerce' ) + ' *' }
 				autoComplete="new-password" // disable autocomplete and autofill
 				getSearchExpression={ ( query: string ) => {
 					return new RegExp(
@@ -400,10 +400,10 @@ export function StoreAddress( {
 			{ ! locale?.address_1?.hidden && (
 				<TextControl
 					__nextHasNoMarginBottom
-					id={ 'woocommerce-store-address-form-address_1' }
+					id={ 'poocommerce-store-address-form-address_1' }
 					label={
 						locale?.address_1?.label ||
-						__( 'Address', 'woocommerce' )
+						__( 'Address', 'poocommerce' )
 					}
 					autoComplete="address-line1"
 					{ ...getInputProps( 'addressLine1' ) }
@@ -413,10 +413,10 @@ export function StoreAddress( {
 			{ ! locale?.postcode?.hidden && (
 				<TextControl
 					__nextHasNoMarginBottom
-					id={ 'woocommerce-store-address-form-postcode' }
+					id={ 'poocommerce-store-address-form-postcode' }
 					label={
 						locale?.postcode?.label ||
-						__( 'Post code', 'woocommerce' )
+						__( 'Post code', 'poocommerce' )
 					}
 					autoComplete="postal-code"
 					{ ...getInputProps( 'postCode' ) }
@@ -426,8 +426,8 @@ export function StoreAddress( {
 			{ ! locale?.city?.hidden && (
 				<TextControl
 					__nextHasNoMarginBottom
-					id={ 'woocommerce-store-address-form-city' }
-					label={ locale?.city?.label || __( 'City', 'woocommerce' ) }
+					id={ 'poocommerce-store-address-form-city' }
+					label={ locale?.city?.label || __( 'City', 'poocommerce' ) }
 					{ ...getInputProps( 'city' ) }
 					autoComplete="address-level2"
 				/>

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Internal\Admin\Agentic;
 
 /**
  * Agentic Commerce Integration class
  *
- * Registers the Agentic Commerce Protocol as a WooCommerce integration.
+ * Registers the Agentic Commerce Protocol as a PooCommerce integration.
  * Manages settings for various AI agent providers (OpenAI, Anthropic, etc.)
  *
  * @since 10.4.0
@@ -25,14 +25,14 @@ class AgenticCommerceIntegration extends \WC_Integration {
 	 */
 	public function __construct() {
 		$this->id                 = 'agentic_commerce';
-		$this->method_title       = __( 'Agentic Commerce', 'woocommerce' );
-		$this->method_description = __( 'Configure settings to allow AI agents to purchase from your store.', 'woocommerce' );
+		$this->method_title       = __( 'Agentic Commerce', 'poocommerce' );
+		$this->method_description = __( 'Configure settings to allow AI agents to purchase from your store.', 'poocommerce' );
 
 		// Initialize settings page helper.
 		$this->settings_page = new AgenticSettingsPage();
 
 		// Bind to the save action for the settings.
-		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**

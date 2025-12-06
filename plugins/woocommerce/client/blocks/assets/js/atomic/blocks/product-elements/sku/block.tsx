@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import {
 	useInnerBlockLayoutContext,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { withProductDataContext } from '@woocommerce/shared-hocs';
+} from '@poocommerce/shared-context';
+import { withProductDataContext } from '@poocommerce/shared-hocs';
 import type { HTMLAttributes } from 'react';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import { RichText } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
@@ -51,7 +51,7 @@ const Preview = ( {
 		<RichText
 			className="wc-block-components-product-sku__prefix"
 			tagName="span"
-			placeholder={ __( 'Prefix', 'woocommerce' ) }
+			placeholder={ __( 'Prefix', 'poocommerce' ) }
 			value={ prefix }
 			onChange={ ( value ) => setAttributes( { prefix: value } ) }
 		/>
@@ -59,7 +59,7 @@ const Preview = ( {
 		<RichText
 			className="wc-block-components-product-sku__suffix"
 			tagName="span"
-			placeholder={ ' ' + __( 'Suffix', 'woocommerce' ) }
+			placeholder={ ' ' + __( 'Suffix', 'poocommerce' ) }
 			value={ suffix }
 			onChange={ ( value ) => setAttributes( { suffix: value } ) }
 		/>
@@ -79,7 +79,7 @@ const Block = ( props: Props ): JSX.Element | null => {
 				setAttributes={ props.setAttributes }
 				parentClassName={ parentClassName }
 				className={ className }
-				sku={ __( 'Product SKU', 'woocommerce' ) }
+				sku={ __( 'Product SKU', 'poocommerce' ) }
 				prefix={ props.prefix }
 				suffix={ props.suffix }
 			/>
@@ -101,7 +101,7 @@ const Block = ( props: Props ): JSX.Element | null => {
 			{ ...( props.isDescendantOfAllProducts && {
 				className: clsx(
 					className,
-					'wc-block-components-product-sku wp-block-woocommerce-product-sku',
+					'wc-block-components-product-sku wp-block-poocommerce-product-sku',
 					styleProps.className
 				),
 				style: {

@@ -6,7 +6,7 @@ import {
 	PartialProductVariation,
 	ProductProductAttribute,
 	ProductVariation,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 export type VariationsTableRowProps = {
 	variation: ProductVariation;

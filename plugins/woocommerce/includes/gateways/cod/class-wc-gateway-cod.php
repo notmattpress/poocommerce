@@ -2,12 +2,12 @@
 /**
  * Class WC_Gateway_COD file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Admin\Settings\Utils as SettingsUtils;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Admin\Settings\Utils as SettingsUtils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @class       WC_Gateway_COD
  * @extends     WC_Payment_Gateway
  * @version     2.1.0
- * @package     WooCommerce\Classes\Payment
+ * @package     PooCommerce\Classes\Payment
  */
 class WC_Gateway_COD extends WC_Payment_Gateway {
 
@@ -72,12 +72,12 @@ class WC_Gateway_COD extends WC_Payment_Gateway {
 		$this->enable_for_virtual = $this->get_option( 'enable_for_virtual', 'yes' ) === 'yes';
 
 		// Actions.
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
-		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'change_payment_complete_order_status' ), 10, 3 );
+		add_action( 'poocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
+		add_filter( 'poocommerce_payment_complete_order_status', array( $this, 'change_payment_complete_order_status' ), 10, 3 );
 
 		// Customer Emails.
-		add_action( 'woocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
+		add_action( 'poocommerce_email_before_order_table', array( $this, 'email_instructions' ), 10, 3 );
 	}
 
 	/**
@@ -85,9 +85,9 @@ class WC_Gateway_COD extends WC_Payment_Gateway {
 	 */
 	protected function setup_properties() {
 		$this->id                 = self::ID;
-		$this->icon               = apply_filters( 'woocommerce_cod_icon', '' );
-		$this->method_title       = __( 'Cash on delivery', 'woocommerce' );
-		$this->method_description = __( 'Let your shoppers pay upon delivery — by cash or other methods of payment.', 'woocommerce' );
+		$this->icon               = apply_filters( 'poocommerce_cod_icon', '' );
+		$this->method_title       = __( 'Cash on delivery', 'poocommerce' );
+		$this->method_description = __( 'Let your shoppers pay upon delivery — by cash or other methods of payment.', 'poocommerce' );
 		$this->has_fields         = false;
 	}
 
@@ -97,49 +97,49 @@ class WC_Gateway_COD extends WC_Payment_Gateway {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'            => array(
-				'title'       => __( 'Enable/Disable', 'woocommerce' ),
-				'label'       => __( 'Enable cash on delivery', 'woocommerce' ),
+				'title'       => __( 'Enable/Disable', 'poocommerce' ),
+				'label'       => __( 'Enable cash on delivery', 'poocommerce' ),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'no',
 			),
 			'title'              => array(
-				'title'       => __( 'Title', 'woocommerce' ),
+				'title'       => __( 'Title', 'poocommerce' ),
 				'type'        => 'safe_text',
-				'description' => __( 'Payment method description that the customer will see on your checkout.', 'woocommerce' ),
-				'default'     => __( 'Cash on delivery', 'woocommerce' ),
+				'description' => __( 'Payment method description that the customer will see on your checkout.', 'poocommerce' ),
+				'default'     => __( 'Cash on delivery', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'description'        => array(
-				'title'       => __( 'Description', 'woocommerce' ),
+				'title'       => __( 'Description', 'poocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Payment method description that the customer will see on your website.', 'woocommerce' ),
-				'default'     => __( 'Pay with cash upon delivery.', 'woocommerce' ),
+				'description' => __( 'Payment method description that the customer will see on your website.', 'poocommerce' ),
+				'default'     => __( 'Pay with cash upon delivery.', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'instructions'       => array(
-				'title'       => __( 'Instructions', 'woocommerce' ),
+				'title'       => __( 'Instructions', 'poocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'Instructions that will be added to the thank you page.', 'woocommerce' ),
-				'default'     => __( 'Pay with cash upon delivery.', 'woocommerce' ),
+				'description' => __( 'Instructions that will be added to the thank you page.', 'poocommerce' ),
+				'default'     => __( 'Pay with cash upon delivery.', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'enable_for_methods' => array(
-				'title'             => __( 'Enable for shipping methods', 'woocommerce' ),
+				'title'             => __( 'Enable for shipping methods', 'poocommerce' ),
 				'type'              => 'multiselect',
 				'class'             => 'wc-enhanced-select',
 				'css'               => 'width: 400px;',
 				'default'           => '',
-				'description'       => __( 'If COD is only available for certain methods, set it up here. Leave blank to enable for all methods.', 'woocommerce' ),
+				'description'       => __( 'If COD is only available for certain methods, set it up here. Leave blank to enable for all methods.', 'poocommerce' ),
 				'options'           => $this->load_shipping_method_options(),
 				'desc_tip'          => true,
 				'custom_attributes' => array(
-					'data-placeholder' => __( 'Select shipping methods', 'woocommerce' ),
+					'data-placeholder' => __( 'Select shipping methods', 'poocommerce' ),
 				),
 			),
 			'enable_for_virtual' => array(
-				'title'   => __( 'Accept for virtual orders', 'woocommerce' ),
-				'label'   => __( 'Accept COD if the order is virtual', 'woocommerce' ),
+				'title'   => __( 'Accept for virtual orders', 'poocommerce' ),
+				'label'   => __( 'Accept COD if the order is virtual', 'poocommerce' ),
 				'type'    => 'checkbox',
 				'default' => 'yes',
 			),
@@ -256,7 +256,7 @@ class WC_Gateway_COD extends WC_Payment_Gateway {
 			$options[ $method->get_method_title() ] = array();
 
 			// Translators: %1$s shipping method name.
-			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'woocommerce' ), $method->get_method_title() );
+			$options[ $method->get_method_title() ][ $method->id ] = sprintf( __( 'Any &quot;%1$s&quot; method', 'poocommerce' ), $method->get_method_title() );
 
 			foreach ( $zones as $zone ) {
 
@@ -271,10 +271,10 @@ class WC_Gateway_COD extends WC_Payment_Gateway {
 					$option_id = $shipping_method_instance->get_rate_id();
 
 					// Translators: %1$s shipping method title, %2$s shipping method id.
-					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'woocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
+					$option_instance_title = sprintf( __( '%1$s (#%2$s)', 'poocommerce' ), $shipping_method_instance->get_title(), $shipping_method_instance_id );
 
 					// Translators: %1$s zone name, %2$s shipping method instance name.
-					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'woocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'woocommerce' ), $option_instance_title );
+					$option_title = sprintf( __( '%1$s &ndash; %2$s', 'poocommerce' ), $zone->get_id() ? $zone->get_zone_name() : __( 'Other locations', 'poocommerce' ), $option_instance_title );
 
 					$options[ $method->get_method_title() ][ $option_id ] = $option_title;
 				}
@@ -314,9 +314,9 @@ class WC_Gateway_COD extends WC_Payment_Gateway {
 			 *
 			 * @param string $order_status Default status for COD orders.
 			 */
-			$process_payment_status = apply_filters( 'woocommerce_cod_process_payment_order_status', $order->has_downloadable_item() ? OrderStatus::ON_HOLD : OrderStatus::PROCESSING, $order );
+			$process_payment_status = apply_filters( 'poocommerce_cod_process_payment_order_status', $order->has_downloadable_item() ? OrderStatus::ON_HOLD : OrderStatus::PROCESSING, $order );
 			// Mark as processing or on-hold (payment won't be taken until delivery).
-			$order->update_status( $process_payment_status, __( 'Payment to be made upon delivery.', 'woocommerce' ) );
+			$order->update_status( $process_payment_status, __( 'Payment to be made upon delivery.', 'poocommerce' ) );
 		} else {
 			$order->payment_complete();
 		}

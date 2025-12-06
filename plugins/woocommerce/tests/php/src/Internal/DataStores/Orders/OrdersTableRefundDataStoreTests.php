@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Orders;
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableRefundDataStore;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\PostsToOrdersMigrationController;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableRefundDataStore;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
 use WC_Order_Refund;
 use WC_Order_Refund_Data_Store_CPT;
 
@@ -14,7 +14,7 @@ use WC_Order_Refund_Data_Store_CPT;
  * Class OrdersTableRefundDataStoreTests.
  */
 class OrdersTableRefundDataStoreTests extends \WC_Unit_Test_Case {
-	use \Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+	use \Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 	/**
 	 * @var PostsToOrdersMigrationController
@@ -281,7 +281,7 @@ class OrdersTableRefundDataStoreTests extends \WC_Unit_Test_Case {
 			$hook_called_count[ current_action() ] = ( $hook_called_count[ current_action() ] ?? 0 ) + 1;
 		};
 
-		add_action( 'woocommerce_create_refund', $callback );
+		add_action( 'poocommerce_create_refund', $callback );
 
 		$order  = OrderHelper::create_order();
 		$refund = wc_create_refund(
@@ -292,18 +292,18 @@ class OrdersTableRefundDataStoreTests extends \WC_Unit_Test_Case {
 			)
 		);
 
-		add_action( 'woocommerce_update_order_refund', $callback );
+		add_action( 'poocommerce_update_order_refund', $callback );
 		$refund->set_reason( 'Some reason' );
 		$refund->save();
 
 		$refund->add_meta_data( 'foo', 'bar' );
 		$refund->save();
 
-		remove_action( 'woocommerce_create_refund', $callback );
-		remove_action( 'woocommerce_update_order_refund', $callback );
+		remove_action( 'poocommerce_create_refund', $callback );
+		remove_action( 'poocommerce_update_order_refund', $callback );
 
-		$this->assertEquals( 1, $hook_called_count['woocommerce_create_refund'] );
-		$this->assertEquals( 2, $hook_called_count['woocommerce_update_order_refund'] );
+		$this->assertEquals( 1, $hook_called_count['poocommerce_create_refund'] );
+		$this->assertEquals( 2, $hook_called_count['poocommerce_update_order_refund'] );
 	}
 
 }

@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore - Ignoring because `__experimentalUnitControl` is not yet in the type definitions.
-	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis, @woocommerce/dependency-group
+	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis, @poocommerce/dependency-group
 	__experimentalUnitControl as UnitControl,
 	SelectControl,
 	PanelBody,
@@ -29,47 +29,47 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 	const aspectRatioOptions = [
 		{
 			value: '',
-			label: __( 'Select Aspect Ratio', 'woocommerce' ),
+			label: __( 'Select Aspect Ratio', 'poocommerce' ),
 			disabled: true,
 		},
 		{
 			value: 'auto',
-			label: __( 'Auto', 'woocommerce' ),
+			label: __( 'Auto', 'poocommerce' ),
 		},
 		{
 			value: '1',
-			label: __( 'Square - 1:1', 'woocommerce' ),
+			label: __( 'Square - 1:1', 'poocommerce' ),
 		},
 		{
 			value: '4/3',
-			label: __( 'Standard - 4:3', 'woocommerce' ),
+			label: __( 'Standard - 4:3', 'poocommerce' ),
 		},
 		{
 			value: '3/4',
-			label: __( 'Portrait - 3:4', 'woocommerce' ),
+			label: __( 'Portrait - 3:4', 'poocommerce' ),
 		},
 		{
 			value: '3/2',
-			label: __( 'Classic - 3:2', 'woocommerce' ),
+			label: __( 'Classic - 3:2', 'poocommerce' ),
 		},
 		{
 			value: '2/3',
-			label: __( 'Classic Portrait - 2:3', 'woocommerce' ),
+			label: __( 'Classic Portrait - 2:3', 'poocommerce' ),
 		},
 		{
 			value: '16/9',
-			label: __( 'Wide - 16:9', 'woocommerce' ),
+			label: __( 'Wide - 16:9', 'poocommerce' ),
 		},
 		{
 			value: '9/16',
-			label: __( 'Tall - 9:16', 'woocommerce' ),
+			label: __( 'Tall - 9:16', 'poocommerce' ),
 		},
 	];
 
 	return (
 		<PanelBody>
 			<UnitControl
-				label={ __( 'Thumbnail Size', 'woocommerce' ) }
+				label={ __( 'Thumbnail Size', 'poocommerce' ) }
 				value={ thumbnailSize }
 				onChange={ ( value: string | undefined ) => {
 					const numberValue = Number(
@@ -91,7 +91,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 				__next40pxDefaultSize
 				help={ __(
 					'Choose the size of each thumbnail in respect to the product image. If thumbnails container size gets bigger than the product image, thumbnails will turn to slider.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<SelectControl
@@ -99,7 +99,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 				multiple={ false }
 				value={ aspectRatio }
 				options={ aspectRatioOptions }
-				label={ __( 'Aspect Ratio', 'woocommerce' ) }
+				label={ __( 'Aspect Ratio', 'poocommerce' ) }
 				onChange={ ( value ) => {
 					setAttributes( {
 						aspectRatio: value,
@@ -107,7 +107,7 @@ export const ProductGalleryThumbnailsBlockSettings = ( {
 				} }
 				help={ __(
 					'Applies the selected aspect ratio to product thumbnails.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 		</PanelBody>

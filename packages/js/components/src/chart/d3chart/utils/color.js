@@ -19,10 +19,10 @@ export const getColor = ( orderedKeys, colorScheme ) => ( key ) => {
 	/**
 	 * Color to be used for a chart item.
 	 *
-	 * @filter woocommerce_admin_chart_item_color
+	 * @filter poocommerce_admin_chart_item_color
 	 * @example
 	 * addFilter(
-	 * 	'woocommerce_admin_chart_item_color',
+	 * 	'poocommerce_admin_chart_item_color',
 	 * 	'example',
 	 * ( idx ) => {
 	 * 	const colorScales = [
@@ -36,7 +36,7 @@ export const getColor = ( orderedKeys, colorScheme ) => ( key ) => {
 	 *
 	 */
 	const color = applyFilters(
-		'woocommerce_admin_chart_item_color',
+		'poocommerce_admin_chart_item_color',
 		idx,
 		key,
 		orderedKeys

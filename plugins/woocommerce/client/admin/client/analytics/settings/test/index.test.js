@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { useSettings } from '@woocommerce/data';
+import { useSettings } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -11,11 +11,11 @@ import Settings from '../index';
 import { IMMEDIATE_IMPORT_SETTING_NAME } from '../config';
 
 // Mock dependencies.
-jest.mock( '@woocommerce/data', () => ( {
+jest.mock( '@poocommerce/data', () => ( {
 	useSettings: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -26,8 +26,8 @@ window.wcAdminFeatures = {
 
 jest.mock( '../config', () => ( {
 	config: {
-		woocommerce_analytics_immediate_import: {
-			name: 'woocommerce_analytics_immediate_import',
+		poocommerce_analytics_immediate_import: {
+			name: 'poocommerce_analytics_immediate_import',
 			label: 'Updates:',
 			inputType: 'radio',
 			options: [
@@ -45,7 +45,7 @@ jest.mock( '../config', () => ( {
 			defaultValue: 'no',
 		},
 	},
-	IMMEDIATE_IMPORT_SETTING_NAME: 'woocommerce_analytics_immediate_import',
+	IMMEDIATE_IMPORT_SETTING_NAME: 'poocommerce_analytics_immediate_import',
 } ) );
 
 jest.mock( '../historical-data', () => ( {
@@ -168,7 +168,7 @@ describe( 'Settings - Import Mode Modal', () => {
 
 		// Setting should be updated.
 		expect( mockUpdateSettings ).toHaveBeenCalledWith( 'wcAdminSettings', {
-			woocommerce_analytics_immediate_import: 'yes',
+			poocommerce_analytics_immediate_import: 'yes',
 		} );
 	} );
 
@@ -182,7 +182,7 @@ describe( 'Settings - Import Mode Modal', () => {
 			updateAndPersistSettings: jest.fn(),
 			updateSettings: mockUpdateSettings,
 			wcAdminSettings: {
-				woocommerce_analytics_immediate_import: 'yes',
+				poocommerce_analytics_immediate_import: 'yes',
 			},
 		} );
 
@@ -199,7 +199,7 @@ describe( 'Settings - Import Mode Modal', () => {
 
 		// Setting should be updated immediately.
 		expect( mockUpdateSettings ).toHaveBeenCalledWith( 'wcAdminSettings', {
-			woocommerce_analytics_immediate_import: 'no',
+			poocommerce_analytics_immediate_import: 'no',
 		} );
 	} );
 } );

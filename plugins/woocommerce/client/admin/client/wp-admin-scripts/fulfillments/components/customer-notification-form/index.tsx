@@ -23,23 +23,23 @@ export default function CustomerNotificationBox( {
 	const { notifyCustomer, setNotifyCustomer } = useFulfillmentContext();
 
 	const headerStrings = {
-		fulfill: __( 'Fulfillment notification', 'woocommerce' ),
-		remove: __( 'Removal update', 'woocommerce' ),
-		update: __( 'Update notification', 'woocommerce' ),
+		fulfill: __( 'Fulfillment notification', 'poocommerce' ),
+		remove: __( 'Removal update', 'poocommerce' ),
+		update: __( 'Update notification', 'poocommerce' ),
 	};
 
 	const contentStrings = {
 		fulfill: __(
 			'Automatically send an email to the customer when the selected items are fulfilled.',
-			'woocommerce'
+			'poocommerce'
 		),
 		remove: __(
 			'Automatically send an email to the customer notifying that the fulfillment is cancelled.',
-			'woocommerce'
+			'poocommerce'
 		),
 		update: __(
 			'Automatically send an email to the customer when the fulfillment is updated.',
-			'woocommerce'
+			'poocommerce'
 		),
 	};
 
@@ -63,7 +63,7 @@ export default function CustomerNotificationBox( {
 				</>
 			}
 		>
-			<p className="woocommerce-fulfillment-description">
+			<p className="poocommerce-fulfillment-description">
 				{ contentStrings[ type ] || contentStrings.fulfill }
 			</p>
 		</FulfillmentCard>

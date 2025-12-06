@@ -1,9 +1,9 @@
 <?php
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Tests\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Tests\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\SettingsController as StockNotificationsSettings;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\SettingsController as StockNotificationsSettings;
 use WC_Settings_Products;
 
 /**
@@ -27,11 +27,11 @@ class SettingsControllerTests extends \WC_Settings_Unit_Test_Case {
 
 		$expected = array(
 			'product_customer_stock_notifications_options' => array( 'title', 'sectionend' ),
-			'woocommerce_customer_stock_notifications_allow_signups' => 'checkbox',
-			'woocommerce_customer_stock_notifications_require_double_opt_in' => 'checkbox',
-			'woocommerce_customer_stock_notifications_require_account' => 'checkbox',
-			'woocommerce_customer_stock_notifications_create_account_on_signup' => 'checkbox',
-			'woocommerce_customer_stock_notifications_unverified_deletions_days_threshold' => 'number',
+			'poocommerce_customer_stock_notifications_allow_signups' => 'checkbox',
+			'poocommerce_customer_stock_notifications_require_double_opt_in' => 'checkbox',
+			'poocommerce_customer_stock_notifications_require_account' => 'checkbox',
+			'poocommerce_customer_stock_notifications_create_account_on_signup' => 'checkbox',
+			'poocommerce_customer_stock_notifications_unverified_deletions_days_threshold' => 'number',
 		);
 
 		$this->assertEquals( $expected, $setting_ids_and_types );

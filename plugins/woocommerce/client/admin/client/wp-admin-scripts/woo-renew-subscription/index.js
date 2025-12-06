@@ -2,11 +2,11 @@
  * External dependencies
  */
 import domReady from '@wordpress/dom-ready';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 domReady( () => {
 	const renewSubscriptionLink = document.querySelectorAll(
-		'.woocommerce-renew-subscription'
+		'.poocommerce-renew-subscription'
 	);
 
 	if ( renewSubscriptionLink.length > 0 ) {

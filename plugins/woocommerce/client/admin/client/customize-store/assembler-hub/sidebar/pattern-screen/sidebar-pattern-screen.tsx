@@ -7,14 +7,14 @@ import { useSelect } from '@wordpress/data';
 import { BlockInstance } from '@wordpress/blocks';
 import { close } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
 import { capitalize } from 'lodash';
 import { Button, Spinner } from '@wordpress/components';
 import { store as coreStore } from '@wordpress/core-data';
 // @ts-expect-error No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useIsSiteEditorLoading } from '@wordpress/edit-site/build-module/components/layout/hooks';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error No types for this exist yet.
 	__experimentalBlockPatternsList as BlockPatternList,
@@ -56,9 +56,9 @@ export const SidebarPatternScreen = ( { category }: { category: string } ) => {
 			patternsWithoutThemePatterns.map( ( pattern ) => {
 				if (
 					pattern.name !==
-						'woocommerce-blocks/just-arrived-full-hero' &&
+						'poocommerce-blocks/just-arrived-full-hero' &&
 					pattern.name !==
-						'woocommerce-blocks/featured-category-cover-image'
+						'poocommerce-blocks/featured-category-cover-image'
 				) {
 					return pattern;
 				}
@@ -134,7 +134,7 @@ export const SidebarPatternScreen = ( { category }: { category: string } ) => {
 		} );
 
 		const previewPatternList = document.querySelector(
-			'.woocommerce-customize-store-edit-site-layout__sidebar-extra__pattern .block-editor-block-patterns-list'
+			'.poocommerce-customize-store-edit-site-layout__sidebar-extra__pattern .block-editor-block-patterns-list'
 		);
 
 		if ( previewPatternList ) {
@@ -156,7 +156,7 @@ export const SidebarPatternScreen = ( { category }: { category: string } ) => {
 			return;
 		}
 		const iframe = window.document.querySelector(
-			'.woocommerce-customize-store-assembler > iframe[name="editor-canvas"]'
+			'.poocommerce-customize-store-assembler > iframe[name="editor-canvas"]'
 		) as HTMLIFrameElement;
 
 		const blockList = iframe?.contentWindow?.document.body.querySelector(
@@ -190,7 +190,7 @@ export const SidebarPatternScreen = ( { category }: { category: string } ) => {
 
 	return (
 		<div
-			className="woocommerce-customize-store-edit-site-layout__sidebar-extra__pattern"
+			className="poocommerce-customize-store-edit-site-layout__sidebar-extra__pattern"
 			onScroll={ ( event ) => {
 				const element = event.target as HTMLElement;
 				const scrollTop = element.scrollTop;
@@ -202,7 +202,7 @@ export const SidebarPatternScreen = ( { category }: { category: string } ) => {
 				}
 			} }
 		>
-			<div className="woocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__header">
+			<div className="poocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__header">
 				<h1>
 					{ capitalize(
 						PATTERN_CATEGORIES[
@@ -224,10 +224,10 @@ export const SidebarPatternScreen = ( { category }: { category: string } ) => {
 					} }
 					iconSize={ 18 }
 					icon={ close }
-					label={ __( 'Close', 'woocommerce' ) }
+					label={ __( 'Close', 'poocommerce' ) }
 				/>
 			</div>
-			<div className="woocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__description">
+			<div className="poocommerce-customize-store-edit-site-layout__sidebar-extra__pattern__description">
 				<span>
 					{
 						PATTERN_CATEGORIES[
