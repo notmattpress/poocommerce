@@ -2,7 +2,7 @@
 /**
  * Class WC_Gateway_Paypal_Buttons file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
@@ -25,7 +25,7 @@ class WC_Gateway_Paypal_Buttons {
 	 *
 	 * @var string
 	 */
-	private const CLIENT_ID_OPTION = 'woocommerce_paypal_client_id';
+	private const CLIENT_ID_OPTION = 'poocommerce_paypal_client_id';
 
 
 	/**
@@ -90,7 +90,7 @@ class WC_Gateway_Paypal_Buttons {
 			'components'      => 'buttons,funding-eligibility,messages',
 			'disable-funding' => 'card,applepay',
 			'enable-funding'  => 'venmo,paylater',
-			'currency'        => get_woocommerce_currency(),
+			'currency'        => get_poocommerce_currency(),
 			'intent'          => $intent,
 			'merchant-id'     => $this->gateway->email,
 		);
@@ -127,7 +127,7 @@ class WC_Gateway_Paypal_Buttons {
 	 */
 	public function get_page_type() {
 		$page_type = 'checkout';
-		if ( is_cart() || has_block( 'woocommerce/cart' ) ) {
+		if ( is_cart() || has_block( 'poocommerce/cart' ) ) {
 			$page_type = 'cart';
 		} elseif ( is_product() ) {
 			$page_type = 'product-details';

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { ProductVariation } from '@woocommerce/data';
+import { ProductVariation } from '@poocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';

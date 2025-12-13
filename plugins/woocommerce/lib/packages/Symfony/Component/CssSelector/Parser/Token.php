@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser;
 
 /**
  * CSS selector token.

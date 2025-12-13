@@ -4,7 +4,7 @@
  *
  * All functionality pertaining to regenerating product images in realtime.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.5.0
  * @since   3.3.0
  */
@@ -43,13 +43,13 @@ class WC_Regenerate_Images {
 			return;
 		}
 
-		if ( apply_filters( 'woocommerce_background_image_regeneration', true ) ) {
+		if ( apply_filters( 'poocommerce_background_image_regeneration', true ) ) {
 			include_once WC_ABSPATH . 'includes/class-wc-regenerate-images-request.php';
 
 			self::$background_process = new WC_Regenerate_Images_Request();
 
 			add_action( 'admin_init', array( __CLASS__, 'regenerating_notice' ) );
-			add_action( 'woocommerce_hide_regenerating_thumbnails_notice', array( __CLASS__, 'dismiss_regenerating_notice' ) );
+			add_action( 'poocommerce_hide_regenerating_thumbnails_notice', array( __CLASS__, 'dismiss_regenerating_notice' ) );
 
 			// Regenerate thumbnails in the background after settings changes. Not ran on multisite to avoid multiple simultaneous jobs.
 			if ( ! is_multisite() ) {
@@ -68,7 +68,7 @@ class WC_Regenerate_Images {
 	 * @return array
 	 */
 	public static function filter_image_get_intermediate_size( $data, $attachment_id, $size ) {
-		if ( ! is_string( $size ) || ! in_array( $size, apply_filters( 'woocommerce_image_sizes_to_resize', array( 'woocommerce_thumbnail', 'woocommerce_gallery_thumbnail', 'woocommerce_single' ) ), true ) ) {
+		if ( ! is_string( $size ) || ! in_array( $size, apply_filters( 'poocommerce_image_sizes_to_resize', array( 'poocommerce_thumbnail', 'poocommerce_gallery_thumbnail', 'poocommerce_single' ) ), true ) ) {
 			return $data;
 		}
 
@@ -98,9 +98,9 @@ class WC_Regenerate_Images {
 	 * @return array
 	 */
 	public static function add_uncropped_metadata( $meta_data ) {
-		$size_data = wc_get_image_size( 'woocommerce_thumbnail' );
-		if ( isset( $meta_data['sizes'], $meta_data['sizes']['woocommerce_thumbnail'] ) ) {
-			$meta_data['sizes']['woocommerce_thumbnail']['uncropped'] = empty( $size_data['height'] );
+		$size_data = wc_get_image_size( 'poocommerce_thumbnail' );
+		if ( isset( $meta_data['sizes'], $meta_data['sizes']['poocommerce_thumbnail'] ) ) {
+			$meta_data['sizes']['poocommerce_thumbnail']['uncropped'] = empty( $size_data['height'] );
 		}
 		return $meta_data;
 	}
@@ -158,7 +158,7 @@ class WC_Regenerate_Images {
 
 			$log = wc_get_logger();
 			$log->info(
-				__( 'Cancelled product image regeneration job.', 'woocommerce' ),
+				__( 'Cancelled product image regeneration job.', 'poocommerce' ),
 				array(
 					'source' => 'wc-image-regeneration',
 				)
@@ -183,7 +183,7 @@ class WC_Regenerate_Images {
 			)
 		);
 
-		if ( update_option( 'woocommerce_maybe_regenerate_images_hash', $size_hash ) ) {
+		if ( update_option( 'poocommerce_maybe_regenerate_images_hash', $size_hash ) ) {
 			// Size settings have changed. Trigger regen.
 			self::queue_image_regeneration();
 		}
@@ -199,12 +199,12 @@ class WC_Regenerate_Images {
 	 * @return array
 	 */
 	public static function maybe_resize_image( $image, $attachment_id, $size, $icon ) {
-		if ( ! apply_filters( 'woocommerce_resize_images', true ) ) {
+		if ( ! apply_filters( 'poocommerce_resize_images', true ) ) {
 			return $image;
 		}
 
 		// List of sizes we want to resize. Ignore others.
-		if ( ! $image || ! in_array( $size, apply_filters( 'woocommerce_image_sizes_to_resize', array( 'woocommerce_thumbnail', 'woocommerce_gallery_thumbnail', 'woocommerce_single' ) ), true ) ) {
+		if ( ! $image || ! in_array( $size, apply_filters( 'poocommerce_image_sizes_to_resize', array( 'poocommerce_thumbnail', 'poocommerce_gallery_thumbnail', 'poocommerce_single' ) ), true ) ) {
 			return $image;
 		}
 

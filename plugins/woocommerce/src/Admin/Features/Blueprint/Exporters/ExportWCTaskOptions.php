@@ -2,33 +2,33 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\Exporters\HasAlias;
-use Automattic\WooCommerce\Blueprint\Exporters\StepExporter;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Exporters\HasAlias;
+use Automattic\PooCommerce\Blueprint\Exporters\StepExporter;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
 
 /**
  * Class ExportWCTaskOptions
  *
- * This class exports WooCommerce task options.
+ * This class exports PooCommerce task options.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCTaskOptions implements StepExporter, HasAlias {
 	use UseWPFunctions;
 
 	/**
-	 * Export WooCommerce task options.
+	 * Export PooCommerce task options.
 	 *
 	 * @return SetSiteOptions
 	 */
 	public function export() {
 		return new SetSiteOptions(
 			array(
-				'woocommerce_admin_customize_store_completed' => $this->wp_get_option( 'woocommerce_admin_customize_store_completed', 'no' ),
-				'woocommerce_task_list_tracked_completed_actions' => $this->wp_get_option( 'woocommerce_task_list_tracked_completed_actions', array() ),
+				'poocommerce_admin_customize_store_completed' => $this->wp_get_option( 'poocommerce_admin_customize_store_completed', 'no' ),
+				'poocommerce_task_list_tracked_completed_actions' => $this->wp_get_option( 'poocommerce_task_list_tracked_completed_actions', array() ),
 			)
 		);
 	}
@@ -57,7 +57,7 @@ class ExportWCTaskOptions implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Task Configurations', 'woocommerce' );
+		return __( 'Task Configurations', 'poocommerce' );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class ExportWCTaskOptions implements StepExporter, HasAlias {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes the task configurations for WooCommerce.', 'woocommerce' );
+		return __( 'Includes the task configurations for PooCommerce.', 'poocommerce' );
 	}
 
 	/**
@@ -75,6 +75,6 @@ class ExportWCTaskOptions implements StepExporter, HasAlias {
 	 * @return bool True if the user has the required capabilities. False otherwise.
 	 */
 	public function check_step_capabilities(): bool {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 }

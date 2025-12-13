@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\Tax;
+namespace Automattic\PooCommerce\Tests\Internal\RestApi\Routes\V4\Settings\Tax;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Controller;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Schema\TaxSettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Controller;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Tax\Schema\TaxSettingsSchema;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -86,7 +86,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_prices_include_tax' => 'yes',
+						'poocommerce_prices_include_tax' => 'yes',
 					),
 				)
 			)
@@ -130,7 +130,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_tax_settings_success() {
 		// Arrange.
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
 
 		// Act.
 		$request = new WP_REST_Request( 'PUT', self::ENDPOINT );
@@ -138,7 +138,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_prices_include_tax' => 'yes',
+						'poocommerce_prices_include_tax' => 'yes',
 					),
 				)
 			)
@@ -161,15 +161,15 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 
 		// Verify that the setting was updated.
 		$this->assertArrayHasKey(
-			'woocommerce_prices_include_tax',
+			'poocommerce_prices_include_tax',
 			$data['values'],
-			'Expected setting "woocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
+			'Expected setting "poocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
 		);
-		$this->assertSame( 'yes', $data['values']['woocommerce_prices_include_tax'] );
-		$this->assertSame( 'yes', get_option( 'woocommerce_prices_include_tax' ) );
+		$this->assertSame( 'yes', $data['values']['poocommerce_prices_include_tax'] );
+		$this->assertSame( 'yes', get_option( 'poocommerce_prices_include_tax' ) );
 
 		// Reset to original value.
-		update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+		update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 	}
 
 	/**
@@ -177,8 +177,8 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_multiple_tax_settings() {
 		// Arrange.
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
-		$original_tax_based_on       = get_option( 'woocommerce_tax_based_on', 'shipping' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
+		$original_tax_based_on       = get_option( 'poocommerce_tax_based_on', 'shipping' );
 
 		// Act.
 		$request = new WP_REST_Request( 'PUT', self::ENDPOINT );
@@ -186,8 +186,8 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_prices_include_tax' => 'yes',
-						'woocommerce_tax_based_on'       => 'billing',
+						'poocommerce_prices_include_tax' => 'yes',
+						'poocommerce_tax_based_on'       => 'billing',
 					),
 				)
 			)
@@ -210,25 +210,25 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 
 		// Verify both settings were updated.
 		$this->assertArrayHasKey(
-			'woocommerce_prices_include_tax',
+			'poocommerce_prices_include_tax',
 			$data['values'],
-			'Expected setting "woocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
+			'Expected setting "poocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
 		);
 		$this->assertArrayHasKey(
-			'woocommerce_tax_based_on',
+			'poocommerce_tax_based_on',
 			$data['values'],
-			'Expected setting "woocommerce_tax_based_on" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
+			'Expected setting "poocommerce_tax_based_on" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
 		);
-		$this->assertSame( 'yes', $data['values']['woocommerce_prices_include_tax'] );
-		$this->assertSame( 'billing', $data['values']['woocommerce_tax_based_on'] );
+		$this->assertSame( 'yes', $data['values']['poocommerce_prices_include_tax'] );
+		$this->assertSame( 'billing', $data['values']['poocommerce_tax_based_on'] );
 
 		// Verify in the database.
-		$this->assertSame( 'yes', get_option( 'woocommerce_prices_include_tax' ) );
-		$this->assertSame( 'billing', get_option( 'woocommerce_tax_based_on' ) );
+		$this->assertSame( 'yes', get_option( 'poocommerce_prices_include_tax' ) );
+		$this->assertSame( 'billing', get_option( 'poocommerce_tax_based_on' ) );
 
 		// Reset to original values.
-		update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
-		update_option( 'woocommerce_tax_based_on', $original_tax_based_on );
+		update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
+		update_option( 'poocommerce_tax_based_on', $original_tax_based_on );
 	}
 
 	/**
@@ -236,14 +236,14 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_tax_settings_old_format() {
 		// Arrange.
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
 
 		// Act - Use old format without 'values' wrapper.
 		$request = new WP_REST_Request( 'PUT', self::ENDPOINT );
 		$request->set_body(
 			wp_json_encode(
 				array(
-					'woocommerce_prices_include_tax' => 'yes',
+					'poocommerce_prices_include_tax' => 'yes',
 				)
 			)
 		);
@@ -265,15 +265,15 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 
 		// Verify the setting was updated.
 		$this->assertArrayHasKey(
-			'woocommerce_prices_include_tax',
+			'poocommerce_prices_include_tax',
 			$data['values'],
-			'Expected setting "woocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
+			'Expected setting "poocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
 		);
-		$this->assertSame( 'yes', $data['values']['woocommerce_prices_include_tax'] );
-		$this->assertSame( 'yes', get_option( 'woocommerce_prices_include_tax' ) );
+		$this->assertSame( 'yes', $data['values']['poocommerce_prices_include_tax'] );
+		$this->assertSame( 'yes', get_option( 'poocommerce_prices_include_tax' ) );
 
 		// Reset to original value.
-		update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+		update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 	}
 
 	/**
@@ -286,7 +286,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_prices_include_tax' => 'invalid_value',
+						'poocommerce_prices_include_tax' => 'invalid_value',
 					),
 				)
 			)
@@ -350,7 +350,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_tax_based_on' => 'invalid_base',
+						'poocommerce_tax_based_on' => 'invalid_base',
 					),
 				)
 			)
@@ -365,7 +365,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertStringContainsString( 'invalid_param', $data['code'] );
 		// The error message format changed to be more generic based on setting options.
 		$this->assertStringContainsString( 'Invalid value for', $data['message'] );
-		$this->assertStringContainsString( 'woocommerce_tax_based_on', $data['message'] );
+		$this->assertStringContainsString( 'poocommerce_tax_based_on', $data['message'] );
 	}
 
 	/**
@@ -373,7 +373,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_tax_settings_accepts_post() {
 		// Arrange.
-		$original_prices_include_tax = get_option( 'woocommerce_prices_include_tax', 'no' );
+		$original_prices_include_tax = get_option( 'poocommerce_prices_include_tax', 'no' );
 
 		// Act.
 		$request = new WP_REST_Request( 'POST', self::ENDPOINT );
@@ -381,7 +381,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_prices_include_tax' => 'yes',
+						'poocommerce_prices_include_tax' => 'yes',
 					),
 				)
 			)
@@ -404,15 +404,15 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 
 		// Verify that the setting was updated.
 		$this->assertArrayHasKey(
-			'woocommerce_prices_include_tax',
+			'poocommerce_prices_include_tax',
 			$data['values'],
-			'Expected setting "woocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
+			'Expected setting "poocommerce_prices_include_tax" not found in response values. Available keys: ' . implode( ', ', array_keys( $data['values'] ) )
 		);
-		$this->assertSame( 'yes', $data['values']['woocommerce_prices_include_tax'] );
-		$this->assertSame( 'yes', get_option( 'woocommerce_prices_include_tax' ) );
+		$this->assertSame( 'yes', $data['values']['poocommerce_prices_include_tax'] );
+		$this->assertSame( 'yes', get_option( 'poocommerce_prices_include_tax' ) );
 
 		// Reset to original value.
-		update_option( 'woocommerce_prices_include_tax', $original_prices_include_tax );
+		update_option( 'poocommerce_prices_include_tax', $original_prices_include_tax );
 	}
 
 	/**
@@ -425,7 +425,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_prices_include_tax' => 'invalid_value',
+						'poocommerce_prices_include_tax' => 'invalid_value',
 					),
 				)
 			)
@@ -489,7 +489,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 			wp_json_encode(
 				array(
 					'values' => array(
-						'woocommerce_tax_based_on' => 'invalid_base',
+						'poocommerce_tax_based_on' => 'invalid_base',
 					),
 				)
 			)
@@ -504,7 +504,7 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertStringContainsString( 'invalid_param', $data['code'] );
 		// The error message format changed to be more generic based on setting options.
 		$this->assertStringContainsString( 'Invalid value for', $data['message'] );
-		$this->assertStringContainsString( 'woocommerce_tax_based_on', $data['message'] );
+		$this->assertStringContainsString( 'poocommerce_tax_based_on', $data['message'] );
 	}
 
 	/**
@@ -512,11 +512,11 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_update_tax_settings_sanitizes_malicious_payloads() {
 		// Arrange.
-		$original_suffix = get_option( 'woocommerce_price_display_suffix', '' );
+		$original_suffix = get_option( 'poocommerce_price_display_suffix', '' );
 
 		// Test data with various malicious payloads using a text field that accepts any input.
 		$malicious_payloads = array(
-			'woocommerce_price_display_suffix' => '<script>alert("xss")</script> {price_including_tax} javascript:alert("xss") \' OR \'1\'=\'1 <img src=x onerror=alert("xss")>',
+			'poocommerce_price_display_suffix' => '<script>alert("xss")</script> {price_including_tax} javascript:alert("xss") \' OR \'1\'=\'1 <img src=x onerror=alert("xss")>',
 		);
 
 		// Act.
@@ -610,6 +610,6 @@ class TaxControllerTest extends WC_REST_Unit_Test_Case {
 		}
 
 		// Reset to original value.
-		update_option( 'woocommerce_price_display_suffix', $original_suffix );
+		update_option( 'poocommerce_price_display_suffix', $original_suffix );
 	}
 }

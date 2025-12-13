@@ -13,9 +13,9 @@ To conduct these tests, please set up the following coupons:
 
 ## Test cases
 
-To execute the following test cases, you will need to toggle the coupon functionality. You can enable or disable coupons via `WP Admin » WooCommerce » Settings » General » Enable coupons`:
+To execute the following test cases, you will need to toggle the coupon functionality. You can enable or disable coupons via `WP Admin » PooCommerce » Settings » General » Enable coupons`:
 
-<img width="650" alt="Screenshot 2023-09-27 at 21 26 30" src="https://github.com/woocommerce/woocommerce-blocks/assets/3323310/b79cbc87-0609-4306-90a0-e6666f738433">
+<img width="650" alt="Screenshot 2023-09-27 at 21 26 30" src="https://github.com/poocommerce/poocommerce-blocks/assets/3323310/b79cbc87-0609-4306-90a0-e6666f738433">
 
 ### With coupons disabled
 

@@ -4,11 +4,11 @@
 
 $fixed-section-height: 224px;
 
-.wp-block-woocommerce-product-downloads-field {
+.wp-block-poocommerce-product-downloads-field {
 	&__body {
 		position: relative;
 
-		.woocommerce-media-uploader .woocommerce-media-uploader__label {
+		.poocommerce-media-uploader .poocommerce-media-uploader__label {
 			margin-bottom: 0;
 		}
 	}
@@ -30,7 +30,7 @@ $fixed-section-height: 224px;
 			border-bottom: 1px solid $gray-200;
 		}
 
-		.woocommerce-sortable__handle {
+		.poocommerce-sortable__handle {
 			display: none;
 		}
 	}

@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 
 
 /**
@@ -49,20 +49,20 @@ class ProductCategorySchema extends TermSchema {
 	public function get_properties() {
 		$schema                 = parent::get_properties();
 		$schema['image']        = [
-			'description' => __( 'Category image.', 'woocommerce' ),
+			'description' => __( 'Category image.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => [ 'view', 'edit', 'embed' ],
 			'readonly'    => true,
 			'properties'  => $this->image_attachment_schema->get_properties(),
 		];
 		$schema['review_count'] = [
-			'description' => __( 'Number of reviews for products in this category.', 'woocommerce' ),
+			'description' => __( 'Number of reviews for products in this category.', 'poocommerce' ),
 			'type'        => 'integer',
 			'context'     => [ 'view', 'edit' ],
 			'readonly'    => true,
 		];
 		$schema['permalink']    = [
-			'description' => __( 'Category URL.', 'woocommerce' ),
+			'description' => __( 'Category URL.', 'poocommerce' ),
 			'type'        => 'string',
 			'format'      => 'uri',
 			'context'     => [ 'view', 'edit', 'embed' ],

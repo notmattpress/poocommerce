@@ -2,7 +2,7 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.0.0](https://www.npmjs.com/package/@woocommerce/currency/v/5.0.0) - 2025-10-27 
+## [5.0.0](https://www.npmjs.com/package/@poocommerce/currency/v/5.0.0) - 2025-10-27 
 
 -   Patch - Adding dependency to avoid invalid types reference in external plugins. [#52969]
 -   Patch - Unformat Shipping Method numeric values before persisting data to the server. [#54181]
@@ -27,7 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Decode HTML entities in the currency config symbol. [#50726]
 -   Minor - Fix typos in inline documentation [#48640]
 
-## [4.3.0](https://www.npmjs.com/package/@woocommerce/currency/v/4.3.0) - 2024-06-11 
+## [4.3.0](https://www.npmjs.com/package/@poocommerce/currency/v/4.3.0) - 2024-06-11 
 
 -   Minor - Adding currencyContext component. [#36959]
 -   Minor - Bump node version. [#45148]
@@ -48,14 +48,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 -   Patch - Update events that should trigger the test job(s) [#47612]
 -   Patch - Update pnpm to 9.1.0 [#47385]
 
-## [4.2.0](https://www.npmjs.com/package/@woocommerce/currency/v/4.2.0) - 2022-07-08 
+## [4.2.0](https://www.npmjs.com/package/@poocommerce/currency/v/4.2.0) - 2022-07-08 
 
 -   Minor - Remove PHP and Composer dependencies for packaged JS packages
 
-## [4.1.0](https://www.npmjs.com/package/@woocommerce/currency/v/4.1.0) - 2022-06-14 
+## [4.1.0](https://www.npmjs.com/package/@poocommerce/currency/v/4.1.0) - 2022-06-14 
 
 -   Minor - Add Jetpack Changelogger
--   Patch - Migrate @woocommerce/currency to TS
+-   Patch - Migrate @poocommerce/currency to TS
 -   Patch - Standardize lint scripts: add lint:fix
 
-[See legacy changelogs for previous versions](https://github.com/woocommerce/woocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/currency/CHANGELOG.md).
+[See legacy changelogs for previous versions](https://github.com/poocommerce/poocommerce/blob/68581955106947918d2b17607a01bdfdf22288a9/packages/js/currency/CHANGELOG.md).

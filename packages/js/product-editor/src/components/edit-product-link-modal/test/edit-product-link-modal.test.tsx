@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render } from '@testing-library/react';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import userEvent from '@testing-library/user-event';
 import { createElement } from '@wordpress/element';
 

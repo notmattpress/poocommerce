@@ -4,16 +4,16 @@
  *
  * Handles requests to the /settings/email endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Email;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Email;
 
 use WP_Error;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Email\Schema\EmailSettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Email\Schema\EmailSettingsSchema;
 use WC_Settings_Emails;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -120,7 +120,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to access email settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to access email settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -137,7 +137,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'edit' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to edit email settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to edit email settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -155,7 +155,7 @@ class Controller extends AbstractController {
 			$settings = $this->get_all_settings();
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_email_settings_error',
+				'poocommerce_rest_email_settings_error',
 				$e->getMessage(),
 				array( 'status' => 500 )
 			);
@@ -177,7 +177,7 @@ class Controller extends AbstractController {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -208,9 +208,9 @@ class Controller extends AbstractController {
 		$validated_settings = array();
 
 		// Get reply_to_enabled for validation context.
-		$reply_to_enabled = get_option( 'woocommerce_email_reply_to_enabled', 'no' );
-		if ( isset( $values_to_update['woocommerce_email_reply_to_enabled'] ) ) {
-			$reply_to_enabled = wc_bool_to_string( $values_to_update['woocommerce_email_reply_to_enabled'] );
+		$reply_to_enabled = get_option( 'poocommerce_email_reply_to_enabled', 'no' );
+		if ( isset( $values_to_update['poocommerce_email_reply_to_enabled'] ) ) {
+			$reply_to_enabled = wc_bool_to_string( $values_to_update['poocommerce_email_reply_to_enabled'] );
 		}
 
 		// Process each setting in the payload.
@@ -218,7 +218,7 @@ class Controller extends AbstractController {
 			// Sanitize the setting ID.
 			$setting_id = sanitize_text_field( $setting_id );
 
-			// Security check: only allow updating valid WooCommerce email settings.
+			// Security check: only allow updating valid PooCommerce email settings.
 			if ( ! in_array( $setting_id, $valid_setting_ids, true ) ) {
 				continue;
 			}
@@ -250,13 +250,13 @@ class Controller extends AbstractController {
 		// Log the update if settings were changed.
 		if ( ! empty( $updated_settings ) ) {
 			/**
-			 * Fires when WooCommerce settings are updated.
+			 * Fires when PooCommerce settings are updated.
 			 *
 			 * @param array $updated_settings Array of updated settings IDs.
 			 * @param string $rest_base The REST base of the settings.
 			 * @since 4.0.0
 			 */
-			do_action( 'woocommerce_settings_updated', $updated_settings, $this->rest_base );
+			do_action( 'poocommerce_settings_updated', $updated_settings, $this->rest_base );
 		}
 
 		// Get all settings after update.
@@ -278,27 +278,27 @@ class Controller extends AbstractController {
 	private function validate_setting_value( $setting_id, $value, $reply_to_enabled ) {
 		$check_reply_to = 'yes' === $reply_to_enabled;
 		switch ( $setting_id ) {
-			case 'woocommerce_email_from_name':
+			case 'poocommerce_email_from_name':
 				if ( empty( $value ) || ! is_string( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Email sender name cannot be empty.', 'woocommerce' ),
+						__( 'Email sender name cannot be empty.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_from_address':
+			case 'poocommerce_email_from_address':
 				if ( empty( $value ) || ! is_email( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Please enter a valid email address.', 'woocommerce' ),
+						__( 'Please enter a valid email address.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_reply_to_enabled':
+			case 'poocommerce_email_reply_to_enabled':
 				// Convert string 'true'/'false' to boolean if needed.
 				if ( is_string( $value ) ) {
 					$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
@@ -306,29 +306,29 @@ class Controller extends AbstractController {
 				if ( ! is_bool( $value ) && null !== $value ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Reply-to enabled must be a boolean value.', 'woocommerce' ),
+						__( 'Reply-to enabled must be a boolean value.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_reply_to_name':
+			case 'poocommerce_email_reply_to_name':
 				// Only validate if reply-to is enabled.
 				if ( $check_reply_to && ( empty( $value ) || ! is_string( $value ) ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Reply-to name cannot be empty when reply-to is enabled.', 'woocommerce' ),
+						__( 'Reply-to name cannot be empty when reply-to is enabled.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_email_reply_to_address':
+			case 'poocommerce_email_reply_to_address':
 				// Only validate if reply-to is enabled.
 				if ( $check_reply_to && ( empty( $value ) || ! is_email( $value ) ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Please enter a valid reply-to email address.', 'woocommerce' ),
+						__( 'Please enter a valid reply-to email address.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}

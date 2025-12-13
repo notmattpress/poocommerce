@@ -7,10 +7,10 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 use WC_Admin_Settings;
-use Automattic\WooCommerce\Admin\Features\Settings\Init;
+use Automattic\PooCommerce\Admin\Features\Settings\Init;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,7 +61,7 @@ class Settings extends \WC_REST_Data_Controller {
 	 * @return WP_Error|boolean
 	 */
 	public function save_items_permissions_check( $request ) {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 
 	/**
@@ -76,8 +76,8 @@ class Settings extends \WC_REST_Data_Controller {
 		// Verify nonce.
 		if ( ! check_ajax_referer( 'wp_rest', false, false ) ) {
 			return new \WP_Error(
-				'woocommerce_settings_invalid_nonce',
-				__( 'Invalid nonce.', 'woocommerce' ),
+				'poocommerce_settings_invalid_nonce',
+				__( 'Invalid nonce.', 'poocommerce' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -90,8 +90,8 @@ class Settings extends \WC_REST_Data_Controller {
 			$current_section = empty( $params['section'] ) ? '' : sanitize_title( wp_unslash( $params['section'] ) ); // WPCS: input var okay, CSRF ok.
 
 			$filter_name = '' === $current_section ?
-			"woocommerce_save_settings_{$current_tab}" :
-			"woocommerce_save_settings_{$current_tab}_{$current_section}";
+			"poocommerce_save_settings_{$current_tab}" :
+			"poocommerce_save_settings_{$current_tab}_{$current_section}";
 
 			/**
 			 * Filters whether to save settings.
@@ -122,9 +122,9 @@ class Settings extends \WC_REST_Data_Controller {
 			);
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
-				'woocommerce_settings_save_error',
+				'poocommerce_settings_save_error',
 				// translators: %s: error message.
-				sprintf( __( 'Failed to save settings: %s', 'woocommerce' ), $e->getMessage() ),
+				sprintf( __( 'Failed to save settings: %s', 'poocommerce' ), $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -143,19 +143,19 @@ class Settings extends \WC_REST_Data_Controller {
 			'properties' => array(
 				'options' => array(
 					'type'        => 'array',
-					'description' => __( 'Array of options with associated values.', 'woocommerce' ),
+					'description' => __( 'Array of options with associated values.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'tab'     => array(
 					'type'        => 'string',
-					'description' => __( 'Settings tab.', 'woocommerce' ),
+					'description' => __( 'Settings tab.', 'poocommerce' ),
 					'context'     => array( 'view', 'edit' ),
 					'default'     => 'general',
 				),
 				'section' => array(
 					'type'        => 'string',
-					'description' => __( 'Settings section.', 'woocommerce' ),
+					'description' => __( 'Settings section.', 'poocommerce' ),
 					'context'     => array( 'view', 'edit' ),
 					'default'     => '',
 				),

@@ -3,9 +3,9 @@
 
 .wc-block-add-to-cart-form {
 	/**
-	* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+	* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 	*
-	* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+	* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 	*/
 	.input-text {
 		font-size: var(--wp--preset--font-size--small);
@@ -16,7 +16,7 @@
 /*
  * Set the layout of the add-to-cart form to a grid.
  */
-.wp-block-woocommerce-add-to-cart-form {
+.wp-block-poocommerce-add-to-cart-form {
 	width: unset;
 	.variations_button,
 	form.cart {
@@ -58,7 +58,7 @@
 
 	.quantity {
 		margin-right: 4px;
-		// WooCommerce core styles: https://github.com/woocommerce/woocommerce/blob/c9f62609155825cd817976c7611b9b0415e90f2f/plugins/woocommerce/client/legacy/css/woocommerce.scss/#L111-L112
+		// PooCommerce core styles: https://github.com/poocommerce/poocommerce/blob/c9f62609155825cd817976c7611b9b0415e90f2f/plugins/poocommerce/client/legacy/css/poocommerce.scss/#L111-L112
 		.qty {
 			box-sizing: content-box;
 			width: 3.631em;
@@ -81,7 +81,7 @@ div.wc-block-add-to-cart-form.wc-block-add-to-cart-form--stepper {
 	}
 
 	// Grouped Product
-	table.woocommerce-grouped-product-list.group_table > tbody {
+	table.poocommerce-grouped-product-list.group_table > tbody {
 		td .wc-block-components-quantity-selector {
 			input.input-text.qty.text {
 				min-width: 60px;
@@ -89,15 +89,15 @@ div.wc-block-add-to-cart-form.wc-block-add-to-cart-form--stepper {
 		}
 
 		// Grouped Product
-		td.woocommerce-grouped-product-list-item__label,
-		td.woocommerce-grouped-product-list-item__price {
+		td.poocommerce-grouped-product-list-item__label,
+		td.poocommerce-grouped-product-list-item__price {
 			vertical-align: middle;
 		}
 	}
 
 	// Product Variation
-	.woocommerce-variation-add-to-cart.variations_button.woocommerce-variation-add-to-cart-enabled,
-	.woocommerce-variation-add-to-cart.variations_button.woocommerce-variation-add-to-cart-disabled {
+	.poocommerce-variation-add-to-cart.variations_button.poocommerce-variation-add-to-cart-enabled,
+	.poocommerce-variation-add-to-cart.variations_button.poocommerce-variation-add-to-cart-disabled {
 		.wc-block-components-quantity-selector {
 			height: unset;
 		}
@@ -121,9 +121,9 @@ div.wc-block-add-to-cart-form.wc-block-add-to-cart-form--stepper {
 			order: 2;
 			margin: 0;
 			/**
-			* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+			* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 			*
-			* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+			* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 			*/
 			padding: 0.9rem 0;
 			margin-right: unset;
@@ -133,7 +133,7 @@ div.wc-block-add-to-cart-form.wc-block-add-to-cart-form--stepper {
 }
 
 // Inner of Single Product Block
-.wp-block-woocommerce-single-product {
+.wp-block-poocommerce-single-product {
 	.wc-block-add-to-cart-form.wc-block-add-to-cart-form--stepper {
 		.wc-block-components-quantity-selector {
 			width: 107px;
@@ -142,12 +142,12 @@ div.wc-block-add-to-cart-form.wc-block-add-to-cart-form--stepper {
 }
 
 // Express payment button spacing
-:where(.wp-block-woocommerce-add-to-cart-form > * + *) {
+:where(.wp-block-poocommerce-add-to-cart-form > * + *) {
 	margin-top: 12px;
 	padding: 0 4px;
 }
 
-// WooCommerce Payments has its own spacing already.
-:where(.wp-block-woocommerce-add-to-cart-form .wcpay-express-checkout-wrapper) {
+// PooCommerce Payments has its own spacing already.
+:where(.wp-block-poocommerce-add-to-cart-form .wcpay-express-checkout-wrapper) {
 	padding: 0;
 }
