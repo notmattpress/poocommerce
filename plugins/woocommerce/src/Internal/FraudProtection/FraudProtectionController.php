@@ -5,10 +5,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -78,7 +78,7 @@ class FraudProtectionController implements RegisterHooksInterface {
 	 * Log helper method for consistent logging across all fraud protection components.
 	 *
 	 * This static method ensures all fraud protection logs are written with
-	 * the same 'woo-fraud-protection' source for easy filtering in WooCommerce logs.
+	 * the same 'woo-fraud-protection' source for easy filtering in PooCommerce logs.
 	 *
 	 * @param string $level   Log level (emergency, alert, critical, error, warning, notice, info, debug).
 	 * @param string $message Log message.

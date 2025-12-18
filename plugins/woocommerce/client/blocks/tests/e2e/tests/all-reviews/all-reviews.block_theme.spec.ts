@@ -1,14 +1,14 @@
 /**
  * External dependencies
  */
-import { expect, test } from '@woocommerce/e2e-utils';
+import { expect, test } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
  */
 import { allReviews } from '../../test-data/data/data';
 
-const BLOCK_NAME = 'woocommerce/all-reviews';
+const BLOCK_NAME = 'poocommerce/all-reviews';
 
 const latestReview = allReviews[ allReviews.length - 1 ];
 

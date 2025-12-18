@@ -11,9 +11,9 @@ import {
 } from '@wordpress/element';
 import { addQueryArgs } from '@wordpress/url';
 import { useDebounce } from '@wordpress/compose';
-import { TreeSelectControl } from '@woocommerce/components';
-import { getSetting } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { TreeSelectControl } from '@poocommerce/components';
+import { getSetting } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -77,7 +77,7 @@ async function getTreeItems( filter: string ) {
 			new URL( 'admin-ajax.php', getSetting( 'adminUrl' ) ).toString(),
 			{
 				term: filter,
-				action: 'woocommerce_json_search_categories_tree',
+				action: 'poocommerce_json_search_categories_tree',
 				// eslint-disable-next-line no-undef, camelcase
 				security:
 					wc_product_category_metabox_params.search_categories_nonce,
@@ -164,7 +164,7 @@ export const AllCategoryList = forwardRef<
 					} }
 					selectAllLabel={ false }
 					onInputChange={ setFilter }
-					placeholder={ __( 'Add category', 'woocommerce' ) }
+					placeholder={ __( 'Add category', 'poocommerce' ) }
 					includeParent={ true }
 					minFilterQueryLength={ 2 }
 					clearOnSelect={ false }
@@ -198,7 +198,7 @@ export const AllCategoryList = forwardRef<
 							<span className="screen-reader-text">
 								{ sprintf(
 									/* translators: %s: category name */
-									__( 'Remove term: %s', 'woocommerce' ),
+									__( 'Remove term: %s', 'poocommerce' ),
 									selectedCategory.name
 								) }
 							</span>

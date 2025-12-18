@@ -6,23 +6,23 @@ import { createElement } from '@wordpress/element';
 export function LoadingState() {
 	return (
 		<div
-			className="woocommerce-product-header is-loading"
+			className="poocommerce-product-header is-loading"
 			aria-hidden="true"
 		>
-			<div className="woocommerce-product-header__inner">
+			<div className="poocommerce-product-header__inner">
 				<div />
 
-				<div className="woocommerce-product-header__title" />
+				<div className="poocommerce-product-header__title" />
 
-				<div className="woocommerce-product-header__actions">
-					<div className="woocommerce-product-header__action" />
-					<div className="woocommerce-product-header__action" />
-					<div className="woocommerce-product-header__action" />
-					<div className="woocommerce-product-header__action" />
+				<div className="poocommerce-product-header__actions">
+					<div className="poocommerce-product-header__action" />
+					<div className="poocommerce-product-header__action" />
+					<div className="poocommerce-product-header__action" />
+					<div className="poocommerce-product-header__action" />
 				</div>
 			</div>
 
-			<div className="woocommerce-product-tabs">
+			<div className="poocommerce-product-tabs">
 				{ Array( 7 )
 					.fill( 0 )
 					.map( ( _, index ) => (

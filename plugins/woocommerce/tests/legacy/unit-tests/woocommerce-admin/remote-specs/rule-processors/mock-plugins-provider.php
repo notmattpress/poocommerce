@@ -2,12 +2,12 @@
 /**
  * Mock plugins Provider.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\PluginsProvider\PluginsProviderInterface;
+use Automattic\PooCommerce\Admin\PluginsProvider\PluginsProviderInterface;
 
 /**
  * Mock plugins Provider.
@@ -57,7 +57,7 @@ class MockPluginsProvider implements PluginsProviderInterface {
 	/**
 	 * Get the path to the plugin file relative to the plugins directory from the plugin slug.
 	 *
-	 * E.g. 'woocommerce' returns 'woocommerce/woocommerce.php'
+	 * E.g. 'poocommerce' returns 'poocommerce/poocommerce.php'
 	 *
 	 * @param string $slug Plugin slug to get path for.
 	 *

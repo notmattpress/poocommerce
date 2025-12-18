@@ -3,8 +3,8 @@
  */
 import { createContext, useContext, useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { pluginsStore } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
+import { pluginsStore } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ export const SetUpPaymentsProvider: React.FC< {
 		( select ) =>
 			select( pluginsStore )
 				.getActivePlugins()
-				.includes( 'woocommerce-payments' ),
+				.includes( 'poocommerce-payments' ),
 		[]
 	);
 
@@ -48,7 +48,7 @@ export const SetUpPaymentsProvider: React.FC< {
 		( select ) =>
 			select( pluginsStore )
 				.getInstalledPlugins()
-				.includes( 'woocommerce-payments' ),
+				.includes( 'poocommerce-payments' ),
 		[]
 	);
 

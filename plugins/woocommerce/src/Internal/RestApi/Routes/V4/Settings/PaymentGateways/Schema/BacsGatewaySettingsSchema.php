@@ -2,12 +2,12 @@
 /**
  * BacsGatewaySettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 	 */
 	protected function get_special_field_values( WC_Payment_Gateway $gateway ): array {
 		return array(
-			'account_details' => get_option( 'woocommerce_bacs_accounts', array() ),
+			'account_details' => get_option( 'poocommerce_bacs_accounts', array() ),
 		);
 	}
 
@@ -47,9 +47,9 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		return array(
 			array(
 				'id'    => 'account_details',
-				'label' => $field['title'] ?? __( 'Account details', 'woocommerce' ),
+				'label' => $field['title'] ?? __( 'Account details', 'poocommerce' ),
 				'type'  => 'array',
-				'desc'  => $field['description'] ?? __( 'Bank account details for direct bank transfer.', 'woocommerce' ),
+				'desc'  => $field['description'] ?? __( 'Bank account details for direct bank transfer.', 'poocommerce' ),
 			),
 		);
 	}
@@ -96,7 +96,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 	public function update_special_fields( WC_Payment_Gateway $gateway, array $values ): void {
 		foreach ( $values as $field_id => $value ) {
 			if ( 'account_details' === $field_id ) {
-				update_option( 'woocommerce_bacs_accounts', $value );
+				update_option( 'poocommerce_bacs_accounts', $value );
 			}
 		}
 	}
@@ -111,7 +111,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 		if ( ! is_array( $value ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Account details must be an array.', 'woocommerce' ),
+				__( 'Account details must be an array.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -125,7 +125,7 @@ class BacsGatewaySettingsSchema extends AbstractPaymentGatewaySettingsSchema {
 					'rest_invalid_param',
 					sprintf(
 						/* translators: %d: account index */
-						__( 'Account at index %d must be an object.', 'woocommerce' ),
+						__( 'Account at index %d must be an object.', 'poocommerce' ),
 						$index
 					),
 					array( 'status' => 400 )

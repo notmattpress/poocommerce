@@ -22,11 +22,11 @@ export function EditorSnackbars( { context = 'email-editor' } ) {
 	const globalNoticeChangeMap = useMemo( () => {
 		return {
 			'site-editor-save-success': {
-				content: __( 'Email design updated.', 'woocommerce' ),
+				content: __( 'Email design updated.', 'poocommerce' ),
 				removeActions: true,
 			},
 			'editor-save': {
-				content: __( 'Email saved.', 'woocommerce' ),
+				content: __( 'Email saved.', 'poocommerce' ),
 				removeActions: false,
 				contentCheck: ( notice ) => {
 					// eslint-disable-next-line @wordpress/i18n-text-domain

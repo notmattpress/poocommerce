@@ -8,11 +8,11 @@ sidebar_position: 2
 
 ## Recommended software
 
-There are some specific software requirements you will need to consider when developing WooCommerce extensions. The necessary software includes:
+There are some specific software requirements you will need to consider when developing PooCommerce extensions. The necessary software includes:
 
 * [Git](https://git-scm.com/) for version control of your source code  
 * [Node.js](https://nodejs.org/) and [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) to manage node-based scripts and build processes  
-* [Pnpm](https://pnpm.io/) is an npm alternative required if you are building WooCommerce from the repository  
+* [Pnpm](https://pnpm.io/) is an npm alternative required if you are building PooCommerce from the repository  
 * [Composer](https://getcomposer.org/) is an optional dependency management tool for PHP-based development  
 * [WP-CLI](http://wp-cli.org/) is the command line interface for WordPress
 
@@ -30,7 +30,7 @@ For easy local development environments, we recommend [WordPress Studio](https:/
 
 ### wp-env
 
-[wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) is a command-line utility maintained by the WordPress community that allows you to set up and run custom WordPress environments with [Docker](https://www.docker.com/) and JSON manifests. The repository includes a `.wp-env.json` file specifically for contributing to WooCommerce core.
+[wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) is a command-line utility maintained by the WordPress community that allows you to set up and run custom WordPress environments with [Docker](https://www.docker.com/) and JSON manifests. The repository includes a `.wp-env.json` file specifically for contributing to PooCommerce core.
 
 ### General PHP-based web stack tools
 
@@ -46,34 +46,34 @@ Below is a collection of tools to help you manage your environment that are not 
 
 ### Minimum server requirements
 
-Regardless of the tool you choose for managing your development environment, you should make sure it [meets the server recommendations](https://woocommerce.com/document/server-requirements/?utm_source=wooextdevguide) for WooCommerce as well as the [requirements for running WordPress](https://wordpress.org/about/requirements/).
+Regardless of the tool you choose for managing your development environment, you should make sure it [meets the server recommendations](https://poocommerce.com/document/server-requirements/?utm_source=wooextdevguide) for PooCommerce as well as the [requirements for running WordPress](https://wordpress.org/about/requirements/).
 
-## Add WooCommerce Core to your environment
+## Add PooCommerce Core to your environment
 
-When developing for WooCommerce, it's helpful to install a development version of WooCommerce Core.
+When developing for PooCommerce, it's helpful to install a development version of PooCommerce Core.
 
-### Option 1: WooCommerce Beta Tester
+### Option 1: PooCommerce Beta Tester
 
-If installing WooCommerce through the traditional WordPress dashboard, you can also install the [WooCommerce Beta Tester](/docs/contribution/testing/beta-testing) extension to change the version, including access to upcoming betas and release candidates. The WooCommerce Beta tester is available through the [Woo Marketplace](https://woocommerce.com/marketplace). 
+If installing PooCommerce through the traditional WordPress dashboard, you can also install the [PooCommerce Beta Tester](/docs/contribution/testing/beta-testing) extension to change the version, including access to upcoming betas and release candidates. The PooCommerce Beta tester is available through the [Woo Marketplace](https://poocommerce.com/marketplace). 
 
-### Option 2: Clone the WooCommerce Core repository
+### Option 2: Clone the PooCommerce Core repository
 
-You can also work directly against the `trunk` or upcoming release branch of WooCommerce Core in your development environment by:
+You can also work directly against the `trunk` or upcoming release branch of PooCommerce Core in your development environment by:
 
-1. Cloning the WooCommerce Core repository.  
+1. Cloning the PooCommerce Core repository.  
 2. Installing and activating the required Node version and PNPM.  
-3. Installing WooCommerce’s dependencies.  
-4. Building WooCommerce.  
-5. Symlinking the `plugin/woocommerce` directory to your `wp-content/plugins` directory
+3. Installing PooCommerce’s dependencies.  
+4. Building PooCommerce.  
+5. Symlinking the `plugin/poocommerce` directory to your `wp-content/plugins` directory
 
-#### Clone the WooCommerce Core repository
+#### Clone the PooCommerce Core repository
 
-You can clone the WooCommerce Core repository locally using the following CLI command:
+You can clone the PooCommerce Core repository locally using the following CLI command:
 
 ```shell
 cd /your/server/wp-content/plugins
-git clone https://github.com/woocommerce/woocommerce.git
-cd woocommerce
+git clone https://github.com/poocommerce/poocommerce.git
+cd poocommerce
 ```
 
 #### Install and activate Node
@@ -88,36 +88,36 @@ You can learn more about how to install and utilize nvm in [the nvm GitHub repos
 
 #### Install dependencies
 
-To install WooCommerce dependencies, use the following CLI command:
+To install PooCommerce dependencies, use the following CLI command:
 
 ```shell
 pnpm install --frozen-lockfile
 ```
 
-#### Build WooCommerce
+#### Build PooCommerce
 
-Use the following CLI command to compile the JavaScript and CSS that WooCommerce needs to operate:
+Use the following CLI command to compile the JavaScript and CSS that PooCommerce needs to operate:
 
 ```shell
 pnpm build
 ```
 
-Note: If you try to run WooCommerce on your server without generating the compiled assets, you may experience errors and other unwanted side-effects.
+Note: If you try to run PooCommerce on your server without generating the compiled assets, you may experience errors and other unwanted side-effects.
 
-#### Symlink the WooCommerce plugin 
+#### Symlink the PooCommerce plugin 
 
-To load the WooCommerce plugin into your local development environment, you can create a symbolic link from the WooCommerce plugin in your cloned repository to your local WordPress development environment.
+To load the PooCommerce plugin into your local development environment, you can create a symbolic link from the PooCommerce plugin in your cloned repository to your local WordPress development environment.
 
 ```shell
-ln -s woocommerce/plugins/woocommerce /path-to-local/wp-content/plugins
+ln -s poocommerce/plugins/poocommerce /path-to-local/wp-content/plugins
 ```
 
-#### Generating a `woocommerce.zip` asset
+#### Generating a `poocommerce.zip` asset
 
-Alternatively, you can generate a `woocommerce.zip` file with the following command:
+Alternatively, you can generate a `poocommerce.zip` file with the following command:
 
 ```shell
 pnpm build:zip
 ```
 
-A `woocommerce.zip` file may be helpful if you’d like to upload a modified version of WooCommerce to a separate test environment.
+A `poocommerce.zip` file may be helpful if you’d like to upload a modified version of PooCommerce to a separate test environment.

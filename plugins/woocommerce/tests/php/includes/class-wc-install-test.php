@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 /**
  * Class WC_Install_Test.
@@ -89,12 +89,12 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	 */
 	public function test_plugin_row_meta() {
 		// Simulate connection break.
-		delete_option( 'woocommerce_helper_data' );
+		delete_option( 'poocommerce_helper_data' );
 		$plugin_row_data = \WC_Install::plugin_row_meta( array(), WC_PLUGIN_BASENAME );
 
 		$this->assertNotContains( 'premium_support', array_keys( $plugin_row_data ) );
 
-		update_option( 'woocommerce_helper_data', array( 'auth' => 'random token' ) );
+		update_option( 'poocommerce_helper_data', array( 'auth' => 'random token' ) );
 		$plugin_row_data = \WC_Install::plugin_row_meta( array(), WC_PLUGIN_BASENAME );
 		$this->assertContains( 'premium_support', array_keys( $plugin_row_data ) );
 	}
@@ -211,8 +211,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		};
 
 		// Make it straightforward to test different values for our key variables.
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 		add_filter( 'wp_count_posts', $supply_post_count );
 
 		$this->assertTrue( WC_Install::is_new_install(), 'We are in a new install if the WC version is null.' );
@@ -239,8 +239,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertFalse( $counted_posts, 'For established stores (version and shop ID both set), we do not need to count the number of existing products.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_db_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'option_poocommerce_db_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 		remove_filter( 'wp_count_posts', $supply_post_count );
 	}
 
@@ -256,10 +256,10 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 	 * @param bool|null $auto_update Whether to enable auto-updates (TRUE) or not. NULL means use the defaults.
 	 */
 	public function test_db_auto_updates( ?bool $auto_update = null ): void {
-		$options = array( 'woocommerce_db_version', 'woocommerce_version' );
+		$options = array( 'poocommerce_db_version', 'poocommerce_version' );
 
 		if ( ! is_null( $auto_update ) ) {
-			add_filter( 'woocommerce_enable_auto_update_db', fn() => $auto_update );
+			add_filter( 'poocommerce_enable_auto_update_db', fn() => $auto_update );
 		}
 
 		foreach ( $options as $option_name ) {
@@ -270,7 +270,7 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		\WC_Install::check_version();
 
 		// Did we schedule anything automatically?
-		$update_scheduled = ! is_null( WC()->queue()->get_next( 'woocommerce_run_update_callback', null, 'woocommerce-db-updates' ) );
+		$update_scheduled = ! is_null( WC()->queue()->get_next( 'poocommerce_run_update_callback', null, 'poocommerce-db-updates' ) );
 
 		if ( $auto_update || is_null( $auto_update ) ) {
 			$this->assertTrue( $update_scheduled );
@@ -323,9 +323,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return 'yes';
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		add_filter( 'pre_option_woocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'pre_option_poocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
 
 		// Verify that is_new_install returns true.
 		$this->assertTrue( WC_Install::is_new_install(), 'is_new_install should return true for testing new installation.' );
@@ -343,9 +343,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'KEY fulfillment_status (fulfillment_status),', $schema, 'Schema should include fulfillment_status index for new installations.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		remove_filter( 'pre_option_woocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'pre_option_poocommerce_feature_fulfillments_enabled', $supply_feature_enabled );
 	}
 
 	/**
@@ -366,8 +366,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return $shop_id;
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 
 		// Verify that is_new_install returns true.
 		$this->assertTrue( WC_Install::is_new_install(), 'is_new_install should return true for testing new installation.' );
@@ -385,8 +385,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'KEY fulfillment_status (fulfillment_status),', $schema, 'Schema should NOT include fulfillment_status index for new installations without fulfillments feature enabled.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 	}
 
 	/**
@@ -407,15 +407,15 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return $shop_id;
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 
 		// Mock has_fulfillment_status_column to return false (column does not exist).
 		$supply_column_status = function () {
 			return 'no';
 		};
 
-		add_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		add_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 
 		// Verify that is_new_install returns false.
 		$this->assertFalse( WC_Install::is_new_install(), 'is_new_install should return false for testing existing installation.' );
@@ -430,9 +430,9 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'fulfillment_status', $schema, 'Schema should NOT include fulfillment_status column for existing installations without the column.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		remove_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 	}
 
 	/**
@@ -453,15 +453,15 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 			return $shop_id;
 		};
 
-		add_filter( 'option_woocommerce_version', $supply_version );
-		add_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
+		add_filter( 'option_poocommerce_version', $supply_version );
+		add_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
 
 		// Mock has_fulfillment_status_column to return true (column exists).
 		$supply_column_status = function () {
 			return 'yes';
 		};
 
-		add_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		add_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 
 		// Verify that is_new_install returns false.
 		$this->assertFalse( WC_Install::is_new_install(), 'is_new_install should return false for testing existing installation.' );
@@ -476,8 +476,8 @@ class WC_Install_Test extends \WC_Unit_Test_Case {
 		$this->assertStringContainsString( 'fulfillment_status', $schema, 'Schema should include fulfillment_status column for existing installations that already have the column.' );
 
 		// Cleanup.
-		remove_filter( 'option_woocommerce_version', $supply_version );
-		remove_filter( 'woocommerce_get_shop_page_id', $supply_shop_id );
-		remove_filter( 'pre_option_' . \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
+		remove_filter( 'option_poocommerce_version', $supply_version );
+		remove_filter( 'poocommerce_get_shop_page_id', $supply_shop_id );
+		remove_filter( 'pre_option_' . \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS, $supply_column_status );
 	}
 }

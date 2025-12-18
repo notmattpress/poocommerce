@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Gateway_Paypal_Request class.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 declare(strict_types=1);

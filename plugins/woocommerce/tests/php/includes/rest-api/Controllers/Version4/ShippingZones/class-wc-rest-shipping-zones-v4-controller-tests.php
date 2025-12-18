@@ -2,14 +2,14 @@
 /**
  * Shipping Zones V4 Controller tests.
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones\Controller as ShippingZonesController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneService;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones\Controller as ShippingZonesController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneService;
 
 /**
  * Shipping Zones V4 Controller tests class.
@@ -42,7 +42,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -55,7 +55,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;
@@ -386,7 +386,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 			}
 			return $permission;
 		};
-		add_filter( 'woocommerce_rest_check_permissions', $filter_callback, 10, 4 );
+		add_filter( 'poocommerce_rest_check_permissions', $filter_callback, 10, 4 );
 
 		$request = new WP_REST_Request( 'DELETE', '/wc/v4/shipping-zones/1' );
 		$result  = $this->endpoint->check_permissions( $request );
@@ -394,7 +394,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 		// Should be denied because delete permission is blocked.
 		$this->assertInstanceOf( WP_Error::class, $result );
 
-		remove_filter( 'woocommerce_rest_check_permissions', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_check_permissions', $filter_callback, 10 );
 	}
 
 	/**
@@ -408,7 +408,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 			}
 			return $permission;
 		};
-		add_filter( 'woocommerce_rest_check_permissions', $filter_callback, 10, 4 );
+		add_filter( 'poocommerce_rest_check_permissions', $filter_callback, 10, 4 );
 
 		$request = new WP_REST_Request( 'GET', '/wc/v4/shipping-zones' );
 		$result  = $this->endpoint->check_permissions( $request );
@@ -416,7 +416,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 		// Should be denied because read permission is blocked.
 		$this->assertInstanceOf( WP_Error::class, $result );
 
-		remove_filter( 'woocommerce_rest_check_permissions', $filter_callback, 10 );
+		remove_filter( 'poocommerce_rest_check_permissions', $filter_callback, 10 );
 	}
 
 	/**
@@ -568,8 +568,8 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 		$zone->add_location( 'US:NY', 'state' );
 
 		// Test the location formatting directly since we can't easily inject
-		// malformed data without triggering core WooCommerce handling.
-		$schema = new \Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneSchema();
+		// malformed data without triggering core PooCommerce handling.
+		$schema = new \Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneSchema();
 
 		// Use reflection to test the protected method.
 		$reflection = new \ReflectionClass( $schema );
@@ -616,7 +616,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
 		$this->assertArrayHasKey( 'message', $data );
 		$this->assertEquals( 'Shipping is disabled.', $data['message'] );
 
@@ -711,7 +711,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_invalid_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_invalid_id', $data['code'] );
 		$this->assertArrayHasKey( 'message', $data );
 		$this->assertEquals( 'Invalid resource ID.', $data['message'] );
 	}
@@ -733,7 +733,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
 		$this->assertArrayHasKey( 'message', $data );
 		$this->assertEquals( 'Shipping is disabled.', $data['message'] );
 
@@ -1073,7 +1073,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 503, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
 
 		// Re-enable shipping.
 		remove_filter( 'wc_shipping_enabled', '__return_false' );
@@ -1232,7 +1232,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_invalid_zone_name', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_zone_name', $data['code'] );
 		$this->assertEquals( 'Zone name cannot be empty.', $data['message'] );
 	}
 
@@ -1253,7 +1253,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_invalid_zone_name', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_zone_name', $data['code'] );
 	}
 
 	/**
@@ -1272,7 +1272,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit_zone', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit_zone', $data['code'] );
 		$this->assertEquals( 'Cannot change name of "Rest of the World" zone.', $data['message'] );
 	}
 
@@ -1297,7 +1297,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit_zone', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit_zone', $data['code'] );
 		$this->assertEquals( 'Cannot change locations of "Rest of the World" zone.', $data['message'] );
 	}
 
@@ -1317,7 +1317,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit_zone', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit_zone', $data['code'] );
 		$this->assertEquals( 'Cannot change order of "Rest of the World" zone.', $data['message'] );
 	}
 
@@ -1340,7 +1340,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 400, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_invalid_zone_name', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_zone_name', $data['code'] );
 		$this->assertEquals( 'Zone name cannot be empty.', $data['message'] );
 	}
 
@@ -1477,7 +1477,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 404, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_invalid_zone_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_invalid_zone_id', $data['code'] );
 		$this->assertEquals( 'Invalid shipping zone ID.', $data['message'] );
 	}
 
@@ -1575,7 +1575,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 404, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_invalid_zone_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_invalid_zone_id', $data['code'] );
 		$this->assertEquals( 'Invalid shipping zone ID.', $data['message'] );
 	}
 
@@ -1643,7 +1643,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 404, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_invalid_zone_id', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_invalid_zone_id', $data['code'] );
 	}
 
 	/**
@@ -1675,7 +1675,7 @@ class WC_REST_Shipping_Zones_V4_Controller_Tests extends WC_REST_Unit_Test_Case 
 
 		$this->assertEquals( 503, $response->get_status() );
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertEquals( 'woocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_api_v4_shipping_zones_disabled', $data['code'] );
 
 		// Re-enable shipping.
 		remove_filter( 'wc_shipping_enabled', '__return_false' );

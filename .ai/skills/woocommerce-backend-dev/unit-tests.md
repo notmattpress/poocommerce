@@ -8,7 +8,7 @@
 - [Comments in Tests](#comments-in-tests)
 - [Test Configuration](#test-configuration)
 - [Example: Payment Extension Suggestions Tests](#example-payment-extension-suggestions-tests)
-- [Mocking the WooCommerce Logger](#mocking-the-woocommerce-logger)
+- [Mocking the PooCommerce Logger](#mocking-the-poocommerce-logger)
 - [General Testing Best Practices](#general-testing-best-practices)
 
 ## Test File Naming and Location
@@ -228,9 +228,9 @@ When working with payment extension suggestions:
 3. **Tests are separated by merchant type** (online vs offline) as they have different extension counts
 4. **Data providers use descriptive keys** (country names) for better test output
 
-## Mocking the WooCommerce Logger
+## Mocking the PooCommerce Logger
 
-When testing code that uses `wc_get_logger()` (directly or via `SafeGlobalFunctionProxy::wc_get_logger()`), use the `woocommerce_logging_class` filter to inject a fake logger.
+When testing code that uses `wc_get_logger()` (directly or via `SafeGlobalFunctionProxy::wc_get_logger()`), use the `poocommerce_logging_class` filter to inject a fake logger.
 
 ### Why the Filter Approach?
 
@@ -249,7 +249,7 @@ public function test_logs_warning_for_invalid_input(): void {
 
     // Inject via filter - passing object bypasses cache.
     add_filter(
-        'woocommerce_logging_class',
+        'poocommerce_logging_class',
         function () use ( $fake_logger ) {
             return $fake_logger;
         }
@@ -259,7 +259,7 @@ public function test_logs_warning_for_invalid_input(): void {
 
     $this->assertCount( 1, $fake_logger->warning_calls );
 
-    remove_all_filters( 'woocommerce_logging_class' ); // Always clean up.
+    remove_all_filters( 'poocommerce_logging_class' ); // Always clean up.
 }
 ```
 
@@ -267,7 +267,7 @@ public function test_logs_warning_for_invalid_input(): void {
 
 | Aspect       | Detail                                          |
 | ------------ | ----------------------------------------------- |
-| Filter name  | `woocommerce_logging_class`                     |
+| Filter name  | `poocommerce_logging_class`                     |
 | Return value | Object instance (not class name string)         |
 | Interface    | Must implement `WC_Logger_Interface`            |
 | Cleanup      | Always call `remove_all_filters()` after test   |
@@ -279,7 +279,7 @@ See `PaymentGatewayTest.php:create_fake_logger()` for a complete implementation.
 ## General Testing Best Practices
 
 1. **Always run tests after making changes** to verify functionality
-2. **Use specific test filters** during development (see running-tests.md in the woocommerce-dev-cycle skill)
+2. **Use specific test filters** during development (see running-tests.md in the poocommerce-dev-cycle skill)
 3. **Write descriptive test names** that explain what is being tested
 4. **Use data providers** for testing multiple scenarios with the same logic
 5. **Include helpful assertion messages** for debugging when tests fail

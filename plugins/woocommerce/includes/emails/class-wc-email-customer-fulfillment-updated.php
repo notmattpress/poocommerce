@@ -2,10 +2,10 @@
 /**
  * Class WC_Email_Customer_Fulfillment_Updated file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Fulfillment_Updated
 	 * @version     1.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Fulfillment_Updated extends WC_Email {
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_fulfillment_updated';
 			$this->customer_email = true;
-			$this->title          = __( 'Fulfillment updated', 'woocommerce' );
+			$this->title          = __( 'Fulfillment updated', 'poocommerce' );
 			$this->email_group    = 'order-updates';
 			$this->template_html  = 'emails/customer-fulfillment-updated.php';
 			$this->template_plain = 'emails/plain/customer-fulfillment-updated.php';
@@ -47,12 +47,12 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_fulfillment_updated_notification', array( $this, 'trigger' ), 10, 3 );
+			add_action( 'poocommerce_fulfillment_updated_notification', array( $this, 'trigger' ), 10, 3 );
 
 			// Call parent constructor.
 			parent::__construct();
 
-			$this->description = __( 'Fulfillment updated emails are sent to the customer when the merchant updates a fulfillment for the order. The notification isn’t sent for draft fulfillments.', 'woocommerce' );
+			$this->description = __( 'Fulfillment updated emails are sent to the customer when the merchant updates a fulfillment for the order. The notification isn’t sent for draft fulfillments.', 'poocommerce' );
 
 			$this->template_block_content = 'emails/block/general-block-content-for-fulfillment-emails.php';
 		}
@@ -93,7 +93,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'A shipment from {site_title} order {order_number} has been updated', 'woocommerce' );
+			return __( 'A shipment from {site_title} order {order_number} has been updated', 'poocommerce' );
 		}
 
 		/**
@@ -103,7 +103,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Your shipment has been updated', 'woocommerce' );
+			return __( 'Your shipment has been updated', 'poocommerce' );
 		}
 
 		/**
@@ -174,7 +174,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'If anything looks off or you have questions, feel free to contact our support team.', 'woocommerce' );
+			return __( 'If anything looks off or you have questions, feel free to contact our support team.', 'poocommerce' );
 		}
 
 		/**
@@ -192,7 +192,7 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 			 *
 			 * @since 9.8.0
 			 */
-			$is_email_preview = apply_filters( 'woocommerce_is_email_preview', false );
+			$is_email_preview = apply_filters( 'poocommerce_is_email_preview', false );
 			if ( $is_email_preview ) {
 				// If this is a preview, we need to set up a dummy fulfillment object.
 				$this->fulfillment = new Fulfillment();
@@ -218,10 +218,10 @@ if ( ! class_exists( 'WC_Email_Customer_Fulfillment_Updated', false ) ) :
 
 				// Add translations for metadata keys.
 				add_filter(
-					'woocommerce_fulfillment_meta_key_translations',
+					'poocommerce_fulfillment_meta_key_translations',
 					function ( $keys ) {
-						$keys['service']           = __( 'Service', 'woocommerce' );
-						$keys['expected_delivery'] = __( 'Expected Delivery', 'woocommerce' );
+						$keys['service']           = __( 'Service', 'poocommerce' );
+						$keys['expected_delivery'] = __( 'Expected Delivery', 'poocommerce' );
 						return $keys;
 					}
 				);

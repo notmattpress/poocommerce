@@ -32,13 +32,13 @@ test.describe.serial(
 
 		test.beforeEach( async () => {
 			await wpCLI(
-				'wp option set woocommerce_feature_product_block_editor_enabled yes'
+				'wp option set poocommerce_feature_product_block_editor_enabled yes'
 			);
 		} );
 
 		test.afterAll( async () => {
 			await wpCLI(
-				'wp option set woocommerce_feature_product_block_editor_enabled no'
+				'wp option set poocommerce_feature_product_block_editor_enabled no'
 			);
 		} );
 
@@ -83,7 +83,7 @@ test.describe.serial(
 			);
 
 			await page
-				.locator( '#woocommerce_feature_product_block_editor_enabled' )
+				.locator( '#poocommerce_feature_product_block_editor_enabled' )
 				.click();
 
 			await page

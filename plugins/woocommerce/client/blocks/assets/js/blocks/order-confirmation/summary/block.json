@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce/order-confirmation-summary",
+	"name": "poocommerce/order-confirmation-summary",
 	"version": "1.0.0",
 	"title": "Order Summary",
 	"description": "Display the order summary on the order confirmation page.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce"
+		"PooCommerce"
 	],
 	"supports": {
 		"multiple": false,
@@ -64,7 +64,7 @@
 			"default": ""
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }
