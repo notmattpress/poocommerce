@@ -51,7 +51,7 @@
 		"@poocommerce/eslint-plugin": "workspace:*",
 		"react": "18.3.x",
 		"react-dom": "18.3.x",
-		"storybook": "7.6.19",
+		"storybook": "7.6.21",
 		"typescript": "5.7.x",
 		"webpack": "5.97.x",
 		"wireit": "0.14.12"
