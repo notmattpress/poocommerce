@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-image",
+	"name": "poocommerce/product-image",
 	"title": "Product Image",
 	"description": "Display the main product image.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"showProductLink": { "type": "boolean", "default": true },
 		"showSaleBadge": { "type": "boolean", "default": true },
@@ -44,14 +44,14 @@
 		"__experimentalSelector": ".wc-block-components-product-image"
 	},
 	"ancestor": [
-		"woocommerce/all-products",
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/all-products",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	],
 	"usesContext": [ "imageId", "postId", "query", "queryId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

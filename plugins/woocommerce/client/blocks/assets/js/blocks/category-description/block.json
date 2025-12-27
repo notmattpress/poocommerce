@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/category-description",
+	"name": "poocommerce/category-description",
 	"title": "Product Category Description",
 	"description": "Displays the current category description.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"apiVersion": 3,
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"textAlign": {
 			"type": "string"

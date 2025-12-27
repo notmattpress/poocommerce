@@ -7,11 +7,11 @@
     -   [Aliased imports](#aliased-imports)
 -   [Folder Structure Overview](#folder-structure-overview)
 
-Components and utilities making it possible to integrate with the WooCommerce Mini-Cart, Cart and Checkout Blocks.
+Components and utilities making it possible to integrate with the PooCommerce Mini-Cart, Cart and Checkout Blocks.
 
 ## Installation
 
-This package is available as an external when the [WooCommerce Blocks Feature Plugin](https://wordpress.org/plugins/woo-gutenberg-products-block/) is installed and activated.
+This package is available as an external when the [PooCommerce Blocks Feature Plugin](https://wordpress.org/plugins/woo-gutenberg-products-block/) is installed and activated.
 
 ## Usage
 
@@ -23,21 +23,21 @@ const { ... } = wc.blocksCheckout;
 
 ### Aliased imports
 
-Alternatively, you can map this to externals (or aliases) using the [WooCommerce Dependency Extraction Webpack Plugin](https://github.com/woocommerce/woocommerce-admin/tree/main/packages/dependency-extraction-webpack-plugin). Just add the above Webpack plugin to your package.json:
+Alternatively, you can map this to externals (or aliases) using the [PooCommerce Dependency Extraction Webpack Plugin](https://github.com/poocommerce/poocommerce-admin/tree/main/packages/dependency-extraction-webpack-plugin). Just add the above Webpack plugin to your package.json:
 
 ```bash
-npm install @woocommerce/dependency-extraction-webpack-plugin --save-dev
+npm install @poocommerce/dependency-extraction-webpack-plugin --save-dev
 ```
 
 Now, you can include this plugin in your Webpack configuration:
 
 ```js
 // webpack.config.js
-const WooCommerceDependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
+const PooCommerceDependencyExtractionWebpackPlugin = require( '@poocommerce/dependency-extraction-webpack-plugin' );
 
 module.exports = {
 	// …snip
-	plugins: [ new WooCommerceDependencyExtractionWebpackPlugin() ],
+	plugins: [ new PooCommerceDependencyExtractionWebpackPlugin() ],
 };
 ```
 
@@ -57,9 +57,9 @@ This package contains the following directories. Navigate to a directory for mor
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/README.md)
 
 <!-- /FEEDBACK -->
 

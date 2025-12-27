@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\DataStores\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\DataStores\Fulfillments;
 
-use Automattic\WooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
 use WC_Meta_Data;
 
 /**
  * Tests for the WC_Order_Fulfillment_Data_Store_Test class.
  *
- * @package WooCommerce\Tests\Order_Fulfillment
+ * @package PooCommerce\Tests\Order_Fulfillment
  */
 class FulfillmentsDataStoreTest extends \WC_Unit_Test_Case {
 	/**
@@ -26,8 +26,8 @@ class FulfillmentsDataStoreTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -36,7 +36,7 @@ class FulfillmentsDataStoreTest extends \WC_Unit_Test_Case {
 	 * Runs after all the tests of the class.
 	 */
 	public static function tearDownAfterClass(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 		parent::tearDownAfterClass();
 	}
 
@@ -644,14 +644,14 @@ class FulfillmentsDataStoreTest extends \WC_Unit_Test_Case {
 		$after_delete_called  = false;
 
 		add_action(
-			'woocommerce_fulfillment_before_delete',
+			'poocommerce_fulfillment_before_delete',
 			function () use ( &$before_delete_called ) {
 				$before_delete_called = true;
 			}
 		);
 
 		add_action(
-			'woocommerce_fulfillment_after_delete',
+			'poocommerce_fulfillment_after_delete',
 			function () use ( &$after_delete_called ) {
 				$after_delete_called = true;
 			}

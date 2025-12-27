@@ -3,10 +3,10 @@
  * Cart extensions route tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes\ControllerTestCase;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
 
 /**
  * Cart Controller Tests.
@@ -32,12 +32,12 @@ class CartExtensions extends ControllerTestCase {
 
 		wc()->cart->add_to_cart( $this->product->get_id(), 1 );
 
-		woocommerce_store_api_register_update_callback(
+		poocommerce_store_api_register_update_callback(
 			array(
 				'namespace' => 'valid-test-plugin',
 				'callback'  => function() {
 					add_action(
-						'woocommerce_cart_calculate_fees',
+						'poocommerce_cart_calculate_fees',
 						function() {
 							wc()->cart->add_fee( 'Surcharge', 10, true, 'standard' );
 						}

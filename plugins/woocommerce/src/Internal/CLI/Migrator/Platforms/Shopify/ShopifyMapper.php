@@ -2,14 +2,14 @@
 /**
  * Shopify Mapper
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Platforms\Shopify;
 
-use Automattic\WooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Interfaces\PlatformMapperInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * ShopifyMapper class.
  *
  * This class is responsible for transforming raw Shopify product data
- * into a standardized format suitable for the WooCommerce Importer.
+ * into a standardized format suitable for the PooCommerce Importer.
  * Maps comprehensive product data including variants, images, taxonomies,
  * and metadata from Shopify's GraphQL API response format.
  *
@@ -90,7 +90,7 @@ class ShopifyMapper implements PlatformMapperInterface {
 	 * Maps raw Shopify product data to a standardized array format.
 	 *
 	 * @param object $shopify_product The raw Shopify product node from GraphQL.
-	 * @return array Standardized data array for WooCommerce_Product_Importer.
+	 * @return array Standardized data array for PooCommerce_Product_Importer.
 	 */
 	public function map_product_data( object $shopify_product ): array {
 		$is_variable = $this->is_variable_product( $shopify_product );
@@ -127,10 +127,10 @@ class ShopifyMapper implements PlatformMapperInterface {
 	}
 
 	/**
-	 * Converts the Shopify product status into WooCommerce product status.
+	 * Converts the Shopify product status into PooCommerce product status.
 	 *
 	 * @param object $shopify_product The Shopify product data.
-	 * @return string The WooCommerce product status.
+	 * @return string The PooCommerce product status.
 	 */
 	private function get_woo_product_status( object $shopify_product ): string {
 		$woo_product_status = 'draft';
@@ -232,7 +232,7 @@ class ShopifyMapper implements PlatformMapperInterface {
 	}
 
 	/**
-	 * Gets mapped WooCommerce product categories from Shopify collections.
+	 * Gets mapped PooCommerce product categories from Shopify collections.
 	 *
 	 * @param object $shopify_product The Shopify product data.
 	 * @return array Mapped category data.
@@ -255,7 +255,7 @@ class ShopifyMapper implements PlatformMapperInterface {
 	}
 
 	/**
-	 * Gets mapped WooCommerce product tags from Shopify tags.
+	 * Gets mapped PooCommerce product tags from Shopify tags.
 	 *
 	 * @param object $shopify_product The Shopify product data.
 	 * @return array Mapped tag data.
@@ -296,7 +296,7 @@ class ShopifyMapper implements PlatformMapperInterface {
 			return (float) $weight;
 		}
 
-		$store_weight_unit = get_option( 'woocommerce_weight_unit' );
+		$store_weight_unit = get_option( 'poocommerce_weight_unit' );
 
 		if ( 'lbs' === $store_weight_unit ) {
 			$store_weight_unit = 'lb';
@@ -335,7 +335,7 @@ class ShopifyMapper implements PlatformMapperInterface {
 	}
 
 	/**
-	 * Maps basic product fields from Shopify to WooCommerce format.
+	 * Maps basic product fields from Shopify to PooCommerce format.
 	 *
 	 * @param object $shopify_product The Shopify product data.
 	 * @param bool   $is_variable     Whether this is a variable product.

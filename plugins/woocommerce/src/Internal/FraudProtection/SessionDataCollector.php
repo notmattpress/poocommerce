@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -210,11 +210,11 @@ class SessionDataCollector {
 			$tax_total         = 0;
 			$shipping_tax_rate = null;
 			$discount_total    = 0;
-			$currency          = WC()->call_function( 'get_woocommerce_currency' );
+			$currency          = WC()->call_function( 'get_poocommerce_currency' );
 			$cart_hash         = null;
 			$items             = array();
 
-			// Get customer ID from WooCommerce customer object if available.
+			// Get customer ID from PooCommerce customer object if available.
 			// We don't need to fallback to session data here, because customer id won't be stored there.
 			if ( WC()->customer instanceof \WC_Customer ) {
 				$id = WC()->customer->get_id();
@@ -263,7 +263,7 @@ class SessionDataCollector {
 				'tax_total'         => 0,
 				'shipping_tax_rate' => null,
 				'discount_total'    => 0,
-				'currency'          => WC()->call_function( 'get_woocommerce_currency' ),
+				'currency'          => WC()->call_function( 'get_poocommerce_currency' ),
 				'cart_hash'         => null,
 				'items'             => array(),
 			);
@@ -274,7 +274,7 @@ class SessionDataCollector {
 	 * Get cart items with detailed product information.
 	 *
 	 * Iterates through cart items and extracts comprehensive product data including
-	 * name, description, category, SKU, pricing, quantities, and WooCommerce-specific
+	 * name, description, category, SKU, pricing, quantities, and PooCommerce-specific
 	 * attributes. Returns array of item objects with 12 fields each.
 	 *
 	 * @since 10.5.0
@@ -530,7 +530,7 @@ class SessionDataCollector {
 	}
 
 	/**
-	 * Get client IP address using WooCommerce geolocation utility.
+	 * Get client IP address using PooCommerce geolocation utility.
 	 *
 	 * @since 10.5.0
 	 *
@@ -599,7 +599,7 @@ class SessionDataCollector {
 	/**
 	 * Get product category names as comma-separated list.
 	 *
-	 * Uses WooCommerce helper with caching for better performance.
+	 * Uses PooCommerce helper with caching for better performance.
 	 * Returns all categories for the product, not just the primary one.
 	 *
 	 * @since 10.5.0

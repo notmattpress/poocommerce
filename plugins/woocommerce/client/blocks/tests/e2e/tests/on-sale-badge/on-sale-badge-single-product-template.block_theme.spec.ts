@@ -7,7 +7,7 @@ import {
 	Editor,
 	FrontendUtils,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -15,16 +15,16 @@ import {
 import { ProductGalleryPage } from '../product-gallery/product-gallery.page';
 
 const blockData = {
-	name: 'woocommerce/product-sale-badge',
-	mainClass: '.wp-block-woocommerce-product-sale-badge',
+	name: 'poocommerce/product-sale-badge',
+	mainClass: '.wp-block-poocommerce-product-sale-badge',
 	selectors: {
 		frontend: {
 			badge: '.wc-block-components-product-sale-badge',
-			badgeContainer: '.wp-block-woocommerce-product-sale-badge',
+			badgeContainer: '.wp-block-poocommerce-product-sale-badge',
 		},
 		editor: {
 			badge: '.wc-block-components-product-sale-badge',
-			badgeContainer: '.wp-block-woocommerce-product-sale-badge',
+			badgeContainer: '.wp-block-poocommerce-product-sale-badge',
 		},
 	},
 	slug: 'single-product',
@@ -102,7 +102,7 @@ test.describe( `${ blockData.name }`, () => {
 
 		test( 'should be rendered on the editor side', async ( { editor } ) => {
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			const block = await editor.getBlockByName( blockData.name );
@@ -118,7 +118,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -142,7 +142,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -166,7 +166,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -213,7 +213,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 
 			await pageObject.toggleFullScreenOnClickSetting( false );
@@ -260,7 +260,7 @@ test.describe( `${ blockData.name }`, () => {
 		} ) => {
 			await editor.openDocumentSettingsSidebar();
 			await editor.insertBlock( {
-				name: 'woocommerce/product-gallery',
+				name: 'poocommerce/product-gallery',
 			} );
 			await pageObject.toggleFullScreenOnClickSetting( false );
 

@@ -5,14 +5,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
 
 /**
  * Tests for SessionClearanceManager.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager
  */
 class SessionClearanceManagerTest extends \WC_Unit_Test_Case {
 
@@ -30,8 +30,8 @@ class SessionClearanceManagerTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 		$this->sut = new SessionClearanceManager();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 	}

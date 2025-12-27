@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-taxonomy",
+	"name": "poocommerce/product-filter-taxonomy",
 	"title": "Taxonomy Filter",
 	"description": "Enable customers to filter the product collection by selecting one or more taxonomy terms, such as categories, brands, or tags.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
-	"ancestor": [ "woocommerce/product-filters" ],
+	"ancestor": [ "poocommerce/product-filters" ],
 	"supports": {
 		"interactivity": true,
 		"color": {
@@ -65,7 +65,7 @@
 		},
 		"displayStyle": {
 			"type": "string",
-			"default": "woocommerce/product-filter-checkbox-list"
+			"default": "poocommerce/product-filter-checkbox-list"
 		},
 		"isPreview": {
 			"type": "boolean",

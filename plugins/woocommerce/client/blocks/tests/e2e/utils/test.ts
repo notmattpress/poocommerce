@@ -16,7 +16,7 @@ import {
 	PerformanceUtils,
 	RequestUtils,
 	ShippingUtils,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Set of console logging types observed to protect against unexpected yet

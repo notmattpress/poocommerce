@@ -2,12 +2,12 @@
 /**
  * Unit tests for WC_Gateway_Paypal_Request class.
  *
- * @package WooCommerce\Tests\Paypal.
+ * @package PooCommerce\Tests\Paypal.
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 require_once WC_ABSPATH . 'includes/gateways/paypal/includes/class-wc-gateway-paypal-request.php';
 

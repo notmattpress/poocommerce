@@ -2,7 +2,7 @@
  * External dependencies
  */
 import * as wpDataFunctions from '@wordpress/data';
-import { cartStore, validationStore } from '@woocommerce/block-data';
+import { cartStore, validationStore } from '@poocommerce/block-data';
 import type { StoreDescriptor } from '@wordpress/data';
 
 /**
@@ -45,7 +45,7 @@ jest.mock( '@wordpress/data', () => ( {
 	dispatch: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/utils', () => ( {
+jest.mock( '@poocommerce/utils', () => ( {
 	isSiteEditorPage: jest.fn().mockReturnValue( true ),
 } ) );
 

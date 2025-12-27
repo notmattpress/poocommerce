@@ -5,7 +5,7 @@
  * External dependencies
  */
 import TestRenderer, { act } from 'react-test-renderer';
-import * as mockUtils from '@woocommerce/editor-components/utils';
+import * as mockUtils from '@poocommerce/editor-components/utils';
 
 /**
  * Internal dependencies

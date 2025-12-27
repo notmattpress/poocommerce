@@ -6,7 +6,7 @@ import type { createRegistry } from '@wordpress/data';
 import type { CurriedSelectorsOf } from '@wordpress/data/build-types/types';
 import type CreateLocksActions from '@wordpress/core-data/build-types/locks/actions';
 // @ts-expect-error WP core data doesn't explicitly export the actions
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import createLocksActions from '@wordpress/core-data/build/locks/actions';
 
 /**

@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Error;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\Agentic\CheckoutSessionSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Error;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\Agentic\CheckoutSessionSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
 
 /**
  * CheckoutSessions class.

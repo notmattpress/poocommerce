@@ -1,8 +1,8 @@
-# woocommerce/product-text-field
+# poocommerce/product-text-field
 
 A reusable text field for the product editor.
 
-![Product text field screenshot](https://woocommerce.files.wordpress.com/2023/10/woocommerceproduct-text-field.png)
+![Product text field screenshot](https://poocommerce.files.wordpress.com/2023/10/poocommerceproduct-text-field.png)
 
 ## Attributes
 
@@ -136,7 +136,7 @@ Here's a snippet that adds a field similar to the previous screenshot:
 $section->add_block(
   array(
     'id'         => 'example-text-meta',
-    'blockName'  => 'woocommerce/product-text-field',
+    'blockName'  => 'poocommerce/product-text-field',
     'order'      => 13,
     'attributes' => array(
       'label'       => 'Text',
@@ -156,22 +156,22 @@ Here's a snippet that adds fields validations:
 $section->add_block(
   array(
     'id'         => 'product-external-url',
-    'blockName'  => 'woocommerce/product-text-field',
+    'blockName'  => 'poocommerce/product-text-field',
     'order'      => 10,
     'attributes' => array(
       'property'    => 'external_url',
-      'label'       => __( 'Link to the external product', 'woocommerce' ),
-      'placeholder' => __( 'Enter the external URL to the product', 'woocommerce' ),
+      'label'       => __( 'Link to the external product', 'poocommerce' ),
+      'placeholder' => __( 'Enter the external URL to the product', 'poocommerce' ),
       'suffix'      => true,
       'type'        => array(
         'value'   => 'url',
-        'message' => __( 'Link to the external product is an invalid URL.', 'woocommerce' ),
+        'message' => __( 'Link to the external product is an invalid URL.', 'poocommerce' ),
       ),
       'minLength'   => array(
         'value'   => 8,
-        'message' => __( 'The link must be longer than %d.', 'woocommerce' ),
+        'message' => __( 'The link must be longer than %d.', 'poocommerce' ),
       ),
-      'required'    => __( 'Link to the external product is required.', 'woocommerce' ),
+      'required'    => __( 'Link to the external product is required.', 'poocommerce' ),
     ),
   )
 );

@@ -4,14 +4,14 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { Button, ExternalLink } from '@wordpress/components';
-import { Pill } from '@woocommerce/components';
-import { pluginsStore } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { Pill } from '@poocommerce/components';
+import { pluginsStore } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
  */
-import './woocommerce-shipping-item.scss';
+import './poocommerce-shipping-item.scss';
 import WooIcon from './woo-icon.svg';
 
 const WoocommerceShippingItem = ( {
@@ -29,22 +29,22 @@ const WoocommerceShippingItem = ( {
 	);
 
 	const handleSetupClick = () => {
-		onSetupClick( [ 'woocommerce-shipping' ] ).then( () => {
+		onSetupClick( [ 'poocommerce-shipping' ] ).then( () => {
 			const actions = [];
 			if ( ! isSiteConnectedToJetpack ) {
 				actions.push( {
 					url: getAdminLink(
-						'admin.php?page=wc-settings&tab=shipping&section=woocommerce-shipping-settings'
+						'admin.php?page=wc-settings&tab=shipping&section=poocommerce-shipping-settings'
 					),
 					label: __(
 						'Finish the setup by connecting your store to WordPress.com.',
-						'woocommerce'
+						'poocommerce'
 					),
 				} );
 			}
 
 			createSuccessNotice(
-				__( '🎉 WooCommerce Shipping is installed!', 'woocommerce' ),
+				__( '🎉 PooCommerce Shipping is installed!', 'poocommerce' ),
 				{
 					actions,
 				}
@@ -53,40 +53,40 @@ const WoocommerceShippingItem = ( {
 	};
 
 	return (
-		<div className="woocommerce-list__item-inner woocommerce-shipping-plugin-item">
-			<div className="woocommerce-list__item-before">
+		<div className="poocommerce-list__item-inner poocommerce-shipping-plugin-item">
+			<div className="poocommerce-list__item-before">
 				<img
-					className="woocommerce-shipping-plugin-item__logo"
+					className="poocommerce-shipping-plugin-item__logo"
 					src={ WooIcon }
 					alt=""
 				/>
 			</div>
-			<div className="woocommerce-list__item-text">
-				<span className="woocommerce-list__item-title">
-					{ __( 'WooCommerce Shipping', 'woocommerce' ) }
-					<Pill>{ __( 'Recommended', 'woocommerce' ) }</Pill>
+			<div className="poocommerce-list__item-text">
+				<span className="poocommerce-list__item-title">
+					{ __( 'PooCommerce Shipping', 'poocommerce' ) }
+					<Pill>{ __( 'Recommended', 'poocommerce' ) }</Pill>
 				</span>
-				<span className="woocommerce-list__item-content">
+				<span className="poocommerce-list__item-content">
 					{ __(
-						'Print USPS, UPS, and DHL Express labels straight from your WooCommerce dashboard and save on shipping.',
-						'woocommerce'
+						'Print USPS, UPS, and DHL Express labels straight from your PooCommerce dashboard and save on shipping.',
+						'poocommerce'
 					) }
 					<br />
-					<ExternalLink href="https://woocommerce.com/woocommerce-shipping/">
-						{ __( 'Learn more', 'woocommerce' ) }
+					<ExternalLink href="https://poocommerce.com/poocommerce-shipping/">
+						{ __( 'Learn more', 'poocommerce' ) }
 					</ExternalLink>
 				</span>
 			</div>
-			<div className="woocommerce-list__item-after">
+			<div className="poocommerce-list__item-after">
 				<Button
 					isSecondary
 					onClick={ handleSetupClick }
 					isBusy={ pluginsBeingSetup.includes(
-						'woocommerce-shipping'
+						'poocommerce-shipping'
 					) }
 					disabled={ pluginsBeingSetup.length > 0 }
 				>
-					{ __( 'Get started', 'woocommerce' ) }
+					{ __( 'Get started', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

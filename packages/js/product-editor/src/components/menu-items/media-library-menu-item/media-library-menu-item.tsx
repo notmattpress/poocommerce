@@ -29,10 +29,10 @@ export function MediaLibraryMenuItem( {
 					onClick={ open }
 					info={
 						info ??
-						__( 'Choose from uploaded media', 'woocommerce' )
+						__( 'Choose from uploaded media', 'poocommerce' )
 					}
 				>
-					{ text ?? __( 'Media Library', 'woocommerce' ) }
+					{ text ?? __( 'Media Library', 'poocommerce' ) }
 				</MenuItem>
 			) }
 		/>

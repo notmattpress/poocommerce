@@ -6,7 +6,7 @@ post_title: Cart and Checkout - Available Filters
 
 # Available Filters
 
-This document lists the filters that are currently available to extensions and offers usage information for each one of them. Information on registering filters can be found on the [Checkout - Filter Registry](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/packages/checkout/filter-registry/README.md) page.
+This document lists the filters that are currently available to extensions and offers usage information for each one of them. Information on registering filters can be found on the [Checkout - Filter Registry](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/packages/checkout/filter-registry/README.md) page.
 
 ## Cart Line Items filters
 
@@ -21,7 +21,7 @@ The following [Cart Line Items filters](/docs/block-development/extensible-block
 
 The following screenshot shows which parts the individual filters affect:
 
-![Cart Line Items](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-26-at-13.12.33.png)
+![Cart Line Items](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-26-at-13.12.33.png)
 
 ## Order Summary Items filters
 
@@ -34,7 +34,7 @@ The following [Order Summary Items filters](/docs/block-development/extensible-b
 
 The following screenshot shows which parts the individual filters affect:
 
-![Order Summary Items](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-26-at-16.29.45.png)
+![Order Summary Items](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-26-at-16.29.45.png)
 
 ## Totals Footer Item filter
 
@@ -115,4 +115,4 @@ registerCheckoutFilters( 'example-extension', {
 If you are logged in to the store as an administrator, you should be shown an error like this if your filter is not
 working correctly. The error will also be shown in your console.
 
-![Troubleshooting](https://woocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-30-at-10.52.53.png)
+![Troubleshooting](https://poocommerce.com/wp-content/uploads/2023/10/Screenshot-2023-10-30-at-10.52.53.png)

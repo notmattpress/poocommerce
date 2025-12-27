@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * This class handles the session status tracking for fraud protection decisions,
  * managing three possible states: pending, allowed, and blocked. It integrates
- * with WooCommerce sessions and uses the FraudProtectionController logging helper
+ * with PooCommerce sessions and uses the FraudProtectionController logging helper
  * to maintain consistent audit logs.
  *
  * @since 10.5.0
@@ -157,13 +157,13 @@ class SessionClearanceManager {
 	 * @return void
 	 */
 	public function ensure_cart_loaded(): void {
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			WC()->call_function( 'wc_load_cart' );
 		}
 	}
 
 	/**
-	 * Check if WooCommerce session is available.
+	 * Check if PooCommerce session is available.
 	 *
 	 * @return bool True if session is available.
 	 */
