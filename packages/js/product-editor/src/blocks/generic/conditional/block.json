@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/conditional",
+	"name": "poocommerce/conditional",
 	"title": "Conditional",
 	"category": "widgets",
 	"description": "Container to only conditionally render inner blocks.",

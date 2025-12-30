@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import { SHOP_URL } from '@woocommerce/block-settings';
-import Button from '@woocommerce/base-components/button';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { SHOP_URL } from '@poocommerce/block-settings';
+import Button from '@poocommerce/base-components/button';
+import { useStyleProps } from '@poocommerce/base-hooks';
 import clsx from 'clsx';
 
 /**

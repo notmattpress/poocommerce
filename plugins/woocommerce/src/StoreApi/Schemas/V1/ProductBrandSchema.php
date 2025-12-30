@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 
 
 /**
@@ -51,20 +51,20 @@ class ProductBrandSchema extends TermSchema {
 	public function get_properties() {
 		$schema                 = parent::get_properties();
 		$schema['image']        = [
-			'description' => __( 'Brand image.', 'woocommerce' ),
+			'description' => __( 'Brand image.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => [ 'view', 'edit', 'embed' ],
 			'readonly'    => true,
 			'properties'  => $this->image_attachment_schema->get_properties(),
 		];
 		$schema['review_count'] = [
-			'description' => __( 'Number of reviews for products of this brand.', 'woocommerce' ),
+			'description' => __( 'Number of reviews for products of this brand.', 'poocommerce' ),
 			'type'        => 'integer',
 			'context'     => [ 'view', 'edit' ],
 			'readonly'    => true,
 		];
 		$schema['permalink']    = [
-			'description' => __( 'Brand URL.', 'woocommerce' ),
+			'description' => __( 'Brand URL.', 'poocommerce' ),
 			'type'        => 'string',
 			'format'      => 'uri',
 			'context'     => [ 'view', 'edit', 'embed' ],

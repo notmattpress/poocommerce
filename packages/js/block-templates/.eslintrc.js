@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	overrides: [
 		{
@@ -13,7 +13,7 @@ module.exports = {
 		'import/core-modules': [
 			'@wordpress/core-data',
 			'@wordpress/blocks',
-			'@woocommerce/expression-evaluation',
+			'@poocommerce/expression-evaluation',
 		],
 		'import/resolver': {
 			node: {},

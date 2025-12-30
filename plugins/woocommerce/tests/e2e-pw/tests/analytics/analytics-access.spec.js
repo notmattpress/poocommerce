@@ -2,14 +2,14 @@ const { test, expect } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
 
-test.describe( 'WooCommerce Home', () => {
+test.describe( 'PooCommerce Home', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test(
 		'Can access Analytics Reports from Stats Overview',
 		{ tag: [ tags.NOT_E2E ] },
 		async ( { page } ) => {
-			await test.step( 'Navigate to the WooCommerce Home page', async () => {
+			await test.step( 'Navigate to the PooCommerce Home page', async () => {
 				await page.goto( 'wp-admin/admin.php?page=wc-admin' );
 				await expect(
 					page.getByText( 'Stats overview' )

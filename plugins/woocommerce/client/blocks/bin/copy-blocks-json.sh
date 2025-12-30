@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# This script mimics the CopyWebpackPlugin behavior from the WooCommerce Blocks webpack configuration
+# This script mimics the CopyWebpackPlugin behavior from the PooCommerce Blocks webpack configuration
 # to make block.json files available for unit testing without requiring a full build.
-# Ensure that the logic of this script is kept in sync with the logic of the CopyWebpackPlugin in the WooCommerce Blocks webpack configuration:
-# https://github.com/woocommerce/woocommerce/blob/84d1da7be3cbd3d8f40b17ad58729f668fd82b6a/plugins/woocommerce/client/blocks/bin/webpack-configs.js#L229-L256
+# Ensure that the logic of this script is kept in sync with the logic of the CopyWebpackPlugin in the PooCommerce Blocks webpack configuration:
+# https://github.com/poocommerce/poocommerce/blob/84d1da7be3cbd3d8f40b17ad58729f668fd82b6a/plugins/poocommerce/client/blocks/bin/webpack-configs.js#L229-L256
 
 # Move to the project root
-while [ ! -d "plugins/woocommerce" ] || [ ! -f "pnpm-workspace.yaml" ]; do
+while [ ! -d "plugins/poocommerce" ] || [ ! -f "pnpm-workspace.yaml" ]; do
     if [ "$PWD" = "/" ]; then
         echo "Error: Could not find project root"
         exit 1
@@ -15,7 +15,7 @@ while [ ! -d "plugins/woocommerce" ] || [ ! -f "pnpm-workspace.yaml" ]; do
 done
 
 # Set target directory
-TARGET_DIR="plugins/woocommerce/assets/client/blocks"
+TARGET_DIR="plugins/poocommerce/assets/client/blocks"
 
 # Create target directory if it doesn't exist
 mkdir -p "$TARGET_DIR"
@@ -24,7 +24,7 @@ mkdir -p "$TARGET_DIR"
 generic_blocks="accordion-group accordion-header accordion-item accordion-panel"
 
 # Find all block.json files
-find plugins/woocommerce/client/blocks/assets/js -name "block.json" | while read file; do
+find plugins/poocommerce/client/blocks/assets/js -name "block.json" | while read file; do
     # Read the block name from the JSON file
     block_name=$(cat "$file" | grep -o '"name": "[^"]*"' | cut -d'"' -f4 | cut -d'/' -f2)
 

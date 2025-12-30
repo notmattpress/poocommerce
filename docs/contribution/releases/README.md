@@ -1,11 +1,11 @@
 ---
-post_title: Releasing WooCommerce
+post_title: Releasing PooCommerce
 sidebar_label: Releases
 ---
 
-# Releasing WooCommerce
+# Releasing PooCommerce
 
-The WooCommerce release process is managed by a rotating release lead.  The documentation below outlines the process for managing releases.  To get started with a new release, see [Building and Publishing WooCommerce](/docs/contribution/releases/building-and-publishing).
+The PooCommerce release process is managed by a rotating release lead.  The documentation below outlines the process for managing releases.  To get started with a new release, see [Building and Publishing PooCommerce](/docs/contribution/releases/building-and-publishing).
 
 ## Process Overview
 

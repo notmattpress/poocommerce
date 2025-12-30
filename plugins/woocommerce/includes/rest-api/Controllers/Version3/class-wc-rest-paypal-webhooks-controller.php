@@ -5,7 +5,7 @@
  *
  * Handles requests to the /paypal-webhooks endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   2.6.0
  */
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API PayPal webhook handler controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Paypal_Webhooks_Controller extends WC_REST_Controller {

@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Async Product Editor Category Field.
+ * PooCommerce Async Product Editor Category Field.
  */
 
-namespace Automattic\WooCommerce\Admin\Features\AsyncProductEditorCategoryField;
+namespace Automattic\PooCommerce\Admin\Features\AsyncProductEditorCategoryField;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
  * Loads assets related to the async category field for the product editor.
@@ -24,7 +24,7 @@ class Init {
 		if ( Features::is_enabled( self::FEATURE_ID ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_filter( 'woocommerce_taxonomy_args_product_cat', array( $this, 'add_metabox_args' ) );
+			add_filter( 'poocommerce_taxonomy_args_product_cat', array( $this, 'add_metabox_args' ) );
 		}
 	}
 
@@ -73,14 +73,14 @@ class Init {
 		$version = Constants::get_constant( 'WC_VERSION' );
 
 		wp_register_style(
-			'woocommerce_admin_product_category_metabox_styles',
+			'poocommerce_admin_product_category_metabox_styles',
 			WCAdminAssets::get_url( 'product-category-metabox/style', 'css' ),
 			array(),
 			$version
 		);
-		wp_style_add_data( 'woocommerce_admin_product_category_metabox_styles', 'rtl', 'replace' );
+		wp_style_add_data( 'poocommerce_admin_product_category_metabox_styles', 'rtl', 'replace' );
 
-		wp_enqueue_style( 'woocommerce_admin_product_category_metabox_styles' );
+		wp_enqueue_style( 'poocommerce_admin_product_category_metabox_styles' );
 	}
 
 }

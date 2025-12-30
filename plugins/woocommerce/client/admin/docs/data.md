@@ -1,6 +1,6 @@
 # Data
 
-WooCommerce Admin data stores implement the [`SqlQuery` class](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/src/Admin/API/Reports/SqlQuery.php). 
+PooCommerce Admin data stores implement the [`SqlQuery` class](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/src/Admin/API/Reports/SqlQuery.php). 
 
 ## SqlQuery Class
 
@@ -22,7 +22,7 @@ The `SqlQuery` class is a SQL Query statement object. Its properties consist of
 
 ## Reports Data Stores
 
-The base DataStore `Automattic\WooCommerce\Admin\API\Reports\DataStore` extends the `SqlQuery` class. There is `StatsDataStoreTrait` that adds Interval & Total Queries. The implementation data store classes use the following `SqlQuery` instances:
+The base DataStore `Automattic\PooCommerce\Admin\API\Reports\DataStore` extends the `SqlQuery` class. There is `StatsDataStoreTrait` that adds Interval & Total Queries. The implementation data store classes use the following `SqlQuery` instances:
 
 | Data Store | Context | Class Query | Sub Query | Interval Query | Total Query |
 | ---------- | ------- | ----------- | --------- | -------------- | ----------- |
@@ -64,13 +64,13 @@ When getting the full statement the clause arrays are passed through two filters
 
 The filters are:
 
-- `apply_filters( "woocommerce_analytics_clauses_{$type}", $clauses, $context );`
-- `apply_filters( "woocommerce_analytics_clauses_{$type}_{$context}", $clauses );`
+- `apply_filters( "poocommerce_analytics_clauses_{$type}", $clauses, $context );`
+- `apply_filters( "poocommerce_analytics_clauses_{$type}_{$context}", $clauses );`
 
 Example usage
 
 ```php
-add_filter( 'woocommerce_analytics_clauses_product_stats_select_total', 'my_custom_product_stats' );
+add_filter( 'poocommerce_analytics_clauses_product_stats_select_total', 'my_custom_product_stats' );
 /**
  * Add sample data to product stats totals.
  *

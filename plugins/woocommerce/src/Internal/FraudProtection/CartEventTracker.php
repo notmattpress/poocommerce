@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Tracks cart events for fraud protection analysis.
  *
- * This class hooks into WooCommerce cart events (add, update, remove, restore)
+ * This class hooks into PooCommerce cart events (add, update, remove, restore)
  * and triggers comprehensive event tracking with full session context. It orchestrates
  * the event tracking by collecting session data and preparing it for the fraud
  * protection service.
@@ -57,7 +57,7 @@ class CartEventTracker implements RegisterHooksInterface {
 	/**
 	 * Register cart event hooks.
 	 *
-	 * Hooks into WooCommerce cart actions to track fraud protection events.
+	 * Hooks into PooCommerce cart actions to track fraud protection events.
 	 * Only registers hooks if the fraud protection feature is enabled.
 	 *
 	 * @return void
@@ -68,10 +68,10 @@ class CartEventTracker implements RegisterHooksInterface {
 			return;
 		}
 
-		add_action( 'woocommerce_add_to_cart', array( $this, 'handle_track_cart_item_added' ), 10, 6 );
-		add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'handle_track_cart_item_updated' ), 10, 4 );
-		add_action( 'woocommerce_remove_cart_item', array( $this, 'handle_track_cart_item_removed' ), 10, 2 );
-		add_action( 'woocommerce_restore_cart_item', array( $this, 'handle_track_cart_item_restored' ), 10, 2 );
+		add_action( 'poocommerce_add_to_cart', array( $this, 'handle_track_cart_item_added' ), 10, 6 );
+		add_action( 'poocommerce_after_cart_item_quantity_update', array( $this, 'handle_track_cart_item_updated' ), 10, 4 );
+		add_action( 'poocommerce_remove_cart_item', array( $this, 'handle_track_cart_item_removed' ), 10, 2 );
+		add_action( 'poocommerce_restore_cart_item', array( $this, 'handle_track_cart_item_restored' ), 10, 2 );
 	}
 
 	/**

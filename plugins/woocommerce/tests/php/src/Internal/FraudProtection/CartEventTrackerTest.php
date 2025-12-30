@@ -5,16 +5,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\CartEventTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\CartEventTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
 
 /**
  * Tests for CartEventTracker.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\CartEventTracker
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\CartEventTracker
  */
 class CartEventTrackerTest extends \WC_Unit_Test_Case {
 
@@ -52,8 +52,8 @@ class CartEventTrackerTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 
@@ -86,10 +86,10 @@ class CartEventTrackerTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Verify hooks were not registered.
-		$this->assertFalse( has_action( 'woocommerce_add_to_cart', array( $this->sut, 'handle_track_cart_item_added' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_after_cart_item_quantity_update', array( $this->sut, 'handle_track_cart_item_updated' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_remove_cart_item', array( $this->sut, 'handle_track_cart_item_removed' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_restore_cart_item', array( $this->sut, 'handle_track_cart_item_restored' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_add_to_cart', array( $this->sut, 'handle_track_cart_item_added' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_after_cart_item_quantity_update', array( $this->sut, 'handle_track_cart_item_updated' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_remove_cart_item', array( $this->sut, 'handle_track_cart_item_removed' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_restore_cart_item', array( $this->sut, 'handle_track_cart_item_restored' ) ) );
 	}
 
 	/**
@@ -103,10 +103,10 @@ class CartEventTrackerTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Verify hooks were registered with correct priority.
-		$this->assertEquals( 10, has_action( 'woocommerce_add_to_cart', array( $this->sut, 'handle_track_cart_item_added' ) ) );
-		$this->assertEquals( 10, has_action( 'woocommerce_after_cart_item_quantity_update', array( $this->sut, 'handle_track_cart_item_updated' ) ) );
-		$this->assertEquals( 10, has_action( 'woocommerce_remove_cart_item', array( $this->sut, 'handle_track_cart_item_removed' ) ) );
-		$this->assertEquals( 10, has_action( 'woocommerce_restore_cart_item', array( $this->sut, 'handle_track_cart_item_restored' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_add_to_cart', array( $this->sut, 'handle_track_cart_item_added' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_after_cart_item_quantity_update', array( $this->sut, 'handle_track_cart_item_updated' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_remove_cart_item', array( $this->sut, 'handle_track_cart_item_removed' ) ) );
+		$this->assertEquals( 10, has_action( 'poocommerce_restore_cart_item', array( $this->sut, 'handle_track_cart_item_restored' ) ) );
 	}
 
 	/**
@@ -306,9 +306,9 @@ class CartEventTrackerTest extends \WC_Unit_Test_Case {
 		WC()->cart->empty_cart();
 
 		// Remove all registered hooks.
-		remove_all_actions( 'woocommerce_add_to_cart' );
-		remove_all_actions( 'woocommerce_after_cart_item_quantity_update' );
-		remove_all_actions( 'woocommerce_remove_cart_item' );
-		remove_all_actions( 'woocommerce_restore_cart_item' );
+		remove_all_actions( 'poocommerce_add_to_cart' );
+		remove_all_actions( 'poocommerce_after_cart_item_quantity_update' );
+		remove_all_actions( 'poocommerce_remove_cart_item' );
+		remove_all_actions( 'poocommerce_restore_cart_item' );
 	}
 }

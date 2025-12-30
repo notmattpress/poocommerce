@@ -1,13 +1,13 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi;
 
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
 
 /**
  * Tests Extend Schema Functionality and helpers.

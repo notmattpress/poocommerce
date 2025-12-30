@@ -28,7 +28,7 @@ export const getHeaderTitle = (
 	}
 
 	if ( isCreating ) {
-		return __( 'Add new product', 'woocommerce' );
+		return __( 'Add new product', 'poocommerce' );
 	}
 
 	return initialProductName;

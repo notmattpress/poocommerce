@@ -1,8 +1,8 @@
-# WooCommerce REST API (v4 and above)
+# PooCommerce REST API (v4 and above)
 
 **⚠️ IMPORTANT: REST API v4 is currently in development and is NOT public.**
 
-This directory contains the implementation of WooCommerce's REST API v4, which represents a complete architectural rewrite of the REST API system.
+This directory contains the implementation of PooCommerce's REST API v4, which represents a complete architectural rewrite of the REST API system.
 
 ---
 

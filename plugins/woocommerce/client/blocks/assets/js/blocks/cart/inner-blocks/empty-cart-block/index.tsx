@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { removeCart } from '@woocommerce/icons';
+import { removeCart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { registerBlockType } from '@wordpress/blocks';
 
@@ -12,7 +12,7 @@ import { Edit, Save } from './edit';
 import './style.scss';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/empty-cart-block', {
+registerBlockType( 'poocommerce/empty-cart-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\AIContent;
+namespace Automattic\PooCommerce\Blocks\AIContent;
 
 use WP_Error;
 
@@ -81,7 +81,7 @@ class UpdateProducts {
 		// Identify dummy products that need to have their content updated.
 		$dummy_products_ids = $this->fetch_product_ids( 'dummy' );
 		if ( ! is_array( $dummy_products_ids ) ) {
-			return new \WP_Error( 'failed_to_fetch_dummy_products', __( 'Failed to fetch dummy products.', 'woocommerce' ) );
+			return new \WP_Error( 'failed_to_fetch_dummy_products', __( 'Failed to fetch dummy products.', 'poocommerce' ) );
 		}
 
 		$dummy_products = array_map(
@@ -214,7 +214,7 @@ class UpdateProducts {
 	 */
 	private function product_update( $product, $product_image_id, $product_title, $product_description, $product_price ) {
 		if ( ! $product instanceof \WC_Product ) {
-			return new WP_Error( 'invalid_product', __( 'Invalid product.', 'woocommerce' ) );
+			return new WP_Error( 'invalid_product', __( 'Invalid product.', 'poocommerce' ) );
 		}
 
 		if ( ! is_wp_error( $product_image_id ) ) {
@@ -223,7 +223,7 @@ class UpdateProducts {
 			wc_get_logger()->warning(
 				sprintf(
 					// translators: %s is a generated error message.
-					__( 'The image upload failed: "%s", creating the product without image', 'woocommerce' ),
+					__( 'The image upload failed: "%s", creating the product without image', 'poocommerce' ),
 					$product_image_id->get_error_message()
 				),
 			);

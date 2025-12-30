@@ -9,9 +9,9 @@ import { join } from 'path';
 import {
 	cloneRepo,
 	getCommitHash,
-} from '@woocommerce/monorepo-utils/src/core/git';
-import { Logger } from '@woocommerce/monorepo-utils/src/core/logger';
-import { getEnvVar } from '@woocommerce/monorepo-utils/src/core/environment';
+} from '@poocommerce/monorepo-utils/src/core/git';
+import { Logger } from '@poocommerce/monorepo-utils/src/core/logger';
+import { getEnvVar } from '@poocommerce/monorepo-utils/src/core/environment';
 import { Command } from '@commander-js/extra-typings';
 import dotenv from 'dotenv';
 
@@ -30,7 +30,7 @@ import { editPostHTML } from '../../lib/edit-post';
 
 const DEVELOPER_WOOCOMMERCE_SITE_ID = '96396764';
 
-const SOURCE_REPO = 'https://github.com/woocommerce/woocommerce.git';
+const SOURCE_REPO = 'https://github.com/poocommerce/poocommerce.git';
 
 const VERSION_VALIDATION_REGEX =
 	/^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/;
@@ -54,7 +54,7 @@ const program = new Command()
 	.option(
 		'--tags <tags>',
 		'Comma separated list of tags to add to the post.',
-		'Releases,WooCommerce Core'
+		'Releases,PooCommerce Core'
 	)
 	.option(
 		'--siteId <siteId>',
@@ -64,7 +64,7 @@ const program = new Command()
 		const siteId = options.siteId || DEVELOPER_WOOCOMMERCE_SITE_ID;
 		const tags = ( options.tags &&
 			options.tags.split( ',' ).map( ( tag ) => tag.trim() ) ) || [
-			'WooCommerce Core',
+			'PooCommerce Core',
 			'Releases',
 		];
 		const isOutputOnly = !! options.outputOnly;
@@ -178,7 +178,7 @@ const program = new Command()
 		);
 
 		Logger.startTask( 'Finding contributors' );
-		const title = `WooCommerce ${ currentVersion } Released`;
+		const title = `PooCommerce ${ currentVersion } Released`;
 
 		const contributors = await generateContributors(
 			currentVersion,

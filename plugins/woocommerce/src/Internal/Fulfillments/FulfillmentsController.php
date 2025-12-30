@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
 
 /**
  * Class FulfillmentsController
@@ -64,7 +64,7 @@ class FulfillmentsController {
 	private function maybe_create_db_tables(): void {
 		global $wpdb;
 
-		if ( get_option( 'woocommerce_fulfillments_db_tables_created', false ) ) {
+		if ( get_option( 'poocommerce_fulfillments_db_tables_created', false ) ) {
 			// The tables already exist, no need to create them again.
 			return;
 		}
@@ -112,7 +112,7 @@ class FulfillmentsController {
 		$database_util->dbdelta( $schema );
 
 		// Update the option to indicate that the tables have been created.
-		update_option( 'woocommerce_fulfillments_db_tables_created', true );
+		update_option( 'poocommerce_fulfillments_db_tables_created', true );
 	}
 
 	/**

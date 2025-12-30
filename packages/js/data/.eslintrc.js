@@ -1,11 +1,11 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	settings: {
 		'import/core-modules': [
-			'@woocommerce/date',
-			'@woocommerce/navigation',
-			'@woocommerce/tracks',
+			'@poocommerce/date',
+			'@poocommerce/navigation',
+			'@poocommerce/tracks',
 			'@wordpress/api-fetch',
 			'@wordpress/core-data',
 			'@wordpress/data',

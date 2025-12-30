@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments\Providers;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments\Providers;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Providers\CanadaPostShippingProvider;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers\CanadaPostShippingProvider;
 
 /**
  * Unit tests for CanadaPostShippingProvider class.
  *
- * @package WooCommerce\Tests\Internal\Fulfillments\Providers
+ * @package PooCommerce\Tests\Internal\Fulfillments\Providers
  */
 class CanadaPostShippingProviderTest extends \WP_UnitTestCase {
 	/**

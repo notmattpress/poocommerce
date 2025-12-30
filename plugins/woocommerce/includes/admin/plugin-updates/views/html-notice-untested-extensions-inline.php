@@ -2,7 +2,7 @@
 /**
  * Admin View: Notice - Untested extensions.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table class="plugin-details-table" cellspacing="0">
 		<thead>
 			<tr>
-				<th><?php esc_html_e( 'Plugin', 'woocommerce' ); ?></th>
-				<th><?php esc_html_e( 'Tested up to WooCommerce version', 'woocommerce' ); ?></th>
+				<th><?php esc_html_e( 'Plugin', 'poocommerce' ); ?></th>
+				<th><?php esc_html_e( 'Tested up to PooCommerce version', 'poocommerce' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>

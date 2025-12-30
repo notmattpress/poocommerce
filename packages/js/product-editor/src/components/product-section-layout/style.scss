@@ -1,4 +1,4 @@
-.woocommerce-form-section {
+.poocommerce-form-section {
 	a {
 		text-decoration: none;
 	}
@@ -21,7 +21,7 @@
 			}
 		}
 
-		.woocommerce-product-form__field:not(:first-child) {
+		.poocommerce-product-form__field:not(:first-child) {
 			margin-top: $gap-large;
 
 			> .components-base-control {
@@ -33,7 +33,7 @@
 			gap: $gap-small;
 		}
 
-		.woocommerce-collapsible-content {
+		.poocommerce-collapsible-content {
 			margin-top: $gap-large;
 		}
 	}

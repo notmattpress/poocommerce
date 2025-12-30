@@ -27,11 +27,11 @@ describe( 'CountrySelector', () => {
 
 	const defaultProps = {
 		name: 'country-selector',
-		label: __( 'Select a country', 'woocommerce' ),
+		label: __( 'Select a country', 'poocommerce' ),
 		options: mockItems,
 		onChange: mockOnChange,
 		value: mockItems[ 0 ], // Initially selected item
-		placeholder: __( 'Choose a country', 'woocommerce' ),
+		placeholder: __( 'Choose a country', 'poocommerce' ),
 	};
 
 	afterEach( () => {

@@ -2,24 +2,24 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Internal\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Validator\Builder;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Validator\Builder;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
 use WC_Email;
 use WP_Error;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * API Controller for managing WooCommerce email templates via extending the post type API.
+ * API Controller for managing PooCommerce email templates via extending the post type API.
  *
  * @internal
  */
 class EmailApiController {
 
 	/**
-	 * The WooCommerce transactional email post manager.
+	 * The PooCommerce transactional email post manager.
 	 *
 	 * @var WCTransactionalEmailPostsManager|null
 	 */
@@ -78,7 +78,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Update WooCommerce specific option data by post name.
+	 * Update PooCommerce specific option data by post name.
 	 *
 	 * @param array    $data - Data that are stored in the wp_options table.
 	 * @param \WP_Post $post - WP_Post object.
@@ -146,7 +146,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_recipients ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more Recipient email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_recipients )
 			);
 			$error->add( 'invalid_recipient_email_address', $error_message );
@@ -157,7 +157,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_cc ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more CC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_cc )
 			);
 			$error->add( 'invalid_cc_email_address', $error_message );
@@ -168,7 +168,7 @@ class EmailApiController {
 		if ( ! empty( $invalid_bcc ) ) {
 			$error_message = sprintf(
 				// translators: %s will be replaced by comma-separated email addresses. For example, "invalidemail1@example.com,invalidemail2@example.com".
-				__( 'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'woocommerce' ),
+				__( 'One or more BCC email addresses are invalid: “%s”. Please enter valid email addresses separated by commas.', 'poocommerce' ),
 				implode( ',', $invalid_bcc )
 			);
 			$error->add( 'invalid_bcc_email_address', $error_message );
@@ -204,7 +204,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get the schema for the WooCommerce email post data.
+	 * Get the schema for the PooCommerce email post data.
 	 *
 	 * @return array
 	 */
@@ -225,7 +225,7 @@ class EmailApiController {
 	}
 
 	/**
-	 * Get all WooCommerce emails.
+	 * Get all PooCommerce emails.
 	 *
 	 * @return \WC_Email[]
 	 */

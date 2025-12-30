@@ -6,7 +6,7 @@ import {
 	useBlockProps,
 	InnerBlocks,
 } from '@wordpress/block-editor';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -43,7 +43,7 @@ const Edit = () => {
 								'core/heading',
 								{
 									level: 3,
-									content: __( 'Price', 'woocommerce' ),
+									content: __( 'Price', 'poocommerce' ),
 									style: {
 										spacing: {
 											margin: {
@@ -54,7 +54,7 @@ const Edit = () => {
 									},
 								},
 							],
-							[ 'woocommerce/product-filter-price-slider', {} ],
+							[ 'poocommerce/product-filter-price-slider', {} ],
 						] }
 					/>
 				</BlockContextProvider>

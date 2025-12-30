@@ -11,7 +11,7 @@
 		line-height: 1.618;
 		font-size: 1em;
 		/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
-		font-family: WooCommerce;
+		font-family: PooCommerce;
 		font-weight: 400;
 		text-align: left;
 
@@ -74,7 +74,7 @@
 		line-height: 1.618;
 		font-size: 1em;
 		/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
-		font-family: WooCommerce;
+		font-family: PooCommerce;
 		font-weight: 400;
 		-webkit-text-stroke: 2px var(--wp--preset--color--black, #000);
 		&::before {
@@ -90,7 +90,7 @@
 	}
 }
 
-.wp-block-woocommerce-single-product {
+.wp-block-poocommerce-single-product {
 	.wc-block-components-product-rating__stars {
 		margin: 0;
 	}

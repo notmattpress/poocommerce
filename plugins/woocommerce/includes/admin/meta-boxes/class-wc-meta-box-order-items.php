@@ -6,11 +6,11 @@
  *
  * @author      WooThemes
  * @category    Admin
- * @package     WooCommerce\Admin\Meta Boxes
+ * @package     PooCommerce\Admin\Meta Boxes
  * @version     2.1.0
  */
 
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

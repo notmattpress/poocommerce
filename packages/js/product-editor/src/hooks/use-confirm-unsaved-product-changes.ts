@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { useConfirmUnsavedChanges } from '@woocommerce/navigation';
+import { useConfirmUnsavedChanges } from '@poocommerce/navigation';
 import { useEntityId } from '@wordpress/core-data';
 
 /**

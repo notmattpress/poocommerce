@@ -10,18 +10,18 @@ import {
 	useEffect,
 	useMemo,
 } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import {
 	Product,
 	ProductProductAttribute,
 	useUserPreferences,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { Link } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { Link } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp, useEntityId } from '@wordpress/core-data';
 
 /**
@@ -90,14 +90,14 @@ export function Edit( {
 		notice = createInterpolateElement(
 			__(
 				'Buyers can’t search or filter by <attributeNames /> to find the variations. Consider adding them again as <globalAttributeLink>global attributes</globalAttributeLink> to make them easier to discover.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				attributeNames: (
 					<span>
 						{ localAttributeNames.length === 2
 							? localAttributeNames.join(
-									__( ' and ', 'woocommerce' )
+									__( ' and ', 'poocommerce' )
 							  )
 							: localAttributeNames.join( ', ' ) }
 					</span>
@@ -130,23 +130,23 @@ export function Edit( {
 		addAttribute,
 	}: AttributeControlEmptyStateProps ) {
 		return (
-			<div className="wp-block-woocommerce-product-variations-options-field__empty-state">
-				<div className="wp-block-woocommerce-product-variations-options-field__empty-state-image">
-					<ProductTShirt className="wp-block-woocommerce-product-variations-options-field__empty-state-image-product" />
-					<ProductTShirt className="wp-block-woocommerce-product-variations-options-field__empty-state-image-product" />
-					<ProductTShirt className="wp-block-woocommerce-product-variations-options-field__empty-state-image-product" />
+			<div className="wp-block-poocommerce-product-variations-options-field__empty-state">
+				<div className="wp-block-poocommerce-product-variations-options-field__empty-state-image">
+					<ProductTShirt className="wp-block-poocommerce-product-variations-options-field__empty-state-image-product" />
+					<ProductTShirt className="wp-block-poocommerce-product-variations-options-field__empty-state-image-product" />
+					<ProductTShirt className="wp-block-poocommerce-product-variations-options-field__empty-state-image-product" />
 				</div>
 
-				<p className="wp-block-woocommerce-product-variations-options-field__empty-state-description">
+				<p className="wp-block-poocommerce-product-variations-options-field__empty-state-description">
 					{ __(
 						'Sell your product in multiple variations like size or color.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 
-				<div className="wp-block-woocommerce-product-variations-options-field__empty-state-actions">
+				<div className="wp-block-poocommerce-product-variations-options-field__empty-state-actions">
 					<Button variant="primary" onClick={ () => addAttribute() }>
-						{ __( 'Add options', 'woocommerce' ) }
+						{ __( 'Add options', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>
@@ -212,19 +212,19 @@ export function Edit( {
 					newAttributeModalNotice: '',
 					newAttributeModalTitle: __(
 						'Add variation options',
-						'woocommerce'
+						'poocommerce'
 					),
 					newAttributeModalDescription: __(
 						'Select from existing attributes or create new ones to add new variations for your product. You can change the order later.',
-						'woocommerce'
+						'poocommerce'
 					),
 					attributeRemoveLabel: __(
 						'Remove variation option',
-						'woocommerce'
+						'poocommerce'
 					),
 					attributeRemoveConfirmationModalMessage: __(
 						'If you continue, some variations of this product will be deleted and customers will no longer be able to purchase them.',
-						'woocommerce'
+						'poocommerce'
 					),
 				} }
 			/>

@@ -7,7 +7,7 @@ import {
 	useMemo,
 	useEffect,
 } from '@wordpress/element';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Sometimes extensions will place a <script /> tag in the custom output of a settings field,

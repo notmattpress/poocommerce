@@ -117,12 +117,12 @@ function CustomSelectControl< ItemType extends Item >( {
 		}
 
 		if ( ! itemString ) {
-			return __( 'No selection', 'woocommerce' );
+			return __( 'No selection', 'poocommerce' );
 		}
 
 		return sprintf(
 			/* translators: %s: The selected option. */
-			__( 'Currently selected: %s', 'woocommerce' ),
+			__( 'Currently selected: %s', 'poocommerce' ),
 			itemString
 		);
 	}

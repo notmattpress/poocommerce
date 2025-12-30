@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Functions.
- * @package WooCommerce\Tests\Coupon
+ * @package PooCommerce\Tests\Coupon
  * @since 2.2
  */
 class WC_Tests_Functions extends WC_Unit_Test_Case {
@@ -14,9 +14,9 @@ class WC_Tests_Functions extends WC_Unit_Test_Case {
 	public function test_wc_get_coupon_types() {
 
 		$coupon_types = array(
-			'percent'       => __( 'Percentage discount', 'woocommerce' ),
-			'fixed_cart'    => __( 'Fixed cart discount', 'woocommerce' ),
-			'fixed_product' => __( 'Fixed product discount', 'woocommerce' ),
+			'percent'       => __( 'Percentage discount', 'poocommerce' ),
+			'fixed_cart'    => __( 'Fixed cart discount', 'poocommerce' ),
+			'fixed_product' => __( 'Fixed product discount', 'poocommerce' ),
 		);
 
 		$this->assertEquals( $coupon_types, wc_get_coupon_types() );
@@ -39,7 +39,7 @@ class WC_Tests_Functions extends WC_Unit_Test_Case {
 	 * @since 2.5.0
 	 */
 	public function test_wc_coupons_enabled() {
-		$this->assertEquals( apply_filters( 'woocommerce_coupons_enabled', get_option( 'woocommerce_enable_coupons' ) === 'yes' ), wc_coupons_enabled() );
+		$this->assertEquals( apply_filters( 'poocommerce_coupons_enabled', get_option( 'poocommerce_enable_coupons' ) === 'yes' ), wc_coupons_enabled() );
 	}
 
 	/**

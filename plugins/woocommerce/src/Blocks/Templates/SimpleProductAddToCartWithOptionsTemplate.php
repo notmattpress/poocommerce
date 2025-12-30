@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * SimpleProductAddToCartWithOptionsTemplate class.
@@ -36,7 +36,7 @@ class SimpleProductAddToCartWithOptionsTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Simple Product Add to Cart + Options', 'Template name', 'woocommerce' );
+		return _x( 'Simple Product Add to Cart + Options', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -45,6 +45,6 @@ class SimpleProductAddToCartWithOptionsTemplate extends AbstractTemplatePart {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'Template used to display the Add to Cart + Options form for Simple Products.', 'woocommerce' );
+		return __( 'Template used to display the Add to Cart + Options form for Simple Products.', 'poocommerce' );
 	}
 }

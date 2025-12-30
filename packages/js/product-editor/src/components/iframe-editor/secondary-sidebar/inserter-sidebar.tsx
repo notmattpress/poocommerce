@@ -62,9 +62,9 @@ export default function InserterSidebar() {
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			onKeyDown={ ( event ) => closeOnEscape( event ) }
-			className="woocommerce-iframe-editor__inserter-panel"
+			className="poocommerce-iframe-editor__inserter-panel"
 		>
-			<div className="woocommerce-iframe-editor__inserter-panel-content">
+			<div className="poocommerce-iframe-editor__inserter-panel-content">
 				<Library
 					showInserterHelpPanel
 					shouldFocusBlock={ isMobileViewport }

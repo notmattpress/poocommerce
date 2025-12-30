@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\PushNotifications;
+namespace Automattic\PooCommerce\Internal\PushNotifications;
 
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use Exception;
 
 /**
  * WC Push Notifications
  *
- * Class for setting up the WooCommerce-driven push notifications.
+ * Class for setting up the PooCommerce-driven push notifications.
  *
  * @since 10.4.0
  */

@@ -1,6 +1,6 @@
 {
-	"name": "woocommerce/sanitize",
-	"description": "WooCommerce HTML sanitization utilities",
+	"name": "poocommerce/sanitize",
+	"description": "PooCommerce HTML sanitization utilities",
 	"type": "library",
 	"license": "GPL-2.0-or-later",
 	"minimum-stability": "dev",

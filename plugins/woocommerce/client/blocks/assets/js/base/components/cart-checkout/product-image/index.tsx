@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-import { PLACEHOLDER_IMG_SRC } from '@woocommerce/settings';
+import { PLACEHOLDER_IMG_SRC } from '@poocommerce/settings';
 
 interface ProductImageProps {
 	image: { alt?: string; thumbnail?: string };

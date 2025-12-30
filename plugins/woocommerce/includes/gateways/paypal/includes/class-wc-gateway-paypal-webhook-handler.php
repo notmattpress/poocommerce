@@ -2,12 +2,12 @@
 /**
  * Class WC_Gateway_Paypal_Webhook_Handler file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -86,7 +86,7 @@ class WC_Gateway_Paypal_Webhook_Handler {
 			$order->add_order_note(
 				sprintf(
 					/* translators: %1$s: PayPal order ID */
-					__( 'PayPal payment approved. PayPal Order ID: %1$s', 'woocommerce' ),
+					__( 'PayPal payment approved. PayPal Order ID: %1$s', 'poocommerce' ),
 					$paypal_order_id
 				)
 			);
@@ -106,7 +106,7 @@ class WC_Gateway_Paypal_Webhook_Handler {
 			$order->add_order_note(
 				sprintf(
 					/* translators: %1$s: PayPal order ID, %2$s: Status */
-					__( 'PayPal payment approval failed. PayPal Order ID: %1$s. Status: %2$s', 'woocommerce' ),
+					__( 'PayPal payment approval failed. PayPal Order ID: %1$s. Status: %2$s', 'poocommerce' ),
 					$paypal_order_id,
 					$status
 				)
@@ -141,7 +141,7 @@ class WC_Gateway_Paypal_Webhook_Handler {
 		$order->add_order_note(
 			sprintf(
 				/* translators: %1$s: Transaction ID */
-				__( 'PayPal payment captured. Transaction ID: %1$s.', 'woocommerce' ),
+				__( 'PayPal payment captured. Transaction ID: %1$s.', 'poocommerce' ),
 				$transaction_id
 			)
 		);
@@ -173,7 +173,7 @@ class WC_Gateway_Paypal_Webhook_Handler {
 		$order->update_meta_data( '_paypal_capture_id', $transaction_id );
 		$order->update_meta_data( '_paypal_status', $status );
 		/* translators: %s: reason */
-		$order->update_status( OrderStatus::ON_HOLD, sprintf( __( 'Payment pending (reason: %s).', 'woocommerce' ), $reason ) );
+		$order->update_status( OrderStatus::ON_HOLD, sprintf( __( 'Payment pending (reason: %s).', 'poocommerce' ), $reason ) );
 		$order->save();
 	}
 
@@ -202,7 +202,7 @@ class WC_Gateway_Paypal_Webhook_Handler {
 		$order->add_order_note(
 			sprintf(
 				/* translators: %1$s: Transaction ID */
-				__( 'PayPal payment authorized. Transaction ID: %1$s. Change payment status to processing or complete to capture funds.', 'woocommerce' ),
+				__( 'PayPal payment authorized. Transaction ID: %1$s. Change payment status to processing or complete to capture funds.', 'poocommerce' ),
 				$transaction_id
 			)
 		);

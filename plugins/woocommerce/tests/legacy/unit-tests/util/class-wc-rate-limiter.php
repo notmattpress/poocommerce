@@ -2,7 +2,7 @@
 /**
  * File for the WC_Rate_Limiter class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
@@ -85,8 +85,8 @@ class WC_Tests_Rate_Limiter extends WC_Unit_Test_Case {
 		global $wpdb;
 
 		// Add some options to be migrated.
-		add_option( 'woocommerce_rate_limit_add_payment_method_123', time() + 1000 );
-		add_option( 'woocommerce_rate_limit_add_payment_method_234', time() - 1 );
+		add_option( 'poocommerce_rate_limit_add_payment_method_123', time() + 1000 );
+		add_option( 'poocommerce_rate_limit_add_payment_method_234', time() - 1 );
 
 		// Run the migration function.
 		include_once WC_Unit_Tests_Bootstrap::instance()->plugin_dir . '/includes/wc-update-functions.php';
@@ -99,7 +99,7 @@ class WC_Tests_Rate_Limiter extends WC_Unit_Test_Case {
 		$this->assertEquals( 'add_payment_method_123', $migrated[0] );
 
 		// Verify that all rate limit options were deleted.
-		$this->assertFalse( get_option( 'woocommerce_rate_limit_add_payment_method_123' ) );
-		$this->assertFalse( get_option( 'woocommerce_rate_limit_add_payment_method_234' ) );
+		$this->assertFalse( get_option( 'poocommerce_rate_limit_add_payment_method_123' ) );
+		$this->assertFalse( get_option( 'poocommerce_rate_limit_add_payment_method_234' ) );
 	}
 }

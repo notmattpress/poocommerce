@@ -1,17 +1,17 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-checkbox-list",
+	"name": "poocommerce/product-filter-checkbox-list",
 	"title": "List",
 	"description": "Display a list of filter options.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"ancestor": [
-		"woocommerce/product-filter-attribute",
-		"woocommerce/product-filter-status",
-		"woocommerce/product-filter-taxonomy",
-		"woocommerce/product-filter-rating"
+		"poocommerce/product-filter-attribute",
+		"poocommerce/product-filter-status",
+		"poocommerce/product-filter-taxonomy",
+		"poocommerce/product-filter-rating"
 	],
 	"supports": {
 		"interactivity": true
@@ -51,7 +51,7 @@
 			"default": ""
 		}
 	},
-	"viewScriptModule": "woocommerce/product-filter-checkbox-list",
-	"style": "file:../woocommerce/product-filter-checkbox-list-style.css",
-	"editorStyle": "file:../woocommerce/product-filter-checkbox-list-editor.css"
+	"viewScriptModule": "poocommerce/product-filter-checkbox-list",
+	"style": "file:../poocommerce/product-filter-checkbox-list-style.css",
+	"editorStyle": "file:../poocommerce/product-filter-checkbox-list-editor.css"
 }

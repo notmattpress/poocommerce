@@ -1,4 +1,4 @@
-# woocommerce/product-text-area-field
+# poocommerce/product-text-area-field
 
 A reusable toggle field for the product editor.
 
@@ -83,14 +83,14 @@ Here's a snippet that adds a text area field to the product editor:
 $section->add_block(
   array(
     'id'         => 'example-toggle-meta',
-    'blockName'  => 'woocommerce/product-toggle-field',
+    'blockName'  => 'poocommerce/product-toggle-field',
     'order'      => 15,
     'attributes' => array(
       'property'       => 'virtual',
       'checkedValue'   => false,
       'uncheckedValue' => true,
-      'label'          => __( 'This variation requires shipping or pickup', 'woocommerce' ),
-      'uncheckedHelp'  => __( 'This variation will not trigger your customer\'s shipping calculator in cart or at checkout. This product also won\'t require your customers to enter their shipping details at checkout. <a href="https://woocommerce.com/document/managing-products/#adding-a-virtual-product" target="_blank" rel="noreferrer">Read more about virtual products</a>.', 'woocommerce' ),
+      'label'          => __( 'This variation requires shipping or pickup', 'poocommerce' ),
+      'uncheckedHelp'  => __( 'This variation will not trigger your customer\'s shipping calculator in cart or at checkout. This product also won\'t require your customers to enter their shipping details at checkout. <a href="https://poocommerce.com/document/managing-products/#adding-a-virtual-product" target="_blank" rel="noreferrer">Read more about virtual products</a>.', 'poocommerce' ),
     ),
   )
 );

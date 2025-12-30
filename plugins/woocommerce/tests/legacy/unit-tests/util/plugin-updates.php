@@ -2,12 +2,12 @@
 /**
  * File for the WC_Tests_Plugin_Updates class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
  * Class WC_Plugin_Updates.
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  * @since 3.2.0
  */
 class WC_Tests_Plugin_Updates extends WC_Unit_Test_Case {
@@ -34,7 +34,7 @@ class WC_Tests_Plugin_Updates extends WC_Unit_Test_Case {
 		$this->updates = new WC_Plugin_Updates();
 		$this->plugins = array();
 
-		add_filter( 'woocommerce_get_plugins_with_header', array( $this, 'populate_untested_plugins' ), 10, 2 );
+		add_filter( 'poocommerce_get_plugins_with_header', array( $this, 'populate_untested_plugins' ), 10, 2 );
 	}
 
 	/**

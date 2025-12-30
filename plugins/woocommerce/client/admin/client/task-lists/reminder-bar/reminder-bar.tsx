@@ -8,15 +8,15 @@ import {
 	TaskType,
 	getVisibleTasks,
 	onboardingStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { Button } from '@wordpress/components';
-import { Link } from '@woocommerce/components';
-import { getAdminLink } from '@woocommerce/settings';
+import { Link } from '@poocommerce/components';
+import { getAdminLink } from '@poocommerce/settings';
 import { close as closeIcon } from '@wordpress/icons';
 import interpolateComponents from '@automattic/interpolate-components';
 import { useEffect } from '@wordpress/element';
-import { getQuery } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { getQuery } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ type ReminderTextProps = {
 	};
 };
 
-const REMINDER_BAR_HIDDEN_OPTION = 'woocommerce_task_list_reminder_bar_hidden';
+const REMINDER_BAR_HIDDEN_OPTION = 'poocommerce_task_list_reminder_bar_hidden';
 
 const ReminderText = ( { remainingCount, tracksProps }: ReminderTextProps ) => {
 	const translationText =
@@ -45,12 +45,12 @@ const ReminderText = ( { remainingCount, tracksProps }: ReminderTextProps ) => {
 			? /* translators: 1: remaining tasks count */
 			  __(
 					'🎉 Almost there. Only {{strongText}}%1$d step left{{/strongText}} get your store up and running. {{setupLink}}Finish setup{{/setupLink}}',
-					'woocommerce'
+					'poocommerce'
 			  )
 			: /* translators: 1: remaining tasks count */
 			  __(
 					'🚀 You’re doing great! {{strongText}}%1$d steps left{{/strongText}} to get your store up and running. {{setupLink}}Continue setup{{/setupLink}}',
-					'woocommerce'
+					'poocommerce'
 			  );
 
 	return (
@@ -179,7 +179,7 @@ export const TasksReminderBar = ( {
 	}
 
 	return (
-		<div className="woocommerce-layout__header-tasks-reminder-bar">
+		<div className="poocommerce-layout__header-tasks-reminder-bar">
 			<ReminderText
 				remainingCount={ remainingCount }
 				tracksProps={ tracksProps }

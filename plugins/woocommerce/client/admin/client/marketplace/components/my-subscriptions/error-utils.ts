@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __, sprintf, _n } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import type { Options as NoticeOptions } from 'wordpress__notices';
 
 /**
@@ -60,7 +60,7 @@ function getConnectionErrorMessage(
 						// translators: %1$s and %2$s are domain names.
 						__(
 							"This subscription is maxed out as it's connected to %1$s and %2$s.",
-							'woocommerce'
+							'poocommerce'
 						),
 						first,
 						second
@@ -78,7 +78,7 @@ function getConnectionErrorMessage(
 						"This subscription is maxed out as it's connected to %1$s, %2$s, and %3$d other site.",
 						"This subscription is maxed out as it's connected to %1$s, %2$s, and %3$d other sites.",
 						others,
-						'woocommerce'
+						'poocommerce'
 					),
 					first,
 					second,
@@ -94,7 +94,7 @@ function getConnectionErrorMessage(
 			' ' +
 			__(
 				'The product key is invalid. Please contact support for assistance.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -105,7 +105,7 @@ function getConnectionErrorMessage(
 			' ' +
 			__(
 				'We are unable to activate the subscription at this time. Please try again later.',
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	}
@@ -126,7 +126,7 @@ function getConnectionErrorAction( error: ConnectError ): StoreAction | null {
 	const code = error?.data?.code || '';
 	if ( code === 'maxed_out' ) {
 		return {
-			label: __( 'Manage subscriptions', 'woocommerce' ),
+			label: __( 'Manage subscriptions', 'poocommerce' ),
 			onClick: () => {
 				trackConnectErrorActionClicked( 'manage_subscriptions', code );
 				window.location.assign( MARKETPLACE_RENEW_SUBSCRIPTON_PATH );
@@ -136,7 +136,7 @@ function getConnectionErrorAction( error: ConnectError ): StoreAction | null {
 
 	if ( code === 'invalid_product_key' ) {
 		return {
-			label: __( 'Contact support', 'woocommerce' ),
+			label: __( 'Contact support', 'poocommerce' ),
 			onClick: () => {
 				trackConnectErrorActionClicked( 'contact_support', code );
 				window.location.assign( MARKETPLACE_SUPPORT_PATH );

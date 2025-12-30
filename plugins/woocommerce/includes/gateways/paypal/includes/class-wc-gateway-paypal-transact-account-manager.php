@@ -2,7 +2,7 @@
 /**
  * Class WC_Gateway_Paypal_Transact_Account_Manager file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
@@ -36,10 +36,10 @@ final class WC_Gateway_Paypal_Transact_Account_Manager {
 	 *
 	 * @var string
 	 */
-	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_LIVE = 'woocommerce_paypal_transact_merchant_account_live';
-	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_TEST = 'woocommerce_paypal_transact_merchant_account_test';
-	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_LIVE = 'woocommerce_paypal_transact_provider_account_live';
-	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_TEST = 'woocommerce_paypal_transact_provider_account_test';
+	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_LIVE = 'poocommerce_paypal_transact_merchant_account_live';
+	private const TRANSACT_MERCHANT_ACCOUNT_CACHE_KEY_TEST = 'poocommerce_paypal_transact_merchant_account_test';
+	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_LIVE = 'poocommerce_paypal_transact_provider_account_live';
+	private const TRANSACT_PROVIDER_ACCOUNT_CACHE_KEY_TEST = 'poocommerce_paypal_transact_provider_account_test';
 
 	/**
 	 * The expiry time for the Transact account cache.

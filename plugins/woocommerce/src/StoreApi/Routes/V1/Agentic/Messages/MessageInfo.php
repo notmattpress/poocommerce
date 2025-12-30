@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Messages;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Messages;
 
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\MessageType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\MessageType;
 
 /**
  * MessageInfo class.

@@ -29,7 +29,7 @@ const consoleWarnSpy = jest
 		if (
 			typeof message === 'string' &&
 			message.match(
-				/The block ".*" is registered with an invalid category "woocommerce"./
+				/The block ".*" is registered with an invalid category "poocommerce"./
 			)
 		) {
 			return;

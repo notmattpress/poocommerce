@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CartItem } from '@woocommerce/types';
+import type { CartItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies

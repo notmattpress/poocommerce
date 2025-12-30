@@ -1,14 +1,14 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Internal\Customers\SearchService as CustomerSearchService;
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\DiscountsUtil;
-use Automattic\WooCommerce\Utilities\ShippingUtil;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Internal\Customers\SearchService as CustomerSearchService;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\DiscountsUtil;
+use Automattic\PooCommerce\Utilities\ShippingUtil;
 use Exception;
 
 /**
@@ -41,20 +41,20 @@ class OrderController {
 	public function create_order_from_cart() {
 		if ( wc()->cart->is_empty() ) {
 			throw new RouteException(
-				'woocommerce_rest_cart_empty',
-				__( 'Cannot create order from empty cart.', 'woocommerce' ),
+				'poocommerce_rest_cart_empty',
+				__( 'Cannot create order from empty cart.', 'poocommerce' ),
 				400
 			);
 		}
 
-		add_filter( 'woocommerce_default_order_status', array( $this, 'default_order_status' ) );
+		add_filter( 'poocommerce_default_order_status', array( $this, 'default_order_status' ) );
 
 		$order = new \WC_Order();
 		$order->set_status( 'checkout-draft' );
 		$order->set_created_via( 'store-api' );
 		$this->update_order_from_cart( $order );
 
-		remove_filter( 'woocommerce_default_order_status', array( $this, 'default_order_status' ) );
+		remove_filter( 'poocommerce_default_order_status', array( $this, 'default_order_status' ) );
 
 		return $order;
 	}
@@ -70,20 +70,20 @@ class OrderController {
 		 * This filter ensures that local pickup locations are still used for order taxes by forcing the address used to
 		 * calculate tax for an order to match the current address of the customer.
 		 *
-		 * -    The method `$customer->get_taxable_address()` runs the filter `woocommerce_customer_taxable_address`.
+		 * -    The method `$customer->get_taxable_address()` runs the filter `poocommerce_customer_taxable_address`.
 		 * -    While we have a session, our `ShippingController::filter_taxable_address` function uses this hook to set
 		 *      the customer address to the pickup location address if local pickup is the chosen method.
 		 *
 		 * Without this code in place, `$customer->get_taxable_address()` is not used when order taxes are calculated,
 		 * resulting in the wrong taxes being applied with local pickup.
 		 *
-		 * The alternative would be to instead use `woocommerce_order_get_tax_location` to return the pickup location
+		 * The alternative would be to instead use `poocommerce_order_get_tax_location` to return the pickup location
 		 * address directly, however since we have the customer filter in place we don't need to duplicate effort.
 		 *
 		 * @see \WC_Abstract_Order::get_tax_location()
 		 */
 		add_filter(
-			'woocommerce_order_get_tax_location',
+			'poocommerce_order_get_tax_location',
 			function ( $location ) {
 
 				if ( ! is_null( wc()->customer ) ) {
@@ -110,8 +110,8 @@ class OrderController {
 		// Update the current order to match the current cart.
 		$this->update_line_items_from_cart( $order );
 		$this->update_addresses_from_cart( $order );
-		$order->set_currency( get_woocommerce_currency() );
-		$order->set_prices_include_tax( 'yes' === get_option( 'woocommerce_prices_include_tax' ) );
+		$order->set_currency( get_poocommerce_currency() );
+		$order->set_prices_include_tax( 'yes' === get_option( 'poocommerce_prices_include_tax' ) );
 		$order->set_customer_id( get_current_user_id() );
 		$order->set_customer_ip_address( \WC_Geolocation::get_ip_address() );
 		$order->set_customer_user_agent( wc_get_user_agent() );
@@ -204,7 +204,7 @@ class OrderController {
 	}
 
 	/**
-	 * Perform custom order validation via WooCommerce hooks.
+	 * Perform custom order validation via PooCommerce hooks.
 	 *
 	 * Allows plugins to perform custom validation before payment.
 	 *
@@ -223,12 +223,12 @@ class OrderController {
 		 * @param \WP_Error $validation_errors WP_Error object to add custom errors to.
 		 * @since 9.9.0
 		 */
-		do_action( 'woocommerce_checkout_validate_order_before_payment', $order, $validation_errors );
+		do_action( 'poocommerce_checkout_validate_order_before_payment', $order, $validation_errors );
 
 		// Check if there are any errors after custom validation.
 		if ( $validation_errors->has_errors() ) {
 			throw new RouteException(
-				'woocommerce_rest_checkout_custom_validation_error',
+				'poocommerce_rest_checkout_custom_validation_error',
 				esc_html( implode( ' ', $validation_errors->get_error_messages() ) ),
 				400
 			);
@@ -275,7 +275,7 @@ class OrderController {
 		if ( $coupon_errors ) {
 			// Remove all coupons that were not valid.
 			if ( $use_order_data ) {
-				$error_code = 'woocommerce_rest_order_coupon_errors';
+				$error_code = 'poocommerce_rest_order_coupon_errors';
 
 				foreach ( $coupon_errors as $coupon_code => $message ) {
 					$order->remove_coupon( $coupon_code );
@@ -284,7 +284,7 @@ class OrderController {
 				// Recalculate totals.
 				$order->calculate_totals();
 			} else {
-				$error_code = 'woocommerce_rest_cart_coupon_errors';
+				$error_code = 'poocommerce_rest_cart_coupon_errors';
 
 				foreach ( $coupon_errors as $coupon_code => $message ) {
 					wc()->cart->remove_coupon( $coupon_code );
@@ -301,27 +301,27 @@ class OrderController {
 			if ( 1 === count( $coupon_errors ) && $use_order_data ) {
 				$error_message = sprintf(
 					/* translators: %1$s Coupon codes, %2$s Reason */
-					__( '"%1$s" was removed from the order. %2$s', 'woocommerce' ),
+					__( '"%1$s" was removed from the order. %2$s', 'poocommerce' ),
 					array_keys( $coupon_errors )[0],
 					array_values( $coupon_errors )[0],
 				);
 			} elseif ( 1 === count( $coupon_errors ) ) {
 				$error_message = sprintf(
 					/* translators: %1$s Coupon codes, %2$s Reason */
-					__( '"%1$s" was removed from the cart. %2$s', 'woocommerce' ),
+					__( '"%1$s" was removed from the cart. %2$s', 'poocommerce' ),
 					array_keys( $coupon_errors )[0],
 					array_values( $coupon_errors )[0],
 				);
 			} elseif ( $use_order_data ) {
 				$error_message = sprintf(
 					/* translators: %s Coupon codes. */
-					__( 'Invalid coupons were removed from the order: "%s"', 'woocommerce' ),
+					__( 'Invalid coupons were removed from the order: "%s"', 'poocommerce' ),
 					implode( '", "', array_keys( $coupon_errors ) )
 				);
 			} else {
 				$error_message = sprintf(
 					/* translators: %s Coupon codes. */
-					__( 'Invalid coupons were removed from the cart: "%s"', 'woocommerce' ),
+					__( 'Invalid coupons were removed from the cart: "%s"', 'poocommerce' ),
 					implode( '", "', array_keys( $coupon_errors ) )
 				);
 			}
@@ -341,18 +341,18 @@ class OrderController {
 
 		if ( empty( $email ) ) {
 			throw new RouteException(
-				'woocommerce_rest_missing_email_address',
-				__( 'A valid email address is required', 'woocommerce' ),
+				'poocommerce_rest_missing_email_address',
+				__( 'A valid email address is required', 'poocommerce' ),
 				400
 			);
 		}
 
 		if ( ! is_email( $email ) ) {
 			throw new RouteException(
-				'woocommerce_rest_invalid_email_address',
+				'poocommerce_rest_invalid_email_address',
 				sprintf(
 					/* translators: %s provided email. */
-					__( 'The provided email address (%s) is not valid—please provide a valid email address', 'woocommerce' ),
+					__( 'The provided email address (%s) is not valid—please provide a valid email address', 'poocommerce' ),
 					esc_html( $email )
 				),
 				400
@@ -385,10 +385,10 @@ class OrderController {
 			// If only local pickup is selected, we don't need to validate the shipping country.
 			if ( ! $selected_shipping_rates_are_all_local_pickup && ! $this->validate_allowed_country( $shipping_country, (array) wc()->countries->get_shipping_countries() ) ) {
 				throw new RouteException(
-					'woocommerce_rest_invalid_address_country',
+					'poocommerce_rest_invalid_address_country',
 					sprintf(
 						/* translators: %s country code. */
-						esc_html__( 'Sorry, we do not ship orders to the provided country (%s)', 'woocommerce' ),
+						esc_html__( 'Sorry, we do not ship orders to the provided country (%s)', 'poocommerce' ),
 						esc_html( $shipping_country )
 					),
 					400,
@@ -401,10 +401,10 @@ class OrderController {
 
 		if ( ! $this->validate_allowed_country( $billing_country, (array) wc()->countries->get_allowed_countries() ) ) {
 			throw new RouteException(
-				'woocommerce_rest_invalid_address_country',
+				'poocommerce_rest_invalid_address_country',
 				sprintf(
 					/* translators: %s country code. */
-					esc_html__( 'Sorry, we do not allow orders from the provided country (%s)', 'woocommerce' ),
+					esc_html__( 'Sorry, we do not allow orders from the provided country (%s)', 'poocommerce' ),
 					esc_html( $billing_country )
 				),
 				400,
@@ -433,11 +433,11 @@ class OrderController {
 		// Surface errors from first code.
 		foreach ( $errors_by_code as $code => $error_messages ) {
 			throw new RouteException(
-				'woocommerce_rest_invalid_address',
+				'poocommerce_rest_invalid_address',
 				sprintf(
 					/* translators: %s Address type. */
-					esc_html__( 'There was a problem with the provided %s:', 'woocommerce' ) . ' ' . esc_html( implode( ', ', $error_messages ) ),
-					'shipping' === $code ? esc_html__( 'shipping address', 'woocommerce' ) : esc_html__( 'billing address', 'woocommerce' )
+					esc_html__( 'There was a problem with the provided %s:', 'poocommerce' ) . ' ' . esc_html( implode( ', ', $error_messages ) ),
+					'shipping' === $code ? esc_html__( 'shipping address', 'poocommerce' ) : esc_html__( 'billing address', 'poocommerce' )
 				),
 				400,
 				array(
@@ -497,7 +497,7 @@ class OrderController {
 
 			if ( $is_empty ) {
 				/* translators: %s Field label. */
-				$errors->add( $address_type, sprintf( __( '%s is required', 'woocommerce' ), $address_field['label'] ), $address_field_key );
+				$errors->add( $address_type, sprintf( __( '%s is required', 'poocommerce' ), $address_field['label'] ), $address_field_key );
 			}
 		}
 
@@ -662,8 +662,8 @@ class OrderController {
 		}
 
 		$exception = new RouteException(
-			'woocommerce_rest_invalid_shipping_option',
-			__( 'Sorry, this order requires a shipping option.', 'woocommerce' ),
+			'poocommerce_rest_invalid_shipping_option',
+			__( 'Sorry, this order requires a shipping option.', 'poocommerce' ),
 			400,
 			array()
 		);
@@ -695,7 +695,7 @@ class OrderController {
 		$order = wc_get_order( $order_id );
 
 		if ( ! $order || ! $order_key || $order->get_id() !== $order_id || ! hash_equals( $order->get_order_key(), $order_key ) ) {
-			throw new RouteException( 'woocommerce_rest_invalid_order', __( 'Invalid order ID or key provided.', 'woocommerce' ), 401 );
+			throw new RouteException( 'poocommerce_rest_invalid_order', __( 'Invalid order ID or key provided.', 'poocommerce' ), 401 );
 		}
 	}
 
@@ -743,11 +743,11 @@ class OrderController {
 						 *
 						 * @since 9.8.0-dev
 						 */
-						if ( ! apply_filters( 'woocommerce_pay_order_product_in_stock', $product->is_in_stock(), $product, $order ) ) {
+						if ( ! apply_filters( 'poocommerce_pay_order_product_in_stock', $product->is_in_stock(), $product, $order ) ) {
 							return array(
-								'code'    => 'woocommerce_rest_out_of_stock',
+								'code'    => 'poocommerce_rest_out_of_stock',
 								/* translators: %s: product name */
-								'message' => sprintf( __( 'Sorry, "%s" is no longer in stock so this order cannot be paid for. We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name() ),
+								'message' => sprintf( __( 'Sorry, "%s" is no longer in stock so this order cannot be paid for. We apologize for any inconvenience caused.', 'poocommerce' ), $product->get_name() ),
 							);
 						}
 
@@ -769,12 +769,12 @@ class OrderController {
 						 *
 						 * @since 9.8.0-dev
 						 */
-						if ( ! apply_filters( 'woocommerce_pay_order_product_has_enough_stock', ( $product->get_stock_quantity() >= ( $held_stock + $required_stock ) ), $product, $order ) ) {
+						if ( ! apply_filters( 'poocommerce_pay_order_product_has_enough_stock', ( $product->get_stock_quantity() >= ( $held_stock + $required_stock ) ), $product, $order ) ) {
 							/* translators: 1: product name 2: quantity in stock */
 							return array(
-								'code'    => 'woocommerce_rest_out_of_stock',
+								'code'    => 'poocommerce_rest_out_of_stock',
 								/* translators: %s: product name */
-								'message' => sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity() - $held_stock, $product ) ),
+								'message' => sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused.', 'poocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity() - $held_stock, $product ) ),
 							);
 						}
 					}

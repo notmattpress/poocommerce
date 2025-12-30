@@ -1,19 +1,19 @@
-.woocommerce-admin-page__home #wpcontent,
-.woocommerce-admin-page__home.woocommerce_page_wc-admin #wpbody-content,
-.woocommerce-admin-page__extensions #wpcontent,
-.woocommerce-admin-page__extensions.woocommerce_page_wc-admin #wpbody-content {
+.poocommerce-admin-page__home #wpcontent,
+.poocommerce-admin-page__home.poocommerce_page_wc-admin #wpbody-content,
+.poocommerce-admin-page__extensions #wpcontent,
+.poocommerce-admin-page__extensions.poocommerce_page_wc-admin #wpbody-content {
 	overflow-x: inherit !important; // Overwriting wc-admin css from elsewhere. Necessary to make the right-hand column 'stick'
 	position: relative;
 }
 
-.woocommerce-homescreen {
+.poocommerce-homescreen {
 	display: flex;
 	max-width: 1032px;
 	margin: 0 auto;
 	justify-content: space-between;
 	flex-direction: column;
 
-	.woocommerce-task-dashboard__container {
+	.poocommerce-task-dashboard__container {
 		width: 100%;
 		margin-bottom: $gap-large;
 	}
@@ -21,7 +21,7 @@
 	&.two-columns {
 		flex-direction: row;
 
-		.woocommerce-homescreen-column {
+		.poocommerce-homescreen-column {
 			width: calc(50% - 12px);
 			margin: 0;
 
@@ -51,7 +51,7 @@
 	}
 }
 
-.woocommerce-homescreen-column {
+.poocommerce-homescreen-column {
 	width: 682px;
 	top: 100px;
 	margin: 0 auto;
@@ -61,7 +61,7 @@
 		margin-bottom: $gap-large;
 	}
 
-	.components-text + .woocommerce-badge {
+	.components-text + .poocommerce-badge {
 		margin-left: 16px;
 	}
 
@@ -72,7 +72,7 @@
 	}
 }
 
-.woocommerce-homescreen-card {
+.poocommerce-homescreen-card {
 	.components-card__header.is-size-large,
 	.components-card__header.is-size-medium {
 		min-height: 63px;
@@ -92,6 +92,6 @@
 	}
 }
 
-.woocommerce-layout__inbox-panel-header.your-store-today {
+.poocommerce-layout__inbox-panel-header.your-store-today {
 	display: none;
 }

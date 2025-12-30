@@ -6,9 +6,9 @@ import { Button } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
 import { useDispatch } from '@wordpress/data';
 import { createElement } from '@wordpress/element';
-import { type Product } from '@woocommerce/data';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { type Product } from '@poocommerce/data';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

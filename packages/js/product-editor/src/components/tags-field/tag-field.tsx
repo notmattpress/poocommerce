@@ -11,9 +11,9 @@ import {
 import {
 	TreeItemType,
 	__experimentalSelectTreeControl as SelectTree,
-} from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
-import { experimentalProductTagsStore, ProductTag } from '@woocommerce/data';
+} from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
+import { experimentalProductTagsStore, ProductTag } from '@poocommerce/data';
 import { useDispatch } from '@wordpress/data';
 import { useDebounce } from '@wordpress/compose';
 
@@ -101,7 +101,7 @@ export const TagField = ( {
 		} catch ( e ) {
 			createNotice(
 				'error',
-				__( 'Failed to create tag.', 'woocommerce' )
+				__( 'Failed to create tag.', 'poocommerce' )
 			);
 			setIsCreating( false );
 		}

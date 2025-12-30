@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-text-field",
+	"name": "poocommerce/product-text-field",
 	"title": "Product text field",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "A text field for use in the product editor.",
 	"keywords": [
 		"products",

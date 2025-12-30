@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Config;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Config;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
 use WC_Email;
 
 /**
@@ -21,8 +21,8 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 		$this->id             = 'customer_stock_notification_verify';
 		$this->customer_email = true;
 
-		$this->title       = __( 'Back in stock sign-up verification', 'woocommerce' );
-		$this->description = __( 'Verification e-mail sent to customers, as part of the double opt-in sign-up process.', 'woocommerce' );
+		$this->title       = __( 'Back in stock sign-up verification', 'poocommerce' );
+		$this->description = __( 'Verification e-mail sent to customers, as part of the double opt-in sign-up process.', 'poocommerce' );
 
 		$this->template_html  = 'emails/customer-stock-notification-verify.php';
 		$this->template_plain = 'emails/plain/customer-stock-notification-verify.php';
@@ -31,7 +31,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 			'{site_title}'   => '',
 		);
 
-		add_action( 'woocommerce_email_stock_notification_verify_notification', array( $this, 'trigger' ), 10, 1 );
+		add_action( 'poocommerce_email_stock_notification_verify_notification', array( $this, 'trigger' ), 10, 1 );
 
 		// Call parent constructor.
 		parent::__construct();
@@ -43,7 +43,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return __( 'Join the "{product_name}" waitlist.', 'woocommerce' );
+		return __( 'Join the "{product_name}" waitlist.', 'poocommerce' );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return __( 'Confirm sign-up', 'woocommerce' );
+		return __( 'Confirm sign-up', 'poocommerce' );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_intro_content() {
-		return __( 'Please follow the link below to complete the sign-up process and join the "{product_name}" waitlist.', 'woocommerce' );
+		return __( 'Please follow the link below to complete the sign-up process and join the "{product_name}" waitlist.', 'poocommerce' );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 	 * @return string
 	 */
 	public function get_default_additional_content() {
-		return __( 'Thanks for shopping with us.', 'woocommerce' );
+		return __( 'Thanks for shopping with us.', 'poocommerce' );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'woocommerce_email_stock_notification_intro_content', $this->format_string( $this->get_option_or_transient( 'intro_content', $this->get_default_intro_content() ) ), $this->object, $this );
+		return apply_filters( 'poocommerce_email_stock_notification_intro_content', $this->format_string( $this->get_option_or_transient( 'intro_content', $this->get_default_intro_content() ) ), $this->object, $this );
 	}
 
 	/**
@@ -155,8 +155,8 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 		 * @param WC_Product $product The product object.
 		 */
 		$verification_button_text  = apply_filters(
-			'woocommerce_email_stock_notification_verify_button_text',
-			_x( 'Confirm', 'Stock Notification confirm notification', 'woocommerce' ),
+			'poocommerce_email_stock_notification_verify_button_text',
+			_x( 'Confirm', 'Stock Notification confirm notification', 'poocommerce' ),
 			$notification,
 			$product
 		);
@@ -164,7 +164,7 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 		$expiration_threshold      = Config::get_verification_expiration_time_threshold();
 		$expiration_threshold_text = sprintf(
 			/* translators: %s is the time duration in minutes */
-			_n( '%s minute', '%s minutes', $expiration_threshold / 60, 'woocommerce' ),
+			_n( '%s minute', '%s minutes', $expiration_threshold / 60, 'poocommerce' ),
 			floor( $expiration_threshold / 60 )
 		);
 
@@ -268,11 +268,11 @@ class CustomerStockNotificationVerifyEmail extends WC_Email {
 		}
 
 		/* translators: %s: list of placeholders */
-		$placeholder_text = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+		$placeholder_text = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 
 		$intro_content_field = array(
-			'title'       => __( 'Email content', 'woocommerce' ),
-			'description' => __( 'Text to appear below the main e-mail header.', 'woocommerce' ) . ' ' . $placeholder_text,
+			'title'       => __( 'Email content', 'poocommerce' ),
+			'description' => __( 'Text to appear below the main e-mail header.', 'poocommerce' ) . ' ' . $placeholder_text,
 			'css'         => 'width: 400px; height: 75px;',
 			'placeholder' => $this->get_default_intro_content(),
 			'type'        => 'textarea',

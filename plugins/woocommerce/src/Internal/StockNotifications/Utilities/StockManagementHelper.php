@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Utilities;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 use WC_Product;
 
 defined( 'ABSPATH' ) || exit;

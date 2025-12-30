@@ -85,7 +85,7 @@ export const productWithoutSpecifications = {
 	grouped_products: [],
 	menu_order: 0,
 	price_html:
-		'<span class="woocommerce-Price-amount amount"><bdi>90,00&nbsp;<span class="woocommerce-Price-currencySymbol">&euro;</span></bdi></span>',
+		'<span class="poocommerce-Price-amount amount"><bdi>90,00&nbsp;<span class="poocommerce-Price-currencySymbol">&euro;</span></bdi></span>',
 	related_ids: [ 34, 19, 18 ],
 	meta_data: [
 		{

@@ -25,7 +25,7 @@ export const getProductTypes = ( {
 	/**
 	 * Experimental: Filter for adding custom product types to tasklist.
 	 *
-	 * @filter woocommerce_tasklist_experimental_product_types
+	 * @filter poocommerce_tasklist_experimental_product_types
 	 * @param {Object} productTypes Array of product types.
 	 */
 	const injectedProductTypes = applyFilters(

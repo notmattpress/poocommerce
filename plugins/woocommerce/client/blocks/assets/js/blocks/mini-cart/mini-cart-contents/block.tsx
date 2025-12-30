@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { DrawerCloseButton } from '@woocommerce/base-components/drawer';
-import { CartEventsProvider } from '@woocommerce/base-context';
+import { DrawerCloseButton } from '@poocommerce/base-components/drawer';
+import { CartEventsProvider } from '@poocommerce/base-context';
 
 /**
  * Internal dependencies

@@ -3,7 +3,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Utils;
+namespace Automattic\PooCommerce\Tests\Blocks\Utils;
 
 use WC_Product;
 
@@ -31,10 +31,10 @@ class WC_Product_Custom extends WC_Product {
 }
 
 add_filter(
-	'woocommerce_product_class',
+	'poocommerce_product_class',
 	function ( $classname, $product_type ) {
 		if ( 'custom' === $product_type ) {
-			$classname = 'Automattic\WooCommerce\Tests\Blocks\Utils\WC_Product_Custom';
+			$classname = 'Automattic\PooCommerce\Tests\Blocks\Utils\WC_Product_Custom';
 		}
 		return $classname;
 	},

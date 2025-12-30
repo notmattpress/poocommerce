@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-radio-field",
+	"name": "poocommerce/product-radio-field",
 	"title": "Product radio control",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product radio.",
 	"keywords": [
 		"products",

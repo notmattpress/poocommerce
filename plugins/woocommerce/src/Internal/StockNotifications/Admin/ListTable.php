@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Admin;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Admin;
 
-use Automattic\WooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
-use Automattic\WooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
+use Automattic\PooCommerce\Internal\DataStores\StockNotifications\StockNotificationsDataStore;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Admin\NotificationsPage;
+use Automattic\PooCommerce\Internal\StockNotifications\Utilities\EligibilityService;
 
 /**
  * Notifications list table for Customer Stock Notifications.
@@ -95,8 +95,8 @@ class ListTable extends \WP_List_Table {
 
 		parent::__construct(
 			array(
-				'singular' => 'woocommerce_stock_notification',
-				'plural'   => 'woocommerce_stock_notifications',
+				'singular' => 'poocommerce_stock_notification',
+				'plural'   => 'poocommerce_stock_notifications',
 			)
 		);
 	}
@@ -111,7 +111,7 @@ class ListTable extends \WP_List_Table {
 		?><label class="screen-reader-text" for="cb-select-<?php echo absint( $notification->get_id() ); ?>">
 		<?php
 			/* translators: %s: Notification code */
-			printf( esc_html__( 'Select %s', 'woocommerce' ), esc_html( $notification->get_id() ) );
+			printf( esc_html__( 'Select %s', 'poocommerce' ), esc_html( $notification->get_id() ) );
 		?>
 		</label>
 		<input id="cb-select-<?php echo absint( $notification->get_id() ); ?>" type="checkbox" name="notification[]" value="<?php echo absint( $notification->get_id() ); ?>" />
@@ -126,8 +126,8 @@ class ListTable extends \WP_List_Table {
 	 */
 	public function column_id( $notification ) {
 		$actions = array(
-			'edit'   => sprintf( '<a href="' . admin_url( NotificationsPage::PAGE_URL . '&notification_action=edit&notification_id=%d' ) . '">%s</a>', $notification->get_id(), __( 'Edit', 'woocommerce' ) ),
-			'delete' => sprintf( '<a href="' . wp_nonce_url( admin_url( NotificationsPage::PAGE_URL . '&notification_action=delete&notification_id=%d' ), 'delete_customer_stock_notification' ) . '">%s</a>', $notification->get_id(), __( 'Delete', 'woocommerce' ) ),
+			'edit'   => sprintf( '<a href="' . admin_url( NotificationsPage::PAGE_URL . '&notification_action=edit&notification_id=%d' ) . '">%s</a>', $notification->get_id(), __( 'Edit', 'poocommerce' ) ),
+			'delete' => sprintf( '<a href="' . wp_nonce_url( admin_url( NotificationsPage::PAGE_URL . '&notification_action=delete&notification_id=%d' ), 'delete_customer_stock_notification' ) . '">%s</a>', $notification->get_id(), __( 'Delete', 'poocommerce' ) ),
 		);
 
 		$title = $notification->get_id();
@@ -136,7 +136,7 @@ class ListTable extends \WP_List_Table {
 			'<a class="row-title" href="%s" aria-label="%s">#%s</a>%s',
 			esc_url( admin_url( NotificationsPage::PAGE_URL . '&notification_action=edit&notification_id=' . $notification->get_id() ) ),
 			/* translators: %s: Notification code */
-			sprintf( esc_attr__( '&#8220;%s&#8221; (Edit)', 'woocommerce' ), esc_attr( $title ) ),
+			sprintf( esc_attr__( '&#8220;%s&#8221; (Edit)', 'poocommerce' ), esc_attr( $title ) ),
 			esc_html( $title ),
 			wp_kses_post( $this->row_actions( $actions ) )
 		);
@@ -152,16 +152,16 @@ class ListTable extends \WP_List_Table {
 
 		if ( $notification->get_status() === NotificationStatus::PENDING ) {
 			$status = 'cancelled';
-			$label  = _x( 'Pending', 'stock notification status', 'woocommerce' );
+			$label  = _x( 'Pending', 'stock notification status', 'poocommerce' );
 		} elseif ( $notification->get_status() === NotificationStatus::CANCELLED ) {
 			$status = 'cancelled';
-			$label  = _x( 'Cancelled', 'stock notification status', 'woocommerce' );
+			$label  = _x( 'Cancelled', 'stock notification status', 'poocommerce' );
 		} elseif ( $notification->get_status() === NotificationStatus::SENT ) {
 			$status = 'cancelled';
-			$label  = _x( 'Sent', 'stock notification status', 'woocommerce' );
+			$label  = _x( 'Sent', 'stock notification status', 'poocommerce' );
 		} else {
 			$status = 'completed';
-			$label  = _x( 'Active', 'stock notification status', 'woocommerce' );
+			$label  = _x( 'Active', 'stock notification status', 'poocommerce' );
 		}
 
 		printf( '<mark class="order-status %s"><span>%s</span></mark>', esc_attr( sanitize_html_class( 'status-' . $status ) ), esc_html( $label ) );
@@ -247,11 +247,11 @@ class ListTable extends \WP_List_Table {
 		$date_created = $notification->get_date_created();
 
 		if ( ! $date_created ) {
-			$t_time = __( '&mdash;', 'woocommerce' );
+			$t_time = __( '&mdash;', 'poocommerce' );
 			$h_time = $t_time;
 		} else {
 			$date_created = $date_created->getTimestamp();
-			$t_time       = date_i18n( _x( 'Y/m/d g:i:s a', 'list table date hover format', 'woocommerce' ), $date_created );
+			$t_time       = date_i18n( _x( 'Y/m/d g:i:s a', 'list table date hover format', 'poocommerce' ), $date_created );
 			$h_time       = date_i18n( wc_date_format(), $date_created );
 		}
 
@@ -266,7 +266,7 @@ class ListTable extends \WP_List_Table {
 	public function no_items() {
 		?>
 		<p class="main">
-			<?php esc_html_e( 'No Notifications found', 'woocommerce' ); ?>
+			<?php esc_html_e( 'No Notifications found', 'poocommerce' ); ?>
 		</p>
 		<?php
 	}
@@ -279,12 +279,12 @@ class ListTable extends \WP_List_Table {
 
 		$columns                     = array();
 		$columns['cb']               = '<input type="checkbox" />';
-		$columns['id']               = _x( 'Notification', 'column_name', 'woocommerce' );
-		$columns['status']           = _x( 'Status', 'column_name', 'woocommerce' );
-		$columns['user']             = _x( 'User/Email', 'column_name', 'woocommerce' );
-		$columns['product']          = _x( 'Product', 'column_name', 'woocommerce' );
-		$columns['sku']              = _x( 'SKU', 'column_name', 'woocommerce' );
-		$columns['date_created_gmt'] = _x( 'Signed Up', 'column_name', 'woocommerce' );
+		$columns['id']               = _x( 'Notification', 'column_name', 'poocommerce' );
+		$columns['status']           = _x( 'Status', 'column_name', 'poocommerce' );
+		$columns['user']             = _x( 'User/Email', 'column_name', 'poocommerce' );
+		$columns['product']          = _x( 'Product', 'column_name', 'poocommerce' );
+		$columns['sku']              = _x( 'SKU', 'column_name', 'poocommerce' );
+		$columns['date_created_gmt'] = _x( 'Signed Up', 'column_name', 'poocommerce' );
 
 		return $columns;
 	}
@@ -310,9 +310,9 @@ class ListTable extends \WP_List_Table {
 	 */
 	protected function get_bulk_actions() {
 		$actions           = array();
-		$actions['enable'] = __( 'Activate', 'woocommerce' );
-		$actions['cancel'] = __( 'Cancel', 'woocommerce' );
-		$actions['delete'] = __( 'Delete permanently', 'woocommerce' );
+		$actions['enable'] = __( 'Activate', 'poocommerce' );
+		$actions['cancel'] = __( 'Cancel', 'poocommerce' );
+		$actions['delete'] = __( 'Delete permanently', 'poocommerce' );
 		return $actions;
 	}
 
@@ -379,7 +379,7 @@ class ListTable extends \WP_List_Table {
 				$target_ids               = $this->eligibility_service->get_target_product_ids( $product );
 				$query_args['product_id'] = $target_ids;
 			} else {
-				NotificationsPage::add_notice( __( 'Invalid product selected.', 'woocommerce' ), 'error' );
+				NotificationsPage::add_notice( __( 'Invalid product selected.', 'poocommerce' ), 'error' );
 			}
 		}
 
@@ -435,7 +435,7 @@ class ListTable extends \WP_List_Table {
 			<div class="alignleft actions">
 				<?php
 				$this->render_filters();
-				submit_button( __( 'Filter', 'woocommerce' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
+				submit_button( __( 'Filter', 'poocommerce' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 				?>
 			</div>
 			<?php
@@ -469,14 +469,14 @@ class ListTable extends \WP_List_Table {
 			if ( $product ) {
 				$product_string = sprintf(
 					/* translators: 1: product title 2: product ID */
-					esc_html__( '%1$s (#%2$s)', 'woocommerce' ),
+					esc_html__( '%1$s (#%2$s)', 'poocommerce' ),
 					$product->get_parent_id() ? $product->get_name() : $product->get_title(),
 					absint( $product->get_id() )
 				);
 			}
 		}
 		?>
-		<select class="wc-product-search" name="customer_stock_notifications_product_filter" data-placeholder="<?php esc_attr_e( 'Select product&hellip;', 'woocommerce' ); ?>" data-allow_clear="true" id="customer_stock_notifications_product_filter">
+		<select class="wc-product-search" name="customer_stock_notifications_product_filter" data-placeholder="<?php esc_attr_e( 'Select product&hellip;', 'poocommerce' ); ?>" data-allow_clear="true" id="customer_stock_notifications_product_filter">
 			<?php if ( $product_string && $product_id ) { ?>
 				<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo wp_kses_post( htmlspecialchars( $product_string, ENT_COMPAT ) ); ?></option>
 			<?php } ?>
@@ -500,7 +500,7 @@ class ListTable extends \WP_List_Table {
 			if ( $user ) {
 				$user_string = sprintf(
 					/* translators: 1: user display name 2: user ID 3: user email */
-					esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'woocommerce' ),
+					esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'poocommerce' ),
 					$user->display_name,
 					absint( $user->ID ),
 					$user->user_email
@@ -508,7 +508,7 @@ class ListTable extends \WP_List_Table {
 			}
 		}
 		?>
-		<select class="wc-customer-search" name="customer_stock_notifications_customer_filter" data-placeholder="<?php esc_attr_e( 'Select customer&hellip;', 'woocommerce' ); ?>" data-allow_clear="true" id="customer_stock_notifications_customer_filter">
+		<select class="wc-customer-search" name="customer_stock_notifications_customer_filter" data-placeholder="<?php esc_attr_e( 'Select customer&hellip;', 'poocommerce' ); ?>" data-allow_clear="true" id="customer_stock_notifications_customer_filter">
 			<?php if ( $user_string && $user_id ) { ?>
 				<option value="<?php echo esc_attr( $user_id ); ?>" selected="selected"><?php echo wp_kses_post( htmlspecialchars( $user_string, ENT_COMPAT ) ); ?></option>
 			<?php } ?>
@@ -533,7 +533,7 @@ class ListTable extends \WP_List_Table {
 				'All <span class="count">(%s)</span>',
 				$this->total_items,
 				'notifications_status',
-				'woocommerce'
+				'poocommerce'
 			),
 			number_format_i18n( $this->total_items )
 		);
@@ -549,7 +549,7 @@ class ListTable extends \WP_List_Table {
 				'Active <span class="count">(%s)</span>',
 				$this->total_active_items,
 				'notifications_status',
-				'woocommerce'
+				'poocommerce'
 			),
 			number_format_i18n( $this->total_active_items )
 		);
@@ -565,7 +565,7 @@ class ListTable extends \WP_List_Table {
 				'Sent <span class="count">(%s)</span>',
 				$this->total_sent_items,
 				'notifications_status',
-				'woocommerce'
+				'poocommerce'
 			),
 			number_format_i18n( $this->total_sent_items )
 		);
@@ -581,7 +581,7 @@ class ListTable extends \WP_List_Table {
 				'Cancelled <span class="count">(%s)</span>',
 				$this->total_cancelled_items,
 				'notifications_status',
-				'woocommerce'
+				'poocommerce'
 			),
 			number_format_i18n( $this->total_cancelled_items )
 		);
@@ -597,7 +597,7 @@ class ListTable extends \WP_List_Table {
 				'Pending <span class="count">(%s)</span>',
 				$this->total_pending_items,
 				'notifications_status',
-				'woocommerce'
+				'poocommerce'
 			),
 			number_format_i18n( $this->total_pending_items )
 		);
@@ -662,9 +662,9 @@ class ListTable extends \WP_List_Table {
 
 		$m = isset( $_GET['m'] ) ? (int) wp_unslash( $_GET['m'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		?>
-		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'woocommerce' ); ?></label>
+		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'poocommerce' ); ?></label>
 		<select name="m" id="filter-by-date">
-			<option<?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates', 'woocommerce' ); ?></option>
+			<option<?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates', 'poocommerce' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
 				if ( 0 === (int) $arc_row->year || 0 === (int) $arc_row->month ) {
@@ -679,7 +679,7 @@ class ListTable extends \WP_List_Table {
 					selected( $m, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: %1$s: month %2$s: year */
-					sprintf( esc_html__( '%1$s %2$d', 'woocommerce' ), esc_html( $wp_locale->get_month( $month ) ), esc_html( $year ) )
+					sprintf( esc_html__( '%1$s %2$d', 'poocommerce' ), esc_html( $wp_locale->get_month( $month ) ), esc_html( $year ) )
 				);
 			}
 			?>
@@ -721,12 +721,12 @@ class ListTable extends \WP_List_Table {
 			$notification = Factory::get_notification( $notification_id );
 			$this->data_store->delete( $notification );
 
-			$notice_message = __( 'Notification deleted.', 'woocommerce' );
+			$notice_message = __( 'Notification deleted.', 'poocommerce' );
 			NotificationsPage::add_notice( $notice_message, 'success' );
 
 		} catch ( \Exception $e ) {
 
-			$notice_message = __( 'Notification not found.', 'woocommerce' );
+			$notice_message = __( 'Notification not found.', 'poocommerce' );
 			NotificationsPage::add_notice( $notice_message, 'error' );
 		}
 
@@ -769,7 +769,7 @@ class ListTable extends \WP_List_Table {
 					'%s notifications updated.',
 					count( $notifications ),
 					'notifications_status',
-					'woocommerce'
+					'poocommerce'
 				),
 				count( $notifications )
 			);
@@ -790,7 +790,7 @@ class ListTable extends \WP_List_Table {
 					'%s notifications updated.',
 					count( $notifications ),
 					'notifications_status',
-					'woocommerce'
+					'poocommerce'
 				),
 				count( $notifications )
 			);
@@ -810,7 +810,7 @@ class ListTable extends \WP_List_Table {
 					'%s notifications deleted.',
 					count( $notifications ),
 					'notifications_status',
-					'woocommerce'
+					'poocommerce'
 				),
 				count( $notifications )
 			);

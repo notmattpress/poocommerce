@@ -1,4 +1,4 @@
-.woocommerce-edit-attribute-modal {
+.poocommerce-edit-attribute-modal {
 	overflow: visible;
 
 	&__buttons {
@@ -10,16 +10,16 @@
 	}
 }
 
-.woocommerce-edit-attribute-modal__body {
+.poocommerce-edit-attribute-modal__body {
 	width: 500px;
 	max-width: 100%;
 
-	.woocommerce-experimental-select-control
-		+ .woocommerce-experimental-select-control {
+	.poocommerce-experimental-select-control
+		+ .poocommerce-experimental-select-control {
 		margin-top: 1.3em;
 	}
 
-	.woocommerce-experimental-select-control__label,
+	.poocommerce-experimental-select-control__label,
 	.components-base-control__label {
 		font-size: 14px;
 		color: #757575;
@@ -27,7 +27,7 @@
 		text-transform: none;
 	}
 
-	.woocommerce-edit-attribute-modal__option-container {
+	.poocommerce-edit-attribute-modal__option-container {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
@@ -37,11 +37,11 @@
 		}
 	}
 
-	.woocommerce-attribute-term-field {
+	.poocommerce-attribute-term-field {
 		margin-bottom: 1.5em;
 	}
 
-	.woocommerce-edit-attribute-modal__helper-text {
+	.poocommerce-edit-attribute-modal__helper-text {
 		color: #757575;
 		margin: 0.5em 0 1.5em 0;
 	}

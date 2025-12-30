@@ -4,10 +4,10 @@
  *
  * Note: This template is only used in the fulfillment emails.
  *
- * Used to render information for the email editor WooCommerce content block (BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER).
+ * Used to render information for the email editor PooCommerce content block (BlockEmailRenderer::WOO_EMAIL_CONTENT_PLACEHOLDER).
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails\Block
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails\Block
  * @version 10.5.0
  */
 
@@ -21,7 +21,7 @@ if ( ! isset( $order, $fulfillment ) ) {
 }
 
 /**
- * Hook for the woocommerce_email_fulfillment_details.
+ * Hook for the poocommerce_email_fulfillment_details.
  *
  * @since 10.1.0
  * @param WC_Order $order The order object.
@@ -32,10 +32,10 @@ if ( ! isset( $order, $fulfillment ) ) {
  *
  * @hooked WC_Emails::fulfillment_details() Shows the fulfillment details.
  */
-do_action( 'woocommerce_email_fulfillment_details', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_fulfillment_details', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
 
 /**
- * Hook for the woocommerce_email_fulfillment_meta.
+ * Hook for the poocommerce_email_fulfillment_meta.
  *
  * @param WC_Order $order The order object.
  * @param Fulfillment $fulfillment The fulfillment object.
@@ -46,10 +46,10 @@ do_action( 'woocommerce_email_fulfillment_details', $order, $fulfillment, $sent_
  *
  * @hooked WC_Emails::order_meta() Shows fulfillment meta data.
  */
-do_action( 'woocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
 
 /**
- * Hook for woocommerce_email_customer_details.
+ * Hook for poocommerce_email_customer_details.
  *
  * @param WC_Order $order The order object.
  * @param bool $sent_to_admin Whether the email is sent to admin.
@@ -60,4 +60,4 @@ do_action( 'woocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_
  * @hooked WC_Emails::customer_details() Shows customer details
  * @hooked WC_Emails::email_address() Shows email address
  */
-do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );

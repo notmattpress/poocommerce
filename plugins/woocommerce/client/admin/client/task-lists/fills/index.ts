@@ -7,7 +7,7 @@ import './shipping';
 import './Marketing';
 import './appearance';
 import './tax';
-import './woocommerce-payments';
+import './poocommerce-payments';
 import './deprecated-tasks';
 import './launch-your-store';
 

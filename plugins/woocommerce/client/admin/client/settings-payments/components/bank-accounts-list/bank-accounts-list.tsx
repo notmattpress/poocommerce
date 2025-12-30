@@ -3,7 +3,7 @@
  */
 import { Button, MenuGroup, MenuItem, Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { EllipsisMenu } from '@woocommerce/components';
+import { EllipsisMenu } from '@poocommerce/components';
 import { useState, useEffect } from 'react';
 
 /**
@@ -171,7 +171,7 @@ export const BankAccountsList = ( {
 							</div>
 							<div className="bank-accounts__list-item-after">
 								<EllipsisMenu
-									label={ __( 'Options', 'woocommerce' ) }
+									label={ __( 'Options', 'poocommerce' ) }
 									placement={ 'bottom-right' }
 									renderContent={ ( {
 										onClose = () => {},
@@ -186,7 +186,7 @@ export const BankAccountsList = ( {
 											>
 												{ __(
 													'View / edit',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</MenuItem>
 											<MenuItem
@@ -200,7 +200,7 @@ export const BankAccountsList = ( {
 											>
 												{ __(
 													'Delete',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</MenuItem>
 										</MenuGroup>
@@ -219,7 +219,7 @@ export const BankAccountsList = ( {
 						variant={ 'secondary' }
 						onClick={ () => openModal( null ) }
 					>
-						{ __( '+ Add account', 'woocommerce' ) }
+						{ __( '+ Add account', 'poocommerce' ) }
 					</Button>
 				</li>
 			</SortableContainer>
@@ -235,14 +235,14 @@ export const BankAccountsList = ( {
 
 			{ accountToDelete && (
 				<Modal
-					title={ __( 'Delete account', 'woocommerce' ) }
+					title={ __( 'Delete account', 'poocommerce' ) }
 					onRequestClose={ () => setAccountToDelete( null ) }
 					shouldCloseOnClickOutside={ false }
 				>
 					<p>
 						{ __(
 							'Are you sure you want to delete this bank account?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<div
@@ -257,14 +257,14 @@ export const BankAccountsList = ( {
 							variant="secondary"
 							onClick={ () => setAccountToDelete( null ) }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 						<Button
 							variant="primary"
 							isDestructive
 							onClick={ confirmDelete }
 						>
-							{ __( 'Delete', 'woocommerce' ) }
+							{ __( 'Delete', 'poocommerce' ) }
 						</Button>
 					</div>
 				</Modal>

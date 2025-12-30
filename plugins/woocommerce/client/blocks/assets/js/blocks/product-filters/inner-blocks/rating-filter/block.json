@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-filter-rating",
+	"name": "poocommerce/product-filter-rating",
 	"title": "Rating Filter",
 	"description": "Enable customers to filter the product collection by rating.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [],
 	"supports": {
 		"interactivity": true,
@@ -11,7 +11,7 @@
 			"text": true
 		}
 	},
-	"ancestor": [ "woocommerce/product-filters" ],
+	"ancestor": [ "poocommerce/product-filters" ],
 	"usesContext": [ "query", "filterParams" ],
 	"attributes": {
 		"className": {
@@ -31,7 +31,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

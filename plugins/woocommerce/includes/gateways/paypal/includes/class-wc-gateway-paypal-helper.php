@@ -2,8 +2,8 @@
 /**
  * PayPal Helper Class
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper instead. This class will be removed in 11.0.0.
- * @package WooCommerce\Gateways
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper instead. This class will be removed in 11.0.0.
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Gateways\PayPal\Helper as PayPalHelper;
+use Automattic\PooCommerce\Gateways\PayPal\Helper as PayPalHelper;
 
 if ( ! class_exists( 'WC_Gateway_Paypal_Constants' ) ) {
 	require_once __DIR__ . '/class-wc-gateway-paypal-constants.php';
@@ -21,13 +21,13 @@ if ( ! class_exists( 'WC_Gateway_Paypal_Constants' ) ) {
 /**
  * Helper for PayPal gateway.
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper instead. This class will be removed in 11.0.0.
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper instead. This class will be removed in 11.0.0.
  */
 class WC_Gateway_Paypal_Helper {
 	/**
 	 * Check if the PayPal gateway is enabled.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper::is_paypal_gateway_available() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper::is_paypal_gateway_available() instead.
 	 * @return bool
 	 */
 	public static function is_paypal_gateway_available() {
@@ -37,7 +37,7 @@ class WC_Gateway_Paypal_Helper {
 	/**
 	 * Check if the merchant is eligible for migration from WPS to PPCP.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper::is_orders_v2_migration_eligible() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper::is_orders_v2_migration_eligible() instead.
 	 * @return bool
 	 */
 	public static function is_orders_v2_migration_eligible() {
@@ -47,7 +47,7 @@ class WC_Gateway_Paypal_Helper {
 	/**
 	 * Get the WC order from the PayPal custom ID.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper::get_wc_order_from_paypal_custom_id() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper::get_wc_order_from_paypal_custom_id() instead.
 	 * @param string $custom_id The custom ID string from the PayPal order.
 	 * @return WC_Order|null
 	 */
@@ -65,7 +65,7 @@ class WC_Gateway_Paypal_Helper {
 	 * This function recursively traverses the data array and redacts sensitive information
 	 * while preserving the structure for debugging purposes.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper::redact_data() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper::redact_data() instead.
 	 * @param mixed $data The data to remove PII from (array, string, or other types).
 	 * @return mixed The data with PII redacted.
 	 */
@@ -76,7 +76,7 @@ class WC_Gateway_Paypal_Helper {
 	/**
 	 * Mask email address before @ keeping the full domain.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper::mask_email() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper::mask_email() instead.
 	 * @param string $email The email address to mask.
 	 * @return string The masked email address or original input if invalid.
 	 */
@@ -87,7 +87,7 @@ class WC_Gateway_Paypal_Helper {
 	/**
 	 * Update the addresses in the order.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Helper::update_addresses_in_order() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Helper::update_addresses_in_order() instead.
 	 * @param WC_Order|null $order The order object.
 	 * @param array         $paypal_order_details The PayPal order details.
 	 * @return void

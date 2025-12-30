@@ -36,7 +36,7 @@ $dialog-padding: 20px;
 		}
 	}
 
-	// These rules are overriding styles from WooCommerce core, that's why we
+	// These rules are overriding styles from PooCommerce core, that's why we
 	// can't use `:where()` and they need a higher specificity.
 	.wc-block-components-product-image.wc-block-components-product-image {
 		margin: 0;
@@ -57,18 +57,18 @@ $dialog-padding: 20px;
 
 	}
 
-	:where(.wc-block-woocommerce-product-gallery-large-image__image) {
+	:where(.wc-block-poocommerce-product-gallery-large-image__image) {
 		display: block;
 		position: relative;
 		transition: all 0.1s linear;
 		z-index: 1;
 
 		// Keep the order in this way. The hoverZoom class should override the full-screen-on-click class when both are applied.
-		&:where(.wc-block-woocommerce-product-gallery-large-image__image--full-screen-on-click) {
+		&:where(.wc-block-poocommerce-product-gallery-large-image__image--full-screen-on-click) {
 			cursor: pointer;
 		}
 
-		&:where(.wc-block-woocommerce-product-gallery-large-image__image--hoverZoom) {
+		&:where(.wc-block-poocommerce-product-gallery-large-image__image--hoverZoom) {
 			cursor: zoom-in;
 		}
 	}

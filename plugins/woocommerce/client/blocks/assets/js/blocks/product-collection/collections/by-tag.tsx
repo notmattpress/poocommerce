@@ -19,9 +19,9 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.BY_TAG,
-	title: __( 'Products by Tag', 'woocommerce' ),
+	title: __( 'Products by Tag', 'poocommerce' ),
 	icon: <Icon icon={ tag } />,
-	description: __( 'Display products with specific tags.', 'woocommerce' ),
+	description: __( 'Display products with specific tags.', 'poocommerce' ),
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
 };
 
@@ -39,7 +39,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'Products by Tag', 'woocommerce' ),
+		content: __( 'Products by Tag', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

@@ -17,13 +17,13 @@ export const milestoneCommand = new Command( 'milestone' )
 	.option( '-d --dryRun', 'Prepare the milestone but do not create it.' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-m --milestone <milestone>',

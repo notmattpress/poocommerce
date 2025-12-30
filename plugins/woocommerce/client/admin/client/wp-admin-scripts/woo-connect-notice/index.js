@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 window.jQuery( document ).ready( function () {
 	// hide the notice when the customer clicks the dismiss button up until 1 month, then it will be shown again.

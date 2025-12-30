@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Internal\Agentic\Enums\Specs;
+namespace Automattic\PooCommerce\Internal\Agentic\Enums\Specs;
 
 /**
  * Message types as defined in the Agentic Commerce Protocol.

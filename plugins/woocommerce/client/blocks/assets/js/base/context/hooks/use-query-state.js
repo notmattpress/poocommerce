@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { QUERY_STATE_STORE_KEY as storeKey } from '@woocommerce/block-data';
+import { QUERY_STATE_STORE_KEY as storeKey } from '@poocommerce/block-data';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useRef, useEffect, useCallback } from '@wordpress/element';
 import isShallowEqual from '@wordpress/is-shallow-equal';
-import { useShallowEqual, usePrevious } from '@woocommerce/base-hooks';
+import { useShallowEqual, usePrevious } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

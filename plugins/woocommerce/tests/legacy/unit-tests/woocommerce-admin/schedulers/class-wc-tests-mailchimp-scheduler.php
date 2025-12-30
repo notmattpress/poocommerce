@@ -2,19 +2,19 @@
 /**
  * MailchimpScheduler tests
  *
- * @package Automattic\WooCommerce\Internal\Admin\Schedulers
+ * @package Automattic\PooCommerce\Internal\Admin\Schedulers
  */
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding;
-use Automattic\WooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Onboarding;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\MailchimpScheduler;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
 
 /**
  * Class WC_Admin_Tests_Mailchimp_Scheduler
  */
 class WC_Admin_Tests_Mailchimp_Scheduler extends WC_Unit_Test_Case {
 	/**
-	 * @var \Automattic\WooCommerce\Internal\Admin\Schedulers\MailchimpScheduler MailchimpScheduler instance to test
+	 * @var \Automattic\PooCommerce\Internal\Admin\Schedulers\MailchimpScheduler MailchimpScheduler instance to test
 	 */
 	private $instance;
 
@@ -40,7 +40,7 @@ class WC_Admin_Tests_Mailchimp_Scheduler extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * When woocommerce_onboarding_subscribed_to_mailchimp value us 'yes'.
+	 * When poocommerce_onboarding_subscribed_to_mailchimp value us 'yes'.
 	 * Then it should abort.
 	 */
 	public function test_it_aborts_if_already_subscribed() {
@@ -173,7 +173,7 @@ class WC_Admin_Tests_Mailchimp_Scheduler extends WC_Unit_Test_Case {
 	/**
 	 * Given is_agree_marketing and store_email values are set
 	 * When the request to the API returns success: true
-	 * Then woocommerce_onboarding_subscribed_to_mailchimp should be updated to 'yes'
+	 * Then poocommerce_onboarding_subscribed_to_mailchimp should be updated to 'yes'
 	 */
 	public function test_it_updates_option_value_when_everything_went_well() {
 		// Given.
@@ -190,6 +190,6 @@ class WC_Admin_Tests_Mailchimp_Scheduler extends WC_Unit_Test_Case {
 		$this->instance->run();
 
 		// Then.
-		$this->assertEquals( 'yes', get_option( 'woocommerce_onboarding_subscribed_to_mailchimp' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_onboarding_subscribed_to_mailchimp' ) );
 	}
 }

@@ -6,7 +6,7 @@ import { useDispatch } from '@wordpress/data';
 import { createElement, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { MediaItem } from '@wordpress/media-utils';
-import { MediaUploaderErrorCallback } from '@woocommerce/components';
+import { MediaUploaderErrorCallback } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ export function ImageActionsMenu( {
 		createErrorNotice(
 			sprintf(
 				/* translators: %1$s is a line break, %2$s is the detailed error message */
-				__( 'Error uploading file:%1$s%2$s', 'woocommerce' ),
+				__( 'Error uploading file:%1$s%2$s', 'poocommerce' ),
 				'\n',
 				error.message
 			)
@@ -75,8 +75,8 @@ export function ImageActionsMenu( {
 			renderToggle={ ( toggleProps ) =>
 				props.renderToggle( { ...toggleProps, isBusy: isUploading } )
 			}
-			className="woocommerce-image-actions-menu"
-			contentClassName="woocommerce-image-actions-menu__menu-content"
+			className="poocommerce-image-actions-menu"
+			contentClassName="poocommerce-image-actions-menu__menu-content"
 			renderContent={ ( { onClose } ) => (
 				<div className="components-dropdown-menu__menu">
 					<MenuGroup>
@@ -86,7 +86,7 @@ export function ImageActionsMenu( {
 							multiple={ false }
 							info={ __(
 								'1000 pixels wide or larger',
-								'woocommerce'
+								'poocommerce'
 							) }
 							onUploadProgress={ () => {
 								setIsUploading( true );

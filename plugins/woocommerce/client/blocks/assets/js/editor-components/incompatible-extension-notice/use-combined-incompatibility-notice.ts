@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useState, useEffect } from '@wordpress/element';
-import { useLocalStorageState } from '@woocommerce/base-hooks';
+import { useLocalStorageState } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

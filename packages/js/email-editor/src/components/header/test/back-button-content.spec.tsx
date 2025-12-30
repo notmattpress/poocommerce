@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid ESLint errors */
+/* eslint-disable @poocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid ESLint errors */
 import '../../test/__mocks__/setup-shared-mocks';
 
 /**
@@ -72,7 +72,7 @@ describe( 'BackButtonContent', () => {
 		const { container } = render( <BackButtonContent /> );
 		expect(
 			container.querySelector(
-				'.woocommerce-email-editor__view-mode-toggle'
+				'.poocommerce-email-editor__view-mode-toggle'
 			)
 		).toBeInTheDocument();
 	} );
@@ -93,14 +93,14 @@ describe( 'BackButtonContent', () => {
 		expect( button.onclick ).not.toBeNull();
 	} );
 
-	it( 'should apply woocommerce_email_editor_close_content filter to render custom component', () => {
+	it( 'should apply poocommerce_email_editor_close_content filter to render custom component', () => {
 		// Mock the filter to return a custom component
 		const CustomComponent = () => (
 			<span data-testid="custom-back-button">Custom Back Button</span>
 		);
 
 		applyFiltersMock.mockImplementation( ( hook, defaultValue ) => {
-			if ( hook === 'woocommerce_email_editor_close_content' ) {
+			if ( hook === 'poocommerce_email_editor_close_content' ) {
 				return CustomComponent;
 			}
 			return defaultValue;
@@ -117,7 +117,7 @@ describe( 'BackButtonContent', () => {
 		// Verify default component is NOT rendered
 		expect(
 			container.querySelector(
-				'.woocommerce-email-editor__view-mode-toggle'
+				'.poocommerce-email-editor__view-mode-toggle'
 			)
 		).not.toBeInTheDocument();
 	} );

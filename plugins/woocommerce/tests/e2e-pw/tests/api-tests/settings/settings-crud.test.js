@@ -18,7 +18,7 @@ const enableEmailImprovementsFeature = async () => {
 	await setOption(
 		apiRequest,
 		BASE_URL,
-		'woocommerce_feature_email_improvements_enabled',
+		'poocommerce_feature_email_improvements_enabled',
 		'yes'
 	);
 };
@@ -27,7 +27,7 @@ const disableEmailImprovementsFeature = async () => {
 	await setOption(
 		apiRequest,
 		BASE_URL,
-		'woocommerce_feature_email_improvements_enabled',
+		'poocommerce_feature_email_improvements_enabled',
 		'no'
 	);
 };
@@ -46,9 +46,9 @@ test.describe( 'Settings API tests: CRUD', () => {
 				expect.arrayContaining( [
 					expect.objectContaining( {
 						id: 'wc_admin',
-						label: 'WooCommerce Admin',
+						label: 'PooCommerce Admin',
 						description:
-							'Settings for WooCommerce admin reporting.',
+							'Settings for PooCommerce admin reporting.',
 						parent_id: '',
 					} ),
 				] )
@@ -298,7 +298,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_store_address',
+						id: 'poocommerce_store_address',
 						label: 'Address line 1',
 						description:
 							'The street address for your business location.',
@@ -313,7 +313,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_store_address_2',
+						id: 'poocommerce_store_address_2',
 						label: 'Address line 2',
 						description:
 							'An additional, optional address line for your business location.',
@@ -328,7 +328,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_store_city',
+						id: 'poocommerce_store_city',
 						label: 'City',
 						description:
 							'The city in which your business is located.',
@@ -343,7 +343,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_default_country',
+						id: 'poocommerce_default_country',
 						label: 'Country / State',
 						description:
 							'The country and state or province, if any, in which your business is located.',
@@ -359,7 +359,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_store_postcode',
+						id: 'poocommerce_store_postcode',
 						label: 'Postcode / ZIP',
 						description:
 							'The postal code, if any, in which your business is located.',
@@ -374,7 +374,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_allowed_countries',
+						id: 'poocommerce_allowed_countries',
 						label: 'Selling location(s)',
 						description:
 							'This option lets you limit which countries you are willing to sell to.',
@@ -395,7 +395,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_all_except_countries',
+						id: 'poocommerce_all_except_countries',
 						label: 'Sell to all countries, except for&hellip;',
 						description: '',
 						type: 'multiselect',
@@ -409,7 +409,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_specific_allowed_countries',
+						id: 'poocommerce_specific_allowed_countries',
 						label: 'Sell to specific countries',
 						description: '',
 						type: 'multiselect',
@@ -423,7 +423,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_ship_to_countries',
+						id: 'poocommerce_ship_to_countries',
 						label: 'Shipping location(s)',
 						description:
 							'Choose which countries you want to ship to, or choose to ship to all locations you sell to.',
@@ -445,7 +445,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_specific_ship_to_countries',
+						id: 'poocommerce_specific_ship_to_countries',
 						label: 'Ship to specific countries',
 						description: '',
 						type: 'multiselect',
@@ -459,7 +459,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_default_customer_address',
+						id: 'poocommerce_default_customer_address',
 						label: 'Default customer location',
 						description: '',
 						type: 'select',
@@ -480,7 +480,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_calc_taxes',
+						id: 'poocommerce_calc_taxes',
 						label: 'Enable taxes',
 						description: 'Enable tax rates and calculations',
 						type: 'checkbox',
@@ -494,7 +494,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_coupons',
+						id: 'poocommerce_enable_coupons',
 						label: 'Enable coupons',
 						description: 'Enable the use of coupon codes',
 						type: 'checkbox',
@@ -508,7 +508,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_calc_discounts_sequentially',
+						id: 'poocommerce_calc_discounts_sequentially',
 						label: '',
 						description: 'Calculate coupon discounts sequentially',
 						type: 'checkbox',
@@ -522,7 +522,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_currency',
+						id: 'poocommerce_currency',
 						label: 'Currency',
 						description:
 							'This controls what currency prices are listed at in the catalog and which currency gateways will take payments in.',
@@ -538,7 +538,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_currency_pos',
+						id: 'poocommerce_currency_pos',
 						label: 'Currency position',
 						description:
 							'This controls the position of the currency symbol.',
@@ -559,7 +559,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_price_thousand_sep',
+						id: 'poocommerce_price_thousand_sep',
 						label: 'Thousand separator',
 						description:
 							'This sets the thousand separator of displayed prices.',
@@ -574,7 +574,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_price_decimal_sep',
+						id: 'poocommerce_price_decimal_sep',
 						label: 'Decimal separator',
 						description:
 							'This sets the decimal separator of displayed prices.',
@@ -592,13 +592,13 @@ test.describe( 'Settings API tests: CRUD', () => {
 		test( 'can retrieve a settings option', async ( { request } ) => {
 			// call API to retrieve all settings options
 			const response = await request.get(
-				'./wp-json/wc/v3/settings/general/woocommerce_allowed_countries'
+				'./wp-json/wc/v3/settings/general/poocommerce_allowed_countries'
 			);
 			const responseJSON = await response.json();
 			expect( response.status() ).toEqual( 200 );
 			expect( responseJSON ).toEqual(
 				expect.objectContaining( {
-					id: 'woocommerce_allowed_countries',
+					id: 'poocommerce_allowed_countries',
 					label: 'Selling location(s)',
 					description:
 						'This option lets you limit which countries you are willing to sell to.',
@@ -621,7 +621,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 		test( 'can update a settings option', async ( { request } ) => {
 			// call API to update settings options
 			const response = await request.put(
-				'./wp-json/wc/v3/settings/general/woocommerce_allowed_countries',
+				'./wp-json/wc/v3/settings/general/poocommerce_allowed_countries',
 				{
 					data: {
 						value: 'all_except',
@@ -632,7 +632,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( response.status() ).toEqual( 200 );
 			expect( responseJSON ).toEqual(
 				expect.objectContaining( {
-					id: 'woocommerce_allowed_countries',
+					id: 'poocommerce_allowed_countries',
 					label: 'Selling location(s)',
 					description:
 						'This option lets you limit which countries you are willing to sell to.',
@@ -660,11 +660,11 @@ test.describe( 'Settings API tests: CRUD', () => {
 					data: {
 						update: [
 							{
-								id: 'woocommerce_allowed_countries',
+								id: 'poocommerce_allowed_countries',
 								value: 'all_except',
 							},
 							{
-								id: 'woocommerce_currency',
+								id: 'poocommerce_currency',
 								value: 'GBP',
 							},
 						],
@@ -675,7 +675,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 
 			// retrieve the updated settings values
 			const countriesUpdatedResponse = await request.get(
-				'./wp-json/wc/v3/settings/general/woocommerce_allowed_countries'
+				'./wp-json/wc/v3/settings/general/poocommerce_allowed_countries'
 			);
 			const countriesUpdatedResponseJSON =
 				await countriesUpdatedResponse.json();
@@ -684,7 +684,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			);
 
 			const currencyUpdatedResponse = await request.get(
-				'./wp-json/wc/v3/settings/general/woocommerce_currency'
+				'./wp-json/wc/v3/settings/general/poocommerce_currency'
 			);
 			const currencyUpdatedResponseJSON =
 				await currencyUpdatedResponse.json();
@@ -695,11 +695,11 @@ test.describe( 'Settings API tests: CRUD', () => {
 				data: {
 					update: [
 						{
-							id: 'woocommerce_allowed_countries',
+							id: 'poocommerce_allowed_countries',
 							value: 'all',
 						},
 						{
-							id: 'woocommerce_currency',
+							id: 'poocommerce_currency',
 							value: 'USD',
 						},
 					],
@@ -721,7 +721,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_shop_page_id',
+						id: 'poocommerce_shop_page_id',
 						label: 'Shop page',
 						type: 'select',
 						default: '',
@@ -735,7 +735,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_cart_redirect_after_add',
+						id: 'poocommerce_cart_redirect_after_add',
 						label: 'Add to cart behaviour',
 						description:
 							'Redirect to the cart page after successful addition',
@@ -748,7 +748,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_ajax_add_to_cart',
+						id: 'poocommerce_enable_ajax_add_to_cart',
 						label: '',
 						description:
 							'Enable AJAX add to cart buttons on archives',
@@ -761,7 +761,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_placeholder_image',
+						id: 'poocommerce_placeholder_image',
 						label: 'Placeholder image',
 						description: '',
 						type: 'text',
@@ -774,7 +774,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_weight_unit',
+						id: 'poocommerce_weight_unit',
 						label: 'Weight unit',
 						description:
 							'This controls what unit you will define weights in.',
@@ -794,7 +794,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_dimension_unit',
+						id: 'poocommerce_dimension_unit',
 						label: 'Dimensions unit',
 						description:
 							'This controls what unit you will define lengths in.',
@@ -815,7 +815,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_reviews',
+						id: 'poocommerce_enable_reviews',
 						label: 'Enable reviews',
 						description: 'Enable product reviews',
 						type: 'checkbox',
@@ -827,7 +827,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_review_rating_verification_label',
+						id: 'poocommerce_review_rating_verification_label',
 						label: '',
 						description:
 							'Show "verified owner" label on customer reviews',
@@ -840,7 +840,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_review_rating_verification_required',
+						id: 'poocommerce_review_rating_verification_required',
 						label: '',
 						description:
 							'Reviews can only be left by "verified owners"',
@@ -853,7 +853,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_review_rating',
+						id: 'poocommerce_enable_review_rating',
 						label: 'Product ratings',
 						description: 'Enable star rating on reviews',
 						type: 'checkbox',
@@ -865,7 +865,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_review_rating_required',
+						id: 'poocommerce_review_rating_required',
 						label: '',
 						description:
 							'Star ratings should be required, not optional',
@@ -878,7 +878,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_manage_stock',
+						id: 'poocommerce_manage_stock',
 						label: 'Manage stock',
 						description: 'Enable stock management',
 						type: 'checkbox',
@@ -890,7 +890,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_hold_stock_minutes',
+						id: 'poocommerce_hold_stock_minutes',
 						label: 'Hold stock (minutes)',
 						description:
 							'Hold stock (for unpaid orders) for x minutes. When this limit is reached, the pending order will be cancelled. Leave blank to disable.',
@@ -903,7 +903,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_notify_low_stock',
+						id: 'poocommerce_notify_low_stock',
 						label: 'Notifications',
 						description: 'Enable low stock notifications',
 						type: 'checkbox',
@@ -915,7 +915,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_notify_no_stock',
+						id: 'poocommerce_notify_no_stock',
 						label: '',
 						description: 'Enable out of stock notifications',
 						type: 'checkbox',
@@ -927,7 +927,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_stock_email_recipient',
+						id: 'poocommerce_stock_email_recipient',
 						label: 'Notification recipient(s)',
 						description:
 							'Enter recipients (comma separated) that will receive this notification.',
@@ -941,7 +941,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_notify_low_stock_amount',
+						id: 'poocommerce_notify_low_stock_amount',
 						label: 'Low stock threshold',
 						description:
 							'When product stock reaches this amount you will be notified via email.',
@@ -955,7 +955,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_notify_no_stock_amount',
+						id: 'poocommerce_notify_no_stock_amount',
 						label: 'Out of stock threshold',
 						description:
 							'When product stock reaches this amount the stock status will change to "out of stock" and you will be notified via email. This setting does not affect existing "in stock" products.',
@@ -969,7 +969,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_hide_out_of_stock_items',
+						id: 'poocommerce_hide_out_of_stock_items',
 						label: 'Out of stock visibility',
 						description: 'Hide out of stock items from the catalog',
 						type: 'checkbox',
@@ -981,7 +981,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_stock_format',
+						id: 'poocommerce_stock_format',
 						label: 'Stock display format',
 						description:
 							'This controls how stock quantities are displayed on the frontend.',
@@ -1001,10 +1001,10 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_file_download_method',
+						id: 'poocommerce_file_download_method',
 						label: 'File download method',
 						description:
-							"If you are using X-Accel-Redirect download method along with NGINX server, make sure that you have applied settings as described in <a href='https://woocommerce.com/document/digital-downloadable-product-handling#nginx-setting'>Digital/Downloadable Product Handling</a> guide.",
+							"If you are using X-Accel-Redirect download method along with NGINX server, make sure that you have applied settings as described in <a href='https://poocommerce.com/document/digital-downloadable-product-handling#nginx-setting'>Digital/Downloadable Product Handling</a> guide.",
 						type: 'select',
 						default: 'force',
 						options: {
@@ -1033,7 +1033,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_prices_include_tax',
+						id: 'poocommerce_prices_include_tax',
 						label: 'Prices entered with tax',
 						description: '',
 						type: 'radio',
@@ -1051,7 +1051,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_tax_based_on',
+						id: 'poocommerce_tax_based_on',
 						label: 'Calculate tax based on',
 						description: '',
 						type: 'select',
@@ -1069,7 +1069,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_shipping_tax_class',
+						id: 'poocommerce_shipping_tax_class',
 						label: 'Shipping tax class',
 						description:
 							'Optionally control which tax class shipping gets, or leave it so shipping tax is based on the cart items themselves.',
@@ -1087,7 +1087,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_tax_round_at_subtotal',
+						id: 'poocommerce_tax_round_at_subtotal',
 						label: 'Rounding',
 						description:
 							'Round tax at subtotal level, instead of rounding per line',
@@ -1100,7 +1100,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_tax_classes',
+						id: 'poocommerce_tax_classes',
 						label: 'Additional tax classes',
 						description: '',
 						type: 'textarea',
@@ -1113,7 +1113,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_tax_display_shop',
+						id: 'poocommerce_tax_display_shop',
 						label: 'Display prices in the shop',
 						description: '',
 						type: 'select',
@@ -1129,7 +1129,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_tax_display_cart',
+						id: 'poocommerce_tax_display_cart',
 						label: 'Display prices during cart and checkout',
 						description: '',
 						type: 'select',
@@ -1145,7 +1145,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_price_display_suffix',
+						id: 'poocommerce_price_display_suffix',
 						label: 'Price display suffix',
 						description: '',
 						type: 'text',
@@ -1158,7 +1158,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_tax_total_display',
+						id: 'poocommerce_tax_total_display',
 						label: 'Display tax totals',
 						description: '',
 						type: 'select',
@@ -1187,7 +1187,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_shipping_calc',
+						id: 'poocommerce_enable_shipping_calc',
 						label: 'Calculations',
 						description:
 							'Enable the shipping calculator on the cart page',
@@ -1201,7 +1201,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_shipping_cost_requires_address',
+						id: 'poocommerce_shipping_cost_requires_address',
 						label: '',
 						description:
 							'Hide shipping costs until an address is entered',
@@ -1214,7 +1214,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_ship_to_destination',
+						id: 'poocommerce_ship_to_destination',
 						label: 'Shipping destination',
 						description:
 							'This controls which shipping address is used by default.',
@@ -1234,7 +1234,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_shipping_debug_mode',
+						id: 'poocommerce_shipping_debug_mode',
 						label: 'Debug mode',
 						description: 'Enable debug mode',
 						type: 'checkbox',
@@ -1272,7 +1272,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_guest_checkout',
+						id: 'poocommerce_enable_guest_checkout',
 						label: 'Checkout',
 						description: 'Enable guest checkout (recommended)',
 						type: 'checkbox',
@@ -1284,7 +1284,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_checkout_login_reminder',
+						id: 'poocommerce_enable_checkout_login_reminder',
 						label: 'Login',
 						description: 'Enable log-in during checkout',
 						type: 'checkbox',
@@ -1296,7 +1296,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_signup_and_login_from_checkout',
+						id: 'poocommerce_enable_signup_and_login_from_checkout',
 						label: 'Account creation',
 						description: 'During checkout',
 						type: 'checkbox',
@@ -1308,7 +1308,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_enable_myaccount_registration',
+						id: 'poocommerce_enable_myaccount_registration',
 						label: 'Account creation',
 						description: 'On "My account" page',
 						type: 'checkbox',
@@ -1320,7 +1320,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_registration_generate_password',
+						id: 'poocommerce_registration_generate_password',
 						label: 'Account creation options',
 						description: 'Send password setup link (recommended)',
 						type: 'checkbox',
@@ -1332,7 +1332,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_erasure_request_removes_order_data',
+						id: 'poocommerce_erasure_request_removes_order_data',
 						label: 'Account erasure requests',
 						description:
 							'Remove personal data from orders on request',
@@ -1348,7 +1348,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_erasure_request_removes_download_data',
+						id: 'poocommerce_erasure_request_removes_download_data',
 						label: '',
 						description: 'Remove access to downloads on request',
 						type: 'checkbox',
@@ -1363,7 +1363,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_allow_bulk_remove_personal_data',
+						id: 'poocommerce_allow_bulk_remove_personal_data',
 						label: 'Personal data removal',
 						description:
 							'Allow personal data to be removed in bulk from orders',
@@ -1377,7 +1377,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_registration_privacy_policy_text',
+						id: 'poocommerce_registration_privacy_policy_text',
 						label: 'Registration privacy policy',
 						description: '',
 						type: 'textarea',
@@ -1391,7 +1391,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_checkout_privacy_policy_text',
+						id: 'poocommerce_checkout_privacy_policy_text',
 						label: 'Checkout privacy policy',
 						description: '',
 						type: 'textarea',
@@ -1417,7 +1417,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_from_name',
+						id: 'poocommerce_email_from_name',
 						label: '"From" name',
 						description: expect.any( String ),
 						type: 'text',
@@ -1430,7 +1430,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_from_address',
+						id: 'poocommerce_email_from_address',
 						label: '"From" address',
 						description: '',
 						type: 'email',
@@ -1440,11 +1440,11 @@ test.describe( 'Settings API tests: CRUD', () => {
 					} ),
 				] )
 			);
-			// woocommerce_email_header_image is custom slotfill and not included in the response
+			// poocommerce_email_header_image is custom slotfill and not included in the response
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_header_image_width',
+						id: 'poocommerce_email_header_image_width',
 						label: 'Logo width (px)',
 						type: 'number',
 						default: '120',
@@ -1455,7 +1455,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_header_alignment',
+						id: 'poocommerce_email_header_alignment',
 						label: 'Header alignment',
 						description: '',
 						type: 'select',
@@ -1464,17 +1464,17 @@ test.describe( 'Settings API tests: CRUD', () => {
 					} ),
 				] )
 			);
-			// woocommerce_email_font_family is custom slotfill and not included in the response
+			// poocommerce_email_font_family is custom slotfill and not included in the response
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_footer_text',
+						id: 'poocommerce_email_footer_text',
 						label: 'Footer text',
 						description:
-							'This text will appear in the footer of all of your WooCommerce emails. Available placeholders: {site_title} {site_url} {store_address} {store_email}',
+							'This text will appear in the footer of all of your PooCommerce emails. Available placeholders: {site_title} {site_url} {store_address} {store_email}',
 						type: 'textarea',
 						default: '{site_title}<br />{store_address}',
-						tip: 'This text will appear in the footer of all of your WooCommerce emails. Available placeholders: {site_title} {site_url} {store_address} {store_email}',
+						tip: 'This text will appear in the footer of all of your PooCommerce emails. Available placeholders: {site_title} {site_url} {store_address} {store_email}',
 						value: '{site_title}<br />{store_address}',
 					} ),
 				] )
@@ -1482,7 +1482,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_base_color',
+						id: 'poocommerce_email_base_color',
 						label: 'Accent',
 						description:
 							'Customize the color of your buttons and links. Default <code>#720eec</code>.',
@@ -1496,7 +1496,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_background_color',
+						id: 'poocommerce_email_background_color',
 						label: 'Email background',
 						description:
 							'Select a color for the background of your emails. Default <code>#f7f7f7</code>.',
@@ -1510,7 +1510,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_body_background_color',
+						id: 'poocommerce_email_body_background_color',
 						label: 'Content background',
 						description:
 							'Choose a background color for the content area of your emails. Default <code>#ffffff</code>.',
@@ -1524,7 +1524,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_text_color',
+						id: 'poocommerce_email_text_color',
 						label: 'Heading & text',
 						description:
 							'Set the color of your headings and text. Default <code>#3c3c3c</code>.',
@@ -1538,7 +1538,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_email_footer_text_color',
+						id: 'poocommerce_email_footer_text_color',
 						label: 'Secondary text',
 						description:
 							'Choose a color for your secondary text, such as your footer content. Default <code>#3c3c3c</code>.',
@@ -1565,7 +1565,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_cart_page_id',
+						id: 'poocommerce_cart_page_id',
 						label: 'Cart page',
 						description:
 							'Page where shoppers review their shopping cart',
@@ -1581,7 +1581,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_checkout_page_id',
+						id: 'poocommerce_checkout_page_id',
 						label: 'Checkout page',
 						description:
 							'Page where shoppers go to finalize their purchase',
@@ -1597,12 +1597,12 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_page_id',
+						id: 'poocommerce_myaccount_page_id',
 						label: 'My account page',
-						description: 'Page contents: [woocommerce_my_account]',
+						description: 'Page contents: [poocommerce_my_account]',
 						type: 'select',
 						default: '',
-						tip: 'Page contents: [woocommerce_my_account]',
+						tip: 'Page contents: [poocommerce_my_account]',
 						value: expect.any( String ),
 						options: expect.any( Object ),
 					} ),
@@ -1611,7 +1611,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_checkout_pay_endpoint',
+						id: 'poocommerce_checkout_pay_endpoint',
 						label: 'Pay',
 						description:
 							'Endpoint for the "Checkout &rarr; Pay" page.',
@@ -1625,7 +1625,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_checkout_order_received_endpoint',
+						id: 'poocommerce_checkout_order_received_endpoint',
 						label: 'Order received',
 						description:
 							'Endpoint for the "Checkout &rarr; Order received" page.',
@@ -1639,7 +1639,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_add_payment_method_endpoint',
+						id: 'poocommerce_myaccount_add_payment_method_endpoint',
 						label: 'Add payment method',
 						description:
 							'Endpoint for the "Checkout &rarr; Add payment method" page.',
@@ -1653,7 +1653,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_delete_payment_method_endpoint',
+						id: 'poocommerce_myaccount_delete_payment_method_endpoint',
 						label: 'Delete payment method',
 						description:
 							'Endpoint for the delete payment method page.',
@@ -1667,7 +1667,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_orders_endpoint',
+						id: 'poocommerce_myaccount_orders_endpoint',
 						label: 'Orders',
 						description:
 							'Endpoint for the "My account &rarr; Orders" page.',
@@ -1681,7 +1681,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_view_order_endpoint',
+						id: 'poocommerce_myaccount_view_order_endpoint',
 						label: 'View order',
 						description:
 							'Endpoint for the "My account &rarr; View order" page.',
@@ -1696,7 +1696,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_downloads_endpoint',
+						id: 'poocommerce_myaccount_downloads_endpoint',
 						label: 'Downloads',
 						description:
 							'Endpoint for the "My account &rarr; Downloads" page.',
@@ -1711,7 +1711,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_edit_account_endpoint',
+						id: 'poocommerce_myaccount_edit_account_endpoint',
 						label: 'Edit account',
 						description:
 							'Endpoint for the "My account &rarr; Edit account" page.',
@@ -1725,7 +1725,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_edit_address_endpoint',
+						id: 'poocommerce_myaccount_edit_address_endpoint',
 						label: 'Addresses',
 						description:
 							'Endpoint for the "My account &rarr; Addresses" page.',
@@ -1739,7 +1739,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_payment_methods_endpoint',
+						id: 'poocommerce_myaccount_payment_methods_endpoint',
 						label: 'Payment methods',
 						description:
 							'Endpoint for the "My account &rarr; Payment methods" page.',
@@ -1753,7 +1753,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_myaccount_lost_password_endpoint',
+						id: 'poocommerce_myaccount_lost_password_endpoint',
 						label: 'Lost password',
 						description:
 							'Endpoint for the "My account &rarr; Lost password" page.',
@@ -1767,7 +1767,7 @@ test.describe( 'Settings API tests: CRUD', () => {
 			expect( responseJSON ).toEqual(
 				expect.arrayContaining( [
 					expect.objectContaining( {
-						id: 'woocommerce_logout_endpoint',
+						id: 'poocommerce_logout_endpoint',
 						label: 'Logout',
 						description:
 							'Endpoint for the triggering logout. You can add this to your menus via a custom link: yoursite.com/?customer-logout=true',
@@ -1785,13 +1785,13 @@ test.describe( 'Settings API tests: CRUD', () => {
 				expect( responseJSON ).toEqual(
 					expect.arrayContaining( [
 						expect.objectContaining( {
-							id: 'woocommerce_allow_tracking',
+							id: 'poocommerce_allow_tracking',
 							label: 'Enable tracking',
 							description:
-								'Allow usage of WooCommerce to be tracked',
+								'Allow usage of PooCommerce to be tracked',
 							type: 'checkbox',
 							default: 'no',
-							tip: 'To opt out, leave this box unticked. Your store remains untracked, and no data will be collected. Read about what usage data is tracked at: <a href="https://woocommerce.com/usage-tracking" target="_blank">WooCommerce.com Usage Tracking Documentation</a>.',
+							tip: 'To opt out, leave this box unticked. Your store remains untracked, and no data will be collected. Read about what usage data is tracked at: <a href="https://poocommerce.com/usage-tracking" target="_blank">PooCommerce.com Usage Tracking Documentation</a>.',
 							value: expect.any( String ),
 						} ),
 					] )
@@ -1799,13 +1799,13 @@ test.describe( 'Settings API tests: CRUD', () => {
 				expect( responseJSON ).toEqual(
 					expect.arrayContaining( [
 						expect.objectContaining( {
-							id: 'woocommerce_show_marketplace_suggestions',
+							id: 'poocommerce_show_marketplace_suggestions',
 							label: 'Show Suggestions',
 							description:
-								'Display suggestions within WooCommerce',
+								'Display suggestions within PooCommerce',
 							type: 'checkbox',
 							default: 'yes',
-							tip: 'Leave this box unchecked if you do not want to pull suggested extensions from WooCommerce.com.',
+							tip: 'Leave this box unchecked if you do not want to pull suggested extensions from PooCommerce.com.',
 							value: expect.any( String ),
 						} ),
 					] )
@@ -1813,9 +1813,9 @@ test.describe( 'Settings API tests: CRUD', () => {
 				expect( responseJSON ).toEqual(
 					expect.arrayContaining( [
 						expect.objectContaining( {
-							id: 'woocommerce_analytics_enabled',
+							id: 'poocommerce_analytics_enabled',
 							label: 'Analytics',
-							description: 'Enable WooCommerce Analytics',
+							description: 'Enable PooCommerce Analytics',
 							type: 'checkbox',
 							default: 'yes',
 							value: expect.any( String ),
@@ -2048,9 +2048,9 @@ test.describe( 'Settings API tests: CRUD', () => {
 								'Text to appear below the main email content. Available placeholders: <code>{site_title}&lt;/code&gt;, &lt;code&gt;{site_address}&lt;/code&gt;, &lt;code&gt;{site_url}&lt;/code&gt;, &lt;code&gt;{store_email}&lt;/code&gt;, &lt;code&gt;{order_date}&lt;/code&gt;, &lt;code&gt;{order_number}</code>',
 							type: 'textarea',
 							default:
-								'We hope they’ll be back soon! Read more about <a href="https://woocommerce.com/document/managing-orders/">troubleshooting failed payments</a>.',
+								'We hope they’ll be back soon! Read more about <a href="https://poocommerce.com/document/managing-orders/">troubleshooting failed payments</a>.',
 							tip: 'Text to appear below the main email content. Available placeholders: <code>{site_title}&lt;/code&gt;, &lt;code&gt;{site_address}&lt;/code&gt;, &lt;code&gt;{site_url}&lt;/code&gt;, &lt;code&gt;{store_email}&lt;/code&gt;, &lt;code&gt;{order_date}&lt;/code&gt;, &lt;code&gt;{order_number}</code>',
-							value: 'We hope they’ll be back soon! Read more about <a href="https://woocommerce.com/document/managing-orders/">troubleshooting failed payments</a>.',
+							value: 'We hope they’ll be back soon! Read more about <a href="https://poocommerce.com/document/managing-orders/">troubleshooting failed payments</a>.',
 						} ),
 					] )
 				);

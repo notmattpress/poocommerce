@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { Icon } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
@@ -132,14 +132,14 @@ export function useSaveDraft( {
 
 	let children: ReactNode;
 	if ( productStatus === 'publish' ) {
-		children = __( 'Switch to draft', 'woocommerce' );
+		children = __( 'Switch to draft', 'poocommerce' );
 	} else if ( hasEdits || productStatus === 'auto-draft' ) {
-		children = __( 'Save draft', 'woocommerce' );
+		children = __( 'Save draft', 'poocommerce' );
 	} else {
 		children = (
 			<>
 				<Icon icon={ check } />
-				{ __( 'Saved', 'woocommerce' ) }
+				{ __( 'Saved', 'poocommerce' ) }
 			</>
 		);
 	}

@@ -2,26 +2,26 @@
 /**
  * PayPal Notices Class
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices instead. This class will be removed in 11.0.0.
- * @package WooCommerce\Gateways
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices instead. This class will be removed in 11.0.0.
+ * @package PooCommerce\Gateways
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Gateways\PayPal\Notices as PayPalNotices;
+use Automattic\PooCommerce\Gateways\PayPal\Notices as PayPalNotices;
 
 require_once __DIR__ . '/class-wc-gateway-paypal-helper.php';
 
 /**
  * Class WC_Gateway_Paypal_Notices.
  *
- * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices instead. This class will be removed in 11.0.0.
+ * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices instead. This class will be removed in 11.0.0.
  * @since 10.3.0
  */
 class WC_Gateway_Paypal_Notices {
@@ -42,7 +42,7 @@ class WC_Gateway_Paypal_Notices {
 	/**
 	 * Add PayPal Standard notices.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices::add_paypal_notices() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices::add_paypal_notices() instead.
 	 * @since 10.4.0
 	 * @return void
 	 */
@@ -53,7 +53,7 @@ class WC_Gateway_Paypal_Notices {
 	/**
 	 * Add PayPal notices on the payments settings page.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices::add_paypal_notices_on_payments_settings_page() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices::add_paypal_notices_on_payments_settings_page() instead.
 	 * @since 10.4.0
 	 * @return void
 	 */
@@ -75,7 +75,7 @@ class WC_Gateway_Paypal_Notices {
 	/**
 	 * Add notice warning about the migration to PayPal Payments.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices::add_paypal_migration_notice() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices::add_paypal_migration_notice() instead.
 	 * @since 10.3.0
 	 * @return void
 	 */
@@ -97,7 +97,7 @@ class WC_Gateway_Paypal_Notices {
 	/**
 	 * Set the flag indicating PayPal account restriction.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices::set_account_restriction_flag() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices::set_account_restriction_flag() instead.
 	 * @since 10.4.0
 	 * @return void
 	 */
@@ -108,7 +108,7 @@ class WC_Gateway_Paypal_Notices {
 	/**
 	 * Clear the flag indicating PayPal account restriction.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices::clear_account_restriction_flag() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices::clear_account_restriction_flag() instead.
 	 * @since 10.4.0
 	 * @return void
 	 */
@@ -119,11 +119,11 @@ class WC_Gateway_Paypal_Notices {
 	/**
 	 * Handle PayPal order response to manage account restriction notices.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\Notices::manage_account_restriction_flag_for_notice() instead.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\Notices::manage_account_restriction_flag_for_notice() instead.
 	 * @since 10.4.0
 	 * @param int|string $http_code     The HTTP status code from the PayPal API response.
 	 * @param array      $response_data The decoded response data from the PayPal API.
-	 * @param WC_Order   $order         The WooCommerce order object.
+	 * @param WC_Order   $order         The PooCommerce order object.
 	 * @return void
 	 */
 	public static function manage_account_restriction_flag_for_notice( $http_code, array $response_data, WC_Order $order ): void {

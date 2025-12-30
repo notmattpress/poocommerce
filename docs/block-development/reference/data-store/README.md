@@ -1,6 +1,6 @@
 # Data Store
 
-This document provides an overview of the data stores registered with `wp.data` for use by various blocks. Store descriptions are exported as constants on the `wc.wcBlocksData` export (externally registered as `@woocommerce/block-data` and enqueued via handle `wc-blocks-data-store`). For any block using the store, it's recommended to import the store description rather than using the reference directly to ensure dependencies are extracted correctly. It is assumed readers have some familiarity with the `wp.data` API. You can read more about that [in the @wordpress/data reference guide](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/).
+This document provides an overview of the data stores registered with `wp.data` for use by various blocks. Store descriptions are exported as constants on the `wc.wcBlocksData` export (externally registered as `@poocommerce/block-data` and enqueued via handle `wc-blocks-data-store`). For any block using the store, it's recommended to import the store description rather than using the reference directly to ensure dependencies are extracted correctly. It is assumed readers have some familiarity with the `wp.data` API. You can read more about that [in the @wordpress/data reference guide](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/).
 
 ## [Cart Store (wc/store/cart)](cart.md)
 

@@ -4,7 +4,7 @@
 import type {
 	SelectedAttributes,
 	ProductData,
-} from '@woocommerce/stores/woocommerce/cart';
+} from '@poocommerce/stores/poocommerce/cart';
 
 export const getMatchedVariation = (
 	availableVariations: ProductData[ 'variations' ],

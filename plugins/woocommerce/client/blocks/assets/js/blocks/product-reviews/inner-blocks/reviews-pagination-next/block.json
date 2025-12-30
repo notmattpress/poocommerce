@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-reviews-pagination-next",
+	"name": "poocommerce/product-reviews-pagination-next",
 	"title": "Reviews Next Page",
-	"category": "woocommerce",
-	"ancestor": [ "woocommerce/product-reviews-pagination" ],
+	"category": "poocommerce",
+	"ancestor": [ "poocommerce/product-reviews-pagination" ],
 	"description": "Displays the next product review's page link.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"label": {
 			"type": "string"

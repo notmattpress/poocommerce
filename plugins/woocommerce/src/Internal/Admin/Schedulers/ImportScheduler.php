@@ -3,12 +3,12 @@
  * Import related functions and actions.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Schedulers;
+namespace Automattic\PooCommerce\Internal\Admin\Schedulers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Admin\Schedulers\SchedulerTraits;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Admin\Schedulers\SchedulerTraits;
 
 /**
  * ImportScheduler class.
@@ -17,7 +17,7 @@ abstract class ImportScheduler implements ImportInterface {
 	/**
 	 * Import stats option name.
 	 */
-	const IMPORT_STATS_OPTION = 'woocommerce_admin_import_stats';
+	const IMPORT_STATS_OPTION = 'poocommerce_admin_import_stats';
 
 	/**
 	 * Scheduler traits.

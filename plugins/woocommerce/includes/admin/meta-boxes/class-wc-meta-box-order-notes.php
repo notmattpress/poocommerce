@@ -2,7 +2,7 @@
 /**
  * Order Notes
  *
- * @package WooCommerce\Admin\Meta Boxes
+ * @package PooCommerce\Admin\Meta Boxes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,16 +38,16 @@ class WC_Meta_Box_Order_Notes {
 		?>
 		<div class="add_note">
 			<p>
-				<label for="add_order_note"><?php esc_html_e( 'Add note', 'woocommerce' ); ?> <?php echo wc_help_tip( __( 'Add a note for your reference, or add a customer note (the user will be notified).', 'woocommerce' ) ); ?></label>
+				<label for="add_order_note"><?php esc_html_e( 'Add note', 'poocommerce' ); ?> <?php echo wc_help_tip( __( 'Add a note for your reference, or add a customer note (the user will be notified).', 'poocommerce' ) ); ?></label>
 				<textarea type="text" name="order_note" id="add_order_note" class="input-text" cols="20" rows="5"></textarea>
 			</p>
 			<p>
-				<label for="order_note_type" class="screen-reader-text"><?php esc_html_e( 'Note type', 'woocommerce' ); ?></label>
+				<label for="order_note_type" class="screen-reader-text"><?php esc_html_e( 'Note type', 'poocommerce' ); ?></label>
 				<select name="order_note_type" id="order_note_type">
-					<option value=""><?php esc_html_e( 'Private note', 'woocommerce' ); ?></option>
-					<option value="customer"><?php esc_html_e( 'Note to customer', 'woocommerce' ); ?></option>
+					<option value=""><?php esc_html_e( 'Private note', 'poocommerce' ); ?></option>
+					<option value="customer"><?php esc_html_e( 'Note to customer', 'poocommerce' ); ?></option>
 				</select>
-				<button type="button" class="add_note button"><?php esc_html_e( 'Add', 'woocommerce' ); ?></button>
+				<button type="button" class="add_note button"><?php esc_html_e( 'Add', 'poocommerce' ); ?></button>
 			</p>
 		</div>
 		<?php

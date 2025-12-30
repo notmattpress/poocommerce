@@ -2,14 +2,14 @@
 /**
  * Class for parameter-based Product querying
  *
- * Args and usage: https://github.com/woocommerce/woocommerce/wiki/wc_get_products-and-WC_Product_Query
+ * Args and usage: https://github.com/poocommerce/poocommerce/wiki/wc_get_products-and-WC_Product_Query
  *
- * @package  WooCommerce\Classes
+ * @package  PooCommerce\Classes
  * @version  3.2.0
  * @since    3.2.0
  */
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,8 +74,8 @@ class WC_Product_Query extends WC_Object_Query {
 	 * @return array|object of WC_Product objects
 	 */
 	public function get_products() {
-		$args    = apply_filters( 'woocommerce_product_object_query_args', $this->get_query_vars() );
+		$args    = apply_filters( 'poocommerce_product_object_query_args', $this->get_query_vars() );
 		$results = WC_Data_Store::load( 'product' )->query( $args );
-		return apply_filters( 'woocommerce_product_object_query', $results, $args );
+		return apply_filters( 'poocommerce_product_object_query', $results, $args );
 	}
 }

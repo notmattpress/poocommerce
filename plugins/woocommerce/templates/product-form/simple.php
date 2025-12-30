@@ -7,7 +7,7 @@
  * Description: A single physical or virtual product, e.g. a t-shirt or an eBook
  * Product Types: simple, variable
  *
- * @package WooCommerce\Templates
+ * @package PooCommerce\Templates
  * @version 9.1.0-beta.1
  */
 
@@ -16,16 +16,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<!-- wp:woocommerce/product-section {"title":"<?php esc_attr_e( 'Basic details', 'woocommerce' ); ?>"} -->
-<div data-block-name="woocommerce/product-section" class="wp-block-woocommerce-product-section" data-title="<?php esc_attr_e( 'Basic details', 'woocommerce' ); ?>">
+<!-- wp:poocommerce/product-section {"title":"<?php esc_attr_e( 'Basic details', 'poocommerce' ); ?>"} -->
+<div data-block-name="poocommerce/product-section" class="wp-block-poocommerce-product-section" data-title="<?php esc_attr_e( 'Basic details', 'poocommerce' ); ?>">
 	<div>
-		<!-- wp:woocommerce/product-regular-price-field -->
-		<div data-block-name="woocommerce/product-regular-price-field" class="wp-block-woocommerce-product-regular-price-field"></div>
-		<!-- /wp:woocommerce/product-regular-price-field -->
+		<!-- wp:poocommerce/product-regular-price-field -->
+		<div data-block-name="poocommerce/product-regular-price-field" class="wp-block-poocommerce-product-regular-price-field"></div>
+		<!-- /wp:poocommerce/product-regular-price-field -->
 
-		<!-- wp:woocommerce/product-checkbox-field {"label":"<?php esc_attr_e( 'Translatable Label', 'woocommerce' ); ?>","property":"testproperty"} -->
-		<div data-block-name="woocommerce/product-checkbox-field" class="wp-block-woocommerce-product-checkbox-field" data-label="<?php esc_attr_e( 'Translatable Label', 'woocommerce' ); ?>"></div>
-		<!-- /wp:woocommerce/product-checkbox-field -->
+		<!-- wp:poocommerce/product-checkbox-field {"label":"<?php esc_attr_e( 'Translatable Label', 'poocommerce' ); ?>","property":"testproperty"} -->
+		<div data-block-name="poocommerce/product-checkbox-field" class="wp-block-poocommerce-product-checkbox-field" data-label="<?php esc_attr_e( 'Translatable Label', 'poocommerce' ); ?>"></div>
+		<!-- /wp:poocommerce/product-checkbox-field -->
 	</div>
 </div>
-<!-- /wp:woocommerce/product-section -->
+<!-- /wp:poocommerce/product-section -->

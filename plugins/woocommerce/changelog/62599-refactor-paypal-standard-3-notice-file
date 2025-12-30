@@ -1,4 +1,4 @@
 Significance: patch
 Type: dev
 
-Deprecate WC_Gateway_Paypal_Notices class in favor of Automattic\WooCommerce\Gateways\PayPal\Notices class.
+Deprecate WC_Gateway_Paypal_Notices class in favor of Automattic\PooCommerce\Gateways\PayPal\Notices class.

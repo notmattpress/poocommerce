@@ -21,7 +21,7 @@ export default function ProductLoader(
 	const placeholderCount = props.placeholderCount || 12;
 
 	return (
-		<div className="woocommerce-marketplace__product-list">
+		<div className="poocommerce-marketplace__product-list">
 			{ hasTitle !== false && (
 				<ProductListHeader
 					title=""
@@ -31,7 +31,7 @@ export default function ProductLoader(
 					groupURLType={ undefined }
 				/>
 			) }
-			<div className="woocommerce-marketplace__product-list-content">
+			<div className="poocommerce-marketplace__product-list-content">
 				{ [ ...Array( placeholderCount ) ].map( ( element, i ) => (
 					<ProductCard
 						key={ i }

@@ -3,7 +3,7 @@
  */
 import { useSelect } from '@wordpress/data';
 import { createElement, Fragment } from '@wordpress/element';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore No types for this exist yet.
@@ -62,9 +62,9 @@ export function ContentPreview( { content }: ContentPreviewProps ) {
 	}, [] );
 
 	return (
-		<div className="woocommerce-content-preview">
+		<div className="poocommerce-content-preview">
 			<Iframe
-				className="woocommerce-content-preview__iframe"
+				className="poocommerce-content-preview__iframe"
 				tabIndex={ -1 }
 			>
 				<>
@@ -75,7 +75,7 @@ export function ContentPreview( { content }: ContentPreviewProps ) {
 								}` }
 					</style>
 					<div
-						className="woocommerce-content-preview__content"
+						className="poocommerce-content-preview__content"
 						dangerouslySetInnerHTML={ {
 							__html: sanitizeHTML( content, {
 								tags: CONTENT_TAGS,

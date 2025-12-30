@@ -7,9 +7,9 @@ import {
 	getConfig,
 	getElement,
 } from '@wordpress/interactivity';
-import { SelectedAttributes } from '@woocommerce/stores/woocommerce/cart';
+import { SelectedAttributes } from '@poocommerce/stores/poocommerce/cart';
 import type { ChangeEvent } from 'react';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ const isAttributeValueValid = ( {
 		? selectedAttributes.length - 1
 		: selectedAttributes.length;
 
-	const { products } = getConfig( 'woocommerce' );
+	const { products } = getConfig( 'poocommerce' );
 
 	if ( ! products || ! products[ productDataState.productId ] ) {
 		return false;
@@ -158,13 +158,13 @@ export type VariableProductAddToCartWithOptionsStore =
 	};
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
 
 const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{
 		state: {
 			get selectedAttributes(): SelectedAttributes[] {
@@ -257,7 +257,7 @@ const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
 				}
 			},
 			setSelectedVariationId: () => {
-				const { products } = getConfig( 'woocommerce' );
+				const { products } = getConfig( 'poocommerce' );
 
 				const variations =
 					products?.[ productDataState.productId ].variations;
@@ -271,7 +271,7 @@ const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
 
 				const { actions: productDataActions } =
 					store< ProductDataStore >(
-						'woocommerce/product-data',
+						'poocommerce/product-data',
 						{},
 						{ lock: universalLock }
 					);
@@ -282,7 +282,7 @@ const { actions, state } = store< VariableProductAddToCartWithOptionsStore >(
 			validateVariation() {
 				actions.clearErrors( 'variable-product' );
 
-				const { products } = getConfig( 'woocommerce' );
+				const { products } = getConfig( 'poocommerce' );
 
 				if ( ! products || ! products[ productDataState.productId ] ) {
 					return;

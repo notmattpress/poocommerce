@@ -1,4 +1,4 @@
-.woocommerce-product-form__checkbox {
+.poocommerce-product-form__checkbox {
 	.components-checkbox-control__input:disabled {
 		opacity: 1;
 		background-color: $gray-100;
@@ -26,11 +26,11 @@
 	}
 }
 
-.woocommerce-product-form__checkbox-wrapper {
+.poocommerce-product-form__checkbox-wrapper {
 	gap: $gap-smallest;
 }
 
-.woocommerce-product-form__checkbox-tooltip {
+.poocommerce-product-form__checkbox-tooltip {
 	.components-popover__content {
 		width: 200px;
 		min-width: auto;

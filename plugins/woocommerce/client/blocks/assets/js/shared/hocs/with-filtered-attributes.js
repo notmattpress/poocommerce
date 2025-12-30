@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { getValidBlockAttributes } from '@woocommerce/base-utils';
+import { getValidBlockAttributes } from '@poocommerce/base-utils';
 
 /**
  * HOC that filters given attributes by valid block attribute values, or uses defaults if undefined.

@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Suggestions;
+namespace Automattic\PooCommerce\Internal\Admin\Suggestions;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Utilities\ArrayUtil;
 
 /**
  * Partner payments extension suggestions provider class.
@@ -139,7 +139,7 @@ class PaymentsExtensionSuggestions {
 	 * )
 	 * Use the extended format when you need to override the extension's default details for a particular country.
 	 *
-	 * @see plugins/woocommerce/i18n/countries.php for the list of supported country codes and their names.
+	 * @see plugins/poocommerce/i18n/countries.php for the list of supported country codes and their names.
 	 *
 	 * @var array
 	 */
@@ -3245,8 +3245,8 @@ class PaymentsExtensionSuggestions {
 		$this->extensions_base_details_memo = array(
 			self::AIRWALLEX         => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Airwallex Payments', 'woocommerce' ),
-				'description' => esc_html__( 'Boost international sales and save on FX fees. Accept 60+ local payment methods including Apple Pay and Google Pay.', 'woocommerce' ),
+				'title'       => esc_html__( 'Airwallex Payments', 'poocommerce' ),
+				'description' => esc_html__( 'Boost international sales and save on FX fees. Accept 60+ local payment methods including Apple Pay and Google Pay.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/airwallex.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/airwallex.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
@@ -3260,7 +3260,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/airwallexpayments/',
+						'url'   => 'https://poocommerce.com/products/airwallexpayments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3268,7 +3268,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://www.airwallex.com/docs/payments__plugins__woocommerce__install-the-woocommerce-plugin',
+						'url'   => 'https://www.airwallex.com/docs/payments__plugins__poocommerce__install-the-poocommerce-plugin',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3278,8 +3278,8 @@ class PaymentsExtensionSuggestions {
 			),
 			self::ANTOM             => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Antom', 'woocommerce' ),
-				'description' => esc_html__( 'Your trusted payments partner in Asia and around the world.', 'woocommerce' ),
+				'title'       => esc_html__( 'Antom', 'poocommerce' ),
+				'description' => esc_html__( 'Your trusted payments partner in Asia and around the world.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/antom.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
@@ -3288,7 +3288,7 @@ class PaymentsExtensionSuggestions {
 				'links'       => array(
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/antom-payments/',
+						'url'   => 'https://poocommerce.com/products/antom-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3296,48 +3296,48 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/antom-payment/',
+						'url'   => 'https://poocommerce.com/document/antom-payment/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=antom-payments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=antom-payments',
 					),
 				),
 			),
 			self::MERCADO_PAGO      => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Mercado Pago', 'woocommerce' ),
-				'description' => esc_html__( 'Set up your payment methods and accept credit and debit cards, cash, bank transfers and money from your Mercado Pago account. Offer safe and secure payments with Latin America’s leading processor.', 'woocommerce' ),
+				'title'       => esc_html__( 'Mercado Pago', 'poocommerce' ),
+				'description' => esc_html__( 'Set up your payment methods and accept credit and debit cards, cash, bank transfers and money from your Mercado Pago account. Offer safe and secure payments with Latin America’s leading processor.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/mercadopago.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/mercadopago.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-mercadopago',
+					'slug'  => 'poocommerce-mercadopago',
 				),
 				'links'       => array(
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/mercado-pago-checkout/',
+						'url'   => 'https://poocommerce.com/products/mercado-pago-checkout/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/mercado-pago/',
+						'url'   => 'https://poocommerce.com/document/mercado-pago/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=mercado-pago-checkout',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=mercado-pago-checkout',
 					),
 				),
 			),
 			self::MOLLIE            => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Mollie', 'woocommerce' ),
-				'description' => esc_html__( 'Effortless payments by Mollie: Offer global and local payment methods, get onboarded in minutes, and supported in your language.', 'woocommerce' ),
+				'title'       => esc_html__( 'Mollie', 'poocommerce' ),
+				'description' => esc_html__( 'Effortless payments by Mollie: Offer global and local payment methods, get onboarded in minutes, and supported in your language.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/mollie.svg', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/mollie.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'mollie-payments-for-woocommerce',
+					'slug'  => 'mollie-payments-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3346,7 +3346,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/mollie-payments-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/products/mollie-payments-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3354,7 +3354,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/mollie-payments-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/document/mollie-payments-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3364,13 +3364,13 @@ class PaymentsExtensionSuggestions {
 			),
 			self::PAYFAST           => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Payfast', 'woocommerce' ),
-				'description' => esc_html__( 'The Payfast extension for WooCommerce enables you to accept payments by Credit Card and EFT via one of South Africa\'s most popular payment gateways. No setup fees or monthly subscription costs. Selecting this extension will configure your store to use South African rands as the selected currency.', 'woocommerce' ),
+				'title'       => esc_html__( 'Payfast', 'poocommerce' ),
+				'description' => esc_html__( 'The Payfast extension for PooCommerce enables you to accept payments by Credit Card and EFT via one of South Africa\'s most popular payment gateways. No setup fees or monthly subscription costs. Selecting this extension will configure your store to use South African rands as the selected currency.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/payfast.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/payfast.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-payfast-gateway',
+					'slug'  => 'poocommerce-payfast-gateway',
 				),
 				'links'       => array(
 					array(
@@ -3379,7 +3379,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/payfast-payment-gateway/',
+						'url'   => 'https://poocommerce.com/products/payfast-payment-gateway/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3387,23 +3387,23 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/payfast-payment-gateway/',
+						'url'   => 'https://poocommerce.com/document/payfast-payment-gateway/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=payfast-payment-gateway',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=payfast-payment-gateway',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO ),
 			),
 			self::PAYMOB            => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Paymob', 'woocommerce' ),
-				'description' => esc_html__( 'Paymob is a leading payment gateway in the Middle East and Africa. Accept payments online and in-store with Paymob.', 'woocommerce' ),
+				'title'       => esc_html__( 'Paymob', 'poocommerce' ),
+				'description' => esc_html__( 'Paymob is a leading payment gateway in the Middle East and Africa. Accept payments online and in-store with Paymob.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/paymob.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'paymob-for-woocommerce',
+					'slug'  => 'paymob-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3412,7 +3412,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/paymob/',
+						'url'   => 'https://poocommerce.com/products/paymob/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3420,23 +3420,23 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/paymob-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/document/paymob-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=paymob',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=paymob',
 					),
 				),
 			),
 			self::PAYPAL_FULL_STACK => array(
 				'_type'       => self::TYPE_APM,
-				'title'       => esc_html__( 'PayPal Payments', 'woocommerce' ),
-				'description' => esc_html__( 'PayPal Payments lets you offer PayPal, Venmo (US only), Pay Later options and more.', 'woocommerce' ),
+				'title'       => esc_html__( 'PayPal Payments', 'poocommerce' ),
+				'description' => esc_html__( 'PayPal Payments lets you offer PayPal, Venmo (US only), Pay Later options and more.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/paypal.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/paypal.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-paypal-payments',
+					'slug'  => 'poocommerce-paypal-payments',
 				),
 				'links'       => array(
 					array(
@@ -3445,7 +3445,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/woocommerce-paypal-payments/',
+						'url'   => 'https://poocommerce.com/products/poocommerce-paypal-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3453,24 +3453,24 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/woocommerce-paypal-payments/',
+						'url'   => 'https://poocommerce.com/document/poocommerce-paypal-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=woocommerce-paypal-payments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=poocommerce-paypal-payments',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO, self::TAG_PREFERRED ),
 			),
 			self::PAYPAL_WALLET     => array(
 				'_type'       => self::TYPE_EXPRESS_CHECKOUT,
-				'title'       => esc_html__( 'PayPal Payments', 'woocommerce' ),
-				'description' => esc_html__( 'Safe and secure payments using your customer\'s PayPal account.', 'woocommerce' ),
+				'title'       => esc_html__( 'PayPal Payments', 'poocommerce' ),
+				'description' => esc_html__( 'Safe and secure payments using your customer\'s PayPal account.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/paypal.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/paypal.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-paypal-payments',
+					'slug'  => 'poocommerce-paypal-payments',
 				),
 				'links'       => array(
 					array(
@@ -3479,7 +3479,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/woocommerce-paypal-payments/',
+						'url'   => 'https://poocommerce.com/products/poocommerce-paypal-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3487,19 +3487,19 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/woocommerce-paypal-payments/',
+						'url'   => 'https://poocommerce.com/document/poocommerce-paypal-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=woocommerce-paypal-payments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=poocommerce-paypal-payments',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO ),
 			),
 			self::PAYONEER          => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Payoneer Checkout', 'woocommerce' ),
-				'description' => esc_html__( 'Payoneer Checkout is the next generation of payment processing platforms, giving merchants around the world the solutions and direction they need to succeed in today\'s hyper-competitive global market.', 'woocommerce' ),
+				'title'       => esc_html__( 'Payoneer Checkout', 'poocommerce' ),
+				'description' => esc_html__( 'Payoneer Checkout is the next generation of payment processing platforms, giving merchants around the world the solutions and direction they need to succeed in today\'s hyper-competitive global market.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/payoneer.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/payoneer.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
@@ -3513,7 +3513,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/payoneer-checkout/',
+						'url'   => 'https://poocommerce.com/products/payoneer-checkout/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3521,18 +3521,18 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://checkoutdocs.payoneer.com/docs/about-woocommerce-integration',
+						'url'   => 'https://checkoutdocs.payoneer.com/docs/about-poocommerce-integration',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://checkoutdocs.payoneer.com/docs/troubleshoot-woocommerce',
+						'url'   => 'https://checkoutdocs.payoneer.com/docs/troubleshoot-poocommerce',
 					),
 				),
 			),
 			self::PAYSTACK          => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Paystack', 'woocommerce' ),
-				'description' => esc_html__( 'Paystack helps African merchants accept one-time and recurring payments online with a modern, safe, and secure payment gateway.', 'woocommerce' ),
+				'title'       => esc_html__( 'Paystack', 'poocommerce' ),
+				'description' => esc_html__( 'Paystack helps African merchants accept one-time and recurring payments online with a modern, safe, and secure payment gateway.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/paystack.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/paystack.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
@@ -3546,7 +3546,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/paystack/',
+						'url'   => 'https://poocommerce.com/products/paystack/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3554,7 +3554,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/paystack/',
+						'url'   => 'https://poocommerce.com/document/paystack/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3564,12 +3564,12 @@ class PaymentsExtensionSuggestions {
 			),
 			self::PAYTRAIL          => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Paytrail', 'woocommerce' ),
-				'description' => esc_html__( 'Accept all popular payment methods for Finnish B2C and B2B customers', 'woocommerce' ),
+				'title'       => esc_html__( 'Paytrail', 'poocommerce' ),
+				'description' => esc_html__( 'Accept all popular payment methods for Finnish B2C and B2B customers', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/paytrail.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'paytrail-for-woocommerce',
+					'slug'  => 'paytrail-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3578,7 +3578,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/paytrail/',
+						'url'   => 'https://poocommerce.com/products/paytrail/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3586,7 +3586,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/paytrail-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/document/paytrail-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3596,8 +3596,8 @@ class PaymentsExtensionSuggestions {
 			),
 			self::PAYU_INDIA        => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'PayU India', 'woocommerce' ),
-				'description' => esc_html__( 'Enable PayU\'s exclusive plugin for WooCommerce to start accepting payments in 100+ payment methods available in India including credit cards, debit cards, UPI, & more!', 'woocommerce' ),
+				'title'       => esc_html__( 'PayU India', 'poocommerce' ),
+				'description' => esc_html__( 'Enable PayU\'s exclusive plugin for PooCommerce to start accepting payments in 100+ payment methods available in India including credit cards, debit cards, UPI, & more!', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/payu.svg', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/payu.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
@@ -3611,7 +3611,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/payu-india/',
+						'url'   => 'https://poocommerce.com/products/payu-india/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3619,7 +3619,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://payu.in/plugins/payment-gateway-for-woocommerce-plugin',
+						'url'   => 'https://payu.in/plugins/payment-gateway-for-poocommerce-plugin',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3629,8 +3629,8 @@ class PaymentsExtensionSuggestions {
 			),
 			self::RAZORPAY          => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Razorpay', 'woocommerce' ),
-				'description' => esc_html__( 'The official Razorpay extension for WooCommerce allows you to accept credit cards, debit cards, netbanking, wallet, and UPI payments.', 'woocommerce' ),
+				'title'       => esc_html__( 'Razorpay', 'poocommerce' ),
+				'description' => esc_html__( 'The official Razorpay extension for PooCommerce allows you to accept credit cards, debit cards, netbanking, wallet, and UPI payments.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/razorpay.svg', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/razorpay.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
@@ -3644,7 +3644,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/razorpay-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/products/razorpay-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3652,7 +3652,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://razorpay.com/docs/payment-gateway/ecommerce-plugins/woocommerce/woocommerce-pg/',
+						'url'   => 'https://razorpay.com/docs/payment-gateway/ecommerce-plugins/poocommerce/poocommerce-pg/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3662,13 +3662,13 @@ class PaymentsExtensionSuggestions {
 			),
 			self::SQUARE            => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Square', 'woocommerce' ),
-				'description' => esc_html__( 'Securely accept credit and debit cards with one low rate, no surprise fees (custom rates available). Sell in store and track sales and inventory in one place.', 'woocommerce' ),
+				'title'       => esc_html__( 'Square', 'poocommerce' ),
+				'description' => esc_html__( 'Securely accept credit and debit cards with one low rate, no surprise fees (custom rates available). Sell in store and track sales and inventory in one place.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/square-black.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/square.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-square',
+					'slug'  => 'poocommerce-square',
 				),
 				'links'       => array(
 					array(
@@ -3677,7 +3677,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/square/',
+						'url'   => 'https://poocommerce.com/products/square/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3685,24 +3685,24 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/woocommerce-square/',
+						'url'   => 'https://poocommerce.com/document/poocommerce-square/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=square',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=square',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO ),
 			),
 			self::STRIPE            => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Stripe', 'woocommerce' ),
-				'description' => esc_html__( 'Accept debit and credit cards in 135+ currencies, methods such as Alipay, and one-touch checkout with Apple Pay.', 'woocommerce' ),
+				'title'       => esc_html__( 'Stripe', 'poocommerce' ),
+				'description' => esc_html__( 'Accept debit and credit cards in 135+ currencies, methods such as Alipay, and one-touch checkout with Apple Pay.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/stripe.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/stripe.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-stripe',
+					'slug'  => 'poocommerce-gateway-stripe',
 				),
 				'links'       => array(
 					array(
@@ -3711,7 +3711,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/stripe/',
+						'url'   => 'https://poocommerce.com/products/stripe/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3719,19 +3719,19 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/stripe',
+						'url'   => 'https://poocommerce.com/document/stripe',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=stripe',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=stripe',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO ),
 			),
 			self::TILOPAY           => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Tilopay', 'woocommerce' ),
-				'description' => esc_html__( 'Accept credit and debit cards on your WooCommerce store with advanced features like partial refunds, full/partial captures, and 3D Secure security.', 'woocommerce' ),
+				'title'       => esc_html__( 'Tilopay', 'poocommerce' ),
+				'description' => esc_html__( 'Accept credit and debit cards on your PooCommerce store with advanced features like partial refunds, full/partial captures, and 3D Secure security.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/tilopay.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
@@ -3752,7 +3752,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://tilopay.com/documentacion/plataforma-woocommerce',
+						'url'   => 'https://tilopay.com/documentacion/plataforma-poocommerce',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -3763,12 +3763,12 @@ class PaymentsExtensionSuggestions {
 			),
 			self::VIVA_WALLET       => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Viva.com Smart Checkout', 'woocommerce' ),
-				'description' => esc_html__( 'A European payments solution that allows you to accept payments in over 25 countries and multiple currencies.', 'woocommerce' ),
+				'title'       => esc_html__( 'Viva.com Smart Checkout', 'poocommerce' ),
+				'description' => esc_html__( 'A European payments solution that allows you to accept payments in over 25 countries and multiple currencies.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/vivacom.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'viva-com-smart-for-woocommerce',
+					'slug'  => 'viva-com-smart-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3777,7 +3777,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/viva-com-smart-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/products/viva-com-smart-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3785,57 +3785,57 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/viva-com-smart-for-woocommerce/',
+						'url'   => 'https://poocommerce.com/document/viva-com-smart-for-poocommerce/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=viva-com-smart-for-woocommerce',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=viva-com-smart-for-poocommerce',
 					),
 				),
 			),
 			self::WOOPAYMENTS       => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Accept payments with Woo', 'woocommerce' ),
-				'description' => esc_html__( 'Credit/debit cards, Apple Pay, Google Pay, and more.', 'woocommerce' ),
+				'title'       => esc_html__( 'Accept payments with Woo', 'poocommerce' ),
+				'description' => esc_html__( 'Credit/debit cards, Apple Pay, Google Pay, and more.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/woopayments.svg', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/woo.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-payments',
+					'slug'  => 'poocommerce-payments',
 				),
 				'links'       => array(
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_PRICING,
-						'url'   => 'https://woocommerce.com/document/woopayments/fees-and-debits/',
+						'url'   => 'https://poocommerce.com/document/woopayments/fees-and-debits/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/payments/',
+						'url'   => 'https://poocommerce.com/payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
-						'url'   => 'https://woocommerce.com/document/woopayments/our-policies/',
+						'url'   => 'https://poocommerce.com/document/woopayments/our-policies/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/woopayments/',
+						'url'   => 'https://poocommerce.com/document/woopayments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=woopayments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=woopayments',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO, self::TAG_PREFERRED ),
 			),
 			self::AMAZON_PAY        => array(
 				'_type'       => self::TYPE_EXPRESS_CHECKOUT,
-				'title'       => esc_html__( 'Amazon Pay', 'woocommerce' ),
-				'description' => esc_html__( 'Enable a familiar, fast checkout for hundreds of millions of active Amazon customers globally.', 'woocommerce' ),
+				'title'       => esc_html__( 'Amazon Pay', 'poocommerce' ),
+				'description' => esc_html__( 'Enable a familiar, fast checkout for hundreds of millions of active Amazon customers globally.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/amazonpay.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/amazonpay.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-amazon-payments-advanced',
+					'slug'  => 'poocommerce-gateway-amazon-payments-advanced',
 				),
 				'links'       => array(
 					array(
@@ -3844,7 +3844,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/pay-with-amazon/',
+						'url'   => 'https://poocommerce.com/products/pay-with-amazon/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3852,24 +3852,24 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/amazon-payments-advanced/',
+						'url'   => 'https://poocommerce.com/document/amazon-payments-advanced/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=pay-with-amazon',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=pay-with-amazon',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO ),
 			),
 			self::AFFIRM            => array(
 				'_type'       => self::TYPE_BNPL,
-				'title'       => esc_html__( 'Affirm', 'woocommerce' ),
-				'description' => esc_html__( 'Affirm\'s tailored Buy Now Pay Later programs remove price as a barrier, turning browsers into buyers, increasing average order value, and expanding your customer base.', 'woocommerce' ),
+				'title'       => esc_html__( 'Affirm', 'poocommerce' ),
+				'description' => esc_html__( 'Affirm\'s tailored Buy Now Pay Later programs remove price as a barrier, turning browsers into buyers, increasing average order value, and expanding your customer base.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/affirm.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/affirm.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-affirm',
+					'slug'  => 'poocommerce-gateway-affirm',
 				),
 				'links'       => array(
 					array(
@@ -3878,7 +3878,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/woocommerce-gateway-affirm/',
+						'url'   => 'https://poocommerce.com/products/poocommerce-gateway-affirm/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3886,24 +3886,24 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/woocommerce-gateway-affirm/',
+						'url'   => 'https://poocommerce.com/document/poocommerce-gateway-affirm/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=woocommerce-gateway-affirm',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=poocommerce-gateway-affirm',
 					),
 				),
 				'tags'        => array( self::TAG_MADE_IN_WOO ),
 			),
 			self::AFTERPAY          => array(
 				'_type'       => self::TYPE_BNPL,
-				'title'       => esc_html__( 'Afterpay', 'woocommerce' ),
-				'description' => esc_html__( 'Afterpay allows customers to receive products immediately and pay for purchases over four installments, always interest-free.', 'woocommerce' ),
+				'title'       => esc_html__( 'Afterpay', 'poocommerce' ),
+				'description' => esc_html__( 'Afterpay allows customers to receive products immediately and pay for purchases over four installments, always interest-free.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/afterpay.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/afterpay-clearpay.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'afterpay-gateway-for-woocommerce',
+					'slug'  => 'afterpay-gateway-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3912,7 +3912,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/afterpay/',
+						'url'   => 'https://poocommerce.com/products/afterpay/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3920,22 +3920,22 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/afterpay/',
+						'url'   => 'https://poocommerce.com/document/afterpay/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=afterpay',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=afterpay',
 					),
 				),
 			),
 			self::CLEARPAY          => array(
 				'_type'       => self::TYPE_BNPL,
-				'title'       => esc_html__( 'Clearpay', 'woocommerce' ),
-				'description' => esc_html__( 'Clearpay allows customers to receive products immediately and pay for purchases over four installments, always interest-free.', 'woocommerce' ),
+				'title'       => esc_html__( 'Clearpay', 'poocommerce' ),
+				'description' => esc_html__( 'Clearpay allows customers to receive products immediately and pay for purchases over four installments, always interest-free.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/afterpay-clearpay.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'clearpay-gateway-for-woocommerce',
+					'slug'  => 'clearpay-gateway-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3944,7 +3944,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/clearpay/',
+						'url'   => 'https://poocommerce.com/products/clearpay/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3952,23 +3952,23 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/clearpay/',
+						'url'   => 'https://poocommerce.com/document/clearpay/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=clearpay',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=clearpay',
 					),
 				),
 			),
 			self::KLARNA            => array(
 				'_type'       => self::TYPE_BNPL,
-				'title'       => esc_html__( 'Klarna Payments', 'woocommerce' ),
-				'description' => esc_html__( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'woocommerce' ),
+				'title'       => esc_html__( 'Klarna Payments', 'poocommerce' ),
+				'description' => esc_html__( 'Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries.', 'poocommerce' ),
 				'image'       => plugins_url( 'assets/images/onboarding/klarna-black.png', WC_PLUGIN_FILE ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/klarna.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'klarna-payments-for-woocommerce',
+					'slug'  => 'klarna-payments-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -3977,7 +3977,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/klarna-payments/',
+						'url'   => 'https://poocommerce.com/products/klarna-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -3985,22 +3985,22 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/klarna-payments/',
+						'url'   => 'https://poocommerce.com/document/klarna-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=klarna-payments',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=klarna-payments',
 					),
 				),
 			),
 			self::KLARNA_CHECKOUT   => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Klarna Checkout', 'woocommerce' ),
-				'description' => esc_html__( 'A full checkout experience embedded on your site that includes all popular payment methods (Pay Now, Pay Later, Financing, Installments).', 'woocommerce' ),
+				'title'       => esc_html__( 'Klarna Checkout', 'poocommerce' ),
+				'description' => esc_html__( 'A full checkout experience embedded on your site that includes all popular payment methods (Pay Now, Pay Later, Financing, Installments).', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/klarna-checkout.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'klarna-checkout-for-woocommerce',
+					'slug'  => 'klarna-checkout-for-poocommerce',
 				),
 				'links'       => array(
 					array(
@@ -4009,7 +4009,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/klarna-checkout/',
+						'url'   => 'https://poocommerce.com/products/klarna-checkout/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -4017,18 +4017,18 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/klarna-checkout/',
+						'url'   => 'https://poocommerce.com/document/klarna-checkout/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=klarna-checkout',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=klarna-checkout',
 					),
 				),
 			),
 			self::HELIOPAY          => array(
 				'_type'       => self::TYPE_CRYPTO,
-				'title'       => esc_html__( 'Helio Pay', 'woocommerce' ),
-				'description' => esc_html__( 'Effortlessly accept cryptocurrency payments in your store.', 'woocommerce' ),
+				'title'       => esc_html__( 'Helio Pay', 'poocommerce' ),
+				'description' => esc_html__( 'Effortlessly accept cryptocurrency payments in your store.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/heliopay.png', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
@@ -4041,7 +4041,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/helio-pay/',
+						'url'   => 'https://poocommerce.com/products/helio-pay/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -4049,18 +4049,18 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/helio-pay/',
+						'url'   => 'https://poocommerce.com/document/helio-pay/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=helio-pay',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=helio-pay',
 					),
 				),
 			),
 			self::MONEI             => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'MONEI', 'woocommerce' ),
-				'description' => esc_html__( 'Accept Cards, Apple Pay, Google Pay, Bizum, PayPal, and many more payment methods in your store.', 'woocommerce' ),
+				'title'       => esc_html__( 'MONEI', 'poocommerce' ),
+				'description' => esc_html__( 'Accept Cards, Apple Pay, Google Pay, Bizum, PayPal, and many more payment methods in your store.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/monei.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
@@ -4091,12 +4091,12 @@ class PaymentsExtensionSuggestions {
 			),
 			self::EWAY              => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Eway', 'woocommerce' ),
-				'description' => esc_html__( 'Take credit card payments securely via Eway keeping customers on your site.', 'woocommerce' ),
+				'title'       => esc_html__( 'Eway', 'poocommerce' ),
+				'description' => esc_html__( 'Take credit card payments securely via Eway keeping customers on your site.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/eway.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-eway',
+					'slug'  => 'poocommerce-gateway-eway',
 				),
 				'links'       => array(
 					array(
@@ -4105,7 +4105,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/eway/',
+						'url'   => 'https://poocommerce.com/products/eway/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -4113,18 +4113,18 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/eway/',
+						'url'   => 'https://poocommerce.com/document/eway/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=eway',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=eway',
 					),
 				),
 			),
 			self::VISA              => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Visa Acceptance Solutions', 'woocommerce' ),
-				'description' => esc_html__( 'Accept payments on your WooCommerce store securely.', 'woocommerce' ),
+				'title'       => esc_html__( 'Visa Acceptance Solutions', 'poocommerce' ),
+				'description' => esc_html__( 'Accept payments on your PooCommerce store securely.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/visa-acceptance-solutions.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
@@ -4133,26 +4133,26 @@ class PaymentsExtensionSuggestions {
 				'links'       => array(
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/visa-acceptance-solutions/',
+						'url'   => 'https://poocommerce.com/products/visa-acceptance-solutions/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/visa-acceptance-solutions/',
+						'url'   => 'https://poocommerce.com/document/visa-acceptance-solutions/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=visa-acceptance-solutions',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=visa-acceptance-solutions',
 					),
 				),
 			),
 			self::GOCARDLESS        => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'GoCardless', 'woocommerce' ),
-				'description' => esc_html__( 'Accept Direct Debit, ACH Pull, and open banking payments.', 'woocommerce' ),
+				'title'       => esc_html__( 'GoCardless', 'poocommerce' ),
+				'description' => esc_html__( 'Accept Direct Debit, ACH Pull, and open banking payments.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/gocardless.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-gocardless',
+					'slug'  => 'poocommerce-gateway-gocardless',
 				),
 				'links'       => array(
 					array(
@@ -4161,7 +4161,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/gocardless/',
+						'url'   => 'https://poocommerce.com/products/gocardless/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -4169,27 +4169,27 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/gocardless/',
+						'url'   => 'https://poocommerce.com/document/gocardless/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/contact-support/?select=gocardless',
+						'url'   => 'https://poocommerce.com/my-account/contact-support/?select=gocardless',
 					),
 				),
 			),
 			self::NEXI_CHECKOUT     => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Nexi Checkout', 'woocommerce' ),
-				'description' => esc_html__( 'A fully embedded checkout, with all popular payment methods, for more sales and less abandoned shopping carts.', 'woocommerce' ),
+				'title'       => esc_html__( 'Nexi Checkout', 'poocommerce' ),
+				'description' => esc_html__( 'A fully embedded checkout, with all popular payment methods, for more sales and less abandoned shopping carts.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/nexi.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'dibs-easy-for-woocommerce',
+					'slug'  => 'dibs-easy-for-poocommerce',
 				),
 				'links'       => array(
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_ABOUT,
-						'url'   => 'https://woocommerce.com/products/nexi-checkout/',
+						'url'   => 'https://poocommerce.com/products/nexi-checkout/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
@@ -4197,7 +4197,7 @@ class PaymentsExtensionSuggestions {
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/document/nexi-checkout/',
+						'url'   => 'https://poocommerce.com/document/nexi-checkout/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
@@ -4218,17 +4218,17 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/authorize.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-authorize-net-cim',
+					'slug'  => 'poocommerce-gateway-authorize-net-cim',
 				),
 			),
 			self::BILLIE            => array(
 				'_type'       => self::TYPE_PSP,
-				'title'       => esc_html__( 'Billie', 'woocommerce' ),
-				'description' => esc_html__( 'Billie is the leading provider of Buy Now, Pay Later payment methods for B2B stores.', 'woocommerce' ),
+				'title'       => esc_html__( 'Billie', 'poocommerce' ),
+				'description' => esc_html__( 'Billie is the leading provider of Buy Now, Pay Later payment methods for B2B stores.', 'poocommerce' ),
 				'icon'        => plugins_url( 'assets/images/onboarding/icons/billie.svg', WC_PLUGIN_FILE ),
 				'plugin'      => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'billie-for-woocommerce',
+					'slug'  => 'billie-for-poocommerce',
 				),
 			),
 			self::BOLT              => array(
@@ -4236,7 +4236,7 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/bolt.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'bolt-checkout-woocommerce',
+					'slug'  => 'bolt-checkout-poocommerce',
 				),
 			),
 			self::DEPAY             => array(
@@ -4244,7 +4244,7 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/depay.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'depay-payments-for-woocommerce',
+					'slug'  => 'depay-payments-for-poocommerce',
 				),
 			),
 			self::ELAVON            => array(
@@ -4252,7 +4252,7 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/elavon.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-converge',
+					'slug'  => 'poocommerce-gateway-converge',
 				),
 			),
 			self::FORTISPAY         => array(
@@ -4260,7 +4260,7 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/fortispay.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'fortis-for-woocommerce',
+					'slug'  => 'fortis-for-poocommerce',
 				),
 			),
 			self::PAYPAL_ZETTLE     => array(
@@ -4276,7 +4276,7 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/rapyd.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'rapyd-payments-plugin-for-woocommerce',
+					'slug'  => 'rapyd-payments-plugin-for-poocommerce',
 				),
 			),
 			self::PAYPAL_BRAINTREE  => array(
@@ -4284,7 +4284,7 @@ class PaymentsExtensionSuggestions {
 				'icon'   => plugins_url( 'assets/images/onboarding/icons/paypal-braintree.svg', WC_PLUGIN_FILE ),
 				'plugin' => array(
 					'_type' => self::PLUGIN_TYPE_WPORG,
-					'slug'  => 'woocommerce-gateway-paypal-powered-by-braintree',
+					'slug'  => 'poocommerce-gateway-paypal-powered-by-braintree',
 				),
 			),
 		);
@@ -4362,7 +4362,7 @@ class PaymentsExtensionSuggestions {
 		 *        OR
 		 *     - 'I’m selling both online and offline'.
 		 *
-		 * @see plugins/woocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
+		 * @see plugins/poocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
 		 */
 		$onboarding_profile = get_option( OnboardingProfile::DATA_OPTION, array() );
 		if (
@@ -4402,7 +4402,7 @@ class PaymentsExtensionSuggestions {
 		 *        OR
 		 *     - 'I’m selling both online and offline'.
 		 *
-		 * @see plugins/woocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
+		 * @see plugins/poocommerce/client/admin/client/core-profiler/pages/UserProfile.tsx for the values.
 		 */
 		$onboarding_profile = get_option( OnboardingProfile::DATA_OPTION, array() );
 		if (

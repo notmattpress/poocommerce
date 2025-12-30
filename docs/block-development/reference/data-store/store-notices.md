@@ -9,10 +9,10 @@ The Store Notices Store allows to register and unregister containers for notices
 
 ## Usage
 
-To utilize this store you will import the `storeNoticesStore` `StoreDescriptor` in any module referencing it. Assuming `@woocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
+To utilize this store you will import the `storeNoticesStore` `StoreDescriptor` in any module referencing it. Assuming `@poocommerce/block-data` is registered as an external pointing to `wc.wcBlocksData` you can import the `StoreDescriptor` via:
 
 ```js
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 ```
 
 If it's not, then access it from the window like so:
@@ -69,7 +69,7 @@ This action will register a new container.
 #### _Example_ 
 
 ```javascript
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 
 dispatch( storeNoticesStore ).registerContainer( 'someContainerContext' );
 ```
@@ -91,7 +91,7 @@ This action will unregister an existing container.
 #### _Example_ 
 
 ```js
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 
 dispatch( storeNoticesStore ).unregisterContainer( 'someContainerContext' );
 ```
@@ -109,7 +109,7 @@ Returns the list of currently registered containers from the state.
 #### _Example_ 
 
 ```js
-import { storeNoticesStore } from '@woocommerce/block-data';
+import { storeNoticesStore } from '@poocommerce/block-data';
 
 const store = select( storeNoticesStore );
 const registeredContainers = store.getRegisteredContainers();

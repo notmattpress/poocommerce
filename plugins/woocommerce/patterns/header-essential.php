@@ -1,8 +1,8 @@
 <?php
 /**
  * Title: Essential Header
- * Slug: woocommerce-blocks/header-essential
- * Categories: WooCommerce
+ * Slug: poocommerce-blocks/header-essential
+ * Categories: PooCommerce
  * Block Types: core/template-part/header
  */
 ?>
@@ -21,8 +21,8 @@
 
 		<!-- wp:group {"style":{"spacing":{"blockGap":"0px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 		<div class="wp-block-group">
-			<!-- wp:woocommerce/mini-cart {"hasHiddenPrice":true} /-->
-			<!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line","iconClass":"wc-block-customer-account__account-icon"} /-->
+			<!-- wp:poocommerce/mini-cart {"hasHiddenPrice":true} /-->
+			<!-- wp:poocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line","iconClass":"wc-block-customer-account__account-icon"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>

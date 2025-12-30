@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 use WC_Shipping_Rate as ShippingRate;
 
@@ -29,55 +29,55 @@ class CartShippingRateSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'package_id'     => [
-				'description' => __( 'The ID of the package the shipping rates belong to.', 'woocommerce' ),
+				'description' => __( 'The ID of the package the shipping rates belong to.', 'poocommerce' ),
 				'type'        => [ 'integer', 'string' ],
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'name'           => [
-				'description' => __( 'Name of the package.', 'woocommerce' ),
+				'description' => __( 'Name of the package.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'destination'    => [
-				'description' => __( 'Shipping destination address.', 'woocommerce' ),
+				'description' => __( 'Shipping destination address.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => [
 					'address_1' => [
-						'description' => __( 'First line of the address being shipped to.', 'woocommerce' ),
+						'description' => __( 'First line of the address being shipped to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'address_2' => [
-						'description' => __( 'Second line of the address being shipped to.', 'woocommerce' ),
+						'description' => __( 'Second line of the address being shipped to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'city'      => [
-						'description' => __( 'City of the address being shipped to.', 'woocommerce' ),
+						'description' => __( 'City of the address being shipped to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'state'     => [
-						'description' => __( 'ISO code, or name, for the state, province, or district of the address being shipped to.', 'woocommerce' ),
+						'description' => __( 'ISO code, or name, for the state, province, or district of the address being shipped to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'postcode'  => [
-						'description' => __( 'Zip or Postcode of the address being shipped to.', 'woocommerce' ),
+						'description' => __( 'Zip or Postcode of the address being shipped to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
 					],
 					'country'   => [
-						'description' => __( 'ISO code for the country of the address being shipped to.', 'woocommerce' ),
+						'description' => __( 'ISO code for the country of the address being shipped to.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 						'readonly'    => true,
@@ -85,7 +85,7 @@ class CartShippingRateSchema extends AbstractSchema {
 				],
 			],
 			'items'          => [
-				'description' => __( 'List of cart items the returned shipping rates apply to.', 'woocommerce' ),
+				'description' => __( 'List of cart items the returned shipping rates apply to.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -93,19 +93,19 @@ class CartShippingRateSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => [
 						'key'      => [
-							'description' => __( 'Unique identifier for the item within the cart.', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the item within the cart.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'name'     => [
-							'description' => __( 'Name of the item.', 'woocommerce' ),
+							'description' => __( 'Name of the item.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'quantity' => [
-							'description' => __( 'Quantity of the item in the current package.', 'woocommerce' ),
+							'description' => __( 'Quantity of the item in the current package.', 'poocommerce' ),
 							'type'        => 'number',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -114,7 +114,7 @@ class CartShippingRateSchema extends AbstractSchema {
 				],
 			],
 			'shipping_rates' => [
-				'description' => __( 'List of shipping rates.', 'woocommerce' ),
+				'description' => __( 'List of shipping rates.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -135,68 +135,68 @@ class CartShippingRateSchema extends AbstractSchema {
 		return array_merge(
 			[
 				'rate_id'       => [
-					'description' => __( 'ID of the shipping rate.', 'woocommerce' ),
+					'description' => __( 'ID of the shipping rate.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'name'          => [
-					'description' => __( 'Name of the shipping rate, e.g. Express shipping.', 'woocommerce' ),
+					'description' => __( 'Name of the shipping rate, e.g. Express shipping.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'description'   => [
-					'description' => __( 'Description of the shipping rate, e.g. Dispatched via USPS.', 'woocommerce' ),
+					'description' => __( 'Description of the shipping rate, e.g. Dispatched via USPS.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'delivery_time' => [
-					'description' => __( 'Delivery time estimate text, e.g. 3-5 business days.', 'woocommerce' ),
+					'description' => __( 'Delivery time estimate text, e.g. 3-5 business days.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'price'         => [
-					'description' => __( 'Price of this shipping rate using the smallest unit of the currency.', 'woocommerce' ),
+					'description' => __( 'Price of this shipping rate using the smallest unit of the currency.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'taxes'         => [
-					'description' => __( 'Taxes applied to this shipping rate using the smallest unit of the currency.', 'woocommerce' ),
+					'description' => __( 'Taxes applied to this shipping rate using the smallest unit of the currency.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'method_id'     => [
-					'description' => __( 'ID of the shipping method that provided the rate.', 'woocommerce' ),
+					'description' => __( 'ID of the shipping method that provided the rate.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'instance_id'   => [
-					'description' => __( 'Instance ID of the shipping method that provided the rate.', 'woocommerce' ),
+					'description' => __( 'Instance ID of the shipping method that provided the rate.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
 				],
 				'meta_data'     => [
-					'description' => __( 'Meta data attached to the shipping rate.', 'woocommerce' ),
+					'description' => __( 'Meta data attached to the shipping rate.', 'poocommerce' ),
 					'type'        => 'array',
 					'context'     => [ 'view', 'edit' ],
 					'items'       => [
 						'type'       => 'object',
 						'properties' => [
 							'key'   => [
-								'description' => __( 'Meta key.', 'woocommerce' ),
+								'description' => __( 'Meta key.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => [ 'view', 'edit' ],
 								'readonly'    => true,
 							],
 							'value' => [
-								'description' => __( 'Meta value.', 'woocommerce' ),
+								'description' => __( 'Meta value.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => [ 'view', 'edit' ],
 								'readonly'    => true,
@@ -205,7 +205,7 @@ class CartShippingRateSchema extends AbstractSchema {
 					],
 				],
 				'selected'      => [
-					'description' => __( 'True if this is the rate currently selected by the customer for the cart.', 'woocommerce' ),
+					'description' => __( 'True if this is the rate currently selected by the customer for the cart.', 'poocommerce' ),
 					'type'        => 'boolean',
 					'context'     => [ 'view', 'edit' ],
 					'readonly'    => true,
@@ -216,9 +216,9 @@ class CartShippingRateSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a shipping rate from WooCommerce into a valid response.
+	 * Convert a shipping rate from PooCommerce into a valid response.
 	 *
-	 * @param array $package Shipping package complete with rates from WooCommerce.
+	 * @param array $package Shipping package complete with rates from PooCommerce.
 	 * @return array
 	 */
 	public function get_item_response( $package ) {
@@ -234,7 +234,7 @@ class CartShippingRateSchema extends AbstractSchema {
 	/**
 	 * Gets and formats the destination address of a package.
 	 *
-	 * @param array $package Shipping package complete with rates from WooCommerce.
+	 * @param array $package Shipping package complete with rates from PooCommerce.
 	 * @return object
 	 */
 	protected function prepare_package_destination_response( $package ) {
@@ -255,7 +255,7 @@ class CartShippingRateSchema extends AbstractSchema {
 	/**
 	 * Gets items from a package and creates an array of strings containing product names and quantities.
 	 *
-	 * @param array $package Shipping package complete with rates from WooCommerce.
+	 * @param array $package Shipping package complete with rates from PooCommerce.
 	 * @return array
 	 */
 	protected function prepare_package_items_response( $package ) {
@@ -273,7 +273,7 @@ class CartShippingRateSchema extends AbstractSchema {
 	/**
 	 * Prepare an array of rates from a package for the response.
 	 *
-	 * @param array $package Shipping package complete with rates from WooCommerce.
+	 * @param array $package Shipping package complete with rates from PooCommerce.
 	 * @return array
 	 */
 	protected function prepare_package_shipping_rates_response( $package ) {

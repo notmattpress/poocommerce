@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable;
 
 interface AtRule extends Renderable, Commentable
 {

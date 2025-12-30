@@ -27,10 +27,10 @@ import { DimensionsControlProps, WidthOptions } from '../../types';
 
 const getHelpText = ( type: WidthOptions ) => {
 	if ( type === WidthOptions.FILL ) {
-		return __( 'Stretch to fill available space.', 'woocommerce' );
+		return __( 'Stretch to fill available space.', 'poocommerce' );
 	}
 
-	return __( 'Specify a fixed width.', 'woocommerce' );
+	return __( 'Specify a fixed width.', 'poocommerce' );
 };
 
 const WidthOptionsControl = ( {
@@ -49,12 +49,12 @@ const WidthOptionsControl = ( {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Width', 'woocommerce' ) }
+			label={ __( 'Width', 'poocommerce' ) }
 			hasValue={ () => widthType !== WidthOptions.FILL }
 			isShownByDefault
 		>
 			<ToggleGroupControl
-				label={ __( 'Width', 'woocommerce' ) }
+				label={ __( 'Width', 'poocommerce' ) }
 				value={ widthType }
 				help={ getHelpText( widthType ) }
 				onChange={ ( value: WidthOptions ) => setDimensions( value ) }
@@ -62,11 +62,11 @@ const WidthOptionsControl = ( {
 			>
 				<ToggleGroupControlOption
 					value={ WidthOptions.FILL }
-					label={ __( 'Fill', 'woocommerce' ) }
+					label={ __( 'Fill', 'poocommerce' ) }
 				/>
 				<ToggleGroupControlOption
 					value={ WidthOptions.FIXED }
-					label={ __( 'Fixed', 'woocommerce' ) }
+					label={ __( 'Fixed', 'poocommerce' ) }
 				/>
 			</ToggleGroupControl>
 			{ widthType === WidthOptions.FIXED && (

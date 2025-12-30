@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,8 +27,8 @@ class AdminSettingsHandler {
 	 * Register hooks.
 	 */
 	public function register(): void {
-		add_filter( 'woocommerce_get_settings_advanced', array( $this, 'add_jetpack_connection_field' ), 100, 2 );
-		add_action( 'woocommerce_admin_field_jetpack_connection', array( $this, 'handle_output_jetpack_connection_field' ), 10, 1 );
+		add_filter( 'poocommerce_get_settings_advanced', array( $this, 'add_jetpack_connection_field' ), 100, 2 );
+		add_action( 'poocommerce_admin_field_jetpack_connection', array( $this, 'handle_output_jetpack_connection_field' ), 10, 1 );
 	}
 
 
@@ -61,7 +61,7 @@ class AdminSettingsHandler {
 
 		// Check if field already exists to prevent duplicates.
 		foreach ( $settings as $setting ) {
-			if ( isset( $setting['id'] ) && 'woocommerce_fraud_protection_jetpack_connection' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_fraud_protection_jetpack_connection' === $setting['id'] ) {
 				return $settings;
 			}
 		}
@@ -72,12 +72,12 @@ class AdminSettingsHandler {
 			$new_settings[] = $setting;
 
 			// Add Jetpack connection field after fraud_protection checkbox.
-			if ( isset( $setting['id'] ) && 'woocommerce_feature_fraud_protection_enabled' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'poocommerce_feature_fraud_protection_enabled' === $setting['id'] ) {
 				$new_settings[] = array(
-					'id'    => 'woocommerce_fraud_protection_jetpack_connection',
+					'id'    => 'poocommerce_fraud_protection_jetpack_connection',
 					'type'  => 'jetpack_connection',
-					'title' => __( 'Jetpack Connection', 'woocommerce' ),
-					'desc'  => __( 'Connect your site to Jetpack to enable fraud protection features.', 'woocommerce' ),
+					'title' => __( 'Jetpack Connection', 'poocommerce' ),
+					'desc'  => __( 'Connect your site to Jetpack to enable fraud protection features.', 'poocommerce' ),
 				);
 			}
 		}
@@ -95,7 +95,7 @@ class AdminSettingsHandler {
 	 */
 	public function handle_output_jetpack_connection_field( $value ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		// Only show Jetpack connection when fraud protection is enabled.
-		if ( 'yes' !== get_option( 'woocommerce_feature_fraud_protection_enabled', 'no' ) ) {
+		if ( 'yes' !== get_option( 'poocommerce_feature_fraud_protection_enabled', 'no' ) ) {
 			return;
 		}
 
@@ -115,7 +115,7 @@ class AdminSettingsHandler {
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc">
-				<label><?php esc_html_e( 'Jetpack Connection', 'woocommerce' ); ?></label>
+				<label><?php esc_html_e( 'Jetpack Connection', 'poocommerce' ); ?></label>
 			</th>
 			<td class="forminp forminp-button">
 				<?php if ( ! $connection_status['connected'] ) : ?>
@@ -132,20 +132,20 @@ class AdminSettingsHandler {
 						</p>
 					<?php else : ?>
 						<a href="<?php echo esc_url( $connection_url ); ?>" class="button button-secondary jetpack_connection_button">
-							<?php esc_html_e( 'Connect to Jetpack', 'woocommerce' ); ?>
+							<?php esc_html_e( 'Connect to Jetpack', 'poocommerce' ); ?>
 						</a>
 						<p class="description">
-							<?php esc_html_e( 'Connect your site to Jetpack to enable fraud protection features.', 'woocommerce' ); ?>
+							<?php esc_html_e( 'Connect your site to Jetpack to enable fraud protection features.', 'poocommerce' ); ?>
 						</p>
 					<?php endif; ?>
 				<?php else : ?>
 					<span class="dashicons dashicons-yes-alt" style="color: #46b450;"></span>
-					<span><?php esc_html_e( 'Connected to Jetpack', 'woocommerce' ); ?></span>
+					<span><?php esc_html_e( 'Connected to Jetpack', 'poocommerce' ); ?></span>
 					<p class="description">
 						<?php
 						printf(
 							/* translators: %d: Blog ID */
-							esc_html__( 'Site ID: %d', 'woocommerce' ),
+							esc_html__( 'Site ID: %d', 'poocommerce' ),
 							(int) $connection_status['blog_id']
 						);
 						?>

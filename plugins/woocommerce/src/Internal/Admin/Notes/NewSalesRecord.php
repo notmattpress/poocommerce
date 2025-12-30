@@ -1,17 +1,17 @@
 <?php
 /**
- * WooCommerce Admin (Dashboard) New Sales Record Note Provider.
+ * PooCommerce Admin (Dashboard) New Sales Record Note Provider.
  *
  * Adds a note to the merchant's inbox when the previous day's sales are a new record.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
  * New_Sales_Record
@@ -30,12 +30,12 @@ class NewSalesRecord {
 	/**
 	 * Option name for the sales record date in ISO 8601 (YYYY-MM-DD) date.
 	 */
-	const RECORD_DATE_OPTION_KEY = 'woocommerce_sales_record_date';
+	const RECORD_DATE_OPTION_KEY = 'poocommerce_sales_record_date';
 
 	/**
 	 * Option name for the sales record amount.
 	 */
-	const RECORD_AMOUNT_OPTION_KEY = 'woocommerce_sales_record_amount';
+	const RECORD_AMOUNT_OPTION_KEY = 'poocommerce_sales_record_amount';
 
 	/**
 	 * Returns the total of yesterday's sales.
@@ -66,7 +66,7 @@ class NewSalesRecord {
 		 *
 		 * @param boolean default true
 		 */
-		$sales_record_notes_enabled = apply_filters( 'woocommerce_admin_sales_record_milestone_enabled', true );
+		$sales_record_notes_enabled = apply_filters( 'poocommerce_admin_sales_record_milestone_enabled', true );
 
 		if ( ! $sales_record_notes_enabled ) {
 			return;
@@ -129,7 +129,7 @@ class NewSalesRecord {
 
 		$content = sprintf(
 			/* translators: 1 and 4: Date (e.g. October 16th), 2 and 3: Amount (e.g. $160.00) */
-			__( 'Woohoo, %1$s was your record day for sales! Net sales was %2$s beating the previous record of %3$s set on %4$s.', 'woocommerce' ),
+			__( 'Woohoo, %1$s was your record day for sales! Net sales was %2$s beating the previous record of %3$s set on %4$s.', 'poocommerce' ),
 			$formatted_yesterday,
 			$formatted_total,
 			$formatted_record_amt,
@@ -147,13 +147,13 @@ class NewSalesRecord {
 
 		// And now, create our new note.
 		$note = new Note();
-		$note->set_title( __( 'New sales record!', 'woocommerce' ) );
+		$note->set_title( __( 'New sales record!', 'poocommerce' ) );
 		$note->set_content( $content );
 		$note->set_content_data( $content_data );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_INFORMATIONAL );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
-		$note->add_action( 'view-report', __( 'View report', 'woocommerce' ), $report_url );
+		$note->set_source( 'poocommerce-admin' );
+		$note->add_action( 'view-report', __( 'View report', 'poocommerce' ), $report_url );
 
 		return $note;
 	}

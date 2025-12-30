@@ -1,16 +1,16 @@
-.woocommerce-fulfillment-new-fulfillment-form {
+.poocommerce-fulfillment-new-fulfillment-form {
 	display: flex;
 	flex-direction: column;
 	border-bottom: 1px solid #e0e0e0;
 
-	&.woocommerce-fulfillment-new-fulfillment-form__disabled {
+	&.poocommerce-fulfillment-new-fulfillment-form__disabled {
 		opacity: 0.3;
 		pointer-events: none !important;
 	}
-	&.woocommerce-fulfillment-new-fulfillment-form__first {
+	&.poocommerce-fulfillment-new-fulfillment-form__first {
 		border-bottom: none;
 	}
-	.woocommerce-fulfillment-new-fulfillment-form__header {
+	.poocommerce-fulfillment-new-fulfillment-form__header {
 		padding: 16px 20px;
 		display: flex;
 		gap: 12px;
@@ -46,7 +46,7 @@
 			}
 		}
 	}
-	.woocommerce-fulfillment-new-fulfillment-form__content {
+	.poocommerce-fulfillment-new-fulfillment-form__content {
 		padding: 0 20px 12px 20px;
 		display: flex;
 		flex-direction: column;
@@ -61,14 +61,14 @@
 	}
 }
 
-.woocommerce-fulfillment-item-bulk-select {
+.poocommerce-fulfillment-item-bulk-select {
 	display: flex;
 	gap: 16px;
 	align-items: center;
 	border-bottom: 1px solid #e0e0e0;
 	padding: 8px 0 12px;
 
-	.woocommerce-fulfillment-item-bulk-select__label {
+	.poocommerce-fulfillment-item-bulk-select__label {
 		text-transform: uppercase;
 		font-weight: 500;
 		font-size: 11px;
@@ -76,7 +76,7 @@
 		color: #1e1e1e;
 	}
 
-	.woocommerce-fulfillment-item-bulk-select__link {
+	.poocommerce-fulfillment-item-bulk-select__link {
 		text-decoration: none;
 		font-weight: 400;
 		font-size: 12px;
@@ -84,7 +84,7 @@
 	}
 }
 
-.woocommerce-fulfillment-item-list {
+.poocommerce-fulfillment-item-list {
 	display: flex;
 	flex-direction: column;
 	margin: 0;
@@ -95,12 +95,12 @@
 		margin: 0;
 	}
 
-	li:last-child .woocommerce-fulfillment-item-container {
+	li:last-child .poocommerce-fulfillment-item-container {
 		border-bottom: 0;
 	}
 
-	.woocommerce-fulfillment-item-container,
-	.woocommerce-fulfillment-item-expansion {
+	.poocommerce-fulfillment-item-container,
+	.poocommerce-fulfillment-item-expansion {
 		display: flex;
 		flex-direction: row;
 		padding: 16px 0;
@@ -110,25 +110,25 @@
 		justify-content: flex-start;
 		border-bottom: 1px solid #e0e0e0;
 
-		&.woocommerce-fulfillment-item-expanded {
+		&.poocommerce-fulfillment-item-expanded {
 			border-bottom: 0 solid transparent;
 		}
 
-		.woocommerce-fulfillment-item-checkbox {
+		.poocommerce-fulfillment-item-checkbox {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			gap: 8px;
 		}
 
-		.woocommerce-fulfillment-item-title {
+		.poocommerce-fulfillment-item-title {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			gap: 8px;
 			flex: 1;
 
-			.woocommerce-fulfillment-item-image-container {
+			.poocommerce-fulfillment-item-image-container {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
@@ -144,18 +144,18 @@
 				}
 			}
 
-			.woocommerce-fulfillment-item-name-sku {
+			.poocommerce-fulfillment-item-name-sku {
 				display: flex;
 				flex-direction: column;
 
-				.woocommerce-fulfillment-item-name {
+				.poocommerce-fulfillment-item-name {
 					font-size: 13px;
 					line-height: 20px;
 					font-weight: 400;
 					color: #1e1e1e;
 				}
 
-				.woocommerce-fulfillment-item-sku {
+				.poocommerce-fulfillment-item-sku {
 					font-size: 11px;
 					line-height: 16px;
 					font-weight: 400;
@@ -165,7 +165,7 @@
 			}
 		}
 
-		.woocommerce-fulfillment-item-quantity {
+		.poocommerce-fulfillment-item-quantity {
 			background-color: #f0f0f0;
 			padding: 4px 8px;
 			border-radius: 2px;
@@ -173,15 +173,15 @@
 			line-height: 20px;
 		}
 
-		.woocommerce-fulfillment-item-price {
+		.poocommerce-fulfillment-item-price {
 			min-width: 52px;
 			text-align: right;
 		}
 	}
-	.woocommerce-fulfillment-item-expansion {
+	.poocommerce-fulfillment-item-expansion {
 		flex-direction: column;
 		gap: 32px;
-		.woocommerce-fulfillment-item-expansion-row {
+		.poocommerce-fulfillment-item-expansion-row {
 			display: flex;
 			flex-direction: row !important;
 			gap: 16px;
@@ -191,7 +191,7 @@
 	}
 }
 
-.woocommerce-fulfillment-modal {
+.poocommerce-fulfillment-modal {
 	width: 436px !important;
 	.components-modal__header {
 		padding: 32px;
@@ -203,11 +203,11 @@
 			gap: 0;
 		}
 	}
-	p.woocommerce-fulfillment-modal-text {
+	p.poocommerce-fulfillment-modal-text {
 		margin-top: 8px;
 		margin-bottom: 12px;
 	}
-	.woocommerce-fulfillment-modal-actions {
+	.poocommerce-fulfillment-modal-actions {
 		justify-content: flex-end;
 		display: flex;
 		flex-direction: row;
@@ -217,7 +217,7 @@
 	}
 }
 
-.woocommerce-fulfillment-item-actions {
+.poocommerce-fulfillment-item-actions {
 	justify-content: flex-end;
 	display: flex;
 	flex-direction: row;
@@ -226,10 +226,10 @@
 	padding: 12px 0;
 }
 
-.woocommerce-fulfillment-stored-fulfillments-list {
+.poocommerce-fulfillment-stored-fulfillments-list {
 	display: flex;
 	flex-direction: column;
-	.woocommerce-fulfillment-stored-fulfillment-list-item {
+	.poocommerce-fulfillment-stored-fulfillment-list-item {
 		display: flex;
 		flex-direction: column;
 		padding: 0;
@@ -237,12 +237,12 @@
 		justify-content: center;
 		border-bottom: 1px solid #e0e0e0;
 
-		&.woocommerce-fulfillment-stored-fulfillment-list-item__disabled {
+		&.poocommerce-fulfillment-stored-fulfillment-list-item__disabled {
 			opacity: 0.3;
 			pointer-events: none !important;
 		}
 
-		.woocommerce-fulfillment-stored-fulfillment-list-item-header {
+		.poocommerce-fulfillment-stored-fulfillment-list-item-header {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -280,7 +280,7 @@
 				}
 			}
 		}
-		.woocommerce-fulfillment-stored-fulfillment-list-item-content {
+		.poocommerce-fulfillment-stored-fulfillment-list-item-content {
 			display: flex;
 			flex-direction: column;
 			padding: 0 20px 12px 20px;
@@ -289,7 +289,7 @@
 	}
 }
 
-.woocommerce-fulfillment-description {
+.poocommerce-fulfillment-description {
 	font-size: 12px;
 	line-height: 16px;
 	font-weight: 400;
@@ -297,7 +297,7 @@
 	margin: 0;
 }
 
-.woocommerce-fulfillment-description-button {
+.poocommerce-fulfillment-description-button {
 	font-size: 12px !important;
 	font-weight: 400 !important;
 	line-height: 16px !important;
@@ -305,7 +305,7 @@
 	height: auto !important;
 }
 
-.woocommerce-fulfillment-status-badge {
+.poocommerce-fulfillment-status-badge {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -319,13 +319,13 @@
 	background-color: #e0e0e0;
 	color: #1e1e1e;
 
-	&.woocommerce-fulfillment-status-badge__fulfilled {
+	&.poocommerce-fulfillment-status-badge__fulfilled {
 		background-color: #c6e1c6;
 		color: #13550f;
 	}
 }
 
-.woocommerce-fulfillment-error-label {
+.poocommerce-fulfillment-error-label {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
@@ -353,7 +353,7 @@
 	}
 }
 
-.woocommerce-fulfillment-item-lock-container {
+.poocommerce-fulfillment-item-lock-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -361,7 +361,7 @@
 	padding: 14px 0;
 }
 
-.woocommerce-fulfillment-lock-label {
+.poocommerce-fulfillment-lock-label {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;

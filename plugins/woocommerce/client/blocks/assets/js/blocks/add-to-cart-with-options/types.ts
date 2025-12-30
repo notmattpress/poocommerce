@@ -4,7 +4,7 @@
 import {
 	ProductData,
 	VariationData,
-} from '@woocommerce/stores/woocommerce/cart';
+} from '@poocommerce/stores/poocommerce/cart';
 
 export type QuantitySelectorStyleProps = 'input' | 'stepper';
 

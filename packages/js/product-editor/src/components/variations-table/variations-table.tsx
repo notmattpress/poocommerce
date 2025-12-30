@@ -7,8 +7,8 @@ import {
 	PartialProductVariation,
 	Product,
 	ProductVariation,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	createElement,
 	Fragment,
@@ -19,7 +19,7 @@ import {
 import { useDispatch } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId, useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -67,7 +67,7 @@ function getSnackbarText(
 		const action = type === 'update' ? 'updated' : 'deleted';
 		return sprintf(
 			/* translators: The deleted or updated variations count */
-			__( '1 variation %s.', 'woocommerce' ),
+			__( '1 variation %s.', 'poocommerce' ),
 			action
 		);
 	}
@@ -79,13 +79,13 @@ function getSnackbarText(
 	if ( deletedCount > 0 ) {
 		return sprintf(
 			/* translators: The deleted variations count */
-			__( '%s variations deleted.', 'woocommerce' ),
+			__( '%s variations deleted.', 'poocommerce' ),
 			deletedCount
 		);
 	} else if ( updatedCount > 0 ) {
 		return sprintf(
 			/* translators: The updated variations count */
-			__( '%s variations updated.', 'woocommerce' ),
+			__( '%s variations updated.', 'poocommerce' ),
 			updatedCount
 		);
 	}
@@ -202,7 +202,7 @@ export const VariationsTable = forwardRef<
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to delete variation.', 'woocommerce' )
+					__( 'Failed to delete variation.', 'poocommerce' )
 				);
 			} );
 	}
@@ -235,7 +235,7 @@ export const VariationsTable = forwardRef<
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to save variation.', 'woocommerce' )
+					__( 'Failed to save variation.', 'poocommerce' )
 				);
 			} );
 	}
@@ -256,7 +256,7 @@ export const VariationsTable = forwardRef<
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to update variations.', 'woocommerce' )
+					__( 'Failed to update variations.', 'poocommerce' )
 				);
 			} );
 	}
@@ -277,7 +277,7 @@ export const VariationsTable = forwardRef<
 			} )
 			.catch( () => {
 				createErrorNotice(
-					__( 'Failed to delete variations.', 'woocommerce' )
+					__( 'Failed to delete variations.', 'poocommerce' )
 				);
 			} );
 	}
@@ -308,13 +308,13 @@ export const VariationsTable = forwardRef<
 	function renderTableBody() {
 		return totalCount > 0 ? (
 			<div
-				className="woocommerce-product-variations__table-body"
+				className="poocommerce-product-variations__table-body"
 				role="rowgroup"
 			>
 				{ variations.map( ( variation ) => (
 					<div
 						key={ `${ variation.id }` }
-						className="woocommerce-product-variations__table-row"
+						className="poocommerce-product-variations__table-row"
 						role="row"
 					>
 						<VariationsTableRow
@@ -335,19 +335,19 @@ export const VariationsTable = forwardRef<
 		) : (
 			<EmptyOrErrorTableState
 				isError={ false }
-				message={ __( 'No variations were found', 'woocommerce' ) }
-				actionText={ __( 'Clear filters', 'woocommerce' ) }
+				message={ __( 'No variations were found', 'poocommerce' ) }
+				actionText={ __( 'Clear filters', 'poocommerce' ) }
 				onActionClick={ clearFilters }
 			/>
 		);
 	}
 
 	return (
-		<div className="woocommerce-product-variations" ref={ ref }>
+		<div className="poocommerce-product-variations" ref={ ref }>
 			{ noticeText && (
 				<Notice
 					status={ noticeStatus }
-					className="woocommerce-product-variations__notice"
+					className="poocommerce-product-variations__notice"
 					onRemove={ onNoticeDismiss }
 					actions={ noticeActions.map( ( action ) => ( {
 						...action,
@@ -360,17 +360,17 @@ export const VariationsTable = forwardRef<
 				</Notice>
 			) }
 
-			<div className="woocommerce-product-variations__table" role="table">
+			<div className="poocommerce-product-variations__table" role="table">
 				{ ( hasFilters() || totalCount > 0 ) && (
 					<div
-						className="woocommerce-product-variations__table-header"
+						className="poocommerce-product-variations__table-header"
 						role="rowgroup"
 					>
 						<div
-							className="woocommerce-product-variations__table-row"
+							className="poocommerce-product-variations__table-row"
 							role="rowheader"
 						>
-							<div className="woocommerce-product-variations__filters">
+							<div className="poocommerce-product-variations__filters">
 								{ areSomeSelected ? (
 									<>
 										<span>
@@ -378,7 +378,7 @@ export const VariationsTable = forwardRef<
 												// translators: %d is the amount of selected variations
 												__(
 													'%d selected',
-													'woocommerce'
+													'poocommerce'
 												),
 												selectedCount
 											) }
@@ -393,7 +393,7 @@ export const VariationsTable = forwardRef<
 												// translators: %d the variations amount in the current page
 												__(
 													'Select page (%d)',
-													'woocommerce'
+													'poocommerce'
 												),
 												variations.length
 											) }
@@ -409,7 +409,7 @@ export const VariationsTable = forwardRef<
 												// translators: %d the total existing variations amount
 												__(
 													'Select all (%d)',
-													'woocommerce'
+													'poocommerce'
 												),
 												totalCount
 											) }
@@ -420,7 +420,7 @@ export const VariationsTable = forwardRef<
 										>
 											{ __(
 												'Clear selection',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</Button>
 									</>
@@ -437,7 +437,7 @@ export const VariationsTable = forwardRef<
 									) )
 								) }
 							</div>
-							<div className="woocommerce-product-variations__actions">
+							<div className="poocommerce-product-variations__actions">
 								<MultipleUpdateMenu
 									selection={ selected }
 									disabled={
@@ -451,11 +451,11 @@ export const VariationsTable = forwardRef<
 
 						{ totalCount > 0 && (
 							<div
-								className="woocommerce-product-variations__table-row woocommerce-product-variations__table-rowheader"
+								className="poocommerce-product-variations__table-row poocommerce-product-variations__table-rowheader"
 								role="rowheader"
 							>
 								<div
-									className="woocommerce-product-variations__table-column woocommerce-product-variations__selection"
+									className="poocommerce-product-variations__table-column poocommerce-product-variations__selection"
 									role="columnheader"
 								>
 									<CheckboxControl
@@ -467,27 +467,27 @@ export const VariationsTable = forwardRef<
 										onChange={ onSelectPage }
 										aria-label={ __(
 											'Select all',
-											'woocommerce'
+											'poocommerce'
 										) }
 									/>
 								</div>
 								<div
-									className="woocommerce-product-variations__table-column"
+									className="poocommerce-product-variations__table-column"
 									role="columnheader"
 								>
-									{ __( 'Variation', 'woocommerce' ) }
+									{ __( 'Variation', 'poocommerce' ) }
 								</div>
 								<div
-									className="woocommerce-product-variations__table-column woocommerce-product-variations__price"
+									className="poocommerce-product-variations__table-column poocommerce-product-variations__price"
 									role="columnheader"
 								>
-									{ __( 'Price', 'woocommerce' ) }
+									{ __( 'Price', 'poocommerce' ) }
 								</div>
 								<div
-									className="woocommerce-product-variations__table-column"
+									className="poocommerce-product-variations__table-column"
 									role="columnheader"
 								>
-									{ __( 'Stock', 'woocommerce' ) }
+									{ __( 'Stock', 'poocommerce' ) }
 								</div>
 							</div>
 						) }
@@ -496,12 +496,12 @@ export const VariationsTable = forwardRef<
 
 				{ isLoading || isGenerating ? (
 					<div
-						className="woocommerce-product-variations__table-body"
+						className="poocommerce-product-variations__table-body"
 						role="presentation"
 						aria-label={
 							isGenerating
-								? __( 'Generating variations…', 'woocommerce' )
-								: __( 'Loading variations…', 'woocommerce' )
+								? __( 'Generating variations…', 'poocommerce' )
+								: __( 'Loading variations…', 'poocommerce' )
 						}
 					>
 						{ Array.from( { length: variations.length || 5 } ).map(
@@ -516,7 +516,7 @@ export const VariationsTable = forwardRef<
 
 				{ totalCount > 5 && (
 					<div
-						className="woocommerce-product-variations__table-footer"
+						className="poocommerce-product-variations__table-footer"
 						role="row"
 					>
 						<Pagination

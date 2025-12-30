@@ -3,9 +3,9 @@
  */
 import { Button } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { getNewPath, navigateTo } from '@poocommerce/navigation';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch } from '@wordpress/data';
 
 /**

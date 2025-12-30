@@ -3,10 +3,10 @@
  * Meta box to edit and add custom meta values for an order.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Orders\MetaBoxes;
+namespace Automattic\PooCommerce\Internal\Admin\Orders\MetaBoxes;
 
-use Automattic\WooCommerce\Internal\DataStores\CustomMetaDataStore;
-use Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStoreMeta;
+use Automattic\PooCommerce\Internal\DataStores\CustomMetaDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Orders\OrdersTableDataStoreMeta;
 use WC_Order;
 use WP_Ajax_Response;
 
@@ -79,8 +79,8 @@ class CustomMetaBox {
 			<?php
 			printf(
 				/* translators: 1: opening documentation tag 2: closing documentation tag. */
-				esc_html( __( 'Custom fields can be used to add extra metadata to an order that you can %1$suse in your theme%2$s.', 'woocommerce' ) ),
-				'<a href="' . esc_attr__( 'https://wordpress.org/support/article/custom-fields/', 'woocommerce' ) . '">',
+				esc_html( __( 'Custom fields can be used to add extra metadata to an order that you can %1$suse in your theme%2$s.', 'poocommerce' ) ),
+				'<a href="' . esc_attr__( 'https://wordpress.org/support/article/custom-fields/', 'poocommerce' ) . '">',
 				'</a>'
 			);
 			?>
@@ -142,12 +142,12 @@ class CustomMetaBox {
 	 */
 	public function render_meta_form( \WC_Order $order ) : void {
 		?>
-		<p><strong><?php esc_html_e( 'Add New Custom Field:', 'woocommerce' ); ?></strong></p>
+		<p><strong><?php esc_html_e( 'Add New Custom Field:', 'poocommerce' ); ?></strong></p>
 		<table id="newmeta">
 			<thead>
 			<tr>
-				<th class="left"><label for="metakeyselect"><?php esc_html_e( 'Name', 'woocommerce' ); ?></label></th>
-				<th><label for="metavalue"><?php esc_html_e( 'Value', 'woocommerce' ); ?></label></th>
+				<th class="left"><label for="metakeyselect"><?php esc_html_e( 'Name', 'poocommerce' ); ?></label></th>
+				<th><label for="metavalue"><?php esc_html_e( 'Value', 'poocommerce' ); ?></label></th>
 			</tr>
 			</thead>
 
@@ -155,13 +155,13 @@ class CustomMetaBox {
 			<tr>
 				<td id="newmetaleft" class="left">
 					<span id="metakey-search">
-					<select id="metakeyselect" name="metakeyselect" class="wc-order-metakey-search" data-placeholder="<?php esc_attr_e( 'Add existing', 'woocommerce' ); ?>" data-minimum-input-length="0" data-order_id="<?php echo esc_attr( $order->get_id() ); ?>">
+					<select id="metakeyselect" name="metakeyselect" class="wc-order-metakey-search" data-placeholder="<?php esc_attr_e( 'Add existing', 'poocommerce' ); ?>" data-minimum-input-length="0" data-order_id="<?php echo esc_attr( $order->get_id() ); ?>">
 					</select>
 					</span>
-					<input class="hidden" type="text" id="metakeyinput" name="metakeyinput" value="" aria-label="<?php esc_attr_e( 'New custom field name', 'woocommerce' ); ?>" />
+					<input class="hidden" type="text" id="metakeyinput" name="metakeyinput" value="" aria-label="<?php esc_attr_e( 'New custom field name', 'poocommerce' ); ?>" />
 					<button type="button" id="newmeta-button" class="button button-small hide-if-no-js" onclick="jQuery('#metakeyinput, #metakeyselect, #enternew, #cancelnew, #metakey-search').toggleClass('hidden');jQuery('#metakeyinput, #metakeyselect').filter(':visible').trigger('focus');">
-					<span id="enternew"><?php esc_html_e( 'Enter new', 'woocommerce' ); ?></span>
-					<span id="cancelnew" class="hidden"><?php esc_html_e( 'Cancel', 'woocommerce' ); ?></span>
+					<span id="enternew"><?php esc_html_e( 'Enter new', 'poocommerce' ); ?></span>
+					<span id="cancelnew" class="hidden"><?php esc_html_e( 'Cancel', 'poocommerce' ); ?></span>
 				</td>
 				<td><textarea id="metavalue" name="metavalue" rows="2" cols="25"></textarea>
 				<?php wp_nonce_field( 'add-meta', '_ajax_nonce-add-meta', false ); ?>
@@ -173,7 +173,7 @@ class CustomMetaBox {
 		<div class="submit add-custom-field">
 			<?php
 			submit_button(
-				__( 'Add Custom Field', 'woocommerce' ),
+				__( 'Add Custom Field', 'poocommerce' ),
 				'',
 				'addmeta',
 				false,
@@ -195,7 +195,7 @@ class CustomMetaBox {
 	 * @return ?WC_Order WC_Order object if the user can edit the order, die otherwise.
 	 */
 	private function verify_order_edit_permission_for_ajax( int $order_id ): ?WC_Order {
-		if ( ! current_user_can( 'manage_woocommerce' ) || ! current_user_can( 'edit_others_shop_orders' ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) || ! current_user_can( 'edit_others_shop_orders' ) ) {
 			wp_send_json_error( 'missing_capabilities' );
 			wp_die();
 		}
@@ -395,17 +395,17 @@ class CustomMetaBox {
 		$delete_nonce = wp_create_nonce( 'delete-meta_' . $entry['meta_id'] );
 
 		$r .= "\n\t<tr id='meta-{$entry['meta_id']}'>";
-		$r .= "\n\t\t<td class='left'><label class='screen-reader-text' for='meta-{$entry['meta_id']}-key'>" . __( 'Key', 'woocommerce' ) . "</label><input name='meta[{$entry['meta_id']}][key]' id='meta-{$entry['meta_id']}-key' type='text' size='20' value='{$entry['meta_key']}' />";
+		$r .= "\n\t\t<td class='left'><label class='screen-reader-text' for='meta-{$entry['meta_id']}-key'>" . __( 'Key', 'poocommerce' ) . "</label><input name='meta[{$entry['meta_id']}][key]' id='meta-{$entry['meta_id']}-key' type='text' size='20' value='{$entry['meta_key']}' />";
 
 		$r .= "\n\t\t<div class='submit'>";
-		$r .= get_submit_button( __( 'Delete', 'woocommerce' ), 'deletemeta small', "deletemeta[{$entry['meta_id']}]", false, array( 'data-wp-lists' => "delete:the-list:meta-{$entry['meta_id']}::_ajax_nonce:$delete_nonce" ) );
+		$r .= get_submit_button( __( 'Delete', 'poocommerce' ), 'deletemeta small', "deletemeta[{$entry['meta_id']}]", false, array( 'data-wp-lists' => "delete:the-list:meta-{$entry['meta_id']}::_ajax_nonce:$delete_nonce" ) );
 		$r .= "\n\t\t";
-		$r .= get_submit_button( __( 'Update', 'woocommerce' ), 'updatemeta small', "meta-{$entry['meta_id']}-submit", false, array( 'data-wp-lists' => "add:the-list:meta-{$entry['meta_id']}::_ajax_nonce-add-meta={$this->update_nonce}" ) );
+		$r .= get_submit_button( __( 'Update', 'poocommerce' ), 'updatemeta small', "meta-{$entry['meta_id']}-submit", false, array( 'data-wp-lists' => "add:the-list:meta-{$entry['meta_id']}::_ajax_nonce-add-meta={$this->update_nonce}" ) );
 		$r .= '</div>';
 		$r .= wp_nonce_field( 'change-meta', '_ajax_nonce', false, false );
 		$r .= '</td>';
 
-		$r .= "\n\t\t<td><label class='screen-reader-text' for='meta-{$entry['meta_id']}-value'>" . __( 'Value', 'woocommerce' ) . "</label><textarea name='meta[{$entry['meta_id']}][value]' id='meta-{$entry['meta_id']}-value' rows='2' cols='30'>{$entry['meta_value']}</textarea></td>\n\t</tr>";
+		$r .= "\n\t\t<td><label class='screen-reader-text' for='meta-{$entry['meta_id']}-value'>" . __( 'Value', 'poocommerce' ) . "</label><textarea name='meta[{$entry['meta_id']}][value]' id='meta-{$entry['meta_id']}-value' rows='2' cols='30'>{$entry['meta_value']}</textarea></td>\n\t</tr>";
 		return $r;
 	}
 

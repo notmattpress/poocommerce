@@ -1,13 +1,13 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Suggestions\Incentives;
+namespace Automattic\PooCommerce\Internal\Admin\Suggestions\Incentives;
 
 /**
  * Abstract class for payment extension suggestion incentive provider classes.
  */
 abstract class Incentive {
-	const PREFIX = 'woocommerce_admin_pes_incentive_';
+	const PREFIX = 'poocommerce_admin_pes_incentive_';
 
 	/**
 	 * The user meta name for storing dismissed incentives.
@@ -188,7 +188,7 @@ abstract class Incentive {
 		 *
 		 * @since 9.9.0
 		 */
-		do_action( 'woocommerce_admin_payments_extension_suggestion_incentive_dismissed', $id, $this->suggestion_id, $context );
+		do_action( 'poocommerce_admin_payments_extension_suggestion_incentive_dismissed', $id, $this->suggestion_id, $context );
 
 		return $this->save_all_dismissed_incentives( $all_dismissed_incentives );
 	}
@@ -297,7 +297,7 @@ abstract class Incentive {
 	 * @return bool Whether the current user has the required capabilities view incentives.
 	 */
 	protected function user_has_caps(): bool {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 
 	/**

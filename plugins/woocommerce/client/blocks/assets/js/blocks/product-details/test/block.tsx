@@ -32,13 +32,13 @@ async function setupWithSingleProduct(
 	productId: number
 ) {
 	const productDetailsBlock = createBlock(
-		'woocommerce/product-details',
+		'poocommerce/product-details',
 		attributes
 	);
 
 	const singleProductBlock = [
 		{
-			name: 'woocommerce/single-product',
+			name: 'poocommerce/single-product',
 			attributes: {
 				productId,
 			},
@@ -63,11 +63,11 @@ describe( 'Product Details block', () => {
 				// Check if the request is for dimension and weight units
 				if (
 					options ===
-					'woocommerce_dimension_unit,woocommerce_weight_unit'
+					'poocommerce_dimension_unit,poocommerce_weight_unit'
 				) {
 					return HttpResponse.json( {
-						woocommerce_dimension_unit: 'cm',
-						woocommerce_weight_unit: 'kg',
+						poocommerce_dimension_unit: 'cm',
+						poocommerce_weight_unit: 'kg',
 					} );
 				}
 				// Default response for other options requests

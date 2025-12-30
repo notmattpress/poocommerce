@@ -1,8 +1,8 @@
 <?php
 /**
- * WooCommerce Brands Unit tests suite
+ * PooCommerce Brands Unit tests suite
  *
- * @package woocommerce-brands
+ * @package poocommerce-brands
  */
 
 declare( strict_types = 1);
@@ -108,7 +108,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$product = $data['product'];
 
 		// Enable hide out of stock setting FIRST.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		// THEN set product to out of stock (hook will fire with correct setting).
 		$product->set_stock_status( 'outofstock' );
@@ -125,7 +125,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( '0', $cached_count, 'Brand count should be cached as 0 when product is out of stock' );
 
 		// Reset the setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$product = $data['product'];
 
 		// Enable hide out of stock setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		// Set product to out of stock.
 		$product->set_stock_status( 'outofstock' );
@@ -178,7 +178,7 @@ class WC_Brands_Test extends WC_Unit_Test_Case {
 		$this->assertEquals( 1, $brand_term->count, 'Brand count should be 1 in admin context, ignoring out of stock setting' );
 
 		// Reset the setting.
-		update_option( 'woocommerce_hide_out_of_stock_items', 'no' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'no' );
 	}
 
 	/**

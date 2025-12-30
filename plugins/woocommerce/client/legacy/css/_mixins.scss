@@ -180,7 +180,7 @@
 }
 
 @mixin icon( $glyph: "\e001" ) {
-	font-family: "WooCommerce";
+	font-family: "PooCommerce";
 	speak: never;
 	font-weight: normal;
 	font-variant: normal;
@@ -217,7 +217,7 @@
 }
 
 @mixin iconbefore( $glyph: "\e001" ) {
-	font-family: "WooCommerce";
+	font-family: "PooCommerce";
 	speak: never;
 	font-weight: normal;
 	font-variant: normal;
@@ -242,7 +242,7 @@
 }
 
 @mixin iconafter( $glyph: "\e001" ) {
-	font-family: "WooCommerce";
+	font-family: "PooCommerce";
 	speak: never;
 	font-weight: normal;
 	font-variant: normal;
@@ -328,7 +328,7 @@
 	margin-top: 0.5em;
 }
 
-@mixin woocommerce-product-gallery__trigger {
+@mixin poocommerce-product-gallery__trigger {
 	background: #fff;
 	border: none;
 	box-sizing: content-box;

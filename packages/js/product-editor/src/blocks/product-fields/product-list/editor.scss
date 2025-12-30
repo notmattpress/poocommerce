@@ -1,10 +1,10 @@
-.wp-block-woocommerce-product-list-field {
+.wp-block-poocommerce-product-list-field {
 	display: flex;
 	flex-direction: column;
 	gap: $grid-unit-30;
 
 	&__body {
-		.woocommerce-advice-card {
+		.poocommerce-advice-card {
 			padding: $grid-unit-60;
 			gap: $grid-unit-40;
 			min-height: 233px; // min height to cover the min rows rendered in the table on its back

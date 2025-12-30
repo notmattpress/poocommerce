@@ -1,23 +1,23 @@
 # Reports
 
-The core reports offered by WooCommerce live in this folder. The Header is added automatically by the parent Report component, each individual component should contain just the report contents.
+The core reports offered by PooCommerce live in this folder. The Header is added automatically by the parent Report component, each individual component should contain just the report contents.
 
 ## Extending Reports
 
-New reports can be added by third-parties without altering `woocommerce-admin`. First, a page will need to be registered in PHP to populate menu items.
+New reports can be added by third-parties without altering `poocommerce-admin`. First, a page will need to be registered in PHP to populate menu items.
 
 ```php
 function register_page( $report_pages ) {
 	$report_pages[] = array(
 		'id'     => 'extension-example',
 		'title'  => __( 'Example', 'plugin-domain' ),
-		'parent' => 'woocommerce-analytics',
+		'parent' => 'poocommerce-analytics',
 		'path'   => '/analytics/example',
 	);
 	return $report_pages;
 }
 
-add_filter( 'woocommerce_analytics_report_menu_items', 'register_page' );
+add_filter( 'poocommerce_analytics_report_menu_items', 'register_page' );
 ```
 
 Each menu item is defined by an array containing `id`, `title`, `parent`, and `path`.
@@ -27,11 +27,11 @@ Each menu item is defined by an array containing `id`, `title`, `parent`, and `p
 -   `parent` (string): The item's parent in the navigational hierarchy.
 -   `path` (string): The report's relative path.
 
-Next, hook into the JavaScript reports filter, `woocommerce_admin_reports_list`, to add a report component.
+Next, hook into the JavaScript reports filter, `poocommerce_admin_reports_list`, to add a report component.
 
 ```js
 addFilter(
-	'woocommerce_admin_reports_list',
+	'poocommerce_admin_reports_list',
 	'analytics/my-report',
 	( pages ) => {
 		return [

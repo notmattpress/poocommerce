@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\ResourceStorages;
+namespace Automattic\PooCommerce\Blueprint\ResourceStorages;
 
 /**
  * Interface ResourceStorage
@@ -9,7 +9,7 @@ namespace Automattic\WooCommerce\Blueprint\ResourceStorages;
  * such as plugins and themes. It provides a common interface for downloading
  * the files whether they are stored locally or remotely.
  *
- * @package Automattic\WooCommerce\Blueprint\ResourceStorages
+ * @package Automattic\PooCommerce\Blueprint\ResourceStorages
  */
 interface ResourceStorage {
 	/**

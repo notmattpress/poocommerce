@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor;
 
-use Automattic\WooCommerce\Internal\EmailEditor\WooContentProcessor;
+use Automattic\PooCommerce\Internal\EmailEditor\WooContentProcessor;
 
 /**
  * Tests for the BlockEmailRenderer class.
@@ -29,13 +29,13 @@ class WooContentProcessorTest extends \WC_Unit_Test_Case {
 	public function testItCapturesWooContent(): void {
 		// Register header and footer content to test it gets excluded.
 		add_filter(
-			'woocommerce_email_header',
+			'poocommerce_email_header',
 			function () {
 				echo 'Test email header';
 			}
 		);
 		add_filter(
-			'woocommerce_email_footer',
+			'poocommerce_email_footer',
 			function () {
 				echo 'Test email footer';
 			}

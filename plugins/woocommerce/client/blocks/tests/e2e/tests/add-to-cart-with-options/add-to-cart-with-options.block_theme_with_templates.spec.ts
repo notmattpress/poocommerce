@@ -5,7 +5,7 @@ import {
 	test as base,
 	expect,
 	BLOCK_THEME_WITH_TEMPLATES_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies

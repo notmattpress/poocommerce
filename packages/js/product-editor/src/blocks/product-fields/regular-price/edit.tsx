@@ -2,8 +2,8 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Product } from '@poocommerce/data';
 import { useInstanceId } from '@wordpress/compose';
 import { useEntityProp } from '@wordpress/core-data';
 import { createElement, useEffect } from '@wordpress/element';
@@ -12,7 +12,7 @@ import {
 	BaseControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ export function Edit( {
 
 	const regularPriceId = useInstanceId(
 		BaseControl,
-		'wp-block-woocommerce-product-regular-price-field'
+		'wp-block-poocommerce-product-regular-price-field'
 	) as string;
 
 	const {
@@ -73,7 +73,7 @@ export function Edit( {
 					return {
 						message: __(
 							'Regular price must be greater than or equals to zero.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -84,7 +84,7 @@ export function Edit( {
 					return {
 						message: __(
 							'Regular price must be greater than the sale price.',
-							'woocommerce'
+							'poocommerce'
 						),
 					};
 				}
@@ -92,7 +92,7 @@ export function Edit( {
 				return {
 					message: sprintf(
 						/* translators: label of required field. */
-						__( '%s is required.', 'woocommerce' ),
+						__( '%s is required.', 'poocommerce' ),
 						label
 					),
 				};

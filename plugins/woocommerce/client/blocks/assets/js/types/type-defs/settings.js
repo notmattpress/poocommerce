@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} WooCommerceSiteCurrency
+ * @typedef {Object} PooCommerceSiteCurrency
  *
  * @property {string} code              The ISO code for the currency.
  * @property {number} precision         The precision (decimal places).
@@ -15,7 +15,7 @@
  */
 
 /**
- * @typedef {Object} WooCommerceSiteLocale
+ * @typedef {Object} PooCommerceSiteLocale
  *
  * @property {string}        siteLocale    The locale string for the current
  *                                         site.
@@ -26,7 +26,7 @@
  */
 
 /**
- * @typedef {Object} WooCommerceSharedSettings
+ * @typedef {Object} PooCommerceSharedSettings
  *
  * @property {string}                  adminUrl         The url for the current
  *                                                      site's dashboard.
@@ -36,11 +36,11 @@
  *                                                      are country names
  *                                                      localized for the site's
  *                                                      current language.
- * @property {WooCommerceSiteCurrency} currency         The current site
+ * @property {PooCommerceSiteCurrency} currency         The current site
  *                                                      currency object.
  * @property {string}                  defaultDateRange The default date range
  *                                                      query string to use.
- * @property {WooCommerceSiteLocale}   locale           Locale information for
+ * @property {PooCommerceSiteLocale}   locale           Locale information for
  *                                                      the site.
  * @property {Object}                  orderStatuses    An object of order
  *                                                      statuses indexed by
@@ -50,7 +50,7 @@
  *                                                      site.
  * @property {string}                  wcAssetUrl       The url to the assets
  *                                                      directory for the
- *                                                      WooCommerce plugin.
+ *                                                      PooCommerce plugin.
  */
 
 export {};

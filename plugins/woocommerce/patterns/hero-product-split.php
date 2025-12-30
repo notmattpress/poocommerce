@@ -1,12 +1,12 @@
 <?php
 /**
  * Title: Hero Product Split
- * Slug: woocommerce-blocks/hero-product-split
- * Categories: WooCommerce, Intro
+ * Slug: poocommerce-blocks/hero-product-split
+ * Categories: PooCommerce, Intro
  */
 
 
-$hero_title = __( 'Keep dry with 50% off rain jackets', 'woocommerce' );
+$hero_title = __( 'Keep dry with 50% off rain jackets', 'poocommerce' );
 ?>
 
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","bottom":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","left":"var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))","right":"var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
@@ -26,7 +26,7 @@ $hero_title = __( 'Keep dry with 50% off rain jackets', 'woocommerce' );
 			<div class="wp-block-buttons" style="margin-bottom:var(--wp--preset--spacing--40)">
 				<!-- wp:button -->
 				<div class="wp-block-button">
-					<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Shop the sale', 'woocommerce' ); ?></a>
+					<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Shop the sale', 'poocommerce' ); ?></a>
 				</div>
 				<!-- /wp:button -->
 			</div>
@@ -34,7 +34,7 @@ $hero_title = __( 'Keep dry with 50% off rain jackets', 'woocommerce' );
 		</div>
 
 		<figure class="wp-block-media-text__media">
-			<img src="<?php echo esc_url( plugins_url( 'assets/images/pattern-placeholders/man-person-winter-photography-statue-coat.png', WC_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section.', 'woocommerce' ); ?>" />
+			<img src="<?php echo esc_url( plugins_url( 'assets/images/pattern-placeholders/man-person-winter-photography-statue-coat.png', WC_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section.', 'poocommerce' ); ?>" />
 		</figure>
 	</div>
 	<!-- /wp:media-text -->

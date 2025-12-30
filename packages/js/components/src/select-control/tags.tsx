@@ -68,14 +68,14 @@ class Tags extends Component< Props > {
 
 		return (
 			<Fragment>
-				<div className="woocommerce-select-control__tags">
+				<div className="poocommerce-select-control__tags">
 					{ selected.map( ( item, i ) => {
 						if ( ! item.label ) {
 							return null;
 						}
 						const screenReaderLabel = sprintf(
 							/* translators: %1$s: tag label, %2$s: tag number, %3$s: total number of tags */
-							__( '%1$s (%2$s of %3$s)', 'woocommerce' ),
+							__( '%1$s (%2$s of %3$s)', 'poocommerce' ),
 							item.label,
 							i + 1,
 							selected.length
@@ -94,7 +94,7 @@ class Tags extends Component< Props > {
 				</div>
 				{ showClearButton && (
 					<Button
-						className="woocommerce-select-control__clear"
+						className="poocommerce-select-control__clear"
 						isLink
 						onClick={ this.removeAll }
 					>
@@ -103,7 +103,7 @@ class Tags extends Component< Props > {
 							className="clear-icon"
 						/>
 						<span className="screen-reader-text">
-							{ __( 'Clear all', 'woocommerce' ) }
+							{ __( 'Clear all', 'poocommerce' ) }
 						</span>
 					</Button>
 				) }

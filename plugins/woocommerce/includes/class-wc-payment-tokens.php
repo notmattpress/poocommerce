@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Payment Tokens
+ * PooCommerce Payment Tokens
  *
  * An API for storing and managing tokens for gateways and customers.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  * @since   2.6.0
  */
@@ -81,11 +81,11 @@ class WC_Payment_Tokens {
 				 *
 				 * @param int $limit Defaults to the value of the `posts_per_page` option.
 				 */
-				'limit'      => apply_filters( 'woocommerce_get_customer_payment_tokens_limit', get_option( 'posts_per_page' ) ),
+				'limit'      => apply_filters( 'poocommerce_get_customer_payment_tokens_limit', get_option( 'posts_per_page' ) ),
 			)
 		);
 
-		return apply_filters( 'woocommerce_get_customer_payment_tokens', $tokens, $customer_id, $gateway_id );
+		return apply_filters( 'poocommerce_get_customer_payment_tokens', $tokens, $customer_id, $gateway_id );
 	}
 
 	/**
@@ -136,7 +136,7 @@ class WC_Payment_Tokens {
 			)
 		);
 
-		return apply_filters( 'woocommerce_get_order_payment_tokens', $tokens, $order_id );
+		return apply_filters( 'poocommerce_get_order_payment_tokens', $tokens, $order_id );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class WC_Payment_Tokens {
 		foreach ( $users_tokens as $token ) {
 			if ( $token_id === $token->get_id() ) {
 				$data_store->set_default_status( $token->get_id(), true );
-				do_action( 'woocommerce_payment_token_set_default', $token_id, $token );
+				do_action( 'poocommerce_payment_token_set_default', $token_id, $token );
 			} else {
 				$data_store->set_default_status( $token->get_id(), false );
 			}
@@ -237,6 +237,6 @@ class WC_Payment_Tokens {
 		 * @param string $class Payment token class.
 		 * @param string $type Token type.
 		 */
-		return apply_filters( 'woocommerce_payment_token_class', 'WC_Payment_Token_' . $type, $type );
+		return apply_filters( 'poocommerce_payment_token_class', 'WC_Payment_Token_' . $type, $type );
 	}
 }

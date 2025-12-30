@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
 import { test, expect } from '../../fixtures/fixtures';
 import { ADMIN_STATE_PATH } from '../../playwright.config';
 
-test.describe( 'WooCommerce Tax Settings > enable', () => {
+test.describe( 'PooCommerce Tax Settings > enable', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test( 'can enable tax calculation', async ( { page } ) => {
@@ -21,14 +21,14 @@ test.describe( 'WooCommerce Tax Settings > enable', () => {
 		);
 
 		// Enable tax calculation
-		await page.locator( '#woocommerce_calc_taxes' ).check();
+		await page.locator( '#poocommerce_calc_taxes' ).check();
 		await page.locator( 'text=Save changes' ).click();
 
 		// Verify that settings have been saved
 		await expect( page.locator( 'div.updated.inline' ) ).toContainText(
 			'Your settings have been saved.'
 		);
-		await expect( page.locator( '#woocommerce_calc_taxes' ) ).toBeChecked();
+		await expect( page.locator( '#poocommerce_calc_taxes' ) ).toBeChecked();
 
 		// Verify that tax settings are now present
 		await expect(
@@ -37,12 +37,12 @@ test.describe( 'WooCommerce Tax Settings > enable', () => {
 	} );
 } );
 
-test.describe.serial( 'WooCommerce Tax Settings', () => {
+test.describe.serial( 'PooCommerce Tax Settings', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test.beforeEach( async ( { restApi } ) => {
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_calc_taxes`,
+			`${ WC_API_PATH }/settings/general/poocommerce_calc_taxes`,
 			{
 				value: 'yes',
 			}
@@ -50,7 +50,7 @@ test.describe.serial( 'WooCommerce Tax Settings', () => {
 	} );
 	test.afterEach( async ( { restApi } ) => {
 		await restApi.put(
-			`${ WC_API_PATH }/settings/general/woocommerce_calc_taxes`,
+			`${ WC_API_PATH }/settings/general/poocommerce_calc_taxes`,
 			{
 				value: 'no',
 			}
@@ -71,24 +71,24 @@ test.describe.serial( 'WooCommerce Tax Settings', () => {
 			.check();
 		// Tax based on customer shipping address
 		await page
-			.locator( '#woocommerce_tax_based_on' )
+			.locator( '#poocommerce_tax_based_on' )
 			.selectOption( 'shipping' );
 		// Standard tax class for shipping
-		await page.locator( '#woocommerce_shipping_tax_class' ).selectOption( {
+		await page.locator( '#poocommerce_shipping_tax_class' ).selectOption( {
 			label: 'Standard',
 		} );
 		// Leave rounding unchecked
 		// Display prices excluding tax
 		await page
-			.locator( '#woocommerce_tax_display_shop' )
+			.locator( '#poocommerce_tax_display_shop' )
 			.selectOption( 'excl' );
 		// Display prices including tax in cart and at checkout
 		await page
-			.locator( '#woocommerce_tax_display_cart' )
+			.locator( '#poocommerce_tax_display_cart' )
 			.selectOption( 'incl' );
 		// Display a single tax total
 		await page
-			.locator( '#woocommerce_tax_total_display' )
+			.locator( '#poocommerce_tax_total_display' )
 			.selectOption( 'single' );
 		await page.locator( 'text=Save changes' ).click();
 
@@ -99,20 +99,20 @@ test.describe.serial( 'WooCommerce Tax Settings', () => {
 		await expect(
 			page.locator( 'text=No, I will enter prices exclusive of tax' )
 		).toBeChecked();
-		await expect( page.locator( '#woocommerce_tax_based_on' ) ).toHaveValue(
+		await expect( page.locator( '#poocommerce_tax_based_on' ) ).toHaveValue(
 			'shipping'
 		);
 		await expect(
-			page.locator( '#woocommerce_shipping_tax_class' )
+			page.locator( '#poocommerce_shipping_tax_class' )
 		).toContainText( 'Standard' );
 		await expect(
-			page.locator( '#woocommerce_tax_display_shop' )
+			page.locator( '#poocommerce_tax_display_shop' )
 		).toHaveValue( 'excl' );
 		await expect(
-			page.locator( '#woocommerce_tax_display_cart' )
+			page.locator( '#poocommerce_tax_display_cart' )
 		).toHaveValue( 'incl' );
 		await expect(
-			page.locator( '#woocommerce_tax_total_display' )
+			page.locator( '#poocommerce_tax_total_display' )
 		).toHaveValue( 'single' );
 	} );
 
@@ -124,7 +124,7 @@ test.describe.serial( 'WooCommerce Tax Settings', () => {
 		);
 
 		// Add a "fancy" tax class
-		await page.locator( '#woocommerce_tax_classes' ).fill( 'Fancy' );
+		await page.locator( '#poocommerce_tax_classes' ).fill( 'Fancy' );
 		await page.locator( 'text=Save changes' ).click();
 
 		// Verify that the settings have been saved
@@ -215,7 +215,7 @@ test.describe.serial( 'WooCommerce Tax Settings', () => {
 		);
 
 		// Remove "Fancy" tax class
-		await page.locator( '#woocommerce_tax_classes' ).fill( '' );
+		await page.locator( '#poocommerce_tax_classes' ).fill( '' );
 		await page.locator( 'text=Save changes' ).click();
 		await expect( page.locator( '.blockOverlay' ) ).toBeHidden();
 
@@ -223,7 +223,7 @@ test.describe.serial( 'WooCommerce Tax Settings', () => {
 		await expect( page.locator( 'div.updated.inline' ) ).toContainText(
 			'Your settings have been saved.'
 		);
-		await expect( page.locator( '#woocommerce_tax_classes' ) ).toHaveValue(
+		await expect( page.locator( '#poocommerce_tax_classes' ) ).toHaveValue(
 			''
 		);
 		await expect(

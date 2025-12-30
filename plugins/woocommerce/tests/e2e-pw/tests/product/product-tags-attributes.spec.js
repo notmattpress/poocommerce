@@ -8,7 +8,7 @@ import {
 	publishPage,
 	WC_API_PATH,
 	WP_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -189,19 +189,19 @@ test.describe(
 				page.getByRole( 'heading', { name: 'Shop' } )
 			).toBeVisible();
 			await expect(
-				page.locator( '.woocommerce-ordering' )
+				page.locator( '.poocommerce-ordering' )
 			).toBeVisible();
 
 			const addToCart = page.getByRole( 'add_to_cart_button' );
 			for ( let i = 0; i < addToCart.count(); ++i )
 				await expect( addToCart.nth( i ) ).toBeVisible();
 
-			const productPrice = page.getByRole( 'woocommerce-Price-amount' );
+			const productPrice = page.getByRole( 'poocommerce-Price-amount' );
 			for ( let i = 0; i < productPrice.count(); ++i )
 				await expect( productPrice.nth( i ) ).toBeVisible();
 
 			const productTitle = page.getByRole(
-				'woocommerce-loop-product__title'
+				'poocommerce-loop-product__title'
 			);
 			for ( let i = 0; i < productTitle.count(); ++i )
 				await expect( productTitle.nth( i ) ).toBeVisible();
@@ -240,7 +240,7 @@ test.describe(
 			);
 
 			const attributeLookupCheckbox = page.locator(
-				'#woocommerce_attribute_lookup_enabled'
+				'#poocommerce_attribute_lookup_enabled'
 			);
 			await expect( attributeLookupCheckbox ).toBeVisible();
 
@@ -261,7 +261,7 @@ test.describe(
 			await page.goto( `product/${ slug }` );
 			await page
 				.locator(
-					'.woocommerce-product-attributes-item__value > p > a',
+					'.poocommerce-product-attributes-item__value > p > a',
 					{
 						hasText: productAttributeTerm,
 					}
@@ -271,7 +271,7 @@ test.describe(
 				page.getByRole( 'heading', { name: productAttributeTerm } )
 			).toBeVisible();
 			await expect(
-				page.locator( '.woocommerce-breadcrumb' )
+				page.locator( '.poocommerce-breadcrumb' )
 			).toContainText(
 				` / Product ${ productAttributeName } / ${ productAttributeTerm }`
 			);
@@ -290,7 +290,7 @@ test.describe(
 			// Product Collection requires choosing some collection.
 			await canvas
 				.locator(
-					'[data-type="woocommerce/product-collection"] .components-placeholder'
+					'[data-type="poocommerce/product-collection"] .components-placeholder'
 				)
 				.getByRole( 'button', {
 					name: 'create your own',
@@ -310,12 +310,12 @@ test.describe(
 					.count()
 			).toBeGreaterThan( 0 );
 
-			const productPrice = page.locator( '.woocommerce-Price-amount' );
+			const productPrice = page.locator( '.poocommerce-Price-amount' );
 			for ( let i = 0; i < productPrice.count(); ++i )
 				await expect( productPrice.nth( i ) ).toBeVisible();
 
 			const productTitle = page.locator(
-				'.woocommerce-loop-product__title'
+				'.poocommerce-loop-product__title'
 			);
 			for ( let i = 0; i < productTitle.count(); ++i )
 				await expect( productTitle.nth( i ) ).toBeVisible();

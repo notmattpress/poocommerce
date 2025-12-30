@@ -1,15 +1,15 @@
 <?php
 /**
- *  Contains Tests for the main file (woocommerce-gutenberg-products-blocks.php)
+ *  Contains Tests for the main file (poocommerce-gutenberg-products-blocks.php)
  *  bootstrap.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\Bootstrap;
+namespace Automattic\PooCommerce\Tests\Blocks\Bootstrap;
 
 use \WP_UnitTestCase;
-use Automattic\WooCommerce\Blocks\Domain\Bootstrap;
-use Automattic\WooCommerce\Blocks\Registry\Container;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Bootstrap;
+use Automattic\PooCommerce\Blocks\Registry\Container;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * Test class for the bootstrap in the plugin main file

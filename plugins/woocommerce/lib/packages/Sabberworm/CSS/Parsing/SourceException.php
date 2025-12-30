@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
 
 class SourceException extends \Exception implements Positionable
 {

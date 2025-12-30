@@ -2,10 +2,10 @@
 /**
  * Plugins REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  */
 
-use Automattic\WooCommerce\Admin\API\Plugins;
+use Automattic\PooCommerce\Admin\API\Plugins;
 
 /**
  * WC Tests API Plugins
@@ -58,7 +58,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$request = new WP_REST_Request( 'POST', $this->endpoint . '/install' );
 		$request->set_query_params(
 			array(
-				'plugins' => 'woocommerce-legacy-rest-api',
+				'plugins' => 'poocommerce-legacy-rest-api',
 			)
 		);
 		$response = $this->server->dispatch( $request );
@@ -69,9 +69,9 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$plugins = get_plugins();
 
 		$this->assertEquals( 200, $response->get_status() );
-		$this->assertEquals( array( 'woocommerce-legacy-rest-api' ), $data['data']['installed'] );
+		$this->assertEquals( array( 'poocommerce-legacy-rest-api' ), $data['data']['installed'] );
 		$this->assertEquals( true, $data['success'] );
-		$this->assertArrayHasKey( 'woocommerce-legacy-rest-api/woocommerce-legacy-rest-api.php', $plugins );
+		$this->assertArrayHasKey( 'poocommerce-legacy-rest-api/poocommerce-legacy-rest-api.php', $plugins );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$request->set_query_params(
 			array(
 				'async'   => true,
-				'plugins' => 'woocommerce-legacy-rest-api',
+				'plugins' => 'poocommerce-legacy-rest-api',
 			)
 		);
 		$response = $this->server->dispatch( $request );
@@ -108,7 +108,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_plugins', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_plugins', $data['code'] );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class WC_Admin_Tests_API_Plugins extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 		$data     = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_invalid_plugins', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_plugins', $data['code'] );
 	}
 
 	/**

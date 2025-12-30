@@ -11,47 +11,47 @@ import { TabPanel } from './tab-panel';
 export function HelpTabPanel( { isSelected }: { isSelected: boolean } ) {
 	return (
 		<TabPanel isSelected={ isSelected }>
-			<div className="woocommerce-product-editor-dev-tools-help">
+			<div className="poocommerce-product-editor-dev-tools-help">
 				<p>
 					{ __(
-						'For help with WooCommerce product editor development, the following resources are available.',
-						'woocommerce'
+						'For help with PooCommerce product editor development, the following resources are available.',
+						'poocommerce'
 					) }
 				</p>
 				<ul>
 					<li>
 						<a
-							href="https://github.com/woocommerce/woocommerce/tree/trunk/docs/product-editor-development"
+							href="https://github.com/poocommerce/poocommerce/tree/trunk/docs/product-editor-development"
 							target="_blank"
 							rel="noreferrer"
 						>
 							{ __(
 								'Product Editor Development Handbook',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</a>
 					</li>
 					<li>
 						<a
-							href="https://github.com/woocommerce/woocommerce/discussions/categories/woocommerce-product-block-editor"
+							href="https://github.com/poocommerce/poocommerce/discussions/categories/poocommerce-product-block-editor"
 							target="_blank"
 							rel="noreferrer"
 						>
 							{ __(
 								'Product Editor Discussion on GitHub',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</a>
 					</li>
 					<li>
 						<a
-							href="https://woocommerce.com/community-slack/"
+							href="https://poocommerce.com/community-slack/"
 							target="_blank"
 							rel="noreferrer"
 						>
 							{ __(
-								'WooCommerce Community Slack, in the #developers channel',
-								'woocommerce'
+								'PooCommerce Community Slack, in the #developers channel',
+								'poocommerce'
 							) }
 						</a>
 					</li>

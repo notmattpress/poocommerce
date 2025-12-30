@@ -2,10 +2,10 @@
 /**
  * ClassWithInjectionMethodArgumentWithoutTypeHint class file.
  *
- * @package Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses
+ * @package Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
+namespace Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses;
 
 /**
  * An example class that has a injector method argument without type hint.

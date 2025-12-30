@@ -1,13 +1,13 @@
-.wp-block-woocommerce-accordion-item {
+.wp-block-poocommerce-accordion-item {
 	display: grid;
 	grid-template-rows: max-content 0fr;
 }
 
-.wp-block-woocommerce-accordion-item.is-open {
+.wp-block-poocommerce-accordion-item.is-open {
 	grid-template-rows: max-content 1fr;
 }
 
-.wp-block-woocommerce-accordion-item .accordion-item__heading {
+.wp-block-poocommerce-accordion-item .accordion-item__heading {
 	color: inherit;
 	padding: 0;
 	margin: 0;
@@ -39,8 +39,8 @@
 	width: 100%;
 }
 
-.is-layout-flow > .wp-block-woocommerce-accordion-panel,
-.wp-block-woocommerce-accordion-panel {
+.is-layout-flow > .wp-block-poocommerce-accordion-panel,
+.wp-block-poocommerce-accordion-panel {
 	overflow: hidden;
 	margin: 0;
 }
@@ -54,7 +54,7 @@
 	background-color: unset;
 }
 
-.wp-block-woocommerce-accordion-header.icon-position-left
+.wp-block-poocommerce-accordion-header.icon-position-left
 	.accordion-item__toggle {
 	/* stylelint-disable-next-line declaration-property-value-allowed-list -- This should be refactored to not use the row-reverse value. */
 	flex-direction: row-reverse;
@@ -67,11 +67,11 @@
 
 /* Add transitions only for users who do not prefer reduced motion */
 @media (prefers-reduced-motion: no-preference) {
-	.wp-block-woocommerce-accordion-item .accordion-item__toggle-icon {
+	.wp-block-poocommerce-accordion-item .accordion-item__toggle-icon {
 		transition: transform 0.2s ease-in-out;
 	}
 
-	.wp-block-woocommerce-accordion-item {
+	.wp-block-poocommerce-accordion-item {
 		transition: grid-template-rows 0.3s ease-out;
 	}
 }

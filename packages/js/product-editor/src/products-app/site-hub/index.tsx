@@ -76,7 +76,7 @@ const SiteHub = memo(
 								href={ dashboardLink }
 								label={ __(
 									'Go to the Dashboard',
-									'woocommerce'
+									'poocommerce'
 								) }
 								className="edit-site-layout__view-mode-toggle"
 								style={ {
@@ -101,7 +101,7 @@ const SiteHub = memo(
 											/* translators: accessibility text */
 											__(
 												'(opens in a new tab)',
-												'woocommerce'
+												'poocommerce'
 											)
 										}
 									</VisuallyHidden>

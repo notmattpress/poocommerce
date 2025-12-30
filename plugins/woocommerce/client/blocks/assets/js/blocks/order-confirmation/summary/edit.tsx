@@ -4,9 +4,9 @@
 import { useBlockProps } from '@wordpress/block-editor';
 import { Disabled } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { formatPrice } from '@woocommerce/price-format';
+import { formatPrice } from '@poocommerce/price-format';
 import { date } from '@wordpress/date';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ const Edit = (): JSX.Element => {
 				<ul className="wc-block-order-confirmation-summary-list">
 					<li className="wc-block-order-confirmation-summary-list-item">
 						<span className="wc-block-order-confirmation-summary-list-item__key">
-							{ __( 'Order number:', 'woocommerce' ) }
+							{ __( 'Order number:', 'poocommerce' ) }
 						</span>{ ' ' }
 						<span className="wc-block-order-confirmation-summary-list-item__value">
 							123
@@ -32,7 +32,7 @@ const Edit = (): JSX.Element => {
 					</li>
 					<li className="wc-block-order-confirmation-summary-list-item">
 						<span className="wc-block-order-confirmation-summary-list-item__key">
-							{ __( 'Date:', 'woocommerce' ) }
+							{ __( 'Date:', 'poocommerce' ) }
 						</span>{ ' ' }
 						<span className="wc-block-order-confirmation-summary-list-item__value">
 							{ date(
@@ -44,7 +44,7 @@ const Edit = (): JSX.Element => {
 					</li>
 					<li className="wc-block-order-confirmation-summary-list-item">
 						<span className="wc-block-order-confirmation-summary-list-item__key">
-							{ __( 'Total:', 'woocommerce' ) }
+							{ __( 'Total:', 'poocommerce' ) }
 						</span>{ ' ' }
 						<span className="wc-block-order-confirmation-summary-list-item__value">
 							{ formatPrice( 4000 ) }
@@ -52,7 +52,7 @@ const Edit = (): JSX.Element => {
 					</li>
 					<li className="wc-block-order-confirmation-summary-list-item">
 						<span className="wc-block-order-confirmation-summary-list-item__key">
-							{ __( 'Email:', 'woocommerce' ) }
+							{ __( 'Email:', 'poocommerce' ) }
 						</span>{ ' ' }
 						<span className="wc-block-order-confirmation-summary-list-item__value">
 							test@test.com
@@ -60,10 +60,10 @@ const Edit = (): JSX.Element => {
 					</li>
 					<li className="wc-block-order-confirmation-summary-list-item">
 						<span className="wc-block-order-confirmation-summary-list-item__key">
-							{ __( 'Payment method:', 'woocommerce' ) }
+							{ __( 'Payment method:', 'poocommerce' ) }
 						</span>{ ' ' }
 						<span className="wc-block-order-confirmation-summary-list-item__value">
-							{ __( 'Credit Card', 'woocommerce' ) }
+							{ __( 'Credit Card', 'poocommerce' ) }
 						</span>
 					</li>
 				</ul>

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Css;
+namespace Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Css;
 
-use Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\Preg;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\AtRuleBlockList as CssAtRuleBlockList;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\Document as SabberwormCssDocument;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parser as CssParser;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule as CssAtRule;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Charset as CssCharset;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Import as CssImport;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable as CssRenderable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock as CssDeclarationBlock;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet as CssRuleSet;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Settings as ParserSettings;
+use Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\AtRuleBlockList as CssAtRuleBlockList;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSList\Document as SabberwormCssDocument;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parser as CssParser;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\AtRule as CssAtRule;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Charset as CssCharset;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Property\Import as CssImport;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Renderable as CssRenderable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\DeclarationBlock as CssDeclarationBlock;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\RuleSet\RuleSet as CssRuleSet;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Settings as ParserSettings;
 
 /**
  * Parses and stores a CSS document from a string of CSS, and provides methods to obtain the CSS in parts or as data

@@ -20,14 +20,14 @@ const getErrorMessage = ( { message, type }: ErrorObject ) => {
 	if ( ! message ) {
 		return __(
 			'An error has prevented the block from being updated.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
 	if ( type === 'general' ) {
 		return (
 			<span>
-				{ __( 'The following error was returned', 'woocommerce' ) }
+				{ __( 'The following error was returned', 'poocommerce' ) }
 				<br />
 				<code>{ escapeHTML( message ) }</code>
 			</span>
@@ -39,7 +39,7 @@ const getErrorMessage = ( { message, type }: ErrorObject ) => {
 			<span>
 				{ __(
 					'The following error was returned from the API',
-					'woocommerce'
+					'poocommerce'
 				) }
 				<br />
 				<code>{ escapeHTML( message ) }</code>

@@ -39,7 +39,7 @@ test.describe( 'Customers API tests: CRUD', () => {
 			const userResponse = await request.post( './wp-json/wp/v2/users', {
 				data: {
 					username: `customer${ now }`,
-					email: `customer${ now }@woocommercecoretestsuite.com`,
+					email: `customer${ now }@poocommercecoretestsuite.com`,
 					first_name: 'Jane',
 					last_name: 'Smith',
 					roles: [ 'subscriber' ],
@@ -82,7 +82,7 @@ test.describe( 'Customers API tests: CRUD', () => {
 	test.describe( 'Retrieve after env setup', () => {
 		/**
 		 * when the environment is created,
-		 * (https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/e2e-pw#woocommerce-playwright-end-to-end-tests),
+		 * (https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/e2e-pw#poocommerce-playwright-end-to-end-tests),
 		 * we have an admin user and a subscriber user that can both be
 		 * accessed through their ids
 		 * neither of these are returned as part of the get all customers call
@@ -228,7 +228,7 @@ test.describe( 'Customers API tests: CRUD', () => {
 			/**
 			 * update customer names (regular, billing and shipping) to admin
 			 * (these were initialised blank when the environment is created,
-			 * (https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/tests/e2e-pw#woocommerce-playwright-end-to-end-tests
+			 * (https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/tests/e2e-pw#poocommerce-playwright-end-to-end-tests
 			 */
 			const response = await request.put(
 				`./wp-json/wc/v3/customers/${ adminId }`,

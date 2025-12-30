@@ -3,14 +3,14 @@
  * API\Reports\Downloads\Stats\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Downloads\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Downloads\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Downloads\DataStore as DownloadsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\StatsDataStoreTrait;
+use Automattic\PooCommerce\Admin\API\Reports\Downloads\DataStore as DownloadsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\StatsDataStoreTrait;
 
 /**
  * API\Reports\Downloads\Stats\DataStore.
@@ -122,7 +122,7 @@ class DataStore extends DownloadsDataStore implements DataStoreInterface {
 			ARRAY_A
 		);
 		if ( null === $totals ) {
-			return new \WP_Error( 'woocommerce_analytics_downloads_stats_result_failed', __( 'Sorry, fetching downloads data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_downloads_stats_result_failed', __( 'Sorry, fetching downloads data failed.', 'poocommerce' ) );
 		}
 
 		$this->interval_query->add_sql_clause( 'order_by', $this->get_sql_clause( 'order_by' ) );
@@ -139,7 +139,7 @@ class DataStore extends DownloadsDataStore implements DataStoreInterface {
 		);
 
 		if ( null === $intervals ) {
-			return new \WP_Error( 'woocommerce_analytics_downloads_stats_result_failed', __( 'Sorry, fetching downloads data failed.', 'woocommerce' ) );
+			return new \WP_Error( 'poocommerce_analytics_downloads_stats_result_failed', __( 'Sorry, fetching downloads data failed.', 'poocommerce' ) );
 		}
 
 		$totals = (object) $this->cast_numbers( $totals[0] );

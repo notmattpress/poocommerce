@@ -14,7 +14,7 @@ import { PluginSidebar } from '../plugin-sidebar';
 import { SETTINGS_SIDEBAR_IDENTIFIER } from '../../constants';
 
 const SettingsHeader = () => {
-	return <strong>{ __( 'Settings', 'woocommerce' ) }</strong>;
+	return <strong>{ __( 'Settings', 'poocommerce' ) }</strong>;
 };
 
 export const SettingsSidebar = ( {
@@ -27,13 +27,13 @@ export const SettingsSidebar = ( {
 			// By not providing a name, the sidebar will not be listed in
 			// the more menu's Plugins menu group.
 			identifier={ SETTINGS_SIDEBAR_IDENTIFIER }
-			title={ __( 'Settings', 'woocommerce' ) }
+			title={ __( 'Settings', 'poocommerce' ) }
 			icon={ isRTL() ? drawerRight : drawerLeft }
 			isActiveByDefault={ true }
 			// We need to pass a custom header to the sidebar to prevent
 			// the pin button in the default header from being displayed.
 			header={ <SettingsHeader /> }
-			closeLabel={ __( 'Close settings', 'woocommerce' ) }
+			closeLabel={ __( 'Close settings', 'poocommerce' ) }
 			smallScreenTitle={ smallScreenTitle }
 		>
 			<BlockInspector />

@@ -3,19 +3,19 @@
 	justify-content: $justification;
 }
 
-.is-layout-constrained > .wp-block-woocommerce-customer-account.alignright {
+.is-layout-constrained > .wp-block-poocommerce-customer-account.alignright {
 	@include flex-justify-content(flex-end);
 }
 
-.is-layout-constrained > .wp-block-woocommerce-customer-account.alignleft {
+.is-layout-constrained > .wp-block-poocommerce-customer-account.alignleft {
 	@include flex-justify-content(flex-start);
 }
 
-.is-layout-constrained > .wp-block-woocommerce-customer-account.aligncenter {
+.is-layout-constrained > .wp-block-poocommerce-customer-account.aligncenter {
 	@include flex-justify-content(center);
 }
 
-.wp-block-woocommerce-customer-account {
+.wp-block-poocommerce-customer-account {
 	a {
 		text-decoration: none !important;
 		align-items: center;

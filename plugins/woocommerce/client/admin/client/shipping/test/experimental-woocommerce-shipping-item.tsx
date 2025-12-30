@@ -2,18 +2,18 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
-import WooCommerceShippingItem from '../experimental-woocommerce-shipping-item';
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+import PooCommerceShippingItem from '../experimental-poocommerce-shipping-item';
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/admin-layout', () => {
+jest.mock( '@poocommerce/admin-layout', () => {
 	const mockContext = {
 		layoutPath: [ 'root' ],
 		layoutString: 'root',
@@ -21,18 +21,18 @@ jest.mock( '@woocommerce/admin-layout', () => {
 		isDescendantOf: () => false,
 	};
 	return {
-		...jest.requireActual( '@woocommerce/admin-layout' ),
+		...jest.requireActual( '@poocommerce/admin-layout' ),
 		useLayoutContext: jest.fn().mockReturnValue( mockContext ),
 		useExtendLayout: jest.fn().mockReturnValue( mockContext ),
 	};
 } );
 
-describe( 'WooCommerceShippingItem', () => {
+describe( 'PooCommerceShippingItem', () => {
 	it( 'should render WC Shipping item with CTA = "Get started" when WC Shipping is not installed', () => {
-		render( <WooCommerceShippingItem isPluginInstalled={ false } /> );
+		render( <PooCommerceShippingItem isPluginInstalled={ false } /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 
 		expect(
@@ -41,10 +41,10 @@ describe( 'WooCommerceShippingItem', () => {
 	} );
 
 	it( 'should render WC Shipping item with CTA = "Activate" when WC Shipping is installed', () => {
-		render( <WooCommerceShippingItem isPluginInstalled={ true } /> );
+		render( <PooCommerceShippingItem isPluginInstalled={ true } /> );
 
 		expect(
-			screen.queryByText( 'WooCommerce Shipping' )
+			screen.queryByText( 'PooCommerce Shipping' )
 		).toBeInTheDocument();
 
 		expect(
@@ -53,7 +53,7 @@ describe( 'WooCommerceShippingItem', () => {
 	} );
 
 	it( 'should record track when clicking setup button', () => {
-		render( <WooCommerceShippingItem isPluginInstalled={ false } /> );
+		render( <PooCommerceShippingItem isPluginInstalled={ false } /> );
 
 		screen.queryByRole( 'button', { name: 'Get started' } )?.click();
 		expect( recordEvent ).toHaveBeenCalledWith( 'tasklist_click', {

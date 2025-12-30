@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { cartOutline, bag, bagAlt } from '@woocommerce/icons';
+import { cartOutline, bag, bagAlt } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 
 /**

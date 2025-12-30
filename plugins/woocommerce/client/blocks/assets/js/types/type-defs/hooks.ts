@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { CurrencyResponse, ProductResponseItem } from '@woocommerce/types';
+import type { CurrencyResponse, ProductResponseItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies

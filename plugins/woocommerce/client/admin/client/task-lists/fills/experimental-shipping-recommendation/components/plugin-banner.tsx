@@ -34,7 +34,7 @@ export const PluginBanner = ( {
 	return (
 		<div
 			className={ clsx(
-				'woocommerce-task-shipping-recommendation__plugins-install',
+				'poocommerce-task-shipping-recommendation__plugins-install',
 				layout
 			) }
 		>

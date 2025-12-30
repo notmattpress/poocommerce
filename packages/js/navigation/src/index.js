@@ -6,7 +6,7 @@ import { addQueryArgs } from '@wordpress/url';
 import { parse } from 'qs';
 import { pick } from 'lodash';
 import { applyFilters } from '@wordpress/hooks';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -22,9 +22,9 @@ export * from './filters';
 // Export all hooks
 export { useConfirmUnsavedChanges } from './hooks/use-confirm-unsaved-changes';
 
-const TIME_EXCLUDED_SCREENS_FILTER = 'woocommerce_admin_time_excluded_screens';
+const TIME_EXCLUDED_SCREENS_FILTER = 'poocommerce_admin_time_excluded_screens';
 const NAVIGATION_UPDATE_EXCLUDED_SCREENS_FILTER =
-	'woocommerce_admin_nav_update_excluded_screens';
+	'poocommerce_admin_nav_update_excluded_screens';
 
 /**
  * Get the current path from history.
@@ -79,10 +79,10 @@ export const getPersistedQuery = ( query = getQuery() ) => {
 	/**
 	 * Filter persisted queries. These query parameters remain in the url when other parameters are updated.
 	 *
-	 * @filter woocommerce_admin_persisted_queries
+	 * @filter poocommerce_admin_persisted_queries
 	 * @param {Array.<string>} persistedQueries Array of persisted queries.
 	 */
-	const params = applyFilters( 'woocommerce_admin_persisted_queries', [
+	const params = applyFilters( 'poocommerce_admin_persisted_queries', [
 		'period',
 		'compare',
 		'before',

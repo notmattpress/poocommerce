@@ -2,7 +2,7 @@
 /**
  * Product attribute table for reuse.
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,18 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tbody>
 	<tr>
 		<td class="attribute_name">
-			<label><?php esc_html_e( 'Name', 'woocommerce' ); ?>:</label>
+			<label><?php esc_html_e( 'Name', 'poocommerce' ); ?>:</label>
 
 			<?php if ( $attribute->is_taxonomy() ) : ?>
 				<strong><?php echo esc_html( wc_attribute_label( $attribute->get_name() ) ); ?></strong>
 				<input type="hidden" name="attribute_names[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $attribute->get_name() ); ?>" />
 			<?php else : ?>
-				<input type="text" class="attribute_name" name="attribute_names[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $attribute->get_name() ); ?>" placeholder="<?php esc_attr_e( 'e.g. length or weight', 'woocommerce' ); ?>" />
+				<input type="text" class="attribute_name" name="attribute_names[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $attribute->get_name() ); ?>" placeholder="<?php esc_attr_e( 'e.g. length or weight', 'poocommerce' ); ?>" />
 			<?php endif; ?>
 			<input type="hidden" name="attribute_position[<?php echo esc_attr( $i ); ?>]" class="attribute_position" value="<?php echo esc_attr( $attribute->get_position() ); ?>" />
 		</td>
 		<td rowspan="3">
-			<label><?php esc_html_e( 'Value(s)', 'woocommerce' ); ?>:</label>
+			<label><?php esc_html_e( 'Value(s)', 'poocommerce' ); ?>:</label>
 			<?php
 			if ( $attribute->is_taxonomy() && $attribute->get_taxonomy_object() ) {
 				$attribute_taxonomy = $attribute->get_taxonomy_object();
@@ -43,12 +43,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					* @since 8.8.0
 					* @param int $term_limit The maximum number of terms to display in the list.
 					*/
-					$term_limit = absint( apply_filters( 'woocommerce_admin_terms_metabox_datalimit', 50 ) );
+					$term_limit = absint( apply_filters( 'poocommerce_admin_terms_metabox_datalimit', 50 ) );
 					?>
 					<select multiple="multiple"
 							data-minimum_input_length="0"
 							data-limit="<?php echo esc_attr( $term_limit ); ?>" data-return_id="id"
-							data-placeholder="<?php esc_attr_e( 'Select values', 'woocommerce' ); ?>"
+							data-placeholder="<?php esc_attr_e( 'Select values', 'poocommerce' ); ?>"
 							data-orderby="<?php echo esc_attr( $attribute_orderby ); ?>"
 							class="multiselect attribute_values wc-taxonomy-term-search"
 							name="attribute_values[<?php echo esc_attr( $i ); ?>][]"
@@ -64,14 +64,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 								 * @param string  $name Name of selected term.
 								 * @param array   $term The selected term object.
 								 */
-								echo '<option value="' . esc_attr( $selected_term->term_id ) . '" selected="selected">' . esc_html( apply_filters( 'woocommerce_product_attribute_term_name', $selected_term->name, $selected_term ) ) . '</option>';
+								echo '<option value="' . esc_attr( $selected_term->term_id ) . '" selected="selected">' . esc_html( apply_filters( 'poocommerce_product_attribute_term_name', $selected_term->name, $selected_term ) ) . '</option>';
 							}
 						}
 						?>
 					</select>
-					<button class="button plus select_all_attributes"><?php esc_html_e( 'Select all', 'woocommerce' ); ?></button>
-					<button class="button minus select_no_attributes"><?php esc_html_e( 'Select none', 'woocommerce' ); ?></button>
-					<button class="button fr plus add_new_attribute"><?php esc_html_e( 'Create value', 'woocommerce' ); ?></button>
+					<button class="button plus select_all_attributes"><?php esc_html_e( 'Select all', 'poocommerce' ); ?></button>
+					<button class="button minus select_no_attributes"><?php esc_html_e( 'Select none', 'poocommerce' ); ?></button>
+					<button class="button fr plus add_new_attribute"><?php esc_html_e( 'Create value', 'poocommerce' ); ?></button>
 					<?php
 				}
 
@@ -83,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 * @param int $i Attribute index.
 				 * @param WC_Product_Attribute $attribute Attribute object.
 				 */
-				do_action( 'woocommerce_product_option_terms', $attribute_taxonomy, $i, $attribute );
+				do_action( 'poocommerce_product_option_terms', $attribute_taxonomy, $i, $attribute );
 			} else {
 				?>
 				<textarea name="attribute_values[<?php echo esc_attr( $i ); ?>]" cols="5" rows="5"><?php echo esc_textarea( wc_implode_text_attributes( $attribute->get_options() ) ); ?></textarea>
@@ -94,13 +94,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</tr>
 	<tr>
 		<td>
-			<label><input type="checkbox" class="woocommerce_attribute_visible_on_product_page checkbox" <?php checked( $attribute->get_visible(), true ); ?> name="attribute_visibility[<?php echo esc_attr( $i ); ?>]" value="1" /> <?php esc_html_e( 'Visible on the product page', 'woocommerce' ); ?></label>
+			<label><input type="checkbox" class="poocommerce_attribute_visible_on_product_page checkbox" <?php checked( $attribute->get_visible(), true ); ?> name="attribute_visibility[<?php echo esc_attr( $i ); ?>]" value="1" /> <?php esc_html_e( 'Visible on the product page', 'poocommerce' ); ?></label>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<div class="enable_variation show_if_variable">
-				<label><input type="checkbox" class="woocommerce_attribute_used_for_variations checkbox" <?php checked( $attribute->get_variation(), true ); ?> name="attribute_variation[<?php echo esc_attr( $i ); ?>]" value="1" /> <?php esc_html_e( 'Used for variations', 'woocommerce' ); ?></label>
+				<label><input type="checkbox" class="poocommerce_attribute_used_for_variations checkbox" <?php checked( $attribute->get_variation(), true ); ?> name="attribute_variation[<?php echo esc_attr( $i ); ?>]" value="1" /> <?php esc_html_e( 'Used for variations', 'poocommerce' ); ?></label>
 			</div>
 		</td>
 	</tr>
@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @param WC_Product_Attribute $attribute Attribute object.
 	 * @param int $i Attribute index.
 	 */
-	do_action( 'woocommerce_after_product_attribute_settings', $attribute, $i );
+	do_action( 'poocommerce_after_product_attribute_settings', $attribute, $i );
 	?>
 	</tbody>
 </table>

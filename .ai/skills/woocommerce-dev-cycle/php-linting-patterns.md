@@ -55,7 +55,7 @@ Translators comments must be placed **immediately before the translation functio
 ```php
 /* translators: %s: Gateway name. */
 return sprintf(
-    esc_html__( '%s is not supported.', 'woocommerce' ),
+    esc_html__( '%s is not supported.', 'poocommerce' ),
     'Gateway'
 );
 ```
@@ -65,7 +65,7 @@ return sprintf(
 ```php
 return sprintf(
     /* translators: %s: Gateway name. */
-    esc_html__( '%s is not supported.', 'woocommerce' ),
+    esc_html__( '%s is not supported.', 'poocommerce' ),
     'Gateway'
 );
 ```
@@ -75,7 +75,7 @@ return sprintf(
 ```php
 return sprintf(
     /* translators: 1: Gateway name, 2: Country code. */
-    esc_html__( '%1$s is not available in %2$s.', 'woocommerce' ),
+    esc_html__( '%1$s is not available in %2$s.', 'poocommerce' ),
     $gateway_name,
     $country_code
 );
@@ -94,7 +94,7 @@ declare( strict_types=1 );
 /**
  * File docblock
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 ```
 
@@ -105,7 +105,7 @@ declare( strict_types=1 );
 /**
  * File docblock
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
 declare( strict_types=1 );

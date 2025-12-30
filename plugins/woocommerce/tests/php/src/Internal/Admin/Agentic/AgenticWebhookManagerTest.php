@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Agentic;
 
-use Automattic\WooCommerce\Internal\Admin\Agentic\AgenticWebhookManager;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
+use Automattic\PooCommerce\Internal\Admin\Agentic\AgenticWebhookManager;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
 
 /**
  * Tests for AgenticWebhookManager class.
@@ -36,10 +36,10 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		// Remove any existing hooks to prevent duplicates.
-		remove_all_filters( 'woocommerce_webhook_topics' );
-		remove_all_actions( 'woocommerce_new_order' );
-		remove_all_actions( 'woocommerce_order_status_changed' );
-		remove_all_actions( 'woocommerce_order_refunded' );
+		remove_all_filters( 'poocommerce_webhook_topics' );
+		remove_all_actions( 'poocommerce_new_order' );
+		remove_all_actions( 'poocommerce_order_status_changed' );
+		remove_all_actions( 'poocommerce_order_refunded' );
 
 		parent::tearDown();
 	}
@@ -54,7 +54,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @since 10.3.0
 		 * @see AgenticWebhookManager::register_webhook_topic_names()
 		 */
-		$topics = apply_filters( 'woocommerce_webhook_topics', array() );
+		$topics = apply_filters( 'poocommerce_webhook_topics', array() );
 
 		$this->assertArrayHasKey( AgenticWebhookManager::WEBHOOK_TOPIC, $topics );
 		$this->assertEquals( 'Agentic Commerce Protocol: Order created or updated', $topics[ AgenticWebhookManager::WEBHOOK_TOPIC ] );
@@ -90,7 +90,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 *
 		 * @since 10.3.0
 		 */
-		do_action( 'woocommerce_new_order', $order->get_id(), $order );
+		do_action( 'poocommerce_new_order', $order->get_id(), $order );
 
 		$this->assertEquals( $should_fire ? 1 : 0, $action_count );
 	}
@@ -198,7 +198,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::customize_webhook_payload()
 		 */
 		$payload = apply_filters(
-			'woocommerce_webhook_payload',
+			'poocommerce_webhook_payload',
 			array(),
 			'order',
 			$order->get_id(),
@@ -231,7 +231,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::customize_webhook_payload()
 		 */
 		$payload = apply_filters(
-			'woocommerce_webhook_payload',
+			'poocommerce_webhook_payload',
 			array( 'original' => 'data' ),
 			'order',
 			$order->get_id(),
@@ -265,7 +265,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::customize_webhook_http_args()
 		 */
 		$modified_args = apply_filters(
-			'woocommerce_webhook_http_args',
+			'poocommerce_webhook_http_args',
 			$original_args,
 			null,
 			$webhook->get_id()
@@ -274,7 +274,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		// Verify Merchant-Signature was added with correct computed value.
 		$this->assertArrayHasKey( 'Merchant-Signature', $modified_args['headers'] );
 
-		// Compute expected signature same way WooCommerce does.
+		// Compute expected signature same way PooCommerce does.
 		$expected_signature = base64_encode( hash_hmac( 'sha256', $payload, 'test_secret', true ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		$this->assertEquals( $expected_signature, $modified_args['headers']['Merchant-Signature'] );
 
@@ -311,9 +311,9 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 				'body'    => $test['payload'],
 			);
 
-			// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			$modified_args = apply_filters(
-				'woocommerce_webhook_http_args',
+				'poocommerce_webhook_http_args',
 				$args,
 				null,
 				$webhook->get_id()
@@ -335,7 +335,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 	 * Test that non-Agentic webhooks are not affected.
 	 */
 	public function test_non_agentic_webhooks_unaffected() {
-		// Create a regular WooCommerce webhook.
+		// Create a regular PooCommerce webhook.
 		$webhook = new \WC_Webhook();
 		$webhook->set_topic( 'order.created' ); // Regular WC topic.
 		$webhook->set_delivery_url( 'https://example.com/webhook' );
@@ -346,9 +346,9 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 			'body'    => '{"test":"data"}',
 		);
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$modified_args = apply_filters(
-			'woocommerce_webhook_http_args',
+			'poocommerce_webhook_http_args',
 			$args,
 			null,
 			$webhook->get_id()
@@ -390,7 +390,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::mark_first_event_delivered()
 		 */
 		do_action(
-			'woocommerce_webhook_delivery',
+			'poocommerce_webhook_delivery',
 			$http_args,
 			$response,
 			0.5, // duration.
@@ -433,7 +433,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::mark_first_event_delivered()
 		 */
 		do_action(
-			'woocommerce_webhook_delivery',
+			'poocommerce_webhook_delivery',
 			$http_args,
 			$response,
 			0.5, // duration.
@@ -452,7 +452,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 	 * Test that first event marking is skipped for non-Agentic webhooks.
 	 */
 	public function test_mark_first_event_delivered_non_agentic_webhook() {
-		// Create a regular WooCommerce webhook (not Agentic).
+		// Create a regular PooCommerce webhook (not Agentic).
 		$webhook = new \WC_Webhook();
 		$webhook->set_topic( 'order.created' );
 		$webhook->set_delivery_url( 'https://example.com/webhook' );
@@ -480,7 +480,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::mark_first_event_delivered()
 		 */
 		do_action(
-			'woocommerce_webhook_delivery',
+			'poocommerce_webhook_delivery',
 			$http_args,
 			$response,
 			0.5, // duration.
@@ -523,7 +523,7 @@ class AgenticWebhookManagerTest extends \WC_Unit_Test_Case {
 		 * @see AgenticWebhookManager::mark_first_event_delivered()
 		 */
 		do_action(
-			'woocommerce_webhook_delivery',
+			'poocommerce_webhook_delivery',
 			$http_args,
 			$response,
 			0.5, // duration.

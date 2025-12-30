@@ -3,17 +3,17 @@
  * API\Reports\Products\DataStore class file.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Products;
+namespace Automattic\PooCommerce\Admin\API\Reports\Products;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Admin\API\Reports\Cache as ReportsCache;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Admin\API\Reports\DataStore as ReportsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\DataStoreInterface;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\API\Reports\SqlQuery;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Admin\API\Reports\Cache as ReportsCache;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * API\Reports\Products\DataStore.
@@ -112,9 +112,9 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 	 * Set up all the hooks for maintaining and populating table data.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 10 );
-		add_action( 'woocommerce_order_partially_refunded', array( __CLASS__, 'add_partial_refund_type_meta' ), 10, 2 );
-		add_action( 'woocommerce_order_fully_refunded', array( __CLASS__, 'add_full_refund_type_meta' ), 10, 2 );
+		add_action( 'poocommerce_analytics_delete_order_stats', array( __CLASS__, 'sync_on_order_delete' ), 10 );
+		add_action( 'poocommerce_order_partially_refunded', array( __CLASS__, 'add_partial_refund_type_meta' ), 10, 2 );
+		add_action( 'poocommerce_order_fully_refunded', array( __CLASS__, 'add_full_refund_type_meta' ), 10, 2 );
 	}
 
 	/**
@@ -262,7 +262,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 							$wpdb->prepare(
 								"SELECT i.order_item_name
 								FROM {$wpdb->prefix}wc_order_product_lookup l
-								JOIN {$wpdb->prefix}woocommerce_order_items i ON i.order_item_id = l.order_item_id
+								JOIN {$wpdb->prefix}poocommerce_order_items i ON i.order_item_id = l.order_item_id
 								WHERE l.product_id = %d
 								ORDER BY l.order_item_id DESC
 								LIMIT 1",
@@ -272,11 +272,11 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 					}
 
 					/* translators: %s is product name */
-					$products_data[ $key ]['extended_info']['name'] = $product_names[ $product_id ] ? sprintf( __( '%s (Deleted)', 'woocommerce' ), $product_names[ $product_id ] ) : __( '(Deleted)', 'woocommerce' );
+					$products_data[ $key ]['extended_info']['name'] = $product_names[ $product_id ] ? sprintf( __( '%s (Deleted)', 'poocommerce' ), $product_names[ $product_id ] ) : __( '(Deleted)', 'poocommerce' );
 					continue;
 				}
 
-				$extended_attributes = apply_filters( 'woocommerce_rest_reports_products_extended_attributes', $this->extended_attributes, $product_data );
+				$extended_attributes = apply_filters( 'poocommerce_rest_reports_products_extended_attributes', $this->extended_attributes, $product_data );
 				foreach ( $extended_attributes as $extended_attribute ) {
 					if ( 'variations' === $extended_attribute ) {
 						if ( ! $product->is_type( ProductType::VARIABLE ) ) {
@@ -293,7 +293,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 				}
 				// If there is no set low_stock_amount, use the one in user settings.
 				if ( '' === $extended_info['low_stock_amount'] ) {
-					$extended_info['low_stock_amount'] = absint( max( get_option( 'woocommerce_notify_low_stock_amount' ), 1 ) );
+					$extended_info['low_stock_amount'] = absint( max( get_option( 'poocommerce_notify_low_stock_amount' ), 1 ) );
 				}
 				$extended_info = $this->cast_numbers( $extended_info );
 			}
@@ -470,7 +470,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		$order_items    = $order->get_items();
 		$num_updated    = 0;
 		$decimals       = wc_get_price_decimals();
-		$round_tax      = 'no' === get_option( 'woocommerce_tax_round_at_subtotal' );
+		$round_tax      = 'no' === get_option( 'poocommerce_tax_round_at_subtotal' );
 
 		$is_full_refund_without_line_items = false;
 		$partial_refund_product_revenue    = array();
@@ -639,7 +639,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 			 * @param int $order_item_id Order Item ID.
 			 * @param int $order_id      Order ID.
 			 */
-			do_action( 'woocommerce_analytics_update_product', $order_item_id, $order->get_id() );
+			do_action( 'poocommerce_analytics_update_product', $order_item_id, $order->get_id() );
 
 			// Sum the rows affected. Using REPLACE can affect 2 rows if the row already exists.
 			$num_updated += 2 === intval( $result ) ? 1 : intval( $result );
@@ -678,7 +678,7 @@ class DataStore extends ReportsDataStore implements DataStoreInterface {
 		 * @param int $product_id Product ID.
 		 * @param int $order_id   Order ID.
 		 */
-		do_action( 'woocommerce_analytics_delete_product', 0, $order_id );
+		do_action( 'poocommerce_analytics_delete_product', 0, $order_id );
 
 		ReportsCache::invalidate();
 	}

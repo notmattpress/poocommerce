@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { createElement } from '@wordpress/element';
 import { BlockAttributes } from '@wordpress/blocks';
 import { BaseControl } from '@wordpress/components';
-import { ProductTag } from '@woocommerce/data';
+import { ProductTag } from '@poocommerce/data';
 import { useInstanceId } from '@wordpress/compose';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -37,10 +37,10 @@ export function Edit( {
 				<TagField
 					id={ tagFieldId }
 					isVisible={ isInSelectedTab }
-					label={ label || __( 'Tags', 'woocommerce' ) }
+					label={ label || __( 'Tags', 'poocommerce' ) }
 					placeholder={
 						placeholder ||
-						__( 'Search or create tags…', 'woocommerce' )
+						__( 'Search or create tags…', 'poocommerce' )
 					}
 					onChange={ setTags }
 					value={ tags || [] }

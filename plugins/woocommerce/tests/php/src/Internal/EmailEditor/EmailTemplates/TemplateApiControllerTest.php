@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Internal\EmailEditor\EmailTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\EmailEditor\EmailTemplates;
 
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
-use Automattic\WooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\TemplateApiController;
+use Automattic\PooCommerce\Internal\EmailEditor\EmailTemplates\WooEmailTemplate;
 
 /**
  * Tests for the TemplateApiController class.
@@ -25,7 +25,7 @@ class TemplateApiControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that getTemplateData returns empty array for non-WooCommerce templates.
+	 * Test that getTemplateData returns empty array for non-PooCommerce templates.
 	 */
 	public function testItDoesNotGetTemplateDataForNonWooTemplate(): void {
 		$template_data = array(
@@ -37,14 +37,14 @@ class TemplateApiControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that getTemplateData returns sender settings for WooCommerce templates.
+	 * Test that getTemplateData returns sender settings for PooCommerce templates.
 	 */
 	public function testItGetsTemplateDataForWooTemplate(): void {
 		$from_name    = 'Test Store';
 		$from_address = 'test@example.com';
 
-		update_option( 'woocommerce_email_from_name', $from_name );
-		update_option( 'woocommerce_email_from_address', $from_address );
+		update_option( 'poocommerce_email_from_name', $from_name );
+		update_option( 'poocommerce_email_from_address', $from_address );
 
 		$template_data = array(
 			'slug' => WooEmailTemplate::TEMPLATE_SLUG,
@@ -58,7 +58,7 @@ class TemplateApiControllerTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that saveData updates WooCommerce email settings.
+	 * Test that saveData updates PooCommerce email settings.
 	 */
 	public function testItSavesTemplateDataForWooTemplate(): void {
 		$new_from_name    = 'New Store Name';
@@ -76,19 +76,19 @@ class TemplateApiControllerTest extends \WC_Unit_Test_Case {
 
 		$this->template_api_controller->save_template_data( $data, $template );
 
-		$this->assertEquals( $new_from_name, get_option( 'woocommerce_email_from_name' ) );
-		$this->assertEquals( $new_from_address, get_option( 'woocommerce_email_from_address' ) );
+		$this->assertEquals( $new_from_name, get_option( 'poocommerce_email_from_name' ) );
+		$this->assertEquals( $new_from_address, get_option( 'poocommerce_email_from_address' ) );
 	}
 
 	/**
-	 * Test that saveTemplateData does not update settings for non-WooCommerce templates.
+	 * Test that saveTemplateData does not update settings for non-PooCommerce templates.
 	 */
 	public function testItDoesNotSaveTemplateDataForNonWooTemplate(): void {
 		$original_from_name    = 'Original Store';
 		$original_from_address = 'original@example.com';
 
-		update_option( 'woocommerce_email_from_name', $original_from_name );
-		update_option( 'woocommerce_email_from_address', $original_from_address );
+		update_option( 'poocommerce_email_from_name', $original_from_name );
+		update_option( 'poocommerce_email_from_address', $original_from_address );
 
 		$template       = new \WP_Block_Template();
 		$template->slug = 'non-woo-template';
@@ -102,8 +102,8 @@ class TemplateApiControllerTest extends \WC_Unit_Test_Case {
 
 		$this->template_api_controller->save_template_data( $data, $template );
 
-		$this->assertEquals( $original_from_name, get_option( 'woocommerce_email_from_name' ) );
-		$this->assertEquals( $original_from_address, get_option( 'woocommerce_email_from_address' ) );
+		$this->assertEquals( $original_from_name, get_option( 'poocommerce_email_from_name' ) );
+		$this->assertEquals( $original_from_address, get_option( 'poocommerce_email_from_address' ) );
 	}
 
 	/**

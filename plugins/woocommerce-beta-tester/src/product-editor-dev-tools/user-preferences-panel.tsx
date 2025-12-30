@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { useUserPreferences, UserPreferences } from '@woocommerce/data';
+import { useUserPreferences, UserPreferences } from '@poocommerce/data';
 import { useCallback } from '@wordpress/element';
 
 /**
@@ -65,8 +65,8 @@ export function UserPreferencesTabPanel( {
 
 	return (
 		<TabPanel isSelected={ isSelected }>
-			<div className="woocommerce-product-editor-dev-tools-user-preferences">
-				<div className="woocommerce-product-editor-dev-tools-user-preferences-entity">
+			<div className="poocommerce-product-editor-dev-tools-user-preferences">
+				<div className="poocommerce-product-editor-dev-tools-user-preferences-entity">
 					{ JSON.stringify( userPreferences, null, 4 ) }
 				</div>
 			</div>

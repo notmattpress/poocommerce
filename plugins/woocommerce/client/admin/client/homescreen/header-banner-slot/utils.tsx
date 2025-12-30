@@ -5,15 +5,15 @@ import { Slot, Fill } from '@wordpress/components';
 import {
 	createOrderedChildren,
 	sortFillsByOrder,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 export const EXPERIMENTAL_WC_HOMESCREEN_HEADER_BANNER_SLOT_NAME =
-	'woocommerce_homescreen_experimental_header_banner_item';
+	'poocommerce_homescreen_experimental_header_banner_item';
 /**
- * Create a Fill for extensions to add items to the WooCommerce Admin Homescreen header banner.
+ * Create a Fill for extensions to add items to the PooCommerce Admin Homescreen header banner.
  *
  * @slotFill WooHomescreenHeaderBannerItem
- * @scope woocommerce-admin
+ * @scope poocommerce-admin
  * @example
  * const MyHeaderItem = () => (
  * <WooHomescreenHeaderBannerItem>My header item</WooHomescreenHeaderBannerItem>
@@ -21,7 +21,7 @@ export const EXPERIMENTAL_WC_HOMESCREEN_HEADER_BANNER_SLOT_NAME =
  *
  * registerPlugin( 'my-extension', {
  * render: MyHeaderItem,
- * scope: 'woocommerce-admin',
+ * scope: 'poocommerce-admin',
  * } );
  * @param {Object} param0
  * @param {Array}  param0.children - Node children.

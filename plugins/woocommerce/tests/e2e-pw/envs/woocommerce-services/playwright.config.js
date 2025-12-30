@@ -8,7 +8,7 @@ config = {
 	projects: [
 		...config.setupProjects,
 		{
-			name: 'WooCommerce Shipping & Tax',
+			name: 'PooCommerce Shipping & Tax',
 			grep: new RegExp( tags.SERVICES ),
 			dependencies: [ 'site setup' ],
 		},

@@ -17,7 +17,7 @@ const TimelineGroup = ( {
 	orderBy = 'desc',
 	clockFormat,
 } ) => {
-	const groupClassName = clsx( 'woocommerce-timeline-group', className );
+	const groupClassName = clsx( 'poocommerce-timeline-group', className );
 	const itemsToTimlineItem = ( item, itemIndex ) => {
 		const itemKey = group.title + '-' + itemIndex;
 		return (
@@ -31,7 +31,7 @@ const TimelineGroup = ( {
 
 	return (
 		<li className={ groupClassName }>
-			<p className={ 'woocommerce-timeline-group__title' }>
+			<p className={ 'poocommerce-timeline-group__title' }>
 				{ group.title }
 			</p>
 			<ul>

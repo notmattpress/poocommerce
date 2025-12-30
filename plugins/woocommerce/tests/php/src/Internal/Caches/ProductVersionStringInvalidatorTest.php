@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Caches;
+namespace Automattic\PooCommerce\Tests\Internal\Caches;
 
-use Automattic\WooCommerce\Internal\Caches\ProductVersionStringInvalidator;
-use Automattic\WooCommerce\Internal\Caches\VersionStringGenerator;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Caches\ProductVersionStringInvalidator;
+use Automattic\PooCommerce\Internal\Caches\VersionStringGenerator;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * Tests for the ProductVersionStringInvalidator class.
@@ -44,7 +44,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 	 * Tear down test.
 	 */
 	public function tearDown(): void {
-		delete_option( 'woocommerce_rest_api_enable_backend_caching' );
+		delete_option( 'poocommerce_rest_api_enable_backend_caching' );
 		parent::tearDown();
 	}
 
@@ -59,7 +59,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 			->with( 'rest_api_caching' )
 			->willReturn( true );
 
-		update_option( 'woocommerce_rest_api_enable_backend_caching', 'yes' );
+		update_option( 'poocommerce_rest_api_enable_backend_caching', 'yes' );
 
 		$invalidator = new ProductVersionStringInvalidator();
 		$invalidator->init( $features_controller );
@@ -91,8 +91,8 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$invalidator = $this->get_invalidator_with_hooks_enabled();
 
 		$this->assertNotFalse( has_action( 'save_post_product', array( $invalidator, 'handle_save_post_product' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_new_product', array( $invalidator, 'handle_woocommerce_new_product' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_update_product', array( $invalidator, 'handle_woocommerce_update_product' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_new_product', array( $invalidator, 'handle_poocommerce_new_product' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_update_product', array( $invalidator, 'handle_poocommerce_update_product' ) ) );
 	}
 
 	/**
@@ -104,14 +104,14 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 			->with( 'rest_api_caching' )
 			->willReturn( false );
 
-		update_option( 'woocommerce_rest_api_enable_backend_caching', 'yes' );
+		update_option( 'poocommerce_rest_api_enable_backend_caching', 'yes' );
 
 		$invalidator = new ProductVersionStringInvalidator();
 		$invalidator->init( $features_controller );
 
 		$this->assertFalse( has_action( 'save_post_product', array( $invalidator, 'handle_save_post_product' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_new_product', array( $invalidator, 'handle_woocommerce_new_product' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_update_product', array( $invalidator, 'handle_woocommerce_update_product' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_new_product', array( $invalidator, 'handle_poocommerce_new_product' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_update_product', array( $invalidator, 'handle_poocommerce_update_product' ) ) );
 	}
 
 	/**
@@ -123,14 +123,14 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 			->with( 'rest_api_caching' )
 			->willReturn( true );
 
-		update_option( 'woocommerce_rest_api_enable_backend_caching', 'no' );
+		update_option( 'poocommerce_rest_api_enable_backend_caching', 'no' );
 
 		$invalidator = new ProductVersionStringInvalidator();
 		$invalidator->init( $features_controller );
 
 		$this->assertFalse( has_action( 'save_post_product', array( $invalidator, 'handle_save_post_product' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_new_product', array( $invalidator, 'handle_woocommerce_new_product' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_update_product', array( $invalidator, 'handle_woocommerce_update_product' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_new_product', array( $invalidator, 'handle_poocommerce_new_product' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_update_product', array( $invalidator, 'handle_poocommerce_update_product' ) ) );
 	}
 
 	/**
@@ -142,14 +142,14 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 			->with( 'rest_api_caching' )
 			->willReturn( true );
 
-		delete_option( 'woocommerce_rest_api_enable_backend_caching' );
+		delete_option( 'poocommerce_rest_api_enable_backend_caching' );
 
 		$invalidator = new ProductVersionStringInvalidator();
 		$invalidator->init( $features_controller );
 
 		$this->assertFalse( has_action( 'save_post_product', array( $invalidator, 'handle_save_post_product' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_new_product', array( $invalidator, 'handle_woocommerce_new_product' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_update_product', array( $invalidator, 'handle_woocommerce_update_product' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_new_product', array( $invalidator, 'handle_poocommerce_new_product' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_update_product', array( $invalidator, 'handle_poocommerce_update_product' ) ) );
 	}
 
 	/**
@@ -431,8 +431,8 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$this->assertNotNull( $version_before, 'Version string should exist before stock update' );
 
 		// Trigger stock update hook.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_updated_product_stock', $product_id );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_updated_product_stock', $product_id );
 
 		$version_after = $this->version_generator->get_version( "product_{$product_id}", false );
 		$this->assertNull( $version_after, 'Version string should be deleted after stock update' );
@@ -452,8 +452,8 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$this->assertNotNull( $version_before, 'Version string should exist before price update' );
 
 		// Trigger price update hook.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_updated_product_price', $product_id );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_updated_product_price', $product_id );
 
 		$version_after = $this->version_generator->get_version( "product_{$product_id}", false );
 		$this->assertNull( $version_after, 'Version string should be deleted after price update' );
@@ -473,8 +473,8 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$this->assertNotNull( $version_before, 'Version string should exist before sales update' );
 
 		// Trigger sales update hook.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_updated_product_sales', $product_id );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_updated_product_sales', $product_id );
 
 		$version_after = $this->version_generator->get_version( "product_{$product_id}", false );
 		$this->assertNull( $version_after, 'Version string should be deleted after sales update' );
@@ -519,7 +519,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$this->assertNotNull( $version_before, 'Version string should exist before attribute term update' );
 
 		// Trigger edited_term hook.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'edited_term', $red_term['term_id'], $red_term['term_taxonomy_id'], 'pa_test_color' );
 
 		$version_after = $this->version_generator->get_version( "product_{$product->get_id()}", false );
@@ -527,7 +527,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox The taxonomy lookup cache TTL is filterable via woocommerce_version_string_invalidator_taxonomy_lookup_ttl.
+	 * @testdox The taxonomy lookup cache TTL is filterable via poocommerce_version_string_invalidator_taxonomy_lookup_ttl.
 	 */
 	public function test_taxonomy_lookup_cache_ttl_is_filterable() {
 		if ( ! $this->is_cpt_data_store() ) {
@@ -537,7 +537,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$filter_calls = array();
 
 		add_filter(
-			'woocommerce_version_string_invalidator_taxonomy_lookup_ttl',
+			'poocommerce_version_string_invalidator_taxonomy_lookup_ttl',
 			function ( $ttl, $entity_type ) use ( &$filter_calls ) {
 				$filter_calls[] = array(
 					'ttl'         => $ttl,
@@ -570,7 +570,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$product->save();
 
 		// Clear cache to ensure the filter is called.
-		wp_cache_delete( 'wc_cache_inv_term_' . $term['term_taxonomy_id'], 'woocommerce' );
+		wp_cache_delete( 'wc_cache_inv_term_' . $term['term_taxonomy_id'], 'poocommerce' );
 
 		// Trigger the edited_term hook via the handler.
 		$invalidator->handle_edited_term( $term['term_id'], $term['term_taxonomy_id'], 'pa_filter_test' );
@@ -579,7 +579,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$this->assertSame( ProductVersionStringInvalidator::DEFAULT_TAXONOMY_LOOKUP_CACHE_TTL, $filter_calls[0]['ttl'] );
 		$this->assertSame( 'product', $filter_calls[0]['entity_type'] );
 
-		remove_all_filters( 'woocommerce_version_string_invalidator_taxonomy_lookup_ttl' );
+		remove_all_filters( 'poocommerce_version_string_invalidator_taxonomy_lookup_ttl' );
 	}
 
 	/**
@@ -609,7 +609,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$version_before = $this->version_generator->get_version( 'product_123', false );
 		$this->assertNotNull( $version_before, 'Version string should exist before invalidation' );
 
-		$this->sut->handle_woocommerce_new_product( $product_id );
+		$this->sut->handle_poocommerce_new_product( $product_id );
 
 		$version_after = $this->version_generator->get_version( 'product_123', false );
 		$this->assertNull( $version_after, 'Version string should be deleted after invalidation with string ID' );
@@ -626,34 +626,34 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 		$this->assertNotNull( $version_before, 'Version string should exist before invalidation' );
 
 		// Call with invalid variation object - should not throw and should still invalidate the variation.
-		$this->sut->handle_woocommerce_new_product_variation( $variation_id, 'not_a_product' );
+		$this->sut->handle_poocommerce_new_product_variation( $variation_id, 'not_a_product' );
 
 		$version_after = $this->version_generator->get_version( "product_{$variation_id}", false );
 		$this->assertNull( $version_after, 'Variation version string should be deleted even with invalid variation object' );
 	}
 
 	/**
-	 * @testdox handle_woocommerce_attribute_updated gracefully handles invalid data array.
+	 * @testdox handle_poocommerce_attribute_updated gracefully handles invalid data array.
 	 */
 	public function test_attribute_updated_handler_handles_invalid_data() {
-		$this->sut->handle_woocommerce_attribute_updated( 1, 'not_an_array' );
+		$this->sut->handle_poocommerce_attribute_updated( 1, 'not_an_array' );
 		$this->assertTrue( true, 'Handler should not throw with non-array data' );
 
-		$this->sut->handle_woocommerce_attribute_updated( 1, array( 'other_key' => 'value' ) );
+		$this->sut->handle_poocommerce_attribute_updated( 1, array( 'other_key' => 'value' ) );
 		$this->assertTrue( true, 'Handler should not throw with array missing attribute_name' );
 	}
 
 	/**
-	 * @testdox handle_woocommerce_attribute_deleted gracefully handles invalid taxonomy.
+	 * @testdox handle_poocommerce_attribute_deleted gracefully handles invalid taxonomy.
 	 */
 	public function test_attribute_deleted_handler_handles_invalid_taxonomy() {
-		$this->sut->handle_woocommerce_attribute_deleted( 1, 'name', null );
+		$this->sut->handle_poocommerce_attribute_deleted( 1, 'name', null );
 		$this->assertTrue( true, 'Handler should not throw with null taxonomy' );
 
-		$this->sut->handle_woocommerce_attribute_deleted( 1, 'name', '' );
+		$this->sut->handle_poocommerce_attribute_deleted( 1, 'name', '' );
 		$this->assertTrue( true, 'Handler should not throw with empty taxonomy' );
 
-		$this->sut->handle_woocommerce_attribute_deleted( 1, 'name', array( 'taxonomy' ) );
+		$this->sut->handle_poocommerce_attribute_deleted( 1, 'name', array( 'taxonomy' ) );
 		$this->assertTrue( true, 'Handler should not throw with array taxonomy' );
 	}
 
@@ -714,7 +714,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 
 		// Test stock handler.
 		$this->version_generator->generate_version( 'product_789' );
-		$this->sut->handle_woocommerce_updated_product_stock( $product_id );
+		$this->sut->handle_poocommerce_updated_product_stock( $product_id );
 		$this->assertNull(
 			$this->version_generator->get_version( 'product_789', false ),
 			'Stock handler should work with string ID'
@@ -722,7 +722,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 
 		// Test price handler.
 		$this->version_generator->generate_version( 'product_789' );
-		$this->sut->handle_woocommerce_updated_product_price( $product_id );
+		$this->sut->handle_poocommerce_updated_product_price( $product_id );
 		$this->assertNull(
 			$this->version_generator->get_version( 'product_789', false ),
 			'Price handler should work with string ID'
@@ -730,7 +730,7 @@ class ProductVersionStringInvalidatorTest extends \WC_Unit_Test_Case {
 
 		// Test sales handler.
 		$this->version_generator->generate_version( 'product_789' );
-		$this->sut->handle_woocommerce_updated_product_sales( $product_id );
+		$this->sut->handle_poocommerce_updated_product_sales( $product_id );
 		$this->assertNull(
 			$this->version_generator->get_version( 'product_789', false ),
 			'Sales handler should work with string ID'

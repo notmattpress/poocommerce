@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect, BLOCK_THEME_SLUG } from '@woocommerce/e2e-utils';
+import { test as base, expect, BLOCK_THEME_SLUG } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -311,7 +311,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		await expect( pageObject.products ).toHaveCount( 5 );
 	} );
 
-	// See https://github.com/woocommerce/woocommerce/pull/49917
+	// See https://github.com/poocommerce/poocommerce/pull/49917
 	test( 'Price range is inclusive in both editor and frontend.', async ( {
 		page,
 		pageObject,
@@ -346,7 +346,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 		await expect( pageObject.products ).toHaveCount( 9 );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: { filterType: 'price-filter' },
 		} );
 
@@ -592,14 +592,14 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 			await expect( pageObject.products ).toHaveCount( 18 );
 
 			const productCollectionBlock = await editor.getBlockByName(
-				'woocommerce/product-collection'
+				'poocommerce/product-collection'
 			);
 			const productCollectionClientId =
 				( await productCollectionBlock
 					.last()
 					.getAttribute( 'data-block' ) ) ?? '';
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-filters' },
+				{ name: 'poocommerce/product-filters' },
 				{ clientId: productCollectionClientId }
 			);
 
@@ -607,7 +607,7 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 			await page.goto( `/?p=${ postId }` );
 
 			const productCollection = page.locator(
-				'.wp-block-woocommerce-product-collection'
+				'.wp-block-poocommerce-product-collection'
 			);
 
 			await expect(
@@ -651,14 +651,14 @@ test.describe( 'Product Collection: Inspector Controls', () => {
 			] );
 
 			const productCollectionBlock = await editor.getBlockByName(
-				'woocommerce/product-collection'
+				'poocommerce/product-collection'
 			);
 			const productCollectionClientId =
 				( await productCollectionBlock
 					.last()
 					.getAttribute( 'data-block' ) ) ?? '';
 			await editor.insertBlock(
-				{ name: 'woocommerce/product-filters' },
+				{ name: 'poocommerce/product-filters' },
 				{ clientId: productCollectionClientId }
 			);
 

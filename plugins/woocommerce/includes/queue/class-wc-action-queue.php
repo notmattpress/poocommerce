@@ -3,7 +3,7 @@
  * Action Queue
  *
  * @version 3.5.0
- * @package WooCommerce\Interface
+ * @package PooCommerce\Interface
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

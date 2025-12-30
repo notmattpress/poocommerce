@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * This tests when creating a product with tags, it will properly assign

@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-review-form",
+	"name": "poocommerce/product-review-form",
 	"title": "Reviews Form",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "Display a product's reviews form.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"textAlign": {
 			"type": "string"
@@ -57,7 +57,7 @@
 			"textAlign": "center"
 		}
 	},
-	"viewScriptModule": "woocommerce/product-review-form",
-	"style": "file:../woocommerce/product-review-form-style.css",
-	"editorStyle": "file:../woocommerce/product-review-form-editor.css"
+	"viewScriptModule": "poocommerce/product-review-form",
+	"style": "file:../poocommerce/product-review-form-style.css",
+	"editorStyle": "file:../poocommerce/product-review-form-editor.css"
 }

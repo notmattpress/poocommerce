@@ -1,4 +1,4 @@
-/* eslint-disable @woocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid ESLint errors */
+/* eslint-disable @poocommerce/dependency-group -- because we import mocks first, we deactivate this rule to avoid ESLint errors */
 import '../../test/__mocks__/setup-shared-mocks';
 
 /**
@@ -85,7 +85,7 @@ describe( 'CategoryMenu', () => {
 
 		const activeItem = screen.getByText( 'Customer Data' );
 		expect( activeItem ).toHaveClass(
-			'woocommerce-personalization-tags-modal-menu-item-active'
+			'poocommerce-personalization-tags-modal-menu-item-active'
 		);
 	} );
 
@@ -99,7 +99,7 @@ describe( 'CategoryMenu', () => {
 		);
 
 		const separators = screen.getAllByTestId(
-			'woocommerce-personalization-tags-modal-menu-separator'
+			'poocommerce-personalization-tags-modal-menu-separator'
 		);
 		// 1 after "All" + 2 between 3 categories
 		expect( separators ).toHaveLength( 3 );

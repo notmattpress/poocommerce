@@ -6,17 +6,17 @@ sidebar_label: Frequently asked questions
 
 # Frequently Asked Questions
 
-This document aims to answer some of the frequently asked questions we see from developers extending WooCommerce Blocks.
+This document aims to answer some of the frequently asked questions we see from developers extending PooCommerce Blocks.
 
 We will add to the FAQ document as we receive questions, this isn't the document's final form.
 
-If you have questions that aren't addressed here, we invite you to ask them on [GitHub Discussions](https://github.com/woocommerce/woocommerce/discussions) or in the [WooCommerce Community Slack](https://woocommerce.com/community-slack/)
+If you have questions that aren't addressed here, we invite you to ask them on [GitHub Discussions](https://github.com/poocommerce/poocommerce/discussions) or in the [PooCommerce Community Slack](https://poocommerce.com/community-slack/)
 
 ## General questions
 
 ### How do I react to changes to the Cart or Checkout e.g. shipping method selection, or address changes?
 
-The Cart and Checkout blocks read all their data from [`@wordpress/data` data stores](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/). We also have [documentation for the data stores WooCommerce Blocks uses](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/data-store).
+The Cart and Checkout blocks read all their data from [`@wordpress/data` data stores](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/). We also have [documentation for the data stores PooCommerce Blocks uses](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/data-store).
 
 It is common for developers to want to react to changes in the cart or checkout. For example, if a user changes their shipping method, or changes a line of their address.
 
@@ -24,14 +24,14 @@ There are two ways to do this, depending on how your code is running.
 
 #### If your code is running in a React component
 
-If your component is an inner block of the Cart/Checkout, or rendered in a [Slot/Fill](/docs/block-development/reference/slot-fills/), you can directly select the data you need from the relevant data store and perform any necessary actions when the data changes. For more information on available selectors, refer to the [documentation for the relevant data store](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/data-store).
+If your component is an inner block of the Cart/Checkout, or rendered in a [Slot/Fill](/docs/block-development/reference/slot-fills/), you can directly select the data you need from the relevant data store and perform any necessary actions when the data changes. For more information on available selectors, refer to the [documentation for the relevant data store](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/data-store).
 
 ```js
 /**
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 import { useEffect } from '@wordpress/element';
 
 export const MyComponent = () => {
@@ -54,7 +54,7 @@ This would be true if you're not rendering a block, or running any React code. T
  * External dependencies
  */
 import { select, subscribe } from '@wordpress/data';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 
 let previousCountry = '';
 const unsubscribe = subscribe( () => {
@@ -77,7 +77,7 @@ If you no longer need to react to changes, you can unsubscribe from the data sto
 
 ### How do I dynamically make changes to the cart from the client?
 
-To perform actions on the server based on a client-side action, you'll need to use [`extensionCartUpdate`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/rest-api/extend-rest-api-update-cart.md)
+To perform actions on the server based on a client-side action, you'll need to use [`extensionCartUpdate`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/rest-api/extend-rest-api-update-cart.md)
 
 As an example, to add a "Get 10% off if you sign up to the mailing list" checkbox on your site you can use `extensionCartUpdate` to automatically apply a 10% coupon to the cart.
 
@@ -86,8 +86,8 @@ As an example, to add a "Get 10% off if you sign up to the mailing list" checkbo
 Assuming you've already added the checkbox, either through the Additional Checkout Fields API, or by creating an inner block, the next step will be to register the server-side code to apply the coupon if the box is checked, and remove it if it's not.
 
 ```php
-add_action('woocommerce_blocks_loaded', function() {
-  woocommerce_store_api_register_update_callback(
+add_action('poocommerce_blocks_loaded', function() {
+  poocommerce_store_api_register_update_callback(
     [
       'namespace' => 'extension-unique-namespace',
       'callback'  => function( $data ) {
@@ -144,13 +144,13 @@ registerCheckoutFilters( 'extension-unique-namespace', {
 
 ### How do I add fees to the cart when a specific payment method is chosen?
 
-You need to add the fees on the server based on the selected payment method, this can be achieved using the `woocommerce_cart_calculate_fees` action.
+You need to add the fees on the server based on the selected payment method, this can be achieved using the `poocommerce_cart_calculate_fees` action.
 
 This is the server-side code required to add the fee:
 
 ```php
 add_action(
-	'woocommerce_cart_calculate_fees',
+	'poocommerce_cart_calculate_fees',
 	function () {
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 			return;
@@ -170,7 +170,7 @@ add_action(
 
 ### How to force-refresh the cart from the server
 
-This can be achieved using [`extensionCartUpdate`](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/client/blocks/docs/third-party-developers/extensibility/rest-api/extend-rest-api-update-cart.md) which is the preferred way, but it is also possible by executing the `receiveCart` action on the `wc/store/cart` data store with a valid cart object, like so:
+This can be achieved using [`extensionCartUpdate`](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/client/blocks/docs/third-party-developers/extensibility/rest-api/extend-rest-api-update-cart.md) which is the preferred way, but it is also possible by executing the `receiveCart` action on the `wc/store/cart` data store with a valid cart object, like so:
 
 ```js
 const { dispatch } = window.wp.data;
@@ -202,15 +202,15 @@ We don't encourage this due to the wide array of plugins WordPress and Woo suppo
 
 ### How do I modify the order or customer data during checkout?
 
-If you want to modify order or customer data submitted during checkout you can use the `woocommerce_store_api_checkout_order_processed` action.
+If you want to modify order or customer data submitted during checkout you can use the `poocommerce_store_api_checkout_order_processed` action.
 
-This action fires just before payment is processed. At this point you can modify the order as you would at any other point in the WooCommerce lifecycle, you still have to call `$order->save()` to persist the changes.
+This action fires just before payment is processed. At this point you can modify the order as you would at any other point in the PooCommerce lifecycle, you still have to call `$order->save()` to persist the changes.
 
 As an example, let's make sure the user's first and last names are capitalized:
 
 ```php
 add_action(
-  'woocommerce_store_api_checkout_order_processed',
+  'poocommerce_store_api_checkout_order_processed',
   function( WC_Order $order ) {
     $order->set_shipping_first_name( ucfirst( $order->get_shipping_first_name() ) );
     $order->set_shipping_last_name( ucfirst( $order->get_shipping_last_name() ) );
@@ -233,4 +233,4 @@ The recommended approach to rendering fields in the Checkout block is to use the
 
 #### Rendering a custom block
 
-To render a custom block in the Checkout block, the recommended approach is to create a child block of one of the existing Checkout inner blocks. We have an example template that can be used to set up and study an inner block. To install and use it, follow the instructions in [`@woocommerce/extend-cart-checkout-block`](https://github.com/woocommerce/woocommerce/blob/trunk/packages/js/extend-cart-checkout-block/README.md). Please note that this example contains multiple other examples of extensibility, not just inner blocks.
+To render a custom block in the Checkout block, the recommended approach is to create a child block of one of the existing Checkout inner blocks. We have an example template that can be used to set up and study an inner block. To install and use it, follow the instructions in [`@poocommerce/extend-cart-checkout-block`](https://github.com/poocommerce/poocommerce/blob/trunk/packages/js/extend-cart-checkout-block/README.md). Please note that this example contains multiple other examples of extensibility, not just inner blocks.

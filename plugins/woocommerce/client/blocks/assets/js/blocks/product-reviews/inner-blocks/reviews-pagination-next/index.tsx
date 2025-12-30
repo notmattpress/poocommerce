@@ -17,7 +17,7 @@ registerBlockType( metadata, {
 	edit,
 	example: {
 		attributes: {
-			label: __( 'Newer Reviews', 'woocommerce' ),
+			label: __( 'Newer Reviews', 'poocommerce' ),
 		},
 	},
 } );

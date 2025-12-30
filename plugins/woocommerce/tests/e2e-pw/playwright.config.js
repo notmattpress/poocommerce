@@ -45,7 +45,7 @@ const reporter = [
 			outputFile: `ctrf-report-${ Date.now() }.json`,
 			branchName: process.env.GITHUB_REF_NAME || '',
 			commit: process.env.GITHUB_SHA || '',
-			appName: 'woocommerce-core',
+			appName: 'poocommerce-core',
 			repositoryName: process.env.GITHUB_REPOSITORY || '',
 		},
 	],

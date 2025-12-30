@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/checkout-fields-block",
+	"name": "poocommerce/checkout-fields-block",
 	"version": "1.0.0",
 	"title": "Checkout Fields",
 	"description": "Column containing checkout address fields.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": false,
 		"html": false,
@@ -26,9 +26,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/checkout"
+		"poocommerce/checkout"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

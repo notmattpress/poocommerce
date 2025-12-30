@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Formatters;
+namespace Automattic\PooCommerce\StoreApi\Formatters;
 
 /**
  * Currency Formatter.
@@ -15,8 +15,8 @@ class CurrencyFormatter implements FormatterInterface {
 	 * @return array
 	 */
 	public function format( $value, array $options = [] ) {
-		$position = get_option( 'woocommerce_currency_pos' );
-		$symbol   = html_entity_decode( get_woocommerce_currency_symbol() );
+		$position = get_option( 'poocommerce_currency_pos' );
+		$symbol   = html_entity_decode( get_poocommerce_currency_symbol() );
 		$prefix   = '';
 		$suffix   = '';
 
@@ -38,7 +38,7 @@ class CurrencyFormatter implements FormatterInterface {
 		return array_merge(
 			(array) $value,
 			[
-				'currency_code'               => get_woocommerce_currency(),
+				'currency_code'               => get_poocommerce_currency(),
 				'currency_symbol'             => $symbol,
 				'currency_minor_unit'         => wc_get_price_decimals(),
 				'currency_decimal_separator'  => wc_get_price_decimal_separator(),

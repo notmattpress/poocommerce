@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TableCard } from '@woocommerce/components';
+import { TableCard } from '@poocommerce/components';
 import { useState, createElement } from '@wordpress/element';
 import { Button, Notice } from '@wordpress/components';
 

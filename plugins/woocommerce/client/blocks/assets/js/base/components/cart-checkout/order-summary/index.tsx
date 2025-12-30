@@ -4,11 +4,11 @@
 import {
 	useContainerWidthContext,
 	useStoreCart,
-} from '@woocommerce/base-context';
-import type { CartItem } from '@woocommerce/types';
+} from '@poocommerce/base-context';
+import type { CartItem } from '@poocommerce/types';
 import clsx from 'clsx';
-import { CartLineItemsCheckoutSkeleton } from '@woocommerce/base-components/skeleton/patterns/cart-line-items';
-import { DelayedContentWithSkeleton } from '@woocommerce/base-components/delayed-content-with-skeleton';
+import { CartLineItemsCheckoutSkeleton } from '@poocommerce/base-components/skeleton/patterns/cart-line-items';
+import { DelayedContentWithSkeleton } from '@poocommerce/base-components/delayed-content-with-skeleton';
 /**
  * Internal dependencies
  */

@@ -50,7 +50,7 @@ export function ModalEditor( {
 
 	return (
 		<Modal
-			className="woocommerce-modal-editor"
+			className="poocommerce-modal-editor"
 			title={ title }
 			onRequestClose={ handleClose }
 			shouldCloseOnClickOutside={ false }

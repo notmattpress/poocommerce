@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Data class.
  *
- * @package WooCommerce\Tests\Blocks
+ * @package PooCommerce\Tests\Blocks
  */
 
 /**
@@ -18,13 +18,13 @@ class WC_Test_Blocks_Utils extends WC_Unit_Test_Case {
 		$page = array(
 			'name'    => 'blocks-page',
 			'title'   => 'Checkout',
-			'content' => '<!-- wp:woocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-woocommerce-checkout is-loading"></div> <!-- /wp:woocommerce/checkout -->',
+			'content' => '<!-- wp:poocommerce/checkout {"showOrderNotes":false} --> <div class="wp-block-poocommerce-checkout is-loading"></div> <!-- /wp:poocommerce/checkout -->',
 		);
 
 		$page_id = wc_create_page( $page['name'], '', $page['title'], $page['content'] );
 
-		$this->assertTrue( WC_Blocks_Utils::has_block_in_page( $page_id, 'woocommerce/checkout' ) );
-		$this->assertFalse( WC_Blocks_Utils::has_block_in_page( $page_id, 'woocommerce/cart' ) );
+		$this->assertTrue( WC_Blocks_Utils::has_block_in_page( $page_id, 'poocommerce/checkout' ) );
+		$this->assertFalse( WC_Blocks_Utils::has_block_in_page( $page_id, 'poocommerce/cart' ) );
 	}
 
 	/**
@@ -36,13 +36,13 @@ class WC_Test_Blocks_Utils extends WC_Unit_Test_Case {
 		$page = array(
 			'name'    => 'shortcode-page',
 			'title'   => 'Checkout',
-			'content' => '<!-- wp:shortcode --> [woocommerce_checkout] <!-- /wp:shortcode -->',
+			'content' => '<!-- wp:shortcode --> [poocommerce_checkout] <!-- /wp:shortcode -->',
 		);
 
 		$page_id = wc_create_page( $page['name'], '', $page['title'], $page['content'] );
 
-		$this->assertFalse( WC_Blocks_Utils::has_block_in_page( $page_id, 'woocommerce/checkout' ) );
-		$this->assertFalse( WC_Blocks_Utils::has_block_in_page( $page_id, 'woocommerce/cart' ) );
+		$this->assertFalse( WC_Blocks_Utils::has_block_in_page( $page_id, 'poocommerce/checkout' ) );
+		$this->assertFalse( WC_Blocks_Utils::has_block_in_page( $page_id, 'poocommerce/cart' ) );
 	}
 
 	/**
@@ -54,11 +54,11 @@ class WC_Test_Blocks_Utils extends WC_Unit_Test_Case {
 		$page = array(
 			'name'    => 'shortcode-page',
 			'title'   => 'Checkout',
-			'content' => '<!-- wp:woocommerce/featured-product {"editMode":false,"productId":17} -->
+			'content' => '<!-- wp:poocommerce/featured-product {"editMode":false,"productId":17} -->
 				<!-- wp:button {"align":"center"} -->
 				<div class="wp-block-button aligncenter"><a class="wp-block-button__link" href="https://blocks.local/product/beanie/">Shop now</a></div>
 				<!-- /wp:button -->
-				<!-- /wp:woocommerce/featured-product -->
+				<!-- /wp:poocommerce/featured-product -->
 
 				<!-- wp:heading -->
 				<h2>test</h2>
@@ -67,7 +67,7 @@ class WC_Test_Blocks_Utils extends WC_Unit_Test_Case {
 
 		$page_id = wc_create_page( $page['name'], '', $page['title'], $page['content'] );
 
-		$this->assertTrue( WC_Blocks_Utils::has_block_in_page( $page_id, 'woocommerce/featured-product' ) );
+		$this->assertTrue( WC_Blocks_Utils::has_block_in_page( $page_id, 'poocommerce/featured-product' ) );
 		$this->assertTrue( WC_Blocks_Utils::has_block_in_page( $page_id, 'core/heading' ) );
 	}
 
@@ -83,7 +83,7 @@ class WC_Test_Blocks_Utils extends WC_Unit_Test_Case {
 			'content' => '<!-- wp:heading --><h2>test1</h2><!-- /wp:heading --><!-- wp:heading --><h1>test2</h1><!-- /wp:heading -->',
 		);
 
-		wc_create_page( $page['name'], 'woocommerce_cart_page_id', $page['title'], $page['content'] );
+		wc_create_page( $page['name'], 'poocommerce_cart_page_id', $page['title'], $page['content'] );
 
 		$expected = array(
 			0 => array(

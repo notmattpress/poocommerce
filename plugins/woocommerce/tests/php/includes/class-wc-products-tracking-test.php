@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductStatus;
+use Automattic\PooCommerce\Enums\ProductStatus;
 
 /**
  * Class WC_Products_Tracking_Test.
@@ -13,7 +13,7 @@ class WC_Products_Tracking_Test extends \WC_Unit_Test_Case {
 	 */
 	public function setUp(): void {
 		include_once WC_ABSPATH . 'includes/tracks/events/class-wc-products-tracking.php';
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$products_tracking = new WC_Products_Tracking();
 		$products_tracking->init();
 		parent::setUp();
@@ -25,7 +25,7 @@ class WC_Products_Tracking_Test extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		parent::tearDown();
 	}
 
@@ -103,7 +103,7 @@ class WC_Products_Tracking_Test extends \WC_Unit_Test_Case {
 	public function test_products_view(): void {
 		$_GET['post_type'] = 'product';
 		// phpcs:disable WordPress.NamingConventions.ValidHookName.UseUnderscores
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'load-edit.php' );
 		$this->assertRecordedTracksEvent( 'wcadmin_products_view' );
 	}
@@ -114,7 +114,7 @@ class WC_Products_Tracking_Test extends \WC_Unit_Test_Case {
 	public function test_products_search(): void {
 		$_GET['post_type'] = 'product';
 		$_GET['s']         = 'test';
-		/* phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment */
+		/* phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment */
 		do_action( 'load-edit.php' );
 		$this->assertRecordedTracksEvent( 'wcadmin_products_search' );
 	}

@@ -1,12 +1,12 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 
 /**
  * Shipping Zones API Tests
  *
- * @package WooCommerce\Tests\API
+ * @package PooCommerce\Tests\API
  * @since 3.5.0
  */
 class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
@@ -158,7 +158,7 @@ class WC_Tests_API_Shipping_Zones extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test /shipping/zones while Shipping is disabled in WooCommerce.
+	 * Test /shipping/zones while Shipping is disabled in PooCommerce.
 	 *
 	 * @since 3.5.0
 	 */

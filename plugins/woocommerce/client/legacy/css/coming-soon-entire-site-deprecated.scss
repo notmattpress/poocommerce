@@ -1,10 +1,10 @@
 /**
  * Styles for the deprecated version of the coming soon block for
- * coming soon template created before WooCommerce 9.8.0.
+ * coming soon template created before PooCommerce 9.8.0.
  */
-body:has(.woocommerce-coming-soon-entire-site) {
+body:has(.poocommerce-coming-soon-entire-site) {
 	margin: 0;
-	background-color: var(--woocommerce-coming-soon-color);
+	background-color: var(--poocommerce-coming-soon-color);
 	// This is default font family when no font family is selected. Users can override this in the block settings.
 	font-family:
 		-apple-system,
@@ -39,7 +39,7 @@ body:has(.woocommerce-coming-soon-entire-site) {
 		margin: 0 auto;
 	}
 
-	.woocommerce-coming-soon-banner.alignwide {
+	.poocommerce-coming-soon-banner.alignwide {
 		max-width: 820px;
 	}
 
@@ -63,7 +63,7 @@ body:has(.woocommerce-coming-soon-entire-site) {
 		margin: 0;
 	}
 
-	.woocommerce-coming-soon-banner-container {
+	.poocommerce-coming-soon-banner-container {
 		padding-inline: min(5.5rem, 8vw);
 		margin: 0;
 		height: 100%;
@@ -90,11 +90,11 @@ body:has(.woocommerce-coming-soon-entire-site) {
 
 	.coming-soon-cover {
 		.wp-block-cover__background {
-			background-color: var(--woocommerce-coming-soon-color) !important;
+			background-color: var(--poocommerce-coming-soon-color) !important;
 		}
 	}
 
-	h1.wp-block-heading.woocommerce-coming-soon-banner {
+	h1.wp-block-heading.poocommerce-coming-soon-banner {
 		font-size: clamp(27px, 1.74rem + ((1vw - 3px) * 2), 48px);
 		font-weight: 400;
 		line-height: 58px;
@@ -128,7 +128,7 @@ body:has(.woocommerce-coming-soon-entire-site) {
 	}
 }
 
-.woocommerce-coming-soon-entire-site .wp-block-loginout a {
+.poocommerce-coming-soon-entire-site .wp-block-loginout a {
 	text-decoration: none;
 }
 /* End of styles for the deprecated version of the coming soon block */

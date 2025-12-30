@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { recordEvent } from '@woocommerce/tracks';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { recordEvent } from '@poocommerce/tracks';
 import { Spinner, ToggleControl } from '@wordpress/components';
 import { createElement, useMemo } from '@wordpress/element';
 import {
@@ -28,7 +28,7 @@ export function Edit( {
 	const innerBlockProps = useInnerBlocksProps(
 		{
 			className:
-				'wp-block-woocommerce-product-custom-fields-toggle-field__inner-blocks',
+				'wp-block-poocommerce-product-custom-fields-toggle-field__inner-blocks',
 		},
 		{
 			templateLock: 'all',
@@ -66,7 +66,7 @@ export function Edit( {
 
 	return (
 		<div { ...blockProps }>
-			<div className="wp-block-woocommerce-product-custom-fields-toggle-field__content">
+			<div className="wp-block-poocommerce-product-custom-fields-toggle-field__content">
 				<ToggleControl
 					label={ label }
 					checked={ isChecked }

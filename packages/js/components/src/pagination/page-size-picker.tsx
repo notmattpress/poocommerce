@@ -27,7 +27,7 @@ export function PageSizePicker( {
 	setCurrentPage,
 	setPerPageChange = () => {},
 	perPageOptions = DEFAULT_PER_PAGE_OPTIONS,
-	label = __( 'Rows per page', 'woocommerce' ),
+	label = __( 'Rows per page', 'poocommerce' ),
 }: PageSizePickerProps ) {
 	function perPageChange( newPerPage: string ) {
 		setPerPageChange( parseInt( newPerPage, 10 ) );
@@ -43,7 +43,7 @@ export function PageSizePicker( {
 	} );
 
 	return (
-		<div className="woocommerce-pagination__per-page-picker">
+		<div className="poocommerce-pagination__per-page-picker">
 			<SelectControl
 				label={ label }
 				labelPosition="side"

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Token;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Token;
 
 /**
  * Represents a "<selector>:<name>(<arguments>)" node.

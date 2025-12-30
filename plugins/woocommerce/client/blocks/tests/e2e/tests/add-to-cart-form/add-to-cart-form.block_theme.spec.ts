@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { test as base, expect, Editor, wpCLI } from '@woocommerce/e2e-utils';
+import { test as base, expect, Editor, wpCLI } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -10,7 +10,7 @@ import { test as base, expect, Editor, wpCLI } from '@woocommerce/e2e-utils';
 
 const blockData = {
 	name: 'Add to Cart with Options',
-	slug: 'woocommerce/add-to-cart-form',
+	slug: 'poocommerce/add-to-cart-form',
 	mainClass: '.wc-block-add-to-cart-form',
 	selectors: {
 		editor: {
@@ -44,7 +44,7 @@ class BlockUtils {
 	 */
 	async configureSingleProductBlock( name?: string ) {
 		const singleProductBlock = await this.editor.getBlockByName(
-			'woocommerce/single-product'
+			'poocommerce/single-product'
 		);
 
 		if ( name ) {
@@ -82,8 +82,8 @@ class BlockUtils {
 
 	/**
 	 * Sets the min, max, and step attributes for the input field.
-	 * This is useful for simulating extensions that set these attributes via woocommerce_quantity_input
-	 * https://github.com/woocommerce/woocommerce/blob/89945ca8fc4589c061ba2130bf72bf24dc9268bd/plugins/woocommerce/includes/wc-template-functions.php#L1877-L1878
+	 * This is useful for simulating extensions that set these attributes via poocommerce_quantity_input
+	 * https://github.com/poocommerce/poocommerce/blob/89945ca8fc4589c061ba2130bf72bf24dc9268bd/plugins/poocommerce/includes/wc-template-functions.php#L1877-L1878
 	 *
 	 */
 	async setMinMaxAndStep( {
@@ -137,7 +137,7 @@ test.describe( `${ blockData.name } Block`, () => {
 	} ) => {
 		// Add to Cart with Options in the Post Editor is only available as inner block of the Single Product Block.
 		await admin.createNewPost();
-		await editor.insertBlock( { name: 'woocommerce/single-product' } );
+		await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 		await blockUtils.configureSingleProductBlock();
 
@@ -176,7 +176,7 @@ test.describe( `${ blockData.name } Block`, () => {
 
 		await expect( editor.canvas.getByText( 'placeholder' ) ).toBeVisible();
 
-		await editor.insertBlock( { name: 'woocommerce/single-product' } );
+		await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 		await blockUtils.configureSingleProductBlock();
 
@@ -225,7 +225,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			blockUtils,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			await blockUtils.configureSingleProductBlock();
 
@@ -249,7 +249,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			page,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Hoodie with Logo';
 
@@ -285,7 +285,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		} ) => {
 			await blockUtils.createSoldIndividuallyProduct();
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Sold Individually';
 
@@ -309,7 +309,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		} ) => {
 			await blockUtils.createManagedStockProduct();
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Managed Stock';
 
@@ -332,7 +332,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			page,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Hoodie with Logo';
 
@@ -377,7 +377,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			page,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Hoodie with Logo';
 
@@ -404,7 +404,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			page,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Hoodie with Logo';
 
@@ -439,7 +439,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			page,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Hoodie with Logo';
 
@@ -467,7 +467,7 @@ test.describe( `${ blockData.name } Block`, () => {
 			page,
 		} ) => {
 			await admin.createNewPost();
-			await editor.insertBlock( { name: 'woocommerce/single-product' } );
+			await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 			const productName = 'Hoodie with Logo';
 
@@ -495,7 +495,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		admin,
 	} ) => {
 		await admin.createNewPost();
-		await editor.insertBlock( { name: 'woocommerce/single-product' } );
+		await editor.insertBlock( { name: 'poocommerce/single-product' } );
 
 		const productName = 'Hoodie with Logo';
 		await blockUtils.configureSingleProductBlock( productName );
@@ -516,7 +516,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		).toBeVisible();
 
 		const addToCartWithOptionsBlock = await editor.getBlockByName(
-			'woocommerce/add-to-cart-with-options'
+			'poocommerce/add-to-cart-with-options'
 		);
 		await editor.selectBlocks( addToCartWithOptionsBlock );
 

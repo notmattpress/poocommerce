@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
 
-use Automattic\WooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
+use Automattic\PooCommerce\Internal\Logging\SafeGlobalFunctionProxy;
 use Throwable;
 use WC_Payment_Gateway;
 
@@ -47,10 +47,10 @@ class Mollie extends PaymentGateway {
 			// Let null results bubble up to the parent class.
 			if ( true === $sandbox_mode ) {
 				// If Mollie is in sandbox mode, we consider the account connected if the test API key is set.
-				return ! empty( get_option( 'mollie-payments-for-woocommerce_test_api_key', '' ) );
+				return ! empty( get_option( 'mollie-payments-for-poocommerce_test_api_key', '' ) );
 			} elseif ( false === $sandbox_mode ) {
 				// In production mode, we check the live API key.
-				return ! empty( get_option( 'mollie-payments-for-woocommerce_live_api_key', '' ) );
+				return ! empty( get_option( 'mollie-payments-for-poocommerce_live_api_key', '' ) );
 			}
 		} catch ( Throwable $e ) {
 			// Do nothing but log so we can investigate.
@@ -168,7 +168,7 @@ class Mollie extends PaymentGateway {
 	private function is_mollie_in_sandbox_mode( WC_Payment_Gateway $payment_gateway ): ?bool {
 		try {
 			// Unfortunately, Mollie does not provide a standard way to determine if the gateway is in sandbox mode.
-			return filter_var( get_option( 'mollie-payments-for-woocommerce_test_mode_enabled', 'yes' ), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			return filter_var( get_option( 'mollie-payments-for-poocommerce_test_mode_enabled', 'yes' ), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 		} catch ( \Throwable $e ) {
 			// Do nothing but log so we can investigate.
 			SafeGlobalFunctionProxy::wc_get_logger()->debug(

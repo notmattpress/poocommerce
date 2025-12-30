@@ -2,13 +2,13 @@
 /**
  * Unit tests for the WC_Order_Item_Product class functionalities.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * WC_Order_Item_Product unit tests.
@@ -153,14 +153,14 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test the woocommerce_order_item_cogs_refunded_html filter invoked by get_cogs_refund_value_html.
+	 * @testdox Test the poocommerce_order_item_cogs_refunded_html filter invoked by get_cogs_refund_value_html.
 	 */
 	public function test_get_refund_html_with_filter() {
 		$this->enable_cogs_feature();
 
 		$refunded_cost = -12.34;
 		add_filter(
-			'woocommerce_order_item_cogs_refunded_html',
+			'poocommerce_order_item_cogs_refunded_html',
 			function ( $html, $refunded_cost, $item, $order ) {
 				return sprintf( 'cost: %s, item: %s, order: %s', $refunded_cost, $item->get_id(), $order->get_id() );
 			},
@@ -169,7 +169,7 @@ class WC_Order_Item_Product_Test extends WC_Unit_Test_Case {
 		);
 
 		$actual = $this->item->get_cogs_refund_value_html( $refunded_cost, );
-		remove_all_filters( 'woocommerce_order_item_cogs_refunded_html' );
+		remove_all_filters( 'poocommerce_order_item_cogs_refunded_html' );
 		$expected = sprintf( 'cost: %s, item: %s, order: %s', $refunded_cost, $this->item->get_id(), $this->order->get_id() );
 		$this->assertEquals( $expected, $actual );
 	}

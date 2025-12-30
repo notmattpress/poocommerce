@@ -4,7 +4,7 @@
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { dispatch, useSelect, select as wpSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { Product, ProductStatus, productsStore } from '@woocommerce/data';
+import { Product, ProductStatus, productsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ export function useProductManager< T = Product >( postType: string ) {
 
 			await validate( extraProps );
 
-			// @ts-expect-error saveEntityRecord is not typed correctly because we are overriding the type definition. https://github.com/woocommerce/woocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
+			// @ts-expect-error saveEntityRecord is not typed correctly because we are overriding the type definition. https://github.com/poocommerce/poocommerce/blob/eeaf58e20064d837412d6c455e69cc5a5e2678b4/packages/js/product-editor/typings/index.d.ts#L15-L35
 			const { saveEntityRecord } = dispatch( coreStore );
 
 			const { blocks, content, selection, ...editedProduct } = wpSelect(

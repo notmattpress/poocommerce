@@ -19,16 +19,16 @@ type ForcePageReloadControlProps = {
 
 const helpTextClientSideNav = __(
 	'Enable to enforce full page reload on certain interactions, like using paginations controls.',
-	'woocommerce'
+	'poocommerce'
 );
 const helpTextReloadFullPage = __(
 	'Browsing between pages requires a full page reload.',
-	'woocommerce'
+	'poocommerce'
 );
 
 const helpTextIncompatibleBlocks = __(
 	"Reload full page can't be disabled because there are incompatible blocks inside the Product Collection block.",
-	'woocommerce'
+	'poocommerce'
 );
 
 const ForcePageReloadControl = ( props: ForcePageReloadControlProps ) => {
@@ -56,7 +56,7 @@ const ForcePageReloadControl = ( props: ForcePageReloadControlProps ) => {
 
 	return (
 		<ToggleControl
-			label={ __( 'Reload full page', 'woocommerce' ) }
+			label={ __( 'Reload full page', 'poocommerce' ) }
 			help={ helpText }
 			checked={ forcePageReload }
 			onChange={ () =>

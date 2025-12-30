@@ -1,10 +1,10 @@
 <?php
 
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductDetails;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductDetails;
 
 use WC_Helper_Product;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductDetailsNoRegisterMock;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductDetailsNoRegisterMock;
 
 /**
  * Tests for the ProductDetails block type
@@ -81,7 +81,7 @@ class ProductDetails extends \WP_UnitTestCase {
 
 
 	/**
-	 * Test Product Details render function when `woocommerce_product_tabs` hook isn't used
+	 * Test Product Details render function when `poocommerce_product_tabs` hook isn't used
 	 * IMPORTANT: The current test doesn't validate the entire HTML, but only the text content inside the HTML.
 	 * This is because some ids are generated dynamically via wp_unique_id that it is not straightforward to mock.
 	 */
@@ -98,13 +98,13 @@ class ProductDetails extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test Product Details render function when `woocommerce_product_tabs` hook is used.
+	 * Test Product Details render function when `poocommerce_product_tabs` hook is used.
 	 * IMPORTANT: The current test doesn't validate the entire HTML, but only the text content inside the HTML.
 	 * This is because some ids are generated dynamically via wp_unique_id that it is not straightforward to mock.
 	 */
 	public function test_product_details_render_with_hook() {
 		add_filter(
-			'woocommerce_product_tabs',
+			'poocommerce_product_tabs',
 			function ( $tabs ) {
 				$tabs['custom_info_tab'] = array(
 					'title'    => 'Custom Info',
@@ -140,7 +140,7 @@ class ProductDetails extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test the `woocommerce_product_details_hooked_blocks` hook. This hook allows developers to
+	 * Test the `poocommerce_product_details_hooked_blocks` hook. This hook allows developers to
 	 * specify a title and block markup that will be automatically wrapped in the required
 	 * Accordion Item block and appended to the Product Details' Accordion Group block.
 	 */
@@ -152,7 +152,7 @@ class ProductDetails extends \WP_UnitTestCase {
 		);
 
 		add_filter(
-			'woocommerce_product_details_hooked_blocks',
+			'poocommerce_product_details_hooked_blocks',
 			function ( $hooked_blocks ) use ( $test_block ) {
 				$hooked_blocks[] = $test_block;
 				return $hooked_blocks;
@@ -162,13 +162,13 @@ class ProductDetails extends \WP_UnitTestCase {
 		new ProductDetailsNoRegisterMock();
 
 		// Next, we apply the `hooked_block_types` and `hooked_block_{$slug}` filters.
-		// We pretend that we're in the `last_child` position of the `woocommerce/accordion-group` block.
+		// We pretend that we're in the `last_child` position of the `poocommerce/accordion-group` block.
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- test code.
-		$hooked_block_types = apply_filters( 'hooked_block_types', array(), 'last_child', 'woocommerce/accordion-group', null );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- test code.
+		$hooked_block_types = apply_filters( 'hooked_block_types', array(), 'last_child', 'poocommerce/accordion-group', null );
 		$this->assertSame( array( $test_block['slug'] ), $hooked_block_types );
 
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment -- test code.
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment -- test code.
 		$hooked_block_custom_info = apply_filters(
 			'hooked_block_' . $test_block['slug'],
 			array(
@@ -180,7 +180,7 @@ class ProductDetails extends \WP_UnitTestCase {
 			$test_block['slug'],
 			'last_child',
 			array(
-				'blockName'    => 'woocommerce/accordion-group',
+				'blockName'    => 'poocommerce/accordion-group',
 				'attrs'        => array(
 					'metadata' => array(
 						'isDescendantOfProductDetails' => true,
@@ -191,13 +191,13 @@ class ProductDetails extends \WP_UnitTestCase {
 			), // $parsed_anchor_block
 			null
 		);
-		$this->assertSame( 'woocommerce/accordion-item', $hooked_block_custom_info['blockName'] );
+		$this->assertSame( 'poocommerce/accordion-item', $hooked_block_custom_info['blockName'] );
 		$this->assertCount( 2, $hooked_block_custom_info['innerBlocks'] );
 
-		$this->assertSame( 'woocommerce/accordion-header', $hooked_block_custom_info['innerBlocks'][0]['blockName'] );
+		$this->assertSame( 'poocommerce/accordion-header', $hooked_block_custom_info['innerBlocks'][0]['blockName'] );
 		$this->assertStringContainsString( $test_block['title'], $hooked_block_custom_info['innerBlocks'][0]['innerHTML'] );
 
-		$this->assertSame( 'woocommerce/accordion-panel', $hooked_block_custom_info['innerBlocks'][1]['blockName'] );
+		$this->assertSame( 'poocommerce/accordion-panel', $hooked_block_custom_info['innerBlocks'][1]['blockName'] );
 		$this->assertSame( parse_blocks( $test_block['content'] ), $hooked_block_custom_info['innerBlocks'][1]['innerBlocks'] );
 	}
 }

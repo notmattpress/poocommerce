@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { PartialProduct, ProductDimensions } from '@woocommerce/data';
-import { isEmpty } from '@woocommerce/types';
+import { PartialProduct, ProductDimensions } from '@poocommerce/data';
+import { isEmpty } from '@poocommerce/types';
 import { __ } from '@wordpress/i18n';
 
 export const isAdditionalProductDataEmpty = (
@@ -38,7 +38,7 @@ export const getTemplate = (
 
 	return [
 		[
-			'woocommerce/accordion-group',
+			'poocommerce/accordion-group',
 			{
 				metadata: {
 					isDescendantOfProductDetails: true,
@@ -46,45 +46,45 @@ export const getTemplate = (
 			},
 			[
 				[
-					'woocommerce/accordion-item',
+					'poocommerce/accordion-item',
 					{
 						openByDefault: true,
 					},
 					[
 						[
-							'woocommerce/accordion-header',
-							{ title: __( 'Description', 'woocommerce' ) },
+							'poocommerce/accordion-header',
+							{ title: __( 'Description', 'poocommerce' ) },
 							[],
 						],
 						[
-							'woocommerce/accordion-panel',
+							'poocommerce/accordion-panel',
 							{},
-							[ [ 'woocommerce/product-description', {}, [] ] ],
+							[ [ 'poocommerce/product-description', {}, [] ] ],
 						],
 					],
 				],
 				...( ! additionalProductDataEmpty
 					? [
 							[
-								'woocommerce/accordion-item',
+								'poocommerce/accordion-item',
 								{},
 								[
 									[
-										'woocommerce/accordion-header',
+										'poocommerce/accordion-header',
 										{
 											title: __(
 												'Additional Information',
-												'woocommerce'
+												'poocommerce'
 											),
 										},
 										[],
 									],
 									[
-										'woocommerce/accordion-panel',
+										'poocommerce/accordion-panel',
 										{},
 										[
 											[
-												'woocommerce/product-specifications',
+												'poocommerce/product-specifications',
 												{},
 											],
 										],
@@ -94,18 +94,18 @@ export const getTemplate = (
 					  ]
 					: [] ),
 				[
-					'woocommerce/accordion-item',
+					'poocommerce/accordion-item',
 					{},
 					[
 						[
-							'woocommerce/accordion-header',
-							{ title: __( 'Reviews', 'woocommerce' ) },
+							'poocommerce/accordion-header',
+							{ title: __( 'Reviews', 'poocommerce' ) },
 							[],
 						],
 						[
-							'woocommerce/accordion-panel',
+							'poocommerce/accordion-panel',
 							{},
-							[ [ 'woocommerce/product-reviews', {} ] ],
+							[ [ 'poocommerce/product-reviews', {} ] ],
 						],
 					],
 				],

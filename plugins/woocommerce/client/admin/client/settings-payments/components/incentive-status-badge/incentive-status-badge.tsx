@@ -3,8 +3,8 @@
  */
 import { createInterpolateElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Link } from '@woocommerce/components';
-import { PaymentsProviderIncentive } from '@woocommerce/data';
+import { Link } from '@poocommerce/components';
+import { PaymentsProviderIncentive } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -36,14 +36,14 @@ export const IncentiveStatusBadge = ( {
 			message={ incentive.badge }
 			popoverContent={
 				<>
-					<p className={ 'woocommerce-incentive-popover__title' }>
+					<p className={ 'poocommerce-incentive-popover__title' }>
 						{ incentive.title }
 					</p>
-					<p className={ 'woocommerce-incentive-popover__terms' }>
+					<p className={ 'poocommerce-incentive-popover__terms' }>
 						{ createInterpolateElement(
 							__(
 								'See <termsLink /> for details.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								termsLink: (
@@ -55,7 +55,7 @@ export const IncentiveStatusBadge = ( {
 									>
 										{ __(
 											'Terms and Conditions',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Link>
 								),

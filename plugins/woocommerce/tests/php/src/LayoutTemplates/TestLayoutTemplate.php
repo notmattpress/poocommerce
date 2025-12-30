@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\LayoutTemplates;
+namespace Automattic\PooCommerce\Tests\LayoutTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockTemplateInterface;
 
 /**
  * Test layout template.

@@ -2,10 +2,10 @@
 /**
  * Order helpers.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Helper_Order.

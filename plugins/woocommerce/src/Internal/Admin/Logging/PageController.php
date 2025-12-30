@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Logging;
+namespace Automattic\PooCommerce\Internal\Admin\Logging;
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
-use Automattic\WooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController, FileListTable, SearchListTable };
+use Automattic\PooCommerce\Internal\Admin\Logging\{ LogHandlerFileV2, Settings };
+use Automattic\PooCommerce\Internal\Admin\Logging\FileV2\{ File, FileController, FileListTable, SearchListTable };
 use WC_Admin_Status;
 use WC_Log_Handler_File, WC_Log_Handler_DB;
 use WC_Log_Levels;
@@ -63,7 +63,7 @@ class PageController {
 	 * @return void
 	 */
 	private function init_hooks(): void {
-		add_action( 'load-woocommerce_page_wc-status', array( $this, 'maybe_do_logs_tab_action' ), 2 );
+		add_action( 'load-poocommerce_page_wc-status', array( $this, 'maybe_do_logs_tab_action' ), 2 );
 
 		add_action( 'wc_logs_load_tab', array( $this, 'setup_screen_options' ) );
 		add_action( 'wc_logs_load_tab', array( $this, 'handle_list_table_bulk_actions' ) );
@@ -75,7 +75,7 @@ class PageController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function maybe_do_logs_tab_action(): void {
 		$is_logs_tab = 'logs' === filter_input( INPUT_GET, 'tab' );
@@ -99,7 +99,7 @@ class PageController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function notices() {
 		if ( ! $this->settings->logging_is_enabled() ) {
@@ -112,7 +112,7 @@ class PageController {
 							<?php
 							printf(
 								// translators: %s is a URL to another admin screen.
-								wp_kses_post( __( 'Logging is disabled. It can be enabled in <a href="%s">Logs Settings</a>.', 'woocommerce' ) ),
+								wp_kses_post( __( 'Logging is disabled. It can be enabled in <a href="%s">Logs Settings</a>.', 'poocommerce' ) ),
 								esc_url( add_query_arg( 'view', 'settings', $this->get_logs_tab_url() ) )
 							);
 							?>
@@ -198,7 +198,7 @@ class PageController {
 					'<a href="%1$s"%2$s>%3$s</a>',
 					esc_url( $browse_url ),
 					'settings' !== $params['view'] ? ' class="current"' : '',
-					esc_html__( 'Browse', 'woocommerce' )
+					esc_html__( 'Browse', 'poocommerce' )
 				);
 				?>
 				|
@@ -209,7 +209,7 @@ class PageController {
 					'<a href="%1$s"%2$s>%3$s</a>',
 					esc_url( $settings_url ),
 					'settings' === $params['view'] ? ' class="current"' : '',
-					esc_html__( 'Settings', 'woocommerce' )
+					esc_html__( 'Settings', 'poocommerce' )
 				);
 				?>
 			</li>
@@ -255,7 +255,7 @@ class PageController {
 		?>
 		<header id="logs-header" class="wc-logs-header">
 			<h2>
-				<?php esc_html_e( 'Browse log files', 'woocommerce' ); ?>
+				<?php esc_html_e( 'Browse log files', 'poocommerce' ); ?>
 			</h2>
 			<?php $this->render_search_field(); ?>
 		</header>
@@ -293,7 +293,7 @@ class PageController {
 				printf(
 					'<p><a href="%1$s">%2$s</a></p>',
 					esc_url( $this->get_logs_tab_url() ),
-					esc_html__( 'Return to the file list.', 'woocommerce' )
+					esc_html__( 'Return to the file list.', 'poocommerce' )
 				);
 				?>
 			</div>
@@ -321,7 +321,7 @@ class PageController {
 		);
 		$delete_confirmation_js = sprintf(
 			"return window.confirm( '%s' )",
-			esc_js( __( 'Delete this log file permanently?', 'woocommerce' ) )
+			esc_js( __( 'Delete this log file permanently?', 'poocommerce' ) )
 		);
 
 		$stream      = $file->get_stream();
@@ -333,7 +333,7 @@ class PageController {
 				<?php
 				printf(
 					// translators: %s is the name of a log file.
-					esc_html__( 'Viewing log file %s', 'woocommerce' ),
+					esc_html__( 'Viewing log file %s', 'poocommerce' ),
 					sprintf(
 						'<span class="file-id">%s</span>',
 						esc_html( $file->get_file_id() )
@@ -343,7 +343,7 @@ class PageController {
 			</h2>
 			<?php if ( count( $rotations ) > 1 ) : ?>
 				<nav class="wc-logs-single-file-rotations">
-					<h3><?php esc_html_e( 'File rotations:', 'woocommerce' ); ?></h3>
+					<h3><?php esc_html_e( 'File rotations:', 'poocommerce' ); ?></h3>
 					<ul class="wc-logs-rotation-links">
 						<?php if ( isset( $rotations['current'] ) ) : ?>
 							<?php
@@ -351,7 +351,7 @@ class PageController {
 								'<li><a href="%1$s" class="button button-small button-%2$s">%3$s</a></li>',
 								esc_url( add_query_arg( 'file_id', $rotations['current']->get_file_id(), $rotation_url_base ) ),
 								$file->get_file_id() === $rotations['current']->get_file_id() ? 'primary' : 'secondary',
-								esc_html__( 'Current', 'woocommerce' )
+								esc_html__( 'Current', 'poocommerce' )
 							);
 							unset( $rotations['current'] );
 							?>
@@ -375,7 +375,7 @@ class PageController {
 				printf(
 					'<a href="%1$s" class="button button-secondary">%2$s</a>',
 					esc_url( $download_url ),
-					esc_html__( 'Download', 'woocommerce' )
+					esc_html__( 'Download', 'poocommerce' )
 				);
 				?>
 				<?php
@@ -384,7 +384,7 @@ class PageController {
 					'<a href="%1$s" class="button button-secondary" onclick="%2$s">%3$s</a>',
 					esc_url( $delete_url ),
 					esc_attr( $delete_confirmation_js ),
-					esc_html__( 'Delete permanently', 'woocommerce' )
+					esc_html__( 'Delete permanently', 'poocommerce' )
 				);
 				?>
 			</div>
@@ -428,7 +428,7 @@ class PageController {
 
 		?>
 		<header id="logs-header" class="wc-logs-header">
-			<h2><?php esc_html_e( 'Search results', 'woocommerce' ); ?></h2>
+			<h2><?php esc_html_e( 'Search results', 'poocommerce' ); ?></h2>
 			<?php $this->render_search_field(); ?>
 		</header>
 		<?php $list_table->display(); ?>
@@ -545,7 +545,7 @@ class PageController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function setup_screen_options( string $view ): void {
 		$handler    = $this->settings->get_default_handler();
@@ -583,7 +583,7 @@ class PageController {
 	 *
 	 * @return void
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 */
 	public function handle_list_table_bulk_actions( string $view ): void {
 		// Bail if we're not using the file handler.
@@ -606,8 +606,8 @@ class PageController {
 		if ( $action ) {
 			check_admin_referer( 'bulk-log-files' );
 
-			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( esc_html__( 'You do not have permission to manage log files.', 'woocommerce' ) );
+			if ( ! current_user_can( 'manage_poocommerce' ) ) {
+				wp_die( esc_html__( 'You do not have permission to manage log files.', 'poocommerce' ) );
 			}
 
 			$sendback = remove_query_arg( array( 'deleted' ), wp_get_referer() );
@@ -666,7 +666,7 @@ class PageController {
 							<?php
 							printf(
 							// translators: %s is a number of files.
-								esc_html( _n( '%s log file deleted.', '%s log files deleted.', $deleted, 'woocommerce' ) ),
+								esc_html( _n( '%s log file deleted.', '%s log files deleted.', $deleted, 'poocommerce' ) ),
 								esc_html( number_format_i18n( $deleted ) )
 							);
 							?>
@@ -730,7 +730,7 @@ class PageController {
 
 					$message_chunks[1] = sprintf(
 						'<details><summary>%1$s</summary>%2$s</details>',
-						esc_html__( 'Additional context', 'woocommerce' ),
+						esc_html__( 'Additional context', 'poocommerce' ),
 						stripslashes( $context )
 					);
 
@@ -790,7 +790,7 @@ class PageController {
 						<?php endif; ?>
 					<?php endforeach; ?>
 					<label for="logs-search-field">
-						<?php esc_html_e( 'Search within these files', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Search within these files', 'poocommerce' ); ?>
 						<input
 							id="logs-search-field"
 							class="wc-logs-search-field"
@@ -799,7 +799,7 @@ class PageController {
 							value="<?php echo esc_attr( $params['search'] ); ?>"
 						/>
 					</label>
-					<?php submit_button( __( 'Search', 'woocommerce' ), 'secondary', null, false ); ?>
+					<?php submit_button( __( 'Search', 'poocommerce' ), 'secondary', null, false ); ?>
 				</fieldset>
 				<?php if ( $file_count >= $this->file_controller::SEARCH_MAX_FILES ) : ?>
 					<div class="wc-logs-search-notice">
@@ -808,7 +808,7 @@ class PageController {
 							// translators: %s is a number.
 							esc_html__(
 								'⚠️ Only %s files can be searched at one time. Try filtering the file list before searching.',
-								'woocommerce'
+								'poocommerce'
 							),
 							esc_html( number_format_i18n( $this->file_controller::SEARCH_MAX_FILES ) )
 						);

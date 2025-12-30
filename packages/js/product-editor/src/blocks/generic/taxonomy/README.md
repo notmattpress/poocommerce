@@ -1,8 +1,8 @@
-# woocommerce/product-taxonomy-field block
+# poocommerce/product-taxonomy-field block
 
 This is a block that displays a taxonomy field, allowing searching, selection, and creation of new items, to be used in a product context.
 
-![Taxonomy block](https://woocommerce.files.wordpress.com/2023/09/woocommerceproduct-taxonomy-field.png)
+![Taxonomy block](https://poocommerce.files.wordpress.com/2023/09/poocommerceproduct-taxonomy-field.png)
 
 ## Attributes
 
@@ -73,7 +73,7 @@ function YOUR_PREFIX_rest_api_prepare_custom1_to_product( $response, $post ) {
 	return $response;
 }
 
-add_filter( 'woocommerce_rest_prepare_product_object', 'YOUR_PREFIX_rest_api_prepare_custom1_to_product', 10, 2 );
+add_filter( 'poocommerce_rest_prepare_product_object', 'YOUR_PREFIX_rest_api_prepare_custom1_to_product', 10, 2 );
 
 function YOUR_PREFIX_rest_api_add_custom1_to_product( $product, $request, $creating = true ) {
 	$product_id = $product->get_id();
@@ -95,7 +95,7 @@ function YOUR_PREFIX_rest_api_add_custom1_to_product( $product, $request, $creat
 	}
 }
 
-add_filter( 'woocommerce_rest_insert_product_object', 'YOUR_PREFIX_rest_api_add_custom1_to_product', 10, 3 );
+add_filter( 'poocommerce_rest_insert_product_object', 'YOUR_PREFIX_rest_api_add_custom1_to_product', 10, 3 );
 ```
 
 Here's a snippet that shows how it is used for the Categories field:
@@ -104,15 +104,15 @@ Here's a snippet that shows how it is used for the Categories field:
 $product_catalog_section->add_block(
   [
     'id'         => 'product-categories',
-    'blockName'  => 'woocommerce/product-taxonomy-field',
+    'blockName'  => 'poocommerce/product-taxonomy-field',
     'order'      => 10,
     'attributes' => [
       'slug'               => 'product_cat',
       'property'           => 'categories',
-      'label'              => __( 'Categories', 'woocommerce' ),
-      'createTitle'        => __( 'Create new category', 'woocommerce' ),
-      'dialogNameHelpText' => __( 'Shown to customers on the product page.', 'woocommerce' ),
-      'parentTaxonomyText' => __( 'Parent category', 'woocommerce' ),
+      'label'              => __( 'Categories', 'poocommerce' ),
+      'createTitle'        => __( 'Create new category', 'poocommerce' ),
+      'dialogNameHelpText' => __( 'Shown to customers on the product page.', 'poocommerce' ),
+      'parentTaxonomyText' => __( 'Parent category', 'poocommerce' ),
     ],
   ]
 );

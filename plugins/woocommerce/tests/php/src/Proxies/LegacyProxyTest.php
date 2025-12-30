@@ -3,11 +3,11 @@
  * LegacyProxyTests class file
  */
 
-namespace Automattic\WooCommerce\Tests\Proxies;
+namespace Automattic\PooCommerce\Tests\Proxies;
 
-use Automattic\WooCommerce\Internal\DependencyManagement\Definition;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
+use Automattic\PooCommerce\Internal\DependencyManagement\Definition;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Tests\Internal\DependencyManagement\ExampleClasses\DependencyClass;
 use Foo\Bar\ClassWithNonWooNamespace;
 
 /**
@@ -29,17 +29,17 @@ class LegacyProxyTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox 'get_instance_of' throws an exception when trying to use it to get an instance of a namespaced class if the namespace starts with 'Automattic\WooCommerce'.
+	 * @testdox 'get_instance_of' throws an exception when trying to use it to get an instance of a namespaced class if the namespace starts with 'Automattic\PooCommerce'.
 	 */
 	public function test_get_instance_of_throws_when_trying_to_get_a_woo_namespaced_class() {
 		$this->expectException( \Exception::class );
-		$this->expectExceptionMessage( 'The LegacyProxy class is not intended for getting instances of classes whose namespace starts with \'Automattic\\WooCommerce\', please use \'init\' method injection or \'wc_get_container()->get()\' for that.' );
+		$this->expectExceptionMessage( 'The LegacyProxy class is not intended for getting instances of classes whose namespace starts with \'Automattic\\PooCommerce\', please use \'init\' method injection or \'wc_get_container()->get()\' for that.' );
 
 		$this->sut->get_instance_of( LegacyProxy::class );
 	}
 
 	/**
-	 * @testdox 'get_instance_of' can be used to get an instance of a namespaced class if the namespace doesn't start with 'Automattic\WooCommerce'.
+	 * @testdox 'get_instance_of' can be used to get an instance of a namespaced class if the namespace doesn't start with 'Automattic\PooCommerce'.
 	 */
 	public function test_get_instance_of_can_be_used_to_get_a_non_woo_namespaced_class() {
 		$object = $this->sut->get_instance_of( ClassWithNonWooNamespace::class );

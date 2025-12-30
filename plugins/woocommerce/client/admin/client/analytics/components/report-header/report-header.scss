@@ -4,17 +4,17 @@
  * Container for ReportFilters and ImportStatusBar
  */
 
-.woocommerce-analytics-report-header {
+.poocommerce-analytics-report-header {
 	position: relative;
 	display: flex;
 	align-items: flex-start;
 
-	.woocommerce-filters {
+	.poocommerce-filters {
 		flex: 1; // Allow the filters to grow and take up remaining space
 		width: 100%;
 	}
 
-	.woocommerce-analytics-import-status-bar-wrapper {
+	.poocommerce-analytics-import-status-bar-wrapper {
 		// Absolute positioning ensures the filters’ width is independent from the status bar, which can change its size dynamically as needed
 		position: absolute;
 		right: 0;
@@ -23,19 +23,19 @@
 	@media screen and ( max-width: $break-large ) {
 		flex-direction: column;
 
-		.woocommerce-analytics-import-status-bar-wrapper {
+		.poocommerce-analytics-import-status-bar-wrapper {
 			position: relative;
 			right: auto;
 		}
 	}
 
 	@media screen and ( max-width: $break-medium ) {
-		.woocommerce-analytics-import-status-bar-wrapper,
-		.woocommerce-analytics-import-status-bar__content {
+		.poocommerce-analytics-import-status-bar-wrapper,
+		.poocommerce-analytics-import-status-bar__content {
 			width: 100%;
 		}
 
-		.woocommerce-analytics-import-status-bar__content {
+		.poocommerce-analytics-import-status-bar__content {
 			justify-content: space-between;
 		}
 	}

@@ -1,7 +1,7 @@
 $font-sf-pro-text: helveticaneue-light, "Helvetica Neue Light",
 	"Helvetica Neue", sans-serif;
 
-.woocommerce-product-usage-notice {
+.poocommerce-product-usage-notice {
 	border-radius: none;
 	font-family: $font-sf-pro-text;
 
@@ -96,7 +96,7 @@ $font-sf-pro-text: helveticaneue-light, "Helvetica Neue Light",
 	}
 }
 
-.woocommerce-subscription-benefits {
+.poocommerce-subscription-benefits {
 	display: flex;
 	flex-direction: column;
 	gap: $gap-large;

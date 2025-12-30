@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import ProductControl from '@woocommerce/editor-components/product-control';
+import ProductControl from '@poocommerce/editor-components/product-control';
 
 /**
  * Internal dependencies

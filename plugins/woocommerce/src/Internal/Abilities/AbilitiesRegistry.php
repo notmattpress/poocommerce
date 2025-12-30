@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Abilities Registry class for WooCommerce.
+ * Abilities Registry class for PooCommerce.
  *
- * Centralized registry that initializes all WooCommerce abilities.
+ * Centralized registry that initializes all PooCommerce abilities.
  * These abilities can be consumed by MCP, REST API, or other tools.
  */
 class AbilitiesRegistry {
@@ -25,7 +25,7 @@ class AbilitiesRegistry {
 	}
 
 	/**
-	 * Initialize all WooCommerce abilities.
+	 * Initialize all PooCommerce abilities.
 	 */
 	private function init_abilities(): void {
 		AbilitiesCategories::init();

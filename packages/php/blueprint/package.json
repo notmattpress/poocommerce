@@ -1,6 +1,6 @@
 {
-	"name": "@woocommerce/blueprint",
-	"description": "WooCommerce Blueprint package",
+	"name": "@poocommerce/blueprint",
+	"description": "PooCommerce Blueprint package",
 	"scripts": {
 		"changelog": "XDEBUG_MODE=off composer install --quiet && composer exec -- changelogger",
 		"update:php": "XDEBUG_MODE=off composer update --quiet",

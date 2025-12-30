@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Completed_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Completed_Order
 	 * @version     2.0.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Completed_Order extends WC_Email {
@@ -29,7 +29,7 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		public function __construct() {
 			$this->id             = 'customer_completed_order';
 			$this->customer_email = true;
-			$this->title          = __( 'Completed order', 'woocommerce' );
+			$this->title          = __( 'Completed order', 'poocommerce' );
 			$this->email_group    = 'order-updates';
 			$this->template_html  = 'emails/customer-completed-order.php';
 			$this->template_plain = 'emails/plain/customer-completed-order.php';
@@ -39,19 +39,19 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_completed_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_completed_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Send an email to customers notifying them that their order is complete and has been shipped', 'woocommerce' )
-				: __( 'Order complete emails are sent to customers when their orders are marked completed and usually indicate that their orders have been shipped.', 'woocommerce' );
+				? __( 'Send an email to customers notifying them that their order is complete and has been shipped', 'poocommerce' )
+				: __( 'Order complete emails are sent to customers when their orders are marked completed and usually indicate that their orders have been shipped.', 'poocommerce' );
 
 			if ( $this->block_email_editor_enabled ) {
-				$this->title       = __( 'Order fulfilled', 'woocommerce' );
-				$this->description = __( 'Notifies customers when their order has been shipped.', 'woocommerce' );
+				$this->title       = __( 'Order fulfilled', 'poocommerce' );
+				$this->description = __( 'Notifies customers when their order has been shipped.', 'poocommerce' );
 			}
 		}
 
@@ -90,8 +90,8 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		 */
 		public function get_default_subject() {
 			return $this->email_improvements_enabled
-				? __( 'Your order from {site_title} is on its way!', 'woocommerce' )
-				: __( 'Your {site_title} order is now complete', 'woocommerce' );
+				? __( 'Your order from {site_title} is on its way!', 'poocommerce' )
+				: __( 'Your {site_title} order is now complete', 'poocommerce' );
 		}
 
 		/**
@@ -102,8 +102,8 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		 */
 		public function get_default_heading() {
 			return $this->email_improvements_enabled
-				? __( 'Good things are heading your way!', 'woocommerce' )
-				: __( 'Thanks for shopping with us', 'woocommerce' );
+				? __( 'Good things are heading your way!', 'poocommerce' )
+				: __( 'Thanks for shopping with us', 'poocommerce' );
 		}
 
 		/**
@@ -152,8 +152,8 @@ if ( ! class_exists( 'WC_Email_Customer_Completed_Order', false ) ) :
 		 */
 		public function get_default_additional_content() {
 			return $this->email_improvements_enabled
-				? __( 'Thanks again! If you need any help with your order, please contact us at {store_email}.', 'woocommerce' )
-				: __( 'Thanks for shopping with us.', 'woocommerce' );
+				? __( 'Thanks again! If you need any help with your order, please contact us at {store_email}.', 'poocommerce' )
+				: __( 'Thanks for shopping with us.', 'poocommerce' );
 		}
 	}
 

@@ -5,7 +5,7 @@
  * Handles requests to the /refunds endpoint.
  * Allows for querying refunds directly regardless of associated orders.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   9.0.0
  */
 
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Order Refunds controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Order_Refunds_Controller
  */
 class WC_REST_Refunds_Controller extends WC_REST_Order_Refunds_Controller {
@@ -79,7 +79,7 @@ class WC_REST_Refunds_Controller extends WC_REST_Order_Refunds_Controller {
 		 *
 		 * @since 9.0.0.
 		 */
-		$args = apply_filters( 'woocommerce_rest_refunds_prepare_object_query', $args, $request );
+		$args = apply_filters( 'poocommerce_rest_refunds_prepare_object_query', $args, $request );
 
 		return $args;
 	}
@@ -108,10 +108,10 @@ class WC_REST_Refunds_Controller extends WC_REST_Order_Refunds_Controller {
 
 		$response->add_links( $this->prepare_links( $refund, $request ) );
 
-		// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 		/** This filter is documented in includes/rest-api/Controllers/Version2/class-wc-rest-order-refunds-v2-controller.php */
-		return apply_filters( "woocommerce_rest_prepare_{$this->post_type}_object", $response, $refund, $request );
-		// phpcs:enable WooCommerce.Commenting.CommentHooks.MissingSinceComment
+		return apply_filters( "poocommerce_rest_prepare_{$this->post_type}_object", $response, $refund, $request );
+		// phpcs:enable PooCommerce.Commenting.CommentHooks.MissingSinceComment
 	}
 
 	/**
@@ -172,7 +172,7 @@ class WC_REST_Refunds_Controller extends WC_REST_Order_Refunds_Controller {
 			array_slice( $schema['properties'], 0, 1, true ),
 			array(
 				'parent_id' => array(
-					'description' => __( 'Parent order ID.', 'woocommerce' ),
+					'description' => __( 'Parent order ID.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),

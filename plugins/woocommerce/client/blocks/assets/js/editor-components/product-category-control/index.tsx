@@ -5,17 +5,17 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import {
 	SearchListControl,
 	SearchListItem,
-} from '@woocommerce/editor-components/search-list-control';
+} from '@poocommerce/editor-components/search-list-control';
 import { SelectControl } from '@wordpress/components';
-import { withSearchedCategories } from '@woocommerce/block-hocs';
-import ErrorMessage from '@woocommerce/editor-components/error-placeholder/error-message';
+import { withSearchedCategories } from '@poocommerce/block-hocs';
+import ErrorMessage from '@poocommerce/editor-components/error-placeholder/error-message';
 import clsx from 'clsx';
-import type { RenderItemArgs } from '@woocommerce/editor-components/search-list-control/types';
+import type { RenderItemArgs } from '@poocommerce/editor-components/search-list-control/types';
 import type {
 	ProductCategoryResponseItem,
 	WithInjectedSearchedCategories,
-} from '@woocommerce/types';
-import { convertProductCategoryResponseItemToSearchItem } from '@woocommerce/utils';
+} from '@poocommerce/types';
+import { convertProductCategoryResponseItemToSearchItem } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -77,7 +77,7 @@ const ProductCategoryControl = ( {
 						'%1$s, has %2$d review',
 						'%1$s, has %2$d reviews',
 						item.details?.review_count || 0,
-						'woocommerce'
+						'poocommerce'
 					),
 					accessibleName,
 					item.details?.review_count || 0
@@ -88,7 +88,7 @@ const ProductCategoryControl = ( {
 						'%1$s, has %2$d product',
 						'%1$s, has %2$d products',
 						item.details?.count || 0,
-						'woocommerce'
+						'poocommerce'
 					),
 					accessibleName,
 					item.details?.count || 0
@@ -101,7 +101,7 @@ const ProductCategoryControl = ( {
 						'%d review',
 						'%d reviews',
 						item.details?.review_count || 0,
-						'woocommerce'
+						'poocommerce'
 					),
 					item.details?.review_count || 0
 			  )
@@ -111,7 +111,7 @@ const ProductCategoryControl = ( {
 						'%d product',
 						'%d products',
 						item.details?.count || 0,
-						'woocommerce'
+						'poocommerce'
 					),
 					item.details?.count || 0
 			  );
@@ -119,7 +119,7 @@ const ProductCategoryControl = ( {
 		return (
 			<SearchListItem
 				className={ clsx(
-					'woocommerce-product-categories__item',
+					'poocommerce-product-categories__item',
 					'has-count',
 					{
 						'is-searching': search.length > 0,
@@ -134,13 +134,13 @@ const ProductCategoryControl = ( {
 	};
 
 	const messages = {
-		clear: __( 'Clear all product categories', 'woocommerce' ),
-		list: __( 'Product Categories', 'woocommerce' ),
+		clear: __( 'Clear all product categories', 'poocommerce' ),
+		list: __( 'Product Categories', 'poocommerce' ),
 		noItems: __(
 			"Your store doesn't have any product categories.",
-			'woocommerce'
+			'poocommerce'
 		),
-		search: __( 'Search for product categories', 'woocommerce' ),
+		search: __( 'Search for product categories', 'poocommerce' ),
 		selected: ( n: number ) =>
 			sprintf(
 				/* translators: %d is the count of selected categories. */
@@ -148,11 +148,11 @@ const ProductCategoryControl = ( {
 					'%d category selected',
 					'%d categories selected',
 					n,
-					'woocommerce'
+					'poocommerce'
 				),
 				n
 			),
-		updated: __( 'Category search results updated.', 'woocommerce' ),
+		updated: __( 'Category search results updated.', 'poocommerce' ),
 	};
 
 	if ( error ) {
@@ -166,7 +166,7 @@ const ProductCategoryControl = ( {
 	return (
 		<>
 			<SearchListControl
-				className="woocommerce-product-categories"
+				className="poocommerce-product-categories"
 				list={ currentList }
 				isLoading={ isLoading }
 				selected={ currentList.filter( ( { id } ) =>
@@ -182,14 +182,14 @@ const ProductCategoryControl = ( {
 			{ !! onOperatorChange && (
 				<div hidden={ selected.length < 2 }>
 					<SelectControl
-						className="woocommerce-product-categories__operator"
+						className="poocommerce-product-categories__operator"
 						label={ __(
 							'Display products matching',
-							'woocommerce'
+							'poocommerce'
 						) }
 						help={ __(
 							'Pick at least two categories to use this setting.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						value={ operator }
 						onChange={ onOperatorChange }
@@ -197,14 +197,14 @@ const ProductCategoryControl = ( {
 							{
 								label: __(
 									'Any selected categories',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: 'any',
 							},
 							{
 								label: __(
 									'All selected categories',
-									'woocommerce'
+									'poocommerce'
 								),
 								value: 'all',
 							},

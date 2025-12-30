@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { isEmptyObject, isObject } from '@woocommerce/types';
+import { isEmptyObject, isObject } from '@poocommerce/types';
 
 describe( 'Object type-guards', () => {
 	describe( 'Testing isObject()', () => {

@@ -19,20 +19,20 @@ export function EmptyOrErrorTableState( {
 	onActionClick,
 }: TableEmptyOrErrorStateProps ) {
 	return (
-		<div className="woocommerce-variations-table-error-or-empty-state">
+		<div className="poocommerce-variations-table-error-or-empty-state">
 			{ isError ? <ErrorVariationsImage /> : <EmptyVariationsImage /> }
-			<p className="woocommerce-variations-table-error-or-empty-state__message">
+			<p className="poocommerce-variations-table-error-or-empty-state__message">
 				{ isError
-					? __( 'We couldn’t load the variations', 'woocommerce' )
-					: message ?? __( 'No variations yet', 'woocommerce' ) }
+					? __( 'We couldn’t load the variations', 'poocommerce' )
+					: message ?? __( 'No variations yet', 'poocommerce' ) }
 			</p>
 
-			<div className="woocommerce-variations-table-error-or-empty-state__actions">
+			<div className="poocommerce-variations-table-error-or-empty-state__actions">
 				<Button variant="link" onClick={ onActionClick }>
 					{ isError
-						? __( 'Try again', 'woocommerce' )
+						? __( 'Try again', 'poocommerce' )
 						: actionText ??
-						  __( 'Generate from options', 'woocommerce' ) }
+						  __( 'Generate from options', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

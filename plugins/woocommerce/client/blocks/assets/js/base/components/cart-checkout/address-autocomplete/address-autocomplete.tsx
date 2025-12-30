@@ -4,15 +4,15 @@
 import {
 	ValidatedTextInput,
 	type ValidatedTextInputHandle,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import type {
 	AddressAutocompleteResult,
 	ServerAddressAutocompleteProvider,
-} from '@woocommerce/types';
-import { cartStore, checkoutStore } from '@woocommerce/block-data';
+} from '@poocommerce/types';
+import { cartStore, checkoutStore } from '@poocommerce/block-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
-import { AddressFormType, getSettingWithCoercion } from '@woocommerce/settings';
+import { AddressFormType, getSettingWithCoercion } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

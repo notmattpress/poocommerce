@@ -1,10 +1,10 @@
-# WooCommerce Order Fulfillments REST API
+# PooCommerce Order Fulfillments REST API
 
-This document describes the REST API endpoints for managing order fulfillments in WooCommerce.
+This document describes the REST API endpoints for managing order fulfillments in PooCommerce.
 
 ## Base URL
 
-All endpoints use the WooCommerce REST API v3 namespace:
+All endpoints use the PooCommerce REST API v3 namespace:
 
 ```http
 /wp-json/wc/v3/orders/{order_id}/fulfillments
@@ -12,7 +12,7 @@ All endpoints use the WooCommerce REST API v3 namespace:
 
 ## Authentication
 
-All endpoints require authentication with `manage_woocommerce` capability for full access, or order ownership for read-only access.
+All endpoints require authentication with `manage_poocommerce` capability for full access, or order ownership for read-only access.
 
 ## Endpoints
 
@@ -614,9 +614,9 @@ All endpoints may return error responses in the following format:
 
 ### Common Error Codes
 
--   `woocommerce_rest_order_invalid_id` - Invalid order ID
--   `woocommerce_rest_tracking_number_missing` - Tracking number is required
--   `woocommerce_rest_order_id_missing` - Order ID is required
+-   `poocommerce_rest_order_invalid_id` - Invalid order ID
+-   `poocommerce_rest_tracking_number_missing` - Tracking number is required
+-   `poocommerce_rest_order_id_missing` - Order ID is required
 -   Authentication errors for insufficient permissions
 
 ### HTTP Status Codes
@@ -678,8 +678,8 @@ The `_items` metadata must be an array of objects with the following structure:
 
 ## Notifications
 
-When `notify_customer` is set to `true`, WooCommerce will trigger appropriate action hooks:
+When `notify_customer` is set to `true`, PooCommerce will trigger appropriate action hooks:
 
--   `woocommerce_fulfillment_created_notification` - When a fulfillment is created or marked fulfilled
--   `woocommerce_fulfillment_updated_notification` - When a fulfilled fulfillment is updated
--   `woocommerce_fulfillment_deleted_notification` - When a fulfilled fulfillment is deleted
+-   `poocommerce_fulfillment_created_notification` - When a fulfillment is created or marked fulfilled
+-   `poocommerce_fulfillment_updated_notification` - When a fulfilled fulfillment is updated
+-   `poocommerce_fulfillment_deleted_notification` - When a fulfilled fulfillment is deleted

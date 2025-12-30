@@ -6,11 +6,11 @@ sidebar_position: 4
 
 # Scaffolding and sample store data
 
-WooCommerce offers a number of starter kits and scaffolds depending on what you are building.
+PooCommerce offers a number of starter kits and scaffolds depending on what you are building.
 
 ## Starter Themes
 
-If you’re designing a WooCommerce store, you have two options for theme development: Classic Themes and Block Themes.
+If you’re designing a PooCommerce store, you have two options for theme development: Classic Themes and Block Themes.
 
 -   Classic themes use PHP templates to override designs to key pages on your store, including your product pages, product archives, shopping cart, and checkout page. While sites running a classic theme can use the WordPress block editor, many of the templates are not editable within the editor itself.
 -   Block themes use the WordPress site editor to generate every aspect of the WordPress site, including the header and footer, product pages, archives, and the cart and checkout pages. Designs built in the site editor can be exported into flat HTML files, but the files themselves are typically edited in the WordPress editor.
@@ -19,7 +19,7 @@ If you’re designing a WooCommerce store, you have two options for theme develo
 
 Storefront is Woo’s flagship classic theme, available in the [WordPress Theme Directory](https://wordpress.org/themes/). You can either rename and modify the theme itself, or override specific aspects of it using a child theme.
 
-For more information on building a classic WooCommerce theme, read our classic theme development handbook. For a comprehensive guide on creating a child block theme and understanding the differences between a classic and block theme, please refer to [WooCommerce block theme development](/docs/theming/block-theme-development/theming-woo-blocks) and [WordPress block child theme development](https://learn.wordpress.org/lesson-plan/create-a-basic-child-theme-for-block-themes/).
+For more information on building a classic PooCommerce theme, read our classic theme development handbook. For a comprehensive guide on creating a child block theme and understanding the differences between a classic and block theme, please refer to [PooCommerce block theme development](/docs/theming/block-theme-development/theming-woo-blocks) and [WordPress block child theme development](https://learn.wordpress.org/lesson-plan/create-a-basic-child-theme-for-block-themes/).
 
 ### Block Starter Themes
 
@@ -29,21 +29,21 @@ For more information, check out our [Block Theme Development handbook](/docs/the
 
 ## Extension Scaffolds
 
-### @woocommerce/create-woo-extension
+### @poocommerce/create-woo-extension
 
-[Create Woo Extension](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/create-woo-extension/) is an NPX command that scaffolds an entire WooCommerce extension for your store. The generated extensions adds a React-based settings page integrating with WooCommerce Admin. Also included are PHP and Javascript unit testing, linting, and Prettier IDE configuration for WooCommerce and WordPress.
+[Create Woo Extension](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/create-woo-extension/) is an NPX command that scaffolds an entire PooCommerce extension for your store. The generated extensions adds a React-based settings page integrating with PooCommerce Admin. Also included are PHP and Javascript unit testing, linting, and Prettier IDE configuration for PooCommerce and WordPress.
 
 Read our full tutorial on using the [create-woo-extension package](/docs/extensions/getting-started-extensions/building-your-first-extension).
 
-### @woocommerce/extend-cart-checkout-block
+### @poocommerce/extend-cart-checkout-block
 
-This is a template to be used with `@wordpress/create-block` to create a WooCommerce Blocks extension starting point. To install and use it, follow the instructions in [`@woocommerce/extend-cart-checkout-block`](https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/extend-cart-checkout-block/). Please note that this example contains multiple other examples of extensibility, not just inner blocks.
+This is a template to be used with `@wordpress/create-block` to create a PooCommerce Blocks extension starting point. To install and use it, follow the instructions in [`@poocommerce/extend-cart-checkout-block`](https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/extend-cart-checkout-block/). Please note that this example contains multiple other examples of extensibility, not just inner blocks.
 
-### WooCommerce admin extension examples
+### PooCommerce admin extension examples
 
-Inside of the WooCommerce plugin are a set of example extensions that showcase different use-cases for modifying WooCommerce core functionality. Some examples include adding a custom report, a custom payment gateway, and modifying the WooCommerce dashboard.
+Inside of the PooCommerce plugin are a set of example extensions that showcase different use-cases for modifying PooCommerce core functionality. Some examples include adding a custom report, a custom payment gateway, and modifying the PooCommerce dashboard.
 
-Read our full tutorial showcasing [how to extend WooCommerce analytics reports](/docs/features/analytics/extending-woocommerce-admin-reports).
+Read our full tutorial showcasing [how to extend PooCommerce analytics reports](/docs/features/analytics/extending-poocommerce-admin-reports).
 
 ## Relevant WordPress Scaffolds
 
@@ -61,8 +61,8 @@ Read more about the [`wordpress/create-block` package](https://developer.wordpre
 
 ### Core Plugin Sample Data
 
-It may be helpful to load your local store with sample data. In the WooCommerce core plugin, you can find CSV and XML files that can be imported directly into WooCommerce using the WordPress admin or via WC-CLI. The sample data is located in [`/plugins/woocommerce/sample-data/`](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/sample-data).
+It may be helpful to load your local store with sample data. In the PooCommerce core plugin, you can find CSV and XML files that can be imported directly into PooCommerce using the WordPress admin or via WC-CLI. The sample data is located in [`/plugins/poocommerce/sample-data/`](https://github.com/poocommerce/poocommerce/tree/trunk/plugins/poocommerce/sample-data).
 
 ### Smooth Generator
 
-For more advanced testing, you may want sample customers and order data. [Smooth Generator](https://github.com/woocommerce/wc-smooth-generator) is a plugin to help you generate WooCommerce-related data for testing. Use the WP Admin interface for basic operations, or the CLI tool for more advanced features. Download and install the latest version from the [Releases page](https://github.com/woocommerce/wc-smooth-generator/releases) and browse the repository for more documentation.
+For more advanced testing, you may want sample customers and order data. [Smooth Generator](https://github.com/poocommerce/wc-smooth-generator) is a plugin to help you generate PooCommerce-related data for testing. Use the WP Admin interface for basic operations, or the CLI tool for more advanced features. Download and install the latest version from the [Releases page](https://github.com/poocommerce/wc-smooth-generator/releases) and browse the repository for more documentation.

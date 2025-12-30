@@ -3,8 +3,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
-import { WC_ADMIN_NAMESPACE } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { WC_ADMIN_NAMESPACE } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { createNoticesFromResponse } from '~/lib/notices';
 export function connectWcpay( createNotice, onCatch ) {
 	const errorMessage = __(
 		'There was an error connecting to WooPayments. Please try again or connect later in store settings.',
-		'woocommerce'
+		'poocommerce'
 	);
 	apiFetch( {
 		path: WC_ADMIN_NAMESPACE + '/plugins/connect-wcpay',
@@ -36,9 +36,9 @@ export function installActivateAndConnectWcpay(
 	createNotice,
 	installAndActivatePlugins
 ) {
-	installAndActivatePlugins( [ 'woocommerce-payments' ] )
+	installAndActivatePlugins( [ 'poocommerce-payments' ] )
 		.then( () => {
-			recordEvent( 'woocommerce_payments_install', {
+			recordEvent( 'poocommerce_payments_install', {
 				context: 'tasklist',
 			} );
 

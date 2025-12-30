@@ -1,22 +1,22 @@
 <?php
 /**
- * WooCommerce Admin WooCommerce Payments Note Provider.
+ * PooCommerce Admin PooCommerce Payments Note Provider.
  *
- * Adds a note to the merchant's inbox showing the benefits of the WooCommerce Payments.
+ * Adds a note to the merchant's inbox showing the benefits of the PooCommerce Payments.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\Notes;
+namespace Automattic\PooCommerce\Internal\Admin\Notes;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Note;
-use Automattic\WooCommerce\Admin\Notes\Notes;
-use Automattic\WooCommerce\Admin\Notes\NoteTraits;
+use Automattic\PooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\NoteTraits;
 
 /**
- * WooCommerce_Payments
+ * PooCommerce_Payments
  */
-class WooCommercePayments {
+class PooCommercePayments {
 	/**
 	 * Note traits.
 	 */
@@ -25,28 +25,28 @@ class WooCommercePayments {
 	/**
 	 * Name of the note for use in the database.
 	 */
-	const NOTE_NAME = 'wc-admin-woocommerce-payments';
+	const NOTE_NAME = 'wc-admin-poocommerce-payments';
 
 	/**
 	 * Name of the note for use in the database.
 	 */
-	const PLUGIN_SLUG = 'woocommerce-payments';
+	const PLUGIN_SLUG = 'poocommerce-payments';
 
 	/**
 	 * Name of the note for use in the database.
 	 */
-	const PLUGIN_FILE = 'woocommerce-payments/woocommerce-payments.php';
+	const PLUGIN_FILE = 'poocommerce-payments/poocommerce-payments.php';
 
 	/**
 	 * Attach hooks.
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'install_on_action' ) );
-		add_action( 'wc-admin-woocommerce-payments_add_note', array( $this, 'add_note' ) );
+		add_action( 'wc-admin-poocommerce-payments_add_note', array( $this, 'add_note' ) );
 	}
 
 	/**
-	 * Maybe add a note on WooCommerce Payments for US based sites older than a week without the plugin installed.
+	 * Maybe add a note on PooCommerce Payments for US based sites older than a week without the plugin installed.
 	 */
 	public static function possibly_add_note() {
 		if ( ! self::is_wc_admin_active_in_date_range( 'week-1-4' ) || 'US' !== WC()->countries->get_base_country() ) {
@@ -65,7 +65,7 @@ class WooCommercePayments {
 				return;
 			}
 
-			// If the WooCommerce Payments plugin was installed after the note was created, make sure it's marked as actioned.
+			// If the PooCommerce Payments plugin was installed after the note was created, make sure it's marked as actioned.
 			if ( self::is_installed() && Note::E_WC_ADMIN_NOTE_ACTIONED !== $note->get_status() ) {
 				$note->set_status( Note::E_WC_ADMIN_NOTE_ACTIONED );
 				$note->save();
@@ -97,19 +97,19 @@ class WooCommercePayments {
 	}
 
 	/**
-	 * Add a note about WooCommerce Payments.
+	 * Add a note about PooCommerce Payments.
 	 *
 	 * @return Note
 	 */
 	public static function get_note() {
 		$note = new Note();
-		$note->set_title( __( 'Try the new way to get paid', 'woocommerce' ) );
+		$note->set_title( __( 'Try the new way to get paid', 'poocommerce' ) );
 		$note->set_content(
-			__( 'Securely accept credit and debit cards on your site. Manage transactions without leaving your WordPress dashboard. Only with <strong>WooPayments</strong>.', 'woocommerce' ) .
+			__( 'Securely accept credit and debit cards on your site. Manage transactions without leaving your WordPress dashboard. Only with <strong>WooPayments</strong>.', 'poocommerce' ) .
 			'<br><br>' .
 			sprintf(
 				/* translators: 1: opening link tag, 2: closing tag */
-				__( 'By clicking "Get started", you agree to our %1$sTerms of Service%2$s', 'woocommerce' ),
+				__( 'By clicking "Get started", you agree to our %1$sTerms of Service%2$s', 'poocommerce' ),
 				'<a href="https://wordpress.com/tos/" target="_blank">',
 				'</a>'
 			)
@@ -117,10 +117,10 @@ class WooCommercePayments {
 		$note->set_content_data( (object) array() );
 		$note->set_type( Note::E_WC_ADMIN_NOTE_MARKETING );
 		$note->set_name( self::NOTE_NAME );
-		$note->set_source( 'woocommerce-admin' );
-		$note->add_action( 'learn-more', __( 'Learn more', 'woocommerce' ), 'https://woocommerce.com/payments/?utm_medium=product', Note::E_WC_ADMIN_NOTE_UNACTIONED );
-		$note->add_action( 'get-started', __( 'Get started', 'woocommerce' ), wc_admin_url( '&action=setup-woocommerce-payments' ), Note::E_WC_ADMIN_NOTE_ACTIONED, true );
-		$note->add_nonce_to_action( 'get-started', 'setup-woocommerce-payments', '' );
+		$note->set_source( 'poocommerce-admin' );
+		$note->add_action( 'learn-more', __( 'Learn more', 'poocommerce' ), 'https://poocommerce.com/payments/?utm_medium=product', Note::E_WC_ADMIN_NOTE_UNACTIONED );
+		$note->add_action( 'get-started', __( 'Get started', 'poocommerce' ), wc_admin_url( '&action=setup-poocommerce-payments' ), Note::E_WC_ADMIN_NOTE_ACTIONED, true );
+		$note->add_nonce_to_action( 'get-started', 'setup-poocommerce-payments', '' );
 
 		// Create the note as "actioned" if the plugin is already installed.
 		if ( self::is_installed() ) {
@@ -131,7 +131,7 @@ class WooCommercePayments {
 
 
 	/**
-	 * Check if the WooCommerce Payments plugin is active or installed.
+	 * Check if the PooCommerce Payments plugin is active or installed.
 	 */
 	protected static function is_installed() {
 		if ( defined( 'WC_Payments' ) ) {
@@ -142,19 +142,19 @@ class WooCommercePayments {
 	}
 
 	/**
-	 * Install and activate WooCommerce Payments.
+	 * Install and activate PooCommerce Payments.
 	 *
 	 * @return boolean Whether the plugin was successfully activated.
 	 */
 	private function install_and_activate_wcpay() {
 		$install_request = array( 'plugins' => self::PLUGIN_SLUG );
-		$installer       = new \Automattic\WooCommerce\Admin\API\Plugins();
+		$installer       = new \Automattic\PooCommerce\Admin\API\Plugins();
 		$result          = $installer->install_plugins( $install_request );
 		if ( is_wp_error( $result ) ) {
 			return false;
 		}
 
-		wc_admin_record_tracks_event( 'woocommerce_payments_install', array( 'context' => 'inbox' ) );
+		wc_admin_record_tracks_event( 'poocommerce_payments_install', array( 'context' => 'inbox' ) );
 
 		$activate_request = array( 'plugins' => self::PLUGIN_SLUG );
 		$result           = $installer->activate_plugins( $activate_request );
@@ -166,7 +166,7 @@ class WooCommercePayments {
 	}
 
 	/**
-	 * Install & activate WooCommerce Payments plugin, and redirect to setup.
+	 * Install & activate PooCommerce Payments plugin, and redirect to setup.
 	 */
 	public function install_on_action() {
 		// TODO: Need to validate this request more strictly since we're taking install actions directly?
@@ -174,7 +174,7 @@ class WooCommercePayments {
 			! isset( $_GET['page'] ) ||
 			'wc-admin' !== $_GET['page'] ||
 			! isset( $_GET['action'] ) ||
-			'setup-woocommerce-payments' !== $_GET['action']
+			'setup-poocommerce-payments' !== $_GET['action']
 		) {
 			return;
 		}
@@ -210,7 +210,7 @@ class WooCommercePayments {
 
 		$this->install_and_activate_wcpay();
 
-		// WooCommerce Payments is installed at this point, so link straight into the onboarding flow.
+		// PooCommerce Payments is installed at this point, so link straight into the onboarding flow.
 		$connect_url = add_query_arg(
 			array(
 				'wcpay-connect' => '1',

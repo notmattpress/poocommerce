@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { useCallback, useContext, useState } from '@wordpress/element';
-import * as WooNumber from '@woocommerce/number';
+import * as WooNumber from '@poocommerce/number';
 import {
 	Product,
 	ProductsStoreActions,
@@ -13,9 +13,9 @@ import {
 	ReadOnlyProperties,
 	productReadOnlyProperties,
 	experimentalProductVariationsStore,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { CurrencyContext } from '@woocommerce/currency';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ function getNoticePreviewActions( status: ProductStatus, permalink: string ) {
 	return status === 'publish' && permalink
 		? [
 				{
-					label: __( 'View in store', 'woocommerce' ),
+					label: __( 'View in store', 'poocommerce' ),
 					onClick: () => {
 						recordEvent( 'product_preview_changes', {
 							source: TRACKS_SOURCE,
@@ -97,10 +97,10 @@ export function useProductHelper() {
 					if ( ! skipNotice ) {
 						const noticeContent =
 							newProduct.status === 'publish'
-								? __( 'Product published.', 'woocommerce' )
+								? __( 'Product published.', 'poocommerce' )
 								: __(
 										'Product successfully created.',
-										'woocommerce'
+										'poocommerce'
 								  );
 						createNotice( 'success', `🎉‎ ${ noticeContent }`, {
 							actions: getNoticePreviewActions(
@@ -122,11 +122,11 @@ export function useProductHelper() {
 							status === 'publish'
 								? __(
 										'Failed to publish product.',
-										'woocommerce'
+										'poocommerce'
 								  )
 								: __(
 										'Failed to create product.',
-										'woocommerce'
+										'poocommerce'
 								  )
 						);
 					}
@@ -209,10 +209,10 @@ export function useProductHelper() {
 							const noticeContent =
 								product.status === 'draft' &&
 								updatedProduct.status === 'publish'
-									? __( 'Product published.', 'woocommerce' )
+									? __( 'Product published.', 'poocommerce' )
 									: __(
 											'Product successfully updated.',
-											'woocommerce'
+											'poocommerce'
 									  );
 							createNotice( 'success', `🎉‎ ${ noticeContent }`, {
 								actions: getNoticePreviewActions(
@@ -231,7 +231,7 @@ export function useProductHelper() {
 						if ( ! skipNotice ) {
 							createNotice(
 								'error',
-								__( 'Failed to update product.', 'woocommerce' )
+								__( 'Failed to update product.', 'poocommerce' )
 							);
 						}
 						setUpdating( {
@@ -277,7 +277,7 @@ export function useProductHelper() {
 			( product ) => {
 				const noticeContent = __(
 					'Successfully moved product to Trash.',
-					'woocommerce'
+					'poocommerce'
 				);
 				createNotice( 'success', `🎉‎ ${ noticeContent }` );
 				setIsDeleting( false );
@@ -286,7 +286,7 @@ export function useProductHelper() {
 			( error ) => {
 				createNotice(
 					'error',
-					__( 'Failed to move product to Trash.', 'woocommerce' )
+					__( 'Failed to move product to Trash.', 'poocommerce' )
 				);
 				setIsDeleting( false );
 				return error;

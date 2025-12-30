@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\DraftOrders;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Blocks\Domain\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\DraftOrders;
+use Automattic\PooCommerce\Enums\OrderStatus;
 use WC_Order;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
@@ -78,7 +78,7 @@ class DeleteDraftOrders extends TestCase {
 		);
 
 		// set listening for exceptions
-		add_action( 'woocommerce_caught_exception', function($exception_object){
+		add_action( 'poocommerce_caught_exception', function($exception_object){
 			$this->caught_exception = $exception_object;
 		});
 
@@ -95,7 +95,7 @@ class DeleteDraftOrders extends TestCase {
 		foreach( $orders as $order ) {
 			$order->delete( true );
 		}
-		remove_all_actions( 'woocommerce_caught_exception' );
+		remove_all_actions( 'poocommerce_caught_exception' );
 		//restore original logging destination
 		ini_set('error_log', $this->original_logging_destination);
 		parent::tearDown();
@@ -191,11 +191,11 @@ class DeleteDraftOrders extends TestCase {
 	}
 
 	private function mock_results_for_wc_query( $mock_callback ) {
-		add_filter( 'woocommerce_order_query', $mock_callback, 10, 2 );
+		add_filter( 'poocommerce_order_query', $mock_callback, 10, 2 );
 	}
 
 	private function unset_mock_results_for_wc_query( $mock_callback ) {
-		$removed = remove_filter( 'woocommerce_order_query', $mock_callback );
+		$removed = remove_filter( 'poocommerce_order_query', $mock_callback );
 		$this->assertTrue( $removed );
 	}
 }
