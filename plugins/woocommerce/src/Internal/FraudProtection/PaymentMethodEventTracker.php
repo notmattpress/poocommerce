@@ -2,21 +2,21 @@
 /**
  * PaymentMethodEventTracker class file.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Tracks payment method events for fraud protection analysis.
  *
- * This class hooks into WooCommerce payment method events in My Account
+ * This class hooks into PooCommerce payment method events in My Account
  * (add, update, set default, delete, add failed) and triggers comprehensive event
  * tracking with full session context. It orchestrates the event tracking by collecting
  * session data and preparing it for the fraud protection service.
@@ -69,7 +69,7 @@ class PaymentMethodEventTracker implements RegisterHooksInterface {
 	/**
 	 * Register payment method event hooks.
 	 *
-	 * Hooks into WooCommerce payment token actions to track fraud protection events.
+	 * Hooks into PooCommerce payment token actions to track fraud protection events.
 	 * Only registers hooks if the fraud protection feature is enabled.
 	 */
 	public function register(): void {
@@ -78,10 +78,10 @@ class PaymentMethodEventTracker implements RegisterHooksInterface {
 			return;
 		}
 
-		add_action( 'woocommerce_new_payment_token', array( $this, 'handle_payment_method_added' ), 10, 2 );
-		add_action( 'woocommerce_payment_token_updated', array( $this, 'handle_payment_method_updated' ), 10, 1 );
-		add_action( 'woocommerce_payment_token_set_default', array( $this, 'handle_payment_method_set_default' ), 10, 2 );
-		add_action( 'woocommerce_payment_token_deleted', array( $this, 'handle_payment_method_deleted' ), 10, 2 );
+		add_action( 'poocommerce_new_payment_token', array( $this, 'handle_payment_method_added' ), 10, 2 );
+		add_action( 'poocommerce_payment_token_updated', array( $this, 'handle_payment_method_updated' ), 10, 1 );
+		add_action( 'poocommerce_payment_token_set_default', array( $this, 'handle_payment_method_set_default' ), 10, 2 );
+		add_action( 'poocommerce_payment_token_deleted', array( $this, 'handle_payment_method_deleted' ), 10, 2 );
 	}
 
 	/**

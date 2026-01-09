@@ -5,17 +5,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\CheckoutEventTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\CheckoutEventTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
 
 /**
  * Tests for CheckoutEventTracker.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\CheckoutEventTracker
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\CheckoutEventTracker
  */
 class CheckoutEventTrackerTest extends \WC_Unit_Test_Case {
 
@@ -53,8 +53,8 @@ class CheckoutEventTrackerTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 
@@ -83,7 +83,7 @@ class CheckoutEventTrackerTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Verify hooks were not registered.
-		$this->assertFalse( has_action( 'woocommerce_checkout_update_order_review', array( $this->sut, 'handle_checkout_field_update' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_checkout_update_order_review', array( $this->sut, 'handle_checkout_field_update' ) ) );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class CheckoutEventTrackerTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Verify hooks were registered.
-		$this->assertNotFalse( has_action( 'woocommerce_checkout_update_order_review', array( $this->sut, 'handle_checkout_field_update' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_checkout_update_order_review', array( $this->sut, 'handle_checkout_field_update' ) ) );
 	}
 
 	/**

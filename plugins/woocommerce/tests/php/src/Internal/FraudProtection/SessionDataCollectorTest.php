@@ -5,15 +5,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
 
 /**
  * Tests for SessionDataCollector.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector
  */
 class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 
@@ -37,8 +37,8 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 
@@ -47,7 +47,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 		$this->sut->init( $this->session_clearance_manager );
 
 		// Disable taxes before adding products to cart.
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 	}
 
 	/**
@@ -306,7 +306,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 
 		// Verify lifetime_order_count field exists and returns a valid integer.
 		// In test environment, the method returns 0 because the cache is not automatically
-		// populated by order lifecycle hooks. In production, WooCommerce maintains this cache.
+		// populated by order lifecycle hooks. In production, PooCommerce maintains this cache.
 		$this->assertArrayHasKey( 'lifetime_order_count', $result['customer'] );
 		$this->assertIsInt( $result['customer']['lifetime_order_count'] );
 		$this->assertGreaterThanOrEqual( 0, $result['customer']['lifetime_order_count'] );
@@ -791,7 +791,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_manual_triggering_only() {
 		// This test verifies that SessionDataCollector doesn't automatically
-		// hook into WooCommerce events. It should only collect data when
+		// hook into PooCommerce events. It should only collect data when
 		// collect() is explicitly called.
 
 		// Add a product to cart (should not trigger automatic collection).

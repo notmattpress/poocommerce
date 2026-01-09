@@ -1,7 +1,7 @@
 {
-	"name": "@woocommerce/explat",
+	"name": "@poocommerce/explat",
 	"version": "2.4.0",
-	"description": "WooCommerce component and utils for A/B testing.",
+	"description": "PooCommerce component and utils for A/B testing.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"engines": {
@@ -9,17 +9,17 @@
 	},
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"abtest",
 		"explat"
 	],
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/explat/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/explat/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
@@ -68,8 +68,8 @@
 		"@types/node": "20.x.x",
 		"@types/qs": "^6.9.10",
 		"@types/react": "18.3.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",
 		"jest-cli": "29.5.x",
@@ -151,12 +151,12 @@
 			"allowUsuallyExcludedPaths": true,
 			"files": [
 				"package.json",
-				"node_modules/@woocommerce/eslint-plugin/configs",
-				"node_modules/@woocommerce/eslint-plugin/rules",
-				"node_modules/@woocommerce/eslint-plugin/index.js",
-				"node_modules/@woocommerce/internal-js-tests/build",
-				"node_modules/@woocommerce/internal-js-tests/build-module",
-				"node_modules/@woocommerce/internal-js-tests/jest-preset.js"
+				"node_modules/@poocommerce/eslint-plugin/configs",
+				"node_modules/@poocommerce/eslint-plugin/rules",
+				"node_modules/@poocommerce/eslint-plugin/index.js",
+				"node_modules/@poocommerce/internal-js-tests/build",
+				"node_modules/@poocommerce/internal-js-tests/build-module",
+				"node_modules/@poocommerce/internal-js-tests/jest-preset.js"
 			]
 		}
 	}

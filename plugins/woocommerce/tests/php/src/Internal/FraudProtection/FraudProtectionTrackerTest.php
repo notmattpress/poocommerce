@@ -5,15 +5,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionTracker;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionTracker;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 
 /**
  * Tests for FraudProtectionTracker.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionTracker
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionTracker
  */
 class FraudProtectionTrackerTest extends \WC_Unit_Test_Case {
 

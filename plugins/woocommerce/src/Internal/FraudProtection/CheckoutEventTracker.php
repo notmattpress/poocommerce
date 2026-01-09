@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Tracks checkout events for fraud protection analysis.
  *
- * This class hooks into WooCommerce checkout events (billing/email changes,
+ * This class hooks into PooCommerce checkout events (billing/email changes,
  * payment selection) and triggers comprehensive event tracking with full session
  * context.
  *
@@ -66,7 +66,7 @@ class CheckoutEventTracker implements RegisterHooksInterface {
 	/**
 	 * Register checkout event hooks.
 	 *
-	 * Hooks into WooCommerce checkout actions to track fraud protection events.
+	 * Hooks into PooCommerce checkout actions to track fraud protection events.
 	 * Only registers hooks if the fraud protection feature is enabled.
 	 *
 	 * @return void
@@ -78,13 +78,13 @@ class CheckoutEventTracker implements RegisterHooksInterface {
 		}
 
 		// Traditional checkout: Track when checkout fields are updated.
-		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'handle_checkout_field_update' ), 10, 1 );
+		add_action( 'poocommerce_checkout_update_order_review', array( $this, 'handle_checkout_field_update' ), 10, 1 );
 	}
 
 	/**
 	 * Handle traditional checkout field update event.
 	 *
-	 * Triggered when checkout fields are updated via AJAX (woocommerce_update_order_review).
+	 * Triggered when checkout fields are updated via AJAX (poocommerce_update_order_review).
 	 *
 	 * @internal
 	 *
@@ -297,7 +297,7 @@ class CheckoutEventTracker implements RegisterHooksInterface {
 		$shipping_method_map = array();
 
 		try {
-			// Get WooCommerce shipping instance.
+			// Get PooCommerce shipping instance.
 			$shipping = WC()->shipping();
 			if ( ! $shipping ) {
 				return $shipping_method_map;

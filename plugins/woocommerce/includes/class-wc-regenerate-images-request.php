@@ -2,7 +2,7 @@
 /**
  * All functionality to regenerate images in the background when settings change.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.3.0
  * @since   3.3.0
  */
@@ -110,7 +110,7 @@ class WC_Regenerate_Images_Request extends WC_Background_Process {
 		$log->info(
 			sprintf(
 				// translators: %s: ID of the attachment.
-				__( 'Regenerating images for attachment ID: %s', 'woocommerce' ),
+				__( 'Regenerating images for attachment ID: %s', 'poocommerce' ),
 				$this->attachment_id
 			),
 			array(
@@ -238,13 +238,13 @@ class WC_Regenerate_Images_Request extends WC_Background_Process {
 	 */
 	public function adjust_intermediate_image_sizes( $sizes ) {
 		// Prevent a filter loop.
-		$unfiltered_sizes = array( 'woocommerce_thumbnail', 'woocommerce_gallery_thumbnail', 'woocommerce_single' );
+		$unfiltered_sizes = array( 'poocommerce_thumbnail', 'poocommerce_gallery_thumbnail', 'poocommerce_single' );
 		static $in_filter = false;
 		if ( $in_filter ) {
 			return $unfiltered_sizes;
 		}
 		$in_filter      = true;
-		$filtered_sizes = apply_filters( 'woocommerce_regenerate_images_intermediate_image_sizes', $unfiltered_sizes );
+		$filtered_sizes = apply_filters( 'poocommerce_regenerate_images_intermediate_image_sizes', $unfiltered_sizes );
 		$in_filter      = false;
 		return $filtered_sizes;
 	}
@@ -258,7 +258,7 @@ class WC_Regenerate_Images_Request extends WC_Background_Process {
 		parent::complete();
 		$log = wc_get_logger();
 		$log->info(
-			__( 'Completed product image regeneration job.', 'woocommerce' ),
+			__( 'Completed product image regeneration job.', 'poocommerce' ),
 			array(
 				'source' => 'wc-image-regeneration',
 			)

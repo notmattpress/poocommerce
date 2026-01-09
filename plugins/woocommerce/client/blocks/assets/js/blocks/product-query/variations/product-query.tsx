@@ -7,15 +7,15 @@ import {
 } from '@wordpress/blocks';
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { stacks } from '@woocommerce/icons';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { stacks } from '@poocommerce/icons';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import { select, subscribe } from '@wordpress/data';
 import {
 	QueryBlockAttributes,
 	ProductQueryBlockQuery,
-} from '@woocommerce/blocks/product-query/types';
-import { isSiteEditorPage, CORE_EDITOR_STORE } from '@woocommerce/utils';
-import { isNumber, isString } from '@woocommerce/types';
+} from '@poocommerce/blocks/product-query/types';
+import { isSiteEditorPage, CORE_EDITOR_STORE } from '@poocommerce/utils';
+import { isNumber, isString } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -41,11 +41,11 @@ const registerProductsBlock = ( attributes: QueryBlockAttributes ) => {
 	registerBlockVariation( QUERY_LOOP_ID, {
 		description: __(
 			'A block that displays a selection of products in your store.',
-			'woocommerce'
+			'poocommerce'
 		),
 		name: PRODUCT_QUERY_VARIATION_NAME,
 		/* translators: "Products" is the name of the block. */
-		title: __( 'Products (Beta)', 'woocommerce' ),
+		title: __( 'Products (Beta)', 'poocommerce' ),
 		isActive: ( blockAttributes ) =>
 			blockAttributes.namespace === PRODUCT_QUERY_VARIATION_NAME,
 		icon: (

@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities\REST;
+namespace Automattic\PooCommerce\Internal\Abilities\REST;
 
-use Automattic\WooCommerce\Internal\MCP\Transport\WooCommerceRestTransport;
+use Automattic\PooCommerce\Internal\MCP\Transport\PooCommerceRestTransport;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Factory class for creating abilities from REST controllers.
  *
- * Handles the conversion of WooCommerce REST API endpoints into WordPress abilities
+ * Handles the conversion of PooCommerce REST API endpoints into WordPress abilities
  * that can be consumed by MCP or other systems.
  */
 class RestAbilityFactory {
@@ -55,7 +55,7 @@ class RestAbilityFactory {
 			$ability_args = array(
 				'label'               => $ability_config['label'],
 				'description'         => $ability_config['description'],
-				'category'            => 'woocommerce-rest',
+				'category'            => 'poocommerce-rest',
 				'input_schema'        => self::get_schema_for_operation( $controller, $ability_config['operation'] ),
 				'output_schema'       => self::get_output_schema( $controller, $ability_config['operation'] ),
 				'execute_callback'    => function ( $input ) use ( $controller, $ability_config, $route ) {
@@ -83,7 +83,7 @@ class RestAbilityFactory {
 			if ( function_exists( 'wc_get_logger' ) ) {
 				wc_get_logger()->error(
 					"Failed to register ability {$ability_config['id']}: " . $e->getMessage(),
-					array( 'source' => 'woocommerce-rest-abilities' )
+					array( 'source' => 'poocommerce-rest-abilities' )
 				);
 			}
 		}
@@ -122,7 +122,7 @@ class RestAbilityFactory {
 					// Add ID field for update operations.
 					$schema['properties']['id'] = array(
 						'type'        => 'integer',
-						'description' => __( 'Unique identifier for the resource', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource', 'poocommerce' ),
 					);
 
 					// Ensure ID is required.
@@ -145,7 +145,7 @@ class RestAbilityFactory {
 					'properties' => array(
 						'id' => array(
 							'type'        => 'integer',
-							'description' => __( 'Unique identifier for the resource', 'woocommerce' ),
+							'description' => __( 'Unique identifier for the resource', 'poocommerce' ),
 						),
 					),
 					'required'   => array( 'id' ),
@@ -348,6 +348,6 @@ class RestAbilityFactory {
 		 * @param string $method     HTTP method (GET, POST, PUT, DELETE).
 		 * @param object $controller REST controller instance.
 		 */
-		return apply_filters( 'woocommerce_check_rest_ability_permissions_for_method', false, $method, $controller );
+		return apply_filters( 'poocommerce_check_rest_ability_permissions_for_method', false, $method, $controller );
 	}
 }

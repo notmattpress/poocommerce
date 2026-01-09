@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Orders;
+namespace Automattic\PooCommerce\Internal\Orders;
 
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 use WC_Abstract_Order;
 
 /**
@@ -48,7 +48,7 @@ class PaymentInfo {
 		}
 
 		// Fallback for WooPayments.
-		if ( empty( $info ) && 'woocommerce_payments' === $method ) {
+		if ( empty( $info ) && 'poocommerce_payments' === $method ) {
 			$info = self::get_wcpay_card_info( $order );
 		}
 
@@ -95,7 +95,7 @@ class PaymentInfo {
 	 * @return array
 	 */
 	private static function get_wcpay_card_info( WC_Abstract_Order $order ): array {
-		if ( 'woocommerce_payments' !== $order->get_payment_method() ) {
+		if ( 'poocommerce_payments' !== $order->get_payment_method() ) {
 			return array();
 		}
 

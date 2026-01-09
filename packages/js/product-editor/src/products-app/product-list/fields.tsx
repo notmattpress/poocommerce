@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Fragment } from '@wordpress/element';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
 import { Field } from '@wordpress/dataviews';
 
@@ -12,11 +12,11 @@ import { Field } from '@wordpress/dataviews';
 import { OPERATOR_IS } from '../constants';
 
 const STATUSES = [
-	{ value: 'draft', label: __( 'Draft', 'woocommerce' ) },
-	{ value: 'future', label: __( 'Scheduled', 'woocommerce' ) },
-	{ value: 'private', label: __( 'Private', 'woocommerce' ) },
-	{ value: 'publish', label: __( 'Published', 'woocommerce' ) },
-	{ value: 'trash', label: __( 'Trash', 'woocommerce' ) },
+	{ value: 'draft', label: __( 'Draft', 'poocommerce' ) },
+	{ value: 'future', label: __( 'Scheduled', 'poocommerce' ) },
+	{ value: 'private', label: __( 'Private', 'poocommerce' ) },
+	{ value: 'publish', label: __( 'Published', 'poocommerce' ) },
+	{ value: 'trash', label: __( 'Trash', 'poocommerce' ) },
 ];
 
 /**
@@ -26,7 +26,7 @@ const STATUSES = [
 export const productFields: Field< Product >[] = [
 	{
 		id: 'name',
-		label: __( 'Name', 'woocommerce' ),
+		label: __( 'Name', 'poocommerce' ),
 		enableHiding: false,
 		type: 'text',
 		render: function nameRender( { item }: { item: Product } ) {
@@ -35,7 +35,7 @@ export const productFields: Field< Product >[] = [
 	},
 	{
 		id: 'sku',
-		label: __( 'SKU', 'woocommerce' ),
+		label: __( 'SKU', 'poocommerce' ),
 		enableHiding: false,
 		enableSorting: false,
 		render: ( { item }: { item: Product } ) => {
@@ -44,13 +44,13 @@ export const productFields: Field< Product >[] = [
 	},
 	{
 		id: 'date',
-		label: __( 'Date', 'woocommerce' ),
+		label: __( 'Date', 'poocommerce' ),
 		render: ( { item }: { item: Product } ) => {
 			return <time>{ item.date_created }</time>;
 		},
 	},
 	{
-		label: __( 'Status', 'woocommerce' ),
+		label: __( 'Status', 'poocommerce' ),
 		id: 'status',
 		getValue: ( { item }: { item: Product } ) =>
 			STATUSES.find( ( { value } ) => value === item.status )?.label ??

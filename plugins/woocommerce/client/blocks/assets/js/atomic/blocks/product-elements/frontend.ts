@@ -7,20 +7,20 @@ import {
 	getContext,
 	getConfig,
 } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/product-data';
-import type { ProductDataStore } from '@woocommerce/stores/woocommerce/product-data';
+import '@poocommerce/stores/poocommerce/product-data';
+import type { ProductDataStore } from '@poocommerce/stores/poocommerce/product-data';
 import type {
 	ProductData,
-	WooCommerceConfig,
-} from '@woocommerce/stores/woocommerce/cart';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+	PooCommerceConfig,
+} from '@poocommerce/stores/poocommerce/cart';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 // Stores are locked to prevent 3PD usage until the API is stable.
 const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const { state: productDataState } = store< ProductDataStore >(
-	'woocommerce/product-data',
+	'poocommerce/product-data',
 	{},
 	{ lock: universalLock }
 );
@@ -58,7 +58,7 @@ export type Context = {
 };
 
 const productElementStore = store(
-	'woocommerce/product-elements',
+	'poocommerce/product-elements',
 	{
 		state: {
 			get productData(): ProductData | undefined {
@@ -67,8 +67,8 @@ const productElementStore = store(
 				}
 
 				const { products } = getConfig(
-					'woocommerce'
-				) as WooCommerceConfig;
+					'poocommerce'
+				) as PooCommerceConfig;
 
 				if ( ! products ) {
 					return undefined;

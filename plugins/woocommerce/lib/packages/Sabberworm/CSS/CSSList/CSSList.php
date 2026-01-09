@@ -1,30 +1,30 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSList;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSList;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\AtRule;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Charset;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\CSSNamespace;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Import;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Renderable;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\AtRuleSet;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Settings;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\CSSString;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\URL;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\AtRule;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Charset;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\CSSNamespace;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Import;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Renderable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\AtRuleSet;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\RuleSet;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Settings;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\CSSString;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\URL;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value\Value;
 
 /**
  * This is the most generic container available. It can contain `DeclarationBlock`s (rule sets with a selector),

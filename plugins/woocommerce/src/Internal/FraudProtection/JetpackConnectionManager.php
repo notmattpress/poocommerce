@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\Jetpack\JetpackConnection;
+use Automattic\PooCommerce\Internal\Jetpack\JetpackConnection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +57,7 @@ class JetpackConnectionManager {
 
 		// Check if connected.
 		if ( ! JetpackConnection::get_manager()->is_connected() ) {
-			$status['error']      = __( 'Site is not connected to WordPress.com. Please connect your site to enable fraud protection.', 'woocommerce' );
+			$status['error']      = __( 'Site is not connected to WordPress.com. Please connect your site to enable fraud protection.', 'poocommerce' );
 			$status['error_code'] = 'not_connected';
 			return $status;
 		}
@@ -65,7 +65,7 @@ class JetpackConnectionManager {
 		// Get blog ID.
 		$blog_id = $this->get_blog_id();
 		if ( ! $blog_id ) {
-			$status['error']      = __( 'Jetpack blog ID not found. Please reconnect your site to WordPress.com.', 'woocommerce' );
+			$status['error']      = __( 'Jetpack blog ID not found. Please reconnect your site to WordPress.com.', 'poocommerce' );
 			$status['error_code'] = 'no_blog_id';
 			return $status;
 		}
@@ -89,7 +89,7 @@ class JetpackConnectionManager {
 			$redirect_url = admin_url( 'admin.php?page=wc-settings&tab=advanced&section=features' );
 		}
 
-		$authorization_data = JetpackConnection::get_authorization_url( $redirect_url, 'woocommerce-fraud-protection' );
+		$authorization_data = JetpackConnection::get_authorization_url( $redirect_url, 'poocommerce-fraud-protection' );
 
 		if ( ! $authorization_data['success'] ) {
 			FraudProtectionController::log(

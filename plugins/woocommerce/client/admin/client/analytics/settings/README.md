@@ -1,19 +1,19 @@
 Settings
 =======
 
-The settings used to modify the way data is retrieved or displayed in WooCommerce reports.
+The settings used to modify the way data is retrieved or displayed in PooCommerce reports.
 
 ## Extending Settings
 
-Settings can be added, removed, or modified outside oc `wc-admin` by hooking into `woocommerce_admin_analytics_settings`.  For example:
+Settings can be added, removed, or modified outside oc `wc-admin` by hooking into `poocommerce_admin_analytics_settings`.  For example:
 
 ```js
-addFilter( 'woocommerce_admin_analytics_settings', 'wc-example/my-setting', settings => {
+addFilter( 'poocommerce_admin_analytics_settings', 'wc-example/my-setting', settings => {
 	return [
 		...settings,
 		{
             name: 'custom_setting',
-            label: __( 'Custom setting:', 'woocommerce' ),
+            label: __( 'Custom setting:', 'poocommerce' ),
             inputType: 'text',
             helpText: __( 'Help text to describe what the setting does.' ),
             defaultValue: 'Default value',

@@ -4,16 +4,16 @@
  *
  * Handles requests to the /settings/products endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Products;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Products;
 
 use WP_Error;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Products\Schema\ProductSettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Products\Schema\ProductSettingsSchema;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -102,7 +102,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to access product settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to access product settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -119,7 +119,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'edit' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to edit product settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to edit product settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -151,7 +151,7 @@ class Controller extends AbstractController {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -176,7 +176,7 @@ class Controller extends AbstractController {
 			// Sanitize the setting ID.
 			$setting_id = sanitize_text_field( $setting_id );
 
-			// Security check: only allow updating valid WooCommerce product settings.
+			// Security check: only allow updating valid PooCommerce product settings.
 			if ( ! in_array( $setting_id, $valid_setting_ids, true ) ) {
 				continue;
 			}
@@ -208,13 +208,13 @@ class Controller extends AbstractController {
 		// Log the update if settings were changed.
 		if ( ! empty( $updated_settings ) ) {
 			/**
-			* Fires when WooCommerce product settings are updated.
+			* Fires when PooCommerce product settings are updated.
 			*
 			* @param array $updated_settings Array of updated settings IDs.
 			* @param string $rest_base The REST base of the settings.
 			* @since 4.0.0
 			*/
-			do_action( 'woocommerce_settings_updated', $updated_settings, $this->rest_base );
+			do_action( 'poocommerce_settings_updated', $updated_settings, $this->rest_base );
 		}
 
 		// Get all settings after update.
@@ -235,7 +235,7 @@ class Controller extends AbstractController {
 	private function validate_setting_value( string $setting_id, $value ) {
 		// Custom validation rules for specific product settings.
 		switch ( $setting_id ) {
-			case 'woocommerce_weight_unit':
+			case 'poocommerce_weight_unit':
 				/**
 				 * Filter the available weight units.
 				 *
@@ -243,17 +243,17 @@ class Controller extends AbstractController {
 				 *
 				 * @param array $weight_units Array of weight unit strings.
 				 */
-				$valid_units = apply_filters( 'woocommerce_weight_units', array( 'kg', 'g', 'lbs', 'oz' ) );
+				$valid_units = apply_filters( 'poocommerce_weight_units', array( 'kg', 'g', 'lbs', 'oz' ) );
 				if ( ! in_array( $value, $valid_units, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid weight unit. Valid units are: kg, g, lbs, oz.', 'woocommerce' ),
+						__( 'Invalid weight unit. Valid units are: kg, g, lbs, oz.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_dimension_unit':
+			case 'poocommerce_dimension_unit':
 				/**
 				 * Filter the available dimension units.
 				 *
@@ -261,22 +261,22 @@ class Controller extends AbstractController {
 				 *
 				 * @param array $dimension_units Array of dimension unit strings.
 				 */
-				$valid_units = apply_filters( 'woocommerce_dimension_units', array( 'm', 'cm', 'mm', 'in', 'yd' ) );
+				$valid_units = apply_filters( 'poocommerce_dimension_units', array( 'm', 'cm', 'mm', 'in', 'yd' ) );
 				if ( ! in_array( $value, $valid_units, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid dimension unit. Valid units are: m, cm, mm, in, yd.', 'woocommerce' ),
+						__( 'Invalid dimension unit. Valid units are: m, cm, mm, in, yd.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_product_type':
+			case 'poocommerce_product_type':
 				$valid_types = array_keys( wc_get_product_types() );
 				if ( ! in_array( $value, $valid_types, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid product type.', 'woocommerce' ),
+						__( 'Invalid product type.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
