@@ -20,7 +20,7 @@ jQuery( function( $ ) {
 			}
 		} else {
 			field.find( 'label .required' ).remove();
-			field.removeClass( 'validate-required woocommerce-invalid woocommerce-invalid-required-field' );
+			field.removeClass( 'validate-required poocommerce-invalid poocommerce-invalid-required-field' );
 
 			if ( field.find( 'label .optional' ).length === 0 ) {
 				field.find( 'label' ).append( '&nbsp;<span class="optional">(' + wc_address_i18n_params.i18n_optional_text + ')</span>' );
@@ -108,10 +108,10 @@ jQuery( function( $ ) {
 			});
 
 			var fieldsets = $(
-				'.woocommerce-billing-fields__field-wrapper,' +
-				'.woocommerce-shipping-fields__field-wrapper,' +
-				'.woocommerce-address-fields__field-wrapper,' +
-				'.woocommerce-additional-fields__field-wrapper .woocommerce-account-fields'
+				'.poocommerce-billing-fields__field-wrapper,' +
+				'.poocommerce-shipping-fields__field-wrapper,' +
+				'.poocommerce-address-fields__field-wrapper,' +
+				'.poocommerce-additional-fields__field-wrapper .poocommerce-account-fields'
 			);
 
 			fieldsets.each( function( index, fieldset ) {

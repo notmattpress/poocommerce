@@ -17,8 +17,8 @@ import {
 } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { useEffect } from '@wordpress/element';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
-import { useProduct } from '@woocommerce/entities';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
+import { useProduct } from '@poocommerce/entities';
 
 /**
  * Internal dependencies
@@ -42,8 +42,8 @@ function WidthPanel( {
 	}
 
 	return (
-		<PanelBody title={ __( 'Width settings', 'woocommerce' ) }>
-			<ButtonGroup aria-label={ __( 'Button width', 'woocommerce' ) }>
+		<PanelBody title={ __( 'Width settings', 'poocommerce' ) }>
+			<ButtonGroup aria-label={ __( 'Button width', 'poocommerce' ) }>
 				{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
 					return (
 						<Button

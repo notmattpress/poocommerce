@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { sanitizeHTML as sanitizeHTMLFromPackage } from '@woocommerce/sanitize';
+import { getSetting } from '@poocommerce/settings';
+import { sanitizeHTML as sanitizeHTMLFromPackage } from '@poocommerce/sanitize';
 
 export function isGutenbergVersionAtLeast( version: number ) {
 	const adminSettings: { gutenberg_version?: string } = getSetting( 'admin' );

@@ -3,7 +3,7 @@
  * Includes the composer Autoloader used for packages and classes in the src/ directory.
  */
 
-namespace Automattic\WooCommerce;
+namespace Automattic\PooCommerce;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,7 +49,7 @@ class Autoloader {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// This message is not translated as at this point it's too early to load translations.
 			error_log(  // phpcs:ignore
-				esc_html( 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment: https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment' )
+				esc_html( 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, please refer to this document to set up your development environment: https://github.com/poocommerce/poocommerce/wiki/How-to-set-up-PooCommerce-development-environment' )
 			);
 		}
 		add_action(
@@ -61,8 +61,8 @@ class Autoloader {
 						<?php
 						printf(
 							/* translators: 1: is a link to a support document. 2: closing link */
-							esc_html__( 'Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment.', 'woocommerce' ),
-							'<a href="' . esc_url( 'https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment' ) . '" target="_blank" rel="noopener noreferrer">',
+							esc_html__( 'Your installation of PooCommerce is incomplete. If you installed PooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment.', 'poocommerce' ),
+							'<a href="' . esc_url( 'https://github.com/poocommerce/poocommerce/wiki/How-to-set-up-PooCommerce-development-environment' ) . '" target="_blank" rel="noopener noreferrer">',
 							'</a>'
 						);
 						?>

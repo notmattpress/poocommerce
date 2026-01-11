@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * MiniCartProductsTableBlock class.
@@ -22,18 +22,18 @@ class MiniCartProductsTableBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render( $attributes, $content, $block ) {
-		$screen_reader_text = __( 'Products in cart', 'woocommerce' );
-		$remove_item_label  = __( 'Remove item', 'woocommerce' );
-		$head_product_label = __( 'Product', 'woocommerce' );
-		$head_details_label = __( 'Details', 'woocommerce' );
-		$head_total_label   = __( 'Total', 'woocommerce' );
+		$screen_reader_text = __( 'Products in cart', 'poocommerce' );
+		$remove_item_label  = __( 'Remove item', 'poocommerce' );
+		$head_product_label = __( 'Product', 'poocommerce' );
+		$head_details_label = __( 'Details', 'poocommerce' );
+		$head_total_label   = __( 'Total', 'poocommerce' );
 
 		wp_interactivity_state(
 			$this->get_full_block_name(),
 			array(
 				'cartItem' => function () {
-					$context = wp_interactivity_get_context( 'woocommerce' );
-					$cart_state = wp_interactivity_state( 'woocommerce' );
+					$context = wp_interactivity_get_context( 'poocommerce' );
+					$cart_state = wp_interactivity_state( 'poocommerce' );
 					$item_key = $context['cartItem']['key'];
 
 					foreach ( $cart_state['cart']['items'] as $item ) {
@@ -48,24 +48,24 @@ class MiniCartProductsTableBlock extends AbstractInnerBlock {
 		);
 
 		// translators: %s is the name of the product in cart.
-		$reduce_quantity_label = __( 'Reduce quantity of %s', 'woocommerce' );
+		$reduce_quantity_label = __( 'Reduce quantity of %s', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$increase_quantity_label = __( 'Increase quantity of %s', 'woocommerce' );
+		$increase_quantity_label = __( 'Increase quantity of %s', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$quantity_description_label = __( 'Quantity of %s in your cart.', 'woocommerce' );
+		$quantity_description_label = __( 'Quantity of %s in your cart.', 'poocommerce' );
 
 		// translators: %s is the name of the product in cart.
-		$remove_from_cart_label = __( 'Remove %s from cart', 'woocommerce' );
+		$remove_from_cart_label = __( 'Remove %s from cart', 'poocommerce' );
 
 		// translators: Save as in "Save $x".
-		$save_label = __( 'Save', 'woocommerce' );
+		$save_label = __( 'Save', 'poocommerce' );
 
-		$available_on_backorder_label = __( 'Available on backorder', 'woocommerce' );
+		$available_on_backorder_label = __( 'Available on backorder', 'poocommerce' );
 
 		/* translators: %d stock amount (number of items in stock for product) */
-		$low_in_stock_label = __( '%d left in stock', 'woocommerce' );
+		$low_in_stock_label = __( '%d left in stock', 'poocommerce' );
 
 		wp_interactivity_config(
 			$this->get_full_block_name(),
@@ -109,7 +109,7 @@ class MiniCartProductsTableBlock extends AbstractInnerBlock {
 				</thead>
 				<tbody>
 					<template
-						data-wp-each--cart-item="woocommerce::state.cart.items"
+						data-wp-each--cart-item="poocommerce::state.cart.items"
 						data-wp-each-key="state.cartItem.key"
 					>
 						<tr
@@ -151,11 +151,11 @@ class MiniCartProductsTableBlock extends AbstractInnerBlock {
 										<span data-wp-bind--hidden="!state.cartItemHasDiscount" class="price wc-block-components-product-price">
 											<span data-wp-text="state.beforeItemPrice"></span>
 											<span class="screen-reader-text">
-												<?php esc_html_e( 'Previous price:', 'woocommerce' ); ?>
+												<?php esc_html_e( 'Previous price:', 'poocommerce' ); ?>
 											</span>
 											<del data-wp-text="state.priceWithoutDiscount" class="wc-block-components-product-price__regular"></del>
 											<span class="screen-reader-text">
-												<?php esc_html_e( 'Discounted price:', 'woocommerce' ); ?>
+												<?php esc_html_e( 'Discounted price:', 'poocommerce' ); ?>
 											</span>
 											<ins data-wp-text="state.itemPrice" class="wc-block-components-product-price__value is-discounted"></ins>
 											<span data-wp-text="state.afterItemPrice"></span>

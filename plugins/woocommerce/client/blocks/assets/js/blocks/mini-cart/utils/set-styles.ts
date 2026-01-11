@@ -41,7 +41,7 @@ function setStyles() {
 	// We need to set `div` and `span` in the selector so it has more specificity than the CSS.
 	style.appendChild(
 		document.createTextNode(
-			`div:where(.wp-block-woocommerce-mini-cart-contents) {
+			`div:where(.wp-block-poocommerce-mini-cart-contents) {
 				background-color: ${ backgroundColor };
 			}
 			span:where(.wc-block-mini-cart__badge) {

@@ -1,19 +1,19 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-collection",
+	"name": "poocommerce/product-collection",
 	"title": "Product Collection",
 	"description": "Display a collection of products from your store.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"keywords": [
-		"WooCommerce",
+		"PooCommerce",
 		"Products (Beta)",
 		"all products",
 		"by attribute",
 		"by category",
 		"by tag"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"queryId": {
 			"type": "number"
@@ -82,6 +82,6 @@
 		"interactivity": true,
 		"email": true
 	},
-	"editorStyle": "file:../woocommerce/product-collection-editor.css",
-	"style": "file:../woocommerce/product-collection-style.css"
+	"editorStyle": "file:../poocommerce/product-collection-editor.css",
+	"style": "file:../poocommerce/product-collection-style.css"
 }

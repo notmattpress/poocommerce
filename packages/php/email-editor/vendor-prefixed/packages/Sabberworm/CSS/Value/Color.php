@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
 
 /**
  * `Color's can be input in the form #rrggbb, #rgb or schema(val1, val2, …) but are always stored as an array of

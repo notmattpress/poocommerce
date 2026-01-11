@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\RestApi\UnitTests;
+namespace Automattic\PooCommerce\RestApi\UnitTests;
 
 /**
  * Trait LoggerSpyTrait.
@@ -51,7 +51,7 @@ trait LoggerSpyTrait {
 			}
 		);
 
-		add_filter( 'woocommerce_logging_class', array( $this, 'get_spy_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'get_spy_logger' ) );
 	}
 
 	/**
@@ -63,7 +63,7 @@ trait LoggerSpyTrait {
 	 * @return void
 	 */
 	protected function tear_down_spy_logger(): void {
-		remove_filter( 'woocommerce_logging_class', array( $this, 'get_spy_logger' ) );
+		remove_filter( 'poocommerce_logging_class', array( $this, 'get_spy_logger' ) );
 		$this->captured_logs = array();
 	}
 

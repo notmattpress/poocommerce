@@ -1,18 +1,18 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Feed;
 
 use WC_Helper_Product;
 use WC_Product;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Utils\MemoryManager;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductLoader;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductMapperInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\WalkerProgress;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductWalker;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Utils\MemoryManager;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductLoader;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\FeedValidatorInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\WalkerProgress;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductWalker;
 
 /**
  * ProductWalkerTest class.
@@ -38,7 +38,7 @@ class ProductWalkerTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_filters( 'woocommerce_product_feed_args' );
+		remove_all_filters( 'poocommerce_product_feed_args' );
 		$this->test_container->reset_all_replacements();
 	}
 
@@ -230,7 +230,7 @@ class ProductWalkerTest extends \WC_Unit_Test_Case {
 		if ( $add_args_filter ) {
 			// Add a filter that unsets the category query arg.
 			add_filter(
-				'woocommerce_product_feed_args',
+				'poocommerce_product_feed_args',
 				function ( $args, $integration ) use ( $mock_integration ) {
 					$this->assertSame( $mock_integration, $integration );
 					unset( $args['category'] );

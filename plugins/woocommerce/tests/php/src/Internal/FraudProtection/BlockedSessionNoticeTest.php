@@ -5,15 +5,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\BlockedSessionNotice;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Internal\FraudProtection\BlockedSessionNotice;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
 
 /**
  * Tests for BlockedSessionNotice.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\BlockedSessionNotice
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\BlockedSessionNotice
  */
 class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 
@@ -44,7 +44,7 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Set a custom support email.
-		update_option( 'woocommerce_email_from_address', 'support@example.com' );
+		update_option( 'poocommerce_email_from_address', 'support@example.com' );
 	}
 
 	/**
@@ -52,18 +52,18 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_actions( 'woocommerce_before_checkout_form' );
-		delete_option( 'woocommerce_email_from_address' );
+		remove_all_actions( 'poocommerce_before_checkout_form' );
+		delete_option( 'poocommerce_email_from_address' );
 	}
 
 	/**
-	 * @testdox Should display error notice when woocommerce_before_checkout_form action fires for blocked sessions.
+	 * @testdox Should display error notice when poocommerce_before_checkout_form action fires for blocked sessions.
 	 */
 	public function test_checkout_action_displays_blocked_message(): void {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( true );
 
 		ob_start();
-		do_action( 'woocommerce_before_checkout_form' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_before_checkout_form' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'unable to process this request online', $output, 'Should display blocked message on checkout' );
@@ -78,7 +78,7 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( false );
 
 		ob_start();
-		do_action( 'woocommerce_before_checkout_form' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_before_checkout_form' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$output = ob_get_clean();
 
 		$this->assertEmpty( $output, 'Non-blocked sessions should not display any message' );

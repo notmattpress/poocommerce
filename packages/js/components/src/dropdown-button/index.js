@@ -16,7 +16,7 @@ import clsx from 'clsx';
  */
 const DropdownButton = ( props ) => {
 	const { labels, isOpen, ...otherProps } = props;
-	const buttonClasses = clsx( 'woocommerce-dropdown-button', {
+	const buttonClasses = clsx( 'poocommerce-dropdown-button', {
 		'is-open': isOpen,
 		'is-multi-line': labels.length > 1,
 	} );
@@ -26,7 +26,7 @@ const DropdownButton = ( props ) => {
 			aria-expanded={ isOpen }
 			{ ...otherProps }
 		>
-			<div className="woocommerce-dropdown-button__labels">
+			<div className="poocommerce-dropdown-button__labels">
 				{ labels.map( ( label, i ) => (
 					<span key={ i }>{ decodeEntities( label ) }</span>
 				) ) }

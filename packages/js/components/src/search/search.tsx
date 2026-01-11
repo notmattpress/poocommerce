@@ -204,7 +204,7 @@ export class Search extends Component< SearchProps, SearchState > {
 		return (
 			<div>
 				<SelectControl
-					className={ clsx( 'woocommerce-search', className, {
+					className={ clsx( 'poocommerce-search', className, {
 						'is-static-results': staticResults,
 					} ) }
 					disabled={ disabled }

@@ -2,15 +2,15 @@
 /**
  * PaymentMethodEventTrackerTest class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\PaymentMethodEventTracker;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\FraudProtection\PaymentMethodEventTracker;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 
 /**
  * Tests for the PaymentMethodEventTracker class.
@@ -33,7 +33,7 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 		parent::setUp();
 
 		// Enable the fraud protection feature.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 
 		$container = wc_get_container();
 		$container->reset_all_resolved();
@@ -49,10 +49,10 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 	public function test_hooks_registered_when_feature_enabled(): void {
 		$this->sut->register();
 
-		$this->assertNotFalse( has_action( 'woocommerce_new_payment_token', array( $this->sut, 'handle_payment_method_added' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_payment_token_updated', array( $this->sut, 'handle_payment_method_updated' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_payment_token_set_default', array( $this->sut, 'handle_payment_method_set_default' ) ) );
-		$this->assertNotFalse( has_action( 'woocommerce_payment_token_deleted', array( $this->sut, 'handle_payment_method_deleted' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_new_payment_token', array( $this->sut, 'handle_payment_method_added' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_payment_token_updated', array( $this->sut, 'handle_payment_method_updated' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_payment_token_set_default', array( $this->sut, 'handle_payment_method_set_default' ) ) );
+		$this->assertNotFalse( has_action( 'poocommerce_payment_token_deleted', array( $this->sut, 'handle_payment_method_deleted' ) ) );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 	 * @testdox Should not register hooks when feature is disabled.
 	 */
 	public function test_hooks_not_registered_when_feature_disabled(): void {
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'no' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'no' );
 
 		$container = wc_get_container();
 		$container->reset_all_resolved();
@@ -69,10 +69,10 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 
 		$this->sut->register();
 
-		$this->assertFalse( has_action( 'woocommerce_new_payment_token', array( $this->sut, 'handle_payment_method_added' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_payment_token_updated', array( $this->sut, 'handle_payment_method_updated' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_payment_token_set_default', array( $this->sut, 'handle_payment_method_set_default' ) ) );
-		$this->assertFalse( has_action( 'woocommerce_payment_token_deleted', array( $this->sut, 'handle_payment_method_deleted' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_new_payment_token', array( $this->sut, 'handle_payment_method_added' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_payment_token_updated', array( $this->sut, 'handle_payment_method_updated' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_payment_token_set_default', array( $this->sut, 'handle_payment_method_set_default' ) ) );
+		$this->assertFalse( has_action( 'poocommerce_payment_token_deleted', array( $this->sut, 'handle_payment_method_deleted' ) ) );
 	}
 
 	/**
@@ -193,8 +193,8 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 		// Note: We use do_action() here because WC_Payment_Tokens::set_users_default()
 		// relies on get_customer_tokens() which doesn't retrieve tokens properly in the test environment.
 		// In production, the hook is triggered by WC_Payment_Tokens::set_users_default().
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment, WooCommerce.Commenting.CommentHooks.MissingSinceComment
-		do_action( 'woocommerce_payment_token_set_default', $token2->get_id(), $token2 );
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment, PooCommerce.Commenting.CommentHooks.MissingSinceComment
+		do_action( 'poocommerce_payment_token_set_default', $token2->get_id(), $token2 );
 
 		// Verify that the event was sent to the API with correct payload.
 		$this->assertLogged(
@@ -263,13 +263,13 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 		parent::tearDown();
 
 		// Remove all hooks.
-		remove_all_actions( 'woocommerce_new_payment_token' );
-		remove_all_actions( 'woocommerce_payment_token_updated' );
-		remove_all_actions( 'woocommerce_payment_token_set_default' );
-		remove_all_actions( 'woocommerce_payment_token_deleted' );
+		remove_all_actions( 'poocommerce_new_payment_token' );
+		remove_all_actions( 'poocommerce_payment_token_updated' );
+		remove_all_actions( 'poocommerce_payment_token_set_default' );
+		remove_all_actions( 'poocommerce_payment_token_deleted' );
 
 		// Clean up options.
-		delete_option( 'woocommerce_feature_fraud_protection_enabled' );
+		delete_option( 'poocommerce_feature_fraud_protection_enabled' );
 
 		// Reset container.
 		wc_get_container()->reset_all_resolved();

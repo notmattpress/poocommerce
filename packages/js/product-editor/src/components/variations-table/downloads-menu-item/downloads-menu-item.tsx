@@ -6,8 +6,8 @@ import { createElement, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { chevronRight } from '@wordpress/icons';
 import { MediaUpload } from '@wordpress/media-utils';
-import { ProductDownload } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { ProductDownload } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -148,7 +148,7 @@ export function DownloadsMenuItem( {
 					icon={ chevronRight }
 					iconPosition="right"
 				>
-					{ __( 'Downloads', 'woocommerce' ) }
+					{ __( 'Downloads', 'poocommerce' ) }
 				</MenuItem>
 			) }
 			renderContent={ () => (
@@ -163,7 +163,7 @@ export function DownloadsMenuItem( {
 								<MenuItem
 									onClick={ uploadFilesClickHandler( open ) }
 								>
-									{ __( 'Upload files', 'woocommerce' ) }
+									{ __( 'Upload files', 'poocommerce' ) }
 								</MenuItem>
 							) }
 						/>
@@ -173,11 +173,11 @@ export function DownloadsMenuItem( {
 								'download_limit',
 								__(
 									'Leave blank for unlimited re-downloads',
-									'woocommerce'
+									'poocommerce'
 								)
 							) }
 						>
-							{ __( 'Set download limit', 'woocommerce' ) }
+							{ __( 'Set download limit', 'poocommerce' ) }
 						</MenuItem>
 
 						<MenuItem
@@ -185,11 +185,11 @@ export function DownloadsMenuItem( {
 								'download_expiry',
 								__(
 									'Enter the number of days before a download link expires, or leave blank',
-									'woocommerce'
+									'poocommerce'
 								)
 							) }
 						>
-							{ __( 'Set download expiry', 'woocommerce' ) }
+							{ __( 'Set download expiry', 'poocommerce' ) }
 						</MenuItem>
 					</MenuGroup>
 					<VariationQuickUpdateMenuItem.Slot

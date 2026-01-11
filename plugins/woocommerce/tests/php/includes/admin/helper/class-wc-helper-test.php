@@ -9,7 +9,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 	 * Test that woo plugins are loaded correctly even if incorrect cache is initially set.
 	 */
 	public function test_get_local_woo_plugins_without_woo_header_cache() {
-		$woocommerce_key = 'sample-woo-plugin.php';
+		$poocommerce_key = 'sample-woo-plugin.php';
 
 		remove_filter( 'extra_plugin_headers', 'wc_enable_wc_plugin_headers' );
 		wp_clean_plugins_cache( false );
@@ -27,7 +27,7 @@ class WC_Helper_Test extends \WC_Unit_Test_Case {
 		// Restore previous state.
 		wp_clean_plugins_cache( false );
 
-		$this->assertArrayHasKey( $woocommerce_key, $woo_plugins );
+		$this->assertArrayHasKey( $poocommerce_key, $woo_plugins );
 	}
 
 }

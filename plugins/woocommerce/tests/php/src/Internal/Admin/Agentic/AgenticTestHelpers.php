@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Agentic;
 
-use Automattic\WooCommerce\Internal\Admin\Agentic\AgenticWebhookManager;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
+use Automattic\PooCommerce\Internal\Admin\Agentic\AgenticWebhookManager;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\OrderMetaKey;
 use WC_Order;
 use WC_Webhook;
 
@@ -40,7 +40,7 @@ trait AgenticTestHelpers {
 	/**
 	 * Create an Agentic webhook.
 	 *
-	 * @param string $topic Topic for webhook. Defaults to 'action.woocommerce_agentic_order_created'.
+	 * @param string $topic Topic for webhook. Defaults to 'action.poocommerce_agentic_order_created'.
 	 * @return WC_Webhook Created webhook.
 	 */
 	protected function create_agentic_webhook( $topic = AgenticWebhookManager::WEBHOOK_TOPIC ) {

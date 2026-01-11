@@ -5,16 +5,16 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Tracks checkout events for fraud protection analysis.
  *
- * This class hooks into both WooCommerce Blocks (Store API) and traditional
+ * This class hooks into both PooCommerce Blocks (Store API) and traditional
  * shortcode checkout events, triggering fraud protection event dispatching.
  * Event-specific data is passed to the dispatcher which handles session data collection internally.
  *
@@ -56,7 +56,7 @@ class CheckoutEventTracker implements RegisterHooksInterface {
 	/**
 	 * Register checkout event hooks.
 	 *
-	 * Hooks into both WooCommerce Blocks (Store API) and traditional checkout
+	 * Hooks into both PooCommerce Blocks (Store API) and traditional checkout
 	 * actions to track fraud protection events. Only registers hooks if the
 	 * fraud protection feature is enabled.
 	 *
@@ -69,11 +69,11 @@ class CheckoutEventTracker implements RegisterHooksInterface {
 		}
 
 		// Shortcode checkout: Track when checkout fields are updated.
-		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'handle_shortcode_checkout_field_update' ), 10, 1 );
+		add_action( 'poocommerce_checkout_update_order_review', array( $this, 'handle_shortcode_checkout_field_update' ), 10, 1 );
 	}
 
 	/**
-	 * Handle Store API customer update event (WooCommerce Blocks checkout).
+	 * Handle Store API customer update event (PooCommerce Blocks checkout).
 	 *
 	 * Triggered when customer information is updated via the Store API endpoint
 	 * /wc/store/v1/cart/update-customer during Blocks checkout flow.
@@ -90,7 +90,7 @@ class CheckoutEventTracker implements RegisterHooksInterface {
 	/**
 	 * Handle shortcode checkout field update event.
 	 *
-	 * Triggered when checkout fields are updated via AJAX (woocommerce_update_order_review).
+	 * Triggered when checkout fields are updated via AJAX (poocommerce_update_order_review).
 	 *
 	 * @internal
 	 *

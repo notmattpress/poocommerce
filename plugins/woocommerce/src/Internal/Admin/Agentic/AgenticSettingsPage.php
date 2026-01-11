@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Internal\Admin\Agentic;
 
 /**
  * AgenticSettingsPage class
  *
- * Adds Agentic Commerce settings to WooCommerce > Settings > Integration.
+ * Adds Agentic Commerce settings to PooCommerce > Settings > Integration.
  * Uses a provider-based system to allow multiple AI agent integrations.
  *
  * @since 10.4.0
@@ -16,7 +16,7 @@ class AgenticSettingsPage {
 	/**
 	 * Registry option name.
 	 */
-	const REGISTRY_OPTION = 'woocommerce_agentic_agent_registry';
+	const REGISTRY_OPTION = 'poocommerce_agentic_agent_registry';
 
 	/**
 	 * Constructor.
@@ -52,10 +52,10 @@ class AgenticSettingsPage {
 		$providers = array(
 			array(
 				'id'          => 'openai',
-				'name'        => __( 'ChatGPT', 'woocommerce' ),
+				'name'        => __( 'ChatGPT', 'poocommerce' ),
 				'description' => sprintf(
 					/* translators: %s: URL to ChatGPT merchants application page */
-					__( 'To get started, <a href="%s" target="_blank">apply to ChatGPT</a>. Once approved, ChatGPT will provide the credentials below.', 'woocommerce' ),
+					__( 'To get started, <a href="%s" target="_blank">apply to ChatGPT</a>. Once approved, ChatGPT will provide the credentials below.', 'poocommerce' ),
 					'https://chatgpt.com/merchants'
 				),
 				'fields'      => $this->get_openai_fields(),
@@ -75,7 +75,7 @@ class AgenticSettingsPage {
 		 * @param array $providers Array of provider configurations.
 		 * @param array $registry  Current registry data.
 		 */
-		$providers = apply_filters( 'woocommerce_agentic_commerce_providers', $providers, $registry );
+		$providers = apply_filters( 'poocommerce_agentic_commerce_providers', $providers, $registry );
 
 		// Validate provider structure.
 		$validated = array();
@@ -111,15 +111,15 @@ class AgenticSettingsPage {
 	private function get_general_settings( $config ) {
 		return array(
 			array(
-				'title' => __( 'Agentic commerce', 'woocommerce' ),
+				'title' => __( 'Agentic commerce', 'poocommerce' ),
 				'type'  => 'title',
 				'desc'  => '',
 				'id'    => 'agentic_commerce_general_settings',
 			),
 			array(
-				'title'   => __( 'Enable product visibility', 'woocommerce' ),
-				'desc'    => __( 'Allow products to be visible by default to the AI agents you integrate with. Can be overridden per product.', 'woocommerce' ),
-				'id'      => 'woocommerce_agentic_enable_products_default',
+				'title'   => __( 'Enable product visibility', 'poocommerce' ),
+				'desc'    => __( 'Allow products to be visible by default to the AI agents you integrate with. Can be overridden per product.', 'poocommerce' ),
+				'id'      => 'poocommerce_agentic_enable_products_default',
 				'type'    => 'checkbox',
 				'default' => ( ! empty( $config['enable_products_default'] ) && 'yes' === $config['enable_products_default'] ) ? 'yes' : 'no',
 			),
@@ -136,7 +136,7 @@ class AgenticSettingsPage {
 	 * @return array Settings fields.
 	 */
 	private function get_store_policies_settings() {
-		// Get URLs from WooCommerce/WordPress settings.
+		// Get URLs from PooCommerce/WordPress settings.
 		$terms_page_id   = wc_terms_and_conditions_page_id();
 		$privacy_page_id = get_option( 'wp_page_for_privacy_policy' );
 
@@ -149,19 +149,19 @@ class AgenticSettingsPage {
 
 		return array(
 			array(
-				'title' => __( 'Store policies', 'woocommerce' ),
+				'title' => __( 'Store policies', 'poocommerce' ),
 				'type'  => 'title',
 				'desc'  => '',
 				'id'    => 'agentic_commerce_store_policies',
 			),
 			array(
-				'title'             => __( 'Privacy Policy URL', 'woocommerce' ),
+				'title'             => __( 'Privacy Policy URL', 'poocommerce' ),
 				'desc'              => sprintf(
 					/* translators: %s: URL to WordPress privacy settings */
-					__( 'Configure your Privacy Policy page in <a href="%s">Settings &gt; Privacy</a>.', 'woocommerce' ),
+					__( 'Configure your Privacy Policy page in <a href="%s">Settings &gt; Privacy</a>.', 'poocommerce' ),
 					esc_url( $privacy_settings_url )
 				),
-				'id'                => 'woocommerce_agentic_privacy_url_display',
+				'id'                => 'poocommerce_agentic_privacy_url_display',
 				'type'              => 'text',
 				'default'           => esc_url( $privacy_url ),
 				'custom_attributes' => array(
@@ -170,13 +170,13 @@ class AgenticSettingsPage {
 				),
 			),
 			array(
-				'title'             => __( 'Terms and Conditions URL', 'woocommerce' ),
+				'title'             => __( 'Terms and Conditions URL', 'poocommerce' ),
 				'desc'              => sprintf(
-					/* translators: %s: URL to WooCommerce advanced settings */
-					__( 'Configure your Terms and Conditions page in <a href="%s">WooCommerce &gt; Settings &gt; Advanced &gt; Page setup</a>.', 'woocommerce' ),
+					/* translators: %s: URL to PooCommerce advanced settings */
+					__( 'Configure your Terms and Conditions page in <a href="%s">PooCommerce &gt; Settings &gt; Advanced &gt; Page setup</a>.', 'poocommerce' ),
 					esc_url( $advanced_settings_url )
 				),
-				'id'                => 'woocommerce_agentic_terms_url_display',
+				'id'                => 'poocommerce_agentic_terms_url_display',
 				'type'              => 'text',
 				'default'           => esc_url( $terms_url ),
 				'custom_attributes' => array(
@@ -199,9 +199,9 @@ class AgenticSettingsPage {
 	private function get_openai_fields() {
 		return array(
 			array(
-				'title'   => __( 'Authorization Token', 'woocommerce' ),
-				'desc'    => __( 'The bearer token that ChatGPT uses to authenticate checkout requests.', 'woocommerce' ),
-				'id'      => 'woocommerce_agentic_openai_bearer_token',
+				'title'   => __( 'Authorization Token', 'poocommerce' ),
+				'desc'    => __( 'The bearer token that ChatGPT uses to authenticate checkout requests.', 'poocommerce' ),
+				'id'      => 'poocommerce_agentic_openai_bearer_token',
 				'type'    => 'password',
 				'default' => '',
 			),
@@ -259,20 +259,20 @@ class AgenticSettingsPage {
 	 * Save settings to registry structure.
 	 */
 	public function save_settings() {
-		check_admin_referer( 'woocommerce-settings' );
+		check_admin_referer( 'poocommerce-settings' );
 
 		$registry = $this->get_registry();
 
 		// Update general settings.
 		$registry['general'] = array(
-			'enable_products_default' => isset( $_POST['woocommerce_agentic_enable_products_default'] ) && '1' === $_POST['woocommerce_agentic_enable_products_default']
+			'enable_products_default' => isset( $_POST['poocommerce_agentic_enable_products_default'] ) && '1' === $_POST['poocommerce_agentic_enable_products_default']
 				? 'yes'
 				: 'no',
 		);
 
 		// Update OpenAI settings.
-		$new_token = isset( $_POST['woocommerce_agentic_openai_bearer_token'] )
-			? sanitize_text_field( wp_unslash( $_POST['woocommerce_agentic_openai_bearer_token'] ) )
+		$new_token = isset( $_POST['poocommerce_agentic_openai_bearer_token'] )
+			? sanitize_text_field( wp_unslash( $_POST['poocommerce_agentic_openai_bearer_token'] ) )
 			: '';
 
 		// Only update if a new token was provided; otherwise keep existing.
@@ -296,7 +296,7 @@ class AgenticSettingsPage {
 		 *
 		 * @param array $registry Registry data to save. Extensions should add their provider settings to this array.
 		 */
-		$registry = apply_filters( 'woocommerce_agentic_commerce_save_settings', $registry );
+		$registry = apply_filters( 'poocommerce_agentic_commerce_save_settings', $registry );
 
 		// Save registry (don't autoload to prevent performance issues).
 		update_option( self::REGISTRY_OPTION, $registry, false );

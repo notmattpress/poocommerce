@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Shipping Label banner.
+ * PooCommerce Shipping Label banner.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 use Automattic\Jetpack\Connection\Manager as Jetpack_Connection_Manager;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use function WP_CLI\Utils\get_plugin_name;
 
 /**
@@ -35,7 +35,7 @@ class ShippingLabelBanner {
 	}
 
 	/**
-	 * Check if WooCommerce Shipping makes sense for this merchant.
+	 * Check if PooCommerce Shipping makes sense for this merchant.
 	 *
 	 * @return bool
 	 */
@@ -78,8 +78,8 @@ class ShippingLabelBanner {
 
 		if ( $this->should_show_meta_box() ) {
 			add_meta_box(
-				'woocommerce-admin-print-label',
-				__( 'Shipping Label', 'woocommerce' ),
+				'poocommerce-admin-print-label',
+				__( 'Shipping Label', 'poocommerce' ),
 				array( $this, 'meta_box' ),
 				null,
 				'normal',
@@ -125,7 +125,7 @@ class ShippingLabelBanner {
 			$wcst_version = \WC_Connect_Loader::get_wcs_version();
 		}
 
-		$wc_shipping_plugin_file = WP_PLUGIN_DIR . '/woocommerce-shipping/woocommerce-shipping.php';
+		$wc_shipping_plugin_file = WP_PLUGIN_DIR . '/poocommerce-shipping/poocommerce-shipping.php';
 		if ( file_exists( $wc_shipping_plugin_file ) ) {
 			$plugin_data                  = get_plugin_data( $wc_shipping_plugin_file );
 			$wcshipping_installed_version = $plugin_data['Version'];
@@ -153,7 +153,7 @@ class ShippingLabelBanner {
 	public function meta_box( $post, $args ) {
 
 		?>
-		<div id="wc-admin-shipping-banner-root" class="woocommerce <?php echo esc_attr( 'wc-admin-shipping-banner' ); ?>" data-args="<?php echo esc_attr( wp_json_encode( $args['args'] ) ); ?>">
+		<div id="wc-admin-shipping-banner-root" class="poocommerce <?php echo esc_attr( 'wc-admin-shipping-banner' ); ?>" data-args="<?php echo esc_attr( wp_json_encode( $args['args'] ) ); ?>">
 		</div>
 		<?php
 	}

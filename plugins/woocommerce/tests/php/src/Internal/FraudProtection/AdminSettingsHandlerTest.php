@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\AdminSettingsHandler;
-use Automattic\WooCommerce\Internal\FraudProtection\JetpackConnectionManager;
+use Automattic\PooCommerce\Internal\FraudProtection\AdminSettingsHandler;
+use Automattic\PooCommerce\Internal\FraudProtection\JetpackConnectionManager;
 
 /**
  * Tests for the AdminSettingsHandler class.
@@ -49,11 +49,11 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Check if the settings filter is registered.
-		$priority = has_filter( 'woocommerce_get_settings_advanced', array( $this->sut, 'add_jetpack_connection_field' ) );
+		$priority = has_filter( 'poocommerce_get_settings_advanced', array( $this->sut, 'add_jetpack_connection_field' ) );
 		$this->assertSame( 100, $priority, 'Settings filter should be registered with priority 100' );
 
 		// Check if the admin field action is registered.
-		$priority = has_action( 'woocommerce_admin_field_jetpack_connection', array( $this->sut, 'handle_output_jetpack_connection_field' ) );
+		$priority = has_action( 'poocommerce_admin_field_jetpack_connection', array( $this->sut, 'handle_output_jetpack_connection_field' ) );
 		$this->assertSame( 10, $priority, 'Admin field action should be registered with priority 10' );
 	}
 
@@ -87,7 +87,7 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 				'type' => 'checkbox',
 			),
 			array(
-				'id'   => 'woocommerce_feature_fraud_protection_enabled',
+				'id'   => 'poocommerce_feature_fraud_protection_enabled',
 				'type' => 'checkbox',
 			),
 			array(
@@ -102,8 +102,8 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 		$this->assertCount( 4, $result );
 
 		// The new field should be added after fraud_protection.
-		$this->assertSame( 'woocommerce_feature_fraud_protection_enabled', $result[1]['id'] );
-		$this->assertSame( 'woocommerce_fraud_protection_jetpack_connection', $result[2]['id'] );
+		$this->assertSame( 'poocommerce_feature_fraud_protection_enabled', $result[1]['id'] );
+		$this->assertSame( 'poocommerce_fraud_protection_jetpack_connection', $result[2]['id'] );
 		$this->assertSame( 'jetpack_connection', $result[2]['type'] );
 		$this->assertSame( 'another_feature', $result[3]['id'] );
 	}
@@ -116,7 +116,7 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 
 		$settings = array(
 			array(
-				'id'   => 'woocommerce_feature_fraud_protection_enabled',
+				'id'   => 'poocommerce_feature_fraud_protection_enabled',
 				'type' => 'checkbox',
 			),
 		);
@@ -134,7 +134,7 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_handle_output_jetpack_connection_field_returns_early_when_disabled(): void {
 		// Disable fraud protection.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'no' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'no' );
 
 		$this->sut->register();
 
@@ -156,7 +156,7 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_handle_output_jetpack_connection_field_shows_button_when_not_connected(): void {
 		// Enable fraud protection.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 
 		$this->sut->register();
 
@@ -193,7 +193,7 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_handle_output_jetpack_connection_field_shows_connected_status(): void {
 		// Enable fraud protection.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 
 		$this->sut->register();
 
@@ -229,7 +229,7 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_handle_output_jetpack_connection_field_shows_error_when_url_fails(): void {
 		// Enable fraud protection.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 
 		$this->sut->register();
 
@@ -267,11 +267,11 @@ class AdminSettingsHandlerTest extends \WC_Unit_Test_Case {
 		parent::tearDown();
 
 		// Clean up options.
-		delete_option( 'woocommerce_feature_fraud_protection_enabled' );
+		delete_option( 'poocommerce_feature_fraud_protection_enabled' );
 
 		// Remove hooks.
-		remove_all_filters( 'woocommerce_get_settings_advanced' );
-		remove_all_actions( 'woocommerce_admin_field_jetpack_connection' );
+		remove_all_filters( 'poocommerce_get_settings_advanced' );
+		remove_all_actions( 'poocommerce_admin_field_jetpack_connection' );
 		remove_all_actions( 'admin_enqueue_scripts' );
 
 		// Reset container.

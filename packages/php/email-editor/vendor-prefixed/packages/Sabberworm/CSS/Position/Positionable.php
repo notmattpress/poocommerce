@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position;
 
 /**
  * Represents a CSS item that may have a position in the source CSS document (line number and possibly column number).
