@@ -5,9 +5,9 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\RestApi;
+use Automattic\PooCommerce\Admin\Features\Blueprint\RestApi;
 use WP_REST_Request;
 use WP_Test_REST_TestCase;
 
@@ -46,8 +46,8 @@ class RestApiTest extends WP_Test_REST_TestCase {
 					array(
 						'step'     => 'setWCSettings',
 						'settings' => array(
-							'woocommerce_store_address' => '123 Test St',
-							'woocommerce_store_city'    => 'Test City',
+							'poocommerce_store_address' => '123 Test St',
+							'poocommerce_store_city'    => 'Test City',
 						),
 					),
 				),
@@ -86,7 +86,7 @@ class RestApiTest extends WP_Test_REST_TestCase {
 			wp_delete_file( $this->temp_file );
 		}
 
-		remove_all_filters( 'pre_option_woocommerce_coming_soon' );
+		remove_all_filters( 'pre_option_poocommerce_coming_soon' );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class RestApiTest extends WP_Test_REST_TestCase {
 	 */
 	public function test_cannot_import_blueprint_in_live_mode() {
 		add_filter(
-			'pre_option_woocommerce_coming_soon',
+			'pre_option_poocommerce_coming_soon',
 			function () {
 				return 'no';
 			}
@@ -107,7 +107,7 @@ class RestApiTest extends WP_Test_REST_TestCase {
 					'step_definition' => array(
 						'step'    => 'setSiteOptions',
 						'options' => array(
-							'woocommerce_store_address' => '123 Test St',
+							'poocommerce_store_address' => '123 Test St',
 						),
 					),
 				)
@@ -127,7 +127,7 @@ class RestApiTest extends WP_Test_REST_TestCase {
 	 */
 	public function test_import_step_file_size_validation() {
 		add_filter(
-			'pre_option_woocommerce_coming_soon',
+			'pre_option_poocommerce_coming_soon',
 			function () {
 				return 'yes';
 			}
@@ -162,7 +162,7 @@ class RestApiTest extends WP_Test_REST_TestCase {
 	 */
 	public function test_import_blueprint() {
 		add_filter(
-			'pre_option_woocommerce_coming_soon',
+			'pre_option_poocommerce_coming_soon',
 			function () {
 				return 'yes';
 			}
@@ -175,7 +175,7 @@ class RestApiTest extends WP_Test_REST_TestCase {
 					'step_definition' => array(
 						'step'    => 'setSiteOptions',
 						'options' => array(
-							'woocommerce_store_address' => '123 Test St',
+							'poocommerce_store_address' => '123 Test St',
 						),
 					),
 				)
@@ -187,6 +187,6 @@ class RestApiTest extends WP_Test_REST_TestCase {
 		$response_data = $response->get_data();
 		$this->assertTrue( $response_data['success'], $response_data['messages'][0]['message'] );
 		$this->assertCount( 1, $response_data['messages'] );
-		$this->assertStringContainsString( 'woocommerce_store_address has been updated', $response_data['messages'][0]['message'] );
+		$this->assertStringContainsString( 'poocommerce_store_address has been updated', $response_data['messages'][0]['message'] );
 	}
 }

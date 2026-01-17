@@ -2,12 +2,12 @@
 /**
  * Test the API controller class that handles the onboarding profile REST endpoints.
  *
- * @package WooCommerce\Admin\Tests\Admin\API
+ * @package PooCommerce\Admin\Tests\Admin\API
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
@@ -105,7 +105,7 @@ class OnboardingProfileTest extends WC_REST_Unit_Test_Case {
 		$data = $result->get_data();
 		$this->assertEquals( '400', $data['data']['status'] );
 		$this->assertEquals( 'Invalid country code.', $data['message'] );
-		$this->assertEquals( 'woocommerce_rest_invalid_country_code', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_country_code', $data['code'] );
 	}
 
 	/**
@@ -119,13 +119,13 @@ class OnboardingProfileTest extends WC_REST_Unit_Test_Case {
 			$options = array();
 			// Save the current options.
 			$update_fields = array(
-				'woocommerce_currency',
-				'woocommerce_currency_pos',
-				'woocommerce_price_thousand_sep',
-				'woocommerce_price_decimal_sep',
-				'woocommerce_price_num_decimals',
-				'woocommerce_weight_unit',
-				'woocommerce_dimension_unit',
+				'poocommerce_currency',
+				'poocommerce_currency_pos',
+				'poocommerce_price_thousand_sep',
+				'poocommerce_price_decimal_sep',
+				'poocommerce_price_num_decimals',
+				'poocommerce_weight_unit',
+				'poocommerce_dimension_unit',
 			);
 
 			foreach ( $update_fields as $field ) {
@@ -157,13 +157,13 @@ class OnboardingProfileTest extends WC_REST_Unit_Test_Case {
 		$us_options = $get_options();
 
 		$expected_values = array(
-			'woocommerce_currency'           => 'USD',
-			'woocommerce_currency_pos'       => 'left',
-			'woocommerce_price_thousand_sep' => ',',
-			'woocommerce_price_decimal_sep'  => '.',
-			'woocommerce_price_num_decimals' => '2',
-			'woocommerce_weight_unit'        => 'lbs',
-			'woocommerce_dimension_unit'     => 'in',
+			'poocommerce_currency'           => 'USD',
+			'poocommerce_currency_pos'       => 'left',
+			'poocommerce_price_thousand_sep' => ',',
+			'poocommerce_price_decimal_sep'  => '.',
+			'poocommerce_price_num_decimals' => '2',
+			'poocommerce_weight_unit'        => 'lbs',
+			'poocommerce_dimension_unit'     => 'in',
 		);
 
 		$this->assertNotSame( $expected_values, $uk_options );

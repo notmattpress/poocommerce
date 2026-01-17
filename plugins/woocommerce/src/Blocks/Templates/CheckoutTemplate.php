@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * CheckoutTemplate class.
@@ -21,7 +21,7 @@ class CheckoutTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Page: Checkout', 'Template name', 'woocommerce' );
+		return _x( 'Page: Checkout', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class CheckoutTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'The Checkout template guides users through the final steps of the purchase process. It enables users to enter shipping and billing information, select a payment method, and review order details.', 'woocommerce' );
+		return __( 'The Checkout template guides users through the final steps of the purchase process. It enables users to enter shipping and billing information, select a payment method, and review order details.', 'poocommerce' );
 	}
 
 	/**

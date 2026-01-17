@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-rating-counter",
+	"name": "poocommerce/product-rating-counter",
 	"title": "Product Rating Counter",
 	"description": "Display the review count of a product",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"productId": {
 			"type": "number",
@@ -46,9 +46,9 @@
 		"__experimentalSelector": ".wc-block-components-product-rating-counter"
 	},
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"ancestor": [ "woocommerce/single-product" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"ancestor": [ "poocommerce/single-product" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

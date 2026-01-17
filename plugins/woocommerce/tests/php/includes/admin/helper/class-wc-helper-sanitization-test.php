@@ -2,7 +2,7 @@
 /**
  * Unit tests for WC_Helper_Sanitization class
  *
- * @package WooCommerce\Tests\Admin\Helper
+ * @package PooCommerce\Tests\Admin\Helper
  */
 
 declare(strict_types=1);
@@ -49,16 +49,16 @@ class WC_Helper_Sanitization_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_url_domain_whitelisting() {
 		$allowed_domains = array(
-			'https://woocommerce.com/image.jpg',
+			'https://poocommerce.com/image.jpg',
 			'https://wordpress.com/image.jpg',
-			'https://cdn.woocommerce.com/image.jpg',
+			'https://cdn.poocommerce.com/image.jpg',
 			'https://s0.wp.com/image.jpg',
-			'https://woocommerce.test/image.jpg',
+			'https://poocommerce.test/image.jpg',
 		);
 
 		$disallowed_domains = array(
 			'https://evil.com/image.jpg',
-			'https://woocommerce.evil.com/image.jpg',
+			'https://poocommerce.evil.com/image.jpg',
 			'https://wordpress.org/image.jpg',
 		);
 
@@ -193,7 +193,7 @@ class WC_Helper_Sanitization_Test extends WC_Unit_Test_Case {
 		$css = '
             @import url("bad.css");
             .logo {
-                background-image: url("https://woocommerce.com/logo.png");
+                background-image: url("https://poocommerce.com/logo.png");
                 content: "<script>alert(1)</script>";
                 behavior: something-bad;
             }
@@ -220,7 +220,7 @@ class WC_Helper_Sanitization_Test extends WC_Unit_Test_Case {
 		$this->assertStringNotContainsString( 'evil.com', $sanitized );
 
 		// Check what should remain.
-		$this->assertStringContainsString( 'woocommerce.com/logo.png', $sanitized );
+		$this->assertStringContainsString( 'poocommerce.com/logo.png', $sanitized );
 		$this->assertStringContainsString( '/images/good.jpg', $sanitized );
 	}
 

@@ -3,15 +3,15 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
-import { withProduct } from '@woocommerce/block-hocs';
-import BlockErrorBoundary from '@woocommerce/base-components/block-error-boundary';
-import EditProductLink from '@woocommerce/editor-components/edit-product-link';
+import { withProduct } from '@poocommerce/block-hocs';
+import BlockErrorBoundary from '@poocommerce/base-components/block-error-boundary';
+import EditProductLink from '@poocommerce/editor-components/edit-product-link';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { ProductResponseItem } from '@woocommerce/types';
+import { ProductResponseItem } from '@poocommerce/types';
 import ErrorPlaceholder, {
 	ErrorObject,
-} from '@woocommerce/editor-components/error-placeholder';
-import { PRODUCTS_STORE_NAME, Product } from '@woocommerce/data';
+} from '@poocommerce/editor-components/error-placeholder';
+import { PRODUCTS_STORE_NAME, Product } from '@poocommerce/data';
 import { useSelect } from '@wordpress/data';
 import { Icon, info } from '@wordpress/icons';
 import {
@@ -80,7 +80,7 @@ const Editor = ( {
 
 	const isInvalidProductId =
 		typeof error === 'object' &&
-		error?.code === 'woocommerce_rest_product_invalid_id';
+		error?.code === 'poocommerce_rest_product_invalid_id';
 
 	useEffect( () => {
 		const productPreviewId = productPreview
@@ -125,7 +125,7 @@ const Editor = ( {
 			<Text>
 				{ __(
 					'Previously selected product is no longer available.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Text>
 		</>
@@ -142,7 +142,7 @@ const Editor = ( {
 			{ /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */ }
 			{ /* @ts-ignore */ }
 			<BlockErrorBoundary
-				header={ __( 'Single Product Block Error', 'woocommerce' ) }
+				header={ __( 'Single Product Block Error', 'poocommerce' ) }
 			>
 				<EditorBlockControls
 					setIsEditing={ setIsEditing }
@@ -168,7 +168,7 @@ const Editor = ( {
 										setIsEditing( false );
 									} }
 								>
-									{ __( 'Done', 'woocommerce' ) }
+									{ __( 'Done', 'poocommerce' ) }
 								</Button>
 							) }
 						</div>
@@ -177,7 +177,7 @@ const Editor = ( {
 					<div>
 						<InspectorControls>
 							<PanelBody
-								title={ __( 'Product', 'woocommerce' ) }
+								title={ __( 'Product', 'poocommerce' ) }
 								initialOpen={ false }
 							>
 								<SharedProductControl

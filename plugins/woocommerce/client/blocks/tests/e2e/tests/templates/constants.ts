@@ -7,7 +7,7 @@ import type {
 	Editor,
 	FrontendUtils,
 	RequestUtils,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -97,7 +97,7 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 			await frontendUtils.goToShop();
 			await frontendUtils.addToCart();
 			const block = await frontendUtils.getBlockByName(
-				'woocommerce/mini-cart'
+				'poocommerce/mini-cart'
 			);
 			await block.getByRole( 'button' ).click();
 		},
@@ -111,12 +111,12 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 			// We will be able to simplify this logic once the blockified
 			// Add to Cart with Options block is the default.
 			await admin.visitSiteEditor( {
-				postId: 'woocommerce/woocommerce//single-product',
+				postId: 'poocommerce/poocommerce//single-product',
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
 			await editor.insertBlock( {
-				name: 'woocommerce/add-to-cart-with-options',
+				name: 'poocommerce/add-to-cart-with-options',
 			} );
 			await editor.saveSiteEditorEntities( {
 				isOnlyCurrentEntityDirty: true,
@@ -160,7 +160,7 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 		// Creating a `checkout-header.html` template part in the theme doesn't
 		// automatically override the checkout header. That's because the
 		// Page: Checkout template still points to the default `checkout-header`
-		// from WooCommerce.
+		// from PooCommerce.
 		canBeOverriddenByThemes: false,
 	},
 	{
@@ -179,4 +179,4 @@ export const CUSTOMIZABLE_WC_TEMPLATES: TemplateCustomizationTest[] = [
 	},
 ];
 
-export const WC_TEMPLATES_SLUG = 'woocommerce/woocommerce';
+export const WC_TEMPLATES_SLUG = 'poocommerce/poocommerce';

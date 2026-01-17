@@ -9,7 +9,7 @@
 @import './calendar/end-rtl-ignore.css';
 
 
-.woocommerce-calendar {
+.poocommerce-calendar {
 	width: 100%;
 	background-color: $gray-100;
 	border-top: 1px solid $gray-400;
@@ -20,7 +20,7 @@
 	}
 }
 
-.woocommerce-calendar__react-dates {
+.poocommerce-calendar__react-dates {
 	width: 100%;
 	overflow-x: hidden;
 
@@ -95,13 +95,13 @@
 		}
 
 		.CalendarDay__selected {
-			background: $studio-woocommerce-purple-70;
+			background: $studio-poocommerce-purple-70;
 			border: none;
 		}
 	}
 }
 
-.woocommerce-calendar__inputs {
+.poocommerce-calendar__inputs {
 	padding: 1em;
 	width: 100%;
 	max-width: 500px;
@@ -114,14 +114,14 @@
 	}
 }
 
-.woocommerce-calendar__inputs-to {
+.poocommerce-calendar__inputs-to {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	grid-column-start: 2;
 }
 
-.woocommerce-calendar__input {
+.poocommerce-calendar__input {
 	position: relative;
 
 	.calendar-icon {
@@ -154,7 +154,7 @@
 			fill: $error-red;
 		}
 
-		.woocommerce-calendar__input-text {
+		.poocommerce-calendar__input-text {
 			border: 1px solid $error-red;
 			box-shadow: inset 0 0 8px $error-red;
 
@@ -165,7 +165,7 @@
 		}
 	}
 
-	.woocommerce-calendar__input-text {
+	.poocommerce-calendar__input-text {
 		color: $gray-700;
 		border-radius: 3px;
 		padding: 10px 10px 10px 30px;
@@ -178,18 +178,18 @@
 	}
 }
 
-.woocommerce-filters-date__content {
+.poocommerce-filters-date__content {
 	&.is-mobile
-	.woocommerce-calendar__input-error
+	.poocommerce-calendar__input-error
 	.components-popover__content {
 		height: initial;
 	}
 }
 
-.woocommerce-calendar__input-error {
+.poocommerce-calendar__input-error {
 	display: none;
 
-	.is-error .woocommerce-calendar__input-text:focus + span & {
+	.is-error .poocommerce-calendar__input-text:focus + span & {
 		/* rtl:begin:ignore */
 		display: block;
 		left: 50% !important;
@@ -226,7 +226,7 @@
 	}
 }
 
-.woocommerce-calendar__date-picker-title {
+.poocommerce-calendar__date-picker-title {
 	@include font-size( 12 );
 	font-weight: 100;
 	text-transform: uppercase;

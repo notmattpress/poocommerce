@@ -1,18 +1,18 @@
 <?php
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\OrderConfirmation\TotalsMock;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Checkout as CheckoutRoute;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\CheckoutSchema;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\OrderConfirmation\TotalsMock;
 use WC_Gateway_BACS;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests for the Totals block type inside the Order Confirmation.
@@ -26,11 +26,11 @@ class Totals extends \WP_UnitTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		add_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ), 10, 4 );
+		add_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ), 10, 4 );
 
 		global $wp_rest_server;
 		$wp_rest_server = new \Spy_REST_Server();
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'rest_api_init', $wp_rest_server );
 
 		wp_set_current_user( 0 );
@@ -101,7 +101,7 @@ class Totals extends \WP_UnitTestCase {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_set_cookie_enabled', array( $this, 'filter_woocommerce_set_cookie_enabled' ) );
+		remove_filter( 'poocommerce_set_cookie_enabled', array( $this, 'filter_poocommerce_set_cookie_enabled' ) );
 		WC()->cart->empty_cart();
 		WC()->session->destroy_session();
 	}
@@ -116,7 +116,7 @@ class Totals extends \WP_UnitTestCase {
 	 *
 	 * @return false
 	 */
-	public function filter_woocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
+	public function filter_poocommerce_set_cookie_enabled( $enabled, $name, $value, $expire ) {
 		if ( $expire < time() ) {
 			unset( $_COOKIE[ $name ] );
 		} else {
@@ -134,8 +134,8 @@ class Totals extends \WP_UnitTestCase {
 		WC()->session->set_customer_session_cookie( true );
 		WC()->session->save_data();
 
-		update_option( 'woocommerce_enable_guest_checkout', 'yes' );
-		update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+		update_option( 'poocommerce_enable_guest_checkout', 'yes' );
+		update_option( 'poocommerce_enable_signup_and_login_from_checkout', 'yes' );
 
 		$request = new \WP_REST_Request( 'POST', '/wc/store/v1/checkout' );
 		$request->set_header( 'Nonce', wp_create_nonce( 'wc_store_api' ) );

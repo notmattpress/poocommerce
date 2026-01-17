@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Customers;
+namespace Automattic\PooCommerce\Tests\Internal\Customers;
 
-use Automattic\WooCommerce\Internal\Customers\SearchService as CustomersSearchService;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\CustomerHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Customers\SearchService as CustomersSearchService;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\CustomerHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
- * Tests for `\Automattic\WooCommerce\Internal\Customers\SearchService` class.
+ * Tests for `\Automattic\PooCommerce\Internal\Customers\SearchService` class.
  */
 class SearchServiceTest extends \WC_Unit_Test_Case {
 	use HPOSToggleTrait;

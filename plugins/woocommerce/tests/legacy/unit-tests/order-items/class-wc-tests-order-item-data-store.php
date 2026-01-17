@@ -2,7 +2,7 @@
 /**
  * Unit tests for the WC_Order_Item_Data_Store class.
  *
- * @package WooCommerce\Tests\Order_Items
+ * @package PooCommerce\Tests\Order_Items
  * @since 4.0.0
  */
 

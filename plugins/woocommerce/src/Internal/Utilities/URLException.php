@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use Exception;
 

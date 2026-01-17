@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$image              = wp_get_attachment_image_src( $product->get_image_id(), 'woocommerce_thumbnail' );
+$image              = wp_get_attachment_image_src( $product->get_image_id(), 'poocommerce_thumbnail' );
 $image_src          = is_array( $image ) && isset( $image[0] ) ? $image[0] : '';
 $stock_availability = $product->get_availability();
 $identifier         = '#' . $product->get_id();
@@ -39,7 +39,7 @@ if ( ! empty( $product->get_sku() ) ) {
 	<span class="product-details__stock-status <?php echo esc_attr( $stock_availability['class'] ); ?>">
 		<?php
 		if ( empty( $stock_availability['availability'] ) && 'in-stock' === $stock_availability['class'] ) {
-			echo esc_html__( 'In stock', 'woocommerce' );
+			echo esc_html__( 'In stock', 'poocommerce' );
 		} else {
 			echo esc_html( $stock_availability['availability'] );
 		}

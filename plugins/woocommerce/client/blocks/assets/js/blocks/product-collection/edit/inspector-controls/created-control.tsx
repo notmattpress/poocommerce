@@ -42,7 +42,7 @@ const CreatedControl = ( props: QueryControlProps ) => {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Created', 'woocommerce' ) }
+			label={ __( 'Created', 'poocommerce' ) }
 			hasValue={ () => timeFrame?.operator && timeFrame?.value }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
@@ -52,7 +52,7 @@ const CreatedControl = ( props: QueryControlProps ) => {
 					<ToggleGroupControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-						label={ __( 'Created', 'woocommerce' ) }
+						label={ __( 'Created', 'poocommerce' ) }
 						isBlock
 						onChange={ ( value: ETimeFrameOperator ) => {
 							setQueryAttribute( {
@@ -70,7 +70,7 @@ const CreatedControl = ( props: QueryControlProps ) => {
 							label={ _x(
 								'Within',
 								'Product Collection query operator',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 						<ToggleGroupControlOption
@@ -78,7 +78,7 @@ const CreatedControl = ( props: QueryControlProps ) => {
 							label={ _x(
 								'Before',
 								'Product Collection query operator',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					</ToggleGroupControl>

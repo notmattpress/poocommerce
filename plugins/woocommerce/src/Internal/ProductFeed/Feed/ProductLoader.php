@@ -2,12 +2,12 @@
 /**
  * Product Loader class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Feed;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ProductLoader {
 	/**
-	 * Retrieves products from WooCommerce.
+	 * Retrieves products from PooCommerce.
 	 *
 	 * @since 10.5.0
 	 *

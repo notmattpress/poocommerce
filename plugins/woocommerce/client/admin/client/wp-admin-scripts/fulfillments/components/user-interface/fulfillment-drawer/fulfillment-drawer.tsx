@@ -31,16 +31,16 @@ const FulfillmentDrawer: React.FC< Props > = ( {
 		<>
 			{ hasBackdrop && (
 				<div
-					className="woocommerce-fulfillment-drawer__backdrop"
+					className="poocommerce-fulfillment-drawer__backdrop"
 					onClick={ onClose }
 					role="presentation"
 					style={ { display: isOpen ? 'block' : 'none' } }
 				/>
 			) }
-			<div className="woocommerce-fulfillment-drawer">
+			<div className="poocommerce-fulfillment-drawer">
 				<div
 					className={ [
-						'woocommerce-fulfillment-drawer__panel',
+						'poocommerce-fulfillment-drawer__panel',
 						isOpen ? 'is-open' : 'is-closed',
 					].join( ' ' ) }
 				>

@@ -3,11 +3,11 @@
  * External dependencies
  */
 import { render, screen, waitFor, act } from '@testing-library/react';
-import { previewCart } from '@woocommerce/resource-previews';
+import { previewCart } from '@poocommerce/resource-previews';
 import { dispatch } from '@wordpress/data';
-import { CART_STORE_KEY as storeKey } from '@woocommerce/block-data';
-import { server, http, HttpResponse } from '@woocommerce/test-utils/msw';
-import { ExperimentalOrderMeta } from '@woocommerce/blocks-checkout';
+import { CART_STORE_KEY as storeKey } from '@poocommerce/block-data';
+import { server, http, HttpResponse } from '@poocommerce/test-utils/msw';
+import { ExperimentalOrderMeta } from '@poocommerce/blocks-checkout';
 import { registerPlugin } from '@wordpress/plugins';
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ describe( 'Testing Slotfills', () => {
 					<SlotFillConsumer />
 				</ExperimentalOrderMeta>
 			),
-			scope: 'woocommerce-checkout',
+			scope: 'poocommerce-checkout',
 		} );
 	} );
 	beforeEach( () => {

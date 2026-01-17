@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { FormattedMonetaryAmount } from '@woocommerce/blocks-components';
+import { FormattedMonetaryAmount } from '@poocommerce/blocks-components';
 import clsx from 'clsx';
-import { formatPrice } from '@woocommerce/price-format';
+import { formatPrice } from '@poocommerce/price-format';
 import { createInterpolateElement } from '@wordpress/element';
-import type { Currency } from '@woocommerce/types';
+import type { Currency } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ const PriceRange = ( {
 			<span className="screen-reader-text">
 				{ sprintf(
 					/* translators: %1$s min price, %2$s max price */
-					__( 'Price between %1$s and %2$s', 'woocommerce' ),
+					__( 'Price between %1$s and %2$s', 'poocommerce' ),
 					formatPrice( minPrice ),
 					formatPrice( maxPrice )
 				) }
@@ -133,7 +133,7 @@ const SalePrice = ( {
 	return (
 		<>
 			<span className="screen-reader-text">
-				{ __( 'Previous price:', 'woocommerce' ) }
+				{ __( 'Previous price:', 'poocommerce' ) }
 			</span>
 			<FormattedMonetaryAmount
 				currency={ currency }
@@ -151,7 +151,7 @@ const SalePrice = ( {
 				value={ regularPrice }
 			/>
 			<span className="screen-reader-text">
-				{ __( 'Discounted price:', 'woocommerce' ) }
+				{ __( 'Discounted price:', 'poocommerce' ) }
 			</span>
 			<FormattedMonetaryAmount
 				currency={ currency }

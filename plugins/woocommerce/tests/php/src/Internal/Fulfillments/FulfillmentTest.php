@@ -1,9 +1,9 @@
 <?php declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
-use Automattic\WooCommerce\Tests\Internal\Fulfillments\Helpers\FulfillmentsHelper;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Tests\Internal\Fulfillments\Helpers\FulfillmentsHelper;
 use WC_Order;
 
 /**
@@ -16,8 +16,8 @@ class FulfillmentTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -26,7 +26,7 @@ class FulfillmentTest extends \WC_Unit_Test_Case {
 	 * Tear down the test environment.
 	 */
 	public static function tearDownAfterClass(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 		parent::tearDownAfterClass();
 	}
 
@@ -42,7 +42,7 @@ class FulfillmentTest extends \WC_Unit_Test_Case {
 	 * Test that the Fulfillment object can be created with an ID.
 	 */
 	public function test_fulfillment_object_with_id_fetches_data_and_metadata() {
-		$order          = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order          = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$db_fulfillment = FulfillmentsHelper::create_fulfillment(
 			array(
 				'entity_id' => $order->get_id(),
@@ -193,7 +193,7 @@ class FulfillmentTest extends \WC_Unit_Test_Case {
 	 * Test getting order from the Fulfillment object.
 	 */
 	public function test_get_order() {
-		$order       = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order       = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$fulfillment = FulfillmentsHelper::create_fulfillment(
 			array(
 				'entity_type' => WC_Order::class,

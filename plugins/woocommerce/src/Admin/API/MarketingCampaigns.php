@@ -5,11 +5,11 @@
  * Handles requests to /marketing/campaigns.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaign;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
-use Automattic\WooCommerce\Admin\Marketing\Price;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaign;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
+use Automattic\PooCommerce\Admin\Marketing\Price;
 use WC_REST_Controller;
 use WP_Error;
 use WP_REST_Request;
@@ -68,7 +68,7 @@ class MarketingCampaigns extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -135,7 +135,7 @@ class MarketingCampaigns extends WC_REST_Controller {
 	/**
 	 * Get formatted price based on Price type.
 	 *
-	 * This uses plugins/woocommerce/i18n/currency-info.php and plugins/woocommerce/i18n/locale-info.php to get option object based on $price->currency.
+	 * This uses plugins/poocommerce/i18n/currency-info.php and plugins/poocommerce/i18n/locale-info.php to get option object based on $price->currency.
 	 *
 	 * Example:
 	 *
@@ -234,31 +234,31 @@ class MarketingCampaigns extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'         => array(
-					'description' => __( 'The unique identifier for the marketing campaign.', 'woocommerce' ),
+					'description' => __( 'The unique identifier for the marketing campaign.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'channel'    => array(
-					'description' => __( 'The unique identifier for the marketing channel that this campaign belongs to.', 'woocommerce' ),
+					'description' => __( 'The unique identifier for the marketing channel that this campaign belongs to.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'title'      => array(
-					'description' => __( 'Title of the marketing campaign.', 'woocommerce' ),
+					'description' => __( 'Title of the marketing campaign.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'manage_url' => array(
-					'description' => __( 'URL to the campaign management page.', 'woocommerce' ),
+					'description' => __( 'URL to the campaign management page.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'cost'       => array(
-					'description' => __( 'Cost of the marketing campaign.', 'woocommerce' ),
+					'description' => __( 'Cost of the marketing campaign.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 					'type'        => 'object',
@@ -276,7 +276,7 @@ class MarketingCampaigns extends WC_REST_Controller {
 					),
 				),
 				'sales'      => array(
-					'description' => __( 'Sales of the marketing campaign.', 'woocommerce' ),
+					'description' => __( 'Sales of the marketing campaign.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 					'type'        => 'object',

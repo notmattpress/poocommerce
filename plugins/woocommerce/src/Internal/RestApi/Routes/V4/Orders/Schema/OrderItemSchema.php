@@ -2,18 +2,18 @@
 /**
  * OrderItemSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order_Item_Product;
 use WP_REST_Request;
 use WC_Product;
@@ -43,67 +43,67 @@ class OrderItemSchema extends AbstractLineItemSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'              => array(
-				'description' => __( 'Item ID.', 'woocommerce' ),
+				'description' => __( 'Item ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'name'            => array(
-				'description' => __( 'Item name.', 'woocommerce' ),
+				'description' => __( 'Item name.', 'poocommerce' ),
 				'type'        => array( 'string', 'null' ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'image'           => array(
-				'description' => __( 'Line item image, if available.', 'woocommerce' ),
+				'description' => __( 'Line item image, if available.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'product_id'      => array(
-				'description' => __( 'Product or variation ID.', 'woocommerce' ),
+				'description' => __( 'Product or variation ID.', 'poocommerce' ),
 				'type'        => array( 'integer', 'null' ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'product_data'    => array(
-				'description' => __( 'Product data this item is linked to.', 'woocommerce' ),
+				'description' => __( 'Product data this item is linked to.', 'poocommerce' ),
 				'type'        => array( 'object', 'null' ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'properties'  => $this->get_product_data_schema(),
 			),
 			'quantity'        => array(
-				'description' => __( 'Quantity ordered.', 'woocommerce' ),
+				'description' => __( 'Quantity ordered.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'price'           => array(
-				'description' => __( 'Item price. Calculated as total / quantity.', 'woocommerce' ),
+				'description' => __( 'Item price. Calculated as total / quantity.', 'poocommerce' ),
 				'type'        => 'number',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'tax_class'       => array(
-				'description' => __( 'Tax class of product.', 'woocommerce' ),
+				'description' => __( 'Tax class of product.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'subtotal'        => array(
-				'description' => __( 'Line subtotal (before discounts).', 'woocommerce' ),
+				'description' => __( 'Line subtotal (before discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'subtotal_tax'    => array(
-				'description' => __( 'Line subtotal tax (before discounts).', 'woocommerce' ),
+				'description' => __( 'Line subtotal tax (before discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'total'           => array(
-				'description' => __( 'Line total (after discounts).', 'woocommerce' ),
+				'description' => __( 'Line total (after discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'total_tax'       => array(
-				'description' => __( 'Line total tax (after discounts).', 'woocommerce' ),
+				'description' => __( 'Line total tax (after discounts).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -111,15 +111,15 @@ class OrderItemSchema extends AbstractLineItemSchema {
 			'taxes'           => $this->get_taxes_schema(),
 			'meta_data'       => $this->get_meta_data_schema(),
 			'currency'        => array(
-				'description' => __( 'Currency the order item was created with, in ISO format.', 'woocommerce' ),
+				'description' => __( 'Currency the order item was created with, in ISO format.', 'poocommerce' ),
 				'type'        => 'string',
-				'default'     => get_woocommerce_currency(),
-				'enum'        => array_keys( get_woocommerce_currencies() ),
+				'default'     => get_poocommerce_currency(),
+				'enum'        => array_keys( get_poocommerce_currencies() ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'currency_symbol' => array(
-				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -141,12 +141,12 @@ class OrderItemSchema extends AbstractLineItemSchema {
 	 */
 	private function add_cogs_related_schema( array $schema ): array {
 		$schema['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data. Only present for product line items.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data. Only present for product line items.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Value of the Cost of Goods Sold for the order item.', 'woocommerce' ),
+					'description' => __( 'Value of the Cost of Goods Sold for the order item.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
@@ -183,7 +183,7 @@ class OrderItemSchema extends AbstractLineItemSchema {
 			'taxes'           => $this->prepare_taxes( $order_item, $request ),
 			'meta_data'       => $this->prepare_meta_data( $order_item ),
 			'currency'        => $order_item->get_order()->get_currency(),
-			'currency_symbol' => html_entity_decode( get_woocommerce_currency_symbol( $order_item->get_order()->get_currency() ), ENT_QUOTES ),
+			'currency_symbol' => html_entity_decode( get_poocommerce_currency_symbol( $order_item->get_order()->get_currency() ), ENT_QUOTES ),
 		);
 
 		// Add COGS data.
@@ -203,42 +203,42 @@ class OrderItemSchema extends AbstractLineItemSchema {
 	private function get_product_data_schema(): array {
 		return array(
 			'name'             => array(
-				'description' => __( 'Product name.', 'woocommerce' ),
+				'description' => __( 'Product name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'permalink'        => array(
-				'description' => __( 'Product permalink.', 'woocommerce' ),
+				'description' => __( 'Product permalink.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'sku'              => array(
-				'description' => __( 'Product SKU.', 'woocommerce' ),
+				'description' => __( 'Product SKU.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'global_unique_id' => array(
-				'description' => __( 'Product global unique ID.', 'woocommerce' ),
+				'description' => __( 'Product global unique ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'type'             => array(
-				'description' => __( 'Product type.', 'woocommerce' ),
+				'description' => __( 'Product type.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'is_virtual'       => array(
-				'description' => __( 'Product is virtual.', 'woocommerce' ),
+				'description' => __( 'Product is virtual.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'is_downloadable'  => array(
-				'description' => __( 'Product is downloadable.', 'woocommerce' ),
+				'description' => __( 'Product is downloadable.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'needs_shipping'   => array(
-				'description' => __( 'Product needs shipping.', 'woocommerce' ),
+				'description' => __( 'Product needs shipping.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),

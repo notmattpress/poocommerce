@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Tracks checkout events for fraud protection analysis.
  *
- * This class provides methods to track both WooCommerce Blocks (Store API) and traditional
+ * This class provides methods to track both PooCommerce Blocks (Store API) and traditional
  * shortcode checkout events for fraud protection event dispatching.
  * Event-specific data is passed to the dispatcher which handles session data collection internally.
  *
@@ -63,7 +63,7 @@ class CheckoutEventTracker {
 	}
 
 	/**
-	 * Track Store API customer update event (WooCommerce Blocks checkout).
+	 * Track Store API customer update event (PooCommerce Blocks checkout).
 	 *
 	 * Triggered when customer information is updated via the Store API endpoint
 	 * /wc/store/v1/cart/update-customer during Blocks checkout flow.
@@ -79,7 +79,7 @@ class CheckoutEventTracker {
 	/**
 	 * Track shortcode checkout field update event.
 	 *
-	 * Triggered when checkout fields are updated via AJAX (woocommerce_update_order_review).
+	 * Triggered when checkout fields are updated via AJAX (poocommerce_update_order_review).
 	 * Only dispatches event when billing or shipping country changes to reduce unnecessary API calls.
 	 *
 	 * @internal

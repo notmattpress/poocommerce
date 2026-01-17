@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Admin Helper
+ * PooCommerce Admin Helper
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Admin\Notes\Note;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\Notes\Note;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -28,7 +28,7 @@ class WC_Helper {
 	 */
 	public static $log;
 
-	private const CACHE_KEY_CONNECTION_DATA = '_woocommerce_helper_connection_data';
+	private const CACHE_KEY_CONNECTION_DATA = '_poocommerce_helper_connection_data';
 
 	/**
 	 * Get an absolute path to the requested helper view.
@@ -48,11 +48,11 @@ class WC_Helper {
 		self::includes();
 
 		add_action( 'current_screen', array( __CLASS__, 'current_screen' ) );
-		add_action( 'woocommerce_helper_output', array( __CLASS__, 'render_helper_output' ) );
+		add_action( 'poocommerce_helper_output', array( __CLASS__, 'render_helper_output' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
 
-		do_action( 'woocommerce_helper_loaded' );
+		do_action( 'poocommerce_helper_loaded' );
 	}
 
 	/**
@@ -106,12 +106,12 @@ class WC_Helper {
 
 		$note->set_props(
 			array(
-				'title'        => __( 'We’re having trouble connecting to WooCommerce.com', 'woocommerce' ),
-				'content'      => __( 'Some subscription data may be temporarily unavailable. Please refresh the page in a few minutes to try again.', 'woocommerce' ),
+				'title'        => __( 'We’re having trouble connecting to PooCommerce.com', 'poocommerce' ),
+				'content'      => __( 'Some subscription data may be temporarily unavailable. Please refresh the page in a few minutes to try again.', 'poocommerce' ),
 				'type'         => Note::E_WC_ADMIN_NOTE_UPDATE,
 				'name'         => self::NOTE_NAME,
 				'content_data' => (object) array(),
-				'source'       => 'woocommerce-admin',
+				'source'       => 'poocommerce-admin',
 				'status'       => Note::E_WC_ADMIN_NOTE_UNACTIONED,
 				'is_deleted'   => false,
 			)
@@ -253,7 +253,7 @@ class WC_Helper {
 			}
 
 			$subscription['download_primary'] = true;
-			$subscription['download_url']     = 'https://woocommerce.com/my-account/downloads/';
+			$subscription['download_url']     = 'https://poocommerce.com/my-account/downloads/';
 			if ( ! $subscription['local']['installed'] && ! empty( $updates[ $subscription['product_id'] ] ) ) {
 				$subscription['download_url'] = $updates[ $subscription['product_id'] ]['package'];
 			}
@@ -263,8 +263,8 @@ class WC_Helper {
 			if ( $subscription['has_update'] && ! $subscription['expired'] ) {
 				$action = array(
 					/* translators: %s: version number */
-					'message'      => sprintf( __( 'Version %s is <strong>available</strong>.', 'woocommerce' ), esc_html( $updates[ $subscription['product_id'] ]['version'] ) ),
-					'button_label' => __( 'Update', 'woocommerce' ),
+					'message'      => sprintf( __( 'Version %s is <strong>available</strong>.', 'poocommerce' ), esc_html( $updates[ $subscription['product_id'] ]['version'] ) ),
+					'button_label' => __( 'Update', 'poocommerce' ),
 					'button_url'   => $subscription['update_url'],
 					'status'       => 'update-available',
 					'icon'         => 'dashicons-update',
@@ -272,7 +272,7 @@ class WC_Helper {
 
 				// Subscription is not active on this site.
 				if ( ! $subscription['active'] ) {
-					$action['message']     .= ' ' . __( 'To enable this update you need to <strong>activate</strong> this subscription.', 'woocommerce' );
+					$action['message']     .= ' ' . __( 'To enable this update you need to <strong>activate</strong> this subscription.', 'poocommerce' );
 					$action['button_label'] = null;
 					$action['button_url']   = null;
 				}
@@ -283,13 +283,13 @@ class WC_Helper {
 			if ( $subscription['has_update'] && $subscription['expired'] ) {
 				$action = array(
 					/* translators: %s: version number */
-					'message' => sprintf( __( 'Version %s is <strong>available</strong>.', 'woocommerce' ), esc_html( $updates[ $subscription['product_id'] ]['version'] ) ),
+					'message' => sprintf( __( 'Version %s is <strong>available</strong>.', 'poocommerce' ), esc_html( $updates[ $subscription['product_id'] ]['version'] ) ),
 					'status'  => 'expired',
 					'icon'    => 'dashicons-info',
 				);
 
-				$action['message']     .= ' ' . __( 'To enable this update you need to <strong>purchase</strong> a new subscription.', 'woocommerce' );
-				$action['button_label'] = __( 'Purchase', 'woocommerce' );
+				$action['message']     .= ' ' . __( 'To enable this update you need to <strong>purchase</strong> a new subscription.', 'poocommerce' );
+				$action['button_label'] = __( 'Purchase', 'poocommerce' );
 				$action['button_url']   = self::add_utm_params_to_url_for_subscription_link(
 					$subscription['product_url'],
 					'purchase'
@@ -298,7 +298,7 @@ class WC_Helper {
 				$subscription['actions'][] = $action;
 			} elseif ( $subscription['expired'] && ! empty( $subscription['master_user_email'] ) ) {
 				$action = array(
-					'message' => sprintf( __( 'This subscription has expired. Contact the owner to <strong>renew</strong> the subscription to receive updates and support.', 'woocommerce' ) ),
+					'message' => sprintf( __( 'This subscription has expired. Contact the owner to <strong>renew</strong> the subscription to receive updates and support.', 'poocommerce' ) ),
 					'status'  => 'expired',
 					'icon'    => 'dashicons-info',
 				);
@@ -306,10 +306,10 @@ class WC_Helper {
 				$subscription['actions'][] = $action;
 			} elseif ( $subscription['expired'] ) {
 				$action = array(
-					'message'      => sprintf( __( 'This subscription has expired. Please <strong>renew</strong> to receive updates and support.', 'woocommerce' ) ),
-					'button_label' => __( 'Renew', 'woocommerce' ),
+					'message'      => sprintf( __( 'This subscription has expired. Please <strong>renew</strong> to receive updates and support.', 'poocommerce' ) ),
+					'button_label' => __( 'Renew', 'poocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
-						'https://woocommerce.com/my-account/my-subscriptions/',
+						'https://poocommerce.com/my-account/my-subscriptions/',
 						'renew'
 					),
 					'status'       => 'expired',
@@ -321,10 +321,10 @@ class WC_Helper {
 
 			if ( $subscription['expiring'] && ! $subscription['autorenew'] ) {
 				$action = array(
-					'message'      => __( 'Subscription is <strong>expiring</strong> soon.', 'woocommerce' ),
-					'button_label' => __( 'Enable auto-renew', 'woocommerce' ),
+					'message'      => __( 'Subscription is <strong>expiring</strong> soon.', 'poocommerce' ),
+					'button_label' => __( 'Enable auto-renew', 'poocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
-						'https://woocommerce.com/my-account/my-subscriptions/',
+						'https://poocommerce.com/my-account/my-subscriptions/',
 						'auto-renew'
 					),
 					'status'       => 'expired',
@@ -335,10 +335,10 @@ class WC_Helper {
 				$subscription['actions'][]        = $action;
 			} elseif ( $subscription['expiring'] ) {
 				$action = array(
-					'message'      => sprintf( __( 'This subscription is expiring soon. Please <strong>renew</strong> to continue receiving updates and support.', 'woocommerce' ) ),
-					'button_label' => __( 'Renew', 'woocommerce' ),
+					'message'      => sprintf( __( 'This subscription is expiring soon. Please <strong>renew</strong> to continue receiving updates and support.', 'poocommerce' ) ),
+					'button_label' => __( 'Renew', 'poocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
-						'https://woocommerce.com/my-account/my-subscriptions/',
+						'https://poocommerce.com/my-account/my-subscriptions/',
 						'renew'
 					),
 					'status'       => 'expired',
@@ -386,8 +386,8 @@ class WC_Helper {
 			if ( $data['_has_update'] ) {
 				$action = array(
 					/* translators: %s: version number */
-					'message'      => sprintf( __( 'Version %s is <strong>available</strong>. To enable this update you need to <strong>purchase</strong> a new subscription.', 'woocommerce' ), esc_html( $updates[ $data['_product_id'] ]['version'] ) ),
-					'button_label' => __( 'Purchase', 'woocommerce' ),
+					'message'      => sprintf( __( 'Version %s is <strong>available</strong>. To enable this update you need to <strong>purchase</strong> a new subscription.', 'poocommerce' ), esc_html( $updates[ $data['_product_id'] ]['version'] ) ),
+					'button_label' => __( 'Purchase', 'poocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
 						$data['_product_url'],
 						'purchase'
@@ -400,8 +400,8 @@ class WC_Helper {
 			} else {
 				$action = array(
 					/* translators: 1: subscriptions docs 2: subscriptions docs */
-					'message'      => sprintf( __( 'To receive updates and support for this extension, you need to <strong>purchase</strong> a new subscription or consolidate your extensions to one connected account by <strong><a href="%1$s" title="Sharing Docs">sharing</a> or <a href="%2$s" title="Transferring Docs">transferring</a></strong> this extension to this connected account.', 'woocommerce' ), 'https://woocommerce.com/document/managing-woocommerce-com-subscriptions/#section-10', 'https://woocommerce.com/document/managing-woocommerce-com-subscriptions/#section-5' ),
-					'button_label' => __( 'Purchase', 'woocommerce' ),
+					'message'      => sprintf( __( 'To receive updates and support for this extension, you need to <strong>purchase</strong> a new subscription or consolidate your extensions to one connected account by <strong><a href="%1$s" title="Sharing Docs">sharing</a> or <a href="%2$s" title="Transferring Docs">transferring</a></strong> this extension to this connected account.', 'poocommerce' ), 'https://poocommerce.com/document/managing-poocommerce-com-subscriptions/#section-10', 'https://poocommerce.com/document/managing-poocommerce-com-subscriptions/#section-5' ),
+					'button_label' => __( 'Purchase', 'poocommerce' ),
 					'button_url'   => self::add_utm_params_to_url_for_subscription_link(
 						$data['_product_url'],
 						'purchase'
@@ -438,7 +438,7 @@ class WC_Helper {
 	/**
 	 * Add tracking parameters to buttons (Renew, Purchase, etc.) on subscriptions page
 	 *
-	 * @param string $url URL to product page or to https://woocommerce.com/my-account/my-subscriptions/.
+	 * @param string $url URL to product page or to https://poocommerce.com/my-account/my-subscriptions/.
 	 * @param string $utm_content value of utm_content query parameter used for tracking
 	 *
 	 * @return string URL including utm parameters for tracking
@@ -464,14 +464,14 @@ class WC_Helper {
 	 */
 	public static function get_filters() {
 		$filters = array(
-			'all'              => __( 'All', 'woocommerce' ),
-			'active'           => __( 'Active', 'woocommerce' ),
-			'inactive'         => __( 'Inactive', 'woocommerce' ),
-			'installed'        => __( 'Installed', 'woocommerce' ),
-			'update-available' => __( 'Update Available', 'woocommerce' ),
-			'expiring'         => __( 'Expiring Soon', 'woocommerce' ),
-			'expired'          => __( 'Expired', 'woocommerce' ),
-			'download'         => __( 'Download', 'woocommerce' ),
+			'all'              => __( 'All', 'poocommerce' ),
+			'active'           => __( 'Active', 'poocommerce' ),
+			'inactive'         => __( 'Inactive', 'poocommerce' ),
+			'installed'        => __( 'Installed', 'poocommerce' ),
+			'update-available' => __( 'Update Available', 'poocommerce' ),
+			'expiring'         => __( 'Expiring Soon', 'poocommerce' ),
+			'expired'          => __( 'Expired', 'poocommerce' ),
+			'download'         => __( 'Download', 'poocommerce' ),
 		);
 
 		return $filters;
@@ -573,11 +573,11 @@ class WC_Helper {
 	public static function admin_enqueue_scripts() {
 		$screen       = get_current_screen();
 		$screen_id    = $screen ? $screen->id : '';
-		$wc_screen_id = 'woocommerce';
+		$wc_screen_id = 'poocommerce';
 
 		if ( ( $wc_screen_id . '_page_wc-addons' === $screen_id || $wc_screen_id . '_page_wc-admin' === $screen_id ) && isset( $_GET['section'] ) && 'helper' === $_GET['section'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			wp_enqueue_style( 'woocommerce-helper', WC()->plugin_url() . '/assets/css/helper.css', array(), Constants::get_constant( 'WC_VERSION' ) );
-			wp_style_add_data( 'woocommerce-helper', 'rtl', 'replace' );
+			wp_enqueue_style( 'poocommerce-helper', WC()->plugin_url() . '/assets/css/helper.css', array(), Constants::get_constant( 'WC_VERSION' ) );
+			wp_style_add_data( 'poocommerce-helper', 'rtl', 'replace' );
 		}
 	}
 
@@ -600,7 +600,7 @@ class WC_Helper {
 					'type'    => 'updated',
 					'message' => sprintf(
 						/* translators: %s: product name */
-						__( '%s activated successfully. You will now receive updates for this product.', 'woocommerce' ),
+						__( '%s activated successfully. You will now receive updates for this product.', 'poocommerce' ),
 						'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>'
 					),
 				);
@@ -613,7 +613,7 @@ class WC_Helper {
 					'type'    => 'error',
 					'message' => sprintf(
 						/* translators: %s: product name */
-						__( 'An error has occurred when activating %s. Please try again later.', 'woocommerce' ),
+						__( 'An error has occurred when activating %s. Please try again later.', 'poocommerce' ),
 						'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>'
 					),
 				);
@@ -626,7 +626,7 @@ class WC_Helper {
 
 				$message = sprintf(
 					/* translators: %s: product name */
-					__( 'Subscription for %s deactivated successfully. You will no longer receive updates for this product.', 'woocommerce' ),
+					__( 'Subscription for %s deactivated successfully. You will no longer receive updates for this product.', 'poocommerce' ),
 					'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>'
 				);
 
@@ -645,7 +645,7 @@ class WC_Helper {
 
 					$message = sprintf(
 						/* translators: %1$s: product name, %2$s: deactivate url */
-						__( 'Subscription for %1$s deactivated successfully. You will no longer receive updates for this product. <a href="%2$s">Click here</a> if you wish to deactivate the plugin as well.', 'woocommerce' ),
+						__( 'Subscription for %1$s deactivated successfully. You will no longer receive updates for this product. <a href="%2$s">Click here</a> if you wish to deactivate the plugin as well.', 'poocommerce' ),
 						'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>',
 						esc_url( $deactivate_plugin_url )
 					);
@@ -664,7 +664,7 @@ class WC_Helper {
 					'type'    => 'error',
 					'message' => sprintf(
 						/* translators: %s: product name */
-						__( 'An error has occurred when deactivating the subscription for %s. Please try again later.', 'woocommerce' ),
+						__( 'An error has occurred when deactivating the subscription for %s. Please try again later.', 'poocommerce' ),
 						'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>'
 					),
 				);
@@ -677,7 +677,7 @@ class WC_Helper {
 					'type'    => 'updated',
 					'message' => sprintf(
 						/* translators: %s: product name */
-						__( 'The extension %s has been deactivated successfully.', 'woocommerce' ),
+						__( 'The extension %s has been deactivated successfully.', 'poocommerce' ),
 						'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>'
 					),
 				);
@@ -690,7 +690,7 @@ class WC_Helper {
 					'type'    => 'error',
 					'message' => sprintf(
 						/* translators: %1$s: product name, %2$s: plugins screen url */
-						__( 'An error has occurred when deactivating the extension %1$s. Please proceed to the <a href="%2$s">Plugins screen</a> to deactivate it manually.', 'woocommerce' ),
+						__( 'An error has occurred when deactivating the extension %1$s. Please proceed to the <a href="%2$s">Plugins screen</a> to deactivate it manually.', 'poocommerce' ),
 						'<strong>' . esc_html( $subscription['product_name'] ) . '</strong>',
 						admin_url( 'plugins.php' )
 					),
@@ -699,21 +699,21 @@ class WC_Helper {
 
 			case 'helper-connected':
 				$notices[] = array(
-					'message' => __( 'You have successfully connected your store to WooCommerce.com', 'woocommerce' ),
+					'message' => __( 'You have successfully connected your store to PooCommerce.com', 'poocommerce' ),
 					'type'    => 'updated',
 				);
 				break;
 
 			case 'helper-disconnected':
 				$notices[] = array(
-					'message' => __( 'You have successfully disconnected your store from WooCommerce.com', 'woocommerce' ),
+					'message' => __( 'You have successfully disconnected your store from PooCommerce.com', 'poocommerce' ),
 					'type'    => 'updated',
 				);
 				break;
 
 			case 'helper-refreshed':
 				$notices[] = array(
-					'message' => __( 'Authentication and subscription caches refreshed successfully.', 'woocommerce' ),
+					'message' => __( 'Authentication and subscription caches refreshed successfully.', 'poocommerce' ),
 					'type'    => 'updated',
 				);
 				break;
@@ -728,7 +728,7 @@ class WC_Helper {
 	 * @param object $screen WP screen object.
 	 */
 	public static function current_screen( $screen ) {
-		$wc_screen_id = 'woocommerce';
+		$wc_screen_id = 'poocommerce';
 
 		if ( $wc_screen_id . '_page_wc-addons' !== $screen->id && $wc_screen_id . '_page_wc-admin' !== $screen->id ) {
 			return;
@@ -811,8 +811,8 @@ class WC_Helper {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		if (
-			( 'woocommerce_page_wc-addons' === $current_screen->id ||
-			'woocommerce_page_wc-admin' === $current_screen->id ) &&
+			( 'poocommerce_page_wc-addons' === $current_screen->id ||
+			'poocommerce_page_wc-admin' === $current_screen->id ) &&
 			(
 				false === empty( $redirect_admin_url ) ||
 				false === empty( $install_product_key )
@@ -907,10 +907,10 @@ class WC_Helper {
 		/**
 		 * Fires when the Helper connection process is initiated.
 		 */
-		do_action( 'woocommerce_helper_connect_start' );
+		do_action( 'poocommerce_helper_connect_start' );
 
 		// Ignore all previously dismissed connected notices.
-		delete_metadata( 'user', 0, \Automattic\WooCommerce\Admin\PluginsHelper::DISMISS_CONNECT_NOTICE, '', true );
+		delete_metadata( 'user', 0, \Automattic\PooCommerce\Admin\PluginsHelper::DISMISS_CONNECT_NOTICE, '', true );
 
 		$connect_url = add_query_arg(
 			array(
@@ -937,7 +937,7 @@ class WC_Helper {
 	}
 
 	/**
-	 * Return from WooCommerce.com OAuth flow.
+	 * Return from PooCommerce.com OAuth flow.
 	 */
 	private static function _helper_auth_return() {
 		if ( empty( $_GET['wc-helper-nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['wc-helper-nonce'] ), 'connect' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -950,7 +950,7 @@ class WC_Helper {
 			/**
 			 * Fires when the Helper connection process is denied/cancelled.
 			 */
-			do_action( 'woocommerce_helper_denied' );
+			do_action( 'poocommerce_helper_denied' );
 
 			wp_safe_redirect(
 				self::get_helper_redirect_url(
@@ -999,21 +999,21 @@ class WC_Helper {
 		/**
 		 * Fires when the Helper connection process has completed successfully.
 		 */
-		do_action( 'woocommerce_helper_connected' );
+		do_action( 'poocommerce_helper_connected' );
 
 		// Enable tracking when connected.
 		if ( class_exists( 'WC_Tracker' ) ) {
-			$prev_value = get_option( 'woocommerce_allow_tracking', 'no' );
-			update_option( 'woocommerce_allow_tracking', 'yes' );
+			$prev_value = get_option( 'poocommerce_allow_tracking', 'no' );
+			update_option( 'poocommerce_allow_tracking', 'yes' );
 			WC_Tracker::send_tracking_data( true );
 
-			// Track woocommerce_allow_tracking_toggled in case was set as 'no' before.
+			// Track poocommerce_allow_tracking_toggled in case was set as 'no' before.
 			if ( class_exists( 'WC_Tracks' ) && 'no' === $prev_value ) {
-				WC_Tracks::track_woocommerce_allow_tracking_toggled( $prev_value, 'yes', 'wccom_connect' );
+				WC_Tracks::track_poocommerce_allow_tracking_toggled( $prev_value, 'yes', 'wccom_connect' );
 			}
 		}
 
-		// If connecting through in-app purchase, redirects back to WooCommerce.com
+		// If connecting through in-app purchase, redirects back to PooCommerce.com
 		// for product installation.
 		if ( ! empty( $_GET['wccom-install-url'] ) ) {
 			wp_redirect( wp_unslash( $_GET['wccom-install-url'] ) );
@@ -1033,7 +1033,7 @@ class WC_Helper {
 	}
 
 	/**
-	 * Disconnect from WooCommerce.com, clear OAuth tokens.
+	 * Disconnect from PooCommerce.com, clear OAuth tokens.
 	 */
 	private static function _helper_auth_disconnect() {
 		if ( empty( $_GET['wc-helper-nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['wc-helper-nonce'] ), 'disconnect' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -1044,7 +1044,7 @@ class WC_Helper {
 		/**
 		 * Fires when the Helper has been disconnected.
 		 */
-		do_action( 'woocommerce_helper_disconnected' );
+		do_action( 'poocommerce_helper_disconnected' );
 
 		$redirect_uri = self::get_helper_redirect_url(
 			array(
@@ -1095,7 +1095,7 @@ class WC_Helper {
 		 *
 		 * @since 8.3.0
 		 */
-		do_action( 'woocommerce_helper_subscriptions_refresh' );
+		do_action( 'poocommerce_helper_subscriptions_refresh' );
 		self::_flush_authentication_cache();
 		self::_flush_subscriptions_cache();
 		self::_flush_updates_cache();
@@ -1146,7 +1146,7 @@ class WC_Helper {
 	public static function activate_helper_subscription( $product_key ) {
 		$subscription = self::get_subscription( $product_key );
 		if ( ! $subscription ) {
-			throw new Exception( __( 'Subscription not found', 'woocommerce' ) );
+			throw new Exception( __( 'Subscription not found', 'poocommerce' ) );
 		}
 		$product_id = $subscription['product_id'];
 
@@ -1161,7 +1161,7 @@ class WC_Helper {
 			 * @param string $product_key Subscription product key.
 			 * @param array  $activation_response The response object from wp_safe_remote_request().
 			 */
-			do_action( 'woocommerce_helper_subscription_activate_success', $product_id, $product_key, $activation_response );
+			do_action( 'poocommerce_helper_subscription_activate_success', $product_id, $product_key, $activation_response );
 		} else {
 			/**
 			 * Fires when the Helper fails to activate a product.
@@ -1170,14 +1170,14 @@ class WC_Helper {
 			 * @param string $product_key Subscription product key.
 			 * @param array  $activation_response The response object from wp_safe_remote_request().
 			 */
-			do_action( 'woocommerce_helper_subscription_activate_error', $product_id, $product_key, $activation_response );
+			do_action( 'poocommerce_helper_subscription_activate_error', $product_id, $product_key, $activation_response );
 
 			// Include HTTP status code and any extra data from the API response in the exception so callers can surface it.
 			$status_code = function_exists( 'wp_remote_retrieve_response_code' ) ? (int) wp_remote_retrieve_response_code( $activation_response ) : (int) ( $body['data']['status'] ?? 400 );
 			$error_data  = isset( $body['data'] ) && is_array( $body['data'] ) ? $body['data'] : array();
 			throw new WC_Data_Exception(
 				esc_html( $body['code'] ?? 'unknown_error' ),
-				isset( $body['message'] ) ? esc_html( $body['message'] ) : esc_html__( 'Unknown error', 'woocommerce' ),
+				isset( $body['message'] ) ? esc_html( $body['message'] ) : esc_html__( 'Unknown error', 'poocommerce' ),
 				(int) $status_code,
 				function_exists( 'map_deep' ) ? map_deep( $error_data, 'esc_html' ) : array_map( 'esc_html', $error_data ),
 			);
@@ -1200,7 +1200,7 @@ class WC_Helper {
 	public static function activate_plugin( $product_key ) {
 		$subscription = self::get_subscription( $product_key );
 		if ( ! $subscription ) {
-			throw new Exception( esc_html( __( 'Subscription not found', 'woocommerce' ) ) );
+			throw new Exception( esc_html( __( 'Subscription not found', 'poocommerce' ) ) );
 		}
 		$product_id = $subscription['product_id'];
 		$local      = self::_get_local_from_product_id( $product_id );
@@ -1264,7 +1264,7 @@ class WC_Helper {
 	public static function deactivate_helper_subscription( $product_key ) {
 		$subscription = self::get_subscription( $product_key );
 		if ( ! $subscription ) {
-			throw new Exception( __( 'Subscription not found', 'woocommerce' ) );
+			throw new Exception( __( 'Subscription not found', 'poocommerce' ) );
 		}
 		$product_id = $subscription['product_id'];
 
@@ -1291,7 +1291,7 @@ class WC_Helper {
 			 * @param string $product_key Subscription product key.
 			 * @param array  $deactivation_response The response object from wp_safe_remote_request().
 			 */
-			do_action( 'woocommerce_helper_subscription_deactivate_success', $product_id, $product_key, $deactivation_response );
+			do_action( 'poocommerce_helper_subscription_deactivate_success', $product_id, $product_key, $deactivation_response );
 		} else {
 			self::log( sprintf( 'Deactivate API call returned a non-200 response code (%d)', $code ) );
 
@@ -1302,10 +1302,10 @@ class WC_Helper {
 			 * @param string $product_key Subscription product key.
 			 * @param array  $deactivation_response The response object from wp_safe_remote_request().
 			 */
-			do_action( 'woocommerce_helper_subscription_deactivate_error', $product_id, $product_key, $deactivation_response );
+			do_action( 'poocommerce_helper_subscription_deactivate_error', $product_id, $product_key, $deactivation_response );
 
 			$body = json_decode( wp_remote_retrieve_body( $deactivation_response ), true );
-			throw new Exception( $body['message'] ?? __( 'Unknown error', 'woocommerce' ) );
+			throw new Exception( $body['message'] ?? __( 'Unknown error', 'poocommerce' ) );
 		}
 
 		self::_flush_subscriptions_cache();
@@ -1623,8 +1623,8 @@ class WC_Helper {
 				continue;
 			}
 
-			// Omit the WooCommerce plugin used on Woo Express sites.
-			if ( 'WooCommerce' === $data['Name'] ) {
+			// Omit the PooCommerce plugin used on Woo Express sites.
+			if ( 'PooCommerce' === $data['Name'] ) {
 				continue;
 			}
 
@@ -1697,7 +1697,7 @@ class WC_Helper {
 	 * phpcs:ignore Squiz.Commenting.FunctionCommentThrowTag.Missing -- As we wrap the throw in a try/catch.
 	 */
 	public static function get_product_usage_notice_rules() {
-		$cache_key = '_woocommerce_helper_product_usage_notice_rules';
+		$cache_key = '_poocommerce_helper_product_usage_notice_rules';
 		$data      = get_transient( $cache_key );
 		if ( false !== $data ) {
 			return $data;
@@ -1729,7 +1729,7 @@ class WC_Helper {
 			if ( ! is_array( $data ) ) {
 				set_transient( $cache_key, array(), 15 * MINUTE_IN_SECONDS );
 
-				throw new Exception( __( 'WooCommerce.com API returned an invalid response.', 'woocommerce' ), 422 );
+				throw new Exception( __( 'PooCommerce.com API returned an invalid response.', 'poocommerce' ), 422 );
 			}
 
 			set_transient( $cache_key, $data, DAY_IN_SECONDS );
@@ -1751,7 +1751,7 @@ class WC_Helper {
 	}
 
 	/**
-	 * Verify request hash created by WooCommerce.com.
+	 * Verify request hash created by PooCommerce.com.
 	 *
 	 * @param string $request_hash request hash to be verified.
 	 * @return bool
@@ -1784,7 +1784,7 @@ class WC_Helper {
 	}
 
 	/**
-	 * Get details of the current WooCommerce.com connection.
+	 * Get details of the current PooCommerce.com connection.
 	 *
 	 * @return array|WP_Error
 	 */
@@ -1806,7 +1806,7 @@ class WC_Helper {
 		if ( 200 !== $status ) {
 			return new WP_Error(
 				'invalid_response',
-				'Invalid response from WooCommerce.com',
+				'Invalid response from PooCommerce.com',
 				array( 'status' => $status )
 			);
 		}
@@ -1833,7 +1833,7 @@ class WC_Helper {
 	 * phpcs:ignore Squiz.Commenting.FunctionCommentThrowTag.Missing -- As we wrap the throw in a try/catch.
 	 */
 	public static function get_subscriptions() {
-		$cache_key = '_woocommerce_helper_subscriptions';
+		$cache_key = '_poocommerce_helper_subscriptions';
 		$data      = get_transient( $cache_key );
 		if ( false !== $data ) {
 			return $data;
@@ -1884,7 +1884,7 @@ class WC_Helper {
 			if ( ! is_array( $data ) ) {
 				set_transient( $cache_key, array(), 15 * MINUTE_IN_SECONDS );
 
-				throw new Exception( __( 'WooCommerce.com API returned an invalid response.', 'woocommerce' ), 422 );
+				throw new Exception( __( 'PooCommerce.com API returned an invalid response.', 'poocommerce' ), 422 );
 			}
 
 			set_transient( $cache_key, $data, 3 * HOUR_IN_SECONDS );
@@ -2233,7 +2233,7 @@ class WC_Helper {
 			 * @param array  $activation_response The response object from wp_safe_remote_request().
 			 * @since 9.7
 			 */
-			do_action( 'woocommerce_helper_subscription_activate_success', $product_id, $product_key, $activation_response );
+			do_action( 'poocommerce_helper_subscription_activate_success', $product_id, $product_key, $activation_response );
 		} else {
 			self::log( 'Could not activate a subscription upon plugin activation: ' . $filename );
 
@@ -2245,7 +2245,7 @@ class WC_Helper {
 			 * @param array  $activation_response The response object from wp_safe_remote_request().
 			 * @since 9.7
 			 */
-			do_action( 'woocommerce_helper_subscription_activate_error', $product_id, $product_key, $activation_response );
+			do_action( 'poocommerce_helper_subscription_activate_error', $product_id, $product_key, $activation_response );
 		}
 	}
 
@@ -2300,7 +2300,7 @@ class WC_Helper {
 			 * @param string $product_key Subscription product key.
 			 * @param array  $activation_response The response object from wp_safe_remote_request().
 			 */
-			do_action( 'woocommerce_helper_subscription_activate_success', $product_id, $product_key, $activation_response );
+			do_action( 'poocommerce_helper_subscription_activate_success', $product_id, $product_key, $activation_response );
 		} else {
 			self::log( 'Could not activate a subscription for theme: ' . $theme['Name'] );
 
@@ -2311,7 +2311,7 @@ class WC_Helper {
 			 * @param string $product_key Subscription product key.
 			 * @param array  $activation_response The response object from wp_safe_remote_request().
 			 */
-			do_action( 'woocommerce_helper_subscription_activate_error', $product_id, $product_key, $activation_response );
+			do_action( 'poocommerce_helper_subscription_activate_error', $product_id, $product_key, $activation_response );
 		}
 
 		self::_flush_subscriptions_cache();
@@ -2381,7 +2381,7 @@ class WC_Helper {
 				 * @param string $product_key Subscription product key.
 				 * @param array  $deactivation_response The response object from wp_safe_remote_request().
 				 */
-				do_action( 'woocommerce_helper_subscription_deactivate_success', $product_id, $product_key, $deactivation_response );
+				do_action( 'poocommerce_helper_subscription_deactivate_success', $product_id, $product_key, $deactivation_response );
 			} else {
 				/**
 				 * Fires when the Helper fails to activate a product.
@@ -2390,7 +2390,7 @@ class WC_Helper {
 				 * @param string $product_key Subscription product key.
 				 * @param array  $deactivation_response The response object from wp_safe_remote_request().
 				 */
-				do_action( 'woocommerce_helper_subscription_deactivate_error', $product_id, $product_key, $deactivation_response );
+				do_action( 'poocommerce_helper_subscription_deactivate_error', $product_id, $product_key, $deactivation_response );
 			}
 		}
 
@@ -2406,7 +2406,7 @@ class WC_Helper {
 	 * Various Helper-related admin notices.
 	 */
 	public static function admin_notices() {
-		if ( apply_filters( 'woocommerce_helper_suppress_admin_notices', false ) ) {
+		if ( apply_filters( 'poocommerce_helper_suppress_admin_notices', false ) ) {
 			return;
 		}
 
@@ -2425,7 +2425,7 @@ class WC_Helper {
 		// Add a note about available extension updates if Woo core has an update available.
 		$notice = self::_get_extensions_update_notice();
 		if ( ! empty( $notice ) ) {
-			echo '<div class="updated woocommerce-message"><p>' . $notice . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="updated poocommerce-message"><p>' . $notice . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 
@@ -2456,14 +2456,14 @@ class WC_Helper {
 
 		return sprintf(
 			/* translators: %1$s: helper url, %2$d: number of extensions */
-			_n( 'Note: You currently have <a href="%1$s">%2$d paid extension</a> which should be updated first before updating WooCommerce.', 'Note: You currently have <a href="%1$s">%2$d paid extensions</a> which should be updated first before updating WooCommerce.', $available, 'woocommerce' ),
+			_n( 'Note: You currently have <a href="%1$s">%2$d paid extension</a> which should be updated first before updating PooCommerce.', 'Note: You currently have <a href="%1$s">%2$d paid extensions</a> which should be updated first before updating PooCommerce.', $available, 'poocommerce' ),
 			admin_url( 'admin.php?page=' . self::get_source_page() . ' &section=helper' ),
 			$available
 		);
 	}
 
 	/**
-	 * Whether WooCommerce has an update available.
+	 * Whether PooCommerce has an update available.
 	 *
 	 * @return bool True if a Woo core update is available.
 	 */
@@ -2473,11 +2473,11 @@ class WC_Helper {
 			return false;
 		}
 
-		if ( empty( $updates->response['woocommerce/woocommerce.php'] ) ) {
+		if ( empty( $updates->response['poocommerce/poocommerce.php'] ) ) {
 			return false;
 		}
 
-		$data = $updates->response['woocommerce/woocommerce.php'];
+		$data = $updates->response['poocommerce/poocommerce.php'];
 		if ( version_compare( Constants::get_constant( 'WC_VERSION' ), $data->new_version, '>=' ) ) {
 			return false;
 		}
@@ -2489,21 +2489,21 @@ class WC_Helper {
 	 * Flush subscriptions cache.
 	 */
 	public static function _flush_subscriptions_cache() {
-		delete_transient( '_woocommerce_helper_subscriptions' );
+		delete_transient( '_poocommerce_helper_subscriptions' );
 	}
 
 	/**
 	 * Flush product-usage-notice-rules cache.
 	 */
 	public static function flush_product_usage_notice_rules_cache() {
-		delete_transient( '_woocommerce_helper_product_usage_notice_rules' );
+		delete_transient( '_poocommerce_helper_product_usage_notice_rules' );
 	}
 
 	/**
 	 * Flush connection data cache.
 	 */
 	public static function flush_connection_data_cache() {
-		delete_transient( '_woocommerce_helper_connection_data' );
+		delete_transient( '_poocommerce_helper_connection_data' );
 	}
 
 	/**
@@ -2707,17 +2707,17 @@ class WC_Helper {
 	}
 
 	/**
-	 * Get WooCommerce.com base URL.
+	 * Get PooCommerce.com base URL.
 	 *
 	 * @return string
 	 */
-	public static function get_woocommerce_com_base_url() {
+	public static function get_poocommerce_com_base_url() {
 		/**
 		 * Filter the base URL used to install the Woo hosted plugins.
 		 *
 		 * @since 8.7.0
 		 */
-		return trailingslashit( apply_filters( 'woo_com_base_url', 'https://woocommerce.com/' ) );
+		return trailingslashit( apply_filters( 'woo_com_base_url', 'https://poocommerce.com/' ) );
 	}
 
 
@@ -2727,7 +2727,7 @@ class WC_Helper {
 	 * @return string
 	 */
 	public static function get_install_base_url() {
-		return self::get_woocommerce_com_base_url() . 'auto-install-init/';
+		return self::get_poocommerce_com_base_url() . 'auto-install-init/';
 	}
 
 	/**
@@ -2736,7 +2736,7 @@ class WC_Helper {
 	 * @return array An array containing notice data.
 	 */
 	public static function get_notices() {
-		$cache_key   = '_woocommerce_helper_notices';
+		$cache_key   = '_poocommerce_helper_notices';
 		$cached_data = get_transient( $cache_key );
 
 		if ( false !== $cached_data ) {
@@ -2840,13 +2840,13 @@ class WC_Helper {
 	 */
 	protected static function get_message_for_response_code( int $code ): string {
 		if ( 429 === $code ) {
-			return __( 'You have exceeded the request limit. Please try again after a few minutes.', 'woocommerce' );
+			return __( 'You have exceeded the request limit. Please try again after a few minutes.', 'poocommerce' );
 		} elseif ( 403 === $code ) {
-			return __( 'Authentication failed. Please try again after a few minutes. If the issue persists, disconnect your store from WooCommerce.com and reconnect.', 'woocommerce' );
+			return __( 'Authentication failed. Please try again after a few minutes. If the issue persists, disconnect your store from PooCommerce.com and reconnect.', 'poocommerce' );
 		}
 
 		// translators: %d: HTTP status code.
-		return sprintf( __( 'WooCommerce.com API returned HTTP status code %d.', 'woocommerce' ), $code );
+		return sprintf( __( 'PooCommerce.com API returned HTTP status code %d.', 'poocommerce' ), $code );
 	}
 }
 

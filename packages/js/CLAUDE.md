@@ -1,4 +1,4 @@
-# Claude Code Documentation for WooCommerce JS Packages
+# Claude Code Documentation for PooCommerce JS Packages
 
 **Location**: `packages/js/`
 
@@ -84,7 +84,7 @@ Type: dev
 Update test stubs to include new gateway properties
 ```
 
-## Important: @woocommerce/data Package
+## Important: @poocommerce/data Package
 
 **Central data layer** - Always add changelog when making changes. Update order:
 

@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/react';
 import PlaceOrderButton from '..';
 
 const mockUseCheckoutSubmit = jest.fn();
-jest.mock( '@woocommerce/base-context/hooks', () => ( {
+jest.mock( '@poocommerce/base-context/hooks', () => ( {
 	useCheckoutSubmit: () => mockUseCheckoutSubmit(),
 	usePaymentMethodInterface: () => ( {
 		onSubmit: jest.fn(),
@@ -21,7 +21,7 @@ jest.mock( '@woocommerce/base-context/hooks', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	FormattedMonetaryAmount: () => <span>$10.00</span>,
 	Spinner: () => <span>Loading...</span>,
 } ) );

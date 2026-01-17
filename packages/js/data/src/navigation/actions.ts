@@ -2,7 +2,7 @@
  * External dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-import { getPersistedQuery } from '@woocommerce/navigation';
+import { getPersistedQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

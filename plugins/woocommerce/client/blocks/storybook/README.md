@@ -42,7 +42,7 @@ import type { Story, Meta } from '@storybook/react';
 import MyComponent, { MyComponentProps } from '..';
 
 export default {
-	title: 'WooCommerce Blocks/${MyCategory}/${MyComponent}',
+	title: 'PooCommerce Blocks/${MyCategory}/${MyComponent}',
 	component: MyComponent,
 } as Meta< MyComponentProps >;
 
@@ -336,7 +336,7 @@ const Template: Story< MyComponentProps > = ( args ) => {
 };
 ```
 
-We expose the `INTERACTION_TIMEOUT` constant from `@woocommerce/storybook-controls'` as a simple way to set our timeouts across our stories.
+We expose the `INTERACTION_TIMEOUT` constant from `@poocommerce/storybook-controls'` as a simple way to set our timeouts across our stories.
 
 ### Context providers
 
@@ -346,8 +346,8 @@ See example: `assets/js/base/components/country-input/stories/index.tsx`
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/block-assets.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./docs/contributors/block-assets.md)
 
 <!-- /FEEDBACK -->

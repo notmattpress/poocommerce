@@ -19,7 +19,7 @@ export default function HiddenIcon( {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			aria-hidden="true"
-			className={ clsx( className, 'woocommerce-hidden-icon' ) }
+			className={ clsx( className, 'poocommerce-hidden-icon' ) }
 		>
 			<path
 				fillRule="evenodd"

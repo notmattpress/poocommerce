@@ -2,10 +2,10 @@
  * External dependencies
  */
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
 import type { TemplateArray } from '@wordpress/blocks';
-import { EditorProvider, useEditorContext } from '@woocommerce/base-context';
-import { previewCart } from '@woocommerce/resource-previews';
+import { EditorProvider, useEditorContext } from '@poocommerce/base-context';
+import { previewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies
@@ -21,9 +21,9 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 	const { currentView } = useEditorContext();
 
 	const defaultTemplate = [
-		[ 'woocommerce/mini-cart-title-block', {} ],
-		[ 'woocommerce/mini-cart-items-block', {} ],
-		[ 'woocommerce/mini-cart-footer-block', {} ],
+		[ 'poocommerce/mini-cart-title-block', {} ],
+		[ 'poocommerce/mini-cart-items-block', {} ],
+		[ 'poocommerce/mini-cart-footer-block', {} ],
 	].filter( Boolean ) as unknown as TemplateArray;
 
 	useForcedLayout( {
@@ -36,7 +36,7 @@ export const Edit = ( { clientId }: { clientId: string } ): JSX.Element => {
 		<div
 			{ ...blockProps }
 			hidden={
-				currentView !== 'woocommerce/filled-mini-cart-contents-block'
+				currentView !== 'poocommerce/filled-mini-cart-contents-block'
 			}
 		>
 			<EditorProvider

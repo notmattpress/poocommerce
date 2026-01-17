@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Position\Positionable;
 
 /**
  * `CSSNamespace` represents an `@namespace` rule.

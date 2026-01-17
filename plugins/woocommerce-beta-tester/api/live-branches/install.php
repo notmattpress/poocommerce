@@ -12,21 +12,21 @@ require_once __DIR__ . '/../../includes/class-wc-beta-tester-live-branches-insta
 
 /**
  * Check if the user has the necessary permissions to perform live branches actions.
- * Avoid using WC functions so user can call these API without WooCommerce active.
+ * Avoid using WC functions so user can call these API without PooCommerce active.
  *
  * @return bool|WP_Error
  */
 function check_live_branches_permissions() {
 	if ( ! current_user_can( 'install_plugins' ) ) {
 		return new \WP_Error(
-			'woocommerce_rest_cannot_edit',
-			__( 'Sorry, you cannot perform this action', 'woocommerce-beta-tester' )
+			'poocommerce_rest_cannot_edit',
+			__( 'Sorry, you cannot perform this action', 'poocommerce-beta-tester' )
 		);
 	}
 	return true;
 }
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/install/latest/v1',
 	'install_latest_version',
 	array(
@@ -43,7 +43,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/install/v1',
 	'install_version',
 	array(
@@ -53,7 +53,7 @@ register_woocommerce_admin_test_helper_rest_route(
 			'download_url' => array(
 				'required'          => true,
 				'type'              => 'string',
-				'description'       => 'The URL to download the WooCommerce plugin zip file.',
+				'description'       => 'The URL to download the PooCommerce plugin zip file.',
 				'validate_callback' => function( $param ) {
 					return filter_var( $param, FILTER_VALIDATE_URL );
 				},
@@ -68,24 +68,24 @@ register_woocommerce_admin_test_helper_rest_route(
 			'version'      => array(
 				'required'          => true,
 				'type'              => 'string',
-				'description'       => 'The version identifier of WooCommerce to be installed.',
+				'description'       => 'The version identifier of PooCommerce to be installed.',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 		),
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/deactivate/v1',
-	'deactivate_woocommerce',
+	'deactivate_poocommerce',
 	array(
 		'methods'             => 'GET',
 		'permission_callback' => 'check_live_branches_permissions',
-		'description'         => 'Deactivates the currently active WooCommerce plugin.',
+		'description'         => 'Deactivates the currently active PooCommerce plugin.',
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/live-branches/activate/v1',
 	'activate_version',
 	array(
@@ -95,7 +95,7 @@ register_woocommerce_admin_test_helper_rest_route(
 			'version' => array(
 				'required'          => true,
 				'type'              => 'string',
-				'description'       => 'The version identifier of WooCommerce to activate.',
+				'description'       => 'The version identifier of PooCommerce to activate.',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 		),
@@ -103,13 +103,13 @@ register_woocommerce_admin_test_helper_rest_route(
 );
 
 /**
- * Get the latest WooCommerce pre-release release from GitHub API.
+ * Get the latest PooCommerce pre-release release from GitHub API.
  *
  * @return array|WP_Error Latest pre-release release or error
  */
 function get_latest_wc_release( $include_pre_releases = false ) {
 	// Get all releases including pre-releases
-	$response = wp_remote_get( 'https://api.github.com/repos/woocommerce/woocommerce/releases' );
+	$response = wp_remote_get( 'https://api.github.com/repos/poocommerce/poocommerce/releases' );
 
 	if ( is_wp_error( $response ) ) {
 		return $response;
@@ -121,7 +121,7 @@ function get_latest_wc_release( $include_pre_releases = false ) {
 	}
 
 	foreach ( $body as $release ) {
-		// Ensure the release is a WooCommerce release, not nightly or beta tester releases.
+		// Ensure the release is a PooCommerce release, not nightly or beta tester releases.
 		if ( isset( $release['target_commitish'] ) && strpos( $release['target_commitish'], 'release/' ) === 0 ) {
 			// Skip pre-releases if not included.
 			if ( $include_pre_releases || ! $release['prerelease'] ) {
@@ -134,7 +134,7 @@ function get_latest_wc_release( $include_pre_releases = false ) {
 }
 
 /**
- * Respond to POST request to install the latest WooCommerce version.
+ * Respond to POST request to install the latest PooCommerce version.
  *
  * @param Object $request - The request parameter.
  */
@@ -213,11 +213,11 @@ function activate_version( $request ) {
 }
 
 /**
- * Respond to GET request to deactivate WooCommerce.
+ * Respond to GET request to deactivate PooCommerce.
  */
-function deactivate_woocommerce() {
+function deactivate_poocommerce() {
 	$installer = new WC_Beta_Tester_Live_Branches_Installer();
-	$installer->deactivate_woocommerce();
+	$installer->deactivate_poocommerce();
 
 	return new WP_REST_Response( wp_json_encode( array( 'ok' => true ) ), 200 );
 }

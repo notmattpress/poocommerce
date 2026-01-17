@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Exceptions;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Exceptions;
 
 defined( 'ABSPATH' ) || exit;
 

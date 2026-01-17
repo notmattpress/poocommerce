@@ -58,7 +58,7 @@ export default function Edit( {
 				{ blockControls }
 				<div { ...blockProps }>
 					<p>
-						{ _x( 'Review Content', 'block title', 'woocommerce' ) }
+						{ _x( 'Review Content', 'block title', 'poocommerce' ) }
 					</p>
 				</div>
 			</>

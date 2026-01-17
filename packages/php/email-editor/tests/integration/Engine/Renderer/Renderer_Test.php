@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Utils;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Utils;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
 
 /**
  * Integration test for Renderer
@@ -64,7 +64,7 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$theme_controller_mock->method( 'get_layout_settings' )->willReturn( array( 'contentSize' => '660px' ) );
 
 		// Create a mock for Personalization_Tags_Registry.
-		$personalization_tags_registry_mock = $this->createMock( \Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry::class );
+		$personalization_tags_registry_mock = $this->createMock( \Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry::class );
 		$personalization_tags_registry_mock->method( 'get_all' )->willReturn( array() );
 
 		$this->renderer = $this->getServiceWithOverrides(
@@ -114,12 +114,12 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 		$styles_callback = function ( $styles ) {
 			return $styles . 'body { color: pink; }';
 		};
-		add_filter( 'woocommerce_email_renderer_styles', $styles_callback );
+		add_filter( 'poocommerce_email_renderer_styles', $styles_callback );
 		$rendered = $this->renderer->render( $this->email_post, 'Subject', '', 'en' );
 		$style    = $this->getStylesValueForTag( $rendered['html'], array( 'tag_name' => 'body' ) );
 		$this->assertIsString( $style );
 		$this->assertStringContainsString( 'color: pink', $style );
-		remove_filter( 'woocommerce_email_renderer_styles', $styles_callback );
+		remove_filter( 'poocommerce_email_renderer_styles', $styles_callback );
 	}
 
 	/**
@@ -217,13 +217,13 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 	 * Test that rendering preserves personalization tags.
 	 */
 	public function testItPreservesPersonalizationTags(): void {
-		$registry = new \Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry(
-			$this->di_container->get( \Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger::class )
+		$registry = new \Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry(
+			$this->di_container->get( \Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger::class )
 		);
 		$registry->register(
-			new \Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag(
+			new \Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag(
 				'Customer Username',
-				'[woocommerce/customer-username]',
+				'[poocommerce/customer-username]',
 				'Customer',
 				function () {
 					return '';
@@ -238,7 +238,7 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			)
 		);
 
-		$this->email_post->post_content = '<!-- wp:paragraph --><p><!--[woocommerce/customer-username]--><!--[woocommerce/customer-username default="john"]--></p><!-- /wp:paragraph -->';
+		$this->email_post->post_content = '<!-- wp:paragraph --><p><!--[poocommerce/customer-username]--><!--[poocommerce/customer-username default="john"]--></p><!-- /wp:paragraph -->';
 		wp_update_post(
 			array(
 				'ID'           => $this->email_post->ID,
@@ -251,10 +251,10 @@ class Renderer_Test extends \Email_Editor_Integration_Test_Case {
 			'Preheader content',
 			'en'
 		);
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username]-->', $rendered['html'] );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username default="john"]-->', $rendered['html'] );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username]-->', $rendered['text'] );
-		$this->assertStringContainsString( '<!--[woocommerce/customer-username default="john"]-->', $rendered['text'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username]-->', $rendered['html'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username default="john"]-->', $rendered['html'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username]-->', $rendered['text'] );
+		$this->assertStringContainsString( '<!--[poocommerce/customer-username default="john"]-->', $rendered['text'] );
 	}
 
 	/**

@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	__experimentalSelectControl as SelectControl,
 	selectControlStateChangeTypes,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -27,12 +27,12 @@ export const MultipleSelector = ( {
 	options,
 	onSelect,
 	selectedOptions = [],
-	placeholder = __( 'Select platforms', 'woocommerce' ),
+	placeholder = __( 'Select platforms', 'poocommerce' ),
 	onOpenClose = () => {},
 }: Props ) => {
 	return (
 		<SelectControl
-			className="woocommerce-profiler-platform-selector"
+			className="poocommerce-profiler-platform-selector"
 			label=""
 			multiple
 			__experimentalOpenMenuOnFocus
@@ -44,7 +44,7 @@ export const MultipleSelector = ( {
 				'aria-readonly': true,
 				'aria-label': __(
 					'Use up and down arrow keys to navigate',
-					'woocommerce'
+					'poocommerce'
 				),
 			} }
 			onKeyDown={ ( e ) => {

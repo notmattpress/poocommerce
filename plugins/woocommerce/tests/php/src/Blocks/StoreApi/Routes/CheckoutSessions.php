@@ -2,18 +2,18 @@
 /**
  * Agentic Checkout Sessions Tests.
  *
- * @package Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes
+ * @package Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
-use Automattic\WooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
+use Automattic\PooCommerce\StoreApi\RoutesController;
 
 /**
  * CheckoutSessions Controller Tests.
@@ -49,12 +49,12 @@ class CheckoutSessions extends ControllerTestCase {
 		}
 
 		// Enable the agentic_checkout feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up registry with test bearer token for authorization.
 		$this->test_bearer_token = 'test_token_' . uniqid();
 		update_option(
-			'woocommerce_agentic_agent_registry',
+			'poocommerce_agentic_agent_registry',
 			array(
 				'openai' => array(
 					'bearer_token' => wp_hash_password( $this->test_bearer_token ),
@@ -101,8 +101,8 @@ class CheckoutSessions extends ControllerTestCase {
 	 */
 	protected function tearDown(): void {
 		parent::tearDown();
-		delete_option( 'woocommerce_feature_agentic_checkout_enabled' );
-		delete_option( 'woocommerce_agentic_agent_registry' );
+		delete_option( 'poocommerce_feature_agentic_checkout_enabled' );
+		delete_option( 'poocommerce_agentic_agent_registry' );
 
 		// Clear session data.
 		WC()->session->set( SessionKey::CHOSEN_SHIPPING_METHODS, null );
@@ -249,11 +249,11 @@ class CheckoutSessions extends ControllerTestCase {
 		$this->assertCount( 3, $parts, 'Session ID should be a JWT token with 3 parts' );
 
 		// Validate that it's a valid Cart-Token.
-		$is_valid = \Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils::validate_cart_token( $session_id );
+		$is_valid = \Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils::validate_cart_token( $session_id );
 		$this->assertTrue( $is_valid, 'Session ID should be a valid Cart-Token' );
 
 		// Extract and verify payload.
-		$payload = \Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils::get_cart_token_payload( $session_id );
+		$payload = \Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils::get_cart_token_payload( $session_id );
 		$this->assertIsArray( $payload );
 		$this->assertArrayHasKey( 'user_id', $payload );
 		$this->assertArrayHasKey( 'exp', $payload );
@@ -759,7 +759,7 @@ class CheckoutSessions extends ControllerTestCase {
 		$this->assertEquals( 200, $update_response->get_status() );
 		// Email should be updated.
 		$this->assertEquals( 'newemail@example.com', $update_data['buyer']['email'] );
-		// Note: WooCommerce merges buyer data differently - partial updates may override all buyer fields.
+		// Note: PooCommerce merges buyer data differently - partial updates may override all buyer fields.
 		// This is implementation-specific behavior.
 		$this->assertArrayHasKey( 'first_name', $update_data['buyer'] );
 		$this->assertArrayHasKey( 'last_name', $update_data['buyer'] );
@@ -910,7 +910,7 @@ class CheckoutSessions extends ControllerTestCase {
 			)
 		);
 
-		// WooCommerce validates country codes - invalid ones should be rejected or normalized.
+		// PooCommerce validates country codes - invalid ones should be rejected or normalized.
 		$data = $response->get_data();
 		if ( 200 === $response->get_status() ) {
 			// If accepted, check that we have a valid country in the response.

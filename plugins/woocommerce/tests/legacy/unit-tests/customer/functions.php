@@ -2,11 +2,11 @@
 /**
  * Customer functions
  *
- * @package WooCommerce\Tests\Customer
+ * @package PooCommerce\Tests\Customer
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register as Download_Directories;
 
 /**
  * WC_Tests_Customer_Functions class.
@@ -287,13 +287,13 @@ class WC_Tests_Customer_Functions extends WC_Unit_Test_Case {
 		WC_Helper_Queue::run_all_pending( 'wc-admin-data' );
 
 		foreach ( array( '__return_true', '__return_false' ) as $lookup_tables ) {
-			add_filter( 'woocommerce_customer_bought_product_use_lookup_tables', $lookup_tables );
+			add_filter( 'poocommerce_customer_bought_product_use_lookup_tables', $lookup_tables );
 			$this->assertTrue( wc_customer_bought_product( 'test@example.com', $customer_id_1, $product_id_1 ) );
 			$this->assertTrue( wc_customer_bought_product( '', $customer_id_1, $product_id_1 ) );
 			$this->assertTrue( wc_customer_bought_product( 'test@example.com', 0, $product_id_1 ) );
 			$this->assertFalse( wc_customer_bought_product( 'test@example.com', $customer_id_1, $product_id_2 ) );
 			$this->assertFalse( wc_customer_bought_product( 'test2@example.com', $customer_id_2, $product_id_1 ) );
-			remove_filter( 'woocommerce_customer_bought_product_use_lookup_tables', $lookup_tables );
+			remove_filter( 'poocommerce_customer_bought_product_use_lookup_tables', $lookup_tables );
 		}
 	}
 

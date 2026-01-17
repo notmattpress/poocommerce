@@ -1,13 +1,13 @@
-.woocommerce-layout__activity-panel-content {
+.poocommerce-layout__activity-panel-content {
 
-	.woocommerce-abbreviated-notifications {
+	.poocommerce-abbreviated-notifications {
 		border-top: 1px solid $gray-200;
 		& > div {
 			border: none;
 			margin-bottom: 0;
 		}
 
-		.woocommerce-abbreviated-notification {
+		.poocommerce-abbreviated-notification {
 			h3 {
 				color: var(--wp-admin-theme-color);
 				font-weight: bold;
@@ -17,7 +17,7 @@
 			div {
 				color: $gray-700;
 			}
-			.woocommerce-abbreviated-card__content {
+			.poocommerce-abbreviated-card__content {
 				padding: $gap-small $gap-large $gap-small 0;
 				& > :not(:first-child) {
 					margin-top: $gap-smallest;

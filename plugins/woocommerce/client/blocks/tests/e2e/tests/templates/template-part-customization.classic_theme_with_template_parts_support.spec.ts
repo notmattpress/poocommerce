@@ -7,7 +7,7 @@ import {
 	CLASSIC_CHILD_THEME_WITH_BLOCK_TEMPLATE_PARTS_SUPPORT_SLUG,
 	CLASSIC_CHILD_THEME_WITH_BLOCK_TEMPLATE_PARTS_SLUG,
 	FrontendUtils,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 import type { Page } from '@playwright/test';
 
 class TestUtils {
@@ -30,7 +30,7 @@ class TestUtils {
 		await this.frontendUtils.addToCart();
 		await this.page.goto( '/mini-cart' );
 		const miniCart = await this.frontendUtils.getBlockByName(
-			'woocommerce/mini-cart'
+			'poocommerce/mini-cart'
 		);
 		await miniCart.click();
 	}
@@ -52,7 +52,7 @@ test.describe( 'Template part customization', () => {
 	const templateName = 'Mini-Cart';
 	const templatePath = 'mini-cart';
 	const userText = `Hello World in the ${ templateName } template`;
-	const woocommerceTemplateUserText = `Hello World in the WooCommerce ${ templateName } template`;
+	const poocommerceTemplateUserText = `Hello World in the PooCommerce ${ templateName } template`;
 
 	test.describe( `${ templateName } template`, () => {
 		test( 'can be modified and reverted', async ( {
@@ -78,7 +78,7 @@ test.describe( 'Template part customization', () => {
 			} );
 
 			// Verify template name didn't change.
-			// See: https://github.com/woocommerce/woocommerce/issues/42221
+			// See: https://github.com/poocommerce/poocommerce/issues/42221
 			await expect(
 				page.getByRole( 'heading', {
 					name: templateName,
@@ -101,14 +101,14 @@ test.describe( 'Template part customization', () => {
 	} );
 
 	test.describe( `${ templateName } template`, () => {
-		test( `user-modified ${ templateName } template based on the theme template has priority over the user-modified template based on the default WooCommerce template`, async ( {
+		test( `user-modified ${ templateName } template based on the theme template has priority over the user-modified template based on the default PooCommerce template`, async ( {
 			page,
 			admin,
 			editor,
 			requestUtils,
 			testUtils,
 		} ) => {
-			// Edit the WooCommerce default template
+			// Edit the PooCommerce default template
 			await admin.visitSiteEditor( {
 				postType: 'wp_template_part',
 			} );
@@ -118,7 +118,7 @@ test.describe( 'Template part customization', () => {
 
 			await editor.insertBlock( {
 				name: 'core/paragraph',
-				attributes: { content: woocommerceTemplateUserText },
+				attributes: { content: poocommerceTemplateUserText },
 			} );
 			await editor.saveSiteEditorEntities( {
 				isOnlyCurrentEntityDirty: true,
@@ -149,14 +149,14 @@ test.describe( 'Template part customization', () => {
 			await testUtils.openMiniCart();
 			await expect( page.getByText( userText ).first() ).toBeVisible();
 			await expect(
-				page.getByText( woocommerceTemplateUserText )
+				page.getByText( poocommerceTemplateUserText )
 			).toBeHidden();
 
 			// Revert edition and verify the user-modified WC template is used.
 			// Note: we need to revert it from the admin (instead of calling
 			// `deleteAllTemplates()`). This way, we verify there are no
 			// duplicate templates with the same name.
-			// See: https://github.com/woocommerce/woocommerce/issues/42220
+			// See: https://github.com/poocommerce/poocommerce/issues/42220
 			await admin.visitSiteEditor( {
 				postType: 'wp_template_part',
 			} );
@@ -168,7 +168,7 @@ test.describe( 'Template part customization', () => {
 			await testUtils.openMiniCart();
 
 			await expect(
-				page.getByText( woocommerceTemplateUserText ).first()
+				page.getByText( poocommerceTemplateUserText ).first()
 			).toBeVisible();
 			await expect( page.getByText( userText ) ).toBeHidden();
 		} );

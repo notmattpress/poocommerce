@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { DateRangeFilterPicker } from '@woocommerce/components';
+import { DateRangeFilterPicker } from '@poocommerce/components';
 import {
 	getDateParamsFromQuery,
 	getCurrentDates,
 	isoDateFormat,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 
 /**
  * External dependencies

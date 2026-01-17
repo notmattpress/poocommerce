@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
 /**
  * ImageAttachmentSchema class.
@@ -27,39 +27,39 @@ class ImageAttachmentSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'        => [
-				'description' => __( 'Image ID.', 'woocommerce' ),
+				'description' => __( 'Image ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'src'       => [
-				'description' => __( 'Full size image URL.', 'woocommerce' ),
+				'description' => __( 'Full size image URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'uri',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'thumbnail' => [
-				'description' => __( 'Thumbnail URL.', 'woocommerce' ),
+				'description' => __( 'Thumbnail URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'uri',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'srcset'    => [
-				'description' => __( 'Thumbnail srcset for responsive images.', 'woocommerce' ),
+				'description' => __( 'Thumbnail srcset for responsive images.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'sizes'     => [
-				'description' => __( 'Thumbnail sizes for responsive images.', 'woocommerce' ),
+				'description' => __( 'Thumbnail sizes for responsive images.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'name'      => [
-				'description' => __( 'Image name.', 'woocommerce' ),
+				'description' => __( 'Image name.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 			],
 			'alt'       => [
-				'description' => __( 'Image alternative text.', 'woocommerce' ),
+				'description' => __( 'Image alternative text.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 			],
@@ -67,7 +67,7 @@ class ImageAttachmentSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a WooCommerce product into an object suitable for the response.
+	 * Convert a PooCommerce product into an object suitable for the response.
 	 *
 	 * @param int $attachment_id Image attachment ID.
 	 * @return object|null
@@ -83,7 +83,7 @@ class ImageAttachmentSchema extends AbstractSchema {
 			return null;
 		}
 
-		$thumbnail = wp_get_attachment_image_src( $attachment_id, 'woocommerce_thumbnail' );
+		$thumbnail = wp_get_attachment_image_src( $attachment_id, 'poocommerce_thumbnail' );
 
 		return (object) [
 			'id'        => (int) $attachment_id,

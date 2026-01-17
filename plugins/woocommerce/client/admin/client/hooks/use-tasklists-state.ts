@@ -6,13 +6,13 @@ import {
 	ONBOARDING_STORE_NAME,
 	getVisibleTasks,
 	TaskListType,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 /**
  * Internal dependencies
  */
 import { getAdminSetting } from '~/utils/admin-settings';
 
-// TODO: replace this with the actual selectors when @woocommerce/data types are updated.
+// TODO: replace this with the actual selectors when @poocommerce/data types are updated.
 type Selectors = {
 	getTaskList: ( taskListId: string ) => TaskListType;
 	hasFinishedResolution: ( action: string ) => boolean;

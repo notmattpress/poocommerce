@@ -72,30 +72,30 @@ export function PageArrowsWithPicker( {
 		return null;
 	}
 
-	const previousLinkClass = clsx( 'woocommerce-pagination__link', {
+	const previousLinkClass = clsx( 'poocommerce-pagination__link', {
 		'is-active': currentPage > 1,
 	} );
 
-	const nextLinkClass = clsx( 'woocommerce-pagination__link', {
+	const nextLinkClass = clsx( 'poocommerce-pagination__link', {
 		'is-active': currentPage < pageCount,
 	} );
 	const isError = currentPage < 1 || currentPage > pageCount;
 	const inputClass = clsx(
-		'woocommerce-pagination__page-arrow-picker-input',
+		'poocommerce-pagination__page-arrow-picker-input',
 		{
 			'has-error': isError,
 		}
 	);
 
-	const instanceId = uniqueId( 'woocommerce-pagination-page-picker-' );
+	const instanceId = uniqueId( 'poocommerce-pagination-page-picker-' );
 	return (
-		<div className="woocommerce-pagination__page-arrows">
+		<div className="poocommerce-pagination__page-arrows">
 			<Button
 				className={ previousLinkClass }
 				icon={ chevronLeft }
 				disabled={ ! ( currentPage > 1 ) }
 				onClick={ previousPage }
-				label={ __( 'Previous Page', 'woocommerce' ) }
+				label={ __( 'Previous Page', 'poocommerce' ) }
 			/>
 			<input
 				id={ instanceId }
@@ -110,7 +110,7 @@ export function PageArrowsWithPicker( {
 			/>
 			{ sprintf(
 				/* translators: %d: total number of pages */
-				__( 'of %d', 'woocommerce' ),
+				__( 'of %d', 'poocommerce' ),
 				pageCount
 			) }
 			<Button
@@ -118,7 +118,7 @@ export function PageArrowsWithPicker( {
 				icon={ chevronRight }
 				disabled={ ! ( currentPage < pageCount ) }
 				onClick={ nextPage }
-				label={ __( 'Next Page', 'woocommerce' ) }
+				label={ __( 'Next Page', 'poocommerce' ) }
 			/>
 		</div>
 	);

@@ -1,7 +1,7 @@
 
 
-.woocommerce-table__product-categories {
-	> .woocommerce-table__breadcrumbs {
+.poocommerce-table__product-categories {
+	> .poocommerce-table__breadcrumbs {
 		display: inline-block;
 		margin-right: $gap-small;
 	}
@@ -9,7 +9,7 @@
 		padding: 0 $gap;
 		text-align: left;
 	}
-	.components-popover__content .woocommerce-table__breadcrumbs {
+	.components-popover__content .poocommerce-table__breadcrumbs {
 		margin-top: $gap-small;
 		margin-bottom: $gap-small;
 	}

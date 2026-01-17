@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ReceiptRendering;
+namespace Automattic\PooCommerce\Internal\ReceiptRendering;
 
-use Automattic\WooCommerce\Internal\Orders\PaymentInfo;
-use Automattic\WooCommerce\Internal\TransientFiles\TransientFilesEngine;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Internal\Orders\PaymentInfo;
+use Automattic\PooCommerce\Internal\TransientFiles\TransientFilesEngine;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
 use Exception;
 use WC_Abstract_Order;
 
@@ -117,7 +117,7 @@ class ReceiptRenderingEngine {
 
 		/**
 		 * Filter to customize the set of data that is used to render the receipt.
-		 * The formatted line items aren't included, use the woocommerce_printable_order_receipt_formatted_line_item
+		 * The formatted line items aren't included, use the poocommerce_printable_order_receipt_formatted_line_item
 		 * filter to customize those.
 		 *
 		 * See the value returned by the 'get_order_data' and 'get_woo_pay_data' methods for a reference of
@@ -131,7 +131,7 @@ class ReceiptRenderingEngine {
 		 *
 		 * @since 9.0.0
 		 */
-		$data = apply_filters( 'woocommerce_printable_order_receipt_data', $this->get_order_data( $order ), $order );
+		$data = apply_filters( 'poocommerce_printable_order_receipt_data', $this->get_order_data( $order ), $order );
 
 		$formatted_line_items = array();
 		$row_index            = 0;
@@ -169,7 +169,7 @@ class ReceiptRenderingEngine {
 			 *
 			 * @since 9.0.0
 			 */
-			$line_item_display_data = apply_filters( 'woocommerce_printable_order_receipt_line_item_display_data', $line_item_display_data, $line_item_data, $order );
+			$line_item_display_data = apply_filters( 'poocommerce_printable_order_receipt_line_item_display_data', $line_item_display_data, $line_item_data, $order );
 			$attributes             = '';
 			foreach ( $line_item_display_data['tr_attributes'] as $attribute_name => $attribute_value ) {
 				$attribute_value = esc_attr( $attribute_value );
@@ -196,7 +196,7 @@ class ReceiptRenderingEngine {
 		 *
 		 * @since 9.0.0
 		 */
-		$data['css'] = apply_filters( 'woocommerce_printable_order_receipt_css', $css, $order );
+		$data['css'] = apply_filters( 'poocommerce_printable_order_receipt_css', $css, $order );
 
 		$default_template_path = __DIR__ . '/Templates/order-receipt.php';
 
@@ -279,17 +279,17 @@ class ReceiptRenderingEngine {
 		$store_name = get_bloginfo( 'name' );
 		if ( $store_name ) {
 			/* translators: %s = store name */
-			$receipt_title = sprintf( __( 'Receipt from %s', 'woocommerce' ), $store_name );
+			$receipt_title = sprintf( __( 'Receipt from %s', 'poocommerce' ), $store_name );
 		} else {
-			$receipt_title = __( 'Receipt', 'woocommerce' );
+			$receipt_title = __( 'Receipt', 'poocommerce' );
 		}
 
 		$order_id = $order->get_id();
 		if ( $order_id ) {
 			/* translators: %d = order id */
-			$summary_title = sprintf( __( 'Summary: Order #%d', 'woocommerce' ), $order->get_id() );
+			$summary_title = sprintf( __( 'Summary: Order #%d', 'poocommerce' ), $order->get_id() );
 		} else {
-			$summary_title = __( 'Summary', 'woocommerce' );
+			$summary_title = __( 'Summary', 'poocommerce' );
 		}
 
 		$get_price_args = array( 'currency' => $order->get_currency() );
@@ -317,7 +317,7 @@ class ReceiptRenderingEngine {
 
 		$line_items_info[] = array(
 			'type'   => 'subtotal',
-			'title'  => __( 'Subtotal', 'woocommerce' ),
+			'title'  => __( 'Subtotal', 'poocommerce' ),
 			'amount' => wc_price( $order->get_subtotal(), $get_price_args ),
 		);
 
@@ -326,7 +326,7 @@ class ReceiptRenderingEngine {
 			$line_items_info[] = array(
 				'type'   => 'discount',
 				/* translators: %s = comma-separated list of coupon codes */
-				'title'  => sprintf( __( 'Discount (%s)', 'woocommerce' ), join( ', ', $coupon_names ) ),
+				'title'  => sprintf( __( 'Discount (%s)', 'poocommerce' ), join( ', ', $coupon_names ) ),
 				'amount' => wc_price( -$order->get_total_discount(), $get_price_args ),
 			);
 		}
@@ -335,7 +335,7 @@ class ReceiptRenderingEngine {
 			$name              = $fee->get_name();
 			$line_items_info[] = array(
 				'type'   => 'fee',
-				'title'  => '' === $name ? __( 'Fee', 'woocommerce' ) : $name,
+				'title'  => '' === $name ? __( 'Fee', 'poocommerce' ) : $name,
 				'amount' => wc_price( $fee->get_total(), $get_price_args ),
 			);
 		}
@@ -344,7 +344,7 @@ class ReceiptRenderingEngine {
 		if ( $shipping_total ) {
 			$line_items_info[] = array(
 				'type'   => 'shipping_total',
-				'title'  => __( 'Shipping', 'woocommerce' ),
+				'title'  => __( 'Shipping', 'poocommerce' ),
 				'amount' => wc_price( $order->get_shipping_total(), $get_price_args ),
 			);
 		}
@@ -357,7 +357,7 @@ class ReceiptRenderingEngine {
 		if ( $total_taxes ) {
 			$line_items_info[] = array(
 				'type'   => 'taxes_total',
-				'title'  => __( 'Taxes', 'woocommerce' ),
+				'title'  => __( 'Taxes', 'poocommerce' ),
 				'amount' => wc_price( $total_taxes, $get_price_args ),
 			);
 		}
@@ -366,7 +366,7 @@ class ReceiptRenderingEngine {
 
 		$line_items_info[] = array(
 			'type'   => 'amount_paid',
-			'title'  => $is_order_failed ? __( 'Amount', 'woocommerce' ) : __( 'Amount Paid', 'woocommerce' ),
+			'title'  => $is_order_failed ? __( 'Amount', 'poocommerce' ) : __( 'Amount Paid', 'poocommerce' ),
 			'amount' => wc_price( $order->get_total(), $get_price_args ),
 		);
 
@@ -385,16 +385,16 @@ class ReceiptRenderingEngine {
 			),
 			'texts'                     => array(
 				'receipt_title'                => $receipt_title,
-				'amount_paid_section_title'    => $is_order_failed ? __( 'Order Total', 'woocommerce' ) : __( 'Amount Paid', 'woocommerce' ),
-				'date_paid_section_title'      => $is_order_failed ? __( 'Order Date', 'woocommerce' ) : __( 'Date Paid', 'woocommerce' ),
-				'payment_method_section_title' => __( 'Payment method', 'woocommerce' ),
-				'payment_status_section_title' => __( 'Payment status', 'woocommerce' ),
-				'payment_status'               => $is_order_failed ? __( 'Failed', 'woocommerce' ) : __( 'Success', 'woocommerce' ),
+				'amount_paid_section_title'    => $is_order_failed ? __( 'Order Total', 'poocommerce' ) : __( 'Amount Paid', 'poocommerce' ),
+				'date_paid_section_title'      => $is_order_failed ? __( 'Order Date', 'poocommerce' ) : __( 'Date Paid', 'poocommerce' ),
+				'payment_method_section_title' => __( 'Payment method', 'poocommerce' ),
+				'payment_status_section_title' => __( 'Payment status', 'poocommerce' ),
+				'payment_status'               => $is_order_failed ? __( 'Failed', 'poocommerce' ) : __( 'Success', 'poocommerce' ),
 				'summary_section_title'        => $summary_title,
-				'order_notes_section_title'    => __( 'Notes', 'woocommerce' ),
-				'app_name'                     => __( 'Application Name', 'woocommerce' ),
-				'aid'                          => __( 'AID', 'woocommerce' ),
-				'account_type'                 => __( 'Account Type', 'woocommerce' ),
+				'order_notes_section_title'    => __( 'Notes', 'poocommerce' ),
+				'app_name'                     => __( 'Application Name', 'poocommerce' ),
+				'aid'                          => __( 'AID', 'poocommerce' ),
+				'account_type'                 => __( 'Account Type', 'poocommerce' ),
 			),
 			'formatted_amount'          => wc_price( $order->get_total(), $get_price_args ),
 			'formatted_date'            => wc_format_datetime( $order->get_date_paid() ?? $order->get_date_created() ),
@@ -407,12 +407,12 @@ class ReceiptRenderingEngine {
 	}
 
 	/**
-	 * Get the order data related to WooCommerce Payments.
+	 * Get the order data related to PooCommerce Payments.
 	 *
 	 * It will return null if any of these is true:
 	 *
-	 * - Payment method is not "woocommerce_payments".
-	 * - WooCommerce Payments is not installed.
+	 * - Payment method is not "poocommerce_payments".
+	 * - PooCommerce Payments is not installed.
 	 * - No intent id is stored for the order.
 	 * - Retrieving the payment information from Stripe API (providing the intent id) fails.
 	 * - The received data set doesn't contain the expected information.

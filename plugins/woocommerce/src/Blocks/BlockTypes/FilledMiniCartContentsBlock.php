@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * FilledMiniCartContentsBlock class.
@@ -52,8 +52,8 @@ class FilledMiniCartContentsBlock extends AbstractInnerBlock {
 
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
-				'data-wp-interactive'  => 'woocommerce/mini-cart',
-				'data-wp-context'      => 'woocommerce/store-notices::' . $context,
+				'data-wp-interactive'  => 'poocommerce/mini-cart',
+				'data-wp-context'      => 'poocommerce/store-notices::' . $context,
 				'data-wp-bind--hidden' => 'state.cartIsEmpty',
 			)
 		);
@@ -63,7 +63,7 @@ class FilledMiniCartContentsBlock extends AbstractInnerBlock {
 		<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<div
 				class="wc-block-components-notices"
-				data-wp-interactive="woocommerce/store-notices"
+				data-wp-interactive="poocommerce/store-notices"
 			><template
 				data-wp-each--notice="context.notices"
 				data-wp-each-key="context.notice.id"
@@ -85,7 +85,7 @@ class FilledMiniCartContentsBlock extends AbstractInnerBlock {
 					<button
 						data-wp-bind--hidden="!context.notice.dismissible"
 						class="wc-block-components-button wp-element-button wc-block-components-notice-banner__dismiss contained"
-						aria-label="<?php esc_attr_e( 'Dismiss this notice', 'woocommerce' ); ?>"
+						aria-label="<?php esc_attr_e( 'Dismiss this notice', 'poocommerce' ); ?>"
 						data-wp-on--click="actions.removeNotice"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

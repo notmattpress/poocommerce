@@ -79,9 +79,9 @@ export function RichTextWithButton( {
 		<>
 			<span>{ label }</span>
 			<Button
-				className="woocommerce-settings-panel-personalization-tags-button"
+				className="poocommerce-settings-panel-personalization-tags-button"
 				icon="shortcode"
-				title={ __( 'Personalization Tags', 'woocommerce' ) }
+				title={ __( 'Personalization Tags', 'poocommerce' ) }
 				onClick={ () => {
 					setIsModalOpened( true );
 					recordEvent(
@@ -105,7 +105,7 @@ export function RichTextWithButton( {
 		<BaseControl
 			id="" // See https://github.com/mailpoet/mailpoet/pull/6089#discussion_r1952126850 to understand why the ID is empty
 			label={ finalLabel }
-			className={ `woocommerce-settings-panel-${ attributeName }-text` }
+			className={ `poocommerce-settings-panel-${ attributeName }-text` }
 			help={ help }
 			__nextHasNoMarginBottom // To avoid warning about deprecation in console
 		>
@@ -143,7 +143,7 @@ export function RichTextWithButton( {
 			/>
 			<RichText
 				ref={ richTextRef }
-				className="woocommerce-settings-panel-richtext"
+				className="poocommerce-settings-panel-richtext"
 				placeholder={ placeholder }
 				onFocus={ () => {
 					setSelectionRange(

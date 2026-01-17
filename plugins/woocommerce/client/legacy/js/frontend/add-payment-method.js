@@ -1,7 +1,7 @@
 jQuery( function( $ ) {
 
-	// woocommerce_params is required to continue, ensure the object exists
-	if ( typeof woocommerce_params === 'undefined' ) {
+	// poocommerce_params is required to continue, ensure the object exists
+	if ( typeof poocommerce_params === 'undefined' ) {
 		return false;
 	}
 
@@ -33,7 +33,7 @@ jQuery( function( $ ) {
 	$( document.body ).trigger( 'init_add_payment_method' );
 
 	// Prevent firing multiple requests upon double clicking the buttons in payment methods table
-	$(' .woocommerce .payment-method-actions .button.delete' ).on( 'click' , function( event ) {
+	$(' .poocommerce .payment-method-actions .button.delete' ).on( 'click' , function( event ) {
 		if ( $( this ).hasClass( 'disabled' ) ) {
 			event.preventDefault();
 		}

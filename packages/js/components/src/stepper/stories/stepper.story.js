@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Stepper } from '@woocommerce/components';
+import { Stepper } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const BasicExamples = () => {

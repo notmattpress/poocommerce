@@ -11,7 +11,7 @@ import { Edit, Save } from './edit';
 import attributes from './attributes';
 import metadata from './block.json';
 
-registerBlockType( 'woocommerce/checkout-shipping-address-block', {
+registerBlockType( 'poocommerce/checkout-shipping-address-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

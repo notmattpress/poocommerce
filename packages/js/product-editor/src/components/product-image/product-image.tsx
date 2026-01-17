@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement } from '@wordpress/element';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 import clsx from 'clsx';
 
 /**
@@ -28,7 +28,7 @@ export function ProductImage( {
 		<div
 			aria-hidden="true"
 			{ ...props }
-			className={ clsx( 'woocommerce-product-image', className ) }
+			className={ clsx( 'poocommerce-product-image', className ) }
 			style={ { ...style, ...getProductImageStyle( product ) } }
 		/>
 	);

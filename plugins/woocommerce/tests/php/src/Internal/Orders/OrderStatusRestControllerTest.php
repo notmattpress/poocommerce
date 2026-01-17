@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Orders\OrderStatusRestController;
+use Automattic\PooCommerce\Internal\Orders\OrderStatusRestController;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
 /**
  * Class OrderStatusRestControllerTest
  *
- * @package Automattic\WooCommerce\Tests\Internal\Orders
+ * @package Automattic\PooCommerce\Tests\Internal\Orders
  */
 class OrderStatusRestControllerTest extends WC_REST_Unit_Test_Case {
 	/**
@@ -48,7 +48,7 @@ class OrderStatusRestControllerTest extends WC_REST_Unit_Test_Case {
 		$this->assertArrayHasKey( 'slug', $first_status );
 		$this->assertArrayHasKey( 'name', $first_status );
 
-		// Verify default WooCommerce statuses are present.
+		// Verify default PooCommerce statuses are present.
 		$status_slugs   = array_column( $data, 'slug' );
 		$expected_slugs = [ 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed' ]; //phpcs:ignore
 

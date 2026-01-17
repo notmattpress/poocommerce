@@ -4,7 +4,7 @@
 import {
 	addAProductToCart,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ const test = baseTest.extend( {
 		await createClassicCartPage();
 
 		const calcTaxesState = await updateIfNeeded(
-			`general/woocommerce_calc_taxes`,
+			`general/poocommerce_calc_taxes`,
 			'yes'
 		);
 
@@ -60,7 +60,7 @@ const test = baseTest.extend( {
 
 		// revert the settings to initial state
 
-		await resetValue( `general/woocommerce_calc_taxes`, calcTaxesState );
+		await resetValue( `general/poocommerce_calc_taxes`, calcTaxesState );
 
 		if ( ! codEnabled ) {
 			await restApi.put( `${ WC_API_PATH }/payment_gateways/cod`, {

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { Currency, CurrencyResponse } from '@woocommerce/types';
+import type { Currency, CurrencyResponse } from '@poocommerce/types';
 
 const splitDecimal = (
 	numberString: string

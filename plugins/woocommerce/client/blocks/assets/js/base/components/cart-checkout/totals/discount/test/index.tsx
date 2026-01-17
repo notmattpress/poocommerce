@@ -3,10 +3,10 @@
  */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { getSetting } from '@woocommerce/settings';
-import { CartResponseTotalsItem } from '@woocommerce/type-defs/cart-response';
-import type { LoadingMaskProps } from '@woocommerce/base-components/loading-mask';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { getSetting } from '@poocommerce/settings';
+import { CartResponseTotalsItem } from '@poocommerce/type-defs/cart-response';
+import type { LoadingMaskProps } from '@poocommerce/base-components/loading-mask';
 /**
  * Internal dependencies
  */
@@ -15,7 +15,7 @@ import { RemovableChipProps } from '../../../../../../../../packages/components/
 import { TotalsItemProps } from '../../../../../../../../packages/components/totals/item';
 
 // Mock external dependencies
-jest.mock( '@woocommerce/settings', () => ( {
+jest.mock( '@poocommerce/settings', () => ( {
 	getSetting: jest
 		.fn()
 		.mockImplementation( ( settingName, fallback ) => fallback ),
@@ -24,7 +24,7 @@ jest.mock( '@woocommerce/settings', () => ( {
 		.mockImplementation( ( settingName, fallback ) => fallback ),
 } ) );
 
-jest.mock( '@woocommerce/blocks-checkout', () => ( {
+jest.mock( '@poocommerce/blocks-checkout', () => ( {
 	applyCheckoutFilter: jest.fn(),
 } ) );
 
@@ -34,7 +34,7 @@ const mockTotalsItem = jest.fn();
 
 // Mock LoadingMask component
 jest.mock(
-	'@woocommerce/base-components/loading-mask',
+	'@poocommerce/base-components/loading-mask',
 	() => ( props: LoadingMaskProps ) =>
 		(
 			<div
@@ -56,7 +56,7 @@ jest.mock(
 		)
 );
 
-jest.mock( '@woocommerce/blocks-components', () => ( {
+jest.mock( '@poocommerce/blocks-components', () => ( {
 	RemovableChip: ( props: RemovableChipProps ) => {
 		mockRemovableChip( props );
 		return (

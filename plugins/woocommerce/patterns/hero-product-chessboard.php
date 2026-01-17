@@ -1,23 +1,23 @@
 <?php
 /**
  * Title: Hero Product Chessboard
- * Slug: woocommerce-blocks/hero-product-chessboard
- * Categories: WooCommerce, featured-selling
+ * Slug: poocommerce-blocks/hero-product-chessboard
+ * Categories: PooCommerce, featured-selling
  */
 
 
 $image1 = plugins_url( 'assets/images/pattern-placeholders/plant-white-leaf-flower-vase-green.jpg', WC_PLUGIN_FILE );
 $image2 = plugins_url( 'assets/images/pattern-placeholders/table-wood-house-chair-floor-window.jpg', WC_PLUGIN_FILE );
 
-$first_title  = __( 'Quality Materials', 'woocommerce' );
-$second_title = __( 'Unique design', 'woocommerce' );
-$third_title  = __( 'Make your house feel like home', 'woocommerce' );
+$first_title  = __( 'Quality Materials', 'poocommerce' );
+$second_title = __( 'Unique design', 'poocommerce' );
+$third_title  = __( 'Make your house feel like home', 'poocommerce' );
 
-$first_description  = __( 'We use only the highest-quality materials in our products, ensuring that they look great and last for years to come.', 'woocommerce' );
-$second_description = __( 'From bold prints to intricate details, our products are a perfect combination of style and function.', 'woocommerce' );
-$third_description  = __( 'Add a touch of charm and coziness this holiday season with a wide selection of hand-picked decorations — from minimalist vases to designer furniture.', 'woocommerce' );
+$first_description  = __( 'We use only the highest-quality materials in our products, ensuring that they look great and last for years to come.', 'poocommerce' );
+$second_description = __( 'From bold prints to intricate details, our products are a perfect combination of style and function.', 'poocommerce' );
+$third_description  = __( 'Add a touch of charm and coziness this holiday season with a wide selection of hand-picked decorations — from minimalist vases to designer furniture.', 'poocommerce' );
 
-$button = __( 'Shop home decor', 'woocommerce' );
+$button = __( 'Shop home decor', 'poocommerce' );
 ?>
 
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","bottom":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","left":"var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))","right":"var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal))"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained","justifyContent":"center"}} -->
@@ -32,7 +32,7 @@ $button = __( 'Shop home decor', 'woocommerce' );
 		<div class="wp-block-column">
 			<!-- wp:cover {"url":"<?php echo esc_url( $image1 ); ?>","dimRatio":0,"focalPoint":{"x":0.54,"y":0.52},"isDark":false,"style":{"color":{}}} -->
 			<div class="wp-block-cover is-light">
-				<img class="wp-block-cover__image-background" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section. 1 out of 2.', 'woocommerce' ); ?>" src="<?php echo esc_url( $image1 ); ?>" style="object-position:54% 52%" data-object-fit="cover" data-object-position="54% 52%"/>
+				<img class="wp-block-cover__image-background" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section. 1 out of 2.', 'poocommerce' ); ?>" src="<?php echo esc_url( $image1 ); ?>" style="object-position:54% 52%" data-object-fit="cover" data-object-position="54% 52%"/>
 				<div class="wp-block-cover__inner-container">
 					<!-- wp:paragraph {"align":"center","placeholder":" ","fontSize":"large"} -->
 						<p class="has-text-align-center has-large-font-size"> </p>
@@ -109,7 +109,7 @@ $button = __( 'Shop home decor', 'woocommerce' );
 		<div class="wp-block-column is-vertically-aligned-center">
 			<!-- wp:cover {"url":"<?php echo esc_url( $image2 ); ?>","dimRatio":0,"focalPoint":{"x":0.33,"y":0.06},"style":{"color":{}}} -->
 			<div class="wp-block-cover">
-				<img class="wp-block-cover__image-background" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section. 2 out of 2.', 'woocommerce' ); ?>" src="<?php echo esc_url( $image2 ); ?>" style="object-position:33% 6%" data-object-fit="cover" data-object-position="33% 6%"/>
+				<img class="wp-block-cover__image-background" alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased in a hero section. 2 out of 2.', 'poocommerce' ); ?>" src="<?php echo esc_url( $image2 ); ?>" style="object-position:33% 6%" data-object-fit="cover" data-object-position="33% 6%"/>
 				<div class="wp-block-cover__inner-container">
 					<!-- wp:paragraph {"align":"center","placeholder":" ","fontSize":"large"} -->
 						<p class="has-text-align-center has-large-font-size"> </p>

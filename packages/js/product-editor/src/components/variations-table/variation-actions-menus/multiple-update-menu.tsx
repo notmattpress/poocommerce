@@ -36,7 +36,7 @@ export function MultipleUpdateMenu( {
 					onClick={ onToggle }
 					className="variations-actions-menu__toggle"
 				>
-					<span>{ __( 'Quick update', 'woocommerce' ) }</span>
+					<span>{ __( 'Quick update', 'poocommerce' ) }</span>
 				</Button>
 			) }
 			renderContent={ ( { onClose }: { onClose: () => void } ) => (

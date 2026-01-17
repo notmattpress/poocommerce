@@ -2,14 +2,14 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { checkPayment } from '@woocommerce/icons';
+import { checkPayment } from '@poocommerce/icons';
 import {
 	Icon,
 	institution as bank,
 	currencyDollar as bill,
 	payment as card,
 } from '@wordpress/icons';
-import { isString, objectHasProp } from '@woocommerce/types';
+import { isString, objectHasProp } from '@poocommerce/types';
 import { useCallback } from '@wordpress/element';
 
 /**

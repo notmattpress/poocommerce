@@ -3,7 +3,7 @@
 exports[`Timeline Empty snapshot 1`] = `
 <div>
   <div
-    class="woocommerce-timeline"
+    class="poocommerce-timeline"
   >
     <p
       class="timeline_no_events"
@@ -17,29 +17,29 @@ exports[`Timeline Empty snapshot 1`] = `
 exports[`Timeline With data snapshot 1`] = `
 <div>
   <div
-    class="woocommerce-timeline"
+    class="poocommerce-timeline"
   >
     <ul>
       <li
-        class="woocommerce-timeline-group"
+        class="poocommerce-timeline-group"
       >
         <p
-          class="woocommerce-timeline-group__title"
+          class="poocommerce-timeline-group__title"
         >
           January 22, 2020
         </p>
         <ul>
           <li
-            class="woocommerce-timeline-item"
+            class="poocommerce-timeline-item"
           >
             <div
-              class="woocommerce-timeline-item__top-border"
+              class="poocommerce-timeline-item__top-border"
             />
             <div
-              class="woocommerce-timeline-item__title"
+              class="poocommerce-timeline-item__title"
             >
               <div
-                class="woocommerce-timeline-item__headline"
+                class="poocommerce-timeline-item__headline"
               >
                 <svg
                   class="gridicon gridicons-cross is-error"
@@ -59,13 +59,13 @@ exports[`Timeline With data snapshot 1`] = `
                 </span>
               </div>
               <span
-                class="woocommerce-timeline-item__timestamp"
+                class="poocommerce-timeline-item__timestamp"
               >
                 3:13pm
               </span>
             </div>
             <div
-              class="woocommerce-timeline-item__body"
+              class="poocommerce-timeline-item__body"
             >
               <span>
                 <span>
@@ -78,25 +78,25 @@ exports[`Timeline With data snapshot 1`] = `
         <hr />
       </li>
       <li
-        class="woocommerce-timeline-group"
+        class="poocommerce-timeline-group"
       >
         <p
-          class="woocommerce-timeline-group__title"
+          class="poocommerce-timeline-group__title"
         >
           January 20, 2020
         </p>
         <ul>
           <li
-            class="woocommerce-timeline-item"
+            class="poocommerce-timeline-item"
           >
             <div
-              class="woocommerce-timeline-item__top-border"
+              class="poocommerce-timeline-item__top-border"
             />
             <div
-              class="woocommerce-timeline-item__title"
+              class="poocommerce-timeline-item__title"
             >
               <div
-                class="woocommerce-timeline-item__headline"
+                class="poocommerce-timeline-item__headline"
               >
                 <svg
                   class="gridicon gridicons-refresh is-warning"
@@ -118,26 +118,26 @@ exports[`Timeline With data snapshot 1`] = `
                 </span>
               </div>
               <span
-                class="woocommerce-timeline-item__timestamp"
+                class="poocommerce-timeline-item__timestamp"
               >
                 11:45pm
               </span>
             </div>
             <div
-              class="woocommerce-timeline-item__body"
+              class="poocommerce-timeline-item__body"
             />
           </li>
           <li
-            class="woocommerce-timeline-item"
+            class="poocommerce-timeline-item"
           >
             <div
-              class="woocommerce-timeline-item__top-border"
+              class="poocommerce-timeline-item__top-border"
             />
             <div
-              class="woocommerce-timeline-item__title"
+              class="poocommerce-timeline-item__title"
             >
               <div
-                class="woocommerce-timeline-item__headline"
+                class="poocommerce-timeline-item__headline"
               >
                 <svg
                   class="gridicon gridicons-checkmark is-success"
@@ -159,11 +159,11 @@ exports[`Timeline With data snapshot 1`] = `
                 </span>
               </div>
               <span
-                class="woocommerce-timeline-item__timestamp"
+                class="poocommerce-timeline-item__timestamp"
               />
             </div>
             <div
-              class="woocommerce-timeline-item__body"
+              class="poocommerce-timeline-item__body"
             >
               <span>
                 <p>
@@ -179,25 +179,25 @@ exports[`Timeline With data snapshot 1`] = `
         <hr />
       </li>
       <li
-        class="woocommerce-timeline-group"
+        class="poocommerce-timeline-group"
       >
         <p
-          class="woocommerce-timeline-group__title"
+          class="poocommerce-timeline-group__title"
         >
           January 17, 2020
         </p>
         <ul>
           <li
-            class="woocommerce-timeline-item"
+            class="poocommerce-timeline-item"
           >
             <div
-              class="woocommerce-timeline-item__top-border"
+              class="poocommerce-timeline-item__top-border"
             />
             <div
-              class="woocommerce-timeline-item__title"
+              class="poocommerce-timeline-item__title"
             >
               <div
-                class="woocommerce-timeline-item__headline"
+                class="poocommerce-timeline-item__headline"
               >
                 <svg
                   class="gridicon gridicons-cross"
@@ -217,13 +217,13 @@ exports[`Timeline With data snapshot 1`] = `
                 </span>
               </div>
               <span
-                class="woocommerce-timeline-item__timestamp"
+                class="poocommerce-timeline-item__timestamp"
               >
                 1:45am
               </span>
             </div>
             <div
-              class="woocommerce-timeline-item__body"
+              class="poocommerce-timeline-item__body"
             />
           </li>
         </ul>

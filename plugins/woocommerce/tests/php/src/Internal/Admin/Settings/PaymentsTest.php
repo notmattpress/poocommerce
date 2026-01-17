@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions as ExtensionSuggestions;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions as ExtensionSuggestions;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 use WC_Gateway_BACS;
@@ -112,13 +112,13 @@ class PaymentsTest extends WC_Unit_Test_Case {
 		// Arrange.
 		$location = 'US';
 
-		// All are WooCommerce core gateways.
+		// All are PooCommerce core gateways.
 		$gateways = array(
-			new FakePaymentGateway( WC_Gateway_Paypal::ID, array( 'plugin_slug' => 'woocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_Paypal::ID, array( 'plugin_slug' => 'poocommerce' ) ),
 			// The offline PMs.
-			new FakePaymentGateway( WC_Gateway_BACS::ID, array( 'plugin_slug' => 'woocommerce' ) ),
-			new FakePaymentGateway( WC_Gateway_Cheque::ID, array( 'plugin_slug' => 'woocommerce' ) ),
-			new FakePaymentGateway( WC_Gateway_COD::ID, array( 'plugin_slug' => 'woocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_BACS::ID, array( 'plugin_slug' => 'poocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_Cheque::ID, array( 'plugin_slug' => 'poocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_COD::ID, array( 'plugin_slug' => 'poocommerce' ) ),
 		);
 		$this->mock_providers
 			->expects( $this->atLeastOnce() )
@@ -185,7 +185,7 @@ class PaymentsTest extends WC_Unit_Test_Case {
 		$this->assertCount( 1, $gateway['links'] );
 		$this->assertArrayHasKey( 'plugin', $gateway, 'Gateway `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $gateway['plugin'], 'Gateway `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce', $gateway['plugin']['slug'] );
+		$this->assertSame( 'poocommerce', $gateway['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $gateway['plugin'], 'Gateway `plugin[file]` entry is missing' );
 		$this->assertArrayHasKey( 'status', $gateway['plugin'], 'Gateway `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $gateway['plugin']['status'] );
@@ -207,7 +207,7 @@ class PaymentsTest extends WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'href', $group['management']['_links']['settings'], 'Gateway `management[_links][settings][href]` entry is missing' );
 		$this->assertArrayHasKey( 'plugin', $group, 'Group `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $group['plugin'], 'Group `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce', $group['plugin']['slug'] );
+		$this->assertSame( 'poocommerce', $group['plugin']['slug'] );
 		$this->assertArrayHasKey( 'status', $group['plugin'], 'Group `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $group['plugin']['status'] );
 
@@ -226,7 +226,7 @@ class PaymentsTest extends WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'href', $offline_pm['management']['_links']['settings'], 'Offline PM `management[_links][settings][href]` entry is missing' );
 		$this->assertArrayHasKey( 'plugin', $offline_pm, 'Offline PM `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $offline_pm['plugin'], 'Offline PM `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce', $offline_pm['plugin']['slug'] );
+		$this->assertSame( 'poocommerce', $offline_pm['plugin']['slug'] );
 		$this->assertArrayHasKey( 'status', $offline_pm['plugin'], 'Offline PM `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $offline_pm['plugin']['status'] );
 	}
@@ -238,13 +238,13 @@ class PaymentsTest extends WC_Unit_Test_Case {
 		// Arrange.
 		$location = 'US';
 
-		// All are WooCommerce core gateways.
+		// All are PooCommerce core gateways.
 		$gateways = array(
-			new FakePaymentGateway( WC_Gateway_Paypal::ID, array( 'plugin_slug' => 'woocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_Paypal::ID, array( 'plugin_slug' => 'poocommerce' ) ),
 			// The offline PMs.
-			new FakePaymentGateway( WC_Gateway_BACS::ID, array( 'plugin_slug' => 'woocommerce' ) ),
-			new FakePaymentGateway( WC_Gateway_Cheque::ID, array( 'plugin_slug' => 'woocommerce' ) ),
-			new FakePaymentGateway( WC_Gateway_COD::ID, array( 'plugin_slug' => 'woocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_BACS::ID, array( 'plugin_slug' => 'poocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_Cheque::ID, array( 'plugin_slug' => 'poocommerce' ) ),
+			new FakePaymentGateway( WC_Gateway_COD::ID, array( 'plugin_slug' => 'poocommerce' ) ),
 		);
 		$this->mock_providers
 			->expects( $this->atLeastOnce() )
@@ -495,7 +495,7 @@ class PaymentsTest extends WC_Unit_Test_Case {
 		);
 
 		$initial_country = WC()->countries->get_base_country();
-		update_option( 'woocommerce_default_country', $country );
+		update_option( 'poocommerce_default_country', $country );
 
 		// Act.
 		$result = $this->sut->get_country();
@@ -505,7 +505,7 @@ class PaymentsTest extends WC_Unit_Test_Case {
 
 		// Clean up.
 		delete_user_meta( $this->store_admin_id, Payments::PAYMENTS_NOX_PROFILE_KEY );
-		update_option( 'woocommerce_default_country', $initial_country );
+		update_option( 'poocommerce_default_country', $initial_country );
 	}
 
 	/**

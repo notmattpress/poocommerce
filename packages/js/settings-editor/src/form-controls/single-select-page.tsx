@@ -15,7 +15,7 @@ import type { DataFormControlProps } from '@wordpress/dataviews';
 import type { DataFormItem } from '../types';
 import { sanitizeHTML } from '../utils';
 
-// https://github.com/woocommerce/woocommerce/blob/83a090f70d1f7b07325d9df9bd03fe2f753d4fd4/plugins/woocommerce/includes/admin/class-wc-admin-settings.php#L626-L636
+// https://github.com/poocommerce/poocommerce/blob/83a090f70d1f7b07325d9df9bd03fe2f753d4fd4/plugins/poocommerce/includes/admin/class-wc-admin-settings.php#L626-L636
 const PAGE_QUERY_ARGS = {
 	orderby: 'menu_order',
 	order: 'asc',
@@ -83,8 +83,8 @@ export const SingleSelectPage = ( {
 		() => [
 			{
 				label: isLoading
-					? __( 'Loading…', 'woocommerce' )
-					: __( 'Select a page…', 'woocommerce' ),
+					? __( 'Loading…', 'poocommerce' )
+					: __( 'Select a page…', 'poocommerce' ),
 				value: '',
 				disabled: true,
 			},

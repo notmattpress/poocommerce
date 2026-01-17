@@ -33,7 +33,7 @@ export const DocumentOverview = forwardRef(
 				icon={ listViewIcon }
 				isPressed={ isDocumentOverviewOpened }
 				/* translators: button label text should, if possible, be under 16 characters. */
-				label={ __( 'Document overview', 'woocommerce' ) }
+				label={ __( 'Document overview', 'poocommerce' ) }
 				shortcut={ displayShortcut.access( 'o' ) }
 				onClick={ handleClick }
 				className="document-overview"

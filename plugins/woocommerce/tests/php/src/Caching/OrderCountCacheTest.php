@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
 use WC_Helper_Order;
-use Automattic\WooCommerce\Caches\OrderCountCache;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCountCache;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 /**
  * Class OrderCountCacheTest.

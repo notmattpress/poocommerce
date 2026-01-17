@@ -1,23 +1,23 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\Init as Suggestions;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
-use Automattic\WooCommerce\Internal\Admin\WcPayWelcomePage;
+use Automattic\PooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\Init as Suggestions;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\DefaultPaymentGateways;
+use Automattic\PooCommerce\Internal\Admin\WcPayWelcomePage;
 use WC_Gateway_BACS;
 use WC_Gateway_Cheque;
 use WC_Gateway_COD;
 
 /**
- * WooCommercePayments Task.
+ * PooCommercePayments Task.
  *
- * @deprecated 9.9.0 The WooPayments onboarding task is deprecated and will be removed in a future version of WooCommerce.
+ * @deprecated 9.9.0 The WooPayments onboarding task is deprecated and will be removed in a future version of PooCommerce.
  */
-class WooCommercePayments extends Task {
+class PooCommercePayments extends Task {
 	/**
 	 * Used to cache is_complete() method result.
 	 *
@@ -31,7 +31,7 @@ class WooCommercePayments extends Task {
 	 * @return string
 	 */
 	public function get_id() {
-		return 'woocommerce-payments';
+		return 'poocommerce-payments';
 	}
 
 	/**
@@ -41,7 +41,7 @@ class WooCommercePayments extends Task {
 	 */
 	public function get_title() {
 		/* translators: %s: Payment provider name. */
-		return sprintf( __( 'Get paid with %s', 'woocommerce' ), 'WooPayments' );
+		return sprintf( __( 'Get paid with %s', 'poocommerce' ), 'WooPayments' );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WooCommercePayments extends Task {
 		 * @param string     $badge    Badge content.
 		 * @since 8.2.0
 		 */
-		return apply_filters( 'woocommerce_admin_woopayments_onboarding_task_badge', '' );
+		return apply_filters( 'poocommerce_admin_woopayments_onboarding_task_badge', '' );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class WooCommercePayments extends Task {
 	public function get_content() {
 		return __(
 			"You're only one step away from getting paid. Verify your business details to start managing transactions with WooPayments.",
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -84,7 +84,7 @@ class WooCommercePayments extends Task {
 		 *
 		 * @param ?array $additional_data The task additional data.
 		 */
-		return apply_filters( 'woocommerce_admin_woopayments_onboarding_task_additional_data', null );
+		return apply_filters( 'poocommerce_admin_woopayments_onboarding_task_additional_data', null );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class WooCommercePayments extends Task {
 	 * @return string
 	 */
 	public function get_time() {
-		return __( '2 minutes', 'woocommerce' );
+		return __( '2 minutes', 'poocommerce' );
 	}
 
 	/**
@@ -102,7 +102,7 @@ class WooCommercePayments extends Task {
 	 * @return string
 	 */
 	public function get_action_label() {
-		return __( 'Finish setup', 'woocommerce' );
+		return __( 'Finish setup', 'poocommerce' );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class WooCommercePayments extends Task {
 		$business_extensions = isset( $profiler_data['business_extensions'] ) ? $profiler_data['business_extensions'] : array();
 
 		$subscriptions_and_us = in_array( 'subscriptions', $product_types, true ) && 'US' === WC()->countries->get_base_country();
-		return in_array( 'woocommerce-payments', $business_extensions, true ) || $subscriptions_and_us;
+		return in_array( 'poocommerce-payments', $business_extensions, true ) || $subscriptions_and_us;
 	}
 
 	/**
@@ -150,7 +150,7 @@ class WooCommercePayments extends Task {
 	 */
 	public static function is_installed() {
 		$installed_plugins = PluginsHelper::get_installed_plugin_slugs();
-		return in_array( 'woocommerce-payments', $installed_plugins, true );
+		return in_array( 'poocommerce-payments', $installed_plugins, true );
 	}
 
 	/**
@@ -213,7 +213,7 @@ class WooCommercePayments extends Task {
 					return false;
 				}
 
-				return in_array( 'woocommerce-payments', $suggestion->plugins, true );
+				return in_array( 'poocommerce-payments', $suggestion->plugins, true );
 			}
 		);
 
@@ -242,8 +242,8 @@ class WooCommercePayments extends Task {
 	 */
 	private static function get_gateway() {
 		$payment_gateways = WC()->payment_gateways()->payment_gateways();
-		if ( isset( $payment_gateways['woocommerce_payments'] ) ) {
-			return $payment_gateways['woocommerce_payments'];
+		if ( isset( $payment_gateways['poocommerce_payments'] ) ) {
+			return $payment_gateways['poocommerce_payments'];
 		}
 		return null;
 	}
@@ -262,7 +262,7 @@ class WooCommercePayments extends Task {
 			function ( $gateway ) {
 				// Filter out any WooPayments-related or offline gateways.
 				return 'yes' === $gateway->enabled
-					&& 0 !== strpos( $gateway->id, 'woocommerce_payments' )
+					&& 0 !== strpos( $gateway->id, 'poocommerce_payments' )
 					&& ! in_array( $gateway->id, array( WC_Gateway_BACS::ID, WC_Gateway_Cheque::ID, WC_Gateway_COD::ID ), true );
 			}
 		);

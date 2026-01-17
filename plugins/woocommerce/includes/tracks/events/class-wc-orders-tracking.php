@@ -1,38 +1,38 @@
 <?php
 /**
- * WooCommerce Orders Tracking
+ * PooCommerce Orders Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * This class adds actions to track usage of WooCommerce Orders.
+ * This class adds actions to track usage of PooCommerce Orders.
  */
 class WC_Orders_Tracking {
 	/**
 	 * Init tracking.
 	 */
 	public function init() {
-		add_action( 'woocommerce_order_status_changed', array( $this, 'track_order_status_change' ), 10, 3 );
+		add_action( 'poocommerce_order_status_changed', array( $this, 'track_order_status_change' ), 10, 3 );
 		// WC_Meta_Box_Order_Actions::save() hooks in at priority 50.
-		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'track_order_action' ), 51 );
+		add_action( 'poocommerce_process_shop_order_meta', array( $this, 'track_order_action' ), 51 );
 
 		add_action( 'load-edit.php', array( $this, 'track_orders_view' ), 10 );
-		add_action( 'load-woocommerce_page_wc-orders', array( $this, 'track_orders_view' ), 999 ); // HPOS.
+		add_action( 'load-poocommerce_page_wc-orders', array( $this, 'track_orders_view' ), 999 ); // HPOS.
 
 		add_action( 'load-post-new.php', array( $this, 'track_add_order_from_edit' ), 10 );
-		add_action( 'load-woocommerce_page_wc-orders', array( $this, 'track_add_order_from_edit' ), 999 ); // HPOS.
+		add_action( 'load-poocommerce_page_wc-orders', array( $this, 'track_add_order_from_edit' ), 999 ); // HPOS.
 
-		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'track_created_date_change' ), 10 );
+		add_action( 'poocommerce_process_shop_order_meta', array( $this, 'track_created_date_change' ), 10 );
 
 		add_action( 'load-edit.php', array( $this, 'track_search_in_orders_list' ) );
-		add_action( 'load-woocommerce_page_wc-orders', array( $this, 'track_search_in_orders_list' ), 999 ); // HPOS.
+		add_action( 'load-poocommerce_page_wc-orders', array( $this, 'track_search_in_orders_list' ), 999 ); // HPOS.
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'possibly_add_order_tracking_scripts' ) );
 	}
@@ -49,7 +49,7 @@ class WC_Orders_Tracking {
 	public function track_order_search( $order_ids, $term, $search_fields ) {
 		wc_deprecated_function( __METHOD__, '8.6.0', 'WC_Orders_Tracking::track_search_in_orders_list' );
 
-		// Since `woocommerce_shop_order_search_results` can run in the front-end context, exit if get_current_screen isn't defined.
+		// Since `poocommerce_shop_order_search_results` can run in the front-end context, exit if get_current_screen isn't defined.
 		if ( ! function_exists( 'get_current_screen' ) ) {
 			return $order_ids;
 		}
@@ -99,8 +99,8 @@ class WC_Orders_Tracking {
 	 * Send a Tracks event when an order status is changed.
 	 *
 	 * @param int    $id Order id.
-	 * @param string $previous_status the old WooCommerce order status.
-	 * @param string $next_status the new WooCommerce order status.
+	 * @param string $previous_status the old PooCommerce order status.
+	 * @param string $next_status the new PooCommerce order status.
 	 */
 	public function track_order_status_change( $id, $previous_status, $next_status ) {
 		$order = wc_get_order( $id );

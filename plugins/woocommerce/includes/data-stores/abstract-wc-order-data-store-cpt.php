@@ -2,14 +2,14 @@
 /**
  * Abstract_WC_Order_Data_Store_CPT class file.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Caches\OrderCache;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Caches\OrderCache;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -78,7 +78,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 	 */
 	public function create( &$order ) {
 		$order->set_version( Constants::get_constant( 'WC_VERSION' ) );
-		$order->set_currency( $order->get_currency() ? $order->get_currency() : get_woocommerce_currency() );
+		$order->set_currency( $order->get_currency() ? $order->get_currency() : get_poocommerce_currency() );
 		if ( ! $order->get_date_created( 'edit' ) ) {
 			$order->set_date_created( time() );
 		}
@@ -92,7 +92,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 			 * @since 3.3.0
 			 */
 			apply_filters(
-				'woocommerce_new_order_data',
+				'poocommerce_new_order_data',
 				array(
 					'post_date'     => gmdate( 'Y-m-d H:i:s', $order->get_date_created( 'edit' )->getOffsetTimestamp() ),
 					'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $order->get_date_created( 'edit' )->getTimestamp() ),
@@ -146,7 +146,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 		$order->set_defaults();
 		$post_object = get_post( $order->get_id() );
 		if ( ! $order->get_id() || ! $post_object || ! in_array( $post_object->post_type, wc_get_order_types(), true ) ) {
-			throw new Exception( esc_html__( 'Invalid order.', 'woocommerce' ) );
+			throw new Exception( esc_html__( 'Invalid order.', 'poocommerce' ) );
 		}
 
 		$this->set_order_props(
@@ -196,7 +196,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 			$logger->warning(
 				sprintf(
 				/* translators: %1$s = order ID, %2$s = order id, %3$s = error message. */
-					__( 'Error when setting property \'%1$s\' for order %2$d: %3$s', 'woocommerce' ),
+					__( 'Error when setting property \'%1$s\' for order %2$d: %3$s', 'poocommerce' ),
 					$property_name,
 					$order_id,
 					$error_message
@@ -293,7 +293,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				 * @param int      $order_id ID of the order about to be deleted.
 				 * @param WC_Order $order    Instance of the order that is about to be deleted.
 				 */
-				do_action( 'woocommerce_before_delete_order', $id, $order );
+				do_action( 'poocommerce_before_delete_order', $id, $order );
 			}
 
 			wp_delete_post( $id );
@@ -307,7 +307,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				 *
 				 * @param int $order_id ID of the order that has been deleted.
 				 */
-				do_action( 'woocommerce_delete_order', $id );
+				do_action( 'poocommerce_delete_order', $id );
 			}
 		} else {
 			if ( $do_filters ) {
@@ -319,7 +319,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				 * @param int      $order_id ID of the order about to be trashed.
 				 * @param WC_Order $order    Instance of the order that is about to be trashed.
 				 */
-				do_action( 'woocommerce_before_trash_order', $id, $order );
+				do_action( 'poocommerce_before_trash_order', $id, $order );
 			}
 
 			wp_trash_post( $id );
@@ -333,7 +333,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				 *
 				 * @param int      $order_id ID of the order that has been trashed.
 				 */
-				do_action( 'woocommerce_trash_order', $id );
+				do_action( 'poocommerce_trash_order', $id );
 			}
 		}
 	}
@@ -364,7 +364,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 			 *
 			 * @since 3.7.0
 			 */
-			$order_status = apply_filters( 'woocommerce_default_order_status', OrderStatus::PENDING );
+			$order_status = apply_filters( 'poocommerce_default_order_status', OrderStatus::PENDING );
 		}
 
 		$post_status    = $order_status;
@@ -399,7 +399,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 	protected function get_post_title() {
 		// @codingStandardsIgnoreStart
 		/* translators: %s: Order date */
-		return sprintf( __( 'Order &ndash; %s', 'woocommerce' ), ( new DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'woocommerce' ) ) );
+		return sprintf( __( 'Order &ndash; %s', 'poocommerce' ), ( new DateTime( 'now' ) )->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'poocommerce' ) ) );
 		// @codingStandardsIgnoreEnd
 	}
 
@@ -439,7 +439,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				'cart_tax'           => $meta_data['_order_tax'][0] ?? '',
 				'total'              => $meta_data['_order_total'][0] ?? '',
 				'version'            => $meta_data['_order_version'][0] ?? '',
-				'prices_include_tax' => metadata_exists( 'post', $id, '_prices_include_tax' ) ? 'yes' === $prices_include_tax : 'yes' === get_option( 'woocommerce_prices_include_tax' ),
+				'prices_include_tax' => metadata_exists( 'post', $id, '_prices_include_tax' ) ? 'yes' === $prices_include_tax : 'yes' === get_option( 'poocommerce_prices_include_tax' ),
 			)
 		);
 
@@ -497,7 +497,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 		 *
 		 * @since 2.7.0
 		 */
-		do_action( 'woocommerce_order_object_updated_props', $order, $updated_props );
+		do_action( 'poocommerce_order_object_updated_props', $order, $updated_props );
 	}
 
 	/**
@@ -536,7 +536,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 
 		if ( false === $items ) {
 			$items = $wpdb->get_results(
-				$wpdb->prepare( "SELECT order_item_type, order_item_id, order_id, order_item_name FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d ORDER BY order_item_id;", $order->get_id() )
+				$wpdb->prepare( "SELECT order_item_type, order_item_id, order_id, order_item_name FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d ORDER BY order_item_id;", $order->get_id() )
 			);
 			foreach ( $items as $item ) {
 				wp_cache_set( 'item-' . $item->order_item_id, $item, 'order-items' );
@@ -567,7 +567,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 	 */
 	public function get_order_item_type( $order, $order_item_id ) {
 		global $wpdb;
-		return $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT order_item_type FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d and order_item_id = %d;", $order->get_id(), $order_item_id ) );
+		return $wpdb->get_var( $wpdb->prepare( "SELECT DISTINCT order_item_type FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d and order_item_id = %d;", $order->get_id(), $order_item_id ) );
 	}
 
 	/**
@@ -614,7 +614,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 		$non_cached_ids_string = implode( ',', $non_cached_ids );
 		$order_items           = $wpdb->get_results(
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			"SELECT order_item_type, order_item_id, order_id, order_item_name FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id in ( $non_cached_ids_string ) ORDER BY order_item_id;"
+			"SELECT order_item_type, order_item_id, order_id, order_item_name FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id in ( $non_cached_ids_string ) ORDER BY order_item_id;"
 		);
 		if ( empty( $order_items ) ) {
 			return;
@@ -650,11 +650,11 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 		global $wpdb;
 
 		if ( ! empty( $type ) ) {
-			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}woocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}woocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id AND items.order_id = %d AND items.order_item_type = %s", $order->get_id(), $type ) );
-			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d AND order_item_type = %s", $order->get_id(), $type ) );
+			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}poocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}poocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id AND items.order_id = %d AND items.order_item_type = %s", $order->get_id(), $type ) );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d AND order_item_type = %s", $order->get_id(), $type ) );
 		} else {
-			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}woocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}woocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id and items.order_id = %d", $order->get_id() ) );
-			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d", $order->get_id() ) );
+			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}poocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}poocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id and items.order_id = %d", $order->get_id() ) );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_order_items WHERE order_id = %d", $order->get_id() ) );
 		}
 
 		$this->clear_caches( $order );
@@ -832,9 +832,9 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 		$total = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT SUM( order_itemmeta.meta_value )
-				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_itemmeta AS order_itemmeta
 				INNER JOIN $wpdb->posts AS posts ON ( posts.post_type = 'shop_order_refund' AND posts.post_parent = %d )
-				INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON ( order_items.order_id = posts.ID AND order_items.order_item_type = 'tax' )
+				INNER JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON ( order_items.order_id = posts.ID AND order_items.order_item_type = 'tax' )
 				WHERE order_itemmeta.order_item_id = order_items.order_item_id
 				AND order_itemmeta.meta_key = 'shipping_tax_amount'",
 				$order->get_id()

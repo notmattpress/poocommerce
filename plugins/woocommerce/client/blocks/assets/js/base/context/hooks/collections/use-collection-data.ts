@@ -6,9 +6,9 @@ import { useDebounce } from 'use-debounce';
 import {
 	objectHasProp,
 	type WCStoreV1ProductsCollectionProps,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import { sort } from 'fast-sort';
-import { useShallowEqual } from '@woocommerce/base-hooks';
+import { useShallowEqual } from '@poocommerce/base-hooks';
 
 /**
  * Internal dependencies

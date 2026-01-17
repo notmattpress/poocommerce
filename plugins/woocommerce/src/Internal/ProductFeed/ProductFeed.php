@@ -2,17 +2,17 @@
 /**
  *  Plugin class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed;
+namespace Automattic\PooCommerce\Internal\ProductFeed;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSIntegration;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\IntegrationInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSIntegration;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -38,7 +38,7 @@ final class ProductFeed implements RegisterHooksInterface {
 	 * @param POSIntegration      $pos_integration The POS integration.
 	 * @internal
 	 */
-	public function init( // phpcs:ignore WooCommerce.Functions.InternalInjectionMethod.MissingFinal
+	public function init( // phpcs:ignore PooCommerce.Functions.InternalInjectionMethod.MissingFinal
 		IntegrationRegistry $integration_registry,
 		POSIntegration $pos_integration
 	): void {

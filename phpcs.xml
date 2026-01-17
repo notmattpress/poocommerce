@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress Coding Standards">
-	<description>WooCommerce dev PHP_CodeSniffer ruleset.</description>
+	<description>PooCommerce dev PHP_CodeSniffer ruleset.</description>
 
 	<file>.</file>
 
@@ -30,9 +30,9 @@
 	<config name="testVersion" value="7.4-" />
 
 	<!-- Rules -->
-	<rule ref="WooCommerce-Core" />
+	<rule ref="PooCommerce-Core" />
 
-	<rule ref="WooCommerce.Functions.InternalInjectionMethod">
+	<rule ref="PooCommerce.Functions.InternalInjectionMethod">
 		<include-pattern>src/</include-pattern>
 		<include-pattern>tests/php/src/</include-pattern>
 		<properties>
@@ -42,7 +42,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="woocommerce" />
+			<property name="text_domain" type="array" value="poocommerce" />
 		</properties>
 	</rule>
 
@@ -112,7 +112,7 @@
 	</rule>
 
 	<!-- Temporary -->
-	<rule ref="WooCommerce.Functions.InternalInjectionMethod.MissingFinal">
+	<rule ref="PooCommerce.Functions.InternalInjectionMethod.MissingFinal">
 		<exclude-pattern>src/Internal/Admin/</exclude-pattern>
 		<exclude-pattern>src/Admin/</exclude-pattern>
 		<exclude-pattern>src/Blocks/</exclude-pattern>
@@ -120,7 +120,7 @@
 	</rule>
 
 	<!-- Temporary -->
-	<rule ref="WooCommerce.Functions.InternalInjectionMethod.MissingInternalTag">
+	<rule ref="PooCommerce.Functions.InternalInjectionMethod.MissingInternalTag">
 		<exclude-pattern>src/Internal/Admin/</exclude-pattern>
 		<exclude-pattern>src/Admin/</exclude-pattern>
 		<exclude-pattern>src/Blocks/</exclude-pattern>

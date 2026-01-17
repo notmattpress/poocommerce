@@ -43,18 +43,18 @@ export function BlockCompatibilityWarnings(): JSX.Element {
 			{ hasBorderSupport && (
 				<Fill name="InspectorControlsBorder">
 					<Notice
-						className="woocommerce-grid-full-width"
+						className="poocommerce-grid-full-width"
 						status="warning"
 						isDismissible={ false }
 					>
 						{ __(
 							'Border display may vary or be unsupported in some email clients.',
-							'woocommerce'
+							'poocommerce'
 						) }
 						<br />
 						{ __(
 							'Units other than pixels (px) lack support in old email clients.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 				</Fill>
@@ -62,13 +62,13 @@ export function BlockCompatibilityWarnings(): JSX.Element {
 			{ hasBackgroundImageSupport( selectedBlock?.name ) && (
 				<Fill name="InspectorControlsBackground">
 					<Notice
-						className="woocommerce-grid-full-width"
+						className="poocommerce-grid-full-width"
 						status="warning"
 						isDismissible={ false }
 					>
 						{ __(
 							'Select a background color for email clients that do not support background images.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</Notice>
 				</Fill>

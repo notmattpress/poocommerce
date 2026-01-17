@@ -3,27 +3,27 @@ post_title: How to Add Additional Fields
 sidebar_label: How to add additional fields in checkout
 ---
 
-# How to Add Additional Fields to the WooCommerce Checkout Block
+# How to Add Additional Fields to the PooCommerce Checkout Block
 
-This feature requires a minimum version of WooCommerce 8.9.0
+This feature requires a minimum version of PooCommerce 8.9.0
 
-The WooCommerce Checkout Block provides a powerful API for developers to add additional fields to collect information from customers during the checkout process. Whether you need to gather special delivery instructions, business details, or marketing preferences, additional checkout fields make it easy to extend your store’s functionality.
+The PooCommerce Checkout Block provides a powerful API for developers to add additional fields to collect information from customers during the checkout process. Whether you need to gather special delivery instructions, business details, or marketing preferences, additional checkout fields make it easy to extend your store’s functionality.
 
 In this guide, we’ll walk through the process of adding your own additional fields to your checkout form and show you practical examples you can implement right away.
 
 ## Getting Started
 
-To add additional checkout fields, you’ll use the `woocommerce_register_additional_checkout_field()` function. This should be called after the `woocommerce_init` action to ensure WooCommerce is fully loaded.
+To add additional checkout fields, you’ll use the `poocommerce_register_additional_checkout_field()` function. This should be called after the `poocommerce_init` action to ensure PooCommerce is fully loaded.
 
 Here's the basic structure:
 
 ```php
-add_action( 'woocommerce_init', function() {
-    if ( ! function_exists( 'woocommerce_register_additional_checkout_field' ) ) {
+add_action( 'poocommerce_init', function() {
+    if ( ! function_exists( 'poocommerce_register_additional_checkout_field' ) ) {
         return;
     }
     
-    woocommerce_register_additional_checkout_field(
+    poocommerce_register_additional_checkout_field(
         array(
             'id'       => 'your-namespace/field-name',
             'label'    => __( 'Your Field Label', 'your-text-domain'),
@@ -48,7 +48,7 @@ Fields here appear at the top of the checkout form alongside the email field. Da
 Example:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'       => 'my-plugin/marketing-opt-in',
         'label'    => __('Subscribe to our newsletter?', 'your-text-domain'),
@@ -67,7 +67,7 @@ These fields appear in both the shipping and billing address forms. They’re sa
 Example:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'       => 'my-plugin/delivery-instructions',
         'label'    => __('Special delivery instructions', 'your-text-domain'),
@@ -86,7 +86,7 @@ Fields in this location appear in a separate “Order information” block and a
 Example:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'       => 'my-plugin/gift-message',
         'label'    => __('Gift message', 'your-text-domain'),
@@ -107,7 +107,7 @@ The API supports three field types:
 Perfect for collecting short text input:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'       => 'my-plugin/company-vat',
         'label'    => __('VAT Number', 'your-text-domain'),
@@ -123,7 +123,7 @@ woocommerce_register_additional_checkout_field(
 Great for predefined options:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'       => 'my-plugin/preferred-delivery-time',
         'label'    => __('Preferred delivery time', 'your-text-domain'),
@@ -152,7 +152,7 @@ woocommerce_register_additional_checkout_field(
 Ideal for yes/no questions or opt-ins:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'           => 'my-plugin/age-verification',
         'label'        => __('I confirm I am over 18 years old', 'your-text-domain'),
@@ -170,7 +170,7 @@ You can enhance your fields with HTML attributes for better user experience:
 Example:
 
 ```php
-woocommerce_register_additional_checkout_field(
+poocommerce_register_additional_checkout_field(
     array(
         'id'         => 'my-plugin/phone-number',
         'label'      => __('Alternative phone number', 'your-text-domain'),
@@ -191,8 +191,8 @@ woocommerce_register_additional_checkout_field(
 To ensure the data entered into your custom fields is valid and secure, you can add custom validation and sanitization functions.
 
 ```php
-add_action( 'woocommerce_init', function() {
-    woocommerce_register_additional_checkout_field(
+add_action( 'poocommerce_init', function() {
+    poocommerce_register_additional_checkout_field(
         array(
             'id'                => 'my-plugin/business-email',
             'label'             => __('Business Email', 'your-text-domain'),
@@ -220,7 +220,7 @@ add_action( 'woocommerce_init', function() {
 You can also use WordPress action hooks for validation:
 
 ```php
-add_action( 'woocommerce_validate_additional_field', function( $errors, $field_key, $field_value ) {
+add_action( 'poocommerce_validate_additional_field', function( $errors, $field_key, $field_value ) {
     if ( 'my-plugin/business-email' === $field_key ) {
         if ( ! is_email( $field_value ) ) {
             $errors->add( 'invalid_business_email', __('Please enter a valid email address.', 'your-text-domain') );
@@ -234,8 +234,8 @@ add_action( 'woocommerce_validate_additional_field', function( $errors, $field_k
 After checkout, you can retrieve the field values using helper methods:
 
 ```php
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
 
 $checkout_fields = Package::container()->get( CheckoutFields::class );
 $order = wc_get_order( $order_id );
@@ -254,13 +254,13 @@ $all_fields = $checkout_fields->get_all_fields_from_object( $order, 'other' );
 ### Complete Example
 
 ```php
-add_action( 'woocommerce_init', function() {
-    if ( ! function_exists( 'woocommerce_register_additional_checkout_field' ) ) {
+add_action( 'poocommerce_init', function() {
+    if ( ! function_exists( 'poocommerce_register_additional_checkout_field' ) ) {
         return;
     }
 
     // Company information
-    woocommerce_register_additional_checkout_field(
+    poocommerce_register_additional_checkout_field(
         array(
             'id'       => 'my-business-store/company-size',
             'label'    => __('Company size', 'your-text-domain'),
@@ -277,7 +277,7 @@ add_action( 'woocommerce_init', function() {
     );
 
     // Delivery preferences
-    woocommerce_register_additional_checkout_field(
+    poocommerce_register_additional_checkout_field(
         array(
             'id'       => 'my-business-store/requires-appointment',
             'label'    => __('Delivery requires appointment', 'your-text-domain'),
@@ -287,7 +287,7 @@ add_action( 'woocommerce_init', function() {
     );
 
     // Order-specific notes
-    woocommerce_register_additional_checkout_field(
+    poocommerce_register_additional_checkout_field(
         array(
             'id'       => 'my-business-store/po-number',
             'label'    => __('Purchase Order Number', 'your-text-domain'),
@@ -300,6 +300,6 @@ add_action( 'woocommerce_init', function() {
 
 ## Next Steps
 
-You now have the foundation for adding additional checkout fields to your WooCommerce store using the checkout block.
+You now have the foundation for adding additional checkout fields to your PooCommerce store using the checkout block.
 
-The additional checkout fields API provides a robust foundation for customizing your checkout experience while maintaining compatibility with WooCommerce’s block-based checkout system. Start with simple fields and gradually add more sophisticated validation and conditional logic as your needs grow.
+The additional checkout fields API provides a robust foundation for customizing your checkout experience while maintaining compatibility with PooCommerce’s block-based checkout system. Start with simple fields and gradually add more sophisticated validation and conditional logic as your needs grow.

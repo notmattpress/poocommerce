@@ -3,10 +3,10 @@
  * A utility class for Woo Update Manager plugin.
  *
  * @class WC_Woo_Update_Manager_Plugin
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PageController;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Woo_Update_Manager_Plugin {
 	const WOO_UPDATE_MANAGER_PLUGIN_MAIN_FILE = 'woo-update-manager/woo-update-manager.php';
-	const WOO_UPDATE_MANAGER_DOWNLOAD_URL     = 'https://woocommerce.com/product-download/woo-update-manager';
+	const WOO_UPDATE_MANAGER_DOWNLOAD_URL     = 'https://poocommerce.com/product-download/woo-update-manager';
 	const WOO_UPDATE_MANAGER_SLUG             = 'woo-update-manager';
 
 	/**

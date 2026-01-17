@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\Patterns;
+namespace Automattic\PooCommerce\Blocks\Patterns;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 use WP_Upgrader;
 
 /**
@@ -39,16 +39,16 @@ class PTKPatternsStore {
 
 		if ( Features::is_enabled( 'pattern-toolkit-full-composability' ) ) {
 			// We want to flush the cached patterns when:
-			// - The WooCommerce plugin is deactivated.
-			// - The `woocommerce_allow_tracking` option is disabled.
+			// - The PooCommerce plugin is deactivated.
+			// - The `poocommerce_allow_tracking` option is disabled.
 			//
 			// We also want to re-fetch the patterns and update the cache when:
-			// - The `woocommerce_allow_tracking` option changes to enabled.
-			// - The WooCommerce plugin is activated (if `woocommerce_allow_tracking` is enabled).
-			// - The WooCommerce plugin is updated.
+			// - The `poocommerce_allow_tracking` option changes to enabled.
+			// - The PooCommerce plugin is activated (if `poocommerce_allow_tracking` is enabled).
+			// - The PooCommerce plugin is updated.
 
-			add_action( 'woocommerce_activated_plugin', array( $this, 'flush_or_fetch_patterns' ), 10, 2 );
-			add_action( 'update_option_woocommerce_allow_tracking', array( $this, 'flush_or_fetch_patterns' ), 10, 2 );
+			add_action( 'poocommerce_activated_plugin', array( $this, 'flush_or_fetch_patterns' ), 10, 2 );
+			add_action( 'update_option_poocommerce_allow_tracking', array( $this, 'flush_or_fetch_patterns' ), 10, 2 );
 			add_action( 'deactivated_plugin', array( $this, 'flush_cached_patterns' ), 10, 2 );
 			add_action( 'upgrader_process_complete', array( $this, 'fetch_patterns_on_plugin_update' ), 10, 2 );
 			add_action( 'action_scheduler_ensure_recurring_actions', array( $this, 'ensure_recurring_fetch_patterns_if_enabled' ) );
@@ -59,7 +59,7 @@ class PTKPatternsStore {
 	}
 
 	/**
-	 * Resets the cached patterns when the `woocommerce_allow_tracking` option is disabled.
+	 * Resets the cached patterns when the `poocommerce_allow_tracking` option is disabled.
 	 * Resets and fetch the patterns from the PTK when it is enabled (if the scheduler
 	 * is initialized, it's done asynchronously via a scheduled action).
 	 *
@@ -113,11 +113,11 @@ class PTKPatternsStore {
 	 * @return void
 	 */
 	private function schedule_action_if_not_pending( $action ) {
-		if ( as_has_scheduled_action( $action, array(), 'woocommerce' ) ) {
+		if ( as_has_scheduled_action( $action, array(), 'poocommerce' ) ) {
 			return;
 		}
 
-		as_schedule_recurring_action( time(), DAY_IN_SECONDS, $action, array(), 'woocommerce' );
+		as_schedule_recurring_action( time(), DAY_IN_SECONDS, $action, array(), 'poocommerce' );
 	}
 
 	/**
@@ -167,7 +167,7 @@ class PTKPatternsStore {
 	}
 
 	/**
-	 * Re-fetch the patterns when the WooCommerce plugin is updated.
+	 * Re-fetch the patterns when the PooCommerce plugin is updated.
 	 *
 	 * @param WP_Upgrader $upgrader_object WP_Upgrader instance.
 	 * @param array       $options Array of bulk item update data.
@@ -177,7 +177,7 @@ class PTKPatternsStore {
 	public function fetch_patterns_on_plugin_update( $upgrader_object, $options ) {
 		if ( 'update' === $options['action'] && 'plugin' === $options['type'] && isset( $options['plugins'] ) ) {
 			foreach ( $options['plugins'] as $plugin ) {
-				if ( str_contains( $plugin, 'woocommerce.php' ) ) {
+				if ( str_contains( $plugin, 'poocommerce.php' ) ) {
 					$this->schedule_fetch_patterns();
 				}
 			}
@@ -200,12 +200,12 @@ class PTKPatternsStore {
 		// Unschedule any existing fetch_patterns actions.
 		// Defer unscheduling until Action Scheduler is ready to avoid errors during early initialization.
 		if ( did_action( 'action_scheduler_init' ) ) {
-			as_unschedule_all_actions( self::FETCH_PATTERNS_ACTION, array(), 'woocommerce' );
+			as_unschedule_all_actions( self::FETCH_PATTERNS_ACTION, array(), 'poocommerce' );
 		} else {
 			add_action(
 				'action_scheduler_init',
 				function () {
-					as_unschedule_all_actions( self::FETCH_PATTERNS_ACTION, array(), 'woocommerce' );
+					as_unschedule_all_actions( self::FETCH_PATTERNS_ACTION, array(), 'poocommerce' );
 				}
 			);
 		}
@@ -231,7 +231,7 @@ class PTKPatternsStore {
 					'_woo_about',
 					'_woo_reviews',
 					'_woo_social_media',
-					'_woo_woocommerce',
+					'_woo_poocommerce',
 					'_dotcom_imported_intro',
 					'_dotcom_imported_about',
 					'_dotcom_imported_services',
@@ -244,7 +244,7 @@ class PTKPatternsStore {
 			wc_get_logger()->warning(
 				sprintf(
 				// translators: %s is a generated error message.
-					__( 'Failed to get WooCommerce patterns from the PTK: "%s"', 'woocommerce' ),
+					__( 'Failed to get PooCommerce patterns from the PTK: "%s"', 'poocommerce' ),
 					$patterns->get_error_message()
 				),
 			);
@@ -263,7 +263,7 @@ class PTKPatternsStore {
 	 * @return bool
 	 */
 	private function allowed_tracking_is_enabled(): bool {
-		return 'yes' === get_option( 'woocommerce_allow_tracking' );
+		return 'yes' === get_option( 'poocommerce_allow_tracking' );
 	}
 
 	/**
@@ -305,7 +305,7 @@ class PTKPatternsStore {
 		}
 
 		foreach ( $pattern['dependencies'] as $dependency ) {
-			if ( 'woocommerce' !== $dependency ) {
+			if ( 'poocommerce' !== $dependency ) {
 				return true;
 			}
 		}

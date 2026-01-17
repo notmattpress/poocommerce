@@ -2,13 +2,13 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { cart } from '@woocommerce/icons';
+import { cart } from '@poocommerce/icons';
 import { Icon } from '@wordpress/icons';
 import { BlockConfiguration } from '@wordpress/blocks';
 
 export const metadata: BlockConfiguration = {
 	apiVersion: 3,
-	title: __( 'Mini-Cart Contents', 'woocommerce' ),
+	title: __( 'Mini-Cart Contents', 'poocommerce' ),
 	icon: {
 		src: (
 			<Icon
@@ -17,9 +17,9 @@ export const metadata: BlockConfiguration = {
 			/>
 		),
 	},
-	category: 'woocommerce',
-	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
-	description: __( 'Display a Mini-Cart widget.', 'woocommerce' ),
+	category: 'poocommerce',
+	keywords: [ __( 'PooCommerce', 'poocommerce' ) ],
+	description: __( 'Display a Mini-Cart widget.', 'poocommerce' ),
 	supports: {
 		align: false,
 		html: false,

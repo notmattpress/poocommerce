@@ -46,7 +46,7 @@ export const SectionTabs = ( {
 
 	return (
 		<TabPanel
-			className="woocommerce-settings-section-tabs"
+			className="poocommerce-settings-section-tabs"
 			tabs={ tabs }
 			onSelect={ onSelect }
 			initialTabName={ activeSection || tabs[ 0 ].name }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\ProductReviews;
+namespace Automattic\PooCommerce\Internal\Admin\ProductReviews;
 
 /**
  * A utility class for handling comments that are product reviews.
@@ -22,7 +22,7 @@ class ReviewsUtil {
 			return $message;
 		}
 
-		// Replace the WordPress comment moderation URLs with WooCommerce product review URLs.
+		// Replace the WordPress comment moderation URLs with PooCommerce product review URLs.
 		$product_reviews_url = admin_url( 'edit.php?post_type=product&page=product-reviews' );
 
 		// Replace the moderation panel URL (this is the "show all reviews pending" link).

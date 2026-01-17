@@ -1,14 +1,14 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types=1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
 
 /**
  * Class responsible for managing email editor assets.
@@ -124,9 +124,9 @@ class Assets_Manager {
 	/**
 	 * Render the email editor's required HTML and admin header.
 	 *
-	 * @param string $element_id Optional. The ID of the main container element. Default is 'woocommerce-email-editor'.
+	 * @param string $element_id Optional. The ID of the main container element. Default is 'poocommerce-email-editor'.
 	 */
-	public function render_email_editor_html( string $element_id = 'woocommerce-email-editor' ): void {
+	public function render_email_editor_html( string $element_id = 'poocommerce-email-editor' ): void {
 		// @phpstan-ignore-next-line -- PHPStan tried to check if the file exists.
 		require_once ABSPATH . 'wp-admin/admin-header.php';
 		echo '<div id="' . esc_attr( $element_id ) . '" class="block-editor block-editor__container hide-if-no-js"></div>';
@@ -219,8 +219,8 @@ class Assets_Manager {
 
 		wp_localize_script(
 			$script_name,
-			'WooCommerceEmailEditor',
-			apply_filters( 'woocommerce_email_editor_script_localization_data', $localization_data )
+			'PooCommerceEmailEditor',
+			apply_filters( 'poocommerce_email_editor_script_localization_data', $localization_data )
 		);
 
 		$this->preload_rest_api_data( $post_id, $post_type );

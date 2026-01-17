@@ -2,21 +2,21 @@
 /**
  * Experimental_Abtest Tests
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
-use WooCommerce\Admin\Experimental_Abtest;
+use PooCommerce\Admin\Experimental_Abtest;
 
 
 /**
  * Experimental_Abtest Tests
  *
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 class Experimental_Abtest_Test extends WC_Unit_Test_Case {
 
 	/**
-	 * Tests woocommerce_explat_request_args filter is used to construct
+	 * Tests poocommerce_explat_request_args filter is used to construct
 	 * the request URL.
 	 */
 	public function test_it_applies_filters_to_construct_request_args() {
@@ -37,7 +37,7 @@ class Experimental_Abtest_Test extends WC_Unit_Test_Case {
 		);
 
 		add_filter(
-			'woocommerce_explat_request_args',
+			'poocommerce_explat_request_args',
 			function( $args ) {
 				$args['test'] = 'test';
 				return $args;

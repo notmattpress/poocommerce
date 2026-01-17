@@ -8,22 +8,22 @@
  * to set via those filters. For example, given the JSON (pretty printed here for clarity):
  *
  *     {
- *         "woocommerce_system_timeout": 10
+ *         "poocommerce_system_timeout": 10
  *     }
  *
- * Then a filter will be added that returns 10 when 'woocommerce_system_timeout' is invoked. Or, given:
+ * Then a filter will be added that returns 10 when 'poocommerce_system_timeout' is invoked. Or, given:
  *
  *     {
- *         "woocommerce_enable_deathray": {
+ *         "poocommerce_enable_deathray": {
  *             "callback": "__return_false"
  *         }
  *     }
  *
  * Then the `__return_false()` convenience function will be set up in relation to filter hook
- * 'woocommerce_enable_deathray'. Additionally, priorities can be specified. Example:
+ * 'poocommerce_enable_deathray'. Additionally, priorities can be specified. Example:
  *
  *     {
- *         "woocommerce_enable_deathray": {
+ *         "poocommerce_enable_deathray": {
  *             "callback": "__return_false",
  *              "priority": 20
  *         }
@@ -32,7 +32,7 @@
  * Priorities can also be used in combination with literal values. For example:
  *
  *     {
- *         "woocommerce_default_username": {
+ *         "poocommerce_default_username": {
  *             "value": "Geoffrey",
  *             "priority": 20
  *         }
@@ -40,7 +40,7 @@
  *
  * It hopefully goes without saying, this should not be used in a production environment.
  *
- * @package Automattic\WooCommerce\E2EPlaywright
+ * @package Automattic\PooCommerce\E2EPlaywright
  */
 
 if ( ! isset( $_COOKIE ) || ! isset( $_COOKIE['e2e-filters'] ) ) {

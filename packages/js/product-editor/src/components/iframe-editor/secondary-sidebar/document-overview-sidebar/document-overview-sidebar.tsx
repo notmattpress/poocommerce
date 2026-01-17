@@ -74,32 +74,32 @@ export function DocumentOverviewSidebar() {
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
-			className="woocommerce-iframe-editor__document-overview-sidebar"
+			className="poocommerce-iframe-editor__document-overview-sidebar"
 			onKeyDown={ closeOnEscape }
 		>
 			<Button
-				className="woocommerce-iframe-editor__document-overview-sidebar-close-button"
+				className="poocommerce-iframe-editor__document-overview-sidebar-close-button"
 				ref={ headerFocusReturnRef }
 				icon={ closeSmall }
-				label={ __( 'Close', 'woocommerce' ) }
+				label={ __( 'Close', 'poocommerce' ) }
 				onClick={ () => setIsListViewOpened( false ) }
 			/>
 			<TabPanel
-				className="woocommerce-iframe-editor__document-overview-sidebar-tab-panel"
+				className="poocommerce-iframe-editor__document-overview-sidebar-tab-panel"
 				initialTabName={ tab }
 				onSelect={ setTab }
 				tabs={ [
 					{
 						name: 'list-view',
-						title: __( 'List View', 'woocommerce' ),
+						title: __( 'List View', 'poocommerce' ),
 						className:
-							'woocommerce-iframe-editor__document-overview-sidebar-tab-item',
+							'poocommerce-iframe-editor__document-overview-sidebar-tab-item',
 					},
 				] }
 			>
 				{ ( currentTab ) => (
 					<div
-						className="woocommerce-iframe-editor__document-overview-sidebar-tab-content"
+						className="poocommerce-iframe-editor__document-overview-sidebar-tab-content"
 						ref={ listViewContainerRef }
 					>
 						{ renderTabContent( currentTab.name ) }

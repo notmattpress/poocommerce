@@ -1,11 +1,11 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\Checkout\Helpers\ReserveStock;
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Checkout\Helpers\ReserveStock;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * QuantityLimits class.
@@ -49,7 +49,7 @@ final class QuantityLimits {
 	 * @return array
 	 */
 	public function get_add_to_cart_limits( \WC_Product $product, $cart_item = null ) {
-		// Compatibility with the woocommerce_quantity_input_args filter. Gets initial values to match classic quantity input.
+		// Compatibility with the poocommerce_quantity_input_args filter. Gets initial values to match classic quantity input.
 		$args        = wc_get_quantity_input_args( [], $product );
 		$minimum     = $this->filter_numeric_value( $args['min_value'], 'minimum', $product, $cart_item );
 		$maximum     = $this->filter_numeric_value(
@@ -168,22 +168,22 @@ final class QuantityLimits {
 
 		if ( ! $limits['editable'] && $quantity > $limits['maximum'] ) {
 			/* translators: 1: product name */
-			return new \WP_Error( 'readonly_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; cannot be changed', 'woocommerce' ), $product->get_name() ) );
+			return new \WP_Error( 'readonly_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; cannot be changed', 'poocommerce' ), $product->get_name() ) );
 		}
 
 		if ( $quantity < $limits['minimum'] ) {
 			/* translators: 1: product name 2: minimum quantity */
-			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The minimum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'woocommerce' ), $product->get_name(), $limits['minimum'] ) );
+			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The minimum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'poocommerce' ), $product->get_name(), $limits['minimum'] ) );
 		}
 
 		if ( $quantity > $limits['maximum'] ) {
 			/* translators: 1: product name 2: maximum quantity */
-			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The maximum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'woocommerce' ), $product->get_name(), $limits['maximum'] ) );
+			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The maximum quantity of &quot;%1$s&quot; allowed in the cart is %2$s', 'poocommerce' ), $product->get_name(), $limits['maximum'] ) );
 		}
 
 		if ( ! $this->is_multiple_of( $quantity, NumberUtil::normalize( $limits['multiple_of'] ) ) ) {
 			/* translators: 1: product name 2: multiple of */
-			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; must be a multiple of %2$s', 'woocommerce' ), $product->get_name(), $limits['multiple_of'] ) );
+			return new \WP_Error( 'invalid_quantity', sprintf( __( 'The quantity of &quot;%1$s&quot; must be a multiple of %2$s', 'poocommerce' ), $product->get_name(), $limits['multiple_of'] ) );
 		}
 
 		return true;
@@ -253,7 +253,7 @@ final class QuantityLimits {
 		 * @param array|null $cart_item The cart item if the product exists in the cart, or null.
 		 * @return mixed
 		 */
-		$filtered_value = apply_filters( 'woocommerce_store_api_product_quantity_' . $value_type, $value, $product, $cart_item );
+		$filtered_value = apply_filters( 'poocommerce_store_api_product_quantity_' . $value_type, $value, $product, $cart_item );
 
 		return wc_stock_amount( NumberUtil::normalize( $filtered_value, $value ) );
 	}
@@ -281,7 +281,7 @@ final class QuantityLimits {
 		 * @param array|null $cart_item The cart item if the product exists in the cart, or null.
 		 * @return mixed
 		 */
-		$filtered_value = apply_filters( 'woocommerce_store_api_product_quantity_' . $value_type, $value, $product, $cart_item );
+		$filtered_value = apply_filters( 'poocommerce_store_api_product_quantity_' . $value_type, $value, $product, $cart_item );
 
 		return is_bool( $filtered_value ) ? $filtered_value : (bool) $value;
 	}

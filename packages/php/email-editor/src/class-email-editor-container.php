@@ -2,40 +2,40 @@
 /**
  * Email Editor Container class file.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor;
+namespace Automattic\PooCommerce\EmailEditor;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Assets_Manager;
-use Automattic\WooCommerce\EmailEditor\Engine\Dependency_Check;
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Api_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Patterns\Patterns;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Highlighting_Postprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Variables_Postprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Blocks_Width_Preprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Cleanup_Preprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Spacing_Preprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Typography_Preprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Quote_Preprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Border_Style_Postprocessor;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Process_Manager;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Send_Preview_Email;
-use Automattic\WooCommerce\EmailEditor\Engine\Settings_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\User_Theme;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
-use Automattic\WooCommerce\EmailEditor\Engine\Site_Style_Sync_Controller;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Initializer as CoreInitializer;
-use Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Initializer as WooCommerceInitializer;
+use Automattic\PooCommerce\EmailEditor\Engine\Assets_Manager;
+use Automattic\PooCommerce\EmailEditor\Engine\Dependency_Check;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Api_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Patterns\Patterns;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Highlighting_Postprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Variables_Postprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Blocks_Width_Preprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Cleanup_Preprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Spacing_Preprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Typography_Preprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Quote_Preprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Postprocessors\Border_Style_Postprocessor;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Process_Manager;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Send_Preview_Email;
+use Automattic\PooCommerce\EmailEditor\Engine\Settings_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\User_Theme;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Site_Style_Sync_Controller;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Initializer as CoreInitializer;
+use Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Initializer as PooCommerceInitializer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -81,9 +81,9 @@ class Email_Editor_Container {
 			}
 		);
 		$container->set(
-			WooCommerceInitializer::class,
+			PooCommerceInitializer::class,
 			function () {
-				return new WooCommerceInitializer();
+				return new PooCommerceInitializer();
 			}
 		);
 		// Start: Email editor dependencies.
@@ -294,7 +294,7 @@ class Email_Editor_Container {
 				return new Bootstrap(
 					$container->get( Email_Editor::class ),
 					$container->get( CoreInitializer::class ),
-					$container->get( WooCommerceInitializer::class ),
+					$container->get( PooCommerceInitializer::class ),
 				);
 			}
 		);

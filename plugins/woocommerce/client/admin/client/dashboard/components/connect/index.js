@@ -7,7 +7,7 @@ import { Component, Fragment } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import PropTypes from 'prop-types';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { onboardingStore } from '@woocommerce/data';
+import { onboardingStore } from '@poocommerce/data';
 
 /**
  * Button redirecting to Jetpack auth flow.
@@ -70,7 +70,7 @@ export class Connect extends Component {
 						isPrimary
 						onClick={ () => window.location.reload() }
 					>
-						{ __( 'Retry', 'woocommerce' ) }
+						{ __( 'Retry', 'poocommerce' ) }
 					</Button>
 				) : (
 					<Button
@@ -78,17 +78,17 @@ export class Connect extends Component {
 						isPrimary
 						onClick={ this.connectJetpack }
 					>
-						{ __( 'Connect', 'woocommerce' ) }
+						{ __( 'Connect', 'poocommerce' ) }
 					</Button>
 				) }
 				{ onSkip && (
 					<Button onClick={ onSkip }>
-						{ skipText || __( 'No thanks', 'woocommerce' ) }
+						{ skipText || __( 'No thanks', 'poocommerce' ) }
 					</Button>
 				) }
 				{ onAbort && (
 					<Button onClick={ onAbort }>
-						{ abortText || __( 'Abort', 'woocommerce' ) }
+						{ abortText || __( 'Abort', 'poocommerce' ) }
 					</Button>
 				) }
 			</Fragment>
@@ -155,7 +155,7 @@ Connect.propTypes = {
 
 Connect.defaultProps = {
 	setIsPending: () => {},
-	from: 'woocommerce-services',
+	from: 'poocommerce-services',
 };
 
 export default compose(
@@ -173,7 +173,7 @@ export default compose(
 		let error;
 
 		if ( ! isResolving && ! jetpackAuthUrlResponse ) {
-			error = __( 'Error requesting connection URL.', 'woocommerce' );
+			error = __( 'Error requesting connection URL.', 'poocommerce' );
 		}
 
 		if ( jetpackAuthUrlResponse?.errors?.length ) {

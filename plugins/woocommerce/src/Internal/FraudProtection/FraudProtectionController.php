@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\Jetpack\JetpackConnection;
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Jetpack\JetpackConnection;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -88,10 +88,10 @@ class FraudProtectionController implements RegisterHooksInterface {
 			return;
 		}
 
-		// Only show on WooCommerce settings page.
+		// Only show on PooCommerce settings page.
 		$screen = get_current_screen();
 
-		if ( ! $screen || 'woocommerce_page_wc-settings' !== $screen->id ) {
+		if ( ! $screen || 'poocommerce_page_wc-settings' !== $screen->id ) {
 			return;
 		}
 
@@ -101,7 +101,7 @@ class FraudProtectionController implements RegisterHooksInterface {
 				<?php
 				printf(
 					/* translators: %s: Getting Started with Jetpack documentation URL */
-					wp_kses_post( __( 'Your site failed to connect to Jetpack automatically. Fraud protection will fail open and allow all sessions until your site is connected to Jetpack. <a href="%s">How to connect to Jetpack</a>', 'woocommerce' ) ),
+					wp_kses_post( __( 'Your site failed to connect to Jetpack automatically. Fraud protection will fail open and allow all sessions until your site is connected to Jetpack. <a href="%s">How to connect to Jetpack</a>', 'poocommerce' ) ),
 					esc_url( 'https://jetpack.com/support/getting-started-with-jetpack/' )
 				);
 				?>
@@ -164,7 +164,7 @@ class FraudProtectionController implements RegisterHooksInterface {
 	 * Log helper method for consistent logging across all fraud protection components.
 	 *
 	 * This static method ensures all fraud protection logs are written with
-	 * the same 'woo-fraud-protection' source for easy filtering in WooCommerce logs.
+	 * the same 'woo-fraud-protection' source for easy filtering in PooCommerce logs.
 	 *
 	 * @param string $level   Log level (emergency, alert, critical, error, warning, notice, info, debug).
 	 * @param string $message Log message.

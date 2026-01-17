@@ -1,6 +1,6 @@
 <?php
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * CategoryTitle block: renders the current term title using context.

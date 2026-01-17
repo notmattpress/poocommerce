@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -87,7 +87,7 @@ test( 'guest shopper can verify their email address after the grace period', asy
 		// be presented with a request to verify their email address.
 		await setFilterValue(
 			page,
-			'woocommerce_order_email_verification_grace_period',
+			'poocommerce_order_email_verification_grace_period',
 			0
 		);
 

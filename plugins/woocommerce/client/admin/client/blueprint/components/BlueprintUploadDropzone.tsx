@@ -21,9 +21,9 @@ import {
 } from 'xstate5';
 import apiFetch from '@wordpress/api-fetch';
 import { dispatch } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { createInterpolateElement } from '@wordpress/element';
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ const parseBlueprintSteps = async ( file: File ) => {
 	// Ensure the parsed data is an array
 	if ( ! Array.isArray( steps ) ) {
 		throw new Error(
-			__( 'Invalid JSON format: Expected an array.', 'woocommerce' )
+			__( 'Invalid JSON format: Expected an array.', 'poocommerce' )
 		);
 	}
 
@@ -76,7 +76,7 @@ const importBlueprint = async ( steps: BlueprintStep[] ) => {
 		// Ensure the parsed data is an array
 		if ( ! Array.isArray( steps ) ) {
 			throw new Error(
-				__( 'Invalid JSON format: Expected an array.', 'woocommerce' )
+				__( 'Invalid JSON format: Expected an array.', 'poocommerce' )
 			);
 		}
 
@@ -89,7 +89,7 @@ const importBlueprint = async ( steps: BlueprintStep[] ) => {
 		for ( const step of steps ) {
 			// Skip steps that set the Site Visibility to Live.
 			// Admins should have a chance to review their store before it is set to Live.
-			if ( step?.options?.woocommerce_coming_soon === 'no' ) {
+			if ( step?.options?.poocommerce_coming_soon === 'no' ) {
 				continue;
 			}
 
@@ -107,7 +107,7 @@ const importBlueprint = async ( steps: BlueprintStep[] ) => {
 							message: sprintf(
 								/* translators: 1: Maximum size in MB, 2: Current size in MB */ __(
 									'Step exceeds maximum size limit of %1$.2fMB (Current: %2$.2fMB)',
-									'woocommerce'
+									'poocommerce'
 								),
 								(
 									MAX_STEP_SIZE_BYTES /
@@ -150,7 +150,7 @@ const importBlueprint = async ( steps: BlueprintStep[] ) => {
 			dispatch( 'core/notices' ).createWarningNotice(
 				`${ __(
 					'Your Blueprint has been imported, but there were some errors. Please check the messages.',
-					'woocommerce'
+					'poocommerce'
 				) }`,
 				{
 					icon: <Icon icon={ warning } size={ 24 } fill="#d63638" />,
@@ -159,7 +159,7 @@ const importBlueprint = async ( steps: BlueprintStep[] ) => {
 			);
 		} else {
 			dispatch( 'core/notices' ).createSuccessNotice(
-				`${ __( 'Your Blueprint has been imported!', 'woocommerce' ) }`,
+				`${ __( 'Your Blueprint has been imported!', 'poocommerce' ) }`,
 				{
 					icon: <Icon icon={ check } size={ 24 } fill="#1ed15A" />,
 					explicitDismiss: true,
@@ -181,7 +181,7 @@ const checkImportAllowed = async (): Promise< boolean > => {
 		return response.import_allowed;
 	} catch ( error ) {
 		throw new Error(
-			__( 'Failed to check if imports are allowed.', 'woocommerce' )
+			__( 'Failed to check if imports are allowed.', 'poocommerce' )
 		);
 	}
 };
@@ -240,7 +240,7 @@ export const fileUploadMachine = setup( {
 				// default error message if no error is provided
 				__(
 					'An error occurred while importing your Blueprint.',
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 
@@ -346,7 +346,7 @@ export const fileUploadMachine = setup( {
 							/* translators: Error message when the file is not a valid Blueprint. */
 							__(
 								'Error reading or parsing file. Please check the schema.',
-								'woocommerce'
+								'poocommerce'
 							)
 						),
 					} ),
@@ -407,7 +407,7 @@ export const fileUploadMachine = setup( {
 												/* translators: 1: Step name 2: Error messages */
 												__(
 													'Step: %1$s Errors: %2$s',
-													'woocommerce'
+													'poocommerce'
 												),
 												item.step,
 												errors
@@ -470,7 +470,7 @@ export const BlueprintUploadDropzone = () => {
 						{ createInterpolateElement(
 							__(
 								'Blueprint imports are disabled by default for live sites. <br/>Enable <link>Coming Soon mode</link> or define "ALLOW_BLUEPRINT_IMPORT_IN_LIVE_MODE" as true.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								br: <br />,
@@ -517,15 +517,15 @@ export const BlueprintUploadDropzone = () => {
 							<div className="blueprint-upload-dropzone">
 								<Icon icon={ upload } />
 								<p className="blueprint-upload-dropzone-text">
-									{ __( 'Drag and drop or ', 'woocommerce' ) }
+									{ __( 'Drag and drop or ', 'poocommerce' ) }
 									<span>
-										{ __( 'choose a file', 'woocommerce' ) }
+										{ __( 'choose a file', 'poocommerce' ) }
 									</span>
 								</p>
 								<p className="blueprint-upload-max-size">
 									{ __(
 										'Maximum size: 50 MB',
-										'woocommerce'
+										'poocommerce'
 									) }
 								</p>
 								<DropZone
@@ -553,7 +553,7 @@ export const BlueprintUploadDropzone = () => {
 					<div className="blueprint-upload-dropzone-uploading">
 						<Spinner className="blueprint-upload-dropzone-spinner" />
 						<p className="blueprint-upload-dropzone-text">
-							{ __( 'Importing your file…', 'woocommerce' ) }
+							{ __( 'Importing your file…', 'poocommerce' ) }
 						</p>
 					</div>
 				</div>
@@ -578,14 +578,14 @@ export const BlueprintUploadDropzone = () => {
 			{ ( state.matches( 'success' ) ||
 				state.matches( 'overrideModal' ) ) && (
 				<Button
-					className="woocommerce-blueprint-import-button"
+					className="poocommerce-blueprint-import-button"
 					variant="primary"
 					disabled={ ! state.context.import_allowed }
 					onClick={ () => {
 						send( { type: 'IMPORT' } );
 					} }
 				>
-					{ __( 'Import', 'woocommerce' ) }
+					{ __( 'Import', 'poocommerce' ) }
 				</Button>
 			) }
 			{ ( state.matches( 'importing' ) ||

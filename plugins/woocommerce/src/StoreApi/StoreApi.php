@@ -1,16 +1,16 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\Blocks\Registry\Container;
-use Automattic\WooCommerce\StoreApi\Formatters;
-use Automattic\WooCommerce\StoreApi\Authentication;
-use Automattic\WooCommerce\StoreApi\Legacy;
-use Automattic\WooCommerce\StoreApi\Formatters\CurrencyFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
-use Automattic\WooCommerce\StoreApi\Formatters\MoneyFormatter;
-use Automattic\WooCommerce\StoreApi\RoutesController;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\Blocks\Registry\Container;
+use Automattic\PooCommerce\StoreApi\Formatters;
+use Automattic\PooCommerce\StoreApi\Authentication;
+use Automattic\PooCommerce\StoreApi\Legacy;
+use Automattic\PooCommerce\StoreApi\Formatters\CurrencyFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\MoneyFormatter;
+use Automattic\PooCommerce\StoreApi\RoutesController;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
 
 /**
  * StoreApi Main Class.
@@ -43,7 +43,7 @@ final class StoreApi {
 		);
 
 		add_action(
-			'woocommerce_blocks_pre_get_routes_from_namespace',
+			'poocommerce_blocks_pre_get_routes_from_namespace',
 			function ( $routes, $ns ) {
 				if ( 'wc/store/v1' !== $ns ) {
 					return $routes;

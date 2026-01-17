@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, select } from '@wordpress/data';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
-import { findBlock } from '@woocommerce/utils';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ const downgradeToClassicAddToCartWithOptions = ( blockClientId: string ) => {
 		return false;
 	}
 
-	const newBlock = createBlock( 'woocommerce/add-to-cart-form', {
+	const newBlock = createBlock( 'poocommerce/add-to-cart-form', {
 		quantitySelectorStyle: 'input',
 	} );
 
@@ -44,10 +44,10 @@ export const DowngradeNotice = ( {
 } ) => {
 	const notice = __(
 		'Facing compatibility issues with extensions? You can switch back to the classic Add to Cart with Options block.',
-		'woocommerce'
+		'poocommerce'
 	);
 
-	const buttonLabel = __( 'Switch back', 'woocommerce' );
+	const buttonLabel = __( 'Switch back', 'poocommerce' );
 
 	const handleClick = async () => {
 		const downgraded = await downgradeToClassicAddToCartWithOptions(

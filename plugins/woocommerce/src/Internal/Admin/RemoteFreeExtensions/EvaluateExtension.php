@@ -3,13 +3,13 @@
  * Evaluates the spec and returns a status.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin\RemoteFreeExtensions;
+namespace Automattic\PooCommerce\Internal\Admin\RemoteFreeExtensions;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\EvaluateOverrides;
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\EvaluateOverrides;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\RuleEvaluator;
 
 /**
  * Evaluates the extension and returns it.

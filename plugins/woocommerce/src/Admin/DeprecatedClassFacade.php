@@ -15,7 +15,7 @@
  * }
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 

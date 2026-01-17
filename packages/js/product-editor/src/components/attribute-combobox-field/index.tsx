@@ -122,7 +122,7 @@ const AttributesComboboxControl = ( {
 					createNewAttributeOption.state === 'draft'
 						? sprintf(
 								/* translators: The name of the new attribute term to be created */
-								__( 'Create "%s"', 'woocommerce' ),
+								__( 'Create "%s"', 'poocommerce' ),
 								createNewAttributeOption.label
 						  )
 						: createNewAttributeOption.label,
@@ -179,27 +179,27 @@ const AttributesComboboxControl = ( {
 
 	if ( ! help ) {
 		help = (
-			<div className="woocommerce-attributes-combobox-help">
+			<div className="poocommerce-attributes-combobox-help">
 				{ __(
 					'Select an attribute or type to create.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</div>
 		);
 
 		if ( isLoading ) {
 			help = (
-				<div className="woocommerce-attributes-combobox-help">
+				<div className="poocommerce-attributes-combobox-help">
 					<Spinner />
-					{ __( 'Loading…', 'woocommerce' ) }
+					{ __( 'Loading…', 'poocommerce' ) }
 				</div>
 			);
 		} else if ( ! items.length ) {
 			help = (
-				<div className="woocommerce-attributes-combobox-help">
+				<div className="poocommerce-attributes-combobox-help">
 					{ __(
 						'No attributes yet. Type to create.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</div>
 			);
@@ -208,14 +208,14 @@ const AttributesComboboxControl = ( {
 
 	return (
 		<div
-			className={ clsx( 'woocommerce-attributes-combobox-container', {
+			className={ clsx( 'poocommerce-attributes-combobox-container', {
 				'no-items': ! options.length,
 			} ) }
 			ref={ comboRef }
 		>
 			<BaseControl label={ label } help={ help } id={ labelFor }>
 				<ComboboxControl
-					className="woocommerce-attributes-combobox"
+					className="poocommerce-attributes-combobox"
 					allowReset={ false }
 					options={ options }
 					value={ currentValue }

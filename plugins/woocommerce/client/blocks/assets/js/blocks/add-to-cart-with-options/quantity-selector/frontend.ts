@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
-import '@woocommerce/stores/woocommerce/product-data';
+import '@poocommerce/stores/poocommerce/product-data';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 const addToCartWithOptionsStore = store< AddToCartWithOptionsStore >(
-	'woocommerce/add-to-cart-with-options',
+	'poocommerce/add-to-cart-with-options',
 	{},
 	{ lock: universalLock }
 );
@@ -45,7 +45,7 @@ export type QuantitySelectorStore = {
 };
 
 store< QuantitySelectorStore >(
-	'woocommerce/add-to-cart-with-options-quantity-selector',
+	'poocommerce/add-to-cart-with-options-quantity-selector',
 	{
 		state: {
 			get allowsQuantityChange(): boolean {

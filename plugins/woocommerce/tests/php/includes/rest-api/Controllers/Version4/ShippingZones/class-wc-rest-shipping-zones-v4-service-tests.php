@@ -2,12 +2,12 @@
 /**
  * ShippingZoneService tests.
  *
- * @package WooCommerce\Tests\RestApi\Controllers\Version4\ShippingZones
+ * @package PooCommerce\Tests\RestApi\Controllers\Version4\ShippingZones
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneService;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones\ShippingZoneService;
 
 /**
  * ShippingZoneService test class.
@@ -37,8 +37,8 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$this->service = new ShippingZoneService();
 
 		// Ensure shipping is enabled for tests.
-		update_option( 'woocommerce_ship_to_countries', '' );
-		update_option( 'woocommerce_shipping_cost_requires_address', 'no' );
+		update_option( 'poocommerce_ship_to_countries', '' );
+		update_option( 'poocommerce_shipping_cost_requires_address', 'no' );
 	}
 
 	/**
@@ -237,7 +237,7 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->create_shipping_zone( $params );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_invalid_zone_name', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_invalid_zone_name', $result->get_error_code() );
 		$this->assertEquals( 'Zone name cannot be empty.', $result->get_error_message() );
 	}
 
@@ -250,7 +250,7 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->create_shipping_zone( $params );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_invalid_zone_name', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_invalid_zone_name', $result->get_error_code() );
 	}
 
 	// ========================================
@@ -351,7 +351,7 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->update_shipping_zone( $zone, $params );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_invalid_zone_name', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_invalid_zone_name', $result->get_error_code() );
 	}
 
 	/**
@@ -461,7 +461,7 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->update_shipping_zone( $zone, $params );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit_zone', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit_zone', $result->get_error_code() );
 		$this->assertStringContainsString( 'Cannot change name of "Rest of the World" zone', $result->get_error_message() );
 	}
 
@@ -475,7 +475,7 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->update_shipping_zone( $zone, $params );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit_zone', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit_zone', $result->get_error_code() );
 		$this->assertStringContainsString( 'Cannot change order of "Rest of the World" zone', $result->get_error_message() );
 	}
 
@@ -496,7 +496,7 @@ class WC_REST_Shipping_Zones_V4_Service_Tests extends WC_Unit_Test_Case {
 		$result = $this->service->update_shipping_zone( $zone, $params );
 
 		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( 'woocommerce_rest_cannot_edit_zone', $result->get_error_code() );
+		$this->assertEquals( 'poocommerce_rest_cannot_edit_zone', $result->get_error_code() );
 		$this->assertStringContainsString( 'Cannot change locations of "Rest of the World" zone', $result->get_error_message() );
 	}
 

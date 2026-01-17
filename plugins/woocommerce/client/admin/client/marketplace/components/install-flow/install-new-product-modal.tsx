@@ -5,8 +5,8 @@ import { ButtonGroup, Button, Modal, Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { dispatch } from '@wordpress/data';
 import { useState, useEffect, useContext } from '@wordpress/element';
-import { navigateTo, getNewPath, useQuery } from '@woocommerce/navigation';
-import { recordEvent } from '@woocommerce/tracks';
+import { navigateTo, getNewPath, useQuery } from '@poocommerce/navigation';
+import { recordEvent } from '@poocommerce/tracks';
 import type { Status } from 'wordpress__notices';
 
 /**
@@ -52,7 +52,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 
 	const query = useQuery();
 
-	// Check if the store is connected to WooCommerce.com. This is run once, when the component is mounted.
+	// Check if the store is connected to PooCommerce.com. This is run once, when the component is mounted.
 	useEffect( () => {
 		const wccomSettings = getAdminSetting( 'wccomHelper', {} );
 
@@ -63,7 +63,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 	/**
 	 * Listen for changes in the query, and show the modal if the installProduct query param is set.
 	 * If it's set, try to find the product in the products prop. We need it to be able to
-	 * display title, icon and send product ID to WooCommerce.com to create an order.
+	 * display title, icon and send product ID to PooCommerce.com to create an order.
 	 */
 	useEffect( () => {
 		setShowModal( false );
@@ -101,7 +101,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 				status: 'warning',
 				message: __(
 					'In order to install a product, you need to first connect your account.',
-					'woocommerce'
+					'poocommerce'
 				),
 			} );
 		} else {
@@ -138,7 +138,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 					status: 'error',
 					message: __(
 						'Activation failed. Please try again from the plugins page.',
-						'woocommerce'
+						'poocommerce'
 					),
 				} );
 			} );
@@ -202,8 +202,8 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 					setNotice( {
 						status: 'warning',
 						message: __(
-							'We need your address to complete installing this product. We will redirect you to WooCommerce.com checkout. Afterwards, you will be able to install the product.',
-							'woocommerce'
+							'We need your address to complete installing this product. We will redirect you to PooCommerce.com checkout. Afterwards, you will be able to install the product.',
+							'poocommerce'
 						),
 					} );
 
@@ -219,7 +219,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 							error.data.message ??
 							__(
 								'An error occurred. Please try again later.',
-								'woocommerce'
+								'poocommerce'
 							),
 					} );
 				}
@@ -245,10 +245,10 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 
 	function getTitle(): string {
 		if ( installStatus === InstallFlowStatus.activated ) {
-			return __( 'You are ready to go!', 'woocommerce' );
+			return __( 'You are ready to go!', 'poocommerce' );
 		}
 
-		return __( 'Add to Store', 'woocommerce' );
+		return __( 'Add to Store', 'poocommerce' );
 	}
 
 	function getDescription(): string {
@@ -262,25 +262,25 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 		) {
 			return __(
 				'Extension successfully installed. Would you like to activate it?',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
 		if ( installStatus === InstallFlowStatus.installedCannotActivate ) {
 			return __(
 				"Extension successfully installed but we can't activate it at the moment. Please visit the plugins page to see more.",
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
 		if ( installStatus === InstallFlowStatus.activated ) {
 			return __(
 				'Keep the momentum going and start setting up your extension.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
-		return __( 'Would you like to install this extension?', 'woocommerce' );
+		return __( 'Would you like to install this extension?', 'poocommerce' );
 	}
 
 	function secondaryButton(): React.ReactElement {
@@ -290,10 +290,10 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 					<Button
 						variant="tertiary"
 						href={ documentationUrl }
-						className="woocommerce-marketplace__header-account-modal-button"
+						className="poocommerce-marketplace__header-account-modal-button"
 						key={ 'docs' }
 					>
-						{ __( 'View Docs', 'woocommerce' ) }
+						{ __( 'View Docs', 'poocommerce' ) }
 					</Button>
 				);
 			}
@@ -305,10 +305,10 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 			<Button
 				variant="tertiary"
 				onClick={ onClose }
-				className="woocommerce-marketplace__header-account-modal-button"
+				className="poocommerce-marketplace__header-account-modal-button"
 				key={ 'cancel' }
 			>
-				{ __( 'Cancel', 'woocommerce' ) }
+				{ __( 'Cancel', 'poocommerce' ) }
 			</Button>
 		);
 	}
@@ -330,7 +330,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 					isBusy={ installStatus === InstallFlowStatus.activating }
 					disabled={ installStatus === InstallFlowStatus.activating }
 				>
-					{ __( 'Activate', 'woocommerce' ) }
+					{ __( 'Activate', 'poocommerce' ) }
 				</Button>
 			);
 		}
@@ -344,10 +344,10 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 				<Button
 					variant="primary"
 					href={ WP_ADMIN_PLUGIN_LIST_URL }
-					className="woocommerce-marketplace__header-account-modal-button"
+					className="poocommerce-marketplace__header-account-modal-button"
 					key={ 'plugin-list' }
 				>
-					{ __( 'View in Plugins', 'woocommerce' ) }
+					{ __( 'View in Plugins', 'poocommerce' ) }
 				</Button>
 			);
 		}
@@ -363,7 +363,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 					installStatus === InstallFlowStatus.installFailed
 				}
 			>
-				{ __( 'Install', 'woocommerce' ) }
+				{ __( 'Install', 'poocommerce' ) }
 			</Button>
 		);
 	}
@@ -382,16 +382,16 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 			title={ getTitle() }
 			onRequestClose={ onClose }
 			focusOnMount={ true }
-			className="woocommerce-marketplace__header-account-modal has-size-medium"
+			className="poocommerce-marketplace__header-account-modal has-size-medium"
 			style={ { borderRadius: 4 } }
-			overlayClassName="woocommerce-marketplace__header-account-modal-overlay"
+			overlayClassName="poocommerce-marketplace__header-account-modal-overlay"
 		>
 			{ notice && (
 				<Notice status={ notice.status } isDismissible={ false }>
 					{ notice.message }
 				</Notice>
 			) }
-			<p className="woocommerce-marketplace__header-account-modal-text">
+			<p className="poocommerce-marketplace__header-account-modal-text">
 				{ getDescription() }
 			</p>
 			{ product && (
@@ -405,7 +405,7 @@ function InstallNewProductModal( props: { products: Product[] } ) {
 					} }
 				/>
 			) }
-			<ButtonGroup className="woocommerce-marketplace__header-account-modal-button-group">
+			<ButtonGroup className="poocommerce-marketplace__header-account-modal-button-group">
 				{ secondaryButton() }
 				{ primaryButton() }
 			</ButtonGroup>

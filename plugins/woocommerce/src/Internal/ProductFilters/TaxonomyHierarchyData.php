@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class for managing taxonomy hierarchy data with performance optimization.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class TaxonomyHierarchyData {
 

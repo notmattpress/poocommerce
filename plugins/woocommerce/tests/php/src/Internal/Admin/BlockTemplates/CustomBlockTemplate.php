@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Internal\Admin\BlockTemplates\AbstractBlockTemplate;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Internal\Admin\BlockTemplates\AbstractBlockTemplate;
 
 /**
  * Custom block template class.

@@ -1,20 +1,20 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Package;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
- * Test \Automattic\WooCommerce\Blocks\Domain\Services\Hydration class.
+ * Test \Automattic\PooCommerce\Blocks\Domain\Services\Hydration class.
  */
 class Hydration extends TestCase {
 
 	/**
 	 * System under test.
 	 *
-	 * @var \Automattic\WooCommerce\Blocks\Domain\Services\Hydration
+	 * @var \Automattic\PooCommerce\Blocks\Domain\Services\Hydration
 	 */
 	private $sut;
 
@@ -23,7 +23,7 @@ class Hydration extends TestCase {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->sut = Package::container()->get( \Automattic\WooCommerce\Blocks\Domain\Services\Hydration::class );
+		$this->sut = Package::container()->get( \Automattic\PooCommerce\Blocks\Domain\Services\Hydration::class );
 	}
 
 
@@ -43,7 +43,7 @@ class Hydration extends TestCase {
 
 		$request_callback_filter_called = false;
 		add_filter(
-			'woocommerce_hydration_request_after_callbacks',
+			'poocommerce_hydration_request_after_callbacks',
 			function ( $response ) use ( &$request_callback_filter_called ) {
 				$request_callback_filter_called = true;
 				return $response;
@@ -52,7 +52,7 @@ class Hydration extends TestCase {
 
 		$dispatch_filter_called = false;
 		add_filter(
-			'woocommerce_hydration_dispatch_request',
+			'poocommerce_hydration_dispatch_request',
 			function ( $response ) use ( &$dispatch_filter_called ) {
 				$dispatch_filter_called = true;
 				return $response;

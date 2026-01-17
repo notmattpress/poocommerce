@@ -2,10 +2,10 @@
 /**
  * Class WC_Email_Cancelled_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Cancelled_Order
 	 * @version     2.2.7
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Cancelled_Order extends WC_Email {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 		 */
 		public function __construct() {
 			$this->id             = 'cancelled_order';
-			$this->title          = __( 'Cancelled order', 'woocommerce' );
+			$this->title          = __( 'Cancelled order', 'poocommerce' );
 			$this->email_group    = 'orders';
 			$this->template_html  = 'emails/admin-cancelled-order.php';
 			$this->template_plain = 'emails/plain/admin-cancelled-order.php';
@@ -41,20 +41,20 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_processing_to_cancelled_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_on-hold_to_cancelled_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_processing_to_cancelled_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_on-hold_to_cancelled_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Receive an email notification when an order that was processing or on hold gets cancelled', 'woocommerce' )
-				: __( 'Cancelled order emails are sent to chosen recipient(s) when orders have been marked cancelled (if they were previously processing or on-hold).', 'woocommerce' );
+				? __( 'Receive an email notification when an order that was processing or on hold gets cancelled', 'poocommerce' )
+				: __( 'Cancelled order emails are sent to chosen recipient(s) when orders have been marked cancelled (if they were previously processing or on-hold).', 'poocommerce' );
 
 			if ( $this->block_email_editor_enabled ) {
-				$this->title       = __( 'Canceled order', 'woocommerce' );
-				$this->description = __( 'Notifies admins when an order that was processing or on hold has been canceled.', 'woocommerce' );
+				$this->title       = __( 'Canceled order', 'poocommerce' );
+				$this->description = __( 'Notifies admins when an order that was processing or on hold has been canceled.', 'poocommerce' );
 			}
 
 			// Other settings.
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( '[{site_title}]: Order #{order_number} has been cancelled', 'woocommerce' );
+			return __( '[{site_title}]: Order #{order_number} has been cancelled', 'poocommerce' );
 		}
 
 		/**
@@ -79,8 +79,8 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 		 */
 		public function get_default_heading() {
 			return $this->email_improvements_enabled
-				? __( 'Order cancelled: #{order_number}', 'woocommerce' )
-				: __( 'Order Cancelled: #{order_number}', 'woocommerce' );
+				? __( 'Order cancelled: #{order_number}', 'poocommerce' )
+				: __( 'Order Cancelled: #{order_number}', 'poocommerce' );
 		}
 
 		/**
@@ -172,7 +172,7 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_additional_content() {
-			return __( 'Thanks for reading.', 'woocommerce' );
+			return __( 'Thanks for reading.', 'poocommerce' );
 		}
 
 		/**
@@ -180,25 +180,25 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 		 */
 		public function init_form_fields() {
 			/* translators: %s: list of placeholders */
-			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'woocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
+			$placeholder_text  = sprintf( __( 'Available placeholders: %s', 'poocommerce' ), '<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>' );
 			$this->form_fields = array(
 				'enabled'            => array(
-					'title'   => __( 'Enable/Disable', 'woocommerce' ),
+					'title'   => __( 'Enable/Disable', 'poocommerce' ),
 					'type'    => 'checkbox',
-					'label'   => __( 'Enable this email notification', 'woocommerce' ),
+					'label'   => __( 'Enable this email notification', 'poocommerce' ),
 					'default' => 'yes',
 				),
 				'recipient'          => array(
-					'title'       => __( 'Recipient(s)', 'woocommerce' ),
+					'title'       => __( 'Recipient(s)', 'poocommerce' ),
 					'type'        => 'text',
 					/* translators: %s: admin email */
-					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'woocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
+					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to %s.', 'poocommerce' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
 					'placeholder' => '',
 					'default'     => '',
 					'desc_tip'    => true,
 				),
 				'subject'            => array(
-					'title'       => __( 'Subject', 'woocommerce' ),
+					'title'       => __( 'Subject', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -206,7 +206,7 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 					'default'     => '',
 				),
 				'heading'            => array(
-					'title'       => __( 'Email heading', 'woocommerce' ),
+					'title'       => __( 'Email heading', 'poocommerce' ),
 					'type'        => 'text',
 					'desc_tip'    => true,
 					'description' => $placeholder_text,
@@ -214,18 +214,18 @@ if ( ! class_exists( 'WC_Email_Cancelled_Order', false ) ) :
 					'default'     => '',
 				),
 				'additional_content' => array(
-					'title'       => __( 'Additional content', 'woocommerce' ),
-					'description' => __( 'Text to appear below the main email content.', 'woocommerce' ) . ' ' . $placeholder_text,
+					'title'       => __( 'Additional content', 'poocommerce' ),
+					'description' => __( 'Text to appear below the main email content.', 'poocommerce' ) . ' ' . $placeholder_text,
 					'css'         => 'width:400px; height: 75px;',
-					'placeholder' => __( 'N/A', 'woocommerce' ),
+					'placeholder' => __( 'N/A', 'poocommerce' ),
 					'type'        => 'textarea',
 					'default'     => $this->get_default_additional_content(),
 					'desc_tip'    => true,
 				),
 				'email_type'         => array(
-					'title'       => __( 'Email type', 'woocommerce' ),
+					'title'       => __( 'Email type', 'poocommerce' ),
 					'type'        => 'select',
-					'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+					'description' => __( 'Choose which format of email to send.', 'poocommerce' ),
 					'default'     => 'html',
 					'class'       => 'email_type wc-enhanced-select',
 					'options'     => $this->get_email_type_options(),

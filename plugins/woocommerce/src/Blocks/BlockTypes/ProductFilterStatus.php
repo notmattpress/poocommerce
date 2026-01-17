@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
-use Automattic\WooCommerce\Internal\ProductFilters\FilterDataProvider;
-use Automattic\WooCommerce\Internal\ProductFilters\QueryClauses;
+use Automattic\PooCommerce\Blocks\BlockTypes\ProductCollection\Utils as ProductCollectionUtils;
+use Automattic\PooCommerce\Internal\ProductFilters\FilterDataProvider;
+use Automattic\PooCommerce\Internal\ProductFilters\QueryClauses;
 
 /**
  * Product Filter: Status Block.
@@ -29,7 +29,7 @@ final class ProductFilterStatus extends AbstractBlock {
 	protected function initialize() {
 		parent::initialize();
 
-		add_filter( 'woocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
+		add_filter( 'poocommerce_blocks_product_filters_selected_items', array( $this, 'prepare_selected_filters' ), 10, 2 );
 	}
 
 
@@ -68,7 +68,7 @@ final class ProductFilterStatus extends AbstractBlock {
 				'type'        => 'status',
 				'value'       => $status,
 				// translators: %s: status.
-				'activeLabel' => sprintf( __( 'Status: %s', 'woocommerce' ), $status_options[ $status ] ),
+				'activeLabel' => sprintf( __( 'Status: %s', 'poocommerce' ), $status_options[ $status ] ),
 			);
 		}
 
@@ -85,7 +85,7 @@ final class ProductFilterStatus extends AbstractBlock {
 	protected function enqueue_data( array $stock_statuses = array() ) {
 		parent::enqueue_data( $stock_statuses );
 		$this->asset_data_registry->add( 'stockStatusOptions', wc_get_product_stock_status_options() );
-		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 	}
 
 	/**
@@ -124,16 +124,16 @@ final class ProductFilterStatus extends AbstractBlock {
 		$filter_context = array(
 			'items'      => array_values( $filter_options ),
 			'showCounts' => $attributes['showCounts'] ?? false,
-			'groupLabel' => __( 'Status', 'woocommerce' ),
+			'groupLabel' => __( 'Status', 'poocommerce' ),
 		);
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'     => wp_json_encode(
 				array(
 					/* translators: {{label}} is the status filter item label. */
-					'activeLabelTemplate' => __( 'Status: {{label}}', 'woocommerce' ),
+					'activeLabelTemplate' => __( 'Status: {{label}}', 'poocommerce' ),
 					'filterType'          => 'status',
 				),
 				JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP

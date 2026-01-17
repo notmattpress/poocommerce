@@ -17,7 +17,7 @@ addons.setConfig( {
 			'experimental',
 			'onboarding',
 			'product-editor',
-			'woocommerce-admin',
+			'poocommerce-admin',
 		],
 	},
 } );

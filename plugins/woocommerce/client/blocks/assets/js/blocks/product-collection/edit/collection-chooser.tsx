@@ -92,10 +92,10 @@ const CreateCollectionButton = ( props: CollectionButtonProps ) => {
 
 	return (
 		<div className="wc-blocks-product-collection__collections-create">
-			<span>{ __( 'or', 'woocommerce' ) }</span>
+			<span>{ __( 'or', 'poocommerce' ) }</span>
 			<Tooltip text={ description } placement="top">
 				<Button onClick={ onClick }>
-					{ __( 'create your own', 'woocommerce' ) }
+					{ __( 'create your own', 'poocommerce' ) }
 				</Button>
 			</Tooltip>
 		</div>
@@ -144,7 +144,7 @@ const DropdownCollectionOptions = ( props: CollectionOptionsProps ) => {
 						onClick={ onToggle }
 						aria-expanded={ isOpen }
 					>
-						{ __( 'Choose collection', 'woocommerce' ) }
+						{ __( 'Choose collection', 'poocommerce' ) }
 					</Button>
 				) }
 				renderContent={ () => (

@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { ErrorObject } from '@woocommerce/editor-components/error-placeholder';
+import { ErrorObject } from '@poocommerce/editor-components/error-placeholder';
 import type {
 	ProductResponseItem,
 	ProductCategoryResponseItem,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 export interface WithInjectedProductVariations {
 	error: ErrorObject | null;

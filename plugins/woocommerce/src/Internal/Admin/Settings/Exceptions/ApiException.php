@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\Exceptions;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\Exceptions;
 
 /**
  * ApiException class.
@@ -24,7 +24,7 @@ class ApiException extends \Exception {
 	/**
 	 * Setup exception.
 	 *
-	 * @param string $error_code       Machine-readable error code, e.g `woocommerce_invalid_step_id`.
+	 * @param string $error_code       Machine-readable error code, e.g `poocommerce_invalid_step_id`.
 	 * @param string $message          User-friendly translated error message, e.g. 'Step ID is invalid'.
 	 * @param int    $http_status_code Optional. Proper HTTP status code to respond with.
 	 *                                 Defaults to 400 (Bad request).

@@ -18,7 +18,7 @@ import {
 	store as preferencesStore,
 	// @ts-expect-error No types for this exist yet.
 } from '@wordpress/preferences';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	BlockEditorProvider,
 	BlockList,
@@ -32,7 +32,7 @@ import {
 	// @ts-ignore
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	ComplementaryArea,
 	// @ts-expect-error No types for this exist yet.
@@ -203,7 +203,7 @@ export function IframeEditor( {
 	const settings = __settings || parentEditorSettings;
 
 	return (
-		<div className="woocommerce-iframe-editor">
+		<div className="poocommerce-iframe-editor">
 			<EditorContext.Provider
 				value={ {
 					hasRedo,
@@ -250,11 +250,11 @@ export function IframeEditor( {
 							onClose?.();
 						} }
 					/>
-					<div className="woocommerce-iframe-editor__main">
+					<div className="poocommerce-iframe-editor__main">
 						<SecondarySidebar />
 						<BlockTools
 							className={ clsx(
-								'woocommerce-iframe-editor__content'
+								'poocommerce-iframe-editor__content'
 							) }
 							onClick={ (
 								event: React.MouseEvent<
@@ -299,13 +299,13 @@ export function IframeEditor( {
 								 that is happening because the inserter is positioned using a transforms,
 								 which take it outside of the normal layout, thus ignoring the parent's
 								 bounds. */ }
-							<div className="woocommerce-iframe-editor__content-inserter-clipper" />
+							<div className="poocommerce-iframe-editor__content-inserter-clipper" />
 						</BlockTools>
 						<ComplementaryArea.Slot
 							scope={ SIDEBAR_COMPLEMENTARY_AREA_SCOPE }
 						/>
 					</div>
-					<PluginArea scope="woocommerce-product-editor-modal-block-editor" />
+					<PluginArea scope="poocommerce-product-editor-modal-block-editor" />
 					<SettingsSidebar smallScreenTitle={ name } />
 				</BlockEditorProvider>
 			</EditorContext.Provider>

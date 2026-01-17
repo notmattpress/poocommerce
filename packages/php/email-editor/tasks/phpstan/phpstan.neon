@@ -6,8 +6,8 @@ parameters:
 		- ../../vendor/autoload.php
 		- vendor/autoload.php
 		- ../../tests/unit/stubs.php # The stubs file contains mocks for some WP classes.
-		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
-		- vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+		- vendor/php-stubs/poocommerce-stubs/poocommerce-stubs.php
+		- vendor/php-stubs/poocommerce-stubs/poocommerce-packages-stubs.php
 		- vendor/php-stubs/wordpress-tests-stubs/wordpress-tests-stubs.php
 
 	paths:

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { RawHTML, useMemo } from '@wordpress/element';
-import { WordCountType } from '@woocommerce/block-settings';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { WordCountType } from '@poocommerce/block-settings';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import type { CSSProperties } from 'react';
 
 /**

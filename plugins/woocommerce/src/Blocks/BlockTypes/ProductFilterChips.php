@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * Product Filter: Chips Block.
@@ -54,7 +54,7 @@ final class ProductFilterChips extends AbstractBlock {
 		$count                       = 0;
 
 		$wrapper_attributes = array(
-			'data-wp-interactive' => 'woocommerce/product-filters',
+			'data-wp-interactive' => 'poocommerce/product-filters',
 			'data-wp-key'         => wp_unique_prefixed_id( $this->get_full_block_name() ),
 			'data-wp-context'     => '{}',
 			'class'               => esc_attr( $classes ),
@@ -115,7 +115,7 @@ final class ProductFilterChips extends AbstractBlock {
 						data-wp-bind--hidden="context.showAll"
 						hidden
 					>
-						<?php echo esc_html__( 'Show more…', 'woocommerce' ); ?>
+						<?php echo esc_html__( 'Show more…', 'poocommerce' ); ?>
 					</button>
 				<?php endif; ?>
 			</fieldset>
@@ -140,7 +140,7 @@ final class ProductFilterChips extends AbstractBlock {
 					'%1$s (%2$d product)',
 					'%1$s (%2$d products)',
 					$item['count'],
-					'woocommerce'
+					'poocommerce'
 				),
 				$item['ariaLabel'] ?? $item['label'],
 				$item['count']

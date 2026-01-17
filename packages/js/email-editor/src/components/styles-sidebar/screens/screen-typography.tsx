@@ -15,10 +15,10 @@ export function ScreenTypography(): JSX.Element {
 	return (
 		<>
 			<ScreenHeader
-				title={ __( 'Typography', 'woocommerce' ) }
+				title={ __( 'Typography', 'poocommerce' ) }
 				description={ __(
 					'Manage the typography settings for different elements.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<TypographyPanel />

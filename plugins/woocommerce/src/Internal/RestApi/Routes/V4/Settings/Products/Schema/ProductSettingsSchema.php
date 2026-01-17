@@ -4,16 +4,16 @@
  *
  * Handles schema definition for product settings.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Products\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Products\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 /**
@@ -35,58 +35,58 @@ class ProductSettingsSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'          => array(
-				'description' => __( 'Unique identifier for the settings group.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the settings group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'title'       => array(
-				'description' => __( 'Settings title.', 'woocommerce' ),
+				'description' => __( 'Settings title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'description' => array(
-				'description' => __( 'Settings description.', 'woocommerce' ),
+				'description' => __( 'Settings description.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'values'      => array(
-				'description'          => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+				'description'          => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => array( 'view', 'edit' ),
 				'additionalProperties' => array(
-					'description' => __( 'Setting field value.', 'woocommerce' ),
+					'description' => __( 'Setting field value.', 'poocommerce' ),
 					'type'        => array( 'string', 'number', 'array', 'boolean' ),
 				),
 			),
 			'groups'      => array(
-				'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+				'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => array( 'view', 'edit' ),
 				'additionalProperties' => array(
 					'type'        => 'object',
-					'description' => __( 'Settings group.', 'woocommerce' ),
+					'description' => __( 'Settings group.', 'poocommerce' ),
 					'properties'  => array(
 						'title'       => array(
-							'description' => __( 'Group title.', 'woocommerce' ),
+							'description' => __( 'Group title.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'description' => array(
-							'description' => __( 'Group description.', 'woocommerce' ),
+							'description' => __( 'Group description.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'order'       => array(
-							'description' => __( 'Display order for the group.', 'woocommerce' ),
+							'description' => __( 'Display order for the group.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'fields'      => array(
-							'description' => __( 'Settings fields.', 'woocommerce' ),
+							'description' => __( 'Settings fields.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => array( 'view', 'edit' ),
 							'items'       => $this->get_field_schema(),
@@ -107,28 +107,28 @@ class ProductSettingsSchema extends AbstractSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'id'      => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'label'   => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'type'    => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'number', 'select', 'multiselect', 'checkbox' ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'options' => array(
-					'description' => __( 'Available options for select/multiselect fields.', 'woocommerce' ),
+					'description' => __( 'Available options for select/multiselect fields.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'desc'    => array(
-					'description' => __( 'Description for the setting field.', 'woocommerce' ),
+					'description' => __( 'Description for the setting field.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
@@ -207,17 +207,17 @@ class ProductSettingsSchema extends AbstractSchema {
 
 		return array(
 			'id'          => 'products',
-			'title'       => __( 'Products', 'woocommerce' ),
-			'description' => __( 'Manage product settings including dimensions, weight units, and display options.', 'woocommerce' ),
+			'title'       => __( 'Products', 'poocommerce' ),
+			'description' => __( 'Manage product settings including dimensions, weight units, and display options.', 'poocommerce' ),
 			'values'      => $values,
 			'groups'      => $groups,
 		);
 	}
 
 	/**
-	 * Transform a WooCommerce setting into REST API field format.
+	 * Transform a PooCommerce setting into REST API field format.
 	 *
-	 * @param array $setting WooCommerce setting array.
+	 * @param array $setting PooCommerce setting array.
 	 * @return array|null Transformed field or null if should be skipped.
 	 */
 	private function transform_setting_to_field( array $setting ): ?array {
@@ -250,24 +250,24 @@ class ProductSettingsSchema extends AbstractSchema {
 	 */
 	private function get_field_options( string $field_id ): array {
 		switch ( $field_id ) {
-			case 'woocommerce_weight_unit':
+			case 'poocommerce_weight_unit':
 				return array(
-					'kg'  => __( 'kg', 'woocommerce' ),
-					'g'   => __( 'g', 'woocommerce' ),
-					'lbs' => __( 'lbs', 'woocommerce' ),
-					'oz'  => __( 'oz', 'woocommerce' ),
+					'kg'  => __( 'kg', 'poocommerce' ),
+					'g'   => __( 'g', 'poocommerce' ),
+					'lbs' => __( 'lbs', 'poocommerce' ),
+					'oz'  => __( 'oz', 'poocommerce' ),
 				);
 
-			case 'woocommerce_dimension_unit':
+			case 'poocommerce_dimension_unit':
 				return array(
-					'm'  => __( 'm', 'woocommerce' ),
-					'cm' => __( 'cm', 'woocommerce' ),
-					'mm' => __( 'mm', 'woocommerce' ),
-					'in' => __( 'in', 'woocommerce' ),
-					'yd' => __( 'yd', 'woocommerce' ),
+					'm'  => __( 'm', 'poocommerce' ),
+					'cm' => __( 'cm', 'poocommerce' ),
+					'mm' => __( 'mm', 'poocommerce' ),
+					'in' => __( 'in', 'poocommerce' ),
+					'yd' => __( 'yd', 'poocommerce' ),
 				);
 
-			case 'woocommerce_product_type':
+			case 'poocommerce_product_type':
 				if ( ! function_exists( 'wc_get_product_types' ) ) {
 					return array();
 				}
@@ -280,9 +280,9 @@ class ProductSettingsSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Normalize WooCommerce field types to REST API field types.
+	 * Normalize PooCommerce field types to REST API field types.
 	 *
-	 * @param string $wc_type WooCommerce field type.
+	 * @param string $wc_type PooCommerce field type.
 	 * @return string Normalized field type.
 	 */
 	private function normalize_field_type( string $wc_type ): string {

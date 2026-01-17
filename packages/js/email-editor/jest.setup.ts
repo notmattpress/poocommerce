@@ -1,4 +1,4 @@
-window.WooCommerceEmailEditor = {
+window.PooCommerceEmailEditor = {
 	current_post_type: 'email',
 	current_post_id: '123',
 	current_wp_user_email: 'test@example.com',

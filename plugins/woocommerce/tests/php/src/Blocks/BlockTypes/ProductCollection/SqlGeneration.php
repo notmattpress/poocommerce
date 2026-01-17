@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
 use WC_Helper_Product;
 use WC_Tax;
 use WP_Query;
@@ -132,8 +132,8 @@ class SqlGeneration extends \WP_UnitTestCase {
 	 * Tests that the both the minimum and maximum in a price range is added if set.
 	 */
 	public function test_price_range_clauses_min_max_price_tax_exclusive() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', 'excl' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', 'excl' );
 
 		$parsed_block                                 = Utils::get_base_parsed_block();
 		$parsed_block['attrs']['query']['priceRange'] = array(
@@ -153,8 +153,8 @@ class SqlGeneration extends \WP_UnitTestCase {
 
 		$query = new WP_Query( $merged_query );
 
-		delete_option( 'woocommerce_tax_display_shop' );
-		delete_option( 'woocommerce_prices_include_tax' );
+		delete_option( 'poocommerce_tax_display_shop' );
+		delete_option( 'poocommerce_prices_include_tax' );
 
 		$this->assertStringContainsString( 'wc_product_meta_lookup.max_price >= 1.', $query->request );
 		$this->assertStringContainsString( 'wc_product_meta_lookup.min_price <= 2.', $query->request );
@@ -164,8 +164,8 @@ class SqlGeneration extends \WP_UnitTestCase {
 	 * Tests that the both the minimum and maximum in a price range with taxes inclusive is added if set.
 	 */
 	public function test_price_range_clauses_min_max_price_tax_inclusive() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_tax_display_shop', 'incl' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_tax_display_shop', 'incl' );
 		WC_Tax::create_tax_class( 'collection-test' );
 
 		$product = WC_Helper_Product::create_simple_product();
@@ -190,8 +190,8 @@ class SqlGeneration extends \WP_UnitTestCase {
 
 		$query = new WP_Query( $merged_query );
 
-		delete_option( 'woocommerce_tax_display_shop' );
-		delete_option( 'woocommerce_prices_include_tax' );
+		delete_option( 'poocommerce_tax_display_shop' );
+		delete_option( 'poocommerce_prices_include_tax' );
 		$product->delete();
 		WC_Tax::delete_tax_class_by( 'slug', 'collection-test' );
 

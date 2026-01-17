@@ -4,7 +4,7 @@
  *
  * Handles requests to the products/catalog endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   10.4.0
  */
 
@@ -12,12 +12,12 @@ declare( strict_types = 1 );
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\Utilities\FilesystemUtil;
+use Automattic\PooCommerce\Internal\Utilities\FilesystemUtil;
 
 /**
  * REST API Products Catalog controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
@@ -50,7 +50,7 @@ class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
 					'permission_callback' => array( $this, 'request_catalog_permissions_check' ),
 					'args'                => array(
 						'fields'         => array(
-							'description'       => __( 'Product/variation fields to include in the catalog. Can be an array or comma-separated string.', 'woocommerce' ),
+							'description'       => __( 'Product/variation fields to include in the catalog. Can be an array or comma-separated string.', 'poocommerce' ),
 							'type'              => array( 'array', 'string' ),
 							'items'             => array( 'type' => 'string' ),
 							'required'          => true,
@@ -58,7 +58,7 @@ class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
 							'sanitize_callback' => array( $this, 'sanitize_fields_arg' ),
 						),
 						'force_generate' => array(
-							'description'       => __( 'Whether to generate a new catalog file regardless of whether a catalog file already exists.', 'woocommerce' ),
+							'description'       => __( 'Whether to generate a new catalog file regardless of whether a catalog file already exists.', 'poocommerce' ),
 							'type'              => 'boolean',
 							'default'           => false,
 							'sanitize_callback' => 'rest_sanitize_boolean',
@@ -110,7 +110,7 @@ class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
 	 */
 	public function request_catalog_permissions_check( $request ) {
 		if ( ! ( wc_rest_check_post_permissions( 'product', 'read' ) && wc_rest_check_post_permissions( 'product_variation', 'read' ) ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 		return true;
 	}
@@ -125,11 +125,11 @@ class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
 	 */
 	public function validate_fields_arg( $value ) {
 		if ( ! is_array( $value ) && ! is_string( $value ) ) {
-			return new WP_Error( 'invalid_fields', __( 'fields must be an array of strings or a comma-separated string.', 'woocommerce' ) );
+			return new WP_Error( 'invalid_fields', __( 'fields must be an array of strings or a comma-separated string.', 'poocommerce' ) );
 		}
 
 		if ( ( is_array( $value ) && empty( $value ) ) || ( is_string( $value ) && '' === trim( $value ) ) ) {
-			return new WP_Error( 'invalid_fields', __( 'fields cannot be empty.', 'woocommerce' ) );
+			return new WP_Error( 'invalid_fields', __( 'fields cannot be empty.', 'poocommerce' ) );
 		}
 
 		return true;
@@ -164,12 +164,12 @@ class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'status'       => array(
-					'description' => __( 'Products catalog generation status.', 'woocommerce' ),
+					'description' => __( 'Products catalog generation status.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'pending', 'processing', 'complete', 'failed' ),
 				),
 				'download_url' => array(
-					'description' => __( 'Products catalog file URL. Null when catalog is not ready.', 'woocommerce' ),
+					'description' => __( 'Products catalog file URL. Null when catalog is not ready.', 'poocommerce' ),
 					'type'        => array( 'string', 'null' ),
 					'format'      => 'uri',
 				),
@@ -226,7 +226,7 @@ class WC_REST_Products_Catalog_Controller extends WC_REST_Controller {
 		$result = file_put_contents( $file_info['filepath'], $json, LOCK_EX );
 
 		if ( false === $result ) {
-			return new WP_Error( 'catalog_generation_failed', __( 'Failed to generate catalog file.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new WP_Error( 'catalog_generation_failed', __( 'Failed to generate catalog file.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		return true;

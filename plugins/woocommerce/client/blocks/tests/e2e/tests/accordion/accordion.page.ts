@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { Editor, FrontendUtils, RequestUtils } from '@woocommerce/e2e-utils';
+import { Editor, FrontendUtils, RequestUtils } from '@poocommerce/e2e-utils';
 import { BlockRepresentation } from '@wordpress/e2e-test-utils-playwright/build-types/editor/insert-block';
 
 export class AccordionPage {
@@ -33,7 +33,7 @@ export class AccordionPage {
 		blockRepresentation: BlockRepresentation
 	) {
 		const parentBlock = (
-			await this.editor.getBlockByName( 'woocommerce/accordion-panel' )
+			await this.editor.getBlockByName( 'poocommerce/accordion-panel' )
 		 ).nth( index ?? 0 );
 		const clientId =
 			( await parentBlock.getAttribute( 'data-block' ) ) ?? '';
@@ -48,7 +48,7 @@ export class AccordionPage {
 
 	async insertAccordion() {
 		const parentBlock = await this.editor.getBlockByName(
-			'woocommerce/accordion-group'
+			'poocommerce/accordion-group'
 		);
 		await this.editor.selectBlocks( parentBlock );
 		await this.editor.canvas.getByLabel( 'Add Accordion' ).click();
@@ -60,7 +60,7 @@ export class AccordionPage {
 		content: string
 	) {
 		const blockLocator = await this.editor.getBlockByName(
-			'woocommerce/accordion-group'
+			'poocommerce/accordion-group'
 		);
 		await blockLocator
 			.getByLabel( 'Accordion title' )
@@ -82,12 +82,12 @@ export class AccordionPage {
 		}[]
 	) {
 		await this.editor.insertBlock( {
-			name: 'woocommerce/accordion-group',
+			name: 'poocommerce/accordion-group',
 		} );
 		for ( let index = 0; index < accordionData.length; index++ ) {
 			const data = accordionData[ index ];
 			const accordionCount = await (
-				await this.editor.getBlockByName( 'woocommerce/accordion-item' )
+				await this.editor.getBlockByName( 'poocommerce/accordion-item' )
 			 ).count();
 			if ( index >= accordionCount ) {
 				await this.insertAccordion();

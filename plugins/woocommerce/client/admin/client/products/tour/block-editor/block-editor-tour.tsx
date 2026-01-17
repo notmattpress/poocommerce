@@ -3,9 +3,9 @@
  */
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Pill, TourKit } from '@woocommerce/components';
-import { __experimentalUseFeedbackBar as useFeedbackBar } from '@woocommerce/product-editor';
-import { recordEvent } from '@woocommerce/tracks';
+import { Pill, TourKit } from '@poocommerce/components';
+import { __experimentalUseFeedbackBar as useFeedbackBar } from '@poocommerce/product-editor';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -41,16 +41,16 @@ const BlockEditorTour = ( { shouldTourBeShown, dismissModal }: Props ) => {
 	const getTourText = () => {
 		return {
 			heading: isNewUser
-				? __( 'Meet the product editing form', 'woocommerce' )
-				: __( 'Welcome to the new product form!', 'woocommerce' ),
+				? __( 'Meet the product editing form', 'poocommerce' )
+				: __( 'Welcome to the new product form!', 'poocommerce' ),
 			description: isNewUser
 				? __(
 						"Discover the product form's unique features with a quick overview of what's included.",
-						'woocommerce'
+						'poocommerce'
 				  )
 				: __(
 						"Discover its new features and improvements with a quick overview of what's included.",
-						'woocommerce'
+						'poocommerce'
 				  ),
 		};
 	};
@@ -92,11 +92,11 @@ const BlockEditorTour = ( { shouldTourBeShown, dismissModal }: Props ) => {
 					steps: [
 						{
 							meta: {
-								name: 'woocommerce-block-editor-tour',
+								name: 'poocommerce-block-editor-tour',
 								primaryButton: {
 									text: __(
 										'View highlights',
-										'woocommerce'
+										'poocommerce'
 									),
 								},
 								descriptions: {
@@ -106,7 +106,7 @@ const BlockEditorTour = ( { shouldTourBeShown, dismissModal }: Props ) => {
 									<>
 										<span>{ heading }</span>
 										<Pill>
-											{ __( 'Beta', 'woocommerce' ) }
+											{ __( 'Beta', 'poocommerce' ) }
 										</Pill>
 									</>
 								),
@@ -159,7 +159,7 @@ const BlockEditorTour = ( { shouldTourBeShown, dismissModal }: Props ) => {
 								},
 							},
 						],
-						classNames: 'woocommerce-block-editor-tourkit',
+						classNames: 'poocommerce-block-editor-tourkit',
 					},
 				} }
 			/>

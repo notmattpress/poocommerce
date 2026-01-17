@@ -1,20 +1,20 @@
 <?php
 /**
- * WooCommerce Product Block Editor
+ * PooCommerce Product Block Editor
  */
 
 declare(strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplate;
-use Automattic\WooCommerce\Admin\PageController;
-use Automattic\WooCommerce\Enums\ProductType;
-use Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplate;
+use Automattic\PooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry;
 
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\SimpleProductTemplate;
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\ProductVariationTemplate;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\SimpleProductTemplate;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\ProductVariationTemplate;
 use WC_Meta_Data;
 use WP_Block_Editor_Context;
 
@@ -25,7 +25,7 @@ class Init {
 	/**
 	 * The context name used to identify the editor.
 	 */
-	const EDITOR_CONTEXT_NAME = 'woocommerce/edit-product';
+	const EDITOR_CONTEXT_NAME = 'poocommerce/edit-product';
 
 	/**
 	 * Supported product types.
@@ -62,14 +62,14 @@ class Init {
 
 		$this->redirection_controller = new RedirectionController();
 
-		if ( \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_block_editor' ) ) {
+		if ( \Automattic\PooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_block_editor' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'dequeue_conflicting_styles' ), 100 );
 			add_action( 'get_edit_post_link', array( $this, 'update_edit_product_link' ), 10, 2 );
 
-			add_filter( 'woocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
+			add_filter( 'poocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_filter( 'woocommerce_register_post_type_product_variation', array( $this, 'enable_rest_api_for_product_variation' ) );
+			add_filter( 'poocommerce_register_post_type_product_variation', array( $this, 'enable_rest_api_for_product_variation' ) );
 
 			add_action( 'current_screen', array( $this, 'set_current_screen_to_block_editor_if_wc_admin' ) );
 
@@ -77,10 +77,10 @@ class Init {
 			add_action( 'rest_api_init', array( $this, 'register_user_metas' ) );
 
 			add_filter( 'register_block_type_args', array( $this, 'register_metadata_attribute' ) );
-			add_filter( 'woocommerce_get_block_types', array( $this, 'get_block_types' ), 999, 1 );
+			add_filter( 'poocommerce_get_block_types', array( $this, 'get_block_types' ), 999, 1 );
 
-			add_filter( 'woocommerce_rest_prepare_product_object', array( $this, 'possibly_add_template_id' ), 10, 2 );
-			add_filter( 'woocommerce_rest_prepare_product_variation_object', array( $this, 'possibly_add_template_id' ), 10, 2 );
+			add_filter( 'poocommerce_rest_prepare_product_object', array( $this, 'possibly_add_template_id' ), 10, 2 );
+			add_filter( 'poocommerce_rest_prepare_product_variation_object', array( $this, 'possibly_add_template_id' ), 10, 2 );
 
 			// Make sure the block registry is initialized so that core blocks are registered.
 			BlockRegistry::get_instance();
@@ -110,7 +110,7 @@ class Init {
 			 * @ignore
 			 * @since 9.1.0
 			 */
-			$product_template_id = apply_filters( 'experimental_woocommerce_product_editor_product_template_id_for_product', '', $product );
+			$product_template_id = apply_filters( 'experimental_poocommerce_product_editor_product_template_id_for_product', '', $product );
 			if ( $product_template_id ) {
 				$response->data['meta_data'][] = new WC_Meta_Data(
 					array(
@@ -179,8 +179,8 @@ class Init {
 		if ( ! PageController::is_admin_page() ) {
 			return;
 		}
-		// Dequeuing this to avoid conflicts, until we remove the 'woocommerce-page' class.
-		wp_dequeue_style( 'woocommerce-blocktheme' );
+		// Dequeuing this to avoid conflicts, until we remove the 'poocommerce-page' class.
+		wp_dequeue_style( 'poocommerce-blocktheme' );
 	}
 
 	/**
@@ -281,8 +281,8 @@ class Init {
 		$templates[] = new ProductTemplate(
 			array(
 				'id'                 => 'standard-product-template',
-				'title'              => __( 'Standard product', 'woocommerce' ),
-				'description'        => __( 'A single physical or virtual product, e.g. a t-shirt or an eBook.', 'woocommerce' ),
+				'title'              => __( 'Standard product', 'poocommerce' ),
+				'description'        => __( 'A single physical or virtual product, e.g. a t-shirt or an eBook.', 'poocommerce' ),
 				'order'              => 10,
 				'icon'               => 'shipping',
 				'layout_template_id' => 'simple-product',
@@ -294,8 +294,8 @@ class Init {
 		$templates[] = new ProductTemplate(
 			array(
 				'id'                 => 'grouped-product-template',
-				'title'              => __( 'Grouped product', 'woocommerce' ),
-				'description'        => __( 'A set of products that go well together, e.g. camera kit.', 'woocommerce' ),
+				'title'              => __( 'Grouped product', 'poocommerce' ),
+				'description'        => __( 'A set of products that go well together, e.g. camera kit.', 'poocommerce' ),
 				'order'              => 20,
 				'icon'               => 'group',
 				'layout_template_id' => 'simple-product',
@@ -307,8 +307,8 @@ class Init {
 		$templates[] = new ProductTemplate(
 			array(
 				'id'                 => 'affiliate-product-template',
-				'title'              => __( 'Affiliate product', 'woocommerce' ),
-				'description'        => __( 'A link to a product sold on a different website, e.g. brand collab.', 'woocommerce' ),
+				'title'              => __( 'Affiliate product', 'poocommerce' ),
+				'description'        => __( 'A link to a product sold on a different website, e.g. brand collab.', 'poocommerce' ),
 				'order'              => 30,
 				'icon'               => 'link',
 				'layout_template_id' => 'simple-product',
@@ -407,7 +407,7 @@ class Init {
 		 *
 		 * @since 8.5.0
 		 */
-		$this->product_templates = apply_filters( 'woocommerce_product_editor_product_templates', $this->get_default_product_templates() );
+		$this->product_templates = apply_filters( 'poocommerce_product_editor_product_templates', $this->get_default_product_templates() );
 		$this->product_templates = $this->create_default_product_template_by_custom_product_type( $this->product_templates );
 
 		usort(
@@ -450,7 +450,7 @@ class Init {
 				},
 				'schema'          => array(
 					'type'        => 'array',
-					'description' => __( 'The metaboxhidden_product meta from the user metas.', 'woocommerce' ),
+					'description' => __( 'The metaboxhidden_product meta from the user metas.', 'poocommerce' ),
 					'items'       => array(
 						'type' => 'string',
 					),
@@ -491,14 +491,14 @@ class Init {
 	}
 
 	/**
-	 * Filters woocommerce block types.
+	 * Filters poocommerce block types.
 	 *
-	 * @param string[] $block_types Array of woocommerce block types.
+	 * @param string[] $block_types Array of poocommerce block types.
 	 * @return array
 	 */
 	public function get_block_types( $block_types ) {
 		if ( PageController::is_admin_page() ) {
-			// Ignore all woocommerce blocks.
+			// Ignore all poocommerce blocks.
 			return array();
 		}
 

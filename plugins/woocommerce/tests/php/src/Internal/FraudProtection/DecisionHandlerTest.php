@@ -5,12 +5,12 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\ApiClient;
-use Automattic\WooCommerce\Internal\FraudProtection\DecisionHandler;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\FraudProtection\ApiClient;
+use Automattic\PooCommerce\Internal\FraudProtection\DecisionHandler;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Unit_Test_Case;
 
 /**
@@ -49,7 +49,7 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 	 * Tear down test fixtures.
 	 */
 	public function tearDown(): void {
-		remove_all_filters( 'woocommerce_fraud_protection_decision' );
+		remove_all_filters( 'poocommerce_fraud_protection_decision' );
 		parent::tearDown();
 	}
 
@@ -98,7 +98,7 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filter_can_override_block_to_allow(): void {
 		add_filter(
-			'woocommerce_fraud_protection_decision',
+			'poocommerce_fraud_protection_decision',
 			function () {
 				return ApiClient::DECISION_ALLOW;
 			}
@@ -111,7 +111,7 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 		$result = $this->sut->apply_decision( ApiClient::DECISION_BLOCK, array( 'session_id' => 'test' ) );
 
 		$this->assertSame( ApiClient::DECISION_ALLOW, $result );
-		$this->assertLogged( 'info', 'Decision overridden by filter `woocommerce_fraud_protection_decision`' );
+		$this->assertLogged( 'info', 'Decision overridden by filter `poocommerce_fraud_protection_decision`' );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filter_can_override_allow_to_block(): void {
 		add_filter(
-			'woocommerce_fraud_protection_decision',
+			'poocommerce_fraud_protection_decision',
 			function () {
 				return ApiClient::DECISION_BLOCK;
 			}
@@ -132,7 +132,7 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 		$result = $this->sut->apply_decision( ApiClient::DECISION_ALLOW, array( 'session_id' => 'test' ) );
 
 		$this->assertSame( ApiClient::DECISION_BLOCK, $result );
-		$this->assertLogged( 'info', 'Decision overridden by filter `woocommerce_fraud_protection_decision`' );
+		$this->assertLogged( 'info', 'Decision overridden by filter `poocommerce_fraud_protection_decision`' );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filter_invalid_return_uses_original_decision(): void {
 		add_filter(
-			'woocommerce_fraud_protection_decision',
+			'poocommerce_fraud_protection_decision',
 			function () {
 				return 'totally_invalid';
 			}
@@ -153,6 +153,6 @@ class DecisionHandlerTest extends WC_Unit_Test_Case {
 		$result = $this->sut->apply_decision( ApiClient::DECISION_BLOCK, array( 'session_id' => 'test' ) );
 
 		$this->assertSame( ApiClient::DECISION_BLOCK, $result );
-		$this->assertLogged( 'warning', 'Filter `woocommerce_fraud_protection_decision` returned invalid decision "totally_invalid"' );
+		$this->assertLogged( 'warning', 'Filter `poocommerce_fraud_protection_decision` returned invalid decision "totally_invalid"' );
 	}
 }

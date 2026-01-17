@@ -9,7 +9,7 @@ import React from 'react';
 const documentationUrls = {
 	tos: 'https://wordpress.com/tos/',
 	signUpLink:
-		'https://woocommerce.com/document/woopayments/startup-guide/#sign-up-process',
+		'https://poocommerce.com/document/woopayments/startup-guide/#sign-up-process',
 	merchantTerms: 'https://wordpress.com/tos/#more-woopay-specifically',
 	privacyPolicy: 'https://automattic.com/privacy/',
 };
@@ -17,11 +17,11 @@ const documentationUrls = {
 export default {
 	steps: {
 		activate: {
-			heading: __( 'Start accepting real payments', 'woocommerce' ),
+			heading: __( 'Start accepting real payments', 'poocommerce' ),
 			subheading: interpolateComponents( {
 				mixedString: __(
 					'You are currently testing payments on your store. To activate real payments, you will need to provide some additional details about your business. {{link}}Learn more{{/link}}.',
-					'woocommerce'
+					'poocommerce'
 				),
 				components: {
 					link: (
@@ -34,78 +34,78 @@ export default {
 					),
 				},
 			} ),
-			cta: __( 'Activate payments', 'woocommerce' ),
+			cta: __( 'Activate payments', 'poocommerce' ),
 		},
 		business: {
 			heading: __(
 				'Let’s get your store ready to accept payments',
-				'woocommerce'
+				'poocommerce'
 			),
 			subheading: __(
 				'We’ll use these details to enable payments for your store. This information can’t be changed after your account is created.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		store: {
-			heading: __( 'Please share a few more details', 'woocommerce' ),
+			heading: __( 'Please share a few more details', 'poocommerce' ),
 			subheading: __(
 				'This info will help us speed up the set up process.',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 		loading: {
 			heading: __(
 				'One last step! Verify your identity with our partner',
-				'woocommerce'
+				'poocommerce'
 			),
 			subheading: __(
 				'This will take place in a secure environment through our partner. Once your business details are verified, you’ll be redirected back to your store dashboard.',
-				'woocommerce'
+				'poocommerce'
 			),
-			cta: __( 'Finish your verification process', 'woocommerce' ),
+			cta: __( 'Finish your verification process', 'poocommerce' ),
 		},
 		embedded: {
 			heading: __(
 				'One last step! Verify your identity with our partner',
-				'woocommerce'
+				'poocommerce'
 			),
 			subheading: __(
 				'This info will verify your account',
-				'woocommerce'
+				'poocommerce'
 			),
 		},
 	},
 	fields: {
-		country: __( 'Where is your business located?', 'woocommerce' ),
+		country: __( 'Where is your business located?', 'poocommerce' ),
 		business_type: __(
 			'What type of legal entity is your business?',
-			'woocommerce'
+			'poocommerce'
 		),
 		'company.structure': __(
 			'What category of legal entity identify your business?',
-			'woocommerce'
+			'poocommerce'
 		),
 		mcc: __(
 			'What type of goods or services does your business sell? ',
-			'woocommerce'
+			'poocommerce'
 		),
 	},
 	errors: {
-		generic: __( 'Please provide a response', 'woocommerce' ),
-		country: __( 'Please provide a country', 'woocommerce' ),
-		business_type: __( 'Please provide a business type', 'woocommerce' ),
-		mcc: __( 'Please provide a type of goods or services', 'woocommerce' ),
+		generic: __( 'Please provide a response', 'poocommerce' ),
+		country: __( 'Please provide a country', 'poocommerce' ),
+		business_type: __( 'Please provide a business type', 'poocommerce' ),
+		mcc: __( 'Please provide a type of goods or services', 'poocommerce' ),
 	},
 	placeholders: {
-		generic: __( 'Select an option', 'woocommerce' ),
-		country: __( 'Select a country', 'woocommerce' ),
+		generic: __( 'Select an option', 'poocommerce' ),
+		country: __( 'Select a country', 'poocommerce' ),
 	},
 	tos: interpolateComponents( {
 		mixedString: sprintf(
 			/* translators: %1$s: WooPayments, %2$s: WooPay  */
 			__(
 				'By using %1$s, you agree to be bound by our {{tosLink}}Terms of Service{{/tosLink}} (including {{merchantTermsLink}}%2$s merchant terms{{/merchantTermsLink}}) and acknowledge that you have read our {{privacyPolicyLink}}Privacy Policy{{/privacyPolicyLink}}.',
-				'woocommerce'
+				'poocommerce'
 			),
 			'WooPayments',
 			'WooPay'
@@ -137,7 +137,7 @@ export default {
 			),
 		},
 	} ),
-	continue: __( 'Continue', 'woocommerce' ),
-	back: __( 'Back', 'woocommerce' ),
-	cancel: __( 'Cancel', 'woocommerce' ),
+	continue: __( 'Continue', 'poocommerce' ),
+	back: __( 'Back', 'poocommerce' ),
+	cancel: __( 'Cancel', 'poocommerce' ),
 };

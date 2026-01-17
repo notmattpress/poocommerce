@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\StoreApi\Utilities;
+namespace Automattic\PooCommerce\Tests\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
-use Automattic\WooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
+use Automattic\PooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
 
 /**
  * Tests for AgenticCheckoutUtils class.
@@ -146,12 +146,12 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_valid_token() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up registry with OpenAI token (hashed).
 		$test_token = 'test_bearer_token_12345';
 		update_option(
-			'woocommerce_agentic_agent_registry',
+			'poocommerce_agentic_agent_registry',
 			array(
 				'openai' => array(
 					'bearer_token' => wp_hash_password( $test_token ),
@@ -179,11 +179,11 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_invalid_token() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up registry with OpenAI token (hashed).
 		update_option(
-			'woocommerce_agentic_agent_registry',
+			'poocommerce_agentic_agent_registry',
 			array(
 				'openai' => array(
 					'bearer_token' => wp_hash_password( 'correct_token' ),
@@ -212,7 +212,7 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_missing_header() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Create mock request without Authorization header.
 		$request = new \WP_REST_Request();
@@ -233,7 +233,7 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_malformed_header() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Test various malformed formats.
 		$malformed_headers = array(
@@ -262,11 +262,11 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_empty_provider_tokens() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up registry with empty token.
 		update_option(
-			'woocommerce_agentic_agent_registry',
+			'poocommerce_agentic_agent_registry',
 			array(
 				'openai' => array(
 					'bearer_token' => '',
@@ -295,13 +295,13 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_multiple_providers() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up registry with multiple providers (hashed tokens).
 		$token_a = 'provider_a_token';
 		$token_b = 'provider_b_token';
 		update_option(
-			'woocommerce_agentic_agent_registry',
+			'poocommerce_agentic_agent_registry',
 			array(
 				'general'    => array(
 					'enable_products_default' => 'yes',
@@ -336,12 +336,12 @@ class AgenticCheckoutUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_is_authorized_with_case_insensitive_bearer() {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Set up registry (hashed token).
 		$test_token = 'test_token';
 		update_option(
-			'woocommerce_agentic_agent_registry',
+			'poocommerce_agentic_agent_registry',
 			array(
 				'openai' => array(
 					'bearer_token' => wp_hash_password( $test_token ),

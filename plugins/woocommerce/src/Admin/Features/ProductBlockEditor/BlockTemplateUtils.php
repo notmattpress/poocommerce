@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\ProductBlockEditor;
+namespace Automattic\PooCommerce\Admin\Features\ProductBlockEditor;
 
-use Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry;
+use Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry;
 
 /**
  * Utils for block templates.

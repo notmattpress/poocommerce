@@ -17,8 +17,8 @@ export type SectionActionsProps = Omit<
 };
 
 const DEFAULT_SECTION_BLOCKS = [
-	'woocommerce/product-section',
-	'woocommerce/product-subsection',
+	'poocommerce/product-section',
+	'poocommerce/product-subsection',
 ];
 
 export function SectionActions( {

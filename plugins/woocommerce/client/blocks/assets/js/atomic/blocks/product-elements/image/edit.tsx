@@ -14,11 +14,11 @@ import {
 	useEffect,
 	useRef,
 } from '@wordpress/element';
-import { getAdminLink, getSettingWithCoercion } from '@woocommerce/settings';
-import { useProduct } from '@woocommerce/entities';
-import { isBoolean } from '@woocommerce/types';
+import { getAdminLink, getSettingWithCoercion } from '@poocommerce/settings';
+import { useProduct } from '@poocommerce/entities';
+import { isBoolean } from '@poocommerce/types';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
 import {
 	ToggleControl,
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -45,7 +45,7 @@ import { ImageSizeSettings } from './image-size-settings';
 
 const TEMPLATE = [
 	[
-		'woocommerce/product-sale-badge',
+		'poocommerce/product-sale-badge',
 		{
 			align: 'right',
 		},
@@ -80,7 +80,7 @@ const Edit = ( {
 					// @ts-expect-error method exists but not typed
 					select( blockEditorStore ).getBlockParentsByBlockName(
 						clientId,
-						'woocommerce/product-gallery'
+						'poocommerce/product-gallery'
 					).length > 0,
 			};
 		},
@@ -146,7 +146,7 @@ const Edit = ( {
 						setAttributes={ setAttributes }
 					/>
 					<ToolsPanel
-						label={ __( 'Content', 'woocommerce' ) }
+						label={ __( 'Content', 'poocommerce' ) }
 						resetAll={ () =>
 							setAttributes( {
 								showProductLink:
@@ -158,7 +158,7 @@ const Edit = ( {
 						<ToolsPanelItem
 							label={ __(
 								'Link to Product Page',
-								'woocommerce'
+								'poocommerce'
 							) }
 							hasValue={ () =>
 								showProductLink !==
@@ -175,11 +175,11 @@ const Edit = ( {
 							<ToggleControl
 								label={ __(
 									'Link to Product Page',
-									'woocommerce'
+									'poocommerce'
 								) }
 								help={ __(
 									'Links the image to the single product listing.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ showProductLink }
 								onChange={ () =>
@@ -190,7 +190,7 @@ const Edit = ( {
 							/>
 						</ToolsPanelItem>
 						<ToolsPanelItem
-							label={ __( 'Resolution', 'woocommerce' ) }
+							label={ __( 'Resolution', 'poocommerce' ) }
 							hasValue={ () =>
 								imageSizing !== DEFAULT_ATTRIBUTES.imageSizing
 							}
@@ -202,14 +202,14 @@ const Edit = ( {
 							isShownByDefault
 						>
 							<ToggleGroupControl
-								label={ __( 'Resolution', 'woocommerce' ) }
+								label={ __( 'Resolution', 'poocommerce' ) }
 								isBlock
 								help={
 									! isBlockTheme
 										? createInterpolateElement(
 												__(
 													'Product image cropping can be modified in the <a>Customizer</a>.',
-													'woocommerce'
+													'poocommerce'
 												),
 												{
 													a: (
@@ -217,7 +217,7 @@ const Edit = ( {
 														<a
 															href={ `${ getAdminLink(
 																'customize.php'
-															) }?autofocus[panel]=woocommerce&autofocus[section]=woocommerce_product_images` }
+															) }?autofocus[panel]=poocommerce&autofocus[section]=poocommerce_product_images` }
 															target="_blank"
 															rel="noopener noreferrer"
 														/>
@@ -233,11 +233,11 @@ const Edit = ( {
 							>
 								<ToggleGroupControlOption
 									value={ ImageSizing.SINGLE }
-									label={ __( 'Full Size', 'woocommerce' ) }
+									label={ __( 'Full Size', 'poocommerce' ) }
 								/>
 								<ToggleGroupControlOption
 									value={ ImageSizing.THUMBNAIL }
-									label={ __( 'Thumbnail', 'woocommerce' ) }
+									label={ __( 'Thumbnail', 'poocommerce' ) }
 								/>
 							</ToggleGroupControl>
 						</ToolsPanelItem>

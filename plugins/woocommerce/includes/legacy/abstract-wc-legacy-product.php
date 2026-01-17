@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This class will be removed in future versions.
  *
  * @version  3.0.0
- * @package  WooCommerce\Abstracts
+ * @package  PooCommerce\Abstracts
  * @category Abstract Class
  * @author   WooThemes
  */
@@ -72,7 +72,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 			return $this->post_type;
 		}
 
-		wc_doing_it_wrong( $key, __( 'Product properties should not be accessed directly.', 'woocommerce' ), '3.0' );
+		wc_doing_it_wrong( $key, __( 'Product properties should not be accessed directly.', 'poocommerce' ), '3.0' );
 
 		switch ( $key ) {
 			case 'id' :
@@ -165,7 +165,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	 */
 	public function get_variation_default_attributes() {
 		wc_deprecated_function( 'WC_Product_Variable::get_variation_default_attributes', '3.0', 'WC_Product::get_default_attributes' );
-		return apply_filters( 'woocommerce_product_default_attributes', $this->get_default_attributes(), $this );
+		return apply_filters( 'poocommerce_product_default_attributes', $this->get_default_attributes(), $this );
 	}
 
 	/**
@@ -300,7 +300,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	 */
 	public function get_price_html_from_to( $from, $to ) {
 		wc_deprecated_function( 'WC_Product::get_price_html_from_to', '3.0', 'wc_format_sale_price' );
-		return apply_filters( 'woocommerce_get_price_html_from_to', wc_format_sale_price( $from, $to ), $from, $to, $this );
+		return apply_filters( 'poocommerce_get_price_html_from_to', wc_format_sale_price( $from, $to ), $from, $to, $this );
 	}
 
 	/**
@@ -326,7 +326,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	}
 
 	/**
-	 * Returns the price including or excluding tax, based on the 'woocommerce_tax_display_shop' setting.
+	 * Returns the price including or excluding tax, based on the 'poocommerce_tax_display_shop' setting.
 	 *
 	 * @deprecated 3.0.0 Use wc_get_price_to_display instead.
 	 * @param  string  $price to calculate, left blank to just use get_price()
@@ -418,7 +418,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	 */
 	public function get_parent() {
 		wc_deprecated_function( 'WC_Product::get_parent', '3.0', 'WC_Product::get_parent_id' );
-		return apply_filters( 'woocommerce_product_parent', absint( $this->get_post_data()->post_parent ), $this );
+		return apply_filters( 'poocommerce_product_parent', absint( $this->get_post_data()->post_parent ), $this );
 	}
 
 	/**
@@ -429,7 +429,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	 */
 	public function get_upsells() {
 		wc_deprecated_function( 'WC_Product::get_upsells', '3.0', 'WC_Product::get_upsell_ids' );
-		return apply_filters( 'woocommerce_product_upsell_ids', $this->get_upsell_ids(), $this );
+		return apply_filters( 'poocommerce_product_upsell_ids', $this->get_upsell_ids(), $this );
 	}
 
 	/**
@@ -440,7 +440,7 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	 */
 	public function get_cross_sells() {
 		wc_deprecated_function( 'WC_Product::get_cross_sells', '3.0', 'WC_Product::get_cross_sell_ids' );
-		return apply_filters( 'woocommerce_product_crosssell_ids', $this->get_cross_sell_ids(), $this );
+		return apply_filters( 'poocommerce_product_crosssell_ids', $this->get_cross_sell_ids(), $this );
 	}
 
 	/**
@@ -656,8 +656,8 @@ abstract class WC_Abstract_Legacy_Product extends WC_Data {
 	 */
 	public static function sync_average_rating( $post_id ) {
 		wc_deprecated_function( 'WC_Product::sync_average_rating', '3.0', 'WC_Comments::get_average_rating_for_product or leave to CRUD.' );
-		// See notes in https://github.com/woocommerce/woocommerce/pull/22909#discussion_r262393401.
-		// Sync count first like in the original method https://github.com/woocommerce/woocommerce/blob/2.6.0/includes/abstracts/abstract-wc-product.php#L1101-L1128.
+		// See notes in https://github.com/poocommerce/poocommerce/pull/22909#discussion_r262393401.
+		// Sync count first like in the original method https://github.com/poocommerce/poocommerce/blob/2.6.0/includes/abstracts/abstract-wc-product.php#L1101-L1128.
 		self::sync_rating_count( $post_id );
 		$average = WC_Comments::get_average_rating_for_product( wc_get_product( $post_id ) );
 		update_post_meta( $post_id, '_wc_average_rating', $average );

@@ -2,23 +2,23 @@
 /**
  * FraudProtectionDispatcherTest class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\ApiClient;
-use Automattic\WooCommerce\Internal\FraudProtection\DecisionHandler;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionDispatcher;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\ApiClient;
+use Automattic\PooCommerce\Internal\FraudProtection\DecisionHandler;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionDispatcher;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
 
 /**
  * Tests for FraudProtectionDispatcher.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionDispatcher
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionDispatcher
  */
 class FraudProtectionDispatcherTest extends \WC_Unit_Test_Case {
 
@@ -285,7 +285,7 @@ class FraudProtectionDispatcherTest extends \WC_Unit_Test_Case {
 
 		// Add a filter that modifies the data.
 		add_filter(
-			'woocommerce_fraud_protection_event_data',
+			'poocommerce_fraud_protection_event_data',
 			function ( $data, $type ) use ( $event_type ) {
 				$this->assertEquals( $event_type, $type );
 				$data['filtered'] = true;
@@ -324,6 +324,6 @@ class FraudProtectionDispatcherTest extends \WC_Unit_Test_Case {
 		$this->sut->dispatch_event( $event_type, $event_data );
 
 		// Clean up filter.
-		remove_all_filters( 'woocommerce_fraud_protection_event_data' );
+		remove_all_filters( 'poocommerce_fraud_protection_event_data' );
 	}
 }

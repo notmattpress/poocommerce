@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories;
 
 use Exception;
-use Automattic\WooCommerce\Internal\Utilities\URL;
+use Automattic\PooCommerce\Internal\Utilities\URL;
 use WC_Admin_Notices;
 use WC_Product;
 use WC_Queue_Interface;
@@ -16,12 +16,12 @@ class Synchronize {
 	/**
 	 * Scheduled action hook used to facilitate scanning the product catalog for downloadable products.
 	 */
-	public const SYNC_TASK = 'woocommerce_download_dir_sync';
+	public const SYNC_TASK = 'poocommerce_download_dir_sync';
 
 	/**
-	 * The group under which synchronization tasks run (our standard 'woocommerce-db-updates' group).
+	 * The group under which synchronization tasks run (our standard 'poocommerce-db-updates' group).
 	 */
-	public const SYNC_TASK_GROUP = 'woocommerce-db-updates';
+	public const SYNC_TASK_GROUP = 'poocommerce-db-updates';
 
 	/**
 	 * Used to track progress throughout the sync process.
@@ -92,7 +92,7 @@ class Synchronize {
 				$this->start();
 			}
 		} catch ( Exception $e ) {
-			wc_get_logger()->log( 'warning', __( 'It was not possible to synchronize download directories following the most recent update.', 'woocommerce' ) );
+			wc_get_logger()->log( 'warning', __( 'It was not possible to synchronize download directories following the most recent update.', 'poocommerce' ) );
 		}
 
 		$this->register->set_mode(
@@ -101,15 +101,15 @@ class Synchronize {
 	}
 
 	/**
-	 * By default we add the woocommerce_uploads directory (file path plus web URL) to the list
+	 * By default we add the poocommerce_uploads directory (file path plus web URL) to the list
 	 * of approved download directories.
 	 *
 	 * @throws Exception If the default directories cannot be added to the Approved List.
 	 */
 	public function add_default_directories() {
 		$upload_dir = wp_get_upload_dir();
-		$this->register->add_approved_directory( $upload_dir['basedir'] . '/woocommerce_uploads' );
-		$this->register->add_approved_directory( $upload_dir['baseurl'] . '/woocommerce_uploads' );
+		$this->register->add_approved_directory( $upload_dir['basedir'] . '/poocommerce_uploads' );
+		$this->register->add_approved_directory( $upload_dir['baseurl'] . '/poocommerce_uploads' );
 	}
 
 	/**
@@ -119,13 +119,13 @@ class Synchronize {
 	 */
 	public function start(): bool {
 		if ( null !== $this->queue->get_next( self::SYNC_TASK ) ) {
-			wc_get_logger()->log( 'warning', __( 'Synchronization of approved product download directories is already in progress.', 'woocommerce' ) );
+			wc_get_logger()->log( 'warning', __( 'Synchronization of approved product download directories is already in progress.', 'poocommerce' ) );
 			return false;
 		}
 
 		update_option( self::SYNC_TASK_PAGE, 1 );
 		$this->queue->schedule_single( time(), self::SYNC_TASK, array(), self::SYNC_TASK_GROUP );
-		wc_get_logger()->log( 'info', __( 'Approved Download Directories sync: new scan scheduled.', 'woocommerce' ) );
+		wc_get_logger()->log( 'info', __( 'Approved Download Directories sync: new scan scheduled.', 'poocommerce' ) );
 		return true;
 	}
 
@@ -141,14 +141,14 @@ class Synchronize {
 
 		// Detect if we have reached the end of the task.
 		if ( count( $products ) < self::SYNC_TASK_BATCH_SIZE ) {
-			wc_get_logger()->log( 'info', __( 'Approved Download Directories sync: scan is complete!', 'woocommerce' ) );
+			wc_get_logger()->log( 'info', __( 'Approved Download Directories sync: scan is complete!', 'poocommerce' ) );
 			$this->stop();
 		} else {
 			wc_get_logger()->log(
 				'info',
 				sprintf(
 				/* translators: %1$d is the current batch in the synchronization task, %2$d is the percent complete. */
-					__( 'Approved Download Directories sync: completed batch %1$d (%2$d%% complete).', 'woocommerce' ),
+					__( 'Approved Download Directories sync: completed batch %1$d (%2$d%% complete).', 'poocommerce' ),
 					(int) get_option( self::SYNC_TASK_PAGE, 2 ) - 1,
 					$this->get_progress()
 				)
@@ -185,7 +185,7 @@ class Synchronize {
 		};
 
 		$page = (int) get_option( self::SYNC_TASK_PAGE, 1 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', $query_filter );
+		add_filter( 'poocommerce_product_data_store_cpt_get_products_query', $query_filter );
 
 		$products = wc_get_products(
 			array(
@@ -195,7 +195,7 @@ class Synchronize {
 			)
 		);
 
-		remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', $query_filter );
+		remove_filter( 'poocommerce_product_data_store_cpt_get_products_query', $query_filter );
 		$progress = $products->max_num_pages > 0 ? (int) ( ( $page / $products->max_num_pages ) * 100 ) : 1;
 		update_option( self::SYNC_TASK_PAGE, $page + 1 );
 		update_option( self::SYNC_TASK_PROGRESS, $progress );
@@ -216,7 +216,7 @@ class Synchronize {
 		$downloads = $product->get_downloads();
 
 		foreach ( $downloads as $downloadable ) {
-			$parent_url = _x( 'invalid URL', 'Approved product download URLs migration', 'woocommerce' );
+			$parent_url = _x( 'invalid URL', 'Approved product download URLs migration', 'poocommerce' );
 
 			try {
 				$download_file = $downloadable->get_file();
@@ -226,7 +226,7 @@ class Synchronize {
 				 *
 				 * @param bool $should_validate
 				 */
-				if ( apply_filters( 'woocommerce_product_downloads_approved_directory_validation_for_shortcodes', true ) && 'shortcode' === $downloadable->get_type_of_file_path() ) {
+				if ( apply_filters( 'poocommerce_product_downloads_approved_directory_validation_for_shortcodes', true ) && 'shortcode' === $downloadable->get_type_of_file_path() ) {
 					$download_file = do_shortcode( $download_file );
 				}
 
@@ -237,7 +237,7 @@ class Synchronize {
 					'error',
 					sprintf(
 					/* translators: %s is a URL, %d is a product ID. */
-						__( 'Product download migration: %1$s (for product %1$d) could not be added to the list of approved download directories.', 'woocommerce' ),
+						__( 'Product download migration: %1$s (for product %1$d) could not be added to the list of approved download directories.', 'poocommerce' ),
 						$parent_url,
 						$product->get_id()
 					)

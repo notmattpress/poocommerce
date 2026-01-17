@@ -229,7 +229,7 @@ export const getEditedPostTemplate = createRegistrySelector(
 				const query: Record< string, string | number > = {
 					context: 'view',
 					per_page: -1,
-					_woocommerce_email_editor: 'fetch-all-templates', // Unused parameter to avoid using cached response.
+					_poocommerce_email_editor: 'fetch-all-templates', // Unused parameter to avoid using cached response.
 				};
 
 				const templateWithSameSlug = select( coreDataStore )

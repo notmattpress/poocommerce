@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Class Product_Simple.
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 2.3
  */
 class WC_Tests_Product_Simple extends WC_Unit_Test_Case {

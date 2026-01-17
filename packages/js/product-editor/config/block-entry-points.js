@@ -47,7 +47,7 @@ const getBlockFileAssets = ( blockMetaData ) => {
 };
 
 /**
- * Get the block name from the meta data, removing the `woocommerce/` namespace.
+ * Get the block name from the meta data, removing the `poocommerce/` namespace.
  *
  * @param {Object} blockMetaData
  * @return {string} Block name.

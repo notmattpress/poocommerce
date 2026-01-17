@@ -19,11 +19,11 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.BY_CATEGORY,
-	title: __( 'Products by Category', 'woocommerce' ),
+	title: __( 'Products by Category', 'poocommerce' ),
 	icon: <Icon icon={ category } />,
 	description: __(
 		'Display products from specific categories.',
-		'woocommerce'
+		'poocommerce'
 	),
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
 };
@@ -42,7 +42,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'Products by Category', 'woocommerce' ),
+		content: __( 'Products by Category', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

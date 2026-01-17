@@ -166,7 +166,7 @@ export const SettingsProvider = ( {
 				dispatch( noticesStore ).createSuccessNotice(
 					__(
 						'Local Pickup settings have been saved.',
-						'woocommerce'
+						'poocommerce'
 					)
 				);
 			}

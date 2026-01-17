@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-downloads-field",
+	"name": "poocommerce/product-downloads-field",
 	"title": "Product downloads",
 	"category": "widgets",
 	"description": "The product downloads.",

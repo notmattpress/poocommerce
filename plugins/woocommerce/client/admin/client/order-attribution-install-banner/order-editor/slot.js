@@ -46,9 +46,9 @@ const OrderAttributionInstallBannerSlotFill = () => {
 				bannerType={ BANNER_TYPE_SMALL }
 				description={ __(
 					'View all of your orders in our new Order Attribution extension.',
-					'woocommerce'
+					'poocommerce'
 				) }
-				buttonText={ __( 'Install the extension', 'woocommerce' ) }
+				buttonText={ __( 'Install the extension', 'poocommerce' ) }
 			/>
 		</Fill>
 	);
@@ -56,7 +56,7 @@ const OrderAttributionInstallBannerSlotFill = () => {
 
 export const registerOrderAttributionSlotFill = () => {
 	registerPlugin(
-		'woocommerce-admin-order-editor-order-attribution-install-banner-slotfill',
+		'poocommerce-admin-order-editor-order-attribution-install-banner-slotfill',
 		{
 			scope: ORDER_ATTRIBUTION_INSTALL_BANNER_SLOT_SCOPE,
 			render: OrderAttributionInstallBannerSlotFill,

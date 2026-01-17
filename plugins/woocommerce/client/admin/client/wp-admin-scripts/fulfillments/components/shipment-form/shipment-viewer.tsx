@@ -41,7 +41,7 @@ export default function ShipmentViewer() {
 		return (
 			findShipmentProviderName( savedProvider ) ||
 			savedProviderName ||
-			__( 'Unknown', 'woocommerce' )
+			__( 'Unknown', 'poocommerce' )
 		);
 	};
 
@@ -69,7 +69,7 @@ export default function ShipmentViewer() {
 					<>
 						<TruckIcon />
 						<h3>
-							{ __( 'No shipment information', 'woocommerce' ) }
+							{ __( 'No shipment information', 'poocommerce' ) }
 						</h3>
 					</>
 				)
@@ -79,18 +79,18 @@ export default function ShipmentViewer() {
 				<MetaList
 					metaList={ [
 						{
-							label: __( 'Tracking number', 'woocommerce' ),
+							label: __( 'Tracking number', 'poocommerce' ),
 							value: trackingNumber,
 						},
 						{
-							label: __( 'Provider name', 'woocommerce' ),
+							label: __( 'Provider name', 'poocommerce' ),
 							value: getShipmentProviderLabel(
 								shipmentProvider,
 								providerName
 							),
 						},
 						{
-							label: __( 'Tracking URL', 'woocommerce' ),
+							label: __( 'Tracking URL', 'poocommerce' ),
 							value: trackingUrl,
 						},
 					] }

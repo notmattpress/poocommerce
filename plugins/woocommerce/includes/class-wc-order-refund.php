@@ -4,10 +4,10 @@
  * contain much of the same data.
  *
  * @version 3.0.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -82,7 +82,7 @@ class WC_Order_Refund extends WC_Abstract_Order {
 	 */
 	public function get_post_title() {
 		// @codingStandardsIgnoreStart
-		return sprintf( __( 'Refund &ndash; %s', 'woocommerce' ), (new DateTime('now'))->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'woocommerce' ) ) );
+		return sprintf( __( 'Refund &ndash; %s', 'poocommerce' ), (new DateTime('now'))->format( _x( 'M d, Y @ h:i A', 'Order date parsed by DateTime::format', 'poocommerce' ) ) );
 		// @codingStandardsIgnoreEnd
 	}
 
@@ -136,7 +136,7 @@ class WC_Order_Refund extends WC_Abstract_Order {
 	 * @return string
 	 */
 	public function get_formatted_refund_amount() {
-		return apply_filters( 'woocommerce_formatted_refund_amount', wc_price( $this->get_amount(), array( 'currency' => $this->get_currency() ) ), $this );
+		return apply_filters( 'poocommerce_formatted_refund_amount', wc_price( $this->get_amount(), array( 'currency' => $this->get_currency() ) ), $this );
 	}
 
 	/**

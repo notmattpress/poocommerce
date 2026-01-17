@@ -1,6 +1,6 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -15,7 +15,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  *
  * @author      WooThemes
  * @category    Admin
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 class WC_Report_Stock extends WP_List_Table {
@@ -45,7 +45,7 @@ class WC_Report_Stock extends WP_List_Table {
 	 * No items found text.
 	 */
 	public function no_items() {
-		_e( 'No products found.', 'woocommerce' );
+		_e( 'No products found.', 'poocommerce' );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class WC_Report_Stock extends WP_List_Table {
 	public function output_report() {
 
 		$this->prepare_items();
-		echo '<div id="poststuff" class="woocommerce-reports-wide">';
+		echo '<div id="poststuff" class="poocommerce-reports-wide">';
 		$this->display();
 		echo '</div>';
 	}
@@ -113,13 +113,13 @@ class WC_Report_Stock extends WP_List_Table {
 
 			case 'stock_status':
 				if ( $product->is_on_backorder() ) {
-					$stock_html = '<mark class="onbackorder">' . __( 'On backorder', 'woocommerce' ) . '</mark>';
+					$stock_html = '<mark class="onbackorder">' . __( 'On backorder', 'poocommerce' ) . '</mark>';
 				} elseif ( $product->is_in_stock() ) {
-					$stock_html = '<mark class="instock">' . __( 'In stock', 'woocommerce' ) . '</mark>';
+					$stock_html = '<mark class="instock">' . __( 'In stock', 'poocommerce' ) . '</mark>';
 				} else {
-					$stock_html = '<mark class="outofstock">' . __( 'Out of stock', 'woocommerce' ) . '</mark>';
+					$stock_html = '<mark class="outofstock">' . __( 'Out of stock', 'poocommerce' ) . '</mark>';
 				}
-				echo apply_filters( 'woocommerce_admin_stock_html', $stock_html, $product );
+				echo apply_filters( 'poocommerce_admin_stock_html', $stock_html, $product );
 				break;
 
 			case 'stock_level':
@@ -134,26 +134,26 @@ class WC_Report_Stock extends WP_List_Table {
 
 					$actions['edit'] = array(
 						'url'    => admin_url( 'post.php?post=' . $action_id . '&action=edit' ),
-						'name'   => __( 'Edit', 'woocommerce' ),
+						'name'   => __( 'Edit', 'poocommerce' ),
 						'action' => 'edit',
 					);
 
 					if ( $product->is_visible() ) {
 						$actions['view'] = array(
 							'url'    => get_permalink( $action_id ),
-							'name'   => __( 'View', 'woocommerce' ),
+							'name'   => __( 'View', 'poocommerce' ),
 							'action' => 'view',
 						);
 					}
 
-					$actions = apply_filters( 'woocommerce_admin_stock_report_product_actions', $actions, $product );
+					$actions = apply_filters( 'poocommerce_admin_stock_report_product_actions', $actions, $product );
 
 					foreach ( $actions as $action ) {
 						printf(
 							'<a class="button tips %1$s" href="%2$s" data-tip="%3$s">%4$s</a>',
 							esc_attr( $action['action'] ),
 							esc_url( $action['url'] ),
-							sprintf( esc_attr__( '%s product', 'woocommerce' ), $action['name'] ),
+							sprintf( esc_attr__( '%s product', 'poocommerce' ), $action['name'] ),
 							esc_html( $action['name'] )
 						);
 					}
@@ -172,11 +172,11 @@ class WC_Report_Stock extends WP_List_Table {
 	public function get_columns() {
 
 		$columns = array(
-			'product'      => __( 'Product', 'woocommerce' ),
-			'parent'       => __( 'Parent', 'woocommerce' ),
-			'stock_level'  => __( 'Units in stock', 'woocommerce' ),
-			'stock_status' => __( 'Stock status', 'woocommerce' ),
-			'wc_actions'   => __( 'Actions', 'woocommerce' ),
+			'product'      => __( 'Product', 'poocommerce' ),
+			'parent'       => __( 'Parent', 'poocommerce' ),
+			'stock_level'  => __( 'Units in stock', 'poocommerce' ),
+			'stock_status' => __( 'Stock status', 'poocommerce' ),
+			'wc_actions'   => __( 'Actions', 'poocommerce' ),
 		);
 
 		return $columns;
@@ -189,7 +189,7 @@ class WC_Report_Stock extends WP_List_Table {
 
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 		$current_page          = absint( $this->get_pagenum() );
-		$per_page              = apply_filters( 'woocommerce_admin_stock_report_products_per_page', 20 );
+		$per_page              = apply_filters( 'poocommerce_admin_stock_report_products_per_page', 20 );
 
 		$this->get_items( $current_page, $per_page );
 

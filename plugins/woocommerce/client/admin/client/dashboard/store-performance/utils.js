@@ -3,11 +3,11 @@
  */
 import moment from 'moment';
 import { find } from 'lodash';
-import { getCurrentDates, appendTimestamp } from '@woocommerce/date';
-import { getFilterQuery, settingsStore, reportsStore } from '@woocommerce/data';
-import { getNewPath } from '@woocommerce/navigation';
-import { calculateDelta, formatValue } from '@woocommerce/number';
-import { getAdminLink } from '@woocommerce/settings';
+import { getCurrentDates, appendTimestamp } from '@poocommerce/date';
+import { getFilterQuery, settingsStore, reportsStore } from '@poocommerce/data';
+import { getNewPath } from '@poocommerce/navigation';
+import { calculateDelta, formatValue } from '@poocommerce/number';
+import { getAdminLink } from '@poocommerce/settings';
 
 function getReportUrl( href, persistedQuery, primaryItem ) {
 	if ( ! href ) {
@@ -72,7 +72,7 @@ export const getIndicatorValues = ( {
 export const getIndicatorData = ( select, indicators, query, filters ) => {
 	const { getReportItems, getReportItemsError, isResolving } =
 		select( reportsStore );
-	const { woocommerce_default_date_range: defaultDateRange } = select(
+	const { poocommerce_default_date_range: defaultDateRange } = select(
 		settingsStore
 	).getSetting( 'wc_admin', 'wcAdminSettings' );
 	const datesFromQuery = getCurrentDates( query, defaultDateRange );

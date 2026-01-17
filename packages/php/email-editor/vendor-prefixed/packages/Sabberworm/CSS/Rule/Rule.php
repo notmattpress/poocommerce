@@ -1,18 +1,18 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Rule;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Rule;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSElement;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\RuleValueList;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Comment;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Comment\Commentable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\CSSElement;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Position;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Position\Positionable;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\RuleValueList;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value\Value;
 
 /**
  * `Rule`s just have a string key (the rule) and a 'Value'.

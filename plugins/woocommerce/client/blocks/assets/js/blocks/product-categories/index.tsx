@@ -32,10 +32,10 @@ registerBlockType( metadata, {
 					idBase,
 					instance,
 				}: ProductCategoriesIndexProps ) =>
-					idBase === 'woocommerce_product_categories' &&
+					idBase === 'poocommerce_product_categories' &&
 					!! instance?.raw,
 				transform: ( { instance } ) =>
-					createBlock( 'woocommerce/product-categories', {
+					createBlock( 'poocommerce/product-categories', {
 						hasCount: !! instance.raw.count,
 						hasEmpty: ! instance.raw.hide_empty,
 						isDropdown: !! instance.raw.dropdown,

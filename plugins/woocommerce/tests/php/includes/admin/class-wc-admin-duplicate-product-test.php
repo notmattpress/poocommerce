@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Unit tests for the WC_Admin_Duplicate_Product class.
  *
- * @package WooCommerce\Tests\Admin
+ * @package PooCommerce\Tests\Admin
  */
 
 /**
@@ -54,11 +54,11 @@ class WC_Admin_Duplicate_Product_Test extends WC_Unit_Test_Case {
 			$this->assertContains( 'test_data', $existing_meta_keys );
 			return array( 'test_data' );
 		};
-		add_filter( 'woocommerce_duplicate_product_exclude_meta', $filter, 10, 2 );
+		add_filter( 'poocommerce_duplicate_product_exclude_meta', $filter, 10, 2 );
 
 		$duplicate = ( new WC_Admin_Duplicate_Product() )->product_duplicate( $product );
 
-		remove_filter( 'woocommerce_duplicate_product_exclude_meta', $filter );
+		remove_filter( 'poocommerce_duplicate_product_exclude_meta', $filter );
 
 		$this->assertNotEquals( $product->get_id(), $duplicate->get_id() );
 		$this->assertEmpty( $duplicate->get_meta_data() );

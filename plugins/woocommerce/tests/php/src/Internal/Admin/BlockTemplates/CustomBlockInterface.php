@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockContainerInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
 
 interface CustomBlockInterface extends BlockContainerInterface {
 	/**

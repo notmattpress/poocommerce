@@ -9,8 +9,8 @@ import {
 	useEffect,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Form, FormErrors, useFormContext } from '@woocommerce/components';
-import { ProductShippingClass } from '@woocommerce/data';
+import { Form, FormErrors, useFormContext } from '@poocommerce/components';
+import { ProductShippingClass } from '@poocommerce/data';
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import {
@@ -106,16 +106,16 @@ function ShippingClassForm( { onAdd, onCancel }: ShippingClassFormProps ) {
 	}
 
 	return (
-		<div className="woocommerce-add-new-shipping-class-modal__wrapper">
+		<div className="poocommerce-add-new-shipping-class-modal__wrapper">
 			<TextControl
 				{ ...getInputProps( 'name' ) }
-				placeholder={ __( 'e.g. Fragile products', 'woocommerce' ) }
+				placeholder={ __( 'e.g. Fragile products', 'poocommerce' ) }
 				label={ createInterpolateElement(
-					__( 'Name <required />', 'woocommerce' ),
+					__( 'Name <required />', 'poocommerce' ),
 					{
 						required: (
-							<span className="woocommerce-add-new-shipping-class-modal__optional-input">
-								{ __( '(required)', 'woocommerce' ) }
+							<span className="poocommerce-add-new-shipping-class-modal__optional-input">
+								{ __( '(required)', 'poocommerce' ) }
 							</span>
 						),
 					}
@@ -126,7 +126,7 @@ function ShippingClassForm( { onAdd, onCancel }: ShippingClassFormProps ) {
 
 			<InputControl
 				{ ...getInputProps( 'slug' ) }
-				label={ __( 'Slug', 'woocommerce' ) }
+				label={ __( 'Slug', 'poocommerce' ) }
 				onChange={ ( value ) => {
 					setPrevNameValue( '' ); // clean the previous name value.
 					getInputProps( 'slug' ).onChange( value ?? '' );
@@ -134,7 +134,7 @@ function ShippingClassForm( { onAdd, onCancel }: ShippingClassFormProps ) {
 				disabled={ isRequestingSlug }
 				help={ __(
 					'Set a custom slug or generate it by clicking the button.',
-					'woocommerce'
+					'poocommerce'
 				) }
 				prefix={
 					<InputControlPrefixWrapper>
@@ -145,7 +145,7 @@ function ShippingClassForm( { onAdd, onCancel }: ShippingClassFormProps ) {
 							isBusy={ isRequestingSlug }
 							isSmall
 						>
-							{ __( 'Generate', 'woocommerce' ) }
+							{ __( 'Generate', 'poocommerce' ) }
 						</Button>
 					</InputControlPrefixWrapper>
 				}
@@ -153,19 +153,19 @@ function ShippingClassForm( { onAdd, onCancel }: ShippingClassFormProps ) {
 
 			<TextControl
 				{ ...getInputProps( 'description' ) }
-				label={ __( 'Description', 'woocommerce' ) }
+				label={ __( 'Description', 'poocommerce' ) }
 				help={
 					errors?.description ??
 					__(
 						'Describe how you and other store administrators can use this shipping class.',
-						'woocommerce'
+						'poocommerce'
 					)
 				}
 			/>
 
-			<div className="woocommerce-add-new-shipping-class-modal__buttons">
+			<div className="poocommerce-add-new-shipping-class-modal__buttons">
 				<Button variant="secondary" onClick={ onCancel }>
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>
 				<Button
 					variant="primary"
@@ -173,7 +173,7 @@ function ShippingClassForm( { onAdd, onCancel }: ShippingClassFormProps ) {
 					disabled={ ! isValidForm || isLoading }
 					onClick={ handleAdd }
 				>
-					{ __( 'Add', 'woocommerce' ) }
+					{ __( 'Add', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>
@@ -188,7 +188,7 @@ function validateForm(
 	if ( ! values.name?.length ) {
 		errors.name = __(
 			'The shipping class name is required.',
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -227,8 +227,8 @@ export function AddNewShippingClassModal( {
 
 	return (
 		<Modal
-			title={ __( 'New shipping class', 'woocommerce' ) }
-			className="woocommerce-add-new-shipping-class-modal"
+			title={ __( 'New shipping class', 'poocommerce' ) }
+			className="poocommerce-add-new-shipping-class-modal"
 			onRequestClose={ onCancel }
 		>
 			<Form< Partial< ProductShippingClass > >

@@ -3,11 +3,11 @@
  */
 import { Post, useEntityRecords } from '@wordpress/core-data';
 import { useDispatch, select, subscribe } from '@wordpress/data';
-import { settingsStore } from '@woocommerce/data';
+import { settingsStore } from '@poocommerce/data';
 import { useState, useCallback, useMemo } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 // @ts-expect-error - We need to use this /wp see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-dataviews/#dataviews
-import { View } from '@wordpress/dataviews/wp'; // eslint-disable-line @woocommerce/dependency-group
+import { View } from '@wordpress/dataviews/wp'; // eslint-disable-line @poocommerce/dependency-group
 
 /**
  * Internal dependencies
@@ -270,7 +270,7 @@ export const useTransactionalEmails = (
 				const wpError = e as WPError;
 				// eslint-disable-next-line no-console
 				console.error(
-					'[WooCommerce Admin] Error recreating email post: ',
+					'[PooCommerce Admin] Error recreating email post: ',
 					wpError
 				);
 			}

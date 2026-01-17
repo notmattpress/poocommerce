@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Utilities;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Utilities;
 
 /**
  * Helper class for hashing.
  *
  * Hint: This is a copy of the hashing functions introduced in WordPress 6.8.
- * Once WooCommerce Core requires WordPress 6.8, we can remove/replace this class.
+ * Once PooCommerce Core requires WordPress 6.8, we can remove/replace this class.
  *
  * @internal
  */

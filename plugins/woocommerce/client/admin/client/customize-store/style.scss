@@ -1,24 +1,24 @@
-.woocommerce-layout .woocommerce-layout__main {
+.poocommerce-layout .poocommerce-layout__main {
 	@include breakpoint("<782px") {
 		padding-top: 0 !important;
 	}
 
-	.woocommerce-customize-store__loading {
+	.poocommerce-customize-store__loading {
 		display: grid;
 		place-items: center;
 		height: 100vh;
 	}
 }
 
-.woocommerce-customize-store {
+.poocommerce-customize-store {
 	background-color: #fff;
 
-	#woocommerce-layout__primary {
+	#poocommerce-layout__primary {
 		margin: 0;
 		width: 100%;
 	}
 
-	.woocommerce-layout__main {
+	.poocommerce-layout__main {
 		padding-right: 0;
 	}
 
@@ -33,7 +33,7 @@
 }
 
 // Splash page layout
-.woocommerce-customize-store__container {
+.poocommerce-customize-store__container {
 	display: flex;
 	flex-direction: row;
 	background-color: #fcfcfc;
@@ -44,7 +44,7 @@
 	}
 }
 
-.woocommerce-customize-store-sidebar {
+.poocommerce-customize-store-sidebar {
 	width: 380px;
 	height: 100%;
 	padding: 0 16px;
@@ -56,26 +56,26 @@
 		width: 280px;
 	}
 
-	.woocommerce-edit-site-layout__hub {
+	.poocommerce-edit-site-layout__hub {
 		width: 380px;
 		height: 64px;
 	}
 
-	.woocommerce-edit-site-site-hub {
+	.poocommerce-edit-site-site-hub {
 		align-items: center;
 		display: flex;
 		gap: 8px;
 		justify-content: space-between;
 	}
 
-	.woocommerce-edit-site-site-hub__view-mode-toggle-container {
+	.poocommerce-edit-site-site-hub__view-mode-toggle-container {
 		height: 64px;
 		padding: 16px 12px 0 0;
 		color: #ccc;
 		width: auto;
 	}
 
-	.woocommerce-edit-site-sidebar-navigation-screen__title-icon {
+	.poocommerce-edit-site-sidebar-navigation-screen__title-icon {
 		align-items: center;
 		background-color: transparent;
 		padding-top: 16px;
@@ -86,12 +86,12 @@
 		z-index: 2;
 	}
 
-	.woocommerce-edit-site-layout__view-mode-toggle-icon.edit-site-site-icon {
+	.poocommerce-edit-site-layout__view-mode-toggle-icon.edit-site-site-icon {
 		align-items: center;
 		display: flex;
 	}
 
-	.woocommerce-edit-site-site-hub__site-title {
+	.poocommerce-edit-site-site-hub__site-title {
 		color: $gray-900;
 		font-size: 0.8125rem;
 		font-style: normal;
@@ -108,9 +108,9 @@
 		background: rgba(0, 0, 0, 0);
 	}
 
-	.woocommerce-edit-site-site-hub__view-mode-toggle-container {
-		.woocommerce-edit-site-layout__view-mode-toggle,
-		.woocommerce-edit-site-layout__view-mode-toggle-icon.edit-site-site-icon,
+	.poocommerce-edit-site-site-hub__view-mode-toggle-container {
+		.poocommerce-edit-site-layout__view-mode-toggle,
+		.poocommerce-edit-site-layout__view-mode-toggle-icon.edit-site-site-icon,
 		.edit-site-site-icon__icon {
 			width: 32px;
 			height: 32px;
@@ -118,7 +118,7 @@
 		}
 	}
 
-	.woocommerce-edit-site-sidebar-navigation-screen__main {
+	.poocommerce-edit-site-sidebar-navigation-screen__main {
 		height: 100%;
 		margin-bottom: 0;
 
@@ -127,7 +127,7 @@
 			height: 40px;
 		}
 
-		.woocommerce-edit-site-sidebar-navigation-screen__title {
+		.poocommerce-edit-site-sidebar-navigation-screen__title {
 			flex-grow: 1;
 			padding: 0;
 
@@ -143,7 +143,7 @@
 			}
 		}
 
-		.woocommerce-edit-site-sidebar-navigation-screen__description {
+		.poocommerce-edit-site-sidebar-navigation-screen__description {
 			color: $gray-700;
 			font-size: 0.8125rem;
 			font-style: normal;
@@ -156,7 +156,7 @@
 			}
 		}
 
-		.woocommerce-edit-site-sidebar-navigation-screen__content {
+		.poocommerce-edit-site-sidebar-navigation-screen__content {
 			padding-inline: 16px;
 			height: 100%;
 			display: flex;
@@ -164,7 +164,7 @@
 		}
 	}
 
-	.woocommerce-edit-site-layout__header-container {
+	.poocommerce-edit-site-layout__header-container {
 		position: static;
 
 		@media screen and (max-width: 782px) {
@@ -173,7 +173,7 @@
 	}
 }
 
-.woocommerce-customize-store-main {
+.poocommerce-customize-store-main {
 	flex: 1;
 	padding: 2rem 2.5rem;
 	overflow: auto;
@@ -183,7 +183,7 @@
 		width: 100%;
 	}
 
-	.woocommerce-customize-store-banner {
+	.poocommerce-customize-store-banner {
 		background: rgba(242, 237, 255, 0.6);
 		border-radius: 4px;
 		display: flex;
@@ -200,7 +200,7 @@
 			min-height: 200px;
 		}
 
-		.woocommerce-banner-visual {
+		.poocommerce-banner-visual {
 			position: absolute;
 			right: 0;
 			top: 50%;
@@ -215,18 +215,18 @@
 				display: none;
 			}
 
-			.woocommerce-banner-shape {
+			.poocommerce-banner-shape {
 				position: absolute;
 				height: 100%;
 				width: auto;
 			}
 
-			.woocommerce-banner-icon {
+			.poocommerce-banner-icon {
 				position: relative;
 			}
 		}
 
-		.woocommerce-customize-store-banner-content {
+		.poocommerce-customize-store-banner-content {
 			width: 100%;
 			max-width: 60%;
 

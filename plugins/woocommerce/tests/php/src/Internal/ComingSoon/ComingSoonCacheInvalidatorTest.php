@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ComingSoon;
+namespace Automattic\PooCommerce\Tests\Internal\ComingSoon;
 
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonCacheInvalidator;
 
 /**
  * Tests for the coming soon cache invalidator class.
@@ -29,9 +29,9 @@ class ComingSoonCacheInvalidatorTest extends \WC_Unit_Test_Case {
 	 * @testdox Test cache invalidation when coming soon option is changed to yes.
 	 */
 	public function test_cache_invalidated_when_coming_soon_option_is_changed_yes() {
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 		wp_cache_set( 'test_foo', 'bar' );
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 
 		$this->assertFalse( wp_cache_get( 'test_foo' ) );
 	}
@@ -40,9 +40,9 @@ class ComingSoonCacheInvalidatorTest extends \WC_Unit_Test_Case {
 	 * @testdox Test cache invalidation when coming soon option is changed to no.
 	 */
 	public function test_cache_invalidated_when_coming_soon_option_is_changed_no() {
-		update_option( 'woocommerce_coming_soon', 'yes' );
+		update_option( 'poocommerce_coming_soon', 'yes' );
 		wp_cache_set( 'test_foo', 'bar' );
-		update_option( 'woocommerce_coming_soon', 'no' );
+		update_option( 'poocommerce_coming_soon', 'no' );
 
 		$this->assertFalse( wp_cache_get( 'test_foo' ) );
 	}
@@ -51,9 +51,9 @@ class ComingSoonCacheInvalidatorTest extends \WC_Unit_Test_Case {
 	 * @testdox Test cache invalidation when store pages only option is changed to yes.
 	 */
 	public function test_cache_invalidated_when_store_pages_only_option_is_changed_yes() {
-		update_option( 'woocommerce_store_pages_only', 'no' );
+		update_option( 'poocommerce_store_pages_only', 'no' );
 		wp_cache_set( 'test_foo', 'bar' );
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 
 		$this->assertFalse( wp_cache_get( 'test_foo' ) );
 	}
@@ -62,9 +62,9 @@ class ComingSoonCacheInvalidatorTest extends \WC_Unit_Test_Case {
 	 * @testdox Test cache invalidation when store pages only option is changed to no.
 	 */
 	public function test_cache_invalidated_when_store_pages_only_option_is_changed_no() {
-		update_option( 'woocommerce_store_pages_only', 'yes' );
+		update_option( 'poocommerce_store_pages_only', 'yes' );
 		wp_cache_set( 'test_foo', 'bar' );
-		update_option( 'woocommerce_store_pages_only', 'no' );
+		update_option( 'poocommerce_store_pages_only', 'no' );
 
 		$this->assertFalse( wp_cache_get( 'test_foo' ) );
 	}

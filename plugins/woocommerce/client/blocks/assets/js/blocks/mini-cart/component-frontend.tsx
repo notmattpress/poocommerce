@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { renderFrontend } from '@woocommerce/base-utils';
+import { renderFrontend } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies

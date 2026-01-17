@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes;
 
 /**
  * Tests for the CatalogSorting block type
@@ -22,7 +22,7 @@ class CatalogSorting extends \WP_UnitTestCase {
 		wc_set_loop_prop( 'per_page', 1 );
 		wc_set_loop_prop( 'current_page', 1 );
 
-		$markup = do_blocks( '<!-- wp:woocommerce/catalog-sorting /-->' );
+		$markup = do_blocks( '<!-- wp:poocommerce/catalog-sorting /-->' );
 		$this->assertStringContainsString( 'has-small-font-size', $markup, 'The Catalog Sorting block has the correct font size.' );
 	}
 }

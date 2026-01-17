@@ -18,7 +18,7 @@ import type { StoreNoticesStoreDescriptor } from '../../data/store-notices';
 
 export const DEFAULT_ERROR_MESSAGE = __(
 	'Something went wrong. Please contact us to get assistance.',
-	'woocommerce'
+	'poocommerce'
 );
 
 /**

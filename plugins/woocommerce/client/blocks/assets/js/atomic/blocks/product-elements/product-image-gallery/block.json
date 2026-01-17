@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-image-gallery",
+	"name": "poocommerce/product-image-gallery",
 	"title": "Product Image Gallery",
 	"icon": "gallery",
 	"description": "Display a product's images.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -11,9 +11,9 @@
 		"align": true,
 		"multiple": false
 	},
-	"keywords": [ "WooCommerce" ],
+	"keywords": [ "PooCommerce" ],
 	"usesContext": [ "postId", "postType", "queryId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

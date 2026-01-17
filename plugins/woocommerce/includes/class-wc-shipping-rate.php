@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Shipping Rate
+ * PooCommerce Shipping Rate
  *
  * Simple Class for storing rates.
  *
- * @package WooCommerce\Classes\Shipping
+ * @package PooCommerce\Classes\Shipping
  * @since   2.6.0
  */
 
@@ -12,7 +12,7 @@ declare( strict_types=1 );
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 /**
  * Shipping rate class.
@@ -232,7 +232,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string $id The shipping rate ID.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_id', $this->data['id'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_id', $this->data['id'], $this );
 	}
 
 	/**
@@ -249,7 +249,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string $method_id The shipping method ID.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_method_id', $this->data['method_id'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_method_id', $this->data['method_id'], $this );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param int $instance_id The shipping rate instance ID.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_instance_id', $this->data['instance_id'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_instance_id', $this->data['instance_id'], $this );
 	}
 
 	/**
@@ -282,7 +282,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string $label The shipping rate label.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_label', $this->data['label'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_label', $this->data['label'], $this );
 	}
 
 	/**
@@ -299,7 +299,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string $cost The shipping rate cost.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_cost', $this->data['cost'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_cost', $this->data['cost'], $this );
 	}
 
 	/**
@@ -316,7 +316,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param array $taxes The shipping rate taxes.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_taxes', $this->data['taxes'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_taxes', $this->data['taxes'], $this );
 	}
 
 	/**
@@ -334,7 +334,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param array $taxes The shipping rate taxes.
 		 * @param WC_Shipping_Rate $this The shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_get_shipping_tax', count( $taxes ) > 0 && ! WC()->customer->get_is_vat_exempt() ? (float) array_sum( $taxes ) : 0.0, $this );
+		return apply_filters( 'poocommerce_get_shipping_tax', count( $taxes ) > 0 && ! WC()->customer->get_is_vat_exempt() ? (float) array_sum( $taxes ) : 0.0, $this );
 	}
 
 	/**
@@ -350,7 +350,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string $tax_status Tax status.
 		 * @param WC_Shipping_Rate $this Shipping rate object.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_tax_status', $this->data['tax_status'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_tax_status', $this->data['tax_status'], $this );
 	}
 
 	/**
@@ -368,7 +368,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string            $description The current description.
 		 * @param WC_Shipping_Rate  $this        The shipping rate.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_description', $this->data['description'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_description', $this->data['description'], $this );
 	}
 
 	/**
@@ -386,7 +386,7 @@ class WC_Shipping_Rate implements JsonSerializable {
 		 * @param string            $delivery_time The current description.
 		 * @param WC_Shipping_Rate  $this          The shipping rate.
 		 */
-		return apply_filters( 'woocommerce_shipping_rate_delivery_time', $this->data['delivery_time'], $this );
+		return apply_filters( 'poocommerce_shipping_rate_delivery_time', $this->data['delivery_time'], $this );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * Tests for the WC_Install class.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  */
 
 /**
@@ -18,7 +18,7 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	public static function tearDownAfterClass(): void {
 		parent::tearDownAfterClass();
 
-		// Reinstall WooCommerce to ensure test environment is clean.
+		// Reinstall PooCommerce to ensure test environment is clean.
 		WC_Install::install();
 
 		// Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374.
@@ -34,21 +34,21 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	 * Test check version.
 	 */
 	public function test_check_version() {
-		update_option( 'woocommerce_version', ( (float) WC()->version - 1 ) );
+		update_option( 'poocommerce_version', ( (float) WC()->version - 1 ) );
 		WC_Install::check_version();
 
-		$this->assertTrue( did_action( 'woocommerce_updated' ) === 1 );
+		$this->assertTrue( did_action( 'poocommerce_updated' ) === 1 );
 
-		update_option( 'woocommerce_version', WC()->version );
+		update_option( 'poocommerce_version', WC()->version );
 		WC_Install::check_version();
 
-		$this->assertTrue( did_action( 'woocommerce_updated' ) === 1 );
+		$this->assertTrue( did_action( 'poocommerce_updated' ) === 1 );
 
-		update_option( 'woocommerce_version', (float) WC()->version + 1 );
+		update_option( 'poocommerce_version', (float) WC()->version + 1 );
 		WC_Install::check_version();
 
 		$this->assertTrue(
-			did_action( 'woocommerce_updated' ) === 1,
+			did_action( 'poocommerce_updated' ) === 1,
 			'WC_Install::check_version() should not call install routine when the WC version stored in the database is bigger than the version in the code as downgrades are not supported.'
 		);
 	}
@@ -61,7 +61,7 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 
 		WC_Install::install();
 
-		$this->assertEquals( WC()->version, get_option( 'woocommerce_version' ) );
+		$this->assertEquals( WC()->version, get_option( 'poocommerce_version' ) );
 	}
 	 *
 	 **/
@@ -71,41 +71,41 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	 */
 	public function test_create_pages() {
 		// Clear options.
-		delete_option( 'woocommerce_shop_page_id' );
-		delete_option( 'woocommerce_cart_page_id' );
-		delete_option( 'woocommerce_checkout_page_id' );
-		delete_option( 'woocommerce_myaccount_page_id' );
-		delete_option( 'woocommerce_refund_returns_page_id' );
+		delete_option( 'poocommerce_shop_page_id' );
+		delete_option( 'poocommerce_cart_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_refund_returns_page_id' );
 
 		WC_Install::create_pages();
 
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_shop_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_cart_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_checkout_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_myaccount_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_refund_returns_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_shop_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_cart_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_checkout_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_myaccount_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_refund_returns_page_id' ) );
 
 		// Delete pages.
-		wp_delete_post( get_option( 'woocommerce_shop_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_cart_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_checkout_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_myaccount_page_id' ), true );
-		wp_delete_post( get_option( 'woocommerce_refund_returns_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_shop_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_cart_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_checkout_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_myaccount_page_id' ), true );
+		wp_delete_post( get_option( 'poocommerce_refund_returns_page_id' ), true );
 
 		// Clear options.
-		delete_option( 'woocommerce_shop_page_id' );
-		delete_option( 'woocommerce_cart_page_id' );
-		delete_option( 'woocommerce_checkout_page_id' );
-		delete_option( 'woocommerce_myaccount_page_id' );
-		delete_option( 'woocommerce_refund_returns_page_id' );
+		delete_option( 'poocommerce_shop_page_id' );
+		delete_option( 'poocommerce_cart_page_id' );
+		delete_option( 'poocommerce_checkout_page_id' );
+		delete_option( 'poocommerce_myaccount_page_id' );
+		delete_option( 'poocommerce_refund_returns_page_id' );
 
 		WC_Install::create_pages();
 
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_shop_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_cart_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_checkout_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_myaccount_page_id' ) );
-		$this->assertGreaterThan( 0, get_option( 'woocommerce_refund_returns_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_shop_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_cart_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_checkout_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_myaccount_page_id' ) );
+		$this->assertGreaterThan( 0, get_option( 'poocommerce_refund_returns_page_id' ) );
 	}
 
 	/**
@@ -162,13 +162,13 @@ class WC_Tests_Install extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test - get tables should apply the woocommerce_install_get_tables filter.
+	 * Test - get tables should apply the poocommerce_install_get_tables filter.
 	 */
 	public function test_get_tables_enables_filter() {
 		$this->assertNotContains( 'some_table_name', WC_Install::get_tables() );
 
 		add_filter(
-			'woocommerce_install_get_tables',
+			'poocommerce_install_get_tables',
 			function ( $tables ) {
 				$tables[] = 'some_table_name';
 

@@ -18,18 +18,18 @@ export default function MetaList( {
 	} >;
 } ) {
 	return (
-		<ul className="woocommerce-fulfillment-meta-list">
+		<ul className="poocommerce-fulfillment-meta-list">
 			{ metaList.map( ( meta, index ) => (
 				<li
 					key={ index }
-					className="woocommerce-fulfillment-meta-list__item"
+					className="poocommerce-fulfillment-meta-list__item"
 				>
-					<div className="woocommerce-fulfillment-meta-list__item-label">
+					<div className="poocommerce-fulfillment-meta-list__item-label">
 						{ meta.label }
 					</div>
-					<div className="woocommerce-fulfillment-meta-list__item-value">
+					<div className="poocommerce-fulfillment-meta-list__item-value">
 						{ isEmpty( String( meta.value ) )
-							? __( '(empty)', 'woocommerce' )
+							? __( '(empty)', 'poocommerce' )
 							: String( meta.value ) }
 					</div>
 				</li>

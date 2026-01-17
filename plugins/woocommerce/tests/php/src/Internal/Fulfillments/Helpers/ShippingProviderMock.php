@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments\Helpers;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments\Helpers;
 
-use Automattic\WooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider;
 
 /**
  * ShippingProviderMock class.
@@ -10,7 +10,7 @@ use Automattic\WooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvi
  * This class is a mock implementation of the AbstractShippingProvider for testing purposes.
  *
  * @since 10.1.0
- * @package WooCommerce\Tests\Internal\Fulfillments
+ * @package PooCommerce\Tests\Internal\Fulfillments
  */
 class ShippingProviderMock extends AbstractShippingProvider {
 	/**

@@ -5,7 +5,7 @@ import {
 	withCurrentUserHydration,
 	withSettingsHydration,
 	WCUser,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import debugFactory from 'debug';
 import { createRoot } from '@wordpress/element';
 
@@ -58,8 +58,8 @@ const renderHydratedLayout = (
  */
 const findWrapElement = ( wpBody: HTMLElement ) => {
 	const wrap =
-		wpBody.querySelector( '.wrap.woocommerce' ) ||
-		document.querySelector( '#wpbody-content > .woocommerce' ) ||
+		wpBody.querySelector( '.wrap.poocommerce' ) ||
+		document.querySelector( '#wpbody-content > .poocommerce' ) ||
 		wpBody.querySelector( '.wrap' );
 
 	if ( ! wrap ) {
@@ -78,7 +78,7 @@ const findWrapElement = ( wpBody: HTMLElement ) => {
 const renderNotices = ( wpBody: HTMLElement, wrap: Element ) => {
 	const noticeContainer = document.createElement( 'div' );
 	createRoot( wpBody.insertBefore( noticeContainer, wrap ) ).render(
-		<div className="woocommerce-layout">
+		<div className="poocommerce-layout">
 			<NoticeArea />
 		</div>
 	);

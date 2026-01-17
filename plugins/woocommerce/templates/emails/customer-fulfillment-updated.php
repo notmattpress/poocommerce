@@ -2,23 +2,23 @@
 /**
  * Customer fulfillment updated email
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-fulfillment-updated.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/customer-fulfillment-updated.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails\HTML
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails\HTML
  * @version 10.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hook for the woocommerce_email_header.
+ * Hook for the poocommerce_email_header.
  *
  * @param string $email_heading The email heading.
  * @param WC_Email $email The email object.
@@ -26,17 +26,17 @@ defined( 'ABSPATH' ) || exit;
  *
  * @hooked WC_Emails::email_header() Output the email header
  */
-do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
+do_action( 'poocommerce_email_header', $email_heading, $email ); ?>
 
 <div class="email-introduction">
-	<p><?php echo esc_html__( 'Some details of your shipment have recently been updated. This may include tracking information, item contents, or delivery status.', 'woocommerce' ); ?></p>
-	<p><?php echo esc_html__( 'Here’s the latest info we have:', 'woocommerce' ); ?></p>
+	<p><?php echo esc_html__( 'Some details of your shipment have recently been updated. This may include tracking information, item contents, or delivery status.', 'poocommerce' ); ?></p>
+	<p><?php echo esc_html__( 'Here’s the latest info we have:', 'poocommerce' ); ?></p>
 </div>
 
 <?php
 
 /**
- * Hook for the woocommerce_email_fulfillment_details.
+ * Hook for the poocommerce_email_fulfillment_details.
  *
  * @since 10.1.0
  * @param WC_Order $order The order object.
@@ -47,10 +47,10 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
  *
  * @hooked WC_Emails::fulfillment_details() Shows the fulfillment details.
  */
-do_action( 'woocommerce_email_fulfillment_details', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_fulfillment_details', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
 
 /**
- * Hook for the woocommerce_email_fulfillment_meta.
+ * Hook for the poocommerce_email_fulfillment_meta.
  *
  * @param WC_Order $order The order object.
  * @param Fulfillment $fulfillment The fulfillment object.
@@ -61,10 +61,10 @@ do_action( 'woocommerce_email_fulfillment_details', $order, $fulfillment, $sent_
  *
  * @hooked WC_Emails::order_meta() Shows fulfillment meta data.
  */
-do_action( 'woocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_admin, $plain_text, $email );
 
 /**
- * Hook for woocommerce_email_customer_details.
+ * Hook for poocommerce_email_customer_details.
  *
  * @param WC_Order $order The order object.
  * @param bool $sent_to_admin Whether the email is sent to admin.
@@ -75,7 +75,7 @@ do_action( 'woocommerce_email_fulfillment_meta', $order, $fulfillment, $sent_to_
  * @hooked WC_Emails::customer_details() Shows customer details
  * @hooked WC_Emails::email_address() Shows email address
  */
-do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
 
 /**
  * Show user-defined additional content - this is set in each email's settings.
@@ -87,11 +87,11 @@ if ( $additional_content ) {
 }
 
 /**
- * Hook for the woocommerce_email_footer.
+ * Hook for the poocommerce_email_footer.
  *
  * @param WC_Email $email The email object.
  * @since 2.5.0
  *
  * @hooked WC_Emails::email_footer() Output the email footer
  */
-do_action( 'woocommerce_email_footer', $email );
+do_action( 'poocommerce_email_footer', $email );

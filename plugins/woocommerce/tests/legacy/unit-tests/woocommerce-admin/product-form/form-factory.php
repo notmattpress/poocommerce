@@ -2,10 +2,10 @@
 /**
  * Class for testing the Form class.
  *
- * @package WooCommerce\Internal\Admin\ProductForm
+ * @package PooCommerce\Internal\Admin\ProductForm
  */
 
-use Automattic\WooCommerce\Internal\Admin\ProductForm\FormFactory as Form;
+use Automattic\PooCommerce\Internal\Admin\ProductForm\FormFactory as Form;
 
 /**
  * class WC_Admin_Tests_ProductFrom_Field
@@ -15,10 +15,10 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	 * Test add_field with missing keys.
 	 */
 	public function test_add_field_with_missing_argument() {
-		$field = Form::add_field( 'id', 'woocommerce', array() );
+		$field = Form::add_field( 'id', 'poocommerce', array() );
 
 		$this->assertInstanceOf( 'WP_Error', $field );
-		$this->assertStringContainsString( 'You are missing required arguments of WooCommerce ProductForm Field: type, section, properties.name, properties.label', $field->get_error_message() );
+		$this->assertStringContainsString( 'You are missing required arguments of PooCommerce ProductForm Field: type, section, properties.name, properties.label', $field->get_error_message() );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	public function test_add_field_duplicate_field_id() {
 		Form::add_field(
 			'id',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'type'       => 'text',
 				'section'    => 'product_details',
@@ -40,7 +40,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 
 		$field_duplicate = Form::add_field(
 			'id',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'type'       => 'text',
 				'section'    => 'product_details',
@@ -51,7 +51,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 			)
 		);
 		$this->assertInstanceOf( 'WP_Error', $field_duplicate );
-		$this->assertStringContainsString( 'You have attempted to register a duplicate form field with WooCommerce Form: `id`', $field_duplicate->get_error_message() );
+		$this->assertStringContainsString( 'You have attempted to register a duplicate form field with PooCommerce Form: `id`', $field_duplicate->get_error_message() );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	public function test_get_fields() {
 		Form::add_field(
 			'id',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'type'       => 'text',
 				'section'    => 'product_details',
@@ -73,7 +73,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 
 		Form::add_field(
 			'id2',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'type'       => 'textarea',
 				'section'    => 'product_details',
@@ -96,7 +96,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	public function test_get_fields_sort_default() {
 		Form::add_field(
 			'id',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'type'       => 'text',
 				'section'    => 'product_details',
@@ -109,7 +109,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 
 		Form::add_field(
 			'id2',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'type'       => 'textarea',
 				'section'    => 'product_details',
@@ -122,7 +122,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 
 		Form::add_field(
 			'first',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'order'      => 1,
 				'type'       => 'textarea',
@@ -147,17 +147,17 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	public function test_get_cards_sort_default() {
 		Form::add_subsection(
 			'id',
-			'woocommerce'
+			'poocommerce'
 		);
 
 		Form::add_subsection(
 			'id2',
-			'woocommerce'
+			'poocommerce'
 		);
 
 		Form::add_subsection(
 			'first',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'order' => 1,
 			)
@@ -176,13 +176,13 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	public function test_get_sections_sort_default() {
 		Form::add_section(
 			'id',
-			'woocommerce',
+			'poocommerce',
 			array()
 		);
 
 		Form::add_section(
 			'id2',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'title' => 'title',
 			)
@@ -190,7 +190,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 
 		Form::add_section(
 			'first',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'order' => 1,
 				'title' => 'title',
@@ -208,7 +208,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 	public function test_get_tabs_sort_default() {
 		Form::add_tab(
 			'id',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'name'  => 'tab_name',
 				'title' => 'Tab Title',
@@ -217,7 +217,7 @@ class WC_Admin_Tests_ProductForm_Form_Factory extends WC_Unit_Test_Case {
 
 		Form::add_tab(
 			'id2',
-			'woocommerce',
+			'poocommerce',
 			array(
 				'name'  => 'tab_name2',
 				'title' => 'Tab Title 2',

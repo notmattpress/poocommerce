@@ -2,21 +2,21 @@
 /**
  * Reports Customers REST API Test
  *
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 
 // phpcs:disable Squiz.Classes.ClassFileName.NoMatch, Squiz.Classes.ValidClassName.NotCamelCaps
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports Customers REST API Test Class
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  * @group run-in-separate-process
- * @package WooCommerce\Admin\Tests\API
+ * @package PooCommerce\Admin\Tests\API
  * @since 3.5.0
  */
 class WC_Admin_Tests_API_Reports_Customers extends WC_REST_Unit_Test_Case {

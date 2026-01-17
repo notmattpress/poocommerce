@@ -3,9 +3,9 @@
  * InstalledExtensions class file.
  */
 
-namespace Automattic\WooCommerce\Admin\Marketing;
+namespace Automattic\PooCommerce\Admin\Marketing;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 /**
  * Installed Marketing Extensions class.
@@ -117,13 +117,13 @@ class InstalledExtensions {
 	public static function get_allowed_plugins() {
 		return [
 			'automatewoo',
-			'mailchimp-for-woocommerce',
+			'mailchimp-for-poocommerce',
 			'creative-mail-by-constant-contact',
-			'facebook-for-woocommerce',
-			'pinterest-for-woocommerce',
+			'facebook-for-poocommerce',
+			'pinterest-for-poocommerce',
 			'google-listings-and-ads',
-			'hubspot-for-woocommerce',
-			'woocommerce-amazon-ebay-integration',
+			'hubspot-for-poocommerce',
+			'poocommerce-amazon-ebay-integration',
 			'mailpoet',
 		];
 	}
@@ -210,7 +210,7 @@ class InstalledExtensions {
 	 * @return array|bool
 	 */
 	protected static function get_mailchimp_extension_data() {
-		$slug = 'mailchimp-for-woocommerce';
+		$slug = 'mailchimp-for-poocommerce';
 
 		if ( ! PluginsHelper::is_plugin_installed( $slug ) ) {
 			return false;
@@ -220,8 +220,8 @@ class InstalledExtensions {
 		$data['icon'] = WC_ADMIN_IMAGES_FOLDER_URL . '/marketing/mailchimp.svg';
 
 		if ( 'activated' === $data['status'] && function_exists( 'mailchimp_is_configured' ) ) {
-			$data['docsUrl']     = 'https://mailchimp.com/help/connect-or-disconnect-mailchimp-for-woocommerce/';
-			$data['settingsUrl'] = admin_url( 'admin.php?page=mailchimp-woocommerce' );
+			$data['docsUrl']     = 'https://mailchimp.com/help/connect-or-disconnect-mailchimp-for-poocommerce/';
+			$data['settingsUrl'] = admin_url( 'admin.php?page=mailchimp-poocommerce' );
 
 			if ( mailchimp_is_configured() ) {
 				$data['status'] = 'configured';
@@ -237,7 +237,7 @@ class InstalledExtensions {
 	 * @return array|bool
 	 */
 	protected static function get_facebook_extension_data() {
-		$slug = 'facebook-for-woocommerce';
+		$slug = 'facebook-for-poocommerce';
 
 		if ( ! PluginsHelper::is_plugin_installed( $slug ) ) {
 			return false;
@@ -246,15 +246,15 @@ class InstalledExtensions {
 		$data         = self::get_extension_base_data( $slug );
 		$data['icon'] = WC_ADMIN_IMAGES_FOLDER_URL . '/marketing/facebook-icon.svg';
 
-		if ( 'activated' === $data['status'] && function_exists( 'facebook_for_woocommerce' ) ) {
-			$integration = facebook_for_woocommerce()->get_integration();
+		if ( 'activated' === $data['status'] && function_exists( 'facebook_for_poocommerce' ) ) {
+			$integration = facebook_for_poocommerce()->get_integration();
 
 			if ( $integration->is_configured() ) {
 				$data['status'] = 'configured';
 			}
 
-			$data['settingsUrl'] = facebook_for_woocommerce()->get_settings_url();
-			$data['docsUrl']     = facebook_for_woocommerce()->get_documentation_url();
+			$data['settingsUrl'] = facebook_for_poocommerce()->get_settings_url();
+			$data['docsUrl']     = facebook_for_poocommerce()->get_documentation_url();
 		}
 
 		return $data;
@@ -266,7 +266,7 @@ class InstalledExtensions {
 	 * @return array|bool
 	 */
 	protected static function get_pinterest_extension_data() {
-		$slug = 'pinterest-for-woocommerce';
+		$slug = 'pinterest-for-poocommerce';
 
 		if ( ! PluginsHelper::is_plugin_installed( $slug ) ) {
 			return false;
@@ -275,7 +275,7 @@ class InstalledExtensions {
 		$data         = self::get_extension_base_data( $slug );
 		$data['icon'] = WC_ADMIN_IMAGES_FOLDER_URL . '/marketing/pinterest.svg';
 
-		$data['docsUrl'] = 'https://woocommerce.com/document/pinterest-for-woocommerce/?utm_medium=product';
+		$data['docsUrl'] = 'https://poocommerce.com/document/pinterest-for-poocommerce/?utm_medium=product';
 
 		if ( 'activated' === $data['status'] && class_exists( 'Pinterest_For_Woocommerce' ) ) {
 			$pinterest_onboarding_completed = Pinterest_For_Woocommerce()::is_setup_complete();
@@ -305,9 +305,9 @@ class InstalledExtensions {
 		$data         = self::get_extension_base_data( $slug );
 		$data['icon'] = WC_ADMIN_IMAGES_FOLDER_URL . '/marketing/google.svg';
 
-		if ( 'activated' === $data['status'] && function_exists( 'woogle_get_container' ) && class_exists( '\Automattic\WooCommerce\GoogleListingsAndAds\MerchantCenter\MerchantCenterService' ) ) {
+		if ( 'activated' === $data['status'] && function_exists( 'woogle_get_container' ) && class_exists( '\Automattic\PooCommerce\GoogleListingsAndAds\MerchantCenter\MerchantCenterService' ) ) {
 
-			$merchant_center = woogle_get_container()->get( \Automattic\WooCommerce\GoogleListingsAndAds\MerchantCenter\MerchantCenterService::class );
+			$merchant_center = woogle_get_container()->get( \Automattic\PooCommerce\GoogleListingsAndAds\MerchantCenter\MerchantCenterService::class );
 
 			if ( $merchant_center->is_setup_complete() ) {
 				$data['status']      = 'configured';
@@ -316,7 +316,7 @@ class InstalledExtensions {
 				$data['settingsUrl'] = admin_url( 'admin.php?page=wc-admin&path=/google/start' );
 			}
 
-			$data['docsUrl'] = 'https://woocommerce.com/document/google-listings-and-ads/?utm_medium=product';
+			$data['docsUrl'] = 'https://poocommerce.com/document/google-listings-and-ads/?utm_medium=product';
 		}
 
 		return $data;
@@ -328,7 +328,7 @@ class InstalledExtensions {
 	 * @return array|bool
 	 */
 	protected static function get_amazon_ebay_extension_data() {
-		$slug = 'woocommerce-amazon-ebay-integration';
+		$slug = 'poocommerce-amazon-ebay-integration';
 
 		if ( ! PluginsHelper::is_plugin_installed( $slug ) ) {
 			return false;
@@ -347,7 +347,7 @@ class InstalledExtensions {
 			}
 
 			$data['settingsUrl'] = admin_url( 'admin.php?page=codisto-settings' );
-			$data['docsUrl']     = 'https://woocommerce.com/document/multichannel-for-woocommerce-google-amazon-ebay-walmart-integration/?utm_medium=product';
+			$data['docsUrl']     = 'https://poocommerce.com/document/multichannel-for-poocommerce-google-amazon-ebay-walmart-integration/?utm_medium=product';
 		}
 
 		return $data;
@@ -413,7 +413,7 @@ class InstalledExtensions {
 	}
 
 	/**
-	 * Get Creative Mail for WooCommerce extension data.
+	 * Get Creative Mail for PooCommerce extension data.
 	 *
 	 * @return array|bool
 	 */
@@ -435,7 +435,7 @@ class InstalledExtensions {
 				$data['settingsUrl'] = admin_url( 'admin.php?page=creativemail' );
 			}
 
-			$data['docsUrl']    = 'https://app.creativemail.com/kb/help/WooCommerce';
+			$data['docsUrl']    = 'https://app.creativemail.com/kb/help/PooCommerce';
 			$data['supportUrl'] = 'https://app.creativemail.com/kb/help/';
 		}
 
@@ -443,7 +443,7 @@ class InstalledExtensions {
 	}
 
 	/**
-	 * Get TikTok for WooCommerce extension data.
+	 * Get TikTok for PooCommerce extension data.
 	 *
 	 * @return array|bool
 	 */
@@ -463,7 +463,7 @@ class InstalledExtensions {
 			}
 
 			$data['settingsUrl'] = admin_url( 'admin.php?page=tiktok' );
-			$data['docsUrl']     = 'https://woocommerce.com/document/tiktok-for-woocommerce/';
+			$data['docsUrl']     = 'https://poocommerce.com/document/tiktok-for-poocommerce/';
 			$data['supportUrl']  = 'https://ads.tiktok.com/athena/user-feedback/?identify_key=6a1e079024806640c5e1e695d13db80949525168a052299b4970f9c99cb5ac78';
 		}
 
@@ -471,7 +471,7 @@ class InstalledExtensions {
 	}
 
 	/**
-	 * Get Jetpack CRM for WooCommerce extension data.
+	 * Get Jetpack CRM for PooCommerce extension data.
 	 *
 	 * @return array|bool
 	 */
@@ -496,12 +496,12 @@ class InstalledExtensions {
 	}
 
 	/**
-	 * Get WooCommerce Zapier extension data.
+	 * Get PooCommerce Zapier extension data.
 	 *
 	 * @return array|bool
 	 */
 	protected static function get_zapier_extension_data() {
-		$slug = 'woocommerce-zapier';
+		$slug = 'poocommerce-zapier';
 
 		if ( ! PluginsHelper::is_plugin_installed( $slug ) ) {
 			return false;
@@ -513,7 +513,7 @@ class InstalledExtensions {
 		if ( 'activated' === $data['status'] ) {
 			$data['status']      = 'configured';
 			$data['settingsUrl'] = admin_url( 'admin.php?page=wc-settings&tab=wc_zapier' );
-			$data['docsUrl']     = 'https://docs.om4.io/woocommerce-zapier/';
+			$data['docsUrl']     = 'https://docs.om4.io/poocommerce-zapier/';
 		}
 
 		return $data;
@@ -540,7 +540,7 @@ class InstalledExtensions {
 			}
 
 			$data['settingsUrl'] = admin_url( 'admin.php?page=integration-with-salesforce' );
-			$data['docsUrl']     = 'https://woocommerce.com/document/salesforce-integration/';
+			$data['docsUrl']     = 'https://poocommerce.com/document/salesforce-integration/';
 			$data['supportUrl']  = 'https://wpswings.com/submit-query/';
 		}
 
@@ -573,7 +573,7 @@ class InstalledExtensions {
 			}
 
 			$data['settingsUrl'] = admin_url( 'options-general.php?page=vimeo_settings' );
-			$data['docsUrl']     = 'https://woocommerce.com/document/vimeo/';
+			$data['docsUrl']     = 'https://poocommerce.com/document/vimeo/';
 			$data['supportUrl']  = 'https://vimeo.com/help/contact';
 		}
 
@@ -597,8 +597,8 @@ class InstalledExtensions {
 
 		if ( 'activated' === $data['status'] ) {
 			$data['status']      = 'configured';
-			$data['settingsUrl'] = admin_url( 'admin.php?page=woocommerce-trustpilot-settings-page' );
-			$data['docsUrl']     = 'https://woocommerce.com/document/trustpilot-reviews/';
+			$data['settingsUrl'] = admin_url( 'admin.php?page=poocommerce-trustpilot-settings-page' );
+			$data['docsUrl']     = 'https://poocommerce.com/document/trustpilot-reviews/';
 			$data['supportUrl']  = 'https://support.trustpilot.com/hc/en-us/requests/new';
 		}
 
@@ -626,7 +626,7 @@ class InstalledExtensions {
 			'status'      => $status,
 			'name'        => $plugin_data['Name'],
 			'description' => html_entity_decode( wp_trim_words( $plugin_data['Description'], 20 ) ),
-			'supportUrl'  => 'https://woocommerce.com/my-account/create-a-ticket/?utm_medium=product',
+			'supportUrl'  => 'https://poocommerce.com/my-account/create-a-ticket/?utm_medium=product',
 		];
 	}
 

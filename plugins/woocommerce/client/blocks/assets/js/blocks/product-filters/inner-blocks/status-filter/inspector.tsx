@@ -31,7 +31,7 @@ export const Inspector = ( {
 	return (
 		<InspectorControls>
 			<ToolsPanel
-				label={ __( 'Display Settings', 'woocommerce' ) }
+				label={ __( 'Display Settings', 'poocommerce' ) }
 				resetAll={ () => {
 					setAttributes( {
 						displayStyle: metadata.attributes.displayStyle.default,
@@ -45,10 +45,10 @@ export const Inspector = ( {
 				} }
 			>
 				<ToolsPanelItem
-					label={ __( 'Display Style', 'woocommerce' ) }
+					label={ __( 'Display Style', 'poocommerce' ) }
 					hasValue={ () =>
 						displayStyle !==
-						'woocommerce/product-filter-checkbox-list'
+						'poocommerce/product-filter-checkbox-list'
 					}
 					isShownByDefault={ true }
 					onDeselect={ () => {
@@ -71,7 +71,7 @@ export const Inspector = ( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					label={ __( 'Product counts', 'woocommerce' ) }
+					label={ __( 'Product counts', 'poocommerce' ) }
 					hasValue={ () => showCounts }
 					onDeselect={ () =>
 						setAttributes( {
@@ -81,7 +81,7 @@ export const Inspector = ( {
 					isShownByDefault={ true }
 				>
 					<ToggleControl
-						label={ __( 'Product counts', 'woocommerce' ) }
+						label={ __( 'Product counts', 'poocommerce' ) }
 						checked={ showCounts }
 						onChange={ ( value: boolean ) =>
 							setAttributes( { showCounts: value } )
@@ -89,7 +89,7 @@ export const Inspector = ( {
 					/>
 				</ToolsPanelItem>
 				<ToolsPanelItem
-					label={ __( 'Empty filter options', 'woocommerce' ) }
+					label={ __( 'Empty filter options', 'poocommerce' ) }
 					hasValue={ () => ! hideEmpty }
 					onDeselect={ () =>
 						setAttributes( {
@@ -98,7 +98,7 @@ export const Inspector = ( {
 					}
 				>
 					<ToggleControl
-						label={ __( 'Empty filter options', 'woocommerce' ) }
+						label={ __( 'Empty filter options', 'poocommerce' ) }
 						checked={ ! hideEmpty }
 						onChange={ ( value: boolean ) =>
 							setAttributes( { hideEmpty: ! value } )

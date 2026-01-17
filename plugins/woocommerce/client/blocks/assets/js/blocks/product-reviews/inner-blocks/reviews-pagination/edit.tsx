@@ -21,9 +21,9 @@ import { ReviewsPaginationArrowControls } from './reviews-pagination-arrow-contr
 import './editor.scss';
 
 const TEMPLATE = [
-	[ 'woocommerce/product-reviews-pagination-previous' ],
-	[ 'woocommerce/product-reviews-pagination-numbers' ],
-	[ 'woocommerce/product-reviews-pagination-next' ],
+	[ 'poocommerce/product-reviews-pagination-previous' ],
+	[ 'poocommerce/product-reviews-pagination-numbers' ],
+	[ 'poocommerce/product-reviews-pagination-next' ],
 ];
 
 type Props = BlockEditProps< { paginationArrow: string | number | undefined } >;
@@ -46,8 +46,8 @@ export default function Edit( {
 			 */
 			return innerBlocks?.find( ( innerBlock: { name: string } ) => {
 				return [
-					'woocommerce/product-reviews-pagination-previous',
-					'woocommerce/product-reviews-pagination-next',
+					'poocommerce/product-reviews-pagination-previous',
+					'poocommerce/product-reviews-pagination-next',
 				].includes( innerBlock.name );
 			} );
 		},
@@ -75,7 +75,7 @@ export default function Edit( {
 			<Warning>
 				{ __(
 					'Product Reviews Pagination block: paging comments is disabled in the Discussion Settings',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Warning>
 		);
@@ -85,7 +85,7 @@ export default function Edit( {
 		<>
 			{ hasNextPreviousBlocks && (
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 						<ReviewsPaginationArrowControls
 							value={ paginationArrow }
 							onChange={ ( value ) => {

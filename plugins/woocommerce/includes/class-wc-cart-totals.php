@@ -9,12 +9,12 @@
  * - if something is being stored e.g. item total, store unrounded. This is so taxes can be recalculated later accurately.
  * - if calculating a total, round (if settings allow).
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.2.0
  */
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -316,7 +316,7 @@ final class WC_Cart_Totals {
 				}
 			}
 
-			$fee->taxes     = apply_filters( 'woocommerce_cart_totals_get_fees_from_cart_taxes', $fee->taxes, $fee, $this );
+			$fee->taxes     = apply_filters( 'poocommerce_cart_totals_get_fees_from_cart_taxes', $fee->taxes, $fee, $this );
 			$fee->total_tax = array_sum( array_map( array( $this, 'round_line_tax' ), $fee->taxes ) );
 
 			// Set totals within object.
@@ -339,7 +339,7 @@ final class WC_Cart_Totals {
 			function ( $shipping_object ) use ( $default_shipping_props ) {
 				$shipping_line            = clone $default_shipping_props;
 				$shipping_line->object    = $shipping_object;
-				$shipping_line->tax_class = get_option( 'woocommerce_shipping_tax_class', 'inherit' );
+				$shipping_line->tax_class = get_option( 'poocommerce_shipping_tax_class', 'inherit' );
 				$shipping_line->taxable   = true;
 				$shipping_line->total     = wc_add_number_precision_deep( $shipping_object->cost );
 				$shipping_line->taxes     = array_map(
@@ -379,7 +379,7 @@ final class WC_Cart_Totals {
 			}
 
 			// Allow plugins to override the default order.
-			$coupon->sort = apply_filters( 'woocommerce_coupon_sort', $coupon->sort, $coupon );
+			$coupon->sort = apply_filters( 'poocommerce_coupon_sort', $coupon->sort, $coupon );
 		}
 
 		uasort( $this->coupons, array( $this, 'sort_coupons_callback' ) );
@@ -420,7 +420,7 @@ final class WC_Cart_Totals {
 	 */
 	protected function remove_item_base_taxes( $item ) {
 		if ( $item->price_includes_tax && $item->taxable ) {
-			if ( apply_filters( 'woocommerce_adjust_non_base_location_prices', true ) ) {
+			if ( apply_filters( 'poocommerce_adjust_non_base_location_prices', true ) ) {
 				$base_tax_rates = WC_Tax::get_base_tax_rates( $item->product->get_tax_class( 'unfiltered' ) );
 			} else {
 				/**
@@ -441,7 +441,7 @@ final class WC_Cart_Totals {
 	}
 
 	/**
-	 * Only ran if woocommerce_adjust_non_base_location_prices is true.
+	 * Only ran if poocommerce_adjust_non_base_location_prices is true.
 	 *
 	 * If the customer is outside of the base location, this removes the base
 	 * taxes. This is off by default unless the filter is used.
@@ -495,7 +495,7 @@ final class WC_Cart_Totals {
 		$item_tax_rates = isset( $this->item_tax_rates[ $tax_class ] ) ? $this->item_tax_rates[ $tax_class ] : $this->item_tax_rates[ $tax_class ] = WC_Tax::get_rates( $item->product->get_tax_class(), $this->cart->get_customer() );
 
 		// Allow plugins to filter item tax rates.
-		return apply_filters( 'woocommerce_cart_totals_get_item_tax_rates', $item_tax_rates, $item, $this->cart );
+		return apply_filters( 'poocommerce_cart_totals_get_item_tax_rates', $item_tax_rates, $item, $this->cart );
 	}
 
 	/**
@@ -659,7 +659,7 @@ final class WC_Cart_Totals {
 			$item->total     = $this->get_discounted_price_in_cents( $item_key );
 			$item->total_tax = 0;
 
-			if ( has_filter( 'woocommerce_get_discounted_price' ) ) {
+			if ( has_filter( 'poocommerce_get_discounted_price' ) ) {
 				$item->total = wc_add_number_precision(
 					/**
 					 * Allow plugins to filter this price like in the legacy cart class.
@@ -670,12 +670,12 @@ final class WC_Cart_Totals {
 					 *
 					 * @since 3.2.0
 					 */
-					(float) apply_filters( 'woocommerce_get_discounted_price', wc_remove_number_precision( $item->total ), $item->object, $this->cart )
+					(float) apply_filters( 'poocommerce_get_discounted_price', wc_remove_number_precision( $item->total ), $item->object, $this->cart )
 				);
 			}
 
 			if ( $this->calculate_tax && $item->product->is_taxable() ) {
-				$total_taxes     = apply_filters( 'woocommerce_calculate_item_totals_taxes', WC_Tax::calc_tax( $item->total, $item->tax_rates, $item->price_includes_tax ), $item, $this );
+				$total_taxes     = apply_filters( 'poocommerce_calculate_item_totals_taxes', WC_Tax::calc_tax( $item->total, $item->tax_rates, $item->price_includes_tax ), $item, $this );
 				$item->taxes     = $total_taxes;
 				$item->total_tax = array_sum( array_map( array( $this, 'round_line_tax' ), $item->taxes ) );
 
@@ -717,7 +717,7 @@ final class WC_Cart_Totals {
 	protected function calculate_item_subtotals() {
 		$merged_subtotal_taxes = array(); // Taxes indexed by tax rate ID for storage later.
 
-		$adjust_non_base_location_prices = apply_filters( 'woocommerce_adjust_non_base_location_prices', true );
+		$adjust_non_base_location_prices = apply_filters( 'poocommerce_adjust_non_base_location_prices', true );
 		$customer                        = $this->cart->get_customer();
 		$is_customer_vat_exempt          = $customer && $customer->get_is_vat_exempt();
 
@@ -875,11 +875,11 @@ final class WC_Cart_Totals {
 		$this->cart->set_total_tax( $items_tax + $shipping_and_fee_taxes );
 
 		// Allow plugins to hook and alter totals before final total is calculated.
-		if ( has_action( 'woocommerce_calculate_totals' ) ) {
-			do_action( 'woocommerce_calculate_totals', $this->cart );
+		if ( has_action( 'poocommerce_calculate_totals' ) ) {
+			do_action( 'poocommerce_calculate_totals', $this->cart );
 		}
 
 		// Allow plugins to filter the grand total, and sum the cart totals in case of modifications.
-		$this->cart->set_total( max( 0, apply_filters( 'woocommerce_calculated_total', $this->get_total( 'total' ), $this->cart ) ) );
+		$this->cart->set_total( max( 0, apply_filters( 'poocommerce_calculated_total', $this->get_total( 'total' ), $this->cart ) ) );
 	}
 }

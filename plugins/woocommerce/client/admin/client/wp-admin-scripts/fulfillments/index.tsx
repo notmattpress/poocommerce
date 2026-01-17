@@ -3,7 +3,7 @@
  */
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { createRoot } from '@wordpress/element';
-import { getQuery } from '@woocommerce/navigation';
+import { getQuery } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies

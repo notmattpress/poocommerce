@@ -3,7 +3,7 @@
  */
 import { renderHook } from '@testing-library/react-hooks';
 import { useSelect } from '@wordpress/data';
-import { TaskType } from '@woocommerce/data';
+import { TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies

@@ -1,24 +1,24 @@
 {
-	"name": "@woocommerce/currency",
+	"name": "@poocommerce/currency",
 	"version": "5.0.0",
-	"description": "WooCommerce currency utilities.",
+	"description": "PooCommerce currency utilities.",
 	"author": "Automattic",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"woocommerce",
+		"poocommerce",
 		"currency"
 	],
 	"engines": {
 		"node": "^20.11.1"
 	},
-	"homepage": "https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/currency/README.md",
+	"homepage": "https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/currency/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/woocommerce/woocommerce.git"
+		"url": "https://github.com/poocommerce/poocommerce.git"
 	},
 	"bugs": {
-		"url": "https://github.com/woocommerce/woocommerce/issues"
+		"url": "https://github.com/poocommerce/poocommerce/issues"
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
@@ -54,7 +54,7 @@
 		]
 	},
 	"dependencies": {
-		"@woocommerce/number": "workspace:*",
+		"@poocommerce/number": "workspace:*",
 		"@wordpress/deprecated": "wp-6.6",
 		"@wordpress/element": "wp-6.6",
 		"@wordpress/hooks": "wp-6.6",
@@ -68,8 +68,8 @@
 		"@babel/core": "7.25.7",
 		"@types/jest": "29.5.x",
 		"@types/react": "18.3.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
-		"@woocommerce/internal-js-tests": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/internal-js-tests": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",
 		"jest-cli": "29.5.x",
@@ -148,15 +148,15 @@
 			"allowUsuallyExcludedPaths": true,
 			"files": [
 				"package.json",
-				"node_modules/@woocommerce/number/build",
-				"node_modules/@woocommerce/number/build-module",
-				"node_modules/@woocommerce/number/build-types",
-				"node_modules/@woocommerce/eslint-plugin/configs",
-				"node_modules/@woocommerce/eslint-plugin/rules",
-				"node_modules/@woocommerce/eslint-plugin/index.js",
-				"node_modules/@woocommerce/internal-js-tests/build",
-				"node_modules/@woocommerce/internal-js-tests/build-module",
-				"node_modules/@woocommerce/internal-js-tests/jest-preset.js"
+				"node_modules/@poocommerce/number/build",
+				"node_modules/@poocommerce/number/build-module",
+				"node_modules/@poocommerce/number/build-types",
+				"node_modules/@poocommerce/eslint-plugin/configs",
+				"node_modules/@poocommerce/eslint-plugin/rules",
+				"node_modules/@poocommerce/eslint-plugin/index.js",
+				"node_modules/@poocommerce/internal-js-tests/build",
+				"node_modules/@poocommerce/internal-js-tests/build-module",
+				"node_modules/@poocommerce/internal-js-tests/jest-preset.js"
 			]
 		}
 	}

@@ -4,12 +4,12 @@
  *
  * Used on the cart page, the cart shortcode displays the cart contents and interface for coupon codes and other cart bits and pieces.
  *
- * @package WooCommerce\Shortcodes\Cart
+ * @package PooCommerce\Shortcodes\Cart
  * @version 2.3.0
  */
 
-use Automattic\WooCommerce\Internal\FraudProtection\CartEventTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\CartEventTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,10 +38,10 @@ class WC_Shortcode_Cart {
 				$address['postcode'] = wc_format_postcode( $address['postcode'], $address['country'] );
 			}
 
-			$address = apply_filters( 'woocommerce_cart_calculate_shipping_address', $address );
+			$address = apply_filters( 'poocommerce_cart_calculate_shipping_address', $address );
 
 			if ( $address['postcode'] && ! WC_Validation::is_postcode( $address['postcode'], $address['country'] ) ) {
-				throw new Exception( __( 'Please enter a valid postcode / ZIP.', 'woocommerce' ) );
+				throw new Exception( __( 'Please enter a valid postcode / ZIP.', 'poocommerce' ) );
 			}
 
 			if ( $address['country'] ) {
@@ -57,9 +57,9 @@ class WC_Shortcode_Cart {
 			WC()->customer->set_calculated_shipping( true );
 			WC()->customer->save();
 
-			wc_add_notice( __( 'Shipping costs updated.', 'woocommerce' ), 'notice' );
+			wc_add_notice( __( 'Shipping costs updated.', 'poocommerce' ), 'notice' );
 
-			do_action( 'woocommerce_calculated_shipping' );
+			do_action( 'poocommerce_calculated_shipping' );
 
 		} catch ( Exception $e ) {
 			if ( ! empty( $e ) ) {
@@ -74,7 +74,7 @@ class WC_Shortcode_Cart {
 	 * @param array $atts Shortcode attributes.
 	 */
 	public static function output( $atts ) {
-		if ( ! apply_filters( 'woocommerce_output_cart_shortcode_content', true ) ) {
+		if ( ! apply_filters( 'poocommerce_output_cart_shortcode_content', true ) ) {
 			return;
 		}
 
@@ -87,11 +87,11 @@ class WC_Shortcode_Cart {
 				->track_cart_page_loaded();
 		}
 
-		$atts        = shortcode_atts( array(), $atts, 'woocommerce_cart' );
-		$nonce_value = wc_get_var( $_REQUEST['woocommerce-shipping-calculator-nonce'], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine.
+		$atts        = shortcode_atts( array(), $atts, 'poocommerce_cart' );
+		$nonce_value = wc_get_var( $_REQUEST['poocommerce-shipping-calculator-nonce'], wc_get_var( $_REQUEST['_wpnonce'], '' ) ); // @codingStandardsIgnoreLine.
 
-		// Update Shipping. Nonce check uses new value and old value (woocommerce-cart). @todo remove in 4.0.
-		if ( ! empty( $_POST['calc_shipping'] ) && ( wp_verify_nonce( $nonce_value, 'woocommerce-shipping-calculator' ) || wp_verify_nonce( $nonce_value, 'woocommerce-cart' ) ) ) { // WPCS: input var ok.
+		// Update Shipping. Nonce check uses new value and old value (poocommerce-cart). @todo remove in 4.0.
+		if ( ! empty( $_POST['calc_shipping'] ) && ( wp_verify_nonce( $nonce_value, 'poocommerce-shipping-calculator' ) || wp_verify_nonce( $nonce_value, 'poocommerce-cart' ) ) ) { // WPCS: input var ok.
 			self::calculate_shipping();
 
 			// Also calc totals before we check items so subtotals etc are up to date.
@@ -99,7 +99,7 @@ class WC_Shortcode_Cart {
 		}
 
 		// Check cart items are valid.
-		do_action( 'woocommerce_check_cart_items' );
+		do_action( 'poocommerce_check_cart_items' );
 
 		// Calc totals.
 		WC()->cart->calculate_totals();

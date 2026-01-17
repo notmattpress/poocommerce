@@ -1,11 +1,11 @@
-.woocommerce-marketing-create-campaign-modal {
+.poocommerce-marketing-create-campaign-modal {
 	max-width: 600px;
 
 	.components-modal__content {
 		padding-bottom: $gap;
 	}
 
-	.woocommerce-marketing-new-campaigns {
+	.poocommerce-marketing-new-campaigns {
 		padding-top: $gap-large;
 		padding-bottom: $gap;
 
@@ -24,11 +24,11 @@
 		line-height: 17px;
 	}
 
-	.woocommerce_marketing_plugin_card_body {
+	.poocommerce_marketing_plugin_card_body {
 		padding: $gap 0;
 	}
 
-	.woocommerce-marketing-new-campaign-type {
+	.poocommerce-marketing-new-campaign-type {
 		padding: $gap 0;
 
 		&__name {
@@ -47,7 +47,7 @@
 		}
 	}
 
-	.woocommerce-marketing-add-channels {
+	.poocommerce-marketing-add-channels {
 		padding-top: $gap;
 		border-top: solid 1px $gray-300;
 	}

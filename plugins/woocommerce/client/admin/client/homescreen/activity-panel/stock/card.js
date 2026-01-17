@@ -7,8 +7,8 @@ import clsx from 'clsx';
 import { Component, Fragment } from '@wordpress/element';
 import { ESCAPE } from '@wordpress/keycodes';
 import { get } from 'lodash';
-import { Link, ProductImage } from '@woocommerce/components';
-import { recordEvent } from '@woocommerce/tracks';
+import { Link, ProductImage } from '@poocommerce/components';
+import { recordEvent } from '@poocommerce/tracks';
 import moment from 'moment';
 
 /**
@@ -93,13 +93,13 @@ export class ProductStockCard extends Component {
 				'success',
 				sprintf(
 					/* translators: %s = name of the product having stock updated */
-					__( '%s stock updated', 'woocommerce' ),
+					__( '%s stock updated', 'poocommerce' ),
 					product.name
 				),
 				{
 					actions: [
 						{
-							label: __( 'Undo', 'woocommerce' ),
+							label: __( 'Undo', 'poocommerce' ),
 							onClick: () => {
 								updateProductStock(
 									product,
@@ -117,7 +117,7 @@ export class ProductStockCard extends Component {
 				'error',
 				sprintf(
 					/* translators: %s = name of the product having stock updated */
-					__( '%s stock could not be updated', 'woocommerce' ),
+					__( '%s stock could not be updated', 'poocommerce' ),
 					product.name
 				)
 			);
@@ -134,17 +134,17 @@ export class ProductStockCard extends Component {
 		if ( editing ) {
 			return [
 				<Button key="save" type="submit" isPrimary>
-					{ __( 'Save', 'woocommerce' ) }
+					{ __( 'Save', 'poocommerce' ) }
 				</Button>,
 				<Button key="cancel" type="reset">
-					{ __( 'Cancel', 'woocommerce' ) }
+					{ __( 'Cancel', 'poocommerce' ) }
 				</Button>,
 			];
 		}
 
 		return [
 			<Button key="update" isSecondary onClick={ this.beginEdit }>
-				{ __( 'Update stock', 'woocommerce' ) }
+				{ __( 'Update stock', 'poocommerce' ) }
 			</Button>,
 		];
 	}
@@ -156,7 +156,7 @@ export class ProductStockCard extends Component {
 		if ( editing ) {
 			return (
 				<Fragment>
-					<BaseControl className="woocommerce-stock-activity-card__edit-quantity">
+					<BaseControl className="poocommerce-stock-activity-card__edit-quantity">
 						<input
 							className="components-text-control__input"
 							type="number"
@@ -168,7 +168,7 @@ export class ProductStockCard extends Component {
 							} }
 						/>
 					</BaseControl>
-					<span>{ __( 'in stock', 'woocommerce' ) }</span>
+					<span>{ __( 'in stock', 'poocommerce' ) }</span>
 				</Fragment>
 			);
 		}
@@ -176,7 +176,7 @@ export class ProductStockCard extends Component {
 		return (
 			<span
 				className={ clsx(
-					'woocommerce-stock-activity-card__stock-quantity',
+					'poocommerce-stock-activity-card__stock-quantity',
 					{
 						'out-of-stock': product.stock_quantity < 1,
 					}
@@ -184,7 +184,7 @@ export class ProductStockCard extends Component {
 			>
 				{ sprintf(
 					/* translators: %d = stock quantity of the product being updated */
-					__( '%d in stock', 'woocommerce' ),
+					__( '%d in stock', 'poocommerce' ),
 					product.stock_quantity
 				) }
 			</span>
@@ -205,7 +205,7 @@ export class ProductStockCard extends Component {
 		const lastOrderDate = product.last_order_date
 			? sprintf(
 					/* translators: %s = time since last product order. e.g.: "10 minutes ago" - translated. */
-					__( 'Last ordered %s', 'woocommerce' ),
+					__( 'Last ordered %s', 'poocommerce' ),
 					moment.utc( product.last_order_date ).fromNow()
 			  )
 			: null;
@@ -240,19 +240,19 @@ export class ProductStockCard extends Component {
 		const productImage =
 			get( product, [ 'images', 0 ] ) || get( product, [ 'image' ] );
 		const productImageClasses = clsx(
-			'woocommerce-stock-activity-card__image-overlay__product',
+			'poocommerce-stock-activity-card__image-overlay__product',
 			{
 				'is-placeholder': ! productImage || ! productImage.src,
 			}
 		);
 		const icon = (
-			<div className="woocommerce-stock-activity-card__image-overlay">
+			<div className="poocommerce-stock-activity-card__image-overlay">
 				<div className={ productImageClasses }>
 					<ProductImage product={ product } />
 				</div>
 			</div>
 		);
-		const activityCardClasses = clsx( 'woocommerce-stock-activity-card', {
+		const activityCardClasses = clsx( 'poocommerce-stock-activity-card', {
 			'is-dimmed': ! editing && ! isLowStock,
 		} );
 

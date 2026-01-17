@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/product-categories",
+	"name": "poocommerce/product-categories",
 	"title": "Product Categories List",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "Show all product categories as a list or dropdown.",
-	"keywords": [ "WooCommerce" ],
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -54,7 +54,7 @@
 			"hasImage": false
 		}
 	},
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

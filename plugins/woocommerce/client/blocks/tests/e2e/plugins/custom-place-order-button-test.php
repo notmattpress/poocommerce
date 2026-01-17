@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Blocks Test Custom Place Order Button
+ * Plugin Name: PooCommerce Blocks Test Custom Place Order Button
  * Description: Registers a test payment method with a custom place order button for e2e testing.
- * Plugin URI: https://github.com/woocommerce/woocommerce
- * Author: WooCommerce
+ * Plugin URI: https://github.com/poocommerce/poocommerce
+ * Author: PooCommerce
  *
- * @package woocommerce-blocks-test-custom-place-order-button
+ * @package poocommerce-blocks-test-custom-place-order-button
  */
 
 declare(strict_types=1);
@@ -53,7 +53,7 @@ add_action(
 		}
 
 		add_filter(
-			'woocommerce_payment_gateways',
+			'poocommerce_payment_gateways',
 			function ( $gateways ) {
 				$gateways[] = 'WC_Gateway_Test_Custom_Button';
 				return $gateways;
@@ -63,10 +63,10 @@ add_action(
 );
 
 add_action(
-	'woocommerce_blocks_payment_method_type_registration',
+	'poocommerce_blocks_payment_method_type_registration',
 	function ( $registry ) {
 		$registry->register(
-			new class() extends \Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType {
+			new class() extends \Automattic\PooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType {
 				/**
 				 * Payment method name.
 				 *

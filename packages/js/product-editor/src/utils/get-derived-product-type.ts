@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 export const getDerivedProductType = ( product: Partial< Product > ) => {
 	const hasOptions = !! product.attributes?.find(

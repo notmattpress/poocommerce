@@ -25,16 +25,16 @@ export function DownloadsMenu( {
 			popoverProps={ {
 				placement: 'bottom-end',
 			} }
-			contentClassName="woocommerce-downloads-menu__menu-content"
+			contentClassName="poocommerce-downloads-menu__menu-content"
 			renderToggle={ ( { isOpen, onToggle } ) => (
 				<Button
 					aria-expanded={ isOpen }
 					icon={ isOpen ? chevronUp : chevronDown }
 					variant="secondary"
 					onClick={ onToggle }
-					className="woocommerce-downloads-menu__toggle"
+					className="poocommerce-downloads-menu__toggle"
 				>
-					<span>{ __( 'Add new', 'woocommerce' ) }</span>
+					<span>{ __( 'Add new', 'poocommerce' ) }</span>
 				</Button>
 			) }
 			renderContent={ ( { onClose } ) => (

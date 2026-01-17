@@ -5,11 +5,11 @@
  * note has not been actioned.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\Notes\Notes;
+use Automattic\PooCommerce\Admin\Notes\Notes;
 
 /**
  * Rule processor that compares against the status of another note.

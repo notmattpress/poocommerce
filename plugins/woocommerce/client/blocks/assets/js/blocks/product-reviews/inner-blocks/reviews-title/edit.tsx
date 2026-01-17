@@ -7,7 +7,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { resolveSelect } from '@wordpress/data';
-import { reviewsStore } from '@woocommerce/data';
+import { reviewsStore } from '@poocommerce/data';
 import {
 	// @ts-expect-error AlignmentControl is not exported from @wordpress/block-editor
 	AlignmentControl,
@@ -33,7 +33,7 @@ function getProductReviewsTitle(
 		return reviewsCount === 1
 			? sprintf(
 					/* translators: %s: Product title. */
-					__( 'One review for %s', 'woocommerce' ),
+					__( 'One review for %s', 'poocommerce' ),
 					productTitle
 			  )
 			: sprintf(
@@ -42,7 +42,7 @@ function getProductReviewsTitle(
 						'%1$s review for %2$s',
 						'%1$s reviews for %2$s',
 						reviewsCount,
-						'woocommerce'
+						'poocommerce'
 					),
 					reviewsCount,
 					productTitle
@@ -53,35 +53,35 @@ function getProductReviewsTitle(
 		return reviewsCount === 1
 			? sprintf(
 					/* translators: %s: Product title. */
-					__( 'Review for %s', 'woocommerce' ),
+					__( 'Review for %s', 'poocommerce' ),
 					productTitle
 			  )
 			: sprintf(
 					/* translators: %s: Product title. */
-					__( 'Reviews for %s', 'woocommerce' ),
+					__( 'Reviews for %s', 'poocommerce' ),
 					productTitle
 			  );
 	}
 
 	if ( showReviewsCount && ! showProductTitle ) {
 		return reviewsCount === 1
-			? __( 'One review', 'woocommerce' )
+			? __( 'One review', 'poocommerce' )
 			: sprintf(
 					/* translators: %s: Number of reviews. */
 					_n(
 						'%s review',
 						'%s reviews',
 						reviewsCount,
-						'woocommerce'
+						'poocommerce'
 					),
 					reviewsCount
 			  );
 	}
 
 	if ( reviewsCount === 1 ) {
-		return __( 'Review', 'woocommerce' );
+		return __( 'Review', 'poocommerce' );
 	}
-	return __( 'Reviews', 'woocommerce' );
+	return __( 'Reviews', 'poocommerce' );
 }
 
 export default function Edit( {
@@ -143,11 +143,11 @@ export default function Edit( {
 
 	const inspectorControls = (
 		<InspectorControls>
-			<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+			<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 				<ToggleControl
 					// @ts-expect-error ToggleControl is not typed.
 					__nextHasNoMarginBottom
-					label={ __( 'Show Product Title', 'woocommerce' ) }
+					label={ __( 'Show Product Title', 'poocommerce' ) }
 					checked={ showProductTitle }
 					onChange={ ( value ) =>
 						setAttributes( { showProductTitle: value } )
@@ -156,7 +156,7 @@ export default function Edit( {
 				<ToggleControl
 					// @ts-expect-error ToggleControl is not typed.
 					__nextHasNoMarginBottom
-					label={ __( 'Show Reviews Count', 'woocommerce' ) }
+					label={ __( 'Show Reviews Count', 'poocommerce' ) }
 					checked={ showReviewsCount }
 					onChange={ ( value ) =>
 						setAttributes( { showReviewsCount: value } )
@@ -167,7 +167,7 @@ export default function Edit( {
 	);
 
 	const productTitle = isSiteEditor
-		? __( 'Product Title', 'woocommerce' )
+		? __( 'Product Title', 'poocommerce' )
 		: rawTitle;
 
 	const placeholder = getProductReviewsTitle(

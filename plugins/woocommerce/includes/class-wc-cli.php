@@ -1,16 +1,16 @@
 <?php
 /**
- * Enables WooCommerce, via the command line.
+ * Enables PooCommerce, via the command line.
  *
- * @package WooCommerce\CLI
+ * @package PooCommerce\CLI
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Database\Migrations\CustomOrderTable\CLIRunner as CustomOrdersTableCLIRunner;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\CLIRunner as ProductAttributesLookupCLIRunner;
-use Automattic\WooCommerce\Internal\Integrations\WPPostsImporter;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
-use Automattic\WooCommerce\Internal\CLI\Migrator\Runner;
+use Automattic\PooCommerce\Database\Migrations\CustomOrderTable\CLIRunner as CustomOrdersTableCLIRunner;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\CLIRunner as ProductAttributesLookupCLIRunner;
+use Automattic\PooCommerce\Internal\Integrations\WPPostsImporter;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\CLI\Migrator\Runner;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ class WC_CLI {
 		 * blueprint CLI check. This hook can be removed once FeaturesUtil::feature_is_enabled() is
 		 * refactored to not load translations.
 		 *
-		 * @see https://github.com/woocommerce/woocommerce/issues/56305
+		 * @see https://github.com/poocommerce/poocommerce/issues/56305
 		 */
 		add_action( 'init', array( $this, 'add_blueprint_cli_hook' ) );
 
@@ -67,7 +67,7 @@ class WC_CLI {
 		WP_CLI::add_hook( 'after_wp_load', 'WC_CLI_COM_Command::register_commands' );
 		WP_CLI::add_hook( 'after_wp_load', 'WC_CLI_COM_Extension_Command::register_commands' );
 		if ( defined( 'WOOCOMMERCE_MIGRATOR_ENABLED' ) && WOOCOMMERCE_MIGRATOR_ENABLED ) {
-			WP_CLI::add_hook( 'after_wp_load', 'Automattic\WooCommerce\Internal\CLI\Migrator\Runner::register_commands' );
+			WP_CLI::add_hook( 'after_wp_load', 'Automattic\PooCommerce\Internal\CLI\Migrator\Runner::register_commands' );
 		}
 		$cli_runner = wc_get_container()->get( CustomOrdersTableCLIRunner::class );
 		WP_CLI::add_hook( 'after_wp_load', array( $cli_runner, 'register_commands' ) );
@@ -79,9 +79,9 @@ class WC_CLI {
 	 * Include Blueprint CLI if it's available.
 	 */
 	public function add_blueprint_cli_hook() {
-		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) && class_exists( \Automattic\WooCommerce\Blueprint\Cli::class ) ) {
+		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) && class_exists( \Automattic\PooCommerce\Blueprint\Cli::class ) ) {
 			require_once dirname( WC_PLUGIN_FILE ) . '/packages/blueprint/src/Cli.php';
-			WP_CLI::add_hook( 'after_wp_load', 'Automattic\WooCommerce\Blueprint\Cli::register_commands' );
+			WP_CLI::add_hook( 'after_wp_load', 'Automattic\PooCommerce\Blueprint\Cli::register_commands' );
 		}
 	}
 }

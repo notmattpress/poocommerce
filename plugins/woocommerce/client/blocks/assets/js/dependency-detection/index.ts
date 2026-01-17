@@ -1,5 +1,5 @@
 /**
- * WooCommerce Dependency Detection - Entry Point
+ * PooCommerce Dependency Detection - Entry Point
  *
  * This file is the entry point for the webpack build that creates
  * the inline detection script. It imports utils and wraps them in
@@ -10,7 +10,7 @@
  * Internal dependencies
  */
 import {
-	isWooCommerceScript,
+	isPooCommerceScript,
 	getFilename,
 	parseStackForCallerUrl,
 	getWarningInfo,
@@ -52,7 +52,7 @@ interface PendingCheck {
 	const WC_GLOBAL_EXPORTS: WcGlobalExportsMap =
 		__WC_GLOBAL_EXPORTS_PLACEHOLDER__;
 
-	// WooCommerce plugin URL, injected by PHP to account for custom plugin directories.
+	// PooCommerce plugin URL, injected by PHP to account for custom plugin directories.
 	// eslint-disable-next-line no-undef
 	const WC_PLUGIN_URL: string = __WC_PLUGIN_URL_PLACEHOLDER__;
 	/**
@@ -131,8 +131,8 @@ interface PendingCheck {
 			return;
 		}
 
-		// Skip WooCommerce's own scripts - they manage their own dependencies.
-		if ( isWooCommerceScript( callerUrl, WC_PLUGIN_URL ) ) {
+		// Skip PooCommerce's own scripts - they manage their own dependencies.
+		if ( isPooCommerceScript( callerUrl, WC_PLUGIN_URL ) ) {
 			return;
 		}
 
@@ -182,11 +182,11 @@ interface PendingCheck {
 	} );
 
 	/**
-	 * Update the script registry. Called by WooCommerce PHP to provide
+	 * Update the script registry. Called by PooCommerce PHP to provide
 	 * registered script data for dependency checking.
 	 *
 	 * Not for external use. Calling this will overwrite the registry
-	 * provided by WooCommerce.
+	 * provided by PooCommerce.
 	 *
 	 * @internal
 	 */
@@ -209,6 +209,6 @@ interface PendingCheck {
 
 	// eslint-disable-next-line no-console
 	console.info(
-		'[WooCommerce] Dependency detection enabled. Warnings will be shown for scripts that access wc.* globals without proper dependencies.'
+		'[PooCommerce] Dependency detection enabled. Warnings will be shown for scripts that access wc.* globals without proper dependencies.'
 	);
 } )();

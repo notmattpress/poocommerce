@@ -5,7 +5,7 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Email;
+namespace Automattic\PooCommerce\Internal\Email;
 
 use WC_Abstract_Order;
 use WC_Order_Item;

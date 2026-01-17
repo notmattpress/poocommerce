@@ -1,13 +1,13 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\Domain\Services\CheckoutFieldsSchema;
+namespace Automattic\PooCommerce\Tests\Blocks\Domain\Services\CheckoutFieldsSchema;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\StoreApi\Utilities\CheckoutTrait;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFieldsSchema\DocumentObject;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\StoreApi\Utilities\CheckoutTrait;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Blocks\Package;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 use Opis\JsonSchema\{
 	Validator,
@@ -245,7 +245,7 @@ class DocumentObjectTests extends TestCase {
 	 * Ensures that additional fields in contact locations are under customer and order are under checkout.
 	 */
 	public function test_additional_fields_schema() {
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'namespace/contact_field',
 				'label'    => 'Contact Field',
@@ -253,7 +253,7 @@ class DocumentObjectTests extends TestCase {
 				'type'     => 'text',
 			)
 		);
-		\woocommerce_register_additional_checkout_field(
+		\poocommerce_register_additional_checkout_field(
 			array(
 				'id'       => 'namespace/order_field',
 				'label'    => 'Order Field',
@@ -298,7 +298,7 @@ class DocumentObjectTests extends TestCase {
 	 */
 	private function get_schema() {
 		// Temporary because we can't fetch from the docs top level folder.
-		$schema_path = ABSPATH . 'wp-content/plugins/woocommerce/src/Blocks/Domain/Services/CheckoutFieldsSchema/checkout-document-schema.json';
+		$schema_path = ABSPATH . 'wp-content/plugins/poocommerce/src/Blocks/Domain/Services/CheckoutFieldsSchema/checkout-document-schema.json';
 		return json_decode( file_get_contents( $schema_path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 	}
 

@@ -1,9 +1,9 @@
 <?php
 /**
- * Customize Site Health recommendations for WooCommerce.
+ * Customize Site Health recommendations for PooCommerce.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,16 +29,16 @@ class SiteHealth {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		add_filter( 'site_status_should_suggest_persistent_object_cache', array( $this, 'should_suggest_persistent_object_cache' ) );
 	}
 
 	/**
-	 * Counts specific types of WooCommerce entities to determine if a persistent object cache would be beneficial.
+	 * Counts specific types of PooCommerce entities to determine if a persistent object cache would be beneficial.
 	 *
-	 * Note that if all measured WooCommerce entities are below their thresholds, this will return null so that the
+	 * Note that if all measured PooCommerce entities are below their thresholds, this will return null so that the
 	 * other normal WordPress checks will still be run.
 	 *
 	 * @param true|null $check A non-null value will short-circuit WP's normal tests for this.

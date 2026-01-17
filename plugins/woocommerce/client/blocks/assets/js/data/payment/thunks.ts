@@ -3,7 +3,7 @@
  */
 import { store as noticesStore } from '@wordpress/notices';
 import deprecated from '@wordpress/deprecated';
-import type { BillingAddress, ShippingAddress } from '@woocommerce/settings';
+import type { BillingAddress, ShippingAddress } from '@poocommerce/settings';
 import {
 	isObject,
 	isString,
@@ -12,7 +12,7 @@ import {
 	isErrorResponse,
 	isFailResponse,
 	isSuccessResponse,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import type {
 	ActionCreatorsOf,
 	ConfigOf,
@@ -20,7 +20,7 @@ import type {
 	DispatchFunction,
 	SelectFunction,
 } from '@wordpress/data/build-types/types';
-import { paymentStore } from '@woocommerce/block-data';
+import { paymentStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies
@@ -119,11 +119,11 @@ export const __internalEmitPaymentProcessingEvent: emitProcessingEventType = (
 					// Set this here so that old extensions still using billingData can set the billingAddress.
 					billingAddress = billingDataFromResponse as BillingAddress;
 					deprecated(
-						'returning billingData from an onPaymentProcessing observer in WooCommerce Blocks',
+						'returning billingData from an onPaymentProcessing observer in PooCommerce Blocks',
 						{
 							version: '9.5.0',
 							alternative: 'billingAddress',
-							link: 'https://github.com/woocommerce/woocommerce-blocks/pull/6369',
+							link: 'https://github.com/poocommerce/poocommerce-blocks/pull/6369',
 						}
 					);
 				}
@@ -136,11 +136,11 @@ export const __internalEmitPaymentProcessingEvent: emitProcessingEventType = (
 					shippingAddress =
 						shippingDataFromResponse.address as ShippingAddress;
 					deprecated(
-						'returning shippingData from an onPaymentProcessing observer in WooCommerce Blocks',
+						'returning shippingData from an onPaymentProcessing observer in PooCommerce Blocks',
 						{
 							version: '9.5.0',
 							alternative: 'shippingAddress',
-							link: 'https://github.com/woocommerce/woocommerce-blocks/pull/8163',
+							link: 'https://github.com/poocommerce/poocommerce-blocks/pull/8163',
 						}
 					);
 				}

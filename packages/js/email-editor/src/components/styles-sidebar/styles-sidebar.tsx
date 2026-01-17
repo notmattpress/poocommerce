@@ -5,7 +5,7 @@ import { memo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { styles } from '@wordpress/icons';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error Type for PluginSidebar is missing in @types/wordpress__editor
 	PluginSidebar,
@@ -41,14 +41,14 @@ export function RawStylesSidebar(): JSX.Element {
 					target="email-styles-sidebar"
 					icon={ styles }
 				>
-					{ __( 'Email styles', 'woocommerce' ) }
+					{ __( 'Email styles', 'poocommerce' ) }
 				</PluginSidebarMoreMenuItem>
 				<PluginSidebar
 					name="email-styles-sidebar"
 					icon={ styles }
-					title={ __( 'Styles', 'woocommerce' ) }
-					className="woocommerce-email-editor-styles-panel"
-					header={ __( 'Styles', 'woocommerce' ) }
+					title={ __( 'Styles', 'poocommerce' ) }
+					className="poocommerce-email-editor-styles-panel"
+					header={ __( 'Styles', 'poocommerce' ) }
 				>
 					<Navigator initialPath="/">
 						<Navigator.Screen path="/">

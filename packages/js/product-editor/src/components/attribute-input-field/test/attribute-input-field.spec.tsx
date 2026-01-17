@@ -7,7 +7,7 @@ import { useState, createElement } from '@wordpress/element';
 import type {
 	ProductProductAttribute,
 	QueryProductAttribute,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ jest.mock( '@wordpress/components', () => ( {
 	Icon: () => <div>icon</div>,
 } ) );
 
-jest.mock( '@woocommerce/components', () => {
+jest.mock( '@poocommerce/components', () => {
 	return {
 		__esModule: true,
 		__experimentalSelectControlMenu: ( {

@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Admin\API;
+namespace Automattic\PooCommerce\Tests\Admin\API;
 
-use Automattic\WooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
+use Automattic\PooCommerce\Internal\Admin\Schedulers\OrdersScheduler;
 use WC_REST_Unit_Test_Case;
 use WP_REST_Request;
 
@@ -167,7 +167,7 @@ class AnalyticsImportsTest extends WC_REST_Unit_Test_Case {
 	}
 
 	/**
-	 * Test status endpoint requires manage_woocommerce capability.
+	 * Test status endpoint requires manage_poocommerce capability.
 	 *
 	 * @return void
 	 */
@@ -236,11 +236,11 @@ class AnalyticsImportsTest extends WC_REST_Unit_Test_Case {
 
 		$data = $response->get_data();
 		$this->assertArrayHasKey( 'code', $data );
-		$this->assertSame( 'woocommerce_rest_analytics_import_immediate_mode', $data['code'] );
+		$this->assertSame( 'poocommerce_rest_analytics_import_immediate_mode', $data['code'] );
 	}
 
 	/**
-	 * Test trigger endpoint requires manage_woocommerce capability.
+	 * Test trigger endpoint requires manage_poocommerce capability.
 	 *
 	 * @return void
 	 */

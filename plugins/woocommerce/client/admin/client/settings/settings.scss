@@ -1,6 +1,6 @@
 @include wordpress-admin-schemes();
 
-body.woocommerce_page_wc-settings {
+body.poocommerce_page_wc-settings {
 	#wpcontent {
 		margin-left: 0 !important;
 		padding-left: 0 !important;
@@ -38,7 +38,7 @@ body.woocommerce_page_wc-settings {
 		left: 0;
 		display: flex !important;
 
-		.woocommerce-site-layout {
+		.poocommerce-site-layout {
 			height: 100%;
 			background: $gray-900;
 			color: $gray-400;
@@ -54,7 +54,7 @@ body.woocommerce_page_wc-settings {
 		display: none;
 	}
 
-	.woocommerce-site-layout__area {
+	.poocommerce-site-layout__area {
 		background: #fff;
 		color: #1e1e1e;
 		flex-grow: 1;
@@ -66,18 +66,18 @@ body.woocommerce_page_wc-settings {
 		}
 	}
 
-	.woocommerce-site-layout__content {
+	.poocommerce-site-layout__content {
 		height: 100%;
 		flex-grow: 1;
 		display: flex;
 	}
 
-	.woocommerce-site-layout__sidebar {
+	.poocommerce-site-layout__sidebar {
 		width: 300px;
 		flex-shrink: 0;
 	}
 
-	.woocommerce-site-page-header {
+	.poocommerce-site-page-header {
 		padding: $grid-unit-20 $grid-unit-60;
 		border-bottom: 1px solid $gray-100;
 		background: $white;

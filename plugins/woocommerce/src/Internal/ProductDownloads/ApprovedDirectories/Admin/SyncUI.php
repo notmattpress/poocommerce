@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin;
+namespace Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Admin;
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize;
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 /**
  * Adds tools to the Status > Tools page that can be used to (re-)initiate or stop a synchronization process
@@ -39,7 +39,7 @@ class SyncUI {
 			return;
 		}
 
-		add_filter( 'woocommerce_debug_tools', array( $this, 'add_tools' ) );
+		add_filter( 'poocommerce_debug_tools', array( $this, 'add_tools' ) );
 	}
 
 	/**
@@ -55,30 +55,30 @@ class SyncUI {
 		if ( ! $sync->in_progress() ) {
 			// Provide tools to trigger a fresh scan (migration) and to clear the Approved Directories list.
 			$tools['approved_directories_sync'] = array(
-				'name'             => __( 'Synchronize approved download directories', 'woocommerce' ),
-				'desc'             => __( 'Updates the list of Approved Product Download Directories. Note that triggering this tool does not impact whether the Approved Download Directories list is enabled or not.', 'woocommerce' ),
-				'button'           => __( 'Update', 'woocommerce' ),
+				'name'             => __( 'Synchronize approved download directories', 'poocommerce' ),
+				'desc'             => __( 'Updates the list of Approved Product Download Directories. Note that triggering this tool does not impact whether the Approved Download Directories list is enabled or not.', 'poocommerce' ),
+				'button'           => __( 'Update', 'poocommerce' ),
 				'callback'         => array( $this, 'trigger_sync' ),
 				'requires_refresh' => true,
 			);
 
 			$tools['approved_directories_clear'] = array(
-				'name'             => __( 'Empty the approved download directories list', 'woocommerce' ),
-				'desc'             => __( 'Removes all existing entries from the Approved Product Download Directories list.', 'woocommerce' ),
-				'button'           => __( 'Clear', 'woocommerce' ),
+				'name'             => __( 'Empty the approved download directories list', 'poocommerce' ),
+				'desc'             => __( 'Removes all existing entries from the Approved Product Download Directories list.', 'poocommerce' ),
+				'button'           => __( 'Clear', 'poocommerce' ),
 				'callback'         => array( $this, 'clear_existing_entries' ),
 				'requires_refresh' => true,
 			);
 		} else {
 			// Or if a scan (migration) is already in progress, offer a means of cancelling it.
 			$tools['cancel_directories_scan'] = array(
-				'name'     => __( 'Cancel synchronization of approved directories', 'woocommerce' ),
+				'name'     => __( 'Cancel synchronization of approved directories', 'poocommerce' ),
 				'desc'     => sprintf(
 				/* translators: %d is an integer between 0-100 representing the percentage complete of the current scan. */
-					__( 'The Approved Product Download Directories list is currently being synchronized with the product catalog (%d%% complete). If you need to, you can cancel it.', 'woocommerce' ),
+					__( 'The Approved Product Download Directories list is currently being synchronized with the product catalog (%d%% complete). If you need to, you can cancel it.', 'poocommerce' ),
 					$sync->get_progress()
 				),
-				'button'   => __( 'Cancel', 'woocommerce' ),
+				'button'   => __( 'Cancel', 'poocommerce' ),
 				'callback' => array( $this, 'cancel_sync' ),
 			);
 		}
@@ -107,7 +107,7 @@ class SyncUI {
 	 */
 	public function cancel_sync() {
 		$this->security_check();
-		wc_get_logger()->log( 'info', __( 'Approved Download Directories sync: scan has been cancelled.', 'woocommerce' ) );
+		wc_get_logger()->log( 'info', __( 'Approved Download Directories sync: scan has been cancelled.', 'poocommerce' ) );
 		wc_get_container()->get( Synchronize::class )->stop();
 	}
 
@@ -116,7 +116,7 @@ class SyncUI {
 	 */
 	private function security_check() {
 		if ( ! Users::is_site_administrator() ) {
-			wp_die( esc_html__( 'You do not have permission to modify the list of approved directories for product downloads.', 'woocommerce' ) );
+			wp_die( esc_html__( 'You do not have permission to modify the list of approved directories for product downloads.', 'poocommerce' ) );
 		}
 	}
 }

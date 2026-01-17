@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { TableRow } from '@woocommerce/components/build-types/table/types';
+import { TableRow } from '@poocommerce/components/build-types/table/types';
 /**
  * Internal dependencies
  */

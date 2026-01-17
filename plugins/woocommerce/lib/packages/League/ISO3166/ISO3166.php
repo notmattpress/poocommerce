@@ -9,10 +9,10 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\League\ISO3166;
+namespace Automattic\PooCommerce\Vendor\League\ISO3166;
 
-use Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException;
-use Automattic\WooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException;
+use Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException;
+use Automattic\PooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException;
 
 /** @implements \IteratorAggregate<string, array> */
 final class ISO3166 implements \Countable, \IteratorAggregate, ISO3166DataProvider
@@ -109,7 +109,7 @@ final class ISO3166 implements \Countable, \IteratorAggregate, ISO3166DataProvid
     /**
      * @param 'name'|'alpha2'|'alpha3'|'numeric' $key
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\DomainException if an invalid key is specified
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\DomainException if an invalid key is specified
      *
      * @return \Generator<string, array{name: string, alpha2: string, alpha3: string, numeric: numeric-string, currency: string[]}>
      */
@@ -155,7 +155,7 @@ final class ISO3166 implements \Countable, \IteratorAggregate, ISO3166DataProvid
      *
      * @param 'name'|'alpha2'|'alpha3'|'numeric' $key
      *
-     * @throws \Automattic\WooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if key does not exist in dataset
+     * @throws \Automattic\PooCommerce\Vendor\League\ISO3166\Exception\OutOfBoundsException if key does not exist in dataset
      *
      * @return array{name: string, alpha2: string, alpha3: string, numeric: numeric-string, currency: string[]}
      */

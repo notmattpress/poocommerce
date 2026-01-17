@@ -50,7 +50,7 @@
 
 # 5.0.0
 
--   `getPersistedQuery` Add a filter for extensions to add a persisted query, `woocommerce_admin_persisted_queries`.
+-   `getPersistedQuery` Add a filter for extensions to add a persisted query, `poocommerce_admin_persisted_queries`.
 
 # 4.0.0
 

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { createElement } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 
 /**
  * Internal dependencies

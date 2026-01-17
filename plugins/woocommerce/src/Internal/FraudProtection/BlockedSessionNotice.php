@@ -5,9 +5,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -52,8 +52,8 @@ class BlockedSessionNotice implements RegisterHooksInterface {
 	 * @return void
 	 */
 	public function register(): void {
-		add_action( 'woocommerce_before_checkout_form', array( $this, 'display_checkout_blocked_notice' ), 1, 0 );
-		add_action( 'before_woocommerce_add_payment_method', array( $this, 'display_generic_blocked_notice' ), 1, 0 );
+		add_action( 'poocommerce_before_checkout_form', array( $this, 'display_checkout_blocked_notice' ), 1, 0 );
+		add_action( 'before_poocommerce_add_payment_method', array( $this, 'display_generic_blocked_notice' ), 1, 0 );
 	}
 
 	/**
@@ -106,7 +106,7 @@ class BlockedSessionNotice implements RegisterHooksInterface {
 		if ( 'checkout' === $context ) {
 			return sprintf(
 				/* translators: %1$s: mailto link, %2$s: email address */
-				__( 'We are unable to process this request online. Please <a href="%1$s">contact support (%2$s)</a> to complete your purchase.', 'woocommerce' ),
+				__( 'We are unable to process this request online. Please <a href="%1$s">contact support (%2$s)</a> to complete your purchase.', 'poocommerce' ),
 				esc_url( 'mailto:' . $email ),
 				esc_html( $email )
 			);
@@ -114,7 +114,7 @@ class BlockedSessionNotice implements RegisterHooksInterface {
 
 		return sprintf(
 			/* translators: %1$s: mailto link, %2$s: email address */
-			__( 'We are unable to process this request online. Please <a href="%1$s">contact support (%2$s)</a> for assistance.', 'woocommerce' ),
+			__( 'We are unable to process this request online. Please <a href="%1$s">contact support (%2$s)</a> for assistance.', 'poocommerce' ),
 			esc_url( 'mailto:' . $email ),
 			esc_html( $email )
 		);
@@ -134,14 +134,14 @@ class BlockedSessionNotice implements RegisterHooksInterface {
 		if ( 'checkout' === $context ) {
 			return sprintf(
 				/* translators: %s: support email address */
-				__( 'We are unable to process this request online. Please contact support (%s) to complete your purchase.', 'woocommerce' ),
+				__( 'We are unable to process this request online. Please contact support (%s) to complete your purchase.', 'poocommerce' ),
 				$email
 			);
 		}
 
 		return sprintf(
 			/* translators: %s: support email address */
-			__( 'We are unable to process this request online. Please contact support (%s) for assistance.', 'woocommerce' ),
+			__( 'We are unable to process this request online. Please contact support (%s) for assistance.', 'poocommerce' ),
 			$email
 		);
 	}

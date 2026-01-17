@@ -6,11 +6,11 @@ import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, ExternalLink } from '@wordpress/components';
 import { shipping } from '@wordpress/icons';
-import { ADMIN_URL, getSetting } from '@woocommerce/settings';
-import ExternalLinkCard from '@woocommerce/editor-components/external-link-card';
-import { innerBlockAreas } from '@woocommerce/blocks-checkout';
-import { useCheckoutAddress } from '@woocommerce/base-context/hooks';
-import Noninteractive from '@woocommerce/base-components/noninteractive';
+import { ADMIN_URL, getSetting } from '@poocommerce/settings';
+import ExternalLinkCard from '@poocommerce/editor-components/external-link-card';
+import { innerBlockAreas } from '@poocommerce/blocks-checkout';
+import { useCheckoutAddress } from '@poocommerce/base-context/hooks';
+import Noninteractive from '@poocommerce/base-components/noninteractive';
 
 /**
  * Internal dependencies
@@ -66,26 +66,26 @@ export const Edit = ( {
 		>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Shipping Calculations', 'woocommerce' ) }
+					title={ __( 'Shipping Calculations', 'poocommerce' ) }
 				>
 					<p className="wc-block-checkout__controls-text">
 						{ __(
 							'Options that control shipping can be managed in your store settings.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<ExternalLink
 						href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=shipping&section=options` }
 					>
-						{ __( 'Manage shipping options', 'woocommerce' ) }
+						{ __( 'Manage shipping options', 'poocommerce' ) }
 					</ExternalLink>{ ' ' }
 				</PanelBody>
 				{ globalShippingMethods.length > 0 && (
-					<PanelBody title={ __( 'Methods', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Methods', 'poocommerce' ) }>
 						<p className="wc-block-checkout__controls-text">
 							{ __(
 								'The following shipping integrations are active on your store.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 						{ globalShippingMethods.map( ( method ) => {
@@ -101,16 +101,16 @@ export const Edit = ( {
 						<ExternalLink
 							href={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=shipping` }
 						>
-							{ __( 'Manage shipping methods', 'woocommerce' ) }
+							{ __( 'Manage shipping methods', 'poocommerce' ) }
 						</ExternalLink>
 					</PanelBody>
 				) }
 				{ activeShippingZones.length && (
-					<PanelBody title={ __( 'Shipping Zones', 'woocommerce' ) }>
+					<PanelBody title={ __( 'Shipping Zones', 'poocommerce' ) }>
 						<p className="wc-block-checkout__controls-text">
 							{ __(
 								'Shipping Zones can be made managed in your store settings.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</p>
 						{ activeShippingZones.map( ( zone ) => {
@@ -131,14 +131,14 @@ export const Edit = ( {
 					noShippingPlaceholder={
 						<ConfigurePlaceholder
 							icon={ shipping }
-							label={ __( 'Shipping options', 'woocommerce' ) }
+							label={ __( 'Shipping options', 'poocommerce' ) }
 							description={ __(
 								'Your store does not have any Shipping Options configured. Once you have added your Shipping Options they will appear here.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							buttonLabel={ __(
 								'Configure Shipping Options',
-								'woocommerce'
+								'poocommerce'
 							) }
 							buttonHref={ `${ ADMIN_URL }admin.php?page=wc-settings&tab=shipping` }
 						/>

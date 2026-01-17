@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Social_Links_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Social_Links_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 /**
  * Renders the social links block.
  */
@@ -168,7 +168,7 @@ class Social_Links extends Abstract_Block_Renderer {
 			esc_attr( $icon_size ),
 			esc_url( $service_icon_url ),
 			// translators: %s is the social service name.
-			sprintf( __( '%s icon', 'woocommerce' ), $service_name )
+			sprintf( __( '%s icon', 'poocommerce' ), $service_name )
 		);
 		$icon_content = Table_Wrapper_Helper::render_table_wrapper( $icon_content, array(), array( 'style' => 'vertical-align:middle;' ) );
 		$icon_content = Table_Wrapper_Helper::render_table_cell( $icon_content, array( 'style' => sprintf( 'vertical-align:middle;font-size:%s;', $text_font_size ) ) );

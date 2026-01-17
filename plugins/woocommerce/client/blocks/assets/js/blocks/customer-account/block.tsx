@@ -6,8 +6,8 @@ import {
 	customerAccountStyle,
 	customerAccountStyleAlt,
 	customerAccountStyleLine,
-} from '@woocommerce/icons';
-import { getSetting } from '@woocommerce/settings';
+} from '@poocommerce/icons';
+import { getSetting } from '@poocommerce/settings';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -45,8 +45,8 @@ const Label = ( { displayStyle }: { displayStyle: DisplayStyle } ) => {
 	return (
 		<span className="label">
 			{ currentUserId
-				? __( 'My Account', 'woocommerce' )
-				: __( 'Log in', 'woocommerce' ) }
+				? __( 'My Account', 'poocommerce' )
+				: __( 'Log in', 'poocommerce' ) }
 		</span>
 	);
 };
@@ -61,7 +61,7 @@ export const CustomerAccountBlock = ( {
 	const ariaAttributes =
 		displayStyle === DisplayStyle.ICON_ONLY
 			? {
-					'aria-label': __( 'My Account', 'woocommerce' ),
+					'aria-label': __( 'My Account', 'poocommerce' ),
 			  }
 			: {};
 

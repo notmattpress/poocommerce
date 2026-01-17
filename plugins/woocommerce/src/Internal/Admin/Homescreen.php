@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Homescreen.
+ * PooCommerce Homescreen.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Shipping;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\Shipping;
 
 /**
  * Contains backend logic for the homescreen feature.
@@ -35,26 +35,26 @@ class Homescreen {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
+		add_filter( 'poocommerce_admin_get_user_data_fields', array( $this, 'add_user_data_fields' ) );
 		add_action( 'admin_menu', array( $this, 'register_page' ) );
-		// In WC Core 5.1 $submenu manipulation occurs in admin_menu, not admin_head. See https://github.com/woocommerce/woocommerce/pull/29088.
+		// In WC Core 5.1 $submenu manipulation occurs in admin_menu, not admin_head. See https://github.com/poocommerce/poocommerce/pull/29088.
 		if ( version_compare( WC_VERSION, '5.1', '>=' ) ) {
-			// priority is 20 to run after admin_menu hook for woocommerce runs, so that submenu is populated.
-			add_action( 'admin_menu', array( $this, 'possibly_remove_woocommerce_menu' ) );
+			// priority is 20 to run after admin_menu hook for poocommerce runs, so that submenu is populated.
+			add_action( 'admin_menu', array( $this, 'possibly_remove_poocommerce_menu' ) );
 			add_action( 'admin_menu', array( $this, 'update_link_structure' ), 20 );
 		} else {
-			// priority is 20 to run after https://github.com/woocommerce/woocommerce/blob/a55ae325306fc2179149ba9b97e66f32f84fdd9c/includes/admin/class-wc-admin-menus.php#L165.
+			// priority is 20 to run after https://github.com/poocommerce/poocommerce/blob/a55ae325306fc2179149ba9b97e66f32f84fdd9c/includes/admin/class-wc-admin-menus.php#L165.
 			add_action( 'admin_head', array( $this, 'update_link_structure' ), 20 );
 		}
 
-		add_filter( 'woocommerce_admin_preload_options', array( $this, 'preload_options' ) );
+		add_filter( 'poocommerce_admin_preload_options', array( $this, 'preload_options' ) );
 
 		if ( Features::is_enabled( 'shipping-smart-defaults' ) ) {
 			add_filter(
-				'woocommerce_admin_shared_settings',
+				'poocommerce_admin_shared_settings',
 				array( $this, 'maybe_set_default_shipping_options_on_home' ),
 				9999
 			);
@@ -80,25 +80,25 @@ class Homescreen {
 		$current_screen = get_current_screen();
 
 		// Abort if it's not the homescreen.
-		if ( ! isset( $current_screen->id ) || 'woocommerce_page_wc-admin' !== $current_screen->id ) {
+		if ( ! isset( $current_screen->id ) || 'poocommerce_page_wc-admin' !== $current_screen->id ) {
 			return $settings;
 		}
 
 		// Abort if we already created the shipping options.
-		$already_created = get_option( 'woocommerce_admin_created_default_shipping_zones' );
+		$already_created = get_option( 'poocommerce_admin_created_default_shipping_zones' );
 		if ( $already_created === 'yes' ) {
 			return $settings;
 		}
 
 		$zone_count = count( \WC_Data_Store::load( 'shipping-zone' )->get_zones() );
 		if ( $zone_count ) {
-			update_option( 'woocommerce_admin_created_default_shipping_zones', 'yes' );
-			update_option( 'woocommerce_admin_reviewed_default_shipping_zones', 'yes' );
+			update_option( 'poocommerce_admin_created_default_shipping_zones', 'yes' );
+			update_option( 'poocommerce_admin_reviewed_default_shipping_zones', 'yes' );
 			return $settings;
 		}
 
 		$user_skipped_obw           = $settings['onboarding']['profile']['skipped'] ?? false;
-		$store_address              = $settings['preloadSettings']['general']['woocommerce_store_address'] ?? '';
+		$store_address              = $settings['preloadSettings']['general']['poocommerce_store_address'] ?? '';
 		$product_types              = $settings['onboarding']['profile']['product_types'] ?? array();
 		$user_has_set_store_country = $settings['onboarding']['profile']['is_store_country_set'] ?? false;
 
@@ -117,11 +117,11 @@ class Homescreen {
 			return $settings;
 		}
 
-		$country_code = wc_format_country_state_string( $settings['preloadSettings']['general']['woocommerce_default_country'] )['country'];
+		$country_code = wc_format_country_state_string( $settings['preloadSettings']['general']['poocommerce_default_country'] )['country'];
 		$country_name = WC()->countries->get_countries()[ $country_code ] ?? null;
 
 		$is_jetpack_installed = in_array( 'jetpack', $settings['plugins']['installedPlugins'] ?? array(), true );
-		$is_wcs_installed     = in_array( 'woocommerce-services', $settings['plugins']['installedPlugins'] ?? array(), true );
+		$is_wcs_installed     = in_array( 'poocommerce-services', $settings['plugins']['installedPlugins'] ?? array(), true );
 
 		if (
 			( 'US' === $country_code && $is_jetpack_installed )
@@ -146,7 +146,7 @@ class Homescreen {
 			);
 			rest_do_request( $request );
 
-			update_option( 'woocommerce_admin_created_default_shipping_zones', 'yes' );
+			update_option( 'poocommerce_admin_created_default_shipping_zones', 'yes' );
 			Shipping::delete_zone_count_transient();
 		}
 
@@ -174,12 +174,12 @@ class Homescreen {
 	 * Registers home page.
 	 */
 	public function register_page() {
-		// Register a top-level item for users who cannot view the core WooCommerce menu.
+		// Register a top-level item for users who cannot view the core PooCommerce menu.
 		if ( ! self::is_admin_user() ) {
 			wc_admin_register_page(
 				array(
-					'id'         => 'woocommerce-home',
-					'title'      => __( 'WooCommerce', 'woocommerce' ),
+					'id'         => 'poocommerce-home',
+					'title'      => __( 'PooCommerce', 'poocommerce' ),
 					'path'       => self::MENU_SLUG,
 					'capability' => 'read',
 				)
@@ -189,9 +189,9 @@ class Homescreen {
 
 		wc_admin_register_page(
 			array(
-				'id'         => 'woocommerce-home',
-				'title'      => __( 'Home', 'woocommerce' ),
-				'parent'     => 'woocommerce',
+				'id'         => 'poocommerce-home',
+				'title'      => __( 'Home', 'poocommerce' ),
+				'parent'     => 'poocommerce',
 				'path'       => self::MENU_SLUG,
 				'order'      => 0,
 				'capability' => 'read',
@@ -200,7 +200,7 @@ class Homescreen {
 	}
 
 	/**
-	 * Check if the user can access the top-level WooCommerce item.
+	 * Check if the user can access the top-level PooCommerce item.
 	 *
 	 * @return bool
 	 */
@@ -208,18 +208,18 @@ class Homescreen {
 		if ( ! class_exists( 'WC_Admin_Menus', false ) ) {
 			include_once WC_ABSPATH . 'includes/admin/class-wc-admin-menus.php';
 		}
-		if ( method_exists( 'WC_Admin_Menus', 'can_view_woocommerce_menu_item' ) ) {
-			return \WC_Admin_Menus::can_view_woocommerce_menu_item() || current_user_can( 'manage_woocommerce' );
+		if ( method_exists( 'WC_Admin_Menus', 'can_view_poocommerce_menu_item' ) ) {
+			return \WC_Admin_Menus::can_view_poocommerce_menu_item() || current_user_can( 'manage_poocommerce' );
 		} else {
 			// We leave this line for WC versions <= 6.2.
-			return current_user_can( 'edit_others_shop_orders' ) || current_user_can( 'manage_woocommerce' );
+			return current_user_can( 'edit_others_shop_orders' ) || current_user_can( 'manage_poocommerce' );
 		}
 	}
 
 	/**
-	 * Possibly remove the WooCommerce menu item if it was purely used to access wc-admin pages.
+	 * Possibly remove the PooCommerce menu item if it was purely used to access wc-admin pages.
 	 */
-	public function possibly_remove_woocommerce_menu() {
+	public function possibly_remove_poocommerce_menu() {
 		global $menu;
 
 		if ( self::is_admin_user() ) {
@@ -236,18 +236,18 @@ class Homescreen {
 	}
 
 	/**
-	 * Update the WooCommerce menu structure to make our main dashboard/handler
-	 * the top level link for 'WooCommerce'.
+	 * Update the PooCommerce menu structure to make our main dashboard/handler
+	 * the top level link for 'PooCommerce'.
 	 */
 	public function update_link_structure() {
 		global $submenu;
 		// User does not have capabilities to see the submenu.
-		if ( ! current_user_can( 'manage_woocommerce' ) || empty( $submenu['woocommerce'] ) ) {
+		if ( ! current_user_can( 'manage_poocommerce' ) || empty( $submenu['poocommerce'] ) ) {
 			return;
 		}
 
 		$wc_admin_key = null;
-		foreach ( $submenu['woocommerce'] as $submenu_key => $submenu_item ) {
+		foreach ( $submenu['poocommerce'] as $submenu_key => $submenu_item ) {
 			if ( self::MENU_SLUG === $submenu_item[2] ) {
 				$wc_admin_key = $submenu_key;
 				break;
@@ -258,11 +258,11 @@ class Homescreen {
 			return;
 		}
 
-		$menu = $submenu['woocommerce'][ $wc_admin_key ];
+		$menu = $submenu['poocommerce'][ $wc_admin_key ];
 
 		// Move menu item to top of array.
-		unset( $submenu['woocommerce'][ $wc_admin_key ] );
-		array_unshift( $submenu['woocommerce'], $menu );
+		unset( $submenu['poocommerce'][ $wc_admin_key ] );
+		array_unshift( $submenu['poocommerce'], $menu );
 	}
 
 	/**
@@ -272,8 +272,8 @@ class Homescreen {
 	 * @return array
 	 */
 	public function preload_options( $options ) {
-		$options[] = 'woocommerce_default_homepage_layout';
-		$options[] = 'woocommerce_admin_install_timestamp';
+		$options[] = 'poocommerce_default_homepage_layout';
+		$options[] = 'poocommerce_admin_install_timestamp';
 
 		return $options;
 	}

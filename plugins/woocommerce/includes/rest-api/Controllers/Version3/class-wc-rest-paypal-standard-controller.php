@@ -5,7 +5,7 @@
  *
  * Handles requests to the /paypal-standard endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   10.3.0
  */
 
@@ -28,7 +28,7 @@ if ( ! class_exists( 'WC_Gateway_Paypal_Request' ) ) {
 /**
  * REST API PayPal Standard controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Paypal_Standard_Controller extends WC_REST_Controller {
@@ -87,7 +87,7 @@ class WC_REST_Paypal_Standard_Controller extends WC_REST_Controller {
 		$order = WC_Gateway_Paypal_Helper::get_wc_order_from_paypal_custom_id( $purchase_units[0]['custom_id'] ?? '{}' );
 		if ( ! $order ) {
 			$custom_id = isset( $purchase_units[0]['custom_id'] ) ? $purchase_units[0]['custom_id'] : '{}';
-			WC_Gateway_Paypal::log( 'Unable to determine WooCommerce order from PayPal custom ID: ' . $custom_id );
+			WC_Gateway_Paypal::log( 'Unable to determine PooCommerce order from PayPal custom ID: ' . $custom_id );
 			$response = $this->get_update_shipping_error_response();
 			return new WP_REST_Response( $response, 422 );
 		}
@@ -211,7 +211,7 @@ class WC_REST_Paypal_Standard_Controller extends WC_REST_Controller {
 	}
 
 	/**
-	 * Update the WooCommerce order with the new shipping address.
+	 * Update the PooCommerce order with the new shipping address.
 	 *
 	 * @param WC_Order $order The order object.
 	 * @param array    $shipping_address The shipping address.
@@ -230,7 +230,7 @@ class WC_REST_Paypal_Standard_Controller extends WC_REST_Controller {
 
 		// We do not have the address line 1 and 2 -- we are clearing them here to avoid
 		// showing stale data. The final address will be updated when the
-		// customer approves the order, via 'woocommerce_thankyou_paypal' hook.
+		// customer approves the order, via 'poocommerce_thankyou_paypal' hook.
 		$order->set_shipping_address_1( '' );
 		$order->set_shipping_address_2( '' );
 		$order->save();

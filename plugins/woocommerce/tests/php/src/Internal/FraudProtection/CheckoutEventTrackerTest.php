@@ -5,19 +5,19 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\ApiClient;
-use Automattic\WooCommerce\Internal\FraudProtection\CheckoutEventTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\DecisionHandler;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionDispatcher;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\ApiClient;
+use Automattic\PooCommerce\Internal\FraudProtection\CheckoutEventTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\DecisionHandler;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionDispatcher;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
 
 /**
  * Tests for CheckoutEventTracker.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\CheckoutEventTracker
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\CheckoutEventTracker
  */
 class CheckoutEventTrackerTest extends \WC_Unit_Test_Case {
 
@@ -55,8 +55,8 @@ class CheckoutEventTrackerTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 

@@ -10,18 +10,18 @@ import {
 	BlockContextProvider,
 } from '@wordpress/block-editor';
 import { BlockInstance, type BlockEditProps } from '@wordpress/blocks';
-import { withProduct } from '@woocommerce/block-hocs';
+import { withProduct } from '@poocommerce/block-hocs';
 import {
 	InnerBlockLayoutContextProvider,
 	ProductDataContextProvider,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
+} from '@poocommerce/shared-context';
 import { resolveSelect, useSelect } from '@wordpress/data';
-import type { ProductResponseItem } from '@woocommerce/types';
-import { productsStore } from '@woocommerce/data';
-import { isProductResponseItem } from '@woocommerce/entities';
+import type { ProductResponseItem } from '@poocommerce/types';
+import { productsStore } from '@poocommerce/data';
+import { isProductResponseItem } from '@poocommerce/entities';
 import { Spinner } from '@wordpress/components';
-import { previewProductResponseItems } from '@woocommerce/resource-previews';
+import { previewProductResponseItems } from '@poocommerce/resource-previews';
 
 interface Attributes {
 	className?: string;
@@ -226,7 +226,7 @@ export default function ProductItemTemplateEdit(
 
 	return (
 		<div { ...blockProps }>
-			<InnerBlockLayoutContextProvider parentName="woocommerce/add-to-cart-with-options-grouped-product-item">
+			<InnerBlockLayoutContextProvider parentName="poocommerce/add-to-cart-with-options-grouped-product-item">
 				<div role="list">{ productList }</div>
 			</InnerBlockLayoutContextProvider>
 		</div>

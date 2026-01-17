@@ -18,7 +18,7 @@ import {
 	notesStore,
 	onboardingStore,
 	optionsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -97,7 +97,7 @@ export const Layout = ( {
 			createInfoNotice(
 				__(
 					'Your WooPayments test account was successfully created.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					type: 'info',
@@ -134,10 +134,10 @@ export const Layout = ( {
 					{ ! isLoadingTaskLists && ! showingProgressHeader && (
 						<ActivityHeader
 							className="your-store-today"
-							title={ __( 'Your store today', 'woocommerce' ) }
+							title={ __( 'Your store today', 'poocommerce' ) }
 							subtitle={ __(
 								'To-dos, tips, and insights for your business',
-								'woocommerce'
+								'poocommerce'
 							) }
 						/>
 					) }
@@ -159,13 +159,13 @@ export const Layout = ( {
 		<>
 			{ isDashboardShown && (
 				<WooHomescreenHeaderBanner
-					className={ clsx( 'woocommerce-homescreen', {
-						'woocommerce-homescreen-column': ! twoColumns,
+					className={ clsx( 'poocommerce-homescreen', {
+						'poocommerce-homescreen-column': ! twoColumns,
 					} ) }
 				/>
 			) }
 			<div
-				className={ clsx( 'woocommerce-homescreen', {
+				className={ clsx( 'poocommerce-homescreen', {
 					'two-columns': twoColumns,
 				} ) }
 			>
@@ -207,7 +207,7 @@ export default compose(
 		const { isNotesRequesting } = select( notesStore );
 		const { getOption } = select( optionsStore );
 		const defaultHomescreenLayout =
-			getOption( 'woocommerce_default_homepage_layout' ) ||
+			getOption( 'poocommerce_default_homepage_layout' ) ||
 			'single_column';
 
 		const {

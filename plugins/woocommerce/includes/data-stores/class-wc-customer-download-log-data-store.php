@@ -3,7 +3,7 @@
  * Class WC_Customer_Download_Log_Data_Store file.
  *
  * @version  3.3.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -54,17 +54,17 @@ class WC_Customer_Download_Log_Data_Store implements WC_Customer_Download_Log_Da
 
 		$result = $wpdb->insert(
 			$wpdb->prefix . self::get_table_name(),
-			apply_filters( 'woocommerce_downloadable_product_download_log_insert_data', $data ),
-			apply_filters( 'woocommerce_downloadable_product_download_log_insert_format', $format, $data )
+			apply_filters( 'poocommerce_downloadable_product_download_log_insert_data', $data ),
+			apply_filters( 'poocommerce_downloadable_product_download_log_insert_format', $format, $data )
 		);
 
-		do_action( 'woocommerce_downloadable_product_download_log_insert', $data );
+		do_action( 'poocommerce_downloadable_product_download_log_insert', $data );
 
 		if ( $result ) {
 			$download_log->set_id( $wpdb->insert_id );
 			$download_log->apply_changes();
 		} else {
-			wp_die( esc_html__( 'Unable to insert download log entry in database.', 'woocommerce' ) );
+			wp_die( esc_html__( 'Unable to insert download log entry in database.', 'poocommerce' ) );
 		}
 	}
 
@@ -81,7 +81,7 @@ class WC_Customer_Download_Log_Data_Store implements WC_Customer_Download_Log_Da
 
 		// Ensure we have an id to pull from the DB.
 		if ( ! $download_log->get_id() ) {
-			throw new Exception( __( 'Invalid download log: no ID.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid download log: no ID.', 'poocommerce' ) );
 		}
 
 		$table = $wpdb->prefix . self::get_table_name();
@@ -90,7 +90,7 @@ class WC_Customer_Download_Log_Data_Store implements WC_Customer_Download_Log_Da
 		$raw_download_log = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE download_log_id = %d", $download_log->get_id() ) ); // WPCS: unprepared SQL ok.
 
 		if ( ! $raw_download_log ) {
-			throw new Exception( __( 'Invalid download log: not found.', 'woocommerce' ) );
+			throw new Exception( __( 'Invalid download log: not found.', 'poocommerce' ) );
 		}
 
 		$download_log->set_props(
@@ -262,7 +262,7 @@ class WC_Customer_Download_Log_Data_Store implements WC_Customer_Download_Log_Da
 	 */
 	public function delete_by_permission_id( $id ) {
 		global $wpdb;
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_downloadable_product_permissions WHERE permission_id = %d", $id ) );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}poocommerce_downloadable_product_permissions WHERE permission_id = %d", $id ) );
 		// Delete related records in wc_download_log (aka ON DELETE CASCADE).
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wc_download_log WHERE permission_id = %d", $id ) );
 	}

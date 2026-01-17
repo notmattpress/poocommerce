@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-inventory-quantity-field",
+	"name": "poocommerce/product-inventory-quantity-field",
 	"title": "Product inventory quantity available",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product available quantity.",
 	"keywords": [
 		"products",

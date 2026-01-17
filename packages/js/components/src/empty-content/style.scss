@@ -1,14 +1,14 @@
 
 
-.woocommerce-empty-content {
+.poocommerce-empty-content {
 	margin-bottom: $gap;
 	text-align: center;
 
-	.woocommerce-empty-content__illustration {
+	.poocommerce-empty-content__illustration {
 		max-width: 100%;
 	}
 
-	.woocommerce-empty-content__actions {
+	.poocommerce-empty-content__actions {
 		.components-button + .components-button {
 			margin-left: $gap;
 		}

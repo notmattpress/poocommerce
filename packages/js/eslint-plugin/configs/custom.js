@@ -1,7 +1,7 @@
 module.exports = {
-	plugins: [ '@wordpress', '@woocommerce' ],
+	plugins: [ '@wordpress', '@poocommerce' ],
 	rules: {
-		'@woocommerce/dependency-group': 'error',
+		'@poocommerce/dependency-group': 'error',
 	},
 	settings: {
 		jsdoc: {

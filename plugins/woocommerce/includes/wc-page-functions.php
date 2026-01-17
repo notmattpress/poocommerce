@@ -1,10 +1,10 @@
 <?php
 /**
- * WooCommerce Page Functions
+ * PooCommerce Page Functions
  *
  * Functions related to pages and menus.
  *
- * @package  WooCommerce\Functions
+ * @package  PooCommerce\Functions
  * @version  2.6.0
  */
 
@@ -81,7 +81,7 @@ function wc_get_page_id( $page ) {
 		$page = 'myaccount';
 	}
 
-	$page = apply_filters( 'woocommerce_get_' . $page . '_page_id', get_option( 'woocommerce_' . $page . '_page_id' ) );
+	$page = apply_filters( 'poocommerce_get_' . $page . '_page_id', get_option( 'poocommerce_' . $page . '_page_id' ) );
 
 	return $page ? absint( $page ) : -1;
 }
@@ -101,7 +101,7 @@ function wc_get_page_permalink( $page, $fallback = null ) {
 		$permalink = is_null( $fallback ) ? get_home_url() : $fallback;
 	}
 
-	return apply_filters( 'woocommerce_get_' . $page . '_page_permalink', $permalink );
+	return apply_filters( 'poocommerce_get_' . $page . '_page_permalink', $permalink );
 }
 
 /**
@@ -123,7 +123,7 @@ function wc_get_endpoint_url( $endpoint, $value = '', $permalink = '' ) {
 	// Map endpoint to options.
 	$query_vars = WC()->query->get_query_vars();
 	$endpoint   = ! empty( $query_vars[ $endpoint ] ) ? $query_vars[ $endpoint ] : $endpoint;
-	$value      = ( get_option( 'woocommerce_myaccount_edit_address_endpoint', 'edit-address' ) === $endpoint ) ? wc_edit_address_i18n( $value ) : $value;
+	$value      = ( get_option( 'poocommerce_myaccount_edit_address_endpoint', 'edit-address' ) === $endpoint ) ? wc_edit_address_i18n( $value ) : $value;
 
 	if ( get_option( 'permalink_structure' ) ) {
 		if ( strstr( $permalink, '?' ) ) {
@@ -145,7 +145,7 @@ function wc_get_endpoint_url( $endpoint, $value = '', $permalink = '' ) {
 		$url = add_query_arg( $endpoint, $value, $permalink );
 	}
 
-	return apply_filters( 'woocommerce_get_endpoint_url', $url, $endpoint, $value, $permalink );
+	return apply_filters( 'poocommerce_get_endpoint_url', $url, $endpoint, $value, $permalink );
 }
 
 /**
@@ -155,7 +155,7 @@ function wc_get_endpoint_url( $endpoint, $value = '', $permalink = '' ) {
  * @return array
  */
 function wc_nav_menu_items( $items ) {
-	$logout_endpoint = get_option( 'woocommerce_logout_endpoint', 'customer-logout' );
+	$logout_endpoint = get_option( 'poocommerce_logout_endpoint', 'customer-logout' );
 
 	if ( ! empty( $logout_endpoint ) && ! empty( $items ) && is_array( $items ) ) {
 		foreach ( $items as $key => $item ) {
@@ -193,7 +193,7 @@ add_filter( 'wp_nav_menu_objects', 'wc_nav_menu_items', 10 );
  * @return \WP_Block_list
  */
 function wc_nav_menu_inner_blocks( $inner_blocks ) {
-	$logout_endpoint = get_option( 'woocommerce_logout_endpoint', 'customer-logout' );
+	$logout_endpoint = get_option( 'poocommerce_logout_endpoint', 'customer-logout' );
 
 	if ( ! empty( $logout_endpoint ) && $inner_blocks ) {
 		foreach ( $inner_blocks as $inner_block_key => $inner_block ) {
@@ -225,7 +225,7 @@ add_filter( 'block_core_navigation_render_inner_blocks', 'wc_nav_menu_inner_bloc
  * @return array
  */
 function wc_nav_menu_item_classes( $menu_items ) {
-	if ( ! is_woocommerce() ) {
+	if ( ! is_poocommerce() ) {
 		return $menu_items;
 	}
 
@@ -271,19 +271,19 @@ add_filter( 'wp_nav_menu_objects', 'wc_nav_menu_item_classes', 2 );
 /**
  * Fix active class in wp_list_pages for shop page.
  *
- * See details in https://github.com/woocommerce/woocommerce/issues/177.
+ * See details in https://github.com/poocommerce/poocommerce/issues/177.
  *
  * @param string $pages Pages list.
  * @return string
  */
 function wc_list_pages( $pages ) {
-	if ( ! is_woocommerce() ) {
+	if ( ! is_poocommerce() ) {
 		return $pages;
 	}
 
 	// Remove current_page_parent class from any item.
 	$pages = str_replace( 'current_page_parent', '', $pages );
-	// Find shop_page_id through woocommerce options.
+	// Find shop_page_id through poocommerce options.
 	$shop_page = 'page-item-' . wc_get_page_id( 'shop' );
 
 	if ( is_shop() ) {

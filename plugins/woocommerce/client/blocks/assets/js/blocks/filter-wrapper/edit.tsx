@@ -32,7 +32,7 @@ const Edit = ( { attributes, clientId }: EditProps ) => {
 						{ level: 3, content: attributes.heading || '' },
 					],
 					[
-						`woocommerce/${ attributes.filterType }`,
+						`poocommerce/${ attributes.filterType }`,
 						{
 							heading: '',
 							lock: {

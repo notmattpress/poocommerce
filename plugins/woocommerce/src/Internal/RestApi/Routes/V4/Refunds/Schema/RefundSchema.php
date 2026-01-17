@@ -2,22 +2,22 @@
 /**
  * RefundSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderItemSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderFeeSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderTaxSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderShippingSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderItemSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderFeeSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderTaxSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderShippingSchema;
 use WP_REST_Request;
 
 /**
@@ -89,20 +89,20 @@ class RefundSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'               => array(
-				'description' => __( 'Unique identifier for the refund.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the refund.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'order_id'         => array(
-				'description'       => __( 'The ID of the order that was refunded.', 'woocommerce' ),
+				'description'       => __( 'The ID of the order that was refunded.', 'poocommerce' ),
 				'type'              => 'integer',
 				'context'           => self::VIEW_EDIT_EMBED_CONTEXT,
 				'required'          => true,
 				'sanitize_callback' => 'absint',
 			),
 			'amount'           => array(
-				'description'       => __( 'Amount that was refunded. This is calculated from the line items if not provided.', 'woocommerce' ),
+				'description'       => __( 'Amount that was refunded. This is calculated from the line items if not provided.', 'poocommerce' ),
 				'type'              => 'number',
 				'context'           => self::VIEW_EDIT_EMBED_CONTEXT,
 				'default'           => 0,
@@ -110,58 +110,58 @@ class RefundSchema extends AbstractSchema {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'reason'           => array(
-				'description'       => __( 'Reason for the refund.', 'woocommerce' ),
+				'description'       => __( 'Reason for the refund.', 'poocommerce' ),
 				'type'              => 'string',
 				'context'           => self::VIEW_EDIT_EMBED_CONTEXT,
 				'default'           => '',
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'currency'         => array(
-				'description' => __( 'Currency the refund was created with, in ISO format.', 'woocommerce' ),
+				'description' => __( 'Currency the refund was created with, in ISO format.', 'poocommerce' ),
 				'type'        => 'string',
-				'default'     => get_woocommerce_currency(),
-				'enum'        => array_keys( get_woocommerce_currencies() ),
+				'default'     => get_poocommerce_currency(),
+				'enum'        => array_keys( get_poocommerce_currencies() ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'currency_symbol'  => array(
-				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created'     => array(
-				'description' => __( "The date the refund was created, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the refund was created, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created_gmt' => array(
-				'description' => __( 'The date the refund was created, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the refund was created, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'refunded_by'      => array(
-				'description' => __( 'User who created the refund.', 'woocommerce' ),
+				'description' => __( 'User who created the refund.', 'poocommerce' ),
 				'type'        => 'object',
 				'properties'  => array(
 					'id'           => array(
-						'description' => __( 'User ID of user who created the refund.', 'woocommerce' ),
+						'description' => __( 'User ID of user who created the refund.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,
 					),
 					'display_name' => array(
-						'description' => __( 'Display name of the user who created the refund.', 'woocommerce' ),
+						'description' => __( 'Display name of the user who created the refund.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,
 					),
 					'avatar_url'   => array(
-						'description' => __( 'Avatar URL of the user who created the refund.', 'woocommerce' ),
+						'description' => __( 'Avatar URL of the user who created the refund.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,
@@ -172,13 +172,13 @@ class RefundSchema extends AbstractSchema {
 				'readonly'    => true,
 			),
 			'refunded_payment' => array(
-				'description' => __( 'If the payment was refunded via the API.', 'woocommerce' ),
+				'description' => __( 'If the payment was refunded via the API.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'meta_data'        => array(
-				'description' => __( 'Meta data.', 'woocommerce' ),
+				'description' => __( 'Meta data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -186,18 +186,18 @@ class RefundSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => array(
 						'id'    => array(
-							'description' => __( 'Meta ID.', 'woocommerce' ),
+							'description' => __( 'Meta ID.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 							'readonly'    => true,
 						),
 						'key'   => array(
-							'description' => __( 'Meta key.', 'woocommerce' ),
+							'description' => __( 'Meta key.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						),
 						'value' => array(
-							'description' => __( 'Meta value.', 'woocommerce' ),
+							'description' => __( 'Meta value.', 'poocommerce' ),
 							'type'        => array( 'null', 'object', 'string', 'number', 'boolean', 'integer', 'array' ),
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						),
@@ -205,7 +205,7 @@ class RefundSchema extends AbstractSchema {
 				),
 			),
 			'line_items'       => array(
-				'description' => __( 'Refunded line items. This can include products, fees, and shipping lines, combined into a single array.', 'woocommerce' ),
+				'description' => __( 'Refunded line items. This can include products, fees, and shipping lines, combined into a single array.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'default'     => array(),
@@ -213,13 +213,13 @@ class RefundSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => array(
 						'id'           => array(
-							'description' => __( 'ID of the refund line item. This is not the ID of the original line item.', 'woocommerce' ),
+							'description' => __( 'ID of the refund line item. This is not the ID of the original line item.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 							'readonly'    => true,
 						),
 						'line_item_id' => array(
-							'description'       => __( 'ID of the original line item.', 'woocommerce' ),
+							'description'       => __( 'ID of the original line item.', 'poocommerce' ),
 							'type'              => 'integer',
 							'context'           => self::VIEW_EDIT_EMBED_CONTEXT,
 							'required'          => true,
@@ -227,7 +227,7 @@ class RefundSchema extends AbstractSchema {
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'quantity'     => array(
-							'description'       => __( 'Quantity refunded.', 'woocommerce' ),
+							'description'       => __( 'Quantity refunded.', 'poocommerce' ),
 							'type'              => 'integer',
 							'context'           => self::VIEW_EDIT_EMBED_CONTEXT,
 							'default'           => 0,
@@ -235,7 +235,7 @@ class RefundSchema extends AbstractSchema {
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'refund_total' => array(
-							'description'       => __( 'Total refunded for this item.', 'woocommerce' ),
+							'description'       => __( 'Total refunded for this item.', 'poocommerce' ),
 							'type'              => 'number',
 							'context'           => self::VIEW_EDIT_EMBED_CONTEXT,
 							'default'           => 0,
@@ -243,7 +243,7 @@ class RefundSchema extends AbstractSchema {
 							'validate_callback' => 'rest_validate_request_arg',
 						),
 						'refund_tax'   => array(
-							'description' => __( 'Optional: Taxes refunded for this item. If not provided, tax will be automatically extracted from refund_total using the order\'s tax rates.', 'woocommerce' ),
+							'description' => __( 'Optional: Taxes refunded for this item. If not provided, tax will be automatically extracted from refund_total using the order\'s tax rates.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 							'default'     => array(),
@@ -251,7 +251,7 @@ class RefundSchema extends AbstractSchema {
 								'type'       => 'object',
 								'properties' => array(
 									'id'           => array(
-										'description' => __( 'Tax ID.', 'woocommerce' ),
+										'description' => __( 'Tax ID.', 'poocommerce' ),
 										'type'        => 'integer',
 										'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 										'required'    => true,
@@ -259,7 +259,7 @@ class RefundSchema extends AbstractSchema {
 										'validate_callback' => 'rest_validate_request_arg',
 									),
 									'refund_total' => array(
-										'description' => __( 'Amount refunded for this tax.', 'woocommerce' ),
+										'description' => __( 'Amount refunded for this tax.', 'poocommerce' ),
 										'type'        => 'number',
 										'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 										'required'    => true,
@@ -289,13 +289,13 @@ class RefundSchema extends AbstractSchema {
 	 */
 	private static function add_cogs_related_schema( array $schema ): array {
 		$schema['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			'readonly'    => true,
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Total value of the Cost of Goods Sold for the refund.', 'woocommerce' ),
+					'description' => __( 'Total value of the Cost of Goods Sold for the refund.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
@@ -319,7 +319,7 @@ class RefundSchema extends AbstractSchema {
 			'id'               => $refund->get_id(),
 			'order_id'         => $refund->get_parent_id(),
 			'currency'         => $refund->get_currency(),
-			'currency_symbol'  => html_entity_decode( get_woocommerce_currency_symbol( $refund->get_currency() ), ENT_QUOTES ),
+			'currency_symbol'  => html_entity_decode( get_poocommerce_currency_symbol( $refund->get_currency() ), ENT_QUOTES ),
 			'date_created'     => wc_rest_prepare_date_response( $refund->get_date_created(), false ),
 			'date_created_gmt' => wc_rest_prepare_date_response( $refund->get_date_created() ),
 			'amount'           => wc_format_decimal( $refund->get_amount(), $dp ),

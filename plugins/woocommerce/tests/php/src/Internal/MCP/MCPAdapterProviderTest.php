@@ -5,11 +5,11 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\MCP;
+namespace Automattic\PooCommerce\Tests\Internal\MCP;
 
-use Automattic\WooCommerce\Internal\MCP\MCPAdapterProvider;
-use Automattic\WooCommerce\Internal\Abilities\AbilitiesRegistry;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Internal\MCP\MCPAdapterProvider;
+use Automattic\PooCommerce\Internal\Abilities\AbilitiesRegistry;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Tests for the MCPAdapterProvider class.
@@ -45,7 +45,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Bootstrap the WordPress Abilities API for tests.
 		if ( ! function_exists( 'wp_register_ability' ) ) {
-			$abilities_bootstrap = WP_PLUGIN_DIR . '/woocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
+			$abilities_bootstrap = WP_PLUGIN_DIR . '/poocommerce/vendor/wordpress/abilities-api/includes/bootstrap.php';
 			if ( file_exists( $abilities_bootstrap ) ) {
 				require_once $abilities_bootstrap;
 			}
@@ -53,7 +53,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Bootstrap the MCP Adapter for tests.
 		if ( ! class_exists( 'WP\\MCP\\Core\\McpAdapter' ) ) {
-			$mcp_bootstrap = WP_PLUGIN_DIR . '/woocommerce/vendor/wordpress/mcp-adapter/includes/Autoloader.php';
+			$mcp_bootstrap = WP_PLUGIN_DIR . '/poocommerce/vendor/wordpress/mcp-adapter/includes/Autoloader.php';
 			if ( file_exists( $mcp_bootstrap ) ) {
 				require_once $mcp_bootstrap;
 				// Initialize the autoloader.
@@ -88,8 +88,8 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		}
 
 		// Reset any filters that might have been added.
-		remove_all_filters( 'woocommerce_mcp_include_ability' );
-		remove_all_filters( 'woocommerce_mcp_allow_insecure_transport' );
+		remove_all_filters( 'poocommerce_mcp_include_ability' );
+		remove_all_filters( 'poocommerce_mcp_allow_insecure_transport' );
 		remove_all_filters( 'mcp_validation_enabled' );
 
 		// Remove actions registered by the system under test.
@@ -97,7 +97,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		remove_action( 'mcp_adapter_init', array( $this->sut, 'initialize_mcp_server' ), 10 );
 
 		// Clean up feature flag options.
-		delete_option( 'woocommerce_feature_mcp_integration_enabled' );
+		delete_option( 'poocommerce_feature_mcp_integration_enabled' );
 
 		parent::tearDown();
 	}
@@ -107,7 +107,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_maybe_initialize_respects_feature_flag_disabled() {
 		// Ensure MCP feature is disabled via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'no' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'no' );
 
 		$this->sut->maybe_initialize();
 
@@ -120,7 +120,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	public function test_maybe_initialize_respects_feature_flag_enabled() {
 
 		// Enable MCP feature via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->sut->maybe_initialize();
 
@@ -132,7 +132,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_prevents_double_initialization() {
 		// Enable MCP feature via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->sut->maybe_initialize();
 		$first_initialized = $this->sut->is_initialized();
@@ -147,14 +147,14 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	/**
 	 * Test ability filtering by namespace.
 	 */
-	public function test_get_woocommerce_mcp_abilities_filters_by_namespace() {
+	public function test_get_poocommerce_mcp_abilities_filters_by_namespace() {
 		// Mock abilities registry to return test abilities.
 		$this->mock_abilities_registry
 			->method( 'get_abilities_ids' )
 			->willReturn(
 				array(
-					'woocommerce/products-list',
-					'woocommerce/orders-get',
+					'poocommerce/products-list',
+					'poocommerce/orders-get',
 					'other-plugin/custom-action',
 					'another/namespace/action',
 				)
@@ -162,29 +162,29 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Use reflection to test the private method.
 		$reflection = new \ReflectionClass( $this->sut );
-		$method     = $reflection->getMethod( 'get_woocommerce_mcp_abilities' );
+		$method     = $reflection->getMethod( 'get_poocommerce_mcp_abilities' );
 		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->sut );
 
 		$expected = array(
-			'woocommerce/products-list',
-			'woocommerce/orders-get',
+			'poocommerce/products-list',
+			'poocommerce/orders-get',
 		);
 
-		$this->assertEquals( $expected, $result, 'Should only return woocommerce namespaced abilities' );
+		$this->assertEquals( $expected, $result, 'Should only return poocommerce namespaced abilities' );
 	}
 
 	/**
 	 * Test ability filtering with custom filter.
 	 */
-	public function test_get_woocommerce_mcp_abilities_respects_custom_filter() {
+	public function test_get_poocommerce_mcp_abilities_respects_custom_filter() {
 		// Mock abilities registry to return test abilities.
 		$this->mock_abilities_registry
 			->method( 'get_abilities_ids' )
 			->willReturn(
 				array(
-					'woocommerce/products-list',
+					'poocommerce/products-list',
 					'custom-plugin/special-action',
 					'other-plugin/normal-action',
 				)
@@ -192,7 +192,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Add custom filter to include abilities from custom-plugin namespace.
 		add_filter(
-			'woocommerce_mcp_include_ability',
+			'poocommerce_mcp_include_ability',
 			function ( $should_include, $ability_id ) {
 				if ( str_starts_with( $ability_id, 'custom-plugin/' ) ) {
 					return true;
@@ -205,13 +205,13 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Use reflection to test the private method.
 		$reflection = new \ReflectionClass( $this->sut );
-		$method     = $reflection->getMethod( 'get_woocommerce_mcp_abilities' );
+		$method     = $reflection->getMethod( 'get_poocommerce_mcp_abilities' );
 		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->sut );
 
 		$expected = array(
-			'woocommerce/products-list',
+			'poocommerce/products-list',
 			'custom-plugin/special-action',
 		);
 
@@ -234,7 +234,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		$this->assertFalse( $this->sut->is_initialized(), 'Should start as not initialized' );
 
 		// Enable MCP feature via option.
-		update_option( 'woocommerce_feature_mcp_integration_enabled', 'yes' );
+		update_option( 'poocommerce_feature_mcp_integration_enabled', 'yes' );
 
 		$this->sut->maybe_initialize();
 		$this->assertTrue( $this->sut->is_initialized(), 'Should track initialized state' );
@@ -251,7 +251,7 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Use reflection to test the private method.
 		$reflection = new \ReflectionClass( $this->sut );
-		$method     = $reflection->getMethod( 'get_woocommerce_mcp_abilities' );
+		$method     = $reflection->getMethod( 'get_poocommerce_mcp_abilities' );
 		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->sut );
@@ -260,10 +260,10 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test that non-woocommerce abilities are filtered out.
+	 * Test that non-poocommerce abilities are filtered out.
 	 */
-	public function test_filters_out_non_woocommerce_abilities() {
-		// Mock abilities registry to return only non-woocommerce abilities.
+	public function test_filters_out_non_poocommerce_abilities() {
+		// Mock abilities registry to return only non-poocommerce abilities.
 		$this->mock_abilities_registry
 			->method( 'get_abilities_ids' )
 			->willReturn(
@@ -276,12 +276,12 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 
 		// Use reflection to test the private method.
 		$reflection = new \ReflectionClass( $this->sut );
-		$method     = $reflection->getMethod( 'get_woocommerce_mcp_abilities' );
+		$method     = $reflection->getMethod( 'get_poocommerce_mcp_abilities' );
 		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->sut );
 
-		$this->assertEquals( array(), $result, 'Should filter out all non-woocommerce abilities' );
+		$this->assertEquals( array(), $result, 'Should filter out all non-poocommerce abilities' );
 	}
 
 	/**
@@ -294,15 +294,15 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 			->willReturn(
 				array(
 					'other-plugin/action-1',
-					'woocommerce/products-list',
+					'poocommerce/products-list',
 					'another-namespace/action-2',
-					'woocommerce/orders-get',
+					'poocommerce/orders-get',
 				)
 			);
 
 		// Use reflection to test the private method.
 		$reflection = new \ReflectionClass( $this->sut );
-		$method     = $reflection->getMethod( 'get_woocommerce_mcp_abilities' );
+		$method     = $reflection->getMethod( 'get_poocommerce_mcp_abilities' );
 		$method->setAccessible( true );
 
 		$result = $method->invoke( $this->sut );
@@ -311,8 +311,8 @@ class MCPAdapterProviderTest extends \WC_Unit_Test_Case {
 		$this->assertEquals( array( 0, 1 ), array_keys( $result ), 'Should re-index array after filtering' );
 		$this->assertEquals(
 			array(
-				'woocommerce/products-list',
-				'woocommerce/orders-get',
+				'poocommerce/products-list',
+				'poocommerce/orders-get',
 			),
 			array_values( $result ),
 			'Should maintain correct values after re-indexing'

@@ -2,14 +2,14 @@
 /**
  * ProductMapper class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductMapperInterface;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductMapperInterface;
 use WC_Product;
 use WC_REST_Products_Controller;
 use WC_REST_Product_Variations_Controller;
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Mapper for the POS catalog.
  *
- * Uses WooCommerce REST API controllers to map product data.
+ * Uses PooCommerce REST API controllers to map product data.
  *
  * @since 10.5.0
  */
@@ -107,7 +107,7 @@ class ProductMapper implements ProductMapperInterface {
 	}
 
 	/**
-	 * Map WooCommerce product to catalog row
+	 * Map PooCommerce product to catalog row
 	 *
 	 * @since 10.5.0
 	 *
@@ -147,7 +147,7 @@ class ProductMapper implements ProductMapperInterface {
 		 * @param array      $row     Mapped product data.
 		 * @param WC_Product $product Product object.
 		 */
-		return apply_filters( 'woocommerce_pos_catalog_map_product', $row, $product );
+		return apply_filters( 'poocommerce_pos_catalog_map_product', $row, $product );
 	}
 
 	/**

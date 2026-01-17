@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
+import { paymentStore } from '@poocommerce/block-data';
 
 export const useIncompatiblePaymentGatewaysNotice = (): [
 	{ [ k: string ]: string },

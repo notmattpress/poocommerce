@@ -1,27 +1,27 @@
 /**
  * External dependencies
  */
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import {
 	useQueryStateByKey,
 	useQueryStateByContext,
 	useCollectionData,
-} from '@woocommerce/base-context/hooks';
+} from '@poocommerce/base-context/hooks';
 import { useCallback, useState, useEffect } from '@wordpress/element';
-import PriceSlider from '@woocommerce/base-components/price-slider';
-import FilterTitlePlaceholder from '@woocommerce/base-components/filter-placeholder';
+import PriceSlider from '@poocommerce/base-components/price-slider';
+import FilterTitlePlaceholder from '@poocommerce/base-components/filter-placeholder';
 import { useDebouncedCallback } from 'use-debounce';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
-import { getSettingWithCoercion } from '@woocommerce/settings';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
+import { getSettingWithCoercion } from '@poocommerce/settings';
 import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
-import { changeUrl, getUrlParameter } from '@woocommerce/utils';
+import { changeUrl, getUrlParameter } from '@poocommerce/utils';
 import {
 	CurrencyResponse,
 	isBoolean,
 	isObject,
 	isString,
 	objectHasProp,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 
 /**
  * Internal dependencies

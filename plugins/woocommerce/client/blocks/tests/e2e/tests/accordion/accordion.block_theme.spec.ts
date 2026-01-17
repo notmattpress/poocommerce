@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { expect, test as base } from '@woocommerce/e2e-utils';
+import { expect, test as base } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -9,7 +9,7 @@ import { expect, test as base } from '@woocommerce/e2e-utils';
 import { AccordionPage } from './accordion.page';
 
 const blockData = {
-	slug: 'woocommerce/accordion-group',
+	slug: 'poocommerce/accordion-group',
 };
 
 const test = base.extend< { pageObject: AccordionPage } >( {
@@ -135,7 +135,7 @@ test.describe( `${ blockData.slug } Block`, () => {
 			},
 		] );
 		const accordionPanel = await editor.getBlockByName(
-			'woocommerce/accordion-item'
+			'poocommerce/accordion-item'
 		);
 		await editor.selectBlocks( accordionPanel.first() );
 
@@ -180,7 +180,7 @@ test.describe( `${ blockData.slug } Block`, () => {
 			},
 		] );
 		const accordionPanel = await editor.getBlockByName(
-			'woocommerce/accordion-group'
+			'poocommerce/accordion-group'
 		);
 		await editor.selectBlocks( accordionPanel.first() );
 

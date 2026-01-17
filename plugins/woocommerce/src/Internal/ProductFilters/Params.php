@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\FilterUrlParam;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\FilterUrlParam;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Single source of truth for managing all filter params.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class Params implements FilterUrlParam {
 	/**

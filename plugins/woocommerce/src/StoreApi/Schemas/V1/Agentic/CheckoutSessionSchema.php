@@ -2,30 +2,30 @@
 /**
  * CheckoutSessionSchema class.
  *
- * @package Automattic\WooCommerce\StoreApi\Schemas\V1\Agentic
+ * @package Automattic\PooCommerce\StoreApi\Schemas\V1\Agentic
  */
 
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1\Agentic;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1\Agentic;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\MessageType;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\MessageContentType;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\FulfillmentType;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\TotalType;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\LinkType;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\PaymentMethod;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
-use Automattic\WooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\DraftOrderTrait;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\MessageType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\MessageContentType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\FulfillmentType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\TotalType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\LinkType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\PaymentMethod;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
+use Automattic\PooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\DraftOrderTrait;
 use WC_Order;
 
 /**
  * Handles the schema for Agentic Checkout API checkout sessions.
- * This schema formats WooCommerce cart/order data according to the
+ * This schema formats PooCommerce cart/order data according to the
  * Agentic Commerce Protocol specification.
  *
  * @internal The specification for agentic requests is subject to abrupt changes; backwards compatibility cannot be guaranteed.
@@ -55,45 +55,45 @@ class CheckoutSessionSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'                    => [
-				'description' => __( 'Unique identifier for the checkout session.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the checkout session.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'buyer'                 => [
-				'description' => __( 'Buyer information.', 'woocommerce' ),
+				'description' => __( 'Buyer information.', 'poocommerce' ),
 				'type'        => [ 'object', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'properties'  => [
 					'first_name'   => [
-						'description' => __( 'First name.', 'woocommerce' ),
+						'description' => __( 'First name.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'last_name'    => [
-						'description' => __( 'Last name.', 'woocommerce' ),
+						'description' => __( 'Last name.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'email'        => [
-						'description' => __( 'Email address.', 'woocommerce' ),
+						'description' => __( 'Email address.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'phone_number' => [
-						'description' => __( 'Phone number.', 'woocommerce' ),
+						'description' => __( 'Phone number.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 				],
 			],
 			'payment_provider'      => [
-				'description' => __( 'Payment provider information.', 'woocommerce' ),
+				'description' => __( 'Payment provider information.', 'poocommerce' ),
 				'type'        => [ 'object', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'properties'  => [
 					'provider'                  => [
-						'description' => __( 'Payment provider identifier.', 'woocommerce' ),
+						'description' => __( 'Payment provider identifier.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'supported_payment_methods' => [
-						'description' => __( 'List of supported payment methods.', 'woocommerce' ),
+						'description' => __( 'List of supported payment methods.', 'poocommerce' ),
 						'type'        => 'array',
 						'items'       => [
 							'type' => 'string',
@@ -102,7 +102,7 @@ class CheckoutSessionSchema extends AbstractSchema {
 				],
 			],
 			'status'                => [
-				'description' => __( 'Status of the checkout session.', 'woocommerce' ),
+				'description' => __( 'Status of the checkout session.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'enum'        => [
@@ -114,213 +114,213 @@ class CheckoutSessionSchema extends AbstractSchema {
 				'readonly'    => true,
 			],
 			'currency'              => [
-				'description' => __( 'Currency code (ISO 4217).', 'woocommerce' ),
+				'description' => __( 'Currency code (ISO 4217).', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'line_items'            => [
-				'description' => __( 'Line items in the checkout session.', 'woocommerce' ),
+				'description' => __( 'Line items in the checkout session.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'          => [
-							'description' => __( 'Line item ID.', 'woocommerce' ),
+							'description' => __( 'Line item ID.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'item'        => [
-							'description' => __( 'Product item details.', 'woocommerce' ),
+							'description' => __( 'Product item details.', 'poocommerce' ),
 							'type'        => 'object',
 							'properties'  => [
 								'id'       => [
-									'description' => __( 'Product ID.', 'woocommerce' ),
+									'description' => __( 'Product ID.', 'poocommerce' ),
 									'type'        => 'string',
 								],
 								'quantity' => [
-									'description' => __( 'Quantity.', 'woocommerce' ),
+									'description' => __( 'Quantity.', 'poocommerce' ),
 									'type'        => 'integer',
 								],
 							],
 						],
 						'base_amount' => [
-							'description' => __( 'Base amount in cents.', 'woocommerce' ),
+							'description' => __( 'Base amount in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 						'discount'    => [
-							'description' => __( 'Discount amount in cents.', 'woocommerce' ),
+							'description' => __( 'Discount amount in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 						'subtotal'    => [
-							'description' => __( 'Subtotal in cents.', 'woocommerce' ),
+							'description' => __( 'Subtotal in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 						'tax'         => [
-							'description' => __( 'Tax amount in cents.', 'woocommerce' ),
+							'description' => __( 'Tax amount in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 						'total'       => [
-							'description' => __( 'Total amount in cents.', 'woocommerce' ),
+							'description' => __( 'Total amount in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 					],
 				],
 			],
 			'fulfillment_address'   => [
-				'description' => __( 'Fulfillment/shipping address.', 'woocommerce' ),
+				'description' => __( 'Fulfillment/shipping address.', 'poocommerce' ),
 				'type'        => [ 'object', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 				'properties'  => [
 					'name'        => [
-						'description' => __( 'Full name.', 'woocommerce' ),
+						'description' => __( 'Full name.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'line_one'    => [
-						'description' => __( 'Address line 1.', 'woocommerce' ),
+						'description' => __( 'Address line 1.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'line_two'    => [
-						'description' => __( 'Address line 2.', 'woocommerce' ),
+						'description' => __( 'Address line 2.', 'poocommerce' ),
 						'type'        => [ 'string', 'null' ],
 					],
 					'city'        => [
-						'description' => __( 'City.', 'woocommerce' ),
+						'description' => __( 'City.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'state'       => [
-						'description' => __( 'State/province.', 'woocommerce' ),
+						'description' => __( 'State/province.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'country'     => [
-						'description' => __( 'Country code (ISO 3166-1 alpha-2).', 'woocommerce' ),
+						'description' => __( 'Country code (ISO 3166-1 alpha-2).', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'postal_code' => [
-						'description' => __( 'Postal/ZIP code.', 'woocommerce' ),
+						'description' => __( 'Postal/ZIP code.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 				],
 			],
 			'fulfillment_options'   => [
-				'description' => __( 'Available fulfillment options.', 'woocommerce' ),
+				'description' => __( 'Available fulfillment options.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'type'                   => [
-							'description' => __( 'Fulfillment type.', 'woocommerce' ),
+							'description' => __( 'Fulfillment type.', 'poocommerce' ),
 							'type'        => 'string',
 							'enum'        => [ FulfillmentType::SHIPPING, FulfillmentType::DIGITAL ],
 						],
 						'id'                     => [
-							'description' => __( 'Fulfillment option ID.', 'woocommerce' ),
+							'description' => __( 'Fulfillment option ID.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'title'                  => [
-							'description' => __( 'Title.', 'woocommerce' ),
+							'description' => __( 'Title.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'subtitle'               => [
-							'description' => __( 'Subtitle.', 'woocommerce' ),
+							'description' => __( 'Subtitle.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 						],
 						'carrier'                => [
-							'description' => __( 'Carrier name.', 'woocommerce' ),
+							'description' => __( 'Carrier name.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 						],
 						'earliest_delivery_time' => [
-							'description' => __( 'Earliest delivery time (ISO 8601).', 'woocommerce' ),
+							'description' => __( 'Earliest delivery time (ISO 8601).', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 						],
 						'latest_delivery_time'   => [
-							'description' => __( 'Latest delivery time (ISO 8601).', 'woocommerce' ),
+							'description' => __( 'Latest delivery time (ISO 8601).', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 						],
 						'subtotal'               => [
-							'description' => __( 'Subtotal in cents.', 'woocommerce' ),
+							'description' => __( 'Subtotal in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 						'tax'                    => [
-							'description' => __( 'Tax in cents.', 'woocommerce' ),
+							'description' => __( 'Tax in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 						'total'                  => [
-							'description' => __( 'Total in cents.', 'woocommerce' ),
+							'description' => __( 'Total in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 					],
 				],
 			],
 			'fulfillment_option_id' => [
-				'description' => __( 'Selected fulfillment option ID.', 'woocommerce' ),
+				'description' => __( 'Selected fulfillment option ID.', 'poocommerce' ),
 				'type'        => [ 'string', 'null' ],
 				'context'     => [ 'view', 'edit' ],
 			],
 			'totals'                => [
-				'description' => __( 'Order totals breakdown.', 'woocommerce' ),
+				'description' => __( 'Order totals breakdown.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'type'         => [
-							'description' => __( 'Total type.', 'woocommerce' ),
+							'description' => __( 'Total type.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'display_text' => [
-							'description' => __( 'Display text.', 'woocommerce' ),
+							'description' => __( 'Display text.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'amount'       => [
-							'description' => __( 'Amount in cents.', 'woocommerce' ),
+							'description' => __( 'Amount in cents.', 'poocommerce' ),
 							'type'        => 'integer',
 						],
 					],
 				],
 			],
 			'messages'              => [
-				'description' => __( 'Messages (info, warnings, errors).', 'woocommerce' ),
+				'description' => __( 'Messages (info, warnings, errors).', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'type'         => [
-							'description' => __( 'Message type.', 'woocommerce' ),
+							'description' => __( 'Message type.', 'poocommerce' ),
 							'type'        => 'string',
 							'enum'        => [ MessageType::INFO, MessageType::WARNING, MessageType::ERROR ],
 						],
 						'param'        => [
-							'description' => __( 'JSON path to the related field.', 'woocommerce' ),
+							'description' => __( 'JSON path to the related field.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 						],
 						'content_type' => [
-							'description' => __( 'Content type.', 'woocommerce' ),
+							'description' => __( 'Content type.', 'poocommerce' ),
 							'type'        => 'string',
 							'enum'        => [ MessageContentType::PLAIN, MessageContentType::MARKDOWN ],
 						],
 						'content'      => [
-							'description' => __( 'Message content.', 'woocommerce' ),
+							'description' => __( 'Message content.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 					],
 				],
 			],
 			'links'                 => [
-				'description' => __( 'Related links.', 'woocommerce' ),
+				'description' => __( 'Related links.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'type' => [
-							'description' => __( 'Link type.', 'woocommerce' ),
+							'description' => __( 'Link type.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'url'  => [
-							'description' => __( 'URL.', 'woocommerce' ),
+							'description' => __( 'URL.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 					],
@@ -330,7 +330,7 @@ class CheckoutSessionSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Convert a WooCommerce cart to the Agentic Checkout session format.
+	 * Convert a PooCommerce cart to the Agentic Checkout session format.
 	 *
 	 * @param AgenticCheckoutSession $checkout_session Checkout session object.
 	 * @return array Formatted checkout session data.
@@ -363,7 +363,7 @@ class CheckoutSessionSchema extends AbstractSchema {
 			'status'                => AgenticCheckoutUtils::calculate_status( $checkout_session ),
 			'currency'              => $completed_order instanceof WC_Order
 				? strtolower( $completed_order->get_currency() )
-				: strtolower( get_woocommerce_currency() ),
+				: strtolower( get_poocommerce_currency() ),
 			'line_items'            => $line_items,
 			'fulfillment_address'   => $completed_order instanceof WC_Order
 				? $this->format_fulfillment_address_from_order( $completed_order )
@@ -735,7 +735,7 @@ class CheckoutSessionSchema extends AbstractSchema {
 		}
 		$totals[] = [
 			'type'         => TotalType::ITEMS_BASE_AMOUNT,
-			'display_text' => __( 'Items Base Amount', 'woocommerce' ),
+			'display_text' => __( 'Items Base Amount', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $items_base ),
 		];
 
@@ -743,35 +743,35 @@ class CheckoutSessionSchema extends AbstractSchema {
 		$discount = $cart->get_cart_discount_total();
 		$totals[] = [
 			'type'         => TotalType::ITEMS_DISCOUNT,
-			'display_text' => __( 'Items Discount', 'woocommerce' ),
+			'display_text' => __( 'Items Discount', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $discount ),
 		];
 
 		// Subtotal.
 		$totals[] = [
 			'type'         => TotalType::SUBTOTAL,
-			'display_text' => __( 'Subtotal', 'woocommerce' ),
+			'display_text' => __( 'Subtotal', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $cart->get_subtotal() - $discount ),
 		];
 
 		// Fulfillment (shipping).
 		$totals[] = [
 			'type'         => TotalType::FULFILLMENT,
-			'display_text' => __( 'Shipping', 'woocommerce' ),
+			'display_text' => __( 'Shipping', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $cart->get_shipping_total() ),
 		];
 
 		// Tax.
 		$totals[] = [
 			'type'         => TotalType::TAX,
-			'display_text' => __( 'Tax', 'woocommerce' ),
+			'display_text' => __( 'Tax', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $cart->get_total_tax() ),
 		];
 
 		// Total.
 		$totals[] = [
 			'type'         => TotalType::TOTAL,
-			'display_text' => __( 'Total', 'woocommerce' ),
+			'display_text' => __( 'Total', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $cart->get_total( 'edit' ) ),
 		];
 
@@ -795,7 +795,7 @@ class CheckoutSessionSchema extends AbstractSchema {
 		}
 		$totals[] = [
 			'type'         => TotalType::ITEMS_BASE_AMOUNT,
-			'display_text' => __( 'Items Base Amount', 'woocommerce' ),
+			'display_text' => __( 'Items Base Amount', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $items_base ),
 		];
 
@@ -803,35 +803,35 @@ class CheckoutSessionSchema extends AbstractSchema {
 		$discount = $order->get_discount_total();
 		$totals[] = [
 			'type'         => TotalType::ITEMS_DISCOUNT,
-			'display_text' => __( 'Items Discount', 'woocommerce' ),
+			'display_text' => __( 'Items Discount', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $discount ),
 		];
 
 		// Subtotal.
 		$totals[] = [
 			'type'         => TotalType::SUBTOTAL,
-			'display_text' => __( 'Subtotal', 'woocommerce' ),
+			'display_text' => __( 'Subtotal', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $items_base - $discount ),
 		];
 
 		// Fulfillment (shipping).
 		$totals[] = [
 			'type'         => TotalType::FULFILLMENT,
-			'display_text' => __( 'Shipping', 'woocommerce' ),
+			'display_text' => __( 'Shipping', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $order->get_shipping_total() ),
 		];
 
 		// Tax.
 		$totals[] = [
 			'type'         => TotalType::TAX,
-			'display_text' => __( 'Tax', 'woocommerce' ),
+			'display_text' => __( 'Tax', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $order->get_total_tax() ),
 		];
 
 		// Total.
 		$totals[] = [
 			'type'         => TotalType::TOTAL,
-			'display_text' => __( 'Total', 'woocommerce' ),
+			'display_text' => __( 'Total', 'poocommerce' ),
 			'amount'       => $this->amount_to_cents( $order->get_total() ),
 		];
 

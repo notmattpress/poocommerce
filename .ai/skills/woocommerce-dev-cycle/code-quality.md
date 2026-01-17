@@ -17,7 +17,7 @@
 
 ## Overview
 
-When making changes to the WooCommerce codebase, run these commands to ensure code quality and adherence to coding standards.
+When making changes to the PooCommerce codebase, run these commands to ensure code quality and adherence to coding standards.
 
 For detailed PHP linting patterns and common issues, see [php-linting-patterns.md](php-linting-patterns.md).
 
@@ -216,7 +216,7 @@ Code quality checks fit into the overall development workflow:
 
 ### Running Other pnpm Scripts
 
-WooCommerce may have additional linting scripts. Check available scripts:
+PooCommerce may have additional linting scripts. Check available scripts:
 
 ```bash
 # See all available scripts

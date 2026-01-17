@@ -19,7 +19,7 @@
  *     add_notice( 'Sorry, too soon!' );
  * }
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.9.0
  * @since   3.9.0
  */
@@ -40,7 +40,7 @@ class WC_Rate_Limiter {
 	 * Hook in methods.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_cleanup_rate_limits', array( __CLASS__, 'cleanup' ) );
+		add_action( 'poocommerce_cleanup_rate_limits', array( __CLASS__, 'cleanup' ) );
 	}
 
 	/**

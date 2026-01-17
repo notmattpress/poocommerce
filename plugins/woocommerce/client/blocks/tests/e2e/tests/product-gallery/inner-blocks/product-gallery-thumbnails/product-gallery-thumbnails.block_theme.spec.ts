@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect } from '@woocommerce/e2e-utils';
+import { test, expect } from '@poocommerce/e2e-utils';
 
 test.describe( 'Product Gallery Thumbnails block', () => {
 	test.beforeEach( async ( { admin, editor, requestUtils } ) => {
@@ -20,7 +20,7 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 		await expect( editor.canvas.getByText( 'placeholder' ) ).toBeVisible();
 
 		await editor.insertBlock( {
-			name: 'woocommerce/product-gallery',
+			name: 'poocommerce/product-gallery',
 		} );
 
 		await editor.saveSiteEditorEntities( {
@@ -31,19 +31,19 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 	test( 'renders as expected', async ( { page, editor } ) => {
 		await test.step( 'in editor', async () => {
 			const productGalleryBlock = editor.canvas.locator(
-				'[data-type="woocommerce/product-gallery"]'
+				'[data-type="poocommerce/product-gallery"]'
 			);
 
 			await expect(
 				productGalleryBlock.locator(
-					'[data-type="woocommerce/product-gallery-thumbnails"]'
+					'[data-type="poocommerce/product-gallery-thumbnails"]'
 				)
 			).toBeVisible();
 
 			await expect(
 				productGalleryBlock.locator(
-					`[data-type="woocommerce/product-gallery-thumbnails"]:left-of(
-						[data-type="woocommerce/product-gallery-large-image"]
+					`[data-type="poocommerce/product-gallery-thumbnails"]:left-of(
+						[data-type="poocommerce/product-gallery-large-image"]
 					)`
 				)
 			).toBeVisible();
@@ -53,19 +53,19 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 			await page.goto( '/product/hoodie/' );
 
 			const productGalleryBlock = page.locator(
-				'[data-block-name="woocommerce/product-gallery"]'
+				'[data-block-name="poocommerce/product-gallery"]'
 			);
 
 			const thumbnailsContainer = productGalleryBlock.locator(
-				'[data-block-name="woocommerce/product-gallery-thumbnails"]'
+				'[data-block-name="poocommerce/product-gallery-thumbnails"]'
 			);
 
 			await expect( thumbnailsContainer ).toBeVisible();
 
 			await expect(
 				productGalleryBlock.locator(
-					`[data-block-name="woocommerce/product-gallery-thumbnails"]:left-of(
-						[data-block-name="woocommerce/product-gallery-large-image"]
+					`[data-block-name="poocommerce/product-gallery-thumbnails"]:left-of(
+						[data-block-name="poocommerce/product-gallery-large-image"]
 					)`
 				)
 			).toBeVisible();
@@ -84,10 +84,10 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 	} ) => {
 		await test.step( 'in editor', async () => {
 			const viewerBlock = editor.canvas.locator(
-				'[data-type="woocommerce/product-gallery-large-image"]'
+				'[data-type="poocommerce/product-gallery-large-image"]'
 			);
 			const thumbnailsBlock = editor.canvas.locator(
-				'[data-type="woocommerce/product-gallery-thumbnails"]'
+				'[data-type="poocommerce/product-gallery-thumbnails"]'
 			);
 			const thumbnailsSizeInput = page.getByLabel( 'Thumbnail Size' );
 
@@ -126,10 +126,10 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 			await page.goto( '/product/hoodie/' );
 
 			const thumbnailsBlock = page.locator(
-				'[data-block-name="woocommerce/product-gallery-thumbnails"]'
+				'[data-block-name="poocommerce/product-gallery-thumbnails"]'
 			);
 			const viewerBlock = page.locator(
-				'[data-block-name="woocommerce/product-gallery-large-image"]'
+				'[data-block-name="poocommerce/product-gallery-large-image"]'
 			);
 
 			await expect( async () => {
@@ -151,10 +151,10 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 	} ) => {
 		await test.step( 'in editor', async () => {
 			const viewerBlock = editor.canvas.locator(
-				'[data-type="woocommerce/product-gallery-large-image"]'
+				'[data-type="poocommerce/product-gallery-large-image"]'
 			);
 			const thumbnailsBlock = editor.canvas.locator(
-				'[data-type="woocommerce/product-gallery-thumbnails"]'
+				'[data-type="poocommerce/product-gallery-thumbnails"]'
 			);
 			const thumbnailsSizeInput = page.getByLabel( 'Thumbnail Size' );
 
@@ -184,7 +184,7 @@ test.describe( 'Product Gallery Thumbnails block', () => {
 			await page.goto( '/product/hoodie/' );
 
 			const thumbnailsContainer = page.locator(
-				'[data-block-name="woocommerce/product-gallery-thumbnails"]'
+				'[data-block-name="poocommerce/product-gallery-thumbnails"]'
 			);
 
 			const scrollableContainer = page.locator(

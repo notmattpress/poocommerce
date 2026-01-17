@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import { allSettings } from '@woocommerce/settings';
-import { CurrencyCode } from '@woocommerce/types';
-import * as baseContextHooks from '@woocommerce/base-context/hooks';
+import { allSettings } from '@poocommerce/settings';
+import { CurrencyCode } from '@poocommerce/types';
+import * as baseContextHooks from '@poocommerce/base-context/hooks';
 import * as wpData from '@wordpress/data';
-import { previewCart as mockPreviewCart } from '@woocommerce/resource-previews';
+import { previewCart as mockPreviewCart } from '@poocommerce/resource-previews';
 
 /**
  * Internal dependencies
@@ -100,10 +100,10 @@ const shippingRates = [
 	},
 ] as CartShippingRate[];
 
-jest.mock( '@woocommerce/base-context/hooks', () => {
+jest.mock( '@poocommerce/base-context/hooks', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual( '@woocommerce/base-context/hooks' ),
+		...jest.requireActual( '@poocommerce/base-context/hooks' ),
 		useShippingData: jest.fn(),
 		useStoreCart: jest.fn(),
 		useOrderSummaryLoadingState: jest.fn( () => {

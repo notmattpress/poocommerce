@@ -2,7 +2,7 @@
 /**
  * PassingRuleEvaluator
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );

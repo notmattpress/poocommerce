@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
 
 /**
  * OrderSchema class.
@@ -112,13 +112,13 @@ class OrderSchema extends AbstractSchema {
 	public function get_properties() {
 		return [
 			'id'                   => [
-				'description' => __( 'The order ID.', 'woocommerce' ),
+				'description' => __( 'The order ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'items'                => [
-				'description' => __( 'Line items data.', 'woocommerce' ),
+				'description' => __( 'Line items data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'items'       => [
@@ -127,7 +127,7 @@ class OrderSchema extends AbstractSchema {
 				],
 			],
 			'totals'               => [
-				'description' => __( 'Order totals.', 'woocommerce' ),
+				'description' => __( 'Order totals.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -135,79 +135,79 @@ class OrderSchema extends AbstractSchema {
 					$this->get_store_currency_properties(),
 					[
 						'subtotal'           => [
-							'description' => __( 'Subtotal of the order.', 'woocommerce' ),
+							'description' => __( 'Subtotal of the order.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_discount'     => [
-							'description' => __( 'Total discount from applied coupons.', 'woocommerce' ),
+							'description' => __( 'Total discount from applied coupons.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_shipping'     => [
-							'description' => __( 'Total price of shipping.', 'woocommerce' ),
+							'description' => __( 'Total price of shipping.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_fees'         => [
-							'description' => __( 'Total price of any applied fees.', 'woocommerce' ),
+							'description' => __( 'Total price of any applied fees.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_tax'          => [
-							'description' => __( 'Total tax applied to the order.', 'woocommerce' ),
+							'description' => __( 'Total tax applied to the order.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_refund'       => [
-							'description' => __( 'Total refund applied to the order.', 'woocommerce' ),
+							'description' => __( 'Total refund applied to the order.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_price'        => [
-							'description' => __( 'Total price the customer will pay.', 'woocommerce' ),
+							'description' => __( 'Total price the customer will pay.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_items'        => [
-							'description' => __( 'Total price of items in the order.', 'woocommerce' ),
+							'description' => __( 'Total price of items in the order.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_items_tax'    => [
-							'description' => __( 'Total tax on items in the order.', 'woocommerce' ),
+							'description' => __( 'Total tax on items in the order.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_fees_tax'     => [
-							'description' => __( 'Total tax on fees.', 'woocommerce' ),
+							'description' => __( 'Total tax on fees.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_discount_tax' => [
-							'description' => __( 'Total tax removed due to discount from applied coupons.', 'woocommerce' ),
+							'description' => __( 'Total tax removed due to discount from applied coupons.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'total_shipping_tax' => [
-							'description' => __( 'Total tax on shipping. If shipping has not been calculated, a null response will be sent.', 'woocommerce' ),
+							'description' => __( 'Total tax on shipping. If shipping has not been calculated, a null response will be sent.', 'poocommerce' ),
 							'type'        => [ 'string', 'null' ],
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
 						],
 						'tax_lines'          => [
-							'description' => __( 'Lines of taxes applied to items and shipping.', 'woocommerce' ),
+							'description' => __( 'Lines of taxes applied to items and shipping.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => [ 'view', 'edit' ],
 							'readonly'    => true,
@@ -215,19 +215,19 @@ class OrderSchema extends AbstractSchema {
 								'type'       => 'object',
 								'properties' => [
 									'name'  => [
-										'description' => __( 'The name of the tax.', 'woocommerce' ),
+										'description' => __( 'The name of the tax.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit' ],
 										'readonly'    => true,
 									],
 									'price' => [
-										'description' => __( 'The amount of tax charged.', 'woocommerce' ),
+										'description' => __( 'The amount of tax charged.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit' ],
 										'readonly'    => true,
 									],
 									'rate'  => [
-										'description' => __( 'The rate at which tax is applied.', 'woocommerce' ),
+										'description' => __( 'The rate at which tax is applied.', 'poocommerce' ),
 										'type'        => 'string',
 										'context'     => [ 'view', 'edit' ],
 										'readonly'    => true,
@@ -239,7 +239,7 @@ class OrderSchema extends AbstractSchema {
 				),
 			],
 			'coupons'              => [
-				'description' => __( 'List of applied cart coupons.', 'woocommerce' ),
+				'description' => __( 'List of applied cart coupons.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -249,33 +249,33 @@ class OrderSchema extends AbstractSchema {
 				],
 			],
 			'shipping_address'     => [
-				'description' => __( 'Current set shipping address for the customer.', 'woocommerce' ),
+				'description' => __( 'Current set shipping address for the customer.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => $this->force_schema_readonly( $this->shipping_address_schema->get_properties() ),
 			],
 			'billing_address'      => [
-				'description' => __( 'Current set billing address for the customer.', 'woocommerce' ),
+				'description' => __( 'Current set billing address for the customer.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 				'properties'  => $this->force_schema_readonly( $this->billing_address_schema->get_properties() ),
 			],
 			'needs_payment'        => [
-				'description' => __( 'True if the cart needs payment. False for carts with only free products and no shipping costs.', 'woocommerce' ),
+				'description' => __( 'True if the cart needs payment. False for carts with only free products and no shipping costs.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'needs_shipping'       => [
-				'description' => __( 'True if the cart needs shipping. False for carts with only digital goods or stores with no shipping methods set-up.', 'woocommerce' ),
+				'description' => __( 'True if the cart needs shipping. False for carts with only digital goods or stores with no shipping methods set-up.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'errors'               => [
-				'description' => __( 'List of cart item errors, for example, items in the cart which are out of stock.', 'woocommerce' ),
+				'description' => __( 'List of cart item errors, for example, items in the cart which are out of stock.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
@@ -285,13 +285,13 @@ class OrderSchema extends AbstractSchema {
 				],
 			],
 			'payment_requirements' => [
-				'description' => __( 'List of required payment gateway features to process the order.', 'woocommerce' ),
+				'description' => __( 'List of required payment gateway features to process the order.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'status'               => [
-				'description' => __( 'Status of the order.', 'woocommerce' ),
+				'description' => __( 'Status of the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,

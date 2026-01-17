@@ -14,7 +14,7 @@ import deprecatedAttributes from './attributes';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore -- TypeScript expects some required properties which we already
 // registered in PHP.
-registerBlockType( 'woocommerce/mini-cart-footer-block', {
+registerBlockType( 'poocommerce/mini-cart-footer-block', {
 	icon: {
 		src: (
 			<Icon
@@ -38,13 +38,13 @@ registerBlockType( 'woocommerce/mini-cart-footer-block', {
 					restAttributes,
 					[
 						createBlock(
-							'woocommerce/mini-cart-cart-button-block',
+							'poocommerce/mini-cart-cart-button-block',
 							{
 								cartButtonLabel,
 							}
 						),
 						createBlock(
-							'woocommerce/mini-cart-checkout-button-block',
+							'poocommerce/mini-cart-checkout-button-block',
 							{
 								checkoutButtonLabel,
 							}

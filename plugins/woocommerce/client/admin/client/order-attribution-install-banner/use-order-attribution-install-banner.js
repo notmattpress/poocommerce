@@ -8,10 +8,10 @@ import {
 	pluginsStore,
 	useUser,
 	useUserPreferences,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
-import { getPath } from '@woocommerce/navigation';
-import { isWcVersion } from '@woocommerce/settings';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { getPath } from '@poocommerce/navigation';
+import { isWcVersion } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ import '~/marketing/data';
 const USER_META_BANNER_DISMISSED = 'order_attribution_install_banner_dismissed';
 const OPTION_VALUE_YES = 'yes';
 const OPTION_NAME_REMOTE_VARIANT_ASSIGNMENT =
-	'woocommerce_remote_variant_assignment';
+	'poocommerce_remote_variant_assignment';
 
 const getThreshold = ( percentages ) => {
 	const defaultPercentages = [
@@ -93,7 +93,7 @@ export const useOrderAttributionInstallBanner = ( { isInstalling } ) => {
 		( select ) => {
 			const { getPluginInstallState } = select( pluginsStore );
 			const installState = getPluginInstallState(
-				'woocommerce-analytics'
+				'poocommerce-analytics'
 			);
 
 			return {
@@ -148,7 +148,7 @@ export const useOrderAttributionInstallBanner = ( { isInstalling } ) => {
 		}
 
 		for ( const recommendation of recommendations ) {
-			if ( recommendation.id === 'woocommerce-analytics' ) {
+			if ( recommendation.id === 'poocommerce-analytics' ) {
 				return (
 					recommendation?.order_attribution_promotion_percentage ||
 					null

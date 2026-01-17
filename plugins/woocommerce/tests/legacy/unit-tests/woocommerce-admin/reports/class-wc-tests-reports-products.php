@@ -2,20 +2,20 @@
 /**
  * Reports product stats tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free product reports.
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports product stats tests class
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free product reports.
  */
 class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
@@ -26,7 +26,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		parent::setUp();
 
 		// Force new logic of full refund in analytics/products.
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		// Clean in case any test changes options.
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 		parent::tearDown();
 	}
 
@@ -642,7 +642,7 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 
 	/**
 	 * Test that filters get properly parsed for CSV exports.
-	 * See: https://github.com/woocommerce/woocommerce-admin/issues/5503.
+	 * See: https://github.com/poocommerce/poocommerce-admin/issues/5503.
 	 *
 	 * @since 3.5.0
 	 */
@@ -727,8 +727,8 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Enable Tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a 10% tax rate.
 		$tax_rate = array(
@@ -835,8 +835,8 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Enable Tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a 10% tax rate.
 		$tax_rate = array(
@@ -980,8 +980,8 @@ class WC_Admin_Tests_Reports_Products extends WC_Unit_Test_Case {
 		WC_Helper_Reports::reset_stats_dbs();
 
 		// Enable Tax.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create a 10% tax rate for all countries.
 		$tax_rate = array(

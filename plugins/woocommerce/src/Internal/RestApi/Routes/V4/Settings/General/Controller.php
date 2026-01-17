@@ -4,16 +4,16 @@
  *
  * Handles requests to the /settings/general endpoints.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\General;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\General;
 
 use WP_Error;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\General\Schema\GeneralSettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\General\Schema\GeneralSettingsSchema;
 use WC_Settings_General;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -102,7 +102,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to access general settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to access general settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -119,7 +119,7 @@ class Controller extends AbstractController {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'edit' ) ) {
 			return new WP_Error(
 				'rest_forbidden',
-				__( 'Sorry, you are not allowed to edit general settings.', 'woocommerce' ),
+				__( 'Sorry, you are not allowed to edit general settings.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -137,7 +137,7 @@ class Controller extends AbstractController {
 			$settings = $this->get_all_settings();
 		} catch ( \Exception $e ) {
 			return new WP_Error(
-				'woocommerce_rest_general_settings_error',
+				'poocommerce_rest_general_settings_error',
 				$e->getMessage(),
 				array( 'status' => 500 )
 			);
@@ -159,7 +159,7 @@ class Controller extends AbstractController {
 		if ( ! is_array( $params ) || empty( $params ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
-				__( 'Invalid or empty request body.', 'woocommerce' ),
+				__( 'Invalid or empty request body.', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -173,9 +173,9 @@ class Controller extends AbstractController {
 			$values_to_update = $params;
 		}
 
-		// Filter out the woocommerce_share_key_display field as it's not allowed to be updated via API.
-		if ( isset( $values_to_update['woocommerce_share_key_display'] ) ) {
-			unset( $values_to_update['woocommerce_share_key_display'] );
+		// Filter out the poocommerce_share_key_display field as it's not allowed to be updated via API.
+		if ( isset( $values_to_update['poocommerce_share_key_display'] ) ) {
+			unset( $values_to_update['poocommerce_share_key_display'] );
 		}
 
 		// Get all general settings definitions.
@@ -199,7 +199,7 @@ class Controller extends AbstractController {
 			// Sanitize the setting ID.
 			$setting_id = sanitize_text_field( $setting_id );
 
-			// Security check: only allow updating valid WooCommerce general settings.
+			// Security check: only allow updating valid PooCommerce general settings.
 			if ( ! in_array( $setting_id, $valid_setting_ids, true ) ) {
 				continue;
 			}
@@ -231,13 +231,13 @@ class Controller extends AbstractController {
 		// Log the update if settings were changed.
 		if ( ! empty( $updated_settings ) ) {
 			/**
-			* Fires when WooCommerce settings are updated.
+			* Fires when PooCommerce settings are updated.
 			*
 			* @param array $updated_settings Array of updated settings IDs.
 			* @param string $rest_base The REST base of the settings.
 			* @since 4.0.0
 			*/
-			do_action( 'woocommerce_settings_updated', $updated_settings, $this->rest_base );
+			do_action( 'poocommerce_settings_updated', $updated_settings, $this->rest_base );
 		}
 
 		// Get all settings after update.
@@ -258,55 +258,55 @@ class Controller extends AbstractController {
 	private function validate_setting_value( $setting_id, $value ) {
 		// Custom validation rules for specific settings.
 		switch ( $setting_id ) {
-			case 'woocommerce_price_num_decimals':
+			case 'poocommerce_price_num_decimals':
 				$int = filter_var( $value, FILTER_VALIDATE_INT );
 				if ( false === $int || $int < 0 || $int > 10 ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Number of decimals must be between 0 and 10.', 'woocommerce' ),
+						__( 'Number of decimals must be between 0 and 10.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_default_country':
+			case 'poocommerce_default_country':
 				if ( ! $this->validate_country_or_state_code( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid country/state format.', 'woocommerce' ),
+						__( 'Invalid country/state format.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_allowed_countries':
+			case 'poocommerce_allowed_countries':
 				$valid_options = array( 'all', 'all_except', 'specific' );
 				if ( ! in_array( $value, $valid_options, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid selling location option.', 'woocommerce' ),
+						__( 'Invalid selling location option.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_ship_to_countries':
+			case 'poocommerce_ship_to_countries':
 				$valid_options = array( '', 'all', 'specific', 'disabled' );
 				if ( ! in_array( $value, $valid_options, true ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Invalid shipping location option.', 'woocommerce' ),
+						__( 'Invalid shipping location option.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
 				break;
 
-			case 'woocommerce_specific_allowed_countries':
-			case 'woocommerce_specific_ship_to_countries':
+			case 'poocommerce_specific_allowed_countries':
+			case 'poocommerce_specific_ship_to_countries':
 				if ( ! is_array( $value ) ) {
 					return new WP_Error(
 						'rest_invalid_param',
-						__( 'Expected an array of country codes.', 'woocommerce' ),
+						__( 'Expected an array of country codes.', 'poocommerce' ),
 						array( 'status' => 400 )
 					);
 				}
@@ -315,7 +315,7 @@ class Controller extends AbstractController {
 					if ( ! is_string( $code ) || ! $this->validate_country_or_state_code( $code ) ) {
 						return new WP_Error(
 							'rest_invalid_param',
-							__( 'Invalid country code in list.', 'woocommerce' ),
+							__( 'Invalid country code in list.', 'poocommerce' ),
 							array( 'status' => 400 )
 						);
 					}
@@ -334,7 +334,7 @@ class Controller extends AbstractController {
 	 * @return mixed Sanitized value.
 	 */
 	private function sanitize_setting_value( $setting_type, $value ) {
-		// Normalize WooCommerce setting types to REST API schema types.
+		// Normalize PooCommerce setting types to REST API schema types.
 		$type_map     = array(
 			'single_select_country'  => 'select',
 			'multi_select_countries' => 'multiselect',

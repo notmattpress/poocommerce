@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { createElement, Component, Fragment } from '@wordpress/element';
 import { find } from 'lodash';
 import PropTypes from 'prop-types';
-import { updateQueryString } from '@woocommerce/navigation';
-import { getDateParamsFromQuery, getCurrentDates } from '@woocommerce/date';
-import { CurrencyFactory } from '@woocommerce/currency';
+import { updateQueryString } from '@poocommerce/navigation';
+import { getDateParamsFromQuery, getCurrentDates } from '@poocommerce/date';
+import { CurrencyFactory } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ class ReportFilters extends Component {
 			return (
 				<div
 					key={ param }
-					className="woocommerce-filters__advanced-filters"
+					className="poocommerce-filters__advanced-filters"
 				>
 					<CompareFilter
 						path={ path }
@@ -68,7 +68,7 @@ class ReportFilters extends Component {
 			return (
 				<div
 					key={ param }
-					className="woocommerce-filters__advanced-filters"
+					className="poocommerce-filters__advanced-filters"
 				>
 					<AdvancedFilters
 						siteLocale={ siteLocale }
@@ -118,10 +118,10 @@ class ReportFilters extends Component {
 		return (
 			<Fragment>
 				<H className="screen-reader-text">
-					{ __( 'Filters', 'woocommerce' ) }
+					{ __( 'Filters', 'poocommerce' ) }
 				</H>
-				<Section component="div" className="woocommerce-filters">
-					<div className="woocommerce-filters__basic-filters">
+				<Section component="div" className="poocommerce-filters">
+					<div className="poocommerce-filters__basic-filters">
 						{ showDatePicker && (
 							<DateRangeFilterPicker
 								key={ JSON.stringify( query ) }

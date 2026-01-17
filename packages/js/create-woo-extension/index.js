@@ -3,11 +3,11 @@ const { join } = require( 'path' );
 const defaultDependencies = [
 	'@wordpress/hooks',
 	'@wordpress/i18n',
-	'@woocommerce/components',
+	'@poocommerce/components',
 ];
 const defaultDevDependencies = [
-	'@woocommerce/dependency-extraction-webpack-plugin',
-	'@woocommerce/eslint-plugin',
+	'@poocommerce/dependency-extraction-webpack-plugin',
+	'@poocommerce/eslint-plugin',
 	'@wordpress/prettier-config',
 	'@wordpress/scripts',
 ];
@@ -53,7 +53,7 @@ module.exports = {
 			),
 			npmDependencies: [
 				...defaultDependencies,
-				'@woocommerce/onboarding',
+				'@poocommerce/onboarding',
 			],
 		},
 		'dashboard-section': {

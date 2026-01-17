@@ -12,8 +12,8 @@ import {
 	TextareaControl,
 	TextControl,
 } from '@wordpress/components';
-import { FeedbackModal } from '@woocommerce/customer-effort-score';
-import { Text } from '@woocommerce/experimental';
+import { FeedbackModal } from '@poocommerce/customer-effort-score';
+import { Text } from '@poocommerce/experimental';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 
@@ -48,31 +48,31 @@ export function ProductMVPFeedbackModal( {
 	const checkboxes = [
 		{
 			key: 'missing-features',
-			label: __( 'Missing features', 'woocommerce' ),
+			label: __( 'Missing features', 'poocommerce' ),
 			checked: missingFeatures,
 			onChange: setMissingFeatures,
 		},
 		{
 			key: 'missing-plugins',
-			label: __( 'Missing plugins', 'woocommerce' ),
+			label: __( 'Missing plugins', 'poocommerce' ),
 			checked: missingPlugins,
 			onChange: setMissingPlugins,
 		},
 		{
 			key: 'difficult-to-use',
-			label: __( "It's difficult to use", 'woocommerce' ),
+			label: __( "It's difficult to use", 'poocommerce' ),
 			checked: difficultToUse,
 			onChange: setDifficultToUse,
 		},
 		{
 			key: 'slow-buggy-or-broken',
-			label: __( "It's slow, buggy, or broken", 'woocommerce' ),
+			label: __( "It's slow, buggy, or broken", 'poocommerce' ),
 			checked: slowBuggyOrBroken,
 			onChange: setSlowBuggyOrBroken,
 		},
 		{
 			key: 'other',
-			label: __( 'Other (describe below)', 'woocommerce' ),
+			label: __( 'Other (describe below)', 'poocommerce' ),
 			checked: other,
 			onChange: setOther,
 		},
@@ -90,14 +90,14 @@ export function ProductMVPFeedbackModal( {
 		createSuccessNotice(
 			__(
 				"Thanks for the feedback — we'll put it to good use!",
-				'woocommerce'
+				'poocommerce'
 			)
 		);
 	};
 
 	const optionalElement = (
-		<span className="woocommerce-product-mvp-feedback-modal__optional">
-			{ __( '(optional)', 'woocommerce' ) }
+		<span className="poocommerce-product-mvp-feedback-modal__optional">
+			{ __( '(optional)', 'poocommerce' ) }
 		</span>
 	);
 
@@ -105,15 +105,15 @@ export function ProductMVPFeedbackModal( {
 		<FeedbackModal
 			title={ __(
 				'Thanks for trying out the new product editor!',
-				'woocommerce'
+				'poocommerce'
 			) }
 			onSubmit={ onSendFeedback }
 			onCancel={ onSkipFeedback }
 			onModalClose={ onCloseModal }
 			isSubmitButtonDisabled={ ! checked.length }
-			submitButtonLabel={ __( 'Send', 'woocommerce' ) }
-			cancelButtonLabel={ __( 'Skip', 'woocommerce' ) }
-			className="woocommerce-product-mvp-feedback-modal"
+			submitButtonLabel={ __( 'Send', 'poocommerce' ) }
+			cancelButtonLabel={ __( 'Skip', 'poocommerce' ) }
+			className="poocommerce-product-mvp-feedback-modal"
 		>
 			<>
 				<Text
@@ -123,14 +123,14 @@ export function ProductMVPFeedbackModal( {
 					size="14"
 					lineHeight="20px"
 				></Text>
-				<fieldset className="woocommerce-product-mvp-feedback-modal__reason">
+				<fieldset className="poocommerce-product-mvp-feedback-modal__reason">
 					<legend>
 						{ __(
 							'What made you turn off the new product editor?',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</legend>
-					<div className="woocommerce-product-mvp-feedback-modal__checkboxes">
+					<div className="poocommerce-product-mvp-feedback-modal__checkboxes">
 						{ checkboxes.map( ( checkbox, index ) => (
 							<CheckboxControl
 								key={ index }
@@ -143,12 +143,12 @@ export function ProductMVPFeedbackModal( {
 					</div>
 				</fieldset>
 
-				<div className="woocommerce-product-mvp-feedback-modal__comments">
+				<div className="poocommerce-product-mvp-feedback-modal__comments">
 					<TextareaControl
 						label={ createInterpolateElement(
 							__(
 								'Additional thoughts <optional/>',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								optional: optionalElement,
@@ -159,12 +159,12 @@ export function ProductMVPFeedbackModal( {
 						rows={ 5 }
 					/>
 				</div>
-				<div className="woocommerce-product-mvp-feedback-modal__email">
+				<div className="poocommerce-product-mvp-feedback-modal__email">
 					<TextControl
 						label={ createInterpolateElement(
 							__(
 								'Your email address <optional/>',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								optional: optionalElement,
@@ -174,7 +174,7 @@ export function ProductMVPFeedbackModal( {
 						onChange={ ( value: string ) => setEmail( value ) }
 						help={ __(
 							'In case you want to participate in further discussion and future user research.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</div>

@@ -2,17 +2,17 @@
  * External dependencies
  */
 import { render, fireEvent } from '@testing-library/react';
-import { useUserPreferences } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { useUserPreferences } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
  */
 import { DisplayOptions } from '../';
 
-jest.mock( '@woocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
-jest.mock( '@woocommerce/data', () => ( {
-	...jest.requireActual( '@woocommerce/data' ),
+jest.mock( '@poocommerce/tracks', () => ( { recordEvent: jest.fn() } ) );
+jest.mock( '@poocommerce/data', () => ( {
+	...jest.requireActual( '@poocommerce/data' ),
 	useUserPreferences: jest
 		.fn()
 		.mockReturnValue( { updateUserPreferences: jest.fn() } ),

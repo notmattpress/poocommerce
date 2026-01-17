@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Class WC_Stock_Functions_Tests.
@@ -123,7 +123,7 @@ class WC_Term_Functions_Tests extends \WC_Unit_Test_Case {
 	 * @testdox Term product counts when a product is out of stock and OOS products are hidden from the catalog.
 	 */
 	public function test_hide_out_of_stock_products(): void {
-		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
+		update_option( 'poocommerce_hide_out_of_stock_items', 'yes' );
 
 		wc_recount_all_terms( false );
 		delete_transient( 'wc_term_counts' );
@@ -142,7 +142,7 @@ class WC_Term_Functions_Tests extends \WC_Unit_Test_Case {
 		$this->assertEquals( 2, $term_counts[ $this->terms['tag1']['term_id'] ] );
 		$this->assertEquals( 1, $term_counts[ $this->terms['tag2']['term_id'] ] );
 
-		delete_option( 'woocommerce_hide_out_of_stock_items' );
+		delete_option( 'poocommerce_hide_out_of_stock_items' );
 	}
 
 	/**

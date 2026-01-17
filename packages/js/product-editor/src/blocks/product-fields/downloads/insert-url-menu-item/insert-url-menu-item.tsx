@@ -23,11 +23,11 @@ function validateInput( input: HTMLInputElement ) {
 	input.setCustomValidity( '' );
 
 	if ( input.validity.valueMissing ) {
-		input.setCustomValidity( __( 'The URL is required', 'woocommerce' ) );
+		input.setCustomValidity( __( 'The URL is required', 'poocommerce' ) );
 	}
 
 	if ( input.validity.typeMismatch ) {
-		input.setCustomValidity( __( 'Insert a valid URL', 'woocommerce' ) );
+		input.setCustomValidity( __( 'Insert a valid URL', 'poocommerce' ) );
 	}
 }
 
@@ -80,10 +80,10 @@ export function InsertUrlMenuItem( {
 					onClick={ onToggle }
 					info={ __(
 						'Link to a file hosted elsewhere',
-						'woocommerce'
+						'poocommerce'
 					) }
 				>
-					{ __( 'Insert from URL', 'woocommerce' ) }
+					{ __( 'Insert from URL', 'poocommerce' ) }
 				</MenuItem>
 			) }
 			renderContent={ () => (
@@ -95,12 +95,12 @@ export function InsertUrlMenuItem( {
 					<InputControl
 						name="url"
 						type="url"
-						placeholder={ __( 'Insert URL', 'woocommerce' ) }
+						placeholder={ __( 'Insert URL', 'poocommerce' ) }
 						suffix={
 							<Button icon={ keyboardReturn } type="submit" />
 						}
-						className="woocommerce-inert-url-menu-item__input"
-						aria-label={ __( 'Insert URL', 'woocommerce' ) }
+						className="poocommerce-inert-url-menu-item__input"
+						aria-label={ __( 'Insert URL', 'poocommerce' ) }
 						onInput={ handleInput }
 						onBlur={ handleBlur }
 					/>

@@ -2,12 +2,12 @@
 /**
  * Mock DateTime Provider.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
+use Automattic\PooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
 
 /**
  * Mock DateTime Provider.

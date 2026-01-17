@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -121,7 +121,7 @@ class FraudProtectionDispatcher {
 			 * @param array  $collected_data Fully-collected event data including session context.
 			 * @param string $event_type     Event type identifier (e.g., 'cart_item_added').
 			 */
-			$collected_data = apply_filters( 'woocommerce_fraud_protection_event_data', $collected_data, $event_type );
+			$collected_data = apply_filters( 'poocommerce_fraud_protection_event_data', $collected_data, $event_type );
 
 			// Send event to API and get decision.
 			$decision = $this->api_client->send_event( $event_type, $collected_data );

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Tests\Unit\ResultFormatters;
+namespace Automattic\PooCommerce\Blueprint\Tests\Unit\ResultFormatters;
 
-use Automattic\WooCommerce\Blueprint\ResultFormatters\JsonResultFormatter;
-use Automattic\WooCommerce\Blueprint\StepProcessorResult;
+use Automattic\PooCommerce\Blueprint\ResultFormatters\JsonResultFormatter;
+use Automattic\PooCommerce\Blueprint\StepProcessorResult;
 use PHPUnit\Framework\TestCase;
 use Mockery;
 

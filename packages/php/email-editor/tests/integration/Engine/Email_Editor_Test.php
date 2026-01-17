@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Editor;
-use Automattic\WooCommerce\EmailEditor\Engine\Email_Api_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Patterns\Patterns;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Editor;
+use Automattic\PooCommerce\EmailEditor\Engine\Email_Api_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Patterns\Patterns;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 
 /**
  * Integration test for Email_Editor class
@@ -46,7 +46,7 @@ class Email_Editor_Test extends \Email_Editor_Integration_Test_Case {
 			);
 			return $post_types;
 		};
-		add_filter( 'woocommerce_email_editor_post_types', $this->post_register_callback );
+		add_filter( 'poocommerce_email_editor_post_types', $this->post_register_callback );
 		$this->email_editor->initialize();
 	}
 
@@ -63,6 +63,6 @@ class Email_Editor_Test extends \Email_Editor_Integration_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_email_editor_post_types', $this->post_register_callback );
+		remove_filter( 'poocommerce_email_editor_post_types', $this->post_register_callback );
 	}
 }

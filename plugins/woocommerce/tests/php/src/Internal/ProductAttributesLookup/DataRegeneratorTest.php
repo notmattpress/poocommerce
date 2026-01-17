@@ -3,15 +3,15 @@
  * DataRegeneratorTest class file.
  */
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup;
+namespace Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup;
 
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
-use Automattic\WooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
-use Automattic\WooCommerce\Testing\Tools\FakeQueue;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\DataRegenerator;
+use Automattic\PooCommerce\Internal\ProductAttributesLookup\LookupDataStore;
+use Automattic\PooCommerce\Testing\Tools\FakeQueue;
 
 /**
  * Tests for the DataRegenerator class.
- * @package Automattic\WooCommerce\Tests\Internal\ProductAttributesLookup
+ * @package Automattic\PooCommerce\Tests\Internal\ProductAttributesLookup
  */
 class DataRegeneratorTest extends \WC_Unit_Test_Case {
 
@@ -58,7 +58,7 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 		// phpcs:enable Squiz.Commenting
 
 		// This is needed to prevent the hook to act on the already registered LookupDataStore class.
-		remove_all_actions( 'woocommerce_run_product_attribute_lookup_regeneration_callback' );
+		remove_all_actions( 'poocommerce_run_product_attribute_lookup_regeneration_callback' );
 
 		$container = wc_get_container();
 		$container->reset_all_resolved();
@@ -126,16 +126,16 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 
 		$this->sut->initiate_regeneration();
 
-		$this->assertEquals( 100, get_option( 'woocommerce_attribute_lookup_last_product_id_to_process' ) );
-		$this->assertEquals( 0, get_option( 'woocommerce_attribute_lookup_processed_count' ) );
-		$this->assertFalse( get_option( 'woocommerce_attribute_lookup_enabled' ) );
+		$this->assertEquals( 100, get_option( 'poocommerce_attribute_lookup_last_product_id_to_process' ) );
+		$this->assertEquals( 0, get_option( 'poocommerce_attribute_lookup_processed_count' ) );
+		$this->assertFalse( get_option( 'poocommerce_attribute_lookup_enabled' ) );
 
 		$expected_enqueued = array(
 			'method'    => 'schedule_single',
 			'args'      => array(),
 			'timestamp' => 1001,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_regeneration_callback',
-			'group'     => 'woocommerce-db-updates',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_regeneration_callback',
+			'group'     => 'poocommerce-db-updates',
 		);
 		$actual_enqueued   = current( $this->queue->get_methods_called() );
 
@@ -163,9 +163,9 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 
 		$this->sut->initiate_regeneration();
 
-		$this->assertFalse( get_option( 'woocommerce_attribute_lookup_last_product_id_to_process' ) );
-		$this->assertFalse( get_option( 'woocommerce_attribute_lookup_processed_count' ) );
-		$this->assertEquals( 'yes', get_option( 'woocommerce_attribute_lookup_enabled' ) );
+		$this->assertFalse( get_option( 'poocommerce_attribute_lookup_last_product_id_to_process' ) );
+		$this->assertFalse( get_option( 'poocommerce_attribute_lookup_processed_count' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_attribute_lookup_enabled' ) );
 		$this->assertEmpty( $this->queue->get_methods_called() );
 	}
 
@@ -194,35 +194,35 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 		$this->sut->initiate_regeneration();
 		$this->queue->clear_methods_called();
 
-		update_option( 'woocommerce_attribute_lookup_processed_count', 7 );
+		update_option( 'poocommerce_attribute_lookup_processed_count', 7 );
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_run_product_attribute_lookup_regeneration_callback' );
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_run_product_attribute_lookup_regeneration_callback' );
 
 		$this->assertEquals( array( 1, 2, 3 ), $this->lookup_data_store->passed_products );
 		$this->assertEquals( array( 7 ), $requested_products_offsets );
-		$this->assertEquals( 7 + count( $this->lookup_data_store->passed_products ), get_option( 'woocommerce_attribute_lookup_processed_count' ) );
+		$this->assertEquals( 7 + count( $this->lookup_data_store->passed_products ), get_option( 'poocommerce_attribute_lookup_processed_count' ) );
 
 		$expected_enqueued = array(
 			'method'    => 'schedule_single',
 			'args'      => array(),
 			'timestamp' => 1001,
-			'hook'      => 'woocommerce_run_product_attribute_lookup_regeneration_callback',
-			'group'     => 'woocommerce-db-updates',
+			'hook'      => 'poocommerce_run_product_attribute_lookup_regeneration_callback',
+			'group'     => 'poocommerce-db-updates',
 		);
 		$actual_enqueued   = current( $this->queue->get_methods_called() );
 		$this->assertEquals( sort( $expected_enqueued ), sort( $actual_enqueued ) );
 	}
 
 	/**
-	 * @testDox Products are processed in groups of whatever the 'woocommerce_attribute_lookup_regeneration_step_size' filter returns, defaulting to PRODUCTS_PER_GENERATION_STEP
+	 * @testDox Products are processed in groups of whatever the 'poocommerce_attribute_lookup_regeneration_step_size' filter returns, defaulting to PRODUCTS_PER_GENERATION_STEP
 	 *
 	 * @testWith [true]
 	 *           [false]
 	 *
 	 * @param bool $set_filter Whether to use the filter to change the processing group size or not.
 	 */
-	public function test_regeneration_uses_the_woocommerce_attribute_lookup_regeneration_step_size_filter( bool $set_filter ) {
+	public function test_regeneration_uses_the_poocommerce_attribute_lookup_regeneration_step_size_filter( bool $set_filter ) {
 		$requested_step_sizes = array();
 
 		$filtered_size = DataRegenerator::PRODUCTS_PER_GENERATION_STEP / 2;
@@ -230,7 +230,7 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 		// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		if ( $set_filter ) {
 			\add_filter(
-				'woocommerce_attribute_lookup_regeneration_step_size',
+				'poocommerce_attribute_lookup_regeneration_step_size',
 				function ( $default_filter_size ) use ( $filtered_size ) {
 					return $filtered_size;
 				}
@@ -254,10 +254,10 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 		$this->sut->initiate_regeneration();
 		$this->queue->clear_methods_called();
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_run_product_attribute_lookup_regeneration_callback' );
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_run_product_attribute_lookup_regeneration_callback' );
 
-		remove_all_filters( ' woocommerce_attribute_lookup_regeneration_step_size' );
+		remove_all_filters( ' poocommerce_attribute_lookup_regeneration_step_size' );
 
 		$expected_limit_value = $set_filter ? $filtered_size : DataRegenerator::PRODUCTS_PER_GENERATION_STEP;
 		$this->assertEquals( array( $expected_limit_value ), $requested_step_sizes );
@@ -288,18 +288,18 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 		$this->sut->initiate_regeneration();
 		$this->queue->clear_methods_called();
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_run_product_attribute_lookup_regeneration_callback' );
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_run_product_attribute_lookup_regeneration_callback' );
 
 		$this->assertEquals( $product_ids, $this->lookup_data_store->passed_products );
-		$this->assertFalse( get_option( 'woocommerce_attribute_lookup_last_product_id_to_process' ) );
-		$this->assertFalse( get_option( 'woocommerce_attribute_lookup_processed_count' ) );
-		$this->assertEquals( 'yes', get_option( 'woocommerce_attribute_lookup_enabled' ) );
+		$this->assertFalse( get_option( 'poocommerce_attribute_lookup_last_product_id_to_process' ) );
+		$this->assertFalse( get_option( 'poocommerce_attribute_lookup_processed_count' ) );
+		$this->assertEquals( 'yes', get_option( 'poocommerce_attribute_lookup_enabled' ) );
 		$this->assertEmpty( $this->queue->get_methods_called() );
 	}
 
 	/**
-	 * @testdox After WooCommerce is installed the table usage is enabled only if it hadn't been explicitly disabled by an admin.
+	 * @testdox After PooCommerce is installed the table usage is enabled only if it hadn't been explicitly disabled by an admin.
 	 *
 	 * @testWith [null, "yes"]
 	 *           ["yes", "yes"]
@@ -310,15 +310,15 @@ class DataRegeneratorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_after_install_table_usage_is_enabled_if_it_wasnt_disabled( ?string $previous_option_value, string $expected_final_option_value ) {
 		if ( null === $previous_option_value ) {
-			delete_option( 'woocommerce_attribute_lookup_enabled' );
+			delete_option( 'poocommerce_attribute_lookup_enabled' );
 		} else {
-			update_option( 'woocommerce_attribute_lookup_enabled', $previous_option_value );
+			update_option( 'poocommerce_attribute_lookup_enabled', $previous_option_value );
 		}
 
-		//phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'woocommerce_installed' );
+		//phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_installed' );
 
-		$actual_final_option_value = get_option( 'woocommerce_attribute_lookup_enabled' );
+		$actual_final_option_value = get_option( 'poocommerce_attribute_lookup_enabled' );
 		$this->assertEquals( $expected_final_option_value, $actual_final_option_value );
 	}
 }

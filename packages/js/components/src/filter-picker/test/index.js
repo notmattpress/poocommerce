@@ -19,7 +19,7 @@ jest.mock( '../../search' );
 describe( 'FilterPicker', () => {
 	it( 'should render the example from the storybook', async () => {
 		// Jest and its JSDOM does not allow making extensive use of searchParams used by Basic example.
-		const path = '/story/woocommerce-admin-components-filterpicker--basic';
+		const path = '/story/poocommerce-admin-components-filterpicker--basic';
 
 		expect( function () {
 			render( <Basic path={ path } /> );

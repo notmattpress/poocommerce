@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities;
+namespace Automattic\PooCommerce\EmailEditorVendor\Pelago\Emogrifier\Utilities;
 
 /**
  * Provides a common method for parsing CSS declaration blocks.

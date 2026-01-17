@@ -2,13 +2,13 @@
 /**
  * UpdateUtils class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Customers;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Customers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -133,7 +133,7 @@ final class UpdateUtils {
 			$result = call_user_func( $field_options['update_callback'], $request[ $field_name ], $item, $field_name, $request );
 
 			if ( is_wp_error( $result ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_cannot_update', esc_html( $result->get_error_message() ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_cannot_update', esc_html( $result->get_error_message() ), 400 );
 			}
 		}
 	}

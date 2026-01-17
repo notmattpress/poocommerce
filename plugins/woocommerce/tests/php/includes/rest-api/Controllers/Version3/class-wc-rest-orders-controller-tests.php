@@ -1,11 +1,11 @@
 <?php
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper;
 
 /**
  * class WC_REST_Orders_Controller_Tests.
@@ -107,7 +107,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
 
-		$order    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
+		$order    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
 		$response = $this->server->dispatch( new WP_REST_Request( 'GET', '/wc/v3/orders/' . $order->get_id() ) );
 
 		$this->assertEquals( 200, $response->get_status() );
@@ -132,7 +132,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 		}
 
 		$expected_response_fields = $this->get_expected_response_fields( $with_cogs_enabled );
-		$order                    = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
+		$order                    = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order( $this->user );
 
 		foreach ( $expected_response_fields as $field ) {
 			$request = new WP_REST_Request( 'GET', '/wc/v3/orders/' . $order->get_id() );
@@ -207,7 +207,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * Tests creating an order.
 	 */
 	public function test_orders_create(): void {
-		$product                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$order_params             = array(
 			'payment_method'       => WC_Gateway_BACS::ID,
 			'payment_method_title' => 'Direct Bank Transfer',
@@ -261,7 +261,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * Tests that the created_via parameter is properly stored when creating orders.
 	 */
 	public function test_order_created_via_param(): void {
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$order_params = array(
 			'line_items'  => array(
@@ -291,7 +291,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 * Tests that the created_via parameter is set to 'rest-api' when empty.
 	 */
 	public function test_order_empty_created_via_param_is_set_to_rest_api() {
-		$product = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 
 		$order_params = array(
 			'line_items'  => array(
@@ -371,7 +371,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not created, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 
 		// Repeat the last test, except by performing an order update (instead of order creation).
 		$request = new WP_REST_Request( 'PUT', '/wc/v3/orders/' . $order_id );
@@ -379,7 +379,7 @@ class WC_REST_Orders_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		$response = $this->server->dispatch( $request );
 		$this->assertEquals( 400, $response->get_status(), 'The order was not updated, as the specified customer does not belong to the blog.' );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'], 'The returned error indicates the customer ID was invalid.' );
 	}
 
 	/**

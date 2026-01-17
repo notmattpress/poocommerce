@@ -9,7 +9,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 
-const ACCORDION_BLOCK_NAME = 'woocommerce/accordion-item';
+const ACCORDION_BLOCK_NAME = 'poocommerce/accordion-item';
 const ACCORDION_BLOCK = {
 	name: ACCORDION_BLOCK_NAME,
 };
@@ -27,13 +27,13 @@ export default function Edit( { attributes: { autoclose }, setAttributes } ) {
 		<>
 			<InspectorControls key="setting">
 				<PanelBody
-					title={ __( 'Settings', 'woocommerce' ) }
+					title={ __( 'Settings', 'poocommerce' ) }
 					initialOpen
 				>
 					<ToggleControl
 						isBlock
 						__nextHasNoMarginBottom
-						label={ __( 'Auto-close', 'woocommerce' ) }
+						label={ __( 'Auto-close', 'poocommerce' ) }
 						onChange={ ( value ) => {
 							setAttributes( {
 								autoclose: value,
@@ -42,7 +42,7 @@ export default function Edit( { attributes: { autoclose }, setAttributes } ) {
 						checked={ autoclose }
 						help={ __(
 							'Automatically close accordions when a new one is opened.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					/>
 				</PanelBody>

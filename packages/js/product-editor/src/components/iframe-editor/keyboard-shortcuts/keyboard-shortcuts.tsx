@@ -41,7 +41,7 @@ export const KeyboardShortcuts = () => {
 		useDispatch( interfaceStore );
 
 	useShortcut(
-		'woocommerce/product-editor/modal-block-editor/undo',
+		'poocommerce/product-editor/modal-block-editor/undo',
 		( event ) => {
 			undo();
 			event.preventDefault();
@@ -49,7 +49,7 @@ export const KeyboardShortcuts = () => {
 	);
 
 	useShortcut(
-		'woocommerce/product-editor/modal-block-editor/redo',
+		'poocommerce/product-editor/modal-block-editor/redo',
 		( event ) => {
 			redo();
 			event.preventDefault();
@@ -57,7 +57,7 @@ export const KeyboardShortcuts = () => {
 	);
 
 	useShortcut(
-		'woocommerce/product-editor/modal-block-editor/toggle-list-view',
+		'poocommerce/product-editor/modal-block-editor/toggle-list-view',
 		( event ) => {
 			setIsListViewOpened( ! isListViewOpened );
 			event.preventDefault();
@@ -65,7 +65,7 @@ export const KeyboardShortcuts = () => {
 	);
 
 	useShortcut(
-		'woocommerce/product-editor/modal-block-editor/toggle-sidebar',
+		'poocommerce/product-editor/modal-block-editor/toggle-sidebar',
 		( event ) => {
 			if ( isSettingsSidebarOpen ) {
 				disableComplementaryArea( SIDEBAR_COMPLEMENTARY_AREA_SCOPE );

@@ -3,7 +3,7 @@
  */
 import { store as commandsStore } from '@wordpress/commands';
 import { dispatch } from '@wordpress/data';
-import { queueRecordEvent } from '@woocommerce/tracks';
+import { queueRecordEvent } from '@poocommerce/tracks';
 import { decodeEntities } from '@wordpress/html-entities';
 
 export const registerCommandWithTracking = ( {
@@ -18,7 +18,7 @@ export const registerCommandWithTracking = ( {
 		label: decodeEntities( label ),
 		icon,
 		callback: ( ...args ) => {
-			queueRecordEvent( 'woocommerce_command_palette_submit', {
+			queueRecordEvent( 'poocommerce_command_palette_submit', {
 				name,
 				origin,
 			} );

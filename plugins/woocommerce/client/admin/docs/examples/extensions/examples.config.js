@@ -4,7 +4,7 @@
 const path = require( 'path' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const fs = require( 'fs' );
-const woocommerceAdminConfig = require( path.resolve(
+const poocommerceAdminConfig = require( path.resolve(
 	__dirname,
 	'../../../webpack.config.js'
 ) );
@@ -21,7 +21,7 @@ if ( ! fs.existsSync( extensionPath ) ) {
 	throw new Error( 'Extension example does not exist.' );
 }
 
-const WooCommerceDependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
+const PooCommerceDependencyExtractionWebpackPlugin = require( '@poocommerce/dependency-extraction-webpack-plugin' );
 
 const webpackConfig = {
 	mode: 'development',
@@ -33,7 +33,7 @@ const webpackConfig = {
 		path: path.resolve( __dirname, `../../../../${ extension }/dist` ),
 		libraryTarget: 'window',
 	},
-	externals: woocommerceAdminConfig.externals,
+	externals: poocommerceAdminConfig.externals,
 	module: {
 		rules: [
 			{
@@ -101,7 +101,7 @@ const webpackConfig = {
 		new MiniCssExtractPlugin( {
 			filename: '[name]/dist/style.css',
 		} ),
-		new WooCommerceDependencyExtractionWebpackPlugin(),
+		new PooCommerceDependencyExtractionWebpackPlugin(),
 	],
 	watchOptions: {
 		ignored: [ '**/dist', '**/node_modules' ],

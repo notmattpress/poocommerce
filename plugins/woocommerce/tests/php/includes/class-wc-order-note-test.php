@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
 
 /**
  * Class WC_Order_Note_Test.
@@ -24,7 +24,7 @@ class WC_Order_Note_Test extends \WC_Unit_Test_Case {
 		parent::setUp();
 
 		add_filter( 'wc_allow_changing_orders_storage_while_sync_is_pending', '__return_true' );
-		$this->prev_hpos_enabled = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		$this->prev_hpos_enabled = \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
 		$this->setup_cot();
 	}
 

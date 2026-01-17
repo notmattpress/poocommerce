@@ -2,7 +2,7 @@
 /**
  * Shipping classes admin
  *
- * @package WooCommerce\Admin\Shipping
+ * @package PooCommerce\Admin\Shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <h2 class="wc-shipping-zones-heading">
-	<span><?php esc_html_e( 'Shipping classes', 'woocommerce' ); ?></span>
-	<a class="page-title-action wc-shipping-class-add-new" href="#"><?php esc_html_e( 'Add shipping class', 'woocommerce' ); ?></a>
+	<span><?php esc_html_e( 'Shipping classes', 'poocommerce' ); ?></span>
+	<a class="page-title-action wc-shipping-class-add-new" href="#"><?php esc_html_e( 'Add shipping class', 'poocommerce' ); ?></a>
 </h2>
 
 <p class="wc-shipping-zone-help-text">
-	<?php esc_html_e( 'Use shipping classes to customize the shipping rates for different groups of products, such as heavy items that require higher postage fees.', 'woocommerce' ); ?> <a target="_blank" href="https://woocommerce.com/document/product-shipping-classes/"><?php esc_html_e( 'Learn more', 'woocommerce' ); ?></a>
+	<?php esc_html_e( 'Use shipping classes to customize the shipping rates for different groups of products, such as heavy items that require higher postage fees.', 'poocommerce' ); ?> <a target="_blank" href="https://poocommerce.com/document/product-shipping-classes/"><?php esc_html_e( 'Learn more', 'poocommerce' ); ?></a>
 </p>
 
 <table class="wc-shipping-classes widefat">
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <script type="text/html" id="tmpl-wc-shipping-class-row-blank">
 	<tr>
-		<td class="wc-shipping-classes-blank-state" colspan="<?php echo absint( count( $shipping_class_columns ) + 1 ); ?>"><p><?php esc_html_e( 'No shipping classes have been created.', 'woocommerce' ); ?></p></td>
+		<td class="wc-shipping-classes-blank-state" colspan="<?php echo absint( count( $shipping_class_columns ) + 1 ); ?>"><p><?php esc_html_e( 'No shipping classes have been created.', 'poocommerce' ); ?></p></td>
 	</tr>
 </script>
 
@@ -46,9 +46,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="wc-backbone-modal-content" data-id="{{ data.term_id }}">
 			<section class="wc-backbone-modal-main" role="main">
 				<header class="wc-backbone-modal-header">
-					<h1><?php esc_html_e( 'Add shipping class', 'woocommerce' ); ?></h1>
+					<h1><?php esc_html_e( 'Add shipping class', 'poocommerce' ); ?></h1>
 					<button class="modal-close modal-close-link dashicons dashicons-no-alt">
-						<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'woocommerce' ); ?></span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Close modal panel', 'poocommerce' ); ?></span>
 					</button>
 				</header>
 				<article>
@@ -64,9 +64,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?> *
 								</div>
 								<div class="edit">
-									<input type="text" name="name" data-attribute="name" value="{{ data.name }}" placeholder="<?php esc_attr_e( 'e.g. Heavy', 'woocommerce' ); ?>" />
+									<input type="text" name="name" data-attribute="name" value="{{ data.name }}" placeholder="<?php esc_attr_e( 'e.g. Heavy', 'poocommerce' ); ?>" />
 								</div>
-								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Give your shipping class a name for easy identification', 'woocommerce' ); ?></div>
+								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Give your shipping class a name for easy identification', 'poocommerce' ); ?></div>
 								<?php
 								break;
 							case 'wc-shipping-class-slug':
@@ -75,9 +75,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?>
 								</div>
 								<div class="edit">
-									<input type="text" name="slug" data-attribute="slug" value="{{ data.slug }}" placeholder="<?php esc_attr_e( 'e.g. heavy-packages', 'woocommerce' ); ?>" />
+									<input type="text" name="slug" data-attribute="slug" value="{{ data.slug }}" placeholder="<?php esc_attr_e( 'e.g. heavy-packages', 'poocommerce' ); ?>" />
 								</div>
-								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Slug (unique identifier) can be left blank and auto-generated, or you can enter one', 'woocommerce' ); ?></div>
+								<div class="wc-shipping-class-modal-help-text"><?php esc_html_e( 'Slug (unique identifier) can be left blank and auto-generated, or you can enter one', 'poocommerce' ); ?></div>
 								<?php
 								break;
 							case 'wc-shipping-class-description':
@@ -86,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?> *
 								</div>
 								<div class="edit">
-									<input type="text" name="description" data-attribute="description" value="{{ data.description }}" placeholder="<?php esc_attr_e( 'e.g. For heavy items requiring higher postage', 'woocommerce' ); ?>" />
+									<input type="text" name="description" data-attribute="description" value="{{ data.description }}" placeholder="<?php esc_attr_e( 'e.g. For heavy items requiring higher postage', 'poocommerce' ); ?>" />
 								</div>
 								<?php
 								break;
@@ -98,8 +98,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php echo esc_html( $heading ); ?>
 								</div>
 								<?php
-								// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-								do_action( 'woocommerce_shipping_classes_column_' . $class );
+								// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+								do_action( 'poocommerce_shipping_classes_column_' . $class );
 								break;
 						}
 						echo '</div>';
@@ -110,8 +110,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<footer>
 					<div class="inner">
 						<button id="btn-ok" disabled class="button button-primary button-large disabled">
-							<div class="wc-backbone-modal-action-{{ data.action === 'create' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Create', 'woocommerce' ); ?></div>
-							<div class="wc-backbone-modal-action-{{ data.action === 'edit' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Save', 'woocommerce' ); ?></div>
+							<div class="wc-backbone-modal-action-{{ data.action === 'create' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Create', 'poocommerce' ); ?></div>
+							<div class="wc-backbone-modal-action-{{ data.action === 'edit' ? 'active' : 'inactive' }}"><?php esc_html_e( 'Save', 'poocommerce' ); ?></div>
 						</button>
 					</div>
 				</footer>
@@ -150,8 +150,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 					break;
 				default:
-					// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-					do_action( 'woocommerce_shipping_classes_column_' . $class );
+					// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+					do_action( 'poocommerce_shipping_classes_column_' . $class );
 					break;
 			}
 			echo '</td>';
@@ -159,7 +159,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		<td class="wc-shipping-zone-actions">
 			<div>
-				<a class="wc-shipping-class-edit wc-shipping-zone-action-edit" href="#"><?php esc_html_e( 'Edit', 'woocommerce' ); ?></a> | <a href="#" class="wc-shipping-class-delete wc-shipping-zone-actions"><?php esc_html_e( 'Delete', 'woocommerce' ); ?></a>
+				<a class="wc-shipping-class-edit wc-shipping-zone-action-edit" href="#"><?php esc_html_e( 'Edit', 'poocommerce' ); ?></a> | <a href="#" class="wc-shipping-class-delete wc-shipping-zone-actions"><?php esc_html_e( 'Delete', 'poocommerce' ); ?></a>
 			</div>
 		</td>
 	</tr>

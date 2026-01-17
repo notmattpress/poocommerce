@@ -2,7 +2,7 @@
 /**
  * Class for customer download logs.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.3.0
  * @since   3.3.0
  */
