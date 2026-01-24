@@ -4,7 +4,7 @@
 import {
 	WC_ADMIN_API_PATH,
 	WC_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies

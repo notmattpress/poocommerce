@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Css;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Css;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Property\Selector;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\RuleSet\DeclarationBlock;
 
 /**
  * This class represents a CSS style rule, including selectors, a declaration block, and an optional containing at-rule.

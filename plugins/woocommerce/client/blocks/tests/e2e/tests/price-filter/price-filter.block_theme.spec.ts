@@ -8,10 +8,10 @@ import {
 	BASE_URL,
 	wpCLI,
 	BLOCK_THEME_SLUG,
-} from '@woocommerce/e2e-utils';
+} from '@poocommerce/e2e-utils';
 
 const blockData = {
-	slug: 'woocommerce/price-filter',
+	slug: 'poocommerce/price-filter',
 	name: 'Filter by Price',
 	mainClass: '.wc-block-price-filter',
 	selectors: {
@@ -20,7 +20,7 @@ const blockData = {
 	},
 	urlSearchParamWhenFilterIsApplied: 'max_price=5',
 	endpointAPI: 'max_price=500',
-	placeholderUrl: `${ BASE_URL }/wp-content/plugins/woocommerce/assets/images/placeholder.webp`,
+	placeholderUrl: `${ BASE_URL }/wp-content/plugins/poocommerce/assets/images/placeholder.webp`,
 };
 
 const test = base.extend< { templateCompiler: TemplateCompiler } >( {
@@ -74,7 +74,7 @@ test.describe( `${ blockData.name } Block - editor side`, () => {
 	test.beforeEach( async ( { admin, editor } ) => {
 		await admin.createNewPost();
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'price-filter',
 				heading: 'Filter By Price',
@@ -85,7 +85,7 @@ test.describe( `${ blockData.name } Block - editor side`, () => {
 
 	test( "should allow changing the block's title", async ( { editor } ) => {
 		const textSelector =
-			'.wp-block-woocommerce-filter-wrapper .wp-block-heading';
+			'.wp-block-poocommerce-filter-wrapper .wp-block-heading';
 
 		const title = 'New Title';
 
@@ -101,7 +101,7 @@ test.describe( `${ blockData.name } Block - editor side`, () => {
 		editor,
 	} ) => {
 		const priceFilterControls = await editor.getBlockByName(
-			'woocommerce/price-filter'
+			'poocommerce/price-filter'
 		);
 		await editor.selectBlocks( priceFilterControls );
 
@@ -163,9 +163,9 @@ test.describe( `${ blockData.name } Block - editor side`, () => {
 test.describe( `${ blockData.name } Block - with All products Block`, () => {
 	test.beforeEach( async ( { admin, page, editor } ) => {
 		await admin.createNewPost();
-		await editor.insertBlock( { name: 'woocommerce/all-products' } );
+		await editor.insertBlock( { name: 'poocommerce/all-products' } );
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'price-filter',
 				heading: 'Filter By Price',
@@ -203,7 +203,7 @@ test.describe( `${ blockData.name } Block - with All products Block`, () => {
 
 	test( 'should show all products', async ( { frontendUtils } ) => {
 		const allProductsBlock = await frontendUtils.getBlockByName(
-			'woocommerce/all-products'
+			'poocommerce/all-products'
 		);
 
 		const img = allProductsBlock.locator( 'img' ).first();
@@ -248,7 +248,7 @@ test.describe( `${ blockData.name } Block - with All products Block`, () => {
 		await maxPriceInput.press( 'Tab' );
 
 		const allProductsBlock = await frontendUtils.getBlockByName(
-			'woocommerce/all-products'
+			'poocommerce/all-products'
 		);
 
 		const img = allProductsBlock.locator( 'img' ).first();
@@ -278,7 +278,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		} );
 
 		await editor.insertBlock( {
-			name: 'woocommerce/filter-wrapper',
+			name: 'poocommerce/filter-wrapper',
 			attributes: {
 				filterType: 'price-filter',
 				heading: 'Filter By Price',
@@ -292,7 +292,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 
 	test( 'should show all products', async ( { frontendUtils } ) => {
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 
 		const products = legacyTemplate
@@ -318,7 +318,7 @@ test.describe( `${ blockData.name } Block - with PHP classic template`, () => {
 		);
 
 		const legacyTemplate = await frontendUtils.getBlockByName(
-			'woocommerce/legacy-template'
+			'poocommerce/legacy-template'
 		);
 
 		const products = legacyTemplate
@@ -335,7 +335,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 
 		await page.goto( '/shop' );
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 16 );
@@ -361,7 +361,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		);
 
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 1 );
@@ -415,7 +415,7 @@ test.describe( `${ blockData.name } Block - with Product Collection`, () => {
 		);
 
 		const products = page
-			.locator( '.wp-block-woocommerce-product-template' )
+			.locator( '.wp-block-poocommerce-product-template' )
 			.getByRole( 'listitem' );
 
 		await expect( products ).toHaveCount( 1 );

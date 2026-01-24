@@ -4,12 +4,12 @@
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 import { useRef, useEffect, RawHTML } from '@wordpress/element';
-import { sanitizeHTML } from '@woocommerce/sanitize';
+import { sanitizeHTML } from '@poocommerce/sanitize';
 import { useDispatch } from '@wordpress/data';
-import { usePrevious } from '@woocommerce/base-hooks';
+import { usePrevious } from '@poocommerce/base-hooks';
 import { decodeEntities } from '@wordpress/html-entities';
-import type { NoticeStatus, NoticeType } from '@woocommerce/types';
-import type { NoticeBannerProps } from '@woocommerce/base-components/notice-banner';
+import type { NoticeStatus, NoticeType } from '@poocommerce/types';
+import type { NoticeBannerProps } from '@poocommerce/base-components/notice-banner';
 
 /**
  * Internal dependencies
@@ -154,7 +154,7 @@ const StoreNotices = ( {
 								status === 'error'
 									? __(
 											'Please fix the following errors before continuing',
-											'woocommerce'
+											'poocommerce'
 									  )
 									: ''
 							}

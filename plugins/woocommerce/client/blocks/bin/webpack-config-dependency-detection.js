@@ -1,5 +1,5 @@
 /**
- * Webpack config for WooCommerce Dependency Detection script.
+ * Webpack config for PooCommerce Dependency Detection script.
  *
  * This builds a standalone JS File that PHP inlines into the page.
  */

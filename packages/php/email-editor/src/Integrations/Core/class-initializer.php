@@ -1,37 +1,37 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Layout\Flex_Layout_Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Audio;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Button;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Buttons;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Column;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Columns;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Cover;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Embed;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Gallery;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Group;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Image;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\List_Block;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\List_Item;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Media_Text;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Post_Content;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Quote;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Video;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Social_Link;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Social_Links;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Table;
-use Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Text;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Layout\Flex_Layout_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Abstract_Block_Renderer;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Audio;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Button;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Buttons;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Column;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Columns;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Cover;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Embed;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Fallback;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Gallery;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Group;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Image;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\List_Block;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\List_Item;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Media_Text;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Post_Content;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Quote;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Video;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Social_Link;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Social_Links;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Table;
+use Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks\Text;
 
 /**
  * Initializes the core blocks renderers.
@@ -89,7 +89,7 @@ class Initializer {
 	 * Initializes the core blocks renderers.
 	 */
 	public function initialize(): void {
-		add_filter( 'woocommerce_email_editor_theme_json', array( $this, 'adjust_theme_json' ), 10, 1 );
+		add_filter( 'poocommerce_email_editor_theme_json', array( $this, 'adjust_theme_json' ), 10, 1 );
 		add_filter( 'safe_style_css', array( $this, 'allow_styles' ) );
 	}
 

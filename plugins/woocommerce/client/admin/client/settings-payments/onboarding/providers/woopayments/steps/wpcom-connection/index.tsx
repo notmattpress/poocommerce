@@ -38,7 +38,7 @@ export const JetpackStep: React.FC = () => {
 						{ currentStep.errors[ 0 ]?.message ||
 							__(
 								'Something went wrong. Please try again.',
-								'woocommerce'
+								'poocommerce'
 							) }
 					</p>
 				</Notice>
@@ -46,12 +46,12 @@ export const JetpackStep: React.FC = () => {
 			<div className="settings-payments-onboarding-modal__step--content">
 				<div className="settings-payments-onboarding-modal__step--content-jetpack">
 					<h1 className="settings-payments-onboarding-modal__step--content-jetpack-title">
-						{ __( 'Connect to WordPress.com', 'woocommerce' ) }
+						{ __( 'Connect to WordPress.com', 'poocommerce' ) }
 					</h1>
 					<p className="settings-payments-onboarding-modal__step--content-jetpack-description">
 						{ __(
 							'You’ll be briefly redirected to connect your store to your WordPress.com account and unlock the full features and functionality of WooPayments',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 					<Button
@@ -90,7 +90,7 @@ export const JetpackStep: React.FC = () => {
 								currentStep?.actions?.auth?.href ?? '';
 						} }
 					>
-						{ __( 'Connect', 'woocommerce' ) }
+						{ __( 'Connect', 'poocommerce' ) }
 					</Button>
 				</div>
 			</div>

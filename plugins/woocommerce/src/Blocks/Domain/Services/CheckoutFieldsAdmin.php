@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Blocks\Domain\Services;
+namespace Automattic\PooCommerce\Blocks\Domain\Services;
 
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
 
 /**
  * Service class managing checkout fields and its related extensibility points in the admin area.
@@ -29,14 +29,14 @@ class CheckoutFieldsAdmin {
 	 * Initialize hooks. This is not run Store API requests.
 	 */
 	public function init() {
-		add_filter( 'woocommerce_admin_billing_fields', array( $this, 'admin_address_fields' ), 10, 3 );
-		add_filter( 'woocommerce_admin_billing_fields', array( $this, 'admin_contact_fields' ), 10, 3 );
-		add_filter( 'woocommerce_admin_shipping_fields', array( $this, 'admin_address_fields' ), 10, 3 );
-		add_filter( 'woocommerce_admin_shipping_fields', array( $this, 'admin_order_fields' ), 10, 3 );
+		add_filter( 'poocommerce_admin_billing_fields', array( $this, 'admin_address_fields' ), 10, 3 );
+		add_filter( 'poocommerce_admin_billing_fields', array( $this, 'admin_contact_fields' ), 10, 3 );
+		add_filter( 'poocommerce_admin_shipping_fields', array( $this, 'admin_address_fields' ), 10, 3 );
+		add_filter( 'poocommerce_admin_shipping_fields', array( $this, 'admin_order_fields' ), 10, 3 );
 	}
 
 	/**
-	 * Converts the shape of a checkout field to match whats needed in the WooCommerce meta boxes.
+	 * Converts the shape of a checkout field to match whats needed in the PooCommerce meta boxes.
 	 *
 	 * @param array  $field The field to format.
 	 * @param string $key The field key. This will be used for the ID of the field when passed to the meta box.
@@ -91,7 +91,7 @@ class CheckoutFieldsAdmin {
 			return $fields;
 		}
 
-		$group_name        = doing_action( 'woocommerce_admin_billing_fields' ) ? 'billing' : 'shipping';
+		$group_name        = doing_action( 'poocommerce_admin_billing_fields' ) ? 'billing' : 'shipping';
 		$additional_fields = $this->checkout_fields_controller->get_order_additional_fields_with_values( $order, 'address', $group_name, $context );
 		foreach ( $additional_fields as $key => $field ) {
 			$prefixed_key              = CheckoutFields::get_group_key( $group_name ) . $key;

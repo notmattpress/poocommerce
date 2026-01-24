@@ -52,10 +52,10 @@ export default class RevenueReport extends Component {
 					advancedFilters={ advancedFilters }
 				/>
 				<ReportDateTour
-					optionName="woocommerce_revenue_report_date_tour_shown"
+					optionName="poocommerce_revenue_report_date_tour_shown"
 					headingText={ __(
 						'Revenue is now reported from paid orders ✅',
-						'woocommerce'
+						'poocommerce'
 					) }
 				/>
 			</Fragment>

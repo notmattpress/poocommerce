@@ -2,16 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Controllers;
 
 use Automattic\Jetpack\Connection\Manager as JetpackConnectionManager;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\PushNotifications\Controllers\PushTokenRestController;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use InvalidArgumentException;
 use RuntimeException;
@@ -25,7 +25,7 @@ use WP_REST_Request;
 /**
  * Tests for the PushTokenRestController class.
  *
- * @package WooCommerce\Tests\PushNotifications
+ * @package PooCommerce\Tests\PushNotifications
  */
 class PushTokenRestControllerTest extends WC_REST_Unit_Test_Case {
 	/**
@@ -87,7 +87,7 @@ class PushTokenRestControllerTest extends WC_REST_Unit_Test_Case {
 
 		$data = $response->get_data();
 
-		$this->assertEquals( 'woocommerce_rest_cannot_view', $data['code'] );
+		$this->assertEquals( 'poocommerce_rest_cannot_view', $data['code'] );
 	}
 
 	/**

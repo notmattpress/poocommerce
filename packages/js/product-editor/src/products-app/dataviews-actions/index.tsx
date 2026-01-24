@@ -5,7 +5,7 @@ import { useMemo } from '@wordpress/element';
 import { edit } from '@wordpress/icons';
 import { privateApis as routerPrivateApis } from '@wordpress/router';
 import { __ } from '@wordpress/i18n';
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ export const useEditProductAction = ( { postType }: { postType: string } ) => {
 	return useMemo(
 		() => ( {
 			id: 'edit-product',
-			label: __( 'Edit', 'woocommerce' ),
+			label: __( 'Edit', 'poocommerce' ),
 			isPrimary: true,
 			icon: edit,
 			supportsBulk: true,

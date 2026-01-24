@@ -10,18 +10,18 @@ import {
 	CartShippingPackageShippingRate,
 	CartShippingRate,
 	BillingAddressShippingAddress,
-} from '@woocommerce/types';
+} from '@poocommerce/types';
 import {
 	camelCaseKeys,
 	triggerAddedToCartEvent,
 	triggerAddingToCartEvent,
-} from '@woocommerce/base-utils';
+} from '@poocommerce/base-utils';
 import {
 	type CurriedSelectorsOf,
 	type ConfigOf,
 	type ActionCreatorsOf,
 } from '@wordpress/data/build-types/types';
-import { cartStore } from '@woocommerce/block-data';
+import { cartStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

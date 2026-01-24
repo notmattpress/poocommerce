@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { renderHook, act } from '@testing-library/react';
-import { responseTypes } from '@woocommerce/types';
+import { responseTypes } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ type ValidationResult = Awaited<
 >;
 
 const mockEmit = jest.fn();
-jest.mock( '@woocommerce/blocks-checkout-events', () => ( {
+jest.mock( '@poocommerce/blocks-checkout-events', () => ( {
 	checkoutEventsEmitter: {
 		emit: ( ...args: unknown[] ) => mockEmit( ...args ),
 	},
@@ -27,7 +27,7 @@ const mockShowAllValidationErrors = jest.fn();
 const mockSetValidationErrors = jest.fn();
 const mockHasValidationErrors = jest.fn();
 
-jest.mock( '@woocommerce/block-data', () => ( {
+jest.mock( '@poocommerce/block-data', () => ( {
 	validationStore: 'wc/store/validation',
 } ) );
 

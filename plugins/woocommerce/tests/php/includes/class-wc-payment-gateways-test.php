@@ -1,9 +1,9 @@
 <?php
 /**
- * @package WooCommerce\Tests\PaymentGateways
+ * @package PooCommerce\Tests\PaymentGateways
  */
 
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
 
 /**
  * Class WC_Payment_Gateways_Test.
@@ -37,7 +37,7 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		delete_option( 'woocommerce_feature_fraud_protection_enabled' );
+		delete_option( 'poocommerce_feature_fraud_protection_enabled' );
 		delete_option( 'jetpack_activation_source' );
 		wc_get_container()->get( SessionClearanceManager::class )->reset_session();
 	}
@@ -107,7 +107,7 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_available_payment_gateways_returns_empty_when_session_blocked() {
 		// Enable fraud protection and block the session.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 		wc_get_container()->get( SessionClearanceManager::class )->block_session();
 
 		$this->enable_all_gateways();
@@ -122,7 +122,7 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_get_available_payment_gateways_returns_gateways_when_feature_disabled() {
 		// Disable fraud protection but block the session.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'no' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'no' );
 		wc_get_container()->get( SessionClearanceManager::class )->block_session();
 
 		$this->enable_all_gateways();
@@ -138,7 +138,7 @@ class WC_Payment_Gateways_Test extends WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_get_payment_gateway_name_by_id_returns_gateway_title_for_known_gateway(): void {
-		// Test with a known gateway (bacs is available by default in WooCommerce).
+		// Test with a known gateway (bacs is available by default in PooCommerce).
 		$result = $this->sut->get_payment_gateway_name_by_id( 'bacs' );
 
 		// Should return a readable name, not just the ID.

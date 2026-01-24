@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 /**
  * Tests for POS visibility support based on product type.
  *
- * @package WooCommerce\Tests\Admin\MetaBoxes
+ * @package PooCommerce\Tests\Admin\MetaBoxes
  */
 
 /**

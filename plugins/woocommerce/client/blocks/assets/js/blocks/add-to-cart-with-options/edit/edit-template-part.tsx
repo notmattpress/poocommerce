@@ -8,7 +8,7 @@ import {
 	useInnerBlocksProps,
 	useBlockProps,
 } from '@wordpress/block-editor';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies

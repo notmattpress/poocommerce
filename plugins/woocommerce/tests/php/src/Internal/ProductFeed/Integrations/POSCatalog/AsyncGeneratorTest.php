@@ -1,12 +1,12 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\AsyncGenerator;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSIntegration;
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\AsyncGenerator;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSIntegration;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\ProductMapper;
 use ReflectionClass;
 use WC_Helper_Product;
 

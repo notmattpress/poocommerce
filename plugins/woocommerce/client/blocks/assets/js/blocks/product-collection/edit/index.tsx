@@ -4,7 +4,7 @@
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { useGetLocation } from '@woocommerce/blocks/product-template/utils';
+import { useGetLocation } from '@poocommerce/blocks/product-template/utils';
 import { Spinner, Flex } from '@wordpress/components';
 
 /**
