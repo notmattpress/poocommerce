@@ -7,7 +7,7 @@
  * 'process-waiting-actions' query parameter and then starts an Action Scheduler queue runner. It exits immediately
  * after this, to avoid overhead of building up a full response.
  *
- * @package Automattic\WooCommerce\E2EPlaywright
+ * @package Automattic\PooCommerce\E2EPlaywright
  */
 
 add_action(

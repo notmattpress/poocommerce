@@ -5,16 +5,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\CartEventTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionDispatcher;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\CartEventTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionDispatcher;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
 
 /**
  * Tests for CartEventTracker.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\CartEventTracker
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\CartEventTracker
  */
 class CartEventTrackerTest extends \WC_Unit_Test_Case {
 
@@ -52,8 +52,8 @@ class CartEventTrackerTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 

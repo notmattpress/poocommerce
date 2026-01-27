@@ -93,7 +93,7 @@ describe( 'ErrorBoundary', () => {
 		fireEvent.click( screen.getByText( 'Get Support' ) );
 
 		expect( openSpy ).toHaveBeenCalledWith(
-			'https://wordpress.org/support/plugin/woocommerce/',
+			'https://wordpress.org/support/plugin/poocommerce/',
 			'_blank'
 		);
 

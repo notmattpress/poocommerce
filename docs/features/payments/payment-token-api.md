@@ -1,12 +1,12 @@
 ---
-post_title: WooCommerce Payment Token API
+post_title: PooCommerce Payment Token API
 sidebar_label: Payment Token API
 
 ---
 
-# WooCommerce Payment Token API
+# PooCommerce Payment Token API
 
-WooCommerce 2.6 introduced an API for storing and managing payment tokens for gateways. Users can also manage these tokens from their account settings and choose from saved payment tokens on checkout.
+PooCommerce 2.6 introduced an API for storing and managing payment tokens for gateways. Users can also manage these tokens from their account settings and choose from saved payment tokens on checkout.
 
 This guide offers a few useful tutorials for using the new API as well as all the various methods available to you.
 
@@ -18,7 +18,7 @@ We'll use the Simplify Commerce gateway in some of these examples.
 
 #### Step 0: Extending The Correct Gateway Base
 
-WooCommerce ships with two base classes for gateways. These classes were introduced along with the Token API in 2.6. They  are `WC_Payment_Gateway_CC` (for credit card based tokens) and `WC_Payment_Gateway_eCheck` (for eCheck based tokens). They contain some useful code for generating payment forms on checkout and should hopefully cover most cases.
+PooCommerce ships with two base classes for gateways. These classes were introduced along with the Token API in 2.6. They  are `WC_Payment_Gateway_CC` (for credit card based tokens) and `WC_Payment_Gateway_eCheck` (for eCheck based tokens). They contain some useful code for generating payment forms on checkout and should hopefully cover most cases.
 
 You can also implement your own gateway base by extending the abstract `WC_Payment_Gateway` class, if neither of those classes work for you.
 
@@ -28,7 +28,7 @@ Since Simplify deals with credit cards, we extend the credit card gateway.
 
 #### Step 1: 'Supports' Array
 
-We need to tell WooCommerce our gateway supports tokenization. Like other gateways features, this is defined in a gateway's `__construct` in an array called `supports`.
+We need to tell PooCommerce our gateway supports tokenization. Like other gateways features, this is defined in a gateway's `__construct` in an array called `supports`.
 
 Here is the Simplify array:
 
@@ -91,7 +91,7 @@ Save will return `true` if the token was successfully saved, and `false` if an e
 
 #### Step 3: Save Methods On Checkout
 
-WooCommerce also allows customers to save a new payment token during the checkout process in addition to "my account". You'll need to add some code to your gateways `process_payment` function to make this work correctly.
+PooCommerce also allows customers to save a new payment token during the checkout process in addition to "my account". You'll need to add some code to your gateways `process_payment` function to make this work correctly.
 
 To figure out if you need to save a new payment method you can check the following POST field which should return `true` if the "Save to Account" checkbox was selected.
 
@@ -137,7 +137,7 @@ You can extend the abstract WC_Payment_Token class and create a new token type I
 
 #### Step 0: Extend WC_Payment_Token And Name Your Type
 
-Start by extending WC_Payment_Token and providing a name for the new type. We'll look at how the eCheck token class is built since it is the most basic token type shipped in WooCommerce core.
+Start by extending WC_Payment_Token and providing a name for the new type. We'll look at how the eCheck token class is built since it is the most basic token type shipped in PooCommerce core.
 
 A barebones token file should look like this:
 
@@ -198,7 +198,7 @@ public function set_last4( $last4 ) {
 }
 ```
 
-That's it! These meta functions are provided by [WC_Data](https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/abstracts/abstract-wc-data.php).
+That's it! These meta functions are provided by [WC_Data](https://github.com/poocommerce/poocommerce/blob/trunk/plugins/poocommerce/includes/abstracts/abstract-wc-data.php).
 
 #### Step 3: Use Your New Token Type
 
@@ -321,7 +321,7 @@ echo $token->get_card_type();
 
 #### set_card_type( $type )
 
-Set the credit card type. This is a freeform text field, but the following values can be used and WooCommerce will show a formatted label New labels can be added with the `woocommerce_credit_card_type_labels` filter.
+Set the credit card type. This is a freeform text field, but the following values can be used and PooCommerce will show a formatted label New labels can be added with the `poocommerce_credit_card_type_labels` filter.
 
 ```php
 $token = WC_Payment_Tokens::get( 42 );
@@ -333,12 +333,12 @@ Supported types/labels:
 
 ```php
 array(
-	'mastercard'       => __( 'MasterCard', 'woocommerce' ),
-	'visa'             => __( 'Visa', 'woocommerce' ),
-	'discover'         => __( 'Discover', 'woocommerce' ),
-	'american express' => __( 'American Express', 'woocommerce' ),
-	'diners'           => __( 'Diners', 'woocommerce' ),
-	'jcb'              => __( 'JCB', 'woocommerce' ),
+	'mastercard'       => __( 'MasterCard', 'poocommerce' ),
+	'visa'             => __( 'Visa', 'poocommerce' ),
+	'discover'         => __( 'Discover', 'poocommerce' ),
+	'american express' => __( 'American Express', 'poocommerce' ),
+	'diners'           => __( 'Diners', 'poocommerce' ),
+	'jcb'              => __( 'JCB', 'poocommerce' ),
 ) );
 ```
 

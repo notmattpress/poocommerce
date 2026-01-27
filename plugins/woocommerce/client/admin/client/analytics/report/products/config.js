@@ -4,7 +4,7 @@
 import { __, _x } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { dispatch } from '@wordpress/data';
-import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
+import { STORE_KEY as CES_STORE_KEY } from '@poocommerce/customer-effort-score';
 
 /**
  * Internal dependencies
@@ -15,11 +15,11 @@ import {
 } from '../../../lib/async-requests';
 
 const PRODUCTS_REPORT_CHARTS_FILTER =
-	'woocommerce_admin_products_report_charts';
+	'poocommerce_admin_products_report_charts';
 const PRODUCTS_REPORT_FILTERS_FILTER =
-	'woocommerce_admin_products_report_filters';
+	'poocommerce_admin_products_report_filters';
 const PRODUCTS_REPORT_ADVANCED_FILTERS_FILTER =
-	'woocommerce_admin_products_report_advanced_filters';
+	'poocommerce_admin_products_report_advanced_filters';
 
 const { addCesSurveyForAnalytics } = dispatch( CES_STORE_KEY );
 
@@ -30,27 +30,27 @@ const { addCesSurveyForAnalytics } = dispatch( CES_STORE_KEY );
 /**
  * Products Report charts filter.
  *
- * @filter woocommerce_admin_products_report_charts
+ * @filter poocommerce_admin_products_report_charts
  * @param {Array.<chart>} charts Report charts.
  */
 export const charts = applyFilters( PRODUCTS_REPORT_CHARTS_FILTER, [
 	{
 		key: 'items_sold',
-		label: __( 'Items sold', 'woocommerce' ),
+		label: __( 'Items sold', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'items_sold',
 		type: 'number',
 	},
 	{
 		key: 'net_revenue',
-		label: __( 'Net sales', 'woocommerce' ),
+		label: __( 'Net sales', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'net_revenue',
 		type: 'currency',
 	},
 	{
 		key: 'orders_count',
-		label: __( 'Orders', 'woocommerce' ),
+		label: __( 'Orders', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'orders_count',
 		type: 'number',
@@ -58,14 +58,14 @@ export const charts = applyFilters( PRODUCTS_REPORT_CHARTS_FILTER, [
 ] );
 
 const filterConfig = {
-	label: __( 'Show', 'woocommerce' ),
+	label: __( 'Show', 'poocommerce' ),
 	staticParams: [ 'chartType', 'paged', 'per_page' ],
 	param: 'filter',
 	showFilters: () => true,
 	filters: [
-		{ label: __( 'All products', 'woocommerce' ), value: 'all' },
+		{ label: __( 'All products', 'poocommerce' ), value: 'all' },
 		{
-			label: __( 'Single product', 'woocommerce' ),
+			label: __( 'Single product', 'poocommerce' ),
 			value: 'select_product',
 			chartMode: 'item-comparison',
 			subFilters: [
@@ -81,16 +81,16 @@ const filterConfig = {
 						labels: {
 							placeholder: __(
 								'Type to search for a product',
-								'woocommerce'
+								'poocommerce'
 							),
-							button: __( 'Single product', 'woocommerce' ),
+							button: __( 'Single product', 'poocommerce' ),
 						},
 					},
 				},
 			],
 		},
 		{
-			label: __( 'Comparison', 'woocommerce' ),
+			label: __( 'Comparison', 'poocommerce' ),
 			value: 'compare-products',
 			chartMode: 'item-comparison',
 			settings: {
@@ -100,14 +100,14 @@ const filterConfig = {
 				labels: {
 					helpText: __(
 						'Check at least two products below to compare',
-						'woocommerce'
+						'poocommerce'
 					),
 					placeholder: __(
 						'Search for products to compare',
-						'woocommerce'
+						'poocommerce'
 					),
-					title: __( 'Compare Products', 'woocommerce' ),
-					update: __( 'Compare', 'woocommerce' ),
+					title: __( 'Compare Products', 'poocommerce' ),
+					update: __( 'Compare', 'poocommerce' ),
 				},
 				onClick: addCesSurveyForAnalytics,
 			},
@@ -124,12 +124,12 @@ const variationsConfig = {
 	param: 'filter-variations',
 	filters: [
 		{
-			label: __( 'All variations', 'woocommerce' ),
+			label: __( 'All variations', 'poocommerce' ),
 			chartMode: 'item-comparison',
 			value: 'all',
 		},
 		{
-			label: __( 'Single variation', 'woocommerce' ),
+			label: __( 'Single variation', 'poocommerce' ),
 			value: 'select_variation',
 			subFilters: [
 				{
@@ -143,16 +143,16 @@ const variationsConfig = {
 						labels: {
 							placeholder: __(
 								'Type to search for a variation',
-								'woocommerce'
+								'poocommerce'
 							),
-							button: __( 'Single variation', 'woocommerce' ),
+							button: __( 'Single variation', 'poocommerce' ),
 						},
 					},
 				},
 			],
 		},
 		{
-			label: __( 'Comparison', 'woocommerce' ),
+			label: __( 'Comparison', 'poocommerce' ),
 			chartMode: 'item-comparison',
 			value: 'compare-variations',
 			settings: {
@@ -162,14 +162,14 @@ const variationsConfig = {
 				labels: {
 					helpText: __(
 						'Check at least two variations below to compare',
-						'woocommerce'
+						'poocommerce'
 					),
 					placeholder: __(
 						'Search for variations to compare',
-						'woocommerce'
+						'poocommerce'
 					),
-					title: __( 'Compare Variations', 'woocommerce' ),
-					update: __( 'Compare', 'woocommerce' ),
+					title: __( 'Compare Variations', 'poocommerce' ),
+					update: __( 'Compare', 'poocommerce' ),
 				},
 			},
 		},
@@ -179,7 +179,7 @@ const variationsConfig = {
 /**
  * Products Report Advanced Filters.
  *
- * @filter woocommerce_admin_products_report_advanced_filters
+ * @filter poocommerce_admin_products_report_advanced_filters
  * @param {Object} advancedFilters         Report Advanced Filters.
  * @param {string} advancedFilters.title   Interpolated component string for Advanced Filters title.
  * @param {Object} advancedFilters.filters An object specifying a report's Advanced Filters.
@@ -191,18 +191,18 @@ export const advancedFilters = applyFilters(
 		title: _x(
 			'Products Match <select/> Filters',
 			'A sentence describing filters for Products. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ',
-			'woocommerce'
+			'poocommerce'
 		),
 	}
 );
 
 if ( Object.keys( advancedFilters.filters ).length ) {
 	filterConfig.filters.push( {
-		label: __( 'Advanced Filters', 'woocommerce' ),
+		label: __( 'Advanced Filters', 'poocommerce' ),
 		value: 'advanced',
 	} );
 	variationsConfig.filters.push( {
-		label: __( 'Advanced Filters', 'woocommerce' ),
+		label: __( 'Advanced Filters', 'poocommerce' ),
 		value: 'advanced',
 	} );
 }
@@ -214,7 +214,7 @@ if ( Object.keys( advancedFilters.filters ).length ) {
 /**
  * Products Report Filters.
  *
- * @filter woocommerce_admin_products_report_filters
+ * @filter poocommerce_admin_products_report_filters
  * @param {Array.<filter>} filters Report filters.
  */
 export const filters = applyFilters( PRODUCTS_REPORT_FILTERS_FILTER, [

@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-sale-badge",
+	"name": "poocommerce/product-sale-badge",
 	"title": "On-Sale Badge",
 	"description": "Displays an on-sale badge if the product is on-sale.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"productId": { "type": "number", "default": 0 },
 		"isDescendentOfQueryLoop": { "type": "boolean", "default": false },
@@ -51,14 +51,14 @@
 		"__experimentalSelector": ".wc-block-components-product-sale-badge"
 	},
 	"ancestor": [
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template",
-		"woocommerce/product-gallery"
+		"poocommerce/product-gallery"
 	],
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"example": {},
 	"$schema": "https://schemas.wp.org/trunk/block.json"

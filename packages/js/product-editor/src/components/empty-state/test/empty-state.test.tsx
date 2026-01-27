@@ -13,18 +13,18 @@ describe( 'EmptyState', () => {
 	it( 'should render empty name rows when names are empty', () => {
 		const { container } = render( <EmptyState names={ [ '', '', '' ] } /> );
 		const rows = container.querySelectorAll(
-			'.woocommerce-product-empty-state__row'
+			'.poocommerce-product-empty-state__row'
 		);
 		expect( rows.length ).toBe( 3 );
 		rows.forEach( ( row ) => {
 			expect(
-				row.querySelector( '.woocommerce-product-empty-state__name' )
+				row.querySelector( '.poocommerce-product-empty-state__name' )
 			).toBeInTheDocument();
 			expect(
-				row.querySelector( '.woocommerce-product-empty-state__value' )
+				row.querySelector( '.poocommerce-product-empty-state__value' )
 			).toBeInTheDocument();
 			expect(
-				row.querySelector( '.woocommerce-product-empty-state__actions' )
+				row.querySelector( '.poocommerce-product-empty-state__actions' )
 			).toBeInTheDocument();
 		} );
 	} );
@@ -35,7 +35,7 @@ describe( 'EmptyState', () => {
 			<EmptyState names={ names } />
 		);
 		const rows = container.querySelectorAll(
-			'.woocommerce-product-empty-state__row'
+			'.poocommerce-product-empty-state__row'
 		);
 		expect( rows.length ).toBe( 3 );
 		names.forEach( ( name ) => {
@@ -55,7 +55,7 @@ describe( 'EmptyState', () => {
 		testCases.forEach( ( { names, expectedLength } ) => {
 			const { container } = render( <EmptyState names={ names } /> );
 			const rows = container.querySelectorAll(
-				'.woocommerce-product-empty-state__row'
+				'.poocommerce-product-empty-state__row'
 			);
 			expect( rows.length ).toBe( expectedLength );
 		} );

@@ -2,13 +2,13 @@
 /**
  * Unit tests for the core functions.
  *
- * @package WooCommerce\Tests\Util
+ * @package PooCommerce\Tests\Util
  * @since 2.2
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\LoggingUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\LoggingUtil;
 
 /**
  * Core function unit tests.
@@ -26,21 +26,21 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test get_woocommerce_currency().
+	 * Test get_poocommerce_currency().
 	 *
 	 * @since 2.2
 	 */
-	public function test_get_woocommerce_currency() {
+	public function test_get_poocommerce_currency() {
 
-		$this->assertEquals( 'USD', get_woocommerce_currency() );
+		$this->assertEquals( 'USD', get_poocommerce_currency() );
 	}
 
 	/**
-	 * Test get_woocommerce_currencies().
+	 * Test get_poocommerce_currencies().
 	 *
 	 * @since 2.2
 	 */
-	public function test_get_woocommerce_currencies() {
+	public function test_get_poocommerce_currencies() {
 		static $currencies;
 
 		$expected_currencies = array(
@@ -209,29 +209,29 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 			'ZMW' => 'Zambian kwacha',
 		);
 
-		$this->assertEquals( $expected_currencies, get_woocommerce_currencies() );
+		$this->assertEquals( $expected_currencies, get_poocommerce_currencies() );
 
 		// Unset cached currencies and test again.
 		unset( $currencies );
-		$this->assertEquals( $expected_currencies, get_woocommerce_currencies() );
+		$this->assertEquals( $expected_currencies, get_poocommerce_currencies() );
 	}
 
 	/**
-	 * Test get_woocommerce_currency_symbol().
+	 * Test get_poocommerce_currency_symbol().
 	 *
 	 * @since 2.2
 	 */
-	public function test_get_woocommerce_currency_symbol() {
+	public function test_get_poocommerce_currency_symbol() {
 
 		// Default currency.
-		$this->assertEquals( '&#36;', get_woocommerce_currency_symbol() );
+		$this->assertEquals( '&#36;', get_poocommerce_currency_symbol() );
 
 		// Given specific currency.
-		$this->assertEquals( '&pound;', get_woocommerce_currency_symbol( 'GBP' ) );
+		$this->assertEquals( '&pound;', get_poocommerce_currency_symbol( 'GBP' ) );
 
 		// Each case.
-		foreach ( array_keys( get_woocommerce_currencies() ) as $currency_code ) {
-			$this->assertIsString( get_woocommerce_currency_symbol( $currency_code ) );
+		foreach ( array_keys( get_poocommerce_currencies() ) as $currency_code ) {
+			$this->assertIsString( get_poocommerce_currency_symbol( $currency_code ) );
 		}
 	}
 
@@ -255,26 +255,26 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 				'max_columns'     => 5,
 			),
 		);
-		add_theme_support( 'woocommerce', $theme_support_options );
+		add_theme_support( 'poocommerce', $theme_support_options );
 
 		$this->assertEquals( $theme_support_options, wc_get_theme_support() );
 		$this->assertEquals( $theme_support_options['product_grid'], wc_get_theme_support( 'product_grid' ) );
 	}
 
 	/**
-	 * Test get_woocommerce_api_url().
+	 * Test get_poocommerce_api_url().
 	 *
 	 * @since 2.2
 	 */
-	public function test_get_woocommerce_api_url() {
+	public function test_get_poocommerce_api_url() {
 
 		$base_uri = get_home_url();
 
 		// Base URI.
-		$this->assertEquals( "$base_uri/wc-api/v3/", get_woocommerce_api_url( null ) );
+		$this->assertEquals( "$base_uri/wc-api/v3/", get_poocommerce_api_url( null ) );
 
 		// Path.
-		$this->assertEquals( "$base_uri/wc-api/v3/orders", get_woocommerce_api_url( 'orders' ) );
+		$this->assertEquals( "$base_uri/wc-api/v3/orders", get_poocommerce_api_url( 'orders' ) );
 	}
 
 	/**
@@ -300,7 +300,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	 */
 	public function test_wc_get_logger() {
 		// This filter should have no effect because the class does not implement WC_Logger_Interface.
-		add_filter( 'woocommerce_logging_class', array( $this, 'return_bad_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'return_bad_logger' ) );
 
 		$this->setExpectedIncorrectUsage( 'wc_get_logger' );
 		$log_a = wc_get_logger();
@@ -315,7 +315,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	 * Test wc_get_logger() to check if can return instance when given in filter.
 	 */
 	public function test_wc_get_logger_for_instance() {
-		add_filter( 'woocommerce_logging_class', array( $this, 'return_valid_logger_instance' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'return_valid_logger_instance' ) );
 
 		$logger = wc_get_logger();
 
@@ -337,7 +337,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	/**
 	 * Return class which does not implement WC_Logger_Interface
 	 *
-	 * This is a helper function to test woocommerce_logging_class filter and wc_get_logger.
+	 * This is a helper function to test poocommerce_logging_class filter and wc_get_logger.
 	 *
 	 * @return string Class name
 	 */
@@ -411,7 +411,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 
 		// This filter will sequentially remove handlers, allowing us to test as though our
 		// functions were accumulatively blocked, adding one on each call.
-		add_filter( 'woocommerce_print_r_alternatives', array( $this, 'filter_wc_print_r_alternatives' ) );
+		add_filter( 'poocommerce_print_r_alternatives', array( $this, 'filter_wc_print_r_alternatives' ) );
 
 		$this->expectOutputString(
 			print_r( $arr, true ),
@@ -457,7 +457,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 		$this->assertEquals( serialize( $arr ), wc_print_r( $arr, true ) );
 		$this->assertFalse( wc_print_r( $arr, true ) );
 
-		remove_filter( 'woocommerce_print_r_alternatives', array( $this, 'filter_wc_print_r_alternatives' ) );
+		remove_filter( 'poocommerce_print_r_alternatives', array( $this, 'filter_wc_print_r_alternatives' ) );
 	}
 
 	/**
@@ -518,10 +518,10 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	 * @since 3.2.0
 	 */
 	public function test_wc_create_update_order_currency() {
-		$old_currency = get_woocommerce_currency();
+		$old_currency = get_poocommerce_currency();
 		$new_currency = 'BGN';
 
-		update_option( 'woocommerce_currency', $new_currency );
+		update_option( 'poocommerce_currency', $new_currency );
 
 		// New order should be created using shop currency.
 		$order = wc_create_order(
@@ -534,7 +534,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 		);
 		$this->assertEquals( $new_currency, $order->get_currency() );
 
-		update_option( 'woocommerce_currency', $old_currency );
+		update_option( 'poocommerce_currency', $old_currency );
 
 		// Currency should not change when order is updated.
 		$order = wc_update_order(
@@ -691,7 +691,7 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	 * that the path can be made relative to each installation, and the cache can be shared.
 	 */
 	public function test_wc_get_template_cleans_absolute_path() {
-		add_filter( 'woocommerce_locate_template', array( $this, 'force_template_path' ), 10, 2 );
+		add_filter( 'poocommerce_locate_template', array( $this, 'force_template_path' ), 10, 2 );
 
 		ob_start();
 		try {
@@ -701,9 +701,9 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 		}
 		ob_end_clean();
 
-		remove_filter( 'woocommerce_locate_template', array( $this, 'force_template_path' ) );
+		remove_filter( 'poocommerce_locate_template', array( $this, 'force_template_path' ) );
 
-		$file_path = wp_cache_get( sanitize_key( 'template-global/wrapper-start.php---' . WC_VERSION ), 'woocommerce' );
+		$file_path = wp_cache_get( sanitize_key( 'template-global/wrapper-start.php---' . WC_VERSION ), 'poocommerce' );
 
 		$this->assertEquals( '{{ABSPATH}}global/wrapper-start.php', $file_path );
 	}
@@ -716,9 +716,9 @@ class WC_Tests_Core_Functions extends WC_Unit_Test_Case {
 	public function test_wc_get_image_size() {
 		$this->assertArrayHasKey( 'width', wc_get_image_size( array( 100, 100, 1 ) ) );
 		$this->assertArrayHasKey( 'height', wc_get_image_size( 'shop_single' ) );
-		update_option( 'woocommerce_thumbnail_cropping', 'uncropped' );
+		update_option( 'poocommerce_thumbnail_cropping', 'uncropped' );
 		$this->assertArrayHasKey( 'crop', wc_get_image_size( 'shop_thumbnail' ) );
-		update_option( 'woocommerce_thumbnail_cropping', 'custom' );
+		update_option( 'poocommerce_thumbnail_cropping', 'custom' );
 		$this->assertArrayHasKey( 'crop', wc_get_image_size( 'shop_thumbnail' ) );
 	}
 

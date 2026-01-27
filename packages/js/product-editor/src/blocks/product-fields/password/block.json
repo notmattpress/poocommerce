@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-password-field",
+	"name": "poocommerce/product-password-field",
 	"description": "A checkbox and an input to type a password to view a product.",
 	"title": "Product password",
 	"category": "widgets",

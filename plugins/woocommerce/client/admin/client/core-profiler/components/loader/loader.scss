@@ -1,5 +1,5 @@
 // Loader page
-.woocommerce-onboarding-loader {
+.poocommerce-onboarding-loader {
 	min-height: 100vh;
 	display: flex;
 	justify-content: center;
@@ -7,7 +7,7 @@
 	flex-direction: column;
 	background-color: #fff;
 
-	.woocommerce-onboarding-loader-wrapper {
+	.poocommerce-onboarding-loader-wrapper {
 		align-items: flex-start;
 		display: flex;
 		flex-direction: column;
@@ -15,7 +15,7 @@
 		max-width: 520px;
 		min-height: 400px;
 
-		.woocommerce-onboarding-loader-container {
+		.poocommerce-onboarding-loader-container {
 			text-align: center;
 			min-height: 400px;
 		}

@@ -4,7 +4,7 @@
 import { render, screen } from '@testing-library/react';
 import { useSelect } from '@wordpress/data';
 import userEvent from '@testing-library/user-event';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -32,8 +32,8 @@ jest.mock( '~/utils/admin-settings', () => ( {
 	} ),
 } ) );
 
-jest.mock( '@woocommerce/settings', () => ( {
-	...jest.requireActual( '@woocommerce/settings' ),
+jest.mock( '@poocommerce/settings', () => ( {
+	...jest.requireActual( '@poocommerce/settings' ),
 	getAdminLink: jest.fn().mockReturnValue( '' ),
 } ) );
 

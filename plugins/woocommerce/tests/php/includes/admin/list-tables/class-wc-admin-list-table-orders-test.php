@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for Order List Tables in WooCommerce Admin
+ * Tests for Order List Tables in PooCommerce Admin
  */
 
 declare( strict_types = 1 );
@@ -25,15 +25,15 @@ class WC_Admin_List_Table_Orders_Test extends WC_Unit_Test_Case {
 		parent::setUpBeforeClass();
 
 		// Store the previous HPOS state.
-		self::$hpos_prev_state = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( false );
+		self::$hpos_prev_state = \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( false );
 	}
 
 	/**
 	 * Restore previous state (including HPOS) after all tests have run.
 	 */
 	public static function tearDownAfterClass(): void {
-		\Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( self::$hpos_prev_state );
+		\Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::toggle_cot_feature_and_usage( self::$hpos_prev_state );
 		parent::tearDownAfterClass();
 	}
 
@@ -41,7 +41,7 @@ class WC_Admin_List_Table_Orders_Test extends WC_Unit_Test_Case {
 	 * Set up the test.
 	 */
 	public function setUp(): void {
-		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+		if ( \Automattic\PooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$this->markTestSkipped( 'This test is not compatible with HPOS.' );
 		}
 
@@ -272,7 +272,7 @@ class WC_Admin_List_Table_Orders_Test extends WC_Unit_Test_Case {
 
 	/**
 	 * Test that the search without post_type in query does not trigger warnings.
-	 * This is a regression test for https://github.com/woocommerce/woocommerce/pull/55353.
+	 * This is a regression test for https://github.com/poocommerce/poocommerce/pull/55353.
 	 */
 	public function test_search_without_post_type_in_query_does_not_trigger_warning() {
 		$GLOBALS['pagenow'] = 'edit.php'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited

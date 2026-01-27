@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * ProductDescription class.
@@ -41,7 +41,7 @@ class ProductDescription extends AbstractBlock {
 		// Prevent recursive rendering.
 		if ( isset( self::$seen_ids[ $product_id ] ) ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY ) {
-				return __( '[product description rendering halted]', 'woocommerce' );
+				return __( '[product description rendering halted]', 'poocommerce' );
 			}
 			return '';
 		}
@@ -61,7 +61,7 @@ class ProductDescription extends AbstractBlock {
 		 * This filter is documented in wp-includes/post-template.php.
 		 * We follow core/content block to replace ]]> with ]&gt;
 		 */
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$description = apply_filters( 'the_content', str_replace( ']]>', ']]&gt;', $description ) );
 		if ( empty( $description ) ) {
 			unset( self::$seen_ids[ $product_id ] );

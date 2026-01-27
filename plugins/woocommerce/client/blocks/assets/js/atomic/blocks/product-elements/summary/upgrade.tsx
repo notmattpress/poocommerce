@@ -17,19 +17,19 @@ import {
 	createInterpolateElement,
 	type ComponentType,
 } from '@wordpress/element';
-import { type EditorBlock } from '@woocommerce/types';
-import { VARIATION_NAME as PQ_PRODUCT_SUMMARY_VARIATION_NAME } from '@woocommerce/blocks/product-query/variations/elements/product-summary';
-import { VARIATION_NAME as PC_PRODUCT_SUMMARY_VARIATION_NAME } from '@woocommerce/blocks/product-collection/variations/elements/product-summary';
-import { UpgradeDowngradeNotice } from '@woocommerce/editor-components/upgrade-downgrade-notice';
+import { type EditorBlock } from '@poocommerce/types';
+import { VARIATION_NAME as PQ_PRODUCT_SUMMARY_VARIATION_NAME } from '@poocommerce/blocks/product-query/variations/elements/product-summary';
+import { VARIATION_NAME as PC_PRODUCT_SUMMARY_VARIATION_NAME } from '@poocommerce/blocks/product-collection/variations/elements/product-summary';
+import { UpgradeDowngradeNotice } from '@poocommerce/editor-components/upgrade-downgrade-notice';
 
 const CORE_NAME = 'core/post-excerpt';
 
 const isProductSummaryBlockVariation = ( props: BlockInstance ) => {
 	const pqVariation =
-		props.attributes.__woocommerceNamespace ===
+		props.attributes.__poocommerceNamespace ===
 		PQ_PRODUCT_SUMMARY_VARIATION_NAME;
 	const pcVariation =
-		props.attributes.__woocommerceNamespace ===
+		props.attributes.__poocommerceNamespace ===
 		PC_PRODUCT_SUMMARY_VARIATION_NAME;
 
 	return props.name === CORE_NAME && ( pqVariation || pcVariation );
@@ -39,18 +39,18 @@ const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 	const notice = createInterpolateElement(
 		__(
 			"There's <strongText /> with important fixes and brand new features.",
-			'woocommerce'
+			'poocommerce'
 		),
 		{
 			strongText: (
 				<strong>
-					{ __( `new version of Product Summary`, 'woocommerce' ) }
+					{ __( `new version of Product Summary`, 'poocommerce' ) }
 				</strong>
 			),
 		}
 	);
 
-	const buttonLabel = __( 'Upgrade now (just this block)', 'woocommerce' );
+	const buttonLabel = __( 'Upgrade now (just this block)', 'poocommerce' );
 
 	const handleClick = () => {
 		const blocks =
@@ -68,7 +68,7 @@ const UpgradeNotice = ( { clientId }: { clientId: string } ) => {
 				...restAttributes
 			} = currentBlock.attributes;
 			const productSummaryBlock = createBlock(
-				'woocommerce/product-summary',
+				'poocommerce/product-summary',
 				restAttributes
 			);
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -108,6 +108,6 @@ const withProductSummaryUpgradeNotice =
 
 addFilter(
 	'editor.BlockEdit',
-	'woocommerce-blocks/product-summary-upgrade-notice',
+	'poocommerce-blocks/product-summary-upgrade-notice',
 	withProductSummaryUpgradeNotice
 );

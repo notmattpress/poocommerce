@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fileURLToPath } from 'url';
-import { BASE_URL, STORAGE_STATE_PATH } from '@woocommerce/e2e-utils';
+import { BASE_URL, STORAGE_STATE_PATH } from '@poocommerce/e2e-utils';
 import { PlaywrightTestConfig, defineConfig, devices } from '@playwright/test';
 
 const { CI, DEFAULT_TIMEOUT_OVERRIDE } = process.env;
@@ -45,7 +45,7 @@ const config: PlaywrightTestConfig = {
 						outputFile: `ctrf-report-${ Date.now() }.json`,
 						branchName: process.env.GITHUB_REF_NAME || '',
 						commit: process.env.GITHUB_SHA || '',
-						appName: 'woocommerce-blocks',
+						appName: 'poocommerce-blocks',
 						repositoryName: process.env.GITHUB_REPOSITORY || '',
 					},
 				],

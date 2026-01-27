@@ -42,14 +42,14 @@ const KeywordControl = ( props: QueryControlProps ) => {
 	return (
 		<ToolsPanelItem
 			hasValue={ () => !! querySearch }
-			label={ __( 'Keyword', 'woocommerce' ) }
+			label={ __( 'Keyword', 'poocommerce' ) }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
 		>
 			<TextControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Keyword', 'woocommerce' ) }
+				label={ __( 'Keyword', 'poocommerce' ) }
 				value={ querySearch }
 				onChange={ setQuerySearch }
 			/>

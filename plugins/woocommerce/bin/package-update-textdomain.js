@@ -1,7 +1,7 @@
 const wpTextdomain = require( 'wp-textdomain' );
 
 wpTextdomain( 'packages/**/*.php', {
-	domain: 'woocommerce',
+	domain: 'poocommerce',
 	fix: true,
 	missingDomain: true,
 	variableDomain: true,

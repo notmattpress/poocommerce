@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import { Dropdown, MenuGroup, MenuItem } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { chevronRight } from '@wordpress/icons';
@@ -81,12 +81,12 @@ export function PricingMenuItem( {
 					icon={ chevronRight }
 					iconPosition="right"
 				>
-					{ __( 'Pricing', 'woocommerce' ) }
+					{ __( 'Pricing', 'poocommerce' ) }
 				</MenuItem>
 			) }
 			renderContent={ () => (
 				<div className="components-dropdown-menu__menu">
-					<MenuGroup label={ __( 'Regular price', 'woocommerce' ) }>
+					<MenuGroup label={ __( 'Regular price', 'poocommerce' ) }>
 						<SetListPriceMenuItem
 							selection={ selection }
 							onChange={ onChange }
@@ -105,7 +105,7 @@ export function PricingMenuItem( {
 								handlePrompt( {
 									message: __(
 										'Enter a value (fixed or %)',
-										'woocommerce'
+										'poocommerce'
 									),
 									onOk( value ) {
 										recordEvent(
@@ -133,7 +133,7 @@ export function PricingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Increase regular price', 'woocommerce' ) }
+							{ __( 'Increase regular price', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -148,7 +148,7 @@ export function PricingMenuItem( {
 								handlePrompt( {
 									message: __(
 										'Enter a value (fixed or %)',
-										'woocommerce'
+										'poocommerce'
 									),
 									onOk( value ) {
 										recordEvent(
@@ -177,10 +177,10 @@ export function PricingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Decrease regular price', 'woocommerce' ) }
+							{ __( 'Decrease regular price', 'poocommerce' ) }
 						</MenuItem>
 					</MenuGroup>
-					<MenuGroup label={ __( 'Sale price', 'woocommerce' ) }>
+					<MenuGroup label={ __( 'Sale price', 'poocommerce' ) }>
 						<MenuItem
 							onClick={ () => {
 								recordEvent(
@@ -212,7 +212,7 @@ export function PricingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Set sale price', 'woocommerce' ) }
+							{ __( 'Set sale price', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -227,7 +227,7 @@ export function PricingMenuItem( {
 								handlePrompt( {
 									message: __(
 										'Enter a value (fixed or %)',
-										'woocommerce'
+										'poocommerce'
 									),
 									onOk( value ) {
 										recordEvent(
@@ -255,7 +255,7 @@ export function PricingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Increase sale price', 'woocommerce' ) }
+							{ __( 'Increase sale price', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -270,7 +270,7 @@ export function PricingMenuItem( {
 								handlePrompt( {
 									message: __(
 										'Enter a value (fixed or %)',
-										'woocommerce'
+										'poocommerce'
 									),
 									onOk( value ) {
 										recordEvent(
@@ -299,7 +299,7 @@ export function PricingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Decrease sale price', 'woocommerce' ) }
+							{ __( 'Decrease sale price', 'poocommerce' ) }
 						</MenuItem>
 						<MenuItem
 							onClick={ () => {
@@ -314,7 +314,7 @@ export function PricingMenuItem( {
 								handlePrompt( {
 									message: __(
 										'Sale start date (YYYY-MM-DD format or leave blank)',
-										'woocommerce'
+										'poocommerce'
 									),
 									onOk( value ) {
 										recordEvent(
@@ -336,7 +336,7 @@ export function PricingMenuItem( {
 								handlePrompt( {
 									message: __(
 										'Sale end date (YYYY-MM-DD format or leave blank)',
-										'woocommerce'
+										'poocommerce'
 									),
 									onOk( value ) {
 										recordEvent(
@@ -358,7 +358,7 @@ export function PricingMenuItem( {
 								onClose();
 							} }
 						>
-							{ __( 'Schedule sale', 'woocommerce' ) }
+							{ __( 'Schedule sale', 'poocommerce' ) }
 						</MenuItem>
 					</MenuGroup>
 					<VariationQuickUpdateMenuItem.Slot
