@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import {
-	isWooCommerceScript,
+	isPooCommerceScript,
 	getFilename,
 	shouldSkipLine,
 	detectStackFormat,
@@ -17,82 +17,82 @@ import {
 } from '../utils';
 
 describe( 'Dependency Detection Utils', () => {
-	describe( 'isWooCommerceScript', () => {
+	describe( 'isPooCommerceScript', () => {
 		const wcPluginUrl =
-			'https://example.com/wp-content/plugins/woocommerce/';
+			'https://example.com/wp-content/plugins/poocommerce/';
 
-		it( 'returns true for WooCommerce core scripts', () => {
+		it( 'returns true for PooCommerce core scripts', () => {
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/client/blocks/index.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/client/blocks/index.js',
 					wcPluginUrl
 				)
 			).toBe( true );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/assets/js/frontend.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/assets/js/frontend.js',
 					wcPluginUrl
 				)
 			).toBe( true );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/build/bundle.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/build/bundle.js',
 					wcPluginUrl
 				)
 			).toBe( true );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/vendor/some-lib.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/vendor/some-lib.js',
 					wcPluginUrl
 				)
 			).toBe( true );
 		} );
 
-		it( 'returns false for WooCommerce extensions', () => {
+		it( 'returns false for PooCommerce extensions', () => {
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce-subscriptions/assets/js/index.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce-subscriptions/assets/js/index.js',
 					wcPluginUrl
 				)
 			).toBe( false );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce-payments/build/index.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce-payments/build/index.js',
 					wcPluginUrl
 				)
 			).toBe( false );
 		} );
 
 		it( 'returns false for empty or null URLs', () => {
-			expect( isWooCommerceScript( '', wcPluginUrl ) ).toBe( false );
-			expect( isWooCommerceScript( null, wcPluginUrl ) ).toBe( false );
+			expect( isPooCommerceScript( '', wcPluginUrl ) ).toBe( false );
+			expect( isPooCommerceScript( null, wcPluginUrl ) ).toBe( false );
 		} );
 
 		it( 'falls back to hardcoded pattern when wcPluginUrl is empty', () => {
 			// Standard path should match fallback pattern
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/client/blocks/index.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/client/blocks/index.js',
 					''
 				)
 			).toBe( true );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/assets/js/frontend.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/assets/js/frontend.js',
 					''
 				)
 			).toBe( true );
 			// Extensions should not match
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce-subscriptions/assets/js/index.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce-subscriptions/assets/js/index.js',
 					''
 				)
 			).toBe( false );
 			// Custom paths won't work with fallback (expected limitation)
 			expect(
-				isWooCommerceScript(
-					'https://example.com/app/extensions/woocommerce/client/blocks/index.js',
+				isPooCommerceScript(
+					'https://example.com/app/extensions/poocommerce/client/blocks/index.js',
 					''
 				)
 			).toBe( false );
@@ -100,24 +100,24 @@ describe( 'Dependency Detection Utils', () => {
 
 		it( 'works with custom plugin directories', () => {
 			const customPluginUrl =
-				'https://example.com/app/extensions/woocommerce/';
+				'https://example.com/app/extensions/poocommerce/';
 
 			expect(
-				isWooCommerceScript(
-					'https://example.com/app/extensions/woocommerce/client/blocks/index.js',
+				isPooCommerceScript(
+					'https://example.com/app/extensions/poocommerce/client/blocks/index.js',
 					customPluginUrl
 				)
 			).toBe( true );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/app/extensions/woocommerce/assets/js/frontend.js',
+				isPooCommerceScript(
+					'https://example.com/app/extensions/poocommerce/assets/js/frontend.js',
 					customPluginUrl
 				)
 			).toBe( true );
 			// Other plugins in custom directory should not match
 			expect(
-				isWooCommerceScript(
-					'https://example.com/app/extensions/woocommerce-subscriptions/assets/js/index.js',
+				isPooCommerceScript(
+					'https://example.com/app/extensions/poocommerce-subscriptions/assets/js/index.js',
 					customPluginUrl
 				)
 			).toBe( false );
@@ -125,14 +125,14 @@ describe( 'Dependency Detection Utils', () => {
 
 		it( 'returns false for scripts in non-asset directories', () => {
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/includes/some-file.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/includes/some-file.js',
 					wcPluginUrl
 				)
 			).toBe( false );
 			expect(
-				isWooCommerceScript(
-					'https://example.com/wp-content/plugins/woocommerce/readme.js',
+				isPooCommerceScript(
+					'https://example.com/wp-content/plugins/poocommerce/readme.js',
 					wcPluginUrl
 				)
 			).toBe( false );
@@ -186,7 +186,7 @@ describe( 'Dependency Detection Utils', () => {
 		it( 'skips webpack source-mapped files', () => {
 			expect(
 				shouldSkipLine(
-					'    at someFunc (webpack://woocommerce/src/index.js:10:5)',
+					'    at someFunc (webpack://poocommerce/src/index.js:10:5)',
 					'/cart/'
 				)
 			).toBe( true );
@@ -482,7 +482,7 @@ setTimeout handler*@https://store.local/wp-content/plugins/wc-dependency-test/ba
 
 			expect( result?.type ).toBe( 'inline' );
 			expect( result?.message ).toBe(
-				'[WooCommerce] An inline or unknown script accessed wc.blocksCheckout without proper dependency declaration. This script should declare "wc-blocks-checkout" as a dependency.'
+				'[PooCommerce] An inline or unknown script accessed wc.blocksCheckout without proper dependency declaration. This script should declare "wc-blocks-checkout" as a dependency.'
 			);
 		} );
 
@@ -496,7 +496,7 @@ setTimeout handler*@https://store.local/wp-content/plugins/wc-dependency-test/ba
 
 			expect( result?.type ).toBe( 'unregistered' );
 			expect( result?.message ).toBe(
-				'[WooCommerce] Unregistered script "unregistered.js" accessed wc.blocksCheckout. This script should be registered with wp_enqueue_script() and declare "wc-blocks-checkout" as a dependency.'
+				'[PooCommerce] Unregistered script "unregistered.js" accessed wc.blocksCheckout. This script should be registered with wp_enqueue_script() and declare "wc-blocks-checkout" as a dependency.'
 			);
 		} );
 
@@ -510,7 +510,7 @@ setTimeout handler*@https://store.local/wp-content/plugins/wc-dependency-test/ba
 
 			expect( result?.type ).toBe( 'missing-dependency' );
 			expect( result?.message ).toBe(
-				'[WooCommerce] Script "my-script-without-dep" accessed wc.blocksCheckout without declaring "wc-blocks-checkout" as a dependency. Add "wc-blocks-checkout" to the script\'s dependencies array.'
+				'[PooCommerce] Script "my-script-without-dep" accessed wc.blocksCheckout without declaring "wc-blocks-checkout" as a dependency. Add "wc-blocks-checkout" to the script\'s dependencies array.'
 			);
 		} );
 

@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-rating-stars",
+	"name": "poocommerce/product-rating-stars",
 	"title": "Product Rating Stars",
 	"description": "Display the average rating of a product with stars",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"productId": {
 			"type": "number",
@@ -26,7 +26,7 @@
 		}
 	},
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
+	"keywords": [ "PooCommerce" ],
 	"supports": {
 		"interactivity": {
 			"clientNavigation": true
@@ -48,8 +48,8 @@
 		},
 		"__experimentalSelector": ".wc-block-components-product-rating"
 	},
-	"ancestor": [ "woocommerce/single-product" ],
-	"textdomain": "woocommerce",
+	"ancestor": [ "poocommerce/single-product" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

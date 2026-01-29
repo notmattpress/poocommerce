@@ -3,12 +3,12 @@
  * Helper class with utility functions for migrations.
  */
 
-namespace Automattic\WooCommerce\Database\Migrations;
+namespace Automattic\PooCommerce\Database\Migrations;
 
-use Automattic\WooCommerce\Internal\DataStores\Orders\DataSynchronizer;
-use Automattic\WooCommerce\Internal\Utilities\DatabaseUtil;
-use Automattic\WooCommerce\Utilities\ArrayUtil;
-use Automattic\WooCommerce\Utilities\StringUtil;
+use Automattic\PooCommerce\Internal\DataStores\Orders\DataSynchronizer;
+use Automattic\PooCommerce\Internal\Utilities\DatabaseUtil;
+use Automattic\PooCommerce\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Utilities\StringUtil;
 
 /**
  * Helper class to assist with migration related operations.
@@ -118,7 +118,7 @@ class MigrationHelper {
 
 		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 
-		$sql            = "SELECT location_id, location_code FROM {$wpdb->prefix}woocommerce_shipping_zone_locations WHERE location_code LIKE '{$country_code}:%'";
+		$sql            = "SELECT location_id, location_code FROM {$wpdb->prefix}poocommerce_shipping_zone_locations WHERE location_code LIKE '{$country_code}:%'";
 		$locations_data = $wpdb->get_results( $sql, ARRAY_A );
 
 		foreach ( $locations_data as $location_data ) {
@@ -126,7 +126,7 @@ class MigrationHelper {
 			if ( array_key_exists( $old_state_code, $old_to_new_states_mapping ) ) {
 				$new_location_code = "{$country_code}:{$old_to_new_states_mapping[$old_state_code]}";
 				$update_query      = $wpdb->prepare(
-					"UPDATE {$wpdb->prefix}woocommerce_shipping_zone_locations SET location_code=%s WHERE location_id=%d",
+					"UPDATE {$wpdb->prefix}poocommerce_shipping_zone_locations SET location_code=%s WHERE location_id=%d",
 					$new_location_code,
 					$location_data['location_id']
 				);
@@ -145,12 +145,12 @@ class MigrationHelper {
 	 * @return void
 	 */
 	private static function migrate_country_states_for_store_location( string $country_code, array $old_to_new_states_mapping ): void {
-		$store_location = get_option( 'woocommerce_default_country', '' );
+		$store_location = get_option( 'poocommerce_default_country', '' );
 		if ( StringUtil::starts_with( $store_location, "{$country_code}:" ) ) {
 			$old_location_code = substr( $store_location, 3 );
 			if ( array_key_exists( $old_location_code, $old_to_new_states_mapping ) ) {
 				$new_location_code = "{$country_code}:{$old_to_new_states_mapping[$old_location_code]}";
-				update_option( 'woocommerce_default_country', $new_location_code );
+				update_option( 'poocommerce_default_country', $new_location_code );
 			}
 		}
 	}
@@ -158,7 +158,7 @@ class MigrationHelper {
 	/**
 	 * Migrate state codes for orders in the orders table and in the posts table.
 	 * It will migrate only N*2*(number of states) records, being N equal to 100 by default
-	 * but this number can be modified via the woocommerce_migrate_country_states_for_orders_batch_size filter.
+	 * but this number can be modified via the poocommerce_migrate_country_states_for_orders_batch_size filter.
 	 *
 	 * @param string $country_code The country that has the states for which the migration is needed.
 	 * @param array  $old_to_new_states_mapping An associative array where keys are the old state codes and values are the new state codes.
@@ -169,7 +169,7 @@ class MigrationHelper {
 
 		/**
 		 * Filters the value of N, where the maximum count of database records that will be updated in one single run of migrate_country_states_for_orders
-		 * is N*2*count($old_to_new_states_mapping) if the woocommerce_orders table exists, or N*count($old_to_new_states_mapping) otherwise.
+		 * is N*2*count($old_to_new_states_mapping) if the poocommerce_orders table exists, or N*count($old_to_new_states_mapping) otherwise.
 		 *
 		 * @param int $batch_size Default value for the count of records to update.
 		 * @param string $country_code Country code for the update.
@@ -177,7 +177,7 @@ class MigrationHelper {
 		 *
 		 * @since 7.2.0
 		 */
-		$limit      = apply_filters( 'woocommerce_migrate_country_states_for_orders_batch_size', 100, $country_code, $old_to_new_states_mapping );
+		$limit      = apply_filters( 'poocommerce_migrate_country_states_for_orders_batch_size', 100, $country_code, $old_to_new_states_mapping );
 		$cot_exists = wc_get_container()->get( DataSynchronizer::class )->check_orders_table_exists();
 
 		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -277,7 +277,7 @@ class MigrationHelper {
 		foreach ( $old_to_new_states_mapping as $old_state_code => $new_state_code ) {
 			$wpdb->query(
 				$wpdb->prepare(
-					"UPDATE {$wpdb->prefix}woocommerce_tax_rates SET tax_rate_state=%s WHERE tax_rate_country=%s AND tax_rate_state=%s",
+					"UPDATE {$wpdb->prefix}poocommerce_tax_rates SET tax_rate_state=%s WHERE tax_rate_country=%s AND tax_rate_state=%s",
 					$new_state_code,
 					$country_code,
 					$old_state_code

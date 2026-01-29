@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Package;
-use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
-use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
-use Automattic\WooCommerce\Blocks\Assets\Api as AssetApi;
-use Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry;
-use Automattic\WooCommerce\Blocks\Utils\StyleAttributesUtils;
-use Automattic\WooCommerce\Blocks\Utils\BlockTemplateUtils;
-use Automattic\WooCommerce\Blocks\Utils\Utils;
-use Automattic\WooCommerce\Blocks\Utils\MiniCartUtils;
-use Automattic\WooCommerce\Blocks\Utils\BlockHooksTrait;
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
-use Automattic\WooCommerce\Internal\ComingSoon\ComingSoonHelper;
+use Automattic\PooCommerce\Blocks\Package;
+use Automattic\PooCommerce\Blocks\Payments\PaymentMethodRegistry;
+use Automattic\PooCommerce\Blocks\Assets\AssetDataRegistry;
+use Automattic\PooCommerce\Blocks\Assets\Api as AssetApi;
+use Automattic\PooCommerce\Blocks\Integrations\IntegrationRegistry;
+use Automattic\PooCommerce\Blocks\Utils\StyleAttributesUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockTemplateUtils;
+use Automattic\PooCommerce\Blocks\Utils\Utils;
+use Automattic\PooCommerce\Blocks\Utils\MiniCartUtils;
+use Automattic\PooCommerce\Blocks\Utils\BlockHooksTrait;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Internal\ComingSoon\ComingSoonHelper;
 use Automattic\Block_Delimiter;
 
 /**
@@ -76,23 +76,23 @@ class MiniCart extends AbstractBlock {
 	);
 
 	/**
-	 * WooCommerce mini-cart template blocks.
+	 * PooCommerce mini-cart template blocks.
 	 *
 	 * @var array
 	 */
 	const MINI_CART_TEMPLATE_BLOCKS = array(
-		'woocommerce/mini-cart-contents',
-		'woocommerce/filled-mini-cart-contents-block',
-		'woocommerce/mini-cart-title-block',
-		'woocommerce/mini-cart-title-label-block',
-		'woocommerce/mini-cart-title-items-counter-block',
-		'woocommerce/mini-cart-items-block',
-		'woocommerce/mini-cart-products-table-block',
-		'woocommerce/mini-cart-footer-block',
-		'woocommerce/mini-cart-cart-button-block',
-		'woocommerce/mini-cart-checkout-button-block',
-		'woocommerce/empty-mini-cart-contents-block',
-		'woocommerce/mini-cart-shopping-button-block',
+		'poocommerce/mini-cart-contents',
+		'poocommerce/filled-mini-cart-contents-block',
+		'poocommerce/mini-cart-title-block',
+		'poocommerce/mini-cart-title-label-block',
+		'poocommerce/mini-cart-title-items-counter-block',
+		'poocommerce/mini-cart-items-block',
+		'poocommerce/mini-cart-products-table-block',
+		'poocommerce/mini-cart-footer-block',
+		'poocommerce/mini-cart-cart-button-block',
+		'poocommerce/mini-cart-checkout-button-block',
+		'poocommerce/empty-mini-cart-contents-block',
+		'poocommerce/mini-cart-shopping-button-block',
 	);
 
 	/**
@@ -116,10 +116,10 @@ class MiniCart extends AbstractBlock {
 		parent::initialize();
 		add_action( 'wp_loaded', array( $this, 'register_empty_cart_message_block_pattern' ) );
 		add_action( 'wp_print_footer_scripts', array( $this, 'print_lazy_load_scripts' ), 2 );
-		add_filter( 'hooked_block_woocommerce/mini-cart', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
+		add_filter( 'hooked_block_poocommerce/mini-cart', array( $this, 'modify_hooked_block_attributes' ), 10, 5 );
 		add_filter( 'hooked_block_types', array( $this, 'register_hooked_block' ), 9, 4 );
 
-		// Priority 20 ensures this runs after WooCommerce block registration (priority 10)
+		// Priority 20 ensures this runs after PooCommerce block registration (priority 10)
 		// allowing us to modify the block supports in the registry after registration is complete.
 		add_action( 'init', array( $this, 'enable_interactivity_support' ), 20 );
 	}
@@ -131,7 +131,7 @@ class MiniCart extends AbstractBlock {
 	 */
 	public function enable_interactivity_support() {
 		if ( Features::is_enabled( 'experimental-iapi-mini-cart' ) ) {
-			$block_type = \WP_Block_Type_Registry::get_instance()->get_registered( 'woocommerce/mini-cart' );
+			$block_type = \WP_Block_Type_Registry::get_instance()->get_registered( 'poocommerce/mini-cart' );
 
 			if ( $block_type ) {
 				$block_type->supports['interactivity'] = true;
@@ -151,7 +151,7 @@ class MiniCart extends AbstractBlock {
 	 * @return array|null
 	 */
 	public function modify_hooked_block_attributes( $parsed_hooked_block, $hooked_block_type, $relative_position, $parsed_anchor_block, $context ) {
-		$mini_cart_block_font_size = wp_get_global_styles( array( 'blocks', 'woocommerce/mini-cart', 'typography', 'fontSize' ) );
+		$mini_cart_block_font_size = wp_get_global_styles( array( 'blocks', 'poocommerce/mini-cart', 'typography', 'fontSize' ) );
 
 		if ( ! is_string( $mini_cart_block_font_size ) ) {
 			$navigation_block_font_size = wp_get_global_styles( array( 'blocks', 'core/navigation', 'typography', 'fontSize' ) );
@@ -284,7 +284,7 @@ class MiniCart extends AbstractBlock {
 		 *
 		 * @since 5.8.0
 		 */
-		do_action( 'woocommerce_blocks_cart_enqueue_data' );
+		do_action( 'poocommerce_blocks_cart_enqueue_data' );
 	}
 
 	/**
@@ -509,7 +509,7 @@ class MiniCart extends AbstractBlock {
 			wp_enqueue_script( $handle );
 		}
 
-		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 		BlocksSharedState::load_cart_state( $consent );
 		BlocksSharedState::load_store_config( $consent );
 		BlocksSharedState::load_placeholder_image( $consent );
@@ -523,12 +523,12 @@ class MiniCart extends AbstractBlock {
 			$styles                           = $product_count_color ? 'background:' . $product_count_color : '';
 			$icon                             = MiniCartUtils::get_svg_icon( $attributes['miniCartIcon'] ?? '', $icon_color );
 			$product_count_visibility         = isset( $attributes['productCountVisibility'] ) ? $attributes['productCountVisibility'] : 'greater_than_zero';
-			$wrapper_classes                  = sprintf( 'wc-block-mini-cart wp-block-woocommerce-mini-cart %s', $classes_styles['classes'] );
+			$wrapper_classes                  = sprintf( 'wc-block-mini-cart wp-block-poocommerce-mini-cart %s', $classes_styles['classes'] );
 			$wrapper_styles                   = $classes_styles['styles'];
 			$template_part_contents           = $this->get_template_part_contents( false );
 			$template_part_contents           = do_blocks( $this->process_template_contents( $template_part_contents ) );
 			$cart_item_count                  = $cart ? $cart->get_cart_contents_count() : 0;
-			$display_cart_price_including_tax = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+			$display_cart_price_including_tax = get_option( 'poocommerce_tax_display_cart' ) === 'incl';
 			$cart_item_count                  = $cart ? $cart->get_cart_contents_count() : 0;
 			$badge_is_visible                 = ( 'always' === $product_count_visibility ) || ( 'never' !== $product_count_visibility && $cart_item_count > 0 );
 			$formatted_subtotal               = '';
@@ -548,9 +548,9 @@ class MiniCart extends AbstractBlock {
 			// `@wordpress/i18n` package is available as a script module.
 			$button_aria_label_template = isset( $attributes['hasHiddenPrice'] ) && false !== $attributes['hasHiddenPrice']
 				/* translators: %d is the number of products in the cart. */
-				? __( 'Number of items in the cart: %d', 'woocommerce' )
+				? __( 'Number of items in the cart: %d', 'poocommerce' )
 				/* translators: %1$d is the number of products in the cart. %2$s is the cart total */
-				: __( 'Number of items in the cart: %1$d. Total price of %2$s', 'woocommerce' );
+				: __( 'Number of items in the cart: %1$d. Total price of %2$s', 'poocommerce' );
 
 			wp_interactivity_state(
 				$this->get_full_block_name(),
@@ -599,11 +599,11 @@ class MiniCart extends AbstractBlock {
 			?>
 		
 			<div
-				data-wp-interactive="woocommerce/mini-cart"
+				data-wp-interactive="poocommerce/mini-cart"
 				data-wp-init="callbacks.setupJQueryEventBridge"
-				data-wp-init--refresh-cart-items="woocommerce::actions.refreshCartItems"
-				data-wp-on-document--wc-blocks_added_to_cart="woocommerce::actions.refreshCartItems"
-				data-wp-on-document--wc-blocks_removed_from_cart="woocommerce::actions.refreshCartItems"
+				data-wp-init--refresh-cart-items="poocommerce::actions.refreshCartItems"
+				data-wp-on-document--wc-blocks_added_to_cart="poocommerce::actions.refreshCartItems"
+				data-wp-on-document--wc-blocks_removed_from_cart="poocommerce::actions.refreshCartItems"
 				<?php if ( 'open_drawer' === $attributes['addToCartBehaviour'] ) : ?>
 				data-wp-on-document--wc-blocks_added_to_cart---open-drawer="actions.openDrawer"
 				<?php endif; ?>
@@ -662,8 +662,8 @@ class MiniCart extends AbstractBlock {
 		ob_start();
 		?>
 		<div
-			data-wp-interactive="woocommerce/mini-cart"
-			data-wp-router-region='{ "id": "woocommerce/mini-cart-overlay", "attachTo": "body" }'
+			data-wp-interactive="poocommerce/mini-cart"
+			data-wp-router-region='{ "id": "poocommerce/mini-cart-overlay", "attachTo": "body" }'
 			data-wp-key="wc-mini-cart-overlay"
 			data-wp-on--click="actions.overlayCloseDrawer"
 			data-wp-on--keydown="actions.handleOverlayKeydown"
@@ -708,7 +708,7 @@ class MiniCart extends AbstractBlock {
 		$is_old_template = $p->next_tag(
 			array(
 				'tag_name'   => 'div',
-				'class_name' => 'wp-block-woocommerce-mini-cart-contents',
+				'class_name' => 'wp-block-poocommerce-mini-cart-contents',
 			)
 		);
 
@@ -761,7 +761,7 @@ class MiniCart extends AbstractBlock {
 		$template_name          = 'mini-cart';
 		$template_part_contents = '';
 
-		// Determine if we need to load the template part from the DB, the theme or WooCommerce in that order.
+		// Determine if we need to load the template part from the DB, the theme or PooCommerce in that order.
 		$templates_from_db = BlockTemplateUtils::get_block_templates_from_db( array( $template_name ), 'wp_template_part' );
 		if ( is_countable( $templates_from_db ) && count( $templates_from_db ) > 0 ) {
 			$template_slug_to_load = $templates_from_db[0]->theme;
@@ -809,7 +809,7 @@ class MiniCart extends AbstractBlock {
 		}
 
 		$classes_styles  = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes );
-		$wrapper_classes = sprintf( 'wc-block-mini-cart wp-block-woocommerce-mini-cart %s', $classes_styles['classes'] );
+		$wrapper_classes = sprintf( 'wc-block-mini-cart wp-block-poocommerce-mini-cart %s', $classes_styles['classes'] );
 		$wrapper_styles  = $classes_styles['styles'];
 
 		$icon_color          = isset( $attributes['iconColor']['color'] ) ? esc_attr( $attributes['iconColor']['color'] ) : 'currentColor';
@@ -832,14 +832,14 @@ class MiniCart extends AbstractBlock {
 
 			// It is not necessary to load the Mini-Cart Block on Cart and Checkout page.
 			return '<div class="' . esc_attr( $wrapper_classes ) . '" style="visibility:hidden" aria-hidden="true">
-				<button class="wc-block-mini-cart__button" disabled aria-label="' . __( 'Cart', 'woocommerce' ) . '">' . $button_html . '</button>
+				<button class="wc-block-mini-cart__button" disabled aria-label="' . __( 'Cart', 'poocommerce' ) . '">' . $button_html . '</button>
 			</div>';
 		}
 
 		$template_part_contents = $this->get_template_part_contents();
 
 		return '<div class="' . esc_attr( $wrapper_classes ) . '" style="' . esc_attr( $wrapper_styles ) . '">
-			<button class="wc-block-mini-cart__button" aria-label="' . __( 'Cart', 'woocommerce' ) . '">' . $button_html . '</button>
+			<button class="wc-block-mini-cart__button" aria-label="' . __( 'Cart', 'poocommerce' ) . '">' . $button_html . '</button>
 			<div class="is-loading wc-block-components-drawer__screen-overlay wc-block-components-drawer__screen-overlay--is-hidden" aria-hidden="true">
 				<div class="wc-block-mini-cart__drawer wc-block-components-drawer">
 					<div class="wc-block-components-drawer__content">
@@ -870,7 +870,7 @@ class MiniCart extends AbstractBlock {
 	/**
 	 * Get array with data for handle the tax label.
 	 * the entire logic of this function is was taken from:
-	 * https://github.com/woocommerce/woocommerce/blob/e730f7463c25b50258e97bf56e31e9d7d3bc7ae7/includes/class-wc-cart.php#L1582
+	 * https://github.com/poocommerce/poocommerce/blob/e730f7463c25b50258e97bf56e31e9d7d3bc7ae7/includes/class-wc-cart.php#L1582
 	 *
 	 * @return array;
 	 */
@@ -934,11 +934,11 @@ class MiniCart extends AbstractBlock {
 	 */
 	public function register_empty_cart_message_block_pattern() {
 		register_block_pattern(
-			'woocommerce/mini-cart-empty-cart-message',
+			'poocommerce/mini-cart-empty-cart-message',
 			array(
-				'title'    => __( 'Empty Mini-Cart Message', 'woocommerce' ),
+				'title'    => __( 'Empty Mini-Cart Message', 'poocommerce' ),
 				'inserter' => false,
-				'content'  => '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><strong>' . __( 'Your cart is currently empty!', 'woocommerce' ) . '</strong></p><!-- /wp:paragraph -->',
+				'content'  => '<!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center"><strong>' . __( 'Your cart is currently empty!', 'poocommerce' ) . '</strong></p><!-- /wp:paragraph -->',
 			)
 		);
 	}

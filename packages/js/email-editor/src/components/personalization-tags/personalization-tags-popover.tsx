@@ -70,24 +70,24 @@ const PersonalizationTagsPopover = ( {
 					position="bottom right"
 					onClose={ () => setIsPopoverVisible( false ) }
 					anchor={ anchor } // Directly use commentSpan as the anchor
-					className="woocommerce-personalization-tag-popover"
+					className="poocommerce-personalization-tag-popover"
 				>
-					<div className="woocommerce-personalization-tag-popover-content">
+					<div className="poocommerce-personalization-tag-popover-content">
 						<TextControl
-							label={ __( 'Personalization Tag', 'woocommerce' ) }
+							label={ __( 'Personalization Tag', 'poocommerce' ) }
 							value={ updatedValue }
 							onChange={ ( value ) => setUpdatedValue( value ) }
 							__nextHasNoMarginBottom // To avoid warning about deprecation in console
 							__next40pxDefaultSize
 						/>
-						<div className="woocommerce-personalization-tag-popover-content-buttons">
+						<div className="poocommerce-personalization-tag-popover-content-buttons">
 							<Button
 								isTertiary
 								onClick={ () => {
 									setIsPopoverVisible( false );
 								} }
 							>
-								{ __( 'Cancel', 'woocommerce' ) }
+								{ __( 'Cancel', 'poocommerce' ) }
 							</Button>
 							<Button
 								isPrimary
@@ -96,7 +96,7 @@ const PersonalizationTagsPopover = ( {
 									setIsPopoverVisible( false );
 								} }
 							>
-								{ __( 'Update', 'woocommerce' ) }
+								{ __( 'Update', 'poocommerce' ) }
 							</Button>
 						</div>
 					</div>

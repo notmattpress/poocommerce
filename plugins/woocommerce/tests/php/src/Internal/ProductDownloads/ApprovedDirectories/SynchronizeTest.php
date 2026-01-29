@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductDownloads\ApprovedDirectories;
+namespace Automattic\PooCommerce\Tests\Internal\ProductDownloads\ApprovedDirectories;
 
-use Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Synchronize;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use WC_Queue_Interface;
 use WC_Unit_Test_Case;
 
@@ -30,7 +30,7 @@ class SynchronizeTest extends WC_Unit_Test_Case {
 	 */
 	public static function tearDownAfterClass(): void {
 		parent::tearDownAfterClass();
-		wc_get_container()->get( \Automattic\WooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->delete_all();
+		wc_get_container()->get( \Automattic\PooCommerce\Internal\ProductDownloads\ApprovedDirectories\Register::class )->delete_all();
 	}
 
 	/**
@@ -70,12 +70,12 @@ class SynchronizeTest extends WC_Unit_Test_Case {
 			$logged_messages[] = $logged_message;
 		};
 
-		add_filter( 'woocommerce_logger_log_message', $log_watcher );
+		add_filter( 'poocommerce_logger_log_message', $log_watcher );
 
 		$this->sut->start();
 		$this->sut->run();
 
-		remove_filter( 'woocommerce_logger_log_message', $log_watcher );
+		remove_filter( 'poocommerce_logger_log_message', $log_watcher );
 
 		$this->assertTrue(
 			! get_option( Synchronize::SYNC_TASK_PAGE ) && ! get_option( Synchronize::SYNC_TASK_PROGRESS ),

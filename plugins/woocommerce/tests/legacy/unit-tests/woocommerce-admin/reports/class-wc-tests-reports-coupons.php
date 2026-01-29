@@ -2,14 +2,14 @@
 /**
  * Reports coupons tests.
  *
- * @package WooCommerce\Admin\Tests\Coupons
+ * @package PooCommerce\Admin\Tests\Coupons
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Admin_Tests_Reports_Coupons

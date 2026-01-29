@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /**
  * External dependencies
  */
@@ -16,8 +16,8 @@ import {
 	__unstableMotion as motion,
 } from '@wordpress/components';
 import { useOnboardingContext } from '~/settings-payments/onboarding/providers/woopayments/data/onboarding-context';
-import { recordEvent } from '@woocommerce/tracks';
-import type { TaskType } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import type { TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -131,7 +131,7 @@ export const PaymentsSidebar = ( props: SidebarComponentProps ) => {
 		>
 			{
 				/* translators: %s: Payment provider name (e.g., WooPayments) */
-				sprintf( __( 'Set up %s', 'woocommerce' ), 'WooPayments' )
+				sprintf( __( 'Set up %s', 'poocommerce' ), 'WooPayments' )
 			}
 		</Button>
 	);
@@ -158,9 +158,9 @@ export const PaymentsSidebar = ( props: SidebarComponentProps ) => {
 		>
 			{ payments_task?.additionalData?.wooPaymentsIsInstalled
 				? /* translators: %s: WooPayments */
-				  sprintf( __( 'Enable %s', 'woocommerce' ), 'WooPayments' )
+				  sprintf( __( 'Enable %s', 'poocommerce' ), 'WooPayments' )
 				: /* translators: %s: WooPayments */
-				  sprintf( __( 'Install %s', 'woocommerce' ), 'WooPayments' ) }
+				  sprintf( __( 'Install %s', 'poocommerce' ), 'WooPayments' ) }
 		</SidebarNavigationItem>
 	);
 
@@ -172,7 +172,7 @@ export const PaymentsSidebar = ( props: SidebarComponentProps ) => {
 			) }
 		>
 			<motion.div
-				className="woocommerce-edit-site-layout__header-container"
+				className="poocommerce-edit-site-layout__header-container"
 				animate={ 'view' }
 			>
 				<SiteHub
@@ -180,7 +180,7 @@ export const PaymentsSidebar = ( props: SidebarComponentProps ) => {
 						view: { x: 0 },
 					} }
 					isTransparent={ false }
-					className="woocommerce-edit-site-layout__hub"
+					className="poocommerce-edit-site-layout__hub"
 				/>
 			</motion.div>
 			<SidebarContainer
@@ -188,7 +188,7 @@ export const PaymentsSidebar = ( props: SidebarComponentProps ) => {
 				onMobileClose={ props.onMobileClose }
 			>
 				{ /* We are using these classes to inherit the styles from the edit your store styling */ }
-				<ItemGroup className="woocommerce-edit-site-sidebar-navigation-screen-essential-tasks__group">
+				<ItemGroup className="poocommerce-edit-site-sidebar-navigation-screen-essential-tasks__group">
 					{ ! isWooPaymentsActive && (
 						<motion.div
 							initial={ { opacity: 0, y: 0 } }

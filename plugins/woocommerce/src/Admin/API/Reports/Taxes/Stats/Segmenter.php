@@ -3,11 +3,11 @@
  * Class for adding segmenting support without cluttering the data stores.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats;
+namespace Automattic\PooCommerce\Admin\API\Reports\Taxes\Stats;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Segmenter as ReportsSegmenter;
+use Automattic\PooCommerce\Admin\API\Reports\Segmenter as ReportsSegmenter;
 
 /**
  * Date & time interval and numeric range handling class for Reporting API.
@@ -126,7 +126,7 @@ class Segmenter extends ReportsSegmenter {
 	 * @param string $table_name Name of main SQL table for the data store (used as basis for JOINS).
 	 *
 	 * @return array
-	 * @throws \Automattic\WooCommerce\Admin\API\Reports\ParameterException In case of segmenting by variations, when no parent product is specified.
+	 * @throws \Automattic\PooCommerce\Admin\API\Reports\ParameterException In case of segmenting by variations, when no parent product is specified.
 	 */
 	protected function get_segments( $type, $query_params, $table_name ) {
 		if ( ! isset( $this->query_args['segmentby'] ) || '' === $this->query_args['segmentby'] ) {

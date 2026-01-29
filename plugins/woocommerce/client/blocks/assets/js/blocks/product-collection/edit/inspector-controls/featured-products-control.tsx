@@ -28,7 +28,7 @@ const FeaturedProductsControl = ( props: QueryControlProps ) => {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Featured', 'woocommerce' ) }
+			label={ __( 'Featured', 'poocommerce' ) }
 			hasValue={ () => query.featured === true }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
@@ -36,11 +36,11 @@ const FeaturedProductsControl = ( props: QueryControlProps ) => {
 			<BaseControl
 				__nextHasNoMarginBottom
 				id="product-collection-featured-products-control"
-				label={ __( 'Featured', 'woocommerce' ) }
+				label={ __( 'Featured', 'poocommerce' ) }
 			>
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Show only featured products', 'woocommerce' ) }
+					label={ __( 'Show only featured products', 'poocommerce' ) }
 					checked={ query.featured || false }
 					onChange={ ( featured ) => {
 						setQueryAttribute( {

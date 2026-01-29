@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
+import { Product } from '@poocommerce/data';
 
 /**
  * Determine if any attribute in the list is used for variations.

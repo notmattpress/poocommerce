@@ -2,15 +2,15 @@
 /**
  * PaymentMethodEventTrackerTest class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\PaymentMethodEventTracker;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\FraudProtection\PaymentMethodEventTracker;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 
 /**
  * Tests for the PaymentMethodEventTracker class.
@@ -29,7 +29,7 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 	/**
 	 * Mock fraud protection dispatcher.
 	 *
-	 * @var \Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionDispatcher|\PHPUnit\Framework\MockObject\MockObject
+	 * @var \Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionDispatcher|\PHPUnit\Framework\MockObject\MockObject
 	 */
 	private $mock_dispatcher;
 
@@ -44,7 +44,7 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 		update_option( 'jetpack_activation_source', array( '', '' ) );
 
 		// Enable the fraud protection feature.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 
 		$container = wc_get_container();
 		$container->reset_all_resolved();
@@ -59,7 +59,7 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_track_add_payment_method_page_loaded_dispatches_event(): void {
 		// Create mock dispatcher.
-		$this->mock_dispatcher = $this->createMock( \Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionDispatcher::class );
+		$this->mock_dispatcher = $this->createMock( \Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionDispatcher::class );
 
 		// Create system under test with mock dispatcher.
 		$sut = new PaymentMethodEventTracker();
@@ -124,7 +124,7 @@ class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 		parent::tearDown();
 
 		// Clean up options.
-		delete_option( 'woocommerce_feature_fraud_protection_enabled' );
+		delete_option( 'poocommerce_feature_fraud_protection_enabled' );
 		delete_option( 'jetpack_activation_source' );
 
 		// Reset container.

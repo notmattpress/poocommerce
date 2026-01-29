@@ -1,4 +1,4 @@
 Significance: minor
 Type: add
 
-Add action hooks for customizing preview email sending: woocommerce_email_editor_send_preview_email_before_wp_mail and woocommerce_email_editor_send_preview_email_after_wp_mail.
+Add action hooks for customizing preview email sending: poocommerce_email_editor_send_preview_email_before_wp_mail and poocommerce_email_editor_send_preview_email_after_wp_mail.

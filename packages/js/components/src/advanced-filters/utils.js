@@ -77,7 +77,7 @@ export function getInterpolatedString( interpolatedString ) {
 				since: '7.8',
 				alternative:
 					'new interpolation string format `<element>...</element>` or `<element/>`',
-				link: 'https://github.com/woocommerce/woocommerce/tree/trunk/packages/js/components/src/advanced-filters/README.md',
+				link: 'https://github.com/poocommerce/poocommerce/tree/trunk/packages/js/components/src/advanced-filters/README.md',
 			}
 		);
 	}

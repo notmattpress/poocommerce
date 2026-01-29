@@ -67,12 +67,12 @@ export default function Edit( { attributes, setAttributes } ) {
 				</ToolbarGroup>
 			</BlockControls>
 			<InspectorControls key="setting">
-				<PanelBody title={ __( 'Settings', 'woocommerce' ) }>
+				<PanelBody title={ __( 'Settings', 'poocommerce' ) }>
 					<ToggleGroupControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
 						isBlock
-						label={ __( 'Icon', 'woocommerce' ) }
+						label={ __( 'Icon', 'poocommerce' ) }
 						value={ icon }
 						onChange={ ( value ) =>
 							setAttributes( { icon: value } )
@@ -112,7 +112,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
 						isBlock
-						label={ __( 'Icon Position', 'woocommerce' ) }
+						label={ __( 'Icon Position', 'poocommerce' ) }
 						value={ iconPosition }
 						onChange={ ( value ) => {
 							setAttributes( { iconPosition: value } );
@@ -161,7 +161,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( newTitle ) =>
 							setAttributes( { title: newTitle } )
 						}
-						placeholder={ __( 'Accordion title', 'woocommerce' ) }
+						placeholder={ __( 'Accordion title', 'poocommerce' ) }
 					/>
 					<span
 						className={ clsx( `accordion-item__toggle-icon`, {

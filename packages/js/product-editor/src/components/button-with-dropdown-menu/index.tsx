@@ -14,7 +14,7 @@ import type { ButtonWithDropdownMenuProps } from './types';
 export * from './types';
 
 export function ButtonWithDropdownMenu( {
-	dropdownButtonLabel = __( 'More options', 'woocommerce' ),
+	dropdownButtonLabel = __( 'More options', 'poocommerce' ),
 	controls,
 	defaultOpen = false,
 	popoverProps: {
@@ -33,7 +33,7 @@ export function ButtonWithDropdownMenu( {
 }: ButtonWithDropdownMenuProps ) {
 	return (
 		<Flex
-			className={ `woocommerce-button-with-dropdown-menu${
+			className={ `poocommerce-button-with-dropdown-menu${
 				className?.length ? ' ' + className : ''
 			}` }
 			justify="left"
@@ -44,7 +44,7 @@ export function ButtonWithDropdownMenu( {
 			<FlexItem role="none">
 				<Button
 					{ ...props }
-					className="woocommerce-button-with-dropdown-menu__main-button"
+					className="poocommerce-button-with-dropdown-menu__main-button"
 				/>
 			</FlexItem>
 
@@ -52,7 +52,7 @@ export function ButtonWithDropdownMenu( {
 				<DropdownMenu
 					toggleProps={ {
 						className:
-							'woocommerce-button-with-dropdown-menu__dropdown-button',
+							'poocommerce-button-with-dropdown-menu__dropdown-button',
 						variant: props.variant,
 					} }
 					controls={ controls }

@@ -2,18 +2,18 @@
  * External dependencies
  */
 import clsx from 'clsx';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import {
 	PlaceOrderButton,
 	ReturnToCartButton,
-} from '@woocommerce/base-components/cart-checkout';
-import { useCheckoutSubmit } from '@woocommerce/base-context/hooks';
-import { noticeContexts } from '@woocommerce/base-context';
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { applyCheckoutFilter } from '@woocommerce/blocks-checkout';
-import { CART_URL } from '@woocommerce/block-settings';
+} from '@poocommerce/base-components/cart-checkout';
+import { useCheckoutSubmit } from '@poocommerce/base-context/hooks';
+import { noticeContexts } from '@poocommerce/base-context';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { applyCheckoutFilter } from '@poocommerce/blocks-checkout';
+import { CART_URL } from '@poocommerce/block-settings';
 import { useSelect } from '@wordpress/data';
-import { paymentStore } from '@woocommerce/block-data';
+import { paymentStore } from '@poocommerce/block-data';
 
 /**
  * Internal dependencies

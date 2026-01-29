@@ -130,13 +130,13 @@ describe( 'product filters interactivity store', () => {
 				mockGetServerContext.mockReturnValue( context );
 
 				mockGetConfig.mockImplementation( ( key: string ) => {
-					if ( key === 'woocommerce/product-filters' ) {
+					if ( key === 'poocommerce/product-filters' ) {
 						return {
 							canonicalUrl,
 							isProductArchive: true,
 						};
 					}
-					if ( key === 'woocommerce' ) {
+					if ( key === 'poocommerce' ) {
 						return {
 							isBlockTheme: true,
 							needsRefreshForInteractivityAPI: false,

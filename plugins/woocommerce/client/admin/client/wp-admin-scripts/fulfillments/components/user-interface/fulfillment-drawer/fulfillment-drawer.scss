@@ -1,4 +1,4 @@
-.woocommerce-fulfillment-drawer {
+.poocommerce-fulfillment-drawer {
 	position: fixed;
 	inset: 0;
 	top: var(--wp-admin--admin-bar--height, 0px);
@@ -95,7 +95,7 @@
 	}
 }
 
-.woocommerce-fulfillment-drawer__backdrop {
+.poocommerce-fulfillment-drawer__backdrop {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -106,7 +106,7 @@
 }
 
 @media screen and (max-width: 782px) {
-	.woocommerce-fulfillment-drawer {
+	.poocommerce-fulfillment-drawer {
 		width: 100%;
 		min-width: 100%;
 		max-width: 100%;
@@ -121,7 +121,7 @@
 	}
 
 	// Prevent scrolling of the body when the drawer is open.
-	body:has(.woocommerce-fulfillment-drawer__body) {
+	body:has(.poocommerce-fulfillment-drawer__body) {
 		overflow: hidden;
 	}
 }

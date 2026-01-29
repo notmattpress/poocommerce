@@ -2,16 +2,16 @@
 /**
  * ShippingZoneSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\ShippingZones;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\ShippingZones;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WC_Shipping_Zone;
 use WP_REST_Request;
 
@@ -34,26 +34,26 @@ class ShippingZoneSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'        => array(
-				'description' => __( 'Unique identifier for the shipping zone.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the shipping zone.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'name'      => array(
-				'description'       => __( 'Shipping zone name.', 'woocommerce' ),
+				'description'       => __( 'Shipping zone name.', 'poocommerce' ),
 				'type'              => 'string',
 				'context'           => array( 'view', 'edit' ),
 				'required'          => true,
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'order'     => array(
-				'description' => __( 'Shipping zone order.', 'woocommerce' ),
+				'description' => __( 'Shipping zone order.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => array( 'view', 'edit' ),
 				'default'     => 0,
 			),
 			'locations' => array(
-				'description' => __( 'Array of locations for this zone. Can be empty array but must be explicitly provided.', 'woocommerce' ),
+				'description' => __( 'Array of locations for this zone. Can be empty array but must be explicitly provided.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => array( 'view', 'edit' ),
 				'required'    => true,
@@ -61,16 +61,16 @@ class ShippingZoneSchema extends AbstractSchema {
 					'type'       => 'object',
 					'properties' => array(
 						'code' => array(
-							'description' => __( 'Shipping zone location code.', 'woocommerce' ),
+							'description' => __( 'Shipping zone location code.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 						'type' => array(
-							'description' => __( 'Shipping zone location type.', 'woocommerce' ),
+							'description' => __( 'Shipping zone location type.', 'poocommerce' ),
 							'type'        => 'string',
 							'default'     => 'country',
 						),
 						'name' => array(
-							'description' => __( 'Shipping zone location name (readonly, auto-generated from code).', 'woocommerce' ),
+							'description' => __( 'Shipping zone location name (readonly, auto-generated from code).', 'poocommerce' ),
 							'type'        => 'string',
 							'readonly'    => true,
 						),
@@ -78,30 +78,30 @@ class ShippingZoneSchema extends AbstractSchema {
 				),
 			),
 			'methods'   => array(
-				'description' => __( 'Shipping methods for this zone.', 'woocommerce' ),
+				'description' => __( 'Shipping methods for this zone.', 'poocommerce' ),
 				'type'        => 'array',
 				'readonly'    => true,
 				'items'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'instance_id' => array(
-							'description' => __( 'Shipping method instance ID.', 'woocommerce' ),
+							'description' => __( 'Shipping method instance ID.', 'poocommerce' ),
 							'type'        => 'integer',
 						),
 						'title'       => array(
-							'description' => __( 'Shipping method title.', 'woocommerce' ),
+							'description' => __( 'Shipping method title.', 'poocommerce' ),
 							'type'        => 'string',
 						),
 						'enabled'     => array(
-							'description' => __( 'Whether the shipping method is enabled.', 'woocommerce' ),
+							'description' => __( 'Whether the shipping method is enabled.', 'poocommerce' ),
 							'type'        => 'boolean',
 						),
 						'method_id'   => array(
-							'description' => __( 'Shipping method ID (e.g., flat_rate, free_shipping).', 'woocommerce' ),
+							'description' => __( 'Shipping method ID (e.g., flat_rate, free_shipping).', 'poocommerce' ),
 							'type'        => 'string',
 						),
 						'settings'    => array(
-							'description' => __( 'Raw shipping method settings for frontend processing.', 'woocommerce' ),
+							'description' => __( 'Raw shipping method settings for frontend processing.', 'poocommerce' ),
 							'type'        => 'object',
 						),
 					),

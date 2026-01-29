@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Gateways\PayPal;
+namespace Automattic\PooCommerce\Gateways\PayPal;
 
 use WC_Order;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,7 +24,7 @@ class Helper {
 	 * @return bool
 	 */
 	public static function is_paypal_gateway_available(): bool {
-		$settings    = get_option( 'woocommerce_paypal_settings', array() );
+		$settings    = get_option( 'poocommerce_paypal_settings', array() );
 		$enabled     = isset( $settings['enabled'] ) && 'yes' === $settings['enabled'];
 		$should_load = isset( $settings['_should_load'] ) && 'yes' === $settings['_should_load'];
 		return $enabled && $should_load;
@@ -36,7 +36,7 @@ class Helper {
 	 * @return bool
 	 */
 	public static function is_orders_v2_migration_eligible(): bool {
-		$settings = get_option( 'woocommerce_paypal_settings', array() );
+		$settings = get_option( 'poocommerce_paypal_settings', array() );
 
 		// If API keys are set, the merchant is not eligible for migration
 		// as they may be using features that cannot be seamlessly migrated.

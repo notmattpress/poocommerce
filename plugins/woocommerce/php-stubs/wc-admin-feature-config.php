@@ -5,7 +5,7 @@
  */
 
 /**
- * Retrieves the feature configuration array for WooCommerce admin features.
+ * Retrieves the feature configuration array for PooCommerce admin features.
  *
  * @return array<string, bool> Associative array of feature names (keys) to their enabled status (values).
  */
