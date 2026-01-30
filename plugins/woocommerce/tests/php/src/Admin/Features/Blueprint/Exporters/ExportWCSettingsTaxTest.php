@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Tests\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsTax;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Admin\Features\Blueprint\Exporters\ExportWCSettingsTax;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 use WC_Tax;
 use WC_Unit_Test_Case;
 
@@ -36,7 +36,7 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$setting_options_mock = $this->getMockBuilder( \Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions::class )
+		$setting_options_mock = $this->getMockBuilder( \Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -61,7 +61,7 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 					$tax_class_step_found = true;
 				}
 
-				if ( strpos( $sql_content, 'woocommerce_tax_rates' ) !== false && strpos( $sql_content, 'TVA Réduite' ) !== false ) {
+				if ( strpos( $sql_content, 'poocommerce_tax_rates' ) !== false && strpos( $sql_content, 'TVA Réduite' ) !== false ) {
 					$tax_rate_step_found = true;
 				}
 			}
@@ -95,7 +95,7 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 			)
 		);
 
-		$setting_options_mock = $this->getMockBuilder( \Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions::class )
+		$setting_options_mock = $this->getMockBuilder( \Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -115,7 +115,7 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 					$tax_class_position = $index;
 				}
 
-				if ( false !== strpos( $sql_content, 'woocommerce_tax_rates' ) && -1 === $tax_rate_position ) {
+				if ( false !== strpos( $sql_content, 'poocommerce_tax_rates' ) && -1 === $tax_rate_position ) {
 					$tax_rate_position = $index;
 				}
 			}
@@ -140,7 +140,7 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 			}
 		}
 
-		$setting_options_mock = $this->getMockBuilder( \Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions::class )
+		$setting_options_mock = $this->getMockBuilder( \Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -175,7 +175,7 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 
 		WC_Tax::_update_tax_rate_postcodes( $tax_rate_id, '90210' );
 
-		$setting_options_mock = $this->getMockBuilder( \Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions::class )
+		$setting_options_mock = $this->getMockBuilder( \Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -198,10 +198,10 @@ class ExportWCSettingsTaxTest extends WC_Unit_Test_Case {
 				if ( strpos( $sql_content, 'wc_tax_rate_classes' ) !== false ) {
 					$has_tax_classes = true;
 				}
-				if ( strpos( $sql_content, 'woocommerce_tax_rates' ) !== false ) {
+				if ( strpos( $sql_content, 'poocommerce_tax_rates' ) !== false ) {
 					$has_tax_rates = true;
 				}
-				if ( strpos( $sql_content, 'woocommerce_tax_rate_locations' ) !== false ) {
+				if ( strpos( $sql_content, 'poocommerce_tax_rate_locations' ) !== false ) {
 					$has_tax_locations = true;
 				}
 			}

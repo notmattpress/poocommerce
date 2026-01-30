@@ -18,12 +18,12 @@ import clsx from 'clsx';
 import { MouseEvent } from 'react';
 import { Button, Popover, ToolbarItem } from '@wordpress/components';
 import PinnedItems from '@wordpress/interface/build-module/components/pinned-items';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	store as preferencesStore,
 	/* @ts-expect-error missing types. */
 } from '@wordpress/preferences';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	NavigableToolbar,
 	store as blockEditorStore,
@@ -97,19 +97,19 @@ export function HeaderToolbar( {
 	}, [ hasBlockSelection ] );
 
 	return (
-		<div className="woocommerce-iframe-editor__header">
-			<div className="woocommerce-iframe-editor__header-left">
+		<div className="poocommerce-iframe-editor__header">
+			<div className="poocommerce-iframe-editor__header-left">
 				<NavigableToolbar
-					className="woocommerce-iframe-editor-document-tools"
-					aria-label={ __( 'Document tools', 'woocommerce' ) }
+					className="poocommerce-iframe-editor-document-tools"
+					aria-label={ __( 'Document tools', 'poocommerce' ) }
 					// @ts-expect-error variant prop exists
 					variant="unstyled"
 				>
-					<div className="woocommerce-iframe-editor-document-tools__left">
+					<div className="poocommerce-iframe-editor-document-tools__left">
 						<ToolbarItem
 							ref={ inserterButton }
 							as={ Button }
-							className="woocommerce-iframe-editor__header-inserter-toggle"
+							className="poocommerce-iframe-editor__header-inserter-toggle"
 							// @ts-expect-error the prop variant is passed to the Button component
 							variant="primary"
 							isPressed={ isInserterOpened }
@@ -123,7 +123,7 @@ export function HeaderToolbar( {
 							icon={ plus }
 							label={ __(
 								'Toggle block inserter',
-								'woocommerce'
+								'poocommerce'
 							) }
 							aria-expanded={ isInserterOpened }
 							showTooltip
@@ -161,11 +161,11 @@ export function HeaderToolbar( {
 									isBlockToolsCollapsed
 										? __(
 												'Show block tools',
-												'woocommerce'
+												'poocommerce'
 										  )
 										: __(
 												'Hide block tools',
-												'woocommerce'
+												'poocommerce'
 										  )
 								}
 							/>
@@ -173,18 +173,18 @@ export function HeaderToolbar( {
 					</>
 				) }
 			</div>
-			<div className="woocommerce-iframe-editor__header-right">
+			<div className="poocommerce-iframe-editor__header-right">
 				<Button
 					variant="tertiary"
-					className="woocommerce-modal-actions__cancel-button"
+					className="poocommerce-modal-actions__cancel-button"
 					onClick={ onCancel }
-					text={ __( 'Cancel', 'woocommerce' ) }
+					text={ __( 'Cancel', 'poocommerce' ) }
 				/>
 				<Button
 					variant="primary"
-					className="woocommerce-modal-actions__done-button"
+					className="poocommerce-modal-actions__done-button"
 					onClick={ onSave }
-					text={ __( 'Done', 'woocommerce' ) }
+					text={ __( 'Done', 'poocommerce' ) }
 				/>
 				<PinnedItems.Slot scope={ SIDEBAR_COMPLEMENTARY_AREA_SCOPE } />
 				<MoreMenu />

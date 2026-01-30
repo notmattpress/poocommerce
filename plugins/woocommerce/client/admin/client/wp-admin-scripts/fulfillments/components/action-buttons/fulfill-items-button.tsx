@@ -33,7 +33,7 @@ export default function FulfillItemsButton( {
 			return;
 		}
 		if ( getFulfillmentItems( fulfillment ).length === 0 ) {
-			setError( __( 'Select items to be fulfilled.', 'woocommerce' ) );
+			setError( __( 'Select items to be fulfilled.', 'poocommerce' ) );
 			return;
 		}
 
@@ -63,7 +63,7 @@ export default function FulfillItemsButton( {
 			isBusy={ isExecuting }
 			disabled={ isExecuting }
 		>
-			{ __( 'Fulfill items', 'woocommerce' ) }
+			{ __( 'Fulfill items', 'poocommerce' ) }
 		</Button>
 	);
 }

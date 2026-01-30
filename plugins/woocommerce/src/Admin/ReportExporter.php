@@ -3,13 +3,13 @@
  * Handles reports CSV export.
  */
 
-namespace Automattic\WooCommerce\Admin;
+namespace Automattic\PooCommerce\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Admin\Schedulers\SchedulerTraits;
+use Automattic\PooCommerce\Admin\Schedulers\SchedulerTraits;
 
 /**
  * ReportExporter Class.
@@ -32,12 +32,12 @@ class ReportExporter {
 	/**
 	 * Export status option name.
 	 */
-	const EXPORT_STATUS_OPTION = 'woocommerce_admin_report_export_status';
+	const EXPORT_STATUS_OPTION = 'poocommerce_admin_report_export_status';
 
 	/**
 	 * Export file download action.
 	 */
-	const DOWNLOAD_EXPORT_ACTION = 'woocommerce_admin_download_report_csv';
+	const DOWNLOAD_EXPORT_ACTION = 'poocommerce_admin_download_report_csv';
 
 	/**
 	 * Get all available scheduling actions.
@@ -47,8 +47,8 @@ class ReportExporter {
 	 */
 	public static function get_scheduler_actions() {
 		return array(
-			'export_report'              => 'woocommerce_admin_report_export',
-			'email_report_download_link' => 'woocommerce_admin_email_report_download_link',
+			'export_report'              => 'poocommerce_admin_report_export',
+			'email_report_download_link' => 'poocommerce_admin_email_report_download_link',
 		);
 	}
 
@@ -180,7 +180,7 @@ class ReportExporter {
 			isset( $_GET['action'] ) &&
 			! empty( $_GET['filename'] ) &&
 			self::DOWNLOAD_EXPORT_ACTION === wp_unslash( $_GET['action'] ) && // WPCS: input var ok, sanitization ok.
-			current_user_can( 'view_woocommerce_reports' )
+			current_user_can( 'view_poocommerce_reports' )
 		) {
 			$exporter = new ReportCSVExporter();
 			$exporter->set_filename( wp_unslash( $_GET['filename'] ) ); // WPCS: input var ok, sanitization ok.

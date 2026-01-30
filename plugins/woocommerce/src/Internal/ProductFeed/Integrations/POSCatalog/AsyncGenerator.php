@@ -2,17 +2,17 @@
 /**
  *  Async Generator class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog;
 
 use ActionScheduler_AsyncRequest_QueueRunner;
 use ActionScheduler_Store;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\ProductWalker;
-use Automattic\WooCommerce\Internal\ProductFeed\Feed\WalkerProgress;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\ProductWalker;
+use Automattic\PooCommerce\Internal\ProductFeed\Feed\WalkerProgress;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -29,14 +29,14 @@ class AsyncGenerator {
 	 *
 	 * @var string
 	 */
-	const FEED_GENERATION_ACTION = 'woocommerce_product_feed_generation';
+	const FEED_GENERATION_ACTION = 'poocommerce_product_feed_generation';
 
 	/**
 	 * The Action Scheduler action hook for the feed deletion.
 	 *
 	 * @var string
 	 */
-	const FEED_DELETION_ACTION = 'woocommerce_product_feed_deletion';
+	const FEED_DELETION_ACTION = 'poocommerce_product_feed_deletion';
 
 	/**
 	 * Feed expiry time, once completed.
@@ -366,7 +366,7 @@ class AsyncGenerator {
 		 * @return int The stuck time in seconds.
 		 * @since 10.5.0
 		 */
-		$scheduled_timeout = apply_filters( 'woocommerce_product_feed_scheduled_timeout', 10 * MINUTE_IN_SECONDS );
+		$scheduled_timeout = apply_filters( 'poocommerce_product_feed_scheduled_timeout', 10 * MINUTE_IN_SECONDS );
 		if (
 			self::STATE_SCHEDULED === $status['state']
 			&& (

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Automattic\WooCommerce\Internal\Fulfillments\Providers as ShippingProviders;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers as ShippingProviders;
 
 return array(
 	'acs-courier'             => ShippingProviders\ACSCourierShippingProvider::class,

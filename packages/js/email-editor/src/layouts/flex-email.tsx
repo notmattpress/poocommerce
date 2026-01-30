@@ -47,17 +47,17 @@ function JustificationControls( {
 		{
 			value: 'left',
 			icon: justifyLeft,
-			label: __( 'Justify items left', 'woocommerce' ),
+			label: __( 'Justify items left', 'poocommerce' ),
 		},
 		{
 			value: 'center',
 			icon: justifyCenter,
-			label: __( 'Justify items center', 'woocommerce' ),
+			label: __( 'Justify items center', 'poocommerce' ),
 		},
 		{
 			value: 'right',
 			icon: justifyRight,
-			label: __( 'Justify items right', 'woocommerce' ),
+			label: __( 'Justify items right', 'poocommerce' ),
 		},
 	];
 
@@ -80,7 +80,7 @@ function JustificationControls( {
 	return (
 		<ToggleGroupControl
 			__nextHasNoMarginBottom
-			label={ __( 'Justification', 'woocommerce' ) }
+			label={ __( 'Justification', 'poocommerce' ) }
 			value={ justificationValue }
 			onChange={ onChange }
 			className="block-editor-hooks__flex-layout-justification-controls"
@@ -133,7 +133,7 @@ function LayoutControls( { setAttributes, attributes, name: blockName } ) {
 		<>
 			<InspectorControls>
 				<ToolsPanel
-					label={ __( 'Layout', 'woocommerce' ) }
+					label={ __( 'Layout', 'poocommerce' ) }
 					resetAll={ resetAll }
 				>
 					<ToolsPanelItem
@@ -142,7 +142,7 @@ function LayoutControls( { setAttributes, attributes, name: blockName } ) {
 						hasValue={ () =>
 							attributes.layout?.justifyContent || false
 						}
-						label={ __( 'Justification', 'woocommerce' ) }
+						label={ __( 'Justification', 'poocommerce' ) }
 					>
 						<Flex>
 							<FlexItem>
@@ -249,12 +249,12 @@ export function initializeLayout() {
 	addAttribute();
 	addFilterForEmail(
 		'editor.BlockListBlock',
-		'woocommerce-email-editor/with-layout-styles',
+		'poocommerce-email-editor/with-layout-styles',
 		withLayoutStyles
 	);
 	addFilterForEmail(
 		'editor.BlockEdit',
-		'woocommerce-email-editor/with-inspector-controls',
+		'poocommerce-email-editor/with-inspector-controls',
 		withLayoutControls
 	);
 }

@@ -1,8 +1,8 @@
-# woocommerce/product-number-field
+# poocommerce/product-number-field
 
 A reusable number field for the product editor.
 
-![Product number field screenshot](https://woocommerce.files.wordpress.com/2023/10/woocommerceproduct-number-field-1.png)
+![Product number field screenshot](https://poocommerce.files.wordpress.com/2023/10/poocommerceproduct-number-field-1.png)
 
 ## Attributes
 
@@ -87,7 +87,7 @@ Here's a snippet that adds a field similar to the previous screenshot:
 $section->add_block(
   [
     'id'         => 'example-number-meta',
-    'blockName'  => 'woocommerce/product-number-field',
+    'blockName'  => 'poocommerce/product-number-field',
     'attributes' => [
       'label' => 'Label',
       'property' => 'meta_data.number',

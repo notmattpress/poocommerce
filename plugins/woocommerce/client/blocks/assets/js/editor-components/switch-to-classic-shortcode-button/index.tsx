@@ -9,8 +9,8 @@ import { createBlock, BlockInstance } from '@wordpress/blocks';
 import { store as noticesStore } from '@wordpress/notices';
 import { store as coreStore } from '@wordpress/core-data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
-import { recordEvent } from '@woocommerce/tracks';
-import { findBlock } from '@woocommerce/utils';
+import { recordEvent } from '@poocommerce/tracks';
+import { findBlock } from '@poocommerce/utils';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { ModalContent } from './modal-content';
 import './editor.scss';
 
 interface SwitchToClassicShortcodeButtonProps {
-	block: 'woocommerce/cart' | 'woocommerce/checkout';
+	block: 'poocommerce/cart' | 'poocommerce/checkout';
 	clientId: string;
 	type: 'incompatible' | 'generic';
 }
@@ -42,15 +42,15 @@ export function SwitchToClassicShortcodeButton( {
 	const [ , , incompatibleExtensions, incompatibleExtensionsCount ] =
 		useCombinedIncompatibilityNotice( block );
 
-	const isCart = block === 'woocommerce/cart';
+	const isCart = block === 'poocommerce/cart';
 
 	const switchButtonLabel = isCart
-		? __( 'Switch to classic cart', 'woocommerce' )
-		: __( 'Switch to classic checkout', 'woocommerce' );
+		? __( 'Switch to classic cart', 'poocommerce' )
+		: __( 'Switch to classic checkout', 'poocommerce' );
 
 	const snackbarLabel = isCart
-		? __( 'Switched to classic cart.', 'woocommerce' )
-		: __( 'Switched to classic checkout.', 'woocommerce' );
+		? __( 'Switched to classic cart.', 'poocommerce' )
+		: __( 'Switched to classic checkout.', 'poocommerce' );
 
 	const notice =
 		type === 'incompatible' ? 'incompatible_notice' : 'generic_notice';
@@ -74,7 +74,7 @@ export function SwitchToClassicShortcodeButton( {
 		const classicShortcodeBlock = findBlock( {
 			blocks: getBlocks(),
 			findCondition: ( foundBlock: BlockInstance ) =>
-				foundBlock.name === 'woocommerce/classic-shortcode',
+				foundBlock.name === 'poocommerce/classic-shortcode',
 		} );
 
 		if ( classicShortcodeBlock ) {
@@ -95,7 +95,7 @@ export function SwitchToClassicShortcodeButton( {
 	const handleSwitchClick = () => {
 		replaceBlock(
 			clientId,
-			createBlock( 'woocommerce/classic-shortcode', {
+			createBlock( 'poocommerce/classic-shortcode', {
 				shortcode,
 			} )
 		);
@@ -104,7 +104,7 @@ export function SwitchToClassicShortcodeButton( {
 		createInfoNotice( snackbarLabel, {
 			actions: [
 				{
-					label: __( 'Undo', 'woocommerce' ),
+					label: __( 'Undo', 'poocommerce' ),
 					onClick: handleUndoClick,
 				},
 			],
@@ -140,13 +140,13 @@ export function SwitchToClassicShortcodeButton( {
 							isDestructive={ true }
 							onClick={ handleSwitchClick }
 						>
-							{ __( 'Switch', 'woocommerce' ) }
+							{ __( 'Switch', 'poocommerce' ) }
 						</Button>{ ' ' }
 						<Button
 							variant="secondary"
 							onClick={ handleCancelClick }
 						>
-							{ __( 'Cancel', 'woocommerce' ) }
+							{ __( 'Cancel', 'poocommerce' ) }
 						</Button>
 					</TabbableContainer>
 				</Modal>

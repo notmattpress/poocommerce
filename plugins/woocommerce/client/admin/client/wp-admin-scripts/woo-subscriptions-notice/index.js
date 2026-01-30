@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 window.jQuery( document ).ready( function () {
 	const expiredNoticeSelector = '#woo-subscription-expired-notice';

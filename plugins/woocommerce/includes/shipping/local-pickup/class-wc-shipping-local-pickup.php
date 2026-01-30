@@ -2,14 +2,14 @@
 /**
  * Class WC_Shipping_Local_Pickup file.
  *
- * @package WooCommerce\Shipping
+ * @package PooCommerce\Shipping
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
 /**
  * Local Pickup Shipping Method.
@@ -18,7 +18,7 @@ use Automattic\WooCommerce\Enums\ProductTaxStatus;
  *
  * @class       WC_Shipping_Local_Pickup
  * @version     2.6.0
- * @package     WooCommerce\Classes\Shipping
+ * @package     PooCommerce\Classes\Shipping
  */
 class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 
@@ -38,8 +38,8 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 	public function __construct( $instance_id = 0 ) {
 		$this->id                 = 'local_pickup';
 		$this->instance_id        = absint( $instance_id );
-		$this->method_title       = __( 'Local pickup', 'woocommerce' );
-		$this->method_description = __( 'Allow customers to pick up orders themselves. By default, when using local pickup store base taxes will apply regardless of customer address.', 'woocommerce' );
+		$this->method_title       = __( 'Local pickup', 'poocommerce' );
+		$this->method_description = __( 'Allow customers to pick up orders themselves. By default, when using local pickup store base taxes will apply regardless of customer address.', 'poocommerce' );
 		$this->supports           = array(
 			'shipping-zones',
 			'instance-settings',
@@ -63,7 +63,7 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 		$this->cost       = $this->get_option( 'cost' );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_action( 'poocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 	 * @return string
 	 */
 	public function sanitize_cost( $value ) {
-		return \Automattic\WooCommerce\Utilities\NumberUtil::sanitize_cost_in_current_locale( $value );
+		return \Automattic\PooCommerce\Utilities\NumberUtil::sanitize_cost_in_current_locale( $value );
 	}
 
 	/**
@@ -99,29 +99,29 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 	public function init_form_fields() {
 		$this->instance_form_fields = array(
 			'title'      => array(
-				'title'       => __( 'Name', 'woocommerce' ),
+				'title'       => __( 'Name', 'poocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'Your customers will see the name of this shipping method during checkout.', 'woocommerce' ),
-				'default'     => __( 'Local pickup', 'woocommerce' ),
-				'placeholder' => __( 'e.g. Local pickup', 'woocommerce' ),
+				'description' => __( 'Your customers will see the name of this shipping method during checkout.', 'poocommerce' ),
+				'default'     => __( 'Local pickup', 'poocommerce' ),
+				'placeholder' => __( 'e.g. Local pickup', 'poocommerce' ),
 				'desc_tip'    => true,
 			),
 			'tax_status' => array(
-				'title'   => __( 'Tax status', 'woocommerce' ),
+				'title'   => __( 'Tax status', 'poocommerce' ),
 				'type'    => 'select',
 				'class'   => 'wc-enhanced-select',
 				'default' => ProductTaxStatus::TAXABLE,
 				'options' => array(
-					ProductTaxStatus::TAXABLE => __( 'Taxable', 'woocommerce' ),
-					ProductTaxStatus::NONE    => _x( 'None', 'Tax status', 'woocommerce' ),
+					ProductTaxStatus::TAXABLE => __( 'Taxable', 'poocommerce' ),
+					ProductTaxStatus::NONE    => _x( 'None', 'Tax status', 'poocommerce' ),
 				),
 			),
 			'cost'       => array(
-				'title'             => __( 'Cost', 'woocommerce' ),
+				'title'             => __( 'Cost', 'poocommerce' ),
 				'type'              => 'text',
 				'class'             => 'wc-shipping-modal-price',
 				'placeholder'       => wc_format_localized_price( 0 ),
-				'description'       => __( 'Optional cost for local pickup.', 'woocommerce' ),
+				'description'       => __( 'Optional cost for local pickup.', 'poocommerce' ),
 				'default'           => '',
 				'desc_tip'          => true,
 				'sanitize_callback' => array( $this, 'sanitize_cost' ),

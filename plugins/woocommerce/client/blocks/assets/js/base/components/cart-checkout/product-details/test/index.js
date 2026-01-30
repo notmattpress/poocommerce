@@ -215,7 +215,7 @@ describe( 'ProductDetails', () => {
 		const details = [
 			{
 				name: 'Your <b>Gift Message</b>',
-				value: '<a href="https://www.woocommerce.com" target="_blank" rel="noopener noreferrer" extra="do not display">Click & see</a>',
+				value: '<a href="https://www.poocommerce.com" target="_blank" rel="noopener noreferrer" extra="do not display">Click & see</a>',
 			},
 		];
 
@@ -237,7 +237,7 @@ describe( 'ProductDetails', () => {
 
 		const link = valueSpan.querySelector( 'a' );
 		expect( link ).toBeInTheDocument();
-		expect( link ).toHaveAttribute( 'href', 'https://www.woocommerce.com' );
+		expect( link ).toHaveAttribute( 'href', 'https://www.poocommerce.com' );
 		expect( link ).toHaveAttribute( 'target', '_blank' );
 		expect( link ).toHaveAttribute( 'rel', 'noopener noreferrer' );
 		// Should not have the 'extra' attribute as it's not in allowed attributes

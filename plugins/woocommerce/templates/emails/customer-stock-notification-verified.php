@@ -2,16 +2,16 @@
 /**
  * Customer back-in-stock notification confirmation email.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-stock-notification-verified.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/customer-stock-notification-verified.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 10.2.0
  */
 
@@ -21,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Hook: woocommerce_email_header.
+ * Hook: poocommerce_email_header.
  *
  * @since 10.2.0
  *
  * @hooked WC_Emails::email_header() Output the email header
  */
-do_action( 'woocommerce_email_header', $email_heading, $email );
+do_action( 'poocommerce_email_header', $email_heading, $email );
 
 ?>
 
@@ -40,33 +40,33 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 	<div id="notification__product">
 		<?php
 		/**
-		 * Hook: woocommerce_email_stock_notification_product.
+		 * Hook: poocommerce_email_stock_notification_product.
 		 *
 		 * @since 10.2.0
 		 *
-		 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Templates::email_product_image - 10
-		 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Templates::email_product_title - 20
-		 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Templates::email_product_attributes - 30
-		 * @hooked \Automattic\WooCommerce\Internal\StockNotifications\Templates::email_product_price - 40
+		 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Templates::email_product_image - 10
+		 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Templates::email_product_title - 20
+		 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Templates::email_product_attributes - 30
+		 * @hooked \Automattic\PooCommerce\Internal\StockNotifications\Templates::email_product_price - 40
 		 */
-		do_action( 'woocommerce_email_stock_notification_product', $product, $notification, $plain_text, $email );
+		do_action( 'poocommerce_email_stock_notification_product', $product, $notification, $plain_text, $email );
 		?>
 	</div>
 
 	<table id="notification__footer"><tr><td>
 		<?php
-		echo esc_html( sprintf( __( 'You have received this message because your e-mail address was used to sign up for stock notifications on our store.', 'woocommerce' ), $product->get_name() ) );
+		echo esc_html( sprintf( __( 'You have received this message because your e-mail address was used to sign up for stock notifications on our store.', 'poocommerce' ), $product->get_name() ) );
 
 		if ( ! $is_guest ) {
 			// translators: %1$s placeholder is the unsubscribe link, %2$s placeholder is the Unsubscribe text link.
-			$unsubscribe_link_tag = sprintf( '<a href="%1$s" id="notification__unsubscribe_link">%2$s</a>', esc_url( $unsubscribe_link ), _x( 'click here', 'unsubscribe cta for stock notifications for existing customers', 'woocommerce' ) );
+			$unsubscribe_link_tag = sprintf( '<a href="%1$s" id="notification__unsubscribe_link">%2$s</a>', esc_url( $unsubscribe_link ), _x( 'click here', 'unsubscribe cta for stock notifications for existing customers', 'poocommerce' ) );
 			// translators: %s placeholder is the text part from above.
-			echo wp_kses_post( sprintf( __( 'To manage your notifications, %s to log in to your account.', 'woocommerce' ), $unsubscribe_link_tag ) );
+			echo wp_kses_post( sprintf( __( 'To manage your notifications, %s to log in to your account.', 'poocommerce' ), $unsubscribe_link_tag ) );
 		} else {
 			// translators: %1$s placeholder is the unsubscribe link, %2$s placeholder is the Unsubscribe text link.
-			$unsubscribe_link_tag = sprintf( '<a href="%1$s" id="notification__unsubscribe_link">%2$s</a>', esc_url( $unsubscribe_link ), _x( 'click here', 'unsubscribe cta for stock notifications for guests', 'woocommerce' ) );
+			$unsubscribe_link_tag = sprintf( '<a href="%1$s" id="notification__unsubscribe_link">%2$s</a>', esc_url( $unsubscribe_link ), _x( 'click here', 'unsubscribe cta for stock notifications for guests', 'poocommerce' ) );
 			// translators: %s placeholder is the text part from above.
-			echo wp_kses_post( sprintf( __( 'To stop receiving these messages, %s to unsubscribe.', 'woocommerce' ), $unsubscribe_link_tag ) );
+			echo wp_kses_post( sprintf( __( 'To stop receiving these messages, %s to unsubscribe.', 'poocommerce' ), $unsubscribe_link_tag ) );
 		}
 		?>
 		<br><br>
@@ -86,10 +86,10 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 <?php
 
 /**
- * Hook: woocommerce_email_footer.
+ * Hook: poocommerce_email_footer.
  *
  * @since 10.2.0
  *
  * @hooked WC_Emails::email_footer() Output the email footer
  */
-do_action( 'woocommerce_email_footer', $email );
+do_action( 'poocommerce_email_footer', $email );

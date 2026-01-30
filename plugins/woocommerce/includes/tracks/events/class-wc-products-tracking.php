@@ -1,19 +1,19 @@
 <?php
 /**
- * WooCommerce Import Tracking
+ * PooCommerce Import Tracking
  *
- * @package WooCommerce\Tracks
+ * @package PooCommerce\Tracks
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\WCAdminAssets;
+use Automattic\PooCommerce\Internal\Admin\WCAdminAssets;
 
 defined( 'ABSPATH' ) || exit;
 
 require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php';
 
 /**
- * This class adds actions to track usage of WooCommerce Products.
+ * This class adds actions to track usage of PooCommerce Products.
  */
 class WC_Products_Tracking {
 
@@ -133,8 +133,8 @@ class WC_Products_Tracking {
 			return;
 		}
 
-		/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
-		$source     = apply_filters( 'woocommerce_product_source', self::is_importing() ? 'import' : self::TRACKS_SOURCE );
+		/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
+		$source     = apply_filters( 'poocommerce_product_source', self::is_importing() ? 'import' : self::TRACKS_SOURCE );
 		$properties = array(
 			'product_id' => $product_id,
 			'source'     => $source,
@@ -159,7 +159,7 @@ class WC_Products_Tracking {
 			$handle,
 			"
 			jQuery(function($) {
-				if ( $( 'h1.wp-heading-inline' ).text().trim() === '" . esc_js( __( 'Edit product', 'woocommerce' ) ) . "') {
+				if ( $( 'h1.wp-heading-inline' ).text().trim() === '" . esc_js( __( 'Edit product', 'poocommerce' ) ) . "') {
 					var initialStockValue = $( '#_stock' ).val();
 					var isBlockEditor = false;
 					var child_element = '#publish';
@@ -209,10 +209,10 @@ class WC_Products_Tracking {
 							description_value  = $( '.block-editor-rich-text__editable' ).text();
 						}
 
-						// We can't just check the number of '.woocommerce_attribute' elements because
+						// We can't just check the number of '.poocommerce_attribute' elements because
 						// there might be empty ones, which get stripped out when saved. So, we'll check
 						// whether the name and values have been filled out.
-						var numberOfAttributes = $( '.woocommerce_attribute' ).filter( function () {
+						var numberOfAttributes = $( '.poocommerce_attribute' ).filter( function () {
 							var attributeElement = $( this );
 							var attributeName = attributeElement.find( 'input.attribute_name' ).val();
 							var attributeValues = attributeElement.find( 'textarea[name^=\"attribute_values\"]' ).val();
@@ -265,7 +265,7 @@ class WC_Products_Tracking {
 					function ( $product_type_option ) {
 						return $product_type_option['id'];
 					},
-					/* phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment */
+					/* phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment */
 					apply_filters(
 						'product_type_options',
 						wc_get_default_product_type_options(),
@@ -359,7 +359,7 @@ class WC_Products_Tracking {
 			'product_type_options' => $product_type_options_string,
 			'purchase_note'        => $product->get_purchase_note() ? 'yes' : 'no',
 			'sale_price'           => $product->get_sale_price() ? 'yes' : 'no',
-			'source'               => apply_filters( 'woocommerce_product_source', $is_importing ? 'import' : self::TRACKS_SOURCE ),
+			'source'               => apply_filters( 'poocommerce_product_source', $is_importing ? 'import' : self::TRACKS_SOURCE ),
 			'short_description'    => $product->get_short_description() ? 'yes' : 'no',
 			'tags'                 => count( $product->get_tag_ids() ),
 			'upsells'              => ! empty( $product->get_upsell_ids() ) ? 'yes' : 'no',
@@ -387,7 +387,7 @@ class WC_Products_Tracking {
 				time(),
 				self::TRACK_PRODUCT_PUBLISHED_CALLBACK,
 				array( $event_name, $event_properties ),
-				'woocommerce-tracks'
+				'poocommerce-tracks'
 			);
 		} else {
 			WC_Tracks::record_event( $event_name, $event_properties );
@@ -598,7 +598,7 @@ class WC_Products_Tracking {
 	private function is_importing() {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		// Check if the current request is a product import.
-		if ( isset( $_POST['action'] ) && 'woocommerce_do_ajax_product_import' === $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'poocommerce_do_ajax_product_import' === $_POST['action'] ) {
 			return true;
 		}
 		return false;

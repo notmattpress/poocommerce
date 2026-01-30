@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Admin\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Tests\Admin\ProductBlockEditor\ProductTemplates;
 
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\AbstractProductFormTemplate;
-use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\AbstractProductFormTemplate;
+use Automattic\PooCommerce\Admin\Features\ProductBlockEditor\ProductTemplates\ProductFormTemplateInterface;
 
 class CustomProductFormTemplate extends AbstractProductFormTemplate implements ProductFormTemplateInterface {
 	/**
@@ -31,7 +31,7 @@ class CustomProductFormTemplate extends AbstractProductFormTemplate implements P
 		$basic_details->add_block(
 			[
 				'id'         => 'product-name',
-				'blockName'  => 'woocommerce/product-name-field',
+				'blockName'  => 'poocommerce/product-name-field',
 				'attributes' => [
 					'name'      => 'Product name',
 					'autoFocus' => true,
@@ -95,7 +95,7 @@ class CustomProductFormTemplate extends AbstractProductFormTemplate implements P
 		$product_inventory_inner_section->add_block(
 			array(
 				'id'        => 'product-inventory-sku',
-				'blockName' => 'woocommerce/product-sku-field',
+				'blockName' => 'poocommerce/product-sku-field',
 			)
 		);
 	}

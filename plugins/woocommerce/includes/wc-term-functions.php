@@ -1,16 +1,16 @@
 <?php
 /**
- * WooCommerce Terms
+ * PooCommerce Terms
  *
  * Functions for handling terms/term meta.
  *
- * @package WooCommerce\Functions
+ * @package PooCommerce\Functions
  * @version 2.1.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Change get terms defaults for attributes to order by the sorting setting, or default to menu_order for sortable taxonomies.
@@ -30,7 +30,7 @@ function wc_change_get_terms_defaults( $defaults, $taxonomies ) {
 
 	if ( taxonomy_is_product_attribute( $taxonomy ) ) {
 		$orderby = wc_attribute_orderby( $taxonomy );
-	} elseif ( in_array( $taxonomy, apply_filters( 'woocommerce_sortable_taxonomies', array( 'product_cat' ) ), true ) ) {
+	} elseif ( in_array( $taxonomy, apply_filters( 'poocommerce_sortable_taxonomies', array( 'product_cat' ) ), true ) ) {
 		$orderby = 'menu_order';
 	}
 
@@ -180,7 +180,7 @@ function wc_get_product_terms( $product_id, $taxonomy, $args = array() ) {
 		return array();
 	}
 
-	return apply_filters( 'woocommerce_get_product_terms', _wc_get_cached_product_terms( $product_id, $taxonomy, $args ), $product_id, $taxonomy, $args );
+	return apply_filters( 'poocommerce_get_product_terms', _wc_get_cached_product_terms( $product_id, $taxonomy, $args ), $product_id, $taxonomy, $args );
 }
 
 /**
@@ -216,7 +216,7 @@ function _wc_get_product_terms_parent_usort_callback( $a, $b ) {
 }
 
 /**
- * WooCommerce Dropdown categories.
+ * PooCommerce Dropdown categories.
  *
  * @param array $args Args to control display of dropdown.
  */
@@ -233,7 +233,7 @@ function wc_product_dropdown_categories( $args = array() ) {
 			'show_uncategorized' => 1,
 			'orderby'            => 'name',
 			'selected'           => isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '',
-			'show_option_none'   => __( 'Select a category', 'woocommerce' ),
+			'show_option_none'   => __( 'Select a category', 'poocommerce' ),
 			'option_none_value'  => '',
 			'value_field'        => 'slug',
 			'taxonomy'           => 'product_cat',
@@ -285,8 +285,8 @@ function wc_walk_category_dropdown_tree( ...$args ) {
 function wc_taxonomy_metadata_migrate_data( $wp_db_version, $wp_current_db_version ) {
 	if ( $wp_db_version >= 34370 && $wp_current_db_version < 34370 ) {
 		global $wpdb;
-		if ( $wpdb->query( "INSERT INTO {$wpdb->termmeta} ( term_id, meta_key, meta_value ) SELECT woocommerce_term_id, meta_key, meta_value FROM {$wpdb->prefix}woocommerce_termmeta;" ) ) {
-			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}woocommerce_termmeta" );
+		if ( $wpdb->query( "INSERT INTO {$wpdb->termmeta} ( term_id, meta_key, meta_value ) SELECT poocommerce_term_id, meta_key, meta_value FROM {$wpdb->prefix}poocommerce_termmeta;" ) ) {
+			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}poocommerce_termmeta" );
 		}
 	}
 }
@@ -334,7 +334,7 @@ function wc_reorder_terms( $the_term, $next_id, $taxonomy, $index = 0, $terms = 
 		/**
 		 * After a term has had it's order set.
 		*/
-		do_action( 'woocommerce_after_set_term_order', $term, $index, $taxonomy );
+		do_action( 'poocommerce_after_set_term_order', $term, $index, $taxonomy );
 
 		// If that term has children we walk through them.
 		$children = get_terms( $taxonomy, "parent={$term_id}&hide_empty=0&menu_order=ASC" );
@@ -393,7 +393,7 @@ function wc_set_term_order( $term_id, $index, $taxonomy, $recursive = false ) {
  * only products with the publish status are counted. This count is stored in the
  * `wp_term_taxonomy` table in the `count` field.
  *
- * The second count is based on WooCommerce-specific characteristics. In addition to the
+ * The second count is based on PooCommerce-specific characteristics. In addition to the
  * publish status requirement, products are only counted if they are considered visible in the
  * catalog. This count is stored in the `wp_termmeta` table. The wc_change_term_counts function
  * is used to override the first count with the second count in some circumstances.
@@ -425,7 +425,7 @@ function _wc_term_recount( $terms, $taxonomy, $callback = true, $terms_are_term_
 	 * @since 5.2
 	 * @param bool
 	 */
-	if ( ! apply_filters( 'woocommerce_product_recount_terms', true ) ) {
+	if ( ! apply_filters( 'poocommerce_product_recount_terms', true ) ) {
 		return;
 	}
 
@@ -474,7 +474,7 @@ function _wc_term_recount( $terms, $taxonomy, $callback = true, $terms_are_term_
 	}
 
 	if (
-		'yes' === get_option( 'woocommerce_hide_out_of_stock_items' )
+		'yes' === get_option( 'poocommerce_hide_out_of_stock_items' )
 		&& $product_visibility_term_ids[ ProductStockStatus::OUT_OF_STOCK ]
 	) {
 		$exclude_term_ids[] = $product_visibility_term_ids[ ProductStockStatus::OUT_OF_STOCK ];
@@ -540,7 +540,7 @@ function _wc_term_recount( $terms, $taxonomy, $callback = true, $terms_are_term_
  * @param int $product_id Product ID.
  */
 function wc_recount_after_stock_change( $product_id ) {
-	if ( 'yes' !== get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+	if ( 'yes' !== get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 		return;
 	}
 	if ( wp_defer_term_counting() ) {
@@ -560,7 +560,7 @@ function wc_recount_after_stock_change( $product_id ) {
 		_wc_recount_terms_by_product( $product_id );
 	}
 }
-add_action( 'woocommerce_product_set_stock_status', 'wc_recount_after_stock_change' );
+add_action( 'poocommerce_product_set_stock_status', 'wc_recount_after_stock_change' );
 
 
 /**
@@ -583,7 +583,7 @@ function wc_change_term_counts( $terms, $taxonomies ) {
 	 *
 	 * @param array $valid_taxonomies List of taxonomy slugs.
 	 */
-	$valid_taxonomies   = apply_filters( 'woocommerce_change_term_counts', array( 'product_cat', 'product_tag', 'product_brand' ) );
+	$valid_taxonomies   = apply_filters( 'poocommerce_change_term_counts', array( 'product_cat', 'product_tag', 'product_brand' ) );
 	$current_taxonomies = array_intersect( (array) $taxonomies, $valid_taxonomies );
 
 	if ( empty( $current_taxonomies ) ) {
@@ -663,7 +663,7 @@ add_action( 'set_object_terms', 'wc_clear_term_product_ids', 10, 6 );
  */
 function wc_get_product_visibility_term_ids() {
 	if ( ! taxonomy_exists( 'product_visibility' ) ) {
-		wc_doing_it_wrong( __FUNCTION__, 'wc_get_product_visibility_term_ids should not be called before taxonomies are registered (woocommerce_after_register_post_type action).', '3.1' );
+		wc_doing_it_wrong( __FUNCTION__, 'wc_get_product_visibility_term_ids should not be called before taxonomies are registered (poocommerce_after_register_post_type action).', '3.1' );
 		return array();
 	}
 

@@ -2,16 +2,16 @@
 /**
  * AbstractLineItemSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WC_Order_Item;
 use WP_REST_Request;
 
@@ -26,35 +26,35 @@ abstract class AbstractLineItemSchema extends AbstractSchema {
 	 */
 	protected function get_meta_data_schema(): array {
 		return array(
-			'description' => __( 'Meta data.', 'woocommerce' ),
+			'description' => __( 'Meta data.', 'poocommerce' ),
 			'type'        => 'array',
 			'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			'items'       => array(
 				'type'       => 'object',
 				'properties' => array(
 					'id'            => array(
-						'description' => __( 'Meta ID.', 'woocommerce' ),
+						'description' => __( 'Meta ID.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,
 					),
 					'key'           => array(
-						'description' => __( 'Meta key.', 'woocommerce' ),
+						'description' => __( 'Meta key.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'value'         => array(
-						'description' => __( 'Meta value.', 'woocommerce' ),
+						'description' => __( 'Meta value.', 'poocommerce' ),
 						'type'        => array( 'null', 'object', 'string', 'number', 'boolean', 'integer', 'array' ),
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'display_key'   => array(
-						'description' => __( 'Meta key for UI display.', 'woocommerce' ),
+						'description' => __( 'Meta key for UI display.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'display_value' => array(
-						'description' => __( 'Meta value for UI display.', 'woocommerce' ),
+						'description' => __( 'Meta value for UI display.', 'poocommerce' ),
 						'type'        => array( 'null', 'object', 'string', 'number', 'boolean', 'integer', 'array' ),
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
@@ -93,7 +93,7 @@ abstract class AbstractLineItemSchema extends AbstractSchema {
 	 */
 	protected function get_taxes_schema(): array {
 		return array(
-			'description' => __( 'Line taxes.', 'woocommerce' ),
+			'description' => __( 'Line taxes.', 'poocommerce' ),
 			'type'        => 'array',
 			'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			'readonly'    => true,
@@ -101,19 +101,19 @@ abstract class AbstractLineItemSchema extends AbstractSchema {
 				'type'       => 'object',
 				'properties' => array(
 					'id'       => array(
-						'description' => __( 'Tax rate ID.', 'woocommerce' ),
+						'description' => __( 'Tax rate ID.', 'poocommerce' ),
 						'type'        => 'integer',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,
 					),
 					'total'    => array(
-						'description' => __( 'Tax total.', 'woocommerce' ),
+						'description' => __( 'Tax total.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,
 					),
 					'subtotal' => array(
-						'description' => __( 'Tax subtotal.', 'woocommerce' ),
+						'description' => __( 'Tax subtotal.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						'readonly'    => true,

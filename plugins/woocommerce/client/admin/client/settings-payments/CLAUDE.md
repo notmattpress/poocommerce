@@ -1,7 +1,7 @@
-# Claude Code Documentation for WooCommerce Settings Payments
+# Claude Code Documentation for PooCommerce Settings Payments
 
 **Scope**: Payment gateway UI architecture and patterns
-**Location**: `plugins/woocommerce/client/admin/client/settings-payments`
+**Location**: `plugins/poocommerce/client/admin/client/settings-payments`
 
 **See also:**
 
@@ -123,7 +123,7 @@ import { render } from '@testing-library/react';
 import type {
 	PaymentGatewayProvider,
 	// ... other types
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -131,7 +131,7 @@ import type {
 import { ComponentName } from '../component-name';
 ```
 
-**Note**: Type imports from `@woocommerce/data` are external dependencies, not internal.
+**Note**: Type imports from `@poocommerce/data` are external dependencies, not internal.
 
 ### Mock Data Pattern
 
@@ -164,10 +164,10 @@ const createMockGateway = (
 
 ### Type Import Workaround
 
-To avoid runtime errors when importing enums from `@woocommerce/data`:
+To avoid runtime errors when importing enums from `@poocommerce/data`:
 
 ```typescript
-import type { PaymentsProviderType } from '@woocommerce/data';
+import type { PaymentsProviderType } from '@poocommerce/data';
 
 // Define enum value as const to avoid runtime import
 const PaymentsProviderTypeGateway = 'gateway' as const;
