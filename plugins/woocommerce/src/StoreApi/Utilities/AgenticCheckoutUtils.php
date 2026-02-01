@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Utilities;
+namespace Automattic\PooCommerce\StoreApi\Utilities;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Errors\Error;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Error as AgenticError;
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Messages\MessageError;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Messages\Messages;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Errors\Error;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Error as AgenticError;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Messages\MessageError;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Messages\Messages;
 
 /**
  * AgenticCheckoutUtils class.
@@ -28,17 +28,17 @@ class AgenticCheckoutUtils {
 	public static function get_shared_params() {
 		return [
 			'items'               => [
-				'description' => __( 'Line items to add to the cart.', 'woocommerce' ),
+				'description' => __( 'Line items to add to the cart.', 'poocommerce' ),
 				'type'        => 'array',
 				'items'       => [
 					'type'       => 'object',
 					'properties' => [
 						'id'       => [
-							'description' => __( 'Product ID.', 'woocommerce' ),
+							'description' => __( 'Product ID.', 'poocommerce' ),
 							'type'        => 'string',
 						],
 						'quantity' => [
-							'description' => __( 'Quantity.', 'woocommerce' ),
+							'description' => __( 'Quantity.', 'poocommerce' ),
 							'type'        => 'integer',
 							'minimum'     => 1,
 						],
@@ -47,58 +47,58 @@ class AgenticCheckoutUtils {
 				],
 			],
 			'buyer'               => [
-				'description' => __( 'Buyer information.', 'woocommerce' ),
+				'description' => __( 'Buyer information.', 'poocommerce' ),
 				'type'        => 'object',
 				'properties'  => [
 					'first_name'   => [
-						'description' => __( 'First name.', 'woocommerce' ),
+						'description' => __( 'First name.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'last_name'    => [
-						'description' => __( 'Last name.', 'woocommerce' ),
+						'description' => __( 'Last name.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'email'        => [
-						'description' => __( 'Email address.', 'woocommerce' ),
+						'description' => __( 'Email address.', 'poocommerce' ),
 						'type'        => 'string',
 						'format'      => 'email',
 					],
 					'phone_number' => [
-						'description' => __( 'Phone number.', 'woocommerce' ),
+						'description' => __( 'Phone number.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 				],
 			],
 			'fulfillment_address' => [
-				'description' => __( 'Fulfillment/shipping address.', 'woocommerce' ),
+				'description' => __( 'Fulfillment/shipping address.', 'poocommerce' ),
 				'type'        => 'object',
 				'properties'  => [
 					'name'        => [
-						'description' => __( 'Full name.', 'woocommerce' ),
+						'description' => __( 'Full name.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'line_one'    => [
-						'description' => __( 'Address line 1.', 'woocommerce' ),
+						'description' => __( 'Address line 1.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'line_two'    => [
-						'description' => __( 'Address line 2.', 'woocommerce' ),
+						'description' => __( 'Address line 2.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'city'        => [
-						'description' => __( 'City.', 'woocommerce' ),
+						'description' => __( 'City.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'state'       => [
-						'description' => __( 'State/province.', 'woocommerce' ),
+						'description' => __( 'State/province.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'country'     => [
-						'description' => __( 'Country code (ISO 3166-1 alpha-2).', 'woocommerce' ),
+						'description' => __( 'Country code (ISO 3166-1 alpha-2).', 'poocommerce' ),
 						'type'        => 'string',
 					],
 					'postal_code' => [
-						'description' => __( 'Postal/ZIP code.', 'woocommerce' ),
+						'description' => __( 'Postal/ZIP code.', 'poocommerce' ),
 						'type'        => 'string',
 					],
 				],
@@ -120,7 +120,7 @@ class AgenticCheckoutUtils {
 			if ( ! ctype_digit( $item['id'] ) ) {
 				return AgenticError::invalid_request(
 					'invalid_product_id',
-					__( 'Product ID must be numeric.', 'woocommerce' ),
+					__( 'Product ID must be numeric.', 'poocommerce' ),
 					'$.items[' . $item_index . '].id'
 				);
 			}
@@ -140,10 +140,10 @@ class AgenticCheckoutUtils {
 				$param         = '$.items[' . $item_index . ']';
 				$message_error = null;
 
-				// Map WooCommerce error codes to Agentic Commerce Protocol error codes.
+				// Map PooCommerce error codes to Agentic Commerce Protocol error codes.
 				switch ( $exception->getErrorCode() ) {
-					case 'woocommerce_rest_product_out_of_stock':
-					case 'woocommerce_rest_product_partially_out_of_stock':
+					case 'poocommerce_rest_product_out_of_stock':
+					case 'poocommerce_rest_product_partially_out_of_stock':
 						$message_error = MessageError::out_of_stock( $message, $param );
 						break;
 				}
@@ -347,7 +347,7 @@ class AgenticCheckoutUtils {
 
 		return new \WP_Error(
 			'rest_forbidden',
-			__( 'This endpoint requires Jetpack blog token authentication.', 'woocommerce' ),
+			__( 'This endpoint requires Jetpack blog token authentication.', 'poocommerce' ),
 			array( 'status' => 401 )
 		);
 	}
@@ -369,7 +369,7 @@ class AgenticCheckoutUtils {
 		if ( $needs_shipping && ! $has_address ) {
 			$messages->add(
 				MessageError::missing(
-					__( 'Shipping address required.', 'woocommerce' ),
+					__( 'Shipping address required.', 'poocommerce' ),
 					'$.fulfillment_address'
 				)
 			);
@@ -382,7 +382,7 @@ class AgenticCheckoutUtils {
 		if ( $needs_shipping && ! $has_shipping ) {
 			$messages->add(
 				MessageError::missing(
-					__( 'No shipping method selected.', 'woocommerce' ),
+					__( 'No shipping method selected.', 'poocommerce' ),
 					'$.fulfillment_option_id'
 				)
 			);
@@ -436,7 +436,7 @@ class AgenticCheckoutUtils {
 		}
 
 		foreach ( $available_gateways as $gateway ) {
-			if ( $gateway->supports( \Automattic\WooCommerce\Enums\PaymentGatewayFeature::AGENTIC_COMMERCE )
+			if ( $gateway->supports( \Automattic\PooCommerce\Enums\PaymentGatewayFeature::AGENTIC_COMMERCE )
 				&& method_exists( $gateway, 'get_agentic_commerce_provider' )
 				&& method_exists( $gateway, 'get_agentic_commerce_payment_methods' )
 			) {

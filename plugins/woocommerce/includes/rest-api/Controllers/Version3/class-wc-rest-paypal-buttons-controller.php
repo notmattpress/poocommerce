@@ -3,7 +3,7 @@
  *
  * REST API PayPal buttons controller
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since   10.3.0
  */
 
@@ -11,9 +11,9 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\Request as PayPalRequest;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Request as PayPalRequest;
 
 // Require the deprecated classes for backward compatibility.
 // This will be removed in 11.0.0.
@@ -28,7 +28,7 @@ if ( ! class_exists( 'WC_Gateway_Paypal_Request' ) ) {
 /**
  * REST API PayPal buttons controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Paypal_Buttons_Controller extends WC_REST_Controller {
@@ -171,7 +171,7 @@ class WC_REST_Paypal_Buttons_Controller extends WC_REST_Controller {
 	}
 
 	/**
-	 * Cancel a PayPal payment. This is used to move the woocommerce order back to a draft status.
+	 * Cancel a PayPal payment. This is used to move the poocommerce order back to a draft status.
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 * @return WP_REST_Response The response object.

@@ -2,14 +2,14 @@
 /**
  * WC_Order_Data_Store_CPT class file.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -109,12 +109,12 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		}
 		parent::create( $order );
 
-		// Do not fire 'woocommerce_new_order' for draft statuses.
+		// Do not fire 'poocommerce_new_order' for draft statuses.
 		if ( in_array( $order->get_status( 'edit' ), array( OrderStatus::AUTO_DRAFT, OrderStatus::DRAFT, 'checkout-draft' ), true ) ) {
 			return;
 		}
 
-		do_action( 'woocommerce_new_order', $order->get_id(), $order );
+		do_action( 'poocommerce_new_order', $order->get_id(), $order );
 	}
 
 	/**
@@ -207,7 +207,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 			 * @param string   $payment_complete_status Default status to use when payment is complete.
 			 * @param int      $order_id               Order ID.
 			 */
-			$payment_complete_status = apply_filters( 'woocommerce_payment_complete_order_status', $order->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $order->get_id(), $order );
+			$payment_complete_status = apply_filters( 'poocommerce_payment_complete_order_status', $order->needs_processing() ? OrderStatus::PROCESSING : OrderStatus::COMPLETED, $order->get_id(), $order );
 			if ( $order->has_status( $payment_complete_status ) ) {
 				$order->set_date_paid( $order->get_date_created( 'edit' ) );
 			}
@@ -237,11 +237,11 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 			&& ! in_array( $current_status, $draft_statuses, true )
 			&& in_array( $previous_status, $draft_statuses, true )
 		) {
-			do_action( 'woocommerce_new_order', $order->get_id(), $order );  // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'poocommerce_new_order', $order->get_id(), $order );  // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 			return;
 		}
 
-		do_action( 'woocommerce_update_order', $order->get_id(), $order );  // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'poocommerce_update_order', $order->get_id(), $order );  // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 	}
 
 	/**
@@ -402,7 +402,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 			wc_update_user_last_active( $order->get_customer_id() );
 		}
 
-		do_action( 'woocommerce_order_object_updated_props', $order, $updated_props );
+		do_action( 'poocommerce_order_object_updated_props', $order, $updated_props );
 	}
 
 	/**
@@ -465,9 +465,9 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		$total = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT SUM( order_itemmeta.meta_value )
-				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_itemmeta AS order_itemmeta
 				INNER JOIN $wpdb->posts AS posts ON ( posts.post_type = 'shop_order_refund' AND posts.post_parent = %d )
-				INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON ( order_items.order_id = posts.ID AND order_items.order_item_type = 'tax' )
+				INNER JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON ( order_items.order_id = posts.ID AND order_items.order_item_type = 'tax' )
 				WHERE order_itemmeta.order_item_id = order_items.order_item_id
 				AND order_itemmeta.meta_key IN ('tax_amount', 'shipping_tax_amount')",
 				$order->get_id()
@@ -489,9 +489,9 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		$total = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT SUM( order_itemmeta.meta_value )
-				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta
+				FROM {$wpdb->prefix}poocommerce_order_itemmeta AS order_itemmeta
 				INNER JOIN $wpdb->posts AS posts ON ( posts.post_type = 'shop_order_refund' AND posts.post_parent = %d )
-				INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON ( order_items.order_id = posts.ID AND order_items.order_item_type = 'shipping' )
+				INNER JOIN {$wpdb->prefix}poocommerce_order_items AS order_items ON ( order_items.order_id = posts.ID AND order_items.order_item_type = 'shipping' )
 				WHERE order_itemmeta.order_item_id = order_items.order_item_id
 				AND order_itemmeta.meta_key IN ('cost')",
 				$order->get_id()
@@ -574,7 +574,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 			} elseif ( is_numeric( $value ) ) {
 				$meta_query['customer_ids']['value'][] = strval( absint( $value ) );
 			} else {
-				return new WP_Error( 'woocommerce_query_invalid', __( 'Invalid customer query.', 'woocommerce' ), $values );
+				return new WP_Error( 'poocommerce_query_invalid', __( 'Invalid customer query.', 'poocommerce' ), $values );
 			}
 		}
 
@@ -635,7 +635,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		$search_fields = array_map(
 			'wc_clean',
 			apply_filters(
-				'woocommerce_shop_order_search_fields',
+				'poocommerce_shop_order_search_fields',
 				array(
 					'_billing_address_index',
 					'_shipping_address_index',
@@ -664,7 +664,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 					$wpdb->get_col(
 						$wpdb->prepare(
 							"SELECT order_id
-							FROM {$wpdb->prefix}woocommerce_order_items as order_items
+							FROM {$wpdb->prefix}poocommerce_order_items as order_items
 							WHERE order_item_name LIKE %s",
 							'%' . $wpdb->esc_like( wc_clean( $term ) ) . '%'
 						)
@@ -692,7 +692,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		 * @param array $search_fields The search fields.
 		 * @return array
 		 */
-		$order_ids = apply_filters( 'woocommerce_shop_order_search_results', $order_ids, $term, $search_fields );
+		$order_ids = apply_filters( 'poocommerce_shop_order_search_results', $order_ids, $term, $search_fields );
 
 		return array_map( 'absint', $order_ids );
 	}
@@ -1100,7 +1100,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 			$wp_query_args['no_found_rows'] = true;
 		}
 
-		return apply_filters( 'woocommerce_order_data_store_cpt_get_orders_query', $wp_query_args, $query_vars, $this );
+		return apply_filters( 'poocommerce_order_data_store_cpt_get_orders_query', $wp_query_args, $query_vars, $this );
 	}
 
 	/**
@@ -1121,7 +1121,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		 * @param array $unsupported_args Array of query arg names.
 		 */
 		$unsupported_args = (array) apply_filters(
-			'woocommerce_order_data_store_cpt_query_unsupported_args',
+			'poocommerce_order_data_store_cpt_query_unsupported_args',
 			array( 'meta_query', 'field_query' )
 		);
 
@@ -1138,7 +1138,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 							'Order query argument (%s) is not supported on the current order datastore.',
 							'Order query arguments (%s) are not supported on the current order datastore.',
 							count( $unsupported_args_in_query ),
-							'woocommerce'
+							'poocommerce'
 						),
 						implode( ', ', $unsupported_args_in_query )
 					)
@@ -1433,7 +1433,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		 * @param float|null $cogs_value The value to be written to the database. If returned as null, nothing will be written.
 		 * @param WC_Abstract_Order $item The order for which the value is being saved.
 		 */
-		$cogs_value = apply_filters( 'woocommerce_save_order_cogs_value', $cogs_value, $order );
+		$cogs_value = apply_filters( 'poocommerce_save_order_cogs_value', $cogs_value, $order );
 
 		if ( ! is_null( $cogs_value ) ) {
 			if ( 0.0 === (float) $cogs_value ) {
@@ -1461,7 +1461,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		 * @param float              $cogs_value The value as read from the database.
 		 * @param WC_Abstract_Order $order      The order for which the value is being loaded.
 		 */
-		$cogs_value = apply_filters( 'woocommerce_load_order_cogs_value', $cogs_value, $order );
+		$cogs_value = apply_filters( 'poocommerce_load_order_cogs_value', $cogs_value, $order );
 
 		$order->set_cogs_total_value( (float) $cogs_value );
 		$order->apply_changes();
@@ -1493,7 +1493,7 @@ class WC_Order_Data_Store_CPT extends Abstract_WC_Order_Data_Store_CPT implement
 		 * @param float|null $cogs_value The value to be written to the database. If returned as null, nothing will be written.
 		 * @param WC_Abstract_Order $item The order for which the value is being saved.
 		 */
-		$value = apply_filters( 'woocommerce_save_order_cogs_value', $value, $order );
+		$value = apply_filters( 'poocommerce_save_order_cogs_value', $value, $order );
 		if ( is_null( $value ) ) {
 			return true;
 		}

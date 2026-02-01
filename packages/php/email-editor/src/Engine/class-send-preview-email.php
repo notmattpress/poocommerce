@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
 
 /**
  * Class Send_Preview_Email
@@ -17,7 +17,7 @@ use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
  * This class is responsible for handling the functionality to send preview emails.
  * It is part of the email editor integrations utilities.
  *
- * @package Automattic\WooCommerce\EmailEditor\Integrations\Utils
+ * @package Automattic\PooCommerce\EmailEditor\Integrations\Utils
  */
 class Send_Preview_Email {
 
@@ -87,19 +87,19 @@ class Send_Preview_Email {
 		$language = get_bloginfo( 'language' );
 
 		// Add filter to set preview context for block renderers.
-		add_filter( 'woocommerce_email_editor_rendering_email_context', array( $this, 'add_preview_context' ) );
+		add_filter( 'poocommerce_email_editor_rendering_email_context', array( $this, 'add_preview_context' ) );
 
 		$rendered_data = $this->renderer->render(
 			$post,
 			$subject,
-			__( 'Preview', 'woocommerce' ),
+			__( 'Preview', 'poocommerce' ),
 			$language
 		);
 
 		// Remove filter after rendering.
-		remove_filter( 'woocommerce_email_editor_rendering_email_context', array( $this, 'add_preview_context' ) );
+		remove_filter( 'poocommerce_email_editor_rendering_email_context', array( $this, 'add_preview_context' ) );
 
-		$rendered_data = apply_filters( 'woocommerce_email_editor_send_preview_email_rendered_data', $rendered_data, $post );
+		$rendered_data = apply_filters( 'poocommerce_email_editor_send_preview_email_rendered_data', $rendered_data, $post );
 
 		return $this->set_personalize_content( $rendered_data['html'] );
 	}
@@ -132,7 +132,7 @@ class Send_Preview_Email {
 			'recipient_email' => $subscriber ? $subscriber->user_email : null,
 			'is_user_preview' => true,
 		);
-		$personalizer_context = apply_filters( 'woocommerce_email_editor_send_preview_email_personalizer_context', $personalizer_context );
+		$personalizer_context = apply_filters( 'poocommerce_email_editor_send_preview_email_personalizer_context', $personalizer_context );
 
 		$this->personalizer->set_context( $personalizer_context );
 		return $this->personalizer->personalize_content( $content );
@@ -147,7 +147,7 @@ class Send_Preview_Email {
 	 * @return bool Returns true if the email was sent successfully, false otherwise.
 	 */
 	public function send_email( string $to, string $subject, string $body ): bool {
-		do_action( 'woocommerce_email_editor_send_preview_email_before_wp_mail', $to, $subject, $body );
+		do_action( 'poocommerce_email_editor_send_preview_email_before_wp_mail', $to, $subject, $body );
 
 		add_filter( 'wp_mail_content_type', array( $this, 'set_mail_content_type' ) );
 
@@ -156,7 +156,7 @@ class Send_Preview_Email {
 		// Reset content-type to avoid conflicts.
 		remove_filter( 'wp_mail_content_type', array( $this, 'set_mail_content_type' ) );
 
-		do_action( 'woocommerce_email_editor_send_preview_email_after_wp_mail', $to, $subject, $body, $result );
+		do_action( 'poocommerce_email_editor_send_preview_email_after_wp_mail', $to, $subject, $body, $result );
 
 		return $result;
 	}
@@ -182,11 +182,11 @@ class Send_Preview_Email {
 	 */
 	private function validate_data( array $data ) {
 		if ( empty( $data['email'] ) || empty( $data['postId'] ) ) {
-			throw new \InvalidArgumentException( esc_html__( 'Missing required data', 'woocommerce' ) );
+			throw new \InvalidArgumentException( esc_html__( 'Missing required data', 'poocommerce' ) );
 		}
 
 		if ( ! is_email( $data['email'] ) ) {
-			throw new \InvalidArgumentException( esc_html__( 'Invalid email', 'woocommerce' ) );
+			throw new \InvalidArgumentException( esc_html__( 'Invalid email', 'poocommerce' ) );
 		}
 	}
 
@@ -201,7 +201,7 @@ class Send_Preview_Email {
 	private function fetch_post( $post_id ): \WP_Post {
 		$post = get_post( intval( $post_id ) );
 		if ( ! $post instanceof \WP_Post ) {
-			throw new \Exception( esc_html__( 'Invalid post', 'woocommerce' ) );
+			throw new \Exception( esc_html__( 'Invalid post', 'poocommerce' ) );
 		}
 		return $post;
 	}

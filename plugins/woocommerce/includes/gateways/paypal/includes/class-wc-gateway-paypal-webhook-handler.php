@@ -2,9 +2,9 @@
 /**
  * Class WC_Gateway_Paypal_Webhook_Handler file.
  *
- * @package WooCommerce\Gateways
+ * @package PooCommerce\Gateways
  *
- * @deprecated 10.5.0 Deprecated in favor of Automattic\WooCommerce\Gateways\PayPal\WebhookHandler
+ * @deprecated 10.5.0 Deprecated in favor of Automattic\PooCommerce\Gateways\PayPal\WebhookHandler
  */
 
 declare(strict_types=1);
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Automattic\WooCommerce\Gateways\PayPal\WebhookHandler as PayPalWebhookHandler;
+use Automattic\PooCommerce\Gateways\PayPal\WebhookHandler as PayPalWebhookHandler;
 
 if ( ! class_exists( 'WC_Gateway_Paypal_Helper' ) ) {
 	require_once __DIR__ . '/class-wc-gateway-paypal-helper.php';
@@ -26,7 +26,7 @@ if ( ! class_exists( 'WC_Gateway_Paypal_Request' ) ) {
 /**
  * Handles webhook events.
  *
- * @deprecated 10.5.0 Deprecated in favor of Automattic\WooCommerce\Gateways\PayPal\WebhookHandler
+ * @deprecated 10.5.0 Deprecated in favor of Automattic\PooCommerce\Gateways\PayPal\WebhookHandler
  */
 class WC_Gateway_Paypal_Webhook_Handler {
 
@@ -47,13 +47,13 @@ class WC_Gateway_Paypal_Webhook_Handler {
 	/**
 	 * Process the webhook event.
 	 *
-	 * @deprecated 10.5.0 Use Automattic\WooCommerce\Gateways\PayPal\WebhookHandler::process_webhook() instead. This method will be removed in 11.0.0.
+	 * @deprecated 10.5.0 Use Automattic\PooCommerce\Gateways\PayPal\WebhookHandler::process_webhook() instead. This method will be removed in 11.0.0.
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return void
 	 *
-	 * @deprecated 10.5.0 Deprecated in favor of Automattic\WooCommerce\Gateways\PayPal\WebhookHandler::process_webhook
+	 * @deprecated 10.5.0 Deprecated in favor of Automattic\PooCommerce\Gateways\PayPal\WebhookHandler::process_webhook
 	 */
 	public function process_webhook( WP_REST_Request $request ) {
 		wc_deprecated_function(

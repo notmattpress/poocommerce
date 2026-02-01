@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
-use Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions\Utils as AddToCartWithOptionsUtils;
 use WP_Block;
 
 /**
@@ -82,9 +82,9 @@ class VariationSelectorAttribute extends AbstractBlock {
 		$block_content = AddToCartWithOptionsUtils::render_block_with_context(
 			$block,
 			array(
-				'woocommerce/attributeId'    => 'wc_product_attribute_' . uniqid(),
-				'woocommerce/attributeName'  => $attribute_name,
-				'woocommerce/attributeTerms' => $attribute_terms,
+				'poocommerce/attributeId'    => 'wc_product_attribute_' . uniqid(),
+				'poocommerce/attributeName'  => $attribute_name,
+				'poocommerce/attributeTerms' => $attribute_terms,
 			),
 		);
 
@@ -128,7 +128,7 @@ class VariationSelectorAttribute extends AbstractBlock {
 						 * @param WC_Product $product         Product object.
 						 */
 						'label'      => apply_filters(
-							'woocommerce_variation_option_name',
+							'poocommerce_variation_option_name',
 							$term->name,
 							$term,
 							$attribute_name,
@@ -155,7 +155,7 @@ class VariationSelectorAttribute extends AbstractBlock {
 						 * @param WC_Product $product         Product object.
 						 */
 						'label'      => apply_filters(
-							'woocommerce_variation_option_name',
+							'poocommerce_variation_option_name',
 							$term,
 							null,
 							$attribute_name,

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Admin;
+namespace Automattic\PooCommerce\Tests\Admin;
 
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\PageController;
 use WC_Unit_Test_Case;
 
 /**
  * Unit tests for PageController redirect functionality.
  *
- * @covers \Automattic\WooCommerce\Admin\PageController
+ * @covers \Automattic\PooCommerce\Admin\PageController
  */
 class PageControllerTest extends WC_Unit_Test_Case {
 	/**
@@ -65,7 +65,7 @@ class PageControllerTest extends WC_Unit_Test_Case {
 		$this->current_screen_backup = $GLOBALS['current_screen'] ?? null;
 		$GLOBALS['current_screen']   = $this->get_screen_mock(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		if ( ! did_action( 'current_screen' ) ) {
-			do_action( 'current_screen', $GLOBALS['current_screen'] ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			do_action( 'current_screen', $GLOBALS['current_screen'] ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		}
 
 		parent::setUp();
@@ -172,22 +172,22 @@ class PageControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test redirect happens for task=woocommerce-payments request.
+	 * Test redirect happens for task=poocommerce-payments request.
 	 */
-	public function test_redirect_for_woocommerce_payments_task(): void {
+	public function test_redirect_for_poocommerce_payments_task(): void {
 		// Set up admin user.
 		wp_set_current_user( $this->admin_user_id );
 
 		// Set up request.
 		$_GET['page'] = 'wc-admin';
-		$_GET['task'] = 'woocommerce-payments';
+		$_GET['task'] = 'poocommerce-payments';
 
 		// Trigger redirect.
 		$this->trigger_redirect_check();
 
 		// Verify redirect occurred.
 		$redirect_url = $this->get_redirect_attempt();
-		$this->assertNotEmpty( $redirect_url, 'A redirect should occur for the woocommerce-payments task.' );
+		$this->assertNotEmpty( $redirect_url, 'A redirect should occur for the poocommerce-payments task.' );
 		$this->assertEquals(
 			admin_url( 'admin.php?page=wc-settings&tab=checkout&from=WCADMIN_PAYMENT_TASK' ),
 			$redirect_url,
@@ -372,10 +372,10 @@ class PageControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test no redirect for users without manage_woocommerce capability.
+	 * Test no redirect for users without manage_poocommerce capability.
 	 */
-	public function test_no_redirect_without_manage_woocommerce_capability(): void {
-		// Set up customer user (no manage_woocommerce capability).
+	public function test_no_redirect_without_manage_poocommerce_capability(): void {
+		// Set up customer user (no manage_poocommerce capability).
 		wp_set_current_user( $this->customer_user_id );
 
 		// Set up request.
@@ -388,7 +388,7 @@ class PageControllerTest extends WC_Unit_Test_Case {
 		// Verify no redirect occurred.
 		$this->assertEmpty(
 			$this->get_redirect_attempt(),
-			'No redirect should occur for users without manage_woocommerce capability.'
+			'No redirect should occur for users without manage_poocommerce capability.'
 		);
 	}
 
@@ -479,17 +479,17 @@ class PageControllerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test woocommerce-payments task redirects even with special parameters.
+	 * Test poocommerce-payments task redirects even with special parameters.
 	 *
-	 * The woocommerce-payments task should always redirect, unlike the generic payments task.
+	 * The poocommerce-payments task should always redirect, unlike the generic payments task.
 	 */
-	public function test_woocommerce_payments_redirects_with_special_params(): void {
+	public function test_poocommerce_payments_redirects_with_special_params(): void {
 		// Set up admin user.
 		wp_set_current_user( $this->admin_user_id );
 
 		// Set up request with special parameters.
 		$_GET['page']              = 'wc-admin';
-		$_GET['task']              = 'woocommerce-payments';
+		$_GET['task']              = 'poocommerce-payments';
 		$_GET['connection-return'] = '1';
 
 		// Trigger redirect.
@@ -497,11 +497,11 @@ class PageControllerTest extends WC_Unit_Test_Case {
 
 		// Verify redirect occurred even with special params.
 		$redirect_url = $this->get_redirect_attempt();
-		$this->assertNotEmpty( $redirect_url, 'woocommerce-payments task should redirect even with special parameters.' );
+		$this->assertNotEmpty( $redirect_url, 'poocommerce-payments task should redirect even with special parameters.' );
 		$this->assertEquals(
 			admin_url( 'admin.php?page=wc-settings&tab=checkout&from=WCADMIN_PAYMENT_TASK' ),
 			$redirect_url,
-			'Redirect URL should match expected settings page URL for woocommerce-payments task.'
+			'Redirect URL should match expected settings page URL for poocommerce-payments task.'
 		);
 	}
 

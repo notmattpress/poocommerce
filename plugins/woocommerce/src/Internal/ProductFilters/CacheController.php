@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\RegisterHooksInterface;
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Internal\RegisterHooksInterface;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 use WC_Cache_Helper;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Hooks into WooCommerce actions to register cache invalidation.
+ * Hooks into PooCommerce actions to register cache invalidation.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class CacheController implements RegisterHooksInterface {
 	const CACHE_GROUP = 'filter_data';
@@ -27,7 +27,7 @@ class CacheController implements RegisterHooksInterface {
 	/**
 	 * Initialize dependencies.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 * @param TaxonomyHierarchyData $taxonomy_hierarchy_data Instance of TaxonomyHierarchyData.
 	 * @return void
 	 */
@@ -43,8 +43,8 @@ class CacheController implements RegisterHooksInterface {
 			return;
 		}
 
-		add_action( 'woocommerce_after_product_object_save', array( $this, 'invalidate_filter_data_cache' ) );
-		add_action( 'woocommerce_delete_product_transients', array( $this, 'invalidate_filter_data_cache' ) );
+		add_action( 'poocommerce_after_product_object_save', array( $this, 'invalidate_filter_data_cache' ) );
+		add_action( 'poocommerce_delete_product_transients', array( $this, 'invalidate_filter_data_cache' ) );
 
 		// Clear taxonomy hierarchy cache when terms change.
 		add_action( 'created_term', array( $this, 'clear_taxonomy_hierarchy_cache' ), 10, 3 );

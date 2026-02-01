@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Blocks\Utils\BlocksSharedState;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Blocks\Utils\BlocksSharedState;
 
 /**
  * FilledMiniCartContentsBlock class.
@@ -40,7 +40,7 @@ class FilledMiniCartContentsBlock extends AbstractInnerBlock {
 	 * @return string Rendered block type output.
 	 */
 	protected function render_experimental_filled_mini_cart_contents( $attributes, $content, $block ) {
-		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WooCommerce';
+		$consent = 'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of PooCommerce';
 		$notices = BlocksSharedState::get_cart_error_notices( $consent );
 
 		$context = wp_json_encode(
@@ -56,20 +56,20 @@ class FilledMiniCartContentsBlock extends AbstractInnerBlock {
 
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
-				'data-wp-interactive'  => 'woocommerce/mini-cart',
-				'data-wp-context'      => 'woocommerce/store-notices::' . $context,
+				'data-wp-interactive'  => 'poocommerce/mini-cart',
+				'data-wp-context'      => 'poocommerce/store-notices::' . $context,
 				'data-wp-bind--hidden' => 'state.cartIsEmpty',
 			)
 		);
 
-		$dismiss_aria_label = __( 'Dismiss this notice', 'woocommerce' );
+		$dismiss_aria_label = __( 'Dismiss this notice', 'poocommerce' );
 
 		ob_start();
 		?>
 		<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<div
 				class="wc-block-components-notices"
-				data-wp-interactive="woocommerce/store-notices"
+				data-wp-interactive="poocommerce/store-notices"
 			><template
 					data-wp-each--notice="context.notices"
 					data-wp-each-key="context.notice.id"

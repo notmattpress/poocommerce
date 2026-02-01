@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type { AddressFormType, AddressFormValues } from '@woocommerce/settings';
+import type { AddressFormType, AddressFormValues } from '@poocommerce/settings';
 
 // Declare window
 declare global {

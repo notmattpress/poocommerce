@@ -5,9 +5,9 @@
 	}
 
 	/**
-	* This is a base style for the input text element in WooCommerce that prevents inputs from appearing too small.
+	* This is a base style for the input text element in PooCommerce that prevents inputs from appearing too small.
 	*
-	* @link https://github.com/woocommerce/woocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/woocommerce/client/legacy/css/woocommerce-blocktheme.scss#L203-L206
+	* @link https://github.com/poocommerce/poocommerce/blob/95ca53675f2817753d484583c96ca9ab9f725172/plugins/poocommerce/client/legacy/css/poocommerce-blocktheme.scss#L203-L206
 	*/
 	:where(.quantity .input-text) {
 		font-size: var(--wp--preset--font-size--small);
@@ -76,7 +76,7 @@
 
 // `cursor` needs to override some styles from WordPress core, that's why we
 // need extra specificity.
-:where(.wc-block-add-to-cart-with-options.is-invalid) .wp-block-woocommerce-product-button .wc-block-components-product-button__button {
+:where(.wc-block-add-to-cart-with-options.is-invalid) .wp-block-poocommerce-product-button .wc-block-components-product-button__button {
 	cursor: not-allowed;
 	opacity: 0.5;
 }

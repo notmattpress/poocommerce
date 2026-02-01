@@ -34,112 +34,112 @@
 			"jquery"
 		],
 		"paths": {
-			"@woocommerce/atomic-blocks": [
+			"@poocommerce/atomic-blocks": [
 				"assets/js/base/atomic/blocks"
 			],
-			"@woocommerce/atomic-blocks/*": [
+			"@poocommerce/atomic-blocks/*": [
 				"assets/js/base/atomic/blocks/*"
 			],
-			"@woocommerce/atomic-utils": [
+			"@poocommerce/atomic-utils": [
 				"assets/js/atomic/utils"
 			],
-			"@woocommerce/base-components/*": [
+			"@poocommerce/base-components/*": [
 				"assets/js/base/components/*"
 			],
-			"@woocommerce/base-context": [
+			"@poocommerce/base-context": [
 				"assets/js/base/context"
 			],
-			"@woocommerce/base-context/*": [
+			"@poocommerce/base-context/*": [
 				"assets/js/base/context/*"
 			],
-			"@woocommerce/base-context/hooks": [
+			"@poocommerce/base-context/hooks": [
 				"assets/js/base/context/hooks"
 			],
-			"@woocommerce/base-context/components": [
+			"@poocommerce/base-context/components": [
 				"assets/js/base/context/components"
 			],
-			"@woocommerce/base-hocs/*": [
+			"@poocommerce/base-hocs/*": [
 				"assets/js/base/hocs/*"
 			],
-			"@woocommerce/base-hooks": [
+			"@poocommerce/base-hooks": [
 				"assets/js/base/hooks"
 			],
-			"@woocommerce/base-utils": [
+			"@poocommerce/base-utils": [
 				"assets/js/base/utils"
 			],
-			"@woocommerce/base-utils/*": [
+			"@poocommerce/base-utils/*": [
 				"assets/js/base/utils/*"
 			],
-			"@woocommerce/blocks/*": [
+			"@poocommerce/blocks/*": [
 				"assets/js/blocks/*"
 			],
-			"@woocommerce/editor-components/*": [
+			"@poocommerce/editor-components/*": [
 				"assets/js/editor-components/*"
 			],
-			"@woocommerce/block-data": [
+			"@poocommerce/block-data": [
 				"assets/js/data"
 			],
-			"@woocommerce/block-hocs": [
+			"@poocommerce/block-hocs": [
 				"assets/js/hocs"
 			],
-			"@woocommerce/blocks-registry": [
+			"@poocommerce/blocks-registry": [
 				"assets/js/blocks-registry"
 			],
-			"@woocommerce/blocks-checkout": [
+			"@poocommerce/blocks-checkout": [
 				"packages/checkout"
 			],
-			"@woocommerce/blocks-checkout-events": [
+			"@poocommerce/blocks-checkout-events": [
 				"assets/js/events"
 			],
-			"@woocommerce/blocks-components": [
+			"@poocommerce/blocks-components": [
 				"packages/components"
 			],
-			"@woocommerce/price-format": [
+			"@poocommerce/price-format": [
 				"packages/prices"
 			],
-			"@woocommerce/block-settings": [
+			"@poocommerce/block-settings": [
 				"assets/js/settings/blocks"
 			],
-			"@woocommerce/icons": [
+			"@poocommerce/icons": [
 				"assets/js/icons"
 			],
-			"@woocommerce/resource-previews": [
+			"@poocommerce/resource-previews": [
 				"assets/js/previews"
 			],
-			"@woocommerce/settings": [
+			"@poocommerce/settings": [
 				"assets/js/settings/shared"
 			],
-			"@woocommerce/shared-context": [
+			"@poocommerce/shared-context": [
 				"assets/js/shared/context"
 			],
-			"@woocommerce/shared-hocs": [
+			"@poocommerce/shared-hocs": [
 				"assets/js/shared/hocs"
 			],
-			"@woocommerce/stores/store-notices": [
+			"@poocommerce/stores/store-notices": [
 				"assets/js/base/stores/store-notices"
 			],
-			"@woocommerce/stores/woocommerce/cart": [
-				"assets/js/base/stores/woocommerce/cart"
+			"@poocommerce/stores/poocommerce/cart": [
+				"assets/js/base/stores/poocommerce/cart"
 			],
-			"@woocommerce/stores/woocommerce/product-data": [
-				"assets/js/base/stores/woocommerce/product-data"
+			"@poocommerce/stores/poocommerce/product-data": [
+				"assets/js/base/stores/poocommerce/product-data"
 			],
-			"@woocommerce/stores/woocommerce/products": [
-				"assets/js/base/stores/woocommerce/products"
+			"@poocommerce/stores/poocommerce/products": [
+				"assets/js/base/stores/poocommerce/products"
 			],
-			"@woocommerce/type-defs/*": [
+			"@poocommerce/type-defs/*": [
 				"assets/js/types/type-defs/*"
 			],
-			"@woocommerce/types": [
+			"@poocommerce/types": [
 				"assets/js/types"
 			],
-			"@woocommerce/storybook-controls": [
+			"@poocommerce/storybook-controls": [
 				"storybook/custom-controls"
 			],
-			"@woocommerce/utils": [
+			"@poocommerce/utils": [
 				"assets/js/utils"
 			],
-			"@woocommerce/e2e-utils": [
+			"@poocommerce/e2e-utils": [
 				"tests/e2e/utils"
 			],
 			"@wordpress/interactivity": [
@@ -148,14 +148,14 @@
 			"@wordpress/interactivity-router": [
 				"node_modules/@wordpress/interactivity-router/src/index.ts"
 			],
-			"@woocommerce/test-utils/msw": [
+			"@poocommerce/test-utils/msw": [
 				"tests/js/config/msw-setup"
 			],
-			"@woocommerce/entities": [
+			"@poocommerce/entities": [
 				"assets/js/entities"
 			],
-			"@woocommerce/sanitize": [
-				"node_modules/@woocommerce/sanitize/src/index.ts"
+			"@poocommerce/sanitize": [
+				"node_modules/@poocommerce/sanitize/src/index.ts"
 			],
 		}
 	}

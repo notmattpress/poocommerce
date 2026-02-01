@@ -28,25 +28,25 @@ const entries = {
 	...editorStyleEntries,
 
 	// Experimental mini cart frontend modules, only enqueued when experimental-iapi-mini-cart feature flag is enabled.
-	'woocommerce/mini-cart': './assets/js/blocks/mini-cart/iapi-frontend.ts',
+	'poocommerce/mini-cart': './assets/js/blocks/mini-cart/iapi-frontend.ts',
 
 	// Product elements frontend module. Share by several blocks.
-	'woocommerce/product-elements':
+	'poocommerce/product-elements':
 		'./assets/js/atomic/blocks/product-elements/frontend.ts',
 	// Add to cart with options quantity selector frontend module used by the
 	// Product Quantity block and the Grouped Product Selector block.
-	'woocommerce/add-to-cart-with-options-quantity-selector':
+	'poocommerce/add-to-cart-with-options-quantity-selector':
 		'./assets/js/blocks/add-to-cart-with-options/quantity-selector/frontend.ts',
 
 	// Other
-	'@woocommerce/stores/woocommerce/cart':
-		'./assets/js/base/stores/woocommerce/cart.ts',
-	'@woocommerce/stores/store-notices':
+	'@poocommerce/stores/poocommerce/cart':
+		'./assets/js/base/stores/poocommerce/cart.ts',
+	'@poocommerce/stores/store-notices':
 		'./assets/js/base/stores/store-notices.ts',
-	'@woocommerce/stores/woocommerce/product-data':
-		'./assets/js/base/stores/woocommerce/product-data.ts',
-	'@woocommerce/stores/woocommerce/products':
-		'./assets/js/base/stores/woocommerce/products.ts',
+	'@poocommerce/stores/poocommerce/product-data':
+		'./assets/js/base/stores/poocommerce/product-data.ts',
+	'@poocommerce/stores/poocommerce/products':
+		'./assets/js/base/stores/poocommerce/products.ts',
 };
 
 module.exports = {
@@ -80,10 +80,10 @@ module.exports = {
 			combinedOutputFile: './interactivity-blocks-frontend-assets.php',
 			requestToExternalModule( request ) {
 				if (
-					request.startsWith( '@woocommerce/stores/woocommerce/' )
+					request.startsWith( '@poocommerce/stores/poocommerce/' )
 				) {
 					return `module ${ request }`;
-				} else if ( request.startsWith( '@woocommerce/stores/' ) ) {
+				} else if ( request.startsWith( '@poocommerce/stores/' ) ) {
 					return `import ${ request }`;
 				}
 			},

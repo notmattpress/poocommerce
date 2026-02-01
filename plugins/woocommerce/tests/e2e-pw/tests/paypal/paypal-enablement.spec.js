@@ -17,11 +17,11 @@ test.describe(
 
 			await page
 				.locator( '#adminmenu' )
-				.getByRole( 'link', { name: 'WooCommerce', exact: true } )
+				.getByRole( 'link', { name: 'PooCommerce', exact: true } )
 				.click();
 
 			const wcMenu = page.locator(
-				'#toplevel_page_woocommerce .wp-submenu'
+				'#toplevel_page_poocommerce .wp-submenu'
 			);
 			await expect( wcMenu ).toBeVisible();
 

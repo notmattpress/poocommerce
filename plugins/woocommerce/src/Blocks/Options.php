@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks;
+namespace Automattic\PooCommerce\Blocks;
 
 /**
  * Contains all the option names used by the plugin.

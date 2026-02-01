@@ -2,20 +2,20 @@
 /**
  * Order details table shown in emails.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-order-details.php.
+ * This template can be overridden by copying it to yourtheme/poocommerce/emails/email-order-details.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * HOWEVER, on occasion PooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
+ * @see https://poocommerce.com/document/template-structure/
+ * @package PooCommerce\Templates\Emails
  * @version 10.6.0
  */
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,14 +29,14 @@ $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improveme
  * @since 10.6.0
  * @param bool $display_section_divider Whether to display the section divider. Default true.
  */
-$display_section_divider   = (bool) apply_filters( 'woocommerce_email_body_display_section_divider', true );
+$display_section_divider   = (bool) apply_filters( 'poocommerce_email_body_display_section_divider', true );
 $heading_class             = $email_improvements_enabled ? 'email-order-detail-heading' : '';
 $order_table_class         = $email_improvements_enabled ? 'email-order-details' : '';
 $order_total_text_align    = $email_improvements_enabled ? 'right' : 'left';
 $order_quantity_text_align = $email_improvements_enabled ? 'right' : 'left';
 
 if ( $email_improvements_enabled ) {
-	add_filter( 'woocommerce_order_shipping_to_display_shipped_via', '__return_false' );
+	add_filter( 'poocommerce_order_shipping_to_display_shipped_via', '__return_false' );
 }
 
 /**
@@ -48,12 +48,12 @@ if ( $email_improvements_enabled ) {
  * @param WC_Email $email Email object.
  * @since 2.5.0
  */
-do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
+do_action( 'poocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
 
 <h2 class="<?php echo esc_attr( $heading_class ); ?>">
 	<?php
 	if ( $email_improvements_enabled ) {
-		echo wp_kses_post( __( 'Order summary', 'woocommerce' ) );
+		echo wp_kses_post( __( 'Order summary', 'poocommerce' ) );
 	}
 	if ( $sent_to_admin ) {
 		$before = '<a class="link" href="' . esc_url( $order->get_edit_order_url() ) . '">';
@@ -66,10 +66,10 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 		echo '<br><span>';
 	}
 	/* translators: %s: Order ID. */
-	$order_number_string = __( '[Order #%s]', 'woocommerce' );
+	$order_number_string = __( '[Order #%s]', 'poocommerce' );
 	if ( $email_improvements_enabled ) {
 		/* translators: %s: Order ID. */
-		$order_number_string = __( 'Order #%s', 'woocommerce' );
+		$order_number_string = __( 'Order #%s', 'poocommerce' );
 	}
 	echo wp_kses_post( $before . sprintf( $order_number_string . $after . ' (<time datetime="%s">%s</time>)', $order->get_order_number(), $order->get_date_created()->format( 'c' ), wc_format_datetime( $order->get_date_created() ) ) );
 	if ( $email_improvements_enabled ) {
@@ -82,9 +82,9 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 	<table class="td font-family <?php echo esc_attr( $order_table_class ); ?>" cellspacing="0" cellpadding="6" style="width: 100%;" border="1">
 		<thead>
 			<tr>
-				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $order_quantity_text_align ); ?>;"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
-				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $order_total_text_align ); ?>;"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Product', 'poocommerce' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $order_quantity_text_align ); ?>;"><?php esc_html_e( 'Quantity', 'poocommerce' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $order_total_text_align ); ?>;"><?php esc_html_e( 'Price', 'poocommerce' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -134,7 +134,7 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 		if ( $order->get_customer_note() && ! $email_improvements_enabled ) {
 			?>
 			<tr>
-				<th class="td text-align-left" scope="row" colspan="2"><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
+				<th class="td text-align-left" scope="row" colspan="2"><?php esc_html_e( 'Note:', 'poocommerce' ); ?></th>
 				<td class="td text-align-left"><?php echo wp_kses( nl2br( wc_wptexturize_order_note( $order->get_customer_note() ) ), array() ); ?></td>
 			</tr>
 			<?php
@@ -148,7 +148,7 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 		<table class="td font-family <?php echo esc_attr( $order_table_class ); ?>" cellspacing="0" cellpadding="6" style="width: 100%;" border="1" role="presentation">
 			<tr class="order-customer-note">
 				<td class="td text-align-left">
-					<b><?php esc_html_e( 'Customer note', 'woocommerce' ); ?></b><br>
+					<b><?php esc_html_e( 'Customer note', 'poocommerce' ); ?></b><br>
 					<?php echo wp_kses( nl2br( wc_wptexturize_order_note( $order->get_customer_note() ) ), array( 'br' => array() ) ); ?>
 				</td>
 			</tr>
@@ -158,7 +158,7 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 
 <?php
 if ( $email_improvements_enabled ) {
-	remove_filter( 'woocommerce_order_shipping_to_display_shipped_via', '__return_false' );
+	remove_filter( 'poocommerce_order_shipping_to_display_shipped_via', '__return_false' );
 }
 
 /**
@@ -170,5 +170,5 @@ if ( $email_improvements_enabled ) {
  * @param WC_Email $email Email object.
  * @since 2.5.0
  */
-do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email );
+do_action( 'poocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email );
 ?>

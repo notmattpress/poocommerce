@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,7 +18,7 @@ use WC_Tax;
  *
  * Class DataUtils
  *
- * @package Automattic\WooCommerce\Internal\RestApi\Routes\V4\Refunds
+ * @package Automattic\PooCommerce\Internal\RestApi\Routes\V4\Refunds
  */
 class DataUtils {
 	/**
@@ -151,24 +151,24 @@ class DataUtils {
 			$line_item_id = $line_item['line_item_id'] ?? null;
 
 			if ( ! $line_item_id ) {
-				return new WP_Error( 'invalid_line_item', __( 'Line item ID is required.', 'woocommerce' ) );
+				return new WP_Error( 'invalid_line_item', __( 'Line item ID is required.', 'poocommerce' ) );
 			}
 
 			$item = $order->get_item( $line_item_id );
 
 			// Validate item exists and belongs to the order.
 			if ( ! $item || $item->get_order_id() !== $order->get_id() ) {
-				return new WP_Error( 'invalid_line_item', __( 'Line item not found.', 'woocommerce' ) );
+				return new WP_Error( 'invalid_line_item', __( 'Line item not found.', 'poocommerce' ) );
 			}
 
 			if ( ! $item instanceof \WC_Order_Item_Product && ! $item instanceof \WC_Order_Item_Fee && ! $item instanceof \WC_Order_Item_Shipping ) {
-				return new WP_Error( 'invalid_line_item', __( 'Line item is not a product, fee, or shipping line.', 'woocommerce' ) );
+				return new WP_Error( 'invalid_line_item', __( 'Line item is not a product, fee, or shipping line.', 'poocommerce' ) );
 			}
 
 			// Validate item quantity is not greater than the item quantity.
 			if ( $item->get_quantity() < $line_item['quantity'] ) {
 				/* translators: %s: item quantity */
-				return new WP_Error( 'invalid_line_item', sprintf( __( 'Line item quantity cannot be greater than the item quantity (%s).', 'woocommerce' ), $item->get_quantity() ) );
+				return new WP_Error( 'invalid_line_item', sprintf( __( 'Line item quantity cannot be greater than the item quantity (%s).', 'poocommerce' ), $item->get_quantity() ) );
 			}
 
 			// Validate refund total is not greater than the item total (including tax).
@@ -178,7 +178,7 @@ class DataUtils {
 					'invalid_refund_amount',
 					sprintf(
 						/* translators: %s: item total with tax */
-						__( 'Refund total cannot be greater than the line item total including tax (%s).', 'woocommerce' ),
+						__( 'Refund total cannot be greater than the line item total including tax (%s).', 'poocommerce' ),
 						$item_total_with_tax
 					)
 				);
@@ -192,7 +192,7 @@ class DataUtils {
 
 					foreach ( $line_item['refund_tax'] as $refund_tax ) {
 						if ( ! isset( $refund_tax['id'], $refund_tax['refund_total'] ) ) {
-							return new WP_Error( 'invalid_line_item', __( 'Tax id and refund_total are required.', 'woocommerce' ) );
+							return new WP_Error( 'invalid_line_item', __( 'Tax id and refund_total are required.', 'poocommerce' ) );
 						}
 						$tax_id           = $refund_tax['id'];
 						$tax_refund_total = $refund_tax['refund_total'];
@@ -202,7 +202,7 @@ class DataUtils {
 								'invalid_line_item',
 								sprintf(
 								/* translators: %s: tax IDs */
-									__( 'Line item tax not found. Must be: %s.', 'woocommerce' ),
+									__( 'Line item tax not found. Must be: %s.', 'poocommerce' ),
 									implode( ', ', $allowed_tax_ids )
 								)
 							);
@@ -213,7 +213,7 @@ class DataUtils {
 								'invalid_refund_amount',
 								sprintf(
 								/* translators: %s: tax total */
-									__( 'Refund tax total cannot be greater than the line item tax total (%s).', 'woocommerce' ),
+									__( 'Refund tax total cannot be greater than the line item tax total (%s).', 'poocommerce' ),
 									$item_taxes['total'][ $tax_id ]
 								)
 							);

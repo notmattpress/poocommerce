@@ -2,19 +2,19 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
-use Automattic\WooCommerce\Blueprint\Steps\RunSql;
-use Automattic\WooCommerce\Blueprint\Util;
-use Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Steps\RunSql;
+use Automattic\PooCommerce\Blueprint\Util;
+use Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions;
 
 /**
  * Class ExportWCSettingsTax
  *
- * This class exports WooCommerce settings on the Tax page.
+ * This class exports PooCommerce settings on the Tax page.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCSettingsTax extends ExportWCSettings {
 	use UseWPFunctions;
@@ -39,7 +39,7 @@ class ExportWCSettingsTax extends ExportWCSettings {
 
 
 	/**
-	 * Export WooCommerce tax rates.
+	 * Export PooCommerce tax rates.
 	 *
 	 * @return array array of steps
 	 */
@@ -49,8 +49,8 @@ class ExportWCSettingsTax extends ExportWCSettings {
 		return array(
 			$basic_tax_settings,
 			...$this->generateTaxRateSteps( 'wc_tax_rate_classes' ),
-			...$this->generateTaxRateSteps( 'woocommerce_tax_rates' ),
-			...$this->generateTaxRateSteps( 'woocommerce_tax_rate_locations' ),
+			...$this->generateTaxRateSteps( 'poocommerce_tax_rates' ),
+			...$this->generateTaxRateSteps( 'poocommerce_tax_rate_locations' ),
 		);
 	}
 
@@ -61,7 +61,7 @@ class ExportWCSettingsTax extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Tax', 'woocommerce' );
+		return __( 'Tax', 'poocommerce' );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class ExportWCSettingsTax extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes all settings in WooCommerce | Settings | Tax.', 'woocommerce' );
+		return __( 'Includes all settings in PooCommerce | Settings | Tax.', 'poocommerce' );
 	}
 
 	/**

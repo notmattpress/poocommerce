@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
 
 /**
  * Tests for the FraudProtectionController class.
@@ -53,7 +53,7 @@ class FraudProtectionControllerTest extends \WC_Unit_Test_Case {
 
 		// Replace the logger with our mock.
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $logger ) {
 				return $logger;
 			}
@@ -87,7 +87,7 @@ class FraudProtectionControllerTest extends \WC_Unit_Test_Case {
 
 		// Replace the logger with our mock.
 		add_filter(
-			'woocommerce_logging_class',
+			'poocommerce_logging_class',
 			function () use ( $logger ) {
 				return $logger;
 			}
@@ -102,7 +102,7 @@ class FraudProtectionControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_no_hooks_when_feature_disabled(): void {
 		// Ensure feature is disabled.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'no' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'no' );
 
 		// Get a fresh controller instance.
 		$controller = $this->get_fresh_controller();
@@ -144,7 +144,7 @@ class FraudProtectionControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_feature_is_enabled_returns_true_when_enabled(): void {
 		// Enable the feature.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'yes' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'yes' );
 
 		// Get a fresh controller instance to pick up the option change.
 		$controller = $this->get_fresh_controller();
@@ -158,7 +158,7 @@ class FraudProtectionControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_feature_is_enabled_returns_false_when_disabled(): void {
 		// Disable the feature.
-		update_option( 'woocommerce_feature_fraud_protection_enabled', 'no' );
+		update_option( 'poocommerce_feature_fraud_protection_enabled', 'no' );
 
 		// Get a fresh controller instance to pick up the option change.
 		$controller = $this->get_fresh_controller();
@@ -174,8 +174,8 @@ class FraudProtectionControllerTest extends \WC_Unit_Test_Case {
 		parent::tearDown();
 
 		// Clean up any filters or options.
-		remove_all_filters( 'woocommerce_logging_class' );
-		delete_option( 'woocommerce_feature_fraud_protection_enabled' );
+		remove_all_filters( 'poocommerce_logging_class' );
+		delete_option( 'poocommerce_feature_fraud_protection_enabled' );
 		delete_option( 'jetpack_activation_source' );
 
 		// Remove any init hooks registered by the controller.

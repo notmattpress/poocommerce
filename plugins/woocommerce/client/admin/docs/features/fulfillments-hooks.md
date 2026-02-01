@@ -1,6 +1,6 @@
-# WooCommerce Order Fulfillments - Complete Hooks Reference
+# PooCommerce Order Fulfillments - Complete Hooks Reference
 
-This document provides a comprehensive reference for all action hooks and filter hooks available in the WooCommerce Order Fulfillments system.
+This document provides a comprehensive reference for all action hooks and filter hooks available in the PooCommerce Order Fulfillments system.
 
 ## Action Hooks
 
@@ -8,7 +8,7 @@ Action hooks allow you to execute custom code at specific points in the fulfillm
 
 ### Data Lifecycle Actions
 
-#### `woocommerce_fulfillment_after_create`
+#### `poocommerce_fulfillment_after_create`
 
 Fired after a fulfillment is successfully created in the database.
 
@@ -21,14 +21,14 @@ Fired after a fulfillment is successfully created in the database.
 **Purpose:** Allows plugins to perform actions after a fulfillment is created, such as updating order fulfillment status, syncing to external systems, or logging.
 
 ```php
-add_action( 'woocommerce_fulfillment_after_create', 'log_fulfillment_creation' );
+add_action( 'poocommerce_fulfillment_after_create', 'log_fulfillment_creation' );
 
 function log_fulfillment_creation( $fulfillment ) {
     error_log( 'Fulfillment created: ' . $fulfillment->get_id() );
 }
 ```
 
-#### `woocommerce_fulfillment_after_fulfill`
+#### `poocommerce_fulfillment_after_fulfill`
 
 Fired after a fulfillment is marked as fulfilled (both during create and update operations).
 
@@ -41,7 +41,7 @@ Fired after a fulfillment is marked as fulfilled (both during create and update 
 **Purpose:** Triggered when a fulfillment transitions to fulfilled status, useful for inventory updates or external system notifications.
 
 ```php
-add_action( 'woocommerce_fulfillment_after_fulfill', 'update_inventory_system' );
+add_action( 'poocommerce_fulfillment_after_fulfill', 'update_inventory_system' );
 
 function update_inventory_system( $fulfillment ) {
     $items = $fulfillment->get_meta( '_items', true );
@@ -49,7 +49,7 @@ function update_inventory_system( $fulfillment ) {
 }
 ```
 
-#### `woocommerce_fulfillment_after_update`
+#### `poocommerce_fulfillment_after_update`
 
 Fired after a fulfillment is successfully updated in the database.
 
@@ -62,14 +62,14 @@ Fired after a fulfillment is successfully updated in the database.
 **Purpose:** Allows plugins to perform actions after a fulfillment is updated.
 
 ```php
-add_action( 'woocommerce_fulfillment_after_update', 'sync_fulfillment_changes' );
+add_action( 'poocommerce_fulfillment_after_update', 'sync_fulfillment_changes' );
 
 function sync_fulfillment_changes( $fulfillment ) {
     // Sync changes to external fulfillment service
 }
 ```
 
-#### `woocommerce_fulfillment_after_delete`
+#### `poocommerce_fulfillment_after_delete`
 
 Fired after a fulfillment is soft-deleted from the database.
 
@@ -82,7 +82,7 @@ Fired after a fulfillment is soft-deleted from the database.
 **Purpose:** Allows plugins to perform cleanup actions after a fulfillment is deleted.
 
 ```php
-add_action( 'woocommerce_fulfillment_after_delete', 'cleanup_fulfillment_data' );
+add_action( 'poocommerce_fulfillment_after_delete', 'cleanup_fulfillment_data' );
 
 function cleanup_fulfillment_data( $fulfillment ) {
     // Clean up related data or notify external systems
@@ -91,7 +91,7 @@ function cleanup_fulfillment_data( $fulfillment ) {
 
 ### Customer Notification Actions
 
-#### `woocommerce_fulfillment_created_notification`
+#### `poocommerce_fulfillment_created_notification`
 
 Fired when customer notification should be sent for a new fulfilled fulfillment. This should only be triggered for fulfilled fulfillments. Draft fulfillments shouldn’t send a notification when created.
 
@@ -107,10 +107,10 @@ Fired when customer notification should be sent for a new fulfilled fulfillment.
 
 ```php
 // To trigger the default email notification sent when a fulfillment is created
-do_action( 'woocommerce_fulfillment_created_notification', $order_id, $fulfillment, $order );
+do_action( 'poocommerce_fulfillment_created_notification', $order_id, $fulfillment, $order );
 
 // To add another notification type alongside the email notification
-add_action( 'woocommerce_fulfillment_created_notification', 'send_sms_notification', 10, 3 );
+add_action( 'poocommerce_fulfillment_created_notification', 'send_sms_notification', 10, 3 );
 
 function send_sms_notification( $order_id, $fulfillment, $order ) {
     $phone = $order->get_billing_phone();
@@ -122,7 +122,7 @@ function send_sms_notification( $order_id, $fulfillment, $order ) {
 }
 ```
 
-#### `woocommerce_fulfillment_updated_notification`
+#### `poocommerce_fulfillment_updated_notification`
 
 Fired when customer notification should be sent for an updated fulfillment. This should only be triggered for fulfilled fulfillments. Draft fulfillments shouldn’t send a notification when updated.
 
@@ -138,17 +138,17 @@ Fired when customer notification should be sent for an updated fulfillment. This
 
 ```php
 // To trigger the default email notification sent when a fulfillment is updated
-do_action( 'woocommerce_fulfillment_updated_notification', $order_id, $fulfillment, $order );
+do_action( 'poocommerce_fulfillment_updated_notification', $order_id, $fulfillment, $order );
 
 // To add another notification type alongside the email notification
-add_action( 'woocommerce_fulfillment_updated_notification', 'notify_fulfillment_update', 10, 3 );
+add_action( 'poocommerce_fulfillment_updated_notification', 'notify_fulfillment_update', 10, 3 );
 
 function notify_fulfillment_update( $order_id, $fulfillment, $order ) {
     // Send update notification
 }
 ```
 
-#### `woocommerce_fulfillment_deleted_notification`
+#### `poocommerce_fulfillment_deleted_notification`
 
 Fired when customer notification should be sent for a deleted fulfillment. This should only be triggered for fulfilled fulfillments. Draft fulfillments shouldn’t send a notification when deleted.
 
@@ -164,10 +164,10 @@ Fired when customer notification should be sent for a deleted fulfillment. This 
 
 ```php
 // To trigger the default email notification sent when a fulfillment is cancelled
-do_action( 'woocommerce_fulfillment_deleted_notification', $order_id, $fulfillment, $order );
+do_action( 'poocommerce_fulfillment_deleted_notification', $order_id, $fulfillment, $order );
 
 // To add another notification type alongside the email notification
-add_action( 'woocommerce_fulfillment_deleted_notification', 'notify_fulfillment_cancellation', 10, 3 );
+add_action( 'poocommerce_fulfillment_deleted_notification', 'notify_fulfillment_cancellation', 10, 3 );
 
 function notify_fulfillment_cancellation( $order_id, $fulfillment, $order ) {
     // Send cancellation notification
@@ -176,7 +176,7 @@ function notify_fulfillment_cancellation( $order_id, $fulfillment, $order ) {
 
 ### Email Template Actions
 
-#### `woocommerce_email_fulfillment_details`
+#### `poocommerce_email_fulfillment_details`
 
 Called in email templates to display fulfillment details.
 
@@ -193,7 +193,7 @@ Called in email templates to display fulfillment details.
 **Purpose:** Allows customization of fulfillment details display in emails.
 
 ```php
-add_action( 'woocommerce_email_fulfillment_details', 'add_custom_fulfillment_info', 10, 5 );
+add_action( 'poocommerce_email_fulfillment_details', 'add_custom_fulfillment_info', 10, 5 );
 
 function add_custom_fulfillment_info( $order, $fulfillment, $sent_to_admin, $plain_text, $email ) {
     if ( ! $sent_to_admin ) {
@@ -202,7 +202,7 @@ function add_custom_fulfillment_info( $order, $fulfillment, $sent_to_admin, $pla
 }
 ```
 
-#### `woocommerce_email_fulfillment_meta`
+#### `poocommerce_email_fulfillment_meta`
 
 Called in email templates to display fulfillment metadata.
 
@@ -219,7 +219,7 @@ Called in email templates to display fulfillment metadata.
 **Purpose:** Allows customization of fulfillment metadata display in emails.
 
 ```php
-add_action( 'woocommerce_email_fulfillment_meta', 'display_custom_meta', 10, 5 );
+add_action( 'poocommerce_email_fulfillment_meta', 'display_custom_meta', 10, 5 );
 
 function display_custom_meta( $order, $fulfillment, $sent_to_admin, $plain_text, $email ) {
     $warehouse = $fulfillment->get_meta( '_warehouse_location', true );
@@ -229,7 +229,7 @@ function display_custom_meta( $order, $fulfillment, $sent_to_admin, $plain_text,
 }
 ```
 
-#### `woocommerce_email_before_fulfillment_table`
+#### `poocommerce_email_before_fulfillment_table`
 
 Called before the fulfillment items table in emails.
 
@@ -246,14 +246,14 @@ Called before the fulfillment items table in emails.
 **Purpose:** Allows adding content before the fulfillment table.
 
 ```php
-add_action( 'woocommerce_email_before_fulfillment_table', 'add_fulfillment_header', 10, 5 );
+add_action( 'poocommerce_email_before_fulfillment_table', 'add_fulfillment_header', 10, 5 );
 
 function add_fulfillment_header( $order, $fulfillment, $sent_to_admin, $plain_text, $email ) {
     echo '<h3>Your Items Have Been Shipped</h3>';
 }
 ```
 
-#### `woocommerce_email_after_fulfillment_table`
+#### `poocommerce_email_after_fulfillment_table`
 
 Called after the fulfillment items table in emails.
 
@@ -270,7 +270,7 @@ Called after the fulfillment items table in emails.
 **Purpose:** Allows adding content after the fulfillment table.
 
 ```php
-add_action( 'woocommerce_email_after_fulfillment_table', 'add_tracking_info', 10, 5 );
+add_action( 'poocommerce_email_after_fulfillment_table', 'add_tracking_info', 10, 5 );
 
 function add_tracking_info( $order, $fulfillment, $sent_to_admin, $plain_text, $email ) {
     $tracking = $fulfillment->get_meta( '_tracking_number', true );
@@ -286,7 +286,7 @@ Filter hooks allow you to modify data as it passes through the fulfillment syste
 
 ### Email Template Filters
 
-#### `woocommerce_email_fulfillment_items_args`
+#### `poocommerce_email_fulfillment_items_args`
 
 Filters arguments passed to the fulfillment items template.
 
@@ -301,7 +301,7 @@ Filters arguments passed to the fulfillment items template.
 **Purpose:** Allows customization of how fulfillment items are displayed in emails.
 
 ```php
-add_filter( 'woocommerce_email_fulfillment_items_args', 'customize_fulfillment_display' );
+add_filter( 'poocommerce_email_fulfillment_items_args', 'customize_fulfillment_display' );
 
 function customize_fulfillment_display( $args ) {
     $args['show_sku'] = true;
@@ -310,7 +310,7 @@ function customize_fulfillment_display( $args ) {
 }
 ```
 
-#### `woocommerce_get_email_fulfillment_items_table`
+#### `poocommerce_get_email_fulfillment_items_table`
 
 Filters the complete HTML output of the fulfillment items table.
 
@@ -327,7 +327,7 @@ Filters the complete HTML output of the fulfillment items table.
 **Purpose:** Allows complete customization of the fulfillment items table HTML.
 
 ```php
-add_filter( 'woocommerce_get_email_fulfillment_items_table', 'custom_fulfillment_table', 10, 3 );
+add_filter( 'poocommerce_get_email_fulfillment_items_table', 'custom_fulfillment_table', 10, 3 );
 
 function custom_fulfillment_table( $html, $order, $fulfillment ) {
     // Return custom HTML table
@@ -337,7 +337,7 @@ function custom_fulfillment_table( $html, $order, $fulfillment ) {
 
 ### Data Validation Filters
 
-#### `woocommerce_fulfillment_before_create`
+#### `poocommerce_fulfillment_before_create`
 
 Allows modification of fulfillment data before it's created in the database. If you want to cancel the creation, you can throw a `FulfillmentException` exception, which will cancel the process , and show the error message on the user’s form.
 
@@ -352,7 +352,7 @@ Allows modification of fulfillment data before it's created in the database. If 
 **Purpose:** Validate or modify fulfillment data before creation.
 
 ```php
-add_filter( 'woocommerce_fulfillment_before_create', 'validate_fulfillment_data' );
+add_filter( 'poocommerce_fulfillment_before_create', 'validate_fulfillment_data' );
 
 function validate_fulfillment_data( $fulfillment ) {
     // Add validation or set default values
@@ -362,14 +362,14 @@ function validate_fulfillment_data( $fulfillment ) {
 
     // Or, prevent the update action if some checks of yours fail
     if ( ! $fulfillment->get_meta( '_required_meta' ) ) {
-      throw new FulfillmentException( __( 'The fulfillment is missing the required item. Please add it to the fulfillment and try again.', 'woocommerce' ) );
+      throw new FulfillmentException( __( 'The fulfillment is missing the required item. Please add it to the fulfillment and try again.', 'poocommerce' ) );
     }
 
     return $fulfillment;
 }
 ```
 
-#### `woocommerce_fulfillment_before_update`
+#### `poocommerce_fulfillment_before_update`
 
 Allows modification of fulfillment data before it's updated in the database.
 
@@ -384,7 +384,7 @@ Allows modification of fulfillment data before it's updated in the database.
 **Purpose:** Validate or modify fulfillment data before update. If you want to cancel the update, you can throw a `FulfillmentException` exception, which will cancel the process, and show the error message on the user’s form.
 
 ```php
-add_filter( 'woocommerce_fulfillment_before_update', 'log_fulfillment_changes' );
+add_filter( 'poocommerce_fulfillment_before_update', 'log_fulfillment_changes' );
 
 function log_fulfillment_changes( $fulfillment ) {
     // Log changes or perform validation
@@ -394,11 +394,11 @@ function log_fulfillment_changes( $fulfillment ) {
     }
 
     // Or, prevent the update action if some checks of yours fail
-    throw new FulfillmentException( __( 'The fulfillment is missing the required item. Please add it to the fulfillment and try again.', 'woocommerce' ) );
+    throw new FulfillmentException( __( 'The fulfillment is missing the required item. Please add it to the fulfillment and try again.', 'poocommerce' ) );
 }
 ```
 
-#### `woocommerce_fulfillment_before_fulfill`
+#### `poocommerce_fulfillment_before_fulfill`
 
 Allows modification of fulfillment data before it's marked as fulfilled. If you want to cancel the fulfillment, you can throw a `FulfillmentException` exception, which will cancel the process, and show the error message on the user’s form.
 
@@ -413,7 +413,7 @@ Allows modification of fulfillment data before it's marked as fulfilled. If you 
 **Purpose:** Validate or modify fulfillment data before marking as fulfilled.
 
 ```php
-add_filter( 'woocommerce_fulfillment_before_fulfill', 'set_fulfillment_timestamp' );
+add_filter( 'poocommerce_fulfillment_before_fulfill', 'set_fulfillment_timestamp' );
 
 function set_fulfillment_timestamp( $fulfillment ) {
     if ( ! $fulfillment->get_meta( '_fulfilled_timestamp', true )) {
@@ -422,11 +422,11 @@ function set_fulfillment_timestamp( $fulfillment ) {
     }
 
     // Or, prevent the fulfill action if some checks of yours fail
-    throw new FulfillmentException( __( 'The fulfillment already has a fulfilled timestamp. Please check.', 'woocommerce' ) );
+    throw new FulfillmentException( __( 'The fulfillment already has a fulfilled timestamp. Please check.', 'poocommerce' ) );
 }
 ```
 
-#### `woocommerce_fulfillment_before_delete`
+#### `poocommerce_fulfillment_before_delete`
 
 Allows modification of fulfillment data before it's deleted. If you want to cancel the deletion, you can throw a `FulfillmentException` exception, which will cancel the process, and show the error message on the user’s form.
 
@@ -441,7 +441,7 @@ Allows modification of fulfillment data before it's deleted. If you want to canc
 **Purpose:** Perform validation or logging before deletion.
 
 ```php
-add_filter( 'woocommerce_fulfillment_before_delete', 'log_fulfillment_deletion' );
+add_filter( 'poocommerce_fulfillment_before_delete', 'log_fulfillment_deletion' );
 
 function log_fulfillment_deletion( $fulfillment ) {
 
@@ -451,13 +451,13 @@ function log_fulfillment_deletion( $fulfillment ) {
     }
 
 	// Or, prevent the delete action if some checks of yours fail
-    throw new FulfillmentException( __( 'The fulfillment can\'t be deleted because it is being processed by a 3rd party plugin.', 'woocommerce' ) );
+    throw new FulfillmentException( __( 'The fulfillment can\'t be deleted because it is being processed by a 3rd party plugin.', 'poocommerce' ) );
 }
 ```
 
 ### Status and Display Filters
 
-#### `woocommerce_fulfillment_calculate_order_fulfillment_status`
+#### `poocommerce_fulfillment_calculate_order_fulfillment_status`
 
 Allows customization of how order fulfillment status is calculated.
 
@@ -474,7 +474,7 @@ Allows customization of how order fulfillment status is calculated.
 **Purpose:** Customize the logic for determining order fulfillment status.
 
 ```php
-add_filter( 'woocommerce_fulfillment_calculate_order_fulfillment_status', 'custom_fulfillment_status', 10, 3 );
+add_filter( 'poocommerce_fulfillment_calculate_order_fulfillment_status', 'custom_fulfillment_status', 10, 3 );
 
 function custom_fulfillment_status( $status, $order, $fulfillments ) {
     // Custom logic for status calculation
@@ -488,7 +488,7 @@ function custom_fulfillment_status( $status, $order, $fulfillments ) {
 }
 ```
 
-#### `woocommerce_fulfillment_order_fulfillment_status_text`
+#### `poocommerce_fulfillment_order_fulfillment_status_text`
 
 Allows customization of fulfillment status text display on the customer order details page. (“It has been **Fulfilled**” part on the below image)
 
@@ -507,17 +507,17 @@ Allows customization of fulfillment status text display on the customer order de
 **Purpose:** Customize how fulfillment status is displayed to users.
 
 ```php
-add_filter( 'woocommerce_fulfillment_order_fulfillment_status_text', 'custom_status_text', 10, 3 );
+add_filter( 'poocommerce_fulfillment_order_fulfillment_status_text', 'custom_status_text', 10, 3 );
 
 function custom_status_text( $text, $status, $order ) {
     if ( $status === 'delivered' ) {
-        return __( 'All items have been <strong>Delivered</strong>.', 'woocommerce' );
+        return __( 'All items have been <strong>Delivered</strong>.', 'poocommerce' );
     }
     return $text;
 }
 ```
 
-#### `woocommerce_fulfillment_order_fulfillment_statuses`
+#### `poocommerce_fulfillment_order_fulfillment_statuses`
 
 Allows adding/modifying available order fulfillment statuses.
 
@@ -532,7 +532,7 @@ Allows adding/modifying available order fulfillment statuses.
 **Purpose:** Add custom order fulfillment statuses.
 
 ```php
-add_filter( 'woocommerce_fulfillment_order_fulfillment_statuses', 'add_custom_order_fulfillment_statuses' );
+add_filter( 'poocommerce_fulfillment_order_fulfillment_statuses', 'add_custom_order_fulfillment_statuses' );
 
 function add_custom_order_fulfillment_statuses( $statuses ) {
     $statuses['bulk_fulfilled'] = __( 'Bulk Fulfilled', 'textdomain' );
@@ -541,7 +541,7 @@ function add_custom_order_fulfillment_statuses( $statuses ) {
 }
 ```
 
-#### `woocommerce_fulfillment_fulfillment_statuses`
+#### `poocommerce_fulfillment_fulfillment_statuses`
 
 Allows adding/modifying available fulfillment statuses.
 
@@ -556,7 +556,7 @@ Allows adding/modifying available fulfillment statuses.
 **Purpose:** Add custom fulfillment statuses.
 
 ```php
-add_filter( 'woocommerce_fulfillment_fulfillment_statuses', 'add_custom_fulfillment_statuses' );
+add_filter( 'poocommerce_fulfillment_fulfillment_statuses', 'add_custom_fulfillment_statuses' );
 
 function add_custom_fulfillment_statuses( $statuses ) {
     $statuses['in_transit'] = __( 'In Transit', 'textdomain' );
@@ -567,7 +567,7 @@ function add_custom_fulfillment_statuses( $statuses ) {
 
 ### Metadata and Translation Filters
 
-#### `woocommerce_fulfillment_meta_key_translations`
+#### `poocommerce_fulfillment_meta_key_translations`
 
 Allows translation of fulfillment meta keys for display purposes.
 
@@ -582,7 +582,7 @@ Allows translation of fulfillment meta keys for display purposes.
 **Purpose:** Provide translations for fulfillment meta keys.
 
 ```php
-add_filter( 'woocommerce_fulfillment_meta_key_translations', 'add_meta_translations' );
+add_filter( 'poocommerce_fulfillment_meta_key_translations', 'add_meta_translations' );
 
 function add_meta_translations( $translations ) {
     $translations['_warehouse_location'] = __( 'Warehouse', 'textdomain' );
@@ -591,7 +591,7 @@ function add_meta_translations( $translations ) {
 }
 ```
 
-#### `woocommerce_fulfillment_translate_meta_key`
+#### `poocommerce_fulfillment_translate_meta_key`
 
 Translates individual fulfillment meta keys for user-friendly display.
 
@@ -606,15 +606,15 @@ Translates individual fulfillment meta keys for user-friendly display.
 **Purpose:** Provide user-friendly labels for meta keys.
 
 ```php
-// This uses translations added via `woocommerce_fulfillment_meta_key_translations` filter.
+// This uses translations added via `poocommerce_fulfillment_meta_key_translations` filter.
 
 // Will return 'Warehouse'.
-$translated_meta_key = apply_filters( 'woocommerce_fulfillment_translate_meta_key', '_warehouse_location' );
+$translated_meta_key = apply_filters( 'poocommerce_fulfillment_translate_meta_key', '_warehouse_location' );
 ```
 
 ### Business Logic Filters
 
-#### `woocommerce_fulfillments_auto_fulfill_products`
+#### `poocommerce_fulfillments_auto_fulfill_products`
 
 Allows specifying which products should be automatically fulfilled.
 
@@ -630,7 +630,7 @@ Allows specifying which products should be automatically fulfilled.
 **Purpose:** Determine which products should be automatically fulfilled based on custom logic.
 
 ```php
-add_filter( 'woocommerce_fulfillments_auto_fulfill_products', 'custom_auto_fulfill_logic', 10, 2 );
+add_filter( 'poocommerce_fulfillments_auto_fulfill_products', 'custom_auto_fulfill_logic', 10, 2 );
 
 function custom_auto_fulfill_logic( $product_ids, $order ) {
     // Auto-fulfill products in a specific category
@@ -651,7 +651,7 @@ function custom_auto_fulfill_logic( $product_ids, $order ) {
 
 ### Shipping Provider Filters
 
-#### `woocommerce_fulfillment_shipping_providers`
+#### `poocommerce_fulfillment_shipping_providers`
 
 Allows adding/modifying available shipping providers.
 
@@ -666,7 +666,7 @@ Allows adding/modifying available shipping providers.
 **Purpose:** Register new shipping providers, or overwrite existing ones for tracking number parsing purposes.
 
 ```php
-add_filter( 'woocommerce_fulfillment_shipping_providers', 'add_custom_providers' );
+add_filter( 'poocommerce_fulfillment_shipping_providers', 'add_custom_providers' );
 
 function add_custom_providers( $providers ) {
     $providers['custom_provider'] = My_Custom_Shipping_Provider::class;
@@ -674,7 +674,7 @@ function add_custom_providers( $providers ) {
 }
 ```
 
-**Note:** `My_Custom_Shipping_Provider` class needs to extend `Automattic\WooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider` class to be able to run tracking number parsing.
+**Note:** `My_Custom_Shipping_Provider` class needs to extend `Automattic\PooCommerce\Internal\Fulfillments\Providers\AbstractShippingProvider` class to be able to run tracking number parsing.
 
 ## Best Practices
 
@@ -684,13 +684,13 @@ When using multiple hooks, consider the execution order:
 
 ```php
 // High priority (executes early)
-add_action( 'woocommerce_fulfillment_after_create', 'critical_function', 5 );
+add_action( 'poocommerce_fulfillment_after_create', 'critical_function', 5 );
 
 // Normal priority (default: 10)
-add_action( 'woocommerce_fulfillment_after_create', 'normal_function' );
+add_action( 'poocommerce_fulfillment_after_create', 'normal_function' );
 
 // Low priority (executes late)
-add_action( 'woocommerce_fulfillment_after_create', 'cleanup_function', 20 );
+add_action( 'poocommerce_fulfillment_after_create', 'cleanup_function', 20 );
 ```
 
 ### Error Handling
@@ -698,7 +698,7 @@ add_action( 'woocommerce_fulfillment_after_create', 'cleanup_function', 20 );
 Always include proper error handling in your hook callbacks:
 
 ```php
-add_action( 'woocommerce_fulfillment_after_create', 'sync_to_external_system' );
+add_action( 'poocommerce_fulfillment_after_create', 'sync_to_external_system' );
 
 function sync_to_external_system( $fulfillment ) {
     try {
@@ -725,7 +725,7 @@ function sync_to_external_system( $fulfillment ) {
 For hooks that may be called frequently, consider performance:
 
 ```php
-add_filter( 'woocommerce_fulfillment_before_create', 'optimize_fulfillment_data' );
+add_filter( 'poocommerce_fulfillment_before_create', 'optimize_fulfillment_data' );
 
 function optimize_fulfillment_data( $fulfillment ) {
     // Cache expensive operations
@@ -741,4 +741,4 @@ function optimize_fulfillment_data( $fulfillment ) {
 }
 ```
 
-This comprehensive reference provides all the hooks available in the WooCommerce Order Fulfillments system, enabling developers to fully customize and extend the fulfillment functionality.
+This comprehensive reference provides all the hooks available in the PooCommerce Order Fulfillments system, enabling developers to fully customize and extend the fulfillment functionality.

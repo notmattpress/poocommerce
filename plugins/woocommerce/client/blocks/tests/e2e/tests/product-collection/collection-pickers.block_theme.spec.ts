@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test as base, expect } from '@woocommerce/e2e-utils';
+import { test as base, expect } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -111,7 +111,7 @@ test.describe( 'Product Collection: Collection Pickers', () => {
 
 			// Click on the block to select it
 			await editor.canvas
-				.locator( '[data-type="woocommerce/product-collection"]' )
+				.locator( '[data-type="poocommerce/product-collection"]' )
 				.first()
 				.click();
 

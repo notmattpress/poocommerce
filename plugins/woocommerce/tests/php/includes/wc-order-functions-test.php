@@ -2,11 +2,11 @@
 /**
  * Order functions tests
  *
- * @package WooCommerce\Tests\Order.
+ * @package PooCommerce\Tests\Order.
  */
 
-use Automattic\WooCommerce\Enums\OrderInternalStatus;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderInternalStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Class WC_Order_Functions_Test
@@ -295,7 +295,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 		// Track if fully refunded action was triggered.
 		$fully_refunded_triggered = false;
 		add_action(
-			'woocommerce_order_fully_refunded',
+			'poocommerce_order_fully_refunded',
 			function () use ( &$fully_refunded_triggered ) {
 				$fully_refunded_triggered = true;
 			}
@@ -304,7 +304,7 @@ class WC_Order_Functions_Test extends \WC_Unit_Test_Case {
 		// Track if partially refunded action was triggered.
 		$partially_refunded_triggered = false;
 		add_action(
-			'woocommerce_order_partially_refunded',
+			'poocommerce_order_partially_refunded',
 			function () use ( &$partially_refunded_triggered ) {
 				$partially_refunded_triggered = true;
 			}

@@ -2,12 +2,12 @@
 /**
  * Order coupon tests.
  *
- * @package WooCommerce\Tests\Orders
+ * @package PooCommerce\Tests\Orders
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
-use Automattic\WooCommerce\Utilities\NumberUtil;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Utilities\NumberUtil;
 
 /**
  * Order coupon tests.
@@ -27,8 +27,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	protected function init_test() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_regular_price( 1000 );
@@ -61,7 +61,7 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 		$coupon_item_1 = new WC_Order_Item_Coupon();
 		$coupon_item_2 = new WC_Order_Item_Coupon();
 
-		if ( get_option( 'woocommerce_prices_include_tax', 'no' ) === 'yes' && get_option( 'woocommerce_calc_taxes', 'no' ) === 'yes' ) {
+		if ( get_option( 'poocommerce_prices_include_tax', 'no' ) === 'yes' && get_option( 'poocommerce_calc_taxes', 'no' ) === 'yes' ) {
 			$product_item->set_props(
 				array(
 					'product'  => $product,
@@ -97,14 +97,14 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 				array(
 					'code'         => 'test-coupon-1',
 					'discount'     => 1,
-					'discount_tax' => get_option( 'woocommerce_calc_taxes', 'no' ) === 'yes' ? 0.1 : 0,
+					'discount_tax' => get_option( 'poocommerce_calc_taxes', 'no' ) === 'yes' ? 0.1 : 0,
 				)
 			);
 			$coupon_item_2->set_props(
 				array(
 					'code'         => 'this-is-a-virtal-coupon',
 					'discount'     => 200,
-					'discount_tax' => get_option( 'woocommerce_calc_taxes', 'no' ) === 'yes' ? 20 : 0,
+					'discount_tax' => get_option( 'poocommerce_calc_taxes', 'no' ) === 'yes' ? 20 : 0,
 				)
 			);
 		}
@@ -143,8 +143,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_remove_coupon_from_order
 	 */
 	public function test_remove_coupon_from_order() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -183,8 +183,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_add_coupon_to_order
 	 */
 	public function test_add_coupon_to_order() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -206,8 +206,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_remove_coupon_from_order_ex_tax
 	 */
 	public function test_remove_coupon_from_order_ex_tax() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -246,8 +246,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_add_coupon_to_order_ex_tax
 	 */
 	public function test_add_coupon_to_order_ex_tax() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -262,8 +262,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_remove_coupon_from_order_no_tax
 	 */
 	public function test_remove_coupon_from_order_no_tax() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -302,8 +302,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_add_coupon_to_order_no_tax
 	 */
 	public function test_add_coupon_to_order_no_tax() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -317,8 +317,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_remove_coupon_from_order_no_tax
 	 */
 	public function test_remove_coupon_from_order_no_tax_inc_prices_on() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -357,8 +357,8 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * Test: test_add_coupon_to_order_no_tax
 	 */
 	public function test_add_coupon_to_order_no_tax_inc_prices_on() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$this->init_test();
 
 		$order_id = $this->objects['order']->get_id();
@@ -373,9 +373,9 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * See: #25091.
 	 */
 	public function test_inclusive_tax_rounding_on_totals() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		WC_Tax::_insert_tax_rate(
 			array(
@@ -455,13 +455,13 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * @testdox No error is thrown when coupons are recalculated if an applied coupon with custom discount type is deleted and the code that defined the discount type has disappeared.
 	 */
 	public function test_custom_discount_type_removed_and_coupon_trashed() {
-		add_filter( 'woocommerce_coupon_discount_types', array( $this, 'handle_woocommerce_coupon_discount_types' ) );
-		add_filter( 'woocommerce_coupon_is_valid', array( $this, 'handle_woocommerce_coupon_is_valid' ), 999, 3 );
-		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'handle_woocommerce_coupon_get_discount_amount' ), 999, 5 );
-		add_filter( 'woocommerce_coupon_is_valid_for_cart', array( $this, 'handle_woocommerce_coupon_is_valid_for_cart' ), 999, 2 );
+		add_filter( 'poocommerce_coupon_discount_types', array( $this, 'handle_poocommerce_coupon_discount_types' ) );
+		add_filter( 'poocommerce_coupon_is_valid', array( $this, 'handle_poocommerce_coupon_is_valid' ), 999, 3 );
+		add_filter( 'poocommerce_coupon_get_discount_amount', array( $this, 'handle_poocommerce_coupon_get_discount_amount' ), 999, 5 );
+		add_filter( 'poocommerce_coupon_is_valid_for_cart', array( $this, 'handle_poocommerce_coupon_is_valid_for_cart' ), 999, 2 );
 
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		$this->init_test();
 
@@ -488,10 +488,10 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 
 		$coupon->delete( true );
 
-		remove_filter( 'woocommerce_coupon_discount_types', array( $this, 'handle_woocommerce_coupon_discount_types' ), 999 );
-		remove_filter( 'woocommerce_coupon_is_valid', array( $this, 'handle_woocommerce_coupon_is_valid' ), 999 );
-		remove_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'handle_woocommerce_coupon_get_discount_amount' ), 999 );
-		remove_filter( 'woocommerce_coupon_is_valid_for_cart', array( $this, 'handle_woocommerce_coupon_is_valid_for_cart' ), 999 );
+		remove_filter( 'poocommerce_coupon_discount_types', array( $this, 'handle_poocommerce_coupon_discount_types' ), 999 );
+		remove_filter( 'poocommerce_coupon_is_valid', array( $this, 'handle_poocommerce_coupon_is_valid' ), 999 );
+		remove_filter( 'poocommerce_coupon_get_discount_amount', array( $this, 'handle_poocommerce_coupon_get_discount_amount' ), 999 );
+		remove_filter( 'poocommerce_coupon_is_valid_for_cart', array( $this, 'handle_poocommerce_coupon_is_valid_for_cart' ), 999 );
 
 		$order->recalculate_coupons();
 		$order->save();
@@ -500,29 +500,29 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Handler for the woocommerce_coupon_discount_types filter.
+	 * Handler for the poocommerce_coupon_discount_types filter.
 	 *
 	 * @param array $types Discount types.
 	 */
-	public function handle_woocommerce_coupon_discount_types( $types ) {
+	public function handle_poocommerce_coupon_discount_types( $types ) {
 		$types['foobar'] = 'Alternative fixed discount';
 		return $types;
 	}
 
 	/**
-	 * Handler for the woocommerce_coupon_is_valid filter.
+	 * Handler for the poocommerce_coupon_is_valid filter.
 	 *
 	 * @param bool         $valid Whether the coupon is initially considered valid.
 	 * @param WC_Coupon    $coupon The coupon to check.
 	 * @param WC_Discounts $discounts Discounts object.
 	 * @return bool
 	 */
-	public function handle_woocommerce_coupon_is_valid( $valid, $coupon, $discounts = null ) {
+	public function handle_poocommerce_coupon_is_valid( $valid, $coupon, $discounts = null ) {
 		return $valid || ( $coupon->get_discount_type() === 'foobar' );
 	}
 
 	/**
-	 * Handler for the woocommerce_coupon_get_discount_amount filter.
+	 * Handler for the poocommerce_coupon_get_discount_amount filter.
 	 *
 	 * @param float     $discount Initial discount amount.
 	 * @param float     $discounting_amount Amount from which the discount is to be substracted.
@@ -531,18 +531,18 @@ class WC_Tests_Order_Coupons extends WC_Unit_Test_Case {
 	 * @param WC_Coupon $coupon The coupon to check.
 	 * @return float
 	 */
-	public function handle_woocommerce_coupon_get_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
+	public function handle_poocommerce_coupon_get_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
 		return $coupon->get_discount_type() === 'foobar' ? $coupon->get_amount() : $discount;
 	}
 
 	/**
-	 * Handler for the woocommerce_coupon_is_valid_for_Cart filter.
+	 * Handler for the poocommerce_coupon_is_valid_for_Cart filter.
 	 *
 	 * @param bool      $valid Whether the coupon is initially considered valid for the cart.
 	 * @param WC_Coupon $coupon The coupon to check.
 	 * @return bool
 	 */
-	public function handle_woocommerce_coupon_is_valid_for_cart( $valid, $coupon ) {
+	public function handle_poocommerce_coupon_is_valid_for_cart( $valid, $coupon ) {
 		return $valid || ( $coupon->get_discount_type() === 'foobar' );
 	}
 }

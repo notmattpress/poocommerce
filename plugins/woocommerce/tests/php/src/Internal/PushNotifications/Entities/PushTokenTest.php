@@ -2,9 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\PushNotifications\Entities;
+namespace Automattic\PooCommerce\Tests\Internal\PushNotifications\Entities;
 
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
 use InvalidArgumentException;
 use WC_Unit_Test_Case;
 

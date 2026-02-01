@@ -46,7 +46,7 @@ function modifyTemplateActions() {
 	// Available in WordPress 6.8+
 	addActionForEmail(
 		'core.registerPostTypeSchema',
-		'woocommerce-email-editor/modify-template-actions',
+		'poocommerce-email-editor/modify-template-actions',
 		( postType ) => {
 			modifyActionsForPostType( postType );
 		}
@@ -55,7 +55,7 @@ function modifyTemplateActions() {
 	// Support for WordPress 6.7+
 	addActionForEmail(
 		'core.registerPostTypeActions',
-		'woocommerce-email-editor/modify-template-actions',
+		'poocommerce-email-editor/modify-template-actions',
 		( postType ) => {
 			modifyActionsForPostType( postType );
 		}

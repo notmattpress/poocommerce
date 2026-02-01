@@ -13,7 +13,7 @@ import { ADMIN_STATE_PATH } from '../../playwright.config';
 
 const getPluginLocator = ( page, slug ) => {
 	return page.locator(
-		`.woocommerce-profiler-plugins-plugin-card[data-slug="${ slug }"]`
+		`.poocommerce-profiler-plugins-plugin-card[data-slug="${ slug }"]`
 	);
 };
 
@@ -32,7 +32,7 @@ test.describe(
 				await setOption(
 					request,
 					baseURL,
-					'woocommerce_remote_variant_assignment',
+					'poocommerce_remote_variant_assignment',
 					'60'
 				);
 			} catch ( error ) {
@@ -45,7 +45,7 @@ test.describe(
 		} ) => {
 			test.skip(
 				process.env.IS_MULTISITE,
-				'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55066'
+				'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55066'
 			);
 			await page.goto(
 				'wp-admin/admin.php?page=wc-admin&path=%2Fsetup-wizard'
@@ -86,10 +86,10 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.getByPlaceholder( 'Ex. My awesome store' )
-				).toHaveValue( 'WooCommerce Core E2E Test Suite' );
+				).toHaveValue( 'PooCommerce Core E2E Test Suite' );
 				await page
 					.locator(
-						'form.woocommerce-profiler-business-information-form > div > div > div > div > input'
+						'form.poocommerce-profiler-business-information-form > div > div > div > div > input'
 					)
 					.first()
 					.click();
@@ -140,13 +140,13 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.locator(
-						'.woocommerce-onboarding-progress-bar__filler'
+						'.poocommerce-onboarding-progress-bar__filler'
 					)
 				).toBeVisible();
 				// dashboard shown
 				await expect(
 					page.getByRole( 'heading', {
-						name: 'Welcome to WooCommerce Core E2E Test Suite',
+						name: 'Welcome to PooCommerce Core E2E Test Suite',
 					} )
 				).toBeVisible();
 
@@ -160,17 +160,17 @@ test.describe(
 				).toBeVisible();
 				// confirm that some of the optional extensions aren't present
 				await expect(
-					page.getByText( 'MailPoet for WooCommerce', {
+					page.getByText( 'MailPoet for PooCommerce', {
 						exact: true,
 					} )
 				).toBeHidden();
 				await expect(
-					page.getByText( 'Pinterest for WooCommerce', {
+					page.getByText( 'Pinterest for PooCommerce', {
 						exact: true,
 					} )
 				).toBeHidden();
 				await expect(
-					page.getByText( 'Google for WooCommerce', { exact: true } )
+					page.getByText( 'Google for PooCommerce', { exact: true } )
 				).toBeHidden();
 			} );
 
@@ -206,7 +206,7 @@ test.describe(
 		} ) => {
 			test.skip(
 				process.env.IS_MULTISITE,
-				'Test not working on a multisite setup, see https://github.com/woocommerce/woocommerce/issues/55066'
+				'Test not working on a multisite setup, see https://github.com/poocommerce/poocommerce/issues/55066'
 			);
 			await page.goto(
 				'wp-admin/admin.php?page=wc-admin&path=%2Fsetup-wizard'
@@ -252,10 +252,10 @@ test.describe(
 				).toBeVisible();
 				await expect(
 					page.getByPlaceholder( 'Ex. My awesome store' )
-				).toHaveValue( 'WooCommerce Core E2E Test Suite' );
+				).toHaveValue( 'PooCommerce Core E2E Test Suite' );
 				await page
 					.locator(
-						'form.woocommerce-profiler-business-information-form > div > div > div > div > input'
+						'form.poocommerce-profiler-business-information-form > div > div > div > div > input'
 					)
 					.first()
 					.click();
@@ -304,14 +304,14 @@ test.describe(
 					);
 				}
 				try {
-					await getPluginLocator( page, 'pinterest-for-woocommerce' )
+					await getPluginLocator( page, 'pinterest-for-poocommerce' )
 						.getByRole( 'checkbox' )
 						.check( { timeout: 2000 } );
 				} catch ( e ) {
 					console.log( 'Checkbox not present for Pinterest' );
 				}
 				try {
-					await getPluginLocator( page, 'mailchimp-for-woocommerce' )
+					await getPluginLocator( page, 'mailchimp-for-poocommerce' )
 						.getByRole( 'checkbox' )
 						.uncheck( { timeout: 2000 } );
 				} catch ( e ) {
@@ -345,7 +345,7 @@ test.describe(
 				// dashboard shown
 				await expect(
 					page.getByRole( 'heading', {
-						name: 'Welcome to WooCommerce Core E2E Test Suite',
+						name: 'Welcome to PooCommerce Core E2E Test Suite',
 					} )
 				).toBeVisible( { timeout: 30000 } );
 				// go to the plugins page to make sure that extensions were installed
@@ -360,7 +360,7 @@ test.describe(
 				try {
 					await expect(
 						page.locator(
-							`[data-slug="pinterest-for-woocommerce"]`
+							`[data-slug="pinterest-for-poocommerce"]`
 						)
 					).toBeVisible();
 				} catch {
@@ -375,14 +375,14 @@ test.describe(
 					).toBeVisible();
 				} catch {
 					console.log(
-						`Google for WooCommerce is not found or not visible on the page`
+						`Google for PooCommerce is not found or not visible on the page`
 					);
 				}
 
 				try {
 					await expect(
 						page.locator(
-							`[data-slug="mailchimp-for-woocommerce"]`
+							`[data-slug="mailchimp-for-poocommerce"]`
 						)
 					).toBeHidden();
 				} catch {
@@ -513,7 +513,7 @@ test.describe(
 
 			await expect(
 				page.getByRole( 'heading', {
-					name: 'Welcome to WooCommerce Core E2E Test Suite',
+					name: 'Welcome to PooCommerce Core E2E Test Suite',
 				} )
 			).toBeVisible();
 

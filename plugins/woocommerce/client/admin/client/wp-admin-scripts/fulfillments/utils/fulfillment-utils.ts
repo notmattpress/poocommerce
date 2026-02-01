@@ -53,7 +53,7 @@ export async function refreshOrderFulfillmentStatus( orderId: number ) {
 		if ( marker ) {
 			const status = window.wcFulfillmentSettings
 				.order_fulfillment_statuses[ order_status ] || {
-				label: __( 'Unknown', 'woocommerce' ),
+				label: __( 'Unknown', 'poocommerce' ),
 				background_color: '#f8f9fa',
 				text_color: '#6c757d',
 			};

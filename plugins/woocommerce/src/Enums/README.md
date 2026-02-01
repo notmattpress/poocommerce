@@ -1,6 +1,6 @@
-# WooCommerce Enumerators <!-- omit in toc -->
+# PooCommerce Enumerators <!-- omit in toc -->
 
-This directory contains enumerators used in the WooCommerce plugin. Enumerators are used to define a set of named constants, which can be used to represent a set of possible values.
+This directory contains enumerators used in the PooCommerce plugin. Enumerators are used to define a set of named constants, which can be used to represent a set of possible values.
 
 The enum classes make it easier to reference string values and avoid typos. They also make the code stricter, make it easier to find the usage of the possible values, centralize them, improve their documentation, and many other advantages that should help developers create related code.
 
@@ -16,4 +16,4 @@ The enum classes make it easier to reference string values and avoid typos. They
 
 ## Contributing
 
-The WooCommerce plugin contains many string values that still need to be converted to enumerators. Feel free to contribute by creating new classes.
+The PooCommerce plugin contains many string values that still need to be converted to enumerators. Feel free to contribute by creating new classes.

@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { useSelect } from '@wordpress/data';
-import { isString } from '@woocommerce/types';
-import { CORE_EDITOR_STORE } from '@woocommerce/utils';
+import { isString } from '@poocommerce/types';
+import { CORE_EDITOR_STORE } from '@poocommerce/utils';
 
 export const useIsDescendentOfSingleProductTemplate = () => {
 	const isDescendentOfSingleProductTemplate = useSelect( ( select ) => {
