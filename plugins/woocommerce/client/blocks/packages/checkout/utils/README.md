@@ -22,7 +22,7 @@ When executed, this will call the cart/extensions REST API endpoint. The new car
 
 ```ts
 // Aliased import
-import { extensionCartUpdate } from '@woocommerce/blocks-checkout';
+import { extensionCartUpdate } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { extensionCartUpdate } = wc.blocksCheckout;
@@ -55,7 +55,7 @@ Ensures that a given value contains a string, or throws an error.
 
 ```js
 // Aliased import
-import { mustContain } from '@woocommerce/blocks-checkout';
+import { mustContain } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { mustContain } = wc.blocksCheckout;
@@ -80,9 +80,9 @@ What value must contain. If this is not found within `value`, and error will be 
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/utils/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/utils/README.md)
 
 <!-- /FEEDBACK -->
 

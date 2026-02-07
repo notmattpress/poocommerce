@@ -1,11 +1,11 @@
 ---
-description: This rule provides guidance for building the WooCommerce plugin and watching for changes in the repository.
+description: This rule provides guidance for building the PooCommerce plugin and watching for changes in the repository.
 globs:
 alwaysApply: false
 ---
-# Building the WooCommerce plugin
+# Building the PooCommerce plugin
 
-This rule provides guidance for building the WooCommerce plugin and watching for changes in this repository.
+This rule provides guidance for building the PooCommerce plugin and watching for changes in this repository.
 
 ## Installing dependencies and building
 
@@ -29,7 +29,7 @@ And the command must be run in the main repository directory.
 To watch for changes use
 
 ```bash
-pnpm --filter=@woocommerce/plugin-woocommerce watch:build
+pnpm --filter=@poocommerce/plugin-poocommerce watch:build
 ```
 
 This is a development build which ensures experimental features are active.

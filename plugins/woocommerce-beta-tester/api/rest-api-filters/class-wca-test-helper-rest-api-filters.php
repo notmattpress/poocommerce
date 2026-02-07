@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/rest-api-filters',
 	array( WCA_Test_Helper_Rest_Api_Filters::class, 'create' ),
 	array(
@@ -30,7 +30,7 @@ register_woocommerce_admin_test_helper_rest_route(
 	)
 );
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/rest-api-filters',
 	array( WCA_Test_Helper_Rest_Api_Filters::class, 'delete' ),
 	array(
@@ -46,7 +46,7 @@ register_woocommerce_admin_test_helper_rest_route(
 );
 
 
-register_woocommerce_admin_test_helper_rest_route(
+register_poocommerce_admin_test_helper_rest_route(
 	'/rest-api-filters/(?P<index>\d+)/toggle',
 	array( WCA_Test_Helper_Rest_Api_Filters::class, 'toggle' ),
 	array(

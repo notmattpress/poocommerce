@@ -54,7 +54,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 	} );
 
 	let descriptionElement = (
-		<p { ...blockProps }>{ __( 'Category description', 'woocommerce' ) }</p>
+		<p { ...blockProps }>{ __( 'Category description', 'poocommerce' ) }</p>
 	);
 
 	if ( termId ) {
@@ -62,7 +62,7 @@ export default function Edit( { attributes, setAttributes, context }: Props ) {
 			<PlainText
 				// @ts-expect-error PlainText component types are not up-to-date
 				tagName="p"
-				placeholder={ __( 'No description', 'woocommerce' ) as string }
+				placeholder={ __( 'No description', 'poocommerce' ) as string }
 				value={ rawDescription }
 				onChange={ ( v: string ) =>
 					( setDescription as ( v: string ) => void )( v )

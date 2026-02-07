@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { renderFrontend } from '@woocommerce/base-utils';
+import { renderFrontend } from '@poocommerce/base-utils';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const getProps = ( el ) => ( {
 } );
 
 renderFrontend( {
-	selector: '.wp-block-woocommerce-all-products',
+	selector: '.wp-block-poocommerce-all-products',
 	Block: AllProductsFrontend,
 	getProps,
 } );

@@ -38,7 +38,7 @@ function ElementItem( { element, label }: { element: string; label: string } ) {
 	const background = elementStyles.color?.background || '#f0f0f0';
 	const navigationButtonLabel = sprintf(
 		// translators: %s: is a subset of Typography, e.g., 'text' or 'links'.
-		__( 'Typography %s styles', 'woocommerce' ),
+		__( 'Typography %s styles', 'poocommerce' ),
 		label
 	);
 
@@ -92,24 +92,24 @@ export function TypographyPanel() {
 						level={ 3 }
 						className="edit-site-global-styles-subtitle"
 					>
-						{ __( 'Elements', 'woocommerce' ) }
+						{ __( 'Elements', 'poocommerce' ) }
 					</Heading>
 					<ItemGroup isBordered isSeparated size="small">
 						<ElementItem
 							element="text"
-							label={ __( 'Text', 'woocommerce' ) }
+							label={ __( 'Text', 'poocommerce' ) }
 						/>
 						<ElementItem
 							element="link"
-							label={ __( 'Links', 'woocommerce' ) }
+							label={ __( 'Links', 'poocommerce' ) }
 						/>
 						<ElementItem
 							element="heading"
-							label={ __( 'Headings', 'woocommerce' ) }
+							label={ __( 'Headings', 'poocommerce' ) }
 						/>
 						<ElementItem
 							element="button"
-							label={ __( 'Buttons', 'woocommerce' ) }
+							label={ __( 'Buttons', 'poocommerce' ) }
 						/>
 					</ItemGroup>
 				</VStack>

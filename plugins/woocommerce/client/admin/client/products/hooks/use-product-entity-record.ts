@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { AUTO_DRAFT_NAME } from '@woocommerce/product-editor';
-import { type Product } from '@woocommerce/data';
+import { AUTO_DRAFT_NAME } from '@poocommerce/product-editor';
+import { type Product } from '@poocommerce/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { dispatch } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';

@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package
+ * This file is part of the PooCommerce Email Editor package
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\Core\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 /**
  * Audio block renderer.
@@ -27,7 +27,7 @@ class Audio extends Abstract_Block_Renderer {
 	public function render( string $block_content, array $parsed_block, Rendering_Context $rendering_context ): string {
 		// Validate input parameters and required dependencies.
 		if ( ! isset( $parsed_block['attrs'] ) || ! is_array( $parsed_block['attrs'] ) ||
-			! class_exists( '\Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper' ) ) {
+			! class_exists( '\Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper' ) ) {
 			return '';
 		}
 
@@ -105,7 +105,7 @@ class Audio extends Abstract_Block_Renderer {
 		}
 
 		$icon_image = $this->get_audio_icon_url();
-		$label      = ! empty( $attr['label'] ) ? $attr['label'] : __( 'Listen to the audio', 'woocommerce' );
+		$label      = ! empty( $attr['label'] ) ? $attr['label'] : __( 'Listen to the audio', 'poocommerce' );
 
 		// Add duration to label if available.
 		if ( ! empty( $length ) ) {
@@ -127,7 +127,7 @@ class Audio extends Abstract_Block_Renderer {
 			esc_attr( $icon_size ),
 			esc_url( $icon_image ),
 			// translators: %s is the audio player icon.
-			sprintf( __( '%s icon', 'woocommerce' ), __( 'Audio', 'woocommerce' ) )
+			sprintf( __( '%s icon', 'poocommerce' ), __( 'Audio', 'poocommerce' ) )
 		);
 		$icon_content = Table_Wrapper_Helper::render_table_cell( $icon_content, array( 'style' => sprintf( 'vertical-align:middle;font-size:%s;', $font_size ) ) );
 

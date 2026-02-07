@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { store } from '@wordpress/interactivity';
-import type { ProductResponseItem } from '@woocommerce/types';
+import type { ProductResponseItem } from '@poocommerce/types';
 
 /**
  * The state shape for the products store.
@@ -33,7 +33,7 @@ const universalLock =
 	'I acknowledge that using a private store means my plugin will inevitably break on the next store release.';
 
 /**
- * The woocommerce/products store.
+ * The poocommerce/products store.
  *
  * This store manages product data in Store API format for use with the
  * Interactivity API. Data is hydrated server-side via PHP ProductsStore.
@@ -44,7 +44,7 @@ const universalLock =
  * - productVariations: Record<variationId, ProductResponseItem>
  */
 store< ProductsStore >(
-	'woocommerce/products',
+	'poocommerce/products',
 	{
 		state: {
 			products: {},

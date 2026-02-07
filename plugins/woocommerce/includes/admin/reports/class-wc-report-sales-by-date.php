@@ -2,11 +2,11 @@
 /**
  * WC_Report_Sales_By_Date
  *
- * @package     WooCommerce\Admin\Reports
+ * @package     PooCommerce\Admin\Reports
  * @version     2.1.0
  */
 
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -443,7 +443,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$this->report_data->total_items = absint( array_sum( wp_list_pluck( $this->report_data->order_items, 'order_item_count' ) ) );
 
 		// 3rd party filtering of report data
-		$this->report_data = apply_filters( 'woocommerce_admin_report_data', $this->report_data );
+		$this->report_data = apply_filters( 'poocommerce_admin_report_data', $this->report_data );
 	}
 
 	/**
@@ -459,12 +459,12 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 			case 'day':
 				$average_total_sales_title = sprintf(
 					/* translators: %s: average total sales */
-					__( '%s average gross daily sales', 'woocommerce' ),
+					__( '%s average gross daily sales', 'poocommerce' ),
 					'<strong>' . wc_price( $data->average_total_sales ) . '</strong>'
 				);
 				$average_sales_title = sprintf(
 					/* translators: %s: average sales */
-					__( '%s average net daily sales', 'woocommerce' ),
+					__( '%s average net daily sales', 'poocommerce' ),
 					'<strong>' . wc_price( $data->average_sales ) . '</strong>'
 				);
 				break;
@@ -472,12 +472,12 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 			default:
 				$average_total_sales_title = sprintf(
 					/* translators: %s: average total sales */
-					__( '%s average gross monthly sales', 'woocommerce' ),
+					__( '%s average gross monthly sales', 'poocommerce' ),
 					'<strong>' . wc_price( $data->average_total_sales ) . '</strong>'
 				);
 				$average_sales_title = sprintf(
 					/* translators: %s: average sales */
-					__( '%s average net monthly sales', 'woocommerce' ),
+					__( '%s average net monthly sales', 'poocommerce' ),
 					'<strong>' . wc_price( $data->average_sales ) . '</strong>'
 				);
 				break;
@@ -486,10 +486,10 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: %s: total sales */
-				__( '%s gross sales in this period', 'woocommerce' ),
+				__( '%s gross sales in this period', 'poocommerce' ),
 				'<strong>' . wc_price( $data->total_sales ) . '</strong>'
 			),
-			'placeholder'      => __( 'This is the sum of the order totals after any refunds and including shipping and taxes.', 'woocommerce' ),
+			'placeholder'      => __( 'This is the sum of the order totals after any refunds and including shipping and taxes.', 'poocommerce' ),
 			'color'            => $this->chart_colours['sales_amount'],
 			'highlight_series' => 6,
 		);
@@ -504,10 +504,10 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: %s: net sales */
-				__( '%s net sales in this period', 'woocommerce' ),
+				__( '%s net sales in this period', 'poocommerce' ),
 				'<strong>' . wc_price( $data->net_sales ) . '</strong>'
 			),
-			'placeholder'      => __( 'This is the sum of the order totals after any refunds and excluding shipping and taxes.', 'woocommerce' ),
+			'placeholder'      => __( 'This is the sum of the order totals after any refunds and excluding shipping and taxes.', 'poocommerce' ),
 			'color'            => $this->chart_colours['net_sales_amount'],
 			'highlight_series' => 7,
 		);
@@ -522,7 +522,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: %s: total orders */
-				__( '%s orders placed', 'woocommerce' ),
+				__( '%s orders placed', 'poocommerce' ),
 				'<strong>' . $data->total_orders . '</strong>'
 			),
 			'color'            => $this->chart_colours['order_count'],
@@ -532,7 +532,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: %s: total items */
-				__( '%s items purchased', 'woocommerce' ),
+				__( '%s items purchased', 'poocommerce' ),
 				'<strong>' . $data->total_items . '</strong>'
 			),
 			'color'            => $this->chart_colours['item_count'],
@@ -541,7 +541,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: 1: total refunds 2: total refunded orders 3: refunded items */
-				_n( '%1$s refunded %2$d order (%3$d item)', '%1$s refunded %2$d orders (%3$d items)', $this->report_data->total_refunded_orders, 'woocommerce' ),
+				_n( '%1$s refunded %2$d order (%3$d item)', '%1$s refunded %2$d orders (%3$d items)', $this->report_data->total_refunded_orders, 'poocommerce' ),
 				'<strong>' . wc_price( $data->total_refunds ) . '</strong>',
 				$this->report_data->total_refunded_orders,
 				$this->report_data->refunded_order_items
@@ -552,7 +552,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: %s: total shipping */
-				__( '%s charged for shipping', 'woocommerce' ),
+				__( '%s charged for shipping', 'poocommerce' ),
 				'<strong>' . wc_price( $data->total_shipping ) . '</strong>'
 			),
 			'color'            => $this->chart_colours['shipping_amount'],
@@ -561,7 +561,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		$legend[] = array(
 			'title'            => sprintf(
 				/* translators: %s: total coupons */
-				__( '%s worth of coupons used', 'woocommerce' ),
+				__( '%s worth of coupons used', 'poocommerce' ),
 				'<strong>' . wc_price( $data->total_coupons ) . '</strong>'
 			),
 			'color'            => $this->chart_colours['coupon_amount'],
@@ -576,10 +576,10 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 	 */
 	public function output_report() {
 		$ranges = array(
-			'year'       => __( 'Year', 'woocommerce' ),
-			'last_month' => __( 'Last month', 'woocommerce' ),
-			'month'      => __( 'This month', 'woocommerce' ),
-			'7day'       => __( 'Last 7 days', 'woocommerce' ),
+			'year'       => __( 'Year', 'poocommerce' ),
+			'last_month' => __( 'Last month', 'poocommerce' ),
+			'month'      => __( 'This month', 'poocommerce' ),
+			'7day'       => __( 'Last 7 days', 'poocommerce' ),
 		);
 
 		$this->chart_colours = array(
@@ -617,11 +617,11 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 			download="report-<?php echo esc_attr( $current_range ); ?>-<?php echo esc_attr( date_i18n( 'Y-m-d', current_time( 'timestamp' ) ) ); ?>.csv"
 			class="export_csv"
 			data-export="chart"
-			data-xaxes="<?php esc_attr_e( 'Date', 'woocommerce' ); ?>"
+			data-xaxes="<?php esc_attr_e( 'Date', 'poocommerce' ); ?>"
 			data-exclude_series="2"
 			data-groupby="<?php echo esc_attr( $this->chart_groupby ); ?>"
 		>
-			<?php esc_html_e( 'Export CSV', 'woocommerce' ); ?>
+			<?php esc_html_e( 'Export CSV', 'poocommerce' ); ?>
 		</a>
 		<?php
 	}
@@ -676,7 +676,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 		}
 
 		// 3rd party filtering of report data.
-		$data = apply_filters( 'woocommerce_admin_report_chart_data', $data );
+		$data = apply_filters( 'poocommerce_admin_report_chart_data', $data );
 
 		// Encode in json format.
 		$chart_data = wp_json_encode(
@@ -704,7 +704,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 				var drawGraph = function( highlight ) {
 					var series = [
 						{
-							label: "<?php echo esc_js( __( 'Number of items sold', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Number of items sold', 'poocommerce' ) ); ?>",
 							data: order_data.order_item_counts,
 							color: '<?php echo esc_js( $this->chart_colours['item_count'] ); ?>',
 							bars: { fillColor: '<?php echo esc_js( $this->chart_colours['item_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'center' },
@@ -712,7 +712,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Number of orders', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Number of orders', 'poocommerce' ) ); ?>",
 							data: order_data.order_counts,
 							color: '<?php echo esc_js( $this->chart_colours['order_count'] ); ?>',
 							bars: { fillColor: '<?php echo esc_js( $this->chart_colours['order_count'] ); ?>', fill: true, show: true, lineWidth: 0, barWidth: <?php echo esc_js( $this->barwidth ); ?> * 0.5, align: 'center' },
@@ -720,7 +720,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Average gross sales amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Average gross sales amount', 'poocommerce' ) ); ?>",
 							data: [ [ <?php echo esc_js( min( array_keys( $data['order_amounts'] ) ) ); ?>, <?php echo esc_js( $this->report_data->average_total_sales ); ?> ], [ <?php echo esc_js( max( array_keys( $data['order_amounts'] ) ) ); ?>, <?php echo esc_js( $this->report_data->average_total_sales ); ?> ] ],
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['average'] ); ?>',
@@ -730,7 +730,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Average net sales amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Average net sales amount', 'poocommerce' ) ); ?>",
 							data: [ [ <?php echo esc_js( min( array_keys( $data['order_amounts'] ) ) ); ?>, <?php echo esc_js( $this->report_data->average_sales ); ?> ], [ <?php echo esc_js( max( array_keys( $data['order_amounts'] ) ) ); ?>, <?php echo esc_js( $this->report_data->average_sales ); ?> ] ],
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['net_average'] ); ?>',
@@ -740,7 +740,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							hoverable: false
 						},
 						{
-							label: "<?php echo esc_js( __( 'Coupon amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Coupon amount', 'poocommerce' ) ); ?>",
 							data: order_data.coupon_amounts,
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['coupon_amount'] ); ?>',
@@ -750,17 +750,17 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							<?php echo $this->get_currency_tooltip();  // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
 						},
 						{
-							label: "<?php echo esc_js( __( 'Shipping amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Shipping amount', 'poocommerce' ) ); ?>",
 							data: order_data.shipping_amounts,
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['shipping_amount'] ); ?>',
 							points: { show: true, radius: 5, lineWidth: 2, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
-							prepend_tooltip: "<?php echo get_woocommerce_currency_symbol(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>"
+							prepend_tooltip: "<?php echo get_poocommerce_currency_symbol(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>"
 						},
 						{
-							label: "<?php echo esc_js( __( 'Gross sales amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Gross sales amount', 'poocommerce' ) ); ?>",
 							data: order_data.gross_order_amounts,
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['sales_amount'] ); ?>',
@@ -770,7 +770,7 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							<?php echo $this->get_currency_tooltip(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
 						},
 						{
-							label: "<?php echo esc_js( __( 'Net sales amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Net sales amount', 'poocommerce' ) ); ?>",
 							data: order_data.net_order_amounts,
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['net_sales_amount'] ); ?>',
@@ -780,14 +780,14 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 							<?php echo $this->get_currency_tooltip(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
 						},
 						{
-							label: "<?php echo esc_js( __( 'Refund amount', 'woocommerce' ) ); ?>",
+							label: "<?php echo esc_js( __( 'Refund amount', 'poocommerce' ) ); ?>",
 							data: order_data.refund_amounts,
 							yaxis: 2,
 							color: '<?php echo esc_js( $this->chart_colours['refund_amount'] ); ?>',
 							points: { show: true, radius: 5, lineWidth: 2, fillColor: '#fff', fill: true },
 							lines: { show: true, lineWidth: 2, fill: false },
 							shadowSize: 0,
-							prepend_tooltip: "<?php echo get_woocommerce_currency_symbol(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>"
+							prepend_tooltip: "<?php echo get_poocommerce_currency_symbol(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>"
 						},
 					];
 

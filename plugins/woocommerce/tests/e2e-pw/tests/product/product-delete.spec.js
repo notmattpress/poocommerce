@@ -4,7 +4,7 @@
 import {
 	WC_API_PATH,
 	WC_ADMIN_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ const test = baseTest.extend( {
 	page: async ( { page, restApi }, use ) => {
 		// Disable the task list reminder bar, it can interfere with the quick actions
 		await restApi.post( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_reminder_bar_hidden: 'yes',
+			poocommerce_task_list_reminder_bar_hidden: 'yes',
 		} );
 
 		await use( page );

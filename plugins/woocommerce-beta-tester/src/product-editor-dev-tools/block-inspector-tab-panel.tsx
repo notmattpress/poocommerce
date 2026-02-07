@@ -18,12 +18,12 @@ export function BlockInspectorTabPanel( {
 } ) {
 	return (
 		<TabPanel isSelected={ isSelected }>
-			<div className="woocommerce-product-editor-dev-tools-block-inspector">
+			<div className="poocommerce-product-editor-dev-tools-block-inspector">
 				{ ! selectedBlock && (
 					<p>
 						{ __(
 							'Focus on a block to see its details.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				) }

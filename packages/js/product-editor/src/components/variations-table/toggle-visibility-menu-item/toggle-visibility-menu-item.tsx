@@ -4,7 +4,7 @@
 import { MenuItem } from '@wordpress/components';
 import { createElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -48,7 +48,7 @@ export function ToggleVisibilityMenuItem( {
 
 	return (
 		<MenuItem onClick={ handleMenuItemClick }>
-			{ __( 'Toggle visibility', 'woocommerce' ) }
+			{ __( 'Toggle visibility', 'poocommerce' ) }
 		</MenuItem>
 	);
 }

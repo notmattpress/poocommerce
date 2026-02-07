@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\Orders\MobileMessagingHandler;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\Orders\MobileMessagingHandler;
 use DateTime;
 use WC_Order;
 use WC_Gateway_COD;
@@ -32,15 +32,15 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 	 */
 	public static function wpSetUpBeforeClass(): void {
 		self::$initial_country  = WC()->countries->get_base_country();
-		self::$initial_currency = get_woocommerce_currency();
+		self::$initial_currency = get_poocommerce_currency();
 	}
 
 	/**
 	 * Restores initial values of country and currency after running test suite.
 	 */
 	public static function wpTearDownAfterClass(): void {
-		update_option( 'woocommerce_default_country', self::$initial_country );
-		update_option( 'woocommerce_currency', self::$initial_currency );
+		update_option( 'poocommerce_default_country', self::$initial_country );
+		update_option( 'poocommerce_currency', self::$initial_currency );
 	}
 
 	/**
@@ -61,14 +61,14 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 	public function test_show_get_app_message_when_no_mobile_reports_at_all() {
 		$now = new DateTime( '2022-08-05T00:00:00+00:00' );
 		update_option(
-			'woocommerce_mobile_app_usage',
+			'poocommerce_mobile_app_usage',
 			array()
 		);
 
 		$mobile_message = MobileMessagingHandler::prepare_mobile_message( new WC_Order(), self::BLOG_ID, $now, self::DOMAIN );
 
 		$this->assertStringContainsString(
-			'href="https://woocommerce.com/mobile?blog_id=' . self::BLOG_ID . '&#038;utm_campaign=deeplinks_promote_app&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=' . self::BLOG_ID,
+			'href="https://poocommerce.com/mobile?blog_id=' . self::BLOG_ID . '&#038;utm_campaign=deeplinks_promote_app&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=' . self::BLOG_ID,
 			$mobile_message
 		);
 	}
@@ -84,7 +84,7 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 		$mobile_message = MobileMessagingHandler::prepare_mobile_message( $ipp_eligible_order, self::BLOG_ID, $now, self::DOMAIN );
 
 		$this->assertStringContainsString(
-			'href="https://woocommerce.com/mobile/orders/details?blog_id=' . self::BLOG_ID . '&#038;order_id=' . self::ORDER_ID . '&#038;utm_campaign=deeplinks_orders_details&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=' . self::BLOG_ID,
+			'href="https://poocommerce.com/mobile/orders/details?blog_id=' . self::BLOG_ID . '&#038;order_id=' . self::ORDER_ID . '&#038;utm_campaign=deeplinks_orders_details&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=' . self::BLOG_ID,
 			$mobile_message
 		);
 	}
@@ -100,7 +100,7 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 		$mobile_message = MobileMessagingHandler::prepare_mobile_message( $ipp_eligible_order, self::BLOG_ID, $now, self::DOMAIN );
 
 		$this->assertStringContainsString(
-			'href="https://woocommerce.com/mobile/payments?blog_id=' . self::BLOG_ID . '&#038;utm_campaign=deeplinks_payments&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=' . self::BLOG_ID,
+			'href="https://poocommerce.com/mobile/payments?blog_id=' . self::BLOG_ID . '&#038;utm_campaign=deeplinks_payments&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=' . self::BLOG_ID,
 			$mobile_message
 		);
 	}
@@ -111,7 +111,7 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 	public function test_show_accept_payment_message_when_store_and_order_are_ipp_eligible_but_no_mobile_app_usage() {
 		$now = new DateTime( '2022-08-05T00:00:00+00:00' );
 		update_option(
-			'woocommerce_mobile_app_usage',
+			'poocommerce_mobile_app_usage',
 			array()
 		);
 		$this->make_store_ipp_eligible();
@@ -120,7 +120,7 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 		$mobile_message = MobileMessagingHandler::prepare_mobile_message( $ipp_eligible_order, null, $now, self::DOMAIN );
 
 		$this->assertStringContainsString(
-			'href="https://woocommerce.com/mobile/payments?blog_id=0&#038;utm_campaign=deeplinks_payments&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=0',
+			'href="https://poocommerce.com/mobile/payments?blog_id=0&#038;utm_campaign=deeplinks_payments&#038;utm_medium=email&#038;utm_source=' . self::DOMAIN . '&#038;utm_term=0',
 			$mobile_message
 		);
 	}
@@ -129,16 +129,16 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 	 * Sets store to location USA and currency USD making it In-Person Payments eligible
 	 */
 	private function make_store_ipp_eligible() {
-		update_option( 'woocommerce_default_country', 'US:CA' );
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_default_country', 'US:CA' );
+		update_option( 'poocommerce_currency', 'USD' );
 	}
 
 	/**
 	 * Sets store to random location and currency making it NOT In-Person Payments eligible
 	 */
 	private function make_store_not_ipp_eligible() {
-		update_option( 'woocommerce_default_country', 'AA:BB' );
-		update_option( 'woocommerce_currency', 'CCC' );
+		update_option( 'poocommerce_default_country', 'AA:BB' );
+		update_option( 'poocommerce_currency', 'CCC' );
 	}
 
 	/**
@@ -149,7 +149,7 @@ class MobileMessagingHandlerTest extends \WC_Unit_Test_Case {
 	private function prepare_timeline_with_valid_last_mobile_app_usage(): DateTime {
 		$now = new DateTime( '2022-08-05T00:00:00+00:00' );
 		update_option(
-			'woocommerce_mobile_app_usage',
+			'poocommerce_mobile_app_usage',
 			array(
 				'android' => array(
 					'last_used' => '2022-08-03T00:00:00+00:00',

@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Caching;
+namespace Automattic\PooCommerce\Tests\Caching;
 
-use Automattic\WooCommerce\Caching\CacheException;
-use Automattic\WooCommerce\Caching\ObjectCache;
+use Automattic\PooCommerce\Caching\CacheException;
+use Automattic\PooCommerce\Caching\ObjectCache;
 
 /**
  * Tests for the CacheException class.

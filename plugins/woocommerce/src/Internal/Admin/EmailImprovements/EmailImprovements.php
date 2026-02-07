@@ -7,9 +7,9 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\EmailImprovements;
+namespace Automattic\PooCommerce\Internal\Admin\EmailImprovements;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 use WC_Tracker;
 
 defined( 'ABSPATH' ) || exit;
@@ -25,11 +25,11 @@ class EmailImprovements {
 	 * @var string[]
 	 */
 	private const EMAIL_CUSTOMIZERS = array(
-		'aco-email-customizer-and-designer-for-woocommerce.php',
+		'aco-email-customizer-and-designer-for-poocommerce.php',
 		'decorator.php',
-		'email-customizer-for-woocommerce.php',
+		'email-customizer-for-poocommerce.php',
 		'email-customizer-pro.php',
-		'kadence-woocommerce-email-designer.php',
+		'kadence-poocommerce-email-designer.php',
 		'mailpoet.php',
 		'wp-html-mail.php',
 		'yaymail.php',
@@ -90,7 +90,7 @@ class EmailImprovements {
 	 */
 	public static function is_email_improvements_enabled_for_existing_stores() {
 		$is_feature_enabled             = FeaturesUtil::feature_is_enabled( 'email_improvements' );
-		$is_enabled_for_existing_stores = 'yes' === get_option( 'woocommerce_email_improvements_existing_store_enabled' );
+		$is_enabled_for_existing_stores = 'yes' === get_option( 'poocommerce_email_improvements_existing_store_enabled' );
 		return $is_feature_enabled && $is_enabled_for_existing_stores;
 	}
 
@@ -107,7 +107,7 @@ class EmailImprovements {
 		if ( FeaturesUtil::feature_is_enabled( 'email_improvements' ) ) {
 			return false;
 		}
-		$manually_disabled_before = get_option( 'woocommerce_email_improvements_last_disabled_at' );
+		$manually_disabled_before = get_option( 'poocommerce_email_improvements_last_disabled_at' );
 		if ( $manually_disabled_before ) {
 			return false;
 		}
@@ -132,26 +132,26 @@ class EmailImprovements {
 	}
 
 	/**
-	 * Add email improvements modal parameter to the URL when loading the WooCommerce Home page.
+	 * Add email improvements modal parameter to the URL when loading the PooCommerce Home page.
 	 *
 	 * @return void
 	 */
 	public static function add_email_improvements_modal_to_url() {
-		// Check if we're on the WooCommerce Home page.
+		// Check if we're on the PooCommerce Home page.
 		if ( ! isset( $_GET['page'] ) || 'wc-admin' !== $_GET['page'] || isset( $_GET['path'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
-		$dismissed_modal = get_option( 'woocommerce_admin_dismissed_email_improvements_modal' );
+		$dismissed_modal = get_option( 'poocommerce_admin_dismissed_email_improvements_modal' );
 		if ( 'yes' !== $dismissed_modal && self::is_email_improvements_enabled_for_existing_stores() ) {
-			update_option( 'woocommerce_admin_dismissed_email_improvements_modal', 'yes' );
+			update_option( 'poocommerce_admin_dismissed_email_improvements_modal', 'yes' );
 			wp_safe_redirect( add_query_arg( 'emailImprovementsModal', 'enabled' ) );
 			exit;
 		}
 
-		$dismissed_modal = get_option( 'woocommerce_admin_dismissed_try_email_improvements_modal' );
+		$dismissed_modal = get_option( 'poocommerce_admin_dismissed_try_email_improvements_modal' );
 		if ( 'yes' !== $dismissed_modal && self::should_notify_merchant_about_email_improvements() ) {
-			update_option( 'woocommerce_admin_dismissed_try_email_improvements_modal', 'yes' );
+			update_option( 'poocommerce_admin_dismissed_try_email_improvements_modal', 'yes' );
 			wp_safe_redirect( add_query_arg( 'emailImprovementsModal', 'try' ) );
 			exit;
 		}

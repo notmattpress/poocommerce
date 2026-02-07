@@ -1,10 +1,10 @@
 <?php
 /**
  * Test for the discounts class.
- * @package WooCommerce\Tests\Discounts
+ * @package PooCommerce\Tests\Discounts
  */
 
-use Automattic\WooCommerce\Enums\ProductTaxStatus;
+use Automattic\PooCommerce\Enums\ProductTaxStatus;
 
  /**
   * WC_Tests_Discounts.
@@ -326,7 +326,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 						'tax_rate_class'    => '',
 					),
 					'wc_options'              => array(
-						'woocommerce_calc_taxes' => array(
+						'poocommerce_calc_taxes' => array(
 							'set'    => 'yes',
 							'revert' => 'no',
 						),
@@ -759,7 +759,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 					),
 					'prices_include_tax'      => false,
 					'wc_options'              => array(
-						'woocommerce_calc_discounts_sequentially' => array(
+						'poocommerce_calc_discounts_sequentially' => array(
 							'set'    => 'yes',
 							'revert' => 'no',
 						),
@@ -805,7 +805,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 					),
 					'prices_include_tax'      => false,
 					'wc_options'              => array(
-						'woocommerce_calc_discounts_sequentially' => array(
+						'poocommerce_calc_discounts_sequentially' => array(
 							'set'    => 'yes',
 							'revert' => 'no',
 						),
@@ -892,7 +892,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 					),
 					'prices_include_tax'      => false,
 					'wc_options'              => array(
-						'woocommerce_calc_discounts_sequentially' => array(
+						'poocommerce_calc_discounts_sequentially' => array(
 							'set'    => 'yes',
 							'revert' => 'no',
 						),
@@ -939,7 +939,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 					),
 					'prices_include_tax'      => false,
 					'wc_options'              => array(
-						'woocommerce_calc_discounts_sequentially' => array(
+						'poocommerce_calc_discounts_sequentially' => array(
 							'set'    => 'yes',
 							'revert' => 'no',
 						),
@@ -1462,11 +1462,11 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * filter_woocommerce_coupon_get_discount_amount.
+	 * filter_poocommerce_coupon_get_discount_amount.
 	 *
 	 * @param float $discount Discount amount.
 	 */
-	public function filter_woocommerce_coupon_get_discount_amount( $discount ) {
+	public function filter_poocommerce_coupon_get_discount_amount( $discount ) {
 		return $discount / 2;
 	}
 
@@ -1476,7 +1476,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 	public function test_coupon_discount_amount_filter() {
 		$discounts = new WC_Discounts();
 
-		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'filter_woocommerce_coupon_get_discount_amount' ) );
+		add_filter( 'poocommerce_coupon_get_discount_amount', array( $this, 'filter_poocommerce_coupon_get_discount_amount' ) );
 
 		$product = WC_Helper_Product::create_simple_product();
 		$product->set_regular_price( 100 );
@@ -1511,7 +1511,7 @@ class WC_Tests_Discounts extends WC_Unit_Test_Case {
 
 		$this->assertEquals( 20, $discount_total );
 
-		remove_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'filter_woocommerce_coupon_get_discount_amount' ) );
+		remove_filter( 'poocommerce_coupon_get_discount_amount', array( $this, 'filter_poocommerce_coupon_get_discount_amount' ) );
 	}
 
 	/**

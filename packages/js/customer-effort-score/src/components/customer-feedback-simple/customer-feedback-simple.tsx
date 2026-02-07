@@ -3,7 +3,7 @@
  */
 import { createElement } from '@wordpress/element';
 import { Button, Tooltip } from '@wordpress/components';
-import { Text } from '@woocommerce/experimental';
+import { Text } from '@poocommerce/experimental';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 
@@ -36,27 +36,27 @@ export function CustomerFeedbackSimple( {
 }: CustomerFeedbackSimpleProps ) {
 	const options = [
 		{
-			tooltip: __( 'Very difficult', 'woocommerce' ),
+			tooltip: __( 'Very difficult', 'poocommerce' ),
 			value: 1,
 			emoji: '😞',
 		},
 		{
-			tooltip: __( 'Difficult', 'woocommerce' ),
+			tooltip: __( 'Difficult', 'poocommerce' ),
 			value: 2,
 			emoji: '🙁',
 		},
 		{
-			tooltip: __( 'Neutral', 'woocommerce' ),
+			tooltip: __( 'Neutral', 'poocommerce' ),
 			value: 3,
 			emoji: '😑',
 		},
 		{
-			tooltip: __( 'Good', 'woocommerce' ),
+			tooltip: __( 'Good', 'poocommerce' ),
 			value: 4,
 			emoji: '🙂',
 		},
 		{
-			tooltip: __( 'Very good', 'woocommerce' ),
+			tooltip: __( 'Very good', 'poocommerce' ),
 			value: 5,
 			emoji: '😍',
 		},

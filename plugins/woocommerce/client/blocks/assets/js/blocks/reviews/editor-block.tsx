@@ -4,17 +4,17 @@
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import { Disabled } from '@wordpress/components';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import ErrorPlaceholder, {
 	ErrorObject,
-} from '@woocommerce/editor-components/error-placeholder';
-import LoadMoreButton from '@woocommerce/base-components/load-more-button';
+} from '@poocommerce/editor-components/error-placeholder';
+import LoadMoreButton from '@poocommerce/base-components/load-more-button';
 import {
 	ReviewList,
 	ReviewSortSelect,
-} from '@woocommerce/base-components/reviews';
-import type { Review } from '@woocommerce/base-components/reviews/types';
-import withReviews from '@woocommerce/base-hocs/with-reviews';
+} from '@poocommerce/base-components/reviews';
+import type { Review } from '@poocommerce/base-components/reviews/types';
+import withReviews from '@poocommerce/base-hocs/with-reviews';
 
 /**
  * Internal dependencies
@@ -77,7 +77,7 @@ class EditorBlock extends Component< EditorBlockProps > {
 					<LoadMoreButton
 						screenReaderLabel={ __(
 							'Load more reviews',
-							'woocommerce'
+							'poocommerce'
 						) }
 						onClick={ () => null }
 					/>

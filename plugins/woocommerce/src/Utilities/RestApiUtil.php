@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Utilities;
+namespace Automattic\PooCommerce\Utilities;
 
 /**
  * Utility methods related to the REST API.
@@ -8,8 +8,8 @@ namespace Automattic\WooCommerce\Utilities;
 class RestApiUtil {
 
 	/**
-	 * Get data from a WooCommerce API endpoint.
-	 * This method used to be part of the WooCommerce Legacy REST API.
+	 * Get data from a PooCommerce API endpoint.
+	 * This method used to be part of the PooCommerce Legacy REST API.
 	 *
 	 * @since 9.0.0
 	 *
@@ -31,7 +31,7 @@ class RestApiUtil {
 	/**
 	 * Conditionally loads a REST API namespace based on the current route to improve performance.
 	 *
-	 * This function implements lazy loading for WooCommerce REST API namespaces to prevent loading
+	 * This function implements lazy loading for PooCommerce REST API namespaces to prevent loading
 	 * all controllers on every request. It checks if the current REST route matches the namespace
 	 * in order for that namespace to be loaded. If the namespace does not match the current rest
 	 * route, a callback will be registered to possibly load the namespace again on `rest_pre_dispatch`;
@@ -53,7 +53,7 @@ class RestApiUtil {
 		 *
 		 * @since 10.3.0
 		 */
-		$should_lazy_load_namespace = apply_filters( 'woocommerce_rest_should_lazy_load_namespace', true, $route_namespace );
+		$should_lazy_load_namespace = apply_filters( 'poocommerce_rest_should_lazy_load_namespace', true, $route_namespace );
 		if ( $should_lazy_load_namespace ) {
 			$this->attach_lazy_loaded_namespace( $route_namespace, $callback );
 		} else {

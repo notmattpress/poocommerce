@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-review-author-name",
+	"name": "poocommerce/product-review-author-name",
 	"title": "Review Author Name",
-	"category": "woocommerce",
-	"ancestor": [ "woocommerce/product-reviews" ],
+	"category": "poocommerce",
+	"ancestor": [ "poocommerce/product-reviews" ],
 	"description": "Displays the name of the author of the review.",
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"isLink": {
 			"type": "boolean",

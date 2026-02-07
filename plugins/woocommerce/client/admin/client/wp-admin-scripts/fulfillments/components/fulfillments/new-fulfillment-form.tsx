@@ -63,18 +63,18 @@ const NewFulfillmentForm: React.FC = () => {
 	return (
 		<div
 			className={ [
-				'woocommerce-fulfillment-new-fulfillment-form',
+				'poocommerce-fulfillment-new-fulfillment-form',
 				isEditing
-					? 'woocommerce-fulfillment-new-fulfillment-form__disabled'
+					? 'poocommerce-fulfillment-new-fulfillment-form__disabled'
 					: '',
 				fulfillments.length === 0
-					? 'woocommerce-fulfillment-new-fulfillment-form__first'
+					? 'poocommerce-fulfillment-new-fulfillment-form__first'
 					: '',
 			].join( ' ' ) }
 		>
 			<div
 				className={ [
-					'woocommerce-fulfillment-new-fulfillment-form__header',
+					'poocommerce-fulfillment-new-fulfillment-form__header',
 					openSection === 'order' ? 'is-open' : '',
 				].join( ' ' ) }
 				onClick={ () => {
@@ -98,8 +98,8 @@ const NewFulfillmentForm: React.FC = () => {
 			>
 				<h3>
 					{ fulfillments.length === 0
-						? __( 'Order Items', 'woocommerce' )
-						: __( 'Pending Items', 'woocommerce' ) }
+						? __( 'Order Items', 'poocommerce' )
+						: __( 'Pending Items', 'poocommerce' ) }
 				</h3>
 				{ fulfillments.length > 0 && (
 					<Button __next40pxDefaultSize size="small">
@@ -115,7 +115,7 @@ const NewFulfillmentForm: React.FC = () => {
 				) }
 			</div>
 			{ ! isEditing && openSection === 'order' && (
-				<div className="woocommerce-fulfillment-new-fulfillment-form__content">
+				<div className="poocommerce-fulfillment-new-fulfillment-form__content">
 					{ error && <ErrorLabel error={ error } /> }
 					<ShipmentFormProvider>
 						<FulfillmentProvider
@@ -127,7 +127,7 @@ const NewFulfillmentForm: React.FC = () => {
 
 							<ShipmentForm />
 							<CustomerNotificationBox type="fulfill" />
-							<div className="woocommerce-fulfillment-item-actions">
+							<div className="poocommerce-fulfillment-item-actions">
 								<SaveAsDraftButton setError={ setError } />
 								<FulfillItemsButton setError={ setError } />
 							</div>

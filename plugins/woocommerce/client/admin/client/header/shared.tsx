@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useCallback, useLayoutEffect, useRef } from '@wordpress/element';
-import { useSlot, Text } from '@woocommerce/experimental';
+import { useSlot, Text } from '@poocommerce/experimental';
 import clsx from 'clsx';
 import { decodeEntities } from '@wordpress/html-entities';
 import {
@@ -11,7 +11,7 @@ import {
 	WooHeaderNavigationItem,
 	WooHeaderItem,
 	WooHeaderPageTitle,
-} from '@woocommerce/admin-layout';
+} from '@poocommerce/admin-layout';
 
 /**
  * Internal dependencies
@@ -112,7 +112,7 @@ export const BaseHeader = ( {
 
 	return (
 		<div
-			className={ clsx( 'woocommerce-layout__header', {
+			className={ clsx( 'poocommerce-layout__header', {
 				'is-scrolled': isScrolled,
 			} ) }
 			ref={ headerElement }
@@ -123,14 +123,14 @@ export const BaseHeader = ( {
 					taskListId="setup"
 				/>
 			) }
-			<div className="woocommerce-layout__header-wrapper">
+			<div className="poocommerce-layout__header-wrapper">
 				<WooHeaderNavigationItem.Slot
 					fillProps={ { isEmbedded, query } }
 				/>
 
 				<Text
-					className={ clsx( 'woocommerce-layout__header-heading', {
-						'woocommerce-layout__header-left-align': leftAlign,
+					className={ clsx( 'poocommerce-layout__header-heading', {
+						'poocommerce-layout__header-left-align': leftAlign,
 					} ) }
 					as="h1"
 				>

@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,7 +48,7 @@ class DecisionHandler {
 	 * The input decision is expected to be pre-validated by ApiClient.
 	 *
 	 * The decision flow:
-	 * 1. Apply the `woocommerce_fraud_protection_decision` filter for overrides
+	 * 1. Apply the `poocommerce_fraud_protection_decision` filter for overrides
 	 * 2. Validate the filtered decision (third-party filters may return invalid values)
 	 * 3. Update session status via SessionClearanceManager
 	 *
@@ -88,13 +88,13 @@ class DecisionHandler {
 		 * @param string               $decision     The decision from the API (allow, block).
 		 * @param array<string, mixed> $session_data The session data that was analyzed.
 		 */
-		$decision = apply_filters( 'woocommerce_fraud_protection_decision', $decision, $session_data );
+		$decision = apply_filters( 'poocommerce_fraud_protection_decision', $decision, $session_data );
 
 		// Validate filtered decision (third-party filters may return invalid values).
 		if ( ! $this->is_valid_decision( $decision ) ) {
 			FraudProtectionController::log(
 				'warning',
-				sprintf( 'Filter `woocommerce_fraud_protection_decision` returned invalid decision "%s". Using original decision "%s".', $decision, $original_decision ),
+				sprintf( 'Filter `poocommerce_fraud_protection_decision` returned invalid decision "%s". Using original decision "%s".', $decision, $original_decision ),
 				array(
 					'original_decision' => $original_decision,
 					'filtered_decision' => $decision,
@@ -108,7 +108,7 @@ class DecisionHandler {
 		if ( $decision !== $original_decision ) {
 			FraudProtectionController::log(
 				'info',
-				sprintf( 'Decision overridden by filter `woocommerce_fraud_protection_decision`: "%s" -> "%s"', $original_decision, $decision ),
+				sprintf( 'Decision overridden by filter `poocommerce_fraud_protection_decision`: "%s" -> "%s"', $original_decision, $decision ),
 				array(
 					'original_decision' => $original_decision,
 					'final_decision'    => $decision,

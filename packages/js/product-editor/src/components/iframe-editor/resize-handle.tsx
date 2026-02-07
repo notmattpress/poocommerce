@@ -38,7 +38,7 @@ export default function ResizeHandle( {
 		<>
 			<button
 				className={ `resizable-editor__drag-handle is-${ direction }` }
-				aria-label={ __( 'Drag to resize', 'woocommerce' ) }
+				aria-label={ __( 'Drag to resize', 'poocommerce' ) }
 				aria-describedby={ `resizable-editor__resize-help-${ direction }` }
 				onKeyDown={ handleKeyDown }
 			/>
@@ -47,7 +47,7 @@ export default function ResizeHandle( {
 			>
 				{ __(
 					'Use left and right arrow keys to resize the canvas.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</VisuallyHidden>
 		</>

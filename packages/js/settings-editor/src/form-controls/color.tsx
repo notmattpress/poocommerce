@@ -20,12 +20,12 @@ export const Color = ( { field, onChange, data }: ColorProps ) => {
 		<Fragment>
 			{ /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
 			<label
-				className="woocommerce-settings-color-picker__label"
+				className="poocommerce-settings-color-picker__label"
 				htmlFor={ id }
 				dangerouslySetInnerHTML={ { __html: label } }
 			/>
 			<ColorPicker
-				className="woocommerce-settings-color-picker"
+				className="poocommerce-settings-color-picker"
 				onChange={ ( newValue ) => {
 					onChange( {
 						[ id ]: newValue,

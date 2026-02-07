@@ -14,7 +14,7 @@ import metadata from './block.json';
  */
 import { Edit, Save } from './edit';
 
-registerBlockType( 'woocommerce/cart-order-summary-coupon-form-block', {
+registerBlockType( 'poocommerce/cart-order-summary-coupon-form-block', {
 	apiVersion: metadata.apiVersion,
 	title: metadata.title,
 	icon: {

@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * ProductSpecifications class.
@@ -53,14 +53,14 @@ class ProductSpecifications extends AbstractBlock {
 
 		if ( $show_weight && $product->has_weight() ) {
 			$product_data['weight'] = array(
-				'label' => __( 'Weight', 'woocommerce' ),
+				'label' => __( 'Weight', 'poocommerce' ),
 				'value' => wc_format_weight( $product->get_weight() ),
 			);
 		}
 
 		if ( $show_dimensions && $product->has_dimensions() ) {
 			$product_data['dimensions'] = array(
-				'label' => __( 'Dimensions', 'woocommerce' ),
+				'label' => __( 'Dimensions', 'poocommerce' ),
 				'value' => wc_format_dimensions( $product->get_dimensions( false ) ),
 			);
 		}
@@ -78,7 +78,7 @@ class ProductSpecifications extends AbstractBlock {
 			}
 
 			wp_interactivity_config(
-				'woocommerce',
+				'poocommerce',
 				array(
 					'products' => array(
 						$product->get_id() => array(
@@ -89,7 +89,7 @@ class ProductSpecifications extends AbstractBlock {
 					),
 				)
 			);
-			wp_enqueue_script_module( 'woocommerce/product-elements' );
+			wp_enqueue_script_module( 'poocommerce/product-elements' );
 		}
 
 		if ( $show_attributes ) {
@@ -138,8 +138,8 @@ class ProductSpecifications extends AbstractBlock {
 			<table>
 				<thead class="screen-reader-text">
 					<tr>
-						<th><?php esc_html_e( 'Attributes', 'woocommerce' ); ?></th>
-						<th><?php esc_html_e( 'Value', 'woocommerce' ); ?></th>
+						<th><?php esc_html_e( 'Attributes', 'poocommerce' ); ?></th>
+						<th><?php esc_html_e( 'Value', 'poocommerce' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -149,7 +149,7 @@ class ProductSpecifications extends AbstractBlock {
 								<?php echo wp_kses_post( $product_attribute['label'] ); ?>
 							</th>
 							<?php if ( $is_interactive && in_array( $product_attribute_key, array( 'weight', 'dimensions' ), true ) ) : ?>
-								<td class="wp-block-product-specifications-item__value" data-wp-interactive="woocommerce/product-elements" data-wp-text="state.productData.<?php echo esc_attr( $product_attribute_key ); ?>">
+								<td class="wp-block-product-specifications-item__value" data-wp-interactive="poocommerce/product-elements" data-wp-text="state.productData.<?php echo esc_attr( $product_attribute_key ); ?>">
 									<?php echo wp_kses_post( $product_attribute['value'] ); ?>
 								</td>
 							<?php else : ?>	

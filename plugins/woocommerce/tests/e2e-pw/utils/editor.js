@@ -1,4 +1,4 @@
-const { getCanvas } = require( '@woocommerce/e2e-utils-playwright' );
+const { getCanvas } = require( '@poocommerce/e2e-utils-playwright' );
 
 const fillPageTitle = async ( page, title ) => {
 	// Close the Block Inserter if it's open.

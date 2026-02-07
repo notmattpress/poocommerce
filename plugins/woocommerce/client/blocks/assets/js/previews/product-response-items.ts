@@ -2,25 +2,25 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { WC_BLOCKS_IMAGE_URL } from '@woocommerce/block-settings';
-import { ProductResponseItem } from '@woocommerce/types';
+import { WC_BLOCKS_IMAGE_URL } from '@poocommerce/block-settings';
+import { ProductResponseItem } from '@poocommerce/types';
 
 export const previewProductResponseItems: ProductResponseItem[] = [
 	{
 		id: 1,
-		name: __( 'Beanie', 'woocommerce' ),
+		name: __( 'Beanie', 'poocommerce' ),
 		parent: 0,
 		type: 'simple',
 		variation: '',
 		permalink: 'https://example.org',
 		slug: 'wp-beanie',
 		sku: 'wp-beanie',
-		short_description: __( 'Warm hat for winter', 'woocommerce' ),
+		short_description: __( 'Warm hat for winter', 'poocommerce' ),
 		description:
 			'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.',
 		price: '799',
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>7.99</span>',
+			'<span class="poocommerce-Price-amount amount"><span class="poocommerce-Price-currencySymbol">$</span>7.99</span>',
 		images: [
 			{
 				id: 1,
@@ -59,13 +59,13 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 			price_range: null,
 		},
 		add_to_cart: {
-			text: __( 'Add to cart', 'woocommerce' ),
-			description: __( 'Add to cart', 'woocommerce' ),
+			text: __( 'Add to cart', 'poocommerce' ),
+			description: __( 'Add to cart', 'poocommerce' ),
 			url: '#',
 			minimum: 1,
 			maximum: 9999,
 			multiple_of: 1,
-			single_text: __( 'Add to cart', 'woocommerce' ),
+			single_text: __( 'Add to cart', 'poocommerce' ),
 		},
 		has_options: false,
 		is_purchasable: true,
@@ -73,7 +73,7 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 		is_on_backorder: false,
 		low_stock_remaining: null,
 		stock_availability: {
-			text: __( 'In stock', 'woocommerce' ),
+			text: __( 'In stock', 'poocommerce' ),
 			class: 'in-stock',
 		},
 		sold_individually: false,
@@ -84,19 +84,19 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 	},
 	{
 		id: 2,
-		name: __( 'Cap', 'woocommerce' ),
+		name: __( 'Cap', 'poocommerce' ),
 		parent: 0,
 		type: 'simple',
 		variation: '',
 		permalink: 'https://example.org',
 		slug: 'wp-cap',
 		sku: 'wp-cap',
-		short_description: __( 'Warm hat for winter', 'woocommerce' ),
+		short_description: __( 'Warm hat for winter', 'poocommerce' ),
 		description:
 			'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.',
 		price: '2299',
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>22.99</span>',
+			'<span class="poocommerce-Price-amount amount"><span class="poocommerce-Price-currencySymbol">$</span>22.99</span>',
 		images: [
 			{
 				id: 1,
@@ -135,13 +135,13 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 			price_range: null,
 		},
 		add_to_cart: {
-			text: __( 'Add to cart', 'woocommerce' ),
-			description: __( 'Add to cart', 'woocommerce' ),
+			text: __( 'Add to cart', 'poocommerce' ),
+			description: __( 'Add to cart', 'poocommerce' ),
 			url: '#',
 			minimum: 1,
 			maximum: 9999,
 			multiple_of: 1,
-			single_text: __( 'Add to cart', 'woocommerce' ),
+			single_text: __( 'Add to cart', 'poocommerce' ),
 		},
 		has_options: false,
 		is_purchasable: true,
@@ -149,7 +149,7 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 		is_on_backorder: false,
 		low_stock_remaining: null,
 		stock_availability: {
-			text: __( 'In stock', 'woocommerce' ),
+			text: __( 'In stock', 'poocommerce' ),
 			class: 'in-stock',
 		},
 		sold_individually: false,
@@ -160,18 +160,18 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 	},
 	{
 		id: 3,
-		name: __( 'Polo', 'woocommerce' ),
+		name: __( 'Polo', 'poocommerce' ),
 		parent: 0,
 		type: 'simple',
 		variation: '',
 		permalink: 'https://example.org',
 		slug: 'polo',
 		sku: 'woo-polo',
-		short_description: __( 'Polo', 'woocommerce' ),
+		short_description: __( 'Polo', 'poocommerce' ),
 		description: 'Polo',
 		price: '2299',
 		price_html:
-			'<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">$</span>22.99</span>',
+			'<span class="poocommerce-Price-amount amount"><span class="poocommerce-Price-currencySymbol">$</span>22.99</span>',
 		images: [
 			{
 				id: 1,
@@ -210,13 +210,13 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 			price_range: null,
 		},
 		add_to_cart: {
-			text: __( 'Add to cart', 'woocommerce' ),
-			description: __( 'Add to cart', 'woocommerce' ),
+			text: __( 'Add to cart', 'poocommerce' ),
+			description: __( 'Add to cart', 'poocommerce' ),
 			url: '#',
 			minimum: 1,
 			maximum: 9999,
 			multiple_of: 1,
-			single_text: __( 'Add to cart', 'woocommerce' ),
+			single_text: __( 'Add to cart', 'poocommerce' ),
 		},
 		has_options: false,
 		is_purchasable: true,
@@ -224,7 +224,7 @@ export const previewProductResponseItems: ProductResponseItem[] = [
 		is_on_backorder: false,
 		low_stock_remaining: null,
 		stock_availability: {
-			text: __( 'In stock', 'woocommerce' ),
+			text: __( 'In stock', 'poocommerce' ),
 			class: 'in-stock',
 		},
 		sold_individually: false,

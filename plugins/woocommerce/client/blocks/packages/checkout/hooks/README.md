@@ -18,7 +18,7 @@ This hook is primarily used internally by the `PlaceOrderButton` component to pr
 
 ```jsx
 // Aliased import
-import { useValidateCheckout } from '@woocommerce/blocks-checkout';
+import { useValidateCheckout } from '@poocommerce/blocks-checkout';
 
 // Global import
 // const { useValidateCheckout } = wc.blocksCheckout;
@@ -61,8 +61,8 @@ The hook returns a function that, when called:
 
 ---
 
-[We're hiring!](https://woocommerce.com/careers/) Come work with us!
+[We're hiring!](https://poocommerce.com/careers/) Come work with us!
 
-🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/woocommerce/woocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/hooks/README.md)
+🐞 Found a mistake, or have a suggestion? [Leave feedback about this document here.](https://github.com/poocommerce/poocommerce/issues/new?assignees=&labels=type%3A+documentation&template=suggestion-for-documentation-improvement-correction.md&title=Feedback%20on%20./packages/checkout/hooks/README.md)
 
 <!-- /FEEDBACK -->

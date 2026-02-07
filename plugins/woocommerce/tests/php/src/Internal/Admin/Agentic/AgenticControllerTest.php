@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Agentic;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Agentic;
 
-use Automattic\WooCommerce\Internal\Admin\Agentic\AgenticController;
-use Automattic\WooCommerce\Internal\Admin\Agentic\AgenticWebhookManager;
+use Automattic\PooCommerce\Internal\Admin\Agentic\AgenticController;
+use Automattic\PooCommerce\Internal\Admin\Agentic\AgenticWebhookManager;
 
 /**
  * Tests for AgenticController class.
@@ -15,7 +15,7 @@ class AgenticControllerTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_register_initializes_webhook_manager() {
 		// Enable the agentic checkout feature.
-		update_option( 'woocommerce_feature_agentic_checkout_enabled', 'yes' );
+		update_option( 'poocommerce_feature_agentic_checkout_enabled', 'yes' );
 
 		// Ensure WC_INSTALLING is not set during the test.
 		if ( defined( 'WC_INSTALLING' ) ) {
@@ -35,7 +35,7 @@ class AgenticControllerTest extends \WC_Unit_Test_Case {
 		 * @since 10.3.0
 		 * @see AgenticWebhookManager::register_webhook_topic_names()
 		 */
-		$topics = apply_filters( 'woocommerce_webhook_topics', array() );
+		$topics = apply_filters( 'poocommerce_webhook_topics', array() );
 		$this->assertArrayHasKey( AgenticWebhookManager::WEBHOOK_TOPIC, $topics );
 	}
 }

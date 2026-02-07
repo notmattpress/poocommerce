@@ -7,12 +7,12 @@ import {
 	appendTimestamp,
 	getCurrentDates,
 	getIntervalForQuery,
-} from '@woocommerce/date';
+} from '@poocommerce/date';
 import {
 	flattenFilters,
 	getActiveFiltersFromQuery,
 	getQueryFromActiveFilters,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 import deprecated from '@wordpress/deprecated';
 import { select as WPSelect } from '@wordpress/data';
 

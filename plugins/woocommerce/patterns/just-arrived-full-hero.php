@@ -1,13 +1,13 @@
 <?php
 /**
  * Title: Just Arrived Full Hero
- * Slug: woocommerce-blocks/just-arrived-full-hero
- * Categories: WooCommerce, Intro
+ * Slug: poocommerce-blocks/just-arrived-full-hero
+ * Categories: PooCommerce, Intro
  */
 
-$pattern_title       = __( 'Sound like no other', 'woocommerce' );
-$pattern_description = __( 'Experience your music like never before with our latest generation of hi-fidelity headphones.', 'woocommerce' );
-$pattern_button      = __( 'Shop now', 'woocommerce' );
+$pattern_title       = __( 'Sound like no other', 'poocommerce' );
+$pattern_description = __( 'Experience your music like never before with our latest generation of hi-fidelity headphones.', 'poocommerce' );
+$pattern_button      = __( 'Shop now', 'poocommerce' );
 $pattern_image       = plugins_url( 'assets/images/pattern-placeholders/man-person-music-black-and-white-white-photography.jpg', WC_PLUGIN_FILE );
 ?>
 

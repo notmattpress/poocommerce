@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\ExtendSchema;
-use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
-use Automattic\WooCommerce\Blocks\Package;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\ExtendSchema;
+use Automattic\PooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\PooCommerce\Blocks\Package;
 
 /**
  * AbstractSchema class.
@@ -327,43 +327,43 @@ abstract class AbstractSchema {
 	protected function get_store_currency_properties() {
 		return [
 			'currency_code'               => [
-				'description' => __( 'Currency code (in ISO format) for returned prices.', 'woocommerce' ),
+				'description' => __( 'Currency code (in ISO format) for returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'currency_symbol'             => [
-				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'currency_minor_unit'         => [
-				'description' => __( 'Currency minor unit (number of digits after the decimal separator) for returned prices.', 'woocommerce' ),
+				'description' => __( 'Currency minor unit (number of digits after the decimal separator) for returned prices.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
 			'currency_decimal_separator'  => array(
-				'description' => __( 'Decimal separator for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Decimal separator for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'currency_thousand_separator' => array(
-				'description' => __( 'Thousand separator for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Thousand separator for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'currency_prefix'             => array(
-				'description' => __( 'Price prefix for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Price prefix for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'currency_suffix'             => array(
-				'description' => __( 'Price prefix for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Price prefix for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
@@ -382,7 +382,7 @@ abstract class AbstractSchema {
 	}
 
 	/**
-	 * Convert monetary values from WooCommerce to string based integers, using
+	 * Convert monetary values from PooCommerce to string based integers, using
 	 * the smallest unit of a currency.
 	 *
 	 * @param string|float $amount Monetary amount with decimals.

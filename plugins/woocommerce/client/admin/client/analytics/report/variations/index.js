@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import PropTypes from 'prop-types';
-import { AnalyticsError } from '@woocommerce/components';
+import { AnalyticsError } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ const getChartMeta = ( { query } ) => {
 	return {
 		compareObject: 'variations',
 		/* translators: %d: number of variations */
-		itemsLabel: __( '%d variations', 'woocommerce' ),
+		itemsLabel: __( '%d variations', 'poocommerce' ),
 		mode: isCompareView ? 'item-comparison' : 'time-comparison',
 	};
 };

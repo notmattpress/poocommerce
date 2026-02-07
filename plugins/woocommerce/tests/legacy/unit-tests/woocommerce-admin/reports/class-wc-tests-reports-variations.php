@@ -2,18 +2,18 @@
 /**
  * Reports order stats tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free order reports.
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\GenericQuery;
-use Automattic\WooCommerce\Admin\API\Reports\Variations\DataStore as VariationsDataStore;
-use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Admin\API\Reports\GenericQuery;
+use Automattic\PooCommerce\Admin\API\Reports\Variations\DataStore as VariationsDataStore;
+use Automattic\PooCommerce\Enums\OrderStatus;
 
 /**
  * Reports order stats tests class.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  * @todo Finish up unit testing to verify bug-free order reports.
  */
 class WC_Admin_Tests_Reports_Variations extends WC_Unit_Test_Case {
@@ -143,7 +143,7 @@ class WC_Admin_Tests_Reports_Variations extends WC_Unit_Test_Case {
 						'price'            => (float) $variation->get_price(),
 						'stock_status'     => $variation->get_stock_status(),
 						'stock_quantity'   => $variation->get_stock_quantity() - 4, // subtract the ones purchased.
-						'low_stock_amount' => get_option( 'woocommerce_notify_low_stock_amount' ),
+						'low_stock_amount' => get_option( 'poocommerce_notify_low_stock_amount' ),
 						'attributes'       => array(
 							0 => array(
 								'id'     => 0,
@@ -205,7 +205,7 @@ class WC_Admin_Tests_Reports_Variations extends WC_Unit_Test_Case {
 		$line_item_1->set_product( $green );
 		$line_item_1->add_meta_data( 'pa_size', 'Small', true );
 
-		$order_1 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order_1 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order_1->add_item( $line_item_1 );
 		$order_1->set_status( OrderStatus::COMPLETED );
 		$order_1->save();
@@ -214,7 +214,7 @@ class WC_Admin_Tests_Reports_Variations extends WC_Unit_Test_Case {
 		$line_item_2->set_product( $green );
 		$line_item_2->add_meta_data( 'pa_size', 'Large', true );
 
-		$order_2 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order_2 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order_2->add_item( $line_item_2 );
 		$order_2->set_status( OrderStatus::COMPLETED );
 		$order_2->save();
@@ -224,7 +224,7 @@ class WC_Admin_Tests_Reports_Variations extends WC_Unit_Test_Case {
 		$line_item_3->set_product( $red );
 		$line_item_3->add_meta_data( 'pa_size', 'Large', true );
 
-		$order_3 = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order_3 = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$order_3->add_item( $line_item_3 );
 		$order_3->set_status( OrderStatus::COMPLETED );
 		$order_3->save();

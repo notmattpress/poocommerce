@@ -1,9 +1,9 @@
 ---
-name: woocommerce-git
-description: Guidelines for git and GitHub operations in the WooCommerce repository.
+name: poocommerce-git
+description: Guidelines for git and GitHub operations in the PooCommerce repository.
 ---
 
-# WooCommerce Git Guidelines
+# PooCommerce Git Guidelines
 
 ## Pull Requests
 

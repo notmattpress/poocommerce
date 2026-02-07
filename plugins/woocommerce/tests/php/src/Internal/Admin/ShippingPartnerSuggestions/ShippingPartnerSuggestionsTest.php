@@ -1,19 +1,19 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\ShippingPartnerSuggestions;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\ShippingPartnerSuggestions;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Shipping;
-use Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions\DefaultShippingPartners;
-use Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestions;
-use Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestionsDataSourcePoller;
-use Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\Shipping;
+use Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions\DefaultShippingPartners;
+use Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestions;
+use Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestionsDataSourcePoller;
+use Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions\EvaluateSuggestion;
 use WC_Unit_Test_Case;
 
 /**
  * class WC_Admin_Tests_ShippingPartnerSuggestions_Init
  *
- * @covers \Automattic\WooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestions
+ * @covers \Automattic\PooCommerce\Admin\Features\ShippingPartnerSuggestions\ShippingPartnerSuggestions
  */
 class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 
@@ -35,9 +35,9 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 				'role' => 'administrator',
 			)
 		);
-		delete_option( 'woocommerce_show_marketplace_suggestions' );
+		delete_option( 'poocommerce_show_marketplace_suggestions' );
 		add_filter(
-			'transient_woocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs',
+			'transient_poocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs',
 			function ( $value ) {
 				if ( $value ) {
 					return $value;
@@ -70,7 +70,7 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 
 		// Have a mock logger used by the suggestions rule evaluator.
 		$this->mock_logger = $this->getMockBuilder( 'WC_Logger_Interface' )->getMock();
-		add_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		add_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 
 		EvaluateSuggestion::reset_memo();
 	}
@@ -80,9 +80,9 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		ShippingPartnerSuggestionsDataSourcePoller::get_instance()->delete_specs_transient();
-		remove_all_filters( 'transient_woocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs' );
-		update_option( 'woocommerce_default_country', 'US' );
-		remove_filter( 'woocommerce_logging_class', array( $this, 'override_wc_logger' ) );
+		remove_all_filters( 'transient_poocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs' );
+		update_option( 'poocommerce_default_country', 'US' );
+		remove_filter( 'poocommerce_logging_class', array( $this, 'override_wc_logger' ) );
 
 		parent::tearDown();
 	}
@@ -91,7 +91,7 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 	 * Test that default specs are provided when remote sources don't exist.
 	 */
 	public function test_get_default_specs() {
-		remove_all_filters( 'transient_woocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs' );
+		remove_all_filters( 'transient_poocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs' );
 		add_filter(
 			DataSourcePoller::FILTER_NAME,
 			function () {
@@ -109,7 +109,7 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 	 */
 	public function test_specs_transient() {
 		set_transient(
-			'woocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs',
+			'poocommerce_admin_' . ShippingPartnerSuggestionsDataSourcePoller::ID . '_specs',
 			array(
 				'en_US' => array(
 					array(
@@ -129,7 +129,7 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 	 * Test that non-matching suggestions are not shown.
 	 */
 	public function test_non_matching_suggestions() {
-		update_option( 'woocommerce_default_country', 'US' );
+		update_option( 'poocommerce_default_country', 'US' );
 		$suggestions = ShippingPartnerSuggestions::get_suggestions();
 		$this->assertCount( 1, $suggestions );
 	}
@@ -138,7 +138,7 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 	 * Test that matched suggestions are shown.
 	 */
 	public function test_matching_suggestions() {
-		update_option( 'woocommerce_default_country', 'ZA' );
+		update_option( 'poocommerce_default_country', 'ZA' );
 		$suggestions = ShippingPartnerSuggestions::get_suggestions();
 		$this->assertEquals( 'mock-shipping-partner-1', $suggestions[0]->id );
 	}
@@ -147,7 +147,7 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 	 * Test that suggestions rules evaluations are logged.
 	 */
 	public function test_suggestion_evaluations_are_logged() {
-		add_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		add_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 
 		$logger_debug_calls_args = array(
 			array(
@@ -169,10 +169,10 @@ class ShippingPartnerSuggestionsTest extends WC_Unit_Test_Case {
 				}
 			);
 
-		update_option( 'woocommerce_default_country', 'ZA' );
+		update_option( 'poocommerce_default_country', 'ZA' );
 		ShippingPartnerSuggestions::get_suggestions();
 
-		remove_filter( 'woocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
+		remove_filter( 'poocommerce_admin_remote_specs_evaluator_should_log', '__return_true' );
 	}
 
 	/**

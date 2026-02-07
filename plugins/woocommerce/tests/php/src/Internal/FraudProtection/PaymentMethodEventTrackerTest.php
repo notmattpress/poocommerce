@@ -2,20 +2,20 @@
 /**
  * PaymentMethodEventTrackerTest class file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\PaymentMethodEventTracker;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\PaymentMethodEventTracker;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
 
 /**
  * Tests for the PaymentMethodEventTracker class.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\PaymentMethodEventTracker
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\PaymentMethodEventTracker
  */
 class PaymentMethodEventTrackerTest extends \WC_Unit_Test_Case {
 

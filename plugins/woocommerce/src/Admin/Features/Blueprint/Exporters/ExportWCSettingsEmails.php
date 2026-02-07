@@ -2,18 +2,18 @@
 
 declare( strict_types = 1);
 
-namespace Automattic\WooCommerce\Admin\Features\Blueprint\Exporters;
+namespace Automattic\PooCommerce\Admin\Features\Blueprint\Exporters;
 
-use Automattic\WooCommerce\Admin\Features\Blueprint\SettingOptions;
-use Automattic\WooCommerce\Blueprint\UseWPFunctions;
-use Automattic\WooCommerce\Blueprint\Steps\SetSiteOptions;
+use Automattic\PooCommerce\Admin\Features\Blueprint\SettingOptions;
+use Automattic\PooCommerce\Blueprint\UseWPFunctions;
+use Automattic\PooCommerce\Blueprint\Steps\SetSiteOptions;
 
 /**
  * Class ExportWCSettingsEmails
  *
- * This class exports WooCommerce settings on the Emails page.
+ * This class exports PooCommerce settings on the Emails page.
  *
- * @package Automattic\WooCommerce\Admin\Features\Blueprint\Exporters
+ * @package Automattic\PooCommerce\Admin\Features\Blueprint\Exporters
  */
 class ExportWCSettingsEmails extends ExportWCSettings {
 	use UseWPFunctions;
@@ -28,7 +28,7 @@ class ExportWCSettingsEmails extends ExportWCSettings {
 	}
 
 	/**
-	 * Export WooCommerce settings.
+	 * Export PooCommerce settings.
 	 *
 	 * @return SetSiteOptions
 	 */
@@ -55,7 +55,7 @@ class ExportWCSettingsEmails extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_label() {
-		return __( 'Emails', 'woocommerce' );
+		return __( 'Emails', 'poocommerce' );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class ExportWCSettingsEmails extends ExportWCSettings {
 	 * @return string
 	 */
 	public function get_description() {
-		return __( 'Includes all settings in WooCommerce | Settings | Emails.', 'woocommerce' );
+		return __( 'Includes all settings in PooCommerce | Settings | Emails.', 'poocommerce' );
 	}
 
 	/**

@@ -5,7 +5,7 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Internal\FraudProtection;
 
 use Automattic\Jetpack\Constants;
 
@@ -29,9 +29,9 @@ class BlackboxScriptHandler {
 	private const BLACKBOX_JS_URL = 'https://blackbox-api.wp.com/v1/dist/v.js';
 
 	/**
-	 * API key identifying WooCommerce as a Blackbox client.
+	 * API key identifying PooCommerce as a Blackbox client.
 	 */
-	private const API_KEY = 'woocommerce';
+	private const API_KEY = 'poocommerce';
 
 	/**
 	 * Register hooks for Blackbox script loading.
@@ -50,7 +50,7 @@ class BlackboxScriptHandler {
 	 *
 	 * Loads scripts on checkout (including custom pages with the checkout block),
 	 * pay-for-order, and add-payment-method pages.
-	 * Extensions can use the `woocommerce_fraud_protection_enqueue_blackbox_scripts`
+	 * Extensions can use the `poocommerce_fraud_protection_enqueue_blackbox_scripts`
 	 * filter to load scripts on additional pages (e.g., product pages for express payments).
 	 *
 	 * @return void
@@ -59,7 +59,7 @@ class BlackboxScriptHandler {
 		global $wp;
 
 		$should_enqueue = is_checkout() ||
-			has_block( 'woocommerce/checkout' ) ||
+			has_block( 'poocommerce/checkout' ) ||
 			is_checkout_pay_page() ||
 			// Check add-payment-method query_var to avoid loading on regular payment methods page.
 			( is_add_payment_method_page() && isset( $wp->query_vars['add-payment-method'] ) );
@@ -75,7 +75,7 @@ class BlackboxScriptHandler {
 		 *
 		 * @param bool $should_enqueue Whether to enqueue Blackbox scripts on the current page.
 		 */
-		$should_enqueue = (bool) apply_filters( 'woocommerce_fraud_protection_enqueue_blackbox_scripts', $should_enqueue );
+		$should_enqueue = (bool) apply_filters( 'poocommerce_fraud_protection_enqueue_blackbox_scripts', $should_enqueue );
 
 		if ( ! $should_enqueue ) {
 			return;

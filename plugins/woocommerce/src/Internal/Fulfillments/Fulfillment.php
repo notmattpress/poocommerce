@@ -1,18 +1,18 @@
 <?php
 /**
- * WooCommerce order fulfillments.
+ * PooCommerce order fulfillments.
  *
- * The WooCommerce order fulfillments class gets contains fulfillment related properties and methods.
+ * The PooCommerce order fulfillments class gets contains fulfillment related properties and methods.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 9.9.0
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
+use Automattic\PooCommerce\Internal\DataStores\Fulfillments\FulfillmentsDataStore;
 use WC_Meta_Data;
 
 defined( 'ABSPATH' ) || exit;

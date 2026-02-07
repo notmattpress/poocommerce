@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Plugins as PluginInstaller } from '@woocommerce/components';
-import { optionsStore, InstallPluginsResponse } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { Plugins as PluginInstaller } from '@poocommerce/components';
+import { optionsStore, InstallPluginsResponse } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
@@ -34,7 +34,7 @@ export const Plugins = ( { nextStep, pluginsToActivate }: Props ) => {
 		return {
 			isResolving:
 				! hasFinishedResolution( 'getOption', [
-					'woocommerce_setup_jetpack_opted_in',
+					'poocommerce_setup_jetpack_opted_in',
 				] ) ||
 				! hasFinishedResolution( 'getOption', [
 					'wcshipping_options',
@@ -42,7 +42,7 @@ export const Plugins = ( { nextStep, pluginsToActivate }: Props ) => {
 			tosAccepted:
 				( isWcShippingOptions( wcShippingOptions ) &&
 					wcShippingOptions?.tos_accepted ) ||
-				getOption( 'woocommerce_setup_jetpack_opted_in' ) === '1',
+				getOption( 'poocommerce_setup_jetpack_opted_in' ) === '1',
 		};
 	}, [] );
 
@@ -62,7 +62,7 @@ export const Plugins = ( { nextStep, pluginsToActivate }: Props ) => {
 		<>
 			{ ! tosAccepted && (
 				<TermsOfService
-					buttonText={ __( 'Install & enable', 'woocommerce' ) }
+					buttonText={ __( 'Install & enable', 'poocommerce' ) }
 				/>
 			) }
 			<PluginInstaller
@@ -78,7 +78,7 @@ export const Plugins = ( { nextStep, pluginsToActivate }: Props ) => {
 						}
 					);
 					updateOptions( {
-						woocommerce_setup_jetpack_opted_in: true,
+						poocommerce_setup_jetpack_opted_in: true,
 					} );
 					nextStep();
 				} }

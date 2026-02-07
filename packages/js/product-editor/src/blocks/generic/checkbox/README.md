@@ -1,10 +1,10 @@
-# woocommerce/product-checkbox-field
+# poocommerce/product-checkbox-field
 
 A reusable checkbox for the product editor.
 
-![Product checkbox field screenshot](https://woocommerce.files.wordpress.com/2023/09/checkbox.png)
+![Product checkbox field screenshot](https://poocommerce.files.wordpress.com/2023/09/checkbox.png)
 
-_Please note that to persist a custom field in the product it also needs to be added to the WooCommerce REST API._
+_Please note that to persist a custom field in the product it also needs to be added to the PooCommerce REST API._
 
 ## Attributes
 
@@ -62,21 +62,21 @@ Here's an example on the code that is used for the `sold_individually` field in 
 $parent_container->add_block(
   [
     'id'         => 'product-limit-purchase',
-    'blockName'  => 'woocommerce/product-checkbox-field',
+    'blockName'  => 'poocommerce/product-checkbox-field',
     'order'      => 20,
     'attributes' => [
       'title'    => __(
         'Restrictions',
-        'woocommerce'
+        'poocommerce'
       ),
       'label'    => __(
         'Limit purchases to 1 item per order',
-        'woocommerce'
+        'poocommerce'
       ),
       'property' => 'sold_individually',
       'tooltip'  => __(
         'When checked, customers will be able to purchase only 1 item in a single order. This is particularly useful for items that have limited quantity, like art or handmade goods.',
-        'woocommerce'
+        'poocommerce'
       ),
     ],
   ]
@@ -93,11 +93,11 @@ Here's an example that is used to toggle the product variation `status` from `pu
 $parent_container->add_block(
   [
     'id'         => 'product-variation-visibility',
-    'blockName'  => 'woocommerce/product-checkbox-field',
+    'blockName'  => 'poocommerce/product-checkbox-field',
     'order'      => 30,
     'attributes' => [
       'property' => 'status',
-      'label'    => __( 'Hide in product catalog', 'woocommerce' ),
+      'label'    => __( 'Hide in product catalog', 'poocommerce' ),
       'checkedValue'  => 'private',
       'uncheckedValue' => 'publish',
     ],

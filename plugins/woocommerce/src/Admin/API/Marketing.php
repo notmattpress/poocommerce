@@ -5,11 +5,11 @@
  * Handles requests to /marketing.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\PluginsHelper;
-use Automattic\WooCommerce\Internal\Admin\Marketing\MarketingSpecs;
-use Automattic\WooCommerce\Admin\Features\MarketingRecommendations\Init as MarketingRecommendationsInit;
+use Automattic\PooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Marketing\MarketingSpecs;
+use Automattic\PooCommerce\Admin\Features\MarketingRecommendations\Init as MarketingRecommendationsInit;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -102,7 +102,7 @@ class Marketing extends \WC_REST_Data_Controller {
 	 */
 	public function get_recommended_plugins_permissions_check( $request ) {
 		if ( ! current_user_can( 'install_plugins' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new \WP_Error( 'poocommerce_rest_cannot_update', __( 'Sorry, you cannot manage plugins.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;

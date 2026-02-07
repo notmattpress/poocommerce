@@ -15,10 +15,10 @@ import {
 } from '../../../lib/async-requests';
 import { ORDER_STATUSES } from '~/utils/admin-settings';
 
-const ORDERS_REPORT_CHARTS_FILTER = 'woocommerce_admin_orders_report_charts';
-const ORDERS_REPORT_FILTERS_FILTER = 'woocommerce_admin_orders_report_filters';
+const ORDERS_REPORT_CHARTS_FILTER = 'poocommerce_admin_orders_report_charts';
+const ORDERS_REPORT_FILTERS_FILTER = 'poocommerce_admin_orders_report_filters';
 const ORDERS_REPORT_ADVANCED_FILTERS_FILTER =
-	'woocommerce_admin_orders_report_advanced_filters';
+	'poocommerce_admin_orders_report_advanced_filters';
 
 /**
  * @typedef {import('../index.js').chart} chart
@@ -27,30 +27,30 @@ const ORDERS_REPORT_ADVANCED_FILTERS_FILTER =
 /**
  * Orders Report charts filter.
  *
- * @filter woocommerce_admin_orders_report_charts
+ * @filter poocommerce_admin_orders_report_charts
  * @param {Array.<chart>} charts Report charts.
  */
 export const charts = applyFilters( ORDERS_REPORT_CHARTS_FILTER, [
 	{
 		key: 'orders_count',
-		label: __( 'Orders', 'woocommerce' ),
+		label: __( 'Orders', 'poocommerce' ),
 		type: 'number',
 	},
 	{
 		key: 'net_revenue',
-		label: __( 'Net sales', 'woocommerce' ),
+		label: __( 'Net sales', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'net_total',
 		type: 'currency',
 	},
 	{
 		key: 'avg_order_value',
-		label: __( 'Average order value', 'woocommerce' ),
+		label: __( 'Average order value', 'poocommerce' ),
 		type: 'currency',
 	},
 	{
 		key: 'avg_items_per_order',
-		label: __( 'Average items per order', 'woocommerce' ),
+		label: __( 'Average items per order', 'poocommerce' ),
 		order: 'desc',
 		orderby: 'num_items_sold',
 		type: 'average',
@@ -64,19 +64,19 @@ export const charts = applyFilters( ORDERS_REPORT_CHARTS_FILTER, [
 /**
  * Orders Report Filters.
  *
- * @filter woocommerce_admin_orders_report_filters
+ * @filter poocommerce_admin_orders_report_filters
  * @param {Array.<filter>} filters Report filters.
  */
 export const filters = applyFilters( ORDERS_REPORT_FILTERS_FILTER, [
 	{
-		label: __( 'Show', 'woocommerce' ),
+		label: __( 'Show', 'poocommerce' ),
 		staticParams: [ 'chartType', 'paged', 'per_page' ],
 		param: 'filter',
 		showFilters: () => true,
 		filters: [
-			{ label: __( 'All orders', 'woocommerce' ), value: 'all' },
+			{ label: __( 'All orders', 'poocommerce' ), value: 'all' },
 			{
-				label: __( 'Advanced filters', 'woocommerce' ),
+				label: __( 'Advanced filters', 'poocommerce' ),
 				value: 'advanced',
 			},
 		],
@@ -88,7 +88,7 @@ export const filters = applyFilters( ORDERS_REPORT_FILTERS_FILTER, [
 /**
  * Orders Report Advanced Filters.
  *
- * @filter woocommerce_admin_orders_report_advanced_filters
+ * @filter poocommerce_admin_orders_report_advanced_filters
  * @param {Object} advancedFilters         Report Advanced Filters.
  * @param {string} advancedFilters.title   Interpolated component string for Advanced Filters title.
  * @param {Object} advancedFilters.filters An object specifying a report's Advanced Filters.
@@ -99,34 +99,34 @@ export const advancedFilters = applyFilters(
 		title: _x(
 			'Orders match <select/> filters',
 			'A sentence describing filters for Orders. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ',
-			'woocommerce'
+			'poocommerce'
 		),
 		filters: {
 			status: {
 				labels: {
-					add: __( 'Order status', 'woocommerce' ),
-					remove: __( 'Remove order status filter', 'woocommerce' ),
+					add: __( 'Order status', 'poocommerce' ),
+					remove: __( 'Remove order status filter', 'poocommerce' ),
 					rule: __(
 						'Select an order status filter match',
-						'woocommerce'
+						'poocommerce'
 					),
 					/* translators: A sentence describing an Order Status filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Order status</title> <rule/> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select an order status', 'woocommerce' ),
+					filter: __( 'Select an order status', 'poocommerce' ),
 				},
 				rules: [
 					{
 						value: 'is',
 						/* translators: Sentence fragment, logical, "Is" refers to searching for orders matching a chosen order status. Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Is', 'order status', 'woocommerce' ),
+						label: _x( 'Is', 'order status', 'poocommerce' ),
 					},
 					{
 						value: 'is_not',
 						/* translators: Sentence fragment, logical, "Is Not" refers to searching for orders that don\'t match a chosen order status. Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Is Not', 'order status', 'woocommerce' ),
+						label: _x( 'Is Not', 'order status', 'poocommerce' ),
 					},
 				],
 				input: {
@@ -139,27 +139,27 @@ export const advancedFilters = applyFilters(
 			},
 			product: {
 				labels: {
-					add: __( 'Product', 'woocommerce' ),
-					placeholder: __( 'Search products', 'woocommerce' ),
-					remove: __( 'Remove product filter', 'woocommerce' ),
-					rule: __( 'Select a product filter match', 'woocommerce' ),
+					add: __( 'Product', 'poocommerce' ),
+					placeholder: __( 'Search products', 'poocommerce' ),
+					remove: __( 'Remove product filter', 'poocommerce' ),
+					rule: __( 'Select a product filter match', 'poocommerce' ),
 					/* translators: A sentence describing a Product filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Product</title> <rule/> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select products', 'woocommerce' ),
+					filter: __( 'Select products', 'poocommerce' ),
 				},
 				rules: [
 					{
 						value: 'includes',
 						/* translators: Sentence fragment, logical, "Includes" refers to orders including a given product(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Includes', 'products', 'woocommerce' ),
+						label: _x( 'Includes', 'products', 'poocommerce' ),
 					},
 					{
 						value: 'excludes',
 						/* translators: Sentence fragment, logical, "Excludes" refers to orders excluding a given product(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Excludes', 'products', 'woocommerce' ),
+						label: _x( 'Excludes', 'products', 'poocommerce' ),
 					},
 				],
 				input: {
@@ -170,36 +170,36 @@ export const advancedFilters = applyFilters(
 			},
 			variation: {
 				labels: {
-					add: __( 'Product variation', 'woocommerce' ),
+					add: __( 'Product variation', 'poocommerce' ),
 					placeholder: __(
 						'Search product variations',
-						'woocommerce'
+						'poocommerce'
 					),
 					remove: __(
 						'Remove product variation filter',
-						'woocommerce'
+						'poocommerce'
 					),
 					rule: __(
 						'Select a product variation filter match',
-						'woocommerce'
+						'poocommerce'
 					),
 					/* translators: A sentence describing a Variation filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Product variation</title> <rule/> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select variation', 'woocommerce' ),
+					filter: __( 'Select variation', 'poocommerce' ),
 				},
 				rules: [
 					{
 						value: 'includes',
 						/* translators: Sentence fragment, logical, "Includes" refers to orders including a given variation(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Includes', 'variations', 'woocommerce' ),
+						label: _x( 'Includes', 'variations', 'poocommerce' ),
 					},
 					{
 						value: 'excludes',
 						/* translators: Sentence fragment, logical, "Excludes" refers to orders excluding a given variation(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Excludes', 'variations', 'woocommerce' ),
+						label: _x( 'Excludes', 'variations', 'poocommerce' ),
 					},
 				],
 				input: {
@@ -210,27 +210,27 @@ export const advancedFilters = applyFilters(
 			},
 			coupon: {
 				labels: {
-					add: __( 'Coupon code', 'woocommerce' ),
-					placeholder: __( 'Search coupons', 'woocommerce' ),
-					remove: __( 'Remove coupon filter', 'woocommerce' ),
-					rule: __( 'Select a coupon filter match', 'woocommerce' ),
+					add: __( 'Coupon code', 'poocommerce' ),
+					placeholder: __( 'Search coupons', 'poocommerce' ),
+					remove: __( 'Remove coupon filter', 'poocommerce' ),
+					rule: __( 'Select a coupon filter match', 'poocommerce' ),
 					/* translators: A sentence describing a Coupon filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Coupon code</title> <rule/> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select coupon codes', 'woocommerce' ),
+					filter: __( 'Select coupon codes', 'poocommerce' ),
 				},
 				rules: [
 					{
 						value: 'includes',
 						/* translators: Sentence fragment, logical, "Includes" refers to orders including a given coupon code(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Includes', 'coupon code', 'woocommerce' ),
+						label: _x( 'Includes', 'coupon code', 'poocommerce' ),
 					},
 					{
 						value: 'excludes',
 						/* translators: Sentence fragment, logical, "Excludes" refers to orders excluding a given coupon code(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Excludes', 'coupon code', 'woocommerce' ),
+						label: _x( 'Excludes', 'coupon code', 'poocommerce' ),
 					},
 				],
 				input: {
@@ -241,26 +241,26 @@ export const advancedFilters = applyFilters(
 			},
 			customer_type: {
 				labels: {
-					add: __( 'Customer type', 'woocommerce' ),
-					remove: __( 'Remove customer filter', 'woocommerce' ),
-					rule: __( 'Select a customer filter match', 'woocommerce' ),
+					add: __( 'Customer type', 'poocommerce' ),
+					remove: __( 'Remove customer filter', 'poocommerce' ),
+					rule: __( 'Select a customer filter match', 'poocommerce' ),
 					/* translators: A sentence describing a Customer filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Customer is</title> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select a customer type', 'woocommerce' ),
+					filter: __( 'Select a customer type', 'poocommerce' ),
 				},
 				input: {
 					component: 'SelectControl',
 					options: [
 						{
 							value: 'new',
-							label: __( 'New', 'woocommerce' ),
+							label: __( 'New', 'poocommerce' ),
 						},
 						{
 							value: 'returning',
-							label: __( 'Returning', 'woocommerce' ),
+							label: __( 'Returning', 'poocommerce' ),
 						},
 					],
 					defaultOption: 'new',
@@ -268,33 +268,33 @@ export const advancedFilters = applyFilters(
 			},
 			refunds: {
 				labels: {
-					add: __( 'Refund', 'woocommerce' ),
-					remove: __( 'Remove refund filter', 'woocommerce' ),
-					rule: __( 'Select a refund filter match', 'woocommerce' ),
+					add: __( 'Refund', 'poocommerce' ),
+					remove: __( 'Remove refund filter', 'poocommerce' ),
+					rule: __( 'Select a refund filter match', 'poocommerce' ),
 					title: __(
 						'<title>Refund</title> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select a refund type', 'woocommerce' ),
+					filter: __( 'Select a refund type', 'poocommerce' ),
 				},
 				input: {
 					component: 'SelectControl',
 					options: [
 						{
 							value: 'all',
-							label: __( 'All', 'woocommerce' ),
+							label: __( 'All', 'poocommerce' ),
 						},
 						{
 							value: 'partial',
-							label: __( 'Partially refunded', 'woocommerce' ),
+							label: __( 'Partially refunded', 'poocommerce' ),
 						},
 						{
 							value: 'full',
-							label: __( 'Fully refunded', 'woocommerce' ),
+							label: __( 'Fully refunded', 'poocommerce' ),
 						},
 						{
 							value: 'none',
-							label: __( 'None', 'woocommerce' ),
+							label: __( 'None', 'poocommerce' ),
 						},
 					],
 					defaultOption: 'all',
@@ -302,27 +302,27 @@ export const advancedFilters = applyFilters(
 			},
 			tax_rate: {
 				labels: {
-					add: __( 'Tax rate', 'woocommerce' ),
-					placeholder: __( 'Search tax rates', 'woocommerce' ),
-					remove: __( 'Remove tax rate filter', 'woocommerce' ),
-					rule: __( 'Select a tax rate filter match', 'woocommerce' ),
+					add: __( 'Tax rate', 'poocommerce' ),
+					placeholder: __( 'Search tax rates', 'poocommerce' ),
+					remove: __( 'Remove tax rate filter', 'poocommerce' ),
+					rule: __( 'Select a tax rate filter match', 'poocommerce' ),
 					/* translators: A sentence describing a tax rate filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Tax Rate</title> <rule/> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select tax rates', 'woocommerce' ),
+					filter: __( 'Select tax rates', 'poocommerce' ),
 				},
 				rules: [
 					{
 						value: 'includes',
 						/* translators: Sentence fragment, logical, "Includes" refers to orders including a given tax rate(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Includes', 'tax rate', 'woocommerce' ),
+						label: _x( 'Includes', 'tax rate', 'poocommerce' ),
 					},
 					{
 						value: 'excludes',
 						/* translators: Sentence fragment, logical, "Excludes" refers to orders excluding a given tax rate(s). Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Excludes', 'tax rate', 'woocommerce' ),
+						label: _x( 'Excludes', 'tax rate', 'poocommerce' ),
 					},
 				],
 				input: {
@@ -334,31 +334,31 @@ export const advancedFilters = applyFilters(
 			attribute: {
 				allowMultiple: true,
 				labels: {
-					add: __( 'Product attribute', 'woocommerce' ),
+					add: __( 'Product attribute', 'poocommerce' ),
 					placeholder: __(
 						'Search product attributes',
-						'woocommerce'
+						'poocommerce'
 					),
 					remove: __(
 						'Remove product attribute filter',
-						'woocommerce'
+						'poocommerce'
 					),
 					rule: __(
 						'Select a product attribute filter match',
-						'woocommerce'
+						'poocommerce'
 					),
 					/* translators: A sentence describing a Product filter. See screen shot for context: https://cloudup.com/cSsUY9VeCVJ */
 					title: __(
 						'<title>Product attribute</title> <rule/> <filter/>',
-						'woocommerce'
+						'poocommerce'
 					),
-					filter: __( 'Select attributes', 'woocommerce' ),
+					filter: __( 'Select attributes', 'poocommerce' ),
 				},
 				rules: [
 					{
 						value: 'is',
 						/* translators: Sentence fragment, logical, "Is" refers to searching for products matching a chosen attribute. Screenshot for context: https://cloudup.com/cSsUY9VeCVJ */
-						label: _x( 'Is', 'product attribute', 'woocommerce' ),
+						label: _x( 'Is', 'product attribute', 'poocommerce' ),
 					},
 					{
 						value: 'is_not',
@@ -366,7 +366,7 @@ export const advancedFilters = applyFilters(
 						label: _x(
 							'Is Not',
 							'product attribute',
-							'woocommerce'
+							'poocommerce'
 						),
 					},
 				],

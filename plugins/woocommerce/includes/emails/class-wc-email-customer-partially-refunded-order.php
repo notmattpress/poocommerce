@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Partially_Refunded_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,11 +25,11 @@ if ( ! class_exists( 'WC_Email_Customer_Partially_Refunded_Order', false ) ) :
 	 *
 	 * We created this custom class to maintain backwards compatibility with other integrations that use the WC_Email_Customer_Refunded_Order email.
 	 *
-	 * The next version of WooCommerce will move more of the functionality from the parent class to this custom class.
+	 * The next version of PooCommerce will move more of the functionality from the parent class to this custom class.
 	 *
 	 * @class    WC_Email_Customer_Partially_Refunded_Order
 	 * @version  10.6.0
-	 * @package  WooCommerce\Classes\Emails
+	 * @package  PooCommerce\Classes\Emails
 	 */
 	class WC_Email_Customer_Partially_Refunded_Order extends WC_Email_Customer_Refunded_Order {
 
@@ -40,14 +40,14 @@ if ( ! class_exists( 'WC_Email_Customer_Partially_Refunded_Order', false ) ) :
 			parent::__construct();
 
 			$this->id             = 'customer_partially_refunded_order';
-			$this->title          = __( 'Partially refunded order', 'woocommerce' );
-			$this->description    = __( 'Notifies customers when their order has been partially refunded.', 'woocommerce' );
+			$this->title          = __( 'Partially refunded order', 'poocommerce' );
+			$this->description    = __( 'Notifies customers when their order has been partially refunded.', 'poocommerce' );
 			$this->partial_refund = true;
 			$this->template_block = 'emails/block/customer-partially-refunded-order.php';
 
 			// Remove triggers for this email because they will be handled by the parent class.
-			remove_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'trigger_full' ), 10 );
-			remove_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'trigger_partial' ), 10 );
+			remove_action( 'poocommerce_order_fully_refunded_notification', array( $this, 'trigger_full' ), 10 );
+			remove_action( 'poocommerce_order_partially_refunded_notification', array( $this, 'trigger_partial' ), 10 );
 		}
 
 		/**
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WC_Email_Customer_Partially_Refunded_Order', false ) ) :
 			 * @param WC_Email_Customer_Refunded_Order $email Email object.
 			 * @since 3.7.0
 			 */
-			$subject = apply_filters( 'woocommerce_email_subject_customer_refunded_order', $this->format_string( $subject ), $this->object, $this );
+			$subject = apply_filters( 'poocommerce_email_subject_customer_refunded_order', $this->format_string( $subject ), $this->object, $this );
 			if ( $this->block_email_editor_enabled ) {
 				$subject = $this->personalizer->personalize_transactional_content( $subject, $this );
 			}

@@ -4,12 +4,12 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState, Children } from '@wordpress/element';
-import { Text } from '@woocommerce/experimental';
-import { pluginsStore } from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
+import { Text } from '@poocommerce/experimental';
+import { pluginsStore } from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore VisuallyHidden is present, it's just not typed
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { CardFooter } from '@wordpress/components';
 
 /**
@@ -20,7 +20,7 @@ import {
 	DismissableList,
 	DismissableListHeading,
 } from '../settings-recommendations/dismissable-list';
-import WoocommerceShippingItem from './woocommerce-shipping-item';
+import WoocommerceShippingItem from './poocommerce-shipping-item';
 import './shipping-recommendations.scss';
 import { TrackedLink } from '~/components/tracked-link/tracked-link';
 
@@ -59,15 +59,15 @@ export const ShippingRecommendationsList = ( {
 	children: React.ReactNode;
 } ) => (
 	<DismissableList
-		className="woocommerce-recommended-shipping-extensions"
-		dismissOptionName="woocommerce_settings_shipping_recommendations_hidden"
+		className="poocommerce-recommended-shipping-extensions"
+		dismissOptionName="poocommerce_settings_shipping_recommendations_hidden"
 	>
 		<DismissableListHeading>
 			<Text variant="title.small" as="p" size="20" lineHeight="28px">
-				{ __( 'Recommended shipping solutions', 'woocommerce' ) }
+				{ __( 'Recommended shipping solutions', 'poocommerce' ) }
 			</Text>
 			<Text
-				className="woocommerce-recommended-shipping__header-heading"
+				className="poocommerce-recommended-shipping__header-heading"
 				variant="caption"
 				as="p"
 				size="12"
@@ -75,21 +75,21 @@ export const ShippingRecommendationsList = ( {
 			>
 				{ __(
 					'We recommend adding one of the following shipping extensions to your store. The extension will be installed and activated for you when you click "Get started".',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Text>
 		</DismissableListHeading>
-		<ul className="woocommerce-list">
+		<ul className="poocommerce-list">
 			{ Children.map( children, ( item ) => (
-				<li className="woocommerce-list__item">{ item }</li>
+				<li className="poocommerce-list__item">{ item }</li>
 			) ) }
 		</ul>
 		<CardFooter>
 			<TrackedLink
 				message={ __(
 					// translators: {{Link}} is a placeholder for a html element.
-					'Visit {{Link}}the WooCommerce Marketplace{{/Link}} to find more shipping, delivery, and fulfillment solutions.',
-					'woocommerce'
+					'Visit {{Link}}the PooCommerce Marketplace{{/Link}} to find more shipping, delivery, and fulfillment solutions.',
+					'poocommerce'
 				) }
 				targetUrl={ getAdminLink(
 					'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=shipping-delivery-and-fulfillment'
@@ -109,7 +109,7 @@ const ShippingRecommendations = () => {
 		[]
 	);
 
-	if ( activePlugins.includes( 'woocommerce-shipping' ) ) {
+	if ( activePlugins.includes( 'poocommerce-shipping' ) ) {
 		return null;
 	}
 

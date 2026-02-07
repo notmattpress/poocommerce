@@ -11,8 +11,8 @@ import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { useCollectionData } from '@woocommerce/base-context/hooks';
-import { objectHasProp } from '@woocommerce/types';
+import { useCollectionData } from '@poocommerce/base-context/hooks';
+import { objectHasProp } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -246,7 +246,7 @@ const Edit = ( props: EditProps ) => {
 					<p>
 						{ __(
 							'Please select a taxonomy to use this filter!',
-							'woocommerce'
+							'poocommerce'
 						) }
 					</p>
 				</Notice>
@@ -263,7 +263,7 @@ const Edit = ( props: EditProps ) => {
 							// translators: %s: Taxonomy label.
 							__(
 								'There are no products associated with %s.',
-								'woocommerce'
+								'poocommerce'
 							),
 							getTaxonomyLabel( taxonomy )
 						) }

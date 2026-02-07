@@ -28,7 +28,7 @@ export function ScheduleSection( { postType }: ScheduleSectionProps ) {
 			initialOpen={ false }
 			// @ts-expect-error title does currently support this value
 			title={ [
-				__( 'Publish:', 'woocommerce' ),
+				__( 'Publish:', 'poocommerce' ),
 				<span className="editor-post-publish-panel__link" key="label">
 					{ formattedDate }
 				</span>,

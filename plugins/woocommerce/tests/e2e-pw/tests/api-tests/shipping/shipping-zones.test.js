@@ -4,7 +4,7 @@ const { getShippingZoneExample } = require( '../../../data' );
 const { BASE_URL } = process.env;
 const shouldSkip = BASE_URL !== undefined;
 /**
- * Tests for the WooCommerce Shipping zones API.
+ * Tests for the PooCommerce Shipping zones API.
  * @group api
  * @group shipping
  */
@@ -54,7 +54,7 @@ test.describe.serial( 'Shipping zones API tests', () => {
 		const responseJSON = await response.json();
 		expect( response.status() ).toEqual( 403 );
 		expect( responseJSON.code ).toEqual(
-			'woocommerce_rest_shipping_zone_invalid_zone'
+			'poocommerce_rest_shipping_zone_invalid_zone'
 		);
 		expect( responseJSON.message ).toEqual(
 			'The "locations not covered by your other zones" zone cannot be updated.'

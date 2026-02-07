@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails;
+namespace Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails;
 
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Class WCTransactionalEmails
  *
- * Handles the initialization and management of WooCommerce transactional emails.
+ * Handles the initialization and management of PooCommerce transactional emails.
  *
- * @package Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails
+ * @package Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails
  */
 class WCTransactionalEmails {
 
@@ -62,7 +62,7 @@ class WCTransactionalEmails {
 	}
 
 	/**
-	 * Get the Core WooCommerce transactional emails for the block editor.
+	 * Get the Core PooCommerce transactional emails for the block editor.
 	 *
 	 * @return array
 	 */
@@ -90,11 +90,11 @@ class WCTransactionalEmails {
 		 * @return array
 		 * @since 9.9.0
 		 */
-		return apply_filters( 'woocommerce_transactional_emails_for_block_editor', $emails );
+		return apply_filters( 'poocommerce_transactional_emails_for_block_editor', $emails );
 	}
 
 	/**
-	 * Initialize email templates on WooCommerce admin pages.
+	 * Initialize email templates on PooCommerce admin pages.
 	 */
 	public function init_email_templates() {
 		if ( ! function_exists( 'wc_get_screen_ids' ) ) {
@@ -106,7 +106,7 @@ class WCTransactionalEmails {
 		$wc_screen_ids = array_merge(
 			wc_get_screen_ids(),
 			array(
-				'woocommerce_page_wc-admin',
+				'poocommerce_page_wc-admin',
 				'edit-woo_email',
 			)
 		);
@@ -115,7 +115,7 @@ class WCTransactionalEmails {
 			return;
 		}
 
-		// run only on WooCommerce admin pages.
+		// run only on PooCommerce admin pages.
 		$this->email_template_generator->initialize();
 	}
 }

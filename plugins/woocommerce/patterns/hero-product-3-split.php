@@ -1,19 +1,19 @@
 <?php
 /**
  * Title: Hero Product 3 Split
- * Slug: woocommerce-blocks/hero-product-3-split
- * Categories: WooCommerce, featured-selling
+ * Slug: poocommerce-blocks/hero-product-3-split
+ * Categories: PooCommerce, featured-selling
  */
 
 
-$main_title   = __( 'New: Retro Glass Jug', 'woocommerce' );
-$first_title  = __( 'Timeless elegance', 'woocommerce' );
-$second_title = __( 'Durable glass', 'woocommerce' );
-$third_title  = __( 'Versatile charm', 'woocommerce' );
+$main_title   = __( 'New: Retro Glass Jug', 'poocommerce' );
+$first_title  = __( 'Timeless elegance', 'poocommerce' );
+$second_title = __( 'Durable glass', 'poocommerce' );
+$third_title  = __( 'Versatile charm', 'poocommerce' );
 
-$first_description  = __( 'Elevate your table with a 330ml Retro Glass Jug, blending classic design and durable hardened glass.', 'woocommerce' );
-$second_description = __( 'Crafted from resilient thick glass, this jug ensures lasting quality, making it perfect for everyday use with a touch of vintage charm.', 'woocommerce' );
-$third_description  = __( "The Retro Glass Jug's classic silhouette effortlessly complements any setting, making it the ideal choice for serving beverages with style and flair.", 'woocommerce' );
+$first_description  = __( 'Elevate your table with a 330ml Retro Glass Jug, blending classic design and durable hardened glass.', 'poocommerce' );
+$second_description = __( 'Crafted from resilient thick glass, this jug ensures lasting quality, making it perfect for everyday use with a touch of vintage charm.', 'poocommerce' );
+$third_description  = __( "The Retro Glass Jug's classic silhouette effortlessly complements any setting, making it the ideal choice for serving beverages with style and flair.", 'poocommerce' );
 ?>
 
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","bottom":"calc( 0.5 * var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal)))","left":"var(--wp--style--root--padding-left, var(--wp--custom--gap--horizontal))","right":"var(--wp--style--root--padding-right, var(--wp--custom--gap--horizontal))"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","justifyContent":"center"}} -->
@@ -31,7 +31,7 @@ $third_description  = __( "The Retro Glass Jug's classic silhouette effortlessly
 				<span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span>
 				<img
 					class="wp-block-cover__image-background"
-					alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased.', 'woocommerce' ); ?>"
+					alt="<?php esc_attr_e( 'Placeholder image used to represent a product being showcased.', 'poocommerce' ); ?>"
 					src="<?php echo esc_url( plugins_url( 'assets/images/pattern-placeholders/drinkware-liquid-tableware-dishware-bottle-fluid.jpg', WC_PLUGIN_FILE ) ); ?>"
 					data-object-fit="cover" />
 				<div class="wp-block-cover__inner-container">
@@ -103,7 +103,7 @@ $third_description  = __( "The Retro Glass Jug's classic silhouette effortlessly
 				<!-- wp:buttons -->
 				<div class="wp-block-buttons"><!-- wp:button -->
 					<div class="wp-block-button">
-						<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Shop now', 'woocommerce' ); ?></a>
+						<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="wp-block-button__link wp-element-button"><?php esc_html_e( 'Shop now', 'poocommerce' ); ?></a>
 					</div>
 					<!-- /wp:button -->
 				</div>

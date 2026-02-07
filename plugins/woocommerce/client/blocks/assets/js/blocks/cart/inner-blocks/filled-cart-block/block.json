@@ -1,9 +1,9 @@
 {
-	"name": "woocommerce/filled-cart-block",
+	"name": "poocommerce/filled-cart-block",
 	"version": "1.0.0",
 	"title": "Filled Cart",
 	"description": "Contains blocks that are displayed when the cart contains products.",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"supports": {
 		"align": [
 			"wide"
@@ -24,9 +24,9 @@
 		}
 	},
 	"parent": [
-		"woocommerce/cart"
+		"poocommerce/cart"
 	],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3
 }

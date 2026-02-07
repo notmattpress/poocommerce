@@ -2,7 +2,7 @@
  * External dependencies
  */
 import moment from 'moment';
-import { DateRange, H, Section } from '@woocommerce/components';
+import { DateRange, H, Section } from '@poocommerce/components';
 import { useState } from '@wordpress/element';
 
 const dateFormat = 'MM/DD/YYYY';

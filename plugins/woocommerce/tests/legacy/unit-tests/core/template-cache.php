@@ -2,7 +2,7 @@
 /**
  * Template cache tests class.
  *
- * @package WooCommerce\Tests\Core
+ * @package PooCommerce\Tests\Core
  */
 
 /**
@@ -39,12 +39,12 @@ class WC_Template_Cache extends WC_Unit_Test_Case {
 		remove_filter( 'wc_get_template_part', '__return_false' );
 
 		// Check cached template list.
-		$this->assertEquals( array_keys( $templates ), wp_cache_get( 'cached_templates', 'woocommerce' ) );
+		$this->assertEquals( array_keys( $templates ), wp_cache_get( 'cached_templates', 'poocommerce' ) );
 
 		// Check individual templates.
 		foreach ( $templates as $cache_key => $template ) {
 			// The cache contents may be tokenized and we need to untokenize it for the assertion.
-			$from_cache = wc_untokenize_path( wp_cache_get( $cache_key, 'woocommerce' ), wc_get_path_define_tokens() );
+			$from_cache = wc_untokenize_path( wp_cache_get( $cache_key, 'poocommerce' ), wc_get_path_define_tokens() );
 			$this->assertEquals( $template, $from_cache );
 		}
 
@@ -56,14 +56,14 @@ class WC_Template_Cache extends WC_Unit_Test_Case {
 	 * Clear the template cache.
 	 */
 	protected function clear_template_cache() {
-		$cached_templates = wp_cache_get( 'cached_templates', 'woocommerce' );
+		$cached_templates = wp_cache_get( 'cached_templates', 'poocommerce' );
 		wc_clear_template_cache();
 
 		if ( $cached_templates ) {
 			foreach ( (array) $cached_templates as $template ) {
-				$this->assertEmpty( wp_cache_get( $template, 'woocommerce' ) );
+				$this->assertEmpty( wp_cache_get( $template, 'poocommerce' ) );
 			}
 		}
-		$this->assertEmpty( wp_cache_get( 'cached_templates', 'woocommerce' ) );
+		$this->assertEmpty( wp_cache_get( 'cached_templates', 'poocommerce' ) );
 	}
 }

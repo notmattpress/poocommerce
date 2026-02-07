@@ -30,7 +30,7 @@ jest.mock( '../legacy-events', () => ( {
 	triggerAddedToCartEvent: jest.fn(),
 } ) );
 
-describe( 'WooCommerce Cart Interactivity API Store', () => {
+describe( 'PooCommerce Cart Interactivity API Store', () => {
 	it( 'refreshCartItems passes cache: no-store to fetch to prevent browser caching', () => {
 		const mockFetch = jest
 			.fn()

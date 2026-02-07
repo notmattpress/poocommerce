@@ -21,14 +21,14 @@ import {
 	QUERY_DEFAULTS,
 	optionsStore,
 	useUserPreferences,
-} from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+} from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	navigateTo,
 	parseAdminUrl,
 	getScreenFromPath,
 	isWCAdmin,
-} from '@woocommerce/navigation';
+} from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -70,7 +70,7 @@ export const StoreAlerts = () => {
 			alerts: getUnactionedVisibleAlerts( getNotes( ALERTS_QUERY ) ),
 			isLoading: ! hasFinishedResolution( 'getNotes', [ ALERTS_QUERY ] ),
 			defaultHomescreenLayout:
-				getOption( 'woocommerce_default_homepage_layout' ) ||
+				getOption( 'poocommerce_default_homepage_layout' ) ||
 				'single_column',
 		};
 	} );
@@ -126,7 +126,7 @@ export const StoreAlerts = () => {
 								'error',
 								__(
 									`Something went wrong while triggering this note's action.`,
-									'woocommerce'
+									'poocommerce'
 								)
 							);
 							throw e;
@@ -142,7 +142,7 @@ export const StoreAlerts = () => {
 		const snoozeOptions = [
 			{
 				value: moment().add( 4, 'hours' ).unix().toString(),
-				label: __( 'Later Today', 'woocommerce' ),
+				label: __( 'Later Today', 'poocommerce' ),
 			},
 			{
 				value: moment()
@@ -153,7 +153,7 @@ export const StoreAlerts = () => {
 					.millisecond( 0 )
 					.unix()
 					.toString(),
-				label: __( 'Tomorrow', 'woocommerce' ),
+				label: __( 'Tomorrow', 'poocommerce' ),
 			},
 			{
 				value: moment()
@@ -164,7 +164,7 @@ export const StoreAlerts = () => {
 					.millisecond( 0 )
 					.unix()
 					.toString(),
-				label: __( 'Next Week', 'woocommerce' ),
+				label: __( 'Next Week', 'poocommerce' ),
 			},
 			{
 				value: moment()
@@ -175,7 +175,7 @@ export const StoreAlerts = () => {
 					.millisecond( 0 )
 					.unix()
 					.toString(),
-				label: __( 'Next Month', 'woocommerce' ),
+				label: __( 'Next Month', 'poocommerce' ),
 			},
 		];
 
@@ -196,10 +196,10 @@ export const StoreAlerts = () => {
 
 		const snooze = alert.is_snoozable && (
 			<SelectControl
-				className="woocommerce-store-alerts__snooze"
+				className="poocommerce-store-alerts__snooze"
 				options={ [
 					{
-						label: __( 'Remind Me Later', 'woocommerce' ),
+						label: __( 'Remind Me Later', 'poocommerce' ),
 						value: '0',
 					},
 					...snoozeOptions,
@@ -223,7 +223,7 @@ export const StoreAlerts = () => {
 
 		if ( actions || snooze ) {
 			return (
-				<div className="woocommerce-store-alerts__actions">
+				<div className="poocommerce-store-alerts__actions">
 					{ actions }
 					{ snooze }
 				</div>
@@ -262,7 +262,7 @@ export const StoreAlerts = () => {
 	const numberOfAlerts = alerts.length;
 	const alert = alerts[ currentIndex ];
 	const type = alert.type;
-	const className = clsx( 'woocommerce-store-alerts', {
+	const className = clsx( 'poocommerce-store-alerts', {
 		'is-alert-error': type === 'error',
 		'is-alert-update': type === 'update',
 		'is-wc-admin-page': isWCAdminPage,
@@ -285,7 +285,7 @@ export const StoreAlerts = () => {
 
 		try {
 			await removeNote( noteId );
-			createNotice( 'success', __( 'Message dismissed', 'woocommerce' ) );
+			createNotice( 'success', __( 'Message dismissed', 'poocommerce' ) );
 		} catch ( e ) {
 			createNotice(
 				'error',
@@ -293,7 +293,7 @@ export const StoreAlerts = () => {
 					'Message could not be dismissed',
 					'Messages could not be dismissed',
 					1,
-					'woocommerce'
+					'poocommerce'
 				)
 			);
 		}
@@ -302,23 +302,23 @@ export const StoreAlerts = () => {
 	return (
 		<Card className={ className } size={ null }>
 			<CardHeader
-				className="woocommerce-store-alerts__header"
+				className="poocommerce-store-alerts__header"
 				isBorderless
 			>
-				<span className="woocommerce-store-alerts__title">
+				<span className="poocommerce-store-alerts__title">
 					{ alert.title }
 				</span>
 				{ numberOfAlerts > 1 && (
-					<div className="woocommerce-store-alerts__pagination">
+					<div className="poocommerce-store-alerts__pagination">
 						<span
-							className="woocommerce-store-alerts__pagination-label"
+							className="poocommerce-store-alerts__pagination-label"
 							role="status"
 							aria-live="polite"
 						>
 							{ interpolateComponents( {
 								mixedString: __(
 									'{{current /}} of {{total /}}',
-									'woocommerce'
+									'poocommerce'
 								),
 								components: {
 									current: (
@@ -335,7 +335,7 @@ export const StoreAlerts = () => {
 						<Button
 							onClick={ previousAlert }
 							disabled={ currentIndex === 0 }
-							label={ __( 'Previous Alert', 'woocommerce' ) }
+							label={ __( 'Previous Alert', 'poocommerce' ) }
 						>
 							<Icon
 								icon={ chevronLeft }
@@ -345,7 +345,7 @@ export const StoreAlerts = () => {
 						<Button
 							onClick={ nextAlert }
 							disabled={ numberOfAlerts - 1 === currentIndex }
-							label={ __( 'Next Alert', 'woocommerce' ) }
+							label={ __( 'Next Alert', 'poocommerce' ) }
 						>
 							<Icon
 								icon={ chevronRight }
@@ -355,7 +355,7 @@ export const StoreAlerts = () => {
 					</div>
 				) }
 				<Button
-					className="woocommerce-store-alerts__close"
+					className="poocommerce-store-alerts__close"
 					onClick={ () => onDismiss( alert ) }
 				>
 					<Icon width="18" height="18" icon={ close } />
@@ -363,7 +363,7 @@ export const StoreAlerts = () => {
 			</CardHeader>
 			<CardBody>
 				<div
-					className="woocommerce-store-alerts__message"
+					className="poocommerce-store-alerts__message"
 					dangerouslySetInnerHTML={ sanitizeHTML( alert.content ) }
 				/>
 			</CardBody>

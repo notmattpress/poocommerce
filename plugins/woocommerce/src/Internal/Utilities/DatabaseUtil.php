@@ -3,7 +3,7 @@
  * DatabaseUtil class file.
  */
 
-namespace Automattic\WooCommerce\Internal\Utilities;
+namespace Automattic\PooCommerce\Internal\Utilities;
 
 use DateTime;
 use DateTimeZone;
@@ -343,7 +343,7 @@ $on_duplicate_clause
 		 *
 		 * @since 8.0.0
 		 */
-		$max_index_length = apply_filters( 'woocommerce_database_max_index_length', 191 );
+		$max_index_length = apply_filters( 'poocommerce_database_max_index_length', 191 );
 		// Index length cannot be more than 768, which is 3078 bytes in utf8mb4 and max allowed by InnoDB engine.
 		return min( absint( $max_index_length ), 767 );
 	}
@@ -421,7 +421,7 @@ $on_duplicate_clause
 	 */
 	public function create_fts_index_order_item_table(): void {
 		global $wpdb;
-		$order_item_table = $wpdb->prefix . 'woocommerce_order_items';
+		$order_item_table = $wpdb->prefix . 'poocommerce_order_items';
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $order_item_table is hardcoded.
 		$wpdb->query( "CREATE FULLTEXT INDEX order_item_fts ON $order_item_table (order_item_name)" );
 	}
@@ -433,7 +433,7 @@ $on_duplicate_clause
 	 */
 	public function fts_index_on_order_item_table_exists(): bool {
 		global $wpdb;
-		$order_item_table = $wpdb->prefix . 'woocommerce_order_items';
+		$order_item_table = $wpdb->prefix . 'poocommerce_order_items';
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $order_item_table is hardcoded.
 		return ! empty( $wpdb->get_results( "SHOW INDEX FROM $order_item_table WHERE Key_name = 'order_item_fts'" ) );
 	}

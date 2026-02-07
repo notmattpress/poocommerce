@@ -3,11 +3,11 @@
  * Handles running payment gateway suggestion specs
  */
 
-namespace Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions;
+namespace Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RemoteSpecsEngine;
 
 /**
  * Remote Payment Methods engine.
@@ -17,14 +17,14 @@ class Init extends RemoteSpecsEngine {
 	/**
 	 * Option name for dismissed payment method suggestions.
 	 */
-	const RECOMMENDED_PAYMENT_PLUGINS_DISMISS_OPTION = 'woocommerce_setting_payments_recommendations_hidden';
+	const RECOMMENDED_PAYMENT_PLUGINS_DISMISS_OPTION = 'poocommerce_setting_payments_recommendations_hidden';
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 		PaymentGatewaysController::init();
-		add_action( 'update_option_woocommerce_default_country', array( $this, 'delete_specs_transient' ) );
+		add_action( 'update_option_poocommerce_default_country', array( $this, 'delete_specs_transient' ) );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Init extends RemoteSpecsEngine {
 	 * @return array
 	 */
 	public static function get_cached_or_default_suggestions() {
-		$specs = 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' )
+		$specs = 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' )
 			? DefaultPaymentGateways::get_all()
 			: PaymentGatewaySuggestionsDataSourcePoller::get_instance()->get_cached_specs();
 
@@ -81,7 +81,7 @@ class Init extends RemoteSpecsEngine {
 		 *
 		 * @param array Gateway specs.
 		 */
-		$specs   = apply_filters( 'woocommerce_admin_payment_gateway_suggestion_specs', $specs );
+		$specs   = apply_filters( 'poocommerce_admin_payment_gateway_suggestion_specs', $specs );
 		$results = EvaluateSuggestion::evaluate_specs( $specs );
 		return $results['suggestions'];
 	}
@@ -97,17 +97,17 @@ class Init extends RemoteSpecsEngine {
 	 * Get specs or fetch remotely if they don't exist.
 	 */
 	public static function get_specs() {
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
-			return apply_filters( 'woocommerce_admin_payment_gateway_suggestion_specs', DefaultPaymentGateways::get_all() );
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
+			return apply_filters( 'poocommerce_admin_payment_gateway_suggestion_specs', DefaultPaymentGateways::get_all() );
 		}
 		$specs = PaymentGatewaySuggestionsDataSourcePoller::get_instance()->get_specs_from_data_sources();
 
 		// Fetch specs if they don't yet exist.
 		if ( false === $specs || ! is_array( $specs ) || 0 === count( $specs ) ) {
-			return apply_filters( 'woocommerce_admin_payment_gateway_suggestion_specs', DefaultPaymentGateways::get_all() );
+			return apply_filters( 'poocommerce_admin_payment_gateway_suggestion_specs', DefaultPaymentGateways::get_all() );
 		}
 
-		return apply_filters( 'woocommerce_admin_payment_gateway_suggestion_specs', $specs );
+		return apply_filters( 'poocommerce_admin_payment_gateway_suggestion_specs', $specs );
 	}
 
 	/**
@@ -120,11 +120,11 @@ class Init extends RemoteSpecsEngine {
 			return false;
 		}
 
-		if ( 'no' === get_option( 'woocommerce_show_marketplace_suggestions', 'yes' ) ) {
+		if ( 'no' === get_option( 'poocommerce_show_marketplace_suggestions', 'yes' ) ) {
 			return false;
 		}
 
-		return apply_filters( 'woocommerce_allow_payment_recommendations', true );
+		return apply_filters( 'poocommerce_allow_payment_recommendations', true );
 	}
 
 	/**

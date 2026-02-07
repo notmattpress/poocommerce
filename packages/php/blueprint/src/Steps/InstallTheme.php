@@ -1,15 +1,15 @@
 <?php
 
-namespace Automattic\WooCommerce\Blueprint\Steps;
+namespace Automattic\PooCommerce\Blueprint\Steps;
 
 /**
  * Class InstallTheme
  *
- * This class represents a step in the installation process of a WooCommerce theme.
+ * This class represents a step in the installation process of a PooCommerce theme.
  * It includes methods to prepare the data for the theme installation step and to provide
  * the schema for the JSON representation of this step.
  *
- * @package Automattic\WooCommerce\Blueprint\Steps
+ * @package Automattic\PooCommerce\Blueprint\Steps
  */
 class InstallTheme extends Step {
 	/**

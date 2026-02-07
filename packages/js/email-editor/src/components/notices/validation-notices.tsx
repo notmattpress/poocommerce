@@ -19,12 +19,12 @@ export function ValidationNotices() {
 	return (
 		<Notice
 			status="error"
-			className="woocommerce-email-editor-validation-errors components-editor-notices__pinned"
+			className="poocommerce-email-editor-validation-errors components-editor-notices__pinned"
 			isDismissible={ false }
 		>
 			<>
 				<strong>
-					{ __( 'Fix errors to continue:', 'woocommerce' ) }
+					{ __( 'Fix errors to continue:', 'poocommerce' ) }
 				</strong>
 				<ul>
 					{ notices.map( ( { id, content, actions } ) => (

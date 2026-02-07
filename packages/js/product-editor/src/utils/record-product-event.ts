@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 const trackableProductValueKeyMap: Record< string, string > = {
 	cross_sell_ids: 'cross_sells',

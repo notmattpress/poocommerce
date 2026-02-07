@@ -3,10 +3,10 @@
  */
 import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
-import { getSetting } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
+import { getSetting } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { ConfettiAnimation } from '@woocommerce/components';
+import { ConfettiAnimation } from '@poocommerce/components';
 import { useCopyToClipboard } from '@wordpress/compose';
 import { Button, Dashicon } from '@wordpress/components';
 
@@ -55,8 +55,8 @@ export const LaunchYourStoreSuccess = ( {
 	sendEventToMainContent,
 	className,
 }: MainContentComponentProps ) => {
-	const copyLink = __( 'Copy link', 'woocommerce' );
-	const copied = __( 'Copied!', 'woocommerce' );
+	const copyLink = __( 'Copy link', 'poocommerce' );
+	const copied = __( 'Copied!', 'poocommerce' );
 	const homeUrl: string = getSetting( 'homeUrl', '' );
 	const urlObject = new URL( homeUrl );
 	let hostname: string = urlObject?.hostname;
@@ -76,7 +76,7 @@ export const LaunchYourStoreSuccess = ( {
 		}
 	);
 
-	useFullScreen( [ 'woocommerce-launch-your-store-success' ] );
+	useFullScreen( [ 'poocommerce-launch-your-store-success' ] );
 
 	return (
 		<div
@@ -85,7 +85,7 @@ export const LaunchYourStoreSuccess = ( {
 				className
 			) }
 		>
-			<div className="woocommerce-launch-store__congrats">
+			<div className="poocommerce-launch-store__congrats">
 				<ConfettiAnimation
 					delay={ 1000 }
 					colors={ [
@@ -98,7 +98,7 @@ export const LaunchYourStoreSuccess = ( {
 						'#3C2861',
 					] }
 				/>
-				<div className="woocommerce-launch-store__congrats-header-container">
+				<div className="poocommerce-launch-store__congrats-header-container">
 					<span className="woologo">
 						<WooLogo />
 					</span>
@@ -110,38 +110,38 @@ export const LaunchYourStoreSuccess = ( {
 						variant="link"
 					>
 						<Dashicon icon="arrow-left-alt2"></Dashicon>
-						<span>{ __( 'Back to Home', 'woocommerce' ) }</span>
+						<span>{ __( 'Back to Home', 'poocommerce' ) }</span>
 					</Button>
 				</div>
-				<div className="woocommerce-launch-store__congrats-content">
-					<h1 className="woocommerce-launch-store__congrats-heading">
+				<div className="poocommerce-launch-store__congrats-content">
+					<h1 className="poocommerce-launch-store__congrats-heading">
 						{ siteIsShowingCachedContent
 							? __(
 									'Congratulations! Your store will launch soon',
-									'woocommerce'
+									'poocommerce'
 							  )
 							: __(
 									'Congratulations! Your store is now live',
-									'woocommerce'
+									'poocommerce'
 							  ) }
 					</h1>
-					<h2 className="woocommerce-launch-store__congrats-subheading">
+					<h2 className="poocommerce-launch-store__congrats-subheading">
 						{ siteIsShowingCachedContent
 							? createInterpolateElement(
 									__(
 										'It’ll be ready to view as soon as your <link></link> have updated. Please wait, or contact your web host to find out how to do this manually.',
-										'woocommerce'
+										'poocommerce'
 									),
 									{
 										link: (
 											<a
-												href="https://woocommerce.com/document/configuring-woocommerce-settings/coming-soon-mode/#server-caches"
+												href="https://poocommerce.com/document/configuring-poocommerce-settings/coming-soon-mode/#server-caches"
 												target="_blank"
 												rel="noreferrer"
 											>
 												{ __(
 													'server caches',
-													'woocommerce'
+													'poocommerce'
 												) }
 											</a>
 										),
@@ -149,11 +149,11 @@ export const LaunchYourStoreSuccess = ( {
 							  )
 							: __(
 									'You’ve successfully launched your store and are ready to start selling! We can’t wait to see your business grow.',
-									'woocommerce'
+									'poocommerce'
 							  ) }
 					</h2>
-					<div className="woocommerce-launch-store__congrats-midsection-container">
-						<div className="woocommerce-launch-store__congrats-visit-store">
+					<div className="poocommerce-launch-store__congrats-midsection-container">
+						<div className="poocommerce-launch-store__congrats-visit-store">
 							<p className="store-name">{ hostname }</p>
 							<div className="buttons-container">
 								<Button
@@ -177,7 +177,7 @@ export const LaunchYourStoreSuccess = ( {
 										} );
 									} }
 								>
-									{ __( 'Visit your store', 'woocommerce' ) }
+									{ __( 'Visit your store', 'poocommerce' ) }
 								</Button>
 							</div>
 						</div>
@@ -192,8 +192,8 @@ export const LaunchYourStoreSuccess = ( {
 							} }
 						/>
 					</div>
-					<h2 className="woocommerce-launch-store__congrats-main-actions-title">
-						{ __( 'What’s next?', 'woocommerce' ) }
+					<h2 className="poocommerce-launch-store__congrats-main-actions-title">
+						{ __( 'What’s next?', 'poocommerce' ) }
 					</h2>
 					<WhatsNext
 						activePlugins={ activePlugins }

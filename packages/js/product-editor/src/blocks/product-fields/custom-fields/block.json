@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-custom-fields",
+	"name": "poocommerce/product-custom-fields",
 	"title": "Product custom fields control",
-	"category": "woocommerce",
+	"category": "poocommerce",
 	"description": "The product custom fields.",
 	"keywords": [
 		"products",

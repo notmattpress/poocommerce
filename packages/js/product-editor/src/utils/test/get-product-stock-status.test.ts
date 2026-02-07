@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { PartialProduct } from '@woocommerce/data';
+import { PartialProduct } from '@poocommerce/data';
 
 /**
  * Internal dependencies

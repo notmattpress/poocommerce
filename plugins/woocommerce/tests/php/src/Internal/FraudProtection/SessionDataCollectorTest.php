@@ -5,15 +5,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
 
 /**
  * Tests for SessionDataCollector.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\SessionDataCollector
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\SessionDataCollector
  */
 class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 
@@ -37,8 +37,8 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 	public function setUp(): void {
 		parent::setUp();
 
-		// Ensure WooCommerce cart and session are available.
-		if ( ! did_action( 'woocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
+		// Ensure PooCommerce cart and session are available.
+		if ( ! did_action( 'poocommerce_load_cart_from_session' ) && function_exists( 'wc_load_cart' ) ) {
 			wc_load_cart();
 		}
 
@@ -47,7 +47,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 		$this->sut->init( $this->session_clearance_manager );
 
 		// Disable taxes before adding products to cart.
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 
 		// Clear any existing session data before each test.
 		WC()->session->set( 'fraud_protection_collected_data', null );
@@ -366,7 +366,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 
 		// Verify lifetime_order_count field exists and returns a valid integer.
 		// In test environment, the method returns 0 because the cache is not automatically
-		// populated by order lifecycle hooks. In production, WooCommerce maintains this cache.
+		// populated by order lifecycle hooks. In production, PooCommerce maintains this cache.
 		$this->assertArrayHasKey( 'lifetime_order_count', $result['customer'] );
 		$this->assertIsInt( $result['customer']['lifetime_order_count'] );
 		$this->assertGreaterThanOrEqual( 0, $result['customer']['lifetime_order_count'] );
@@ -835,7 +835,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_manual_triggering_only(): void {
 		// This test verifies that SessionDataCollector doesn't automatically
-		// hook into WooCommerce events. It should only collect data when
+		// hook into PooCommerce events. It should only collect data when
 		// collect() is explicitly called.
 
 		$product = \WC_Helper_Product::create_simple_product();
@@ -857,7 +857,7 @@ class SessionDataCollectorTest extends \WC_Unit_Test_Case {
 	/**
 	 * Test collect stores event data in session.
 	 *
-	 * @testdox collect() stores event data in WooCommerce session under 'fraud_protection_collected_data' key.
+	 * @testdox collect() stores event data in PooCommerce session under 'fraud_protection_collected_data' key.
 	 */
 	public function test_collect_stores_event_data_in_session(): void {
 		// Collect data with a specific event type.

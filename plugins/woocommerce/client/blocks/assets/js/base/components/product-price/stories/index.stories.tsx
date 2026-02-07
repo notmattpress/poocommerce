@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type { Story, Meta } from '@storybook/react';
-import { currencyControl } from '@woocommerce/storybook-controls';
+import { currencyControl } from '@poocommerce/storybook-controls';
 
 /**
  * Internal dependencies

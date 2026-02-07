@@ -12,7 +12,7 @@ jQuery( function( $ ) {
 		$( document )
 			.on(
 				'click',
-				'.post-type-shop_order .wp-list-table tbody td, .woocommerce_page_wc-orders .wp-list-table.orders tbody td',
+				'.post-type-shop_order .wp-list-table tbody td, .poocommerce_page_wc-orders .wp-list-table.orders tbody td',
 				this.onRowClick
 			)
 			.on( 'click', '.order-preview:not(.disabled)', this.onPreview );
@@ -63,7 +63,7 @@ jQuery( function( $ ) {
 				url:     wc_orders_params.ajax_url,
 				data:    {
 					order_id: $order_id,
-					action  : 'woocommerce_get_order_details',
+					action  : 'poocommerce_get_order_details',
 					security: wc_orders_params.preview_nonce
 				},
 				type:    'GET',

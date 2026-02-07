@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-import { EmptyTable, Table, TablePlaceholder } from '@woocommerce/components';
+import { EmptyTable, Table, TablePlaceholder } from '@poocommerce/components';
 import {
 	TableHeader,
 	TableRow,
-} from '@woocommerce/components/build-types/table/types';
-import { getNewPath } from '@woocommerce/navigation';
+} from '@poocommerce/components/build-types/table/types';
+import { getNewPath } from '@poocommerce/navigation';
 import { createInterpolateElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -18,19 +18,19 @@ import { MARKETPLACE_PATH } from '../../constants';
 const tableHeadersDefault = [
 	{
 		key: 'name',
-		label: __( 'Name', 'woocommerce' ),
+		label: __( 'Name', 'poocommerce' ),
 	},
 	{
 		key: 'expiry',
-		label: __( 'Expires/Renews on', 'woocommerce' ),
+		label: __( 'Expires/Renews on', 'poocommerce' ),
 	},
 	{
 		key: 'subscription',
-		label: __( 'Subscription', 'woocommerce' ),
+		label: __( 'Subscription', 'poocommerce' ),
 	},
 	{
 		key: 'version',
-		label: __( 'Version', 'woocommerce' ),
+		label: __( 'Version', 'poocommerce' ),
 	},
 ];
 
@@ -42,7 +42,7 @@ function SubscriptionsTable( props: {
 	if ( props.isLoading ) {
 		return (
 			<TablePlaceholder
-				caption={ __( 'Loading your subscriptions', 'woocommerce' ) }
+				caption={ __( 'Loading your subscriptions', 'poocommerce' ) }
 				headers={ props.headers }
 			/>
 		);
@@ -52,14 +52,14 @@ function SubscriptionsTable( props: {
 		return {
 			...header,
 			cellClassName:
-				'woocommerce-marketplace__my-subscriptions__table__header--' +
+				'poocommerce-marketplace__my-subscriptions__table__header--' +
 				header.key,
 		};
 	} );
 
 	return (
 		<Table
-			className="woocommerce-marketplace__my-subscriptions__table"
+			className="poocommerce-marketplace__my-subscriptions__table"
 			headers={ headersWithClasses }
 			rows={ props.rows }
 		/>
@@ -74,7 +74,7 @@ export function InstalledSubscriptionsTable( props: {
 		...tableHeadersDefault,
 		{
 			key: 'actions',
-			label: __( 'Actions', 'woocommerce' ),
+			label: __( 'Actions', 'poocommerce' ),
 		},
 	];
 
@@ -83,7 +83,7 @@ export function InstalledSubscriptionsTable( props: {
 		const noInstalledSubscriptionsHTML = createInterpolateElement(
 			__(
 				'No extensions or themes installed. <a>Browse the Marketplace</a>',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				// eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -115,7 +115,7 @@ export function AvailableSubscriptionsTable( props: {
 		...tableHeadersDefault,
 		{
 			key: 'actions',
-			label: __( 'Actions', 'woocommerce' ),
+			label: __( 'Actions', 'poocommerce' ),
 		},
 	];
 

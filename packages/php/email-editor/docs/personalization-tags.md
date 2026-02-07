@@ -25,7 +25,7 @@ Personalization Tags are dynamic placeholders that can be inserted into email co
 
 ## Personalization Tags and Bits
 
-Personalization Tags share conceptual similarities with WordPress Bits, a proposed system for dynamic tokens in WordPress core. Both systems aim to provide dynamic content replacement capabilities, though they serve different contexts. Personalization Tags are specifically designed for email content personalization within WooCommerce, while Bits are proposed as a general-purpose solution for WordPress content.
+Personalization Tags share conceptual similarities with WordPress Bits, a proposed system for dynamic tokens in WordPress core. Both systems aim to provide dynamic content replacement capabilities, though they serve different contexts. Personalization Tags are specifically designed for email content personalization within PooCommerce, while Bits are proposed as a general-purpose solution for WordPress content.
 
 Both systems use HTML comment syntax for their tokens. Personalization Tags use the format `<!--[token-name attributes]-->` (e.g., `<!--[my-plugin/formatted-date date="2024-01-15" format="F j, Y"]-->`), which aligns with the "funky comment" approach proposed for Bits. This format provides safe fallback behavior, human-typability, and reliable parsing capabilities. As the WordPress Bits proposal progresses, there may be opportunities to align these systems or migrate Personalization Tags to use the core Bits infrastructure.
 
@@ -105,10 +105,10 @@ Note: This is still an early concept, and we may add actions/filters, as well as
 
 ```php
 $context = [
-    'order'           => $wc_order,         // WooCommerce order object
+    'order'           => $wc_order,         // PooCommerce order object
     'wp_user'         => $user,             // WordPress user object
     'recipient_email' => $email,            // Recipient's email address
-    'wc_email'        => $email_object,     // WooCommerce email object
+    'wc_email'        => $email_object,     // PooCommerce email object
     // ... additional context data
 ];
 ```
@@ -129,12 +129,12 @@ The central registry for managing personalization tags.
 
 **Example Usage:**
 
-Note: You typically won't need to create the registry yourself, but you should register tags via `woocommerce_email_editor_register_personalization_tags` filter which receives the registry via parameter. See [Creating Custom Tags](#creating-custom-tags)
+Note: You typically won't need to create the registry yourself, but you should register tags via `poocommerce_email_editor_register_personalization_tags` filter which receives the registry via parameter. See [Creating Custom Tags](#creating-custom-tags)
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
 
 $container = Email_Editor_Container::container();
 $registry  = $container->get( Personalization_Tags_Registry::class );
@@ -221,9 +221,9 @@ Create a simple personalization tag:
 
 ```php
 <?php
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tag;
 
-add_filter('woocommerce_email_editor_register_personalization_tags', function( $registry ) {
+add_filter('poocommerce_email_editor_register_personalization_tags', function( $registry ) {
     $registry->register(
         new Personalization_Tag(
             'Customer Age',             // Display name
@@ -289,10 +289,10 @@ $registry->register(
 Here's a complete example showing how to render an email using the Renderer and then personalize it with the Personalizer:
 
 ```php
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Bootstrap;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Personalizer;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Bootstrap;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Personalizer;
 
 // Get services from container
 $container = Email_Editor_Container::container();
@@ -312,10 +312,10 @@ $rendered_email = $renderer->render(
 
 // Create context for personalization
 $context = [
-    'order'           => $wc_order,         // WooCommerce order object
+    'order'           => $wc_order,         // PooCommerce order object
     'wp_user'         => $user,             // WordPress user object
     'recipient_email' => $customer_email,   // Recipient's email address
-    'wc_email'        => $email_object,     // WooCommerce email object
+    'wc_email'        => $email_object,     // PooCommerce email object
 ];
 
 // Set context and personalize the HTML content

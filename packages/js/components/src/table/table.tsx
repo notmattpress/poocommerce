@@ -90,11 +90,11 @@ const Table: React.VFC< TableProps > = ( {
 			since: '11.1.0',
 			version: '12.0.0',
 			alternative: 'className',
-			plugin: '@woocommerce/components',
+			plugin: '@poocommerce/components',
 		} );
 	}
 
-	const classes = clsx( 'woocommerce-table__table', classNames, className, {
+	const classes = clsx( 'poocommerce-table__table', classNames, className, {
 		'is-scrollable-right': isScrollableRight,
 		'is-scrollable-left': isScrollableLeft,
 	} );
@@ -210,12 +210,12 @@ const Table: React.VFC< TableProps > = ( {
 			<table>
 				<caption
 					id={ `caption-${ instanceId }` }
-					className="woocommerce-table__caption screen-reader-text"
+					className="poocommerce-table__caption screen-reader-text"
 				>
 					{ caption }
 					{ tabIndex === 0 && (
 						<small>
-							{ __( '(scroll to see more)', 'woocommerce' ) }
+							{ __( '(scroll to see more)', 'poocommerce' ) }
 						</small>
 					) }
 				</caption>
@@ -234,7 +234,7 @@ const Table: React.VFC< TableProps > = ( {
 							const labelId = `header-${ instanceId }-${ i }`;
 							const thProps: { [ key: string ]: string } = {
 								className: clsx(
-									'woocommerce-table__header',
+									'poocommerce-table__header',
 									cellClassName,
 									{
 										'is-left-aligned':
@@ -261,7 +261,7 @@ const Table: React.VFC< TableProps > = ( {
 											/* translators: %s: column label */
 											__(
 												'Sort by %s in ascending order',
-												'woocommerce'
+												'poocommerce'
 											),
 											screenReaderLabel || label
 									  )
@@ -269,7 +269,7 @@ const Table: React.VFC< TableProps > = ( {
 											/* translators: %s: column label */
 											__(
 												'Sort by %s in descending order',
-												'woocommerce'
+												'poocommerce'
 											),
 											screenReaderLabel || label
 									  );
@@ -344,7 +344,7 @@ const Table: React.VFC< TableProps > = ( {
 									const isHeader = rowHeader === j;
 									const Cell = isHeader ? 'th' : 'td';
 									const cellClasses = clsx(
-										'woocommerce-table__item',
+										'poocommerce-table__item',
 										cellClassName,
 										{
 											'is-left-aligned':
@@ -373,11 +373,11 @@ const Table: React.VFC< TableProps > = ( {
 					) : (
 						<tr>
 							<td
-								className="woocommerce-table__empty-item"
+								className="poocommerce-table__empty-item"
 								colSpan={ headers.length }
 							>
 								{ emptyMessage ??
-									__( 'No data to display', 'woocommerce' ) }
+									__( 'No data to display', 'poocommerce' ) }
 							</td>
 						</tr>
 					) }

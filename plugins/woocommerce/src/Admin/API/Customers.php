@@ -5,7 +5,7 @@
  * Handles requests to /customers/*
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) || exit;
  * Customers controller.
  *
  * @internal
- * @extends \Automattic\WooCommerce\Admin\API\Reports\Customers\Controller
+ * @extends \Automattic\PooCommerce\Admin\API\Reports\Customers\Controller
  */
-class Customers extends \Automattic\WooCommerce\Admin\API\Reports\Customers\Controller {
+class Customers extends \Automattic\PooCommerce\Admin\API\Reports\Customers\Controller {
 
 	/**
 	 * Route base.
@@ -48,7 +48,7 @@ class Customers extends \Automattic\WooCommerce\Admin\API\Reports\Customers\Cont
 			array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique ID for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique ID for the resource.', 'poocommerce' ),
 						'type'        => 'integer',
 					),
 				),

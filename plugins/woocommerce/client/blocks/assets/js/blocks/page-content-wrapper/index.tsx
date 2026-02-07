@@ -9,7 +9,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { page } from '@wordpress/icons';
-import { CHECKOUT_PAGE_ID, CART_PAGE_ID } from '@woocommerce/block-settings';
+import { CHECKOUT_PAGE_ID, CART_PAGE_ID } from '@poocommerce/block-settings';
 import { useEffect } from '@wordpress/element';
 
 /**
@@ -31,7 +31,7 @@ const Edit = ( {
 	];
 
 	const blockProps = useBlockProps( {
-		className: 'wp-block-woocommerce-page-content-wrapper',
+		className: 'wp-block-poocommerce-page-content-wrapper',
 	} );
 
 	useEffect( () => {
@@ -68,7 +68,7 @@ registerBlockType( metadata, {
 	variations: [
 		{
 			name: 'checkout-page',
-			title: __( 'Checkout Page', 'woocommerce' ),
+			title: __( 'Checkout Page', 'poocommerce' ),
 			attributes: {
 				page: 'checkout',
 			},
@@ -77,7 +77,7 @@ registerBlockType( metadata, {
 		},
 		{
 			name: 'cart-page',
-			title: __( 'Cart Page', 'woocommerce' ),
+			title: __( 'Cart Page', 'poocommerce' ),
 			attributes: {
 				page: 'cart',
 			},

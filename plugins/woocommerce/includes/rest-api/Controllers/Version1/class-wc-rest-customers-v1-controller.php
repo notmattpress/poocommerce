@@ -6,11 +6,11 @@
  *
  * @author   WooThemes
  * @category API
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @since    3.0.0
  */
 
-use Automattic\WooCommerce\Internal\Utilities\Users;
+use Automattic\PooCommerce\Internal\Utilities\Users;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * REST API Customers controller class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @extends WC_REST_Controller
  */
 class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
@@ -45,8 +45,8 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		// Preload the options which will be used in this method (reduces the number of SQL-queries).
 		wp_prime_option_caches(
 			array(
-				'woocommerce_registration_generate_username',
-				'woocommerce_registration_generate_password',
+				'poocommerce_registration_generate_username',
+				'poocommerce_registration_generate_password',
 			)
 		);
 
@@ -65,16 +65,16 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 					'email' => array(
 						'required' => true,
 						'type'     => 'string',
-						'description' => __( 'New user email address.', 'woocommerce' ),
+						'description' => __( 'New user email address.', 'poocommerce' ),
 					),
 					'username' => array(
-						'required' => 'no' === get_option( 'woocommerce_registration_generate_username', 'yes' ),
-						'description' => __( 'New user username.', 'woocommerce' ),
+						'required' => 'no' === get_option( 'poocommerce_registration_generate_username', 'yes' ),
+						'description' => __( 'New user username.', 'poocommerce' ),
 						'type'     => 'string',
 					),
 					'password' => array(
-						'required' => 'no' === get_option( 'woocommerce_registration_generate_password', 'no' ),
-						'description' => __( 'New user password.', 'woocommerce' ),
+						'required' => 'no' === get_option( 'poocommerce_registration_generate_password', 'no' ),
+						'description' => __( 'New user password.', 'poocommerce' ),
 						'type'     => 'string',
 					),
 				) ),
@@ -85,7 +85,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 			'args' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 				),
 			),
@@ -111,12 +111,12 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 					'force' => array(
 						'default'     => false,
 						'type'        => 'boolean',
-						'description' => __( 'Required to be true, as resource does not support trashing.', 'woocommerce' ),
+						'description' => __( 'Required to be true, as resource does not support trashing.', 'poocommerce' ),
 					),
 					'reassign' => array(
 						'default'     => 0,
 						'type'        => 'integer',
-						'description' => __( 'ID to reassign posts to.', 'woocommerce' ),
+						'description' => __( 'ID to reassign posts to.', 'poocommerce' ),
 					),
 				),
 			),
@@ -142,7 +142,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_user_permissions( 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -163,7 +163,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		 *
 		 * @since 9.5.2
 		 */
-		return apply_filters( 'woocommerce_rest_customer_allowed_roles', array( 'customer', 'subscriber' ) );
+		return apply_filters( 'poocommerce_rest_customer_allowed_roles', array( 'customer', 'subscriber' ) );
 	}
 
 	/**
@@ -175,7 +175,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 	 */
 	public function create_item_permissions_check( $request ) {
 		if ( ! wc_rest_check_user_permissions( 'create' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -192,8 +192,8 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			$request,
 			'read',
 			new WP_Error(
-				'woocommerce_rest_cannot_view',
-				__( 'Sorry, you cannot view this resource.', 'woocommerce' ),
+				'poocommerce_rest_cannot_view',
+				__( 'Sorry, you cannot view this resource.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			)
 		);
@@ -211,8 +211,8 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			$request,
 			'edit',
 			new WP_Error(
-				'woocommerce_rest_cannot_edit',
-				__( 'Sorry, you are not allowed to edit this resource.', 'woocommerce' ),
+				'poocommerce_rest_cannot_edit',
+				__( 'Sorry, you are not allowed to edit this resource.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			)
 		);
@@ -234,10 +234,10 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			foreach ( $non_editable_props as $prop ) {
 				if ( isset( $request[ $prop ] ) && ( 'password' === $prop || $request[ $prop ] !== $customer_prop[ $prop ] ) ) {
 					return new WP_Error(
-						'woocommerce_rest_cannot_edit',
+						'poocommerce_rest_cannot_edit',
 						sprintf(
 							/* translators: 1s: name of the property (email, role), 2: Role of the user (administrator, customer). */
-							__( 'Sorry, %1$s cannot be updated via this endpoint for a user with role %2$s.', 'woocommerce' ),
+							__( 'Sorry, %1$s cannot be updated via this endpoint for a user with role %2$s.', 'poocommerce' ),
 							$prop,
 							$customer->get_role()
 						),
@@ -262,8 +262,8 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			$request,
 			'delete',
 			new WP_Error(
-				'woocommerce_rest_cannot_delete',
-				__( 'Sorry, you are not allowed to delete this resource.', 'woocommerce' ),
+				'poocommerce_rest_cannot_delete',
+				__( 'Sorry, you are not allowed to delete this resource.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			)
 		);
@@ -279,10 +279,10 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 
 		if ( ! in_array( $customer->get_role(), $allowed_roles, true ) ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_delete',
+				'poocommerce_rest_cannot_delete',
 				sprintf(
 					/* translators: 1: Role of the user (administrator, customer), 2: comma separated list of allowed roles. egs customer, subscriber */
-					__( 'Sorry, users with %1$s role cannot be deleted via this endpoint. Allowed roles: %2$s', 'woocommerce' ),
+					__( 'Sorry, users with %1$s role cannot be deleted via this endpoint. Allowed roles: %2$s', 'poocommerce' ),
 					$customer->get_role(),
 					implode( ', ', $allowed_roles )
 				),
@@ -302,7 +302,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 	 */
 	public function batch_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_user_permissions( 'batch' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_batch', __( 'Sorry, you are not allowed to batch manipulate this resource.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_batch', __( 'Sorry, you are not allowed to batch manipulate this resource.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -383,7 +383,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		 * @param array           $prepared_args Array of arguments for WP_User_Query.
 		 * @param WP_REST_Request $request       The current request.
 		 */
-		$prepared_args = apply_filters( 'woocommerce_rest_customer_query', $prepared_args, $request );
+		$prepared_args = apply_filters( 'poocommerce_rest_customer_query', $prepared_args, $request );
 
 		$query = new WP_User_Query( $prepared_args );
 
@@ -440,7 +440,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 	public function create_item( $request ) {
 		try {
 			if ( ! empty( $request['id'] ) ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_customer_exists', __( 'Cannot create existing resource.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_customer_exists', __( 'Cannot create existing resource.', 'poocommerce' ), 400 );
 			}
 
 			// Sets the username.
@@ -458,7 +458,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			$customer->save();
 
 			if ( ! $customer->get_id() ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_cannot_create', __( 'This resource cannot be created.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_cannot_create', __( 'This resource cannot be created.', 'poocommerce' ), 400 );
 			}
 
 			$user_data = get_userdata( $customer->get_id() );
@@ -471,7 +471,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			 * @param WP_REST_Request $request   Request object.
 			 * @param boolean         $creating  True when creating customer, false when updating customer.
 			 */
-			do_action( 'woocommerce_rest_insert_customer', $user_data, $request, true );
+			do_action( 'poocommerce_rest_insert_customer', $user_data, $request, true );
 
 			$request->set_param( 'context', 'edit' );
 			$response = $this->prepare_item_for_response( $user_data, $request );
@@ -492,7 +492,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+		$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 		if ( is_wp_error( $user ) ) {
 			$user->add_data( array( 'status' => 404 ) );
 			return $user;
@@ -512,7 +512,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 	 */
 	public function update_item( $request ) {
 		try {
-			$user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
+			$user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $request['id'] );
 			if ( is_wp_error( $user ) ) {
 				$id = 0;
 			} else {
@@ -522,15 +522,15 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			$customer = new WC_Customer( $id );
 
 			if ( ! $customer->get_id() ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_invalid_id', __( 'Invalid resource ID.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_invalid_id', __( 'Invalid resource ID.', 'poocommerce' ), 400 );
 			}
 
 			if ( ! empty( $request['email'] ) && email_exists( $request['email'] ) && $request['email'] !== $customer->get_email() ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_customer_invalid_email', __( 'Email address is invalid.', 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_customer_invalid_email', __( 'Email address is invalid.', 'poocommerce' ), 400 );
 			}
 
 			if ( ! empty( $request['username'] ) && $request['username'] !== $customer->get_username() ) {
-				throw new WC_REST_Exception( 'woocommerce_rest_customer_invalid_argument', __( "Username isn't editable.", 'woocommerce' ), 400 );
+				throw new WC_REST_Exception( 'poocommerce_rest_customer_invalid_argument', __( "Username isn't editable.", 'poocommerce' ), 400 );
 			}
 
 			// Customer email.
@@ -560,7 +560,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			 * @param WP_REST_Request $request   Request object.
 			 * @param boolean         $creating  True when creating customer, false when updating customer.
 			 */
-			do_action( 'woocommerce_rest_insert_customer', $user_data, $request, false );
+			do_action( 'poocommerce_rest_insert_customer', $user_data, $request, false );
 
 			$request->set_param( 'context', 'edit' );
 			$response = $this->prepare_item_for_response( $user_data, $request );
@@ -584,20 +584,20 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 
 		// We don't support trashing for this type, error out.
 		if ( ! $force ) {
-			return new WP_Error( 'woocommerce_rest_trash_not_supported', __( 'Customers do not support trashing.', 'woocommerce' ), array( 'status' => 501 ) );
+			return new WP_Error( 'poocommerce_rest_trash_not_supported', __( 'Customers do not support trashing.', 'poocommerce' ), array( 'status' => 501 ) );
 		}
 
-		$user_data = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $id );
+		$user_data = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $id );
 		if ( is_wp_error( $user_data ) ) {
 			$user_data->add_data( array( 'status' => 404 ) );
 			return $user_data;
 		}
 
 		if ( ! empty( $reassign ) ) {
-			$reassign_user = \Automattic\WooCommerce\Internal\Utilities\Users::get_user_in_current_site( $reassign );
+			$reassign_user = \Automattic\PooCommerce\Internal\Utilities\Users::get_user_in_current_site( $reassign );
 
 			if ( $reassign === $id || is_wp_error( $reassign_user ) ) {
-				return new WP_Error( 'woocommerce_rest_customer_invalid_reassign', __( 'Invalid resource id for reassignment.', 'woocommerce' ), array( 'status' => 400 ) );
+				return new WP_Error( 'poocommerce_rest_customer_invalid_reassign', __( 'Invalid resource id for reassignment.', 'poocommerce' ), array( 'status' => 400 ) );
 			}
 		}
 
@@ -616,7 +616,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		}
 
 		if ( ! $result ) {
-			return new WP_Error( 'woocommerce_rest_cannot_delete', __( 'The resource cannot be deleted.', 'woocommerce' ), array( 'status' => 500 ) );
+			return new WP_Error( 'poocommerce_rest_cannot_delete', __( 'The resource cannot be deleted.', 'poocommerce' ), array( 'status' => 500 ) );
 		}
 
 		/**
@@ -626,7 +626,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		 * @param WP_REST_Response $response  The response returned from the API.
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
-		do_action( 'woocommerce_rest_delete_customer', $user_data, $response, $request );
+		do_action( 'poocommerce_rest_delete_customer', $user_data, $response, $request );
 
 		return $response;
 	}
@@ -681,7 +681,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		 * @param WP_User          $user_data  User object used to create response.
 		 * @param WP_REST_Request  $request    Request object.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_customer', $response, $user_data, $request );
+		return apply_filters( 'poocommerce_rest_prepare_customer', $response, $user_data, $request );
 	}
 
 	/**
@@ -753,31 +753,31 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_created' => array(
-					'description' => __( 'The date the customer was created, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date the customer was created, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_modified' => array(
-					'description' => __( 'The date the customer was last modified, as GMT.', 'woocommerce' ),
+					'description' => __( 'The date the customer was last modified, as GMT.', 'poocommerce' ),
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'email' => array(
-					'description' => __( 'The email address for the customer.', 'woocommerce' ),
+					'description' => __( 'The email address for the customer.', 'poocommerce' ),
 					'type'        => 'string',
 					'format'      => 'email',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'first_name' => array(
-					'description' => __( 'Customer first name.', 'woocommerce' ),
+					'description' => __( 'Customer first name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -785,7 +785,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 					),
 				),
 				'last_name' => array(
-					'description' => __( 'Customer last name.', 'woocommerce' ),
+					'description' => __( 'Customer last name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -793,7 +793,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 					),
 				),
 				'username' => array(
-					'description' => __( 'Customer login name.', 'woocommerce' ),
+					'description' => __( 'Customer login name.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -801,24 +801,24 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 					),
 				),
 				'password' => array(
-					'description' => __( 'Customer password.', 'woocommerce' ),
+					'description' => __( 'Customer password.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'edit' ),
 				),
 				'last_order' => array(
-					'description' => __( 'Last order data.', 'woocommerce' ),
+					'description' => __( 'Last order data.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 					'properties'  => array(
 						'id' => array(
-							'description' => __( 'Last order ID.', 'woocommerce' ),
+							'description' => __( 'Last order ID.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date' => array(
-							'description' => __( 'The date of the customer last order, as GMT.', 'woocommerce' ),
+							'description' => __( 'The date of the customer last order, as GMT.', 'poocommerce' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
@@ -826,133 +826,133 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 					),
 				),
 				'orders_count' => array(
-					'description' => __( 'Quantity of orders made by the customer.', 'woocommerce' ),
+					'description' => __( 'Quantity of orders made by the customer.', 'poocommerce' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'total_spent' => array(
-					'description' => __( 'Total amount spent.', 'woocommerce' ),
+					'description' => __( 'Total amount spent.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'avatar_url' => array(
-					'description' => __( 'Avatar URL.', 'woocommerce' ),
+					'description' => __( 'Avatar URL.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'billing' => array(
-					'description' => __( 'List of billing address data.', 'woocommerce' ),
+					'description' => __( 'List of billing address data.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties' => array(
 						'first_name' => array(
-							'description' => __( 'First name.', 'woocommerce' ),
+							'description' => __( 'First name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'last_name' => array(
-							'description' => __( 'Last name.', 'woocommerce' ),
+							'description' => __( 'Last name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'company' => array(
-							'description' => __( 'Company name.', 'woocommerce' ),
+							'description' => __( 'Company name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'address_1' => array(
-							'description' => __( 'Address line 1.', 'woocommerce' ),
+							'description' => __( 'Address line 1.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'address_2' => array(
-							'description' => __( 'Address line 2.', 'woocommerce' ),
+							'description' => __( 'Address line 2.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'city' => array(
-							'description' => __( 'City name.', 'woocommerce' ),
+							'description' => __( 'City name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'state' => array(
-							'description' => __( 'ISO code or name of the state, province or district.', 'woocommerce' ),
+							'description' => __( 'ISO code or name of the state, province or district.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'postcode' => array(
-							'description' => __( 'Postal code.', 'woocommerce' ),
+							'description' => __( 'Postal code.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'country' => array(
-							'description' => __( 'ISO code of the country.', 'woocommerce' ),
+							'description' => __( 'ISO code of the country.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'email' => array(
-							'description' => __( 'Email address.', 'woocommerce' ),
+							'description' => __( 'Email address.', 'poocommerce' ),
 							'type'        => 'string',
 							'format'      => 'email',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'phone' => array(
-							'description' => __( 'Phone number.', 'woocommerce' ),
+							'description' => __( 'Phone number.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 					),
 				),
 				'shipping' => array(
-					'description' => __( 'List of shipping address data.', 'woocommerce' ),
+					'description' => __( 'List of shipping address data.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties' => array(
 						'first_name' => array(
-							'description' => __( 'First name.', 'woocommerce' ),
+							'description' => __( 'First name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'last_name' => array(
-							'description' => __( 'Last name.', 'woocommerce' ),
+							'description' => __( 'Last name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'company' => array(
-							'description' => __( 'Company name.', 'woocommerce' ),
+							'description' => __( 'Company name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'address_1' => array(
-							'description' => __( 'Address line 1.', 'woocommerce' ),
+							'description' => __( 'Address line 1.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'address_2' => array(
-							'description' => __( 'Address line 2.', 'woocommerce' ),
+							'description' => __( 'Address line 2.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'city' => array(
-							'description' => __( 'City name.', 'woocommerce' ),
+							'description' => __( 'City name.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'state' => array(
-							'description' => __( 'ISO code or name of the state, province or district.', 'woocommerce' ),
+							'description' => __( 'ISO code or name of the state, province or district.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'postcode' => array(
-							'description' => __( 'Postal code.', 'woocommerce' ),
+							'description' => __( 'Postal code.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'country' => array(
-							'description' => __( 'ISO code of the country.', 'woocommerce' ),
+							'description' => __( 'ISO code of the country.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit' ),
 						),
@@ -986,7 +986,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		$params['context']['default'] = 'view';
 
 		$params['exclude'] = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'woocommerce' ),
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type'          => 'integer',
@@ -995,7 +995,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['include'] = array(
-			'description'       => __( 'Limit result set to specific IDs.', 'woocommerce' ),
+			'description'       => __( 'Limit result set to specific IDs.', 'poocommerce' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type'          => 'integer',
@@ -1004,14 +1004,14 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['offset'] = array(
-			'description'        => __( 'Offset the result set by a specific number of items.', 'woocommerce' ),
+			'description'        => __( 'Offset the result set by a specific number of items.', 'poocommerce' ),
 			'type'               => 'integer',
 			'sanitize_callback'  => 'absint',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['order'] = array(
 			'default'            => 'asc',
-			'description'        => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+			'description'        => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 			'enum'               => array( 'asc', 'desc' ),
 			'sanitize_callback'  => 'sanitize_key',
 			'type'               => 'string',
@@ -1019,7 +1019,7 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 		);
 		$params['orderby'] = array(
 			'default'            => 'name',
-			'description'        => __( 'Sort collection by object attribute.', 'woocommerce' ),
+			'description'        => __( 'Sort collection by object attribute.', 'poocommerce' ),
 			'enum'               => array(
 				'id',
 				'include',
@@ -1031,13 +1031,13 @@ class WC_REST_Customers_V1_Controller extends WC_REST_Controller {
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['email'] = array(
-			'description'        => __( 'Limit result set to resources with a specific email.', 'woocommerce' ),
+			'description'        => __( 'Limit result set to resources with a specific email.', 'poocommerce' ),
 			'type'               => 'string',
 			'format'             => 'email',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['role'] = array(
-			'description'        => __( 'Limit result set to resources with a specific role.', 'woocommerce' ),
+			'description'        => __( 'Limit result set to resources with a specific role.', 'poocommerce' ),
 			'type'               => 'string',
 			'default'            => 'customer',
 			'enum'               => array_merge( array( 'all' ), $this->get_role_names() ),

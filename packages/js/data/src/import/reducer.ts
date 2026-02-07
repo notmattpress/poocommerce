@@ -20,7 +20,7 @@ const reducer: Reducer< ImportState, Action > = (
 		errors: {},
 		lastImportStartTimestamp: 0,
 		period: {
-			date: moment().format( __( 'MM/DD/YYYY', 'woocommerce' ) ),
+			date: moment().format( __( 'MM/DD/YYYY', 'poocommerce' ) ),
 			label: 'all',
 		},
 		skipPrevious: true,

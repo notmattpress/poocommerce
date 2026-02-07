@@ -2,16 +2,16 @@
 /**
  * Reports order stats tests.
  *
- * @package WooCommerce\Admin\Tests\Orders
+ * @package PooCommerce\Admin\Tests\Orders
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
-use Automattic\WooCommerce\Admin\API\Reports\TimeInterval;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
-use Automattic\WooCommerce\Internal\Admin\Analytics;
-use Automattic\WooCommerce\Internal\Fulfillments\Fulfillment;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\Query as OrdersStatsQuery;
+use Automattic\PooCommerce\Admin\API\Reports\TimeInterval;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\Admin\Analytics;
+use Automattic\PooCommerce\Internal\Fulfillments\Fulfillment;
 
 /**
  * Class WC_Admin_Tests_Reports_Orders_Stats
@@ -23,11 +23,11 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	 * Don't cache report data during these tests.
 	 */
 	public static function setUpBeforeClass(): void {
-		add_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		add_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 
 		$db_version = strstr( WC()->version, '-', true );
 		$db_version = $db_version ? $db_version : WC()->version;
-		update_option( 'woocommerce_db_version', $db_version );
+		update_option( 'poocommerce_db_version', $db_version );
 
 		delete_option( OrdersStatsDataStore::OPTION_ORDER_STATS_TABLE_HAS_COLUMN_ORDER_FULFILLMENT_STATUS );
 	}
@@ -36,7 +36,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	 * Restore cache for other tests.
 	 */
 	public static function tearDownAfterClass(): void {
-		remove_filter( 'woocommerce_analytics_report_should_use_cache', '__return_false' );
+		remove_filter( 'poocommerce_analytics_report_should_use_cache', '__return_false' );
 	}
 
 	/**
@@ -638,7 +638,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	 */
 	public function test_populate_and_query_refunds_with_old_full_refund_data() {
 		WC_Helper_Reports::reset_stats_dbs();
-		update_option( 'woocommerce_analytics_uses_old_full_refund_data', 'yes' );
+		update_option( 'poocommerce_analytics_uses_old_full_refund_data', 'yes' );
 
 		// Populate all of the data.
 		$product = new WC_Product_Simple();
@@ -735,7 +735,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 
 		$this->assertEquals( $expected_totals, json_decode( wp_json_encode( $data_store->get_data( $args ) ), true )['totals'] );
 
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -839,7 +839,7 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 
 		$this->assertEquals( $expected_totals, json_decode( wp_json_encode( $data_store->get_data( $args ) ), true )['totals'] );
 
-		delete_option( 'woocommerce_analytics_uses_old_full_refund_data' );
+		delete_option( 'poocommerce_analytics_uses_old_full_refund_data' );
 	}
 
 	/**
@@ -4031,10 +4031,10 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 	/**
 	 * Test if lookup tables are cleaned after delete an order.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore::delete_order
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Products\DataStore::sync_on_order_delete
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore::sync_on_order_delete
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore::delete_order
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Products\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Taxes\DataStore::sync_on_order_delete
 	 */
 	public function test_order_deletion() {
 		global $wpdb;
@@ -4050,12 +4050,12 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 		);
 
 		// Enable taxes.
-		$default_calc_taxes       = get_option( 'woocommerce_calc_taxes', 'no' );
-		$default_customer_address = get_option( 'woocommerce_default_customer_address', 'geolocation' );
-		$default_tax_based_on     = get_option( 'woocommerce_tax_based_on', 'shipping' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_default_customer_address', 'base' );
-		update_option( 'woocommerce_tax_based_on', 'base' );
+		$default_calc_taxes       = get_option( 'poocommerce_calc_taxes', 'no' );
+		$default_customer_address = get_option( 'poocommerce_default_customer_address', 'geolocation' );
+		$default_tax_based_on     = get_option( 'poocommerce_tax_based_on', 'shipping' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_default_customer_address', 'base' );
+		update_option( 'poocommerce_tax_based_on', 'base' );
 
 		// Create tax.
 		$tax_id = WC_Tax::_insert_tax_rate(
@@ -4126,9 +4126,9 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 		}
 
 		// Reset taxes settings.
-		update_option( 'woocommerce_calc_taxes', $default_customer_address );
-		update_option( 'woocommerce_default_customer_address', $default_calc_taxes );
-		update_option( 'woocommerce_tax_based_on', $default_tax_based_on );
+		update_option( 'poocommerce_calc_taxes', $default_customer_address );
+		update_option( 'poocommerce_default_customer_address', $default_calc_taxes );
+		update_option( 'poocommerce_tax_based_on', $default_tax_based_on );
 	}
 
 	/**
@@ -6517,18 +6517,18 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 		// Reset analytics lookup tables for a clean slate.
 		WC_Helper_Reports::reset_stats_dbs();
 
-		$prev_fulfillments_opt = get_option( 'woocommerce_feature_fulfillments_enabled', null );
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
+		$prev_fulfillments_opt = get_option( 'poocommerce_feature_fulfillments_enabled', null );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
 
 		try {
 			// Enable fulfillments feature.
-			$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+			$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 			$controller->register();
 			$controller->initialize_fulfillments();
 
 			// Arrange: Reset migration state.
-			delete_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' );
-			delete_transient( 'woocommerce_analytics_fulfillment_status_progress' );
+			delete_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' );
+			delete_transient( 'poocommerce_analytics_fulfillment_status_progress' );
 
 			// Ensure column exists.
 			OrdersStatsDataStore::add_fulfillment_status_column();
@@ -6580,23 +6580,23 @@ class WC_Admin_Tests_Reports_Orders_Stats extends WC_Unit_Test_Case {
 			$this->assertNull( $statuses[ $order_5->get_id() ]->fulfillment_status, 'Order 5 should have NULL fulfillment_status' );
 
 			// Verify completion.
-			$regenerated = get_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' );
+			$regenerated = get_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' );
 			$this->assertTrue( (bool) $regenerated, 'Migration should be marked as completed' );
 
 			// Verify transient cleanup.
-			$progress = get_transient( 'woocommerce_analytics_fulfillment_status_progress' );
+			$progress = get_transient( 'poocommerce_analytics_fulfillment_status_progress' );
 			$this->assertFalse( $progress, 'Progress transient should be deleted after completion' );
 		} finally {
 			// Cleanup.
-			delete_option( 'woocommerce_analytics_order_fulfillment_status_regenerated' );
+			delete_option( 'poocommerce_analytics_order_fulfillment_status_regenerated' );
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_order_fulfillment_meta" );
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}wc_order_fulfillments" );
-			delete_transient( 'woocommerce_analytics_fulfillment_status_progress' );
+			delete_transient( 'poocommerce_analytics_fulfillment_status_progress' );
 
 			if ( null === $prev_fulfillments_opt ) {
-				delete_option( 'woocommerce_feature_fulfillments_enabled' );
+				delete_option( 'poocommerce_feature_fulfillments_enabled' );
 			} else {
-				update_option( 'woocommerce_feature_fulfillments_enabled', $prev_fulfillments_opt );
+				update_option( 'poocommerce_feature_fulfillments_enabled', $prev_fulfillments_opt );
 			}
 		}
 	}

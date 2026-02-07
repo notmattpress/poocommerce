@@ -3,7 +3,7 @@
  */
 import { render, act, cleanup, waitFor } from '@testing-library/react';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import userEvent from '@testing-library/user-event';
 
 /**
@@ -26,8 +26,8 @@ jest.mock( '@wordpress/data', () => {
 	};
 } );
 
-jest.mock( '@woocommerce/explat' );
-jest.mock( '@woocommerce/tracks' );
+jest.mock( '@poocommerce/explat' );
+jest.mock( '@poocommerce/tracks' );
 
 jest.mock( '../components/task-list', () => ( {
 	TaskList: ( { id }: TaskListProps ) => <div>task-list:{ id }</div>,

@@ -19,7 +19,7 @@ import { MediaItem, MediaUpload } from '@wordpress/media-utils';
 import { MediaUploadComponentType } from './types';
 
 const POPOVER_PROPS = {
-	className: 'woocommerce-image-gallery__toolbar-dropdown-popover',
+	className: 'poocommerce-image-gallery__toolbar-dropdown-popover',
 	placement: 'bottom-start',
 };
 
@@ -46,8 +46,8 @@ export function ImageGalleryToolbarDropdown( {
 	return (
 		<DropdownMenu
 			icon={ moreVertical }
-			label={ __( 'Options', 'woocommerce' ) }
-			className="woocommerce-image-gallery__toolbar-dropdown"
+			label={ __( 'Options', 'poocommerce' ) }
+			className="poocommerce-image-gallery__toolbar-dropdown"
 			popoverProps={ POPOVER_PROPS }
 			{ ...props }
 		>
@@ -66,7 +66,7 @@ export function ImageGalleryToolbarDropdown( {
 										open();
 									} }
 								>
-									{ __( 'Replace', 'woocommerce' ) }
+									{ __( 'Replace', 'poocommerce' ) }
 								</MenuItem>
 							) }
 						/>
@@ -93,7 +93,7 @@ export function ImageGalleryToolbarDropdown( {
 								} }
 							>
 								{ removeBlockLabel ||
-									__( 'Remove', 'woocommerce' ) }
+									__( 'Remove', 'poocommerce' ) }
 							</MenuItem>
 						</MenuGroup>
 					) }

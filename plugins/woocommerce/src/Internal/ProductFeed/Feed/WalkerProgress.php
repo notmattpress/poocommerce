@@ -2,12 +2,12 @@
 /**
  * Walker Progress class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Feed;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Feed;
 
 /**
  * Simple class that tracks/indicates the progress of a walker.
@@ -44,7 +44,7 @@ final class WalkerProgress {
 	public int $processed_batches = 0;
 
 	/**
-	 * Creates a WalkerProgress instance from a WooCommerce products query result.
+	 * Creates a WalkerProgress instance from a PooCommerce products query result.
 	 *
 	 * @since 10.5.0
 	 *

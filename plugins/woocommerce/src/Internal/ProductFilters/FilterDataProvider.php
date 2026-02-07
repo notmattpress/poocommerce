@@ -5,17 +5,17 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFilters;
+namespace Automattic\PooCommerce\Internal\ProductFilters;
 
-use Automattic\WooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
-use Automattic\WooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
+use Automattic\PooCommerce\Internal\ProductFilters\Interfaces\QueryClausesGenerator;
+use Automattic\PooCommerce\Internal\ProductFilters\TaxonomyHierarchyData;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Provider class.
  *
- * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+ * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
  */
 class FilterDataProvider {
 	/**
@@ -35,7 +35,7 @@ class FilterDataProvider {
 	/**
 	 * Initialize dependencies.
 	 *
-	 * @internal For exclusive usage of WooCommerce core, backwards compatibility not guaranteed.
+	 * @internal For exclusive usage of PooCommerce core, backwards compatibility not guaranteed.
 	 *
 	 * @param TaxonomyHierarchyData $taxonomy_hierarchy_data Instance of TaxonomyHierarchyData.
 	 *

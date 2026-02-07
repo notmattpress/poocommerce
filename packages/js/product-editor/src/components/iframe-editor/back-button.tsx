@@ -13,11 +13,11 @@ type BackButtonProps = {
 export function BackButton( { onClick }: BackButtonProps ) {
 	return (
 		<Button
-			className="woocommerce-iframe-editor__back-button"
+			className="poocommerce-iframe-editor__back-button"
 			icon={ arrowLeft }
 			onClick={ onClick }
 		>
-			{ __( 'Back', 'woocommerce' ) }
+			{ __( 'Back', 'poocommerce' ) }
 		</Button>
 	);
 }

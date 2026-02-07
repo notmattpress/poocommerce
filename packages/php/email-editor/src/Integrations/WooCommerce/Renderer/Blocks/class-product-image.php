@@ -1,20 +1,20 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare( strict_types = 1 );
-namespace Automattic\WooCommerce\EmailEditor\Integrations\WooCommerce\Renderer\Blocks;
+namespace Automattic\PooCommerce\EmailEditor\Integrations\PooCommerce\Renderer\Blocks;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Dom_Document_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 
 /**
- * Renders a WooCommerce product image block for email.
+ * Renders a PooCommerce product image block for email.
  */
 class Product_Image extends Abstract_Product_Block_Renderer {
 	/**
@@ -76,7 +76,7 @@ class Product_Image extends Abstract_Product_Block_Renderer {
 				$inner_block['context']           = $inner_block['context'] ?? array();
 				$inner_block['context']['postId'] = $product->get_id();
 
-				if ( 'woocommerce/product-sale-badge' === $inner_block['blockName'] ) {
+				if ( 'poocommerce/product-sale-badge' === $inner_block['blockName'] ) {
 					$badges         .= $this->render_overlay_badge( $inner_block, $product, $rendering_context );
 					$badge_alignment = $inner_block['attrs']['align'] ?? 'left';
 				} else {
@@ -105,7 +105,7 @@ class Product_Image extends Abstract_Product_Block_Renderer {
 			return '';
 		}
 
-		$sale_text        = apply_filters( 'woocommerce_sale_badge_text', __( 'Sale', 'woocommerce' ), $product );
+		$sale_text        = apply_filters( 'poocommerce_sale_badge_text', __( 'Sale', 'poocommerce' ), $product );
 		$badge_attributes = array_replace_recursive(
 			array(
 				'textColor'       => '#43454b',
@@ -305,7 +305,7 @@ class Product_Image extends Abstract_Product_Block_Renderer {
 	 * @return array|null
 	 */
 	private function get_product_image_data( \WC_Product $product, array $attributes ): ?array {
-		$image_size = 'single' === $attributes['imageSizing'] ? 'woocommerce_single' : 'woocommerce_thumbnail';
+		$image_size = 'single' === $attributes['imageSizing'] ? 'poocommerce_single' : 'poocommerce_thumbnail';
 		$image_id   = (int) $product->get_image_id();
 
 		if ( ! $image_id ) {

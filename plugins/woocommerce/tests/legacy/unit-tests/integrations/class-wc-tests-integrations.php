@@ -2,7 +2,7 @@
 /**
  * Class Functions.
  *
- * @package WooCommerce\Tests\Integrations
+ * @package PooCommerce\Tests\Integrations
  */
 
 /**
@@ -22,7 +22,7 @@ class WC_Tests_Integrations extends WC_Unit_Test_Case {
 	 */
 	public function test_action() {
 		new WC_Integrations();
-		$this->assertTrue( ( did_action( 'woocommerce_integrations_init' ) > 0 ) );
+		$this->assertTrue( ( did_action( 'poocommerce_integrations_init' ) > 0 ) );
 	}
 
 	/**
@@ -35,12 +35,12 @@ class WC_Tests_Integrations extends WC_Unit_Test_Case {
 
 		require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'class-dummy-integration.php';
 
-		add_filter( 'woocommerce_integrations', array( $this, 'add_dummy_integration' ) );
+		add_filter( 'poocommerce_integrations', array( $this, 'add_dummy_integration' ) );
 		$integrations = new WC_Integrations();
 		$this->assertArrayHasKey( 'dummy-integration', $integrations->integrations );
 		$this->assertArrayHasKey( 'dummy-integration', $integrations->get_integrations() );
 
-		remove_filter( 'woocommerce_integrations', array( $this, 'add_dummy_integration' ) );
+		remove_filter( 'poocommerce_integrations', array( $this, 'add_dummy_integration' ) );
 	}
 
 	/**

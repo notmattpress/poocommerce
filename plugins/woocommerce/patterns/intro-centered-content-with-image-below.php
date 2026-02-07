@@ -1,15 +1,15 @@
 <?php
 /**
  * Title: Centered Content with Image Below
- * Slug: woocommerce-blocks/centered-content-with-image-below
- * Categories: WooCommerce, Intro
+ * Slug: poocommerce-blocks/centered-content-with-image-below
+ * Categories: PooCommerce, Intro
  */
 
 declare(strict_types=1);
 
-$header  = __( 'Find your shade', 'woocommerce' );
-$content = __( 'Explore our exclusive collection of sunglasses, crafted to elevate your look and safeguard your eyes. Find your perfect pair and see the world through a new lens.', 'woocommerce' );
-$button  = __( 'Shop now', 'woocommerce' );
+$header  = __( 'Find your shade', 'poocommerce' );
+$content = __( 'Explore our exclusive collection of sunglasses, crafted to elevate your look and safeguard your eyes. Find your perfect pair and see the world through a new lens.', 'poocommerce' );
+$button  = __( 'Shop now', 'poocommerce' );
 $image_0 = plugins_url( 'assets/images/pattern-placeholders/girls-in-the-hills.jpg', WC_PLUGIN_FILE );
 
 ?>

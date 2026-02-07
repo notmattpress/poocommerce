@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { __, _x } from '@wordpress/i18n';
-import type { CartResponseShippingRate } from '@woocommerce/types';
-import { getSetting } from '@woocommerce/settings';
+import type { CartResponseShippingRate } from '@poocommerce/types';
+import { getSetting } from '@poocommerce/settings';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { API_SITE_CURRENCY, displayForMinorUnit } from './utils';
 const localPickupEnabled = getSetting< boolean >( 'localPickupEnabled', false );
 const localPickupTitle = getSetting< string >(
 	'localPickupText',
-	__( 'Local pickup', 'woocommerce' )
+	__( 'Local pickup', 'poocommerce' )
 );
 const localPickupCost = getSetting< string >( 'localPickupCost', '' );
 const localPickupLocations = localPickupEnabled
@@ -70,14 +70,14 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 			country: '',
 		},
 		package_id: 0,
-		name: __( 'Shipping', 'woocommerce' ),
+		name: __( 'Shipping', 'poocommerce' ),
 		items: [
 			{
 				key: '33e75ff09dd601bbe69f351039152189',
 				name: _x(
 					'Beanie with Logo',
 					'example product in Cart Block',
-					'woocommerce'
+					'poocommerce'
 				),
 				quantity: 2,
 			},
@@ -86,7 +86,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 				name: _x(
 					'Beanie',
 					'example product in Cart Block',
-					'woocommerce'
+					'poocommerce'
 				),
 				quantity: 1,
 			},
@@ -94,7 +94,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 		shipping_rates: [
 			{
 				...API_SITE_CURRENCY,
-				name: __( 'Flat rate shipping', 'woocommerce' ),
+				name: __( 'Flat rate shipping', 'poocommerce' ),
 				description: '',
 				delivery_time: '',
 				price: displayForMinorUnit( '500' ),
@@ -107,7 +107,7 @@ export const previewShippingRates: CartResponseShippingRate[] = [
 			},
 			{
 				...API_SITE_CURRENCY,
-				name: __( 'Free shipping', 'woocommerce' ),
+				name: __( 'Free shipping', 'poocommerce' ),
 				description: '',
 				delivery_time: '',
 				price: '0',

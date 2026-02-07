@@ -20,7 +20,7 @@ export const useStoreEvents = (): {
 	const dispatchStoreEvent = useCallback( ( eventName, eventParams = {} ) => {
 		try {
 			doAction(
-				`experimental__woocommerce_blocks-${ eventName }`,
+				`experimental__poocommerce_blocks-${ eventName }`,
 				eventParams
 			);
 		} catch ( e ) {
@@ -34,7 +34,7 @@ export const useStoreEvents = (): {
 		( eventName, eventParams = {} ) => {
 			try {
 				doAction(
-					`experimental__woocommerce_blocks-checkout-${ eventName }`,
+					`experimental__poocommerce_blocks-checkout-${ eventName }`,
 					{
 						...eventParams,
 						storeCart: select( 'wc/store/cart' ).getCartData(),

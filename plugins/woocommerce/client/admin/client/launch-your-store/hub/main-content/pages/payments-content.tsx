@@ -6,9 +6,9 @@ import apiFetch from '@wordpress/api-fetch';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import React, { useEffect, useRef, useState } from '@wordpress/element';
-import { pluginsStore, paymentSettingsStore } from '@woocommerce/data';
+import { pluginsStore, paymentSettingsStore } from '@poocommerce/data';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { WooPaymentsMethodsLogos } from '@woocommerce/onboarding';
+import { WooPaymentsMethodsLogos } from '@poocommerce/onboarding';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ const validatePluginSlug = ( slug: unknown ): string | undefined => {
 	if ( ! validSlugPattern.test( trimmed ) ) {
 		// eslint-disable-next-line no-console
 		console.warn(
-			`[WooCommerce Payments] Invalid plugin slug format: "${ trimmed }". Using default slug.`
+			`[PooCommerce Payments] Invalid plugin slug format: "${ trimmed }". Using default slug.`
 		);
 		return undefined;
 	}
@@ -100,21 +100,21 @@ const InstallWooPaymentsStep = ( {
 	}, [] );
 
 	const businessCountry =
-		window.wcSettings?.admin?.woocommerce_payments_nox_profile
+		window.wcSettings?.admin?.poocommerce_payments_nox_profile
 			?.business_country_code || null;
 
-	let buttonText = __( 'Install', 'woocommerce' );
+	let buttonText = __( 'Install', 'poocommerce' );
 
 	if ( isPluginInstalled && ! isPluginInstalling ) {
-		buttonText = __( 'Enable', 'woocommerce' );
+		buttonText = __( 'Enable', 'poocommerce' );
 	}
 
 	if ( isPluginInstalled && isPluginInstalling ) {
-		buttonText = __( 'Enabling', 'woocommerce' );
+		buttonText = __( 'Enabling', 'poocommerce' );
 	}
 
 	if ( ! isPluginInstalled && isPluginInstalling ) {
-		buttonText = __( 'Installing', 'woocommerce' );
+		buttonText = __( 'Installing', 'poocommerce' );
 	}
 
 	return (
@@ -127,12 +127,12 @@ const InstallWooPaymentsStep = ( {
 				/>
 			</div>
 			<h1 className="launch-your-store-payments-content__step--install-woopayments-title">
-				{ __( 'Accept payments with Woo', 'woocommerce' ) }
+				{ __( 'Accept payments with Woo', 'poocommerce' ) }
 			</h1>
 			<p className="launch-your-store-payments-content__step--install-woopayments-description">
 				{ __(
 					'Set up payments for your store in just a few steps. With WooPayments, you can accept online and in-person payments, track revenue, and handle all payment activity from one place.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</p>
 			<div className="launch-your-store-payments-content__step--install-woopayments-logos">
