@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce Settings Data Transformer.
+ * PooCommerce Settings Data Transformer.
  */
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Admin\Features\Settings;
+namespace Automattic\PooCommerce\Admin\Features\Settings;
 
 /**
- * Transforms WooCommerce settings data into a structured format with logical groupings.
+ * Transforms PooCommerce settings data into a structured format with logical groupings.
  */
 class Transformer {
 	/**

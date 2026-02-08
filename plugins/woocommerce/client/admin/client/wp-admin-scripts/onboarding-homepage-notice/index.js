@@ -4,8 +4,8 @@
 import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import domReady from '@wordpress/dom-ready';
-import { getAdminLink } from '@woocommerce/settings';
-import { queueRecordEvent } from '@woocommerce/tracks';
+import { getAdminLink } from '@poocommerce/settings';
+import { queueRecordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -70,13 +70,13 @@ const onboardingHomepageNotice = () => {
 
 		dispatch( 'core/notices' ).removeNotice( 'SAVE_POST_NOTICE_ID' );
 		dispatch( 'core/notices' ).createSuccessNotice(
-			__( '🏠 Nice work creating your store’s homepage!', 'woocommerce' ),
+			__( '🏠 Nice work creating your store’s homepage!', 'poocommerce' ),
 			{
 				id: 'WOOCOMMERCE_ONBOARDING_HOME_PAGE_NOTICE',
 				type: notificationType,
 				actions: [
 					{
-						label: __( 'Continue setup.', 'woocommerce' ),
+						label: __( 'Continue setup.', 'poocommerce' ),
 						onClick: () => {
 							queueRecordEvent(
 								'tasklist_appearance_continue_setup',

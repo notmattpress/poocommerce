@@ -5,16 +5,16 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\BlackboxScriptHandler;
-use Automattic\WooCommerce\RestApi\UnitTests\LoggerSpyTrait;
+use Automattic\PooCommerce\Internal\FraudProtection\BlackboxScriptHandler;
+use Automattic\PooCommerce\RestApi\UnitTests\LoggerSpyTrait;
 use WC_Unit_Test_Case;
 
 /**
  * Tests for BlackboxScriptHandler.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\BlackboxScriptHandler
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\BlackboxScriptHandler
  */
 class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 
@@ -42,10 +42,10 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_filters( 'woocommerce_fraud_protection_enqueue_blackbox_scripts' );
-		remove_all_filters( 'woocommerce_is_checkout' );
+		remove_all_filters( 'poocommerce_fraud_protection_enqueue_blackbox_scripts' );
+		remove_all_filters( 'poocommerce_is_checkout' );
 		remove_all_filters( 'pre_option_jetpack_options' );
-		remove_all_filters( 'pre_option_woocommerce_myaccount_page_id' );
+		remove_all_filters( 'pre_option_poocommerce_myaccount_page_id' );
 		wp_dequeue_script( 'wc-fraud-protection-blackbox' );
 		wp_dequeue_script( 'wc-fraud-protection-blackbox-init' );
 		wp_deregister_script( 'wc-fraud-protection-blackbox' );
@@ -65,7 +65,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 		$this->mock_jetpack_blog_id( 12345 );
 		$this->mock_wc_page( 'checkout' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should be enqueued on checkout' );
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox-init', 'enqueued' ), 'Blackbox init script should be enqueued on checkout' );
@@ -78,7 +78,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 		$this->mock_jetpack_blog_id( 12345 );
 		$this->mock_wc_page( 'order-pay' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should be enqueued on pay-for-order' );
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox-init', 'enqueued' ), 'Blackbox init script should be enqueued on pay-for-order' );
@@ -91,7 +91,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 		$this->mock_jetpack_blog_id( 12345 );
 		$this->mock_wc_page( 'add-payment-method' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should be enqueued on add-payment-method' );
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox-init', 'enqueued' ), 'Blackbox init script should be enqueued on add-payment-method' );
@@ -104,7 +104,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 		$this->mock_jetpack_blog_id( 12345 );
 		$this->mock_wc_page( 'custom-blocks-checkout' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should be enqueued on custom checkout block page' );
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox-init', 'enqueued' ), 'Blackbox init script should be enqueued on custom checkout block page' );
@@ -118,7 +118,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 
 		$this->mock_jetpack_blog_id( 12345 );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertFalse( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should not be enqueued on non-payment pages' );
 		$this->assertFalse( wp_script_is( 'wc-fraud-protection-blackbox-init', 'enqueued' ), 'Blackbox init script should not be enqueued on non-payment pages' );
@@ -130,7 +130,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 	public function test_does_not_enqueue_scripts_without_blog_id(): void {
 		$this->mock_wc_page( 'checkout' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertFalse( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should not be enqueued without blog ID' );
 		$this->assertLogged( 'error', 'Jetpack blog ID not available' );
@@ -143,10 +143,10 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 		$this->mock_jetpack_blog_id( 42 );
 		$this->mock_wc_page( 'checkout' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$data = wp_scripts()->get_data( 'wc-fraud-protection-blackbox-init', 'data' );
-		$this->assertStringContainsString( '"woocommerce"', $data, 'Should contain API key' );
+		$this->assertStringContainsString( '"poocommerce"', $data, 'Should contain API key' );
 		$this->assertStringContainsString( '"42"', $data, 'Should contain blog ID' );
 	}
 
@@ -155,9 +155,9 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 	 */
 	public function test_filter_enables_scripts_on_custom_pages(): void {
 		$this->mock_jetpack_blog_id( 12345 );
-		add_filter( 'woocommerce_fraud_protection_enqueue_blackbox_scripts', '__return_true' );
+		add_filter( 'poocommerce_fraud_protection_enqueue_blackbox_scripts', '__return_true' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertTrue( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should be enqueued when filter returns true' );
 	}
@@ -168,9 +168,9 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 	public function test_filter_disables_scripts_on_checkout(): void {
 		$this->mock_jetpack_blog_id( 12345 );
 		$this->mock_wc_page( 'checkout' );
-		add_filter( 'woocommerce_fraud_protection_enqueue_blackbox_scripts', '__return_false' );
+		add_filter( 'poocommerce_fraud_protection_enqueue_blackbox_scripts', '__return_false' );
 
-		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp_enqueue_scripts' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
 		$this->assertFalse( wp_script_is( 'wc-fraud-protection-blackbox', 'enqueued' ), 'Blackbox SDK should not be enqueued when filter returns false' );
 	}
@@ -190,7 +190,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Mock a WooCommerce page URL.
+	 * Mock a PooCommerce page URL.
 	 *
 	 * @param string $page The page to mock (e.g., 'checkout', 'custom-blocks-checkout', 'order-pay', 'add-payment-method').
 	 */
@@ -199,16 +199,16 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 
 		switch ( $page ) {
 			case 'checkout':
-				add_filter( 'woocommerce_is_checkout', '__return_true' );
+				add_filter( 'poocommerce_is_checkout', '__return_true' );
 				break;
 			case 'custom-blocks-checkout':
 				$post = $this->factory()->post->create_and_get( // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Test needs to simulate a page with checkout block.
-					array( 'post_content' => '<!-- wp:woocommerce/checkout --><div class="wp-block-woocommerce-checkout"></div><!-- /wp:woocommerce/checkout -->' )
+					array( 'post_content' => '<!-- wp:poocommerce/checkout --><div class="wp-block-poocommerce-checkout"></div><!-- /wp:poocommerce/checkout -->' )
 				);
 				break;
 			case 'order-pay':
 				$wp->query_vars['order-pay'] = true;
-				add_filter( 'woocommerce_is_checkout', '__return_true' );
+				add_filter( 'poocommerce_is_checkout', '__return_true' );
 				break;
 			case 'add-payment-method':
 				$page_id = $this->factory()->post->create(
@@ -218,7 +218,7 @@ class BlackboxScriptHandlerTest extends WC_Unit_Test_Case {
 					)
 				);
 				add_filter(
-					'pre_option_woocommerce_myaccount_page_id',
+					'pre_option_poocommerce_myaccount_page_id',
 					function () use ( $page_id ) {
 						return $page_id;
 					}

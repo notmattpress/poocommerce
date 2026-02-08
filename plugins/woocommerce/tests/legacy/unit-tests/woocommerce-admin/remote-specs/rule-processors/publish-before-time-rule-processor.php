@@ -2,13 +2,13 @@
 /**
  * Publish before time rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\PublishBeforeTimeRuleProcessor;
-use Automattic\WooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\PublishBeforeTimeRuleProcessor;
+use Automattic\PooCommerce\Admin\DateTimeProvider\DateTimeProviderInterface;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_PublishBeforeTimeRuleProcessor

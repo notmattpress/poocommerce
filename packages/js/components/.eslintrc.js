@@ -1,5 +1,5 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	ignorePatterns: [ '**/test/*.ts', '**/test/*.tsx' ],
 	overrides: [
@@ -12,18 +12,18 @@ module.exports = {
 			rules: {
 				'import/no-unresolved': [
 					'warn',
-					{ ignore: [ '@woocommerce/components' ] },
+					{ ignore: [ '@poocommerce/components' ] },
 				],
 			},
 		},
 	],
 	settings: {
 		'import/core-modules': [
-			'@woocommerce/components',
-			'@woocommerce/currency',
-			'@woocommerce/data',
-			'@woocommerce/date',
-			'@woocommerce/navigation',
+			'@poocommerce/components',
+			'@poocommerce/currency',
+			'@poocommerce/data',
+			'@poocommerce/date',
+			'@poocommerce/navigation',
 			'@storybook/react',
 			'@automattic/tour-kit',
 			'@wordpress/blocks',

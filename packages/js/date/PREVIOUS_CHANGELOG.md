@@ -11,7 +11,7 @@
 
 # 3.2.0
 
--   Remove dev dependency `@woocommerce/wc-admin-settings`. #8057
+-   Remove dev dependency `@poocommerce/wc-admin-settings`. #8057
 -   Add "defaultDateRange" argument to "getAllowedIntervalsForQuery" for default period value. #8189
 -   Add type option to `getDateFormatsForInterval` to support `getDateFormatsForIntervalPhp` feature. #8129
 -   Sentence case all the things analytics #6501
@@ -47,7 +47,7 @@
 
 # 1.2.0
 
--   Enhancement: gather default date settings from `wcSettings.wcAdminSettings.woocommerce_default_date_range` if they exist.
+-   Enhancement: gather default date settings from `wcSettings.wcAdminSettings.poocommerce_default_date_range` if they exist.
 -   Update license to GPL-3.0-or-later.
 
 # 1.0.7

@@ -2,17 +2,17 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\PushNotifications\Controllers;
+namespace Automattic\PooCommerce\Internal\PushNotifications\Controllers;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
-use Automattic\WooCommerce\Internal\PushNotifications\Entities\PushToken;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
-use Automattic\WooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
-use Automattic\WooCommerce\Internal\PushNotifications\PushNotifications;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\PushNotifications\DataStores\PushTokensDataStore;
+use Automattic\PooCommerce\Internal\PushNotifications\Entities\PushToken;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenNotFoundException;
+use Automattic\PooCommerce\Internal\PushNotifications\Exceptions\PushTokenInvalidDataException;
+use Automattic\PooCommerce\Internal\PushNotifications\PushNotifications;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
 use Exception;
 use WC_Data_Exception;
 use WC_Logger;
@@ -46,7 +46,7 @@ class PushTokenRestController extends RestApiControllerBase {
 	protected string $rest_base = 'push-tokens';
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @since 10.6.0
 	 *
@@ -157,7 +157,7 @@ class PushTokenRestController extends RestApiControllerBase {
 
 			if ( ! $deleted ) {
 				throw new WC_Data_Exception(
-					'woocommerce_push_token_not_deleted',
+					'poocommerce_push_token_not_deleted',
 					'The push token could not be deleted.',
 					WP_Http::INTERNAL_SERVER_ERROR
 				);
@@ -367,8 +367,8 @@ class PushTokenRestController extends RestApiControllerBase {
 	public function authorize( WP_REST_Request $request ) {
 		if ( ! get_current_user_id() ) {
 			return new WP_Error(
-				'woocommerce_rest_cannot_view',
-				__( 'Sorry, you are not allowed to do that.', 'woocommerce' ),
+				'poocommerce_rest_cannot_view',
+				__( 'Sorry, you are not allowed to do that.', 'poocommerce' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -421,7 +421,7 @@ class PushTokenRestController extends RestApiControllerBase {
 			->error( (string) $e->getMessage(), array( 'source' => PushNotifications::FEATURE_NAME ) );
 
 		return new WP_Error(
-			'woocommerce_internal_error',
+			'poocommerce_internal_error',
 			'Internal server error',
 			array( 'status' => WP_Http::INTERNAL_SERVER_ERROR )
 		);
@@ -438,7 +438,7 @@ class PushTokenRestController extends RestApiControllerBase {
 	private function get_args( ?string $context = null ): array {
 		$args = array(
 			'id'          => array(
-				'description'       => __( 'Push Token ID', 'woocommerce' ),
+				'description'       => __( 'Push Token ID', 'poocommerce' ),
 				'type'              => 'integer',
 				'required'          => true,
 				'context'           => array( 'delete' ),
@@ -447,7 +447,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'validate_callback' => array( $this, 'validate_argument' ),
 			),
 			'origin'      => array(
-				'description'       => __( 'Origin', 'woocommerce' ),
+				'description'       => __( 'Origin', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),
@@ -455,7 +455,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'validate_callback' => array( $this, 'validate_argument' ),
 			),
 			'device_uuid' => array(
-				'description'       => __( 'Device UUID', 'woocommerce' ),
+				'description'       => __( 'Device UUID', 'poocommerce' ),
 				'default'           => '',
 				'type'              => 'string',
 				'context'           => array( 'create' ),
@@ -463,7 +463,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'sanitize_callback' => 'sanitize_text_field',
 			),
 			'platform'    => array(
-				'description'       => __( 'Platform', 'woocommerce' ),
+				'description'       => __( 'Platform', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),
@@ -471,7 +471,7 @@ class PushTokenRestController extends RestApiControllerBase {
 				'validate_callback' => array( $this, 'validate_argument' ),
 			),
 			'token'       => array(
-				'description'       => __( 'Push Token', 'woocommerce' ),
+				'description'       => __( 'Push Token', 'poocommerce' ),
 				'type'              => 'string',
 				'required'          => true,
 				'context'           => array( 'create' ),

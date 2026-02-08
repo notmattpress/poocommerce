@@ -2,10 +2,10 @@
 /**
  * Reports customers tests.
  *
- * @package WooCommerce\Admin\Tests\Customers
+ * @package PooCommerce\Admin\Tests\Customers
  */
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\Stats\DataStore;
 
 /**
  * Class WC_Admin_Tests_Reports_Customers
@@ -15,7 +15,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	/**
 	 * Test order count calculation for customer.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::get_order_count
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::get_order_count
 	 */
 	public function test_customer_order_count() {
 		WC_Helper_Reports::reset_stats_dbs();
@@ -56,7 +56,7 @@ class WC_Admin_Tests_Reports_Customer extends WC_Unit_Test_Case {
 	 *
 	 * A customer record should only be deleted if the customer has no other orders.
 	 *
-	 * @covers \Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore::sync_on_order_delete
+	 * @covers \Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore::sync_on_order_delete
 	 */
 	public function test_order_deletion_removes_customer() {
 		WC_Helper_Reports::reset_stats_dbs();

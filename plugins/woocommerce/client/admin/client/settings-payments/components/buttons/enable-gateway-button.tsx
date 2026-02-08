@@ -11,8 +11,8 @@ import {
 	PaymentsProviderIncentive,
 	PaymentGatewayProvider,
 	OfflinePaymentMethodProvider,
-} from '@woocommerce/data';
-import { getHistory, getNewPath } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getHistory, getNewPath } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -85,7 +85,7 @@ export const EnableGatewayButton = ( {
 	acceptIncentive = () => {},
 	gatewayHasRecommendedPaymentMethods,
 	installingPlugin,
-	buttonText = __( 'Enable', 'woocommerce' ),
+	buttonText = __( 'Enable', 'poocommerce' ),
 	incentive = null,
 	setOnboardingModalOpen,
 	onboardingType,
@@ -99,7 +99,7 @@ export const EnableGatewayButton = ( {
 		createErrorNotice(
 			__(
 				'An error occurred. You will be redirected to the settings page, try enabling the payment gateway there.',
-				'woocommerce'
+				'poocommerce'
 			),
 			{
 				type: 'snackbar',
@@ -122,7 +122,7 @@ export const EnableGatewayButton = ( {
 		} );
 
 		const gatewayToggleNonce =
-			window.woocommerce_admin.nonces?.gateway_toggle || '';
+			window.poocommerce_admin.nonces?.gateway_toggle || '';
 
 		if ( ! gatewayToggleNonce ) {
 			throwError();
@@ -138,7 +138,7 @@ export const EnableGatewayButton = ( {
 
 		togglePaymentGateway(
 			gatewayProvider.id,
-			window.woocommerce_admin.ajax_url,
+			window.poocommerce_admin.ajax_url,
 			gatewayToggleNonce
 		)
 			.then( ( response: EnableGatewayResponse ) => {
@@ -173,14 +173,14 @@ export const EnableGatewayButton = ( {
 						createErrorNotice(
 							__(
 								'The provider could not be enabled. Check the Manage page for details.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								type: 'snackbar',
 								explicitDismiss: true,
 								actions: [
 									{
-										label: __( 'Manage', 'woocommerce' ),
+										label: __( 'Manage', 'poocommerce' ),
 										url: settingsHref,
 									},
 								],

@@ -7,30 +7,30 @@ const updateProduct = async ( { page, expect } ) => {
 };
 
 const disableVariableProductBlockTour = async ( { page } ) => {
-	// Further info: https://github.com/woocommerce/woocommerce/pull/45856/
+	// Further info: https://github.com/poocommerce/poocommerce/pull/45856/
 	await page.waitForLoadState( 'domcontentloaded' );
 
 	// Get the current user data
-	const { id: userId, woocommerce_meta } = await page.evaluate( () => {
+	const { id: userId, poocommerce_meta } = await page.evaluate( () => {
 		return window.wp.data.select( 'core' ).getCurrentUser();
 	} );
 
 	// Disable the variable product block tour
-	const updatedWooCommerceMeta = {
-		...woocommerce_meta,
+	const updatedPooCommerceMeta = {
+		...poocommerce_meta,
 		variable_product_block_tour_shown: '"yes"',
 	};
 
 	// Push the updated user data
 	await page.evaluate(
 		// eslint-disable-next-line @typescript-eslint/no-shadow
-		async ( { userId, updatedWooCommerceMeta } ) => {
+		async ( { userId, updatedPooCommerceMeta } ) => {
 			await window.wp.data.dispatch( 'core' ).saveUser( {
 				id: userId,
-				woocommerce_meta: updatedWooCommerceMeta,
+				poocommerce_meta: updatedPooCommerceMeta,
 			} );
 		},
-		{ userId, updatedWooCommerceMeta }
+		{ userId, updatedPooCommerceMeta }
 	);
 
 	await page.reload();

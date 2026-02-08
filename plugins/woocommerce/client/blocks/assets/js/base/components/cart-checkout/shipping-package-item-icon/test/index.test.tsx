@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { render, screen } from '@testing-library/react';
-import type { CartItem } from '@woocommerce/types';
+import type { CartItem } from '@poocommerce/types';
 
 /**
  * Internal dependencies

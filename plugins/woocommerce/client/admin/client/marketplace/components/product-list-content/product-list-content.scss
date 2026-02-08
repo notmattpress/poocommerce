@@ -1,6 +1,6 @@
 @import "../../stylesheets/_variables.scss";
 
-.woocommerce-marketplace {
+.poocommerce-marketplace {
 	&__product-list-content {
 		display: grid;
 		gap: $medium-gap;
@@ -23,7 +23,7 @@
 }
 
 @media screen and (min-width: $breakpoint-medium) {
-	.woocommerce-marketplace {
+	.poocommerce-marketplace {
 		&__product-list-content {
 			gap: $large-gap;
 			grid-template-columns: repeat(2, 1fr);
@@ -32,7 +32,7 @@
 }
 
 @media screen and (min-width: $breakpoint-large) {
-	.woocommerce-marketplace {
+	.poocommerce-marketplace {
 		&__product-list-content {
 			gap: $large-gap;
 			grid-template-columns: repeat(3, 1fr);
@@ -41,7 +41,7 @@
 }
 
 @media screen and (min-width: $breakpoint-huge) {
-	.woocommerce-marketplace {
+	.poocommerce-marketplace {
 		&__product-list-content {
 			grid-template-columns: repeat(4, 1fr);
 		}

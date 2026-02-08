@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
+namespace Automattic\PooCommerce\Blocks\BlockTypes\AddToCartWithOptions;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock;
-use Automattic\WooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
+use Automattic\PooCommerce\Blocks\BlockTypes\AbstractBlock;
+use Automattic\PooCommerce\Blocks\BlockTypes\EnableBlockJsonAssetsTrait;
 
 /**
  * VariationDescription class.
@@ -48,7 +48,7 @@ class VariationDescription extends AbstractBlock {
 		}
 
 		wp_interactivity_config(
-			'woocommerce',
+			'poocommerce',
 			array(
 				'products' => array(
 					$product->get_id() => array(
@@ -65,7 +65,7 @@ class VariationDescription extends AbstractBlock {
 		);
 
 		$wrapper_attributes = array(
-			'data-wp-interactive'  => 'woocommerce/product-elements',
+			'data-wp-interactive'  => 'poocommerce/product-elements',
 			'data-wp-bind--hidden' => '!state.productData.variation_description',
 			'aria-live'            => 'polite',
 			'aria-atomic'          => 'true',

@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { sprintf, __ } from '@wordpress/i18n';
-import { Stepper, StepperProps } from '@woocommerce/components';
+import { Stepper, StepperProps } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -39,10 +39,10 @@ export const MobileAppLoginStepper = ( {
 			setStepsToDisplay( [
 				{
 					key: 'first',
-					label: __( 'Install the mobile app', 'woocommerce' ),
+					label: __( 'Install the mobile app', 'poocommerce' ),
 					description: __(
 						'Scan the code below to download or upgrade the app, or visit woo.com/mobile from your mobile device.',
-						'woocommerce'
+						'poocommerce'
 					),
 					content: (
 						<>
@@ -54,14 +54,14 @@ export const MobileAppLoginStepper = ( {
 									completeInstallationStepHandler();
 								} }
 							>
-								{ __( 'App is installed', 'woocommerce' ) }
+								{ __( 'App is installed', 'poocommerce' ) }
 							</Button>
 						</>
 					),
 				},
 				{
 					key: 'second',
-					label: __( 'Sign into the app', 'woocommerce' ),
+					label: __( 'Sign into the app', 'poocommerce' ),
 					description: '',
 					content: <></>,
 				},
@@ -74,7 +74,7 @@ export const MobileAppLoginStepper = ( {
 				setStepsToDisplay( [
 					{
 						key: 'first',
-						label: __( 'App installed', 'woocommerce' ),
+						label: __( 'App installed', 'poocommerce' ),
 						description: '',
 						content: <></>,
 					},
@@ -85,7 +85,7 @@ export const MobileAppLoginStepper = ( {
 							/* translators: Reflecting to the user that the magic link has been sent to their WordPress account email address */
 							__(
 								'We’ll send a magic link to %s. Open it on your smartphone or tablet to sign into your store instantly.',
-								'woocommerce'
+								'poocommerce'
 							),
 							wordpressAccountEmailAddress
 						),
@@ -103,22 +103,22 @@ export const MobileAppLoginStepper = ( {
 			} else {
 				const siteUrl: string = getAdminSetting( 'siteUrl' );
 				const username = getAdminSetting( 'currentUserData' ).username;
-				const loginUrl = `woocommerce://app-login?siteUrl=${ encodeURIComponent(
+				const loginUrl = `poocommerce://app-login?siteUrl=${ encodeURIComponent(
 					siteUrl
 				) }&username=${ encodeURIComponent( username ) }`;
 				const description = loginUrl
 					? __(
 							'Scan the QR code below and enter the wp-admin password in the app.',
-							'woocommerce'
+							'poocommerce'
 					  )
 					: __(
 							'Follow the instructions in the app to sign in.',
-							'woocommerce'
+							'poocommerce'
 					  );
 				setStepsToDisplay( [
 					{
 						key: 'first',
-						label: __( 'App installed', 'woocommerce' ),
+						label: __( 'App installed', 'poocommerce' ),
 						description: '',
 						content: <></>,
 					},

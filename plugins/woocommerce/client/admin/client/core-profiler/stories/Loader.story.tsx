@@ -19,7 +19,7 @@ export const Plugins = () => (
 );
 
 export default {
-	title: 'WooCommerce Admin/Core Profiler/Loader',
+	title: 'PooCommerce Admin/Core Profiler/Loader',
 	component: CoreProfilerLoader,
 	decorators: [ WithSetupWizardLayout ],
 };

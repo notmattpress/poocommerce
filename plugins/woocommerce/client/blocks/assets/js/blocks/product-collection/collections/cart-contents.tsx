@@ -7,7 +7,7 @@ import type {
 } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { Icon } from '@wordpress/icons';
-import { cart } from '@woocommerce/icons';
+import { cart } from '@poocommerce/icons';
 
 /**
  * Internal dependencies
@@ -17,11 +17,11 @@ import { CoreCollectionNames, CoreFilterNames } from '../types';
 
 const collection = {
 	name: CoreCollectionNames.CART_CONTENTS,
-	title: __( 'Cart Contents', 'woocommerce' ),
+	title: __( 'Cart Contents', 'poocommerce' ),
 	icon: <Icon icon={ cart } />,
 	description: __(
 		'Display products from the customer cart for abandoned cart emails.',
-		'woocommerce'
+		'poocommerce'
 	),
 	keywords: [ 'cart', 'email', 'abandoned' ],
 	scope: [ 'inserter', 'block' ] as BlockVariationScope[],
@@ -62,7 +62,7 @@ const heading: InnerBlockTemplate = [
 	{
 		textAlign: 'center',
 		level: 2,
-		content: __( 'Your Cart', 'woocommerce' ),
+		content: __( 'Your Cart', 'poocommerce' ),
 		style: { spacing: { margin: { bottom: '1rem' } } },
 	},
 ];

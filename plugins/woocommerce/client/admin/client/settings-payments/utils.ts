@@ -5,10 +5,10 @@ import {
 	PaymentsProvider,
 	PaymentsProviderIncentive,
 	RecommendedPaymentMethod,
-} from '@woocommerce/data';
-import { getAdminLink } from '@woocommerce/settings';
-import { recordEvent } from '@woocommerce/tracks';
-import { parseAdminUrl } from '@woocommerce/navigation';
+} from '@poocommerce/data';
+import { getAdminLink } from '@poocommerce/settings';
+import { recordEvent } from '@poocommerce/tracks';
+import { parseAdminUrl } from '@poocommerce/navigation';
 
 /**
  * Internal dependencies
@@ -290,7 +290,7 @@ export const shouldRenderPaymentMethodInMainList = (
 };
 
 /**
- * Records a payments-related event with the WooCommerce Tracks system.
+ * Records a payments-related event with the PooCommerce Tracks system.
  *
  * This function ensures that the event name starts with 'settings_payments_'.
  *
@@ -309,10 +309,10 @@ export const recordPaymentsEvent = (
 		eventName = `settings_payments_${ eventName }`;
 	}
 
-	// Capture the business registration country code from the WooCommerce settings if not provided.
+	// Capture the business registration country code from the PooCommerce settings if not provided.
 	if ( ! data.business_country ) {
 		data.business_country =
-			window.wcSettings?.admin?.woocommerce_payments_nox_profile
+			window.wcSettings?.admin?.poocommerce_payments_nox_profile
 				?.business_country_code ?? 'unknown';
 	}
 
@@ -320,7 +320,7 @@ export const recordPaymentsEvent = (
 };
 
 /**
- * Records a payments-provider-related event with the WooCommerce Tracks system.
+ * Records a payments-provider-related event with the PooCommerce Tracks system.
  *
  * This function ensures that the event name starts with 'settings_payments_provider_'.
  *
@@ -377,7 +377,7 @@ export const recordPaymentsProviderEvent = (
 };
 
 /**
- * Records a payments onboarding-related event with the WooCommerce Tracks system.
+ * Records a payments onboarding-related event with the PooCommerce Tracks system.
  *
  * This function ensures that the event name starts with 'settings_payments_' and attaches contextual data
  * such as the `source` and `from` parameters from the URL if they are not provided in the data object.
@@ -398,10 +398,10 @@ export const recordPaymentsOnboardingEvent = (
 		eventName = `settings_payments_${ eventName }`;
 	}
 
-	// Capture the business registration country code from the WooCommerce settings if not provided.
+	// Capture the business registration country code from the PooCommerce settings if not provided.
 	if ( ! data.business_country ) {
 		data.business_country =
-			window.wcSettings?.admin?.woocommerce_payments_nox_profile
+			window.wcSettings?.admin?.poocommerce_payments_nox_profile
 				?.business_country_code ?? 'unknown';
 	}
 

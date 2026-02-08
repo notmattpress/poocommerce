@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\Fulfillments\Providers;
+namespace Automattic\PooCommerce\Internal\Fulfillments\Providers;
 
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
 
 /**
  * DHL Shipping Provider implementation.

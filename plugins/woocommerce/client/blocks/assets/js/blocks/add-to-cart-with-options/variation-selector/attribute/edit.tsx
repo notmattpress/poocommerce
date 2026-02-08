@@ -13,8 +13,8 @@ import { useSelect } from '@wordpress/data';
 import {
 	CustomDataProvider,
 	useProductDataContext,
-} from '@woocommerce/shared-context';
-import { isProductResponseItem } from '@woocommerce/entities';
+} from '@poocommerce/shared-context';
+import { isProductResponseItem } from '@poocommerce/entities';
 
 /**
  * Internal dependencies

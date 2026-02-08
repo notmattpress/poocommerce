@@ -15,7 +15,7 @@ const { accessTheEmailEditor } = require( '../../utils/email' );
 async function switchToTemplateEditingMode( page ) {
 	// Open the Settings panel if not already open
 	const settingsPanel = page.locator(
-		'.woocommerce-email-editor__settings-panel'
+		'.poocommerce-email-editor__settings-panel'
 	);
 	const isPanelExpanded = await settingsPanel.evaluate( ( elem ) =>
 		elem.classList.contains( 'is-opened' )
@@ -46,7 +46,7 @@ async function switchToTemplateEditingMode( page ) {
 	).toBeVisible();
 }
 
-test.describe( 'WooCommerce Email Editor Reset Template', () => {
+test.describe( 'PooCommerce Email Editor Reset Template', () => {
 	test.use( { storageState: ADMIN_STATE_PATH } );
 
 	test.beforeAll( async ( { baseURL } ) => {
@@ -66,7 +66,7 @@ test.describe( 'WooCommerce Email Editor Reset Template', () => {
 
 		// Wait for the editor to load
 		await expect(
-			page.locator( '#woocommerce-email-editor' )
+			page.locator( '#poocommerce-email-editor' )
 		).toBeVisible();
 
 		// Switch to template editing mode

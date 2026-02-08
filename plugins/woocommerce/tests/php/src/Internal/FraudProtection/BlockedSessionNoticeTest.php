@@ -5,15 +5,15 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\FraudProtection;
+namespace Automattic\PooCommerce\Tests\Internal\FraudProtection;
 
-use Automattic\WooCommerce\Internal\FraudProtection\BlockedSessionNotice;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Internal\FraudProtection\BlockedSessionNotice;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
 
 /**
  * Tests for BlockedSessionNotice.
  *
- * @covers \Automattic\WooCommerce\Internal\FraudProtection\BlockedSessionNotice
+ * @covers \Automattic\PooCommerce\Internal\FraudProtection\BlockedSessionNotice
  */
 class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 
@@ -44,7 +44,7 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->sut->register();
 
 		// Set a custom support email.
-		update_option( 'woocommerce_email_from_address', 'support@example.com' );
+		update_option( 'poocommerce_email_from_address', 'support@example.com' );
 	}
 
 	/**
@@ -52,9 +52,9 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_all_actions( 'before_woocommerce_add_payment_method' );
+		remove_all_actions( 'before_poocommerce_add_payment_method' );
 		remove_all_actions( 'wp' );
-		delete_option( 'woocommerce_email_from_address' );
+		delete_option( 'poocommerce_email_from_address' );
 		wc_clear_notices();
 	}
 
@@ -67,11 +67,11 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( true );
 
 		// Mock being on checkout page.
-		add_filter( 'woocommerce_is_checkout', '__return_true' );
+		add_filter( 'poocommerce_is_checkout', '__return_true' );
 
-		do_action( 'wp' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
-		remove_filter( 'woocommerce_is_checkout', '__return_true' );
+		remove_filter( 'poocommerce_is_checkout', '__return_true' );
 
 		$this->assertTrue( wc_has_notice( $this->sut->get_message_html( 'purchase' ), 'error' ), 'Should add purchase notice on checkout' );
 	}
@@ -85,11 +85,11 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( true );
 
 		// Mock being on cart page.
-		add_filter( 'woocommerce_is_cart', '__return_true' );
+		add_filter( 'poocommerce_is_cart', '__return_true' );
 
-		do_action( 'wp' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
-		remove_filter( 'woocommerce_is_cart', '__return_true' );
+		remove_filter( 'poocommerce_is_cart', '__return_true' );
 
 		$this->assertTrue( wc_has_notice( $this->sut->get_message_html( 'purchase' ), 'error' ), 'Should add purchase notice on cart' );
 	}
@@ -103,11 +103,11 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( false );
 
 		// Mock being on checkout page.
-		add_filter( 'woocommerce_is_checkout', '__return_true' );
+		add_filter( 'poocommerce_is_checkout', '__return_true' );
 
-		do_action( 'wp' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
-		remove_filter( 'woocommerce_is_checkout', '__return_true' );
+		remove_filter( 'poocommerce_is_checkout', '__return_true' );
 
 		$this->assertFalse( wc_has_notice( $this->sut->get_message_html( 'purchase' ), 'error' ), 'Should not add notice when session is allowed' );
 	}
@@ -121,12 +121,12 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( true );
 
 		// Mock being on checkout page.
-		add_filter( 'woocommerce_is_checkout', '__return_true' );
+		add_filter( 'poocommerce_is_checkout', '__return_true' );
 
-		do_action( 'wp' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-		do_action( 'wp' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'wp' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 
-		remove_filter( 'woocommerce_is_checkout', '__return_true' );
+		remove_filter( 'poocommerce_is_checkout', '__return_true' );
 
 		// Count error notices.
 		$notices      = wc_get_notices( 'error' );
@@ -144,13 +144,13 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 	/**
 	 * Test add payment method action displays blocked message.
 	 *
-	 * @testdox Should display generic error notice when before_woocommerce_add_payment_method action fires for blocked sessions.
+	 * @testdox Should display generic error notice when before_poocommerce_add_payment_method action fires for blocked sessions.
 	 */
 	public function test_add_payment_method_action_displays_blocked_message(): void {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( true );
 
 		ob_start();
-		do_action( 'before_woocommerce_add_payment_method' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'before_poocommerce_add_payment_method' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$output = ob_get_clean();
 
 		$this->assertStringContainsString( 'unable to process this request online', $output, 'Should display blocked message on add payment method page' );
@@ -168,7 +168,7 @@ class BlockedSessionNoticeTest extends \WC_Unit_Test_Case {
 		$this->mock_session_manager->method( 'is_session_blocked' )->willReturn( false );
 
 		ob_start();
-		do_action( 'before_woocommerce_add_payment_method' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		do_action( 'before_poocommerce_add_payment_method' ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		$output = ob_get_clean();
 
 		$this->assertEmpty( $output, 'Non-blocked sessions should not display any message' );

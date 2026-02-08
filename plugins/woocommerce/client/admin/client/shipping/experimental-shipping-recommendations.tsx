@@ -7,13 +7,13 @@ import {
 	pluginsStore,
 	settingsStore,
 	onboardingStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { getCountryCode } from '~/dashboard/utils';
-import WooCommerceShippingItem from './experimental-woocommerce-shipping-item';
+import PooCommerceShippingItem from './experimental-poocommerce-shipping-item';
 import { ShippingRecommendationsList } from './shipping-recommendations';
 import './shipping-recommendations.scss';
 import { ShippingTour } from '../guided-tours/shipping-tour';
@@ -37,14 +37,14 @@ const ShippingRecommendations = () => {
 			activePlugins: getActivePlugins(),
 			installedPlugins: getInstalledPlugins(),
 			countryCode: getCountryCode(
-				settings.general?.woocommerce_default_country
+				settings.general?.poocommerce_default_country
 			),
 			isSellingDigitalProductsOnly:
 				profileItems?.length === 1 && profileItems[ 0 ] === 'downloads',
 		};
 	}, [] );
 
-	if ( activePlugins.includes( 'woocommerce-shipping' ) ) {
+	if ( activePlugins.includes( 'poocommerce-shipping' ) ) {
 		return <ShippingTour showShippingRecommendationsStep={ false } />;
 	}
 
@@ -56,9 +56,9 @@ const ShippingRecommendations = () => {
 		<>
 			<ShippingTour showShippingRecommendationsStep={ true } />
 			<ShippingRecommendationsList>
-				<WooCommerceShippingItem
+				<PooCommerceShippingItem
 					isPluginInstalled={ installedPlugins.includes(
-						'woocommerce-shipping'
+						'poocommerce-shipping'
 					) }
 				/>
 			</ShippingRecommendationsList>

@@ -5,13 +5,13 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Routes;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Routes;
 
-use Automattic\WooCommerce\Internal\FraudProtection\BlockedSessionNotice;
-use Automattic\WooCommerce\Internal\FraudProtection\FraudProtectionController;
-use Automattic\WooCommerce\Internal\FraudProtection\SessionClearanceManager;
-use Automattic\WooCommerce\Tests\Blocks\Helpers\FixtureData;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Internal\FraudProtection\BlockedSessionNotice;
+use Automattic\PooCommerce\Internal\FraudProtection\FraudProtectionController;
+use Automattic\PooCommerce\Internal\FraudProtection\SessionClearanceManager;
+use Automattic\PooCommerce\Tests\Blocks\Helpers\FixtureData;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Cart Fraud Protection Tests.
@@ -107,7 +107,7 @@ class CartFraudProtection extends ControllerTestCase {
 			$request,
 			403,
 			array(
-				'code'    => 'woocommerce_rest_cart_error',
+				'code'    => 'poocommerce_rest_cart_error',
 				'message' => 'Session blocked message',
 			)
 		);

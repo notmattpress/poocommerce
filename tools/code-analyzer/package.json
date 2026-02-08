@@ -1,11 +1,11 @@
 {
 	"name": "code-analyzer",
 	"version": "1.0.0",
-	"description": "A tool to analyze code changes in WooCommerce Monorepo.",
+	"description": "A tool to analyze code changes in PooCommerce Monorepo.",
 	"author": "Automattic",
-	"homepage": "https://github.com/woocommerce/woocommerce",
+	"homepage": "https://github.com/poocommerce/poocommerce",
 	"license": "GPL-2.0-or-later",
-	"repository": "woocommerce/woocommerce",
+	"repository": "poocommerce/poocommerce",
 	"private": true,
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -19,7 +19,7 @@
 		"@commander-js/extra-typings": "^10.0.3",
 		"@oclif/core": "^2.15.0",
 		"@tsconfig/node16": "^1.0.4",
-		"@woocommerce/monorepo-utils": "workspace:*",
+		"@poocommerce/monorepo-utils": "workspace:*",
 		"commander": "^9.5.0",
 		"dotenv": "^10.0.0",
 		"simple-git": "^3.21.0"
@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"@types/jest": "29.5.x",
 		"@types/node": "20.x.x",
-		"@woocommerce/eslint-plugin": "workspace:*",
+		"@poocommerce/eslint-plugin": "workspace:*",
 		"eslint": "^8.55.0",
 		"jest": "29.5.x",
 		"ts-jest": "29.1.x",

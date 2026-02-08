@@ -1,11 +1,11 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\LayoutTemplates;
+namespace Automattic\PooCommerce\Tests\LayoutTemplates;
 
-use Automattic\WooCommerce\LayoutTemplates\LayoutTemplateRegistry;
+use Automattic\PooCommerce\LayoutTemplates\LayoutTemplateRegistry;
 
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\SimpleProductTemplate;
-use Automattic\WooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\ProductVariationTemplate;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\SimpleProductTemplate;
+use Automattic\PooCommerce\Internal\Features\ProductBlockEditor\ProductTemplates\ProductVariationTemplate;
 
 use WC_Unit_Test_Case;
 
@@ -212,9 +212,9 @@ class LayoutTemplateRegistryTest extends WC_Unit_Test_Case {
 		};
 
 		try {
-			add_action( 'woocommerce_layout_template_after_instantiation', $after_instantiation_hook, 10, 3 );
+			add_action( 'poocommerce_layout_template_after_instantiation', $after_instantiation_hook, 10, 3 );
 
-			add_action( 'woocommerce_block_template_register', $deprecated_register_hook );
+			add_action( 'poocommerce_block_template_register', $deprecated_register_hook );
 
 			$this->layout_template_registry->register( 'test-layout-template', 'test', TestLayoutTemplate::class );
 
@@ -224,17 +224,17 @@ class LayoutTemplateRegistryTest extends WC_Unit_Test_Case {
 
 			$this->assertTrue(
 				$after_instantiation_hook_called,
-				'woocommerce_layout_template_after_instantiation hook was not called.'
+				'poocommerce_layout_template_after_instantiation hook was not called.'
 			);
 
 			$this->assertTrue(
 				$deprecated_register_hook_called,
-				'woocommerce_block_template_register hook was not called.'
+				'poocommerce_block_template_register hook was not called.'
 			);
 		} finally {
-			remove_action( 'woocommerce_layout_template_after_instantiation', $after_instantiation_hook );
+			remove_action( 'poocommerce_layout_template_after_instantiation', $after_instantiation_hook );
 
-			remove_action( 'woocommerce_block_template_register', $deprecated_register_hook );
+			remove_action( 'poocommerce_block_template_register', $deprecated_register_hook );
 		}
 	}
 }

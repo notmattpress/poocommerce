@@ -2,10 +2,10 @@
 /**
  * Class WC_Tests_Order file.
  *
- * @package WooCommerce\Tests\Order
+ * @package PooCommerce\Tests\Order
  */
 
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareUnitTestSuiteTrait;
 
 /**
  * Class WC_Tests_Order.
@@ -16,12 +16,12 @@ class WC_Tests_Orders extends WC_Unit_Test_Case {
 	/**
 	 * Test for total when round at subtotal is enabled.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/24695
+	 * @link https://github.com/poocommerce/poocommerce/issues/24695
 	 */
 	public function test_order_calculate_total_rounding_24695() {
-		update_option( 'woocommerce_prices_include_tax', 'yes' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -61,9 +61,9 @@ class WC_Tests_Orders extends WC_Unit_Test_Case {
 	 * @throws WC_Data_Exception When lines cannot be added to order.
 	 */
 	public function test_order_rounding_with_shipping_25748() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$tax_rate = array(
 			'tax_rate_country'  => '',
@@ -112,9 +112,9 @@ class WC_Tests_Orders extends WC_Unit_Test_Case {
 	 * @throws Exception When lines cannot be added to order.
 	 */
 	public function test_order_rounding_addition_25641() {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' );
 
 		$tax_rate1 = array(
 			'tax_rate_country'  => '',

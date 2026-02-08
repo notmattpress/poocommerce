@@ -2,10 +2,10 @@
 /**
  * Report exporter tests.
  *
- * @package WooCommerce\Admin\Tests\Reports
+ * @package PooCommerce\Admin\Tests\Reports
  */
 
-use Automattic\WooCommerce\Admin\ReportCSVExporter;
+use Automattic\PooCommerce\Admin\ReportCSVExporter;
 
 /**
  * Class WC_Admin_Tests_Reports

@@ -40,8 +40,8 @@ const EditLocation = ( {
 			onRequestClose={ onClose }
 			title={
 				editingLocation === 'new'
-					? __( 'Pickup location', 'woocommerce' )
-					: __( 'Edit pickup location', 'woocommerce' )
+					? __( 'Pickup location', 'poocommerce' )
+					: __( 'Edit pickup location', 'poocommerce' )
 			}
 			actions={
 				<>
@@ -54,11 +54,11 @@ const EditLocation = ( {
 								onClose();
 							} }
 						>
-							{ __( 'Delete location', 'woocommerce' ) }
+							{ __( 'Delete location', 'poocommerce' ) }
 						</Button>
 					) }
 					<Button variant="secondary" onClick={ onClose }>
-						{ __( 'Cancel', 'woocommerce' ) }
+						{ __( 'Cancel', 'poocommerce' ) }
 					</Button>
 					<Button
 						variant="primary"
@@ -71,7 +71,7 @@ const EditLocation = ( {
 							}
 						} }
 					>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</>
 			}

@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Admin Helper - React admin interface
+ * PooCommerce Admin Helper - React admin interface
  *
- * @package WooCommerce\Admin\Helper
+ * @package PooCommerce\Admin\Helper
  */
 
-use Automattic\WooCommerce\Internal\Admin\Marketplace;
-use Automattic\WooCommerce\Admin\PluginsHelper;
+use Automattic\PooCommerce\Internal\Admin\Marketplace;
+use Automattic\PooCommerce\Admin\PluginsHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,13 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * The main entry-point for all things related to the Helper.
  * The Helper manages the connection between the store and
- * an account on WooCommerce.com.
+ * an account on PooCommerce.com.
  */
 class WC_Helper_Admin {
 	/**
 	 * Clear cache tool identifier.
 	 */
-	const CACHE_TOOL_ID = 'clear_woocommerce_helper_cache';
+	const CACHE_TOOL_ID = 'clear_poocommerce_helper_cache';
 
 	/**
 	 * Loads the class, runs on init
@@ -37,17 +37,17 @@ class WC_Helper_Admin {
 			);
 
 			if ( $is_wc_home_or_in_app_marketplace ) {
-				add_filter( 'woocommerce_admin_shared_settings', array( __CLASS__, 'add_marketplace_settings' ) );
+				add_filter( 'poocommerce_admin_shared_settings', array( __CLASS__, 'add_marketplace_settings' ) );
 			}
 
-			add_filter( 'woocommerce_debug_tools', array( __CLASS__, 'register_cache_clear_tool' ) );
+			add_filter( 'poocommerce_debug_tools', array( __CLASS__, 'register_cache_clear_tool' ) );
 		}
 
 		add_filter( 'rest_api_init', array( __CLASS__, 'register_rest_routes' ) );
 	}
 
 	/**
-	 * Pushes settings onto the WooCommerce Admin global settings object (wcSettings).
+	 * Pushes settings onto the PooCommerce Admin global settings object (wcSettings).
 	 *
 	 * @param mixed $settings The settings object we're amending.
 	 *
@@ -89,7 +89,7 @@ class WC_Helper_Admin {
 			'wooUpdateManagerInstallUrl' => WC_Woo_Update_Manager_Plugin::generate_install_url(),
 			'wooUpdateManagerPluginSlug' => WC_Woo_Update_Manager_Plugin::WOO_UPDATE_MANAGER_SLUG,
 			'dismissNoticeNonce'         => wp_create_nonce( 'dismiss_notice' ),
-			'trackingAllowed'            => 'yes' === get_option( 'woocommerce_allow_tracking' ),
+			'trackingAllowed'            => 'yes' === get_option( 'poocommerce_allow_tracking' ),
 		);
 
 		// This data is only used in the `Extensions` screen, so only populate it there.
@@ -116,7 +116,7 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * Generates the URL for connecting or disconnecting the store to/from WooCommerce.com.
+	 * Generates the URL for connecting or disconnecting the store to/from PooCommerce.com.
 	 * Approach taken from existing helper code that isn't exposed.
 	 *
 	 * @param bool $reconnect indicate if the site is being reconnected.
@@ -159,7 +159,7 @@ class WC_Helper_Admin {
 	 * previews endpoints.
 	 */
 	public static function register_rest_routes() {
-		/* Used by the WooCommerce > Extensions > Discover page. */
+		/* Used by the PooCommerce > Extensions > Discover page. */
 		register_rest_route(
 			'wc/v3',
 			'/marketplace/featured',
@@ -183,15 +183,15 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * The Extensions page can only be accessed by users with the manage_woocommerce
+	 * The Extensions page can only be accessed by users with the manage_poocommerce
 	 * capability. So the API mimics that behavior.
 	 */
 	public static function get_permission() {
-		return current_user_can( 'manage_woocommerce' );
+		return current_user_can( 'manage_poocommerce' );
 	}
 
 	/**
-	 * Fetch featured products from WooCommerce.com and serve them
+	 * Fetch featured products from PooCommerce.com and serve them
 	 * as JSON.
 	 */
 	public static function get_featured() {
@@ -205,7 +205,7 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * Fetch data for product previews from WooCommerce.com.
+	 * Fetch data for product previews from PooCommerce.com.
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 */
@@ -215,7 +215,7 @@ class WC_Helper_Admin {
 		if ( ! $product_id ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Missing product ID', 'woocommerce' ),
+					'message' => __( 'Missing product ID', 'poocommerce' ),
 				),
 				400
 			);
@@ -226,7 +226,7 @@ class WC_Helper_Admin {
 		if ( ! $product_preview ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'We couldn\'t find a preview for this product.', 'woocommerce' ),
+					'message' => __( 'We couldn\'t find a preview for this product.', 'poocommerce' ),
 				),
 				404
 			);
@@ -250,7 +250,7 @@ class WC_Helper_Admin {
 				array(
 					'message' => __(
 						'API response is missing required elements, or they are in the wrong form.',
-						'woocommerce'
+						'poocommerce'
 					),
 				),
 				500
@@ -266,17 +266,17 @@ class WC_Helper_Admin {
 	}
 
 	/**
-	 * Register the cache clearing tool on the WooCommerce > Status > Tools page.
+	 * Register the cache clearing tool on the PooCommerce > Status > Tools page.
 	 *
 	 * @param array $debug_tools Available debug tool registrations.
 	 * @return array Filtered debug tool registrations.
 	 */
 	public static function register_cache_clear_tool( $debug_tools ) {
 		$debug_tools[ self::CACHE_TOOL_ID ] = array(
-			'name'     => __( 'Clear WooCommerce.com cache', 'woocommerce' ),
-			'button'   => __( 'Clear', 'woocommerce' ),
+			'name'     => __( 'Clear PooCommerce.com cache', 'poocommerce' ),
+			'button'   => __( 'Clear', 'poocommerce' ),
 			'desc'     => sprintf(
-				__( 'This tool will empty the WooCommerce.com data cache, used in WooCommerce Extensions.', 'woocommerce' ),
+				__( 'This tool will empty the PooCommerce.com data cache, used in PooCommerce Extensions.', 'poocommerce' ),
 			),
 			'callback' => array( __CLASS__, 'run_clear_cache_tool' ),
 		);
@@ -294,7 +294,7 @@ class WC_Helper_Admin {
 		WC_Helper::flush_connection_data_cache();
 		WC_Helper_Updater::flush_updates_cache();
 
-		return __( 'Helper cache cleared.', 'woocommerce' );
+		return __( 'Helper cache cleared.', 'poocommerce' );
 	}
 }
 

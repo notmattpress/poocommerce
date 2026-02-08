@@ -3,14 +3,14 @@
  */
 import { createElement, createInterpolateElement } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
-import { Product } from '@woocommerce/data';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { recordEvent } from '@woocommerce/tracks';
-import { Link } from '@woocommerce/components';
-import { getNewPath } from '@woocommerce/navigation';
+import { Product } from '@poocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { recordEvent } from '@poocommerce/tracks';
+import { Link } from '@poocommerce/components';
+import { getNewPath } from '@poocommerce/navigation';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 
 /**

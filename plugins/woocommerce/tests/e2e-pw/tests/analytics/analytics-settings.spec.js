@@ -37,7 +37,7 @@ test.describe(
 			await deleteOption(
 				request,
 				baseURL,
-				'woocommerce_analytics_scheduled_import'
+				'poocommerce_analytics_scheduled_import'
 			);
 
 			// Reload the page
@@ -58,7 +58,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'yes'
 			);
 
@@ -88,7 +88,7 @@ test.describe(
 			// Verify modal closes
 			await expect(
 				page.locator(
-					'.woocommerce-analytics-import-mode-confirmation-modal'
+					'.poocommerce-analytics-import-mode-confirmation-modal'
 				)
 			).toBeHidden();
 
@@ -107,7 +107,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'yes'
 			);
 
@@ -151,7 +151,7 @@ test.describe(
 			await setOption(
 				request,
 				baseURL,
-				'woocommerce_analytics_scheduled_import',
+				'poocommerce_analytics_scheduled_import',
 				'no'
 			);
 

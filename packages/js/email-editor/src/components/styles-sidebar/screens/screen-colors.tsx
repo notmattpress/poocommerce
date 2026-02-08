@@ -26,10 +26,10 @@ export function ScreenColors(): JSX.Element {
 	return (
 		<>
 			<ScreenHeader
-				title={ __( 'Colors', 'woocommerce' ) }
+				title={ __( 'Colors', 'poocommerce' ) }
 				description={ __(
 					'Manage palettes and the default color of different global elements.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			/>
 			<StylesColorPanel

@@ -4,11 +4,11 @@
  * matches the specified version.
  */
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\PluginsProvider\PluginsProvider;
+use Automattic\PooCommerce\Admin\PluginsProvider\PluginsProvider;
 
 /**
  * Rule processor for sending when the provided plugin is activated and

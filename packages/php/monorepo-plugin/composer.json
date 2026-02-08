@@ -1,5 +1,5 @@
 {
-    "name": "woocommerce/monorepo-plugin",
+    "name": "poocommerce/monorepo-plugin",
     "type": "composer-plugin",
     "require": {
         "composer-plugin-api": "^2.0"
@@ -10,11 +10,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Automattic\\WooCommerce\\Monorepo\\Composer\\": "src/"
+            "Automattic\\PooCommerce\\Monorepo\\Composer\\": "src/"
         }
     },
     "extra": {
-        "class": "Automattic\\WooCommerce\\Monorepo\\Composer\\Plugin"
+        "class": "Automattic\\PooCommerce\\Monorepo\\Composer\\Plugin"
     },
     "config": {
         "allow-plugins": {

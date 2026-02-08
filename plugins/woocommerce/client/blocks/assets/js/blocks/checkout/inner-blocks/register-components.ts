@@ -4,8 +4,8 @@
 import {
 	WC_BLOCKS_BUILD_URL,
 	LOCAL_PICKUP_ENABLED,
-} from '@woocommerce/block-settings';
-import { registerCheckoutBlock } from '@woocommerce/blocks-checkout';
+} from '@poocommerce/block-settings';
+import { registerCheckoutBlock } from '@poocommerce/blocks-checkout';
 
 /**
  * Internal dependencies

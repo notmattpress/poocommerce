@@ -2,12 +2,12 @@
  * External dependencies
  */
 
-import { getAdminLink } from '@woocommerce/settings';
+import { getAdminLink } from '@poocommerce/settings';
 
 export const redirectToWCSSettings = () => {
 	if ( window?.location ) {
 		window.location.href = getAdminLink(
-			'admin.php?page=wc-settings&tab=shipping&section=woocommerce-shipping-settings'
+			'admin.php?page=wc-settings&tab=shipping&section=poocommerce-shipping-settings'
 		);
 	}
 };

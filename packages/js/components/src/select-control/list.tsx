@@ -95,13 +95,13 @@ const VirtualOption = ( {
 		<Button
 			ref={ getOptionRef( index ) }
 			key={ option.key }
-			id={ `woocommerce-select-control__option-${ instanceId }-${ option.key }` }
+			id={ `poocommerce-select-control__option-${ instanceId }-${ option.key }` }
 			role="option"
 			aria-selected={ index === selectedIndex }
 			aria-setsize={ options.length }
 			aria-posinset={ index + 1 }
 			disabled={ option.isDisabled }
-			className={ clsx( 'woocommerce-select-control__option', {
+			className={ clsx( 'poocommerce-select-control__option', {
 				'is-selected': index === selectedIndex,
 			} ) }
 			onClick={ () => onSelect( option ) }
@@ -306,7 +306,7 @@ class List extends Component< Props > {
 			virtualListHeight = 300,
 		} = this.props;
 
-		const listboxClasses = clsx( 'woocommerce-select-control__listbox', {
+		const listboxClasses = clsx( 'poocommerce-select-control__listbox', {
 			'is-static': staticList,
 			'is-virtual': virtualScroll,
 		} );
@@ -354,12 +354,12 @@ class List extends Component< Props > {
 					<Button
 						ref={ this.getOptionRef( index ) }
 						key={ option.key }
-						id={ `woocommerce-select-control__option-${ instanceId }-${ option.key }` }
+						id={ `poocommerce-select-control__option-${ instanceId }-${ option.key }` }
 						role="option"
 						aria-selected={ index === selectedIndex }
 						disabled={ option.isDisabled }
 						className={ clsx(
-							'woocommerce-select-control__option',
+							'poocommerce-select-control__option',
 							{
 								'is-selected': index === selectedIndex,
 							}

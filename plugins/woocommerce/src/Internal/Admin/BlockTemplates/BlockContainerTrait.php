@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Internal\Admin\BlockTemplates;
+namespace Automattic\PooCommerce\Internal\Admin\BlockTemplates;
 
-use Automattic\WooCommerce\Admin\BlockTemplates\BlockInterface;
-use Automattic\WooCommerce\Admin\BlockTemplates\ContainerInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\BlockInterface;
+use Automattic\PooCommerce\Admin\BlockTemplates\ContainerInterface;
 
 /**
  * Trait for block containers.
@@ -201,7 +201,7 @@ trait BlockContainerTrait {
 	}
 
 	/**
-	 * Do the `woocommerce_block_template_after_add_block` action.
+	 * Do the `poocommerce_block_template_after_add_block` action.
 	 * Handle exceptions thrown by the action.
 	 *
 	 * @param BlockInterface $block The block.
@@ -218,14 +218,14 @@ trait BlockContainerTrait {
 			 *
 			 * @since 8.2.0
 			 */
-			do_action( 'woocommerce_block_template_after_add_block', $block );
+			do_action( 'poocommerce_block_template_after_add_block', $block );
 		} catch ( \Exception $e ) {
-			$this->do_after_add_block_error_action( $block, 'woocommerce_block_template_after_add_block', $e );
+			$this->do_after_add_block_error_action( $block, 'poocommerce_block_template_after_add_block', $e );
 		}
 	}
 
 	/**
-	 * Do the `woocommerce_block_template_area_{template_area}_after_add_block_{block_id}` action.
+	 * Do the `poocommerce_block_template_area_{template_area}_after_add_block_{block_id}` action.
 	 * Handle exceptions thrown by the action.
 	 *
 	 * @param BlockInterface $block The block.
@@ -242,14 +242,14 @@ trait BlockContainerTrait {
 			 *
 			 * @since 8.2.0
 			 */
-			do_action( "woocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_add_block_{$block->get_id()}", $block );
+			do_action( "poocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_add_block_{$block->get_id()}", $block );
 		} catch ( \Exception $e ) {
-			$this->do_after_add_block_error_action( $block, "woocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_add_block_{$block->get_id()}", $e );
+			$this->do_after_add_block_error_action( $block, "poocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_add_block_{$block->get_id()}", $e );
 		}
 	}
 
 	/**
-	 * Do the `woocommerce_block_after_add_block_error` action.
+	 * Do the `poocommerce_block_after_add_block_error` action.
 	 *
 	 * @param BlockInterface $block The block.
 	 * @param string         $action The action that threw the exception.
@@ -257,7 +257,7 @@ trait BlockContainerTrait {
 	 */
 	private function do_after_add_block_error_action( BlockInterface $block, string $action, \Exception $e ) {
 		/**
-		 * Action called after an exception is thrown by a `woocommerce_block_template_after_add_block` action hook.
+		 * Action called after an exception is thrown by a `poocommerce_block_template_after_add_block` action hook.
 		 *
 		 * @param BlockInterface $block The block.
 		 * @param string         $action The action that threw the exception.
@@ -266,7 +266,7 @@ trait BlockContainerTrait {
 		 * @since 8.4.0
 		 */
 		do_action(
-			'woocommerce_block_template_after_add_block_error',
+			'poocommerce_block_template_after_add_block_error',
 			$block,
 			$action,
 			$e,
@@ -274,7 +274,7 @@ trait BlockContainerTrait {
 	}
 
 	/**
-	 * Do the `woocommerce_block_template_after_remove_block` action.
+	 * Do the `poocommerce_block_template_after_remove_block` action.
 	 * Handle exceptions thrown by the action.
 	 *
 	 * @param BlockInterface $block The block.
@@ -291,14 +291,14 @@ trait BlockContainerTrait {
 			 *
 			 * @since 8.2.0
 			 */
-			do_action( 'woocommerce_block_template_after_remove_block', $block );
+			do_action( 'poocommerce_block_template_after_remove_block', $block );
 		} catch ( \Exception $e ) {
-			$this->do_after_remove_block_error_action( $block, 'woocommerce_block_template_after_remove_block', $e );
+			$this->do_after_remove_block_error_action( $block, 'poocommerce_block_template_after_remove_block', $e );
 		}
 	}
 
 	/**
-	 * Do the `woocommerce_block_template_area_{template_area}_after_remove_block_{block_id}` action.
+	 * Do the `poocommerce_block_template_area_{template_area}_after_remove_block_{block_id}` action.
 	 * Handle exceptions thrown by the action.
 	 *
 	 * @param BlockInterface $block The block.
@@ -315,14 +315,14 @@ trait BlockContainerTrait {
 			 *
 			 * @since 8.2.0
 			 */
-			do_action( "woocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_remove_block_{$block->get_id()}", $block );
+			do_action( "poocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_remove_block_{$block->get_id()}", $block );
 		} catch ( \Exception $e ) {
-			$this->do_after_remove_block_error_action( $block, "woocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_remove_block_{$block->get_id()}", $e );
+			$this->do_after_remove_block_error_action( $block, "poocommerce_block_template_area_{$this->get_root_template()->get_area()}_after_remove_block_{$block->get_id()}", $e );
 		}
 	}
 
 	/**
-	 * Do the `woocommerce_block_after_remove_block_error` action.
+	 * Do the `poocommerce_block_after_remove_block_error` action.
 	 *
 	 * @param BlockInterface $block The block.
 	 * @param string         $action The action that threw the exception.
@@ -330,7 +330,7 @@ trait BlockContainerTrait {
 	 */
 	private function do_after_remove_block_error_action( BlockInterface $block, string $action, \Exception $e ) {
 		/**
-		 * Action called after an exception is thrown by a `woocommerce_block_template_after_remove_block` action hook.
+		 * Action called after an exception is thrown by a `poocommerce_block_template_after_remove_block` action hook.
 		 *
 		 * @param BlockInterface $block The block.
 		 * @param string         $action The action that threw the exception.
@@ -339,7 +339,7 @@ trait BlockContainerTrait {
 		 * @since 8.4.0
 		 */
 		do_action(
-			'woocommerce_block_template_after_remove_block_error',
+			'poocommerce_block_template_after_remove_block_error',
 			$block,
 			$action,
 			$e,

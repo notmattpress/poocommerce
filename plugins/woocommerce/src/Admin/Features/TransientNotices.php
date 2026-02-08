@@ -1,11 +1,11 @@
 <?php
 /**
- * WooCommerce Transient Notices
+ * PooCommerce Transient Notices
  */
 
-namespace Automattic\WooCommerce\Admin\Features;
+namespace Automattic\PooCommerce\Admin\Features;
 
-use Automattic\WooCommerce\Internal\Admin\Loader;
+use Automattic\PooCommerce\Internal\Admin\Loader;
 
 /**
  * Shows print shipping label banner on edit order page.
@@ -15,13 +15,13 @@ class TransientNotices {
 	/**
 	 * Option name for the queue.
 	 */
-	const QUEUE_OPTION = 'woocommerce_admin_transient_notices_queue';
+	const QUEUE_OPTION = 'poocommerce_admin_transient_notices_queue';
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_admin_preload_options', array( $this, 'preload_options' ) );
+		add_filter( 'poocommerce_admin_preload_options', array( $this, 'preload_options' ) );
 	}
 
 

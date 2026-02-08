@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WC_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ const test = baseTest.extend( {
 					response
 						.url()
 						.includes(
-							'wp-json/wc-admin/options?options=woocommerce_dimension_unit'
+							'wp-json/wc-admin/options?options=poocommerce_dimension_unit'
 						) && response.status() === 200
 			);
 			await page.goto(
@@ -63,9 +63,9 @@ test(
 		const sku = `SKU_${ Date.now() }`;
 
 		await test.step( 'update the sku value', async () => {
-			await page.locator( '[name="woocommerce-product-sku"]' ).click();
+			await page.locator( '[name="poocommerce-product-sku"]' ).click();
 			await page
-				.locator( '[name="woocommerce-product-sku"]' )
+				.locator( '[name="poocommerce-product-sku"]' )
 				.fill( sku );
 		} );
 
@@ -79,7 +79,7 @@ test(
 
 		await test.step( 'verify the change in product editor', async () => {
 			await expect(
-				page.locator( '[name="woocommerce-product-sku"]' )
+				page.locator( '[name="poocommerce-product-sku"]' )
 			).toHaveValue( sku );
 		} );
 

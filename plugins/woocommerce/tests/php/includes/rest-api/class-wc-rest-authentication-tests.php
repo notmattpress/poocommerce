@@ -38,7 +38,7 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$last_access_spy     = function ( $do_not_record ) use ( &$last_access_updated ) {
 			$last_access_updated = ! $do_not_record;
 		};
-		add_filter( 'woocommerce_disable_rest_api_access_log', $last_access_spy );
+		add_filter( 'poocommerce_disable_rest_api_access_log', $last_access_spy );
 
 		// Test if last_access is updated for programmatic API requests.
 		$update_last_access->invoke( $wc_rest_authentication, new WP_REST_Request( 'GET', '/wc/v3/products' ) );
@@ -60,6 +60,6 @@ class WC_REST_Authentication_Tests extends WC_REST_Unit_Test_Case {
 		$authenticated_user->setValue( $wc_rest_authentication, $original_authenticated_user );
 		$authenticated_user->setAccessible( false );
 		$update_last_access->setAccessible( false );
-		add_filter( 'woocommerce_disable_rest_api_access_log', $last_access_spy );
+		add_filter( 'poocommerce_disable_rest_api_access_log', $last_access_spy );
 	}
 }

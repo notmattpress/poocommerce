@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
-import { TaskType } from '@woocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
+import { TaskType } from '@poocommerce/data';
 
 /**
  * Internal dependencies
  */
 import { Shipping } from '../index';
 
-jest.mock( '@woocommerce/tracks', () => ( {
+jest.mock( '@poocommerce/tracks', () => ( {
 	recordEvent: jest.fn(),
 } ) );
 
@@ -41,10 +41,10 @@ describe( 'Shipping', () => {
 		task: { id: 'shipping' } as TaskType,
 	};
 
-	it( 'should trigger event tasklist_shipping_visit_marketplace_click when clicking the WooCommerce Marketplace link', () => {
+	it( 'should trigger event tasklist_shipping_visit_marketplace_click when clicking the PooCommerce Marketplace link', () => {
 		render( <Shipping { ...props } /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( recordEvent ).toHaveBeenCalledWith(
 			'tasklist_shipping_visit_marketplace_click',
@@ -52,7 +52,7 @@ describe( 'Shipping', () => {
 		);
 	} );
 
-	it( 'should navigate to the marketplace when clicking the WooCommerce Marketplace link', async () => {
+	it( 'should navigate to the marketplace when clicking the PooCommerce Marketplace link', async () => {
 		const { isFeatureEnabled } = jest.requireMock( '~/utils/features' );
 		( isFeatureEnabled as jest.Mock ).mockReturnValue( true );
 
@@ -67,7 +67,7 @@ describe( 'Shipping', () => {
 
 		render( <Shipping { ...props } /> );
 
-		fireEvent.click( screen.getByText( 'the WooCommerce Marketplace' ) );
+		fireEvent.click( screen.getByText( 'the PooCommerce Marketplace' ) );
 
 		expect( mockLocation.href ).toContain(
 			'admin.php?page=wc-admin&tab=extensions&path=/extensions&category=shipping'

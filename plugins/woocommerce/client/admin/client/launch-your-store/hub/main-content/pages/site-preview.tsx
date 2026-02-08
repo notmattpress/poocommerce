@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 import { useState, useRef, useEffect } from '@wordpress/element';
-import { Spinner } from '@woocommerce/components';
+import { Spinner } from '@poocommerce/components';
 import { useResizeObserver } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import {
@@ -89,7 +89,7 @@ export const SitePreviewPage = ( props: MainContentComponentProps ) => {
 							ref={ iframeRef }
 							className="launch-store-site__preview-site-iframe"
 							src={ siteUrl }
-							title={ __( 'Preview', 'woocommerce' ) }
+							title={ __( 'Preview', 'poocommerce' ) }
 							onLoad={ () => setIsLoading( false ) }
 						/>
 					</ResizableFrame>

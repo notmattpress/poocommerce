@@ -1,14 +1,14 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Admin\Settings;
+namespace Automattic\PooCommerce\Tests\Internal\Admin\Settings;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders;
-use Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions as ExtensionSuggestions;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders;
+use Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\PaymentGateway;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\Admin\Suggestions\PaymentsExtensionSuggestions as ExtensionSuggestions;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Tests\Internal\Admin\Settings\Mocks\FakePaymentGateway;
 use PHPUnit\Framework\MockObject\MockObject;
 use WC_Unit_Test_Case;
 use WC_Gateway_BACS;
@@ -57,7 +57,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 		wp_set_current_user( $this->store_admin_id );
 
 		// Save the current currency to restore in tearDown.
-		$this->prev_currency = get_option( 'woocommerce_currency', null );
+		$this->prev_currency = get_option( 'poocommerce_currency', null );
 
 		$this->mock_extension_suggestions = $this->getMockBuilder( ExtensionSuggestions::class )
 			->disableOriginalConstructor()
@@ -81,7 +81,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 
 		// Restore the previous currency to prevent test leakage.
 		if ( null !== $this->prev_currency ) {
-			update_option( 'woocommerce_currency', $this->prev_currency );
+			update_option( 'poocommerce_currency', $this->prev_currency );
 		}
 
 		parent::tearDown();
@@ -414,8 +414,8 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 * Test getting payment gateway provider instance returns specific provider.
 	 */
 	public function test_get_payment_gateway_provider_instance_returns_specific_provider() {
-		// Arrange - woocommerce_payments is mapped to WooPayments provider.
-		$gateway_id = 'woocommerce_payments';
+		// Arrange - poocommerce_payments is mapped to WooPayments provider.
+		$gateway_id = 'poocommerce_payments';
 
 		// Act.
 		$provider = $this->sut->get_payment_gateway_provider_instance( $gateway_id );
@@ -469,7 +469,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_payment_gateway_provider_instance_returns_cached_instance() {
 		// Arrange.
-		$gateway_id = 'woocommerce_payments';
+		$gateway_id = 'poocommerce_payments';
 
 		// Act - Get provider instance twice.
 		$provider1 = $this->sut->get_payment_gateway_provider_instance( $gateway_id );
@@ -600,7 +600,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	public function test_get_payment_gateway_base_details() {
 		// Arrange.
 		$fake_gateway = new FakePaymentGateway(
-			'woocommerce_payments',
+			'poocommerce_payments',
 			array(
 				'enabled'                     => true,
 				'account_connected'           => true,
@@ -614,20 +614,20 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 				'method_title'                => 'WooPayments for merchants',
 				'description'                 => 'Accept payments with WooPayments.',
 				'method_description'          => '',
-				'plugin_slug'                 => 'woocommerce-payments',
-				'plugin_file'                 => 'woocommerce-payments/woocommerce-payments.php',
+				'plugin_slug'                 => 'poocommerce-payments',
+				'plugin_file'                 => 'poocommerce-payments/poocommerce-payments.php',
 				'provider_links'              => array(
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_DOCS,
-						'url'   => 'https://woocommerce.com/docs/woocommerce-payments/',
+						'url'   => 'https://poocommerce.com/docs/poocommerce-payments/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_SUPPORT,
-						'url'   => 'https://woocommerce.com/my-account/create-a-ticket/',
+						'url'   => 'https://poocommerce.com/my-account/create-a-ticket/',
 					),
 					array(
 						'_type' => PaymentsProviders::LINK_TYPE_TERMS,
-						'url'   => 'https://woocommerce.com/terms-conditions/',
+						'url'   => 'https://poocommerce.com/terms-conditions/',
 					),
 					// Invalid link entries to test validation. These should be filtered out.
 					array(
@@ -728,11 +728,11 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 
 		// Validate the specific link types and URLs.
 		$this->assertSame( PaymentsProviders::LINK_TYPE_DOCS, $gateway_details['links'][0]['_type'], 'First link should be DOCS type' );
-		$this->assertSame( 'https://woocommerce.com/docs/woocommerce-payments/', $gateway_details['links'][0]['url'], 'First link URL should match' );
+		$this->assertSame( 'https://poocommerce.com/docs/poocommerce-payments/', $gateway_details['links'][0]['url'], 'First link URL should match' );
 		$this->assertSame( PaymentsProviders::LINK_TYPE_SUPPORT, $gateway_details['links'][1]['_type'], 'Second link should be SUPPORT type' );
-		$this->assertSame( 'https://woocommerce.com/my-account/create-a-ticket/', $gateway_details['links'][1]['url'], 'Second link URL should match' );
+		$this->assertSame( 'https://poocommerce.com/my-account/create-a-ticket/', $gateway_details['links'][1]['url'], 'Second link URL should match' );
 		$this->assertSame( PaymentsProviders::LINK_TYPE_TERMS, $gateway_details['links'][2]['_type'], 'Third link should be TERMS type' );
-		$this->assertSame( 'https://woocommerce.com/terms-conditions/', $gateway_details['links'][2]['url'], 'Third link URL should match' );
+		$this->assertSame( 'https://poocommerce.com/terms-conditions/', $gateway_details['links'][2]['url'], 'Third link URL should match' );
 
 		$this->assertArrayHasKey( 'state', $gateway_details, 'Gateway `state` entry is missing' );
 		$this->assertArrayHasKey( 'enabled', $gateway_details['state'], 'Gateway `state[enabled]` entry is missing' );
@@ -750,9 +750,9 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 		$this->assertArrayHasKey( 'settings', $gateway_details['management']['_links'], 'Gateway `management[_links][settings]` entry is missing' );
 		$this->assertArrayHasKey( 'plugin', $gateway_details, 'Gateway `plugin` entry is missing' );
 		$this->assertArrayHasKey( 'slug', $gateway_details['plugin'], 'Gateway `plugin[slug]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments', $gateway_details['plugin']['slug'] );
+		$this->assertSame( 'poocommerce-payments', $gateway_details['plugin']['slug'] );
 		$this->assertArrayHasKey( 'file', $gateway_details['plugin'], 'Gateway `plugin[file]` entry is missing' );
-		$this->assertSame( 'woocommerce-payments/woocommerce-payments', $gateway_details['plugin']['file'] ); // No more .php extension.
+		$this->assertSame( 'poocommerce-payments/poocommerce-payments', $gateway_details['plugin']['file'] ); // No more .php extension.
 		$this->assertArrayHasKey( 'status', $gateway_details['plugin'], 'Gateway `plugin[status]` entry is missing' );
 		$this->assertSame( PaymentsProviders::EXTENSION_ACTIVE, $gateway_details['plugin']['status'] );
 		$this->assertArrayHasKey( 'onboarding', $gateway_details, 'Gateway `onboarding` entry is missing' );
@@ -829,8 +829,8 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 			),
 		);
 
-		update_option( 'mollie-payments-for-woocommerce_test_mode_enabled', 'yes' );
-		update_option( 'mollie-payments-for-woocommerce_test_api_key', 'bogus_key' );
+		update_option( 'mollie-payments-for-poocommerce_test_mode_enabled', 'yes' );
+		update_option( 'mollie-payments-for-poocommerce_test_api_key', 'bogus_key' );
 
 		// Act.
 		$gateway_details = $this->sut->get_payment_gateway_base_details( $fake_gateway, 999 );
@@ -842,8 +842,8 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 		$this->assertTrue( $gateway_details['state']['test_mode'] ); // It should be in test mode because of the DB options. The custom provider logic handles this.
 
 		// Clean up.
-		delete_option( 'mollie-payments-for-woocommerce_test_mode_enabled' );
-		delete_option( 'mollie-payments-for-woocommerce_test_api_key' );
+		delete_option( 'mollie-payments-for-poocommerce_test_mode_enabled' );
+		delete_option( 'mollie-payments-for-poocommerce_test_api_key' );
 	}
 
 	/**
@@ -851,7 +851,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_payment_gateway_details_fills_in_suggestion_details() {
 		// Arrange.
-		$plugin_slug  = 'woocommerce-gateway-stripe';
+		$plugin_slug  = 'poocommerce-gateway-stripe';
 		$fake_gateway = new FakePaymentGateway(
 			'stripe',
 			array(
@@ -861,7 +861,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 				'description'        => 'Basic gateway description',
 				'method_description' => '',
 				'plugin_slug'        => $plugin_slug,
-				'plugin_file'        => 'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php',
+				'plugin_file'        => 'poocommerce-gateway-stripe/poocommerce-gateway-stripe.php',
 			),
 		);
 
@@ -946,7 +946,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_payment_gateway_details_does_not_override_existing_details_with_suggestion_ones() {
 		// Arrange.
-		$plugin_slug   = 'woocommerce-gateway-stripe';
+		$plugin_slug   = 'poocommerce-gateway-stripe';
 		$gateway_links = array(
 			array(
 				'_type' => PaymentsProviders::LINK_TYPE_DOCS,
@@ -958,7 +958,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 			array(
 				'enabled'        => true,
 				'plugin_slug'    => $plugin_slug,
-				'plugin_file'    => 'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php',
+				'plugin_file'    => 'poocommerce-gateway-stripe/poocommerce-gateway-stripe.php',
 				'provider_links' => $gateway_links,
 			),
 		);
@@ -1022,7 +1022,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_payment_gateway_details_does_not_override_excluded_gateway_titles() {
 		// Arrange.
-		$plugin_slug   = 'woocommerce-gateway-paypal';
+		$plugin_slug   = 'poocommerce-gateway-paypal';
 		$gateway_links = array(
 			array(
 				'_type' => PaymentsProviders::LINK_TYPE_DOCS,
@@ -1038,7 +1038,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 				'description'        => 'PayPal gateway original description',
 				'method_description' => '',
 				'plugin_slug'        => $plugin_slug,
-				'plugin_file'        => 'woocommerce-gateway-paypal/woocommerce-gateway-paypal.php',
+				'plugin_file'        => 'poocommerce-gateway-paypal/poocommerce-gateway-paypal.php',
 				'provider_links'     => $gateway_links,
 			),
 		);
@@ -1109,8 +1109,8 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 		$slug           = $this->sut->get_payment_gateway_plugin_slug( $paypal_gateway );
 
 		// Assert.
-		// The PayPal gateway is a core gateway, so the slug is 'woocommerce'.
-		$this->assertSame( 'woocommerce', $slug );
+		// The PayPal gateway is a core gateway, so the slug is 'poocommerce'.
+		$this->assertSame( 'poocommerce', $slug );
 
 		// Clean up.
 		$this->unload_core_paypal_pg();
@@ -1946,7 +1946,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 			'description'       => 'Description 1',
 			'plugin'            => array(
 				'_type' => ExtensionSuggestions::PLUGIN_TYPE_WPORG,
-				'slug'  => 'woocommerce', // Use WooCommerce because it is an installed plugin, obviously.
+				'slug'  => 'poocommerce', // Use PooCommerce because it is an installed plugin, obviously.
 			),
 			'image'             => 'http://example.com/image1.png',
 			'icon'              => 'http://example.com/icon1.png',
@@ -1967,7 +1967,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 
 		$expected_suggestion = $suggestion_details;
 		// We expect enhanced details.
-		$expected_suggestion['plugin']['file']   = 'woocommerce/woocommerce'; // Ensure the file is set correctly.
+		$expected_suggestion['plugin']['file']   = 'poocommerce/poocommerce'; // Ensure the file is set correctly.
 		$expected_suggestion['plugin']['status'] = PaymentsProviders::EXTENSION_INSTALLED; // Ensure the status is set correctly.
 		$expected_suggestion['category']         = PaymentsProviders::CATEGORY_PSP; // Ensure the category is set correctly.
 		$expected_suggestion['onboarding']       = array( 'type' => PaymentGateway::ONBOARDING_TYPE_EXTERNAL ); // Ensure the onboarding details are present.
@@ -1984,7 +1984,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 */
 	public function test_get_extension_suggestion_by_plugin_slug() {
 		// Arrange.
-		$slug               = 'woocommerce'; // Use WooCommerce because it is an active plugin.
+		$slug               = 'poocommerce'; // Use PooCommerce because it is an active plugin.
 		$suggestion_details = array(
 			'id'                => 'suggestion1',
 			'_priority'         => 1,
@@ -1994,7 +1994,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 			'plugin'            => array(
 				'_type'  => ExtensionSuggestions::PLUGIN_TYPE_WPORG,
 				'slug'   => $slug,
-				'file'   => 'woocommerce/woocommerce',
+				'file'   => 'poocommerce/poocommerce',
 				'status' => PaymentsProviders::EXTENSION_INSTALLED,
 			),
 			'image'             => 'http://example.com/image1.png',
@@ -2016,7 +2016,7 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 
 		$expected_suggestion = $suggestion_details;
 		// We expect enhanced details.
-		$expected_suggestion['plugin']['file']   = 'woocommerce/woocommerce'; // Ensure the file is set correctly.
+		$expected_suggestion['plugin']['file']   = 'poocommerce/poocommerce'; // Ensure the file is set correctly.
 		$expected_suggestion['plugin']['status'] = PaymentsProviders::EXTENSION_INSTALLED; // Ensure the status is set correctly.
 		$expected_suggestion['category']         = PaymentsProviders::CATEGORY_PSP; // Ensure the category is set correctly.
 		$expected_suggestion['onboarding']       = array( 'type' => PaymentGateway::ONBOARDING_TYPE_EXTERNAL ); // Ensure the onboarding details are present.
@@ -2144,14 +2144,14 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 
 		// Assert.
 		$this->assertTrue( $result );
-		$branded_option = get_option( 'woocommerce_paypal_branded' );
+		$branded_option = get_option( 'poocommerce_paypal_branded' );
 		$this->assertSame( 'payments_settings', $branded_option );
 		$nox_profile = get_option( Payments::PAYMENTS_NOX_PROFILE_KEY );
 		$this->assertIsArray( $nox_profile['suggestions'][ $suggestion_id ]['attached'] );
 		$this->assertArrayHasKey( 'timestamp', $nox_profile['suggestions'][ $suggestion_id ]['attached'] );
 
 		// Clean up.
-		delete_option( 'woocommerce_paypal_branded' );
+		delete_option( 'poocommerce_paypal_branded' );
 		delete_option( Payments::PAYMENTS_NOX_PROFILE_KEY );
 	}
 
@@ -2848,15 +2848,15 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 		$offline_payment_methods_gateways = array(
 			WC_Gateway_BACS::ID   => array(
 				'enabled'     => false,
-				'plugin_slug' => 'woocommerce',
+				'plugin_slug' => 'poocommerce',
 			),
 			WC_Gateway_Cheque::ID => array(
 				'enabled'     => false,
-				'plugin_slug' => 'woocommerce',
+				'plugin_slug' => 'poocommerce',
 			),
 			WC_Gateway_COD::ID    => array(
 				'enabled'     => false,
-				'plugin_slug' => 'woocommerce',
+				'plugin_slug' => 'poocommerce',
 			),
 		);
 
@@ -5896,14 +5896,14 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	private function load_core_paypal_pg() {
 		// Make sure the WC core PayPal gateway is loaded.
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'_should_load' => 'yes',
 				'enabled'      => 'no',
 			)
 		);
 		// Make sure the store currency is supported by the gateway.
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 		WC()->payment_gateways()->payment_gateways = array();
 		WC()->payment_gateways()->init();
 
@@ -5919,14 +5919,14 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	private function enable_core_paypal_pg() {
 		// Enable the WC core PayPal gateway.
 		update_option(
-			'woocommerce_paypal_settings',
+			'poocommerce_paypal_settings',
 			array(
 				'_should_load' => 'yes',
 				'enabled'      => 'yes',
 			)
 		);
 		// Make sure the store currency is supported by the gateway.
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_currency', 'USD' );
 		WC()->payment_gateways()->payment_gateways = array();
 		WC()->payment_gateways()->init();
 
@@ -5938,8 +5938,8 @@ class PaymentsProvidersTest extends WC_Unit_Test_Case {
 	 * Cleanup the core PayPal gateway.
 	 */
 	private function unload_core_paypal_pg() {
-		delete_option( 'woocommerce_paypal_settings' );
-		delete_option( 'woocommerce_currency' );
+		delete_option( 'poocommerce_paypal_settings' );
+		delete_option( 'poocommerce_currency' );
 
 		$this->sut->reset_memo();
 	}

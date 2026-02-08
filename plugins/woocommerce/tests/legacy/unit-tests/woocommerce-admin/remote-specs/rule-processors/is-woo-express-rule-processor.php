@@ -2,12 +2,12 @@
 /**
  * Is WooExpress rule processor tests.
  *
- * @package WooCommerce\Admin\Tests\RemoteSpecs
+ * @package PooCommerce\Admin\Tests\RemoteSpecs
  */
 
 declare( strict_types = 1 );
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\RuleProcessors\IsWooExpressRuleProcessor;
+use Automattic\PooCommerce\Admin\RemoteSpecs\RuleProcessors\IsWooExpressRuleProcessor;
 
 /**
  * class WC_Admin_Tests_RemoteSpecs_RuleProcessors_IsWooExpressRuleProcessor
@@ -21,7 +21,7 @@ class WC_Admin_Tests_RemoteSpecs_RuleProcessors_IsWooExpressRuleProcessor extend
 		 * Fake function wc_calypso_bridge_is_woo_express_plan so that we can test the processor.
 		 */
 		function wc_calypso_bridge_is_woo_express_plan() {
-			return apply_filters( 'test_wc_calypso_bridge_is_woo_express_plan', true ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			return apply_filters( 'test_wc_calypso_bridge_is_woo_express_plan', true ); // phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		}
 	}
 

@@ -5,14 +5,14 @@
  * Handles requests to /leaderboards
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Categories\DataStore as CategoriesDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Categories\DataStore as CategoriesDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Coupons\DataStore as CouponsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataStore;
 
 /**
  * Leaderboards controller.
@@ -99,7 +99,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 		$coupons_data_store = new CouponsDataStore();
 		$coupons_data       = $per_page > 0 ? $coupons_data_store->get_data(
 			apply_filters(
-				'woocommerce_analytics_coupons_query_args',
+				'poocommerce_analytics_coupons_query_args',
 				array(
 					'orderby'       => 'orders_count',
 					'order'         => 'desc',
@@ -142,16 +142,16 @@ class Leaderboards extends \WC_REST_Data_Controller {
 
 		return array(
 			'id'      => 'coupons',
-			'label'   => __( 'Top Coupons - Number of Orders', 'woocommerce' ),
+			'label'   => __( 'Top Coupons - Number of Orders', 'poocommerce' ),
 			'headers' => array(
 				array(
-					'label' => __( 'Coupon code', 'woocommerce' ),
+					'label' => __( 'Coupon code', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Orders', 'woocommerce' ),
+					'label' => __( 'Orders', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Amount discounted', 'woocommerce' ),
+					'label' => __( 'Amount discounted', 'poocommerce' ),
 				),
 			),
 			'rows'    => $rows,
@@ -170,7 +170,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 		$categories_data_store = new CategoriesDataStore();
 		$categories_data       = $per_page > 0 ? $categories_data_store->get_data(
 			apply_filters(
-				'woocommerce_analytics_categories_query_args',
+				'poocommerce_analytics_categories_query_args',
 				array(
 					'orderby'       => 'items_sold',
 					'order'         => 'desc',
@@ -213,16 +213,16 @@ class Leaderboards extends \WC_REST_Data_Controller {
 
 		return array(
 			'id'      => 'categories',
-			'label'   => __( 'Top categories - Items sold', 'woocommerce' ),
+			'label'   => __( 'Top categories - Items sold', 'poocommerce' ),
 			'headers' => array(
 				array(
-					'label' => __( 'Category', 'woocommerce' ),
+					'label' => __( 'Category', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Items sold', 'woocommerce' ),
+					'label' => __( 'Items sold', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Net sales', 'woocommerce' ),
+					'label' => __( 'Net sales', 'poocommerce' ),
 				),
 			),
 			'rows'    => $rows,
@@ -241,7 +241,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 		$customers_data_store = new CustomersDataStore();
 		$customers_data       = $per_page > 0 ? $customers_data_store->get_data(
 			apply_filters(
-				'woocommerce_analytics_customers_query_args',
+				'poocommerce_analytics_customers_query_args',
 				array(
 					'orderby'      => 'total_spend',
 					'order'        => 'desc',
@@ -282,16 +282,16 @@ class Leaderboards extends \WC_REST_Data_Controller {
 
 		return array(
 			'id'      => 'customers',
-			'label'   => __( 'Top Customers - Total Spend', 'woocommerce' ),
+			'label'   => __( 'Top Customers - Total Spend', 'poocommerce' ),
 			'headers' => array(
 				array(
-					'label' => __( 'Customer Name', 'woocommerce' ),
+					'label' => __( 'Customer Name', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Orders', 'woocommerce' ),
+					'label' => __( 'Orders', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Total Spend', 'woocommerce' ),
+					'label' => __( 'Total Spend', 'poocommerce' ),
 				),
 			),
 			'rows'    => $rows,
@@ -310,7 +310,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 		$products_data_store = new ProductsDataStore();
 		$products_data       = $per_page > 0 ? $products_data_store->get_data(
 			apply_filters(
-				'woocommerce_analytics_products_query_args',
+				'poocommerce_analytics_products_query_args',
 				array(
 					'orderby'       => 'items_sold',
 					'order'         => 'desc',
@@ -353,16 +353,16 @@ class Leaderboards extends \WC_REST_Data_Controller {
 
 		return array(
 			'id'      => 'products',
-			'label'   => __( 'Top products - Items sold', 'woocommerce' ),
+			'label'   => __( 'Top products - Items sold', 'poocommerce' ),
 			'headers' => array(
 				array(
-					'label' => __( 'Product', 'woocommerce' ),
+					'label' => __( 'Product', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Items sold', 'woocommerce' ),
+					'label' => __( 'Items sold', 'poocommerce' ),
 				),
 				array(
-					'label' => __( 'Net sales', 'woocommerce' ),
+					'label' => __( 'Net sales', 'poocommerce' ),
 				),
 			),
 			'rows'    => $rows,
@@ -386,7 +386,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 			$this->get_products_leaderboard( $per_page, $after, $before, $persisted_query ),
 		);
 
-		return apply_filters( 'woocommerce_leaderboards', $leaderboards, $per_page, $after, $before, $persisted_query );
+		return apply_filters( 'poocommerce_leaderboards', $leaderboards, $per_page, $after, $before, $persisted_query );
 	}
 
 	/**
@@ -479,7 +479,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 		 * @param array            $item     The original item.
 		 * @param WP_REST_Request  $request  Request used to generate the response.
 		 */
-		return apply_filters( 'woocommerce_rest_prepare_leaderboard', $response, $item, $request );
+		return apply_filters( 'poocommerce_rest_prepare_leaderboard', $response, $item, $request );
 	}
 
 	/**
@@ -490,7 +490,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 	public function get_collection_params() {
 		$params                    = array();
 		$params['page']            = array(
-			'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+			'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 1,
 			'sanitize_callback' => 'absint',
@@ -498,7 +498,7 @@ class Leaderboards extends \WC_REST_Data_Controller {
 			'minimum'           => 1,
 		);
 		$params['per_page']        = array(
-			'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+			'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 			'type'              => 'integer',
 			'default'           => 5,
 			'minimum'           => 1,
@@ -507,19 +507,19 @@ class Leaderboards extends \WC_REST_Data_Controller {
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['after']           = array(
-			'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['before']          = array(
-			'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'woocommerce' ),
+			'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'poocommerce' ),
 			'type'              => 'string',
 			'format'            => 'date-time',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['persisted_query'] = array(
-			'description'       => __( 'URL query to persist across links.', 'woocommerce' ),
+			'description'       => __( 'URL query to persist across links.', 'poocommerce' ),
 			'type'              => 'string',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
@@ -539,26 +539,26 @@ class Leaderboards extends \WC_REST_Data_Controller {
 			'properties' => array(
 				'id'      => array(
 					'type'        => 'string',
-					'description' => __( 'Leaderboard ID.', 'woocommerce' ),
+					'description' => __( 'Leaderboard ID.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'label'   => array(
 					'type'        => 'string',
-					'description' => __( 'Displayed title for the leaderboard.', 'woocommerce' ),
+					'description' => __( 'Displayed title for the leaderboard.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
 				'headers' => array(
 					'type'        => 'array',
-					'description' => __( 'Table headers.', 'woocommerce' ),
+					'description' => __( 'Table headers.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 					'items'       => array(
 						'type'       => 'array',
 						'properties' => array(
 							'label' => array(
-								'description' => __( 'Table column header.', 'woocommerce' ),
+								'description' => __( 'Table column header.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
@@ -568,26 +568,26 @@ class Leaderboards extends \WC_REST_Data_Controller {
 				),
 				'rows'    => array(
 					'type'        => 'array',
-					'description' => __( 'Table rows.', 'woocommerce' ),
+					'description' => __( 'Table rows.', 'poocommerce' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 					'items'       => array(
 						'type'       => 'array',
 						'properties' => array(
 							'display' => array(
-								'description' => __( 'Table cell display.', 'woocommerce' ),
+								'description' => __( 'Table cell display.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'value'   => array(
-								'description' => __( 'Table cell value.', 'woocommerce' ),
+								'description' => __( 'Table cell value.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'format'  => array(
-								'description' => __( 'Table cell format.', 'woocommerce' ),
+								'description' => __( 'Table cell format.', 'poocommerce' ),
 								'type'        => 'string',
 								'context'     => array( 'view' ),
 								'enum'        => array( 'currency', 'number' ),

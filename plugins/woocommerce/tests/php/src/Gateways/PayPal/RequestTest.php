@@ -2,15 +2,15 @@
 /**
  * Unit tests for PayPal Request class.
  *
- * @package WooCommerce\Tests\Gateways\PayPal
+ * @package PooCommerce\Tests\Gateways\PayPal
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Gateways\PayPal;
+namespace Automattic\PooCommerce\Tests\Gateways\PayPal;
 
-use Automattic\WooCommerce\Gateways\PayPal\Constants as PayPalConstants;
-use Automattic\WooCommerce\Gateways\PayPal\Request as PayPalRequest;
+use Automattic\PooCommerce\Gateways\PayPal\Constants as PayPalConstants;
+use Automattic\PooCommerce\Gateways\PayPal\Request as PayPalRequest;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -97,7 +97,7 @@ class RequestTest extends \WC_Unit_Test_Case {
 	 * @return void
 	 */
 	public function test_create_paypal_order_params_are_correct(): void {
-		update_option( 'woocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_prices_include_tax', 'no' );
 
 		$order = \WC_Helper_Order::create_order();
 		$order->set_cart_tax( 10 );

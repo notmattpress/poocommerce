@@ -2,12 +2,12 @@
 /**
  * Class WC_Tests_Session_Handler file.
  *
- * @package WooCommerce\Tests\Session
+ * @package PooCommerce\Tests\Session
  */
 
 declare( strict_types=1 );
 
-use Automattic\WooCommerce\Internal\Features\FeaturesController;
+use Automattic\PooCommerce\Internal\Features\FeaturesController;
 
 /**
  * Tests for the WC_Session_Handler class.
@@ -118,7 +118,7 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		$session_id = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT `session_id` FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key = %s",
+				"SELECT `session_id` FROM {$wpdb->prefix}poocommerce_sessions WHERE session_key = %s",
 				$this->session_key
 			)
 		);
@@ -139,7 +139,7 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		$session_expiry = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT session_expiry FROM {$wpdb->prefix}woocommerce_sessions WHERE session_key = %s",
+				"SELECT session_expiry FROM {$wpdb->prefix}poocommerce_sessions WHERE session_key = %s",
 				$this->session_key
 			)
 		);
@@ -147,11 +147,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * @testdox Test that nonce of user logged out is only changed by WooCommerce.
+	 * @testdox Test that nonce of user logged out is only changed by PooCommerce.
 	 */
 	public function test_maybe_update_nonce_user_logged_out() {
 		$this->assertEquals( 1, $this->handler->maybe_update_nonce_user_logged_out( 1, 'wp_rest' ) );
-		$this->assertEquals( $this->handler->get_customer_unique_id(), $this->handler->maybe_update_nonce_user_logged_out( 1, 'woocommerce-something' ) );
+		$this->assertEquals( $this->handler->get_customer_unique_id(), $this->handler->maybe_update_nonce_user_logged_out( 1, 'poocommerce-something' ) );
 	}
 
 	/**
@@ -173,11 +173,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 			->method( 'get_session_cookie' )
 			->willReturn( array( $customer_id, $session_expiration, $session_expiring, $cookie_hash ) );
 
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$handler->init_session_cookie();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$this->assertFalse( wp_cache_get( $this->cache_prefix . $this->session_key, WC_SESSION_CACHE_GROUP ) );
 		$this->assertNull( $this->get_session_from_db( $this->session_key ) );
@@ -205,11 +205,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 			->method( 'get_session_cookie' )
 			->willReturn( array( $customer_id, $session_expiration, $session_expiring, $cookie_hash ) );
 
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$handler->init_session_cookie();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$this->assertFalse( wp_cache_get( $this->cache_prefix . $this->session_key, WC_SESSION_CACHE_GROUP ) );
 		$this->assertNull( $this->get_session_from_db( $this->session_key ) );
@@ -241,11 +241,11 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		wp_set_current_user( 1 );
 
-		add_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		add_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$handler->init_session_cookie();
 
-		remove_filter( 'woocommerce_set_cookie_enabled', '__return_false' );
+		remove_filter( 'poocommerce_set_cookie_enabled', '__return_false' );
 
 		$this->assertFalse( wp_cache_get( $this->cache_prefix . $customer_id, WC_SESSION_CACHE_GROUP ) );
 		$this->assertNull( $this->get_session_from_db( $customer_id ) );
@@ -441,14 +441,14 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 	public function test_cleanup_sessions(): void {
 		global $wpdb;
 
-		$wpdb->query( $wpdb->prepare( 'REPLACE INTO %i (session_key, session_value, session_expiry) VALUES (%s, %s, %d)', "{$wpdb->prefix}woocommerce_sessions", 'guest', 'expired', time() - DAY_IN_SECONDS ) );
-		$wpdb->query( $wpdb->prepare( 'REPLACE INTO %i (session_key, session_value, session_expiry) VALUES (%s, %s, %d)', "{$wpdb->prefix}woocommerce_sessions", 'customer', 'active', time() + DAY_IN_SECONDS ) );
+		$wpdb->query( $wpdb->prepare( 'REPLACE INTO %i (session_key, session_value, session_expiry) VALUES (%s, %s, %d)', "{$wpdb->prefix}poocommerce_sessions", 'guest', 'expired', time() - DAY_IN_SECONDS ) );
+		$wpdb->query( $wpdb->prepare( 'REPLACE INTO %i (session_key, session_value, session_expiry) VALUES (%s, %s, %d)', "{$wpdb->prefix}poocommerce_sessions", 'customer', 'active', time() + DAY_IN_SECONDS ) );
 
 		$handler = $this->getMockBuilder( WC_Session_Handler::class )->setMethodsExcept( array( 'cleanup_sessions' ) )->getMock();
 		$handler->cleanup_sessions();
 
 		// Verify the DB and cache cleanup results.
-		$this->assertSame( array( array( 'customer' ) ), $wpdb->get_results( $wpdb->prepare( "SELECT session_key FROM %i WHERE session_key IN ('guest', 'customer')", "{$wpdb->prefix}woocommerce_sessions" ), ARRAY_N ) );
+		$this->assertSame( array( array( 'customer' ) ), $wpdb->get_results( $wpdb->prepare( "SELECT session_key FROM %i WHERE session_key IN ('guest', 'customer')", "{$wpdb->prefix}poocommerce_sessions" ), ARRAY_N ) );
 	}
 
 	/**
@@ -474,7 +474,7 @@ class WC_Tests_Session_Handler extends WC_Unit_Test_Case {
 
 		$session_data = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}woocommerce_sessions WHERE `session_key` = %s",
+				"SELECT * FROM {$wpdb->prefix}poocommerce_sessions WHERE `session_key` = %s",
 				$session_key
 			)
 		);

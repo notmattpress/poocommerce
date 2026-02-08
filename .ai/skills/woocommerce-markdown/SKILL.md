@@ -1,20 +1,20 @@
 ---
-name: woocommerce-markdown
-description: Guidelines for creating and modifying markdown files in WooCommerce. Use when writing documentation, README files, or any markdown content.
+name: poocommerce-markdown
+description: Guidelines for creating and modifying markdown files in PooCommerce. Use when writing documentation, README files, or any markdown content.
 ---
 
-# WooCommerce Markdown Guidelines
+# PooCommerce Markdown Guidelines
 
-This skill provides guidance for creating and editing markdown files in the WooCommerce project.
+This skill provides guidance for creating and editing markdown files in the PooCommerce project.
 
 ## Critical Rules
 
 1. **Always lint after changes** - Run `markdownlint --fix` then `markdownlint` to verify
 2. **Run from repository root** - Ensures `.markdownlint.json` config is loaded
 3. **Use UTF-8 encoding** - Especially for directory trees and special characters
-4. **Follow WooCommerce markdown standards** - See configuration rules below
+4. **Follow PooCommerce markdown standards** - See configuration rules below
 
-## WooCommerce Markdown Configuration
+## PooCommerce Markdown Configuration
 
 The project uses markdownlint with these specific rules (from `.markdownlint.json`):
 
@@ -336,7 +336,7 @@ file file.md  # Verify shows "UTF-8 text"
 
 ```bash
 # Always run from root
-cd /path/to/woocommerce
+cd /path/to/poocommerce
 markdownlint path/to/file.md
 
 # NOT like this
@@ -359,4 +359,4 @@ markdownlint /absolute/path/to/file.md
 - Always run markdownlint from repository root
 - UTF-8 encoding is critical for special characters
 - CLAUDE.md files must pass linting for optimal AI parsing
-- See `woocommerce-dev-cycle` skill for markdown linting commands
+- See `poocommerce-dev-cycle` skill for markdown linting commands

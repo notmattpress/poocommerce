@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { useStoreCart } from '@woocommerce/base-context';
+import { useStoreCart } from '@poocommerce/base-context';
 import clsx from 'clsx';
 import { _n, sprintf } from '@wordpress/i18n';
-import { useStyleProps } from '@woocommerce/base-hooks';
+import { useStyleProps } from '@poocommerce/base-hooks';
 
 type Props = {
 	className?: string;
@@ -21,7 +21,7 @@ const Block = ( props: Props ): JSX.Element => {
 		>
 			{ sprintf(
 				/* translators: %d is the count of items in the cart. */
-				_n( '(%d item)', '(%d items)', cartItemsCount, 'woocommerce' ),
+				_n( '(%d item)', '(%d items)', cartItemsCount, 'poocommerce' ),
 				cartItemsCount
 			) }
 		</span>

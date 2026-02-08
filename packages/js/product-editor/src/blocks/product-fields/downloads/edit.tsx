@@ -12,17 +12,17 @@ import {
 } from '@wordpress/element';
 import { closeSmall } from '@wordpress/icons';
 import { MediaItem } from '@wordpress/media-utils';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import {
 	ListItem,
 	MediaUploader,
 	MediaUploaderErrorCallback,
 	Sortable,
-} from '@woocommerce/components';
-import { Product, ProductDownload } from '@woocommerce/data';
+} from '@poocommerce/components';
+import { Product, ProductDownload } from '@poocommerce/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -117,10 +117,10 @@ export function DownloadBlockEdit( {
 		if ( newFiles.length !== files.length ) {
 			createErrorNotice(
 				files.length === 1
-					? __( 'This file has already been added', 'woocommerce' )
+					? __( 'This file has already been added', 'poocommerce' )
 					: __(
 							'Some of these files have already been added',
-							'woocommerce'
+							'poocommerce'
 					  )
 			);
 		}
@@ -177,7 +177,7 @@ export function DownloadBlockEdit( {
 		createErrorNotice(
 			sprintf(
 				/* translators: %1$s is a line break, %2$s is the detailed error message */
-				__( 'Error uploading file:%1$s%2$s', 'woocommerce' ),
+				__( 'Error uploading file:%1$s%2$s', 'poocommerce' ),
 				'\n',
 				error.message
 			)
@@ -190,7 +190,7 @@ export function DownloadBlockEdit( {
 		createErrorNotice(
 			sprintf(
 				/* translators: %1$s is a line break, %2$s is the detailed error message */
-				__( 'Error linking file:%1$s%2$s', 'woocommerce' ),
+				__( 'Error linking file:%1$s%2$s', 'poocommerce' ),
 				'\n',
 				error
 			)
@@ -217,7 +217,7 @@ export function DownloadBlockEdit( {
 						variant="tertiary"
 						onClick={ handleManageLimitsClick }
 					>
-						{ __( 'Manage limits', 'woocommerce' ) }
+						{ __( 'Manage limits', 'poocommerce' ) }
 					</Button>
 				) }
 
@@ -229,17 +229,17 @@ export function DownloadBlockEdit( {
 				/>
 			</SectionActions>
 
-			<div className="wp-block-woocommerce-product-downloads-field__body">
+			<div className="wp-block-poocommerce-product-downloads-field__body">
 				<MediaUploader
 					label={
 						! Boolean( downloads.length ) ? (
-							<div className="wp-block-woocommerce-product-downloads-field__drop-zone-content">
+							<div className="wp-block-poocommerce-product-downloads-field__drop-zone-content">
 								<UploadImage />
-								<p className="wp-block-woocommerce-product-downloads-field__drop-zone-label">
+								<p className="wp-block-poocommerce-product-downloads-field__drop-zone-label">
 									{ createInterpolateElement(
 										__(
 											'Supported file types: <Types /> and more. <link>View all</link>',
-											'woocommerce'
+											'poocommerce'
 										),
 										{
 											Types: (
@@ -282,7 +282,7 @@ export function DownloadBlockEdit( {
 				/>
 
 				{ Boolean( downloads.length ) && (
-					<Sortable className="wp-block-woocommerce-product-downloads-field__table">
+					<Sortable className="wp-block-poocommerce-product-downloads-field__table">
 						{ downloads.map( ( download: ProductDownload ) => {
 							const nameFromUrl = getFileName( download.file );
 							const isUploading =
@@ -291,23 +291,23 @@ export function DownloadBlockEdit( {
 							return (
 								<ListItem
 									key={ download.file }
-									className="wp-block-woocommerce-product-downloads-field__table-row"
+									className="wp-block-poocommerce-product-downloads-field__table-row"
 								>
-									<div className="wp-block-woocommerce-product-downloads-field__table-filename">
+									<div className="wp-block-poocommerce-product-downloads-field__table-filename">
 										<span>{ download.name }</span>
 										{ download.name !== nameFromUrl && (
-											<span className="wp-block-woocommerce-product-downloads-field__table-filename-description">
+											<span className="wp-block-poocommerce-product-downloads-field__table-filename-description">
 												{ nameFromUrl }
 											</span>
 										) }
 									</div>
 
-									<div className="wp-block-woocommerce-product-downloads-field__table-actions">
+									<div className="wp-block-poocommerce-product-downloads-field__table-actions">
 										{ isUploading && (
 											<Spinner
 												aria-label={ __(
 													'Uploading file',
-													'woocommerce'
+													'poocommerce'
 												) }
 											/>
 										) }
@@ -318,14 +318,14 @@ export function DownloadBlockEdit( {
 												) }
 												variant="tertiary"
 											>
-												{ __( 'Edit', 'woocommerce' ) }
+												{ __( 'Edit', 'poocommerce' ) }
 											</Button>
 										) }
 										<Button
 											icon={ closeSmall }
 											label={ __(
 												'Remove file',
-												'woocommerce'
+												'poocommerce'
 											) }
 											disabled={ isUploading }
 											onClick={ removeHandler(

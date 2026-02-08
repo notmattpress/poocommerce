@@ -2,12 +2,12 @@
 /**
  * Memory Manager class.
  *
- * @package Automattic\WooCommerce\Internal\ProductFeed
+ * @package Automattic\PooCommerce\Internal\ProductFeed
  */
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Internal\ProductFeed\Utils;
+namespace Automattic\PooCommerce\Internal\ProductFeed\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

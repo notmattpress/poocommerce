@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { productDetails } from '@woocommerce/icons';
+import { productDetails } from '@poocommerce/icons';
 
 // @TODO: Revisit ICON
 const Icon = productDetails;

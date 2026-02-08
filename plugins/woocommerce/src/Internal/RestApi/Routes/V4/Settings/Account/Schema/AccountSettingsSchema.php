@@ -2,14 +2,14 @@
 /**
  * AccountSettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Account\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Account\Schema;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
 use WP_REST_Request;
 
 defined( 'ABSPATH' ) || exit;
@@ -33,58 +33,58 @@ class AccountSettingsSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'          => array(
-				'description' => __( 'Unique identifier for the settings group.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the settings group.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'title'       => array(
-				'description' => __( 'Settings title.', 'woocommerce' ),
+				'description' => __( 'Settings title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'description' => array(
-				'description' => __( 'Settings description.', 'woocommerce' ),
+				'description' => __( 'Settings description.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'values'      => array(
-				'description'          => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+				'description'          => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => self::VIEW_EDIT_CONTEXT,
 				'additionalProperties' => array(
-					'description' => __( 'Setting field value.', 'woocommerce' ),
+					'description' => __( 'Setting field value.', 'poocommerce' ),
 					'type'        => array( 'string', 'number', 'array', 'boolean' ),
 				),
 			),
 			'groups'      => array(
-				'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+				'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => self::VIEW_EDIT_CONTEXT,
 				'additionalProperties' => array(
 					'type'        => 'object',
-					'description' => __( 'Settings group.', 'woocommerce' ),
+					'description' => __( 'Settings group.', 'poocommerce' ),
 					'properties'  => array(
 						'title'       => array(
-							'description' => __( 'Group title.', 'woocommerce' ),
+							'description' => __( 'Group title.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'description' => array(
-							'description' => __( 'Group description.', 'woocommerce' ),
+							'description' => __( 'Group description.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'order'       => array(
-							'description' => __( 'Display order for the group.', 'woocommerce' ),
+							'description' => __( 'Display order for the group.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'readonly'    => true,
 						),
 						'fields'      => array(
-							'description' => __( 'Settings fields.', 'woocommerce' ),
+							'description' => __( 'Settings fields.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'items'       => $this->get_field_schema(),
@@ -105,28 +105,28 @@ class AccountSettingsSchema extends AbstractSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'id'      => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'label'   => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'type'    => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'textarea', 'number', 'select', 'multiselect', 'checkbox' ),
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'options' => array(
-					'description' => __( 'Available options for select/multiselect fields.', 'woocommerce' ),
+					'description' => __( 'Available options for select/multiselect fields.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'desc'    => array(
-					'description' => __( 'Description for the setting field.', 'woocommerce' ),
+					'description' => __( 'Description for the setting field.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
@@ -200,8 +200,8 @@ class AccountSettingsSchema extends AbstractSchema {
 
 		$response = array(
 			'id'          => 'account',
-			'title'       => __( 'Accounts & Privacy', 'woocommerce' ),
-			'description' => __( 'Set options relating to customer accounts and data privacy.', 'woocommerce' ),
+			'title'       => __( 'Accounts & Privacy', 'poocommerce' ),
+			'description' => __( 'Set options relating to customer accounts and data privacy.', 'poocommerce' ),
 			'values'      => $values,
 			'groups'      => $groups,
 		);
@@ -214,9 +214,9 @@ class AccountSettingsSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Transform a WooCommerce setting into REST API field format.
+	 * Transform a PooCommerce setting into REST API field format.
 	 *
-	 * @param array $setting WooCommerce setting array.
+	 * @param array $setting PooCommerce setting array.
 	 * @return array|null Transformed field or null if should be skipped.
 	 */
 	private function transform_setting_to_field( array $setting ): ?array {
@@ -253,9 +253,9 @@ class AccountSettingsSchema extends AbstractSchema {
 	}
 
 	/**
-	 * Normalize WooCommerce field types to REST API field types.
+	 * Normalize PooCommerce field types to REST API field types.
 	 *
-	 * @param string $wc_type WooCommerce field type.
+	 * @param string $wc_type PooCommerce field type.
 	 * @return string Normalized field type.
 	 */
 	private function normalize_field_type( string $wc_type ): string {

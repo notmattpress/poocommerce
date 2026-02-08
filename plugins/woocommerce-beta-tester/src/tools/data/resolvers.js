@@ -161,7 +161,7 @@ export function* getWccomBaseUrl() {
 			method: 'GET',
 		} );
 		yield updateCommandParams( UPDATE_WCCOM_BASE_URL_ACTION_NAME, {
-			url: url || 'https://woocommerce.com/',
+			url: url || 'https://poocommerce.com/',
 		} );
 	} catch ( error ) {
 		throw new Error( error );

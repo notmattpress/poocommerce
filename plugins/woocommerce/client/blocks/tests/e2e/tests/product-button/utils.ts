@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { Page } from '@playwright/test';
-import { Admin } from '@woocommerce/e2e-utils';
+import { Admin } from '@poocommerce/e2e-utils';
 
 export const blockData = {
 	name: 'Product Button',
-	slug: 'woocommerce/product-button',
+	slug: 'poocommerce/product-button',
 	mainClass: '.wc-block-product-button',
 	selectors: {
 		frontend: {

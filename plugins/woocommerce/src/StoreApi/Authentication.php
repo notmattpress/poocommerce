@@ -1,10 +1,10 @@
 <?php
 declare( strict_types=1 );
-namespace Automattic\WooCommerce\StoreApi;
+namespace Automattic\PooCommerce\StoreApi;
 
-use Automattic\WooCommerce\StoreApi\Utilities\RateLimits;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\StoreApi\Utilities\RateLimits;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 /**
  * Authentication class.
@@ -195,7 +195,7 @@ class Authentication {
 			&& $this->is_only_post_request()
 		) {
 			add_filter(
-				'woocommerce_store_api_rate_limit_options',
+				'poocommerce_store_api_rate_limit_options',
 				function ( $options ) {
 					$options['enabled'] = true;
 					$options['limit']   = 3;
@@ -239,7 +239,7 @@ class Authentication {
 				 * @since 9.8.0 Added $action_id parameter.
 				 */
 				do_action(
-					'woocommerce_store_api_rate_limit_exceeded',
+					'poocommerce_store_api_rate_limit_exceeded',
 					self::get_ip_address( $rate_limiting_options->proxy_support ),
 					$action_id
 				);
@@ -284,7 +284,7 @@ class Authentication {
 		 *
 		 * @since 9.8.0
 		 */
-		$id = apply_filters( 'woocommerce_store_api_rate_limit_id', $id );
+		$id = apply_filters( 'poocommerce_store_api_rate_limit_id', $id );
 
 		return sanitize_key( $id );
 	}

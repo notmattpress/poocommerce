@@ -1,29 +1,29 @@
 <?php
 /**
- * Test the Tasks/WooCommercePayments class.
+ * Test the Tasks/PooCommercePayments class.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks/Tasks/WooCommercePayments
+ * @package PooCommerce\Admin\Tests\OnboardingTasks/Tasks/PooCommercePayments
  */
 
 declare(strict_types=1);
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskList;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\WooCommercePayments;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\TaskList;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks\PooCommercePayments;
 
 /**
- * class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments
+ * class WC_Admin_Tests_OnboardingTasks_Task_PooCommerce_Payments
  */
-class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_Test_Case {
+class WC_Admin_Tests_OnboardingTasks_Task_PooCommerce_Payments extends WC_Unit_Test_Case {
 
 	/**
 	 * Task instance.
 	 *
-	 * @var WooCommercePayments
+	 * @var PooCommercePayments
 	 */
 	protected $task;
 
 	/**
-	 * Fake WooCommerce Payments gateway instance.
+	 * Fake PooCommerce Payments gateway instance.
 	 *
 	 * @var Fake_WC_Payments_Gateway
 	 */
@@ -34,7 +34,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_T
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->task         = new WooCommercePayments( new TaskList() );
+		$this->task         = new PooCommercePayments( new TaskList() );
 		$this->fake_gateway = new Fake_WC_Payments_Gateway();
 	}
 
@@ -43,23 +43,23 @@ class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_T
 	 */
 	public function tearDown(): void {
 		parent::tearDown();
-		remove_filter( 'woocommerce_payment_gateways', array( $this, 'inject_fake_gateway' ) );
+		remove_filter( 'poocommerce_payment_gateways', array( $this, 'inject_fake_gateway' ) );
 	}
 
 	/**
-	 * Test is_connected method when WooCommerce Payments is connected.
+	 * Test is_connected method when PooCommerce Payments is connected.
 	 */
 	public function test_is_connected_when_wcpay_is_connected() {
 		$this->mock_wc_payments_gateway( true );
-		$this->assertTrue( WooCommercePayments::is_connected() );
+		$this->assertTrue( PooCommercePayments::is_connected() );
 	}
 
 	/**
-	 * Test is_connected method when WooCommerce Payments is not connected.
+	 * Test is_connected method when PooCommerce Payments is not connected.
 	 */
 	public function test_is_connected_when_wcpay_is_not_connected() {
 		$this->mock_wc_payments_gateway( false );
-		$this->assertFalse( WooCommercePayments::is_connected() );
+		$this->assertFalse( PooCommercePayments::is_connected() );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_T
 	 */
 	public function test_is_account_partially_onboarded_when_true() {
 		$this->mock_wc_payments_gateway( true, true );
-		$this->assertTrue( WooCommercePayments::is_account_partially_onboarded() );
+		$this->assertTrue( PooCommercePayments::is_account_partially_onboarded() );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_T
 	 */
 	public function test_is_account_partially_onboarded_when_false() {
 		$this->mock_wc_payments_gateway( true, false );
-		$this->assertFalse( WooCommercePayments::is_account_partially_onboarded() );
+		$this->assertFalse( PooCommercePayments::is_account_partially_onboarded() );
 	}
 
 	/**
@@ -87,7 +87,7 @@ class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_T
 	private function mock_wc_payments_gateway( $is_connected, $is_partially_onboarded = false ) {
 		$this->fake_gateway->set_connected( $is_connected );
 		$this->fake_gateway->set_partially_onboarded( $is_partially_onboarded );
-		add_filter( 'woocommerce_payment_gateways', array( $this, 'inject_fake_gateway' ) );
+		add_filter( 'poocommerce_payment_gateways', array( $this, 'inject_fake_gateway' ) );
 		WC()->payment_gateways()->init();
 	}
 
@@ -98,14 +98,14 @@ class WC_Admin_Tests_OnboardingTasks_Task_WooCommerce_Payments extends WC_Unit_T
 	 * @return array Modified gateways.
 	 */
 	public function inject_fake_gateway( $gateways ) {
-		return array( 'woocommerce_payments' => $this->fake_gateway );
+		return array( 'poocommerce_payments' => $this->fake_gateway );
 	}
 }
 
 // phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
 
 /**
- * Fake WooCommerce Payments Gateway class for testing.
+ * Fake PooCommerce Payments Gateway class for testing.
  */
 class Fake_WC_Payments_Gateway extends WC_Payment_Gateway {
 	/**
@@ -126,7 +126,7 @@ class Fake_WC_Payments_Gateway extends WC_Payment_Gateway {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->id = 'woocommerce_payments';
+		$this->id = 'poocommerce_payments';
 	}
 
 	/**

@@ -3,7 +3,7 @@
 ###################################################################################################
 # Import sample products and regenerate product lookup tables
 ###################################################################################################
-wp import wp-content/plugins/woocommerce/sample-data/sample_products.xml --authors=skip
+wp import wp-content/plugins/poocommerce/sample-data/sample_products.xml --authors=skip
 wp wc tool run regenerate_product_lookup_tables --user=1
 
 # This is a hacky work around to fix product categories not having their parent category correctly assigned.
@@ -29,7 +29,7 @@ wp wc product update $beanie_product_id --tags="[ { \"id\": $tag_id } ]" --user=
 
 # Create a brand, so we can add tests for brand-related blocks and templates.
 album_product_id=$(wp post list --post_type=product --field=ID --name="Album" --format=ids)
-brand_id=$(wp term create product_brand "WooCommerce" --slug="woocommerce" --description="Official WooCommerce products" --porcelain)
+brand_id=$(wp term create product_brand "PooCommerce" --slug="poocommerce" --description="Official PooCommerce products" --porcelain)
 wp post term set $hoodie_product_id product_brand $brand_id --by=id
 wp post term set $beanie_product_id product_brand $brand_id --by=id
 wp post term set $album_product_id product_brand $brand_id --by=id

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { createElement, createInterpolateElement } from '@wordpress/element';
 import { BaseControl } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
@@ -37,7 +37,7 @@ export function SummaryBlockEdit( {
 
 	const contentId = useInstanceId(
 		SummaryBlockEdit,
-		'wp-block-woocommerce-product-summary-field__content'
+		'wp-block-poocommerce-product-summary-field__content'
 	);
 	const [ summary, setSummary ] = useEntityProp< string >(
 		'postType',
@@ -61,7 +61,7 @@ export function SummaryBlockEdit( {
 	return (
 		<div
 			className={
-				'wp-block wp-block-woocommerce-product-summary-field-wrapper'
+				'wp-block wp-block-poocommerce-product-summary-field-wrapper'
 			}
 		>
 			{ /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */ }
@@ -84,13 +84,13 @@ export function SummaryBlockEdit( {
 				label={
 					typeof label === 'undefined'
 						? createInterpolateElement(
-								__( 'Summary', 'woocommerce' ),
+								__( 'Summary', 'poocommerce' ),
 								{
 									optional: (
-										<span className="woocommerce-product-form__optional-input">
+										<span className="poocommerce-product-form__optional-input">
 											{ __(
 												'(OPTIONAL)',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</span>
 									),
@@ -102,7 +102,7 @@ export function SummaryBlockEdit( {
 					typeof helpText === 'undefined'
 						? __(
 								"Summarize this product in 1-2 short sentences. We'll show it at the top of the page.",
-								'woocommerce'
+								'poocommerce'
 						  )
 						: helpText
 				}

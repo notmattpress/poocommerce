@@ -2,22 +2,22 @@
 /**
  * OrderSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order;
 use WP_REST_Request;
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
 
 /**
  * OrderSchema class.
@@ -97,298 +97,298 @@ class OrderSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		$schema = array(
 			'id'                   => array(
-				'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+				'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'parent_id'            => array(
-				'description' => __( 'Parent order ID.', 'woocommerce' ),
+				'description' => __( 'Parent order ID.', 'poocommerce' ),
 				'type'        => 'integer',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'number'               => array(
-				'description' => __( 'Order number.', 'woocommerce' ),
+				'description' => __( 'Order number.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'order_key'            => array(
-				'description' => __( 'Order key.', 'woocommerce' ),
+				'description' => __( 'Order key.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'created_via'          => array(
-				'description' => __( 'Shows where the order was created.', 'woocommerce' ),
+				'description' => __( 'Shows where the order was created.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'version'              => array(
-				'description' => __( 'Version of WooCommerce which last updated the order.', 'woocommerce' ),
+				'description' => __( 'Version of PooCommerce which last updated the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'status'               => array(
-				'description' => __( 'Order status.', 'woocommerce' ),
+				'description' => __( 'Order status.', 'poocommerce' ),
 				'type'        => 'string',
 				'default'     => OrderStatus::PENDING,
 				'enum'        => array_map( OrderUtil::class . '::remove_status_prefix', array_merge( array( OrderStatus::AUTO_DRAFT ), array_keys( wc_get_order_statuses() ) ) ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'currency'             => array(
-				'description' => __( 'Currency the order was created with, in ISO format.', 'woocommerce' ),
+				'description' => __( 'Currency the order was created with, in ISO format.', 'poocommerce' ),
 				'type'        => 'string',
-				'default'     => get_woocommerce_currency(),
-				'enum'        => array_keys( get_woocommerce_currencies() ),
+				'default'     => get_poocommerce_currency(),
+				'enum'        => array_keys( get_poocommerce_currencies() ),
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'currency_symbol'      => array(
-				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'woocommerce' ),
+				'description' => __( 'Currency symbol for the currency which can be used to format returned prices.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created'         => array(
-				'description' => __( "The date the order was created, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the order was created, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_created_gmt'     => array(
-				'description' => __( 'The date the order was created, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the order was created, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_modified'        => array(
-				'description' => __( "The date the order was last modified, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the order was last modified, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_modified_gmt'    => array(
-				'description' => __( 'The date the order was last modified, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the order was last modified, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'discount_total'       => array(
-				'description' => __( 'Total discount amount for the order.', 'woocommerce' ),
+				'description' => __( 'Total discount amount for the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'discount_tax'         => array(
-				'description' => __( 'Total discount tax amount for the order.', 'woocommerce' ),
+				'description' => __( 'Total discount tax amount for the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'shipping_total'       => array(
-				'description' => __( 'Total shipping amount for the order.', 'woocommerce' ),
+				'description' => __( 'Total shipping amount for the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'shipping_tax'         => array(
-				'description' => __( 'Total shipping tax amount for the order.', 'woocommerce' ),
+				'description' => __( 'Total shipping tax amount for the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'cart_tax'             => array(
-				'description' => __( 'Sum of line item taxes only.', 'woocommerce' ),
+				'description' => __( 'Sum of line item taxes only.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'total'                => array(
-				'description' => __( 'Grand total.', 'woocommerce' ),
+				'description' => __( 'Grand total.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'total_tax'            => array(
-				'description' => __( 'Sum of all taxes.', 'woocommerce' ),
+				'description' => __( 'Sum of all taxes.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'refund_total'         => array(
-				'description' => __( 'Total refund amount for the order.', 'woocommerce' ),
+				'description' => __( 'Total refund amount for the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'refund_tax'           => array(
-				'description' => __( 'Total refund tax amount for the order.', 'woocommerce' ),
+				'description' => __( 'Total refund tax amount for the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'prices_include_tax'   => array(
-				'description' => __( 'True the prices included tax during checkout.', 'woocommerce' ),
+				'description' => __( 'True the prices included tax during checkout.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'customer_id'          => array(
-				'description' => __( 'User ID who owns the order. 0 for guests.', 'woocommerce' ),
+				'description' => __( 'User ID who owns the order. 0 for guests.', 'poocommerce' ),
 				'type'        => 'integer',
 				'default'     => 0,
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'customer_ip_address'  => array(
-				'description' => __( "Customer's IP address.", 'woocommerce' ),
+				'description' => __( "Customer's IP address.", 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'customer_user_agent'  => array(
-				'description' => __( 'User agent of the customer.', 'woocommerce' ),
+				'description' => __( 'User agent of the customer.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'customer_note'        => array(
-				'description' => __( 'Note left by customer during checkout.', 'woocommerce' ),
+				'description' => __( 'Note left by customer during checkout.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'billing'              => array(
-				'description' => __( 'Billing address.', 'woocommerce' ),
+				'description' => __( 'Billing address.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'properties'  => array(
 					'first_name' => array(
-						'description' => __( 'First name.', 'woocommerce' ),
+						'description' => __( 'First name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'last_name'  => array(
-						'description' => __( 'Last name.', 'woocommerce' ),
+						'description' => __( 'Last name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'company'    => array(
-						'description' => __( 'Company name.', 'woocommerce' ),
+						'description' => __( 'Company name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'address_1'  => array(
-						'description' => __( 'Address line 1', 'woocommerce' ),
+						'description' => __( 'Address line 1', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'address_2'  => array(
-						'description' => __( 'Address line 2', 'woocommerce' ),
+						'description' => __( 'Address line 2', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'city'       => array(
-						'description' => __( 'City name.', 'woocommerce' ),
+						'description' => __( 'City name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'state'      => array(
-						'description' => __( 'ISO code or name of the state, province or district.', 'woocommerce' ),
+						'description' => __( 'ISO code or name of the state, province or district.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'postcode'   => array(
-						'description' => __( 'Postal code.', 'woocommerce' ),
+						'description' => __( 'Postal code.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'country'    => array(
-						'description' => __( 'Country code in ISO 3166-1 alpha-2 format.', 'woocommerce' ),
+						'description' => __( 'Country code in ISO 3166-1 alpha-2 format.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'email'      => array(
-						'description' => __( 'Email address.', 'woocommerce' ),
+						'description' => __( 'Email address.', 'poocommerce' ),
 						'type'        => array( 'string', 'null' ),
 						'format'      => 'email',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'phone'      => array(
-						'description' => __( 'Phone number.', 'woocommerce' ),
+						'description' => __( 'Phone number.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 				),
 			),
 			'shipping'             => array(
-				'description' => __( 'Shipping address.', 'woocommerce' ),
+				'description' => __( 'Shipping address.', 'poocommerce' ),
 				'type'        => 'object',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'properties'  => array(
 					'first_name' => array(
-						'description' => __( 'First name.', 'woocommerce' ),
+						'description' => __( 'First name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'last_name'  => array(
-						'description' => __( 'Last name.', 'woocommerce' ),
+						'description' => __( 'Last name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'company'    => array(
-						'description' => __( 'Company name.', 'woocommerce' ),
+						'description' => __( 'Company name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'address_1'  => array(
-						'description' => __( 'Address line 1', 'woocommerce' ),
+						'description' => __( 'Address line 1', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'address_2'  => array(
-						'description' => __( 'Address line 2', 'woocommerce' ),
+						'description' => __( 'Address line 2', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'city'       => array(
-						'description' => __( 'City name.', 'woocommerce' ),
+						'description' => __( 'City name.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'state'      => array(
-						'description' => __( 'ISO code or name of the state, province or district.', 'woocommerce' ),
+						'description' => __( 'ISO code or name of the state, province or district.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'postcode'   => array(
-						'description' => __( 'Postal code.', 'woocommerce' ),
+						'description' => __( 'Postal code.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'country'    => array(
-						'description' => __( 'Country code in ISO 3166-1 alpha-2 format.', 'woocommerce' ),
+						'description' => __( 'Country code in ISO 3166-1 alpha-2 format.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 					'phone'      => array(
-						'description' => __( 'Phone number.', 'woocommerce' ),
+						'description' => __( 'Phone number.', 'poocommerce' ),
 						'type'        => 'string',
 						'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 					),
 				),
 			),
 			'payment_method'       => array(
-				'description' => __( 'Payment method ID.', 'woocommerce' ),
+				'description' => __( 'Payment method ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'payment_method_title' => array(
-				'description' => __( 'Payment method title.', 'woocommerce' ),
+				'description' => __( 'Payment method title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'arg_options' => array(
@@ -396,64 +396,64 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'transaction_id'       => array(
-				'description' => __( 'Unique transaction ID.', 'woocommerce' ),
+				'description' => __( 'Unique transaction ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			),
 			'date_paid'            => array(
-				'description' => __( "The date the order was paid, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the order was paid, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_paid_gmt'        => array(
-				'description' => __( 'The date the order was paid, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the order was paid, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_completed'       => array(
-				'description' => __( "The date the order was completed, in the site's timezone.", 'woocommerce' ),
+				'description' => __( "The date the order was completed, in the site's timezone.", 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'date_completed_gmt'   => array(
-				'description' => __( 'The date the order was completed, as GMT.', 'woocommerce' ),
+				'description' => __( 'The date the order was completed, as GMT.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'date-time',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'cart_hash'            => array(
-				'description' => __( 'MD5 hash of cart items to ensure orders are not modified.', 'woocommerce' ),
+				'description' => __( 'MD5 hash of cart items to ensure orders are not modified.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'meta_data'            => array(
-				'description' => __( 'Meta data.', 'woocommerce' ),
+				'description' => __( 'Meta data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'items'       => array(
 					'type'       => 'object',
 					'properties' => array(
 						'id'    => array(
-							'description' => __( 'Meta ID.', 'woocommerce' ),
+							'description' => __( 'Meta ID.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 							'readonly'    => true,
 						),
 						'key'   => array(
-							'description' => __( 'Meta key.', 'woocommerce' ),
+							'description' => __( 'Meta key.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						),
 						'value' => array(
-							'description' => __( 'Meta value.', 'woocommerce' ),
+							'description' => __( 'Meta value.', 'poocommerce' ),
 							'type'        => array( 'null', 'object', 'string', 'number', 'boolean', 'integer', 'array' ),
 							'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 						),
@@ -461,7 +461,7 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'line_items'           => array(
-				'description' => __( 'A list of line items (products) within this order.', 'woocommerce' ),
+				'description' => __( 'A list of line items (products) within this order.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'items'       => array(
@@ -470,7 +470,7 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'tax_lines'            => array(
-				'description' => __( 'Tax lines data.', 'woocommerce' ),
+				'description' => __( 'Tax lines data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -480,7 +480,7 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'shipping_lines'       => array(
-				'description' => __( 'Shipping lines data.', 'woocommerce' ),
+				'description' => __( 'Shipping lines data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'items'       => array(
@@ -489,7 +489,7 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'fee_lines'            => array(
-				'description' => __( 'Fee lines data.', 'woocommerce' ),
+				'description' => __( 'Fee lines data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'items'       => array(
@@ -498,7 +498,7 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'coupon_lines'         => array(
-				'description' => __( 'Coupons line data.', 'woocommerce' ),
+				'description' => __( 'Coupons line data.', 'poocommerce' ),
 				'type'        => 'array',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'items'       => array(
@@ -507,31 +507,31 @@ class OrderSchema extends AbstractSchema {
 				),
 			),
 			'payment_url'          => array(
-				'description' => __( 'Order payment URL.', 'woocommerce' ),
+				'description' => __( 'Order payment URL.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'is_editable'          => array(
-				'description' => __( 'Whether an order can be edited.', 'woocommerce' ),
+				'description' => __( 'Whether an order can be edited.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'needs_payment'        => array(
-				'description' => __( 'Whether an order needs payment, based on status and order total.', 'woocommerce' ),
+				'description' => __( 'Whether an order needs payment, based on status and order total.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'needs_processing'     => array(
-				'description' => __( 'Whether an order needs processing before it can be completed.', 'woocommerce' ),
+				'description' => __( 'Whether an order needs processing before it can be completed.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
 			),
 			'fulfillment_status'   => array(
-				'description' => __( 'The fulfillment status of the order.', 'woocommerce' ),
+				'description' => __( 'The fulfillment status of the order.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 				'readonly'    => true,
@@ -553,12 +553,12 @@ class OrderSchema extends AbstractSchema {
 	 */
 	private static function add_cogs_related_schema( array $schema ): array {
 		$schema['cost_of_goods_sold'] = array(
-			'description' => __( 'Cost of Goods Sold data.', 'woocommerce' ),
+			'description' => __( 'Cost of Goods Sold data.', 'poocommerce' ),
 			'type'        => 'object',
 			'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
 			'properties'  => array(
 				'total_value' => array(
-					'description' => __( 'Total value of the Cost of Goods Sold for the order.', 'woocommerce' ),
+					'description' => __( 'Total value of the Cost of Goods Sold for the order.', 'poocommerce' ),
 					'type'        => 'number',
 					'readonly'    => true,
 					'context'     => self::VIEW_EDIT_EMBED_CONTEXT,
@@ -587,7 +587,7 @@ class OrderSchema extends AbstractSchema {
 			'version'              => $order->get_version(),
 			'status'               => OrderUtil::remove_status_prefix( $order->get_status() ),
 			'currency'             => $order->get_currency(),
-			'currency_symbol'      => html_entity_decode( get_woocommerce_currency_symbol( $order->get_currency() ), ENT_QUOTES ),
+			'currency_symbol'      => html_entity_decode( get_poocommerce_currency_symbol( $order->get_currency() ), ENT_QUOTES ),
 			'date_created'         => wc_rest_prepare_date_response( $order->get_date_created(), false ),
 			'date_created_gmt'     => wc_rest_prepare_date_response( $order->get_date_created() ),
 			'date_modified'        => wc_rest_prepare_date_response( $order->get_date_modified(), false ),

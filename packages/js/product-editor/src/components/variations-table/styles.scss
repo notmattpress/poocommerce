@@ -9,7 +9,7 @@
 @import "./variation-stock-status-form/styles.scss";
 @import "./variation-pricing-form/styles.scss";
 
-.woocommerce-product-variations {
+.poocommerce-product-variations {
 	display: flex;
 	flex-direction: column;
 	position: relative;
@@ -21,11 +21,11 @@
 
 	&__table {
 		&-header {
-			.woocommerce-product-variations__table-row {
+			.poocommerce-product-variations__table-row {
 				min-height: auto;
 			}
 
-			.woocommerce-product-variations__table-rowheader {
+			.poocommerce-product-variations__table-rowheader {
 				text-transform: uppercase;
 				color: $gray-700;
 				font-weight: 500;
@@ -36,7 +36,7 @@
 		}
 
 		&-body {
-			.woocommerce-product-variations__table-row {
+			.poocommerce-product-variations__table-row {
 				&:not(:last-child) {
 					border-bottom: 1px solid $gray-200;
 				}
@@ -59,7 +59,7 @@
 			padding: $grid-unit + $grid-unit-05 0;
 		}
 
-		.woocommerce-sortable__handle {
+		.poocommerce-sortable__handle {
 			display: none;
 		}
 
@@ -93,7 +93,7 @@
 		display: flex;
 		align-items: center;
 
-		.woocommerce-tooltip {
+		.poocommerce-tooltip {
 			position: absolute;
 			left: -$grid-unit-40;
 
@@ -106,7 +106,7 @@
 			}
 		}
 
-		.woocommerce-tooltip__text .components-popover__content {
+		.poocommerce-tooltip__text .components-popover__content {
 			width: max-content;
 		}
 	}

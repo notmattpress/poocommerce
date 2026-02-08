@@ -2,15 +2,15 @@
  * External dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Link } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Link } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 import {
 	createElement,
 	Fragment,
 	createInterpolateElement,
 } from '@wordpress/element';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { useInstanceId } from '@wordpress/compose';
 import {
 	BaseControl,
@@ -18,7 +18,7 @@ import {
 } from '@wordpress/components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -54,7 +54,7 @@ export function Edit( {
 				return {
 					message: __(
 						'This field must be a positive number.',
-						'woocommerce'
+						'poocommerce'
 					),
 				};
 			}
@@ -71,14 +71,14 @@ export function Edit( {
 							id={ id }
 							label={ __(
 								'Email me when stock reaches',
-								'woocommerce'
+								'poocommerce'
 							) }
 							help={
 								lowStockAmountValidationError ||
 								createInterpolateElement(
 									__(
 										'Make sure to enable notifications in <link>store settings.</link>',
-										'woocommerce'
+										'poocommerce'
 									),
 									{
 										link: (
@@ -103,7 +103,7 @@ export function Edit( {
 								name={ 'low_stock_amount' }
 								placeholder={ sprintf(
 									// translators: Default quantity to notify merchants of low stock.
-									__( '%d (store default)', 'woocommerce' ),
+									__( '%d (store default)', 'poocommerce' ),
 									notifyLowStockAmount
 								) }
 								onChange={ ( nextValue ) => {

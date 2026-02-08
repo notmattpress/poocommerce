@@ -2,16 +2,16 @@
 /**
  * Legacy_Core_Formatter class
  *
- * @package  WooCommerce
+ * @package  PooCommerce
  */
 
-namespace Automattic\WooCommerce\MonorepoTools\Changelogger;
+namespace Automattic\PooCommerce\MonorepoTools\Changelogger;
 
 use Automattic\Jetpack\Changelog\Changelog;
 use Automattic\Jetpack\Changelogger\FormatterPlugin;
 
 /**
- * Jetpack Changelogger Formatter for WooCommerce plugins
+ * Jetpack Changelogger Formatter for PooCommerce plugins
  */
 
 require_once 'class-formatter.php';
@@ -44,8 +44,8 @@ class Legacy_Core_Formatter extends Formatter implements FormatterPlugin {
 	 * @return array
 	 */
 	private function getSubheadingTypeMapping() {
-		$woocommerce_path = dirname( dirname( __DIR__ ) ) . '/plugins/woocommerce';
-		$composer_file    = $woocommerce_path . '/composer.json';
+		$poocommerce_path = dirname( dirname( __DIR__ ) ) . '/plugins/poocommerce';
+		$composer_file    = $poocommerce_path . '/composer.json';
 		// phpcs:disable WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$composer_config = json_decode( file_get_contents( $composer_file ), true );
 		return array_flip( $composer_config['extra']['changelogger']['types'] );
@@ -70,7 +70,7 @@ class Legacy_Core_Formatter extends Formatter implements FormatterPlugin {
 			}
 
 			$ret .= "= $version YYYY-mm-dd =\n\n";
-			$ret .= "**WooCommerce**\n\n";
+			$ret .= "**PooCommerce**\n\n";
 
 			foreach ( $entry->getChangesBySubheading() as $heading => $changes ) {
 				foreach ( $changes as $change ) {

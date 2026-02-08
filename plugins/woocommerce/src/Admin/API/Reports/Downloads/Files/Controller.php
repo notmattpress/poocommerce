@@ -5,7 +5,7 @@
  * Handles requests to the /reports/downloads/files endpoint.
  */
 
-namespace Automattic\WooCommerce\Admin\API\Reports\Downloads\Files;
+namespace Automattic\PooCommerce\Admin\API\Reports\Downloads\Files;
 
 defined( 'ABSPATH' ) || exit;
 

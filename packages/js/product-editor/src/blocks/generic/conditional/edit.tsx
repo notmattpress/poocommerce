@@ -6,12 +6,12 @@ import { useSelect } from '@wordpress/data';
 import deprecated from '@wordpress/deprecated';
 import { createElement } from '@wordpress/element';
 import { InnerBlocks } from '@wordpress/block-editor';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { DisplayState } from '@woocommerce/components';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { DisplayState } from '@poocommerce/components';
+import { Product } from '@poocommerce/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityId } from '@wordpress/core-data';
 
 /**
@@ -27,7 +27,7 @@ export function Edit( {
 	attributes,
 	context,
 }: ProductEditorBlockEditProps< ConditionalBlockAttributes > ) {
-	deprecated( '`woocommerce/conditional` block', {
+	deprecated( '`poocommerce/conditional` block', {
 		alternative: '`hideConditions` attribute on any block',
 	} );
 

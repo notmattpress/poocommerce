@@ -18,7 +18,7 @@ export default function FulfillmentStatusBadge( {
 
 	return (
 		<div
-			className={ `woocommerce-fulfillment-status-badge woocommerce-fulfillment-status-badge__${ fulfillment.status }` }
+			className={ `poocommerce-fulfillment-status-badge poocommerce-fulfillment-status-badge__${ fulfillment.status }` }
 			style={ {
 				backgroundColor: fulfillmentStatus.background_color,
 				color: fulfillmentStatus.text_color,

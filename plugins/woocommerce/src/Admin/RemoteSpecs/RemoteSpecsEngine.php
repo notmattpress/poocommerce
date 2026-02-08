@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\RemoteSpecs;
+namespace Automattic\PooCommerce\Admin\RemoteSpecs;
 
 /**
  * RemoteSpecsEngine class.

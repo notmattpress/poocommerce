@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
 
 /**
  * FulfillmentUtilsTest class.
@@ -13,8 +13,8 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 	}
@@ -23,7 +23,7 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 * Tear down the test environment.
 	 */
 	public static function tearDownAfterClass(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'no' );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'no' );
 		parent::tearDownAfterClass();
 	}
 
@@ -32,9 +32,9 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_order_fulfillment_statuses_extension() {
 		add_filter(
-			'woocommerce_fulfillment_order_fulfillment_statuses',
+			'poocommerce_fulfillment_order_fulfillment_statuses',
 			function ( $statuses ) {
-				$statuses['custom_status'] = __( 'Custom Status', 'woocommerce' );
+				$statuses['custom_status'] = __( 'Custom Status', 'poocommerce' );
 				return $statuses;
 			}
 		);
@@ -55,10 +55,10 @@ class FulfillmentUtilsTest extends \WC_Unit_Test_Case {
 	 */
 	public function test_get_fulfillment_statuses() {
 		add_filter(
-			'woocommerce_fulfillment_fulfillment_statuses',
+			'poocommerce_fulfillment_fulfillment_statuses',
 			function ( $statuses ) {
 				$statuses['custom_status'] = array(
-					'label'            => __( 'Custom Status', 'woocommerce' ),
+					'label'            => __( 'Custom Status', 'poocommerce' ),
 					'is_fulfilled'     => false,
 					'background_color' => '#f0f0f0',
 					'text_color'       => '#000000',

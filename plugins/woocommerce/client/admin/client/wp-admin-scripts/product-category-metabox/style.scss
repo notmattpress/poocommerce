@@ -2,9 +2,9 @@
 	&__tree-control {
 		margin-top: $gap-smaller;
 
-		.woocommerce-tree-select-control {
+		.poocommerce-tree-select-control {
 			.components-base-control,
-			.woocommerce-tree-select-control__tree {
+			.poocommerce-tree-select-control__tree {
 				padding: 0 5px;
 			}
 
@@ -15,8 +15,8 @@
 			&__tags {
 				display: none;
 			}
-			.components-base-control .woocommerce-tree-select-control__control-input,
-			.woocommerce-tree-select-control__option {
+			.components-base-control .poocommerce-tree-select-control__control-input,
+			.poocommerce-tree-select-control__option {
 				font-size: 12px;
 			}
 			.components-checkbox-control__input {
@@ -49,11 +49,11 @@
 			}
 		}
 	}
-	.woocommerce-experimental-select-control__combo-box-wrapper {
+	.poocommerce-experimental-select-control__combo-box-wrapper {
 		min-height: 30px;
 		border-radius: $gap-smallest;
 	}
-	.woocommerce-experimental-select-control__menu-item {
+	.poocommerce-experimental-select-control__menu-item {
 		padding: 5px $gap-small;
 	}
 	.category-add {

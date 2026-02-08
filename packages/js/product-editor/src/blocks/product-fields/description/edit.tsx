@@ -10,7 +10,7 @@ import {
 import { BlockInstance, parse, serialize } from '@wordpress/blocks';
 import { useSelect } from '@wordpress/data';
 import clsx from 'clsx';
-import { useWooBlockProps } from '@woocommerce/block-templates';
+import { useWooBlockProps } from '@poocommerce/block-templates';
 import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import {
@@ -126,7 +126,7 @@ export function DescriptionBlockEdit( {
 		{},
 		{
 			templateLock: 'contentOnly',
-			allowedBlocks: [ 'woocommerce/product-summary-field' ],
+			allowedBlocks: [ 'poocommerce/product-summary-field' ],
 		}
 	);
 
@@ -136,7 +136,7 @@ export function DescriptionBlockEdit( {
 				<>
 					<BlockControls>
 						<FullEditorToolbarButton
-							text={ __( 'Edit in full editor', 'woocommerce' ) }
+							text={ __( 'Edit in full editor', 'poocommerce' ) }
 						/>
 					</BlockControls>
 

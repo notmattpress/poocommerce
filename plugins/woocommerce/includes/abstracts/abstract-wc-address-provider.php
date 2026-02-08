@@ -6,13 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WooCommerce Address Provider Class.
+ * PooCommerce Address Provider Class.
  *
  * Extended by address providers to handle address provision, for autocomplete, maps, etc.
  *
  * @class       WC_Address_Provider
  * @version     9.9.0
- * @package     WooCommerce\Abstracts
+ * @package     PooCommerce\Abstracts
  */
 abstract class WC_Address_Provider {
 

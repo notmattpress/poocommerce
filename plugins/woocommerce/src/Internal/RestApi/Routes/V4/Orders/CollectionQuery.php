@@ -2,24 +2,24 @@
 /**
  * CollectionQuery class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  * @internal This file is for internal use only and should not be used by external code.
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders;
 
 defined( 'ABSPATH' ) || exit;
 
 use WP_REST_Request;
 use WP_Http;
 use WP_Error;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractCollectionQuery;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Utilities\OrderUtil;
 use WC_Order_Query;
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
 
 /**
  * CollectionQuery class.
@@ -35,7 +35,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 	public function get_query_schema(): array {
 		return array(
 			'page'               => array(
-				'description'       => __( 'Current page of the collection.', 'woocommerce' ),
+				'description'       => __( 'Current page of the collection.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => 1,
 				'sanitize_callback' => 'absint',
@@ -43,7 +43,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'minimum'           => 1,
 			),
 			'per_page'           => array(
-				'description'       => __( 'Maximum number of items to be returned in result set.', 'woocommerce' ),
+				'description'       => __( 'Maximum number of items to be returned in result set.', 'poocommerce' ),
 				'type'              => 'integer',
 				'default'           => 10,
 				'minimum'           => 1,
@@ -52,14 +52,14 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'order'              => array(
-				'description'       => __( 'Order sort attribute ascending or descending.', 'woocommerce' ),
+				'description'       => __( 'Order sort attribute ascending or descending.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'desc',
 				'enum'              => array( 'asc', 'desc' ),
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'orderby'            => array(
-				'description'       => __( 'Sort collection by object attribute.', 'woocommerce' ),
+				'description'       => __( 'Sort collection by object attribute.', 'poocommerce' ),
 				'type'              => 'string',
 				'default'           => 'date',
 				'enum'              => array(
@@ -74,7 +74,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'created_via'        => array(
-				'description'       => __( 'Limit result set to orders created via specific sources (e.g. checkout, admin).', 'woocommerce' ),
+				'description'       => __( 'Limit result set to orders created via specific sources (e.g. checkout, admin).', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type' => 'string',
@@ -83,20 +83,20 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'sanitize_callback' => 'wp_parse_list',
 			),
 			'customer'           => array(
-				'description'       => __( 'Limit result set to orders assigned a specific customer.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to orders assigned a specific customer.', 'poocommerce' ),
 				'type'              => array( 'string', 'integer' ),
 				'sanitize_callback' => 'sanitize_text_field',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'product'            => array(
-				'description'       => __( 'Limit result set to orders assigned a specific product.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to orders assigned a specific product.', 'poocommerce' ),
 				'type'              => 'integer',
 				'sanitize_callback' => 'absint',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'status'             => array(
 				'default'           => 'any',
-				'description'       => __( 'Limit result set to orders which have specific statuses.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to orders which have specific statuses.', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type' => 'string',
@@ -105,43 +105,43 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'search'             => array(
-				'description'       => __( 'Limit results to those matching a string.', 'woocommerce' ),
+				'description'       => __( 'Limit results to those matching a string.', 'poocommerce' ),
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'after'              => array(
-				'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'woocommerce' ),
+				'description'       => __( 'Limit response to resources published after a given ISO8601 compliant date.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'date-time',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'before'             => array(
-				'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'woocommerce' ),
+				'description'       => __( 'Limit response to resources published before a given ISO8601 compliant date.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'date-time',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'modified_after'     => array(
-				'description'       => __( 'Limit response to resources modified after a given ISO8601 compliant date.', 'woocommerce' ),
+				'description'       => __( 'Limit response to resources modified after a given ISO8601 compliant date.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'date-time',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'modified_before'    => array(
-				'description'       => __( 'Limit response to resources modified before a given ISO8601 compliant date.', 'woocommerce' ),
+				'description'       => __( 'Limit response to resources modified before a given ISO8601 compliant date.', 'poocommerce' ),
 				'type'              => 'string',
 				'format'            => 'date-time',
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'dates_are_gmt'      => array(
-				'description'       => __( 'Whether to consider GMT post dates when limiting response by published or modified date.', 'woocommerce' ),
+				'description'       => __( 'Whether to consider GMT post dates when limiting response by published or modified date.', 'poocommerce' ),
 				'type'              => 'boolean',
 				'default'           => false,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 			'total'              => array(
-				'description'       => __( 'Limit result set to orders with specific total amounts. For between operators, list two values.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to orders with specific total amounts. For between operators, list two values.', 'poocommerce' ),
 				'type'              => array( 'string', 'array' ),
 				'items'             => array(
 					'type' => 'string',
@@ -149,7 +149,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 				'sanitize_callback' => 'wp_parse_list',
 			),
 			'total_operator'     => array(
-				'description'       => __( 'The comparison operator to use for total filtering.', 'woocommerce' ),
+				'description'       => __( 'The comparison operator to use for total filtering.', 'poocommerce' ),
 				'type'              => 'string',
 				'enum'              => self::OPERATORS,
 				'default'           => self::OPERATOR_IS,
@@ -160,7 +160,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 						$total_field = wp_parse_list( $request->get_param( 'total' ) );
 
 						if ( ! is_array( $total_field ) || count( $total_field ) !== 2 ) {
-							return new WP_Error( 'rest_invalid_param', __( 'Total value must be an array with exactly 2 numbers for between operators.', 'woocommerce' ), array( 'status' => WP_Http::BAD_REQUEST ) );
+							return new WP_Error( 'rest_invalid_param', __( 'Total value must be an array with exactly 2 numbers for between operators.', 'poocommerce' ), array( 'status' => WP_Http::BAD_REQUEST ) );
 						}
 					}
 
@@ -168,7 +168,7 @@ class CollectionQuery extends AbstractCollectionQuery {
 				},
 			),
 			'fulfillment_status' => array(
-				'description'       => __( 'Limit result set to orders with specific fulfillment statuses.', 'woocommerce' ),
+				'description'       => __( 'Limit result set to orders with specific fulfillment statuses.', 'poocommerce' ),
 				'type'              => 'array',
 				'items'             => array(
 					'type' => 'string',
@@ -245,8 +245,8 @@ class CollectionQuery extends AbstractCollectionQuery {
 			$order_ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT order_id FROM %i WHERE order_item_id IN ( SELECT order_item_id FROM %i WHERE meta_key = '_product_id' AND meta_value = %d ) AND order_item_type = 'line_item'",
-					$wpdb->prefix . 'woocommerce_order_items',
-					$wpdb->prefix . 'woocommerce_order_itemmeta',
+					$wpdb->prefix . 'poocommerce_order_items',
+					$wpdb->prefix . 'poocommerce_order_itemmeta',
 					$request['product']
 				)
 			);

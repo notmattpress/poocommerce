@@ -42,7 +42,7 @@ export const Inspector = ( {
 	if ( displayStyleOptions.length === 0 ) {
 		displayStyleOptions = getBlockTypes().filter( ( blockType ) =>
 			blockType.ancestor?.includes(
-				'woocommerce/product-filter-attribute'
+				'poocommerce/product-filter-attribute'
 			)
 		);
 	}
@@ -51,7 +51,7 @@ export const Inspector = ( {
 		<>
 			<InspectorControls key="inspector">
 				<ToolsPanel
-					label={ __( 'Display Settings', 'woocommerce' ) }
+					label={ __( 'Display Settings', 'poocommerce' ) }
 					resetAll={ () => {
 						setAttributes( {
 							sortOrder: DEFAULT_SORT_ORDER,
@@ -68,7 +68,7 @@ export const Inspector = ( {
 					} }
 				>
 					<ToolsPanelItem
-						label={ __( 'Sort Order', 'woocommerce' ) }
+						label={ __( 'Sort Order', 'poocommerce' ) }
 						hasValue={ () => sortOrder !== DEFAULT_SORT_ORDER }
 						onDeselect={ () =>
 							setAttributes( {
@@ -77,14 +77,14 @@ export const Inspector = ( {
 						}
 					>
 						<SelectControl
-							label={ __( 'Sort order', 'woocommerce' ) }
+							label={ __( 'Sort order', 'poocommerce' ) }
 							value={ sortOrder }
 							options={ [
 								{
 									value: '',
 									label: __(
 										'Select an option',
-										'woocommerce'
+										'poocommerce'
 									),
 									disabled: true,
 								},
@@ -103,13 +103,13 @@ export const Inspector = ( {
 							} }
 							help={ __(
 								'Determine the order of filter options.',
-								'woocommerce'
+								'poocommerce'
 							) }
 							__nextHasNoMarginBottom
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Logic', 'woocommerce' ) }
+						label={ __( 'Logic', 'poocommerce' ) }
 						hasValue={ () => queryType !== DEFAULT_QUERY_TYPE }
 						onDeselect={ () =>
 							setAttributes( {
@@ -118,7 +118,7 @@ export const Inspector = ( {
 						}
 					>
 						<ToggleGroupControl
-							label={ __( 'Logic', 'woocommerce' ) }
+							label={ __( 'Logic', 'poocommerce' ) }
 							isBlock
 							value={ queryType }
 							onChange={ ( value ) => {
@@ -134,7 +134,7 @@ export const Inspector = ( {
 									? createInterpolateElement(
 											__(
 												'Display products that match <b>all</b> selected attributes (they need to include <b>all of them</b>).',
-												'woocommerce'
+												'poocommerce'
 											),
 											{
 												b: <strong />,
@@ -142,22 +142,22 @@ export const Inspector = ( {
 									  )
 									: __(
 											"Display products that match any of the selected attributes (they don't need to match all).",
-											'woocommerce'
+											'poocommerce'
 									  )
 							}
 						>
 							<ToggleGroupControlOption
-								label={ __( 'Any', 'woocommerce' ) }
+								label={ __( 'Any', 'poocommerce' ) }
 								value="or"
 							/>
 							<ToggleGroupControlOption
-								label={ __( 'All', 'woocommerce' ) }
+								label={ __( 'All', 'poocommerce' ) }
 								value="and"
 							/>
 						</ToggleGroupControl>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Display Style', 'woocommerce' ) }
+						label={ __( 'Display Style', 'poocommerce' ) }
 						hasValue={ () =>
 							displayStyle !==
 							metadata.attributes.displayStyle.default
@@ -183,7 +183,7 @@ export const Inspector = ( {
 						/>
 					</ToolsPanelItem>
 					<ToolsPanelItem
-						label={ __( 'Product counts', 'woocommerce' ) }
+						label={ __( 'Product counts', 'poocommerce' ) }
 						hasValue={ () =>
 							showCounts !==
 							metadata.attributes.showCounts.default
@@ -197,7 +197,7 @@ export const Inspector = ( {
 						isShownByDefault={ true }
 					>
 						<ToggleControl
-							label={ __( 'Product counts', 'woocommerce' ) }
+							label={ __( 'Product counts', 'poocommerce' ) }
 							checked={ showCounts }
 							onChange={ ( value ) =>
 								setAttributes( { showCounts: value } )
@@ -208,7 +208,7 @@ export const Inspector = ( {
 					<ToolsPanelItem
 						label={ __(
 							'Hide items with no products',
-							'woocommerce'
+							'poocommerce'
 						) }
 						hasValue={ () =>
 							hideEmpty !== metadata.attributes.hideEmpty.default
@@ -223,7 +223,7 @@ export const Inspector = ( {
 						<ToggleControl
 							label={ __(
 								'Hide items with no products',
-								'woocommerce'
+								'poocommerce'
 							) }
 							checked={ hideEmpty }
 							onChange={ ( value ) =>

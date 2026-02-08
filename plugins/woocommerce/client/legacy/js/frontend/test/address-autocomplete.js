@@ -10,7 +10,7 @@ describe( 'Address Autocomplete Provider Registration', () => {
 			wc_address_autocomplete_params: {
 				address_providers: JSON.stringify( [
 					{ id: 'test-provider', name: 'Test provider' },
-					{ id: 'wc-payments', name: 'WooCommerce Payments' },
+					{ id: 'wc-payments', name: 'PooCommerce Payments' },
 					{ id: 'provider-1', name: 'Provider 1' },
 					{ id: 'provider-2', name: 'Provider 2' },
 				] ),
@@ -414,7 +414,7 @@ describe( 'Address Suggestions Component', () => {
 
 		// Create wrapper for billing address
 		const billingWrapper = document.createElement( 'div' );
-		billingWrapper.className = 'woocommerce-input-wrapper';
+		billingWrapper.className = 'poocommerce-input-wrapper';
 		billingWrapper.appendChild( billingAddress1 );
 
 		// Shipping fields
@@ -444,7 +444,7 @@ describe( 'Address Suggestions Component', () => {
 
 		// Create wrapper for shipping address
 		const shippingWrapper = document.createElement( 'div' );
-		shippingWrapper.className = 'woocommerce-input-wrapper';
+		shippingWrapper.className = 'poocommerce-input-wrapper';
 		shippingWrapper.appendChild( shippingAddress1 );
 
 		form.appendChild( billingCountry );
@@ -531,7 +531,7 @@ describe( 'Address Suggestions Component', () => {
 			expect( shippingSuggestions ).toBeTruthy();
 
 			expect( billingSuggestions.className ).toBe(
-				'woocommerce-address-suggestions'
+				'poocommerce-address-suggestions'
 			);
 			expect( billingSuggestions.style.display ).toBe( 'none' );
 			expect( billingSuggestions.getAttribute( 'role' ) ).toBe(
@@ -568,10 +568,10 @@ describe( 'Address Suggestions Component', () => {
 
 		test( 'should add autocomplete-available class when provider is active', () => {
 			const billingWrapper = billingAddressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 			const shippingWrapper = shippingAddressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 
 			expect(
@@ -613,7 +613,7 @@ describe( 'Address Suggestions Component', () => {
 		test( 'should remove autocomplete-available class when no provider is active', () => {
 			const billingCountry = document.getElementById( 'billing_country' );
 			const billingWrapper = billingAddressInput.closest(
-				'.woocommerce-input-wrapper'
+				'.poocommerce-input-wrapper'
 			);
 
 			billingCountry.value = 'FR';
@@ -1363,7 +1363,7 @@ describe( 'Address Suggestions Component', () => {
 				'address_suggestions_billing'
 			);
 			const brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 
 			expect( brandingElement ).toBeTruthy();
@@ -1383,7 +1383,7 @@ describe( 'Address Suggestions Component', () => {
 				'address_suggestions_billing'
 			);
 			let brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 			expect( brandingElement.innerHTML ).toBe(
 				'<div class="provider-branding">Powered by Test Provider</div>'
@@ -1396,7 +1396,7 @@ describe( 'Address Suggestions Component', () => {
 			await new Promise( ( resolve ) => setTimeout( resolve, 150 ) );
 
 			brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 			// Element should still exist but be hidden
 			expect( brandingElement ).toBeTruthy();
@@ -1432,7 +1432,7 @@ describe( 'Address Suggestions Component', () => {
 				'address_suggestions_billing'
 			);
 			const brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 
 			// Branding element should not be created when there's no branding_html
@@ -1450,7 +1450,7 @@ describe( 'Address Suggestions Component', () => {
 				'address_suggestions_billing'
 			);
 			const firstBrandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 
 			// Clear and search again
@@ -1463,7 +1463,7 @@ describe( 'Address Suggestions Component', () => {
 			await new Promise( ( resolve ) => setTimeout( resolve, 150 ) );
 
 			const secondBrandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 
 			// Should be the same element
@@ -1484,7 +1484,7 @@ describe( 'Address Suggestions Component', () => {
 				'address_suggestions_billing'
 			);
 			let brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 			expect( brandingElement ).toBeTruthy();
 
@@ -1498,7 +1498,7 @@ describe( 'Address Suggestions Component', () => {
 
 			// Branding element should be removed completely
 			brandingElement = suggestionsContainer.querySelector(
-				'.woocommerce-address-autocomplete-branding'
+				'.poocommerce-address-autocomplete-branding'
 			);
 			expect( brandingElement ).toBeFalsy();
 		} );
@@ -1516,7 +1516,7 @@ describe( 'Address Suggestions Component', () => {
 			);
 			const billingBrandingElement =
 				billingSuggestionsContainer.querySelector(
-					'.woocommerce-address-autocomplete-branding'
+					'.poocommerce-address-autocomplete-branding'
 				);
 
 			expect( billingBrandingElement ).toBeTruthy();
@@ -1535,7 +1535,7 @@ describe( 'Address Suggestions Component', () => {
 			);
 			const shippingBrandingElement =
 				shippingSuggestionsContainer.querySelector(
-					'.woocommerce-address-autocomplete-branding'
+					'.poocommerce-address-autocomplete-branding'
 				);
 
 			expect( shippingBrandingElement ).toBeTruthy();
@@ -1556,7 +1556,7 @@ describe( 'Address Suggestions Component', () => {
 			);
 			const billingBrandingElement =
 				billingSuggestionsContainer.querySelector(
-					'.woocommerce-address-autocomplete-branding'
+					'.poocommerce-address-autocomplete-branding'
 				);
 
 			expect( billingBrandingElement ).toBeNull();
@@ -1572,7 +1572,7 @@ describe( 'Address Suggestions Component', () => {
 			);
 			const shippingBrandingElement =
 				shippingSuggestionsContainer.querySelector(
-					'.woocommerce-address-autocomplete-branding'
+					'.poocommerce-address-autocomplete-branding'
 				);
 
 			expect( shippingBrandingElement ).toBeNull();

@@ -5,7 +5,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import {
 	CustomerEffortScoreModalContainer,
 	useCustomerEffortScoreModal,
-} from '@woocommerce/customer-effort-score';
+} from '@poocommerce/customer-effort-score';
 import { Button, TextareaControl, TextControl } from '@wordpress/components';
 import { isEmail } from '@wordpress/url';
 
@@ -38,12 +38,12 @@ interface CesFeedbackButtonProps {
 
 export const CesFeedbackButton = ( {
 	blockName,
-	title = __( 'Share your experience', 'woocommerce' ),
+	title = __( 'Share your experience', 'poocommerce' ),
 	firstQuestion = sprintf(
 		/* translators: %s is the block name. */
 		__(
 			'It was easy for me to accomplish what I wanted with the %s.',
-			'woocommerce'
+			'poocommerce'
 		),
 		blockName
 	),
@@ -51,21 +51,21 @@ export const CesFeedbackButton = ( {
 		/* translators: %s is the block name. */
 		__(
 			'How can we improve the %s block for you? (Optional)',
-			'woocommerce'
+			'poocommerce'
 		),
 		blockName
 	),
 	feedbackPlaceholder = __(
 		"What did you try to build using this block? What did and didn't work?",
-		'woocommerce'
+		'poocommerce'
 	),
-	emailLabel = __( 'Email address (Optional)', 'woocommerce' ),
+	emailLabel = __( 'Email address (Optional)', 'poocommerce' ),
 	emailHelp = __(
 		'Share if you would like to discuss your experience or participate in future research.',
-		'woocommerce'
+		'poocommerce'
 	),
-	buttonText = __( 'Help us improve', 'woocommerce' ),
-	submitLabel = __( "🙏🏻 Thanks for sharing — we're on it!", 'woocommerce' ),
+	buttonText = __( 'Help us improve', 'poocommerce' ),
+	submitLabel = __( "🙏🏻 Thanks for sharing — we're on it!", 'poocommerce' ),
 	wrapper: Wrapper,
 	wrapperProps = {},
 }: CesFeedbackButtonProps ) => {
@@ -119,7 +119,7 @@ export const CesFeedbackButton = ( {
 								}
 								help={
 									errors?.email ? (
-										<span className="woocommerce-customer-effort-score__errors">
+										<span className="poocommerce-customer-effort-score__errors">
 											<p>{ errors.email }</p>
 										</span>
 									) : (
@@ -135,7 +135,7 @@ export const CesFeedbackButton = ( {
 					if ( email.length > 0 && ! isEmail( email ) ) {
 						errors.email = __(
 							'Please enter a valid email address.',
-							'woocommerce'
+							'poocommerce'
 						);
 					}
 					return errors;
