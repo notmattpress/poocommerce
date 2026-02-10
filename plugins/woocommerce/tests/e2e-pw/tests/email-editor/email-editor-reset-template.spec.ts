@@ -1,18 +1,25 @@
-const { test, expect } = require( '@playwright/test' );
-const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
-const {
+/**
+ * External dependencies
+ */
+import { test, expect, type Page } from '@playwright/test';
+
+/**
+ * Internal dependencies
+ */
+import { ADMIN_STATE_PATH } from '../../playwright.config';
+import {
 	enableEmailEditor,
 	disableEmailEditor,
 	resetWCTransactionalEmail,
-} = require( './helpers/enable-email-editor-feature' );
-const { accessTheEmailEditor } = require( '../../utils/email' );
+} from './helpers/enable-email-editor-feature';
+import { accessTheEmailEditor } from '../../utils/email';
 
 /**
  * Helper function to switch from email editor to template editing mode.
  *
- * @param {import('@playwright/test').Page} page The Playwright page.
+ * @param page The Playwright page.
  */
-async function switchToTemplateEditingMode( page ) {
+async function switchToTemplateEditingMode( page: Page ) {
 	// Open the Settings panel if not already open
 	const settingsPanel = page.locator(
 		'.woocommerce-email-editor__settings-panel'

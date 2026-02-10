@@ -1,15 +1,26 @@
-const { test, expect, request } = require( '@playwright/test' );
-const { setOption } = require( '../../utils/options' );
-const { getWooEmails } = require( '../../utils/email' );
-const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
+/**
+ * External dependencies
+ */
+import { test, expect, request } from '@playwright/test';
 
-const setFeatureFlag = async ( baseURL, value ) =>
-	await setOption(
+/**
+ * Internal dependencies
+ */
+import { setOption } from '../../utils/options';
+import { getWooEmails } from '../../utils/email';
+import { ADMIN_STATE_PATH } from '../../playwright.config';
+
+const setFeatureFlag = async ( baseURL: string | undefined, value: string ) => {
+	if ( ! baseURL ) {
+		throw new Error( 'baseURL is required' );
+	}
+	return setOption(
 		request,
 		baseURL,
 		'woocommerce_feature_block_email_editor_enabled',
 		value
 	);
+};
 
 /**
  * The purpose of this test is to alert us if the selectors that are used to track telemetry events in the email editor are changed.

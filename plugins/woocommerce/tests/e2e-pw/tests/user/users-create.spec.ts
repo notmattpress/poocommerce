@@ -24,12 +24,16 @@ const users = [
 const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
 	user: async ( { restApi }, use ) => {
-		const user = {};
+		const user: Record< string, string | null > = {};
 		await use( user );
-		console.log( `Deleting user ${ user.id }` );
-		await restApi.delete( `${ WC_API_PATH }/customers/${ user.id }`, {
-			force: true,
-		} );
+		if ( user.id ) {
+			console.log( `Deleting user ${ user.id }` );
+			await restApi.delete( `${ WC_API_PATH }/customers/${ user.id }`, {
+				force: true,
+			} );
+		} else {
+			console.log( 'Skipping user deletion because user.id is missing' );
+		}
 	},
 } );
 
