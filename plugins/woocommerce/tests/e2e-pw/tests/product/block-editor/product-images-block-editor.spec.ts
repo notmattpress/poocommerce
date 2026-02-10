@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { WC_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import type { Page } from '@playwright/test';
 
 /**
  * Internal dependencies
@@ -12,8 +13,8 @@ import { skipTestsForDeprecatedFeature } from './helpers/skip-tests';
 
 skipTestsForDeprecatedFeature();
 
-async function selectImagesInLibrary( page, imagesNames ) {
-	const dataIds = [];
+async function selectImagesInLibrary( page: Page, imagesNames: string[] ) {
+	const dataIds: string[] = [];
 
 	await page.getByRole( 'tab', { name: 'Media Library' } ).click();
 
@@ -26,7 +27,9 @@ async function selectImagesInLibrary( page, imagesNames ) {
 		await imageLocator.click();
 		await expect( imageLocator ).toBeChecked();
 		const dataId = await imageLocator.getAttribute( 'data-id' );
-		dataIds.push( dataId );
+		if ( dataId !== null ) {
+			dataIds.push( dataId );
+		}
 	}
 
 	await page.getByRole( 'button', { name: 'Select', exact: true } ).click();
