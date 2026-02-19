@@ -1,9 +1,29 @@
-const api = require( './api' );
+/**
+ * External dependencies
+ */
+import type { Browser } from '@playwright/test';
+
+/**
+ * Internal dependencies
+ */
+import * as api from './api';
+
+export interface ProductAttribute {
+	name: string;
+	visible: boolean;
+	variation: boolean;
+	options: string[];
+}
+
+export interface Variation {
+	regular_price: string;
+	attributes: { name: string; option: string }[];
+}
 
 /**
  * Array to hold all product ID's to be deleted after test.
  */
-const productIds = [];
+const productIds: number[] = [];
 
 /**
  * The `attributes` property to be used in the request payload for creating a variable product through the REST API.
@@ -94,9 +114,9 @@ const sampleVariations = [
  * Create a variable product using the WooCommerce REST API.
  *
  * @param {{ name: string, visible: boolean, variation: boolean, options: string[] }[]} attributes List of attributes. See [Product - Attributes properties](https://woocommerce.github.io/woocommerce-rest-api-docs/#product-attributes-properties).
- * @returns {Promise<number>} ID of the created variable product
+ * @return {Promise<number>} ID of the created variable product
  */
-async function createVariableProduct( attributes = [] ) {
+async function createVariableProduct( attributes: ProductAttribute[] = [] ) {
 	const randomNum = Math.floor( Math.random() * 1000 );
 	const payload = {
 		name: `Unbranded Granite Shirt ${ randomNum }`,
@@ -122,9 +142,9 @@ async function deleteProductsAddedByTests() {
  * Enable or disable the variable product tour through JavaScript.
  *
  * @param {import('@playwright/test').Browser} browser
- * @param {boolean} show Whether to show the variable product tour or not.
+ * @param {boolean}                            show    Whether to show the variable product tour or not.
  */
-async function showVariableProductTour( browser, show ) {
+async function showVariableProductTour( browser: Browser, show: boolean ) {
 	const productPageURL = 'wp-admin/post-new.php?post_type=product';
 	const addProductPage = await browser.newPage();
 
@@ -146,6 +166,7 @@ async function showVariableProductTour( browser, show ) {
 
 	// Save the updated user preferences
 	await addProductPage.evaluate(
+		// eslint-disable-next-line @typescript-eslint/no-shadow
 		async ( { userId, updatedWooCommerceMeta } ) => {
 			await window.wp.data.dispatch( 'core' ).saveUser( {
 				id: userId,
@@ -163,19 +184,22 @@ async function showVariableProductTour( browser, show ) {
  * Generate all possible variations from the given attributes.
  *
  * @param {{ name: string, visible: boolean, variation: boolean, options: string[] }[]} attributes
- * @returns All possible variations from the given attributes
+ * @return All possible variations from the given attributes
  */
-function generateVariationsFromAttributes( attributes ) {
-	const combine = ( runningList, nextAttribute ) => {
-		const variations = [];
-		let newVar;
+function generateVariationsFromAttributes( attributes: ProductAttribute[] ) {
+	const combine = (
+		runningList: string[] | string[][],
+		nextAttribute: string[]
+	): string[][] => {
+		const variations: string[][] = [];
+		let newVar: string[];
 
-		if ( ! Array.isArray( runningList[ 0 ] ) ) {
-			runningList = [ runningList ];
-		}
+		const normalized: string[][] = Array.isArray( runningList[ 0 ] )
+			? ( runningList as string[][] )
+			: [ runningList as string[] ];
 
-		for ( const partialVariation of runningList ) {
-			if ( runningList.length === 1 ) {
+		for ( const partialVariation of normalized ) {
+			if ( normalized.length === 1 ) {
 				for ( const startingAttribute of partialVariation ) {
 					for ( const nextAttrValue of nextAttribute ) {
 						newVar = [ startingAttribute, nextAttrValue ];
@@ -193,7 +217,7 @@ function generateVariationsFromAttributes( attributes ) {
 		return variations;
 	};
 
-	let allVariations = attributes[ 0 ].options;
+	let allVariations: string[] | string[][] = attributes[ 0 ].options;
 
 	for ( let i = 1; i < attributes.length; i++ ) {
 		const nextAttribute = attributes[ i ].options;
@@ -207,15 +231,15 @@ function generateVariationsFromAttributes( attributes ) {
 /**
  * Create variations through the WooCommerce REST API.
  *
- * @param {number} productId Product ID to add variations to.
+ * @param {number}                                                                  productId  Product ID to add variations to.
  * @param {{regular_price: string, attributes: {name: string, option: string}[]}[]} variations List of variations to create.
- * @returns {Promise<number[]>} Array of variation ID's created.
+ * @return {Promise<number[]>} Array of variation ID's created.
  */
-async function createVariations( productId, variations ) {
+async function createVariations( productId: number, variations: Variation[] ) {
 	return await api.create.productVariations( productId, variations );
 }
 
-module.exports = {
+export {
 	createVariableProduct,
 	deleteProductsAddedByTests,
 	generateVariationsFromAttributes,

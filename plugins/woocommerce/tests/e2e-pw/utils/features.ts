@@ -1,7 +1,20 @@
-const { encodeCredentials } = require( './plugin-utils' );
-const { admin } = require( '../test-data/data' );
+/**
+ * External dependencies
+ */
+import type { APIRequest } from '@playwright/test';
 
-const setFeatureFlag = async ( request, baseURL, flagName, enable ) => {
+/**
+ * Internal dependencies
+ */
+import { encodeCredentials } from './plugin-utils';
+import { admin } from '../test-data/data';
+
+const setFeatureFlag = async (
+	request: APIRequest,
+	baseURL: string,
+	flagName: string,
+	enable: boolean
+) => {
 	const apiContext = await request.newContext( {
 		baseURL,
 		extraHTTPHeaders: {
@@ -19,7 +32,7 @@ const setFeatureFlag = async ( request, baseURL, flagName, enable ) => {
 	} );
 };
 
-const resetFeatureFlags = async ( request, baseURL ) => {
+const resetFeatureFlags = async ( request: APIRequest, baseURL: string ) => {
 	const apiContext = await request.newContext( {
 		baseURL,
 		extraHTTPHeaders: {
@@ -36,7 +49,4 @@ const resetFeatureFlags = async ( request, baseURL ) => {
 	} );
 };
 
-module.exports = {
-	setFeatureFlag,
-	resetFeatureFlags,
-};
+export { setFeatureFlag, resetFeatureFlags };
