@@ -1,5 +1,5 @@
-.components-modal__frame.woocommerce-add-products-modal,
-.components-modal__frame.woocommerce-reorder-products-modal {
+.components-modal__frame.poocommerce-add-products-modal,
+.components-modal__frame.poocommerce-reorder-products-modal {
 	@include breakpoint(">600px") {
 		width: calc(100% - 32px);
 	}
@@ -12,8 +12,8 @@
 		}
 	}
 }
-.woocommerce-add-products-modal,
-.woocommerce-reorder-products-modal {
+.poocommerce-add-products-modal,
+.poocommerce-reorder-products-modal {
 	&__input-suffix {
 		margin-right: $grid-unit-15;
 	}

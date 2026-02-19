@@ -52,9 +52,9 @@ type ReviewTemplateAttributes = {
 
 const TEMPLATE = [
 	[ 'core/avatar' ],
-	[ 'woocommerce/product-review-author-name' ],
-	[ 'woocommerce/product-review-date' ],
-	[ 'woocommerce/product-review-content' ],
+	[ 'poocommerce/product-review-author-name' ],
+	[ 'poocommerce/product-review-date' ],
+	[ 'poocommerce/product-review-content' ],
 ];
 
 interface ReviewSettings {
@@ -255,7 +255,7 @@ export default function ReviewTemplateEdit( {
 	if ( ! commentTree.length ) {
 		return (
 			<p { ...blockProps }>
-				{ __( 'No results found.', 'woocommerce' ) }
+				{ __( 'No results found.', 'poocommerce' ) }
 			</p>
 		);
 	}

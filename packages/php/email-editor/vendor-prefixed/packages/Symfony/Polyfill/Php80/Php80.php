@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Polyfill\Php80;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Polyfill\Php80;
 
 /**
  * @author Ion Bazan <ion.bazan@gmail.com>

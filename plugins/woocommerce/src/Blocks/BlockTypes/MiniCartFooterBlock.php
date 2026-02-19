@@ -1,7 +1,7 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\Features;
 
 /**
  * MiniCartFooterBlock class.
@@ -41,15 +41,15 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 		ob_start();
 
 		$cart                             = $this->get_cart_instance();
-		$subtotal_label                   = __( 'Subtotal', 'woocommerce' );
+		$subtotal_label                   = __( 'Subtotal', 'poocommerce' );
 		$other_costs_label                = $this->get_totals_item_description();
-		$display_cart_price_including_tax = get_option( 'woocommerce_tax_display_cart' ) === 'incl';
+		$display_cart_price_including_tax = get_option( 'poocommerce_tax_display_cart' ) === 'incl';
 		$subtotal                         = $display_cart_price_including_tax ? $cart->get_subtotal_tax() : $cart->get_subtotal();
 		$formatted_subtotal               = '';
 		$html                             = new \WP_HTML_Tag_Processor( wc_price( $subtotal ) );
 		$wrapper_attributes               = get_block_wrapper_attributes(
 			array(
-				'data-wp-interactive' => 'woocommerce/mini-cart-footer-block',
+				'data-wp-interactive' => 'poocommerce/mini-cart-footer-block',
 				'class'               => 'wc-block-mini-cart__footer',
 			)
 		);
@@ -75,7 +75,7 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 				<span class="wc-block-components-totals-item__label">
 					<?php echo esc_html( $subtotal_label ); ?>
 				</span>
-				<span data-wp-text="woocommerce/mini-cart::state.formattedSubtotal" class="wc-block-formatted-money-amount wc-block-components-formatted-money-amount wc-block-components-totals-item__value">
+				<span data-wp-text="poocommerce/mini-cart::state.formattedSubtotal" class="wc-block-formatted-money-amount wc-block-components-formatted-money-amount wc-block-components-totals-item__value">
 				</span>
 				<div class="wc-block-components-totals-item__description">
 					<?php echo esc_html( $other_costs_label ); ?>
@@ -85,7 +85,7 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 				<?php
 				if ( empty( $content ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo do_blocks( '<!-- wp:woocommerce/mini-cart-cart-button-block /--><!-- wp:woocommerce/mini-cart-checkout-button-block /-->' );
+					echo do_blocks( '<!-- wp:poocommerce/mini-cart-cart-button-block /--><!-- wp:poocommerce/mini-cart-checkout-button-block /-->' );
 				} else {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo $content;
@@ -126,7 +126,7 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 		if ( $taxes_enabled && $shipping_enabled && $coupons_enabled ) {
 			return __(
 				'Shipping, taxes, and discounts calculated at checkout.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -134,7 +134,7 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 		if ( $shipping_enabled && $taxes_enabled ) {
 			return __(
 				'Shipping and taxes calculated at checkout.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -142,7 +142,7 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 		if ( $shipping_enabled && $coupons_enabled ) {
 			return __(
 				'Shipping and discounts calculated at checkout.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
@@ -150,23 +150,23 @@ class MiniCartFooterBlock extends AbstractInnerBlock {
 		if ( $taxes_enabled && $coupons_enabled ) {
 			return __(
 				'Taxes and discounts calculated at checkout.',
-				'woocommerce'
+				'poocommerce'
 			);
 		}
 
 		// Only shipping.
 		if ( $shipping_enabled ) {
-			return __( 'Shipping calculated at checkout.', 'woocommerce' );
+			return __( 'Shipping calculated at checkout.', 'poocommerce' );
 		}
 
 		// Only taxes.
 		if ( $taxes_enabled ) {
-			return __( 'Taxes calculated at checkout.', 'woocommerce' );
+			return __( 'Taxes calculated at checkout.', 'poocommerce' );
 		}
 
 		// Only discounts.
 		if ( $coupons_enabled ) {
-			return __( 'Discounts calculated at checkout.', 'woocommerce' );
+			return __( 'Discounts calculated at checkout.', 'poocommerce' );
 		}
 
 		// None enabled.

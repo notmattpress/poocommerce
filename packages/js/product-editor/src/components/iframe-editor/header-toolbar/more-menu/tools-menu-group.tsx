@@ -13,7 +13,7 @@ import { HelpMenuItem } from './help-menu-item';
 
 export const ToolsMenuGroup = () => {
 	return (
-		<MenuGroup label={ __( 'Tools', 'woocommerce' ) }>
+		<MenuGroup label={ __( 'Tools', 'poocommerce' ) }>
 			<CopyAllContentMenuItem />
 			<HelpMenuItem />
 		</MenuGroup>

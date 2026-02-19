@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { TemplateDetails } from './types';
 
-export const BLOCK_SLUG = 'woocommerce/legacy-template';
+export const BLOCK_SLUG = 'poocommerce/legacy-template';
 export const TYPES = {
 	singleProduct: 'single-product',
 	productCatalog: 'product-catalog',
@@ -27,70 +27,70 @@ export const PLACEHOLDERS = {
 export const TEMPLATES: TemplateDetails = {
 	'single-product': {
 		type: TYPES.singleProduct,
-		title: __( 'Product (Classic)', 'woocommerce' ),
-		description: __( 'Displays the PHP product page.', 'woocommerce' ),
+		title: __( 'Product (Classic)', 'poocommerce' ),
+		description: __( 'Displays the PHP product page.', 'poocommerce' ),
 		placeholder: PLACEHOLDERS.singleProduct,
 	},
 	'archive-product': {
 		type: TYPES.productCatalog,
-		title: __( 'Product Grid (Classic)', 'woocommerce' ),
+		title: __( 'Product Grid (Classic)', 'poocommerce' ),
 		description: __(
 			'Displays the PHP product grid page. ',
-			'woocommerce'
+			'poocommerce'
 		),
 		placeholder: PLACEHOLDERS.archiveProduct,
 	},
 	'taxonomy-product_cat': {
 		type: TYPES.productTaxonomy,
-		title: __( 'Product Category (Classic)', 'woocommerce' ),
+		title: __( 'Product Category (Classic)', 'poocommerce' ),
 		description: __(
 			'Displays the PHP product category page.',
-			'woocommerce'
+			'poocommerce'
 		),
 		placeholder: PLACEHOLDERS.archiveProduct,
 	},
 	'taxonomy-product_tag': {
 		type: TYPES.productTaxonomy,
-		title: __( 'Product Tag (Classic)', 'woocommerce' ),
-		description: __( 'Displays the PHP product tag page.', 'woocommerce' ),
+		title: __( 'Product Tag (Classic)', 'poocommerce' ),
+		description: __( 'Displays the PHP product tag page.', 'poocommerce' ),
 		placeholder: PLACEHOLDERS.archiveProduct,
 	},
 	'taxonomy-product_attribute': {
 		type: TYPES.productTaxonomy,
-		title: __( 'Product Attribute (Classic)', 'woocommerce' ),
+		title: __( 'Product Attribute (Classic)', 'poocommerce' ),
 		description: __(
 			'Displays the PHP product attribute page.',
-			'woocommerce'
+			'poocommerce'
 		),
 		placeholder: PLACEHOLDERS.archiveProduct,
 	},
 	// Since that it is a fallback value, it has to be the last one.
 	'taxonomy-product': {
 		type: TYPES.productTaxonomy,
-		title: __( "Product's Custom Taxonomy (Classic)", 'woocommerce' ),
+		title: __( "Product's Custom Taxonomy (Classic)", 'poocommerce' ),
 		description: __(
 			"Displays the PHP product's custom taxonomy page.",
-			'woocommerce'
+			'poocommerce'
 		),
 		placeholder: PLACEHOLDERS.archiveProduct,
 	},
 	'product-search-results': {
 		type: TYPES.productSearchResults,
-		title: __( 'Product Search Results (Classic)', 'woocommerce' ),
+		title: __( 'Product Search Results (Classic)', 'poocommerce' ),
 		description: __(
 			'Displays the PHP product search results.',
-			'woocommerce'
+			'poocommerce'
 		),
 		placeholder: PLACEHOLDERS.archiveProduct,
 	},
 	'checkout-header': {
 		type: TYPES.checkoutHeader,
-		title: __( 'Checkout Header', 'woocommerce' ),
+		title: __( 'Checkout Header', 'poocommerce' ),
 		placeholder: 'checkout-header',
 	},
 	'order-confirmation': {
 		type: TYPES.orderConfirmation,
-		title: __( 'Order Confirmation Block', 'woocommerce' ),
+		title: __( 'Order Confirmation Block', 'poocommerce' ),
 		placeholder: PLACEHOLDERS.orderConfirmation,
 	},
 };

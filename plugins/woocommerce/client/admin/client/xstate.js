@@ -18,7 +18,7 @@ async function enableXStateV4Inspect() {
 	Interpreter.defaultOptions.devTools = true;
 	// eslint-disable-next-line no-console
 	console.log(
-		'Devtools: XState V4 inspector enabled for WooCommerce Admin. To disable, type localStorage.setItem("xstate_inspect", "false")'
+		'Devtools: XState V4 inspector enabled for PooCommerce Admin. To disable, type localStorage.setItem("xstate_inspect", "false")'
 	);
 }
 
@@ -31,7 +31,7 @@ async function enableXStateV5Inspect() {
 	XStateV5Inspect = createBrowserInspector;
 	// eslint-disable-next-line no-console
 	console.log(
-		'Devtools: XState V5 inspector enabled for WooCommerce Admin. To disable, type localStorage.setItem("xstateV5_inspect", "false")'
+		'Devtools: XState V5 inspector enabled for PooCommerce Admin. To disable, type localStorage.setItem("xstateV5_inspect", "false")'
 	);
 }
 

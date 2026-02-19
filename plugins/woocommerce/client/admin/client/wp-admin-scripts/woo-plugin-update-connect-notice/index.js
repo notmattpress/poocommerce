@@ -2,11 +2,11 @@
  * External dependencies
  */
 import domReady from '@wordpress/dom-ready';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 domReady( () => {
 	const connectYourStoreLinks = document.querySelectorAll(
-		'.woocommerce-connect-your-store'
+		'.poocommerce-connect-your-store'
 	);
 
 	if ( connectYourStoreLinks.length > 0 ) {

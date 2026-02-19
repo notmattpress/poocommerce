@@ -2,9 +2,9 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import ProductAttributeTermControl from '@woocommerce/editor-components/product-attribute-term-control';
-import { SearchListItem } from '@woocommerce/editor-components/search-list-control/types';
-import { ADMIN_URL } from '@woocommerce/settings';
+import ProductAttributeTermControl from '@poocommerce/editor-components/product-attribute-term-control';
+import { SearchListItem } from '@poocommerce/editor-components/search-list-control/types';
+import { ADMIN_URL } from '@poocommerce/settings';
 import {
 	ExternalLink,
 	// @ts-expect-error Using experimental features
@@ -25,8 +25,8 @@ const AttributesControl = ( {
 	trackInteraction,
 	setQueryAttribute,
 }: QueryControlProps ) => {
-	const woocommerceAttributes = query.woocommerceAttributes || [];
-	const selectedAttributes = woocommerceAttributes?.map(
+	const poocommerceAttributes = query.poocommerceAttributes || [];
+	const selectedAttributes = poocommerceAttributes?.map(
 		( { termId: id } ) => ( {
 			id,
 		} )
@@ -34,21 +34,21 @@ const AttributesControl = ( {
 
 	const deselectCallback = () => {
 		setQueryAttribute( {
-			woocommerceAttributes: DEFAULT_FILTERS.woocommerceAttributes,
+			poocommerceAttributes: DEFAULT_FILTERS.poocommerceAttributes,
 		} );
 		trackInteraction( CoreFilterNames.ATTRIBUTES );
 	};
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Product Attributes', 'woocommerce' ) }
-			hasValue={ () => !! woocommerceAttributes?.length }
+			label={ __( 'Product Attributes', 'poocommerce' ) }
+			hasValue={ () => !! poocommerceAttributes?.length }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
 		>
 			<ProductAttributeTermControl
 				messages={ {
-					search: __( 'Attributes', 'woocommerce' ),
+					search: __( 'Attributes', 'poocommerce' ),
 				} }
 				selected={ selectedAttributes || [] }
 				onChange={ ( searchListItems: SearchListItem[] ) => {
@@ -60,7 +60,7 @@ const AttributesControl = ( {
 					);
 
 					setQueryAttribute( {
-						woocommerceAttributes: newValue,
+						poocommerceAttributes: newValue,
 					} );
 					trackInteraction( CoreFilterNames.ATTRIBUTES );
 				} }
@@ -72,7 +72,7 @@ const AttributesControl = ( {
 				className="wc-block-editor-product-collection-panel__manage-attributes-link"
 				href={ EDIT_ATTRIBUTES_URL }
 			>
-				{ __( 'Manage attributes', 'woocommerce' ) }
+				{ __( 'Manage attributes', 'poocommerce' ) }
 			</ExternalLink>
 		</ToolsPanelItem>
 	);

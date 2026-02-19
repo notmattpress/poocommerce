@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Payments\Integrations;
+namespace Automattic\PooCommerce\Blocks\Payments\Integrations;
 
 use WC_Gateway_Paypal;
-use Automattic\WooCommerce\Blocks\Assets\Api;
-use Automattic\WooCommerce\Gateways\PayPal\Buttons as PayPalButtons;
+use Automattic\PooCommerce\Blocks\Assets\Api;
+use Automattic\PooCommerce\Gateways\PayPal\Buttons as PayPalButtons;
 
 /**
  * PayPal Standard payment method integration
@@ -38,7 +38,7 @@ final class PayPal extends AbstractPaymentMethodType {
 	 * Initializes the payment method type.
 	 */
 	public function initialize() {
-		$this->settings = get_option( 'woocommerce_paypal_settings', [] );
+		$this->settings = get_option( 'poocommerce_paypal_settings', [] );
 	}
 
 	/**
@@ -103,7 +103,7 @@ final class PayPal extends AbstractPaymentMethodType {
 		$description = $this->get_setting( 'description' ) ?? '';
 		if ( $testmode ) {
 			/* translators: %s: Link to PayPal sandbox testing guide page */
-			$description .= '<br>' . sprintf( __( '<strong>Sandbox mode enabled</strong>. Only sandbox test accounts can be used. See the <a href="%s">PayPal Sandbox Testing Guide</a> for more details.', 'woocommerce' ), 'https://developer.paypal.com/tools/sandbox/' );
+			$description .= '<br>' . sprintf( __( '<strong>Sandbox mode enabled</strong>. Only sandbox test accounts can be used. See the <a href="%s">PayPal Sandbox Testing Guide</a> for more details.', 'poocommerce' ), 'https://developer.paypal.com/tools/sandbox/' );
 		}
 		return trim( $description );
 	}
@@ -128,6 +128,6 @@ final class PayPal extends AbstractPaymentMethodType {
 		 * @param string $name Gateway name.
 		 * @return array Updated list of supported features.
 		 */
-		return apply_filters( '__experimental_woocommerce_blocks_payment_gateway_features_list', $features, $this->get_name() );
+		return apply_filters( '__experimental_poocommerce_blocks_payment_gateway_features_list', $features, $this->get_name() );
 	}
 }

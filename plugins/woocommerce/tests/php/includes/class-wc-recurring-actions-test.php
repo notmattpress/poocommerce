@@ -1,9 +1,9 @@
 <?php
 declare( strict_types=1 );
 /**
- * Unit tests for WooCommerce recurring actions.
+ * Unit tests for PooCommerce recurring actions.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 /**
@@ -28,20 +28,20 @@ class WC_Recurring_Actions_Test extends WC_Unit_Test_Case {
 	public function test_recurring_actions_are_enqueued() {
 		$this->assertTrue(
 			as_supports( 'ensure_recurring_actions_hook' ),
-			'Action Scheduler must support ensure_recurring_actions_hook for WooCommerce recurring actions to work properly'
+			'Action Scheduler must support ensure_recurring_actions_hook for PooCommerce recurring actions to work properly'
 		);
 
 		// Allow tracking for the purpose of this test.
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		// Clear any existing scheduled actions first.
 		$this->clear_scheduled_actions();
 
 		// Ensure recurring actions are scheduled.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'action_scheduler_ensure_recurring_actions' );
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_tracker_send_event_wrapper' ),
+			as_has_scheduled_action( 'poocommerce_tracker_send_event_wrapper' ),
 			'Tracker send event wrapper should be scheduled'
 		);
 
@@ -56,32 +56,32 @@ class WC_Recurring_Actions_Test extends WC_Unit_Test_Case {
 		);
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_cleanup_rate_limits_wrapper' ),
+			as_has_scheduled_action( 'poocommerce_cleanup_rate_limits_wrapper' ),
 			'Rate limits cleanup wrapper should be scheduled'
 		);
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_scheduled_sales' ),
+			as_has_scheduled_action( 'poocommerce_scheduled_sales' ),
 			'Scheduled sales should be scheduled'
 		);
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_cleanup_personal_data' ),
+			as_has_scheduled_action( 'poocommerce_cleanup_personal_data' ),
 			'Personal data cleanup should be scheduled'
 		);
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_cleanup_logs' ),
+			as_has_scheduled_action( 'poocommerce_cleanup_logs' ),
 			'Log cleanup should be scheduled'
 		);
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_cleanup_sessions' ),
+			as_has_scheduled_action( 'poocommerce_cleanup_sessions' ),
 			'Session cleanup should be scheduled'
 		);
 
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_geoip_updater' ),
+			as_has_scheduled_action( 'poocommerce_geoip_updater' ),
 			'GeoIP updater should be scheduled'
 		);
 	}
@@ -91,16 +91,16 @@ class WC_Recurring_Actions_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_tracker_wrapper_not_added_when_tracking_disabled() {
 		// Disable tracking.
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$this->assertFalse(
-			as_has_scheduled_action( 'woocommerce_tracker_send_event_wrapper' ),
+			as_has_scheduled_action( 'poocommerce_tracker_send_event_wrapper' ),
 			'Tracker send event wrapper should not be scheduled'
 		);
 		// Validate the wrapper is not scheduled when ensure_recurring_actions is called with tracking disabled.
-		// phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+		// phpcs:ignore PooCommerce.Commenting.CommentHooks.MissingHookComment
 		do_action( 'action_scheduler_ensure_recurring_actions' );
 		$this->assertFalse(
-			as_has_scheduled_action( 'woocommerce_tracker_send_event_wrapper' ),
+			as_has_scheduled_action( 'poocommerce_tracker_send_event_wrapper' ),
 			'Tracker send event wrapper should not be scheduled'
 		);
 	}
@@ -110,17 +110,17 @@ class WC_Recurring_Actions_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_tracker_wrapper_added_then_removed_on_tracking_toggle() {
 		// Ensure we transition from "no" -> "yes" so update_option hooks fire.
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		// Enable tracking.
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		$this->assertTrue(
-			as_has_scheduled_action( 'woocommerce_tracker_send_event_wrapper' ),
+			as_has_scheduled_action( 'poocommerce_tracker_send_event_wrapper' ),
 			'Tracker send event wrapper should be scheduled'
 		);
 		// Disable tracking.
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		$this->assertFalse(
-			as_has_scheduled_action( 'woocommerce_tracker_send_event_wrapper' ),
+			as_has_scheduled_action( 'poocommerce_tracker_send_event_wrapper' ),
 			'Tracker send event wrapper should not be scheduled'
 		);
 	}
@@ -130,15 +130,15 @@ class WC_Recurring_Actions_Test extends WC_Unit_Test_Case {
 	 */
 	private function clear_scheduled_actions() {
 		$actions = array(
-			'woocommerce_tracker_send_event_wrapper',
+			'poocommerce_tracker_send_event_wrapper',
 			'wc_admin_daily_wrapper',
 			'generate_category_lookup_table_wrapper',
-			'woocommerce_cleanup_rate_limits_wrapper',
-			'woocommerce_scheduled_sales',
-			'woocommerce_cleanup_personal_data',
-			'woocommerce_cleanup_logs',
-			'woocommerce_cleanup_sessions',
-			'woocommerce_geoip_updater',
+			'poocommerce_cleanup_rate_limits_wrapper',
+			'poocommerce_scheduled_sales',
+			'poocommerce_cleanup_personal_data',
+			'poocommerce_cleanup_logs',
+			'poocommerce_cleanup_sessions',
+			'poocommerce_geoip_updater',
 		);
 
 		foreach ( $actions as $action ) {

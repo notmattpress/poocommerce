@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import {
 	// @ts-expect-error Type for PluginDocumentSettingPanel is missing in @types/wordpress__editor
 	PluginDocumentSettingPanel,
@@ -33,7 +33,7 @@ const tracking = {
 export function TemplateSettingsPanel() {
 	// Allow plugins to add custom template sections
 	const templateSections = applyFilters(
-		'woocommerce_email_editor_template_sections',
+		'poocommerce_email_editor_template_sections',
 		[],
 		tracking
 	) as TemplatePanelSection[];
@@ -45,8 +45,8 @@ export function TemplateSettingsPanel() {
 	return (
 		<PluginDocumentSettingPanel
 			name="template-settings-panel"
-			title={ __( 'Settings', 'woocommerce' ) }
-			className="woocommerce-email-editor__settings-panel"
+			title={ __( 'Settings', 'poocommerce' ) }
+			className="poocommerce-email-editor__settings-panel"
 		>
 			{ templateSections.map( ( section ) => (
 				// @ts-expect-error Type for ErrorBoundary is outdated in @types/wordpress__editor

@@ -1,7 +1,7 @@
 # 
 
 The `WooProductMoreMenuItem` slot allows developers to add custom items to the "More" menu
-in the WooCommerce Product Editor header.
+in the PooCommerce Product Editor header.
 
 ![Product editor - More Menu](image-product-editor-more-menu-1)
 
@@ -10,7 +10,7 @@ This slot enables the injection of additional menu items, which can be ordered d
 ## Example
 
 ```jsx
-export { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@woocommerce/product-editor';
+export { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@poocommerce/product-editor';
 
 const MyCustomMenuItem = () => (
     <WooProductMoreMenuItem order={ 3 }>
@@ -28,7 +28,7 @@ const MyCustomMenuItem = () => (
 To add content to the WooProductMoreMenuItem slot, use the Fill component.
 
 ```jsx
-export { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@woocommerce/product-editor';
+export { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@poocommerce/product-editor';
 
 const CustomMenuItem = () => (
     <WooProductMoreMenuItem order={ 2 }>
@@ -43,13 +43,13 @@ The Slot component is used to render all fills in the specified slot.
 
 ```jsx
 import { MoreMenuDropdown } from '@wordpress/interface';
-export { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@woocommerce/product-editor';
+export { __experimentalWooProductMoreMenuItem as WooProductMoreMenuItem } from '@poocommerce/product-editor';
 
 export const MoreMenu = () => {
     return (
         <MoreMenuDropdown
             toggleProps={ { onClick: () => console.log( 'Menu opened' ) } }
-            popoverProps={ { className: 'woocommerce-product-header__more-menu' } }
+            popoverProps={ { className: 'poocommerce-product-header__more-menu' } }
         >
             { ( { onClose } ) => (
                 <WooProductMoreMenuItem.Slot fillProps={ { onClose } } />

@@ -5,7 +5,7 @@
  */
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
-import { initializeEditor } from '@woocommerce/email-editor';
+import { initializeEditor } from '@poocommerce/email-editor';
 
 /**
  * Internal dependencies
@@ -17,35 +17,35 @@ import { registerEmailValidationRules } from './email-validation';
 
 import './style.scss';
 
-addFilter( 'woocommerce_email_editor_send_button_label', NAME_SPACE, () =>
-	__( 'Save email', 'woocommerce' )
+addFilter( 'poocommerce_email_editor_send_button_label', NAME_SPACE, () =>
+	__( 'Save email', 'poocommerce' )
 );
 
 addFilter(
-	'woocommerce_email_editor_check_sending_method_configuration_link',
+	'poocommerce_email_editor_check_sending_method_configuration_link',
 	NAME_SPACE,
-	() => 'https://woocommerce.com/document/email-faq/'
+	() => 'https://poocommerce.com/document/email-faq/'
 );
 
 // Add filter to permanently delete emails.
 // This is used to delete email posts from the database instead of moving them to the trash.
-// The email posts can be recreated from the WooCommerce settings email listing page.
+// The email posts can be recreated from the PooCommerce settings email listing page.
 addFilter(
-	'woocommerce_email_editor_trash_modal_should_permanently_delete',
+	'poocommerce_email_editor_trash_modal_should_permanently_delete',
 	NAME_SPACE,
 	() => true
 );
 
 /**
- * Register default handler for creating coupons in WooCommerce.
+ * Register default handler for creating coupons in PooCommerce.
  * Uses the localized admin URL from PHP to support subdirectory installations.
  * Integrators can override this filter to customize behavior (e.g., SPA routing).
  */
-addFilter( 'woocommerce_email_editor_create_coupon_handler', NAME_SPACE, () => {
+addFilter( 'poocommerce_email_editor_create_coupon_handler', NAME_SPACE, () => {
 	// Get the create coupon URL from localized data (provided by PHP)
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const editorStore = ( window as any ).wp?.data?.select(
-		'woocommerce/email-editor'
+		'poocommerce/email-editor'
 	);
 	const urls = editorStore?.getUrls?.();
 	const createCouponUrl = urls?.createCoupon;
@@ -68,4 +68,4 @@ addFilter( 'woocommerce_email_editor_create_coupon_handler', NAME_SPACE, () => {
 modifySidebar();
 modifyTemplateSidebar();
 registerEmailValidationRules();
-initializeEditor( 'woocommerce-email-editor' );
+initializeEditor( 'poocommerce-email-editor' );

@@ -1,13 +1,13 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"name": "woocommerce/product-filter-active",
+	"name": "poocommerce/product-filter-active",
 	"title": "Active Filters",
 	"description": "Display the currently active filters.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
-	"ancestor": [ "woocommerce/product-filters" ],
+	"ancestor": [ "poocommerce/product-filters" ],
 	"supports": {
 		"interactivity": true,
 		"__experimentalBorder": {
@@ -34,5 +34,5 @@
 		}
 	},
 	"usesContext": [ "activeFilters" ],
-	"viewScriptModule": "woocommerce/product-filter-active"
+	"viewScriptModule": "poocommerce/product-filter-active"
 }

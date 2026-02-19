@@ -1,8 +1,8 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\OrderConfirmation;
 
-use Automattic\WooCommerce\Blocks\BlockTypes\OrderConfirmation\DownloadsWrapper as DownloadsWrapperClass;
+use Automattic\PooCommerce\Blocks\BlockTypes\OrderConfirmation\DownloadsWrapper as DownloadsWrapperClass;
 
 /**
  * Test DownloadsWrapper class.
@@ -21,8 +21,8 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 		}
 		$wpdb->query( "TRUNCATE TABLE {$wpdb->wc_product_meta_lookup}" );
 
-		delete_option( 'woocommerce_product_lookup_table_is_generating' );
-		wp_cache_delete( 'woocommerce_has_downloadable_products', 'woocommerce' );
+		delete_option( 'poocommerce_product_lookup_table_is_generating' );
+		wp_cache_delete( 'poocommerce_has_downloadable_products', 'poocommerce' );
 
 		parent::tear_down();
 	}
@@ -72,11 +72,11 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 				return $this->store_has_downloadable_products();
 			}
 		};
-		add_option( 'woocommerce_product_lookup_table_is_generating', 'yes' );
+		add_option( 'poocommerce_product_lookup_table_is_generating', 'yes' );
 
 		\WC_Helper_Product::create_simple_product( true, array( 'downloadable' => true ) );
 		$this->assertTrue( $proxy->store_has_downloadable_products_proxy() );
-		$this->assertSame( 'yes', wp_cache_get( 'woocommerce_has_downloadable_products', 'woocommerce' ) );
+		$this->assertSame( 'yes', wp_cache_get( 'poocommerce_has_downloadable_products', 'poocommerce' ) );
 	}
 
 	/**
@@ -92,8 +92,8 @@ final class DownloadsWrapper extends \WP_UnitTestCase {
 				return $this->store_has_downloadable_products();
 			}
 		};
-		add_option( 'woocommerce_product_lookup_table_is_generating', 'yes' );
-		wp_cache_set( 'woocommerce_has_downloadable_products', 'no', 'woocommerce' );
+		add_option( 'poocommerce_product_lookup_table_is_generating', 'yes' );
+		wp_cache_set( 'poocommerce_has_downloadable_products', 'no', 'poocommerce' );
 
 		\WC_Helper_Product::create_simple_product( true, array( 'downloadable' => true ) );
 		$this->assertFalse( $proxy->store_has_downloadable_products_proxy() );

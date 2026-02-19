@@ -2,7 +2,7 @@
 /**
  * Class WC_Email_Customer_Processing_Order file.
  *
- * @package WooCommerce\Emails
+ * @package PooCommerce\Emails
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +18,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 	 *
 	 * @class       WC_Email_Customer_Processing_Order
 	 * @version     3.5.0
-	 * @package     WooCommerce\Classes\Emails
+	 * @package     PooCommerce\Classes\Emails
 	 * @extends     WC_Email
 	 */
 	class WC_Email_Customer_Processing_Order extends WC_Email {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 			$this->id             = 'customer_processing_order';
 			$this->customer_email = true;
 
-			$this->title          = __( 'Processing order', 'woocommerce' );
+			$this->title          = __( 'Processing order', 'poocommerce' );
 			$this->email_group    = 'order-updates';
 			$this->template_html  = 'emails/customer-processing-order.php';
 			$this->template_plain = 'emails/plain/customer-processing-order.php';
@@ -40,22 +40,22 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 			);
 
 			// Triggers for this email.
-			add_action( 'woocommerce_order_status_cancelled_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_failed_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_on-hold_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
-			add_action( 'woocommerce_order_status_pending_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_cancelled_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_failed_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_on-hold_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
+			add_action( 'poocommerce_order_status_pending_to_processing_notification', array( $this, 'trigger' ), 10, 2 );
 
 			// Call parent constructor.
 			parent::__construct();
 
 			// Must be after parent's constructor which sets `email_improvements_enabled` property.
 			$this->description = $this->email_improvements_enabled
-				? __( 'Send an email to customers notifying them that their order is being processed', 'woocommerce' )
-				: __( 'This is an order notification sent to customers containing order details after payment.', 'woocommerce' );
+				? __( 'Send an email to customers notifying them that their order is being processed', 'poocommerce' )
+				: __( 'This is an order notification sent to customers containing order details after payment.', 'poocommerce' );
 
 			if ( $this->block_email_editor_enabled ) {
-				$this->title       = __( 'Order confirmation', 'woocommerce' );
-				$this->description = __( 'Notifies customers when their order has been received and is being processed.', 'woocommerce' );
+				$this->title       = __( 'Order confirmation', 'poocommerce' );
+				$this->description = __( 'Notifies customers when their order has been received and is being processed.', 'poocommerce' );
 			}
 		}
 
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_subject() {
-			return __( 'Your {site_title} order has been received!', 'woocommerce' );
+			return __( 'Your {site_title} order has been received!', 'poocommerce' );
 		}
 
 		/**
@@ -76,7 +76,7 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 		 * @return string
 		 */
 		public function get_default_heading() {
-			return __( 'Thank you for your order', 'woocommerce' );
+			return __( 'Thank you for your order', 'poocommerce' );
 		}
 
 		/**
@@ -152,8 +152,8 @@ if ( ! class_exists( 'WC_Email_Customer_Processing_Order', false ) ) :
 		 */
 		public function get_default_additional_content() {
 			return $this->email_improvements_enabled
-				? __( 'Thanks again! If you need any help with your order, please contact us at {store_email}.', 'woocommerce' )
-				: __( 'Thanks for using {site_url}!', 'woocommerce' );
+				? __( 'Thanks again! If you need any help with your order, please contact us at {store_email}.', 'poocommerce' )
+				: __( 'Thanks for using {site_url}!', 'poocommerce' );
 		}
 	}
 

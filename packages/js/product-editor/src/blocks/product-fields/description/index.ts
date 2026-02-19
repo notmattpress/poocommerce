@@ -31,6 +31,6 @@ export const init = () =>
 
 addFilter(
 	'editor.BlockEdit',
-	'woocommerce/summary-block-with-full-editor-button',
+	'poocommerce/summary-block-with-full-editor-button',
 	wooDescriptionBlockWithFullEditorButton
 );

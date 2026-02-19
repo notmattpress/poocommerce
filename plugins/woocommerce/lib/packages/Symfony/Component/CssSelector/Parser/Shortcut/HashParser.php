@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Shortcut;
+namespace Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\Shortcut;
 
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\ElementNode;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\HashNode;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Node\SelectorNode;
-use Automattic\WooCommerce\Vendor\Symfony\Component\CssSelector\Parser\ParserInterface;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\ElementNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\HashNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Node\SelectorNode;
+use Automattic\PooCommerce\Vendor\Symfony\Component\CssSelector\Parser\ParserInterface;
 
 /**
  * CSS selector hash parser shortcut.

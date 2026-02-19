@@ -5,15 +5,15 @@ import { __ } from '@wordpress/i18n';
 import { BlockAttributes } from '@wordpress/blocks';
 import { useInstanceId } from '@wordpress/compose';
 import { createElement, createInterpolateElement } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Product } from '@poocommerce/data';
 import {
 	BaseControl,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore No types for this exist yet.
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -55,13 +55,13 @@ export function Edit( {
 		<div { ...blockProps }>
 			<BaseControl
 				id={ inputControlId }
-				className="woocommerce-product-form_inventory-sku"
+				className="poocommerce-product-form_inventory-sku"
 				label={ createInterpolateElement(
-					__( 'Sku <description />', 'woocommerce' ),
+					__( 'Sku <description />', 'poocommerce' ),
 					{
 						description: (
-							<span className="woocommerce-product-form__optional-input">
-								{ __( '(STOCK KEEPING UNIT)', 'woocommerce' ) }
+							<span className="poocommerce-product-form__optional-input">
+								{ __( '(STOCK KEEPING UNIT)', 'poocommerce' ) }
 							</span>
 						),
 					}
@@ -70,7 +70,7 @@ export function Edit( {
 				<InputControl
 					ref={ skuRef }
 					id={ inputControlId }
-					name={ 'woocommerce-product-sku' }
+					name={ 'poocommerce-product-sku' }
 					onChange={ ( nextValue ) => {
 						setSku( nextValue ?? '' );
 					} }

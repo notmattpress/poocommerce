@@ -30,7 +30,7 @@ async function expectOldProductEditor( page ) {
  */
 async function expectBlockProductEditor( page ) {
 	await expect(
-		page.locator( '.woocommerce-product-header__inner h1' )
+		page.locator( '.poocommerce-product-header__inner h1' )
 	).toContainText( 'Add new product' );
 }
 
@@ -42,7 +42,7 @@ async function expectBlockProductEditor( page ) {
  */
 async function clickOnTab( tabName, page ) {
 	await page
-		.locator( '.woocommerce-product-tabs' )
+		.locator( '.poocommerce-product-tabs' )
 		.getByRole( 'tab', { name: tabName } )
 		.click();
 }

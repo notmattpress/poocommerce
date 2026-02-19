@@ -17,13 +17,13 @@ const admin = {
 		ADMIN_USER_EMAIL ??
 		( !! USE_WP_ENV
 			? 'wordpress@example.com'
-			: 'admin@woocommercecoree2etestsuite.com' ),
+			: 'admin@poocommercecoree2etestsuite.com' ),
 };
 
 const customer = {
 	username: CUSTOMER_USER ?? 'customer',
 	password: CUSTOMER_PASSWORD ?? 'password',
-	email: CUSTOMER_USER_EMAIL ?? 'customer@woocommercecoree2etestsuite.com',
+	email: CUSTOMER_USER_EMAIL ?? 'customer@poocommercecoree2etestsuite.com',
 	first_name: CUSTOMER_FIRST_NAME ?? 'Jane',
 	last_name: CUSTOMER_LAST_NAME ?? 'Smith',
 	billing: {

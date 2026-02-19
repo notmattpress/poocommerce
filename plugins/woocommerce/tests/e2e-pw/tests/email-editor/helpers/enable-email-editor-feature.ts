@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { request } from '@playwright/test';
-import { createClient, WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { createClient, WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ export const setEmailEditorFeatureFlag = async (
 	await setOption(
 		request,
 		baseURL,
-		'woocommerce_feature_block_email_editor_enabled',
+		'poocommerce_feature_block_email_editor_enabled',
 		value
 	);
 };
@@ -86,4 +86,4 @@ export const deleteEmailPost = async ( baseURL: string, pageId: string ) => {
 export const resetWCTransactionalEmail = async (
 	baseURL: string,
 	emailId: string
-) => deleteOption( request, baseURL, `woocommerce_${ emailId }_settings` );
+) => deleteOption( request, baseURL, `poocommerce_${ emailId }_settings` );

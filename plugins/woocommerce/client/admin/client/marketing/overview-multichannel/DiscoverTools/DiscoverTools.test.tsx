@@ -9,8 +9,8 @@ import { render, screen } from '@testing-library/react';
 import { useRecommendedPluginsWithoutChannels } from './useRecommendedPluginsWithoutChannels';
 import { DiscoverTools } from './DiscoverTools';
 
-jest.mock( '@woocommerce/components', () => {
-	const originalModule = jest.requireActual( '@woocommerce/components' );
+jest.mock( '@poocommerce/components', () => {
+	const originalModule = jest.requireActual( '@poocommerce/components' );
 
 	return {
 		__esModule: true,
@@ -66,12 +66,12 @@ describe( 'DiscoverTools component', () => {
 				isLoading: false,
 				data: [
 					{
-						title: 'Google for WooCommerce',
+						title: 'Google for PooCommerce',
 						description:
 							'Get in front of shoppers and drive traffic so you can grow your business with Smart Shopping Campaigns and free listings.',
-						url: 'https://woocommerce.com/products/google-listings-and-ads/?utm_source=marketingtab&utm_medium=product&utm_campaign=wcaddons',
+						url: 'https://poocommerce.com/products/google-listings-and-ads/?utm_source=marketingtab&utm_medium=product&utm_campaign=wcaddons',
 						direct_install: true,
-						icon: 'https://woocommerce.com/wp-content/plugins/wccom-plugins/marketing-tab-rest-api/icons/google.svg',
+						icon: 'https://poocommerce.com/wp-content/plugins/wccom-plugins/marketing-tab-rest-api/icons/google.svg',
 						product: 'google-listings-and-ads',
 						plugin: 'google-listings-and-ads/google-listings-and-ads.php',
 						categories: [ 'marketing' ],
@@ -83,8 +83,8 @@ describe( 'DiscoverTools component', () => {
 						],
 						tags: [
 							{
-								slug: 'built-by-woocommerce',
-								name: 'Built by WooCommerce',
+								slug: 'built-by-poocommerce',
+								name: 'Built by PooCommerce',
 							},
 						],
 					},
@@ -92,13 +92,13 @@ describe( 'DiscoverTools component', () => {
 			} );
 			render( <DiscoverTools /> );
 
-			// Assert that we have the "Sales channels" tab, the plugin name, the "Built by WooCommerce" pill, and the "Install extension" button.
+			// Assert that we have the "Sales channels" tab, the plugin name, the "Built by PooCommerce" pill, and the "Install extension" button.
 			expect( screen.getByText( 'Sales channels' ) ).toBeInTheDocument();
 			expect(
-				screen.getByText( 'Google for WooCommerce' )
+				screen.getByText( 'Google for PooCommerce' )
 			).toBeInTheDocument();
 			expect(
-				screen.getByText( 'Built by WooCommerce' )
+				screen.getByText( 'Built by PooCommerce' )
 			).toBeInTheDocument();
 			expect(
 				screen.getByText( 'Install extension' )
@@ -113,14 +113,14 @@ describe( 'DiscoverTools component', () => {
 				isLoading: false,
 				data: [
 					{
-						title: 'WooCommerce Zapier',
+						title: 'PooCommerce Zapier',
 						description:
-							'Integrate your WooCommerce store with 5000+ cloud apps and services today. Trusted by 11,000+ users.',
-						url: 'https://woocommerce.com/products/woocommerce-zapier/?utm_source=marketingtab&utm_medium=product&utm_campaign=wcaddons',
+							'Integrate your PooCommerce store with 5000+ cloud apps and services today. Trusted by 11,000+ users.',
+						url: 'https://poocommerce.com/products/poocommerce-zapier/?utm_source=marketingtab&utm_medium=product&utm_campaign=wcaddons',
 						direct_install: false,
-						icon: 'https://woocommerce.com/wp-content/plugins/wccom-plugins/marketing-tab-rest-api/icons/zapier.png',
-						product: 'woocommerce-zapier',
-						plugin: 'woocommerce-zapier/woocommerce-zapier.php',
+						icon: 'https://poocommerce.com/wp-content/plugins/wccom-plugins/marketing-tab-rest-api/icons/zapier.png',
+						product: 'poocommerce-zapier',
+						plugin: 'poocommerce-zapier/poocommerce-zapier.php',
 						categories: [ 'marketing' ],
 						subcategories: [
 							{
@@ -137,7 +137,7 @@ describe( 'DiscoverTools component', () => {
 			// Assert that we have the CRM tab, plugin name, and "View details" button.
 			expect( screen.getByText( 'CRM' ) ).toBeInTheDocument();
 			expect(
-				screen.getByText( 'WooCommerce Zapier' )
+				screen.getByText( 'PooCommerce Zapier' )
 			).toBeInTheDocument();
 			expect( screen.getByText( 'View details' ) ).toBeInTheDocument();
 		} );

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { SortSelect } from '@woocommerce/blocks-components';
+import { SortSelect } from '@poocommerce/blocks-components';
 import type { ChangeEventHandler } from 'react';
 
 /**
@@ -24,24 +24,24 @@ const ReviewSortSelect = ( {
 	return (
 		<SortSelect
 			className="wc-block-review-sort-select wc-block-components-review-sort-select"
-			label={ __( 'Order by', 'woocommerce' ) }
+			label={ __( 'Order by', 'poocommerce' ) }
 			onChange={ onChange }
 			options={ [
 				{
 					key: 'most-recent',
-					label: __( 'Most recent', 'woocommerce' ),
+					label: __( 'Most recent', 'poocommerce' ),
 				},
 				{
 					key: 'highest-rating',
-					label: __( 'Highest rating', 'woocommerce' ),
+					label: __( 'Highest rating', 'poocommerce' ),
 				},
 				{
 					key: 'lowest-rating',
-					label: __( 'Lowest rating', 'woocommerce' ),
+					label: __( 'Lowest rating', 'poocommerce' ),
 				},
 			] }
 			readOnly={ readOnly }
-			screenReaderLabel={ __( 'Order reviews by', 'woocommerce' ) }
+			screenReaderLabel={ __( 'Order reviews by', 'poocommerce' ) }
 			value={ value }
 		/>
 	);

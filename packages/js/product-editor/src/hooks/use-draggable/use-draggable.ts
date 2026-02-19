@@ -143,7 +143,7 @@ export function useDraggable< T >( { onSort }: DraggableProps< T > ) {
 	return {
 		container: {
 			'data-draggable': 'parent',
-			className: 'woocommerce-draggable__container',
+			className: 'poocommerce-draggable__container',
 		},
 		draggable: {
 			'data-draggable': 'target',

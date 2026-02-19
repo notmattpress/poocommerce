@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { StoreNoticesContainer } from '@woocommerce/blocks-components';
-import { useStoreCart } from '@woocommerce/base-context/hooks';
+import { StoreNoticesContainer } from '@poocommerce/blocks-components';
+import { useStoreCart } from '@poocommerce/base-context/hooks';
 
 type FilledMiniCartContentsBlockProps = {
 	children: JSX.Element;

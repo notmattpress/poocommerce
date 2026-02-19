@@ -4,18 +4,18 @@
  *
  * Handles requests to the /settings/payment-gateways endpoint.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways;
 
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\AbstractPaymentGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\BacsGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\CodGatewaySettingsSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\PaymentGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\AbstractPaymentGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\BacsGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\CodGatewaySettingsSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\PaymentGateways\Schema\PaymentGatewaySettingsSchema;
 use WC_Payment_Gateway;
 use WP_REST_Server;
 use WP_REST_Request;
@@ -75,7 +75,7 @@ class Controller extends AbstractController {
 					'permission_callback' => array( $this, 'update_item_permissions_check' ),
 					'args'                => array(
 						'values' => array(
-							'description' => __( 'Payment gateway field values to update.', 'woocommerce' ),
+							'description' => __( 'Payment gateway field values to update.', 'poocommerce' ),
 							'type'        => 'object',
 							'required'    => true,
 						),
@@ -84,7 +84,7 @@ class Controller extends AbstractController {
 				'schema' => array( $this, 'get_public_item_schema' ),
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'poocommerce' ),
 						'type'        => 'string',
 						'pattern'     => '^[\w-]+$',
 					),
@@ -104,7 +104,7 @@ class Controller extends AbstractController {
 		$payment_gateways = WC()->payment_gateways->payment_gateways();
 
 		if ( ! isset( $payment_gateways[ $id ] ) ) {
-			return new WP_Error( 'woocommerce_rest_payment_gateway_invalid_id', __( 'Invalid payment gateway ID.', 'woocommerce' ), array( 'status' => 404 ) );
+			return new WP_Error( 'poocommerce_rest_payment_gateway_invalid_id', __( 'Invalid payment gateway ID.', 'poocommerce' ), array( 'status' => 404 ) );
 		}
 
 		$gateway = $payment_gateways[ $id ];
@@ -185,8 +185,8 @@ class Controller extends AbstractController {
 
 		if ( ! $gateway ) {
 			return new WP_Error(
-				'woocommerce_rest_payment_gateway_invalid_id',
-				__( 'Invalid payment gateway ID.', 'woocommerce' ),
+				'poocommerce_rest_payment_gateway_invalid_id',
+				__( 'Invalid payment gateway ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -201,7 +201,7 @@ class Controller extends AbstractController {
 		if ( empty( $values_to_update ) || ! is_array( $values_to_update ) ) {
 			return new WP_Error(
 				'rest_missing_callback_param',
-				__( 'Missing parameter(s): values', 'woocommerce' ),
+				__( 'Missing parameter(s): values', 'poocommerce' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -229,9 +229,9 @@ class Controller extends AbstractController {
 
 		if ( isset( $values_to_update['order'] ) ) {
 			$order                = absint( $values_to_update['order'] );
-			$gateway_order        = (array) get_option( 'woocommerce_gateway_order', array() );
+			$gateway_order        = (array) get_option( 'poocommerce_gateway_order', array() );
 			$gateway_order[ $id ] = $order;
-			update_option( 'woocommerce_gateway_order', $gateway_order );
+			update_option( 'poocommerce_gateway_order', $gateway_order );
 			unset( $values_to_update['order'] );
 		}
 

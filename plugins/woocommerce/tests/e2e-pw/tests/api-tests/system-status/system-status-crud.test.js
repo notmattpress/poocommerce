@@ -116,7 +116,7 @@ const schemas = {
 		{ field: 'database_tables', type: anything() },
 		{ field: 'database_size', type: anything() },
 	],
-	database_tables_woocommerce_other: [
+	database_tables_poocommerce_other: [
 		{ field: 'data', type: any( String ) },
 		{ field: 'index', type: any( String ) },
 		{ field: 'engine', type: any( String ) },
@@ -138,8 +138,8 @@ const schemas = {
 		{ field: 'author_url', type: any( String ) },
 		{ field: 'is_child_theme', type: any( Boolean ) },
 		{ field: 'is_block_theme', type: any( Boolean ) },
-		{ field: 'has_woocommerce_support', type: any( Boolean ) },
-		{ field: 'has_woocommerce_file', type: any( Boolean ) },
+		{ field: 'has_poocommerce_support', type: any( Boolean ) },
+		{ field: 'has_poocommerce_file', type: any( Boolean ) },
 		{ field: 'has_outdated_templates', type: any( Boolean ) },
 		{ field: 'overrides', type: any( Array ) },
 		{ field: 'parent_name', type: any( String ) },
@@ -159,7 +159,7 @@ const schemas = {
 		{ field: 'geolocation_enabled', type: any( Boolean ) },
 		{ field: 'taxonomies', type: anything() },
 		{ field: 'product_visibility_terms', type: anything() },
-		{ field: 'woocommerce_com_connected', type: any( String ) },
+		{ field: 'poocommerce_com_connected', type: any( String ) },
 	],
 	taxonomies: [
 		{ field: 'external', type: any( String ) },
@@ -232,22 +232,22 @@ const otherTableSuffixes = [
 	'wc_webhooks',
 ];
 
-const getExpectedWooCommerceTables = ( dbPrefix ) => {
+const getExpectedPooCommerceTables = ( dbPrefix ) => {
 	return [
-		`${ dbPrefix }woocommerce_sessions`,
-		`${ dbPrefix }woocommerce_api_keys`,
-		`${ dbPrefix }woocommerce_attribute_taxonomies`,
-		`${ dbPrefix }woocommerce_downloadable_product_permissions`,
-		`${ dbPrefix }woocommerce_order_items`,
-		`${ dbPrefix }woocommerce_order_itemmeta`,
-		`${ dbPrefix }woocommerce_tax_rates`,
-		`${ dbPrefix }woocommerce_tax_rate_locations`,
-		`${ dbPrefix }woocommerce_shipping_zones`,
-		`${ dbPrefix }woocommerce_shipping_zone_locations`,
-		`${ dbPrefix }woocommerce_shipping_zone_methods`,
-		`${ dbPrefix }woocommerce_payment_tokens`,
-		`${ dbPrefix }woocommerce_payment_tokenmeta`,
-		`${ dbPrefix }woocommerce_log`,
+		`${ dbPrefix }poocommerce_sessions`,
+		`${ dbPrefix }poocommerce_api_keys`,
+		`${ dbPrefix }poocommerce_attribute_taxonomies`,
+		`${ dbPrefix }poocommerce_downloadable_product_permissions`,
+		`${ dbPrefix }poocommerce_order_items`,
+		`${ dbPrefix }poocommerce_order_itemmeta`,
+		`${ dbPrefix }poocommerce_tax_rates`,
+		`${ dbPrefix }poocommerce_tax_rate_locations`,
+		`${ dbPrefix }poocommerce_shipping_zones`,
+		`${ dbPrefix }poocommerce_shipping_zone_locations`,
+		`${ dbPrefix }poocommerce_shipping_zone_methods`,
+		`${ dbPrefix }poocommerce_payment_tokens`,
+		`${ dbPrefix }poocommerce_payment_tokenmeta`,
+		`${ dbPrefix }poocommerce_log`,
 	];
 };
 
@@ -258,7 +258,7 @@ test.describe( 'System Status API tests', () => {
 			databasePrefix,
 			databaseSize,
 			databaseTables,
-			woocommerceTables,
+			poocommerceTables,
 			otherTables,
 			activePlugins,
 			dropinsMuPlugins,
@@ -320,38 +320,38 @@ test.describe( 'System Status API tests', () => {
 		} );
 
 		await test.step( 'Verify "database.database_tables" fields', async () => {
-			const { woocommerce, other } = databaseTables;
+			const { poocommerce, other } = databaseTables;
 			expect(
-				woocommerce,
-				`Expect "database.database_tables.woocommerce" to exist`
+				poocommerce,
+				`Expect "database.database_tables.poocommerce" to exist`
 			).toBeDefined();
 			expect(
 				other,
 				`Expect "database.database_tables.other" to exist`
 			).toBeDefined();
 
-			woocommerceTables = woocommerce;
+			poocommerceTables = poocommerce;
 			otherTables = other;
 		} );
 
-		await test.step( 'Verify "database.database_tables.woocommerce" fields', async () => {
+		await test.step( 'Verify "database.database_tables.poocommerce" fields', async () => {
 			const wooTableNames =
-				getExpectedWooCommerceTables( databasePrefix );
+				getExpectedPooCommerceTables( databasePrefix );
 
 			for ( const tableName of wooTableNames ) {
-				const thisTable = woocommerceTables[ tableName ];
+				const thisTable = poocommerceTables[ tableName ];
 				expect(
 					thisTable,
-					`Verify existence of "database.database_tables.woocommerce.${ tableName }"`
+					`Verify existence of "database.database_tables.poocommerce.${ tableName }"`
 				).toBeDefined();
 
 				for ( const {
 					field,
 					type,
-				} of schemas.database_tables_woocommerce_other ) {
+				} of schemas.database_tables_poocommerce_other ) {
 					expect(
 						thisTable[ field ],
-						`Verify type of "database.database_tables.woocommerce.${ tableName }.${ field }"`
+						`Verify type of "database.database_tables.poocommerce.${ tableName }.${ field }"`
 					).toEqual( type );
 				}
 			}
@@ -373,7 +373,7 @@ test.describe( 'System Status API tests', () => {
 				for ( const {
 					field,
 					type,
-				} of schemas.database_tables_woocommerce_other ) {
+				} of schemas.database_tables_poocommerce_other ) {
 					expect(
 						thisTable[ field ],
 						`Verify type of "database.database_tables.other.${ tableName }.${ field }".`
@@ -541,7 +541,7 @@ test.describe( 'System Status API tests', () => {
 			expect.arrayContaining( [
 				expect.objectContaining( {
 					id: 'clear_transients',
-					name: 'WooCommerce transients',
+					name: 'PooCommerce transients',
 					action: 'Clear transients',
 					description:
 						'This tool will clear the product/shop transients cache.',
@@ -582,7 +582,7 @@ test.describe( 'System Status API tests', () => {
 		expect( responseJSON ).toEqual(
 			expect.objectContaining( {
 				id: 'clear_transients',
-				name: 'WooCommerce transients',
+				name: 'PooCommerce transients',
 				action: 'Clear transients',
 				description:
 					'This tool will clear the product/shop transients cache.',
@@ -601,7 +601,7 @@ test.describe( 'System Status API tests', () => {
 		expect( responseJSON ).toEqual(
 			expect.objectContaining( {
 				id: 'clear_transients',
-				name: 'WooCommerce transients',
+				name: 'PooCommerce transients',
 				action: 'Clear transients',
 				description:
 					'This tool will clear the product/shop transients cache.',

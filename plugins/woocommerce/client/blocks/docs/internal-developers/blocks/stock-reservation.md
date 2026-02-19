@@ -9,7 +9,7 @@
     -   [How the queries work](#how-the-queries-work)
 -   [How this all fits into Checkout Block vs Traditional Checkout](#how-this-all-fits-into-checkout-block-vs-traditional-checkout)
 
-To prevent multiple customers trying to purchase the same stock when limits are in place, both WooCommerce ([4.3+](https://github.com/woocommerce/woocommerce/pull/26395#pullrequestreview-430633490)) and the Blocks plugin have a stock reservation system which is used during checkout.
+To prevent multiple customers trying to purchase the same stock when limits are in place, both PooCommerce ([4.3+](https://github.com/poocommerce/poocommerce/pull/26395#pullrequestreview-430633490)) and the Blocks plugin have a stock reservation system which is used during checkout.
 
 ## The Reserved Stock Database Table
 

@@ -8,8 +8,8 @@ import {
 	registerBlockType,
 } from '@wordpress/blocks';
 import { createElement } from '@wordpress/element';
-import { evaluate } from '@woocommerce/expression-evaluation';
-import { isWpVersion, getSetting } from '@woocommerce/settings';
+import { evaluate } from '@poocommerce/expression-evaluation';
+import { isWpVersion, getSetting } from '@poocommerce/settings';
 import { ComponentType } from 'react';
 import { useSelect } from '@wordpress/data';
 
@@ -98,7 +98,7 @@ function augmentAttributes<
 	T extends Record< string, any > = Record< string, any >
 >( attributes: T ) {
 	// Note: If you modify this function, also update the server-side
-	// Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry::augment_attributes() function.
+	// Automattic\PooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry::augment_attributes() function.
 	const augmentedAttributes = {
 		...attributes,
 		...{

@@ -1,7 +1,7 @@
 # PHP Testing - Claude Code Documentation
 
-**Scope**: PHPUnit test patterns for WooCommerce plugin tests
-**Parent**: `plugins/woocommerce/CLAUDE.md`
+**Scope**: PHPUnit test patterns for PooCommerce plugin tests
+**Parent**: `plugins/poocommerce/CLAUDE.md`
 
 ## Quick Reference: Resilient Test Patterns
 
@@ -176,7 +176,7 @@ public function test_endpoint_returns_data(): void {
 ```php
 public function test_hook_fires(): void {
     $fired = false;
-    add_filter( 'woocommerce_payment_gateways',
+    add_filter( 'poocommerce_payment_gateways',
         function ( $gateways ) use ( &$fired ) {
             $fired = true;
             return $gateways;
@@ -278,6 +278,6 @@ tests/php/src/
 
 ## Related Docs
 
-- `plugins/woocommerce/CLAUDE.md` - Test commands, linting, workflow
+- `plugins/poocommerce/CLAUDE.md` - Test commands, linting, workflow
 - `src/Internal/Admin/Settings/CLAUDE.md` - Settings backend patterns
 - PHPUnit: <https://phpunit.de/manual/9.6/en/index.html>

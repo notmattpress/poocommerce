@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { createElement } from '@wordpress/element';
-import { useWooBlockProps } from '@woocommerce/block-templates';
-import { Product } from '@woocommerce/data';
+import { useWooBlockProps } from '@poocommerce/block-templates';
+import { Product } from '@poocommerce/data';
 import { __, sprintf } from '@wordpress/i18n';
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ export function Edit( {
 						// translators: %d is the minimum value of the number input.
 						__(
 							'Value must be greater than or equal to %d',
-							'woocommerce'
+							'poocommerce'
 						),
 						min
 					),
@@ -68,7 +68,7 @@ export function Edit( {
 						// translators: %d is the minimum value of the number input.
 						__(
 							'Value must be less than or equal to %d',
-							'woocommerce'
+							'poocommerce'
 						),
 						min
 					),
@@ -76,7 +76,7 @@ export function Edit( {
 			}
 			if ( required && ! value ) {
 				return {
-					message: __( 'This field is required.', 'woocommerce' ),
+					message: __( 'This field is required.', 'poocommerce' ),
 				};
 			}
 		},

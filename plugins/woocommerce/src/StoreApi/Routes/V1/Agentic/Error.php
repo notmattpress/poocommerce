@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic;
 
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\ErrorType;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\ErrorType;
 use WP_REST_Response;
 
 /**

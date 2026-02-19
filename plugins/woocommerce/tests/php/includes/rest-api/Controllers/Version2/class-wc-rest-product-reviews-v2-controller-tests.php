@@ -35,7 +35,7 @@ class WC_REST_Product_Reviews_V2_Controller_Test extends WC_REST_Unit_Test_case 
 
 		wp_set_current_user( $this->editor_id );
 		$this->assertEquals(
-			'woocommerce_rest_cannot_batch',
+			'poocommerce_rest_cannot_batch',
 			$this->sut->batch_items_permissions_check( $request )->get_error_code(),
 			'A user lacking edit_products permissions (such as an editor) cannot perform batch requests for product reviews.'
 		);

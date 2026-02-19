@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Vendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\Vendor\Sabberworm\CSS\Value;
 
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\Vendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
 
 /**
  * Support for `-webkit-calc` and `-moz-calc` is deprecated in version 8.8.0, and will be removed in version 9.0.0.

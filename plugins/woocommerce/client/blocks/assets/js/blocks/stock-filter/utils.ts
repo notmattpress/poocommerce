@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { isString } from '@woocommerce/types';
-import { getUrlParameter } from '@woocommerce/utils';
+import { isString } from '@poocommerce/types';
+import { getUrlParameter } from '@poocommerce/utils';
 
 /**
  * Internal dependencies

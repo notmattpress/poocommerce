@@ -52,7 +52,7 @@ registerCheckoutFilters( 'example-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Total Label filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/5b2fb8ab-db84-4ed0-a676-d5203edc84d2) |![After applying the Total Label filter](https://github.com/woocommerce/woocommerce-blocks/assets/3323310/07955eea-cb17-48e9-9cb5-6548dd6a3b24) |
+|![Before applying the Total Label filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/5b2fb8ab-db84-4ed0-a676-d5203edc84d2) |![After applying the Total Label filter](https://github.com/poocommerce/poocommerce-blocks/assets/3323310/07955eea-cb17-48e9-9cb5-6548dd6a3b24) |
 
 
 ## `totalValue`
@@ -97,7 +97,7 @@ registerCheckoutFilters( 'my-extension', {
 
 | Before                                                                 | After                                                                 |
 |:---------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-|![Before applying the Total Value filter](https://github.com/woocommerce/woocommerce/assets/3323310/4b788bdd-6fbd-406c-a9ad-4fb13f901c23) |![After applying the Total Value filter](https://github.com/woocommerce/woocommerce/assets/3323310/1b1b5f72-7f2f-4ee5-b2a4-1d8eb2208deb) |
+|![Before applying the Total Value filter](https://github.com/poocommerce/poocommerce/assets/3323310/4b788bdd-6fbd-406c-a9ad-4fb13f901c23) |![After applying the Total Value filter](https://github.com/poocommerce/poocommerce/assets/3323310/1b1b5f72-7f2f-4ee5-b2a4-1d8eb2208deb) |
 
 
 ## Cart object

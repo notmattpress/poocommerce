@@ -9,23 +9,23 @@ import {
 	useMemo,
 	createInterpolateElement,
 } from '@wordpress/element';
-import { useShippingData, useStoreCart } from '@woocommerce/base-context/hooks';
-import { getCurrencyFromPriceResponse } from '@woocommerce/price-format';
+import { useShippingData, useStoreCart } from '@poocommerce/base-context/hooks';
+import { getCurrencyFromPriceResponse } from '@poocommerce/price-format';
 import {
 	FormattedMonetaryAmount,
 	RadioControlOptionType,
-} from '@woocommerce/blocks-components';
+} from '@poocommerce/blocks-components';
 import { decodeEntities } from '@wordpress/html-entities';
-import { getSetting } from '@woocommerce/settings';
+import { getSetting } from '@poocommerce/settings';
 import { Icon, mapMarker } from '@wordpress/icons';
-import { CartShippingPackageShippingRate } from '@woocommerce/types';
+import { CartShippingPackageShippingRate } from '@poocommerce/types';
 import {
 	isPackageRateCollectable,
 	getShippingRatesPackageCount,
-} from '@woocommerce/base-utils';
-import { ExperimentalOrderLocalPickupPackages } from '@woocommerce/blocks-checkout';
-import { LocalPickupSelect } from '@woocommerce/base-components/cart-checkout/local-pickup-select';
-import ReadMore from '@woocommerce/base-components/read-more';
+} from '@poocommerce/base-utils';
+import { ExperimentalOrderLocalPickupPackages } from '@poocommerce/blocks-checkout';
+import { LocalPickupSelect } from '@poocommerce/base-components/cart-checkout/local-pickup-select';
+import ReadMore from '@poocommerce/base-components/read-more';
 
 /**
  * Internal dependencies
@@ -81,7 +81,7 @@ const renderPickupLocation = (
 	const details = getPickupDetails( option );
 
 	// Default to showing "free" as the secondary label. Price checks below will update it if needed.
-	let secondaryLabel = <em>{ __( 'free', 'woocommerce' ) }</em>;
+	let secondaryLabel = <em>{ __( 'free', 'poocommerce' ) }</em>;
 
 	// If there is a cost for local pickup, show the cost per package.
 	if ( priceWithTaxes > 0 ) {
@@ -100,7 +100,7 @@ const renderPickupLocation = (
 					'<price/> x <packageCount/> package',
 					'<price/> x <packageCount/> packages',
 					packageCount,
-					'woocommerce'
+					'poocommerce'
 				),
 				{
 					price: (

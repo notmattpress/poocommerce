@@ -11,8 +11,8 @@ import {
 } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { useEffect } from '@wordpress/element';
-import { ProductQueryContext as Context } from '@woocommerce/blocks/product-query/types';
-import { useProduct } from '@woocommerce/entities';
+import { ProductQueryContext as Context } from '@poocommerce/blocks/product-query/types';
+import { useProduct } from '@poocommerce/entities';
 import {
 	Disabled,
 	Button,
@@ -50,20 +50,20 @@ function WidthPanel( {
 
 	return (
 		<ToolsPanel
-			label={ __( 'Width settings', 'woocommerce' ) }
+			label={ __( 'Width settings', 'poocommerce' ) }
 			resetAll={ () =>
 				setAttributes( { width: DEFAULT_ATTRIBUTES.width } )
 			}
 		>
 			<ToolsPanelItem
-				label={ __( 'Button width', 'woocommerce' ) }
+				label={ __( 'Button width', 'poocommerce' ) }
 				hasValue={ () => selectedWidth !== DEFAULT_ATTRIBUTES.width }
 				onDeselect={ () =>
 					setAttributes( { width: DEFAULT_ATTRIBUTES.width } )
 				}
 				isShownByDefault
 			>
-				<ButtonGroup aria-label={ __( 'Button width', 'woocommerce' ) }>
+				<ButtonGroup aria-label={ __( 'Button width', 'poocommerce' ) }>
 					{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
 						return (
 							<Button

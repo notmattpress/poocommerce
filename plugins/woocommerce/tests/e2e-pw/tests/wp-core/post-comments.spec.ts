@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { WP_API_PATH } from '@woocommerce/e2e-utils-playwright';
+import { WP_API_PATH } from '@poocommerce/e2e-utils-playwright';
 
 /**
  * Internal dependencies

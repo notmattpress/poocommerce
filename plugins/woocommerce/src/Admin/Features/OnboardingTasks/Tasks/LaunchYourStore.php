@@ -1,9 +1,9 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks;
+namespace Automattic\PooCommerce\Admin\Features\OnboardingTasks\Tasks;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * Launch Your Store Task
@@ -35,7 +35,7 @@ class LaunchYourStore extends Task {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Launch your store', 'woocommerce' );
+		return __( 'Launch your store', 'poocommerce' );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class LaunchYourStore extends Task {
 	public function get_content() {
 		return __(
 			"It's time to celebrate – you're ready to launch your store! Woo! Hit the button to preview your store and make it public.",
-			'woocommerce'
+			'poocommerce'
 		);
 	}
 
@@ -74,7 +74,7 @@ class LaunchYourStore extends Task {
 	 * @return bool
 	 */
 	public function is_complete() {
-		return 'yes' !== get_option( 'woocommerce_coming_soon' );
+		return 'yes' !== get_option( 'poocommerce_coming_soon' );
 	}
 
 	/**

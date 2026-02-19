@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Utilities;
+namespace Automattic\PooCommerce\Tests\Utilities;
 
-use Automattic\WooCommerce\Utilities\I18nUtil;
+use Automattic\PooCommerce\Utilities\I18nUtil;
 
 /**
  * A collection of tests for the internationalization utility class.

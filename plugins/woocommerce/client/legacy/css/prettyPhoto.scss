@@ -1,6 +1,6 @@
 /**
  * prettyPhoto.scss
- * Styles for the prettyPhoto lightbox script. Includes a custom WooCommerce theme.
+ * Styles for the prettyPhoto lightbox script. Includes a custom PooCommerce theme.
  * http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/
  */
 
@@ -31,9 +31,9 @@
 }
 
 /**
- * Custom WooCommerce prettyPhoto theme
+ * Custom PooCommerce prettyPhoto theme
  */
-div.pp_woocommerce {
+div.pp_poocommerce {
 	.pp_content_container {
 		background: #fff;
 		border-radius: 3px;
@@ -78,7 +78,7 @@ div.pp_woocommerce {
 	.pp_next {
 		&::before {
 			@include button();
-			font-family: 'WooCommerce';
+			font-family: 'PooCommerce';
 			content: '\e00b';
 			text-indent: 0;
 			display: none;
@@ -104,7 +104,7 @@ div.pp_woocommerce {
 	.pp_next {
 		&::before {
 			right: 1em;
-			font-family: 'WooCommerce';
+			font-family: 'PooCommerce';
 			content: '\e008';
 		}
 	}
@@ -140,7 +140,7 @@ div.pp_woocommerce {
 		font-size: 1.618em !important;
 
 		&::before {
-			font-family: 'WooCommerce';
+			font-family: 'PooCommerce';
 			content: '\e013';
 			display: block;
 			position: absolute;
@@ -160,7 +160,7 @@ div.pp_woocommerce {
 		margin-top: -1px;
 
 		&::before {
-			font-family: 'WooCommerce';
+			font-family: 'PooCommerce';
 			content: '\e00b';
 			display: block;
 			position: absolute;
@@ -194,7 +194,7 @@ div.pp_woocommerce {
 		font-size: 1.618em !important;
 
 		&::before {
-			font-family: 'WooCommerce';
+			font-family: 'PooCommerce';
 			content: '\e005';
 			display: block;
 			position: absolute;
@@ -233,7 +233,7 @@ div.pp_woocommerce {
 
 // RTL support
 .rtl {
-	div.pp_woocommerce {
+	div.pp_poocommerce {
 		.pp_content_container {
 			text-align: right;
 		}
@@ -241,7 +241,7 @@ div.pp_woocommerce {
 }
 
 @media only screen and (max-width: 768px) {
-	div.pp_woocommerce {
+	div.pp_poocommerce {
 		left: 5% !important;
 		right: 5% !important;
 		box-sizing: border-box;

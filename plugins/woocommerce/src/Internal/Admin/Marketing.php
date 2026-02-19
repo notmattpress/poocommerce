@@ -1,13 +1,13 @@
 <?php
 /**
- * WooCommerce Marketing.
+ * PooCommerce Marketing.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\Marketing\InstalledExtensions;
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\Marketing\InstalledExtensions;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
  * Contains backend logic for the Marketing feature.
@@ -48,7 +48,7 @@ class Marketing {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		if ( ! is_admin() ) {
@@ -61,7 +61,7 @@ class Marketing {
 		// Overwrite submenu default ordering for marketing menu. High priority gives plugins the chance to register their own menu items.
 		add_action( 'admin_menu', array( $this, 'reorder_marketing_submenu' ), 99 );
 
-		add_filter( 'woocommerce_admin_shared_settings', array( $this, 'component_settings' ), 30 );
+		add_filter( 'poocommerce_admin_shared_settings', array( $this, 'component_settings' ), 30 );
 	}
 
 	/**
@@ -72,10 +72,10 @@ class Marketing {
 	public function add_parent_menu_item() {
 		if ( ! Features::is_enabled( 'navigation' ) ) {
 			add_menu_page(
-				__( 'Marketing', 'woocommerce' ),
-				__( 'Marketing', 'woocommerce' ),
-				'manage_woocommerce',
-				'woocommerce-marketing',
+				__( 'Marketing', 'poocommerce' ),
+				__( 'Marketing', 'poocommerce' ),
+				'manage_poocommerce',
+				'poocommerce-marketing',
 				null,
 				'dashicons-megaphone',
 				58
@@ -84,9 +84,9 @@ class Marketing {
 
 		PageController::get_instance()->connect_page(
 			array(
-				'id'         => 'woocommerce-marketing',
+				'id'         => 'poocommerce-marketing',
 				'title'      => 'Marketing',
-				'capability' => 'manage_woocommerce',
+				'capability' => 'manage_poocommerce',
 				'path'       => 'wc-admin&path=/marketing',
 			)
 		);
@@ -100,7 +100,7 @@ class Marketing {
 
 		$controller = PageController::get_instance();
 		$defaults   = array(
-			'parent'        => 'woocommerce-marketing',
+			'parent'        => 'poocommerce-marketing',
 			'existing_page' => false,
 		);
 
@@ -110,7 +110,7 @@ class Marketing {
 		 * @since 4.1.0
 		 * @param array $items Marketing pages.
 		 */
-		$marketing_pages = apply_filters( 'woocommerce_marketing_menu_items', array() );
+		$marketing_pages = apply_filters( 'poocommerce_marketing_menu_items', array() );
 		foreach ( $marketing_pages as $marketing_page ) {
 			if ( ! is_array( $marketing_page ) ) {
 				continue;
@@ -139,19 +139,19 @@ class Marketing {
 		// First register the page.
 		PageController::get_instance()->register_page(
 			array(
-				'id'     => 'woocommerce-marketing-overview',
-				'title'  => __( 'Overview', 'woocommerce' ),
+				'id'     => 'poocommerce-marketing-overview',
+				'title'  => __( 'Overview', 'poocommerce' ),
 				'path'   => 'wc-admin&path=/marketing',
-				'parent' => 'woocommerce-marketing',
+				'parent' => 'poocommerce-marketing',
 			)
 		);
 
 		// Now fix the path, since register_page() gets it wrong.
-		if ( ! isset( $submenu['woocommerce-marketing'] ) ) {
+		if ( ! isset( $submenu['poocommerce-marketing'] ) ) {
 			return;
 		}
 
-		foreach ( $submenu['woocommerce-marketing'] as &$item ) {
+		foreach ( $submenu['poocommerce-marketing'] as &$item ) {
 			// The "slug" (aka the path) is the third item in the array.
 			if ( 0 === strpos( $item[2], 'wc-admin' ) ) {
 				$item[2] = 'admin.php?page=' . $item[2];
@@ -168,11 +168,11 @@ class Marketing {
 	public function reorder_marketing_submenu() {
 		global $submenu;
 
-		if ( ! isset( $submenu['woocommerce-marketing'] ) ) {
+		if ( ! isset( $submenu['poocommerce-marketing'] ) ) {
 			return;
 		}
 
-		$marketing_submenu = $submenu['woocommerce-marketing'];
+		$marketing_submenu = $submenu['poocommerce-marketing'];
 		$new_menu_order    = array();
 
 		// Overview should be first.
@@ -217,7 +217,7 @@ class Marketing {
 
 		$new_menu_order = array_merge( $new_menu_order, $marketing_submenu );
 
-		$submenu['woocommerce-marketing'] = $new_menu_order;  //phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$submenu['poocommerce-marketing'] = $new_menu_order;  //phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 
 	/**

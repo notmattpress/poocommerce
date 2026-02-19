@@ -10,9 +10,9 @@ import { PaymentPromotionRow } from './payment-promotion-row';
 
 const PAYMENT_METHOD_PROMOTIONS = [
 	{
-		gatewayId: 'pre_install_woocommerce_payments_promotion',
-		pluginSlug: 'woocommerce-payments',
-		url: 'https://woocommerce.com/payments/?utm_medium=product',
+		gatewayId: 'pre_install_poocommerce_payments_promotion',
+		pluginSlug: 'poocommerce-payments',
+		url: 'https://poocommerce.com/payments/?utm_medium=product',
 	},
 ];
 

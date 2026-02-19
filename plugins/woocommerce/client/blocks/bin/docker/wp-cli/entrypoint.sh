@@ -50,15 +50,15 @@ fi
 wp rewrite structure "/%postname%/" --hard
 # we cannot create API keys for the API, so we using basic auth, this plugin allows that.
 wp plugin install https://github.com/WP-API/Basic-Auth/archive/master.zip --activate
-wp plugin install woocommerce --activate
-wp plugin activate woocommerce-gutenberg-products-block
+wp plugin install poocommerce --activate
+wp plugin activate poocommerce-gutenberg-products-block
 wp theme install storefront --activate
 declare -p GUTENBERG_LATEST
 if [ "${GUTENBERG_LATEST-}" == 'true' ]; then
     wp plugin install gutenberg --activate
 fi
 
-wp user create customer customer@woocommercecoree2etestsuite.com --user_pass=password --role=customer --path=/var/www/html
+wp user create customer customer@poocommercecoree2etestsuite.com --user_pass=password --role=customer --path=/var/www/html
 wp post create --post_type=page --post_status=publish --post_title='Ready' --post_content='E2E-tests.'
 
 declare -r CURRENT_DOMAIN=$(wp option get siteurl)

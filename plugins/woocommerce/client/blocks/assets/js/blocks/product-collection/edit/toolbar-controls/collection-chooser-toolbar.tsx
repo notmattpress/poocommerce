@@ -10,7 +10,7 @@ const CollectionChooserToolbar = ( props: {
 	return (
 		<ToolbarGroup>
 			<ToolbarButton onClick={ props.openCollectionSelectionModal }>
-				{ __( 'Choose collection', 'woocommerce' ) }
+				{ __( 'Choose collection', 'poocommerce' ) }
 			</ToolbarButton>
 		</ToolbarGroup>
 	);

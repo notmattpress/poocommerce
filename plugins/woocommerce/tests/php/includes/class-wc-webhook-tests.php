@@ -14,7 +14,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_is_valid_resource() {
 		$webhook = new WC_Webhook();
 		$webhook->set_topic( 'order.created' );
-		$order                  = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order                  = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 		$call_is_valid_function = function ( $arg ) {
 			return $this->is_valid_resource( $arg );
 		};
@@ -27,7 +27,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 	public function test_is_valid_resource_false() {
 		$webhook = new WC_Webhook();
 		$webhook->set_topic( 'order.created' );
-		$product                = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
+		$product                = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\ProductHelper::create_simple_product();
 		$call_is_valid_function = function ( $arg ) {
 			return $this->is_valid_resource( $arg );
 		};
@@ -52,7 +52,7 @@ class WC_Webhook_Test extends WC_Unit_Test_Case {
 		$webhook->set_user_id( $admin_user_id_1 );
 		$webhook->save();
 
-		$order = \Automattic\WooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
+		$order = \Automattic\PooCommerce\RestApi\UnitTests\Helpers\OrderHelper::create_order();
 
 		$payload = $webhook->build_payload( $order->get_id() );
 		$this->assertArrayNotHasKey( 'code', $payload );

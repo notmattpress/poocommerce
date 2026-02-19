@@ -2,15 +2,15 @@
 /**
  * WC Admin Order
  *
- * WC Admin Order class that adds some functionality on top of general WooCommerce WC_Order.
+ * WC Admin Order class that adds some functionality on top of general PooCommerce WC_Order.
  */
 
-namespace Automattic\WooCommerce\Admin\Overrides;
+namespace Automattic\PooCommerce\Admin\Overrides;
 
 defined( 'ABSPATH' ) || exit;
 
-use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
-use Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Customers\DataStore as CustomersDataStore;
+use Automattic\PooCommerce\Admin\API\Reports\Orders\Stats\DataStore as OrdersStatsDataStore;
 
 /**
  * WC_Order subclass.
@@ -79,7 +79,7 @@ class Order extends \WC_Order {
 	 * Add filter(s) required to hook this class to substitute WC_Order.
 	 */
 	public static function add_filters() {
-		add_filter( 'woocommerce_order_class', array( __CLASS__, 'order_class_name' ), 10, 3 );
+		add_filter( 'poocommerce_order_class', array( __CLASS__, 'order_class_name' ), 10, 3 );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Order extends \WC_Order {
 	public static function order_class_name( $classname, $order_type, $order_id ) {
 		// @todo - Only substitute class when necessary (during sync).
 		if ( 'WC_Order' === $classname ) {
-			return '\Automattic\WooCommerce\Admin\Overrides\Order';
+			return '\Automattic\PooCommerce\Admin\Overrides\Order';
 		} else {
 			return $classname;
 		}

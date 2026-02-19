@@ -2,7 +2,7 @@
 /**
  * Class WC_Payment_Token_CC file.
  *
- * @package WooCommerce\PaymentTokens
+ * @package PooCommerce\PaymentTokens
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,14 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WooCommerce Credit Card Payment Token.
+ * PooCommerce Credit Card Payment Token.
  *
  * Representation of a payment token for credit cards.
  *
  * @class       WC_Payment_Token_CC
  * @version     3.0.0
  * @since       2.6.0
- * @package     WooCommerce\PaymentTokens
+ * @package     PooCommerce\PaymentTokens
  */
 class WC_Payment_Token_CC extends WC_Payment_Token {
 
@@ -44,13 +44,13 @@ class WC_Payment_Token_CC extends WC_Payment_Token {
 	 * Get type to display to user.
 	 *
 	 * @since  2.6.0
-	 * @param  string $deprecated Deprecated since WooCommerce 3.0.
+	 * @param  string $deprecated Deprecated since PooCommerce 3.0.
 	 * @return string
 	 */
 	public function get_display_name( $deprecated = '' ) {
 		$display = sprintf(
 			/* translators: 1: credit card type 2: last 4 digits 3: expiry month 4: expiry year */
-			__( '%1$s ending in %2$s (expires %3$s/%4$s)', 'woocommerce' ),
+			__( '%1$s ending in %2$s (expires %3$s/%4$s)', 'poocommerce' ),
 			wc_get_credit_card_type_label( $this->get_card_type() ),
 			$this->get_last4(),
 			$this->get_expiry_month(),
@@ -65,7 +65,7 @@ class WC_Payment_Token_CC extends WC_Payment_Token {
 	 * @since 3.0.0
 	 */
 	protected function get_hook_prefix() {
-		return 'woocommerce_payment_token_cc_get_';
+		return 'poocommerce_payment_token_cc_get_';
 	}
 
 	/**

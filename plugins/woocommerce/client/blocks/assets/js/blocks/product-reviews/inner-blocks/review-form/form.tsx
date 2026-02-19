@@ -11,7 +11,7 @@ import { Button, Disabled } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { productsStore } from '@woocommerce/data';
+import { productsStore } from '@poocommerce/data';
 
 const CommentsFormPlaceholder = () => {
 	const instanceId = useInstanceId( CommentsFormPlaceholder );
@@ -24,7 +24,7 @@ const CommentsFormPlaceholder = () => {
 				role="heading"
 				aria-level={ 3 }
 			>
-				{ __( 'Add a review', 'woocommerce' ) }
+				{ __( 'Add a review', 'poocommerce' ) }
 			</span>
 			<form
 				noValidate
@@ -32,12 +32,12 @@ const CommentsFormPlaceholder = () => {
 				onSubmit={ ( event ) => event.preventDefault() }
 			>
 				<div className="comment-form-rating">
-					<span>{ __( 'Your rating *', 'woocommerce' ) }</span>
-					<p className="wp-block-woocommerce-product-reviews__editor__stars"></p>
+					<span>{ __( 'Your rating *', 'poocommerce' ) }</span>
+					<p className="wp-block-poocommerce-product-reviews__editor__stars"></p>
 				</div>
 				<p>
 					<label htmlFor={ `review-${ instanceId }` }>
-						{ __( 'Your review *', 'woocommerce' ) }
+						{ __( 'Your review *', 'poocommerce' ) }
 					</label>
 					<textarea
 						id={ `review-${ instanceId }` }
@@ -55,7 +55,7 @@ const CommentsFormPlaceholder = () => {
 							'wp-block-button__link',
 							__experimentalGetElementClassName( 'button' )
 						) }
-						value={ __( 'Submit', 'woocommerce' ) }
+						value={ __( 'Submit', 'poocommerce' ) }
 						aria-disabled="true"
 					/>
 				</p>
@@ -111,7 +111,7 @@ const CommentsForm = ( {
 				{ _x(
 					'Enable reviews',
 					'action that affects the current product',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Button>,
 		];
@@ -119,7 +119,7 @@ const CommentsForm = ( {
 			<Warning actions={ actions }>
 				{ __(
 					'Product Reviews Form block: Reviews are not enabled for this product.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Warning>
 		);
@@ -128,7 +128,7 @@ const CommentsForm = ( {
 			<Warning>
 				{ __(
 					'Product Reviews Form block: Reviews are not enabled.',
-					'woocommerce'
+					'poocommerce'
 				) }
 			</Warning>
 		);

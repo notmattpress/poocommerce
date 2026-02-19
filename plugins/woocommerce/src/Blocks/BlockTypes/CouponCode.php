@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
-use Automattic\WooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Rendering_Context;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Styles_Helper;
+use Automattic\PooCommerce\EmailEditor\Integrations\Utils\Table_Wrapper_Helper;
 use WP_Block;
 
 /**
@@ -154,7 +154,7 @@ class CouponCode extends AbstractBlock {
 		$css           = \WP_Style_Engine::compile_css( $merged_styles, '' );
 
 		return sprintf(
-			'<span class="woocommerce-coupon-code" style="%s">%s</span>',
+			'<span class="poocommerce-coupon-code" style="%s">%s</span>',
 			esc_attr( $css ),
 			esc_html( $coupon_code )
 		);

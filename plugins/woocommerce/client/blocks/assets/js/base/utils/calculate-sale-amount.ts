@@ -2,7 +2,7 @@
  * External dependencies
  */
 import Dinero from 'dinero.js';
-import type { CartItem } from '@woocommerce/types';
+import type { CartItem } from '@poocommerce/types';
 
 /**
  * Calculate the per-unit sale amount from raw prices.

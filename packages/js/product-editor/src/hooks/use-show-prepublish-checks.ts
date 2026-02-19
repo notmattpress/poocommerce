@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { optionsStore } from '@woocommerce/data';
+import { optionsStore } from '@poocommerce/data';
 
 /**
  * Internal dependencies

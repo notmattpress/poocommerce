@@ -14,7 +14,7 @@ import {
 	paymentGatewaysStore,
 	optionsStore,
 	paymentSettingsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ import { BankAccount } from '~/settings-payments/components/bank-accounts-list/t
 export const SettingsPaymentsBacs = () => {
 	const storeCountryCode =
 		window.wcSettings?.admin?.preloadSettings?.general
-			?.woocommerce_default_country || 'US';
+			?.poocommerce_default_country || 'US';
 
 	const { createSuccessNotice, createErrorNotice } =
 		useDispatch( 'core/notices' );
@@ -56,10 +56,10 @@ export const SettingsPaymentsBacs = () => {
 
 		return {
 			accountsOption: selectors.getOption(
-				'woocommerce_bacs_accounts'
+				'poocommerce_bacs_accounts'
 			) as BankAccount[] | undefined,
 			isLoadingAccounts: ! selectors.hasFinishedResolution( 'getOption', [
-				'woocommerce_bacs_accounts',
+				'poocommerce_bacs_accounts',
 			] ),
 		};
 	}, [] );
@@ -108,7 +108,7 @@ export const SettingsPaymentsBacs = () => {
 		try {
 			await Promise.all( [
 				updateOptions( {
-					woocommerce_bacs_accounts: accounts.map(
+					poocommerce_bacs_accounts: accounts.map(
 						( {
 							account_name,
 							account_number,
@@ -136,11 +136,11 @@ export const SettingsPaymentsBacs = () => {
 			] );
 			setHasChanges( false );
 			createSuccessNotice(
-				__( 'Settings updated successfully', 'woocommerce' )
+				__( 'Settings updated successfully', 'poocommerce' )
 			);
 		} catch ( error ) {
 			createErrorNotice(
-				__( 'Failed to update settings', 'woocommerce' )
+				__( 'Failed to update settings', 'poocommerce' )
 			);
 		} finally {
 			setIsSaving( false );
@@ -159,10 +159,10 @@ export const SettingsPaymentsBacs = () => {
 					} }
 				>
 					<Settings.Section
-						title={ __( 'Enable and customise', 'woocommerce' ) }
+						title={ __( 'Enable and customise', 'poocommerce' ) }
 						description={ __(
 							'Choose how you want to present bank transfer to your customers during checkout.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						{ isLoading ? (
@@ -171,7 +171,7 @@ export const SettingsPaymentsBacs = () => {
 							<CheckboxControl
 								label={ __(
 									'Enable direct bank transfers',
-									'woocommerce'
+									'poocommerce'
 								) }
 								checked={ Boolean( formValues.enabled ) }
 								onChange={ ( checked ) => {
@@ -187,14 +187,14 @@ export const SettingsPaymentsBacs = () => {
 							<FieldPlaceholder size="medium" />
 						) : (
 							<TextControl
-								label={ __( 'Title', 'woocommerce' ) }
+								label={ __( 'Title', 'poocommerce' ) }
 								help={ __(
 									'Payment method name that the customer will see during checkout.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								placeholder={ __(
 									'Direct bank transfer payments',
-									'woocommerce'
+									'poocommerce'
 								) }
 								value={ String( formValues.title ) }
 								onChange={ ( value ) => {
@@ -210,10 +210,10 @@ export const SettingsPaymentsBacs = () => {
 							<FieldPlaceholder size="large" />
 						) : (
 							<TextareaControl
-								label={ __( 'Description', 'woocommerce' ) }
+								label={ __( 'Description', 'poocommerce' ) }
 								help={ __(
 									'Payment method description that the customer will see during checkout.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								value={ String( formValues.description ) }
 								onChange={ ( value ) => {
@@ -229,10 +229,10 @@ export const SettingsPaymentsBacs = () => {
 							<FieldPlaceholder size="large" />
 						) : (
 							<TextareaControl
-								label={ __( 'Instructions', 'woocommerce' ) }
+								label={ __( 'Instructions', 'poocommerce' ) }
 								help={ __(
 									'Instructions that will be added to the thank you page and emails.',
-									'woocommerce'
+									'poocommerce'
 								) }
 								value={ String( formValues.instructions ) }
 								onChange={ ( value ) => {
@@ -247,10 +247,10 @@ export const SettingsPaymentsBacs = () => {
 					</Settings.Section>
 
 					<Settings.Section
-						title={ __( 'Account details', 'woocommerce' ) }
+						title={ __( 'Account details', 'poocommerce' ) }
 						description={ __(
 							'Configure your bank account details.',
-							'woocommerce'
+							'poocommerce'
 						) }
 					>
 						{ isLoadingAccounts ? (
@@ -274,7 +274,7 @@ export const SettingsPaymentsBacs = () => {
 							isBusy={ isSaving }
 							disabled={ isSaving || ! hasChanges }
 						>
-							{ __( 'Save changes', 'woocommerce' ) }
+							{ __( 'Save changes', 'poocommerce' ) }
 						</Button>
 					</Settings.Actions>
 				</Settings.Form>

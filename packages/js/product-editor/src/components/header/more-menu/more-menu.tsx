@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { createElement, Fragment } from '@wordpress/element';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ export const MoreMenu = () => {
 					onClick: () => recordEvent( 'product_dropdown_click' ),
 				} }
 				popoverProps={ {
-					className: 'woocommerce-product-header__more-menu',
+					className: 'poocommerce-product-header__more-menu',
 				} }
 			>
 				{ ( onClose ) => (

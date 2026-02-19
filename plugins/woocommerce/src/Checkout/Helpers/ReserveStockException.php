@@ -3,7 +3,7 @@
  * Exceptions for stock reservation.
  */
 
-namespace Automattic\WooCommerce\Checkout\Helpers;
+namespace Automattic\PooCommerce\Checkout\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,7 +28,7 @@ class ReserveStockException extends \Exception {
 	/**
 	 * Setup exception.
 	 *
-	 * @param string $code             Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+	 * @param string $code             Machine-readable error code, e.g `poocommerce_invalid_product_id`.
 	 * @param string $message          User-friendly translated error message, e.g. 'Product ID is invalid'.
 	 * @param int    $http_status_code Proper HTTP status code to respond with, e.g. 400.
 	 * @param array  $data             Extra error data.

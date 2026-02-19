@@ -1,12 +1,12 @@
 module.exports = {
-	extends: [ 'plugin:@woocommerce/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@poocommerce/eslint-plugin/recommended' ],
 	root: true,
 	settings: {
 		'import/core-modules': [
-			'@woocommerce/data',
-			'@woocommerce/experimental',
-			'@woocommerce/navigation',
-			'@woocommerce/tracks',
+			'@poocommerce/data',
+			'@poocommerce/experimental',
+			'@poocommerce/navigation',
+			'@poocommerce/tracks',
 			'@testing-library/react',
 		],
 		'import/resolver': {

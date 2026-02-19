@@ -12,7 +12,7 @@ import {
 	__experimentalSelectControl as SelectControl,
 	__experimentalSelectControlMenu as Menu,
 	__experimentalSelectControlMenuItem as MenuItem,
-} from '@woocommerce/components';
+} from '@poocommerce/components';
 import { Spinner, BaseControl, Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { search } from '@wordpress/icons';
@@ -90,8 +90,8 @@ export const SingleSelectPageWithSearch = ( {
 				className={ className }
 				placeholder={
 					isLoading
-						? __( 'Loading…', 'woocommerce' )
-						: __( 'Search for a page…', 'woocommerce' )
+						? __( 'Loading…', 'poocommerce' )
+						: __( 'Search for a page…', 'poocommerce' )
 				}
 				label=""
 				// The select control input does not require an id since its value represents the label (which displays the page title to the user). A hidden input with the actual id is provided above, ensuring that the value is saved correctly.
@@ -100,7 +100,7 @@ export const SingleSelectPageWithSearch = ( {
 					'aria-readonly': true,
 					'aria-label': __(
 						'Use up and down arrow keys to navigate',
-						'woocommerce'
+						'poocommerce'
 					),
 				} }
 				items={ allItems }
@@ -129,7 +129,7 @@ export const SingleSelectPageWithSearch = ( {
 						<Icon icon={ search } size={ 20 } />
 						<Menu isOpen={ isOpen } getMenuProps={ getMenuProps }>
 							{ isFetching ? (
-								<div className="woocommerce-single-select-page-with-search__menu-loading">
+								<div className="poocommerce-single-select-page-with-search__menu-loading">
 									<Spinner />
 								</div>
 							) : (

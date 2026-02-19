@@ -1,10 +1,10 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Admin\Marketing;
+namespace Automattic\PooCommerce\Tests\Admin\Marketing;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaign;
-use Automattic\WooCommerce\Admin\Marketing\MarketingCampaignType;
-use Automattic\WooCommerce\Admin\Marketing\Price;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaign;
+use Automattic\PooCommerce\Admin\Marketing\MarketingCampaignType;
+use Automattic\PooCommerce\Admin\Marketing\Price;
 use WC_Unit_Test_Case;
 
 /**

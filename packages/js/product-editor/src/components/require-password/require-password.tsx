@@ -9,7 +9,7 @@ import {
 	useState,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 import {
 	BaseControl,
 	CheckboxControl,
@@ -47,7 +47,7 @@ export function RequirePassword( {
 			<CheckboxControl
 				label={ label }
 				checked={ isPasswordRequired }
-				className="wp-block-woocommerce-product-password-fields__field"
+				className="wp-block-poocommerce-product-password-fields__field"
 				onChange={ ( selected ) => {
 					recordEvent( 'product_catalog_require_password', {
 						source: TRACKS_SOURCE,
@@ -62,7 +62,7 @@ export function RequirePassword( {
 			{ isPasswordRequired && (
 				<BaseControl
 					id={ postPasswordId }
-					label={ __( 'Password', 'woocommerce' ) }
+					label={ __( 'Password', 'poocommerce' ) }
 				>
 					<InputControl
 						id={ postPasswordId }

@@ -66,44 +66,44 @@
 "packages/php/email-editor/**/*":
   - team: ballade
 
-"plugins/woocommerce/**/*":
+"plugins/poocommerce/**/*":
   - team: flux
 
-"plugins/woocommerce/templates/**/*":
+"plugins/poocommerce/templates/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce/templates/emails/**/*":
+"plugins/poocommerce/templates/emails/**/*":
   - team: ballade
 
-"plugins/woocommerce/src/Admin/**/*":
+"plugins/poocommerce/src/Admin/**/*":
   - team: woo-fse
 
-"plugins/woocommerce/src/Blocks/**/*":
+"plugins/poocommerce/src/Blocks/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce/src/Internal/Admin/**/*":
+"plugins/poocommerce/src/Internal/Admin/**/*":
   - team: woo-fse
 
-"plugins/woocommerce/src/StoreApi/**/*":
+"plugins/poocommerce/src/StoreApi/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce/client/admin/**/*":
+"plugins/poocommerce/client/admin/**/*":
   - team: woo-fse
 
-"plugins/woocommerce/client/blocks/**/*":
+"plugins/poocommerce/client/blocks/**/*":
   - team: rubik
   - team: woo-fse
 
-"plugins/woocommerce-beta-tester/**/*":
+"plugins/poocommerce-beta-tester/**/*":
   - team: flux
 
-"plugins/woocommerce/src/Internal/EmailEditor/**/*":
+"plugins/poocommerce/src/Internal/EmailEditor/**/*":
   - team: ballade
 
-"plugins/woocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/**/*":
+"plugins/poocommerce/client/admin/client/wp-admin-scripts/email-editor-integration/**/*":
   - team: ballade
 
 "tools/**/*":

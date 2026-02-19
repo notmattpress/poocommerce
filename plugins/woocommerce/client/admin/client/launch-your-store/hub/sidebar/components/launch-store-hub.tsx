@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @woocommerce/dependency-group */
+/* eslint-disable @poocommerce/dependency-group */
 /**
  * External dependencies
  */
@@ -51,13 +51,13 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 				} );
 			} }
 		>
-			{ __( 'Launch Your Store', 'woocommerce' ) }
+			{ __( 'Launch Your Store', 'poocommerce' ) }
 		</Button>
 	);
 
 	const sidebarDescription = __(
-		'Ready to start selling? Before you launch your store, make sure you’ve completed these essential tasks. If you’d like to change your store visibility, go to WooCommerce > Settings > Site visibility.',
-		'woocommerce'
+		'Ready to start selling? Before you launch your store, make sure you’ve completed these essential tasks. If you’d like to change your store visibility, go to PooCommerce > Settings > Site visibility.',
+		'poocommerce'
 	);
 
 	const hasIncompleteTasks =
@@ -92,7 +92,7 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 			) }
 		>
 			<motion.div
-				className="woocommerce-edit-site-layout__header-container"
+				className="poocommerce-edit-site-layout__header-container"
 				animate={ 'view' }
 			>
 				<SiteHub
@@ -100,7 +100,7 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 						view: { x: 0 },
 					} }
 					isTransparent={ false }
-					className="woocommerce-edit-site-layout__hub"
+					className="poocommerce-edit-site-layout__hub"
 				/>
 			</motion.div>
 			<SidebarContainer
@@ -108,12 +108,12 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 				description={ sidebarDescription }
 				onMobileClose={ props.onMobileClose }
 			>
-				<div className="woocommerce-edit-site-sidebar-navigation-screen-essential-tasks__group-header">
+				<div className="poocommerce-edit-site-sidebar-navigation-screen-essential-tasks__group-header">
 					<Heading level={ 2 }>
-						{ __( 'Essential Tasks', 'woocommerce' ) }
+						{ __( 'Essential Tasks', 'poocommerce' ) }
 					</Heading>
 				</div>
-				<ItemGroup className="woocommerce-edit-site-sidebar-navigation-screen-essential-tasks__group">
+				<ItemGroup className="poocommerce-edit-site-sidebar-navigation-screen-essential-tasks__group">
 					{ tasklist &&
 						hasIncompleteTasks &&
 						tasklist.tasks.map( ( task ) =>
@@ -142,26 +142,26 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 						>
 							{ __(
 								'Fantastic job! Your store is ready to go — no pending tasks to complete.',
-								'woocommerce'
+								'poocommerce'
 							) }
 						</SidebarNavigationItem>
 					) }
 				</ItemGroup>
 				{ testOrderCount > 0 && (
 					<>
-						<div className="woocommerce-edit-site-sidebar-navigation-screen-test-data__group-header">
+						<div className="poocommerce-edit-site-sidebar-navigation-screen-test-data__group-header">
 							<Heading level={ 2 }>
-								{ __( 'Test data', 'woocommerce' ) }
+								{ __( 'Test data', 'poocommerce' ) }
 							</Heading>
 						</div>
-						<ItemGroup className="woocommerce-edit-site-sidebar-navigation-screen-remove-test-data__group">
+						<ItemGroup className="poocommerce-edit-site-sidebar-navigation-screen-remove-test-data__group">
 							<ToggleControl
 								__nextHasNoMarginBottom
 								label={ sprintf(
 									// translators: %d is the number of test orders
 									__(
 										'Remove %d test orders',
-										'woocommerce'
+										'poocommerce'
 									),
 									testOrderCount
 								) }
@@ -171,13 +171,13 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 							<p>
 								{ __(
 									'Remove test orders and associated data, including analytics and transactions, once your store goes live. ',
-									'woocommerce'
+									'poocommerce'
 								) }
 							</p>
 						</ItemGroup>
 					</>
 				) }
-				<ItemGroup className="woocommerce-edit-site-sidebar-navigation-screen-launch-store-button__group">
+				<ItemGroup className="poocommerce-edit-site-sidebar-navigation-screen-launch-store-button__group">
 					{ launchStoreError?.message && ! errorNoticeDismissed && (
 						<Notice
 							className="launch-store-error-notice"
@@ -188,7 +188,7 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 							{ createInterpolateElement(
 								__(
 									'Oops! We encountered a problem while launching your store. <retryButton/>',
-									'woocommerce'
+									'poocommerce'
 								),
 								{
 									retryButton: (
@@ -198,7 +198,7 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 										>
 											{ __(
 												'Please try again',
-												'woocommerce'
+												'poocommerce'
 											) }
 										</Button>
 									),
@@ -210,7 +210,7 @@ export const LaunchYourStoreHubSidebar = ( props: SidebarComponentProps ) => {
 						{ hasSubmitted ? (
 							<Spinner />
 						) : (
-							__( 'Launch your store', 'woocommerce' )
+							__( 'Launch your store', 'poocommerce' )
 						) }
 					</Button>
 				</ItemGroup>

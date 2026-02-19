@@ -4,7 +4,7 @@
 import type {
 	OptimisticCartItem,
 	SelectedAttributes,
-} from '@woocommerce/stores/woocommerce/cart';
+} from '@poocommerce/stores/poocommerce/cart';
 
 /**
  * Internal dependencies

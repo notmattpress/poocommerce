@@ -3,7 +3,7 @@
  */
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { Pagination, EmptyContent } from '@woocommerce/components';
+import { Pagination, EmptyContent } from '@poocommerce/components';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ export const LearnMarketing = () => {
 			return (
 				<div
 					role="progressbar"
-					className="woocommerce-marketing-learn-marketing-card__footer--placeholder"
+					className="poocommerce-marketing-learn-marketing-card__footer--placeholder"
 				/>
 			);
 		}
@@ -76,7 +76,7 @@ export const LearnMarketing = () => {
 				<EmptyContent
 					title={ __(
 						"Oops, our posts aren't loading right now",
-						'woocommerce'
+						'poocommerce'
 					) }
 					message={ <ReadBlogMessage /> }
 					illustration=""
@@ -88,7 +88,7 @@ export const LearnMarketing = () => {
 		if ( posts.length === 0 ) {
 			return (
 				<EmptyContent
-					title={ __( 'No posts yet', 'woocommerce' ) }
+					title={ __( 'No posts yet', 'poocommerce' ) }
 					message={ <ReadBlogMessage /> }
 					illustration=""
 					actionLabel=""
@@ -106,11 +106,11 @@ export const LearnMarketing = () => {
 	return (
 		<CollapsibleCard
 			initialCollapsed
-			className="woocommerce-marketing-learn-marketing-card"
-			header={ __( 'Learn about marketing a store', 'woocommerce' ) }
+			className="poocommerce-marketing-learn-marketing-card"
+			header={ __( 'Learn about marketing a store', 'poocommerce' ) }
 			footer={ renderFooter() }
 		>
-			<div className="woocommerce-marketing-learn-marketing-card__body">
+			<div className="poocommerce-marketing-learn-marketing-card__body">
 				{ renderBody() }
 			</div>
 		</CollapsibleCard>

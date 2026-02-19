@@ -18,8 +18,8 @@ export const SettingsGroup = ( {
 	const { data, fields, form, updateField } = useSettingsForm( settings );
 
 	return (
-		<fieldset className="woocommerce-settings-group">
-			<div className="woocommerce-settings-group-title">
+		<fieldset className="poocommerce-settings-group">
+			<div className="poocommerce-settings-group-title">
 				<Heading level={ 4 }>{ title }</Heading>
 				{ desc && (
 					<legend
@@ -29,7 +29,7 @@ export const SettingsGroup = ( {
 					/>
 				) }
 			</div>
-			<div className="woocommerce-settings-group-content">
+			<div className="poocommerce-settings-group-content">
 				<DataForm
 					data={ data }
 					fields={ fields }

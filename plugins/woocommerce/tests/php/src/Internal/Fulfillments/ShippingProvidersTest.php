@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Tests\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Fulfillments\FulfillmentUtils;
-use Automattic\WooCommerce\Internal\Fulfillments\Providers as ShippingProviders;
+use Automattic\PooCommerce\Internal\Fulfillments\FulfillmentUtils;
+use Automattic\PooCommerce\Internal\Fulfillments\Providers as ShippingProviders;
 
 /**
  * ShippingProvidersTest class.
@@ -15,8 +15,8 @@ class ShippingProvidersTest extends \WP_UnitTestCase {
 	 * Test that the shipping providers configuration returns the correct classes.
 	 */
 	public function test_shipping_providers_configuration(): void {
-		update_option( 'woocommerce_feature_fulfillments_enabled', 'yes' );
-		$controller = wc_get_container()->get( \Automattic\WooCommerce\Internal\Fulfillments\FulfillmentsController::class );
+		update_option( 'poocommerce_feature_fulfillments_enabled', 'yes' );
+		$controller = wc_get_container()->get( \Automattic\PooCommerce\Internal\Fulfillments\FulfillmentsController::class );
 		$controller->register();
 		$controller->initialize_fulfillments();
 

@@ -1,12 +1,12 @@
 <?php
 /**
- * WooCommerce Marketing > Coupons.
+ * PooCommerce Marketing > Coupons.
  */
 
-namespace Automattic\WooCommerce\Internal\Admin;
+namespace Automattic\PooCommerce\Internal\Admin;
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Admin\PageController;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Admin\PageController;
 
 /**
  * Contains backend logic for the Coupons feature.
@@ -33,7 +33,7 @@ class Coupons {
 	}
 
 	/**
-	 * Hook into WooCommerce.
+	 * Hook into PooCommerce.
 	 */
 	public function __construct() {
 		if ( ! is_admin() ) {
@@ -51,7 +51,7 @@ class Coupons {
 		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_add_marketing_coupon_script' ) );
-		add_action( 'woocommerce_register_post_type_shop_coupon', array( $this, 'move_coupons' ) );
+		add_action( 'poocommerce_register_post_type_shop_coupon', array( $this, 'move_coupons' ) );
 		add_action( 'admin_head', array( $this, 'fix_coupon_menu_highlight' ), 99 );
 		add_action( 'admin_menu', array( $this, 'maybe_add_coupon_menu_redirect' ) );
 	}
@@ -65,9 +65,9 @@ class Coupons {
 		}
 
 		add_submenu_page(
-			'woocommerce',
-			__( 'Coupons', 'woocommerce' ),
-			__( 'Coupons', 'woocommerce' ),
+			'poocommerce',
+			__( 'Coupons', 'poocommerce' ),
+			__( 'Coupons', 'poocommerce' ),
 			'manage_options',
 			'coupons-moved',
 			array( $this, 'coupon_menu_moved' )
@@ -90,7 +90,7 @@ class Coupons {
 	 * @return array the filtered parameters.
 	 */
 	public function move_coupons( $args ) {
-		$args['show_in_menu'] = current_user_can( 'manage_woocommerce' ) ? 'woocommerce-marketing' : true;
+		$args['show_in_menu'] = current_user_can( 'manage_poocommerce' ) ? 'poocommerce-marketing' : true;
 		return $args;
 	}
 
@@ -101,7 +101,7 @@ class Coupons {
 		global $parent_file, $post_type;
 
 		if ( $post_type === 'shop_coupon' ) {
-			$parent_file = 'woocommerce-marketing'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+			$parent_file = 'poocommerce-marketing'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 		}
 	}
 
@@ -110,7 +110,7 @@ class Coupons {
 	 */
 	public function maybe_add_marketing_coupon_script() {
 		$curent_screen = PageController::get_instance()->get_current_page();
-		if ( ! isset( $curent_screen['id'] ) || $curent_screen['id'] !== 'woocommerce-coupons' ) {
+		if ( ! isset( $curent_screen['id'] ) || $curent_screen['id'] !== 'poocommerce-coupons' ) {
 			return;
 		}
 

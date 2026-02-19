@@ -1,10 +1,10 @@
 <?php
 
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Enums\ProductType;
 
 /**
  * Products Factory Tests
- * @package WooCommerce\Tests\Product
+ * @package PooCommerce\Tests\Product
  * @since 3.0.0
  */
 class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
@@ -85,7 +85,7 @@ class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
 	 */
 	public function test_factory_cached_product_preserves_meta_ids() {
 		// Enable the feature for this test.
-		$option_name    = 'woocommerce_feature_' . \Automattic\WooCommerce\Internal\Caches\ProductCacheController::FEATURE_NAME . '_enabled';
+		$option_name    = 'poocommerce_feature_' . \Automattic\PooCommerce\Internal\Caches\ProductCacheController::FEATURE_NAME . '_enabled';
 		$original_value = get_option( $option_name );
 		update_option( $option_name, 'yes' );
 
@@ -108,7 +108,7 @@ class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
 			}
 
 			// Clear cache to ensure fresh retrieval.
-			$product_cache = wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\ProductCache::class );
+			$product_cache = wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\ProductCache::class );
 			$product_cache->remove( $product_id );
 
 			// Get product via factory (first time - will cache it).
@@ -189,7 +189,7 @@ class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
 	 */
 	public function test_factory_uses_cache_for_repeated_retrievals() {
 		// Enable the feature for this test.
-		$option_name    = 'woocommerce_feature_' . \Automattic\WooCommerce\Internal\Caches\ProductCacheController::FEATURE_NAME . '_enabled';
+		$option_name    = 'poocommerce_feature_' . \Automattic\PooCommerce\Internal\Caches\ProductCacheController::FEATURE_NAME . '_enabled';
 		$original_value = get_option( $option_name );
 		update_option( $option_name, 'yes' );
 
@@ -198,7 +198,7 @@ class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
 			$product_id   = $test_product->get_id();
 
 			// Clear cache.
-			$product_cache = wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\ProductCache::class );
+			$product_cache = wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\ProductCache::class );
 			$product_cache->remove( $product_id );
 
 			// Verify not cached initially.
@@ -233,7 +233,7 @@ class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
 	 * Test that cache is bypassed when feature is disabled.
 	 */
 	public function test_factory_bypasses_cache_when_feature_disabled() {
-		if ( \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( \Automattic\WooCommerce\Internal\Caches\ProductCacheController::FEATURE_NAME ) ) {
+		if ( \Automattic\PooCommerce\Utilities\FeaturesUtil::feature_is_enabled( \Automattic\PooCommerce\Internal\Caches\ProductCacheController::FEATURE_NAME ) ) {
 			$this->markTestSkipped( 'Product instance caching feature is enabled. This test requires it to be disabled.' );
 		}
 
@@ -244,7 +244,7 @@ class WC_Tests_Product_Factory extends WC_Unit_Test_Case {
 		$product = WC()->product_factory->get_product( $product_id );
 
 		// Verify product is retrieved but not cached.
-		$product_cache = wc_get_container()->get( \Automattic\WooCommerce\Internal\Caches\ProductCache::class );
+		$product_cache = wc_get_container()->get( \Automattic\PooCommerce\Internal\Caches\ProductCache::class );
 		$this->assertFalse( $product_cache->is_cached( $product_id ), 'Product should not be cached when feature is disabled' );
 
 		// Verify product is still valid.

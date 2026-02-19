@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { ChangeEvent } from 'react';
-import { Product } from '@woocommerce/data';
-import { recordEvent } from '@woocommerce/tracks';
+import { Product } from '@poocommerce/data';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Get additional props to be passed to all checkbox inputs.

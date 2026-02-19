@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\Extension;
+namespace Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\Extension;
 
-use Automattic\WooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\XPathExpr;
+use Automattic\PooCommerce\EmailEditorVendor\Symfony\Component\CssSelector\XPath\XPathExpr;
 
 /**
  * XPath expression translator combination extension.

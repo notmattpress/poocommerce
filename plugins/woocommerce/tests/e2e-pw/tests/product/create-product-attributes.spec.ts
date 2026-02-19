@@ -4,7 +4,7 @@
 import {
 	WC_API_PATH,
 	WC_ADMIN_API_PATH,
-} from '@woocommerce/e2e-utils-playwright';
+} from '@poocommerce/e2e-utils-playwright';
 import type { Page } from '@playwright/test';
 
 /**
@@ -40,7 +40,7 @@ const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
 	page: async ( { page, restApi }, use ) => {
 		await restApi.put( `${ WC_ADMIN_API_PATH }/options`, {
-			woocommerce_task_list_reminder_bar_hidden: 'yes',
+			poocommerce_task_list_reminder_bar_hidden: 'yes',
 		} );
 
 		await use( page );
@@ -66,7 +66,7 @@ async function goToAttributesTab( page: Page ) {
 	// There is the chance we might click on the 'Attributes' tab too early. To
 	// prevent that, we wait until the 'Variations' tab is hidden, which means
 	// the tabs have been updated.
-	// @see https://github.com/woocommerce/woocommerce/issues/53449.
+	// @see https://github.com/poocommerce/poocommerce/issues/53449.
 	await expect(
 		page
 			.locator( '.attribute_tab' )

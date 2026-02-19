@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
-import { isObject } from '@woocommerce/types';
+import { getSetting } from '@poocommerce/settings';
+import { isObject } from '@poocommerce/types';
 
 type Variant = 'text' | 'contained' | 'outlined';
 

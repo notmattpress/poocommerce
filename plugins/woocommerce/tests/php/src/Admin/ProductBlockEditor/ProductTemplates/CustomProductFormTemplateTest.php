@@ -1,6 +1,6 @@
 <?php
 
-namespace Automattic\WooCommerce\Tests\Admin\ProductBlockEditor\ProductTemplates;
+namespace Automattic\PooCommerce\Tests\Admin\ProductBlockEditor\ProductTemplates;
 
 use WC_Unit_Test_Case;
 

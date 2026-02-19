@@ -13,13 +13,13 @@ const program = new Command( 'list' )
 	.description( 'List all Github workflows in a repository' )
 	.option(
 		'-o --owner <owner>',
-		'Repository owner. Default: woocommerce',
-		'woocommerce'
+		'Repository owner. Default: poocommerce',
+		'poocommerce'
 	)
 	.option(
 		'-n --name <name>',
-		'Repository name. Default: woocommerce',
-		'woocommerce'
+		'Repository name. Default: poocommerce',
+		'poocommerce'
 	)
 	.action( async ( { owner, name } ) => {
 		Logger.startTask( 'Listing all workflows' );

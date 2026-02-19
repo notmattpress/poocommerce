@@ -12,7 +12,7 @@ import { useUserPreferences } from '../use-user-preferences';
 const mockSelect = jest.fn().mockReturnValue( {
 	getCurrentUser: jest
 		.fn()
-		.mockReturnValue( { id: 1, woocommerce_meta: {} } ),
+		.mockReturnValue( { id: 1, poocommerce_meta: {} } ),
 	getEntity: jest.fn(),
 	getEntityRecord: jest.fn(),
 	getLastEntitySaveError: jest.fn(),
@@ -66,11 +66,11 @@ describe( 'useUserPreferences() hook', () => {
 		expect( result.current.isRequesting ).toBe( true );
 	} );
 
-	it( 'Returns woocommerce_meta (JSON decoded) at root level', () => {
+	it( 'Returns poocommerce_meta (JSON decoded) at root level', () => {
 		mockSelect.mockReturnValue( {
 			getEntity: jest.fn().mockReturnValue( undefined ),
 			getCurrentUser: jest.fn().mockReturnValue( {
-				woocommerce_meta: {
+				poocommerce_meta: {
 					dashboard_chart_type: '"line"',
 					dashboard_sections:
 						'[{"key":"leaderboards","title":"Leaderboards","isVisible":true,"icon":"editor-ol","hiddenBlocks":["coupons","customers"]}]',
@@ -122,7 +122,7 @@ describe( 'useUserPreferences() hook', () => {
 		const updateResult = await result.current.updateUserPreferences( {} );
 
 		expect( updateResult ).toMatchObject( {
-			error: new Error( 'Invalid woocommerce_meta data for update.' ),
+			error: new Error( 'Invalid poocommerce_meta data for update.' ),
 			updatedUser: undefined,
 		} );
 	} );
@@ -136,7 +136,7 @@ describe( 'useUserPreferences() hook', () => {
 			// Having to do this also prevents testing the saveUser() error condition.
 			type: 'BOGUS_ACTION_HERE',
 			id: 1,
-			woocommerce_meta: {
+			poocommerce_meta: {
 				revenue_report_columns: '["shipping"]',
 			},
 		} );
@@ -145,7 +145,7 @@ describe( 'useUserPreferences() hook', () => {
 			type: 'RECEIVE_CURRENT_USER',
 			currentUser: {
 				id: 1,
-				woocommerce_meta: {
+				poocommerce_meta: {
 					revenue_report_columns: '["shipping"]',
 				},
 			},
@@ -179,13 +179,13 @@ describe( 'useUserPreferences() hook', () => {
 
 			expect( saveUser ).toHaveBeenCalledWith( {
 				id: 1,
-				woocommerce_meta: { revenue_report_columns: '["shipping"]' },
+				poocommerce_meta: { revenue_report_columns: '["shipping"]' },
 			} );
 			expect( receiveCurrentUser ).toHaveBeenCalled();
 			expect( updateResult ).toMatchObject( {
 				updatedUser: {
 					id: 1,
-					woocommerce_meta: {
+					poocommerce_meta: {
 						revenue_report_columns: [ 'shipping' ],
 					},
 				},
@@ -198,7 +198,7 @@ describe( 'useUserPreferences() hook', () => {
 			type: 'RECEIVE_CURRENT_USER',
 			currentUser: {
 				id: 1,
-				woocommerce_meta: {
+				poocommerce_meta: {
 					revenue_report_columns: '["shipping"]',
 				},
 			},
@@ -220,7 +220,7 @@ describe( 'useUserPreferences() hook', () => {
 				.mockReturnValueOnce( { name: 'user', kind: 'root' } ),
 			getEntityRecord: jest.fn().mockReturnValue( {
 				id: 1,
-				woocommerce_meta: {
+				poocommerce_meta: {
 					revenue_report_columns: '["shipping"]',
 				},
 			} ),
@@ -255,13 +255,13 @@ describe( 'useUserPreferences() hook', () => {
 
 			expect( saveEntityRecord ).toHaveBeenCalledWith( 'root', 'user', {
 				id: 1,
-				woocommerce_meta: { revenue_report_columns: '["shipping"]' },
+				poocommerce_meta: { revenue_report_columns: '["shipping"]' },
 			} );
 			expect( receiveCurrentUser ).toHaveBeenCalled();
 			expect( firstResult ).toMatchObject( {
 				updatedUser: {
 					id: 1,
-					woocommerce_meta: {
+					poocommerce_meta: {
 						revenue_report_columns: [ 'shipping' ],
 					},
 				},
@@ -278,7 +278,7 @@ describe( 'useUserPreferences() hook', () => {
 
 			expect( saveEntityRecord ).toHaveBeenCalledWith( 'root', 'user', {
 				id: 1,
-				woocommerce_meta: {
+				poocommerce_meta: {
 					revenue_report_columns: '["shipping","taxes"]',
 				},
 			} );

@@ -22,8 +22,8 @@ class Setup {
 	 * @since 1.0.0
 	 */
 	public function register_scripts() {
-		if ( ! method_exists( 'Automattic\WooCommerce\Admin\PageController', 'is_admin_or_embed_page' ) ||
-		! \Automattic\WooCommerce\Admin\PageController::is_admin_or_embed_page()
+		if ( ! method_exists( 'Automattic\PooCommerce\Admin\PageController', 'is_admin_or_embed_page' ) ||
+		! \Automattic\PooCommerce\Admin\PageController::is_admin_or_embed_page()
 		) {
 			return;
 		}
@@ -73,7 +73,7 @@ class Setup {
 			array(
 				'id'     => '{{slugSnakeCase}}-example-page',
 				'title'  => __( '{{title}}', '{{slugSnakeCase}}' ),
-				'parent' => 'woocommerce',
+				'parent' => 'poocommerce',
 				'path'   => '/{{slug}}',
 			)
 		);

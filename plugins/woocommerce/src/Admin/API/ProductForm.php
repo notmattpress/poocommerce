@@ -5,9 +5,9 @@
  * Handles requests to retrieve product form data.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Internal\Admin\ProductForm\FormFactory;
+use Automattic\PooCommerce\Internal\Admin\ProductForm\FormFactory;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,14 +63,14 @@ class ProductForm extends \WC_REST_Data_Controller {
 	}
 
 	/**
-	 * Check if a given request has access to manage woocommerce.
+	 * Check if a given request has access to manage poocommerce.
 	 *
 	 * @param  WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|boolean
 	 */
 	public function get_product_form_permission_check( $request ) {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			return new \WP_Error( 'woocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to retrieve product form data.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+		if ( ! current_user_can( 'manage_poocommerce' ) ) {
+			return new \WP_Error( 'poocommerce_rest_cannot_create', __( 'Sorry, you are not allowed to retrieve product form data.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;

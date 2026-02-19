@@ -1,12 +1,12 @@
 <?php
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
+namespace Automattic\PooCommerce\Internal\Admin\Settings\PaymentsProviders\WooPayments;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
-use Automattic\WooCommerce\Internal\Admin\Settings\Payments;
-use Automattic\WooCommerce\Internal\RestApiControllerBase;
-use Automattic\WooCommerce\Internal\Utilities\ArrayUtil;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Admin\Settings\Payments;
+use Automattic\PooCommerce\Internal\RestApiControllerBase;
+use Automattic\PooCommerce\Internal\Utilities\ArrayUtil;
 use Exception;
 use WP_Error;
 use WP_Http;
@@ -49,7 +49,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 	private WooPaymentsService $woopayments;
 
 	/**
-	 * Get the WooCommerce REST API namespace for the class.
+	 * Get the PooCommerce REST API namespace for the class.
 	 *
 	 * @return string
 	 */
@@ -74,14 +74,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -102,14 +102,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -129,14 +129,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -156,7 +156,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
@@ -177,14 +177,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -204,7 +204,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
@@ -226,14 +226,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -253,14 +253,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -280,14 +280,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -307,14 +307,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -336,20 +336,20 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'from'     => array(
-							'description'       => esc_html__( 'Where from in the onboarding flow this request was triggered.', 'woocommerce' ),
+							'description'       => esc_html__( 'Where from in the onboarding flow this request was triggered.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -370,7 +370,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
@@ -392,20 +392,20 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'from'     => array(
-							'description'       => esc_html__( 'Where from in the onboarding flow this request was triggered.', 'woocommerce' ),
+							'description'       => esc_html__( 'Where from in the onboarding flow this request was triggered.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -439,20 +439,20 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'permission_callback' => fn( $request ) => $this->check_permissions( $request ),
 					'args'                => array(
 						'location' => array(
-							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'woocommerce' ),
+							'description'       => esc_html__( 'ISO3166 alpha-2 country code. Defaults to the stored providers business location country code.', 'poocommerce' ),
 							'type'              => 'string',
 							'pattern'           => '[a-zA-Z]{2}', // Two alpha characters.
 							'required'          => false,
 							'validate_callback' => fn( $value, $request ) => $this->check_location_arg( $value, $request ),
 						),
 						'from'     => array(
-							'description'       => esc_html__( 'Where from in the onboarding flow this request was triggered.', 'woocommerce' ),
+							'description'       => esc_html__( 'Where from in the onboarding flow this request was triggered.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 						'source'   => array(
-							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'woocommerce' ),
+							'description'       => esc_html__( 'The upmost entry point from where the merchant entered the onboarding flow.', 'poocommerce' ),
 							'type'              => 'string',
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -513,7 +513,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 		} catch ( ApiException $e ) {
 			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
 		} catch ( Exception $e ) {
-			return new WP_Error( 'woocommerce_rest_woopayments_onboarding_error', $e->getMessage(), array( 'status' => WP_Http::INTERNAL_SERVER_ERROR ) );
+			return new WP_Error( 'poocommerce_rest_woopayments_onboarding_error', $e->getMessage(), array( 'status' => WP_Http::INTERNAL_SERVER_ERROR ) );
 		}
 
 		return rest_ensure_response( $this->prepare_onboarding_details_response( $onboarding_details ) );
@@ -948,7 +948,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 	private function check_location_arg( $value, WP_REST_Request $request ) {
 		// If the 'location' argument is not a string return an error.
 		if ( ! is_string( $value ) ) {
-			return new WP_Error( 'rest_invalid_param', esc_html__( 'The location argument must be a string.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'rest_invalid_param', esc_html__( 'The location argument must be a string.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		// Get the registered attributes for this endpoint request.
@@ -959,7 +959,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 
 		// If the location param doesn't match the regex pattern then we should return an error as well.
 		if ( ! preg_match( '/^' . $args['pattern'] . '$/', $value ) ) {
-			return new WP_Error( 'rest_invalid_param', esc_html__( 'The location argument must be a valid ISO3166 alpha-2 country code.', 'woocommerce' ), array( 'status' => 400 ) );
+			return new WP_Error( 'rest_invalid_param', esc_html__( 'The location argument must be a valid ISO3166 alpha-2 country code.', 'poocommerce' ), array( 'status' => 400 ) );
 		}
 
 		return true;
@@ -1030,43 +1030,43 @@ class WooPaymentsRestController extends RestApiControllerBase {
 	private function get_schema_for_get_onboarding_details(): array {
 		$schema               = array(
 			'$schema' => 'http://json-schema.org/draft-04/schema#',
-			'title'   => 'WooCommerce Settings Payments WooPayments onboarding details for the given location.',
+			'title'   => 'PooCommerce Settings Payments WooPayments onboarding details for the given location.',
 			'type'    => 'object',
 		);
 		$schema['properties'] = array(
 			'state'    => array(
 				'type'        => 'object',
-				'description' => esc_html__( 'The general state of the onboarding process.', 'woocommerce' ),
+				'description' => esc_html__( 'The general state of the onboarding process.', 'poocommerce' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'properties'  => array(
 					'supported' => array(
 						'type'        => 'boolean',
-						'description' => esc_html__( 'Whether onboarding is supported.', 'woocommerce' ),
+						'description' => esc_html__( 'Whether onboarding is supported.', 'poocommerce' ),
 						'context'     => array( 'view', 'edit' ),
 						'readonly'    => true,
 					),
 					'started'   => array(
 						'type'        => 'boolean',
-						'description' => esc_html__( 'Whether the onboarding process is started.', 'woocommerce' ),
+						'description' => esc_html__( 'Whether the onboarding process is started.', 'poocommerce' ),
 						'context'     => array( 'view', 'edit' ),
 						'readonly'    => true,
 					),
 					'completed' => array(
 						'type'        => 'boolean',
-						'description' => esc_html__( 'Whether the onboarding process is completed.', 'woocommerce' ),
+						'description' => esc_html__( 'Whether the onboarding process is completed.', 'poocommerce' ),
 						'context'     => array( 'view', 'edit' ),
 						'readonly'    => true,
 					),
 					'test_mode' => array(
 						'type'        => 'boolean',
-						'description' => esc_html__( 'Whether the onboarding process is in test mode.', 'woocommerce' ),
+						'description' => esc_html__( 'Whether the onboarding process is in test mode.', 'poocommerce' ),
 						'context'     => array( 'view', 'edit' ),
 						'readonly'    => true,
 					),
 					'dev_mode'  => array(
 						'type'        => 'boolean',
-						'description' => esc_html__( 'Whether WooPayments is in dev mode.', 'woocommerce' ),
+						'description' => esc_html__( 'Whether WooPayments is in dev mode.', 'poocommerce' ),
 						'context'     => array( 'view', 'edit' ),
 						'readonly'    => true,
 					),
@@ -1074,18 +1074,18 @@ class WooPaymentsRestController extends RestApiControllerBase {
 			),
 			'messages' => array(
 				'type'                 => 'object',
-				'description'          => esc_html__( 'Various messages to possibly show the user.', 'woocommerce' ),
+				'description'          => esc_html__( 'Various messages to possibly show the user.', 'poocommerce' ),
 				'context'              => array( 'view', 'edit' ),
 				'readonly'             => true,
 				'additionalProperties' => array(
 					'type'        => 'string',
-					'description' => esc_html__( 'Message to show the user.', 'woocommerce' ),
+					'description' => esc_html__( 'Message to show the user.', 'poocommerce' ),
 					'readonly'    => true,
 				),
 			),
 			'steps'    => array(
 				'type'        => 'array',
-				'description' => esc_html__( 'The onboarding steps.', 'woocommerce' ),
+				'description' => esc_html__( 'The onboarding steps.', 'poocommerce' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 				'items'       => array(
@@ -1093,19 +1093,19 @@ class WooPaymentsRestController extends RestApiControllerBase {
 					'properties' => array(
 						'id'             => array(
 							'type'        => 'string',
-							'description' => esc_html__( 'The unique identifier for the step.', 'woocommerce' ),
+							'description' => esc_html__( 'The unique identifier for the step.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'path'           => array(
 							'type'        => 'string',
-							'description' => esc_html__( 'The relative path of the step to use for frontend navigation.', 'woocommerce' ),
+							'description' => esc_html__( 'The relative path of the step to use for frontend navigation.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'required_steps' => array(
 							'type'        => 'array',
-							'description' => esc_html__( 'The steps that are required to be completed before this step.', 'woocommerce' ),
+							'description' => esc_html__( 'The steps that are required to be completed before this step.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 							'items'       => array(
@@ -1114,7 +1114,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 						),
 						'status'         => array(
 							'type'        => 'string',
-							'description' => esc_html__( 'The current status of the step.', 'woocommerce' ),
+							'description' => esc_html__( 'The current status of the step.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 							'enum'        => array(
@@ -1125,7 +1125,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 						),
 						'errors'         => array(
 							'type'        => 'array',
-							'description' => esc_html__( 'Errors list for the step.', 'woocommerce' ),
+							'description' => esc_html__( 'Errors list for the step.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 							'items'       => array(
@@ -1148,90 +1148,90 @@ class WooPaymentsRestController extends RestApiControllerBase {
 						),
 						'actions'        => array(
 							'type'        => 'object',
-							'description' => esc_html__( 'The available actions for the step.', 'woocommerce' ),
+							'description' => esc_html__( 'The available actions for the step.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 							'properties'  => array(
 								'start'                => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to signal the step start.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to signal the step start.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'save'                 => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to save step information in the database.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to save step information in the database.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'check'                => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to check the step status.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to check the step status.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'finish'               => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to signal the step completion.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to signal the step completion.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'clean'                => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to clean the step progress.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to clean the step progress.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'auth'                 => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to authorize the WPCOM connection.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to authorize the WPCOM connection.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'init'                 => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to initialize a test account.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to initialize a test account.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'kyc_session'          => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to create or resume an embedded KYC session.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to create or resume an embedded KYC session.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'kyc_session_finish'   => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to finish an embedded KYC session.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to finish an embedded KYC session.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'kyc_fallback'         => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to use as a fallback when dealing with errors with the embedded KYC.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to use as a fallback when dealing with errors with the embedded KYC.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'reset'                => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to reset the onboarding process, either partially, for a certain step, or fully.', 'woocommerce' ),
+									'description' => esc_html__( 'Action to reset the onboarding process, either partially, for a certain step, or fully.', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
 								),
 								'test_account_disable' => array(
 									'type'        => 'object',
-									'description' => esc_html__( 'Action to disable the test account currently in use', 'woocommerce' ),
+									'description' => esc_html__( 'Action to disable the test account currently in use', 'poocommerce' ),
 									'properties'  => $this->get_schema_properties_for_onboarding_step_action(),
 									'context'     => array( 'view', 'edit' ),
 									'readonly'    => true,
@@ -1240,7 +1240,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 						),
 						'context'        => array(
 							'type'        => 'object',
-							'description' => esc_html__( 'Various contextual data for the step to use.', 'woocommerce' ),
+							'description' => esc_html__( 'Various contextual data for the step to use.', 'poocommerce' ),
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
@@ -1249,7 +1249,7 @@ class WooPaymentsRestController extends RestApiControllerBase {
 			),
 			'context'  => array(
 				'type'        => 'object',
-				'description' => esc_html__( 'Various contextual data for the onboarding process to use.', 'woocommerce' ),
+				'description' => esc_html__( 'Various contextual data for the onboarding process to use.', 'poocommerce' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
@@ -1267,14 +1267,14 @@ class WooPaymentsRestController extends RestApiControllerBase {
 		return array(
 			'type' => array(
 				'type'        => 'string',
-				'description' => esc_html__( 'The action type to determine how to use the URL.', 'woocommerce' ),
+				'description' => esc_html__( 'The action type to determine how to use the URL.', 'poocommerce' ),
 				'enum'        => array( WooPaymentsService::ACTION_TYPE_REST, WooPaymentsService::ACTION_TYPE_REDIRECT ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'href' => array(
 				'type'        => 'string',
-				'description' => esc_html__( 'The URL to use for the action.', 'woocommerce' ),
+				'description' => esc_html__( 'The URL to use for the action.', 'poocommerce' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),

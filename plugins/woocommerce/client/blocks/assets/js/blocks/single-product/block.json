@@ -1,10 +1,10 @@
 {
-	"name": "woocommerce/single-product",
+	"name": "poocommerce/single-product",
 	"icon": "info",
 	"title": "Product",
 	"description": "Display a single product of your choice with full control over its presentation.",
-	"category": "woocommerce",
-	"keywords": [ "WooCommerce", "single product" ],
+	"category": "poocommerce",
+	"keywords": [ "PooCommerce", "single product" ],
 	"supports": {
 		"interactivity": true,
 		"align": [ "wide", "full" ]
@@ -24,7 +24,7 @@
 		}
 	},
 	"usesContext": [ "postId", "postType", "queryId" ],
-	"textdomain": "woocommerce",
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"$schema": "https://schemas.wp.org/trunk/block.json"
 }

@@ -7,8 +7,8 @@ declare( strict_types = 1 );
  * Regression test for Issue #62692:
  * Order total off by $0.01 when combining percentage-based shipping with tax.
  *
- * @package WooCommerce\Tests\Cart
- * @link https://github.com/woocommerce/woocommerce/issues/62692
+ * @package PooCommerce\Tests\Cart
+ * @link https://github.com/poocommerce/poocommerce/issues/62692
  */
 class WC_Cart_Shipping_Rounding_Test extends WC_Unit_Test_Case {
 
@@ -52,7 +52,7 @@ class WC_Cart_Shipping_Rounding_Test extends WC_Unit_Test_Case {
 		}
 
 		if ( $this->flat_rate_id ) {
-			delete_option( 'woocommerce_flat_rate_' . $this->flat_rate_id . '_settings' );
+			delete_option( 'poocommerce_flat_rate_' . $this->flat_rate_id . '_settings' );
 		}
 
 		if ( $this->tax_rate_id ) {
@@ -70,14 +70,14 @@ class WC_Cart_Shipping_Rounding_Test extends WC_Unit_Test_Case {
 	/**
 	 * Tests that percentage-based shipping with tax does not cause $0.01 rounding error.
 	 *
-	 * @link https://github.com/woocommerce/woocommerce/issues/62692
+	 * @link https://github.com/poocommerce/poocommerce/issues/62692
 	 */
 	public function test_percentage_shipping_with_tax_rounding_issue_62692() {
-		// 1. Configure WooCommerce Settings.
-		update_option( 'woocommerce_prices_include_tax', 'no' );
-		update_option( 'woocommerce_calc_taxes', 'yes' );
-		update_option( 'woocommerce_tax_round_at_subtotal', 'yes' ); // Key trigger.
-		update_option( 'woocommerce_price_num_decimals', 2 );
+		// 1. Configure PooCommerce Settings.
+		update_option( 'poocommerce_prices_include_tax', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_tax_round_at_subtotal', 'yes' ); // Key trigger.
+		update_option( 'poocommerce_price_num_decimals', 2 );
 
 		WC()->cart->empty_cart();
 
@@ -122,7 +122,7 @@ class WC_Cart_Shipping_Rounding_Test extends WC_Unit_Test_Case {
 
 		// Configure the flat rate instance with percentage cost.
 		update_option(
-			'woocommerce_flat_rate_' . $this->flat_rate_id . '_settings',
+			'poocommerce_flat_rate_' . $this->flat_rate_id . '_settings',
 			array(
 				'enabled'    => 'yes',
 				'title'      => 'Flat rate',

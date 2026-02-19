@@ -2,11 +2,11 @@
 
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Enums;
+namespace Automattic\PooCommerce\Enums;
 
 /**
  * Enum class for all the internal order statuses.
- * These statuses are used internally by WooCommerce to query database directly.
+ * These statuses are used internally by PooCommerce to query database directly.
  */
 final class OrderInternalStatus {
 	/**

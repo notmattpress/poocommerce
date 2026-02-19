@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Beta Tester CLI controls
+ * PooCommerce Beta Tester CLI controls
  *
  * @package WC_Beta_Tester
  */
@@ -12,12 +12,12 @@ if ( ! class_exists( 'WP_CLI_Command' ) ) {
 }
 
 /**
- * Control your local WooCommerce Beta Tester plugin.
+ * Control your local PooCommerce Beta Tester plugin.
  */
 class WC_Beta_Tester_CLI extends WP_CLI_Command {
 
 	/**
-	 * Install a live branch of the WooCommerce plugin
+	 * Install a live branch of the PooCommerce plugin
 	 *
 	 * ## Options
 	 * <branch>
@@ -50,20 +50,20 @@ class WC_Beta_Tester_CLI extends WP_CLI_Command {
 	}
 
 	/**
-	 * Deactivate WooCommerce.
+	 * Deactivate PooCommerce.
 	 *
 	 * ## Examples
-	 *  wp wc-beta-tester deactivate_woocommerce
+	 *  wp wc-beta-tester deactivate_poocommerce
 	 */
-	public function deactivate_woocommerce() {
+	public function deactivate_poocommerce() {
 		$installer = new WC_Beta_Tester_Live_Branches_Installer();
-		$installer->deactivate_woocommerce();
+		$installer->deactivate_poocommerce();
 
-		WP_CLI::success( 'Deactivated WooCommerce' );
+		WP_CLI::success( 'Deactivated PooCommerce' );
 	}
 
 	/**
-	 * Activate a live branch of the WooCommerce plugin.
+	 * Activate a live branch of the PooCommerce plugin.
 	 *
 	 * ## Options
 	 * <branch>

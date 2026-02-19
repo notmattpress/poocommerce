@@ -1,16 +1,16 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\Orders;
+namespace Automattic\PooCommerce\Tests\Internal\Orders;
 
-use Automattic\WooCommerce\Internal\Orders\PointOfSaleOrderUtil;
+use Automattic\PooCommerce\Internal\Orders\PointOfSaleOrderUtil;
 use WC_Order;
 use WC_Unit_Test_Case;
 
 /**
  * PointOfSaleOrderUtil test.
  *
- * @covers \Automattic\WooCommerce\Internal\Orders\PointOfSaleOrderUtil
+ * @covers \Automattic\PooCommerce\Internal\Orders\PointOfSaleOrderUtil
  */
 class PointOfSaleOrderUtilTest extends WC_Unit_Test_Case {
 

@@ -3,8 +3,8 @@ jest.mock( '../../lib/platform', () => ( {
 	platform: jest.fn(),
 } ) );
 
-jest.mock( '@woocommerce/tracks', () => ( {
-	...jest.requireActual( '@woocommerce/tracks' ),
+jest.mock( '@poocommerce/tracks', () => ( {
+	...jest.requireActual( '@poocommerce/tracks' ),
 	recordEvent: jest.fn(),
 } ) );
 
@@ -17,7 +17,7 @@ jest.mock( '../constants', () => ( {
  * External dependencies
  */
 import { fireEvent, render } from '@testing-library/react';
-import { recordEvent } from '@woocommerce/tracks';
+import { recordEvent } from '@poocommerce/tracks';
 
 /**
  * Internal dependencies

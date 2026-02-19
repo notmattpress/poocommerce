@@ -8,7 +8,7 @@ export const comparePaymentGatewaysByPriority = ( a, b ) =>
 
 export const getIsGatewayWCPay = ( gateway ) =>
 	gateway.plugins?.length === 1 &&
-	gateway.plugins[ 0 ] === 'woocommerce-payments';
+	gateway.plugins[ 0 ] === 'poocommerce-payments';
 
 export const getIsGatewayOtherCategory = ( gateway, countryCode ) =>
 	gateway.category_other &&
@@ -31,7 +31,7 @@ export const getEnrichedPaymentGateways = (
 	);
 
 	return paymentGatewaySuggestions.reduce( ( map, suggestion ) => {
-		// A colon ':' is used sometimes to have multiple configs for the same gateway ex: woocommerce_payments:us.
+		// A colon ':' is used sometimes to have multiple configs for the same gateway ex: poocommerce_payments:us.
 		const id = getPluginSlug( suggestion.id );
 		const installedGateway = mappedPaymentGateways[ id ]
 			? mappedPaymentGateways[ id ]
@@ -110,7 +110,7 @@ export const getSplitGateways = (
 					if ( isWCPaySupported ) {
 						// If we encounter the special WCPay BNPL gateway, we handle it separately and
 						// not let it be added to the regular WCPay list.
-						if ( gateway.id === 'woocommerce_payments:bnpl' ) {
+						if ( gateway.id === 'poocommerce_payments:bnpl' ) {
 							// WCPay BNPL is only shown when WCPay is installed and setup.
 							// It should be mutually exclusive with WCPay.
 							if ( gateway.installed && ! gateway.needsSetup ) {

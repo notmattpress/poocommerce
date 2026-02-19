@@ -1,8 +1,8 @@
 {
-	"name": "woocommerce/product-price",
+	"name": "poocommerce/product-price",
 	"title": "Product Price",
 	"description": "Display the price of a product.",
-	"category": "woocommerce-product-elements",
+	"category": "poocommerce-product-elements",
 	"attributes": {
 		"productId": { "type": "number", "default": 0 },
 		"isDescendentOfQueryLoop": { "type": "boolean", "default": false },
@@ -17,8 +17,8 @@
 		}
 	},
 	"usesContext": [ "query", "queryId", "postId" ],
-	"keywords": [ "WooCommerce" ],
-	"textdomain": "woocommerce",
+	"keywords": [ "PooCommerce" ],
+	"textdomain": "poocommerce",
 	"apiVersion": 3,
 	"supports": {
 		"html": false,
@@ -36,7 +36,7 @@
 			"__experimentalFontStyle": true,
 			"__experimentalLetterSpacing": true
 		},
-		"__experimentalSelector": ".wp-block-woocommerce-product-price .wc-block-components-product-price",
+		"__experimentalSelector": ".wp-block-poocommerce-product-price .wc-block-components-product-price",
 		"email": true,
 		"spacing": {
 			"margin": true,
@@ -44,10 +44,10 @@
 		}
 	},
 	"ancestor": [
-		"woocommerce/all-products",
-		"woocommerce/featured-product",
-		"woocommerce/single-product",
-		"woocommerce/product-template",
+		"poocommerce/all-products",
+		"poocommerce/featured-product",
+		"poocommerce/single-product",
+		"poocommerce/product-template",
 		"core/post-template"
 	],
 	"viewScriptModule": "product-price",

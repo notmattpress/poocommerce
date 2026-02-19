@@ -5,12 +5,12 @@ import { useEffect } from 'react';
 import { Button, Card, CardBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createInterpolateElement, useState } from '@wordpress/element';
-import { Link } from '@woocommerce/components';
+import { Link } from '@poocommerce/components';
 import {
 	PaymentsProviderIncentive,
 	PaymentsProvider,
 	PaymentsEntity,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -153,33 +153,33 @@ export const IncentiveBanner = ( {
 	}
 
 	return (
-		<Card className="woocommerce-incentive-banner" isRounded={ true }>
-			<div className="woocommerce-incentive-banner__content">
-				<div className={ 'woocommerce-incentive-banner__image' }>
+		<Card className="poocommerce-incentive-banner" isRounded={ true }>
+			<div className="poocommerce-incentive-banner__content">
+				<div className={ 'poocommerce-incentive-banner__image' }>
 					<img
 						src={
 							WC_ASSET_URL +
 							'images/settings-payments/incentives-illustration.svg'
 						}
-						alt={ __( 'Incentive illustration', 'woocommerce' ) }
+						alt={ __( 'Incentive illustration', 'poocommerce' ) }
 					/>
 				</div>
-				<CardBody className="woocommerce-incentive-banner__body">
+				<CardBody className="poocommerce-incentive-banner__body">
 					<StatusBadge
 						status="has_incentive"
-						message={ __( 'Limited time offer', 'woocommerce' ) }
+						message={ __( 'Limited time offer', 'poocommerce' ) }
 					/>
 
-					<div className={ 'woocommerce-incentive-banner__copy' }>
+					<div className={ 'poocommerce-incentive-banner__copy' }>
 						<h2>{ incentive.title }</h2>
 						<p>{ incentive.description }</p>
 					</div>
 
-					<div className={ 'woocommerce-incentive-banner__terms' }>
+					<div className={ 'poocommerce-incentive-banner__terms' }>
 						{ createInterpolateElement(
 							__(
 								'See <termsLink /> for details.',
-								'woocommerce'
+								'poocommerce'
 							),
 							{
 								termsLink: (
@@ -191,7 +191,7 @@ export const IncentiveBanner = ( {
 									>
 										{ __(
 											'Terms and Conditions',
-											'woocommerce'
+											'poocommerce'
 										) }
 									</Link>
 								),
@@ -199,7 +199,7 @@ export const IncentiveBanner = ( {
 						) }
 					</div>
 
-					<div className={ 'woocommerce-incentive-banner__actions' }>
+					<div className={ 'poocommerce-incentive-banner__actions' }>
 						<Button
 							variant={ 'primary' }
 							isBusy={ isSubmitted }
@@ -214,7 +214,7 @@ export const IncentiveBanner = ( {
 							disabled={ isBusy }
 							onClick={ handleDismiss }
 						>
-							{ __( 'Dismiss', 'woocommerce' ) }
+							{ __( 'Dismiss', 'poocommerce' ) }
 						</Button>
 					</div>
 				</CardBody>

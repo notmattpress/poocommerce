@@ -1,8 +1,8 @@
 <?php declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Internal\Fulfillments;
+namespace Automattic\PooCommerce\Internal\Fulfillments;
 
-use Automattic\WooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
+use Automattic\PooCommerce\Internal\Admin\Settings\Exceptions\ApiException;
 
 /**
  * FulfillmentException class.
@@ -20,6 +20,6 @@ class FulfillmentException extends ApiException {
 	 *                                 Defaults to empty array.
 	 */
 	public function __construct( string $message, int $http_status_code = 400, array $additional_data = array() ) {
-		parent::__construct( 'woocommerce_fulfillment_error', $message, $http_status_code, $additional_data );
+		parent::__construct( 'poocommerce_fulfillment_error', $message, $http_status_code, $additional_data );
 	}
 }

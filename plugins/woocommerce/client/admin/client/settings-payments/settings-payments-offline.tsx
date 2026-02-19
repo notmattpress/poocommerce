@@ -6,7 +6,7 @@ import { useEffect, useState } from '@wordpress/element';
 import {
 	type OfflinePaymentMethodProvider,
 	paymentSettingsStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import { ListPlaceholder } from '~/settings-payments/components/list-placeholder
 import { OfflinePaymentGatewayList } from '~/settings-payments/components/offline-payment-gateway-list';
 
 /**
- * A component for managing offline payment gateways in WooCommerce.
+ * A component for managing offline payment gateways in PooCommerce.
  * It retrieves and displays a list of offline payment gateways,
  * allows users to reorder them, and updates the order in the store.
  */

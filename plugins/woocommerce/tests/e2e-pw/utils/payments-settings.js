@@ -3,7 +3,7 @@ const { deleteOption } = require( './options' );
 
 const resetGatewayOrder = async ( baseURL ) => {
 	try {
-		await deleteOption( request, baseURL, 'woocommerce_gateway_order' );
+		await deleteOption( request, baseURL, 'poocommerce_gateway_order' );
 	} catch ( error ) {
 		console.log( error );
 	}

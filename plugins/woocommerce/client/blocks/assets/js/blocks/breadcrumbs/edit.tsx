@@ -11,14 +11,14 @@ export interface Attributes {
 
 const Edit = () => {
 	const blockProps = useBlockProps( {
-		className: 'woocommerce wc-block-breadcrumbs',
+		className: 'poocommerce wc-block-breadcrumbs',
 	} );
 
 	return (
 		<div { ...blockProps }>
 			<Disabled>
-				<a href="/">{ __( 'Breadcrumbs', 'woocommerce' ) }</a>
-				{ __( ' / Navigation / Path', 'woocommerce' ) }
+				<a href="/">{ __( 'Breadcrumbs', 'poocommerce' ) }</a>
+				{ __( ' / Navigation / Path', 'poocommerce' ) }
 			</Disabled>
 		</div>
 	);

@@ -2,7 +2,7 @@
 /**
  * Order Downloads
  *
- * @package     WooCommerce\Admin\Meta Boxes
+ * @package     PooCommerce\Admin\Meta Boxes
  * @version     2.1.0
  */
 
@@ -61,7 +61,7 @@ class WC_Meta_Box_Order_Downloads {
 						// Show file title instead of count if set.
 						$file       = $product->get_file( $download->get_download_id() );
 						// translators: file name.
-						$file_count = isset( $file['name'] ) ? $file['name'] : sprintf( __( 'File %d', 'woocommerce' ), $file_counter );
+						$file_count = isset( $file['name'] ) ? $file['name'] : sprintf( __( 'File %d', 'poocommerce' ), $file_counter );
 
 						include __DIR__ . '/views/html-order-download-permission.php';
 
@@ -74,9 +74,9 @@ class WC_Meta_Box_Order_Downloads {
 
 			<div class="toolbar">
 				<p class="buttons">
-					<select id="grant_access_id" class="wc-product-search" name="grant_access_id[]" multiple="multiple" style="width: 400px;" data-placeholder="<?php esc_attr_e( 'Search for a downloadable product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_downloadable_products_and_variations"></select>
+					<select id="grant_access_id" class="wc-product-search" name="grant_access_id[]" multiple="multiple" style="width: 400px;" data-placeholder="<?php esc_attr_e( 'Search for a downloadable product&hellip;', 'poocommerce' ); ?>" data-action="poocommerce_json_search_downloadable_products_and_variations"></select>
 					<button type="button" class="button grant_access">
-						<?php esc_html_e( 'Grant access', 'woocommerce' ); ?>
+						<?php esc_html_e( 'Grant access', 'poocommerce' ); ?>
 					</button>
 				</p>
 				<div class="clear"></div>

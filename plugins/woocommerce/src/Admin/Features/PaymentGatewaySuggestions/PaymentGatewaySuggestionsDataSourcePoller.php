@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\PaymentGatewaySuggestions;
+namespace Automattic\PooCommerce\Admin\Features\PaymentGatewaySuggestions;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Helper;
 
 /**
@@ -46,7 +46,7 @@ class PaymentGatewaySuggestionsDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		$data_sources = array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/payment-gateway-suggestions/2.0/suggestions.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/payment-gateway-suggestions/2.0/suggestions.json',
 		);
 
 		// Add country query param to data sources.

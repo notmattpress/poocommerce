@@ -1,10 +1,10 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
-use Automattic\WooCommerce\Blocks\Utils\BlocksWpQuery;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\StoreApi;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Blocks\Utils\BlocksWpQuery;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\StoreApi;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * AbstractProductGrid class.
@@ -86,7 +86,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		/**
 		 * Override product description to prevent infinite loop.
 		 *
-		 * @see https://github.com/woocommerce/woocommerce-blocks/pull/6849
+		 * @see https://github.com/poocommerce/poocommerce-blocks/pull/6849
 		 */
 		foreach ( $products as $product ) {
 			$product->set_description( '' );
@@ -95,7 +95,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		/**
 		 * Product List Render event.
 		 *
-		 * Fires a WP Hook named `experimental__woocommerce_blocks-product-list-render` on render so that the client
+		 * Fires a WP Hook named `experimental__poocommerce_blocks-product-list-render` on render so that the client
 		 * can add event handling when certain products are displayed. This can be used by tracking extensions such
 		 * as Google Analytics to track impressions.
 		 *
@@ -106,7 +106,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 			'
 			window.addEventListener( "DOMContentLoaded", () => {
 				wp.hooks.doAction(
-					"experimental__woocommerce_blocks-product-list-render",
+					"experimental__poocommerce_blocks-product-list-render",
 					{
 						products: JSON.parse( decodeURIComponent( "' . esc_js(
 				rawurlencode(
@@ -289,7 +289,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		$product_visibility_terms  = wc_get_product_visibility_term_ids();
 		$product_visibility_not_in = array( $product_visibility_terms['exclude-from-catalog'] );
 
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
+		if ( 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) ) {
 			$product_visibility_not_in[] = $product_visibility_terms[ ProductStockStatus::OUT_OF_STOCK ];
 		}
 
@@ -352,7 +352,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		 *
 		 * @since 2.5.0
 		 */
-		$is_cacheable      = (bool) apply_filters( 'woocommerce_blocks_product_grid_is_cacheable', true, $this->query_args );
+		$is_cacheable      = (bool) apply_filters( 'poocommerce_blocks_product_grid_is_cacheable', true, $this->query_args );
 		$transient_version = \WC_Cache_Helper::get_transient_version( 'product_query' );
 
 		$query   = new BlocksWpQuery( $this->query_args );
@@ -460,7 +460,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		$classes = array(
 			'wc-block-grid',
 			"wp-block-{$this->block_name}",
-			"wp-block-woocommerce-{$this->block_name}",
+			"wp-block-poocommerce-{$this->block_name}",
 			"wc-block-{$this->block_name}",
 			"has-{$this->attributes['columns']}-columns",
 		);
@@ -512,7 +512,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		 * @since 2.2.0
 		 */
 		return apply_filters(
-			'woocommerce_blocks_product_grid_item_html',
+			'poocommerce_blocks_product_grid_item_html',
 			"<li class=\"wc-block-grid__product\">
 				<a href=\"{$data->permalink}\" class=\"wc-block-grid__product-link\">
 					{$data->badge}
@@ -550,7 +550,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 			);
 		}
 
-		return '<div class="wc-block-grid__product-image">' . $product->get_image( 'woocommerce_thumbnail', $attr ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		return '<div class="wc-block-grid__product-image">' . $product->get_image( 'poocommerce_thumbnail', $attr ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -625,8 +625,8 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		}
 
 		return '<div class="wc-block-grid__product-onsale">
-			<span aria-hidden="true">' . esc_html__( 'Sale', 'woocommerce' ) . '</span>
-			<span class="screen-reader-text">' . esc_html__( 'Product on sale', 'woocommerce' ) . '</span>
+			<span aria-hidden="true">' . esc_html__( 'Sale', 'poocommerce' ) . '</span>
+			<span class="screen-reader-text">' . esc_html__( 'Product on sale', 'poocommerce' ) . '</span>
 		</div>';
 	}
 
@@ -678,7 +678,7 @@ abstract class AbstractProductGrid extends AbstractDynamicBlock {
 		 *
 		 * @return array Returns an associative array derived from the default array passed as an argument and added the extra HTML attributes.
 		 */
-		$attributes = apply_filters( 'woocommerce_blocks_product_grid_add_to_cart_attributes', $attributes, $product );
+		$attributes = apply_filters( 'poocommerce_blocks_product_grid_add_to_cart_attributes', $attributes, $product );
 
 		return sprintf(
 			'<a href="%s" %s>%s</a>',

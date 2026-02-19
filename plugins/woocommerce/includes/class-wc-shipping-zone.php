@@ -4,7 +4,7 @@
  *
  * @since   2.6.0
  * @version 3.0.0
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -140,12 +140,12 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		if ( count( $location_parts ) > $max ) {
 			$remaining = count( $location_parts ) - $max;
 			// @codingStandardsIgnoreStart
-			return sprintf( _n( '%s and %d other region', '%s and %d other regions', $remaining, 'woocommerce' ), implode( ', ', array_splice( $location_parts, 0, $max ) ), $remaining );
+			return sprintf( _n( '%s and %d other region', '%s and %d other regions', $remaining, 'poocommerce' ), implode( ', ', array_splice( $location_parts, 0, $max ) ), $remaining );
 			// @codingStandardsIgnoreEnd
 		} elseif ( ! empty( $location_parts ) ) {
 			return implode( ', ', $location_parts );
 		} else {
-			return __( 'Everywhere', 'woocommerce' );
+			return __( 'Everywhere', 'poocommerce' );
 		}
 	}
 
@@ -205,7 +205,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 
 		uasort( $methods, 'wc_shipping_zone_method_order_uasort_comparison' );
 
-		return apply_filters( 'woocommerce_shipping_zone_shipping_methods', $methods, $raw_methods, $allowed_classes, $this );
+		return apply_filters( 'poocommerce_shipping_zone_shipping_methods', $methods, $raw_methods, $allowed_classes, $this );
 	}
 
 	/**
@@ -270,7 +270,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		 * @param WC_Data          $this The object being saved.
 		 * @param WC_Data_Store_WP $data_store THe data store persisting the data.
 		 */
-		do_action( 'woocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_before_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		if ( null !== $this->get_id() ) {
 			$this->data_store->update( $this );
@@ -284,7 +284,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		 * @param WC_Data          $this The object being saved.
 		 * @param WC_Data_Store_WP $data_store THe data store persisting the data.
 		 */
-		do_action( 'woocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
+		do_action( 'poocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		return $this->get_id();
 	}
@@ -298,7 +298,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		$zone_name = $this->get_formatted_location();
 
 		if ( empty( $zone_name ) ) {
-			$zone_name = __( 'Zone', 'woocommerce' );
+			$zone_name = __( 'Zone', 'poocommerce' );
 		}
 
 		return $zone_name;
@@ -351,7 +351,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 	 * @return boolean
 	 */
 	public function is_valid_location_type( $type ) {
-		return in_array( $type, apply_filters( 'woocommerce_valid_location_types', array( 'postcode', 'state', 'country', 'continent' ) ), true );
+		return in_array( $type, apply_filters( 'poocommerce_valid_location_types', array( 'postcode', 'state', 'country', 'continent' ) ), true );
 	}
 
 	/**
@@ -428,7 +428,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 		}
 
 		if ( $instance_id ) {
-			do_action( 'woocommerce_shipping_zone_method_added', $instance_id, $type, $this->get_id() );
+			do_action( 'poocommerce_shipping_zone_method_added', $instance_id, $type, $this->get_id() );
 		}
 
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
@@ -452,7 +452,7 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 
 		if ( $method ) {
 			$this->data_store->delete_method( $instance_id );
-			do_action( 'woocommerce_shipping_zone_method_deleted', $instance_id, $method->method_id, $this->get_id() );
+			do_action( 'poocommerce_shipping_zone_method_deleted', $instance_id, $method->method_id, $this->get_id() );
 		}
 
 		WC_Cache_Helper::get_transient_version( 'shipping', true );

@@ -28,16 +28,16 @@ class WC_Site_Tracking_Tests extends WC_Unit_Test_Case {
 			return false;
 		};
 
-		add_filter( 'woocommerce_set_cookie_enabled', $watch_wc_cookie, 10, 2 );
+		add_filter( 'poocommerce_set_cookie_enabled', $watch_wc_cookie, 10, 2 );
 
-		update_option( 'woocommerce_allow_tracking', 'yes' );
+		update_option( 'poocommerce_allow_tracking', 'yes' );
 		WC_Site_Tracking::set_tracking_cookie( 'foo', 'bar' );
 		$this->assertEquals( 'foo', $last_cookie_key, 'When tracking is enabled, a tracking cookie can successfully be set.' );
 
-		update_option( 'woocommerce_allow_tracking', 'no' );
+		update_option( 'poocommerce_allow_tracking', 'no' );
 		WC_Site_Tracking::set_tracking_cookie( 'bar', 'baz' );
 		$this->assertNotEquals( 'bar', $last_cookie_key, 'When tracking is disabled, a tracking cookie cannot be set.' );
 
-		remove_filter( 'woocommerce_set_cookie_enabled', $watch_wc_cookie );
+		remove_filter( 'poocommerce_set_cookie_enabled', $watch_wc_cookie );
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Automattic\WooCommerce\Admin\Features\MarketingRecommendations;
+namespace Automattic\PooCommerce\Admin\Features\MarketingRecommendations;
 
-use Automattic\WooCommerce\Admin\RemoteSpecs\DataSourcePoller;
+use Automattic\PooCommerce\Admin\RemoteSpecs\DataSourcePoller;
 use WC_Helper;
 
 /**
@@ -52,7 +52,7 @@ class MarketingRecommendationsDataSourcePoller extends DataSourcePoller {
 	 */
 	public static function get_data_sources() {
 		return array(
-			WC_Helper::get_woocommerce_com_base_url() . 'wp-json/wccom/marketing-tab/1.3/recommendations.json',
+			WC_Helper::get_poocommerce_com_base_url() . 'wp-json/wccom/marketing-tab/1.3/recommendations.json',
 		);
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Class WC_Settings_Example file.
  *
- * @package WooCommerce\Tests\Settings
+ * @package PooCommerce\Tests\Settings
  */
 
 declare(strict_types=1);
@@ -18,7 +18,7 @@ class WC_Settings_Migration_Test extends WC_Settings_Page {
 		$this->label = 'Migration Test';
 		parent::__construct();
 
-		add_action( 'woocommerce_admin_field_foobar_section_custom_type_field', array( $this, 'foobar_section_custom_type_field' ) );
+		add_action( 'poocommerce_admin_field_foobar_section_custom_type_field', array( $this, 'foobar_section_custom_type_field' ) );
 	}
 
 	protected function get_settings_for_default_section() {

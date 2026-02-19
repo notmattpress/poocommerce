@@ -6,7 +6,7 @@ import type { TrustedTypePolicy } from 'trusted-types';
 /**
  * The type for our no-op trusted types policy.
  */
-export type WooCommerceSanitizeNoopPolicyType = Pick<
+export type PooCommerceSanitizeNoopPolicyType = Pick<
 	TrustedTypePolicy,
 	'name' | 'createHTML'
 >;
@@ -14,9 +14,9 @@ export type WooCommerceSanitizeNoopPolicyType = Pick<
 /**
  * Cached no-op policy instance to avoid duplicate creation.
  */
-let noopPolicyInstance: WooCommerceSanitizeNoopPolicyType | null | undefined;
+let noopPolicyInstance: PooCommerceSanitizeNoopPolicyType | null | undefined;
 
-export function getNoopTrustedTypesPolicy(): WooCommerceSanitizeNoopPolicyType | null {
+export function getNoopTrustedTypesPolicy(): PooCommerceSanitizeNoopPolicyType | null {
 	if ( noopPolicyInstance !== undefined ) {
 		return noopPolicyInstance;
 	}
@@ -28,7 +28,7 @@ export function getNoopTrustedTypesPolicy(): WooCommerceSanitizeNoopPolicyType |
 
 	try {
 		noopPolicyInstance = window.trustedTypes.createPolicy(
-			'woocommerce-sanitize-noop',
+			'poocommerce-sanitize-noop',
 			{
 				createHTML: ( input: string ): string => input,
 			}
@@ -37,7 +37,7 @@ export function getNoopTrustedTypesPolicy(): WooCommerceSanitizeNoopPolicyType |
 		noopPolicyInstance = null;
 		// eslint-disable-next-line no-console
 		console.warn(
-			'Failed to create "woocommerce-sanitize-noop" trusted type policy:',
+			'Failed to create "poocommerce-sanitize-noop" trusted type policy:',
 			error
 		);
 	}

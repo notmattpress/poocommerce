@@ -4,11 +4,11 @@
 import { __, _n, _x } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
-import { Link } from '@woocommerce/components';
-import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
-import { formatValue } from '@woocommerce/number';
-import { getAdminLink } from '@woocommerce/settings';
-import { CurrencyContext } from '@woocommerce/currency';
+import { Link } from '@poocommerce/components';
+import { getNewPath, getPersistedQuery } from '@poocommerce/navigation';
+import { formatValue } from '@poocommerce/number';
+import { getAdminLink } from '@poocommerce/settings';
+import { CurrencyContext } from '@poocommerce/currency';
 
 /**
  * Internal dependencies
@@ -31,25 +31,25 @@ class StockReportTable extends Component {
 	getHeadersContent() {
 		return [
 			{
-				label: __( 'Product / Variation', 'woocommerce' ),
+				label: __( 'Product / Variation', 'poocommerce' ),
 				key: 'title',
 				required: true,
 				isLeftAligned: true,
 				isSortable: true,
 			},
 			{
-				label: __( 'SKU', 'woocommerce' ),
+				label: __( 'SKU', 'poocommerce' ),
 				key: 'sku',
 				isSortable: true,
 			},
 			{
-				label: __( 'Status', 'woocommerce' ),
+				label: __( 'Status', 'poocommerce' ),
 				key: 'stock_status',
 				isSortable: true,
 				defaultSort: true,
 			},
 			{
-				label: __( 'Stock', 'woocommerce' ),
+				label: __( 'Stock', 'poocommerce' ),
 				key: 'stock_quantity',
 				isSortable: true,
 			},
@@ -100,7 +100,7 @@ class StockReportTable extends Component {
 					{ _x(
 						'Low',
 						'Indication of a low quantity',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</Link>
 			) : (
@@ -129,7 +129,7 @@ class StockReportTable extends Component {
 								'number',
 								stockQuantity
 						  )
-						: __( 'N/A', 'woocommerce' ),
+						: __( 'N/A', 'poocommerce' ),
 					value: stockQuantity,
 				},
 			];
@@ -147,23 +147,23 @@ class StockReportTable extends Component {
 		const currency = this.context.getCurrencyConfig();
 		return [
 			{
-				label: _n( 'Product', 'Products', products, 'woocommerce' ),
+				label: _n( 'Product', 'Products', products, 'poocommerce' ),
 				value: formatValue( currency, 'number', products ),
 			},
 			{
-				label: __( 'Out of stock', 'woocommerce' ),
+				label: __( 'Out of stock', 'poocommerce' ),
 				value: formatValue( currency, 'number', outofstock ),
 			},
 			{
-				label: __( 'Low stock', 'woocommerce' ),
+				label: __( 'Low stock', 'poocommerce' ),
 				value: formatValue( currency, 'number', lowstock ),
 			},
 			{
-				label: __( 'On backorder', 'woocommerce' ),
+				label: __( 'On backorder', 'poocommerce' ),
 				value: formatValue( currency, 'number', onbackorder ),
 			},
 			{
-				label: __( 'In stock', 'woocommerce' ),
+				label: __( 'In stock', 'poocommerce' ),
 				value: formatValue( currency, 'number', instock ),
 			},
 		];
@@ -191,7 +191,7 @@ class StockReportTable extends Component {
 					order: query.order || 'asc',
 					type: query.type || 'all',
 				} }
-				title={ __( 'Stock', 'woocommerce' ) }
+				title={ __( 'Stock', 'poocommerce' ) }
 				filters={ filters }
 				advancedFilters={ advancedFilters }
 			/>

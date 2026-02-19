@@ -1,6 +1,6 @@
-# WooCommerce Product Editor UI Store
+# PooCommerce Product Editor UI Store
 
-This module provides a @wordpress/data store for managing the UI state of a WooCommerce Product Editor.
+This module provides a @wordpress/data store for managing the UI state of a PooCommerce Product Editor.
 
 ## Structure
 
@@ -27,7 +27,7 @@ Selector function:
 
 ### Store
 
-Registers the WooCommerce Product Editor UI store with the following:
+Registers the PooCommerce Product Editor UI store with the following:
 
 -   Store Name: `woo/product-editor-ui`
 

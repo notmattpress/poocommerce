@@ -42,7 +42,7 @@ export const validateEmailContent = (
 	}
 ): boolean => {
 	const rules: EmailContentValidationRule[] = applyFilters(
-		'woocommerce_email_editor_content_validation_rules',
+		'poocommerce_email_editor_content_validation_rules',
 		EMPTY_ARRAY
 	) as EmailContentValidationRule[];
 

@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-reviews",
+	"name": "poocommerce/product-reviews",
 	"icon": "admin-comments",
 	"title": "Product Reviews",
 	"description": "Display a product's reviews",
-	"category": "woocommerce",
-	"textdomain": "woocommerce",
+	"category": "poocommerce",
+	"textdomain": "poocommerce",
 	"attributes": {
 		"tagName": {
 			"type": "string",
@@ -58,5 +58,5 @@
 		}
 	},
 	"usesContext": [ "postId", "postType" ],
-	"viewScriptModule": "woocommerce/product-reviews"
+	"viewScriptModule": "poocommerce/product-reviews"
 }

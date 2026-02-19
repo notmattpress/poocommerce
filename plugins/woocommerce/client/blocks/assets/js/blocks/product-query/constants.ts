@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { getSetting, getSettingWithCoercion } from '@woocommerce/settings';
-import { objectOmit } from '@woocommerce/utils';
+import { getSetting, getSettingWithCoercion } from '@poocommerce/settings';
+import { objectOmit } from '@poocommerce/utils';
 import type { InnerBlockTemplate } from '@wordpress/blocks';
-import { isBoolean } from '@woocommerce/types';
+import { isBoolean } from '@poocommerce/types';
 /**
  * Internal dependencies
  */
@@ -13,7 +13,7 @@ import { VARIATION_NAME as PRODUCT_TITLE_ID } from './variations/elements/produc
 import { VARIATION_NAME as PRODUCT_TEMPLATE_ID } from './variations/elements/product-template';
 import { ImageSizing } from '../../atomic/blocks/product-elements/image/types';
 
-export const PRODUCT_QUERY_VARIATION_NAME = 'woocommerce/product-query';
+export const PRODUCT_QUERY_VARIATION_NAME = 'poocommerce/product-query';
 
 export const EDIT_ATTRIBUTES_URL =
 	'/wp-admin/edit.php?post_type=product&page=product_attributes';
@@ -64,14 +64,14 @@ export const QUERY_DEFAULT_ATTRIBUTES: QueryBlockAttributes = {
 		exclude: [],
 		sticky: '',
 		inherit: false,
-		__woocommerceAttributes: [],
-		__woocommerceStockStatus: GLOBAL_HIDE_OUT_OF_STOCK
+		__poocommerceAttributes: [],
+		__poocommerceStockStatus: GLOBAL_HIDE_OUT_OF_STOCK
 			? Object.keys( objectOmit( STOCK_STATUS_OPTIONS, 'outofstock' ) )
 			: Object.keys( STOCK_STATUS_OPTIONS ),
 	},
 };
 
-// This is necessary to fix https://github.com/woocommerce/woocommerce-blocks/issues/9884.
+// This is necessary to fix https://github.com/poocommerce/poocommerce-blocks/issues/9884.
 const postTemplateHasSupportForGridView = getSettingWithCoercion(
 	'postTemplateHasSupportForGridView',
 	false,
@@ -82,7 +82,7 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 	[
 		'core/post-template',
 		{
-			__woocommerceNamespace: PRODUCT_TEMPLATE_ID,
+			__poocommerceNamespace: PRODUCT_TEMPLATE_ID,
 			/**
 			 * This class is used to add default styles for inner blocks.
 			 */
@@ -93,7 +93,7 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 		},
 		[
 			[
-				'woocommerce/product-image',
+				'poocommerce/product-image',
 				{
 					imageSizing: ImageSizing.THUMBNAIL,
 				},
@@ -113,18 +113,18 @@ export const INNER_BLOCKS_TEMPLATE: InnerBlockTemplate[] = [
 						},
 					},
 					isLink: true,
-					__woocommerceNamespace: PRODUCT_TITLE_ID,
+					__poocommerceNamespace: PRODUCT_TITLE_ID,
 				},
 			],
 			[
-				'woocommerce/product-price',
+				'poocommerce/product-price',
 				{
 					textAlign: 'center',
 					fontSize: 'small',
 				},
 			],
 			[
-				'woocommerce/product-button',
+				'poocommerce/product-button',
 				{
 					textAlign: 'center',
 					fontSize: 'small',

@@ -1,12 +1,12 @@
 <?php
 
-namespace Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Value;
+namespace Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Value;
 
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
-use Automattic\WooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\OutputFormat;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\ParserState;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\SourceException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedEOFException;
+use Automattic\PooCommerce\EmailEditorVendor\Sabberworm\CSS\Parsing\UnexpectedTokenException;
 
 /**
  * A `CSSFunction` represents a special kind of value that also contains a function name and where the values are the

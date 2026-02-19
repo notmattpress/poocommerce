@@ -31,8 +31,8 @@ export const getProductTitle = (
 
 	switch ( type ) {
 		case 'simple':
-			return __( 'New standard product', 'woocommerce' );
+			return __( 'New standard product', 'poocommerce' );
 		default:
-			return __( 'New product', 'woocommerce' );
+			return __( 'New product', 'poocommerce' );
 	}
 };

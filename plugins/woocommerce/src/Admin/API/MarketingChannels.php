@@ -5,10 +5,10 @@
  * Handles requests to /marketing/channels.
  */
 
-namespace Automattic\WooCommerce\Admin\API;
+namespace Automattic\PooCommerce\Admin\API;
 
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannelInterface;
-use Automattic\WooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannelInterface;
+use Automattic\PooCommerce\Admin\Marketing\MarketingChannels as MarketingChannelsService;
 use WC_REST_Controller;
 use WP_Error;
 use WP_REST_Request;
@@ -66,7 +66,7 @@ class MarketingChannels extends WC_REST_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! wc_rest_check_manager_permissions( 'settings', 'read' ) ) {
-			return new WP_Error( 'woocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'woocommerce' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'poocommerce_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'poocommerce' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -137,49 +137,49 @@ class MarketingChannels extends WC_REST_Controller {
 			'type'       => 'object',
 			'properties' => [
 				'slug'                    => [
-					'description' => __( 'Unique identifier string for the marketing channel extension, also known as the plugin slug.', 'woocommerce' ),
+					'description' => __( 'Unique identifier string for the marketing channel extension, also known as the plugin slug.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'name'                    => [
-					'description' => __( 'Name of the marketing channel.', 'woocommerce' ),
+					'description' => __( 'Name of the marketing channel.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'description'             => [
-					'description' => __( 'Description of the marketing channel.', 'woocommerce' ),
+					'description' => __( 'Description of the marketing channel.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'icon'                    => [
-					'description' => __( 'Path to the channel icon.', 'woocommerce' ),
+					'description' => __( 'Path to the channel icon.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'is_setup_completed'      => [
 					'type'        => 'boolean',
-					'description' => __( 'Whether or not the marketing channel is set up.', 'woocommerce' ),
+					'description' => __( 'Whether or not the marketing channel is set up.', 'poocommerce' ),
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'settings_url'            => [
-					'description' => __( 'URL to the settings page, or the link to complete the setup/onboarding if the channel has not been set up yet.', 'woocommerce' ),
+					'description' => __( 'URL to the settings page, or the link to complete the setup/onboarding if the channel has not been set up yet.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'product_listings_status' => [
-					'description' => __( 'Status of the marketing channel\'s product listings.', 'woocommerce' ),
+					'description' => __( 'Status of the marketing channel\'s product listings.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,
 				],
 				'errors_count'            => [
-					'description' => __( 'Number of channel issues/errors (e.g. account-related errors, product synchronization issues, etc.).', 'woocommerce' ),
+					'description' => __( 'Number of channel issues/errors (e.g. account-related errors, product synchronization issues, etc.).', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => [ 'view' ],
 					'readonly'    => true,

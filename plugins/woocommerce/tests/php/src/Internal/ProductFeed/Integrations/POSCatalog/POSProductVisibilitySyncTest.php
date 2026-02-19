@@ -1,9 +1,9 @@
 <?php
 declare( strict_types = 1 );
 
-namespace Automattic\WooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
+namespace Automattic\PooCommerce\Tests\Internal\ProductFeed\Integrations\POSCatalog;
 
-use Automattic\WooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSProductVisibilitySync;
+use Automattic\PooCommerce\Internal\ProductFeed\Integrations\POSCatalog\POSProductVisibilitySync;
 use WC_Helper_Product;
 
 /**
@@ -168,12 +168,12 @@ class POSProductVisibilitySyncTest extends \WC_Unit_Test_Case {
 		$callback            = function ( $variation_id ) use ( &$saved_variation_ids ) {
 			$saved_variation_ids[] = $variation_id;
 		};
-		add_action( 'woocommerce_update_product_variation', $callback );
+		add_action( 'poocommerce_update_product_variation', $callback );
 
 		// Change visibility to hidden.
 		$this->sut->set_product_pos_visibility( $product->get_id(), false );
 
-		remove_action( 'woocommerce_update_product_variation', $callback );
+		remove_action( 'poocommerce_update_product_variation', $callback );
 
 		// Verify save() was called for all variations.
 		$this->assertEquals(
@@ -198,8 +198,8 @@ class POSProductVisibilitySyncTest extends \WC_Unit_Test_Case {
 		$mock_callback->expects( $this->never() )->method( 'save' );
 
 		// Try to set hidden again (no change).
-		add_action( 'woocommerce_update_product_variation', array( $mock_callback, 'save' ) );
+		add_action( 'poocommerce_update_product_variation', array( $mock_callback, 'save' ) );
 		$this->sut->set_product_pos_visibility( $product->get_id(), false );
-		remove_action( 'woocommerce_update_product_variation', array( $mock_callback, 'save' ) );
+		remove_action( 'poocommerce_update_product_variation', array( $mock_callback, 'save' ) );
 	}
 }

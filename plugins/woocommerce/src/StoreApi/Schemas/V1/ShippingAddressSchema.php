@@ -1,8 +1,8 @@
 <?php
-namespace Automattic\WooCommerce\StoreApi\Schemas\V1;
+namespace Automattic\PooCommerce\StoreApi\Schemas\V1;
 
-use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
-use Automattic\WooCommerce\StoreApi\Utilities\ValidationUtils;
+use Automattic\PooCommerce\StoreApi\Exceptions\RouteException;
+use Automattic\PooCommerce\StoreApi\Utilities\ValidationUtils;
 
 /**
  * ShippingAddressSchema class.
@@ -82,7 +82,7 @@ class ShippingAddressSchema extends AbstractAddressSchema {
 			'invalid_object_type',
 			sprintf(
 				/* translators: Placeholders are class and method names */
-				__( '%1$s requires an instance of %2$s or %3$s for the address', 'woocommerce' ),
+				__( '%1$s requires an instance of %2$s or %3$s for the address', 'poocommerce' ),
 				'ShippingAddressSchema::get_item_response',
 				'WC_Customer',
 				'WC_Order'

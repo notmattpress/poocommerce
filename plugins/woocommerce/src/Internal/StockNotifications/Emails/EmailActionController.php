@@ -2,19 +2,19 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\StockNotifications\Emails;
+namespace Automattic\PooCommerce\Internal\StockNotifications\Emails;
 
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
-use Automattic\WooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
-use Automattic\WooCommerce\Internal\StockNotifications\Factory;
-use Automattic\WooCommerce\Internal\StockNotifications\Notification;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationCancellationSource;
+use Automattic\PooCommerce\Internal\StockNotifications\Enums\NotificationStatus;
+use Automattic\PooCommerce\Internal\StockNotifications\Factory;
+use Automattic\PooCommerce\Internal\StockNotifications\Notification;
 
 /**
  * Class EmailActionController
  *
  * Handles email actions such as verification and unsubscribe.
  *
- * @package Automattic\WooCommerce\Internal\StockNotifications\Emails
+ * @package Automattic\PooCommerce\Internal\StockNotifications\Emails
  */
 class EmailActionController {
 	/**
@@ -90,17 +90,17 @@ class EmailActionController {
 			$product = wc_get_product( $notification->get_product_id() );
 
 			/* translators: %s is product name */
-			$notice_text = sprintf( esc_html__( 'Successfully verified stock notifications for "%s".', 'woocommerce' ), $product->get_name() );
+			$notice_text = sprintf( esc_html__( 'Successfully verified stock notifications for "%s".', 'poocommerce' ), $product->get_name() );
 			wc_add_notice( $notice_text );
 			/**
-			 * `woocommerce_customer_stock_notification_verified_redirect_url` filter.
+			 * `poocommerce_customer_stock_notification_verified_redirect_url` filter.
 			 *
 			 * @since 10.2.0
 			 *
 			 * @param  string  $url
 			 * @return string
 			 */
-			$url = apply_filters( 'woocommerce_customer_stock_notification_verified_redirect_url', get_permalink( wc_get_page_id( 'shop' ) ) );
+			$url = apply_filters( 'poocommerce_customer_stock_notification_verified_redirect_url', get_permalink( wc_get_page_id( 'shop' ) ) );
 			wp_safe_redirect( $url );
 		}
 	}
@@ -128,17 +128,17 @@ class EmailActionController {
 			$product = wc_get_product( $notification->get_product_id() );
 
 			/* translators: %2$s product name, %1$s user email */
-			$notice_text = sprintf( esc_html__( 'Successfully unsubscribed %1$s. You will not receive a notification when "%2$s" becomes available.', 'woocommerce' ), $notification->get_user_email(), $product->get_name() );
+			$notice_text = sprintf( esc_html__( 'Successfully unsubscribed %1$s. You will not receive a notification when "%2$s" becomes available.', 'poocommerce' ), $notification->get_user_email(), $product->get_name() );
 			wc_add_notice( $notice_text );
 			/**
-			 * `woocommerce_customer_stock_notification_unsubscribe_redirect_url` filter.
+			 * `poocommerce_customer_stock_notification_unsubscribe_redirect_url` filter.
 			 *
 			 * @since 10.2.0
 			 *
 			 * @param  string  $url
 			 * @return string
 			 */
-			$url = apply_filters( 'woocommerce_customer_stock_notification_unsubscribe_redirect_url', get_permalink( wc_get_page_id( 'shop' ) ) );
+			$url = apply_filters( 'poocommerce_customer_stock_notification_unsubscribe_redirect_url', get_permalink( wc_get_page_id( 'shop' ) ) );
 			wp_safe_redirect( $url );
 		}
 	}

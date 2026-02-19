@@ -1,17 +1,17 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine\Renderer;
+namespace Automattic\PooCommerce\EmailEditor\Engine\Renderer;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Theme_Controller;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Theme_Controller;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 use WP_Style_Engine;
 
 /**
@@ -130,7 +130,7 @@ class Renderer {
 		);
 		$template_styles  .= '.email_layout_wrapper { box-sizing: border-box;}';
 		$template_styles  .= file_get_contents( __DIR__ . '/' . self::TEMPLATE_STYLES_FILE );
-		$template_styles   = '<style>' . wp_strip_all_tags( (string) apply_filters( 'woocommerce_email_renderer_styles', $template_styles, $post ) ) . '</style>';
+		$template_styles   = '<style>' . wp_strip_all_tags( (string) apply_filters( 'poocommerce_email_renderer_styles', $template_styles, $post ) ) . '</style>';
 		$rendered_template = $this->inline_css_styles( $template_styles . $rendered_template );
 
 		// This is a workaround to support link :hover in some clients. Ideally we would remove the ability to set :hover
@@ -194,10 +194,10 @@ class Renderer {
 		$this->personalization_tag_placeholders = array();
 		$counter                                = 0;
 
-		$base_tokens    = array(); // All the tokens used in the email, e.g. [woocommerce/customer-username].
-		$token_prefixes = array(); // All the used prefixes, e.g. woocommerce, mailpoet, etc.
+		$base_tokens    = array(); // All the tokens used in the email, e.g. [poocommerce/customer-username].
+		$token_prefixes = array(); // All the used prefixes, e.g. poocommerce, mailpoet, etc.
 		foreach ( $all_registered_tags as $tag ) {
-			$token                 = $tag->get_token(); // E.g. [woocommerce/customer-username].
+			$token                 = $tag->get_token(); // E.g. [poocommerce/customer-username].
 			$base_tokens[ $token ] = true;
 			// Remove brackets for regex matching, escape for regex.
 			$token_prefixes[] = preg_quote( substr( $token, 1, -1 ), '/' );

@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "woocommerce/product-attributes-field",
+	"name": "poocommerce/product-attributes-field",
 	"title": "Product attributes",
 	"category": "widgets",
 	"description": "The product attributes.",

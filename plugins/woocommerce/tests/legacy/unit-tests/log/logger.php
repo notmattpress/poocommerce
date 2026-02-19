@@ -2,15 +2,15 @@
 /**
  * Class WC_Tests_Logger file.
  *
- * @package WooCommerce\Tests
+ * @package PooCommerce\Tests
  */
 
 use Automattic\Jetpack\Constants;
-use Automattic\WooCommerce\Internal\Admin\Logging\Settings;
+use Automattic\PooCommerce\Internal\Admin\Logging\Settings;
 
 /**
  * Class WC_Tests_Logger
- * @package WooCommerce\Tests\Log
+ * @package PooCommerce\Tests\Log
  * @since 2.3
  */
 class WC_Tests_Logger extends WC_Unit_Test_Case {
@@ -179,12 +179,12 @@ class WC_Tests_Logger extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Test 'woocommerce_register_log_handlers' filter.
+	 * Test 'poocommerce_register_log_handlers' filter.
 	 *
 	 * @since 3.0.0
 	 */
-	public function test_woocommerce_register_log_handlers_filter() {
-		add_filter( 'woocommerce_register_log_handlers', array( $this, 'return_assertion_handlers' ) );
+	public function test_poocommerce_register_log_handlers_filter() {
+		add_filter( 'poocommerce_register_log_handlers', array( $this, 'return_assertion_handlers' ) );
 		$log = new WC_Logger();
 		$log->debug( 'debug' );
 		$log->info( 'info' );
@@ -194,7 +194,7 @@ class WC_Tests_Logger extends WC_Unit_Test_Case {
 		$log->critical( 'critical' );
 		$log->alert( 'alert' );
 		$log->emergency( 'emergency' );
-		remove_filter( 'woocommerce_register_log_handlers', array( $this, 'return_assertion_handlers' ) );
+		remove_filter( 'poocommerce_register_log_handlers', array( $this, 'return_assertion_handlers' ) );
 	}
 
 	/**
@@ -206,7 +206,7 @@ class WC_Tests_Logger extends WC_Unit_Test_Case {
 		$time = time();
 
 		// Test no filtering by default.
-		delete_option( 'woocommerce_log_threshold' );
+		delete_option( 'poocommerce_log_threshold' );
 		$handler = $this
 			->getMockBuilder( 'WC_Log_Handler_Interface' )
 			->setMethods( array( 'handle' ) )
@@ -259,7 +259,7 @@ class WC_Tests_Logger extends WC_Unit_Test_Case {
 	}
 
 	/**
-	 * Helper for 'woocommerce_register_log_handlers' filter test.
+	 * Helper for 'poocommerce_register_log_handlers' filter test.
 	 *
 	 * Returns an array of 1 mocked handler.
 	 * The handler expects to receive exactly 8 messages (1 for each level).

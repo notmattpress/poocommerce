@@ -1,6 +1,6 @@
 /**
-* woocommerce-blocktheme.scss
-* Block theme default styles to ensure WooCommerce looks better out of the box with block themes that are not optimised for WooCommerce specifically.
+* poocommerce-blocktheme.scss
+* Block theme default styles to ensure PooCommerce looks better out of the box with block themes that are not optimised for PooCommerce specifically.
 */
 @import "fonts";
 @import "variables";
@@ -8,11 +8,11 @@
 /**
 * Layout
 */
-.woocommerce-cart,
-.woocommerce-account,
-.woocommerce-checkout {
+.poocommerce-cart,
+.poocommerce-account,
+.poocommerce-checkout {
 	.wp-block-post-title,
-	main .woocommerce {
+	main .poocommerce {
 		// Allow Cart/Checkout/Account pages more space to breathe.
 		max-width: 1000px;
 	}
@@ -25,7 +25,7 @@
 /**
 * General
 */
-.woocommerce {
+.poocommerce {
 	button.button,
 	a.button {
 
@@ -61,11 +61,11 @@
 /**
 * Products
 */
-.woocommerce {
+.poocommerce {
 	/**
 	* Shop products list
 	*/
-	ul.products li.product .woocommerce-loop-product__title {
+	ul.products li.product .poocommerce-loop-product__title {
 		// Slightly increase font size to make product title more readable.
 		font-size: 1.2em;
 	}
@@ -75,7 +75,7 @@
 	*/
 	div.product {
 		// Ensure the single product contains its content.
-		// For details see https://github.com/woocommerce/woocommerce/pull/33511.
+		// For details see https://github.com/poocommerce/poocommerce/pull/33511.
 		&::after {
 			content: "";
 			display: block;
@@ -87,7 +87,7 @@
 			margin-bottom: var(--wp--style--block-gap);
 		}
 
-		.woocommerce-tabs {
+		.poocommerce-tabs {
 			ul.tabs li.active {
 
 				&::before {
@@ -134,7 +134,7 @@
 		}
 	}
 
-	.woocommerce-Reviews {
+	.poocommerce-Reviews {
 		#comments {
 			// Add spacing between the review comments and the review form.
 			margin-bottom: var(--wp--style--block-gap);
@@ -152,10 +152,10 @@
 		}
 	}
 
-	.price, .woocommerce-grouped-product-list-item__price, .wc-block-components-product-price {
+	.price, .poocommerce-grouped-product-list-item__price, .wc-block-components-product-price {
 		ins, bdi {
 			// Ensure discounted prices aren't underlined.
-			// For details see https://github.com/woocommerce/woocommerce-blocks/pull/5684.
+			// For details see https://github.com/poocommerce/poocommerce-blocks/pull/5684.
 			text-decoration: none;
 		}
 	}
@@ -203,7 +203,7 @@
 		vertical-align: middle;
 	}
 
-	.single_variation_wrap .woocommerce-variation {
+	.single_variation_wrap .poocommerce-variation {
 		margin-bottom: var(--wp--style--block-gap);
 	}
 }
@@ -213,7 +213,7 @@
 */
 a.added_to_cart {
 	// Prevent "View Cart" button from sticking to "Add to Cart" button.
-	// For details see https://github.com/woocommerce/woocommerce-blocks/issues/5285.
+	// For details see https://github.com/poocommerce/poocommerce-blocks/issues/5285.
 	display: block;
 	margin-top: 1em;
 }
@@ -221,7 +221,7 @@ a.added_to_cart {
 /**
 * Form elements
 */
-.woocommerce-page {
+.poocommerce-page {
 	// Ensure text input fields aren't too small.
 	select,
 	.input-text,
@@ -234,7 +234,7 @@ a.added_to_cart {
 	}
 }
 
-.woocommerce {
+.poocommerce {
 	form {
 		.form-row {
 			margin-bottom: 1em;
@@ -250,7 +250,7 @@ a.added_to_cart {
 /**
 * Cart / Checkout
 */
-.woocommerce-page {
+.poocommerce-page {
 	/**
 	* Tables
 	*/
@@ -278,7 +278,7 @@ a.added_to_cart {
 	/**
 	* Cart specific
 	*/
-	.woocommerce-cart-form {
+	.poocommerce-cart-form {
 		.product-remove {
 			// Decrease width of the product remove column.
 			width: 1em;
@@ -328,21 +328,21 @@ a.added_to_cart {
 	/**
 	* Checkout specific
 	*/
-	.woocommerce-form-coupon .button {
+	.poocommerce-form-coupon .button {
 		min-height: 50px;
 	}
 
 	/**
 	* Order confirmation
 	*/
-	.woocommerce-thankyou-order-received,
-	.woocommerce-column__title,
-	.woocommerce-customer-details h2 {
+	.poocommerce-thankyou-order-received,
+	.poocommerce-column__title,
+	.poocommerce-customer-details h2 {
 		font-size: var(--wp--preset--font-size--large);
 		font-weight: 300;
 	}
 
-	ul.woocommerce-order-overview {
+	ul.poocommerce-order-overview {
 		// Display order overview items next to each other.
 		display: flex;
 		width: 100%;
@@ -367,7 +367,7 @@ a.added_to_cart {
 		}
 	}
 
-	.woocommerce-customer-details address {
+	.poocommerce-customer-details address {
 		// Ensure customer details match order overview.
 		box-sizing: border-box;
 		width: 70%;
@@ -380,8 +380,8 @@ a.added_to_cart {
 /**
 * My account
 */
-.woocommerce-account {
-	.woocommerce-MyAccount-navigation {
+.poocommerce-account {
+	.poocommerce-MyAccount-navigation {
 		ul {
 			// Ensure top left alignment of the navigation.
 			margin: 0 0 2em;
@@ -417,7 +417,7 @@ a.added_to_cart {
 		}
 	}
 
-	.woocommerce-MyAccount-content {
+	.poocommerce-MyAccount-content {
 		> p:first-of-type,
 		p.form-row-first,
 		p.form-row-last {
@@ -427,7 +427,7 @@ a.added_to_cart {
 	}
 
 	table.shop_table.order_details,
-	.woocommerce-customer-details address {
+	.poocommerce-customer-details address {
 		// Ensure order/customer details are full width in My Account.
 		width: 100%;
 	}
@@ -438,12 +438,12 @@ a.added_to_cart {
 		margin-bottom: 1em;
 	}
 
-	&.woocommerce-edit-address .woocommerce-MyAccount-content form > h3 {
+	&.poocommerce-edit-address .poocommerce-MyAccount-content form > h3 {
 		// Ensure headline is top aligned (/my-account/edit-address/shipping/).
 		margin-block-start: 0;
 	}
 
-	.woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions {
+	.poocommerce-orders-table__cell.poocommerce-orders-table__cell-order-actions {
 		&::before {
 			display: none;
 		}
@@ -459,7 +459,7 @@ a.added_to_cart {
 /**
 * My account - Login form
 */
-.woocommerce-page {
+.poocommerce-page {
 	// For block themes we increase the padding of the input fields across classic checkout and my account pages.
 	form .form-row {
 		select,
@@ -507,7 +507,7 @@ a.added_to_cart {
 * Store notice
 */
 p.demo_store,
-.woocommerce-store-notice {
+.poocommerce-store-notice {
 	// Add theme colors to the store notice.
 
 	background: var(--wp--preset--color--foreground, $primary);
@@ -524,6 +524,6 @@ p.demo_store,
 /**
 * Product category count
 */
-.woocommerce .product-category mark.count {
+.poocommerce .product-category mark.count {
 	background-color: transparent;
 }

@@ -1,4 +1,4 @@
-/* global jQuery, woocommerce_admin_system_status, wcSetClipboard, wcClearClipboard */
+/* global jQuery, poocommerce_admin_system_status, wcSetClipboard, wcClearClipboard */
 jQuery( function ( $ ) {
 	/**
 	 * Users country and state fields
@@ -8,7 +8,7 @@ jQuery( function ( $ ) {
 			$( document.body )
 				.on(
 					'click',
-					'a.help_tip, a.woocommerce-help-tip, woocommerce-product-type-tip',
+					'a.help_tip, a.poocommerce-help-tip, poocommerce-product-type-tip',
 					this.preventTipTipClick
 				)
 				.on( 'click', 'a.debug-report', this.generateReport )
@@ -175,11 +175,11 @@ jQuery( function ( $ ) {
 
 	$( '.wc_status_table' ).on( 'click', '.run-tool .button', function( evt ) {
 		evt.stopImmediatePropagation();
-		return window.confirm( woocommerce_admin_system_status.run_tool_confirmation );
+		return window.confirm( poocommerce_admin_system_status.run_tool_confirmation );
 	});
 
 	$( '#log-viewer-select' ).on( 'click', 'h2 a.page-title-action', function( evt ) {
 		evt.stopImmediatePropagation();
-		return window.confirm( woocommerce_admin_system_status.delete_log_confirmation );
+		return window.confirm( poocommerce_admin_system_status.delete_log_confirmation );
 	});
 });

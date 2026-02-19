@@ -1,10 +1,10 @@
 /**
  * External dependencies
  */
-import { test, expect, wpCLI } from '@woocommerce/e2e-utils';
+import { test, expect, wpCLI } from '@poocommerce/e2e-utils';
 
 test.describe( 'Legacy templates', () => {
-	test( 'woocommerce//* slug is supported', async ( {
+	test( 'poocommerce//* slug is supported', async ( {
 		admin,
 		page,
 		editor,
@@ -18,7 +18,7 @@ test.describe( 'Legacy templates', () => {
 
 		await test.step( 'Customize existing template to create DB entry', async () => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce/woocommerce//${ template.id }`,
+				postId: `poocommerce/poocommerce//${ template.id }`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );
@@ -46,16 +46,16 @@ test.describe( 'Legacy templates', () => {
 
 		await test.step( 'Update created term to legacy format in the DB', async () => {
 			await wpCLI(
-				`term update wp_theme woocommerce-woocommerce \
+				`term update wp_theme poocommerce-poocommerce \
 					--by="slug" \
-					--name="woocommerce" \
-					--slug="woocommerce"`
+					--name="poocommerce" \
+					--slug="poocommerce"`
 			);
 		} );
 
 		await test.step( 'Verify the template can be edited via a legacy ID ', async () => {
 			await admin.visitSiteEditor( {
-				postId: `woocommerce//${ template.id }`,
+				postId: `poocommerce//${ template.id }`,
 				postType: 'wp_template',
 				canvas: 'edit',
 			} );

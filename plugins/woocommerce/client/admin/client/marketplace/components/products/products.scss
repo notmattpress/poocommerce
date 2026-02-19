@@ -1,4 +1,4 @@
-.woocommerce-marketplace {
+.poocommerce-marketplace {
 	&__search-extensions,
 	&__search-themes,
 	&__search-business-services {
@@ -10,20 +10,20 @@
 }
 
 
-.woocommerce-marketplace__sub-header {
+.poocommerce-marketplace__sub-header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 32px;
 }
 
-.woocommerce-marketplace__sub-header__categories {
+.poocommerce-marketplace__sub-header__categories {
 	flex: 1;
 	overflow-x: auto;
 	position: relative;
 }
 
-.woocommerce-marketplace__customize-your-store-button {
+.poocommerce-marketplace__customize-your-store-button {
 	flex-shrink: 0;
 }
 

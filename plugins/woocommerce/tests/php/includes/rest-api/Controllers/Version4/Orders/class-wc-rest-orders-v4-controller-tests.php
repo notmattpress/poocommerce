@@ -1,16 +1,16 @@
 <?php // phpcs:ignore Generic.PHP.RequireStrictTypes.MissingDeclaration
 
-use Automattic\WooCommerce\Enums\OrderStatus;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
-use Automattic\WooCommerce\RestApi\UnitTests\HPOSToggleTrait;
-use Automattic\WooCommerce\Proxies\LegacyProxy;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Controller as OrdersController;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderItemSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderCouponSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderFeeSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderTaxSchema;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderShippingSchema;
+use Automattic\PooCommerce\Enums\OrderStatus;
+use Automattic\PooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+use Automattic\PooCommerce\RestApi\UnitTests\HPOSToggleTrait;
+use Automattic\PooCommerce\Proxies\LegacyProxy;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Controller as OrdersController;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderItemSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderCouponSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderFeeSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderTaxSchema;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\Schema\OrderShippingSchema;
 
 /**
  * Orders Controller tests for V4 REST API.
@@ -54,7 +54,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function enable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features[] = 'rest-api-v4';
 				return $features;
@@ -67,7 +67,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public static function disable_rest_api_v4_feature() {
 		add_filter(
-			'woocommerce_admin_features',
+			'poocommerce_admin_features',
 			function ( $features ) {
 				$features = array_diff( $features, array( 'rest-api-v4' ) );
 				return $features;
@@ -93,9 +93,9 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$this->order_schema->init( $order_item_schema, $order_coupon_schema, $order_fee_schema, $order_tax_schema, $order_shipping_schema );
 
 		// Create utils instances.
-		$collection_query  = new \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\CollectionQuery();
-		$update_utils      = new \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\UpdateUtils();
-		$action_controller = new \Automattic\WooCommerce\Internal\RestApi\Routes\V4\Orders\ActionController();
+		$collection_query  = new \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\CollectionQuery();
+		$update_utils      = new \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\UpdateUtils();
+		$action_controller = new \Automattic\PooCommerce\Internal\RestApi\Routes\V4\Orders\ActionController();
 
 		$this->endpoint = new OrdersController();
 		$this->endpoint->init( $this->order_schema, $collection_query, $update_utils, $action_controller );
@@ -354,7 +354,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_order_tax_schema_properties_match_response(): void {
 		// Enable taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create tax rate.
 		$tax_rate = WC_Tax::_insert_tax_rate(
@@ -409,7 +409,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		// Clean up.
 		WC_Tax::_delete_tax_rate( $tax_rate );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$product->delete( true );
 		$order->delete( true );
 	}
@@ -785,7 +785,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 400, $response->get_status() );
-		$this->assertEquals( 'woocommerce_rest_invalid_customer_id', $response->get_data()['code'] );
+		$this->assertEquals( 'poocommerce_rest_invalid_customer_id', $response->get_data()['code'] );
 
 		$customer->delete( true );
 	}
@@ -1728,7 +1728,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 	 */
 	public function test_refund_total_and_refund_tax_fields(): void {
 		// Enable taxes.
-		update_option( 'woocommerce_calc_taxes', 'yes' );
+		update_option( 'poocommerce_calc_taxes', 'yes' );
 
 		// Create tax rate.
 		$tax_rate = WC_Tax::_insert_tax_rate(
@@ -1792,7 +1792,7 @@ class WC_REST_Orders_V4_Controller_Tests extends WC_REST_Unit_Test_Case {
 
 		// Clean up.
 		WC_Tax::_delete_tax_rate( $tax_rate );
-		update_option( 'woocommerce_calc_taxes', 'no' );
+		update_option( 'poocommerce_calc_taxes', 'no' );
 		$product->delete( true );
 		$order->delete( true );
 	}

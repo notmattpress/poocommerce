@@ -2,12 +2,12 @@
 /**
  * Migrator Tracker
  *
- * @package Automattic\WooCommerce\Internal\CLI\Migrator\Core
+ * @package Automattic\PooCommerce\Internal\CLI\Migrator\Core
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\CLI\Migrator\Core;
+namespace Automattic\PooCommerce\Internal\CLI\Migrator\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -75,7 +75,7 @@ class MigratorTracker {
 	 *
 	 * @param array $batch_results Results from the batch import.
 	 * @param array $source_data   Source platform data for the batch.
-	 * @param array $mapped_data   Mapped WooCommerce data for the batch.
+	 * @param array $mapped_data   Mapped PooCommerce data for the batch.
 	 */
 	public function on_batch_processed( array $batch_results, array $source_data, array $mapped_data ): void {
 		if ( empty( $this->current_session ) ) {

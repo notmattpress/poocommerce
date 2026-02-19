@@ -42,21 +42,21 @@ const EmailListingFill: React.FC< {
 		<Fill>
 			<div
 				id="email_notification_settings-description"
-				className="woocommerce-email-listing-description"
+				className="poocommerce-email-listing-description"
 			>
 				<p>
 					{ __(
-						"Manage email notifications sent from WooCommerce below or click on 'Edit template' to customize your email template design.",
-						'woocommerce'
+						"Manage email notifications sent from PooCommerce below or click on 'Edit template' to customize your email template design.",
+						'poocommerce'
 					) }
 				</p>
 				{ editTemplateUrl && (
 					<Button
 						variant="primary"
 						href={ editTemplateUrl }
-						className="woocommerce-email-listing-edit-template-button"
+						className="poocommerce-email-listing-edit-template-button"
 					>
-						{ __( 'Edit template', 'woocommerce' ) }
+						{ __( 'Edit template', 'poocommerce' ) }
 					</Button>
 				) }
 			</div>
@@ -80,8 +80,8 @@ export const registerSettingsEmailListingFill = () => {
 		emailTypes = JSON.parse( emailTypesData || '' );
 	} catch ( e ) {}
 
-	registerPlugin( 'woocommerce-admin-settings-email-listing', {
-		scope: 'woocommerce-email-listing',
+	registerPlugin( 'poocommerce-admin-settings-email-listing', {
+		scope: 'poocommerce-email-listing',
 		render: () => (
 			<EmailListingFill
 				emailTypes={ emailTypes }

@@ -4,7 +4,7 @@
 	  "step": "installPlugin",
 	  "pluginZipFile": {
 		"resource": "wordpress.org\/plugins",
-		"slug": "woocommerce"
+		"slug": "poocommerce"
 	  },
 	  "options": {
 		"activate": true

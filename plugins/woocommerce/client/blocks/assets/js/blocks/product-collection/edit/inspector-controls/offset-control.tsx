@@ -33,14 +33,14 @@ const OffsetControl = ( {
 
 	return (
 		<ToolsPanelItem
-			label={ __( 'Offset', 'woocommerce' ) }
+			label={ __( 'Offset', 'poocommerce' ) }
 			hasValue={ () => query.offset !== DEFAULT_QUERY.offset }
 			onDeselect={ deselectCallback }
 			resetAllFilter={ deselectCallback }
 		>
 			<NumberControl
 				__next40pxDefaultSize
-				label={ __( 'Offset', 'woocommerce' ) }
+				label={ __( 'Offset', 'poocommerce' ) }
 				value={ query.offset }
 				min={ MIN_OFFSET }
 				onChange={ ( newOffset: number ) => {

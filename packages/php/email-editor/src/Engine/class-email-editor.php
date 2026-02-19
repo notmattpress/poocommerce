@@ -1,17 +1,17 @@
 <?php
 /**
- * This file is part of the WooCommerce Email Editor package.
+ * This file is part of the PooCommerce Email Editor package.
  *
- * @package Automattic\WooCommerce\EmailEditor
+ * @package Automattic\PooCommerce\EmailEditor
  */
 
 declare(strict_types = 1);
-namespace Automattic\WooCommerce\EmailEditor\Engine;
+namespace Automattic\PooCommerce\EmailEditor\Engine;
 
-use Automattic\WooCommerce\EmailEditor\Engine\Patterns\Patterns;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
-use Automattic\WooCommerce\EmailEditor\Engine\Templates\Templates;
-use Automattic\WooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
+use Automattic\PooCommerce\EmailEditor\Engine\Patterns\Patterns;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Engine\Templates\Templates;
+use Automattic\PooCommerce\EmailEditor\Engine\Logger\Email_Editor_Logger;
 use WP_Post;
 use WP_Theme_JSON;
 
@@ -22,7 +22,7 @@ use WP_Theme_JSON;
  * See register_post_type for details about EmailPostType args.
  */
 class Email_Editor {
-	public const WOOCOMMERCE_EMAIL_META_THEME_TYPE = 'woocommerce_email_theme';
+	public const WOOCOMMERCE_EMAIL_META_THEME_TYPE = 'poocommerce_email_theme';
 
 	/**
 	 * Property for the email API controller.
@@ -103,22 +103,22 @@ class Email_Editor {
 	 */
 	public function initialize(): void {
 		$this->logger->info( 'Initializing email editor' );
-		do_action( 'woocommerce_email_editor_initialized' );
-		add_filter( 'woocommerce_email_editor_rendering_theme_styles', array( $this, 'extend_email_theme_styles' ), 10, 2 );
+		do_action( 'poocommerce_email_editor_initialized' );
+		add_filter( 'poocommerce_email_editor_rendering_theme_styles', array( $this, 'extend_email_theme_styles' ), 10, 2 );
 
 		$this->register_block_patterns();
 		$this->register_email_post_types();
 		$this->register_block_templates();
 		$this->register_email_post_sent_status();
 		$this->register_personalization_tags();
-		$is_editor_page = apply_filters( 'woocommerce_is_email_editor_page', false );
+		$is_editor_page = apply_filters( 'poocommerce_is_email_editor_page', false );
 		if ( $is_editor_page ) {
 			$this->extend_email_post_api();
 			// Initialize the assets manager.
 			$this->assets_manager->initialize();
 		}
 		add_action( 'rest_api_init', array( $this, 'register_email_editor_api_routes' ) );
-		add_filter( 'woocommerce_email_editor_send_preview_email', array( $this->send_preview_email, 'send_preview_email' ), 11, 1 ); // allow for other filter methods to take precedent.
+		add_filter( 'poocommerce_email_editor_send_preview_email', array( $this->send_preview_email, 'send_preview_email' ), 11, 1 ); // allow for other filter methods to take precedent.
 		add_filter( 'single_template', array( $this, 'load_email_preview_template' ) );
 		add_filter( 'preview_post_link', array( $this, 'update_preview_post_link' ), 10, 2 );
 		$this->logger->info( 'Email editor initialized successfully' );
@@ -152,7 +152,7 @@ class Email_Editor {
 
 	/**
 	 * Register all custom post types that should be edited via the email editor
-	 * The post types are added via woocommerce_email_editor_post_types filter.
+	 * The post types are added via poocommerce_email_editor_post_types filter.
 	 *
 	 * @return void
 	 */
@@ -167,7 +167,7 @@ class Email_Editor {
 
 	/**
 	 * Register all personalization tags registered via
-	 * the woocommerce_email_editor_register_personalization_tags filter.
+	 * the poocommerce_email_editor_register_personalization_tags filter.
 	 *
 	 * @return void
 	 */
@@ -183,7 +183,7 @@ class Email_Editor {
 	 */
 	private function get_post_types(): array {
 		$post_types = array();
-		return apply_filters( 'woocommerce_email_editor_post_types', $post_types );
+		return apply_filters( 'poocommerce_email_editor_post_types', $post_types );
 	}
 
 	/**
@@ -226,7 +226,7 @@ class Email_Editor {
 			'show_in_admin_status_list' => false,
 			'private'                   => true, // required by the preview in new tab feature for sent post (newsletter). Posts are only visible to site admins and editors.
 		);
-		$args         = apply_filters( 'woocommerce_email_editor_post_sent_status_args', $default_args );
+		$args         = apply_filters( 'poocommerce_email_editor_post_sent_status_args', $default_args );
 		register_post_status(
 			'sent',
 			$args
@@ -258,7 +258,7 @@ class Email_Editor {
 	 */
 	public function register_email_editor_api_routes() {
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/send_preview_email',
 			array(
 				'methods'             => 'POST',
@@ -269,7 +269,7 @@ class Email_Editor {
 			)
 		);
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/get_personalization_tags',
 			array(
 				'methods'             => 'GET',
@@ -280,7 +280,7 @@ class Email_Editor {
 			)
 		);
 		register_rest_route(
-			'woocommerce-email-editor/v1',
+			'poocommerce-email-editor/v1',
 			'/personalization_tags',
 			array(
 				'methods'             => 'GET',
@@ -290,7 +290,7 @@ class Email_Editor {
 				},
 				'args'                => array(
 					'post_id' => array(
-						'description'       => __( 'The post ID for context-aware tag filtering.', 'woocommerce' ),
+						'description'       => __( 'The post ID for context-aware tag filtering.', 'poocommerce' ),
 						'type'              => 'integer',
 						'required'          => false,
 						'sanitize_callback' => 'absint',
@@ -365,7 +365,7 @@ class Email_Editor {
 		}
 
 		add_filter(
-			'woocommerce_email_editor_preview_post_template_html',
+			'poocommerce_email_editor_preview_post_template_html',
 			function () use ( $post ) {
 				// Generate HTML content for email editor post.
 				return $this->send_preview_email->render_html( $post );

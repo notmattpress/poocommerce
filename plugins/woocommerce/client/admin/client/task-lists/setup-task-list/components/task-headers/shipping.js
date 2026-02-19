@@ -11,20 +11,20 @@ import { WC_ASSET_URL } from '../../../../utils/admin-settings';
 
 const ShippingHeader = ( { task, goToTask } ) => {
 	return (
-		<div className="woocommerce-task-header__contents-container">
+		<div className="poocommerce-task-header__contents-container">
 			<img
-				alt={ __( 'Shipping illustration', 'woocommerce' ) }
+				alt={ __( 'Shipping illustration', 'poocommerce' ) }
 				src={
 					WC_ASSET_URL + 'images/task_list/shipping-illustration.svg'
 				}
 				className="svg-background"
 			/>
-			<div className="woocommerce-task-header__contents">
-				<h1>{ __( 'Get your products shipped', 'woocommerce' ) }</h1>
+			<div className="poocommerce-task-header__contents">
+				<h1>{ __( 'Get your products shipped', 'poocommerce' ) }</h1>
 				<p>
 					{ __(
 						'Choose where and how you’d like to ship your products, along with any fixed or calculated rates.',
-						'woocommerce'
+						'poocommerce'
 					) }
 				</p>
 				<Button
@@ -32,7 +32,7 @@ const ShippingHeader = ( { task, goToTask } ) => {
 					isPrimary={ ! task.isComplete }
 					onClick={ goToTask }
 				>
-					{ __( 'Start shipping', 'woocommerce' ) }
+					{ __( 'Start shipping', 'poocommerce' ) }
 				</Button>
 			</div>
 		</div>

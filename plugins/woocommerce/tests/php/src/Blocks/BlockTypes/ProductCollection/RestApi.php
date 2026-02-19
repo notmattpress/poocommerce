@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
+namespace Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection;
 
-use Automattic\WooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
-use Automattic\WooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
-use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\PooCommerce\Tests\Blocks\BlockTypes\ProductCollection\Utils;
+use Automattic\PooCommerce\Tests\Blocks\Mocks\ProductCollectionMock;
+use Automattic\PooCommerce\Enums\ProductStockStatus;
 
 /**
  * Tests for the ProductCollection block REST API integration
@@ -77,14 +77,14 @@ class RestApi extends \WP_UnitTestCase {
 		$time_frame_date = gmdate( 'Y-m-d H:i:s' );
 		$params          = array(
 			'featured'               => 'true',
-			'woocommerceOnSale'      => 'true',
-			'woocommerceAttributes'  => array(
+			'poocommerceOnSale'      => 'true',
+			'poocommerceAttributes'  => array(
 				array(
 					'taxonomy' => 'pa_test',
 					'termId'   => 1,
 				),
 			),
-			'woocommerceStockStatus' => array( ProductStockStatus::IN_STOCK, ProductStockStatus::OUT_OF_STOCK ),
+			'poocommerceStockStatus' => array( ProductStockStatus::IN_STOCK, ProductStockStatus::OUT_OF_STOCK ),
 			'timeFrame'              => array(
 				'operator' => 'in',
 				'value'    => $time_frame_date,

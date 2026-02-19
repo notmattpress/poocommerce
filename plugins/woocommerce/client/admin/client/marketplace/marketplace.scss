@@ -1,10 +1,10 @@
 @import "./stylesheets/_variables.scss";
 
-.woocommerce-admin-page__extensions {
+.poocommerce-admin-page__extensions {
 	background: #fff;
 
 	#wpcontent,
-	&.woocommerce_page_wc-admin #wpbody-content {
+	&.poocommerce_page_wc-admin #wpbody-content {
 		overflow-x: inherit !important; // Overwriting wc-admin css from elsewhere. Necessary to make the features banner stick.
 		position: relative;
 	}
@@ -13,11 +13,11 @@
 		margin: 0;
 	}
 
-	.woocommerce-layout__primary {
+	.poocommerce-layout__primary {
 		margin: 0;
 	}
 
-	.woocommerce-layout__main {
+	.poocommerce-layout__main {
 		padding: 0;
 		/* Maintain space at the bottom in line with the overall visual hierarchy relative to the WC footer. */
 		margin-bottom: calc($content-spacing-xlarge + 30px); // 30px is the 40px height minus the 10px top padding of the WC footer.
@@ -29,7 +29,7 @@
 	}
 
 	/* On marketplace pages, reposition store alerts so they don't collide with other components */
-	.woocommerce-store-alerts {
+	.poocommerce-store-alerts {
 		margin-left: 24px;
 		margin-right: 16px;
 		margin-top: 16px;

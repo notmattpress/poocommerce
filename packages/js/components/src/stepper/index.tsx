@@ -55,23 +55,23 @@ export const Stepper = ( {
 		}
 
 		return (
-			<div className="woocommerce-stepper_content">{ step.content }</div>
+			<div className="poocommerce-stepper_content">{ step.content }</div>
 		);
 	};
 
 	const currentIndex = steps.findIndex( ( s ) => currentStep === s.key );
-	const stepperClassName = clsx( 'woocommerce-stepper', className, {
+	const stepperClassName = clsx( 'poocommerce-stepper', className, {
 		'is-vertical': isVertical,
 	} );
 
 	return (
 		<div className={ stepperClassName }>
-			<div className="woocommerce-stepper__steps">
+			<div className="poocommerce-stepper__steps">
 				{ steps.map( ( step, i ) => {
 					const { key, label, description, isComplete, onClick } =
 						step;
 					const isCurrentStep = key === currentStep;
-					const stepClassName = clsx( 'woocommerce-stepper__step', {
+					const stepClassName = clsx( 'poocommerce-stepper__step', {
 						'is-active': isCurrentStep,
 						'is-complete':
 							typeof isComplete !== 'undefined'
@@ -82,8 +82,8 @@ export const Stepper = ( {
 						isCurrentStep && isPending ? (
 							<Spinner />
 						) : (
-							<div className="woocommerce-stepper__step-icon">
-								<span className="woocommerce-stepper__step-number">
+							<div className="poocommerce-stepper__step-icon">
+								<span className="poocommerce-stepper__step-number">
 									{ i + 1 }
 								</span>
 								<CheckIcon />
@@ -96,7 +96,7 @@ export const Stepper = ( {
 						<Fragment key={ key }>
 							<div className={ stepClassName }>
 								<LabelWrapper
-									className="woocommerce-stepper__step-label-wrapper"
+									className="poocommerce-stepper__step-label-wrapper"
 									onClick={
 										typeof onClick === 'function'
 											? () => onClick( key )
@@ -104,12 +104,12 @@ export const Stepper = ( {
 									}
 								>
 									{ icon }
-									<div className="woocommerce-stepper__step-text">
-										<span className="woocommerce-stepper__step-label">
+									<div className="poocommerce-stepper__step-text">
+										<span className="poocommerce-stepper__step-label">
 											{ label }
 										</span>
 										{ description && (
-											<span className="woocommerce-stepper__step-description">
+											<span className="poocommerce-stepper__step-description">
 												{ description }
 											</span>
 										) }
@@ -120,7 +120,7 @@ export const Stepper = ( {
 									renderCurrentStepContent() }
 							</div>
 							{ ! isVertical && (
-								<div className="woocommerce-stepper__step-divider" />
+								<div className="poocommerce-stepper__step-divider" />
 							) }
 						</Fragment>
 					);

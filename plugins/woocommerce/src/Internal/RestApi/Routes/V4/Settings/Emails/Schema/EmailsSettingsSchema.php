@@ -2,17 +2,17 @@
 /**
  * EmailsSettingsSchema class.
  *
- * @package WooCommerce\RestApi
+ * @package PooCommerce\RestApi
  */
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Schema;
+namespace Automattic\PooCommerce\Internal\RestApi\Routes\V4\Settings\Emails\Schema;
 
-use Automattic\WooCommerce\EmailEditor\Email_Editor_Container;
-use Automattic\WooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
-use Automattic\WooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
-use Automattic\WooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
+use Automattic\PooCommerce\EmailEditor\Email_Editor_Container;
+use Automattic\PooCommerce\Internal\RestApi\Routes\V4\AbstractSchema;
+use Automattic\PooCommerce\Internal\EmailEditor\WCTransactionalEmails\WCTransactionalEmailPostsManager;
+use Automattic\PooCommerce\EmailEditor\Engine\PersonalizationTags\Personalization_Tags_Registry;
 use WC_Email;
 use WP_Error;
 use WP_REST_Request;
@@ -70,95 +70,95 @@ class EmailsSettingsSchema extends AbstractSchema {
 	public function get_item_schema_properties(): array {
 		return array(
 			'id'                => array(
-				'description' => __( 'Email template ID.', 'woocommerce' ),
+				'description' => __( 'Email template ID.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'title'             => array(
-				'description' => __( 'Email title.', 'woocommerce' ),
+				'description' => __( 'Email title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'description'       => array(
-				'description' => __( 'Email description.', 'woocommerce' ),
+				'description' => __( 'Email description.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'post_id'           => array(
-				'description' => __( 'Template post ID.', 'woocommerce' ),
+				'description' => __( 'Template post ID.', 'poocommerce' ),
 				'type'        => array( 'integer', 'null' ),
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'link'              => array(
-				'description' => __( 'Link to template editor.', 'woocommerce' ),
+				'description' => __( 'Link to template editor.', 'poocommerce' ),
 				'type'        => 'string',
 				'format'      => 'uri',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'email_group'       => array(
-				'description' => __( 'Email group identifier.', 'woocommerce' ),
+				'description' => __( 'Email group identifier.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'email_group_title' => array(
-				'description' => __( 'Email group title.', 'woocommerce' ),
+				'description' => __( 'Email group title.', 'poocommerce' ),
 				'type'        => 'string',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'is_customer_email' => array(
-				'description' => __( 'Whether this is a customer email.', 'woocommerce' ),
+				'description' => __( 'Whether this is a customer email.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'is_manual'         => array(
-				'description' => __( 'Whether this is sent only manually.', 'woocommerce' ),
+				'description' => __( 'Whether this is sent only manually.', 'poocommerce' ),
 				'type'        => 'boolean',
 				'context'     => self::VIEW_EDIT_CONTEXT,
 				'readonly'    => true,
 			),
 			'values'            => array(
-				'description'          => __( 'Flat key-value mapping of all setting field values.', 'woocommerce' ),
+				'description'          => __( 'Flat key-value mapping of all setting field values.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => self::VIEW_EDIT_CONTEXT,
 				'additionalProperties' => array(
-					'description' => __( 'Setting field value.', 'woocommerce' ),
+					'description' => __( 'Setting field value.', 'poocommerce' ),
 					'type'        => array( 'string', 'number', 'array', 'boolean' ),
 				),
 			),
 			'groups'            => array(
-				'description'          => __( 'Collection of setting groups.', 'woocommerce' ),
+				'description'          => __( 'Collection of setting groups.', 'poocommerce' ),
 				'type'                 => 'object',
 				'context'              => self::VIEW_EDIT_CONTEXT,
 				'additionalProperties' => array(
 					'type'        => 'object',
-					'description' => __( 'Settings group.', 'woocommerce' ),
+					'description' => __( 'Settings group.', 'poocommerce' ),
 					'properties'  => array(
 						'title'       => array(
-							'description' => __( 'Group title.', 'woocommerce' ),
+							'description' => __( 'Group title.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'description' => array(
-							'description' => __( 'Group description.', 'woocommerce' ),
+							'description' => __( 'Group description.', 'poocommerce' ),
 							'type'        => 'string',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 						),
 						'order'       => array(
-							'description' => __( 'Display order for the group.', 'woocommerce' ),
+							'description' => __( 'Display order for the group.', 'poocommerce' ),
 							'type'        => 'integer',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'readonly'    => true,
 						),
 						'fields'      => array(
-							'description' => __( 'Settings fields.', 'woocommerce' ),
+							'description' => __( 'Settings fields.', 'poocommerce' ),
 							'type'        => 'array',
 							'context'     => self::VIEW_EDIT_CONTEXT,
 							'items'       => $this->get_field_schema(),
@@ -179,28 +179,28 @@ class EmailsSettingsSchema extends AbstractSchema {
 			'type'       => 'object',
 			'properties' => array(
 				'id'      => array(
-					'description' => __( 'Setting field ID.', 'woocommerce' ),
+					'description' => __( 'Setting field ID.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'label'   => array(
-					'description' => __( 'Setting field label.', 'woocommerce' ),
+					'description' => __( 'Setting field label.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'type'    => array(
-					'description' => __( 'Setting field type.', 'woocommerce' ),
+					'description' => __( 'Setting field type.', 'poocommerce' ),
 					'type'        => 'string',
 					'enum'        => array( 'text', 'email', 'number', 'select', 'multiselect', 'checkbox', 'textarea', 'color', 'password' ),
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'desc'    => array(
-					'description' => __( 'Description for the setting field.', 'woocommerce' ),
+					'description' => __( 'Description for the setting field.', 'poocommerce' ),
 					'type'        => 'string',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
 				'options' => array(
-					'description' => __( 'Available options for select/multiselect fields.', 'woocommerce' ),
+					'description' => __( 'Available options for select/multiselect fields.', 'poocommerce' ),
 					'type'        => 'object',
 					'context'     => self::VIEW_EDIT_CONTEXT,
 				),
@@ -282,7 +282,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 
 			// Unwrap personalization tags if the field supports them.
 			if ( in_array( $id, self::FIELDS_SUPPORTING_PERSONALIZATION_TAGS, true ) ) {
-				$value = $this->unwrap_woocommerce_tags( $value );
+				$value = $this->unwrap_poocommerce_tags( $value );
 			}
 
 			// Convert checkbox to boolean for API.
@@ -347,7 +347,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 	 * Remove HTML comment wrappers from personalization tags.
 	 *
 	 * Converts tags from <!--[prefix/tag-name]--> back to [prefix/tag-name] for all registered prefixes.
-	 * For example: <!--[woocommerce/customer-name]--> becomes [woocommerce/customer-name].
+	 * For example: <!--[poocommerce/customer-name]--> becomes [poocommerce/customer-name].
 	 *
 	 * This is required because the email editor personalization tags are wrapped in HTML comment wrappers.
 	 * We need to remove the tags to make editing easier for the end-users and also because the tags are not well formatted in the current DataForm implementation.
@@ -355,7 +355,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 	 * @param string $value The value to unwrap.
 	 * @return string The unwrapped value.
 	 */
-	private function unwrap_woocommerce_tags( $value ) {
+	private function unwrap_poocommerce_tags( $value ) {
 		if ( ! is_string( $value ) ) {
 			return $value;
 		}
@@ -385,7 +385,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 	 * @param mixed $value The value to wrap.
 	 * @return mixed The wrapped value.
 	 */
-	private function wrap_woocommerce_tags( $value ) {
+	private function wrap_poocommerce_tags( $value ) {
 		if ( ! is_string( $value ) ) {
 			return $value;
 		}
@@ -412,7 +412,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 	 */
 	private function get_groups( WC_Email $email ): array {
 		$group = array(
-			'title'       => __( 'Email Settings', 'woocommerce' ),
+			'title'       => __( 'Email Settings', 'poocommerce' ),
 			'description' => '',
 			'order'       => 1,
 			'fields'      => array(),
@@ -471,7 +471,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 
 			// Unwrap personalization tags if the field supports them to make sure we don't strip them in the sanitization process.
 			if ( in_array( $field_id, self::FIELDS_SUPPORTING_PERSONALIZATION_TAGS, true ) ) {
-				$value = $this->unwrap_woocommerce_tags( $value );
+				$value = $this->unwrap_poocommerce_tags( $value );
 			}
 
 			// Sanitize by type.
@@ -479,7 +479,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 
 			// Sanitize Personalization tags. Wrap them in HTML comments for the email editor.
 			if ( in_array( $field_id, self::FIELDS_SUPPORTING_PERSONALIZATION_TAGS, true ) ) {
-				$sanitized = $this->wrap_woocommerce_tags( $sanitized );
+				$sanitized = $this->wrap_poocommerce_tags( $sanitized );
 			}
 
 			// Validate.
@@ -500,7 +500,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 		 * @return array Validated settings.
 		 * @since 10.6.0
 		 */
-		$validated = apply_filters( 'woocommerce_emails_settings_schema_validate_and_sanitize_settings', $validated, $email, $values );
+		$validated = apply_filters( 'poocommerce_emails_settings_schema_validate_and_sanitize_settings', $validated, $email, $values );
 		if ( is_wp_error( $validated ) ) {
 			return $validated;
 		}
@@ -508,7 +508,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 		if ( ! is_array( $validated ) ) {
 			return new WP_Error(
 				'rest_invalid_filter_result',
-				__( 'Invalid result from filter.', 'woocommerce' ),
+				__( 'Invalid result from filter.', 'poocommerce' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -577,7 +577,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 				'rest_invalid_param',
 				sprintf(
 					/* translators: %s: field key */
-					__( 'Invalid email format for %s.', 'woocommerce' ),
+					__( 'Invalid email format for %s.', 'poocommerce' ),
 					$key
 				),
 				array( 'status' => 400 )
@@ -591,7 +591,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 					'rest_invalid_param',
 					sprintf(
 						/* translators: 1: field key, 2: valid options */
-						__( 'Invalid value for %1$s. Valid options: %2$s', 'woocommerce' ),
+						__( 'Invalid value for %1$s. Valid options: %2$s', 'poocommerce' ),
 						$key,
 						implode( ', ', array_keys( $field['options'] ) )
 					),
@@ -609,7 +609,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 							'rest_invalid_param',
 							sprintf(
 								/* translators: 1: field key, 2: invalid value */
-								__( 'Invalid option "%2$s" for %1$s.', 'woocommerce' ),
+								__( 'Invalid option "%2$s" for %1$s.', 'poocommerce' ),
 								$key,
 								$v
 							),
@@ -627,7 +627,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 	 * Get all unique prefixes from registered personalization tags.
 	 *
 	 * Extracts the prefix part (before the /) from all registered personalization tags.
-	 * For example, from [woocommerce/customer-name] it extracts 'woocommerce'.
+	 * For example, from [poocommerce/customer-name] it extracts 'poocommerce'.
 	 * Results are cached to avoid repeated processing.
 	 *
 	 * @return array Array of unique prefixes, escaped for use in regex patterns.
@@ -646,7 +646,7 @@ class EmailsSettingsSchema extends AbstractSchema {
 		$tags     = $this->personalization_tags_registry->get_all();
 
 		foreach ( $tags as $tag ) {
-			$token = $tag->get_token(); // E.g., [woocommerce/customer-name].
+			$token = $tag->get_token(); // E.g., [poocommerce/customer-name].
 
 			// Extract the prefix from the token (the part before the /).
 			// Remove brackets and get the part before /.

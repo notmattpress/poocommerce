@@ -5,9 +5,9 @@ import { __ } from '@wordpress/i18n';
 import { Icon, category, tag, store } from '@wordpress/icons';
 import { Placeholder, Button } from '@wordpress/components';
 import { useBlockProps } from '@wordpress/block-editor';
-import ProductTagControl from '@woocommerce/editor-components/product-tag-control';
-import ProductCategoryControl from '@woocommerce/editor-components/product-category-control';
-import ProductBrandControl from '@woocommerce/editor-components/product-brand-control';
+import ProductTagControl from '@poocommerce/editor-components/product-tag-control';
+import ProductCategoryControl from '@poocommerce/editor-components/product-category-control';
+import ProductBrandControl from '@poocommerce/editor-components/product-brand-control';
 
 /**
  * Internal dependencies
@@ -49,22 +49,22 @@ const getDescriptionForCollection = (
 		case CoreCollectionNames.BY_CATEGORY:
 			return __(
 				'Display a grid of products from your selected categories.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case CoreCollectionNames.BY_TAG:
 			return __(
 				'Display a grid of products from your selected tags.',
-				'woocommerce'
+				'poocommerce'
 			);
 		case CoreCollectionNames.BY_BRAND:
 			return __(
 				'Display a grid of products from your selected brands.',
-				'woocommerce'
+				'poocommerce'
 			);
 		default:
 			return __(
 				'Select taxonomy terms to display products from.',
-				'woocommerce'
+				'poocommerce'
 			);
 	}
 };
@@ -176,7 +176,7 @@ const TaxonomyPicker = ( props: TaxonomyPickerProps ) => {
 						onClick={ onDone }
 						disabled={ ! hasSelectedTerms }
 					>
-						{ __( 'Done', 'woocommerce' ) }
+						{ __( 'Done', 'poocommerce' ) }
 					</Button>
 				</div>
 			</Placeholder>

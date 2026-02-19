@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\Templates;
+namespace Automattic\PooCommerce\Blocks\Templates;
 
 /**
  * OrderConfirmationTemplate class.
@@ -30,7 +30,7 @@ class OrderConfirmationTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_title() {
-		return _x( 'Order Confirmation', 'Template name', 'woocommerce' );
+		return _x( 'Order Confirmation', 'Template name', 'poocommerce' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class OrderConfirmationTemplate extends AbstractPageTemplate {
 	 * @return string
 	 */
 	public function get_template_description() {
-		return __( 'The Order Confirmation template serves as a receipt and confirmation of a successful purchase. It includes a summary of the ordered items, shipping, billing, and totals.', 'woocommerce' );
+		return __( 'The Order Confirmation template serves as a receipt and confirmation of a successful purchase. It includes a summary of the ordered items, shipping, billing, and totals.', 'poocommerce' );
 	}
 
 	/**

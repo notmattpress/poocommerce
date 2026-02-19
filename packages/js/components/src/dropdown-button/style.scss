@@ -1,4 +1,4 @@
-.components-button.woocommerce-dropdown-button {
+.components-button.poocommerce-dropdown-button {
 	background-color: $studio-white;
 	position: relative;
 	border: 1px solid $gray-700;
@@ -34,7 +34,7 @@
 		}
 	}
 
-	&.is-multi-line .woocommerce-dropdown-button__labels {
+	&.is-multi-line .poocommerce-dropdown-button__labels {
 		flex-direction: column;
 	}
 
@@ -43,7 +43,7 @@
 	}
 }
 
-.woocommerce-dropdown-button__labels {
+.poocommerce-dropdown-button__labels {
 	text-align: left;
 	padding: 8px 12px;
 	min-height: 48px;

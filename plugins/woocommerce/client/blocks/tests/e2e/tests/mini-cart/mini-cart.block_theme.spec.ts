@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { test, expect, BlockData } from '@woocommerce/e2e-utils';
+import { test, expect, BlockData } from '@poocommerce/e2e-utils';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import config from '../../../../../admin/config/core.json';
 
 const blockData: BlockData = {
 	name: 'Mini-Cart',
-	slug: 'woocommerce/mini-cart',
+	slug: 'poocommerce/mini-cart',
 	mainClass: '.wc-block-minicart',
 	selectors: {
 		frontend: {},
@@ -24,7 +24,7 @@ test.describe( `${ blockData.name } Block`, () => {
 		try {
 			// iAPI Mini Cart.
 			const miniCartTitleBlock = page.locator(
-				'[data-block-name="woocommerce/mini-cart-title-block"]'
+				'[data-block-name="poocommerce/mini-cart-title-block"]'
 			);
 			await expect( miniCartTitleBlock ).toBeVisible( { timeout: 1000 } );
 			const titleText = await miniCartTitleBlock.innerText();

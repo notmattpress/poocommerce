@@ -36,7 +36,7 @@ const Tags = ( {
 
 	/**
 	 * Callback to remove a Tag.
-	 * The function is defined this way because in the WooCommerce Tag Component the remove logic
+	 * The function is defined this way because in the PooCommerce Tag Component the remove logic
 	 * is defined as `onClick={ remove(key) }` hence we need to do this to avoid calling remove function
 	 * on each render.
 	 *
@@ -52,14 +52,14 @@ const Tags = ( {
 	};
 
 	return (
-		<div className="woocommerce-tree-select-control__tags">
+		<div className="poocommerce-tree-select-control__tags">
 			{ visibleTags.map( ( item, i ) => {
 				if ( ! item.label ) {
 					return null;
 				}
 				const screenReaderLabel = sprintf(
 					// translators: 1: Tag Label, 2: Current Tag index, 3: Total amount of tags.
-					__( '%1$s (%2$d of %3$d)', 'woocommerce' ),
+					__( '%1$s (%2$d of %3$d)', 'poocommerce' ),
 					item.label,
 					i + 1,
 					tags.length
@@ -78,16 +78,16 @@ const Tags = ( {
 			{ maxTags > 0 && tags.length > maxTags && (
 				<Button
 					isTertiary
-					className="woocommerce-tree-select-control__show-more"
+					className="poocommerce-tree-select-control__show-more"
 					onClick={ () => {
 						setShowAll( ! showAll );
 					} }
 				>
 					{ showAll
-						? __( 'Show less', 'woocommerce' )
+						? __( 'Show less', 'poocommerce' )
 						: sprintf(
 								// translators: %d: The number of extra tags to show
-								__( '+ %d more', 'woocommerce' ),
+								__( '+ %d more', 'poocommerce' ),
 								tags.length - maxTags
 						  ) }
 				</Button>

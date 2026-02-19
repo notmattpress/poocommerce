@@ -7,7 +7,7 @@ test.describe( 'Tax Classes API tests: CRUD', () => {
 		test( 'can enable tax calculations', async ( { request } ) => {
 			// call API to enable taxes and calculations
 			const response = await request.put(
-				'./wp-json/wc/v3/settings/general/woocommerce_calc_taxes',
+				'./wp-json/wc/v3/settings/general/poocommerce_calc_taxes',
 				{
 					data: {
 						value: 'yes',
@@ -17,7 +17,7 @@ test.describe( 'Tax Classes API tests: CRUD', () => {
 			const responseJSON = await response.json();
 			expect( response.status() ).toEqual( 200 );
 			expect( typeof responseJSON.id ).toEqual( 'string' );
-			expect( responseJSON.id ).toEqual( 'woocommerce_calc_taxes' );
+			expect( responseJSON.id ).toEqual( 'poocommerce_calc_taxes' );
 			expect( responseJSON.label ).toEqual( 'Enable taxes' );
 			expect( responseJSON.type ).toEqual( 'checkbox' );
 			expect( responseJSON.value ).toEqual( 'yes' );
@@ -107,7 +107,7 @@ test.describe( 'Tax Classes API tests: CRUD', () => {
 				await getDeletedTaxClassResponse.json();
 			expect( getDeletedTaxClassResponse.status() ).toEqual( 404 );
 			expect( getDeletedTaxClassResponseJSON.code ).toEqual(
-				'woocommerce_rest_tax_class_invalid_slug'
+				'poocommerce_rest_tax_class_invalid_slug'
 			);
 		} );
 	} );

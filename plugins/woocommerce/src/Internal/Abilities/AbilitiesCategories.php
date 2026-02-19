@@ -5,14 +5,14 @@
 
 declare( strict_types=1 );
 
-namespace Automattic\WooCommerce\Internal\Abilities;
+namespace Automattic\PooCommerce\Internal\Abilities;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Abilities Categories class for WooCommerce.
+ * Abilities Categories class for PooCommerce.
  *
- * Registers categories for WooCommerce abilities to improve organization
+ * Registers categories for PooCommerce abilities to improve organization
  * and discoverability in the WordPress Abilities API v0.3.0+.
  */
 class AbilitiesCategories {
@@ -32,7 +32,7 @@ class AbilitiesCategories {
 	}
 
 	/**
-	 * Register WooCommerce ability categories.
+	 * Register PooCommerce ability categories.
 	 */
 	public static function register_categories(): void {
 		// Only register if the function exists.
@@ -41,10 +41,10 @@ class AbilitiesCategories {
 		}
 
 		wp_register_ability_category(
-			'woocommerce-rest',
+			'poocommerce-rest',
 			array(
-				'label'       => __( 'WooCommerce REST API', 'woocommerce' ),
-				'description' => __( 'REST API operations for WooCommerce resources including products, orders, and other store data.', 'woocommerce' ),
+				'label'       => __( 'PooCommerce REST API', 'poocommerce' ),
+				'description' => __( 'REST API operations for PooCommerce resources including products, orders, and other store data.', 'poocommerce' ),
 			)
 		);
 	}

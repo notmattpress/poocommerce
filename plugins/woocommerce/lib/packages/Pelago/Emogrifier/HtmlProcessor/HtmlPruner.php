@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Automattic\WooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor;
+namespace Automattic\PooCommerce\Vendor\Pelago\Emogrifier\HtmlProcessor;
 
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\CssInliner;
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\ArrayIntersector;
-use Automattic\WooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\CssInliner;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\ArrayIntersector;
+use Automattic\PooCommerce\Vendor\Pelago\Emogrifier\Utilities\Preg;
 
 /**
  * This class can remove things from HTML.

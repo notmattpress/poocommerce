@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
-namespace Automattic\WooCommerce\StoreApi\Routes\V1\Agentic;
+namespace Automattic\PooCommerce\StoreApi\Routes\V1\Agentic;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
-use Automattic\WooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\Error;
-use Automattic\WooCommerce\StoreApi\SchemaController;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\AbstractSchema;
-use Automattic\WooCommerce\StoreApi\Schemas\V1\Agentic\CheckoutSessionSchema;
-use Automattic\WooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
-use Automattic\WooCommerce\StoreApi\Utilities\CartController;
-use Automattic\WooCommerce\StoreApi\Utilities\CartTokenUtils;
-use Automattic\WooCommerce\StoreApi\Utilities\OrderController;
-use Automattic\WooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
+use Automattic\PooCommerce\StoreApi\Routes\V1\AbstractCartRoute;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Enums\SessionKey;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\CheckoutSessionStatus;
+use Automattic\PooCommerce\Internal\Agentic\Enums\Specs\ErrorCode;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\Error;
+use Automattic\PooCommerce\StoreApi\SchemaController;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\AbstractSchema;
+use Automattic\PooCommerce\StoreApi\Schemas\V1\Agentic\CheckoutSessionSchema;
+use Automattic\PooCommerce\StoreApi\Routes\V1\Agentic\AgenticCheckoutSession;
+use Automattic\PooCommerce\StoreApi\Utilities\CartController;
+use Automattic\PooCommerce\StoreApi\Utilities\CartTokenUtils;
+use Automattic\PooCommerce\StoreApi\Utilities\OrderController;
+use Automattic\PooCommerce\StoreApi\Utilities\AgenticCheckoutUtils;
 
 /**
  * CheckoutSessionsUpdate class.
@@ -83,7 +83,7 @@ class CheckoutSessionsUpdate extends AbstractCartRoute {
 		return [
 			'args'   => [
 				'checkout_session_id' => [
-					'description' => __( 'The checkout session ID (Cart-Token JWT).', 'woocommerce' ),
+					'description' => __( 'The checkout session ID (Cart-Token JWT).', 'poocommerce' ),
 					'type'        => 'string',
 				],
 			],
@@ -106,7 +106,7 @@ class CheckoutSessionsUpdate extends AbstractCartRoute {
 		$params = AgenticCheckoutUtils::get_shared_params();
 
 		$params['fulfillment_option_id'] = [
-			'description' => __( 'Selected fulfillment option ID.', 'woocommerce' ),
+			'description' => __( 'Selected fulfillment option ID.', 'poocommerce' ),
 			'type'        => 'string',
 		];
 
@@ -131,8 +131,8 @@ class CheckoutSessionsUpdate extends AbstractCartRoute {
 		// Additional check for cart token validity.
 		if ( ! $this->has_cart_token( $request ) ) {
 			return new \WP_Error(
-				'woocommerce_rest_invalid_checkout_session',
-				__( 'Invalid or expired checkout session ID.', 'woocommerce' ),
+				'poocommerce_rest_invalid_checkout_session',
+				__( 'Invalid or expired checkout session ID.', 'poocommerce' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -176,7 +176,7 @@ class CheckoutSessionsUpdate extends AbstractCartRoute {
 			$allowed_statuses = implode( ', ', CheckoutSessionStatus::ALLOWED_STATUSES_FOR_UPDATE );
 			$message          = sprintf(
 				/* translators: 1: current session status, 2: allowed statuses */
-				__( 'Checkout session cannot be updated. Current status: %1$s. Allowed statuses: %2$s', 'woocommerce' ),
+				__( 'Checkout session cannot be updated. Current status: %1$s. Allowed statuses: %2$s', 'poocommerce' ),
 				$current_status,
 				$allowed_statuses
 			);

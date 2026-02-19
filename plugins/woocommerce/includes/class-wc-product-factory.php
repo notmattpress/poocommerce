@@ -2,14 +2,14 @@
 /**
  * Product Factory
  *
- * The WooCommerce product factory creating the right product object.
+ * The PooCommerce product factory creating the right product object.
  *
- * @package WooCommerce\Classes
+ * @package PooCommerce\Classes
  * @version 3.0.0
  */
 
-use Automattic\WooCommerce\Internal\Caches\ProductCache;
-use Automattic\WooCommerce\Enums\ProductType;
+use Automattic\PooCommerce\Internal\Caches\ProductCache;
+use Automattic\PooCommerce\Enums\ProductType;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -32,7 +32,7 @@ class WC_Product_Factory {
 			return false;
 		}
 
-		$use_product_cache = \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_instance_caching' );
+		$use_product_cache = \Automattic\PooCommerce\Utilities\FeaturesUtil::feature_is_enabled( 'product_instance_caching' );
 		if ( $use_product_cache && empty( $deprecated ) ) {
 			// Nothing should be using the $deprecated argument still, but avoid using cache if they are.
 			$product_cache = wc_get_container()->get( ProductCache::class );
@@ -86,7 +86,7 @@ class WC_Product_Factory {
 		 *
 		 * @since 3.0.0
 		 */
-		$classname = apply_filters( 'woocommerce_product_class', self::get_classname_from_product_type( $product_type ), $product_type, ProductType::VARIATION === $product_type ? 'product_variation' : 'product', $product_id );
+		$classname = apply_filters( 'poocommerce_product_class', self::get_classname_from_product_type( $product_type ), $product_type, ProductType::VARIATION === $product_type ? 'product_variation' : 'product', $product_id );
 
 		if ( ! $classname || ! class_exists( $classname ) ) {
 			$classname = 'WC_Product_Simple';
@@ -104,7 +104,7 @@ class WC_Product_Factory {
 	 */
 	public static function get_product_type( $product_id ) {
 		// Allow the overriding of the lookup in this function. Return the product type here.
-		$override = apply_filters( 'woocommerce_product_type_query', false, $product_id );
+		$override = apply_filters( 'poocommerce_product_type_query', false, $product_id );
 		if ( ! $override ) {
 			return WC_Data_Store::load( 'product' )->get_product_type( $product_id );
 		} else {

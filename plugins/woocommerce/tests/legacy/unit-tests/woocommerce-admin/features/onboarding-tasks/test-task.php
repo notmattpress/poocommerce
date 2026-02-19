@@ -2,10 +2,10 @@
 /**
  * Class for creating testable tasks.
  *
- * @package WooCommerce\Admin\Tests\OnboardingTasks
+ * @package PooCommerce\Admin\Tests\OnboardingTasks
  */
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Task;
+use Automattic\PooCommerce\Admin\Features\OnboardingTasks\Task;
 
 /**
  * TestTask class.

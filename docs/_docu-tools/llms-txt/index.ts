@@ -121,13 +121,13 @@ function extractTitle(content: string, filename: string): string {
  */
 async function generateFileList(files: Array<{ path: string; relativePath: string; content: string; title: string }>, buildDir: string): Promise<void> {
   const outputPath = path.join(buildDir, 'llms.txt');
-  let content = '# WooCommerce Documentation\n\n';
-  content += 'This file contains a list of all documentation files available in the WooCommerce documentation.\n\n';
+  let content = '# PooCommerce Documentation\n\n';
+  content += 'This file contains a list of all documentation files available in the PooCommerce documentation.\n\n';
   
   for (const file of files) {
     const description = extractDescription(file.content);
     const posixPath = file.relativePath.split(path.sep).join('/'); // ensure forward slashes
-    const url = `https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/docs/${posixPath}`;
+    const url = `https://raw.githubusercontent.com/poocommerce/poocommerce/trunk/docs/${posixPath}`;
     content += `[${file.title}](${url}) ${description}\n\n`;
   }
   
@@ -140,7 +140,7 @@ async function generateFileList(files: Array<{ path: string; relativePath: strin
  */
 async function generateCombinedContent(files: Array<{ path: string; relativePath: string; content: string; title: string }>, buildDir: string): Promise<void> {
   const outputPath = path.join(buildDir, 'llms-full.txt');
-  let content = '# WooCommerce Documentation - Complete\n\n';
+  let content = '# PooCommerce Documentation - Complete\n\n';
   content += 'This file contains the complete content of all documentation files combined.\n\n';
   
   for (const file of files) {

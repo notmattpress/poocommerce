@@ -5,10 +5,10 @@
 import { useState, useEffect } from '@wordpress/element';
 import { Button, ToggleControl, Notice, Spinner } from '@wordpress/components';
 import apiFetch from '@wordpress/api-fetch';
-import { log, init as initRemoteLogging } from '@woocommerce/remote-logging';
+import { log, init as initRemoteLogging } from '@poocommerce/remote-logging';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore no types
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { dispatch } from '@wordpress/data';
 
 /**
@@ -17,7 +17,7 @@ import { dispatch } from '@wordpress/data';
 import { API_NAMESPACE } from './constants';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore no types
-// eslint-disable-next-line @woocommerce/dependency-group
+// eslint-disable-next-line @poocommerce/dependency-group
 import { STORE_KEY as optionsStore } from '../options/data/constants';
 
 interface RemoteLoggingStatus {
@@ -85,7 +85,7 @@ function RemoteLogging() {
 	const simulatePhpException = async ( context: 'core' | 'beta-tester' ) => {
 		try {
 			await dispatch( optionsStore ).saveOption(
-				'wc_beta_tester_simulate_woocommerce_php_error',
+				'wc_beta_tester_simulate_poocommerce_php_error',
 				context
 			);
 			setNotice( {
@@ -143,20 +143,20 @@ function RemoteLogging() {
 	const simulateException = async ( context: 'core' | 'beta-tester' ) => {
 		try {
 			await dispatch( optionsStore ).saveOption(
-				'wc_beta_tester_simulate_woocommerce_js_error',
+				'wc_beta_tester_simulate_poocommerce_js_error',
 				context
 			);
 
 			if ( context === 'core' ) {
 				setNotice( {
 					status: 'success',
-					message: `Please go to WooCommerce pages to trigger the JS exception in woocommerce context.`,
+					message: `Please go to PooCommerce pages to trigger the JS exception in poocommerce context.`,
 				} );
 			} else {
 				setNotice( {
 					status: 'success',
 					message:
-						'Please refresh your browser to trigger the JS exception in woocommerce beta tester context.',
+						'Please refresh your browser to trigger the JS exception in poocommerce beta tester context.',
 				} );
 			}
 		} catch ( error ) {
@@ -171,7 +171,7 @@ function RemoteLogging() {
 		try {
 			const result = await log(
 				'info',
-				'Test JS event from WooCommerce Beta Tester',
+				'Test JS event from PooCommerce Beta Tester',
 				{
 					extra: {
 						source: 'wc-beta-tester',

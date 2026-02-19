@@ -3,9 +3,9 @@
  * Controller Tests.
  */
 
-namespace Automattic\WooCommerce\Tests\Blocks\StoreApi\Formatters;
+namespace Automattic\PooCommerce\Tests\Blocks\StoreApi\Formatters;
 
-use Automattic\WooCommerce\StoreApi\Formatters\HtmlFormatter;
+use Automattic\PooCommerce\StoreApi\Formatters\HtmlFormatter;
 
 /**
  * TestHtmlFormatter tests.

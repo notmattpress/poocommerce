@@ -4,13 +4,13 @@
  *
  * This file is included in WC_Admin_Settings::output().
  *
- * @package WooCommerce
+ * @package PooCommerce
  */
 
-// phpcs:disable WooCommerce.Commenting.CommentHooks.MissingHookComment
+// phpcs:disable PooCommerce.Commenting.CommentHooks.MissingHookComment
 
-use Automattic\WooCommerce\Admin\Features\Features;
-use Automattic\WooCommerce\Utilities\FeaturesUtil;
+use Automattic\PooCommerce\Admin\Features\Features;
+use Automattic\PooCommerce\Utilities\FeaturesUtil;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var string $current_section
  */
 
-$tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'woocommerce_sections_' . $current_tab ) || has_action( 'woocommerce_settings_' . $current_tab ) || has_action( 'woocommerce_settings_tabs_' . $current_tab );
+$tab_exists        = isset( $tabs[ $current_tab ] ) || has_action( 'poocommerce_sections_' . $current_tab ) || has_action( 'poocommerce_settings_' . $current_tab ) || has_action( 'poocommerce_settings_tabs_' . $current_tab );
 $current_tab_label = isset( $tabs[ $current_tab ] ) ? $tabs[ $current_tab ] : '';
 
 if ( ! $tab_exists ) {
@@ -47,53 +47,53 @@ if ( array_key_exists( 'advanced', $tabs ) ) {
 }
 
 $marketplace_base_url = trailingslashit(
-	esc_url_raw( apply_filters( 'woo_com_base_url', 'https://woocommerce.com/' ) )
-) . 'product-category/woocommerce-extensions/';
+	esc_url_raw( apply_filters( 'woo_com_base_url', 'https://poocommerce.com/' ) )
+) . 'product-category/poocommerce-extensions/';
 
 $marketplace_links = array(
 	'products' => array(
 		'url'         => $marketplace_base_url . 'merchandising/',
 		'is_external' => true,
 		/* translators: %1$s: opening link tag, %2$s: closing link tag */
-		'message'     => __( '%1$sExplore solutions%2$s that help highlight products and drive more sales.', 'woocommerce' ),
+		'message'     => __( '%1$sExplore solutions%2$s that help highlight products and drive more sales.', 'poocommerce' ),
 	),
 	'tax'      => array(
 		'url'         => $marketplace_base_url . 'operations/sales-tax-and-duties/',
 		'is_external' => true,
 		/* translators: %1$s: opening link tag, %2$s: closing link tag */
-		'message'     => __( '%1$sExplore solutions%2$s that help with tax calculations, compliance, and regional requirements.', 'woocommerce' ),
+		'message'     => __( '%1$sExplore solutions%2$s that help with tax calculations, compliance, and regional requirements.', 'poocommerce' ),
 	),
 	'shipping' => array(
 		'url'         => $marketplace_base_url . 'shipping-delivery-and-fulfillment/',
 		'is_external' => true,
 		/* translators: %1$s: opening link tag, %2$s: closing link tag */
-		'message'     => __( '%1$sExplore solutions%2$s that enhance shipping, delivery, and fulfillment workflows.', 'woocommerce' ),
+		'message'     => __( '%1$sExplore solutions%2$s that enhance shipping, delivery, and fulfillment workflows.', 'poocommerce' ),
 	),
 	'account'  => array(
 		'url'         => $marketplace_base_url . 'store-content-and-customizations/cart-and-checkout-features/',
 		'is_external' => true,
 		/* translators: %1$s: opening link tag, %2$s: closing link tag */
-		'message'     => __( '%1$sExplore solutions%2$s that help customize cart and checkout flows.', 'woocommerce' ),
+		'message'     => __( '%1$sExplore solutions%2$s that help customize cart and checkout flows.', 'poocommerce' ),
 	),
 	'email'    => array(
 		'url'         => $marketplace_base_url . 'marketing-extensions/email-marketing-extensions/',
 		'is_external' => true,
 		/* translators: %1$s: opening link tag, %2$s: closing link tag */
-		'message'     => __( '%1$sExplore solutions%2$s that help automate and improve customer email communication.', 'woocommerce' ),
+		'message'     => __( '%1$sExplore solutions%2$s that help automate and improve customer email communication.', 'poocommerce' ),
 	),
 	'general'  => array(
 		'url'         => admin_url( 'admin.php?page=wc-admin&path=%2Fextensions' ),
 		'is_external' => false,
 		/* translators: %1$s: opening link tag, %2$s: closing link tag */
-		'message'     => __( '%1$sDiscover additional solutions%2$s to boost your business and expand what your store can do.', 'woocommerce' ),
+		'message'     => __( '%1$sDiscover additional solutions%2$s to boost your business and expand what your store can do.', 'poocommerce' ),
 	),
 );
 
 ?>
 
-<div class="wrap woocommerce">
-	<?php do_action( 'woocommerce_before_settings_' . $current_tab ); ?>
-	<form method="<?php echo esc_attr( apply_filters( 'woocommerce_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
+<div class="wrap poocommerce">
+	<?php do_action( 'poocommerce_before_settings_' . $current_tab ); ?>
+	<form method="<?php echo esc_attr( apply_filters( 'poocommerce_settings_form_method_tab_' . $current_tab, 'post' ) ); ?>" id="mainform" action="" enctype="multipart/form-data">
 		<?php if ( ! $hide_nav ) : ?>
 			<nav class="nav-tab-wrapper woo-nav-tab-wrapper">
 				<?php
@@ -107,25 +107,25 @@ $marketplace_links = array(
 				 *
 				 * @since 1.0.0
 				 */
-				do_action( 'woocommerce_settings_tabs' );
+				do_action( 'poocommerce_settings_tabs' );
 
 				?>
 			</nav>
 		<?php endif; ?>
 			<h1 class="screen-reader-text"><?php echo esc_html( $current_tab_label ); ?></h1>
 			<?php
-				do_action( 'woocommerce_sections_' . $current_tab );
+				do_action( 'poocommerce_sections_' . $current_tab );
 
 				WC_Admin_Settings::show_messages();
 
-				do_action( 'woocommerce_settings_' . $current_tab );
-				do_action( 'woocommerce_settings_tabs_' . $current_tab ); // @deprecated 3.4.0 hook.
+				do_action( 'poocommerce_settings_' . $current_tab );
+				do_action( 'poocommerce_settings_tabs_' . $current_tab ); // @deprecated 3.4.0 hook.
 			?>
 			<p class="submit">
 				<?php if ( empty( $GLOBALS['hide_save_button'] ) ) : ?>
-					<button name="save" disabled class="woocommerce-save-button components-button is-primary" type="submit" value="<?php esc_attr_e( 'Save changes', 'woocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'woocommerce' ); ?></button>
+					<button name="save" disabled class="poocommerce-save-button components-button is-primary" type="submit" value="<?php esc_attr_e( 'Save changes', 'poocommerce' ); ?>"><?php esc_html_e( 'Save changes', 'poocommerce' ); ?></button>
 				<?php endif; ?>
-				<?php wp_nonce_field( 'woocommerce-settings' ); ?>
+				<?php wp_nonce_field( 'poocommerce-settings' ); ?>
 			</p>
 			<?php if ( isset( $marketplace_links[ $current_tab ] ) ) : ?>
 				<?php
@@ -136,7 +136,7 @@ $marketplace_links = array(
 					$link_url      = add_query_arg( 'utm_source', $utm_source, $link_config['url'] );
 					$icon_url      = WC()->plugin_url() . '/assets/images/icons/external-link.svg';
 					$external_icon = '<img src="' . esc_url( $icon_url ) . '" alt="" />';
-					$screen_reader = '<span class="screen-reader-text">' . esc_html__( '(opens in a new tab)', 'woocommerce' ) . '</span>';
+					$screen_reader = '<span class="screen-reader-text">' . esc_html__( '(opens in a new tab)', 'poocommerce' ) . '</span>';
 					$link_open     = '<a href="' . esc_url( $link_url ) . '" target="_blank" rel="noopener noreferrer">' . $external_icon;
 					$link_close    = $screen_reader . '</a>';
 				} else {
@@ -167,5 +167,5 @@ $marketplace_links = array(
 			</p>
 			<?php endif; ?>
 	</form>
-	<?php do_action( 'woocommerce_after_settings_' . $current_tab ); ?>
+	<?php do_action( 'poocommerce_after_settings_' . $current_tab ); ?>
 </div>

@@ -3,7 +3,7 @@
  * Tax importer class file
  *
  * @version 2.3.0
- * @package WooCommerce\Admin
+ * @package PooCommerce\Admin
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,9 +15,9 @@ if ( ! class_exists( 'WP_Importer' ) ) {
 }
 
 /**
- * Tax Rates importer - import tax rates and local tax rates into WooCommerce.
+ * Tax Rates importer - import tax rates and local tax rates into PooCommerce.
  *
- * @package     WooCommerce\Admin\Importers
+ * @package     PooCommerce\Admin\Importers
  * @version     2.3.0
  */
 class WC_Tax_Rate_Importer extends WP_Importer {
@@ -61,7 +61,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->import_page = 'woocommerce_tax_rate_csv';
+		$this->import_page = 'poocommerce_tax_rate_csv';
 		$this->delimiter   = empty( $_POST['delimiter'] ) ? ',' : (string) wc_clean( wp_unslash( $_POST['delimiter'] ) ); // WPCS: CSRF ok.
 	}
 
@@ -135,7 +135,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 	 */
 	public function import( $file ) {
 		if ( ! is_file( $file ) ) {
-			$this->import_error( __( 'The file does not exist, please try again.', 'woocommerce' ) );
+			$this->import_error( __( 'The file does not exist, please try again.', 'poocommerce' ) );
 		}
 
 		$this->import_start();
@@ -174,7 +174,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 					$row = fgetcsv( $handle, 0, $this->delimiter );
 				}
 			} else {
-				$this->import_error( __( 'The CSV is invalid.', 'woocommerce' ) );
+				$this->import_error( __( 'The CSV is invalid.', 'poocommerce' ) );
 			}
 
 			fclose( $handle );
@@ -184,7 +184,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 		echo '<div class="updated settings-error"><p>';
 		printf(
 			/* translators: %s: tax rates count */
-			esc_html__( 'Import complete - imported %s tax rates.', 'woocommerce' ),
+			esc_html__( 'Import complete - imported %s tax rates.', 'poocommerce' ),
 			'<strong>' . absint( $loop ) . '</strong>'
 		);
 		echo '</p></div>';
@@ -196,7 +196,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 	 * Performs post-import cleanup of files and the cache.
 	 */
 	public function import_end() {
-		echo '<p>' . esc_html__( 'All done!', 'woocommerce' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=tax' ) ) . '">' . esc_html__( 'View tax rates', 'woocommerce' ) . '</a></p>';
+		echo '<p>' . esc_html__( 'All done!', 'poocommerce' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=tax' ) ) . '">' . esc_html__( 'View tax rates', 'poocommerce' ) . '</a></p>';
 
 		do_action( 'import_end' );
 	}
@@ -232,7 +232,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 				// Remove file if not valid.
 				wp_delete_attachment( $file['id'], true );
 
-				$this->set_import_error_message( __( 'Invalid file type. The importer supports CSV and TXT file formats.', 'woocommerce' ) );
+				$this->set_import_error_message( __( 'Invalid file type. The importer supports CSV and TXT file formats.', 'poocommerce' ) );
 
 				return false;
 			}
@@ -243,7 +243,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 			file_exists( ABSPATH . $file_url )
 		) {
 			if ( ! wc_is_file_valid_csv( ABSPATH . $file_url ) ) {
-				$this->set_import_error_message( __( 'Invalid file type. The importer supports CSV and TXT file formats.', 'woocommerce' ) );
+				$this->set_import_error_message( __( 'Invalid file type. The importer supports CSV and TXT file formats.', 'poocommerce' ) );
 
 				return false;
 			}
@@ -261,7 +261,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 	 */
 	public function header() {
 		echo '<div class="wrap">';
-		echo '<h1>' . esc_html__( 'Import tax rates', 'woocommerce' ) . '</h1>';
+		echo '<h1>' . esc_html__( 'Import tax rates', 'poocommerce' ) . '</h1>';
 	}
 
 	/**
@@ -277,12 +277,12 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 	public function greet() {
 
 		echo '<div class="narrow">';
-		echo '<p>' . esc_html__( 'Hi there! Upload a CSV file containing tax rates to import the contents into your shop. Choose a .csv file to upload, then click "Upload file and import".', 'woocommerce' ) . '</p>';
+		echo '<p>' . esc_html__( 'Hi there! Upload a CSV file containing tax rates to import the contents into your shop. Choose a .csv file to upload, then click "Upload file and import".', 'poocommerce' ) . '</p>';
 
 		/* translators: 1: Link to tax rates sample file 2: Closing link. */
-		echo '<p>' . sprintf( esc_html__( 'Your CSV needs to include columns in a specific order. %1$sClick here to download a sample%2$s.', 'woocommerce' ), '<a href="' . esc_url( WC()->plugin_url() ) . '/sample-data/sample_tax_rates.csv">', '</a>' ) . '</p>';
+		echo '<p>' . sprintf( esc_html__( 'Your CSV needs to include columns in a specific order. %1$sClick here to download a sample%2$s.', 'poocommerce' ), '<a href="' . esc_url( WC()->plugin_url() ) . '/sample-data/sample_tax_rates.csv">', '</a>' ) . '</p>';
 
-		$action = 'admin.php?import=woocommerce_tax_rate_csv&step=1';
+		$action = 'admin.php?import=poocommerce_tax_rate_csv&step=1';
 
 		$bytes      = apply_filters( 'import_upload_size_limit', wp_max_upload_size() );
 		$size       = size_format( $bytes );
@@ -290,7 +290,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 		if ( ! empty( $upload_dir['error'] ) ) :
 			?>
 			<div class="error">
-				<p><?php esc_html_e( 'Before you can upload your import file, you will need to fix the following error:', 'woocommerce' ); ?></p>
+				<p><?php esc_html_e( 'Before you can upload your import file, you will need to fix the following error:', 'poocommerce' ); ?></p>
 				<p><strong><?php echo esc_html( $upload_dir['error'] ); ?></strong></p>
 			</div>
 		<?php else : ?>
@@ -299,7 +299,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 					<tbody>
 						<tr>
 							<th>
-								<label for="upload"><?php esc_html_e( 'Choose a file from your computer:', 'woocommerce' ); ?></label>
+								<label for="upload"><?php esc_html_e( 'Choose a file from your computer:', 'poocommerce' ); ?></label>
 							</th>
 							<td>
 								<input type="file" id="upload" name="import" size="25" />
@@ -309,7 +309,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 									<?php
 									printf(
 										/* translators: %s: maximum upload size */
-										esc_html__( 'Maximum size: %s', 'woocommerce' ),
+										esc_html__( 'Maximum size: %s', 'poocommerce' ),
 										esc_attr( $size )
 									);
 									?>
@@ -318,20 +318,20 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 						</tr>
 						<tr>
 							<th>
-								<label for="file_url"><?php esc_html_e( 'OR enter path to file:', 'woocommerce' ); ?></label>
+								<label for="file_url"><?php esc_html_e( 'OR enter path to file:', 'poocommerce' ); ?></label>
 							</th>
 							<td>
 								<?php echo ' ' . esc_html( ABSPATH ) . ' '; ?><input type="text" id="file_url" name="file_url" size="25" />
 							</td>
 						</tr>
 						<tr>
-							<th><label><?php esc_html_e( 'Delimiter', 'woocommerce' ); ?></label><br/></th>
+							<th><label><?php esc_html_e( 'Delimiter', 'poocommerce' ); ?></label><br/></th>
 							<td><input type="text" name="delimiter" placeholder="," size="2" /></td>
 						</tr>
 					</tbody>
 				</table>
 				<p class="submit">
-					<button type="submit" class="button" value="<?php esc_attr_e( 'Upload file and import', 'woocommerce' ); ?>"><?php esc_html_e( 'Upload file and import', 'woocommerce' ); ?></button>
+					<button type="submit" class="button" value="<?php esc_attr_e( 'Upload file and import', 'poocommerce' ); ?>"><?php esc_html_e( 'Upload file and import', 'poocommerce' ); ?></button>
 				</p>
 			</form>
 			<?php
@@ -346,7 +346,7 @@ class WC_Tax_Rate_Importer extends WP_Importer {
 	 * @param  string $message Error message.
 	 */
 	private function import_error( $message = '' ) {
-		echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'woocommerce' ) . '</strong><br />';
+		echo '<p><strong>' . esc_html__( 'Sorry, there has been an error.', 'poocommerce' ) . '</strong><br />';
 		if ( $message ) {
 			echo esc_html( $message );
 		}

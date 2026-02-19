@@ -5,11 +5,11 @@ import { _n, sprintf } from '@wordpress/i18n';
 import {
 	getCurrencyFromPriceResponse,
 	formatPrice,
-} from '@woocommerce/price-format';
-import { CartResponseTotals, isBoolean } from '@woocommerce/types';
-import { getSettingWithCoercion } from '@woocommerce/settings';
-import type { ColorPaletteOption } from '@woocommerce/editor-components/color-panel/types';
-import type { Cart } from '@woocommerce/types';
+} from '@poocommerce/price-format';
+import { CartResponseTotals, isBoolean } from '@poocommerce/types';
+import { getSettingWithCoercion } from '@poocommerce/settings';
+import type { ColorPaletteOption } from '@poocommerce/editor-components/color-panel/types';
+import type { Cart } from '@poocommerce/types';
 
 /**
  * Internal dependencies
@@ -64,7 +64,7 @@ export const updateTotals = ( cartData: Cart ) => {
 							'%1$d item in cart',
 							'%1$d items in cart',
 							quantity,
-							'woocommerce'
+							'poocommerce'
 						),
 						quantity
 				  )
@@ -74,7 +74,7 @@ export const updateTotals = ( cartData: Cart ) => {
 							'%1$d item in cart, total price of %2$s',
 							'%1$d items in cart, total price of %2$s',
 							quantity,
-							'woocommerce'
+							'poocommerce'
 						),
 						quantity,
 						amount

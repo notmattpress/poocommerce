@@ -8,7 +8,7 @@ import { useDispatch } from '@wordpress/data';
 import {
 	paymentSettingsStore,
 	woopaymentsOnboardingStore,
-} from '@woocommerce/data';
+} from '@poocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -88,7 +88,7 @@ export const WooPaymentsResetAccountModal = ( {
 				'error',
 				__(
 					'Failed to reset: missing reset URL. Please refresh and try again.',
-					'woocommerce'
+					'poocommerce'
 				),
 				{ isDismissible: true }
 			);
@@ -125,7 +125,7 @@ export const WooPaymentsResetAccountModal = ( {
 								/* translators: %s: Provider name */
 								__(
 									'Failed to reset your %s account.',
-									'woocommerce'
+									'poocommerce'
 								),
 								'WooPayments'
 						  )
@@ -133,7 +133,7 @@ export const WooPaymentsResetAccountModal = ( {
 								/* translators: %s: Provider name */
 								__(
 									'Failed to reset your %s onboarding.',
-									'woocommerce'
+									'poocommerce'
 								),
 								'WooPayments'
 						  ),
@@ -153,15 +153,15 @@ export const WooPaymentsResetAccountModal = ( {
 	let buttonText: string;
 	if ( hasAccount ) {
 		title = isTestMode
-			? __( 'Reset your test account', 'woocommerce' )
-			: __( 'Reset your account', 'woocommerce' );
+			? __( 'Reset your test account', 'poocommerce' )
+			: __( 'Reset your account', 'poocommerce' );
 
 		content = isTestMode
 			? sprintf(
 					/* translators: %s: Provider name */
 					__(
 						'When you reset your test account, all payment data — including your %s account details, test transactions, and payouts history — will be lost. Your order history will remain. This action cannot be undone, but you can create a new test account at any time.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 			  )
@@ -169,7 +169,7 @@ export const WooPaymentsResetAccountModal = ( {
 					/* translators: %s: Provider name */
 					__(
 						'When you reset your account, all payment data — including your %s account details, test transactions, and payouts history — will be lost. Your order history will remain. This action cannot be undone, but you can create a new test account at any time.',
-						'woocommerce'
+						'poocommerce'
 					),
 					'WooPayments'
 			  );
@@ -179,7 +179,7 @@ export const WooPaymentsResetAccountModal = ( {
 				/* translators: 1: Provider name, 2: Provider name */
 				__(
 					'You need to reset your test account to continue onboarding with %1$s. This will create a new test account and reset any existing %2$s account details and test transactions.',
-					'woocommerce'
+					'poocommerce'
 				),
 				'WooPayments',
 				'WooPayments'
@@ -187,45 +187,45 @@ export const WooPaymentsResetAccountModal = ( {
 		}
 
 		buttonText = isTestMode
-			? __( 'Yes, reset test account', 'woocommerce' )
-			: __( 'Yes, reset account', 'woocommerce' );
+			? __( 'Yes, reset test account', 'poocommerce' )
+			: __( 'Yes, reset account', 'poocommerce' );
 	} else {
-		title = __( 'Reset onboarding', 'woocommerce' );
+		title = __( 'Reset onboarding', 'poocommerce' );
 		content = sprintf(
 			/* translators: %s: Provider name */
 			__(
 				'When you reset the %s onboarding your progress and the provided data will be lost. This action cannot be undone, but you can restart the onboarding any time.',
-				'woocommerce'
+				'poocommerce'
 			),
 			'WooPayments'
 		);
-		buttonText = __( 'Yes, reset onboarding', 'woocommerce' );
+		buttonText = __( 'Yes, reset onboarding', 'poocommerce' );
 	}
 	return (
 		<>
 			{ isOpen && (
 				<Modal
 					title={ title }
-					className="woocommerce-woopayments-modal"
+					className="poocommerce-woopayments-modal"
 					isDismissible={ true }
 					onRequestClose={ onClose }
 				>
-					<div className="woocommerce-woopayments-modal__content">
-						<div className="woocommerce-woopayments-modal__content__item">
+					<div className="poocommerce-woopayments-modal__content">
+						<div className="poocommerce-woopayments-modal__content__item">
 							<div>
 								<span>{ content }</span>
 							</div>
 						</div>
-						<div className="woocommerce-woopayments-modal__content__item">
+						<div className="poocommerce-woopayments-modal__content__item">
 							<h3>
 								{ __(
 									"Are you sure you'd like to continue?",
-									'woocommerce'
+									'poocommerce'
 								) }
 							</h3>
 						</div>
 					</div>
-					<div className="woocommerce-woopayments-modal__actions">
+					<div className="poocommerce-woopayments-modal__actions">
 						<Button
 							className={ isEmbeddedResetFlow ? '' : 'danger' }
 							variant={

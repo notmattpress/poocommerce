@@ -2,10 +2,10 @@
 /**
  * Shipping Label Banner Display Rules tests.
  *
- * @package WooCommerce\Admin\Tests\ShippingLabelBannerDisplayRules
+ * @package PooCommerce\Admin\Tests\ShippingLabelBannerDisplayRules
  */
 
-use Automattic\WooCommerce\Internal\Admin\ShippingLabelBannerDisplayRules;
+use Automattic\PooCommerce\Internal\Admin\ShippingLabelBannerDisplayRules;
 
 /**
  * Class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules
@@ -18,10 +18,10 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	 * @var array
 	 */
 	private static $modified_options = array(
-		'woocommerce_default_country'              => null,
-		'woocommerce_currency'                     => null,
-		'woocommerce_shipping_prompt_ab'           => null,
-		'woocommerce_shipping_dismissed_timestamp' => null,
+		'poocommerce_default_country'              => null,
+		'poocommerce_currency'                     => null,
+		'poocommerce_shipping_prompt_ab'           => null,
+		'poocommerce_shipping_dismissed_timestamp' => null,
 	);
 
 	/**
@@ -30,8 +30,8 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	public function setUp(): void {
 		parent::setup();
 
-		update_option( 'woocommerce_default_country', 'US' );
-		update_option( 'woocommerce_currency', 'USD' );
+		update_option( 'poocommerce_default_country', 'US' );
+		update_option( 'poocommerce_currency', 'USD' );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	 * Test if the banner is hidden when a dismiss banner option is checked.
 	 */
 	public function test_if_banner_hidden_when_dismiss_option_enabled() {
-		update_option( 'woocommerce_shipping_dismissed_timestamp', -1 );
+		update_option( 'poocommerce_shipping_dismissed_timestamp', -1 );
 		$shipping_label_banner_display_rules = new ShippingLabelBannerDisplayRules( true, '1.22.5', false );
 
 		$this->assertEquals( $shipping_label_banner_display_rules->should_display_banner(), false );
@@ -104,7 +104,7 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	 */
 	public function test_if_banner_hidden_when_dismiss_was_clicked_2_hrs_ago() {
 		$two_hours_from_ago = ( time() - 2 * 60 * 60 ) * 1000;
-		update_option( 'woocommerce_shipping_dismissed_timestamp', $two_hours_from_ago );
+		update_option( 'poocommerce_shipping_dismissed_timestamp', $two_hours_from_ago );
 
 		$shipping_label_banner_display_rules = new ShippingLabelBannerDisplayRules( true, '1.22.5', false );
 
@@ -116,7 +116,7 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	 */
 	public function test_if_banner_hidden_when_dismiss_was_clicked_24_hrs_1s_ago() {
 		$twenty_four_hours_one_sec_ago = ( time() - 24 * 60 * 60 - 1 ) * 1000;
-		update_option( 'woocommerce_shipping_dismissed_timestamp', $twenty_four_hours_one_sec_ago );
+		update_option( 'poocommerce_shipping_dismissed_timestamp', $twenty_four_hours_one_sec_ago );
 
 		$this->with_order(
 			function ( $that ) {
@@ -140,7 +140,7 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	 * Test if the banner is displayed when the store is in the US.
 	 */
 	public function test_if_banner_hidden_when_store_is_not_in_us() {
-		update_option( 'woocommerce_default_country', 'ES' );
+		update_option( 'poocommerce_default_country', 'ES' );
 		$this->with_order(
 			function ( $that ) {
 				$shipping_label_banner_display_rules = new ShippingLabelBannerDisplayRules( true, '1.22.5', false, false );
@@ -154,7 +154,7 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	 * Test if the banner is displayed when the store's currency is USD.
 	 */
 	public function test_if_banner_hidden_when_currency_is_not_usd() {
-		update_option( 'woocommerce_currency', 'EUR' );
+		update_option( 'poocommerce_currency', 'EUR' );
 		$this->with_order(
 			function ( $that ) {
 				$shipping_label_banner_display_rules = new ShippingLabelBannerDisplayRules( true, '1.22.5', false );
@@ -178,7 +178,7 @@ class WC_Admin_Tests_Shipping_Label_Banner_Display_Rules extends WC_Unit_Test_Ca
 	}
 
 	/**
-	 * Test if the banner is hidden when WooCommerce Shipping & Tax is installed but not up to date.
+	 * Test if the banner is hidden when PooCommerce Shipping & Tax is installed but not up to date.
 	 */
 	public function test_if_banner_hidden_when_wcs_not_installed() {
 		$this->with_order(

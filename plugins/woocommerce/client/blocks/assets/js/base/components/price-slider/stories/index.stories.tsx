@@ -3,7 +3,7 @@
  */
 import type { Story, Meta } from '@storybook/react';
 import { useState } from '@wordpress/element';
-import { currencies, currencyControl } from '@woocommerce/storybook-controls';
+import { currencies, currencyControl } from '@poocommerce/storybook-controls';
 
 /**
  * Internal dependencies

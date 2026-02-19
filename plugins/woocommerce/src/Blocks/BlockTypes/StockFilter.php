@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\WooCommerce\Blocks\BlockTypes;
+namespace Automattic\PooCommerce\Blocks\BlockTypes;
 
 /**
  * AttributeFilter class.
@@ -23,7 +23,7 @@ class StockFilter extends AbstractBlock {
 	protected function enqueue_data( array $stock_statuses = [] ) {
 		parent::enqueue_data( $stock_statuses );
 		$this->asset_data_registry->add( 'stockStatusOptions', wc_get_product_stock_status_options() );
-		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) );
+		$this->asset_data_registry->add( 'hideOutOfStockItems', 'yes' === get_option( 'poocommerce_hide_out_of_stock_items' ) );
 
 	}
 
